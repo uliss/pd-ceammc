@@ -197,7 +197,7 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         e.clear();
         REQUIRE(e.empty());
 
-        e.addPeriod(TRACK_MIC1, Period(CYCLE_A, EVENT_OFF, 5), 2, 100);
+        e.addPeriod(Period(CYCLE_A, EVENT_OFF, 5), TRACK_MIC1, 2, 100);
         REQUIRE(e.size() == 1);
         REQUIRE(e.data().front().period() == 2);
         REQUIRE(e.data().front().cycle() == CYCLE_A);
@@ -206,7 +206,7 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(e.data().front().absTimeMsec() == 100);
 
         e.clear();
-        e.addPeriod(TRACK_MIC1, Period(CYCLE_A, EVENT_ON, 5), 74, 100.5);
+        e.addPeriod(Period(CYCLE_A, EVENT_ON, 5), TRACK_MIC1, 74, 100.5);
         REQUIRE(e.size() == 1);
         REQUIRE(e.data().front().period() == 74);
         REQUIRE(e.data().front().cycle() == CYCLE_A);
@@ -215,7 +215,7 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(e.data().front().absTimeMsec() == 100.5);
 
         e.clear();
-        e.addPeriod(TRACK_MIC1, Period(CYCLE_A, EVENT_ON, 5).setRelOffset(0.5, 0.25), 74, 1000);
+        e.addPeriod(Period(CYCLE_A, EVENT_ON, 5).setRelOffset(0.5, 0.25), TRACK_MIC1, 74, 1000);
         REQUIRE(e.size() == 3);
         REQUIRE(e.data()[0].period() == 74);
         REQUIRE(e.data()[0].cycle() == CYCLE_A);
@@ -234,7 +234,7 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(e.data()[2].absTimeMsec() == 4750);
 
         e.clear();
-        e.addPeriod(TRACK_MIC1, Period(CYCLE_A, EVENT_CRESC, 16), 74, 1000);
+        e.addPeriod(Period(CYCLE_A, EVENT_CRESC, 16), TRACK_MIC1, 74, 1000);
         REQUIRE(e.size() == 65);
         REQUIRE(e.data()[0].period() == 74);
         REQUIRE(e.data()[0].absTimeMsec() == 1000);
@@ -249,7 +249,7 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(e.data()[64].value() == 1);
 
         e.clear();
-        e.addPeriod(TRACK_MIC1, Period(CYCLE_A, EVENT_CRESC, 16).setRelOffset(0.25, 0.5), 74, 1000);
+        e.addPeriod(Period(CYCLE_A, EVENT_CRESC, 16).setRelOffset(0.25, 0.5), TRACK_MIC1, 74, 1000);
         REQUIRE(e.size() == 66);
         REQUIRE(e.data()[0].period() == 74);
         REQUIRE(e.data()[0].absTimeMsec() == 1000);
@@ -265,5 +265,8 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(e.data()[33].value() == 0.5);
         REQUIRE(e.data()[65].absTimeMsec() == 5000 + 125 * 64);
         REQUIRE(e.data()[65].value() == 1);
+
+        e.addScheme(Scheme(2));
+        REQUIRE(e.size() == 504);
     }
 }

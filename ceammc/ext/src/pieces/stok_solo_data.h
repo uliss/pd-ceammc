@@ -37,6 +37,7 @@ using namespace ceammc;
 enum EventType : std::int8_t {
     EVENT_OFF,
     EVENT_ON,
+    EVENT_CYCLE,
     EVENT_CRESC,
     EVENT_DIM,
     EVENT_DIM_CRESC,
@@ -315,6 +316,10 @@ struct Scheme {
                 track.emplace_back(cycle, EVENT_ON, ci.periodLength());
                 track.back().nperf = 0;
                 break;
+            case EVENT_VALUE_CRESC:
+                track.emplace_back(cycle, EVENT_CRESC, ci.periodLength());
+                track.back().nperf = 0;
+                break;
             default:
                 track.emplace_back(cycle, EVENT_ON, ci.periodLength());
                 track.back().nperf = x;
@@ -568,7 +573,7 @@ public:
         static const char* TRACKS[] = { "MIC1", "MIC2", "FB1", "FB2", "OUT1", "OUT2" };
         static const char* TYPES[] = { "OFF", "ON" };
 
-        return std::string(TRACKS[track_]) + ':' + TYPES[type_];
+        return fmt::format("{}: {} [{}]", TRACKS[track_], TYPES[type_], value_);
     }
 
     static SoloEvent off(SoloCycle cycle, SoloTrack part, double time_msec, int period)
@@ -657,50 +662,63 @@ public:
             float time_ms = 0;
             int period_idx = 0;
             for (auto& p : t) {
-                addPeriod(t.track, p, period_idx++, time_ms);
+                addPeriod(p, t.track, period_idx++, time_ms);
                 time_ms += p.fullLengthTimeMs();
             }
         }
     }
 
-    void addPeriod(SoloTrack part, const Period& period, int periodIdx, double time_ms)
+    void addOff(SoloCycle cycle, SoloTrack t, float timeMs, int periodIdx)
     {
-        switch (period.event) {
-        case solo::EVENT_OFF:
-            add(SoloEvent::off(period.cycle(), part, time_ms, periodIdx));
-            break;
-        case solo::EVENT_ON: {
-            if (period.attackTime() > 0)
-                add(SoloEvent::off(period.cycle(), part, time_ms, periodIdx));
+        add(SoloEvent::off(cycle, t, timeMs, periodIdx));
+    }
 
-            add(SoloEvent::on(period.cycle(), part, time_ms + period.attackTimeMs(), periodIdx));
+    void addOn(const Period& p, SoloTrack t, float timeMs, int periodIdx)
+    {
+        if (p.attackTime() > 0)
+            add(SoloEvent::off(p.cycle(), t, timeMs, periodIdx));
 
-            if (period.attackTime() > 0)
-                add(SoloEvent::off(period.cycle(), part, time_ms + period.releaseTimeMs(), periodIdx));
+        add(SoloEvent::on(p.cycle(), t, timeMs + p.attackTimeMs(), periodIdx));
 
-        } break;
-        case solo::EVENT_CRESC: {
-            if (period.attackTime() > 0)
-                add(SoloEvent::off(period.cycle(), part, time_ms, periodIdx));
+        if (p.attackTime() > 0)
+            add(SoloEvent::off(p.cycle(), t, timeMs + p.releaseTimeMs(), periodIdx));
+    }
 
-            auto offset_ms = period.attackTimeMs();
-            constexpr float MIN_TIME_GRAIN_MS = 10;
-            const auto DIV = std::min<int>(64, std::floor(period.durationMs() / MIN_TIME_GRAIN_MS));
+    void addCresc(const Period& p, SoloTrack t, float timeMs, int periodIdx)
+    {
+        if (p.attackTime() > 0)
+            add(SoloEvent::off(p.cycle(), t, timeMs, periodIdx));
 
-            if (DIV < 1) {
-                add(SoloEvent::on(period.cycle(), part, time_ms + offset_ms, periodIdx));
-            } else {
-                const auto TIME_INCR = period.durationMs() / DIV;
-                for (int i = 0; i <= DIV; i++) {
-                    add(SoloEvent(period.cycle(), part, SOLO_EVENT_ON, time_ms + offset_ms)
-                            .setValue(float(i) / DIV)
-                            .setPeriod(periodIdx));
+        auto offset_ms = p.attackTimeMs();
+        constexpr float MIN_TIME_GRAIN_MS = 10;
+        const auto DIV = std::min<int>(64, std::floor(p.durationMs() / MIN_TIME_GRAIN_MS));
 
-                    offset_ms += TIME_INCR;
-                }
+        if (DIV < 1) {
+            add(SoloEvent::on(p.cycle(), t, timeMs + offset_ms, periodIdx));
+        } else {
+            const auto TIME_INCR = p.durationMs() / DIV;
+            for (int i = 0; i <= DIV; i++) {
+                add(SoloEvent(p.cycle(), t, SOLO_EVENT_ON, timeMs + offset_ms)
+                        .setValue(float(i) / DIV)
+                        .setPeriod(periodIdx));
+
+                offset_ms += TIME_INCR;
             }
+        }
+    }
 
-        } break;
+    void addPeriod(const Period& p, SoloTrack t, int periodIdx, double timeMs)
+    {
+        switch (p.event) {
+        case solo::EVENT_OFF:
+            addOff(p.cycle(), t, timeMs, periodIdx);
+            break;
+        case solo::EVENT_ON:
+            addOn(p, t, timeMs, periodIdx);
+            break;
+        case solo::EVENT_CRESC:
+            addCresc(p, t, timeMs, periodIdx);
+            break;
         default:
             break;
         }
