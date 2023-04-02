@@ -72,7 +72,7 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(l.nextPtr() == nullptr);
         REQUIRE(l.currentPtr() == nullptr);
 
-        l.add(SoloEvent(EVENT_CYCLE_A, EVENT_TRACK_MIC1, SOLO_EVENT_ON, 10));
+        l.add(SoloEvent(CYCLE_A, TRACK_MIC1, SOLO_EVENT_ON, 10));
         l.reset();
 
         REQUIRE_FALSE(l.empty());
@@ -82,7 +82,7 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(l.nextPtr() == nullptr);
         REQUIRE(l.currentPtr());
 
-        l.add(SoloEvent(EVENT_CYCLE_A, EVENT_TRACK_MIC2, SOLO_EVENT_OFF, 100));
+        l.add(SoloEvent(CYCLE_A, TRACK_MIC2, SOLO_EVENT_OFF, 100));
 
         REQUIRE_FALSE(l.empty());
         REQUIRE(l.timeToNextEvent() == 90);
@@ -99,9 +99,9 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(l.currentPtr());
         REQUIRE(l.currentPtr()->absTimeMsec() == 100);
 
-        l.add(SoloEvent(EVENT_CYCLE_A, EVENT_TRACK_FB1, SOLO_EVENT_OFF, 0));
-        l.add(SoloEvent(EVENT_CYCLE_A, EVENT_TRACK_FB2, SOLO_EVENT_ON, 0));
-        l.add(SoloEvent(EVENT_CYCLE_A, EVENT_TRACK_OUT1, SOLO_EVENT_ON, 0));
+        l.add(SoloEvent(CYCLE_A, TRACK_FB1, SOLO_EVENT_OFF, 0));
+        l.add(SoloEvent(CYCLE_A, TRACK_FB2, SOLO_EVENT_ON, 0));
+        l.add(SoloEvent(CYCLE_A, TRACK_OUT1, SOLO_EVENT_ON, 0));
         l.reset();
         l.moveSame({});
         REQUIRE(l.timeToNextEvent() == 10);
@@ -109,7 +109,7 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(l.isValidCurrent());
         REQUIRE(l.nextPtr());
         REQUIRE(l.currentPtr());
-        REQUIRE(l.currentPtr()->track() == EVENT_TRACK_OUT1);
+        REQUIRE(l.currentPtr()->track() == TRACK_OUT1);
     }
 
     SECTION("toString")
@@ -141,30 +141,37 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
     {
         Scheme s;
         s.setScheme(2);
-        REQUIRE(s.cycleBeginPeriodIndex(EVENT_CYCLE_A) == 0);
-        REQUIRE(s.cycleBeginPeriodIndex(EVENT_CYCLE_B) == 9);
-        REQUIRE(s.cycleBeginPeriodIndex(EVENT_CYCLE_C) == 16);
-        REQUIRE(s.cycleBeginPeriodIndex(EVENT_CYCLE_D) == 27);
-        REQUIRE(s.cycleBeginPeriodIndex(EVENT_CYCLE_E) == 37);
-        REQUIRE(s.cycleBeginPeriodIndex(EVENT_CYCLE_F) == 43);
+        REQUIRE(s.cycleBeginPeriodIndex(CYCLE_A) == 0);
+        REQUIRE(s.cycleBeginPeriodIndex(CYCLE_B) == 9);
+        REQUIRE(s.cycleBeginPeriodIndex(CYCLE_C) == 16);
+        REQUIRE(s.cycleBeginPeriodIndex(CYCLE_D) == 27);
+        REQUIRE(s.cycleBeginPeriodIndex(CYCLE_E) == 37);
+        REQUIRE(s.cycleBeginPeriodIndex(CYCLE_F) == 43);
 
-        REQUIRE(s.cycleEndPeriodIndex(EVENT_CYCLE_A) == 9);
-        REQUIRE(s.cycleEndPeriodIndex(EVENT_CYCLE_B) == 16);
-        REQUIRE(s.cycleEndPeriodIndex(EVENT_CYCLE_C) == 27);
-        REQUIRE(s.cycleEndPeriodIndex(EVENT_CYCLE_D) == 37);
-        REQUIRE(s.cycleEndPeriodIndex(EVENT_CYCLE_E) == 43);
-        REQUIRE(s.cycleEndPeriodIndex(EVENT_CYCLE_F) == 51);
+        REQUIRE(s.cycleEndPeriodIndex(CYCLE_A) == 9);
+        REQUIRE(s.cycleEndPeriodIndex(CYCLE_B) == 16);
+        REQUIRE(s.cycleEndPeriodIndex(CYCLE_C) == 27);
+        REQUIRE(s.cycleEndPeriodIndex(CYCLE_D) == 37);
+        REQUIRE(s.cycleEndPeriodIndex(CYCLE_E) == 43);
+        REQUIRE(s.cycleEndPeriodIndex(CYCLE_F) == 51);
     }
 
     SECTION("scheme2")
     {
         Scheme s;
         s.setScheme(2);
-        auto p = s.periodAt(EVENT_TRACK_OUT1, EVENT_CYCLE_C, 0);
+        auto p = s.periodAt(TRACK_OUT1, CYCLE_C, 0);
         REQUIRE(p->event == solo::EVENT_ON);
-        REQUIRE(p->cycle() == EVENT_CYCLE_C);
+        REQUIRE(p->cycle() == CYCLE_C);
         REQUIRE(p->fullLengthTime() == 6);
         REQUIRE(p->attackTime() == 1.5);
         REQUIRE(p->releaseTime() == 3);
+
+        p = s.periodAt(TRACK_OUT2, CYCLE_C, 0);
+        REQUIRE(p->event == solo::EVENT_ON);
+        REQUIRE(p->cycle() == CYCLE_C);
+        REQUIRE(p->fullLengthTime() == 6);
+        REQUIRE(p->attackTime() == 3);
+        REQUIRE(p->releaseTime() == 4.5);
     }
 }

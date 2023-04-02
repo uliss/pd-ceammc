@@ -50,38 +50,38 @@ enum SoloEventType : std::int8_t {
     SOLO_EVENT_ON
 };
 
-enum SoloEventTrack : std::int8_t {
-    EVENT_TRACK_MIC1 = 0,
-    EVENT_TRACK_MIC2,
-    EVENT_TRACK_FB1,
-    EVENT_TRACK_FB2,
-    EVENT_TRACK_OUT1,
-    EVENT_TRACK_OUT2,
+enum SoloTrack : std::int8_t {
+    TRACK_MIC1 = 0,
+    TRACK_MIC2,
+    TRACK_FB1,
+    TRACK_FB2,
+    TRACK_OUT1,
+    TRACK_OUT2,
 };
 
-enum SoloEventCycle : std::int8_t {
-    EVENT_CYCLE_A = 0,
-    EVENT_CYCLE_B,
-    EVENT_CYCLE_C,
-    EVENT_CYCLE_D,
-    EVENT_CYCLE_E,
-    EVENT_CYCLE_F,
+enum SoloCycle : std::int8_t {
+    CYCLE_A = 0,
+    CYCLE_B,
+    CYCLE_C,
+    CYCLE_D,
+    CYCLE_E,
+    CYCLE_F,
 };
 
 struct Period {
     float abs_length { 0 }, rel_pos { 0 }, rel_length { 0 }, from { 0 }, to { 0 };
     EventType event { EVENT_OFF };
-    const SoloEventCycle cycle_ { EVENT_CYCLE_A };
+    const SoloCycle cycle_ { CYCLE_A };
     std::uint8_t nperf { 0 };
 
-    Period(SoloEventCycle cycle, EventType type, float length)
+    Period(SoloCycle cycle, EventType type, float length)
         : cycle_(cycle)
         , event(type)
         , abs_length(length)
     {
     }
 
-    SoloEventCycle cycle() const { return cycle_; }
+    SoloCycle cycle() const { return cycle_; }
 
     float attackTime() const
     {
@@ -170,7 +170,7 @@ public:
 };
 
 struct PeriodTrack : public std::vector<Period> {
-    solo::SoloEventTrack track;
+    solo::SoloTrack track;
 };
 
 struct Scheme {
@@ -199,7 +199,7 @@ struct Scheme {
     /**
      * return period index for the begining of cycle
      */
-    size_t cycleBeginPeriodIndex(SoloEventCycle c) const
+    size_t cycleBeginPeriodIndex(SoloCycle c) const
     {
         size_t res = 0;
 
@@ -217,7 +217,7 @@ struct Scheme {
     /**
      * return period index for the end of cycle
      */
-    size_t cycleEndPeriodIndex(SoloEventCycle c) const
+    size_t cycleEndPeriodIndex(SoloCycle c) const
     {
         size_t res = 0;
 
@@ -294,7 +294,7 @@ struct Scheme {
             t.clear();
     }
 
-    void addTrackCycleEvents(PeriodTrack& track, float cycleOffset, SoloEventCycle cycle, const std::initializer_list<int>& init)
+    void addTrackCycleEvents(PeriodTrack& track, float cycleOffset, SoloCycle cycle, const std::initializer_list<int>& init)
     {
         const auto& ci = cycles_[cycle];
         const auto CN = ci.periodCount();
@@ -329,17 +329,17 @@ struct Scheme {
         const std::initializer_list<int>& e, const std::initializer_list<int>& f)
     {
         float offset = 0;
-        addTrackCycleEvents(track, offset, EVENT_CYCLE_A, a);
+        addTrackCycleEvents(track, offset, CYCLE_A, a);
         offset += cycles_[0].cycleLength();
-        addTrackCycleEvents(track, offset, EVENT_CYCLE_B, b);
+        addTrackCycleEvents(track, offset, CYCLE_B, b);
         offset += cycles_[1].cycleLength();
-        addTrackCycleEvents(track, offset, EVENT_CYCLE_C, c);
+        addTrackCycleEvents(track, offset, CYCLE_C, c);
         offset += cycles_[2].cycleLength();
-        addTrackCycleEvents(track, offset, EVENT_CYCLE_D, d);
+        addTrackCycleEvents(track, offset, CYCLE_D, d);
         offset += cycles_[3].cycleLength();
-        addTrackCycleEvents(track, offset, EVENT_CYCLE_E, e);
+        addTrackCycleEvents(track, offset, CYCLE_E, e);
         offset += cycles_[4].cycleLength();
-        addTrackCycleEvents(track, offset, EVENT_CYCLE_F, f);
+        addTrackCycleEvents(track, offset, CYCLE_F, f);
     }
 
     void addTrackEvents(int track,
@@ -348,7 +348,7 @@ struct Scheme {
         const std::initializer_list<int>& e, const std::initializer_list<int>& f)
     {
         if (track >= 0 && track < NUM_TRACKS) {
-            tracks_[track].track = static_cast<SoloEventTrack>(track);
+            tracks_[track].track = static_cast<SoloTrack>(track);
             addTrackEvents(tracks_[track], a, b, c, d, e, f);
         } else
             LIB_ERR << "invalid track index: " << track;
@@ -427,7 +427,7 @@ struct Scheme {
         clear();
         set({ 9, 12 }, { 7, 24 }, { 11, 6 }, { 10, 8.5 }, { 6, 30.4 }, { 8, 17.1 });
 
-        addTrackEvents(EVENT_TRACK_MIC1,
+        addTrackEvents(TRACK_MIC1,
             { 0, 3, 2, 0, 2, 3, 0, 2, 0 },
             { 4, 1, 3, 1, 2, 0, 1 },
             { 2, 0, 1, 0, 1, 1, 0, 2, 0, E, 0 },
@@ -435,7 +435,7 @@ struct Scheme {
             { 3, 0, 0, 0, 0, 8 },
             { 0, 0, 3, 0, 0, 0, 6, 0 });
 
-        addTrackEvents(EVENT_TRACK_MIC2,
+        addTrackEvents(TRACK_MIC2,
             { 2, 0, 0, 3, 0, 0, 2, 0, 2 },
             { 1, 4, 1, 2, 1, 3, 0 },
             { 0, 1, 0, 2, 0, 0, 1, 0, 2, 0, E },
@@ -443,7 +443,7 @@ struct Scheme {
             { 0, 5, E, E, 3, 0 },
             { 4, 0, 0, 0, 5, 0, 0, 0 });
 
-        addTrackEvents(EVENT_TRACK_FB1,
+        addTrackEvents(TRACK_FB1,
             { 0, 0, 2, 0, 0, 3, 0, 0, 2 },
             { 0, 2, 1, 1, 1, 1, E },
             { 0, 1, 1, 1, 1, 1, 0, 0, 1, E, E },
@@ -451,7 +451,7 @@ struct Scheme {
             { 0, 1, 2, 2, 1, 1 },
             { 1, 1, 0, 2, 0, 0, 0, 0 });
 
-        addTrackEvents(EVENT_TRACK_FB2,
+        addTrackEvents(TRACK_FB2,
             { 0, 2, 0, 0, 2, 0, 0, 2, 1 },
             { 0, 1, 1, 1, 1, 1, E },
             { 0, 0, 1, 1, 1, 1, 1, 0, 0, E, E },
@@ -459,7 +459,7 @@ struct Scheme {
             { 0, 0, E, E, 3, E },
             { 0, 2, 0, 0, 0, 3, 0, 0 });
 
-        addTrackEvents(EVENT_TRACK_OUT1,
+        addTrackEvents(TRACK_OUT1,
             { 0, 0, 1, 1, 0, 1, 1, 0, 1 },
             { C, 1, 0, 1, 0, 1, 0 },
             { E, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1 },
@@ -467,9 +467,9 @@ struct Scheme {
             { 0, 1, 1, 1, 1, 1 },
             { 0, 0, 0, 1, 1, 0, 0, 1 });
 
-        periodAt(EVENT_TRACK_OUT1, EVENT_CYCLE_C, 0)->setRelOffset(0.25, 0.25);
+        periodAt(TRACK_OUT1, CYCLE_C, 0)->setRelOffset(0.25, 0.25);
 
-        addTrackEvents(EVENT_TRACK_OUT2,
+        addTrackEvents(TRACK_OUT2,
             { 0, 1, 1, 0, 1, 1, 0, 1, 1 },
             { C, 0, 1, 0, 1, 0, 1 },
             { E, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1 },
@@ -477,7 +477,7 @@ struct Scheme {
             { 0, 0, 1, 0, 0, 1 },
             { 0, 1, 1, 0, 0, 1, 1, 0 });
 
-        periodAt(EVENT_TRACK_OUT2, EVENT_CYCLE_C, 0)->setRelOffset(0.5, 0.25);
+        periodAt(TRACK_OUT2, CYCLE_C, 0)->setRelOffset(0.5, 0.25);
     }
 
     bool setScheme(size_t idx)
@@ -497,7 +497,7 @@ struct Scheme {
     /**
      * return pointer to period by specified multiindex (TRACK/CYCLE/PERIOD_IN_CYCLE)
      */
-    Period* periodAt(SoloEventTrack track, SoloEventCycle cycle, size_t periodIdx)
+    Period* periodAt(SoloTrack track, SoloCycle cycle, size_t periodIdx)
     {
         auto& t = tracks_.at(track);
         auto idx = cycleBeginPeriodIndex(cycle) + periodIdx;
@@ -531,12 +531,12 @@ class SoloEvent {
     double abs_time_msec_ { 0 };
     float value_ { 0 };
     SoloEventType type_ { SOLO_EVENT_OFF };
-    SoloEventTrack track_ { EVENT_TRACK_MIC1 };
-    SoloEventCycle cycle_ { EVENT_CYCLE_A };
+    SoloTrack track_ { TRACK_MIC1 };
+    SoloCycle cycle_ { CYCLE_A };
     int period_ { 0 };
 
 public:
-    SoloEvent(SoloEventCycle cycle, SoloEventTrack part, SoloEventType type, double time_msec)
+    SoloEvent(SoloCycle cycle, SoloTrack part, SoloEventType type, double time_msec)
         : abs_time_msec_(time_msec)
         , type_(type)
         , track_(part)
@@ -545,9 +545,9 @@ public:
     }
 
     int period() const { return period_; }
-    SoloEventCycle cycle() const { return cycle_; }
+    SoloCycle cycle() const { return cycle_; }
     SoloEventType type() const { return type_; }
-    SoloEventTrack track() const { return track_; }
+    SoloTrack track() const { return track_; }
     double absTimeMsec() const { return abs_time_msec_; }
     float value() const { return value_; }
 
@@ -571,12 +571,12 @@ public:
         return std::string(TRACKS[track_]) + ':' + TYPES[type_];
     }
 
-    static SoloEvent off(SoloEventCycle cycle, SoloEventTrack part, double time_msec, int period)
+    static SoloEvent off(SoloCycle cycle, SoloTrack part, double time_msec, int period)
     {
         return SoloEvent(cycle, part, SOLO_EVENT_OFF, time_msec).setValue(0).setPeriod(period);
     }
 
-    static SoloEvent on(SoloEventCycle cycle, SoloEventTrack part, double time_msec, int period)
+    static SoloEvent on(SoloCycle cycle, SoloTrack part, double time_msec, int period)
     {
         return SoloEvent(cycle, part, SOLO_EVENT_ON, time_msec).setValue(1).setPeriod(period);
     }

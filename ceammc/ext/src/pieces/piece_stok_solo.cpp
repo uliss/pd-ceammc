@@ -140,27 +140,27 @@ public:
         switchPeriod(ev.period());
 
         switch (ev.track()) {
-        case EVENT_TRACK_MIC1:
+        case TRACK_MIC1:
             mic1_->setValue(ev.value(), true);
             SOLO_DBG << ev.toString();
             break;
-        case EVENT_TRACK_MIC2:
+        case TRACK_MIC2:
             mic2_->setValue(ev.value(), true);
             SOLO_DBG << ev.toString();
             break;
-        case EVENT_TRACK_FB1:
+        case TRACK_FB1:
             fb1_->setValue(ev.value(), true);
             SOLO_DBG << ev.toString();
             break;
-        case EVENT_TRACK_FB2:
+        case TRACK_FB2:
             fb2_->setValue(ev.value(), true);
             SOLO_DBG << ev.toString();
             break;
-        case EVENT_TRACK_OUT1:
+        case TRACK_OUT1:
             out1_->setValue(ev.value(), true);
             SOLO_DBG << ev.toString();
             break;
-        case EVENT_TRACK_OUT2:
+        case TRACK_OUT2:
             out2_->setValue(ev.value(), true);
             SOLO_DBG << ev.toString();
             break;
@@ -201,7 +201,7 @@ public:
             delays_[i]->setValue(scheme_.cycles()[i].periodLength(), true);
     }
 
-    void switchCycle(solo::SoloEventCycle c)
+    void switchCycle(solo::SoloCycle c)
     {
         for (size_t i = 0; i < cycles_.size(); i++) {
             auto prop = cycles_[i];
@@ -229,7 +229,7 @@ public:
         }
     }
 
-    void addPeriodToTimeLine(solo::SoloEventTrack part, const solo::Period& period, int periodIdx, double time_ms)
+    void addPeriodToTimeLine(solo::SoloTrack part, const solo::Period& period, int periodIdx, double time_ms)
     {
         using namespace solo;
 
