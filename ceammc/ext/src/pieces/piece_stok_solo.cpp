@@ -240,6 +240,16 @@ public:
         case solo::EVENT_ON: {
             events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_ON, pos).setValue(1).setPeriod(periodIdx));
         } break;
+        case solo::EVENT_SCHEME2_SHORT1: {
+            events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_OFF, pos).setValue(0).setPeriod(periodIdx));
+            events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_ON, pos + period.fullLengthTime() * 0.25).setValue(1).setPeriod(periodIdx));
+            events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_OFF, pos + period.fullLengthTime() * 0.5).setValue(0).setPeriod(periodIdx));
+        } break;
+        case solo::EVENT_SCHEME2_SHORT2: {
+            events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_OFF, pos).setValue(0).setPeriod(periodIdx));
+            events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_ON, pos + period.fullLengthTime() * 0.5).setValue(1).setPeriod(periodIdx));
+            events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_OFF, pos + period.fullLengthTime() * 0.75).setValue(0).setPeriod(periodIdx));
+        } break;
         default:
             break;
         }

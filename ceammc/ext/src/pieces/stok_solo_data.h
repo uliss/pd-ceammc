@@ -28,10 +28,14 @@ namespace solo {
 constexpr int NUM_TRACKS = 6;
 constexpr int NUM_CYCLES = 6;
 
-constexpr int EVENT_VALUE_NOPERF = 255;
-constexpr int EVENT_VALUE_CRESC = 254;
-constexpr int EVENT_VALUE_DIM = 253;
-constexpr int EVENT_VALUE_DIM_CRESC = 252;
+enum {
+    EVENT_VALUE_NOPERF = 200,
+    EVENT_VALUE_CRESC,
+    EVENT_VALUE_DIM,
+    EVENT_VALUE_DIM_CRESC,
+    EVENT_VALUE_SCHEME2_SHORT1,
+    EVENT_VALUE_SCHEME2_SHORT2,
+};
 
 using namespace ceammc;
 
@@ -40,7 +44,9 @@ enum EventType : std::int8_t {
     EVENT_ON,
     EVENT_CRESC,
     EVENT_DIM,
-    EVENT_DIM_CRESC
+    EVENT_DIM_CRESC,
+    EVENT_SCHEME2_SHORT1,
+    EVENT_SCHEME2_SHORT2,
 };
 
 enum SoloEventType : std::int8_t {
@@ -244,6 +250,12 @@ struct Scheme {
                 track.emplace_back(cycle, EVENT_ON, ci.periodLength());
                 track.back().nperf = 0;
                 break;
+            case EVENT_VALUE_SCHEME2_SHORT1:
+                track.emplace_back(cycle, EVENT_SCHEME2_SHORT1, ci.periodLength());
+                break;
+            case EVENT_VALUE_SCHEME2_SHORT2:
+                track.emplace_back(cycle, EVENT_SCHEME2_SHORT2, ci.periodLength());
+                break;
             default:
                 track.emplace_back(cycle, EVENT_ON, ci.periodLength());
                 track.back().nperf = x;
@@ -356,7 +368,7 @@ struct Scheme {
         clear();
         set({ 9, 12 }, { 7, 24 }, { 11, 6 }, { 10, 8.5 }, { 6, 30.4 }, { 8, 17.1 });
 
-        addTrackEvents(0,
+        addTrackEvents(EVENT_TRACK_MIC1,
             { 0, 3, 2, 0, 2, 3, 0, 2, 0 },
             { 4, 1, 3, 1, 2, 0, 1 },
             { 2, 0, 1, 0, 1, 1, 0, 2, 0, E, 0 },
@@ -364,7 +376,7 @@ struct Scheme {
             { 3, 0, 0, 0, 0, 8 },
             { 0, 0, 3, 0, 0, 0, 6, 0 });
 
-        addTrackEvents(1,
+        addTrackEvents(EVENT_TRACK_MIC2,
             { 2, 0, 0, 3, 0, 0, 2, 0, 2 },
             { 1, 4, 1, 2, 1, 3, 0 },
             { 0, 1, 0, 2, 0, 0, 1, 0, 2, 0, E },
@@ -372,7 +384,7 @@ struct Scheme {
             { 0, 5, E, E, 3, 0 },
             { 4, 0, 0, 0, 5, 0, 0, 0 });
 
-        addTrackEvents(2,
+        addTrackEvents(EVENT_TRACK_FB1,
             { 0, 0, 2, 0, 0, 3, 0, 0, 2 },
             { 0, 2, 1, 1, 1, 1, E },
             { 0, 1, 1, 1, 1, 1, 0, 0, 1, E, E },
@@ -380,7 +392,7 @@ struct Scheme {
             { 0, 1, 2, 2, 1, 1 },
             { 1, 1, 0, 2, 0, 0, 0, 0 });
 
-        addTrackEvents(3,
+        addTrackEvents(EVENT_TRACK_FB2,
             { 0, 2, 0, 0, 2, 0, 0, 2, 1 },
             { 0, 1, 1, 1, 1, 1, E },
             { 0, 0, 1, 1, 1, 1, 1, 0, 0, E, E },
@@ -388,18 +400,21 @@ struct Scheme {
             { 0, 0, E, E, 3, E },
             { 0, 2, 0, 0, 0, 3, 0, 0 });
 
-        addTrackEvents(4,
+        constexpr int f = EVENT_VALUE_SCHEME2_SHORT1;
+        constexpr int F = EVENT_VALUE_SCHEME2_SHORT2;
+
+        addTrackEvents(EVENT_TRACK_OUT1,
             { 0, 0, 1, 1, 0, 1, 1, 0, 1 },
             { C, 1, 0, 1, 0, 1, 0 },
-            { 0, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1 },
+            { f, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1 },
             { 0, 0, 1, 1, 0, 1, 1, 0, 1, 1 },
             { 0, 1, 1, 1, 1, 1 },
             { 0, 0, 0, 1, 1, 0, 0, 1 });
 
-        addTrackEvents(5,
+        addTrackEvents(EVENT_TRACK_OUT2,
             { 0, 1, 1, 0, 1, 1, 0, 1, 1 },
             { C, 0, 1, 0, 1, 0, 1 },
-            { 0, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1 },
+            { F, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1 },
             { 0, 1, 1, 0, 1, 0, 1, 1, 0, 1 },
             { 0, 0, 1, 0, 0, 1 },
             { 0, 1, 1, 0, 0, 1, 1, 0 });
