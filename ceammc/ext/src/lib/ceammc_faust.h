@@ -347,12 +347,12 @@ namespace faust {
 
         void resetUI()
         {
-            ui_->instanceResetUserInterface();
+            dsp_->instanceResetUserInterface();
         }
 
         void clear()
         {
-            ui_->instanceClear();
+            dsp_->instanceClear();
         }
 
         void setInitSignalValue(t_float f)
