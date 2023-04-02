@@ -20,7 +20,7 @@ scheme = _ : input : output with {
 
     in1 = _ : *(in1_gain) <: par(i, 6, partN(i) * (checkbox("cycle%i") : si.smoo)) :> _;
     in2 = _ : *(in2_gain) <: par(i, 6, partN(i) * (checkbox("cycle%i") : si.smoo)) :> _;
-    partN(i) = de.fdelay(maxDelay, ba.sec2samp(hslider("delay%i", 0, 0, maxDelay-1, 1)));
+    partN(i) = de.fdelay(maxDelay, ba.sec2samp(hslider("delay%i[unit:sec]", 0, 0, maxDelay-1, 1)));
 
     input(in) = (in1 ~+(in, fb1_fx)), (in2 ~+(in, fb2_fx));
 };

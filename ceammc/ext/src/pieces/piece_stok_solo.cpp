@@ -13,9 +13,12 @@
  *****************************************************************************/
 #include "piece_stok_solo.h"
 #include "args/argcheck2.h"
+#include "ceammc_clock.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "stok_solo_data.h"
+
+#include <functional>
 
 using namespace ceammc;
 
@@ -29,16 +32,30 @@ constexpr int CYCLE_MIN = 0;
 constexpr int CYCLE_MAX = 5;
 
 class PieceStokhausenSolo : public faust_piece_stok_solo_tilde {
+    ClockLambdaFunction clock_;
     std::vector<UIProperty*> cycles_;
     UIProperty *mic1_, *mic2_;
     UIProperty *fb1_, *fb2_;
     UIProperty *out1_, *out2_;
     IntProperty* scheme_idx_;
     solo::Scheme scheme_;
+    solo::SoloEventList events_;
 
 public:
     PieceStokhausenSolo(const PdArgs& args)
-        : faust_piece_stok_solo_tilde(args)
+        : clock_([this]() {
+            if (events_.isValidCurrent()) {
+                onEvent(*events_.currentPtr());
+
+                events_.moveSame([this](const solo::SoloEvent& ev) { onEvent(ev); });
+
+                if (events_.isValidNext()) {
+                    clock_.delay(events_.timeToNextEvent());
+                    events_.moveNext({});
+                }
+            }
+        })
+        , faust_piece_stok_solo_tilde(args)
     {
         cycles_.reserve(NUM_CYCLES);
 
@@ -63,10 +80,75 @@ public:
         scheme_idx_ = new IntProperty("@scheme", SCHEME_DEFAULT);
         scheme_idx_->setArgIndex(0);
         scheme_idx_->checkClosedRange(SCHEME_MIN, SCHEME_MAX);
-        scheme_idx_->setSuccessFn([this](Property*) { scheme_.set(scheme_idx_->value()); });
+        scheme_idx_->setSuccessFn([this](Property*) {
+            scheme_.setScheme(scheme_idx_->value());
+            events_.clear();
+            syncTimeLine();
+        });
         addProperty(scheme_idx_);
 
-        scheme_.set(SCHEME_DEFAULT);
+        scheme_.setScheme(SCHEME_DEFAULT);
+        syncTimeLine();
+
+        createCbFloatProperty("@total_length", [this]() -> t_float { return scheme_.schemeLength(); });
+    }
+
+    void onEvent(const solo::SoloEvent& ev)
+    {
+        using namespace solo;
+        switch (ev.track()) {
+            //        case EVENT_PART_1
+        }
+    }
+
+    void syncTimeLine()
+    {
+        using namespace solo;
+
+        for (auto& t : scheme_.tracks()) {
+            float pos = 0;
+            for (auto& p : t) {
+                pos += p.fullLengthTime();
+                addPeriodToTimeLine(t.track, p, pos + p.offsetTime());
+            }
+        }
+    }
+
+    void addPeriodToTimeLine(solo::SoloEventTrack part, const solo::Period& p, double pos)
+    {
+        using namespace solo;
+
+        switch (p.event) {
+        case solo::EVENT_OFF: {
+            events_.add(SoloEvent(part, SOLO_EVENT_OFF, pos));
+        } break;
+        case solo::EVENT_ON: {
+            events_.add(SoloEvent(part, SOLO_EVENT_ON, pos));
+        } break;
+        default:
+            break;
+        }
+    }
+
+    void m_start(t_symbol* s, const AtomListView& lv)
+    {
+        const auto on = lv.boolAt(0, true);
+        if (on) {
+            events_.reset();
+            clock_.exec();
+        } else
+            clock_.unset();
+    }
+
+    void m_stop(t_symbol* s, const AtomListView& lv)
+    {
+        const auto off = lv.boolAt(0, true);
+        if (off) {
+            clock_.unset();
+        } else {
+            events_.reset();
+            clock_.exec();
+        }
     }
 
     UIProperty* findUIProperty(const char* name)
@@ -187,8 +269,15 @@ public:
             out2_->setValue(a, true);
     }
 
-    void setDelays(int n[])
+    void dump() const
     {
+        OBJ_POST << "absolute events:";
+        int idx = 0;
+        for (auto& e : events_.data()) {
+            OBJ_POST << "    [" << (idx++) << "] " << /* e.toString() <<*/ " " << e.absTimeMsec();
+        }
+
+        BaseObject::dump();
     }
 };
 
@@ -197,4 +286,6 @@ void setup_piece_stok_solo()
     SoundExternalFactory<PieceStokhausenSolo> obj("piece.stok_solo~");
     obj.addMethod("cycle", &PieceStokhausenSolo::m_cycle);
     obj.addMethod("period", &PieceStokhausenSolo::m_period);
+    obj.addMethod("start", &PieceStokhausenSolo::m_start);
+    obj.addMethod("stop", &PieceStokhausenSolo::m_stop);
 }

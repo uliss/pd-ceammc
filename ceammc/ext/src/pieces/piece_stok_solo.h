@@ -932,17 +932,23 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("shtokhausen.solo");
-		ui_interface->addCheckButton("cycle0", &fCheckbox0);
-		ui_interface->addCheckButton("cycle1", &fCheckbox2);
-		ui_interface->addCheckButton("cycle2", &fCheckbox3);
+		ui_interface->addCheckButton("cycle0", &fCheckbox2);
+		ui_interface->addCheckButton("cycle1", &fCheckbox0);
+		ui_interface->addCheckButton("cycle2", &fCheckbox5);
 		ui_interface->addCheckButton("cycle3", &fCheckbox4);
-		ui_interface->addCheckButton("cycle4", &fCheckbox5);
+		ui_interface->addCheckButton("cycle4", &fCheckbox3);
 		ui_interface->addCheckButton("cycle5", &fCheckbox6);
-		ui_interface->addHorizontalSlider("delay0", &fHslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
-		ui_interface->addHorizontalSlider("delay1", &fHslider2, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
-		ui_interface->addHorizontalSlider("delay2", &fHslider3, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
+		ui_interface->declare(&fHslider2, "unit", "sec");
+		ui_interface->addHorizontalSlider("delay0", &fHslider2, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
+		ui_interface->declare(&fHslider0, "unit", "sec");
+		ui_interface->addHorizontalSlider("delay1", &fHslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
+		ui_interface->declare(&fHslider5, "unit", "sec");
+		ui_interface->addHorizontalSlider("delay2", &fHslider5, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
+		ui_interface->declare(&fHslider4, "unit", "sec");
 		ui_interface->addHorizontalSlider("delay3", &fHslider4, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
-		ui_interface->addHorizontalSlider("delay4", &fHslider5, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
+		ui_interface->declare(&fHslider3, "unit", "sec");
+		ui_interface->addHorizontalSlider("delay4", &fHslider3, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
+		ui_interface->declare(&fHslider6, "unit", "sec");
 		ui_interface->addHorizontalSlider("delay5", &fHslider6, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
 		ui_interface->addHorizontalSlider("fb1.gain", &fHslider1, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0001f));
 		ui_interface->addHorizontalSlider("fb2.gain", &fHslider8, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0001f));
@@ -1048,7 +1054,7 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 			fRec16[0] = fRec17[0] - fConst5 * (fConst19 * fRec16[2] + fConst20 * fRec16[1]);
 			float fTemp6 = fRec15[0] * (fTemp0 + fConst5 * (fConst7 * fRec16[0] + fConst21 * fRec16[1] + fConst7 * fRec16[2]));
 			fVec5[IOTA0 & 8388607] = fTemp6;
-			fRec14[0] = fRec1[0] * (fSlow3 * fVec5[(IOTA0 - iSlow7) & 8388607] + fSlow8 * fVec5[(IOTA0 - iSlow9) & 8388607]) + fRec8[0] * (fSlow13 * fVec5[(IOTA0 - iSlow15) & 8388607] + fSlow16 * fVec5[(IOTA0 - iSlow17) & 8388607]) + fRec9[0] * (fSlow21 * fVec5[(IOTA0 - iSlow23) & 8388607] + fSlow24 * fVec5[(IOTA0 - iSlow25) & 8388607]) + fRec10[0] * (fSlow29 * fVec5[(IOTA0 - iSlow31) & 8388607] + fSlow32 * fVec5[(IOTA0 - iSlow33) & 8388607]) + fRec11[0] * (fSlow37 * fVec5[(IOTA0 - iSlow39) & 8388607] + fSlow40 * fVec5[(IOTA0 - iSlow41) & 8388607]) + fRec12[0] * (fSlow45 * fVec5[(IOTA0 - iSlow47) & 8388607] + fSlow48 * fVec5[(IOTA0 - iSlow49) & 8388607]);
+			fRec14[0] = fRec8[0] * (fSlow13 * fVec5[(IOTA0 - iSlow15) & 8388607] + fSlow16 * fVec5[(IOTA0 - iSlow17) & 8388607]) + fRec1[0] * (fSlow3 * fVec5[(IOTA0 - iSlow7) & 8388607] + fSlow8 * fVec5[(IOTA0 - iSlow9) & 8388607]) + fRec11[0] * (fSlow37 * fVec5[(IOTA0 - iSlow39) & 8388607] + fSlow40 * fVec5[(IOTA0 - iSlow41) & 8388607]) + fRec10[0] * (fSlow29 * fVec5[(IOTA0 - iSlow31) & 8388607] + fSlow32 * fVec5[(IOTA0 - iSlow33) & 8388607]) + fRec9[0] * (fSlow21 * fVec5[(IOTA0 - iSlow23) & 8388607] + fSlow24 * fVec5[(IOTA0 - iSlow25) & 8388607]) + fRec12[0] * (fSlow45 * fVec5[(IOTA0 - iSlow47) & 8388607] + fSlow48 * fVec5[(IOTA0 - iSlow49) & 8388607]);
 			fRec21[0] = fSlow53 + fConst2 * fRec21[1];
 			output1[i0] = FAUSTFLOAT(fRec14[0] * fRec21[0]);
 			fRec1[1] = fRec1[0];

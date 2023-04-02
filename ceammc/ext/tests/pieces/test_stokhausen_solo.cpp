@@ -26,37 +26,114 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
     SECTION("init")
     {
         Scheme s;
-        REQUIRE(s.length() == 0);
-        REQUIRE_FALSE(s.set(-1));
-        REQUIRE_FALSE(s.set(0));
-        REQUIRE_FALSE(s.set(3));
-        REQUIRE_FALSE(s.set(4));
-        REQUIRE_FALSE(s.set(5));
-        REQUIRE_FALSE(s.set(6));
-        REQUIRE_FALSE(s.set(7));
+        REQUIRE(s.schemeLength() == 0);
+        REQUIRE_FALSE(s.setScheme(-1));
+        REQUIRE_FALSE(s.setScheme(0));
+        REQUIRE_FALSE(s.setScheme(3));
+        REQUIRE_FALSE(s.setScheme(4));
+        REQUIRE_FALSE(s.setScheme(5));
+        REQUIRE_FALSE(s.setScheme(6));
+        REQUIRE_FALSE(s.setScheme(7));
 
-        REQUIRE(s.set(2));
+        REQUIRE(s.setScheme(2));
 
-        REQUIRE(s.a.length() == 108);
-        REQUIRE(s.b.length() == 168);
-        REQUIRE(s.c.length() == 66);
-        REQUIRE(s.d.length() == 85);
-        REQUIRE(s.e.length() == Approx(182.4));
-        REQUIRE(s.f.length() == Approx(136.8));
+        REQUIRE(s.cycles_[0].cycleLength() == 108);
+        REQUIRE(s.cycles_[1].cycleLength() == 168);
+        REQUIRE(s.cycles_[2].cycleLength() == 66);
+        REQUIRE(s.cycles_[3].cycleLength() == 85);
+        REQUIRE(s.cycles_[4].cycleLength() == Approx(182.4));
+        REQUIRE(s.cycles_[5].cycleLength() == Approx(136.8));
 
-        REQUIRE(s.a.abs_period_length == 12);
-        REQUIRE(s.b.abs_period_length == 24);
-        REQUIRE(s.c.abs_period_length == 6);
-        REQUIRE(s.d.abs_period_length == 8.5);
-        REQUIRE(s.e.abs_period_length == Approx(30.4));
-        REQUIRE(s.f.abs_period_length == Approx(17.1));
+        REQUIRE(s.cycles_[0].periodLength() == 12);
+        REQUIRE(s.cycles_[1].periodLength() == 24);
+        REQUIRE(s.cycles_[2].periodLength() == 6);
+        REQUIRE(s.cycles_[3].periodLength() == 8.5);
+        REQUIRE(s.cycles_[4].periodLength() == Approx(30.4));
+        REQUIRE(s.cycles_[5].periodLength() == Approx(17.1));
 
-        REQUIRE(s.a.periodCount() == 9);
-        REQUIRE(s.b.periodCount() == 7);
-        REQUIRE(s.c.periodCount() == 11);
-        REQUIRE(s.d.periodCount() == 10);
-        REQUIRE(s.e.periodCount() == 6);
-        REQUIRE(s.f.periodCount() == 8);
-        REQUIRE(s.toString(0) == "a");
+        REQUIRE(s.cycles_[0].periodCount() == 9);
+        REQUIRE(s.cycles_[1].periodCount() == 7);
+        REQUIRE(s.cycles_[2].periodCount() == 11);
+        REQUIRE(s.cycles_[3].periodCount() == 10);
+        REQUIRE(s.cycles_[4].periodCount() == 6);
+        REQUIRE(s.cycles_[5].periodCount() == 8);
+
+        REQUIRE(s.periodCount() == 51);
+        REQUIRE(s.schemeLength() == Approx(746.2));
+    }
+
+    SECTION("EventList")
+    {
+        SoloEventList l;
+        REQUIRE(l.empty());
+        REQUIRE(l.timeToNextEvent() == -1);
+        REQUIRE_FALSE(l.isValidNext());
+        REQUIRE_FALSE(l.isValidCurrent());
+        REQUIRE(l.nextPtr() == nullptr);
+        REQUIRE(l.currentPtr() == nullptr);
+
+        l.add(SoloEvent(EVENT_TRACK_MIC1, SOLO_EVENT_ON, 10));
+        l.reset();
+
+        REQUIRE_FALSE(l.empty());
+        REQUIRE(l.timeToNextEvent() == -1);
+        REQUIRE_FALSE(l.isValidNext());
+        REQUIRE(l.isValidCurrent());
+        REQUIRE(l.nextPtr() == nullptr);
+        REQUIRE(l.currentPtr());
+
+        l.add(SoloEvent(EVENT_TRACK_MIC2, SOLO_EVENT_OFF, 100));
+
+        REQUIRE_FALSE(l.empty());
+        REQUIRE(l.timeToNextEvent() == 90);
+        REQUIRE(l.isValidNext());
+        REQUIRE(l.isValidCurrent());
+        REQUIRE(l.nextPtr());
+        REQUIRE(l.currentPtr());
+
+        l.moveNext({});
+        REQUIRE(l.timeToNextEvent() == -1);
+        REQUIRE_FALSE(l.isValidNext());
+        REQUIRE(l.isValidCurrent());
+        REQUIRE(l.nextPtr() == nullptr);
+        REQUIRE(l.currentPtr());
+        REQUIRE(l.currentPtr()->absTimeMsec() == 100);
+
+        l.add(SoloEvent(EVENT_TRACK_FB1, SOLO_EVENT_OFF, 0));
+        l.add(SoloEvent(EVENT_TRACK_FB2, SOLO_EVENT_ON, 0));
+        l.add(SoloEvent(EVENT_TRACK_OUT1, SOLO_EVENT_ON, 0));
+        l.reset();
+        l.moveSame({});
+        REQUIRE(l.timeToNextEvent() == 10);
+        REQUIRE(l.isValidNext());
+        REQUIRE(l.isValidCurrent());
+        REQUIRE(l.nextPtr());
+        REQUIRE(l.currentPtr());
+        REQUIRE(l.currentPtr()->track() == EVENT_TRACK_OUT1);
+    }
+
+    SECTION("toString")
+    {
+        Scheme s(2);
+        REQUIRE(s.scheme() == 2);
+        REQUIRE(s.schemeLength() == Approx(746.2));
+        REQUIRE(s.periodCount() == 51);
+        REQUIRE(s.toString(0) == "_32_23_2_41312_12_1_11_2_E__21_11_21_3____8__3___6_");
+        REQUIRE(s.calcPeriodPos(0) == 0);
+        REQUIRE(s.calcPeriodPos(1) == 12);
+        REQUIRE(s.calcPeriodPos(2) == 24);
+        REQUIRE(s.calcPeriodPos(8) == 8 * 12);
+        REQUIRE(s.calcPeriodPos(9) == 9 * 12);
+        REQUIRE(s.calcPeriodPos(10) == 9 * 12 + 1 * 24);
+        REQUIRE(s.calcPeriodPos(11) == 9 * 12 + 2 * 24);
+        REQUIRE(s.calcPeriodPos(12) == 9 * 12 + 3 * 24);
+        REQUIRE(s.calcPeriodPos(13) == 9 * 12 + 4 * 24);
+        REQUIRE(s.calcPeriodPos(14) == 9 * 12 + 5 * 24);
+        REQUIRE(s.calcPeriodPos(15) == 9 * 12 + 6 * 24);
+        REQUIRE(s.calcPeriodPos(16) == 9 * 12 + 7 * 24);
+        REQUIRE(s.calcPeriodPos(17) == 9 * 12 + 7 * 24 + 1 * 6);
+        REQUIRE(s.calcPeriodPos(50) == Approx(729.1));
+        REQUIRE(s.calcPeriodPos(51) == Approx(746.2));
+        REQUIRE(s.calcPeriodPos(52) == 0);
     }
 }
