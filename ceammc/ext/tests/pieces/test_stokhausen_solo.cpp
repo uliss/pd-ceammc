@@ -119,22 +119,22 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(s.schemeLength() == Approx(746.2));
         REQUIRE(s.periodCount() == 51);
         REQUIRE(s.toString(0) == "_32_23_2_41312_12_1_11_2_E__21_11_21_3____8__3___6_");
-        REQUIRE(s.calcPeriodPos(0) == 0);
-        REQUIRE(s.calcPeriodPos(1) == 12);
-        REQUIRE(s.calcPeriodPos(2) == 24);
-        REQUIRE(s.calcPeriodPos(8) == 8 * 12);
-        REQUIRE(s.calcPeriodPos(9) == 9 * 12);
-        REQUIRE(s.calcPeriodPos(10) == 9 * 12 + 1 * 24);
-        REQUIRE(s.calcPeriodPos(11) == 9 * 12 + 2 * 24);
-        REQUIRE(s.calcPeriodPos(12) == 9 * 12 + 3 * 24);
-        REQUIRE(s.calcPeriodPos(13) == 9 * 12 + 4 * 24);
-        REQUIRE(s.calcPeriodPos(14) == 9 * 12 + 5 * 24);
-        REQUIRE(s.calcPeriodPos(15) == 9 * 12 + 6 * 24);
-        REQUIRE(s.calcPeriodPos(16) == 9 * 12 + 7 * 24);
-        REQUIRE(s.calcPeriodPos(17) == 9 * 12 + 7 * 24 + 1 * 6);
-        REQUIRE(s.calcPeriodPos(50) == Approx(729.1));
-        REQUIRE(s.calcPeriodPos(51) == Approx(746.2));
-        REQUIRE(s.calcPeriodPos(52) == 0);
+        REQUIRE(s.periodTimeSec(0) == 0);
+        REQUIRE(s.periodTimeSec(1) == 12);
+        REQUIRE(s.periodTimeSec(2) == 24);
+        REQUIRE(s.periodTimeSec(8) == 8 * 12);
+        REQUIRE(s.periodTimeSec(9) == 9 * 12);
+        REQUIRE(s.periodTimeSec(10) == 9 * 12 + 1 * 24);
+        REQUIRE(s.periodTimeSec(11) == 9 * 12 + 2 * 24);
+        REQUIRE(s.periodTimeSec(12) == 9 * 12 + 3 * 24);
+        REQUIRE(s.periodTimeSec(13) == 9 * 12 + 4 * 24);
+        REQUIRE(s.periodTimeSec(14) == 9 * 12 + 5 * 24);
+        REQUIRE(s.periodTimeSec(15) == 9 * 12 + 6 * 24);
+        REQUIRE(s.periodTimeSec(16) == 9 * 12 + 7 * 24);
+        REQUIRE(s.periodTimeSec(17) == 9 * 12 + 7 * 24 + 1 * 6);
+        REQUIRE(s.periodTimeSec(50) == Approx(729.1));
+        REQUIRE(s.periodTimeSec(51) == Approx(746.2));
+        REQUIRE(s.periodTimeSec(52) == 0);
     }
 
     SECTION("cycleBeginPeriodIndex")

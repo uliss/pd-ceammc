@@ -178,11 +178,7 @@ struct Scheme {
     std::array<CycleInfo, NUM_CYCLES> cycles_;
     int scheme_ { 0 };
 
-    Scheme()
-    {
-    }
-
-    Scheme(size_t n)
+    explicit Scheme(size_t n = 0)
     {
         setScheme(n);
     }
@@ -236,9 +232,12 @@ struct Scheme {
         return res;
     }
 
-    float calcPeriodPos(size_t pos) const
+    /**
+     * return time in seconds before specified period position
+     */
+    float periodTimeSec(size_t pos) const
     {
-        if (pos > tracks_.front().size()) {
+        if (pos > tracks_.front().size()) { // (!) using '>', not the '>='
             LIB_ERR << fmt::format("invalid position index: {}", pos);
             return 0;
         }
