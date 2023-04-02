@@ -33,8 +33,6 @@ enum {
     EVENT_VALUE_CRESC,
     EVENT_VALUE_DIM,
     EVENT_VALUE_DIM_CRESC,
-    EVENT_VALUE_SCHEME2_SHORT1,
-    EVENT_VALUE_SCHEME2_SHORT2,
 };
 
 using namespace ceammc;
@@ -45,8 +43,6 @@ enum EventType : std::int8_t {
     EVENT_CRESC,
     EVENT_DIM,
     EVENT_DIM_CRESC,
-    EVENT_SCHEME2_SHORT1,
-    EVENT_SCHEME2_SHORT2,
 };
 
 enum SoloEventType : std::int8_t {
@@ -87,19 +83,50 @@ struct Period {
 
     SoloEventCycle cycle() const { return cycle_; }
 
-    float offsetTime() const
+    float attackTime() const
     {
         return rel_pos * abs_length;
     }
 
-    float durationTime() const
+    float attackTimeMs() const
+    {
+        return 1000 * attackTime();
+    }
+
+    float releaseTime() const
+    {
+        return (rel_pos + rel_length) * abs_length;
+    }
+
+    float releaseTimeMs() const
+    {
+        return 1000 * releaseTime();
+    }
+
+    float duration() const
     {
         return rel_length * abs_length;
+    }
+
+    float durationMs() const
+    {
+        return 1000 * duration();
     }
 
     float fullLengthTime() const
     {
         return abs_length;
+    }
+
+    float fullLengthTimeMs() const
+    {
+        return 1000 * fullLengthTime();
+    }
+
+    void setRelOffset(float attack, float length)
+    {
+        rel_pos = attack;
+        rel_length = length;
     }
 
     char toString() const
@@ -160,21 +187,53 @@ struct Scheme {
         setScheme(n);
     }
 
+    /**
+     * return current scheme
+     */
     int scheme() const { return scheme_; }
 
     const std::array<PeriodTrack, NUM_TRACKS>& tracks() const { return tracks_; }
     const std::array<CycleInfo, NUM_TRACKS>& cycles() const { return cycles_; }
+
+    /**
+     * return number of cycles in the scheme (always should return 6)
+     */
     size_t cycleCount() const { return cycles_.size(); }
 
-    size_t cyclePeriodEnd(size_t ci) const
+    /**
+     * return period index for the begining of cycle
+     */
+    size_t cycleBeginPeriodIndex(SoloEventCycle c) const
     {
         size_t res = 0;
-        for (size_t i = 0; i < std::min<size_t>(ci, cycles_.size()); i++) {
-            auto& ci = cycles_[i];
-            res += ci.periodCount();
+
+        int idx = 0;
+        for (auto& x : cycles_) {
+            if (idx++ < c)
+                res += x.periodCount();
+            else
+                break;
         }
 
-        return 0;
+        return res;
+    }
+
+    /**
+     * return period index for the end of cycle
+     */
+    size_t cycleEndPeriodIndex(SoloEventCycle c) const
+    {
+        size_t res = 0;
+
+        int idx = 0;
+        for (auto& x : cycles_) {
+            if (idx++ <= c)
+                res += x.periodCount();
+            else
+                break;
+        }
+
+        return res;
     }
 
     float calcPeriodPos(size_t pos) const
@@ -249,12 +308,6 @@ struct Scheme {
             case EVENT_VALUE_NOPERF:
                 track.emplace_back(cycle, EVENT_ON, ci.periodLength());
                 track.back().nperf = 0;
-                break;
-            case EVENT_VALUE_SCHEME2_SHORT1:
-                track.emplace_back(cycle, EVENT_SCHEME2_SHORT1, ci.periodLength());
-                break;
-            case EVENT_VALUE_SCHEME2_SHORT2:
-                track.emplace_back(cycle, EVENT_SCHEME2_SHORT2, ci.periodLength());
                 break;
             default:
                 track.emplace_back(cycle, EVENT_ON, ci.periodLength());
@@ -400,24 +453,32 @@ struct Scheme {
             { 0, 0, E, E, 3, E },
             { 0, 2, 0, 0, 0, 3, 0, 0 });
 
-        constexpr int f = EVENT_VALUE_SCHEME2_SHORT1;
-        constexpr int F = EVENT_VALUE_SCHEME2_SHORT2;
-
         addTrackEvents(EVENT_TRACK_OUT1,
             { 0, 0, 1, 1, 0, 1, 1, 0, 1 },
             { C, 1, 0, 1, 0, 1, 0 },
-            { f, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1 },
+            { E, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1 },
             { 0, 0, 1, 1, 0, 1, 1, 0, 1, 1 },
             { 0, 1, 1, 1, 1, 1 },
             { 0, 0, 0, 1, 1, 0, 0, 1 });
 
+        periodAt(EVENT_TRACK_OUT1, EVENT_CYCLE_C, 0)->setRelOffset(0.25, 0.25);
+
         addTrackEvents(EVENT_TRACK_OUT2,
             { 0, 1, 1, 0, 1, 1, 0, 1, 1 },
             { C, 0, 1, 0, 1, 0, 1 },
-            { F, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1 },
+            { E, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1 },
             { 0, 1, 1, 0, 1, 0, 1, 1, 0, 1 },
             { 0, 0, 1, 0, 0, 1 },
             { 0, 1, 1, 0, 0, 1, 1, 0 });
+
+        periodAt(EVENT_TRACK_OUT2, EVENT_CYCLE_C, 0)->setRelOffset(0.5, 0.25);
+    }
+
+    Period* periodAt(SoloEventTrack track, SoloEventCycle cycle, size_t periodIdx)
+    {
+        auto& t = tracks_.at(track);
+        auto idx = cycleBeginPeriodIndex(cycle) + periodIdx;
+        return (idx < t.size()) ? &t.at(idx) : nullptr;
     }
 
     bool setScheme(size_t idx)
@@ -499,6 +560,16 @@ public:
         static const char* TYPES[] = { "OFF", "ON" };
 
         return std::string(TRACKS[track_]) + ':' + TYPES[type_];
+    }
+
+    static SoloEvent off(SoloEventCycle cycle, SoloEventTrack part, double time_msec, int period)
+    {
+        return SoloEvent(cycle, part, SOLO_EVENT_OFF, time_msec).setValue(0).setPeriod(period);
+    }
+
+    static SoloEvent on(SoloEventCycle cycle, SoloEventTrack part, double time_msec, int period)
+    {
+        return SoloEvent(cycle, part, SOLO_EVENT_ON, time_msec).setValue(1).setPeriod(period);
     }
 };
 

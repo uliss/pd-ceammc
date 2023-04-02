@@ -179,11 +179,11 @@ public:
         using namespace solo;
 
         for (auto& t : scheme_.tracks()) {
-            float time_sec = 0;
+            float time_ms = 0;
             int period_idx = 0;
             for (auto& p : t) {
-                addPeriodToTimeLine(t.track, p, period_idx++, 1000 * (time_sec + p.offsetTime()));
-                time_sec += p.fullLengthTime();
+                addPeriodToTimeLine(t.track, p, period_idx++, time_ms);
+                time_ms += p.fullLengthTimeMs();
             }
         }
     }
@@ -229,26 +229,31 @@ public:
         }
     }
 
-    void addPeriodToTimeLine(solo::SoloEventTrack part, const solo::Period& period, int periodIdx, double pos)
+    void addPeriodToTimeLine(solo::SoloEventTrack part, const solo::Period& period, int periodIdx, double time_ms)
     {
         using namespace solo;
 
         switch (period.event) {
-        case solo::EVENT_OFF: {
-            events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_OFF, pos).setValue(0).setPeriod(periodIdx));
-        } break;
+        case solo::EVENT_OFF:
+            events_.add(SoloEvent::off(period.cycle(), part, time_ms, periodIdx));
+            break;
         case solo::EVENT_ON: {
-            events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_ON, pos).setValue(1).setPeriod(periodIdx));
+            if (period.attackTime() > 0)
+                events_.add(SoloEvent::off(period.cycle(), part, time_ms, periodIdx));
+
+            events_.add(SoloEvent::on(period.cycle(), part, time_ms + period.attackTimeMs(), periodIdx));
+
+            if (period.attackTime() > 0)
+                events_.add(SoloEvent::off(period.cycle(), part, time_ms + period.releaseTimeMs(), periodIdx));
+
         } break;
-        case solo::EVENT_SCHEME2_SHORT1: {
-            events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_OFF, pos).setValue(0).setPeriod(periodIdx));
-            events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_ON, pos + period.fullLengthTime() * 0.25).setValue(1).setPeriod(periodIdx));
-            events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_OFF, pos + period.fullLengthTime() * 0.5).setValue(0).setPeriod(periodIdx));
-        } break;
-        case solo::EVENT_SCHEME2_SHORT2: {
-            events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_OFF, pos).setValue(0).setPeriod(periodIdx));
-            events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_ON, pos + period.fullLengthTime() * 0.5).setValue(1).setPeriod(periodIdx));
-            events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_OFF, pos + period.fullLengthTime() * 0.75).setValue(0).setPeriod(periodIdx));
+        case solo::EVENT_CRESC: {
+            float offset = 0;
+            for (int i = 0; i < 48; i++) {
+                auto level = i / 47.0;
+                events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_ON, time_ms + offset).setValue(level).setPeriod(periodIdx));
+                offset += level;
+            }
         } break;
         default:
             break;

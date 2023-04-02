@@ -136,4 +136,35 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(s.calcPeriodPos(51) == Approx(746.2));
         REQUIRE(s.calcPeriodPos(52) == 0);
     }
+
+    SECTION("cycleBeginPeriodIndex")
+    {
+        Scheme s;
+        s.setScheme(2);
+        REQUIRE(s.cycleBeginPeriodIndex(EVENT_CYCLE_A) == 0);
+        REQUIRE(s.cycleBeginPeriodIndex(EVENT_CYCLE_B) == 9);
+        REQUIRE(s.cycleBeginPeriodIndex(EVENT_CYCLE_C) == 16);
+        REQUIRE(s.cycleBeginPeriodIndex(EVENT_CYCLE_D) == 27);
+        REQUIRE(s.cycleBeginPeriodIndex(EVENT_CYCLE_E) == 37);
+        REQUIRE(s.cycleBeginPeriodIndex(EVENT_CYCLE_F) == 43);
+
+        REQUIRE(s.cycleEndPeriodIndex(EVENT_CYCLE_A) == 9);
+        REQUIRE(s.cycleEndPeriodIndex(EVENT_CYCLE_B) == 16);
+        REQUIRE(s.cycleEndPeriodIndex(EVENT_CYCLE_C) == 27);
+        REQUIRE(s.cycleEndPeriodIndex(EVENT_CYCLE_D) == 37);
+        REQUIRE(s.cycleEndPeriodIndex(EVENT_CYCLE_E) == 43);
+        REQUIRE(s.cycleEndPeriodIndex(EVENT_CYCLE_F) == 51);
+    }
+
+    SECTION("scheme2")
+    {
+        Scheme s;
+        s.setScheme(2);
+        auto p = s.periodAt(EVENT_TRACK_OUT1, EVENT_CYCLE_C, 0);
+        REQUIRE(p->event == solo::EVENT_ON);
+        REQUIRE(p->cycle() == EVENT_CYCLE_C);
+        REQUIRE(p->fullLengthTime() == 6);
+        REQUIRE(p->attackTime() == 1.5);
+        REQUIRE(p->releaseTime() == 3);
+    }
 }
