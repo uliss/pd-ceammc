@@ -88,6 +88,7 @@ namespace tl {
         }
 
         t_float length() const { return len_; }
+        void setLength(t_float l) { len_ = (l > 0) ? l : 0; clear(); }
         RunState state() const { return state_; }
         bool isLoop() const { return loop_; }
         void setLoop(bool value) { loop_ = value; }
@@ -268,7 +269,7 @@ namespace tl {
             // assert(N > 0);
 
             // not last event
-            if (event_idx_ < (N - 1)) {
+            if ((event_idx_ + 1) < N) {
                 owner_->event(event_idx_, events_[event_idx_]);
                 clock_.delay(events_[++event_idx_].next_time);
             } else {
