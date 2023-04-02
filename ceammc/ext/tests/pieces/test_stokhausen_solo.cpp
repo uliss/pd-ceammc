@@ -72,7 +72,7 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(l.nextPtr() == nullptr);
         REQUIRE(l.currentPtr() == nullptr);
 
-        l.add(SoloEvent(EVENT_TRACK_MIC1, SOLO_EVENT_ON, 10));
+        l.add(SoloEvent(EVENT_CYCLE_A, EVENT_TRACK_MIC1, SOLO_EVENT_ON, 10));
         l.reset();
 
         REQUIRE_FALSE(l.empty());
@@ -82,7 +82,7 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(l.nextPtr() == nullptr);
         REQUIRE(l.currentPtr());
 
-        l.add(SoloEvent(EVENT_TRACK_MIC2, SOLO_EVENT_OFF, 100));
+        l.add(SoloEvent(EVENT_CYCLE_A, EVENT_TRACK_MIC2, SOLO_EVENT_OFF, 100));
 
         REQUIRE_FALSE(l.empty());
         REQUIRE(l.timeToNextEvent() == 90);
@@ -99,9 +99,9 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(l.currentPtr());
         REQUIRE(l.currentPtr()->absTimeMsec() == 100);
 
-        l.add(SoloEvent(EVENT_TRACK_FB1, SOLO_EVENT_OFF, 0));
-        l.add(SoloEvent(EVENT_TRACK_FB2, SOLO_EVENT_ON, 0));
-        l.add(SoloEvent(EVENT_TRACK_OUT1, SOLO_EVENT_ON, 0));
+        l.add(SoloEvent(EVENT_CYCLE_A, EVENT_TRACK_FB1, SOLO_EVENT_OFF, 0));
+        l.add(SoloEvent(EVENT_CYCLE_A, EVENT_TRACK_FB2, SOLO_EVENT_ON, 0));
+        l.add(SoloEvent(EVENT_CYCLE_A, EVENT_TRACK_OUT1, SOLO_EVENT_ON, 0));
         l.reset();
         l.moveSame({});
         REQUIRE(l.timeToNextEvent() == 10);

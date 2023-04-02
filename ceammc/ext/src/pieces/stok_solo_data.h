@@ -448,6 +448,7 @@ class SoloEvent {
     SoloEventType type_ { SOLO_EVENT_OFF };
     SoloEventTrack track_ { EVENT_TRACK_MIC1 };
     SoloEventCycle cycle_ { EVENT_CYCLE_A };
+    int period_ { 0 };
 
 public:
     SoloEvent(SoloEventCycle cycle, SoloEventTrack part, SoloEventType type, double time_msec)
@@ -458,13 +459,24 @@ public:
     {
     }
 
+    int period() const { return period_; }
     SoloEventCycle cycle() const { return cycle_; }
     SoloEventType type() const { return type_; }
     SoloEventTrack track() const { return track_; }
     double absTimeMsec() const { return abs_time_msec_; }
     float value() const { return value_; }
 
-    void setValue(float v) { value_ = v; }
+    SoloEvent& setValue(float v)
+    {
+        value_ = v;
+        return *this;
+    }
+
+    SoloEvent& setPeriod(int p)
+    {
+        period_ = p;
+        return *this;
+    }
 
     std::string toString() const
     {
@@ -514,6 +526,7 @@ public:
 
     SoloEvent* currentPtr() { return isValidCurrent() ? &data_[current_] : nullptr; }
     SoloEvent* nextPtr() { return isValidNext() ? &data_[current_ + 1] : nullptr; }
+    long currentIdx() const { return current_; }
 
     double timeToNextEvent() const
     {

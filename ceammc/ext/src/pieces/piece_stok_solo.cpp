@@ -18,6 +18,7 @@
 #include "ceammc_factory.h"
 #include "stok_solo_data.h"
 
+#include <boost/iostreams/stream.hpp>
 #include <functional>
 
 using namespace ceammc;
@@ -31,6 +32,12 @@ constexpr int SCHEME_DEFAULT = 2;
 constexpr int CYCLE_MIN = 0;
 constexpr int CYCLE_MAX = 5;
 
+#if 0
+#define SOLO_DBG OBJ_DBG
+#else
+#define SOLO_DBG boost::iostreams::stream<boost::iostreams::null_sink>((boost::iostreams::null_sink()))
+#endif
+
 class PieceStokhausenSolo : public faust_piece_stok_solo_tilde {
     ClockLambdaFunction clock_;
     std::vector<UIProperty*> cycles_;
@@ -41,6 +48,7 @@ class PieceStokhausenSolo : public faust_piece_stok_solo_tilde {
     IntProperty* scheme_idx_;
     solo::Scheme scheme_;
     solo::SoloEventList events_;
+    int current_period_ { -1 };
 
 public:
     PieceStokhausenSolo(const PdArgs& args)
@@ -71,6 +79,8 @@ public:
         syncScheme();
 
         createCbFloatProperty("@total_length", [this]() -> t_float { return scheme_.schemeLength(); });
+
+        createOutlet();
     }
 
     void onClock(bool scheduleNext = true)
@@ -127,31 +137,32 @@ public:
         using namespace solo;
 
         switchCycle(ev.cycle());
+        switchPeriod(ev.period());
 
         switch (ev.track()) {
         case EVENT_TRACK_MIC1:
             mic1_->setValue(ev.value(), true);
-            OBJ_DBG << ev.toString();
+            SOLO_DBG << ev.toString();
             break;
         case EVENT_TRACK_MIC2:
             mic2_->setValue(ev.value(), true);
-            OBJ_DBG << ev.toString();
+            SOLO_DBG << ev.toString();
             break;
         case EVENT_TRACK_FB1:
             fb1_->setValue(ev.value(), true);
-            OBJ_DBG << ev.toString();
+            SOLO_DBG << ev.toString();
             break;
         case EVENT_TRACK_FB2:
             fb2_->setValue(ev.value(), true);
-            OBJ_DBG << ev.toString();
+            SOLO_DBG << ev.toString();
             break;
         case EVENT_TRACK_OUT1:
             out1_->setValue(ev.value(), true);
-            OBJ_DBG << ev.toString();
+            SOLO_DBG << ev.toString();
             break;
         case EVENT_TRACK_OUT2:
             out2_->setValue(ev.value(), true);
-            OBJ_DBG << ev.toString();
+            SOLO_DBG << ev.toString();
             break;
         }
     }
@@ -168,10 +179,11 @@ public:
         using namespace solo;
 
         for (auto& t : scheme_.tracks()) {
-            float pos = 0;
+            float time_sec = 0;
+            int period_idx = 0;
             for (auto& p : t) {
-                addPeriodToTimeLine(t.track, p, 100 * (pos + p.offsetTime()));
-                pos += p.fullLengthTime();
+                addPeriodToTimeLine(t.track, p, period_idx++, 1000 * (time_sec + p.offsetTime()));
+                time_sec += p.fullLengthTime();
             }
         }
     }
@@ -197,6 +209,8 @@ public:
                 if (prop->value() != 1) {
                     OBJ_DBG << fmt::format("switch on cycle {:c}", 'A' + i);
                     prop->setValue(1, true);
+                    char buf[2] = { char('A' + i), 0 };
+                    anyTo(2, gensym("cycle"), gensym(buf));
                 }
             } else {
                 if (prop->value() == 1) {
@@ -207,16 +221,24 @@ public:
         }
     }
 
-    void addPeriodToTimeLine(solo::SoloEventTrack part, const solo::Period& period, double pos)
+    void switchPeriod(int p)
+    {
+        if (current_period_ != p) {
+            anyTo(2, gensym("period"), p);
+            current_period_ = p;
+        }
+    }
+
+    void addPeriodToTimeLine(solo::SoloEventTrack part, const solo::Period& period, int periodIdx, double pos)
     {
         using namespace solo;
 
         switch (period.event) {
         case solo::EVENT_OFF: {
-            events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_OFF, pos)).setValue(0);
+            events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_OFF, pos).setValue(0).setPeriod(periodIdx));
         } break;
         case solo::EVENT_ON: {
-            events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_ON, pos)).setValue(1);
+            events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_ON, pos).setValue(1).setPeriod(periodIdx));
         } break;
         default:
             break;
