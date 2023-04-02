@@ -11,9 +11,9 @@ scheme = _ : input : output with {
     fb1_fx(in) = in : *(fb1_gain) : fi.lowpass(3, HIGH_CUT) : fi.highpass(3, LOW_CUT) : co.limiter_1176_R4_mono;
     fb2_fx(in) = in : *(fb2_gain) : fi.lowpass(3, HIGH_CUT) : fi.highpass(3, LOW_CUT) : co.limiter_1176_R4_mono;
 
-    out1_gain = hslider("out1.gain", 0, 0, 1, 0.0001) * (1-int(checkbox("out1.perf"))) : si.smoo;
-    out2_gain = hslider("out2.gain", 0, 0, 1, 0.0001) * (1-int(checkbox("out2.perf"))) : si.smoo;
-    output = _*(out1_gain), _*(out2_gain);
+    out1_gain = hslider("out1.gain", 0, 0, 1, 0.0001) : si.smoo;
+    out2_gain = hslider("out2.gain", 0, 0, 1, 0.0001) : si.smoo;
+    output = _*(out1_gain), _*(out2_gain) : co.limiter_1176_R4_stereo;
 
     in1_gain = checkbox("in1") : si.smoo;
     in2_gain = checkbox("in2") : si.smoo;
