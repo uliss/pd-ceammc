@@ -122,10 +122,11 @@ struct Period {
         return 1000 * fullLengthTime();
     }
 
-    void setRelOffset(float attack, float length)
+    Period& setRelOffset(float attack, float length)
     {
         rel_pos = attack;
         rel_length = length;
+        return *this;
     }
 
     char toString() const
@@ -650,7 +651,49 @@ public:
         }
     }
 
+    void addScheme(const Scheme& sc)
+    {
+        for (auto& t : sc.tracks()) {
+            float time_ms = 0;
+            int period_idx = 0;
+            for (auto& p : t) {
+                addPeriod(t.track, p, period_idx++, time_ms);
+                time_ms += p.fullLengthTimeMs();
+            }
+        }
+    }
+
+    void addPeriod(SoloTrack part, const Period& period, int periodIdx, double time_ms)
+    {
+        switch (period.event) {
+        case solo::EVENT_OFF:
+            add(SoloEvent::off(period.cycle(), part, time_ms, periodIdx));
+            break;
+        case solo::EVENT_ON: {
+            if (period.attackTime() > 0)
+                add(SoloEvent::off(period.cycle(), part, time_ms, periodIdx));
+
+            add(SoloEvent::on(period.cycle(), part, time_ms + period.attackTimeMs(), periodIdx));
+
+            if (period.attackTime() > 0)
+                add(SoloEvent::off(period.cycle(), part, time_ms + period.releaseTimeMs(), periodIdx));
+
+        } break;
+        case solo::EVENT_CRESC: {
+            float offset = 0;
+            for (int i = 0; i < 48; i++) {
+                auto level = i / 47.0;
+                add(SoloEvent(period.cycle(), part, SOLO_EVENT_ON, time_ms + offset).setValue(level).setPeriod(periodIdx));
+                offset += level;
+            }
+        } break;
+        default:
+            break;
+        }
+    }
+
     bool empty() const { return data_.empty(); }
+    size_t size() const { return data_.size(); }
 };
 }
 

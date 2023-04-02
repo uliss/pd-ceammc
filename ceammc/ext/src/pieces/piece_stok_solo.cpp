@@ -174,16 +174,7 @@ public:
 
     void syncTimeLine()
     {
-        using namespace solo;
-
-        for (auto& t : scheme_.tracks()) {
-            float time_ms = 0;
-            int period_idx = 0;
-            for (auto& p : t) {
-                addPeriodToTimeLine(t.track, p, period_idx++, time_ms);
-                time_ms += p.fullLengthTimeMs();
-            }
-        }
+        events_.addScheme(scheme_);
     }
 
     void syncDelays()
@@ -224,37 +215,6 @@ public:
         if (current_period_ != p) {
             anyTo(2, gensym("period"), p);
             current_period_ = p;
-        }
-    }
-
-    void addPeriodToTimeLine(solo::SoloTrack part, const solo::Period& period, int periodIdx, double time_ms)
-    {
-        using namespace solo;
-
-        switch (period.event) {
-        case solo::EVENT_OFF:
-            events_.add(SoloEvent::off(period.cycle(), part, time_ms, periodIdx));
-            break;
-        case solo::EVENT_ON: {
-            if (period.attackTime() > 0)
-                events_.add(SoloEvent::off(period.cycle(), part, time_ms, periodIdx));
-
-            events_.add(SoloEvent::on(period.cycle(), part, time_ms + period.attackTimeMs(), periodIdx));
-
-            if (period.attackTime() > 0)
-                events_.add(SoloEvent::off(period.cycle(), part, time_ms + period.releaseTimeMs(), periodIdx));
-
-        } break;
-        case solo::EVENT_CRESC: {
-            float offset = 0;
-            for (int i = 0; i < 48; i++) {
-                auto level = i / 47.0;
-                events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_ON, time_ms + offset).setValue(level).setPeriod(periodIdx));
-                offset += level;
-            }
-        } break;
-        default:
-            break;
         }
     }
 

@@ -174,4 +174,63 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(p->attackTime() == 3);
         REQUIRE(p->releaseTime() == 4.5);
     }
+
+    SECTION("EventList")
+    {
+        SoloEventList e;
+        REQUIRE(e.empty());
+
+        e.add(SoloEvent(CYCLE_A, TRACK_MIC1, SOLO_EVENT_ON, 100));
+        REQUIRE(e.size() == 1);
+        e.add(SoloEvent(CYCLE_A, TRACK_MIC2, SOLO_EVENT_ON, 100));
+        REQUIRE(e.size() == 2);
+
+        REQUIRE(e.data()[0].track() == TRACK_MIC1);
+        REQUIRE(e.data()[1].track() == TRACK_MIC2);
+
+        e.add(SoloEvent(CYCLE_A, TRACK_MIC1, SOLO_EVENT_OFF, 50));
+        REQUIRE(e.size() == 3);
+        REQUIRE(e.data()[0].type() == SOLO_EVENT_OFF);
+        REQUIRE(e.data()[1].type() == SOLO_EVENT_ON);
+        REQUIRE(e.data()[2].type() == SOLO_EVENT_ON);
+
+        e.clear();
+        REQUIRE(e.empty());
+
+        e.addPeriod(TRACK_MIC1, Period(CYCLE_A, EVENT_OFF, 5), 2, 100);
+        REQUIRE(e.size() == 1);
+        REQUIRE(e.data().front().period() == 2);
+        REQUIRE(e.data().front().cycle() == CYCLE_A);
+        REQUIRE(e.data().front().track() == TRACK_MIC1);
+        REQUIRE(e.data().front().type() == SOLO_EVENT_OFF);
+        REQUIRE(e.data().front().absTimeMsec() == 100);
+
+        e.clear();
+        e.addPeriod(TRACK_MIC1, Period(CYCLE_A, EVENT_ON, 5), 74, 100.5);
+        REQUIRE(e.size() == 1);
+        REQUIRE(e.data().front().period() == 74);
+        REQUIRE(e.data().front().cycle() == CYCLE_A);
+        REQUIRE(e.data().front().track() == TRACK_MIC1);
+        REQUIRE(e.data().front().type() == SOLO_EVENT_ON);
+        REQUIRE(e.data().front().absTimeMsec() == 100.5);
+
+        e.clear();
+        e.addPeriod(TRACK_MIC1, Period(CYCLE_A, EVENT_ON, 5).setRelOffset(0.5, 0.25), 74, 1000);
+        REQUIRE(e.size() == 3);
+        REQUIRE(e.data()[0].period() == 74);
+        REQUIRE(e.data()[0].cycle() == CYCLE_A);
+        REQUIRE(e.data()[0].track() == TRACK_MIC1);
+        REQUIRE(e.data()[0].type() == SOLO_EVENT_OFF);
+        REQUIRE(e.data()[0].absTimeMsec() == 1000);
+        REQUIRE(e.data()[1].period() == 74);
+        REQUIRE(e.data()[1].cycle() == CYCLE_A);
+        REQUIRE(e.data()[1].track() == TRACK_MIC1);
+        REQUIRE(e.data()[1].type() == SOLO_EVENT_ON);
+        REQUIRE(e.data()[1].absTimeMsec() == 3500);
+        REQUIRE(e.data()[2].period() == 74);
+        REQUIRE(e.data()[2].cycle() == CYCLE_A);
+        REQUIRE(e.data()[2].track() == TRACK_MIC1);
+        REQUIRE(e.data()[2].type() == SOLO_EVENT_OFF);
+        REQUIRE(e.data()[2].absTimeMsec() == 4750);
+    }
 }
