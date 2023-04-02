@@ -8,8 +8,8 @@ scheme = _ : input : output with {
     HIGH_CUT = 10000;
     fb1_gain = hslider("fb1.gain", 0, 0, 1, 0.0001) : si.smoo;
     fb2_gain = hslider("fb2.gain", 0, 0, 1, 0.0001) : si.smoo;
-    fb1_fx(in) = in : *(fb1_gain) : fi.lowpass(3, HIGH_CUT) : fi.highpass(3, LOW_CUT);
-    fb2_fx(in) = in : *(fb2_gain) : fi.lowpass(3, HIGH_CUT) : fi.highpass(3, LOW_CUT);
+    fb1_fx(in) = in : *(fb1_gain) : fi.lowpass(3, HIGH_CUT) : fi.highpass(3, LOW_CUT) : co.limiter_1176_R4_mono;
+    fb2_fx(in) = in : *(fb2_gain) : fi.lowpass(3, HIGH_CUT) : fi.highpass(3, LOW_CUT) : co.limiter_1176_R4_mono;
 
     out1_gain = hslider("out1.gain", 0, 0, 1, 0.0001) * (1-int(checkbox("out1.perf"))) : si.smoo;
     out2_gain = hslider("out2.gain", 0, 0, 1, 0.0001) * (1-int(checkbox("out2.perf"))) : si.smoo;

@@ -680,49 +680,74 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 	float fConst20;
 	float fRec3[3];
 	float fConst21;
+	float fConst22;
+	float fConst23;
+	float fConst24;
+	float fConst25;
+	float fRec9[2];
+	float fRec8[2];
 	int IOTA0;
 	float fVec2[8388608];
 	FAUSTFLOAT fCheckbox2;
-	float fRec8[2];
+	float fRec10[2];
 	FAUSTFLOAT fHslider2;
 	FAUSTFLOAT fCheckbox3;
-	float fRec9[2];
+	float fRec11[2];
 	FAUSTFLOAT fHslider3;
 	FAUSTFLOAT fCheckbox4;
-	float fRec10[2];
+	float fRec12[2];
 	FAUSTFLOAT fHslider4;
 	FAUSTFLOAT fCheckbox5;
-	float fRec11[2];
+	float fRec13[2];
 	FAUSTFLOAT fHslider5;
 	FAUSTFLOAT fCheckbox6;
-	float fRec12[2];
+	float fRec14[2];
 	FAUSTFLOAT fHslider6;
 	float fRec0[2];
 	FAUSTFLOAT fHslider7;
 	FAUSTFLOAT fCheckbox7;
-	float fRec13[2];
-	FAUSTFLOAT fCheckbox8;
 	float fRec15[2];
+	FAUSTFLOAT fCheckbox8;
+	float fRec17[2];
 	FAUSTFLOAT fHslider8;
-	float fRec20[2];
+	float fRec22[2];
 	float fVec3[2];
+	float fRec21[2];
+	float fRec20[3];
+	float fVec4[2];
 	float fRec19[2];
 	float fRec18[3];
-	float fVec4[2];
-	float fRec17[2];
-	float fRec16[3];
+	float fRec24[2];
+	float fRec23[2];
 	float fVec5[8388608];
-	float fRec14[2];
+	float fRec16[2];
 	FAUSTFLOAT fHslider9;
 	FAUSTFLOAT fCheckbox9;
-	float fRec21[2];
+	float fRec25[2];
 	
  public:
 	
 	void metadata(Meta* m) { 
+		m->declare("analyzers.lib/amp_follower_ar:author", "Jonatan Liljedahl, revised by Romain Michon");
+		m->declare("analyzers.lib/name", "Faust Analyzer Library");
+		m->declare("analyzers.lib/version", "0.2");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.8");
 		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn piece_stok_solo -scn piece_stok_solo_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compressors.lib/compression_gain_mono:author", "Julius O. Smith III");
+		m->declare("compressors.lib/compression_gain_mono:copyright", "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("compressors.lib/compression_gain_mono:license", "MIT-style STK-4.3 license");
+		m->declare("compressors.lib/compressor_lad_mono:author", "Julius O. Smith III");
+		m->declare("compressors.lib/compressor_lad_mono:copyright", "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("compressors.lib/compressor_lad_mono:license", "MIT-style STK-4.3 license");
+		m->declare("compressors.lib/compressor_mono:author", "Julius O. Smith III");
+		m->declare("compressors.lib/compressor_mono:copyright", "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("compressors.lib/compressor_mono:license", "MIT-style STK-4.3 license");
+		m->declare("compressors.lib/limiter_1176_R4_mono:author", "Julius O. Smith III");
+		m->declare("compressors.lib/limiter_1176_R4_mono:copyright", "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("compressors.lib/limiter_1176_R4_mono:license", "MIT-style STK-4.3 license");
+		m->declare("compressors.lib/name", "Faust Compressor Effect Library");
+		m->declare("compressors.lib/version", "0.4");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
 		m->declare("filename", "piece_stok_solo.dsp");
@@ -734,7 +759,7 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 		m->declare("filters.lib/iir:author", "Julius O. Smith III");
 		m->declare("filters.lib/iir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/iir:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/lowpass0_highpass1:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -762,6 +787,8 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
+		m->declare("signals.lib/onePoleSwitching:author", "Jonatan Liljedahl, revised by Dario Sanfilippo");
+		m->declare("signals.lib/onePoleSwitching:licence", "STK-4.3");
 		m->declare("signals.lib/version", "0.3");
 	}
 
@@ -799,6 +826,10 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 		fConst19 = (fConst4 + -1.0f) / fConst3 + 1.0f;
 		fConst20 = 2.0f * (1.0f - fConst7);
 		fConst21 = 0.0f - 2.0f / fConst6;
+		fConst22 = std::exp(0.0f - 2.5e+03f / fConst0);
+		fConst23 = 1.0f - fConst22;
+		fConst24 = std::exp(0.0f - 2.0f / fConst0);
+		fConst25 = std::exp(0.0f - 1.25e+03f / fConst0);
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -852,15 +883,15 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 		for (int l8 = 0; l8 < 3; l8 = l8 + 1) {
 			fRec3[l8] = 0.0f;
 		}
-		IOTA0 = 0;
-		for (int l9 = 0; l9 < 8388608; l9 = l9 + 1) {
-			fVec2[l9] = 0.0f;
+		for (int l9 = 0; l9 < 2; l9 = l9 + 1) {
+			fRec9[l9] = 0.0f;
 		}
 		for (int l10 = 0; l10 < 2; l10 = l10 + 1) {
 			fRec8[l10] = 0.0f;
 		}
-		for (int l11 = 0; l11 < 2; l11 = l11 + 1) {
-			fRec9[l11] = 0.0f;
+		IOTA0 = 0;
+		for (int l11 = 0; l11 < 8388608; l11 = l11 + 1) {
+			fVec2[l11] = 0.0f;
 		}
 		for (int l12 = 0; l12 < 2; l12 = l12 + 1) {
 			fRec10[l12] = 0.0f;
@@ -872,43 +903,55 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 			fRec12[l14] = 0.0f;
 		}
 		for (int l15 = 0; l15 < 2; l15 = l15 + 1) {
-			fRec0[l15] = 0.0f;
+			fRec13[l15] = 0.0f;
 		}
 		for (int l16 = 0; l16 < 2; l16 = l16 + 1) {
-			fRec13[l16] = 0.0f;
+			fRec14[l16] = 0.0f;
 		}
 		for (int l17 = 0; l17 < 2; l17 = l17 + 1) {
-			fRec15[l17] = 0.0f;
+			fRec0[l17] = 0.0f;
 		}
 		for (int l18 = 0; l18 < 2; l18 = l18 + 1) {
-			fRec20[l18] = 0.0f;
+			fRec15[l18] = 0.0f;
 		}
 		for (int l19 = 0; l19 < 2; l19 = l19 + 1) {
-			fVec3[l19] = 0.0f;
+			fRec17[l19] = 0.0f;
 		}
 		for (int l20 = 0; l20 < 2; l20 = l20 + 1) {
-			fRec19[l20] = 0.0f;
+			fRec22[l20] = 0.0f;
 		}
-		for (int l21 = 0; l21 < 3; l21 = l21 + 1) {
-			fRec18[l21] = 0.0f;
+		for (int l21 = 0; l21 < 2; l21 = l21 + 1) {
+			fVec3[l21] = 0.0f;
 		}
 		for (int l22 = 0; l22 < 2; l22 = l22 + 1) {
-			fVec4[l22] = 0.0f;
+			fRec21[l22] = 0.0f;
 		}
-		for (int l23 = 0; l23 < 2; l23 = l23 + 1) {
-			fRec17[l23] = 0.0f;
+		for (int l23 = 0; l23 < 3; l23 = l23 + 1) {
+			fRec20[l23] = 0.0f;
 		}
-		for (int l24 = 0; l24 < 3; l24 = l24 + 1) {
-			fRec16[l24] = 0.0f;
+		for (int l24 = 0; l24 < 2; l24 = l24 + 1) {
+			fVec4[l24] = 0.0f;
 		}
-		for (int l25 = 0; l25 < 8388608; l25 = l25 + 1) {
-			fVec5[l25] = 0.0f;
+		for (int l25 = 0; l25 < 2; l25 = l25 + 1) {
+			fRec19[l25] = 0.0f;
 		}
-		for (int l26 = 0; l26 < 2; l26 = l26 + 1) {
-			fRec14[l26] = 0.0f;
+		for (int l26 = 0; l26 < 3; l26 = l26 + 1) {
+			fRec18[l26] = 0.0f;
 		}
 		for (int l27 = 0; l27 < 2; l27 = l27 + 1) {
-			fRec21[l27] = 0.0f;
+			fRec24[l27] = 0.0f;
+		}
+		for (int l28 = 0; l28 < 2; l28 = l28 + 1) {
+			fRec23[l28] = 0.0f;
+		}
+		for (int l29 = 0; l29 < 8388608; l29 = l29 + 1) {
+			fVec5[l29] = 0.0f;
+		}
+		for (int l30 = 0; l30 < 2; l30 = l30 + 1) {
+			fRec16[l30] = 0.0f;
+		}
+		for (int l31 = 0; l31 < 2; l31 = l31 + 1) {
+			fRec25[l31] = 0.0f;
 		}
 	}
 	
@@ -932,22 +975,22 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("shtokhausen.solo");
-		ui_interface->addCheckButton("cycle0", &fCheckbox2);
-		ui_interface->addCheckButton("cycle1", &fCheckbox0);
-		ui_interface->addCheckButton("cycle2", &fCheckbox5);
+		ui_interface->addCheckButton("cycle0", &fCheckbox0);
+		ui_interface->addCheckButton("cycle1", &fCheckbox2);
+		ui_interface->addCheckButton("cycle2", &fCheckbox3);
 		ui_interface->addCheckButton("cycle3", &fCheckbox4);
-		ui_interface->addCheckButton("cycle4", &fCheckbox3);
+		ui_interface->addCheckButton("cycle4", &fCheckbox5);
 		ui_interface->addCheckButton("cycle5", &fCheckbox6);
-		ui_interface->declare(&fHslider2, "unit", "sec");
-		ui_interface->addHorizontalSlider("delay0", &fHslider2, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
 		ui_interface->declare(&fHslider0, "unit", "sec");
-		ui_interface->addHorizontalSlider("delay1", &fHslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
-		ui_interface->declare(&fHslider5, "unit", "sec");
-		ui_interface->addHorizontalSlider("delay2", &fHslider5, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
+		ui_interface->addHorizontalSlider("delay0", &fHslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
+		ui_interface->declare(&fHslider2, "unit", "sec");
+		ui_interface->addHorizontalSlider("delay1", &fHslider2, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
+		ui_interface->declare(&fHslider3, "unit", "sec");
+		ui_interface->addHorizontalSlider("delay2", &fHslider3, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
 		ui_interface->declare(&fHslider4, "unit", "sec");
 		ui_interface->addHorizontalSlider("delay3", &fHslider4, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
-		ui_interface->declare(&fHslider3, "unit", "sec");
-		ui_interface->addHorizontalSlider("delay4", &fHslider3, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
+		ui_interface->declare(&fHslider5, "unit", "sec");
+		ui_interface->addHorizontalSlider("delay4", &fHslider5, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
 		ui_interface->declare(&fHslider6, "unit", "sec");
 		ui_interface->addHorizontalSlider("delay5", &fHslider6, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4377599.0f), FAUSTFLOAT(1.0f));
 		ui_interface->addHorizontalSlider("fb1.gain", &fHslider1, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0001f));
@@ -1032,31 +1075,41 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 			fVec1[0] = fTemp2;
 			fRec4[0] = fConst10 * (fConst12 * fTemp2 + fConst17 * fVec1[1]) - fConst18 * fRec4[1];
 			fRec3[0] = fRec4[0] - fConst5 * (fConst19 * fRec3[2] + fConst20 * fRec3[1]);
-			float fTemp3 = fRec2[0] * (fTemp0 + fConst5 * (fConst7 * fRec3[0] + fConst21 * fRec3[1] + fConst7 * fRec3[2]));
-			fVec2[IOTA0 & 8388607] = fTemp3;
-			fRec8[0] = fSlow10 + fConst2 * fRec8[1];
-			fRec9[0] = fSlow18 + fConst2 * fRec9[1];
-			fRec10[0] = fSlow26 + fConst2 * fRec10[1];
-			fRec11[0] = fSlow34 + fConst2 * fRec11[1];
-			fRec12[0] = fSlow42 + fConst2 * fRec12[1];
-			fRec0[0] = fRec1[0] * (fSlow3 * fVec2[(IOTA0 - iSlow7) & 8388607] + fSlow8 * fVec2[(IOTA0 - iSlow9) & 8388607]) + fRec8[0] * (fSlow13 * fVec2[(IOTA0 - iSlow15) & 8388607] + fSlow16 * fVec2[(IOTA0 - iSlow17) & 8388607]) + fRec9[0] * (fSlow21 * fVec2[(IOTA0 - iSlow23) & 8388607] + fSlow24 * fVec2[(IOTA0 - iSlow25) & 8388607]) + fRec10[0] * (fSlow29 * fVec2[(IOTA0 - iSlow31) & 8388607] + fSlow32 * fVec2[(IOTA0 - iSlow33) & 8388607]) + fRec11[0] * (fSlow37 * fVec2[(IOTA0 - iSlow39) & 8388607] + fSlow40 * fVec2[(IOTA0 - iSlow41) & 8388607]) + fRec12[0] * (fSlow45 * fVec2[(IOTA0 - iSlow47) & 8388607] + fSlow48 * fVec2[(IOTA0 - iSlow49) & 8388607]);
-			fRec13[0] = fSlow50 + fConst2 * fRec13[1];
-			output0[i0] = FAUSTFLOAT(fRec0[0] * fRec13[0]);
-			fRec15[0] = fSlow51 + fConst2 * fRec15[1];
-			fRec20[0] = fSlow52 + fConst2 * fRec20[1];
-			float fTemp4 = fRec20[0] * fRec14[1];
-			fVec3[0] = fTemp4;
-			fRec19[0] = 0.0f - fConst13 * (fConst14 * fRec19[1] - (fTemp4 + fVec3[1]));
-			fRec18[0] = fRec19[0] - fConst10 * (fConst15 * fRec18[2] + fConst16 * fRec18[1]);
-			float fTemp5 = fRec18[2] + fRec18[0] + 2.0f * fRec18[1];
-			fVec4[0] = fTemp5;
-			fRec17[0] = fConst10 * (fConst12 * fTemp5 + fConst17 * fVec4[1]) - fConst18 * fRec17[1];
-			fRec16[0] = fRec17[0] - fConst5 * (fConst19 * fRec16[2] + fConst20 * fRec16[1]);
-			float fTemp6 = fRec15[0] * (fTemp0 + fConst5 * (fConst7 * fRec16[0] + fConst21 * fRec16[1] + fConst7 * fRec16[2]));
-			fVec5[IOTA0 & 8388607] = fTemp6;
-			fRec14[0] = fRec8[0] * (fSlow13 * fVec5[(IOTA0 - iSlow15) & 8388607] + fSlow16 * fVec5[(IOTA0 - iSlow17) & 8388607]) + fRec1[0] * (fSlow3 * fVec5[(IOTA0 - iSlow7) & 8388607] + fSlow8 * fVec5[(IOTA0 - iSlow9) & 8388607]) + fRec11[0] * (fSlow37 * fVec5[(IOTA0 - iSlow39) & 8388607] + fSlow40 * fVec5[(IOTA0 - iSlow41) & 8388607]) + fRec10[0] * (fSlow29 * fVec5[(IOTA0 - iSlow31) & 8388607] + fSlow32 * fVec5[(IOTA0 - iSlow33) & 8388607]) + fRec9[0] * (fSlow21 * fVec5[(IOTA0 - iSlow23) & 8388607] + fSlow24 * fVec5[(IOTA0 - iSlow25) & 8388607]) + fRec12[0] * (fSlow45 * fVec5[(IOTA0 - iSlow47) & 8388607] + fSlow48 * fVec5[(IOTA0 - iSlow49) & 8388607]);
-			fRec21[0] = fSlow53 + fConst2 * fRec21[1];
-			output1[i0] = FAUSTFLOAT(fRec14[0] * fRec21[0]);
+			float fTemp3 = fConst7 * fRec3[0] + fConst21 * fRec3[1] + fConst7 * fRec3[2];
+			float fTemp4 = std::fabs(fConst5 * fTemp3);
+			float fTemp5 = ((fTemp4 > fRec9[1]) ? fConst25 : fConst24);
+			fRec9[0] = fTemp4 * (1.0f - fTemp5) + fRec9[1] * fTemp5;
+			fRec8[0] = fConst23 * (0.0f - 0.75f * std::max<float>(2e+01f * std::log10(std::max<float>(1.1754944e-38f, fRec9[0])) + 6.0f, 0.0f)) + fConst22 * fRec8[1];
+			float fTemp6 = fRec2[0] * (fTemp0 + fConst5 * fTemp3 * std::pow(1e+01f, 0.05f * fRec8[0]));
+			fVec2[IOTA0 & 8388607] = fTemp6;
+			fRec10[0] = fSlow10 + fConst2 * fRec10[1];
+			fRec11[0] = fSlow18 + fConst2 * fRec11[1];
+			fRec12[0] = fSlow26 + fConst2 * fRec12[1];
+			fRec13[0] = fSlow34 + fConst2 * fRec13[1];
+			fRec14[0] = fSlow42 + fConst2 * fRec14[1];
+			fRec0[0] = fRec1[0] * (fSlow3 * fVec2[(IOTA0 - iSlow7) & 8388607] + fSlow8 * fVec2[(IOTA0 - iSlow9) & 8388607]) + fRec10[0] * (fSlow13 * fVec2[(IOTA0 - iSlow15) & 8388607] + fSlow16 * fVec2[(IOTA0 - iSlow17) & 8388607]) + fRec11[0] * (fSlow21 * fVec2[(IOTA0 - iSlow23) & 8388607] + fSlow24 * fVec2[(IOTA0 - iSlow25) & 8388607]) + fRec12[0] * (fSlow29 * fVec2[(IOTA0 - iSlow31) & 8388607] + fSlow32 * fVec2[(IOTA0 - iSlow33) & 8388607]) + fRec13[0] * (fSlow37 * fVec2[(IOTA0 - iSlow39) & 8388607] + fSlow40 * fVec2[(IOTA0 - iSlow41) & 8388607]) + fRec14[0] * (fSlow45 * fVec2[(IOTA0 - iSlow47) & 8388607] + fSlow48 * fVec2[(IOTA0 - iSlow49) & 8388607]);
+			fRec15[0] = fSlow50 + fConst2 * fRec15[1];
+			output0[i0] = FAUSTFLOAT(fRec0[0] * fRec15[0]);
+			fRec17[0] = fSlow51 + fConst2 * fRec17[1];
+			fRec22[0] = fSlow52 + fConst2 * fRec22[1];
+			float fTemp7 = fRec22[0] * fRec16[1];
+			fVec3[0] = fTemp7;
+			fRec21[0] = 0.0f - fConst13 * (fConst14 * fRec21[1] - (fTemp7 + fVec3[1]));
+			fRec20[0] = fRec21[0] - fConst10 * (fConst15 * fRec20[2] + fConst16 * fRec20[1]);
+			float fTemp8 = fRec20[2] + fRec20[0] + 2.0f * fRec20[1];
+			fVec4[0] = fTemp8;
+			fRec19[0] = fConst10 * (fConst12 * fTemp8 + fConst17 * fVec4[1]) - fConst18 * fRec19[1];
+			fRec18[0] = fRec19[0] - fConst5 * (fConst19 * fRec18[2] + fConst20 * fRec18[1]);
+			float fTemp9 = fConst7 * fRec18[0] + fConst21 * fRec18[1] + fConst7 * fRec18[2];
+			float fTemp10 = std::fabs(fConst5 * fTemp9);
+			float fTemp11 = ((fTemp10 > fRec24[1]) ? fConst25 : fConst24);
+			fRec24[0] = fTemp10 * (1.0f - fTemp11) + fRec24[1] * fTemp11;
+			fRec23[0] = fConst23 * (0.0f - 0.75f * std::max<float>(2e+01f * std::log10(std::max<float>(1.1754944e-38f, fRec24[0])) + 6.0f, 0.0f)) + fConst22 * fRec23[1];
+			float fTemp12 = fRec17[0] * (fTemp0 + fConst5 * fTemp9 * std::pow(1e+01f, 0.05f * fRec23[0]));
+			fVec5[IOTA0 & 8388607] = fTemp12;
+			fRec16[0] = fRec1[0] * (fSlow3 * fVec5[(IOTA0 - iSlow7) & 8388607] + fSlow8 * fVec5[(IOTA0 - iSlow9) & 8388607]) + fRec10[0] * (fSlow13 * fVec5[(IOTA0 - iSlow15) & 8388607] + fSlow16 * fVec5[(IOTA0 - iSlow17) & 8388607]) + fRec11[0] * (fSlow21 * fVec5[(IOTA0 - iSlow23) & 8388607] + fSlow24 * fVec5[(IOTA0 - iSlow25) & 8388607]) + fRec12[0] * (fSlow29 * fVec5[(IOTA0 - iSlow31) & 8388607] + fSlow32 * fVec5[(IOTA0 - iSlow33) & 8388607]) + fRec13[0] * (fSlow37 * fVec5[(IOTA0 - iSlow39) & 8388607] + fSlow40 * fVec5[(IOTA0 - iSlow41) & 8388607]) + fRec14[0] * (fSlow45 * fVec5[(IOTA0 - iSlow47) & 8388607] + fSlow48 * fVec5[(IOTA0 - iSlow49) & 8388607]);
+			fRec25[0] = fSlow53 + fConst2 * fRec25[1];
+			output1[i0] = FAUSTFLOAT(fRec16[0] * fRec25[0]);
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];
 			fRec7[1] = fRec7[0];
@@ -1068,26 +1121,30 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 			fRec4[1] = fRec4[0];
 			fRec3[2] = fRec3[1];
 			fRec3[1] = fRec3[0];
-			IOTA0 = IOTA0 + 1;
-			fRec8[1] = fRec8[0];
 			fRec9[1] = fRec9[0];
+			fRec8[1] = fRec8[0];
+			IOTA0 = IOTA0 + 1;
 			fRec10[1] = fRec10[0];
 			fRec11[1] = fRec11[0];
 			fRec12[1] = fRec12[0];
-			fRec0[1] = fRec0[0];
 			fRec13[1] = fRec13[0];
+			fRec14[1] = fRec14[0];
+			fRec0[1] = fRec0[0];
 			fRec15[1] = fRec15[0];
-			fRec20[1] = fRec20[0];
+			fRec17[1] = fRec17[0];
+			fRec22[1] = fRec22[0];
 			fVec3[1] = fVec3[0];
+			fRec21[1] = fRec21[0];
+			fRec20[2] = fRec20[1];
+			fRec20[1] = fRec20[0];
+			fVec4[1] = fVec4[0];
 			fRec19[1] = fRec19[0];
 			fRec18[2] = fRec18[1];
 			fRec18[1] = fRec18[0];
-			fVec4[1] = fVec4[0];
-			fRec17[1] = fRec17[0];
-			fRec16[2] = fRec16[1];
+			fRec24[1] = fRec24[0];
+			fRec23[1] = fRec23[0];
 			fRec16[1] = fRec16[0];
-			fRec14[1] = fRec14[0];
-			fRec21[1] = fRec21[0];
+			fRec25[1] = fRec25[0];
 		}
 	}
 
