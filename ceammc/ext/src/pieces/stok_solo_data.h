@@ -20,8 +20,11 @@
 #include <array>
 #include <cstddef>
 #include <cstdint>
+#include <ctime>
 #include <random>
 #include <vector>
+
+#include <boost/container/small_vector.hpp>
 
 namespace solo {
 
@@ -127,6 +130,12 @@ struct Period {
     {
         rel_pos = attack;
         rel_length = length;
+        return *this;
+    }
+
+    Period& setPerf(int n)
+    {
+        nperf = n;
         return *this;
     }
 
@@ -587,11 +596,21 @@ public:
     }
 };
 
+using SoloEventCont = std::vector<SoloEvent>;
+
 class SoloEventList {
-    std::vector<SoloEvent> data_;
+    SoloEventCont data_;
+    std::default_random_engine gen_;
     long current_ { -1 };
 
 public:
+    SoloEventList()
+        : gen_(std::time(nullptr))
+    {
+    }
+
+    void seed(size_t s) { gen_.seed(s); }
+
     SoloEvent& add(const SoloEvent& v)
     {
         for (auto it = data_.begin(); it != data_.end(); ++it) {
@@ -619,7 +638,7 @@ public:
         current_ = data_.empty() ? -1 : 0;
     }
 
-    const std::vector<SoloEvent>& data() const { return data_; }
+    const SoloEventCont& data() const { return data_; }
 
     bool isValidCurrent() const { return current_ >= 0 && current_ < data_.size(); }
     bool isValidNext() const { return current_ >= 0 && (current_ + 1) < data_.size(); }
@@ -680,6 +699,29 @@ public:
 
         add(SoloEvent::on(p.cycle(), t, timeMs + p.attackTimeMs(), periodIdx));
 
+        if (p.nperf > 0) {
+            float PERF_DUR_MSEC = 100;
+            auto perf_dur = p.durationMs() - 3 * PERF_DUR_MSEC;
+
+            // generate random times
+            std::uniform_real_distribution<float> dist(0, 1);
+            boost::container::small_vector<float, 8> randf;
+            randf.reserve(p.nperf);
+            float rand_sum = 0;
+
+            for (int i = 0; i < p.nperf; i++) {
+                auto v = dist(gen_);
+                rand_sum += v;
+                randf.push_back(v);
+            }
+
+            for (auto& rf : randf) {
+                auto msec = timeMs + p.attackTime() + PERF_DUR_MSEC + (rf * perf_dur / rand_sum);
+                add(SoloEvent::off(p.cycle(), t, msec, periodIdx));
+                add(SoloEvent::on(p.cycle(), t, msec + PERF_DUR_MSEC, periodIdx));
+            }
+        }
+
         if (p.attackTime() > 0)
             add(SoloEvent::off(p.cycle(), t, timeMs + p.releaseTimeMs(), periodIdx));
     }
@@ -724,8 +766,26 @@ public:
         }
     }
 
+    SoloEventCont periodEvents(int periodIdx) const
+    {
+        SoloEventCont res;
+        res.reserve(16);
+
+        for (auto& e : data_) {
+            if (e.period() == periodIdx)
+                res.push_back(e);
+        }
+
+        return res;
+    }
+
     bool empty() const { return data_.empty(); }
     size_t size() const { return data_.size(); }
+
+    const SoloEvent& eventAt(size_t n) const
+    {
+        return data_.at(n);
+    }
 };
 }
 

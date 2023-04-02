@@ -175,6 +175,34 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(p->releaseTime() == 4.5);
     }
 
+    SECTION("perf")
+    {
+        SoloEventList e;
+
+        e.addOn(Period(CYCLE_A, EVENT_ON, 1000).setPerf(1), TRACK_MIC1, 1000, 5);
+        REQUIRE(e.size() == 3);
+        REQUIRE(e.eventAt(0).type() == SOLO_EVENT_ON);
+        REQUIRE(e.eventAt(1).type() == SOLO_EVENT_OFF);
+        REQUIRE(e.eventAt(2).type() == SOLO_EVENT_ON);
+        REQUIRE(e.eventAt(0).period() == 5);
+        REQUIRE(e.eventAt(1).period() == 5);
+        REQUIRE(e.eventAt(2).period() == 5);
+        e.clear();
+
+        e.addOn(Period(CYCLE_A, EVENT_ON, 1000).setPerf(2), TRACK_MIC1, 1000, 6);
+        REQUIRE(e.size() == 5);
+        REQUIRE(e.eventAt(0).type() == SOLO_EVENT_ON);
+        REQUIRE(e.eventAt(1).type() == SOLO_EVENT_OFF);
+        REQUIRE(e.eventAt(2).type() == SOLO_EVENT_ON);
+        REQUIRE(e.eventAt(3).type() == SOLO_EVENT_OFF);
+        REQUIRE(e.eventAt(4).type() == SOLO_EVENT_ON);
+        REQUIRE(e.eventAt(0).period() == 6);
+        REQUIRE(e.eventAt(1).period() == 6);
+        REQUIRE(e.eventAt(2).period() == 6);
+        REQUIRE(e.eventAt(3).period() == 6);
+        e.clear();
+    }
+
     SECTION("EventList")
     {
         SoloEventList e;
@@ -267,6 +295,24 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(e.data()[65].value() == 1);
 
         e.addScheme(Scheme(2));
-        REQUIRE(e.size() == 504);
+        REQUIRE(e.size() == 964);
+    }
+
+    SECTION("periodEvents")
+    {
+        SoloEventList e;
+        e.addScheme(Scheme(2));
+
+        REQUIRE(e.periodEvents(0).size() == 10);
+        REQUIRE(e.eventAt(0).type() == SOLO_EVENT_OFF);
+        REQUIRE(e.eventAt(1).type() == SOLO_EVENT_ON);
+        REQUIRE(e.eventAt(2).type() == SOLO_EVENT_OFF);
+        REQUIRE(e.eventAt(3).type() == SOLO_EVENT_OFF);
+        REQUIRE(e.eventAt(4).type() == SOLO_EVENT_OFF);
+        REQUIRE(e.eventAt(5).type() == SOLO_EVENT_OFF);
+        REQUIRE(e.eventAt(6).type() == SOLO_EVENT_OFF);
+        REQUIRE(e.eventAt(7).type() == SOLO_EVENT_ON);
+        REQUIRE(e.eventAt(8).type() == SOLO_EVENT_OFF);
+        REQUIRE(e.eventAt(9).type() == SOLO_EVENT_ON);
     }
 }
