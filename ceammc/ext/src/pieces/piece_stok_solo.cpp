@@ -44,18 +44,7 @@ class PieceStokhausenSolo : public faust_piece_stok_solo_tilde {
 
 public:
     PieceStokhausenSolo(const PdArgs& args)
-        : clock_([this]() {
-            if (events_.isValidCurrent()) {
-                onEvent(*events_.currentPtr());
-
-                events_.moveSame([this](const solo::SoloEvent& ev) { onEvent(ev); });
-
-                if (events_.isValidNext()) {
-                    clock_.delay(events_.timeToNextEvent());
-                    events_.moveNext({});
-                }
-            }
-        })
+        : clock_([this]() { onClock(); })
         , faust_piece_stok_solo_tilde(args)
     {
         initCycles();
@@ -82,6 +71,23 @@ public:
         syncScheme();
 
         createCbFloatProperty("@total_length", [this]() -> t_float { return scheme_.schemeLength(); });
+    }
+
+    void onClock(bool scheduleNext = true)
+    {
+        if (events_.isValidCurrent()) {
+            onEvent(*events_.currentPtr());
+
+            events_.moveSame([this](const solo::SoloEvent& ev) { onEvent(ev); });
+
+            if (events_.isValidNext()) {
+                if (scheduleNext) {
+                    clock_.delay(events_.timeToNextEvent());
+                }
+
+                events_.moveNext({});
+            }
+        }
     }
 
     void initCycles()
@@ -154,6 +160,7 @@ public:
     {
         syncDelays();
         syncTimeLine();
+        events_.reset();
     }
 
     void syncTimeLine()
@@ -235,6 +242,11 @@ public:
             events_.reset();
             clock_.exec();
         }
+    }
+
+    void m_next(t_symbol* s, const AtomListView& lv)
+    {
+        onClock(false);
     }
 
     UIProperty* findUIProperty(const char* name)
@@ -328,6 +340,12 @@ public:
         }
     }
 
+    void m_reset(t_symbol* s, const AtomListView& lv)
+    {
+        faust_piece_stok_solo_tilde::m_reset(s, lv);
+        events_.reset();
+    }
+
     void setMic(t_float a, t_float b)
     {
         if (mic1_)
@@ -374,4 +392,6 @@ void setup_piece_stok_solo()
     obj.addMethod("period", &PieceStokhausenSolo::m_period);
     obj.addMethod("start", &PieceStokhausenSolo::m_start);
     obj.addMethod("stop", &PieceStokhausenSolo::m_stop);
+    obj.addMethod("next", &PieceStokhausenSolo::m_next);
+    obj.addMethod("reset", &PieceStokhausenSolo::m_reset);
 }
