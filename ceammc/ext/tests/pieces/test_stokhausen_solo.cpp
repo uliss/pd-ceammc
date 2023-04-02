@@ -15,8 +15,6 @@
 #include "test_common.h"
 #include "test_pieces_base.h"
 
-// PD_COMPLETE_TEST_SETUP(PathExists, path, exists)
-
 using namespace solo;
 
 TEST_CASE("pieces.stok_solo~", "[externals]")
@@ -295,7 +293,7 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(e.data()[65].value() == 1);
 
         e.addScheme(Scheme(2));
-        REQUIRE(e.size() == 964);
+        REQUIRE(e.size() == 966);
     }
 
     SECTION("periodEvents")

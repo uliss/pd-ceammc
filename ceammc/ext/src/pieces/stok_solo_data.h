@@ -481,6 +481,7 @@ struct Scheme {
             { 0, 1, 1, 1, 1, 1 },
             { 0, 0, 0, 1, 1, 0, 0, 1 });
 
+        periodAt(TRACK_OUT1, CYCLE_B, 0)->setRelOffset(0.5, 0.5);
         periodAt(TRACK_OUT1, CYCLE_C, 0)->setRelOffset(0.25, 0.25);
 
         addTrackEvents(TRACK_OUT2,
@@ -491,6 +492,7 @@ struct Scheme {
             { 0, 0, 1, 0, 0, 1 },
             { 0, 1, 1, 0, 0, 1, 1, 0 });
 
+        periodAt(TRACK_OUT2, CYCLE_B, 0)->setRelOffset(0.5, 0.5);
         periodAt(TRACK_OUT2, CYCLE_C, 0)->setRelOffset(0.5, 0.25);
     }
 

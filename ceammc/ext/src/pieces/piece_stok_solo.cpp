@@ -32,7 +32,7 @@ constexpr int SCHEME_DEFAULT = 2;
 constexpr int CYCLE_MIN = 0;
 constexpr int CYCLE_MAX = 5;
 
-#if 0
+#if 1
 #define SOLO_DBG OBJ_DBG
 #else
 #define SOLO_DBG boost::iostreams::stream<boost::iostreams::null_sink>((boost::iostreams::null_sink()))
@@ -218,11 +218,17 @@ public:
         }
     }
 
+    void resetState()
+    {
+        resetUI();
+        events_.reset();
+    }
+
     void m_start(t_symbol* s, const AtomListView& lv)
     {
         const auto on = lv.boolAt(0, true);
         if (on) {
-            events_.reset();
+            resetState();
             clock_.exec();
         } else
             clock_.unset();
@@ -338,34 +344,7 @@ public:
     void m_reset(t_symbol* s, const AtomListView& lv)
     {
         faust_piece_stok_solo_tilde::m_reset(s, lv);
-        events_.reset();
-    }
-
-    void setMic(t_float a, t_float b)
-    {
-        if (mic1_)
-            mic1_->setValue(a, true);
-
-        if (mic2_)
-            mic2_->setValue(a, true);
-    }
-
-    void setFb(t_float a, t_float b)
-    {
-        if (fb1_)
-            fb1_->setValue(a, true);
-
-        if (fb2_)
-            fb2_->setValue(a, true);
-    }
-
-    void setOut(t_float a, t_float b)
-    {
-        if (out1_)
-            out1_->setValue(a, true);
-
-        if (out2_)
-            out2_->setValue(a, true);
+        resetState();
     }
 
     void dump() const
