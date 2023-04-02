@@ -57,10 +57,29 @@ enum SoloEventTrack : std::int8_t {
     EVENT_TRACK_OUT2,
 };
 
+enum SoloEventCycle : std::int8_t {
+    EVENT_CYCLE_A = 0,
+    EVENT_CYCLE_B,
+    EVENT_CYCLE_C,
+    EVENT_CYCLE_D,
+    EVENT_CYCLE_E,
+    EVENT_CYCLE_F,
+};
+
 struct Period {
     float abs_length { 0 }, rel_pos { 0 }, rel_length { 0 }, from { 0 }, to { 0 };
     EventType event { EVENT_OFF };
+    const SoloEventCycle cycle_ { EVENT_CYCLE_A };
     std::uint8_t nperf { 0 };
+
+    Period(SoloEventCycle cycle, EventType type, float length)
+        : cycle_(cycle)
+        , event(type)
+        , abs_length(length)
+    {
+    }
+
+    SoloEventCycle cycle() const { return cycle_; }
 
     float offsetTime() const
     {
@@ -138,6 +157,8 @@ struct Scheme {
     int scheme() const { return scheme_; }
 
     const std::array<PeriodTrack, NUM_TRACKS>& tracks() const { return tracks_; }
+    const std::array<CycleInfo, NUM_TRACKS>& cycles() const { return cycles_; }
+    size_t cycleCount() const { return cycles_.size(); }
 
     size_t cyclePeriodEnd(size_t ci) const
     {
@@ -202,39 +223,32 @@ struct Scheme {
             t.clear();
     }
 
-    void addTrackCycleEvents(PeriodTrack& track, float cycleOffset, int cycleIndex, const std::initializer_list<int>& init)
+    void addTrackCycleEvents(PeriodTrack& track, float cycleOffset, SoloEventCycle cycle, const std::initializer_list<int>& init)
     {
-        if (cycleIndex < 0 || cycleIndex >= NUM_CYCLES)
-            return;
-
-        const auto& ci = cycles_[cycleIndex];
+        const auto& ci = cycles_[cycle];
         const auto CN = ci.periodCount();
 
         if (init.size() != CN)
             LIB_DBG << fmt::format("warning: period number mismatch: {} != {} for cycle{}",
-                CN, init.size(), cycleIndex);
+                CN, init.size(), cycle);
 
         const auto N = std::min<size_t>(init.size(), CN);
         for (size_t i = 0; i < N; i++) {
             auto x = *(init.begin() + i);
-            Period p;
-            p.abs_length = ci.periodLength();
 
             switch (x) {
             case 0:
-                p.event = EVENT_OFF;
+                track.emplace_back(cycle, EVENT_OFF, ci.periodLength());
                 break;
             case EVENT_VALUE_NOPERF:
-                p.event = EVENT_ON;
-                p.nperf = 0;
+                track.emplace_back(cycle, EVENT_ON, ci.periodLength());
+                track.back().nperf = 0;
                 break;
             default:
-                p.event = EVENT_ON;
-                p.nperf = x;
+                track.emplace_back(cycle, EVENT_ON, ci.periodLength());
+                track.back().nperf = x;
                 break;
             }
-
-            track.push_back(p);
         }
     }
 
@@ -244,17 +258,17 @@ struct Scheme {
         const std::initializer_list<int>& e, const std::initializer_list<int>& f)
     {
         float offset = 0;
-        addTrackCycleEvents(track, offset, 0, a);
+        addTrackCycleEvents(track, offset, EVENT_CYCLE_A, a);
         offset += cycles_[0].cycleLength();
-        addTrackCycleEvents(track, offset, 1, b);
+        addTrackCycleEvents(track, offset, EVENT_CYCLE_B, b);
         offset += cycles_[1].cycleLength();
-        addTrackCycleEvents(track, offset, 2, c);
+        addTrackCycleEvents(track, offset, EVENT_CYCLE_C, c);
         offset += cycles_[2].cycleLength();
-        addTrackCycleEvents(track, offset, 3, d);
+        addTrackCycleEvents(track, offset, EVENT_CYCLE_D, d);
         offset += cycles_[3].cycleLength();
-        addTrackCycleEvents(track, offset, 4, e);
+        addTrackCycleEvents(track, offset, EVENT_CYCLE_E, e);
         offset += cycles_[4].cycleLength();
-        addTrackCycleEvents(track, offset, 5, f);
+        addTrackCycleEvents(track, offset, EVENT_CYCLE_F, f);
     }
 
     void addTrackEvents(int track,
@@ -262,9 +276,10 @@ struct Scheme {
         const std::initializer_list<int>& c, const std::initializer_list<int>& d,
         const std::initializer_list<int>& e, const std::initializer_list<int>& f)
     {
-        if (track >= 0 && track < NUM_TRACKS)
+        if (track >= 0 && track < NUM_TRACKS) {
+            tracks_[track].track = static_cast<SoloEventTrack>(track);
             addTrackEvents(tracks_[track], a, b, c, d, e, f);
-        else
+        } else
             LIB_ERR << "invalid track index: " << track;
     }
 
@@ -429,20 +444,27 @@ private:
 
 class SoloEvent {
     double abs_time_msec_ { 0 };
+    float value_ { 0 };
     SoloEventType type_ { SOLO_EVENT_OFF };
     SoloEventTrack track_ { EVENT_TRACK_MIC1 };
+    SoloEventCycle cycle_ { EVENT_CYCLE_A };
 
 public:
-    SoloEvent(SoloEventTrack part, SoloEventType type, double time_msec = 0)
+    SoloEvent(SoloEventCycle cycle, SoloEventTrack part, SoloEventType type, double time_msec)
         : abs_time_msec_(time_msec)
         , type_(type)
         , track_(part)
+        , cycle_(cycle)
     {
     }
 
+    SoloEventCycle cycle() const { return cycle_; }
     SoloEventType type() const { return type_; }
     SoloEventTrack track() const { return track_; }
     double absTimeMsec() const { return abs_time_msec_; }
+    float value() const { return value_; }
+
+    void setValue(float v) { value_ = v; }
 
     std::string toString() const
     {
@@ -458,17 +480,21 @@ class SoloEventList {
     long current_ { -1 };
 
 public:
-    void add(const SoloEvent& v)
+    SoloEvent& add(const SoloEvent& v)
     {
         for (auto it = data_.begin(); it != data_.end(); ++it) {
             if (it->absTimeMsec() > v.absTimeMsec()) {
                 auto x = data_.insert(it, v);
-                return;
+                return *x;
             }
         }
 
         data_.push_back(v);
+        return data_.back();
     }
+
+    const SoloEvent& back() const { return data_.back(); }
+    SoloEvent& back() { return data_.back(); }
 
     void clear()
     {

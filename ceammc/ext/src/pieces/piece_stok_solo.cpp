@@ -34,6 +34,7 @@ constexpr int CYCLE_MAX = 5;
 class PieceStokhausenSolo : public faust_piece_stok_solo_tilde {
     ClockLambdaFunction clock_;
     std::vector<UIProperty*> cycles_;
+    std::vector<UIProperty*> delays_;
     UIProperty *mic1_, *mic2_;
     UIProperty *fb1_, *fb2_;
     UIProperty *out1_, *out2_;
@@ -57,18 +58,8 @@ public:
         })
         , faust_piece_stok_solo_tilde(args)
     {
-        cycles_.reserve(NUM_CYCLES);
-
-        for (int i = 0; i < NUM_CYCLES; i++) {
-            char buf[16];
-            sprintf(buf, "@cycle%d", i);
-            auto prop = findUIProperty(buf);
-            if (prop)
-                cycles_.push_back(prop);
-        }
-
-        if (cycles_.size() != NUM_CYCLES)
-            OBJ_ERR << "can't init section properties";
+        initCycles();
+        initDelays();
 
         mic1_ = findUIProperty("@in1");
         mic2_ = findUIProperty("@in2");
@@ -83,22 +74,86 @@ public:
         scheme_idx_->setSuccessFn([this](Property*) {
             scheme_.setScheme(scheme_idx_->value());
             events_.clear();
-            syncTimeLine();
+            syncScheme();
         });
         addProperty(scheme_idx_);
 
         scheme_.setScheme(SCHEME_DEFAULT);
-        syncTimeLine();
+        syncScheme();
 
         createCbFloatProperty("@total_length", [this]() -> t_float { return scheme_.schemeLength(); });
+    }
+
+    void initCycles()
+    {
+        cycles_.reserve(NUM_CYCLES);
+
+        for (int i = 0; i < NUM_CYCLES; i++) {
+            char buf[16];
+            sprintf(buf, "@cycle%d", i);
+            auto prop = findUIProperty(buf);
+            if (prop)
+                cycles_.push_back(prop);
+        }
+
+        if (cycles_.size() != NUM_CYCLES)
+            OBJ_ERR << "can't init cycles";
+    }
+
+    void initDelays()
+    {
+        delays_.reserve(NUM_CYCLES);
+
+        for (int i = 0; i < NUM_CYCLES; i++) {
+            char buf[16];
+            sprintf(buf, "@delay%d", i);
+            auto prop = findUIProperty(buf);
+            if (prop)
+                delays_.push_back(prop);
+        }
+
+        if (delays_.size() != NUM_CYCLES)
+            OBJ_ERR << "can't init delays";
     }
 
     void onEvent(const solo::SoloEvent& ev)
     {
         using namespace solo;
+
+        switchCycle(ev.cycle());
+
         switch (ev.track()) {
-            //        case EVENT_PART_1
+        case EVENT_TRACK_MIC1:
+            mic1_->setValue(ev.value(), true);
+            OBJ_DBG << ev.toString();
+            break;
+        case EVENT_TRACK_MIC2:
+            mic2_->setValue(ev.value(), true);
+            OBJ_DBG << ev.toString();
+            break;
+        case EVENT_TRACK_FB1:
+            fb1_->setValue(ev.value(), true);
+            OBJ_DBG << ev.toString();
+            break;
+        case EVENT_TRACK_FB2:
+            fb2_->setValue(ev.value(), true);
+            OBJ_DBG << ev.toString();
+            break;
+        case EVENT_TRACK_OUT1:
+            out1_->setValue(ev.value(), true);
+            OBJ_DBG << ev.toString();
+            break;
+        case EVENT_TRACK_OUT2:
+            out2_->setValue(ev.value(), true);
+            OBJ_DBG << ev.toString();
+            break;
         }
+    }
+
+    void syncScheme()
+    {
+        syncDelays();
+        syncTimeLine();
     }
 
     void syncTimeLine()
@@ -108,22 +163,53 @@ public:
         for (auto& t : scheme_.tracks()) {
             float pos = 0;
             for (auto& p : t) {
+                addPeriodToTimeLine(t.track, p, 100 * (pos + p.offsetTime()));
                 pos += p.fullLengthTime();
-                addPeriodToTimeLine(t.track, p, pos + p.offsetTime());
             }
         }
     }
 
-    void addPeriodToTimeLine(solo::SoloEventTrack part, const solo::Period& p, double pos)
+    void syncDelays()
+    {
+        auto CCNT = scheme_.cycleCount();
+        auto DCNT = delays_.size();
+        if (CCNT != DCNT) {
+            OBJ_ERR << fmt::format("number of cycles != number of delays: {}!={}", CCNT, DCNT);
+            return;
+        }
+
+        for (size_t i = 0; i < CCNT; i++)
+            delays_[i]->setValue(scheme_.cycles()[i].periodLength(), true);
+    }
+
+    void switchCycle(solo::SoloEventCycle c)
+    {
+        for (size_t i = 0; i < cycles_.size(); i++) {
+            auto prop = cycles_[i];
+            if (i == c) {
+                if (prop->value() != 1) {
+                    OBJ_DBG << fmt::format("switch on cycle {:c}", 'A' + i);
+                    prop->setValue(1, true);
+                }
+            } else {
+                if (prop->value() == 1) {
+                    OBJ_DBG << fmt::format("switch off cycle {:c}", 'A' + i);
+                    prop->setValue(0, true);
+                }
+            }
+        }
+    }
+
+    void addPeriodToTimeLine(solo::SoloEventTrack part, const solo::Period& period, double pos)
     {
         using namespace solo;
 
-        switch (p.event) {
+        switch (period.event) {
         case solo::EVENT_OFF: {
-            events_.add(SoloEvent(part, SOLO_EVENT_OFF, pos));
+            events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_OFF, pos)).setValue(0);
         } break;
         case solo::EVENT_ON: {
-            events_.add(SoloEvent(part, SOLO_EVENT_ON, pos));
+            events_.add(SoloEvent(period.cycle(), part, SOLO_EVENT_ON, pos)).setValue(1);
         } break;
         default:
             break;
@@ -274,7 +360,7 @@ public:
         OBJ_POST << "absolute events:";
         int idx = 0;
         for (auto& e : events_.data()) {
-            OBJ_POST << "    [" << (idx++) << "] " << /* e.toString() <<*/ " " << e.absTimeMsec();
+            OBJ_POST << "    [" << (idx++) << "] " << e.toString() << " " << e.absTimeMsec();
         }
 
         BaseObject::dump();
