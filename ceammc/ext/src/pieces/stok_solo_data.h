@@ -25,9 +25,6 @@
 
 namespace solo {
 
-constexpr int NUM_TRACKS = 6;
-constexpr int NUM_CYCLES = 6;
-
 enum {
     EVENT_VALUE_NOPERF = 200,
     EVENT_VALUE_CRESC,
@@ -50,22 +47,24 @@ enum SoloEventType : std::int8_t {
     SOLO_EVENT_ON
 };
 
-enum SoloTrack : std::int8_t {
+enum SoloTrack : std::uint8_t {
     TRACK_MIC1 = 0,
     TRACK_MIC2,
     TRACK_FB1,
     TRACK_FB2,
     TRACK_OUT1,
     TRACK_OUT2,
+    TRACK_COUNT,
 };
 
-enum SoloCycle : std::int8_t {
+enum SoloCycle : std::uint8_t {
     CYCLE_A = 0,
     CYCLE_B,
     CYCLE_C,
     CYCLE_D,
     CYCLE_E,
     CYCLE_F,
+    CYCLE_COUNT,
 };
 
 struct Period {
@@ -174,8 +173,8 @@ struct PeriodTrack : public std::vector<Period> {
 };
 
 struct Scheme {
-    std::array<PeriodTrack, NUM_TRACKS> tracks_;
-    std::array<CycleInfo, NUM_CYCLES> cycles_;
+    std::array<PeriodTrack, TRACK_COUNT> tracks_;
+    std::array<CycleInfo, CYCLE_COUNT> cycles_;
     int scheme_ { 0 };
 
     explicit Scheme(size_t n = 0)
@@ -188,8 +187,8 @@ struct Scheme {
      */
     int scheme() const { return scheme_; }
 
-    const std::array<PeriodTrack, NUM_TRACKS>& tracks() const { return tracks_; }
-    const std::array<CycleInfo, NUM_TRACKS>& cycles() const { return cycles_; }
+    const std::array<PeriodTrack, TRACK_COUNT>& tracks() const { return tracks_; }
+    const std::array<CycleInfo, TRACK_COUNT>& cycles() const { return cycles_; }
 
     /**
      * return number of cycles in the scheme (always should return 6)
@@ -347,7 +346,7 @@ struct Scheme {
         const std::initializer_list<int>& c, const std::initializer_list<int>& d,
         const std::initializer_list<int>& e, const std::initializer_list<int>& f)
     {
-        if (track >= 0 && track < NUM_TRACKS) {
+        if (track >= 0 && track < TRACK_COUNT) {
             tracks_[track].track = static_cast<SoloTrack>(track);
             addTrackEvents(tracks_[track], a, b, c, d, e, f);
         } else
@@ -357,7 +356,7 @@ struct Scheme {
     std::string toString(size_t n) const
     {
         std::string res;
-        if (n >= NUM_TRACKS)
+        if (n >= TRACK_COUNT)
             return res;
 
         for (auto& x : tracks_[n])

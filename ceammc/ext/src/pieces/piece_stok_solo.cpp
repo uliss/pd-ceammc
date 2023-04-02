@@ -136,33 +136,31 @@ public:
     {
         using namespace solo;
 
+        SOLO_DBG << ev.toString();
+
         switchCycle(ev.cycle());
         switchPeriod(ev.period());
 
         switch (ev.track()) {
         case TRACK_MIC1:
             mic1_->setValue(ev.value(), true);
-            SOLO_DBG << ev.toString();
             break;
         case TRACK_MIC2:
             mic2_->setValue(ev.value(), true);
-            SOLO_DBG << ev.toString();
             break;
         case TRACK_FB1:
             fb1_->setValue(ev.value(), true);
-            SOLO_DBG << ev.toString();
             break;
         case TRACK_FB2:
             fb2_->setValue(ev.value(), true);
-            SOLO_DBG << ev.toString();
             break;
         case TRACK_OUT1:
             out1_->setValue(ev.value(), true);
-            SOLO_DBG << ev.toString();
             break;
         case TRACK_OUT2:
             out2_->setValue(ev.value(), true);
-            SOLO_DBG << ev.toString();
+            break;
+        default:
             break;
         }
     }
