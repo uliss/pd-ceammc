@@ -78,7 +78,7 @@ public:
         scheme_.setScheme(SCHEME_DEFAULT);
         syncScheme();
 
-        createCbFloatProperty("@total_length", [this]() -> t_float { return scheme_.schemeLength(); });
+        createCbFloatProperty("@total_length", [this]() -> t_float { return scheme_.lengthSec(); });
 
         createOutlet();
     }

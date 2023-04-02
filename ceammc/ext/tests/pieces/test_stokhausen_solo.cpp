@@ -26,7 +26,7 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
     SECTION("init")
     {
         Scheme s;
-        REQUIRE(s.schemeLength() == 0);
+        REQUIRE(s.lengthSec() == 0);
         REQUIRE_FALSE(s.setScheme(-1));
         REQUIRE_FALSE(s.setScheme(0));
         REQUIRE_FALSE(s.setScheme(3));
@@ -59,7 +59,7 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(s.cycles_[5].periodCount() == 8);
 
         REQUIRE(s.periodCount() == 51);
-        REQUIRE(s.schemeLength() == Approx(746.2));
+        REQUIRE(s.lengthSec() == Approx(746.2));
     }
 
     SECTION("EventList")
@@ -116,7 +116,7 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
     {
         Scheme s(2);
         REQUIRE(s.scheme() == 2);
-        REQUIRE(s.schemeLength() == Approx(746.2));
+        REQUIRE(s.lengthSec() == Approx(746.2));
         REQUIRE(s.periodCount() == 51);
         REQUIRE(s.toString(0) == "_32_23_2_41312_12_1_11_2_E__21_11_21_3____8__3___6_");
         REQUIRE(s.periodTimeSec(0) == 0);

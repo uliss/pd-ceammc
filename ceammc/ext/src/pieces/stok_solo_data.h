@@ -272,7 +272,10 @@ struct Scheme {
             t.reserve(num_periods);
     }
 
-    float schemeLength() const
+    /**
+     * return total scheme length in seconds
+     */
+    float lengthSec() const
     {
         float res = 0;
         for (auto& ci : cycles_)
@@ -281,6 +284,10 @@ struct Scheme {
         return res;
     }
 
+    /**
+     * clear all track events
+     * @note tracks are not removed
+     */
     void clear()
     {
         for (auto& t : tracks_)
@@ -473,13 +480,6 @@ struct Scheme {
         periodAt(EVENT_TRACK_OUT2, EVENT_CYCLE_C, 0)->setRelOffset(0.5, 0.25);
     }
 
-    Period* periodAt(SoloEventTrack track, SoloEventCycle cycle, size_t periodIdx)
-    {
-        auto& t = tracks_.at(track);
-        auto idx = cycleBeginPeriodIndex(cycle) + periodIdx;
-        return (idx < t.size()) ? &t.at(idx) : nullptr;
-    }
-
     bool setScheme(size_t idx)
     {
         switch (idx) {
@@ -492,6 +492,16 @@ struct Scheme {
         default:
             return false;
         }
+    }
+
+    /**
+     * return pointer to period by specified multiindex (TRACK/CYCLE/PERIOD_IN_CYCLE)
+     */
+    Period* periodAt(SoloEventTrack track, SoloEventCycle cycle, size_t periodIdx)
+    {
+        auto& t = tracks_.at(track);
+        auto idx = cycleBeginPeriodIndex(cycle) + periodIdx;
+        return (idx < t.size()) ? &t.at(idx) : nullptr;
     }
 
     int periodCount() const
