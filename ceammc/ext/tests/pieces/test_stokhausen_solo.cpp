@@ -232,5 +232,38 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(e.data()[2].track() == TRACK_MIC1);
         REQUIRE(e.data()[2].type() == SOLO_EVENT_OFF);
         REQUIRE(e.data()[2].absTimeMsec() == 4750);
+
+        e.clear();
+        e.addPeriod(TRACK_MIC1, Period(CYCLE_A, EVENT_CRESC, 16), 74, 1000);
+        REQUIRE(e.size() == 65);
+        REQUIRE(e.data()[0].period() == 74);
+        REQUIRE(e.data()[0].absTimeMsec() == 1000);
+        REQUIRE(e.data()[0].value() == 0);
+        REQUIRE(e.data()[1].absTimeMsec() == 1250);
+        REQUIRE(e.data()[1].value() == 1 / 64.0);
+        REQUIRE(e.data()[2].absTimeMsec() == 1500);
+        REQUIRE(e.data()[2].value() == 2 / 64.0);
+        REQUIRE(e.data()[32].absTimeMsec() == 1000 + 250 * 32);
+        REQUIRE(e.data()[32].value() == 0.5);
+        REQUIRE(e.data()[64].absTimeMsec() == 17000);
+        REQUIRE(e.data()[64].value() == 1);
+
+        e.clear();
+        e.addPeriod(TRACK_MIC1, Period(CYCLE_A, EVENT_CRESC, 16).setRelOffset(0.25, 0.5), 74, 1000);
+        REQUIRE(e.size() == 66);
+        REQUIRE(e.data()[0].period() == 74);
+        REQUIRE(e.data()[0].absTimeMsec() == 1000);
+        REQUIRE(e.data()[0].value() == 0);
+        REQUIRE(e.data()[0].type() == SOLO_EVENT_OFF);
+        REQUIRE(e.data()[1].absTimeMsec() == 5000);
+        REQUIRE(e.data()[1].value() == 0);
+        REQUIRE(e.data()[2].absTimeMsec() == 5125);
+        REQUIRE(e.data()[2].value() == 1 / 64.0);
+        REQUIRE(e.data()[3].absTimeMsec() == 5250);
+        REQUIRE(e.data()[3].value() == 2 / 64.0);
+        REQUIRE(e.data()[33].absTimeMsec() == 5000 + 125 * 32);
+        REQUIRE(e.data()[33].value() == 0.5);
+        REQUIRE(e.data()[65].absTimeMsec() == 5000 + 125 * 64);
+        REQUIRE(e.data()[65].value() == 1);
     }
 }

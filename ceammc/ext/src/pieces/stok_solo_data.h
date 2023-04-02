@@ -68,7 +68,7 @@ enum SoloCycle : std::uint8_t {
 };
 
 struct Period {
-    float abs_length { 0 }, rel_pos { 0 }, rel_length { 0 }, from { 0 }, to { 0 };
+    float abs_length { 0 }, rel_pos { 0 }, rel_length { 1 }, from { 0 }, to { 0 };
     EventType event { EVENT_OFF };
     const SoloCycle cycle_ { CYCLE_A };
     std::uint8_t nperf { 0 };
@@ -680,12 +680,26 @@ public:
 
         } break;
         case solo::EVENT_CRESC: {
-            float offset = 0;
-            for (int i = 0; i < 48; i++) {
-                auto level = i / 47.0;
-                add(SoloEvent(period.cycle(), part, SOLO_EVENT_ON, time_ms + offset).setValue(level).setPeriod(periodIdx));
-                offset += level;
+            if (period.attackTime() > 0)
+                add(SoloEvent::off(period.cycle(), part, time_ms, periodIdx));
+
+            auto offset_ms = period.attackTimeMs();
+            constexpr float MIN_TIME_GRAIN_MS = 10;
+            const auto DIV = std::min<int>(64, std::floor(period.durationMs() / MIN_TIME_GRAIN_MS));
+
+            if (DIV < 1) {
+                add(SoloEvent::on(period.cycle(), part, time_ms + offset_ms, periodIdx));
+            } else {
+                const auto TIME_INCR = period.durationMs() / DIV;
+                for (int i = 0; i <= DIV; i++) {
+                    add(SoloEvent(period.cycle(), part, SOLO_EVENT_ON, time_ms + offset_ms)
+                            .setValue(float(i) / DIV)
+                            .setPeriod(periodIdx));
+
+                    offset_ms += TIME_INCR;
+                }
             }
+
         } break;
         default:
             break;
