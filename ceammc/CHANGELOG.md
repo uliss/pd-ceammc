@@ -49,6 +49,7 @@
 - array.risset_rythm~ renamed to array.risset_rhythm~
 - euclid() init function third arg added: rotation to the right
 - fixing ui abtractions: gfx.room~ and gfx.shimmer~
+- noise.lfreq0~ minimal frequency changed from 5Hz to 0.5Hz
 
 ## [0.9.6]
 ### Added:

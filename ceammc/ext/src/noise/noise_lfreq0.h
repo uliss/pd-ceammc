@@ -663,7 +663,7 @@ class noise_lfreq0 : public noise_lfreq0_dsp {
 		m->declare("basics.lib/version", "0.8");
 		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn noise_lfreq0 -scn noise_lfreq0_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("filename", "noise_lfreq0.dsp");
-		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/nlf2:author", "Julius O. Smith III");
 		m->declare("filters.lib/nlf2:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -741,7 +741,7 @@ class noise_lfreq0 : public noise_lfreq0_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("noise.lfreq0");
 		ui_interface->declare(&fHslider0, "unit", "Hz");
-		ui_interface->addHorizontalSlider("freq", &fHslider0, FAUSTFLOAT(1e+03f), FAUSTFLOAT(5.0f), FAUSTFLOAT(2.205e+04f), FAUSTFLOAT(0.1f));
+		ui_interface->addHorizontalSlider("freq", &fHslider0, FAUSTFLOAT(1e+03f), FAUSTFLOAT(0.5f), FAUSTFLOAT(2.205e+04f), FAUSTFLOAT(0.1f));
 		ui_interface->closeBox();
 	}
 	
