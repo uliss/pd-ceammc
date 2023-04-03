@@ -250,7 +250,7 @@ fx.shimmer~		~~		~~
 fx.stutter~		~.		~
 fx.tapiir~		~~		~~
 fx.vocoder~		~~		~
-fx.wahwah~		~		~
+fx.wahwah~		~.		~
 fx.zita_rev1~		~~		~~
 gain~,ceammc/gain~		?		?
 global.dict,global.json		.		.

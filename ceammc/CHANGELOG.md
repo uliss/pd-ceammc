@@ -24,6 +24,7 @@
 - new object inlets:
   - fx.drone_box~ - second inlet added for setting resonance frequency
   - fx.notch~: second (freq) inlet added
+  - fx.wahwah~: second (angle) inlet added
   - metro.pattern - second inlet added to set pattern
   - metro.random - third inlet added to set max property
   - metro.seq - second inlet added to set interval and third inlet to set pattern

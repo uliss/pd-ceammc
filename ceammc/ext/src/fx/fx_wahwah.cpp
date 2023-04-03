@@ -1,17 +1,32 @@
 #include "fx_wahwah.h"
+#include "args/argcheck2.h"
 #include "ceammc_factory.h"
 
 using namespace ceammc;
 
+constexpr const char* PROP_ANGLE = "@angle";
+
 class FxWahwah : public faust_fx_wahwah_tilde {
+    UIProperty* angle_;
+
 public:
     FxWahwah(const PdArgs& args)
         : faust_fx_wahwah_tilde(args)
+        , angle_(dynamic_cast<UIProperty*>(property(PROP_ANGLE)))
     {
-        static t_symbol* SYM_PROP_ANGLE = gensym("@angle");
-        static t_symbol* SYM_PROP_SPEED = gensym("@speed");
+        bindPositionalArgsToProps({ gensym(PROP_ANGLE), gensym("@speed") });
 
-        bindPositionalArgsToProps({ SYM_PROP_ANGLE, SYM_PROP_SPEED });
+        createInlet();
+    }
+
+    void onInlet(size_t n, const AtomListView& lv)
+    {
+        static const args::ArgChecker chk("ANGLE:f[0,1]");
+        if (!chk.check(lv, this))
+            return chk.usage(this);
+
+        if (angle_)
+            angle_->setValue(lv.asT<t_float>(), true);
     }
 };
 
@@ -21,5 +36,6 @@ void setup_fx_wahwah_tilde()
 
     obj.setDescription("digitized CryBaby wah pedal");
     obj.setCategory("fx");
-    obj.setKeywords({"wahwah", "guitar", "crybaby"});
+    obj.setKeywords({ "wahwah", "guitar", "crybaby" });
+    obj.setXletsInfo({ "signal: input", "float: angle (0..1)" }, { "signal: fx output" });
 }
