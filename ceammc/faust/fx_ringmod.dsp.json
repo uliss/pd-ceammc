@@ -17,7 +17,7 @@
 		{ "filters.lib/dcblocker:author": "Julius O. Smith III" },
 		{ "filters.lib/dcblocker:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/dcblocker:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
 		{ "filters.lib/name": "Faust Filters Library" },
 		{ "filters.lib/nlf2:author": "Julius O. Smith III" },
 		{ "filters.lib/nlf2:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },

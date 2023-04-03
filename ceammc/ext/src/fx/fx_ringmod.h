@@ -690,8 +690,8 @@ class fx_ringmod : public fx_ringmod_dsp {
 	
  private:
 	
-	FAUSTFLOAT fCheckbox0;
 	int iVec0[2];
+	FAUSTFLOAT fCheckbox0;
 	int fSampleRate;
 	float fConst1;
 	FAUSTFLOAT fHslider0;
@@ -724,7 +724,7 @@ class fx_ringmod : public fx_ringmod_dsp {
 		m->declare("filters.lib/dcblocker:author", "Julius O. Smith III");
 		m->declare("filters.lib/dcblocker:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/dcblocker:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/nlf2:author", "Julius O. Smith III");
 		m->declare("filters.lib/nlf2:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -867,20 +867,19 @@ class fx_ringmod : public fx_ringmod_dsp {
 		float fSlow11 = std::sin(fSlow10);
 		float fSlow12 = std::cos(fSlow10);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
-			float fTemp0 = float(input0[i0]);
-			float fTemp1 = fSlow0 * fTemp0;
 			iVec0[0] = 1;
+			float fTemp0 = float(input0[i0]);
 			fRec1[0] = fSlow2 + fConst2 * fRec1[1];
 			fRec2[0] = fSlow4 + fConst2 * fRec2[1];
 			fRec4[0] = fSlow9 + (fRec4[1] - std::floor(fSlow9 + fRec4[1]));
 			fRec6[0] = fSlow11 * fRec7[1] + fSlow12 * fRec6[1];
 			fRec7[0] = float(1 - iVec0[1]) + fSlow12 * fRec7[1] - fSlow11 * fRec6[1];
-			int iTemp2 = (fRec6[1] <= 0.0f) & (fRec6[0] > 0.0f);
+			int iTemp1 = (fRec6[1] <= 0.0f) & (fRec6[0] > 0.0f);
 			iRec8[0] = 1103515245 * iRec8[1] + 12345;
-			fRec5[0] = fRec5[1] * float(1 - iTemp2) + 4.656613e-10f * float(iRec8[0]) * float(iTemp2);
-			float fTemp3 = fSlow1 * (fRec1[0] * tanhf(fSlow3 * fTemp0 * (fRec2[0] + ((iSlow6) ? fRec5[0] : ((iSlow7) ? ftbl0fx_ringmodSIG0[int(65536.0f * fRec4[0])] : float(input1[i0]))))) + fTemp0 * (1.0f - fRec1[0]));
-			fVec2[0] = fTemp1 + fTemp3;
-			fRec0[0] = fTemp1 + 0.995f * fRec0[1] + fTemp3 - fVec2[1];
+			fRec5[0] = fRec5[1] * float(1 - iTemp1) + 4.656613e-10f * float(iRec8[0]) * float(iTemp1);
+			float fTemp2 = fSlow0 * fTemp0 + fSlow1 * (fRec1[0] * tanhf(fSlow3 * fTemp0 * (fRec2[0] + ((iSlow6) ? fRec5[0] : ((iSlow7) ? ftbl0fx_ringmodSIG0[int(65536.0f * fRec4[0])] : float(input1[i0]))))) + fTemp0 * (1.0f - fRec1[0]));
+			fVec2[0] = fTemp2;
+			fRec0[0] = 0.995f * fRec0[1] + fTemp2 - fVec2[1];
 			output0[i0] = FAUSTFLOAT(fRec0[0]);
 			iVec0[1] = iVec0[0];
 			fRec1[1] = fRec1[0];
