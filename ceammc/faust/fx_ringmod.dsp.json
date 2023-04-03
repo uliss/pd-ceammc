@@ -3,7 +3,7 @@
 	"filename": "fx_ringmod.dsp",
 	"version": "2.53.1",
 	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_ringmod -scn fx_ringmod_dsp -es 1 -mcd 16 -single -ftz 0",
-	"library_list": ["/usr/local/share/faust/stdfaust.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/oscillators.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/filters.lib"],
+	"library_list": ["/usr/local/share/faust/stdfaust.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/oscillators.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/noises.lib","/usr/local/share/faust/filters.lib","/usr/local/share/faust/signals.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 2,
 	"outputs": 1,
@@ -17,8 +17,11 @@
 		{ "filters.lib/dcblocker:author": "Julius O. Smith III" },
 		{ "filters.lib/dcblocker:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/dcblocker:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
+		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/name": "Faust Filters Library" },
+		{ "filters.lib/nlf2:author": "Julius O. Smith III" },
+		{ "filters.lib/nlf2:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/nlf2:license": "MIT-style STK-4.3 license" },
 		{ "filters.lib/pole:author": "Julius O. Smith III" },
 		{ "filters.lib/pole:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/pole:license": "MIT-style STK-4.3 license" },
@@ -32,6 +35,8 @@
 		{ "maths.lib/name": "Faust Math Library" },
 		{ "maths.lib/version": "2.5" },
 		{ "name": "fx.ringmod" },
+		{ "noises.lib/name": "Faust Noise Generator Library" },
+		{ "noises.lib/version": "0.4" },
 		{ "oscillators.lib/name": "Faust Oscillator Library" },
 		{ "oscillators.lib/version": "0.3" },
 		{ "platform.lib/name": "Generic Platform Library" },
@@ -75,23 +80,17 @@
 					"step": 0.01
 				},
 				{
-					"type": "vslider",
+					"type": "hslider",
 					"label": "freq",
 					"shortname": "freq",
 					"address": "/fx.ringmod/freq",
 					"meta": [
 						{ "unit": "Hz" }
 					],
-					"init": 1000,
-					"min": 20,
-					"max": 20000,
+					"init": 150,
+					"min": 0.5,
+					"max": 22050,
 					"step": 0.1
-				},
-				{
-					"type": "checkbox",
-					"label": "internal",
-					"shortname": "internal",
-					"address": "/fx.ringmod/internal"
 				},
 				{
 					"type": "hslider",
@@ -102,6 +101,16 @@
 					"min": 0,
 					"max": 1,
 					"step": 0.001
+				},
+				{
+					"type": "nentry",
+					"label": "src",
+					"shortname": "src",
+					"address": "/fx.ringmod/src",
+					"init": 0,
+					"min": 0,
+					"max": 2,
+					"step": 1
 				}
 			]
 		}
