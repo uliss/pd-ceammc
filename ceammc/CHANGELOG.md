@@ -12,6 +12,7 @@
   - conv.rgb2hex - convert RGB separate values to #RRGGBB symbol
   - data.color - Color datatype
   - fx.overdrive~ - overdrive effect
+  - fx.tremolo~ - tremolo effect from guitarix library
   - metro.choice - randomly (uniformly) metronome time interval choice from specified set
   - metro.wchoice - weighted metronome time interval choice from specified set
   - proto.morse - morse encoder with specified speed and other settings

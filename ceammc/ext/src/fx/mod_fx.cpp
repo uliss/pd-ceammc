@@ -32,6 +32,7 @@ void setup_fx_secho_tilde();
 void setup_fx_shimmer_tilde();
 void setup_fx_stutter_tilde();
 void setup_fx_tapiir_tilde();
+void setup_fx_tremolo_tilde();
 void setup_fx_vocoder_tilde();
 void setup_fx_wahwah_tilde();
 void setup_fx_zita_rev1_tilde();
@@ -68,6 +69,7 @@ void ceammc_fx_setup()
     setup_fx_sdelay_tilde();
     setup_fx_secho_tilde();
     setup_fx_stutter_tilde();
+    setup_fx_tremolo_tilde();
     setup_fx_vocoder_tilde();
     setup_fx_wahwah_tilde();
     setup_fx_zita_rev1_tilde();
