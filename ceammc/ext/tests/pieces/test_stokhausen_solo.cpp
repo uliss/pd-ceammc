@@ -388,4 +388,13 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(s.periodPhase(15) == 0.25);
         REQUIRE(s.periodPhase(21) == 0.75);
     }
+
+    SECTION("atTime")
+    {
+        Scheme s(2);
+        REQUIRE(s.lengthSec() == Approx(746.2));
+        REQUIRE(s.atTime(0) == PositionInfo { CYCLE_A, 0, 0, 0 });
+        REQUIRE(s.atTime(108) == PositionInfo { CYCLE_B, 0, 0, 0 });
+        REQUIRE(s.atTime(108 + 168) == PositionInfo { CYCLE_C, 0, 0, 0 });
+    }
 }

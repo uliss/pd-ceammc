@@ -74,6 +74,24 @@ enum SoloCycle : std::uint8_t {
     CYCLE_COUNT,
 };
 
+struct PositionInfo {
+    int cycle;
+    double cycle_phase;
+    int cycle_period;
+    double period_phase;
+    bool operator==(const PositionInfo& pi) const
+    {
+        return cycle == pi.cycle
+            && cycle_phase == pi.cycle_phase
+            && cycle_period == pi.cycle_period
+            && period_phase == pi.period_phase;
+    }
+    bool operator!=(const PositionInfo& pi) const
+    {
+        return !operator==(pi);
+    }
+};
+
 struct Period {
     float abs_length { 0 }, rel_pos { 0 }, rel_length { 1 }, from { 0 }, to { 0 };
     EventType event { EVENT_OFF };
@@ -621,6 +639,32 @@ struct Scheme {
         }
 
         return 0;
+    }
+
+    PositionInfo atTime(double timeSec) const
+    {
+        if (timeSec < 0)
+            return { 0, 0, 0, 0 };
+
+        double tm = 0;
+        int cidx = 0;
+        for (auto& ci : cycles_) {
+            tm += ci.cycleLength();
+            if (timeSec < tm) {
+                if (cidx >= CYCLE_COUNT)
+                    return { 0, 0, 0, 0 };
+
+                auto time_from_cycle = (timeSec - (tm - ci.cycleLength()));
+                auto cycle_phase = time_from_cycle / ci.cycleLength();
+                int period = std::floor(time_from_cycle / ci.periodLength());
+                auto period_phase = std::fmod(time_from_cycle, ci.periodLength()) / ci.periodLength();
+
+                return { cidx, time_from_cycle, period, period_phase };
+            } else
+                ++cidx;
+        }
+
+        return { 0, 0, 0, 0 };
     }
 
 private:
