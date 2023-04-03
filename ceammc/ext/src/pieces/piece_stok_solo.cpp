@@ -49,6 +49,8 @@ class PieceStokhausenSolo : public faust_piece_stok_solo_tilde {
     solo::Scheme scheme_;
     solo::SoloEventList events_;
     int current_period_ { -1 };
+    double start_time_ { 0 };
+    bool is_running_ { false };
 
 public:
     PieceStokhausenSolo(const PdArgs& args)
@@ -79,6 +81,12 @@ public:
         syncScheme();
 
         createCbFloatProperty("@total_length", [this]() -> t_float { return scheme_.lengthSec(); });
+        createCbFloatProperty("@time", [this]() -> t_float {
+            auto t = clock_gettimesince(start_time_);
+            auto res = t / (scheme_.lengthSec() * 1000);
+            OBJ_DBG << res;
+            return (is_running_ && res >= 0 && res <= 1) ? res : 0;
+        });
 
         createOutlet();
     }
@@ -226,25 +234,26 @@ public:
         events_.reset();
     }
 
-    void m_start(t_symbol* s, const AtomListView& lv)
+    void do_start(bool on)
     {
-        const auto on = lv.boolAt(0, true);
         if (on) {
             syncScheme();
             clock_.exec();
+            start_time_ = clock_getlogicaltime();
         } else
             clock_.unset();
+
+        is_running_ = on;
+    }
+
+    void m_start(t_symbol* s, const AtomListView& lv)
+    {
+        do_start(lv.boolAt(0, true));
     }
 
     void m_stop(t_symbol* s, const AtomListView& lv)
     {
-        const auto off = lv.boolAt(0, true);
-        if (off) {
-            clock_.unset();
-        } else {
-            events_.reset();
-            clock_.exec();
-        }
+        do_start(!lv.boolAt(0, true));
     }
 
     void m_next(t_symbol* s, const AtomListView& lv)
@@ -347,6 +356,7 @@ public:
     {
         faust_piece_stok_solo_tilde::m_reset(s, lv);
         syncScheme();
+        do_start(false);
     }
 
     void dump() const
