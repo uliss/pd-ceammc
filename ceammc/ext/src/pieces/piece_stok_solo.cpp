@@ -167,6 +167,7 @@ public:
 
     void syncScheme()
     {
+        resetUI();
         syncDelays();
         syncTimeLine();
         events_.reset();
@@ -174,6 +175,7 @@ public:
 
     void syncTimeLine()
     {
+        events_.clear();
         events_.addScheme(scheme_);
     }
 
@@ -228,7 +230,7 @@ public:
     {
         const auto on = lv.boolAt(0, true);
         if (on) {
-            resetState();
+            syncScheme();
             clock_.exec();
         } else
             clock_.unset();
@@ -344,7 +346,7 @@ public:
     void m_reset(t_symbol* s, const AtomListView& lv)
     {
         faust_piece_stok_solo_tilde::m_reset(s, lv);
-        resetState();
+        syncScheme();
     }
 
     void dump() const

@@ -34,6 +34,7 @@ enum {
     EVENT_VALUE_DIM,
     EVENT_VALUE_DIM_CRESC,
     EVENT_VALUE_BURST,
+    EVENT_VALUE_BURST_SLOWDOWN,
 };
 
 using namespace ceammc;
@@ -714,7 +715,7 @@ public:
         add(SoloEvent::on(p.cycle(), t, timeMs + p.attackTimeMs(), periodIdx));
 
         if (p.nperf > 0) {
-            float PERF_DUR_MSEC = 100;
+            float PERF_DUR_MSEC = 300;
             auto perf_dur = p.durationMs() - 3 * PERF_DUR_MSEC;
 
             // generate random times
@@ -753,7 +754,7 @@ public:
             add(SoloEvent::on(p.cycle(), t, timeMs + offset_ms, periodIdx));
         } else {
             const auto TIME_INCR = p.durationMs() / DIV;
-            for (int i = 0; i <= DIV; i++) {
+            for (int i = 0; i < DIV; i++) {
                 add(SoloEvent::on(p.cycle(), t, timeMs + offset_ms, periodIdx).setValue(float(i) / DIV));
                 offset_ms += TIME_INCR;
             }

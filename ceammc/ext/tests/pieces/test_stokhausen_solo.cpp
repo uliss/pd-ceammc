@@ -261,7 +261,7 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
 
         e.clear();
         e.addPeriod(Period(CYCLE_A, EVENT_CRESC, 16), TRACK_MIC1, 74, 1000);
-        REQUIRE(e.size() == 65);
+        REQUIRE(e.size() == 64);
         REQUIRE(e.data()[0].period() == 74);
         REQUIRE(e.data()[0].absTimeMsec() == 1000);
         REQUIRE(e.data()[0].value() == 0);
@@ -271,12 +271,10 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(e.data()[2].value() == 2 / 64.0);
         REQUIRE(e.data()[32].absTimeMsec() == 1000 + 250 * 32);
         REQUIRE(e.data()[32].value() == 0.5);
-        REQUIRE(e.data()[64].absTimeMsec() == 17000);
-        REQUIRE(e.data()[64].value() == 1);
 
         e.clear();
         e.addPeriod(Period(CYCLE_A, EVENT_CRESC, 16).setRelOffset(0.25, 0.5), TRACK_MIC1, 74, 1000);
-        REQUIRE(e.size() == 66);
+        REQUIRE(e.size() == 65);
         REQUIRE(e.data()[0].period() == 74);
         REQUIRE(e.data()[0].absTimeMsec() == 1000);
         REQUIRE(e.data()[0].value() == 0);
@@ -289,11 +287,9 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(e.data()[3].value() == 2 / 64.0);
         REQUIRE(e.data()[33].absTimeMsec() == 5000 + 125 * 32);
         REQUIRE(e.data()[33].value() == 0.5);
-        REQUIRE(e.data()[65].absTimeMsec() == 5000 + 125 * 64);
-        REQUIRE(e.data()[65].value() == 1);
 
         e.addScheme(Scheme(2));
-        REQUIRE(e.size() == 980);
+        REQUIRE(e.size() == 977);
     }
 
     SECTION("addBurst")
