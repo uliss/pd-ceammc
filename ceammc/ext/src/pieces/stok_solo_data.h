@@ -478,22 +478,25 @@ struct Scheme {
             { C, 1, 0, 1, 0, 1, 0 },
             { E, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1 },
             { 0, 0, 1, 1, 0, 1, 1, 0, 1, 1 },
-            { 0, 1, 1, 1, 1, 1 },
+            { E, 1, 1, 1, 1, 1 },
             { 0, 0, 0, 1, 1, 0, 0, 1 });
 
         periodAt(TRACK_OUT1, CYCLE_B, 0)->setRelOffset(0.5, 0.5);
         periodAt(TRACK_OUT1, CYCLE_C, 0)->setRelOffset(0.25, 0.25);
+        periodAt(TRACK_OUT1, CYCLE_E, 0)->setRelOffset(0, 0.125);
 
         addTrackEvents(TRACK_OUT2,
             { 0, 1, 1, 0, 1, 1, 0, 1, 1 },
             { C, 0, 1, 0, 1, 0, 1 },
             { E, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1 },
             { 0, 1, 1, 0, 1, 0, 1, 1, 0, 1 },
-            { 0, 0, 1, 0, 0, 1 },
+            { E, 0, 1, 0, 0, 1 },
             { 0, 1, 1, 0, 0, 1, 1, 0 });
 
         periodAt(TRACK_OUT2, CYCLE_B, 0)->setRelOffset(0.5, 0.5);
         periodAt(TRACK_OUT2, CYCLE_C, 0)->setRelOffset(0.5, 0.25);
+        periodAt(TRACK_OUT2, CYCLE_E, 0)->setRelOffset(0, 0.125);
+
     }
 
     bool setScheme(size_t idx)
@@ -724,7 +727,7 @@ public:
             }
         }
 
-        if (p.attackTime() > 0)
+        if (p.releaseTimeMs() < p.fullLengthTimeMs())
             add(SoloEvent::off(p.cycle(), t, timeMs + p.releaseTimeMs(), periodIdx));
     }
 

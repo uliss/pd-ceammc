@@ -293,7 +293,7 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(e.data()[65].value() == 1);
 
         e.addScheme(Scheme(2));
-        REQUIRE(e.size() == 966);
+        REQUIRE(e.size() == 968);
     }
 
     SECTION("periodEvents")
