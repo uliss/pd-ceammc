@@ -20,9 +20,9 @@
 -262144 0;
 #X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label freq(Hz):
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/noise.lfreq0~/slider0 @min 5 @max 22050;
+/gui/\$1/noise.lfreq0~/slider0 @min 0.5 @max 22050;
 #X obj 215 236 sync;
-#X obj 145 236 ui.number @size 50 12 @min 5 @max 22050 @digits 1;
+#X obj 145 236 ui.number @size 50 12 @min 0.5 @max 22050 @digits 1;
 #X msg 260 236 @freq \$1;
 #X connect 1 0 2 0;
 #X connect 2 3 3 0;

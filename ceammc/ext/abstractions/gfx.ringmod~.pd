@@ -1,0 +1,113 @@
+#N canvas 0 0 950 600 12;
+#X obj 25 125 fx.ringmod~;
+#X obj 25 25 inlet~;
+#X obj 125 25 inlet~;
+#X obj 525 25 inlet;
+#X obj 525 125 route fx.ringmod * .;
+#X obj 725 150 route.prop;
+#X obj 575 200 msg *;
+#X obj 525 250 route @bypass @drive @drywet @freq @internal @offset
+default reset;
+#X obj 775 350 t b a;
+#X msg 775 375 supported messages are: @bypass @drive @drywet @freq @internal @offset default reset;
+#X obj 775 425 print;
+#X obj 825 425 print [gfx.ringmod~] unknown message;
+#X msg 425 75 @drive 1 \, @drywet 0.5 \, @freq 1000 \, @offset 0 \,;
+#X obj 25 50 t b b;
+#X msg 25 75 reset;
+#X obj 425 25 msg.onload;
+#X obj 500 550 outlet~;
+#X obj 600 550 outlet ctl;
+#X obj 3 202 cnv 8 198 159 empty empty empty 17 7 0 10 -174763 -1 0;
+#X obj 3 202 cnv 8 198 18 empty empty [fx.ringmod~] 3 9 0 12 -104026
+-262144 0;
+#X obj 185 205 ui.toggle @size 12 12 @label bypass @label_side left
+@label_align right @fontsize 10 @presetname
+/gui/\$1/fx.ringmod~/checkbox0;
+#X msg 260 218 @bypass \$1;
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label drive:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.ringmod~/slider1 @min 1 @max 10;
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 1 @max 10 @digits 3;
+#X msg 260 236 @drive \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label drywet:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.ringmod~/slider2 @min 0 @max 1;
+#X obj 215 266 sync;
+#X obj 145 266 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 266 @drywet \$1;
+#X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label freq(Hz):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.ringmod~/slider3 @min 20 @max 20000;
+#X obj 215 296 sync;
+#X obj 145 296 ui.number @size 50 12 @min 20 @max 20000 @digits 1;
+#X msg 260 296 @freq \$1;
+#X obj 12 316 ui.toggle @size 12 12 @label internal @label_side right
+@label_align left @fontsize 10 @presetname
+/gui/\$1/fx.ringmod~/checkbox4;
+#X msg 260 308 @internal \$1;
+#X obj 12 344 ui.slider @size 125 12 @active_scale 1 @label offset:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/fx.ringmod~/slider5 @min 0 @max 1;
+#X obj 215 344 sync;
+#X obj 145 344 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 344 @offset \$1;
+#X connect 1 0 0 0;
+#X connect 2 0 0 1;
+#X connect 3 0 4 0;
+#X connect 4 3 5 0;
+#X connect 4 1 6 0;
+#X connect 4 0 7 0;
+#X connect 4 1 7 0;
+#X connect 4 2 7 0;
+#X connect 5 0 7 0;
+#X connect 7 8 8 0;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;
+#X connect 8 1 11 0;
+#X connect 12 0 7 0;
+#X connect 7 6 12 0;
+#X connect 13 1 14 0;
+#X connect 13 0 12 0;
+#X connect 14 0 0 0;
+#X connect 7 7 13 0;
+#X connect 15 0 12 0;
+#X connect 0 0 16 0;
+#X connect 5 1 17 0;
+#X connect 6 0 17 0;
+#X connect 20 0 21 0;
+#X connect 21 0 0 0;
+#X connect 7 0 20 0;
+#X connect 22 0 23 0;
+#X connect 23 0 22 0;
+#X connect 24 0 23 1;
+#X connect 23 1 24 0;
+#X connect 22 0 25 0;
+#X connect 25 0 0 0;
+#X connect 7 1 22 0;
+#X connect 26 0 27 0;
+#X connect 27 0 26 0;
+#X connect 28 0 27 1;
+#X connect 27 1 28 0;
+#X connect 26 0 29 0;
+#X connect 29 0 0 0;
+#X connect 7 2 26 0;
+#X connect 30 0 31 0;
+#X connect 31 0 30 0;
+#X connect 32 0 31 1;
+#X connect 31 1 32 0;
+#X connect 30 0 33 0;
+#X connect 33 0 0 0;
+#X connect 7 3 30 0;
+#X connect 34 0 35 0;
+#X connect 35 0 0 0;
+#X connect 7 4 34 0;
+#X connect 36 0 37 0;
+#X connect 37 0 36 0;
+#X connect 38 0 37 1;
+#X connect 37 1 38 0;
+#X connect 36 0 39 0;
+#X connect 39 0 0 0;
+#X connect 7 5 36 0;
+#X coords 0 -1 1 1 200 164 2 2 200;

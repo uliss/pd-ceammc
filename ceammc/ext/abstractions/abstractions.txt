@@ -41,6 +41,7 @@ gfx.jcrev~
 gfx.overdrive~
 gfx.pitchshift~
 gfx.recho~
+gfx.ringmod~
 gfx.room~
 gfx.satrev~
 gfx.sdelay~
