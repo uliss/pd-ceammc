@@ -293,7 +293,36 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(e.data()[65].value() == 1);
 
         e.addScheme(Scheme(2));
-        REQUIRE(e.size() == 968);
+        REQUIRE(e.size() == 980);
+    }
+
+    SECTION("addBurst")
+    {
+        SoloEventList e;
+        e.addBurst(Period(CYCLE_A, EVENT_BURST, 1).setPerf(1), TRACK_FB1, 1000, 3);
+        REQUIRE(e.size() == 3);
+        REQUIRE(e.eventAt(0).type() == SOLO_EVENT_OFF);
+        REQUIRE(e.eventAt(1).type() == SOLO_EVENT_ON);
+        REQUIRE(e.eventAt(2).type() == SOLO_EVENT_OFF);
+
+        REQUIRE(e.eventAt(0).absTimeMsec() == 1000);
+        REQUIRE(e.eventAt(1).absTimeMsec() == 1425);
+        REQUIRE(e.eventAt(2).absTimeMsec() == 1575);
+
+        e.clear();
+        e.addBurst(Period(CYCLE_A, EVENT_BURST, 3).setPerf(2), TRACK_FB1, 0, 3);
+        REQUIRE(e.size() == 5);
+        REQUIRE(e.eventAt(0).type() == SOLO_EVENT_OFF);
+        REQUIRE(e.eventAt(1).type() == SOLO_EVENT_ON);
+        REQUIRE(e.eventAt(2).type() == SOLO_EVENT_OFF);
+        REQUIRE(e.eventAt(3).type() == SOLO_EVENT_ON);
+        REQUIRE(e.eventAt(4).type() == SOLO_EVENT_OFF);
+
+        REQUIRE(e.eventAt(0).absTimeMsec() == 0);
+        REQUIRE(e.eventAt(1).absTimeMsec() == 900);
+        REQUIRE(e.eventAt(2).absTimeMsec() == 1050);
+        REQUIRE(e.eventAt(3).absTimeMsec() == 1800);
+        REQUIRE(e.eventAt(4).absTimeMsec() == 1950);
     }
 
     SECTION("periodEvents")

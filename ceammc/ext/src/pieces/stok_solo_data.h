@@ -33,6 +33,7 @@ enum {
     EVENT_VALUE_CRESC,
     EVENT_VALUE_DIM,
     EVENT_VALUE_DIM_CRESC,
+    EVENT_VALUE_BURST,
 };
 
 using namespace ceammc;
@@ -44,6 +45,7 @@ enum EventType : std::int8_t {
     EVENT_CRESC,
     EVENT_DIM,
     EVENT_DIM_CRESC,
+    EVENT_BURST,
 };
 
 enum SoloEventType : std::int8_t {
@@ -329,6 +331,10 @@ struct Scheme {
                 track.emplace_back(cycle, EVENT_CRESC, ci.periodLength());
                 track.back().nperf = 0;
                 break;
+            case EVENT_VALUE_BURST:
+                track.emplace_back(cycle, EVENT_BURST, ci.periodLength());
+                track.back().nperf = 1;
+                break;
             default:
                 track.emplace_back(cycle, EVENT_ON, ci.periodLength());
                 track.back().nperf = x;
@@ -479,11 +485,14 @@ struct Scheme {
             { E, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1 },
             { 0, 0, 1, 1, 0, 1, 1, 0, 1, 1 },
             { E, 1, 1, 1, 1, 1 },
-            { 0, 0, 0, 1, 1, 0, 0, 1 });
+            { B, B, B, 1, 1, 0, 0, 1 });
 
         periodAt(TRACK_OUT1, CYCLE_B, 0)->setRelOffset(0.5, 0.5);
         periodAt(TRACK_OUT1, CYCLE_C, 0)->setRelOffset(0.25, 0.25);
         periodAt(TRACK_OUT1, CYCLE_E, 0)->setRelOffset(0, 0.125);
+        periodAt(TRACK_OUT1, CYCLE_F, 0)->setPerf(1);
+        periodAt(TRACK_OUT1, CYCLE_F, 1)->setPerf(2);
+        periodAt(TRACK_OUT1, CYCLE_F, 2)->setPerf(3);
 
         addTrackEvents(TRACK_OUT2,
             { 0, 1, 1, 0, 1, 1, 0, 1, 1 },
@@ -496,7 +505,6 @@ struct Scheme {
         periodAt(TRACK_OUT2, CYCLE_B, 0)->setRelOffset(0.5, 0.5);
         periodAt(TRACK_OUT2, CYCLE_C, 0)->setRelOffset(0.5, 0.25);
         periodAt(TRACK_OUT2, CYCLE_E, 0)->setRelOffset(0, 0.125);
-
     }
 
     bool setScheme(size_t idx)
@@ -544,6 +552,7 @@ private:
     const int C = EVENT_VALUE_CRESC;
     const int D = EVENT_VALUE_DIM;
     const int X = EVENT_VALUE_DIM_CRESC;
+    const int B = EVENT_VALUE_BURST;
 };
 
 class SoloEvent {
@@ -590,14 +599,14 @@ public:
         return fmt::format("{}: {} [{}]", TRACKS[track_], TYPES[type_], value_);
     }
 
-    static SoloEvent off(SoloCycle cycle, SoloTrack part, double time_msec, int period)
+    static SoloEvent off(SoloCycle c, SoloTrack t, double timeMs, int period)
     {
-        return SoloEvent(cycle, part, SOLO_EVENT_OFF, time_msec).setValue(0).setPeriod(period);
+        return SoloEvent(c, t, SOLO_EVENT_OFF, timeMs).setValue(0).setPeriod(period);
     }
 
-    static SoloEvent on(SoloCycle cycle, SoloTrack part, double time_msec, int period)
+    static SoloEvent on(SoloCycle c, SoloTrack t, double timeMs, int period)
     {
-        return SoloEvent(cycle, part, SOLO_EVENT_ON, time_msec).setValue(1).setPeriod(period);
+        return SoloEvent(c, t, SOLO_EVENT_ON, timeMs).setValue(1).setPeriod(period);
     }
 };
 
@@ -745,26 +754,43 @@ public:
         } else {
             const auto TIME_INCR = p.durationMs() / DIV;
             for (int i = 0; i <= DIV; i++) {
-                add(SoloEvent(p.cycle(), t, SOLO_EVENT_ON, timeMs + offset_ms)
-                        .setValue(float(i) / DIV)
-                        .setPeriod(periodIdx));
-
+                add(SoloEvent::on(p.cycle(), t, timeMs + offset_ms, periodIdx).setValue(float(i) / DIV));
                 offset_ms += TIME_INCR;
             }
+        }
+    }
+
+    void addBurst(const Period& p, SoloTrack t, float timeMs, int periodIdx)
+    {
+        if (p.nperf < 1)
+            return;
+
+        addOff(p.cycle(), t, timeMs, periodIdx);
+
+        constexpr float BURST_TIME_MS = 150;
+        size_t n = p.nperf;
+        double burst_space = (p.fullLengthTimeMs() - (n * BURST_TIME_MS)) / (n + 1);
+        for (size_t i = 0; i < n; i++) {
+            auto ms = timeMs + burst_space * (i + 1);
+            add(SoloEvent::on(p.cycle(), t, ms, periodIdx));
+            add(SoloEvent::off(p.cycle(), t, ms + BURST_TIME_MS, periodIdx));
         }
     }
 
     void addPeriod(const Period& p, SoloTrack t, int periodIdx, double timeMs)
     {
         switch (p.event) {
-        case solo::EVENT_OFF:
+        case EVENT_OFF:
             addOff(p.cycle(), t, timeMs, periodIdx);
             break;
-        case solo::EVENT_ON:
+        case EVENT_ON:
             addOn(p, t, timeMs, periodIdx);
             break;
-        case solo::EVENT_CRESC:
+        case EVENT_CRESC:
             addCresc(p, t, timeMs, periodIdx);
+            break;
+        case EVENT_BURST:
+            addBurst(p, t, timeMs, periodIdx);
             break;
         default:
             break;
