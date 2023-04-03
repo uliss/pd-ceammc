@@ -548,6 +548,81 @@ struct Scheme {
         return tracks_.front().size();
     }
 
+    float cyclePhase(double timeSec) const
+    {
+        double tm = 0;
+        for (auto& ci : cycles_) {
+            tm += ci.cycleLength();
+            if (timeSec < tm)
+                return 1 - ((tm - timeSec) / ci.cycleLength());
+        }
+
+        return 0;
+    }
+
+    int cycleAt(double timeSec) const
+    {
+        if (timeSec < 0)
+            return -1;
+
+        double tm = 0;
+        int idx = 0;
+        for (auto& ci : cycles_) {
+            tm += ci.cycleLength();
+            if (timeSec < tm)
+                return (idx < CYCLE_COUNT) ? idx : -1;
+            else
+                ++idx;
+        }
+
+        return -1;
+    }
+
+    int periodAt(double timeSec) const
+    {
+        if (timeSec < 0)
+            return -1;
+
+        double tm = 0;
+        int cidx = 0;
+        for (auto& ci : cycles_) {
+            tm += ci.cycleLength();
+            if (timeSec < tm) {
+                if (cidx >= CYCLE_COUNT)
+                    return -1;
+
+                auto time_from_cycle = (timeSec - (tm - ci.cycleLength()));
+                return std::floor(time_from_cycle / ci.periodLength());
+
+            } else
+                ++cidx;
+        }
+
+        return -1;
+    }
+
+    float periodPhase(double timeSec) const
+    {
+        if (timeSec < 0)
+            return 0;
+
+        double tm = 0;
+        int cidx = 0;
+        for (auto& ci : cycles_) {
+            tm += ci.cycleLength();
+            if (timeSec < tm) {
+                if (cidx >= CYCLE_COUNT)
+                    return 0;
+
+                auto time_from_cycle = (timeSec - (tm - ci.cycleLength()));
+                return std::fmod(time_from_cycle, ci.periodLength()) / ci.periodLength();
+            } else
+                ++cidx;
+        }
+
+        return 0;
+    }
+
 private:
     const int E = EVENT_VALUE_NOPERF;
     const int C = EVENT_VALUE_CRESC;
@@ -659,6 +734,7 @@ public:
     bool isValidNext() const { return current_ >= 0 && (current_ + 1) < data_.size(); }
 
     SoloEvent* currentPtr() { return isValidCurrent() ? &data_[current_] : nullptr; }
+    const SoloEvent* currentPtr() const { return isValidCurrent() ? &data_[current_] : nullptr; }
     SoloEvent* nextPtr() { return isValidNext() ? &data_[current_ + 1] : nullptr; }
     long currentIdx() const { return current_; }
 

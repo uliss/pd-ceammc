@@ -338,4 +338,54 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(e.eventAt(8).type() == SOLO_EVENT_OFF);
         REQUIRE(e.eventAt(9).type() == SOLO_EVENT_ON);
     }
+
+    SECTION("cyclePhase")
+    {
+        Scheme s(2);
+        REQUIRE(s.lengthSec() == Approx(746.2));
+        REQUIRE(s.cyclePhase(0) == 0);
+        REQUIRE(s.cyclePhase(9 * 6) == 0.5);
+        REQUIRE(s.cyclePhase(9 * 9) == 0.75);
+        REQUIRE(s.cyclePhase(108) == 0);
+        REQUIRE(s.cyclePhase(108 + 7 * 6) == 0.25);
+        REQUIRE(s.cyclePhase(108 + 7 * 18) == 0.75);
+        REQUIRE(s.cyclePhase(108 + 168) == 0);
+    }
+
+    SECTION("cycleAt")
+    {
+        Scheme s(2);
+        REQUIRE(s.lengthSec() == Approx(746.2));
+        REQUIRE(s.cycleAt(0) == CYCLE_A);
+        REQUIRE(s.cycleAt(9 * 6) == CYCLE_A);
+        REQUIRE(s.cycleAt(9 * 9) == CYCLE_A);
+        REQUIRE(s.cycleAt(108) == CYCLE_B);
+        REQUIRE(s.cycleAt(108 + 168) == CYCLE_C);
+        REQUIRE(s.cycleAt(-123) == -1);
+        REQUIRE(s.cycleAt(234234234) == -1);
+    }
+
+    SECTION("periodAt")
+    {
+        Scheme s(2);
+        REQUIRE(s.lengthSec() == Approx(746.2));
+        REQUIRE(s.periodAt(0) == 0);
+        REQUIRE(s.periodAt(11) == 0);
+        REQUIRE(s.periodAt(12) == 1);
+        REQUIRE(s.periodAt(24) == 2);
+        REQUIRE(s.periodAt(108) == 0);
+        REQUIRE(s.periodAt(132) == 1);
+    }
+
+    SECTION("periodPhase")
+    {
+        Scheme s(2);
+        REQUIRE(s.lengthSec() == Approx(746.2));
+        REQUIRE(s.periodPhase(0) == 0);
+        REQUIRE(s.periodPhase(6) == 0.5);
+        REQUIRE(s.periodPhase(12) == 0);
+        REQUIRE(s.periodPhase(13.5) == 0.125);
+        REQUIRE(s.periodPhase(15) == 0.25);
+        REQUIRE(s.periodPhase(21) == 0.75);
+    }
 }

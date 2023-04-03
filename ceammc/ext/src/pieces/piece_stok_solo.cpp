@@ -369,6 +369,26 @@ public:
 
         BaseObject::dump();
     }
+
+    int currentCycle() const
+    {
+        if (events_.isValidCurrent())
+            return events_.currentPtr()->cycle();
+        else
+            return -1;
+    }
+
+    float currentTimeMs() const
+    {
+        auto total = scheme_.lengthSec() * 1000;
+        auto t = clock_gettimesince(start_time_);
+        return (t >= 0 && t <= total) ? t : 0;
+    }
+
+    float currentCyclePhase() const
+    {
+        return scheme_.cyclePhase(currentTimeMs());
+    }
 };
 
 void setup_piece_stok_solo()
