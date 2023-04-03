@@ -1,5 +1,5 @@
 {
-	"name": "fx_shimmer",
+	"name": "fx.shimmer",
 	"filename": "fx_shimmer.dsp",
 	"version": "2.53.1",
 	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_shimmer -scn fx_shimmer_dsp -es 1 -mcd 16 -single -ftz 0",
@@ -23,7 +23,7 @@
 		{ "filters.lib/allpass_comb:author": "Julius O. Smith III" },
 		{ "filters.lib/allpass_comb:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/allpass_comb:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
+		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -43,7 +43,7 @@
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
 		{ "maths.lib/version": "2.5" },
-		{ "name": "fx_shimmer" },
+		{ "name": "fx.shimmer" },
 		{ "oscillators.lib/name": "Faust Oscillator Library" },
 		{ "oscillators.lib/version": "0.3" },
 		{ "platform.lib/name": "Generic Platform Library" },
@@ -57,19 +57,19 @@
 	"ui": [ 
 		{
 			"type": "vgroup",
-			"label": "fx_shimmer",
+			"label": "fx.shimmer",
 			"items": [ 
 				{
 					"type": "checkbox",
 					"label": "bypass",
 					"shortname": "bypass",
-					"address": "/fx_shimmer/bypass"
+					"address": "/fx.shimmer/bypass"
 				},
 				{
 					"type": "hslider",
 					"label": "control",
 					"shortname": "control",
-					"address": "/fx_shimmer/control",
+					"address": "/fx.shimmer/control",
 					"init": 0.5,
 					"min": 0,
 					"max": 1,
@@ -79,7 +79,7 @@
 					"type": "hslider",
 					"label": "damp_hf",
 					"shortname": "damp_hf",
-					"address": "/fx_shimmer/damp_hf",
+					"address": "/fx.shimmer/damp_hf",
 					"meta": [
 						{ "unit": "Hz" }
 					],
@@ -92,7 +92,7 @@
 					"type": "hslider",
 					"label": "decay_low",
 					"shortname": "decay_low",
-					"address": "/fx_shimmer/decay_low",
+					"address": "/fx.shimmer/decay_low",
 					"meta": [
 						{ "unit": "sec" }
 					],
@@ -105,7 +105,7 @@
 					"type": "hslider",
 					"label": "decay_mid",
 					"shortname": "decay_mid",
-					"address": "/fx_shimmer/decay_mid",
+					"address": "/fx.shimmer/decay_mid",
 					"meta": [
 						{ "unit": "sec" }
 					],
@@ -118,7 +118,7 @@
 					"type": "hslider",
 					"label": "depth",
 					"shortname": "depth",
-					"address": "/fx_shimmer/depth",
+					"address": "/fx.shimmer/depth",
 					"init": 0,
 					"min": 0,
 					"max": 1,
@@ -128,7 +128,7 @@
 					"type": "hslider",
 					"label": "drywet",
 					"shortname": "drywet",
-					"address": "/fx_shimmer/drywet",
+					"address": "/fx.shimmer/drywet",
 					"meta": [
 						{ "style": "knob" }
 					],
@@ -141,7 +141,7 @@
 					"type": "hslider",
 					"label": "envelope",
 					"shortname": "envelope",
-					"address": "/fx_shimmer/envelope",
+					"address": "/fx.shimmer/envelope",
 					"meta": [
 						{ "unit": "sec" }
 					],
@@ -154,7 +154,7 @@
 					"type": "hslider",
 					"label": "freq_low",
 					"shortname": "freq_low",
-					"address": "/fx_shimmer/freq_low",
+					"address": "/fx.shimmer/freq_low",
 					"meta": [
 						{ "unit": "Hz" }
 					],
@@ -167,7 +167,7 @@
 					"type": "hslider",
 					"label": "mode",
 					"shortname": "mode",
-					"address": "/fx_shimmer/mode",
+					"address": "/fx.shimmer/mode",
 					"meta": [
 						{ "type": "int" }
 					],
@@ -180,7 +180,7 @@
 					"type": "hslider",
 					"label": "ps_drywet",
 					"shortname": "ps_drywet",
-					"address": "/fx_shimmer/ps_drywet",
+					"address": "/fx.shimmer/ps_drywet",
 					"init": 0.5,
 					"min": 0,
 					"max": 1,
@@ -190,7 +190,7 @@
 					"type": "hslider",
 					"label": "shift",
 					"shortname": "shift",
-					"address": "/fx_shimmer/shift",
+					"address": "/fx.shimmer/shift",
 					"meta": [
 						{ "unit": "semitone" }
 					],
@@ -203,7 +203,7 @@
 					"type": "hslider",
 					"label": "speed",
 					"shortname": "speed",
-					"address": "/fx_shimmer/speed",
+					"address": "/fx.shimmer/speed",
 					"meta": [
 						{ "unit": "Hz" }
 					],

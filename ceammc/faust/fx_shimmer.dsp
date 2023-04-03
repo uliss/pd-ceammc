@@ -1,4 +1,5 @@
 declare id "fx.shimmer";
+declare name "fx.shimmer";
 declare author "thedrgreenthumb";
 declare license "MIT";
 // MIT license

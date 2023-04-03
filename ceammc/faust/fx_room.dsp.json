@@ -1,5 +1,5 @@
 {
-	"name": "fx_room",
+	"name": "fx.room",
 	"filename": "fx_room.dsp",
 	"version": "2.53.1",
 	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_room -scn fx_room_dsp -es 1 -mcd 16 -single -ftz 0",
@@ -42,14 +42,13 @@
 		{ "filters.lib/tf2s:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/tf2s:license": "MIT-style STK-4.3 license" },
 		{ "filters.lib/version": "0.3" },
-		{ "id": "fx.room" },
 		{ "license": "MIT" },
 		{ "maths.lib/author": "GRAME" },
 		{ "maths.lib/copyright": "GRAME" },
 		{ "maths.lib/license": "LGPL with exception" },
 		{ "maths.lib/name": "Faust Math Library" },
 		{ "maths.lib/version": "2.5" },
-		{ "name": "fx_room" },
+		{ "name": "fx.room" },
 		{ "platform.lib/name": "Generic Platform Library" },
 		{ "platform.lib/version": "0.2" },
 		{ "routes.lib/name": "Faust Signal Routing Library" },
@@ -60,19 +59,19 @@
 	"ui": [ 
 		{
 			"type": "vgroup",
-			"label": "fx_room",
+			"label": "fx.room",
 			"items": [ 
 				{
 					"type": "checkbox",
 					"label": "bypass",
 					"shortname": "bypass",
-					"address": "/fx_room/bypass"
+					"address": "/fx.room/bypass"
 				},
 				{
 					"type": "hslider",
 					"label": "drywet",
 					"shortname": "drywet",
-					"address": "/fx_room/drywet",
+					"address": "/fx.room/drywet",
 					"meta": [
 						{ "style": "knob" }
 					],
@@ -85,7 +84,7 @@
 					"type": "hslider",
 					"label": "fb",
 					"shortname": "fb",
-					"address": "/fx_room/fb",
+					"address": "/fx.room/fb",
 					"init": 0.3,
 					"min": 0,
 					"max": 1,
@@ -95,7 +94,7 @@
 					"type": "hslider",
 					"label": "hfdamp",
 					"shortname": "hfdamp",
-					"address": "/fx_room/hfdamp",
+					"address": "/fx.room/hfdamp",
 					"init": 1,
 					"min": 0,
 					"max": 1,
@@ -105,7 +104,7 @@
 					"type": "hslider",
 					"label": "predelay",
 					"shortname": "predelay",
-					"address": "/fx_room/predelay",
+					"address": "/fx.room/predelay",
 					"meta": [
 						{ "unit": "ms" }
 					],
@@ -118,7 +117,7 @@
 					"type": "hslider",
 					"label": "size",
 					"shortname": "size",
-					"address": "/fx_room/size",
+					"address": "/fx.room/size",
 					"init": 1,
 					"min": 0,
 					"max": 3,

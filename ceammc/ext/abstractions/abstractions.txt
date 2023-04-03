@@ -21,8 +21,6 @@ gflt.notch~
 gflt.resonbp~
 gflt.resonhp~
 gflt.resonlp~
-gflt_fb_comb~
-gflt_ff_comb~
 gfx.bitdown~
 gfx.chorus~
 gfx.dattorro~
@@ -43,15 +41,15 @@ gfx.jcrev~
 gfx.overdrive~
 gfx.pitchshift~
 gfx.recho~
+gfx.room~
 gfx.satrev~
 gfx.sdelay~
 gfx.secho~
+gfx.shimmer~
 gfx.tapiir~
 gfx.vocoder~
 gfx.wahwah~
 gfx.zita_rev1~
-gfx_room~
-gfx_shimmer~
 gnoise.chua~
 gnoise.colored~
 gnoise.crackle~

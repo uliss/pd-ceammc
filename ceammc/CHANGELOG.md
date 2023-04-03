@@ -48,6 +48,7 @@
 ### Changes:
 - array.risset_rythm~ renamed to array.risset_rhythm~
 - euclid() init function third arg added: rotation to the right
+- fixing ui abtractions: gfx.room~ and gfx.shimmer~
 
 ## [0.9.6]
 ### Added:

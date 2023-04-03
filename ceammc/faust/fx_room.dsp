@@ -1,4 +1,4 @@
-declare id "fx.room";
+declare name "fx.room";
 declare author "thedrgreenthumb";
 declare license "MIT";
 
