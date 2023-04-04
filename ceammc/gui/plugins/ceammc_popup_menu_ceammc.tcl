@@ -26,18 +26,18 @@
         conv.dbfs2amp conv.dbfs2amp~ conv.degree2key conv.edge2bang
         conv.hex2int conv.int2bits conv.lin2curve conv.lin2exp conv.lin2lin
         conv.lin2lin~ conv.list2props conv.midi2freq conv.ms2bpm conv.ms2samp
-        conv.ms2samp~ conv.note2guido conv.phase2rad conv.phase2rad~
-        conv.pitch2midi conv.pol2car conv.rad2phase conv.rad2phase~
-        conv.rgb2hex conv.samp2ms conv.samp2ms~ conv.samp2sec conv.sec2bpm
-        conv.sec2samp conv.sec2str conv.sig2float~ conv.str2sec music.dur2time
-        music.voice2midi
+        conv.ms2samp~ conv.ms2str conv.note2guido conv.phase2rad
+        conv.phase2rad~ conv.pitch2midi conv.pol2car conv.rad2phase
+        conv.rad2phase~ conv.rgb2hex conv.samp2ms conv.samp2ms~ conv.samp2sec
+        conv.sec2bpm conv.sec2samp conv.sec2str conv.sig2float~ conv.str2sec
+        music.dur2time music.voice2midi
     }}
     {data {
-        data.copy data.dict data.fifo data.float data.int data.list data.mlist
-        data.set data.set2list dict.contains dict.each dict.from_list dict.get
-        dict.keys dict.pass dict.reject dict.size dict.to_list dict.values
-        mlist.flatten rtree.to_list set.contains set.diff set.equal
-        set.intersect set.size set.symdiff set.union
+        data.color data.copy data.dict data.fifo data.float data.int data.list
+        data.mlist data.set data.set2list dict.contains dict.each
+        dict.from_list dict.get dict.keys dict.pass dict.reject dict.size
+        dict.to_list dict.values mlist.flatten rtree.to_list set.contains
+        set.diff set.equal set.intersect set.size set.symdiff set.union
     }}
     {dyn {
         dyn.comp2~ dyn.comp~ dyn.gate2~ dyn.gate~ dyn.limit2~ dyn.limit~
@@ -187,9 +187,9 @@
         prop.set prop.split
     }}
     {proto {
-        proto.feelworld proto.firmata proto.inscore proto.midi proto.midi.cc
-        proto.midi.sysex proto.moppy proto.morse proto.mpv proto.sp.alpaca
-        proto.vlc proto.whammy proto.xtouch_ext
+        proto.feelworld proto.firmata proto.inscore proto.ltc.in~ proto.midi
+        proto.midi.cc proto.midi.sysex proto.moppy proto.morse proto.mpv
+        proto.sp.alpaca proto.vlc proto.whammy proto.xtouch_ext
     }}
     {random {
         random.atom random.discrete random.float random.gauss random.int
@@ -241,7 +241,7 @@
     {ui {
         ui.aview ui.bang ui.button ui.colorpanel ui.display ui.dsp~ ui.env
         ui.filter ui.filter~ ui.gain2~ ui.gain~ ui.icon ui.incdec ui.keyboard
-        ui.knob ui.label ui.link ui.matrix ui.menu ui.meter~ ui.midi
+        ui.knob ui.label ui.lcd ui.link ui.matrix ui.menu ui.meter~ ui.midi
         ui.mouse_filter ui.mouse_route ui.number ui.number~ ui.plot~ ui.polar
         ui.preset ui.radio ui.rslider ui.scope~ ui.slider ui.slider2d
         ui.sliders ui.spectroscope~ ui.tab ui.toggle

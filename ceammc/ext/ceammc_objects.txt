@@ -198,6 +198,7 @@ ceammc/modplug~
 ceammc/ms->bpm
 ceammc/ms->samp
 ceammc/ms->samp~
+ceammc/ms->str
 ceammc/msg
 ceammc/mux2~
 ceammc/mux~
@@ -319,6 +320,7 @@ conv.midi2freq
 conv.ms2bpm
 conv.ms2samp
 conv.ms2samp~
+conv.ms2str
 conv.note2guido
 conv.phase2rad
 conv.phase2rad~
@@ -521,6 +523,7 @@ fx.pitchshift_s~
 fx.pitchshift~
 fx.rb_pitchshift~
 fx.recho~
+fx.ringmod~
 fx.room~
 fx.satrev~
 fx.sdelay~
@@ -528,6 +531,7 @@ fx.secho~
 fx.shimmer~
 fx.stutter~
 fx.tapiir~
+fx.tremolo~
 fx.vocoder~
 fx.wahwah~
 fx.zita_rev1~
@@ -880,6 +884,7 @@ modplug~
 ms->bpm
 ms->samp
 ms->samp~
+ms->str
 msg
 msg.after
 msg.onload
@@ -974,6 +979,7 @@ path.split
 phase->rad
 phase->rad~
 pi
+piece.stok_solo~
 pitch->midi
 pi~
 plot.geomspace~
