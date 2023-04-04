@@ -10,7 +10,7 @@ scheme = _,_ : input : output with {
     LOW_CUT = 100;
     HIGH_CUT = 10000;
     fb_filter = fi.lowpass(3, HIGH_CUT) : fi.highpass(3, LOW_CUT);
-    fb_gate = ef.gate_mono(hslider("threshhold[unit:db]", -40, -60, 0, 0.01), 0.0001, 0.200, 0.100);
+    fb_gate = ef.gate_mono(hslider("threshold[unit:db]", -40, -60, 0, 0.01), 0.0001, 0.200, 0.100);
     fb_compress = co.limiter_1176_R4_mono;
     fb_post_chain = fb_gate : fb_filter : fb_compress;
 
