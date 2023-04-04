@@ -10,6 +10,7 @@
   - conv.char2morse - single character to morse code converter
   - conv.color2rgba - color converter added from named or hex colors to separate RGBA values
   - conv.rgb2hex - convert RGB separate values to #RRGGBB symbol
+  - conv.ms2str - convert time in milliseconds to formatted string or symbol
   - data.color - Color datatype
   - fx.overdrive~ - overdrive effect
   - fx.tremolo~ - tremolo effect from guitarix library

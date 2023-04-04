@@ -75,6 +75,7 @@ set(DOC_FILES
     conv.ms2bpm
     conv.ms2samp
     conv.ms2samp~
+    conv.ms2str
     conv.note2guido
     conv.phase2rad
     conv.phase2rad~

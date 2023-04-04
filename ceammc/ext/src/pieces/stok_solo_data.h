@@ -75,13 +75,15 @@ enum SoloCycle : std::uint8_t {
 };
 
 struct PositionInfo {
+    double phase;
     int cycle;
     double cycle_phase;
     int cycle_period;
     double period_phase;
     bool operator==(const PositionInfo& pi) const
     {
-        return cycle == pi.cycle
+        return phase == pi.phase
+            && cycle == pi.cycle
             && cycle_phase == pi.cycle_phase
             && cycle_period == pi.cycle_period
             && period_phase == pi.period_phase;
@@ -644,8 +646,9 @@ struct Scheme {
     PositionInfo atTime(double timeSec) const
     {
         if (timeSec < 0)
-            return { 0, 0, 0, 0 };
+            return { 0, 0, 0, 0, 0 };
 
+        auto global_phase = timeSec / lengthSec();
         double tm = 0;
         int cidx = 0;
         for (auto& ci : cycles_) {
@@ -654,17 +657,17 @@ struct Scheme {
                 if (cidx >= CYCLE_COUNT)
                     return { 0, 0, 0, 0 };
 
-                auto time_from_cycle = (timeSec - (tm - ci.cycleLength()));
-                auto cycle_phase = time_from_cycle / ci.cycleLength();
-                int period = std::floor(time_from_cycle / ci.periodLength());
-                auto period_phase = std::fmod(time_from_cycle, ci.periodLength()) / ci.periodLength();
+                const auto time_from_cycle = (timeSec - (tm - ci.cycleLength()));
+                const auto cycle_phase = time_from_cycle / ci.cycleLength();
+                const int period = std::floor(time_from_cycle / ci.periodLength());
+                const auto period_phase = std::fmod(time_from_cycle, ci.periodLength()) / ci.periodLength();
 
-                return { cidx, time_from_cycle, period, period_phase };
+                return { global_phase, cidx, cycle_phase, period, period_phase };
             } else
                 ++cidx;
         }
 
-        return { 0, 0, 0, 0 };
+        return { 0, 0, 0, 0, 0 };
     }
 
 private:

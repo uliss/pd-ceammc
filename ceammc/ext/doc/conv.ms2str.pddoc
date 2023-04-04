@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.ms2str">
+        <title>conv.ms2str</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>converts float time in milliseconds to formated symbol (or
+            string)</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv time</keywords>
+            <also>
+                <see>conv.sec2str</see>
+            </also>
+            <since>0.9.7</since>
+            <aliases>
+                <alias>ceammc/ms-&gt;str</alias>
+                <alias>ms-&gt;str</alias>
+            </aliases>
+        </meta>
+        <properties>
+            <property name="@ms" type="flag" default="0" access="initonly">output
+            milliseconds</property>
+            <property name="@symbol" type="flag" default="0" access="initonly">if specified -
+            output formatted time as symbol, otherwise as string.</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">converts float value in milliseconds to formatted symbol</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>time in format "HH:MM::SS" or "HH:MM:SS.XXX"</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[metro 200]
+|
+[f] X [+ 200]
+|
+[ms->str @symbol]
+|
+[S digits=12]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

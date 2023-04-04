@@ -81,11 +81,10 @@ public:
         syncScheme();
 
         createCbFloatProperty("@total_length", [this]() -> t_float { return scheme_.lengthSec(); });
-        createCbFloatProperty("@time", [this]() -> t_float {
-            auto t = clock_gettimesince(start_time_);
-            auto res = t / (scheme_.lengthSec() * 1000);
-            OBJ_DBG << res;
-            return (is_running_ && res >= 0 && res <= 1) ? res : 0;
+        createCbFloatProperty("@time", [this]() -> t_float { return currentTimeMs(); });
+        createCbListProperty("@info", [this]() -> AtomList {
+            auto info = scheme_.atTime(currentTimeMs() * 0.001);
+            return AtomList(info.phase, info.cycle, info.cycle_phase, info.cycle_period, info.period_phase);
         });
 
         createOutlet();
@@ -370,24 +369,11 @@ public:
         BaseObject::dump();
     }
 
-    int currentCycle() const
-    {
-        if (events_.isValidCurrent())
-            return events_.currentPtr()->cycle();
-        else
-            return -1;
-    }
-
     float currentTimeMs() const
     {
         auto total = scheme_.lengthSec() * 1000;
         auto t = clock_gettimesince(start_time_);
-        return (t >= 0 && t <= total) ? t : 0;
-    }
-
-    float currentCyclePhase() const
-    {
-        return scheme_.cyclePhase(currentTimeMs());
+        return (is_running_ && t >= 0 && t <= total) ? t : 0;
     }
 };
 

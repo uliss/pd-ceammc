@@ -393,8 +393,8 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
     {
         Scheme s(2);
         REQUIRE(s.lengthSec() == Approx(746.2));
-        REQUIRE(s.atTime(0) == PositionInfo { CYCLE_A, 0, 0, 0 });
-        REQUIRE(s.atTime(108) == PositionInfo { CYCLE_B, 0, 0, 0 });
-        REQUIRE(s.atTime(108 + 168) == PositionInfo { CYCLE_C, 0, 0, 0 });
+        REQUIRE(s.atTime(0) == PositionInfo { 0, CYCLE_A, 0, 0, 0 });
+        REQUIRE(s.atTime(108).cycle == CYCLE_B);
+        REQUIRE(s.atTime(108 + 168).cycle == CYCLE_C);
     }
 }
