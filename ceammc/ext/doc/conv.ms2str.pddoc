@@ -44,7 +44,7 @@
 |
 [f] X [+ 200]
 |
-[ms->str @symbol]
+[ms->str @symbol @ms]
 |
 [S digits=12]
 ]]>

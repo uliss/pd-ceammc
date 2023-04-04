@@ -12,7 +12,7 @@
 #X obj 50 147 metro 200;
 #X obj 50 176 f;
 #X obj 107 176 + 200;
-#X obj 50 205 ms->str @symbol;
+#X obj 50 205 ms->str @symbol @ms;
 #X symbolatom 50 234 12 0 0 0 - - -;
 #X obj 20 283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 288 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
@@ -69,5 +69,7 @@ https://github.com/uliss/pure-data;
 #X restore 10 527 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
+#X connect 8 0 10 0;
+#X connect 10 0 11 0;
 #X connect 8 0 9 0;
 #X connect 9 0 8 1;
