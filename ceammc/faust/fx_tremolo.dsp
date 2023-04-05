@@ -4,16 +4,16 @@ import("stdfaust.lib");
 cm = library("ceammc.lib");
 ui = library("ceammc_ui.lib");
 
-process =  _ : cm.fx_wrap_mono(ui.bypass, ui.drywet(0.5), fx) : _
+process =  _ : cm.fx_wrap_mono(ui.bypass, ui.drywet(0.75), fx) : _
 with {
-    freq = hslider("freq[unit:Hz]", 5, 0.1, 50, 0.1);
-    depth = hslider("depth", 0.5, 0, 1, 0.01);
+    freq = hslider("freq [unit:Hz]", 5, 0.1, 50, 0.1);
+    depth = hslider("depth", 1, 0, 1, 0.01);
     fx = *(tremolo(freq, depth));
 
     /* tremolo unit, using triangle or sine oscillator as lfo */
     tremolo(freq, depth) = lfo * depth + 1 - depth : vactrol with {
         sine(freq) = (os.oscs(freq) + 1) / 2 : max(0); // max(0) because of numerical inaccuracy
-        src = nentry("src", 0, 0, 2, 1);
+        src = nentry("src [type:int]", 0, 0, 2, 1) : int;
         lfo = select3(src, trianglewave(freq), sine(freq), os.lf_squarewavepos(freq));
     };
 

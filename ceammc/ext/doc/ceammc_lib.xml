@@ -879,6 +879,9 @@
     <entry name="fx.tapiir~" descr="multi-tap delay" ref_view="object">
       <xi:include href="fx.tapiir~.pddoc" parse="xml"/>
     </entry>
+    <entry name="fx.tremolo~" descr="tremolo effect from guitarix project" ref_view="object">
+      <xi:include href="fx.tremolo~.pddoc" parse="xml"/>
+    </entry>
     <entry name="fx.vocoder~" descr="very simple vocoder where the spectrum of the modulation signal is analyzed using a 32-band filter bank" ref_view="object">
       <xi:include href="fx.vocoder~.pddoc" parse="xml"/>
     </entry>

@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.tremolo~">
+        <title>fx.tremolo~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>tremolo effect from guitarix project</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx tremolo</keywords>
+            <since>0.9.7</since>
+        </meta>
+        <arguments>
+            <argument name="FREQ" type="float" minvalue="0.1" maxvalue="50" units="hertz">
+            tremolo frequency</argument>
+            <argument name="DEPTH" type="float" minvalue="0" maxvalue="1">effect depth</argument>
+        </arguments>
+        <methods>
+            <method name="reset">reset to initial state</method>
+        </methods>
+        <properties>
+            <property name="@freq" type="float" minvalue="0.1" maxvalue="50" units="hertz"
+            default="5">tremolo frequency</property>
+            <property name="@depth" type="float" minvalue="0" maxvalue="1" default="1">
+            effect depth</property>
+            <property name="@src" type="int" minvalue="0" maxvalue="2" default="0">
+            modulation source: 0 (triangle), 1 (sin) or 2 (square)</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.75">proportion
+            of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
+            wet</property>
+            <property name="@bypass" type="bool" default="0">if set to 1 - bypass 'effected'
+            signal</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set frequency (Hz)</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %CEAMMC%/guitar1.wav, 1(
+|
+[expand_env] [ui.hsl #a]  [ui.hsl #b]   [ui.tab #c]
+|            |            |             |
+[readsf~]    [@freq $1(   [@depth $1(   [@src $1(
+|            |            |             |
+|            |            |             |
+|            |            |             |
+[fx.tremolo~                            ]
+|
+[ui.gain~ @size 120 16]  [ui.dsp~]
+|\
+[dac~]
+#a 0.5 10 @show_value 1
+#b @show_value 1
+#c tri osc square @size 140 15
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

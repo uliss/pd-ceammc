@@ -526,6 +526,7 @@ fx.secho~	enchanced echo effect that does not click on delay change
 fx.shimmer~	shimmer reverb effect effect
 fx.stutter~	stutter effect
 fx.tapiir~	multi-tap delay
+fx.tremolo~	tremolo effect from guitarix project
 fx.vocoder~	very simple vocoder where the spectrum of the modulation signal is analyzed using a 32-band filter bank
 fx.wahwah~	digitized CryBaby wah pedal
 fx.zita_rev1~	Zita stereo reverb

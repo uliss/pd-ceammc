@@ -718,8 +718,8 @@ class fx_tremolo : public fx_tremolo_dsp {
 	
 	virtual void instanceResetUserInterface() {
 		fCheckbox0 = FAUSTFLOAT(0.0f);
-		fHslider0 = FAUSTFLOAT(0.5f);
-		fHslider1 = FAUSTFLOAT(0.5f);
+		fHslider0 = FAUSTFLOAT(0.75f);
+		fHslider1 = FAUSTFLOAT(1.0f);
 		fEntry0 = FAUSTFLOAT(0.0f);
 		fHslider2 = FAUSTFLOAT(5.0f);
 	}
@@ -775,11 +775,12 @@ class fx_tremolo : public fx_tremolo_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("fx.tremolo");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
-		ui_interface->addHorizontalSlider("depth", &fHslider1, FAUSTFLOAT(0.5f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("depth", &fHslider1, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
 		ui_interface->declare(&fHslider0, "style", "knob");
-		ui_interface->addHorizontalSlider("drywet", &fHslider0, FAUSTFLOAT(0.5f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("drywet", &fHslider0, FAUSTFLOAT(0.75f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
 		ui_interface->declare(&fHslider2, "unit", "Hz");
 		ui_interface->addHorizontalSlider("freq", &fHslider2, FAUSTFLOAT(5.0f), FAUSTFLOAT(0.1f), FAUSTFLOAT(5e+01f), FAUSTFLOAT(0.1f));
+		ui_interface->declare(&fEntry0, "type", "int");
 		ui_interface->addNumEntry("src", &fEntry0, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(2.0f), FAUSTFLOAT(1.0f));
 		ui_interface->closeBox();
 	}
@@ -790,9 +791,9 @@ class fx_tremolo : public fx_tremolo_dsp {
 		int iSlow0 = int(float(fCheckbox0));
 		float fSlow1 = fConst1 * float(fHslider0);
 		float fSlow2 = float(fHslider1);
-		float fSlow3 = float(fEntry0);
-		int iSlow4 = fSlow3 == 0.0f;
-		int iSlow5 = fSlow3 == 1.0f;
+		int iSlow3 = int(float(fEntry0));
+		int iSlow4 = iSlow3 == 0;
+		int iSlow5 = iSlow3 == 1;
 		float fSlow6 = float(fHslider2);
 		float fSlow7 = fConst3 * fSlow6;
 		float fSlow8 = fConst4 * fSlow6;

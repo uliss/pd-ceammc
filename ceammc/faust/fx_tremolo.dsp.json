@@ -48,7 +48,7 @@
 					"label": "depth",
 					"shortname": "depth",
 					"address": "/fx.tremolo/depth",
-					"init": 0.5,
+					"init": 1,
 					"min": 0,
 					"max": 1,
 					"step": 0.01
@@ -61,7 +61,7 @@
 					"meta": [
 						{ "style": "knob" }
 					],
-					"init": 0.5,
+					"init": 0.75,
 					"min": 0,
 					"max": 1,
 					"step": 0.01
@@ -84,6 +84,9 @@
 					"label": "src",
 					"shortname": "src",
 					"address": "/fx.tremolo/src",
+					"meta": [
+						{ "type": "int" }
+					],
 					"init": 0,
 					"min": 0,
 					"max": 2,

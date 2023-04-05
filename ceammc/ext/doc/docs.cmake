@@ -250,6 +250,7 @@ set(DOC_FILES
     fx.shimmer~
     fx.stutter~
     fx.tapiir~
+    fx.tremolo~
     fx.vocoder~
     fx.wahwah~
     fx.zita_rev1~
