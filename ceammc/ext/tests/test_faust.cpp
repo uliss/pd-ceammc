@@ -294,7 +294,7 @@ TEST_CASE("Faust", "[ceammc::faust]")
 
     SECTION("UIProperty")
     {
-        SECTION("asd")
+        SECTION("setList ops")
         {
             FAUSTFLOAT v = 0;
             UIElement e(UI_BUTTON, "/ui/test", "test");
@@ -323,5 +323,19 @@ TEST_CASE("Faust", "[ceammc::faust]")
             REQUIRE(p.setList(LA("random")));
             REQUIRE(v != 0.5);
         }
+    }
+
+    SECTION("to_units")
+    {
+        REQUIRE(to_units("db") == PropValueUnits::DB);
+        REQUIRE(to_units("dbfs") == PropValueUnits::DB);
+        REQUIRE(to_units("sec") == PropValueUnits::SEC);
+        REQUIRE(to_units("ms") == PropValueUnits::MSEC);
+        REQUIRE(to_units("msec") == PropValueUnits::MSEC);
+        REQUIRE(to_units("Hz") == PropValueUnits::HZ);
+        REQUIRE(to_units("hz") == PropValueUnits::HZ);
+        REQUIRE(to_units("samp") == PropValueUnits::SAMP);
+        REQUIRE(to_units("%") == PropValueUnits::PERCENT);
+        REQUIRE(to_units("perc") == PropValueUnits::PERCENT);
     }
 }

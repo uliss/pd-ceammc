@@ -21,6 +21,7 @@
 #include "ceammc_output.h"
 #include "ceammc_random.h"
 #include "fmt/core.h"
+#include "lex/parser_units.h"
 
 namespace ceammc {
 namespace faust {
@@ -515,22 +516,36 @@ namespace faust {
 
     PropValueUnits to_units(const char* u)
     {
-        static std::pair<const char*, PropValueUnits> umap[] = {
-            { "Hz", PropValueUnits::HZ },
-            { "ms", PropValueUnits::MSEC },
-            { "sec", PropValueUnits::SEC },
-            { "percent", PropValueUnits::PERCENT },
-            { "db", PropValueUnits::DB },
-            { "bpm", PropValueUnits::BPM },
-            { "semitone", PropValueUnits::SEMITONE },
-        };
+        parser::UnitTypeFullMatch p;
+        if (!p.parse(u))
+            return PropValueUnits::NONE;
 
-        for (auto& p : umap) {
-            if (strcmp(u, p.first) == 0)
-                return p.second;
+        switch (p.type()) {
+        case parser::TYPE_HZ:
+            return PropValueUnits::HZ;
+        case parser::TYPE_MSEC:
+            return PropValueUnits::MSEC;
+        case parser::TYPE_SEC:
+            return PropValueUnits::SEC;
+        case parser::TYPE_SAMP:
+            return PropValueUnits::SAMP;
+        case parser::TYPE_PERCENT:
+            return PropValueUnits::PERCENT;
+        case parser::TYPE_DB:
+            return PropValueUnits::DB;
+        case parser::TYPE_RADIAN:
+            return PropValueUnits::RAD;
+        case parser::TYPE_DEGREE:
+            return PropValueUnits::DEG;
+        case parser::TYPE_CENT:
+            return PropValueUnits::CENT;
+        case parser::TYPE_SEMITONE:
+            return PropValueUnits::SEMITONE;
+        case parser::TYPE_BPM:
+            return PropValueUnits::BPM;
+        default:
+            return PropValueUnits::NONE;
         }
-
-        return PropValueUnits::NONE;
     }
 
     void copy_samples(size_t n_ch, size_t bs, const t_sample** in, t_sample** out, bool zero_abnormals)
@@ -555,6 +570,5 @@ namespace faust {
             }
         }
     }
-
 }
 }
