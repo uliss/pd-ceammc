@@ -17,11 +17,11 @@
             <par>Only basic support at this moment</par>
         </info>
         <arguments>
-            <argument name="ID" type="symbol">Motu device id</argument>
+            <argument name="DEV" type="symbol">Motu device id</argument>
         </arguments>
         <properties>
             <property name="@host" type="symbol" default="localhost">Motu HTTP host</property>
-            <property name="@port" type="int" default="1280" minvalue="1" maxvalue="1200">Motu HTTP
+            <property name="@port" type="int" default="1280">Motu HTTP
             port</property>
             <property name="@dev" type="symbol" default="">Motu device id</property>
         </properties>
