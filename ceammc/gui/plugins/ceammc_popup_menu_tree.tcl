@@ -109,7 +109,8 @@
         fx.granulator~ fx.greyhole~ fx.infrev~ fx.jcrev~ fx.looper~
         fx.overdrive~ fx.pitchshift_s~ fx.pitchshift~ fx.rb_pitchshift~
         fx.recho~ fx.room~ fx.satrev~ fx.sdelay~ fx.secho~ fx.shimmer~
-        fx.stutter~ fx.tapiir~ fx.vocoder~ fx.wahwah~ fx.zita_rev1~
+        fx.stutter~ fx.tapiir~ fx.tremolo~ fx.vocoder~ fx.wahwah~
+        fx.zita_rev1~
     }}
     {global {
         global.dict global.float global.int global.list global.mlist
