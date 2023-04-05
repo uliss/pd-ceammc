@@ -28,11 +28,11 @@ scheme = _,_ : input : output with {
     in1_gain = checkbox("in1") : smoo;
     in2_gain = checkbox("in2") : smoo;
 
-    in1 = _ : *(in1_gain) <: par(i, 6, partN(i) * (checkbox("cycle%i") : si.smoo)) :> _;
-    in2 = _ : *(in2_gain) <: par(i, 6, partN(i) * (checkbox("cycle%i") : si.smoo)) :> _;
+    in1 = _ <: par(i, 6, partN(i) * (checkbox("cycle%i") : si.smoo)) :> _;
+    in2 = _ <: par(i, 6, partN(i) * (checkbox("cycle%i") : si.smoo)) :> _;
     partN(i) = de.fdelay(maxDelay, ba.sec2samp(hslider("delay%i[unit:sec]", 0, 0, maxDelay-1, 1)));
 
-    input(x0, x1) = (in1 ~+(x0, fb1_fx)), (in2 ~+(x1, fb2_fx));
+    input(x0, x1) = (in1 ~+((x0*in1_gain), fb1_fx)), (in2 ~+((x1*in2_gain), fb2_fx));
 };
 
 process = scheme;

@@ -1151,7 +1151,7 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 			float fTemp7 = ((fTemp6 > fRec12[1]) ? fConst29 : fConst28);
 			fRec12[0] = fTemp6 * (1.0f - fTemp7) + fRec12[1] * fTemp7;
 			fRec11[0] = fConst27 * (0.0f - 0.75f * std::max<float>(2e+01f * std::log10(std::max<float>(1.1754944e-38f, fRec12[0])) + 6.0f, 0.0f)) + fConst26 * fRec11[1];
-			float fTemp8 = fRec2[0] * (float(input0[i0]) + fConst5 * fTemp5 * std::pow(1e+01f, 0.05f * fRec11[0]));
+			float fTemp8 = float(input0[i0]) * fRec2[0] + fConst5 * fTemp5 * std::pow(1e+01f, 0.05f * fRec11[0]);
 			fVec3[IOTA0 & 8388607] = fTemp8;
 			fRec13[0] = fSlow14 + fConst2 * fRec13[1];
 			fRec14[0] = fSlow22 + fConst2 * fRec14[1];
@@ -1172,7 +1172,7 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 			fRec28[0] = fTemp11 * (1.0f - fTemp12) + fRec28[1] * fTemp12;
 			float fTemp13 = fSlow7 * fRec27[0] * fRec28[0] * fRec21[1];
 			fVec5[0] = fTemp13;
-			fRec26[0] = fConst13 * (fTemp13 + fVec5[1] - fConst14 * fRec26[1]);
+			fRec26[0] = 0.0f - fConst13 * (fConst14 * fRec26[1] - (fTemp13 + fVec5[1]));
 			fRec25[0] = fRec26[0] - fConst10 * (fConst19 * fRec25[2] + fConst20 * fRec25[1]);
 			float fTemp14 = fRec25[2] + fRec25[0] + 2.0f * fRec25[1];
 			fVec6[0] = fTemp14;
@@ -1183,7 +1183,7 @@ class piece_stok_solo : public piece_stok_solo_dsp {
 			float fTemp17 = ((fTemp16 > fRec32[1]) ? fConst29 : fConst28);
 			fRec32[0] = fTemp16 * (1.0f - fTemp17) + fRec32[1] * fTemp17;
 			fRec31[0] = fConst27 * (0.0f - 0.75f * std::max<float>(2e+01f * std::log10(std::max<float>(1.1754944e-38f, fRec32[0])) + 6.0f, 0.0f)) + fConst26 * fRec31[1];
-			float fTemp18 = fRec22[0] * (float(input1[i0]) + fConst5 * fTemp15 * std::pow(1e+01f, 0.05f * fRec31[0]));
+			float fTemp18 = float(input1[i0]) * fRec22[0] + fConst5 * fTemp15 * std::pow(1e+01f, 0.05f * fRec31[0]);
 			fVec7[IOTA0 & 8388607] = fTemp18;
 			fRec21[0] = fRec1[0] * (fSlow3 * fVec7[(IOTA0 - iSlow11) & 8388607] + fSlow12 * fVec7[(IOTA0 - iSlow13) & 8388607]) + fRec13[0] * (fSlow17 * fVec7[(IOTA0 - iSlow19) & 8388607] + fSlow20 * fVec7[(IOTA0 - iSlow21) & 8388607]) + fRec14[0] * (fSlow25 * fVec7[(IOTA0 - iSlow27) & 8388607] + fSlow28 * fVec7[(IOTA0 - iSlow29) & 8388607]) + fRec15[0] * (fSlow33 * fVec7[(IOTA0 - iSlow35) & 8388607] + fSlow36 * fVec7[(IOTA0 - iSlow37) & 8388607]) + fRec16[0] * (fSlow41 * fVec7[(IOTA0 - iSlow43) & 8388607] + fSlow44 * fVec7[(IOTA0 - iSlow45) & 8388607]) + fRec17[0] * (fSlow49 * fVec7[(IOTA0 - iSlow51) & 8388607] + fSlow52 * fVec7[(IOTA0 - iSlow53) & 8388607]);
 			fRec33[0] = fSlow57 + fSlow4 * fRec33[1];
