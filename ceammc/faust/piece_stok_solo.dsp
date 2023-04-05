@@ -14,11 +14,12 @@ scheme = _,_ : input : output with {
     fb_compress = co.limiter_1176_R4_mono;
     fb_post_chain = fb_gate : fb_filter : fb_compress;
 
+    fb_amp = hslider("fb.amp", 0.999, 0, 1, 0.0001);
 
     fb1_gain = hslider("fb1.gain", 0, 0, 1, 0.0001) : smoo;
     fb2_gain = hslider("fb2.gain", 0, 0, 1, 0.0001) : smoo;
-    fb1_fx(in) = in : *(fb1_gain) : fb_post_chain;
-    fb2_fx(in) = in : *(fb2_gain) : fb_post_chain;
+    fb1_fx(in) = in : *(fb1_gain) : *(fb_amp) : fb_post_chain;
+    fb2_fx(in) = in : *(fb2_gain) : *(fb_amp) : fb_post_chain;
 
     out1_gain = hslider("out1.gain", 0, 0, 1, 0.0001) : smoo;
     out2_gain = hslider("out2.gain", 0, 0, 1, 0.0001) : smoo;
