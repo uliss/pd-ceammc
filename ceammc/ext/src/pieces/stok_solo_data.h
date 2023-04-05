@@ -501,12 +501,12 @@ struct Scheme {
             { 0, 2, 0, 0, 0, 3, 0, 0 });
 
         addTrackEvents(TRACK_OUT1,
-            { 0, 0, 1, 1, 0, 1, 1, 0, 1 },
-            { C, 1, 0, 1, 0, 1, 0 },
-            { E, 1, 1, 1, 1, 1, 1, 0, 1, 1, 1 },
-            { 0, 0, 1, 1, 0, 1, 1, 0, 1, 1 },
-            { E, 1, 1, 1, 1, 1 },
-            { B, B, B, 1, 1, 0, 0, 1 });
+            { 0, 0, E, E, 0, E, E, 0, E },
+            { C, E, 0, E, 0, E, 0 },
+            { E, E, E, E, E, E, E, 0, E, E, E },
+            { 0, 0, E, E, 0, E, E, 0, E, E },
+            { E, E, E, E, E, E },
+            { B, B, B, E, E, 0, 0, E });
 
         periodAt(TRACK_OUT1, CYCLE_B, 0)->setRelOffset(0.5, 0.5);
         periodAt(TRACK_OUT1, CYCLE_C, 0)->setRelOffset(0.25, 0.25);
@@ -516,12 +516,12 @@ struct Scheme {
         periodAt(TRACK_OUT1, CYCLE_F, 2)->setPerf(3);
 
         addTrackEvents(TRACK_OUT2,
-            { 0, 1, 1, 0, 1, 1, 0, 1, 1 },
-            { C, 0, 1, 0, 1, 0, 1 },
-            { E, 0, 1, 1, 1, 1, 0, 1, 0, 1, 1 },
-            { 0, 1, 1, 0, 1, 0, 1, 1, 0, 1 },
-            { E, 0, 1, 0, 0, 1 },
-            { 0, 1, 1, 0, 0, 1, 1, 0 });
+            { 0, E, E, 0, E, E, 0, E, E },
+            { C, 0, E, 0, E, 0, E },
+            { E, 0, E, E, E, E, 0, E, 0, E, E },
+            { 0, E, E, 0, E, 0, E, E, 0, E },
+            { E, 0, E, 0, 0, E },
+            { 2, E, E, 0, 0, E, E, 0 });
 
         periodAt(TRACK_OUT2, CYCLE_B, 0)->setRelOffset(0.5, 0.5);
         periodAt(TRACK_OUT2, CYCLE_C, 0)->setRelOffset(0.5, 0.25);
