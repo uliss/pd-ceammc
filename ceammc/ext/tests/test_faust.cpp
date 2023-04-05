@@ -291,4 +291,37 @@ TEST_CASE("Faust", "[ceammc::faust]")
             REQUIRE(a.uiValues() == vals1);
         }
     }
+
+    SECTION("UIProperty")
+    {
+        SECTION("asd")
+        {
+            FAUSTFLOAT v = 0;
+            UIElement e(UI_BUTTON, "/ui/test", "test");
+            e.setValuePtr(&v);
+            UIProperty p(&e);
+
+            REQUIRE_FALSE(p.setList({}));
+            REQUIRE(p.setList(LF(1)));
+            REQUIRE(v == 1);
+            REQUIRE(p.value() == 1);
+            REQUIRE(p.setList(LF(0.5)));
+            REQUIRE(v == 0.5);
+            REQUIRE(p.setList(LA("+", 0.5)));
+            REQUIRE(v == 1);
+            REQUIRE(p.setList(LA("-", 0.25)));
+            REQUIRE(v == 0.75);
+            REQUIRE(p.setList(LA("/", 3)));
+            REQUIRE(v == 0.25);
+            REQUIRE_FALSE(p.setList(LA("/", 0.)));
+            REQUIRE(v == 0.25);
+            REQUIRE(p.setList(LA("*", 2)));
+            REQUIRE(v == 0.5);
+            REQUIRE_FALSE(p.setList(LA("?", 2)));
+            REQUIRE_FALSE(p.setList(LA("+")));
+
+            REQUIRE(p.setList(LA("random")));
+            REQUIRE(v != 0.5);
+        }
+    }
 }

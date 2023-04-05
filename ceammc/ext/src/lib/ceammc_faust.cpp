@@ -17,35 +17,30 @@
 
 #include "ceammc_containers.h"
 #include "ceammc_faust.h"
+#include "ceammc_format.h"
 #include "ceammc_output.h"
+#include "ceammc_random.h"
+#include "fmt/core.h"
 
 namespace ceammc {
 namespace faust {
     t_symbol* UIElement::typeSymbol() const
     {
-        static t_symbol* s_button = gensym("button");
-        static t_symbol* s_checkbox = gensym("checkbox");
-        static t_symbol* s_vslider = gensym("vslider");
-        static t_symbol* s_hslider = gensym("hslider");
-        static t_symbol* s_nentry = gensym("nentry");
-        static t_symbol* s_vbargraph = gensym("vbargraph");
-        static t_symbol* s_hbargraph = gensym("hbargraph");
-
         switch (type_) {
         case UI_BUTTON:
-            return s_button;
+            return gensym("button");
         case UI_CHECK_BUTTON:
-            return s_checkbox;
+            return gensym("checkbox");
         case UI_V_SLIDER:
-            return s_vslider;
+            return gensym("vslider");
         case UI_H_SLIDER:
-            return s_hslider;
+            return gensym("hslider");
         case UI_NUM_ENTRY:
-            return s_nentry;
+            return gensym("nentry");
         case UI_V_BARGRAPH:
-            return s_vbargraph;
+            return gensym("vbargraph");
         case UI_H_BARGRAPH:
-            return s_hbargraph;
+            return gensym("hbargraph");
         default:
             return 0;
         }
@@ -128,7 +123,7 @@ namespace faust {
         , value_(0)
         , set_prop_symbol_(0)
         , get_prop_symbol_(0)
-        , pinfo_(std::string("@") + label, PropValueType::FLOAT)
+        , pinfo_('@' + label, PropValueType::FLOAT)
     {
         initProperty(label);
     }
@@ -194,13 +189,6 @@ namespace faust {
             return;
 
         StaticAtomList<6> lst { path_, value(), init_, min_, max_, step_ };
-//        lst.append(atomFrom(path_));
-//        lst.append(Atom(value()));
-//        lst.append(Atom(init_));
-//        lst.append(Atom(min_));
-//        lst.append(Atom(max_));
-//        lst.append(Atom(step_));
-
         outletAny(out, sel, lst.view());
     }
 
@@ -450,18 +438,33 @@ namespace faust {
                 return true;
             } else if (op[0] == '/' && op[1] == '\0') {
                 if (val == 0) {
-                    LIB_ERR << "[@" << name()->s_name << "] division by zero";
+                    LIB_ERR << fmt::format("[{}] division by zero", name()->s_name);
                     return false;
                 } else {
                     setValue(value() / val, true);
                     return true;
                 }
             } else {
-                LIB_ERR << "[" << name()->s_name << "] expected +-*/, got: " << lv[0];
+                LIB_ERR << fmt::format("[{}] expected +-*/, got: {}", name()->s_name, to_string(lv[0]));
+                return false;
+            }
+        } else if (lv.size() == 1 && lv[0].isSymbol() && strcmp(lv[0].asT<t_symbol*>()->s_name, "random") == 0) {
+            random::RandomGen gen;
+            if (isFloat()) {
+                setValue(gen.gen_uniform_float(el_->min(), el_->max()), true);
+                return true;
+            } else if (isInt()) {
+                setValue(gen.gen_uniform_int(el_->min(), el_->max()), true);
+                return true;
+            } else if (isBool()) {
+                setValue(gen.gen_uniform_int(0, 1), true);
+                return true;
+            } else {
+                LIB_ERR << fmt::format("[{}] unexpected property type for random: {}", name()->s_name, info().type());
                 return false;
             }
         } else {
-            LIB_ERR << "[" << name()->s_name << "] float value expected, got: " << lv;
+            LIB_ERR << fmt::format("[{}] float value expected, got: {}", name()->s_name, to_string(lv));
             return false;
         }
     }
