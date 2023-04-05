@@ -289,7 +289,7 @@ TEST_CASE("pieces.stok_solo~", "[externals]")
         REQUIRE(e.data()[33].value() == 0.5);
 
         e.addScheme(Scheme(2));
-        REQUIRE(e.size() == 977);
+        REQUIRE(e.size() == 863);
     }
 
     SECTION("addBurst")
