@@ -56,7 +56,7 @@
 - euclid() init function third arg added: rotation to the right
 - fixing ui abtractions: gfx.room~ and gfx.shimmer~
 - noise.lfreq0~ minimal frequency changed from 5Hz to 0.5Hz
-- dyn.comp~ - using DBFS scale for threshold (-144...0) instead of (0..100) range
+- dyn.comp~, dyn.comp2~, dyn.gate~, dyn.gate2~ - using DBFS scale for threshold (-144...0) instead of (0..100) range
 
 ## [0.9.6]
 ### Added:

@@ -11,7 +11,7 @@
 #X msg 775 375 supported messages are: @attack @hold @release @threshold default reset;
 #X obj 775 425 print;
 #X obj 825 425 print [gdyn.gate2~] unknown message;
-#X msg 425 75 @attack 0.1 \, @hold 100 \, @release 20 \, @threshold 40 \,;
+#X msg 425 75 @attack 0.1 \, @hold 100 \, @release 20 \, @threshold -60 \,;
 #X obj 25 50 t b b;
 #X msg 25 75 reset;
 #X obj 425 25 msg.onload;
@@ -41,9 +41,9 @@ release(ms): @label_side top @label_align left @fontsize 10
 #X msg 260 296 @release \$1;
 #X obj 12 326 ui.slider @size 125 12 @active_scale 1 @label
 threshold(db): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/dyn.gate2~/slider3 @min 0 @max 100;
+@presetname /gui/\$1/dyn.gate2~/slider3 @min -90 @max 0;
 #X obj 215 326 sync;
-#X obj 145 326 ui.number @size 50 12 @min 0 @max 100 @digits 2;
+#X obj 145 326 ui.number @size 50 12 @min -90 @max 0 @digits 2;
 #X msg 260 326 @threshold \$1;
 #X connect 1 0 0 0;
 #X connect 2 0 0 1;

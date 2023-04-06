@@ -712,7 +712,7 @@ class dyn_gate2 : public dyn_gate2_dsp {
 	virtual void instanceResetUserInterface() {
 		fVslider0 = FAUSTFLOAT(0.1f);
 		fVslider1 = FAUSTFLOAT(2e+01f);
-		fVslider2 = FAUSTFLOAT(4e+01f);
+		fVslider2 = FAUSTFLOAT(-6e+01f);
 		fVslider3 = FAUSTFLOAT(1e+02f);
 	}
 	
@@ -761,7 +761,7 @@ class dyn_gate2 : public dyn_gate2_dsp {
 		ui_interface->declare(&fVslider1, "unit", "ms");
 		ui_interface->addVerticalSlider("release", &fVslider1, FAUSTFLOAT(2e+01f), FAUSTFLOAT(1.0f), FAUSTFLOAT(5e+02f), FAUSTFLOAT(0.1f));
 		ui_interface->declare(&fVslider2, "unit", "db");
-		ui_interface->addVerticalSlider("threshold", &fVslider2, FAUSTFLOAT(4e+01f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("threshold", &fVslider2, FAUSTFLOAT(-6e+01f), FAUSTFLOAT(-9e+01f), FAUSTFLOAT(0.0f), FAUSTFLOAT(0.1f));
 		ui_interface->closeBox();
 	}
 	
@@ -776,7 +776,7 @@ class dyn_gate2 : public dyn_gate2_dsp {
 		int iSlow3 = std::fabs(fSlow2) < 1.1920929e-07f;
 		float fSlow4 = ((iSlow3) ? 0.0f : std::exp(0.0f - fConst1 / ((iSlow3) ? 1.0f : fSlow2)));
 		float fSlow5 = 1.0f - fSlow4;
-		float fSlow6 = fConst2 * (float(fVslider2) + -1e+02f);
+		float fSlow6 = fConst2 * float(fVslider2);
 		int iSlow7 = int(fConst4 * float(fVslider3));
 		int iSlow8 = std::fabs(fSlow1) < 1.1920929e-07f;
 		float fSlow9 = ((iSlow8) ? 0.0f : std::exp(0.0f - fConst1 / ((iSlow8) ? 1.0f : fSlow1)));
