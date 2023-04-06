@@ -180,6 +180,18 @@ constexpr bool crc32_check_unique(uint32_t a, uint32_t b, uint32_t c, uint32_t d
     CEAMMC_DEFINE_STR(name)          \
     CEAMMC_DEFINE_CRC32(name)        \
     CEAMMC_DEFINE_SYM(name)
+
+#define CEAMMC_DEFINE_PROP_STR(name) constexpr const char* str_prop_##name = "@" #name;
+#define CEAMMC_DEFINE_PROP_SYM(name) \
+    static inline t_symbol* sym_prop_##name() { return gensym("@" #name); }
+
+#define CEAMMC_DEFINE_PROP(name) \
+    CEAMMC_DEFINE_PROP_STR(name) \
+    CEAMMC_DEFINE_PROP_SYM(name)
+
+#define CEAMMC_DEFINE_PROP_VAR(name) \
+    CEAMMC_DEFINE_PROP_STR(name) \
+    auto* sym_prop_##name = gensym("@" #name);
 }
 
 #endif
