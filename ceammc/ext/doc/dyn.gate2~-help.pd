@@ -6,13 +6,14 @@
 -4096 0;
 #X obj 667 11 dyn.gate2~;
 #X obj 50 118 osc~ 440;
-#X floatatom 155 118 5 0 0 0 - - -;
-#X obj 98 147 dbtorms;
-#X obj 50 176 *~;
-#X floatatom 174 176 5 0 0 0 - - -;
-#X msg 174 205 @threshold \$1;
-#X obj 50 234 dyn.gate2~ 90;
-#X obj 50 262 ui.hgain2~;
+#X obj 184 118 ui.hsl -60 0 @show_value 1;
+#X obj 184 147 dbfs->amp;
+#X obj 50 176 gain~;
+#X obj 184 176 ui.hsl -60 0 @show_value 1;
+#X msg 184 205 @threshold \$1;
+#X obj 50 234 dyn.gate2~ -10;
+#X obj 50 262 ui.hgain~;
+#X obj 184 262 ui.dsp~;
 #X obj 50 291 dac~;
 #X obj 20 340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 345 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
@@ -21,7 +22,7 @@
 #X text 150 380 float;
 #X obj 246 381 cnv 1 108 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 380 THRESHOLD(db): dB level threshold above which gate
-opens (e.g. \, 40 dB). Type: float. Range: 0\...100;
+opens. Type: float. Range: -90\...0;
 #X text 110 415 2\.;
 #X text 150 415 float;
 #X obj 246 416 cnv 1 85 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -55,7 +56,7 @@ Range: 1\...500\.;
 to close. Type: float. Units: ms. Default value: 20\. Range: 1\...500\.;
 #X msg 110 755 @threshold;
 #X text 245 755 Get/Set dB level threshold above which gate opens.
-Type: float. Units: db. Default value: 40\. Range: 0\...100\.;
+Type: float. Units: db. Default value: -60\. Range: -90\...0\.;
 #X obj 20 807 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 812 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
@@ -108,11 +109,10 @@ https://github.com/uliss/pure-data;
 #X restore 10 981 pd info;
 #X connect 5 0 6 0;
 #X connect 4 0 7 0;
-#X connect 6 0 7 1;
 #X connect 8 0 9 0;
 #X connect 7 0 10 0;
 #X connect 9 0 10 0;
 #X connect 10 0 11 0;
-#X connect 10 1 11 1;
-#X connect 11 0 12 0;
-#X connect 11 1 12 1;
+#X connect 11 0 13 0;
+#X connect 11 0 13 1;
+#X connect 6 0 7 1;
