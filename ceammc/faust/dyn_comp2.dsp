@@ -13,7 +13,7 @@ process = ba.bypass2(ui.bypass, comp2) with {
 
     ratio  = hslider("ratio", 1, 1, 16, 0.001);
     thresh = vslider("threshold [unit:db]", -10, -90, 0, 0.1);
-    atk    = vslider("attack [unit:ms]", 10, 1, 100, 0.1) : cm.time_pd2faust;
+    atk    = vslider("attack [unit:ms]", 10, 0.1, 100, 0.1) : cm.time_pd2faust;
     rel    = vslider("release [unit:ms]", 50, 1, 500, 0.1) : cm.time_pd2faust;
     gain   = vslider("gain [unit:db]", 0, -18, 18, 0.1) : ba.db2linear : si.smoo;
 };

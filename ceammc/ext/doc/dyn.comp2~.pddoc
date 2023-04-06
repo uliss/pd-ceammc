@@ -22,7 +22,7 @@
             no compression, &gt;1 means compression)</argument>
             <argument name="THRESHOLD" type="float" minvalue="-90" maxvalue="0" units="decibel">
             level threshold above which compression kicks in</argument>
-            <argument name="ATTACK" type="float" units="millisecond" minvalue="1" maxvalue="100">
+            <argument name="ATTACK" type="float" units="millisecond" minvalue="0.1" maxvalue="100">
             attack time = time constant when level &amp; compression going up</argument>
             <argument name="RELEASE" type="float" units="millisecond" minvalue="1" maxvalue="500">
             release time = time constant coming out of compression</argument>
@@ -32,7 +32,7 @@
             ratio (1 = no compression, &gt;1 means compression)</property>
             <property name="@threshold" type="float" units="decibel" default="-10" minvalue="-90"
             maxvalue="0">level threshold above which compression kicks in</property>
-            <property name="@attack" type="float" units="millisecond" default="10" minvalue="1"
+            <property name="@attack" type="float" units="millisecond" default="10" minvalue="0.1"
             maxvalue="100">time constant when level &amp; compression going up</property>
             <property name="@release" type="float" units="millisecond" default="50" minvalue="1"
             maxvalue="500">release time = time constant coming out of compression</property>

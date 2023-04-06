@@ -24,9 +24,9 @@ default reset;
 -262144 0;
 #X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label
 attack(ms): @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/dyn.comp2~/slider0 @min 1 @max 100;
+/gui/\$1/dyn.comp2~/slider0 @min 0.1 @max 100;
 #X obj 215 236 sync;
-#X obj 145 236 ui.number @size 50 12 @min 1 @max 100 @digits 2;
+#X obj 145 236 ui.number @size 50 12 @min 0.1 @max 100 @digits 2;
 #X msg 260 236 @attack \$1;
 #X obj 185 205 ui.toggle @size 12 12 @label bypass @label_side left
 @label_align right @fontsize 10 @presetname
