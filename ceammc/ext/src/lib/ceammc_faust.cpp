@@ -323,6 +323,9 @@ namespace faust {
 
             faust_bs_ = BS;
         }
+
+        if (clock_ptr_)
+            clock_ptr_->exec();
     }
 
     void FaustExternalBase::processInactive(const t_sample** in, t_sample** out)
@@ -381,6 +384,47 @@ namespace faust {
     float FaustExternalBase::xfadeTime() const
     {
         return 0.1f;
+    }
+
+    bool FaustExternalBase::checkUIProperties(std::initializer_list<UIProperty*> lst, bool printError)
+    {
+        auto res = std::all_of(lst.begin(), lst.end(), [](UIProperty* p) { return p; });
+        if (printError)
+            OBJ_ERR << "property check failed";
+
+        return res;
+    }
+
+    void FaustExternalBase::initBargraphData()
+    {
+        if (bargraphs_.size() > 0) {
+            refresh_ = new IntProperty("@refresh", 100);
+            refresh_->checkClosedRange(0, 1000);
+            refresh_->setUnitsMs();
+            addProperty(refresh_);
+            clock_ptr_.reset(new ClockLambdaFunction([this]() {
+                if (clock_fn_) {
+                    clock_fn_(bargraphs_);
+
+                    auto t = refresh_->value();
+                    if (t > 0)
+                        clock_ptr_->delay(t);
+                }
+            }));
+        }
+    }
+
+    void FaustExternalBase::addUIElement(UIElement* ui)
+    {
+        auto prop = new UIProperty(ui);
+        auto type = prop->uiElement()->type();
+
+        if (type == UI_V_BARGRAPH || type == UI_H_BARGRAPH) {
+            bargraphs_.push_back(prop->uiElement()->valuePtr());
+            prop->setReadOnly();
+        }
+
+        addProperty(prop);
     }
 
     void FaustExternalBase::bufFadeIn(const t_sample** in, t_sample** out, float k0)

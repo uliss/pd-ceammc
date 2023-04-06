@@ -90,11 +90,9 @@ namespace faust {
     void copy_samples(size_t n_ch, size_t bs, const t_sample** in, t_sample** out, bool zero_abnormals = true);
 
     class FaustExternalBase : public SoundExternal {
-    protected:
-        std::vector<t_sample*> faust_buf_;
-        size_t faust_bs_;
-        int xfade_, n_xfade_;
-        bool active_;
+    public:
+        using BargraphData = std::vector<const FAUSTFLOAT*>;
+        using BargraphFn = std::function<void(const BargraphData&)>;
 
     public:
         FaustExternalBase(const PdArgs& args);
@@ -113,9 +111,33 @@ namespace faust {
         void initSignalOutputs(size_t n);
         float xfadeTime() const;
 
+    protected:
+        std::vector<t_sample*> faust_buf_;
+        size_t faust_bs_;
+        int xfade_, n_xfade_;
+        bool active_;
+
+    protected:
+        void setBargraphOutputFn(BargraphFn fn) { clock_fn_ = fn; }
+        void setInitSignalValue(t_float f) { pd_float(reinterpret_cast<t_pd*>(owner()), f); }
+
+        UIProperty* findUIProperty(t_symbol* name) { return dynamic_cast<UIProperty*>(property(name)); }
+        UIProperty* findUIProperty(const char* name) { return findUIProperty(gensym(name)); }
+
+        bool checkUIProperties(std::initializer_list<UIProperty*> lst, bool printError = true);
+
+        void initBargraphData();
+        void addUIElement(UIElement* ui);
+
     private:
         void bufFadeIn(const t_sample** in, t_sample** out, float k0);
         void bufFadeOut(const t_sample** in, t_sample** out, float k0);
+
+    private:
+        std::unique_ptr<ClockLambdaFunction> clock_ptr_;
+        IntProperty* refresh_ { nullptr };
+        BargraphData bargraphs_;
+        BargraphFn clock_fn_;
     };
 
     enum UIElementType {
@@ -277,24 +299,9 @@ namespace faust {
         using DspPtr = std::unique_ptr<DSP>;
         using UiPtr = std::unique_ptr<PdUI<ui_tag>>;
 
-    public:
-        using BargraphData = std::vector<const FAUSTFLOAT*>;
-        using BargraphFn = std::function<void(const BargraphData&)>;
-
-    private:
-        std::unique_ptr<ClockLambdaFunction> clock_ptr_;
-        IntProperty* refresh_ { nullptr };
-        BargraphData bargraphs_;
-        BargraphFn clock_fn_;
-
     protected:
         DspPtr dsp_;
         UiPtr ui_;
-
-        void setBargraphOutputFn(BargraphFn fn)
-        {
-            clock_fn_ = fn;
-        }
 
     public:
         FaustExternal(const PdArgs& args)
@@ -309,30 +316,10 @@ namespace faust {
             dsp_->buildUserInterface(ui_.get());
 
             const size_t n_ui = ui_->uiCount();
-            for (size_t i = 0; i < n_ui; i++) {
-                auto prop = new UIProperty(ui_->uiAt(i));
-                auto ui_type = prop->uiElement()->type();
-                if (ui_type == UI_V_BARGRAPH || ui_type == UI_H_BARGRAPH) {
-                    bargraphs_.push_back(prop->uiElement()->valuePtr());
-                    prop->setReadOnly();
-                }
+            for (size_t i = 0; i < n_ui; i++)
+                addUIElement(ui_->uiAt(i));
 
-                addProperty(prop);
-            }
-
-            if (bargraphs_.size() > 0) {
-                refresh_ = new IntProperty("@refresh", 100);
-                refresh_->checkClosedRange(0, 1000);
-                refresh_->setUnitsMs();
-                addProperty(refresh_);
-                clock_ptr_.reset(new ClockLambdaFunction([this]() {
-                    if (clock_fn_) {
-                        auto t = refresh_->value();
-                        if (t > 0)
-                            clock_ptr_->delay(t);
-                    }
-                }));
-            }
+            initBargraphData();
         }
 
         void initConstants()
@@ -356,9 +343,6 @@ namespace faust {
         void setupDSP(t_signal** sp) override
         {
             FaustExternalBase::setupDSP(sp);
-
-            if (clock_ptr_)
-                clock_ptr_->exec();
 
             // on first run samplerateChanged() maybe not called
             if (!n_xfade_)
@@ -397,33 +381,9 @@ namespace faust {
             dsp_->instanceClear();
         }
 
-        void setInitSignalValue(t_float f)
-        {
-            pd_float(reinterpret_cast<t_pd*>(owner()), f);
-        }
-
         void m_reset(t_symbol* s, const AtomListView&)
         {
             dsp_->instanceClear();
-        }
-
-        UIProperty* findUIProperty(t_symbol* name)
-        {
-            return dynamic_cast<UIProperty*>(property(name));
-        }
-
-        UIProperty* findUIProperty(const char* name)
-        {
-            return findUIProperty(gensym(name));
-        }
-
-        bool checkUIProperties(std::initializer_list<UIProperty*> lst, bool printError = true)
-        {
-            auto res = std::all_of(lst.begin(), lst.end(), [](UIProperty* p) { return p; });
-            if (printError)
-                OBJ_ERR << "property check failed";
-
-            return res;
         }
     };
 
