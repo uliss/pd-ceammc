@@ -30,6 +30,8 @@
   - metro.pattern - second inlet added to set pattern
   - metro.random - third inlet added to set max property
   - metro.seq - second inlet added to set interval and third inlet to set pattern
+- new object outlets:
+  - dyn.comp~ - second outlet added for compression level output
 - new object methods:
   - euclid method added to ui.radio to set euclid pattern when in checklist mode
   - hexbeat method added to ui.radio to set hexbeat pattern when in checklist mode
@@ -53,6 +55,7 @@
 - euclid() init function third arg added: rotation to the right
 - fixing ui abtractions: gfx.room~ and gfx.shimmer~
 - noise.lfreq0~ minimal frequency changed from 5Hz to 0.5Hz
+- dyn.comp~ - using DBFS scale for threshold (-144...0) instead of (0..100) range
 
 ## [0.9.6]
 ### Added:
