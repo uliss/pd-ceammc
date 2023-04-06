@@ -32,7 +32,7 @@ public:
             sym_prop_release });
 
         createOutlet();
-        setBargraphOutputFn([this](const BargraphList& bg) {
+        setBargraphOutputFn([this](const BargraphData& bg) {
             for (size_t i = 0; i < bg.size(); i++)
                 floatTo(1 + i, *bg[i]);
         });

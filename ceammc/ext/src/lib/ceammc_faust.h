@@ -277,17 +277,19 @@ namespace faust {
         using DspPtr = std::unique_ptr<DSP>;
         using UiPtr = std::unique_ptr<PdUI<ui_tag>>;
 
+    public:
+        using BargraphData = std::vector<const FAUSTFLOAT*>;
+        using BargraphFn = std::function<void(const BargraphData&)>;
+
+    private:
         std::unique_ptr<ClockLambdaFunction> clock_ptr_;
-        FloatProperty* refresh_ { nullptr };
-        std::vector<const FAUSTFLOAT*> bargraphs_;
-        std::function<void(std::vector<const FAUSTFLOAT*>&)> clock_fn_;
+        IntProperty* refresh_ { nullptr };
+        BargraphData bargraphs_;
+        BargraphFn clock_fn_;
 
     protected:
         DspPtr dsp_;
         UiPtr ui_;
-
-        using BargraphList = std::vector<const FAUSTFLOAT*>;
-        using BargraphFn = std::function<void(const BargraphList&)>;
 
         void setBargraphOutputFn(BargraphFn fn)
         {
@@ -319,14 +321,15 @@ namespace faust {
             }
 
             if (bargraphs_.size() > 0) {
-                refresh_ = new FloatProperty("@refresh", 100);
-                refresh_->checkClosedRange(20, 1000);
+                refresh_ = new IntProperty("@refresh", 100);
+                refresh_->checkClosedRange(0, 1000);
                 refresh_->setUnitsMs();
                 addProperty(refresh_);
                 clock_ptr_.reset(new ClockLambdaFunction([this]() {
                     if (clock_fn_) {
-                        clock_fn_(bargraphs_);
-                        clock_ptr_->delay(refresh_->value());
+                        auto t = refresh_->value();
+                        if (t > 0)
+                            clock_ptr_->delay(t);
                     }
                 }));
             }
@@ -355,7 +358,7 @@ namespace faust {
             FaustExternalBase::setupDSP(sp);
 
             if (clock_ptr_)
-                clock_ptr_->delay(10);
+                clock_ptr_->exec();
 
             // on first run samplerateChanged() maybe not called
             if (!n_xfade_)
