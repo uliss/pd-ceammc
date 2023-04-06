@@ -756,7 +756,7 @@ class dyn_comp : public dyn_comp_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("dyn.comp");
 		ui_interface->declare(&fVslider2, "unit", "ms");
-		ui_interface->addVerticalSlider("attack", &fVslider2, FAUSTFLOAT(1e+01f), FAUSTFLOAT(1.0f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("attack", &fVslider2, FAUSTFLOAT(1e+01f), FAUSTFLOAT(0.1f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.1f));
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->declare(&fVslider0, "unit", "db");
 		ui_interface->addVerticalSlider("gain", &fVslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(-18.0f), FAUSTFLOAT(18.0f), FAUSTFLOAT(0.1f));
