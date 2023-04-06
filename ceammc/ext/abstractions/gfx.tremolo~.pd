@@ -10,7 +10,7 @@
 #X msg 675 375 supported messages are: @bypass @depth @drywet @freq @src default reset;
 #X obj 675 425 print;
 #X obj 725 425 print [gfx.tremolo~] unknown message;
-#X msg 325 75 @depth 0.5 \, @drywet 0.5 \, @freq 5 \, @src 0 \,;
+#X msg 325 75 @depth 1 \, @drywet 0.75 \, @freq 5 \, @src 0 \,;
 #X obj 25 50 t b b;
 #X msg 25 75 reset;
 #X obj 325 25 msg.onload;
