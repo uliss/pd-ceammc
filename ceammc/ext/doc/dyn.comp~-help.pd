@@ -78,8 +78,8 @@ Range: -90\...0\.;
 -49933 0;
 #X msg 110 1118 preset;
 #X text 245 1118 choose predefined preset. Arguments are:;
-#X obj 255 1141 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1141 [PRESET]: name. Type: symbol. Allowed values: vocal
+#X obj 255 1141 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1141 PRESET: name. Type: symbol. Allowed values: vocal
 \, drums \, bass \, strings.;
 #X obj 20 1191 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1196 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144

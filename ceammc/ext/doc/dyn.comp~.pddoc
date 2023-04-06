@@ -50,7 +50,7 @@
         </properties>
         <methods>
             <method name="preset">choose predefined preset 
-            <param name="PRESET" type="symbol" enum="vocal drums bass strings">
+            <param name="PRESET" type="symbol" enum="vocal drums bass strings" required="true">
             name</param></method>
         </methods>
         <inlets>

@@ -18,30 +18,41 @@
             </also>
         </meta>
         <arguments>
-            <argument name="RATIO" type="float" minvalue="1" maxvalue="10">compression ratio (1 =
+            <argument name="RATIO" type="float" minvalue="1" maxvalue="16">compression ratio (1 =
             no compression, &gt;1 means compression)</argument>
-            <argument name="THRESHOLD" type="float" minvalue="0" maxvalue="100" units="decibel">
-            level threshold above which compression kicks in (100 dB = max level)</argument>
+            <argument name="THRESHOLD" type="float" minvalue="-90" maxvalue="0" units="decibel">
+            level threshold above which compression kicks in</argument>
             <argument name="ATTACK" type="float" units="millisecond" minvalue="1" maxvalue="100">
             attack time = time constant when level &amp; compression going up</argument>
             <argument name="RELEASE" type="float" units="millisecond" minvalue="1" maxvalue="500">
             release time = time constant coming out of compression</argument>
         </arguments>
         <properties>
-            <property name="@ratio" type="float" default="1" minvalue="1" maxvalue="10">compression
+            <property name="@ratio" type="float" default="1" minvalue="1" maxvalue="16">compression
             ratio (1 = no compression, &gt;1 means compression)</property>
-            <property name="@threshold" type="float" units="decibel" default="100" minvalue="0"
-            maxvalue="100">level threshold above which compression kicks in (100 dB = max
-            level)</property>
+            <property name="@threshold" type="float" units="decibel" default="-10" minvalue="-90"
+            maxvalue="0">level threshold above which compression kicks in</property>
             <property name="@attack" type="float" units="millisecond" default="10" minvalue="1"
             maxvalue="100">time constant when level &amp; compression going up</property>
             <property name="@release" type="float" units="millisecond" default="50" minvalue="1"
             maxvalue="500">release time = time constant coming out of compression</property>
-            <property name="@gain" type="float" units="decibel" default="0" minvalue="-12"
-            maxvalue="12">make up gain: applied to the signal after the compression takes
+            <property name="@gain" type="float" units="decibel" default="0" minvalue="-18"
+            maxvalue="18">make up gain: applied to the signal after the compression takes
             place</property>
+            <property name="@bypass" type="bool" default="0">if set to 1 - bypass
+            compressor</property>
+            <property name="@level" type="float" default="0" minvalue="0" maxvalue="1"
+            access="readonly">current level of compression</property>
+            <!-- faust common -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@refresh" type="int" default="100" minvalue="0" maxvalue="1000"
+            units="millisecond">compression level output time interval. If 0 - no output</property>
         </properties>
+        <methods>
+            <method name="preset">choose predefined preset
+            <param name="PRESET" type="symbol" enum="vocal drums bass strings" required="true">
+            name</param></method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>left input signal</xinfo>
@@ -53,24 +64,32 @@
         <outlets>
             <outlet type="audio">left output signal</outlet>
             <outlet type="audio">right output signal</outlet>
+            <outlet>float: output current compression level in [0..1]</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[phasor~ 10]  [ui.dsp~]
-|
-[*~ 100]
-|
-[clip~ 0 1]   [ui.hsl 1.5 10 @show_value 1]
-|             |
-[*~ 20]       [@ratio $1(
-|*            |
-|*            |
-[dyn.comp2~ 3 90 10 100]
-*|*
-[ui.hgain2~]
-*|*
-[dac~]
+[ui.hsl #x]  [ui.hsl #x]          [ui.dsp~]
+|            |
+[dbfs->amp]  [dbfs->amp]
+|            |
+[sig~]       [sig~] [ui.hsl #a]   [ui.hsl #b]
+|            |      |             |
+|            |      |             |
+|            |      [@ratio $1(   [@threshold $1(
+|            |      |             |
+|            |.     |             |
+[dyn.comp2~ 3 -60 10 100         ]
+|        ^|         ^^|
+[env~]   [env~]     [ui.hsl @active_scale 1]
+|        |
+[- 100]  [- 100]
+|        |
+[F]      [F]
+
+#a 1 16 @show_value 1
+#b -60 0 @show_value 1
+#x -60 20 @show_value 1
 ]]>
             </pdascii>
         </example>
