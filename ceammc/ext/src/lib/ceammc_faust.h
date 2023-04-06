@@ -26,6 +26,7 @@
 
 #include "ceammc_atom.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_clock.h"
 #include "ceammc_object.h"
 #include "ceammc_output.h"
 #include "ceammc_property_info.h"
@@ -101,6 +102,7 @@ namespace faust {
 
         void bindPositionalArgToProperty(size_t idx, t_symbol* propName);
         void bindPositionalArgsToProps(std::initializer_list<t_symbol*> lst);
+        void bindPositionalArgsToProps(std::initializer_list<const char*> lst);
 
         void setupDSP(t_signal** sp) override;
 
@@ -237,7 +239,7 @@ namespace faust {
         void add_elem(UIElementType type, const std::string& label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max);
 
     public:
-        virtual void addButton(const char* label, FAUSTFLOAT *zone);
+        virtual void addButton(const char* label, FAUSTFLOAT* zone);
         virtual void addCheckButton(const char* label, FAUSTFLOAT* zone);
         virtual void addVerticalSlider(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step);
         virtual void addHorizontalSlider(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step);
@@ -275,9 +277,22 @@ namespace faust {
         using DspPtr = std::unique_ptr<DSP>;
         using UiPtr = std::unique_ptr<PdUI<ui_tag>>;
 
+        std::unique_ptr<ClockLambdaFunction> clock_ptr_;
+        FloatProperty* refresh_ { nullptr };
+        std::vector<const FAUSTFLOAT*> bargraphs_;
+        std::function<void(std::vector<const FAUSTFLOAT*>&)> clock_fn_;
+
     protected:
         DspPtr dsp_;
         UiPtr ui_;
+
+        using BargraphList = std::vector<const FAUSTFLOAT*>;
+        using BargraphFn = std::function<void(const BargraphList&)>;
+
+        void setBargraphOutputFn(BargraphFn fn)
+        {
+            clock_fn_ = fn;
+        }
 
     public:
         FaustExternal(const PdArgs& args)
@@ -292,8 +307,29 @@ namespace faust {
             dsp_->buildUserInterface(ui_.get());
 
             const size_t n_ui = ui_->uiCount();
-            for (size_t i = 0; i < n_ui; i++)
-                addProperty(new UIProperty(ui_->uiAt(i)));
+            for (size_t i = 0; i < n_ui; i++) {
+                auto prop = new UIProperty(ui_->uiAt(i));
+                auto ui_type = prop->uiElement()->type();
+                if (ui_type == UI_V_BARGRAPH || ui_type == UI_H_BARGRAPH) {
+                    bargraphs_.push_back(prop->uiElement()->valuePtr());
+                    prop->setReadOnly();
+                }
+
+                addProperty(prop);
+            }
+
+            if (bargraphs_.size() > 0) {
+                refresh_ = new FloatProperty("@refresh", 100);
+                refresh_->checkClosedRange(20, 1000);
+                refresh_->setUnitsMs();
+                addProperty(refresh_);
+                clock_ptr_.reset(new ClockLambdaFunction([this]() {
+                    if (clock_fn_) {
+                        clock_fn_(bargraphs_);
+                        clock_ptr_->delay(refresh_->value());
+                    }
+                }));
+            }
         }
 
         void initConstants()
@@ -317,6 +353,9 @@ namespace faust {
         void setupDSP(t_signal** sp) override
         {
             FaustExternalBase::setupDSP(sp);
+
+            if (clock_ptr_)
+                clock_ptr_->delay(10);
 
             // on first run samplerateChanged() maybe not called
             if (!n_xfade_)
@@ -363,6 +402,25 @@ namespace faust {
         void m_reset(t_symbol* s, const AtomListView&)
         {
             dsp_->instanceClear();
+        }
+
+        UIProperty* findUIProperty(t_symbol* name)
+        {
+            return dynamic_cast<UIProperty*>(property(name));
+        }
+
+        UIProperty* findUIProperty(const char* name)
+        {
+            return findUIProperty(gensym(name));
+        }
+
+        bool checkUIProperties(std::initializer_list<UIProperty*> lst, bool printError = true)
+        {
+            auto res = std::all_of(lst.begin(), lst.end(), [](UIProperty* p) { return p; });
+            if (printError)
+                OBJ_ERR << "property check failed";
+
+            return res;
         }
     };
 
@@ -446,7 +504,7 @@ namespace faust {
     }
 
     template <typename T>
-    void PdUI<T>::addCheckButton(const char* label, FAUSTFLOAT *zone)
+    void PdUI<T>::addCheckButton(const char* label, FAUSTFLOAT* zone)
     {
         UIElement* elems = new UIElement(UI_CHECK_BUTTON, oscPath(label), label);
         auto it = type_map_.find(zone);

@@ -299,6 +299,14 @@ namespace faust {
         }
     }
 
+    void FaustExternalBase::bindPositionalArgsToProps(std::initializer_list<const char*> lst)
+    {
+        for (size_t i = 0; i < lst.size(); i++) {
+            auto* p = lst.begin()[i];
+            bindPositionalArgToProperty(i, gensym(p));
+        }
+    }
+
     void FaustExternalBase::setupDSP(t_signal** sp)
     {
         SoundExternal::setupDSP(sp);
