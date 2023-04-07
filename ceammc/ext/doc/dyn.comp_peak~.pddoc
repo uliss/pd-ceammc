@@ -99,7 +99,53 @@
 |
 [F]
 
+[dyn.comp_peak~.plot]
+
 #a -60 0 @show_value 1
+]]>
+            </pdascii>
+            <pdascii id="plot">
+<![CDATA[
+[B]
+|
+[plot.linspace~ -60 6 1024 #a]  [ui.k #b]  [ui.hsl 0 24 #c]
+|                                          |
+[dbfs->amp~]                               [@knee $1 #d(
+|
+[dyn.comp_peak~ 1 -20 0.1 1     #z]
+|
+[amp->dbfs~]
+|
+[ui.plot~ @ymin -60 @ymax 6 @size 400 350 @xlabels 1 @ylabels 1 @xmin_grid 0 @ymin_ticks 0 @xmin_ticks 0 #x]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#b @show_value 1 @label STRENGTH
+#c @show_value 1
+/*...*/
+[X a:1->x:1]
+[X b->z:1]
+[X d->z]
 ]]>
             </pdascii>
         </example>

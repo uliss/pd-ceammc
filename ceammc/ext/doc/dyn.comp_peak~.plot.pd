@@ -1,0 +1,22 @@
+#N canvas 0 0 829 614 12;
+#X obj 20 48 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 20 77 plot.linspace~ -60 6 1024;
+#X obj 327 77 ui.k @show_value 1 @label STRENGTH;
+#X obj 432 77 ui.hsl 0 24 @show_value 1;
+#X obj 20 106 dbfs->amp~;
+#X msg 432 106 @knee \$1;
+#X obj 20 135 dyn.comp_peak~ 1 -20 0.1 1;
+#X obj 20 164 amp->dbfs~;
+#X obj 20 192 ui.plot~ @ymin -60 @ymax 6 @size 400 350 @xlabels 1
+@ylabels 1 @xmin_grid 0 @ymin_ticks 0 @xmin_ticks 0;
+#X text 20 567 ...;
+#X connect 0 0 1 0;
+#X connect 1 0 4 0;
+#X connect 3 0 5 0;
+#X connect 4 0 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 1 1 8 1;
+#X connect 2 0 6 1;
+#X connect 5 0 6 0;
