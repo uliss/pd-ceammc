@@ -4,7 +4,7 @@ ui = library("ceammc_ui.lib");
 cm = library("ceammc.lib");
 import("stdfaust.lib");
 
-process = ba.bypass2(ui.bypass, comp2) with {
+process = cm.bypass_stereo(ui.bypass, comp2) with {
     compressor_stereo(ratio, thresh, att, rel, x, y) = cgm*x, cgm*y with {
         cgm = co.compression_gain_mono(ratio, thresh, atk, rel, abs(x)+abs(y)) <: attach(_, (1-_) : vbargraph("level", 0, 1));
     };

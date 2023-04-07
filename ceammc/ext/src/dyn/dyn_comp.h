@@ -648,18 +648,19 @@ class dyn_comp : public dyn_comp_dsp {
  private:
 	
 	FAUSTFLOAT fCheckbox0;
+	float fRec0[2];
 	int fSampleRate;
 	float fConst1;
 	FAUSTFLOAT fVslider0;
 	float fConst2;
-	float fRec0[2];
+	float fRec1[2];
 	FAUSTFLOAT fHslider0;
 	FAUSTFLOAT fVslider1;
 	float fConst3;
 	FAUSTFLOAT fVslider2;
-	float fRec2[2];
+	float fRec3[2];
 	FAUSTFLOAT fVslider3;
-	float fRec1[2];
+	float fRec2[2];
 	FAUSTFLOAT fVbargraph0;
 	
  public:
@@ -668,11 +669,10 @@ class dyn_comp : public dyn_comp_dsp {
 		m->declare("analyzers.lib/amp_follower_ar:author", "Jonatan Liljedahl, revised by Romain Michon");
 		m->declare("analyzers.lib/name", "Faust Analyzer Library");
 		m->declare("analyzers.lib/version", "0.2");
-		m->declare("basics.lib/bypass1:author", "Julius Smith");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.8");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1.2");
+		m->declare("ceammc.lib/version", "0.1.3");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn dyn_comp -scn dyn_comp_dsp -es 1 -mcd 16 -single -ftz 0");
@@ -690,6 +690,8 @@ class dyn_comp : public dyn_comp_dsp {
 		m->declare("name", "dyn.comp");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "0.2");
+		m->declare("routes.lib/name", "Faust Signal Routing Library");
+		m->declare("routes.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/onePoleSwitching:author", "Jonatan Liljedahl, revised by Dario Sanfilippo");
 		m->declare("signals.lib/onePoleSwitching:licence", "STK-4.3");
@@ -728,10 +730,13 @@ class dyn_comp : public dyn_comp_dsp {
 			fRec0[l0] = 0.0f;
 		}
 		for (int l1 = 0; l1 < 2; l1 = l1 + 1) {
-			fRec2[l1] = 0.0f;
+			fRec1[l1] = 0.0f;
 		}
 		for (int l2 = 0; l2 < 2; l2 = l2 + 1) {
-			fRec1[l2] = 0.0f;
+			fRec3[l2] = 0.0f;
+		}
+		for (int l3 = 0; l3 < 2; l3 = l3 + 1) {
+			fRec2[l3] = 0.0f;
 		}
 	}
 	
@@ -772,7 +777,7 @@ class dyn_comp : public dyn_comp_dsp {
 	virtual void compute(int count, FAUSTFLOAT** RESTRICT inputs, FAUSTFLOAT** RESTRICT outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		int iSlow0 = int(float(fCheckbox0));
+		float fSlow0 = float(float(fCheckbox0) >= 1.0f);
 		float fSlow1 = fConst1 * std::pow(1e+01f, 0.05f * float(fVslider0));
 		float fSlow2 = 1.0f / std::max<float>(1.1920929e-07f, float(fHslider0)) + -1.0f;
 		float fSlow3 = 0.001f * float(fVslider1);
@@ -788,19 +793,22 @@ class dyn_comp : public dyn_comp_dsp {
 		float fSlow13 = ((iSlow12) ? 0.0f : std::exp(0.0f - fConst3 / ((iSlow12) ? 1.0f : fSlow11)));
 		float fSlow14 = 1.0f - fSlow13;
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
-			fRec0[0] = fSlow1 + fConst2 * fRec0[1];
 			float fTemp0 = float(input0[i0]);
-			float fTemp1 = ((iSlow0) ? 0.0f : fTemp0);
-			float fTemp2 = std::fabs(fTemp1);
-			float fTemp3 = ((fTemp2 > fRec2[1]) ? fSlow9 : fSlow5);
-			fRec2[0] = fTemp2 * (1.0f - fTemp3) + fRec2[1] * fTemp3;
-			fRec1[0] = fSlow2 * std::max<float>(2e+01f * std::log10(std::max<float>(1.1754944e-38f, fRec2[0])) - fSlow10, 0.0f) * fSlow14 + fSlow13 * fRec1[1];
-			float fTemp4 = std::pow(1e+01f, 0.05f * fRec1[0]);
-			fVbargraph0 = FAUSTFLOAT(1.0f - fTemp4);
-			output0[i0] = FAUSTFLOAT(((iSlow0) ? fTemp0 : fRec0[0] * fTemp1 * fTemp4));
+			float fTemp1 = fRec0[1] + 0.015625f;
+			float fTemp2 = fRec0[1] + -0.015625f;
+			fRec0[0] = ((fTemp1 < fSlow0) ? fTemp1 : ((fTemp2 > fSlow0) ? fTemp2 : fSlow0));
+			fRec1[0] = fSlow1 + fConst2 * fRec1[1];
+			float fTemp3 = std::fabs(fTemp0);
+			float fTemp4 = ((fTemp3 > fRec3[1]) ? fSlow9 : fSlow5);
+			fRec3[0] = fTemp3 * (1.0f - fTemp4) + fRec3[1] * fTemp4;
+			fRec2[0] = fSlow2 * std::max<float>(2e+01f * std::log10(std::max<float>(1.1754944e-38f, fRec3[0])) - fSlow10, 0.0f) * fSlow14 + fSlow13 * fRec2[1];
+			float fTemp5 = std::pow(1e+01f, 0.05f * fRec2[0]);
+			fVbargraph0 = FAUSTFLOAT(1.0f - fTemp5);
+			output0[i0] = FAUSTFLOAT(fTemp0 * (fRec0[0] + fRec1[0] * (1.0f - fRec0[0]) * fTemp5));
 			fRec0[1] = fRec0[0];
-			fRec2[1] = fRec2[0];
 			fRec1[1] = fRec1[0];
+			fRec3[1] = fRec3[0];
+			fRec2[1] = fRec2[0];
 		}
 	}
 

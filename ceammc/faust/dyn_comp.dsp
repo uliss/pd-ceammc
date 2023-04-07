@@ -4,7 +4,7 @@ ui = library("ceammc_ui.lib");
 cm = library("ceammc.lib");
 import("stdfaust.lib");
 
-process = ba.bypass1(ui.bypass, comp * gain) with {
+process = cm.bypass_mono(ui.bypass, comp * gain) with {
     compressor_mono(ratio, thresh, atk, rel, x) = x * knee with {
         knee = co.compression_gain_mono(ratio, thresh, atk, rel, x) <: attach(_, (1-_) : vbargraph("level", 0, 1));
     };
