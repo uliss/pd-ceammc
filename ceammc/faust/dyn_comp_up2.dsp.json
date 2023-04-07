@@ -3,7 +3,7 @@
 	"filename": "dyn_comp_up2.dsp",
 	"version": "2.53.1",
 	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn dyn_comp_up2 -scn dyn_comp_up2_dsp -es 1 -mcd 16 -single -ftz 0",
-	"library_list": ["/usr/local/share/faust/stdfaust.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/compressors.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/routes.lib","/usr/local/share/faust/interpolators.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib"],
+	"library_list": ["/usr/local/share/faust/stdfaust.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/compressors.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/routes.lib","/usr/local/share/faust/interpolators.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 2,
 	"outputs": 2,
@@ -80,11 +80,11 @@
 					"shortname": "hold",
 					"address": "/dyn.comp_up2/hold",
 					"meta": [
-						{ "unit": "ms" }
+						{ "unit": "samp" }
 					],
-					"init": 100,
+					"init": 128,
 					"min": 1,
-					"max": 500,
+					"max": 255,
 					"step": 0.1
 				},
 				{
@@ -97,7 +97,7 @@
 					],
 					"init": 3,
 					"min": 0,
-					"max": 6,
+					"max": 24,
 					"step": 0.01
 				},
 				{
