@@ -42,7 +42,7 @@ void setup_dyn_comp_up_tilde()
 
     obj.setXletsInfo({ "signal: input", "float: set strength" },
         { "signal: output", "float: compression level (db)" });
-    obj.addMethod("preset", &::DynCompUp::m_reset);
+    obj.addMethod("reset", &::DynCompUp::m_reset);
 
     obj.setDescription("mono upward compressor");
     obj.setCategory("dyn");

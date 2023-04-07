@@ -56,7 +56,7 @@
             reduction</property>
             <property name="@bypass" type="bool" default="0">if set to 1 - bypass
             compressor</property>
-            <property name="@link" type="float" default="0" minvalue="0" maxvalue="1">the amount of
+            <property name="@link" type="float" default="1" minvalue="0" maxvalue="1">the amount of
             linkage between the channels: 0 = each channel is independent, 1 = all channels have
             the same amount of gain reduction</property>
             <property name="@level" type="float" default="0" minvalue="0" maxvalue="1"
@@ -66,9 +66,7 @@
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <methods>
-            <method name="preset">choose predefined preset 
-            <param name="PRESET" type="symbol" enum="vocal drums bass strings" required="true">
-            name</param></method>
+            <method name="reset">reset to initial state</method>
         </methods>
         <inlets>
             <inlet type="audio">

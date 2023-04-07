@@ -31,7 +31,7 @@ void setup_dyn_comp_peak2_tilde()
             "signal: right output",
             "float: compression level",
         });
-    obj.addMethod("preset", &DynCompPeak2::m_reset);
+    obj.addMethod("reset", &DynCompPeak2::m_reset);
 
     obj.setDescription("stereo dynamic range peak feedforward compressor");
     obj.setCategory("dyn");

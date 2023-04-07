@@ -1,23 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="dyn.comp_peak~">
-        <title>dyn.comp_peak~</title>
+    <object name="dyn.expand~">
+        <title>dyn.expand~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>mono dynamic range peak feed forward compressor</description>
+            <description>mono dynamic range expander</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>dyn</category>
-            <keywords>compressor</keywords>
+            <keywords>expander mono</keywords>
             <since>0.9.7</since>
             <also>
-                <see>dyn.comp_peak2~</see>
+                <see>dyn.expand2~</see>
             </also>
-            <aliases>
-                <alias>comp.peak~</alias>
-            </aliases>
         </meta>
         <info>
             <par>It uses a strength parameter instead of the traditional ratio,
@@ -25,8 +22,8 @@
             <a href="https://en.wikipedia.org/wiki/Dynamic_range_compression">Dynamic range compression</a>
         </info>
         <arguments>
-            <argument name="STRENGTH" type="float" minvalue="0" maxvalue="2">compression strength
-            (0: no compression, 1: hard limiting, &gt;1: overcompression)</argument>
+            <argument name="STRENGTH" type="float" minvalue="0" maxvalue="1">compression strength
+            (0: no compression, 1: increase level by @range db.)</argument>
             <argument name="THRESHOLD" type="float" minvalue="-60" maxvalue="0" units="decibel">
             level threshold above which compression kicks in</argument>
             <argument name="ATTACK" type="float" units="millisecond" minvalue="0.1" maxvalue="100">
@@ -35,30 +32,30 @@
             release time = time constant coming out of compression</argument>
         </arguments>
         <properties>
-            <property name="@strength" type="float" default="0" minvalue="0" maxvalue="2">
-            compression ratio (0: no compression, 1: hard limiting, &gt;1:
-            overcompression)</property>
-            <property name="@threshold" type="float" units="decibel" default="-10" minvalue="-60"
+            <property name="@strength" type="float" default="0" minvalue="0" maxvalue="1">
+            compression strength (0: no compression, 1: increase level by @range db.)</property>
+            <property name="@threshold" type="float" units="decibel" default="-48" minvalue="-60"
             maxvalue="0">level threshold above which compression kicks in (100 dB = max
             level)</property>
+            <property name="@range" type="float" units="decibel" default="-120" minvalue="-120"
+            maxvalue="0">max expand range</property>
             <property name="@attack" type="float" units="millisecond" default="10" minvalue="0.1"
             maxvalue="100">time constant when level &amp; compression going up</property>
             <property name="@release" type="float" units="millisecond" default="50" minvalue="1"
             maxvalue="500">release time = time constant coming out of compression</property>
-            <property name="@gain" type="float" units="decibel" default="0" minvalue="-18"
-            maxvalue="18">make up gain: applied to the signal after the compression takes
-            place</property>
+            <property name="@hold" type="float" units="sample" default="128" minvalue="1"
+            maxvalue="255">hold period</property>
             <property name="@knee" type="float" units="decibel" default="3" minvalue="0"
-            maxvalue="24">a gradual increase in gain reduction around the threshold: below
+            maxvalue="6">a gradual increase in gain reduction around the threshold: below
             thresh-(knee/2) there is no gain reduction, above thresh+(knee/2) there is the same
             gain reduction as without a knee, and in between there is a gradual increase in gain
             reduction</property>
             <property name="@bypass" type="bool" default="0">if set to 1 - bypass
-            compressor</property>
-            <property name="@level" type="float" default="0" minvalue="0" maxvalue="1"
-            access="readonly">current level of compression</property>
+            expander</property>
+            <property name="@level" type="float" units="decibel" default="0" minvalue="0" maxvalue="90"
+            access="readonly">current expander level</property>
             <property name="@refresh" type="int" default="100" minvalue="0" maxvalue="1000"
-            units="millisecond">compression level output time interval. If 0 - no output</property>
+            units="millisecond">expander level output time interval. If 0 - no output</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <methods>
@@ -69,12 +66,12 @@
                 <xinfo>input signal</xinfo>
             </inlet>
             <inlet>
-                <xinfo on="float">set compression strength</xinfo>
+                <xinfo on="float">set expander strength</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output compressed signal</outlet>
-            <outlet>float: output current compression level in [0..1]</outlet>
+            <outlet type="audio">output expanded signal</outlet>
+            <outlet>float: output current expander level in db</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -89,61 +86,15 @@
 |       [@threshold $1(  [ui.knob @label STRENGTH @show_value 1]
 |       |                |
 |       |                |.
-[dyn.comp_peak~ 0 -60 10 100]
+[dyn.expand~ 1 -40 10 100]
 |                     ^|
-[env~]                [ui.hsl @active_scale 1]
+[env~]                [ui.hsl -60 0 @active_scale 1 @show_value 1]
 |
 [- 100]
 |
 [F]
 
-[dyn.comp_peak~.plot]
-
 #a -60 0 @show_value 1
-]]>
-            </pdascii>
-            <pdascii id="plot">
-<![CDATA[
-[B]
-|
-[plot.linspace~ -60 6 1024 #a]  [ui.k #b]  [ui.hsl 0 24 #c]
-|                                          |
-[dbfs->amp~]                               [@knee $1 #d(
-|
-[dyn.comp_peak~ 1 -20 0.1 1     #z]
-|
-[amp->dbfs~]
-|
-[ui.plot~ @ymin -60 @ymax 6 @size 400 350 @xlabels 1 @ylabels 1 @xmin_grid 0 @ymin_ticks 0 @xmin_ticks 0 #x]
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-#b @show_value 1 @label STRENGTH
-#c @show_value 1
-/*...*/
-[X a:1->x:1]
-[X b->z:1]
-[X d->z]
 ]]>
             </pdascii>
         </example>

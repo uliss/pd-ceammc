@@ -62,9 +62,7 @@
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <methods>
-            <method name="preset">choose predefined preset 
-            <param name="PRESET" type="symbol" enum="vocal drums bass strings" required="true">
-            name</param></method>
+            <method name="reset">reset to initial state</method>
         </methods>
         <inlets>
             <inlet type="audio">

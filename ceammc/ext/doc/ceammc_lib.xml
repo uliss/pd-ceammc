@@ -460,6 +460,9 @@
     <entry name="dyn.comp~" descr="mono dynamic range compressors" ref_view="object">
       <xi:include href="dyn.comp~.pddoc" parse="xml"/>
     </entry>
+    <entry name="dyn.expand~" descr="mono dynamic range expander" ref_view="object">
+      <xi:include href="dyn.expand~.pddoc" parse="xml"/>
+    </entry>
     <entry name="dyn.gate2~" descr="stereo signal gate" ref_view="object">
       <xi:include href="dyn.gate2~.pddoc" parse="xml"/>
     </entry>

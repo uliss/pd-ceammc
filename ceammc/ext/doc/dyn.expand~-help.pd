@@ -1,11 +1,10 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 590 50 cnv 1 175 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 590 50 mono upward compressor;
-#X obj 1 1 cnv 5 765 40 empty empty dyn.comp_up~ 20 20 0 20 -104026
+#X obj 552 50 cnv 1 213 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 552 50 mono dynamic range expander;
+#X obj 1 1 cnv 5 765 40 empty empty dyn.expand~ 20 20 0 20 -104026
 -4096 0;
-#X obj 568 11 comp.up~;
-#X obj 652 11 dyn.comp_up~;
+#X obj 659 11 dyn.expand~;
 #X obj 210 80 cnv 1 555 88 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 It uses a strength parameter instead of the traditional
 ratio \, in order to be able to function as a hard limiter or overcompressor;
@@ -19,9 +18,9 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X obj 126 254 ui.hsl -60 0 @show_value 1;
 #X msg 126 297 @threshold \$1;
 #X obj 290 297 ui.knob @label STRENGTH @show_value 1;
-#X obj 50 340 dyn.comp_up~ 0 -60 10 100;
+#X obj 50 340 dyn.expand~ 1 -40 10 100;
 #X obj 50 369 env~;
-#X obj 261 369 ui.hsl 0 32 @active_scale 1 @show_value 1;
+#X obj 261 369 ui.hsl -60 0 @active_scale 1 @show_value 1;
 #X obj 50 398 - 100;
 #X floatatom 50 427 5 0 0 0 - - -;
 #X obj 20 476 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -57,7 +56,7 @@ value: 1\.;
 #X text 245 735 Get/Set time constant when level & compression going
 up. Type: float. Units: ms. Default value: 10\. Range: 0.1\...100\.;
 #X msg 110 792 @bypass;
-#X text 245 792 Get/Set if set to 1 - bypass compressor. Type: bool.
+#X text 245 792 Get/Set if set to 1 - bypass expander. Type: bool.
 Default value: 0\.;
 #X msg 110 834 @hold;
 #X text 245 834 Get/Set hold period. Type: float. Units: samp. Default
@@ -69,14 +68,14 @@ above thresh+(knee/2) there is the same gain reduction as without a
 knee \, and in between there is a gradual increase in gain reduction.
 Type: float. Units: db. Default value: 3\. Range: 0\...6\.;
 #X msg 110 978 @level;
-#X text 245 978 (readonly) Get current level of compression. Type:
-float. Units: db. Default value: 0\. Range: 0\...90\.;
+#X text 245 978 (readonly) Get current expander level. Type: float.
+Units: db. Default value: 0\. Range: 0\...90\.;
 #X msg 110 1020 @range;
-#X text 245 1020 Get/Set max upward compression range. Type: float.
-Units: db. Default value: 32\. Range: 0\...32\.;
+#X text 245 1020 Get/Set max expand range. Type: float. Units: db.
+Default value: -120\. Range: -120\...0\.;
 #X msg 110 1062 @refresh;
-#X text 245 1062 Get/Set compression level output time interval. If
-0 - no output. Type: int. Units: ms. Default value: 100\. Range: 0\...1000\.;
+#X text 245 1062 Get/Set expander level output time interval. If 0
+- no output. Type: int. Units: ms. Default value: 100\. Range: 0\...1000\.;
 #X msg 110 1119 @release;
 #X text 245 1119 Get/Set release time = time constant coming out of
 compression. Type: float. Units: ms. Default value: 50\. Range: 1\...500\.;
@@ -86,7 +85,7 @@ compression. Type: float. Units: ms. Default value: 50\. Range: 1\...500\.;
 0\...1\.;
 #X msg 110 1233 @threshold;
 #X text 245 1233 Get/Set level threshold above which compression kicks
-in (100 dB = max level). Type: float. Units: db. Default value: -32\.
+in (100 dB = max level). Type: float. Units: db. Default value: -48\.
 Range: -60\...0\.;
 #X obj 20 1300 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1305 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
@@ -100,14 +99,14 @@ Range: -60\...0\.;
 #X text 245 1383 input signal.;
 #X text 110 1403 2\.;
 #X text 150 1403 *float*;
-#X text 245 1403 set compression strength.;
+#X text 245 1403 set expander strength.;
 #X obj 20 1433 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1438 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 110 1439 1\.;
-#X text 245 1439 output compressed signal.;
+#X text 245 1439 output expanded signal.;
 #X text 110 1459 2\.;
-#X text 245 1459 float: output current compression level in [0\..1].;
+#X text 245 1459 float: output current expander level in db.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -115,8 +114,8 @@ Range: -60\...0\.;
 #X obj 131 48 ui.link @title dyn @url ceammc.dyn-help.pd;
 #X obj 1 1509 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 1512 library: ceammc v0.9.6;
-#X text 564 1524 see also:;
-#X obj 638 1524 dyn.comp_peak~;
+#X text 578 1524 see also:;
+#X obj 652 1524 dyn.expand2~;
 #N canvas 10 1531 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
@@ -124,7 +123,7 @@ Range: -60\...0\.;
 #X text 10 32 version:;
 #X text 120 32 0.9.6;
 #X text 10 54 object:;
-#X text 120 54 dyn.comp_up~;
+#X text 120 54 dyn.expand~;
 #X text 10 76 category:;
 #X text 120 76 dyn;
 #X text 10 98 since:;
@@ -134,7 +133,7 @@ Range: -60\...0\.;
 #X text 10 142 license:;
 #X text 120 142 GPL3 or later;
 #X text 10 164 keywords:;
-#X text 120 164 compressor;
+#X text 120 164 expander \, mono;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
@@ -142,13 +141,13 @@ https://github.com/uliss/pure-data;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
 #X restore 10 1531 pd info;
-#X connect 8 0 10 0;
-#X connect 10 0 11 0;
-#X connect 12 0 13 0;
-#X connect 11 0 15 0;
-#X connect 13 0 15 0;
-#X connect 14 0 15 1;
-#X connect 15 0 16 0;
-#X connect 15 1 17 0;
-#X connect 16 0 18 0;
-#X connect 18 0 19 0;
+#X connect 7 0 9 0;
+#X connect 9 0 10 0;
+#X connect 11 0 12 0;
+#X connect 10 0 14 0;
+#X connect 12 0 14 0;
+#X connect 13 0 14 1;
+#X connect 14 0 15 0;
+#X connect 14 1 16 0;
+#X connect 15 0 17 0;
+#X connect 17 0 18 0;

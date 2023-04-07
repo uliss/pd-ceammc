@@ -22,7 +22,7 @@ void setup_dyn_comp_up2_tilde()
 
     obj.setXletsInfo({ "signal: input", "float: set strength" },
         { "signal: output", "float: compression level (db)" });
-    obj.addMethod("preset", &::DynCompUp2::m_reset);
+    obj.addMethod("reset", &::DynCompUp2::m_reset);
 
     obj.setDescription("stereo upward compressor with channel linking");
     obj.setCategory("dyn");

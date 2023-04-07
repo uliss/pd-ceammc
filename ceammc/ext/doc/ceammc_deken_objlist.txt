@@ -312,6 +312,7 @@ comp.up2~	stereo upward compressor with channel linking
 dyn.comp_up~	mono upward compressor
 comp.up~	mono upward compressor
 dyn.comp~	mono dynamic range compressors
+dyn.expand~	mono dynamic range expander
 dyn.gate2~	stereo signal gate
 dyn.gate~	mono signal gate
 dyn.limit2~	stereo 1176LN Peak Limiter

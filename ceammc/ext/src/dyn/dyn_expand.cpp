@@ -20,7 +20,7 @@ void setup_dyn_expand_tilde()
     SoundExternalFactory<DynExpand> obj("dyn.expand~");
     obj.setXletsInfo({ "signal: input", "float: set expander strength" },
         { "signal: output", "float: expander level" });
-    obj.addMethod("preset", &DynExpand::m_reset);
+    obj.addMethod("reset", &DynExpand::m_reset);
 
     obj.setDescription("mono dynamic range expander");
     obj.setCategory("dyn");

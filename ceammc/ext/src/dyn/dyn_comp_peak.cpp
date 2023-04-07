@@ -21,7 +21,7 @@ void setup_dyn_comp_peak_tilde()
     obj.addAlias("comp.peak~");
 
     obj.setXletsInfo({ "signal: input", "float: set compression strength" }, { "signal: output", "float: compression level" });
-    obj.addMethod("preset", &DynCompPeak::m_reset);
+    obj.addMethod("reset", &DynCompPeak::m_reset);
 
     obj.setDescription("mono dynamic range peak feed forward compressor");
     obj.setCategory("dyn");
