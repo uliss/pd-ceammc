@@ -197,6 +197,7 @@ gdyn.comp_peak~
 gdyn.comp_up2~
 gdyn.comp_up~
 gdyn.comp~
+gdyn.expand~
 gdyn.gate2~
 gdyn.gate~
 gflt.bpf12~
