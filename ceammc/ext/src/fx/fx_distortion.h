@@ -657,10 +657,11 @@ class fx_distortion : public fx_distortion_dsp {
 	float fConst1;
 	float fRec0[2];
 	FAUSTFLOAT fVslider0;
-	float fRec2[2];
-	FAUSTFLOAT fVslider1;
 	float fRec3[2];
+	FAUSTFLOAT fVslider1;
+	float fRec4[2];
 	float fVec0[2];
+	float fRec2[2];
 	float fRec1[2];
 	
  public:
@@ -670,7 +671,7 @@ class fx_distortion : public fx_distortion_dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.8");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1.2");
+		m->declare("ceammc.lib/version", "0.1.3");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_distortion -scn fx_distortion_dsp -es 1 -mcd 16 -single -ftz 0");
@@ -729,16 +730,19 @@ class fx_distortion : public fx_distortion_dsp {
 			fRec0[l0] = 0.0f;
 		}
 		for (int l1 = 0; l1 < 2; l1 = l1 + 1) {
-			fRec2[l1] = 0.0f;
+			fRec3[l1] = 0.0f;
 		}
 		for (int l2 = 0; l2 < 2; l2 = l2 + 1) {
-			fRec3[l2] = 0.0f;
+			fRec4[l2] = 0.0f;
 		}
 		for (int l3 = 0; l3 < 2; l3 = l3 + 1) {
 			fVec0[l3] = 0.0f;
 		}
 		for (int l4 = 0; l4 < 2; l4 = l4 + 1) {
-			fRec1[l4] = 0.0f;
+			fRec2[l4] = 0.0f;
+		}
+		for (int l5 = 0; l5 < 2; l5 = l5 + 1) {
+			fRec1[l5] = 0.0f;
 		}
 	}
 	
@@ -781,17 +785,19 @@ class fx_distortion : public fx_distortion_dsp {
 			float fTemp0 = float(input0[i0]);
 			float fTemp1 = ((iSlow0) ? 0.0f : fTemp0);
 			fRec0[0] = fSlow1 + fConst1 * fRec0[1];
-			fRec2[0] = fSlow2 + fConst1 * fRec2[1];
-			fRec3[0] = fSlow3 + fConst1 * fRec3[1];
-			float fTemp2 = std::max<float>(-1.0f, std::min<float>(1.0f, fRec2[0] + fTemp1 * std::pow(1e+01f, 2.0f * fRec3[0])));
+			fRec3[0] = fSlow2 + fConst1 * fRec3[1];
+			fRec4[0] = fSlow3 + fConst1 * fRec4[1];
+			float fTemp2 = std::max<float>(-1.0f, std::min<float>(1.0f, fRec3[0] + fTemp1 * std::pow(1e+01f, 2.0f * fRec4[0])));
 			float fTemp3 = fTemp2 * (1.0f - 0.33333334f * fx_distortion_faustpower2_f(fTemp2));
 			fVec0[0] = fTemp3;
-			fRec1[0] = 0.995f * fRec1[1] + fTemp3 - fVec0[1];
+			fRec2[0] = 0.995f * fRec2[1] + fTemp3 - fVec0[1];
+			fRec1[0] = fRec2[0] + 0.995f * fRec1[1] - fRec2[1];
 			output0[i0] = FAUSTFLOAT(((iSlow0) ? fTemp0 : fTemp1 * (1.0f - fRec0[0]) + fRec0[0] * fRec1[0]));
 			fRec0[1] = fRec0[0];
-			fRec2[1] = fRec2[0];
 			fRec3[1] = fRec3[0];
+			fRec4[1] = fRec4[0];
 			fVec0[1] = fVec0[0];
+			fRec2[1] = fRec2[0];
 			fRec1[1] = fRec1[0];
 		}
 	}
