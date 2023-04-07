@@ -375,6 +375,7 @@ dyn.comp_peak~
 dyn.comp_up2~
 dyn.comp_up~
 dyn.comp~
+dyn.expand2~
 dyn.expand~
 dyn.gate2~
 dyn.gate~

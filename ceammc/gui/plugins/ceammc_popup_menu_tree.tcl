@@ -73,8 +73,8 @@
     }}
     {dyn {
         dyn.comp2~ dyn.comp_peak2~ dyn.comp_peak~ dyn.comp_up2~ dyn.comp_up~
-        dyn.comp~ dyn.expand~ dyn.gate2~ dyn.gate~ dyn.limit2~ dyn.limit~
-        dyn.softclip~
+        dyn.comp~ dyn.expand2~ dyn.expand~ dyn.gate2~ dyn.gate~ dyn.limit2~
+        dyn.limit~ dyn.softclip~
     }}
     {env {
         env.adsr~ env.ar~ env.asr~ env.concat env.follow~ env.mix env.smooth~
