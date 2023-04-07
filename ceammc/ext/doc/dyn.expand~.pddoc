@@ -22,7 +22,7 @@
             <a href="https://en.wikipedia.org/wiki/Dynamic_range_compression">Dynamic range compression</a>
         </info>
         <arguments>
-            <argument name="STRENGTH" type="float" minvalue="0" maxvalue="1">compression strength
+            <argument name="STRENGTH" type="float" minvalue="0" maxvalue="10">compression strength
             (0: no compression, 1: increase level by @range db.)</argument>
             <argument name="THRESHOLD" type="float" minvalue="-60" maxvalue="0" units="decibel">
             level threshold above which compression kicks in</argument>
@@ -32,7 +32,7 @@
             release time = time constant coming out of compression</argument>
         </arguments>
         <properties>
-            <property name="@strength" type="float" default="0" minvalue="0" maxvalue="1">
+            <property name="@strength" type="float" default="0" minvalue="0" maxvalue="10">
             compression strength (0: no compression, 1: increase level by @range db.)</property>
             <property name="@threshold" type="float" units="decibel" default="-48" minvalue="-60"
             maxvalue="0">level threshold above which compression kicks in (100 dB = max
@@ -83,7 +83,7 @@
 [sig~]  [ui.hsl #a]
 |       |
 |       |
-|       [@threshold $1(  [ui.knob @label STRENGTH @show_value 1]
+|       [@threshold $1(  [ui.knob 0 10 @label STRENGTH @show_value 1]
 |       |                |
 |       |                |.
 [dyn.expand~ 1 -40 10 100]

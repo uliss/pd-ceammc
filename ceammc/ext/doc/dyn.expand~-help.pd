@@ -17,7 +17,7 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X obj 50 254 sig~;
 #X obj 126 254 ui.hsl -60 0 @show_value 1;
 #X msg 126 297 @threshold \$1;
-#X obj 290 297 ui.knob @label STRENGTH @show_value 1;
+#X obj 290 297 ui.knob 0 10 @label STRENGTH @show_value 1;
 #X obj 50 340 dyn.expand~ 1 -40 10 100;
 #X obj 50 369 env~;
 #X obj 261 369 ui.hsl -60 0 @active_scale 1 @show_value 1;
@@ -30,7 +30,7 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X text 150 516 float;
 #X obj 246 517 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 516 STRENGTH: compression strength (0: no compression \,
-1: increase level by @range db.). Type: float. Range: 0\...1;
+1: increase level by @range db.). Type: float. Range: 0\...10;
 #X text 110 551 2\.;
 #X text 150 551 float;
 #X obj 246 552 cnv 1 108 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -82,7 +82,7 @@ compression. Type: float. Units: ms. Default value: 50\. Range: 1\...500\.;
 #X msg 110 1176 @strength;
 #X text 245 1176 Get/Set compression strength (0: no compression \,
 1: increase level by @range db.). Type: float. Default value: 0\. Range:
-0\...1\.;
+0\...10\.;
 #X msg 110 1233 @threshold;
 #X text 245 1233 Get/Set level threshold above which compression kicks
 in (100 dB = max level). Type: float. Units: db. Default value: -48\.

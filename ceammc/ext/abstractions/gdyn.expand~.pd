@@ -56,9 +56,9 @@ release(ms): @label_side top @label_align left @fontsize 10
 #X msg 260 356 @release \$1;
 #X obj 12 386 ui.slider @size 125 12 @active_scale 1 @label strength:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/dyn.expand~/slider6 @min 0 @max 1;
+/gui/\$1/dyn.expand~/slider6 @min 0 @max 10;
 #X obj 215 386 sync;
-#X obj 145 386 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X obj 145 386 ui.number @size 50 12 @min 0 @max 10 @digits 3;
 #X msg 260 386 @strength \$1;
 #X obj 12 416 ui.slider @size 125 12 @active_scale 1 @label
 threshold(db): @label_side top @label_align left @fontsize 10
