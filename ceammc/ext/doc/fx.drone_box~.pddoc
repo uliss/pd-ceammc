@@ -34,6 +34,9 @@
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
             </inlet>
+            <inlet>
+                <xinfo on="float">set drone pitch</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">output signal</outlet>

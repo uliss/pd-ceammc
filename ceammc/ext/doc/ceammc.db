@@ -232,7 +232,7 @@ fx.distortion2~		~		~
 fx.distortion3~		~		~
 fx.distortion~		~		~
 fx.drive~		~		~
-fx.drone_box~		~		~
+fx.drone_box~		~.		~
 fx.echo2~		~~		~~
 fx.echo~		~		~
 fx.flanger~		~		~
