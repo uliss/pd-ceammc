@@ -89,6 +89,39 @@ public:
     }
 };
 
+template <typename T>
+class DynCompNewT : public T {
+    faust::UIProperty *strength_, *threshold_, *attack_, *release_;
+
+public:
+    DynCompNewT(const PdArgs& args)
+        : T(args)
+    {
+        static_assert(std::is_base_of<faust::FaustExternalBase, T>::value, "");
+
+        CEAMMC_DEFINE_PROP_VAR(strength);
+        CEAMMC_DEFINE_PROP_VAR(threshold);
+        CEAMMC_DEFINE_PROP_VAR(attack);
+        CEAMMC_DEFINE_PROP_VAR(release);
+
+        strength_ = this->findUIProperty(sym_prop_strength);
+        threshold_ = this->findUIProperty(sym_prop_threshold);
+        attack_ = this->findUIProperty(sym_prop_attack);
+        release_ = this->findUIProperty(sym_prop_release);
+
+        this->bindPositionalArgsToProps({ sym_prop_strength,
+            sym_prop_threshold,
+            sym_prop_attack,
+            sym_prop_release });
+    }
+
+    void setStrength(t_float f)
+    {
+        if (strength_)
+            strength_->setValue(f, true);
+    }
+};
+
 }
 
 #endif // DYN_COMP_BASE_H
