@@ -1,11 +1,11 @@
 /* ------------------------------------------------------------
 name: "dyn.comp_peak_ff"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn dyn_comp_peak_ff -scn dyn_comp_peak_ff_dsp -es 1 -mcd 16 -single -ftz 0
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn dyn_comp_peak -scn dyn_comp_peak_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
-#ifndef  __dyn_comp_peak_ff_H__
-#define  __dyn_comp_peak_ff_H__
+#ifndef  __dyn_comp_peak_H__
+#define  __dyn_comp_peak_H__
 
 // FAUST Architecture File for ceammc::SoundExternal class
 #include <cmath>
@@ -14,7 +14,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_ds
 #include <memory>
 #include <string>
 
-/************************** BEGIN dyn_comp_peak_ff_dsp.h ********************************
+/************************** BEGIN dyn_comp_peak_dsp.h ********************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
  ---------------------------------------------------------------------
@@ -153,12 +153,12 @@ struct FAUST_API dsp_memory_manager {
 * Signal processor definition.
 */
 
-class FAUST_API dyn_comp_peak_ff_dsp {
+class FAUST_API dyn_comp_peak_dsp {
 
     public:
 
-        dyn_comp_peak_ff_dsp() {}
-        virtual ~dyn_comp_peak_ff_dsp() {}
+        dyn_comp_peak_dsp() {}
+        virtual ~dyn_comp_peak_dsp() {}
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -211,7 +211,7 @@ class FAUST_API dyn_comp_peak_ff_dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual dyn_comp_peak_ff_dsp* clone() = 0;
+        virtual dyn_comp_peak_dsp* clone() = 0;
     
         /**
          * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
@@ -247,15 +247,15 @@ class FAUST_API dyn_comp_peak_ff_dsp {
  * Generic DSP decorator.
  */
 
-class FAUST_API decorator_dsp : public dyn_comp_peak_ff_dsp {
+class FAUST_API decorator_dsp : public dyn_comp_peak_dsp {
 
     protected:
 
-        dyn_comp_peak_ff_dsp* fDSP;
+        dyn_comp_peak_dsp* fDSP;
 
     public:
 
-        decorator_dsp(dyn_comp_peak_ff_dsp* dyn_comp_peak_ff_dsp = nullptr):fDSP(dyn_comp_peak_ff_dsp) {}
+        decorator_dsp(dyn_comp_peak_dsp* dyn_comp_peak_dsp = nullptr):fDSP(dyn_comp_peak_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
         virtual int getNumInputs() { return fDSP->getNumInputs(); }
@@ -296,7 +296,7 @@ class FAUST_API dsp_factory {
         virtual std::vector<std::string> getLibraryList() = 0;
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
-        virtual dyn_comp_peak_ff_dsp* createDSPInstance() = 0;
+        virtual dyn_comp_peak_dsp* createDSPInstance() = 0;
     
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
         virtual dsp_memory_manager* getMemoryManager() = 0;
@@ -366,7 +366,7 @@ class FAUST_API ScopedNoDenormals {
 
 #endif
 
-/************************** END dyn_comp_peak_ff_dsp.h **************************/
+/************************** END dyn_comp_peak_dsp.h **************************/
 /************************** BEGIN UI.h *****************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
@@ -482,7 +482,7 @@ struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
 
 
 /**
- The base class of Meta handler to be used in dyn_comp_peak_ff_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
+ The base class of Meta handler to be used in dyn_comp_peak_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
  */
 struct FAUST_API Meta {
     virtual ~Meta() {}
@@ -611,7 +611,7 @@ using namespace ceammc::faust;
 
 // clang-format off
 #ifndef FAUST_MACRO
-struct dyn_comp_peak_ff : public dyn_comp_peak_ff_dsp {
+struct dyn_comp_peak : public dyn_comp_peak_dsp {
 };
 #endif
 // clang-format on
@@ -628,7 +628,7 @@ struct dyn_comp_peak_ff : public dyn_comp_peak_ff_dsp {
 #include <math.h>
 
 #ifndef FAUSTCLASS 
-#define FAUSTCLASS dyn_comp_peak_ff
+#define FAUSTCLASS dyn_comp_peak
 #endif
 
 #ifdef __APPLE__ 
@@ -642,11 +642,11 @@ struct dyn_comp_peak_ff : public dyn_comp_peak_ff_dsp {
 #define RESTRICT __restrict__
 #endif
 
-static float dyn_comp_peak_ff_faustpower2_f(float value) {
+static float dyn_comp_peak_faustpower2_f(float value) {
 	return value * value;
 }
 
-class dyn_comp_peak_ff : public dyn_comp_peak_ff_dsp {
+class dyn_comp_peak : public dyn_comp_peak_dsp {
 	
  private:
 	
@@ -672,7 +672,7 @@ class dyn_comp_peak_ff : public dyn_comp_peak_ff_dsp {
 		m->declare("ceammc.lib/version", "0.1.3");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn dyn_comp_peak_ff -scn dyn_comp_peak_ff_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn dyn_comp_peak -scn dyn_comp_peak_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("compressors.lib/FFcompressor_N_chan:author", "Bart Brouns");
 		m->declare("compressors.lib/FFcompressor_N_chan:license", "GPLv3");
 		m->declare("compressors.lib/name", "Faust Compressor Effect Library");
@@ -681,7 +681,7 @@ class dyn_comp_peak_ff : public dyn_comp_peak_ff_dsp {
 		m->declare("compressors.lib/peak_compression_gain_mono_db:author", "Bart Brouns");
 		m->declare("compressors.lib/peak_compression_gain_mono_db:license", "GPLv3");
 		m->declare("compressors.lib/version", "0.4");
-		m->declare("filename", "dyn_comp_peak_ff.dsp");
+		m->declare("filename", "dyn_comp_peak.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
@@ -741,8 +741,8 @@ class dyn_comp_peak_ff : public dyn_comp_peak_ff_dsp {
 		instanceClear();
 	}
 	
-	virtual dyn_comp_peak_ff* clone() {
-		return new dyn_comp_peak_ff();
+	virtual dyn_comp_peak* clone() {
+		return new dyn_comp_peak();
 	}
 	
 	virtual int getSampleRate() {
@@ -790,7 +790,7 @@ class dyn_comp_peak_ff : public dyn_comp_peak_ff_dsp {
 			float fTemp3 = 2e+01f * std::log10(std::max<float>(1.1754944e-38f, std::fabs(fTemp0)));
 			int iTemp4 = (fTemp3 > fSlow5) + (fTemp3 > fSlow6);
 			float fTemp5 = fTemp3 - fSlow2;
-			float fTemp6 = 0.0f - fSlow1 * std::max<float>(0.0f, ((iTemp4 == 0) ? 0.0f : ((iTemp4 == 1) ? fSlow7 * dyn_comp_peak_ff_faustpower2_f(fSlow4 + fTemp5) : fTemp5)));
+			float fTemp6 = 0.0f - fSlow1 * std::max<float>(0.0f, ((iTemp4 == 0) ? 0.0f : ((iTemp4 == 1) ? fSlow7 * dyn_comp_peak_faustpower2_f(fSlow4 + fTemp5) : fTemp5)));
 			float fTemp7 = ((fTemp6 > fRec1[1]) ? fSlow13 : fSlow10);
 			fRec1[0] = fTemp6 * (1.0f - fTemp7) + fRec1[1] * fTemp7;
 			fHbargraph0 = FAUSTFLOAT(1.0f - std::pow(1e+01f, 0.05f * fRec1[0]));
@@ -805,18 +805,18 @@ class dyn_comp_peak_ff : public dyn_comp_peak_ff_dsp {
 #endif
 
     template <class T>
-    struct _dyn_comp_peak_ff_UI : public UI {
+    struct _dyn_comp_peak_UI : public UI {
     static std::string name;
 };
 
 template <class T>
-std::string _dyn_comp_peak_ff_UI<T>::name(sym(dyn_comp_peak_ff));
+std::string _dyn_comp_peak_UI<T>::name(sym(dyn_comp_peak));
 
-typedef _dyn_comp_peak_ff_UI<dyn_comp_peak_ff> dyn_comp_peak_ff_UI;
+typedef _dyn_comp_peak_UI<dyn_comp_peak> dyn_comp_peak_UI;
 
-class faust_dyn_comp_peak_ff_tilde : public FaustExternal<dyn_comp_peak_ff, dyn_comp_peak_ff_UI> {
+class faust_dyn_comp_peak_tilde : public FaustExternal<dyn_comp_peak, dyn_comp_peak_UI> {
 public:
-    faust_dyn_comp_peak_ff_tilde(const ceammc::PdArgs& args)
+    faust_dyn_comp_peak_tilde(const ceammc::PdArgs& args)
         : FaustExternal(args)
     {
     }

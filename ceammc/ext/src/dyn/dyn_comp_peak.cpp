@@ -1,12 +1,12 @@
-#include "dyn_comp_peak_ff.h"
+#include "dyn_comp_peak.h"
 #include "ceammc_factory.h"
 #include "dyn_comp_base.h"
 using namespace ceammc;
 
-class DynCompPeakFF : public DynCompNewT<faust_dyn_comp_peak_ff_tilde> {
+class DynCompPeak : public DynCompNewT<faust_dyn_comp_peak_tilde> {
 public:
-    DynCompPeakFF(const PdArgs& args)
-        : DynCompNewT<faust_dyn_comp_peak_ff_tilde>(args)
+    DynCompPeak(const PdArgs& args)
+        : DynCompNewT<faust_dyn_comp_peak_tilde>(args)
     {
         createInlet();
         createOutlet();
@@ -18,11 +18,13 @@ public:
     }
 };
 
-void setup_dyn_comp_peak_ff_tilde()
+void setup_dyn_comp_peak_tilde()
 {
-    SoundExternalFactory<DynCompPeakFF> obj("dyn.comp_peak_ff~");
+    SoundExternalFactory<DynCompPeak> obj("dyn.comp_peak~");
+    obj.addAlias("comp.peak~");
+
     obj.setXletsInfo({ "signal: input", "float: set compression strength" }, { "signal: output", "float: compression level" });
-    obj.addMethod("preset", &DynCompPeakFF::m_reset);
+    obj.addMethod("preset", &DynCompPeak::m_reset);
 
     obj.setDescription("mono dynamic range peak feed forward compressor");
     obj.setCategory("dyn");

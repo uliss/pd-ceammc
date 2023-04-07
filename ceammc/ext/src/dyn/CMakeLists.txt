@@ -9,7 +9,7 @@ macro(ceammc_dyn_ui_ext name)
 endmacro()
 
 ceammc_dyn_ui_ext(comp)
-ceammc_dyn_ui_ext(comp_peak_ff)
+ceammc_dyn_ui_ext(comp_peak)
 ceammc_dyn_ui_ext(comp2)
 ceammc_dyn_ui_ext(gate)
 ceammc_dyn_ui_ext(gate2)

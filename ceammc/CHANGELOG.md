@@ -12,7 +12,7 @@
   - conv.rgb2hex - convert RGB separate values to #RRGGBB symbol
   - conv.ms2str - convert time in milliseconds to formatted string or symbol
   - data.color - Color datatype
-  - dyn.comp_peak_ff~ - Peak Feed Forward compressor added
+  - dyn.comp_peak~ - Peak Feed Forward compressor added
   - fx.overdrive~ - overdrive effect
   - fx.tremolo~ - tremolo effect from guitarix library
   - metro.choice - randomly (uniformly) metronome time interval choice from specified set
