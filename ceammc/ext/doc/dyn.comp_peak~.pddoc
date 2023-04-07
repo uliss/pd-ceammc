@@ -15,11 +15,17 @@
             <also>
                 <see>dyn.comp_peak2~</see>
             </also>
+            <aliases>
+                <alias>comp.peak~</alias>
+            </aliases>
         </meta>
+        <info>
+            <par>a</par>
+        </info>
         <arguments>
-            <argument name="STRENGTH" type="float" minvalue="0" maxvalue="2">compression strength (0 -
-            no compression, 1 limiting, &gt;1 over compression)</argument>
-            <argument name="THRESHOLD" type="float" minvalue="-90" maxvalue="0" units="decibel">
+            <argument name="STRENGTH" type="float" minvalue="0" maxvalue="2">compression strength (0:
+            no compression, 1: hard limiting, &gt;1: overcompression)</argument>
+            <argument name="THRESHOLD" type="float" minvalue="-60" maxvalue="0" units="decibel">
             level threshold above which compression kicks in</argument>
             <argument name="ATTACK" type="float" units="millisecond" minvalue="0.1" maxvalue="100">
             attack time = time constant when level &amp; compression going up</argument>
@@ -27,9 +33,9 @@
             release time = time constant coming out of compression</argument>
         </arguments>
         <properties>
-            <property name="@strength" type="float" default="1" minvalue="1" maxvalue="16">compression
-            ratio (1 = no compression, &gt;1 means compression)</property>
-            <property name="@threshold" type="float" units="decibel" default="-10" minvalue="-90"
+            <property name="@strength" type="float" default="0" minvalue="0" maxvalue="2">compression
+            ratio (0: no compression, 1: hard limiting, &gt;1: overcompression)</property>
+            <property name="@threshold" type="float" units="decibel" default="-10" minvalue="-60"
             maxvalue="0">level threshold above which compression kicks in (100 dB = max
             level)</property>
             <property name="@attack" type="float" units="millisecond" default="10" minvalue="0.1"
@@ -39,6 +45,11 @@
             <property name="@gain" type="float" units="decibel" default="0" minvalue="-18"
             maxvalue="18">make up gain: applied to the signal after the compression takes
             place</property>
+            <property name="@knee" type="float" units="decibel" default="3" minvalue="0"
+            maxvalue="6">a gradual increase in gain reduction around the threshold:
+            below thresh-(knee/2) there is no gain reduction,
+            above thresh+(knee/2) there is the same gain reduction as without a knee,
+            and in between there is a gradual increase in gain reduction</property>
             <property name="@bypass" type="bool" default="0">if set to 1 - bypass
             compressor</property>
             <property name="@level" type="float" default="0" minvalue="0" maxvalue="1"
@@ -56,6 +67,9 @@
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
             </inlet>
+            <inlet>
+                <xinfo on="float">set compression strength</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">output compressed signal</outlet>
@@ -64,19 +78,19 @@
         <example>
             <pdascii>
 <![CDATA[
-[ui.hsl -60 20 @show_value 1] [ui.dsp~]
+[ui.hsl #a]              [ui.dsp~]
 |
 [dbfs->amp]
 |
-[sig~]    [ui.hsl #a]   [ui.hsl #b]
-|         |             |
-|         |             |
-|         [@ratio $1(   [@threshold $1(
-|         |             |
-|         |             |
-[dyn.comp~ 3 -60 10 100 ]
-|               ^|
-[env~]          [ui.hsl @active_scale 1]
+[sig~]  [ui.hsl #b]
+|       |
+|       |
+|       [@threshold $1(  [ui.knob @label STRENGTH @show_value 1]
+|       |                |
+|       |                |.
+[dyn.comp_peak~ 0 -60 10 100]
+|                     ^|
+[env~]                [ui.hsl @active_scale 1]
 |
 [- 100]
 |

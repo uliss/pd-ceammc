@@ -114,6 +114,7 @@ set(DOC_FILES
     dict.values
     dyn.comp2~
     dyn.comp~
+    dyn.comp_peak~
     dyn.gate2~
     dyn.gate~
     dyn.limit2~

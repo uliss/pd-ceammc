@@ -65,6 +65,19 @@
 					"address": "/dyn.comp_peak_ff/bypass"
 				},
 				{
+					"type": "vslider",
+					"label": "gain",
+					"shortname": "gain",
+					"address": "/dyn.comp_peak_ff/gain",
+					"meta": [
+						{ "unit": "db" }
+					],
+					"init": 0,
+					"min": -18,
+					"max": 18,
+					"step": 0.1
+				},
+				{
 					"type": "hslider",
 					"label": "knee",
 					"shortname": "knee",
@@ -72,9 +85,9 @@
 					"meta": [
 						{ "unit": "db" }
 					],
-					"init": 0,
+					"init": 3,
 					"min": 0,
-					"max": 12,
+					"max": 6,
 					"step": 0.01
 				},
 				{

@@ -652,14 +652,18 @@ class dyn_comp_peak : public dyn_comp_peak_dsp {
 	
 	FAUSTFLOAT fCheckbox0;
 	float fRec0[2];
+	int fSampleRate;
+	float fConst1;
+	FAUSTFLOAT fVslider0;
+	float fConst2;
+	float fRec1[2];
 	FAUSTFLOAT fHslider0;
 	FAUSTFLOAT fHslider1;
 	FAUSTFLOAT fHslider2;
 	FAUSTFLOAT fHslider3;
-	int fSampleRate;
-	float fConst0;
+	float fConst3;
 	FAUSTFLOAT fHslider4;
-	float fRec1[2];
+	float fRec2[2];
 	FAUSTFLOAT fHbargraph0;
 	
  public:
@@ -710,14 +714,18 @@ class dyn_comp_peak : public dyn_comp_peak_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		fConst0 = 1.0f / std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst1 = 44.1f / fConst0;
+		fConst2 = 1.0f - fConst1;
+		fConst3 = 1.0f / fConst0;
 	}
 	
 	virtual void instanceResetUserInterface() {
 		fCheckbox0 = FAUSTFLOAT(0.0f);
+		fVslider0 = FAUSTFLOAT(0.0f);
 		fHslider0 = FAUSTFLOAT(0.0f);
 		fHslider1 = FAUSTFLOAT(-1e+01f);
-		fHslider2 = FAUSTFLOAT(0.0f);
+		fHslider2 = FAUSTFLOAT(3.0f);
 		fHslider3 = FAUSTFLOAT(1e+01f);
 		fHslider4 = FAUSTFLOAT(5e+01f);
 	}
@@ -728,6 +736,9 @@ class dyn_comp_peak : public dyn_comp_peak_dsp {
 		}
 		for (int l1 = 0; l1 < 2; l1 = l1 + 1) {
 			fRec1[l1] = 0.0f;
+		}
+		for (int l2 = 0; l2 < 2; l2 = l2 + 1) {
+			fRec2[l2] = 0.0f;
 		}
 	}
 	
@@ -754,8 +765,10 @@ class dyn_comp_peak : public dyn_comp_peak_dsp {
 		ui_interface->declare(&fHslider3, "unit", "ms");
 		ui_interface->addHorizontalSlider("attack", &fHslider3, FAUSTFLOAT(1e+01f), FAUSTFLOAT(0.1f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.1f));
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
+		ui_interface->declare(&fVslider0, "unit", "db");
+		ui_interface->addVerticalSlider("gain", &fVslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(-18.0f), FAUSTFLOAT(18.0f), FAUSTFLOAT(0.1f));
 		ui_interface->declare(&fHslider2, "unit", "db");
-		ui_interface->addHorizontalSlider("knee", &fHslider2, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(12.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("knee", &fHslider2, FAUSTFLOAT(3.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(6.0f), FAUSTFLOAT(0.01f));
 		ui_interface->addHorizontalBargraph("level", &fHbargraph0, FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f));
 		ui_interface->declare(&fHslider4, "unit", "ms");
 		ui_interface->addHorizontalSlider("release", &fHslider4, FAUSTFLOAT(5e+01f), FAUSTFLOAT(1.0f), FAUSTFLOAT(5e+02f), FAUSTFLOAT(0.1f));
@@ -769,34 +782,37 @@ class dyn_comp_peak : public dyn_comp_peak_dsp {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
 		float fSlow0 = float(float(fCheckbox0) >= 1.0f);
-		float fSlow1 = float(fHslider0);
-		float fSlow2 = float(fHslider1);
-		float fSlow3 = float(fHslider2);
-		float fSlow4 = 0.5f * fSlow3;
-		float fSlow5 = fSlow2 - fSlow4;
-		float fSlow6 = fSlow2 + fSlow4;
-		float fSlow7 = 0.5f / std::max<float>(1.1920929e-07f, fSlow3);
-		float fSlow8 = 0.001f * float(fHslider3);
-		int iSlow9 = std::fabs(fSlow8) < 1.1920929e-07f;
-		float fSlow10 = ((iSlow9) ? 0.0f : std::exp(0.0f - fConst0 / ((iSlow9) ? 1.0f : fSlow8)));
-		float fSlow11 = 0.001f * float(fHslider4);
-		int iSlow12 = std::fabs(fSlow11) < 1.1920929e-07f;
-		float fSlow13 = ((iSlow12) ? 0.0f : std::exp(0.0f - fConst0 / ((iSlow12) ? 1.0f : fSlow11)));
+		float fSlow1 = fConst1 * std::pow(1e+01f, 0.05f * float(fVslider0));
+		float fSlow2 = float(fHslider0);
+		float fSlow3 = float(fHslider1);
+		float fSlow4 = float(fHslider2);
+		float fSlow5 = 0.5f * fSlow4;
+		float fSlow6 = fSlow3 - fSlow5;
+		float fSlow7 = fSlow3 + fSlow5;
+		float fSlow8 = 0.5f / std::max<float>(1.1920929e-07f, fSlow4);
+		float fSlow9 = 0.001f * float(fHslider3);
+		int iSlow10 = std::fabs(fSlow9) < 1.1920929e-07f;
+		float fSlow11 = ((iSlow10) ? 0.0f : std::exp(0.0f - fConst3 / ((iSlow10) ? 1.0f : fSlow9)));
+		float fSlow12 = 0.001f * float(fHslider4);
+		int iSlow13 = std::fabs(fSlow12) < 1.1920929e-07f;
+		float fSlow14 = ((iSlow13) ? 0.0f : std::exp(0.0f - fConst3 / ((iSlow13) ? 1.0f : fSlow12)));
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			float fTemp0 = float(input0[i0]);
 			float fTemp1 = fRec0[1] + 0.015625f;
 			float fTemp2 = fRec0[1] + -0.015625f;
 			fRec0[0] = ((fTemp1 < fSlow0) ? fTemp1 : ((fTemp2 > fSlow0) ? fTemp2 : fSlow0));
+			fRec1[0] = fSlow1 + fConst2 * fRec1[1];
 			float fTemp3 = 2e+01f * std::log10(std::max<float>(1.1754944e-38f, std::fabs(fTemp0)));
-			int iTemp4 = (fTemp3 > fSlow5) + (fTemp3 > fSlow6);
-			float fTemp5 = fTemp3 - fSlow2;
-			float fTemp6 = 0.0f - fSlow1 * std::max<float>(0.0f, ((iTemp4 == 0) ? 0.0f : ((iTemp4 == 1) ? fSlow7 * dyn_comp_peak_faustpower2_f(fSlow4 + fTemp5) : fTemp5)));
-			float fTemp7 = ((fTemp6 > fRec1[1]) ? fSlow13 : fSlow10);
-			fRec1[0] = fTemp6 * (1.0f - fTemp7) + fRec1[1] * fTemp7;
-			fHbargraph0 = FAUSTFLOAT(1.0f - std::pow(1e+01f, 0.05f * fRec1[0]));
-			output0[i0] = FAUSTFLOAT(fTemp0 * (fRec0[0] + (1.0f - fRec0[0]) * std::pow(1e+01f, 0.05f * fRec1[0])));
+			int iTemp4 = (fTemp3 > fSlow6) + (fTemp3 > fSlow7);
+			float fTemp5 = fTemp3 - fSlow3;
+			float fTemp6 = 0.0f - fSlow2 * std::max<float>(0.0f, ((iTemp4 == 0) ? 0.0f : ((iTemp4 == 1) ? fSlow8 * dyn_comp_peak_faustpower2_f(fSlow5 + fTemp5) : fTemp5)));
+			float fTemp7 = ((fTemp6 > fRec2[1]) ? fSlow14 : fSlow11);
+			fRec2[0] = fTemp6 * (1.0f - fTemp7) + fRec2[1] * fTemp7;
+			fHbargraph0 = FAUSTFLOAT(1.0f - std::pow(1e+01f, 0.05f * fRec2[0]));
+			output0[i0] = FAUSTFLOAT(fTemp0 * (fRec0[0] + fRec1[0] * (1.0f - fRec0[0]) * std::pow(1e+01f, 0.05f * fRec2[0])));
 			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];
+			fRec2[1] = fRec2[0];
 		}
 	}
 

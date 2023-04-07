@@ -91,7 +91,7 @@ public:
 
 template <typename T>
 class DynCompNewT : public T {
-    faust::UIProperty *strength_, *threshold_, *attack_, *release_;
+    faust::UIProperty *strength_;
 
 public:
     DynCompNewT(const PdArgs& args)
@@ -105,9 +105,6 @@ public:
         CEAMMC_DEFINE_PROP_VAR(release);
 
         strength_ = this->findUIProperty(sym_prop_strength);
-        threshold_ = this->findUIProperty(sym_prop_threshold);
-        attack_ = this->findUIProperty(sym_prop_attack);
-        release_ = this->findUIProperty(sym_prop_release);
 
         this->bindPositionalArgsToProps({ sym_prop_strength,
             sym_prop_threshold,
@@ -115,10 +112,10 @@ public:
             sym_prop_release });
     }
 
-    void setStrength(t_float f)
+    void onInlet(size_t n, const AtomListView& lv) final
     {
         if (strength_)
-            strength_->setValue(f, true);
+            strength_->set(lv);
     }
 };
 
