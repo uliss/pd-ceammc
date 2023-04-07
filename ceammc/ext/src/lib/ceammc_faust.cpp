@@ -386,6 +386,24 @@ namespace faust {
         return 0.1f;
     }
 
+    void FaustExternalBase::outputMetersTo(size_t outlet)
+    {
+        auto n = meters_.size();
+        if (n == 0)
+            return;
+        else if (n == 1)
+            floatTo(outlet, meters_[0] ? *meters_[0] : 0);
+        else {
+            StaticAtomList<4> data;
+            data.reserve(meters_.size());
+
+            for (auto x : meters_)
+                data.push_back(x ? *x : 0);
+
+            listTo(outlet, data.view());
+        }
+    }
+
     UIProperty* FaustExternalBase::findUIProperty(t_symbol* name, bool printErr)
     {
         auto res = dynamic_cast<UIProperty*>(property(name));
@@ -395,16 +413,16 @@ namespace faust {
         return res;
     }
 
-    void FaustExternalBase::initBargraphData()
+    void FaustExternalBase::initMeters()
     {
-        if (bargraphs_.size() > 0) {
+        if (meters_.size() > 0) {
             refresh_ = new IntProperty("@refresh", 100);
             refresh_->checkClosedRange(0, 1000);
             refresh_->setUnitsMs();
             addProperty(refresh_);
             clock_ptr_.reset(new ClockLambdaFunction([this]() {
                 if (clock_fn_) {
-                    clock_fn_(bargraphs_);
+                    clock_fn_(meters_);
 
                     auto t = refresh_->value();
                     if (t > 0)
@@ -420,7 +438,7 @@ namespace faust {
         auto type = prop->uiElement()->type();
 
         if (type == UI_V_BARGRAPH || type == UI_H_BARGRAPH) {
-            bargraphs_.push_back(prop->uiElement()->valuePtr());
+            meters_.push_back(prop->uiElement()->valuePtr());
             prop->setReadOnly();
         }
 
@@ -631,7 +649,7 @@ namespace faust {
         new_path.push_back(label);
 
         auto osc_segs = filterOscSegment(new_path);
-        for(auto& s: filterOscSegment(new_path)) {
+        for (auto& s : filterOscSegment(new_path)) {
             res += '/';
             res += s;
         }

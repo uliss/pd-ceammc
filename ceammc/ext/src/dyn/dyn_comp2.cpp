@@ -9,10 +9,7 @@ public:
         : DynCompBase<faust_dyn_comp2_tilde>(args)
     {
         createOutlet();
-        setBargraphOutputFn([this](const BargraphData& bg) {
-            if (!bg.empty())
-                floatTo(2, *bg[0]);
-        });
+        setMetersOutputFn([this](const MetersData& bg) { outputMetersTo(2); });
     }
 };
 

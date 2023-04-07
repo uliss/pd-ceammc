@@ -91,8 +91,8 @@ namespace faust {
 
     class FaustExternalBase : public SoundExternal {
     public:
-        using BargraphData = std::vector<const FAUSTFLOAT*>;
-        using BargraphFn = std::function<void(const BargraphData&)>;
+        using MetersData = std::vector<const FAUSTFLOAT*>;
+        using MetersFn = std::function<void(const MetersData&)>;
 
     public:
         FaustExternalBase(const PdArgs& args);
@@ -118,13 +118,14 @@ namespace faust {
         bool active_;
 
     protected:
-        void setBargraphOutputFn(BargraphFn fn) { clock_fn_ = fn; }
+        void setMetersOutputFn(MetersFn fn) { clock_fn_ = fn; }
         void setInitSignalValue(t_float f) { pd_float(reinterpret_cast<t_pd*>(owner()), f); }
+        void outputMetersTo(size_t outlet);
 
         UIProperty* findUIProperty(t_symbol* name, bool printErr = true);
         UIProperty* findUIProperty(const char* name, bool printErr = true) { return findUIProperty(gensym(name), printErr); }
 
-        void initBargraphData();
+        void initMeters();
         void addUIElement(UIElement* ui);
 
     private:
@@ -134,8 +135,8 @@ namespace faust {
     private:
         std::unique_ptr<ClockLambdaFunction> clock_ptr_;
         IntProperty* refresh_ { nullptr };
-        BargraphData bargraphs_;
-        BargraphFn clock_fn_;
+        MetersData meters_;
+        MetersFn clock_fn_;
     };
 
     enum UIElementType {
@@ -318,7 +319,7 @@ namespace faust {
             for (size_t i = 0; i < n_ui; i++)
                 addUIElement(ui_->uiAt(i));
 
-            initBargraphData();
+            initMeters();
         }
 
         void initConstants()

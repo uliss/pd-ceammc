@@ -25,10 +25,7 @@ public:
             sym_prop_attack,
             sym_prop_release });
 
-        setBargraphOutputFn([this](const BargraphData& bg) {
-            if (!bg.empty())
-                floatTo(1, *bg[0]);
-        });
+        setMetersOutputFn([this](const MetersData& bg) { outputMetersTo(1); });
     }
 
     void onInlet(size_t n, const AtomListView& lv) final

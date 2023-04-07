@@ -11,10 +11,7 @@ public:
         createInlet();
         createOutlet();
 
-        setBargraphOutputFn([this](const BargraphData& bg) {
-            if (!bg.empty())
-                floatTo(1, *bg[0]);
-        });
+        setMetersOutputFn([this](const MetersData& bg) { outputMetersTo(1); });
     }
 };
 

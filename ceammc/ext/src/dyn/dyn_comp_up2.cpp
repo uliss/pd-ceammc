@@ -1,5 +1,4 @@
 #include "dyn_comp_up2.h"
-#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "dyn_comp_base.h"
 using namespace ceammc;
@@ -12,15 +11,7 @@ public:
         createInlet();
         createOutlet();
 
-        setBargraphOutputFn([this](const BargraphData& bg) {
-            auto N = bg.size();
-            if (N == 1)
-                floatTo(2, *bg[0]);
-            else if (N == 2) {
-                AtomArray<2> data { *bg[0], *bg[1] };
-                listTo(2, data.view());
-            }
-        });
+        setMetersOutputFn([this](const MetersData& bg) { outputMetersTo(2); });
     }
 };
 
