@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="dyn.expand~">
-        <title>dyn.expand~</title>
+    <object name="dyn.expand2~">
+        <title>dyn.expand2~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>mono dynamic range expander</description>
+            <description>stereo dynamic range expander with channel linking</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>dyn</category>
             <keywords>expander mono</keywords>
             <since>0.9.7</since>
             <also>
-                <see>dyn.expand2~</see>
+                <see>dyn.expand~</see>
             </also>
         </meta>
         <info>
@@ -55,6 +55,9 @@
             access="readonly">current expander level</property>
             <property name="@refresh" type="int" default="100" minvalue="0" maxvalue="1000"
             units="millisecond">expander level output time interval. If 0 - no output</property>
+            <property name="@link" type="float" default="1" minvalue="0" maxvalue="1">the amount of
+            linkage between the channels: 0 = each channel is independent, 1 = all channels have
+            the same amount of gain reduction</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <methods>
@@ -62,38 +65,46 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>input signal</xinfo>
+                <xinfo>left input signal</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>right input signal</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">set expander strength</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output expanded signal</outlet>
-            <outlet>float: output current expander level in db</outlet>
+            <outlet type="audio">left expanded signal</outlet>
+            <outlet type="audio">right expanded signal</outlet>
+            <outlet>list: output current expander level in db</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[ui.hsl #a]              [ui.dsp~]
-|
-[dbfs->amp]
-|
-[sig~]  [ui.hsl #a]
-|       |
-|       |
-|       [@threshold $1(  [ui.knob 0 10 @label STRENGTH @show_value 1]
-|       |                |
-|       |                |.
-[dyn.expand~ 1 -40 10 100]
-|                     ^|
-[env~]                [ui.hsl -60 0 @active_scale 1 @show_value 1]
-|
-[- 100]
-|
-[F]
+[ui.hsl #a]  [ui.hsl #a]     [T]        [ui.hsl #a]       [ui.dsp~]
+|            |               |          |
+[dbfs->amp]  [dbfs->amp]     [@link $1( [@threshold $1 #c(
+|            |               |          |
+[sig~]       [sig~]          [s exp2    ]
+|            |
+|            |
+|            |               [ui.knob 0 10 @label STRENGTH @show_value 1]
+| [r exp2]   |               |
+| |          |.              |..
+[dyn.expand2~ 1 -40 10 100   #x]
+|          |                 ^^|
+[env~]     [env~]            [unpack f f {o:2} #p]
+|          |
+[- 100]    [- 100]           [ui.hsl #ch1]
+|          |
+[F]        [F]               [ui.hsl #ch2]
 
-#a -60 0 @show_value 1
+#a -60 0 @active_scale 1 @show_value 1
+#ch1 -60 0 @active_scale 1 @show_value 1
+#ch2 -60 0 @active_scale 1 @show_value 1
+[X p->ch1]
+[X p:1->ch2]
 ]]>
             </pdascii>
         </example>

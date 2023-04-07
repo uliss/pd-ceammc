@@ -7,6 +7,7 @@ void setup_dyn_comp_tilde();
 void setup_dyn_comp_up2_tilde();
 void setup_dyn_comp_up_tilde();
 void setup_dyn_expand_tilde();
+void setup_dyn_expand2_tilde();
 void setup_dyn_gate2_tilde();
 void setup_dyn_gate_tilde();
 void setup_dyn_limit2_tilde();
@@ -22,6 +23,7 @@ void ceammc_dyn_setup()
     setup_dyn_comp_up2_tilde();
     setup_dyn_comp_up_tilde();
     setup_dyn_expand_tilde();
+    setup_dyn_expand2_tilde();
     setup_dyn_gate2_tilde();
     setup_dyn_gate_tilde();
     setup_dyn_limit2_tilde();

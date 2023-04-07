@@ -312,6 +312,7 @@ comp.up2~	stereo upward compressor with channel linking
 dyn.comp_up~	mono upward compressor
 comp.up~	mono upward compressor
 dyn.comp~	mono dynamic range compressors
+dyn.expand2~	stereo dynamic range expander with channel linking
 dyn.expand~	mono dynamic range expander
 dyn.gate2~	stereo signal gate
 dyn.gate~	mono signal gate

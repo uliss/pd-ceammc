@@ -118,6 +118,7 @@ dyn.comp_peak~,comp.peak~		~.		~.
 dyn.comp_up2~,comp.up2~		~~.		~~.
 dyn.comp_up~,comp.up~		~.		~.
 dyn.comp~		~		~.
+dyn.expand2~		~~.		~~.
 dyn.expand~		~.		~.
 dyn.gate2~		~~.		~~
 dyn.gate~		~.		~

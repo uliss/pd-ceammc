@@ -1,28 +1,40 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 552 50 cnv 1 213 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 552 50 mono dynamic range expander;
-#X obj 1 1 cnv 5 765 40 empty empty dyn.expand~ 20 20 0 20 -104026
+#X obj 377 50 cnv 1 388 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 377 50 stereo dynamic range expander with channel linking;
+#X obj 1 1 cnv 5 765 40 empty empty dyn.expand2~ 20 20 0 20 -104026
 -4096 0;
-#X obj 659 11 dyn.expand~;
+#X obj 652 11 dyn.expand2~;
 #X obj 210 80 cnv 1 555 58 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 It uses a strength parameter instead of the traditional
 ratio;
 #X obj 215 105 ui.link @background_color 0.98039 0.98039 0.98039
 @title Dynamic range compression @url
 https://en.wikipedia.org/wiki/Dynamic_range_compression;
-#X obj 50 166 ui.hsl -60 0 @show_value 1;
-#X obj 290 166 ui.dsp~;
+#X obj 50 166 ui.hsl -60 0 @active_scale 1 @show_value 1;
+#X obj 174 166 ui.hsl -60 0 @active_scale 1 @show_value 1;
+#X obj 328 166 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 434 166 ui.hsl -60 0 @active_scale 1 @show_value 1;
+#X obj 606 166 ui.dsp~;
 #X obj 50 195 dbfs->amp;
+#X obj 174 195 dbfs->amp;
+#X msg 328 195 @link \$1;
+#X msg 434 195 @threshold \$1;
 #X obj 50 224 sig~;
-#X obj 126 224 ui.hsl -60 0 @show_value 1;
-#X msg 126 267 @threshold \$1;
-#X obj 290 267 ui.knob 0 10 @label STRENGTH @show_value 1;
-#X obj 50 310 dyn.expand~ 1 -40 10 100;
+#X obj 174 224 sig~;
+#X obj 328 224 s exp2;
+#X obj 328 267 ui.knob 0 10 @label STRENGTH @show_value 1;
+#X obj 69 282 r exp2;
+#X obj 50 310 dyn.expand2~ 1 -40 10 100;
 #X obj 50 339 env~;
-#X obj 261 339 ui.hsl -60 0 @active_scale 1 @show_value 1;
+#X obj 155 339 env~;
+#X obj 328 339 unpack f f;
 #X obj 50 368 - 100;
+#X obj 155 368 - 100;
+#X obj 328 368 ui.hsl -60 0 @active_scale 1 @show_value 1;
 #X floatatom 50 397 5 0 0 0 - - -;
+#X floatatom 155 397 5 0 0 0 - - -;
+#X obj 328 397 ui.hsl -60 0 @active_scale 1 @show_value 1;
 #X obj 20 446 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 451 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
@@ -70,59 +82,67 @@ Type: float. Units: db. Default value: 3\. Range: 0\...6\.;
 #X msg 110 933 @level;
 #X text 245 933 (readonly) Get current expander level. Type: float.
 Units: db. Default value: 0\. Range: 0\...90\.;
-#X msg 110 975 @range;
-#X text 245 975 Get/Set max expand range. Type: float. Units: db. Default
-value: -120\. Range: -120\...0\.;
-#X msg 110 1017 @refresh;
-#X text 245 1017 Get/Set expander level output time interval. If 0
+#X msg 110 975 @link;
+#X text 245 975 Get/Set the amount of linkage between the channels:
+0 = each channel is independent \, 1 = all channels have the same amount
+of gain reduction. Type: float. Default value: 1\. Range: 0\...1\.;
+#X msg 110 1047 @range;
+#X text 245 1047 Get/Set max expand range. Type: float. Units: db.
+Default value: -120\. Range: -120\...0\.;
+#X msg 110 1089 @refresh;
+#X text 245 1089 Get/Set expander level output time interval. If 0
 - no output. Type: int. Units: ms. Default value: 100\. Range: 0\...1000\.;
-#X msg 110 1074 @release;
-#X text 245 1074 Get/Set release time = time constant coming out of
+#X msg 110 1146 @release;
+#X text 245 1146 Get/Set release time = time constant coming out of
 expanding. Type: float. Units: ms. Default value: 50\. Range: 1\...500\.;
-#X msg 110 1116 @strength;
-#X text 245 1116 Get/Set expander strength (0: no expanding \, 1: increase
+#X msg 110 1188 @strength;
+#X text 245 1188 Get/Set expander strength (0: no expanding \, 1: increase
 level by @range db.). Type: float. Default value: 0\. Range: 0\...10\.;
-#X msg 110 1173 @threshold;
-#X text 245 1173 Get/Set level threshold above which compression kicks
+#X msg 110 1245 @threshold;
+#X text 245 1245 Get/Set level threshold above which compression kicks
 in (100 dB = max level). Type: float. Units: db. Default value: -48\.
 Range: -60\...0\.;
-#X obj 20 1240 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1245 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1317 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1280 reset;
-#X text 245 1280 reset to initial state.;
-#X obj 20 1317 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1322 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1352 reset;
+#X text 245 1352 reset to initial state.;
+#X obj 20 1389 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1394 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1323 1\.;
-#X text 245 1323 input signal.;
-#X text 110 1343 2\.;
-#X text 150 1343 *float*;
-#X text 245 1343 set expander strength.;
-#X obj 20 1373 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1378 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1395 1\.;
+#X text 245 1395 left input signal.;
+#X text 110 1415 2\.;
+#X text 245 1415 right input signal.;
+#X text 110 1435 3\.;
+#X text 150 1435 *float*;
+#X text 245 1435 set expander strength.;
+#X obj 20 1465 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1470 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1379 1\.;
-#X text 245 1379 output expanded signal.;
-#X text 110 1399 2\.;
-#X text 245 1399 float: output current expander level in db.;
+#X text 110 1471 1\.;
+#X text 245 1471 left expanded signal.;
+#X text 110 1491 2\.;
+#X text 245 1491 right expanded signal.;
+#X text 110 1511 3\.;
+#X text 245 1511 list: output current expander level in db.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title dyn @url ceammc.dyn-help.pd;
-#X obj 1 1449 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1452 library: ceammc v0.9.6;
-#X text 578 1464 see also:;
-#X obj 652 1464 dyn.expand2~;
-#N canvas 10 1471 400 290 info 0;
+#X obj 1 1561 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1564 library: ceammc v0.9.6;
+#X text 585 1576 see also:;
+#X obj 659 1576 dyn.expand~;
+#N canvas 10 1583 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
 #X text 120 32 0.9.6;
 #X text 10 54 object:;
-#X text 120 54 dyn.expand~;
+#X text 120 54 dyn.expand2~;
 #X text 10 76 category:;
 #X text 120 76 dyn;
 #X text 10 98 since:;
@@ -139,14 +159,25 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1471 pd info;
-#X connect 7 0 9 0;
-#X connect 9 0 10 0;
-#X connect 11 0 12 0;
-#X connect 10 0 14 0;
-#X connect 12 0 14 0;
-#X connect 13 0 14 1;
-#X connect 14 0 15 0;
-#X connect 14 1 16 0;
-#X connect 15 0 17 0;
-#X connect 17 0 18 0;
+#X restore 10 1583 pd info;
+#X connect 7 0 12 0;
+#X connect 8 0 13 0;
+#X connect 9 0 14 0;
+#X connect 10 0 15 0;
+#X connect 12 0 16 0;
+#X connect 13 0 17 0;
+#X connect 14 0 18 0;
+#X connect 15 0 18 0;
+#X connect 16 0 21 0;
+#X connect 20 0 21 0;
+#X connect 17 0 21 1;
+#X connect 19 0 21 2;
+#X connect 21 0 22 0;
+#X connect 21 0 23 0;
+#X connect 21 2 24 0;
+#X connect 22 0 25 0;
+#X connect 23 0 26 0;
+#X connect 25 0 28 0;
+#X connect 26 0 29 0;
+#X connect 24 0 27 0;
+#X connect 24 1 30 0;
