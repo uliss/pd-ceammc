@@ -2,9 +2,12 @@ declare name "dyn.gate";
 
 import("stdfaust.lib");
 cm = library("ceammc.lib");
+ui = library("ceammc_ui.lib");
 
-process = ef.gate_mono(thresh, atk, hold, rel) with
+process = cm.bypass_mono(ui.bypass, gate) with
 {
+    gate = ef.gate_mono(thresh, atk, hold, rel);
+
     thresh = vslider("threshold [unit: db]", -60, -90, 0, 0.1) : si.smoo;
     atk    = vslider("attack [unit:ms]", 0.1, 0, 500, 0.1) : cm.time_pd2faust;
     hold   = vslider("hold [unit:ms]", 100, 1, 500, 0.1) : cm.time_pd2faust;
