@@ -49,7 +49,7 @@
             units="millisecond">compression level output time interval. If 0 - no output</property>
         </properties>
         <methods>
-            <method name="preset">choose predefined preset
+            <method name="preset">choose predefined preset 
             <param name="PRESET" type="symbol" enum="vocal drums bass strings" required="true">
             name</param></method>
         </methods>

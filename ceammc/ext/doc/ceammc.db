@@ -113,7 +113,8 @@ dict.size		.		.
 dict.to_list,ceammc/dict->list,dict->list		.		.
 dict.values		.		.
 dyn.comp2~		~~		~~.
-dyn.comp_peak~		~.		~.
+dyn.comp_peak2~,comp.peak2~		~~.		~~.
+dyn.comp_peak~,comp.peak~		~.		~.
 dyn.comp~		~		~.
 dyn.gate2~		~~.		~~
 dyn.gate~		~.		~

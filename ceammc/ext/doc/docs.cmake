@@ -115,6 +115,7 @@ set(DOC_FILES
     dyn.comp2~
     dyn.comp~
     dyn.comp_peak~
+    dyn.comp_peak2~
     dyn.gate2~
     dyn.gate~
     dyn.limit2~

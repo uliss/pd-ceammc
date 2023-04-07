@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="dyn.comp_peak~">
-        <title>dyn.comp_peak~</title>
+    <object name="dyn.comp_peak2~">
+        <title>dyn.comp_peak2~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>mono dynamic range peak feed forward compressor</description>
+            <description>stereo dynamic range peak feed forward compressor</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>dyn</category>
             <keywords>compressor</keywords>
             <since>0.9.7</since>
             <also>
-                <see>dyn.comp_peak2~</see>
+                <see>dyn.comp_peak~</see>
             </also>
             <aliases>
-                <alias>comp.peak~</alias>
+                <alias>comp.peak2~</alias>
             </aliases>
         </meta>
         <info>
@@ -24,8 +24,9 @@
             in order to be able to function as a hard limiter or overcompressor</par>
         </info>
         <arguments>
-            <argument name="STRENGTH" type="float" minvalue="0" maxvalue="2">compression strength
-            (0: no compression, 1: hard limiting, &gt;1: overcompression)</argument>
+            <argument name="STRENGTH" type="float" minvalue="0" maxvalue="2">strength of the
+            compression (0 = no compression, 1 means hard limiting, &gt;1 means
+            over-compression)</argument>
             <argument name="THRESHOLD" type="float" minvalue="-60" maxvalue="0" units="decibel">
             level threshold above which compression kicks in</argument>
             <argument name="ATTACK" type="float" units="millisecond" minvalue="0.1" maxvalue="100">
@@ -34,9 +35,9 @@
             release time = time constant coming out of compression</argument>
         </arguments>
         <properties>
-            <property name="@strength" type="float" default="0" minvalue="0" maxvalue="2">
-            compression ratio (0: no compression, 1: hard limiting, &gt;1:
-            overcompression)</property>
+            <property name="@strength" type="float" default="0" minvalue="0" maxvalue="2">strength
+            of the compression (0 = no compression, 1 means hard limiting, &gt;1 means
+            over-compression)</property>
             <property name="@threshold" type="float" units="decibel" default="-10" minvalue="-60"
             maxvalue="0">level threshold above which compression kicks in (100 dB = max
             level)</property>
@@ -54,6 +55,9 @@
             reduction</property>
             <property name="@bypass" type="bool" default="0">if set to 1 - bypass
             compressor</property>
+            <property name="@link" type="float" default="0" minvalue="0" maxvalue="1">the amount of
+            linkage between the channels: 0 = each channel is independent, 1 = all channels have
+            the same amount of gain reduction</property>
             <property name="@level" type="float" default="0" minvalue="0" maxvalue="1"
             access="readonly">current level of compression</property>
             <property name="@refresh" type="int" default="100" minvalue="0" maxvalue="1000"
@@ -67,14 +71,18 @@
         </methods>
         <inlets>
             <inlet type="audio">
-                <xinfo>input signal</xinfo>
+                <xinfo>left input signal</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>right input signal</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float">set compression strength</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">output compressed signal</outlet>
+            <outlet type="audio">left compressed signal</outlet>
+            <outlet type="audio">right compressed signal</outlet>
             <outlet>float: output current compression level in [0..1]</outlet>
         </outlets>
         <example>
@@ -87,11 +95,11 @@
 [sig~]  [ui.hsl #b]
 |       |
 |       |
-|       [@threshold $1(  [ui.knob @label STRENGTH @show_value 1]
+|       [@threshold $1(  [ui.knob #c]
 |       |                |
-|       |                |.
-[dyn.comp_peak~ 0 -60 10 100]
-|                     ^|
+|       |                |..
+[dyn.comp_peak2~ 0 -60 10 100]
+|                     ^^|
 [env~]                [ui.hsl @active_scale 1]
 |
 [- 100]
@@ -100,6 +108,7 @@
 
 #a 1 16 @show_value 1
 #b -60 0 @show_value 1
+#c @label STRENGTH @show_value 1
 ]]>
             </pdascii>
         </example>
