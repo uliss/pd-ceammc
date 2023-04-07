@@ -451,6 +451,9 @@
     <entry name="dyn.comp_peak~" descr="mono dynamic range peak feed forward compressor" ref_view="object">
       <xi:include href="dyn.comp_peak~.pddoc" parse="xml"/>
     </entry>
+    <entry name="dyn.comp_up~" descr="mono upward compressor" ref_view="object">
+      <xi:include href="dyn.comp_up~.pddoc" parse="xml"/>
+    </entry>
     <entry name="dyn.comp~" descr="mono dynamic range compressors" ref_view="object">
       <xi:include href="dyn.comp~.pddoc" parse="xml"/>
     </entry>

@@ -113,9 +113,10 @@ set(DOC_FILES
     dict.to_list
     dict.values
     dyn.comp2~
-    dyn.comp~
-    dyn.comp_peak~
     dyn.comp_peak2~
+    dyn.comp_peak~
+    dyn.comp_up~
+    dyn.comp~
     dyn.gate2~
     dyn.gate~
     dyn.limit2~

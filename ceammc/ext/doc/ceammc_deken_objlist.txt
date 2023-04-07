@@ -307,6 +307,8 @@ dyn.comp_peak2~	stereo peak feed forward compressor with channel linking
 comp.peak2~	stereo peak feed forward compressor with channel linking
 dyn.comp_peak~	mono dynamic range peak feed forward compressor
 comp.peak~	mono dynamic range peak feed forward compressor
+dyn.comp_up~	mono upward compressor
+comp.up~	mono upward compressor
 dyn.comp~	mono dynamic range compressors
 dyn.gate2~	stereo signal gate
 dyn.gate~	mono signal gate
