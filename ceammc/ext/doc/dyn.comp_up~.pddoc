@@ -46,8 +46,8 @@
             maxvalue="100">time constant when level &amp; compression going up</property>
             <property name="@release" type="float" units="millisecond" default="50" minvalue="1"
             maxvalue="500">release time = time constant coming out of compression</property>
-            <property name="@hold" type="float" units="millisecond" default="100" minvalue="1"
-            maxvalue="500">hold time</property>
+            <property name="@hold" type="float" units="sample" default="128" minvalue="1"
+            maxvalue="255">hold time</property>
             <property name="@knee" type="float" units="decibel" default="3" minvalue="0"
             maxvalue="6">a gradual increase in gain reduction around the threshold: below
             thresh-(knee/2) there is no gain reduction, above thresh+(knee/2) there is the same

@@ -60,8 +60,8 @@ up. Type: float. Units: ms. Default value: 10\. Range: 0.1\...100\.;
 #X text 245 792 Get/Set if set to 1 - bypass compressor. Type: bool.
 Default value: 0\.;
 #X msg 110 834 @hold;
-#X text 245 834 Get/Set hold time. Type: float. Units: ms. Default
-value: 100\. Range: 1\...500\.;
+#X text 245 834 Get/Set hold time. Type: float. Units: samp. Default
+value: 128\. Range: 1\...255\.;
 #X msg 110 876 @knee;
 #X text 245 876 Get/Set a gradual increase in gain reduction around
 the threshold: below thresh-(knee/2) there is no gain reduction \,
