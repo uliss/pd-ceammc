@@ -24,7 +24,7 @@
   - rhythm.euclid - euclid pattern generator (using fast bresenham algorithm)
   - rhythm.lsystem - L-system pattern generator
 - new object inlets:
-  - dyn.gate~ - second inlet added to setting threshold
+  - dyn.gate~, dyn.gate2~ - second inlet added for setting threshold
   - fx.drone_box~ - second inlet added for setting resonance frequency
   - fx.notch~: second (freq) inlet added
   - fx.wahwah~: second (angle) inlet added

@@ -17,6 +17,9 @@
                 <see>dyn.gate~</see>
             </also>
         </meta>
+        <info>
+            <par>NOTE: the input level measured as sum of two input signals</par>
+        </info>
         <arguments>
             <argument name="THRESHOLD" type="float" units="decibel" minvalue="-90" maxvalue="0">dB
             level threshold above which gate opens</argument>
@@ -48,6 +51,9 @@
             <inlet type="audio">
                 <xinfo>right input signal</xinfo>
             </inlet>
+            <inlet>
+                <xinfo on="float">set threshold</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet type="audio">left output signal</outlet>
@@ -56,21 +62,22 @@
         <example>
             <pdascii>
 <![CDATA[
-[osc~ 440]    [ui.hsl -60 0 @show_value 1]
-|             |
-|             [dbfs->amp #a]
-|
-[gain~ #b]    [ui.hsl -60 0 @show_value 1]
-|             |
-|             [@threshold $1(
-|             |
-[dyn.gate2~ -10]
-|
-[ui.hgain~]   [ui.dsp~]
-|\
+[osc~ 400]     [ui.hsl -60 0 @show_value 1]
+|              |
+|  [osc~ 800]  [dbfs->amp #a]
+|  |.
+[gain~ 2 #b]   [ui.hsl -60 0 @show_value 1]
+|              |
+|              [@threshold $1(
+|              |
+[dyn.gate2~ -10 #x]
+*|*
+[ui.hgain2~]   [ui.dsp~]
+*|*
 [dac~]
 
-[X a->b:1]
+[X a->b:2]
+[X b:1->x:1]
 ]]>
             </pdascii>
         </example>
