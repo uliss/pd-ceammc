@@ -337,5 +337,8 @@ TEST_CASE("Faust", "[ceammc::faust]")
         REQUIRE(to_units("samp") == PropValueUnits::SAMP);
         REQUIRE(to_units("%") == PropValueUnits::PERCENT);
         REQUIRE(to_units("perc") == PropValueUnits::PERCENT);
+        REQUIRE(to_units("bpm") == PropValueUnits::BPM);
+        REQUIRE(to_units("cent") == PropValueUnits::CENT);
+        REQUIRE(to_units("semitone") == PropValueUnits::SEMITONE);
     }
 }

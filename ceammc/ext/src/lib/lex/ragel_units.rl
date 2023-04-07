@@ -8,17 +8,18 @@ action unit_int_done { ragel_num.vdouble = ragel_num.vint; }
 action units_init    { ragel_type = TYPE_UNKNOWN; ragel_cat = CAT_UNKNOWN; }
 action units_done    { ragel_cat = CAT_UNIT; }
 
-unit_herz =  ([hH]'z')        %{ragel_type = TYPE_HZ;};
-unit_samp =  ('sa' 'mp'?)     %{ragel_type = TYPE_SAMP;};
-unit_rad  =  ('rad')          %{ragel_type = TYPE_RADIAN;};
-unit_deg  =  ('deg')          %{ragel_type = TYPE_DEGREE;};
-unit_dbfs =  ('db' 'fs'?)     %{ragel_type = TYPE_DB;};
+unit_bpm  =  ('bpm')          %{ragel_type = TYPE_BPM;};
+unit_cent =  ('c' 'ent'?)     %{ragel_type = TYPE_CENT;};
 unit_day  =  ('d' 'ay'?)      %{ragel_type = TYPE_DAY;};
+unit_dbfs =  ('db' 'fs'?)     %{ragel_type = TYPE_DB;};
+unit_deg  =  ('deg')          %{ragel_type = TYPE_DEGREE;};
+unit_herz =  ([hH]'z')        %{ragel_type = TYPE_HZ;};
 unit_hour =  ('h' 'our'?)     %{ragel_type = TYPE_HOUR;};
 unit_min  =  ('m' 'in'?)      %{ragel_type = TYPE_MIN;};
-unit_sec  =  ('s' 'ec'?)      %{ragel_type = TYPE_SEC;};
 unit_msec =  ('ms' 'ec'?)     %{ragel_type = TYPE_MSEC;};
-unit_cent =  ('c' 'ent'?)     %{ragel_type = TYPE_CENT;};
+unit_rad  =  ('rad')          %{ragel_type = TYPE_RADIAN;};
+unit_samp =  ('sa' 'mp'?)     %{ragel_type = TYPE_SAMP;};
+unit_sec  =  ('s' 'ec'?)      %{ragel_type = TYPE_SEC;};
 unit_semi =  ('semi' 'tone'?) %{ragel_type = TYPE_SEMITONE;};
 
 unit_perc =  ('%' | ('perc' 'ent'?))
@@ -42,6 +43,7 @@ unit_suffixes =
         | unit_semi
         | unit_perc
         | unit_phase
+        | unit_bpm
     )
     ;
 
