@@ -1,0 +1,159 @@
+{
+	"name": "dyn.comp_up",
+	"filename": "dyn_comp_up.dsp",
+	"version": "2.53.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn dyn_comp_up -scn dyn_comp_up_dsp -es 1 -mcd 16 -single -ftz 0",
+	"library_list": ["/usr/local/share/faust/stdfaust.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/compressors.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/routes.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
+	"inputs": 1,
+	"outputs": 1,
+	"meta": [ 
+		{ "basics.lib/bypass1:author": "Julius Smith" },
+		{ "basics.lib/name": "Faust Basic Element Library" },
+		{ "basics.lib/parallelOp:author": "Bart Brouns" },
+		{ "basics.lib/parallelOp:copyright": "Copyright (c) 2020 Bart Brouns <bart@magnetophon.nl>" },
+		{ "basics.lib/parallelOp:licence": "GPL-3.0" },
+		{ "basics.lib/version": "0.8" },
+		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
+		{ "ceammc.lib/version": "0.1.3" },
+		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
+		{ "ceammc_ui.lib/version": "0.1.2" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn dyn_comp_up -scn dyn_comp_up_dsp -es 1 -mcd 16 -single -ftz 0" },
+		{ "compressors.lib/expanderSC_N_chan:author": "Bart Brouns" },
+		{ "compressors.lib/expanderSC_N_chan:license": "GPLv3" },
+		{ "compressors.lib/expander_N_chan:author": "Bart Brouns" },
+		{ "compressors.lib/expander_N_chan:license": "GPLv3" },
+		{ "compressors.lib/name": "Faust Compressor Effect Library" },
+		{ "compressors.lib/peak_expansion_gain_N_chan_db:author": "Bart Brouns" },
+		{ "compressors.lib/peak_expansion_gain_N_chan_db:license": "GPLv3" },
+		{ "compressors.lib/version": "0.4" },
+		{ "filename": "dyn_comp_up.dsp" },
+		{ "maths.lib/author": "GRAME" },
+		{ "maths.lib/copyright": "GRAME" },
+		{ "maths.lib/license": "LGPL with exception" },
+		{ "maths.lib/name": "Faust Math Library" },
+		{ "maths.lib/version": "2.5" },
+		{ "name": "dyn.comp_up" },
+		{ "platform.lib/name": "Generic Platform Library" },
+		{ "platform.lib/version": "0.2" },
+		{ "routes.lib/name": "Faust Signal Routing Library" },
+		{ "routes.lib/version": "0.2" },
+		{ "signals.lib/name": "Faust Signal Routing Library" },
+		{ "signals.lib/onePoleSwitching:author": "Jonatan Liljedahl, revised by Dario Sanfilippo" },
+		{ "signals.lib/onePoleSwitching:licence": "STK-4.3" },
+		{ "signals.lib/version": "0.3" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "dyn.comp_up",
+			"items": [ 
+				{
+					"type": "hslider",
+					"label": "attack",
+					"shortname": "attack",
+					"address": "/dyn.comp_up/attack",
+					"meta": [
+						{ "unit": "ms" }
+					],
+					"init": 10,
+					"min": 0.1,
+					"max": 100,
+					"step": 0.1
+				},
+				{
+					"type": "checkbox",
+					"label": "bypass",
+					"shortname": "bypass",
+					"address": "/dyn.comp_up/bypass"
+				},
+				{
+					"type": "hslider",
+					"label": "hold",
+					"shortname": "hold",
+					"address": "/dyn.comp_up/hold",
+					"meta": [
+						{ "unit": "ms" }
+					],
+					"init": 100,
+					"min": 0.1,
+					"max": 500,
+					"step": 0.1
+				},
+				{
+					"type": "hslider",
+					"label": "knee",
+					"shortname": "knee",
+					"address": "/dyn.comp_up/knee",
+					"meta": [
+						{ "unit": "db" }
+					],
+					"init": 3,
+					"min": 0,
+					"max": 6,
+					"step": 0.01
+				},
+				{
+					"type": "hbargraph",
+					"label": "level",
+					"shortname": "level",
+					"address": "/dyn.comp_up/level",
+					"meta": [
+						{ "unit": "db" }
+					],
+					"min": 0,
+					"max": 90
+				},
+				{
+					"type": "hslider",
+					"label": "range",
+					"shortname": "range",
+					"address": "/dyn.comp_up/range",
+					"meta": [
+						{ "unit": "db" }
+					],
+					"init": 32,
+					"min": 0,
+					"max": 32,
+					"step": 0.01
+				},
+				{
+					"type": "hslider",
+					"label": "release",
+					"shortname": "release",
+					"address": "/dyn.comp_up/release",
+					"meta": [
+						{ "unit": "ms" }
+					],
+					"init": 50,
+					"min": 1,
+					"max": 500,
+					"step": 0.1
+				},
+				{
+					"type": "hslider",
+					"label": "strength",
+					"shortname": "strength",
+					"address": "/dyn.comp_up/strength",
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 0.01
+				},
+				{
+					"type": "hslider",
+					"label": "threshold",
+					"shortname": "threshold",
+					"address": "/dyn.comp_up/threshold",
+					"meta": [
+						{ "unit": "db" }
+					],
+					"init": -32,
+					"min": -60,
+					"max": 0,
+					"step": 0.1
+				}
+			]
+		}
+	]
+}

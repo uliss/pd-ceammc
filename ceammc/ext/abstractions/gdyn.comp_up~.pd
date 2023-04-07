@@ -1,0 +1,143 @@
+#N canvas 0 0 950 600 12;
+#X obj 25 125 dyn.comp_up~;
+#X obj 25 25 inlet~;
+#X obj 425 25 inlet;
+#X obj 425 125 route dyn.comp_up * .;
+#X obj 625 150 route.prop;
+#X obj 475 200 msg *;
+#X obj 425 250 route @attack @bypass @hold @knee @range @release
+@strength @threshold default reset;
+#X obj 675 350 t b a;
+#X msg 675 375 supported messages are: @attack @bypass @hold @knee @range @release @strength @threshold default reset;
+#X obj 675 425 print;
+#X obj 725 425 print [gdyn.comp_up~] unknown message;
+#X msg 325 75 @attack 10 \, @hold 100 \, @knee 3 \, @range 32 \, @release 50 \, @strength 0 \, @threshold -32 \,;
+#X obj 25 50 t b b;
+#X msg 25 75 reset;
+#X obj 325 25 msg.onload;
+#X obj 500 550 outlet~;
+#X obj 600 550 outlet ctl;
+#X obj 3 202 cnv 8 198 231 empty empty empty 17 7 0 10 -174763 -1 0;
+#X obj 3 202 cnv 8 198 18 empty empty [dyn.comp_up~] 3 9 0 12 -104026
+-262144 0;
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label
+attack(ms): @label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/dyn.comp_up~/slider0 @min 0.1 @max 100;
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 0.1 @max 100 @digits 2;
+#X msg 260 236 @attack \$1;
+#X obj 185 205 ui.toggle @size 12 12 @label bypass @label_side left
+@label_align right @fontsize 10 @presetname
+/gui/\$1/dyn.comp_up~/checkbox1;
+#X msg 260 248 @bypass \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label hold(ms):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/dyn.comp_up~/slider2 @min 0.1 @max 500;
+#X obj 215 266 sync;
+#X obj 145 266 ui.number @size 50 12 @min 0.1 @max 500 @digits 1;
+#X msg 260 266 @hold \$1;
+#X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label knee(db):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/dyn.comp_up~/slider3 @min 0 @max 6;
+#X obj 215 296 sync;
+#X obj 145 296 ui.number @size 50 12 @min 0 @max 6 @digits 3;
+#X msg 260 296 @knee \$1;
+#X obj 12 326 ui.slider @size 125 12 @active_scale 1 @label range(db):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/dyn.comp_up~/slider4 @min 0 @max 32;
+#X obj 215 326 sync;
+#X obj 145 326 ui.number @size 50 12 @min 0 @max 32 @digits 2;
+#X msg 260 326 @range \$1;
+#X obj 12 356 ui.slider @size 125 12 @active_scale 1 @label
+release(ms): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/dyn.comp_up~/slider5 @min 1 @max 500;
+#X obj 215 356 sync;
+#X obj 145 356 ui.number @size 50 12 @min 1 @max 500 @digits 1;
+#X msg 260 356 @release \$1;
+#X obj 12 386 ui.slider @size 125 12 @active_scale 1 @label strength:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/dyn.comp_up~/slider6 @min 0 @max 1;
+#X obj 215 386 sync;
+#X obj 145 386 ui.number @size 50 12 @min 0 @max 1 @digits 4;
+#X msg 260 386 @strength \$1;
+#X obj 12 416 ui.slider @size 125 12 @active_scale 1 @label
+threshold(db): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/dyn.comp_up~/slider7 @min -60 @max 0;
+#X obj 215 416 sync;
+#X obj 145 416 ui.number @size 50 12 @min -60 @max 0 @digits 2;
+#X msg 260 416 @threshold \$1;
+#X connect 1 0 0 0;
+#X connect 2 0 3 0;
+#X connect 3 3 4 0;
+#X connect 3 1 5 0;
+#X connect 3 0 6 0;
+#X connect 3 1 6 0;
+#X connect 3 2 6 0;
+#X connect 4 0 6 0;
+#X connect 6 10 7 0;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 7 1 10 0;
+#X connect 11 0 6 0;
+#X connect 6 8 11 0;
+#X connect 12 1 13 0;
+#X connect 12 0 11 0;
+#X connect 13 0 0 0;
+#X connect 6 9 12 0;
+#X connect 14 0 11 0;
+#X connect 0 0 15 0;
+#X connect 4 1 16 0;
+#X connect 5 0 16 0;
+#X connect 19 0 20 0;
+#X connect 20 0 19 0;
+#X connect 21 0 20 1;
+#X connect 20 1 21 0;
+#X connect 19 0 22 0;
+#X connect 22 0 0 0;
+#X connect 6 0 19 0;
+#X connect 23 0 24 0;
+#X connect 24 0 0 0;
+#X connect 6 1 23 0;
+#X connect 25 0 26 0;
+#X connect 26 0 25 0;
+#X connect 27 0 26 1;
+#X connect 26 1 27 0;
+#X connect 25 0 28 0;
+#X connect 28 0 0 0;
+#X connect 6 2 25 0;
+#X connect 29 0 30 0;
+#X connect 30 0 29 0;
+#X connect 31 0 30 1;
+#X connect 30 1 31 0;
+#X connect 29 0 32 0;
+#X connect 32 0 0 0;
+#X connect 6 3 29 0;
+#X connect 33 0 34 0;
+#X connect 34 0 33 0;
+#X connect 35 0 34 1;
+#X connect 34 1 35 0;
+#X connect 33 0 36 0;
+#X connect 36 0 0 0;
+#X connect 6 4 33 0;
+#X connect 37 0 38 0;
+#X connect 38 0 37 0;
+#X connect 39 0 38 1;
+#X connect 38 1 39 0;
+#X connect 37 0 40 0;
+#X connect 40 0 0 0;
+#X connect 6 5 37 0;
+#X connect 41 0 42 0;
+#X connect 42 0 41 0;
+#X connect 43 0 42 1;
+#X connect 42 1 43 0;
+#X connect 41 0 44 0;
+#X connect 44 0 0 0;
+#X connect 6 6 41 0;
+#X connect 45 0 46 0;
+#X connect 46 0 45 0;
+#X connect 47 0 46 1;
+#X connect 46 1 47 0;
+#X connect 45 0 48 0;
+#X connect 48 0 0 0;
+#X connect 6 7 45 0;
+#X coords 0 -1 1 1 200 236 2 2 200;
