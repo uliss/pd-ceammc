@@ -18,6 +18,9 @@
                 <see>dyn.comp~</see>
             </also>
         </meta>
+        <info>
+            <a href="https://en.wikipedia.org/wiki/1176_Peak_Limiter">1176 Peak Limiter</a>
+        </info>
         <properties>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
