@@ -1,11 +1,11 @@
 /* ------------------------------------------------------------
-name: "dyn.comp_peak"
+name: "dyn.comp_peak2"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn dyn_comp_peak -scn dyn_comp_peak_dsp -es 1 -mcd 16 -single -ftz 0
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn dyn_comp_peak2 -scn dyn_comp_peak2_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
-#ifndef  __dyn_comp_peak_H__
-#define  __dyn_comp_peak_H__
+#ifndef  __dyn_comp_peak2_H__
+#define  __dyn_comp_peak2_H__
 
 // FAUST Architecture File for ceammc::SoundExternal class
 #include <cmath>
@@ -14,7 +14,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_ds
 #include <memory>
 #include <string>
 
-/************************** BEGIN dyn_comp_peak_dsp.h ********************************
+/************************** BEGIN dyn_comp_peak2_dsp.h ********************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
  ---------------------------------------------------------------------
@@ -153,12 +153,12 @@ struct FAUST_API dsp_memory_manager {
 * Signal processor definition.
 */
 
-class FAUST_API dyn_comp_peak_dsp {
+class FAUST_API dyn_comp_peak2_dsp {
 
     public:
 
-        dyn_comp_peak_dsp() {}
-        virtual ~dyn_comp_peak_dsp() {}
+        dyn_comp_peak2_dsp() {}
+        virtual ~dyn_comp_peak2_dsp() {}
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -211,7 +211,7 @@ class FAUST_API dyn_comp_peak_dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual dyn_comp_peak_dsp* clone() = 0;
+        virtual dyn_comp_peak2_dsp* clone() = 0;
     
         /**
          * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
@@ -247,15 +247,15 @@ class FAUST_API dyn_comp_peak_dsp {
  * Generic DSP decorator.
  */
 
-class FAUST_API decorator_dsp : public dyn_comp_peak_dsp {
+class FAUST_API decorator_dsp : public dyn_comp_peak2_dsp {
 
     protected:
 
-        dyn_comp_peak_dsp* fDSP;
+        dyn_comp_peak2_dsp* fDSP;
 
     public:
 
-        decorator_dsp(dyn_comp_peak_dsp* dyn_comp_peak_dsp = nullptr):fDSP(dyn_comp_peak_dsp) {}
+        decorator_dsp(dyn_comp_peak2_dsp* dyn_comp_peak2_dsp = nullptr):fDSP(dyn_comp_peak2_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
         virtual int getNumInputs() { return fDSP->getNumInputs(); }
@@ -296,7 +296,7 @@ class FAUST_API dsp_factory {
         virtual std::vector<std::string> getLibraryList() = 0;
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
-        virtual dyn_comp_peak_dsp* createDSPInstance() = 0;
+        virtual dyn_comp_peak2_dsp* createDSPInstance() = 0;
     
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
         virtual dsp_memory_manager* getMemoryManager() = 0;
@@ -366,7 +366,7 @@ class FAUST_API ScopedNoDenormals {
 
 #endif
 
-/************************** END dyn_comp_peak_dsp.h **************************/
+/************************** END dyn_comp_peak2_dsp.h **************************/
 /************************** BEGIN UI.h *****************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
@@ -482,7 +482,7 @@ struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
 
 
 /**
- The base class of Meta handler to be used in dyn_comp_peak_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
+ The base class of Meta handler to be used in dyn_comp_peak2_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
  */
 struct FAUST_API Meta {
     virtual ~Meta() {}
@@ -611,7 +611,7 @@ using namespace ceammc::faust;
 
 // clang-format off
 #ifndef FAUST_MACRO
-struct dyn_comp_peak : public dyn_comp_peak_dsp {
+struct dyn_comp_peak2 : public dyn_comp_peak2_dsp {
 };
 #endif
 // clang-format on
@@ -628,7 +628,7 @@ struct dyn_comp_peak : public dyn_comp_peak_dsp {
 #include <math.h>
 
 #ifndef FAUSTCLASS 
-#define FAUSTCLASS dyn_comp_peak
+#define FAUSTCLASS dyn_comp_peak2
 #endif
 
 #ifdef __APPLE__ 
@@ -642,11 +642,11 @@ struct dyn_comp_peak : public dyn_comp_peak_dsp {
 #define RESTRICT __restrict__
 #endif
 
-static float dyn_comp_peak_faustpower2_f(float value) {
+static float dyn_comp_peak2_faustpower2_f(float value) {
 	return value * value;
 }
 
-class dyn_comp_peak : public dyn_comp_peak_dsp {
+class dyn_comp_peak2 : public dyn_comp_peak2_dsp {
 	
  private:
 	
@@ -664,19 +664,28 @@ class dyn_comp_peak : public dyn_comp_peak_dsp {
 	float fConst3;
 	FAUSTFLOAT fHslider4;
 	float fRec2[2];
+	FAUSTFLOAT fHslider5;
+	float fRec3[2];
 	FAUSTFLOAT fHbargraph0;
+	FAUSTFLOAT fHbargraph1;
 	
  public:
 	
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/bypass1:author", "Julius Smith");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
+		m->declare("basics.lib/parallelMin:author", "Bart Brouns");
+		m->declare("basics.lib/parallelMin:copyright", "Copyright (c) 2020 Bart Brouns <bart@magnetophon.nl>");
+		m->declare("basics.lib/parallelMin:licence", "GPL-3.0");
+		m->declare("basics.lib/parallelOp:author", "Bart Brouns");
+		m->declare("basics.lib/parallelOp:copyright", "Copyright (c) 2020 Bart Brouns <bart@magnetophon.nl>");
+		m->declare("basics.lib/parallelOp:licence", "GPL-3.0");
 		m->declare("basics.lib/version", "0.8");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.3");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn dyn_comp_peak -scn dyn_comp_peak_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn dyn_comp_peak2 -scn dyn_comp_peak2_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("compressors.lib/FFcompressor_N_chan:author", "Bart Brouns");
 		m->declare("compressors.lib/FFcompressor_N_chan:license", "GPLv3");
 		m->declare("compressors.lib/name", "Faust Compressor Effect Library");
@@ -685,13 +694,17 @@ class dyn_comp_peak : public dyn_comp_peak_dsp {
 		m->declare("compressors.lib/peak_compression_gain_mono_db:author", "Bart Brouns");
 		m->declare("compressors.lib/peak_compression_gain_mono_db:license", "GPLv3");
 		m->declare("compressors.lib/version", "0.4");
-		m->declare("filename", "dyn_comp_peak.dsp");
+		m->declare("filename", "dyn_comp_peak2.dsp");
+		m->declare("interpolators.lib/interpolate_linear:author", "Stéphane Letz");
+		m->declare("interpolators.lib/interpolate_linear:licence", "MIT");
+		m->declare("interpolators.lib/name", "Faust Interpolator Library");
+		m->declare("interpolators.lib/version", "0.3");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
 		m->declare("maths.lib/version", "2.5");
-		m->declare("name", "dyn.comp_peak");
+		m->declare("name", "dyn.comp_peak2");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "0.2");
 		m->declare("routes.lib/name", "Faust Signal Routing Library");
@@ -703,10 +716,10 @@ class dyn_comp_peak : public dyn_comp_peak_dsp {
 	}
 
 	virtual int getNumInputs() {
-		return 1;
+		return 2;
 	}
 	virtual int getNumOutputs() {
-		return 1;
+		return 2;
 	}
 	
 	static void classInit(int sample_rate) {
@@ -728,6 +741,7 @@ class dyn_comp_peak : public dyn_comp_peak_dsp {
 		fHslider2 = FAUSTFLOAT(3.0f);
 		fHslider3 = FAUSTFLOAT(1e+01f);
 		fHslider4 = FAUSTFLOAT(5e+01f);
+		fHslider5 = FAUSTFLOAT(1.0f);
 	}
 	
 	virtual void instanceClear() {
@@ -739,6 +753,9 @@ class dyn_comp_peak : public dyn_comp_peak_dsp {
 		}
 		for (int l2 = 0; l2 < 2; l2 = l2 + 1) {
 			fRec2[l2] = 0.0f;
+		}
+		for (int l3 = 0; l3 < 2; l3 = l3 + 1) {
+			fRec3[l3] = 0.0f;
 		}
 	}
 	
@@ -752,8 +769,8 @@ class dyn_comp_peak : public dyn_comp_peak_dsp {
 		instanceClear();
 	}
 	
-	virtual dyn_comp_peak* clone() {
-		return new dyn_comp_peak();
+	virtual dyn_comp_peak2* clone() {
+		return new dyn_comp_peak2();
 	}
 	
 	virtual int getSampleRate() {
@@ -761,7 +778,7 @@ class dyn_comp_peak : public dyn_comp_peak_dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("dyn.comp_peak");
+		ui_interface->openVerticalBox("dyn.comp_peak2");
 		ui_interface->declare(&fHslider3, "unit", "ms");
 		ui_interface->addHorizontalSlider("attack", &fHslider3, FAUSTFLOAT(1e+01f), FAUSTFLOAT(0.1f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.1f));
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
@@ -770,6 +787,8 @@ class dyn_comp_peak : public dyn_comp_peak_dsp {
 		ui_interface->declare(&fHslider2, "unit", "db");
 		ui_interface->addHorizontalSlider("knee", &fHslider2, FAUSTFLOAT(3.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(6.0f), FAUSTFLOAT(0.01f));
 		ui_interface->addHorizontalBargraph("level", &fHbargraph0, FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f));
+		ui_interface->addHorizontalBargraph("level", &fHbargraph1, FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f));
+		ui_interface->addHorizontalSlider("link", &fHslider5, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
 		ui_interface->declare(&fHslider4, "unit", "ms");
 		ui_interface->addHorizontalSlider("release", &fHslider4, FAUSTFLOAT(5e+01f), FAUSTFLOAT(1.0f), FAUSTFLOAT(5e+02f), FAUSTFLOAT(0.1f));
 		ui_interface->addHorizontalSlider("strength", &fHslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(2.0f), FAUSTFLOAT(0.01f));
@@ -780,7 +799,9 @@ class dyn_comp_peak : public dyn_comp_peak_dsp {
 	
 	virtual void compute(int count, FAUSTFLOAT** RESTRICT inputs, FAUSTFLOAT** RESTRICT outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
+		FAUSTFLOAT* input1 = inputs[1];
 		FAUSTFLOAT* output0 = outputs[0];
+		FAUSTFLOAT* output1 = outputs[1];
 		float fSlow0 = float(float(fCheckbox0) >= 1.0f);
 		float fSlow1 = fConst1 * std::pow(1e+01f, 0.05f * float(fVslider0));
 		float fSlow2 = float(fHslider0);
@@ -796,23 +817,38 @@ class dyn_comp_peak : public dyn_comp_peak_dsp {
 		float fSlow12 = 0.001f * float(fHslider4);
 		int iSlow13 = std::fabs(fSlow12) < 1.1920929e-07f;
 		float fSlow14 = ((iSlow13) ? 0.0f : std::exp(0.0f - fConst3 / ((iSlow13) ? 1.0f : fSlow12)));
+		float fSlow15 = float(fHslider5);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			float fTemp0 = float(input0[i0]);
 			float fTemp1 = fRec0[1] + 0.015625f;
 			float fTemp2 = fRec0[1] + -0.015625f;
 			fRec0[0] = ((fTemp1 < fSlow0) ? fTemp1 : ((fTemp2 > fSlow0) ? fTemp2 : fSlow0));
 			fRec1[0] = fSlow1 + fConst2 * fRec1[1];
-			float fTemp3 = 2e+01f * std::log10(std::max<float>(1.1754944e-38f, std::fabs(fTemp0)));
-			int iTemp4 = (fTemp3 > fSlow6) + (fTemp3 > fSlow7);
-			float fTemp5 = fTemp3 - fSlow3;
-			float fTemp6 = 0.0f - fSlow2 * std::max<float>(0.0f, ((iTemp4 == 0) ? 0.0f : ((iTemp4 == 1) ? fSlow8 * dyn_comp_peak_faustpower2_f(fSlow5 + fTemp5) : fTemp5)));
-			float fTemp7 = ((fTemp6 > fRec2[1]) ? fSlow14 : fSlow11);
-			fRec2[0] = fTemp6 * (1.0f - fTemp7) + fRec2[1] * fTemp7;
-			fHbargraph0 = FAUSTFLOAT(1.0f - std::pow(1e+01f, 0.05f * fRec2[0]));
-			output0[i0] = FAUSTFLOAT(fTemp0 * (fRec0[0] + fRec1[0] * (1.0f - fRec0[0]) * std::pow(1e+01f, 0.05f * fRec2[0])));
+			float fTemp3 = fRec1[0] * (1.0f - fRec0[0]);
+			float fTemp4 = 2e+01f * std::log10(std::max<float>(1.1754944e-38f, std::fabs(fTemp0)));
+			int iTemp5 = (fTemp4 > fSlow6) + (fTemp4 > fSlow7);
+			float fTemp6 = fTemp4 - fSlow3;
+			float fTemp7 = 0.0f - fSlow2 * std::max<float>(0.0f, ((iTemp5 == 0) ? 0.0f : ((iTemp5 == 1) ? fSlow8 * dyn_comp_peak2_faustpower2_f(fSlow5 + fTemp6) : fTemp6)));
+			float fTemp8 = ((fTemp7 > fRec2[1]) ? fSlow14 : fSlow11);
+			fRec2[0] = fTemp7 * (1.0f - fTemp8) + fRec2[1] * fTemp8;
+			float fTemp9 = float(input1[i0]);
+			float fTemp10 = 2e+01f * std::log10(std::max<float>(1.1754944e-38f, std::fabs(fTemp9)));
+			int iTemp11 = (fTemp10 > fSlow6) + (fTemp10 > fSlow7);
+			float fTemp12 = fTemp10 - fSlow3;
+			float fTemp13 = 0.0f - fSlow2 * std::max<float>(0.0f, ((iTemp11 == 0) ? 0.0f : ((iTemp11 == 1) ? fSlow8 * dyn_comp_peak2_faustpower2_f(fSlow5 + fTemp12) : fTemp12)));
+			float fTemp14 = ((fTemp13 > fRec3[1]) ? fSlow14 : fSlow11);
+			fRec3[0] = fTemp13 * (1.0f - fTemp14) + fRec3[1] * fTemp14;
+			float fTemp15 = std::min<float>(fRec2[0], fRec3[0]);
+			float fTemp16 = fRec2[0] + fSlow15 * (fTemp15 - fRec2[0]);
+			fHbargraph0 = FAUSTFLOAT(1.0f - std::pow(1e+01f, 0.05f * fTemp16));
+			output0[i0] = FAUSTFLOAT(fTemp0 * (fRec0[0] + fTemp3 * std::pow(1e+01f, 0.05f * fTemp16)));
+			float fTemp17 = fRec3[0] + fSlow15 * (fTemp15 - fRec3[0]);
+			fHbargraph1 = FAUSTFLOAT(1.0f - std::pow(1e+01f, 0.05f * fTemp17));
+			output1[i0] = FAUSTFLOAT(fTemp9 * (fRec0[0] + fTemp3 * std::pow(1e+01f, 0.05f * fTemp17)));
 			fRec0[1] = fRec0[0];
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];
+			fRec3[1] = fRec3[0];
 		}
 	}
 
@@ -821,18 +857,18 @@ class dyn_comp_peak : public dyn_comp_peak_dsp {
 #endif
 
     template <class T>
-    struct _dyn_comp_peak_UI : public UI {
+    struct _dyn_comp_peak2_UI : public UI {
     static std::string name;
 };
 
 template <class T>
-std::string _dyn_comp_peak_UI<T>::name(sym(dyn_comp_peak));
+std::string _dyn_comp_peak2_UI<T>::name(sym(dyn_comp_peak2));
 
-typedef _dyn_comp_peak_UI<dyn_comp_peak> dyn_comp_peak_UI;
+typedef _dyn_comp_peak2_UI<dyn_comp_peak2> dyn_comp_peak2_UI;
 
-class faust_dyn_comp_peak_tilde : public FaustExternal<dyn_comp_peak, dyn_comp_peak_UI> {
+class faust_dyn_comp_peak2_tilde : public FaustExternal<dyn_comp_peak2, dyn_comp_peak2_UI> {
 public:
-    faust_dyn_comp_peak_tilde(const ceammc::PdArgs& args)
+    faust_dyn_comp_peak2_tilde(const ceammc::PdArgs& args)
         : FaustExternal(args)
     {
     }
