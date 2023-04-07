@@ -37,12 +37,13 @@
             threshold</property>
             <property name="@release" type="float" units="millisecond" default="20" minvalue="1"
             maxvalue="500">release time = time constant (ms) for gate to close</property>
+            <property name="@bypass" type="bool" default="0">if set to 1 - bypass
+            gate</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet type="audio">
                 <xinfo>left input signal</xinfo>
-                <xinfo on="bang">outputs object internal state to rightmost outlet</xinfo>
             </inlet>
             <inlet type="audio">
                 <xinfo>right input signal</xinfo>

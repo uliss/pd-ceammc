@@ -647,20 +647,22 @@ class dyn_gate2 : public dyn_gate2_dsp {
 	
  private:
 	
+	FAUSTFLOAT fCheckbox0;
+	float fRec0[2];
 	FAUSTFLOAT fVslider0;
 	FAUSTFLOAT fVslider1;
 	int fSampleRate;
 	float fConst1;
-	float fRec1[2];
+	float fRec2[2];
 	float fConst2;
 	FAUSTFLOAT fVslider2;
 	float fConst3;
-	float fRec2[2];
+	float fRec3[2];
 	int iVec0[2];
 	float fConst4;
 	FAUSTFLOAT fVslider3;
-	int iRec3[2];
-	float fRec0[2];
+	int iRec4[2];
+	float fRec1[2];
 	
  public:
 	
@@ -671,7 +673,9 @@ class dyn_gate2 : public dyn_gate2_dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.8");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1.2");
+		m->declare("ceammc.lib/version", "0.1.3");
+		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
+		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn dyn_gate2 -scn dyn_gate2_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("filename", "dyn_gate2.dsp");
 		m->declare("maths.lib/author", "GRAME");
@@ -684,6 +688,8 @@ class dyn_gate2 : public dyn_gate2_dsp {
 		m->declare("name", "dyn.gate2");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "0.2");
+		m->declare("routes.lib/name", "Faust Signal Routing Library");
+		m->declare("routes.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
 		m->declare("signals.lib/onePoleSwitching:author", "Jonatan Liljedahl, revised by Dario Sanfilippo");
 		m->declare("signals.lib/onePoleSwitching:licence", "STK-4.3");
@@ -710,6 +716,7 @@ class dyn_gate2 : public dyn_gate2_dsp {
 	}
 	
 	virtual void instanceResetUserInterface() {
+		fCheckbox0 = FAUSTFLOAT(0.0f);
 		fVslider0 = FAUSTFLOAT(0.1f);
 		fVslider1 = FAUSTFLOAT(2e+01f);
 		fVslider2 = FAUSTFLOAT(-6e+01f);
@@ -718,19 +725,22 @@ class dyn_gate2 : public dyn_gate2_dsp {
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; l0 < 2; l0 = l0 + 1) {
-			fRec1[l0] = 0.0f;
+			fRec0[l0] = 0.0f;
 		}
 		for (int l1 = 0; l1 < 2; l1 = l1 + 1) {
 			fRec2[l1] = 0.0f;
 		}
 		for (int l2 = 0; l2 < 2; l2 = l2 + 1) {
-			iVec0[l2] = 0;
+			fRec3[l2] = 0.0f;
 		}
 		for (int l3 = 0; l3 < 2; l3 = l3 + 1) {
-			iRec3[l3] = 0;
+			iVec0[l3] = 0;
 		}
 		for (int l4 = 0; l4 < 2; l4 = l4 + 1) {
-			fRec0[l4] = 0.0f;
+			iRec4[l4] = 0;
+		}
+		for (int l5 = 0; l5 < 2; l5 = l5 + 1) {
+			fRec1[l5] = 0.0f;
 		}
 	}
 	
@@ -756,6 +766,7 @@ class dyn_gate2 : public dyn_gate2_dsp {
 		ui_interface->openVerticalBox("dyn.gate2");
 		ui_interface->declare(&fVslider0, "unit", "ms");
 		ui_interface->addVerticalSlider("attack", &fVslider0, FAUSTFLOAT(0.1f), FAUSTFLOAT(0.0f), FAUSTFLOAT(5e+02f), FAUSTFLOAT(0.1f));
+		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->declare(&fVslider3, "unit", "ms");
 		ui_interface->addVerticalSlider("hold", &fVslider3, FAUSTFLOAT(1e+02f), FAUSTFLOAT(1.0f), FAUSTFLOAT(5e+02f), FAUSTFLOAT(0.1f));
 		ui_interface->declare(&fVslider1, "unit", "ms");
@@ -770,36 +781,42 @@ class dyn_gate2 : public dyn_gate2_dsp {
 		FAUSTFLOAT* input1 = inputs[1];
 		FAUSTFLOAT* output0 = outputs[0];
 		FAUSTFLOAT* output1 = outputs[1];
-		float fSlow0 = 0.001f * float(fVslider0);
-		float fSlow1 = 0.001f * float(fVslider1);
-		float fSlow2 = std::min<float>(fSlow0, fSlow1);
-		int iSlow3 = std::fabs(fSlow2) < 1.1920929e-07f;
-		float fSlow4 = ((iSlow3) ? 0.0f : std::exp(0.0f - fConst1 / ((iSlow3) ? 1.0f : fSlow2)));
-		float fSlow5 = 1.0f - fSlow4;
-		float fSlow6 = fConst2 * float(fVslider2);
-		int iSlow7 = int(fConst4 * float(fVslider3));
-		int iSlow8 = std::fabs(fSlow1) < 1.1920929e-07f;
-		float fSlow9 = ((iSlow8) ? 0.0f : std::exp(0.0f - fConst1 / ((iSlow8) ? 1.0f : fSlow1)));
-		int iSlow10 = std::fabs(fSlow0) < 1.1920929e-07f;
-		float fSlow11 = ((iSlow10) ? 0.0f : std::exp(0.0f - fConst1 / ((iSlow10) ? 1.0f : fSlow0)));
+		float fSlow0 = float(float(fCheckbox0) >= 1.0f);
+		float fSlow1 = 0.001f * float(fVslider0);
+		float fSlow2 = 0.001f * float(fVslider1);
+		float fSlow3 = std::min<float>(fSlow1, fSlow2);
+		int iSlow4 = std::fabs(fSlow3) < 1.1920929e-07f;
+		float fSlow5 = ((iSlow4) ? 0.0f : std::exp(0.0f - fConst1 / ((iSlow4) ? 1.0f : fSlow3)));
+		float fSlow6 = 1.0f - fSlow5;
+		float fSlow7 = fConst2 * float(fVslider2);
+		int iSlow8 = int(fConst4 * float(fVslider3));
+		int iSlow9 = std::fabs(fSlow2) < 1.1920929e-07f;
+		float fSlow10 = ((iSlow9) ? 0.0f : std::exp(0.0f - fConst1 / ((iSlow9) ? 1.0f : fSlow2)));
+		int iSlow11 = std::fabs(fSlow1) < 1.1920929e-07f;
+		float fSlow12 = ((iSlow11) ? 0.0f : std::exp(0.0f - fConst1 / ((iSlow11) ? 1.0f : fSlow1)));
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			float fTemp0 = float(input0[i0]);
-			float fTemp1 = float(input1[i0]);
-			fRec1[0] = std::fabs(std::fabs(fTemp0) + std::fabs(fTemp1)) * fSlow5 + fRec1[1] * fSlow4;
-			fRec2[0] = fSlow6 + fConst3 * fRec2[1];
-			int iTemp2 = fRec1[0] > std::pow(1e+01f, 0.05f * fRec2[0]);
-			iVec0[0] = iTemp2;
-			iRec3[0] = std::max<int>(iSlow7 * (iTemp2 < iVec0[1]), iRec3[1] + -1);
-			float fTemp3 = std::fabs(std::max<float>(float(iTemp2), float(iRec3[0] > 0)));
-			float fTemp4 = ((fTemp3 > fRec0[1]) ? fSlow11 : fSlow9);
-			fRec0[0] = fTemp3 * (1.0f - fTemp4) + fRec0[1] * fTemp4;
-			output0[i0] = FAUSTFLOAT(fTemp0 * fRec0[0]);
-			output1[i0] = FAUSTFLOAT(fTemp1 * fRec0[0]);
-			fRec1[1] = fRec1[0];
-			fRec2[1] = fRec2[0];
-			iVec0[1] = iVec0[0];
-			iRec3[1] = iRec3[0];
+			float fTemp1 = fRec0[1] + 0.015625f;
+			float fTemp2 = fRec0[1] + -0.015625f;
+			fRec0[0] = ((fTemp1 < fSlow0) ? fTemp1 : ((fTemp2 > fSlow0) ? fTemp2 : fSlow0));
+			float fTemp3 = float(input1[i0]);
+			fRec2[0] = std::fabs(std::fabs(fTemp0) + std::fabs(fTemp3)) * fSlow6 + fRec2[1] * fSlow5;
+			fRec3[0] = fSlow7 + fConst3 * fRec3[1];
+			int iTemp4 = fRec2[0] > std::pow(1e+01f, 0.05f * fRec3[0]);
+			iVec0[0] = iTemp4;
+			iRec4[0] = std::max<int>(iSlow8 * (iTemp4 < iVec0[1]), iRec4[1] + -1);
+			float fTemp5 = std::fabs(std::max<float>(float(iTemp4), float(iRec4[0] > 0)));
+			float fTemp6 = ((fTemp5 > fRec1[1]) ? fSlow12 : fSlow10);
+			fRec1[0] = fTemp5 * (1.0f - fTemp6) + fRec1[1] * fTemp6;
+			float fTemp7 = fRec0[0] + fRec1[0] * (1.0f - fRec0[0]);
+			output0[i0] = FAUSTFLOAT(fTemp0 * fTemp7);
+			output1[i0] = FAUSTFLOAT(fTemp3 * fTemp7);
 			fRec0[1] = fRec0[0];
+			fRec2[1] = fRec2[0];
+			fRec3[1] = fRec3[0];
+			iVec0[1] = iVec0[0];
+			iRec4[1] = iRec4[0];
+			fRec1[1] = fRec1[0];
 		}
 	}
 
