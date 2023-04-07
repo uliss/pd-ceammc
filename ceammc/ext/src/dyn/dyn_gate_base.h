@@ -33,7 +33,6 @@ public:
         CEAMMC_DEFINE_PROP_VAR(release)
 
         threshold_ = this->findUIProperty(sym_prop_threshold);
-        this->checkUIProperties({ threshold_ });
 
         this->bindPositionalArgsToProps({
             sym_prop_threshold,

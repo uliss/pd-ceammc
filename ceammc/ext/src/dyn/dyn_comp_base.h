@@ -28,7 +28,7 @@ CEAMMC_DEFINE_HASH(strings)
 
 template <typename T>
 class DynCompBase : public T {
-    faust::UIProperty *ratio_, *threshold_, *attack_, *release_;
+    faust::UIProperty *ratio_ { 0 }, *threshold_ { 0 }, *attack_ { 0 }, *release_ { 0 };
 
 public:
     DynCompBase(const PdArgs& args)
@@ -54,9 +54,6 @@ public:
 
     void setCompress(t_float ratio, t_float threshold, t_float attack, t_float release)
     {
-        if (!this->checkUIProperties({ ratio_, threshold_, attack_, release_ }))
-            return;
-
         ratio_->setValue(ratio, true);
         threshold_->setValue(threshold, true);
         attack_->setValue(attack, true);
@@ -91,7 +88,7 @@ public:
 
 template <typename T>
 class DynCompNewT : public T {
-    faust::UIProperty *strength_;
+    faust::UIProperty* strength_ { 0 };
 
 public:
     DynCompNewT(const PdArgs& args)

@@ -121,10 +121,8 @@ namespace faust {
         void setBargraphOutputFn(BargraphFn fn) { clock_fn_ = fn; }
         void setInitSignalValue(t_float f) { pd_float(reinterpret_cast<t_pd*>(owner()), f); }
 
-        UIProperty* findUIProperty(t_symbol* name) { return dynamic_cast<UIProperty*>(property(name)); }
-        UIProperty* findUIProperty(const char* name) { return findUIProperty(gensym(name)); }
-
-        bool checkUIProperties(std::initializer_list<UIProperty*> lst, bool printError = true);
+        UIProperty* findUIProperty(t_symbol* name, bool printErr = true);
+        UIProperty* findUIProperty(const char* name, bool printErr = true) { return findUIProperty(gensym(name), printErr); }
 
         void initBargraphData();
         void addUIElement(UIElement* ui);

@@ -386,11 +386,11 @@ namespace faust {
         return 0.1f;
     }
 
-    bool FaustExternalBase::checkUIProperties(std::initializer_list<UIProperty*> lst, bool printError)
+    UIProperty* FaustExternalBase::findUIProperty(t_symbol* name, bool printErr)
     {
-        auto res = std::all_of(lst.begin(), lst.end(), [](UIProperty* p) { return p; });
-        if (!res && printError)
-            OBJ_ERR << "property check failed";
+        auto res = dynamic_cast<UIProperty*>(property(name));
+        if (!res)
+            OBJ_ERR << "property not found: " << name->s_name;
 
         return res;
     }
