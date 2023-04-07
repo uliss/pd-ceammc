@@ -1,4 +1,5 @@
 gdyn.comp2~
+gdyn.comp_peak_ff~
 gdyn.comp~
 gdyn.gate2~
 gdyn.gate~
@@ -21,6 +22,7 @@ gflt.notch~
 gflt.resonbp~
 gflt.resonhp~
 gflt.resonlp~
+gflt.speaker~
 gfx.bitdown~
 gfx.chorus~
 gfx.dattorro~
