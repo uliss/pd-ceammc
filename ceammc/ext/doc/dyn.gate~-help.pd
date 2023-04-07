@@ -6,14 +6,14 @@
 0;
 #X obj 674 11 dyn.gate~;
 #X obj 50 118 osc~ 440;
-#X obj 184 118 ui.hsl -60 0 @show_value 1;
-#X obj 184 147 dbfs->amp;
+#X obj 194 118 ui.hsl -60 0 @show_value 1;
+#X obj 194 147 dbfs->amp;
 #X obj 50 176 gain~;
-#X obj 184 176 ui.hsl -60 0 @show_value 1;
-#X msg 184 205 @threshold \$1;
+#X obj 194 176 ui.hsl -60 0 @show_value 1;
+#X msg 194 205 @threshold \$1;
 #X obj 50 234 dyn.gate~ -10;
 #X obj 50 262 ui.hgain~;
-#X obj 203 262 ui.dsp~;
+#X obj 194 262 ui.dsp~;
 #X obj 50 291 dac~;
 #X obj 20 340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 345 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
@@ -65,8 +65,9 @@ Type: float. Units: db. Default value: -60\. Range: -90\...0\.;
 0;
 #X text 110 855 1\.;
 #X text 245 855 input signal.;
-#X text 150 875 *bang*;
-#X text 245 875 outputs object internal state to rightmost outlet.;
+#X text 110 875 2\.;
+#X text 150 875 *float*;
+#X text 245 875 set threshold.;
 #X obj 20 905 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 910 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;

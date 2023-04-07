@@ -24,6 +24,7 @@
   - rhythm.euclid - euclid pattern generator (using fast bresenham algorithm)
   - rhythm.lsystem - L-system pattern generator
 - new object inlets:
+  - dyn.gate~ - second inlet added to setting threshold
   - fx.drone_box~ - second inlet added for setting resonance frequency
   - fx.notch~: second (freq) inlet added
   - fx.wahwah~: second (angle) inlet added
@@ -42,6 +43,7 @@
 - new object properties:
   - @punct added to rhvoice~, to specify pronounced characters
   - @bypass added to dyn.comp~ and dyn.comp2~
+  - @bypass added to dyn.gate~
 - new init argument functions:
   - hexbeat(HEX) - expand hex to list of 1 and 0
   - ones(N) - list of length N, filled with 1

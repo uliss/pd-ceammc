@@ -389,7 +389,7 @@ namespace faust {
     bool FaustExternalBase::checkUIProperties(std::initializer_list<UIProperty*> lst, bool printError)
     {
         auto res = std::all_of(lst.begin(), lst.end(), [](UIProperty* p) { return p; });
-        if (printError)
+        if (!res && printError)
             OBJ_ERR << "property check failed";
 
         return res;

@@ -805,7 +805,7 @@ class dyn_gate : public dyn_gate_dsp {
 			float fTemp4 = std::fabs(std::max<float>(float(iTemp3), float(iRec4[0] > 0)));
 			float fTemp5 = ((fTemp4 > fRec1[1]) ? fSlow12 : fSlow10);
 			fRec1[0] = fTemp4 * (1.0f - fTemp5) + fRec1[1] * fTemp5;
-			output0[i0] = FAUSTFLOAT(fTemp0 * (1.0f - fRec0[0] + fRec0[0] * fRec1[0]));
+			output0[i0] = FAUSTFLOAT(fTemp0 * (fRec0[0] + fRec1[0] * (1.0f - fRec0[0])));
 			fRec0[1] = fRec0[0];
 			fRec2[1] = fRec2[0];
 			fRec3[1] = fRec3[0];

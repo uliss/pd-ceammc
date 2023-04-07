@@ -44,7 +44,9 @@
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
-                <xinfo on="bang">outputs object internal state to rightmost outlet</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set threshold</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -53,17 +55,17 @@
         <example>
             <pdascii>
 <![CDATA[
-[osc~ 440]    [ui.hsl -60 0 @show_value 1]
-|             |
-|             [dbfs->amp #a]
+[osc~ 440]     [ui.hsl -60 0 @show_value 1]
+|              |
+|              [dbfs->amp #a]
 |
-[gain~ #b]    [ui.hsl -60 0 @show_value 1]
-|             |
-|             [@threshold $1(
-|             |
-[dyn.gate~ -10]
+[gain~     #b] [ui.hsl -60 0 @show_value 1]
+|              |
+|              [@threshold $1(
+|              |
+[dyn.gate~  -10]
 |
-[ui.hgain~    ] [ui.dsp~]
+[ui.hgain~   ] [ui.dsp~]
 |\
 [dac~]
 

@@ -9,7 +9,7 @@ ma = library("maths.lib");
 db_pd2faust(v) = (v - 100);
 
 // ceammc crossfaded bypass
-bypass_mono(bpc, fx, in) = ba.selectmulti(64, ((in), (in : fx)), bpc) : _;
+bypass_mono(bpc, fx, in) = ba.selectmulti(64, ((in : fx), (in)), bpc) : _;
 
 // in puredata common time management in milliseconds
 time_pd2faust(msec) = (msec / 1000.0);
