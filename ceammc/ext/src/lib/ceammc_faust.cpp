@@ -622,5 +622,22 @@ namespace faust {
             }
         }
     }
+
+    std::string makeOscPath(const std::string& label, const std::vector<std::string>& path)
+    {
+        std::string res;
+
+        auto new_path = path;
+        new_path.push_back(label);
+
+        auto osc_segs = filterOscSegment(new_path);
+        for(auto& s: filterOscSegment(new_path)) {
+            res += '/';
+            res += s;
+        }
+
+        return res;
+    }
+
 }
 }

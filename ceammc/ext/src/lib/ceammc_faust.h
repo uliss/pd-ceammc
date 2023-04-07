@@ -233,6 +233,7 @@ namespace faust {
     bool invalidOscChar(char c);
     std::string escapeOscSegment(const std::string& s);
     std::vector<std::string> filterOscSegment(const std::vector<std::string>& osc);
+    std::string makeOscPath(const std::string& label, const std::vector<std::string>& path);
 
     template <typename T>
     class PdUI : public T {
@@ -667,19 +668,7 @@ namespace faust {
     template <typename T>
     std::string PdUI<T>::oscPath(const std::string& label) const
     {
-        typedef std::vector<std::string> StringList;
-
-        std::string res;
-        StringList tmp(osc_path_);
-        tmp.push_back(label);
-
-        StringList osc_segs = filterOscSegment(tmp);
-        for (size_t i = 0; i < osc_segs.size(); i++) {
-            res += '/';
-            res += osc_segs[i];
-        }
-
-        return res;
+        return makeOscPath(label, osc_path_);
     }
 }
 }

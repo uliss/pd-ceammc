@@ -41,7 +41,7 @@
             <property name="@threshold" type="float" units="decibel" default="-32" minvalue="-60"
             maxvalue="0">level threshold above which compression kicks in (100 dB = max
             level)</property>
-            <property name="@range" type="float" units="decibel" default="32" minvalue="0"
+            <property name="@range" type="float" units="decibel" default="12" minvalue="0"
             maxvalue="32">max upward compression range</property>
             <property name="@attack" type="float" units="millisecond" default="10" minvalue="0.1"
             maxvalue="100">time constant when level &amp; compression going up</property>
@@ -60,6 +60,9 @@
             access="readonly">current level of compression</property>
             <property name="@refresh" type="int" default="100" minvalue="0" maxvalue="1000"
             units="millisecond">compression level output time interval. If 0 - no output</property>
+            <property name="@link" type="float" default="1" minvalue="0" maxvalue="1">the amount of
+            linkage between the channels: 0 = each channel is independent, 1 = all channels have
+            the same amount of gain reduction</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <methods>
@@ -81,30 +84,34 @@
         <outlets>
             <outlet type="audio">left output compressed signal</outlet>
             <outlet type="audio">right output compressed signal</outlet>
-            <outlet>float: output current compression level in [0..1]</outlet>
+            <outlet>list: output current compression amount in db</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[ui.hsl #a]              [ui.dsp~]
-|
-[dbfs->amp]
-|
-[sig~]  [ui.hsl #a]
-|       |
-|       |
-|       [@threshold $1(  [ui.knob @label STRENGTH @show_value 1]
-|       |                |
-|       |                |.
-[dyn.comp_up2~ 0 -60 10 100]
-|                     ^|
-[env~]                [ui.hsl 0 32 @active_scale 1 @show_value 1]
-|
-[- 100]
-|
-[F]
+[ui.hsl #a]  [ui.hsl #a]    [T]        [ui.hsl #a]
+|            |              |          |
+[dbfs->amp]  [dbfs->amp]    [@link $1( [@threshold $1(
+|            |              |          |
+[sig~]       [sig~]         [s up2     ]
+|            |
+|            |      [ui.knob @label STRENGTH @show_value 1]
+|            |      |
+| [r up2]    |      |
+| |          |.     |..
+[dyn.comp_up2~ 0 -60 10 100 #z]        [ui.dsp~]
+|        ^|              ^^|
+[env~]   [env~]          [unpack f f #p {o:2}]
+|        |
+[- 100]  [- 100]         [ui.hsl #ch1]
+|        |
+[F]      [F]             [ui.hsl #ch2]
 
 #a -60 0 @show_value 1
+#ch1 0 32 @active_scale 1 @show_value 1
+#ch2 0 32 @active_scale 1 @show_value 1
+[X p->ch1]
+[X p:1->ch2]
 ]]>
             </pdascii>
         </example>

@@ -12,7 +12,7 @@
 #X msg 775 375 supported messages are: @attack @bypass @hold @knee @link @range @release @strength @threshold default reset;
 #X obj 775 425 print;
 #X obj 825 425 print [gdyn.comp_up2~] unknown message;
-#X msg 425 75 @attack 10 \, @hold 100 \, @knee 3 \, @link 1 \, @range 32 \, @release 50 \, @strength 0 \, @threshold -32 \,;
+#X msg 425 75 @attack 10 \, @hold 100 \, @knee 3 \, @link 1 \, @range 12 \, @release 50 \, @strength 0 \, @threshold -32 \,;
 #X obj 25 50 t b b;
 #X msg 25 75 reset;
 #X obj 425 25 msg.onload;
