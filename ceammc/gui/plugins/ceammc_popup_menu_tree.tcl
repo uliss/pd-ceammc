@@ -72,8 +72,8 @@
         set.diff set.equal set.intersect set.size set.symdiff set.union
     }}
     {dyn {
-        dyn.comp2~ dyn.comp~ dyn.gate2~ dyn.gate~ dyn.limit2~ dyn.limit~
-        dyn.softclip~
+        dyn.comp2~ dyn.comp_peak~ dyn.comp~ dyn.gate2~ dyn.gate~ dyn.limit2~
+        dyn.limit~ dyn.softclip~
     }}
     {env {
         env.adsr~ env.ar~ env.asr~ env.concat env.follow~ env.mix env.smooth~
