@@ -32,9 +32,9 @@ attack(ms): @label_side top @label_align left @fontsize 10 @presetname
 #X msg 260 248 @bypass \$1;
 #X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label hold(ms):
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/dyn.comp_up~/slider2 @min 0.1 @max 500;
+/gui/\$1/dyn.comp_up~/slider2 @min 1 @max 500;
 #X obj 215 266 sync;
-#X obj 145 266 ui.number @size 50 12 @min 0.1 @max 500 @digits 1;
+#X obj 145 266 ui.number @size 50 12 @min 1 @max 500 @digits 1;
 #X msg 260 266 @hold \$1;
 #X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label knee(db):
 @label_side top @label_align left @fontsize 10 @presetname

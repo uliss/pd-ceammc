@@ -15,7 +15,7 @@ process = _ : cm.bypass_mono(ui.bypass, comp_up) : _ with {
     knee     = hslider("knee [unit:db]", 3, 0, 6, 0.01);
     thresh   = hslider("threshold [unit:db]", -32, -60, 0, 0.1);
     att      = hslider("attack [unit:ms]", 10, 0.1, 100, 0.1) : cm.time_pd2faust;
-    hold     = hslider("hold [unit:ms]", 100, 0.1, 500, 0.1) : cm.time_pd2faust;
+    hold     = hslider("hold [unit:ms]", 100, 1, 500, 0.1) : cm.time_pd2faust;
     rel      = hslider("release [unit:ms]", 50, 1, 500, 0.1) : cm.time_pd2faust;
 
     meter = _ <: attach(_, hbargraph("level [unit:db]", 0, 90));
