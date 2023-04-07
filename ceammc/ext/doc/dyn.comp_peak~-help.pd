@@ -68,7 +68,7 @@ Range: -18\...18\.;
 the threshold: below thresh-(knee/2) there is no gain reduction \,
 above thresh+(knee/2) there is the same gain reduction as without a
 knee \, and in between there is a gradual increase in gain reduction.
-Type: float. Units: db. Default value: 3\. Range: 0\...6\.;
+Type: float. Units: db. Default value: 3\. Range: 0\...24\.;
 #X msg 110 993 @level;
 #X text 245 993 (readonly) Get current level of compression. Type:
 float. Default value: 0\. Range: 0\...1\.;

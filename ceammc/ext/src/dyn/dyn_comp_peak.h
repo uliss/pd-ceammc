@@ -768,7 +768,7 @@ class dyn_comp_peak : public dyn_comp_peak_dsp {
 		ui_interface->declare(&fVslider0, "unit", "db");
 		ui_interface->addVerticalSlider("gain", &fVslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(-18.0f), FAUSTFLOAT(18.0f), FAUSTFLOAT(0.1f));
 		ui_interface->declare(&fHslider2, "unit", "db");
-		ui_interface->addHorizontalSlider("knee", &fHslider2, FAUSTFLOAT(3.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(6.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("knee", &fHslider2, FAUSTFLOAT(3.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(24.0f), FAUSTFLOAT(0.01f));
 		ui_interface->addHorizontalBargraph("level", &fHbargraph0, FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f));
 		ui_interface->declare(&fHslider4, "unit", "ms");
 		ui_interface->addHorizontalSlider("release", &fHslider4, FAUSTFLOAT(5e+01f), FAUSTFLOAT(1.0f), FAUSTFLOAT(5e+02f), FAUSTFLOAT(0.1f));
