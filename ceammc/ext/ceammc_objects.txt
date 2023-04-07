@@ -292,6 +292,7 @@ color.mix
 color.scale
 comp.peak2~
 comp.peak~
+comp.up2~
 comp.up~
 conv.amp2dbfs
 conv.amp2dbfs~
@@ -371,6 +372,7 @@ dict.values
 dyn.comp2~
 dyn.comp_peak2~
 dyn.comp_peak~
+dyn.comp_up2~
 dyn.comp_up~
 dyn.comp~
 dyn.gate2~

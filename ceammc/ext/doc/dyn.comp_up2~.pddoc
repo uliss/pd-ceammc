@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="dyn.comp_up2~">
+        <title>dyn.comp_up2~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>stereo upward compressor with channel linking</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>dyn</category>
+            <keywords>compressor</keywords>
+            <since>0.9.7</since>
+            <also>
+                <see>dyn.comp_up~</see>
+                <see>dyn.comp_peak2~</see>
+            </also>
+            <aliases>
+                <alias>comp.up2~</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>It uses a strength parameter instead of the traditional ratio,
+            in order to be able to function as a hard limiter or overcompressor</par>
+            <a href="https://en.wikipedia.org/wiki/Dynamic_range_compression">Dynamic range compression</a>
+        </info>
+        <arguments>
+            <argument name="STRENGTH" type="float" minvalue="0" maxvalue="1">compression strength
+            (0: no compression, 1: increase level by @range db.)</argument>
+            <argument name="THRESHOLD" type="float" minvalue="-60" maxvalue="0" units="decibel">
+            level threshold above which compression kicks in</argument>
+            <argument name="ATTACK" type="float" units="millisecond" minvalue="0.1" maxvalue="100">
+            attack time = time constant when level &amp; compression going up</argument>
+            <argument name="RELEASE" type="float" units="millisecond" minvalue="1" maxvalue="500">
+            release time = time constant coming out of compression</argument>
+        </arguments>
+        <properties>
+            <property name="@strength" type="float" default="0" minvalue="0" maxvalue="1">
+            compression strength (0: no compression, 1: increase level by @range db.)</property>
+            <property name="@threshold" type="float" units="decibel" default="-32" minvalue="-60"
+            maxvalue="0">level threshold above which compression kicks in (100 dB = max
+            level)</property>
+            <property name="@range" type="float" units="decibel" default="32" minvalue="0"
+            maxvalue="32">max upward compression range</property>
+            <property name="@attack" type="float" units="millisecond" default="10" minvalue="0.1"
+            maxvalue="100">time constant when level &amp; compression going up</property>
+            <property name="@release" type="float" units="millisecond" default="50" minvalue="1"
+            maxvalue="500">release time = time constant coming out of compression</property>
+            <property name="@hold" type="float" units="millisecond" default="100" minvalue="1"
+            maxvalue="500">hold time</property>
+            <property name="@knee" type="float" units="decibel" default="3" minvalue="0"
+            maxvalue="6">a gradual increase in gain reduction around the threshold: below
+            thresh-(knee/2) there is no gain reduction, above thresh+(knee/2) there is the same
+            gain reduction as without a knee, and in between there is a gradual increase in gain
+            reduction</property>
+            <property name="@bypass" type="bool" default="0">if set to 1 - bypass
+            compressor</property>
+            <property name="@level" type="float" units="decibel" default="0" minvalue="0" maxvalue="90"
+            access="readonly">current level of compression</property>
+            <property name="@refresh" type="int" default="100" minvalue="0" maxvalue="1000"
+            units="millisecond">compression level output time interval. If 0 - no output</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+        </properties>
+        <methods>
+            <method name="preset">choose predefined preset 
+            <param name="PRESET" type="symbol" enum="vocal drums bass strings" required="true">
+            name</param></method>
+        </methods>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>left input signal</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>right input signal</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set compression strength</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">left output compressed signal</outlet>
+            <outlet type="audio">right output compressed signal</outlet>
+            <outlet>float: output current compression level in [0..1]</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.hsl #a]              [ui.dsp~]
+|
+[dbfs->amp]
+|
+[sig~]  [ui.hsl #a]
+|       |
+|       |
+|       [@threshold $1(  [ui.knob @label STRENGTH @show_value 1]
+|       |                |
+|       |                |.
+[dyn.comp_up2~ 0 -60 10 100]
+|                     ^|
+[env~]                [ui.hsl 0 32 @active_scale 1 @show_value 1]
+|
+[- 100]
+|
+[F]
+
+#a -60 0 @show_value 1
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

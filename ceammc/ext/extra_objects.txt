@@ -194,6 +194,7 @@ zconf.service
 gdyn.comp2~
 gdyn.comp_peak2~
 gdyn.comp_peak~
+gdyn.comp_up2~
 gdyn.comp_up~
 gdyn.comp~
 gdyn.gate2~

@@ -115,6 +115,7 @@ dict.values		.		.
 dyn.comp2~		~~		~~.
 dyn.comp_peak2~,comp.peak2~		~~.		~~.
 dyn.comp_peak~,comp.peak~		~.		~.
+dyn.comp_up2~,comp.up2~		~~.		~~.
 dyn.comp_up~,comp.up~		~.		~.
 dyn.comp~		~		~.
 dyn.gate2~		~~.		~~

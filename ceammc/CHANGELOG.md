@@ -15,6 +15,7 @@
   - dyn.comp_peak~  - Peak FeedForward mono compressor
   - dyn.comp_peak2~ - Peak FeedForward stereo compressor with channel linking
   - dyn.comp_up~ - upward mono compressor
+  - dyn.comp_up2~ - upward stereo compressor with channel linking
   - fx.overdrive~ - overdrive effect
   - fx.tremolo~ - tremolo effect from guitarix library
   - metro.choice - randomly (uniformly) metronome time interval choice from specified set
