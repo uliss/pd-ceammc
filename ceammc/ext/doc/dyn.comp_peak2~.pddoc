@@ -22,6 +22,7 @@
         <info>
             <par>It uses a strength parameter instead of the traditional ratio,
             in order to be able to function as a hard limiter or overcompressor</par>
+            <a href="https://en.wikipedia.org/wiki/Dynamic_range_compression">Dynamic range compression</a>
         </info>
         <arguments>
             <argument name="STRENGTH" type="float" minvalue="0" maxvalue="2">strength of the

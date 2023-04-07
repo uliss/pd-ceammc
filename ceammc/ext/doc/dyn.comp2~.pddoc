@@ -17,6 +17,9 @@
                 <see>dyn.comp~</see>
             </also>
         </meta>
+        <info>
+            <a href="https://en.wikipedia.org/wiki/Dynamic_range_compression">Dynamic range compression</a>
+        </info>
         <arguments>
             <argument name="RATIO" type="float" minvalue="1" maxvalue="16">compression ratio (1 =
             no compression, &gt;1 means compression)</argument>
