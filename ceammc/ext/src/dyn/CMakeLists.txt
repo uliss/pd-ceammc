@@ -18,6 +18,7 @@ ceammc_dyn_ui_ext(comp_peak)
 ceammc_dyn_ui_ext(comp_peak2)
 ceammc_dyn_ui_ext(comp_up)
 ceammc_dyn_ui_ext(comp_up2)
+ceammc_dyn_ui_ext(expand)
 ceammc_dyn_ui_ext(gate)
 ceammc_dyn_ui_ext(gate2)
 
