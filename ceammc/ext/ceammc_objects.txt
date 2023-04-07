@@ -290,6 +290,7 @@ color
 color->rgba
 color.mix
 color.scale
+comp.peak2~
 comp.peak~
 conv.amp2dbfs
 conv.amp2dbfs~
@@ -367,6 +368,7 @@ dict.size
 dict.to_list
 dict.values
 dyn.comp2~
+dyn.comp_peak2~
 dyn.comp_peak~
 dyn.comp~
 dyn.gate2~

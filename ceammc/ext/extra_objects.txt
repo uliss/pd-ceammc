@@ -192,7 +192,8 @@ zconf.meta
 zconf.resolve
 zconf.service
 gdyn.comp2~
-gdyn.comp_peak_ff~
+gdyn.comp_peak2~
+gdyn.comp_peak~
 gdyn.comp~
 gdyn.gate2~
 gdyn.gate~
