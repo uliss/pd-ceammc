@@ -9,7 +9,7 @@
 #X obj 210 80 cnv 1 555 65 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 It uses a strength parameter instead of the traditional
 ratio \, in order to be able to function as a hard limiter or overcompressor;
-#X obj 50 173 ui.hsl 1 16 @show_value 1;
+#X obj 50 173 ui.hsl -60 0 @show_value 1;
 #X obj 290 173 ui.dsp~;
 #X obj 50 202 dbfs->amp;
 #X obj 50 231 sig~;

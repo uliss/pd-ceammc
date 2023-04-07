@@ -84,7 +84,7 @@
 |
 [dbfs->amp]
 |
-[sig~]  [ui.hsl #b]
+[sig~]  [ui.hsl #a]
 |       |
 |       |
 |       [@threshold $1(  [ui.knob @label STRENGTH @show_value 1]
@@ -98,8 +98,7 @@
 |
 [F]
 
-#a 1 16 @show_value 1
-#b -60 0 @show_value 1
+#a -60 0 @show_value 1
 ]]>
             </pdascii>
         </example>

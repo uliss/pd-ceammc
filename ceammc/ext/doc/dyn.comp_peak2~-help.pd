@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 384 50 cnv 1 381 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 384 50 stereo dynamic range peak feed forward compressor;
+#X obj 331 50 cnv 1 434 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 331 50 stereo peak feed forward compressor with channel linking;
 #X obj 1 1 cnv 5 765 40 empty empty dyn.comp_peak2~ 20 20 0 20 -104026
 -4096 0;
 #X obj 525 11 comp.peak2~;
@@ -9,7 +9,7 @@
 #X obj 210 80 cnv 1 555 65 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 It uses a strength parameter instead of the traditional
 ratio \, in order to be able to function as a hard limiter or overcompressor;
-#X obj 50 173 ui.hsl 1 16 @show_value 1;
+#X obj 50 173 ui.hsl -60 0 @show_value 1;
 #X obj 290 173 ui.dsp~;
 #X obj 50 202 dbfs->amp;
 #X obj 50 231 sig~;

@@ -9,7 +9,7 @@
 #X text 215 80 NOTE: the input level measured as sum of two input signals;
 #X obj 50 143 osc~ 400;
 #X obj 194 143 ui.hsl -60 0 @show_value 1;
-#X obj 78 172 osc~ 800;
+#X obj 78 172 osc~ 900;
 #X obj 194 172 dbfs->amp;
 #X obj 50 201 gain~ 2;
 #X obj 194 201 ui.hsl -60 0 @show_value 1;

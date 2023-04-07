@@ -445,7 +445,7 @@
     <entry name="dyn.comp2~" descr="stereo dynamic range compressor" ref_view="object">
       <xi:include href="dyn.comp2~.pddoc" parse="xml"/>
     </entry>
-    <entry name="dyn.comp_peak2~" descr="stereo dynamic range peak feed forward compressor" ref_view="object">
+    <entry name="dyn.comp_peak2~" descr="stereo peak feed forward compressor with channel linking" ref_view="object">
       <xi:include href="dyn.comp_peak2~.pddoc" parse="xml"/>
     </entry>
     <entry name="dyn.comp_peak~" descr="mono dynamic range peak feed forward compressor" ref_view="object">

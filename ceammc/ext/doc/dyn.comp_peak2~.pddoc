@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>stereo dynamic range peak feed forward compressor</description>
+            <description>stereo peak feed forward compressor with channel linking</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>dyn</category>
@@ -92,7 +92,7 @@
 |
 [dbfs->amp]
 |
-[sig~]  [ui.hsl #b]
+[sig~]  [ui.hsl #a]
 |       |
 |       |
 |       [@threshold $1(  [ui.knob #c]
@@ -106,8 +106,7 @@
 |
 [F]
 
-#a 1 16 @show_value 1
-#b -60 0 @show_value 1
+#a -60 0 @show_value 1
 #c @label STRENGTH @show_value 1
 ]]>
             </pdascii>

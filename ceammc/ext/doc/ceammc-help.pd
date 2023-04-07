@@ -318,7 +318,7 @@ to current samplerate;
 #X obj 30 4419 dyn.comp2~;
 #X text 200 4419 stereo dynamic range compressor;
 #X obj 30 4446 dyn.comp_peak2~;
-#X text 200 4446 stereo dynamic range peak feed forward compressor;
+#X text 200 4446 stereo peak feed forward compressor with channel linking;
 #X obj 30 4473 dyn.comp_peak~;
 #X text 200 4473 mono dynamic range peak feed forward compressor;
 #X obj 30 4500 dyn.comp~;

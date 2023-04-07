@@ -5,7 +5,7 @@
 #X obj 30 116 dyn.comp2~;
 #X text 200 116 stereo dynamic range compressor;
 #X obj 30 143 dyn.comp_peak2~;
-#X text 200 143 stereo dynamic range peak feed forward compressor;
+#X text 200 143 stereo peak feed forward compressor with channel linking;
 #X obj 30 170 dyn.comp_peak~;
 #X text 200 170 mono dynamic range peak feed forward compressor;
 #X obj 30 197 dyn.comp~;

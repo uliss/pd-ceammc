@@ -63,7 +63,7 @@
 <![CDATA[
 [osc~ 400]     [ui.hsl -60 0 @show_value 1]
 |              |
-|  [osc~ 800]  [dbfs->amp #a]
+|  [osc~ 900]  [dbfs->amp #a]
 |  |.
 [gain~ 2 #b]   [ui.hsl -60 0 @show_value 1]
 |              |

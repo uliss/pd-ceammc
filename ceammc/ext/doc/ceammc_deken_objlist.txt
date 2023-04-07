@@ -303,8 +303,8 @@ set.size	get number of elements in set
 set.symdiff	symmetric difference between two sets
 set.union	output union of given sets
 dyn.comp2~	stereo dynamic range compressor
-dyn.comp_peak2~	stereo dynamic range peak feed forward compressor
-comp.peak2~	stereo dynamic range peak feed forward compressor
+dyn.comp_peak2~	stereo peak feed forward compressor with channel linking
+comp.peak2~	stereo peak feed forward compressor with channel linking
 dyn.comp_peak~	mono dynamic range peak feed forward compressor
 comp.peak~	mono dynamic range peak feed forward compressor
 dyn.comp~	mono dynamic range compressors
