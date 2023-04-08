@@ -74,6 +74,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_music_scale.cpp
     ceammc_music_temperament.cpp
     ceammc_music_theory.cpp
+    ceammc_music_theory_duration.cpp
     ceammc_music_theory_names.cpp
     ceammc_music_theory_pitch_class.cpp
     ceammc_node_external.cpp
@@ -91,6 +92,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_property.cpp
     ceammc_property_bpm.cpp
     ceammc_property_callback.cpp
+    ceammc_property_duration.cpp
     ceammc_property_enum.cpp
     ceammc_property_info.cpp
     ceammc_random.cpp
