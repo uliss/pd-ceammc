@@ -27,90 +27,92 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
         {
             using namespace ceammc::parser;
             BpmFullMatch p;
+            Bpm bpm;
 
-            REQUIRE(p.parse("120"));
-            REQUIRE(p.bpm().bpm == 120);
-            REQUIRE(p.bpm().beatlen == 0.25);
-            REQUIRE(p.bpm().freqHz() == 2);
-            REQUIRE(p.bpm().value() == 120);
-            REQUIRE(p.bpm().beatPeriodMs() == 500);
-            REQUIRE(p.bpm().beatPeriodSamp(10000) == 5000);
+            REQUIRE(p.parse("120", bpm));
+            REQUIRE(bpm.bpm == 120);
+            REQUIRE(bpm.ratio() == 0.25);
+            REQUIRE(bpm.freqHz() == 2);
+            REQUIRE(bpm.value() == 120);
+            REQUIRE(bpm.beatPeriodMs() == 500);
+            REQUIRE(bpm.beatPeriodSamp(10000) == 5000);
 
-            REQUIRE(p.parse("120.5"));
-            REQUIRE(p.bpm().bpm == 120.5);
-            REQUIRE(p.bpm().beatlen == 0.25);
-            REQUIRE(p.bpm().value() == 120.5);
+            REQUIRE(p.parse("120.5", bpm));
+            REQUIRE(bpm.bpm == 120.5);
+            REQUIRE(bpm.ratio() == 0.25);
+            REQUIRE(bpm.value() == 120.5);
 
-            REQUIRE(p.parse("120bpm"));
-            REQUIRE(p.bpm().bpm == 120);
-            REQUIRE(p.bpm().beatlen == 0.25);
-            REQUIRE(p.bpm().value() == 120);
+            REQUIRE(p.parse("120bpm", bpm));
+            REQUIRE(bpm.bpm == 120);
+            REQUIRE(bpm.ratio() == 0.25);
+            REQUIRE(bpm.value() == 120);
 
-            REQUIRE(p.parse("0"));
-            REQUIRE(p.bpm().bpm == 0);
-            REQUIRE(p.bpm().beatlen == 0.25);
-            REQUIRE(p.bpm().beatPeriodMs() == 0);
-            REQUIRE(p.bpm().beatPeriodSamp(44100) == 0);
+            REQUIRE(p.parse("0", bpm));
+            REQUIRE(bpm.bpm == 0);
+            REQUIRE(bpm.ratio() == 0.25);
+            REQUIRE(bpm.beatPeriodMs() == 0);
+            REQUIRE(bpm.beatPeriodSamp(44100) == 0);
 
-            REQUIRE(p.parse("144bpm"));
-            REQUIRE(p.bpm().bpm == 144);
-            REQUIRE(p.bpm().beatlen == 0.25);
+            REQUIRE(p.parse("144bpm", bpm));
+            REQUIRE(bpm.bpm == 144);
+            REQUIRE(bpm.ratio() == 0.25);
 
-            REQUIRE(p.parse("50.25_bpm"));
-            REQUIRE(p.bpm().bpm == 50.25);
-            REQUIRE(p.bpm().beatlen == 0.25);
+            REQUIRE(p.parse("50.25_bpm", bpm));
+            REQUIRE(bpm.bpm == 50.25);
+            REQUIRE(bpm.ratio() == 0.25);
 
-            REQUIRE(p.parse("50|1_bpm"));
-            REQUIRE(p.bpm().bpm == 50);
-            REQUIRE(p.bpm().beatlen == 1);
+            REQUIRE(p.parse("50|1_bpm", bpm));
+            REQUIRE(bpm.bpm == 50);
+            REQUIRE(bpm.ratio() == 1);
 
-            REQUIRE(p.parse("50|2_bpm"));
-            REQUIRE(p.bpm().bpm == 50);
-            REQUIRE(p.bpm().beatlen == 0.5);
+            REQUIRE(p.parse("50|2_bpm", bpm));
+            REQUIRE(bpm.bpm == 50);
+            REQUIRE(bpm.ratio() == 0.5);
 
-            REQUIRE(p.parse("50|2._bpm"));
-            REQUIRE(p.bpm().bpm == 50);
-            REQUIRE(p.bpm().beatlen == 0.75);
+            REQUIRE(p.parse("50|2._bpm", bpm));
+            REQUIRE(bpm.bpm == 50);
+            REQUIRE(bpm.ratio() == 0.75);
 
-            REQUIRE(p.parse("50|4_bpm"));
-            REQUIRE(p.bpm().bpm == 50);
-            REQUIRE(p.bpm().beatlen == 0.25);
+            REQUIRE(p.parse("50|4_bpm", bpm));
+            REQUIRE(bpm.bpm == 50);
+            REQUIRE(bpm.ratio() == 0.25);
 
-            REQUIRE(p.parse("50|1/4._bpm"));
-            REQUIRE(p.bpm().bpm == 50);
-            REQUIRE(p.bpm().beatlen == 0.375);
+            REQUIRE(p.parse("50|1/4._bpm", bpm));
+            REQUIRE(bpm.bpm == 50);
+            REQUIRE(bpm.ratio() == 0.375);
 
-            REQUIRE(p.parse("50|16_bpm"));
-            REQUIRE(p.bpm().value() == 50);
-            REQUIRE(p.bpm().beatlen == 1 / 16.0);
+            REQUIRE(p.parse("50|16_bpm", bpm));
+            REQUIRE(bpm.value() == 50);
+            REQUIRE(bpm.ratio() == 1 / 16.0);
 
-            REQUIRE(p.parse("0"));
-            REQUIRE(p.bpm().freqHz() == 0);
-            REQUIRE(p.bpm().beatPeriodMs() == 0);
-            REQUIRE(p.bpm().beatPeriodMs(-100) == -100);
+            REQUIRE(p.parse("0", bpm));
+            REQUIRE(bpm.freqHz() == 0);
+            REQUIRE(bpm.beatPeriodMs() == 0);
+            REQUIRE(bpm.beatPeriodMs(-100) == -100);
 
-            REQUIRE(p.parse("60|4.bpm"));
+            REQUIRE(p.parse("60|4.bpm", bpm));
 
-            REQUIRE(p.parse("60|1/4bpm"));
+            REQUIRE(p.parse("60|1/4bpm", bpm));
 
-            REQUIRE_FALSE(p.parse("00"));
-            REQUIRE_FALSE(p.parse("+12"));
-            REQUIRE_FALSE(p.parse("-12"));
-            REQUIRE_FALSE(p.parse(""));
+            REQUIRE_FALSE(p.parse("00", bpm));
+            REQUIRE_FALSE(p.parse("+12", bpm));
+            REQUIRE_FALSE(p.parse("-12", bpm));
+            REQUIRE_FALSE(p.parse("", bpm));
         }
 
         SECTION("float")
         {
             using namespace ceammc::parser;
             BpmFullMatch p;
+            Bpm bpm;
 
-            REQUIRE(p.parse(A(120.5)));
-            REQUIRE(p.bpm().value() == 120.5);
+            REQUIRE(p.parse(A(120.5), bpm));
+            REQUIRE(bpm.value() == 120.5);
 
-            REQUIRE(p.parse(A(0.0)));
-            REQUIRE(p.bpm().value() == 0);
+            REQUIRE(p.parse(A(0.0), bpm));
+            REQUIRE(bpm.value() == 0);
 
-            REQUIRE_FALSE(p.parse(A(-1)));
+            REQUIRE_FALSE(p.parse(A(-1), bpm));
         }
 
         SECTION("list")
@@ -132,29 +134,29 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
             BpmFullMatch p;
 
             auto r0 = p.parseN<3>(L());
-            REQUIRE(r0[0] == Bpm { 0, 0.25 });
-            REQUIRE(r0[1] == Bpm { 0, 0.25 });
-            REQUIRE(r0[2] == Bpm { 0, 0.25 });
+            REQUIRE(r0[0] == Bpm { 0, 1, 4 });
+            REQUIRE(r0[1] == Bpm { 0, 1, 4 });
+            REQUIRE(r0[2] == Bpm { 0, 1, 4 });
 
-            r0 = p.parseN<3>(LA(120), Bpm { 61, 0.5 });
-            REQUIRE(r0[0] == Bpm { 120, 0.25 });
-            REQUIRE(r0[1] == Bpm { 61, 0.5 });
-            REQUIRE(r0[2] == Bpm { 61, 0.5 });
+            r0 = p.parseN<3>(LA(120), Bpm { 61, 1, 2 });
+            REQUIRE(r0[0] == Bpm { 120, 1, 4 });
+            REQUIRE(r0[1] == Bpm { 61, 1, 2 });
+            REQUIRE(r0[2] == Bpm { 61, 1, 2 });
 
-            r0 = p.parseN<3>(LA(120, "140.5|8bpm"), Bpm { 62, 2 });
-            REQUIRE(r0[0] == Bpm { 120, 1 / 4.0 });
-            REQUIRE(r0[1] == Bpm { 140.5, 1 / 8.0 });
-            REQUIRE(r0[2] == Bpm { 62, 2 });
+            r0 = p.parseN<3>(LA(120, "140.5|8bpm"), Bpm { 62, 2, 1 });
+            REQUIRE(r0[0] == Bpm { 120, 1, 4 });
+            REQUIRE(r0[1] == Bpm { 140.5, 1, 8 });
+            REQUIRE(r0[2] == Bpm { 62, 2, 1 });
 
-            r0 = p.parseN<3>(LA(120, "140.5bpm", "100|16_bpm"), Bpm { 62, 1 / 128.0 });
-            REQUIRE(r0[0] == Bpm { 120, 0.25 });
-            REQUIRE(r0[1] == Bpm { 140.5, 0.25 });
-            REQUIRE(r0[2] == Bpm { 100, 1 / 16.0 });
+            r0 = p.parseN<3>(LA(120, "140.5bpm", "100|16_bpm"), Bpm { 62, 1, 128 });
+            REQUIRE(r0[0] == Bpm { 120, 1, 4 });
+            REQUIRE(r0[1] == Bpm { 140.5, 1, 4 });
+            REQUIRE(r0[2] == Bpm { 100, 1, 16 });
 
-            r0 = p.parseN<3>(LA(120, "???", "100|32_bpm"), Bpm { 63, 2 });
-            REQUIRE(r0[0] == Bpm { 120, 0.25 });
-            REQUIRE(r0[1] == Bpm { 63, 2 });
-            REQUIRE(r0[2] == Bpm { 100, 1 / 32.0 });
+            r0 = p.parseN<3>(LA(120, "???", "100|32_bpm"), Bpm { 63, 2, 1 });
+            REQUIRE(r0[0] == Bpm { 120, 1, 4 });
+            REQUIRE(r0[1] == Bpm { 63, 2, 1 });
+            REQUIRE(r0[2] == Bpm { 100, 1, 32 });
         }
     }
 
@@ -350,7 +352,7 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
             REQUIRE(p.note().dur.den == 4);
             REQUIRE(!p.note().dur.isAbs());
             REQUIRE(p.note().dur.timeMs() == 1000);
-            REQUIRE(p.note().dur.timeMs(Bpm(120)) == 500);
+            REQUIRE(p.note().dur.timeMs(Bpm(120, 1, 4)) == 500);
 
             REQUIRE(p.parse("C3"));
             REQUIRE(p.note().spn.midi() == 48);
@@ -460,19 +462,19 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
             REQUIRE(p.note().dur.den == 4);
             REQUIRE(p.note().dur.ratio() == 0.25);
             REQUIRE(p.note().dur.timeMs() == 1000);
-            REQUIRE(p.note().dur.timeMs({ 60, 0.25 }) == 1000);
-            REQUIRE(p.note().dur.timeMs({ 120, 0.25 }) == 500);
-            REQUIRE(p.note().dur.timeMs({ 60, 0.5 }) == 500);
-            REQUIRE(p.note().dur.timeMs({ 60, 1 }) == 250);
-            REQUIRE(p.note().dur.timeMs({ 120, 0.25 }) == 500);
+            REQUIRE(p.note().dur.timeMs({ 60, 1, 4 }) == 1000);
+            REQUIRE(p.note().dur.timeMs({ 120, 1, 4 }) == 500);
+            REQUIRE(p.note().dur.timeMs({ 60, 1, 2 }) == 500);
+            REQUIRE(p.note().dur.timeMs({ 60, 1, 1 }) == 250);
+            REQUIRE(p.note().dur.timeMs({ 120, 1, 4 }) == 500);
             REQUIRE(p.note().dur.timeSamp(44100) == Approx(44100));
-            REQUIRE(p.note().dur.timeSamp(44100, { 120, 0.25 }) == Approx(22050));
+            REQUIRE(p.note().dur.timeSamp(44100, { 120, 1, 4 }) == Approx(22050));
 
             REQUIRE(p.parse("R|7/8"));
             REQUIRE(p.note().isRest());
             REQUIRE(p.note().dur.num == 7);
             REQUIRE(p.note().dur.den == 8);
-            REQUIRE(p.note().dur.timeMs({ 60, 1 / 8.0 }) == 7000);
+            REQUIRE(p.note().dur.timeMs({ 60, 1, 8 }) == 7000);
         }
     }
 

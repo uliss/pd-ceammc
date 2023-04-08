@@ -29,7 +29,7 @@ TEST_CASE("music.dur2time", "[ceammc::music]")
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY(t, @seq, 1);
-        REQUIRE_PROPERTY(t, @bpm, LF(60, 0.25));
+        REQUIRE_PROPERTY(t, @bpm, LA("60|4bpm"));
     }
 
     SECTION("alias")
@@ -41,7 +41,7 @@ TEST_CASE("music.dur2time", "[ceammc::music]")
     SECTION("@seq 1")
     {
         TExt t("music.d->t", "@bpm", "120|4bpm");
-        REQUIRE_PROPERTY(t, @bpm, LF(120, 0.25));
+        REQUIRE_PROPERTY(t, @bpm, LA("120|4bpm"));
 
         t << LF(1, 2, 4, 8);
         REQUIRE(t.outputListAt(0) == LF(2000, 3000, 3500, 3750));

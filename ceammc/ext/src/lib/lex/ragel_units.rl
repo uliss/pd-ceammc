@@ -43,7 +43,6 @@ unit_suffixes =
         | unit_semi
         | unit_perc
         | unit_phase
-        | unit_bpm
     )
     ;
 

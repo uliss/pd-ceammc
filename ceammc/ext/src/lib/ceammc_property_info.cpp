@@ -881,6 +881,9 @@ bool PropertyInfo::setUnits(PropValueUnits u)
     if (isInt() || isFloat() || isList() || u == PropValueUnits::NONE) {
         units_ = u;
         return true;
+    } else if (isSymbol() && u == PropValueUnits::BPM) {
+        units_ = u;
+        return true;
     } else {
         PROP_LOG() << "invalid type " << to_string(type()) << " for setting units: " << to_string(u);
         return false;

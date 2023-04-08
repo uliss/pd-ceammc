@@ -89,6 +89,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_socket_dispatcher.cpp
     ceammc_preset.cpp
     ceammc_property.cpp
+    ceammc_property_bpm.cpp
     ceammc_property_callback.cpp
     ceammc_property_enum.cpp
     ceammc_property_info.cpp

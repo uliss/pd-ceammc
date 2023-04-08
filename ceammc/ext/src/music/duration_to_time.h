@@ -14,7 +14,7 @@
 #ifndef DURATION_TO_TIME_H
 #define DURATION_TO_TIME_H
 
-#include "bpm_property.h"
+#include "ceammc_property_bpm.h"
 #include "ceammc_object.h"
 using namespace ceammc;
 

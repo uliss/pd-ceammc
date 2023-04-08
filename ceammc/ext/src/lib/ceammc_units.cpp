@@ -174,12 +174,12 @@ BpmValue::ParseResult BpmValue::parse(const Atom& a)
 {
     using namespace ceammc::parser;
     BpmFullMatch parser;
+    Bpm bpm;
 
-    if (!parser.parse(a))
+    if (!parser.parse(a, bpm))
         return UnitParseError(fmt::format("invalid bpm: '{}'", to_string(a)));
     else {
-        const auto& v = parser.bpm();
-        return BpmValue(v.bpm, v.beatlen);
+        return BpmValue(bpm.bpm, bpm.ratio());
     }
 }
 

@@ -74,25 +74,31 @@ namespace parser {
     }
 
     struct Bpm {
-        float bpm;
-        float beatlen;
+        float bpm { 0 };
+        int beat_num { 1 };
+        int beat_div { 4 };
 
-        Bpm(float bpm_ = 0, float beatlen_ = 0.25)
-            : bpm(bpm_)
-            , beatlen(beatlen_)
+        Bpm() { }
+
+        Bpm(float b, int beatNum, int beatDiv)
+            : bpm(b)
+            , beat_num(beatNum)
+            , beat_div(beatDiv)
         {
         }
 
         Bpm(const fsm::BpmData& d)
             : bpm(d.ival + double(d.fnum) / double(d.fden))
-            , beatlen(double(d.dur_num) / double(d.dur_den))
+            , beat_num(d.dur_num)
+            , beat_div(d.dur_den)
         {
         }
 
         bool operator==(const Bpm& b) const
         {
             return bpm == b.bpm
-                && beatlen == b.beatlen;
+                && beat_num == b.beat_num
+                && beat_div == b.beat_div;
         }
 
         bool operator!=(const Bpm& b) const
@@ -102,10 +108,11 @@ namespace parser {
 
         t_float value() const { return bpm; }
         t_float freqHz() const { return value() / 60.0; }
+        t_float ratio() const { return beat_div > 0 ? (t_float(beat_num) / beat_div) : 0; }
 
         t_float beatPeriodMs(t_float def = 0) const
         {
-            return (bpm > 0) ? (60000.0 / bpm) * (beatlen * 4) : def;
+            return (bpm > 0) ? (4 * beat_num * 60000.0) / (bpm * beat_div) : def;
         }
 
         t_float beatPeriodSamp(t_float sr, t_float def = 0) const
@@ -119,28 +126,20 @@ namespace parser {
     using SmallBpmVec = SmallBpmVecN<8>;
 
     class BpmFullMatch {
-        int cs { 0 };
-        Bpm bpm_ { 0, 0.25 };
-
     public:
-        BpmFullMatch();
-        void reset();
-
-        const Bpm& bpm() const { return bpm_; }
-
-        bool parse(const char* str);
-        bool parse(const Atom& a);
+        bool parse(const char* str, Bpm& bpm);
+        bool parse(const Atom& a, Bpm& bpm);
         size_t parse(const AtomListView& lv, SmallBpmVec& out);
 
         template <size_t N>
-        std::array<Bpm, N> parseN(const AtomListView& lv, const Bpm& def = { 0, 0.25 })
+        std::array<Bpm, N> parseN(const AtomListView& lv, const Bpm& def = {})
         {
             std::array<Bpm, N> res;
 
             const auto M = lv.size();
             for (size_t i = 0; i < N; i++) {
-                if (i < M && parse(lv[i]))
-                    res[i] = bpm_;
+                if (i < M && parse(lv[i], res[i]))
+                    continue;
                 else
                     res[i] = def;
             }
@@ -344,12 +343,12 @@ namespace parser {
 
         t_float ratio() const { return t_float(num) / den; }
 
-        t_float timeMs(const Bpm& bpm = { 60, 0.25 }) const
+        t_float timeMs(const Bpm& bpm = { 60, 1, 4 }) const
         {
-            return (num * 60000.0) / (bpm.bpm * bpm.beatlen * den);
+            return (num * 60000.0) / (bpm.bpm * bpm.ratio() * den);
         }
 
-        t_float timeSamp(t_float sr, const Bpm& bpm = { 60, 0.25 }) const
+        t_float timeSamp(t_float sr, const Bpm& bpm = { 60, 1, 4 }) const
         {
             return timeMs(bpm) * sr / 1000.0;
         }

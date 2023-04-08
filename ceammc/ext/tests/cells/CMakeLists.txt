@@ -55,6 +55,7 @@ add_cell_test(properties2)
 add_cell_test(propertyinfo)
 
 add_cell_test(property_bool)
+add_cell_test(property_bpm)
 add_cell_test(property_data)
 add_cell_test(property_float)
 add_cell_test(property_int)

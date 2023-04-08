@@ -24,40 +24,28 @@ std::ostream& operator<<(std::ostream& os, const Duration& dur)
     return os;
 }
 
-BpmFullMatch::BpmFullMatch()
+bool BpmFullMatch::parse(const Atom& a, Bpm& res)
 {
-    reset();
-}
-
-void BpmFullMatch::reset()
-{
-    bpm_ = { 0, 0.25 };
-}
-
-bool BpmFullMatch::parse(const Atom& a)
-{
-    reset();
-
     if (a.isSymbol())
-        return parse(a.asT<t_symbol*>()->s_name);
+        return parse(a.asT<t_symbol*>()->s_name, res);
     else if(a.isFloat()) {
         auto f = a.asT<t_float>();
-        if(f < 0)
+        if (f < 0)
             return false;
 
-        bpm_.bpm = a.asT<t_float>();
-        bpm_.beatlen = 0.25;
+        res = Bpm(a.asT<t_float>(), 1, 4);
         return true;
     } else
         return false;
 }
 
-bool BpmFullMatch::parse(const char* str)
+bool BpmFullMatch::parse(const char* str, Bpm& res)
 {
     const auto len = strlen(str);
     if (len == 0)
         return false;
 
+    int cs = 0;
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;
@@ -65,15 +53,13 @@ bool BpmFullMatch::parse(const char* str)
     DECLARE_RAGEL_COMMON_VARS;
     fsm::BpmData bpm;
 
-    reset();
-
     %% write init;
     %% write exec;
 
     const bool ok = cs >= %%{ write first_final; }%%;
 
     if (ok)
-        bpm_ = bpm;
+        res = bpm;
 
     return ok;
 }
@@ -82,12 +68,14 @@ size_t BpmFullMatch::parse(const AtomListView& lv, SmallBpmVec& out)
 {
     const size_t N = lv.size();
 
+    Bpm bpm;
+
     for (size_t i = 0; i < N; i++) {
         const auto& a = lv[i];
-        if (!parse(a))
+        if (!parse(a, bpm))
             return i;
 
-        out.push_back(bpm_);
+        out.push_back(bpm);
     }
 
     return N;

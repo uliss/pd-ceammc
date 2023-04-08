@@ -124,7 +124,7 @@ size_t UnitsFullMatch::parse(const AtomListView& lv, UnitVec& out)
     machine units_type;
     include units_common "ragel_units.rl";
 
-    main := unit_suffixes;
+    main := unit_suffixes | unit_bpm;
     write data;
 }%%
 
