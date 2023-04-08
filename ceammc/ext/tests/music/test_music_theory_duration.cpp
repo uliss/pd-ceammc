@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_music_theory_duration.h"
+#include "ceammc_music_theory_tempo.h"
 
 #include "catch.hpp"
 
@@ -93,11 +94,43 @@ TEST_CASE("MusicTheory::Duration", "[ceammc::music]")
         REQUIRE(Duration(1, 4) * Duration(1, 2) == Duration(1, 8));
         REQUIRE(Duration(4, 4) * Duration(5, 5) == Duration(6, 6));
 
+        REQUIRE(Duration(1, 4) / 2 == Duration(1, 8));
+        REQUIRE(Duration(4, 4) / 2 == Duration(1, 2));
+
         REQUIRE(Duration().parse("3/32"));
         REQUIRE(Duration().parse("4"));
         REQUIRE(Duration().parse("4.."));
         REQUIRE(Duration().parse("3/8..."));
         REQUIRE_FALSE(Duration().parse("???"));
         REQUIRE_FALSE(Duration().parse(""));
+    }
+
+    SECTION("subDivision")
+    {
+        Duration dur(1, 4);
+        REQUIRE(dur.subDivision() == Duration(1, 4));
+
+        REQUIRE(dur.set(1, 4, 1));
+        REQUIRE(dur.subDivision() == Duration(1, 8));
+
+        REQUIRE(dur.setDots(2));
+        REQUIRE(dur.subDivision() == Duration(1, 16));
+
+        REQUIRE(dur.setDots(3));
+        REQUIRE(dur.subDivision() == Duration(1, 32));
+
+        REQUIRE(Duration(3, 4).subDivision() == Duration(1, 4));
+        REQUIRE(Duration(6, 8).subDivision() == Duration(1, 8));
+    }
+
+    SECTION("timeMs")
+    {
+        REQUIRE(Duration().timeMs(Tempo()) == 1000);
+        REQUIRE(Duration(1, 4).timeMs(Tempo(60, 4)) == 1000);
+        REQUIRE(Duration(2, 4).timeMs(Tempo(60, 4)) == 2000);
+        REQUIRE(Duration(3, 4).timeMs(Tempo(60, 4)) == 3000);
+        REQUIRE(Duration(3, 4).timeMs(Tempo(120, 4)) == 1500);
+        REQUIRE(Duration(3, 4).timeMs(Tempo(120, 2, 1)) == 500);
+        REQUIRE(Duration(1, 8).timeMs(Tempo(60, 4, 1)) == Approx(1000.0 / 3));
     }
 }

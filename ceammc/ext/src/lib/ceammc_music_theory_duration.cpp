@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_music_theory_duration.h"
+#include "ceammc_music_theory_tempo.h"
 #include "fmt/core.h"
 #include "lex/parser_music.h"
 
@@ -110,11 +111,61 @@ Duration Duration::normalized() const
     return { res.numerator(), res.denominator() };
 }
 
+Duration Duration::subDivision() const
+{
+    if (dots_ > 0) {
+        auto res = dur2ratio(*this);
+        return { 1, res.denominator() };
+    } else {
+        return { 1, div_ };
+    }
+}
+
 bool Duration::strictEqual(const Duration& dur) const
 {
     return num_ == dur.num_
         && div_ == dur.div_
         && dots_ == dur.dots_;
+}
+
+bool Duration::setNumerator(int num)
+{
+    num_ = num;
+    return true;
+}
+
+bool Duration::setDivision(int div)
+{
+    if (div == 0) {
+        return false;
+    } else {
+        div_ = div;
+        return true;
+    }
+}
+
+bool Duration::setDots(int dots)
+{
+    if (dots < 0 || dots > DURATION_MAX_DOTS) {
+        return false;
+    } else {
+        dots_ = dots;
+        return true;
+    }
+}
+
+bool Duration::set(int num, int div, int dots)
+{
+    if (!setNumerator(num))
+        return false;
+
+    if (!setDivision(div))
+        return false;
+
+    if (!setDots(dots))
+        return false;
+
+    return true;
 }
 
 std::string Duration::toString() const
@@ -155,6 +206,22 @@ Duration Duration::operator*(int k) const
     auto res = dur2ratio(*this) * k;
     return { res.numerator(), res.denominator() };
 }
+
+Duration Duration::operator/(int div) const
+{
+    if (div == 0)
+        throw std::invalid_argument("division by zero");
+
+    auto res = dur2ratio(*this) / div;
+    return { res.numerator(), res.denominator() };
+}
+
+double Duration::timeMs(const Tempo& t) const
+{
+    auto d = dur2ratio(*this) / dur2ratio(t.beatDuration());
+    return t.beatDurationMs() * d.numerator() / d.denominator();
+}
+
 
 bool Duration::parse(const char* str)
 {

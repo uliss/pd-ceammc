@@ -21,6 +21,8 @@
 namespace ceammc {
 namespace music {
 
+    class Tempo;
+
     constexpr int DURATION_MAX_DOTS = 3;
 
     class Duration {
@@ -63,6 +65,11 @@ namespace music {
         Duration normalized() const;
 
         /**
+         * return duration subdivision: 3/4 -> 1/4, 1/4. -> 1/8
+         */
+        Duration subDivision() const;
+
+        /**
          * strict equal compare
          */
         bool strictEqual(const Duration& dur) const;
@@ -70,6 +77,12 @@ namespace music {
         int numerator() const { return num_; }
         int division() const { return div_; }
         int dots() const { return dots_; }
+
+        bool setNumerator(int num);
+        bool setDivision(int div);
+        bool setDots(int dots);
+
+        bool set(int num, int div, int dots);
 
         std::string toString() const;
 
@@ -97,6 +110,18 @@ namespace music {
          * return multiplied duration
          */
         Duration operator*(const Duration& dur) const;
+
+        /**
+         * return divied duration
+         */
+        Duration operator/(int div) const;
+
+        /**
+         * return duration time in milliseconds according to given tempo
+         */
+        double timeMs(const Tempo& t) const;
+
+        double timeSec(const Tempo& t) const { return timeMs(t) * 0.001; }
 
     public:
         bool parse(const char* str);

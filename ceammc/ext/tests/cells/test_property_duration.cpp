@@ -11,6 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "ceammc_music_theory_tempo.h"
 #include "ceammc_property_duration.h"
 #include "test_property.h"
 
@@ -18,7 +19,7 @@ TEST_CASE("DurationProperty", "[core]")
 {
     test::pdPrintToStdError();
 
-    DurationProperty p("@dur", 4, 4);
+    DurationProperty p("@dur", { 4, 4 });
 
     SECTION("main")
     {
@@ -107,12 +108,12 @@ TEST_CASE("DurationProperty", "[core]")
         REQUIRE(p.dots() == 2);
 
         REQUIRE(p.setList(LA("1/4")));
-        REQUIRE(p.durationMs(60, 1, 4) == 1000);
+        REQUIRE(p.duration().timeMs({ 60, 4 }) == 1000);
 
         REQUIRE(p.setList(LA("2/4")));
-        REQUIRE(p.durationMs(60, 1, 4) == 2000);
+        REQUIRE(p.duration().timeMs({ 60, 4 }) == 2000);
 
         REQUIRE(p.setList(LA("2/4")));
-        REQUIRE(p.durationMs(60, 1, 8) == 4000);
+        REQUIRE(p.duration().timeMs({ 60, 8 }) == 4000);
     }
 }

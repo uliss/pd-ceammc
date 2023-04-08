@@ -14,21 +14,18 @@
 #ifndef CEAMMC_PROPERTY_DURATION_H
 #define CEAMMC_PROPERTY_DURATION_H
 
+#include "ceammc_music_theory_duration.h"
 #include "ceammc_property.h"
 
 namespace ceammc {
 
 class DurationProperty : public SymbolProperty {
-    std::uint16_t num_ { 0 };
-    std::uint16_t div_ { 4 };
-    std::uint8_t dots_ { 0 };
+    music::Duration dur_;
     mutable bool dirty_ { false };
 
 public:
     DurationProperty(const std::string& name,
-        std::uint16_t num,
-        std::uint16_t div,
-        std::uint8_t dots = 0,
+        const music::Duration& dur = { 1, 4 },
         PropValueAccess access = PropValueAccess::READWRITE);
 
     bool setList(const AtomListView& lv) override;
@@ -42,16 +39,16 @@ public:
     bool setValue(t_symbol* s);
     bool setValue(const Atom& a);
 
-    std::uint16_t beatNum() const { return num_; }
-    bool setBeatNum(int beatNum);
+    int dots() const { return dur_.dots(); }
+    int beatNum() const { return dur_.numerator(); }
+    int beatDivision() const { return dur_.division(); }
 
-    std::uint16_t beatDivision() const { return div_; }
+    bool setDots(int dots);
+    bool setBeatNum(int beatNum);
     bool setBeatDivision(int beatDiv);
 
-    t_float durationMs(t_float bpm, int num, int div) const;
-    t_float divDurationMs(t_float bpm, int num, int div) const;
-
-    std::uint16_t dots() const { return dots_; }
+    const music::Duration& duration() const { return dur_; }
+    void setDuration(const music::Duration& dur);
 
 private:
     void sync() const;
