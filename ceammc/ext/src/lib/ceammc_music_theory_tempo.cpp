@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_music_theory_tempo.h"
 #include "fmt/core.h"
+#include "lex/parser_music.h"
 
 #include <iostream>
 
@@ -22,8 +23,7 @@ constexpr int TEMPO_MAX_DOTS = 3;
 
 Tempo::Tempo() noexcept
     : bpm_(60)
-    , div_(4)
-    , dots_(0)
+    , dur_ { 1, 4 }
 {
 }
 
@@ -46,7 +46,7 @@ bool Tempo::operator==(const Tempo& t) const
 
 bool Tempo::strictEqual(const Tempo& t) const
 {
-    return bpm_ == t.bpm_ && div_ == t.div_ && dots_ == t.dots_;
+    return dur_.strictEqual(t.dur_);
 }
 
 Tempo Tempo::normalized() const
@@ -67,22 +67,12 @@ bool Tempo::setBpm(float bpm) noexcept
 
 bool Tempo::setDots(int dots) noexcept
 {
-    if (dots < 0 || dots > TEMPO_MAX_DOTS) {
-        return false;
-    } else {
-        dots_ = dots;
-        return true;
-    }
+    return dur_.setDots(dots);
 }
 
 bool Tempo::setDivision(int div) noexcept
 {
-    if (div <= 0) {
-        return false;
-    } else {
-        div_ = div;
-        return true;
-    }
+    return dur_.setDivision(div);
 }
 
 bool Tempo::set(float bpm, int div, int dots) noexcept
@@ -90,29 +80,44 @@ bool Tempo::set(float bpm, int div, int dots) noexcept
     if (!setBpm(bpm))
         return false;
 
-    if (!setDivision(div))
+    return dur_.set(1, div, dots);
+}
+
+bool Tempo::parse(const char* str)
+{
+    parser::BpmFullMatch p;
+    parser::Bpm bpm;
+    if (!p.parse(str, bpm))
         return false;
 
-    if (!setDots(dots))
+    Tempo t;
+    if (!t.setBpm(bpm.bpm))
         return false;
 
+    if (!t.dur_.set(bpm.beat_num, bpm.beat_div, 0))
+        return false;
+
+    *this = t;
     return true;
 }
 
 std::string Tempo::toString() const
 {
-    const char* DOTS = &"..."[TEMPO_MAX_DOTS - dots_];
-    return fmt::format("{}|{}{}bpm", bpm_, div_, DOTS);
+    const char* DOTS = &"..."[TEMPO_MAX_DOTS - dur_.dots()];
+    if (dur_.numerator() == 1)
+        return fmt::format("{}|{}{}bpm", bpm_, dur_.division(), DOTS);
+    else
+        return fmt::format("{}|{}bpm", bpm_, dur_.toString());
 }
 
 Duration Tempo::beatDuration() const
 {
-    return Duration(1, div_, dots_);
+    return dur_;
 }
 
 Duration Tempo::beatSubDivDuration() const
 {
-    return Duration(1, div_, dots_).subDivision();
+    return dur_.subDivision();
 }
 
 int Tempo::beatSubDivision() const

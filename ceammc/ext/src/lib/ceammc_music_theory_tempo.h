@@ -23,8 +23,7 @@ namespace music {
 
     class Tempo {
         float bpm_ { 60 };
-        std::uint16_t div_ { 4 };
-        std::uint16_t dots_ { 0 };
+        Duration dur_;
 
     public:
         /**
@@ -51,13 +50,14 @@ namespace music {
         float bpm() const { return bpm_; }
         bool setBpm(float bpm) noexcept;
 
-        int dots() const { return dots_; }
+        int dots() const { return dur_.dots(); }
         bool setDots(int dots) noexcept;
 
-        int division() const { return div_; }
+        int division() const { return dur_.division(); }
         bool setDivision(int div) noexcept;
 
         bool set(float bpm, int div, int dots = 0) noexcept;
+        bool parse(const char* str);
 
         std::string toString() const;
         Duration beatDuration() const;

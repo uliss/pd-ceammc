@@ -81,4 +81,23 @@ TEST_CASE("MusicTheory::Tempo", "[ceammc::music]")
         REQUIRE(Tempo(60, 4, 1).normalized() == Tempo(180, 8));
         REQUIRE(Tempo(60, 4, 2).normalized() == Tempo(420, 16));
     }
+
+    SECTION("parse")
+    {
+        Tempo t;
+        REQUIRE(t.parse("12.5|1/4bpm"));
+        REQUIRE(t.bpm() == 12.5);
+        REQUIRE(t.division() == 4);
+        REQUIRE(t.dots() == 0);
+
+        REQUIRE(t.parse("65|16bpm"));
+        REQUIRE(t.bpm() == 65);
+        REQUIRE(t.division() == 16);
+        REQUIRE(t.dots() == 0);
+
+        REQUIRE(t.parse("20|4.bpm"));
+        REQUIRE(t.bpm() == 20);
+        REQUIRE(t.division() == 8);
+        REQUIRE(t.dots() == 0);
+    }
 }
