@@ -66,6 +66,7 @@ namespace music {
 
         double beatDurationMs() const;
         double subBeatDurationMs() const;
+        double wholeNoteDurationMs() const;
     };
 
     std::ostream& operator<<(std::ostream& os, const Tempo& t);

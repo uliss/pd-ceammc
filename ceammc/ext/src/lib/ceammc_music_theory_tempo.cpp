@@ -90,14 +90,14 @@ bool Tempo::parse(const char* str)
     if (!p.parse(str, bpm))
         return false;
 
-    Tempo t;
-    if (!t.setBpm(bpm.bpm))
+    Tempo tmp;
+    if (!tmp.setBpm(bpm.bpm))
         return false;
 
-    if (!t.dur_.set(bpm.beat_num, bpm.beat_div, 0))
+    if (!tmp.dur_.set(bpm.beat_num, bpm.beat_div, 0))
         return false;
 
-    *this = t;
+    *this = tmp;
     return true;
 }
 
@@ -133,6 +133,11 @@ double Tempo::beatDurationMs() const
 double Tempo::subBeatDurationMs() const
 {
     return beatDurationMs() / beatSubDivision();
+}
+
+double Tempo::wholeNoteDurationMs() const
+{
+    return Duration { 1, 1 }.timeMs(*this);
 }
 
 std::ostream& ceammc::music::operator<<(std::ostream& os, const Tempo& t)

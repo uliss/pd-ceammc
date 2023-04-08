@@ -41,7 +41,7 @@ void Duration2Time::onFloat(t_float f)
         return;
     }
 
-    const auto ms = bpm_->wholeNoteDurationMs() / f;
+    const auto ms = bpm_->tempo().wholeNoteDurationMs() / f;
     floatTo(0, ms);
 }
 
@@ -64,7 +64,7 @@ void Duration2Time::onSymbol(t_symbol* s)
     const bool seq = seq_->value();
 
     for (size_t i = 0; i < out.size(); i++) {
-        Bpm bpm(bpm_->bpm(), bpm_->beatNum(), bpm_->beatDivision());
+        Bpm bpm(bpm_->bpm(), bpm_->tempo().beatDuration().numerator(), bpm_->beatDivision());
         const auto ms = out[i].timeMs(bpm);
 
         if (seq)
@@ -97,7 +97,7 @@ void Duration2Time::onList(const AtomListView& lv)
     const bool seq = seq_->value();
 
     for (size_t i = 0; i < out.size(); i++) {
-        Bpm bpm(bpm_->bpm(), bpm_->beatNum(), bpm_->beatDivision());
+        Bpm bpm(bpm_->bpm(), bpm_->tempo().beatDuration().numerator(), bpm_->beatDivision());
         const auto ms = out[i].timeMs(bpm);
 
         if (seq)

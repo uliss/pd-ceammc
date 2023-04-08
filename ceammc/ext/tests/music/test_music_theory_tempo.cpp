@@ -100,4 +100,13 @@ TEST_CASE("MusicTheory::Tempo", "[ceammc::music]")
         REQUIRE(t.division() == 8);
         REQUIRE(t.dots() == 0);
     }
+
+    SECTION("whole note duration")
+    {
+        REQUIRE(Tempo { 60, 4 }.wholeNoteDurationMs() == 4000);
+        REQUIRE(Tempo { 60, 8 }.wholeNoteDurationMs() == 8000);
+        REQUIRE(Tempo { 60, 2 }.wholeNoteDurationMs() == 2000);
+        REQUIRE(Tempo { 60, 1 }.wholeNoteDurationMs() == 1000);
+        REQUIRE(Tempo { 60, 4, 1 }.wholeNoteDurationMs() == Approx(1000.0 / 3 * 8));
+    }
 }
