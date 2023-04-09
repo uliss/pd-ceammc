@@ -168,10 +168,12 @@ bool Duration::set(int num, int div, int dots) noexcept
     return true;
 }
 
-std::string Duration::toString() const
-{
+std::string Duration::toString() const noexcept
+try {
     const char* dots = &"..."[(DURATION_MAX_DOTS - clip_minmax<0, DURATION_MAX_DOTS>(dots_))];
     return fmt::format("{}/{}{}", num_, div_, dots);
+} catch (...) {
+    return {};
 }
 
 double Duration::ratio() const noexcept

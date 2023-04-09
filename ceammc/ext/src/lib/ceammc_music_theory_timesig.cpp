@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_music_theory_timesig.h"
+#include "lex/parser_music.h"
 
 #include <boost/integer/common_factor.hpp>
 #include <iostream>
@@ -49,8 +50,8 @@ bool TimeSignature::append(int num, int div)
     return true;
 }
 
-std::string TimeSignature::toString() const
-{
+std::string TimeSignature::toString() const noexcept
+try {
     std::string res = "|";
     for (auto& ts : sig_) {
         res += ts.toString();
@@ -61,6 +62,8 @@ std::string TimeSignature::toString() const
         res.back() = '|';
 
     return res;
+} catch (...) {
+    return {};
 }
 
 Duration TimeSignature::duration() const
@@ -117,6 +120,11 @@ BeatList TimeSignature::beatList() const
     }
 
     return res;
+}
+
+bool TimeSignature::parse(const char* str) noexcept
+{
+    return parser::TimeSignatureParser::parse(str, *this);
 }
 
 bool BeatData::operator==(const BeatData& b) const

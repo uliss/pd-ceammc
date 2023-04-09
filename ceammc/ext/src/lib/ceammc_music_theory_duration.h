@@ -84,7 +84,7 @@ namespace music {
 
         bool set(int num, int div, int dots) noexcept;
 
-        std::string toString() const;
+        std::string toString() const noexcept;
 
         /**
          * duration float ratio: 1/4 -> 0.25

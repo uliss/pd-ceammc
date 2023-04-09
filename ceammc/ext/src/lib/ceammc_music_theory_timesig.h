@@ -36,9 +36,10 @@ namespace music {
     };
 
     using BeatList = std::vector<BeatData>;
+    using DurationList = std::vector<Duration>;
 
     class TimeSignature {
-        std::vector<Duration> sig_;
+        DurationList sig_;
 
     public:
         /**
@@ -68,8 +69,15 @@ namespace music {
          */
         bool append(int num, int div);
 
-        std::string toString() const;
-        const std::vector<Duration>& signatures() const { return sig_; }
+        /**
+         * return timesignature string: |M/N| or |M/N+X/Y| for compound signatures
+         */
+        std::string toString() const noexcept;
+
+        /**
+         * return list of signatures
+         */
+        const DurationList& signatures() const { return sig_; }
 
         bool isSimple() const { return sig_.size() == 1; }
         bool isCompound() const { return sig_.size() > 1; }
@@ -94,6 +102,12 @@ namespace music {
          * return beat list
          */
         BeatList beatList() const;
+
+        /**
+         * parse time signature from string
+         * @return false on error
+         */
+        bool parse(const char* str) noexcept;
     };
 
     std::ostream& operator<<(std::ostream& os, const TimeSignature& ts);

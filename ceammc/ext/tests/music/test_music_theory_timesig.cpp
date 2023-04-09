@@ -132,4 +132,16 @@ TEST_CASE("MusicTheory::TimeSig", "[ceammc::music]")
         REQUIRE(bl[13] == BeatData { _, 8 });
         REQUIRE(bl[14] == BeatData { x, 16 });
     }
+
+    SECTION("parse")
+    {
+        TimeSignature ts(4, 4);
+        REQUIRE(ts.parse("|3/8|"));
+        REQUIRE(ts.toString() == "|3/8|");
+        REQUIRE(ts.duration() == Duration { 3, 8 });
+
+        REQUIRE(ts.parse("|3/8+1/7|"));
+        REQUIRE(ts.toString() == "|3/8+1/7|");
+        REQUIRE(ts.duration() == Duration { 3, 8 } + Duration { 1, 7 });
+    }
 }
