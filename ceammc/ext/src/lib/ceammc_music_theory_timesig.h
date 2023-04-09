@@ -41,22 +41,58 @@ namespace music {
         std::vector<Duration> sig_;
 
     public:
+        /**
+         * creates default time signature: 4/4
+         */
         TimeSignature() noexcept;
+
+        /**
+         * creates time signature
+         * @throw std::invalid_argument if div == 0
+         */
         TimeSignature(int num, int div);
 
+        /**
+         * set time signature: set(3, 4) -> 3/4
+         * @param num
+         * @param div
+         * @return true on success
+         */
         bool set(int num, int div);
+
+        /**
+         * @brief append
+         * @param num
+         * @param div
+         * @return
+         */
         bool append(int num, int div);
 
         std::string toString() const;
         const std::vector<Duration>& signatures() const { return sig_; }
+
         bool isSimple() const { return sig_.size() == 1; }
         bool isCompound() const { return sig_.size() > 1; }
 
-        Duration duration() const;
+        /**
+         * returns greatest common subdivision for compount signatures
+         * @example for |3/4+1/16| return 16
+         */
         int subDivision() const;
 
+        /**
+         * return whole bar duration in milliseconds according to given tempo
+         */
         double timeMs(const Tempo& t) const;
 
+        /**
+         * return whole bar duration
+         */
+        Duration duration() const;
+
+        /**
+         * return beat list
+         */
         BeatList beatList() const;
     };
 

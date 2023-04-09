@@ -25,7 +25,8 @@ TimeSignature::TimeSignature() noexcept
 
 TimeSignature::TimeSignature(int num, int div)
 {
-    sig_.emplace_back(num, div, 0);
+    Duration dur(num, div);
+    sig_.push_back(dur);
 }
 
 bool TimeSignature::set(int num, int div)
