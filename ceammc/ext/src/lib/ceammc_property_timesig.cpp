@@ -12,9 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_property_timesig.h"
+#include "ceammc_numeric.h"
 #include "fmt/core.h"
 
 #define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
+
+constexpr const char* USAGE_STR = "example values are: |6/8|, |3/8+1/16|, 5 4, 6 etc.";
 
 constexpr int MAX_DIV = 1024;
 
@@ -30,7 +33,15 @@ bool TimeSignatureProperty::setList(const AtomListView& lv)
     if (!emptyCheck(lv))
         return false;
 
-    return setAtom(lv.front());
+    if (lv.isAtom())
+        return setAtom(lv.front());
+    else if (lv.size() == 2 && lv[0].isInteger() && lv[1].isInteger()) {
+        dirty_ = ts_.set(lv.intAt(0, 4), lv.intAt(1, 4));
+        return dirty_;
+    } else {
+        PROP_ERR() << "invalid time signature: " << lv << ", " << USAGE_STR;
+        return false;
+    }
 }
 
 bool TimeSignatureProperty::setAtom(const Atom& a)
@@ -45,29 +56,25 @@ bool TimeSignatureProperty::setAtom(const Atom& a)
 
 bool TimeSignatureProperty::setFloat(t_float f)
 {
-    //    int ts = f;
-    //    if (dur > 0 && dur <= MAX_DIV) {
-    //        dur_ = music::Duration { int(f) };
-    //        dirty_ = true;
-    //        return true;
-    //    } else {
-    //        PROP_ERR() << fmt::format("duration value in range [1..{}] is expected, got: {}", MAX_DIV, f);
-    //        return false;
-    //    }
-    return false;
+    if (!math::is_natural(f)) {
+        PROP_ERR() << fmt::format("natural number expected, got: {}\n\t{}", f, USAGE_STR);
+        return false;
+    }
+
+    dirty_ = ts_.set(f, 4);
+    return dirty_;
 }
 
 bool TimeSignatureProperty::setSymbol(t_symbol* s)
 {
-    return false;
-    //    if (!ts_.parse(s->s_name)) {
-    //        PROP_ERR() << "invalid duration value: " << s->s_name;
-    //        return false;
-    //    }
+    if (!ts_.parse(s->s_name)) {
+        PROP_ERR() << fmt::format("invalid time signature value: {}\n\t{}", s->s_name, USAGE_STR);
+        return false;
+    }
 
-    //    dirty_ = false;
-    //    SymbolProperty::setSymbol(s);
-    //    return true;
+    dirty_ = false;
+    SymbolProperty::setSymbol(s);
+    return true;
 }
 
 bool TimeSignatureProperty::getSymbol(t_symbol*& s) const

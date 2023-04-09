@@ -27,6 +27,7 @@ TEST_CASE("MusicTheory::Tempo", "[ceammc::music]")
         REQUIRE(t.division() == 4);
         REQUIRE(t.beatDuration() == Duration { 1, 4 });
         REQUIRE(t.toString() == "60|4bpm");
+        REQUIRE_FALSE(t.isNull());
 
         REQUIRE(t.setDots(0));
         REQUIRE(t.setDots(1));
@@ -108,5 +109,21 @@ TEST_CASE("MusicTheory::Tempo", "[ceammc::music]")
         REQUIRE(Tempo { 60, 2 }.wholeNoteDurationMs() == 2000);
         REQUIRE(Tempo { 60, 1 }.wholeNoteDurationMs() == 1000);
         REQUIRE(Tempo { 60, 4, 1 }.wholeNoteDurationMs() == Approx(1000.0 / 3 * 8));
+    }
+
+    SECTION("zero")
+    {
+        const Tempo zero(0, 4);
+        REQUIRE(zero.isNull());
+        REQUIRE(zero.normalized() == zero);
+        REQUIRE(zero.normalized().strictEqual(zero));
+        REQUIRE(zero.beatDurationMs() == 0);
+        REQUIRE(zero.beatDuration() == Duration(1, 4));
+        REQUIRE(zero.beatSubDivDuration() == Duration(1, 4));
+        REQUIRE(zero.subBeatDurationMs() == 0);
+        REQUIRE(zero.beatSubDivision() == 1);
+        REQUIRE(zero.division() == 4);
+        REQUIRE(zero.toString() == "0|4bpm");
+        REQUIRE(zero.wholeNoteDurationMs() == 0);
     }
 }

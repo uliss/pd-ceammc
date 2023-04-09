@@ -2,8 +2,8 @@
 #include "args/argcheck2.h"
 #include "ceammc_clock.h"
 #include "ceammc_factory.h"
-#include "ceammc_music_theory_timesig.h"
 #include "ceammc_property_bpm.h"
+#include "ceammc_property_timesig.h"
 
 #include <cstdint>
 
@@ -15,7 +15,7 @@ class SynthMetro : public faust_synth_metro_tilde {
     music::BeatList pattern_;
     std::uint32_t pattern_idx_ { 0 };
     BpmProperty* tempo_ { 0 };
-    music::TimeSignature time_sig_;
+    TimeSignatureProperty* tsig_ { 0 };
 
 public:
     SynthMetro(const PdArgs& args)
@@ -30,8 +30,8 @@ public:
 
             auto beat = pattern_[pattern_idx_++];
             bangBeat(beat.type);
-            auto t = tempo_->tempo().wholeNoteDurationMs() / beat.division;
-            clock_on_.delay(t);
+            if (!tempo_->isNull())
+                clock_on_.delay(tempo_->wholeNoteDurationMs() / beat.division);
         })
         , clock_off_([this]() {
             for (auto x : beats_) {
@@ -42,12 +42,15 @@ public:
     {
         createInlet();
         createInlet();
-        createInlet();
 
-        tempo_ = new BpmProperty("@t", 60);
-        tempo_->setSuccessFn([this](Property*) { syncPattern(); });
+        tempo_ = new BpmProperty("@tempo", 60);
         tempo_->setArgIndex(0);
         addProperty(tempo_);
+
+        tsig_ = new TimeSignatureProperty("@ts");
+        tsig_->setArgIndex(1);
+        tsig_->setSuccessFn([this](Property*) { syncPattern(); });
+        addProperty(tsig_);
     }
 
     void initDone() final
@@ -58,7 +61,7 @@ public:
     void syncPattern()
     {
         pattern_.clear();
-        pattern_ = time_sig_.beatList();
+        pattern_ = tsig_->signature().beatList();
     }
 
     void onBang() override
@@ -76,10 +79,15 @@ public:
 
     void onInlet(size_t n, const AtomListView& lv) final
     {
-        if (n < music::BEAT_DOWN || n > music::BEAT_OFF)
-            return;
-
-        bangBeat(static_cast<music::BeatType>(n));
+        switch (n) {
+        case 1:
+            return bangBeat(lv.intAt(0, music::BEAT_DOWN));
+        case 2:
+            tempo_->setList(lv);
+            break;
+        default:
+            break;
+        }
     }
 
     void m_tempo(t_symbol* s, const AtomListView& lv)
@@ -92,8 +100,11 @@ public:
     }
 
 private:
-    void bangBeat(music::BeatType t)
+    void bangBeat(int t)
     {
+        if (t < music::BEAT_DOWN || t > music::BEAT_OFF)
+            return;
+
         if (beats_[t - 1]) {
             beats_[t - 1]->setValue(1, true);
             clock_off_.delay(10);
@@ -106,7 +117,9 @@ void setup_synth_metro_tilde()
     SoundExternalFactory<SynthMetro> obj("synth.metro~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("tempo", &SynthMetro::m_tempo);
 
-    //    obj.setDescription("bird singing generator");
-    //    obj.setCategory("synth");
-    //    obj.setKeywords({ "birds" });
+    obj.setXletsInfo({ "bool: on/off metro", "int: bang beat", "float: set bpm" }, { "signal: out" });
+
+    obj.setDescription("ready to use metronome synth");
+    obj.setCategory("synth");
+    obj.setKeywords({ "metro" });
 }

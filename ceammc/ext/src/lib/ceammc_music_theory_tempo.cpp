@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_music_theory_tempo.h"
+#include "ceammc_log.h"
 #include "fmt/core.h"
 #include "lex/parser_music.h"
 
@@ -57,7 +58,7 @@ Tempo Tempo::normalized() const
 
 bool Tempo::setBpm(float bpm) noexcept
 {
-    if (bpm <= 0) {
+    if (bpm < 0) {
         return false;
     } else {
         bpm_ = bpm;
@@ -127,7 +128,11 @@ int Tempo::beatSubDivision() const
 
 double Tempo::beatDurationMs() const
 {
-    return 60000.0 / bpm_;
+    if (bpm_ == 0) {
+        LIB_ERR << "getting zero BPM duration";
+        return 0;
+    } else
+        return 60000.0 / bpm_;
 }
 
 double Tempo::subBeatDurationMs() const
