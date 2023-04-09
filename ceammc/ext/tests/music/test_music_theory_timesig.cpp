@@ -27,6 +27,10 @@ TEST_CASE("MusicTheory::TimeSig", "[ceammc::music]")
         REQUIRE(ts.isSimple());
         REQUIRE(!ts.isCompound());
         REQUIRE(ts.duration() == Duration { 4, 4 });
+
+        REQUIRE_THROWS_AS(TimeSignature(1, 0), std::invalid_argument);
+
+        REQUIRE(TimeSignature { 3, 4 }.toString() == "|3/4|");
     }
 
     SECTION("compound")

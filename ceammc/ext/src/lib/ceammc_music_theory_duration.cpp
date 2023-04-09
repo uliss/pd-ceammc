@@ -77,7 +77,7 @@ Duration::Duration(int num, int div, int dots)
         throw std::invalid_argument("zero duration division");
 }
 
-bool Duration::operator==(const Duration& dur) const
+bool Duration::operator==(const Duration& dur) const noexcept
 {
     if (&dur == this)
         return true;
@@ -85,22 +85,22 @@ bool Duration::operator==(const Duration& dur) const
     return normalized().strictEqual(dur.normalized());
 }
 
-bool Duration::operator<(const Duration& dur) const
+bool Duration::operator<(const Duration& dur) const noexcept
 {
     return dur2ratio(*this) < dur2ratio(dur);
 }
 
-bool Duration::operator<=(const Duration& dur) const
+bool Duration::operator<=(const Duration& dur) const noexcept
 {
     return dur2ratio(*this) <= dur2ratio(dur);
 }
 
-bool Duration::operator>(const Duration& dur) const
+bool Duration::operator>(const Duration& dur) const noexcept
 {
     return dur2ratio(*this) > dur2ratio(dur);
 }
 
-bool Duration::operator>=(const Duration& dur) const
+bool Duration::operator>=(const Duration& dur) const noexcept
 {
     return dur2ratio(*this) >= dur2ratio(dur);
 }
@@ -128,13 +128,13 @@ bool Duration::strictEqual(const Duration& dur) const
         && dots_ == dur.dots_;
 }
 
-bool Duration::setNumerator(int num)
+bool Duration::setNumerator(int num) noexcept
 {
     num_ = num;
     return true;
 }
 
-bool Duration::setDivision(int div)
+bool Duration::setDivision(int div) noexcept
 {
     if (div == 0) {
         return false;
@@ -144,7 +144,7 @@ bool Duration::setDivision(int div)
     }
 }
 
-bool Duration::setDots(int dots)
+bool Duration::setDots(int dots) noexcept
 {
     if (dots < 0 || dots > DURATION_MAX_DOTS) {
         return false;
@@ -154,7 +154,7 @@ bool Duration::setDots(int dots)
     }
 }
 
-bool Duration::set(int num, int div, int dots)
+bool Duration::set(int num, int div, int dots) noexcept
 {
     if (!setNumerator(num))
         return false;
@@ -174,7 +174,7 @@ std::string Duration::toString() const
     return fmt::format("{}/{}{}", num_, div_, dots);
 }
 
-double Duration::ratio() const
+double Duration::ratio() const noexcept
 {
     double res = double(num_) / div_;
     switch (dots_) {
@@ -231,7 +231,7 @@ double Duration::timeMs(const Tempo& t) const
     return t.beatDurationMs() * d.numerator() / d.denominator();
 }
 
-bool Duration::parse(const char* str)
+bool Duration::parse(const char* str) noexcept
 {
     parser::DurationFullMatch p;
     if (!p.parse(str))

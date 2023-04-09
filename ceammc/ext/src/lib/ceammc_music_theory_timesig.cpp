@@ -76,7 +76,7 @@ Duration TimeSignature::duration() const
     return dur;
 }
 
-int TimeSignature::subDivision() const
+int TimeSignature::subDivision() const noexcept
 {
     int lcm = 1;
     for (auto& s : sig_)

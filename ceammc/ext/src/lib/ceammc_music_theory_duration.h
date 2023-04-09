@@ -49,13 +49,13 @@ namespace music {
         /**
          * compare Durations by logical time: 1/4==2/8
          */
-        bool operator==(const Duration& dur) const;
+        bool operator==(const Duration& dur) const noexcept;
         bool operator!=(const Duration& dur) const { return !operator==(dur); }
 
-        bool operator<(const Duration& dur) const;
-        bool operator<=(const Duration& dur) const;
-        bool operator>(const Duration& dur) const;
-        bool operator>=(const Duration& dur) const;
+        bool operator<(const Duration& dur) const noexcept;
+        bool operator<=(const Duration& dur) const noexcept;
+        bool operator>(const Duration& dur) const noexcept;
+        bool operator>=(const Duration& dur) const noexcept;
 
         /**
          * return normalized duration:
@@ -78,18 +78,18 @@ namespace music {
         int division() const { return div_; }
         int dots() const { return dots_; }
 
-        bool setNumerator(int num);
-        bool setDivision(int div);
-        bool setDots(int dots);
+        bool setNumerator(int num) noexcept;
+        bool setDivision(int div) noexcept;
+        bool setDots(int dots) noexcept;
 
-        bool set(int num, int div, int dots);
+        bool set(int num, int div, int dots) noexcept;
 
         std::string toString() const;
 
         /**
          * duration float ratio: 1/4 -> 0.25
          */
-        double ratio() const;
+        double ratio() const noexcept;
 
         /**
          * return normalized duration sum
@@ -113,7 +113,7 @@ namespace music {
         Duration operator*(const Duration& dur) const;
 
         /**
-         * return divied duration
+         * return divided duration
          */
         Duration operator/(int div) const;
 
@@ -125,7 +125,7 @@ namespace music {
         double timeSec(const Tempo& t) const { return timeMs(t) * 0.001; }
 
     public:
-        bool parse(const char* str);
+        bool parse(const char* str) noexcept;
     };
 
     std::ostream& operator<<(std::ostream& os, const Duration& dur);

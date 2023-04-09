@@ -78,7 +78,7 @@ namespace music {
          * returns greatest common subdivision for compount signatures
          * @example for |3/4+1/16| return 16
          */
-        int subDivision() const;
+        int subDivision() const noexcept;
 
         /**
          * return whole bar duration in milliseconds according to given tempo
