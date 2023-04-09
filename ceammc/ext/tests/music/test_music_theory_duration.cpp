@@ -133,4 +133,13 @@ TEST_CASE("MusicTheory::Duration", "[ceammc::music]")
         REQUIRE(Duration(3, 4).timeMs(Tempo(120, 2, 1)) == 500);
         REQUIRE(Duration(1, 8).timeMs(Tempo(60, 4, 1)) == Approx(1000.0 / 3));
     }
+
+    SECTION("+=")
+    {
+        Duration dur(1, 4);
+        dur += dur;
+        REQUIRE(dur == Duration(2, 4));
+        dur += Duration(1, 8);
+        REQUIRE(dur == Duration(5, 8));
+    }
 }

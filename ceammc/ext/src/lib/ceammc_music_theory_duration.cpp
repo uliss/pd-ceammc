@@ -195,6 +195,15 @@ Duration Duration::operator+(const Duration& dur) const
     return { res.numerator(), res.denominator() };
 }
 
+Duration& Duration::operator+=(const Duration& dur)
+{
+    auto res = dur2ratio(*this) + dur2ratio(dur);
+    num_ = res.numerator();
+    div_ = res.denominator();
+    dots_ = 0;
+    return *this;
+}
+
 Duration Duration::operator-(const Duration& dur) const
 {
     auto res = dur2ratio(*this) - dur2ratio(dur);
@@ -221,7 +230,6 @@ double Duration::timeMs(const Tempo& t) const
     auto d = dur2ratio(*this) / dur2ratio(t.beatDuration());
     return t.beatDurationMs() * d.numerator() / d.denominator();
 }
-
 
 bool Duration::parse(const char* str)
 {

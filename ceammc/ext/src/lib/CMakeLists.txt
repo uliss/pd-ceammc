@@ -78,6 +78,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_music_theory_names.cpp
     ceammc_music_theory_pitch_class.cpp
     ceammc_music_theory_tempo.cpp
+    ceammc_music_theory_timesig.cpp
     ceammc_node_external.cpp
     ceammc_numeric.h
     ceammc_editor_object.cpp

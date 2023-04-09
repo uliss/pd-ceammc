@@ -95,6 +95,7 @@ namespace music {
          * return normalized duration sum
          */
         Duration operator+(const Duration& dur) const;
+        Duration& operator+=(const Duration& dur);
 
         /**
          * return normalized duration difference
