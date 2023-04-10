@@ -79,6 +79,8 @@ constexpr int GROUP_OUTPUT_MIXER = 9;
 
 namespace {
 
+using HttpClientPtr = std::shared_ptr<httplib::Client>;
+
 enum RequestType {
     REQ_SYNC = 1,
     REQ_SET,
@@ -158,21 +160,23 @@ bool getRequestKey(const DataTypeDict& dict, const char* key, std::string& val)
     return true;
 }
 
-httplib::Client make_http_cli(const std::string& host, int http_port)
+HttpClientPtr make_http_cli(const std::string& host, int http_port)
 {
-    httplib::Client cli(host, http_port);
-    cli.set_connection_timeout(1);
-    cli.set_tcp_nodelay(true);
+    HttpClientPtr cli(new httplib::Client(host, http_port));
+    if (cli) {
+        cli->set_connection_timeout(1);
+        cli->set_tcp_nodelay(true);
+    }
     return cli;
 }
 
-bool setSingleValue(httplib::Client& cli,
+bool setSingleValue(HttpClientPtr& cli,
     const std::string& device,
     const char* key,
     const MotuAvbRequest& req,
     ThreadPdLogger& log)
 {
-    if (!req.data.contains(key))
+    if (!cli || !req.data.contains(key))
         return false;
 
     char key_chan[KEY_MAX_LENGTH];
@@ -193,7 +197,7 @@ bool setSingleValue(httplib::Client& cli,
 
     auto val = to_string(req.data.at(key));
     auto json = fmt::format("json={{\"value\":\"{}\"}}", val);
-    auto res = cli.Patch(path.c_str(), json.c_str(), "application/x-www-form-urlencoded");
+    auto res = cli->Patch(path.c_str(), json.c_str(), "application/x-www-form-urlencoded");
 
     log.debug(fmt::format("url: {}, json: {}", path, json));
 
@@ -241,15 +245,17 @@ HwMotuAvb::Future HwMotuAvb::createTask()
         MotuAvbRequest req;
 
         try {
+            HttpClientPtr http_cli;
 
             while (inPipe().try_dequeue(req)) {
-                auto http_cli = make_http_cli(req.host, req.port);
+                if (!http_cli)
+                    http_cli = make_http_cli(req.host, req.port);
 
                 switch (req.type) {
                 case REQ_SYNC: {
 
                     auto url = fmt::format("/{}/datastore", req.device);
-                    auto res = http_cli.Get(url.c_str());
+                    auto res = http_cli->Get(url.c_str());
                     if (res) {
                         if (res->status == 200) {
                             DataTypeDict resp;
@@ -271,16 +277,22 @@ HwMotuAvb::Future HwMotuAvb::createTask()
                     }
                 } break;
                 case REQ_SET: {
-                    for (auto& kv : UrlMap)
-                        setSingleValue(http_cli, req.device, kv.first, req, logger_);
+                    for (auto& kv : UrlMap) {
+                        if (!setSingleValue(http_cli, req.device, kv.first, req, logger_)) {
+                            while (inPipe().try_dequeue(req)) // clean queue
+                                ;
+
+                            break;
+                        }
+                    }
                 } break;
                 default:
                     TERR_FMT("unknown request type: {}", req.type);
                     break;
                 }
-
-                Dispatcher::instance().send({ subscriberId(), 0 });
             }
+
+            Dispatcher::instance().send({ subscriberId(), 0 });
         } catch (std::exception& e) {
             TERR_FMT("run thread exception: {}", e.what());
         }
