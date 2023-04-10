@@ -82,19 +82,7 @@ pitch = (spn_pitch spn_alt?)
       %{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;};
 
 # notes
-action note_add_dot {
-    note.dots++;
-    if(note.dots == 1) {
-        note.num *= 3;
-        note.den *= 2;
-    } else if(note.dots == 2) {
-        note.num = note.num / 3 * 7;
-        note.den *= 2;
-    } else if(note.dots == 3) {
-        note.num = note.num / 7 * 15;
-        note.den *= 2;
-    }
-}
+action note_add_dot { note.dots++; }
 
 # duration actions
 action set_dur_abs     { note.durtype = DURATION_ABS; }
@@ -145,5 +133,17 @@ note_chord_seq = note_single (['] note_single)*;
 note_chord = '<' note_chord_seq '>' note_dur_par?;
 
 note = (note_single | note_chord);
+
+time_signature_num = ([1-9][0-9]*)  >{ ragel_ts.num = 0; }  ${ (ragel_ts.num *= 10) += (fc - '0'); };
+time_signature_div = ([1-9][0-9]*)  >{ ragel_ts.div = 0; }  ${ (ragel_ts.div *= 10) += (fc - '0'); };
+
+time_signature_dur =
+    (time_signature_num '/' time_signature_div)  %{ ragel_ts.sig.push_back({ragel_ts.num, ragel_ts.div}); };
+
+time_signature
+    = '|'
+    time_signature_dur
+    ('+' time_signature_dur)*
+    '|';
 
 }%%

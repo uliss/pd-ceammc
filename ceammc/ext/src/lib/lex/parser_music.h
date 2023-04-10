@@ -22,6 +22,7 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_convert.h"
+#include "ceammc_music_theory_timesig.h"
 #include "ragel_common.h"
 
 namespace ceammc {
@@ -71,6 +72,13 @@ namespace parser {
             int repeats { 0 };
             DurationType durtype { DURATION_ABS };
         };
+
+        struct TimeSignatureData {
+            using Duration = std::pair<std::uint8_t, std::uint8_t>;
+            using DurationList = boost::container::small_vector<Duration, 2>;
+            DurationList sig;
+            std::uint8_t num { 0 }, div { 0 };
+        };
     }
 
     struct Bpm {
@@ -118,6 +126,14 @@ namespace parser {
         t_float beatPeriodSamp(t_float sr, t_float def = 0) const
         {
             return (bpm > 0) ? sr * 60.0 / value() : def;
+        }
+
+        t_float wholePeriodMs(t_float def = 0) const
+        {
+            if (bpm > 0) {
+                return (60000.0 * beat_div) / (bpm * beat_num);
+            } else
+                return def;
         }
     };
 
@@ -341,11 +357,34 @@ namespace parser {
             repeats = d.repeats;
         }
 
-        t_float ratio() const { return t_float(num) / den; }
+        t_float ratio() const
+        {
+            double n = num;
+            double d = den;
+
+            switch (dots) {
+            case 1:
+                n *= 3;
+                d *= 2;
+                break;
+            case 2:
+                n *= 7;
+                d *= 4;
+                break;
+            case 3:
+                n *= 15;
+                d *= 8;
+                break;
+            default:
+                break;
+            }
+
+            return n / d;
+        }
 
         t_float timeMs(const Bpm& bpm = { 60, 1, 4 }) const
         {
-            return (num * 60000.0) / (bpm.bpm * bpm.ratio() * den);
+            return bpm.wholePeriodMs() * ratio();
         }
 
         t_float timeSamp(t_float sr, const Bpm& bpm = { 60, 1, 4 }) const
@@ -435,7 +474,6 @@ namespace parser {
     using DurationVec = DurationVecN<16>;
 
     class DurationFullMatch {
-        int cs { 0 };
         Duration dur_;
 
     public:
@@ -447,6 +485,11 @@ namespace parser {
         bool parse(const char* str);
         bool parse(const Atom& a);
         size_t parse(const AtomListView& lv, DurationVec& out);
+    };
+
+    class TimeSignatureParser {
+    public:
+        static bool parse(const char* str, music::TimeSignature& ts);
     };
 }
 }

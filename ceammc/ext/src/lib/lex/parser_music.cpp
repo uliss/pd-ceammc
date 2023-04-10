@@ -1151,13 +1151,13 @@ st0:
 cs = 0;
 	goto _out;
 tr0:
-#line 138 "lex/ragel_music.rl"
+#line 126 "lex/ragel_music.rl"
 	{ note.repeats = 0; }
-#line 139 "lex/ragel_music.rl"
+#line 127 "lex/ragel_music.rl"
 	{ (note.repeats *= 10) += ((*p) - '0'); }
 	goto st2;
 tr7:
-#line 139 "lex/ragel_music.rl"
+#line 127 "lex/ragel_music.rl"
 	{ (note.repeats *= 10) += ((*p) - '0'); }
 	goto st2;
 st2:
@@ -1351,7 +1351,7 @@ tr28:
 	{spn.octtype = OCTAVE_REL;}
 #line 78 "lex/ragel_music.rl"
 	{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
-#line 134 "lex/ragel_music.rl"
+#line 122 "lex/ragel_music.rl"
 	{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 	goto st9;
 tr35:
@@ -1359,13 +1359,13 @@ tr35:
 	{spn.octtype = OCTAVE_REL;}
 #line 78 "lex/ragel_music.rl"
 	{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
-#line 134 "lex/ragel_music.rl"
+#line 122 "lex/ragel_music.rl"
 	{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 	goto st9;
 tr36:
 #line 78 "lex/ragel_music.rl"
 	{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
-#line 134 "lex/ragel_music.rl"
+#line 122 "lex/ragel_music.rl"
 	{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 	goto st9;
 tr51:
@@ -1373,11 +1373,11 @@ tr51:
 	{spn.octtype = OCTAVE_ABS;}
 #line 78 "lex/ragel_music.rl"
 	{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
-#line 134 "lex/ragel_music.rl"
+#line 122 "lex/ragel_music.rl"
 	{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 	goto st9;
 tr62:
-#line 134 "lex/ragel_music.rl"
+#line 122 "lex/ragel_music.rl"
 	{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
 	goto st9;
 st9:
@@ -1400,13 +1400,13 @@ case 10:
 		goto tr16;
 	goto st0;
 tr16:
-#line 105 "lex/ragel_music.rl"
+#line 93 "lex/ragel_music.rl"
 	{ note.num = 0; }
-#line 106 "lex/ragel_music.rl"
+#line 94 "lex/ragel_music.rl"
 	{ (note.num *= 10) += ((*p) - '0'); }
 	goto st19;
 tr38:
-#line 106 "lex/ragel_music.rl"
+#line 94 "lex/ragel_music.rl"
 	{ (note.num *= 10) += ((*p) - '0'); }
 	goto st19;
 st19:
@@ -1427,13 +1427,13 @@ case 11:
 		goto tr17;
 	goto st0;
 tr17:
-#line 107 "lex/ragel_music.rl"
+#line 95 "lex/ragel_music.rl"
 	{ note.den = 0; }
-#line 108 "lex/ragel_music.rl"
+#line 96 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st20;
 tr39:
-#line 108 "lex/ragel_music.rl"
+#line 96 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st20;
 st20:
@@ -1452,13 +1452,13 @@ case 12:
 		goto tr18;
 	goto st0;
 tr18:
-#line 107 "lex/ragel_music.rl"
+#line 95 "lex/ragel_music.rl"
 	{ note.den = 0; }
-#line 108 "lex/ragel_music.rl"
+#line 96 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st21;
 tr40:
-#line 108 "lex/ragel_music.rl"
+#line 96 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st21;
 st21:
@@ -1470,19 +1470,19 @@ case 21:
 		goto tr40;
 	goto st0;
 tr15:
-#line 105 "lex/ragel_music.rl"
+#line 93 "lex/ragel_music.rl"
 	{ note.num = 0; }
-#line 106 "lex/ragel_music.rl"
+#line 94 "lex/ragel_music.rl"
 	{ (note.num *= 10) += ((*p) - '0'); }
-#line 107 "lex/ragel_music.rl"
+#line 95 "lex/ragel_music.rl"
 	{ note.den = 0; }
-#line 108 "lex/ragel_music.rl"
+#line 96 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st22;
 tr43:
-#line 106 "lex/ragel_music.rl"
+#line 94 "lex/ragel_music.rl"
 	{ (note.num *= 10) += ((*p) - '0'); }
-#line 108 "lex/ragel_music.rl"
+#line 96 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st22;
 st22:
@@ -1499,92 +1499,44 @@ case 22:
 		goto tr43;
 	goto st0;
 tr41:
-#line 102 "lex/ragel_music.rl"
+#line 90 "lex/ragel_music.rl"
 	{ note.num = 1; }
 #line 85 "lex/ragel_music.rl"
-	{
-    note.dots++;
-    if(note.dots == 1) {
-        note.num *= 3;
-        note.den *= 2;
-    } else if(note.dots == 2) {
-        note.num = note.num / 3 * 7;
-        note.den *= 2;
-    } else if(note.dots == 3) {
-        note.num = note.num / 7 * 15;
-        note.den *= 2;
-    }
-}
+	{ note.dots++; }
 	goto st23;
 tr47:
 #line 85 "lex/ragel_music.rl"
-	{
-    note.dots++;
-    if(note.dots == 1) {
-        note.num *= 3;
-        note.den *= 2;
-    } else if(note.dots == 2) {
-        note.num = note.num / 3 * 7;
-        note.den *= 2;
-    } else if(note.dots == 3) {
-        note.num = note.num / 7 * 15;
-        note.den *= 2;
-    }
-}
+	{ note.dots++; }
 	goto st23;
 st23:
 	if ( ++p == pe )
 		goto _test_eof23;
 case 23:
-#line 1540 "lex/parser_music.cpp"
+#line 1516 "lex/parser_music.cpp"
 	if ( (*p) == 46 )
 		goto tr45;
 	goto st0;
 tr45:
 #line 85 "lex/ragel_music.rl"
-	{
-    note.dots++;
-    if(note.dots == 1) {
-        note.num *= 3;
-        note.den *= 2;
-    } else if(note.dots == 2) {
-        note.num = note.num / 3 * 7;
-        note.den *= 2;
-    } else if(note.dots == 3) {
-        note.num = note.num / 7 * 15;
-        note.den *= 2;
-    }
-}
+	{ note.dots++; }
 	goto st24;
 st24:
 	if ( ++p == pe )
 		goto _test_eof24;
 case 24:
-#line 1564 "lex/parser_music.cpp"
+#line 1528 "lex/parser_music.cpp"
 	if ( (*p) == 46 )
 		goto tr46;
 	goto st0;
 tr46:
 #line 85 "lex/ragel_music.rl"
-	{
-    note.dots++;
-    if(note.dots == 1) {
-        note.num *= 3;
-        note.den *= 2;
-    } else if(note.dots == 2) {
-        note.num = note.num / 3 * 7;
-        note.den *= 2;
-    } else if(note.dots == 3) {
-        note.num = note.num / 7 * 15;
-        note.den *= 2;
-    }
-}
+	{ note.dots++; }
 	goto st25;
 st25:
 	if ( ++p == pe )
 		goto _test_eof25;
 case 25:
-#line 1588 "lex/parser_music.cpp"
+#line 1540 "lex/parser_music.cpp"
 	goto st0;
 st13:
 	if ( ++p == pe )
@@ -1594,20 +1546,20 @@ case 13:
 		goto tr19;
 	goto st0;
 tr19:
-#line 107 "lex/ragel_music.rl"
+#line 95 "lex/ragel_music.rl"
 	{ note.den = 0; }
-#line 108 "lex/ragel_music.rl"
+#line 96 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st26;
 tr48:
-#line 108 "lex/ragel_music.rl"
+#line 96 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st26;
 st26:
 	if ( ++p == pe )
 		goto _test_eof26;
 case 26:
-#line 1611 "lex/parser_music.cpp"
+#line 1563 "lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 46: goto tr47;
 		case 95: goto st27;
@@ -1616,14 +1568,14 @@ case 26:
 		goto tr48;
 	goto st0;
 tr44:
-#line 102 "lex/ragel_music.rl"
+#line 90 "lex/ragel_music.rl"
 	{ note.num = 1; }
 	goto st27;
 st27:
 	if ( ++p == pe )
 		goto _test_eof27;
 case 27:
-#line 1627 "lex/parser_music.cpp"
+#line 1579 "lex/parser_music.cpp"
 	if ( (*p) == 46 )
 		goto tr47;
 	goto st0;
@@ -1641,7 +1593,7 @@ st14:
 	if ( ++p == pe )
 		goto _test_eof14;
 case 14:
-#line 1645 "lex/parser_music.cpp"
+#line 1597 "lex/parser_music.cpp"
 	if ( (*p) == 49 )
 		goto tr20;
 	goto st0;
@@ -1667,7 +1619,7 @@ st28:
 	if ( ++p == pe )
 		goto _test_eof28;
 case 28:
-#line 1671 "lex/parser_music.cpp"
+#line 1623 "lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto tr50;
 		case 124: goto tr51;
@@ -1695,7 +1647,7 @@ st29:
 	if ( ++p == pe )
 		goto _test_eof29;
 case 29:
-#line 1699 "lex/parser_music.cpp"
+#line 1651 "lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto st4;
 		case 94: goto tr53;
@@ -1712,7 +1664,7 @@ st30:
 	if ( ++p == pe )
 		goto _test_eof30;
 case 30:
-#line 1716 "lex/parser_music.cpp"
+#line 1668 "lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto st4;
 		case 94: goto tr54;
@@ -1729,7 +1681,7 @@ st31:
 	if ( ++p == pe )
 		goto _test_eof31;
 case 31:
-#line 1733 "lex/parser_music.cpp"
+#line 1685 "lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto st4;
 		case 94: goto tr55;
@@ -1746,7 +1698,7 @@ st32:
 	if ( ++p == pe )
 		goto _test_eof32;
 case 32:
-#line 1750 "lex/parser_music.cpp"
+#line 1702 "lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto st4;
 		case 94: goto tr56;
@@ -1769,7 +1721,7 @@ st33:
 	if ( ++p == pe )
 		goto _test_eof33;
 case 33:
-#line 1773 "lex/parser_music.cpp"
+#line 1725 "lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto st4;
 		case 124: goto tr36;
@@ -1797,7 +1749,7 @@ st34:
 	if ( ++p == pe )
 		goto _test_eof34;
 case 34:
-#line 1801 "lex/parser_music.cpp"
+#line 1753 "lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto st4;
 		case 95: goto tr57;
@@ -1814,7 +1766,7 @@ st35:
 	if ( ++p == pe )
 		goto _test_eof35;
 case 35:
-#line 1818 "lex/parser_music.cpp"
+#line 1770 "lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto st4;
 		case 95: goto tr58;
@@ -1831,7 +1783,7 @@ st36:
 	if ( ++p == pe )
 		goto _test_eof36;
 case 36:
-#line 1835 "lex/parser_music.cpp"
+#line 1787 "lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto st4;
 		case 95: goto tr59;
@@ -1848,7 +1800,7 @@ st37:
 	if ( ++p == pe )
 		goto _test_eof37;
 case 37:
-#line 1852 "lex/parser_music.cpp"
+#line 1804 "lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto st4;
 		case 95: goto tr60;
@@ -1865,7 +1817,7 @@ st38:
 	if ( ++p == pe )
 		goto _test_eof38;
 case 38:
-#line 1869 "lex/parser_music.cpp"
+#line 1821 "lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 40: goto tr30;
 		case 45: goto tr31;
@@ -1878,14 +1830,14 @@ case 38:
 		goto tr32;
 	goto st0;
 tr5:
-#line 131 "lex/ragel_music.rl"
+#line 119 "lex/ragel_music.rl"
 	{note.rest = 1;}
 	goto st39;
 st39:
 	if ( ++p == pe )
 		goto _test_eof39;
 case 39:
-#line 1889 "lex/parser_music.cpp"
+#line 1841 "lex/parser_music.cpp"
 	if ( (*p) == 124 )
 		goto tr62;
 	goto st0;
@@ -1938,21 +1890,21 @@ case 39:
 	case 25: 
 	case 26: 
 	case 27: 
-#line 100 "lex/ragel_music.rl"
+#line 88 "lex/ragel_music.rl"
 	{ note.durtype = DURATION_ABS; }
-#line 135 "lex/ragel_music.rl"
+#line 123 "lex/ragel_music.rl"
 	{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 	break;
 	case 20: 
-#line 101 "lex/ragel_music.rl"
+#line 89 "lex/ragel_music.rl"
 	{ note.durtype = DURATION_REL; }
-#line 135 "lex/ragel_music.rl"
+#line 123 "lex/ragel_music.rl"
 	{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 	break;
 	case 39: 
-#line 134 "lex/ragel_music.rl"
+#line 122 "lex/ragel_music.rl"
 	{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
-#line 135 "lex/ragel_music.rl"
+#line 123 "lex/ragel_music.rl"
 	{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 	break;
 	case 18: 
@@ -1967,33 +1919,33 @@ case 39:
 	case 37: 
 #line 78 "lex/ragel_music.rl"
 	{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
-#line 134 "lex/ragel_music.rl"
+#line 122 "lex/ragel_music.rl"
 	{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
-#line 135 "lex/ragel_music.rl"
+#line 123 "lex/ragel_music.rl"
 	{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 	break;
 	case 22: 
-#line 102 "lex/ragel_music.rl"
+#line 90 "lex/ragel_music.rl"
 	{ note.num = 1; }
-#line 100 "lex/ragel_music.rl"
+#line 88 "lex/ragel_music.rl"
 	{ note.durtype = DURATION_ABS; }
-#line 135 "lex/ragel_music.rl"
+#line 123 "lex/ragel_music.rl"
 	{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 	break;
 	case 21: 
-#line 102 "lex/ragel_music.rl"
+#line 90 "lex/ragel_music.rl"
 	{ note.num = 1; }
-#line 101 "lex/ragel_music.rl"
+#line 89 "lex/ragel_music.rl"
 	{ note.durtype = DURATION_REL; }
-#line 135 "lex/ragel_music.rl"
+#line 123 "lex/ragel_music.rl"
 	{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 	break;
 	case 19: 
-#line 103 "lex/ragel_music.rl"
+#line 91 "lex/ragel_music.rl"
 	{ note.den = 1; }
-#line 101 "lex/ragel_music.rl"
+#line 89 "lex/ragel_music.rl"
 	{ note.durtype = DURATION_REL; }
-#line 135 "lex/ragel_music.rl"
+#line 123 "lex/ragel_music.rl"
 	{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 	break;
 	case 28: 
@@ -2001,9 +1953,9 @@ case 39:
 	{spn.octtype = OCTAVE_ABS;}
 #line 78 "lex/ragel_music.rl"
 	{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
-#line 134 "lex/ragel_music.rl"
+#line 122 "lex/ragel_music.rl"
 	{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
-#line 135 "lex/ragel_music.rl"
+#line 123 "lex/ragel_music.rl"
 	{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 	break;
 	case 16: 
@@ -2013,9 +1965,9 @@ case 39:
 	{spn.octtype = OCTAVE_REL;}
 #line 78 "lex/ragel_music.rl"
 	{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
-#line 134 "lex/ragel_music.rl"
+#line 122 "lex/ragel_music.rl"
 	{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
-#line 135 "lex/ragel_music.rl"
+#line 123 "lex/ragel_music.rl"
 	{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 	break;
 	case 15: 
@@ -2025,12 +1977,12 @@ case 39:
 	{spn.octtype = OCTAVE_REL;}
 #line 78 "lex/ragel_music.rl"
 	{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
-#line 134 "lex/ragel_music.rl"
+#line 122 "lex/ragel_music.rl"
 	{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
-#line 135 "lex/ragel_music.rl"
+#line 123 "lex/ragel_music.rl"
 	{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;}
 	break;
-#line 2034 "lex/parser_music.cpp"
+#line 1986 "lex/parser_music.cpp"
 	}
 	}
 
@@ -2076,7 +2028,7 @@ size_t NotationSingle::parse(const AtomListView& lv, NoteVec& out)
 }
 
 
-#line 2080 "lex/parser_music.cpp"
+#line 2032 "lex/parser_music.cpp"
 static const int duration_start = 1;
 static const int duration_first_final = 4;
 static const int duration_error = 0;
@@ -2103,6 +2055,7 @@ bool DurationFullMatch::parse(const char* str)
     if (len == 0)
         return false;
 
+    int cs = 0;
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;
@@ -2113,14 +2066,14 @@ bool DurationFullMatch::parse(const char* str)
     reset();
 
     
-#line 2117 "lex/parser_music.cpp"
+#line 2070 "lex/parser_music.cpp"
 	{
 	cs = duration_start;
 	}
 
-#line 314 "lex/parser_music.rl"
+#line 315 "lex/parser_music.rl"
     
-#line 2124 "lex/parser_music.cpp"
+#line 2077 "lex/parser_music.cpp"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -2134,26 +2087,26 @@ st0:
 cs = 0;
 	goto _out;
 tr0:
-#line 105 "lex/ragel_music.rl"
+#line 93 "lex/ragel_music.rl"
 	{ note.num = 0; }
-#line 106 "lex/ragel_music.rl"
+#line 94 "lex/ragel_music.rl"
 	{ (note.num *= 10) += ((*p) - '0'); }
-#line 107 "lex/ragel_music.rl"
+#line 95 "lex/ragel_music.rl"
 	{ note.den = 0; }
-#line 108 "lex/ragel_music.rl"
+#line 96 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st4;
 tr7:
-#line 106 "lex/ragel_music.rl"
+#line 94 "lex/ragel_music.rl"
 	{ (note.num *= 10) += ((*p) - '0'); }
-#line 108 "lex/ragel_music.rl"
+#line 96 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st4;
 st4:
 	if ( ++p == pe )
 		goto _test_eof4;
 case 4:
-#line 2157 "lex/parser_music.cpp"
+#line 2110 "lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 42: goto st2;
 		case 46: goto tr5;
@@ -2164,36 +2117,36 @@ case 4:
 		goto tr7;
 	goto st0;
 st2:
-#line 104 "lex/ragel_music.rl"
+#line 92 "lex/ragel_music.rl"
 	{ note.repeats = note.num; }
 	if ( ++p == pe )
 		goto _test_eof2;
 case 2:
-#line 2173 "lex/parser_music.cpp"
+#line 2126 "lex/parser_music.cpp"
 	if ( 49 <= (*p) && (*p) <= 57 )
 		goto tr2;
 	goto st0;
 tr2:
-#line 105 "lex/ragel_music.rl"
+#line 93 "lex/ragel_music.rl"
 	{ note.num = 0; }
-#line 106 "lex/ragel_music.rl"
+#line 94 "lex/ragel_music.rl"
 	{ (note.num *= 10) += ((*p) - '0'); }
-#line 107 "lex/ragel_music.rl"
+#line 95 "lex/ragel_music.rl"
 	{ note.den = 0; }
-#line 108 "lex/ragel_music.rl"
+#line 96 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st5;
 tr9:
-#line 106 "lex/ragel_music.rl"
+#line 94 "lex/ragel_music.rl"
 	{ (note.num *= 10) += ((*p) - '0'); }
-#line 108 "lex/ragel_music.rl"
+#line 96 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st5;
 st5:
 	if ( ++p == pe )
 		goto _test_eof5;
 case 5:
-#line 2197 "lex/parser_music.cpp"
+#line 2150 "lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 46: goto tr5;
 		case 47: goto st3;
@@ -2203,92 +2156,44 @@ case 5:
 		goto tr9;
 	goto st0;
 tr5:
-#line 102 "lex/ragel_music.rl"
+#line 90 "lex/ragel_music.rl"
 	{ note.num = 1; }
 #line 85 "lex/ragel_music.rl"
-	{
-    note.dots++;
-    if(note.dots == 1) {
-        note.num *= 3;
-        note.den *= 2;
-    } else if(note.dots == 2) {
-        note.num = note.num / 3 * 7;
-        note.den *= 2;
-    } else if(note.dots == 3) {
-        note.num = note.num / 7 * 15;
-        note.den *= 2;
-    }
-}
+	{ note.dots++; }
 	goto st6;
 tr12:
 #line 85 "lex/ragel_music.rl"
-	{
-    note.dots++;
-    if(note.dots == 1) {
-        note.num *= 3;
-        note.den *= 2;
-    } else if(note.dots == 2) {
-        note.num = note.num / 3 * 7;
-        note.den *= 2;
-    } else if(note.dots == 3) {
-        note.num = note.num / 7 * 15;
-        note.den *= 2;
-    }
-}
+	{ note.dots++; }
 	goto st6;
 st6:
 	if ( ++p == pe )
 		goto _test_eof6;
 case 6:
-#line 2244 "lex/parser_music.cpp"
+#line 2173 "lex/parser_music.cpp"
 	if ( (*p) == 46 )
 		goto tr10;
 	goto st0;
 tr10:
 #line 85 "lex/ragel_music.rl"
-	{
-    note.dots++;
-    if(note.dots == 1) {
-        note.num *= 3;
-        note.den *= 2;
-    } else if(note.dots == 2) {
-        note.num = note.num / 3 * 7;
-        note.den *= 2;
-    } else if(note.dots == 3) {
-        note.num = note.num / 7 * 15;
-        note.den *= 2;
-    }
-}
+	{ note.dots++; }
 	goto st7;
 st7:
 	if ( ++p == pe )
 		goto _test_eof7;
 case 7:
-#line 2268 "lex/parser_music.cpp"
+#line 2185 "lex/parser_music.cpp"
 	if ( (*p) == 46 )
 		goto tr11;
 	goto st0;
 tr11:
 #line 85 "lex/ragel_music.rl"
-	{
-    note.dots++;
-    if(note.dots == 1) {
-        note.num *= 3;
-        note.den *= 2;
-    } else if(note.dots == 2) {
-        note.num = note.num / 3 * 7;
-        note.den *= 2;
-    } else if(note.dots == 3) {
-        note.num = note.num / 7 * 15;
-        note.den *= 2;
-    }
-}
+	{ note.dots++; }
 	goto st8;
 st8:
 	if ( ++p == pe )
 		goto _test_eof8;
 case 8:
-#line 2292 "lex/parser_music.cpp"
+#line 2197 "lex/parser_music.cpp"
 	goto st0;
 st3:
 	if ( ++p == pe )
@@ -2298,20 +2203,20 @@ case 3:
 		goto tr3;
 	goto st0;
 tr3:
-#line 107 "lex/ragel_music.rl"
+#line 95 "lex/ragel_music.rl"
 	{ note.den = 0; }
-#line 108 "lex/ragel_music.rl"
+#line 96 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st9;
 tr13:
-#line 108 "lex/ragel_music.rl"
+#line 96 "lex/ragel_music.rl"
 	{ (note.den *= 10) += ((*p) - '0'); }
 	goto st9;
 st9:
 	if ( ++p == pe )
 		goto _test_eof9;
 case 9:
-#line 2315 "lex/parser_music.cpp"
+#line 2220 "lex/parser_music.cpp"
 	switch( (*p) ) {
 		case 46: goto tr12;
 		case 95: goto st10;
@@ -2320,14 +2225,14 @@ case 9:
 		goto tr13;
 	goto st0;
 tr8:
-#line 102 "lex/ragel_music.rl"
+#line 90 "lex/ragel_music.rl"
 	{ note.num = 1; }
 	goto st10;
 st10:
 	if ( ++p == pe )
 		goto _test_eof10;
 case 10:
-#line 2331 "lex/parser_music.cpp"
+#line 2236 "lex/parser_music.cpp"
 	if ( (*p) == 46 )
 		goto tr12;
 	goto st0;
@@ -2351,24 +2256,24 @@ case 10:
 	case 8: 
 	case 9: 
 	case 10: 
-#line 100 "lex/ragel_music.rl"
+#line 88 "lex/ragel_music.rl"
 	{ note.durtype = DURATION_ABS; }
 	break;
 	case 4: 
 	case 5: 
-#line 102 "lex/ragel_music.rl"
+#line 90 "lex/ragel_music.rl"
 	{ note.num = 1; }
-#line 100 "lex/ragel_music.rl"
+#line 88 "lex/ragel_music.rl"
 	{ note.durtype = DURATION_ABS; }
 	break;
-#line 2365 "lex/parser_music.cpp"
+#line 2270 "lex/parser_music.cpp"
 	}
 	}
 
 	_out: {}
 	}
 
-#line 315 "lex/parser_music.rl"
+#line 316 "lex/parser_music.rl"
 
     const bool ok = cs >= 4;
 
@@ -2409,6 +2314,153 @@ size_t DurationFullMatch::parse(const AtomListView& lv, DurationVec& out)
     }
 
     return N;
+}
+
+
+#line 2321 "lex/parser_music.cpp"
+static const int time_signature_start = 1;
+static const int time_signature_first_final = 6;
+static const int time_signature_error = 0;
+
+static const int time_signature_en_main = 1;
+
+
+#line 364 "lex/parser_music.rl"
+
+
+bool TimeSignatureParser::parse(const char* str, music::TimeSignature& ts)
+{
+    const auto len = strlen(str);
+    if (len == 0)
+        return false;
+
+    int cs = 0;
+    const char* p = str;
+    const char* pe = p + len;
+    const char* eof = pe;
+
+    fsm::TimeSignatureData ragel_ts;
+
+    
+#line 2346 "lex/parser_music.cpp"
+	{
+	cs = time_signature_start;
+	}
+
+#line 380 "lex/parser_music.rl"
+    
+#line 2353 "lex/parser_music.cpp"
+	{
+	if ( p == pe )
+		goto _test_eof;
+	switch ( cs )
+	{
+case 1:
+	if ( (*p) == 124 )
+		goto st2;
+	goto st0;
+st0:
+cs = 0;
+	goto _out;
+tr6:
+#line 141 "lex/ragel_music.rl"
+	{ ragel_ts.sig.push_back({ragel_ts.num, ragel_ts.div}); }
+	goto st2;
+st2:
+	if ( ++p == pe )
+		goto _test_eof2;
+case 2:
+#line 2374 "lex/parser_music.cpp"
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr2;
+	goto st0;
+tr2:
+#line 137 "lex/ragel_music.rl"
+	{ ragel_ts.num = 0; }
+#line 137 "lex/ragel_music.rl"
+	{ (ragel_ts.num *= 10) += ((*p) - '0'); }
+	goto st3;
+tr4:
+#line 137 "lex/ragel_music.rl"
+	{ (ragel_ts.num *= 10) += ((*p) - '0'); }
+	goto st3;
+st3:
+	if ( ++p == pe )
+		goto _test_eof3;
+case 3:
+#line 2392 "lex/parser_music.cpp"
+	if ( (*p) == 47 )
+		goto st4;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr4;
+	goto st0;
+st4:
+	if ( ++p == pe )
+		goto _test_eof4;
+case 4:
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr5;
+	goto st0;
+tr5:
+#line 138 "lex/ragel_music.rl"
+	{ ragel_ts.div = 0; }
+#line 138 "lex/ragel_music.rl"
+	{ (ragel_ts.div *= 10) += ((*p) - '0'); }
+	goto st5;
+tr7:
+#line 138 "lex/ragel_music.rl"
+	{ (ragel_ts.div *= 10) += ((*p) - '0'); }
+	goto st5;
+st5:
+	if ( ++p == pe )
+		goto _test_eof5;
+case 5:
+#line 2419 "lex/parser_music.cpp"
+	switch( (*p) ) {
+		case 43: goto tr6;
+		case 124: goto tr8;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr7;
+	goto st0;
+tr8:
+#line 141 "lex/ragel_music.rl"
+	{ ragel_ts.sig.push_back({ragel_ts.num, ragel_ts.div}); }
+	goto st6;
+st6:
+	if ( ++p == pe )
+		goto _test_eof6;
+case 6:
+#line 2435 "lex/parser_music.cpp"
+	goto st0;
+	}
+	_test_eof2: cs = 2; goto _test_eof; 
+	_test_eof3: cs = 3; goto _test_eof; 
+	_test_eof4: cs = 4; goto _test_eof; 
+	_test_eof5: cs = 5; goto _test_eof; 
+	_test_eof6: cs = 6; goto _test_eof; 
+
+	_test_eof: {}
+	_out: {}
+	}
+
+#line 381 "lex/parser_music.rl"
+
+    const bool ok = cs >= 6;
+
+    if (ok) {
+        auto& data = ragel_ts.sig;
+        auto N = data.size();
+        if (N == 0)
+            return false;
+
+        ts.set(data.front().first, data.front().second);
+
+        for (size_t i = 1; i < N; i++)
+            ts.append(data[i].first, data[i].second);
+    }
+
+    return ok;
 }
 
 

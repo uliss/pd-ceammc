@@ -301,6 +301,7 @@ bool DurationFullMatch::parse(const char* str)
     if (len == 0)
         return false;
 
+    int cs = 0;
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;
@@ -352,6 +353,47 @@ size_t DurationFullMatch::parse(const AtomListView& lv, DurationVec& out)
     }
 
     return N;
+}
+
+%%{
+    machine time_signature;
+    include music_common "ragel_music.rl";
+
+    main := time_signature;
+    write data;
+}%%
+
+bool TimeSignatureParser::parse(const char* str, music::TimeSignature& ts)
+{
+    const auto len = strlen(str);
+    if (len == 0)
+        return false;
+
+    int cs = 0;
+    const char* p = str;
+    const char* pe = p + len;
+    const char* eof = pe;
+
+    fsm::TimeSignatureData ragel_ts;
+
+    %% write init;
+    %% write exec;
+
+    const bool ok = cs >= %%{ write first_final; }%%;
+
+    if (ok) {
+        auto& data = ragel_ts.sig;
+        auto N = data.size();
+        if (N == 0)
+            return false;
+
+        ts.set(data.front().first, data.front().second);
+
+        for (size_t i = 1; i < N; i++)
+            ts.append(data[i].first, data[i].second);
+    }
+
+    return ok;
 }
 
 
