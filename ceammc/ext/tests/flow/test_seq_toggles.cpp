@@ -395,5 +395,11 @@ TEST_CASE("seq.toggles", "[externals]")
 
         t->setProperty("@t", A("60|1/16bpm"));
         REQUIRE_PROPERTY(t, @t, 250);
+
+        t->setProperty("@t", A("120|1/16bpm"));
+        REQUIRE_PROPERTY(t, @t, 125);
+
+        t->setProperty("@t", A("120|2/16bpm"));
+        REQUIRE_PROPERTY(t, @t, 250);
     }
 }

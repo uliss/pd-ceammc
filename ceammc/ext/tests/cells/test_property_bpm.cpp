@@ -42,7 +42,6 @@ TEST_CASE("BpmProperty", "[core]")
         REQUIRE(p.value() == SYM("120|4bpm"));
         REQUIRE(p.defaultValue() == SYM("120|4bpm"));
         REQUIRE(p.get() == LA("120|4bpm"));
-        REQUIRE(p.ratio() == 0.25);
         REQUIRE(p.beatDivision() == 4);
 
         Atom bpm;
@@ -58,7 +57,7 @@ TEST_CASE("BpmProperty", "[core]")
 
     SECTION("args")
     {
-        BpmProperty p("@bpm", 120.5, 1, BpmProperty::BEAT_16);
+        BpmProperty p("@bpm", { 120.5, 16 });
         REQUIRE(p.get() == LA("120.5|16bpm"));
 
         REQUIRE(p.setFloat(96));
@@ -77,7 +76,6 @@ TEST_CASE("BpmProperty", "[core]")
         REQUIRE(p.setList(LA("152")));
         REQUIRE(p.get() == LA("152"));
         REQUIRE(p.bpm() == 152);
-        REQUIRE(p.beatNum() == 1);
         REQUIRE(p.beatDivision() == 4);
 
         REQUIRE(p.setAtom(A(60)));
@@ -87,52 +85,87 @@ TEST_CASE("BpmProperty", "[core]")
         REQUIRE(p.setSymbol(SYM("102|3/16_bpm")));
         REQUIRE(p.get() == LA("102|3/16_bpm"));
         REQUIRE(p.bpm() == 102);
-        REQUIRE(p.beatNum() == 3);
         REQUIRE(p.beatDivision() == 16);
 
         REQUIRE(p.set(LF(60)));
-        REQUIRE(p.beatDurationMs() == 1000);
-        REQUIRE(p.barDurationMs() == 1000);
-        REQUIRE(p.wholeNoteDurationMs() == 4000);
+        REQUIRE(p.timeMs() == 1000);
 
         REQUIRE(p.set(LF(120)));
-        REQUIRE(p.beatDurationMs() == 500);
-        REQUIRE(p.barDurationMs() == 500);
-        REQUIRE(p.wholeNoteDurationMs() == 2000);
+        REQUIRE(p.timeMs() == 500);
 
-        REQUIRE(p.set(LA("60|4bpm")));
-        REQUIRE(p.beatDurationMs() == 1000);
-        REQUIRE(p.barDurationMs() == 1000);
-        REQUIRE(p.wholeNoteDurationMs() == 4000);
+        REQUIRE(p.set(LA("60|1/4bpm")));
+        REQUIRE(p.timeMs() == 1000);
 
-        REQUIRE(p.set(LA("60|8bpm")));
-        REQUIRE(p.beatDurationMs() == 1000);
-        REQUIRE(p.beatDurationMs() == 1000);
-        REQUIRE(p.wholeNoteDurationMs() == 8000);
+        REQUIRE(p.set(LA("60|1/8bpm")));
+        REQUIRE(p.timeMs() == 1000);
 
-        REQUIRE(p.set(LA("60|2bpm")));
-        REQUIRE(p.beatDurationMs() == 1000);
-        REQUIRE(p.barDurationMs() == 1000);
-        REQUIRE(p.wholeNoteDurationMs() == 2000);
+        REQUIRE(p.set(LA("60|1/2bpm")));
+        REQUIRE(p.timeMs() == 1000);
 
         REQUIRE(p.set(LA("60|2/2bpm")));
-        REQUIRE(p.beatDurationMs() == 500);
-        REQUIRE(p.barDurationMs() == 1000);
-        REQUIRE(p.wholeNoteDurationMs() == 1000);
+        REQUIRE(p.timeMs() == 1000);
 
         REQUIRE(p.set(LA("60|3/4bpm")));
-        REQUIRE(p.beatDurationMs() == Approx(1000 / 3.0));
-        REQUIRE(p.barDurationMs() == 1000);
-        REQUIRE(p.wholeNoteDurationMs() == Approx(4 / 3.0 * 1000));
+        REQUIRE(p.timeMs() == 1000);
 
-        REQUIRE(p.set(LA("60|4/8bpm")));
-        REQUIRE(p.beatDurationMs() == 250);
-        REQUIRE(p.barDurationMs() == 1000);
-        REQUIRE(p.wholeNoteDurationMs() == 2000);
+        REQUIRE(p.set(LA("120|4/8bpm")));
+        REQUIRE(p.timeMs() == 500);
 
         REQUIRE(p.set(LA("60|4/4bpm")));
-        REQUIRE(p.beatDurationMs() == 250);
-        REQUIRE(p.barDurationMs() == 1000);
-        REQUIRE(p.wholeNoteDurationMs() == 1000);
+        REQUIRE(p.timeMs() == 1000);
+
+        REQUIRE(p.setList(LF(122, 16)));
+        REQUIRE(p.beatDivision() == 16);
+        REQUIRE(p.bpm() == 122);
+        REQUIRE(p.get() == LA("122|16bpm"));
+    }
+
+    SECTION("setFloat")
+    {
+        REQUIRE(p.setFloat(1));
+        REQUIRE(p.get() == LA("1|4bpm"));
+        REQUIRE(p.bpm() == 1);
+
+        REQUIRE(p.setFloat(1024));
+        REQUIRE(p.get() == LA("1024|4bpm"));
+        REQUIRE(p.bpm() == 1024);
+
+        REQUIRE(p.setFloat(120.125));
+        REQUIRE(p.get() == LA("120.125|4bpm"));
+
+        REQUIRE(p.setFloat(0));
+        REQUIRE(p.get() == LA("0|4bpm"));
+        REQUIRE(p.timeMs() == 0);
+    }
+
+    SECTION("setList")
+    {
+        REQUIRE(p.setList(LF(1)));
+        REQUIRE(p.get() == LA("1|4bpm"));
+        REQUIRE(p.bpm() == 1);
+
+        REQUIRE(p.setList(LF(60, 16)));
+        REQUIRE(p.get() == LA("60|16bpm"));
+        REQUIRE(p.bpm() == 60);
+
+        REQUIRE_FALSE(p.setList(LF(60, 16, 14)));
+    }
+
+    SECTION("setSymbol")
+    {
+        REQUIRE(p.setSymbol(SYM("96|4.bpm")));
+        REQUIRE(p.get() == LA("96|4.bpm"));
+        REQUIRE(p.bpm() == 96);
+        REQUIRE(p.beatDuration() == music::Duration(3, 8));
+
+        REQUIRE(p.setSymbol(SYM("60|1/4bpm")));
+        REQUIRE(p.get() == LA("60|1/4bpm"));
+        REQUIRE(p.bpm() == 60);
+        REQUIRE(p.beatDuration() == music::Duration(1, 4));
+
+        REQUIRE_FALSE(p.setSymbol(SYM("60|0bpm")));
+        REQUIRE(p.get() == LA("60|1/4bpm"));
+
+        REQUIRE_FALSE(p.setSymbol(&s_));
     }
 }

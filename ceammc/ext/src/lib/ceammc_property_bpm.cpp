@@ -14,17 +14,16 @@
 #include "ceammc_property_bpm.h"
 #include "ceammc_log.h"
 #include "fmt/core.h"
-#include "lex/parser_music.h"
 
 #define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
+constexpr const char* USAGE_STR = "example values: 120|8bpm, 96|5/8bpm, 60 4, 144";
 
 namespace ceammc {
 
-BpmProperty::BpmProperty(const std::string& name, t_float init, std::uint16_t num, BeatDivision div, PropValueAccess access)
-    : SymbolProperty(name, gensym(fmt::format("{}|{}bpm", init, div).c_str()), access)
-    , bpm_(init)
-    , beat_num_(num)
-    , beat_div_(div)
+BpmProperty::BpmProperty(const std::string& name, const music::Tempo& tempo, PropValueAccess access)
+    : SymbolProperty(name, gensym(tempo.toString().c_str()), access)
+    , tempo_(tempo)
+    , dirty_(false)
 {
     setUnits(PropValueUnits::BPM);
 }
@@ -34,7 +33,15 @@ bool BpmProperty::setList(const AtomListView& lv)
     if (!emptyCheck(lv))
         return false;
 
-    return setAtom(lv.front());
+    if (lv.isAtom())
+        return setAtom(lv.front());
+    else if (lv.size() == 2 && lv[0].isFloat() && lv[1].isInteger()) {
+        dirty_ = tempo_.set(lv.floatAt(0, 60), lv.intAt(1, 4));
+        return dirty_;
+    } else {
+        PROP_ERR() << "invalid BPM value: " << lv << "\n\t" << USAGE_STR;
+        return false;
+    }
 }
 
 bool BpmProperty::setAtom(const Atom& a)
@@ -49,74 +56,66 @@ bool BpmProperty::setAtom(const Atom& a)
 
 bool BpmProperty::setFloat(t_float f)
 {
-    auto ok = setBpm(f) && setBeatNum(1) && setBeatDivision(BEAT_4);
-    if (ok)
-        return SymbolProperty::setValue(gensym(fmt::format("{}|{}bpm", bpm_, BEAT_4).c_str()));
-    else
-        return false;
-}
-
-bool BpmProperty::setSymbol(t_symbol* s)
-{
-    using namespace ceammc::parser;
-    BpmFullMatch p;
-    Bpm bpm;
-    if (!p.parse(s->s_name, bpm)) {
-        PROP_ERR() << "invalid BPM value: " << s->s_name;
-        return false;
-    }
-
-    bpm_ = bpm.bpm;
-    beat_num_ = bpm.beat_num;
-    beat_div_ = bpm.beat_div;
-    SymbolProperty::setSymbol(s);
-    return true;
-}
-
-t_float BpmProperty::ratio() const
-{
-    return (beat_div_ > 0) ? (t_float(beat_num_) / beat_div_) : 0;
-}
-
-bool BpmProperty::setBpm(t_float bpm)
-{
-    if (bpm >= 0) {
-        bpm_ = bpm;
+    if (tempo_.set(f, 4, 0)) {
+        dirty_ = true;
         return true;
     } else
         return false;
 }
 
-bool BpmProperty::setBeatNum(std::uint16_t beatNum)
+bool BpmProperty::setSymbol(t_symbol* s)
 {
-    beat_num_ = beatNum;
-    return true;
-}
-
-bool BpmProperty::setBeatDivision(t_float beatDiv)
-{
-    if (beatDiv <= 0) {
-        PROP_ERR() << "positive duration value expected, got: " << beatDiv;
+    if (!tempo_.parse(s->s_name)) {
+        PROP_ERR() << fmt::format("invalid BPM value: {}\n\t{}", s->s_name, USAGE_STR);
         return false;
     }
 
-    beat_div_ = beatDiv;
+    SymbolProperty::setSymbol(s);
+    dirty_ = false;
     return true;
 }
 
-t_float BpmProperty::beatDurationMs() const
+bool BpmProperty::getSymbol(t_symbol*& s) const
 {
-    return (60000.0 / bpm_) / beat_num_;
+    sync();
+    return SymbolProperty::getSymbol(s);
 }
 
-t_float BpmProperty::wholeNoteDurationMs() const
+AtomList BpmProperty::get() const
 {
-    return beat_div_ * beatDurationMs();
+    sync();
+    return { value() };
 }
 
-t_float BpmProperty::barDurationMs() const
+bool BpmProperty::setBpm(t_float bpm)
 {
-    return beatDurationMs() * beat_num_;
+    if (tempo_.setBpm(bpm)) {
+        dirty_ = true;
+        return true;
+    } else {
+        PROP_ERR() << fmt::format("invalid BPM value: {}\n\t{}", bpm, USAGE_STR);
+        return false;
+    }
+}
+
+bool BpmProperty::setBeatDivision(int beatDiv)
+{
+    if (tempo_.setDivision(beatDiv)) {
+        dirty_ = true;
+        return true;
+    } else {
+        PROP_ERR() << fmt::format("invalid beat division value: {}\n\t", beatDiv, USAGE_STR);
+        return false;
+    }
+}
+
+void BpmProperty::sync() const
+{
+    if (dirty_) {
+        auto cthis = const_cast<SymbolProperty*>(static_cast<const SymbolProperty*>(this));
+        cthis->setValue(gensym(tempo_.toString().c_str()));
+        dirty_ = false;
+    }
 }
 
 }

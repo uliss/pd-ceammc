@@ -14,59 +14,47 @@
 #ifndef CEAMMC_PROPERTY_BPM_H
 #define CEAMMC_PROPERTY_BPM_H
 
+#include "ceammc_music_theory_tempo.h"
 #include "ceammc_property.h"
 
 namespace ceammc {
 
 class BpmProperty : public SymbolProperty {
-    t_float bpm_ { 0 };
-    t_float beat_num_ { 0 };
-    t_float beat_div_ { 0 };
-
-public:
-    enum BeatDivision {
-        BEAT_1 = 1,
-        BEAT_2 = 2,
-        BEAT_4 = 4,
-        BEAT_8 = 8,
-        BEAT_16 = 16,
-        BEAT_32 = 32,
-        BEAT_64 = 64,
-        BEAT_128 = 128
-    };
+    music::Tempo tempo_;
+    mutable bool dirty_ { false };
 
 public:
     BpmProperty(const std::string& name,
-        t_float init,
-        std::uint16_t num = 1,
-        BeatDivision div = BEAT_4,
+        const music::Tempo& tempo,
         PropValueAccess access = PropValueAccess::READWRITE);
 
     bool setList(const AtomListView& lv) override;
     bool setAtom(const Atom& a) override;
     bool setFloat(t_float f) override;
     bool setSymbol(t_symbol* s) override;
+    bool getSymbol(t_symbol*& s) const override;
+    AtomList get() const override;
 
     // overwrite parent
     bool setValue(t_symbol* s);
     bool setValue(const Atom& a);
 
-    t_float ratio() const;
+    const music::Tempo& tempo() const { return tempo_; }
 
-    t_float bpm() const { return bpm_; }
+    t_float bpm() const { return tempo_.bpm(); }
     bool setBpm(t_float bpm);
 
-    std::uint16_t beatNum() const { return beat_num_; }
-    bool setBeatNum(std::uint16_t beatNum);
+    int beatDivision() const { return tempo_.division(); }
+    bool setBeatDivision(int beatDiv);
 
-    t_float beatDivision() const { return beat_div_; }
-    bool setBeatDivision(t_float beatDiv);
+    music::Duration beatDuration() const { return tempo_.beatDuration(); }
+    bool isNull() const { return tempo_.isNull(); }
 
-    bool isQuater() const { return beat_div_ == 0.25; }
+    t_float timeMs() const { return tempo_.beatDurationMs(); }
+    t_float wholeNoteDurationMs() const { return tempo_.wholeNoteDurationMs(); }
 
-    t_float beatDurationMs() const;
-    t_float wholeNoteDurationMs() const;
-    t_float barDurationMs() const;
+private:
+    void sync() const;
 };
 
 }

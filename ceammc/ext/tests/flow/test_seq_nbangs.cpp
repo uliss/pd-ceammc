@@ -241,6 +241,20 @@ TEST_CASE("seq.nbangs", "[externals]")
             REQUIRE_PROPERTY(t, @n, 10);
         }
 
+        SECTION("bpm")
+        {
+            TObj t("seq.nbangs", LA(10, "120|8bpm"));
+            REQUIRE_PROPERTY(t, @t, 250);
+            REQUIRE_PROPERTY(t, @n, 10);
+        }
+
+        SECTION("bpm")
+        {
+            TObj t("seq.nbangs", LA(10, "120|16bpm"));
+            REQUIRE_PROPERTY(t, @t, 125);
+            REQUIRE_PROPERTY(t, @n, 10);
+        }
+
         SECTION("dur")
         {
             TObj t("seq.nbangs", LA(10, "@dur", 150));

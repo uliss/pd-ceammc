@@ -372,22 +372,25 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
             REQUIRE(p.parse("Cb5|2."));
             REQUIRE(p.note().spn.midi() == 71);
             REQUIRE(p.note().spn.oct == 5);
-            REQUIRE(p.note().dur.num == 3);
-            REQUIRE(p.note().dur.den == 4);
+            REQUIRE(p.note().dur.num == 1);
+            REQUIRE(p.note().dur.den == 2);
+            REQUIRE(p.note().dur.dots == 1);
             REQUIRE(p.note().dur.ratio() == 0.75);
 
             REQUIRE(p.parse("Cb5|2.."));
             REQUIRE(p.note().spn.midi() == 71);
             REQUIRE(p.note().spn.oct == 5);
-            REQUIRE(p.note().dur.num == 7);
-            REQUIRE(p.note().dur.den == 8);
+            REQUIRE(p.note().dur.num == 1);
+            REQUIRE(p.note().dur.den == 2);
+            REQUIRE(p.note().dur.dots == 2);
             REQUIRE(p.note().dur.ratio() == 0.875);
 
             REQUIRE(p.parse("Cbb5|2..."));
             REQUIRE(p.note().spn.midi() == 70);
             REQUIRE(p.note().spn.oct == 5);
-            REQUIRE(p.note().dur.num == 15);
-            REQUIRE(p.note().dur.den == 16);
+            REQUIRE(p.note().dur.num == 1);
+            REQUIRE(p.note().dur.den == 2);
+            REQUIRE(p.note().dur.dots == 3);
             REQUIRE(p.note().dur.ratio() == 0.9375);
 
             REQUIRE(p.parse("D|256"));
@@ -406,8 +409,9 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
             REQUIRE(p.note().dur.timeMs() == 1000);
 
             REQUIRE(p.parse("D|1/4."));
-            REQUIRE(p.note().dur.num == 3);
-            REQUIRE(p.note().dur.den == 8);
+            REQUIRE(p.note().dur.num == 1);
+            REQUIRE(p.note().dur.den == 4);
+            REQUIRE(p.note().dur.dots == 1);
             REQUIRE(p.note().dur.ratio() == 0.375);
             REQUIRE(p.note().dur.timeMs() == 1500);
 
@@ -419,20 +423,23 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
 
             REQUIRE(p.parse("C(+50c)|2/4."));
             REQUIRE(p.note().spn.midi() == 60.5);
-            REQUIRE(p.note().dur.num == 6);
-            REQUIRE(p.note().dur.den == 8);
+            REQUIRE(p.note().dur.num == 2);
+            REQUIRE(p.note().dur.den == 4);
+            REQUIRE(p.note().dur.dots == 1);
             REQUIRE(p.note().dur.isAbs());
 
             REQUIRE(p.parse("C(+25c)|2/4."));
             REQUIRE(p.note().spn.midi() == 60.25);
-            REQUIRE(p.note().dur.num == 6);
-            REQUIRE(p.note().dur.den == 8);
+            REQUIRE(p.note().dur.num == 2);
+            REQUIRE(p.note().dur.den == 4);
+            REQUIRE(p.note().dur.dots == 1);
             REQUIRE(p.note().dur.isAbs());
 
             REQUIRE(p.parse("C(+12c)|2/4."));
             REQUIRE(p.note().spn.midi() == Approx(60.12));
-            REQUIRE(p.note().dur.num == 6);
-            REQUIRE(p.note().dur.den == 8);
+            REQUIRE(p.note().dur.num == 2);
+            REQUIRE(p.note().dur.den == 4);
+            REQUIRE(p.note().dur.dots == 1);
             REQUIRE(p.note().dur.isAbs());
 
             REQUIRE(p.parse("C^(+50c)|*11"));
@@ -480,6 +487,37 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
 
     SECTION("duration")
     {
+        SECTION("bpm struct")
+        {
+            using namespace parser;
+            Bpm bpm { 60, 1, 4 };
+
+            REQUIRE(bpm.beatPeriodMs() == 1000);
+            REQUIRE(bpm.wholePeriodMs() == 4000);
+        }
+
+        SECTION("struct")
+        {
+            using namespace parser;
+            Duration dur;
+            REQUIRE(dur.isAbs());
+            REQUIRE(dur.ratio() == 0.25);
+            REQUIRE(dur.den == 4);
+            REQUIRE(dur.dots == 0);
+            REQUIRE(dur.repeats == 1);
+            REQUIRE(dur.num == 1);
+            REQUIRE(dur.timeMs({ 60, 1, 4 }) == 1000);
+            REQUIRE(dur.timeMs({ 120, 1, 4 }) == 500);
+            REQUIRE(dur.timeMs({ 120, 1, 8 }) == 1000);
+            REQUIRE(dur.timeMs({ 120, 1, 16 }) == 2000);
+            REQUIRE(dur.timeMs({ 120, 1, 32 }) == 4000);
+
+            REQUIRE(dur.timeMs({ 120, 1, 8 }) == 1000);
+            REQUIRE(dur.timeMs({ 120, 2, 8 }) == 500);
+            REQUIRE(dur.timeMs({ 120, 4, 8 }) == 250);
+            REQUIRE(dur.timeMs({ 120, 8, 8 }) == 125);
+        }
+
         SECTION("str")
         {
             using namespace ceammc::parser;
@@ -487,9 +525,19 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
 
             REQUIRE(p.parse("4"));
             REQUIRE(p.result().ratio() == 0.25);
+            REQUIRE(p.result().isAbs());
+            REQUIRE(p.result().den == 4);
+            REQUIRE(p.result().num == 1);
+            REQUIRE(p.result().dots == 0);
+
+            REQUIRE(p.result().timeMs({ 60, 1, 4 }) == 1000);
 
             REQUIRE(p.parse("2."));
             REQUIRE(p.result().ratio() == 0.75);
+            REQUIRE(p.result().isAbs());
+            REQUIRE(p.result().den == 2);
+            REQUIRE(p.result().num == 1);
+            REQUIRE(p.result().dots == 1);
 
             REQUIRE(p.parse("2.."));
             REQUIRE(p.result().ratio() == 0.875);
