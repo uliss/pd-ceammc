@@ -241,9 +241,10 @@ HwMotuAvb::Future HwMotuAvb::createTask()
         MotuAvbRequest req;
 
         try {
-            auto http_cli = make_http_cli(req.host, req.port);
 
             while (inPipe().try_dequeue(req)) {
+                auto http_cli = make_http_cli(req.host, req.port);
+
                 switch (req.type) {
                 case REQ_SYNC: {
 
