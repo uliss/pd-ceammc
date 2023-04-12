@@ -170,25 +170,34 @@ HttpClientPtr make_http_cli(const std::string& host, int http_port)
     return cli;
 }
 
-bool setSingleValue(HttpClientPtr& cli,
+enum SetValueStatus {
+    SET_VALUE_OK,
+    SET_VALUE_NOT_FOUND,
+    SET_VALUE_ERROR,
+};
+
+SetValueStatus setSingleValue(HttpClientPtr& cli,
     const std::string& device,
     const char* key,
     const MotuAvbRequest& req,
     ThreadPdLogger& log)
 {
-    if (!cli || !req.data.contains(key))
-        return false;
+    if (!cli)
+        return SET_VALUE_ERROR;
+
+    if(!req.data.contains(key))
+        return SET_VALUE_NOT_FOUND;
 
     char key_chan[KEY_MAX_LENGTH];
     makeKeyChan(key, key_chan, KEY_MAX_LENGTH - 1);
 
     if (!req.data.contains(key_chan))
-        return false;
+        return SET_VALUE_NOT_FOUND;
 
     auto it = UrlMap.find(key);
     if (it == UrlMap.end()) {
         log.error(fmt::format("key not found: '{}'", key));
-        return false;
+        return SET_VALUE_NOT_FOUND;
     }
 
     auto chan = req.data.at(key_chan).intAt(0, 0);
@@ -204,12 +213,12 @@ bool setSingleValue(HttpClientPtr& cli,
     if (res) {
         if (res->status != 200 && res->status != 204) {
             log.error(fmt::format("http error status: '{}'", res->status));
-            return false;
+            return SET_VALUE_ERROR;
         } else
-            return true;
+            return SET_VALUE_OK;
     } else {
         log.error(fmt::format("http request error: '{}'", to_string(res.error())));
-        return false;
+        return SET_VALUE_ERROR;
     }
 }
 
@@ -278,7 +287,7 @@ HwMotuAvb::Future HwMotuAvb::createTask()
                 } break;
                 case REQ_SET: {
                     for (auto& kv : UrlMap) {
-                        if (!setSingleValue(http_cli, req.device, kv.first, req, logger_)) {
+                        if (SET_VALUE_ERROR == setSingleValue(http_cli, req.device, kv.first, req, logger_)) {
                             while (inPipe().try_dequeue(req)) // clean queue
                                 ;
 
