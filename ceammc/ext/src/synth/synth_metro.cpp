@@ -10,7 +10,7 @@
 using namespace ceammc;
 
 class SynthMetro : public faust_synth_metro_tilde {
-    UIProperty* beats_[4] = { 0 };
+    std::array<UIProperty*, 4> beats_;
     ClockLambdaFunction clock_on_, clock_off_;
     music::BeatList pattern_;
     std::uint32_t pattern_idx_ { 0 };
@@ -20,7 +20,7 @@ class SynthMetro : public faust_synth_metro_tilde {
 public:
     SynthMetro(const PdArgs& args)
         : faust_synth_metro_tilde(args)
-        , beats_ { findUIProperty("@down"), findUIProperty("@on"), findUIProperty("@off"), findUIProperty("@mark") }
+        , beats_ { findUIProperty("@.down"), findUIProperty("@.on"), findUIProperty("@.off"), findUIProperty("@.mark") }
         , clock_on_([this]() {
             if (pattern_.empty())
                 return;
@@ -42,6 +42,9 @@ public:
     {
         createInlet();
         createInlet();
+
+        for (auto p : beats_)
+            p->setInternal();
 
         tempo_ = new BpmProperty("@tempo", 60);
         tempo_->setArgIndex(0);
@@ -99,15 +102,24 @@ public:
         tempo_->setBpm(lv.asT<t_float>());
     }
 
+    void m_down(t_symbol*, const AtomListView&) { bangBeat(music::BEAT_DOWN); }
+    void m_on(t_symbol*, const AtomListView&) { bangBeat(music::BEAT_ON); }
+    void m_off(t_symbol*, const AtomListView&) { bangBeat(music::BEAT_OFF); }
+    void m_mark(t_symbol*, const AtomListView&) { bangBeat(music::BEAT_MARK); }
+
 private:
     void bangBeat(int t)
     {
-        if (t < music::BEAT_DOWN || t > music::BEAT_OFF)
+        if (t < music::BEAT_DOWN || t > music::BEAT_MAX)
             return;
 
-        if (beats_[t - 1]) {
-            beats_[t - 1]->setValue(1, true);
-            clock_off_.delay(10);
+        try {
+            if (beats_.at(t - 1)) {
+                beats_[t - 1]->setValue(1, true);
+                clock_off_.delay(10);
+            }
+        } catch (std::exception& e) {
+            OBJ_ERR << e.what();
         }
     }
 };
@@ -116,6 +128,10 @@ void setup_synth_metro_tilde()
 {
     SoundExternalFactory<SynthMetro> obj("synth.metro~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("tempo", &SynthMetro::m_tempo);
+    obj.addMethod("down", &SynthMetro::m_down);
+    obj.addMethod("on", &SynthMetro::m_on);
+    obj.addMethod("off", &SynthMetro::m_off);
+    obj.addMethod("mark", &SynthMetro::m_mark);
 
     obj.setXletsInfo({ "bool: on/off metro", "int: bang beat", "float: set bpm" }, { "signal: out" });
 

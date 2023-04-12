@@ -7,7 +7,10 @@
 #X obj 653 11 synth.metro~;
 #X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X msg 155 147 1;
-#X floatatom 309 147 5 0 0 0 - - -;
+#X msg 194 147 2;
+#X msg 232 147 3;
+#X msg 270 147 4;
+#X floatatom 347 147 5 0 0 0 - - -;
 #X obj 50 176 synth.metro~ 120|8bpm |5/4+3/16|;
 #X obj 50 205 ui.hgain~;
 #X obj 50 234 dac~;
@@ -37,64 +40,67 @@ value: 6\. Range: -12\...12\.;
 #X msg 110 526 @down.reson;
 #X text 245 526 Get/Set downbeat resonance value (Q). Type: float.
 Default value: 50\. Range: 5\...100\.;
-#X msg 110 568 @mark.freq;
-#X text 245 568 Get/Set mark sound frequency. Type: float. Units: Hz.
+#X msg 110 568 @gain;
+#X text 245 568 Get/Set common synth gain. Type: float. Units: db.
+Default value: 0\. Range: -12\...12\.;
+#X msg 110 610 @mark.freq;
+#X text 245 610 Get/Set mark sound frequency. Type: float. Units: Hz.
 Default value: 2000\. Range: 100\...5000\.;
-#X msg 110 610 @mark.gain;
-#X text 245 610 Get/Set mark sound gain. Type: float. Units: db. Default
+#X msg 110 652 @mark.gain;
+#X text 245 652 Get/Set mark sound gain. Type: float. Units: db. Default
 value: 6\. Range: -12\...12\.;
-#X msg 110 652 @mark.reson;
-#X text 245 652 Get/Set mark sound resonance value (Q). Type: float.
+#X msg 110 694 @mark.reson;
+#X text 245 694 Get/Set mark sound resonance value (Q). Type: float.
 Default value: 500\. Range: 5\...500\.;
-#X msg 110 694 @off.freq;
-#X text 245 694 Get/Set off-beat frequency. Type: float. Units: Hz.
+#X msg 110 736 @off.freq;
+#X text 245 736 Get/Set off-beat frequency. Type: float. Units: Hz.
 Default value: 500\. Range: 100\...5000\.;
-#X msg 110 736 @off.gain;
-#X text 245 736 Get/Set off-beat gain. Type: float. Units: db. Default
+#X msg 110 778 @off.gain;
+#X text 245 778 Get/Set off-beat gain. Type: float. Units: db. Default
 value: 6\. Range: -12\...12\.;
-#X msg 110 778 @off.reson;
-#X text 245 778 Get/Set off-beat resonance value (Q). Type: float.
+#X msg 110 820 @off.reson;
+#X text 245 820 Get/Set off-beat resonance value (Q). Type: float.
 Default value: 10\. Range: 5\...100\.;
-#X msg 110 820 @on.freq;
-#X text 245 820 Get/Set on-beat frequency. Type: float. Units: Hz.
+#X msg 110 862 @on.freq;
+#X text 245 862 Get/Set on-beat frequency. Type: float. Units: Hz.
 Default value: 1000\. Range: 100\...5000\.;
-#X msg 110 862 @on.gain;
-#X text 245 862 Get/Set on-beat gain. Type: float. Units: db. Default
+#X msg 110 904 @on.gain;
+#X text 245 904 Get/Set on-beat gain. Type: float. Units: db. Default
 value: 6\. Range: -12\...12\.;
-#X msg 110 904 @on.reson;
-#X text 245 904 Get/Set on-beat resonance value (Q). Type: float. Default
+#X msg 110 946 @on.reson;
+#X text 245 946 Get/Set on-beat resonance value (Q). Type: float. Default
 value: 30\. Range: 5\...100\.;
-#X msg 110 946 @tempo;
-#X text 245 946 Get/Set tempo. If beat division is ommitted \, using
+#X msg 110 988 @tempo;
+#X text 245 988 Get/Set tempo. If beat division is ommitted \, using
 1/4\. Type: symbol. Units: bpm. Default value: 60|4bpm.;
-#X msg 110 988 @ts;
-#X text 245 988 Get/Set metronome time signature \, can be complex
+#X msg 110 1030 @ts;
+#X text 245 1030 Get/Set metronome time signature \, can be complex
 like: |1/4+15/16| etc. Type: symbol. Default value: |4/4|.;
-#X obj 20 1040 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1045 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1082 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1087 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1046 1\.;
-#X text 150 1046 *float*;
-#X text 245 1046 1: start \, 0: stop metronome.;
-#X text 110 1066 2\.;
-#X text 150 1066 *int*;
-#X text 245 1066 1: play downbeat \, 2: play on-beat \, 3: play off-beat.;
-#X text 110 1086 3\.;
-#X text 150 1086 *float*;
-#X text 245 1086 set tempo in 1/4 per minute.;
-#X obj 20 1116 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1121 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1088 1\.;
+#X text 150 1088 *float*;
+#X text 245 1088 1: start \, 0: stop metronome.;
+#X text 110 1108 2\.;
+#X text 150 1108 *int*;
+#X text 245 1108 1: play downbeat \, 2: play on-beat \, 3: play off-beat.;
+#X text 110 1128 3\.;
+#X text 150 1128 *float*;
+#X text 245 1128 set tempo in 1/4 per minute.;
+#X obj 20 1158 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1163 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1122 1\.;
-#X text 245 1122 synth output.;
+#X text 110 1164 1\.;
+#X text 245 1164 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1172 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1175 library: ceammc v0.9.6;
-#N canvas 10 1194 400 290 info 0;
+#X obj 1 1214 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1217 library: ceammc v0.9.6;
+#N canvas 10 1236 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -118,10 +124,13 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1194 pd info;
-#X connect 4 0 7 0;
-#X connect 5 0 7 1;
-#X connect 6 0 7 2;
-#X connect 7 0 8 0;
-#X connect 8 0 9 0;
-#X connect 8 0 9 1;
+#X restore 10 1236 pd info;
+#X connect 4 0 10 0;
+#X connect 5 0 10 1;
+#X connect 6 0 10 1;
+#X connect 7 0 10 1;
+#X connect 8 0 10 1;
+#X connect 9 0 10 2;
+#X connect 10 0 11 0;
+#X connect 11 0 12 0;
+#X connect 11 0 12 1;

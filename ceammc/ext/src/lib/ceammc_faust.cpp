@@ -565,7 +565,7 @@ namespace faust {
         step_ = step;
 
         if (type() != UI_CHECK_BUTTON) {
-            if (!pinfo_.setConstraints(PropValueConstraints::CLOSED_RANGE))
+            if (pinfo_.type() != PropValueType::BOOLEAN && !pinfo_.setConstraints(PropValueConstraints::CLOSED_RANGE))
                 LIB_ERR << set_prop_symbol_ << " can't set constraints";
 
             if (pinfo_.type() == PropValueType::FLOAT && !pinfo_.setRangeFloat(min_, max_))

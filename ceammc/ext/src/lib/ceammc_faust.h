@@ -461,6 +461,10 @@ namespace faust {
     void PdUI<T>::addButton(const char* label, FAUSTFLOAT* zone)
     {
         UIElement* elems = new UIElement(UI_BUTTON, oscPath(label), label);
+        auto it = type_map_.find(zone);
+        if (it != type_map_.end())
+            elems->setType(it->second);
+
         elems->setContraints(0, 0, 1, 1);
         elems->setValuePtr(zone);
         ui_elements_.push_back(elems);

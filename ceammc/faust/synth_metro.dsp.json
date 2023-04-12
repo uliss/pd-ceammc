@@ -35,7 +35,7 @@
 		{ "filters.lib/iir:author": "Julius O. Smith III" },
 		{ "filters.lib/iir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/iir:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
 		{ "filters.lib/name": "Faust Filters Library" },
 		{ "filters.lib/resonlp:author": "Julius O. Smith III" },
 		{ "filters.lib/resonlp:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -67,9 +67,39 @@
 			"items": [ 
 				{
 					"type": "button",
-					"label": "down",
-					"shortname": "down",
-					"address": "/synth.metro/down"
+					"label": ".down",
+					"shortname": "_down",
+					"address": "/synth.metro/.down",
+					"meta": [
+						{ "type": "bool" }
+					]
+				},
+				{
+					"type": "button",
+					"label": ".mark",
+					"shortname": "_mark",
+					"address": "/synth.metro/.mark",
+					"meta": [
+						{ "type": "bool" }
+					]
+				},
+				{
+					"type": "button",
+					"label": ".off",
+					"shortname": "_off",
+					"address": "/synth.metro/.off",
+					"meta": [
+						{ "type": "bool" }
+					]
+				},
+				{
+					"type": "button",
+					"label": ".on",
+					"shortname": "_on",
+					"address": "/synth.metro/.on",
+					"meta": [
+						{ "type": "bool" }
+					]
 				},
 				{
 					"type": "hslider",
@@ -121,12 +151,6 @@
 					"step": 0.01
 				},
 				{
-					"type": "button",
-					"label": "mark",
-					"shortname": "mark",
-					"address": "/synth.metro/mark"
-				},
-				{
 					"type": "hslider",
 					"label": "mark.freq",
 					"shortname": "mark_freq",
@@ -163,12 +187,6 @@
 					"step": 0.01
 				},
 				{
-					"type": "button",
-					"label": "off",
-					"shortname": "off",
-					"address": "/synth.metro/off"
-				},
-				{
 					"type": "hslider",
 					"label": "off.freq",
 					"shortname": "off_freq",
@@ -203,12 +221,6 @@
 					"min": 5,
 					"max": 100,
 					"step": 0.01
-				},
-				{
-					"type": "button",
-					"label": "on",
-					"shortname": "on",
-					"address": "/synth.metro/on"
 				},
 				{
 					"type": "hslider",

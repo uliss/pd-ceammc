@@ -22,6 +22,8 @@
             If beat division is ommitted, using 1/4</property>
             <property name="@ts" type="symbol" default="|4/4|">metronome time signature,
             can be complex like: |1/4+15/16| etc.</property>
+            <property name="@gain" type="float" default="0" minvalue="-12" maxvalue="12"
+            units="decibel">common synth gain</property>
             <!-- gains -->
             <property name="@down.gain" type="float" default="6" minvalue="-12" maxvalue="12"
             units="decibel">downbeat gain</property>
@@ -71,8 +73,8 @@
 <![CDATA[
 [T]
 |
-|          [1(             [F]
-|          |.              |..
+|          [1( [2( [3( [4(     [F]
+|          |.  |.  |.  |.      |..
 [synth.metro~ 120|8bpm |5/4+3/16|]
 |
 [ui.hgain~]

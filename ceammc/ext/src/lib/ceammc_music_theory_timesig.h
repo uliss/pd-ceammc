@@ -27,6 +27,8 @@ namespace music {
         BEAT_DOWN = 1,
         BEAT_ON,
         BEAT_OFF,
+        BEAT_MARK,
+        BEAT_MAX = BEAT_MARK,
     };
 
     struct BeatData {
