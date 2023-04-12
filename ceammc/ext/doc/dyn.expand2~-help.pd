@@ -9,7 +9,7 @@
 #X text 215 80 It uses a strength parameter instead of the traditional
 ratio;
 #X obj 215 105 ui.link @background_color 0.98039 0.98039 0.98039
-@title Dynamic range compression @url
+@title Dynamic range             compression @url
 https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X obj 50 166 ui.hsl -60 0 @active_scale 1 @show_value 1;
 #X obj 174 166 ui.hsl -60 0 @active_scale 1 @show_value 1;

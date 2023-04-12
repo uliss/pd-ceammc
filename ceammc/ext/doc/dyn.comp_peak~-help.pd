@@ -10,7 +10,7 @@
 #X text 215 80 It uses a strength parameter instead of the traditional
 ratio \, in order to be able to function as a hard limiter or overcompressor;
 #X obj 215 135 ui.link @background_color 0.98039 0.98039 0.98039
-@title Dynamic range compression @url
+@title Dynamic range             compression @url
 https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X obj 50 196 ui.hsl -60 0 @show_value 1;
 #X obj 290 196 ui.dsp~;
