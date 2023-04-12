@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "proto_midi_cc.h"
+#include "args/argcheck2.h"
 #include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
@@ -287,14 +288,11 @@ void ProtoMidiCC::m_sostenuto_pedal(t_symbol* s, const AtomListView& lv)
 
 void ProtoMidiCC::m_all_soundsOff(t_symbol* s, const AtomListView& lv)
 {
-    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN[0..15]?, got: " << lv; };
+    static const args::ArgChecker chk("CHAN:i[0,15]?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
-    if (lv.size() == 1 || !checkChan(lv[0].asInt())) {
-        usage();
-        return;
-    }
-
-    int chan = lv[0].asInt(-1);
+    auto chan = lv.intAt(0, -1);
     if (chan < 0) {
         for (int i = 0; i < 16; i++)
             ccSend(i, CC_ALL_SOUND_OFF, 0x7F);
@@ -410,14 +408,11 @@ void ProtoMidiCC::m_exp_int(t_symbol* s, const AtomListView& lv)
 
 void ProtoMidiCC::m_all_notesOff(t_symbol* s, const AtomListView& lv)
 {
-    auto usage = [&]() { METHOD_ERR(s) << "usage: CHAN, got: " << lv; };
+    static const args::ArgChecker chk("CHAN:i[0,15]?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
-    if (lv.size() == 1 || !checkChan(lv[0].asInt())) {
-        usage();
-        return;
-    }
-
-    int chan = lv[0].asInt(-1);
+    auto chan = lv.intAt(0, -1);
     if (chan < 0) {
         for (int i = 0; i < 16; i++)
             ccSend(i, CC_ALL_NOTES_OFF, 0x7F);

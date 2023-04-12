@@ -65,6 +65,9 @@
 - noise.lfreq0~ minimal frequency changed from 5Hz to 0.5Hz
 - dyn.comp~, dyn.comp2~, dyn.gate~, dyn.gate2~ - using DBFS scale for threshold (-144...0) instead of (0..100) range
 
+### Fixed:
+- proto.midi.cc - sounds_off, notes_off crash fixes
+
 ## [0.9.6]
 ### Added:
 - new objects:
