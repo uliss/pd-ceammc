@@ -10,6 +10,7 @@ if(Gperf_FOUND)
         GENERATION_FLAGS "-L C++ --class-name=MorsePerfectHash --struct-type")
 
     add_custom_target(gen_morse DEPENDS gperf_morse.h)
+    add_custom_target(conv_extra SOURCES morse.gperf)
 endif()
 
 ceammc_conv_external(amp2dbfs)
