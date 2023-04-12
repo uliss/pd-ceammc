@@ -30,7 +30,7 @@
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo>left channel</xinfo>
+                <xinfo>input signal</xinfo>
             </inlet>
             <inlet type="control">
                 <xinfo on="bang">turn on effect for 3 periods</xinfo>
