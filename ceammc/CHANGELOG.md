@@ -29,6 +29,7 @@
   - rhythm.hexbeat - hexbeat pattern generator
   - rhythm.euclid - euclid pattern generator (using fast bresenham algorithm)
   - rhythm.lsystem - L-system pattern generator
+  - synth.metro~ - metronome synth with complex pattern support 
 - new object inlets:
   - dyn.gate~, dyn.gate2~ - second inlet added for setting threshold
   - fx.drone_box~ - second inlet added for setting resonance frequency

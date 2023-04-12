@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="synth.metro~">
+        <title>synth.metro~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>ready to use metronome synth</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>synth</category>
+            <keywords>metro poly rhythm</keywords>
+            <since>0.9.7</since>
+        </meta>
+        <arguments>
+            <argument name="SPEED" type="float" minvalue="120" maxvalue="480">maximum speed of
+            whistles if @auto enabled</argument>
+            <argument name="PROBABILITY" type="float" minvalue="25" maxvalue="100">whistles
+            probability if @auto enabled</argument>
+        </arguments>
+        <properties>
+            <property name="@speed" type="float" minvalue="120" maxvalue="480" default="240">
+            maximum speed of whistles if @auto enabled</property>
+            <property name="@probability" type="float" minvalue="25" maxvalue="100" default="50">
+            whistles probability if @auto enabled</property>
+            <property name="@gate" type="bool" default="0">play trigger. Starts playing on
+            release</property>
+            <property name="@auto" type="bool" default="0">auto playing mode</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float">1: start, 0: stop metronome</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">1: play downbeat, 2: play on-beat, 3: play off-beat</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set tempo in 1/4 per minute</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">synth output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+|          [1(             [F]
+|          |.              |..
+[synth.metro~ 120|8bpm |5/4+3/16|]
+|
+[ui.hgain~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

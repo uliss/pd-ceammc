@@ -707,6 +707,7 @@ set(DOC_FILES
     synth.kick~
     synth.ks~
     synth.marimba~
+    synth.metro~
     synth.piano~
     synth.rhodey~
     synth.risset_arp~

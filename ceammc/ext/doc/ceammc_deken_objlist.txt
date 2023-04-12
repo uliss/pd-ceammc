@@ -1163,6 +1163,7 @@ synth.kick2~	low-kick synth from faust librariest
 synth.kick~	low-kick synth from Guitarix project
 synth.ks~	Karplus-Strong string
 synth.marimba~	simple marimba physical model implementing a single tone bar connected to tube
+synth.metro~	ready to use metronome synth
 synth.piano~	waveguide commuted piano
 synth.rhodey~	STK Fender Rhodes electric piano FM synthesis instrument
 synth.risset_arp~	Jean Claude Risset's harmonic arpeggio effect
