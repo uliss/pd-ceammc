@@ -93,8 +93,8 @@ public:
     void m_hold_pedal(t_symbol* s, const AtomListView& lv);
     void m_sostenuto_pedal(t_symbol* s, const AtomListView& lv);
 
-    void m_all_notesOff(t_symbol* s, const AtomListView& lv);
-    void m_all_soundsOff(t_symbol* s, const AtomListView& lv);
+    void m_allNotesOff(t_symbol* s, const AtomListView& lv);
+    void m_allSoundOff(t_symbol* s, const AtomListView& lv);
 
     void m_volume_coarse(t_symbol* s, const AtomListView& lv);
     void m_volume_fine(t_symbol* s, const AtomListView& lv);

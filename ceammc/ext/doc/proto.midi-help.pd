@@ -56,83 +56,98 @@
 #X text 255 822 NOTE: midi note. Type: int. Range: 0\...127\.;
 #X obj 255 845 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 845 VEL: velocity. Type: int. Range: 0\...127\.;
-#X msg 110 870 pitchwheel;
-#X text 245 870 send Pitch Wheel message. Arguments are:;
-#X obj 255 893 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 893 CH: midi channel. Type: int. Range: 0\...15\.;
-#X obj 255 916 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 916 VAL: value. Type: int. Range: -8192\...8191\.;
-#X msg 110 941 polytouch;
-#X text 245 941 send After Touch (Poly) message. Arguments are:;
-#X obj 255 964 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 964 CH: midi channel. Type: int. Range: 0\...15\.;
-#X obj 255 987 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 987 NOTE: midi note. Type: int. Range: 0\...127\.;
-#X obj 255 1010 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1010 VEL: velocity. Type: int. Range: 0\...127\.;
-#X msg 110 1035 program;
-#X text 245 1035 send Program Change message. Arguments are:;
-#X obj 255 1058 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1058 CH: midi channel. Type: int. Range: 0\...15\.;
-#X obj 255 1081 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1081 N: program number. Type: int. Range: 0\...127\.;
-#X msg 110 1106 songpos;
-#X text 245 1106 send Song Position Pointer message (0xF2). Arguments
+#X msg 110 870 notes_off;
+#X text 245 870 send All Notes Off message. Arguments are:;
+#X obj 255 893 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 893 [CH]: midi channel. if missing or -1: send to all channels.
+Type: int. Range: 0\...15\.;
+#X msg 110 933 panic;
+#X text 245 933 send All Notes Off message. Arguments are:;
+#X obj 255 956 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 956 [CH]: midi channel. if missing or -1: send to all channels.
+Type: int. Range: 0\...15\.;
+#X msg 110 996 pitchwheel;
+#X text 245 996 send Pitch Wheel message. Arguments are:;
+#X obj 255 1019 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1019 CH: midi channel. Type: int. Range: 0\...15\.;
+#X obj 255 1042 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1042 VAL: value. Type: int. Range: -8192\...8191\.;
+#X msg 110 1067 polytouch;
+#X text 245 1067 send After Touch (Poly) message. Arguments are:;
+#X obj 255 1090 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1090 CH: midi channel. Type: int. Range: 0\...15\.;
+#X obj 255 1113 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1113 NOTE: midi note. Type: int. Range: 0\...127\.;
+#X obj 255 1136 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1136 VEL: velocity. Type: int. Range: 0\...127\.;
+#X msg 110 1161 program;
+#X text 245 1161 send Program Change message. Arguments are:;
+#X obj 255 1184 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1184 CH: midi channel. Type: int. Range: 0\...15\.;
+#X obj 255 1207 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1207 N: program number. Type: int. Range: 0\...127\.;
+#X msg 110 1232 songpos;
+#X text 245 1232 send Song Position Pointer message (0xF2). Arguments
 are:;
-#X obj 255 1129 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1129 IDX: position. Type: int. Min value: 0\.;
-#X obj 255 1152 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1152 [DUR=16]: position duration. By default is sixteen
+#X obj 255 1255 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1255 IDX: position. Type: int. Min value: 0\.;
+#X obj 255 1278 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1278 [DUR=16]: position duration. By default is sixteen
 note. Type: int. Allowed values: 1 \, 2 \, 4 \, 8 \, 16\.;
-#X msg 110 1192 songsel;
-#X text 245 1192 send Song Select message (0xF3). Arguments are:;
-#X obj 255 1215 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1215 IDX: song index. Type: int. Range: 0\...127\.;
-#X msg 110 1240 start;
-#X text 245 1240 send Start realtime message (0xFA).;
-#X msg 110 1267 stop;
-#X text 245 1267 send Stop realtime message (0xFC).;
-#X msg 110 1294 sysex;
-#X text 245 1294 send SysEx message (0xF0). Arguments are:;
-#X obj 255 1317 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1317 BYTES: sysex message body. Type: list. Range: 0\...127\.;
-#X msg 110 1342 sysreset;
-#X text 245 1342 send System Reset realtime message (0xFF).;
-#X msg 110 1369 tick;
-#X text 245 1369 send Timing Tick realtime message (0xF9).;
-#X msg 110 1396 timecode;
-#X text 245 1396 send midi timecode as series of MTC quarter frame
+#X msg 110 1318 songsel;
+#X text 245 1318 send Song Select message (0xF3). Arguments are:;
+#X obj 255 1341 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1341 IDX: song index. Type: int. Range: 0\...127\.;
+#X msg 110 1366 sound_off;
+#X text 245 1366 send All Sound Off message. Arguments are:;
+#X obj 255 1389 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1389 [CH]: midi channel. if missing or -1: send to all
+channels. Type: int. Range: 0\...15\.;
+#X msg 110 1429 start;
+#X text 245 1429 send Start realtime message (0xFA).;
+#X msg 110 1456 stop;
+#X text 245 1456 send Stop realtime message (0xFC).;
+#X msg 110 1483 sysex;
+#X text 245 1483 send SysEx message (0xF0). Arguments are:;
+#X obj 255 1506 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1506 BYTES: sysex message body. Type: list. Range: 0\...127\.;
+#X msg 110 1531 sysreset;
+#X text 245 1531 send System Reset realtime message (0xFF).;
+#X msg 110 1558 tick;
+#X text 245 1558 send Timing Tick realtime message (0xF9).;
+#X msg 110 1585 timecode;
+#X text 245 1585 send midi timecode as series of MTC quarter frame
 messages (0xF1). Arguments are:;
-#X obj 255 1434 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1434 TIME: time value. Various formats can be used: 100sec
+#X obj 255 1623 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1623 TIME: time value. Various formats can be used: 100sec
 \, 1h \, 20.5min or 01:12:34.11\. Type: atom.;
-#X obj 255 1472 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1472 FPS: framerate. Type: float. Allowed values: 24 \,
+#X obj 255 1661 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1661 FPS: framerate. Type: float. Allowed values: 24 \,
 25 \, 29.97 \, 30\.;
-#X msg 110 1512 tunerequest;
-#X text 245 1512 send Tune Request message (0xF6).;
-#X obj 20 1549 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1554 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1701 tunerequest;
+#X text 245 1701 send Tune Request message (0xF6).;
+#X obj 20 1738 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1743 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1555 1\.;
-#X text 150 1555 *float*;
-#X text 245 1555 raw midi input bytes.;
-#X text 150 1575 *list*;
-#X text 245 1575 raw midi input bytes.;
-#X obj 20 1605 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1610 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1744 1\.;
+#X text 150 1744 *float*;
+#X text 245 1744 raw midi input bytes.;
+#X text 150 1764 *list*;
+#X text 245 1764 raw midi input bytes.;
+#X obj 20 1794 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1799 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1611 1\.;
-#X text 245 1611 float: raw midi output or parsed messages with selector
+#X text 110 1800 1\.;
+#X text 245 1800 float: raw midi output or parsed messages with selector
 (output format same as for corresponding methods).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 1676 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1679 library: ceammc v0.9.6;
-#N canvas 10 1698 400 290 info 0;
+#X obj 1 1865 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1868 library: ceammc v0.9.6;
+#N canvas 10 1887 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -156,7 +171,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1698 pd info;
+#X restore 10 1887 pd info;
 #X connect 5 0 6 0;
 #X connect 4 0 7 0;
 #X connect 6 0 7 0;

@@ -21,9 +21,10 @@
             </aliases>
         </meta>
         <info>
-            <par>It uses a strength parameter instead of the traditional ratio,
-            in order to be able to function as a hard limiter or overcompressor</par>
-            <a href="https://en.wikipedia.org/wiki/Dynamic_range_compression">Dynamic range compression</a>
+            <par>It uses a strength parameter instead of the traditional ratio, in order to be able
+            to function as a hard limiter or overcompressor</par>
+            <a href="https://en.wikipedia.org/wiki/Dynamic_range_compression">Dynamic range
+            compression</a>
         </info>
         <arguments>
             <argument name="STRENGTH" type="float" minvalue="0" maxvalue="1">compression strength
@@ -56,8 +57,8 @@
             reduction</property>
             <property name="@bypass" type="bool" default="0">if set to 1 - bypass
             compressor</property>
-            <property name="@level" type="float" units="decibel" default="0" minvalue="0" maxvalue="90"
-            access="readonly">current level of compression</property>
+            <property name="@level" type="float" units="decibel" default="0" minvalue="0"
+            maxvalue="90" access="readonly">current level of compression</property>
             <property name="@refresh" type="int" default="100" minvalue="0" maxvalue="1000"
             units="millisecond">compression level output time interval. If 0 - no output</property>
             <property name="@link" type="float" default="1" minvalue="0" maxvalue="1">the amount of

@@ -115,8 +115,12 @@
             <method name="notes_off">send All Notes Off message 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi channel. if
             missing or -1: send to all channels</param></method>
-            <!-- all sounds off -->
-            <method name="sounds_off">send All Sounds Off message 
+            <!-- panic -->
+            <method name="panic">send All Notes Off message 
+            <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi channel. if
+            missing or -1: send to all channels</param></method>
+            <!-- all sound off -->
+            <method name="sound_off">send All Sound Off message 
             <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi channel.
             if missing or -1: send to all channels</param></method>
             <!-- pitch bend sensitivity -->
@@ -188,8 +192,7 @@
             LSB</param></method>
         </methods>
         <properties>
-            <property name="@list" type="flag" enum="0 1" default="0" access="initonly">output as
-            list</property>
+            <property name="@list" type="flag" access="initonly">output as list</property>
         </properties>
         <inlets>
             <inlet>

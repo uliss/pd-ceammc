@@ -11,8 +11,7 @@
 #X obj 20 201 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 236 @list;
-#X text 245 236 output as list. Default value: 0\. Allowed values:
-0 \, 1\.;
+#X text 245 236 output as list.;
 #X obj 20 275 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 280 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -118,124 +117,129 @@ right. Type: float. Range: -1\...1\.;
 #X text 245 1462 send Pan CC message. Args: CHAN PAN(0\..0x3fff) or
 CHAN MSB(0\..127) LSB(0\..127). In case of 14 bit value 0 means left
 \, 0x2000: center and 0x3fff: right.;
-#X msg 110 1517 pan~;
-#X text 245 1517 send Pan CC coarse message. Arguments are:;
-#X obj 255 1540 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1540 CHAN: midi channel. Type: int. Range: 0\...15\.;
-#X obj 255 1563 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1563 PAN: pan value. Type: int. Range: 0\...127\.;
-#X msg 110 1588 portamento;
-#X text 245 1588 send CC portamento switch message. Arguments are:;
-#X obj 255 1611 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1611 [CHAN]: midi channel. Type: int. Range: 0\...15\.;
-#X obj 255 1634 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1634 BOOL: on/off value. Type: int. Allowed values: 0 \,
+#X msg 110 1517 panic;
+#X text 245 1517 send All Notes Off message. Arguments are:;
+#X obj 255 1540 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1540 CH: midi channel. if missing or -1: send to all channels.
+Type: int. Range: 0\...15\.;
+#X msg 110 1580 pan~;
+#X text 245 1580 send Pan CC coarse message. Arguments are:;
+#X obj 255 1603 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1603 CHAN: midi channel. Type: int. Range: 0\...15\.;
+#X obj 255 1626 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1626 PAN: pan value. Type: int. Range: 0\...127\.;
+#X msg 110 1651 portamento;
+#X text 245 1651 send CC portamento switch message. Arguments are:;
+#X obj 255 1674 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1674 [CHAN]: midi channel. Type: int. Range: 0\...15\.;
+#X obj 255 1697 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1697 BOOL: on/off value. Type: int. Allowed values: 0 \,
 1\.;
-#X msg 110 1659 sostenuto;
-#X text 245 1659 send CC sostenuto pedal message. Arguments are:;
-#X obj 255 1682 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1682 [CHAN]: midi channel. Type: int. Range: 0\...15\.;
-#X obj 255 1705 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1705 BOOL: on/off value. Type: int. Allowed values: 0 \,
+#X msg 110 1722 sostenuto;
+#X text 245 1722 send CC sostenuto pedal message. Arguments are:;
+#X obj 255 1745 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1745 [CHAN]: midi channel. Type: int. Range: 0\...15\.;
+#X obj 255 1768 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1768 BOOL: on/off value. Type: int. Allowed values: 0 \,
 1\.;
-#X msg 110 1730 sounds_off;
-#X text 245 1730 send All Sounds Off message. Arguments are:;
-#X obj 255 1753 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1753 [CH]: midi channel. if missing or -1: send to all
-channels. Type: int. Range: 0\...15\.;
-#X msg 110 1793 tune.;
-#X text 245 1793 send RPN fine tuning request (in cents). Arguments
-are:;
+#X msg 110 1793 sound_off;
+#X text 245 1793 send All Sound Off message. Arguments are:;
 #X obj 255 1816 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1816 [CH]: midi channel. Type: int. Range: 0\...15\.;
-#X obj 255 1839 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1839 CENTS: tuning in cents. Type: float. Range: -100\...100\.;
-#X msg 110 1864 tune:c;
-#X text 245 1864 send RPN fine tuning request (in cents). Arguments
+#X text 255 1816 [CH]: midi channel. if missing or -1: send to all
+channels. Type: int. Range: 0\...15\.;
+#X msg 110 1856 tune.;
+#X text 245 1856 send RPN fine tuning request (in cents). Arguments
 are:;
-#X obj 255 1887 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1887 [CH]: midi channel. Type: int. Range: 0\...15\.;
-#X obj 255 1910 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1910 CENTS: tuning in cents. Type: float. Range: -100\...100\.;
-#X msg 110 1935 tune:s;
-#X text 245 1935 send RPN tuning request in semitones. Arguments are:;
-#X obj 255 1958 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1958 [CH]: midi channel. Type: int. Range: 0\...15\.;
-#X obj 255 1981 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1981 SEMI: tuning in semitones. Type: float. Range: -64\...63\.;
-#X msg 110 2006 tunebank;
-#X text 245 2006 send RPN tune bank select. Arguments are:;
-#X obj 255 2029 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2029 [CH]: midi channel. Type: int. Range: 0\...15\.;
-#X obj 255 2052 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2052 BANK: tuning bank. Type: int. Range: 0\...127\.;
-#X msg 110 2077 tuneprog;
-#X text 245 2077 send RPN tune prog change. Arguments are:;
-#X obj 255 2100 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2100 [CH]: midi channel. Type: int. Range: 0\...15\.;
-#X obj 255 2123 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2123 PROG: tuning program. Type: int. Range: 0\...127\.;
-#X msg 110 2148 tunesel;
-#X text 245 2148 send RPN tune select. Arguments are:;
-#X obj 255 2171 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2171 [CH]: midi channel. Type: int. Range: 0\...15\.;
-#X obj 255 2194 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2194 BANK: tuning bank. Type: int. Range: 0\...127\.;
-#X obj 255 2217 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2217 PROG: tuning program. Type: int. Range: 0\...127\.;
-#X msg 110 2242 tune~;
-#X text 245 2242 send RPN coarse tuning request (in semitones). Arguments
+#X obj 255 1879 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1879 [CH]: midi channel. Type: int. Range: 0\...15\.;
+#X obj 255 1902 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1902 CENTS: tuning in cents. Type: float. Range: -100\...100\.;
+#X msg 110 1927 tune:c;
+#X text 245 1927 send RPN fine tuning request (in cents). Arguments
 are:;
-#X obj 255 2265 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2265 [CH]: midi channel. Type: int. Range: 0\...15\.;
-#X obj 255 2288 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2288 SEMI: tuning in semitones. Type: int. Range: -64\...63\.;
-#X msg 110 2313 volume.;
-#X text 245 2313 send fine CC Volume message. Arguments are:;
-#X obj 255 2336 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2336 CHAN: midi channel. Type: int. Range: 0\...15\.;
-#X obj 255 2359 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2359 VOL: pan value. Type: int. Range: 0\...127\.;
-#X msg 110 2384 volume:f;
-#X text 245 2384 send CC normalized Volume message. Arguments are:;
-#X obj 255 2407 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2407 CHAN: midi channel. Type: int. Range: 0\...15\.;
-#X obj 255 2430 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2430 VOL: volume value. Type: float. Range: 0\...1\.;
-#X msg 110 2455 volume:i;
-#X text 245 2455 send 14-bit CC Volume message. Arguments are:;
-#X obj 255 2478 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2478 CHAN: midi channel. Type: int. Range: 0\...15\.;
-#X obj 255 2501 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2501 VOL: value. Type: int. Range: 0\...16384\.;
-#X msg 110 2526 volume~;
-#X text 245 2526 send coarse CC Volume message. Arguments are:;
-#X obj 255 2549 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2549 CHAN: midi channel. Type: int. Range: 0\...15\.;
-#X obj 255 2572 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2572 VOL: pan value. Type: int. Range: 0\...127\.;
-#X obj 20 2607 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2612 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 255 1950 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1950 [CH]: midi channel. Type: int. Range: 0\...15\.;
+#X obj 255 1973 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1973 CENTS: tuning in cents. Type: float. Range: -100\...100\.;
+#X msg 110 1998 tune:s;
+#X text 245 1998 send RPN tuning request in semitones. Arguments are:;
+#X obj 255 2021 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2021 [CH]: midi channel. Type: int. Range: 0\...15\.;
+#X obj 255 2044 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2044 SEMI: tuning in semitones. Type: float. Range: -64\...63\.;
+#X msg 110 2069 tunebank;
+#X text 245 2069 send RPN tune bank select. Arguments are:;
+#X obj 255 2092 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2092 [CH]: midi channel. Type: int. Range: 0\...15\.;
+#X obj 255 2115 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2115 BANK: tuning bank. Type: int. Range: 0\...127\.;
+#X msg 110 2140 tuneprog;
+#X text 245 2140 send RPN tune prog change. Arguments are:;
+#X obj 255 2163 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2163 [CH]: midi channel. Type: int. Range: 0\...15\.;
+#X obj 255 2186 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2186 PROG: tuning program. Type: int. Range: 0\...127\.;
+#X msg 110 2211 tunesel;
+#X text 245 2211 send RPN tune select. Arguments are:;
+#X obj 255 2234 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2234 [CH]: midi channel. Type: int. Range: 0\...15\.;
+#X obj 255 2257 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2257 BANK: tuning bank. Type: int. Range: 0\...127\.;
+#X obj 255 2280 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2280 PROG: tuning program. Type: int. Range: 0\...127\.;
+#X msg 110 2305 tune~;
+#X text 245 2305 send RPN coarse tuning request (in semitones). Arguments
+are:;
+#X obj 255 2328 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2328 [CH]: midi channel. Type: int. Range: 0\...15\.;
+#X obj 255 2351 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2351 SEMI: tuning in semitones. Type: int. Range: -64\...63\.;
+#X msg 110 2376 volume.;
+#X text 245 2376 send fine CC Volume message. Arguments are:;
+#X obj 255 2399 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2399 CHAN: midi channel. Type: int. Range: 0\...15\.;
+#X obj 255 2422 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2422 VOL: pan value. Type: int. Range: 0\...127\.;
+#X msg 110 2447 volume:f;
+#X text 245 2447 send CC normalized Volume message. Arguments are:;
+#X obj 255 2470 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2470 CHAN: midi channel. Type: int. Range: 0\...15\.;
+#X obj 255 2493 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2493 VOL: volume value. Type: float. Range: 0\...1\.;
+#X msg 110 2518 volume:i;
+#X text 245 2518 send 14-bit CC Volume message. Arguments are:;
+#X obj 255 2541 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2541 CHAN: midi channel. Type: int. Range: 0\...15\.;
+#X obj 255 2564 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2564 VOL: value. Type: int. Range: 0\...16384\.;
+#X msg 110 2589 volume~;
+#X text 245 2589 send coarse CC Volume message. Arguments are:;
+#X obj 255 2612 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2612 CHAN: midi channel. Type: int. Range: 0\...15\.;
+#X obj 255 2635 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2635 VOL: pan value. Type: int. Range: 0\...127\.;
+#X obj 20 2670 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2675 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2613 1\.;
-#X text 150 2613 *float*;
-#X text 245 2613 raw midi input bytes.;
-#X text 150 2633 *list*;
-#X text 245 2633 raw midi input bytes.;
-#X obj 20 2663 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2668 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 2676 1\.;
+#X text 150 2676 *float*;
+#X text 245 2676 raw midi input bytes.;
+#X text 150 2696 *list*;
+#X text 245 2696 raw midi input bytes.;
+#X obj 20 2726 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2731 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2669 1\.;
-#X text 245 2669 float: raw midi output or parsed messages with selector
+#X text 110 2732 1\.;
+#X text 245 2732 float: raw midi output or parsed messages with selector
 (output format is the same as for corresponding methods).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 2734 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2737 library: ceammc v0.9.6;
-#N canvas 10 2756 400 290 info 0;
+#X obj 1 2797 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2800 library: ceammc v0.9.6;
+#N canvas 10 2819 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -259,4 +263,4 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2756 pd info;
+#X restore 10 2819 pd info;

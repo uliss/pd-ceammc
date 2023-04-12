@@ -12,30 +12,33 @@
  * this file belongs to.
  *****************************************************************************/
 #include "proto_midi.h"
+#include "args/argcheck2.h"
 #include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_units.h"
+#include "midi_names.h"
+#include "proto_midi_cc.h"
 
 #include <tuple>
 
 CEAMMC_DEFINE_SYM_HASH(activesense);
 CEAMMC_DEFINE_SYM_HASH(aftertouch);
-CEAMMC_DEFINE_SYM_HASH(polytouch);
+CEAMMC_DEFINE_SYM_HASH(cc);
 CEAMMC_DEFINE_SYM_HASH(clock);
 CEAMMC_DEFINE_SYM_HASH(continue);
-CEAMMC_DEFINE_SYM_HASH(cc);
 CEAMMC_DEFINE_SYM_HASH(noteoff);
 CEAMMC_DEFINE_SYM_HASH(noteon);
 CEAMMC_DEFINE_SYM_HASH(pitchwheel);
+CEAMMC_DEFINE_SYM_HASH(polytouch);
 CEAMMC_DEFINE_SYM_HASH(program);
-CEAMMC_DEFINE_SYM_HASH(songsel);
 CEAMMC_DEFINE_SYM_HASH(songpos);
+CEAMMC_DEFINE_SYM_HASH(songsel);
 CEAMMC_DEFINE_SYM_HASH(start);
 CEAMMC_DEFINE_SYM_HASH(stop);
-CEAMMC_DEFINE_SYM_HASH(sysreset);
 CEAMMC_DEFINE_SYM_HASH(sysex);
+CEAMMC_DEFINE_SYM_HASH(sysreset);
 CEAMMC_DEFINE_SYM_HASH(tick);
 CEAMMC_DEFINE_SYM_HASH(timecode);
 CEAMMC_DEFINE_SYM_HASH(tunerequest);
@@ -500,6 +503,37 @@ void ProtoMidi::m_afterTouchPoly(t_symbol* s, const AtomListView& lv)
     byteData(lv[2].asT<int>());
 }
 
+void ProtoMidi::m_allNotesOff(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("CHAN:i[0,15]");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    auto chan = lv.intAt(0, -1);
+
+    if (chan < 0) {
+        for (int i = 0; i < 16; i++)
+            sendBytes3(i, midi::MIDI_CONTROLCHANGE, CC_ALL_NOTES_OFF, 0x7F);
+    } else {
+        sendBytes3(chan, midi::MIDI_CONTROLCHANGE, CC_ALL_NOTES_OFF, 0x7F);
+    }
+}
+
+void ProtoMidi::m_allSoundOff(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("CHAN:i[0,15]");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    auto chan = lv.intAt(0, -1);
+    if (chan < 0) {
+        for (int i = 0; i < 16; i++)
+            sendBytes3(i, midi::MIDI_CONTROLCHANGE, CC_ALL_SOUND_OFF, 0x7F);
+    } else {
+        sendBytes3(chan, midi::MIDI_CONTROLCHANGE, CC_ALL_SOUND_OFF, 0x7F);
+    }
+}
+
 void ProtoMidi::m_cc(t_symbol* s, const AtomListView& lv)
 {
     if (!checkMethodByte3(s, lv)) {
@@ -564,6 +598,13 @@ bool ProtoMidi::checkMethodByte3(t_symbol* m, const AtomListView& lv)
     return true;
 }
 
+void ProtoMidi::sendBytes3(int chan, uint8_t st, uint8_t data1, uint8_t data2)
+{
+    byteStatus(st, chan);
+    byteData(data1);
+    byteData(data2);
+}
+
 void ProtoMidi::handleTimecode(uint8_t data)
 {
     if (mqf_.pushByte(data)) {
@@ -577,15 +618,18 @@ void setup_proto_midi()
     ObjectFactory<ProtoMidi> obj("proto.midi");
 
     obj.addMethod("note", &ProtoMidi::m_noteOn);
+    obj.addMethod(M_ALL_NOTES_OFF, &ProtoMidi::m_allNotesOff);
+    obj.addMethod(M_ALL_SOUND_OFF, &ProtoMidi::m_allSoundOff);
+    obj.addMethod(M_PANIC, &ProtoMidi::m_allNotesOff);
     obj.addMethod(str_activesense, &ProtoMidi::m_activeSense);
     obj.addMethod(str_aftertouch, &ProtoMidi::m_afterTouchMono);
-    obj.addMethod(str_polytouch, &ProtoMidi::m_afterTouchPoly);
+    obj.addMethod(str_cc, &ProtoMidi::m_cc);
     obj.addMethod(str_clock, &ProtoMidi::m_clock);
     obj.addMethod(str_continue, &ProtoMidi::m_continue);
-    obj.addMethod(str_cc, &ProtoMidi::m_cc);
     obj.addMethod(str_noteoff, &ProtoMidi::m_noteOff);
     obj.addMethod(str_noteon, &ProtoMidi::m_noteOn);
     obj.addMethod(str_pitchwheel, &ProtoMidi::m_pitchWheel);
+    obj.addMethod(str_polytouch, &ProtoMidi::m_afterTouchPoly);
     obj.addMethod(str_program, &ProtoMidi::m_programChange);
     obj.addMethod(str_songpos, &ProtoMidi::m_songPosition);
     obj.addMethod(str_songsel, &ProtoMidi::m_songSelect);

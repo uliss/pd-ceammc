@@ -286,7 +286,7 @@ void ProtoMidiCC::m_sostenuto_pedal(t_symbol* s, const AtomListView& lv)
     ccSend(data.chan, CC_SOSTENUTO_PEDAL, data.value);
 }
 
-void ProtoMidiCC::m_all_soundsOff(t_symbol* s, const AtomListView& lv)
+void ProtoMidiCC::m_allSoundOff(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("CHAN:i[0,15]?");
     if (!chk.check(lv, this))
@@ -406,7 +406,7 @@ void ProtoMidiCC::m_exp_int(t_symbol* s, const AtomListView& lv)
     ccSend();
 }
 
-void ProtoMidiCC::m_all_notesOff(t_symbol* s, const AtomListView& lv)
+void ProtoMidiCC::m_allNotesOff(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("CHAN:i[0,15]?");
     if (!chk.check(lv, this))
@@ -927,8 +927,9 @@ void setup_proto_midi_cc()
     obj.addMethod(M_BANK_SELECT_INT, &ProtoMidiCC::m_banksel_int);
     obj.addMethod(M_BANK_SELECT, &ProtoMidiCC::m_banksel_int);
 
-    obj.addMethod(M_ALL_NOTES_OFF, &ProtoMidiCC::m_all_notesOff);
-    obj.addMethod(M_ALL_SOUND_OFF, &ProtoMidiCC::m_all_soundsOff);
+    obj.addMethod(M_ALL_NOTES_OFF, &ProtoMidiCC::m_allNotesOff);
+    obj.addMethod(M_ALL_SOUND_OFF, &ProtoMidiCC::m_allSoundOff);
+    obj.addMethod(M_PANIC, &ProtoMidiCC::m_allNotesOff);
 
     obj.addMethod(M_CC_VOLUME_COARSE, &ProtoMidiCC::m_volume_coarse);
     obj.addMethod(M_CC_VOLUME_FINE, &ProtoMidiCC::m_volume_fine);

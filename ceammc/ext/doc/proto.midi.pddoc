@@ -39,6 +39,17 @@
             number</param>
             <param type="int" minvalue="0" maxvalue="127" required="true" name="VAL">control
             value</param></method>
+            <!-- all notes off -->
+            <method name="notes_off">send All Notes Off message 
+            <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi channel.
+            if missing or -1: send to all channels</param></method>
+            <method name="panic">send All Notes Off message 
+            <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi channel.
+            if missing or -1: send to all channels</param></method>
+            <!-- all sound off -->
+            <method name="sound_off">send All Sound Off message 
+            <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi channel.
+            if missing or -1: send to all channels</param></method>
             <!-- program -->
             <method name="program">send Program Change message 
             <param type="int" minvalue="0" maxvalue="15" required="true" name="CH">midi

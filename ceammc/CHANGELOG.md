@@ -45,6 +45,9 @@
   - cellsize method added to ui.radio: resize widget by specifying cell size
   - ssml method added to speech.rhvoice~: support for SSML text markup
   - read method added to speech.rhvoice~: read text from files
+  - notes_off method added to proto.midi
+  - sound_off method added to proto.midi
+  - panic method added to proto.midi
 - new object properties:
   - @punct added to rhvoice~, to specify pronounced characters
   - @bypass added to dyn.comp~ and dyn.comp2~
@@ -64,9 +67,10 @@
 - fixing ui abtractions: gfx.room~ and gfx.shimmer~
 - noise.lfreq0~ minimal frequency changed from 5Hz to 0.5Hz
 - dyn.comp~, dyn.comp2~, dyn.gate~, dyn.gate2~ - using DBFS scale for threshold (-144...0) instead of (0..100) range
+- proto.midi.cc - renaming MIDI sounds_off to sound_off
 
 ### Fixed:
-- proto.midi.cc - sounds_off, notes_off crash fixes
+- proto.midi.cc - sound_off, notes_off crash fixes
 
 ## [0.9.6]
 ### Added:

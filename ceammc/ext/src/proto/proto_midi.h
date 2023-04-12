@@ -66,6 +66,8 @@ public:
     void m_activeSense(t_symbol*, const AtomListView&);
     void m_afterTouchMono(t_symbol* s, const AtomListView& lv);
     void m_afterTouchPoly(t_symbol* s, const AtomListView& lv);
+    void m_allNotesOff(t_symbol* s, const AtomListView& lv);
+    void m_allSoundOff(t_symbol* s, const AtomListView& lv);
     void m_cc(t_symbol* s, const AtomListView& lv);
     void m_clock(t_symbol*, const AtomListView&);
     void m_continue(t_symbol*, const AtomListView&);
@@ -90,6 +92,7 @@ private:
     void byteStatus(uint8_t st, int chan) { floatTo(0, st | uint8_t(0x0F & chan)); }
     void byteData(uint8_t data) { floatTo(0, 0x7F & data); }
     void msgTo(t_symbol* s, const Atom* a, size_t n) { anyTo(0, s, AtomListView(a, n)); }
+    void sendBytes3(int chan, uint8_t st, uint8_t data1, uint8_t data2);
 
     void handleTimecode(uint8_t data);
 };
