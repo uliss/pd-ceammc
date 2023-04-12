@@ -21,7 +21,8 @@
         </methods>
         <properties>
             <property name="@gate" type="bool" default="0">start/stop recording</property>
-            <property name="@gain" type="float" default="0" minvalue="-60" maxvalue="12" units="decibel">playing gain</property>
+            <property name="@gain" type="float" default="0" minvalue="-60" maxvalue="12"
+            units="decibel">playing gain</property>
             <property name="@fade" type="float" minvalue="0" maxvalue="200" default="70"
             units="millisecond">intput crossfade time</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
