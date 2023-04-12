@@ -3,7 +3,7 @@ author: "Grame"
 copyright: "(c)GRAME 2006"
 license: "BSD"
 name: "live.capture"
-version: "1.1"
+version: "1.2"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
 Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn live_capture -scn live_capture_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
@@ -656,12 +656,13 @@ class live_capture : public live_capture_dsp {
 	FAUSTFLOAT fHslider0;
 	FAUSTFLOAT fCheckbox0;
 	int iVec0[2];
-	int iRec1[2];
 	int iRec2[2];
+	int iRec3[2];
 	int IOTA0;
 	float fVec1[8388608];
 	float fConst2;
-	int iRec3[2];
+	int iRec4[2];
+	float fRec1[2];
 	float fRec0[2];
 	
  public:
@@ -679,6 +680,18 @@ class live_capture : public live_capture_dsp {
 		m->declare("envelopes.lib/name", "Faust Envelope Library");
 		m->declare("envelopes.lib/version", "0.2");
 		m->declare("filename", "live_capture.dsp");
+		m->declare("filters.lib/dcblocker:author", "Julius O. Smith III");
+		m->declare("filters.lib/dcblocker:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/dcblocker:license", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/name", "Faust Filters Library");
+		m->declare("filters.lib/pole:author", "Julius O. Smith III");
+		m->declare("filters.lib/pole:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/pole:license", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/version", "0.3");
+		m->declare("filters.lib/zero:author", "Julius O. Smith III");
+		m->declare("filters.lib/zero:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/zero:license", "MIT-style STK-4.3 license");
 		m->declare("license", "BSD");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
@@ -688,7 +701,7 @@ class live_capture : public live_capture_dsp {
 		m->declare("name", "live.capture");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "0.2");
-		m->declare("version", "1.1");
+		m->declare("version", "1.2");
 	}
 
 	virtual int getNumInputs() {
@@ -718,20 +731,23 @@ class live_capture : public live_capture_dsp {
 			iVec0[l0] = 0;
 		}
 		for (int l1 = 0; l1 < 2; l1 = l1 + 1) {
-			iRec1[l1] = 0;
+			iRec2[l1] = 0;
 		}
 		for (int l2 = 0; l2 < 2; l2 = l2 + 1) {
-			iRec2[l2] = 0;
+			iRec3[l2] = 0;
 		}
 		IOTA0 = 0;
 		for (int l3 = 0; l3 < 8388608; l3 = l3 + 1) {
 			fVec1[l3] = 0.0f;
 		}
 		for (int l4 = 0; l4 < 2; l4 = l4 + 1) {
-			iRec3[l4] = 0;
+			iRec4[l4] = 0;
 		}
 		for (int l5 = 0; l5 < 2; l5 = l5 + 1) {
-			fRec0[l5] = 0.0f;
+			fRec1[l5] = 0.0f;
+		}
+		for (int l6 = 0; l6 < 2; l6 = l6 + 1) {
+			fRec0[l6] = 0.0f;
 		}
 	}
 	
@@ -769,18 +785,20 @@ class live_capture : public live_capture_dsp {
 		int iSlow2 = iSlow1 == 0;
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			iVec0[0] = iSlow1;
-			iRec1[0] = iSlow1 + iRec1[1] * (iVec0[1] >= iSlow1);
-			iRec2[0] = iSlow2 * (iRec2[1] + 1);
-			float fTemp0 = std::max<float>(0.0f, std::min<float>(fSlow0 * float(iRec1[0]), 1.0f) - fSlow0 * float(iRec2[0]));
-			fVec1[IOTA0 & 8388607] = fRec0[1] * (1.0f - fTemp0) + float(input0[i0]) * fTemp0;
-			iRec3[0] = ((iSlow1 - iVec0[1]) <= 0) * (iSlow1 + iRec3[1]);
-			fRec0[0] = fVec1[(IOTA0 - int(std::min<float>(fConst2, float(std::max<int>(0, iRec3[0] + -1))))) & 8388607];
+			iRec2[0] = iSlow1 + iRec2[1] * (iVec0[1] >= iSlow1);
+			iRec3[0] = iSlow2 * (iRec3[1] + 1);
+			float fTemp0 = std::max<float>(0.0f, std::min<float>(fSlow0 * float(iRec2[0]), 1.0f) - fSlow0 * float(iRec3[0]));
+			fVec1[IOTA0 & 8388607] = fRec1[1] * (1.0f - fTemp0) + float(input0[i0]) * fTemp0;
+			iRec4[0] = ((iSlow1 - iVec0[1]) <= 0) * (iSlow1 + iRec4[1]);
+			fRec1[0] = fVec1[(IOTA0 - int(std::min<float>(fConst2, float(std::max<int>(0, iRec4[0] + -1))))) & 8388607];
+			fRec0[0] = fRec1[0] + 0.995f * fRec0[1] - fRec1[1];
 			output0[i0] = FAUSTFLOAT(fRec0[0]);
 			iVec0[1] = iVec0[0];
-			iRec1[1] = iRec1[0];
 			iRec2[1] = iRec2[0];
-			IOTA0 = IOTA0 + 1;
 			iRec3[1] = iRec3[0];
+			IOTA0 = IOTA0 + 1;
+			iRec4[1] = iRec4[0];
+			fRec1[1] = fRec1[0];
 			fRec0[1] = fRec0[0];
 		}
 	}
