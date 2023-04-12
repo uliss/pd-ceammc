@@ -11,7 +11,7 @@ declare copyright 	"(c)GRAME 2006";
 
 import("stdfaust.lib");
 
-process	= capture : fi.dcblocker with {
+process	= capture * gain : fi.dcblocker with {
     env     = en.asr(fade, 1, fade, I);
     capture = *(env) : (+ : de.delay(TOTAL * ma.SR, D-1)) ~ *(1.0-env);
 
@@ -21,4 +21,5 @@ process	= capture : fi.dcblocker with {
     R = (I-I') <= 0;        // Reset capture when button is pressed
     D = (+(I):*(R))~_;      // Compute capture duration while button is pressed: 0..NNNN0..MMM
     fade = hslider("fade [unit:ms]", 70, 0, 200, 1) * 0.001;
+    gain = hslider("gain [unit:db]", 0, -60, 12, 0.001) : ba.db2linear : si.smoo;
 };

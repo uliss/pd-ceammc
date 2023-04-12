@@ -663,12 +663,19 @@ class live_capture : public live_capture_dsp {
 	float fConst2;
 	int iRec4[2];
 	float fRec1[2];
+	float fConst3;
+	FAUSTFLOAT fHslider1;
+	float fConst4;
+	float fRec5[2];
+	float fVec2[2];
 	float fRec0[2];
 	
  public:
 	
 	void metadata(Meta* m) { 
 		m->declare("author", "Grame");
+		m->declare("basics.lib/name", "Faust Basic Element Library");
+		m->declare("basics.lib/version", "0.8");
 		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn live_capture -scn live_capture_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("copyright", "(c)GRAME 2006");
 		m->declare("delays.lib/name", "Faust Delay Library");
@@ -683,7 +690,7 @@ class live_capture : public live_capture_dsp {
 		m->declare("filters.lib/dcblocker:author", "Julius O. Smith III");
 		m->declare("filters.lib/dcblocker:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/dcblocker:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/pole:author", "Julius O. Smith III");
 		m->declare("filters.lib/pole:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -701,6 +708,8 @@ class live_capture : public live_capture_dsp {
 		m->declare("name", "live.capture");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "0.2");
+		m->declare("signals.lib/name", "Faust Signal Routing Library");
+		m->declare("signals.lib/version", "0.3");
 		m->declare("version", "1.2");
 	}
 
@@ -719,11 +728,14 @@ class live_capture : public live_capture_dsp {
 		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = 0.001f * fConst0;
 		fConst2 = 32.0f * fConst0;
+		fConst3 = 44.1f / fConst0;
+		fConst4 = 1.0f - fConst3;
 	}
 	
 	virtual void instanceResetUserInterface() {
 		fHslider0 = FAUSTFLOAT(7e+01f);
 		fCheckbox0 = FAUSTFLOAT(0.0f);
+		fHslider1 = FAUSTFLOAT(0.0f);
 	}
 	
 	virtual void instanceClear() {
@@ -747,7 +759,13 @@ class live_capture : public live_capture_dsp {
 			fRec1[l5] = 0.0f;
 		}
 		for (int l6 = 0; l6 < 2; l6 = l6 + 1) {
-			fRec0[l6] = 0.0f;
+			fRec5[l6] = 0.0f;
+		}
+		for (int l7 = 0; l7 < 2; l7 = l7 + 1) {
+			fVec2[l7] = 0.0f;
+		}
+		for (int l8 = 0; l8 < 2; l8 = l8 + 1) {
+			fRec0[l8] = 0.0f;
 		}
 	}
 	
@@ -773,6 +791,8 @@ class live_capture : public live_capture_dsp {
 		ui_interface->openVerticalBox("live.capture");
 		ui_interface->declare(&fHslider0, "unit", "ms");
 		ui_interface->addHorizontalSlider("fade", &fHslider0, FAUSTFLOAT(7e+01f), FAUSTFLOAT(0.0f), FAUSTFLOAT(2e+02f), FAUSTFLOAT(1.0f));
+		ui_interface->declare(&fHslider1, "unit", "db");
+		ui_interface->addHorizontalSlider("gain", &fHslider1, FAUSTFLOAT(0.0f), FAUSTFLOAT(-6e+01f), FAUSTFLOAT(12.0f), FAUSTFLOAT(0.001f));
 		ui_interface->addCheckButton("gate", &fCheckbox0);
 		ui_interface->closeBox();
 	}
@@ -783,6 +803,7 @@ class live_capture : public live_capture_dsp {
 		float fSlow0 = 1.0f / std::max<float>(1.0f, fConst1 * float(fHslider0));
 		int iSlow1 = int(float(fCheckbox0));
 		int iSlow2 = iSlow1 == 0;
+		float fSlow3 = fConst3 * std::pow(1e+01f, 0.05f * float(fHslider1));
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			iVec0[0] = iSlow1;
 			iRec2[0] = iSlow1 + iRec2[1] * (iVec0[1] >= iSlow1);
@@ -791,7 +812,10 @@ class live_capture : public live_capture_dsp {
 			fVec1[IOTA0 & 8388607] = fRec1[1] * (1.0f - fTemp0) + float(input0[i0]) * fTemp0;
 			iRec4[0] = ((iSlow1 - iVec0[1]) <= 0) * (iSlow1 + iRec4[1]);
 			fRec1[0] = fVec1[(IOTA0 - int(std::min<float>(fConst2, float(std::max<int>(0, iRec4[0] + -1))))) & 8388607];
-			fRec0[0] = fRec1[0] + 0.995f * fRec0[1] - fRec1[1];
+			fRec5[0] = fSlow3 + fConst4 * fRec5[1];
+			float fTemp1 = fRec1[0] * fRec5[0];
+			fVec2[0] = fTemp1;
+			fRec0[0] = fTemp1 + 0.995f * fRec0[1] - fVec2[1];
 			output0[i0] = FAUSTFLOAT(fRec0[0]);
 			iVec0[1] = iVec0[0];
 			iRec2[1] = iRec2[0];
@@ -799,6 +823,8 @@ class live_capture : public live_capture_dsp {
 			IOTA0 = IOTA0 + 1;
 			iRec4[1] = iRec4[0];
 			fRec1[1] = fRec1[0];
+			fRec5[1] = fRec5[0];
+			fVec2[1] = fVec2[0];
 			fRec0[1] = fRec0[0];
 		}
 	}
