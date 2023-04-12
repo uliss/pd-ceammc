@@ -38,6 +38,7 @@ void setup_flt_pole2biquad();
 void setup_flt_resonbp_tilde();
 void setup_flt_resonhp_tilde();
 void setup_flt_resonlp_tilde();
+void setup_flt_speaker_tilde();
 
 void ceammc_flt_setup()
 {
@@ -79,4 +80,5 @@ void ceammc_flt_setup()
     setup_flt_resonbp_tilde();
     setup_flt_resonhp_tilde();
     setup_flt_resonlp_tilde();
+    setup_flt_speaker_tilde();
 }

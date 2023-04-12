@@ -33,6 +33,7 @@ ceammc_flt_obj_json_double(moog_vcf)
 ceammc_flt_obj_json_double(resonbp)
 ceammc_flt_obj_json_double(resonhp)
 ceammc_flt_obj_json_double(resonlp)
+ceammc_flt_obj_json_double(speaker)
 
 ceammc_flt_obj_json(c_bpf)
 ceammc_flt_obj_json(c_highshelf)

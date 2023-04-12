@@ -1,0 +1,127 @@
+{
+	"name": "flt.speaker",
+	"filename": "flt_speaker.dsp",
+	"version": "2.53.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_speaker -scn flt_speaker_dsp -es 1 -mcd 16 -double -ftz 0",
+	"library_list": ["/usr/local/share/faust/stdfaust.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/misceffects.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/filters.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib","/usr/local/share/faust/basics.lib"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
+	"inputs": 1,
+	"outputs": 1,
+	"meta": [ 
+		{ "basics.lib/bypass1:author": "Julius Smith" },
+		{ "basics.lib/name": "Faust Basic Element Library" },
+		{ "basics.lib/version": "0.8" },
+		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
+		{ "ceammc.lib/version": "0.1.3" },
+		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
+		{ "ceammc_ui.lib/version": "0.1.2" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_speaker -scn flt_speaker_dsp -es 1 -mcd 16 -double -ftz 0" },
+		{ "filename": "flt_speaker.dsp" },
+		{ "filters.lib/dcblockerat:author": "Julius O. Smith III" },
+		{ "filters.lib/dcblockerat:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/dcblockerat:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/fir:author": "Julius O. Smith III" },
+		{ "filters.lib/fir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/fir:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/iir:author": "Julius O. Smith III" },
+		{ "filters.lib/iir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/iir:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
+		{ "filters.lib/lowpass:author": "Julius O. Smith III" },
+		{ "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/name": "Faust Filters Library" },
+		{ "filters.lib/pole:author": "Julius O. Smith III" },
+		{ "filters.lib/pole:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/pole:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/tf2:author": "Julius O. Smith III" },
+		{ "filters.lib/tf2:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf2:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/tf2s:author": "Julius O. Smith III" },
+		{ "filters.lib/tf2s:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf2s:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/version": "0.3" },
+		{ "filters.lib/zero:author": "Julius O. Smith III" },
+		{ "filters.lib/zero:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/zero:license": "MIT-style STK-4.3 license" },
+		{ "maths.lib/author": "GRAME" },
+		{ "maths.lib/copyright": "GRAME" },
+		{ "maths.lib/license": "LGPL with exception" },
+		{ "maths.lib/name": "Faust Math Library" },
+		{ "maths.lib/version": "2.5" },
+		{ "misceffects.lib/name": "Misc Effects Library" },
+		{ "misceffects.lib/version": "2.0" },
+		{ "name": "flt.speaker" },
+		{ "platform.lib/name": "Generic Platform Library" },
+		{ "platform.lib/version": "0.2" },
+		{ "signals.lib/name": "Faust Signal Routing Library" },
+		{ "signals.lib/version": "0.3" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "flt.speaker",
+			"items": [ 
+				{
+					"type": "checkbox",
+					"label": "bypass",
+					"shortname": "bypass",
+					"address": "/flt.speaker/bypass"
+				},
+				{
+					"type": "hslider",
+					"label": "drywet",
+					"shortname": "drywet",
+					"address": "/flt.speaker/drywet",
+					"meta": [
+						{ "style": "knob" }
+					],
+					"init": 1,
+					"min": 0,
+					"max": 1,
+					"step": 0.01
+				},
+				{
+					"type": "hslider",
+					"label": "f1",
+					"shortname": "f1",
+					"address": "/flt.speaker/f1",
+					"meta": [
+						{ "unit": "hz" }
+					],
+					"init": 130,
+					"min": 20,
+					"max": 20000,
+					"step": 0.1
+				},
+				{
+					"type": "hslider",
+					"label": "f2",
+					"shortname": "f2",
+					"address": "/flt.speaker/f2",
+					"meta": [
+						{ "unit": "hz" }
+					],
+					"init": 5000,
+					"min": 20,
+					"max": 20000,
+					"step": 0.1
+				},
+				{
+					"type": "hslider",
+					"label": "gain",
+					"shortname": "gain",
+					"address": "/flt.speaker/gain",
+					"meta": [
+						{ "unit": "db" }
+					],
+					"init": 3,
+					"min": -30,
+					"max": 30,
+					"step": 0.1
+				}
+			]
+		}
+	]
+}

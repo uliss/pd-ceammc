@@ -1,0 +1,241 @@
+#N canvas 0 0 950 600 12;
+#X obj 25 125 synth.metro~;
+#X obj 325 25 inlet;
+#X obj 325 125 route synth.metro * .;
+#X obj 525 150 route.prop;
+#X obj 375 200 msg *;
+#X obj 325 250 route @down @down.freq @down.gain @down.reson @gain
+@mark @mark.freq @mark.gain @mark.reson @off @off.freq @off.gain
+@off.reson @on @on.freq @on.gain @on.reson default reset;
+#X obj 575 350 t b a;
+#X msg 575 375 supported messages are: @down @down.freq @down.gain @down.reson @gain @mark @mark.freq @mark.gain @mark.reson @off @off.freq @off.gain @off.reson @on @on.freq @on.gain @on.reson default reset;
+#X obj 575 425 print;
+#X obj 625 425 print [gsynth.metro~] unknown message;
+#X msg 225 75 @down.freq 1500 \, @down.gain 6 \, @down.reson 50 \, @gain 0 \, @mark.freq 2000 \, @mark.gain 6 \, @mark.reson 500 \, @off.freq 500 \, @off.gain 6 \, @off.reson 10 \, @on.freq 1000 \, @on.gain 6 \, @on.reson 30 \,;
+#X obj 25 50 t b b;
+#X msg 25 75 reset;
+#X obj 225 25 msg.onload;
+#X obj 500 550 outlet~;
+#X obj 600 550 outlet ctl;
+#X obj 3 202 cnv 8 198 483 empty empty empty 17 7 0 10 -174763 -1 0;
+#X obj 3 202 cnv 8 198 18 empty empty [synth.metro~] 3 9 0 12 -104026
+-262144 0;
+#X obj 12 226 ui.toggle @size 12 12 @label down @label_side right
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.metro~/checkbox0;
+#X msg 260 218 @down \$1;
+#X obj 12 254 ui.slider @size 125 12 @active_scale 1 @label down.freq:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.metro~/slider1 @min 100 @max 5000;
+#X obj 215 254 sync;
+#X obj 145 254 ui.number @size 50 12 @min 100 @max 5000 @digits 0;
+#X msg 260 254 @down.freq \$1;
+#X obj 12 284 ui.slider @size 125 12 @active_scale 1 @label
+down.gain(db): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/synth.metro~/slider2 @min -12 @max 12;
+#X obj 215 284 sync;
+#X obj 145 284 ui.number @size 50 12 @min -12 @max 12 @digits 2;
+#X msg 260 284 @down.gain \$1;
+#X obj 12 314 ui.slider @size 125 12 @active_scale 1 @label
+down.reson: @label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.metro~/slider3 @min 5 @max 100;
+#X obj 215 314 sync;
+#X obj 145 314 ui.number @size 50 12 @min 5 @max 100 @digits 2;
+#X msg 260 314 @down.reson \$1;
+#X obj 12 344 ui.slider @size 125 12 @active_scale 1 @label gain(db):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.metro~/slider4 @min -12 @max 12;
+#X obj 215 344 sync;
+#X obj 145 344 ui.number @size 50 12 @min -12 @max 12 @digits 2;
+#X msg 260 344 @gain \$1;
+#X obj 12 364 ui.toggle @size 12 12 @label mark @label_side right
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.metro~/checkbox5;
+#X msg 260 356 @mark \$1;
+#X obj 12 392 ui.slider @size 125 12 @active_scale 1 @label mark.freq:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.metro~/slider6 @min 100 @max 5000;
+#X obj 215 392 sync;
+#X obj 145 392 ui.number @size 50 12 @min 100 @max 5000 @digits 0;
+#X msg 260 392 @mark.freq \$1;
+#X obj 12 422 ui.slider @size 125 12 @active_scale 1 @label
+mark.gain(db): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/synth.metro~/slider7 @min -12 @max 12;
+#X obj 215 422 sync;
+#X obj 145 422 ui.number @size 50 12 @min -12 @max 12 @digits 2;
+#X msg 260 422 @mark.gain \$1;
+#X obj 12 452 ui.slider @size 125 12 @active_scale 1 @label
+mark.reson: @label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.metro~/slider8 @min 5 @max 500;
+#X obj 215 452 sync;
+#X obj 145 452 ui.number @size 50 12 @min 5 @max 500 @digits 1;
+#X msg 260 452 @mark.reson \$1;
+#X obj 12 472 ui.toggle @size 12 12 @label off @label_side right
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.metro~/checkbox9;
+#X msg 260 464 @off \$1;
+#X obj 12 500 ui.slider @size 125 12 @active_scale 1 @label off.freq:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.metro~/slider10 @min 100 @max 5000;
+#X obj 215 500 sync;
+#X obj 145 500 ui.number @size 50 12 @min 100 @max 5000 @digits 0;
+#X msg 260 500 @off.freq \$1;
+#X obj 12 530 ui.slider @size 125 12 @active_scale 1 @label
+off.gain(db): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/synth.metro~/slider11 @min -12 @max 12;
+#X obj 215 530 sync;
+#X obj 145 530 ui.number @size 50 12 @min -12 @max 12 @digits 2;
+#X msg 260 530 @off.gain \$1;
+#X obj 12 560 ui.slider @size 125 12 @active_scale 1 @label off.reson:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.metro~/slider12 @min 5 @max 100;
+#X obj 215 560 sync;
+#X obj 145 560 ui.number @size 50 12 @min 5 @max 100 @digits 2;
+#X msg 260 560 @off.reson \$1;
+#X obj 12 580 ui.toggle @size 12 12 @label on @label_side right
+@label_align left @fontsize 10 @presetname
+/gui/\$1/synth.metro~/checkbox13;
+#X msg 260 572 @on \$1;
+#X obj 12 608 ui.slider @size 125 12 @active_scale 1 @label on.freq:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.metro~/slider14 @min 100 @max 5000;
+#X obj 215 608 sync;
+#X obj 145 608 ui.number @size 50 12 @min 100 @max 5000 @digits 0;
+#X msg 260 608 @on.freq \$1;
+#X obj 12 638 ui.slider @size 125 12 @active_scale 1 @label
+on.gain(db): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/synth.metro~/slider15 @min -12 @max 12;
+#X obj 215 638 sync;
+#X obj 145 638 ui.number @size 50 12 @min -12 @max 12 @digits 2;
+#X msg 260 638 @on.gain \$1;
+#X obj 12 668 ui.slider @size 125 12 @active_scale 1 @label on.reson:
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.metro~/slider16 @min 5 @max 100;
+#X obj 215 668 sync;
+#X obj 145 668 ui.number @size 50 12 @min 5 @max 100 @digits 2;
+#X msg 260 668 @on.reson \$1;
+#X connect 1 0 2 0;
+#X connect 2 3 3 0;
+#X connect 2 1 4 0;
+#X connect 2 0 5 0;
+#X connect 2 1 5 0;
+#X connect 2 2 5 0;
+#X connect 3 0 5 0;
+#X connect 5 19 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 6 1 9 0;
+#X connect 10 0 5 0;
+#X connect 5 17 10 0;
+#X connect 11 1 12 0;
+#X connect 11 0 10 0;
+#X connect 12 0 0 0;
+#X connect 5 18 11 0;
+#X connect 13 0 10 0;
+#X connect 0 0 14 0;
+#X connect 3 1 15 0;
+#X connect 4 0 15 0;
+#X connect 18 0 19 0;
+#X connect 19 0 0 0;
+#X connect 5 0 18 0;
+#X connect 20 0 21 0;
+#X connect 21 0 20 0;
+#X connect 22 0 21 1;
+#X connect 21 1 22 0;
+#X connect 20 0 23 0;
+#X connect 23 0 0 0;
+#X connect 5 1 20 0;
+#X connect 24 0 25 0;
+#X connect 25 0 24 0;
+#X connect 26 0 25 1;
+#X connect 25 1 26 0;
+#X connect 24 0 27 0;
+#X connect 27 0 0 0;
+#X connect 5 2 24 0;
+#X connect 28 0 29 0;
+#X connect 29 0 28 0;
+#X connect 30 0 29 1;
+#X connect 29 1 30 0;
+#X connect 28 0 31 0;
+#X connect 31 0 0 0;
+#X connect 5 3 28 0;
+#X connect 32 0 33 0;
+#X connect 33 0 32 0;
+#X connect 34 0 33 1;
+#X connect 33 1 34 0;
+#X connect 32 0 35 0;
+#X connect 35 0 0 0;
+#X connect 5 4 32 0;
+#X connect 36 0 37 0;
+#X connect 37 0 0 0;
+#X connect 5 5 36 0;
+#X connect 38 0 39 0;
+#X connect 39 0 38 0;
+#X connect 40 0 39 1;
+#X connect 39 1 40 0;
+#X connect 38 0 41 0;
+#X connect 41 0 0 0;
+#X connect 5 6 38 0;
+#X connect 42 0 43 0;
+#X connect 43 0 42 0;
+#X connect 44 0 43 1;
+#X connect 43 1 44 0;
+#X connect 42 0 45 0;
+#X connect 45 0 0 0;
+#X connect 5 7 42 0;
+#X connect 46 0 47 0;
+#X connect 47 0 46 0;
+#X connect 48 0 47 1;
+#X connect 47 1 48 0;
+#X connect 46 0 49 0;
+#X connect 49 0 0 0;
+#X connect 5 8 46 0;
+#X connect 50 0 51 0;
+#X connect 51 0 0 0;
+#X connect 5 9 50 0;
+#X connect 52 0 53 0;
+#X connect 53 0 52 0;
+#X connect 54 0 53 1;
+#X connect 53 1 54 0;
+#X connect 52 0 55 0;
+#X connect 55 0 0 0;
+#X connect 5 10 52 0;
+#X connect 56 0 57 0;
+#X connect 57 0 56 0;
+#X connect 58 0 57 1;
+#X connect 57 1 58 0;
+#X connect 56 0 59 0;
+#X connect 59 0 0 0;
+#X connect 5 11 56 0;
+#X connect 60 0 61 0;
+#X connect 61 0 60 0;
+#X connect 62 0 61 1;
+#X connect 61 1 62 0;
+#X connect 60 0 63 0;
+#X connect 63 0 0 0;
+#X connect 5 12 60 0;
+#X connect 64 0 65 0;
+#X connect 65 0 0 0;
+#X connect 5 13 64 0;
+#X connect 66 0 67 0;
+#X connect 67 0 66 0;
+#X connect 68 0 67 1;
+#X connect 67 1 68 0;
+#X connect 66 0 69 0;
+#X connect 69 0 0 0;
+#X connect 5 14 66 0;
+#X connect 70 0 71 0;
+#X connect 71 0 70 0;
+#X connect 72 0 71 1;
+#X connect 71 1 72 0;
+#X connect 70 0 73 0;
+#X connect 73 0 0 0;
+#X connect 5 15 70 0;
+#X connect 74 0 75 0;
+#X connect 75 0 74 0;
+#X connect 76 0 75 1;
+#X connect 75 1 76 0;
+#X connect 74 0 77 0;
+#X connect 77 0 0 0;
+#X connect 5 16 74 0;
+#X coords 0 -1 1 1 200 488 2 2 200;
