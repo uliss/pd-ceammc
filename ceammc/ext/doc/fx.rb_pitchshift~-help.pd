@@ -63,27 +63,27 @@ sound less clear than 'quality' \, especially for large pitch shifts.
 frequency shift. 'consistency' gives greatest consistency when used
 to create small variations in pitch around the 1.0-ratio level. Unlike
 the previous two options \, this avoids discontinuities when moving
-across the 1.0 pitch scale in real-time; it also consumes more CPU
+across the 1.0 pitch scale in real-time. It also consumes more CPU
 than the others in the case where the pitch scale is exactly 1.0\.
 Type: symbol. Default value: speed. Allowed values: speed \, quality
 \, consistency.;
-#X msg 110 1140 @scale;
-#X text 245 1140 Get/Set transposition as ratio. Type: float. Default
+#X msg 110 1124 @scale;
+#X text 245 1124 Get/Set transposition as ratio. Type: float. Default
 value: 1\. Range: 0.25\...4\.;
-#X msg 110 1182 @smooth;
-#X text 245 1182 Get/Set control the use of window-presum FFT and time-domain
+#X msg 110 1166 @smooth;
+#X text 245 1166 Get/Set control the use of window-presum FFT and time-domain
 smoothing. If true result in a softer sound with some audible artifacts
 around sharp transients \, but it may be appropriate for longer stretches
 of some instruments and can mix well with @window short. Type: bool.
 Default value: 0\.;
-#X msg 110 1269 @trans;
-#X text 245 1269 Get/Set control the component frequency phase-reset
+#X msg 110 1253 @trans;
+#X text 245 1253 Get/Set control the component frequency phase-reset
 mechanism that may be used at transient points to provide clarity and
 realism to percussion and other significant transient sounds. 'crisp'
 reset component phases at the peak of each transient (the start of
 a significant note or percussive event). This usually results in a
-clear-sounding output; but it is not always consistent \, and may cause
-interruptions in stable sounds present at the same time as transient
+clear-sounding output \, but it is not always consistent \, and may
+cause interruptions in stable sounds present at the same time as transient
 events. The @detector property can be used to tune this to some extent.
 'mixed' reset component phases at the peak of each transient \, outside
 a frequency range typical of musical fundamental frequencies. The results
@@ -94,36 +94,36 @@ component phases at any point. The results will be smoother and more
 regular but may be less clear than with either of the other @trans
 settings. Type: symbol. Default value: crisp. Allowed values: crisp
 \, mixed \, smooth.;
-#X msg 110 1582 @transpose;
-#X text 245 1582 Get/Set transposition in semitones. Type: float. Units:
+#X msg 110 1551 @transpose;
+#X text 245 1551 Get/Set transposition in semitones. Type: float. Units:
 semitone. Default value: 0\. Range: -24\...24\.;
-#X msg 110 1624 @window;
-#X text 245 1624 Get/Set the window size. 'standard' is expected to
+#X msg 110 1593 @window;
+#X text 245 1593 Get/Set the window size. 'standard' is expected to
 produce better results than the other window options in most situations.
 'short' may result in crisper sound for audio that depends strongly
 on its timing qualities. 'long' is likely to result in a smoother sound
 at the expense of clarity and timing. Type: symbol. Default value:
 standard. Allowed values: standard \, short \, long.;
-#X obj 20 1751 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1756 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1720 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1725 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1757 1\.;
-#X text 245 1757 input signal.;
-#X text 110 1777 2\.;
-#X text 245 1777 pitch shift in semitones.;
-#X obj 20 1807 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1812 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1726 1\.;
+#X text 245 1726 input signal.;
+#X text 110 1746 2\.;
+#X text 245 1746 pitch shift in semitones.;
+#X obj 20 1776 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1781 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1813 1\.;
-#X text 245 1813 output signal.;
+#X text 110 1782 1\.;
+#X text 245 1782 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1863 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1866 library: ceammc v0.9.6;
-#N canvas 10 1885 400 290 info 0;
+#X obj 1 1832 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1835 library: ceammc v0.9.6;
+#N canvas 10 1854 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -147,7 +147,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1885 pd info;
+#X restore 10 1854 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 7 0;
 #X connect 6 0 8 0;
