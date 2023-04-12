@@ -13,20 +13,43 @@
             <keywords>metro poly rhythm</keywords>
             <since>0.9.7</since>
         </meta>
-        <arguments>
-            <argument name="SPEED" type="float" minvalue="120" maxvalue="480">maximum speed of
-            whistles if @auto enabled</argument>
-            <argument name="PROBABILITY" type="float" minvalue="25" maxvalue="100">whistles
-            probability if @auto enabled</argument>
+        <arguments> 
+            <argument name="TEMPO" type="symbol" units="bpm">tempo in beats per minute</argument>
+            <argument name="TS" type="symbol">time signature</argument>
         </arguments>
         <properties>
-            <property name="@speed" type="float" minvalue="120" maxvalue="480" default="240">
-            maximum speed of whistles if @auto enabled</property>
-            <property name="@probability" type="float" minvalue="25" maxvalue="100" default="50">
-            whistles probability if @auto enabled</property>
-            <property name="@gate" type="bool" default="0">play trigger. Starts playing on
-            release</property>
-            <property name="@auto" type="bool" default="0">auto playing mode</property>
+            <property name="@tempo" type="symbol" default="60|4bpm" units="bpm">tempo.
+            If beat division is ommitted, using 1/4</property>
+            <property name="@ts" type="symbol" default="|4/4|">metronome time signature,
+            can be complex like: |1/4+15/16| etc.</property>
+            <!-- gains -->
+            <property name="@down.gain" type="float" default="6" minvalue="-12" maxvalue="12"
+            units="decibel">downbeat gain</property>
+            <property name="@on.gain" type="float" default="6" minvalue="-12" maxvalue="12"
+            units="decibel">on-beat gain</property>
+            <property name="@off.gain" type="float" default="6" minvalue="-12" maxvalue="12"
+            units="decibel">off-beat gain</property>
+            <property name="@mark.gain" type="float" default="6" minvalue="-12" maxvalue="12"
+            units="decibel">mark sound gain</property>
+            <!-- freq -->
+            <property name="@down.freq" type="float" default="1500" minvalue="100" maxvalue="5000"
+            units="hertz">downbeat frequency</property>
+            <property name="@on.freq" type="float" default="1000" minvalue="100" maxvalue="5000"
+            units="hertz">on-beat frequency</property>
+            <property name="@off.freq" type="float" default="500" minvalue="100" maxvalue="5000"
+            units="hertz">off-beat frequency</property>
+            <property name="@mark.freq" type="float" default="2000" minvalue="100" maxvalue="5000"
+            units="hertz">mark sound frequency</property>
+            <!-- reson -->
+            <property name="@down.reson" type="float" default="50" minvalue="5" maxvalue="100"
+            >downbeat resonance value (Q)</property>
+            <property name="@on.reson" type="float" default="30" minvalue="5" maxvalue="100"
+            >on-beat resonance value (Q)</property>
+            <property name="@off.reson" type="float" default="10" minvalue="5" maxvalue="100"
+            >off-beat resonance value (Q)</property>
+            <property name="@mark.reson" type="float" default="500" minvalue="5" maxvalue="500"
+            >mark sound resonance value (Q)</property>
+            <!-- -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>

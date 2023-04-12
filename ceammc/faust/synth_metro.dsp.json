@@ -76,6 +76,9 @@
 					"label": "down.freq",
 					"shortname": "down_freq",
 					"address": "/synth.metro/down.freq",
+					"meta": [
+						{ "unit": "hz" }
+					],
 					"init": 1500,
 					"min": 100,
 					"max": 5000,
@@ -128,6 +131,9 @@
 					"label": "mark.freq",
 					"shortname": "mark_freq",
 					"address": "/synth.metro/mark.freq",
+					"meta": [
+						{ "unit": "hz" }
+					],
 					"init": 2000,
 					"min": 100,
 					"max": 5000,
@@ -167,6 +173,9 @@
 					"label": "off.freq",
 					"shortname": "off_freq",
 					"address": "/synth.metro/off.freq",
+					"meta": [
+						{ "unit": "hz" }
+					],
 					"init": 500,
 					"min": 100,
 					"max": 5000,
@@ -206,6 +215,9 @@
 					"label": "on.freq",
 					"shortname": "on_freq",
 					"address": "/synth.metro/on.freq",
+					"meta": [
+						{ "unit": "hz" }
+					],
 					"init": 1000,
 					"min": 100,
 					"max": 5000,

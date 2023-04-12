@@ -24,9 +24,9 @@
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.metro~/checkbox0;
 #X msg 260 218 @down \$1;
-#X obj 12 254 ui.slider @size 125 12 @active_scale 1 @label down.freq:
-@label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.metro~/slider1 @min 100 @max 5000;
+#X obj 12 254 ui.slider @size 125 12 @active_scale 1 @label
+down.freq(hz): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/synth.metro~/slider1 @min 100 @max 5000;
 #X obj 215 254 sync;
 #X obj 145 254 ui.number @size 50 12 @min 100 @max 5000 @digits 0;
 #X msg 260 254 @down.freq \$1;
@@ -52,9 +52,9 @@ down.reson: @label_side top @label_align left @fontsize 10 @presetname
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.metro~/checkbox5;
 #X msg 260 356 @mark \$1;
-#X obj 12 392 ui.slider @size 125 12 @active_scale 1 @label mark.freq:
-@label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.metro~/slider6 @min 100 @max 5000;
+#X obj 12 392 ui.slider @size 125 12 @active_scale 1 @label
+mark.freq(hz): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/synth.metro~/slider6 @min 100 @max 5000;
 #X obj 215 392 sync;
 #X obj 145 392 ui.number @size 50 12 @min 100 @max 5000 @digits 0;
 #X msg 260 392 @mark.freq \$1;
@@ -74,9 +74,9 @@ mark.reson: @label_side top @label_align left @fontsize 10 @presetname
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.metro~/checkbox9;
 #X msg 260 464 @off \$1;
-#X obj 12 500 ui.slider @size 125 12 @active_scale 1 @label off.freq:
-@label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.metro~/slider10 @min 100 @max 5000;
+#X obj 12 500 ui.slider @size 125 12 @active_scale 1 @label
+off.freq(hz): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/synth.metro~/slider10 @min 100 @max 5000;
 #X obj 215 500 sync;
 #X obj 145 500 ui.number @size 50 12 @min 100 @max 5000 @digits 0;
 #X msg 260 500 @off.freq \$1;
@@ -96,9 +96,9 @@ off.gain(db): @label_side top @label_align left @fontsize 10
 @label_align left @fontsize 10 @presetname
 /gui/\$1/synth.metro~/checkbox13;
 #X msg 260 572 @on \$1;
-#X obj 12 608 ui.slider @size 125 12 @active_scale 1 @label on.freq:
-@label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/synth.metro~/slider14 @min 100 @max 5000;
+#X obj 12 608 ui.slider @size 125 12 @active_scale 1 @label
+on.freq(hz): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/synth.metro~/slider14 @min 100 @max 5000;
 #X obj 215 608 sync;
 #X obj 145 608 ui.number @size 50 12 @min 100 @max 5000 @digits 0;
 #X msg 260 608 @on.freq \$1;

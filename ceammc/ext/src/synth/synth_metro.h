@@ -763,12 +763,12 @@ class synth_metro : public synth_metro_dsp {
 	virtual void instanceResetUserInterface() {
 		fHslider0 = FAUSTFLOAT(0.0f);
 		fHslider1 = FAUSTFLOAT(6.0f);
-		fHslider2 = FAUSTFLOAT(5e+01f);
-		fHslider3 = FAUSTFLOAT(1.5e+03f);
+		fHslider2 = FAUSTFLOAT(3e+01f);
+		fHslider3 = FAUSTFLOAT(1e+03f);
 		fButton0 = FAUSTFLOAT(0.0f);
 		fHslider4 = FAUSTFLOAT(6.0f);
-		fHslider5 = FAUSTFLOAT(3e+01f);
-		fHslider6 = FAUSTFLOAT(1e+03f);
+		fHslider5 = FAUSTFLOAT(5e+01f);
+		fHslider6 = FAUSTFLOAT(1.5e+03f);
 		fButton1 = FAUSTFLOAT(0.0f);
 		fHslider7 = FAUSTFLOAT(6.0f);
 		fHslider8 = FAUSTFLOAT(1e+01f);
@@ -833,28 +833,32 @@ class synth_metro : public synth_metro_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("synth.metro");
-		ui_interface->addButton("down", &fButton0);
-		ui_interface->addHorizontalSlider("down.freq", &fHslider3, FAUSTFLOAT(1.5e+03f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(5e+03f), FAUSTFLOAT(0.01f));
-		ui_interface->declare(&fHslider1, "unit", "db");
-		ui_interface->addHorizontalSlider("down.gain", &fHslider1, FAUSTFLOAT(6.0f), FAUSTFLOAT(-12.0f), FAUSTFLOAT(12.0f), FAUSTFLOAT(0.01f));
-		ui_interface->addHorizontalSlider("down.reson", &fHslider2, FAUSTFLOAT(5e+01f), FAUSTFLOAT(5.0f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.01f));
+		ui_interface->addButton("down", &fButton1);
+		ui_interface->declare(&fHslider6, "unit", "hz");
+		ui_interface->addHorizontalSlider("down.freq", &fHslider6, FAUSTFLOAT(1.5e+03f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(5e+03f), FAUSTFLOAT(0.01f));
+		ui_interface->declare(&fHslider4, "unit", "db");
+		ui_interface->addHorizontalSlider("down.gain", &fHslider4, FAUSTFLOAT(6.0f), FAUSTFLOAT(-12.0f), FAUSTFLOAT(12.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("down.reson", &fHslider5, FAUSTFLOAT(5e+01f), FAUSTFLOAT(5.0f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.01f));
 		ui_interface->declare(&fHslider0, "unit", "db");
 		ui_interface->addHorizontalSlider("gain", &fHslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(-12.0f), FAUSTFLOAT(12.0f), FAUSTFLOAT(0.01f));
 		ui_interface->addButton("mark", &fButton3);
+		ui_interface->declare(&fHslider12, "unit", "hz");
 		ui_interface->addHorizontalSlider("mark.freq", &fHslider12, FAUSTFLOAT(2e+03f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(5e+03f), FAUSTFLOAT(0.01f));
 		ui_interface->declare(&fHslider10, "unit", "db");
 		ui_interface->addHorizontalSlider("mark.gain", &fHslider10, FAUSTFLOAT(6.0f), FAUSTFLOAT(-12.0f), FAUSTFLOAT(12.0f), FAUSTFLOAT(0.01f));
 		ui_interface->addHorizontalSlider("mark.reson", &fHslider11, FAUSTFLOAT(5e+02f), FAUSTFLOAT(5.0f), FAUSTFLOAT(5e+02f), FAUSTFLOAT(0.01f));
 		ui_interface->addButton("off", &fButton2);
+		ui_interface->declare(&fHslider9, "unit", "hz");
 		ui_interface->addHorizontalSlider("off.freq", &fHslider9, FAUSTFLOAT(5e+02f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(5e+03f), FAUSTFLOAT(0.01f));
 		ui_interface->declare(&fHslider7, "unit", "db");
 		ui_interface->addHorizontalSlider("off.gain", &fHslider7, FAUSTFLOAT(6.0f), FAUSTFLOAT(-12.0f), FAUSTFLOAT(12.0f), FAUSTFLOAT(0.01f));
 		ui_interface->addHorizontalSlider("off.reson", &fHslider8, FAUSTFLOAT(1e+01f), FAUSTFLOAT(5.0f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.01f));
-		ui_interface->addButton("on", &fButton1);
-		ui_interface->addHorizontalSlider("on.freq", &fHslider6, FAUSTFLOAT(1e+03f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(5e+03f), FAUSTFLOAT(0.01f));
-		ui_interface->declare(&fHslider4, "unit", "db");
-		ui_interface->addHorizontalSlider("on.gain", &fHslider4, FAUSTFLOAT(6.0f), FAUSTFLOAT(-12.0f), FAUSTFLOAT(12.0f), FAUSTFLOAT(0.01f));
-		ui_interface->addHorizontalSlider("on.reson", &fHslider5, FAUSTFLOAT(3e+01f), FAUSTFLOAT(5.0f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.01f));
+		ui_interface->addButton("on", &fButton0);
+		ui_interface->declare(&fHslider3, "unit", "hz");
+		ui_interface->addHorizontalSlider("on.freq", &fHslider3, FAUSTFLOAT(1e+03f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(5e+03f), FAUSTFLOAT(0.01f));
+		ui_interface->declare(&fHslider1, "unit", "db");
+		ui_interface->addHorizontalSlider("on.gain", &fHslider1, FAUSTFLOAT(6.0f), FAUSTFLOAT(-12.0f), FAUSTFLOAT(12.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("on.reson", &fHslider2, FAUSTFLOAT(3e+01f), FAUSTFLOAT(5.0f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.01f));
 		ui_interface->closeBox();
 	}
 	
