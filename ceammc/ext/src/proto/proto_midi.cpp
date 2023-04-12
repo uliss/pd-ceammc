@@ -505,7 +505,7 @@ void ProtoMidi::m_afterTouchPoly(t_symbol* s, const AtomListView& lv)
 
 void ProtoMidi::m_allNotesOff(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("CHAN:i[0,15]");
+    static const args::ArgChecker chk("CHAN:i[0,15]?");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
@@ -521,7 +521,7 @@ void ProtoMidi::m_allNotesOff(t_symbol* s, const AtomListView& lv)
 
 void ProtoMidi::m_allSoundOff(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("CHAN:i[0,15]");
+    static const args::ArgChecker chk("CHAN:i[0,15]?");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
