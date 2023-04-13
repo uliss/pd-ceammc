@@ -75,6 +75,7 @@
 
 ### Fixed:
 - proto.midi.cc - sound_off, notes_off crash fixes
+- expand_env - warning removed while processing @prop requests
 
 ## [0.9.6]
 ### Added:

@@ -65,6 +65,7 @@ void ExpandEnv::onAny(t_symbol* sel, const AtomListView& lv)
 void setup_base_expand_env()
 {
     ObjectFactory<ExpandEnv> obj("expand_env");
+    obj.noPropsDispatch();
 
     obj.setDescription("Substitute environment variables in data stream");
     obj.addAuthor("Serge Poltavsky");
