@@ -745,7 +745,7 @@ class flt_speaker : public flt_speaker_dsp {
 	virtual void instanceResetUserInterface() {
 		fCheckbox0 = FAUSTFLOAT(0.0);
 		fHslider0 = FAUSTFLOAT(1.0);
-		fHslider1 = FAUSTFLOAT(3.0);
+		fHslider1 = FAUSTFLOAT(0.0);
 		fHslider2 = FAUSTFLOAT(1.3e+02);
 		fHslider3 = FAUSTFLOAT(5e+03);
 	}
@@ -807,11 +807,11 @@ class flt_speaker : public flt_speaker_dsp {
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->addHorizontalSlider("drywet", &fHslider0, FAUSTFLOAT(1.0), FAUSTFLOAT(0.0), FAUSTFLOAT(1.0), FAUSTFLOAT(0.01));
 		ui_interface->declare(&fHslider2, "unit", "hz");
-		ui_interface->addHorizontalSlider("f1", &fHslider2, FAUSTFLOAT(1.3e+02), FAUSTFLOAT(2e+01), FAUSTFLOAT(2e+04), FAUSTFLOAT(0.1));
+		ui_interface->addHorizontalSlider("f1", &fHslider2, FAUSTFLOAT(1.3e+02), FAUSTFLOAT(2e+01), FAUSTFLOAT(1e+03), FAUSTFLOAT(1.0));
 		ui_interface->declare(&fHslider3, "unit", "hz");
-		ui_interface->addHorizontalSlider("f2", &fHslider3, FAUSTFLOAT(5e+03), FAUSTFLOAT(2e+01), FAUSTFLOAT(2e+04), FAUSTFLOAT(0.1));
+		ui_interface->addHorizontalSlider("f2", &fHslider3, FAUSTFLOAT(5e+03), FAUSTFLOAT(1e+03), FAUSTFLOAT(2e+04), FAUSTFLOAT(1.0));
 		ui_interface->declare(&fHslider1, "unit", "db");
-		ui_interface->addHorizontalSlider("gain", &fHslider1, FAUSTFLOAT(3.0), FAUSTFLOAT(-3e+01), FAUSTFLOAT(3e+01), FAUSTFLOAT(0.1));
+		ui_interface->addHorizontalSlider("gain", &fHslider1, FAUSTFLOAT(0.0), FAUSTFLOAT(-3e+01), FAUSTFLOAT(3e+01), FAUSTFLOAT(0.1));
 		ui_interface->closeBox();
 	}
 	
@@ -820,7 +820,7 @@ class flt_speaker : public flt_speaker_dsp {
 		FAUSTFLOAT* output0 = outputs[0];
 		int iSlow0 = int(double(fCheckbox0));
 		double fSlow1 = fConst1 * double(fHslider0);
-		double fSlow2 = fConst1 * double(fHslider1);
+		double fSlow2 = fConst1 * std::pow(1e+01, 0.05 * double(fHslider1));
 		double fSlow3 = fConst1 * double(fHslider2);
 		double fSlow4 = fConst1 * double(fHslider3);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
