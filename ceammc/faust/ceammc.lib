@@ -9,8 +9,8 @@ ma = library("maths.lib");
 db_pd2faust(v) = (v - 100);
 
 // ceammc crossfaded bypass
-bypass_mono(state, fx, x) = ba.selectmulti(64, ((x : fx), (x)), state) : _;
-bypass_stereo(state, fx, x, y) = ba.selectmulti(64, ((x,y : fx), (x,y)), state) : _,_;
+bypass_mono(state, fx, x) = ba.selectmulti(128, ((x : fx), (x)), state) : _;
+bypass_stereo(state, fx, x, y) = ba.selectmulti(128, ((x,y : fx), (x,y)), state) : _,_;
 
 // in puredata common time management in milliseconds
 time_pd2faust(msec) = (msec / 1000.0);
@@ -43,7 +43,7 @@ with {
     effect = fx_drywet(_, fx, ui_drywet);
 };
 
-fx_wrap2(bypass, drywet, fx) = _,_ : ba.bypass2(bypass, fx_drywet(si.bus(2), fx, drywet)) : _,_;
+fx_wrap2(bypass, drywet, fx) = _,_ : bypass_stereo(bypass, fx_drywet(si.bus(2), fx, drywet)) : _,_;
 
 // port from guitarix
 // license GPL2+
