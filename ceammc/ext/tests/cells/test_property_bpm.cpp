@@ -165,7 +165,6 @@ TEST_CASE("BpmProperty", "[core]")
 
         REQUIRE_FALSE(p.setSymbol(SYM("60|0bpm")));
         REQUIRE(p.get() == LA("60|1/4bpm"));
-
         REQUIRE_FALSE(p.setSymbol(&s_));
     }
 }

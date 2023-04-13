@@ -15,13 +15,17 @@
 #define CONV_BPM2MS_H
 
 #include "ceammc_object.h"
+#include "ceammc_property_timesig.h"
 
 using namespace ceammc;
 
 class BpmToMs : public BaseObject {
+    TimeSignatureProperty* tsig_ { 0 };
+
 public:
     BpmToMs(const PdArgs& a);
     void onFloat(t_float v) override;
+    void onSymbol(t_symbol* s) override;
     void onList(const AtomListView& lv) override;
 };
 

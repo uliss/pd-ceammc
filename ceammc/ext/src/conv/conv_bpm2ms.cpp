@@ -12,8 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "conv_bpm2ms.h"
-#include "ceammc_factory.h"
 #include "ceammc_containers.h"
+#include "ceammc_factory.h"
+#include "ceammc_music_theory_tempo.h"
+#include "fmt/core.h"
 
 static t_float bpm2ms(t_float v)
 {
@@ -24,11 +26,28 @@ BpmToMs::BpmToMs(const PdArgs& a)
     : BaseObject(a)
 {
     createOutlet();
+    createOutlet();
+
+    tsig_ = new TimeSignatureProperty("@tsig", { 1, 4 });
+    tsig_->setArgIndex(0);
+    addProperty(tsig_);
 }
 
 void BpmToMs::onFloat(t_float v)
 {
     floatTo(0, bpm2ms(v));
+}
+
+void BpmToMs::onSymbol(t_symbol* s)
+{
+    music::Tempo tempo;
+    if (!tempo.parse(s->s_name)) {
+        OBJ_ERR << fmt::format("can't parse BPM value: {}", s->s_name);
+        return;
+    }
+
+    floatTo(1, tempo.beatSubDivision());
+    floatTo(0, tsig_->signature().timeMs(tempo));
 }
 
 void BpmToMs::onList(const AtomListView& lv)
@@ -43,10 +62,9 @@ void setup_conv_bpm2ms()
     ObjectFactory<BpmToMs> obj("conv.bpm2ms");
     obj.addAlias("bpm->ms");
 
-    obj.setXletsInfo({ "float: bpm" }, { "float: period in ms" });
-
+    obj.setXletsInfo({ "float: bpm" }, { "float: period in ms", "int: beat division" });
 
     obj.setDescription("convert frequency in BPM to period in milliseconds");
     obj.setCategory("conv");
-    obj.setKeywords({"conv", "time"});
+    obj.setKeywords({ "conv", "time" });
 }

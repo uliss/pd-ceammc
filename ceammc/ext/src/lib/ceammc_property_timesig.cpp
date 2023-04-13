@@ -25,6 +25,7 @@ namespace ceammc {
 
 TimeSignatureProperty::TimeSignatureProperty(const std::string& name, const music::TimeSignature& sig, PropValueAccess access)
     : SymbolProperty(name, gensym(sig.toString().c_str()), access)
+    , ts_(sig)
 {
 }
 
