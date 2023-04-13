@@ -55,6 +55,7 @@
   - @bypass added to dyn.comp~ and dyn.comp2~
   - @bypass added to dyn.gate~ and dyn.gate2~
   - @gain added to live.capture~
+  - @drywet added to soundtouch~
 - new init argument functions:
   - hexbeat(HEX) - expand hex to list of 1 and 0
   - ones(N) - list of length N, filled with 1

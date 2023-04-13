@@ -30,6 +30,8 @@
             pitch transposer anti-alias filter length</property>
             <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
             'effected' signal.</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">Ratio
+            between processed signal (wet) and source signal</property>
         </properties>
         <inlets>
             <inlet type="audio">

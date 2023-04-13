@@ -11,7 +11,7 @@ beats-per-minute rates for audio tracks.;
 #X obj 1 1 cnv 5 740 40 empty empty soundtouch 20 20 0 20 -104026
 -4096 0;
 #X obj 1 473 cnv 5 740 80 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 473 version: v0.1 \, license: LGPL2.1;
+#X text 20 473 version: v0.2 \, license: LGPL2.1;
 #X obj 20 227 ui.link @title https://www.surina.net/soundtouch/ @url
 https://www.surina.net/soundtouch/;
 #X obj 20 250 ui.link @title Generated with pddoc @url
