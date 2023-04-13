@@ -4,6 +4,7 @@
 #include "ui_toggle.tcl.h"
 
 constexpr const char* SYM_CTLIN = "#ctlin";
+constexpr int MIDI_CTL_NONE = -1;
 
 const t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
 
@@ -100,7 +101,7 @@ void UIToggle::onPropChange(t_symbol* prop_name)
     UIObject::onPropChange(prop_name);
 
     if (prop_name == gensym("midi_control")) {
-        if (prop_midi_ctl != 0) {
+        if (prop_midi_ctl != MIDI_CTL_NONE) {
             // info
             std::ostringstream ss;
             ss << "binded to MIDI ctl #"
