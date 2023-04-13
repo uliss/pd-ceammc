@@ -8,7 +8,7 @@ constexpr t_float DEF_PITCH = 0;
 SoundTouchExt::SoundTouchExt(const PdArgs& a)
     : SoundExternal(a)
     , pitch_value_(DEF_PITCH)
-    , drywet_(1)
+    , drywet_(0, 1)
 {
     createSignalOutlet();
     createInlet();
@@ -44,14 +44,18 @@ SoundTouchExt::SoundTouchExt(const PdArgs& a)
     {
         auto dw = new FloatProperty("@drywet", 1);
         dw->checkClosedRange(0, 1);
-        dw->setSuccessFn([dw, this](Property* p) {
-            drywet_.setTargetValue(dw->value());
-        });
+        dw->setSuccessFn([dw, this](Property* p) { drywet_.setTargetValue(dw->value()); });
 
         addProperty(dw);
     }
 
     initSoundTouch();
+}
+
+void SoundTouchExt::setupDSP(t_signal** sp)
+{
+    SoundExternal::setupDSP(sp);
+    drywet_.setDurationMs(100, samplerate());
 }
 
 void SoundTouchExt::processBlock(const t_sample** in, t_sample** out)
@@ -70,10 +74,13 @@ void SoundTouchExt::processBlock(const t_sample** in, t_sample** out)
         fin[i] = in[0][i];
 
     stouch_.putSamples(fin, bs);
-    stouch_.receiveSamples(fout, bs);
+    auto nsamp = stouch_.receiveSamples(fout, bs);
+    for (size_t i = nsamp; i < bs; i++)
+        fout[i] = 0;
 
-    for (size_t i = 0; i < bs; i++)
-        out[0][i] = interpolate::linear<t_sample>(fout[i], in[0][i], drywet_());
+    for (size_t i = 0; i < bs; i++) {
+        out[0][i] = interpolate::linear<t_sample>(in[0][i], fout[i], drywet_());
+    }
 }
 
 void SoundTouchExt::onInlet(size_t, const AtomListView& lst)

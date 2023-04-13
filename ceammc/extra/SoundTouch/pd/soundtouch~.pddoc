@@ -47,21 +47,21 @@
         <example>
             <pdascii>
 <![CDATA[ 
-[open %CEAMMC%/guitar1.wav, 1(
+[open %CEAMMC%/guitar1.wav, 1 #a(
 |
-[expand_env]
+[expand_env] [0(
+|            |
+[readsf~   #x]
 |
-[readsf~]
-|
-|           [hsl min=-24 max=24]
-|           |
-|           [F]
+|           [ui.hsl -24 24 @show_value 1]
 |           |.
 [soundtouch~  -12]
 |
 [ui.gain~ @size 120 16] [ui.dsp~]
 |\
 [dac~]
+
+[X x:1->a]
 ]]>
             </pdascii>
         </example>

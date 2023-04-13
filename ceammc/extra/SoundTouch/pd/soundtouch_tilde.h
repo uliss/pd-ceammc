@@ -16,7 +16,8 @@ class SoundTouchExt : public SoundExternal {
 
 public:
     SoundTouchExt(const PdArgs& a);
-    void processBlock(const t_sample** in, t_sample** out) override;
+    void setupDSP(t_signal** sp) final;
+    void processBlock(const t_sample** in, t_sample** out) final;
 
     void onInlet(size_t, const AtomListView&) override;
 
