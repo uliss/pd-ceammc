@@ -1,6 +1,6 @@
 #include "dyn_comp_up.h"
 #include "ceammc_crc32.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 using namespace ceammc;
 
 class DynCompUp : public faust_dyn_comp_up_tilde {
@@ -37,12 +37,11 @@ public:
 
 void setup_dyn_comp_up_tilde()
 {
-    SoundExternalFactory<DynCompUp> obj("dyn.comp_up~");
+    FaustFactory<DynCompUp> obj("dyn.comp_up~");
     obj.addAlias("comp.up~");
 
     obj.setXletsInfo({ "signal: input", "float: set strength" },
         { "signal: output", "float: compression level (db)" });
-    obj.addMethod("reset", &::DynCompUp::m_reset);
 
     obj.setDescription("mono upward compressor");
     obj.setCategory("dyn");

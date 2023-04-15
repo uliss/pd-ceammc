@@ -1,5 +1,5 @@
 #include "fx_distortion.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -17,7 +17,7 @@ public:
 
 void setup_fx_distortion_tilde()
 {
-    SoundExternalFactory<FxDistortion> obj("fx.distortion~");
+    FaustFactory<FxDistortion> obj("fx.distortion~");
 
     obj.setDescription("cubic nonlinearity distortion");
     obj.setCategory("fx");

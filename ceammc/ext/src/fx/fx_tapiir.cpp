@@ -1,7 +1,7 @@
 #include "fx_tapiir.h"
 #include "ceammc_convert.h"
 #include "ceammc_crc32.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 #include "fx_tapiir_priv.h"
 
 #include <algorithm>
@@ -382,12 +382,11 @@ void FxTapiir::initTapGroupProps()
 
 void setup_fx_tapiir_tilde()
 {
-    SoundExternalFactory<FxTapiir> obj("fx.tapiir~");
-    obj.addMethod("reset", &FxTapiir::m_reset);
+    FaustFactory<FxTapiir> obj("fx.tapiir~");
     obj.addMethod("random", &FxTapiir::m_random);
     obj.addMethod("pingpong", &FxTapiir::m_pingpong);
 
     obj.setDescription("multi-tap delay");
     obj.setCategory("fx");
-    obj.setKeywords({"fx", "delay", "tapiir"});
+    obj.setKeywords({ "fx", "delay", "tapiir" });
 }

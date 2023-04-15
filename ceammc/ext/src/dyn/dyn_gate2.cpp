@@ -1,5 +1,5 @@
 #include "dyn_gate2.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 #include "dyn_gate_base.h"
 using namespace ceammc;
 
@@ -13,7 +13,7 @@ public:
 
 void setup_dyn_gate2_tilde()
 {
-    SoundExternalFactory<DynGate2> obj("dyn.gate2~");
+    FaustFactory<DynGate2> obj("dyn.gate2~");
     obj.setXletsInfo(
         { "signal: left input", "signal: right input", "float: threshold (dbfs)" },
         { "signal: left output", "signal: right output" });

@@ -1,5 +1,5 @@
 #include "flt_lpf12.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -9,7 +9,7 @@ class FltLpf12 : public faust_flt_lpf12_tilde {
 public:
     FltLpf12(const PdArgs& args)
         : faust_flt_lpf12_tilde(args)
-        , freq_(property("@freq"))
+        , freq_(findUIProperty("@freq"))
     {
         bindPositionalArgsToProps({ gensym("@freq") });
         createInlet();
@@ -24,7 +24,7 @@ public:
 
 void setup_flt_lpf12_tilde()
 {
-    SoundExternalFactory<FltLpf12> obj("flt.lpf12~");
+    FaustFactory<FltLpf12> obj("flt.lpf12~");
     obj.setXletsInfo({ "signal: input", "float: freq" }, { "signal: output" });
 
     obj.setDescription("Low-pass second order Butterworth filter");

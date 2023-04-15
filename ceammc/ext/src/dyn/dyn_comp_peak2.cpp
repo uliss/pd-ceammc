@@ -1,5 +1,5 @@
 #include "dyn_comp_peak2.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 #include "dyn_comp_base.h"
 using namespace ceammc;
 
@@ -17,7 +17,7 @@ public:
 
 void setup_dyn_comp_peak2_tilde()
 {
-    SoundExternalFactory<DynCompPeak2> obj("dyn.comp_peak2~");
+    FaustFactory<DynCompPeak2> obj("dyn.comp_peak2~");
     obj.addAlias("comp.peak2~");
 
     obj.setXletsInfo(
@@ -31,7 +31,6 @@ void setup_dyn_comp_peak2_tilde()
             "signal: right output",
             "float: compression level",
         });
-    obj.addMethod("reset", &DynCompPeak2::m_reset);
 
     obj.setDescription("stereo dynamic range peak feedforward compressor");
     obj.setCategory("dyn");

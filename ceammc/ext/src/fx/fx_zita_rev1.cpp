@@ -1,5 +1,5 @@
 #include "fx_zita_rev1.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -14,8 +14,7 @@ public:
 
 void setup_fx_zita_rev1_tilde()
 {
-    SoundExternalFactory<FxZitaRev1> obj("fx.zita_rev1~");
-    obj.addMethod("reset", &FxZitaRev1::m_reset);
+    FaustFactory<FxZitaRev1> obj("fx.zita_rev1~");
 
     obj.setDescription("Zita stereo reverb");
     obj.setCategory("fx");

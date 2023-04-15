@@ -25,6 +25,7 @@ public:
         int flags = OBJECT_FACTORY_DEFAULT | OBJECT_FACTORY_MAIN_SIGNAL_INLET | OBJECT_FACTORY_NO_FLOAT)
         : SoundExternalFactory<T>(name, flags)
     {
+        this->addMethod("reset", &T::m_reset);
         this->addMethod(OSC_METHOD_UPDATE, &T::updateOscServer);
     }
 };

@@ -1,5 +1,5 @@
 #include "dyn_comp2.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 #include "dyn_comp_base.h"
 using namespace ceammc;
 
@@ -15,7 +15,7 @@ public:
 
 void setup_dyn_comp2_tilde()
 {
-    SoundExternalFactory<DynComp2> obj("dyn.comp2~");
+    FaustFactory<DynComp2> obj("dyn.comp2~");
     obj.setXletsInfo({ "signal: left input", "signal: right input" },
         { "signal: left output", "signal: right output", "float: compression level" });
     obj.addMethod("preset", &DynComp2::m_preset);

@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "fx_overdrive.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -39,7 +39,7 @@ public:
 
 void setup_fx_overdrive_tilde()
 {
-    SoundExternalFactory<FxOverdrive> obj("fx.overdrive~");
+    FaustFactory<FxOverdrive> obj("fx.overdrive~");
     obj.setXletsInfo({ "signal: input", "float(1-5): gain" }, { "signal: output" });
 
     obj.setDescription("overdrive effect");

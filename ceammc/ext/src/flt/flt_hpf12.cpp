@@ -1,5 +1,5 @@
 #include "flt_hpf12.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -24,7 +24,7 @@ public:
 
 void setup_flt_hpf12_tilde()
 {
-    SoundExternalFactory<FltHpf12> obj("flt.hpf12~");
+    FaustFactory<FltHpf12> obj("flt.hpf12~");
     obj.setXletsInfo({ "signal: input", "float: freq" }, { "signal: output" });
 
     obj.setDescription("High-pass second order Butterworth filter");

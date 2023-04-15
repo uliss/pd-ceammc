@@ -1,5 +1,5 @@
 #include "dyn_expand2.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 #include "dyn_comp_base.h"
 using namespace ceammc;
 
@@ -17,7 +17,7 @@ public:
 
 void setup_dyn_expand2_tilde()
 {
-    SoundExternalFactory<DynExpand2> obj("dyn.expand2~");
+    FaustFactory<DynExpand2> obj("dyn.expand2~");
     obj.setXletsInfo(
         {
             "signal: left input",
@@ -29,8 +29,6 @@ void setup_dyn_expand2_tilde()
             "signal: right output",
             "float: expander level",
         });
-
-    obj.addMethod("reset", &DynExpand2::m_reset);
 
     obj.setDescription("stereo dynamic range expander");
     obj.setCategory("dyn");

@@ -1,5 +1,5 @@
 #include "fx_recho.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -8,17 +8,13 @@ public:
     FxREcho(const PdArgs& args)
         : faust_fx_recho_tilde(args)
     {
-        static t_symbol* SYM_PROP_DELAY = gensym("@delay");
-        static t_symbol* SYM_PROP_FEEDBACK = gensym("@feedback");
-
-        bindPositionalArgsToProps({ SYM_PROP_DELAY, SYM_PROP_FEEDBACK });
+        bindPositionalArgsToProps({ gensym("@delay"), gensym("@feedback") });
     }
 };
 
 void setup_fx_recho_tilde()
 {
-    SoundExternalFactory<FxREcho> obj("fx.recho~");
-    obj.addMethod("reset", &FxREcho::m_reset);
+    FaustFactory<FxREcho> obj("fx.recho~");
 
     obj.setDescription("reversed echo effect");
     obj.setCategory("fx");

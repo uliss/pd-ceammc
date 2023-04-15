@@ -1,5 +1,5 @@
 #include "flt_filterbank5x1.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 #include <array>
 
@@ -44,8 +44,8 @@ public:
 
 void setup_flt_filterbank5x1_tilde()
 {
-    SoundExternalFactory<FltFilterBank5x1> obj("flt.fbank5x1~");
-    obj.addMethod("reset", &FltFilterBank5x1::m_reset);
+    FaustFactory<FltFilterBank5x1> obj("flt.fbank5x1~");
+
     obj.setXletsInfo({ "input signal" },
         {
             "LowPass: 250Hz",
