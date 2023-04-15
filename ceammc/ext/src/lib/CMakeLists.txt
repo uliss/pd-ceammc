@@ -216,6 +216,20 @@ target_sources(ceammc_core
 file(GLOB RAGEL_SOURCES lex/*.rl)
 add_custom_target(lex_ragel_sources SOURCES ${RAGEL_SOURCES} args/argcheck2.rl)
 
+# liblo
+find_package(liblo)
+if(LIBLO_FOUND)
+#    target_sources(ceammc_net
+#        PRIVATE
+#        net_osc_send.cpp
+#        net_osc_server.cpp
+#        net_osc_receive.cpp
+#        osc_property.cpp
+#    )
+    target_include_directories(ceammc_core PRIVATE ${LIBLO_INCLUDE_DIRS})
+    target_link_libraries(ceammc_core PUBLIC ${LIBLO_LIBRARIES})
+endif()
+
 if(BISON_FOUND AND FLEX_FOUND)
     add_custom_target(ceammc_argcheck_gen
         COMMAND $<TARGET_FILE:reflex-bin> argcheck.l
