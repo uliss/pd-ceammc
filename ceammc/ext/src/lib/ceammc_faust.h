@@ -17,6 +17,7 @@
 #include <algorithm>
 #include <cassert>
 #include <cctype>
+#include <cstdint>
 #include <cstring>
 #include <initializer_list>
 #include <memory>
@@ -24,11 +25,9 @@
 #include <unordered_map>
 #include <vector>
 
-#include "ceammc_atom.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_clock.h"
 #include "ceammc_object.h"
-#include "ceammc_output.h"
 #include "ceammc_property_info.h"
 #include "ceammc_sound_external.h"
 
@@ -39,14 +38,62 @@
 #ifndef CEAMMC_AVOIDDENORMALS
 #ifdef __SSE__
 #include <xmmintrin.h>
-#ifdef __SSE2__
-#define CEAMMC_AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8040)
+#endif
+
+class FaustScopedNoDenormals {
+private:
+    intptr_t fpsr = 0;
+
+    void setFpStatusRegister(intptr_t fpsr_aux) noexcept
+    {
+#if defined(__arm64__) || defined(__aarch64__)
+        asm volatile("msr fpcr, %0"
+                     :
+                     : "ri"(fpsr_aux));
+#elif defined(__SSE__)
+        // The volatile keyword here is needed to workaround a bug in AppleClang 13.0
+        // which aggressively optimises away the variable otherwise
+        volatile uint32_t fpsr_w = static_cast<uint32_t>(fpsr_aux);
+        _mm_setcsr(fpsr_w);
+#endif
+    }
+
+    void getFpStatusRegister() noexcept
+    {
+#if defined(__arm64__) || defined(__aarch64__)
+        asm volatile("mrs %0, fpcr"
+                     : "=r"(fpsr));
+#elif defined(__SSE__)
+        fpsr = static_cast<intptr_t>(_mm_getcsr());
+#endif
+    }
+
+public:
+    FaustScopedNoDenormals() noexcept
+    {
+#if defined(__arm64__) || defined(__aarch64__)
+        intptr_t mask = (1 << 24 /* FZ */);
+#elif defined(__SSE__)
+#if defined(__SSE2__)
+        intptr_t mask = 0x8040;
 #else
-#define CEAMMC_AVOIDDENORMALS _mm_setcsr(_mm_getcsr() | 0x8000)
+        intptr_t mask = 0x8000;
 #endif
 #else
-#define CEAMMC_AVOIDDENORMALS
+        intptr_t mask = 0x0000;
 #endif
+        getFpStatusRegister();
+        setFpStatusRegister(fpsr | mask);
+    }
+
+    ~FaustScopedNoDenormals() noexcept
+    {
+        setFpStatusRegister(fpsr);
+    }
+};
+
+#define CEAMMC_AVOIDDENORMALS FaustScopedNoDenormals ftz_scope;
+
 #endif
 
 struct Soundfile;
@@ -55,6 +102,8 @@ namespace ceammc {
 namespace faust {
 
     class UIElement;
+    using UIElementPtr = std::unique_ptr<UIElement>;
+    using OscSegmentList = std::vector<const t_symbol*>;
 
     PropValueUnits to_units(const char* u);
 
@@ -87,7 +136,7 @@ namespace faust {
 #endif
     }
 
-    void copy_samples(size_t n_ch, size_t bs, const t_sample** in, t_sample** out, bool zero_abnormals = true);
+    void copy_samples(size_t n_ch, size_t bs, const t_sample** in, t_sample** out, bool zero_abnormals);
 
     class FaustExternalBase : public SoundExternal {
     public:
@@ -115,9 +164,14 @@ namespace faust {
         std::vector<t_sample*> faust_buf_;
         size_t faust_bs_;
         int xfade_, n_xfade_;
-        bool active_;
 
     protected:
+        bool isActive() const { return active_->value(); }
+        t_symbol* id() const { return id_->value(); }
+        bool bindToOsc() const { return osc_->value() != &s_; }
+
+        // level meters
+        void initMeters();
         void setMetersOutputFn(MetersFn fn) { clock_fn_ = fn; }
         void setInitSignalValue(t_float f) { pd_float(reinterpret_cast<t_pd*>(owner()), f); }
         void outputMetersTo(size_t outlet);
@@ -125,8 +179,10 @@ namespace faust {
         UIProperty* findUIProperty(t_symbol* name, bool printErr = true);
         UIProperty* findUIProperty(const char* name, bool printErr = true) { return findUIProperty(gensym(name), printErr); }
 
-        void initMeters();
         void addUIElement(UIElement* ui);
+
+        // osc
+        void subscribeOsc(UIElement* ui, const OscSegmentList& oscSegments);
 
     private:
         void bufFadeIn(const t_sample** in, t_sample** out, float k0);
@@ -134,12 +190,15 @@ namespace faust {
 
     private:
         std::unique_ptr<ClockLambdaFunction> clock_ptr_;
-        IntProperty* refresh_ { nullptr };
+        BoolProperty* active_ { nullptr }; // on/off sound processing
+        IntProperty* refresh_ { nullptr }; // meters level refresh rate
+        SymbolProperty* osc_ { nullptr }; // OSC server to listen
+        SymbolProperty* id_ { nullptr }; // object id (used in OSC addressed)
         MetersData meters_;
         MetersFn clock_fn_;
     };
 
-    enum UIElementType {
+    enum UIElementType : std::uint8_t {
         UI_BUTTON,
         UI_CHECK_BUTTON,
         UI_V_SLIDER,
@@ -155,61 +214,41 @@ namespace faust {
 
     class UIElement {
         UIElementType type_;
-        std::string path_;
-        std::string label_;
+        t_symbol* label_;
         FAUSTFLOAT init_, min_, max_, step_;
-        FAUSTFLOAT* value_;
+        FAUSTFLOAT* vptr_;
         t_symbol* set_prop_symbol_;
         t_symbol* get_prop_symbol_;
         PropertyInfo pinfo_;
 
     public:
-        UIElement(UIElementType t, const std::string& path, const std::string& label);
-        const std::string& label() const;
-        const std::string& path() const;
+        UIElement(UIElementType t, const char* label);
+        UIElement(UIElementType t, t_symbol* label);
+        const t_symbol* label() const { return label_; }
         t_symbol* typeSymbol() const;
-        UIElementType type() const;
+        UIElementType type() const { return type_; }
         FAUSTFLOAT init() const { return init_; }
         FAUSTFLOAT min() const { return min_; }
         FAUSTFLOAT max() const { return max_; }
         FAUSTFLOAT step() const { return step_; }
 
-        void initProperty(const std::string& name);
         t_symbol* getPropertySym();
         t_symbol* setPropertySym();
-        void outputProperty(t_outlet* out);
-        void outputValue(t_outlet* out);
 
         FAUSTFLOAT value(FAUSTFLOAT def = 0.f) const;
         void setValue(FAUSTFLOAT v, bool clip = false);
 
-        const FAUSTFLOAT* valuePtr() const { return value_; }
+        const FAUSTFLOAT* valuePtr() const { return vptr_; }
         void setValuePtr(FAUSTFLOAT* vPtr);
         void setContraints(FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step);
-
-        bool pathcmp(const std::string& path) const;
-
-        void dump(t_outlet* out);
 
         const PropertyInfo& propInfo() const { return pinfo_; }
         void setUnits(PropValueUnits u) { pinfo_.setUnits(u); }
         void setType(PropValueType t) { pinfo_.setType(t); }
+
+    private:
+        void initProperty();
     };
-
-    inline const std::string& UIElement::label() const
-    {
-        return label_;
-    }
-
-    inline const std::string& UIElement::path() const
-    {
-        return path_;
-    }
-
-    inline UIElementType UIElement::type() const
-    {
-        return type_;
-    }
 
     inline t_symbol* UIElement::getPropertySym()
     {
@@ -223,31 +262,27 @@ namespace faust {
 
     inline void UIElement::setValuePtr(FAUSTFLOAT* vPtr)
     {
-        value_ = vPtr;
-        *value_ = init_;
+        vptr_ = vPtr;
+        *vptr_ = init_;
     }
 
     bool isGetAllProperties(t_symbol* s);
     bool isGetProperty(t_symbol* s);
     bool isSetProperty(t_symbol* s);
-    bool skipOscSegment(const std::string& s);
-    bool invalidOscChar(char c);
-    std::string escapeOscSegment(const std::string& s);
-    std::vector<std::string> filterOscSegment(const std::vector<std::string>& osc);
-    std::string makeOscPath(const std::string& label, const std::vector<std::string>& path);
+    std::string makeOscPath(const t_symbol* label, const OscSegmentList& segs, const t_symbol* id);
 
     template <typename T>
     class PdUI : public T {
-        std::vector<UIElement*> ui_elements_;
-        std::vector<std::string> osc_path_;
-        std::string name_;
-        std::string id_;
+        std::vector<UIElementPtr> ui_elements_;
+        OscSegmentList osc_segs_;
+        const t_symbol* name_;
         std::unordered_map<FAUSTFLOAT*, const char*> unit_map_;
         std::unordered_map<FAUSTFLOAT*, PropValueType> type_map_;
 
     public:
-        PdUI(const std::string& name, const std::string& id);
-        virtual ~PdUI();
+        PdUI(const char* name);
+        const t_symbol* name() const { return name_; }
+        const OscSegmentList& oscSegments() const { return osc_segs_; }
 
         UIElement* uiAt(size_t pos);
         const UIElement* uiAt(size_t pos) const;
@@ -255,10 +290,10 @@ namespace faust {
         void addSoundfile(const char* /*label*/, const char* /*filename*/, Soundfile** /*sf_zone*/) { }
 
     protected:
-        void add_elem(UIElementType type, const std::string& label, FAUSTFLOAT* zone);
-        void add_elem(UIElementType type, const std::string& label, FAUSTFLOAT* zone,
+        void add_elem(UIElementType type, t_symbol* label, FAUSTFLOAT* zone);
+        void add_elem(UIElementType type, t_symbol* label, FAUSTFLOAT* zone,
             FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step);
-        void add_elem(UIElementType type, const std::string& label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max);
+        void add_elem(UIElementType type, t_symbol* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max);
 
     public:
         virtual void addButton(const char* label, FAUSTFLOAT* zone);
@@ -280,18 +315,8 @@ namespace faust {
         virtual void run();
 
     public:
-        UIElement* findElementByLabel(const char* label);
-        UIElement* findElementByPtr(FAUSTFLOAT* vptr);
-        void setElementValue(const char* label, FAUSTFLOAT v);
-        void dumpUI(t_outlet* out);
-        void outputAllProperties(t_outlet* out);
-        void outputProperty(t_symbol* s, t_outlet* out);
-        void setProperty(t_symbol* s, int argc, t_atom* argv);
-
         std::vector<FAUSTFLOAT> uiValues() const;
         void setUIValues(const std::vector<FAUSTFLOAT>& v);
-        std::string fullName() const;
-        std::string oscPath(const std::string& label) const;
     };
 
     template <typename DSP, typename ui_tag>
@@ -307,7 +332,7 @@ namespace faust {
         FaustExternal(const PdArgs& args)
             : FaustExternalBase(args)
             , dsp_(new DSP())
-            , ui_(new PdUI<ui_tag>(ui_tag::name, ""))
+            , ui_(new PdUI<ui_tag>(ui_tag::name.c_str()))
         {
             initSignalInputs(static_cast<size_t>(dsp_->getNumInputs()));
             initSignalOutputs(static_cast<size_t>(dsp_->getNumOutputs()));
@@ -320,6 +345,17 @@ namespace faust {
                 addUIElement(ui_->uiAt(i));
 
             initMeters();
+        }
+
+        void initDone() override
+        {
+            FaustExternalBase::initDone();
+
+            if (bindToOsc()) {
+                const auto N = ui_->uiCount();
+                for (size_t i = 0; i < N; i++)
+                    subscribeOsc(ui_->uiAt(i), ui_->oscSegments());
+            }
         }
 
         void initConstants()
@@ -351,12 +387,12 @@ namespace faust {
 
         void processBlock(const t_sample** in, t_sample** out) override
         {
-            CEAMMC_AVOIDDENORMALS;
-
             static_assert(std::is_same<FAUSTFLOAT, t_sample>::value, "faust type mismatch");
 
             if (!dsp_)
                 return;
+
+            CEAMMC_AVOIDDENORMALS;
 
             const size_t N_OUT = numOutputChannels();
             const size_t BS = blockSize();
@@ -364,9 +400,9 @@ namespace faust {
             if (xfade_ > 0) {
                 dsp_->compute(static_cast<int>(BS), const_cast<t_sample**>(in), faust_buf_.data());
                 processXfade(in, out);
-            } else if (active_) {
+            } else if (isActive()) {
                 dsp_->compute(static_cast<int>(BS), const_cast<t_sample**>(in), faust_buf_.data());
-                copy_samples(N_OUT, BS, const_cast<const t_sample**>(faust_buf_.data()), out);
+                copy_samples(N_OUT, BS, const_cast<const t_sample**>(faust_buf_.data()), out, false);
             } else
                 processInactive(in, out);
         }
@@ -388,155 +424,144 @@ namespace faust {
     };
 
     template <typename T>
-    PdUI<T>::PdUI(const std::string& name, const std::string& id)
-        : name_(name)
-        , id_(id)
+    PdUI<T>::PdUI(const char* name)
+        : name_(gensym(name))
     {
-        if (!id.empty())
-            osc_path_.push_back(id_);
-
-        osc_path_.push_back(name_);
-    }
-
-    template <typename T>
-    PdUI<T>::~PdUI()
-    {
-        for (size_t i = 0; i < uiCount(); i++)
-            delete ui_elements_[i];
+        osc_segs_.push_back(name_);
     }
 
     template <typename T>
     UIElement* PdUI<T>::uiAt(size_t pos)
     {
-        return pos < ui_elements_.size() ? ui_elements_.at(pos) : 0;
+        return pos < ui_elements_.size() ? ui_elements_[pos].get() : 0;
     }
 
     template <typename T>
     const UIElement* PdUI<T>::uiAt(size_t pos) const
     {
-        return pos < ui_elements_.size() ? ui_elements_.at(pos) : 0;
+        return pos < ui_elements_.size() ? ui_elements_[pos].get() : 0;
     }
 
     template <typename T>
-    void PdUI<T>::add_elem(UIElementType type, const std::string& label, FAUSTFLOAT* zone)
+    void PdUI<T>::add_elem(UIElementType type, t_symbol* label, FAUSTFLOAT* zone)
     {
-        UIElement* elems = new UIElement(type, oscPath(label), label);
+        UIElementPtr elems(new UIElement(type, label));
         auto it = type_map_.find(zone);
         if (it != type_map_.end())
             elems->setType(it->second);
 
         elems->setValuePtr(zone);
-        ui_elements_.push_back(elems);
+        ui_elements_.push_back(std::move(elems));
     }
 
     template <typename T>
-    void PdUI<T>::add_elem(UIElementType type, const std::string& label, FAUSTFLOAT* zone,
+    void PdUI<T>::add_elem(UIElementType type, t_symbol* label, FAUSTFLOAT* zone,
         FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
     {
-        UIElement* elems = new UIElement(type, oscPath(label), label);
+        UIElementPtr elems(new UIElement(type, label));
         auto it = type_map_.find(zone);
         if (it != type_map_.end())
             elems->setType(it->second);
 
         elems->setContraints(init, min, max, step);
         elems->setValuePtr(zone);
-        ui_elements_.push_back(elems);
+        ui_elements_.push_back(std::move(elems));
     }
 
     template <typename T>
-    void PdUI<T>::add_elem(UIElementType type, const std::string& label, FAUSTFLOAT* zone,
+    void PdUI<T>::add_elem(UIElementType type, t_symbol* label, FAUSTFLOAT* zone,
         FAUSTFLOAT min, FAUSTFLOAT max)
     {
-        UIElement* elems = new UIElement(type, oscPath(label), label);
+        UIElementPtr elems(new UIElement(type, label));
         auto it = type_map_.find(zone);
         if (it != type_map_.end())
             elems->setType(it->second);
 
         elems->setContraints(0.0, min, max, 0.0);
         elems->setValuePtr(zone);
-        ui_elements_.push_back(elems);
+        ui_elements_.push_back(std::move(elems));
     }
 
     template <typename T>
     void PdUI<T>::addButton(const char* label, FAUSTFLOAT* zone)
     {
-        UIElement* elems = new UIElement(UI_BUTTON, oscPath(label), label);
+        UIElementPtr elems(new UIElement(UI_BUTTON, gensym(label)));
         auto it = type_map_.find(zone);
         if (it != type_map_.end())
             elems->setType(it->second);
 
         elems->setContraints(0, 0, 1, 1);
         elems->setValuePtr(zone);
-        ui_elements_.push_back(elems);
+        ui_elements_.push_back(std::move(elems));
     }
 
     template <typename T>
     void PdUI<T>::addCheckButton(const char* label, FAUSTFLOAT* zone)
     {
-        UIElement* elems = new UIElement(UI_CHECK_BUTTON, oscPath(label), label);
+        UIElementPtr elems(new UIElement(UI_CHECK_BUTTON, gensym(label)));
         auto it = type_map_.find(zone);
         if (it != type_map_.end())
             elems->setType(it->second);
 
         elems->setContraints(0, 0, 1, 1);
         elems->setValuePtr(zone);
-        ui_elements_.push_back(elems);
+        ui_elements_.push_back(std::move(elems));
     }
 
     template <typename T>
     void PdUI<T>::addVerticalSlider(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
     {
-        add_elem(UI_V_SLIDER, label, zone, init, min, max, step);
+        add_elem(UI_V_SLIDER, gensym(label), zone, init, min, max, step);
     }
 
     template <typename T>
     void PdUI<T>::addHorizontalSlider(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
     {
-        add_elem(UI_H_SLIDER, label, zone, init, min, max, step);
+        add_elem(UI_H_SLIDER, gensym(label), zone, init, min, max, step);
     }
 
     template <typename T>
     void PdUI<T>::addNumEntry(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
     {
-        add_elem(UI_NUM_ENTRY, label, zone, init, min, max, step);
+        add_elem(UI_NUM_ENTRY, gensym(label), zone, init, min, max, step);
     }
 
     template <typename T>
     void PdUI<T>::addHorizontalBargraph(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max)
     {
-        add_elem(UI_H_BARGRAPH, label, zone, min, max);
+        add_elem(UI_H_BARGRAPH, gensym(label), zone, min, max);
     }
 
     template <typename T>
     void PdUI<T>::addVerticalBargraph(const char* label, FAUSTFLOAT* zone, FAUSTFLOAT min, FAUSTFLOAT max)
     {
-        add_elem(UI_V_BARGRAPH, label, zone, min, max);
+        add_elem(UI_V_BARGRAPH, gensym(label), zone, min, max);
     }
 
     template <typename T>
     void PdUI<T>::openTabBox(const char* label)
     {
-        osc_path_.push_back(label);
+        osc_segs_.push_back(gensym(label));
     }
 
     template <typename T>
     void PdUI<T>::openHorizontalBox(const char* label)
     {
-        osc_path_.push_back(label);
+        osc_segs_.push_back(gensym(label));
     }
 
     template <typename T>
     void PdUI<T>::openVerticalBox(const char* label)
     {
-        osc_path_.push_back(label);
+        osc_segs_.push_back(gensym(label));
     }
 
     template <typename T>
     void PdUI<T>::closeBox()
     {
-        osc_path_.pop_back();
+        osc_segs_.pop_back();
 
-        for (auto el : ui_elements_) {
+        for (auto& el : ui_elements_) {
             auto it = unit_map_.find(const_cast<FAUSTFLOAT*>(el->valuePtr()));
             if (it == unit_map_.end())
                 continue;
@@ -566,82 +591,6 @@ namespace faust {
     void PdUI<T>::run() { }
 
     template <typename T>
-    UIElement* PdUI<T>::findElementByLabel(const char* label)
-    {
-        for (size_t i = 0; i < uiCount(); i++) {
-            if (ui_elements_[i]->pathcmp(label))
-                return ui_elements_[i];
-        }
-
-        return nullptr;
-    }
-
-    template <typename T>
-    UIElement* PdUI<T>::findElementByPtr(FAUSTFLOAT* vptr)
-    {
-        for (auto el : ui_elements_) {
-            if (el->valuePtr() == vptr)
-                return el;
-        }
-
-        return nullptr;
-    }
-
-    template <typename T>
-    void PdUI<T>::setElementValue(const char* label, FAUSTFLOAT v)
-    {
-        UIElement* el = findElementByLabel(label);
-        if (!el)
-            return;
-
-        el->setValue(v);
-    }
-
-    template <typename T>
-    void PdUI<T>::dumpUI(t_outlet* out)
-    {
-        for (size_t i = 0; i < uiCount(); i++)
-            ui_elements_[i]->dump(out);
-    }
-
-    template <typename T>
-    void PdUI<T>::outputAllProperties(t_outlet* out)
-    {
-        ceammc::AtomList l;
-        for (size_t i = 0; i < uiCount(); i++)
-            l.append(ui_elements_[i]->setPropertySym());
-
-        outletAtomList(out, l);
-    }
-
-    template <typename T>
-    void PdUI<T>::outputProperty(t_symbol* s, t_outlet* out)
-    {
-        for (size_t i = 0; i < uiCount(); i++) {
-            if (ui_elements_[i]->getPropertySym() == s)
-                ui_elements_[i]->outputProperty(out);
-        }
-    }
-
-    template <typename T>
-    void PdUI<T>::setProperty(t_symbol* s, int argc, t_atom* argv)
-    {
-        for (size_t i = 0; i < uiCount(); i++) {
-            if (ui_elements_[i]->setPropertySym() == s) {
-                if ((argc < 1) && argv[0].a_type == A_FLOAT) {
-                    pd_error(0, "[%s] %s: float value required", name_.c_str(), s->s_name);
-                    return;
-                }
-
-                ui_elements_[i]->setValue(atom_getfloat(argv));
-                return;
-            }
-        }
-
-        pd_error(0, "[%s] unknown property: %s", name_.c_str(), s->s_name);
-    }
-
-    template <typename T>
     std::vector<FAUSTFLOAT> PdUI<T>::uiValues() const
     {
         std::vector<FAUSTFLOAT> res;
@@ -657,23 +606,6 @@ namespace faust {
         size_t max = std::min(v.size(), uiCount());
         for (size_t i = 0; i < max; i++)
             uiAt(i)->setValue(v[i]);
-    }
-
-    template <typename T>
-    std::string PdUI<T>::fullName() const
-    {
-        std::string res(name_);
-        if (!id_.empty()) {
-            res += " ";
-            res += id_;
-        }
-        return res;
-    }
-
-    template <typename T>
-    std::string PdUI<T>::oscPath(const std::string& label) const
-    {
-        return makeOscPath(label, osc_path_);
     }
 }
 }

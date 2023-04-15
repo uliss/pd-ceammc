@@ -24,7 +24,12 @@ struct _outlet {
     t_symbol* o_sym;
 };
 
-struct Dummy {
+struct Dummy : public FaustExternalBase {
+    Dummy()
+        : FaustExternalBase(PdArgs { {}, &s_, 0, &s_ })
+    {
+    }
+    void processBlock(const t_sample** in, t_sample** out) { }
 };
 typedef PdUI<Dummy> UI;
 
@@ -40,18 +45,17 @@ TEST_CASE("Faust", "[ceammc::faust]")
     PureData::instance();
     SECTION("UIElement")
     {
-        UIElement e(UI_BUTTON, "/ui/test", "test");
+        UIElement e(UI_BUTTON, "test");
         REQUIRE(e.type() == UI_BUTTON);
         REQUIRE(e.typeSymbol() == gensym("button"));
-        REQUIRE(e.path() == "/ui/test");
-        REQUIRE(e.label() == "test");
+        REQUIRE(e.label() == SYM("test"));
         REQUIRE(e.init() == 0.f);
         REQUIRE(e.min() == 0.f);
         REQUIRE(e.max() == 1.0f);
         REQUIRE(e.step() == 0.f);
 
-        REQUIRE(e.getPropertySym() == gensym("@test?"));
-        REQUIRE(e.setPropertySym() == gensym("@test"));
+        REQUIRE(e.getPropertySym() == SYM("@test?"));
+        REQUIRE(e.setPropertySym() == SYM("@test"));
 
         REQUIRE(e.value() == 0.f);
         REQUIRE(e.value(1.f) == 1.f);
@@ -79,16 +83,9 @@ TEST_CASE("Faust", "[ceammc::faust]")
         e.setValue(20.f, false);
         REQUIRE(e.value() == 0.5f);
 
-        e.outputProperty(0);
-        e.outputValue(0);
-
-        t_outlet out = outlet();
-        e.outputProperty(&out);
-        e.outputValue(&out);
-
         SECTION("testConstrains")
         {
-            UIElement e(UI_H_SLIDER, "/ui/hsl", "hsl");
+            UIElement e(UI_H_SLIDER, "hsl");
             REQUIRE(e.typeSymbol() == gensym("hslider"));
             e.setContraints(2.0, -2, 16, 1);
             REQUIRE(e.init() == 2.0f);
@@ -100,106 +97,18 @@ TEST_CASE("Faust", "[ceammc::faust]")
             e.setValuePtr(&v);
             REQUIRE(v == 2.0f);
         }
-
-        SECTION("testDump")
-        {
-            t_outlet out = outlet();
-            UIElement e(UI_V_SLIDER, "/ui/vsl", "vsl");
-            REQUIRE(e.typeSymbol() == gensym("vslider"));
-            e.setContraints(2.0, -2, 16, 1);
-
-            e.dump(0);
-
-            t_outlet xlet = outlet();
-            e.dump(&xlet);
-            t_float v;
-            e.setValuePtr(&v);
-            e.dump(&xlet);
-        }
-
-        SECTION("pathcmp")
-        {
-            UIElement e(UI_V_SLIDER, "/ui/vsl", "Slider name");
-            REQUIRE_FALSE(e.pathcmp(""));
-            REQUIRE_FALSE(e.pathcmp(""));
-            REQUIRE_FALSE(e.pathcmp("/vsl"));
-            REQUIRE_FALSE(e.pathcmp("i/vsl"));
-            REQUIRE(e.pathcmp("ui/vsl"));
-            REQUIRE(e.pathcmp("/ui/vsl"));
-            REQUIRE(e.pathcmp("vsl"));
-        }
     }
 
     SECTION("test static function")
     {
-        SECTION("skipOscSegment")
+        SECTION("makeOscPath")
         {
-            REQUIRE(skipOscSegment(""));
-            REQUIRE(skipOscSegment("0x00"));
-            REQUIRE_FALSE(skipOscSegment("abc"));
-        }
-
-        SECTION("invalidOscChar")
-        {
-            REQUIRE(invalidOscChar(' '));
-            REQUIRE(invalidOscChar('.'));
-            REQUIRE(invalidOscChar('/'));
-            REQUIRE(invalidOscChar(','));
-            REQUIRE(invalidOscChar(';'));
-            REQUIRE(invalidOscChar('?'));
-            REQUIRE(invalidOscChar('~'));
-            REQUIRE(invalidOscChar(']'));
-            REQUIRE(invalidOscChar('['));
-            REQUIRE(invalidOscChar('\\'));
-            REQUIRE(invalidOscChar('>'));
-            REQUIRE(invalidOscChar('<'));
-            REQUIRE(invalidOscChar(':'));
-            REQUIRE(invalidOscChar('-'));
-            REQUIRE(invalidOscChar('!'));
-            REQUIRE(invalidOscChar('@'));
-            REQUIRE(invalidOscChar('#'));
-            REQUIRE(invalidOscChar('$'));
-            REQUIRE(invalidOscChar('%'));
-            REQUIRE(invalidOscChar('^'));
-            REQUIRE(invalidOscChar('&'));
-            REQUIRE(invalidOscChar('*'));
-            REQUIRE(invalidOscChar('('));
-            REQUIRE(invalidOscChar(')'));
-            REQUIRE_FALSE(invalidOscChar('_'));
-            REQUIRE_FALSE(invalidOscChar('1'));
-            REQUIRE_FALSE(invalidOscChar('2'));
-            REQUIRE_FALSE(invalidOscChar('a'));
-            REQUIRE_FALSE(invalidOscChar('A'));
-            REQUIRE_FALSE(invalidOscChar('Z'));
-        }
-
-        SECTION("escapeOscSegment")
-        {
-            REQUIRE(escapeOscSegment("") == "");
-            REQUIRE(escapeOscSegment("abc") == "abc");
-            REQUIRE(escapeOscSegment("ab_c") == "ab_c");
-            REQUIRE(escapeOscSegment("1 2 3 4 5") == "12345");
-            REQUIRE(escapeOscSegment("!№%:,.;()") == "");
-        }
-
-        SECTION("filterOscSegment")
-        {
-            typedef std::vector<std::string> SList;
-            SList l1, l2;
-            REQUIRE(filterOscSegment(l1) == l1);
-            l1.push_back("");
-            l1.push_back("");
-            REQUIRE(filterOscSegment(l1) == l2);
-            l1.push_back("a");
-            l2.push_back("a");
-            REQUIRE(filterOscSegment(l1) == l2);
-
-            l1.push_back("0x00");
-            REQUIRE(filterOscSegment(l1) == l2);
-
-            l1.push_back("a b c d");
-            l2.push_back("abcd");
-            REQUIRE(filterOscSegment(l1) == l2);
+            REQUIRE(makeOscPath(SYM("test"), { &s_ }, &s_) == "/test");
+            REQUIRE(makeOscPath(SYM("test"), { SYM("0x00") }, &s_) == "/test");
+            REQUIRE(makeOscPath(SYM("test"), { SYM("0x00"), SYM("A") }, &s_) == "/A/test");
+            REQUIRE(makeOscPath(SYM("test"), { SYM("B"), SYM("A") }, &s_) == "/B/A/test");
+            REQUIRE(makeOscPath(SYM("test"), { SYM("B ./,:?][<:"), SYM("A") }, &s_) == "/B/A/test");
+            REQUIRE(makeOscPath(SYM("test"), { SYM("0123456789A_"), SYM("A") }, &s_) == "/0123456789A_/A/test");
         }
 
         SECTION("isGetAllProperties")
@@ -226,54 +135,39 @@ TEST_CASE("Faust", "[ceammc::faust]")
     {
         SECTION("construct")
         {
-            UI a("osc.tri~", "osc1");
-            REQUIRE(a.fullName() == "osc.tri~ osc1");
+            UI a("osc.tri~");
             REQUIRE(a.uiCount() == 0);
-            REQUIRE(a.oscPath("freq") == "/osc1/osctri/freq");
 
-            UI b("osc.tri~", "");
-            REQUIRE(b.fullName() == "osc.tri~");
+            UI b("osc.tri~");
             REQUIRE(b.uiCount() == 0);
-            REQUIRE(b.oscPath("freq") == "/osctri/freq");
 
-            UI c("osc.tri_c~", "");
-            REQUIRE(c.fullName() == "osc.tri_c~");
+            UI c("osc.tri_c~");
             REQUIRE(c.uiCount() == 0);
-            REQUIRE(c.oscPath("freq") == "/osctri_c/freq");
         }
 
         SECTION("uiAt")
         {
             t_float b;
-            UI a("osc.tri~", "osc1");
+            UI a("osc.tri~");
             REQUIRE(a.uiAt(0) == 0);
-            REQUIRE(a.findElementByLabel("run") == 0);
 
             a.addButton("run", &b);
             REQUIRE(a.uiCount() == 1);
-            REQUIRE(a.uiAt(0) != 0);
-            REQUIRE(a.uiAt(1) == 0);
+            REQUIRE(a.uiAt(0));
+            REQUIRE_FALSE(a.uiAt(1));
             REQUIRE(b == 0.f);
-            a.setElementValue("run1", 100.f);
-            REQUIRE(b == 0.f);
-            REQUIRE(a.findElementByLabel("run") == a.uiAt(0));
-            a.setElementValue("run", 1.f);
-            REQUIRE(b == 1.f);
 
             const UI& c = a;
             REQUIRE(c.uiAt(0) != 0);
             REQUIRE(c.uiAt(1) == 0);
-            REQUIRE(c.uiAt(0)->label() == "run");
-            REQUIRE(c.uiAt(0)->path() == "/osc1/osctri/run");
-
-            REQUIRE(a.findElementByLabel("run") == a.uiAt(0));
+            REQUIRE(c.uiAt(0)->label() == SYM("run"));
         }
 
         SECTION("ui values")
         {
             t_float v;
             std::vector<t_float> v_empty;
-            UI a("test", "id1");
+            UI a("test");
             REQUIRE(a.uiValues() == v_empty);
             a.addVerticalSlider("vsl", &v, 5.f, -20, 20, 0.0f);
             REQUIRE(a.uiCount() == 1);
@@ -297,7 +191,7 @@ TEST_CASE("Faust", "[ceammc::faust]")
         SECTION("setList ops")
         {
             FAUSTFLOAT v = 0;
-            UIElement e(UI_BUTTON, "/ui/test", "test");
+            UIElement e(UI_BUTTON, "test");
             e.setValuePtr(&v);
             UIProperty p(&e);
 

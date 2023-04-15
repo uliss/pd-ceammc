@@ -208,7 +208,7 @@ void LangFaustTilde::initDone()
 
 void LangFaustTilde::createFaustUI()
 {
-    ui_.reset(new FaustUI(dsp_factory_->name(), ""));
+    ui_.reset(new FaustUI(dsp_factory_->name().c_str()));
     if (dsp_->buildUI(ui_.get())) {
         auto ui = static_cast<FaustUI*>(ui_.get());
         const size_t n_ui = ui->uiCount();

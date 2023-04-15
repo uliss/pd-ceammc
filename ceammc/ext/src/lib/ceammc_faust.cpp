@@ -47,14 +47,8 @@ namespace faust {
         }
     }
 
-    void UIElement::initProperty(const std::string& name)
+    void UIElement::initProperty()
     {
-        char buf[MAXPDSTRING];
-        sprintf(buf, "@%s", name.c_str());
-        set_prop_symbol_ = gensym(buf);
-        sprintf(buf, "@%s?", name.c_str());
-        get_prop_symbol_ = gensym(buf);
-
         // set type and view
         switch (type_) {
         case UI_CHECK_BUTTON:
@@ -89,108 +83,68 @@ namespace faust {
         }
     }
 
-    void UIElement::outputProperty(t_outlet* out)
+    static t_symbol* makePropertyGet(const char* name)
     {
-        if (!out)
-            return;
-
-        ceammc::Atom a;
-
-        if (value_)
-            a.setFloat(*value_, true);
-        else
-            a.setSymbol(gensym("?"), true);
-
-        outletAny(out, set_prop_symbol_, a);
+        char buf[MAXPDSTRING];
+        sprintf(buf, "@%s?", name);
+        return gensym(buf);
     }
 
-    void UIElement::outputValue(t_outlet* out)
+    static t_symbol* makePropertySet(const char* name)
     {
-        if (!out || !value_)
-            return;
-
-        Atom a(value());
-        outletAny(out, gensym(path_.c_str()), a);
+        char buf[MAXPDSTRING];
+        sprintf(buf, "@%s", name);
+        return gensym(buf);
     }
 
-    UIElement::UIElement(UIElementType t, const std::string& path, const std::string& label)
+    UIElement::UIElement(UIElementType t, t_symbol* label)
         : type_(t)
-        , path_(path)
         , label_(label)
         , init_(0)
         , min_(0)
         , max_(1)
         , step_(0)
-        , value_(0)
-        , set_prop_symbol_(0)
-        , get_prop_symbol_(0)
-        , pinfo_('@' + label, PropValueType::FLOAT)
+        , vptr_(0)
+        , set_prop_symbol_(makePropertySet(label->s_name))
+        , get_prop_symbol_(makePropertyGet(label->s_name))
+        , pinfo_(set_prop_symbol_, PropValueType::FLOAT)
     {
-        initProperty(label);
+        initProperty();
+    }
+
+    UIElement::UIElement(UIElementType t, const char* label)
+        : UIElement(t, gensym(label))
+    {
     }
 
     FAUSTFLOAT UIElement::value(FAUSTFLOAT def) const
     {
-        if (!value_)
+        if (!vptr_)
             return std::min(max_, std::max(min_, def));
 
-        return std::min(max_, std::max(min_, *value_));
+        return std::min(max_, std::max(min_, *vptr_));
     }
 
     void UIElement::setValue(FAUSTFLOAT v, bool clip)
     {
-        if (!value_)
+        if (!vptr_)
             return;
 
         if (v < min_) {
             if (clip)
-                *value_ = min_;
+                *vptr_ = min_;
 
             return;
         }
 
         if (v > max_) {
             if (clip)
-                *value_ = max_;
+                *vptr_ = max_;
 
             return;
         }
 
-        *value_ = v;
-    }
-
-    bool UIElement::pathcmp(const std::string& path) const
-    {
-        size_t n = path_.size();
-        size_t m = path.size();
-
-        if (n == 0 || m == 0)
-            return false;
-
-        // full path check
-        if (path[0] == '/')
-            return path_ == path;
-
-        if (m < n && path_[n - m - 1] != '/')
-            return path_.compare(n - m - 1, std::string::npos, path) == 0;
-
-        return path_.compare(n - m, std::string::npos, path) == 0;
-    }
-
-    void UIElement::dump(t_outlet* out)
-    {
-        if (!out)
-            return;
-
-        if (!value_)
-            return;
-
-        t_symbol* sel = typeSymbol();
-        if (!sel)
-            return;
-
-        StaticAtomList<6> lst { path_, value(), init_, min_, max_, step_ };
-        outletAny(out, sel, lst.view());
+        *vptr_ = v;
     }
 
     bool isGetAllProperties(t_symbol* s)
@@ -216,46 +170,46 @@ namespace faust {
 
     bool isSetProperty(t_symbol* s)
     {
-        size_t len = strlen(s->s_name);
-        if (len < 1)
+        auto N = strlen(s->s_name);
+        if (N < 1)
             return false;
 
         if (s->s_name[0] != '@')
             return false;
 
-        return s->s_name[len - 1] != '?';
+        return s->s_name[N - 1] != '?';
     }
 
-    bool skipOscSegment(const std::string& s)
+    static void append_filtered(const char* str, std::string& out)
     {
-        if (s.empty())
-            return true;
+        out += '/';
 
-        if (s == "0x00")
-            return true;
-
-        return false;
-    }
-
-    bool invalidOscChar(char c) { return isalnum(c) == 0 && c != '_'; }
-
-    std::string escapeOscSegment(const std::string& s)
-    {
-        std::string res;
-        std::remove_copy_if(s.begin(), s.end(), std::back_inserter(res), &invalidOscChar);
-        return res;
-    }
-
-    std::vector<std::string> filterOscSegment(const std::vector<std::string>& osc)
-    {
-        std::vector<std::string> res;
-        res.reserve(osc.size());
-        for (size_t i = 0; i < osc.size(); i++) {
-            if (skipOscSegment(osc[i]))
+        int ch = 0;
+        while ((ch = *str++)) {
+            if (!isalnum(ch) && ch != '_')
                 continue;
 
-            res.push_back(escapeOscSegment(osc[i]));
+            out += ch;
         }
+    }
+
+    std::string makeOscPath(const t_symbol* label, const OscSegmentList& segs, const t_symbol* id)
+    {
+        std::string res;
+
+        if (id != &s_)
+            append_filtered(id->s_name, res);
+
+        for (auto s : segs) {
+            // skip segments
+            if (s == &s_ || strcmp(s->s_name, "0x00") == 0)
+                continue;
+
+            append_filtered(s->s_name, res);
+        }
+
+        append_filtered(label->s_name, res);
+
         return res;
     }
 
@@ -264,12 +218,15 @@ namespace faust {
         , faust_bs_(0)
         , xfade_(0)
         , n_xfade_(0)
-        , active_(true)
     {
-        createCbBoolProperty(
-            "@active",
-            [this]() -> bool { return active_; },
-            [this](bool b) -> bool { active_ = b; return true; });
+        active_ = new BoolProperty("@active", true);
+        addProperty(active_);
+
+        id_ = new SymbolProperty("@id", &s_, PropValueAccess::INITONLY);
+        addProperty(id_);
+
+        osc_ = new SymbolProperty("@osc", &s_);
+        addProperty(osc_);
     }
 
     FaustExternalBase::~FaustExternalBase()
@@ -336,8 +293,8 @@ namespace faust {
 
         if (N_IN == N_OUT) {
             // in non-active state - just pass thru samples
-            copy_samples(N_IN, BS, in, faust_buf_.data());
-            copy_samples(N_OUT, BS, const_cast<const t_sample**>(faust_buf_.data()), out);
+            copy_samples(N_IN, BS, in, faust_buf_.data(), false);
+            copy_samples(N_OUT, BS, const_cast<const t_sample**>(faust_buf_.data()), out, false);
         } else {
             // if state is non-active and different inputs and outputs count
             // fill outs with zero
@@ -350,7 +307,7 @@ namespace faust {
         const size_t N_IN = numInputChannels();
         const size_t N_OUT = numOutputChannels();
 
-        if (active_) {
+        if (isActive()) {
             if (N_IN == N_OUT) {
                 /* xfade inputs -> buf */
                 bufFadeIn(in, out, 1);
@@ -443,6 +400,11 @@ namespace faust {
         }
 
         addProperty(prop);
+    }
+
+    void FaustExternalBase::subscribeOsc(UIElement* ui, const OscSegmentList& oscSegments)
+    {
+        OBJ_DBG << fmt::format("bind to {}", makeOscPath(ui->label(), oscSegments, id_->value()));
     }
 
     void FaustExternalBase::bufFadeIn(const t_sample** in, t_sample** out, float k0)
@@ -640,22 +602,5 @@ namespace faust {
             }
         }
     }
-
-    std::string makeOscPath(const std::string& label, const std::vector<std::string>& path)
-    {
-        std::string res;
-
-        auto new_path = path;
-        new_path.push_back(label);
-
-        auto osc_segs = filterOscSegment(new_path);
-        for (auto& s : filterOscSegment(new_path)) {
-            res += '/';
-            res += s;
-        }
-
-        return res;
-    }
-
 }
 }
