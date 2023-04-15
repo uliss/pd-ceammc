@@ -2,7 +2,6 @@
 #define PARSER_OSC_H
 
 #include "ceammc_osc.h"
-#include "m_pd.h"
 
 namespace ceammc {
 namespace parser {

@@ -18,12 +18,49 @@
 #include "ceammc_containers.h"
 #include "ceammc_faust.h"
 #include "ceammc_format.h"
-#include "ceammc_output.h"
+#include "ceammc_osc.h"
+#include "ceammc_poll_dispatcher.h"
 #include "ceammc_random.h"
 #include "fmt/core.h"
 #include "lex/parser_units.h"
 
 namespace ceammc {
+
+namespace {
+    class FaustOscVisitor : public boost::static_visitor<> {
+        faust::FaustExternalBase::OscQueue* q_;
+        faust::UIElement* ui_;
+        int sleep_time_;
+
+    public:
+        FaustOscVisitor(faust::FaustExternalBase::OscQueue* q, faust::UIElement* el, int sleep_ms = 1)
+            : q_(q)
+            , ui_(el)
+            , sleep_time_(sleep_ms)
+        {
+        }
+
+        void push(FAUSTFLOAT x) const
+        {
+            int max = 50;
+            while (!q_->push({ ui_, x }) && (max-- > 0))
+                std::this_thread::sleep_for(std::chrono::milliseconds(sleep_time_));
+        }
+
+        void operator()(float f) const { push(f); }
+        void operator()(double d) const { push(d); }
+        void operator()(bool b) const { push(b); }
+        void operator()(int32_t i) const { push(i); }
+        void operator()(int64_t h) const { push(h); }
+
+        void operator()(const std::string& s) const { }
+        void operator()(char c) const { }
+        void operator()(osc::OscMessageSpec spec) { }
+        void operator()(const osc::OscMessageMidi& midi) { }
+        void operator()(const osc::OscMessageBlob& blob) { }
+    };
+}
+
 namespace faust {
     t_symbol* UIElement::typeSymbol() const
     {
@@ -225,7 +262,7 @@ namespace faust {
         id_ = new SymbolProperty("@id", &s_, PropValueAccess::INITONLY);
         addProperty(id_);
 
-        osc_ = new SymbolProperty("@osc", &s_);
+        osc_ = new SymbolProperty("@osc", &s_, PropValueAccess::INITONLY);
         addProperty(osc_);
     }
 
@@ -233,6 +270,9 @@ namespace faust {
     {
         for (auto& b : faust_buf_)
             delete[] b;
+
+        if (hasOscBinding())
+            Dispatcher::instance().unsubscribe(this);
     }
 
     void FaustExternalBase::bindPositionalArgToProperty(size_t idx, t_symbol* propName)
@@ -261,6 +301,17 @@ namespace faust {
         for (size_t i = 0; i < lst.size(); i++) {
             auto* p = lst.begin()[i];
             bindPositionalArgToProperty(i, gensym(p));
+        }
+    }
+
+    void FaustExternalBase::initDone()
+    {
+        SoundExternal::initDone();
+
+        if (hasOscBinding()) {
+            osc_queue_.reset(new OscQueue);
+            Dispatcher::instance().subscribe(this, subscriberId());
+            bindReceive(gensym(OSC_DISPATCHER));
         }
     }
 
@@ -343,6 +394,20 @@ namespace faust {
         return 0.1f;
     }
 
+    bool FaustExternalBase::notify(int code)
+    {
+        if (!osc_queue_)
+            return false;
+
+        QueueElement x;
+        while (osc_queue_->pop(x)) {
+            if (x.ui)
+                x.ui->setValue(x.value, true);
+        }
+
+        return true;
+    }
+
     void FaustExternalBase::outputMetersTo(size_t outlet)
     {
         auto n = meters_.size();
@@ -389,7 +454,7 @@ namespace faust {
         }
     }
 
-    void FaustExternalBase::addUIElement(UIElement* ui)
+    void FaustExternalBase::createUIProperty(UIElement* ui)
     {
         auto prop = new UIProperty(ui);
         auto type = prop->uiElement()->type();
@@ -402,9 +467,43 @@ namespace faust {
         addProperty(prop);
     }
 
-    void FaustExternalBase::subscribeOsc(UIElement* ui, const OscSegmentList& oscSegments)
+    void FaustExternalBase::bindUIElements(const std::vector<UIElementPtr>& ui, const OscSegmentList& prefix)
     {
-        OBJ_DBG << fmt::format("bind to {}", makeOscPath(ui->label(), oscSegments, id_->value()));
+        for (auto& a : ui)
+            bindUIElement(a.get(), prefix);
+    }
+
+    void FaustExternalBase::bindUIElement(UIElement* ui, const OscSegmentList& prefix)
+    {
+        auto osc_path = makeOscPath(ui->label(), prefix, id_->value());
+        if (osc_path.empty()) {
+            OBJ_ERR << "empty osc path";
+            return;
+        }
+
+        auto osc = osc::OscServerList::instance().findByName(osc_->value());
+        if (osc && osc->isValid()) {
+            osc->subscribeMethod(osc_path.c_str(), nullptr, subscriberId(),
+                [this, ui](const osc::OscRecvMessage& m) -> bool {
+                    FaustOscVisitor visitor(osc_queue_.get(), ui);
+                    if (m.size() == 1)
+                        m[0].apply_visitor(visitor);
+
+                    return true;
+                });
+
+            OBJ_DBG << fmt::format("subscribe to {}:{}", osc_->value()->s_name, osc_path.c_str());
+        }
+    }
+
+    void FaustExternalBase::unbindUIElements()
+    {
+        auto osc = osc::OscServerList::instance().findByName(osc_->value());
+        if (osc && osc->isValid()) {
+            osc->unsubscribeAll(subscriberId());
+
+            OBJ_DBG << fmt::format("unsubscribed from {}", osc_->value()->s_name);
+        }
     }
 
     void FaustExternalBase::bufFadeIn(const t_sample** in, t_sample** out, float k0)

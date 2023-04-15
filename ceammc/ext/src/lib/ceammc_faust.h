@@ -15,6 +15,7 @@
 #define CEAMMC_FAUST_H
 
 #include <algorithm>
+#include <boost/lockfree/spsc_queue.hpp>
 #include <cassert>
 #include <cctype>
 #include <cstdint>
@@ -27,6 +28,7 @@
 
 #include "ceammc_atomlist.h"
 #include "ceammc_clock.h"
+#include "ceammc_notify.h"
 #include "ceammc_object.h"
 #include "ceammc_property_info.h"
 #include "ceammc_sound_external.h"
@@ -99,6 +101,11 @@ public:
 struct Soundfile;
 
 namespace ceammc {
+
+namespace osc {
+    class OscMethodPipe;
+}
+
 namespace faust {
 
     class UIElement;
@@ -138,7 +145,7 @@ namespace faust {
 
     void copy_samples(size_t n_ch, size_t bs, const t_sample** in, t_sample** out, bool zero_abnormals);
 
-    class FaustExternalBase : public SoundExternal {
+    class FaustExternalBase : public SoundExternal, public NotifiedObject {
     public:
         using MetersData = std::vector<const FAUSTFLOAT*>;
         using MetersFn = std::function<void(const MetersData&)>;
@@ -151,7 +158,9 @@ namespace faust {
         void bindPositionalArgsToProps(std::initializer_list<t_symbol*> lst);
         void bindPositionalArgsToProps(std::initializer_list<const char*> lst);
 
+        void initDone() override;
         void setupDSP(t_signal** sp) override;
+        bool notify(int code) final;
 
         void processInactive(const t_sample** in, t_sample** out);
         void processXfade(const t_sample** in, t_sample** out);
@@ -168,7 +177,9 @@ namespace faust {
     protected:
         bool isActive() const { return active_->value(); }
         t_symbol* id() const { return id_->value(); }
-        bool bindToOsc() const { return osc_->value() != &s_; }
+        bool hasOscBinding() const { return osc_->value() != &s_; }
+        t_symbol* oscServer() const { return osc_->value(); }
+        SubscriberId subscriberId() const { return reinterpret_cast<SubscriberId>(this); }
 
         // level meters
         void initMeters();
@@ -179,17 +190,29 @@ namespace faust {
         UIProperty* findUIProperty(t_symbol* name, bool printErr = true);
         UIProperty* findUIProperty(const char* name, bool printErr = true) { return findUIProperty(gensym(name), printErr); }
 
-        void addUIElement(UIElement* ui);
+        // create UIProperty from Faust UI element
+        void createUIProperty(UIElement* ui);
 
-        // osc
-        void subscribeOsc(UIElement* ui, const OscSegmentList& oscSegments);
+        // osc bind
+        void bindUIElements(const std::vector<UIElementPtr>& ui, const OscSegmentList& prefix);
+        void bindUIElement(UIElement* ui, const OscSegmentList& prefix);
+        void unbindUIElements();
 
     private:
         void bufFadeIn(const t_sample** in, t_sample** out, float k0);
         void bufFadeOut(const t_sample** in, t_sample** out, float k0);
 
+    public:
+        struct QueueElement {
+            UIElement* ui;
+            FAUSTFLOAT value;
+        };
+
+        using OscQueue = boost::lockfree::spsc_queue<QueueElement, boost::lockfree::capacity<8>>;
+
     private:
         std::unique_ptr<ClockLambdaFunction> clock_ptr_;
+        std::unique_ptr<OscQueue> osc_queue_;
         BoolProperty* active_ { nullptr }; // on/off sound processing
         IntProperty* refresh_ { nullptr }; // meters level refresh rate
         SymbolProperty* osc_ { nullptr }; // OSC server to listen
@@ -284,6 +307,7 @@ namespace faust {
         const t_symbol* name() const { return name_; }
         const OscSegmentList& oscSegments() const { return osc_segs_; }
 
+        const std::vector<UIElementPtr>& elements() const { return ui_elements_; }
         UIElement* uiAt(size_t pos);
         const UIElement* uiAt(size_t pos) const;
         size_t uiCount() const { return ui_elements_.size(); }
@@ -342,7 +366,7 @@ namespace faust {
 
             const size_t n_ui = ui_->uiCount();
             for (size_t i = 0; i < n_ui; i++)
-                addUIElement(ui_->uiAt(i));
+                createUIProperty(ui_->uiAt(i));
 
             initMeters();
         }
@@ -351,11 +375,13 @@ namespace faust {
         {
             FaustExternalBase::initDone();
 
-            if (bindToOsc()) {
-                const auto N = ui_->uiCount();
-                for (size_t i = 0; i < N; i++)
-                    subscribeOsc(ui_->uiAt(i), ui_->oscSegments());
-            }
+            if (hasOscBinding())
+                bindUIElements(ui_->elements(), ui_->oscSegments());
+        }
+
+        ~FaustExternal()
+        {
+            unbindUIElements();
         }
 
         void initConstants()
@@ -420,6 +446,15 @@ namespace faust {
         void m_reset(t_symbol* s, const AtomListView&)
         {
             dsp_->instanceClear();
+        }
+
+        void updateOscServer(t_symbol* name, const AtomListView& lv)
+        {
+            if (!hasOscBinding() || lv != oscServer())
+                return;
+
+            unbindUIElements();
+            bindUIElements(ui_->elements(), ui_->oscSegments());
         }
     };
 
