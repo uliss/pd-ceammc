@@ -34,7 +34,7 @@ namespace net {
 
         void initDone() override;
         bool notify(int code) final;
-        void processMessage(const osc::OscMessage& msg);
+        void processMessage(const osc::OscRecvMessage& msg);
 
         void onInlet(size_t n, const AtomListView& lv) override;
 

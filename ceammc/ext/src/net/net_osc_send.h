@@ -45,7 +45,7 @@ public:
     void m_send_blob(t_symbol* s, const AtomListView& lv);
 
 private:
-    void initTask(NetOscSendOscTask& task, const char* path);
+    void initTask(osc::SendOscTask& task, const char* path);
 };
 
 void setup_net_osc_send();

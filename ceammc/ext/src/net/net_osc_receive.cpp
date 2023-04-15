@@ -25,51 +25,6 @@ using namespace ceammc::osc;
 
 CEAMMC_DEFINE_HASH(none);
 
-class OscAtomVisitor : public boost::static_visitor<> {
-    AtomList& r_;
-
-public:
-    OscAtomVisitor(AtomList& res)
-        : r_(res)
-    {
-    }
-
-    void operator()(float f) const { r_.append(Atom(f)); }
-    void operator()(double d) const { r_.append(Atom(d)); }
-    void operator()(bool b) const { r_.append(b ? 1 : 0); }
-    void operator()(int32_t i) const { r_.append(i); }
-    void operator()(int64_t h) const { r_.append(h); }
-    void operator()(const std::string& s) const { r_.append(gensym(s.c_str())); }
-    void operator()(char c) const
-    {
-        char buf[2] = { c, '\0' };
-        r_.append(gensym(buf));
-    }
-    void operator()(osc::OscMessageSpec spec)
-    {
-        switch (spec) {
-        case osc::OscMessageSpec::INF:
-            r_.append(gensym("inf"));
-            break;
-        case osc::OscMessageSpec::NIL:
-            r_.append(gensym("null"));
-            break;
-        default:
-            break;
-        }
-    }
-    void operator()(const osc::OscMessageMidi& midi)
-    {
-        for (int i = 0; i < 4; i++)
-            r_.append(midi.data[i]);
-    }
-    void operator()(const osc::OscMessageBlob& blob)
-    {
-        for (auto b : blob.data)
-            r_.append(static_cast<int>(b));
-    }
-};
-
 namespace net {
 
     NetOscReceive::NetOscReceive(const PdArgs& args)
@@ -97,7 +52,7 @@ namespace net {
             "invalid type string");
         addProperty(types_);
 
-        bindReceive(gensym(OscServerList::DISPATCHER));
+        bindReceive(gensym(OSC_DISPATCHER));
     }
 
     NetOscReceive::~NetOscReceive()
@@ -116,7 +71,11 @@ namespace net {
     bool NetOscReceive::subscribe(const OscServerList::OscServerPtr& osc, t_symbol* path)
     {
         if (osc && osc->isValid() && path != &s_) {
-            osc->subscribeMethod(path->s_name, types(), subscriberId(), &pipe_);
+            osc->subscribeMethod(path->s_name, types(), subscriberId(),
+                [this](const OscRecvMessage& m) -> bool {
+                    return pipe_.try_enqueue(m);
+                });
+
             LIB_LOG << fmt::format("[osc] subscribed to {} at \"{}\"", path->s_name, osc->name());
             return true;
         } else if (path != &s_) {
@@ -154,31 +113,31 @@ namespace net {
 
     bool NetOscReceive::notify(int code)
     {
-        OscMessage msg;
+        OscRecvMessage msg;
         while (pipe_.try_dequeue(msg))
             processMessage(msg);
 
         return true;
     }
 
-    void NetOscReceive::processMessage(const OscMessage& msg)
+    void NetOscReceive::processMessage(const OscRecvMessage& msg)
     {
         AtomList res;
         res.reserve(msg.size());
 
         OscAtomVisitor v(res);
-        for (auto& a : msg)
+        for (auto& a : msg.atoms())
             a.apply_visitor(v);
 
-        if (msg.size() == 1 && msg[0].type() == typeid(OscMessageSpec)) {
+        if (msg.isSpec()) {
             auto spec = boost::get<OscMessageSpec>(msg[0]);
             if (spec == OscMessageSpec::INF)
                 anyTo(0, gensym("inf"), AtomListView());
             else if (spec == OscMessageSpec::NIL)
                 anyTo(0, gensym("null"), AtomListView());
-        } else if (msg.size() == 1 && msg[0].type() == typeid(OscMessageMidi)) {
+        } else if (msg.isMidi()) {
             anyTo(0, gensym("midi"), res);
-        } else if (msg.size() == 1 && msg[0].type() == typeid(OscMessageBlob)) {
+        } else if (msg.isBlob()) {
             anyTo(0, gensym("blob"), res);
         } else
             outletAtomList(outletAt(0), res, true);
@@ -211,5 +170,5 @@ void setup_net_osc_receive()
     ObjectFactory<net::NetOscReceive> obj("net.osc.receive");
     obj.addAlias("net.osc.r");
 
-    obj.addMethod(OscServerList::METHOD_UPDATE, &net::NetOscReceive::updateServer);
+    obj.addMethod(OSC_METHOD_UPDATE, &net::NetOscReceive::updateServer);
 }
