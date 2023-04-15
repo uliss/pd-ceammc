@@ -11,12 +11,11 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ceammc_format.h"
 #include "net_osc_server.h"
-#include "parser_osc.h"
 #include "test_base.h"
 #include "test_external.h"
 
+using namespace ceammc::osc;
 using namespace ceammc::net;
 
 PD_COMPLETE_TEST_SETUP(NetOscServer, net, osc_server)

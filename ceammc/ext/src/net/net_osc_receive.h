@@ -14,8 +14,9 @@
 #ifndef NET_OSC_RECEIVE_H
 #define NET_OSC_RECEIVE_H
 
+#include "ceammc_object.h"
+#include "ceammc_osc.h"
 #include "ceammc_poll_dispatcher.h"
-#include "net_osc_server.h"
 
 namespace ceammc {
 namespace net {
@@ -25,7 +26,7 @@ namespace net {
         SymbolProperty* server_;
         SymbolProperty* path_;
         SymbolProperty* types_;
-        OscMethodPipe pipe_;
+        osc::OscMethodPipe pipe_;
 
     public:
         NetOscReceive(const PdArgs& args);
@@ -33,15 +34,15 @@ namespace net {
 
         void initDone() override;
         bool notify(int code) final;
-        void processMessage(const OscMessage& msg);
+        void processMessage(const osc::OscMessage& msg);
 
         void onInlet(size_t n, const AtomListView& lv) override;
 
     public:
         void updateServer(t_symbol* name, const AtomListView& lv);
         const char* types() const;
-        bool subscribe(const net::OscServerList::OscServerPtr& osc, t_symbol* path);
-        bool unsubscribe(const net::OscServerList::OscServerPtr& osc, t_symbol* path);
+        bool subscribe(const osc::OscServerList::OscServerPtr& osc, t_symbol* path);
+        bool unsubscribe(const osc::OscServerList::OscServerPtr& osc, t_symbol* path);
     };
 }
 }

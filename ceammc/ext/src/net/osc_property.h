@@ -2,7 +2,7 @@
 #define OSC_PROPERTY_H
 
 #include "ceammc_property.h"
-#include "osc_common.h"
+#include "ceammc_osc.h"
 
 namespace ceammc {
 namespace net {
@@ -12,13 +12,13 @@ namespace net {
         t_symbol* path_;
         int port_;
         int addr_type_;
-        OscProto proto_;
+        osc::OscProto proto_;
 
     public:
         OscUrlProperty(const std::string& name, const Atom& def, PropValueAccess ro = PropValueAccess::READWRITE);
 
         t_symbol* host() const { return host_; }
-        OscProto proto() const { return proto_; }
+        osc::OscProto proto() const { return proto_; }
         t_symbol* path() const { return path_; }
         int port() const { return port_; }
         const Atom& url() const { return value(); }

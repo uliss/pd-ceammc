@@ -12,7 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "net_osc_send.h"
-#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_poll_dispatcher.h"
@@ -70,7 +69,7 @@ struct NetOscSendOscTask {
     OscMessage m;
     SubscriberId id;
     uint16_t port;
-    OscProto proto;
+    ceammc::osc::OscProto proto;
 
     lo_message msg() const { return m.get(); }
 };
@@ -114,19 +113,19 @@ class OscSendWorker {
                             auto addr = lo::make_address(nullptr);
 
                             switch (task.proto) {
-                            case OSC_PROTO_UDP:
+                            case ceammc::osc::OSC_PROTO_UDP:
                                 addr.reset(lo_address_new_with_proto(LO_UDP,
                                     task.host.c_str(),
                                     fmt::format("{:d}", task.port).c_str()));
                                 rc = lo_send_message_from(addr.get(), srv_udp.get(), task.path.c_str(), task.msg());
                                 break;
-                            case OSC_PROTO_TCP:
+                            case ceammc::osc::OSC_PROTO_TCP:
                                 addr.reset(lo_address_new_with_proto(LO_TCP,
                                     task.host.c_str(),
                                     fmt::format("{:d}", task.port).c_str()));
                                 rc = lo_send_message_from(addr.get(), srv_tcp.get(), task.path.c_str(), task.msg());
                                 break;
-                            case OSC_PROTO_UNIX:
+                            case ceammc::osc::OSC_PROTO_UNIX:
                                 addr.reset(lo_address_new_with_proto(LO_UNIX, nullptr, task.host.c_str()));
                                 rc = lo_send_message(addr.get(), task.path.c_str(), task.msg());
                                 break;
@@ -548,7 +547,7 @@ void NetOscSend::initTask(NetOscSendOscTask& task, const char* path)
 {
     task.port = url_->port();
     task.proto = url_->proto();
-    task.host = (task.proto == OSC_PROTO_UNIX)
+    task.host = (task.proto == ceammc::osc::OSC_PROTO_UNIX)
         ? url_->path()->s_name
         : url_->host()->s_name;
     task.path = path;

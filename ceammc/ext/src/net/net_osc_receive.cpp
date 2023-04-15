@@ -21,34 +21,9 @@
 
 namespace ceammc {
 
+using namespace ceammc::osc;
+
 CEAMMC_DEFINE_HASH(none);
-
-static bool validOscTypeString(const char* str)
-{
-    const char* s = str;
-    char c;
-    while ((c = *s++)) {
-        switch (c) {
-        case LO_FLOAT:
-        case LO_DOUBLE:
-        case LO_INT32:
-        case LO_INT64:
-        case LO_TRUE:
-        case LO_FALSE:
-        case LO_MIDI:
-        case LO_INFINITUM:
-        case LO_NIL:
-        case LO_CHAR:
-        case LO_STRING:
-        case LO_SYMBOL:
-            continue;
-        default:
-            return strcmp(str, str_none) == 0;
-        }
-    }
-
-    return true;
-}
 
 class OscAtomVisitor : public boost::static_visitor<> {
     AtomList& r_;
@@ -70,25 +45,25 @@ public:
         char buf[2] = { c, '\0' };
         r_.append(gensym(buf));
     }
-    void operator()(net::OscMessageSpec spec)
+    void operator()(osc::OscMessageSpec spec)
     {
         switch (spec) {
-        case net::OscMessageSpec::INF:
+        case osc::OscMessageSpec::INF:
             r_.append(gensym("inf"));
             break;
-        case net::OscMessageSpec::NIL:
+        case osc::OscMessageSpec::NIL:
             r_.append(gensym("null"));
             break;
         default:
             break;
         }
     }
-    void operator()(const net::OscMessageMidi& midi)
+    void operator()(const osc::OscMessageMidi& midi)
     {
         for (int i = 0; i < 4; i++)
             r_.append(midi.data[i]);
     }
-    void operator()(const net::OscMessageBlob& blob)
+    void operator()(const osc::OscMessageBlob& blob)
     {
         for (auto b : blob.data)
             r_.append(static_cast<int>(b));
@@ -138,7 +113,7 @@ namespace net {
                                                           : types_->value()->s_name;
     }
 
-    bool NetOscReceive::subscribe(const net::OscServerList::OscServerPtr& osc, t_symbol* path)
+    bool NetOscReceive::subscribe(const OscServerList::OscServerPtr& osc, t_symbol* path)
     {
         if (osc && osc->isValid() && path != &s_) {
             osc->subscribeMethod(path->s_name, types(), subscriberId(), &pipe_);
@@ -151,7 +126,7 @@ namespace net {
             return true;
     }
 
-    bool NetOscReceive::unsubscribe(const net::OscServerList::OscServerPtr& osc, t_symbol* path)
+    bool NetOscReceive::unsubscribe(const OscServerList::OscServerPtr& osc, t_symbol* path)
     {
         if (osc && osc->isValid() && path != &s_) {
             osc->unsubscribeMethod(path->s_name, types(), subscriberId());
@@ -219,7 +194,7 @@ namespace net {
         if (lv != server_->value())
             return;
 
-        auto osc = net::OscServerList::instance().findByName(server_->value());
+        auto osc = OscServerList::instance().findByName(server_->value());
 
         if (!unsubscribe(osc, path_->value()))
             return;
@@ -236,5 +211,5 @@ void setup_net_osc_receive()
     ObjectFactory<net::NetOscReceive> obj("net.osc.receive");
     obj.addAlias("net.osc.r");
 
-    obj.addMethod(net::OscServerList::METHOD_UPDATE, &net::NetOscReceive::updateServer);
+    obj.addMethod(OscServerList::METHOD_UPDATE, &net::NetOscReceive::updateServer);
 }

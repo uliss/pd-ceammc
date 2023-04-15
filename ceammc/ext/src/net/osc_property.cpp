@@ -8,6 +8,8 @@
 namespace ceammc {
 namespace net {
 
+    using namespace ceammc::osc;
+
     static t_symbol* oscProtoToSymbol(OscProto proto)
     {
         switch (proto) {

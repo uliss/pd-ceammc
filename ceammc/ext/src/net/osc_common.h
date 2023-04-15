@@ -5,13 +5,7 @@
 
 namespace ceammc {
 
-enum OscProto : uint8_t {
-    OSC_PROTO_UDP,
-    OSC_PROTO_TCP,
-    OSC_PROTO_UNIX,
-    OSC_PROTO_DEFAULT = OSC_PROTO_UDP,
-    OSC_PROTO_INVALID,
-};
+
 
 }
 
