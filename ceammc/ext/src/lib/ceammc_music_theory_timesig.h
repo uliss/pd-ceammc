@@ -110,6 +110,16 @@ namespace music {
          * @return false on error
          */
         bool parse(const char* str) noexcept;
+
+        /**
+         * Equal check operator
+         * @note 3/4 == 6/8
+         * @see strictEqual
+         */
+        bool operator==(const TimeSignature& ts) const;
+        bool operator!=(const TimeSignature& ts) const { return !operator==(ts); }
+
+        bool strictEqual(const TimeSignature& ts) const;
     };
 
     std::ostream& operator<<(std::ostream& os, const TimeSignature& ts);

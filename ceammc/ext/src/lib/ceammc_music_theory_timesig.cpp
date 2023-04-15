@@ -127,6 +127,25 @@ bool TimeSignature::parse(const char* str) noexcept
     return parser::TimeSignatureParser::parse(str, *this);
 }
 
+bool TimeSignature::operator==(const TimeSignature& ts) const
+{
+    return sig_ == ts.sig_;
+}
+
+bool TimeSignature::strictEqual(const TimeSignature& ts) const
+{
+    auto N = sig_.size();
+    if (N != ts.sig_.size())
+        return false;
+
+    for (size_t i = 0; i < N; i++) {
+        if (!sig_[i].strictEqual(ts.sig_[i]))
+            return false;
+    }
+
+    return true;
+}
+
 bool BeatData::operator==(const BeatData& b) const
 {
     return type == b.type && division == b.division;

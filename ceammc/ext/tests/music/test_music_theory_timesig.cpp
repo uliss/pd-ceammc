@@ -144,4 +144,20 @@ TEST_CASE("MusicTheory::TimeSig", "[ceammc::music]")
         REQUIRE(ts.toString() == "|3/8+1/7|");
         REQUIRE(ts.duration() == Duration { 3, 8 } + Duration { 1, 7 });
     }
+
+    SECTION("==")
+    {
+        REQUIRE(TimeSignature(1, 4) == TimeSignature(1, 4));
+        REQUIRE_FALSE(TimeSignature(1, 4) != TimeSignature(1, 4));
+        REQUIRE(TimeSignature(2, 8) == TimeSignature(2, 8));
+        REQUIRE(TimeSignature(6, 8) == TimeSignature(3, 4));
+        REQUIRE_FALSE(TimeSignature(6, 8) != TimeSignature(3, 4));
+    }
+
+    SECTION("strictEqual")
+    {
+        REQUIRE(TimeSignature(1, 4).strictEqual({ 1, 4 }));
+        REQUIRE_FALSE(TimeSignature(1, 4).strictEqual({ 2, 8 }));
+        REQUIRE_FALSE(TimeSignature(3, 4).strictEqual({ 6, 8 }));
+    }
 }
