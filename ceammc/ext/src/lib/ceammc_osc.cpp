@@ -13,15 +13,55 @@
  *****************************************************************************/
 #include "ceammc_osc.h"
 #include "ceammc_crc32.h"
+#include "ceammc_format.h"
+#include "ceammc_poll_dispatcher.h"
 #include "fmt/core.h"
 
 CEAMMC_DEFINE_STR(none)
 
+#include <memory>
 #include <mutex>
+#include <type_traits>
+
+#include <lo/lo_cpp.h>
 
 using MutexLock = std::lock_guard<std::mutex>;
 
+namespace {
+using AddressPtr = std::unique_ptr<std::remove_pointer<lo_address>::type, typeof(&lo_address_free)>;
+inline AddressPtr make_address(lo_address addr)
+{
+    return AddressPtr(addr, &lo_address_free);
+}
+
+using BlobPtr = std::unique_ptr<std::remove_pointer<lo_blob>::type, typeof(&lo_blob_free)>;
+inline BlobPtr make_blob(std::int32_t size, const void* data)
+{
+    return BlobPtr(lo_blob_new(size, data), &lo_blob_free);
+}
+
+using ServerPtr = std::unique_ptr<std::remove_pointer<lo_server>::type, typeof(&lo_server_free)>;
+inline ServerPtr make_server(lo_server srv)
+{
+    return ServerPtr(srv, &lo_server_free);
+}
+
+}
+
 namespace ceammc {
+
+static inline char atom_arg_type(const Atom& a)
+{
+    switch (a.type()) {
+    case Atom::FLOAT:
+        return 'f';
+    case Atom::SYMBOL:
+        return 's';
+    default:
+        return '?';
+    }
+}
+
 namespace osc {
     static int oscProtoToLiblo(OscProto proto)
     {
@@ -64,16 +104,18 @@ namespace osc {
         return true;
     }
 
-    OscMethodSubscriber::OscMethodSubscriber(SubscriberId id, OscMethodPipe* pipe)
+    OscMethodSubscriber::OscMethodSubscriber(SubscriberId id, OscMethodFn fn)
         : id_(id)
-        , pipe_(pipe)
+        , fn_(fn)
     {
     }
 
-    void OscMethodSubscriber::notify(const char* types, lo_arg** argv, int argc)
+    void OscMethodSubscriber::notify(const char* path, const char* types, lo_arg** argv, int argc)
     {
-        if (pipe_) {
-            OscMessage msg;
+        if (fn_) {
+            OscRecvMessage msg;
+            msg.setPath(path);
+
             for (int i = 0; i < argc; i++) {
                 OscMessageAtom atom;
                 const auto t = types[i];
@@ -119,27 +161,26 @@ namespace osc {
                     atom = OscMessageBlob(argv[i]->blob.size, &argv[i]->blob.data);
                     break;
                 default:
-                    fmt::print("[osc] [{}]unsupported OSC type: '{}'\n", __FUNCTION__, t);
+                    fmt::print("[osc] [{}] unsupported OSC type: '{}'\n", __FUNCTION__, t);
                     break;
                 }
 
-                msg.push_back(atom);
+                msg.add(atom);
             }
 
-            pipe_->try_enqueue(msg);
+            fn_(msg);
+            Dispatcher::instance().send({ id_, 0 });
         }
-
-        Dispatcher::instance().send({ id_, 0 });
     }
 
     OscServerSubscriberList::OscServerSubscriberList()
     {
     }
 
-    OscServerSubscriberList::OscServerSubscriberList(SubscriberId id, OscMethodPipe* pipe)
+    OscServerSubscriberList::OscServerSubscriberList(SubscriberId id, OscMethodFn fn)
     {
         MutexLock g(mutex_);
-        subscribers_.emplace_front(id, pipe);
+        subscribers_.emplace_front(id, fn);
     }
 
     void OscServerSubscriberList::notifyAll(const char* path, const char* types, lo_arg** argv, int argc)
@@ -147,10 +188,10 @@ namespace osc {
         MutexLock g(mutex_);
 
         for (auto& s : subscribers_)
-            s.notify(types, argv, argc);
+            s.notify(path, types, argv, argc);
     }
 
-    void OscServerSubscriberList::subscribe(SubscriberId id, OscMethodPipe* pipe)
+    void OscServerSubscriberList::subscribe(SubscriberId id, OscMethodFn fn)
     {
         MutexLock g(mutex_);
 
@@ -160,9 +201,9 @@ namespace osc {
             [id](const OscMethodSubscriber& m) { return m.id() == id; });
 
         if (it != subscribers_.end()) {
-            *it = { id, pipe };
+            *it = { id, fn };
         } else {
-            subscribers_.emplace_front(id, pipe);
+            subscribers_.emplace_front(id, fn);
         }
     }
 
@@ -244,8 +285,10 @@ namespace osc {
         } else
             lo_ = lo_server_thread_new_with_proto(fmt::format("{}", port).c_str(), lo_proto, errorHandler);
 
-        if (lo_)
-            OscServerLogger::instance().print(fmt::format("Server created: \"{}\" at {}", name_, hostname()).c_str());
+        if (lo_) {
+            ThreadPdLogger l;
+        }
+        OscServerLogger::instance().print(fmt::format("Server created: \"{}\" at {}", name_, hostname()).c_str());
     }
 
     OscServer::OscServer(const char* name, const char* url)
@@ -419,15 +462,15 @@ namespace osc {
         return 1;
     }
 
-    void OscServer::subscribeMethod(const char* path, const char* types, SubscriberId id, OscMethodPipe* pipe)
+    void OscServer::subscribeMethod(const char* path, const char* types, SubscriberId id, OscMethodFn fn)
     {
         const auto hash = crc32_hash(path);
         auto it = subs_.find(hash);
 
         if (it == subs_.end()) {
-            subs_[hash].reset(new OscServerSubscriberList(id, pipe));
+            subs_[hash].reset(new OscServerSubscriberList(id, fn));
         } else if (it->second) {
-            it->second->subscribe(id, pipe);
+            it->second->subscribe(id, fn);
         }
 
         if (lo_) {
@@ -473,9 +516,9 @@ namespace osc {
 
             auto res = servers_.front().first;
 
-            auto x = gensym(DISPATCHER);
-            auto s = gensym(METHOD_UPDATE);
+            auto x = gensym(OSC_DISPATCHER);
             if (x->s_thing) {
+                auto s = gensym(OSC_METHOD_UPDATE);
                 t_atom a;
                 SETSYMBOL(&a, gensym(res->name().c_str()));
                 pd_typedmess(x->s_thing, s, 1, &a);
@@ -544,5 +587,286 @@ namespace osc {
             LIB_POST << fmt::format(" - '{}': {} [{}]", s.first->name(), s.first->hostname(), s.second);
         }
     }
+
+    LoOscMessage::LoOscMessage()
+        : message(lo_message_new())
+    {
+        lo_message_incref(message);
+    }
+
+    LoOscMessage::LoOscMessage(const LoOscMessage& m) noexcept
+        : message(m.message)
+    {
+        if (m.message)
+            lo_message_incref(m.message);
+    }
+
+    LoOscMessage::~LoOscMessage() noexcept
+    {
+        if (message)
+            lo_message_free(message);
+    }
+
+    LoOscMessage& LoOscMessage::operator=(const LoOscMessage& m) noexcept
+    {
+        message = m.message;
+        if (message)
+            lo_message_incref(message);
+
+        return *this;
+    }
+
+    OscSendWorker::OscSendWorker()
+        : pipe_(64)
+        , quit_(false)
+    {
+        LIB_LOG << "[osc_send] launch OSC sender worker process";
+
+        future_ = std::async(
+            std::launch::async,
+            [this]() {
+                auto srv_udp = make_server(lo_server_new_with_proto(nullptr, LO_UDP, nullptr));
+                if (!srv_udp) {
+                    logger_.error("[osc_send] can't create send UDP socket");
+                    return false;
+                }
+
+                auto srv_tcp = make_server(lo_server_new_with_proto(nullptr, LO_TCP, nullptr));
+                if (!srv_tcp) {
+                    logger_.error("[osc_send] can't create send TCP socket");
+                    return false;
+                }
+
+                while (!quit_) {
+                    try {
+                        SendOscTask task;
+                        while (pipe_.try_dequeue(task)) {
+                            if (quit_)
+                                return true;
+
+                            int rc = -1;
+
+                            auto addr = make_address(nullptr);
+
+                            switch (task.proto) {
+                            case ceammc::osc::OSC_PROTO_UDP:
+                                addr.reset(lo_address_new_with_proto(LO_UDP,
+                                    task.host.c_str(),
+                                    fmt::format("{:d}", task.port).c_str()));
+                                rc = lo_send_message_from(addr.get(), srv_udp.get(), task.path.c_str(), task.m.get());
+                                break;
+                            case ceammc::osc::OSC_PROTO_TCP:
+                                addr.reset(lo_address_new_with_proto(LO_TCP,
+                                    task.host.c_str(),
+                                    fmt::format("{:d}", task.port).c_str()));
+                                rc = lo_send_message_from(addr.get(), srv_tcp.get(), task.path.c_str(), task.m.get());
+                                break;
+                            case ceammc::osc::OSC_PROTO_UNIX:
+                                addr.reset(lo_address_new_with_proto(LO_UNIX, nullptr, task.host.c_str()));
+                                rc = lo_send_message(addr.get(), task.path.c_str(), task.m.get());
+                                break;
+                            default:
+                                logger_.error(fmt::format("[osc_send] unsupported OSC protocol: {}", task.proto));
+                                break;
+                            }
+
+                            if (!addr || rc == -1) {
+                                auto url = lo_address_get_url(addr.get());
+                                logger_.error(fmt::format("[osc_send] {} - `{}`", lo_address_errstr(addr.get()), url));
+                                free(url);
+                            }
+                        }
+
+                        notify_.waitFor(100);
+
+                    } catch (std::exception& e) {
+                        std::cerr << "[osc_send]  exception: " << e.what();
+                    }
+                }
+
+                return true;
+            });
+    }
+
+    OscSendWorker::~OscSendWorker()
+    {
+        quit_ = true;
+        future_.get();
+    }
+
+    OscSendWorker& OscSendWorker::instance()
+    {
+        static OscSendWorker w;
+        return w;
+    }
+
+    bool OscSendWorker::add(const SendOscTask& task)
+    {
+        auto ok = pipe_.enqueue(task);
+        if (ok)
+            notify_.notifyOne();
+
+        return ok;
+    }
+
+    void SendOscTask::addBool(bool v)
+    {
+        if (v)
+            lo_message_add_true(m.get());
+        else
+            lo_message_add_false(m.get());
+    }
+
+    void SendOscTask::addChar(char x)
+    {
+        lo_message_add_char(m.get(), x);
+    }
+
+    void SendOscTask::addFloat(float f)
+    {
+        lo_message_add_float(m.get(), f);
+    }
+
+    void SendOscTask::addDouble(double x)
+    {
+        lo_message_add_double(m.get(), x);
+    }
+
+    void SendOscTask::addSymbol(const char* s)
+    {
+        lo_message_add_string(m.get(), s);
+    }
+
+    void SendOscTask::addString(const char* str)
+    {
+        lo_message_add_string(m.get(), str);
+    }
+
+    void SendOscTask::addInt32(std::int32_t v)
+    {
+        lo_message_add_int32(m.get(), v);
+    }
+
+    void SendOscTask::addInt64(std::int64_t v)
+    {
+        lo_message_add_int64(m.get(), v);
+    }
+
+    void SendOscTask::addNil()
+    {
+        lo_message_add_nil(m.get());
+    }
+
+    void SendOscTask::addInf()
+    {
+        lo_message_add_infinitum(m.get());
+    }
+
+    void SendOscTask::addMidi(std::uint8_t data[])
+    {
+        lo_message_add_midi(m.get(), data);
+    }
+
+    void SendOscTask::addBlob(const std::string& data)
+    {
+        auto b = make_blob(data.size(), data.data());
+        lo_message_add_blob(m.get(), b.get());
+    }
+
+    bool SendOscTask::addAtom(const Atom& a, char t, std::string& err)
+    {
+        switch (t) {
+        case LO_FLOAT:
+            if (!a.isFloat()) {
+                err = fmt::format("argument type mismatch: '{}'!='{}'", t, atom_arg_type(a));
+                return false;
+            } else
+                addFloat(a.asT<t_float>());
+            break;
+        case LO_DOUBLE:
+            if (!a.isFloat()) {
+                err = fmt::format("argument type mismatch: '{}'!='{}'", t, atom_arg_type(a));
+                return false;
+            } else
+                addDouble(a.asT<t_float>());
+            break;
+        case LO_INT32:
+            if (!a.isFloat()) {
+                err = fmt::format("argument type mismatch: '{}'!='{}'", t, atom_arg_type(a));
+                return false;
+            } else
+                addInt32(a.asT<t_float>());
+            break;
+        case LO_INT64:
+            if (!a.isFloat()) {
+                err = fmt::format("argument type mismatch: '{}'!='{}'", t, atom_arg_type(a));
+                return false;
+            } else
+                addInt64(a.asT<t_float>());
+            break;
+        case LO_STRING:
+            if (!a.isSymbol())
+                addString(to_string(a).c_str());
+            else
+                addString(a.asT<t_symbol*>()->s_name);
+            break;
+        case LO_SYMBOL:
+            if (!a.isSymbol())
+                addSymbol(to_string(a).c_str());
+            else
+                addSymbol(a.asT<t_symbol*>()->s_name);
+            break;
+        default:
+            err = fmt::format("unknown argument type: '{}'", t);
+            return false;
+        }
+
+        return true;
+    }
+
+    OscAtomVisitor::OscAtomVisitor(AtomList& res)
+        : r_(res)
+    {
+    }
+
+    void OscAtomVisitor::operator()(char c) const
+    {
+        char buf[2] = { c, '\0' };
+        r_.append(gensym(buf));
+    }
+
+    void OscAtomVisitor::operator()(const OscMessageBlob& blob)
+    {
+        for (auto b : blob.data)
+            r_.append(static_cast<int>(b));
+    }
+
+    void OscAtomVisitor::operator()(const OscMessageMidi& midi)
+    {
+        for (int i = 0; i < 4; i++)
+            r_.append(midi.data[i]);
+    }
+
+    void OscAtomVisitor::operator()(OscMessageSpec spec)
+    {
+        switch (spec) {
+        case osc::OscMessageSpec::INF:
+            r_.append(gensym("inf"));
+            break;
+        case osc::OscMessageSpec::NIL:
+            r_.append(gensym("null"));
+            break;
+        default:
+            break;
+        }
+    }
+
+    void dumpVersion()
+    {
+        char str[16];
+        lo_version(str, sizeof(str), 0, 0, 0, 0, 0, 0, 0);
+        LIB_DBG << "liblo version: " << str;
+    }
+
 }
 }

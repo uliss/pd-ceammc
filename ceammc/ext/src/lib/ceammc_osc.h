@@ -14,14 +14,17 @@
 #ifndef CEAMMC_OSC_H
 #define CEAMMC_OSC_H
 
+#include "ceammc_atomlist.h"
 #include "ceammc_datatypes.h"
 #include "ceammc_log.h"
-#include "ceammc_poll_dispatcher.h"
+#include "ceammc_notify.h"
 #include "readerwriterqueue.h"
 
 #include <cstdint>
 #include <cstring>
 #include <forward_list>
+#include <future>
+#include <mutex>
 #include <unordered_map>
 #include <unordered_set>
 #include <vector>
@@ -69,26 +72,105 @@ namespace osc {
     };
 
     using OscMessageAtom = boost::variant<bool, char, int32_t, int64_t, float, double, std::string, OscMessageMidi, OscMessageSpec, OscMessageBlob>;
-    using OscMessage = boost::container::small_vector<OscMessageAtom, 8>;
-    using OscMethodPipe = moodycamel::ReaderWriterQueue<OscMessage>;
     using OscMethodHash = std::uint32_t;
+
+    class OscRecvMessage {
+    public:
+        using OscAtomList = boost::container::small_vector<OscMessageAtom, 4>;
+
+    public:
+        void add(const OscMessageAtom& a) { atoms_.push_back(a); }
+        size_t size() const { return atoms_.size(); }
+        const OscAtomList& atoms() const { return atoms_; }
+        bool isMidi() const { return atoms_.size() == 1 && atoms_[0].type() == typeid(OscMessageMidi); }
+        bool isBlob() const { return atoms_.size() == 1 && atoms_[0].type() == typeid(OscMessageBlob); }
+        bool isSpec() const { return atoms_.size() == 1 && atoms_[0].type() == typeid(OscMessageSpec); }
+        const OscMessageAtom& operator[](size_t n) const { return atoms_[n]; }
+        void setPath(const char* path) { path_ = path; }
+        const std::string& path() const { return path_; }
+
+    private:
+        std::string path_;
+        boost::container::small_vector<OscMessageAtom, 4> atoms_;
+    };
+
+    class OscMethodPipe {
+        moodycamel::ReaderWriterQueue<OscRecvMessage> pipe_;
+
+    public:
+        bool try_enqueue(const OscRecvMessage& m)
+        {
+            return pipe_.try_enqueue(m);
+        }
+
+        bool try_enqueue(OscRecvMessage&& m)
+        {
+            return pipe_.try_enqueue(std::move(m));
+        }
+
+        bool try_dequeue(OscRecvMessage& m)
+        {
+            return pipe_.try_dequeue(m);
+        }
+    };
+
+    using OscMethodFn = std::function<bool(const OscRecvMessage&)>;
+
+    class OscAtomVisitor : public boost::static_visitor<> {
+        AtomList& r_;
+
+    public:
+        OscAtomVisitor(AtomList& res);
+
+        void operator()(float f) const { r_.append(Atom(f)); }
+        void operator()(double d) const { r_.append(Atom(d)); }
+        void operator()(bool b) const { r_.append(b ? 1 : 0); }
+        void operator()(int32_t i) const { r_.append(i); }
+        void operator()(int64_t h) const { r_.append(h); }
+        void operator()(const std::string& s) const { r_.append(gensym(s.c_str())); }
+        void operator()(char c) const;
+        void operator()(OscMessageSpec spec);
+        void operator()(const OscMessageMidi& midi);
+        void operator()(const OscMessageBlob& blob);
+    };
 
     class OscMethodSubscriber {
         SubscriberId id_;
-        OscMethodPipe* pipe_;
+        OscMethodFn fn_;
 
     public:
-        OscMethodSubscriber(SubscriberId id, OscMethodPipe* pipe);
+        OscMethodSubscriber(SubscriberId id, OscMethodFn fn);
 
         SubscriberId id() const { return id_; }
-        OscMethodPipe* pipe() { return pipe_; }
 
 #ifdef WITH_LIBLO
         /**
          * notify all method subscribers
          * @note called from worker thread
          */
-        void notify(const char* types, lo_arg** argv, int argc);
+        void notify(const char* path, const char* types, lo_arg** argv, int argc);
+#endif
+    };
+
+    class LoOscMessage {
+#ifdef WITH_LIBLO
+        lo_message message;
+#endif
+
+    public:
+        LoOscMessage();
+
+        LoOscMessage(const LoOscMessage& m) noexcept;
+
+        ~LoOscMessage() noexcept;
+
+        LoOscMessage& operator=(const LoOscMessage& m) noexcept;
+
+#ifdef WITH_LIBLO
+        lo_message get() const noexcept
+        {
+            return message;
+        }
 #endif
     };
 
@@ -102,7 +184,7 @@ namespace osc {
 
     public:
         OscServerSubscriberList();
-        OscServerSubscriberList(SubscriberId id, OscMethodPipe* pipe);
+        OscServerSubscriberList(SubscriberId id, OscMethodFn fn);
 
 #ifdef WITH_LIBLO
         /**
@@ -112,7 +194,7 @@ namespace osc {
         void notifyAll(const char* path, const char* types, lo_arg** argv, int argc);
 #endif
 
-        void subscribe(SubscriberId id, OscMethodPipe* pipe);
+        void subscribe(SubscriberId id, OscMethodFn fn);
         void unsubscribe(SubscriberId id);
 
         void getSubscribers(std::unordered_set<SubscriberId>& s);
@@ -175,7 +257,7 @@ namespace osc {
 #endif
 
         // called from main thread
-        void subscribeMethod(const char* path, const char* types, SubscriberId id, OscMethodPipe* pipe);
+        void subscribeMethod(const char* path, const char* types, SubscriberId id, OscMethodFn fn);
         void unsubscribeMethod(const char* path, const char* types, SubscriberId id);
         void unsubscribeAll(SubscriberId id);
 
@@ -220,13 +302,51 @@ namespace osc {
 
     private:
         OscServerPtr addToList(const OscServerPtr& osc);
+    };
+
+    struct SendOscTask {
+        std::string host;
+        std::string path;
+        LoOscMessage m;
+        SubscriberId id;
+        uint16_t port;
+        OscProto proto;
+
+        void addBool(bool v);
+        void addChar(char x);
+        void addFloat(float f);
+        void addDouble(double x);
+        void addSymbol(const char* s);
+        void addString(const char* str);
+        void addInt32(std::int32_t v);
+        void addInt64(std::int64_t v);
+        void addNil();
+        void addInf();
+        void addMidi(std::uint8_t data[4]);
+        void addBlob(const std::string& data);
+
+        bool addAtom(const Atom& a, char t, std::string& err);
+    };
+
+    class OscSendWorker {
+        using Pipe = moodycamel::ReaderWriterQueue<SendOscTask, 64>;
+        ThreadPdLogger logger_;
+
+        OscSendWorker();
+        ~OscSendWorker();
+
+        Pipe pipe_;
+        std::future<bool> future_;
+        std::atomic_bool quit_;
+        ThreadNotify notify_;
 
     public:
-        static constexpr const char* DISPATCHER = "#osc";
-        static constexpr const char* METHOD_UPDATE = ".update";
+        static OscSendWorker& instance();
+        bool add(const SendOscTask& task);
     };
 
     bool validOscTypeString(const char* str);
+    void dumpVersion();
 }
 }
 #endif // CEAMMC_OSC_H
