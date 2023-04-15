@@ -15,11 +15,13 @@
 #define CEAMMC_LOG_H
 
 #include <iostream>
+#include <list>
 #include <sstream>
 #include <string>
 #include <vector>
 
 #include "m_pd.h"
+#include "ceammc_notify.h"
 
 namespace ceammc {
 
@@ -110,6 +112,45 @@ private:
 #define LIB_DBG LogPdObject(nullptr, LOG_DEBUG).stream()
 #define LIB_POST LogPdObject(nullptr, LOG_POST).stream()
 #define LIB_LOG LogPdObject(nullptr, LOG_ALL).stream()
+
+class ThreadPdLogger : public NotifiedObject {
+    using Msg = std::pair<std::string, LogLevel>;
+    using Lock = std::lock_guard<std::mutex>;
+
+    std::string prefix_;
+    std::mutex mtx_;
+    std::list<Msg> msg_;
+
+public:
+    ThreadPdLogger(const std::string& prefix = "");
+    ~ThreadPdLogger();
+
+    bool notify(int /*code*/) final;
+
+    /**
+     * put error message to logger
+     * @note should be called in worker thread
+     */
+    void error(const std::string& msg);
+
+    /**
+     * put post message to logger
+     * @note should be called in worker thread
+     */
+    void post(const std::string& msg);
+
+    /**
+     * put debug message to logger
+     * @note should be called in worker thread
+     */
+    void debug(const std::string& msg);
+
+    /**
+     * put verbose message to logger
+     * @note should be called in worker thread
+     */
+    void verbose(const std::string& msg);
+};
 
 }
 

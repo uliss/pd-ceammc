@@ -11,9 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
 #include "ceammc_log.h"
 #include "ceammc_object.h"
+#include "ceammc_poll_dispatcher.h"
+#include "fmt/core.h"
 
 #include <cstdio>
 
@@ -211,6 +212,98 @@ LogNone::LogNone()
 int LogNone::NoneBuffer::overflow(int c)
 {
     return c;
+}
+
+ThreadPdLogger::ThreadPdLogger(const std::string& prefix)
+    : prefix_(prefix)
+{
+    Dispatcher::instance().subscribe(this, reinterpret_cast<SubscriberId>(this));
+}
+
+ThreadPdLogger::~ThreadPdLogger()
+{
+    Dispatcher::instance().unsubscribe(this);
+}
+
+bool ThreadPdLogger::notify(int /*code*/)
+{
+    Lock g(mtx_);
+
+    while (!msg_.empty()) {
+        auto& m = msg_.front();
+
+        switch (m.second) {
+        case LOG_ERROR:
+            LIB_ERR << m.first;
+            break;
+        case LOG_DEBUG:
+            LIB_DBG << m.first;
+            break;
+        case LOG_POST:
+            LIB_POST << m.first;
+            break;
+        case LOG_ALL:
+        default:
+            LIB_LOG << m.first;
+            break;
+        }
+
+        msg_.pop_front();
+    }
+
+    return true;
+}
+
+void ThreadPdLogger::error(const std::string& msg)
+{
+    {
+        Lock lock(mtx_);
+        if (prefix_.empty())
+            msg_.emplace_back(fmt::format("[error] {}", msg), LOG_ERROR);
+        else
+            msg_.emplace_back(fmt::format("[{}] [error] {}", prefix_, msg), LOG_ERROR);
+    }
+
+    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), 0 });
+}
+
+void ThreadPdLogger::post(const std::string& msg)
+{
+    {
+        Lock lock(mtx_);
+        if (prefix_.empty())
+            msg_.emplace_back(fmt::format("{}", msg), LOG_POST);
+        else
+            msg_.emplace_back(fmt::format("[{}] {}", prefix_, msg), LOG_POST);
+    }
+
+    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), 0 });
+}
+
+void ThreadPdLogger::debug(const std::string& msg)
+{
+    {
+        Lock lock(mtx_);
+        if (prefix_.empty())
+            msg_.emplace_back(fmt::format("[debug] {}", msg), LOG_DEBUG);
+        else
+            msg_.emplace_back(fmt::format("[{}] [debug] {}", prefix_, msg), LOG_DEBUG);
+    }
+
+    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), 0 });
+}
+
+void ThreadPdLogger::verbose(const std::string& msg)
+{
+    {
+        Lock lock(mtx_);
+        if (prefix_.empty())
+            msg_.emplace_back(fmt::format("[verbose] {}", msg), LOG_ALL);
+        else
+            msg_.emplace_back(fmt::format("[{}] [verbose] {}", prefix_, msg), LOG_ALL);
+    }
+
+    Dispatcher::instance().send({ reinterpret_cast<SubscriberId>(this), 0 });
 }
 
 }

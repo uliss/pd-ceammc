@@ -22,18 +22,6 @@
 
 namespace ceammc {
 
-using SubscriberId = uint64_t;
-
-struct NotifyMessage {
-    SubscriberId id;
-    int event;
-};
-
-struct SubscriberInfo {
-    SubscriberId id;
-    NotifiedObject* obj;
-};
-
 class DispatcherImpl {
 public:
     virtual ~DispatcherImpl() { }
