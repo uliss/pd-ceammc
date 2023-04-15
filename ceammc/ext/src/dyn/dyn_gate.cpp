@@ -1,5 +1,5 @@
 #include "dyn_gate.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 #include "dyn_gate_base.h"
 using namespace ceammc;
 
@@ -13,7 +13,7 @@ public:
 
 void setup_dyn_gate_tilde()
 {
-    SoundExternalFactory<DynGate> obj("dyn.gate~");
+    FaustFactory<DynGate> obj("dyn.gate~");
     obj.setXletsInfo({ "signal: input", "float: threshold (dbfs)" }, { "signal: output" });
 
     obj.setDescription("mono signal gate");
