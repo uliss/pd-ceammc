@@ -50,7 +50,7 @@ public:
         tempo_->setArgIndex(0);
         addProperty(tempo_);
 
-        tsig_ = new TimeSignatureProperty("@ts");
+        tsig_ = new TimeSignatureProperty("@tsig");
         tsig_->setArgIndex(1);
         tsig_->setSuccessFn([this](Property*) { syncPattern(); });
         addProperty(tsig_);
