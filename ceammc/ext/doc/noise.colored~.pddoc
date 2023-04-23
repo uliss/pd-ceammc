@@ -51,6 +51,10 @@
 |
 |
 |
+| [ui.tab brown pink white blue velvet @size 200 16]
+| |
+| [$2(
+| |
 [noise.colored~         ]
 |                       |
 [ui.gain~ @size 120 16] [ui.ssc~ @size 300 120 @log_scale 1]

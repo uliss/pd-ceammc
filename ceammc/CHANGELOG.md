@@ -50,6 +50,7 @@
   - notes_off method added to proto.midi
   - sound_off method added to proto.midi
   - panic method added to proto.midi
+  - brown, pink, white, blue and velvet methods added to noise.colored~
 - new object properties:
   - @punct added to rhvoice~, to specify pronounced characters
   - @bypass added to dyn.comp~ and dyn.comp2~

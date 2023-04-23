@@ -45,5 +45,8 @@ ceammc_faust_noise_obj_ui(white)
 list(APPEND NOISE_SOURCES chaos_standard.cpp chaos_gbman.cpp)
 
 add_library(ceammc_noise STATIC ${NOISE_SOURCES})
-target_include_directories(ceammc_noise PUBLIC ${PROJECT_SOURCE_DIR}/src)
+target_include_directories(ceammc_noise
+    PUBLIC ${PROJECT_SOURCE_DIR}/src
+    PRIVATE
+        "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
 target_compile_definitions(ceammc_noise PUBLIC "FAUST_MACRO")
