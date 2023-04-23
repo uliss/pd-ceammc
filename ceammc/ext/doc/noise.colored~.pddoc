@@ -29,6 +29,13 @@
             noise, 1/2 blue noise, and 1 violet/azure noise.</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
+        <methods>
+            <method name="white">set to white noise (roll-off factor 0)</method>
+            <method name="brown">set to brown/red noise (roll-off factor -1)</method>
+            <method name="pink">set to pink noise (roll-off factor -0.5)</method>
+            <method name="blue">set to blue noise (roll-off factor 0.5)</method>
+            <method name="velvet">set to velvet noise (roll-off factor 1)</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="float">set roll-off frequency</xinfo>

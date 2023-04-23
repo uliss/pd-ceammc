@@ -16,7 +16,7 @@ public:
         bindPositionalArgsToProps({ PROP_FREQ });
     }
 
-    void onFloat(t_float f) override
+    void onFloat(t_float f) final
     {
         if (freq_)
             freq_->setValue(f, true);
