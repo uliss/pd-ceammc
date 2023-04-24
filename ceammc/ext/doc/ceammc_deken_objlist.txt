@@ -508,6 +508,7 @@ fx.bitdown~	bit downer and downsampler effect
 fx.chorus~	Chorus effect
 fx.dattorro~	dattorro reverb
 fx.delay~	smooth delay with a feedback control
+fx.sdelay~	smooth delay with a feedback control
 fx.distortion1~	distortion #1 from Guitarix effects set
 fx.distortion2~	distortion #2 from Guitarix effects set
 fx.distortion3~	simple distortion #3 from Guitarix effects set

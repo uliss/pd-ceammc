@@ -104,13 +104,14 @@
         flt.resonhp~ flt.resonlp~
     }}
     {fx {
-        fx.bitdown~ fx.chorus~ fx.dattorro~ fx.distortion1~ fx.distortion2~
-        fx.distortion3~ fx.distortion~ fx.drive~ fx.drone_box~ fx.echo2~
-        fx.echo~ fx.flanger~ fx.freeverb2~ fx.freeverb~ fx.freqshift~
-        fx.granulator~ fx.greyhole~ fx.infrev~ fx.jcrev~ fx.looper~
-        fx.overdrive~ fx.pitchshift_s~ fx.pitchshift~ fx.rb_pitchshift~
-        fx.recho~ fx.room~ fx.satrev~ fx.sdelay~ fx.shimmer~ fx.stutter~
-        fx.tapiir~ fx.tremolo~ fx.vocoder~ fx.wahwah~ fx.zita_rev1~
+        fx.bitdown~ fx.chorus~ fx.dattorro~ fx.delay~ fx.distortion1~
+        fx.distortion2~ fx.distortion3~ fx.distortion~ fx.drive~ fx.drone_box~
+        fx.echo2~ fx.echo~ fx.flanger~ fx.freeverb2~ fx.freeverb~
+        fx.freqshift~ fx.granulator~ fx.greyhole~ fx.infrev~ fx.jcrev~
+        fx.looper~ fx.overdrive~ fx.pitchshift_s~ fx.pitchshift~
+        fx.rb_pitchshift~ fx.recho~ fx.room~ fx.satrev~ fx.shimmer~
+        fx.stutter~ fx.tapiir~ fx.tremolo~ fx.vocoder~ fx.wahwah~
+        fx.zita_rev1~
     }}
     {global {
         global.dict global.float global.int global.list global.mlist

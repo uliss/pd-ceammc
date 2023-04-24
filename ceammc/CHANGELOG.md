@@ -77,6 +77,7 @@
 - proto.midi.cc - renaming MIDI sounds_off to sound_off
 - fx.secho~ is deprecated and will be removed in future releases, use fx.echo~. fx.echo~ delay change now is smoothed by default, but if you need
     gleetchy effect of delay change, you can set @smooth to 0.
+- fx.sdelay~ renamed to fx.delay~, fx.sdelay~ now is deprecated alias
 
 ### Fixed:
 - proto.midi.cc - sound_off, notes_off crash fixes

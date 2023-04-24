@@ -16,6 +16,9 @@
             <also>
                 <see>fx.echo~</see>
             </also>
+            <aliases>
+                <alias>fx.sdelay~</alias>
+            </aliases>
         </meta>
         <info>
             <par>delay that doesn't click and doesn't transpose when the delay time is
@@ -32,22 +35,50 @@
             default="1">echo time</property>
             <property name="@feedback" type="float" minvalue="0" maxvalue="1" default="0">feedback
             coefficient</property>
-            <property name="@interpolation" type="float" minvalue="1" maxvalue="200" default="20"
-            units="millisecond">interpolation time</property>
+            <!-- FILTER -->
+            <property name="@filter" type="bool" default="0">if true - apply filter to feedback
+            signal</property>
+            <property name="@f_lpf" type="float" units="hertz" minvalue="20" maxvalue="20000"
+            default="9000">feedback low-pass filter cutoff frequency</property>
+            <property name="@f_hpf" type="float" units="hertz" minvalue="20" maxvalue="20000"
+            default="300">feedback high-pass filter cutoff frequency</property>
+            <!-- COMPRESSION -->
+            <property name="@compress" type="float" minvalue="0" maxvalue="1" default="0.5">
+            feedback compression factor. 0: means no compression, 1: limit feedback
+            level.</property>
+            <property name="@c_thresh" type="float" minvalue="-60" maxvalue="0" default="0"
+            units="decibel">feedback compression threshold level</property>
+            <property name="@c_attack" type="float" minvalue="0.1" maxvalue="100" default="10"
+            units="millisecond">feedback compression attack time</property>
+            <property name="@c_release" type="float" minvalue="1" maxvalue="500" default="50"
+            units="millisecond">feedback compression release time</property>
+            <property name="@smooth" type="float" default="50" minvalue="0" maxvalue="500"
+            units="millisecond">interpolation time on delay time change, that prevents click and
+            transpose, if equal to 0 produces artifacts on delay change</property>
+            <!-- MIX -->
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
             of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
             wet.</property>
             <property name="@bypass" type="bool" default="0">if set to 1 - bypass 'effected'
             signal.</property>
+            <!-- OSC -->
+            <property name="@osc" type="symbol" default="" access="initonly">OSC server name to
+            listen</property>
+            <property name="@id" type="symbol" default="" access="initonly">OSC address id. If
+            specified, bind properties to /ID/fx_delay/PROP_NAME osc address, if empty bind to
+            /fx_delay/PROP_NAME.</property>
+            <!-- COMMON -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <methods>
-            <method name="clear">clears delay line</method>
-            <method name="reset">same as reset</method>
+            <method name="reset">clears delay line</method>
         </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set delay time</xinfo>
             </inlet>
         </inlets>
         <outlets>
