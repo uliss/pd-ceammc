@@ -234,7 +234,7 @@ fx.distortion~		~		~
 fx.drive~		~		~
 fx.drone_box~		~.		~
 fx.echo2~		~~		~~
-fx.echo~		~		~
+fx.echo~		~.		~
 fx.flanger~		~		~
 fx.freeverb2~		~~		~~
 fx.freeverb~		~		~

@@ -715,7 +715,7 @@ class fx_echo : public fx_echo_dsp {
 		m->declare("filters.lib/iir:author", "Julius O. Smith III");
 		m->declare("filters.lib/iir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/iir:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/lowpass0_highpass1:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -772,13 +772,13 @@ class fx_echo : public fx_echo_dsp {
 		fCheckbox1 = FAUSTFLOAT(0.0f);
 		fHslider1 = FAUSTFLOAT(0.3f);
 		fHslider2 = FAUSTFLOAT(5e+02f);
-		fHslider3 = FAUSTFLOAT(1e+01f);
+		fHslider3 = FAUSTFLOAT(5e+01f);
 		fHslider4 = FAUSTFLOAT(0.5f);
 		fHslider5 = FAUSTFLOAT(0.0f);
 		fHslider6 = FAUSTFLOAT(1e+01f);
 		fHslider7 = FAUSTFLOAT(5e+01f);
 		fHslider8 = FAUSTFLOAT(3e+02f);
-		fHslider9 = FAUSTFLOAT(1e+04f);
+		fHslider9 = FAUSTFLOAT(9e+03f);
 	}
 	
 	virtual void instanceClear() {
@@ -858,10 +858,12 @@ class fx_echo : public fx_echo_dsp {
 		ui_interface->addHorizontalSlider("drywet", &fHslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
 		ui_interface->addHorizontalSlider("feedback", &fHslider1, FAUSTFLOAT(0.3f), FAUSTFLOAT(0.0f), FAUSTFLOAT(0.99f), FAUSTFLOAT(0.001f));
 		ui_interface->addCheckButton("filter", &fCheckbox1);
-		ui_interface->addHorizontalSlider("hpf", &fHslider8, FAUSTFLOAT(3e+02f), FAUSTFLOAT(3e+01f), FAUSTFLOAT(2e+04f), FAUSTFLOAT(0.01f));
-		ui_interface->addHorizontalSlider("lpf", &fHslider9, FAUSTFLOAT(1e+04f), FAUSTFLOAT(3e+01f), FAUSTFLOAT(2e+04f), FAUSTFLOAT(0.01f));
+		ui_interface->declare(&fHslider8, "unit", "hz");
+		ui_interface->addHorizontalSlider("hpf", &fHslider8, FAUSTFLOAT(3e+02f), FAUSTFLOAT(2e+01f), FAUSTFLOAT(2e+04f), FAUSTFLOAT(0.01f));
+		ui_interface->declare(&fHslider9, "unit", "hz");
+		ui_interface->addHorizontalSlider("lpf", &fHslider9, FAUSTFLOAT(9e+03f), FAUSTFLOAT(2e+01f), FAUSTFLOAT(2e+04f), FAUSTFLOAT(0.01f));
 		ui_interface->declare(&fHslider3, "unit", "ms");
-		ui_interface->addHorizontalSlider("smooth", &fHslider3, FAUSTFLOAT(1e+01f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.1f));
+		ui_interface->addHorizontalSlider("smooth", &fHslider3, FAUSTFLOAT(5e+01f), FAUSTFLOAT(0.0f), FAUSTFLOAT(5e+02f), FAUSTFLOAT(0.1f));
 		ui_interface->closeBox();
 	}
 	

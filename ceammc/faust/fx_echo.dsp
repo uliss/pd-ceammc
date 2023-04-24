@@ -24,8 +24,8 @@ echo = echo_noclick(MAX_TIME_SEC, time, feedback) with {
 
         filter = _ <: ba.if(checkbox("filter"), fn, _) with {
             fn = fi.lowpass(4, lpf) : fi.highpass(4, hpf);
-            hpf = hslider("hpf", 300, 30, 20000, 0.01);
-            lpf = hslider("lpf", 10000, 30, 20000, 0.01);
+            hpf = hslider("hpf [unit:hz]", 300, 20, 20000, 0.01);
+            lpf = hslider("lpf [unit:hz]", 9000, 20, 20000, 0.01);
         };
 };
 };
