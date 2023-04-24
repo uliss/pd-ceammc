@@ -40,13 +40,13 @@ value: 1\.;
 #X msg 110 525 @bypass;
 #X text 245 525 Get/Set if set to 1 - bypass 'effected' signal. Type:
 bool. Default value: 0\.;
-#X msg 110 567 @c.attack;
+#X msg 110 567 @c_attack;
 #X text 245 567 Get/Set feedback compression attack time. Type: float.
 Units: ms. Default value: 10\. Range: 0.1\...100\.;
-#X msg 110 609 @c.release;
+#X msg 110 609 @c_release;
 #X text 245 609 Get/Set feedback compression release time. Type: float.
 Units: ms. Default value: 50\. Range: 1\...500\.;
-#X msg 110 651 @c.threshold;
+#X msg 110 651 @c_thresh;
 #X text 245 651 Get/Set feedback compression threshold level. Type:
 float. Units: db. Default value: 0\. Range: -60\...0\.;
 #X msg 110 693 @compress;
@@ -60,10 +60,10 @@ value: 500\. Range: 10\...10000\.;
 #X text 245 792 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
 Default value: 1\. Range: 0\...1\.;
-#X msg 110 849 @f.hpf;
+#X msg 110 849 @f_hpf;
 #X text 245 849 Get/Set feedback high-pass filter cutoff frequency.
 Type: float. Units: Hz. Default value: 300\. Range: 20\...20000\.;
-#X msg 110 891 @f.lpf;
+#X msg 110 891 @f_lpf;
 #X text 245 891 Get/Set feedback low-pass filter cutoff frequency.
 Type: float. Units: Hz. Default value: 9000\. Range: 20\...20000\.;
 #X msg 110 933 @feedback;
