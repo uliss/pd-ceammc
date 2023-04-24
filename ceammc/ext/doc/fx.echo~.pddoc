@@ -34,11 +34,21 @@
             default="500">echo time</property>
             <property name="@feedback" type="float" minvalue="0" maxvalue="0.99" default="0.3">
             feedback coefficient</property>
+            <!-- FILTER -->
             <property name="@filter" type="bool" default="0">if true - apply filter to feedback signal</property>
-            <property name="@lpf" type="float" units="hertz" minvalue="20" maxvalue="20000"
+            <property name="@f.lpf" type="float" units="hertz" minvalue="20" maxvalue="20000"
             default="9000">feedback low-pass filter cutoff frequency</property>
-            <property name="@hpf" type="float" units="hertz" minvalue="20" maxvalue="20000"
+            <property name="@f.hpf" type="float" units="hertz" minvalue="20" maxvalue="20000"
             default="300">feedback high-pass filter cutoff frequency</property>
+            <!-- COMPRESSION -->
+            <property name="@compress" type="float" minvalue="0" maxvalue="1"
+            default="0.5">feedback compression factor. 0: means no compression, 1: limit feedback level.</property>
+            <property name="@c.threshold" type="float" minvalue="-60" maxvalue="0"
+            default="0" units="decibel">feedback compression threshold level</property>
+            <property name="@c.attack" type="float" minvalue="0.1" maxvalue="100"
+            default="10" units="millisecond">feedback compression attack time</property>
+            <property name="@c.release" type="float" minvalue="1" maxvalue="500"
+            default="50" units="millisecond">feedback compression release time</property>
             <property name="@smooth" type="float" default="50" minvalue="0" maxvalue="500" units="millisecond">
             interpolation time on delay time change, that prevents click and transpose, if equal to 0 produces artifacts on delay change
             </property>
