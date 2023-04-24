@@ -507,6 +507,7 @@ flt.resonlp~	Simple resonant lowpass filter
 fx.bitdown~	bit downer and downsampler effect
 fx.chorus~	Chorus effect
 fx.dattorro~	dattorro reverb
+fx.delay~	smooth delay with a feedback control
 fx.distortion1~	distortion #1 from Guitarix effects set
 fx.distortion2~	distortion #2 from Guitarix effects set
 fx.distortion3~	simple distortion #3 from Guitarix effects set
@@ -532,7 +533,6 @@ fx.rb_pitchshift~	rubber band pitchshift
 fx.recho~	reversed echo effect
 fx.room~	Gardners room emulation algorithms
 fx.satrev~	Schroeder reverberator from 1971
-fx.sdelay~	smooth delay with a feedback control
 fx.shimmer~	shimmer reverb effect effect
 fx.stutter~	stutter effect
 fx.tapiir~	multi-tap delay

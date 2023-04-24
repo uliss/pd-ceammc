@@ -1,8 +1,8 @@
 #N canvas 0 0 950 600 12;
-#X obj 25 125 fx.echo~;
+#X obj 25 125 fx.delay~;
 #X obj 25 25 inlet~;
 #X obj 425 25 inlet;
-#X obj 425 125 route fx.echo * .;
+#X obj 425 125 route fx.delay * .;
 #X obj 625 150 route.prop;
 #X obj 475 200 msg *;
 #X obj 425 250 route @bypass @c_attack @c_release @c_thresh @compress
@@ -10,81 +10,81 @@
 #X obj 675 350 t b a;
 #X msg 675 375 supported messages are: @bypass @c_attack @c_release @c_thresh @compress @delay @drywet @f_hpf @f_lpf @feedback @filter @smooth default reset;
 #X obj 675 425 print;
-#X obj 725 425 print [gfx.echo~] unknown message;
-#X msg 325 75 @c_attack 10 \, @c_release 50 \, @c_thresh 0 \, @compress 0.5 \, @delay 500 \, @drywet 1 \, @f_hpf 300 \, @f_lpf 9000 \, @feedback 0.3 \, @smooth 50 \,;
+#X obj 725 425 print [gfx.delay~] unknown message;
+#X msg 325 75 @c_attack 10 \, @c_release 50 \, @c_thresh 0 \, @compress 0.5 \, @delay 1 \, @drywet 1 \, @f_hpf 300 \, @f_lpf 9000 \, @feedback 0 \, @smooth 50 \,;
 #X obj 25 50 t b b;
 #X msg 25 75 reset;
 #X obj 325 25 msg.onload;
 #X obj 500 550 outlet~;
 #X obj 600 550 outlet ctl;
 #X obj 3 202 cnv 8 198 339 empty empty empty 17 7 0 10 -174763 -1 0;
-#X obj 3 202 cnv 8 198 18 empty empty [fx.echo~] 3 9 0 12 -104026
+#X obj 3 202 cnv 8 198 18 empty empty [fx.delay~] 3 9 0 12 -104026
 -262144 0;
 #X obj 185 205 ui.toggle @size 12 12 @label bypass @label_side left
 @label_align right @fontsize 10 @presetname
-/gui/\$1/fx.echo~/checkbox0;
+/gui/\$1/fx.delay~/checkbox0;
 #X msg 260 218 @bypass \$1;
 #X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label
 c_attack(ms): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/fx.echo~/slider1 @min 0.1 @max 100;
+@presetname /gui/\$1/fx.delay~/slider1 @min 0.1 @max 100;
 #X obj 215 236 sync;
 #X obj 145 236 ui.number @size 50 12 @min 0.1 @max 100 @digits 2;
 #X msg 260 236 @c_attack \$1;
 #X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label
 c_release(ms): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/fx.echo~/slider2 @min 1 @max 500;
+@presetname /gui/\$1/fx.delay~/slider2 @min 1 @max 500;
 #X obj 215 266 sync;
 #X obj 145 266 ui.number @size 50 12 @min 1 @max 500 @digits 1;
 #X msg 260 266 @c_release \$1;
 #X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label
 c_thresh(db): @label_side top @label_align left @fontsize 10
-@presetname /gui/\$1/fx.echo~/slider3 @min -60 @max 0;
+@presetname /gui/\$1/fx.delay~/slider3 @min -60 @max 0;
 #X obj 215 296 sync;
 #X obj 145 296 ui.number @size 50 12 @min -60 @max 0 @digits 2;
 #X msg 260 296 @c_thresh \$1;
 #X obj 12 326 ui.slider @size 125 12 @active_scale 1 @label compress:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/fx.echo~/slider4 @min 0 @max 1;
+/gui/\$1/fx.delay~/slider4 @min 0 @max 1;
 #X obj 215 326 sync;
 #X obj 145 326 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 326 @compress \$1;
 #X obj 12 356 ui.slider @size 125 12 @active_scale 1 @label delay(ms):
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/fx.echo~/slider5 @min 10 @max 10000;
+/gui/\$1/fx.delay~/slider5 @min 0 @max 6000;
 #X obj 215 356 sync;
-#X obj 145 356 ui.number @size 50 12 @min 10 @max 10000 @digits 0;
+#X obj 145 356 ui.number @size 50 12 @min 0 @max 6000 @digits 0;
 #X msg 260 356 @delay \$1;
 #X obj 12 386 ui.slider @size 125 12 @active_scale 1 @label drywet:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/fx.echo~/slider6 @min 0 @max 1;
+/gui/\$1/fx.delay~/slider6 @min 0 @max 1;
 #X obj 215 386 sync;
 #X obj 145 386 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 386 @drywet \$1;
 #X obj 12 416 ui.slider @size 125 12 @active_scale 1 @label f_hpf(hz):
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/fx.echo~/slider7 @min 20 @max 20000;
+/gui/\$1/fx.delay~/slider7 @min 20 @max 20000;
 #X obj 215 416 sync;
 #X obj 145 416 ui.number @size 50 12 @min 20 @max 20000 @digits 1;
 #X msg 260 416 @f_hpf \$1;
 #X obj 12 446 ui.slider @size 125 12 @active_scale 1 @label f_lpf(hz):
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/fx.echo~/slider8 @min 20 @max 20000;
+/gui/\$1/fx.delay~/slider8 @min 20 @max 20000;
 #X obj 215 446 sync;
 #X obj 145 446 ui.number @size 50 12 @min 20 @max 20000 @digits 1;
 #X msg 260 446 @f_lpf \$1;
 #X obj 12 476 ui.slider @size 125 12 @active_scale 1 @label feedback:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/fx.echo~/slider9 @min 0 @max 0.99;
+/gui/\$1/fx.delay~/slider9 @min 0 @max 1;
 #X obj 215 476 sync;
-#X obj 145 476 ui.number @size 50 12 @min 0 @max 0.99 @digits 4;
+#X obj 145 476 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 476 @feedback \$1;
 #X obj 12 496 ui.toggle @size 12 12 @label filter @label_side right
 @label_align left @fontsize 10 @presetname
-/gui/\$1/fx.echo~/checkbox10;
+/gui/\$1/fx.delay~/checkbox10;
 #X msg 260 488 @filter \$1;
 #X obj 12 524 ui.slider @size 125 12 @active_scale 1 @label
 smooth(ms): @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/fx.echo~/slider11 @min 0 @max 500;
+/gui/\$1/fx.delay~/slider11 @min 0 @max 500;
 #X obj 215 524 sync;
 #X obj 145 524 ui.number @size 50 12 @min 0 @max 500 @digits 1;
 #X msg 260 524 @smooth \$1;

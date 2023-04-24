@@ -227,6 +227,7 @@ function.call,func.call		..		.
 fx.bitdown~		~		~
 fx.chorus~		~		~
 fx.dattorro~		~~		~~
+fx.delay~		~		~
 fx.distortion1~		~		~
 fx.distortion2~		~		~
 fx.distortion3~		~		~

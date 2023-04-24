@@ -227,6 +227,7 @@ set(DOC_FILES
     fx.bitdown~
     fx.chorus~
     fx.dattorro~
+    fx.delay~
     fx.distortion1~
     fx.distortion2~
     fx.distortion3~
@@ -251,7 +252,6 @@ set(DOC_FILES
     fx.recho~
     fx.room~
     fx.satrev~
-    fx.sdelay~
     fx.shimmer~
     fx.stutter~
     fx.tapiir~

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="fx.sdelay~">
-        <title>fx.sdelay~</title>
+    <object name="fx.delay~">
+        <title>fx.delay~</title>
         <meta>
             <authors>
                 <author>Yann Orlarey</author>
@@ -58,14 +58,14 @@
 <![CDATA[
 [open %CEAMMC%/guitar1.wav, 1 #b(
 |
-[expand_env] [ui.hsl]
+[expand_env] [ui.hsl 0 1000 @show_value 1]
 |            |
 |            |
-[readsf~ #a] [lin->lin 0 1 0 1000]
-|            |
-|            [@delay $1(
-|            |
-[fx.sdelay~ @drywet 0.5 @interpolation 100]
+[readsf~ #a] |           [F]
+|            |           |
+|            [@delay $1( [@smooth $1(
+|            |           |
+[fx.delay~ @drywet 0.5   ]
 |
 [ui.gain~ @size 120 16]  [ui.dsp~]
 |\

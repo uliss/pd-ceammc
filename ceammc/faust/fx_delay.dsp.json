@@ -1,0 +1,215 @@
+{
+	"name": "fx.delay",
+	"filename": "fx_delay.dsp",
+	"version": "2.53.1",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_delay -scn fx_delay_dsp -es 1 -mcd 16 -single -ftz 0",
+	"library_list": ["/usr/local/share/faust/stdfaust.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc.lib","/usr/local/share/faust/delays.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/compressors.lib","/usr/local/share/faust/routes.lib","/usr/local/share/faust/filters.lib","/Users/serge/work/music/pure-data/ceammc/faust/ceammc_ui.lib"],
+	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
+	"inputs": 1,
+	"outputs": 1,
+	"meta": [ 
+		{ "author": "Yann Orlarey" },
+		{ "contributor": "Serge Poltavski" },
+		{ "basics.lib/bypass1:author": "Julius Smith" },
+		{ "basics.lib/name": "Faust Basic Element Library" },
+		{ "basics.lib/version": "0.8" },
+		{ "ceammc.lib/name": "Ceammc PureData misc utils" },
+		{ "ceammc.lib/version": "0.1.3" },
+		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
+		{ "ceammc_ui.lib/version": "0.1.2" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_delay -scn fx_delay_dsp -es 1 -mcd 16 -single -ftz 0" },
+		{ "compressors.lib/FFcompressor_N_chan:author": "Bart Brouns" },
+		{ "compressors.lib/FFcompressor_N_chan:license": "GPLv3" },
+		{ "compressors.lib/name": "Faust Compressor Effect Library" },
+		{ "compressors.lib/peak_compression_gain_N_chan_db:author": "Bart Brouns" },
+		{ "compressors.lib/peak_compression_gain_N_chan_db:license": "GPLv3" },
+		{ "compressors.lib/peak_compression_gain_mono_db:author": "Bart Brouns" },
+		{ "compressors.lib/peak_compression_gain_mono_db:license": "GPLv3" },
+		{ "compressors.lib/version": "0.4" },
+		{ "copyright": "Grame" },
+		{ "delays.lib/name": "Faust Delay Library" },
+		{ "delays.lib/version": "0.1" },
+		{ "filename": "fx_delay.dsp" },
+		{ "filters.lib/fir:author": "Julius O. Smith III" },
+		{ "filters.lib/fir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/fir:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/highpass:author": "Julius O. Smith III" },
+		{ "filters.lib/highpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/iir:author": "Julius O. Smith III" },
+		{ "filters.lib/iir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/iir:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
+		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
+		{ "filters.lib/lowpass:author": "Julius O. Smith III" },
+		{ "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/name": "Faust Filters Library" },
+		{ "filters.lib/tf2:author": "Julius O. Smith III" },
+		{ "filters.lib/tf2:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf2:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/tf2s:author": "Julius O. Smith III" },
+		{ "filters.lib/tf2s:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/tf2s:license": "MIT-style STK-4.3 license" },
+		{ "filters.lib/version": "0.3" },
+		{ "license": "STK-4.3" },
+		{ "maths.lib/author": "GRAME" },
+		{ "maths.lib/copyright": "GRAME" },
+		{ "maths.lib/license": "LGPL with exception" },
+		{ "maths.lib/name": "Faust Math Library" },
+		{ "maths.lib/version": "2.5" },
+		{ "name": "fx.delay" },
+		{ "platform.lib/name": "Generic Platform Library" },
+		{ "platform.lib/version": "0.2" },
+		{ "routes.lib/name": "Faust Signal Routing Library" },
+		{ "routes.lib/version": "0.2" },
+		{ "signals.lib/name": "Faust Signal Routing Library" },
+		{ "signals.lib/onePoleSwitching:author": "Jonatan Liljedahl, revised by Dario Sanfilippo" },
+		{ "signals.lib/onePoleSwitching:licence": "STK-4.3" },
+		{ "signals.lib/version": "0.3" },
+		{ "version": "1.1" }
+	],
+	"ui": [ 
+		{
+			"type": "vgroup",
+			"label": "fx.delay",
+			"items": [ 
+				{
+					"type": "checkbox",
+					"label": "bypass",
+					"shortname": "bypass",
+					"address": "/fx.delay/bypass"
+				},
+				{
+					"type": "hslider",
+					"label": "c_attack",
+					"shortname": "c_attack",
+					"address": "/fx.delay/c_attack",
+					"meta": [
+						{ "unit": "ms" }
+					],
+					"init": 10,
+					"min": 0.1,
+					"max": 100,
+					"step": 0.1
+				},
+				{
+					"type": "hslider",
+					"label": "c_release",
+					"shortname": "c_release",
+					"address": "/fx.delay/c_release",
+					"meta": [
+						{ "unit": "ms" }
+					],
+					"init": 50,
+					"min": 1,
+					"max": 500,
+					"step": 0.1
+				},
+				{
+					"type": "hslider",
+					"label": "c_thresh",
+					"shortname": "c_thresh",
+					"address": "/fx.delay/c_thresh",
+					"meta": [
+						{ "unit": "db" }
+					],
+					"init": 0,
+					"min": -60,
+					"max": 0,
+					"step": 0.1
+				},
+				{
+					"type": "hslider",
+					"label": "compress",
+					"shortname": "compress",
+					"address": "/fx.delay/compress",
+					"init": 0.5,
+					"min": 0,
+					"max": 1,
+					"step": 0.01
+				},
+				{
+					"type": "hslider",
+					"label": "delay",
+					"shortname": "delay",
+					"address": "/fx.delay/delay",
+					"meta": [
+						{ "unit": "ms" }
+					],
+					"init": 1,
+					"min": 0,
+					"max": 6000,
+					"step": 0.1
+				},
+				{
+					"type": "hslider",
+					"label": "drywet",
+					"shortname": "drywet",
+					"address": "/fx.delay/drywet",
+					"meta": [
+						{ "style": "knob" }
+					],
+					"init": 1,
+					"min": 0,
+					"max": 1,
+					"step": 0.01
+				},
+				{
+					"type": "hslider",
+					"label": "f_hpf",
+					"shortname": "f_hpf",
+					"address": "/fx.delay/f_hpf",
+					"meta": [
+						{ "unit": "hz" }
+					],
+					"init": 300,
+					"min": 20,
+					"max": 20000,
+					"step": 0.01
+				},
+				{
+					"type": "hslider",
+					"label": "f_lpf",
+					"shortname": "f_lpf",
+					"address": "/fx.delay/f_lpf",
+					"meta": [
+						{ "unit": "hz" }
+					],
+					"init": 9000,
+					"min": 20,
+					"max": 20000,
+					"step": 0.01
+				},
+				{
+					"type": "hslider",
+					"label": "feedback",
+					"shortname": "feedback",
+					"address": "/fx.delay/feedback",
+					"init": 0,
+					"min": 0,
+					"max": 1,
+					"step": 0.001
+				},
+				{
+					"type": "checkbox",
+					"label": "filter",
+					"shortname": "filter",
+					"address": "/fx.delay/filter"
+				},
+				{
+					"type": "hslider",
+					"label": "smooth",
+					"shortname": "smooth",
+					"address": "/fx.delay/smooth",
+					"meta": [
+						{ "unit": "ms" }
+					],
+					"init": 50,
+					"min": 0,
+					"max": 500,
+					"step": 0.1
+				}
+			]
+		}
+	]
+}

@@ -4,6 +4,7 @@
 void setup_fx_bitdown_tilde();
 void setup_fx_chorus_tilde();
 void setup_fx_dattorro_tilde();
+void setup_fx_delay_tilde();
 void setup_fx_distortion1_tilde();
 void setup_fx_distortion2_tilde();
 void setup_fx_distortion3_tilde();
@@ -27,7 +28,6 @@ void setup_fx_recho_tilde();
 void setup_fx_ringmod_tilde();
 void setup_fx_room_tilde();
 void setup_fx_satrev_tilde();
-void setup_fx_sdelay_tilde();
 void setup_fx_shimmer_tilde();
 void setup_fx_stutter_tilde();
 void setup_fx_tapiir_tilde();
@@ -41,6 +41,7 @@ void ceammc_fx_setup()
     setup_fx_bitdown_tilde();
     setup_fx_chorus_tilde();
     setup_fx_dattorro_tilde();
+    setup_fx_delay_tilde();
     setup_fx_distortion1_tilde();
     setup_fx_distortion2_tilde();
     setup_fx_distortion3_tilde();
@@ -65,7 +66,6 @@ void ceammc_fx_setup()
     setup_fx_ringmod_tilde();
     setup_fx_room_tilde();
     setup_fx_satrev_tilde();
-    setup_fx_sdelay_tilde();
     setup_fx_stutter_tilde();
     setup_fx_tremolo_tilde();
     setup_fx_vocoder_tilde();

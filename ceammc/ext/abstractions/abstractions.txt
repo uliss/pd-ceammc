@@ -31,6 +31,7 @@ gflt.speaker~
 gfx.bitdown~
 gfx.chorus~
 gfx.dattorro~
+gfx.delay~
 gfx.distortion1~
 gfx.distortion2~
 gfx.distortion3~
@@ -51,7 +52,6 @@ gfx.recho~
 gfx.ringmod~
 gfx.room~
 gfx.satrev~
-gfx.sdelay~
 gfx.shimmer~
 gfx.tapiir~
 gfx.tremolo~
