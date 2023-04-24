@@ -52,7 +52,6 @@ gfx.ringmod~
 gfx.room~
 gfx.satrev~
 gfx.sdelay~
-gfx.secho~
 gfx.shimmer~
 gfx.tapiir~
 gfx.tremolo~

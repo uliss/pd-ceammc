@@ -77,9 +77,8 @@
         fx.echo~ fx.flanger~ fx.freeverb2~ fx.freeverb~ fx.freqshift~
         fx.granulator~ fx.greyhole~ fx.infrev~ fx.jcrev~ fx.looper~
         fx.overdrive~ fx.pitchshift_s~ fx.pitchshift~ fx.rb_pitchshift~
-        fx.recho~ fx.room~ fx.satrev~ fx.sdelay~ fx.secho~ fx.shimmer~
-        fx.stutter~ fx.tapiir~ fx.tremolo~ fx.vocoder~ fx.wahwah~
-        fx.zita_rev1~
+        fx.recho~ fx.room~ fx.satrev~ fx.sdelay~ fx.shimmer~ fx.stutter~
+        fx.tapiir~ fx.tremolo~ fx.vocoder~ fx.wahwah~ fx.zita_rev1~
     }}
     {global {
         global.dict global.float global.int global.list global.mlist
@@ -228,10 +227,11 @@
         synth.dubdub~ synth.dx7~ synth.eguitar~ synth.english_bell~
         synth.fgrain~ synth.french_bell~ synth.german_bell~ synth.glass_harm~
         synth.glitch~ synth.harpsichord~ synth.hat~ synth.kick2~ synth.kick~
-        synth.ks~ synth.marimba~ synth.piano~ synth.rhodey~ synth.risset_arp~
-        synth.risset_bell~ synth.risset_tone~ synth.russian_bell~
-        synth.shakers~ synth.sitar~ synth.snare~ synth.standard_bell~
-        synth.tube_bell~ synth.voice_fofc~ synth.voice_fofs~ synth.wurley~
+        synth.ks~ synth.marimba~ synth.metro~ synth.piano~ synth.rhodey~
+        synth.risset_arp~ synth.risset_bell~ synth.risset_tone~
+        synth.russian_bell~ synth.shakers~ synth.sitar~ synth.snare~
+        synth.standard_bell~ synth.tube_bell~ synth.voice_fofc~
+        synth.voice_fofs~ synth.wurley~
     }}
     {system {
         system.colorpanel system.cursor system.exec system.exit system.getenv

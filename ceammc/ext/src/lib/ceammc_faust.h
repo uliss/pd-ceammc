@@ -180,6 +180,7 @@ namespace faust {
         bool hasOscBinding() const { return osc_->value() != &s_; }
         t_symbol* oscServer() const { return osc_->value(); }
         SubscriberId subscriberId() const { return reinterpret_cast<SubscriberId>(this); }
+        void warnDeprectedName(const char* name);
 
         // level meters
         void initMeters();

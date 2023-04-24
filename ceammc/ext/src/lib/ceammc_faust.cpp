@@ -394,6 +394,16 @@ namespace faust {
         return 0.1f;
     }
 
+    void FaustExternalBase::warnDeprectedName(const char* name)
+    {
+        auto cname = pdArgs().creationName->s_name;
+        if (strcmp(cname, name) == 0) {
+            OBJ_DBG << fmt::format("object name [{}] is deprecated and will be removed in future versions, "
+                                   "use [{}] instead",
+                cname, className()->s_name);
+        }
+    }
+
     bool FaustExternalBase::notify(int code)
     {
         if (!osc_queue_)
