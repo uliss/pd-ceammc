@@ -22,7 +22,8 @@ public:
 
     void onInlet(size_t n, const AtomListView& lv) final
     {
-        delay_->set(lv);
+        if (delay_)
+            delay_->set(lv);
     }
 };
 
