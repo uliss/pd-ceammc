@@ -18,14 +18,14 @@ echo = echo_noclick(MAX_TIME_SEC, time, feedback) with {
 
         comp = _ : co.FFcompressor_N_chan(strength, thresh, att, rel, 3, 1, 0, _, 1) : _;
         strength = hslider("compress", 0.5, 0, 1, 0.01);
-        thresh   = hslider("c.threshold [unit:db]", 0, -60, 0, 0.1);
-        att      = hslider("c.attack [unit:ms]", 10, 0.1, 100, 0.1) * 0.001;
-        rel      = hslider("c.release [unit:ms]", 50, 1, 500, 0.1) * 0.001;
+        thresh   = hslider("c_thresh [unit:db]", 0, -60, 0, 0.1);
+        att      = hslider("c_attack [unit:ms]", 10, 0.1, 100, 0.1) * 0.001;
+        rel      = hslider("c_release [unit:ms]", 50, 1, 500, 0.1) * 0.001;
 
         filter = _ <: ba.if(checkbox("filter"), fn, _) with {
             fn = fi.lowpass(4, lpf) : fi.highpass(4, hpf);
-            hpf = hslider("f.hpf [unit:hz]", 300, 20, 20000, 0.01);
-            lpf = hslider("f.lpf [unit:hz]", 9000, 20, 20000, 0.01);
+            hpf = hslider("f_hpf [unit:hz]", 300, 20, 20000, 0.01);
+            lpf = hslider("f_lpf [unit:hz]", 9000, 20, 20000, 0.01);
         };
 };
 };

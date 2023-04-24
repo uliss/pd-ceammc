@@ -35,7 +35,7 @@
 		{ "filters.lib/iir:author": "Julius O. Smith III" },
 		{ "filters.lib/iir:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
 		{ "filters.lib/iir:license": "MIT-style STK-4.3 license" },
-		{ "filters.lib/lowpass0_highpass1": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
+		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
 		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:author": "Julius O. Smith III" },
 		{ "filters.lib/lowpass:copyright": "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>" },
@@ -77,9 +77,9 @@
 				},
 				{
 					"type": "hslider",
-					"label": "c.attack",
+					"label": "c_attack",
 					"shortname": "c_attack",
-					"address": "/fx.echo/c.attack",
+					"address": "/fx.echo/c_attack",
 					"meta": [
 						{ "unit": "ms" }
 					],
@@ -90,9 +90,9 @@
 				},
 				{
 					"type": "hslider",
-					"label": "c.release",
+					"label": "c_release",
 					"shortname": "c_release",
-					"address": "/fx.echo/c.release",
+					"address": "/fx.echo/c_release",
 					"meta": [
 						{ "unit": "ms" }
 					],
@@ -103,9 +103,9 @@
 				},
 				{
 					"type": "hslider",
-					"label": "c.threshold",
-					"shortname": "c_threshold",
-					"address": "/fx.echo/c.threshold",
+					"label": "c_thresh",
+					"shortname": "c_thresh",
+					"address": "/fx.echo/c_thresh",
 					"meta": [
 						{ "unit": "db" }
 					],
@@ -152,9 +152,9 @@
 				},
 				{
 					"type": "hslider",
-					"label": "f.hpf",
+					"label": "f_hpf",
 					"shortname": "f_hpf",
-					"address": "/fx.echo/f.hpf",
+					"address": "/fx.echo/f_hpf",
 					"meta": [
 						{ "unit": "hz" }
 					],
@@ -165,9 +165,9 @@
 				},
 				{
 					"type": "hslider",
-					"label": "f.lpf",
+					"label": "f_lpf",
 					"shortname": "f_lpf",
-					"address": "/fx.echo/f.lpf",
+					"address": "/fx.echo/f_lpf",
 					"meta": [
 						{ "unit": "hz" }
 					],
