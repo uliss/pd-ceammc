@@ -31,6 +31,7 @@ void setup_fx_echo_tilde()
 {
     FaustFactory<FxEcho> obj("fx.echo~");
     obj.setXletsInfo({ "signal: input", "float: delay time in msec" }, { "signal: output" });
+    obj.addAlias("fx.secho~");
 
     obj.setDescription("simple echo effect");
     obj.setCategory("fx");

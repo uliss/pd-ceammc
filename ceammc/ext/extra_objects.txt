@@ -276,6 +276,7 @@ gsynth.kick2~
 gsynth.kick~
 gsynth.ks~
 gsynth.marimba~
+gsynth.metro~
 gsynth.piano~
 gsynth.risset_arp~
 gsynth.risset_bell~

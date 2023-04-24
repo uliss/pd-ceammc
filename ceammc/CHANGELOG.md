@@ -33,6 +33,7 @@
 - new object inlets:
   - dyn.gate~, dyn.gate2~ - second inlet added for setting threshold
   - fx.drone_box~ - second inlet added for setting resonance frequency
+  - fx.echo~ - second inlet added for setting delay time
   - fx.notch~: second (freq) inlet added
   - fx.wahwah~: second (angle) inlet added
   - metro.pattern - second inlet added to set pattern
@@ -65,6 +66,7 @@
   - zeros(N) - list of length N, filled with 0
 - new method arguments:
   - PHASE argument (3rd) added to \[saw( method in array.fill 
+- feedback compression and filter added to fx.echo~
 
 ### Changes:
 - array.risset_rythm~ renamed to array.risset_rhythm~
@@ -73,6 +75,8 @@
 - noise.lfreq0~ minimal frequency changed from 5Hz to 0.5Hz
 - dyn.comp~, dyn.comp2~, dyn.gate~, dyn.gate2~ - using DBFS scale for threshold (-144...0) instead of (0..100) range
 - proto.midi.cc - renaming MIDI sounds_off to sound_off
+- fx.secho~ is deprecated and will be removed in future releases, use fx.echo~. fx.echo~ delay change now is smoothed by default, but if you need
+    gleetchy effect of delay change, you can set @smooth to 0.
 
 ### Fixed:
 - proto.midi.cc - sound_off, notes_off crash fixes

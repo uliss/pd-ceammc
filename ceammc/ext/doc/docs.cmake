@@ -252,7 +252,6 @@ set(DOC_FILES
     fx.room~
     fx.satrev~
     fx.sdelay~
-    fx.secho~
     fx.shimmer~
     fx.stutter~
     fx.tapiir~

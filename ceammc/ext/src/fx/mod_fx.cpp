@@ -28,7 +28,6 @@ void setup_fx_ringmod_tilde();
 void setup_fx_room_tilde();
 void setup_fx_satrev_tilde();
 void setup_fx_sdelay_tilde();
-void setup_fx_secho_tilde();
 void setup_fx_shimmer_tilde();
 void setup_fx_stutter_tilde();
 void setup_fx_tapiir_tilde();
@@ -67,7 +66,6 @@ void ceammc_fx_setup()
     setup_fx_room_tilde();
     setup_fx_satrev_tilde();
     setup_fx_sdelay_tilde();
-    setup_fx_secho_tilde();
     setup_fx_stutter_tilde();
     setup_fx_tremolo_tilde();
     setup_fx_vocoder_tilde();
