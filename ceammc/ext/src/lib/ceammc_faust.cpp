@@ -502,7 +502,7 @@ namespace faust {
                     return true;
                 });
 
-            OBJ_DBG << fmt::format("subscribe to {}:{}", osc_->value()->s_name, osc_path.c_str());
+            OBJ_DBG << fmt::format("[osc] subscribe to path {}:{}", osc_->value()->s_name, osc_path.c_str());
         }
     }
 
@@ -512,7 +512,7 @@ namespace faust {
         if (osc && osc->isValid()) {
             osc->unsubscribeAll(subscriberId());
 
-            OBJ_DBG << fmt::format("unsubscribed from {}", osc_->value()->s_name);
+            OBJ_DBG << fmt::format("[osc] unsubscribed from server: '{}'", osc_->value()->s_name);
         }
     }
 
