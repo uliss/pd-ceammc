@@ -46,6 +46,7 @@ TEST_CASE("conv.bar2ms", "[externals]")
         {
             TExt t("conv.bar2ms");
             t.bang();
+            REQUIRE_FLOAT_AT_OUTLET(1, t, 1000);
             REQUIRE_FLOAT_AT_OUTLET(0, t, 4000);
         }
 
@@ -53,6 +54,7 @@ TEST_CASE("conv.bar2ms", "[externals]")
         {
             TExt t("conv.bar2ms", LA(120));
             t.bang();
+            REQUIRE_FLOAT_AT_OUTLET(1, t, 500);
             REQUIRE_FLOAT_AT_OUTLET(0, t, 2000);
         }
 
@@ -74,6 +76,7 @@ TEST_CASE("conv.bar2ms", "[externals]")
         {
             TExt t("conv.bar2ms", LA("120|2/8bpm"));
             t.bang();
+            REQUIRE_FLOAT_AT_OUTLET(1, t, 500);
             REQUIRE_FLOAT_AT_OUTLET(0, t, 2000);
         }
 
@@ -88,6 +91,7 @@ TEST_CASE("conv.bar2ms", "[externals]")
         {
             TExt t("conv.bar2ms", LA(60, "|3/8|"));
             t.bang();
+            REQUIRE_FLOAT_AT_OUTLET(1, t, 500);
             REQUIRE_FLOAT_AT_OUTLET(0, t, 1500);
         }
 
@@ -168,6 +172,7 @@ TEST_CASE("conv.bar2ms", "[externals]")
         REQUIRE_PROPERTY_LIST(t, @tsig, LA("|1/4+3/8|"));
 
         t.bang();
+        REQUIRE_FLOAT_AT_OUTLET(1, t, 500);
         REQUIRE_FLOAT_AT_OUTLET(0, t, 2500);
     }
 }

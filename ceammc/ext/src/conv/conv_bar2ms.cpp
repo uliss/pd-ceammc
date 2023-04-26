@@ -32,6 +32,7 @@ ConvBarToMs::ConvBarToMs(const PdArgs& args)
 
 void ConvBarToMs::onBang()
 {
+    floatTo(1, music::Duration(1, tsig_->signature().subDivision()).timeMs(tempo_->tempo()));
     floatTo(0, tsig_->signature().timeMs(tempo_->tempo()));
 }
 
