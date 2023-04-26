@@ -56,7 +56,8 @@ void setup_proto_ltcin_tilde();
 #include "ceammc_stub.h"
 
 AUDIO_OBJECT_STUB(LtcInTilde, 1, 0, 0, 1, "compiled without libltc support")
-OBJECT_STUB_SETUP(LtcInTilde, proto_ltcin_tilde, "proto.ltc.in~", "ltc.in~");
+OBJECT_STUB_SETUP(LtcInTilde, proto_ltcin_tilde, "proto.ltc.in~", "ltc.in~")
+
 #endif
 
 #endif // MISC_LTC_IN_TILDE_H

@@ -19,7 +19,7 @@
 #include "fmt/core.h"
 #include "lex/parser_units.h"
 
-#ifdef WITH_LTC
+#ifdef WITH_LIBLTC
 
 #include "date.h"
 #include "ltc.h"

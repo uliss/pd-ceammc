@@ -42,7 +42,7 @@ public:
         };                                                                \
     }
 
-#define CONTROL_OBJECT_STUB(name, in, out, msg) \
+#define CONTROL_OBJECT_STUB(class_name, in, out, msg) \
     AUDIO_OBJECT_STUB(name, 0, 0, in, out, msg)
 
 #define OBJECT_STUB_SETUP(class_name, fn, obj_name, ...)       \
