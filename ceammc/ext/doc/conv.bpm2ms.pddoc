@@ -46,8 +46,6 @@
 |       |.
 [metro 80]
 |
-[next(
-|
 [list.walk mtof(60 72 48 77 84 62 67) @fold]
 |
 [osc.pulse~]   [ui.dsp~]
