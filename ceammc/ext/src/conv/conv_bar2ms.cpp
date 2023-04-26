@@ -72,4 +72,13 @@ void setup_conv_bar2ms()
 {
     ObjectFactory<ConvBarToMs> obj("conv.bar2ms");
     obj.addAlias("bar->ms");
+
+    obj.setXletsInfo(
+        { "bang: output\n"
+          "float: set BPM and output\n"
+          "symbol: set BPM and output\n"
+          "list: set BPM and time signature and output",
+            "symbol: set time signature" },
+        { "float: whole bar duration",
+            "float: beat duration" });
 }
