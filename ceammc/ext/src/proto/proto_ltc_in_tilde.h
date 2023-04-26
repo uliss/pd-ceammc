@@ -16,9 +16,10 @@
 
 #include "ceammc_clock.h"
 #include "ceammc_sound_external.h"
-#ifdef WITH_LIBLTC
 
 using namespace ceammc;
+
+#ifdef WITH_LIBLTC
 
 struct LTCDecoder;
 using LTCDecoderPtr = std::unique_ptr<LTCDecoder, int (*)(LTCDecoder*)>;
@@ -54,8 +55,8 @@ void setup_proto_ltcin_tilde();
 #else
 #include "ceammc_stub.h"
 
-AUDIO_OBJECT_STUB(1, 0, 0, 1, "compiled without libltc support")
-OBJECT_STUB_SETUP("proto.ltc.in~", proto_ltcin_tilde, "ltc.in~");
+AUDIO_OBJECT_STUB(LtcInTilde, 1, 0, 0, 1, "compiled without libltc support")
+OBJECT_STUB_SETUP(LtcInTilde, proto_ltcin_tilde, "proto.ltc.in~", "ltc.in~");
 #endif
 
 #endif // MISC_LTC_IN_TILDE_H

@@ -19,6 +19,8 @@
 #include "fmt/core.h"
 #include "lex/parser_units.h"
 
+#ifdef WITH_LTC
+
 #include "date.h"
 #include "ltc.h"
 
@@ -362,3 +364,5 @@ void setup_proto_ltcout_tilde()
     obj.addMethod("date", &LtcOutTilde::m_date);
     obj.addMethod("seek", &LtcOutTilde::m_seek);
 }
+
+#endif

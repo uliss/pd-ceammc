@@ -18,6 +18,8 @@
 
 #include "ltc.h"
 
+#ifdef WITH_LTC
+
 LtcInTilde::LtcInTilde(const PdArgs& args)
     : SoundExternal(args)
     , decoder_(ltc_decoder_create(2400, 2), &ltc_decoder_free)
@@ -102,3 +104,5 @@ void setup_proto_ltcin_tilde()
     obj.addAlias("ltc.in~");
     obj.setXletsInfo({ "signal: LTC input" }, { "list: HOUR MIN SEC FRAME", "list: YEAR MONTH DAY" });
 }
+
+#endif
