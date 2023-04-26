@@ -75,8 +75,8 @@ value: 0\. Range: 0\...1\.;
 Type: bool. Default value: 0\.;
 #X msg 110 1045 @id;
 #X text 245 1045 (initonly) Get/Set OSC address id. If specified \,
-bind properties to /ID/fx_echo/PROP_NAME osc address \, if empty bind
-to /fx_echo/PROP_NAME. Type: symbol.;
+bind properties to /ID/fx_delay/PROP_NAME osc address \, if empty bind
+to /fx_delay/PROP_NAME. Type: symbol.;
 #X msg 110 1102 @osc;
 #X text 245 1102 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
