@@ -75,6 +75,7 @@ array.variance
 array.vplay
 array.window
 artnet.send
+bar->ms
 bits->bang
 bits->int
 bits->note
@@ -122,6 +123,7 @@ ceammc/and
 ceammc/any->props
 ceammc/apf->biquad
 ceammc/approx
+ceammc/bar->ms
 ceammc/bits->bang
 ceammc/bits->int
 ceammc/bits->note
@@ -296,6 +298,7 @@ comp.up2~
 comp.up~
 conv.amp2dbfs
 conv.amp2dbfs~
+conv.bar2ms
 conv.bits2bang
 conv.bits2int
 conv.bits2note

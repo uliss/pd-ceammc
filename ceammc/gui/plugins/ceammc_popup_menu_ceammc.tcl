@@ -20,13 +20,13 @@
         chaos.std0~
     }}
     {conv {
-        array.p2s array.s2p conv.amp2dbfs conv.amp2dbfs~ conv.bits2bang
-        conv.bits2int conv.bits2note conv.bits2pos conv.bpm2hz conv.bpm2ms
-        conv.bpm2sec conv.car2pol conv.cc2amp conv.char2morse conv.color2rgba
-        conv.dbfs2amp conv.dbfs2amp~ conv.degree2key conv.edge2bang
-        conv.hex2int conv.int2bits conv.lin2curve conv.lin2exp conv.lin2lin
-        conv.lin2lin~ conv.list2props conv.midi2freq conv.ms2bpm conv.ms2samp
-        conv.ms2samp~ conv.ms2str conv.note2guido conv.phase2rad
+        array.p2s array.s2p conv.amp2dbfs conv.amp2dbfs~ conv.bar2ms
+        conv.bits2bang conv.bits2int conv.bits2note conv.bits2pos conv.bpm2hz
+        conv.bpm2ms conv.bpm2sec conv.car2pol conv.cc2amp conv.char2morse
+        conv.color2rgba conv.dbfs2amp conv.dbfs2amp~ conv.degree2key
+        conv.edge2bang conv.hex2int conv.int2bits conv.lin2curve conv.lin2exp
+        conv.lin2lin conv.lin2lin~ conv.list2props conv.midi2freq conv.ms2bpm
+        conv.ms2samp conv.ms2samp~ conv.ms2str conv.note2guido conv.phase2rad
         conv.phase2rad~ conv.pitch2midi conv.pol2car conv.rad2phase
         conv.rad2phase~ conv.rgb2hex conv.samp2ms conv.samp2ms~ conv.samp2sec
         conv.sec2bpm conv.sec2samp conv.sec2str conv.sig2float~ conv.str2sec
