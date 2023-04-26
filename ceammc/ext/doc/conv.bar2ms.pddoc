@@ -28,6 +28,11 @@
             <argument name="BPM" type="symbol" units="bpm">init tempo BPM value</argument>
             <argument name="TSIG" type="symbol">init time signature value</argument>
         </arguments>
+        <properties>
+            <property name="@bpm" type="symbol" default="60|4bpm" units="bpm">tempo bpm
+            value</property>
+            <property name="@tsig" type="symbol" default="|4/4|">time signature value</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">output bar and beat duration</xinfo>
