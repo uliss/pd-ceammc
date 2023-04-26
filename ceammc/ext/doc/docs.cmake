@@ -49,6 +49,7 @@ set(DOC_FILES
     click~
     conv.amp2dbfs
     conv.amp2dbfs~
+    conv.bar2ms
     conv.bits2bang
     conv.bits2int
     conv.bits2note

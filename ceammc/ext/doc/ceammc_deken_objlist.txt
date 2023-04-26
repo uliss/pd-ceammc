@@ -110,6 +110,9 @@ amp->dbfs	convert from amplitude to decibel full scale
 conv.amp2dbfs~	convert from amplitude to decibel full scale
 ceammc/amp->dbfs~	convert from amplitude to decibel full scale
 amp->dbfs~	convert from amplitude to decibel full scale
+conv.bar2ms	calculate bar and beat duration
+ceammc/bar->ms	calculate bar and beat duration
+bar->ms	calculate bar and beat duration
 conv.bits2bang	convert list of bits to bang events
 ceammc/bits->bang	convert list of bits to bang events
 bits->bang	convert list of bits to bang events

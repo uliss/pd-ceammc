@@ -129,7 +129,7 @@ int Tempo::beatSubDivision() const
 double Tempo::beatDurationMs() const
 {
     if (bpm_ == 0) {
-        LIB_ERR << "getting zero BPM duration";
+        LIB_ERR << "zero BPM duration";
         return 0;
     } else
         return 60000.0 / bpm_;

@@ -49,6 +49,7 @@ chaos.std0~		~~		~~
 click~,ceammc/click~		.		~
 conv.amp2dbfs,ceammc/amp->dbfs,amp->dbfs		.		.
 conv.amp2dbfs~,ceammc/amp->dbfs~,amp->dbfs~		~		~
+conv.bar2ms,ceammc/bar->ms,bar->ms		..		..
 conv.bits2bang,ceammc/bits->bang,bits->bang		.		?
 conv.bits2int,ceammc/bits->int,bits->int		.		.
 conv.bits2note,ceammc/bits->note,bits->note		.		?

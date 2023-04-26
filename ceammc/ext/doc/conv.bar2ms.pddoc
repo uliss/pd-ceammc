@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.bar2ms">
+        <title>conv.bar2ms</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>calculate bar and beat duration</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv time duration tempo bpm</keywords>
+            <also>
+                <see>conv.bpm2ms</see>
+            </also>
+            <since>0.9.7</since>
+            <aliases>
+                <alias>ceammc/bar-&gt;ms</alias>
+                <alias>bar-&gt;ms</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Example tempo values: 60, 120bpm, 90|4bpm, 80|3/8bpm</par>
+            <par>Example time signature values: |3/8|, |1/4+3/16|</par>
+        </info>
+        <arguments>
+            <argument name="BPM" type="symbol" units="bpm">init tempo BPM value</argument>
+            <argument name="TSIG" type="symbol">init time signature value</argument>
+        </arguments>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output bar and beat duration</xinfo>
+                <xinfo on="float">set tempo BPM (in quarters) and output</xinfo>
+                <xinfo on="symbol">set tempo BPM (like "120|8bpm") and output</xinfo>
+                <xinfo on="list">set tempo BPM and time signature, then output</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="symbol">set time signature</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>bar period in milliseconds</outlet>
+            <outlet>beat period in milliseconds</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]                      [symbol |7/8|(
+|                        |
+| [B] [symbol 128|8.bpm( [L]
+| |   |                  |.
+[bar->ms 60 |9/8|         ]
+|            ^|
+[ui.dt]       |
+              |
+              [ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
