@@ -14,6 +14,7 @@ void setup_conv_str2sec();
 
 void setup_conv_cc2amp();
 
+void setup_conv_bar2ms();
 void setup_conv_bpm2hz();
 void setup_conv_bpm2ms();
 void setup_conv_bpm2sec();
@@ -57,6 +58,7 @@ void ceammc_conv_setup()
     setup_conv_lin2lin();
     setup_conv_lin2lin_tilde();
 
+    setup_conv_bar2ms();
     setup_conv_bpm2hz();
     setup_conv_bpm2ms();
     setup_conv_bpm2sec();

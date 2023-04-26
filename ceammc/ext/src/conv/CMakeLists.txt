@@ -15,6 +15,7 @@ endif()
 
 ceammc_conv_external(amp2dbfs)
 ceammc_conv_external(angles)
+ceammc_conv_external(bar2ms)
 ceammc_conv_external(bits2bang)
 ceammc_conv_external(bits2int)
 ceammc_conv_external(bits2note)
