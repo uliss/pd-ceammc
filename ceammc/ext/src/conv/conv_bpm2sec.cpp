@@ -17,7 +17,9 @@
 
 static t_float bpm2sec(t_float v)
 {
-    return 60 / v;
+    return v == 0
+        ? std::numeric_limits<t_float>::max()
+        : (60 / v);
 }
 
 BpmToSec::BpmToSec(const PdArgs& a)
@@ -45,5 +47,5 @@ void setup_conv_bpm2sec()
 
     obj.setDescription("convert frequency in BPM to period in seconds");
     obj.setCategory("conv");
-    obj.setKeywords({"conv", "time"});
+    obj.setKeywords({ "conv", "time" });
 }

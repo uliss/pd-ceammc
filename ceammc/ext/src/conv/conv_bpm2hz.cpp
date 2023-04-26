@@ -29,9 +29,7 @@ void BpmToHz::onFloat(t_float v)
 void BpmToHz::onList(const AtomListView& lv)
 {
     SmallAtomList res;
-    res.reserve(lv.size());
-    for (auto& a : lv)
-        res.push_back(a / 60);
+    lv.mapFloat([](t_float x) { return x / 60; }, res);
 
     listTo(0, res.view());
 }
@@ -43,5 +41,5 @@ void setup_conv_bpm2hz()
 
     obj.setDescription("converts BPM to frequency in hertz");
     obj.setCategory("conv");
-    obj.setKeywords({"conv", "time"});
+    obj.setKeywords({ "conv", "time" });
 }

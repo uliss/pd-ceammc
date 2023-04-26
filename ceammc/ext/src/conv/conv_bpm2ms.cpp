@@ -14,7 +14,6 @@
 #include "conv_bpm2ms.h"
 #include "ceammc_containers.h"
 #include "ceammc_factory.h"
-#include "ceammc_music_theory_tempo.h"
 
 static t_float bpm2ms(t_float x)
 {
@@ -37,9 +36,8 @@ void BpmToMs::onFloat(t_float v)
 void BpmToMs::onList(const AtomListView& lv)
 {
     SmallAtomList res;
-    music::Tempo tempo(0, 4);
 
-    lv.mapFloat([this](t_float x) -> t_float { return bpm2ms(x); }, res);
+    lv.mapFloat([](t_float x) -> t_float { return bpm2ms(x); }, res);
     listTo(0, res.view());
 }
 
