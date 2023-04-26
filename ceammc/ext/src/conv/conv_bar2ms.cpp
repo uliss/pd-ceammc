@@ -81,4 +81,10 @@ void setup_conv_bar2ms()
             "symbol: set time signature" },
         { "float: whole bar duration",
             "float: beat duration" });
+
+    obj.setDescription("calculate bar and beat duration");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "conv", "time", "duration", "tempo", "bpm" });
+    obj.setCategory("conv");
+    obj.setSinceVersion(0, 9);
 }
