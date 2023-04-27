@@ -253,6 +253,7 @@ set(DOC_FILES
     fx.recho~
     fx.room~
     fx.satrev~
+    fx.scramble~
     fx.shimmer~
     fx.stutter~
     fx.tapiir~

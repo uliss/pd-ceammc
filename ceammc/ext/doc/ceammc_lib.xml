@@ -888,6 +888,9 @@
     <entry name="fx.satrev~" descr="Schroeder reverberator from 1971" ref_view="object">
       <xi:include href="fx.satrev~.pddoc" parse="xml"/>
     </entry>
+    <entry name="fx.scramble~" descr="scramble delayed sound fragments" ref_view="object">
+      <xi:include href="fx.scramble~.pddoc" parse="xml"/>
+    </entry>
     <entry name="fx.shimmer~" descr="shimmer reverb effect effect" ref_view="object">
       <xi:include href="fx.shimmer~.pddoc" parse="xml"/>
     </entry>

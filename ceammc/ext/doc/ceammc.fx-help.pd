@@ -58,22 +58,24 @@
 #X text 200 818 Gardners room emulation algorithms;
 #X obj 30 845 fx.satrev~;
 #X text 200 845 Schroeder reverberator from 1971;
-#X obj 30 872 fx.shimmer~;
-#X text 200 872 shimmer reverb effect effect;
-#X obj 30 899 fx.stutter~;
-#X text 200 899 stutter effect;
-#X obj 30 926 fx.tapiir~;
-#X text 200 926 multi-tap delay;
-#X obj 30 953 fx.tremolo~;
-#X text 200 953 tremolo effect from guitarix project;
-#X obj 30 980 fx.vocoder~;
-#X text 200 980 very simple vocoder where the spectrum of the modulation
+#X obj 30 872 fx.scramble~;
+#X text 200 872 scramble delayed sound fragments;
+#X obj 30 899 fx.shimmer~;
+#X text 200 899 shimmer reverb effect effect;
+#X obj 30 926 fx.stutter~;
+#X text 200 926 stutter effect;
+#X obj 30 953 fx.tapiir~;
+#X text 200 953 multi-tap delay;
+#X obj 30 980 fx.tremolo~;
+#X text 200 980 tremolo effect from guitarix project;
+#X obj 30 1007 fx.vocoder~;
+#X text 200 1007 very simple vocoder where the spectrum of the modulation
 signal is analyzed using a 32-band filter bank;
-#X obj 30 1020 fx.wahwah~;
-#X text 200 1020 digitized CryBaby wah pedal;
-#X obj 30 1047 fx.zita_rev1~;
-#X text 200 1047 Zita stereo reverb;
+#X obj 30 1047 fx.wahwah~;
+#X text 200 1047 digitized CryBaby wah pedal;
+#X obj 30 1074 fx.zita_rev1~;
+#X text 200 1074 Zita stereo reverb;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::fx 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1074 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1084 library: ceammc;
+#X obj 1 1101 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1111 library: ceammc;

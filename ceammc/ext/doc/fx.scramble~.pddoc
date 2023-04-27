@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.scramble~">
+        <title>fx.scramble~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>scramble delayed sound fragments</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx echo delay</keywords>
+            <since>0.9.7</since>
+            <also>
+                <see>fx.delay~</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="FREQ1" type="float" minvalue="0.25" maxvalue="50" units="hertz">
+            left channel scramble frequency</argument>
+            <argument name="FREQ2" type="float" minvalue="0.25" maxvalue="50" units="hertz">
+            right channel scramble frequency</argument>
+        </arguments>
+        <methods>
+            <method name="reset">reset to initial state</method>
+        </methods>
+        <properties>
+            <property name="@dev" type="float" minvalue="0" maxvalue="1"
+            default="0.25">scramble freq deviation</property>
+            <property name="@range" type="float" minvalue="0" maxvalue="1"
+            default="0.5">scramble delay amount</property>
+            <property name="@freq1" type="float" minvalue="0.25" maxvalue="50" units="hertz"
+            default="7">left channel scramble frequency</property>
+            <property name="@freq2" type="float" minvalue="0.25" maxvalue="50" units="hertz"
+            default="5">right channel scramble frequency</property>
+            <property name="@feedback" type="float" minvalue="0" maxvalue="0.99" default="0.25">
+            feedback coefficient</property>
+            <!-- MIX -->
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.5">proportion
+            of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
+            wet</property>
+            <property name="@bypass" type="bool" default="0">if set to 1 - bypass 'effected'
+            signal</property>
+            <!-- OSC -->
+            <property name="@osc" type="symbol" default="" access="initonly">OSC server name to
+            listen</property>
+            <property name="@id" type="symbol" default="" access="initonly">OSC address id. If
+            specified, bind properties to /ID/fx_echo/PROP_NAME osc address, if empty bind to
+            /fx_echo/PROP_NAME.</property>
+            <!-- common -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">left output signal</outlet>
+            <outlet type="audio">right output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %CEAMMC%/guitar1.wav, 1(
+|
+[expand_env]
+|
+[readsf~]
+|
+[fx.scramble~]
+*|*
+[ui.gain2~ @size 120 16]  [ui.dsp~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

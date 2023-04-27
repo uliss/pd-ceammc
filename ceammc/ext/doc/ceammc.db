@@ -253,6 +253,7 @@ fx.rb_pitchshift~		~.		~
 fx.recho~		~		~
 fx.room~		~.		~
 fx.satrev~		~.		~~
+fx.scramble~		~		~~
 fx.sdelay~		~		~
 fx.secho~		~		~
 fx.shimmer~		~~		~~
