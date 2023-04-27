@@ -20,6 +20,7 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <fnmatch.h>
+#include <ifaddrs.h>
 #include <iostream>
 #include <libgen.h>
 #include <limits.h>
@@ -173,7 +174,7 @@ namespace platform {
         return std::string();
     }
 
-    bool unix_is_file(const char *path)
+    bool unix_is_file(const char* path)
     {
         struct stat statbuf;
         if (::stat(path, &statbuf) != -1) {
@@ -183,6 +184,11 @@ namespace platform {
                 return false;
         }
         return false;
+    }
+
+    std::vector<std::string> unix_network_interfaces(NetAddressType type)
+    {
+        return {};
     }
 }
 }

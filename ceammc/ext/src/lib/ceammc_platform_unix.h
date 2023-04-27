@@ -34,6 +34,7 @@ namespace platform {
     Either<NetAddressList, PlatformError> unix_hostnametoip(const char* name, NetAddressType type);
     Either<int, PlatformError> unix_fd_set_non_blocking(int fd);
     Either<bool, PlatformError> unix_init_pipe(int fd[]);
+    std::vector<std::string> unix_network_interfaces(NetAddressType type);
 }
 }
 

@@ -157,6 +157,8 @@ namespace platform {
 
     Either<int, PlatformError> fd_set_non_blocking(int fd);
     Either<bool, PlatformError> init_pipe(int fd[]);
+
+    std::vector<std::string> network_interfaces(NetAddressType type = ADDR_IPV4);
 }
 }
 

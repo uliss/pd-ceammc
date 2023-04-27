@@ -361,5 +361,11 @@ namespace platform {
     {
         return NS(current_working_directory());
     }
+
+    std::vector<std::string> network_interfaces(NetAddressType type)
+    {
+    return NS(network_interfaces(type));
+    }
+
 }
 }

@@ -268,5 +268,10 @@ namespace platform {
         return true;
     }
 
+    std::vector<std::string> win_network_interfaces(NetAddressType type)
+    {
+        return {};
+    }
+
 }
 }
