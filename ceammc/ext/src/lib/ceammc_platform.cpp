@@ -362,9 +362,9 @@ namespace platform {
         return NS(current_working_directory());
     }
 
-    std::vector<std::string> network_interfaces(NetAddressType type)
+    std::vector<std::string> net_ifaces_ip(NetAddressType type)
     {
-    return NS(network_interfaces(type));
+    return NS(net_ifaces_ip(type));
     }
 
 }

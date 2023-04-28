@@ -186,9 +186,46 @@ namespace platform {
         return false;
     }
 
-    std::vector<std::string> unix_network_interfaces(NetAddressType type)
+    std::vector<std::string> unix_net_ifaces_ip(NetAddressType type)
     {
-        return {};
+        std::vector<std::string> res;
+        ifaddrs* ifaddr;
+
+        if (getifaddrs(&ifaddr) == -1)
+            return res;
+
+        char host[INET6_ADDRSTRLEN];
+
+        for (auto ifa = ifaddr; ifa != nullptr; ifa = ifa->ifa_next) {
+            if (ifa->ifa_addr == nullptr)
+                continue;
+
+            auto addr = ifa->ifa_addr;
+            auto family = addr->sa_family;
+
+            switch (family) {
+            case AF_INET:
+                if (type != ADDR_IPV4 && type != ADDR_IPANY)
+                    continue;
+
+                if (inet_ntop(family, &((struct sockaddr_in*)addr)->sin_addr, host, NI_MAXHOST))
+                    res.push_back(host);
+                break;
+            case AF_INET6:
+                if (type != ADDR_IPV6 && type != ADDR_IPANY)
+                    continue;
+
+                if (inet_ntop(family, &((struct sockaddr_in6*)addr)->sin6_addr, host, NI_MAXHOST))
+                    res.push_back(host);
+                break;
+            default:
+                continue;
+            }
+        }
+
+        freeifaddrs(ifaddr);
+
+        return res;
     }
 }
 }

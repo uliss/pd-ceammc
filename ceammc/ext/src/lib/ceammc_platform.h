@@ -145,7 +145,8 @@ namespace platform {
 
     enum NetAddressType {
         ADDR_IPV4 = 0,
-        ADDR_IPV6
+        ADDR_IPV6,
+        ADDR_IPANY
     };
 
     typedef std::vector<std::string> NetAddressList;
@@ -158,7 +159,11 @@ namespace platform {
     Either<int, PlatformError> fd_set_non_blocking(int fd);
     Either<bool, PlatformError> init_pipe(int fd[]);
 
-    std::vector<std::string> network_interfaces(NetAddressType type = ADDR_IPV4);
+    /**
+     * Return list of local ifaces ip
+     * @param type - NetAddressType or -1 to return all ip types
+     */
+    std::vector<std::string> net_ifaces_ip(NetAddressType type = ADDR_IPV4);
 }
 }
 

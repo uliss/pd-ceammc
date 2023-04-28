@@ -36,7 +36,7 @@ namespace platform {
     Either<NetAddressList, PlatformError> win_hostnametoip(const char* name, NetAddressType type);
     Either<int, PlatformError> win_fd_set_non_blocking(int fd);
     Either<bool, PlatformError> win_init_pipe(int fd[]);
-    std::vector<std::string> win_network_interfaces(NetAddressType type);
+    std::vector<std::string> win_net_ifaces_ip(NetAddressType type);
 }
 }
 

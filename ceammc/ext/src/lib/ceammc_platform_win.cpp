@@ -268,7 +268,7 @@ namespace platform {
         return true;
     }
 
-    std::vector<std::string> win_network_interfaces(NetAddressType type)
+    std::vector<std::string> win_net_ifaces_ip(NetAddressType type)
     {
         return {};
     }

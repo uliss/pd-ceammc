@@ -361,4 +361,16 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         auto sub = ceammc::PureData::instance().createSubpatch(cnv->pd_canvas(), "sp");
         REQUIRE(make_abs_filepath_with_canvas(sub->pd_canvas(), "abc.txt") == TEST_DATA_DIR "/abc.txt");
     }
+
+    SECTION("list ifaces")
+    {
+        using namespace ceammc;
+
+#ifdef __MACH__
+        REQUIRE(platform::net_ifaces_ip().size() > 0);
+        REQUIRE(platform::net_ifaces_ip(ADDR_IPV4).size() > 0);
+        REQUIRE(platform::net_ifaces_ip(ADDR_IPV6).size() > 0);
+        REQUIRE(platform::net_ifaces_ip(ADDR_IPANY).size() > 0);
+#endif
+    }
 }
