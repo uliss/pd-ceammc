@@ -12,19 +12,19 @@
  * this file belongs to.
  *****************************************************************************/
 #include "seq_matrix.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
-static t_symbol* PROP_CURRENT_COL;
-static t_symbol* SYM_COL;
-static t_symbol* SYM_DONE;
-static t_symbol* SYM_GET;
-static t_symbol* SYM_IDX;
-static t_symbol* SYM_REPEAT_IDX;
+CEAMMC_DEFINE_SYM(get);
+CEAMMC_DEFINE_SYM(col);
+CEAMMC_DEFINE_SYM(done);
+CEAMMC_DEFINE_SYM(i);
+CEAMMC_DEFINE_SYM(ri);
+CEAMMC_DEFINE_PROP_SYM(current_col)
 
 SeqMatrixBase::SeqMatrixBase(const PdArgs& args)
-    : SeqBase(args)
+    : SeqBase(args, 250)
     , n_(nullptr)
-    , interval_(nullptr)
 {
     createInlet();
     createOutlet();
@@ -35,14 +35,13 @@ SeqMatrixBase::SeqMatrixBase(const PdArgs& args)
     n_->setArgIndex(0);
     addProperty(n_);
 
-    interval_ = new SeqTimeGrain("@t", 250);
-    interval_->setArgIndex(1);
-    addProperty(interval_);
+    beat_duration_->setDefault(250.0);
+    beat_duration_->setArgIndex(1);
 
     {
         auto p = createCbFloatProperty(
             "@dur",
-            [this]() -> t_float { return n_->value() * interval_->value(); },
+            [this]() -> t_float { return n_->value() * beatDuration(); },
             [this](t_float f) -> bool {
                 const auto N = n_->value();
                 if (N == 0) {
@@ -50,7 +49,7 @@ SeqMatrixBase::SeqMatrixBase(const PdArgs& args)
                     return false;
                 }
 
-                return interval_->setValue(f / N);
+                return setBeatDuration(f / N);
             });
 
         p->setUnits(PropValueUnits::MSEC);
@@ -93,34 +92,27 @@ void SeqMatrixBase::onInlet(size_t n, const AtomListView& l)
 void SeqMatrixBase::outputTick()
 {
     Atom l0[2] = { sequenceCounter(), sequenceSize() };
-    anyTo(1, SYM_IDX, AtomListView(l0, 2));
+    anyTo(1, sym_i(), AtomListView(l0, 2));
 
-    anyTo(0, PROP_CURRENT_COL, Atom(sequenceCounter()));
+    anyTo(0, sym_prop_current_col(), Atom(sequenceCounter()));
 
-    Atom l1[2] = { SYM_COL, sequenceCounter() };
-    anyTo(0, SYM_GET, AtomListView(l1, 2));
+    Atom l1[2] = { sym_col(), sequenceCounter() };
+    anyTo(0, sym_get(), AtomListView(l1, 2));
 }
 
 void SeqMatrixBase::outputRepeat(size_t ridx)
 {
     Atom l[2] = { ridx, numRepeats() };
-    anyTo(1, SYM_REPEAT_IDX, AtomListView(l, 2));
+    anyTo(1, sym_ri(), AtomListView(l, 2));
 }
 
 void SeqMatrixBase::outputRepeatDone()
 {
-    anyTo(1, SYM_DONE, AtomListView());
+    anyTo(1, sym_done(), AtomListView());
 }
 
 void setup_seq_matrix()
 {
-    SYM_GET = gensym("get");
-    SYM_COL = gensym("col");
-    SYM_DONE = gensym("done");
-    SYM_IDX = gensym("i");
-    SYM_REPEAT_IDX = gensym("ri");
-    PROP_CURRENT_COL = gensym("@current_col");
-
     SequencerIFaceFactory<ObjectFactory, SeqMatrix> obj("seq.matrix");
 
     obj.setXletsInfo({ "bang:  reset and start sequencer\n"
@@ -134,5 +126,5 @@ void setup_seq_matrix()
 
     obj.setDescription("sequencer control for ui.matrix");
     obj.setCategory("seq");
-    obj.setKeywords({"seq", "sequencer", "bang", "pattern", "rhythm", "matrix"});
+    obj.setKeywords({ "seq", "sequencer", "bang", "pattern", "rhythm", "matrix" });
 }

@@ -12,29 +12,26 @@
  * this file belongs to.
  *****************************************************************************/
 #include "seq_sequencer.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
 
-static t_symbol* SYM_REPEAT_IDX;
-static t_symbol* SYM_IDX;
-static t_symbol* SYM_DONE;
+CEAMMC_DEFINE_SYM(ri);
+CEAMMC_DEFINE_SYM(i);
+CEAMMC_DEFINE_SYM(done);
 
 SeqSequencerBase::SeqSequencerBase(const PdArgs& args)
-    : SeqBase(args)
+    : SeqBase(args, 20)
     , values_(nullptr)
-    , interval_(nullptr)
 {
     values_ = new ListProperty("@v");
     values_->setArgIndex(0);
     values_->setSuccessFn([this](Property*) { resetSequenceCounter(); });
     addProperty(values_);
 
-    interval_ = new SeqTimeGrain("@t", 20);
-    addProperty(interval_);
-
     createCbFloatProperty(
         "@dur",
-        [this]() -> t_float { return sequenceSize() * interval_->value(); },
+        [this]() -> t_float { return sequenceSize() * beatDuration(); },
         [this](t_float f) -> bool {
             const auto N = values_->value().size();
             if (N == 0) {
@@ -42,7 +39,7 @@ SeqSequencerBase::SeqSequencerBase(const PdArgs& args)
                 return false;
             }
 
-            return interval_->setValue(f / N);
+            return setBeatDuration(f / N);
         })
         ->checkNonNegative();
 
@@ -81,7 +78,7 @@ void SeqSequencerBase::outputTick()
         return;
 
     Atom l[2] = { i, sequenceSize() };
-    anyTo(1, SYM_IDX, AtomListView(l, 2));
+    anyTo(1, sym_i(), AtomListView(l, 2));
 
     const auto& a = v[i];
     if (a.isDataType(DataTypeMList::dataType))
@@ -93,20 +90,16 @@ void SeqSequencerBase::outputTick()
 void SeqSequencerBase::outputRepeat(size_t ridx)
 {
     Atom l[2] = { ridx, numRepeats() };
-    anyTo(1, SYM_REPEAT_IDX, AtomListView(l, 2));
+    anyTo(1, sym_ri(), AtomListView(l, 2));
 }
 
 void SeqSequencerBase::outputRepeatDone()
 {
-    anyTo(1, SYM_DONE, AtomListView());
+    anyTo(1, sym_done(), AtomListView());
 }
 
 void setup_seq_sequencer()
 {
-    SYM_REPEAT_IDX = gensym("ri");
-    SYM_IDX = gensym("i");
-    SYM_DONE = gensym("done");
-
     SequencerIFaceFactory<ObjectFactory, SeqSequencer> obj("sequencer");
     obj.addAlias("seq");
     obj.setXletsInfo(
@@ -119,5 +112,5 @@ void setup_seq_sequencer()
 
     obj.setDescription("basic sequence player");
     obj.setCategory("seq");
-    obj.setKeywords({"sequencer"});
+    obj.setKeywords({ "sequencer" });
 }

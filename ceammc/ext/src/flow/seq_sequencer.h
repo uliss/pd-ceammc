@@ -14,12 +14,10 @@
 #ifndef SEQ_SEQUENCER_H
 #define SEQ_SEQUENCER_H
 
-#include "ceammc_clock.h"
 #include "seq_base.h"
 
 class SeqSequencerBase : public SeqBase {
     ListProperty* values_;
-    SeqTimeGrain* interval_;
 
 public:
     SeqSequencerBase(const PdArgs& args);
@@ -28,7 +26,7 @@ public:
     void onFloat(t_float f) override;
     void onInlet(size_t n, const AtomListView& l) override;
 
-    double calcNextTick() const final { return interval_->value(); }
+    double calcNextTick() const final { return beatDuration(); }
     size_t sequenceSize() const final { return values_->value().size(); }
 
     void outputTick() final;

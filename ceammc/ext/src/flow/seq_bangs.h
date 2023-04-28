@@ -19,7 +19,6 @@
 class SeqBangsBase : public SeqBase {
 protected:
     ListProperty* pattern_;
-    SeqTimeGrain* interval_;
 
 public:
     SeqBangsBase(const PdArgs& args);

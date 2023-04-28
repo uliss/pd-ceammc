@@ -18,7 +18,6 @@
 
 class SeqMatrixBase : public SeqBase {
     IntProperty* n_;
-    SeqTimeGrain* interval_;
 
 public:
     SeqMatrixBase(const PdArgs& args);
@@ -28,7 +27,7 @@ public:
     void onInlet(size_t n, const AtomListView& l) override;
 
     size_t sequenceSize() const final { return n_->value(); }
-    double calcNextTick() const final { return interval_->value(); }
+    double calcNextTick() const final { return beat_duration_->value(); }
     void outputTick() override;
     void outputRepeat(size_t ridx) final;
     void outputRepeatDone() final;

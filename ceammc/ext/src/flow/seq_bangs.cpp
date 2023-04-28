@@ -24,13 +24,9 @@ CEAMMC_DEFINE_SYM(ri)
 CEAMMC_DEFINE_SYM(i)
 
 SeqBangsBase::SeqBangsBase(const PdArgs& args)
-    : SeqBase(args)
+    : SeqBase(args, 100)
     , pattern_(nullptr)
-    , interval_(nullptr)
 {
-    interval_ = new SeqTimeGrain("@t", 100);
-    addProperty(interval_);
-
     pattern_ = new ListProperty("@p");
     pattern_->setArgIndex(0);
     pattern_->setFilterAtomFn([this](const Atom& a) -> bool {
@@ -48,7 +44,7 @@ SeqBangsBase::SeqBangsBase(const PdArgs& args)
             "@dur",
             [this]() -> t_float {
                 const auto total = pattern_->value().sum().get_value_or(0);
-                return total * interval_->value();
+                return total * beatDuration();
             },
             [this](t_float f) -> bool {
                 const auto total = pattern_->value().sum().get_value_or(0);
@@ -57,7 +53,7 @@ SeqBangsBase::SeqBangsBase(const PdArgs& args)
                     return false;
                 }
 
-                return interval_->setValue(f / total);
+                return setBeatDuration(f / total);
             });
 
         p->setUnits(PropValueUnits::MSEC);
@@ -82,7 +78,7 @@ void SeqBangsBase::onInlet(size_t n, const AtomListView& l)
 
 double SeqBangsBase::calcNextTick() const
 {
-    const auto i = interval_->value();
+    const auto i = beatDuration();
     const auto N = pattern_->value().size();
     if (N == 0)
         return i;

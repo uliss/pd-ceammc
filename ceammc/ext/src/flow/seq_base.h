@@ -46,8 +46,10 @@ public:
 
 class SeqBase : public BaseObject {
 protected:
-    RepeatProperty* repeat_;
-    SymbolEnumProperty* mode_;
+    RepeatProperty* repeat_ { 0 };
+    SymbolEnumProperty* mode_ { 0 };
+    FloatProperty* upbeat_ { 0 };
+    SeqTimeGrain* beat_duration_ { 0 };
     ClockLambdaFunction clock_;
     size_t num_repeats_ = { 0 };
     size_t sequence_counter_ = { 0 };
@@ -157,15 +159,23 @@ public:
      */
     size_t numRepeats() const { return repeat_->value(); }
 
+    /**
+     * return beat duration in milliseconds
+     */
+    t_float beatDuration() const { return beat_duration_->value(); }
+
+    /**
+     * set beat duration
+     * @return true on success, false on error
+     */
+    bool setBeatDuration(t_float ms) { return beat_duration_->setValue(ms); }
+
 public:
-    SeqBase(const PdArgs& args);
+    SeqBase(const PdArgs& args, t_float defBeatDuration);
 
 private:
     bool tickForward(bool output);
     bool isSeqBegin() const;
-
-private:
-    static void initSymTab();
 };
 
 template <class T>
