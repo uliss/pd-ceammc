@@ -35,6 +35,7 @@ namespace platform {
     Either<int, PlatformError> unix_fd_set_non_blocking(int fd);
     Either<bool, PlatformError> unix_init_pipe(int fd[]);
     std::vector<std::string> unix_net_ifaces_ip(NetAddressType type);
+    bool unix_net_socket_addr(int fd, std::string& res);
 }
 }
 

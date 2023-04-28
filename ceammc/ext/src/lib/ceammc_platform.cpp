@@ -364,7 +364,12 @@ namespace platform {
 
     std::vector<std::string> net_ifaces_ip(NetAddressType type)
     {
-    return NS(net_ifaces_ip(type));
+        return NS(net_ifaces_ip(type));
+    }
+
+    bool net_socket_addr(int fd, std::string& addr)
+    {
+        return NS(net_socket_addr(fd, addr));
     }
 
 }

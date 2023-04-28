@@ -208,14 +208,14 @@ namespace platform {
                 if (type != ADDR_IPV4 && type != ADDR_IPANY)
                     continue;
 
-                if (inet_ntop(family, &((struct sockaddr_in*)addr)->sin_addr, host, NI_MAXHOST))
+                if (inet_ntop(family, &((struct sockaddr_in*)addr)->sin_addr, host, INET6_ADDRSTRLEN))
                     res.push_back(host);
                 break;
             case AF_INET6:
                 if (type != ADDR_IPV6 && type != ADDR_IPANY)
                     continue;
 
-                if (inet_ntop(family, &((struct sockaddr_in6*)addr)->sin6_addr, host, NI_MAXHOST))
+                if (inet_ntop(family, &((struct sockaddr_in6*)addr)->sin6_addr, host, INET6_ADDRSTRLEN))
                     res.push_back(host);
                 break;
             default:
@@ -226,6 +226,39 @@ namespace platform {
         freeifaddrs(ifaddr);
 
         return res;
+    }
+
+    bool unix_net_socket_addr(int fd, std::string& res)
+    {
+        struct sockaddr_storage addr = { 0 };
+        socklen_t len = sizeof(addr);
+
+        if (getsockname(fd, (struct sockaddr*)(&addr), &len) < 0) {
+            pd_error(nullptr, "getsockname: %s", strerror(errno));
+            return false;
+        }
+
+        char host[INET6_ADDRSTRLEN];
+
+        switch (addr.ss_family) {
+        case AF_INET:
+            if (inet_ntop(addr.ss_family, &((struct sockaddr_in*)&addr)->sin_addr, host, INET6_ADDRSTRLEN)) {
+                res = host;
+                return true;
+            }
+
+            break;
+        case AF_INET6:
+            if (inet_ntop(addr.ss_family, &((struct sockaddr_in6*)&addr)->sin6_addr, host, INET6_ADDRSTRLEN)) {
+                res = host;
+                return true;
+            }
+            break;
+        default:
+            break;
+        }
+
+        return false;
     }
 }
 }

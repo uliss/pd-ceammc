@@ -13,11 +13,11 @@
  *****************************************************************************/
 #include "ceammc_platform_win.h"
 
-#include <Winsock2.h>
 #include <Shlwapi.h>
 #include <Stringapiset.h>
 #include <Userenv.h>
 #include <Windows.h>
+#include <Winsock2.h>
 #include <cstdlib>
 #include <cstring>
 #include <direct.h>
@@ -271,6 +271,10 @@ namespace platform {
     std::vector<std::string> win_net_ifaces_ip(NetAddressType type)
     {
         return {};
+    }
+
+    bool win_net_socket_addr(int fd, std::string& addr)
+    {
     }
 
 }

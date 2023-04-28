@@ -164,6 +164,14 @@ namespace platform {
      * @param type - NetAddressType or -1 to return all ip types
      */
     std::vector<std::string> net_ifaces_ip(NetAddressType type = ADDR_IPV4);
+
+    /**
+     * retrive socket address from given socket descriptor
+     * @param fd - socket descriptor
+     * @param addr - result
+     * @return true on success
+     */
+    bool net_socket_addr(int fd, std::string& addr);
 }
 }
 
