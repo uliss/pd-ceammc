@@ -14,7 +14,6 @@
 #ifndef SEQ_BANGS_H
 #define SEQ_BANGS_H
 
-#include "ceammc_clock.h"
 #include "seq_base.h"
 
 class SeqBangsBase : public SeqBase {

@@ -14,12 +14,14 @@
 #include "seq_bangs.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
-static t_symbol* SYM_DONE;
-static t_symbol* SYM_EVENT_DUR;
-static t_symbol* SYM_REPEAT_IDX;
-static t_symbol* SYM_IDX;
+#include "ceammc_crc32.h"
+
+CEAMMC_DEFINE_SYM(done)
+CEAMMC_DEFINE_SYM(ed)
+CEAMMC_DEFINE_SYM(ri)
+CEAMMC_DEFINE_SYM(i)
 
 SeqBangsBase::SeqBangsBase(const PdArgs& args)
     : SeqBase(args)
@@ -92,8 +94,8 @@ double SeqBangsBase::calcNextTick() const
 void SeqBangsBase::outputTick()
 {
     Atom l[2] = { sequenceCounter(), sequenceSize() };
-    anyTo(1, SYM_IDX, AtomListView(l, 2));
-    anyTo(1, SYM_EVENT_DUR, Atom(calcNextTick()));
+    anyTo(1, sym_i(), AtomListView(l, 2));
+    anyTo(1, sym_ed(), Atom(calcNextTick()));
 
     bangTo(0);
 }
@@ -101,21 +103,16 @@ void SeqBangsBase::outputTick()
 void SeqBangsBase::outputRepeat(size_t ridx)
 {
     Atom l[2] = { ridx, numRepeats() };
-    anyTo(1, SYM_REPEAT_IDX, AtomListView(l, 2));
+    anyTo(1, sym_ri(), AtomListView(l, 2));
 }
 
 void SeqBangsBase::outputRepeatDone()
 {
-    anyTo(1, SYM_DONE, AtomListView());
+    anyTo(1, sym_done(), AtomListView());
 }
 
 void setup_seq_bangs()
 {
-    SYM_DONE = gensym("done");
-    SYM_EVENT_DUR = gensym("ed");
-    SYM_REPEAT_IDX = gensym("ri");
-    SYM_IDX = gensym("i");
-
     SequencerIFaceFactory<ObjectFactory, SeqBangs> obj("seq.bangs");
     obj.addAlias("seq.b");
 
@@ -129,5 +126,5 @@ void setup_seq_bangs()
 
     obj.setDescription("bang sequencer");
     obj.setCategory("seq");
-    obj.setKeywords({"seq", "sequencer", "bang", "pattern", "rhythm"});
+    obj.setKeywords({ "seq", "sequencer", "bang", "pattern", "rhythm" });
 }
