@@ -19,7 +19,7 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="VALUES" type="list">sequence elements</argument>
+            <argument name="V" type="list">sequence elements</argument>
         </arguments>
         <properties>
             <property name="@v" type="list" default="">sequence elements</property>
@@ -32,10 +32,12 @@
             repeats. If -1: output infinitly.</property>
             <property name="@once" type="alias">alias to @r 1</property>
             <property name="@inf" type="alias">alias to @r -1</property>
-            <property name="@i" type="int" minvalue="0" access="readonly" default="0">current
+            <property name="@i" type="int" access="readonly" default="0">current
             sequence iteration</property>
-            <property name="@ri" type="int" minvalue="0" access="readonly" default="0">current
+            <property name="@ri" type="int" access="readonly" default="0">current
             repeat iteration</property>
+            <property name="@upbeat" type="float" default="0" minvalue="0">wait specified number of
+            beats before sequence start</property>
             <property name="@mode" type="symbol" enum="inc dec tri" default="inc">sequencer mode.
             'inc': from first to last, 'dec': from last to first, 'tri': from first to last, then
             back</property>

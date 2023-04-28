@@ -60,6 +60,7 @@
   - @bypass added to dyn.gate~ and dyn.gate2~
   - @gain added to live.capture~
   - @drywet added to soundtouch~
+  - @upbeat added to seq.bangs, seq.toggles, seq.matrix and sequencer - wait specified number of beats before start
 - new init argument functions:
   - hexbeat(HEX) - expand hex to list of 1 and 0
   - ones(N) - list of length N, filled with 1
