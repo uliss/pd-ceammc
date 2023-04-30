@@ -18,6 +18,7 @@
 #include "ceammc_message.h"
 #include "ceammc_object_info.h"
 #include "ceammc_property.h"
+#include "ceammc_proxy.h"
 
 #include <array>
 #include <cstdint>
@@ -307,6 +308,13 @@ public:
      * @return pointer to new inlet
      */
     t_inlet* createInlet(t_symbol** s);
+
+    template <typename T>
+    t_inlet* bindProxyInlet(InletProxy<T>& inlet, int idx)
+    {
+        inlet.setIndex(idx);
+        return inlet_new(owner(), inlet.target(), nullptr, nullptr);
+    }
 
     /**
      * Returns number of inlets

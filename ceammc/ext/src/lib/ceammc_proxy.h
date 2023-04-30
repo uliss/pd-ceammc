@@ -14,7 +14,7 @@
 #ifndef CEAMMC_PROXY_H
 #define CEAMMC_PROXY_H
 
-#include "ceammc_atomlist.h"
+#include "ceammc_atomlist_view.h"
 
 #include <algorithm>
 #include <cassert>
@@ -188,10 +188,13 @@ public:
     }
 
     t_pd* target() { return &x_obj; }
+    int index() const { return idx_; }
+    void setIndex(int idx) { idx_ = idx; }
 
     static void init()
     {
-        inlet_proxy_class = class_new(gensym("inlet_proxy"), 0, 0, sizeof(InletProxy), CLASS_PD, A_NULL);
+        if (!inlet_proxy_class)
+            inlet_proxy_class = class_new(gensym("inlet_proxy"), 0, 0, sizeof(InletProxy), CLASS_PD, A_NULL);
     }
 
     static void on_bang(InletProxy* x)

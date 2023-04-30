@@ -2,6 +2,7 @@ set(FLOW_SOURCES mod_flow.h mod_flow.cpp
     conway_life.cpp
     route_any.cpp
     route_bang.cpp
+    route_cycle.cpp
     route_float.cpp
     route_list.cpp
     route_prop.cpp

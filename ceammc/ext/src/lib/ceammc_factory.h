@@ -609,6 +609,42 @@ public:
         initializer_ = std::move(ptr);
     }
 
+    static void useProxyBang()
+    {
+        InletProxy<T>::init();
+        InletProxy<T>::set_bang_callback(&T::onProxyBang);
+    }
+
+    static void useProxyFloat()
+    {
+        InletProxy<T>::init();
+        InletProxy<T>::set_float_callback(&T::onProxyFloat);
+    }
+
+    static void useProxySymbol()
+    {
+        InletProxy<T>::init();
+        InletProxy<T>::set_symbol_callback(&T::onProxySymbol);
+    }
+
+    static void useProxyList()
+    {
+        InletProxy<T>::init();
+        InletProxy<T>::set_list_callback(&T::onProxyList);
+    }
+
+    static void useProxyAny()
+    {
+        InletProxy<T>::init();
+        InletProxy<T>::set_any_callback(&T::onProxyAny);
+    }
+
+    static void addProxyMethod(t_symbol* m, typename InletProxy<T>::MethodPtr fn)
+    {
+        InletProxy<T>::init();
+        InletProxy<T>::set_method_callback(m, fn);
+    }
+
 private:
     template <typename DataT>
     static bool processDataSingleTypedFn(ObjectProxy* x, const Atom& a)
