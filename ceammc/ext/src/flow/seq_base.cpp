@@ -92,7 +92,7 @@ void SeqBase::outputSequenceLast() { }
 void SeqBase::clockStart()
 {
     if (upbeat_->value() > 0)
-        clock_.delay(upbeat_->value());
+        clock_.delay(upbeat_->value() * beatDuration());
     else
         clock_.exec();
 }
