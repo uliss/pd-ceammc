@@ -369,7 +369,7 @@ void UIRadio::m_hexbeat(const AtomListView& lv)
         return;
     }
 
-    setListValue(list::hexbeat(lv.asSymbol()->s_name));
+    setListValue(list::hexbeat_bin(lv.asSymbol()->s_name));
     output();
     redrawItems();
 }

@@ -685,7 +685,7 @@ namespace list {
         return res;
     }
 
-    AtomList hexbeat(const char* str)
+    AtomList hexbeat_bin(const char* str)
     {
         AtomList res;
         parser::HexBeatResult bits;
@@ -698,6 +698,43 @@ namespace list {
             res.append(bits[i] ? 1 : 0);
 
         return res;
+    }
+
+    bool hexbeat_dur(const char* str, AtomList& res, int& shift)
+    {
+        parser::HexBeatResult bits;
+        auto nbits = parser::parse_hexbeat(str, bits);
+        if (!nbits)
+            return false;
+
+        res.clear();
+        bool msb = false;
+        int seq_len = 0;
+        int seq_shift = 0;
+        for (int i = nbits - 1; i >= 0; i--) {
+            auto x = bits[i];
+            if (!x) {
+                seq_len++;
+            } else {
+                if (!msb) {
+                    seq_shift = seq_len;
+                    seq_len = 1;
+                    msb = true;
+                } else {
+                    res.push_back(seq_len);
+                    seq_len = 1;
+                }
+            }
+        }
+
+        if (seq_len > 0)
+            res.push_back(seq_len);
+
+        if (res.size() > 0)
+            *res.last() += seq_shift;
+
+        shift = seq_shift;
+        return true;
     }
 
     AtomList lsystem(const AtomListView& state, const DataTypeDict& dict)
@@ -718,6 +755,5 @@ namespace list {
 
         return res;
     }
-
 }
 }

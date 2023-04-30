@@ -389,36 +389,70 @@ TEST_CASE("list functions2", "[core]")
 
     SECTION("hexbeat")
     {
-        REQUIRE(list::hexbeat("") == L());
-        REQUIRE(list::hexbeat("?") == L());
-        REQUIRE(list::hexbeat("#") == L());
-        REQUIRE(list::hexbeat("#?") == L());
-        REQUIRE(list::hexbeat("0x0") == LF(0, 0, 0, 0));
-        REQUIRE(list::hexbeat("#0") == LF(0, 0, 0, 0));
-        REQUIRE(list::hexbeat("#1") == LF(0, 0, 0, 1));
-        REQUIRE(list::hexbeat("#2") == LF(0, 0, 1, 0));
-        REQUIRE(list::hexbeat("#3") == LF(0, 0, 1, 1));
-        REQUIRE(list::hexbeat("#4") == LF(0, 1, 0, 0));
-        REQUIRE(list::hexbeat("#5") == LF(0, 1, 0, 1));
-        REQUIRE(list::hexbeat("#6") == LF(0, 1, 1, 0));
-        REQUIRE(list::hexbeat("#7") == LF(0, 1, 1, 1));
-        REQUIRE(list::hexbeat("#8") == LF(1, 0, 0, 0));
-        REQUIRE(list::hexbeat("#9") == LF(1, 0, 0, 1));
-        REQUIRE(list::hexbeat("#A") == LF(1, 0, 1, 0));
-        REQUIRE(list::hexbeat("#B") == LF(1, 0, 1, 1));
-        REQUIRE(list::hexbeat("#C") == LF(1, 1, 0, 0));
-        REQUIRE(list::hexbeat("#D") == LF(1, 1, 0, 1));
-        REQUIRE(list::hexbeat("#E") == LF(1, 1, 1, 0));
-        REQUIRE(list::hexbeat("#F") == LF(1, 1, 1, 1));
-        REQUIRE(list::hexbeat("#a") == LF(1, 0, 1, 0));
-        REQUIRE(list::hexbeat("#b") == LF(1, 0, 1, 1));
-        REQUIRE(list::hexbeat("#c") == LF(1, 1, 0, 0));
-        REQUIRE(list::hexbeat("#d") == LF(1, 1, 0, 1));
-        REQUIRE(list::hexbeat("#e") == LF(1, 1, 1, 0));
-        REQUIRE(list::hexbeat("#f") == LF(1, 1, 1, 1));
-        REQUIRE(list::hexbeat("#BEEF") == LF(1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1));
-        REQUIRE(list::hexbeat("0xBEEF") == LF(1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1));
-        REQUIRE(list::hexbeat("#B?E?E?F???") == LF(1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1));
-        REQUIRE(list::hexbeat("#кириллица") == L());
+        REQUIRE(list::hexbeat_bin("") == L());
+        REQUIRE(list::hexbeat_bin("?") == L());
+        REQUIRE(list::hexbeat_bin("#") == L());
+        REQUIRE(list::hexbeat_bin("#?") == L());
+        REQUIRE(list::hexbeat_bin("0x0") == LF(0, 0, 0, 0));
+        REQUIRE(list::hexbeat_bin("#0") == LF(0, 0, 0, 0));
+        REQUIRE(list::hexbeat_bin("#1") == LF(0, 0, 0, 1));
+        REQUIRE(list::hexbeat_bin("#2") == LF(0, 0, 1, 0));
+        REQUIRE(list::hexbeat_bin("#3") == LF(0, 0, 1, 1));
+        REQUIRE(list::hexbeat_bin("#4") == LF(0, 1, 0, 0));
+        REQUIRE(list::hexbeat_bin("#5") == LF(0, 1, 0, 1));
+        REQUIRE(list::hexbeat_bin("#6") == LF(0, 1, 1, 0));
+        REQUIRE(list::hexbeat_bin("#7") == LF(0, 1, 1, 1));
+        REQUIRE(list::hexbeat_bin("#8") == LF(1, 0, 0, 0));
+        REQUIRE(list::hexbeat_bin("#9") == LF(1, 0, 0, 1));
+        REQUIRE(list::hexbeat_bin("#A") == LF(1, 0, 1, 0));
+        REQUIRE(list::hexbeat_bin("#B") == LF(1, 0, 1, 1));
+        REQUIRE(list::hexbeat_bin("#C") == LF(1, 1, 0, 0));
+        REQUIRE(list::hexbeat_bin("#D") == LF(1, 1, 0, 1));
+        REQUIRE(list::hexbeat_bin("#E") == LF(1, 1, 1, 0));
+        REQUIRE(list::hexbeat_bin("#F") == LF(1, 1, 1, 1));
+        REQUIRE(list::hexbeat_bin("#a") == LF(1, 0, 1, 0));
+        REQUIRE(list::hexbeat_bin("#b") == LF(1, 0, 1, 1));
+        REQUIRE(list::hexbeat_bin("#c") == LF(1, 1, 0, 0));
+        REQUIRE(list::hexbeat_bin("#d") == LF(1, 1, 0, 1));
+        REQUIRE(list::hexbeat_bin("#e") == LF(1, 1, 1, 0));
+        REQUIRE(list::hexbeat_bin("#f") == LF(1, 1, 1, 1));
+        REQUIRE(list::hexbeat_bin("#BEEF") == LF(1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1));
+        REQUIRE(list::hexbeat_bin("0xBEEF") == LF(1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1));
+        REQUIRE(list::hexbeat_bin("#B?E?E?F???") == LF(1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1));
+        REQUIRE(list::hexbeat_bin("#кириллица") == L());
+    }
+
+    SECTION("hexbeat_dur")
+    {
+        AtomList values;
+        int shift = 0;
+        REQUIRE(!list::hexbeat_dur("", values, shift));
+        REQUIRE(list::hexbeat_dur("0xF", values, shift));
+        REQUIRE(shift == 0);
+        REQUIRE(values == LF(1, 1, 1, 1));
+        // 0 1 1 1 -> 1 1 2 with 1 upbeat
+        REQUIRE(list::hexbeat_dur("0x7", values, shift));
+        REQUIRE(shift == 1);
+        REQUIRE(values == LF(1, 1, 2));
+        // 0 0 1 1 -> 1 3 with 2 upbeat
+        REQUIRE(list::hexbeat_dur("0x3", values, shift));
+        REQUIRE(shift == 2);
+        REQUIRE(values == LF(1, 3));
+        // 0 0 0 1 -> 4 with 3 upbeat
+        REQUIRE(list::hexbeat_dur("0x1", values, shift));
+        REQUIRE(shift == 3);
+        REQUIRE(values == LF(4));
+        // 0 0 1 0 -> 4 with 2 upbeat
+        REQUIRE(list::hexbeat_dur("0x2", values, shift));
+        REQUIRE(shift == 2);
+        REQUIRE(values == LF(4));
+        // 0 1 1 0 -> 1 3 with 1 upbeat
+        REQUIRE(list::hexbeat_dur("0x6", values, shift));
+        REQUIRE(shift == 1);
+        REQUIRE(values == LF(1, 3));
+        // 0 1 0 1 -> 2 2 with 1 upbeat
+        REQUIRE(list::hexbeat_dur("0x5", values, shift));
+        REQUIRE(shift == 1);
+        REQUIRE(values == LF(2, 2));
     }
 }

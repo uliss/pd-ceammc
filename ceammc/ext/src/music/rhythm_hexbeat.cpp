@@ -80,7 +80,7 @@ void RhythmHexBeat::onInlet(size_t n, const AtomListView& lv)
 
 void RhythmHexBeat::updatePattern()
 {
-    pattern_ = list::hexbeat(hex_->value()->s_name);
+    pattern_ = list::hexbeat_bin(hex_->value()->s_name);
 }
 
 void setup_rhythm_hexbeat()
