@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="route.cycle">
+        <title>route.cycle</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>cyclic message router</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>route cycle round robin</keywords>
+            <since>0.9.7</since>
+            <also>
+                <see>flow.ring</see>
+                <see>route.random</see>
+            </also>
+        </meta>
+        <info>
+            <par>NOTICE: to get properties use [prop.get] object, cause all messages (including property
+            requests) are passed thru</par>
+        </info>
+        <arguments>
+            <argument name="N" type="int" minvalue="1" maxvalue="64">number of outlets</argument>
+            <argument name="OFFSET" type="int" minvalue="-64" maxvalue="64">start position</argument>
+            <argument name="STEP" type="int">cycle step</argument>
+        </arguments>
+        <properties>
+            <property name="@n" type="int" default="2" minvalue="1" maxvalue="64" access="initonly">number of outlets</property>
+            <property name="@index" type="int" default="0">current outlet index</property>
+            <property name="@step" type="int" default="1">cycle step</property>
+            <property name="@offset" type="int" default="0" minvalue="-64" maxvalue="64">init cycle offset</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="any">any to current outlet, then move to next</xinfo>
+                <xinfo on="bang">bang to current outlet, then move to next</xinfo>
+                <xinfo on="float">float to current outlet, then move to next</xinfo>
+                <xinfo on="list">list to to current outlet, then move to next</xinfo>
+                <xinfo on="symbol">symbol to current outlet, then move to next</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="bang">reset to initial outlet index</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet number="1">first output</outlet>
+            <outlet number="...">... output</outlet>
+            <outlet number="n">nth output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[metro 150]
+|
+| [bang(
+| |
+[route.cycle 4 #r]
+
+
+
+[click~ #ca] [click~ #cb] [click~ #cc] [click~ #cd]
+
+[flt.resonlp~ 400 #a]
+
+    [flt.resonlp~ 600 #b]
+
+        [flt.resonlp~ 800 #c]
+
+            [flt.resonlp~ 1200 #d]
+
+[pan.spread~ 4 #p]
+*|*
+[ui.hgain2~]           [ui.dsp~]
+*|*
+[dac~]
+
+[X a->p:0]
+[X b->p:1]
+[X c->p:2]
+[X d->p:3]
+[X r:0->ca]
+[X r:1->cb]
+[X r:2->cc]
+[X r:3->cd]
+[X ca->a]
+[X cb->b]
+[X cc->c]
+[X cd->d]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

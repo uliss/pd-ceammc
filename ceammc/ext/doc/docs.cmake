@@ -636,6 +636,7 @@ set(DOC_FILES
     risset.gliss
     route.any
     route.bang
+    route.cycle
     route.float
     route.list
     route.prop

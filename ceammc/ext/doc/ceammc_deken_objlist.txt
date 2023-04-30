@@ -450,6 +450,7 @@ ceammc/replace	Replace atoms in data stream
 route.any	separate any messages from bangs, floats, symbols and lists
 route.bang	separate bang messages from other types
 route.b	separate bang messages from other types
+route.cycle	cyclic message router
 route.float	separate float messages from other types
 route.f	separate float messages from other types
 route.list	separate list messages from other types

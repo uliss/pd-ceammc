@@ -638,6 +638,7 @@ rhythm.lsystem		.		.
 risset.gliss		.		..
 route.any		.		..
 route.bang,route.b		.		..
+route.cycle		..		?
 route.float,route.f		.		..
 route.list,route.l		.		..
 route.prop		.		..

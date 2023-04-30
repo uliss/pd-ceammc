@@ -671,6 +671,9 @@
     <entry name="route.bang" descr="separate bang messages from other types" ref_view="object">
       <xi:include href="route.bang.pddoc" parse="xml"/>
     </entry>
+    <entry name="route.cycle" descr="cyclic message router" ref_view="object">
+      <xi:include href="route.cycle.pddoc" parse="xml"/>
+    </entry>
     <entry name="route.float" descr="separate float messages from other types" ref_view="object">
       <xi:include href="route.float.pddoc" parse="xml"/>
     </entry>
