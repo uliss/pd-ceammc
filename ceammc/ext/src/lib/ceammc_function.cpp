@@ -216,7 +216,7 @@ AtomList fn_hexbeat(const AtomListView& args)
         return {};
     }
 
-    return list::hexbeat(args[0].asT<t_symbol*>()->s_name);
+    return list::hexbeat_bin(args[0].asT<t_symbol*>()->s_name);
 }
 
 AtomList fn_rotate(const AtomListView& args)
