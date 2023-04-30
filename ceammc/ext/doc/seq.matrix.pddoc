@@ -33,10 +33,10 @@
             whole sequence duration. (Recalculates @t property accordingly)</property>
             <property name="@upbeat" type="float" default="0" minvalue="0">wait specified number of
             beats before sequence start</property>
-            <property name="@i" type="int" access="readonly" default="0">current
-            sequence iteration</property>
-            <property name="@ri" type="int" access="readonly" default="0">current
-            repeat iteration</property>
+            <property name="@i" type="int" access="readonly" default="0">current sequence
+            iteration</property>
+            <property name="@ri" type="int" access="readonly" default="0">current repeat
+            iteration</property>
             <property name="@mode" type="symbol" enum="inc dec tri" default="inc">sequencer mode.
             'inc': from first to last, 'dec': from last to first, 'tri': from first to last, then
             back</property>

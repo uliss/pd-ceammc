@@ -32,10 +32,10 @@
             repeats. If -1: output infinitly.</property>
             <property name="@once" type="alias">alias to @r 1</property>
             <property name="@inf" type="alias">alias to @r -1</property>
-            <property name="@i" type="int" access="readonly" default="0">current
-            sequence iteration</property>
-            <property name="@ri" type="int" access="readonly" default="0">current
-            repeat iteration</property>
+            <property name="@i" type="int" access="readonly" default="0">current sequence
+            iteration</property>
+            <property name="@ri" type="int" access="readonly" default="0">current repeat
+            iteration</property>
             <property name="@upbeat" type="float" default="0" minvalue="0">wait specified number of
             beats before sequence start</property>
             <property name="@mode" type="symbol" enum="inc dec tri" default="inc">sequencer mode.

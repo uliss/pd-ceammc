@@ -18,19 +18,22 @@
             </also>
         </meta>
         <info>
-            <par>NOTICE: to get properties use [prop.get] object, cause all messages (including property
-            requests) are passed thru</par>
+            <par>NOTICE: to get properties use [prop.get] object, cause all messages (including
+            property requests) are passed thru</par>
         </info>
         <arguments>
             <argument name="N" type="int" minvalue="1" maxvalue="64">number of outlets</argument>
-            <argument name="OFFSET" type="int" minvalue="-64" maxvalue="64">start position</argument>
+            <argument name="OFFSET" type="int" minvalue="-64" maxvalue="64">start
+            position</argument>
             <argument name="STEP" type="int">cycle step</argument>
         </arguments>
         <properties>
-            <property name="@n" type="int" default="2" minvalue="1" maxvalue="64" access="initonly">number of outlets</property>
+            <property name="@n" type="int" default="2" minvalue="1" maxvalue="64"
+            access="initonly">number of outlets</property>
             <property name="@index" type="int" default="0">current outlet index</property>
             <property name="@step" type="int" default="1">cycle step</property>
-            <property name="@offset" type="int" default="0" minvalue="-64" maxvalue="64">init cycle offset</property>
+            <property name="@offset" type="int" default="0" minvalue="-64" maxvalue="64">init cycle
+            offset</property>
         </properties>
         <inlets>
             <inlet>
