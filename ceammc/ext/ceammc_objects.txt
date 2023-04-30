@@ -541,6 +541,7 @@ fx.recho~
 fx.ringmod~
 fx.room~
 fx.satrev~
+fx.scramble~
 fx.sdelay~
 fx.secho~
 fx.shimmer~
@@ -1069,6 +1070,7 @@ round~
 route.any
 route.b
 route.bang
+route.cycle
 route.f
 route.float
 route.l

@@ -90,8 +90,8 @@
         flow.pack flow.pass flow.pass_if flow.pipe flow.queue flow.record
         flow.reject flow.reject_if flow.ring flow.route flow.select
         flow.seqdelay flow.space flow.speedlim flow.split flow.stack flow.sync
-        flow.sync_pack flow.tee~ replace route.any route.bang route.float
-        route.list route.prop route.random route.symbol
+        flow.sync_pack flow.tee~ replace route.any route.bang route.cycle
+        route.float route.list route.prop route.random route.symbol
     }}
     {flt {
         flt.a-weight flt.biquad~ flt.bpf12~ flt.bpf24~ flt.c_apf flt.c_bpf~
@@ -109,8 +109,8 @@
         fx.echo2~ fx.echo~ fx.flanger~ fx.freeverb2~ fx.freeverb~
         fx.freqshift~ fx.granulator~ fx.greyhole~ fx.infrev~ fx.jcrev~
         fx.looper~ fx.overdrive~ fx.pitchshift_s~ fx.pitchshift~
-        fx.rb_pitchshift~ fx.recho~ fx.room~ fx.satrev~ fx.shimmer~
-        fx.stutter~ fx.tapiir~ fx.tremolo~ fx.vocoder~ fx.wahwah~
+        fx.rb_pitchshift~ fx.recho~ fx.room~ fx.satrev~ fx.scramble~
+        fx.shimmer~ fx.stutter~ fx.tapiir~ fx.tremolo~ fx.vocoder~ fx.wahwah~
         fx.zita_rev1~
     }}
     {global {
