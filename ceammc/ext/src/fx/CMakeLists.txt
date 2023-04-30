@@ -49,6 +49,9 @@ ceammc_fx_obj_ui(zita_rev1)
 add_library(ceammc_fx STATIC mod_fx.cpp ${FX_SOURCES})
 target_link_libraries(ceammc_fx PRIVATE airw_infinity)
 target_include_directories(ceammc_fx
-    PRIVATE "$<TARGET_PROPERTY:airw_infinity,INCLUDE_DIRECTORIES>")
+    PRIVATE
+        $<TARGET_PROPERTY:airw_infinity,INCLUDE_DIRECTORIES>
+        $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>
+)
 
 set_target_properties(ceammc_fx PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")
