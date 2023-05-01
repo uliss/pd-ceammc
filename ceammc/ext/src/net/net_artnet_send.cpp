@@ -17,6 +17,7 @@ ArtNetCommand::ArtNetCommand()
     : cmd(ARTNET_CMD_NONE)
     , port(0)
 {
+    data.fill(0);
 }
 
 ArtNetCommand::ArtNetCommand(ArtNetCmdType acmd, std::uint8_t aport)
@@ -302,6 +303,17 @@ namespace net {
         if (worker_ && needs_update_) {
             worker_->add(packet_);
             needs_update_ = false;
+        }
+    }
+
+    void NetArtnetSend::dump() const
+    {
+        BaseObject::dump();
+        for (size_t i = 0; i < packet_.data.size(); i += 4) {
+            OBJ_POST << fmt::format("[{:03d}]: 0x{:02X}", i, packet_.data[i])
+                     << ' ' << fmt::format("[{:03d}]: 0x{:02X}", i + 1, packet_.data[i + 1])
+                     << ' ' << fmt::format("[{:03d}]: 0x{:02X}", i + 2, packet_.data[i + 2])
+                     << ' ' << fmt::format("[{:03d}]: 0x{:02X}", i + 3, packet_.data[i + 3]);
         }
     }
 

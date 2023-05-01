@@ -49,6 +49,7 @@ namespace net {
         void initDone() final;
 
         void onBang() override;
+        void dump() const final;
 
         void m_dmx(t_symbol* s, const AtomListView& lv);
         void m_dmx_set(t_symbol* s, const AtomListView& lv);
