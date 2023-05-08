@@ -18,6 +18,7 @@
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_units.h"
+#include "lex/parser_numeric.h"
 #include "midi_names.h"
 #include "proto_midi_cc.h"
 
@@ -280,6 +281,30 @@ void ProtoMidi::m_programChange(t_symbol* s, const AtomListView& lv)
 
     byteStatus(midi::MIDI_PROGRAMCHANGE, lv[0].asT<int>());
     byteData(lv[1].asT<int>());
+}
+
+void ProtoMidi::m_raw(t_symbol* s, const AtomListView& lv)
+{
+    parser::NumericFullMatch p;
+
+    int b = 0;
+    for (auto& a : lv) {
+        if (a.isSymbol()) {
+            p.reset();
+            if (p.parse(a) && p.isHex()) {
+                b = p.result().asFloat(0);
+            } else {
+                METHOD_ERR(s) << "byte or hex is expected, got: " << a;
+                continue;
+            }
+        } else if (a.isFloat())
+            b = a.asT<t_float>();
+
+        if (b < 0 || b > 0xFF)
+            METHOD_ERR(s) << "invalid byte value: " << b;
+        else
+            floatTo(0, b);
+    }
 }
 
 void ProtoMidi::m_songPosition(t_symbol* s, const AtomListView& lv)
@@ -640,4 +665,6 @@ void setup_proto_midi()
     obj.addMethod(str_tick, &ProtoMidi::m_tick);
     obj.addMethod(str_timecode, &ProtoMidi::m_timecode);
     obj.addMethod(str_tunerequest, &ProtoMidi::m_tuneRequest);
+
+    obj.addMethod("raw", &ProtoMidi::m_raw);
 }

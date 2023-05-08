@@ -249,4 +249,20 @@ TEST_CASE("proto.midi", "[externals]")
         REQUIRE(t1.messagesAt(0) == ML { M("sysex", 240, 1, 2, 3, 247) });
         t1.clearAll();
     }
+
+    SECTION("raw")
+    {
+        TExt t("proto.midi");
+        t.call("raw", 1, 2, 3);
+        REQUIRE(t.messagesAt(0).size() == 3);
+        REQUIRE(t.messagesAt(0).at(0) == 1);
+        REQUIRE(t.messagesAt(0).at(1) == 2);
+        REQUIRE(t.messagesAt(0).at(2) == 3);
+
+        t.call("raw", "0xBE", "0xEF", 100);
+        REQUIRE(t.messagesAt(0).size() == 3);
+        REQUIRE(t.messagesAt(0).at(0) == 0xbe);
+        REQUIRE(t.messagesAt(0).at(1) == 0xef);
+        REQUIRE(t.messagesAt(0).at(2) == 100);
+    }
 }
