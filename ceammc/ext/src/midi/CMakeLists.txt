@@ -19,6 +19,7 @@ ceammc_midi_external(file)
 ceammc_midi_external(kbd)
 ceammc_midi_external(key2str)
 ceammc_midi_external(modus)
+ceammc_midi_external(note_pass)
 ceammc_midi_external(octave)
 ceammc_midi_external(prg2str)
 ceammc_midi_external(split)
@@ -37,7 +38,8 @@ target_include_directories(ceammc_midi
         "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
 )
 
-target_link_libraries(ceammc_midi midifile)
+target_link_libraries(ceammc_midi
+    PRIVATE midifile muparser)
 
 file(GLOB _MIDI_SRC_FILES "kbd_*.txt" "*.py")
 add_custom_target(ceammc_midi_src SOURCES ${_MIDI_SRC_FILES})

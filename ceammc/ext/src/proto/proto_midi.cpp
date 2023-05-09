@@ -18,7 +18,7 @@
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_units.h"
-#include "lex/parser_numeric.h"
+#include "lex/parser_midi.h"
 #include "midi_names.h"
 #include "proto_midi_cc.h"
 
@@ -285,15 +285,10 @@ void ProtoMidi::m_programChange(t_symbol* s, const AtomListView& lv)
 
 void ProtoMidi::m_raw(t_symbol* s, const AtomListView& lv)
 {
-    parser::NumericFullMatch p;
-
-    int b = 0;
+    std::uint8_t b = 0;
     for (auto& a : lv) {
         if (a.isSymbol()) {
-            p.reset();
-            if (p.parse(a) && p.isHex()) {
-                b = p.result().asFloat(0);
-            } else {
+            if(!parser::parse_midi_byte_hex(a, b)) {
                 METHOD_ERR(s) << "byte or hex is expected, got: " << a;
                 continue;
             }
