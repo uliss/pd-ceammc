@@ -294,7 +294,7 @@ void midi_parser_input(MidiFSMParser* parser, Byte byte)
                 }
             } else {
                 midi_parser_reset(parser);
-                pd_error(0, "[coremidi] unexpetced status byte while sysex");
+                pd_error(0, "[coremidi] unexpected status byte while sysex");
             }
         } else { // append sysex data
             parser->max_data_len++;
