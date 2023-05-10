@@ -780,6 +780,7 @@ struct t_ebox {
     std::vector<t_elayer>* b_layers; /*!< The ebox layers. */
 
     t_symbol* b_label; /*!< The UI label. */
+    t_symbol* b_label_real;
     t_symbol* label_align; /*!< The UI label align: left center or right */
     t_symbol* label_valign; /*!< The UI label vertical align: top, center or bottom */
     t_symbol* label_side; /*!< The UI label anchor side: top, left, right, or bottom */

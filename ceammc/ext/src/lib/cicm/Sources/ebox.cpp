@@ -405,7 +405,7 @@ static void ebox_create_label(t_ebox* x)
         x->b_font.c_family->s_name,
         int(x->b_font.c_sizereal * x->b_zoom),
         rgba_to_hex_int(x->b_boxparameters.d_labelcolor),
-        ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_label)->s_name);
+        x->b_label_real->s_name);
 }
 
 static void ebox_update_label_pos(t_ebox* x)
@@ -447,6 +447,7 @@ void ebox_new(t_ebox* x, long flags)
     x->b_zoom = 1;
 
     x->b_label = s_null;
+    x->b_label_real = s_null;
     x->label_align = s_value_label_align_left;
     x->label_valign = s_value_label_valign_center;
     x->label_inner = 0;
@@ -1353,13 +1354,15 @@ bool ebox_set_label(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
         if (x->b_label == s_null) {
             // create new label
             x->b_label = atom_getsymbol(argv);
+            x->b_label_real = ceammc_realizeraute(x->b_obj.o_canvas, x->b_label);
             if (ebox_isvisible(x))
                 ebox_create_label(x);
         } else {
             // change label text
-            if (argc == 1)
+            if (argc == 1) {
                 x->b_label = atom_getsymbol(argv);
-            else {
+                x->b_label_real = ceammc_realizeraute(x->b_obj.o_canvas, x->b_label);
+            } else {
                 auto to_str = [](const t_atom& a) -> std::string {
                     auto t = atom_gettype(&a);
                     if (t == A_SYMBOL)
@@ -1379,12 +1382,13 @@ bool ebox_set_label(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
                 }
 
                 x->b_label = gensym(res.c_str());
+                x->b_label_real = ceammc_realizeraute(x->b_obj.o_canvas, x->b_label);
             }
 
             if (ebox_isvisible(x)) {
                 sys_vgui("::ceammc::ui::label_text %s %lx %d {%s}\n",
                     x->b_canvas_id->s_name, x, (int)x->label_inner,
-                    ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_label)->s_name);
+                    x->b_label_real->s_name);
             }
         }
     } else {
@@ -1393,6 +1397,7 @@ bool ebox_set_label(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
             ebox_erase_label(x);
 
         x->b_label = s_null;
+        x->b_label_real = s_null;
     }
 
     return true;
