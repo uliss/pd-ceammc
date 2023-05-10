@@ -14,15 +14,17 @@
 #include "ui_label.h"
 #include "ceammc_abstractdata.h"
 #include "ceammc_containers.h"
-#include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_format.h"
 #include "ceammc_string.h"
 #include "ceammc_ui.h"
 
-static t_symbol* SYM_LEFT;
-static t_symbol* SYM_CENTER;
-static t_symbol* SYM_RIGHT;
-static t_symbol* SYM_TEXT;
+CEAMMC_DEFINE_HASH(left)
+CEAMMC_DEFINE_HASH(right)
+CEAMMC_DEFINE_HASH(center)
+CEAMMC_DEFINE_SYM_HASH(text)
+
+extern t_symbol* ceammc_realizeraute(t_canvas* cnv, t_symbol* s);
 
 #ifdef __WIN32
 static const char* DEFAULT_LABEL_FONT_SIZE = "28";
@@ -59,16 +61,20 @@ void UILabel::paint()
         float h = height() - (prop_margin_top + prop_margin_bottom);
 
         const char* TXT = text_str_.c_str();
+        if (strchr(TXT, '#'))
+            TXT = ceammc_realizeraute(canvas(), gensym(TXT))->s_name;
 
-        if (prop_align == SYM_LEFT) {
+        auto prop_hash = crc32_hash(prop_align);
+
+        if (prop_hash == hash_left) {
             text_.setJustify(ETEXT_JLEFT);
             text_.setAnchor(ETEXT_UP_LEFT);
             text_.set(TXT, prop_margin_left, prop_margin_top, w, h);
-        } else if (prop_align == SYM_CENTER) {
+        } else if (prop_hash == hash_center) {
             text_.setJustify(ETEXT_JCENTER);
             text_.setAnchor(ETEXT_UP);
             text_.set(TXT, prop_margin_left + w / 2, prop_margin_top, w, h);
-        } else if (prop_align == SYM_RIGHT) {
+        } else if (prop_hash == hash_right) {
             text_.setJustify(ETEXT_JRIGHT);
             text_.setAnchor(ETEXT_UP_RIGHT);
             text_.set(TXT, width() - prop_margin_right, prop_margin_top, w, h);
@@ -94,9 +100,9 @@ void UILabel::init(t_symbol* name, const AtomListView& args, bool usePresets)
     auto pos = std::distance(args.begin(), it);
 
     if (pos > 0) {
-        setProperty(SYM_TEXT, args.subView(0, pos));
+        setProperty(sym_text(), args.subView(0, pos));
     } else if (it == args.end() && args.size() > 0) {
-        setProperty(SYM_TEXT, args);
+        setProperty(sym_text(), args);
     }
 }
 
@@ -161,11 +167,6 @@ void UILabel::m_prepend(const AtomListView& lv)
 
 void UILabel::setup()
 {
-    SYM_LEFT = gensym("left");
-    SYM_CENTER = gensym("center");
-    SYM_RIGHT = gensym("right");
-    SYM_TEXT = gensym("text");
-
     UIObjectFactory<UILabel> obj("ui.label", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK, CLASS_NOINLET);
     obj.setDefaultSize(300, 47);
     obj.hideLabel();
@@ -193,7 +194,7 @@ void UILabel::setup()
     obj.addProperty("margin_bottom", _("Margin bottom"), 5, &UILabel::prop_margin_bottom, "Margins");
     obj.addProperty("margin_right", _("Margin right"), 5, &UILabel::prop_margin_right, "Margins");
 
-    obj.addProperty("align", _("Align"), SYM_LEFT->s_name, &UILabel::prop_align, "left center right", "Main");
+    obj.addProperty("align", _("Align"), str_left, &UILabel::prop_align, "left center right", "Main");
     obj.addVirtualProperty("text", _("Text"), "Label", &UILabel::propGetText, &UILabel::propSetText);
     obj.setPropertyCategory("text", "Main");
 
