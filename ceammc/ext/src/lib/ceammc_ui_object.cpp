@@ -188,7 +188,7 @@ t_symbol* UIObjectImpl::name() const
 
 t_symbol* UIObjectImpl::presetId()
 {
-    return ceammc_realizeraute(canvas(), box_->b_objpreset_id);
+    return box_->b_objpreset_id;
 }
 
 void UIObjectImpl::paint()
@@ -501,14 +501,23 @@ void UIObjectImpl::presetInit()
 {
     old_preset_id_ = s_null;
     if ((!presetId() || presetId() == s_null) && !isPatchLoading()) {
-        box_->b_objpreset_id = genPresetName(name_);
+        t_atom a;
+        SETSYMBOL(&a, genPresetName(name_));
+        ebox_set_presetid(asEBox(), nullptr, 1, &a);
         bindPreset(box_->b_objpreset_id);
     } else if (isPatchEdited() && !isPatchLoading()) {
         auto it = presets_.find(box_->b_objpreset_id);
         if (it != presets_.end() && it->second > 1) {
-            t_symbol* name = genPresetName(name_);
-            rebindPreset(box_->b_objpreset_id, name);
-            box_->b_objpreset_id = name;
+            // save old
+            auto old_preset = box_->b_objpreset_id;
+
+            // set new
+            t_atom a;
+            SETSYMBOL(&a, genPresetName(name_));
+            ebox_set_presetid(asEBox(), nullptr, 1, &a);
+
+            // rebind
+            rebindPreset(old_preset, box_->b_objpreset_id);
         }
     }
 
