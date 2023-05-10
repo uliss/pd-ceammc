@@ -6,6 +6,8 @@
 
 #include <algorithm>
 
+extern t_symbol* ceammc_realizeraute(t_canvas* cnv, t_symbol* s);
+
 namespace ceammc {
 
 const char* UIObjectImpl::BG_LAYER = "background_layer";
@@ -186,7 +188,7 @@ t_symbol* UIObjectImpl::name() const
 
 t_symbol* UIObjectImpl::presetId()
 {
-    return box_->b_objpreset_id;
+    return ceammc_realizeraute(canvas(), box_->b_objpreset_id);
 }
 
 void UIObjectImpl::paint()
@@ -220,8 +222,8 @@ void UIObjectImpl::updateSize()
 
 void UIObjectImpl::resize(int w, int h)
 {
-    box_->b_rect.width = w;
-    box_->b_rect.height = h;
+    box_->b_rect.w = w;
+    box_->b_rect.h = h;
     updateSize();
 }
 
@@ -472,8 +474,8 @@ t_rect UIObjectImpl::rect() const
 {
     auto z = box_->b_zoom;
     auto r = box_->b_rect;
-    r.width *= z;
-    r.height *= z;
+    r.w *= z;
+    r.h *= z;
     return r;
 }
 
@@ -481,9 +483,9 @@ float UIObjectImpl::x() const { return box_->b_rect.x; }
 
 float UIObjectImpl::y() const { return box_->b_rect.y; }
 
-float UIObjectImpl::width() const { return box_->b_rect.width * box_->b_zoom; }
+float UIObjectImpl::width() const { return box_->b_rect.w * box_->b_zoom; }
 
-float UIObjectImpl::height() const { return box_->b_rect.height * box_->b_zoom; }
+float UIObjectImpl::height() const { return box_->b_rect.h * box_->b_zoom; }
 
 float UIObjectImpl::zoom() const
 {

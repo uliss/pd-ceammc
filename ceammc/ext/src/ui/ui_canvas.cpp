@@ -154,15 +154,15 @@ void UICanvas::init(t_symbol* name, const AtomListView& args, bool usePresets)
 
 void UICanvas::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_minmax(newrect->width, 8, 512);
-    newrect->height = pd_clip_minmax(newrect->height, 8, 512);
+    newrect->w = pd_clip_minmax(newrect->w, 8, 512);
+    newrect->h = pd_clip_minmax(newrect->h, 8, 512);
 
     draw::CreateImage cmd;
-    cmd.w = newrect->width;
-    cmd.h = newrect->height;
+    cmd.w = newrect->w;
+    cmd.h = newrect->h;
     out_queue_.enqueue(cmd);
 
-    sys_vgui("::ui::cnv::create_image ui_canvas_%d %d %d\n", image_id_, newrect->width, newrect->height);
+    sys_vgui("::ui::cnv::create_image ui_canvas_%d %d %d\n", image_id_, newrect->w, newrect->h);
 }
 
 void UICanvas::paint()

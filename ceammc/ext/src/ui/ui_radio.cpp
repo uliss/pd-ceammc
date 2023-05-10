@@ -46,7 +46,7 @@ void UIRadio::init(t_symbol* name, const AtomListView& args, bool usePresets)
 
     // check for vertical aliases and change orientation
     if (name == SYM_VRD || name == SYM_VRD_MULT)
-        std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
+        std::swap(asEBox()->b_rect.w, asEBox()->b_rect.h);
 
     // check checklist mode
     if (name == SYM_VRD_MULT || name == SYM_HRD_MULT || name == SYM_RADIO_MULT)
@@ -59,11 +59,11 @@ void UIRadio::init(t_symbol* name, const AtomListView& args, bool usePresets)
         const int dim1 = DEFAULT_CELL_SIZE;
         const int dim2 = dim1 * prop_nitems_;
         if (isVertical()) {
-            asEBox()->b_rect.width = dim1;
-            asEBox()->b_rect.height = dim2;
+            asEBox()->b_rect.w = dim1;
+            asEBox()->b_rect.h = dim2;
         } else {
-            asEBox()->b_rect.width = dim2;
-            asEBox()->b_rect.height = dim1;
+            asEBox()->b_rect.w = dim2;
+            asEBox()->b_rect.h = dim1;
         }
     } else {
         bool prop_size_found = false;
@@ -98,8 +98,8 @@ void UIRadio::init(t_symbol* name, const AtomListView& args, bool usePresets)
                 if (isVertical())
                     std::swap(h, w);
 
-                asEBox()->b_rect.width = w;
-                asEBox()->b_rect.height = h;
+                asEBox()->b_rect.w = w;
+                asEBox()->b_rect.h = h;
                 break;
             }
         }
@@ -148,7 +148,7 @@ void UIRadio::onList(const AtomListView& lv)
 int UIRadio::click2Cell(const t_pt& pt) const
 {
     auto r = rect();
-    return isVertical() ? (pt.y / r.height * prop_nitems_) : (pt.x / r.width * prop_nitems_);
+    return isVertical() ? (pt.y / r.h * prop_nitems_) : (pt.x / r.w * prop_nitems_);
 }
 
 void UIRadio::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
@@ -510,13 +510,13 @@ void UIRadio::okSize(t_rect* newrect)
     assert(prop_nitems_ > 0);
 
     if (isVertical()) {
-        const int box_size = std::round(pd_clip_min(newrect->height / prop_nitems_, 8));
-        newrect->height = prop_nitems_ * box_size;
-        newrect->width = box_size;
+        const int box_size = std::round(pd_clip_min(newrect->h / prop_nitems_, 8));
+        newrect->h = prop_nitems_ * box_size;
+        newrect->w = box_size;
     } else {
-        const int box_size = std::round(pd_clip_min(newrect->width / prop_nitems_, 8));
-        newrect->width = prop_nitems_ * box_size;
-        newrect->height = box_size;
+        const int box_size = std::round(pd_clip_min(newrect->w / prop_nitems_, 8));
+        newrect->w = prop_nitems_ * box_size;
+        newrect->h = box_size;
     }
 }
 

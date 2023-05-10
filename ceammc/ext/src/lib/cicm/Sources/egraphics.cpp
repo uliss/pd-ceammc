@@ -114,7 +114,7 @@ void etext_layout_draw(t_etext* textlayout, t_elayer* g)
 
     last.e_type = E_GOBJ_TEXT;
     last.e_points.assign({ { textlayout->c_rect.x, textlayout->c_rect.y },
-        { textlayout->c_rect.x + textlayout->c_rect.width, textlayout->c_rect.y + textlayout->c_rect.height } });
+        { textlayout->c_rect.x + textlayout->c_rect.w, textlayout->c_rect.y + textlayout->c_rect.h } });
     last.e_color = rgba_to_hex_int(textlayout->c_color);
 
     last.e_font = textlayout->c_font;
@@ -130,7 +130,7 @@ void egraphics_move_to(t_elayer* g, const float x, const float y)
         auto& p = g->e_new_objects.e_points;
         g->e_new_objects.e_type = E_GOBJ_PATH;
         p.reserve(p.size() + 2);
-        p.push_back({ E_PATH_MOVE, 0 });
+        p.push_back({ ceammc::E_PATH_MOVE, 0 });
         p.push_back({ x, y });
     }
 }
@@ -144,7 +144,7 @@ static inline bool is_on_line(const t_pt& p1, const t_pt& p2, const t_pt& p3) //
 
 void egraphics_line_to(t_elayer* g, const float x, const float y)
 {
-    constexpr t_pt p_line = { E_PATH_LINE, 0 };
+    constexpr t_pt p_line = { ceammc::E_PATH_LINE, 0 };
 
     if (g->e_state == EGRAPHICS_OPEN) {
         auto& p = g->e_new_objects.e_points;
@@ -170,7 +170,7 @@ void egraphics_close_path(t_elayer* g)
 {
     if (g->e_state == EGRAPHICS_OPEN && g->e_new_objects.e_points.size() >= 1) {
         g->e_new_objects.e_type = E_GOBJ_PATH;
-        g->e_new_objects.e_points.push_back({ E_PATH_CLOSE, 0 });
+        g->e_new_objects.e_points.push_back({ ceammc::E_PATH_CLOSE, 0 });
     }
 }
 
@@ -180,9 +180,9 @@ void egraphics_line(t_elayer* g, const float x0, const float y0, const float x1,
         auto& p = g->e_new_objects.e_points;
         g->e_new_objects.e_type = E_GOBJ_PATH;
         p.reserve(p.size() + 4);
-        p.push_back({ E_PATH_MOVE, 0 });
+        p.push_back({ ceammc::E_PATH_MOVE, 0 });
         p.push_back({ x0, y0 });
-        p.push_back({ E_PATH_LINE, 0 });
+        p.push_back({ ceammc::E_PATH_LINE, 0 });
         p.push_back({ x1, y1 });
     }
 }
@@ -200,7 +200,7 @@ void egraphics_curve_to(t_elayer* g, float ctrl1x, float ctrl1y, float ctrl2x, f
         g->e_new_objects.e_type = E_GOBJ_PATH;
         p.reserve(p.size() + 4);
 
-        p.push_back({ E_PATH_CURVE, 0 });
+        p.push_back({ ceammc::E_PATH_CURVE, 0 });
         p.push_back({ ctrl1x, ctrl1y });
         p.push_back({ ctrl2x, ctrl2y });
         p.push_back({ endx, endy });
@@ -215,9 +215,9 @@ void egraphics_curve(t_elayer* g, float startx, float starty,
         g->e_new_objects.e_type = E_GOBJ_PATH;
         p.reserve(p.size() + 6);
 
-        p.push_back({ E_PATH_MOVE, 0 });
+        p.push_back({ ceammc::E_PATH_MOVE, 0 });
         p.push_back({ startx, starty });
-        p.push_back({ E_PATH_CURVE, 0 });
+        p.push_back({ ceammc::E_PATH_CURVE, 0 });
         p.push_back({ ctrl1x, ctrl1y });
         p.push_back({ ctrl2x, ctrl2y });
         p.push_back({ endx, endy });
@@ -230,7 +230,7 @@ void egraphics_rectangle(t_elayer* g, float x, float y, float width, float heigh
         g->e_new_objects.e_type = E_GOBJ_SHAPE;
 
         auto& p = g->e_new_objects.e_points;
-        p.assign({ { E_SHAPE_RECT, 0 },
+        p.assign({ { ceammc::E_SHAPE_RECT, 0 },
             { x, y },
             { x + width, y + height } });
     }
@@ -242,7 +242,7 @@ void egraphics_oval(t_elayer* g, float xc, float yc, float radiusx, float radius
         g->e_new_objects.e_type = E_GOBJ_SHAPE;
 
         auto& p = g->e_new_objects.e_points;
-        p.assign({ { E_SHAPE_OVAL, 0 },
+        p.assign({ { ceammc::E_SHAPE_OVAL, 0 },
             { xc - radiusx, yc - radiusy },
             { xc + radiusx, yc + radiusy } });
     }
@@ -259,7 +259,7 @@ void egraphics_arc_oval(t_elayer* g, float xc, float yc, float radiusx, float ra
         g->e_new_objects.e_type = E_GOBJ_SHAPE;
 
         auto& p = g->e_new_objects.e_points;
-        p.assign({ { E_SHAPE_ARC, 0 },
+        p.assign({ { ceammc::E_SHAPE_ARC, 0 },
             { xc - radiusx, yc - radiusy },
             { xc + radiusx, yc + radiusy },
             { (angle1 / EPD_PI) * 180.f, ((angle2 - angle1) / EPD_PI) * 180.f } });
@@ -277,15 +277,15 @@ void egraphics_poly(t_elayer* g, const std::vector<t_pt>& points)
         auto& p = g->e_new_objects.e_points;
         p.reserve(p.size() + 2 * points.size() + 1);
 
-        p.push_back({ E_PATH_MOVE, 0 });
+        p.push_back({ ceammc::E_PATH_MOVE, 0 });
         p.push_back(points.front());
 
         for (size_t i = 1; i < points.size(); i++) {
-            p.push_back({ E_PATH_LINE, 0 });
+            p.push_back({ ceammc::E_PATH_LINE, 0 });
             p.push_back(points[i]);
         }
 
-        p.push_back({ E_PATH_CLOSE, 0 });
+        p.push_back({ ceammc::E_PATH_CLOSE, 0 });
     }
 }
 
@@ -748,15 +748,15 @@ static void egraphics_apply_matrix(t_elayer* g, t_egobj* gobj)
     if (gobj->e_type == E_GOBJ_PATH) {
         for (int i = 0; i < gobj->e_points.size();) {
             switch ((int)gobj->e_points[i].x) {
-            case E_PATH_MOVE:
-            case E_PATH_LINE: {
+            case ceammc::E_PATH_MOVE:
+            case ceammc::E_PATH_LINE: {
                 x_p = gobj->e_points[i + 1].x * g->e_matrix.xx + gobj->e_points[i + 1].y * g->e_matrix.xy + g->e_matrix.x0;
                 y_p = gobj->e_points[i + 1].x * g->e_matrix.yx + gobj->e_points[i + 1].y * g->e_matrix.yy + g->e_matrix.y0;
                 gobj->e_points[i + 1].x = x_p;
                 gobj->e_points[i + 1].y = y_p;
                 i += 2;
             } break;
-            case E_PATH_CURVE: {
+            case ceammc::E_PATH_CURVE: {
                 x_p = gobj->e_points[i + 1].x * g->e_matrix.xx + gobj->e_points[i + 1].y * g->e_matrix.xy + g->e_matrix.x0;
                 y_p = gobj->e_points[i + 1].x * g->e_matrix.yx + gobj->e_points[i + 1].y * g->e_matrix.yy + g->e_matrix.y0;
                 gobj->e_points[i + 1].x = x_p;
@@ -777,7 +777,7 @@ static void egraphics_apply_matrix(t_elayer* g, t_egobj* gobj)
         }
     } else if (gobj->e_type == E_GOBJ_SHAPE) {
         switch ((int)gobj->e_points[0].x) {
-        case E_SHAPE_OVAL: {
+        case ceammc::E_SHAPE_OVAL: {
             x_p = gobj->e_points[1].x * g->e_matrix.xx + gobj->e_points[1].y * g->e_matrix.xy + g->e_matrix.x0;
             y_p = gobj->e_points[1].x * g->e_matrix.yx + gobj->e_points[1].y * g->e_matrix.yy + g->e_matrix.y0;
             gobj->e_points[1].x = x_p;
@@ -787,7 +787,7 @@ static void egraphics_apply_matrix(t_elayer* g, t_egobj* gobj)
             gobj->e_points[2].x = x_p;
             gobj->e_points[2].y = y_p;
         } break;
-        case E_SHAPE_RECT: {
+        case ceammc::E_SHAPE_RECT: {
             apply_matrix_to(g->e_matrix, gobj->e_points[1]);
             apply_matrix_to(g->e_matrix, gobj->e_points[2]);
         } break;
@@ -852,11 +852,11 @@ void etext_layout_set(t_etext* textlayout, const char* text, t_efont* font,
     textlayout->c_font = font[0];
     textlayout->c_rect.x = (float)x;
     textlayout->c_rect.y = (float)y;
-    textlayout->c_rect.width = (float)width;
-    textlayout->c_rect.height = (float)height;
+    textlayout->c_rect.w = (float)width;
+    textlayout->c_rect.h = (float)height;
 
     if (wrap == ETEXT_NOWRAP) {
-        textlayout->c_rect.width = 0.;
+        textlayout->c_rect.w = 0.;
     }
 
     textlayout->c_anchor = anchor;
@@ -962,7 +962,7 @@ void egraphics_image(t_elayer* g, float xc, float yc, t_eimage* image)
         g->e_new_objects.e_image = image;
 
         auto& p = g->e_new_objects.e_points;
-        p.assign({ { E_SHAPE_IMAGE, 0 }, { xc, yc } });
+        p.assign({ { ceammc::E_SHAPE_IMAGE, 0 }, { xc, yc } });
     }
 }
 

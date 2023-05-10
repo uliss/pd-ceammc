@@ -113,8 +113,8 @@ t_float UIPolar::side2Angle(SideT side)
 
 void UIPolar::okSize(t_rect* newrect)
 {
-    newrect->height = std::max<float>(30, newrect->height);
-    newrect->width = std::max<float>(30, newrect->width);
+    newrect->h = std::max<float>(30, newrect->h);
+    newrect->w = std::max<float>(30, newrect->w);
 }
 
 void UIPolar::paint()
@@ -137,7 +137,7 @@ void UIPolar::paintBackground()
         return;
 
     p.setColor(prop_color_border);
-    const float r = bbox.width / 2;
+    const float r = bbox.w / 2;
     const float c = r;
 
     const auto color = rgba_addContrast(prop_color_background, -0.1);
@@ -158,12 +158,12 @@ void UIPolar::paintBackground()
 
     // draw angle lines
     auto draw_fn = [&bbox, &p](float w) {
-        const float k = (1 - M_SQRT1_2) * bbox.width * 0.5;
+        const float k = (1 - M_SQRT1_2) * bbox.w * 0.5;
         p.setLineWidth(w);
-        p.drawLine(0, bbox.width * 0.5, bbox.width, bbox.width * 0.5);
-        p.drawLine(bbox.width * 0.5, 0, bbox.width * 0.5, bbox.height);
-        p.drawLine(k, k, bbox.width - k, bbox.height - k);
-        p.drawLine(k, bbox.height - k, bbox.width - k, k);
+        p.drawLine(0, bbox.w * 0.5, bbox.w, bbox.w * 0.5);
+        p.drawLine(bbox.w * 0.5, 0, bbox.w * 0.5, bbox.h);
+        p.drawLine(k, k, bbox.w - k, bbox.h - k);
+        p.drawLine(k, bbox.h - k, bbox.w - k, k);
     };
 
     p.setColor(color2);
@@ -179,10 +179,10 @@ void UIPolar::paintBackground()
         p.drawLine(c, c, c, 0);
         break;
     case S_EAST:
-        p.drawLine(c, c, bbox.width, c);
+        p.drawLine(c, c, bbox.w, c);
         break;
     case S_SOUTH:
-        p.drawLine(c, c, c, bbox.height);
+        p.drawLine(c, c, c, bbox.h);
         break;
     case S_WEST:
     default:
@@ -204,12 +204,12 @@ void UIPolar::paintKnob()
         a += direction2radians(prop_direction_);
 
         auto xy = convert::polar2cartesian<float>(radius_, a);
-        const float x = convert::lin2lin<float>(xy.first, -1, 1, 0, bbox.width);
-        const float y = convert::lin2lin<float>(xy.second, 1, -1, 0, bbox.height);
+        const float x = convert::lin2lin<float>(xy.first, -1, 1, 0, bbox.w);
+        const float y = convert::lin2lin<float>(xy.second, 1, -1, 0, bbox.h);
 
         // knob
         const float knobsize = clip<float>(KNOB_MIN_SIZE, KNOB_MAX_SIZE,
-                                   std::min(bbox.height, bbox.width) * KNOB_RATIO)
+                                   std::min(bbox.h, bbox.w) * KNOB_RATIO)
             * 0.5;
 
         // knob border
@@ -225,7 +225,7 @@ void UIPolar::paintKnob()
         txt_radius_.set(buf, 2, 2, 100, 100);
         p.drawText(txt_radius_);
         snprintf(buf, sizeof(buf), "α:%.2f", realAngle());
-        txt_angle_.set(buf, bbox.width - 2, 2, 100, 100);
+        txt_angle_.set(buf, bbox.w - 2, 2, 100, 100);
         p.drawText(txt_angle_);
     }
 }
@@ -514,8 +514,8 @@ void UIPolar::setMouse(float x, float y, bool angleOnly)
 {
     auto r = rect();
     auto p = convert::cartesian2polar<double>(
-        convert::lin2lin<double>(x, 0, r.width, -1, 1),
-        convert::lin2lin<double>(y, 0, r.height, 1, -1));
+        convert::lin2lin<double>(x, 0, r.w, -1, 1),
+        convert::lin2lin<double>(y, 0, r.h, 1, -1));
 
     if (!angleOnly)
         radius_ = clip<float, 0, 1>(p.first);

@@ -67,15 +67,15 @@ UIGain::UIGain()
 
 void UIGain::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 8.);
-    newrect->height = pd_clip_min(newrect->height, 8.);
+    newrect->w = pd_clip_min(newrect->w, 8.);
+    newrect->h = pd_clip_min(newrect->h, 8.);
 
-    is_horizontal_ = (newrect->width > newrect->height);
+    is_horizontal_ = (newrect->w > newrect->h);
 
     if (is_horizontal_)
-        newrect->width = pd_clip_min(newrect->width, 50.);
+        newrect->w = pd_clip_min(newrect->w, 50.);
     else
-        newrect->height = pd_clip_min(newrect->height, 50.);
+        newrect->h = pd_clip_min(newrect->h, 50.);
 }
 
 void UIGain::paint()
@@ -91,15 +91,15 @@ void UIGain::paint()
     p.setLineWidth(3);
 
     if (is_horizontal_) {
-        float x = r.width * knob_phase_;
+        float x = r.w * knob_phase_;
         // scale
         p.setColor(prop_color_scale);
-        p.drawRect(0, 0, x, r.height);
+        p.drawRect(0, 0, x, r.h);
         p.fill();
 
         // knob
         p.setColor(prop_color_knob);
-        p.drawLine(x, 0, x, r.height);
+        p.drawLine(x, 0, x, r.h);
 
         if (prop_show_range) {
             // level range
@@ -114,15 +114,15 @@ void UIGain::paint()
             p.drawText(txt_min_);
         }
     } else {
-        float y = r.height * (1 - knob_phase_);
+        float y = r.h * (1 - knob_phase_);
         // scale
         p.setColor(prop_color_scale);
-        p.drawRect(0, y, r.width, r.height - y);
+        p.drawRect(0, y, r.w, r.h - y);
         p.fill();
 
         // knob
         p.setColor(prop_color_knob);
-        p.drawLine(0, y, r.width, y);
+        p.drawLine(0, y, r.w, y);
 
         if (prop_show_range) {
             // levels
@@ -142,7 +142,7 @@ void UIGain::paint()
 void UIGain::initHorizontal()
 {
     is_horizontal_ = true;
-    std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
+    std::swap(asEBox()->b_rect.w, asEBox()->b_rect.h);
     updateLabels();
 }
 

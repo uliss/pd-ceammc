@@ -53,20 +53,20 @@ void UIMenu::init(t_symbol* name, const AtomListView& args, bool usePresets)
 
 void UIMenu::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, ebox_fontwidth(asEBox()) * 3 / zoom() + 8);
-    newrect->height = fontSize() + 5;
+    newrect->w = pd_clip_min(newrect->w, ebox_fontwidth(asEBox()) * 3 / zoom() + 8);
+    newrect->h = fontSize() + 5;
 
 #ifdef __WIN32
-    newrect->height += 4;
+    newrect->h += 4;
 #endif
 
-    item_height_ = newrect->height;
+    item_height_ = newrect->h;
 
-    if (newrect->width < newrect->height * 2)
-        newrect->width = newrect->height * 2;
+    if (newrect->w < newrect->h * 2)
+        newrect->w = newrect->h * 2;
 
     if (is_open_)
-        newrect->height = item_height_ * (items_.size() + 1);
+        newrect->h = item_height_ * (items_.size() + 1);
 }
 
 void UIMenu::paint()
@@ -81,7 +81,7 @@ void UIMenu::paint()
 
         for (size_t i = 0; i < items_.size(); i++) {
             float y = itemHeightZoomed() * (i + 1);
-            p.drawLine(-1, y, r.width + 1, y);
+            p.drawLine(-1, y, r.w + 1, y);
         }
 
         t_rgba current_color = rgba_addContrast(prop_color_background, -0.2);
@@ -92,7 +92,7 @@ void UIMenu::paint()
             // fill current item
             if (i == current_idx_ || i == hover_idx_) {
                 p.setColor(i == hover_idx_ ? prop_color_active : current_color);
-                p.drawRect(0, itemHeightZoomed() * (i + 1), r.width, itemHeightZoomed());
+                p.drawRect(0, itemHeightZoomed() * (i + 1), r.w, itemHeightZoomed());
                 p.fill();
             }
 
@@ -104,7 +104,7 @@ void UIMenu::paint()
         }
 
         // draw separator
-        const float x = r.width - itemHeightZoomed();
+        const float x = r.w - itemHeightZoomed();
         p.setColor(prop_color_border);
         p.setLineWidth(1);
         p.drawLine(x, -1, x, itemHeightZoomed());
@@ -124,23 +124,23 @@ void UIMenu::paint()
             const std::string& lbl = labels_[current_idx_];
 
             TextPtr& ptxt = layouts_[current_idx_];
-            ptxt->set(lbl.c_str(), 3, r.height / 2, 0, 0);
+            ptxt->set(lbl.c_str(), 3, r.h / 2, 0, 0);
 
             ptxt->setColor(prop_color_text);
             p.drawText(*ptxt);
         }
 
-        const float x = r.width - r.height;
+        const float x = r.w - r.h;
         // draw separator
         p.setColor(prop_color_border);
         p.setLineWidth(1);
-        p.drawLine(x, -1, x, r.height + 1);
+        p.drawLine(x, -1, x, r.h + 1);
 
         // draw knob
-        p.moveTo(x + r.height * 0.25, r.height * 0.25);
-        p.drawLineTo(x + r.height * 0.75, r.height * 0.25);
-        p.drawLineTo(x + r.height * 0.5, r.height * 0.75);
-        p.drawLineTo(x + r.height * 0.25, r.height * 0.25);
+        p.moveTo(x + r.h * 0.25, r.h * 0.25);
+        p.drawLineTo(x + r.h * 0.75, r.h * 0.25);
+        p.drawLineTo(x + r.h * 0.5, r.h * 0.75);
+        p.drawLineTo(x + r.h * 0.25, r.h * 0.25);
         p.fill();
     }
 }

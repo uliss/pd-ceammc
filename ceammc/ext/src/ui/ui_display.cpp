@@ -161,8 +161,8 @@ void UIDisplay::okSize(t_rect* newrect)
     constexpr auto MIN_WIDTH = 32;
     constexpr auto MIN_HEIGHT = 18;
 
-    newrect->width = pd_clip_min(newrect->width, MIN_WIDTH);
-    newrect->height = pd_clip_min(newrect->height, MIN_HEIGHT);
+    newrect->w = pd_clip_min(newrect->w, MIN_WIDTH);
+    newrect->h = pd_clip_min(newrect->h, MIN_HEIGHT);
 }
 
 void UIDisplay::onBang()

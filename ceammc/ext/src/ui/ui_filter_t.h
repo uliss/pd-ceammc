@@ -349,8 +349,8 @@ namespace ui {
     template <class TBase>
     bool TFilter<TBase>::okSize(t_rect* newrect)
     {
-        newrect->width = pd_clip_min(newrect->width, MIN_WIDTH);
-        newrect->height = pd_clip_min(newrect->height, MIN_HEIGHT);
+        newrect->w = pd_clip_min(newrect->w, MIN_WIDTH);
+        newrect->h = pd_clip_min(newrect->h, MIN_HEIGHT);
         return true;
     }
 

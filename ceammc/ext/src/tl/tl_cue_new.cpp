@@ -103,8 +103,8 @@ void TlCue::init(t_symbol* name, const AtomListView& args, bool usePresets)
 
 void TlCue::okSize(t_rect* newrect)
 {
-    newrect->height = 15;
-    newrect->width = 45;
+    newrect->h = 15;
+    newrect->w = 45;
 
     auto x = asEBox();
     x->b_rect.y = CUE_Y_POS;

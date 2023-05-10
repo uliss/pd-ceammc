@@ -250,8 +250,8 @@ static std::pair<int, int> ebox_label_coord(t_ebox* x,
 
     switch (pos) {
     case LABEL_POSITION_INNER: {
-        const auto w = int(x->b_rect.width * x->b_zoom);
-        const auto h = int(x->b_rect.height * x->b_zoom);
+        const auto w = int(x->b_rect.w * x->b_zoom);
+        const auto h = int(x->b_rect.h * x->b_zoom);
         const auto xc = int(w * 0.5);
         const auto yc = int(h * 0.5);
 
@@ -298,10 +298,10 @@ static std::pair<int, int> ebox_label_coord(t_ebox* x,
     case LABEL_POSITION_OUTER: {
         int x0 = int(x->b_rect.x);
         int y0 = int(x->b_rect.y);
-        int x1 = int(x0 + x->b_rect.width * x->b_zoom);
-        int y1 = int(y0 + x->b_rect.height * x->b_zoom);
-        int xc = int(x0 + x->b_rect.width * x->b_zoom * 0.5);
-        int yc = int(y0 + x->b_rect.height * x->b_zoom * 0.5);
+        int x1 = int(x0 + x->b_rect.w * x->b_zoom);
+        int y1 = int(y0 + x->b_rect.h * x->b_zoom);
+        int xc = int(x0 + x->b_rect.w * x->b_zoom * 0.5);
+        int yc = int(y0 + x->b_rect.h * x->b_zoom * 0.5);
 
         switch (side) {
         case LABEL_SIDE_LEFT: {
@@ -405,7 +405,7 @@ static void ebox_create_label(t_ebox* x)
         x->b_font.c_family->s_name,
         int(x->b_font.c_sizereal * x->b_zoom),
         rgba_to_hex_int(x->b_boxparameters.d_labelcolor),
-        x->b_label->s_name);
+        ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_label)->s_name);
 }
 
 static void ebox_update_label_pos(t_ebox* x)
@@ -693,8 +693,8 @@ void ebox_wgetrect(t_gobj* z, t_glist* glist, int* xp1, int* yp1, int* xp2, int*
     t_ebox* x = reinterpret_cast<t_ebox*>(z);
     *xp1 = text_xpix(&x->b_obj.o_obj, glist);
     *yp1 = text_ypix(&x->b_obj.o_obj, glist);
-    *xp2 = int(*xp1 + x->b_rect.width * x->b_zoom);
-    *yp2 = int(*yp1 + x->b_rect.height * x->b_zoom);
+    *xp2 = int(*xp1 + x->b_rect.w * x->b_zoom);
+    *yp2 = int(*yp1 + x->b_rect.h * x->b_zoom);
 }
 
 static void ebox_paint(t_ebox* x)
@@ -846,7 +846,7 @@ static void ebox_create_widget(t_ebox* x)
 {
     sys_vgui("::ceammc::ui::create_widget %lx %s %d %d %d\n",
         x, x->b_drawing_id->s_name,
-        int(x->b_rect.width), int(x->b_rect.height), int(x->b_zoom));
+        int(x->b_rect.w), int(x->b_rect.h), int(x->b_zoom));
 }
 
 static t_pt ebox_calc_pos(t_ebox* x, t_glist* glist)
@@ -889,7 +889,7 @@ static void ebox_create_window(t_ebox* x, t_glist* glist)
 
     sys_vgui("::ceammc::ui::create_window %s %lx %d %d %d %d %d\n",
         x->b_canvas_id->s_name, x,
-        (int)x->b_rect.x, (int)x->b_rect.y, (int)x->b_rect.width, (int)x->b_rect.height,
+        (int)x->b_rect.x, (int)x->b_rect.y, (int)x->b_rect.w, (int)x->b_rect.h,
         (int)x->b_zoom);
 
     if (x->b_label != s_null)
@@ -983,8 +983,8 @@ void ebox_mouse_move(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod
             x->b_selected_item = EITEM_NONE;
             sys_vgui("eobj_canvas_motion %s 0\n", x->b_canvas_id->s_name);
 
-            const int right = int(x->b_rect.width * x->b_zoom);
-            const int bottom = int(x->b_rect.height * x->b_zoom);
+            const int right = int(x->b_rect.w * x->b_zoom);
+            const int bottom = int(x->b_rect.h * x->b_zoom);
             const int CURSOR_AREA = 3 * x->b_zoom;
 
             // BOTTOM & RIGHT //
@@ -1005,7 +1005,7 @@ void ebox_mouse_move(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod
                 for (int i = 0; i < N; i++) {
                     int pos_x_outlet = 0;
                     if (N > 1)
-                        pos_x_outlet = int(i / float(N - 1) * (x->b_rect.width * x->b_zoom - (XLET_ZW + 1)));
+                        pos_x_outlet = int(i / float(N - 1) * (x->b_rect.w * x->b_zoom - (XLET_ZW + 1)));
 
                     if (mouse.x >= pos_x_outlet && mouse.x <= pos_x_outlet + XLET_ZW) {
                         x->b_selected_outlet = i;
@@ -1042,11 +1042,11 @@ void ebox_mouse_move(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod
             } else if (!(x->b_flags & EBOX_GROWNO)) {
                 if (x->b_flags & EBOX_GROWLINK) {
                     if (x->b_selected_item == EITEM_BOTTOM) {
-                        atom_setfloat(av, x->b_rect_last.width + (mouse.y - x->b_rect_last.height));
+                        atom_setfloat(av, x->b_rect_last.w + (mouse.y - x->b_rect_last.h));
                         atom_setfloat(av + 1, mouse.y);
                     } else if (x->b_selected_item == EITEM_RIGHT) {
                         atom_setfloat(av, mouse.x);
-                        atom_setfloat(av + 1, x->b_rect_last.height + (mouse.x - x->b_rect_last.width));
+                        atom_setfloat(av + 1, x->b_rect_last.h + (mouse.x - x->b_rect_last.w));
                     } else if (x->b_selected_item == EITEM_CORNER) {
                         if (mouse.y > mouse.x) {
                             atom_setfloat(av, mouse.y);
@@ -1058,11 +1058,11 @@ void ebox_mouse_move(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod
                     }
                 } else if (x->b_flags & EBOX_GROWINDI) {
                     if (x->b_selected_item == EITEM_BOTTOM) {
-                        atom_setfloat(av, x->b_rect_last.width);
+                        atom_setfloat(av, x->b_rect_last.w);
                         atom_setfloat(av + 1, mouse.y);
                     } else if (x->b_selected_item == EITEM_RIGHT) {
                         atom_setfloat(av, mouse.x);
-                        atom_setfloat(av + 1, x->b_rect_last.height);
+                        atom_setfloat(av + 1, x->b_rect_last.h);
                     } else if (x->b_selected_item == EITEM_CORNER) {
                         atom_setfloat(av, mouse.x);
                         atom_setfloat(av + 1, mouse.y);
@@ -1104,8 +1104,8 @@ void ebox_mouse_down(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg abs
         } else {
             const float z = x->b_zoom;
             t_rect br = x->b_rect;
-            br.height *= z;
-            br.width *= z;
+            br.h *= z;
+            br.w *= z;
             x->b_rect_last = br;
         }
     }
@@ -1383,7 +1383,8 @@ bool ebox_set_label(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 
             if (ebox_isvisible(x)) {
                 sys_vgui("::ceammc::ui::label_text %s %lx %d {%s}\n",
-                    x->b_canvas_id->s_name, x, (int)x->label_inner, x->b_label->s_name);
+                    x->b_canvas_id->s_name, x, (int)x->label_inner,
+                    ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_label)->s_name);
             }
         }
     } else {
@@ -1548,7 +1549,7 @@ bool ebox_set_presetid(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
     auto x = static_cast<t_ebox*>(z);
     if (argc && argv && atom_gettype(argv) == A_SYMBOL && atom_getsymbol(argv) != s_null) {
-        x->b_objpreset_id = atom_getsymbol(argv);
+        x->b_objpreset_id = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), atom_getsymbol(argv));
     } else {
         x->b_objpreset_id = s_null;
     }
@@ -1650,21 +1651,21 @@ bool ebox_size_set(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
         else if (x->b_flags & EBOX_GROWLINK) {
             if (atom_gettype(argv) == A_FLOAT) {
                 float width = (float)pd_clip_min(atom_getfloat(argv), 4) / x->b_zoom;
-                float height = x->b_rect.height;
-                x->b_rect.height += width - x->b_rect.width;
-                if (x->b_rect.height < 4) {
-                    x->b_rect.width += 4 - height;
-                    x->b_rect.height = 4;
+                float height = x->b_rect.h;
+                x->b_rect.h += width - x->b_rect.w;
+                if (x->b_rect.h < 4) {
+                    x->b_rect.w += 4 - height;
+                    x->b_rect.h = 4;
                 } else {
-                    x->b_rect.width = width;
+                    x->b_rect.w = width;
                 }
             }
 
         } else if (x->b_flags & EBOX_GROWINDI) {
             if (atom_gettype(argv) == A_FLOAT)
-                x->b_rect.width = (float)pd_clip_min(atom_getfloat(argv), 4) / x->b_zoom;
+                x->b_rect.w = (float)pd_clip_min(atom_getfloat(argv), 4) / x->b_zoom;
             if (atom_gettype(argv + 1) == A_FLOAT)
-                x->b_rect.height = (float)pd_clip_min(atom_getfloat(argv + 1), 4) / x->b_zoom;
+                x->b_rect.h = (float)pd_clip_min(atom_getfloat(argv + 1), 4) / x->b_zoom;
         }
     }
 
@@ -1685,7 +1686,7 @@ bool ebox_notify(t_ebox* x, t_symbol* s)
         if (ebox_isvisible(x)) {
             sys_vgui("::ceammc::ui::widget_resize %s %lx %d %d %d\n",
                 x->b_canvas_id->s_name, x,
-                int(x->b_rect.width), int(x->b_rect.height), int(x->b_zoom));
+                int(x->b_rect.w), int(x->b_rect.h), int(x->b_zoom));
 
             canvas_fixlinesfor(x->b_obj.o_canvas, (t_text*)x);
             ebox_update_label_pos(x);
@@ -1986,8 +1987,8 @@ void ebox_get_rect_for_view(t_ebox* x, t_rect* rect)
 {
     rect->x = x->b_rect.x;
     rect->y = x->b_rect.y;
-    rect->width = x->b_rect.width;
-    rect->height = x->b_rect.height;
+    rect->w = x->b_rect.w;
+    rect->h = x->b_rect.h;
 }
 
 t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
@@ -2011,8 +2012,8 @@ t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
                 graphic->e_color = 0;
                 graphic->e_rect.x = 0.f;
                 graphic->e_rect.y = 0.f;
-                graphic->e_rect.height = (float)pd_clip_min(height, 0.);
-                graphic->e_rect.width = (float)pd_clip_min(width, 0.);
+                graphic->e_rect.h = (float)pd_clip_min(height, 0.);
+                graphic->e_rect.w = (float)pd_clip_min(width, 0.);
                 graphic->e_optimize = false;
 
                 graphic->e_objects.clear();
@@ -2045,8 +2046,8 @@ t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
     graphic->e_color = 0;
     graphic->e_rect.x = 0.f;
     graphic->e_rect.y = 0.f;
-    graphic->e_rect.height = (float)pd_clip_min(height, 0.);
-    graphic->e_rect.width = (float)pd_clip_min(width, 0.);
+    graphic->e_rect.h = (float)pd_clip_min(height, 0.);
+    graphic->e_rect.w = (float)pd_clip_min(width, 0.);
 
     graphic->e_name = name;
     sprintf(text, "%s%" PRIdPTR, name->s_name, (intptr_t)x);
@@ -2183,11 +2184,11 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                         g->e_id->s_name, x->b_all_id->s_name);
                 }
 
-                int mode = E_PATH_MOVE;
+                int mode = ceammc::E_PATH_MOVE;
                 for (int j = 0; j < gobj.e_points.size();) {
                     switch ((int)gobj.e_points[j].x) {
-                    case E_PATH_MOVE:
-                        if (mode != E_PATH_MOVE) // output previous
+                    case ceammc::E_PATH_MOVE:
+                        if (mode != ceammc::E_PATH_MOVE) // output previous
                             sys_vgui("%s", bottom);
 
                         sys_vgui("%s", header);
@@ -2195,26 +2196,26 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                             (int)(gobj.e_points[j + 1].x + x_p),
                             (int)(gobj.e_points[j + 1].y + y_p));
                         j += 2;
-                        mode = E_PATH_MOVE;
+                        mode = ceammc::E_PATH_MOVE;
                         break;
-                    case E_PATH_LINE:
+                    case ceammc::E_PATH_LINE:
                         sys_vgui("%d %d ",
                             (int)(gobj.e_points[j + 1].x + x_p),
                             (int)(gobj.e_points[j + 1].y + y_p));
                         j += 2;
-                        mode = E_PATH_LINE;
+                        mode = ceammc::E_PATH_LINE;
                         break;
-                    case E_PATH_CURVE:
+                    case ceammc::E_PATH_CURVE:
                         sys_vgui("%d %d %d %d %d %d ",
                             (int)(gobj.e_points[j + 1].x + x_p), (int)(gobj.e_points[j + 1].y + y_p),
                             (int)(gobj.e_points[j + 2].x + x_p), (int)(gobj.e_points[j + 2].y + y_p),
                             (int)(gobj.e_points[j + 3].x + x_p), (int)(gobj.e_points[j + 3].y + y_p));
                         j += 4;
-                        mode = E_PATH_CURVE;
+                        mode = ceammc::E_PATH_CURVE;
                         break;
-                    case E_PATH_CLOSE:
+                    case ceammc::E_PATH_CLOSE:
                         j += 1;
-                        mode = E_PATH_CLOSE;
+                        mode = ceammc::E_PATH_CLOSE;
                         break;
                     }
                 }
@@ -2240,6 +2241,7 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                     x->b_all_id->s_name);
 
             } else if (gobj.e_type == E_GOBJ_SHAPE) {
+                using namespace ceammc;
                 int type = gobj.e_points[0].x;
                 switch (type) {
                 case E_SHAPE_RECT:
@@ -2278,7 +2280,7 @@ static void ebox_draw_border(t_ebox* x)
 
     sys_vgui("::ceammc::ui::border_draw %s %lx %d %d %d #%6.6x\n",
         x->b_canvas_id->s_name, x,
-        int(x->b_rect.width), int(x->b_rect.height), int(x->b_zoom),
+        int(x->b_rect.w), int(x->b_rect.h), int(x->b_zoom),
         color);
 }
 
@@ -2348,10 +2350,10 @@ static void ebox_draw_iolets(t_ebox* x)
             auto ann_fn = ceammc::ceammc_get_annotation_fn(&obj->te_g.g_pd);
 
             do_draw_inlets(x->b_canvas_id->s_name, obj,
-                x->b_rect.width, x->b_rect.height, x->b_zoom, (x->b_receive_id != s_null), ann_fn);
+                x->b_rect.w, x->b_rect.h, x->b_zoom, (x->b_receive_id != s_null), ann_fn);
 
             do_draw_outlets(x->b_canvas_id->s_name, obj,
-                x->b_rect.width, x->b_rect.height, x->b_zoom, (x->b_send_id != s_null), ann_fn);
+                x->b_rect.w, x->b_rect.h, x->b_zoom, (x->b_send_id != s_null), ann_fn);
         }
     }
 }

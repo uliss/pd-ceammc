@@ -44,8 +44,8 @@ static t_rect black_key_rect(int offset, float black_key_w, float key_h)
 
     ret.x = (offset + (n_number > 4 ? 1 : 0) + 2 * n_octave) * black_key_w + 0.5f * black_key_w - 1;
     ret.y = -1;
-    ret.width = black_key_w;
-    ret.height = key_h * 0.6f;
+    ret.w = black_key_w;
+    ret.h = key_h * 0.6f;
 
     return ret;
 }
@@ -59,8 +59,8 @@ static t_rect white_key_rect(int offset, float black_key_w, float key_h)
 
     ret.x = (offset + (n_number > 4 ? 1 : 0) + 2 * n_octave) * black_key_w - 1;
     ret.y = -1;
-    ret.width = black_key_w * 2;
-    ret.height = key_h + 1;
+    ret.w = black_key_w * 2;
+    ret.h = key_h + 1;
 
     return ret;
 }
@@ -125,11 +125,11 @@ bool UIKeyboard::okSize(t_rect* newrect)
     const float min_length = keyboard_num_white_keys(prop_keys) * MIN_WKEY_WIDTH;
 
     if (prop_vertical) {
-        newrect->width = pd_clip_min(newrect->width, 40.);
-        newrect->height = pd_clip_min(newrect->height, min_length);
+        newrect->w = pd_clip_min(newrect->w, 40.);
+        newrect->h = pd_clip_min(newrect->h, min_length);
     } else {
-        newrect->width = pd_clip_min(newrect->width, min_length);
-        newrect->height = pd_clip_min(newrect->height, 40.);
+        newrect->w = pd_clip_min(newrect->w, min_length);
+        newrect->h = pd_clip_min(newrect->h, 40.);
     }
     return true;
 }
@@ -212,11 +212,11 @@ void UIKeyboard::init(t_symbol* name, const AtomListView& args, bool usePresets)
     const int dim1 = DEFAULT_HEIGHT;
     const int dim2 = keyboard_num_white_keys(prop_keys) * DEFAULT_WKEY_WIDTH;
     if (prop_vertical) {
-        asEBox()->b_rect.width = dim1;
-        asEBox()->b_rect.height = dim2;
+        asEBox()->b_rect.w = dim1;
+        asEBox()->b_rect.h = dim2;
     } else {
-        asEBox()->b_rect.width = dim2;
-        asEBox()->b_rect.height = dim1;
+        asEBox()->b_rect.w = dim2;
+        asEBox()->b_rect.h = dim1;
     }
 
     // check if first argument is not property

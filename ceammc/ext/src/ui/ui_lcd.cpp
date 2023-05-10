@@ -50,16 +50,16 @@ void UILcd::init(t_symbol* name, const AtomListView& args, bool usePresets)
 
 void UILcd::okSize(t_rect* newrect)
 {
-    int xp = std::round(pd_clip_minmax(newrect->width / prop_ncols, MIN_PIXEL_SIZE, MAX_PIXEL_SIZE));
-    int yp = std::round(pd_clip_minmax(newrect->height / prop_nrows, MIN_PIXEL_SIZE, MAX_PIXEL_SIZE));
+    int xp = std::round(pd_clip_minmax(newrect->w / prop_ncols, MIN_PIXEL_SIZE, MAX_PIXEL_SIZE));
+    int yp = std::round(pd_clip_minmax(newrect->h / prop_nrows, MIN_PIXEL_SIZE, MAX_PIXEL_SIZE));
 
     if (prop_nrows < prop_ncols)
         pixel_size = xp;
     else
         pixel_size = yp;
 
-    newrect->width = prop_ncols * pixel_size;
-    newrect->height = prop_nrows * pixel_size;
+    newrect->w = prop_ncols * pixel_size;
+    newrect->h = prop_nrows * pixel_size;
 }
 
 void UILcd::paint()

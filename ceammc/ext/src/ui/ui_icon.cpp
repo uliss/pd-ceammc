@@ -94,12 +94,12 @@ void UIIcon::onPropChange(t_symbol* prop_name)
 void UIIcon::okSize(t_rect* newrect)
 {
     if (isSpecialIcon()) {
-        newrect->width = SPEC_SIZE;
-        newrect->height = SPEC_SIZE;
+        newrect->w = SPEC_SIZE;
+        newrect->h = SPEC_SIZE;
         return;
     }
 
-    float w = (newrect->width);
+    float w = (newrect->w);
 
     int w0 = roundf(w / 6);
     if (w0 == 3 || w0 == 4 || w0 == 6 || w0 == 8) {
@@ -112,8 +112,8 @@ void UIIcon::okSize(t_rect* newrect)
         prop_size = 18;
     }
 
-    newrect->width = prop_size;
-    newrect->height = prop_size;
+    newrect->w = prop_size;
+    newrect->h = prop_size;
 }
 
 void UIIcon::paint()

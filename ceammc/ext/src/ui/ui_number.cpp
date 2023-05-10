@@ -59,12 +59,12 @@ UINumber::UINumber()
 
 void UINumber::okSize(t_rect* newrect)
 {
-    float border_min = std::min<float>(newrect->width, newrect->height);
+    float border_min = std::min<float>(newrect->w, newrect->h);
     border_min = std::max<float>(10, border_min);
-    newrect->height = border_min;
-    newrect->width = pd_clip_min(newrect->width, sys_fontwidth(font_.size()) * 3 + 8);
+    newrect->h = border_min;
+    newrect->w = pd_clip_min(newrect->w, sys_fontwidth(font_.size()) * 3 + 8);
 
-    auto new_val_font_size = font_size_corr(newrect->height);
+    auto new_val_font_size = font_size_corr(newrect->h);
     font_.setSize(new_val_font_size);
 }
 
@@ -89,12 +89,12 @@ void UINumber::drawBackground()
     if (!p)
         return;
 
-    const float width = r.height * 0.4f;
+    const float width = r.h * 0.4f;
     p.setLineWidth(1);
     p.setColor(prop_color_border);
     p.moveTo(0, 0);
-    p.drawLineTo(width, r.height * 0.5f);
-    p.drawLineTo(0, r.height);
+    p.drawLineTo(width, r.h * 0.5f);
+    p.drawLineTo(0, r.h);
     p.stroke();
 }
 
@@ -106,7 +106,7 @@ void UINumber::drawValue()
     if (!p)
         return;
 
-    const float y_off = r.height * 0.5;
+    const float y_off = r.h * 0.5;
     const float x_off = std::max<float>(y_off, 5) + 2;
 
     switch (edit_mode_) {

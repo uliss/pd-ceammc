@@ -98,8 +98,8 @@ public:
 
 private:
     bool parsePercent(const char* methodName, const char* argName, const Atom& a, float* res, float total);
-    float boxW() const { return asEBox()->b_rect.width; }
-    float boxH() const { return asEBox()->b_rect.height; }
+    float boxW() const { return asEBox()->b_rect.w; }
+    float boxH() const { return asEBox()->b_rect.h; }
 };
 
 void setup_ui_canvas();

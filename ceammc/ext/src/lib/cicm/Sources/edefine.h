@@ -19,6 +19,7 @@
 #ifndef DEF_ESTRUCT
 #define DEF_ESTRUCT
 
+#include "ceammc_geom.h"
 #include "ceammc_property_info.h"
 #ifdef _WINDOWS
 #include <io.h>
@@ -30,6 +31,11 @@
 
 struct _class;
 #include "m_pd.h"
+
+using ceammc::t_pt;
+using ceammc::t_rect;
+using ceammc::epath_types;
+
 #include "g_canvas.h"
 extern "C" {
 #include "m_imp.h"
@@ -39,10 +45,10 @@ extern "C" {
 //#include <fcntl.h>
 
 #include <cmath>
+#include <cstdint>
 #include <cstdlib>
 #include <cstring>
 #include <vector>
-#include <cstdint>
 
 #ifdef _MSC_VER
 
@@ -65,7 +71,6 @@ extern "C" {
 //!
 
 struct t_ebox;
-struct t_rect;
 struct t_edrawparams;
 struct t_eattr;
 
@@ -218,94 +223,11 @@ enum egraphics_types : std::int8_t {
     E_GOBJ_SHAPE = 3 /*!< This is a shape. */
 };
 
-/**
- * @enum epath_types
- * @brief The types of path.
- * @details It define all the path type.
- */
-enum epath_types : std::int8_t {
-    E_PATH_MOVE = 0, /*!< This type is move. */
-    E_PATH_LINE = 1, /*!< This type is line. */
-    E_PATH_CURVE = 2, /*!< This type is curve. */
-    E_PATH_CLOSE = 3, /*!< This type is close. */
-    E_PATH_CIRCLE = 4
-};
-
-/**
- * @enum eshape_types
- * @brief The types of shape.
- * @details It define soem of the shape type.
- */
-enum eshape_types : std::int8_t {
-    E_SHAPE_OVAL = 0, /*!< This shape is oval. */
-    E_SHAPE_ARC = 1, /*!< This shape is arc. */
-    E_SHAPE_IMAGE = 2, /*!< This shape is image. */
-    E_SHAPE_RECT = 3 /*!< This shape is rectangle. */
-};
-
 enum eclip_flags : std::int8_t {
     E_CLIP_NONE = 0x0,
     E_CLIP_MIN = 0x1,
     E_CLIP_MAX = 0x2,
     E_CLIP_MINMAX = E_CLIP_MIN & E_CLIP_MAX
-};
-
-/**
- * @struct t_pt
- * @brief A point structure.
- * @details It contains the members x and y for abscissa and ordinate.
- */
-struct t_pt {
-    float x; /*!< The abscissa coordiante. */
-    float y; /*!< The ordiante coordiante. */
-
-    constexpr t_pt()
-        : x(0)
-        , y(0)
-    {
-    }
-
-    constexpr t_pt(epath_types path, float y_)
-        : x(path)
-        , y(y_)
-    {
-    }
-
-    constexpr t_pt(eshape_types shape, float y_)
-        : x(shape)
-        , y(y_)
-    {
-    }
-
-    constexpr t_pt(float x_, float y_)
-        : x(x_)
-        , y(y_)
-    {
-    }
-
-    constexpr t_pt(double x_, double y_)
-        : x(x_)
-        , y(y_)
-    {
-    }
-
-    bool operator==(const t_pt& pt) const { return x == pt.x && y == pt.y; }
-    bool operator!=(const t_pt& pt) const { return !this->operator==(pt); }
-};
-
-/**
- * @struct t_rect
- * @brief A rectangle structure.
- * @details It contains the members x, y, width and height for abscissa and ordinate and size.
- */
-struct t_rect {
-    float x; /*!< The abscissa coordiante. */
-    float y; /*!< The ordiante coordiante. */
-    float width; /*!< The width of the rectangle */
-    float height; /*!< The height of the rectangle */
-
-    bool operator==(const t_rect& r) const { return r.x == x && r.y == y && r.width == width && r.height == height; }
-    bool operator!=(const t_rect& r) const { return !this->operator==(r); }
 };
 
 /**

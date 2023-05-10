@@ -39,8 +39,8 @@ void UINumberTilde::init(t_symbol* name, const AtomListView &args, bool usePrese
 
 void UINumberTilde::okSize(t_rect* newrect)
 {
-    newrect->height = 15;
-    newrect->width = pd_clip_min(newrect->width, sys_fontwidth(fontSizeZoomed()) * 3 + 8);
+    newrect->h = 15;
+    newrect->w = pd_clip_min(newrect->w, sys_fontwidth(fontSizeZoomed()) * 3 + 8);
 }
 
 void UINumberTilde::paint()

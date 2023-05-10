@@ -16,6 +16,7 @@
 
 #include "ceammc_array.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_geom.h"
 #include "ceammc_pd.h"
 
 #include <functional>
@@ -110,18 +111,7 @@ t_symbol* canvas_info_dir(const _glist* c);
  */
 int canvas_info_font(const _glist* c);
 
-struct t_rect {
-    int x, y, w, h;
-    t_rect(int x_, int y_, int w_, int h_)
-        : x(x_)
-        , y(y_)
-        , w(w_)
-        , h(h_)
-    {
-    }
-
-    bool operator==(const t_rect& r) const { return x == r.x && y == r.y && w == r.w && h == r.h; }
-};
+int canvas_info_dollarzero(const _glist* c);
 
 /**
  * Returns canvas rect, for root canvas - windows, for others - GOP

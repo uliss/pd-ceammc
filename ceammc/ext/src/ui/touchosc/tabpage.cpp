@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "tabpage.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 #include <cstdlib>
 

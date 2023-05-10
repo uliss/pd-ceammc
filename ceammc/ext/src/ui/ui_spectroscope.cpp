@@ -83,8 +83,8 @@ void UISpectroscope::init(t_symbol* name, const AtomListView& args, bool usePres
 
 void UISpectroscope::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 30);
-    newrect->height = pd_clip_min(newrect->height, 30);
+    newrect->w = pd_clip_min(newrect->w, 30);
+    newrect->h = pd_clip_min(newrect->h, 30);
 }
 
 void UISpectroscope::onPropChange(t_symbol* prop_name)
@@ -131,32 +131,32 @@ void UISpectroscope::drawBackground()
             for (int j = 1; j < 10; j++) {
                 const float f = i * j;
                 const float lf = log10f(MAX_FREQ / f);
-                const float x = convert::lin2lin<float>(lf, FULL_F_RANGE, 0, 0, r.width);
+                const float x = convert::lin2lin<float>(lf, FULL_F_RANGE, 0, 0, r.w);
 
                 // minimal frequency is special case
                 if (f == MIN_FREQ) {
                     // draw label
-                    y_labels_[0]->set("10", x + 3, r.height - 2, 0, 0);
+                    y_labels_[0]->set("10", x + 3, r.h - 2, 0, 0);
                     p.drawText(*y_labels_[0]);
                     // but skip line
                     continue;
                 }
 
                 p.setColor(j == 1 ? grid_color_main_ : grid_color_thick_);
-                p.drawLine(x, 0, x, r.height);
+                p.drawLine(x, 0, x, r.h);
 
                 if (j == 1) {
                     // draw label
                     char buf[16];
                     sprintf(buf, "%i", int(f));
-                    y_labels_[lbl_idx]->set(buf, x + 3, r.height - 2, 0, 0);
+                    y_labels_[lbl_idx]->set(buf, x + 3, r.h - 2, 0, 0);
                     p.drawText(*y_labels_[lbl_idx]);
                 }
             }
         }
     } else {
         const int MAX_FREQ = samplerate() / 2;
-        const int GRID_STEP_FREQ = roundGridFreq(MAX_FREQ / (r.width / 8));
+        const int GRID_STEP_FREQ = roundGridFreq(MAX_FREQ / (r.w / 8));
         const int MAIN_GRID_STEP = (GRID_STEP_FREQ < 500) ? 1000 : 5000;
 
         // draw thick lines
@@ -166,16 +166,16 @@ void UISpectroscope::drawBackground()
             if (f % MAIN_GRID_STEP == 0)
                 continue;
 
-            float x = convert::lin2lin<float>(f, 0, MAX_FREQ, 0, r.width);
-            p.drawLine(x, 0, x, r.height);
+            float x = convert::lin2lin<float>(f, 0, MAX_FREQ, 0, r.w);
+            p.drawLine(x, 0, x, r.h);
         }
 
         // draw fat lines and labels
         p.setColor(grid_color_main_);
         for (int f = MAIN_GRID_STEP; f < MAX_FREQ; f += MAIN_GRID_STEP) {
 
-            float x = convert::lin2lin<float>(f, 0, MAX_FREQ, 0, r.width);
-            p.drawLine(x, 0, x, r.height);
+            float x = convert::lin2lin<float>(f, 0, MAX_FREQ, 0, r.w);
+            p.drawLine(x, 0, x, r.h);
 
             // calc label index
             size_t idx = f / MAIN_GRID_STEP;
@@ -185,7 +185,7 @@ void UISpectroscope::drawBackground()
             // draw label
             char buf[16];
             sprintf(buf, "%ik", f / 1000);
-            y_labels_[idx]->set(buf, x + 3, r.height - 2, 0, 0);
+            y_labels_[idx]->set(buf, x + 3, r.h - 2, 0, 0);
             p.drawText(*y_labels_[idx]);
         }
     }
@@ -227,29 +227,29 @@ void UISpectroscope::drawGraphLinear(UIPainter& p)
     int outside_counter = 0;
 
     p.setColor(prop_color_active);
-    p.moveTo(0, r.height);
-    const size_t x_step = std::max<size_t>(1, N_BINS / r.width);
+    p.moveTo(0, r.h);
+    const size_t x_step = std::max<size_t>(1, N_BINS / r.w);
 
     for (size_t i = 0; i < N_BINS; i += x_step) {
         if (i + x_step >= N_BINS)
             break;
 
         float* element = &spectre_[i];
-        float x = convert::lin2lin<float>(i, 0, N_BINS, 0, r.width);
+        float x = convert::lin2lin<float>(i, 0, N_BINS, 0, r.w);
         float v = *std::max_element(element, element + x_step);
-        float y = convert::lin2lin<float>(v, 0, -float(DB_SCALE_RANGE), 0, r.height);
+        float y = convert::lin2lin<float>(v, 0, -float(DB_SCALE_RANGE), 0, r.h);
 
         // outside
-        if (y > r.height) {
+        if (y > r.h) {
             outside_counter++;
             // first time
             if (outside_counter == 1) {
-                p.drawLineTo(x, r.height);
+                p.drawLineTo(x, r.h);
             }
         } else {
             if (outside_counter > 0) {
                 outside_counter = 0;
-                p.drawLineTo(x, r.height);
+                p.drawLineTo(x, r.h);
             }
         }
 
@@ -278,13 +278,13 @@ void UISpectroscope::drawGraphLog(UIPainter& p)
     const float FULL_FREQ_RANGE = log10f(MAX_FREQ / MIN_FREQ);
 
     p.setColor(prop_color_active);
-    p.moveTo(0, r.height);
+    p.moveTo(0, r.h);
 
     int prev_bin = -1;
     int out_of_range_counter = 0;
-    for (int x = 0; x < r.width; x++) {
+    for (int x = 0; x < r.w; x++) {
         // pixel->pixel_freq
-        float f = convert::lin2lin<float>(x, 0, r.width, FULL_FREQ_RANGE, 0);
+        float f = convert::lin2lin<float>(x, 0, r.w, FULL_FREQ_RANGE, 0);
         const float pix_freq = MAX_FREQ / pow10f(f);
         // pixel_freq->#n_bin
         float f_bin = pix_freq / k;
@@ -298,15 +298,15 @@ void UISpectroscope::drawGraphLog(UIPainter& p)
             // not exact precision but seems to be enough
             const size_t next_bin = std::min<size_t>(N_BINS, i_bin + i_bin - prev_bin);
             float v = *std::max_element(&spectre_[i_bin], &spectre_[next_bin]);
-            float y = convert::lin2lin<float>(v, 0, -float(DB_SCALE_RANGE), 0, r.height);
+            float y = convert::lin2lin<float>(v, 0, -float(DB_SCALE_RANGE), 0, r.h);
 
-            if (y > r.height) {
+            if (y > r.h) {
                 out_of_range_counter++;
 
                 // first time is out of range
                 if (out_of_range_counter == 1) {
                     // draw to bottom
-                    p.drawLineTo(x, r.height);
+                    p.drawLineTo(x, r.h);
                 } else {
                     // do nothing
                 }
@@ -316,7 +316,7 @@ void UISpectroscope::drawGraphLog(UIPainter& p)
                     out_of_range_counter = 0;
 
                     // draw to point
-                    p.drawLineTo(x, r.height);
+                    p.drawLineTo(x, r.h);
                 }
 
                 p.drawLineTo(x, y);
@@ -335,12 +335,12 @@ void UISpectroscope::drawHGrid(UIPainter& p)
     const t_rect r = rect();
 
     // draw horizontal lines
-    int v_step = roundf(r.height / DB_SCALE_N);
+    int v_step = roundf(r.h / DB_SCALE_N);
     int db_step = (v_step < 20) ? ((20 / v_step) + 1) * v_step : v_step;
 
     p.setColor(grid_color_main_);
-    for (int y = v_step; y < r.height; y += v_step) {
-        p.drawLine(0, y, r.width, y);
+    for (int y = v_step; y < r.h; y += v_step) {
+        p.drawLine(0, y, r.w, y);
 
         if (y % db_step == 0) {
             size_t idx = y / v_step;
@@ -349,19 +349,19 @@ void UISpectroscope::drawHGrid(UIPainter& p)
                 continue;
 
             // skip last-1 label if too low height
-            if ((idx == DB_SCALE_N - 1) && r.height < 160)
+            if ((idx == DB_SCALE_N - 1) && r.h < 160)
                 continue;
 
             // draw label
             char buf[16];
             sprintf(buf, "%i", int(-idx * DB_SCALE_STEP));
-            x_labels_[idx]->set(buf, r.width - 2, y + 1, 0, 0);
+            x_labels_[idx]->set(buf, r.w - 2, y + 1, 0, 0);
             p.drawText(*x_labels_[idx]);
         }
     }
 
     // draw 0db
-    x_labels_[0]->set("0 db", r.width - 2, 2, 0, 0);
+    x_labels_[0]->set("0 db", r.w - 2, 2, 0, 0);
     p.drawText(*x_labels_[0]);
 }
 

@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ui_label.h"
 #include "test_ui.h"
+#include "ui_label.h"
 
 UI_COMPLETE_TEST_SETUP(Label)
 
@@ -108,5 +108,14 @@ TEST_CASE("ui.label", "[ui.label]")
 
         // but @text property is not changed
         REQUIRE_UI_LIST_PROPERTY(t, "text", LA("A", "test"));
+    }
+
+    SECTION("$0")
+    {
+        char buf[64];
+        sprintf(buf, "text: %d", canvas_info_dollarzero(canvas_getcurrent()));
+        TestExtLabel t("ui.label", LA("text: #0"));
+        REQUIRE(t->text() == buf);
+        REQUIRE_UI_LIST_PROPERTY(t, "text", LA("text: #0"));
     }
 }

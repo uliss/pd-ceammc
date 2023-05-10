@@ -32,7 +32,7 @@ void UISlider::init(t_symbol* name, const AtomListView& args, bool usePresets)
     UISingleValue::init(name, args, usePresets);
     if (name == gensym("ui.hsl")) {
         is_horizontal_ = true;
-        std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
+        std::swap(asEBox()->b_rect.w, asEBox()->b_rect.h);
     }
 }
 
@@ -45,13 +45,13 @@ void UISlider::paint()
         kp.setLineWidth(2 * zoom());
 
         if (is_horizontal_) { // horizontal
-            float x = knobPhase() * (r.width - 1);
-            kp.drawLine(x, 0, x, r.height);
+            float x = knobPhase() * (r.w - 1);
+            kp.drawLine(x, 0, x, r.h);
 
             if (prop_active_scale) {
                 kp.setLineWidth(0);
                 kp.setColor(rgba_color_sum(&prop_color_background, &prop_knob_color, ALPHA_BLEND));
-                kp.drawRect(0, 0, x, r.height - 1);
+                kp.drawRect(0, 0, x, r.h - 1);
                 kp.fill();
             }
 
@@ -79,13 +79,13 @@ void UISlider::paint()
                 kp.drawText(txt_value_);
             }
         } else {
-            float y = (1.0 - knobPhase()) * (r.height - 1);
-            kp.drawLine(0, y, r.width, y);
+            float y = (1.0 - knobPhase()) * (r.h - 1);
+            kp.drawLine(0, y, r.w, y);
 
             if (prop_active_scale) {
                 kp.setLineWidth(0);
                 kp.setColor(rgba_color_sum(&prop_color_background, &prop_knob_color, ALPHA_BLEND));
-                kp.drawRect(0, y, r.width - 1, r.height * knobPhase());
+                kp.drawRect(0, y, r.w - 1, r.h * knobPhase());
                 kp.fill();
             }
         }
@@ -94,15 +94,15 @@ void UISlider::paint()
 
 void UISlider::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 8.);
-    newrect->height = pd_clip_min(newrect->height, 8.);
+    newrect->w = pd_clip_min(newrect->w, 8.);
+    newrect->h = pd_clip_min(newrect->h, 8.);
 
-    is_horizontal_ = (newrect->width > newrect->height);
+    is_horizontal_ = (newrect->w > newrect->h);
 
     if (is_horizontal_)
-        newrect->width = pd_clip_min(newrect->width, 50.);
+        newrect->w = pd_clip_min(newrect->w, 50.);
     else
-        newrect->height = pd_clip_min(newrect->height, 50.);
+        newrect->h = pd_clip_min(newrect->h, 50.);
 }
 
 void UISlider::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long modifiers)
@@ -160,9 +160,9 @@ t_float UISlider::calcValueAtMousePos(const t_pt& pt) const
     std::tuple<t_float, t_float, t_float> args;
 
     if (is_horizontal_)
-        args = { pt.x, 0, r.width };
+        args = { pt.x, 0, r.w };
     else
-        args = { pt.y, r.height, 0 };
+        args = { pt.y, r.h, 0 };
 
     switch (scaleMode()) {
     case LINEAR:

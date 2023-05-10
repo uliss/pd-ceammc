@@ -49,21 +49,21 @@ void UIMeter::init(t_symbol* name, const AtomListView& args, bool usePresets)
 
     if (name == SYM_HMETER) {
         is_horizontal_ = true;
-        std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
+        std::swap(asEBox()->b_rect.w, asEBox()->b_rect.h);
     }
 }
 
 void UIMeter::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 8.);
-    newrect->height = pd_clip_min(newrect->height, 8.);
+    newrect->w = pd_clip_min(newrect->w, 8.);
+    newrect->h = pd_clip_min(newrect->h, 8.);
 
-    is_horizontal_ = newrect->width > newrect->height;
+    is_horizontal_ = newrect->w > newrect->h;
 
     if (is_horizontal_)
-        newrect->width = pd_clip_min(newrect->width, 50.);
+        newrect->w = pd_clip_min(newrect->w, 50.);
     else
-        newrect->height = pd_clip_min(newrect->height, 50.);
+        newrect->h = pd_clip_min(newrect->h, 50.);
 }
 
 void UIMeter::paint()

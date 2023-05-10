@@ -17,6 +17,17 @@
 
 UI_COMPLETE_TEST_SETUP(Bang)
 
+extern "C" int canvas_getdollarzero(void);
+static char BUFFER[MAXPDSTRING];
+t_symbol* print_sym(const char* fmt, ...)
+{
+    va_list ap;
+    va_start(ap, fmt);
+    vsnprintf(BUFFER, sizeof(BUFFER), fmt, ap);
+    va_end(ap);
+    return gensym(BUFFER);
+}
+
 TEST_CASE("ui.bang", "[ui.bang]")
 {
     ui_test_init();
@@ -140,5 +151,32 @@ TEST_CASE("ui.bang", "[ui.bang]")
 
         pd_bang(gensym("r3")->s_thing);
         REQUIRE_OUTPUT_BANG(t, 0);
+    }
+
+    SECTION("$0 test")
+    {
+        SECTION("receive")
+        {
+            TestExtBang t("ui.bang", LA("@receive", "#0-r", "@send", "#0-s"));
+            REQUIRE_UI_LIST_PROPERTY(t, "receive", LA("#0-r"));
+            REQUIRE_UI_LIST_PROPERTY(t, "send", LA("#0-s"));
+
+            REQUIRE(gensym("#0-r")->s_thing == nullptr);
+            REQUIRE(print_sym("%d-r", canvas_getdollarzero())->s_thing == t->asPd());
+
+            auto send_sym = print_sym("%d-s", canvas_getdollarzero());
+            REQUIRE(send_sym->s_thing == nullptr);
+            t.addListener(print_sym("%d-s", canvas_getdollarzero()));
+            REQUIRE(send_sym->s_thing == ebox_getsender(t->asEBox()));
+        }
+
+        auto send_sym = print_sym("%d-s", canvas_getdollarzero());
+        REQUIRE(send_sym->s_thing == nullptr);
+
+        SECTION("@label")
+        {
+            TestExtBang t("ui.bang", LA("@label", "label: #0"));
+            REQUIRE_UI_LIST_PROPERTY(t, "label", LA("label: #0"));
+        }
     }
 }

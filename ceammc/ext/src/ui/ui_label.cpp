@@ -13,13 +13,14 @@
  *****************************************************************************/
 #include "ui_label.h"
 #include "ceammc_abstractdata.h"
+#include "ceammc_canvas.h"
 #include "ceammc_containers.h"
 #include "ceammc_crc32.h"
 #include "ceammc_format.h"
 #include "ceammc_string.h"
 #include "ceammc_ui.h"
 
-CEAMMC_DEFINE_HASH(left)
+CEAMMC_DEFINE_SYM_HASH(left)
 CEAMMC_DEFINE_HASH(right)
 CEAMMC_DEFINE_HASH(center)
 CEAMMC_DEFINE_SYM_HASH(text)
@@ -39,14 +40,14 @@ UILabel::UILabel()
     , prop_margin_left(5)
     , prop_margin_bottom(5)
     , prop_margin_right(5)
-    , prop_align(gensym("left"))
+    , prop_align(sym_left())
 {
 }
 
 void UILabel::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 20);
-    newrect->height = pd_clip_min(newrect->height, 20);
+    newrect->w = pd_clip_min(newrect->w, 20);
+    newrect->h = pd_clip_min(newrect->h, 20);
 }
 
 void UILabel::paint()
@@ -61,8 +62,6 @@ void UILabel::paint()
         float h = height() - (prop_margin_top + prop_margin_bottom);
 
         const char* TXT = text_str_.c_str();
-        if (strchr(TXT, '#'))
-            TXT = ceammc_realizeraute(canvas(), gensym(TXT))->s_name;
 
         auto prop_hash = crc32_hash(prop_align);
 
@@ -152,6 +151,7 @@ void UILabel::m_append(const AtomListView& lv)
 
     text_str_ += ' ';
     text_str_ += s;
+    updateDollarRaute();
     redrawBGLayer();
 }
 
@@ -162,6 +162,7 @@ void UILabel::m_prepend(const AtomListView& lv)
         return;
 
     text_str_ = s + " " + text_str_;
+    updateDollarRaute();
     redrawBGLayer();
 }
 
@@ -208,6 +209,18 @@ void UILabel::setup()
     obj.addMethod("prepend", &UILabel::m_prepend);
 }
 
+void UILabel::updateDollarRaute()
+{
+    if (text_str_.find('#') != std::string::npos) {
+        for (auto& c : text_str_) {
+            if (c == '#')
+                c = '$';
+        }
+
+        text_str_ = canvas_realizedollar(canvas(), gensym(text_str_.c_str()))->s_name;
+    }
+}
+
 AtomList UILabel::propGetText() const
 {
     return prop_text;
@@ -215,8 +228,9 @@ AtomList UILabel::propGetText() const
 
 void UILabel::propSetText(const AtomListView& lv)
 {
-    text_str_ = to_string(lv, " ");
     prop_text = lv;
+    text_str_ = to_string(lv, " ");
+    updateDollarRaute();
 }
 
 const std::string& UILabel::text() const

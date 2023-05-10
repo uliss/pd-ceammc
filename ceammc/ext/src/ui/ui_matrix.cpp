@@ -106,8 +106,8 @@ void UIMatrix::init(t_symbol* name, const AtomListView& args, bool usePresets)
         prop_rows_ = clip<int>(row, 1, UI_MAX_MATRIX_SIZE);
         int cell_wd = std::max<int>(prop_cols_, prop_rows_) > 8 ? 7 : 10;
 
-        asEBox()->b_rect.width = prop_cols_ * (cell_wd + 2);
-        asEBox()->b_rect.height = prop_rows_ * (cell_wd + 2);
+        asEBox()->b_rect.w = prop_cols_ * (cell_wd + 2);
+        asEBox()->b_rect.h = prop_rows_ * (cell_wd + 2);
     }
 }
 
@@ -269,17 +269,17 @@ void UIMatrix::flipAll()
 void UIMatrix::okSize(t_rect* newrect)
 {
     if (!isPatchLoading()) {
-        newrect->width = pd_clip_min(newrect->width, prop_cols_ * 6);
-        newrect->height = pd_clip_min(newrect->height, prop_rows_ * 6);
+        newrect->w = pd_clip_min(newrect->w, prop_cols_ * 6);
+        newrect->h = pd_clip_min(newrect->h, prop_rows_ * 6);
 
-        float cell_w = std::floor(newrect->width / prop_cols_);
-        float cell_h = std::floor(newrect->height / prop_rows_);
+        float cell_w = std::floor(newrect->w / prop_cols_);
+        float cell_h = std::floor(newrect->h / prop_rows_);
 
-        newrect->width = cell_w * prop_cols_;
-        newrect->height = cell_h * prop_rows_;
+        newrect->w = cell_w * prop_cols_;
+        newrect->h = cell_h * prop_rows_;
     } else {
-        newrect->width = pd_clip_min(newrect->width, 30);
-        newrect->height = pd_clip_min(newrect->height, 30);
+        newrect->w = pd_clip_min(newrect->w, 30);
+        newrect->h = pd_clip_min(newrect->h, 30);
     }
 }
 
@@ -405,14 +405,14 @@ void UIMatrix::paint()
         if (current_col_ >= 0 && current_col_ < prop_cols_) {
             p.setColor(cc);
             p.setLineWidth(3);
-            p.drawRect(current_col_ * cell_w, 0, cell_w, r.height);
+            p.drawRect(current_col_ * cell_w, 0, cell_w, r.h);
             p.stroke();
         }
 
         if (current_row_ >= 0 && current_row_ < prop_rows_) {
             p.setColor(cc);
             p.setLineWidth(1);
-            p.drawRect(0, current_row_ * cell_h, r.width, cell_h);
+            p.drawRect(0, current_row_ * cell_h, r.w, cell_h);
             p.stroke();
         }
     }

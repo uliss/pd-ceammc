@@ -145,7 +145,7 @@ void eclass_guiinit(t_eclass* c, long /*flags*/)
     c->c_box = 1;
 
     // DEFAULT ATTRIBUTES //
-    CLASS_ATTR_FLOAT_ARRAY(c, "size", t_ebox, b_rect.width, 2);
+    CLASS_ATTR_FLOAT_ARRAY(c, "size", t_ebox, b_rect.w, 2);
     CLASS_ATTR_SYMBOL(c, "fontname", t_ebox, b_font.c_family);
     CLASS_ATTR_SYMBOL(c, "fontweight", t_ebox, b_font.c_weight);
     CLASS_ATTR_SYMBOL(c, "fontslant", t_ebox, b_font.c_slant);

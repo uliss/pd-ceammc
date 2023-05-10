@@ -541,4 +541,17 @@ bool canvas_info_is_dirty(const _glist* c)
 {
     return c == nullptr ? false : c->gl_dirty;
 }
+
+int canvas_info_dollarzero(const _glist* c)
+{
+    if (!c)
+        return 0;
+
+    auto env = canvas_getenv(c);
+    if (!env)
+        return 0;
+
+    return env->ce_dollarzero;
+}
+
 }

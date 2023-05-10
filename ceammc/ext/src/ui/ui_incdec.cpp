@@ -26,8 +26,8 @@ UIIncDec::UIIncDec()
 
 void UIIncDec::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 15.);
-    newrect->height = pd_clip_min(newrect->height, 15.);
+    newrect->w = pd_clip_min(newrect->w, 15.);
+    newrect->h = pd_clip_min(newrect->h, 15.);
 }
 
 void UIIncDec::paint()
@@ -38,24 +38,24 @@ void UIIncDec::paint()
     if (!p)
         return;
 
-    const float arrow_height = roundf(r.height / 2.f);
+    const float arrow_height = roundf(r.h / 2.f);
 
     // Background
     p.setColor(prop_color_arrow);
 
     if (mouse_down_ == 1)
-        p.drawRect(0, 0, r.width, arrow_height);
+        p.drawRect(0, 0, r.w, arrow_height);
     else if (mouse_down_ == -1)
-        p.drawRect(0, arrow_height, r.width, arrow_height);
+        p.drawRect(0, arrow_height, r.w, arrow_height);
 
     p.fill();
 
     // Arrow Up //
     p.setColor(mouse_down_ == 1 ? prop_color_background : prop_color_arrow);
 
-    const int arrow_p0_x = static_cast<int>(roundf(pd_clip_min(r.width * 0.2f, 2)));
-    const int arrow_p1_x = r.width - arrow_p0_x;
-    const int arrow_p2_x = static_cast<int>(roundf(r.width * 0.5f));
+    const int arrow_p0_x = static_cast<int>(roundf(pd_clip_min(r.w * 0.2f, 2)));
+    const int arrow_p1_x = r.w - arrow_p0_x;
+    const int arrow_p2_x = static_cast<int>(roundf(r.w * 0.5f));
 
     const int arrow_p0_y = static_cast<int>(roundf(pd_clip_min(arrow_height * 0.2f, 2)));
     const int arrow_p1_y = arrow_p0_y;
@@ -79,7 +79,7 @@ void UIIncDec::paint()
     // Middle Line //
     p.setColor(prop_color_border);
     p.setLineWidth(1);
-    p.drawLine(0, arrow_height, r.width, arrow_height);
+    p.drawLine(0, arrow_height, r.w, arrow_height);
 }
 
 void UIIncDec::onBang()

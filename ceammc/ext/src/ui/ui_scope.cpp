@@ -55,8 +55,8 @@ UIScope::UIScope()
 
 void UIScope::okSize(t_rect* newrect)
 {
-    newrect->height = pd_clip_min(newrect->height, 40);
-    newrect->width = pd_clip_min(newrect->width, 40);
+    newrect->h = pd_clip_min(newrect->h, 40);
+    newrect->w = pd_clip_min(newrect->w, 40);
 }
 
 void UIScope::onPropChange(t_symbol* prop_name)
@@ -89,19 +89,19 @@ void UIScope::paintBackground()
     p.drawText(txt4_);
 
     // middle label
-    if (r.height > 70)
+    if (r.h > 70)
         p.drawText(txt2_);
 
-    if (r.height > 140) {
+    if (r.h > 140) {
         p.drawText(txt1_);
         p.drawText(txt3_);
     }
 
     // draw guide lines
     p.setColor(prop_color_border);
-    p.drawLine(0, r.height * 0.25, r.width, r.height * 0.25);
-    p.drawLine(0, r.height * 0.5, r.width, r.height * 0.5);
-    p.drawLine(0, r.height * 0.75, r.width, r.height * 0.75);
+    p.drawLine(0, r.h * 0.25, r.w, r.h * 0.25);
+    p.drawLine(0, r.h * 0.5, r.w, r.h * 0.5);
+    p.drawLine(0, r.h * 0.75, r.w, r.h * 0.75);
 }
 
 void UIScope::paintScope()
@@ -121,11 +121,11 @@ void UIScope::paintScope()
     p.setColor(prop_color_active);
     p.setLineWidth(1);
 
-    p.moveTo(0, convert::lin2lin<float>(data_[0], prop_min, prop_max, r.height, 0));
+    p.moveTo(0, convert::lin2lin<float>(data_[0], prop_min, prop_max, r.h, 0));
     const size_t N = data_.size();
     for (size_t i = 1; i < N; i++) {
-        float y = convert::lin2lin<float>(data_[i], prop_min, prop_max, r.height, 0);
-        p.drawLineTo(roundf(float(i) / N * r.width), y);
+        float y = convert::lin2lin<float>(data_[i], prop_min, prop_max, r.h, 0);
+        p.drawLineTo(roundf(float(i) / N * r.w), y);
     }
 
     p.stroke();

@@ -153,21 +153,21 @@ void UITextLayout::setPos(float x, float y)
 void UITextLayout::setWidth(float w)
 {
     w_ = w;
-    text_->c_rect.width = w;
+    text_->c_rect.w = w;
 }
 
 void UITextLayout::setHeight(float h)
 {
     h_ = h;
-    text_->c_rect.height = h;
+    text_->c_rect.h = h;
 }
 
 void UITextLayout::setSize(float w, float h)
 {
     w_ = w;
     h_ = h;
-    text_->c_rect.width = w;
-    text_->c_rect.height = h;
+    text_->c_rect.w = w;
+    text_->c_rect.h = h;
 }
 
 void UITextLayout::setJustify(etextjustify_flags j)
@@ -253,7 +253,7 @@ bool contains_point(const t_rect& r, const t_pt& pt)
 {
     const float dx = pt.x - r.x;
     const float dy = pt.y - r.y;
-    return dx >= 0 && dy >= 0 && dx <= r.width && dy <= r.height;
+    return dx >= 0 && dy >= 0 && dx <= r.w && dy <= r.h;
 }
 
 UIPainter::UIPainter(t_ebox* box, t_symbol* name, const t_rect& brect)
@@ -261,7 +261,7 @@ UIPainter::UIPainter(t_ebox* box, t_symbol* name, const t_rect& brect)
     , name_(name)
     , layer_(0)
 {
-    layer_ = ebox_start_layer(parent_, name_, brect.width, brect.height);
+    layer_ = ebox_start_layer(parent_, name_, brect.w, brect.h);
 }
 
 UIPainter::~UIPainter()
@@ -297,7 +297,7 @@ void UIPainter::drawRect(float x, float y, float w, float h)
 
 void UIPainter::drawRect(const t_rect& r)
 {
-    egraphics_rectangle(layer_, r.x, r.y, r.width, r.height);
+    egraphics_rectangle(layer_, r.x, r.y, r.w, r.h);
 }
 
 void UIPainter::drawCircle(float x, float y, float r)
@@ -347,8 +347,8 @@ void UIPainter::closePath()
 
 void UIPainter::fillLayer(const t_rgba& color)
 {
-    float w = layer_->e_rect.width;
-    float h = layer_->e_rect.height;
+    float w = layer_->e_rect.w;
+    float h = layer_->e_rect.h;
 
     setColor(color);
     drawRect(0, 0, w, h);

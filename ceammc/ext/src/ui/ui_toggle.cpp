@@ -66,8 +66,8 @@ void UIToggle::output()
 
 void UIToggle::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 8);
-    newrect->height = pd_clip_min(newrect->height, 8);
+    newrect->w = pd_clip_min(newrect->w, 8);
+    newrect->h = pd_clip_min(newrect->h, 8);
 }
 
 void UIToggle::paint()

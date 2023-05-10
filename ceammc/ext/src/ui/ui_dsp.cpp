@@ -21,8 +21,8 @@ void UIDsp::init(t_symbol* name, const AtomListView& args, bool)
 
 bool UIDsp::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 30);
-    newrect->height = pd_clip_min(newrect->height, 30);
+    newrect->w = pd_clip_min(newrect->w, 30);
+    newrect->h = pd_clip_min(newrect->h, 30);
     return true;
 }
 

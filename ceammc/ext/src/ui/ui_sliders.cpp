@@ -91,15 +91,15 @@ void UISliders::init(t_symbol* name, const AtomListView& args, bool usePresets)
     }
 
     if (name == gensym(SYM_VSLIDERS))
-        std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
+        std::swap(asEBox()->b_rect.w, asEBox()->b_rect.h);
 }
 
 void UISliders::okSize(t_rect* newrect)
 {
-    is_vertical_ = newrect->width < newrect->height;
+    is_vertical_ = newrect->w < newrect->h;
 
-    newrect->width = std::max(20.f, newrect->width);
-    newrect->height = std::max(20.f, newrect->height);
+    newrect->w = std::max(20.f, newrect->w);
+    newrect->h = std::max(20.f, newrect->h);
 }
 
 void UISliders::paint()
@@ -233,14 +233,14 @@ void UISliders::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, 
         if (pt.y < 0)
             return;
 
-        idx = clip<size_t>(floorf(pt.y / r.height * N), 0, N - 1);
-        val = clip01<t_float>(pt.x / r.width);
+        idx = clip<size_t>(floorf(pt.y / r.h * N), 0, N - 1);
+        val = clip01<t_float>(pt.x / r.w);
     } else {
         if (pt.x < 0)
             return;
 
-        idx = clip<size_t>(floorf(pt.x / r.width * N), 0, N - 1);
-        val = clip01<t_float>(1.f - pt.y / r.height);
+        idx = clip<size_t>(floorf(pt.x / r.w * N), 0, N - 1);
+        val = clip01<t_float>(1.f - pt.y / r.h);
     }
 
     pos_values_[idx] = val;
@@ -284,14 +284,14 @@ std::pair<t_float*, t_float> UISliders::sliderPosValueAt(const t_pt& pt)
         if (pt.y < 0)
             return { nullptr, 0 };
 
-        const auto idx = clip<size_t>(floorf(pt.y / r.height * N), 0, N - 1);
-        return { &pos_values_[idx], clip01<t_float>(pt.x / r.width) };
+        const auto idx = clip<size_t>(floorf(pt.y / r.h * N), 0, N - 1);
+        return { &pos_values_[idx], clip01<t_float>(pt.x / r.w) };
     } else {
         if (pt.x < 0)
             return { nullptr, 0 };
 
-        const auto idx = clip<size_t>(floorf(pt.x / r.width * N), 0, N - 1);
-        return { &pos_values_[idx], clip01<t_float>(1.f - pt.y / r.height) };
+        const auto idx = clip<size_t>(floorf(pt.x / r.w * N), 0, N - 1);
+        return { &pos_values_[idx], clip01<t_float>(1.f - pt.y / r.h) };
     }
 }
 

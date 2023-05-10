@@ -42,8 +42,8 @@ void UIPreset::init(t_symbol* name, const AtomListView& args, bool usePresets)
 
 void UIPreset::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 15.);
-    newrect->height = pd_clip_min(newrect->height, 15.);
+    newrect->w = pd_clip_min(newrect->w, 15.);
+    newrect->h = pd_clip_min(newrect->h, 15.);
 }
 
 void UIPreset::paint()
@@ -80,7 +80,7 @@ void UIPreset::paint()
     t_rgba color;
 
     for (int i = 0; i < presets_.size(); i++) {
-        if (btn_y + button_size_ * 0.25 >= r.height)
+        if (btn_y + button_size_ * 0.25 >= r.h)
             break;
 
         if (presets_[i]) {
@@ -107,7 +107,7 @@ void UIPreset::paint()
         p.drawText(*numbers_[i]);
 
         btn_x += button_size_;
-        if (btn_x + button_size_ * 0.25 > r.width) {
+        if (btn_x + button_size_ * 0.25 > r.w) {
             // start next row
             btn_x = button_size_ / 2;
             btn_y += button_size_;

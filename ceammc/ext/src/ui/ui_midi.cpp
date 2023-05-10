@@ -58,8 +58,8 @@ void UIMidi::init(t_symbol* name, const AtomListView& args, bool usePresets)
 
 void UIMidi::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 100);
-    newrect->height = pd_clip_min(newrect->height, 10);
+    newrect->w = pd_clip_min(newrect->w, 100);
+    newrect->h = pd_clip_min(newrect->h, 10);
 }
 
 void UIMidi::paint()
@@ -78,7 +78,7 @@ void UIMidi::paint()
     lbl_wd += 12;
 #endif
 
-    p.drawRect(-1, -1, lbl_wd, r.height + 1);
+    p.drawRect(-1, -1, lbl_wd, r.h + 1);
     p.setColor(prop_active_color);
     p.fillPreserve();
     p.setColor(prop_color_border);
@@ -86,14 +86,14 @@ void UIMidi::paint()
     p.stroke();
 
     txt_type_.set(msg_type_,
-        2, r.height / 2,
-        r.width, r.height);
+        2, r.h / 2,
+        r.w, r.h);
     txt_type_.setColor(prop_text_color);
     p.drawText(txt_type_);
 
     txt_body_.set(msg_body_,
-        lbl_wd + 2, r.height / 2,
-        r.width, r.height);
+        lbl_wd + 2, r.h / 2,
+        r.w, r.h);
     txt_body_.setColor(prop_text_color);
     p.drawText(txt_body_);
 }

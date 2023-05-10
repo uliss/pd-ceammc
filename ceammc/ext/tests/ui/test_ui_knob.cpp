@@ -93,8 +93,8 @@ TEST_CASE("ui.knob", "[ui.knob]")
         REQUIRE(t->x() == 0.);
         REQUIRE(t->y() == 0.);
         ::t_rect r = t->rect();
-        REQUIRE(r.height == 40);
-        REQUIRE(r.width == 40);
+        REQUIRE(r.h == 40);
+        REQUIRE(r.w == 40);
         REQUIRE(r.x == 0.);
         REQUIRE(r.y == 0.);
 
