@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2020 Serge Poltavsky. All rights reserved.
+ * Copyright 2023 Serge Poltavski. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,37 +11,32 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef FLOW_APPEND_H
-#define FLOW_APPEND_H
+#ifndef FLOW_PREPEND_H
+#define FLOW_PREPEND_H
 
-#include "ceammc_clock.h"
 #include "ceammc_object.h"
 #include "ceammc_proxy.h"
-
 using namespace ceammc;
 
-class FlowAppend : public BaseObject {
-    FloatProperty* delay_ { 0 };
-    ClockLambdaFunction delay_fn_;
+class FlowPrepend : public BaseObject {
     Message msg_;
-    InletProxy<FlowAppend> inlet2_;
+    InletProxy<FlowPrepend> inlet2_;
 
 public:
-    FlowAppend(const PdArgs& args);
+    FlowPrepend(const PdArgs& args);
 
-    void onBang() override;
-    void onFloat(t_float v) override;
-    void onSymbol(t_symbol* s) override;
-    void onList(const AtomListView& lv) override;
-    void onAny(t_symbol* s, const AtomListView& lv) override;
+    void onBang() final;
+    void onFloat(t_float v) final;
+    void onSymbol(t_symbol* s) final;
+    void onList(const AtomListView& lv) final;
+    void onAny(t_symbol* s, const AtomListView& lv) final;
 
-    void onProxyAny(int id, t_symbol* s, const AtomListView& v);
+    void onProxyAny(int id, t_symbol* s, const AtomListView& lv);
 
 private:
-    void append();
     void output();
 };
 
-void setup_flow_append();
+void setup_flow_prepend();
 
-#endif // FLOW_APPEND_H
+#endif // FLOW_PREPEND_H

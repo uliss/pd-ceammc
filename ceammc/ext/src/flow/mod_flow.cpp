@@ -44,6 +44,7 @@ void setup_flow_append();
 void setup_flow_delay();
 void setup_flow_match();
 void setup_flow_pipe();
+void setup_flow_prepend();
 void setup_flow_space();
 
 void setup_seq_arp();
@@ -97,6 +98,7 @@ void ceammc_flow_setup()
     setup_flow_pass_float();
     setup_flow_pass_if();
     setup_flow_pipe();
+    setup_flow_prepend();
     setup_flow_queue();
     setup_flow_record();
     setup_flow_reject();

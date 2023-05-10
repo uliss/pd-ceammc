@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2020 Serge Poltavsky. All rights reserved.
+ * Copyright 2023 Serge Poltavski. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,19 +11,13 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "flow_append.h"
+#include "flow_prepend.h"
 #include "ceammc_factory.h"
 
-FlowAppend::FlowAppend(const PdArgs& args)
+FlowPrepend::FlowPrepend(const PdArgs& args)
     : BaseObject(args)
-    , delay_fn_([this]() { output(); })
     , inlet2_(this)
 {
-    delay_ = new FloatProperty("@delay", -1);
-    delay_->checkMinEq(-1);
-    delay_->setUnits(PropValueUnits::MSEC);
-    addProperty(delay_);
-
     bindProxyInlet(inlet2_, 1);
     createOutlet();
 
@@ -36,51 +30,42 @@ FlowAppend::FlowAppend(const PdArgs& args)
         msg_.setList(pargs);
 }
 
-void FlowAppend::onBang()
+void FlowPrepend::onBang()
 {
+    output();
     bangTo(0);
-    append();
 }
 
-void FlowAppend::onFloat(t_float v)
+void FlowPrepend::onFloat(t_float v)
 {
+    output();
     floatTo(0, v);
-    append();
 }
 
-void FlowAppend::onSymbol(t_symbol* s)
+void FlowPrepend::onSymbol(t_symbol* s)
 {
+    output();
     symbolTo(0, s);
-    append();
 }
 
-void FlowAppend::onList(const AtomListView& lv)
+void FlowPrepend::onList(const AtomListView& lv)
 {
+    output();
     listTo(0, lv);
-    append();
 }
 
-void FlowAppend::onAny(t_symbol* s, const AtomListView& lv)
+void FlowPrepend::onAny(t_symbol* s, const AtomListView& lv)
 {
+    output();
     anyTo(0, s, lv);
-    append();
 }
 
-void FlowAppend::onProxyAny(int /*x*/, t_symbol* s, const AtomListView& v)
+void FlowPrepend::onProxyAny(int id, t_symbol* s, const AtomListView& lv)
 {
-    msg_.setAny(s, v);
+    msg_.setAny(s, lv);
 }
 
-void FlowAppend::append()
-{
-    const auto dt = delay_->value();
-    if (dt < 0)
-        output();
-    else
-        delay_fn_.delay(dt);
-}
-
-void FlowAppend::output()
+void FlowPrepend::output()
 {
     if (msg_.isNone())
         bangTo(0);
@@ -88,15 +73,16 @@ void FlowAppend::output()
         messageTo(0, msg_);
 }
 
-void setup_flow_append()
+void setup_flow_prepend()
 {
-    ObjectFactory<FlowAppend> obj("flow.append");
+    ObjectFactory<FlowPrepend> obj("flow.prepend");
     obj.noPropsDispatch();
-    obj.setXletsInfo({ "any: input flow", "any: set append message" }, { "any: output" });
+    obj.noArgsAndPropsParse();
+    obj.setXletsInfo({ "any: input flow", "any: set prepend message" }, { "any: output" });
 
     obj.useProxyAny();
 
-    obj.setDescription("append message to flow stream");
+    obj.setDescription("prepend message to flow stream");
     obj.setCategory("flow");
-    obj.setKeywords({"flow", "append"});
+    obj.setKeywords({ "flow", "prepend" });
 }
