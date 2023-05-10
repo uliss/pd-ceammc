@@ -21,7 +21,7 @@ FlowPrepend::FlowPrepend(const PdArgs& args)
     bindProxyInlet(inlet2_, 1);
     createOutlet();
 
-    auto& pargs = parsedPosArgs();
+    auto& pargs = this->args();
     if (pargs.size() >= 1 && pargs[0].isSymbol())
         msg_.setAny(pargs[0].asT<t_symbol*>(), pargs.view(1));
     else if (pargs.empty())
