@@ -1,6 +1,7 @@
 #include "fx_looper.h"
 #include "ceammc_factory.h"
 #include "ceammc_units.h"
+#include "fmt/core.h"
 
 #include <algorithm>
 #include <array>
@@ -9,6 +10,25 @@
 
 static const float DEFAULT_CAPACITY_SEC = 5;
 static const float MAX_CAPACITY_SEC = 120;
+
+static const char* STATE_NAMES[] = {
+    "init",
+    "record",
+    "rec->play",
+    "rec->stop",
+    "rec->dub",
+    "overdub",
+    "dub->stop",
+    "dub->play",
+    "pause",
+    "play",
+    "play->stop",
+    "play->dub",
+    "stop",
+    "stop->play"
+};
+
+static_assert((sizeof(STATE_NAMES) / sizeof(STATE_NAMES[0])) == (STATE_COUNT_), "invalid state count");
 
 #define CHECK_PHASE(p, b)                                                          \
     {                                                                              \
@@ -159,28 +179,7 @@ FxLooper::FxLooper(const PdArgs& args)
 
     {
         Property* p = createCbSymbolProperty("@state",
-            [this]() -> t_symbol* {
-                static t_symbol* states[] = {
-                    gensym("init"),
-                    gensym("record"),
-                    gensym("rec->play"),
-                    gensym("rec->stop"),
-                    gensym("rec->dub"),
-                    gensym("overdub"),
-                    gensym("dub->stop"),
-                    gensym("dub->play"),
-                    gensym("pause"),
-                    gensym("play"),
-                    gensym("play->stop"),
-                    gensym("play->dub"),
-                    gensym("stop"),
-                    gensym("stop->play")
-                };
-
-                static_assert((sizeof(states) / sizeof(states[0])) == (STATE_COUNT_), "invalid state count");
-
-                return states[state_];
-            });
+            [this]() -> t_symbol* { return gensym(STATE_NAMES[state_]); });
 
         if (!p->infoT().setConstraints(PropValueConstraints::ENUM))
             OBJ_ERR << "can't set @state contraints";
@@ -199,17 +198,20 @@ FxLooper::FxLooper(const PdArgs& args)
 
     float len_sec = capacity_sec_->value();
     if (len_sec <= 0 || MAX_CAPACITY_SEC <= len_sec) {
-        OBJ_ERR << "invalid loop length: " << len_sec;
+        OBJ_ERR << fmt::format("invalid loop length: {}", len_sec);
 
         len_sec = DEFAULT_CAPACITY_SEC;
         capacity_sec_->setValue(len_sec);
 
-        OBJ_DBG << "using default loop length: " << len_sec;
+        OBJ_DBG << fmt::format("using default loop length: {}", len_sec);
     }
+
+    debug_ = new BoolProperty("@debug", true);
+    addProperty(debug_);
 
     resizeBuffer();
     calcXFades();
-    OBJ_DBG << "max loop length " << max_samples_ << " samples (" << capacity_sec_->value() << " sec)";
+    OBJ_DBG << fmt::format("max loop length {} samples ({} sec)", max_samples_, capacity_sec_->value());
 }
 
 void FxLooper::onBang()
@@ -579,47 +581,55 @@ void FxLooper::initTansitionTable()
         play_phase_ = 0;
         loop_len_ = 0;
 
-        OBJ_DBG << "write loop record: max " << max_samples_ << " samples ("
-                << float(max_samples_) / samplerate() << " sec)";
+        OBJ_DBG << fmt::format("write loop record: max {} samples ({} sec)", max_samples_, float(max_samples_) / samplerate());
 
         return true;
     };
 
     // init->play
     state_table_[STATE_INIT][STATE_PLAY] = [this]() {
-        OBJ_ERR << "loop is not recorded yet...";
+        if (debug_->value())
+            OBJ_ERR << "loop is not recorded yet...";
+
         return false;
     };
 
     // init->stop
     state_table_[STATE_INIT][STATE_STOP] = [this]() {
-        OBJ_ERR << "loop is not recorded nor playing yet...";
+        if (debug_->value())
+            OBJ_ERR << "loop is not recorded nor playing yet...";
+
         return false;
     };
 
     // init->dub
     state_table_[STATE_INIT][STATE_DUB] = [this]() {
-        OBJ_ERR << "loop is not recorded yet...";
+        if (debug_->value())
+            OBJ_ERR << "loop is not recorded yet...";
+
         return false;
     };
 
     // init->pause
     state_table_[STATE_INIT][STATE_PAUSE] = [this]() {
-        OBJ_ERR << "loop is not recorded yet...";
+        if (debug_->value())
+            OBJ_ERR << "loop is not recorded yet...";
+
         return false;
     };
 
     // PLAY
     // play->play
     state_table_[STATE_PLAY][STATE_PLAY] = [this]() {
-        OBJ_ERR << "already playing...";
+        if (debug_->value())
+            OBJ_ERR << "already playing...";
+
         return false;
     };
 
     // play->rec
     state_table_[STATE_PLAY][STATE_REC] = [this]() {
-        OBJ_DBG << "overwrite loop record: max " << max_samples_ << " samples ("
-                << float(max_samples_) / samplerate() << " sec)";
+        OBJ_DBG << fmt::format("overwrite loop record: max samples ({} sec)", max_samples_, float(max_samples_) / samplerate());
 
         if (!resizeBuffer())
             return false;
@@ -654,14 +664,18 @@ void FxLooper::initTansitionTable()
     // STOP
     // stop->stop
     state_table_[STATE_STOP][STATE_STOP] = [this]() {
-        OBJ_ERR << "already stopped...";
+        if (debug_->value())
+            OBJ_ERR << "already stopped...";
+
         return false;
     };
 
     // stop->play
     state_table_[STATE_STOP][STATE_PLAY] = [this]() {
         if (loop_len_ == 0) {
-            OBJ_ERR << "loop is not recorded yet...";
+            if (debug_->value())
+                OBJ_ERR << "loop is not recorded yet...";
+
             return false;
         }
 
@@ -688,14 +702,18 @@ void FxLooper::initTansitionTable()
 
     // stop->pause
     state_table_[STATE_STOP][STATE_PAUSE] = [this]() {
-        OBJ_ERR << "is not playing...";
+        if (debug_->value())
+            OBJ_ERR << "is not playing...";
+
         return false;
     };
 
     // PAUSE
     // pause->pause
     state_table_[STATE_PAUSE][STATE_PAUSE] = [this]() {
-        OBJ_ERR << "already paused...";
+        if (debug_->value())
+            OBJ_ERR << "already paused...";
+
         return false;
     };
 
@@ -715,20 +733,26 @@ void FxLooper::initTansitionTable()
 
     // pause->dub
     state_table_[STATE_PAUSE][STATE_DUB] = [this]() {
-        OBJ_ERR << "can't overdub from pause...";
+        if (debug_->value())
+            OBJ_ERR << "can't overdub from pause...";
+
         return false;
     };
 
     // pause->rec
     state_table_[STATE_PAUSE][STATE_REC] = [this]() {
-        OBJ_ERR << "can't record from pause...";
+        if (debug_->value())
+            OBJ_ERR << "can't record from pause...";
+
         return false;
     };
 
     // RECORD
     // rec->rec
     state_table_[STATE_REC][STATE_REC] = [this]() {
-        OBJ_ERR << "already recording...";
+        if (debug_->value())
+            OBJ_ERR << "already recording...";
+
         return false;
     };
 
@@ -763,7 +787,7 @@ void FxLooper::initTansitionTable()
         state_ = STATE_DUB;
         rec_phase_ = 0;
         play_phase_ = 0;
-        OBJ_DBG << "start loop dub: " << loop_len_ << " samples";
+        OBJ_DBG << fmt::format("start loop dub: samples", loop_len_);
         return true;
     };
 
@@ -783,7 +807,9 @@ void FxLooper::initTansitionTable()
 
     // dub->dub
     state_table_[STATE_DUB][STATE_DUB] = [this]() {
-        OBJ_ERR << "already overdubbing...";
+        if (debug_->value())
+            OBJ_ERR << "already overdubbing...";
+
         return false;
     };
 
@@ -819,7 +845,9 @@ void FxLooper::toState(FxLooperState st)
 {
     auto fn = state_table_[state_][st];
     if (!fn) {
-        OBJ_ERR << "unhandled transition from state " << state_ << " to " << st;
+        if (debug_->value())
+            OBJ_ERR << fmt::format("unhandled transition from state {} to {}", STATE_NAMES[state_], STATE_NAMES[st]);
+
         return;
     }
 
@@ -991,5 +1019,5 @@ void setup_fx_looper()
 
     obj.setDescription("One track looper");
     obj.setCategory("fx");
-    obj.setKeywords({"fx", "looper"});
+    obj.setKeywords({ "fx", "looper" });
 }
