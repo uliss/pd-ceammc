@@ -124,7 +124,7 @@ FxLooper::FxLooper(const PdArgs& args)
     addProperty(x_dub_to_stop_);
 
     round_ = new IntProperty("@round", 0);
-    round_->checkMin(0);
+    round_->checkMinEq(0);
     round_->setUnits(PropValueUnits::SAMP);
     addProperty(round_);
 
