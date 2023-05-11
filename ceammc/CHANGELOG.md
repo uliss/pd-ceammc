@@ -55,6 +55,7 @@
   - sound_off method added to proto.midi
   - panic method added to proto.midi
   - brown, pink, white, blue and velvet methods added to noise.colored~
+  - div added to live.capture~ to subdivide loop length while running
 - new object properties:
   - @punct added to rhvoice~, to specify pronounced characters
   - @bypass added to dyn.comp~ and dyn.comp2~
@@ -63,6 +64,7 @@
   - @drywet added to soundtouch~
   - @upbeat added to seq.bangs, seq.toggles, seq.matrix and sequencer - wait specified number of beats before start
   - @msg added to flow.select to output message instead of bang
+  - @attack, @decay, @sustain, @release added to live.capture~ for controlling loop envelope
 - new init argument functions:
   - hexbeat(HEX) - expand hex to list of 1 and 0
   - ones(N) - list of length N, filled with 1
