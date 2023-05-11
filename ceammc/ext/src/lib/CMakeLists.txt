@@ -113,6 +113,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_window.cpp
     datatype_color.cpp
     datatype_dict.cpp
+    datatype_env.cpp
     datatype_json.cpp
     datatype_mlist.cpp
     datatype_property.cpp

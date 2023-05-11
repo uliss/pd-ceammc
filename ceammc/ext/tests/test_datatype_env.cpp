@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "../env/datatype_env.h"
+#include "datatype_env.h"
 #include "ceammc_datatypes.h"
 
 #include "test_base.h"

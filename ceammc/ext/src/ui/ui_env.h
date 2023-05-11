@@ -1,7 +1,7 @@
 #ifndef UI_ENV_H
 #define UI_ENV_H
 
-#include "../env/datatype_env.h"
+#include "datatype_env.h"
 #include "ceammc_crc32.h"
 #include "ceammc_ui_object.h"
 

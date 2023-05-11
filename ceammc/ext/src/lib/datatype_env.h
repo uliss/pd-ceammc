@@ -2,7 +2,7 @@
 #define DATATYPE_ENV_H
 
 #include "ceammc_abstractdata.h"
-#include "ceammc_atomlist.h"
+#include "ceammc_atomlist_view.h"
 #include "ceammc_convert.h"
 #include "ceammc_data.h"
 
