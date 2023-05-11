@@ -343,9 +343,12 @@ namespace net {
         }
 
         packet_.set(ARTNET_CMD_SEND_DMX, universe_->value());
-        packet_.data[idx] = lv[1].asInt();
 
-        needs_update_ = true;
+        auto val = lv[1].asInt();
+        if (packet_.data[idx] != val) {
+            packet_.data[idx] = val;
+            needs_update_ = true;
+        }
     }
 
     void NetArtnetSend::m_dmx_rgb(t_symbol* s, const AtomListView& lv)
