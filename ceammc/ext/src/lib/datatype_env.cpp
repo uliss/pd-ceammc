@@ -446,6 +446,11 @@ double DataTypeEnv::valueAtTime(size_t time_us) const
     }
 }
 
+double DataTypeEnv::valueAtPhase(double phase) const
+{
+    return valueAtTime(std::round(phase * totalLength()));
+}
+
 void DataTypeEnv::resizeTime(size_t time_us)
 {
     if (totalLength() < 1)
@@ -618,7 +623,7 @@ void DataTypeEnv::clear()
     points_.clear();
 }
 
-void DataTypeEnv::setAR(size_t attack_us, size_t release_us, float value)
+DataTypeEnv& DataTypeEnv::setAR(size_t attack_us, size_t release_us, float value)
 {
     clear();
     points_.push_back(EnvelopePoint(0, 0, false, CURVE_LINE));
@@ -626,9 +631,10 @@ void DataTypeEnv::setAR(size_t attack_us, size_t release_us, float value)
     points_.push_back(EnvelopePoint(attack_us + release_us, 0));
     points_.front().setFixBoth();
     points_.back().setFixValue();
+    return *this;
 }
 
-void DataTypeEnv::setEAR(size_t attack_us, float attack_curve, size_t release_us, float release_curve)
+DataTypeEnv& DataTypeEnv::setEAR(size_t attack_us, float attack_curve, size_t release_us, float release_curve)
 {
     clear();
     points_.push_back(EnvelopePoint(0, 0, false, CURVE_EXP, attack_curve));
@@ -636,9 +642,10 @@ void DataTypeEnv::setEAR(size_t attack_us, float attack_curve, size_t release_us
     points_.push_back(EnvelopePoint(attack_us + release_us, 0));
     points_.front().setFixBoth();
     points_.back().setFixValue();
+    return *this;
 }
 
-void DataTypeEnv::setASR(size_t attack_us, size_t release_us, double value)
+DataTypeEnv& DataTypeEnv::setASR(size_t attack_us, size_t release_us, double value)
 {
     clear();
     points_.push_back(EnvelopePoint(0, 0, false, CURVE_LINE));
@@ -646,9 +653,10 @@ void DataTypeEnv::setASR(size_t attack_us, size_t release_us, double value)
     points_.push_back(EnvelopePoint(attack_us + release_us, 0));
     points_.front().setFixBoth();
     points_.back().setFixValue();
+    return *this;
 }
 
-void DataTypeEnv::setEASR(size_t attack_us, float attack_curve, size_t release_us, float release_curve)
+DataTypeEnv& DataTypeEnv::setEASR(size_t attack_us, float attack_curve, size_t release_us, float release_curve)
 {
     clear();
     points_.push_back(EnvelopePoint(0, 0, false, CURVE_EXP, attack_curve));
@@ -656,9 +664,10 @@ void DataTypeEnv::setEASR(size_t attack_us, float attack_curve, size_t release_u
     points_.push_back(EnvelopePoint(attack_us + release_us, 0));
     points_.front().setFixBoth();
     points_.back().setFixValue();
+    return *this;
 }
 
-void DataTypeEnv::setADSR(size_t attack_us, size_t decay_us, double sustain_level, size_t release_us)
+DataTypeEnv& DataTypeEnv::setADSR(size_t attack_us, size_t decay_us, double sustain_level, size_t release_us)
 {
     clear();
     points_.push_back(EnvelopePoint(0, 0, false, CURVE_LINE));
@@ -668,9 +677,10 @@ void DataTypeEnv::setADSR(size_t attack_us, size_t decay_us, double sustain_leve
     points_.front().setFixBoth();
     points_[1].setFixValue();
     points_.back().setFixValue();
+    return *this;
 }
 
-void DataTypeEnv::setEADSR(size_t attack_us, float attack_curve, size_t decay_us, float decay_curve, double sustain_level, size_t release_us, float release_curve)
+DataTypeEnv& DataTypeEnv::setEADSR(size_t attack_us, float attack_curve, size_t decay_us, float decay_curve, double sustain_level, size_t release_us, float release_curve)
 {
     clear();
     points_.push_back(EnvelopePoint(0, 0, false, CURVE_EXP, attack_curve));
@@ -679,6 +689,7 @@ void DataTypeEnv::setEADSR(size_t attack_us, float attack_curve, size_t decay_us
     points_.push_back(EnvelopePoint(attack_us + decay_us + release_us, 0, false, CURVE_LINE));
     points_.front().setFixBoth();
     points_.back().setFixValue();
+    return *this;
 }
 
 bool DataTypeEnv::setAR(const AtomListView& lv)
@@ -1003,11 +1014,6 @@ size_t DataTypeEnv::numStopPoints() const
 DataTypeEnv* DataTypeEnv::clone() const
 {
     return new DataTypeEnv(*this);
-}
-
-void DataTypeEnv::render(std::vector<float>::iterator first, std::vector<float>::iterator last)
-{
-    render<std::vector<float>::iterator>(first, last);
 }
 
 bool DataTypeEnv::operator==(const DataTypeEnv& e) const

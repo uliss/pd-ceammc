@@ -157,6 +157,8 @@ public:
      */
     double valueAtTime(size_t time_us) const;
 
+    double valueAtPhase(double phase) const;
+
     /**
      * Resize envelope to specified length in microseconds
      */
@@ -246,12 +248,12 @@ public:
      */
     void clear();
 
-    void setAR(size_t attack_us, size_t release_us, float value = 1);
-    void setEAR(size_t attack_us, float attack_curve, size_t release_us, float release_curve);
-    void setASR(size_t attack_us, size_t release_us, double value = 1);
-    void setEASR(size_t attack_us, float attack_curve, size_t release_us, float release_curve);
-    void setADSR(size_t attack_us, size_t decay_us, double sustain_level, size_t release_us);
-    void setEADSR(size_t attack_us, float attack_curve,
+    DataTypeEnv& setAR(size_t attack_us, size_t release_us, float value = 1);
+    DataTypeEnv& setEAR(size_t attack_us, float attack_curve, size_t release_us, float release_curve);
+    DataTypeEnv& setASR(size_t attack_us, size_t release_us, double value = 1);
+    DataTypeEnv& setEASR(size_t attack_us, float attack_curve, size_t release_us, float release_curve);
+    DataTypeEnv& setADSR(size_t attack_us, size_t decay_us, double sustain_level, size_t release_us);
+    DataTypeEnv& setEADSR(size_t attack_us, float attack_curve,
         size_t decay_us, float decay_curve,
         double sustain_level,
         size_t release_us, float release_curve);
@@ -282,7 +284,6 @@ public:
      */
     template <class T>
     void render(T begin, T end) const;
-    void render(std::vector<float>::iterator first, std::vector<float>::iterator last);
 
     /**
      * Envelope compare
