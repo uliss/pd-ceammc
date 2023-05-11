@@ -14,6 +14,7 @@
 #include "flow_select.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "ceammc_output.h"
 #include "lex/select.lexer.h"
 #include "lex/select.parser.hpp"
 
@@ -31,13 +32,15 @@ public:
 FlowSelect::FlowSelect(const PdArgs& args)
     : BaseObject(args)
     , patterns_(new SelectMatch())
-    , keep_value_(nullptr)
 {
     try {
         keep_value_ = new BoolProperty("@keep_value", false);
         addProperty(keep_value_);
 
         addProperty(new AliasProperty<BoolProperty>("@v", keep_value_, true));
+
+        msg_ = new ListProperty("@msg");
+        addProperty(msg_);
 
         const std::string str = to_string(parsedPosArgs());
         SelectLexer l(str);
@@ -84,7 +87,7 @@ FlowSelect::FlowSelect(const PdArgs& args)
 }
 
 // for unique_ptr
-FlowSelect::~FlowSelect() { }
+FlowSelect::~FlowSelect() = default;
 
 void FlowSelect::onFloat(t_float v)
 {
@@ -102,7 +105,7 @@ void FlowSelect::onFloat(t_float v)
         const auto idx = i - 1;
 
         if (res[idx])
-            kv ? floatTo(idx, v) : bangTo(idx);
+            kv ? floatTo(idx, v) : outputTo(idx);
     }
 }
 
@@ -122,7 +125,7 @@ void FlowSelect::onSymbol(t_symbol* s)
         const auto idx = i - 1;
 
         if (res[idx])
-            kv ? symbolTo(idx, s) : bangTo(idx);
+            kv ? symbolTo(idx, s) : outputTo(idx);
     }
 }
 
@@ -150,7 +153,7 @@ void FlowSelect::onList(const AtomListView& lv)
             const auto idx = i - 1;
 
             if (res[idx])
-                kv ? listTo(idx, lv) : bangTo(idx);
+                kv ? listTo(idx, lv) : outputTo(idx);
         }
     }
 }
@@ -171,7 +174,7 @@ void FlowSelect::onAny(t_symbol* s, const AtomListView& lv)
         const auto idx = i - 1;
 
         if (res[idx])
-            kv ? anyTo(idx, s, lv) : bangTo(idx);
+            kv ? anyTo(idx, s, lv) : outputTo(idx);
     }
 }
 
@@ -353,6 +356,18 @@ size_t FlowSelect::match(const Atom& a, bool* result) const
     return nmatches;
 }
 
+void FlowSelect::outputTo(size_t idx)
+{
+    if (msg_->value().empty()) {
+        bangTo(idx);
+    } else {
+        if (msg_->value()[0].isSymbol())
+            anyTo(idx, msg_->value());
+        else
+            outletAtomList(outletAt(idx), msg_->value(), true);
+    }
+}
+
 void setup_flow_select()
 {
     ObjectFactory<FlowSelect> obj("flow.select");
@@ -370,5 +385,5 @@ void setup_flow_select()
 
     obj.setDescription("vanilla flow on steroids");
     obj.setCategory("flow");
-    obj.setKeywords({"select"});
+    obj.setKeywords({ "select" });
 }

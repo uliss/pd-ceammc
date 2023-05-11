@@ -443,4 +443,43 @@ TEST_CASE("flow.select", "[externals]")
             REQUIRE(t.outputAnyAt(2) == LA("CDE", 1, 2, 3));
         }
     }
+
+    SECTION("msg")
+    {
+        TExt t("flow.select", LA(1, 2, "@msg", "done"));
+        t << 1;
+        REQUIRE_ANY_AT_OUTLET(0, t, LA("done"));
+        t << 2;
+        REQUIRE_ANY_AT_OUTLET(1, t, LA("done"));
+
+        t->setProperty("@msg", LF(1, 2));
+        t << 1;
+        REQUIRE_LIST_AT_OUTLET(0, t, LF(1, 2));
+        t << 2;
+        REQUIRE_LIST_AT_OUTLET(1, t, LF(1, 2));
+
+        t->setProperty("@msg", LF(100));
+        t << 1;
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 100);
+        t << 2;
+        REQUIRE_FLOAT_AT_OUTLET(1, t, 100);
+
+        t->setProperty("@msg", LA("float", 200));
+        t << 1;
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 200);
+        t << 2;
+        REQUIRE_FLOAT_AT_OUTLET(1, t, 200);
+
+        t->setProperty("@msg", LA("symbol", "A"));
+        t << 1;
+        REQUIRE_SYMBOL_AT_OUTLET(0, t, "A");
+        t << 2;
+        REQUIRE_SYMBOL_AT_OUTLET(1, t, "A");
+
+        t->setProperty("@msg", LA("list", 250));
+        t << 1;
+        REQUIRE_FLOAT_AT_OUTLET(0, t, 250);
+        t << 2;
+        REQUIRE_FLOAT_AT_OUTLET(1, t, 250);
+    }
 }

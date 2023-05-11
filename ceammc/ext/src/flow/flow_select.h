@@ -21,8 +21,9 @@ class SelectMatch;
 
 class FlowSelect : public BaseObject {
     std::unique_ptr<SelectMatch> patterns_;
-    BoolProperty* keep_value_;
     std::vector<std::string> outlet_toolips_;
+    BoolProperty* keep_value_ { 0 };
+    ListProperty* msg_ { 0 };
 
 public:
     FlowSelect(const PdArgs& args);
@@ -38,6 +39,7 @@ public:
 private:
     size_t match(t_symbol* s, bool* result) const;
     size_t match(const Atom& a, bool* result) const;
+    void outputTo(size_t idx);
 };
 
 void setup_flow_select();
