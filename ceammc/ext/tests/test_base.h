@@ -172,6 +172,13 @@ public:
         T::setSamplerate(48000);
         setTestSampleRate(48000);
     }
+
+    void setDspParams(int sr, int bs = 64)
+    {
+        T::setBlockSize(bs);
+        T::setSamplerate(sr);
+        setTestSampleRate(sr);
+    }
 };
 
 #define CALL(obj, method)                            \

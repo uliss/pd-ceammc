@@ -22,7 +22,7 @@ class FxStutter : public SoundExternal {
     SymbolEnumProperty* mode_ { 0 };
     FloatProperty* speed_ { 0 };
     DataPropertyT<DataTypeEnv>* env_ { 0 };
-    std::array<float, 512> env_buf_;
+    std::array<float, 256> env_buf_;
     std::vector<t_sample> buffer_;
     size_t write_phase_ { 0 };
     size_t read_phase_ { 0 };
@@ -41,11 +41,11 @@ public:
 
     // for tests
     const std::vector<t_sample>& buffer() const { return buffer_; }
+    size_t stutterSizeSamp() const { return std::min<size_t>(buffer_.size(), (t_->value() * samplerate() * 0.001)); }
 
 private:
     void adjustBufferSize();
     float curveValueAt(size_t pos) const;
-    size_t stutterSizeSamp() const { return std::min<size_t>(buffer_.size(), (t_->value() * samplerate() * 0.001)); }
 };
 
 void setup_fx_stutter_tilde();

@@ -39,28 +39,67 @@ TEST_CASE("fx.stutter~", "[externals]")
 
     SECTION("test")
     {
-        TExt t("fx.stutter~", LA(100));
+        TExt t("fx.stutter~", LA(125));
+        t.setProperty("@env", EnvAtom());
+        t.setDspParams(1024, 8);
         REQUIRE(t.samplerate() == 1024);
+        REQUIRE(t.stutterSizeSamp() == 128);
+        REQUIRE(t.buffer().size() == 44100);
 
         TSig sig;
         TDsp dsp(sig, t);
 
-        sig.fillInputN(0, 1);
-        dsp.processBlock();
+        sig.fillInputSeq(0, { 1, 2, 3 });
+        dsp.processBlock(32); // fill all stutter buffer
 
-        for (size_t i = 0; i < 64; i++)
-            REQUIRE(dsp.out(0, i) == Approx(1));
+        REQUIRE(dsp.out(0, 0) == Approx(1));
+        REQUIRE(dsp.out(0, 1) == Approx(2));
+        REQUIRE(dsp.out(0, 2) == Approx(3));
+        REQUIRE(dsp.out(0, 3) == Approx(1));
+        REQUIRE(dsp.out(0, 4) == Approx(2));
+        REQUIRE(dsp.out(0, 5) == Approx(3));
+        REQUIRE(dsp.out(0, 6) == Approx(1));
+        REQUIRE(dsp.out(0, 7) == Approx(2));
+
+        REQUIRE(t.buffer()[0] == 1);
+        REQUIRE(t.buffer()[1] == 2);
+        REQUIRE(t.buffer()[2] == 3);
+        REQUIRE(t.buffer()[3] == 1);
+        REQUIRE(t.buffer()[4] == 2);
+        REQUIRE(t.buffer()[5] == 3);
+        REQUIRE(t.buffer()[6] == 1);
+        REQUIRE(t.buffer()[7] == 2);
 
         t.sendFloat(1, 1);
-        sig.fillInputN(0, 1);
         dsp.processBlock();
-        for (size_t i = 0; i < 64; i++)
-            REQUIRE(dsp.out(0, i) >= Approx(0));
 
-        dsp.processBlock(1);
-        for (size_t i = 0; i < 64; i++)
-            REQUIRE(dsp.out(0, i) == Approx(0));
+        REQUIRE(dsp.out(0, 0) == Approx(1));
+        REQUIRE(dsp.out(0, 1) == Approx(2));
+        REQUIRE(dsp.out(0, 2) == Approx(3));
+        REQUIRE(dsp.out(0, 3) == Approx(1));
+        REQUIRE(dsp.out(0, 4) == Approx(2));
+        REQUIRE(dsp.out(0, 5) == Approx(3));
+        REQUIRE(dsp.out(0, 6) == Approx(1));
+        REQUIRE(dsp.out(0, 7) == Approx(2));
 
-        REQUIRE(t.buffer().size() == 12);
+        dsp.processBlock();
+        REQUIRE(dsp.out(0, 0) == Approx(1));
+        REQUIRE(dsp.out(0, 1) == Approx(2));
+        REQUIRE(dsp.out(0, 2) == Approx(3));
+        REQUIRE(dsp.out(0, 3) == Approx(1));
+        REQUIRE(dsp.out(0, 4) == Approx(2));
+        REQUIRE(dsp.out(0, 5) == Approx(3));
+        REQUIRE(dsp.out(0, 6) == Approx(1));
+        REQUIRE(dsp.out(0, 7) == Approx(2));
+
+        dsp.processBlock();
+        REQUIRE(dsp.out(0, 0) == Approx(1));
+        REQUIRE(dsp.out(0, 1) == Approx(2));
+        REQUIRE(dsp.out(0, 2) == Approx(3));
+        REQUIRE(dsp.out(0, 3) == Approx(1));
+        REQUIRE(dsp.out(0, 4) == Approx(2));
+        REQUIRE(dsp.out(0, 5) == Approx(3));
+        REQUIRE(dsp.out(0, 6) == Approx(1));
+        REQUIRE(dsp.out(0, 7) == Approx(2));
     }
 }

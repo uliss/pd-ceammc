@@ -160,6 +160,15 @@ struct TestSignal {
         }
     }
 
+    void fillInputSeq(size_t n, std::initializer_list<float> lst)
+    {
+        if (n >= IN)
+            return;
+
+        for (size_t s = 0; s < BS; s++)
+            buf_in[n][s] = *(lst.begin() + (s % lst.size()));
+    }
+
     template <class Gen>
     void fillInput(Gen fn)
     {

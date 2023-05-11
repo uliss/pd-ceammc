@@ -230,8 +230,12 @@ void FxStutter::processBlock(const t_sample** in, t_sample** out)
 
 void FxStutter::onDataT(const EnvAtom& env)
 {
-    env_->setValue(*env);
-    env_->callSuccessFn();
+    if (env->empty()) {
+        env_->value().clear();
+    } else {
+        env_->setValue(*env);
+        env_->callSuccessFn();
+    }
 }
 
 void FxStutter::adjustBufferSize()
@@ -243,6 +247,9 @@ void FxStutter::adjustBufferSize()
 
 float FxStutter::curveValueAt(size_t pos) const
 {
+    if (env_->value().empty())
+        return 1;
+
     const auto N = stutterSizeSamp();
     const auto BS = env_buf_.size();
     auto t = pos / double(N - 1);
