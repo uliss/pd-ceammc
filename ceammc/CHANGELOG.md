@@ -62,6 +62,7 @@
   - @gain added to live.capture~
   - @drywet added to soundtouch~
   - @upbeat added to seq.bangs, seq.toggles, seq.matrix and sequencer - wait specified number of beats before start
+  - @msg added to flow.select to output message instead of bang
 - new init argument functions:
   - hexbeat(HEX) - expand hex to list of 1 and 0
   - ones(N) - list of length N, filled with 1

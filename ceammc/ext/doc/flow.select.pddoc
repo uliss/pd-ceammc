@@ -37,6 +37,7 @@
             default) acts like vanilla select: output bang on match or full unmatched message to
             last outlet. If true always outputs full matched message to corresponding
             outlet.</property>
+            <property name="@msg" type="list" default="">output this message on match, instead of bang</property>
         </properties>
         <inlets>
             <inlet>
