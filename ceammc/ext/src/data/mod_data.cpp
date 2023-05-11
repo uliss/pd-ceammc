@@ -39,11 +39,12 @@
 #include "set_to_list.h"
 #include "set_union.h"
 
-void setup_rtree_to_list();
-void setup_data_copy();
-void setup_data_color();
 void setup_color_mix();
 void setup_color_scale();
+void setup_data_bimap();
+void setup_data_color();
+void setup_data_copy();
+void setup_rtree_to_list();
 
 void ceammc_data_setup()
 {
@@ -59,6 +60,7 @@ void ceammc_data_setup()
     setup_color_mix();
     setup_color_scale();
 
+    setup_data_bimap();
     setup_data_color();
     setup_data_copy();
     setup_data_dict();

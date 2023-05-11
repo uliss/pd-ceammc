@@ -25,6 +25,7 @@ function(add_data_test src)
 endfunction()
 
 
+add_data_test(bimap)
 add_data_test(color)
 add_data_test(dict)
 add_data_test(dict_contains)

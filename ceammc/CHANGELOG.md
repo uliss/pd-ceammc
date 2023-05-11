@@ -12,6 +12,7 @@
   - conv.rgb2hex - convert RGB separate values to #RRGGBB symbol
   - conv.ms2str - convert time in milliseconds to formatted string or symbol
   - conv.bar2ms - calculate bar and beat duration from tempo BPM and time signature
+  - data.bimap - bidirectional map for scalar types
   - data.color - Color datatype
   - dyn.comp_peak~  - Peak FeedForward mono compressor
   - dyn.comp_peak2~ - Peak FeedForward stereo compressor with channel linking

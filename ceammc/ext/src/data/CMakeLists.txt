@@ -12,6 +12,7 @@ endfunction()
 ceammc_data_external(color mix)
 ceammc_data_external(color scale)
 
+ceammc_data_external(data bimap)
 ceammc_data_external(data color)
 ceammc_data_external(data copy)
 ceammc_data_external(data dict)
