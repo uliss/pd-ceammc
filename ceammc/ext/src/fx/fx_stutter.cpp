@@ -9,6 +9,8 @@ constexpr auto PROP_MAXSIZE_MAX = 10000;
 constexpr auto PROP_T_MIN = PROP_MAXSIZE_MIN;
 constexpr auto PROP_T_DEF = 50;
 constexpr auto PROP_T_MAX = PROP_MAXSIZE_MAX;
+constexpr auto PROP_ENV_ATTACK_DEF = 5;
+constexpr auto PROP_ENV_RELEASE_DEF = PROP_T_DEF - PROP_ENV_ATTACK_DEF;
 
 CEAMMC_DEFINE_HASH(fwd);
 CEAMMC_DEFINE_HASH(back);
@@ -31,17 +33,14 @@ t_sample frac_part(t_sample f)
 FxStutter::FxStutter(const PdArgs& args)
     : SoundExternal(args)
     , state_(ST_PASS)
-    , max_size_(nullptr)
-    , t_(nullptr)
-    , mode_(nullptr)
-    , speed_(nullptr)
     , clock_([this]() {
-        state_ = ST_FROM_FX;
+        state_ = ST_PASS;
     })
 {
     createInlet();
 
     createSignalOutlet();
+    createOutlet();
 
     max_size_ = new FloatProperty("@maxsize", PROP_MAXSIZE_DEF);
     max_size_->setUnits(PropValueUnits::MSEC);
@@ -61,6 +60,17 @@ FxStutter::FxStutter(const PdArgs& args)
     speed_ = new FloatProperty("@speed", 1);
     speed_->checkClosedRange(0.25, 4);
     addProperty(speed_);
+
+    {
+        DataTypeEnv env;
+        env.setAR(PROP_ENV_ATTACK_DEF * 1000, PROP_ENV_RELEASE_DEF * 1000);
+        env_ = new DataPropertyT<DataTypeEnv>("@env", env);
+        env_->setSuccessFn([this](Property*) {
+            env_->value().render(env_buf_.begin(), env_buf_.end());
+        });
+        addProperty(env_);
+        env_->callSuccessFn(); // to update env_buf_
+    }
 }
 
 void FxStutter::initDone()
@@ -72,7 +82,7 @@ void FxStutter::initDone()
 void FxStutter::onInlet(size_t n, const AtomListView& lv)
 {
     if (lv.empty()) {
-        state_ = ST_TO_FX;
+        state_ = ST_FX;
         clock_.delay(t_->value() * 2);
     } else {
         clock_.unset();
@@ -89,11 +99,13 @@ void FxStutter::onInlet(size_t n, const AtomListView& lv)
         case ST_FX:
             if (!on)
                 state_ = ST_FROM_FX;
+
             break;
         case ST_PASS:
         default:
             if (on)
                 state_ = ST_TO_FX;
+
             break;
         }
     }
@@ -104,131 +116,122 @@ void FxStutter::setupDSP(t_signal** sig)
     SoundExternal::setupDSP(sig);
 
     adjustBufferSize();
-    buf_phase_ = 0;
 }
 
 void FxStutter::processBlock(const t_sample** in, t_sample** out)
 {
-    const auto bs = blockSize();
-    const size_t n = std::min<size_t>(buffer_.size(), ms2samp(t_->value(), samplerate()));
+    const auto BS = blockSize();
+    const size_t N = stutterSizeSamp();
 
-    if (n < 2)
+    if (N < 2)
         return;
 
-    switch (state_) {
-    case ST_PASS:
+    t_sample buf_out[BS];
 
-        for (size_t i = 0; i < bs; i++) {
-            out[0][i] = in[0][i];
+    if (state_ == ST_PASS) {
+        for (size_t i = 0; i < BS; i++) {
+            out[0][i] = in[0][i]; // copy to output buffer
 
-            buffer_[buf_phase_] = in[0][i];
-            buf_phase_ = (buf_phase_ + 1) % n;
+            buffer_[write_phase_] = in[0][i];
+            (++write_phase_) %= N;
         }
-
-        break;
-    case ST_TO_FX:
-
-        for (size_t i = 0; i < bs; i++) {
-            const auto xin = in[0][i];
-            const auto k = t_sample(i) / (bs - 1);
-            out[0][i] = (1 - k) * xin; // fade out input
-
-            buffer_[buf_phase_] = k * xin; // fade in record
-            buf_phase_ = (buf_phase_ + 1) % n;
-        }
-
-        state_ = ST_FX;
-        play_phase_ = 0;
-
-        break;
-    case ST_FROM_FX:
-
-        for (size_t i = 0; i < bs; i++) {
-            const auto xin = in[0][i];
-            const auto k = t_sample(i) / (bs - 1);
-
-            out[0][i] = k * xin; // fade in input
-            buffer_[buf_phase_] = (1 - k) * xin; // fade out record
-
-            buf_phase_ = (buf_phase_ + 1) % n;
-        }
-
-        state_ = ST_PASS;
-        play_phase_ = 0;
-
-        break;
-    case ST_FX: {
+    } else {
         const auto speed = speed_->value();
         switch (crc32_hash(mode_->value())) {
         case hash_back:
             if (speed == 1) {
-                for (size_t i = 0; i < bs; i++) {
-                    auto phase = (buf_phase_ + ((n - 1) - play_phase_++)) % n;
-                    out[0][i] = buffer_[phase];
+                for (size_t i = 0; i < BS; i++) {
+                    auto phase = (write_phase_ + ((N - 1) - read_phase_++)) % N;
+                    buf_out[i] = buffer_[phase] * curveValueAt(read_phase_ % N);
                 }
             } else {
-                for (size_t i = 0; i < bs; i++) {
-                    auto phase = (buf_phase_ + ((n - 1) - (play_phase_++ * speed)));
-                    auto p0 = size_t(std::ceil(phase)) % n;
-                    auto p1 = (n + p0 - 1) % n;
+                for (size_t i = 0; i < BS; i++) {
+                    auto phase = (write_phase_ + ((N - 1) - (read_phase_++ * speed)));
+                    auto p0 = size_t(std::ceil(phase)) % N;
+                    auto p1 = (N + p0 - 1) % N;
                     auto x0 = buffer_[p0];
                     auto x1 = buffer_[p1];
-                    out[0][i] = interpolate::linear(x0, x1, frac_part(phase));
+                    buf_out[i] = interpolate::linear(x0, x1, frac_part(phase)) * curveValueAt(read_phase_ % N);
                 }
             }
 
             // adjust phase
-            play_phase_ %= n;
+            read_phase_ %= N;
 
             break;
         case hash_tri:
 
             if (speed == 1) {
-                for (size_t i = 0; i < bs; i++) {
-                    auto phase = n - std::abs(std::int64_t((buf_phase_ + play_phase_++) % (2 * n)) - std::int64_t(n));
-                    out[0][i] = buffer_[phase];
+                for (size_t i = 0; i < BS; i++) {
+                    auto phase = N - std::abs(std::int64_t((write_phase_ + read_phase_++) % (2 * N)) - std::int64_t(N));
+                    buf_out[i] = buffer_[phase] * curveValueAt(read_phase_ % N);
                 }
             } else {
-                for (size_t i = 0; i < bs; i++) {
-                    auto phase = n - std::abs(std::int64_t(std::fmod(buf_phase_ + (play_phase_++ * speed), (2 * n))) - std::int64_t(n));
-                    auto p0 = size_t(std::ceil(phase)) % n;
-                    auto p1 = (n + p0 - 1) % n;
+                for (size_t i = 0; i < BS; i++) {
+                    auto phase = N - std::abs(std::int64_t(std::fmod(write_phase_ + (read_phase_++ * speed), (2 * N))) - std::int64_t(N));
+                    auto p0 = size_t(std::ceil(phase)) % N;
+                    auto p1 = (N + p0 - 1) % N;
                     auto x0 = buffer_[p0];
                     auto x1 = buffer_[p1];
-                    out[0][i] = interpolate::linear(x0, x1, frac_part(phase));
+                    buf_out[i] = interpolate::linear(x0, x1, frac_part(phase)) * curveValueAt(read_phase_ % N);
                 }
             }
 
             // adjust phase
-            play_phase_ %= (2 * n);
+            read_phase_ %= (2 * N);
 
             break;
         case hash_fwd:
         default:
             if (speed == 1) {
-                for (size_t i = 0; i < bs; i++) {
-                    auto phase = (buf_phase_ + play_phase_++) % n;
-                    out[0][i] = buffer_[phase];
+                for (size_t i = 0; i < BS; i++) {
+                    auto phase = (write_phase_ + read_phase_++) % N;
+                    buf_out[i] = buffer_[phase] * curveValueAt(read_phase_ % N);
                 }
             } else {
-                for (size_t i = 0; i < bs; i++) {
-                    auto phase = (buf_phase_ + (play_phase_++ * speed));
-                    auto p0 = size_t(phase) % n;
-                    auto p1 = (p0 + 1) % n;
+                for (size_t i = 0; i < BS; i++) {
+                    auto phase = (write_phase_ + (read_phase_++ * speed));
+                    auto p0 = size_t(phase) % N;
+                    auto p1 = (p0 + 1) % N;
                     auto x0 = buffer_[p0];
                     auto x1 = buffer_[p1];
-                    out[0][i] = interpolate::linear(x0, x1, frac_part(phase));
+                    buf_out[i] = interpolate::linear(x0, x1, frac_part(phase)) * curveValueAt(read_phase_ % N);
                 }
             }
 
             // adjust phase
-            play_phase_ %= n;
+            read_phase_ %= N;
 
             break;
         }
-
-    } break;
     }
+
+    if (state_ == ST_FROM_FX) {
+        for (size_t i = 0; i < BS; i++) {
+            const auto k = t_sample(i) / (BS - 1);
+            out[0][i] = interpolate::linear(buf_out[i], in[0][i], k);
+        }
+
+        state_ = ST_PASS;
+        read_phase_ = 0;
+    } else if (state_ == ST_TO_FX) {
+        for (size_t i = 0; i < BS; i++) {
+            const auto k = t_sample(i) / (BS - 1);
+            out[0][i] = interpolate::linear(in[0][i], buf_out[i], k);
+        }
+
+        state_ = ST_FX;
+        read_phase_ = 0;
+    } else if (state_ == ST_FX) {
+        for (size_t i = 0; i < BS; i++)
+            out[0][i] = buf_out[i];
+    }
+}
+
+void FxStutter::onDataT(const EnvAtom& env)
+{
+    env_->setValue(*env);
+    env_->callSuccessFn();
 }
 
 void FxStutter::adjustBufferSize()
@@ -238,6 +241,19 @@ void FxStutter::adjustBufferSize()
         buffer_.assign(N, 0);
 }
 
+float FxStutter::curveValueAt(size_t pos) const
+{
+    const auto N = stutterSizeSamp();
+    const auto BS = env_buf_.size();
+    auto t = pos / double(N - 1);
+
+    size_t idx = t * (BS - 1);
+    auto x0 = (idx < BS) ? env_buf_[idx] : 0;
+    auto x1 = (idx + 1 < BS) ? env_buf_[idx + 1] : 0;
+
+    return interpolate::linear<float>(x0, x1, t);
+}
+
 void setup_fx_stutter_tilde()
 {
     SoundExternalFactory<FxStutter> obj("fx.stutter~");
@@ -245,8 +261,9 @@ void setup_fx_stutter_tilde()
         { "signal: input", "1|0: turn fx on/off\n"
                            "bang: run fx twice" },
         { "signal: output" });
+    obj.processData<DataTypeEnv>();
 
     obj.setDescription("stutter effect");
     obj.setCategory("fx");
-    obj.setKeywords({"fx", "stutter", "glitch"});
+    obj.setKeywords({ "fx", "stutter", "glitch" });
 }

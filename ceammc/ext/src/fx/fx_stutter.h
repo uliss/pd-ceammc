@@ -2,8 +2,10 @@
 #define FX_STUTTER_H
 
 #include "ceammc_clock.h"
+#include "ceammc_property_data.h"
 #include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
+#include "datatype_env.h"
 using namespace ceammc;
 
 class FxStutter : public SoundExternal {
@@ -15,13 +17,15 @@ class FxStutter : public SoundExternal {
     };
 
     State state_;
-    FloatProperty* max_size_;
-    FloatProperty* t_;
-    SymbolEnumProperty* mode_;
-    FloatProperty* speed_;
+    FloatProperty* max_size_ { 0 };
+    FloatProperty* t_ { 0 };
+    SymbolEnumProperty* mode_ { 0 };
+    FloatProperty* speed_ { 0 };
+    DataPropertyT<DataTypeEnv>* env_ { 0 };
+    std::array<float, 512> env_buf_;
     std::vector<t_sample> buffer_;
-    size_t buf_phase_;
-    size_t play_phase_;
+    size_t write_phase_ { 0 };
+    size_t read_phase_ { 0 };
     ClockLambdaFunction clock_;
 
 public:
@@ -33,8 +37,15 @@ public:
     void setupDSP(t_signal** sig) final;
     void processBlock(const t_sample** in, t_sample** out) final;
 
+    void onDataT(const EnvAtom& env);
+
+    // for tests
+    const std::vector<t_sample>& buffer() const { return buffer_; }
+
 private:
     void adjustBufferSize();
+    float curveValueAt(size_t pos) const;
+    size_t stutterSizeSamp() const { return std::min<size_t>(buffer_.size(), (t_->value() * samplerate() * 0.001)); }
 };
 
 void setup_fx_stutter_tilde();
