@@ -35,6 +35,7 @@ public:
         , v_(def)
         , parse_messages_(parse)
     {
+        info().setDefault(v_);
     }
 
     AtomList get() const final { return v_; }

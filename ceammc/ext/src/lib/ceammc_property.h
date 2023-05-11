@@ -150,6 +150,8 @@ public:
     bool setSymbolEnumCheck(std::initializer_list<const char*> l);
     void setCheckErrorMsg(const std::string& str);
 
+    bool callSuccessFn();
+
     virtual bool checkPositive();
     virtual bool checkNegative();
     virtual bool checkNonNegative();

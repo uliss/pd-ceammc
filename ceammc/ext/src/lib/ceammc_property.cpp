@@ -513,6 +513,18 @@ void Property::setCheckErrorMsg(const std::string& str)
     err_msg_ = str;
 }
 
+bool Property::callSuccessFn()
+{
+    if (!ok_fn_ptr_)
+        return false;
+
+    if (!*ok_fn_ptr_)
+        return false;
+
+    (*ok_fn_ptr_)(this);
+    return true;
+}
+
 bool Property::checkPositive()
 {
     PROP_ERR() << "positive check is not implemented";

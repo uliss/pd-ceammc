@@ -492,4 +492,13 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(p.getT(i));
         REQUIRE(i == 1);
     }
+
+    SECTION("callSuccessFn")
+    {
+        FloatProperty p("float", 100);
+        REQUIRE_FALSE(p.callSuccessFn());
+
+        REQUIRE(p.setSuccessFn(nullptr));
+        REQUIRE_FALSE(p.callSuccessFn());
+    }
 }
