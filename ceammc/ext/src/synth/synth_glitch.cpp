@@ -13,6 +13,8 @@ constexpr size_t MAX_GLITCH_FILE_SIZE = 4 * 1024;
 constexpr const char* STR_BYTE_BEGIN = "byte(";
 constexpr const char* STR_BYTE_END = ")";
 
+float SynthGlitch::resample_ = 1;
+
 static std::future<std::string> readFile(const std::string& fullPath)
 {
     auto do_read = [](const std::string& path) -> std::string {
@@ -46,8 +48,6 @@ static std::future<std::string> readFile(const std::string& fullPath)
 SynthGlitch::SynthGlitch(const PdArgs& args)
     : SoundExternal(args)
     , t_(0)
-    , expr_(nullptr)
-    , clip_(nullptr)
     , read_clock_([this]() {
         if (read_content_.valid()) {
             auto st = read_content_.wait_for(std::chrono::milliseconds(0));
@@ -74,7 +74,7 @@ SynthGlitch::SynthGlitch(const PdArgs& args)
     })
 {
     createSignalOutlet();
-    glitch_.setSamplerate(sys_getsr());
+    glitch_.setSamplerate(sys_getsr() * resample_);
 
     expr_ = new ListProperty("@expr");
     if (!expr_->setListCheckFn(
@@ -119,7 +119,7 @@ void SynthGlitch::processBlock(const t_sample** /*in*/, t_sample** out)
 
 void SynthGlitch::samplerateChanged(size_t sr)
 {
-    glitch_.setSamplerate(sr);
+    glitch_.setSamplerate(sr * resample_);
 }
 
 void SynthGlitch::m_byte(t_symbol* /*s*/, const AtomListView& lv)
@@ -169,17 +169,24 @@ void SynthGlitch::m_read(t_symbol* s, const AtomListView& lv)
     read_clock_.delay(20);
 }
 
+void SynthGlitch::m_speed(t_symbol* s, const AtomListView& lv)
+{
+    resample_ = 1 / clip<float>(lv.asFloat(1), 0.25, 4);
+    glitch_.setSamplerate(samplerate() * resample_);
+}
+
 void setup_synth_glitch()
 {
     SoundExternalFactory<SynthGlitch> obj("synth.glitch~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("byte", &SynthGlitch::m_byte);
     obj.addMethod("reset", &SynthGlitch::m_reset);
     obj.addMethod("read", &SynthGlitch::m_read);
+    obj.addMethod("speed", &SynthGlitch::m_speed);
     obj.useDefaultPdFloatFn();
     obj.parseArgsMode(PdArgs::PARSE_COPY);
     obj.parsePropsMode(PdArgs::PARSE_COPY);
 
     obj.setDescription("Glitch synthesizer by naivesound");
     obj.setCategory("synth");
-    obj.setKeywords({"glitch"});
+    obj.setKeywords({ "glitch" });
 }
