@@ -26,6 +26,8 @@ void setup_conv_samp2sec();
 void setup_conv_sec2bpm();
 void setup_conv_sec2samp();
 
+void setup_conv_semi2ratio();
+
 void setup_conv_angles();
 
 void setup_conv_color2rgba();
@@ -92,6 +94,7 @@ void ceammc_conv_setup()
     setup_conv_int2bits();
 
     setup_conv_degree2key();
+    setup_conv_semi2ratio();
 
     setup_conv_sig2float();
     setup_conv_edge2bang();
