@@ -42,6 +42,7 @@ public:
     {
         createInlet();
         createInlet();
+        createOutlet();
 
         for (auto p : beats_)
             p->setInternal();
@@ -117,6 +118,7 @@ private:
             if (beats_.at(t - 1)) {
                 beats_[t - 1]->setValue(1, true);
                 clock_off_.delay(10);
+                floatTo(1, t);
             }
         } catch (std::exception& e) {
             OBJ_ERR << e.what();
