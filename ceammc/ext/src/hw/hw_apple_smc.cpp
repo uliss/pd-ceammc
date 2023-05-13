@@ -61,6 +61,6 @@ extern "C" void setup_hw_apple_smc()
     obj.addMethod("read", &HwAppleSMC::m_read);
 }
 #else
-CONTROL_OBJECT_STUB(1, 1, "not supported on this platform");
-OBJECT_STUB_SETUP("hw.apple_smc", hw_apple_smc);
+CONTROL_OBJECT_STUB(HwAppleSMC_stub, 1, 1, "not supported on this platform");
+OBJECT_STUB_SETUP(HwAppleSMC_stub, hw_apple_smc, "hw.apple_smc");
 #endif
