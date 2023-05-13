@@ -27,32 +27,32 @@ public:
         OBJ_ERR << errMsg;
     }
 
-    void processBlock(const t_sample** in, t_sample** out) final { }
+    void processBlock(const t_sample** /*in*/, t_sample** /*out*/) final { }
 };
 }
 
-#define AUDIO_OBJECT_STUB(ain, aout, cin, cout, msg)                      \
+#define AUDIO_OBJECT_STUB(class_name, ain, aout, cin, cout, msg)          \
     namespace {                                                           \
-        class ControlStub : public ceammc::StubObjectImpl {               \
+        class class_name : public ceammc::StubObjectImpl {                \
         public:                                                           \
-            ControlStub(const ceammc::PdArgs& args)                       \
+            class_name(const ceammc::PdArgs& args)                        \
                 : ceammc::StubObjectImpl(args, ain, aout, cin, cout, msg) \
             {                                                             \
             }                                                             \
         };                                                                \
     }
 
-#define CONTROL_OBJECT_STUB(in, out, msg) \
-    AUDIO_OBJECT_STUB(0, 0, in, out, msg)
+#define CONTROL_OBJECT_STUB(class_name, in, out, msg) \
+    AUDIO_OBJECT_STUB(name, 0, 0, in, out, msg)
 
-#define OBJECT_STUB_SETUP(name, fn, ...)                    \
-    extern "C" void setup_##fn()                            \
-    {                                                       \
-        ceammc::SoundExternalFactory<ControlStub> obj(name, \
-            ceammc::OBJECT_FACTORY_NO_DEFAULT_INLET);       \
-        std::vector<const char*> aliases = { __VA_ARGS__ }; \
-        for (auto a : aliases)                              \
-            obj.addAlias(a);                                \
+#define OBJECT_STUB_SETUP(class_name, fn, obj_name, ...)       \
+    extern "C" void setup_##fn()                               \
+    {                                                          \
+        ceammc::SoundExternalFactory<class_name> obj(obj_name, \
+            ceammc::OBJECT_FACTORY_NO_DEFAULT_INLET);          \
+        std::vector<const char*> aliases = { __VA_ARGS__ };    \
+        for (auto a : aliases)                                 \
+            obj.addAlias(a);                                   \
     }
 
 #endif // CEAMMC_STUB_H

@@ -16,9 +16,10 @@
 
 #include "ceammc_property_callback.h"
 #include "ceammc_sound_external.h"
-#ifdef WITH_LIBLTC
 
 using namespace ceammc;
+
+#ifdef WITH_LIBLTC
 
 struct LTCEncoder;
 using LTCEncoderPtr = std::unique_ptr<LTCEncoder, void (*)(LTCEncoder*)>;
@@ -66,8 +67,8 @@ void setup_proto_ltcout_tilde();
 #else
 #include "ceammc_stub.h"
 
-AUDIO_OBJECT_STUB(0, 1, 1, 0, "compiled without libltc support")
-OBJECT_STUB_SETUP("proto.ltc.out~", proto_ltcout_tilde, "ltc.out~");
+AUDIO_OBJECT_STUB(LtcOutTilde, 0, 1, 1, 0, "compiled without libltc support")
+OBJECT_STUB_SETUP(LtcOutTilde, proto_ltcout_tilde, "proto.ltc.out~", "ltc.out~");
 #endif
 
 #endif // MISC_LTCOUT_TILDE_H
