@@ -1,15 +1,13 @@
 #include "preset_storage.h"
+#include "ceammc_canvas.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "ceammc_pd.h"
 #include "ceammc_platform.h"
 #include "ceammc_preset.h"
 
 #include <cstring>
 #include <fstream>
-
-extern "C" {
-#include "g_canvas.h"
-}
 
 PresetExternal::PresetExternal(const PdArgs& args)
     : BaseObject(args)
@@ -43,16 +41,8 @@ void PresetExternal::m_store(t_symbol*, const AtomListView& l)
 
 void PresetExternal::m_clear(t_symbol*, const AtomListView& l)
 {
-    t_symbol* SYM_PRESET_ALL = gensym(Preset::SYM_PRESET_ALL);
-
     size_t idx = l.toT<size_t>(0);
-
-    if (!SYM_PRESET_ALL->s_thing)
-        return;
-
-    t_atom a;
-    SETFLOAT(&a, idx);
-    pd_typedmess(SYM_PRESET_ALL->s_thing, gensym("clear"), 1, &a);
+    pd::send_message(gensym(Preset::SYM_PRESET_ALL), gensym("clear"), Atom(idx));
 }
 
 void PresetExternal::m_write(t_symbol*, const AtomListView& l)
@@ -81,7 +71,7 @@ std::string PresetExternal::makeDefaultPresetPath() const
     std::string res;
 
     if (rootCanvas()) {
-        res += platform::strip_extension(rootCanvas()->gl_name->s_name);
+        res += platform::strip_extension(canvas_info_name(rootCanvas())->s_name);
         res += "-preset.txt";
     }
 
