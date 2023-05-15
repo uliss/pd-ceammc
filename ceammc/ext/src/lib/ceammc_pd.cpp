@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_pd.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_canvas.h"
 #include "ceammc_externals.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
@@ -107,8 +108,8 @@ pd::External::External(const char* name, const AtomList& lst)
     , parent_(nullptr)
 {
     try {
-        t_symbol* OBJ_NAME = gensym(name);
-        pd_typedmess(&pd_objectmaker, OBJ_NAME, int(lst.size()), lst.toPdData());
+        auto OBJ_NAME = gensym(name);
+        pd::message_to(&pd_objectmaker, OBJ_NAME, lst);
 
         t_pd* ptr = pd_newest();
         if (!ptr) {
@@ -285,12 +286,12 @@ void pd::External::sendSymbol(t_symbol* s)
     pd_symbol(pd(), s);
 }
 
-void pd::External::sendList(const AtomList& l)
+void pd::External::sendList(const AtomList& lv)
 {
     if (!obj_)
         return;
 
-    pd_list(pd(), &s_list, int(l.size()), l.toPdData());
+    pd::list_to(pd(), lv.view());
 }
 
 void pd::External::sendBangTo(size_t inlet)
@@ -326,14 +327,14 @@ void pd::External::sendSymbolTo(t_symbol* s, size_t inlet)
     }
 }
 
-void pd::External::sendListTo(const AtomList& l, size_t inlet)
+void pd::External::sendListTo(const AtomList& lv, size_t inlet)
 {
     if (inlet == 0)
-        sendList(l);
+        sendList(lv);
     else {
         External pd_l("list");
         if (pd_l.connectTo(0, *this, inlet))
-            pd_list(pd_l.pd(), &s_list, int(l.size()), l.toPdData());
+            pd::list_to(pd_l.pd(), lv.view());
     }
 }
 
@@ -342,7 +343,7 @@ void pd::External::sendMessage(t_symbol* msg, const AtomList& args)
     if (!obj_)
         return;
 
-    pd_typedmess(&obj_->te_g.g_pd, msg, int(args.size()), args.toPdData());
+    pd::message_to(&obj_->te_g.g_pd, msg, args.view());
 }
 
 void pd::External::sendMessage(const Message& m)
@@ -613,4 +614,52 @@ void pd::object_bang(t_object* x)
         return;
 
     x->te_g.g_pd->c_bangmethod(&x->te_g.g_pd);
+}
+
+void pd::message_to(t_pd* x, t_symbol* s, const AtomListView& lv)
+{
+    pd_typedmess(x, s, lv.size(), lv.toPdData());
+}
+
+void pd::message_to(BaseObject* x, t_symbol* s, const AtomListView& lv)
+{
+    pd_typedmess(pd::object_pd(x->owner()), s, lv.size(), lv.toPdData());
+}
+
+t_pd* pd::object_pd(t_object* x)
+{
+    if (!x)
+        return nullptr;
+
+    return &x->te_g.g_pd;
+}
+
+void pd::bang_to(t_pd* x)
+{
+    if (x)
+        pd_bang(x);
+}
+
+void pd::float_to(t_pd* x, t_float f)
+{
+    if (x)
+        pd_float(x, f);
+}
+
+void pd::symbol_to(t_pd* x, t_symbol* s)
+{
+    if (x)
+        pd_symbol(x, s);
+}
+
+void pd::symbol_to(t_pd* x, const char* s)
+{
+    if (x)
+        pd_symbol(x, gensym(s));
+}
+
+void pd::list_to(t_pd* x, const AtomListView& lv)
+{
+    if (x)
+        pd_list(x, &s_list, lv.size(), lv.toPdData());
 }

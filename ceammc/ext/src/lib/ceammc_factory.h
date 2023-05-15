@@ -645,6 +645,22 @@ public:
         InletProxy<T>::set_method_callback(m, fn);
     }
 
+    static T* objectCast(t_gobj* x)
+    {
+        if (pd_class(&x->g_pd) != classPointer())
+            return nullptr;
+        else
+            return reinterpret_cast<ObjectProxy*>(&x->g_pd)->impl;
+    }
+
+    static T* objectCast(t_class* x)
+    {
+        if (x != classPointer())
+            return nullptr;
+        else
+            return reinterpret_cast<ObjectProxy*>(x)->impl;
+    }
+
 private:
     template <typename DataT>
     static bool processDataSingleTypedFn(ObjectProxy* x, const Atom& a)

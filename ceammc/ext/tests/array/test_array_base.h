@@ -15,6 +15,7 @@
 #define TEST_ARRAY_BASE_H
 
 #include "ceammc_data.h"
+#include "ceammc_canvas.h"
 #include "datatype_mlist.h"
 #include "datatype_string.h"
 #include "test_base.h"

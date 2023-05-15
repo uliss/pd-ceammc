@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_canvas.h"
+#include "ceammc_containers.h"
 #include "ceammc_object.h"
 
 #include "m_pd.h"
@@ -289,37 +290,30 @@ std::shared_ptr<pd::External> Canvas::createObject(const char* name, const AtomL
     return ptr;
 }
 
-void Canvas::createPdObject(int x, int y, t_symbol* name, const AtomList& args)
+void Canvas::createPdObject(int x, int y, t_symbol* name, const AtomListView& args)
 {
     if (!canvas_)
         return;
 
-    static t_symbol* SYM_OBJ = gensym("obj");
-
-    AtomList xargs({ t_float(x), t_float(y) });
+    SmallAtomList xargs;
     xargs.reserve(args.size() + 3);
-    xargs.append(Atom(name));
-    xargs.append(args);
+    xargs.assign({ t_float(x), t_float(y), name });
+    xargs.insert(xargs.end(), args.begin(), args.end());
 
-    pd_typedmess(&canvas_->gl_obj.te_g.g_pd, SYM_OBJ, static_cast<int>(xargs.size()), xargs.toPdData());
+    pd::message_to(pd(), gensym("obj"), xargs.view());
 }
 
-_glist* Canvas::createAbstraction(int x, int y, t_symbol* name, const AtomList& args)
+_glist* Canvas::createAbstraction(int x, int y, t_symbol* name, const AtomListView& args)
 {
-    static t_symbol* SYM_CANVAS = gensym("canvas");
-
     if (!canvas_)
         return nullptr;
 
     createPdObject(x, y, name, args);
 
-    t_gobj* z;
-    for (z = canvas_->gl_list; z->g_next; z = z->g_next) {
-        // find last created object
-    }
+    auto z = canvas_find_last(canvas_);
 
     // load abstraction
-    if (z && z->g_pd->c_name == SYM_CANVAS)
+    if (z && z->g_pd->c_name == gensym("canvas"))
         return reinterpret_cast<t_canvas*>(z);
     else {
         LIB_ERR << "can't create abstraction: " << name << ' ' << args;
@@ -330,6 +324,11 @@ _glist* Canvas::createAbstraction(int x, int y, t_symbol* name, const AtomList& 
 _glist* Canvas::owner()
 {
     return canvas_ ? canvas_->gl_owner : nullptr;
+}
+
+t_pd* Canvas::pd()
+{
+    return &(canvas_->gl_obj.te_g.g_pd);
 }
 
 void Canvas::loadBang()
@@ -360,11 +359,8 @@ void Canvas::free()
 
 void Canvas::setupDsp()
 {
-    static t_symbol* SYM_DSP = gensym("dsp");
-
-    if (canvas_) {
-        mess0(&canvas_->gl_obj.te_g.g_pd, SYM_DSP);
-    }
+    if (canvas_)
+        mess0(&canvas_->gl_obj.te_g.g_pd, gensym("dsp"));
 }
 
 t_symbol* Canvas::name()
@@ -377,7 +373,7 @@ void Canvas::setName(const char* str)
     canvas_->gl_name = gensym(str);
 }
 
-std::string Canvas::parentName() const
+const char* Canvas::parentName() const
 {
     return canvas_->gl_owner ? canvas_->gl_owner->gl_name->s_name : "";
 }
@@ -552,6 +548,24 @@ int canvas_info_dollarzero(const _glist* c)
         return 0;
 
     return env->ce_dollarzero;
+}
+
+void canvas_foreach(const _glist* c, std::function<void(t_gobj*, const t_class*)> fn)
+{
+    for (auto y = c->gl_list; y != nullptr; y = y->g_next)
+        fn(y, pd_class(&y->g_pd));
+}
+
+t_gobj* canvas_find_last(const _glist* c)
+{
+    if (!c)
+        return nullptr;
+
+    auto z = c->gl_list;
+    while (z->g_next)
+        z = z->g_next;
+
+    return z;
 }
 
 }

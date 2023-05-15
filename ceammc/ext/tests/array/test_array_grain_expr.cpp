@@ -14,6 +14,7 @@
 #include "grain.h"
 #include "grain_expr_parser.h"
 #include "grain_random.h"
+#include "ceammc_canvas.h"
 #include "test_array_base.h"
 
 #include <cmath>

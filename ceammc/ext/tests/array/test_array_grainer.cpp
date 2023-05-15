@@ -14,6 +14,7 @@
 #include "array_grainer.h"
 #include "grain_random.h"
 #include "test_array_base.h"
+#include "ceammc_canvas.h"
 #include "test_sound.h"
 
 #include <cmath>

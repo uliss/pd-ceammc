@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_convolve.h"
+#include "ceammc_canvas.h"
 #include "test_array_base.h"
 //#include "test_sound.h"
 

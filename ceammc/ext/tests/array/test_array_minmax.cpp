@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_minmax.h"
+#include "ceammc_canvas.h"
 #include "test_array_base.h"
 
 PD_COMPLETE_TEST_SETUP(ArrayMinMax, array, minmax)

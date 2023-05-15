@@ -17,6 +17,7 @@
 #include "catch.hpp"
 
 #include "ceammc.h"
+#include "ceammc_canvas.h"
 #include "ceammc_factory.h"
 #include "ceammc_message.h"
 #include "ceammc_object.h"

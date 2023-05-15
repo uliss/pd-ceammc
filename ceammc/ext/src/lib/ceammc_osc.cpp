@@ -14,6 +14,7 @@
 #include "ceammc_osc.h"
 #include "ceammc_crc32.h"
 #include "ceammc_format.h"
+#include "ceammc_pd.h"
 #include "ceammc_poll_dispatcher.h"
 #include "fmt/core.h"
 
@@ -519,9 +520,8 @@ namespace osc {
             auto x = gensym(OSC_DISPATCHER);
             if (x->s_thing) {
                 auto s = gensym(OSC_METHOD_UPDATE);
-                t_atom a;
-                SETSYMBOL(&a, gensym(res->name().c_str()));
-                pd_typedmess(x->s_thing, s, 1, &a);
+                Atom a(gensym(res->name().c_str()));
+                pd::message_to(x->s_thing, s, a);
             }
 
             return res;

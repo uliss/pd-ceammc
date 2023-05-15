@@ -134,6 +134,16 @@ std::unique_ptr<pd::CanvasTree> canvas_info_tree(const _glist* c, CanvasClassPre
  */
 std::vector<t_object*> canvas_find(const _glist* c, CanvasClassPredicate pred);
 
+/**
+ * iterate over all canvas items
+ */
+void canvas_foreach(const _glist* c, std::function<void(t_gobj*, const t_class*)> fn);
+
+/**
+ * find canvas last object
+ */
+t_gobj* canvas_find_last(const _glist* c);
+
 class BaseObject;
 typedef std::shared_ptr<Array> ArrayPtr;
 
@@ -157,8 +167,8 @@ public:
     void addExternal(pd::External& ext);
     std::shared_ptr<pd::External> createObject(const char* name, const AtomList& args);
 
-    void createPdObject(int x, int y, t_symbol* name, const AtomList& args = AtomList());
-    _glist* createAbstraction(int x, int y, t_symbol* name, const AtomList& args = AtomList());
+    void createPdObject(int x, int y, t_symbol* name, const AtomListView& args = {});
+    _glist* createAbstraction(int x, int y, t_symbol* name, const AtomListView& args = {});
 
     void loadBang();
     void show();
@@ -171,6 +181,7 @@ public:
 public:
     _glist* pd_canvas() { return canvas_; }
     _glist* owner();
+    t_pd* pd();
 
     /**
      * canvas name
@@ -178,7 +189,7 @@ public:
      */
     t_symbol* name();
     void setName(const char* str);
-    std::string parentName() const;
+    const char* parentName() const;
 
 public:
     static _glist* current();

@@ -15,8 +15,6 @@
 #include "ceammc_pd.h"
 #include "test_base.h"
 
-#include "catch.hpp"
-
 using namespace ceammc;
 
 extern int sys_verbose;

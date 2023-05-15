@@ -1,6 +1,7 @@
 #include "ceammc_ui_object.h"
 #include "ceammc_crc32.h"
 #include "ceammc_log.h"
+#include "ceammc_pd.h"
 #include "ceammc_preset.h"
 #include "fmt/core.h"
 
@@ -437,37 +438,37 @@ void UIObjectImpl::anyTo(size_t n, const AtomListView& msg)
 
 void UIObjectImpl::sendBang()
 {
-    t_pd* send = ebox_getsender(box_);
-    if (send)
-        pd_bang(send);
+    t_pd* x = ebox_getsender(box_);
+    if (x)
+        pd_bang(x);
 }
 
 void UIObjectImpl::send(t_float f)
 {
-    t_pd* send = ebox_getsender(box_);
-    if (send)
-        pd_float(send, f);
+    t_pd* x = ebox_getsender(box_);
+    if (x)
+        pd_float(x, f);
 }
 
 void UIObjectImpl::send(t_symbol* s)
 {
-    t_pd* send = ebox_getsender(box_);
-    if (send)
-        pd_symbol(send, s);
+    t_pd* x = ebox_getsender(box_);
+    if (x)
+        pd_symbol(x, s);
 }
 
 void UIObjectImpl::send(const AtomListView& lv)
 {
-    t_pd* send = ebox_getsender(box_);
-    if (send)
-        pd_list(send, &s_list, lv.size(), lv.toPdData());
+    t_pd* x = ebox_getsender(box_);
+    if (x)
+        pd::list_to(x, lv);
 }
 
 void UIObjectImpl::send(t_symbol* s, const AtomListView& lv)
 {
-    t_pd* send = ebox_getsender(box_);
-    if (send)
-        pd_typedmess(send, s, lv.size(), lv.toPdData());
+    t_pd* x = ebox_getsender(box_);
+    if (x)
+        pd::message_to(x, s, lv);
 }
 
 t_rect UIObjectImpl::rect() const
