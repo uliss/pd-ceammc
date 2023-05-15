@@ -256,7 +256,7 @@ public:
      * @param labels - list of float values on which show labels
      * @return true on sucess, false on error
      */
-    bool setYLabels(const AtomList& labels);
+    bool setYLabels(const AtomListView& labels);
 
     /**
      * If true - save array contains in patch (convenient for small arrays)

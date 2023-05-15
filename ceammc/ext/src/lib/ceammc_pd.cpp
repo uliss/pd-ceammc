@@ -663,3 +663,48 @@ void pd::list_to(t_pd* x, const AtomListView& lv)
     if (x)
         pd_list(x, &s_list, lv.size(), lv.toPdData());
 }
+
+bool pd::send_bang(t_symbol* addr)
+{
+    if (addr->s_thing)
+        return false;
+
+    pd_bang(addr->s_thing);
+    return true;
+}
+
+bool pd::send_float(t_symbol* addr, t_float f)
+{
+    if (addr->s_thing)
+        return false;
+
+    pd_float(addr->s_thing, f);
+    return true;
+}
+
+bool pd::send_symbol(t_symbol* addr, t_symbol* s)
+{
+    if (addr->s_thing)
+        return false;
+
+    pd_symbol(addr->s_thing, s);
+    return true;
+}
+
+bool pd::send_list(t_symbol* addr, const AtomListView& lv)
+{
+    if (addr->s_thing)
+        return false;
+
+    pd_list(addr->s_thing, &s_list, lv.size(), lv.toPdData());
+    return true;
+}
+
+bool pd::send_message(t_symbol* addr, t_symbol* s, const AtomListView& lv)
+{
+    if (addr->s_thing)
+        return false;
+
+    pd_list(addr->s_thing, s, lv.size(), lv.toPdData());
+    return true;
+}

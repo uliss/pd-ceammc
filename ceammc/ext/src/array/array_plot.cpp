@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_plot.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "fmt/format.h"
@@ -209,8 +210,9 @@ void ArrayPlot::updateScale()
 
     const float m0 = round_fixed(a0 + (dist / 2), 2);
     array_.setYBounds(a0, b0);
+    AtomArray<3> lbl(a0, m0, b0);
 
-    if (!array_.setYLabels({ a0, m0, b0 }))
+    if (!array_.setYLabels(lbl.view()))
         OBJ_ERR << fmt::format("can't set ylabels for array '{}'", array_.name()->s_name);
 
     auto step = std::pow(10, std::trunc(std::log10(dist)) - 1);
@@ -320,5 +322,5 @@ void setup_array_plot()
 
     obj.setDescription("array data plotter");
     obj.setCategory("array");
-    obj.setKeywords({"array", "plot"});
+    obj.setKeywords({ "array", "plot" });
 }
