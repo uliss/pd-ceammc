@@ -1,8 +1,7 @@
 #include "ceammc_preset.h"
 #include "ceammc_containers.h"
-#include "ceammc_convert.h"
-#include "ceammc_format.h"
 #include "ceammc_log.h"
+#include "ceammc_pd.h"
 #include "ceammc_platform.h"
 
 extern "C" {
@@ -10,7 +9,6 @@ extern "C" {
 }
 
 #include <algorithm>
-#include <boost/container/small_vector.hpp>
 #include <cmath>
 #include <cstring>
 
@@ -375,11 +373,8 @@ void PresetStorage::unbindPreset(t_symbol* name)
         for (size_t i = 0; i < indexes_.size(); i++) {
             auto& idx_set = indexes_[i];
             idx_set.erase(name);
-            if (idx_set.empty() && SYM_PRESET_UPDATE_INDEX_ADDR->s_thing) {
-                t_atom a;
-                SETFLOAT(&a, i);
-                pd_typedmess(SYM_PRESET_UPDATE_INDEX_ADDR->s_thing, SYM_PRESET_INDEX_REMOVE, 1, &a);
-            }
+            if (idx_set.empty())
+                pd::send_message(SYM_PRESET_UPDATE_INDEX_ADDR, SYM_PRESET_INDEX_REMOVE, Atom(i));
         }
 
     } else if (n < 0) {
@@ -397,12 +392,6 @@ void PresetStorage::clearAll()
 
 void PresetStorage::clearAll(size_t idx)
 {
-    t_symbol* SYM_CLEAR = gensym("clear");
-    t_symbol* SYM_PRESET_ALL = gensym(Preset::SYM_PRESET_ALL);
-
-    if (!SYM_PRESET_ALL->s_thing)
-        return;
-
     if (idx >= maxPresetCount()) {
         LIB_ERR << "[preset] "
                 << "invalid preset index: " << idx
@@ -410,19 +399,11 @@ void PresetStorage::clearAll(size_t idx)
         return;
     }
 
-    t_atom a;
-    SETFLOAT(&a, idx);
-    pd_typedmess(SYM_PRESET_ALL->s_thing, SYM_CLEAR, 1, &a);
+    pd::send_message(gensym(Preset::SYM_PRESET_ALL), gensym("clear"), Atom(idx));
 }
 
 void PresetStorage::loadAll(size_t idx)
 {
-    t_symbol* SYM_LOAD = gensym("load");
-    t_symbol* SYM_PRESET_ALL = gensym(Preset::SYM_PRESET_ALL);
-
-    if (!SYM_PRESET_ALL->s_thing)
-        return;
-
     if (idx >= maxPresetCount()) {
         LIB_ERR << "[preset] "
                 << "invalid preset index: " << idx
@@ -430,19 +411,11 @@ void PresetStorage::loadAll(size_t idx)
         return;
     }
 
-    t_atom a;
-    SETFLOAT(&a, idx);
-    pd_typedmess(SYM_PRESET_ALL->s_thing, SYM_LOAD, 1, &a);
+    pd::send_message(gensym(Preset::SYM_PRESET_ALL), gensym("load"), Atom(idx));
 }
 
 void PresetStorage::storeAll(size_t idx)
 {
-    t_symbol* SYM_STORE = gensym("store");
-    t_symbol* SYM_PRESET_ALL = gensym(Preset::SYM_PRESET_ALL);
-
-    if (!SYM_PRESET_ALL->s_thing)
-        return;
-
     if (idx >= maxPresetCount()) {
         LIB_ERR << "[preset] "
                 << "invalid preset index: " << idx
@@ -450,19 +423,11 @@ void PresetStorage::storeAll(size_t idx)
         return;
     }
 
-    t_atom a;
-    SETFLOAT(&a, idx);
-    pd_typedmess(SYM_PRESET_ALL->s_thing, SYM_STORE, 1, &a);
+    pd::send_message(gensym(Preset::SYM_PRESET_ALL), gensym("store"), Atom(idx));
 }
 
 void PresetStorage::interpAll(t_float idx)
 {
-    t_symbol* SYM_LOAD = gensym("interp");
-    t_symbol* SYM_PRESET_ALL = gensym(Preset::SYM_PRESET_ALL);
-
-    if (!SYM_PRESET_ALL->s_thing)
-        return;
-
     if (idx >= maxPresetCount()) {
         LIB_ERR << "[preset] "
                 << "invalid preset index: " << idx
@@ -470,20 +435,12 @@ void PresetStorage::interpAll(t_float idx)
         return;
     }
 
-    t_atom a;
-    SETFLOAT(&a, idx);
-    pd_typedmess(SYM_PRESET_ALL->s_thing, SYM_LOAD, 1, &a);
+    pd::send_message(gensym(Preset::SYM_PRESET_ALL), gensym("interp"), Atom(idx));
 }
 
 void PresetStorage::updateAll()
 {
-    t_symbol* SYM_UPDATE = gensym("update");
-    t_symbol* SYM_PRESET_ALL = gensym(Preset::SYM_PRESET_ALL);
-
-    if (!SYM_PRESET_ALL->s_thing)
-        return;
-
-    pd_typedmess(SYM_PRESET_ALL->s_thing, SYM_UPDATE, 0, NULL);
+    pd::send_message(gensym(Preset::SYM_PRESET_ALL), gensym("update"), {});
 }
 
 void PresetStorage::duplicateAll()
@@ -516,7 +473,7 @@ PresetPtr PresetStorage::getOrCreate(t_symbol* name)
     if (it != params_.end())
         return it->second;
 
-    PresetPtr new_param = std::make_shared<Preset>(name);
+    auto new_param = std::make_shared<Preset>(name);
     params_.insert(PresetMap::value_type(name, new_param));
     return new_param;
 }
@@ -529,11 +486,8 @@ void PresetStorage::addPresetIndex(t_symbol* name, size_t idx)
     bool new_preset_index = indexes_[idx].empty();
     indexes_[idx].insert(name);
 
-    if (new_preset_index && SYM_PRESET_UPDATE_INDEX_ADDR->s_thing) {
-        t_atom a;
-        SETFLOAT(&a, idx);
-        pd_typedmess(SYM_PRESET_UPDATE_INDEX_ADDR->s_thing, SYM_PRESET_INDEX_ADD, 1, &a);
-    }
+    if (new_preset_index)
+        pd::send_message(SYM_PRESET_UPDATE_INDEX_ADDR, SYM_PRESET_INDEX_ADD, Atom(idx));
 }
 
 void PresetStorage::removePresetIndex(t_symbol* name, size_t idx)
@@ -542,11 +496,8 @@ void PresetStorage::removePresetIndex(t_symbol* name, size_t idx)
         return;
 
     indexes_[idx].erase(name);
-    if (indexes_[idx].empty() && SYM_PRESET_UPDATE_INDEX_ADDR->s_thing) {
-        t_atom a;
-        SETFLOAT(&a, idx);
-        pd_typedmess(SYM_PRESET_UPDATE_INDEX_ADDR->s_thing, SYM_PRESET_INDEX_REMOVE, 1, &a);
-    }
+    if (indexes_[idx].empty())
+        pd::send_message(SYM_PRESET_UPDATE_INDEX_ADDR, SYM_PRESET_INDEX_REMOVE, Atom(idx));
 }
 
 Preset::Preset(t_symbol* name)

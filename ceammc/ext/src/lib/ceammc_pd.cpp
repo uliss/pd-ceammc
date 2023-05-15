@@ -666,7 +666,7 @@ void pd::list_to(t_pd* x, const AtomListView& lv)
 
 bool pd::send_bang(t_symbol* addr)
 {
-    if (addr->s_thing)
+    if (!addr->s_thing)
         return false;
 
     pd_bang(addr->s_thing);
@@ -675,7 +675,7 @@ bool pd::send_bang(t_symbol* addr)
 
 bool pd::send_float(t_symbol* addr, t_float f)
 {
-    if (addr->s_thing)
+    if (!addr->s_thing)
         return false;
 
     pd_float(addr->s_thing, f);
@@ -684,7 +684,7 @@ bool pd::send_float(t_symbol* addr, t_float f)
 
 bool pd::send_symbol(t_symbol* addr, t_symbol* s)
 {
-    if (addr->s_thing)
+    if (!addr->s_thing)
         return false;
 
     pd_symbol(addr->s_thing, s);
@@ -693,7 +693,7 @@ bool pd::send_symbol(t_symbol* addr, t_symbol* s)
 
 bool pd::send_list(t_symbol* addr, const AtomListView& lv)
 {
-    if (addr->s_thing)
+    if (!addr->s_thing)
         return false;
 
     pd_list(addr->s_thing, &s_list, lv.size(), lv.toPdData());
@@ -702,9 +702,9 @@ bool pd::send_list(t_symbol* addr, const AtomListView& lv)
 
 bool pd::send_message(t_symbol* addr, t_symbol* s, const AtomListView& lv)
 {
-    if (addr->s_thing)
+    if (!addr->s_thing)
         return false;
 
-    pd_list(addr->s_thing, s, lv.size(), lv.toPdData());
+    pd_typedmess(addr->s_thing, s, lv.size(), lv.toPdData());
     return true;
 }
