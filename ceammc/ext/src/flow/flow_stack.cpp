@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "flow_stack.h"
 #include "ceammc_factory.h"
+#include "ceammc_pd.h"
 
 FlowStack::FlowStack(const PdArgs& a)
     : BaseObject(a)
@@ -178,15 +179,15 @@ void FlowStack::check_empty()
         if (s && s->s_thing) {
             AtomListView v = on_empty_->value().view(1);
             if (v.empty())
-                pd_bang(s->s_thing);
+                pd::send_bang(s);
             else if (v.isFloat())
-                pd_float(s->s_thing, v.asT<t_float>());
+                pd::send_float(s, v.asT<t_float>());
             else if (v.isSymbol())
-                pd_symbol(s->s_thing, v.asT<t_symbol*>());
+                pd::send_symbol(s, v.asT<t_symbol*>());
             else if (v.symbolAt(0, nullptr))
-                pd_typedmess(s->s_thing, v.symbolAt(0, &s_), v.size() - 1, v.toPdData() + 1);
+                pd::send_message(s, v.symbolAt(0, &s_), v.subView(1));
             else
-                pd_list(s->s_thing, &s_list, v.size(), v.toPdData());
+                pd::send_list(s, v);
         }
     }
 }
@@ -198,15 +199,15 @@ void FlowStack::check_full()
         if (s && s->s_thing) {
             AtomListView v = on_full_->value().view(1);
             if (v.empty())
-                pd_bang(s->s_thing);
+                pd::send_bang(s);
             else if (v.isFloat())
-                pd_float(s->s_thing, v.asT<t_float>());
+                pd::send_float(s, v.asT<t_float>());
             else if (v.isSymbol())
-                pd_symbol(s->s_thing, v.asT<t_symbol*>());
+                pd::send_symbol(s, v.asT<t_symbol*>());
             else if (v.symbolAt(0, nullptr))
-                pd_typedmess(s->s_thing, v.symbolAt(0, &s_), v.size() - 1, v.toPdData() + 1);
+                pd::send_message(s, v.symbolAt(0, &s_), v.subView(1));
             else
-                pd_list(s->s_thing, &s_list, v.size(), v.toPdData());
+                pd::send_list(s, v);
         }
     }
 }
@@ -234,5 +235,5 @@ void setup_flow_stack()
 
     obj.setDescription("any message stack");
     obj.setCategory("flow");
-    obj.setKeywords({"stack"});
+    obj.setKeywords({ "stack" });
 }

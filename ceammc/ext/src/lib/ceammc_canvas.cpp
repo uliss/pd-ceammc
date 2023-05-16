@@ -552,8 +552,11 @@ int canvas_info_dollarzero(const _glist* c)
 
 void canvas_foreach(const _glist* c, std::function<void(t_gobj*, const t_class*)> fn)
 {
-    for (auto y = c->gl_list; y != nullptr; y = y->g_next)
-        fn(y, pd_class(&y->g_pd));
+    if (!c)
+        return;
+
+    for (auto x = c->gl_list; x != nullptr; x = x->g_next)
+        fn(x, pd_class(&x->g_pd));
 }
 
 t_gobj* canvas_find_last(const _glist* c)

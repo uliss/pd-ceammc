@@ -586,19 +586,6 @@ public:
      */
     static t_symbol* className() { return class_name_; }
 
-    /**
-     * convert from Pd object pointer to pointer to ceammc class
-     * @param x - pd object pointer
-     * @return - pointer to ceammc object or nullptr on error
-     */
-    static T* fromObject(t_object* x)
-    {
-        if (!x)
-            return nullptr;
-
-        return reinterpret_cast<ObjectProxy*>(x)->impl;
-    }
-
     static uint32_t flags() { return flags_; }
 
     /**
@@ -645,9 +632,22 @@ public:
         InletProxy<T>::set_method_callback(m, fn);
     }
 
+    /**
+     * convert from Pd object pointer to pointer to ceammc class
+     * @param x - pd object pointer
+     * @return - pointer to ceammc object or nullptr on error
+     */
+    static T* objectCast(t_object* x)
+    {
+        if (!x || pd_class(&x->te_g.g_pd) != classPointer())
+            return nullptr;
+        else
+            return reinterpret_cast<ObjectProxy*>(&x->te_g.g_pd)->impl;
+    }
+
     static T* objectCast(t_gobj* x)
     {
-        if (pd_class(&x->g_pd) != classPointer())
+        if (!x || pd_class(&x->g_pd) != classPointer())
             return nullptr;
         else
             return reinterpret_cast<ObjectProxy*>(&x->g_pd)->impl;
@@ -655,7 +655,7 @@ public:
 
     static T* objectCast(t_class* x)
     {
-        if (x != classPointer())
+        if (!x || x != classPointer())
             return nullptr;
         else
             return reinterpret_cast<ObjectProxy*>(x)->impl;

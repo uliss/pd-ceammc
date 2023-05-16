@@ -19,11 +19,6 @@
 
 #include <unordered_map>
 
-extern "C" {
-#include "g_canvas.h"
-#include "m_imp.h"
-}
-
 PatchProps::PatchProps(const PdArgs& args)
     : BaseObject(args)
 {
@@ -37,19 +32,11 @@ bool PatchProps::processAnyProps(t_symbol* sel, const AtomListView& lst)
 
 void PatchProps::onBang()
 {
-    t_canvas* cnv = canvas();
-    if (!cnv)
-        return;
-
-    for (t_gobj* x = cnv->gl_list; x != nullptr; x = x->g_next) {
-        if (x->g_pd != ObjectFactory<PropDeclare>::classPointer())
-            continue;
-
-        PropDeclare* prop = ObjectFactory<PropDeclare>::fromObject((t_object*)x);
-        t_symbol* prop_name = prop->fullName();
-        if (prop_name->s_thing)
-            pd_bang(prop_name->s_thing);
-    }
+    canvas_foreach(canvas(), [](t_gobj* x, const t_class* c) {
+        auto obj = ObjectFactory<PropDeclare>::objectCast(x);
+        if (obj)
+            pd::send_bang(obj->fullName());
+    });
 }
 
 void PatchProps::onAny(t_symbol* s, const AtomListView& l)
@@ -111,66 +98,47 @@ void PatchProps::onAny(t_symbol* s, const AtomListView& l)
 
 void PatchProps::m_all_props(t_symbol* s, const AtomListView& args)
 {
-    t_canvas* x = canvas();
-    if (!x)
-        return;
-
     AtomList res;
-
-    for (t_gobj* y = x->gl_list; y; y = y->g_next) {
-        if (y->g_pd != ObjectFactory<PropDeclare>::classPointer())
-            continue;
-
-        PropDeclare* prop = ObjectFactory<PropDeclare>::fromObject((t_object*)y);
-        res.append(prop->name());
-    }
+    canvas_foreach(canvas(), [&res](t_gobj* x, const t_class* c) {
+        auto obj = ObjectFactory<PropDeclare>::objectCast(x);
+        if (obj)
+            res.append(obj->name());
+    });
 
     anyTo(0, SYM_PROPS_ALL(), res);
 }
 
 void PatchProps::m_default(t_symbol*, const AtomListView&)
 {
-    t_canvas* cnv = canvas();
-    if (!cnv)
-        return;
-
-    for (t_gobj* x = cnv->gl_list; x; x = x->g_next) {
-        if (x->g_pd != ObjectFactory<PropDeclare>::classPointer())
-            continue;
-
-        PdObject<PropDeclare>* prop = reinterpret_cast<PdObject<PropDeclare>*>(x);
-        t_symbol* sym = prop->impl->fullName();
-        if (sym->s_thing)
-            pd_typedmess(sym->s_thing, gensym("default"), 0, 0);
-    }
+    canvas_foreach(canvas(), [](t_gobj* x, const t_class* c) {
+        auto obj = ObjectFactory<PropDeclare>::objectCast(x);
+        if (obj)
+            pd::send_message(obj->fullName(), gensym("default"), {});
+    });
 }
 
 void PatchProps::dump() const
 {
     BaseObject::dump();
 
-    t_canvas* cnv = (t_canvas*)canvas();
-    if (!cnv)
-        return;
+    canvas_foreach(canvas(), [this](t_gobj* x, const t_class* c) {
+        auto obj = ObjectFactory<PropDeclare>::objectCast(x);
+        if (obj) {
+            PropertyPtr pprop(obj->fullName());
+            if (pprop) {
+                OBJ_DBG << "full name:   " << pprop->name()->s_name << "\n"
+                        << "type:        " << to_string(pprop->propertyType()) << "\n"
+                        << "value:       " << pprop->propertyStrValue();
 
-    for (t_gobj* x = cnv->gl_list; x; x = x->g_next) {
-        if (x->g_pd != ObjectFactory<PropDeclare>::classPointer())
-            continue;
-
-        PropertyPtr pprop(ObjectFactory<PropDeclare>::fromObject((t_object*)x)->fullName());
-        if (pprop) {
-            OBJ_DBG << "full name:   " << pprop->name()->s_name << "\n"
-                    << "type:        " << to_string(pprop->propertyType()) << "\n"
-                    << "value:       " << pprop->propertyStrValue();
-
-            if (pprop->hasMinValue())
-                OBJ_DBG << "min:       " << pprop->propertyStrMinValue();
-            if (pprop->hasMaxValue())
-                OBJ_DBG << "max:       " << pprop->propertyStrMaxValue();
-            if (pprop->hasEnumValues())
-                OBJ_DBG << "enum:      " << pprop->enumValues();
+                if (pprop->hasMinValue())
+                    OBJ_DBG << "min:       " << pprop->propertyStrMinValue();
+                if (pprop->hasMaxValue())
+                    OBJ_DBG << "max:       " << pprop->propertyStrMaxValue();
+                if (pprop->hasEnumValues())
+                    OBJ_DBG << "enum:      " << pprop->enumValues();
+            }
         }
-    }
+    });
 }
 
 void PatchProps::outputProp(const std::string& name, t_float f)
@@ -196,5 +164,5 @@ void setup_patch_props()
 
     obj.setDescription("patch properties manager");
     obj.setCategory("property");
-    obj.setKeywords({"property"});
+    obj.setKeywords({ "property" });
 }
