@@ -60,6 +60,7 @@ void setup_load_expr();
 void setup_load_msg();
 void setup_metro_choice();
 void setup_metro_wchoice();
+void setup_msg_on_close();
 void setup_nsig_tilde();
 void setup_prop_get();
 void setup_prop_get_tilde();
@@ -117,6 +118,7 @@ void ceammc_base_setup()
     setup_metro_seq();
     setup_metro_wchoice();
     setup_msg_after();
+    setup_msg_on_close();
     setup_msg_sched();
     setup_nsig_tilde();
     setup_obj_info();

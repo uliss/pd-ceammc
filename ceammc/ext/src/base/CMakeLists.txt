@@ -25,6 +25,7 @@ set(BASE_SOURCES
     metro_wchoice.cpp
     msg.cpp
     msg_after.cpp
+    msg_onclose.cpp
     msg_sched.cpp
     obj_info.cpp
     obj_props.cpp
