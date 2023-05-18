@@ -59,6 +59,7 @@
   - panic method added to proto.midi
   - brown, pink, white, blue and velvet methods added to noise.colored~
   - div added to live.capture~ to subdivide loop length while running
+  - proto.midi.cc - new portament method added
 - new object properties:
   - @punct added to rhvoice~, to specify pronounced characters
   - @bypass added to dyn.comp~ and dyn.comp2~
@@ -88,6 +89,7 @@
 - fx.secho~ is deprecated and will be removed in future releases, use fx.echo~. fx.echo~ delay change now is smoothed by default, but if you need
     gleetchy effect of delay change, you can set @smooth to 0.
 - fx.sdelay~ renamed to fx.delay~, fx.sdelay~ now is deprecated alias
+- proto.midi.cc - old portamento method renamed to portswitch
 
 ### Fixed:
 - proto.midi.cc - sound_off, notes_off crash fixes
