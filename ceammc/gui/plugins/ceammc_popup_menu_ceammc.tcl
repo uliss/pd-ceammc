@@ -148,7 +148,7 @@
         speech.flite~ speech.rhvoice~
     }}
     {msg {
-        loadexpr msg msg.after msg.onload msg.sched
+        loadexpr msg msg.after msg.onclose msg.onload msg.sched
     }}
     {music {
         rhythm.euclid rhythm.hexbeat rhythm.lsystem

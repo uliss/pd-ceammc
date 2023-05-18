@@ -245,6 +245,7 @@ gfx.recho~
 gfx.ringmod~
 gfx.room~
 gfx.satrev~
+gfx.scrambler~
 gfx.shimmer~
 gfx.tapiir~
 gfx.tremolo~

@@ -76,6 +76,7 @@ array.vplay
 array.window
 artnet.send
 bar->ms
+bimap
 bits->bang
 bits->int
 bits->note
@@ -124,6 +125,7 @@ ceammc/any->props
 ceammc/apf->biquad
 ceammc/approx
 ceammc/bar->ms
+ceammc/bimap
 ceammc/bits->bang
 ceammc/bits->int
 ceammc/bits->note
@@ -244,6 +246,7 @@ ceammc/samp->sec
 ceammc/sec->bpm
 ceammc/sec->samp
 ceammc/sec->str
+ceammc/semi->ratio
 ceammc/seq
 ceammc/sequencer
 ceammc/set->list
@@ -342,8 +345,10 @@ conv.samp2sec
 conv.sec2bpm
 conv.sec2samp
 conv.sec2str
+conv.semi2ratio
 conv.sig2float~
 conv.str2sec
+data.bimap
 data.color
 data.copy
 data.dict
@@ -450,6 +455,7 @@ flow.pack'
 flow.pass
 flow.pass_if
 flow.pipe
+flow.prepend
 flow.queue
 flow.rec
 flow.record
@@ -882,6 +888,7 @@ midi.kbd
 midi.key->str
 midi.key2str
 midi.modus
+midi.note.pass
 midi.oct
 midi.prg->str
 midi.prg2str
@@ -903,6 +910,7 @@ ms->samp~
 ms->str
 msg
 msg.after
+msg.onclose
 msg.onload
 msg.sched
 music.d->t
@@ -949,6 +957,7 @@ noise.verhulst
 noise.white~
 notch->biquad
 note->guido
+note.pass
 nsig~
 obj.info
 obj.props
@@ -1091,6 +1100,7 @@ samp.t~
 sec->bpm
 sec->samp
 sec->str
+semi->ratio
 seq
 seq.arp
 seq.b
