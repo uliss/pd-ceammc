@@ -222,6 +222,16 @@ public:
     t_object* owner() const { return pd_.owner; }
 
     /**
+     * pointer to basic pd struct
+     */
+    t_pd* asPd() const { return &pd_.owner->te_g.g_pd; }
+
+    /**
+     * pointer to graphic object struct
+     */
+    t_gobj* asGObj() const { return &pd_.owner->te_g; }
+
+    /**
      * Dumps object info to Pd window
      */
     virtual void dump() const;

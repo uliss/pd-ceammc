@@ -438,37 +438,27 @@ void UIObjectImpl::anyTo(size_t n, const AtomListView& msg)
 
 void UIObjectImpl::sendBang()
 {
-    t_pd* x = ebox_getsender(box_);
-    if (x)
-        pd_bang(x);
+    pd::bang_to(ebox_getsender(box_));
 }
 
 void UIObjectImpl::send(t_float f)
 {
-    t_pd* x = ebox_getsender(box_);
-    if (x)
-        pd_float(x, f);
+    pd::float_to(ebox_getsender(box_), f);
 }
 
 void UIObjectImpl::send(t_symbol* s)
 {
-    t_pd* x = ebox_getsender(box_);
-    if (x)
-        pd_symbol(x, s);
+    pd::symbol_to(ebox_getsender(box_), s);
 }
 
 void UIObjectImpl::send(const AtomListView& lv)
 {
-    t_pd* x = ebox_getsender(box_);
-    if (x)
-        pd::list_to(x, lv);
+    pd::list_to(ebox_getsender(box_), lv);
 }
 
 void UIObjectImpl::send(t_symbol* s, const AtomListView& lv)
 {
-    t_pd* x = ebox_getsender(box_);
-    if (x)
-        pd::message_to(x, s, lv);
+    pd::message_to(ebox_getsender(box_), s, lv);
 }
 
 t_rect UIObjectImpl::rect() const

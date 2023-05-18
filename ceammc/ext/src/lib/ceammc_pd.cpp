@@ -618,12 +618,14 @@ void pd::object_bang(t_object* x)
 
 void pd::message_to(t_pd* x, t_symbol* s, const AtomListView& lv)
 {
-    pd_typedmess(x, s, lv.size(), lv.toPdData());
+    if (x)
+        pd_typedmess(x, s, lv.size(), lv.toPdData());
 }
 
 void pd::message_to(BaseObject* x, t_symbol* s, const AtomListView& lv)
 {
-    pd_typedmess(pd::object_pd(x->owner()), s, lv.size(), lv.toPdData());
+    if (x && x->owner())
+        pd_typedmess(x->asPd(), s, lv.size(), lv.toPdData());
 }
 
 t_pd* pd::object_pd(t_object* x)
@@ -718,6 +720,11 @@ bool pd::send_symbol(t_symbol* addr, t_symbol* s)
 
     pd_symbol(addr->s_thing, s);
     return true;
+}
+
+bool pd::send_symbol(t_symbol* addr, const char* s)
+{
+    return pd::send_symbol(addr, gensym(s));
 }
 
 bool pd::send_list(t_symbol* addr, const AtomListView& lv)

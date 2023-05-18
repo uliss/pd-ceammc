@@ -16,6 +16,7 @@
 
 #include "ceammc_clock.h"
 #include "ceammc_object.h"
+#include "ceammc_pd.h"
 
 namespace ceammc {
 
@@ -49,18 +50,13 @@ public:
 protected:
     void sendReset()
     {
-        auto SYM_RESET = gensym("reset");
-        pd_typedmess(&(this->owner()->te_g.g_pd), SYM_RESET, 0, nullptr);
+        pd::message_to(this->asPd(), gensym("reset"), {});
     }
 
     void sendGate(t_float val)
     {
-        auto SYM_PROP_GATE = gensym("@gate");
-
-        // send @gate message
-        t_atom a;
-        SETFLOAT(&a, val);
-        pd_typedmess(&(this->owner()->te_g.g_pd), SYM_PROP_GATE, 1, &a);
+        Atom gate(val);
+        pd::message_to(this->asPd(), gensym("@gate"), gate);
     }
 };
 }

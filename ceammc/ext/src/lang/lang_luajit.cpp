@@ -14,6 +14,7 @@
 #include "lang_luajit.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "ceammc_pd.h"
 #include "ceammc_platform.h"
 #include "lua_interp.h"
 
@@ -267,9 +268,7 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
     case LUA_CMD_SEND_BANG: {
         const auto sel = (msg.args.size() < 1) ? LuaString("?") : msg.args[0].getString();
         auto sym = gensym(sel.c_str());
-        if (sym->s_thing)
-            pd_bang(sym->s_thing);
-        else
+        if (!pd::send_bang(sym))
             OBJ_DBG << "send_bang() target not found: " << sym;
     } break;
     case LUA_CMD_SEND_FLOAT: {
@@ -277,9 +276,7 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
         const auto val = (msg.args.size() < 2) ? 0 : msg.args[1].getDouble();
 
         auto sym = gensym(sel.c_str());
-        if (sym->s_thing)
-            pd_float(sym->s_thing, val);
-        else
+        if (!pd::send_float(sym, val))
             OBJ_DBG << "send_float() target not found: " << sym;
     } break;
     case LUA_CMD_SEND_SYMBOL: {
@@ -287,9 +284,7 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
         const auto val = (msg.args.size() < 2) ? "" : msg.args[1].getString();
 
         auto sym = gensym(sel.c_str());
-        if (sym->s_thing)
-            pd_symbol(sym->s_thing, gensym(val.c_str()));
-        else
+        if (!pd::send_symbol(sym, val.c_str()))
             OBJ_DBG << "send_symbol() target not found: " << sym;
     } break;
     case LUA_CMD_SEND_LIST: {
@@ -306,7 +301,7 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
             for (size_t i = 1; i < N; i++)
                 res.append(msg.args[i].applyVisitor<AtomLuaVisitor>());
 
-            pd_list(sym->s_thing, &s_list, res.size(), res.view().toPdData());
+            pd::send_list(sym, res);
         } else
             OBJ_DBG << "send_list() target not found: " << sym;
     } break;

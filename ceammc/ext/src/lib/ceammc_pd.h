@@ -47,6 +47,7 @@ namespace pd {
     bool send_bang(t_symbol* addr);
     bool send_float(t_symbol* addr, t_float f);
     bool send_symbol(t_symbol* addr, t_symbol* s);
+    bool send_symbol(t_symbol* addr, const char* s);
     bool send_list(t_symbol* addr, const AtomListView& lv);
     bool send_message(t_symbol* addr, t_symbol* s, const AtomListView& lv);
 

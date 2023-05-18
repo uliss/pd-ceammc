@@ -192,9 +192,7 @@ void PropDeclare::onLoadBang()
     // no property defined in canvas arguments
     if (!canvas_info_args(cnv).getProperty(sym_name_, pv)) {
         // output default values
-        if (sym_full_name_->s_thing)
-            pd_bang(sym_full_name_->s_thing);
-
+        pd::send_bang(sym_full_name_);
         return;
     }
 
@@ -205,8 +203,7 @@ void PropDeclare::onLoadBang()
     if (!pptr->setFromPdArgs(pv))
         OBJ_ERR << "error setting property: " << sym_name_;
 
-    if (sym_full_name_->s_thing)
-        pd_bang(sym_full_name_->s_thing);
+    pd::send_bang(sym_full_name_);
 }
 
 bool PropDeclare::isFloat() const
