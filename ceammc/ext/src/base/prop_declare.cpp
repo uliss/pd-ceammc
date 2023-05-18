@@ -13,11 +13,10 @@
  *****************************************************************************/
 #include "prop_declare.h"
 #include "ceammc_canvas.h"
-#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_globaldata.h"
 #include "datatype_property.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 #include <cstring>
 #include <limits>
@@ -189,9 +188,9 @@ void PropDeclare::onLoadBang()
     if (!cnv)
         return;
 
-    AtomList pv;
+    AtomListView pv;
     // no property defined in canvas arguments
-    if (!canvas_info_args(cnv).property(sym_name_, &pv)) {
+    if (!canvas_info_args(cnv).getProperty(sym_name_, pv)) {
         // output default values
         if (sym_full_name_->s_thing)
             pd_bang(sym_full_name_->s_thing);
@@ -203,7 +202,7 @@ void PropDeclare::onLoadBang()
     if (!pptr)
         return;
 
-    if (!pptr->setFromPdArgs(pv.view()))
+    if (!pptr->setFromPdArgs(pv))
         OBJ_ERR << "error setting property: " << sym_name_;
 
     if (sym_full_name_->s_thing)

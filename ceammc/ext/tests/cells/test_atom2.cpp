@@ -19,6 +19,11 @@
 
 using namespace ceammc;
 
+static Atom DOLL_SYM(const char* s)
+{
+    return Atom::dollarSymbol(gensym(s));
+}
+
 TEST_CASE("Atom2", "[core]")
 {
     SECTION("data")
@@ -588,5 +593,27 @@ TEST_CASE("Atom2", "[core]")
         REQUIRE(a.isSemicolon());
 
         REQUIRE(a == Atom::semicolon());
+    }
+
+    SECTION("expandDollarArgs")
+    {
+        REQUIRE(Atom(1).expandDollarArgs({}, false) == Atom(1));
+        REQUIRE(A("test").expandDollarArgs({}, false) == A("test"));
+        REQUIRE(A("$0").expandDollarArgs({}, false) == A("$0"));
+
+        auto dz = canvas_info_dollarzero(canvas_getcurrent());
+        char buf[32];
+        sprintf(buf, "%d", dz);
+        REQUIRE(Atom::dollar(0).expandDollarArgs(LF(10, 20, 30), false) == A(buf));
+        sprintf(buf, "%d-test", dz);
+        REQUIRE(DOLL_SYM("$0-test").expandDollarArgs(LF(10, 20, 30), false) == A(buf));
+        sprintf(buf, "%d-test", dz);
+        REQUIRE(DOLL_SYM("$1-$2-$3-$4").expandDollarArgs(LF(10, 20, 30), false) == A("10-20-30-$4"));
+        REQUIRE(DOLL_SYM("$1-$2-$3-$4").expandDollarArgs(LF(10, 20, 30), true) == Atom());
+        REQUIRE(DOLL_SYM("$1-$2-$3").expandDollarArgs(LF(10, 20, 30), true) == A("10-20-30"));
+
+        sprintf(buf, "%d-$1", dz);
+        REQUIRE(DOLL_SYM("$0-$1").expandDollarArgs(canvas_getcurrent(), false) == A(buf));
+        REQUIRE(DOLL_SYM("$0-$1").expandDollarArgs(canvas_getcurrent(), true) == Atom());
     }
 }

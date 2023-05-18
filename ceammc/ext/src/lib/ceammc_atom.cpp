@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_atom.h"
+#include "ceammc_canvas.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_log.h"
 #include "ceammc_numeric.h"
@@ -212,6 +213,20 @@ Atom Atom::comma() noexcept
 {
     Atom a;
     a.setComma();
+    return a;
+}
+
+Atom Atom::dollar(int n) noexcept
+{
+    Atom a;
+    a.setDollar(n);
+    return a;
+}
+
+Atom Atom::dollarSymbol(t_symbol* s) noexcept
+{
+    Atom a;
+    a.setDollarSymbol(s);
     return a;
 }
 
@@ -418,6 +433,7 @@ Atom::Type Atom::type() const noexcept
 
         return (a_w.w_symbol->s_name[0] == PROP_PREFIX) ? PROPERTY : SYMBOL;
     case A_FLOAT:
+    case A_DEFFLOAT:
         return FLOAT;
     case TYPE_DATA:
         return DATA;
@@ -427,6 +443,10 @@ Atom::Type Atom::type() const noexcept
         return SEMICOLON;
     case A_COMMA:
         return COMMA;
+    case A_DOLLAR:
+        return DOLLAR;
+    case A_DOLLSYM:
+        return DOLLAR_SYMBOL;
     default:
         return NONE;
     }
@@ -485,6 +505,16 @@ void Atom::setComma() noexcept
     SETCOMMA(this);
 }
 
+void Atom::setDollar(int n) noexcept
+{
+    SETDOLLAR(this, n);
+}
+
+void Atom::setDollarSymbol(t_symbol* s) noexcept
+{
+    SETDOLLSYM(this, s);
+}
+
 void Atom::setSemicolon() noexcept
 {
     SETSEMI(this);
@@ -492,17 +522,14 @@ void Atom::setSemicolon() noexcept
 
 bool Atom::asBool(bool def) const noexcept
 {
-    static t_symbol* SYM_TRUE = gensym("true");
-    static t_symbol* SYM_FALSE = gensym("false");
-
     switch (a_type) {
     case A_DEFFLOAT:
     case A_FLOAT:
         return !std::equal_to<t_float>()(a_w.w_float, 0);
     case A_SYMBOL:
-        if (a_w.w_symbol == SYM_TRUE)
+        if (strcmp("true", a_w.w_symbol->s_name) == 0)
             return true;
-        else if (a_w.w_symbol == SYM_FALSE)
+        else if (strcmp("false", a_w.w_symbol->s_name) == 0)
             return false;
         else
             return def;
@@ -518,6 +545,61 @@ size_t Atom::asSizeT(size_t def) const noexcept
 
     t_float v = a_w.w_float;
     return (v < 0) ? def : static_cast<size_t>(v);
+}
+
+Atom Atom::expandDollarArgs(const AtomListView& args, bool checkArgs) const
+{
+    if (isDollarSym()) {
+        auto new_sym = binbuf_realizedollsym(asT<t_symbol*>(), args.size(), args.toPdData(), !checkArgs);
+        return new_sym ? new_sym : Atom();
+    } else if (isDollar()) {
+        auto idx = dollarIndex();
+        if (idx < 0 || idx > args.size()) {
+            if (checkArgs)
+                return Atom();
+            else
+                return Atom(0.);
+        } else if (idx == 0) {
+            auto cnv = canvas_getcurrent();
+            if (cnv) {
+                auto dz = canvas_info_dollarzero(cnv);
+                char buf[32] = { 0 };
+                sprintf(buf, "%d", dz);
+                return gensym(buf);
+            } else
+                return Atom();
+        } else
+            return args[idx - 1];
+    } else
+        return *this;
+}
+
+Atom Atom::expandDollarArgs(const t_canvas* cnv, bool checkArgs) const
+{
+    if (isDollarSym()) {
+        auto res = canvas_expand_dollar(cnv, asT<t_symbol*>(), checkArgs);
+        return res ? res : Atom();
+    } else if (isDollar()) {
+        auto args = canvas_info_args(cnv);
+        auto idx = dollarIndex();
+        if (idx < 0 || idx > args.size()) {
+            if (checkArgs)
+                return Atom();
+            else
+                return Atom(0.);
+        } else if (idx == 0) {
+            auto cnv = canvas_getcurrent();
+            if (cnv) {
+                auto dz = canvas_info_dollarzero(cnv);
+                char buf[32] = { 0 };
+                sprintf(buf, "%d", dz);
+                return gensym(buf);
+            } else
+                return Atom();
+        } else
+            return args[idx - 1];
+    } else
+        return *this;
 }
 
 const AbstractData* Atom::asData() const noexcept
@@ -576,6 +658,7 @@ bool Atom::operator<(const Atom& b) const noexcept
         case FLOAT:
             return a_w.w_float < b.a_w.w_float;
         case SYMBOL:
+        case DOLLAR_SYMBOL:
         case PROPERTY: {
             if (a_w.w_symbol == b.a_w.w_symbol)
                 return false;
@@ -681,6 +764,7 @@ bool Atom::operator==(const Atom& x) const noexcept
         return math::float_compare<t_float, DEFAULT_ULP>(a_w.w_float, x.a_w.w_float);
     case PROPERTY:
     case SYMBOL:
+    case DOLLAR_SYMBOL:
         return a_w.w_symbol == x.a_w.w_symbol;
     case DATA: {
         if (dataType() != x.dataType())
@@ -699,6 +783,8 @@ bool Atom::operator==(const Atom& x) const noexcept
         return x.isComma();
     case SEMICOLON:
         return x.isSemicolon();
+    case DOLLAR:
+        return dollarIndex() == x.dollarIndex();
     case NONE:
         return true;
     default:
@@ -739,6 +825,10 @@ std::ostream& operator<<(std::ostream& os, const Atom& a)
         os << "[A_SEMI]";
     else if (a.isPointer())
         os << "[A_POINTER]";
+    else if (a.isDollar())
+        os << "[$" << a.dollarIndex() << "]";
+    else if (a.isDollarSym())
+        os << "[" << a.asT<t_symbol*>()->s_name << "]";
     else
         os << "???";
 

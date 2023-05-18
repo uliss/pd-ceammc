@@ -26,6 +26,7 @@ namespace ceammc {
 
 class Atom;
 class AbstractData;
+class AtomListView;
 
 using AtomPredicate = std::function<bool(const Atom&)>;
 using FloatPredicate = std::function<bool(t_float)>;
@@ -48,7 +49,9 @@ public:
         DATA,
         POINTER,
         SEMICOLON,
-        COMMA
+        COMMA,
+        DOLLAR,
+        DOLLAR_SYMBOL
     };
 
     static const char PROP_PREFIX = '@';
@@ -108,6 +111,16 @@ public:
      * Create comma atom
      */
     static Atom comma() noexcept;
+
+    /**
+     * Create dollar atom
+     */
+    static Atom dollar(int n) noexcept;
+
+    /**
+     * Create dollar symbol atom
+     */
+    static Atom dollarSymbol(t_symbol* s) noexcept;
 
     /**
      * Create semicolon atom
@@ -233,6 +246,16 @@ public:
      * Set atom to comma
      */
     void setComma() noexcept;
+
+    /**
+     * Set atom to dollar
+     */
+    void setDollar(int n) noexcept;
+
+    /**
+     * Set atom to dollar symbol
+     */
+    void setDollarSymbol(t_symbol* s) noexcept;
 
     /**
      * Set atom to semicolon
@@ -387,6 +410,21 @@ public:
      * reference to underlying PureData type
      */
     const t_atom& atom() const noexcept { return *static_cast<const t_atom*>(this); }
+
+    /**
+     * return dollar arg index
+     */
+    int dollarIndex() const { return a_w.w_index; }
+
+    /**
+     * expand dollar arguments
+     */
+    Atom expandDollarArgs(const AtomListView& args, bool checkArgs = false) const;
+
+    /**
+     * expand dollar arguments via canvas pointer
+     */
+    Atom expandDollarArgs(const t_canvas* cnv, bool checkArgs = false) const;
 
     /**
      * compare operator

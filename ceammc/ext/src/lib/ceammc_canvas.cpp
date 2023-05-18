@@ -389,28 +389,26 @@ void Canvas::setCurrent(t_canvas* c)
         canvas_setcurrent(c);
 }
 
-AtomList ceammc::canvas_info_args(const _glist* c)
+AtomListView ceammc::canvas_info_args(const _glist* c)
 {
-    AtomList res;
     if (!c)
-        return res;
+        return {};
 
-    t_canvasenvironment* env = canvas_get_current_env(c);
+    auto env = canvas_get_current_env(c);
 
     if (!env) {
-        t_binbuf* b = c->gl_obj.te_binbuf;
-        if (b) {
-            int argc = binbuf_getnatom(b);
-            t_atom* argv = binbuf_getvec(b);
+        auto bb = c->gl_obj.te_binbuf;
+        if (bb) {
+            int argc = binbuf_getnatom(bb);
+            t_atom* argv = binbuf_getvec(bb);
 
-            for (int i = 1; i < argc; i++)
-                res.append(Atom(argv[i]));
+            return AtomListView(argv, argc).subView(1);
         }
 
-        return res;
+        return {};
     }
 
-    return AtomList(env->ce_argc, env->ce_argv);
+    return AtomListView(env->ce_argv, env->ce_argc);
 }
 
 const _glist* ceammc::canvas_root(const _glist* c)
@@ -569,6 +567,47 @@ t_gobj* canvas_find_last(const _glist* c)
         z = z->g_next;
 
     return z;
+}
+
+void canvas_set_current(const t_canvas* c)
+{
+    ::canvas_setcurrent(const_cast<t_canvas*>(c));
+}
+
+void canvas_unset_current(const t_canvas* c)
+{
+    ::canvas_unset_current(const_cast<t_canvas*>(c));
+}
+
+t_symbol* canvas_expand_dollar(const _glist* c, t_symbol* s, bool check)
+{
+    if (strchr(s->s_name, '$')) {
+        auto env = canvas_get_env(c);
+        if (env) {
+            canvas_set_current(c);
+            auto ret = binbuf_realizedollsym(s, env->ce_argc, env->ce_argv, !check);
+            canvas_unset_current(c);
+            return ret;
+        } else
+            return s;
+
+    } else
+        return s;
+}
+
+_canvasenvironment* canvas_get_env(const _glist* c)
+{
+    if (!c)
+        return nullptr;
+
+    while (!c->gl_env) {
+        if (!c->gl_owner)
+            return nullptr;
+
+        c = c->gl_owner;
+    }
+
+    return c->gl_env;
 }
 
 }

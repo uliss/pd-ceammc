@@ -443,4 +443,23 @@ TEST_CASE("AtomListView", "core")
         REQUIRE_FILTER_ATOM(LA("a", 2, 3, "b"), isFloat, LF(2, 3));
         REQUIRE_FILTER_ATOM(LA("a", 2, 3, "b"), isSymbol, LA("a", "b"));
     }
+
+    SECTION("getProperty")
+    {
+        AtomListView res;
+        REQUIRE_FALSE(AtomListView().getProperty(SYM("@p"), res));
+        REQUIRE(res.empty());
+        REQUIRE(AtomListView(LA("@p")).getProperty(SYM("@p"), res));
+        REQUIRE(res.empty());
+        REQUIRE(AtomListView(LA(1, 2, 3, "@p")).getProperty(SYM("@p"), res));
+        REQUIRE(res.empty());
+        REQUIRE(AtomListView(LA(1, 2, 3, "@p", 4)).getProperty(SYM("@p"), res));
+        REQUIRE(res == LF(4));
+        REQUIRE(AtomListView(LA(1, 2, 3, "@p", 4, 5)).getProperty(SYM("@p"), res));
+        REQUIRE(res == LF(4, 5));
+        REQUIRE(AtomListView(LA(1, 2, 3, "@p", 4, 5, 6, "@other")).getProperty(SYM("@p"), res));
+        REQUIRE(res == LF(4, 5, 6));
+        REQUIRE(AtomListView(LA(1, 2, 3, "@p", "@other")).getProperty(SYM("@p"), res));
+        REQUIRE(res.empty());
+    }
 }

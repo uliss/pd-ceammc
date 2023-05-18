@@ -471,6 +471,8 @@ public:
         }
     }
 
+    bool getProperty(t_symbol* name, AtomListView& res) const;
+
 private:
     inline const t_atom& atom() const { return data_->atom(); }
 };

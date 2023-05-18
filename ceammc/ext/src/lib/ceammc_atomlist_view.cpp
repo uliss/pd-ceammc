@@ -349,6 +349,31 @@ bool AtomListView::range(Atom& min, Atom& max) const noexcept
     return true;
 }
 
+bool AtomListView::getProperty(t_symbol* name, AtomListView& res) const
+{
+    constexpr size_t NPOS = std::numeric_limits<size_t>::max();
+    size_t pos = NPOS;
+    for (size_t i = 0; i < n_; i++) {
+        if (data_[i] == name) {
+            pos = i;
+            break;
+        }
+    }
+
+    if (pos == NPOS)
+        return false;
+
+    for (size_t i = pos + 1; i < n_; i++) {
+        if (data_[i].isProperty()) {
+            res = subView(pos + 1, i - (pos + 1));
+            return true;
+        }
+    }
+
+    res = subView(pos + 1);
+    return true;
+}
+
 std::ostream& operator<<(std::ostream& os, const AtomListView& l)
 {
     os << "( ";

@@ -26,6 +26,7 @@
 
 struct _glist;
 struct _text;
+struct _canvasenvironment;
 typedef struct _text t_object;
 
 namespace ceammc {
@@ -90,7 +91,7 @@ bool canvas_info_is_abstraction(const _glist* c);
 bool canvas_info_is_dirty(const _glist* c);
 
 AtomList canvas_info_paths(const _glist* c);
-AtomList canvas_info_args(const _glist* c);
+AtomListView canvas_info_args(const _glist* c);
 
 /**
  * Returns canvas name or empty symbol (not NULL!) on error
@@ -112,6 +113,11 @@ t_symbol* canvas_info_dir(const _glist* c);
 int canvas_info_font(const _glist* c);
 
 int canvas_info_dollarzero(const _glist* c);
+
+void canvas_set_current(const _glist* c);
+void canvas_unset_current(const _glist* c);
+_canvasenvironment* canvas_get_env(const _glist* c);
+t_symbol* canvas_expand_dollar(const _glist* c, t_symbol* s, bool check);
 
 /**
  * Returns canvas rect, for root canvas - windows, for others - GOP

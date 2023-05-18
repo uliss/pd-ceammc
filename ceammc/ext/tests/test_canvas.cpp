@@ -125,7 +125,7 @@ TEST_CASE("Canvas", "[ceammc::Canvas]")
 
             // load abstraction
             CanvasPtr cnv2 = PureData::instance().createTopCanvas(TEST_DATA_DIR "/patch2", LX(1, 2, 3));
-            REQUIRE(canvas_info_args(cnv2->pd_canvas()) == LX(1, 2, 3));
+            REQUIRE(canvas_info_args(cnv2->pd_canvas()) == LF(1, 2, 3));
         }
 
         SECTION("createObject")
