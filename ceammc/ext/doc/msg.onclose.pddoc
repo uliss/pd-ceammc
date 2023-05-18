@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="msg.onclose">
+        <title>msg.onclose</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>send message when patch closes</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>msg</category>
+            <keywords>message close</keywords>
+            <since>0.9.7</since>
+            <also>
+                <!--                <see>msg.oninit</see>-->
+                <see>msg.onload</see>
+            </also>
+        </meta>
+        <arguments>
+            <argument name="ARGS" type="list">message. Comma separated messages are
+            supported</argument>
+        </arguments>
+        <inlets />
+        <outlets>
+            <outlet>message output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[msg.onclose MESSAGE]
+|
+[print onclose]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

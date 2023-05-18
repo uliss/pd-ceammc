@@ -1641,6 +1641,9 @@
     <entry name="msg.after" descr="send specified message after incoming message" ref_view="object">
       <xi:include href="msg.after.pddoc" parse="xml"/>
     </entry>
+    <entry name="msg.onclose" descr="send message when patch closes" ref_view="object">
+      <xi:include href="msg.onclose.pddoc" parse="xml"/>
+    </entry>
     <entry name="msg.onload" descr="send message when patch loads" ref_view="object">
       <xi:include href="msg.onload.pddoc" parse="xml"/>
     </entry>

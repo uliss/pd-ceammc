@@ -26,6 +26,7 @@
   - fx.scramble~ - scramble delayed fragments
   - metro.choice - randomly (uniformly) metronome time interval choice from specified set
   - metro.wchoice - weighted metronome time interval choice from specified set
+  - msg.onclose - send message on patch closing
   - proto.morse - morse encoder with specified speed and other settings
   - qrcode - QR code encoder
   - proto.ltc.in~ - LTC decoder

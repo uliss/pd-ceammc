@@ -18,7 +18,7 @@
             <since>0.7</since>
             <also>
                 <!--                <see>msg.oninit</see>-->
-                <!--                <see>msg.onclose</see>-->
+                <see>msg.onclose</see>
             </also>
         </meta>
         <info>

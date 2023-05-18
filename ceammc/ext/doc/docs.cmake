@@ -523,6 +523,7 @@ set(DOC_FILES
     modplug~
     msg
     msg.after
+    msg.onclose
     msg.onload
     msg.sched
     music.dur2time

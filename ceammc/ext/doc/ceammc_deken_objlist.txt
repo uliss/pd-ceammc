@@ -902,6 +902,7 @@ m	message constructor
 ceammc/prepend	message constructor
 prepend	message constructor
 msg.after	send specified message after incoming message
+msg.onclose	send message when patch closes
 msg.onload	send message when patch loads
 ceammc/loadmsg	send message when patch loads
 loadmsg	send message when patch loads

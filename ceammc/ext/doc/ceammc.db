@@ -525,6 +525,7 @@ mlist.flatten		.		.
 modplug~,ceammc/modplug~		.		~~
 msg,ceammc/msg,ceammc/m,m,ceammc/prepend,prepend		..		.
 msg.after		..		.
+msg.onclose		-		.
 msg.onload,ceammc/loadmsg,loadmsg		-		.
 msg.sched		..		.
 music.dur2time,music.d->t		.		.
