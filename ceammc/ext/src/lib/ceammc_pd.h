@@ -35,11 +35,14 @@ namespace pd {
 
     void bang_to(t_pd* x);
     void float_to(t_pd* x, t_float f);
+    void float_to(t_pd* x, const t_atom& a);
     void symbol_to(t_pd* x, t_symbol* s);
     void symbol_to(t_pd* x, const char* s);
+    void symbol_to(t_pd* x, const t_atom& a);
     void list_to(t_pd* x, const AtomListView& lv);
     void message_to(t_pd* x, t_symbol* s, const AtomListView& lv);
     void message_to(BaseObject* x, t_symbol* s, const AtomListView& lv);
+    void typed_message_to(t_pd* x, const AtomListView& lv);
 
     bool send_bang(t_symbol* addr);
     bool send_float(t_symbol* addr, t_float f);

@@ -646,6 +646,12 @@ void pd::float_to(t_pd* x, t_float f)
         pd_float(x, f);
 }
 
+void pd::float_to(t_pd* x, const t_atom& a)
+{
+    if (x)
+        pd_float(x, a.a_w.w_float);
+}
+
 void pd::symbol_to(t_pd* x, t_symbol* s)
 {
     if (x)
@@ -656,6 +662,29 @@ void pd::symbol_to(t_pd* x, const char* s)
 {
     if (x)
         pd_symbol(x, gensym(s));
+}
+
+void pd::symbol_to(t_pd* x, const t_atom& a)
+{
+    if (x)
+        pd_symbol(x, a.a_w.w_symbol);
+}
+
+void pd::typed_message_to(t_pd* x, const AtomListView& lv)
+{
+    if (!x)
+        return;
+
+    if (lv.empty())
+        return pd::bang_to(x);
+    else if (lv.isFloat())
+        return pd::float_to(x, lv[0].atom());
+    else if (lv.isSymbol())
+        return pd::symbol_to(x, lv[0].atom());
+    else if (lv.size() > 1 && lv[0].isFloat())
+        return pd::list_to(x, lv);
+    else if (lv[0].isSymbol())
+        return message_to(x, lv[0].asT<t_symbol*>(), lv.subView(1));
 }
 
 void pd::list_to(t_pd* x, const AtomListView& lv)

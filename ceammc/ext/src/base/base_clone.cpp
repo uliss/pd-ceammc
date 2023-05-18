@@ -1004,22 +1004,7 @@ const char* BaseClone::annotateOutlet(size_t n) const
 
 void BaseClone::sendToInlet(t_inlet* inlet, const AtomListView& lv)
 {
-    auto x = util::inlet_object(inlet);
-
-    if (lv.empty())
-        return pd_bang(x);
-    else if (lv.isFloat())
-        return pd_float(x, lv[0].asT<t_float>());
-    else if (lv.isSymbol())
-        return pd_symbol(x, lv[0].asT<t_symbol*>());
-    else if (lv.size() > 1 && lv[0].isFloat())
-        return pd_list(x, &s_list, lv.size(), lv.toPdData());
-    else if (lv[0].isSymbol()) {
-        auto lv0 = lv.subView(1);
-        return pd_typedmess(x, lv[0].asT<t_symbol*>(), lv.size(), lv.toPdData());
-    } else {
-        OBJ_ERR << "invalid list: " << lv;
-    }
+    pd::typed_message_to(util::inlet_object(inlet), lv);
 }
 
 void BaseClone::sendToInstance(uint16_t inst, uint16_t inlet, const AtomListView& lv)
