@@ -107,7 +107,13 @@
             channel</param>
             <param type="int" enum="0 1" required="true" name="BOOL">on/off value</param></method>
             <!-- portamento message -->
-            <method name="portamento">send CC portamento switch message 
+            <method name="portamento">send CC portamento message
+            <param type="int" minvalue="0" maxvalue="15" required="false" name="CHAN">midi
+            channel</param>
+            <param type="int" minvalue="0" maxvalue="127" required="true" name="VALUE">
+            portamento amount</param></method>
+            <!-- portamento switch -->
+            <method name="portswitch">send CC portamento switch message
             <param type="int" minvalue="0" maxvalue="15" required="false" name="CHAN">midi
             channel</param>
             <param type="int" enum="0 1" required="true" name="BOOL">on/off value</param></method>

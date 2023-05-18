@@ -35,7 +35,7 @@ enum {
     CC_PAN_POSITION_FINE = 42,
     CC_EXPRESSION_FINE = 43,
     CC_HOLD_PEDAL = 64,
-    CC_PORTAMENO_SWITCH = 65,
+    CC_PORTAMENTO_SWITCH = 65,
     CC_SOSTENUTO_PEDAL = 66,
     CC_SOFT_PEDAL = 67,
     CC_LEGATO_PEDAL = 67,
@@ -101,6 +101,7 @@ public:
     void m_volume_float(t_symbol* s, const AtomListView& lv);
     void m_volume_int(t_symbol* s, const AtomListView& lv);
 
+    void m_portamento(t_symbol* s, const AtomListView& lv);
     void m_portamento_switch(t_symbol* s, const AtomListView& lv);
 
     void m_mod_fine(t_symbol* s, const AtomListView& lv);
@@ -117,7 +118,7 @@ public:
     static std::pair<uint8_t, uint8_t> panToBit14(t_float v);
     static t_float bit14ToPan(uint8_t msb, uint8_t lsb);
 
-private:
+protected:
     void ccBegin();
     void ccSend();
     void ccSet(int chan, int cc, int v);
@@ -163,7 +164,7 @@ private:
     };
 
     Data2 getCCBool(t_symbol* s, const AtomListView& lv) const;
-    Data2 getCCByte(t_symbol* s, const AtomListView& lv) const;
+    bool getCCByte(t_symbol* s, const AtomListView& lv, Data2& res) const;
     Data2 getCCInt14(t_symbol* s, const AtomListView& lv) const;
     FData getCCValue(t_symbol* s, const AtomListView& lv) const;
     Data2 getCCFloat(t_symbol* s, const AtomListView& lv, int from = 0, int to = 0x3FFF) const;

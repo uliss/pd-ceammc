@@ -33,7 +33,8 @@ constexpr const char* M_AFTER_TOUCH = "aftertouch";
 constexpr const char* M_POLY_TOUCH = "polytouch";
 constexpr const char* M_PANIC = "panic";
 
-constexpr const char* M_PORTAMENTO_SWITCH = "portamento";
+constexpr const char* M_PORTAMENTO_SWITCH = "portswitch";
+constexpr const char* M_PORTAMENTO = "portamento";
 
 constexpr const char* M_MODWHEEL_COARSE = "mod~";
 constexpr const char* M_MODWHEEL_FINE = "mod.";

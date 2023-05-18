@@ -15,9 +15,10 @@
 #define PROTO_VOLCA_KEYS_H
 
 #include "ceammc_object.h"
+#include "proto_midi_cc.h"
 using namespace ceammc;
 
-class ProtoVolcaKeys : public BaseObject {
+class ProtoVolcaKeys : public ProtoMidiCC {
     IntProperty* chan_ { nullptr };
 
 public:
@@ -31,7 +32,6 @@ public:
 private:
     void sendMidi(std::uint8_t msg, std::uint8_t data1, std::uint8_t data2);
     bool sendParameterValue(t_symbol* name, std::uint8_t data);
-    void setCC3(std::uint8_t cc, std::uint8_t data);
 };
 
 void setup_proto_volca_keys();

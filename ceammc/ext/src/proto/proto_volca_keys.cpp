@@ -18,9 +18,7 @@
 #include "fmt/core.h"
 #include "midi_names.h"
 #include "proto_midi_cc.h"
-#include "proto_midi_parser.h"
 
-constexpr auto VCO_PORTAMENTO = 5;
 constexpr auto VCO_DETUNE = 42;
 constexpr auto VCO_EG_INT = 43;
 constexpr auto GENERAL_VOICE = 40;
@@ -43,7 +41,7 @@ constexpr auto GENERAL_VOICE_RING = 110;
 constexpr auto GENERAL_VOICE_POLYRING = 127;
 
 ProtoVolcaKeys::ProtoVolcaKeys(const PdArgs& args)
-    : BaseObject(args)
+    : ProtoMidiCC(args)
 {
     createOutlet();
 
@@ -55,16 +53,17 @@ ProtoVolcaKeys::ProtoVolcaKeys(const PdArgs& args)
 
 void ProtoVolcaKeys::m_detune(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("VALUE:i[0,127]");
-    if (!chk.check(lv, this))
-        return chk.usage(this, s);
+    Data2 data;
+    if (!getCCByte(s, lv, data))
+        return;
 
-    setCC3(VCO_DETUNE, lv.intAt(0, 0));
+    data.chan = chan_->value();
+    ccSend(data.chan, VCO_DETUNE, data.value);
 }
 
 void ProtoVolcaKeys::m_panic(t_symbol* s, const AtomListView& lv)
 {
-    setCC3(CC_ALL_NOTES_OFF, 0x7F);
+    ccSend(chan_->value(), CC_ALL_NOTES_OFF, 0x7F);
 }
 
 void ProtoVolcaKeys::m_octave(t_symbol* s, const AtomListView& lv)
@@ -73,19 +72,21 @@ void ProtoVolcaKeys::m_octave(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
+    auto chan = chan_->value();
+
     switch (lv.intAt(0, 0)) {
     case 32:
-        return setCC3(GENERAL_OCTAVE, GENERAL_OCTAVE_32);
+        return ccSend(chan, GENERAL_OCTAVE, GENERAL_OCTAVE_32);
     case 16:
-        return setCC3(GENERAL_OCTAVE, GENERAL_OCTAVE_16);
+        return ccSend(chan, GENERAL_OCTAVE, GENERAL_OCTAVE_16);
     case 8:
-        return setCC3(GENERAL_OCTAVE, GENERAL_OCTAVE_8);
+        return ccSend(chan, GENERAL_OCTAVE, GENERAL_OCTAVE_8);
     case 4:
-        return setCC3(GENERAL_OCTAVE, GENERAL_OCTAVE_4);
+        return ccSend(chan, GENERAL_OCTAVE, GENERAL_OCTAVE_4);
     case 2:
-        return setCC3(GENERAL_OCTAVE, GENERAL_OCTAVE_2);
+        return ccSend(chan, GENERAL_OCTAVE, GENERAL_OCTAVE_2);
     case 1:
-        return setCC3(GENERAL_OCTAVE, GENERAL_OCTAVE_1);
+        return ccSend(chan, GENERAL_OCTAVE, GENERAL_OCTAVE_1);
     default:
         break;
     }
@@ -98,37 +99,33 @@ void ProtoVolcaKeys::m_voice(t_symbol* s, const AtomListView& lv)
         return chk.usage(this, s);
 
     auto sym = lv.symbolAt(0, &s_);
+    auto chan = chan_->value();
 
     switch (crc32_hash(sym)) {
     case "poly"_hash:
-        return setCC3(GENERAL_VOICE, 12);
+        return ccSend(chan, GENERAL_VOICE, 12);
     case "unison"_hash:
-        return setCC3(GENERAL_VOICE, 37);
+        return ccSend(chan, GENERAL_VOICE, 37);
     case "octave"_hash:
-        return setCC3(GENERAL_VOICE, 60);
+        return ccSend(chan, GENERAL_VOICE, 60);
     case "fifth"_hash:
-        return setCC3(GENERAL_VOICE, 85);
+        return ccSend(chan, GENERAL_VOICE, 85);
     case "ring"_hash:
-        return setCC3(GENERAL_VOICE, 110);
+        return ccSend(chan, GENERAL_VOICE, 110);
     case "polyring"_hash:
-        return setCC3(GENERAL_VOICE, 127);
+        return ccSend(chan, GENERAL_VOICE, 127);
     default:
         METHOD_ERR(s) << fmt::format("unknown voice type: '{}'", sym->s_name);
         return;
     }
 }
 
-void ProtoVolcaKeys::setCC3(std::uint8_t cc, std::uint8_t data)
-{
-    floatTo(0, midi::MIDI_CONTROLCHANGE & (0xF & chan_->value()));
-    floatTo(0, cc & 0x7F);
-    floatTo(0, data & 0x7F);
-}
-
 void setup_proto_volca_keys()
 {
     ObjectFactory<ProtoVolcaKeys> obj("proto.volca.keys");
     obj.addAlias("volca.keys");
+
+    obj.addMethod(M_PORTAMENTO, &ProtoVolcaKeys::m_portamento);
 
     obj.addMethod(M_PANIC, &ProtoVolcaKeys::m_panic);
     obj.addMethod("detune", &ProtoVolcaKeys::m_detune);

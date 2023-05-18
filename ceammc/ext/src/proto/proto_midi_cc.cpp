@@ -107,11 +107,9 @@ void ProtoMidiCC::m_bend_sens(t_symbol* s, const AtomListView& lv)
 
 void ProtoMidiCC::m_tune_bank_select(t_symbol* s, const AtomListView& lv)
 {
-    const auto data = getCCByte(s, lv);
-    if (data.chan < 0 || data.value < 0 || data.value > 127) {
-        METHOD_ERR(s) << "CHAN[0..15]? TUNE_BANK[0..127] expected, got: " << lv;
+    Data2 data;
+    if (!getCCByte(s, lv, data))
         return;
-    }
 
     rpnSend(data.chan, midi::RPNParser::RPN_CHANNEL_TUNING_BANK_SELECT, 0, data.value);
 }
@@ -153,11 +151,9 @@ void ProtoMidiCC::m_tune_select(t_symbol* s, const AtomListView& lv)
 
 void ProtoMidiCC::m_tune_prog_change(t_symbol* s, const AtomListView& lv)
 {
-    const auto data = getCCByte(s, lv);
-    if (data.chan < 0 || data.value < 0 || data.value > 127) {
-        METHOD_ERR(s) << "CHAN[0..15]? TUNE_PROG[0..127] expected, got: " << lv;
+    Data2 data;
+    if (!getCCByte(s, lv, data))
         return;
-    }
 
     rpnSend(data.chan, midi::RPNParser::RPN_CHANNEL_TUNING_PROG_CHANGE, 0, data.value);
 }
@@ -333,13 +329,18 @@ void ProtoMidiCC::m_volume_int(t_symbol* s, const AtomListView& lv)
     ccSend();
 }
 
+void ProtoMidiCC::m_portamento(t_symbol* s, const AtomListView& lv)
+{
+    sendCCbyte(s, lv, CC_PORTAMENTO);
+}
+
 void ProtoMidiCC::m_portamento_switch(t_symbol* s, const AtomListView& lv)
 {
     auto data = getCCBool(s, lv);
     if (data.chan < 0)
         return;
 
-    ccSend(data.chan, CC_PORTAMENO_SWITCH, data.value);
+    ccSend(data.chan, CC_PORTAMENTO_SWITCH, data.value);
 }
 
 void ProtoMidiCC::m_mod_fine(t_symbol* s, const AtomListView& lv)
@@ -497,7 +498,11 @@ void ProtoMidiCC::onCC(int chan, int cc, int v)
         Atom data[2] = { chan, v > 63 };
         return anyTo(0, gensym(M_HOLD_PEDAL), AtomListView(data, 2));
     }
-    case CC_PORTAMENO_SWITCH: {
+    case CC_PORTAMENTO: {
+        AtomArray<2> data { chan, v };
+        return anyTo(0, gensym(M_PORTAMENTO), data.view());
+    }
+    case CC_PORTAMENTO_SWITCH: {
         Atom data[2] = { chan, v > 63 };
         return anyTo(0, gensym(M_PORTAMENTO_SWITCH), AtomListView(data, 2));
     }
@@ -718,8 +723,8 @@ bool ProtoMidiCC::checkByteValue(int value) const
 
 void ProtoMidiCC::sendCCbyte(t_symbol* s, const AtomListView& lv, uint8_t cc)
 {
-    auto data = getCCByte(s, lv);
-    if (data.chan < 0)
+    Data2 data;
+    if (!getCCByte(s, lv, data))
         return;
 
     ccSend(data.chan, cc, data.value);
@@ -765,10 +770,8 @@ ProtoMidiCC::Data2 ProtoMidiCC::getCCBool(t_symbol* s, const AtomListView& lv) c
     return res;
 }
 
-ProtoMidiCC::Data2 ProtoMidiCC::getCCByte(t_symbol* s, const AtomListView& lv) const
+bool ProtoMidiCC::getCCByte(t_symbol* s, const AtomListView& lv, Data2& res) const
 {
-    ProtoMidiCC::Data2 res { -1, -1 };
-
     if (lv.size() == 1 && lv[0].isInteger()) {
         res.chan = 0;
         res.value = lv[0].asT<int>();
@@ -777,20 +780,20 @@ ProtoMidiCC::Data2 ProtoMidiCC::getCCByte(t_symbol* s, const AtomListView& lv) c
         res.value = lv[1].asT<int>();
     } else {
         METHOD_ERR(s) << "expected CHAN[0..15]? VALUE[0..127], got: " << lv;
-        return res;
+        return false;
     }
 
     if (res.chan < 0 || res.chan > 15) {
         METHOD_ERR(s) << "channel should be in [0..15] range";
-        return { -1, -1 };
+        return false;
     }
 
     if (res.value < 0 || res.value > 127) {
         METHOD_ERR(s) << "value should be in [0..127] range";
-        return { -1, -1 };
+        return false;
     }
 
-    return res;
+    return true;
 }
 
 ProtoMidiCC::Data2 ProtoMidiCC::getCCInt14(t_symbol* s, const AtomListView& lv) const
@@ -937,6 +940,7 @@ void setup_proto_midi_cc()
     obj.addMethod(M_CC_VOLUME_INT, &ProtoMidiCC::m_volume_int);
 
     obj.addMethod(M_PORTAMENTO_SWITCH, &ProtoMidiCC::m_portamento_switch);
+    obj.addMethod(M_PORTAMENTO, &ProtoMidiCC::m_portamento);
 
     obj.addMethod(M_MODWHEEL_COARSE, &ProtoMidiCC::m_mod_coarse);
     obj.addMethod(M_MODWHEEL_FINE, &ProtoMidiCC::m_mod_fine);
