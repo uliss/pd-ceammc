@@ -27,13 +27,17 @@ using Queue = boost::lockfree::spsc_queue<t_sample, boost::lockfree::capacity<10
 using SndPlayBase = PollThreadTaskObject<int, Queue, SoundExternal>;
 
 class SndPlayTilde : public SndPlayBase {
+
+    enum { POS_END = -1 };
+
+private:
     IntProperty* n_ { nullptr };
     SymbolProperty* fname_ { nullptr };
     ThreadPdLogger logger_;
     std::atomic<float> atomic_speed_ { 0 };
     std::atomic_bool atomic_loop_ { false };
     units::TimeValue time_begin_, time_end_;
-    Atom begin_ { 0.f }, end_ { 0.f };
+    Atom begin_ { 0.f }, end_ { POS_END };
 
 public:
     SndPlayTilde(const PdArgs& args);
@@ -44,6 +48,10 @@ public:
 
     Future createTask() final;
     void processTask(int event) final;
+
+private:
+    static bool calcBeginSfPos(const units::TimeValue& tm, size_t sr, size_t sampleCount, std::int64_t& result);
+    static bool calcEndSfPos(const units::TimeValue& tm, size_t sr, size_t sampleCount, std::int64_t begin, std::int64_t& result);
 };
 
 void setup_snd_play_tilde();

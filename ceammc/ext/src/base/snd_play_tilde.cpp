@@ -24,7 +24,7 @@ constexpr int EVENT_DONE = 0;
 SndPlayTilde::SndPlayTilde(const PdArgs& args)
     : SndPlayBase(args)
     , time_begin_(0)
-    , time_end_(-1)
+    , time_end_(POS_END)
 {
     n_ = new IntProperty("@n", 2, PropValueAccess::INITONLY);
     n_->checkClosedRange(1, 32);
@@ -49,7 +49,9 @@ SndPlayTilde::SndPlayTilde(const PdArgs& args)
     auto begin = createCbAtomProperty(
         "@begin",
         [this]() -> Atom { return begin_; },
-        [this](const Atom& a) -> bool { begin_ = a; return true; });
+        [this](const Atom& a) -> bool {
+        begin_ = a;
+        return true; });
     begin->setAtomCheckFn([this](const Atom& a) -> bool {
         units::UnitParseError err;
         if (!time_begin_.setParsed(a, err)) {
@@ -125,30 +127,15 @@ SndPlayBase::Future SndPlayTilde::createTask()
             return;
         }
 
-        begin.setSamplerate(f->sampleRate());
-        std::int64_t begin_pos = begin.toSamples() + begin.endOffset() * f->sampleCount();
-        begin_pos = clip_min<typeof(begin_pos)>(begin_pos, 0);
-        if (begin_pos >= f->sampleCount()) {
-            logger_.error(fmt::format("invalid begin position: {}, expected value < {}", begin_pos, f->sampleCount()));
-            return;
-        }
+        std::int64_t begin_samp = 0;
+        if (!calcBeginSfPos(begin, f->sampleRate(), f->sampleCount(), begin_samp))
+            return logger_.error(fmt::format("invalid begin position: {}, expected value in [{} ... {}) range", begin_samp, 0, f->sampleCount()));
 
-        logger_.debug(fmt::format("start playing at {} samp, loop={}, samples={}", begin_pos, atomic_loop_, f->sampleCount()));
+        std::int64_t end_samp = 0;
+        if (!calcEndSfPos(end, f->sampleRate(), f->sampleCount(), begin_samp, end_samp))
+            return logger_.error(fmt::format("invalid end position: {}, expected value in [{} ... {}] range", end_samp, begin_samp, f->sampleCount()));
 
-        //        end.setSamplerate(f->sampleRate());
-        //        auto end_pos = clip_max<int>() std::numeric_limits<std::int64_t>::max();
-        //        const auto end_samp = end.toSamples();
-        //        if (end.endOffset())
-        //            end_pos = f->sampleCount() - end_samp;
-        //        else if(end_samp > 0)
-        //            end_pos = end_samp;
-
-        //        end_pos = clip_min<typeof(end_pos)>(end_pos, 0);
-        //        if (end_pos >= f->sampleCount()) {
-        //            logger_.error(fmt::format("invalid end position: {}", end_pos));
-        //            setQuit(true);
-        //            return;
-        //        }
+        logger_.debug(fmt::format("start playing from {} to {} samp, loop={}, samples={}", begin_samp, end_samp, atomic_loop_, f->sampleCount()));
 
         const auto NUM_CH = std::min<size_t>(nch, f->channels());
         const double SAMP_SPEED = f->sampleRate() / double(sr);
@@ -161,6 +148,7 @@ SndPlayBase::Future SndPlayTilde::createTask()
         BufferList data(NUM_CH);
 
         double buf_phase = 0;
+        std::int64_t offset = begin_samp;
         setQuit(false);
 
         while (!quit()) {
@@ -168,7 +156,7 @@ SndPlayBase::Future SndPlayTilde::createTask()
 
             // read samples from file to buffers
             for (size_t i = 0; i < NUM_CH; i++) {
-                nsamp = f->read(data[i].data(), data[i].size(), i, begin_pos, data[i].size());
+                nsamp = f->read(data[i].data(), data[i].size(), i, offset, data[i].size());
                 if (nsamp < 0) { // read error
                     logger_.error(fmt::format("'{}': read error", fname));
                     break;
@@ -191,13 +179,13 @@ SndPlayBase::Future SndPlayTilde::createTask()
                 if (!atomic_loop_) { // single run
                     break;
                 } else {
-                    begin_pos = 0;
+                    offset = begin_samp;
                     buf_phase = 0;
                     continue;
                 }
             }
 
-            begin_pos += (nsamp - 1); // +1 for linear interpolation
+            offset += (nsamp - 1); // +1 for linear interpolation
             buf_phase = std::fmod(buf_phase, (nsamp - 1));
 
             // write samples from buffers to Pd
@@ -230,6 +218,30 @@ void SndPlayTilde::processTask(int event)
 {
     if (event == EVENT_DONE)
         bangTo(numOutlets() - 1);
+}
+
+bool SndPlayTilde::calcBeginSfPos(const units::TimeValue& tm, size_t sr, size_t sampleCount, std::int64_t& result)
+{
+    auto t = tm;
+    t.setSamplerate(sr);
+    std::int64_t pos = t.toSamples() + t.endOffset() * sampleCount;
+    result = clip_min<typeof(pos)>(pos, 0);
+    return result < sampleCount;
+}
+
+bool SndPlayTilde::calcEndSfPos(const units::TimeValue& tm, size_t sr, size_t sampleCount, std::int64_t begin, std::int64_t& result)
+{
+    auto t = tm;
+    t.setSamplerate(sr);
+    std::int64_t pos = t.toSamples() + t.endOffset() * sampleCount;
+    result = pos;
+    if (result == POS_END) {
+        result = sampleCount;
+        return true;
+    }
+
+    result = clip_min<std::int64_t>(pos, sampleCount);
+    return result > begin;
 }
 
 void setup_snd_play_tilde()
