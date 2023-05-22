@@ -220,6 +220,12 @@ ThreadPdLogger::ThreadPdLogger(const std::string& prefix)
     Dispatcher::instance().subscribe(this, reinterpret_cast<SubscriberId>(this));
 }
 
+ThreadPdLogger::ThreadPdLogger(const BaseObject* owner)
+    : owner_(owner)
+{
+    Dispatcher::instance().subscribe(this, reinterpret_cast<SubscriberId>(this));
+}
+
 ThreadPdLogger::~ThreadPdLogger()
 {
     Dispatcher::instance().unsubscribe(this);
@@ -230,24 +236,8 @@ bool ThreadPdLogger::notify(int /*code*/)
     Lock g(mtx_);
 
     while (!msg_.empty()) {
-        auto& m = msg_.front();
-
-        switch (m.second) {
-        case LOG_ERROR:
-            LIB_ERR << m.first;
-            break;
-        case LOG_DEBUG:
-            LIB_DBG << m.first;
-            break;
-        case LOG_POST:
-            LIB_POST << m.first;
-            break;
-        case LOG_ALL:
-        default:
-            LIB_LOG << m.first;
-            break;
-        }
-
+        auto& m = msg_.front();        
+        LogPdObject(owner_, m.second) << m.first;
         msg_.pop_front();
     }
 

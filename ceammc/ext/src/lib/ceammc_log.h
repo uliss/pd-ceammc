@@ -20,8 +20,8 @@
 #include <string>
 #include <vector>
 
-#include "m_pd.h"
 #include "ceammc_notify.h"
+#include "m_pd.h"
 
 namespace ceammc {
 
@@ -120,9 +120,11 @@ class ThreadPdLogger : public NotifiedObject {
     std::string prefix_;
     std::mutex mtx_;
     std::list<Msg> msg_;
+    const BaseObject* owner_ { nullptr };
 
 public:
-    ThreadPdLogger(const std::string& prefix = "");
+    explicit ThreadPdLogger(const std::string& prefix = "");
+    explicit ThreadPdLogger(const BaseObject* owner);
     ~ThreadPdLogger();
 
     bool notify(int /*code*/) final;
