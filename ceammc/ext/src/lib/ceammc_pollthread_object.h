@@ -25,8 +25,8 @@
 
 namespace ceammc {
 
-template <typename In, typename Out>
-class PollThreadTaskObject : public DispatchedObject<BaseObject> {
+template <typename In, typename Out, typename T = BaseObject>
+class PollThreadTaskObject : public DispatchedObject<T> {
 public:
     using Future = std::future<void>;
 
@@ -44,7 +44,7 @@ private:
 
 public:
     PollThreadTaskObject(const PdArgs& args)
-        : DispatchedObject<BaseObject>(args)
+        : DispatchedObject<T>(args)
     {
     }
 
