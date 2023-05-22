@@ -311,8 +311,11 @@ namespace units {
 
         UnitType type() const final { return UnitType::TIME; }
 
+        bool setParsed(const Atom& a, UnitParseError& err);
+
     public:
         static ParseResult parse(const AtomListView& lv);
+        static ParseResult parse(const Atom& a);
     };
 
     class FreqValue : public UnitValue {

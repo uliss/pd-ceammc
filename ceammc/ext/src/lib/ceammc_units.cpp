@@ -39,11 +39,25 @@ UnitParseError::UnitParseError(const std::string& s)
 
 TimeValue::ParseResult TimeValue::parse(const AtomListView& lv)
 {
-    if (lv.empty())
+    if (lv.size() != 1)
         return UnitParseError("empty list");
+    else
+        return parse(lv.front());
+}
 
-    if (lv.isSymbol()) {
-        auto cstr = lv[0].asT<t_symbol*>()->s_name;
+bool TimeValue::setParsed(const Atom& a, UnitParseError& err)
+{
+    auto res = parse(a);
+    if (res.matchError(err))
+        return false;
+
+    return res.matchValue(*this);
+}
+
+TimeValue::ParseResult TimeValue::parse(const Atom& a)
+{
+    if (a.isSymbol()) {
+        auto cstr = a.asT<t_symbol*>()->s_name;
         using namespace ceammc::parser;
         UnitsFullMatch parser;
 
@@ -88,10 +102,10 @@ TimeValue::ParseResult TimeValue::parse(const AtomListView& lv)
             tval.end_offset_ = (v.pos == POSITION_END);
             return tval;
         }
-    } else if (lv.isFloat())
-        return TimeValue(lv.asT<t_float>(), MS);
+    } else if (a.isFloat())
+        return TimeValue(a.asT<t_float>(), MS);
     else
-        return UnitParseError(fmt::format("unexpected time format: {}", to_string(lv)));
+        return UnitParseError(fmt::format("unexpected time format: {}", to_string(a)));
 }
 
 FractionValue::ParseResult FractionValue::parse(const AtomListView& lv)
