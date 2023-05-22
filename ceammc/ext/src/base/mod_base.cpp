@@ -68,6 +68,7 @@ void setup_prop_join();
 void setup_prop_set();
 void setup_prop_split();
 void setup_snd_file();
+void setup_snd_play_tilde();
 
 void ceammc_base_setup()
 {
@@ -135,6 +136,7 @@ void ceammc_base_setup()
     setup_prop_set();
     setup_prop_split();
     setup_snd_file();
+    setup_snd_play_tilde();
 
     setup_test0x2edata();
     setup_test0x2eexpect();

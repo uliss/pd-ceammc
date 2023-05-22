@@ -71,6 +71,7 @@ list(APPEND BASE_SOURCES
     gain.cpp
     matrix.cpp
     mix.cpp
+    snd_play_tilde.cpp
     nsig_tilde.cpp
     xfade_tilde.cpp
     xfade2_tilde.cpp)
@@ -87,7 +88,11 @@ endif()
 add_library(ceammc_base STATIC mod_base.cpp ${BASE_SOURCES})
 target_compile_definitions(ceammc_base PUBLIC -DWITH_SND_FILE)
 target_sources(ceammc_base PRIVATE snd_file.cpp parser_canvas_id.cpp)
-target_include_directories(ceammc_base PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")
+target_include_directories(ceammc_base
+    PRIVATE
+        "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/readerwriterqueue
+)
 
 
 # separate external:
