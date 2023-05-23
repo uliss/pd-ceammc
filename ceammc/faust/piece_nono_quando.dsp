@@ -69,3 +69,10 @@ with{
     t1 = ma.frac((5/6) - os.lf_sawpos(1/7.0));
     spat = spat6(t0), spat6(t1) : ro.butterfly(12) : par(i,6,_),par(i,6,!);
 };
+
+halaphon_h4 = si.bus(2) : spat4(t0), spat4(t1) : si.bus(8)
+with{
+    spat4(t) = _ : sp.spat(4, t, 1);
+    t0 = os.lf_sawpos(1/8.0);
+    t1 = os.lf_sawpos(1/10.0);
+};

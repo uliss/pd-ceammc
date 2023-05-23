@@ -11,23 +11,11 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-void setup_piece_stok_solo();
-void setup_piece_nono_quando_fb1();
-void setup_piece_nono_quando_fb2();
-void setup_piece_nono_quando_h1();
-void setup_piece_nono_quando_h2();
-void setup_piece_nono_quando_h3();
-void setup_piece_nono_quando_h4();
-void setup_piece_nono_quando_vocoder();
+#include "piece_nono_quando_h4.h"
+#include "ceammc_faust_factory.h"
 
-void ceammc_pieces_setup()
+void setup_piece_nono_quando_h4()
 {
-    setup_piece_stok_solo();
-    setup_piece_nono_quando_fb1();
-    setup_piece_nono_quando_fb2();
-    setup_piece_nono_quando_h1();
-    setup_piece_nono_quando_h2();
-    setup_piece_nono_quando_h3();
-    setup_piece_nono_quando_h4();
-    setup_piece_nono_quando_vocoder();
+    ceammc::FaustFactory<faust_piece_nono_quando_h4_tilde> obj("piece.nono.quando.h4~");
+    obj.setXletsInfo({ "in A", "in B" }, { "L1", "L2", "L3", "L4", "L5", "L6", "L7", "L8" });
 }
