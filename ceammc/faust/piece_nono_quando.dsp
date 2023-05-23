@@ -61,3 +61,11 @@ with{
     t1 = os.lf_sawpos(1/8.0);
     spat = spat4(t0), spat4(t1) : ro.butterfly(8) : par(i,4,_),par(i,4,!);
 };
+
+halaphon_h3 = _,_ : spat : _,_,_,_,_,_
+with{
+    spat6(t) = _ : sp.spat(6, t, 1) : route(6, 6, ((1,1),(2,2),(3,6),(4,3),(5,4),(6,5)));
+    t0 = os.lf_sawpos(1/10.0);
+    t1 = ma.frac((5/6) - os.lf_sawpos(1/7.0));
+    spat = spat6(t0), spat6(t1) : ro.butterfly(12) : par(i,6,_),par(i,6,!);
+};
