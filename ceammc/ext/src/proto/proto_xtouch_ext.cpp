@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "proto_xtouch_ext.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
@@ -679,7 +680,7 @@ void XTouchExtender::syncDisplay(uint8_t scene_idx, uint8_t ctl_idx)
 
     // example from doc: F0 00 20 32 dd 4C nn cc c1 .. c14 F7
     constexpr int N = 23;
-    Atom m[N];
+    AtomArray<23> m;
     m[0].setFloat(0xf0, true);
     m[1].setFloat(0x00, true);
     m[2].setFloat(0x20, true);
@@ -693,9 +694,9 @@ void XTouchExtender::syncDisplay(uint8_t scene_idx, uint8_t ctl_idx)
         m[i + 8].setFloat(dd.upperCharAt(i), true);
         m[i + 15].setFloat(dd.lowerCharAt(i), true);
     }
-    m[N - 1].setFloat(0xf7, true);
+    m.back().setFloat(0xf7, true);
 
-    listTo(0, AtomListView(&m[0].atom(), N));
+    listTo(0, m.view());
 }
 
 void XTouchExtender::setLogicDisplayUpperText(uint8_t log_idx, const AtomListView& txt)
