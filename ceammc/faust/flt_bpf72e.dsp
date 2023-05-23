@@ -7,7 +7,7 @@ si = library("signals.lib");
 process = fi.bandpass12e(freq_low, freq_high)
 with {
     freq = vslider("freq [unit:Hz]", 1000, 20, 20000, 0.1);
-    q = hslider("q", 2, 0.25, 10, 0.001);
+    q = hslider("q", 2, 0.25, 32, 0.001);
 
     bandwidth = freq / q;
     halfband = bandwidth / 2.0;

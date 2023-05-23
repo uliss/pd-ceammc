@@ -645,11 +645,11 @@ struct flt_bpf36e : public flt_bpf36e_dsp {
 static double flt_bpf36e_faustpower2_f(double value) {
 	return value * value;
 }
-static double flt_bpf36e_faustpower3_f(double value) {
-	return value * value * value;
-}
 static double flt_bpf36e_faustpower4_f(double value) {
 	return value * value * value * value;
+}
+static double flt_bpf36e_faustpower3_f(double value) {
+	return value * value * value;
 }
 
 class flt_bpf36e : public flt_bpf36e_dsp {
@@ -668,7 +668,7 @@ class flt_bpf36e : public flt_bpf36e_dsp {
 	double fConst8;
 	double fConst9;
 	double fConst10;
-	double fConst12;
+	double fConst11;
 	double fConst13;
 	double fConst14;
 	double fConst15;
@@ -739,17 +739,17 @@ class flt_bpf36e : public flt_bpf36e_dsp {
 		double fConst7 = 1.0 / fConst0;
 		fConst8 = flt_bpf36e_faustpower2_f(fConst7);
 		fConst9 = 1.644891817997632 / fConst0;
-		fConst10 = 6.42109411328824 / fConst0;
-		double fConst11 = flt_bpf36e_faustpower3_f(fConst7);
-		fConst12 = 1.60527352832206 * fConst11;
-		fConst13 = flt_bpf36e_faustpower4_f(fConst7);
-		fConst14 = 4.0 * fConst13;
-		fConst15 = 3.21054705664412 * fConst11;
+		fConst10 = flt_bpf36e_faustpower4_f(fConst7);
+		fConst11 = 6.42109411328824 / fConst0;
+		double fConst12 = flt_bpf36e_faustpower3_f(fConst7);
+		fConst13 = 1.60527352832206 * fConst12;
+		fConst14 = 4.0 * fConst10;
+		fConst15 = 3.21054705664412 * fConst12;
 		fConst16 = 12.84218822657648 / fConst0;
-		fConst17 = 6.0 * fConst13;
-		fConst18 = 0.079236579351156 * fConst13;
-		fConst19 = 0.11885486902673399 * fConst13;
-		fConst20 = 0.039618289675578 * fConst13;
+		fConst17 = 6.0 * fConst10;
+		fConst18 = 0.079236579351156 * fConst10;
+		fConst19 = 0.11885486902673399 * fConst10;
+		fConst20 = 0.039618289675578 * fConst10;
 		fConst21 = 2.0 * fConst8;
 	}
 	
@@ -789,7 +789,7 @@ class flt_bpf36e : public flt_bpf36e_dsp {
 		ui_interface->openVerticalBox("flt.bpf36e");
 		ui_interface->declare(&fVslider0, "unit", "Hz");
 		ui_interface->addVerticalSlider("freq", &fVslider0, FAUSTFLOAT(1e+03), FAUSTFLOAT(2e+01), FAUSTFLOAT(2e+04), FAUSTFLOAT(0.1));
-		ui_interface->addHorizontalSlider("q", &fHslider0, FAUSTFLOAT(2.0), FAUSTFLOAT(0.25), FAUSTFLOAT(1e+01), FAUSTFLOAT(0.001));
+		ui_interface->addHorizontalSlider("q", &fHslider0, FAUSTFLOAT(2.0), FAUSTFLOAT(0.25), FAUSTFLOAT(32.0), FAUSTFLOAT(0.001));
 		ui_interface->closeBox();
 	}
 	
@@ -806,30 +806,30 @@ class flt_bpf36e : public flt_bpf36e_dsp {
 		double fSlow7 = fConst9 * fSlow5;
 		double fSlow8 = fSlow6 + fSlow7 + 4.0;
 		double fSlow9 = fConst1 * (fSlow5 / fSlow8);
-		double fSlow10 = fConst10 + fConst12 * fSlow4;
-		double fSlow11 = flt_bpf36e_faustpower4_f(fSlow3);
-		double fSlow12 = fConst13 * fSlow11;
-		double fSlow13 = flt_bpf36e_faustpower2_f(fSlow5);
-		double fSlow14 = fConst8 * (5.649083575096816 * fSlow13 + 8.0 * fSlow4);
-		double fSlow15 = 1.0 / (fSlow5 * fSlow10 + fSlow12 + fSlow14 + 16.0);
-		double fSlow16 = fConst8 * (4.646065675930784 * fSlow13 + 0.158473158702312 * fSlow4);
+		double fSlow10 = flt_bpf36e_faustpower4_f(fSlow3);
+		double fSlow11 = fConst10 * fSlow10;
+		double fSlow12 = flt_bpf36e_faustpower2_f(fSlow5);
+		double fSlow13 = fConst8 * (5.649083575096816 * fSlow12 + 8.0 * fSlow4);
+		double fSlow14 = fConst11 + fConst13 * fSlow4;
+		double fSlow15 = 1.0 / (fSlow11 + fSlow13 + fSlow5 * fSlow14 + 16.0);
+		double fSlow16 = fConst8 * (4.646065675930784 * fSlow12 + 0.158473158702312 * fSlow4);
 		double fSlow17 = fSlow16 + 0.316946317404624;
-		double fSlow18 = fConst14 * fSlow11;
+		double fSlow18 = fConst14 * fSlow10;
 		double fSlow19 = fConst15 * fSlow4;
 		double fSlow20 = fSlow18 + fSlow5 * (fSlow19 - fConst16) + -64.0;
-		double fSlow21 = fConst17 * fSlow11 + fConst8 * (0.0 - (11.298167150193631 * fSlow13 + 16.0 * fSlow4)) + 96.0;
+		double fSlow21 = fConst17 * fSlow10 + fConst8 * (0.0 - (11.298167150193631 * fSlow12 + 16.0 * fSlow4)) + 96.0;
 		double fSlow22 = fSlow18 + fSlow5 * (fConst16 - fSlow19) + -64.0;
-		double fSlow23 = fSlow14 + fSlow12 + fSlow5 * (0.0 - fSlow10) + 16.0;
-		double fSlow24 = fConst18 * fSlow11 + -1.267785269618496;
-		double fSlow25 = fConst19 * fSlow11 + fConst8 * (0.0 - (9.292131351861569 * fSlow13 + 0.316946317404624 * fSlow4)) + 1.9016779044277439;
-		double fSlow26 = fSlow16 + fConst20 * fSlow11 + 0.316946317404624;
+		double fSlow23 = fSlow11 + fSlow13 + fSlow5 * (0.0 - fSlow14) + 16.0;
+		double fSlow24 = fConst18 * fSlow10 + -1.267785269618496;
+		double fSlow25 = fConst19 * fSlow10 + fConst8 * (0.0 - (9.292131351861569 * fSlow12 + 0.316946317404624 * fSlow4)) + 1.9016779044277439;
+		double fSlow26 = fSlow16 + fConst20 * fSlow10 + 0.316946317404624;
 		double fSlow27 = 1.0 / fSlow8;
-		double fSlow28 = fConst21 * fSlow4 + -8.0;
-		double fSlow29 = fSlow6 + (4.0 - fSlow7);
+		double fSlow28 = fSlow6 + (4.0 - fSlow7);
+		double fSlow29 = fConst21 * fSlow4 + -8.0;
 		double fSlow30 = 0.0 - fSlow9;
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			fRec1[0] = double(input0[i0]) - fSlow15 * (fSlow20 * fRec1[1] + fSlow21 * fRec1[2] + fSlow22 * fRec1[3] + fSlow23 * fRec1[4]);
-			fRec0[0] = fSlow15 * (fSlow17 * fRec1[0] + fSlow24 * fRec1[1] + fSlow25 * fRec1[2] + fSlow24 * fRec1[3] + fSlow26 * fRec1[4]) - fSlow27 * (fSlow28 * fRec0[1] + fSlow29 * fRec0[2]);
+			fRec0[0] = fSlow15 * (fSlow17 * fRec1[0] + fSlow24 * fRec1[1] + fSlow25 * fRec1[2] + fSlow24 * fRec1[3] + fSlow26 * fRec1[4]) - fSlow27 * (fSlow28 * fRec0[2] + fSlow29 * fRec0[1]);
 			output0[i0] = FAUSTFLOAT(fSlow9 * fRec0[0] + fSlow30 * fRec0[2]);
 			for (int j0 = 4; j0 > 0; j0 = j0 - 1) {
 				fRec1[j0] = fRec1[j0 - 1];
