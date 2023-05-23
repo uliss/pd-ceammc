@@ -47,7 +47,11 @@ with{
     slow = hslider("slow [unit:Hz]", 6, 1, 10, 0.001);
     curve = hslider("curve", -3, -5, 5, 0.001);
 
-    t = ctl : an.amp_follower_ar(att, rel) : cm.lin2curve(0, 1, slow, fast, curve);
+    t = ctl : gate : an.amp_follower_ar(att, rel) : conv with {
+        thresh = vslider("threshold [unit: db]", -55, -90, 0, 0.1) : si.smoo;
+        gate = ef.gate_mono(thresh, att, 0.1, rel);
+        conv(in) = ba.if(in <= 0.001, 1000, in : cm.lin2curve(0, 1, slow, fast, curve));
+    };
     time = os.lf_sawpos(1/t);
     spat(in) = in : sp.spat(4, time, r);
 };
