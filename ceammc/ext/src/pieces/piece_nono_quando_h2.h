@@ -676,7 +676,6 @@ class piece_nono_quando_h2 : public piece_nono_quando_h2_dsp {
 		m->declare("oscillators.lib/lf_sawpos:licence", "STK-4.3");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
 		m->declare("oscillators.lib/version", "0.3");
-		m->declare("piece_nono_quando.dsp/name", "nono.quando");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "0.2");
 		m->declare("routes.lib/name", "Faust Signal Routing Library");
@@ -686,6 +685,12 @@ class piece_nono_quando_h2 : public piece_nono_quando_h2_dsp {
 		m->declare("spats.lib/name", "Faust Spatialization Library");
 		m->declare("spats.lib/spat:author", "Laurent Pottier, revised by Romain Michon");
 		m->declare("spats.lib/version", "0.0");
+		m->declare("tooltip_i0", "input A");
+		m->declare("tooltip_i1", "input A");
+		m->declare("tooltip_o0", "L1");
+		m->declare("tooltip_o1", "L2");
+		m->declare("tooltip_o2", "L3");
+		m->declare("tooltip_o3", "L4");
 	}
 
 	virtual int getNumInputs() {

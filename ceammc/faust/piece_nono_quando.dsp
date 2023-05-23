@@ -1,8 +1,6 @@
 import("stdfaust.lib");
 cm = library("ceammc.lib");
 
-declare name "nono.quando";
-
 vocoder(in) = in : vocoderN(N) : compressor : ma.tanh with {
     N = 36;
     key = 36;
