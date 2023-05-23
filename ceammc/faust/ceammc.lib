@@ -1,5 +1,5 @@
 declare name "Ceammc PureData misc utils";
-declare version "0.1.3";
+declare version "0.1.4";
 
 ba = library("basics.lib");
 si = library("signals.lib");
@@ -70,4 +70,18 @@ with {
                 // values below this threshold are considered zero in the release phase
                 eps = ba.db2linear(-120);
     };
+};
+
+lin2lin(x0, x1, y0, y1, v) = v : (((_ - x0) / (x1 - x0)) * (y1 - y0)) + y0;
+
+
+lin2curve(x0, x1, y0, y1, curve, x) = conv with {
+    conv = ba.if (abs(curve) < 0.001, conv_lin, conv_exp);
+    conv_lin = (x - x0) / (x1 - x0) * (y1 - y0) + y0;
+    conv_exp = b - (a * pow(grow, scaled));
+
+    grow = exp(curve);
+    a = (y1 - y0) / (1.0 - grow);
+    b = y0 + a;
+    scaled = (x - x0) / (x1 - x0);
 };

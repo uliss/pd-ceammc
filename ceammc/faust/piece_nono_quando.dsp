@@ -1,4 +1,5 @@
 import("stdfaust.lib");
+cm = library("ceammc.lib");
 
 declare name "nono.quando";
 
@@ -37,10 +38,16 @@ with {
     f2 = fi.bandpass(FLT_ORDER, 675, 1012);
 };
 
-halafon(N,t,r) = sp.spat(N,time,r) : halmeters(N)
-  with{
+halaphon_h1(in, ctl) = spat(in) : _,_,_,_
+with{
+    r = hslider("r", 1, 0, 1, 0.001) : si.smoo;
+    att = hslider("attack [unit:ms]", 100, 0, 500, 0.001) / 1000 : si.smoo;
+    rel = hslider("release [unit:ms]", 200, 0, 1000, 0.001) / 1000 : si.smoo;
+    fast = hslider("fast [unit:Hz]", 0.35, 0.1, 1, 0.001);
+    slow = hslider("slow [unit:Hz]", 6, 1, 10, 0.001);
+    curve = hslider("curve", -3, -5, 5, 0.001);
+
+    t = ctl : an.amp_follower_ar(att, rel) : cm.lin2curve(0, 1, slow, fast, curve);
     time = os.lf_sawpos(1/t);
-    h1(v) = vgroup("Ch %v", hmeter);
-    halmeters(N) = vgroup("h1 meters", par(i, N, h1(i)));
-    hmeter(x) = attach(x, an.amp_follower(0.150, x) : ba.linear2db : hbargraph("[05][unit:dB] Meter", -70, +5));
+    spat(in) = in : sp.spat(4, time, r);
 };
