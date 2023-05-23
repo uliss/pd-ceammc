@@ -52,6 +52,7 @@ void setup_base_expand_env();
 void setup_base_merge_tilde();
 void setup_base_msg();
 void setup_base_replace();
+void setup_base_split_tilde();
 void setup_base_sync();
 void setup_base_z_tilde();
 void setup_chrono_datetime();
@@ -100,6 +101,7 @@ void ceammc_base_setup()
     setup_base_prop();
     setup_base_radio();
     setup_base_replace();
+    setup_base_split_tilde();
     setup_base_spring();
     setup_base_sync();
     setup_base_xfade2_tilde();

@@ -68,6 +68,7 @@ list(APPEND BASE_SOURCES
     base_click.cpp
     base_dac.cpp
     base_merge_tilde.cpp
+    base_split_tilde.cpp
     base_z_tilde.cpp
     gain.cpp
     matrix.cpp

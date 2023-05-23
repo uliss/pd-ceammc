@@ -11,46 +11,42 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "base_merge_tilde.h"
+#include "base_split_tilde.h"
 #include "ceammc_factory.h"
 
 constexpr int NMIN = 2;
 constexpr int NMAX = 64;
 constexpr int NDEF = 2;
 
-BaseMergeTilde::BaseMergeTilde(const PdArgs& args)
+BaseSplitTilde::BaseSplitTilde(const PdArgs& args)
     : SoundExternal(args)
 {
     n_ = new IntProperty("@n", NDEF, PropValueAccess::INITONLY);
     n_->checkClosedRange(NMIN, NMAX);
     n_->setArgIndex(0);
     addProperty(n_);
-
-    createSignalOutlet();
 }
 
-void BaseMergeTilde::initDone()
+void BaseSplitTilde::initDone()
 {
-    for (int i = 1; i < n_->value(); i++)
-        createSignalInlet();
+    for (int i = 0; i < n_->value(); i++)
+        createSignalOutlet();
 }
 
-void BaseMergeTilde::processBlock(const t_sample** in, t_sample** out)
+void BaseSplitTilde::processBlock(const t_sample** in, t_sample** out)
 {
     auto BS = blockSize();
     const size_t N = n_->value();
 
     for (size_t i = 0; i < BS; i++) {
         auto x = in[0][i];
-        for (size_t k = 1; k < N; k++)
-            x += in[k][i];
 
-        out[0][i] = x;
+        for (size_t k = 0; k < N; k++)
+            out[k][i] = x;
     }
 }
 
-void setup_base_merge_tilde()
+void setup_base_split_tilde()
 {
-    SoundExternalFactory<BaseMergeTilde> obj("merge~");
-    obj.addAlias(":>~");
+    SoundExternalFactory<BaseSplitTilde> obj("split~");
 }
