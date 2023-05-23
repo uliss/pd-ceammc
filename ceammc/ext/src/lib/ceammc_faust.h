@@ -109,10 +109,17 @@ namespace osc {
 namespace faust {
 
     class UIElement;
+
+    // typedefs
     using UIElementPtr = std::unique_ptr<UIElement>;
     using OscSegmentList = std::vector<const t_symbol*>;
+    using UnitMap = std::unordered_map<FAUSTFLOAT*, const char*>;
+    using TypeMap = std::unordered_map<FAUSTFLOAT*, PropValueType>;
+    using UIList = std::vector<UIElementPtr>;
 
+    // functions
     PropValueUnits to_units(const char* u);
+    void process_declaration(UnitMap& um, TypeMap& tm, FAUSTFLOAT* v, const char* name, const char* value);
 
     class UIProperty : public Property {
         UIElement* el_;
@@ -297,18 +304,18 @@ namespace faust {
 
     template <typename T>
     class PdUI : public T {
-        std::vector<UIElementPtr> ui_elements_;
+        UIList ui_elements_;
         OscSegmentList osc_segs_;
         const t_symbol* name_;
-        std::unordered_map<FAUSTFLOAT*, const char*> unit_map_;
-        std::unordered_map<FAUSTFLOAT*, PropValueType> type_map_;
+        UnitMap unit_map_;
+        TypeMap type_map_;
 
     public:
         PdUI(const char* name);
         const t_symbol* name() const { return name_; }
         const OscSegmentList& oscSegments() const { return osc_segs_; }
 
-        const std::vector<UIElementPtr>& elements() const { return ui_elements_; }
+        const UIList& elements() const { return ui_elements_; }
         UIElement* uiAt(size_t pos);
         const UIElement* uiAt(size_t pos) const;
         size_t uiCount() const { return ui_elements_.size(); }
@@ -609,18 +616,7 @@ namespace faust {
     template <typename T>
     void PdUI<T>::declare(FAUSTFLOAT* v, const char* name, const char* value)
     {
-        if (strcmp(name, "unit") == 0) {
-            unit_map_[v] = value;
-        } else if (strcmp(name, "type") == 0) {
-            if (strcmp(value, "int") == 0)
-                type_map_[v] = PropValueType::INTEGER;
-            else if (strcmp(value, "bool") == 0)
-                type_map_[v] = PropValueType::BOOLEAN;
-            else if (strcmp(value, "float") == 0)
-                type_map_[v] = PropValueType::FLOAT;
-            else
-                LIB_ERR << "[dev][faust] unsupported type: " << value;
-        }
+        process_declaration(unit_map_, type_map_, v, name, value);
     }
 
     template <typename T>

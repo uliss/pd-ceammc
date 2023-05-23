@@ -17,4 +17,5 @@
 void setup_piece_nono_quando_h2()
 {
     ceammc::FaustFactory<faust_piece_nono_quando_h2_tilde> obj("piece.nono.quando.h2~");
+    obj.setXletsInfo({ "in A", "in B" }, { "L1", "L2", "L3", "L4" });
 }

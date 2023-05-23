@@ -711,5 +711,21 @@ namespace faust {
             }
         }
     }
+
+    void process_declaration(UnitMap& um, TypeMap& tm, t_float* v, const char* name, const char* value)
+    {
+        if (strcmp(name, "unit") == 0) {
+            um[v] = value;
+        } else if (strcmp(name, "type") == 0) {
+            if (strcmp(value, "int") == 0)
+                tm[v] = PropValueType::INTEGER;
+            else if (strcmp(value, "bool") == 0)
+                tm[v] = PropValueType::BOOLEAN;
+            else if (strcmp(value, "float") == 0)
+                tm[v] = PropValueType::FLOAT;
+            else
+                LIB_ERR << "[dev][faust] unsupported type: " << value;
+        }
+    }
 }
 }
