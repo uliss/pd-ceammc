@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "nono.quando.h2"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn piece_nono_quando_h2 -scn piece_nono_quando_h2_dsp -es 1 -mcd 16 -double -ftz 0
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn piece_nono_quando_h2 -scn piece_nono_quando_h2_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __piece_nono_quando_h2_H__
@@ -648,23 +648,23 @@ class piece_nono_quando_h2 : public piece_nono_quando_h2_dsp {
  private:
 	
 	int fSampleRate;
-	double fConst1;
-	double fRec1[2];
-	double fRec0[2];
-	double fConst2;
-	double fRec3[2];
-	double fRec2[2];
-	double fRec4[2];
-	double fRec5[2];
-	double fRec6[2];
-	double fRec7[2];
-	double fRec8[2];
-	double fRec9[2];
+	float fConst1;
+	float fRec1[2];
+	float fRec0[2];
+	float fConst2;
+	float fRec3[2];
+	float fRec2[2];
+	float fRec4[2];
+	float fRec5[2];
+	float fRec6[2];
+	float fRec7[2];
+	float fRec8[2];
+	float fRec9[2];
 	
  public:
 	
 	void metadata(Meta* m) { 
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn piece_nono_quando_h2 -scn piece_nono_quando_h2_dsp -es 1 -mcd 16 -double -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn piece_nono_quando_h2 -scn piece_nono_quando_h2_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("filename", "piece_nono_quando_h2.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
@@ -699,9 +699,9 @@ class piece_nono_quando_h2 : public piece_nono_quando_h2_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		double fConst0 = std::min<double>(1.92e+05, std::max<double>(1.0, double(fSampleRate)));
-		fConst1 = 0.2 / fConst0;
-		fConst2 = 0.125 / fConst0;
+		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst1 = 0.2f / fConst0;
+		fConst2 = 0.125f / fConst0;
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -709,34 +709,34 @@ class piece_nono_quando_h2 : public piece_nono_quando_h2_dsp {
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; l0 < 2; l0 = l0 + 1) {
-			fRec1[l0] = 0.0;
+			fRec1[l0] = 0.0f;
 		}
 		for (int l1 = 0; l1 < 2; l1 = l1 + 1) {
-			fRec0[l1] = 0.0;
+			fRec0[l1] = 0.0f;
 		}
 		for (int l2 = 0; l2 < 2; l2 = l2 + 1) {
-			fRec3[l2] = 0.0;
+			fRec3[l2] = 0.0f;
 		}
 		for (int l3 = 0; l3 < 2; l3 = l3 + 1) {
-			fRec2[l3] = 0.0;
+			fRec2[l3] = 0.0f;
 		}
 		for (int l4 = 0; l4 < 2; l4 = l4 + 1) {
-			fRec4[l4] = 0.0;
+			fRec4[l4] = 0.0f;
 		}
 		for (int l5 = 0; l5 < 2; l5 = l5 + 1) {
-			fRec5[l5] = 0.0;
+			fRec5[l5] = 0.0f;
 		}
 		for (int l6 = 0; l6 < 2; l6 = l6 + 1) {
-			fRec6[l6] = 0.0;
+			fRec6[l6] = 0.0f;
 		}
 		for (int l7 = 0; l7 < 2; l7 = l7 + 1) {
-			fRec7[l7] = 0.0;
+			fRec7[l7] = 0.0f;
 		}
 		for (int l8 = 0; l8 < 2; l8 = l8 + 1) {
-			fRec8[l8] = 0.0;
+			fRec8[l8] = 0.0f;
 		}
 		for (int l9 = 0; l9 < 2; l9 = l9 + 1) {
-			fRec9[l9] = 0.0;
+			fRec9[l9] = 0.0f;
 		}
 	}
 	
@@ -771,22 +771,22 @@ class piece_nono_quando_h2 : public piece_nono_quando_h2_dsp {
 		FAUSTFLOAT* output2 = outputs[2];
 		FAUSTFLOAT* output3 = outputs[3];
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
-			double fTemp0 = double(input0[i0]);
+			float fTemp0 = float(input0[i0]);
 			fRec1[0] = fConst1 + (fRec1[1] - std::floor(fConst1 + fRec1[1]));
-			double fTemp1 = fRec1[0] + std::floor(1.75 - fRec1[0]);
-			fRec0[0] = 9.999999999998899e-05 * std::sqrt(std::max<double>(0.0, 1.0 - 4.0 * std::fabs(std::fmod(3.25 - fTemp1, 1.0) + -0.5))) + 0.9999 * fRec0[1];
-			double fTemp2 = double(input1[i0]);
+			float fTemp1 = fRec1[0] + std::floor(1.75f - fRec1[0]);
+			fRec0[0] = 0.0001f * std::sqrt(std::max<float>(0.0f, 1.0f - 4.0f * std::fabs(std::fmod(3.25f - fTemp1, 1.0f) + -0.5f))) + 0.9999f * fRec0[1];
+			float fTemp2 = float(input1[i0]);
 			fRec3[0] = fConst2 + (fRec3[1] - std::floor(fConst2 + fRec3[1]));
-			fRec2[0] = 9.999999999998899e-05 * std::sqrt(std::max<double>(0.0, 1.0 - 4.0 * std::fabs(std::fmod(fRec3[0] + 1.5, 1.0) + -0.5))) + 0.9999 * fRec2[1];
+			fRec2[0] = 0.0001f * std::sqrt(std::max<float>(0.0f, 1.0f - 4.0f * std::fabs(std::fmod(fRec3[0] + 1.5f, 1.0f) + -0.5f))) + 0.9999f * fRec2[1];
 			output0[i0] = FAUSTFLOAT(fTemp0 * fRec0[0] + fTemp2 * fRec2[0]);
-			fRec4[0] = 9.999999999998899e-05 * std::sqrt(std::max<double>(0.0, 1.0 - 4.0 * std::fabs(std::fmod(3.0 - fTemp1, 1.0) + -0.5))) + 0.9999 * fRec4[1];
-			fRec5[0] = 9.999999999998899e-05 * std::sqrt(std::max<double>(0.0, 1.0 - 4.0 * std::fabs(std::fmod(fRec3[0] + 1.25, 1.0) + -0.5))) + 0.9999 * fRec5[1];
+			fRec4[0] = 0.0001f * std::sqrt(std::max<float>(0.0f, 1.0f - 4.0f * std::fabs(std::fmod(3.0f - fTemp1, 1.0f) + -0.5f))) + 0.9999f * fRec4[1];
+			fRec5[0] = 0.0001f * std::sqrt(std::max<float>(0.0f, 1.0f - 4.0f * std::fabs(std::fmod(fRec3[0] + 1.25f, 1.0f) + -0.5f))) + 0.9999f * fRec5[1];
 			output1[i0] = FAUSTFLOAT(fTemp0 * fRec4[0] + fTemp2 * fRec5[0]);
-			fRec6[0] = 9.999999999998899e-05 * std::sqrt(std::max<double>(0.0, 1.0 - 4.0 * std::fabs(std::fmod(2.75 - fTemp1, 1.0) + -0.5))) + 0.9999 * fRec6[1];
-			fRec7[0] = 9.999999999998899e-05 * std::sqrt(std::max<double>(0.0, 1.0 - 4.0 * std::fabs(std::fmod(fRec3[0] + 1.0, 1.0) + -0.5))) + 0.9999 * fRec7[1];
+			fRec6[0] = 0.0001f * std::sqrt(std::max<float>(0.0f, 1.0f - 4.0f * std::fabs(std::fmod(2.75f - fTemp1, 1.0f) + -0.5f))) + 0.9999f * fRec6[1];
+			fRec7[0] = 0.0001f * std::sqrt(std::max<float>(0.0f, 1.0f - 4.0f * std::fabs(std::fmod(fRec3[0] + 1.0f, 1.0f) + -0.5f))) + 0.9999f * fRec7[1];
 			output2[i0] = FAUSTFLOAT(fTemp0 * fRec6[0] + fTemp2 * fRec7[0]);
-			fRec8[0] = 9.999999999998899e-05 * std::sqrt(std::max<double>(0.0, 1.0 - 4.0 * std::fabs(std::fmod(2.5 - fTemp1, 1.0) + -0.5))) + 0.9999 * fRec8[1];
-			fRec9[0] = 9.999999999998899e-05 * std::sqrt(std::max<double>(0.0, 1.0 - 4.0 * std::fabs(std::fmod(fRec3[0] + 0.75, 1.0) + -0.5))) + 0.9999 * fRec9[1];
+			fRec8[0] = 0.0001f * std::sqrt(std::max<float>(0.0f, 1.0f - 4.0f * std::fabs(std::fmod(2.5f - fTemp1, 1.0f) + -0.5f))) + 0.9999f * fRec8[1];
+			fRec9[0] = 0.0001f * std::sqrt(std::max<float>(0.0f, 1.0f - 4.0f * std::fabs(std::fmod(fRec3[0] + 0.75f, 1.0f) + -0.5f))) + 0.9999f * fRec9[1];
 			output3[i0] = FAUSTFLOAT(fTemp0 * fRec8[0] + fTemp2 * fRec9[0]);
 			fRec1[1] = fRec1[0];
 			fRec0[1] = fRec0[0];

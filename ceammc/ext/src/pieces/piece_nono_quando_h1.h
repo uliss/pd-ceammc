@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "nono.quando.h1"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn piece_nono_quando_h1 -scn piece_nono_quando_h1_dsp -es 1 -mcd 16 -double -ftz 0
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn piece_nono_quando_h1 -scn piece_nono_quando_h1_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __piece_nono_quando_h1_H__
@@ -648,32 +648,32 @@ class piece_nono_quando_h1 : public piece_nono_quando_h1_dsp {
  private:
 	
 	int fSampleRate;
-	double fConst1;
+	float fConst1;
 	FAUSTFLOAT fHslider0;
-	double fConst2;
-	double fRec1[2];
-	double fConst3;
-	double fConst4;
+	float fConst2;
+	float fRec1[2];
+	float fConst3;
+	float fConst4;
 	FAUSTFLOAT fHslider1;
-	double fRec6[2];
+	float fRec6[2];
 	FAUSTFLOAT fHslider2;
-	double fRec7[2];
-	double fRec5[2];
+	float fRec7[2];
+	float fRec5[2];
 	FAUSTFLOAT fVslider0;
-	double fRec8[2];
+	float fRec8[2];
 	int iVec0[2];
 	int iConst5;
 	int iRec9[2];
-	double fRec4[2];
-	double fRec3[2];
+	float fRec4[2];
+	float fRec3[2];
 	FAUSTFLOAT fHslider3;
 	FAUSTFLOAT fHslider4;
 	FAUSTFLOAT fHslider5;
-	double fRec2[2];
-	double fRec0[2];
-	double fRec10[2];
-	double fRec11[2];
-	double fRec12[2];
+	float fRec2[2];
+	float fRec0[2];
+	float fRec10[2];
+	float fRec11[2];
+	float fRec12[2];
 	
  public:
 	
@@ -685,7 +685,7 @@ class piece_nono_quando_h1 : public piece_nono_quando_h1_dsp {
 		m->declare("basics.lib/version", "0.8");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
 		m->declare("ceammc.lib/version", "0.1.4");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn piece_nono_quando_h1 -scn piece_nono_quando_h1_dsp -es 1 -mcd 16 -double -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn piece_nono_quando_h1 -scn piece_nono_quando_h1_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("filename", "piece_nono_quando_h1.dsp");
 		m->declare("maths.lib/author", "GRAME");
 		m->declare("maths.lib/copyright", "GRAME");
@@ -699,7 +699,6 @@ class piece_nono_quando_h1 : public piece_nono_quando_h1_dsp {
 		m->declare("oscillators.lib/lf_sawpos:licence", "STK-4.3");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
 		m->declare("oscillators.lib/version", "0.3");
-		m->declare("piece_nono_quando.dsp/name", "nono.quando");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "0.2");
 		m->declare("signals.lib/name", "Faust Signal Routing Library");
@@ -723,39 +722,39 @@ class piece_nono_quando_h1 : public piece_nono_quando_h1_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		double fConst0 = std::min<double>(1.92e+05, std::max<double>(1.0, double(fSampleRate)));
-		fConst1 = 44.1 / fConst0;
-		fConst2 = 1.0 - fConst1;
-		fConst3 = 1.0 / fConst0;
-		fConst4 = 0.0441 / fConst0;
-		iConst5 = int(0.1 * fConst0);
+		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst1 = 44.1f / fConst0;
+		fConst2 = 1.0f - fConst1;
+		fConst3 = 1.0f / fConst0;
+		fConst4 = 0.0441f / fConst0;
+		iConst5 = int(0.1f * fConst0);
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fHslider0 = FAUSTFLOAT(1.0);
-		fHslider1 = FAUSTFLOAT(1e+02);
-		fHslider2 = FAUSTFLOAT(2e+02);
-		fVslider0 = FAUSTFLOAT(-55.0);
-		fHslider3 = FAUSTFLOAT(-3.0);
-		fHslider4 = FAUSTFLOAT(6.0);
-		fHslider5 = FAUSTFLOAT(0.35);
+		fHslider0 = FAUSTFLOAT(1.0f);
+		fHslider1 = FAUSTFLOAT(1e+02f);
+		fHslider2 = FAUSTFLOAT(2e+02f);
+		fVslider0 = FAUSTFLOAT(-55.0f);
+		fHslider3 = FAUSTFLOAT(-3.0f);
+		fHslider4 = FAUSTFLOAT(6.0f);
+		fHslider5 = FAUSTFLOAT(0.35f);
 	}
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; l0 < 2; l0 = l0 + 1) {
-			fRec1[l0] = 0.0;
+			fRec1[l0] = 0.0f;
 		}
 		for (int l1 = 0; l1 < 2; l1 = l1 + 1) {
-			fRec6[l1] = 0.0;
+			fRec6[l1] = 0.0f;
 		}
 		for (int l2 = 0; l2 < 2; l2 = l2 + 1) {
-			fRec7[l2] = 0.0;
+			fRec7[l2] = 0.0f;
 		}
 		for (int l3 = 0; l3 < 2; l3 = l3 + 1) {
-			fRec5[l3] = 0.0;
+			fRec5[l3] = 0.0f;
 		}
 		for (int l4 = 0; l4 < 2; l4 = l4 + 1) {
-			fRec8[l4] = 0.0;
+			fRec8[l4] = 0.0f;
 		}
 		for (int l5 = 0; l5 < 2; l5 = l5 + 1) {
 			iVec0[l5] = 0;
@@ -764,25 +763,25 @@ class piece_nono_quando_h1 : public piece_nono_quando_h1_dsp {
 			iRec9[l6] = 0;
 		}
 		for (int l7 = 0; l7 < 2; l7 = l7 + 1) {
-			fRec4[l7] = 0.0;
+			fRec4[l7] = 0.0f;
 		}
 		for (int l8 = 0; l8 < 2; l8 = l8 + 1) {
-			fRec3[l8] = 0.0;
+			fRec3[l8] = 0.0f;
 		}
 		for (int l9 = 0; l9 < 2; l9 = l9 + 1) {
-			fRec2[l9] = 0.0;
+			fRec2[l9] = 0.0f;
 		}
 		for (int l10 = 0; l10 < 2; l10 = l10 + 1) {
-			fRec0[l10] = 0.0;
+			fRec0[l10] = 0.0f;
 		}
 		for (int l11 = 0; l11 < 2; l11 = l11 + 1) {
-			fRec10[l11] = 0.0;
+			fRec10[l11] = 0.0f;
 		}
 		for (int l12 = 0; l12 < 2; l12 = l12 + 1) {
-			fRec11[l12] = 0.0;
+			fRec11[l12] = 0.0f;
 		}
 		for (int l13 = 0; l13 < 2; l13 = l13 + 1) {
-			fRec12[l13] = 0.0;
+			fRec12[l13] = 0.0f;
 		}
 	}
 	
@@ -807,17 +806,17 @@ class piece_nono_quando_h1 : public piece_nono_quando_h1_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("nono.quando.h1");
 		ui_interface->declare(&fHslider1, "unit", "ms");
-		ui_interface->addHorizontalSlider("attack", &fHslider1, FAUSTFLOAT(1e+02), FAUSTFLOAT(0.0), FAUSTFLOAT(5e+02), FAUSTFLOAT(0.001));
-		ui_interface->addHorizontalSlider("curve", &fHslider3, FAUSTFLOAT(-3.0), FAUSTFLOAT(-5.0), FAUSTFLOAT(5.0), FAUSTFLOAT(0.001));
+		ui_interface->addHorizontalSlider("attack", &fHslider1, FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.0f), FAUSTFLOAT(5e+02f), FAUSTFLOAT(0.001f));
+		ui_interface->addHorizontalSlider("curve", &fHslider3, FAUSTFLOAT(-3.0f), FAUSTFLOAT(-5.0f), FAUSTFLOAT(5.0f), FAUSTFLOAT(0.001f));
 		ui_interface->declare(&fHslider5, "unit", "Hz");
-		ui_interface->addHorizontalSlider("fast", &fHslider5, FAUSTFLOAT(0.35), FAUSTFLOAT(0.1), FAUSTFLOAT(1.0), FAUSTFLOAT(0.001));
-		ui_interface->addHorizontalSlider("r", &fHslider0, FAUSTFLOAT(1.0), FAUSTFLOAT(0.0), FAUSTFLOAT(1.0), FAUSTFLOAT(0.001));
+		ui_interface->addHorizontalSlider("fast", &fHslider5, FAUSTFLOAT(0.35f), FAUSTFLOAT(0.1f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.001f));
+		ui_interface->addHorizontalSlider("r", &fHslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.001f));
 		ui_interface->declare(&fHslider2, "unit", "ms");
-		ui_interface->addHorizontalSlider("release", &fHslider2, FAUSTFLOAT(2e+02), FAUSTFLOAT(0.0), FAUSTFLOAT(1e+03), FAUSTFLOAT(0.001));
+		ui_interface->addHorizontalSlider("release", &fHslider2, FAUSTFLOAT(2e+02f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1e+03f), FAUSTFLOAT(0.001f));
 		ui_interface->declare(&fHslider4, "unit", "Hz");
-		ui_interface->addHorizontalSlider("slow", &fHslider4, FAUSTFLOAT(6.0), FAUSTFLOAT(1.0), FAUSTFLOAT(1e+01), FAUSTFLOAT(0.001));
+		ui_interface->addHorizontalSlider("slow", &fHslider4, FAUSTFLOAT(6.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(1e+01f), FAUSTFLOAT(0.001f));
 		ui_interface->declare(&fVslider0, "unit", "db");
-		ui_interface->addVerticalSlider("threshold", &fVslider0, FAUSTFLOAT(-55.0), FAUSTFLOAT(-9e+01), FAUSTFLOAT(0.0), FAUSTFLOAT(0.1));
+		ui_interface->addVerticalSlider("threshold", &fVslider0, FAUSTFLOAT(-55.0f), FAUSTFLOAT(-9e+01f), FAUSTFLOAT(0.0f), FAUSTFLOAT(0.1f));
 		ui_interface->closeBox();
 	}
 	
@@ -828,50 +827,50 @@ class piece_nono_quando_h1 : public piece_nono_quando_h1_dsp {
 		FAUSTFLOAT* output1 = outputs[1];
 		FAUSTFLOAT* output2 = outputs[2];
 		FAUSTFLOAT* output3 = outputs[3];
-		double fSlow0 = fConst1 * double(fHslider0);
-		double fSlow1 = fConst4 * double(fHslider1);
-		double fSlow2 = fConst4 * double(fHslider2);
-		double fSlow3 = fConst1 * double(fVslider0);
-		double fSlow4 = double(fHslider3);
-		int iSlow5 = std::fabs(fSlow4) < 0.001;
-		double fSlow6 = double(fHslider4);
-		double fSlow7 = double(fHslider5) - fSlow6;
-		double fSlow8 = std::exp(fSlow4);
-		double fSlow9 = fSlow7 / (1.0 - fSlow8);
+		float fSlow0 = fConst1 * float(fHslider0);
+		float fSlow1 = fConst4 * float(fHslider1);
+		float fSlow2 = fConst4 * float(fHslider2);
+		float fSlow3 = fConst1 * float(fVslider0);
+		float fSlow4 = float(fHslider3);
+		int iSlow5 = std::fabs(fSlow4) < 0.001f;
+		float fSlow6 = float(fHslider4);
+		float fSlow7 = float(fHslider5) - fSlow6;
+		float fSlow8 = std::exp(fSlow4);
+		float fSlow9 = fSlow7 / (1.0f - fSlow8);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
-			double fTemp0 = double(input0[i0]);
+			float fTemp0 = float(input0[i0]);
 			fRec1[0] = fSlow0 + fConst2 * fRec1[1];
-			double fTemp1 = fRec1[0] + 1.0;
-			double fTemp2 = double(input1[i0]);
+			float fTemp1 = fRec1[0] + 1.0f;
+			float fTemp2 = float(input1[i0]);
 			fRec6[0] = fSlow1 + fConst2 * fRec6[1];
 			fRec7[0] = fSlow2 + fConst2 * fRec7[1];
-			double fTemp3 = std::min<double>(fRec6[0], fRec7[0]);
-			int iTemp4 = std::fabs(fTemp3) < 2.220446049250313e-16;
-			double fTemp5 = ((iTemp4) ? 0.0 : std::exp(0.0 - fConst3 / ((iTemp4) ? 1.0 : fTemp3)));
-			fRec5[0] = std::fabs(fTemp2) * (1.0 - fTemp5) + fRec5[1] * fTemp5;
+			float fTemp3 = std::min<float>(fRec6[0], fRec7[0]);
+			int iTemp4 = std::fabs(fTemp3) < 1.1920929e-07f;
+			float fTemp5 = ((iTemp4) ? 0.0f : std::exp(0.0f - fConst3 / ((iTemp4) ? 1.0f : fTemp3)));
+			fRec5[0] = std::fabs(fTemp2) * (1.0f - fTemp5) + fRec5[1] * fTemp5;
 			fRec8[0] = fSlow3 + fConst2 * fRec8[1];
-			int iTemp6 = fRec5[0] > std::pow(1e+01, 0.05 * fRec8[0]);
+			int iTemp6 = fRec5[0] > std::pow(1e+01f, 0.05f * fRec8[0]);
 			iVec0[0] = iTemp6;
 			iRec9[0] = std::max<int>(iConst5 * (iTemp6 < iVec0[1]), iRec9[1] + -1);
-			double fTemp7 = std::fabs(std::max<double>(double(iTemp6), double(iRec9[0] > 0)));
-			int iTemp8 = std::fabs(fRec7[0]) < 2.220446049250313e-16;
-			double fTemp9 = ((iTemp8) ? 0.0 : std::exp(0.0 - fConst3 / ((iTemp8) ? 1.0 : fRec7[0])));
-			int iTemp10 = std::fabs(fRec6[0]) < 2.220446049250313e-16;
-			double fTemp11 = ((iTemp10) ? 0.0 : std::exp(0.0 - fConst3 / ((iTemp10) ? 1.0 : fRec6[0])));
-			double fTemp12 = ((fTemp7 > fRec4[1]) ? fTemp11 : fTemp9);
-			fRec4[0] = fTemp7 * (1.0 - fTemp12) + fRec4[1] * fTemp12;
-			double fTemp13 = std::fabs(fTemp2 * fRec4[0]);
-			double fTemp14 = ((fTemp13 > fRec3[1]) ? fTemp11 : fTemp9);
-			fRec3[0] = fTemp13 * (1.0 - fTemp14) + fRec3[1] * fTemp14;
-			double fTemp15 = fRec2[1] + fConst3 / ((fRec3[0] <= 0.001) ? 1e+03 : ((iSlow5) ? fSlow6 + fSlow7 * fRec3[0] : fSlow6 + fSlow9 * (1.0 - std::pow(fSlow8, fRec3[0]))));
+			float fTemp7 = std::fabs(std::max<float>(float(iTemp6), float(iRec9[0] > 0)));
+			int iTemp8 = std::fabs(fRec7[0]) < 1.1920929e-07f;
+			float fTemp9 = ((iTemp8) ? 0.0f : std::exp(0.0f - fConst3 / ((iTemp8) ? 1.0f : fRec7[0])));
+			int iTemp10 = std::fabs(fRec6[0]) < 1.1920929e-07f;
+			float fTemp11 = ((iTemp10) ? 0.0f : std::exp(0.0f - fConst3 / ((iTemp10) ? 1.0f : fRec6[0])));
+			float fTemp12 = ((fTemp7 > fRec4[1]) ? fTemp11 : fTemp9);
+			fRec4[0] = fTemp7 * (1.0f - fTemp12) + fRec4[1] * fTemp12;
+			float fTemp13 = std::fabs(fTemp2 * fRec4[0]);
+			float fTemp14 = ((fTemp13 > fRec3[1]) ? fTemp11 : fTemp9);
+			fRec3[0] = fTemp13 * (1.0f - fTemp14) + fRec3[1] * fTemp14;
+			float fTemp15 = fRec2[1] + fConst3 / ((fRec3[0] <= 0.001f) ? 1e+03f : ((iSlow5) ? fSlow6 + fSlow7 * fRec3[0] : fSlow6 + fSlow9 * (1.0f - std::pow(fSlow8, fRec3[0]))));
 			fRec2[0] = fTemp15 - std::floor(fTemp15);
-			fRec0[0] = 4.999999999999449e-05 * fTemp1 * std::sqrt(std::max<double>(0.0, 1.0 - 4.0 * fRec1[0] * std::fabs(std::fmod(fRec2[0] + 1.5, 1.0) + -0.5))) + 0.9999 * fRec0[1];
+			fRec0[0] = 5e-05f * fTemp1 * std::sqrt(std::max<float>(0.0f, 1.0f - 4.0f * fRec1[0] * std::fabs(std::fmod(fRec2[0] + 1.5f, 1.0f) + -0.5f))) + 0.9999f * fRec0[1];
 			output0[i0] = FAUSTFLOAT(fTemp0 * fRec0[0]);
-			fRec10[0] = 4.999999999999449e-05 * fTemp1 * std::sqrt(std::max<double>(0.0, 1.0 - 4.0 * fRec1[0] * std::fabs(std::fmod(fRec2[0] + 1.25, 1.0) + -0.5))) + 0.9999 * fRec10[1];
+			fRec10[0] = 5e-05f * fTemp1 * std::sqrt(std::max<float>(0.0f, 1.0f - 4.0f * fRec1[0] * std::fabs(std::fmod(fRec2[0] + 1.25f, 1.0f) + -0.5f))) + 0.9999f * fRec10[1];
 			output1[i0] = FAUSTFLOAT(fTemp0 * fRec10[0]);
-			fRec11[0] = 4.999999999999449e-05 * fTemp1 * std::sqrt(std::max<double>(0.0, 1.0 - 4.0 * fRec1[0] * std::fabs(std::fmod(fRec2[0] + 1.0, 1.0) + -0.5))) + 0.9999 * fRec11[1];
+			fRec11[0] = 5e-05f * fTemp1 * std::sqrt(std::max<float>(0.0f, 1.0f - 4.0f * fRec1[0] * std::fabs(std::fmod(fRec2[0] + 1.0f, 1.0f) + -0.5f))) + 0.9999f * fRec11[1];
 			output2[i0] = FAUSTFLOAT(fTemp0 * fRec11[0]);
-			fRec12[0] = 4.999999999999449e-05 * fTemp1 * std::sqrt(std::max<double>(0.0, 1.0 - 4.0 * fRec1[0] * std::fabs(std::fmod(fRec2[0] + 0.75, 1.0) + -0.5))) + 0.9999 * fRec12[1];
+			fRec12[0] = 5e-05f * fTemp1 * std::sqrt(std::max<float>(0.0f, 1.0f - 4.0f * fRec1[0] * std::fabs(std::fmod(fRec2[0] + 0.75f, 1.0f) + -0.5f))) + 0.9999f * fRec12[1];
 			output3[i0] = FAUSTFLOAT(fTemp0 * fRec12[0]);
 			fRec1[1] = fRec1[0];
 			fRec6[1] = fRec6[0];
