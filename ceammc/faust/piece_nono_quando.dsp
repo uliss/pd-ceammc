@@ -3,20 +3,18 @@ import("stdfaust.lib");
 declare name "nono.quando";
 
 vocoder(in) = in : vocoderN(N) : compressor : ma.tanh with {
-    N = 22;
+    N = 36;
     key = 36;
     att = hslider("attack", 10, 0, 500, 0.001) / 1000 : si.smoo;
     rel = hslider("release", 100, 0, 1000, 0.001) / 1000 : si.smoo;
-    Q = hslider("q", 100, 3, 500, 0.001);
     rolloff = hslider("color", -0.5, -1, 1, 0.001);
-    amp = hslider("gain", -6 , -60, 6, 0.001) : ba.db2linear : si.smoo;
+    amp = hslider("gain", 0, -60, 6, 0.001) : ba.db2linear : si.smoo;
     excitation = no.colored_noise(5, rolloff) * amp;
 
     vocoderN(nBands) = _ <: par(i, nBands, vocoder_line(i)) :> _;
-    vocoder_line(i) = _ : vocoder_band(i, key, Q, 1) : an.amp_follower_ar(att, rel) : ma.tanh : (_,excitation) : vocoder_band(i, key, Q);
-    vocoder_band(band, baseKey, q, bandGain, x) = x : seq(i, 3, flt) with {
+    vocoder_line(i) = _ : vocoder_band(i, key, 1) : an.amp_follower_ar(att, rel) : ma.tanh : (_,excitation) : vocoder_band(i, key);
+    vocoder_band(band, baseKey, bandGain, x) = x : seq(i, 2, flt) with {
         freq = ba.midikey2hz(baseKey) * pow(2, band/6);
-        // flt = fi.resonbp(freq, q, bandGain);
         flt = fi.highpass6e(freq) : fi.lowpass6e(freq) : *(bandGain* 3);
     };
 
