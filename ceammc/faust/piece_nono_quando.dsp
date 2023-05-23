@@ -55,3 +55,11 @@ with{
     time = os.lf_sawpos(1/t);
     spat(in) = in : sp.spat(4, time, r);
 };
+
+halaphon_h2 = _,_ : spat : _,_,_,_
+with{
+    spat4(t) = _ : sp.spat(4, t, 1);
+    t0 = ma.frac(1.75 - os.lf_sawpos(1/5.0));
+    t1 = os.lf_sawpos(1/8.0);
+    spat = spat4(t0), spat4(t1) : ro.butterfly(8) : par(i,4,_),par(i,4,!);
+};

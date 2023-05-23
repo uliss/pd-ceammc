@@ -16,6 +16,7 @@ ceammc_add_piece(stok_solo)
 ceammc_add_piece_double(nono_quando_fb1)
 ceammc_add_piece_double(nono_quando_fb2)
 ceammc_add_piece_double(nono_quando_h1)
+ceammc_add_piece_double(nono_quando_h2)
 ceammc_add_piece_double(nono_quando_vocoder)
 
 
