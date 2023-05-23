@@ -11,13 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-void setup_piece_stok_solo();
-void setup_piece_nono_quando_fb1();
-void setup_piece_nono_quando_fb2();
+#include "piece_nono_quando_fb2.h"
+#include "ceammc_faust_factory.h"
 
-void ceammc_pieces_setup()
+void setup_piece_nono_quando_fb2()
 {
-    setup_piece_stok_solo();
-    setup_piece_nono_quando_fb1();
-    setup_piece_nono_quando_fb2();
+    ceammc::FaustFactory<faust_piece_nono_quando_fb2_tilde> obj("piece.nono.quando.fb2~");
 }

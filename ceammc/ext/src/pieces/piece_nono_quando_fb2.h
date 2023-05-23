@@ -1,11 +1,11 @@
 /* ------------------------------------------------------------
-name: "nono.quando.fb1"
+name: "nono.quando.fb2"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn piece_nono_quando_fb1 -scn piece_nono_quando_fb1_dsp -es 1 -mcd 16 -double -ftz 0
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn piece_nono_quando_fb2 -scn piece_nono_quando_fb2_dsp -es 1 -mcd 16 -double -ftz 0
 ------------------------------------------------------------ */
 
-#ifndef  __piece_nono_quando_fb1_H__
-#define  __piece_nono_quando_fb1_H__
+#ifndef  __piece_nono_quando_fb2_H__
+#define  __piece_nono_quando_fb2_H__
 
 // FAUST Architecture File for ceammc::SoundExternal class
 #include <cmath>
@@ -14,7 +14,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_ds
 #include <memory>
 #include <string>
 
-/************************** BEGIN piece_nono_quando_fb1_dsp.h ********************************
+/************************** BEGIN piece_nono_quando_fb2_dsp.h ********************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
  ---------------------------------------------------------------------
@@ -153,12 +153,12 @@ struct FAUST_API dsp_memory_manager {
 * Signal processor definition.
 */
 
-class FAUST_API piece_nono_quando_fb1_dsp {
+class FAUST_API piece_nono_quando_fb2_dsp {
 
     public:
 
-        piece_nono_quando_fb1_dsp() {}
-        virtual ~piece_nono_quando_fb1_dsp() {}
+        piece_nono_quando_fb2_dsp() {}
+        virtual ~piece_nono_quando_fb2_dsp() {}
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -211,7 +211,7 @@ class FAUST_API piece_nono_quando_fb1_dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual piece_nono_quando_fb1_dsp* clone() = 0;
+        virtual piece_nono_quando_fb2_dsp* clone() = 0;
     
         /**
          * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
@@ -247,15 +247,15 @@ class FAUST_API piece_nono_quando_fb1_dsp {
  * Generic DSP decorator.
  */
 
-class FAUST_API decorator_dsp : public piece_nono_quando_fb1_dsp {
+class FAUST_API decorator_dsp : public piece_nono_quando_fb2_dsp {
 
     protected:
 
-        piece_nono_quando_fb1_dsp* fDSP;
+        piece_nono_quando_fb2_dsp* fDSP;
 
     public:
 
-        decorator_dsp(piece_nono_quando_fb1_dsp* piece_nono_quando_fb1_dsp = nullptr):fDSP(piece_nono_quando_fb1_dsp) {}
+        decorator_dsp(piece_nono_quando_fb2_dsp* piece_nono_quando_fb2_dsp = nullptr):fDSP(piece_nono_quando_fb2_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
         virtual int getNumInputs() { return fDSP->getNumInputs(); }
@@ -296,7 +296,7 @@ class FAUST_API dsp_factory {
         virtual std::vector<std::string> getLibraryList() = 0;
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
-        virtual piece_nono_quando_fb1_dsp* createDSPInstance() = 0;
+        virtual piece_nono_quando_fb2_dsp* createDSPInstance() = 0;
     
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
         virtual dsp_memory_manager* getMemoryManager() = 0;
@@ -366,7 +366,7 @@ class FAUST_API ScopedNoDenormals {
 
 #endif
 
-/************************** END piece_nono_quando_fb1_dsp.h **************************/
+/************************** END piece_nono_quando_fb2_dsp.h **************************/
 /************************** BEGIN UI.h *****************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
@@ -482,7 +482,7 @@ struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
 
 
 /**
- The base class of Meta handler to be used in piece_nono_quando_fb1_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
+ The base class of Meta handler to be used in piece_nono_quando_fb2_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
  */
 struct FAUST_API Meta {
     virtual ~Meta() {}
@@ -611,7 +611,7 @@ using namespace ceammc::faust;
 
 // clang-format off
 #ifndef FAUST_MACRO
-struct piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
+struct piece_nono_quando_fb2 : public piece_nono_quando_fb2_dsp {
 };
 #endif
 // clang-format on
@@ -628,7 +628,7 @@ struct piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
 #include <math.h>
 
 #ifndef FAUSTCLASS 
-#define FAUSTCLASS piece_nono_quando_fb1
+#define FAUSTCLASS piece_nono_quando_fb2
 #endif
 
 #ifdef __APPLE__ 
@@ -642,23 +642,23 @@ struct piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
 #define RESTRICT __restrict__
 #endif
 
-static double piece_nono_quando_fb1_faustpower2_f(double value) {
+static double piece_nono_quando_fb2_faustpower2_f(double value) {
 	return value * value;
 }
-static double piece_nono_quando_fb1_faustpower4_f(double value) {
+static double piece_nono_quando_fb2_faustpower4_f(double value) {
 	return value * value * value * value;
 }
-static double piece_nono_quando_fb1_faustpower3_f(double value) {
+static double piece_nono_quando_fb2_faustpower3_f(double value) {
 	return value * value * value;
 }
 
-class piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
+class piece_nono_quando_fb2 : public piece_nono_quando_fb2_dsp {
 	
  private:
 	
 	int fSampleRate;
 	double fConst2;
-	double fConst10;
+	double fConst12;
 	double fConst18;
 	double fConst20;
 	double fConst24;
@@ -669,7 +669,7 @@ class piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
 	double fRec2[3];
 	double fConst32;
 	double fConst33;
-	double fConst34;
+	double fConst37;
 	double fConst38;
 	double fConst39;
 	double fConst40;
@@ -678,9 +678,9 @@ class piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
 	double fConst44;
 	double fConst45;
 	double fRec0[5];
-	double fConst53;
-	double fConst58;
-	double fConst60;
+	double fConst52;
+	double fConst57;
+	double fConst59;
 	double fConst63;
 	double fConst67;
 	double fConst68;
@@ -698,72 +698,12 @@ class piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
 	double fConst81;
 	double fConst82;
 	double fRec3[5];
-	double fConst89;
-	double fConst94;
-	double fConst96;
-	double fConst99;
-	double fConst103;
-	double fConst104;
-	double fConst105;
-	double fConst106;
-	double fRec8[3];
-	double fConst107;
-	double fConst108;
-	double fConst109;
-	double fConst112;
-	double fConst113;
-	double fConst114;
-	double fRec7[5];
-	double fConst116;
-	double fConst117;
-	double fConst118;
-	double fRec6[5];
-	double fConst126;
-	double fConst130;
-	double fConst132;
-	double fConst135;
-	double fConst139;
-	double fConst140;
-	double fConst141;
-	double fConst142;
-	double fRec11[3];
-	double fConst143;
-	double fConst144;
-	double fConst147;
-	double fConst148;
-	double fConst149;
-	double fConst150;
-	double fRec10[5];
-	double fConst152;
-	double fConst153;
-	double fConst154;
-	double fRec9[5];
-	double fConst162;
-	double fConst167;
-	double fConst169;
-	double fConst172;
-	double fConst176;
-	double fConst177;
-	double fConst178;
-	double fConst179;
-	double fRec14[3];
-	double fConst180;
-	double fConst181;
-	double fConst184;
-	double fConst185;
-	double fConst186;
-	double fConst187;
-	double fRec13[5];
-	double fConst189;
-	double fConst190;
-	double fConst191;
-	double fRec12[5];
 	
  public:
 	
 	void metadata(Meta* m) { 
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn piece_nono_quando_fb1 -scn piece_nono_quando_fb1_dsp -es 1 -mcd 16 -double -ftz 0");
-		m->declare("filename", "piece_nono_quando_fb1.dsp");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn piece_nono_quando_fb2 -scn piece_nono_quando_fb2_dsp -es 1 -mcd 16 -double -ftz 0");
+		m->declare("filename", "piece_nono_quando_fb2.dsp");
 		m->declare("filters.lib/bandpass0_bandstop1:author", "Julius O. Smith III");
 		m->declare("filters.lib/bandpass0_bandstop1:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/bandpass0_bandstop1:license", "MIT-style STK-4.3 license");
@@ -776,7 +716,7 @@ class piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
 		m->declare("filters.lib/iir:author", "Julius O. Smith III");
 		m->declare("filters.lib/iir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/iir:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
+		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/tf1sb:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf1sb:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -793,7 +733,7 @@ class piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
 		m->declare("maths.lib/version", "2.5");
-		m->declare("name", "nono.quando.fb1");
+		m->declare("name", "nono.quando.fb2");
 		m->declare("piece_nono_quando.dsp/name", "nono.quando");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "0.2");
@@ -813,196 +753,87 @@ class piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
 		fSampleRate = sample_rate;
 		double fConst0 = std::min<double>(1.92e+05, std::max<double>(1.0, double(fSampleRate)));
 		double fConst1 = 1.0 / fConst0;
-		fConst2 = piece_nono_quando_fb1_faustpower2_f(fConst1);
-		double fConst3 = std::tan(8523.140869189108 / fConst0);
-		double fConst4 = fConst0 * fConst3;
-		double fConst5 = piece_nono_quando_fb1_faustpower2_f(fConst0);
-		double fConst6 = std::sqrt(4.0 * fConst5 * std::tan(3194.9997287008196 / fConst0) * fConst3);
-		double fConst7 = piece_nono_quando_fb1_faustpower2_f(fConst6);
-		double fConst8 = 2.0 * fConst4 - 0.5 * (fConst7 / fConst4);
-		double fConst9 = piece_nono_quando_fb1_faustpower2_f(fConst8);
-		fConst10 = 4.0 * fConst9;
-		double fConst11 = fConst2 * (fConst10 + 8.0 * fConst7);
-		double fConst12 = piece_nono_quando_fb1_faustpower4_f(fConst1);
-		double fConst13 = fConst12 * piece_nono_quando_fb1_faustpower4_f(fConst6);
+		fConst2 = piece_nono_quando_fb2_faustpower2_f(fConst1);
+		double fConst3 = piece_nono_quando_fb2_faustpower4_f(fConst1);
+		double fConst4 = piece_nono_quando_fb2_faustpower2_f(fConst0);
+		double fConst5 = std::tan(942.4777960769379 / fConst0);
+		double fConst6 = std::sqrt(4.0 * fConst4 * std::tan(279.6017461694916 / fConst0) * fConst5);
+		double fConst7 = fConst3 * piece_nono_quando_fb2_faustpower4_f(fConst6);
+		double fConst8 = fConst0 * fConst5;
+		double fConst9 = piece_nono_quando_fb2_faustpower2_f(fConst6);
+		double fConst10 = 2.0 * fConst8 - 0.5 * (fConst9 / fConst8);
+		double fConst11 = piece_nono_quando_fb2_faustpower2_f(fConst10);
+		fConst12 = 4.0 * fConst11;
+		double fConst13 = fConst7 + fConst2 * (fConst12 + 8.0 * fConst9);
 		double fConst14 = 4.944271909999157 / fConst0;
-		double fConst15 = piece_nono_quando_fb1_faustpower3_f(fConst1);
-		double fConst16 = fConst15 * fConst7;
+		double fConst15 = piece_nono_quando_fb2_faustpower3_f(fConst1);
+		double fConst16 = fConst15 * fConst9;
 		double fConst17 = fConst14 + 1.2360679774997894 * fConst16;
-		fConst18 = 1.0 / (fConst11 + fConst13 + fConst8 * fConst17 + 16.0);
-		double fConst19 = 8.0 * fConst9;
+		fConst18 = 1.0 / (fConst13 + fConst10 * fConst17 + 16.0);
+		double fConst19 = 8.0 * fConst11;
 		fConst20 = 0.0 - fConst19;
 		double fConst21 = 12.944271909999157 / fConst0;
 		double fConst22 = fConst21 + 3.2360679774997894 * fConst16;
-		double fConst23 = fConst8 * fConst22 + fConst13 + fConst11 + 16.0;
+		double fConst23 = fConst10 * fConst22 + fConst13 + 16.0;
 		fConst24 = fConst2 / fConst23;
-		double fConst25 = fConst2 * fConst7;
-		double fConst26 = 2.0 * (fConst8 / fConst0);
+		double fConst25 = fConst2 * fConst9;
+		double fConst26 = 2.0 * (fConst10 / fConst0);
 		double fConst27 = fConst25 + fConst26 + 4.0;
-		fConst28 = 2.0 * (fConst8 / (fConst0 * fConst27));
+		fConst28 = 2.0 * (fConst10 / (fConst0 * fConst27));
 		fConst29 = 1.0 / fConst27;
 		fConst30 = 2.0 * fConst25 + -8.0;
 		fConst31 = fConst25 + (4.0 - fConst26);
 		fConst32 = 0.0 - fConst28;
 		fConst33 = 1.0 / fConst23;
-		fConst34 = 6.0 * fConst13 + fConst2 * (0.0 - (fConst19 + 16.0 * fConst7)) + 96.0;
-		double fConst35 = 4.0 * fConst13;
-		double fConst36 = 6.472135954999579 * fConst16;
-		double fConst37 = 25.888543819998315 / fConst0;
-		fConst38 = fConst35 + fConst8 * (fConst36 - fConst37) + -64.0;
-		fConst39 = fConst35 + fConst8 * (fConst37 - fConst36) + -64.0;
-		fConst40 = fConst11 + fConst13 + fConst8 * (0.0 - fConst22) + 16.0;
+		double fConst34 = 4.0 * fConst7;
+		double fConst35 = 6.472135954999579 * fConst16;
+		double fConst36 = 25.888543819998315 / fConst0;
+		fConst37 = fConst34 + fConst10 * (fConst35 - fConst36) + -64.0;
+		fConst38 = 6.0 * fConst7 + fConst2 * (0.0 - (fConst19 + 16.0 * fConst9)) + 96.0;
+		fConst39 = fConst34 + fConst10 * (fConst36 - fConst35) + -64.0;
+		fConst40 = fConst13 + fConst10 * (0.0 - fConst22) + 16.0;
 		double fConst41 = 2.4721359549995787 * fConst16;
 		double fConst42 = 9.888543819998315 / fConst0;
-		fConst43 = fConst35 + fConst8 * (fConst41 - fConst42) + -64.0;
-		fConst44 = fConst35 + fConst8 * (fConst42 - fConst41) + -64.0;
-		fConst45 = fConst11 + fConst13 + fConst8 * (0.0 - fConst17) + 16.0;
-		double fConst46 = std::tan(1196.946801017711 / fConst0);
-		double fConst47 = std::sqrt(4.0 * fConst5 * std::tan(282.7433388230814 / fConst0) * fConst46);
-		double fConst48 = fConst12 * piece_nono_quando_fb1_faustpower4_f(fConst47);
-		double fConst49 = fConst0 * fConst46;
-		double fConst50 = piece_nono_quando_fb1_faustpower2_f(fConst47);
-		double fConst51 = 2.0 * fConst49 - 0.5 * (fConst50 / fConst49);
-		double fConst52 = piece_nono_quando_fb1_faustpower2_f(fConst51);
-		fConst53 = 4.0 * fConst52;
-		double fConst54 = fConst2 * (fConst53 + 8.0 * fConst50);
-		double fConst55 = fConst48 + fConst54;
-		double fConst56 = fConst15 * fConst50;
-		double fConst57 = 1.2360679774997894 * fConst56 + fConst14;
-		fConst58 = 1.0 / (fConst55 + fConst51 * fConst57 + 16.0);
-		double fConst59 = 8.0 * fConst52;
-		fConst60 = 0.0 - fConst59;
-		double fConst61 = 3.2360679774997894 * fConst56 + fConst21;
-		double fConst62 = fConst51 * fConst61 + fConst55 + 16.0;
+		fConst43 = fConst34 + fConst10 * (fConst41 - fConst42) + -64.0;
+		fConst44 = fConst34 + fConst10 * (fConst42 - fConst41) + -64.0;
+		fConst45 = fConst13 + fConst10 * (0.0 - fConst17) + 16.0;
+		double fConst46 = std::tan(3179.2917654328708 / fConst0);
+		double fConst47 = fConst0 * fConst46;
+		double fConst48 = std::sqrt(4.0 * fConst4 * std::tan(2120.5750411731105 / fConst0) * fConst46);
+		double fConst49 = piece_nono_quando_fb2_faustpower2_f(fConst48);
+		double fConst50 = 2.0 * fConst47 - 0.5 * (fConst49 / fConst47);
+		double fConst51 = piece_nono_quando_fb2_faustpower2_f(fConst50);
+		fConst52 = 4.0 * fConst51;
+		double fConst53 = fConst2 * (fConst52 + 8.0 * fConst49);
+		double fConst54 = fConst3 * piece_nono_quando_fb2_faustpower4_f(fConst48);
+		double fConst55 = fConst15 * fConst49;
+		double fConst56 = fConst14 + 1.2360679774997894 * fConst55;
+		fConst57 = 1.0 / (fConst53 + fConst54 + fConst50 * fConst56 + 16.0);
+		double fConst58 = 8.0 * fConst51;
+		fConst59 = 0.0 - fConst58;
+		double fConst60 = fConst21 + 3.2360679774997894 * fConst55;
+		double fConst61 = fConst54 + fConst53;
+		double fConst62 = fConst50 * fConst60 + fConst61 + 16.0;
 		fConst63 = fConst2 / fConst62;
-		double fConst64 = fConst2 * fConst50;
-		double fConst65 = 2.0 * (fConst51 / fConst0);
+		double fConst64 = fConst2 * fConst49;
+		double fConst65 = 2.0 * (fConst50 / fConst0);
 		double fConst66 = fConst64 + fConst65 + 4.0;
-		fConst67 = 2.0 * (fConst51 / (fConst0 * fConst66));
+		fConst67 = 2.0 * (fConst50 / (fConst0 * fConst66));
 		fConst68 = 1.0 / fConst66;
 		fConst69 = 2.0 * fConst64 + -8.0;
 		fConst70 = fConst64 + (4.0 - fConst65);
 		fConst71 = 0.0 - fConst67;
 		fConst72 = 1.0 / fConst62;
-		double fConst73 = 4.0 * fConst48;
-		double fConst74 = 6.472135954999579 * fConst56;
-		fConst75 = fConst73 + fConst51 * (fConst74 - fConst37) + -64.0;
-		fConst76 = 6.0 * fConst48 + fConst2 * (0.0 - (fConst59 + 16.0 * fConst50)) + 96.0;
-		fConst77 = fConst73 + fConst51 * (fConst37 - fConst74) + -64.0;
-		fConst78 = fConst54 + fConst48 + fConst51 * (0.0 - fConst61) + 16.0;
-		double fConst79 = 2.4721359549995787 * fConst56;
-		fConst80 = fConst73 + fConst51 * (fConst79 - fConst42) + -64.0;
-		fConst81 = fConst73 + fConst51 * (fConst42 - fConst79) + -64.0;
-		fConst82 = fConst55 + fConst51 * (0.0 - fConst57) + 16.0;
-		double fConst83 = std::tan(10741.105282623503 / fConst0);
-		double fConst84 = fConst0 * fConst83;
-		double fConst85 = std::sqrt(4.0 * fConst5 * std::tan(10125.353122519904 / fConst0) * fConst83);
-		double fConst86 = piece_nono_quando_fb1_faustpower2_f(fConst85);
-		double fConst87 = 2.0 * fConst84 - 0.5 * (fConst86 / fConst84);
-		double fConst88 = piece_nono_quando_fb1_faustpower2_f(fConst87);
-		fConst89 = 4.0 * fConst88;
-		double fConst90 = fConst2 * (fConst89 + 8.0 * fConst86);
-		double fConst91 = fConst12 * piece_nono_quando_fb1_faustpower4_f(fConst85);
-		double fConst92 = fConst15 * fConst86;
-		double fConst93 = fConst14 + 1.2360679774997894 * fConst92;
-		fConst94 = 1.0 / (fConst90 + fConst91 + fConst87 * fConst93 + 16.0);
-		double fConst95 = 8.0 * fConst88;
-		fConst96 = 0.0 - fConst95;
-		double fConst97 = fConst21 + 3.2360679774997894 * fConst92;
-		double fConst98 = fConst87 * fConst97 + fConst91 + fConst90 + 16.0;
-		fConst99 = fConst2 / fConst98;
-		double fConst100 = fConst2 * fConst86;
-		double fConst101 = 2.0 * (fConst87 / fConst0);
-		double fConst102 = fConst100 + fConst101 + 4.0;
-		fConst103 = 2.0 * (fConst87 / (fConst0 * fConst102));
-		fConst104 = 1.0 / fConst102;
-		fConst105 = 2.0 * fConst100 + -8.0;
-		fConst106 = fConst100 + (4.0 - fConst101);
-		fConst107 = 0.0 - fConst103;
-		fConst108 = 1.0 / fConst98;
-		fConst109 = 6.0 * fConst91 + fConst2 * (0.0 - (fConst95 + 16.0 * fConst86)) + 96.0;
-		double fConst110 = 4.0 * fConst91;
-		double fConst111 = 6.472135954999579 * fConst92;
-		fConst112 = fConst110 + fConst87 * (fConst111 - fConst37) + -64.0;
-		fConst113 = fConst110 + fConst87 * (fConst37 - fConst111) + -64.0;
-		fConst114 = fConst90 + fConst91 + fConst87 * (0.0 - fConst97) + 16.0;
-		double fConst115 = 2.4721359549995787 * fConst92;
-		fConst116 = fConst110 + fConst87 * (fConst115 - fConst42) + -64.0;
-		fConst117 = fConst110 + fConst87 * (fConst42 - fConst115) + -64.0;
-		fConst118 = fConst90 + fConst91 + fConst87 * (0.0 - fConst93) + 16.0;
-		double fConst119 = std::tan(15189.60048010665 / fConst0);
-		double fConst120 = std::sqrt(4.0 * fConst5 * std::tan(14344.512056290996 / fConst0) * fConst119);
-		double fConst121 = fConst12 * piece_nono_quando_fb1_faustpower4_f(fConst120);
-		double fConst122 = fConst0 * fConst119;
-		double fConst123 = piece_nono_quando_fb1_faustpower2_f(fConst120);
-		double fConst124 = 2.0 * fConst122 - 0.5 * (fConst123 / fConst122);
-		double fConst125 = piece_nono_quando_fb1_faustpower2_f(fConst124);
-		fConst126 = 4.0 * fConst125;
-		double fConst127 = fConst121 + fConst2 * (fConst126 + 8.0 * fConst123);
-		double fConst128 = fConst15 * fConst123;
-		double fConst129 = fConst14 + 1.2360679774997894 * fConst128;
-		fConst130 = 1.0 / (fConst127 + fConst124 * fConst129 + 16.0);
-		double fConst131 = 8.0 * fConst125;
-		fConst132 = 0.0 - fConst131;
-		double fConst133 = fConst21 + 3.2360679774997894 * fConst128;
-		double fConst134 = fConst124 * fConst133 + fConst127 + 16.0;
-		fConst135 = fConst2 / fConst134;
-		double fConst136 = fConst2 * fConst123;
-		double fConst137 = 2.0 * (fConst124 / fConst0);
-		double fConst138 = fConst136 + fConst137 + 4.0;
-		fConst139 = 2.0 * (fConst124 / (fConst0 * fConst138));
-		fConst140 = 1.0 / fConst138;
-		fConst141 = 2.0 * fConst136 + -8.0;
-		fConst142 = fConst136 + (4.0 - fConst137);
-		fConst143 = 0.0 - fConst139;
-		fConst144 = 1.0 / fConst134;
-		double fConst145 = 4.0 * fConst121;
-		double fConst146 = 6.472135954999579 * fConst128;
-		fConst147 = fConst145 + fConst124 * (fConst146 - fConst37) + -64.0;
-		fConst148 = 6.0 * fConst121 + fConst2 * (0.0 - (fConst131 + 16.0 * fConst123)) + 96.0;
-		fConst149 = fConst145 + fConst124 * (fConst37 - fConst146) + -64.0;
-		fConst150 = fConst127 + fConst124 * (0.0 - fConst133) + 16.0;
-		double fConst151 = 2.4721359549995787 * fConst128;
-		fConst152 = fConst145 + fConst124 * (fConst151 - fConst42) + -64.0;
-		fConst153 = fConst145 + fConst124 * (fConst42 - fConst151) + -64.0;
-		fConst154 = fConst127 + fConst124 * (0.0 - fConst129) + 16.0;
-		double fConst155 = std::tan(21482.210565247005 / fConst0);
-		double fConst156 = std::sqrt(4.0 * fConst5 * std::tan(20288.405356882882 / fConst0) * fConst155);
-		double fConst157 = fConst12 * piece_nono_quando_fb1_faustpower4_f(fConst156);
-		double fConst158 = fConst0 * fConst155;
-		double fConst159 = piece_nono_quando_fb1_faustpower2_f(fConst156);
-		double fConst160 = 2.0 * fConst158 - 0.5 * (fConst159 / fConst158);
-		double fConst161 = piece_nono_quando_fb1_faustpower2_f(fConst160);
-		fConst162 = 4.0 * fConst161;
-		double fConst163 = fConst2 * (fConst162 + 8.0 * fConst159);
-		double fConst164 = fConst157 + fConst163;
-		double fConst165 = fConst15 * fConst159;
-		double fConst166 = fConst14 + 1.2360679774997894 * fConst165;
-		fConst167 = 1.0 / (fConst164 + fConst160 * fConst166 + 16.0);
-		double fConst168 = 8.0 * fConst161;
-		fConst169 = 0.0 - fConst168;
-		double fConst170 = fConst21 + 3.2360679774997894 * fConst165;
-		double fConst171 = fConst163 + fConst157 + fConst160 * fConst170 + 16.0;
-		fConst172 = fConst2 / fConst171;
-		double fConst173 = fConst2 * fConst159;
-		double fConst174 = 2.0 * (fConst160 / fConst0);
-		double fConst175 = fConst173 + fConst174 + 4.0;
-		fConst176 = 2.0 * (fConst160 / (fConst0 * fConst175));
-		fConst177 = 1.0 / fConst175;
-		fConst178 = 2.0 * fConst173 + -8.0;
-		fConst179 = fConst173 + (4.0 - fConst174);
-		fConst180 = 0.0 - fConst176;
-		fConst181 = 1.0 / fConst171;
-		double fConst182 = 4.0 * fConst157;
-		double fConst183 = 6.472135954999579 * fConst165;
-		fConst184 = fConst182 + fConst160 * (fConst183 - fConst37) + -64.0;
-		fConst185 = 6.0 * fConst157 + fConst2 * (0.0 - (fConst168 + 16.0 * fConst159)) + 96.0;
-		fConst186 = fConst182 + fConst160 * (fConst37 - fConst183) + -64.0;
-		fConst187 = fConst163 + fConst157 + fConst160 * (0.0 - fConst170) + 16.0;
-		double fConst188 = 2.4721359549995787 * fConst165;
-		fConst189 = fConst182 + fConst160 * (fConst188 - fConst42) + -64.0;
-		fConst190 = fConst182 + fConst160 * (fConst42 - fConst188) + -64.0;
-		fConst191 = fConst164 + fConst160 * (0.0 - fConst166) + 16.0;
+		double fConst73 = 4.0 * fConst54;
+		double fConst74 = 6.472135954999579 * fConst55;
+		fConst75 = fConst73 + fConst50 * (fConst74 - fConst36) + -64.0;
+		fConst76 = 6.0 * fConst54 + fConst2 * (0.0 - (fConst58 + 16.0 * fConst49)) + 96.0;
+		fConst77 = fConst73 + fConst50 * (fConst36 - fConst74) + -64.0;
+		fConst78 = fConst53 + fConst54 + fConst50 * (0.0 - fConst60) + 16.0;
+		double fConst79 = 2.4721359549995787 * fConst55;
+		fConst80 = fConst73 + fConst50 * (fConst79 - fConst42) + -64.0;
+		fConst81 = fConst73 + fConst50 * (fConst42 - fConst79) + -64.0;
+		fConst82 = fConst61 + fConst50 * (0.0 - fConst56) + 16.0;
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -1027,33 +858,6 @@ class piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
 		for (int l5 = 0; l5 < 5; l5 = l5 + 1) {
 			fRec3[l5] = 0.0;
 		}
-		for (int l6 = 0; l6 < 3; l6 = l6 + 1) {
-			fRec8[l6] = 0.0;
-		}
-		for (int l7 = 0; l7 < 5; l7 = l7 + 1) {
-			fRec7[l7] = 0.0;
-		}
-		for (int l8 = 0; l8 < 5; l8 = l8 + 1) {
-			fRec6[l8] = 0.0;
-		}
-		for (int l9 = 0; l9 < 3; l9 = l9 + 1) {
-			fRec11[l9] = 0.0;
-		}
-		for (int l10 = 0; l10 < 5; l10 = l10 + 1) {
-			fRec10[l10] = 0.0;
-		}
-		for (int l11 = 0; l11 < 5; l11 = l11 + 1) {
-			fRec9[l11] = 0.0;
-		}
-		for (int l12 = 0; l12 < 3; l12 = l12 + 1) {
-			fRec14[l12] = 0.0;
-		}
-		for (int l13 = 0; l13 < 5; l13 = l13 + 1) {
-			fRec13[l13] = 0.0;
-		}
-		for (int l14 = 0; l14 < 5; l14 = l14 + 1) {
-			fRec12[l14] = 0.0;
-		}
 	}
 	
 	virtual void init(int sample_rate) {
@@ -1066,8 +870,8 @@ class piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
 		instanceClear();
 	}
 	
-	virtual piece_nono_quando_fb1* clone() {
-		return new piece_nono_quando_fb1();
+	virtual piece_nono_quando_fb2* clone() {
+		return new piece_nono_quando_fb2();
 	}
 	
 	virtual int getSampleRate() {
@@ -1075,7 +879,7 @@ class piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("nono.quando.fb1");
+		ui_interface->openVerticalBox("nono.quando.fb2");
 		ui_interface->closeBox();
 	}
 	
@@ -1085,21 +889,12 @@ class piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			double fTemp0 = double(input0[i0]);
 			fRec2[0] = fTemp0 - fConst29 * (fConst30 * fRec2[1] + fConst31 * fRec2[2]);
-			fRec1[0] = fConst28 * fRec2[0] + fConst32 * fRec2[2] - fConst33 * (fConst34 * fRec1[2] + fConst38 * fRec1[1] + fConst39 * fRec1[3] + fConst40 * fRec1[4]);
-			fRec0[0] = fConst24 * (fConst20 * fRec1[2] + fConst10 * fRec1[0] + fConst10 * fRec1[4]) - fConst18 * (fConst43 * fRec0[1] + fConst34 * fRec0[2] + fConst44 * fRec0[3] + fConst45 * fRec0[4]);
+			fRec1[0] = fConst28 * fRec2[0] + fConst32 * fRec2[2] - fConst33 * (fConst37 * fRec1[1] + fConst38 * fRec1[2] + fConst39 * fRec1[3] + fConst40 * fRec1[4]);
+			fRec0[0] = fConst24 * (fConst20 * fRec1[2] + fConst12 * fRec1[0] + fConst12 * fRec1[4]) - fConst18 * (fConst43 * fRec0[1] + fConst38 * fRec0[2] + fConst44 * fRec0[3] + fConst45 * fRec0[4]);
 			fRec5[0] = fTemp0 - fConst68 * (fConst69 * fRec5[1] + fConst70 * fRec5[2]);
 			fRec4[0] = fConst67 * fRec5[0] + fConst71 * fRec5[2] - fConst72 * (fConst75 * fRec4[1] + fConst76 * fRec4[2] + fConst77 * fRec4[3] + fConst78 * fRec4[4]);
-			fRec3[0] = fConst63 * (fConst60 * fRec4[2] + fConst53 * fRec4[0] + fConst53 * fRec4[4]) - fConst58 * (fConst80 * fRec3[1] + fConst76 * fRec3[2] + fConst81 * fRec3[3] + fConst82 * fRec3[4]);
-			fRec8[0] = fTemp0 - fConst104 * (fConst105 * fRec8[1] + fConst106 * fRec8[2]);
-			fRec7[0] = fConst103 * fRec8[0] + fConst107 * fRec8[2] - fConst108 * (fConst109 * fRec7[2] + fConst112 * fRec7[1] + fConst113 * fRec7[3] + fConst114 * fRec7[4]);
-			fRec6[0] = fConst99 * (fConst96 * fRec7[2] + fConst89 * fRec7[0] + fConst89 * fRec7[4]) - fConst94 * (fConst116 * fRec6[1] + fConst109 * fRec6[2] + fConst117 * fRec6[3] + fConst118 * fRec6[4]);
-			fRec11[0] = fTemp0 - fConst140 * (fConst141 * fRec11[1] + fConst142 * fRec11[2]);
-			fRec10[0] = fConst139 * fRec11[0] + fConst143 * fRec11[2] - fConst144 * (fConst147 * fRec10[1] + fConst148 * fRec10[2] + fConst149 * fRec10[3] + fConst150 * fRec10[4]);
-			fRec9[0] = fConst135 * (fConst132 * fRec10[2] + fConst126 * fRec10[0] + fConst126 * fRec10[4]) - fConst130 * (fConst152 * fRec9[1] + fConst148 * fRec9[2] + fConst153 * fRec9[3] + fConst154 * fRec9[4]);
-			fRec14[0] = fTemp0 - fConst177 * (fConst178 * fRec14[1] + fConst179 * fRec14[2]);
-			fRec13[0] = fConst176 * fRec14[0] + fConst180 * fRec14[2] - fConst181 * (fConst184 * fRec13[1] + fConst185 * fRec13[2] + fConst186 * fRec13[3] + fConst187 * fRec13[4]);
-			fRec12[0] = fConst172 * (fConst169 * fRec13[2] + fConst162 * fRec13[0] + fConst162 * fRec13[4]) - fConst167 * (fConst189 * fRec12[1] + fConst185 * fRec12[2] + fConst190 * fRec12[3] + fConst191 * fRec12[4]);
-			output0[i0] = FAUSTFLOAT(fConst2 * (fConst18 * (fConst20 * fRec0[2] + fConst10 * fRec0[0] + fConst10 * fRec0[4]) + fConst58 * (fConst60 * fRec3[2] + fConst53 * fRec3[0] + fConst53 * fRec3[4]) + fConst94 * (fConst96 * fRec6[2] + fConst89 * fRec6[0] + fConst89 * fRec6[4]) + fConst130 * (fConst132 * fRec9[2] + fConst126 * fRec9[0] + fConst126 * fRec9[4]) + fConst167 * (fConst169 * fRec12[2] + fConst162 * fRec12[0] + fConst162 * fRec12[4])));
+			fRec3[0] = fConst63 * (fConst59 * fRec4[2] + fConst52 * fRec4[0] + fConst52 * fRec4[4]) - fConst57 * (fConst80 * fRec3[1] + fConst76 * fRec3[2] + fConst81 * fRec3[3] + fConst82 * fRec3[4]);
+			output0[i0] = FAUSTFLOAT(fConst2 * (fConst18 * (fConst20 * fRec0[2] + fConst12 * fRec0[0] + fConst12 * fRec0[4]) + fConst57 * (fConst59 * fRec3[2] + fConst52 * fRec3[0] + fConst52 * fRec3[4])));
 			fRec2[2] = fRec2[1];
 			fRec2[1] = fRec2[0];
 			for (int j0 = 4; j0 > 0; j0 = j0 - 1) {
@@ -1116,30 +911,6 @@ class piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
 			for (int j3 = 4; j3 > 0; j3 = j3 - 1) {
 				fRec3[j3] = fRec3[j3 - 1];
 			}
-			fRec8[2] = fRec8[1];
-			fRec8[1] = fRec8[0];
-			for (int j4 = 4; j4 > 0; j4 = j4 - 1) {
-				fRec7[j4] = fRec7[j4 - 1];
-			}
-			for (int j5 = 4; j5 > 0; j5 = j5 - 1) {
-				fRec6[j5] = fRec6[j5 - 1];
-			}
-			fRec11[2] = fRec11[1];
-			fRec11[1] = fRec11[0];
-			for (int j6 = 4; j6 > 0; j6 = j6 - 1) {
-				fRec10[j6] = fRec10[j6 - 1];
-			}
-			for (int j7 = 4; j7 > 0; j7 = j7 - 1) {
-				fRec9[j7] = fRec9[j7 - 1];
-			}
-			fRec14[2] = fRec14[1];
-			fRec14[1] = fRec14[0];
-			for (int j8 = 4; j8 > 0; j8 = j8 - 1) {
-				fRec13[j8] = fRec13[j8 - 1];
-			}
-			for (int j9 = 4; j9 > 0; j9 = j9 - 1) {
-				fRec12[j9] = fRec12[j9 - 1];
-			}
 		}
 	}
 
@@ -1148,18 +919,18 @@ class piece_nono_quando_fb1 : public piece_nono_quando_fb1_dsp {
 #endif
 
     template <class T>
-    struct _piece_nono_quando_fb1_UI : public UI {
+    struct _piece_nono_quando_fb2_UI : public UI {
     static std::string name;
 };
 
 template <class T>
-std::string _piece_nono_quando_fb1_UI<T>::name(sym(piece_nono_quando_fb1));
+std::string _piece_nono_quando_fb2_UI<T>::name(sym(piece_nono_quando_fb2));
 
-typedef _piece_nono_quando_fb1_UI<piece_nono_quando_fb1> piece_nono_quando_fb1_UI;
+typedef _piece_nono_quando_fb2_UI<piece_nono_quando_fb2> piece_nono_quando_fb2_UI;
 
-class faust_piece_nono_quando_fb1_tilde : public FaustExternal<piece_nono_quando_fb1, piece_nono_quando_fb1_UI> {
+class faust_piece_nono_quando_fb2_tilde : public FaustExternal<piece_nono_quando_fb2, piece_nono_quando_fb2_UI> {
 public:
-    faust_piece_nono_quando_fb1_tilde(const ceammc::PdArgs& args)
+    faust_piece_nono_quando_fb2_tilde(const ceammc::PdArgs& args)
         : FaustExternal(args)
     {
     }
