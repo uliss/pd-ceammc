@@ -8,5 +8,6 @@ macro(ceammc_add_piece name)
 endmacro()
 
 ceammc_add_piece(stok_solo)
+ceammc_add_piece(nono_quando_fb1)
 
 
