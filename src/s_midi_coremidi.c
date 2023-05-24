@@ -67,13 +67,11 @@ typedef enum MidiFSMState {
 } MidiFSMState;
 
 typedef struct MidiFSMParser {
-    MidiFSMState state;
     Byte buffer[65536];
-    MIDIPacketList* packetlist;
-    MIDIPacket* current_packet;
-    MIDIEndpointRef endpoint;
     ByteCount data_written;
     ByteCount max_data_len;
+    MIDIEndpointRef endpoint;
+    MidiFSMState state;
 } MidiFSMParser;
 
 static size_t coremidi_nsrc = 0;
@@ -123,8 +121,6 @@ static void midi_parser_input(MidiFSMParser* parser, Byte byte);
 void midi_parser_init(MidiFSMParser* parser, MIDIEndpointRef endpoint)
 {
     parser->state = MIDI_FSM_STATE_INIT;
-    parser->packetlist = (MIDIPacketList*)parser->buffer;
-    parser->current_packet = MIDIPacketListInit(parser->packetlist);
     parser->endpoint = endpoint;
     parser->data_written = 0;
     parser->max_data_len = 0;
@@ -133,42 +129,66 @@ void midi_parser_init(MidiFSMParser* parser, MIDIEndpointRef endpoint)
 void midi_parser_reset(MidiFSMParser* parser)
 {
     parser->state = MIDI_FSM_STATE_INIT;
-    parser->packetlist = (MIDIPacketList*)parser->buffer;
-    parser->packetlist->numPackets = 0;
-    parser->current_packet = MIDIPacketListInit(parser->packetlist);
-    parser->current_packet->length = 0;
     parser->data_written = 0;
     parser->max_data_len = 0;
 }
 
+static void free_sys_request_data(MIDISysexSendRequest* req)
+{
+    free(req);
+}
+
 void midi_parser_send(MidiFSMParser* parser)
 {
-    coremidi_send_packet_list(parser->endpoint, parser->packetlist);
+    MIDIPacket packet;
+    const ByteCount size = parser->data_written;
+
+    if (parser->buffer[0] == MIDI_SYSEX) {
+        // allocate request and data
+        MIDISysexSendRequest* req = malloc(sizeof(MIDISysexSendRequest) + size);
+        Byte* data = (Byte*)req + sizeof(MIDISysexSendRequest);
+        // copy sysex data
+        memcpy(data, parser->buffer, size);
+
+        req->destination = parser->endpoint;
+        req->complete = 0;
+        req->bytesToSend = size;
+        req->data = data;
+        req->completionProc = free_sys_request_data;
+        req->completionRefCon = NULL;
+
+        OSStatus rc = MIDISendSysex(req);
+        if (rc != noErr)
+            pd_error(NULL, "[coremidi] MIDISendSysex error: %d", rc);
+    } else if (size <= sizeof(packet.data)) {
+        // fit to single packet
+        packet.timeStamp = 0;
+        packet.length = size;
+        for (ByteCount i = 0; i < size; i++)
+            packet.data[i] = parser->buffer[i];
+
+        MIDIPacketList packetList;
+        packetList.numPackets = 1;
+        packetList.packet[0] = packet;
+        coremidi_send_packet_list(parser->endpoint, &packetList);
+    } else {
+        Byte data[size];
+        MIDIPacketList* packetList = (MIDIPacketList*)data;
+        MIDIPacket* packet = MIDIPacketListInit(packetList);
+
+        packet = MIDIPacketListAdd(packetList, sizeof(data), packet, 0, size, data);
+        if (packet == NULL)
+            pd_error(NULL, "[coremidi] packet is too big");
+    }
 }
 
 Boolean midi_parser_append_byte(MidiFSMParser* parser, Byte byte)
 {
-    if (parser->data_written >= parser->max_data_len) {
+    if (parser->data_written >= parser->max_data_len || parser->data_written >= sizeof(parser->buffer)) {
         pd_error(0, "[coremidi] extra midi byte: %d", (int)byte);
         return FALSE;
-    }
-
-    if (parser->packetlist->numPackets == 0)
-        parser->current_packet = MIDIPacketListAdd(parser->packetlist, sizeof(parser->buffer), parser->current_packet, 0, 0, &byte);
-
-    if (parser->current_packet->length >= sizeof(parser->current_packet->data)) {
-        MIDIPacket* res = MIDIPacketListAdd(parser->packetlist, sizeof(parser->buffer), parser->current_packet, 0, 1, &byte);
-        if (res == NULL) { // no room
-            pd_error(0, "[coremidi] packet is too big");
-            return FALSE;
-        } else {
-            parser->current_packet = res;
-            parser->data_written++;
-            return TRUE;
-        }
     } else {
-        parser->current_packet->data[parser->current_packet->length++] = byte;
-        parser->data_written++;
+        parser->buffer[parser->data_written++] = byte;
         return TRUE;
     }
 }
@@ -193,42 +213,41 @@ void midi_parser_input(MidiFSMParser* parser, Byte byte)
             parser->state = status; // new state
             parser->max_data_len = 3;
             midi_parser_append_byte(parser, byte);
-            parser->current_packet->timeStamp = 0;
             break;
         case MIDI_FSM_STATE_PROGRAMCHANGE:
         case MIDI_FSM_STATE_AFTERTOUCH:
             parser->state = status;
             parser->max_data_len = 2;
             midi_parser_append_byte(parser, byte);
-            parser->current_packet->timeStamp = 0;
             break;
         case MIDI_FSM_STATE_MIDI_SYSEX:
             // if realtime message
-            if (byte > MIDI_SYSEXEND || byte == MIDI_TUNEREQUEST) { // send immidiately
-                parser->packetlist->numPackets = 1;
-                parser->packetlist->packet[0].length = 1;
-                parser->packetlist->packet[0].timeStamp = 0;
-                parser->packetlist->packet[0].data[0] = byte;
-                midi_parser_send(parser);
-                midi_parser_reset(parser);
+            if (byte > MIDI_SYSEXEND || byte == MIDI_TUNEREQUEST) {
+                // send immidiately without affecting main buffer
+                MIDIPacket packet;
+                packet.timeStamp = 0;
+                packet.length = 1;
+                packet.data[0] = byte;
+
+                MIDIPacketList packetList;
+                packetList.numPackets = 1;
+                packetList.packet[0] = packet;
+                coremidi_send_packet_list(parser->endpoint, &packetList);
+                // not change state after processing
             } else if (byte == MIDI_TIMECODE) { // fixed messages
                 parser->state = MIDI_FSM_STATE_SYSEX_FIXED;
                 parser->max_data_len = 2;
                 midi_parser_append_byte(parser, byte);
-                parser->current_packet->timeStamp = 0;
             } else if (byte == MIDI_SONGPOS) { // song position
                 parser->state = MIDI_FSM_STATE_SYSEX_FIXED;
                 parser->max_data_len = 3;
                 midi_parser_append_byte(parser, byte);
-                parser->current_packet->timeStamp = 0;
             } else if (byte == MIDI_SONGSELECT) { // song select
                 parser->state = MIDI_FSM_STATE_SYSEX_FIXED;
                 parser->max_data_len = 2;
                 midi_parser_append_byte(parser, byte);
-                parser->current_packet->timeStamp = 0;
             } else {
                 parser->state = status;
-                parser->current_packet->timeStamp = 0;
                 parser->max_data_len = 1;
                 if (!midi_parser_append_byte(parser, byte)) {
                     pd_error(0, "[coremidi] sysex error");
@@ -684,7 +703,12 @@ Boolean coremidi_create_client()
 
 Boolean coremidi_create_virtual_source()
 {
+#if defined(MAC_OS_VERSION_11_0) && (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_VERSION_11_0)
+    OSStatus err = MIDISourceCreateWithProtocol(coremidi_client, CFSTR("from PureData"), kMIDIProtocol_1_0, &virtual_src_output);
+#else
     OSStatus err = MIDISourceCreate(coremidi_client, CFSTR("from PureData"), &virtual_src_output);
+#endif
+
     if (err != noErr) {
         coremidi_print_error(err, "MIDISourceCreate");
         return FALSE;
@@ -899,7 +923,7 @@ void sys_putmidimess(int portno, int a, int b, int c)
 void sys_putmidibyte(int portno, int byte)
 {
     if (sys_verbose)
-        post("[coremidi] %s: %d [%d]", __FUNCTION__, portno, byte);
+        post("[coremidi] %s: %d [%x]", __FUNCTION__, portno, byte);
 
     if (portno < 0 || portno >= coremidi_ndest)
         return;
