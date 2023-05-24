@@ -169,7 +169,7 @@ static std::string makeFullPresetPath(t_canvas* c, const std::string& name)
 
 bool PresetStorage::write(t_canvas* c, const std::string& path) const
 {
-    t_canvas* root_cnv = rootCanvas(c);
+    auto root_cnv = rootCanvas(c);
     std::string name = makePresetFilename(root_cnv, path);
     std::string full_path = makeFullPresetPath(root_cnv, name);
 
@@ -189,36 +189,48 @@ bool PresetStorage::write(const char* path) const
         return false;
     }
 
-    t_binbuf* content = binbuf_new();
+    auto bb = binbuf_new();
 
-    for (auto& p : params_) {
-        auto& ptr = p.second;
+    // sort keys
+    std::vector<t_symbol*> keys;
+    keys.reserve(params_.size());
+    for (auto& p : params_)
+        keys.push_back(p.first);
+
+    std::sort(keys.begin(), keys.end(), [](t_symbol* a, t_symbol* b) { return strcmp(a->s_name, b->s_name) < 0; });
+
+    for (auto k : keys) {
+        auto it = params_.find(k);
+        if (params_.end() == it)
+            continue;
+
+        auto& ptr = it->second;
 
         for (size_t i = 0; i < maxPresetCount(); i++) {
             if (!ptr->hasDataAt(i))
                 continue;
 
-            binbuf_addv(content, "sf", ptr->name(), double(i));
+            binbuf_addv(bb, "sf", ptr->name(), double(i));
 
             if (ptr->hasFloatAt(i))
-                binbuf_addv(content, "sf", &s_float, ptr->floatAt(i));
+                binbuf_addv(bb, "sf", &s_float, ptr->floatAt(i));
             else if (ptr->hasSymbolAt(i)) {
-                binbuf_addv(content, "ss", &s_symbol, ptr->symbolAt(i));
+                binbuf_addv(bb, "ss", &s_symbol, ptr->symbolAt(i));
             } else if (ptr->hasListAt(i)) {
                 auto lv = ptr->listAt(i);
-                binbuf_addv(content, "s", &s_list);
-                binbuf_add(content, lv.size(), lv.toPdData());
+                binbuf_addv(bb, "s", &s_list);
+                binbuf_add(bb, lv.size(), lv.toPdData());
             } else if (ptr->hasAnyAt(i)) {
                 AtomList l = ptr->anyAt(i);
-                binbuf_add(content, l.size(), l.toPdData());
+                binbuf_add(bb, l.size(), l.toPdData());
             }
 
-            binbuf_addsemi(content);
+            binbuf_addsemi(bb);
         }
     }
 
-    int rc = binbuf_write(content, path, "", 0);
-    binbuf_free(content);
+    int rc = binbuf_write(bb, path, "", 0);
+    binbuf_free(bb);
 
     return rc == 0;
 }
