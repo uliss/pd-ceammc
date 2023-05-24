@@ -204,17 +204,28 @@ ProtoArturiaMinilab::ProtoArturiaMinilab(const PdArgs& args)
 
 void ProtoArturiaMinilab::m_pad_color(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("PAD:i[0,15] COLOR:a");
+    static const args::ArgChecker chk("PAD:i[0,15]? COLOR:a");
+
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    std::uint8_t pad = lv.intAt(0, 0);
-    PadColor c = atomToColor(lv[1]);
-    if (c == PAD_NONE)
-        return;
+    if (lv.size() == 2) {
+        std::uint8_t pad = lv.intAt(0, 0);
+        PadColor c = atomToColor(lv[1]);
+        if (c == PAD_NONE)
+            return;
 
-    AtomArray<10> data { 0x00, 0x20, 0x6B, 0x7F, 0x42, 0x02, 0x00, 0x10, 0x70 | pad, color2midi(c) };
-    m_sysex(s, data.view());
+        AtomArray<10> data { 0x00, 0x20, 0x6B, 0x7F, 0x42, 0x02, 0x00, 0x10, 0x70 | pad, color2midi(c) };
+        m_sysex(s, data.view());
+    } else if(lv.size() == 1) {
+        PadColor c = atomToColor(lv[0]);
+
+        AtomArray<10> data { 0x00, 0x20, 0x6B, 0x7F, 0x42, 0x02, 0x00, 0x10, 0x70, color2midi(c) };
+        for (int i = 0; i < MINILAB_PAD_COUNT; i++) {
+            data[8] = 0x70 | i;
+            m_sysex(s, data.view());
+        }
+    }
 }
 
 void ProtoArturiaMinilab::m_channel(t_symbol* s, const AtomListView& lv)

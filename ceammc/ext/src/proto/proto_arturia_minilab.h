@@ -16,7 +16,10 @@
 
 #include "proto_midi.h"
 
-enum { MINILAB_KNOB_COUNT = 18 };
+enum {
+    MINILAB_KNOB_COUNT = 18,
+    MINILAB_PAD_COUNT = 16,
+};
 
 class ProtoArturiaMinilab : public ProtoMidi {
 private:
