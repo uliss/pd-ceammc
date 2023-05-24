@@ -22,7 +22,7 @@ namespace ceammc {
 namespace midi {
     using Byte = std::uint8_t;
     using SysRealtimeCb = std::function<void(Byte)>;
-    using SysExcCb = std::function<void(size_t, Byte*)>;
+    using SysExcCb = std::function<void(size_t, const Byte*)>;
     using Byte3Cb = std::function<void(Byte, Byte, Byte)>;
     using Byte2Cb = std::function<void(Byte, Byte)>;
 

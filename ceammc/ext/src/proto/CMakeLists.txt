@@ -6,6 +6,7 @@ function(ceammc_proto_external name)
     target_sources(ceammc_proto PRIVATE "proto_${name}.cpp")
 endfunction()
 
+ceammc_proto_external(arturia_minilab)
 ceammc_proto_external(feelworld)
 ceammc_proto_external(firmata)
 ceammc_proto_external(hui)
