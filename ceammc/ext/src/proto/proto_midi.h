@@ -93,10 +93,14 @@ private:
 
     void byteStatus(uint8_t st, int chan) { floatTo(0, st | uint8_t(0x0F & chan)); }
     void byteData(uint8_t data) { floatTo(0, 0x7F & data); }
-    void msgTo(t_symbol* s, const Atom* a, size_t n) { anyTo(1, s, AtomListView(a, n)); }
     void sendBytes3(int chan, uint8_t st, uint8_t data1, uint8_t data2);
 
     void handleTimecode(uint8_t data);
+
+protected:
+    void msgCC(uint8_t b, uint8_t c, uint8_t v);
+    void msgTo(t_symbol* s, const Atom* a, size_t n) { anyTo(1, s, AtomListView(a, n)); }
+    void msgTo(t_symbol* s, const AtomListView& lv) { anyTo(1, s, lv); }
 };
 
 void setup_proto_midi();

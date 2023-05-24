@@ -57,8 +57,8 @@ enum PadColor {
     PAD_NONE = -1
 };
 
-constexpr auto NUM_KNOBS = 18;
-using PadArray = std::array<std::uint8_t, NUM_KNOBS>;
+// constexpr int
+using PadArray = std::array<std::uint8_t, MINILAB_KNOB_COUNT>;
 
 constexpr const std::uint8_t PAD_COLORS[8] = { 0x00, 0x01, 0x04, 0x05, 0x10, 0x11, 0x14, 0x7f };
 constexpr const char* PAD_COLOR_NAMES[8] = {
@@ -136,14 +136,14 @@ static int findKnobByCC(midi::Byte cc)
     };
 
     auto data = CC_TO_KNOB.data();
-    auto x = static_cast<const std::uint8_t*>(memchr(data, cc, NUM_KNOBS));
+    auto x = static_cast<const std::uint8_t*>(memchr(data, cc, MINILAB_KNOB_COUNT));
     return (x == nullptr) ? -1 : (x - data);
 }
 
 static int findKnobBySysIdx(midi::Byte sys_idx)
 {
     auto data = KNOB_SYSEX_IDX.data();
-    auto x = static_cast<const std::uint8_t*>(memchr(data, sys_idx, NUM_KNOBS));
+    auto x = static_cast<const std::uint8_t*>(memchr(data, sys_idx, MINILAB_KNOB_COUNT));
     return (x == nullptr) ? -1 : (x - data);
 }
 
@@ -168,6 +168,8 @@ static AtomArray<10> arturia_param_set(midi::Byte param, midi::Byte value)
     return AtomArray<10> { 0x00, 0x20, 0x6B, 0x7F, 0x42, 0x02, 0x00, 0x00, param, value };
 }
 
+static inline bool is_arturia_knob_btn(midi::Byte cc) { return cc == 113 || cc == 115; }
+
 ProtoArturiaMinilab::ProtoArturiaMinilab(const PdArgs& args)
     : ProtoMidi(args)
 {
@@ -178,20 +180,24 @@ ProtoArturiaMinilab::ProtoArturiaMinilab(const PdArgs& args)
         if (kn > 0) {
             knobs_[kn] = v;
             AtomArray<2> data { kn, cc2float(v) };
-            anyTo(1, gensym("knob"), data.view());
-        }
+            msgTo(gensym("knob"), data.view());
+        } else if (is_arturia_knob_btn(c)) {
+            AtomArray<2> data { (c == 115), (v > 0) };
+            msgTo(gensym("button"), data.view());
+        } else
+            msgCC(b, c, v);
     });
 
     parser_.setSysExFn([this](size_t n, const Byte* data) {
         if (n == 12 && std::memcmp(data, "\xF0\x00\x20\x6B\x7F\x42\x02\x00\x00", 9) == 0) { // knob request answer
             const auto k = findKnobBySysIdx(data[9]);
-            if (k < 0 || k >= NUM_KNOBS)
+            if (k < 0 || k >= MINILAB_KNOB_COUNT)
                 return;
 
             auto v = data[10];
             knobs_[k] = v;
             AtomArray<2> kc { k, cc2float(v) };
-            anyTo(1, gensym("knob?"), kc.view());
+            msgTo(gensym("knob?"), kc.view());
         }
     });
 }
@@ -243,8 +249,18 @@ void ProtoArturiaMinilab::m_knob_req(t_symbol* s, const AtomListView& lv)
 
 void ProtoArturiaMinilab::m_knob_req_all(t_symbol* s, const AtomListView& lv)
 {
-    for (int i = 0; i < NUM_KNOBS; i++)
+    for (int i = 0; i < MINILAB_KNOB_COUNT; i++)
         m_sysex(s, arturia_param_get(findSysIdxByKnob(i)).view());
+}
+
+void ProtoArturiaMinilab::m_pad_backlight(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_BOOL, s))
+        return;
+
+    // F0 00 20 6B 7F 42 02 00 40 1E on/off F7
+    AtomArray<10> data { 0x00, 0x20, 0x6B, 0x7F, 0x42, 0x02, 0x00, 0x40, 0x1E, lv[0].asBool() * 0x7F };
+    m_sysex(s, data.view());
 }
 
 void setup_proto_arturia_minilab()
@@ -254,4 +270,5 @@ void setup_proto_arturia_minilab()
     obj.addMethod("knob", &ProtoArturiaMinilab::m_knob);
     obj.addMethod("knob?", &ProtoArturiaMinilab::m_knob_req);
     obj.addMethod("knobs?", &ProtoArturiaMinilab::m_knob_req_all);
+    obj.addMethod("backlight", &ProtoArturiaMinilab::m_pad_backlight);
 }

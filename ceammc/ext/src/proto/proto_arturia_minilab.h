@@ -16,19 +16,20 @@
 
 #include "proto_midi.h"
 
+enum { MINILAB_KNOB_COUNT = 18 };
+
 class ProtoArturiaMinilab : public ProtoMidi {
-
-    enum { KNOB_COUNT = 16 };
-
-    std::array<std::uint8_t, KNOB_COUNT> knobs_;
+private:
+    std::array<std::uint8_t, MINILAB_KNOB_COUNT> knobs_;
 
 public:
     ProtoArturiaMinilab(const PdArgs& args);
 
-    void m_pad_color(t_symbol* s, const AtomListView& lv);
     void m_knob(t_symbol* s, const AtomListView& lv);
     void m_knob_req(t_symbol* s, const AtomListView& lv);
     void m_knob_req_all(t_symbol* s, const AtomListView& lv);
+    void m_pad_backlight(t_symbol* s, const AtomListView& lv);
+    void m_pad_color(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_proto_arturia_minilab();

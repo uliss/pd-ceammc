@@ -171,10 +171,7 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
         msgTo(sym_polytouch(), msg, 3);
     });
 
-    parser_.setControlChangeFn([this](Byte b, Byte c, Byte v) {
-        Atom msg[3] = { 0x0F & b, c, v };
-        msgTo(sym_cc(), msg, 3);
-    });
+    parser_.setControlChangeFn([this](Byte b, Byte c, Byte v) { msgCC(b, c, v); });
 
     parser_.setProgramChangeFn([this](Byte b, Byte v) {
         Atom msg[2] = { 0x0F & b, v };
@@ -289,7 +286,7 @@ void ProtoMidi::m_raw(t_symbol* s, const AtomListView& lv)
     std::uint8_t b = 0;
     for (auto& a : lv) {
         if (a.isSymbol()) {
-            if(!parser::parse_midi_byte_hex(a, b)) {
+            if (!parser::parse_midi_byte_hex(a, b)) {
                 METHOD_ERR(s) << "byte or hex is expected, got: " << a;
                 continue;
             }
@@ -632,6 +629,12 @@ void ProtoMidi::handleTimecode(uint8_t data)
         Atom msg[5] = { mqf_.hours(), mqf_.minutes(), mqf_.seconds(), mqf_.frames(), mqf_.floatFps() };
         msgTo(sym_timecode(), msg, 5);
     }
+}
+
+void ProtoMidi::msgCC(uint8_t b, uint8_t c, uint8_t v)
+{
+    Atom msg[3] = { 0x0F & b, c, v };
+    msgTo(sym_cc(), msg, 3);
 }
 
 void setup_proto_midi()
