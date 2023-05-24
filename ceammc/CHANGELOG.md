@@ -90,6 +90,7 @@
     gleetchy effect of delay change, you can set @smooth to 0.
 - fx.sdelay~ renamed to fx.delay~, fx.sdelay~ now is deprecated alias
 - proto.midi.cc - old portamento method renamed to portswitch
+- proto.midi - second outlet added, it outputs parsed messages
 
 ### Fixed:
 - proto.midi.cc - sound_off, notes_off crash fixes

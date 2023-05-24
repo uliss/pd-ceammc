@@ -147,6 +147,7 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
     : BaseObject(args)
 {
     createOutlet();
+    createOutlet();
 
     using midi::Byte;
 
@@ -189,11 +190,11 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
     parser_.setSysCommonFn([this](Byte b, Byte d0, Byte d1) {
         switch (b) {
         case midi::MIDI_TUNEREQUEST:
-            return anyTo(0, sym_tunerequest(), AtomListView());
+            return anyTo(1, sym_tunerequest(), AtomListView());
         case midi::MIDI_SONGSELECT:
-            return anyTo(0, sym_songsel(), Atom(0x7F & d0));
+            return anyTo(1, sym_songsel(), Atom(0x7F & d0));
         case midi::MIDI_SONGPOS:
-            return anyTo(0, sym_songpos(), Atom((d1 << 7) | d0));
+            return anyTo(1, sym_songpos(), Atom((d1 << 7) | d0));
         case midi::MIDI_TIMECODE:
             return handleTimecode(d0);
         default:
@@ -205,19 +206,19 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
     parser_.setRealtimeFn([this](Byte msg) {
         switch (msg) {
         case midi::MIDI_TIMECLOCK:
-            return anyTo(0, sym_clock(), AtomListView());
+            return anyTo(1, sym_clock(), AtomListView());
         case midi::MIDI_TIMETICK:
-            return anyTo(0, sym_tick(), AtomListView());
+            return anyTo(1, sym_tick(), AtomListView());
         case midi::MIDI_START:
-            return anyTo(0, sym_start(), AtomListView());
+            return anyTo(1, sym_start(), AtomListView());
         case midi::MIDI_STOP:
-            return anyTo(0, sym_stop(), AtomListView());
+            return anyTo(1, sym_stop(), AtomListView());
         case midi::MIDI_CONTINUE:
-            return anyTo(0, sym_continue(), AtomListView());
+            return anyTo(1, sym_continue(), AtomListView());
         case midi::MIDI_ACTIVE_SENSE:
-            return anyTo(0, sym_activesense(), AtomListView());
+            return anyTo(1, sym_activesense(), AtomListView());
         case midi::MIDI_SYSTEM_RESET:
-            return anyTo(0, sym_sysreset(), AtomListView());
+            return anyTo(1, sym_sysreset(), AtomListView());
         default:
             OBJ_ERR << "unknown realtime message: " << (int)msg;
             break;
