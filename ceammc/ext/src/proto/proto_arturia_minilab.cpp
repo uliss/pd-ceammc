@@ -204,7 +204,7 @@ ProtoArturiaMinilab::ProtoArturiaMinilab(const PdArgs& args)
 
 void ProtoArturiaMinilab::m_pad_color(t_symbol* s, const AtomListView& lv)
 {
-    const args::ArgChecker chk("PAD:i[0,15] COLOR:a");
+    static const args::ArgChecker chk("PAD:i[0,15] COLOR:a");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
@@ -217,9 +217,20 @@ void ProtoArturiaMinilab::m_pad_color(t_symbol* s, const AtomListView& lv)
     m_sysex(s, data.view());
 }
 
+void ProtoArturiaMinilab::m_channel(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("CHAN:i[0,15]");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    // F0 00 20 6B 7F 42 02 00 40 06 chan F7
+    AtomArray<10> data { 0x00, 0x20, 0x6B, 0x7F, 0x42, 0x02, 0x00, 0x40, 0x06, lv[0].asInt() };
+    m_sysex(s, data.view());
+}
+
 void ProtoArturiaMinilab::m_knob(t_symbol* s, const AtomListView& lv)
 {
-    const args::ArgChecker chk("KNOB:i[0,17] VAL:f[0,1]");
+    static const args::ArgChecker chk("KNOB:i[0,17] VAL:f[0,1]");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
@@ -271,4 +282,5 @@ void setup_proto_arturia_minilab()
     obj.addMethod("knob?", &ProtoArturiaMinilab::m_knob_req);
     obj.addMethod("knobs?", &ProtoArturiaMinilab::m_knob_req_all);
     obj.addMethod("backlight", &ProtoArturiaMinilab::m_pad_backlight);
+    obj.addMethod("channel", &ProtoArturiaMinilab::m_channel);
 }

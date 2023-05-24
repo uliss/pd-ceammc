@@ -30,6 +30,7 @@ public:
     void m_knob_req_all(t_symbol* s, const AtomListView& lv);
     void m_pad_backlight(t_symbol* s, const AtomListView& lv);
     void m_pad_color(t_symbol* s, const AtomListView& lv);
+    void m_channel(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_proto_arturia_minilab();
