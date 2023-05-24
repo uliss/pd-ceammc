@@ -241,10 +241,17 @@ void ProtoArturiaMinilab::m_knob_req(t_symbol* s, const AtomListView& lv)
     m_sysex(s, arturia_param_get(cc).view());
 }
 
+void ProtoArturiaMinilab::m_knob_req_all(t_symbol* s, const AtomListView& lv)
+{
+    for (int i = 0; i < NUM_KNOBS; i++)
+        m_sysex(s, arturia_param_get(findSysIdxByKnob(i)).view());
+}
+
 void setup_proto_arturia_minilab()
 {
     ObjectFactory<ProtoArturiaMinilab> obj("proto.arturia.minilab");
     obj.addMethod("pad_color", &ProtoArturiaMinilab::m_pad_color);
     obj.addMethod("knob", &ProtoArturiaMinilab::m_knob);
     obj.addMethod("knob?", &ProtoArturiaMinilab::m_knob_req);
+    obj.addMethod("knobs?", &ProtoArturiaMinilab::m_knob_req_all);
 }
