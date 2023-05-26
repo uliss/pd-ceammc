@@ -52,5 +52,4 @@ void BaseMergeTilde::processBlock(const t_sample** in, t_sample** out)
 void setup_base_merge_tilde()
 {
     SoundExternalFactory<BaseMergeTilde> obj("merge~");
-    obj.addAlias(":>~");
 }

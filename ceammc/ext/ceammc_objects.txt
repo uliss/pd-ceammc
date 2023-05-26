@@ -12,7 +12,6 @@
 /'
 1/x
 1/x~
-:>~
 <'
 <<'
 <='
@@ -107,7 +106,6 @@ ceammc/-x
 ceammc//'
 ceammc/1/x
 ceammc/1/x~
-ceammc/:>~
 ceammc/<'
 ceammc/<<'
 ceammc/<='
