@@ -12,6 +12,7 @@
 /'
 1/x
 1/x~
+:>~
 <'
 <<'
 <='
@@ -106,6 +107,7 @@ ceammc/-x
 ceammc//'
 ceammc/1/x
 ceammc/1/x~
+ceammc/:>~
 ceammc/<'
 ceammc/<<'
 ceammc/<='
@@ -194,6 +196,7 @@ ceammc/lpf->biquad
 ceammc/m
 ceammc/m->f
 ceammc/matrix~
+ceammc/merge~
 ceammc/midi->freq
 ceammc/mix~
 ceammc/ml
@@ -254,6 +257,7 @@ ceammc/sfizz~
 ceammc/sig->float~
 ceammc/speedlim
 ceammc/split
+ceammc/split~
 ceammc/spring
 ceammc/str
 ceammc/str->any
@@ -478,6 +482,8 @@ flt.a-weight
 flt.biquad~
 flt.bpf12~
 flt.bpf24~
+flt.bpf36e~
+flt.bpf72e~
 flt.c_apf
 flt.c_bpf~
 flt.c_highshelf~
@@ -866,6 +872,7 @@ math.trunc
 math.trunc~
 math.||'
 matrix~
+merge~
 metro.choice
 metro.pattern
 metro.random
@@ -1004,6 +1011,13 @@ path.split
 phase->rad
 phase->rad~
 pi
+piece.nono.quando.fb1~
+piece.nono.quando.fb2~
+piece.nono.quando.h1~
+piece.nono.quando.h2~
+piece.nono.quando.h3~
+piece.nono.quando.h4~
+piece.nono.quando.vocoder~
 piece.stok_solo~
 pitch->midi
 pi~
@@ -1033,6 +1047,7 @@ prop.set
 prop.split
 prop<-
 prop~>
+proto.arturia.minilab
 proto.feelworld
 proto.firmata
 proto.hui
@@ -1125,6 +1140,7 @@ set.union
 sfizz~
 sig->float~
 snd.file
+snd.play~
 spat.pan4~
 spat.pan8~
 spat.zita6x8~
@@ -1134,6 +1150,7 @@ speech.flite~
 speech.rhvoice~
 speedlim
 split
+split~
 spring
 str
 str->any
