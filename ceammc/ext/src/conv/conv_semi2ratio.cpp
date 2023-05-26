@@ -28,7 +28,7 @@ ConvSemiToRatio::ConvSemiToRatio(const PdArgs& args)
 
 void ConvSemiToRatio::onFloat(t_float f)
 {
-    floatTo(0, std::exp2(f / 12));
+    floatTo(0, semi2ratio(f));
 }
 
 void ConvSemiToRatio::onList(const AtomListView& lv)
@@ -44,4 +44,10 @@ void setup_conv_semi2ratio()
 {
     ObjectFactory<ConvSemiToRatio> obj("conv.semi2ratio");
     obj.addAlias("semi->ratio");
+
+    obj.setDescription("convert interval in semitones to frequency ratio in 12-ET");
+    obj.addAuthor("Serge Poltavsky");
+    obj.setKeywords({ "conv", "samp" });
+    obj.setCategory("conv");
+    obj.setSinceVersion(0, 9);
 }
