@@ -91,6 +91,7 @@ conv.samp2sec,ceammc/samp->sec,samp->sec		.		.
 conv.sec2bpm,ceammc/sec->bpm,sec->bpm		.		.
 conv.sec2samp,ceammc/sec->samp,sec->samp		.		.
 conv.sec2str,ceammc/sec->str,sec->str		.		.
+conv.semi2ratio,ceammc/semi->ratio,semi->ratio		.		.
 conv.sig2float~,ceammc/sig->float~,sig->float~,ceammc/s->f~,s->f~		~.		.
 conv.str2sec,ceammc/str->sec,str->sec		.		.
 data.color,color,ceammc/color		..		.

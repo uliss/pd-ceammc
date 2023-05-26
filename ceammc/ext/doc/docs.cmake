@@ -91,6 +91,7 @@ set(DOC_FILES
     conv.sec2bpm
     conv.sec2samp
     conv.sec2str
+    conv.semi2ratio
     conv.sig2float~
     conv.str2sec
     data.color

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.semi2ratio">
+        <title>conv.semi2ratio</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert interval in semitones to frequency ratio in 12-ET</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv samp</keywords>
+            <since>0.9.7</since>
+            <aliases>
+                <alias>ceammc/semi-&gt;ratio</alias>
+                <alias>semi-&gt;ratio</alias>
+            </aliases>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="float">interval in semitones</xinfo>
+                <xinfo on="list">list of intervals in semitones</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>float or list: frequency ratio(s)</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[12( [0( [1( [F]
+|    |   |   |
+[semi->ratio ]
+|
+[ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

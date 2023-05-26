@@ -244,6 +244,9 @@ sec->samp	convert time in seconds to number of samples according to current samp
 conv.sec2str	converts float time in seconds to formated symbol (or string)
 ceammc/sec->str	converts float time in seconds to formated symbol (or string)
 sec->str	converts float time in seconds to formated symbol (or string)
+conv.semi2ratio	convert interval in semitones to frequency ratio in 12-ET
+ceammc/semi->ratio	convert interval in semitones to frequency ratio in 12-ET
+semi->ratio	convert interval in semitones to frequency ratio in 12-ET
 conv.sig2float~	convert signal to floats
 ceammc/sig->float~	convert signal to floats
 sig->float~	convert signal to floats

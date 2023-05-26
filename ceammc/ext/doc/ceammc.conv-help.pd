@@ -100,15 +100,18 @@ to current samplerate;
 #X obj 30 1396 conv.sec2str;
 #X text 200 1396 converts float time in seconds to formated symbol
 (or string);
-#X obj 30 1423 conv.sig2float~;
-#X text 200 1423 convert signal to floats;
-#X obj 30 1450 conv.str2sec;
-#X text 200 1450 converts formatted time to float value in seconds;
-#X obj 30 1477 music.dur2time;
-#X text 200 1477 convert duration list to time;
-#X obj 30 1504 music.voice2midi;
-#X text 200 1504 convert voice music list of midi pitches;
+#X obj 30 1423 conv.semi2ratio;
+#X text 200 1423 convert interval in semitones to frequency ratio in
+12-ET;
+#X obj 30 1450 conv.sig2float~;
+#X text 200 1450 convert signal to floats;
+#X obj 30 1477 conv.str2sec;
+#X text 200 1477 converts formatted time to float value in seconds;
+#X obj 30 1504 music.dur2time;
+#X text 200 1504 convert duration list to time;
+#X obj 30 1531 music.voice2midi;
+#X text 200 1531 convert voice music list of midi pitches;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::conv 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1531 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1541 library: ceammc;
+#X obj 1 1558 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1568 library: ceammc;

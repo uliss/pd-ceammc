@@ -342,6 +342,9 @@
     <entry name="conv.sec2str" descr="converts float time in seconds to formated symbol (or string)" ref_view="object">
       <xi:include href="conv.sec2str.pddoc" parse="xml"/>
     </entry>
+    <entry name="conv.semi2ratio" descr="convert interval in semitones to frequency ratio in 12-ET" ref_view="object">
+      <xi:include href="conv.semi2ratio.pddoc" parse="xml"/>
+    </entry>
     <entry name="conv.sig2float~" descr="convert signal to floats" ref_view="object">
       <xi:include href="conv.sig2float~.pddoc" parse="xml"/>
     </entry>
