@@ -32,7 +32,7 @@ TEST_CASE("data.bimap", "[externals]")
     SECTION("bimap")
     {
         TExt t("data.bimap", LA("A", 1, "B", 2, "C", 3));
-        REQUIRE_PROPERTY_LIST(t, @v, LA("A", 1, "B", 2, "C", 3));
+        REQUIRE_PROPERTY_LIST(t, @value, LA("A", 1, "B", 2, "C", 3));
 
         t << "A";
         REQUIRE_FLOAT_AT_OUTLET(0, t, 1);
@@ -57,5 +57,26 @@ TEST_CASE("data.bimap", "[externals]")
         REQUIRE_NO_MESSAGES_AT_OUTLET(1, t);
         t.sendListTo(LF(3, 2, 1), 1);
         REQUIRE_LIST_AT_OUTLET(1, t, LA("C", "B", "A"));
+    }
+
+    SECTION("aliases")
+    {
+        TExt t("bimap");
+        TExt t1("ceammc/bimap");
+    }
+
+    SECTION("duplicates")
+    {
+        SECTION("key 1")
+        {
+            TExt t("bimap", LA("key1", "B", "key1", "C"));
+            REQUIRE_PROPERTY_LIST(t, @value, LA("key1", "B"));
+        }
+
+        SECTION("key 2")
+        {
+            TExt t("bimap", LA("A", "key2", "B", "key2"));
+            REQUIRE_PROPERTY_LIST(t, @value, LA("A", "key2"));
+        }
     }
 }

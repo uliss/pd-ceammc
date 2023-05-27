@@ -24,7 +24,7 @@ DataBiMap::DataBiMap(const PdArgs& args)
 
     setHighlightSyntax(EDITOR_SYNTAX_SELECTOR);
 
-    values_ = new ListProperty("@v");
+    values_ = new ListProperty("@value");
     values_->setListCheckFn([](const AtomListView& lv) -> bool {
         return lv.size() > 0 && (lv.size() % 2 == 0);
     });
