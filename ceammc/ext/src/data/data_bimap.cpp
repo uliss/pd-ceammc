@@ -33,6 +33,12 @@ DataBiMap::DataBiMap(const PdArgs& args)
         auto& v = values_->value();
         for (size_t i = 0; i < v.size(); i += 2)
             bimap_.insert({ v[i], v[i + 1] });
+
+        v.clear();
+        for (auto& bi : bimap_) {
+            v.append(bi.get_left());
+            v.append(bi.get_right());
+        }
     });
     addProperty(values_);
 }
