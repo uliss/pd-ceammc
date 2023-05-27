@@ -86,6 +86,9 @@ public:
         return true;
     }
 
+    inline DataAtom<T>& atomRef() { return v_; }
+    inline const DataAtom<T>& atomRef() const { return v_; }
+
     DataAtom<T> asDataAtom() const { return DataAtom<T>(v_); }
 };
 
