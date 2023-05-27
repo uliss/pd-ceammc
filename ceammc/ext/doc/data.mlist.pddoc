@@ -24,14 +24,14 @@
         </meta>
         <info>
             <par>Syntax: values are separated by spaces: (1 2 3) - list of 1, 2 and 3</par>
-            <par>Nested lists: (1 2 3 (nested liat values))</par>
+            <par>Nested lists: (1 2 3 (nested list values))</par>
             <par>Symbols with spaces: ("single item list")</par>
         </info>
         <mouse>
             <event editmode="false" type="left-click">open data editor</event>
         </mouse>
         <arguments>
-            <argument name="VALUE" type="data:list">initial list values in (). For example: (1 2 3 (1 2)
+            <argument name="VALUE" type="data:mlist">initial list values in (). For example: (1 2 3 (1 2)
             4)</argument>
         </arguments>
         <properties>

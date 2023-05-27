@@ -14,7 +14,7 @@
 #X obj 210 80 cnv 1 555 100 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Syntax: values are separated by spaces: (1 2 3) - list
 of 1 \, 2 and 3;
-#X text 215 120 Nested lists: (1 2 3 (nested liat values));
+#X text 215 120 Nested lists: (1 2 3 (nested list values));
 #X text 215 145 Symbols with spaces: ("single item list");
 #X msg 50 208 bang;
 #X msg 78 237 (A B C) \, bang;
@@ -30,10 +30,10 @@ of 1 \, 2 and 3;
 #X obj 20 448 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 110 483 1\.;
-#X text 150 483 any;
-#X obj 246 484 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 483 X: initial list values in (). For example: (1 2 3 (1
-2) 4). Type: any.;
+#X text 150 483 data:mlist;
+#X obj 246 484 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 483 VALUE: initial list values in (). For example: (1 2
+3 (1 2) 4). Type: data:mlist.;
 #X obj 20 528 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 533 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
