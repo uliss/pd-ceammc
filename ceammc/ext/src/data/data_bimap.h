@@ -16,16 +16,16 @@
 
 #include "ceammc_editor_object.h"
 #include "ceammc_object.h"
-#include "editor_list.h"
-#include "list_iface.h"
+#include "data_protocol.h"
 
 #include <boost/bimap.hpp>
 
 using namespace ceammc;
 
 using BiMap = boost::bimap<Atom, Atom>;
+using DataBiMapFs = EditorObject<FilesystemIFace<BaseObject>>; // read/write methods
 
-class DataBiMap : public EditorListT<DataListIFace<BaseObject>> {
+class DataBiMap : public DataBiMapFs {
     BiMap bimap_;
     ListProperty* values_ { 0 };
 
@@ -37,10 +37,35 @@ public:
     void onList(const AtomListView& lv) final;
     void onInlet(size_t idx, const AtomListView& lv) final;
 
-    EditorTitleString editorTitle() const final { return "DATA.BIMAP"; }
+    bool proto_write(const std::string& path) const final;
+    bool proto_read(const std::string& path) final;
 
-    const AtomList& list() const { return values_->value(); }
-    AtomList& list() { return values_->value(); }
+    // editor
+    void editorAddLine(t_symbol* sel, const AtomListView& lv) final;
+    void editorClear() final;
+    int calcEditorLines() const final;
+    int calcEditorChars() const final;
+    EditorTitleString editorTitle() const final { return "DATA.BIMAP"; }
+    EditorLineList getContentForEditor() const final;
+
+    void m_append(t_symbol* s, const AtomListView& lv);
+    void m_clear(t_symbol* s, const AtomListView& lv);
+    void m_set(t_symbol* s, const AtomListView& lv);
+
+public:
+    template <template <typename T> class Factory, typename T>
+    static void registerMethods(Factory<T>& obj)
+    {
+        EditorObject::registerMethods(obj);
+        obj.addMethod("append", &T::m_append);
+        obj.addMethod("clear", &T::m_clear);
+
+        protocol::ReaderWriter<Factory, T> rw(obj);
+    }
+
+private:
+    bool check(const AtomListView& lv) const;
+    void sync(bool printErr = true);
 };
 
 void setup_data_bimap();
