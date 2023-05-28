@@ -15,6 +15,7 @@
 #include "ceammc_data.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_datatypes.h"
+#include "ceammc_filesystem.h"
 #include "ceammc_format.h"
 #include "ceammc_json.h"
 #include "ceammc_log.h"
@@ -294,23 +295,14 @@ bool DataTypeDict::fromJSON(const std::string& str)
 
 bool DataTypeDict::read(const std::string& path)
 {
-    std::ifstream fs(path);
-    if (!fs) {
-        LIB_ERR << "can not open file: " << path;
+    auto res = fs::readFileContent(path.c_str());
+    RuntimeError err;
+    if (res.matchError(err)) {
+        LIB_ERR << err.what();
         return false;
     }
 
-    std::string str;
-
-    // reserve size for string
-    fs.seekg(0, std::ios::end);
-    str.reserve(fs.tellg());
-    fs.seekg(0, std::ios::beg);
-
-    // read to string
-    str.assign((std::istreambuf_iterator<char>(fs)), std::istreambuf_iterator<char>());
-
-    if (!fromJSON(str)) {
+    if (!fromJSON(res.value())) {
         LIB_ERR << "can not parse JSON file: " << path;
         return false;
     }
