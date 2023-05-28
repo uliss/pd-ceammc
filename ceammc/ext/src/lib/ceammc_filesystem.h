@@ -14,11 +14,11 @@
 #ifndef CEAMMC_FILESYSTEM_H
 #define CEAMMC_FILESYSTEM_H
 
+#include "ceammc_either.h"
 #include "ceammc_notify.h"
 #include "ceammc_object.h"
 #include "ceammc_platform.h"
 #include "ceammc_poll_dispatcher.h"
-#include "ceammc_thread.h"
 #include "fmt/core.h"
 
 #include <chrono>
@@ -27,6 +27,10 @@
 #include <future>
 
 namespace ceammc {
+
+namespace fs {
+    Either<std::string> readFileContent(const char* path);
+}
 
 template <typename Base>
 class AsyncFileReader : public DispatchedObject<Base> {
@@ -98,25 +102,16 @@ protected:
         }
 
         result_ = std::async(std::launch::async, [this](const std::string& path) -> std::string {
-            if (!platform::path_exists(path.c_str())) {
-                logger_.error(fmt::format("file not exists: '{}'", path));
+            auto res = fs::readFileContent(path.c_str());
+            RuntimeError err;
+            if (res.matchError(err)) {
+                logger_.error(err.what());
                 return {};
             }
-
-            std::ifstream ifs(path.c_str());
-            if (!ifs) {
-                logger_.error(fmt::format("can't open file: '{}'", path));
-                return {};
-            }
-
-            auto str = std::string((std::istreambuf_iterator<char>(ifs)),
-                std::istreambuf_iterator<char>());
-
-            ifs.close();
 
             Dispatcher::instance().send({ asyncReadId(), 0 });
 
-            return str;
+            return res.value();
         });
     }
 
