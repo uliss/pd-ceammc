@@ -30,7 +30,7 @@ FlowMatch::FlowMatch(const PdArgs& args)
     patterns_->setInitOnly();
     patterns_->setArgIndex(0);
     patterns_->setSuccessFn([this](Property* p) {
-        for (auto x : p->get()) {
+        for (auto& x : p->get()) {
             const std::string re = regexp::escape(to_string(x));
             re_.emplace_back(new re2::RE2(re));
         }
@@ -145,5 +145,5 @@ void setup_flow_match()
 
     obj.setDescription("route data flow by regexp match");
     obj.setCategory("flow");
-    obj.setKeywords({"regexp"});
+    obj.setKeywords({ "regexp" });
 }
