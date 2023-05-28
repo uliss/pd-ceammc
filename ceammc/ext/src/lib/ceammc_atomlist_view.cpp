@@ -255,6 +255,23 @@ AtomListView AtomListView::subView(size_t from, size_t len) const
     return AtomListView(&data_[from].atom(), std::min(n_ - from, len));
 }
 
+AtomListView AtomListView::argSubView(size_t from) const
+{
+    if (!data_)
+        return {};
+
+    if (from >= n_)
+        return {};
+
+    for (size_t i = 0; i < n_; i++) {
+        auto& a = data_[i];
+        if (a.isProperty())
+            return (i < from) ? AtomListView {} : AtomListView(&data_[from].atom(), i - from);
+    }
+
+    return AtomListView(&data_[from].atom(), n_ - from);
+}
+
 bool AtomListView::contains(const Atom& a) const
 {
     if (empty() || isNull())

@@ -314,6 +314,11 @@ public:
     AtomListView subView(size_t from, size_t len) const;
 
     /**
+     * Returns subview form specified position and before first property element
+     */
+    AtomListView argSubView(size_t from) const;
+
+    /**
      * Returns true if contains specified atom, otherwise false
      * @param a - atom value
      */
