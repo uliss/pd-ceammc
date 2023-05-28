@@ -58,17 +58,18 @@ set(CEAMMC_LIB_SOURCES
     ceammc_datastorage.cpp
     ceammc_deprecated.cpp
     ceammc_dsp.cpp
+    ceammc_editor_object.cpp
     ceammc_externals.cpp
     ceammc_factory.h
     ceammc_faust.cpp
+    ceammc_filesystem.cpp
     ceammc_fn_list.cpp
     ceammc_format.cpp
     ceammc_function.cpp
     ceammc_impl.cpp
     ceammc_inlet.cpp
-    ceammc_outlet.cpp
-    ceammc_json.h
     ceammc_json.cpp
+    ceammc_json.h
     ceammc_log.cpp
     ceammc_message.cpp
     ceammc_music_scale.cpp
@@ -82,9 +83,9 @@ set(CEAMMC_LIB_SOURCES
     ceammc_node_external.cpp
     ceammc_notify.cpp
     ceammc_numeric.h
-    ceammc_editor_object.cpp
     ceammc_object.cpp
     ceammc_object_info.cpp
+    ceammc_outlet.cpp
     ceammc_output.cpp
     ceammc_pd.cpp
     ceammc_platform.cpp

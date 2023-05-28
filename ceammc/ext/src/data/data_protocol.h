@@ -410,7 +410,7 @@ public:
 
     void m_write(t_symbol* s, const AtomListView& path)
     {
-        std::string concat_path = to_string(path);
+        auto concat_path = to_string(path.argSubView(0));
         if (concat_path.empty()) {
             METHOD_ERR(s) << "empty path";
             return;
@@ -422,12 +422,19 @@ public:
             return;
         }
 
+        // force flag
+        const auto force = (path.size() > 0 && path.back() == "@force");
+
         // warning
-        if (platform::path_exists(full_path.c_str()))
-            METHOD_DBG(s) << "overwriting file that already exists: " << full_path;
+        if (platform::path_exists(full_path.c_str()) && !force) {
+            METHOD_ERR(s) << "file already exists: " << full_path << ", use @force to overwrite";
+            return;
+        }
 
         if (!proto_write(full_path))
-            METHOD_ERR(s) << "can not write to JSON: " << full_path;
+            METHOD_ERR(s) << "can not write to file: " << full_path;
+        else
+            METHOD_DBG(s) << "written to file: " << full_path;
     }
 
     virtual bool proto_write(const std::string& path) const = 0;
@@ -551,6 +558,17 @@ namespace protocol {
         Writer(Factory<T>& obj)
             : Base<Factory, T>(obj)
         {
+            obj.addMethod("write", &T::m_write);
+        }
+    };
+
+    template <template <typename T> class Factory, typename T>
+    class ReaderWriter : public Base<Factory, T> {
+    public:
+        ReaderWriter(Factory<T>& obj)
+            : Base<Factory, T>(obj)
+        {
+            obj.addMethod("read", &T::m_read);
             obj.addMethod("write", &T::m_write);
         }
     };
