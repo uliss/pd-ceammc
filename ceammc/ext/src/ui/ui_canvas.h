@@ -14,8 +14,6 @@
 #ifndef UI_CANVAS_H
 #define UI_CANVAS_H
 
-#include "ceammc_poll_dispatcher.h"
-#include "ceammc_thread.h"
 #include "ceammc_ui_object.h"
 #include "readerwriterqueue.h"
 #include "ui_canvas_cairo.h"

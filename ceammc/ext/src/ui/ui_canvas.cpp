@@ -15,6 +15,7 @@
 #include "args/argcheck2.h"
 #include "ceammc_containers.h"
 #include "ceammc_format.h"
+#include "ceammc_platform.h"
 #include "ceammc_poll_dispatcher.h"
 #include "ceammc_ui.h"
 #include "fmt/core.h"
@@ -38,14 +39,6 @@ void set_parsed_color(cairo_t* c, const AtomListView& lv, double r = 0, double g
         cairo_set_source_rgb(c, lv[0].asFloat(), lv[1].asFloat(), lv[2].asFloat());
     else
         cairo_set_source_rgb(c, r, g, b);
-}
-
-inline bool operator==(const Atom& a, const char* str)
-{
-    if (!a.isSymbol())
-        return false;
-
-    return std::strcmp(a.asT<t_symbol*>()->s_name, str) == 0;
 }
 
 inline cairo_line_cap_t sym2line_cap(t_symbol* s)
