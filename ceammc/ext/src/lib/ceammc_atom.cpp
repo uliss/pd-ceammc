@@ -797,6 +797,16 @@ bool Atom::operator==(t_float f) const noexcept
     return isFloat() && math::float_compare(a_w.w_float, f);
 }
 
+bool Atom::operator==(t_symbol* s) const noexcept
+{
+    return (a_type == A_SYMBOL) && (a_w.w_symbol == s);
+}
+
+bool Atom::operator==(const char* s) const noexcept
+{
+    return (a_type == A_SYMBOL) && (std::strcmp(a_w.w_symbol->s_name, s) == 0);
+}
+
 std::ostream& operator<<(std::ostream& os, const Atom& a)
 {
     if (a.isFloat())

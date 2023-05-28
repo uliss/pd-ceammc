@@ -441,6 +441,10 @@ public:
     bool operator!=(const Atom& a) const noexcept { return !operator==(a); }
     CEAMMC_NO_ASAN bool operator==(t_float f) const noexcept;
     bool operator!=(t_float f) const noexcept { return !operator==(f); }
+    bool operator==(t_symbol* s) const noexcept;
+    bool operator!=(t_symbol* s) const noexcept { return !operator==(s); }
+    bool operator==(const char* s) const noexcept;
+    bool operator!=(const char* s) const noexcept { return !operator==(s); }
 
     /**
      * Operators
