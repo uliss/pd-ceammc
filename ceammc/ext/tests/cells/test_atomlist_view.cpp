@@ -462,4 +462,22 @@ TEST_CASE("AtomListView", "core")
         REQUIRE(AtomListView(LA(1, 2, 3, "@p", "@other")).getProperty(SYM("@p"), res));
         REQUIRE(res.empty());
     }
+
+    SECTION("argSubView")
+    {
+        REQUIRE(AtomListView(LA(1, 2, 3, 4)).argSubView(0) == LF(1, 2, 3, 4));
+        REQUIRE(AtomListView(LA(1, 2, 3, 4)).argSubView(1) == LF(2, 3, 4));
+        REQUIRE(AtomListView(LA(1, 2, 3, 4)).argSubView(2) == LF(3, 4));
+        REQUIRE(AtomListView(LA(1, 2, 3, 4)).argSubView(3) == LF(4));
+        REQUIRE(AtomListView(LA(1, 2, 3, 4)).argSubView(4) == L());
+
+        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).argSubView(0) == LF(1, 2));
+        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).argSubView(1) == LF(2));
+        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).argSubView(2) == L());
+        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).argSubView(3) == L());
+        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).argSubView(4) == L());
+
+        REQUIRE(AtomListView(LA("@a", 4)).argSubView(0) == L());
+        REQUIRE(AtomListView(LA("@a", 4)).argSubView(1) == L());
+    }
 }

@@ -616,4 +616,30 @@ TEST_CASE("Atom2", "[core]")
         REQUIRE(DOLL_SYM("$0-$1").expandDollarArgs(canvas_getcurrent(), false) == A(buf));
         REQUIRE(DOLL_SYM("$0-$1").expandDollarArgs(canvas_getcurrent(), true) == Atom());
     }
+
+    SECTION("c-string equal")
+    {
+        REQUIRE(A("test") == "test");
+        REQUIRE(A("test") != "Test");
+        REQUIRE_FALSE(A("test") != "test");
+        REQUIRE_FALSE(A("test") == "Test");
+        REQUIRE_FALSE(A(1) == "Test");
+        REQUIRE_FALSE(Atom() == "Test");
+        REQUIRE_FALSE(Atom::comma() == ",");
+        REQUIRE_FALSE(Atom::semicolon() == ";");
+        REQUIRE_FALSE(Atom::dollar(1) == "Test");
+        REQUIRE_FALSE(Atom::dollarSymbol(SYM("test-$0")) == "test-$0");
+    }
+
+    SECTION("t_symbol* equal")
+    {
+        REQUIRE(A("test") == SYM("test"));
+        REQUIRE(A("test") != SYM("Test"));
+        REQUIRE_FALSE(A(1) == SYM("test"));
+        REQUIRE_FALSE(Atom() == SYM("test"));
+        REQUIRE_FALSE(Atom::comma() == SYM("test"));
+        REQUIRE_FALSE(Atom::semicolon() == SYM("test"));
+        REQUIRE_FALSE(Atom::dollar(1) == SYM("test"));
+        REQUIRE_FALSE(Atom::dollarSymbol(SYM("test-$0")) == SYM("test"));
+    }
 }
