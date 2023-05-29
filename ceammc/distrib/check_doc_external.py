@@ -163,6 +163,14 @@ def read_doc_outlets(node):
 
     return res
 
+def has_mouse_methods():
+    return ("click" in EXT_METHODS or
+        "mousedown" in EXT_METHODS or
+        "mouseup" in EXT_METHODS or
+        "mousemove" in EXT_METHODS or
+        "mouseenter" in EXT_METHODS or
+        "rightclick" in EXT_METHODS)
+
 def check_aliases(name, doc, ext):
     undoc_aliases = ext - doc
     unknown_aliases = doc - ext
@@ -518,7 +526,7 @@ if __name__ == '__main__':
                     doc_outlets = z
 
             if x.tag == "mouse":
-                if "click" not in EXT_METHODS:
+                if not has_mouse_methods():
                     cprint(f"[{ext_name}] unknown mouse events in doc", 'yellow')
                 else:
                     for event in x:
