@@ -66,67 +66,74 @@ Default value: 0\.;
 #X text 245 849 Get/Set make up gain: applied to the signal after the
 compression takes place. Type: float. Units: db. Default value: 0\.
 Range: -18\...18\.;
-#X msg 110 906 @knee;
-#X text 245 906 Get/Set a gradual increase in gain reduction around
+#X msg 110 906 @id;
+#X text 245 906 (initonly) Get/Set OSC address id. If specified \,
+bind properties to /ID/dyn_comp_peak2/PROP_NAME osc address \, if empty
+bind to /dyn_comp_peak2/PROP_NAME. Type: symbol.;
+#X msg 110 963 @knee;
+#X text 245 963 Get/Set a gradual increase in gain reduction around
 the threshold: below thresh-(knee/2) there is no gain reduction \,
 above thresh+(knee/2) there is the same gain reduction as without a
 knee \, and in between there is a gradual increase in gain reduction.
 Type: float. Units: db. Default value: 3\. Range: 0\...6\.;
-#X msg 110 1008 @level;
-#X text 245 1008 (readonly) Get current level of compression. Type:
+#X msg 110 1065 @level;
+#X text 245 1065 (readonly) Get current level of compression. Type:
 float. Default value: 0\. Range: 0\...1\.;
-#X msg 110 1050 @link;
-#X text 245 1050 Get/Set the amount of linkage between the channels:
+#X msg 110 1107 @link;
+#X text 245 1107 Get/Set the amount of linkage between the channels:
 0 = each channel is independent \, 1 = all channels have the same amount
 of gain reduction. Type: float. Default value: 1\. Range: 0\...1\.;
-#X msg 110 1122 @refresh;
-#X text 245 1122 Get/Set compression level output time interval. If
+#X msg 110 1179 @osc;
+#X text 245 1179 (initonly) Get/Set OSC server name to listen. Type:
+symbol.;
+#X msg 110 1208 @refresh;
+#X text 245 1208 Get/Set compression level output time interval. If
 0 - no output. Type: int. Units: ms. Default value: 100\. Range: 0\...1000\.;
-#X msg 110 1179 @release;
-#X text 245 1179 Get/Set release time = time constant coming out of
+#X msg 110 1265 @release;
+#X text 245 1265 Get/Set release time = time constant coming out of
 compression. Type: float. Units: ms. Default value: 50\. Range: 1\...500\.;
-#X msg 110 1236 @strength;
-#X text 245 1236 Get/Set strength of the compression (0 = no compression
+#X msg 110 1322 @strength;
+#X text 245 1322 Get/Set strength of the compression (0 = no compression
 \, 1 means hard limiting \, >1 means over-compression). Type: float.
 Default value: 0\. Range: 0\...2\.;
-#X msg 110 1293 @threshold;
-#X text 245 1293 Get/Set level threshold above which compression kicks
+#X msg 110 1379 @threshold;
+#X text 245 1379 Get/Set level threshold above which compression kicks
 in (100 dB = max level). Type: float. Units: db. Default value: -10\.
 Range: -60\...0\.;
-#X obj 20 1360 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1365 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1446 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1451 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1400 reset;
-#X text 245 1400 reset to initial state.;
-#X obj 20 1437 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1442 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1486 reset;
+#X text 245 1486 reset to initial state.;
+#X obj 20 1523 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1528 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1443 1\.;
-#X text 245 1443 left input signal.;
-#X text 110 1463 2\.;
-#X text 245 1463 right input signal.;
-#X text 110 1483 3\.;
-#X text 150 1483 *float*;
-#X text 245 1483 set compression strength.;
-#X obj 20 1513 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1518 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1529 1\.;
+#X text 245 1529 left input signal.;
+#X text 110 1549 2\.;
+#X text 245 1549 right input signal.;
+#X text 110 1569 3\.;
+#X text 150 1569 *float*;
+#X text 245 1569 set compression strength.;
+#X obj 20 1599 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1604 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1519 1\.;
-#X text 245 1519 left compressed signal.;
-#X text 110 1539 2\.;
-#X text 245 1539 right compressed signal.;
-#X text 110 1559 3\.;
-#X text 245 1559 list: output current compression level in [0\..1].;
+#X text 110 1605 1\.;
+#X text 245 1605 left compressed signal.;
+#X text 110 1625 2\.;
+#X text 245 1625 right compressed signal.;
+#X text 110 1645 3\.;
+#X text 245 1645 list: output current compression level in [0\..1].;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title dyn @url ceammc.dyn-help.pd;
-#X obj 1 1609 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1612 library: ceammc v0.9.6;
-#X text 564 1624 see also:;
-#X obj 638 1624 dyn.comp_peak~;
-#N canvas 10 1631 400 290 info 0;
+#X obj 1 1695 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1698 library: ceammc v0.9.6;
+#X text 564 1710 see also:;
+#X obj 638 1710 dyn.comp_peak~;
+#N canvas 10 1717 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -150,7 +157,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1631 pd info;
+#X restore 10 1717 pd info;
 #X connect 8 0 10 0;
 #X connect 10 0 11 0;
 #X connect 12 0 13 0;
