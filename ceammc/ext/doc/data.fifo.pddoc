@@ -20,6 +20,9 @@
             <par>If size argument specified - creates queue with fixed size. When count of values
             exceed this limit, outputs and removes first value in queue.</par>
         </info>
+        <mouse>
+            <event editmode="false" type="left-click">open data editor</event>
+        </mouse>
         <arguments>
             <argument name="SIZE" type="int" minvalue="0">if specified, creates fixed-size queue.
             Value '0' means default size (1024)</argument>

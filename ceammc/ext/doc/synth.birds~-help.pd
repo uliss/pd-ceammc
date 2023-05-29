@@ -20,8 +20,8 @@
 Type: float. Range: 120\...480;
 #X text 110 444 2\.;
 #X text 150 444 float;
-#X obj 246 445 cnv 1 92 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 444 PROBABILITY: whistles probability if @auto enabled.
+#X obj 246 445 cnv 1 115 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 444 PROBABILITY(%): whistles probability if @auto enabled.
 Type: float. Range: 25\...100;
 #X obj 20 489 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 494 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
@@ -37,7 +37,7 @@ value: 1\.;
 bool. Default value: 0\.;
 #X msg 110 629 @probability;
 #X text 245 629 Get/Set whistles probability if @auto enabled. Type:
-float. Default value: 50\. Range: 25\...100\.;
+float. Units: %. Default value: 50\. Range: 25\...100\.;
 #X msg 110 671 @speed;
 #X text 245 671 Get/Set maximum speed of whistles if @auto enabled.
 Type: float. Default value: 240\. Range: 120\...480\.;

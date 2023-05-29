@@ -17,13 +17,13 @@
         <arguments>
             <argument name="SPEED" type="float" minvalue="120" maxvalue="480">maximum speed of
             whistles if @auto enabled</argument>
-            <argument name="PROBABILITY" type="float" minvalue="25" maxvalue="100">whistles
+            <argument name="PROBABILITY" type="float" minvalue="25" maxvalue="100" units="percent">whistles
             probability if @auto enabled</argument>
         </arguments>
         <properties>
             <property name="@speed" type="float" minvalue="120" maxvalue="480" default="240">
             maximum speed of whistles if @auto enabled</property>
-            <property name="@probability" type="float" minvalue="25" maxvalue="100" default="50">
+            <property name="@probability" type="float" minvalue="25" maxvalue="100" default="50" units="percent">
             whistles probability if @auto enabled</property>
             <property name="@gate" type="bool" default="0">play trigger. Starts playing on
             release</property>

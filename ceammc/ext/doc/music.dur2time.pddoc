@@ -24,7 +24,7 @@
             etc.</par>
         </info>
         <properties>
-            <property name="@bpm" type="list" default="60 0.25">tempo</property>
+            <property name="@bpm" type="symbol" default="60|4bpm" units="bpm">tempo</property>
             <property name="@seq" type="bool" default="1">sequential durations</property>
         </properties>
         <inlets>
