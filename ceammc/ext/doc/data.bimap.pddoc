@@ -20,38 +20,53 @@
         <info>
             <par>NOTE: all object inlets are 'hot'</par>
         </info>
+        <mouse>
+            <event editmode="false" type="left-click">open data editor</event>
+        </mouse>
         <arguments>
-            <argument name="VALUE" type="list">initial value, list of pairs: LEFT_KEY1 RIGHT_KEY1 LEFT_KEY2 RIGHT_KEY2 etc.</argument>
+            <argument name="VALUE" type="list">initial value, list of pairs: LEFT_KEY1 RIGHT_KEY1
+            LEFT_KEY2 RIGHT_KEY2 etc.</argument>
         </arguments>
         <properties>
-            <property name="@value" type="list" default="">value, list of pairs: LEFT_KEY1 RIGHT_KEY1 LEFT_KEY2 RIGHT_KEY2 etc.</property>
-            <property name="@size" type="int" default="0" access="readonly">number of left-right pairs in map</property>
-            <property name="@empty" type="bool" default="1" access="readonly">true if empty</property>
-            <property name="@keys_left" type="list" default="" access="readonly">list of left map keys</property>
-            <property name="@keys_right" type="list" default="" access="readonly">list of right map keys</property>
+            <property name="@value" type="list" default="">value, list of pairs: LEFT_KEY1
+            RIGHT_KEY1 LEFT_KEY2 RIGHT_KEY2 etc.</property>
+            <property name="@size" type="int" default="0" access="readonly">number of left-right
+            pairs in map</property>
+            <property name="@empty" type="bool" default="1" access="readonly">true if
+            empty</property>
+            <property name="@keys_left" type="list" default="" access="readonly">list of left map
+            keys</property>
+            <property name="@keys_right" type="list" default="" access="readonly">list of right map
+            keys</property>
         </properties>
         <methods>
             <method name="clear">clear bidirectional map content</method>
-            <method name="set">set bidirectional map content
+            <method name="set">set bidirectional map content 
             <param name="DATA" type="list" required="true">new value list</param></method>
-            <method name="insert">insert new left-right map entry
-            <param name="PAIR" type="list" required="true">list: LEFT_KEY RIGHT_KEY</param></method>
-            <method name="write">write to JSON file, to overwrite existing file use @force flag
-            <param name="FNAME" type="symbol" required="true">path to file, absolute or relative</param>
-            <param name="@force" type="symbol" required="false">force flag to overwrite existing files</param>
-            </method>
-            <method name="read">read bimap from JSON file. Array of array pairs expected.
-            <param name="FNAME" type="symbol" required="true">path to file, absolute or relative</param>
-            </method>
+            <method name="insert">insert new left-right map entry 
+            <param name="PAIR" type="list" required="true">list: LEFT_KEY
+            RIGHT_KEY</param></method>
+            <method name="write">write to JSON file, to overwrite existing file use @force flag 
+            <param name="FNAME" type="symbol" required="true">path to file, absolute or
+            relative</param>
+            <param name="@force" type="symbol" required="false">force flag to overwrite existing
+            files</param></method>
+            <method name="read">read bimap from JSON file. Array of array pairs expected. 
+            <param name="FNAME" type="symbol" required="true">path to file, absolute or
+            relative</param></method>
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="atom">try to find left key in the map and output the right value on success</xinfo>
-                <xinfo on="list">try to find each left key of the list in the map and output the result list of right values</xinfo>
+                <xinfo on="atom">try to find left key in the map and output the right value on
+                success</xinfo>
+                <xinfo on="list">try to find each left key of the list in the map and output the
+                result list of right values</xinfo>
             </inlet>
             <inlet>
-                <xinfo on="atom">try to find right key in the map and output the left value on success</xinfo>
-                <xinfo on="list">try to find each right key of the list in the map and output the result list of left values</xinfo>
+                <xinfo on="atom">try to find right key in the map and output the left value on
+                success</xinfo>
+                <xinfo on="list">try to find each right key of the list in the map and output the
+                result list of left values</xinfo>
             </inlet>
         </inlets>
         <outlets>
