@@ -1,6 +1,6 @@
 #include "env_asr.h"
 #include "ceammc_clock.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 #include "datatype_env.h"
 #include "env_faust_play.h"
 
@@ -13,20 +13,20 @@ class EnvAsr : public EnvAutoplay<faust_env_asr_tilde> {
     ClockLambdaFunction attack_done_;
     ClockLambdaFunction release_done_;
 
-    UIProperty* prop_attack_;
-    UIProperty* prop_sustain_;
-    UIProperty* prop_release_;
-    UIProperty* prop_gate_;
+    UIProperty* prop_attack_ { 0 };
+    UIProperty* prop_sustain_ { 0 };
+    UIProperty* prop_release_ { 0 };
+    UIProperty* prop_gate_ { 0 };
 
 public:
     EnvAsr(const PdArgs& args)
         : EnvAutoplay<faust_env_asr_tilde>(args)
         , attack_done_([this]() { floatTo(1, ATTACK_DONE); })
         , release_done_([this]() { floatTo(1, RELEASE_DONE); })
-        , prop_attack_((UIProperty*)property(gensym("@attack")))
-        , prop_sustain_((UIProperty*)property(gensym("@sustain")))
-        , prop_release_((UIProperty*)property(gensym("@release")))
-        , prop_gate_((UIProperty*)property(gensym("@gate")))
+        , prop_attack_(findUIProperty("@attack"))
+        , prop_sustain_(findUIProperty("@sustain"))
+        , prop_release_(findUIProperty("@release"))
+        , prop_gate_(findUIProperty("@gate"))
     {
         bindPositionalArgsToProps({ gensym("@attack"), gensym("@sustain"), gensym("@release") });
         addProperty(new CombinedProperty("@asr",
@@ -122,10 +122,9 @@ private:
 
 void setup_env_asr_tilde()
 {
-    SoundExternalFactory<EnvAsr> obj("env.asr~");
+    FaustFactory<EnvAsr> obj("env.asr~");
     obj.processData<DataTypeEnv>();
     obj.addMethod("play", &EnvAsr::m_play);
-    obj.addMethod("reset", &EnvAsr::m_reset);
 
     obj.setXletsInfo(
         { "signal: input", "float: start (if >0) or stop(if =0) envelope" },
@@ -133,5 +132,5 @@ void setup_env_asr_tilde()
 
     obj.setDescription("Attack/Sustain/Release envelope generator");
     obj.setCategory("env");
-    obj.setKeywords({"envelope", "asr"});
+    obj.setKeywords({ "envelope", "asr" });
 }

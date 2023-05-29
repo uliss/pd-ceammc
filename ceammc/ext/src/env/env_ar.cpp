@@ -1,6 +1,6 @@
 #include "env_ar.h"
 #include "ceammc_clock.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 #include "datatype_env.h"
 
 using namespace ceammc;
@@ -9,18 +9,18 @@ class EnvAr : public faust_env_ar_tilde {
     ClockMemberFunction<EnvAr> auto_release_;
     ClockMemberFunction<EnvAr> done_;
 
-    UIProperty* prop_attack_;
-    UIProperty* prop_release_;
-    UIProperty* prop_gate_;
+    UIProperty* prop_attack_ { 0 };
+    UIProperty* prop_release_ { 0 };
+    UIProperty* prop_gate_ { 0 };
 
 public:
     EnvAr(const PdArgs& args)
         : faust_env_ar_tilde(args)
         , auto_release_(this, &EnvAr::release)
         , done_(this, &EnvAr::done)
-        , prop_attack_((UIProperty*)property(gensym("@attack")))
-        , prop_release_((UIProperty*)property(gensym("@release")))
-        , prop_gate_((UIProperty*)property(gensym("@gate")))
+        , prop_attack_(findUIProperty("@attack"))
+        , prop_release_(findUIProperty("@release"))
+        , prop_gate_(findUIProperty("@gate"))
     {
         bindPositionalArgsToProps({ gensym("@attack"), gensym("@release") });
         addProperty(new CombinedProperty("@ar",
@@ -133,10 +133,9 @@ private:
 
 void setup_env_ar_tilde()
 {
-    SoundExternalFactory<EnvAr> obj("env.ar~");
+    FaustFactory<EnvAr> obj("env.ar~");
     obj.processData<DataTypeEnv>();
     obj.addMethod("play", &EnvAr::m_play);
-    obj.addMethod("reset", &EnvAr::m_reset);
     obj.useClick();
 
     obj.setXletsInfo(
@@ -154,5 +153,5 @@ void setup_env_ar_tilde()
 
     obj.setDescription("Attack/Release envelope generator");
     obj.setCategory("env");
-    obj.setKeywords({"envelope", "ar"});
+    obj.setKeywords({ "envelope", "ar" });
 }

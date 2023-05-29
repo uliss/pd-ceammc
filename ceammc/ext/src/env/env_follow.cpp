@@ -1,5 +1,5 @@
 #include "env_follow.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -10,8 +10,8 @@ class EnvFollow : public faust_env_follow_tilde {
 public:
     EnvFollow(const PdArgs& args)
         : faust_env_follow_tilde(args)
-        , prop_attack_((UIProperty*)property(gensym("@attack")))
-        , prop_release_((UIProperty*)property(gensym("@release")))
+        , prop_attack_(findUIProperty("@attack"))
+        , prop_release_(findUIProperty("@release"))
     {
         bindPositionalArgsToProps({ gensym("@attack"), gensym("@release") });
     }
@@ -19,9 +19,9 @@ public:
 
 void setup_env_follow_tilde()
 {
-    SoundExternalFactory<EnvFollow> obj("env.follow~");
+    FaustFactory<EnvFollow> obj("env.follow~");
 
     obj.setDescription("Envelope follower with independent attack and release times");
     obj.setCategory("env");
-    obj.setKeywords({"envelope", "amplitude", "follower"});
+    obj.setKeywords({ "envelope", "amplitude", "follower" });
 }

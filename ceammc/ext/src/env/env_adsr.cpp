@@ -1,6 +1,6 @@
 #include "env_adsr.h"
 #include "ceammc_clock.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 #include "datatype_env.h"
 #include "env_faust_play.h"
 
@@ -21,11 +21,11 @@ public:
         : faust_env_adsr_tilde(args)
         , ad_done_(this, &EnvAdsr::attackDecayDone)
         , release_done_(this, &EnvAdsr::releaseDone)
-        , prop_attack_((UIProperty*)property(gensym("@attack")))
-        , prop_decay_((UIProperty*)property(gensym("@decay")))
-        , prop_sustain_((UIProperty*)property(gensym("@sustain")))
-        , prop_release_((UIProperty*)property(gensym("@release")))
-        , prop_gate_((UIProperty*)property(gensym("@gate")))
+        , prop_attack_(findUIProperty("@attack"))
+        , prop_decay_(findUIProperty("@decay"))
+        , prop_sustain_(findUIProperty("@sustain"))
+        , prop_release_(findUIProperty("@release"))
+        , prop_gate_(findUIProperty("@gate"))
     {
         bindPositionalArgsToProps({ gensym("@attack"), gensym("@decay"), gensym("@sustain"), gensym("@release") });
         addProperty(new CombinedProperty("@adsr",
@@ -131,12 +131,11 @@ typedef EnvAutoplay<EnvAdsr> EnvADSR2;
 
 void setup_env_adsr_tilde()
 {
-    SoundExternalFactory<EnvADSR2> obj("env.adsr~");
+    FaustFactory<EnvADSR2> obj("env.adsr~");
     obj.processData<DataTypeEnv>();
-    obj.addMethod("reset", &EnvADSR2::m_reset);
     obj.addMethod("play", &EnvADSR2::m_play);
 
     obj.setDescription("ADSR (Attack, Decay, Sustain, Release) envelope generator");
     obj.setCategory("env");
-    obj.setKeywords({"envelope", "adsr"});
+    obj.setKeywords({ "envelope", "adsr" });
 }
