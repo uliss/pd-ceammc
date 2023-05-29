@@ -1,5 +1,5 @@
 #include "fx_satrev.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -26,12 +26,11 @@ public:
 
 void setup_fx_satrev_tilde()
 {
-    SoundExternalFactory<FxSatReverb> obj("fx.satrev~");
-    obj.addMethod("reset", &FxSatReverb::m_reset);
+    FaustFactory<FxSatReverb> obj("fx.satrev~");
 
     obj.setXletsInfo({ "signal: input", "float: drywet mix" }, { "signal: left output", "signal: right output" });
 
     obj.setDescription("Schroeder reverberator from 1971");
     obj.setCategory("fx");
-    obj.setKeywords({"fx", "room", "reverb", "schroeder"});
+    obj.setKeywords({ "fx", "room", "reverb", "schroeder" });
 }

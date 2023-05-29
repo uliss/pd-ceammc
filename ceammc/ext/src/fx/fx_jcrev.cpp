@@ -1,5 +1,5 @@
 #include "fx_jcrev.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -26,8 +26,7 @@ public:
 
 void setup_fx_jcrev_tilde()
 {
-    SoundExternalFactory<FxJCReverb> obj("fx.jcrev~");
-    obj.addMethod("reset", &FxJCReverb::m_reset);
+    FaustFactory<FxJCReverb> obj("fx.jcrev~");
 
     obj.setXletsInfo(
         {
@@ -43,5 +42,5 @@ void setup_fx_jcrev_tilde()
 
     obj.setDescription("Schroeder quad reverberator from 1972");
     obj.setCategory("fx");
-    obj.setKeywords({"fx", "room", "reverb", "schroeder"});
+    obj.setKeywords({ "fx", "room", "reverb", "schroeder" });
 }

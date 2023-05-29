@@ -1,5 +1,5 @@
 #include "fx_room.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -26,12 +26,11 @@ public:
 
 void setup_fx_room_tilde()
 {
-    SoundExternalFactory<FxRoom> obj("fx.room~");
-    obj.addMethod("reset", &FxRoom::m_reset);
+    FaustFactory<FxRoom> obj("fx.room~");
 
     obj.setXletsInfo({ "signal: input", "float: set room size (0..3)" }, { "signal: output" });
 
     obj.setDescription("Gardners room emulation algorithms");
     obj.setCategory("fx");
-    obj.setKeywords({"fx", "room", "reverb"});
+    obj.setKeywords({ "fx", "room", "reverb" });
 }

@@ -1,5 +1,5 @@
 #include "fx_granulator.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -13,10 +13,9 @@ public:
 
 void setup_fx_granulator_tilde()
 {
-    SoundExternalFactory<FxGranulator> obj("fx.granulator~");
-    obj.addMethod("reset", &FxGranulator::m_reset);
+    FaustFactory<FxGranulator> obj("fx.granulator~");
 
     obj.setDescription("simple input stream granulator");
     obj.setCategory("fx");
-    obj.setKeywords({"fx", "bits", "granulator"});
+    obj.setKeywords({ "fx", "bits", "granulator" });
 }

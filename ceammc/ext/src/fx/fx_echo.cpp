@@ -11,7 +11,7 @@ constexpr const char* ALIAS_DEPRECATED = "fx.secho~";
 using namespace ceammc;
 
 class FxEcho : public faust_fx_echo_tilde {
-    UIProperty* delay_;
+    UIProperty* delay_ { 0 };
 
 public:
     FxEcho(const PdArgs& args)

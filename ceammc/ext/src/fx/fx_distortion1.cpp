@@ -1,5 +1,5 @@
 #include "fx_distortion1.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -13,9 +13,9 @@ public:
 
 void setup_fx_distortion1_tilde()
 {
-    SoundExternalFactory<FxDistortion1> obj("fx.distortion1~");
+    FaustFactory<FxDistortion1> obj("fx.distortion1~");
 
     obj.setDescription("distortion #1 from Guitarix effects set");
     obj.setCategory("fx");
-    obj.setKeywords({"fx", "distortion"});
+    obj.setKeywords({ "fx", "distortion" });
 }

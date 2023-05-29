@@ -1,5 +1,5 @@
 #include "fx_chorus.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -13,10 +13,9 @@ public:
 
 void setup_fx_chorus_tilde()
 {
-    SoundExternalFactory<FxChorus> obj("fx.chorus~");
-    obj.addMethod("reset", &FxChorus::m_reset);
+    FaustFactory<FxChorus> obj("fx.chorus~");
 
     obj.setDescription("Chorus effect");
     obj.setCategory("fx");
-    obj.setKeywords({"fx", "chorus"});
+    obj.setKeywords({ "fx", "chorus" });
 }

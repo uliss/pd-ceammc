@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "fx_greyhole.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -26,10 +26,9 @@ public:
 
 void setup_fx_greyhole_tilde()
 {
-    SoundExternalFactory<FxGreyhole> obj("fx.greyhole~");
-    obj.addMethod("reset", &FxGreyhole::m_reset);
+    FaustFactory<FxGreyhole> obj("fx.greyhole~");
 
     obj.setDescription("A complex echo-like effect");
     obj.setCategory("fx");
-    obj.setKeywords({"fx", "reverb", "echo"});
+    obj.setKeywords({ "fx", "reverb", "echo" });
 }

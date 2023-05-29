@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "fx_tremolo.h"
 #include "args/argcheck2.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -25,7 +25,7 @@ class FxTremolo : public faust_fx_tremolo_tilde {
 public:
     FxTremolo(const PdArgs& args)
         : faust_fx_tremolo_tilde(args)
-        , freq_(dynamic_cast<UIProperty*>(property(PROP_FREQ)))
+        , freq_(findUIProperty(PROP_FREQ))
     {
         bindPositionalArgsToProps({ gensym(PROP_FREQ), gensym("@depth") });
 
@@ -45,8 +45,7 @@ public:
 
 void setup_fx_tremolo_tilde()
 {
-    SoundExternalFactory<FxTremolo> obj("fx.tremolo~");
-    obj.addMethod("reset", &FxTremolo::m_reset);
+    FaustFactory<FxTremolo> obj("fx.tremolo~");
 
     obj.setDescription("tremolo effect");
     obj.setCategory("fx");

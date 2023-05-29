@@ -1,5 +1,5 @@
 #include "fx_bitdown.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -18,9 +18,9 @@ public:
 
 void setup_fx_bitdown_tilde()
 {
-    SoundExternalFactory<FxBitdown> obj("fx.bitdown~");
+    FaustFactory<FxBitdown> obj("fx.bitdown~");
 
     obj.setDescription("bit downer and downsampler effect");
     obj.setCategory("fx");
-    obj.setKeywords({"fx", "bits", "downsample"});
+    obj.setKeywords({ "fx", "bits", "downsample" });
 }

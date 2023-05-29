@@ -1,5 +1,5 @@
 #include "fx_pitchshift_sig.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -13,10 +13,9 @@ public:
 
 void setup_fx_pitchshift_sig_tilde()
 {
-    SoundExternalFactory<FxPitchShiftSig> obj("fx.pitchshift_s~");
-    obj.addMethod("reset", &FxPitchShiftSig::m_reset);
+    FaustFactory<FxPitchShiftSig> obj("fx.pitchshift_s~");
 
     obj.setDescription("signal version of fx.pitchshift~");
     obj.setCategory("fx");
-    obj.setKeywords({"fx", "pitchshift"});
+    obj.setKeywords({ "fx", "pitchshift" });
 }

@@ -1,6 +1,6 @@
 #include "fx_wahwah.h"
 #include "args/argcheck2.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -12,7 +12,7 @@ class FxWahwah : public faust_fx_wahwah_tilde {
 public:
     FxWahwah(const PdArgs& args)
         : faust_fx_wahwah_tilde(args)
-        , angle_(dynamic_cast<UIProperty*>(property(PROP_ANGLE)))
+        , angle_(findUIProperty(PROP_ANGLE))
     {
         bindPositionalArgsToProps({ gensym(PROP_ANGLE), gensym("@speed") });
 
@@ -32,7 +32,7 @@ public:
 
 void setup_fx_wahwah_tilde()
 {
-    SoundExternalFactory<FxWahwah> obj("fx.wahwah~");
+    FaustFactory<FxWahwah> obj("fx.wahwah~");
 
     obj.setDescription("digitized CryBaby wah pedal");
     obj.setCategory("fx");

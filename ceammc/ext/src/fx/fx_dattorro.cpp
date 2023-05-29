@@ -12,9 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "fx_dattorro.h"
-#include "ceammc_factory.h"
 
 #include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -29,10 +29,9 @@ public:
 
 void setup_fx_dattorro_tilde()
 {
-    SoundExternalFactory<FxDattorro> obj("fx.dattorro~");
-    obj.addMethod("reset", &FxDattorro::m_reset);
+    FaustFactory<FxDattorro> obj("fx.dattorro~");
 
     obj.setDescription("dattorro reverb");
     obj.setCategory("fx");
-    obj.setKeywords({"fx", "reverb"});
+    obj.setKeywords({ "fx", "reverb" });
 }

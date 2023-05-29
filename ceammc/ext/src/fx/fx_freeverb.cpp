@@ -12,9 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "fx_freeverb.h"
-#include "ceammc_factory.h"
-
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -23,8 +21,8 @@ public:
     FxFreeverb(const PdArgs& args)
         : faust_fx_freeverb_tilde(args)
     {
-        static t_symbol* SYM_PROP_ROOM = gensym("@room");
-        static t_symbol* SYM_PROP_DRYWET = gensym("@drywet");
+        auto SYM_PROP_ROOM = gensym("@room");
+        auto SYM_PROP_DRYWET = gensym("@drywet");
 
         bindPositionalArgsToProps({ SYM_PROP_ROOM, SYM_PROP_DRYWET });
     }
@@ -32,10 +30,9 @@ public:
 
 void setup_fx_freeverb_tilde()
 {
-    SoundExternalFactory<FxFreeverb> obj("fx.freeverb~");
-    obj.addMethod("reset", &FxFreeverb::m_reset);
+    FaustFactory<FxFreeverb> obj("fx.freeverb~");
 
     obj.setDescription("freeverb - common used open-source reverb");
     obj.setCategory("fx");
-    obj.setKeywords({"fx", "reverb"});
+    obj.setKeywords({ "fx", "reverb" });
 }

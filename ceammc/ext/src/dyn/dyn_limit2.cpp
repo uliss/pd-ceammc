@@ -1,5 +1,5 @@
 #include "dyn_limit2.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 using namespace ceammc;
 
 class DynLimit2 : public faust_dyn_limit2_tilde {
@@ -12,9 +12,9 @@ public:
 
 void setup_dyn_limit2_tilde()
 {
-    SoundExternalFactory<DynLimit2> obj("dyn.limit2~");
+    FaustFactory<DynLimit2> obj("dyn.limit2~");
 
     obj.setDescription("stereo 1176LN Peak Limiter");
     obj.setCategory("dyn");
-    obj.setKeywords({"limiter"});
+    obj.setKeywords({ "limiter" });
 }

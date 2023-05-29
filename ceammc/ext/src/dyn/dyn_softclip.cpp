@@ -1,5 +1,5 @@
 #include "dyn_softclip.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 using namespace ceammc;
 
 class DynSoftClip : public faust_dyn_softclip_tilde {
@@ -12,9 +12,9 @@ public:
 
 void setup_dyn_softclip_tilde()
 {
-    SoundExternalFactory<DynSoftClip> obj("dyn.softclip~");
+    FaustFactory<DynSoftClip> obj("dyn.softclip~");
 
     obj.setDescription("soft signal clip");
     obj.setCategory("dyn");
-    obj.setKeywords({"dyn", "clip", "limiter"});
+    obj.setKeywords({ "dyn", "clip", "limiter" });
 }

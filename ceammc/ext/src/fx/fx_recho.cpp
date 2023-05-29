@@ -18,5 +18,5 @@ void setup_fx_recho_tilde()
 
     obj.setDescription("reversed echo effect");
     obj.setCategory("fx");
-    obj.setKeywords({"fx", "echo", "reversed"});
+    obj.setKeywords({ "fx", "echo", "reversed" });
 }

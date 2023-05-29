@@ -1,6 +1,6 @@
 #include "fx_drone_box.h"
 #include "ceammc_crc32.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -26,7 +26,7 @@ public:
 
 void setup_fx_drone_box_tilde()
 {
-    SoundExternalFactory<FxDroneBox> obj("fx.drone_box~");
+    FaustFactory<FxDroneBox> obj("fx.drone_box~");
     obj.setXletsInfo({ "signal: exciting signal", "float: set drone pitch" }, { "signal: output" });
 
     obj.setDescription("mono sympathetic resonance generator");

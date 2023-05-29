@@ -1,5 +1,6 @@
 #include "fx_ringmod.h"
 #include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -14,8 +15,7 @@ public:
 
 void setup_fx_ringmod_tilde()
 {
-    SoundExternalFactory<FxRingMod> obj("fx.ringmod~");
-    obj.addMethod("reset", &FxRingMod::m_reset);
+    FaustFactory<FxRingMod> obj("fx.ringmod~");
 
     obj.setDescription("simple ring modulation effect");
     obj.setCategory("fx");

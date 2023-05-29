@@ -22,7 +22,7 @@ class FxOverdrive : public faust_fx_overdrive_tilde {
 public:
     FxOverdrive(const PdArgs& args)
         : faust_fx_overdrive_tilde(args)
-        , gain_(static_cast<UIProperty*>(property("@gain")))
+        , gain_(findUIProperty("@gain"))
     {
         createInlet();
 
@@ -44,5 +44,5 @@ void setup_fx_overdrive_tilde()
 
     obj.setDescription("overdrive effect");
     obj.setCategory("fx");
-    obj.setKeywords({"fx", "overdrive"});
+    obj.setKeywords({ "fx", "overdrive" });
 }

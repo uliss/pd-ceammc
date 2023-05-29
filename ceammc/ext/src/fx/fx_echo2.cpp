@@ -1,5 +1,5 @@
 #include "fx_echo2.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -8,8 +8,8 @@ public:
     FxEcho2(const PdArgs& args)
         : faust_fx_echo2_tilde(args)
     {
-        static t_symbol* SYM_PROP_DELAY = gensym("@delay");
-        static t_symbol* SYM_PROP_FEEDBACK = gensym("@feedback");
+        auto SYM_PROP_DELAY = gensym("@delay");
+        auto SYM_PROP_FEEDBACK = gensym("@feedback");
 
         bindPositionalArgsToProps({ SYM_PROP_DELAY, SYM_PROP_FEEDBACK });
     }
@@ -17,10 +17,9 @@ public:
 
 void setup_fx_echo2_tilde()
 {
-    SoundExternalFactory<FxEcho2> obj("fx.echo2~");
-    obj.addMethod("reset", &FxEcho2::m_reset);
+    FaustFactory<FxEcho2> obj("fx.echo2~");
 
     obj.setDescription("stereo echo effect");
     obj.setCategory("fx");
-    obj.setKeywords({"fx", "echo", "stereo", "delay"});
+    obj.setKeywords({ "fx", "echo", "stereo", "delay" });
 }

@@ -1,5 +1,5 @@
 #include "fx_freqshift.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -13,11 +13,11 @@ public:
 
 void setup_fx_freqshift_tilde()
 {
-    SoundExternalFactory<FxFreqShift> obj("fx.freqshift~");
+    FaustFactory<FxFreqShift> obj("fx.freqshift~");
 
     obj.setXletsInfo({ "input signal", "freqshift (hz)" }, { "output (freq+shift)", "output (freq-shift)" });
 
     obj.setDescription("frequency shifter or single-sideband ring modulation");
     obj.setCategory("fx");
-    obj.setKeywords({"fx", "freqshift"});
+    obj.setKeywords({ "fx", "freqshift" });
 }

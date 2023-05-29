@@ -1,5 +1,5 @@
 #include "fx_drive.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -8,7 +8,7 @@ public:
     FxDrive(const PdArgs& args)
         : faust_fx_drive_tilde(args)
     {
-        static t_symbol* SYM_PROP_DRIVE = gensym("@drive");
+        auto SYM_PROP_DRIVE = gensym("@drive");
 
         bindPositionalArgsToProps({ SYM_PROP_DRIVE });
     }
@@ -16,9 +16,9 @@ public:
 
 void setup_fx_drive_tilde()
 {
-    SoundExternalFactory<FxDrive> obj("fx.drive~");
+    FaustFactory<FxDrive> obj("fx.drive~");
 
     obj.setDescription("Guitarix drive effect");
     obj.setCategory("fx");
-    obj.setKeywords({"fx", "drive"});
+    obj.setKeywords({ "fx", "drive" });
 }

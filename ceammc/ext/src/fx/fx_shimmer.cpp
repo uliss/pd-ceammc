@@ -1,5 +1,5 @@
 #include "fx_shimmer.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -14,10 +14,9 @@ public:
 
 void setup_fx_shimmer_tilde()
 {
-    SoundExternalFactory<FxShimmer> obj("fx.shimmer~");
-    obj.addMethod("reset", &FxShimmer::m_reset);
+    FaustFactory<FxShimmer> obj("fx.shimmer~");
 
     obj.setDescription("shimmer reverb effect effect");
     obj.setCategory("fx");
-    obj.setKeywords({"fx", "echo", "shimmer", "reverb"});
+    obj.setKeywords({ "fx", "echo", "shimmer", "reverb" });
 }
