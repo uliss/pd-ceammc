@@ -63,24 +63,6 @@ public:
     t_symbol* id() const { return data_.name(); }
 
     size_t refCount() const { return data_.refCount(); }
-
-    AtomList m_keys() const
-    {
-        std::vector<t_symbol*> keys;
-        data_.keys(keys);
-
-        AtomList res;
-        res.reserve(keys.size());
-        for (auto& s : keys)
-            res.append(Atom(s));
-
-        return res;
-    }
-
-    AtomList m_refs() const
-    {
-        return listFrom(data_.refCount());
-    }
 };
 }
 
