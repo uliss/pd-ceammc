@@ -16,15 +16,22 @@
 
 #include "ceammc_object.h"
 
+#include <functional>
+
 namespace ceammc {
 
-typedef std::vector<t_object*> ObjectList;
+using ObjectList = std::vector<t_object*>;
+using PdObjectCb = std::function<bool(t_object*)>;
+using BaseObjectCb = std::function<bool(const BaseObject*)>;
 
 class NodeExternal : public BaseObject {
 public:
     NodeExternal(const PdArgs& args);
 
     ObjectList connectedObjects() const;
+
+    void forEach(PdObjectCb cb);
+    void forEach(BaseObjectCb cb);
 };
 
 }

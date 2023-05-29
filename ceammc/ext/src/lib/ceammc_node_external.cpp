@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_node_external.h"
+#include "ceammc_externals.h"
 
 extern "C" {
 #include "m_imp.h"
@@ -42,4 +43,43 @@ ObjectList NodeExternal::connectedObjects() const
     }
 
     return res;
+}
+
+void NodeExternal::forEach(PdObjectCb cb)
+{
+    auto obj = owner();
+    t_outlet* outlet = nullptr;
+    auto conn = obj_starttraverseoutlet(obj, &outlet, 1);
+    if (!conn)
+        return;
+
+    while (conn) {
+        t_object* dest = nullptr;
+        t_inlet* inletp = nullptr;
+        int whichp = 0;
+        conn = obj_nexttraverseoutlet(conn, &dest, &inletp, &whichp);
+
+        if (!cb(dest))
+            return;
+    }
+}
+
+void NodeExternal::forEach(BaseObjectCb cb)
+{
+    auto obj = owner();
+    t_outlet* outlet = nullptr;
+    auto conn = obj_starttraverseoutlet(obj, &outlet, 1);
+    if (!conn)
+        return;
+
+    while (conn) {
+        t_object* dest = nullptr;
+        t_inlet* inletp = nullptr;
+        int whichp = 0;
+        conn = obj_nexttraverseoutlet(conn, &dest, &inletp, &whichp);
+
+        auto base_obj = ceammc_to_base_object(dest, true);
+        if (base_obj && !cb(base_obj))
+            return;
+    }
 }
