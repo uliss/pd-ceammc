@@ -37,5 +37,5 @@ void setup_global_mlist()
 
     obj.setDescription("global named mlist object");
     obj.setCategory("global");
-    obj.setKeywords({"mlist", "local", "global"});
+    obj.setKeywords({ "mlist", "local", "global" });
 }

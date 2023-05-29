@@ -39,5 +39,5 @@ void setup_global_dict()
 
     obj.setDescription("global named dict object");
     obj.setCategory("global");
-    obj.setKeywords({"dict", "local", "global"});
+    obj.setKeywords({ "dict", "local", "global" });
 }

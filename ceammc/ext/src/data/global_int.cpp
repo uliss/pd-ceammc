@@ -13,5 +13,5 @@ void setup_global_int()
 
     obj.setDescription("global named integer object");
     obj.setCategory("global");
-    obj.setKeywords({"int", "global"});
+    obj.setKeywords({ "int", "global" });
 }
