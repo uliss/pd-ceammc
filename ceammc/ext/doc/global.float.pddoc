@@ -24,6 +24,8 @@
             <argument name="ID" type="symbol">object ID</argument>
         </arguments>
         <properties>
+            <property name="@id" access="initonly" type="symbol" default="default">global variable
+            id</property>
             <property name="@value" access="readonly" type="float" default="0">current
             value</property>
         </properties>

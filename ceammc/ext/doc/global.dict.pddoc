@@ -31,6 +31,8 @@
             <argument name="ID" type="symbol">object ID</argument>
         </arguments>
         <properties>
+            <property name="@id" access="initonly" type="symbol" default="default">global variable
+            id</property>
             <property name="@keys" access="readonly" type="list" default="">keys of
             dictionary</property>
             <property name="@empty" access="readonly" type="bool" default="1">1 if dict is empty,
