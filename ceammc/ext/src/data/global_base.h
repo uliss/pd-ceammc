@@ -32,19 +32,29 @@ public:
         : Base(a)
         , data_(this->parsedPosArgs().symbolAt(0, gensym(DEFAULT_ID)), a.className->s_name)
     {
+        auto id = new SymbolProperty("@id", gensym(DEFAULT_ID));
+        id->setInitOnly();
+        id->setArgIndex(0);
+        this->addProperty(id);
+
         if (data_.name() == gensym(DEFAULT_ID))
             OBJ_DBG << "global object ID required! Using default id: " << data_.name();
+    }
 
-        this->createCbSymbolProperty("@.id", [this]() -> t_symbol* { return data_.name(); })
-            ->setInternal();
+    void dump() const override
+    {
+        Base::dump();
+        OBJ_POST << "ref count: " << refCount();
 
-        this->createCbListProperty("@.obj_refs",
-                [this]() -> AtomList { return m_refs(); })
-            ->setInternal();
-
-        this->createCbListProperty("@.obj_keys",
-                [this]() -> AtomList { return m_keys(); })
-            ->setInternal();
+        // print keys
+        {
+            Post pk(this);
+            pk.stream() << "existing keys:";
+            std::vector<t_symbol*> keys;
+            data_.keys(keys);
+            for (auto k : keys)
+                pk.stream() << ' ' << k;
+        }
     }
 
     T& ref() { return data_.ref(); }

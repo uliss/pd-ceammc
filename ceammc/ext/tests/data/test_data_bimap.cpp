@@ -35,6 +35,8 @@ TEST_CASE("data.bimap", "[externals]")
     {
         TExt t("data.bimap", LA("A", 1, "B", 2, "C", 3));
         REQUIRE_PROPERTY_LIST(t, @value, LA("A", 1, "B", 2, "C", 3));
+        REQUIRE_PROPERTY_LIST(t, @keys_left, LA("A", "B", "C"));
+        REQUIRE_PROPERTY_LIST(t, @keys_right, LF(1, 2, 3));
         REQUIRE_PROPERTY_FLOAT(t, @size, 3);
         REQUIRE_PROPERTY_FLOAT(t, @empty, 0);
 
@@ -95,13 +97,29 @@ TEST_CASE("data.bimap", "[externals]")
     {
         TExt t("bimap", LA(1, 2, 3, 4));
         t.call("write");
-        t.call("write", LA(TEST_DATA_DIR "/test_data_bimap.json", "@force"));
+        t.call("write", LA(TEST_DIR "/test_data_bimap.json", "@force"));
         REQUIRE_PROPERTY_LIST(t, @value, LF(1, 2, 3, 4));
 
-        t.call("append", LF(5, 6));
+        t.call("insert", LF(5, 6));
         REQUIRE_PROPERTY_LIST(t, @value, LF(1, 2, 3, 4, 5, 6));
 
-        t.call("read", LA(TEST_DATA_DIR "/test_data_bimap.json"));
+        t.call("read", LA(TEST_DIR "/test_data_bimap.json"));
         REQUIRE_PROPERTY_LIST(t, @value, LF(1, 2, 3, 4));
+    }
+
+    SECTION("insert")
+    {
+        TExt t("bimap");
+        REQUIRE_PROPERTY_LIST(t, @value, L());
+
+        t.call("insert", LF(1, 2));
+        REQUIRE_PROPERTY_LIST(t, @value, LF(1, 2));
+        t.call("insert", LF(1, 3));
+        REQUIRE_PROPERTY_LIST(t, @value, LF(1, 2));
+
+        t.call("insert", LF(2, 1));
+        REQUIRE_PROPERTY_LIST(t, @value, LF(1, 2, 2, 1));
+        t.call("insert", LF(3, 1));
+        REQUIRE_PROPERTY_LIST(t, @value, LF(1, 2, 2, 1));
     }
 }

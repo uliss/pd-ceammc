@@ -41,22 +41,23 @@ TEST_CASE("global.set", "[externals]")
         REQUIRE(t.numInlets() == 1);
         REQUIRE_PROPERTY_FLOAT(t, @size, 0);
         REQUIRE_PROPERTY_FLOAT(t, @empty, 1);
+        REQUIRE_PROPERTY_LIST(t, @id, LA("default"));
     }
 
     SECTION("do")
     {
-        TestExtGlobalSet t1("global.set", LA("s1"));
+        TExt t1("global.set", LA("s1"));
         REQUIRE(t1.object());
 
-        TestExtGlobalSet t2("global.set", LA("s1"));
+        TExt t2("global.set", LA("s1"));
         REQUIRE(t2.object());
 
-        TestExtGlobalSet t3("global.set", LA("s2"));
+        TExt t3("global.set", LA("s2"));
         REQUIRE(t2.object());
 
-        REQUIRE_PROPERTY_FLOAT(t1, @.obj_refs, 2);
-        REQUIRE_PROPERTY_FLOAT(t1, @.obj_refs, 2);
-        REQUIRE_PROPERTY_FLOAT(t3, @.obj_refs, 1);
+        REQUIRE(t1->refCount() == 2);
+        REQUIRE(t2->refCount() == 2);
+        REQUIRE(t3->refCount() == 1);
 
         t1 << BANG;
         REQUIRE_EMPTY_SET(t1);

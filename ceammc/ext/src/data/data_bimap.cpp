@@ -261,7 +261,7 @@ const char* DataBiMapBase::annotateInlet(size_t n) const
 
 const char* DataBiMapBase::annotateOutlet(size_t n) const
 {
-    return (n == 0) ? "atom: left key" : "atom: right key";
+    return (n == 0) ? "atom: right value" : "atom: left value";
 }
 
 bool DataBiMapBase::check(const AtomListView& lv) const
