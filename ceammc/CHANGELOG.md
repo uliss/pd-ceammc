@@ -24,6 +24,7 @@
   - fx.tremolo~ - tremolo effect from guitarix library
   - flt.speaker~ - low pass and high pass filter effect
   - fx.scramble~ - scramble delayed fragments
+  - local.bimap - canvas local scope bimap container
   - metro.choice - randomly (uniformly) metronome time interval choice from specified set
   - metro.wchoice - weighted metronome time interval choice from specified set
   - msg.onclose - send message on patch closing

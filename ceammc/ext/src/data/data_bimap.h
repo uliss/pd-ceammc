@@ -23,14 +23,10 @@
 using namespace ceammc;
 
 using BiMap = boost::bimap<Atom, Atom>;
-using DataBiMapFs = EditorObject<FilesystemIFace<BaseObject>>; // read/write methods
 
-class DataBiMap : public DataBiMapFs {
-    BiMap bimap_;
-    ListProperty* values_ { 0 };
-
+class DataBiMapBase : public EditorObject<FilesystemIFace<BaseObject>> {
 public:
-    DataBiMap(const PdArgs& args);
+    DataBiMapBase(const PdArgs& args);
 
     void onFloat(t_float v) final;
     void onSymbol(t_symbol* s) final;
@@ -48,16 +44,19 @@ public:
     EditorTitleString editorTitle() const final { return "DATA.BIMAP"; }
     EditorLineList getContentForEditor() const final;
 
-    void m_append(t_symbol* s, const AtomListView& lv);
+    void m_insert(t_symbol* s, const AtomListView& lv);
     void m_clear(t_symbol* s, const AtomListView& lv);
     void m_set(t_symbol* s, const AtomListView& lv);
+
+    const char* annotateInlet(size_t n) const final;
+    const char* annotateOutlet(size_t n) const final;
 
 public:
     template <template <typename T> class Factory, typename T>
     static void registerMethods(Factory<T>& obj)
     {
         EditorObject::registerMethods(obj);
-        obj.addMethod("append", &T::m_append);
+        obj.addMethod("insert", &T::m_insert);
         obj.addMethod("clear", &T::m_clear);
 
         protocol::ReaderWriter<Factory, T> rw(obj);
@@ -66,6 +65,26 @@ public:
 private:
     bool check(const AtomListView& lv) const;
     void sync(bool printErr = true);
+
+protected:
+    virtual BiMap& bimap() = 0;
+    virtual const BiMap& bimap() const = 0;
+    virtual AtomList& list() = 0;
+    virtual const AtomList& list() const = 0;
+
+    void setArgIndex(std::int8_t idx);
+};
+
+class DataBiMap : public DataBiMapBase {
+    BiMap bimap_;
+    AtomList list_;
+
+public:
+    DataBiMap(const PdArgs& args);
+    BiMap& bimap() final { return bimap_; }
+    const BiMap& bimap() const final { return bimap_; }
+    AtomList& list() { return list_; }
+    const AtomList& list() const { return list_; }
 };
 
 void setup_data_bimap();

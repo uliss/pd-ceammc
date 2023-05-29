@@ -44,6 +44,7 @@ void setup_color_scale();
 void setup_data_bimap();
 void setup_data_color();
 void setup_data_copy();
+void setup_local_bimap();
 void setup_rtree_to_list();
 
 void ceammc_data_setup()
@@ -83,6 +84,7 @@ void ceammc_data_setup()
     setup_dict_values();
     setup_is_dict();
 
+    setup_local_bimap();
     setup_local_dict();
     setup_local_float();
     setup_local_int();

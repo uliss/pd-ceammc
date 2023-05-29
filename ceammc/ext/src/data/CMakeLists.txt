@@ -53,6 +53,7 @@ ceammc_data_external(global list)
 ceammc_data_external(global mlist)
 ceammc_data_external(global set)
 
+ceammc_data_external(local bimap)
 ceammc_data_external(local dict)
 ceammc_data_external(local float)
 ceammc_data_external(local int)
