@@ -33,11 +33,12 @@
         conv.sig2float~ conv.str2sec music.dur2time music.voice2midi
     }}
     {data {
-        data.color data.copy data.dict data.fifo data.float data.int data.list
-        data.mlist data.set data.set2list dict.contains dict.each
-        dict.from_list dict.get dict.keys dict.pass dict.reject dict.size
-        dict.to_list dict.values mlist.flatten rtree.to_list set.contains
-        set.diff set.equal set.intersect set.size set.symdiff set.union
+        data.bimap data.color data.copy data.dict data.fifo data.float
+        data.int data.list data.mlist data.set data.set2list dict.contains
+        dict.each dict.from_list dict.get dict.keys dict.pass dict.reject
+        dict.size dict.to_list dict.values mlist.flatten rtree.to_list
+        set.contains set.diff set.equal set.intersect set.size set.symdiff
+        set.union
     }}
     {dyn {
         dyn.comp2~ dyn.comp_peak2~ dyn.comp_peak~ dyn.comp_up2~ dyn.comp_up~

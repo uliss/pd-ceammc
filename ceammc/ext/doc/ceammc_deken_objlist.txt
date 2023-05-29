@@ -259,6 +259,9 @@ music.dur2time	convert duration list to time
 music.d->t	convert duration list to time
 music.voice2midi	convert voice music list of midi pitches
 music.v->m	convert voice music list of midi pitches
+data.bimap	bidirectional map container
+ceammc/bimap	bidirectional map container
+bimap	bidirectional map container
 data.color	Color datatype
 color	Color datatype
 ceammc/color	Color datatype

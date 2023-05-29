@@ -731,6 +731,7 @@ list.zip
 live.capture~
 loadexpr
 loadmsg
+local.bimap
 local.dict
 local.float
 local.int

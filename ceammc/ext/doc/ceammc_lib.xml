@@ -359,6 +359,9 @@
     </entry>
   </category>
   <category name="data">
+    <entry name="data.bimap" descr="bidirectional map container" ref_view="object">
+      <xi:include href="data.bimap.pddoc" parse="xml"/>
+    </entry>
     <entry name="data.color" descr="Color datatype" ref_view="object">
       <xi:include href="data.color.pddoc" parse="xml"/>
     </entry>

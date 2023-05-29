@@ -94,6 +94,7 @@ set(DOC_FILES
     conv.semi2ratio
     conv.sig2float~
     conv.str2sec
+    data.bimap
     data.color
     data.copy
     data.dict
