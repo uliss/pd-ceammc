@@ -494,6 +494,7 @@ if __name__ == '__main__':
     doc_aliases = set()
     doc_inlets = None
     doc_outlets = None
+    doc_mouse = set()
 
     if not read_ext_info(ext_name):
         sys.exit(1)
@@ -515,6 +516,14 @@ if __name__ == '__main__':
                 z = read_doc_outlets(x)
                 if z is not None and len(z) > 0:
                     doc_outlets = z
+
+            if x.tag == "mouse":
+                if "click" not in EXT_METHODS:
+                    cprint(f"[{ext_name}] unknown mouse events in doc", 'yellow')
+                else:
+                    for event in x:
+                        if "type" in event.attrib:
+                            doc_mouse.add(event.attrib["type"])
 
             if args.args and x.tag == "arguments":
                 for a in x:
@@ -577,6 +586,9 @@ if __name__ == '__main__':
 
     if args.props:
         check_props(ext_name, doc_props_dict, EXT_PROPS_DICT)
+
+    if "click" in EXT_METHODS and len(doc_mouse) == 0:
+        cprint(f"[{ext_name}] no mouse event documentation", 'magenta')
 
     if False:
         HAVE_PDDOC = -1
