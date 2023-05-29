@@ -22,6 +22,9 @@
             specified, bind properties to /ID/dyn_softclip/PROP_NAME osc address, if empty bind to
             /dyn_softclip/PROP_NAME.</property>
         </properties>
+        <methods>
+            <method name="reset">reset to initial state</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
