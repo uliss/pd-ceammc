@@ -18,6 +18,7 @@ GlobalDict::GlobalDict(const PdArgs& args)
     : GlobalDictBase(args)
 {
     setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
+    createOutlet();
 }
 
 EditorTitleString GlobalDict::editorTitle() const

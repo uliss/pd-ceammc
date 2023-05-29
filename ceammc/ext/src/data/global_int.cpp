@@ -4,6 +4,7 @@
 GlobalInt::GlobalInt(const PdArgs& a)
     : GlobalIntBase(a)
 {
+    createOutlet();
 }
 
 void setup_global_int()

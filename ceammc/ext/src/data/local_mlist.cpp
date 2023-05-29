@@ -20,6 +20,7 @@ LocalMList::LocalMList(const PdArgs& args)
     : LocalMListBase(args)
 {
     setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
+    createOutlet();
 }
 
 EditorTitleString LocalMList::editorTitle() const

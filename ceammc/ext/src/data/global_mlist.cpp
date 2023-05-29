@@ -18,6 +18,7 @@ GlobalMList::GlobalMList(const PdArgs& args)
     : GlobalMListBase(args)
 {
     setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
+    createOutlet();
 }
 
 EditorTitleString GlobalMList::editorTitle() const

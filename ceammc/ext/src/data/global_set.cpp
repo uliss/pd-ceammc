@@ -18,6 +18,7 @@ GlobalSet::GlobalSet(const PdArgs& a)
     : GlobalSetBase(a)
 {
     setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
+    createOutlet();
 }
 
 EditorTitleString GlobalSet::editorTitle() const

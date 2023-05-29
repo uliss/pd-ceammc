@@ -11,6 +11,8 @@ LocalList::LocalList(const PdArgs& a)
         [this]() -> AtomList { return list(); },
         [this](const AtomListView& lv) -> bool { list() = lv; return true; })
         ->setArgIndex(1);
+
+    createOutlet();
 }
 
 EditorTitleString LocalList::editorTitle() const
@@ -29,5 +31,5 @@ void setup_local_list()
 
     obj.setDescription("local named list object");
     obj.setCategory("local");
-    obj.setKeywords({"list", "global"});
+    obj.setKeywords({ "list", "global" });
 }

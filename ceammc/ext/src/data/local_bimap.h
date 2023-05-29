@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2017 Serge Poltavsky. All rights reserved.
+ * Copyright 2023 Serge Poltavski. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,23 +11,23 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef LOCAL_BASE_H
-#define LOCAL_BASE_H
+#ifndef LOCAL_BIMAP_H
+#define LOCAL_BIMAP_H
 
-#include "global_base.h"
+#include "data_bimap.h"
+#include "local_base.h"
 
-namespace ceammc {
+using LocalBiMapBase = LocalBase<std::pair<BiMap, AtomList>, DataBiMapBase>;
 
-PdArgs make_local_id(const PdArgs& a);
-
-template <typename T, typename Base = BaseObject>
-class LocalBase : public GlobalBase<T, Base> {
+class LocalBiMap : public LocalBiMapBase {
 public:
-    LocalBase(const PdArgs& a)
-        : GlobalBase<T, Base>(make_local_id(a))
-    {
-    }
+    LocalBiMap(const PdArgs& args);
+    BiMap& bimap() final { return ref().first; }
+    const BiMap& bimap() const final { return ref().first; }
+    AtomList& list() final { return ref().second; }
+    const AtomList& list() const final { return ref().second; }
 };
-}
 
-#endif // LOCAL_BASE_H
+void setup_local_bimap();
+
+#endif // LOCAL_BIMAP_H

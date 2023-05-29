@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2017 Serge Poltavsky. All rights reserved.
+ * Copyright 2023 Serge Poltavski. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,23 +11,17 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef LOCAL_BASE_H
-#define LOCAL_BASE_H
+#include "local_bimap.h"
+#include "ceammc_factory.h"
 
-#include "global_base.h"
-
-namespace ceammc {
-
-PdArgs make_local_id(const PdArgs& a);
-
-template <typename T, typename Base = BaseObject>
-class LocalBase : public GlobalBase<T, Base> {
-public:
-    LocalBase(const PdArgs& a)
-        : GlobalBase<T, Base>(make_local_id(a))
-    {
-    }
-};
+LocalBiMap::LocalBiMap(const PdArgs& args)
+    : LocalBiMapBase(args)
+{
+    setArgIndex(1); // first is @id
 }
 
-#endif // LOCAL_BASE_H
+void setup_local_bimap()
+{
+    ObjectFactory<LocalBiMap> obj("local.bimap");
+    LocalBiMap::registerMethods(obj);
+}

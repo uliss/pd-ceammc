@@ -18,6 +18,8 @@ LocalDict::LocalDict(const PdArgs& args)
     : LocalDictBase(args)
 {
     setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
+
+    createOutlet();
 }
 
 EditorTitleString LocalDict::editorTitle() const

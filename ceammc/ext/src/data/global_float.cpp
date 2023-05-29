@@ -4,6 +4,7 @@
 GlobalFloat::GlobalFloat(const PdArgs& a)
     : GlobalFloatBase(a)
 {
+    createOutlet();
 }
 
 void setup_global_float()

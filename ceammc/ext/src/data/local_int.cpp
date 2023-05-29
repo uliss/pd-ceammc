@@ -3,6 +3,7 @@
 LocalInt::LocalInt(const PdArgs& a)
     : LocalIntBase(a)
 {
+    createOutlet();
 }
 
 void setup_local_int()

@@ -18,6 +18,7 @@ LocalSet::LocalSet(const PdArgs& a)
     : LocalSetBase(a)
 {
     setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
+    createOutlet();
 }
 
 EditorTitleString LocalSet::editorTitle() const

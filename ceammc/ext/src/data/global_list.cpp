@@ -10,6 +10,8 @@ GlobalList::GlobalList(const PdArgs& a)
         [this]() -> AtomList { return list(); },
         [this](const AtomListView& lv) -> bool { list() = lv; return true; })
         ->setArgIndex(1);
+
+    createOutlet();
 }
 
 EditorTitleString GlobalList::editorTitle() const

@@ -14,7 +14,6 @@
 #ifndef GLOBAL_BASE_H
 #define GLOBAL_BASE_H
 
-#include "ceammc_format.h"
 #include "ceammc_globaldata.h"
 #include "ceammc_object.h"
 
@@ -22,31 +21,29 @@ namespace ceammc {
 
 constexpr const char* DEFAULT_ID = "default";
 
-template <typename T>
-class GlobalBase : public BaseObject {
+template <typename T, typename Base = BaseObject>
+class GlobalBase : public Base {
     GlobalData<T> data_;
     GlobalBase(const GlobalBase&) = delete;
     void operator=(const GlobalBase&) = delete;
 
 public:
     GlobalBase(const PdArgs& a)
-        : BaseObject(a)
-        , data_(parsedPosArgs().symbolAt(0, gensym(DEFAULT_ID)), a.className->s_name)
+        : Base(a)
+        , data_(this->parsedPosArgs().symbolAt(0, gensym(DEFAULT_ID)), a.className->s_name)
     {
         if (data_.name() == gensym(DEFAULT_ID))
             OBJ_DBG << "global object ID required! Using default id: " << data_.name();
 
-        createOutlet();
-
-        createCbSymbolProperty("@.id", [this]() -> t_symbol* { return data_.name(); })
+        this->createCbSymbolProperty("@.id", [this]() -> t_symbol* { return data_.name(); })
             ->setInternal();
 
-        createCbListProperty("@.obj_refs",
-            [this]() -> AtomList { return m_refs(); })
+        this->createCbListProperty("@.obj_refs",
+                [this]() -> AtomList { return m_refs(); })
             ->setInternal();
 
-        createCbListProperty("@.obj_keys",
-            [this]() -> AtomList { return m_keys(); })
+        this->createCbListProperty("@.obj_keys",
+                [this]() -> AtomList { return m_keys(); })
             ->setInternal();
     }
 
