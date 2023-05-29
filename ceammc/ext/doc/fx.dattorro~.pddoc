@@ -52,6 +52,12 @@
             diffusion factor 2</property>
             <property name="@bw" type="float" minvalue="0" maxvalue="1" default="0.9995">band-width
             filter (pre filtering)</property>
+            <!-- OSC -->
+            <property name="@osc" type="symbol" default="" access="initonly">OSC server name to
+            listen</property>
+            <property name="@id" type="symbol" default="" access="initonly">OSC address id. If
+            specified, bind properties to /ID/fx_dattorro/PROP_NAME osc address, if empty bind to
+            /fx_dattorro/PROP_NAME.</property>
         </properties>
         <inlets>
             <inlet type="audio">

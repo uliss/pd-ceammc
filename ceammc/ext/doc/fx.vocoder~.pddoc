@@ -14,6 +14,9 @@
             <keywords>vocoder</keywords>
             <since>0.7</since>
         </meta>
+        <methods>
+            <method name="reset">reset object</method>
+        </methods>
         <properties>
             <property name="@attack" type="float" minvalue="0.1" maxvalue="100" default="5"
             units="millisecond">attack time</property>
@@ -22,6 +25,12 @@
             <property name="@bwratio" type="float" minvalue="0.1" maxvalue="2" default="0.5">
             coefficient to adjust the bandwidth of each band</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- OSC -->
+            <property name="@osc" type="symbol" default="" access="initonly">OSC server name to
+            listen</property>
+            <property name="@id" type="symbol" default="" access="initonly">OSC address id. If
+            specified, bind properties to /ID/fx_vocoder/PROP_NAME osc address, if empty bind to
+            /fx_vocoder/PROP_NAME.</property>
         </properties>
         <inlets>
             <inlet type="audio">

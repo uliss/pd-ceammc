@@ -42,78 +42,90 @@ db. Default value: 10\. Range: -10\...20\.;
 #X msg 110 678 @hp_freq;
 #X text 245 678 Get/Set high pass frequency. Type: float. Units: Hz.
 Default value: 130\. Range: 20\...7040\.;
-#X msg 110 720 @level;
-#X text 245 720 Get/Set effect level. Type: float. Default value: 0.01\.
+#X msg 110 720 @id;
+#X text 245 720 (initonly) Get/Set OSC address id. If specified \,
+bind properties to /ID/fx_distortion1/PROP_NAME osc address \, if empty
+bind to /fx_distortion1/PROP_NAME. Type: symbol.;
+#X msg 110 777 @level;
+#X text 245 777 Get/Set effect level. Type: float. Default value: 0.01\.
 Range: 0\...0.5\.;
-#X msg 110 762 @low_drive;
-#X text 245 762 Get/Set distortion amount on low frequencies. Type:
+#X msg 110 819 @low_drive;
+#X text 245 819 Get/Set distortion amount on low frequencies. Type:
 float. Default value: 1\. Range: 0\...1\.;
-#X msg 110 804 @low_gain;
-#X text 245 804 Get/Set gain on low frequencies. Type: float. Units:
+#X msg 110 861 @low_gain;
+#X text 245 861 Get/Set gain on low frequencies. Type: float. Units:
 db. Default value: 10\. Range: -10\...20\.;
-#X msg 110 846 @lp_freq;
-#X text 245 846 Get/Set low pass frequency. Type: float. Units: Hz.
+#X msg 110 903 @lp_freq;
+#X text 245 903 Get/Set low pass frequency. Type: float. Units: Hz.
 Default value: 5000\. Range: 20\...12000\.;
-#X msg 110 888 @middle_h_drive;
-#X text 245 888 Get/Set distortion amount on middle high frequencies.
+#X msg 110 945 @middle_h_drive;
+#X text 245 945 Get/Set distortion amount on middle high frequencies.
 Type: float. Default value: 1\. Range: 0\...1\.;
-#X msg 110 930 @middle_h_gain;
-#X text 245 930 Get/Set gain on middle high frequencies. Type: float.
+#X msg 110 987 @middle_h_gain;
+#X text 245 987 Get/Set gain on middle high frequencies. Type: float.
 Units: db. Default value: 10\. Range: -10\...20\.;
-#X msg 110 972 @middle_l_drive;
-#X text 245 972 Get/Set distortion amount on middle low frequencies.
+#X msg 110 1029 @middle_l_drive;
+#X text 245 1029 Get/Set distortion amount on middle low frequencies.
 Type: float. Default value: 1\. Range: 0\...1\.;
-#X msg 110 1014 @middle_l_gain;
-#X text 245 1014 Get/Set gain on middle low frequencies. Type: float.
+#X msg 110 1071 @middle_l_gain;
+#X text 245 1071 Get/Set gain on middle low frequencies. Type: float.
 Units: db. Default value: 10\. Range: -10\...20\.;
-#X msg 110 1056 @res_on_off;
-#X text 245 1056 Get/Set resonator. Type: bool. Default value: 0\.;
-#X msg 110 1085 @sp_high_freq;
-#X text 245 1085 Get/Set speaker emulation high frequency. Type: float.
+#X msg 110 1113 @osc;
+#X text 245 1113 (initonly) Get/Set OSC server name to listen. Type:
+symbol.;
+#X msg 110 1142 @res_on_off;
+#X text 245 1142 Get/Set resonator. Type: bool. Default value: 0\.;
+#X msg 110 1171 @sp_high_freq;
+#X text 245 1171 Get/Set speaker emulation high frequency. Type: float.
 Units: Hz. Default value: 5000\. Range: 1000\...12000\.;
-#X msg 110 1127 @sp_low_freq;
-#X text 245 1127 Get/Set speaker emulation low frequency. Type: float.
+#X msg 110 1213 @sp_low_freq;
+#X text 245 1213 Get/Set speaker emulation low frequency. Type: float.
 Units: Hz. Default value: 130\. Range: 20\...1000\.;
-#X msg 110 1169 @sp_on_off;
-#X text 245 1169 Get/Set speaker emulation turn on/off. Type: bool.
+#X msg 110 1255 @sp_on_off;
+#X text 245 1255 Get/Set speaker emulation turn on/off. Type: bool.
 Default value: 0\.;
-#X msg 110 1211 @split_high_freq;
-#X text 245 1211 Get/Set high split frequency. Type: float. Units:
+#X msg 110 1297 @split_high_freq;
+#X text 245 1297 Get/Set high split frequency. Type: float. Units:
 Hz. Default value: 1250\. Range: 1250\...12000\.;
-#X msg 110 1253 @split_low_freq;
-#X text 245 1253 Get/Set low split frequency. Type: float. Units: Hz.
+#X msg 110 1339 @split_low_freq;
+#X text 245 1339 Get/Set low split frequency. Type: float. Units: Hz.
 Default value: 250\. Range: 20\...600\.;
-#X msg 110 1295 @split_middle_freq;
-#X text 245 1295 Get/Set middle split frequency. Type: float. Units:
+#X msg 110 1381 @split_middle_freq;
+#X text 245 1381 Get/Set middle split frequency. Type: float. Units:
 Hz. Default value: 650\. Range: 600\...1250\.;
-#X msg 110 1337 @trigger;
-#X text 245 1337 Get/Set resonator trigger. Type: float. Default value:
+#X msg 110 1423 @trigger;
+#X text 245 1423 Get/Set resonator trigger. Type: float. Default value:
 0.12\. Range: 0\...1\.;
-#X msg 110 1379 @vibrato;
-#X text 245 1379 Get/Set resonator vibration. Type: float. Default
+#X msg 110 1465 @vibrato;
+#X text 245 1465 Get/Set resonator vibration. Type: float. Default
 value: 1\. Range: 0\...1\.;
-#X obj 20 1431 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1436 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1517 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1522 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1437 1\.;
-#X text 245 1437 input signal.;
-#X obj 20 1467 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1472 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X msg 110 1557 reset;
+#X text 245 1557 reset object.;
+#X obj 20 1594 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1599 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1473 1\.;
-#X text 245 1473 output signal.;
+#X text 110 1600 1\.;
+#X text 245 1600 input signal.;
+#X obj 20 1630 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1635 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1636 1\.;
+#X text 245 1636 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1523 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1526 library: ceammc v0.9.6;
-#X text 316 1538 see also:;
-#X obj 390 1538 fx.distortion~;
-#X obj 507 1538 fx.distortion2~;
-#X obj 631 1538 fx.distortion3~;
-#N canvas 10 1545 400 290 info 0;
+#X obj 1 1686 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1689 library: ceammc v0.9.6;
+#X text 316 1701 see also:;
+#X obj 390 1701 fx.distortion~;
+#X obj 507 1701 fx.distortion2~;
+#X obj 631 1701 fx.distortion3~;
+#N canvas 10 1708 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -137,7 +149,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1545 pd info;
+#X restore 10 1708 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 7 0 10 0;
