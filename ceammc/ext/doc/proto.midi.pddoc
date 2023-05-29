@@ -108,8 +108,9 @@
             <method name="activesense">send Active Sense realtime message (0xFE)</method>
             <method name="sysreset">send System Reset realtime message (0xFF)</method>
             <!-- raw -->
-            <method name="raw">send raw midi bytes
-            <param type="list" required="true" name="DATA">raw midi data: integers in [0-127] range or hex values: Ox3F etc.</param></method>
+            <method name="raw">send raw midi bytes 
+            <param type="list" required="true" name="DATA">raw midi data: integers in [0-127] range
+            or hex values: Ox3F etc.</param></method>
         </methods>
         <inlets>
             <inlet>
@@ -119,8 +120,8 @@
         </inlets>
         <outlets>
             <outlet>float: raw midi bytes</outlet>
-            <outlet>parsed messages with selector (output format same as
-            for corresponding methods)</outlet>
+            <outlet>parsed messages with selector (output format same as for corresponding
+            methods)</outlet>
         </outlets>
         <example>
             <pdascii>
