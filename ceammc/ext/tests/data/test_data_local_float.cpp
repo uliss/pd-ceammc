@@ -25,22 +25,19 @@ TEST_CASE("local.float", "[externals]")
     {
         SECTION("default")
         {
-            TestLocalFloat t("local.float");
+            TExt t("local.float");
             REQUIRE(t.numInlets() == 1);
-            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @value, 0);
-
-            WHEN_SEND_FLOAT_TO(0, t, 100);
-            REQUIRE_PROPERTY_FLOAT(t, @value, 100);
         }
     }
 
     SECTION("do")
     {
-        TestExtLocalFloat t1("local.float");
+        TExt t1("local.float");
         REQUIRE(t1.object());
 
-        TestExtLocalFloat t2("local.float");
+        TExt t2("local.float");
         REQUIRE(t2.object());
 
         t1 << BANG;
@@ -64,13 +61,13 @@ TEST_CASE("local.float", "[externals]")
         t1 << BANG;
         REQUIRE(t1.outputFloatAt(0) == Approx(-10));
 
-        TestExtLocalFloat t3("local.float", A("F1"));
+        TExt t3("local.float", A("F1"));
         REQUIRE(t3.object());
 
-        TestExtLocalFloat t4("local.float", A("F1"));
+        TExt t4("local.float", A("F1"));
         REQUIRE(t4.object());
 
-        TestExtLocalFloat t5("local.float", A("F2"));
+        TExt t5("local.float", A("F2"));
         REQUIRE(t5.object());
 
         t2 << 2000;
@@ -96,12 +93,12 @@ TEST_CASE("local.float", "[externals]")
         SECTION("scope")
         {
             {
-                TestExtLocalFloat t6("local.float", A("F3"));
+                TExt t6("local.float", A("F3"));
                 t6 << 200;
             }
 
             // ouf of scope new var
-            TestExtLocalFloat t6("local.float", A("F3"));
+            TExt t6("local.float", A("F3"));
             t6 << BANG;
             REQUIRE(t6.outputFloatAt(0) == 0.f);
         }
@@ -109,7 +106,7 @@ TEST_CASE("local.float", "[externals]")
 
     SECTION("set")
     {
-        TestExtLocalFloat t("local.float", A("F_set"));
+        TExt t("local.float", A("F_set"));
 
         t.call("set", 10);
         REQUIRE_FALSE(t.hasOutput());
@@ -119,7 +116,7 @@ TEST_CASE("local.float", "[externals]")
 
     SECTION("iface")
     {
-        TestExtLocalFloat t("local.float", LA("f1"));
+        TExt t("local.float", LA("f1"));
 
         t << 100.f;
 
