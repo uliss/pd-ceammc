@@ -17,6 +17,9 @@
                 <see>data.list</see>
             </also>
         </meta>
+        <mouse>
+            <event editmode="false" type="left-click">open data editor</event>
+        </mouse>
         <arguments>
             <argument name="X" type="any">set elements</argument>
         </arguments>

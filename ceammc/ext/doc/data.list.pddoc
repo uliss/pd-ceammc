@@ -16,6 +16,9 @@
                 <see>data.fifo</see>
             </also>
         </meta>
+        <mouse>
+            <event editmode="false" type="left-click">open data editor</event>
+        </mouse>
         <arguments>
             <argument name="VALUE" type="list">initial list values</argument>
         </arguments>
