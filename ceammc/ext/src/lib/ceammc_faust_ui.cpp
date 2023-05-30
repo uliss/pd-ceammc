@@ -15,6 +15,7 @@
 #include "ceammc_crc32.h"
 #include "ceammc_log.h"
 #include "fmt/core.h"
+#include "lex/parser_faust.h"
 #include "lex/parser_units.h"
 
 using namespace ceammc::faust;
@@ -403,6 +404,9 @@ void DeclareValue::update(const FAUSTFLOAT* value, UIElementPtr& e)
 
     if (update_flags_ & UPDATE_UNITS)
         e->setUnits(units_);
+
+    if (update_flags_ & UPDATE_ENUM)
+        e->setEnumData(std::move(enum_));
 }
 
 void DeclareValue::setValue(const FAUSTFLOAT* v)
@@ -424,12 +428,30 @@ void DeclareValue::setUnits(PropValueUnits u)
 
 void DeclareValue::setStyle(const char* str)
 {
-    LIB_DBG << fmt::format("style is not supported yet: {}", str);
+    if (strncmp(str, "menu{", 5) == 0) {
+        std::vector<std::string> enums;
+
+        if (parser::parse_faust_style_menu(str + 4, [&enums](const std::string& key, int idx) {
+                enums.push_back(key);
+            })) {
+
+            for (auto& k : enums)
+                enum_.emplace_back(k.c_str());
+
+            update_flags_ |= UPDATE_ENUM;
+        }
+    }
 }
 
 UIEnumEntry::UIEnumEntry(const char* name)
     : name_(name)
     , hash_(crc32_hash(name))
+{
+}
+
+UIEnumEntry::UIEnumEntry(const UIEnumEntry& x)
+    : name_(x.name_)
+    , hash_(x.hash_)
 {
 }
 

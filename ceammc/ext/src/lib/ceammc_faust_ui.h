@@ -35,6 +35,21 @@ namespace faust {
         UI_T_GROUP
     };
 
+    class UIEnumEntry {
+        const ceammc::BoostStaticString<10> name_;
+        const std::uint32_t hash_;
+
+    public:
+        explicit UIEnumEntry(const char* name);
+        explicit UIEnumEntry(const UIEnumEntry& x);
+        bool operator==(std::uint32_t hash) const { return hash_ == hash; }
+        bool operator==(const char* name) const;
+        const char* name() const { return name_.c_str(); }
+        std::uint32_t hash() const { return hash_; }
+    };
+
+    using UIEnumList = std::vector<UIEnumEntry>;
+
     class UIElement {
         UIElementType type_;
         t_symbol* label_;
@@ -43,6 +58,7 @@ namespace faust {
         t_symbol* set_prop_symbol_;
         t_symbol* get_prop_symbol_;
         PropertyInfo pinfo_;
+        UIEnumList enum_data_;
 
     public:
         UIElement(UIElementType t, const char* label);
@@ -73,6 +89,9 @@ namespace faust {
         void setUnits(PropValueUnits u) { pinfo_.setUnits(u); }
         void setType(PropValueType t) { pinfo_.setType(t); }
 
+        const UIEnumList& enumData() const { return enum_data_; }
+        void setEnumData(UIEnumList&& data) { enum_data_ = std::move(data); }
+
     private:
         void initProperty();
     };
@@ -81,20 +100,6 @@ namespace faust {
     using UIElementPtr = std::unique_ptr<UIElement>;
     using OscSegmentList = std::vector<const t_symbol*>;
     using UIList = std::vector<UIElementPtr>;
-
-    class UIEnumEntry {
-        const ceammc::BoostStaticString<10> name_;
-        const std::uint32_t hash_;
-
-    public:
-        explicit UIEnumEntry(const char* name);
-        bool operator==(std::uint32_t hash) const { return hash_ == hash; }
-        bool operator==(const char* name) const;
-        const char* name() const { return name_.c_str(); }
-        std::uint32_t hash() const { return hash_; }
-    };
-
-    using UIEnumList = std::vector<UIEnumEntry>;
 
     // functions
     PropValueUnits to_units(const char* u);
@@ -105,13 +110,15 @@ namespace faust {
             UPDATE_NONE = 0,
             UPDATE_TYPE = 1,
             UPDATE_UNITS = 1 << 1,
-            UPDATE_STYLE = 1 << 1,
+            UPDATE_STYLE = 1 << 2,
+            UPDATE_ENUM = 1 << 3,
         };
 
         const FAUSTFLOAT* value_ { 0 };
         PropValueType type_ { PropValueType::FLOAT };
         PropValueUnits units_ { PropValueUnits::NONE };
         std::uint8_t update_flags_ { UPDATE_NONE };
+        UIEnumList enum_;
 
     public:
         void reset();

@@ -445,6 +445,7 @@ namespace faust {
     UIProperty::UIProperty(UIElement* el)
         : Property(el->propInfo())
         , el_(el)
+        , enum_data_(el->enumData())
     {
     }
 
@@ -483,8 +484,8 @@ namespace faust {
             for (size_t i = 0; i < enum_data_.size(); i++) {
                 if (i != 0)
                     res += '|';
-                else
-                    res += enum_data_[i].name();
+
+                res += enum_data_[i].name();
             }
         }
 
