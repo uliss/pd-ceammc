@@ -1,13 +1,13 @@
-#include "fx_scrambler.h"
+#include "fx_scramble.h"
 #include "ceammc_factory.h"
 #include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
-class FxScrambler : public faust_fx_scrambler_tilde {
+class FxScrambler : public faust_fx_scramble_tilde {
 public:
     FxScrambler(const PdArgs& args)
-        : faust_fx_scrambler_tilde(args)
+        : faust_fx_scramble_tilde(args)
     {
         bindPositionalArgsToProps({ "@freq1", "@freq2" });
     }

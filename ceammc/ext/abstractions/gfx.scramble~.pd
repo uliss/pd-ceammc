@@ -1,8 +1,8 @@
 #N canvas 0 0 950 600 12;
-#X obj 25 125 fx.scrambler~;
+#X obj 25 125 fx.scramble~;
 #X obj 25 25 inlet~;
 #X obj 425 25 inlet;
-#X obj 425 125 route fx.scrambler * .;
+#X obj 425 125 route fx.scramble * .;
 #X obj 625 150 route.prop;
 #X obj 475 200 msg *;
 #X obj 425 250 route @bypass @dev @drywet @feedback @freq1 @freq2
@@ -10,7 +10,7 @@
 #X obj 675 350 t b a;
 #X msg 675 375 supported messages are: @bypass @dev @drywet @feedback @freq1 @freq2 @range default reset;
 #X obj 675 425 print;
-#X obj 725 425 print [gfx.scrambler~] unknown message;
+#X obj 725 425 print [gfx.scramble~] unknown message;
 #X msg 325 75 @dev 0.25 \, @drywet 0.5 \, @feedback 0.25 \, @freq1 7 \, @freq2 5 \, @range 0.5 \,;
 #X obj 25 50 t b b;
 #X msg 25 75 reset;
@@ -19,45 +19,45 @@
 #X obj 600 550 outlet~;
 #X obj 700 550 outlet ctl;
 #X obj 3 202 cnv 8 198 201 empty empty empty 17 7 0 10 -174763 -1 0;
-#X obj 3 202 cnv 8 198 18 empty empty [fx.scrambler~] 3 9 0 12 -104026
+#X obj 3 202 cnv 8 198 18 empty empty [fx.scramble~] 3 9 0 12 -104026
 -262144 0;
 #X obj 185 205 ui.toggle @size 12 12 @label bypass @label_side left
 @label_align right @fontsize 10 @presetname
-/gui/\$1/fx.scrambler~/checkbox0;
+/gui/\$1/fx.scramble~/checkbox0;
 #X msg 260 218 @bypass \$1;
 #X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label dev:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/fx.scrambler~/slider1 @min 0 @max 1;
+/gui/\$1/fx.scramble~/slider1 @min 0 @max 1;
 #X obj 215 236 sync;
 #X obj 145 236 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 236 @dev \$1;
 #X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label drywet:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/fx.scrambler~/slider2 @min 0 @max 1;
+/gui/\$1/fx.scramble~/slider2 @min 0 @max 1;
 #X obj 215 266 sync;
 #X obj 145 266 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 266 @drywet \$1;
 #X obj 12 296 ui.slider @size 125 12 @active_scale 1 @label feedback:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/fx.scrambler~/slider3 @min 0 @max 0.99;
+/gui/\$1/fx.scramble~/slider3 @min 0 @max 0.99;
 #X obj 215 296 sync;
 #X obj 145 296 ui.number @size 50 12 @min 0 @max 0.99 @digits 4;
 #X msg 260 296 @feedback \$1;
 #X obj 12 326 ui.slider @size 125 12 @active_scale 1 @label freq1(hz):
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/fx.scrambler~/slider4 @min 0.25 @max 50;
+/gui/\$1/fx.scramble~/slider4 @min 0.25 @max 50;
 #X obj 215 326 sync;
 #X obj 145 326 ui.number @size 50 12 @min 0.25 @max 50 @digits 2;
 #X msg 260 326 @freq1 \$1;
 #X obj 12 356 ui.slider @size 125 12 @active_scale 1 @label freq2(hz):
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/fx.scrambler~/slider5 @min 0.25 @max 50;
+/gui/\$1/fx.scramble~/slider5 @min 0.25 @max 50;
 #X obj 215 356 sync;
 #X obj 145 356 ui.number @size 50 12 @min 0.25 @max 50 @digits 2;
 #X msg 260 356 @freq2 \$1;
 #X obj 12 386 ui.slider @size 125 12 @active_scale 1 @label range:
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/fx.scrambler~/slider6 @min 0 @max 1;
+/gui/\$1/fx.scramble~/slider6 @min 0 @max 1;
 #X obj 215 386 sync;
 #X obj 145 386 ui.number @size 50 12 @min 0 @max 1 @digits 4;
 #X msg 260 386 @range \$1;

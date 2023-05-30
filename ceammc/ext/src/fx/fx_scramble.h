@@ -1,13 +1,13 @@
 /* ------------------------------------------------------------
 author: "Serge Poltavski"
-name: "fx.scrambler"
+name: "fx.scramble"
 version: "0.1"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn fx_scrambler -scn fx_scrambler_dsp -es 1 -mcd 16 -single -ftz 0
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn fx_scramble -scn fx_scramble_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
-#ifndef  __fx_scrambler_H__
-#define  __fx_scrambler_H__
+#ifndef  __fx_scramble_H__
+#define  __fx_scramble_H__
 
 // FAUST Architecture File for ceammc::SoundExternal class
 #include <cmath>
@@ -16,7 +16,7 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arc
 #include <memory>
 #include <string>
 
-/************************** BEGIN fx_scrambler_dsp.h ********************************
+/************************** BEGIN fx_scramble_dsp.h ********************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
  ---------------------------------------------------------------------
@@ -155,12 +155,12 @@ struct FAUST_API dsp_memory_manager {
 * Signal processor definition.
 */
 
-class FAUST_API fx_scrambler_dsp {
+class FAUST_API fx_scramble_dsp {
 
     public:
 
-        fx_scrambler_dsp() {}
-        virtual ~fx_scrambler_dsp() {}
+        fx_scramble_dsp() {}
+        virtual ~fx_scramble_dsp() {}
 
         /* Return instance number of audio inputs */
         virtual int getNumInputs() = 0;
@@ -213,7 +213,7 @@ class FAUST_API fx_scrambler_dsp {
          *
          * @return a copy of the instance on success, otherwise a null pointer.
          */
-        virtual fx_scrambler_dsp* clone() = 0;
+        virtual fx_scramble_dsp* clone() = 0;
     
         /**
          * Trigger the Meta* parameter with instance specific calls to 'declare' (key, value) metadata.
@@ -249,15 +249,15 @@ class FAUST_API fx_scrambler_dsp {
  * Generic DSP decorator.
  */
 
-class FAUST_API decorator_dsp : public fx_scrambler_dsp {
+class FAUST_API decorator_dsp : public fx_scramble_dsp {
 
     protected:
 
-        fx_scrambler_dsp* fDSP;
+        fx_scramble_dsp* fDSP;
 
     public:
 
-        decorator_dsp(fx_scrambler_dsp* fx_scrambler_dsp = nullptr):fDSP(fx_scrambler_dsp) {}
+        decorator_dsp(fx_scramble_dsp* fx_scramble_dsp = nullptr):fDSP(fx_scramble_dsp) {}
         virtual ~decorator_dsp() { delete fDSP; }
 
         virtual int getNumInputs() { return fDSP->getNumInputs(); }
@@ -298,7 +298,7 @@ class FAUST_API dsp_factory {
         virtual std::vector<std::string> getLibraryList() = 0;
         virtual std::vector<std::string> getIncludePathnames() = 0;
     
-        virtual fx_scrambler_dsp* createDSPInstance() = 0;
+        virtual fx_scramble_dsp* createDSPInstance() = 0;
     
         virtual void setMemoryManager(dsp_memory_manager* manager) = 0;
         virtual dsp_memory_manager* getMemoryManager() = 0;
@@ -368,7 +368,7 @@ class FAUST_API ScopedNoDenormals {
 
 #endif
 
-/************************** END fx_scrambler_dsp.h **************************/
+/************************** END fx_scramble_dsp.h **************************/
 /************************** BEGIN misc.h *******************************
 FAUST Architecture File
 Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
@@ -432,7 +432,7 @@ architecture section is not modified.
 
 
 /**
- The base class of Meta handler to be used in fx_scrambler_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
+ The base class of Meta handler to be used in fx_scramble_dsp::metadata(Meta* m) method to retrieve (key, value) metadata.
  */
 struct FAUST_API Meta {
     virtual ~Meta() {}
@@ -527,7 +527,7 @@ using namespace ceammc::faust;
 
 // clang-format off
 #ifndef FAUST_MACRO
-struct fx_scrambler : public fx_scrambler_dsp {
+struct fx_scramble : public fx_scramble_dsp {
 };
 #endif
 // clang-format on
@@ -544,7 +544,7 @@ struct fx_scrambler : public fx_scrambler_dsp {
 #include <math.h>
 
 #ifndef FAUSTCLASS 
-#define FAUSTCLASS fx_scrambler
+#define FAUSTCLASS fx_scramble
 #endif
 
 #ifdef __APPLE__ 
@@ -558,11 +558,11 @@ struct fx_scrambler : public fx_scrambler_dsp {
 #define RESTRICT __restrict__
 #endif
 
-static float fx_scrambler_faustpower2_f(float value) {
+static float fx_scramble_faustpower2_f(float value) {
 	return value * value;
 }
 
-class fx_scrambler : public fx_scrambler_dsp {
+class fx_scramble : public fx_scramble_dsp {
 	
  private:
 	
@@ -616,7 +616,7 @@ class fx_scrambler : public fx_scrambler_dsp {
 		m->declare("ceammc.lib/version", "0.1.4");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn fx_scrambler -scn fx_scrambler_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn fx_scramble -scn fx_scramble_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("compressors.lib/FFcompressor_N_chan:author", "Bart Brouns");
 		m->declare("compressors.lib/FFcompressor_N_chan:license", "GPLv3");
 		m->declare("compressors.lib/name", "Faust Compressor Effect Library");
@@ -629,7 +629,7 @@ class fx_scrambler : public fx_scrambler_dsp {
 		m->declare("delays.lib/fdelayltv:author", "Julius O. Smith III");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
-		m->declare("filename", "fx_scrambler.dsp");
+		m->declare("filename", "fx_scramble.dsp");
 		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/nlf2:author", "Julius O. Smith III");
@@ -641,7 +641,7 @@ class fx_scrambler : public fx_scrambler_dsp {
 		m->declare("maths.lib/license", "LGPL with exception");
 		m->declare("maths.lib/name", "Faust Math Library");
 		m->declare("maths.lib/version", "2.5");
-		m->declare("name", "fx.scrambler");
+		m->declare("name", "fx.scramble");
 		m->declare("noises.lib/name", "Faust Noise Generator Library");
 		m->declare("noises.lib/version", "0.4");
 		m->declare("oscillators.lib/name", "Faust Oscillator Library");
@@ -769,8 +769,8 @@ class fx_scrambler : public fx_scrambler_dsp {
 		instanceClear();
 	}
 	
-	virtual fx_scrambler* clone() {
-		return new fx_scrambler();
+	virtual fx_scramble* clone() {
+		return new fx_scramble();
 	}
 	
 	virtual int getSampleRate() {
@@ -778,7 +778,7 @@ class fx_scrambler : public fx_scrambler_dsp {
 	}
 	
 	virtual void buildUserInterface(UI* ui_interface) {
-		ui_interface->openVerticalBox("fx.scrambler");
+		ui_interface->openVerticalBox("fx.scramble");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->addHorizontalSlider("dev", &fHslider4, FAUSTFLOAT(0.25f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.001f));
 		ui_interface->declare(&fHslider0, "style", "knob");
@@ -818,7 +818,7 @@ class fx_scrambler : public fx_scrambler_dsp {
 			float fTemp4 = fTemp3 * (1.0f - fRec1[0]);
 			float fTemp5 = 2e+01f * std::log10(std::max<float>(1.1754944e-38f, std::fabs(fSlow2 * fRec2[1])));
 			int iTemp6 = (fTemp5 > -11.0f) + (fTemp5 > -9.0f);
-			float fTemp7 = 0.0f - 0.5f * std::max<float>(0.0f, ((iTemp6 == 0) ? 0.0f : ((iTemp6 == 1) ? 0.25f * fx_scrambler_faustpower2_f(fTemp5 + 11.0f) : fTemp5 + 1e+01f)));
+			float fTemp7 = 0.0f - 0.5f * std::max<float>(0.0f, ((iTemp6 == 0) ? 0.0f : ((iTemp6 == 1) ? 0.25f * fx_scramble_faustpower2_f(fTemp5 + 11.0f) : fTemp5 + 1e+01f)));
 			float fTemp8 = ((fTemp7 > fRec3[1]) ? fConst4 : fConst3);
 			fRec3[0] = fTemp7 * (1.0f - fTemp8) + fRec3[1] * fTemp8;
 			float fTemp9 = fTemp3 + fSlow2 * fRec2[1] * std::pow(1e+01f, 0.05f * fRec3[0]);
@@ -849,7 +849,7 @@ class fx_scrambler : public fx_scrambler_dsp {
 			output0[i0] = FAUSTFLOAT(fTemp2 * (fTemp4 + fRec1[0] * fRec2[0]) + fTemp24);
 			float fTemp25 = 2e+01f * std::log10(std::max<float>(1.1754944e-38f, std::fabs(fSlow2 * fRec11[1])));
 			int iTemp26 = (fTemp25 > -11.0f) + (fTemp25 > -9.0f);
-			float fTemp27 = 0.0f - 0.5f * std::max<float>(0.0f, ((iTemp26 == 0) ? 0.0f : ((iTemp26 == 1) ? 0.25f * fx_scrambler_faustpower2_f(fTemp25 + 11.0f) : fTemp25 + 1e+01f)));
+			float fTemp27 = 0.0f - 0.5f * std::max<float>(0.0f, ((iTemp26 == 0) ? 0.0f : ((iTemp26 == 1) ? 0.25f * fx_scramble_faustpower2_f(fTemp25 + 11.0f) : fTemp25 + 1e+01f)));
 			float fTemp28 = ((fTemp27 > fRec12[1]) ? fConst4 : fConst3);
 			fRec12[0] = fTemp27 * (1.0f - fTemp28) + fRec12[1] * fTemp28;
 			float fTemp29 = fTemp3 + fSlow2 * fRec11[1] * std::pow(1e+01f, 0.05f * fRec12[0]);
@@ -901,10 +901,10 @@ class fx_scrambler : public fx_scrambler_dsp {
 };
 #endif
 
-class faust_fx_scrambler_tilde : public FaustExternal<fx_scrambler> {
+class faust_fx_scramble_tilde : public FaustExternal<fx_scramble> {
 public:
-    faust_fx_scrambler_tilde(const ceammc::PdArgs& args)
-        : FaustExternal(args, sym(fx_scrambler))
+    faust_fx_scramble_tilde(const ceammc::PdArgs& args)
+        : FaustExternal(args, sym(fx_scramble))
     {
     }
 };

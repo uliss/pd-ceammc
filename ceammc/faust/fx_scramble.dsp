@@ -1,4 +1,4 @@
-declare name 	"fx.scrambler";
+declare name 	"fx.scramble";
 declare author 	"Serge Poltavski";
 declare version "0.1";
 
