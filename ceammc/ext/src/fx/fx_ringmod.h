@@ -604,12 +604,12 @@ class fx_ringmod : public fx_ringmod_dsp {
 	
  private:
 	
+	int iVec0[2];
 	FAUSTFLOAT fCheckbox0;
 	int fSampleRate;
 	float fConst1;
 	FAUSTFLOAT fHslider0;
 	float fConst2;
-	int iVec0[2];
 	float fRec1[2];
 	FAUSTFLOAT fHslider1;
 	FAUSTFLOAT fHslider2;
@@ -760,6 +760,7 @@ class fx_ringmod : public fx_ringmod_dsp {
 		ui_interface->addHorizontalSlider("freq", &fHslider3, FAUSTFLOAT(1.5e+02f), FAUSTFLOAT(0.5f), FAUSTFLOAT(2.205e+04f), FAUSTFLOAT(0.1f));
 		ui_interface->addHorizontalSlider("offset", &fHslider2, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.001f));
 		ui_interface->declare(&fEntry0, "style", "menu{'mod':0,'osc':1,'noise':2}");
+		ui_interface->declare(&fEntry0, "type", "int");
 		ui_interface->addNumEntry("src", &fEntry0, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(2.0f), FAUSTFLOAT(1.0f));
 		ui_interface->closeBox();
 	}
@@ -783,8 +784,8 @@ class fx_ringmod : public fx_ringmod_dsp {
 		float fSlow12 = std::cos(fSlow10);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			iVec0[0] = 1;
-			fRec1[0] = fSlow2 + fConst2 * fRec1[1];
 			float fTemp0 = float(input0[i0]);
+			fRec1[0] = fSlow2 + fConst2 * fRec1[1];
 			fRec2[0] = fSlow4 + fConst2 * fRec2[1];
 			fRec4[0] = fSlow9 + (fRec4[1] - std::floor(fSlow9 + fRec4[1]));
 			fRec6[0] = fSlow11 * fRec7[1] + fSlow12 * fRec6[1];
@@ -792,10 +793,9 @@ class fx_ringmod : public fx_ringmod_dsp {
 			int iTemp1 = (fRec6[1] <= 0.0f) & (fRec6[0] > 0.0f);
 			iRec8[0] = 1103515245 * iRec8[1] + 12345;
 			fRec5[0] = fRec5[1] * float(1 - iTemp1) + 4.656613e-10f * float(iRec8[0]) * float(iTemp1);
-			float fTemp2 = fSlow1 * (fRec1[0] * tanhf(fSlow3 * fTemp0 * (fRec2[0] + ((iSlow6) ? fRec5[0] : ((iSlow7) ? ftbl0fx_ringmodSIG0[int(65536.0f * fRec4[0])] : float(input1[i0]))))) + fTemp0 * (1.0f - fRec1[0]));
-			float fTemp3 = fSlow0 * fTemp0;
-			fVec2[0] = fTemp3 + fTemp2;
-			fRec0[0] = fTemp2 + fTemp3 + 0.995f * fRec0[1] - fVec2[1];
+			float fTemp2 = fSlow0 * fTemp0 + fSlow1 * (fRec1[0] * tanhf(fSlow3 * fTemp0 * (fRec2[0] + ((iSlow6) ? fRec5[0] : ((iSlow7) ? ftbl0fx_ringmodSIG0[int(65536.0f * fRec4[0])] : float(input1[i0]))))) + fTemp0 * (1.0f - fRec1[0]));
+			fVec2[0] = fTemp2;
+			fRec0[0] = 0.995f * fRec0[1] + fTemp2 - fVec2[1];
 			output0[i0] = FAUSTFLOAT(fRec0[0]);
 			iVec0[1] = iVec0[0];
 			fRec1[1] = fRec1[0];

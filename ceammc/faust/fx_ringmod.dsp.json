@@ -108,7 +108,8 @@
 					"shortname": "src",
 					"address": "/fx.ringmod/src",
 					"meta": [
-						{ "style": "menu{'mod':0,'osc':1,'noise':2}" }
+						{ "style": "menu{'mod':0,'osc':1,'noise':2}" },
+						{ "type": "int" }
 					],
 					"init": 0,
 					"min": 0,

@@ -17,6 +17,8 @@ void setup_fx_ringmod_tilde()
 {
     FaustFactory<FxRingMod> obj("fx.ringmod~");
 
+    obj.setXletsInfo({ "carrier", "modulator" }, { "output" });
+
     obj.setDescription("simple ring modulation effect");
     obj.setCategory("fx");
     obj.setKeywords({ "fx", "ring", "modulation" });
