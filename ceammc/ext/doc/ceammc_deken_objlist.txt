@@ -542,6 +542,7 @@ fx.pitchshift_s~	signal version of fx.pitchshift~
 fx.pitchshift~	simple pitch shifter based on 2 delay lines
 fx.rb_pitchshift~	rubber band pitchshift
 fx.recho~	reversed echo effect
+fx.ringmod~	ring modulator effect
 fx.room~	Gardners room emulation algorithms
 fx.satrev~	Schroeder reverberator from 1971
 fx.scramble~	scramble delayed sound fragments

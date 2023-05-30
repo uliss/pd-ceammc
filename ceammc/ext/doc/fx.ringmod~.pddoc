@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="fx.ringmod~">
+        <title>fx.ringmod~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>ring modulator effect</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx ring carrier modulate</keywords>
+            <since>0.9.7</since>
+        </meta>
+        <arguments>
+            <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">dry/wet ratio</argument>
+        </arguments>
+        <properties>
+            <property name="@src" type="int" default="0" minvalue="0" maxvalue="2">modulator
+            source. 0: modulator from second inlet, 1: internal sinusoid oscilallator, 2: internal
+            low freq noise.</property>
+            <property name="@freq" type="float" default="150" minvalue="0.5" maxvalue="22050"
+            units="hertz">internal modulator frequency</property>
+            <property name="@drive" type="float" default="1" minvalue="1" maxvalue="10">overdrive
+            effect after modulator</property>
+            <property name="@offset" type="float" default="0" minvalue="0" maxvalue="1">modulator
+            offset</property>
+            <!-- common fx -->
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.5">
+            proportion of mix between the original (dry) and 'effected' (wet) signals. 0 - dry
+            signal, 1 - wet</property>
+            <property name="@bypass" type="bool" default="0">if set to 1 - bypass 'effected'
+            signal.</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- OSC -->
+            <property name="@osc" type="symbol" default="" access="initonly">OSC server name to
+            listen</property>
+            <property name="@id" type="symbol" default="" access="initonly">OSC address id. If
+            specified, bind properties to /ID/fx_ringmod/PROP_NAME osc address, if empty bind to
+            /fx_ringmod/PROP_NAME.</property>
+        </properties>
+        <methods>
+            <method name="reset">reset object</method>
+        </methods>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>carrier</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>modulator</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %CEAMMC%/guitar1.wav, 1(
+|
+[expand_env]
+|
+[readsf~]     [ui.tab mod osc noise]
+|             |
+|             |         [F]  [20(
+|             |         |    |
+|             [@src $1( [@freq $1 #a(  [osc.tri~ 400 #b]
+|             |
+|             |
+[fx.ringmod~ 0.75        #x]
+|
+[ui.gain~ @size 120 14] [ui.dsp~]
+|\
+[dac~]
+
+[X a->x]
+[X b->x:1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

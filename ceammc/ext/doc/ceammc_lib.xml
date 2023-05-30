@@ -891,6 +891,9 @@
     <entry name="fx.recho~" descr="reversed echo effect" ref_view="object">
       <xi:include href="fx.recho~.pddoc" parse="xml"/>
     </entry>
+    <entry name="fx.ringmod~" descr="ring modulator effect" ref_view="object">
+      <xi:include href="fx.ringmod~.pddoc" parse="xml"/>
+    </entry>
     <entry name="fx.room~" descr="Gardners room emulation algorithms" ref_view="object">
       <xi:include href="fx.room~.pddoc" parse="xml"/>
     </entry>

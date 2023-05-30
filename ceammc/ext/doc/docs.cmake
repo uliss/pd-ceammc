@@ -253,6 +253,7 @@ set(DOC_FILES
     fx.pitchshift~
     fx.rb_pitchshift~
     fx.recho~
+    fx.ringmod~
     fx.room~
     fx.satrev~
     fx.scramble~

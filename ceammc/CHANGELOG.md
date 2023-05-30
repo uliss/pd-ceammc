@@ -20,10 +20,11 @@
   - dyn.comp_up~ - upward mono compressor
   - dyn.comp_up2~ - upward stereo compressor with channel linking
   - dyn.expand~ - mono dynamic range expander (attenuate levels under the threshold)
-  - fx.overdrive~ - overdrive effect
-  - fx.tremolo~ - tremolo effect from guitarix library
   - flt.speaker~ - low pass and high pass filter effect
+  - fx.overdrive~ - overdrive effect
+  - fx.ringmod~ - ring modulation
   - fx.scramble~ - scramble delayed fragments
+  - fx.tremolo~ - tremolo effect from guitarix library
   - local.bimap - canvas local scope bimap container
   - metro.choice - randomly (uniformly) metronome time interval choice from specified set
   - metro.wchoice - weighted metronome time interval choice from specified set
