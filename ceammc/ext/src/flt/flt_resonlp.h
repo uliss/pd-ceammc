@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "flt.resonlp"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_resonlp -scn flt_resonlp_dsp -es 1 -mcd 16 -double -ftz 0
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn flt_resonlp -scn flt_resonlp_dsp -es 1 -mcd 16 -double -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __flt_resonlp_H__
@@ -367,92 +367,40 @@ class FAUST_API ScopedNoDenormals {
 #endif
 
 /************************** END flt_resonlp_dsp.h **************************/
-/************************** BEGIN UI.h *****************************
- FAUST Architecture File
- Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
- ---------------------------------------------------------------------
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 2.1 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU Lesser General Public License for more details.
- 
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- 
- EXCEPTION : As a special exception, you may create a larger work
- that contains this FAUST architecture section and distribute
- that work under terms of your choice, so long as this FAUST
- architecture section is not modified.
- ********************************************************************/
+/************************** BEGIN misc.h *******************************
+FAUST Architecture File
+Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+---------------------------------------------------------------------
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 2.1 of the License, or
+(at your option) any later version.
 
-#ifndef __UI_H__
-#define __UI_H__
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
 
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-#ifndef FAUSTFLOAT
-#define FAUSTFLOAT float
-#endif
+EXCEPTION : As a special exception, you may create a larger work
+that contains this FAUST architecture section and distribute
+that work under terms of your choice, so long as this FAUST
+architecture section is not modified.
+***************************************************************************/
 
-/*******************************************************************************
- * UI : Faust DSP User Interface
- * User Interface as expected by the buildUserInterface() method of a DSP.
- * This abstract class contains only the method that the Faust compiler can
- * generate to describe a DSP user interface.
- ******************************************************************************/
+#ifndef __misc__
+#define __misc__
 
-struct Soundfile;
+#include <algorithm>
+#include <map>
+#include <cstdlib>
+#include <string.h>
+#include <fstream>
+#include <string>
 
-template <typename REAL>
-struct FAUST_API UIReal {
-    
-    UIReal() {}
-    virtual ~UIReal() {}
-    
-    // -- widget's layouts
-    
-    virtual void openTabBox(const char* label) = 0;
-    virtual void openHorizontalBox(const char* label) = 0;
-    virtual void openVerticalBox(const char* label) = 0;
-    virtual void closeBox() = 0;
-    
-    // -- active widgets
-    
-    virtual void addButton(const char* label, REAL* zone) = 0;
-    virtual void addCheckButton(const char* label, REAL* zone) = 0;
-    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    
-    // -- passive widgets
-    
-    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    
-    // -- soundfiles
-    
-    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-    
-    // -- metadata declarations
-    
-    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
-
-    // To be used by LLVM client
-    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
-};
-
-struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
-    UI() {}
-    virtual ~UI() {}
-};
-
-#endif
-/**************************  END  UI.h **************************/
 /************************** BEGIN meta.h *******************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
@@ -491,40 +439,6 @@ struct FAUST_API Meta {
 
 #endif
 /**************************  END  meta.h **************************/
-/************************** BEGIN misc.h *******************************
-FAUST Architecture File
-Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
----------------------------------------------------------------------
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-
-EXCEPTION : As a special exception, you may create a larger work
-that contains this FAUST architecture section and distribute
-that work under terms of your choice, so long as this FAUST
-architecture section is not modified.
-***************************************************************************/
-
-#ifndef __misc__
-#define __misc__
-
-#include <algorithm>
-#include <map>
-#include <cstdlib>
-#include <string.h>
-#include <fstream>
-#include <string>
-
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
@@ -652,10 +566,10 @@ class flt_resonlp : public flt_resonlp_dsp {
 	
 	int fSampleRate;
 	double fConst1;
-	FAUSTFLOAT fVslider0;
 	double fConst2;
-	double fRec1[2];
+	FAUSTFLOAT fVslider0;
 	double fConst3;
+	double fRec1[2];
 	FAUSTFLOAT fVslider1;
 	double fRec2[2];
 	double fRec0[3];
@@ -663,7 +577,7 @@ class flt_resonlp : public flt_resonlp_dsp {
  public:
 	
 	void metadata(Meta* m) { 
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_resonlp -scn flt_resonlp_dsp -es 1 -mcd 16 -double -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn flt_resonlp -scn flt_resonlp_dsp -es 1 -mcd 16 -double -ftz 0");
 		m->declare("filename", "flt_resonlp.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
 		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -708,14 +622,14 @@ class flt_resonlp : public flt_resonlp_dsp {
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
 		double fConst0 = std::min<double>(1.92e+05, std::max<double>(1.0, double(fSampleRate)));
-		fConst1 = 44.1 / fConst0;
-		fConst2 = 1.0 - fConst1;
-		fConst3 = 3.141592653589793 / fConst0;
+		fConst1 = 3.141592653589793 / fConst0;
+		fConst2 = 44.1 / fConst0;
+		fConst3 = 1.0 - fConst2;
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fVslider0 = FAUSTFLOAT(4e+01);
-		fVslider1 = FAUSTFLOAT(1e+03);
+		fVslider0 = FAUSTFLOAT(1e+03);
+		fVslider1 = FAUSTFLOAT(4e+01);
 	}
 	
 	virtual void instanceClear() {
@@ -750,25 +664,25 @@ class flt_resonlp : public flt_resonlp_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("flt.resonlp");
-		ui_interface->declare(&fVslider1, "unit", "Hz");
-		ui_interface->addVerticalSlider("freq", &fVslider1, FAUSTFLOAT(1e+03), FAUSTFLOAT(2e+01), FAUSTFLOAT(2e+04), FAUSTFLOAT(0.1));
-		ui_interface->addVerticalSlider("q", &fVslider0, FAUSTFLOAT(4e+01), FAUSTFLOAT(0.1), FAUSTFLOAT(1e+02), FAUSTFLOAT(0.1));
+		ui_interface->declare(&fVslider0, "unit", "Hz");
+		ui_interface->addVerticalSlider("freq", &fVslider0, FAUSTFLOAT(1e+03), FAUSTFLOAT(2e+01), FAUSTFLOAT(2e+04), FAUSTFLOAT(0.1));
+		ui_interface->addVerticalSlider("q", &fVslider1, FAUSTFLOAT(4e+01), FAUSTFLOAT(0.1), FAUSTFLOAT(1e+02), FAUSTFLOAT(0.1));
 		ui_interface->closeBox();
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** RESTRICT inputs, FAUSTFLOAT** RESTRICT outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		double fSlow0 = fConst1 * double(fVslider0);
-		double fSlow1 = fConst1 * double(fVslider1);
+		double fSlow0 = fConst2 * double(fVslider0);
+		double fSlow1 = fConst2 * double(fVslider1);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
-			fRec1[0] = fSlow0 + fConst2 * fRec1[1];
-			double fTemp0 = 1.0 / fRec1[0];
-			fRec2[0] = fSlow1 + fConst2 * fRec2[1];
-			double fTemp1 = std::tan(fConst3 * fRec2[0]);
-			double fTemp2 = 1.0 / fTemp1;
-			double fTemp3 = (fTemp0 + fTemp2) / fTemp1 + 1.0;
-			fRec0[0] = double(input0[i0]) - (fRec0[2] * (1.0 - (fTemp0 - fTemp2) / fTemp1) + 2.0 * fRec0[1] * (1.0 - 1.0 / flt_resonlp_faustpower2_f(fTemp1))) / fTemp3;
+			fRec1[0] = fSlow0 + fConst3 * fRec1[1];
+			double fTemp0 = std::tan(fConst1 * fRec1[0]);
+			double fTemp1 = 1.0 / fTemp0;
+			fRec2[0] = fSlow1 + fConst3 * fRec2[1];
+			double fTemp2 = 1.0 / fRec2[0];
+			double fTemp3 = (fTemp2 + fTemp1) / fTemp0 + 1.0;
+			fRec0[0] = double(input0[i0]) - (fRec0[2] * ((fTemp1 - fTemp2) / fTemp0 + 1.0) + 2.0 * fRec0[1] * (1.0 - 1.0 / flt_resonlp_faustpower2_f(fTemp0))) / fTemp3;
 			output0[i0] = FAUSTFLOAT((fRec0[2] + fRec0[0] + 2.0 * fRec0[1]) / fTemp3);
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];
@@ -778,23 +692,12 @@ class flt_resonlp : public flt_resonlp_dsp {
 	}
 
 };
-// clang-format on
 #endif
 
-    template <class T>
-    struct _flt_resonlp_UI : public UI {
-    static std::string name;
-};
-
-template <class T>
-std::string _flt_resonlp_UI<T>::name(sym(flt_resonlp));
-
-typedef _flt_resonlp_UI<flt_resonlp> flt_resonlp_UI;
-
-class faust_flt_resonlp_tilde : public FaustExternal<flt_resonlp, flt_resonlp_UI> {
+class faust_flt_resonlp_tilde : public FaustExternal<flt_resonlp> {
 public:
     faust_flt_resonlp_tilde(const ceammc::PdArgs& args)
-        : FaustExternal(args)
+        : FaustExternal(args, sym(flt_resonlp))
     {
     }
 };

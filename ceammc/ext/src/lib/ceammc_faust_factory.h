@@ -26,7 +26,7 @@ public:
         : SoundExternalFactory<T>(name, flags)
     {
         this->addMethod("reset", &T::m_reset);
-        this->addMethod(OSC_METHOD_UPDATE, &T::updateOscServer);
+        this->addMethod(OSC_METHOD_UPDATE, &T::m_update_osc_server);
     }
 };
 

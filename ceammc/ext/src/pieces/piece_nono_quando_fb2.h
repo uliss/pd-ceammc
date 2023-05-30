@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "nono.quando.fb2"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn piece_nono_quando_fb2 -scn piece_nono_quando_fb2_dsp -es 1 -mcd 16 -double -ftz 0
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn piece_nono_quando_fb2 -scn piece_nono_quando_fb2_dsp -es 1 -mcd 16 -double -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __piece_nono_quando_fb2_H__
@@ -367,92 +367,40 @@ class FAUST_API ScopedNoDenormals {
 #endif
 
 /************************** END piece_nono_quando_fb2_dsp.h **************************/
-/************************** BEGIN UI.h *****************************
- FAUST Architecture File
- Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
- ---------------------------------------------------------------------
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 2.1 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU Lesser General Public License for more details.
- 
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- 
- EXCEPTION : As a special exception, you may create a larger work
- that contains this FAUST architecture section and distribute
- that work under terms of your choice, so long as this FAUST
- architecture section is not modified.
- ********************************************************************/
+/************************** BEGIN misc.h *******************************
+FAUST Architecture File
+Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+---------------------------------------------------------------------
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 2.1 of the License, or
+(at your option) any later version.
 
-#ifndef __UI_H__
-#define __UI_H__
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
 
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-#ifndef FAUSTFLOAT
-#define FAUSTFLOAT float
-#endif
+EXCEPTION : As a special exception, you may create a larger work
+that contains this FAUST architecture section and distribute
+that work under terms of your choice, so long as this FAUST
+architecture section is not modified.
+***************************************************************************/
 
-/*******************************************************************************
- * UI : Faust DSP User Interface
- * User Interface as expected by the buildUserInterface() method of a DSP.
- * This abstract class contains only the method that the Faust compiler can
- * generate to describe a DSP user interface.
- ******************************************************************************/
+#ifndef __misc__
+#define __misc__
 
-struct Soundfile;
+#include <algorithm>
+#include <map>
+#include <cstdlib>
+#include <string.h>
+#include <fstream>
+#include <string>
 
-template <typename REAL>
-struct FAUST_API UIReal {
-    
-    UIReal() {}
-    virtual ~UIReal() {}
-    
-    // -- widget's layouts
-    
-    virtual void openTabBox(const char* label) = 0;
-    virtual void openHorizontalBox(const char* label) = 0;
-    virtual void openVerticalBox(const char* label) = 0;
-    virtual void closeBox() = 0;
-    
-    // -- active widgets
-    
-    virtual void addButton(const char* label, REAL* zone) = 0;
-    virtual void addCheckButton(const char* label, REAL* zone) = 0;
-    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    
-    // -- passive widgets
-    
-    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    
-    // -- soundfiles
-    
-    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-    
-    // -- metadata declarations
-    
-    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
-
-    // To be used by LLVM client
-    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
-};
-
-struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
-    UI() {}
-    virtual ~UI() {}
-};
-
-#endif
-/**************************  END  UI.h **************************/
 /************************** BEGIN meta.h *******************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
@@ -491,40 +439,6 @@ struct FAUST_API Meta {
 
 #endif
 /**************************  END  meta.h **************************/
-/************************** BEGIN misc.h *******************************
-FAUST Architecture File
-Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
----------------------------------------------------------------------
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-
-EXCEPTION : As a special exception, you may create a larger work
-that contains this FAUST architecture section and distribute
-that work under terms of your choice, so long as this FAUST
-architecture section is not modified.
-***************************************************************************/
-
-#ifndef __misc__
-#define __misc__
-
-#include <algorithm>
-#include <map>
-#include <cstdlib>
-#include <string.h>
-#include <fstream>
-#include <string>
-
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
@@ -678,31 +592,31 @@ class piece_nono_quando_fb2 : public piece_nono_quando_fb2_dsp {
 	double fConst44;
 	double fConst45;
 	double fRec0[5];
-	double fConst52;
+	double fConst53;
 	double fConst57;
 	double fConst59;
-	double fConst63;
+	double fConst62;
+	double fConst66;
 	double fConst67;
 	double fConst68;
 	double fConst69;
-	double fConst70;
 	double fRec5[3];
+	double fConst70;
 	double fConst71;
-	double fConst72;
+	double fConst74;
 	double fConst75;
 	double fConst76;
 	double fConst77;
-	double fConst78;
 	double fRec4[5];
+	double fConst79;
 	double fConst80;
 	double fConst81;
-	double fConst82;
 	double fRec3[5];
 	
  public:
 	
 	void metadata(Meta* m) { 
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn piece_nono_quando_fb2 -scn piece_nono_quando_fb2_dsp -es 1 -mcd 16 -double -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn piece_nono_quando_fb2 -scn piece_nono_quando_fb2_dsp -es 1 -mcd 16 -double -ftz 0");
 		m->declare("filename", "piece_nono_quando_fb2.dsp");
 		m->declare("filters.lib/bandpass0_bandstop1:author", "Julius O. Smith III");
 		m->declare("filters.lib/bandpass0_bandstop1:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -716,7 +630,7 @@ class piece_nono_quando_fb2 : public piece_nono_quando_fb2_dsp {
 		m->declare("filters.lib/iir:author", "Julius O. Smith III");
 		m->declare("filters.lib/iir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/iir:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/tf1sb:author", "Julius O. Smith III");
 		m->declare("filters.lib/tf1sb:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -734,7 +648,6 @@ class piece_nono_quando_fb2 : public piece_nono_quando_fb2_dsp {
 		m->declare("maths.lib/name", "Faust Math Library");
 		m->declare("maths.lib/version", "2.5");
 		m->declare("name", "nono.quando.fb2");
-		m->declare("piece_nono_quando.dsp/name", "nono.quando");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "0.2");
 	}
@@ -764,17 +677,17 @@ class piece_nono_quando_fb2 : public piece_nono_quando_fb2_dsp {
 		double fConst10 = 2.0 * fConst8 - 0.5 * (fConst9 / fConst8);
 		double fConst11 = piece_nono_quando_fb2_faustpower2_f(fConst10);
 		fConst12 = 4.0 * fConst11;
-		double fConst13 = fConst7 + fConst2 * (fConst12 + 8.0 * fConst9);
+		double fConst13 = fConst2 * (fConst12 + 8.0 * fConst9);
 		double fConst14 = 4.944271909999157 / fConst0;
 		double fConst15 = piece_nono_quando_fb2_faustpower3_f(fConst1);
 		double fConst16 = fConst15 * fConst9;
 		double fConst17 = fConst14 + 1.2360679774997894 * fConst16;
-		fConst18 = 1.0 / (fConst13 + fConst10 * fConst17 + 16.0);
+		fConst18 = 1.0 / (fConst7 + fConst13 + fConst10 * fConst17 + 16.0);
 		double fConst19 = 8.0 * fConst11;
 		fConst20 = 0.0 - fConst19;
 		double fConst21 = 12.944271909999157 / fConst0;
 		double fConst22 = fConst21 + 3.2360679774997894 * fConst16;
-		double fConst23 = fConst10 * fConst22 + fConst13 + 16.0;
+		double fConst23 = fConst7 + fConst13 + fConst10 * fConst22 + 16.0;
 		fConst24 = fConst2 / fConst23;
 		double fConst25 = fConst2 * fConst9;
 		double fConst26 = 2.0 * (fConst10 / fConst0);
@@ -791,49 +704,48 @@ class piece_nono_quando_fb2 : public piece_nono_quando_fb2_dsp {
 		fConst37 = fConst34 + fConst10 * (fConst35 - fConst36) + -64.0;
 		fConst38 = 6.0 * fConst7 + fConst2 * (0.0 - (fConst19 + 16.0 * fConst9)) + 96.0;
 		fConst39 = fConst34 + fConst10 * (fConst36 - fConst35) + -64.0;
-		fConst40 = fConst13 + fConst10 * (0.0 - fConst22) + 16.0;
+		fConst40 = fConst7 + fConst13 + fConst10 * (0.0 - fConst22) + 16.0;
 		double fConst41 = 2.4721359549995787 * fConst16;
 		double fConst42 = 9.888543819998315 / fConst0;
 		fConst43 = fConst34 + fConst10 * (fConst41 - fConst42) + -64.0;
 		fConst44 = fConst34 + fConst10 * (fConst42 - fConst41) + -64.0;
-		fConst45 = fConst13 + fConst10 * (0.0 - fConst17) + 16.0;
+		fConst45 = fConst7 + fConst13 + fConst10 * (0.0 - fConst17) + 16.0;
 		double fConst46 = std::tan(3179.2917654328708 / fConst0);
-		double fConst47 = fConst0 * fConst46;
-		double fConst48 = std::sqrt(4.0 * fConst4 * std::tan(2120.5750411731105 / fConst0) * fConst46);
-		double fConst49 = piece_nono_quando_fb2_faustpower2_f(fConst48);
-		double fConst50 = 2.0 * fConst47 - 0.5 * (fConst49 / fConst47);
-		double fConst51 = piece_nono_quando_fb2_faustpower2_f(fConst50);
-		fConst52 = 4.0 * fConst51;
-		double fConst53 = fConst2 * (fConst52 + 8.0 * fConst49);
-		double fConst54 = fConst3 * piece_nono_quando_fb2_faustpower4_f(fConst48);
-		double fConst55 = fConst15 * fConst49;
+		double fConst47 = std::sqrt(4.0 * fConst4 * std::tan(2120.5750411731105 / fConst0) * fConst46);
+		double fConst48 = fConst3 * piece_nono_quando_fb2_faustpower4_f(fConst47);
+		double fConst49 = fConst0 * fConst46;
+		double fConst50 = piece_nono_quando_fb2_faustpower2_f(fConst47);
+		double fConst51 = 2.0 * fConst49 - 0.5 * (fConst50 / fConst49);
+		double fConst52 = piece_nono_quando_fb2_faustpower2_f(fConst51);
+		fConst53 = 4.0 * fConst52;
+		double fConst54 = fConst48 + fConst2 * (fConst53 + 8.0 * fConst50);
+		double fConst55 = fConst15 * fConst50;
 		double fConst56 = fConst14 + 1.2360679774997894 * fConst55;
-		fConst57 = 1.0 / (fConst53 + fConst54 + fConst50 * fConst56 + 16.0);
-		double fConst58 = 8.0 * fConst51;
+		fConst57 = 1.0 / (fConst54 + fConst51 * fConst56 + 16.0);
+		double fConst58 = 8.0 * fConst52;
 		fConst59 = 0.0 - fConst58;
 		double fConst60 = fConst21 + 3.2360679774997894 * fConst55;
-		double fConst61 = fConst54 + fConst53;
-		double fConst62 = fConst50 * fConst60 + fConst61 + 16.0;
-		fConst63 = fConst2 / fConst62;
-		double fConst64 = fConst2 * fConst49;
-		double fConst65 = 2.0 * (fConst50 / fConst0);
-		double fConst66 = fConst64 + fConst65 + 4.0;
-		fConst67 = 2.0 * (fConst50 / (fConst0 * fConst66));
-		fConst68 = 1.0 / fConst66;
-		fConst69 = 2.0 * fConst64 + -8.0;
-		fConst70 = fConst64 + (4.0 - fConst65);
-		fConst71 = 0.0 - fConst67;
-		fConst72 = 1.0 / fConst62;
-		double fConst73 = 4.0 * fConst54;
-		double fConst74 = 6.472135954999579 * fConst55;
-		fConst75 = fConst73 + fConst50 * (fConst74 - fConst36) + -64.0;
-		fConst76 = 6.0 * fConst54 + fConst2 * (0.0 - (fConst58 + 16.0 * fConst49)) + 96.0;
-		fConst77 = fConst73 + fConst50 * (fConst36 - fConst74) + -64.0;
-		fConst78 = fConst53 + fConst54 + fConst50 * (0.0 - fConst60) + 16.0;
-		double fConst79 = 2.4721359549995787 * fConst55;
-		fConst80 = fConst73 + fConst50 * (fConst79 - fConst42) + -64.0;
-		fConst81 = fConst73 + fConst50 * (fConst42 - fConst79) + -64.0;
-		fConst82 = fConst61 + fConst50 * (0.0 - fConst56) + 16.0;
+		double fConst61 = fConst51 * fConst60 + fConst54 + 16.0;
+		fConst62 = fConst2 / fConst61;
+		double fConst63 = fConst2 * fConst50;
+		double fConst64 = 2.0 * (fConst51 / fConst0);
+		double fConst65 = fConst63 + fConst64 + 4.0;
+		fConst66 = 2.0 * (fConst51 / (fConst0 * fConst65));
+		fConst67 = 1.0 / fConst65;
+		fConst68 = 2.0 * fConst63 + -8.0;
+		fConst69 = fConst63 + (4.0 - fConst64);
+		fConst70 = 0.0 - fConst66;
+		fConst71 = 1.0 / fConst61;
+		double fConst72 = 4.0 * fConst48;
+		double fConst73 = 6.472135954999579 * fConst55;
+		fConst74 = fConst72 + fConst51 * (fConst73 - fConst36) + -64.0;
+		fConst75 = 6.0 * fConst48 + fConst2 * (0.0 - (fConst58 + 16.0 * fConst50)) + 96.0;
+		fConst76 = fConst72 + fConst51 * (fConst36 - fConst73) + -64.0;
+		fConst77 = fConst54 + fConst51 * (0.0 - fConst60) + 16.0;
+		double fConst78 = 2.4721359549995787 * fConst55;
+		fConst79 = fConst72 + fConst51 * (fConst78 - fConst42) + -64.0;
+		fConst80 = fConst72 + fConst51 * (fConst42 - fConst78) + -64.0;
+		fConst81 = fConst54 + fConst51 * (0.0 - fConst56) + 16.0;
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -891,10 +803,10 @@ class piece_nono_quando_fb2 : public piece_nono_quando_fb2_dsp {
 			fRec2[0] = fTemp0 - fConst29 * (fConst30 * fRec2[1] + fConst31 * fRec2[2]);
 			fRec1[0] = fConst28 * fRec2[0] + fConst32 * fRec2[2] - fConst33 * (fConst37 * fRec1[1] + fConst38 * fRec1[2] + fConst39 * fRec1[3] + fConst40 * fRec1[4]);
 			fRec0[0] = fConst24 * (fConst20 * fRec1[2] + fConst12 * fRec1[0] + fConst12 * fRec1[4]) - fConst18 * (fConst43 * fRec0[1] + fConst38 * fRec0[2] + fConst44 * fRec0[3] + fConst45 * fRec0[4]);
-			fRec5[0] = fTemp0 - fConst68 * (fConst69 * fRec5[1] + fConst70 * fRec5[2]);
-			fRec4[0] = fConst67 * fRec5[0] + fConst71 * fRec5[2] - fConst72 * (fConst75 * fRec4[1] + fConst76 * fRec4[2] + fConst77 * fRec4[3] + fConst78 * fRec4[4]);
-			fRec3[0] = fConst63 * (fConst59 * fRec4[2] + fConst52 * fRec4[0] + fConst52 * fRec4[4]) - fConst57 * (fConst80 * fRec3[1] + fConst76 * fRec3[2] + fConst81 * fRec3[3] + fConst82 * fRec3[4]);
-			output0[i0] = FAUSTFLOAT(fConst2 * (fConst18 * (fConst20 * fRec0[2] + fConst12 * fRec0[0] + fConst12 * fRec0[4]) + fConst57 * (fConst59 * fRec3[2] + fConst52 * fRec3[0] + fConst52 * fRec3[4])));
+			fRec5[0] = fTemp0 - fConst67 * (fConst68 * fRec5[1] + fConst69 * fRec5[2]);
+			fRec4[0] = fConst66 * fRec5[0] + fConst70 * fRec5[2] - fConst71 * (fConst74 * fRec4[1] + fConst75 * fRec4[2] + fConst76 * fRec4[3] + fConst77 * fRec4[4]);
+			fRec3[0] = fConst62 * (fConst59 * fRec4[2] + fConst53 * fRec4[0] + fConst53 * fRec4[4]) - fConst57 * (fConst79 * fRec3[1] + fConst75 * fRec3[2] + fConst80 * fRec3[3] + fConst81 * fRec3[4]);
+			output0[i0] = FAUSTFLOAT(fConst2 * (fConst18 * (fConst20 * fRec0[2] + fConst12 * fRec0[0] + fConst12 * fRec0[4]) + fConst57 * (fConst59 * fRec3[2] + fConst53 * fRec3[0] + fConst53 * fRec3[4])));
 			fRec2[2] = fRec2[1];
 			fRec2[1] = fRec2[0];
 			for (int j0 = 4; j0 > 0; j0 = j0 - 1) {
@@ -915,23 +827,12 @@ class piece_nono_quando_fb2 : public piece_nono_quando_fb2_dsp {
 	}
 
 };
-// clang-format on
 #endif
 
-    template <class T>
-    struct _piece_nono_quando_fb2_UI : public UI {
-    static std::string name;
-};
-
-template <class T>
-std::string _piece_nono_quando_fb2_UI<T>::name(sym(piece_nono_quando_fb2));
-
-typedef _piece_nono_quando_fb2_UI<piece_nono_quando_fb2> piece_nono_quando_fb2_UI;
-
-class faust_piece_nono_quando_fb2_tilde : public FaustExternal<piece_nono_quando_fb2, piece_nono_quando_fb2_UI> {
+class faust_piece_nono_quando_fb2_tilde : public FaustExternal<piece_nono_quando_fb2> {
 public:
     faust_piece_nono_quando_fb2_tilde(const ceammc::PdArgs& args)
-        : FaustExternal(args)
+        : FaustExternal(args, sym(piece_nono_quando_fb2))
     {
     }
 };

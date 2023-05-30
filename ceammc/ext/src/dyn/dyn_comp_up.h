@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "dyn.comp_up"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn dyn_comp_up -scn dyn_comp_up_dsp -es 1 -mcd 16 -single -ftz 0
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn dyn_comp_up -scn dyn_comp_up_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __dyn_comp_up_H__
@@ -367,92 +367,40 @@ class FAUST_API ScopedNoDenormals {
 #endif
 
 /************************** END dyn_comp_up_dsp.h **************************/
-/************************** BEGIN UI.h *****************************
- FAUST Architecture File
- Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
- ---------------------------------------------------------------------
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 2.1 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU Lesser General Public License for more details.
- 
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- 
- EXCEPTION : As a special exception, you may create a larger work
- that contains this FAUST architecture section and distribute
- that work under terms of your choice, so long as this FAUST
- architecture section is not modified.
- ********************************************************************/
+/************************** BEGIN misc.h *******************************
+FAUST Architecture File
+Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+---------------------------------------------------------------------
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 2.1 of the License, or
+(at your option) any later version.
 
-#ifndef __UI_H__
-#define __UI_H__
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
 
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-#ifndef FAUSTFLOAT
-#define FAUSTFLOAT float
-#endif
+EXCEPTION : As a special exception, you may create a larger work
+that contains this FAUST architecture section and distribute
+that work under terms of your choice, so long as this FAUST
+architecture section is not modified.
+***************************************************************************/
 
-/*******************************************************************************
- * UI : Faust DSP User Interface
- * User Interface as expected by the buildUserInterface() method of a DSP.
- * This abstract class contains only the method that the Faust compiler can
- * generate to describe a DSP user interface.
- ******************************************************************************/
+#ifndef __misc__
+#define __misc__
 
-struct Soundfile;
+#include <algorithm>
+#include <map>
+#include <cstdlib>
+#include <string.h>
+#include <fstream>
+#include <string>
 
-template <typename REAL>
-struct FAUST_API UIReal {
-    
-    UIReal() {}
-    virtual ~UIReal() {}
-    
-    // -- widget's layouts
-    
-    virtual void openTabBox(const char* label) = 0;
-    virtual void openHorizontalBox(const char* label) = 0;
-    virtual void openVerticalBox(const char* label) = 0;
-    virtual void closeBox() = 0;
-    
-    // -- active widgets
-    
-    virtual void addButton(const char* label, REAL* zone) = 0;
-    virtual void addCheckButton(const char* label, REAL* zone) = 0;
-    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    
-    // -- passive widgets
-    
-    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    
-    // -- soundfiles
-    
-    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-    
-    // -- metadata declarations
-    
-    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
-
-    // To be used by LLVM client
-    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
-};
-
-struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
-    UI() {}
-    virtual ~UI() {}
-};
-
-#endif
-/**************************  END  UI.h **************************/
 /************************** BEGIN meta.h *******************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
@@ -491,40 +439,6 @@ struct FAUST_API Meta {
 
 #endif
 /**************************  END  meta.h **************************/
-/************************** BEGIN misc.h *******************************
-FAUST Architecture File
-Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
----------------------------------------------------------------------
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-
-EXCEPTION : As a special exception, you may create a larger work
-that contains this FAUST architecture section and distribute
-that work under terms of your choice, so long as this FAUST
-architecture section is not modified.
-***************************************************************************/
-
-#ifndef __misc__
-#define __misc__
-
-#include <algorithm>
-#include <map>
-#include <cstdlib>
-#include <string.h>
-#include <fstream>
-#include <string>
-
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
@@ -687,10 +601,10 @@ class dyn_comp_up : public dyn_comp_up_dsp {
 		m->declare("basics.lib/parallelOp:licence", "GPL-3.0");
 		m->declare("basics.lib/version", "0.8");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1.3");
+		m->declare("ceammc.lib/version", "0.1.4");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn dyn_comp_up -scn dyn_comp_up_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn dyn_comp_up -scn dyn_comp_up_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("compressors.lib/expanderSC_N_chan:author", "Bart Brouns");
 		m->declare("compressors.lib/expanderSC_N_chan:license", "GPLv3");
 		m->declare("compressors.lib/expander_N_chan:author", "Bart Brouns");
@@ -834,29 +748,34 @@ class dyn_comp_up : public dyn_comp_up_dsp {
 		int iSlow4 = int(std::floor(fSlow3)) % 2;
 		int iSlow5 = int(std::floor(0.5f * fSlow3)) % 2;
 		int iSlow6 = int(std::floor(0.25f * fSlow3)) % 2;
-		int iSlow7 = iSlow4 + 2 * iSlow5;
-		int iSlow8 = int(std::floor(0.125f * fSlow3)) % 2;
-		int iSlow9 = iSlow7 + 4 * iSlow6;
-		int iSlow10 = int(std::floor(0.0625f * fSlow3)) % 2;
-		int iSlow11 = iSlow9 + 8 * iSlow8;
-		int iSlow12 = int(std::floor(0.03125f * fSlow3)) % 2;
-		int iSlow13 = iSlow11 + 16 * iSlow10;
-		int iSlow14 = int(std::floor(0.015625f * fSlow3)) % 2;
-		int iSlow15 = iSlow13 + 32 * iSlow12;
-		int iSlow16 = int(std::floor(0.0078125f * fSlow3)) % 2;
-		int iSlow17 = iSlow15 + 64 * iSlow14;
-		float fSlow18 = float(fHslider3);
-		float fSlow19 = float(fHslider4);
-		float fSlow20 = 0.5f * fSlow19;
-		float fSlow21 = fSlow18 - fSlow20;
-		float fSlow22 = fSlow18 + fSlow20;
-		float fSlow23 = 1.0f / std::min<float>(1.1920929e-07f, 0.0f - 2.0f * fSlow19);
-		float fSlow24 = 0.001f * float(fHslider5);
-		float fSlow25 = 0.001f * float(fHslider6);
+		int iSlow7 = 2 * iSlow5;
+		int iSlow8 = iSlow4 + iSlow7;
+		int iSlow9 = int(std::floor(0.125f * fSlow3)) % 2;
+		int iSlow10 = iSlow7 + 4 * iSlow6;
+		int iSlow11 = iSlow4 + iSlow10;
+		int iSlow12 = int(std::floor(0.0625f * fSlow3)) % 2;
+		int iSlow13 = iSlow10 + 8 * iSlow9;
+		int iSlow14 = iSlow4 + iSlow13;
+		int iSlow15 = int(std::floor(0.03125f * fSlow3)) % 2;
+		int iSlow16 = iSlow13 + 16 * iSlow12;
+		int iSlow17 = iSlow4 + iSlow16;
+		int iSlow18 = int(std::floor(0.015625f * fSlow3)) % 2;
+		int iSlow19 = iSlow16 + 32 * iSlow15;
+		int iSlow20 = iSlow4 + iSlow19;
+		int iSlow21 = int(std::floor(0.0078125f * fSlow3)) % 2;
+		int iSlow22 = iSlow4 + iSlow19 + 64 * iSlow18;
+		float fSlow23 = float(fHslider3);
+		float fSlow24 = float(fHslider4);
+		float fSlow25 = 0.5f * fSlow24;
+		float fSlow26 = fSlow23 - fSlow25;
+		float fSlow27 = fSlow23 + fSlow25;
+		float fSlow28 = 1.0f / std::min<float>(1.1920929e-07f, 0.0f - 2.0f * fSlow24);
+		float fSlow29 = 0.001f * float(fHslider5);
+		float fSlow30 = 0.001f * float(fHslider6);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			float fTemp0 = float(input0[i0]);
-			float fTemp1 = fRec0[1] + 0.015625f;
-			float fTemp2 = fRec0[1] + -0.015625f;
+			float fTemp1 = fRec0[1] + 0.0078125f;
+			float fTemp2 = fRec0[1] + -0.0078125f;
 			fRec0[0] = ((fTemp1 < fSlow0) ? fTemp1 : ((fTemp2 > fSlow0) ? fTemp2 : fSlow0));
 			fRec2[0] = fSlow1 + fConst2 * fRec2[1];
 			fRec3[0] = fSlow2 + fConst2 * fRec3[1];
@@ -875,13 +794,13 @@ class dyn_comp_up : public dyn_comp_up_dsp {
 			float fTemp9 = std::max<float>(fTemp8, fVec5[(IOTA0 - 32) & 63]);
 			fVec6[IOTA0 & 127] = fTemp9;
 			fVec7[IOTA0 & 255] = std::max<float>(fTemp9, fVec6[(IOTA0 - 64) & 127]);
-			float fTemp10 = 2e+01f * std::log10(std::max<float>(1.1754944e-38f, std::max<float>(std::max<float>(std::max<float>(std::max<float>(std::max<float>(std::max<float>(std::max<float>(((iSlow4) ? fTemp3 : -3.4028235e+38f), ((iSlow5) ? fVec1[iSlow4] : -3.4028235e+38f)), ((iSlow6) ? fVec2[iSlow7] : -3.4028235e+38f)), ((iSlow8) ? fVec3[iSlow9] : -3.4028235e+38f)), ((iSlow10) ? fVec4[(IOTA0 - iSlow11) & 31] : -3.4028235e+38f)), ((iSlow12) ? fVec5[(IOTA0 - iSlow13) & 63] : -3.4028235e+38f)), ((iSlow14) ? fVec6[(IOTA0 - iSlow15) & 127] : -3.4028235e+38f)), ((iSlow16) ? fVec7[(IOTA0 - iSlow17) & 255] : -3.4028235e+38f))));
-			int iTemp11 = (fTemp10 > fSlow21) + (fTemp10 > fSlow22);
+			float fTemp10 = 2e+01f * std::log10(std::max<float>(1.1754944e-38f, std::max<float>(std::max<float>(std::max<float>(std::max<float>(std::max<float>(std::max<float>(std::max<float>(((iSlow4) ? fTemp3 : -3.4028235e+38f), ((iSlow5) ? fVec1[iSlow4] : -3.4028235e+38f)), ((iSlow6) ? fVec2[iSlow8] : -3.4028235e+38f)), ((iSlow9) ? fVec3[iSlow11] : -3.4028235e+38f)), ((iSlow12) ? fVec4[(IOTA0 - iSlow14) & 31] : -3.4028235e+38f)), ((iSlow15) ? fVec5[(IOTA0 - iSlow17) & 63] : -3.4028235e+38f)), ((iSlow18) ? fVec6[(IOTA0 - iSlow20) & 127] : -3.4028235e+38f)), ((iSlow21) ? fVec7[(IOTA0 - iSlow22) & 255] : -3.4028235e+38f))));
+			int iTemp11 = (fTemp10 > fSlow26) + (fTemp10 > fSlow27);
 			int iTemp12 = fRec3[0] > 0.0f;
-			float fTemp13 = std::max<float>(fRec2[0], std::fabs(fRec3[0]) * ((iTemp11 == 0) ? fTemp10 - fSlow18 : ((iTemp11 == 1) ? fSlow23 * dyn_comp_up_faustpower2_f(fTemp10 - fSlow22) : 0.0f))) * float(2 * iTemp12 + -1);
-			float fTemp14 = ((iTemp12) ? fSlow25 : fSlow24);
+			float fTemp13 = std::max<float>(fRec2[0], std::fabs(fRec3[0]) * ((iTemp11 == 0) ? fTemp10 - fSlow23 : ((iTemp11 == 1) ? fSlow28 * dyn_comp_up_faustpower2_f(fTemp10 - fSlow27) : 0.0f))) * float(2 * iTemp12 + -1);
+			float fTemp14 = ((iTemp12) ? fSlow30 : fSlow29);
 			int iTemp15 = std::fabs(fTemp14) < 1.1920929e-07f;
-			float fTemp16 = ((iTemp12) ? fSlow24 : fSlow25);
+			float fTemp16 = ((iTemp12) ? fSlow29 : fSlow30);
 			int iTemp17 = std::fabs(fTemp16) < 1.1920929e-07f;
 			float fTemp18 = ((fTemp13 > fRec1[1]) ? ((iTemp17) ? 0.0f : std::exp(0.0f - fConst3 / ((iTemp17) ? 1.0f : fTemp16))) : ((iTemp15) ? 0.0f : std::exp(0.0f - fConst3 / ((iTemp15) ? 1.0f : fTemp14))));
 			fRec1[0] = fTemp13 * (1.0f - fTemp18) + fRec1[1] * fTemp18;
@@ -905,23 +824,12 @@ class dyn_comp_up : public dyn_comp_up_dsp {
 	}
 
 };
-// clang-format on
 #endif
 
-    template <class T>
-    struct _dyn_comp_up_UI : public UI {
-    static std::string name;
-};
-
-template <class T>
-std::string _dyn_comp_up_UI<T>::name(sym(dyn_comp_up));
-
-typedef _dyn_comp_up_UI<dyn_comp_up> dyn_comp_up_UI;
-
-class faust_dyn_comp_up_tilde : public FaustExternal<dyn_comp_up, dyn_comp_up_UI> {
+class faust_dyn_comp_up_tilde : public FaustExternal<dyn_comp_up> {
 public:
     faust_dyn_comp_up_tilde(const ceammc::PdArgs& args)
-        : FaustExternal(args)
+        : FaustExternal(args, sym(dyn_comp_up))
     {
     }
 };

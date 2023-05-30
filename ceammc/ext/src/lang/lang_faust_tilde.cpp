@@ -138,10 +138,7 @@ public:
     }
 };
 
-struct faust_ui : public UI {
-};
-
-using FaustUI = faust::PdUI<faust_ui>;
+using FaustUI = faust::PdUI;
 
 faust::FaustConfig& LangFaustTilde::faust_config_base()
 {

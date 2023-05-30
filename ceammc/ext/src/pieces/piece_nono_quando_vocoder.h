@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "nono.quando.vocoder"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn piece_nono_quando_vocoder -scn piece_nono_quando_vocoder_dsp -es 1 -mcd 16 -double -ftz 0
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn piece_nono_quando_vocoder -scn piece_nono_quando_vocoder_dsp -es 1 -mcd 16 -double -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __piece_nono_quando_vocoder_H__
@@ -367,92 +367,40 @@ class FAUST_API ScopedNoDenormals {
 #endif
 
 /************************** END piece_nono_quando_vocoder_dsp.h **************************/
-/************************** BEGIN UI.h *****************************
- FAUST Architecture File
- Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
- ---------------------------------------------------------------------
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 2.1 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU Lesser General Public License for more details.
- 
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- 
- EXCEPTION : As a special exception, you may create a larger work
- that contains this FAUST architecture section and distribute
- that work under terms of your choice, so long as this FAUST
- architecture section is not modified.
- ********************************************************************/
+/************************** BEGIN misc.h *******************************
+FAUST Architecture File
+Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+---------------------------------------------------------------------
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 2.1 of the License, or
+(at your option) any later version.
 
-#ifndef __UI_H__
-#define __UI_H__
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
 
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-#ifndef FAUSTFLOAT
-#define FAUSTFLOAT float
-#endif
+EXCEPTION : As a special exception, you may create a larger work
+that contains this FAUST architecture section and distribute
+that work under terms of your choice, so long as this FAUST
+architecture section is not modified.
+***************************************************************************/
 
-/*******************************************************************************
- * UI : Faust DSP User Interface
- * User Interface as expected by the buildUserInterface() method of a DSP.
- * This abstract class contains only the method that the Faust compiler can
- * generate to describe a DSP user interface.
- ******************************************************************************/
+#ifndef __misc__
+#define __misc__
 
-struct Soundfile;
+#include <algorithm>
+#include <map>
+#include <cstdlib>
+#include <string.h>
+#include <fstream>
+#include <string>
 
-template <typename REAL>
-struct FAUST_API UIReal {
-    
-    UIReal() {}
-    virtual ~UIReal() {}
-    
-    // -- widget's layouts
-    
-    virtual void openTabBox(const char* label) = 0;
-    virtual void openHorizontalBox(const char* label) = 0;
-    virtual void openVerticalBox(const char* label) = 0;
-    virtual void closeBox() = 0;
-    
-    // -- active widgets
-    
-    virtual void addButton(const char* label, REAL* zone) = 0;
-    virtual void addCheckButton(const char* label, REAL* zone) = 0;
-    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    
-    // -- passive widgets
-    
-    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    
-    // -- soundfiles
-    
-    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-    
-    // -- metadata declarations
-    
-    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
-
-    // To be used by LLVM client
-    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
-};
-
-struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
-    UI() {}
-    virtual ~UI() {}
-};
-
-#endif
-/**************************  END  UI.h **************************/
 /************************** BEGIN meta.h *******************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
@@ -491,40 +439,6 @@ struct FAUST_API Meta {
 
 #endif
 /**************************  END  meta.h **************************/
-/************************** BEGIN misc.h *******************************
-FAUST Architecture File
-Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
----------------------------------------------------------------------
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-
-EXCEPTION : As a special exception, you may create a larger work
-that contains this FAUST architecture section and distribute
-that work under terms of your choice, so long as this FAUST
-architecture section is not modified.
-***************************************************************************/
-
-#ifndef __misc__
-#define __misc__
-
-#include <algorithm>
-#include <map>
-#include <cstdlib>
-#include <string.h>
-#include <fstream>
-#include <string>
-
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
@@ -714,28 +628,28 @@ class piece_nono_quando_vocoder : public piece_nono_quando_vocoder_dsp {
 	double fConst50;
 	double fConst51;
 	double fConst52;
-	double fConst53;
+	double fConst54;
 	double fConst55;
-	double fConst56;
+	double fConst57;
 	double fConst58;
-	double fConst59;
 	double fConst60;
+	double fConst61;
 	double fConst62;
-	double fConst63;
-	double fConst64;
-	double fConst65;
 	int iRec34[2];
 	double fVec0[2];
 	double fRec33[2];
 	double fRec32[2];
 	double fVec1[2];
+	double fConst63;
 	double fRec31[2];
 	double fVec2[2];
+	double fConst64;
 	double fRec30[2];
 	double fVec3[2];
-	double fConst66;
+	double fConst65;
 	double fRec29[2];
 	double fVec4[2];
+	double fConst66;
 	double fRec28[2];
 	double fRec26[3];
 	double fRec25[3];
@@ -2722,7 +2636,7 @@ class piece_nono_quando_vocoder : public piece_nono_quando_vocoder_dsp {
 		m->declare("basics.lib/bypass1:author", "Julius Smith");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.8");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn piece_nono_quando_vocoder -scn piece_nono_quando_vocoder_dsp -es 1 -mcd 16 -double -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn piece_nono_quando_vocoder -scn piece_nono_quando_vocoder_dsp -es 1 -mcd 16 -double -ftz 0");
 		m->declare("compressors.lib/FFcompressor_N_chan:author", "Bart Brouns");
 		m->declare("compressors.lib/FFcompressor_N_chan:license", "GPLv3");
 		m->declare("compressors.lib/name", "Faust Compressor Effect Library");
@@ -2782,7 +2696,6 @@ class piece_nono_quando_vocoder : public piece_nono_quando_vocoder_dsp {
 		m->declare("noises.lib/colored_noise:license", "MIT-style STK-4.3 license");
 		m->declare("noises.lib/name", "Faust Noise Generator Library");
 		m->declare("noises.lib/version", "0.4");
-		m->declare("piece_nono_quando.dsp/name", "nono.quando");
 		m->declare("platform.lib/name", "Generic Platform Library");
 		m->declare("platform.lib/version", "0.2");
 		m->declare("routes.lib/name", "Faust Signal Routing Library");
@@ -2856,22 +2769,22 @@ class piece_nono_quando_vocoder : public piece_nono_quando_vocoder_dsp {
 		fConst48 = std::tan(fConst46);
 		double fConst49 = 125.66370614359172 * (fConst45 / fConst48);
 		fConst50 = 1.0 / (fConst47 + fConst49);
-		fConst51 = fConst49 - fConst47;
-		fConst52 = std::tan(11173.259061216544 / fConst0);
-		fConst53 = 125.66370614359172 / fConst48;
-		double fConst54 = 125.66370614359172 * (fConst52 / fConst48);
-		fConst55 = 1.0 / (fConst47 + fConst54);
-		fConst56 = std::tan(1986.9176531592204 / fConst0);
-		double fConst57 = 125.66370614359172 * (fConst56 / fConst48);
-		fConst58 = 1.0 / (fConst47 + fConst57);
-		fConst59 = fConst57 - fConst47;
-		fConst60 = std::tan(353.3294752055899 / fConst0);
-		double fConst61 = 125.66370614359172 * (fConst60 / fConst48);
-		fConst62 = 1.0 / (fConst47 + fConst61);
-		fConst63 = fConst61 - fConst47;
-		fConst64 = 1.0 / (fConst47 + 125.66370614359172);
-		fConst65 = 125.66370614359172 - fConst47;
-		fConst66 = fConst54 - fConst47;
+		fConst51 = std::tan(11173.259061216544 / fConst0);
+		fConst52 = 125.66370614359172 / fConst48;
+		double fConst53 = 125.66370614359172 * (fConst51 / fConst48);
+		fConst54 = 1.0 / (fConst47 + fConst53);
+		fConst55 = std::tan(1986.9176531592204 / fConst0);
+		double fConst56 = 125.66370614359172 * (fConst55 / fConst48);
+		fConst57 = 1.0 / (fConst47 + fConst56);
+		fConst58 = std::tan(353.3294752055899 / fConst0);
+		double fConst59 = 125.66370614359172 * (fConst58 / fConst48);
+		fConst60 = 1.0 / (fConst47 + fConst59);
+		fConst61 = 1.0 / (fConst47 + 125.66370614359172);
+		fConst62 = 125.66370614359172 - fConst47;
+		fConst63 = fConst59 - fConst47;
+		fConst64 = fConst56 - fConst47;
+		fConst65 = fConst53 - fConst47;
+		fConst66 = fConst49 - fConst47;
 		double fConst67 = std::tan(230.6437693768698 / fConst0);
 		double fConst68 = 1.0 / fConst67;
 		double fConst69 = (fConst68 + 0.168404871113589) / fConst67 + 1.069358407707312;
@@ -7070,29 +6983,29 @@ class piece_nono_quando_vocoder : public piece_nono_quando_vocoder_dsp {
 		double fSlow3 = double(fHslider3);
 		double fSlow4 = std::tan(fConst46 * std::pow(5.623413251903491, 4.0 - fSlow3));
 		double fSlow5 = fConst45 / fSlow4;
-		double fSlow6 = fConst53 * fSlow4;
+		double fSlow6 = fConst52 * fSlow4;
 		double fSlow7 = std::tan(fConst46 * std::pow(5.623413251903491, 3.0 - fSlow3));
-		double fSlow8 = fConst52 * ((fConst47 + fSlow6) / fSlow7);
-		double fSlow9 = fConst53 * fSlow7;
+		double fSlow8 = fConst51 * ((fConst47 + fSlow6) / fSlow7);
+		double fSlow9 = fConst52 * fSlow7;
 		double fSlow10 = std::tan(fConst46 * std::pow(5.623413251903491, 2.0 - fSlow3));
-		double fSlow11 = fConst56 * ((fConst47 + fSlow9) / fSlow10);
-		double fSlow12 = fConst53 * fSlow10;
+		double fSlow11 = fConst55 * ((fConst47 + fSlow9) / fSlow10);
+		double fSlow12 = fConst52 * fSlow10;
 		double fSlow13 = std::tan(fConst46 * std::pow(5.623413251903491, 1.0 - fSlow3));
-		double fSlow14 = fConst60 * ((fConst47 + fSlow12) / fSlow13);
-		double fSlow15 = fConst53 * fSlow13;
+		double fSlow14 = fConst58 * ((fConst47 + fSlow12) / fSlow13);
+		double fSlow15 = fConst52 * fSlow13;
 		double fSlow16 = std::tan(fConst46 * std::pow(5.623413251903491, -1.0 * fSlow3));
 		double fSlow17 = fConst48 * ((fConst47 + fSlow15) / fSlow16);
-		double fSlow18 = fConst53 * fSlow16;
+		double fSlow18 = fConst52 * fSlow16;
 		double fSlow19 = fConst47 + fSlow18;
 		double fSlow20 = fSlow18 - fConst47;
 		double fSlow21 = fSlow15 - fConst47;
 		double fSlow22 = fConst48 / fSlow16;
 		double fSlow23 = fSlow12 - fConst47;
-		double fSlow24 = fConst60 / fSlow13;
+		double fSlow24 = fConst58 / fSlow13;
 		double fSlow25 = fSlow9 - fConst47;
-		double fSlow26 = fConst56 / fSlow10;
+		double fSlow26 = fConst55 / fSlow10;
 		double fSlow27 = fSlow6 - fConst47;
-		double fSlow28 = fConst52 / fSlow7;
+		double fSlow28 = fConst51 / fSlow7;
 		double fSlow29 = 2.0 * fSlow3;
 		int iSlow30 = ((fSlow29 > 0.0) - (fSlow29 < 0.0)) > 0;
 		double fSlow31 = std::pow(((iSlow30) ? 1.0 : 0.8016) * std::exp(0.0 - fSlow29 * ((iSlow30) ? -4.28 : -2.633)) + ((iSlow30) ? 0.0 : 0.1984) * std::exp(0.0 - fSlow29 * ((iSlow30) ? 0.0 : -0.7196)), -1.0);
@@ -7125,15 +7038,15 @@ class piece_nono_quando_vocoder : public piece_nono_quando_vocoder_dsp {
 			double fTemp8 = double(iRec34[0]);
 			fVec0[0] = fTemp8;
 			fRec33[0] = 0.995 * fRec33[1] + 4.656612875245797e-10 * (fTemp8 - fVec0[1]);
-			fRec32[0] = 0.0 - fConst64 * (fConst65 * fRec32[1] - (fSlow19 * fRec33[0] + fSlow20 * fRec33[1]));
+			fRec32[0] = 0.0 - fConst61 * (fConst62 * fRec32[1] - (fSlow19 * fRec33[0] + fSlow20 * fRec33[1]));
 			fVec1[0] = fSlow22 * fRec32[0];
-			fRec31[0] = 0.0 - fConst62 * (fConst63 * fRec31[1] - (fSlow17 * fRec32[0] + fSlow21 * fVec1[1]));
+			fRec31[0] = fConst60 * (fSlow17 * fRec32[0] + fSlow21 * fVec1[1] - fConst63 * fRec31[1]);
 			fVec2[0] = fSlow24 * fRec31[0];
-			fRec30[0] = 0.0 - fConst58 * (fConst59 * fRec30[1] - (fSlow14 * fRec31[0] + fSlow23 * fVec2[1]));
+			fRec30[0] = fConst57 * (fSlow14 * fRec31[0] + fSlow23 * fVec2[1] - fConst64 * fRec30[1]);
 			fVec3[0] = fSlow26 * fRec30[0];
-			fRec29[0] = fConst55 * (fSlow11 * fRec30[0] + fSlow25 * fVec3[1] - fConst66 * fRec29[1]);
+			fRec29[0] = fConst54 * (fSlow11 * fRec30[0] + fSlow25 * fVec3[1] - fConst65 * fRec29[1]);
 			fVec4[0] = fSlow28 * fRec29[0];
-			fRec28[0] = 0.0 - fConst50 * (fConst51 * fRec28[1] - (fSlow8 * fRec29[0] + fSlow27 * fVec4[1]));
+			fRec28[0] = fConst50 * (fSlow8 * fRec29[0] + fSlow27 * fVec4[1] - fConst66 * fRec28[1]);
 			double fTemp9 = fRec27[0] * std::min<double>(1.0, std::max<double>(-1.0, fSlow5 * fRec28[0] * fSlow31));
 			fRec26[0] = fTemp9 - fConst20 * (fConst23 * fRec26[2] + fConst24 * fRec26[1]);
 			fRec25[0] = fConst20 * (fConst22 * fRec26[0] + fConst25 * fRec26[1] + fConst22 * fRec26[2]) - fConst17 * (fConst26 * fRec25[2] + fConst27 * fRec25[1]);
@@ -9918,23 +9831,12 @@ class piece_nono_quando_vocoder : public piece_nono_quando_vocoder_dsp {
 	}
 
 };
-// clang-format on
 #endif
 
-    template <class T>
-    struct _piece_nono_quando_vocoder_UI : public UI {
-    static std::string name;
-};
-
-template <class T>
-std::string _piece_nono_quando_vocoder_UI<T>::name(sym(piece_nono_quando_vocoder));
-
-typedef _piece_nono_quando_vocoder_UI<piece_nono_quando_vocoder> piece_nono_quando_vocoder_UI;
-
-class faust_piece_nono_quando_vocoder_tilde : public FaustExternal<piece_nono_quando_vocoder, piece_nono_quando_vocoder_UI> {
+class faust_piece_nono_quando_vocoder_tilde : public FaustExternal<piece_nono_quando_vocoder> {
 public:
     faust_piece_nono_quando_vocoder_tilde(const ceammc::PdArgs& args)
-        : FaustExternal(args)
+        : FaustExternal(args, sym(piece_nono_quando_vocoder))
     {
     }
 };

@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "synth.clap"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_clap -scn synth_clap_dsp -es 1 -mcd 16 -single -ftz 0
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn synth_clap -scn synth_clap_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __synth_clap_H__
@@ -367,92 +367,40 @@ class FAUST_API ScopedNoDenormals {
 #endif
 
 /************************** END synth_clap_dsp.h **************************/
-/************************** BEGIN UI.h *****************************
- FAUST Architecture File
- Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
- ---------------------------------------------------------------------
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 2.1 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU Lesser General Public License for more details.
- 
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- 
- EXCEPTION : As a special exception, you may create a larger work
- that contains this FAUST architecture section and distribute
- that work under terms of your choice, so long as this FAUST
- architecture section is not modified.
- ********************************************************************/
+/************************** BEGIN misc.h *******************************
+FAUST Architecture File
+Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+---------------------------------------------------------------------
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 2.1 of the License, or
+(at your option) any later version.
 
-#ifndef __UI_H__
-#define __UI_H__
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
 
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-#ifndef FAUSTFLOAT
-#define FAUSTFLOAT float
-#endif
+EXCEPTION : As a special exception, you may create a larger work
+that contains this FAUST architecture section and distribute
+that work under terms of your choice, so long as this FAUST
+architecture section is not modified.
+***************************************************************************/
 
-/*******************************************************************************
- * UI : Faust DSP User Interface
- * User Interface as expected by the buildUserInterface() method of a DSP.
- * This abstract class contains only the method that the Faust compiler can
- * generate to describe a DSP user interface.
- ******************************************************************************/
+#ifndef __misc__
+#define __misc__
 
-struct Soundfile;
+#include <algorithm>
+#include <map>
+#include <cstdlib>
+#include <string.h>
+#include <fstream>
+#include <string>
 
-template <typename REAL>
-struct FAUST_API UIReal {
-    
-    UIReal() {}
-    virtual ~UIReal() {}
-    
-    // -- widget's layouts
-    
-    virtual void openTabBox(const char* label) = 0;
-    virtual void openHorizontalBox(const char* label) = 0;
-    virtual void openVerticalBox(const char* label) = 0;
-    virtual void closeBox() = 0;
-    
-    // -- active widgets
-    
-    virtual void addButton(const char* label, REAL* zone) = 0;
-    virtual void addCheckButton(const char* label, REAL* zone) = 0;
-    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    
-    // -- passive widgets
-    
-    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    
-    // -- soundfiles
-    
-    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-    
-    // -- metadata declarations
-    
-    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
-
-    // To be used by LLVM client
-    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
-};
-
-struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
-    UI() {}
-    virtual ~UI() {}
-};
-
-#endif
-/**************************  END  UI.h **************************/
 /************************** BEGIN meta.h *******************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
@@ -491,40 +439,6 @@ struct FAUST_API Meta {
 
 #endif
 /**************************  END  meta.h **************************/
-/************************** BEGIN misc.h *******************************
-FAUST Architecture File
-Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
----------------------------------------------------------------------
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-
-EXCEPTION : As a special exception, you may create a larger work
-that contains this FAUST architecture section and distribute
-that work under terms of your choice, so long as this FAUST
-architecture section is not modified.
-***************************************************************************/
-
-#ifndef __misc__
-#define __misc__
-
-#include <algorithm>
-#include <map>
-#include <cstdlib>
-#include <string.h>
-#include <fstream>
-#include <string>
-
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
@@ -652,20 +566,20 @@ class synth_clap : public synth_clap_dsp {
  private:
 	
 	int iRec1[2];
+	FAUSTFLOAT fCheckbox0;
+	float fVec0[2];
+	float fRec2[2];
 	int fSampleRate;
 	float fConst0;
 	float fConst1;
-	FAUSTFLOAT fCheckbox0;
-	float fVec0[2];
-	int iRec2[2];
-	float fRec3[2];
-	float fConst2;
 	FAUSTFLOAT fVslider0;
+	float fConst2;
 	float fConst3;
-	float fConst4;
-	float fRec4[2];
+	float fRec3[2];
 	FAUSTFLOAT fVslider1;
-	float fRec5[2];
+	float fRec4[2];
+	float fConst4;
+	int iRec5[2];
 	float fConst5;
 	FAUSTFLOAT fVslider2;
 	float fRec6[2];
@@ -674,7 +588,7 @@ class synth_clap : public synth_clap_dsp {
  public:
 	
 	void metadata(Meta* m) { 
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_clap -scn synth_clap_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn synth_clap -scn synth_clap_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("envelopes.lib/adsr:author", "Yann Orlarey and Andrey Bundin");
 		m->declare("envelopes.lib/author", "GRAME");
 		m->declare("envelopes.lib/copyright", "GRAME");
@@ -688,7 +602,7 @@ class synth_clap : public synth_clap_dsp {
 		m->declare("filters.lib/iir:author", "Julius O. Smith III");
 		m->declare("filters.lib/iir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/iir:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/resonlp:author", "Julius O. Smith III");
 		m->declare("filters.lib/resonlp:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -729,10 +643,10 @@ class synth_clap : public synth_clap_dsp {
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
 		fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = 1.0f / std::max<float>(1.0f, 0.1f * fConst0);
-		fConst2 = 0.0441f / fConst0;
-		fConst3 = 44.1f / fConst0;
-		fConst4 = 1.0f - fConst3;
+		fConst1 = 0.0441f / fConst0;
+		fConst2 = 44.1f / fConst0;
+		fConst3 = 1.0f - fConst2;
+		fConst4 = 1.0f / std::max<float>(1.0f, 0.1f * fConst0);
 		fConst5 = 3.1415927f / fConst0;
 	}
 	
@@ -751,7 +665,7 @@ class synth_clap : public synth_clap_dsp {
 			fVec0[l1] = 0.0f;
 		}
 		for (int l2 = 0; l2 < 2; l2 = l2 + 1) {
-			iRec2[l2] = 0;
+			fRec2[l2] = 0.0f;
 		}
 		for (int l3 = 0; l3 < 2; l3 = l3 + 1) {
 			fRec3[l3] = 0.0f;
@@ -760,7 +674,7 @@ class synth_clap : public synth_clap_dsp {
 			fRec4[l4] = 0.0f;
 		}
 		for (int l5 = 0; l5 < 2; l5 = l5 + 1) {
-			fRec5[l5] = 0.0f;
+			iRec5[l5] = 0;
 		}
 		for (int l6 = 0; l6 < 2; l6 = l6 + 1) {
 			fRec6[l6] = 0.0f;
@@ -804,34 +718,34 @@ class synth_clap : public synth_clap_dsp {
 	virtual void compute(int count, FAUSTFLOAT** RESTRICT inputs, FAUSTFLOAT** RESTRICT outputs) {
 		FAUSTFLOAT* output0 = outputs[0];
 		float fSlow0 = float(fCheckbox0);
-		int iSlow1 = fSlow0 == 0.0f;
-		float fSlow2 = fConst2 * float(fVslider0);
-		float fSlow3 = fConst2 * float(fVslider1);
-		float fSlow4 = fConst3 * float(fVslider2);
+		float fSlow1 = fConst1 * float(fVslider0);
+		float fSlow2 = fConst1 * float(fVslider1);
+		int iSlow3 = fSlow0 == 0.0f;
+		float fSlow4 = fConst2 * float(fVslider2);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			iRec1[0] = 1103515245 * iRec1[1] + 12345;
 			fVec0[0] = fSlow0;
-			iRec2[0] = iSlow1 * (iRec2[1] + 1);
-			float fTemp0 = 1.0f - fConst1 * float(iRec2[0]);
-			fRec3[0] = fSlow0 + fRec3[1] * float(fVec0[1] >= fSlow0);
-			fRec4[0] = fSlow2 + fConst4 * fRec4[1];
-			float fTemp1 = std::max<float>(1.0f, fConst0 * (fRec4[0] + 0.015f));
-			fRec5[0] = fSlow3 + fConst4 * fRec5[1];
-			float fTemp2 = std::max<float>(1.0f, fConst0 * (fRec4[0] + 0.035f));
-			float fTemp3 = std::max<float>(1.0f, fConst0 * (fRec4[0] + 0.025f));
-			float fTemp4 = std::max<float>(1.0f, fConst0 * (fRec4[0] + 0.005f));
-			fRec6[0] = fSlow4 + fConst4 * fRec6[1];
+			fRec2[0] = fSlow0 + fRec2[1] * float(fVec0[1] >= fSlow0);
+			fRec3[0] = fSlow1 + fConst3 * fRec3[1];
+			float fTemp0 = std::max<float>(1.0f, fConst0 * (fRec3[0] + 0.035f));
+			fRec4[0] = fSlow2 + fConst3 * fRec4[1];
+			iRec5[0] = iSlow3 * (iRec5[1] + 1);
+			float fTemp1 = 1.0f - fConst4 * float(iRec5[0]);
+			float fTemp2 = std::max<float>(1.0f, fConst0 * (fRec3[0] + 0.025f));
+			float fTemp3 = std::max<float>(1.0f, fConst0 * (fRec3[0] + 0.015f));
+			float fTemp4 = std::max<float>(1.0f, fConst0 * (fRec3[0] + 0.005f));
+			fRec6[0] = fSlow4 + fConst3 * fRec6[1];
 			float fTemp5 = std::tan(fConst5 * fRec6[0]);
 			float fTemp6 = 1.0f / fTemp5;
 			float fTemp7 = (fTemp6 + 0.82372326f) / fTemp5 + 1.0f;
-			fRec0[0] = 4.656613e-10f * float(iRec1[0]) * (std::max<float>(0.0f, fTemp0 * std::min<float>(fRec3[0] / fTemp1, std::max<float>((fTemp1 - fRec3[0]) / std::max<float>(1.0f, fConst0 * (fRec5[0] + 0.04f)) + 1.0f, 0.0f))) + std::max<float>(0.0f, std::min<float>(fRec3[0] / fTemp2, std::max<float>((fTemp2 - fRec3[0]) / std::max<float>(1.0f, fConst0 * (fRec5[0] + 0.06f)) + 1.0f, 0.0f)) * fTemp0) + std::max<float>(0.0f, fTemp0 * std::min<float>(fRec3[0] / fTemp3, std::max<float>((fTemp3 - fRec3[0]) / std::max<float>(1.0f, fConst0 * (fRec5[0] + 0.05f)) + 1.0f, 0.0f))) + std::max<float>(0.0f, fTemp0 * std::min<float>(fRec3[0] / fTemp4, std::max<float>((fTemp4 - fRec3[0]) / std::max<float>(1.0f, fConst0 * (fRec5[0] + 0.02f)) + 1.0f, 0.0f)))) - (fRec0[2] * ((fTemp6 + -0.82372326f) / fTemp5 + 1.0f) + 2.0f * fRec0[1] * (1.0f - 1.0f / synth_clap_faustpower2_f(fTemp5))) / fTemp7;
+			fRec0[0] = 4.656613e-10f * float(iRec1[0]) * (std::max<float>(0.0f, std::min<float>(fRec2[0] / fTemp0, std::max<float>((fTemp0 - fRec2[0]) / std::max<float>(1.0f, fConst0 * (fRec4[0] + 0.06f)) + 1.0f, 0.0f)) * fTemp1) + std::max<float>(0.0f, fTemp1 * std::min<float>(fRec2[0] / fTemp2, std::max<float>((fTemp2 - fRec2[0]) / std::max<float>(1.0f, fConst0 * (fRec4[0] + 0.05f)) + 1.0f, 0.0f))) + std::max<float>(0.0f, fTemp1 * std::min<float>(fRec2[0] / fTemp3, std::max<float>((fTemp3 - fRec2[0]) / std::max<float>(1.0f, fConst0 * (fRec4[0] + 0.04f)) + 1.0f, 0.0f))) + std::max<float>(0.0f, fTemp1 * std::min<float>(fRec2[0] / fTemp4, std::max<float>((fTemp4 - fRec2[0]) / std::max<float>(1.0f, fConst0 * (fRec4[0] + 0.02f)) + 1.0f, 0.0f)))) - (fRec0[2] * ((fTemp6 + -0.82372326f) / fTemp5 + 1.0f) + 2.0f * fRec0[1] * (1.0f - 1.0f / synth_clap_faustpower2_f(fTemp5))) / fTemp7;
 			output0[i0] = FAUSTFLOAT(tanhf((fRec0[2] + fRec0[0] + 2.0f * fRec0[1]) / fTemp7));
 			iRec1[1] = iRec1[0];
 			fVec0[1] = fVec0[0];
-			iRec2[1] = iRec2[0];
+			fRec2[1] = fRec2[0];
 			fRec3[1] = fRec3[0];
 			fRec4[1] = fRec4[0];
-			fRec5[1] = fRec5[0];
+			iRec5[1] = iRec5[0];
 			fRec6[1] = fRec6[0];
 			fRec0[2] = fRec0[1];
 			fRec0[1] = fRec0[0];
@@ -839,23 +753,12 @@ class synth_clap : public synth_clap_dsp {
 	}
 
 };
-// clang-format on
 #endif
 
-    template <class T>
-    struct _synth_clap_UI : public UI {
-    static std::string name;
-};
-
-template <class T>
-std::string _synth_clap_UI<T>::name(sym(synth_clap));
-
-typedef _synth_clap_UI<synth_clap> synth_clap_UI;
-
-class faust_synth_clap_tilde : public FaustExternal<synth_clap, synth_clap_UI> {
+class faust_synth_clap_tilde : public FaustExternal<synth_clap> {
 public:
     faust_synth_clap_tilde(const ceammc::PdArgs& args)
-        : FaustExternal(args)
+        : FaustExternal(args, sym(synth_clap))
     {
     }
 };

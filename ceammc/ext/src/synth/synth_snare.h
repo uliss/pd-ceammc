@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "synth.snare"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_snare -scn synth_snare_dsp -es 1 -mcd 16 -single -ftz 0
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn synth_snare -scn synth_snare_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __synth_snare_H__
@@ -367,92 +367,40 @@ class FAUST_API ScopedNoDenormals {
 #endif
 
 /************************** END synth_snare_dsp.h **************************/
-/************************** BEGIN UI.h *****************************
- FAUST Architecture File
- Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
- ---------------------------------------------------------------------
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 2.1 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU Lesser General Public License for more details.
- 
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- 
- EXCEPTION : As a special exception, you may create a larger work
- that contains this FAUST architecture section and distribute
- that work under terms of your choice, so long as this FAUST
- architecture section is not modified.
- ********************************************************************/
+/************************** BEGIN misc.h *******************************
+FAUST Architecture File
+Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+---------------------------------------------------------------------
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 2.1 of the License, or
+(at your option) any later version.
 
-#ifndef __UI_H__
-#define __UI_H__
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
 
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-#ifndef FAUSTFLOAT
-#define FAUSTFLOAT float
-#endif
+EXCEPTION : As a special exception, you may create a larger work
+that contains this FAUST architecture section and distribute
+that work under terms of your choice, so long as this FAUST
+architecture section is not modified.
+***************************************************************************/
 
-/*******************************************************************************
- * UI : Faust DSP User Interface
- * User Interface as expected by the buildUserInterface() method of a DSP.
- * This abstract class contains only the method that the Faust compiler can
- * generate to describe a DSP user interface.
- ******************************************************************************/
+#ifndef __misc__
+#define __misc__
 
-struct Soundfile;
+#include <algorithm>
+#include <map>
+#include <cstdlib>
+#include <string.h>
+#include <fstream>
+#include <string>
 
-template <typename REAL>
-struct FAUST_API UIReal {
-    
-    UIReal() {}
-    virtual ~UIReal() {}
-    
-    // -- widget's layouts
-    
-    virtual void openTabBox(const char* label) = 0;
-    virtual void openHorizontalBox(const char* label) = 0;
-    virtual void openVerticalBox(const char* label) = 0;
-    virtual void closeBox() = 0;
-    
-    // -- active widgets
-    
-    virtual void addButton(const char* label, REAL* zone) = 0;
-    virtual void addCheckButton(const char* label, REAL* zone) = 0;
-    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    
-    // -- passive widgets
-    
-    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    
-    // -- soundfiles
-    
-    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-    
-    // -- metadata declarations
-    
-    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
-
-    // To be used by LLVM client
-    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
-};
-
-struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
-    UI() {}
-    virtual ~UI() {}
-};
-
-#endif
-/**************************  END  UI.h **************************/
 /************************** BEGIN meta.h *******************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
@@ -491,40 +439,6 @@ struct FAUST_API Meta {
 
 #endif
 /**************************  END  meta.h **************************/
-/************************** BEGIN misc.h *******************************
-FAUST Architecture File
-Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
----------------------------------------------------------------------
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-
-EXCEPTION : As a special exception, you may create a larger work
-that contains this FAUST architecture section and distribute
-that work under terms of your choice, so long as this FAUST
-architecture section is not modified.
-***************************************************************************/
-
-#ifndef __misc__
-#define __misc__
-
-#include <algorithm>
-#include <map>
-#include <cstdlib>
-#include <string.h>
-#include <fstream>
-#include <string>
-
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
@@ -697,8 +611,8 @@ class synth_snare : public synth_snare_dsp {
 	float fRec18[2];
 	float fConst27;
 	float fConst28;
-	float fRec17[3];
 	float fConst29;
+	float fRec17[3];
 	
  public:
 	
@@ -706,8 +620,8 @@ class synth_snare : public synth_snare_dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.8");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_snare -scn synth_snare_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("ceammc.lib/version", "0.1.4");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn synth_snare -scn synth_snare_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("filename", "synth_snare.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
 		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -767,12 +681,12 @@ class synth_snare : public synth_snare_dsp {
 		fSampleRate = sample_rate;
 		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
 		fConst1 = 0.001f * fConst0;
-		fConst2 = 0.000275f * fConst0;
-		float fConst3 = 2073.4512f / fConst0;
+		fConst2 = 0.000375f * fConst0;
+		float fConst3 = 1162.3893f / fConst0;
 		fConst4 = std::sin(fConst3);
 		fConst5 = std::cos(fConst3);
-		fConst6 = 0.000375f * fConst0;
-		float fConst7 = 1162.3893f / fConst0;
+		fConst6 = 0.000275f * fConst0;
+		float fConst7 = 2073.4512f / fConst0;
 		fConst8 = std::sin(fConst7);
 		fConst9 = std::cos(fConst7);
 		float fConst10 = std::tan(22116.812f / fConst0);
@@ -787,14 +701,14 @@ class synth_snare : public synth_snare_dsp {
 		fConst19 = 1.0f / ((fConst18 + 1.0f) / fConst17 + 1.0f);
 		fConst20 = 0.000915f * fConst0;
 		float fConst21 = synth_snare_faustpower2_f(fConst17);
-		fConst22 = 1.0f / fConst21;
+		fConst22 = 0.0f - 2.0f / fConst21;
 		float fConst23 = fConst18 + 1.0f;
 		fConst24 = 1.0f / (fConst17 * fConst23);
 		fConst25 = 0.0f - fConst24;
 		fConst26 = (1.0f - fConst18) / fConst23;
 		fConst27 = (fConst18 + -1.0f) / fConst17 + 1.0f;
-		fConst28 = 2.0f * (1.0f - fConst22);
-		fConst29 = 0.0f - 2.0f / fConst21;
+		fConst28 = 1.0f / fConst21;
+		fConst29 = 2.0f * (1.0f - fConst28);
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -918,8 +832,8 @@ class synth_snare : public synth_snare_dsp {
 		float fSlow6 = float(fVslider1);
 		float fSlow7 = 1.0f - std::pow(1.0f, 1.0f / (fConst1 * fSlow6 + float((0.001f * fSlow6) == 0.0f)));
 		float fSlow8 = float(fVslider2);
-		float fSlow9 = 1.0f - 1.0f / std::pow(1e+03f, 1.0f / (fConst2 * fSlow8 + float((0.000275f * fSlow8) == 0.0f)));
-		float fSlow10 = 1.0f - 1.0f / std::pow(1e+03f, 1.0f / (fConst6 * fSlow8 + float((0.000375f * fSlow8) == 0.0f)));
+		float fSlow9 = 1.0f - 1.0f / std::pow(1e+03f, 1.0f / (fConst2 * fSlow8 + float((0.000375f * fSlow8) == 0.0f)));
+		float fSlow10 = 1.0f - 1.0f / std::pow(1e+03f, 1.0f / (fConst6 * fSlow8 + float((0.000275f * fSlow8) == 0.0f)));
 		float fSlow11 = 1.0f - 1.0f / std::pow(1e+03f, 1.0f / (fConst1 * fSlow8 + float((0.001f * fSlow8) == 0.0f)));
 		float fSlow12 = 1.0f - 1.0f / std::pow(1e+03f, 1.0f / (fConst20 * fSlow8 + float((0.000915f * fSlow8) == 0.0f)));
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
@@ -941,7 +855,7 @@ class synth_snare : public synth_snare_dsp {
 			fRec5[0] = fTemp6 + fConst5 * fRec5[1] - fConst4 * fRec4[1];
 			iRec6[0] = iTemp3 & (iRec6[1] | (fRec7[1] >= 1.0f));
 			int iTemp7 = iTemp4 & (fRec7[1] > 0.0f);
-			fRec7[0] = (fSlow5 * float(((iRec6[1] == 0) & iTemp3) & (fRec7[1] < 1.0f)) + fRec7[1] * (1.0f - fSlow7 * float(iRec6[1] & (fRec7[1] > 1.0f)) - fSlow10 * float(iTemp7))) * float((iTemp7 == 0) | (fRec7[1] >= 1e-06f));
+			fRec7[0] = (fSlow5 * float(((iRec6[1] == 0) & iTemp3) & (fRec7[1] < 1.0f)) - fRec7[1] * (fSlow10 * float(iTemp7) - (1.0f - fSlow7 * float(iRec6[1] & (fRec7[1] > 1.0f))))) * float((iTemp7 == 0) | (fRec7[1] >= 1e-06f));
 			fRec8[0] = fConst8 * fRec9[1] + fConst9 * fRec8[1];
 			fRec9[0] = fTemp6 + fConst9 * fRec9[1] - fConst8 * fRec8[1];
 			iRec10[0] = iTemp3 & (iRec10[1] | (fRec11[1] >= 1.0f));
@@ -956,8 +870,8 @@ class synth_snare : public synth_snare_dsp {
 			int iTemp10 = iTemp4 & (fRec16[1] > 0.0f);
 			fRec16[0] = (fSlow5 * float(((iRec15[1] == 0) & iTemp3) & (fRec16[1] < 1.0f)) + fRec16[1] * (1.0f - fSlow7 * float(iRec15[1] & (fRec16[1] > 1.0f)) - fSlow12 * float(iTemp10))) * float((iTemp10 == 0) | (fRec16[1] >= 1e-06f));
 			fRec18[0] = 4.656613e-10f * (fConst24 * fTemp9 + fConst25 * fVec3[1]) - fConst26 * fRec18[1];
-			fRec17[0] = fRec18[0] - fConst19 * (fConst27 * fRec17[2] + fConst28 * fRec17[1]);
-			output0[i0] = FAUSTFLOAT(0.25118864f * fRec0[0] * (fRec2[0] * (fRec4[0] + 0.25f) + fRec7[0] * (fRec8[0] + 0.25f) + 0.2f * (fConst12 * fRec11[0] * (fRec12[2] + fRec12[0] + 2.0f * fRec12[1]) + fConst19 * fRec16[0] * (fConst22 * fRec17[0] + fConst29 * fRec17[1] + fConst22 * fRec17[2]))));
+			fRec17[0] = fRec18[0] - fConst19 * (fConst27 * fRec17[2] + fConst29 * fRec17[1]);
+			output0[i0] = FAUSTFLOAT(0.25118864f * fRec0[0] * (fRec2[0] * (fRec4[0] + 0.25f) + fRec7[0] * (fRec8[0] + 0.25f) + 0.2f * (fConst12 * fRec11[0] * (fRec12[2] + fRec12[0] + 2.0f * fRec12[1]) + fConst19 * fRec16[0] * (fConst22 * fRec17[1] + fConst28 * fRec17[0] + fConst28 * fRec17[2]))));
 			iVec0[1] = iVec0[0];
 			fVec1[1] = fVec1[0];
 			iVec2[1] = iVec2[0];
@@ -987,23 +901,12 @@ class synth_snare : public synth_snare_dsp {
 	}
 
 };
-// clang-format on
 #endif
 
-    template <class T>
-    struct _synth_snare_UI : public UI {
-    static std::string name;
-};
-
-template <class T>
-std::string _synth_snare_UI<T>::name(sym(synth_snare));
-
-typedef _synth_snare_UI<synth_snare> synth_snare_UI;
-
-class faust_synth_snare_tilde : public FaustExternal<synth_snare, synth_snare_UI> {
+class faust_synth_snare_tilde : public FaustExternal<synth_snare> {
 public:
     faust_synth_snare_tilde(const ceammc::PdArgs& args)
-        : FaustExternal(args)
+        : FaustExternal(args, sym(synth_snare))
     {
     }
 };

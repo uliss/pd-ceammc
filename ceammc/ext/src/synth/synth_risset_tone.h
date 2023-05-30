@@ -4,7 +4,7 @@ copyright: "Oliver Larkin"
 name: "synth.risset_tone"
 version: "0.1"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_risset_tone -scn synth_risset_tone_dsp -es 1 -mcd 16 -single -ftz 0
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn synth_risset_tone -scn synth_risset_tone_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __synth_risset_tone_H__
@@ -370,92 +370,40 @@ class FAUST_API ScopedNoDenormals {
 #endif
 
 /************************** END synth_risset_tone_dsp.h **************************/
-/************************** BEGIN UI.h *****************************
- FAUST Architecture File
- Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
- ---------------------------------------------------------------------
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 2.1 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU Lesser General Public License for more details.
- 
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- 
- EXCEPTION : As a special exception, you may create a larger work
- that contains this FAUST architecture section and distribute
- that work under terms of your choice, so long as this FAUST
- architecture section is not modified.
- ********************************************************************/
+/************************** BEGIN misc.h *******************************
+FAUST Architecture File
+Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+---------------------------------------------------------------------
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 2.1 of the License, or
+(at your option) any later version.
 
-#ifndef __UI_H__
-#define __UI_H__
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
 
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-#ifndef FAUSTFLOAT
-#define FAUSTFLOAT float
-#endif
+EXCEPTION : As a special exception, you may create a larger work
+that contains this FAUST architecture section and distribute
+that work under terms of your choice, so long as this FAUST
+architecture section is not modified.
+***************************************************************************/
 
-/*******************************************************************************
- * UI : Faust DSP User Interface
- * User Interface as expected by the buildUserInterface() method of a DSP.
- * This abstract class contains only the method that the Faust compiler can
- * generate to describe a DSP user interface.
- ******************************************************************************/
+#ifndef __misc__
+#define __misc__
 
-struct Soundfile;
+#include <algorithm>
+#include <map>
+#include <cstdlib>
+#include <string.h>
+#include <fstream>
+#include <string>
 
-template <typename REAL>
-struct FAUST_API UIReal {
-    
-    UIReal() {}
-    virtual ~UIReal() {}
-    
-    // -- widget's layouts
-    
-    virtual void openTabBox(const char* label) = 0;
-    virtual void openHorizontalBox(const char* label) = 0;
-    virtual void openVerticalBox(const char* label) = 0;
-    virtual void closeBox() = 0;
-    
-    // -- active widgets
-    
-    virtual void addButton(const char* label, REAL* zone) = 0;
-    virtual void addCheckButton(const char* label, REAL* zone) = 0;
-    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    
-    // -- passive widgets
-    
-    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    
-    // -- soundfiles
-    
-    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-    
-    // -- metadata declarations
-    
-    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
-
-    // To be used by LLVM client
-    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
-};
-
-struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
-    UI() {}
-    virtual ~UI() {}
-};
-
-#endif
-/**************************  END  UI.h **************************/
 /************************** BEGIN meta.h *******************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
@@ -494,40 +442,6 @@ struct FAUST_API Meta {
 
 #endif
 /**************************  END  meta.h **************************/
-/************************** BEGIN misc.h *******************************
-FAUST Architecture File
-Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
----------------------------------------------------------------------
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-
-EXCEPTION : As a special exception, you may create a larger work
-that contains this FAUST architecture section and distribute
-that work under terms of your choice, so long as this FAUST
-architecture section is not modified.
-***************************************************************************/
-
-#ifndef __misc__
-#define __misc__
-
-#include <algorithm>
-#include <map>
-#include <cstdlib>
-#include <string.h>
-#include <fstream>
-#include <string>
-
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
@@ -751,8 +665,8 @@ class synth_risset_tone : public synth_risset_tone_dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.8");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_risset_tone -scn synth_risset_tone_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("ceammc.lib/version", "0.1.4");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn synth_risset_tone -scn synth_risset_tone_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("copyright", "Oliver Larkin");
 		m->declare("description", "Jean Claude Risset's endless glissando");
 		m->declare("filename", "synth_risset_tone.dsp");
@@ -870,19 +784,19 @@ class synth_risset_tone : public synth_risset_tone_dsp {
 		float fSlow2 = fConst2 * float(fHslider2);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			fRec2[0] = fSlow2 + (fRec2[1] - std::floor(fSlow2 + fRec2[1]));
-			float fTemp0 = std::fmod(fRec2[0] + 0.4f, 1.0f);
+			float fTemp0 = std::fmod(fRec2[0] + 0.6f, 1.0f);
 			float fTemp1 = fRec1[1] + fConst1 * std::pow(2.0f, 0.083333336f * (std::min<float>(1.2e+02f, std::max<float>(2e+01f, fSlow0 + fSlow1 * (2.0f * fTemp0 + -1.0f) + 7.0f)) + -69.0f));
 			fRec1[0] = fTemp1 - std::floor(fTemp1);
 			float fTemp2 = 65536.0f * fTemp0;
 			int iTemp3 = int(fTemp2);
 			float fTemp4 = ftbl1synth_risset_toneSIG1[iTemp3];
-			float fTemp5 = std::fmod(fRec2[0] + 0.8f, 1.0f);
+			float fTemp5 = std::fmod(fRec2[0] + 0.5f, 1.0f);
 			float fTemp6 = fRec4[1] + fConst1 * std::pow(2.0f, 0.083333336f * (std::min<float>(1.2e+02f, std::max<float>(2e+01f, fSlow0 + fSlow1 * (2.0f * fTemp5 + -1.0f) + 7.0f)) + -69.0f));
 			fRec4[0] = fTemp6 - std::floor(fTemp6);
 			float fTemp7 = 65536.0f * fTemp5;
 			int iTemp8 = int(fTemp7);
 			float fTemp9 = ftbl1synth_risset_toneSIG1[iTemp8];
-			float fTemp10 = std::fmod(fRec2[0], 1.0f);
+			float fTemp10 = std::fmod(fRec2[0] + 0.4f, 1.0f);
 			float fTemp11 = fRec5[1] + fConst1 * std::pow(2.0f, 0.083333336f * (std::min<float>(1.2e+02f, std::max<float>(2e+01f, fSlow0 + fSlow1 * (2.0f * fTemp10 + -1.0f) + 7.0f)) + -69.0f));
 			fRec5[0] = fTemp11 - std::floor(fTemp11);
 			float fTemp12 = 65536.0f * fTemp10;
@@ -894,31 +808,31 @@ class synth_risset_tone : public synth_risset_tone_dsp {
 			float fTemp17 = 65536.0f * fTemp15;
 			int iTemp18 = int(fTemp17);
 			float fTemp19 = ftbl1synth_risset_toneSIG1[iTemp18];
-			float fTemp20 = std::fmod(fRec2[0] + 0.2f, 1.0f);
+			float fTemp20 = std::fmod(fRec2[0], 1.0f);
 			float fTemp21 = fRec7[1] + fConst1 * std::pow(2.0f, 0.083333336f * (std::min<float>(1.2e+02f, std::max<float>(2e+01f, fSlow0 + fSlow1 * (2.0f * fTemp20 + -1.0f) + 7.0f)) + -69.0f));
 			fRec7[0] = fTemp21 - std::floor(fTemp21);
 			float fTemp22 = 65536.0f * fTemp20;
 			int iTemp23 = int(fTemp22);
 			float fTemp24 = ftbl1synth_risset_toneSIG1[iTemp23];
-			float fTemp25 = std::fmod(fRec2[0] + 0.3f, 1.0f);
+			float fTemp25 = std::fmod(fRec2[0] + 0.2f, 1.0f);
 			float fTemp26 = fRec8[1] + fConst1 * std::pow(2.0f, 0.083333336f * (std::min<float>(1.2e+02f, std::max<float>(2e+01f, fSlow0 + fSlow1 * (2.0f * fTemp25 + -1.0f) + 7.0f)) + -69.0f));
 			fRec8[0] = fTemp26 - std::floor(fTemp26);
 			float fTemp27 = 65536.0f * fTemp25;
 			int iTemp28 = int(fTemp27);
 			float fTemp29 = ftbl1synth_risset_toneSIG1[iTemp28];
-			float fTemp30 = std::fmod(fRec2[0] + 0.5f, 1.0f);
+			float fTemp30 = std::fmod(fRec2[0] + 0.3f, 1.0f);
 			float fTemp31 = fRec9[1] + fConst1 * std::pow(2.0f, 0.083333336f * (std::min<float>(1.2e+02f, std::max<float>(2e+01f, fSlow0 + fSlow1 * (2.0f * fTemp30 + -1.0f) + 7.0f)) + -69.0f));
 			fRec9[0] = fTemp31 - std::floor(fTemp31);
 			float fTemp32 = 65536.0f * fTemp30;
 			int iTemp33 = int(fTemp32);
 			float fTemp34 = ftbl1synth_risset_toneSIG1[iTemp33];
-			float fTemp35 = std::fmod(fRec2[0] + 0.6f, 1.0f);
+			float fTemp35 = std::fmod(fRec2[0] + 0.7f, 1.0f);
 			float fTemp36 = fRec10[1] + fConst1 * std::pow(2.0f, 0.083333336f * (std::min<float>(1.2e+02f, std::max<float>(2e+01f, fSlow0 + fSlow1 * (2.0f * fTemp35 + -1.0f) + 7.0f)) + -69.0f));
 			fRec10[0] = fTemp36 - std::floor(fTemp36);
 			float fTemp37 = 65536.0f * fTemp35;
 			int iTemp38 = int(fTemp37);
 			float fTemp39 = ftbl1synth_risset_toneSIG1[iTemp38];
-			float fTemp40 = std::fmod(fRec2[0] + 0.7f, 1.0f);
+			float fTemp40 = std::fmod(fRec2[0] + 0.8f, 1.0f);
 			float fTemp41 = fRec11[1] + fConst1 * std::pow(2.0f, 0.083333336f * (std::min<float>(1.2e+02f, std::max<float>(2e+01f, fSlow0 + fSlow1 * (2.0f * fTemp40 + -1.0f) + 7.0f)) + -69.0f));
 			fRec11[0] = fTemp41 - std::floor(fTemp41);
 			float fTemp42 = 65536.0f * fTemp40;
@@ -946,23 +860,12 @@ class synth_risset_tone : public synth_risset_tone_dsp {
 	}
 
 };
-// clang-format on
 #endif
 
-    template <class T>
-    struct _synth_risset_tone_UI : public UI {
-    static std::string name;
-};
-
-template <class T>
-std::string _synth_risset_tone_UI<T>::name(sym(synth_risset_tone));
-
-typedef _synth_risset_tone_UI<synth_risset_tone> synth_risset_tone_UI;
-
-class faust_synth_risset_tone_tilde : public FaustExternal<synth_risset_tone, synth_risset_tone_UI> {
+class faust_synth_risset_tone_tilde : public FaustExternal<synth_risset_tone> {
 public:
     faust_synth_risset_tone_tilde(const ceammc::PdArgs& args)
-        : FaustExternal(args)
+        : FaustExternal(args, sym(synth_risset_tone))
     {
     }
 };

@@ -62,6 +62,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_externals.cpp
     ceammc_factory.h
     ceammc_faust.cpp
+    ceammc_faust_ui.cpp
     ceammc_filesystem.cpp
     ceammc_fn_list.cpp
     ceammc_format.cpp

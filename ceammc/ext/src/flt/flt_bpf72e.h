@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "flt.bpf72e"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_bpf72e -scn flt_bpf72e_dsp -es 1 -mcd 16 -double -ftz 0
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn flt_bpf72e -scn flt_bpf72e_dsp -es 1 -mcd 16 -double -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __flt_bpf72e_H__
@@ -367,92 +367,40 @@ class FAUST_API ScopedNoDenormals {
 #endif
 
 /************************** END flt_bpf72e_dsp.h **************************/
-/************************** BEGIN UI.h *****************************
- FAUST Architecture File
- Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
- ---------------------------------------------------------------------
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 2.1 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU Lesser General Public License for more details.
- 
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- 
- EXCEPTION : As a special exception, you may create a larger work
- that contains this FAUST architecture section and distribute
- that work under terms of your choice, so long as this FAUST
- architecture section is not modified.
- ********************************************************************/
+/************************** BEGIN misc.h *******************************
+FAUST Architecture File
+Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+---------------------------------------------------------------------
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 2.1 of the License, or
+(at your option) any later version.
 
-#ifndef __UI_H__
-#define __UI_H__
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
 
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-#ifndef FAUSTFLOAT
-#define FAUSTFLOAT float
-#endif
+EXCEPTION : As a special exception, you may create a larger work
+that contains this FAUST architecture section and distribute
+that work under terms of your choice, so long as this FAUST
+architecture section is not modified.
+***************************************************************************/
 
-/*******************************************************************************
- * UI : Faust DSP User Interface
- * User Interface as expected by the buildUserInterface() method of a DSP.
- * This abstract class contains only the method that the Faust compiler can
- * generate to describe a DSP user interface.
- ******************************************************************************/
+#ifndef __misc__
+#define __misc__
 
-struct Soundfile;
+#include <algorithm>
+#include <map>
+#include <cstdlib>
+#include <string.h>
+#include <fstream>
+#include <string>
 
-template <typename REAL>
-struct FAUST_API UIReal {
-    
-    UIReal() {}
-    virtual ~UIReal() {}
-    
-    // -- widget's layouts
-    
-    virtual void openTabBox(const char* label) = 0;
-    virtual void openHorizontalBox(const char* label) = 0;
-    virtual void openVerticalBox(const char* label) = 0;
-    virtual void closeBox() = 0;
-    
-    // -- active widgets
-    
-    virtual void addButton(const char* label, REAL* zone) = 0;
-    virtual void addCheckButton(const char* label, REAL* zone) = 0;
-    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    
-    // -- passive widgets
-    
-    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    
-    // -- soundfiles
-    
-    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-    
-    // -- metadata declarations
-    
-    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
-
-    // To be used by LLVM client
-    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
-};
-
-struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
-    UI() {}
-    virtual ~UI() {}
-};
-
-#endif
-/**************************  END  UI.h **************************/
 /************************** BEGIN meta.h *******************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
@@ -491,40 +439,6 @@ struct FAUST_API Meta {
 
 #endif
 /**************************  END  meta.h **************************/
-/************************** BEGIN misc.h *******************************
-FAUST Architecture File
-Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
----------------------------------------------------------------------
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-
-EXCEPTION : As a special exception, you may create a larger work
-that contains this FAUST architecture section and distribute
-that work under terms of your choice, so long as this FAUST
-architecture section is not modified.
-***************************************************************************/
-
-#ifndef __misc__
-#define __misc__
-
-#include <algorithm>
-#include <map>
-#include <cstdlib>
-#include <string.h>
-#include <fstream>
-#include <string>
-
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
@@ -642,14 +556,14 @@ struct flt_bpf72e : public flt_bpf72e_dsp {
 #define RESTRICT __restrict__
 #endif
 
-static double flt_bpf72e_faustpower4_f(double value) {
-	return value * value * value * value;
-}
 static double flt_bpf72e_faustpower2_f(double value) {
 	return value * value;
 }
 static double flt_bpf72e_faustpower3_f(double value) {
 	return value * value * value;
+}
+static double flt_bpf72e_faustpower4_f(double value) {
+	return value * value * value * value;
 }
 
 class flt_bpf72e : public flt_bpf72e_dsp {
@@ -657,16 +571,16 @@ class flt_bpf72e : public flt_bpf72e_dsp {
  private:
 	
 	int fSampleRate;
+	double fConst1;
 	double fConst2;
-	double fConst3;
-	double fConst4;
 	FAUSTFLOAT fVslider0;
 	FAUSTFLOAT fHslider0;
+	double fConst3;
+	double fConst4;
 	double fConst5;
 	double fConst6;
-	double fConst7;
-	double fConst8;
 	double fConst9;
+	double fConst10;
 	double fConst11;
 	double fConst12;
 	double fConst13;
@@ -691,7 +605,7 @@ class flt_bpf72e : public flt_bpf72e_dsp {
  public:
 	
 	void metadata(Meta* m) { 
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_bpf72e -scn flt_bpf72e_dsp -es 1 -mcd 16 -double -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn flt_bpf72e -scn flt_bpf72e_dsp -es 1 -mcd 16 -double -ftz 0");
 		m->declare("filename", "flt_bpf72e.dsp");
 		m->declare("filters.lib/bandpass12e:author", "Julius O. Smith III");
 		m->declare("filters.lib/bandpass12e:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -731,32 +645,32 @@ class flt_bpf72e : public flt_bpf72e_dsp {
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
 		double fConst0 = std::min<double>(1.92e+05, std::max<double>(1.0, double(fSampleRate)));
-		double fConst1 = 1.0 / fConst0;
-		fConst2 = flt_bpf72e_faustpower4_f(fConst1);
-		fConst3 = 4.0 * flt_bpf72e_faustpower2_f(fConst0);
-		fConst4 = 3.141592653589793 / fConst0;
-		fConst5 = 0.499 * fConst0;
-		fConst6 = flt_bpf72e_faustpower2_f(fConst1);
-		fConst7 = 2.0 * fConst0;
-		fConst8 = 0.5 / fConst0;
-		fConst9 = 1.347238968908712 / fConst0;
-		double fConst10 = flt_bpf72e_faustpower3_f(fConst1);
-		fConst11 = 0.336809742227178 * fConst10;
+		fConst1 = 2.0 * fConst0;
+		fConst2 = 3.141592653589793 / fConst0;
+		fConst3 = 0.499 * fConst0;
+		fConst4 = 0.5 / fConst0;
+		fConst5 = 4.0 * flt_bpf72e_faustpower2_f(fConst0);
+		fConst6 = 1.347238968908712 / fConst0;
+		double fConst7 = 1.0 / fConst0;
+		double fConst8 = flt_bpf72e_faustpower3_f(fConst7);
+		fConst9 = 0.336809742227178 * fConst8;
+		fConst10 = flt_bpf72e_faustpower4_f(fConst7);
+		fConst11 = flt_bpf72e_faustpower2_f(fConst7);
 		fConst12 = 4.099829135113128 / fConst0;
-		fConst13 = 1.024957283778282 * fConst10;
+		fConst13 = 1.024957283778282 * fConst8;
 		fConst14 = 6.25930437457316 / fConst0;
-		fConst15 = 1.56482609364329 * fConst10;
-		fConst16 = 4.0 * fConst2;
-		fConst17 = 3.12965218728658 * fConst10;
+		fConst15 = 1.56482609364329 * fConst8;
+		fConst16 = 4.0 * fConst10;
+		fConst17 = 3.12965218728658 * fConst8;
 		fConst18 = 12.51860874914632 / fConst0;
-		fConst19 = 6.0 * fConst2;
-		fConst20 = 0.00039999998822 * fConst2;
-		fConst21 = 0.0005999999823299999 * fConst2;
-		fConst22 = 0.00019999999411 * fConst2;
-		fConst23 = 2.049914567556564 * fConst10;
+		fConst19 = 6.0 * fConst10;
+		fConst20 = 0.00039999998822 * fConst10;
+		fConst21 = 0.0005999999823299999 * fConst10;
+		fConst22 = 0.00019999999411 * fConst10;
+		fConst23 = 2.049914567556564 * fConst8;
 		fConst24 = 8.199658270226257 / fConst0;
-		fConst25 = 2.0 * fConst2;
-		fConst26 = 0.673619484454356 * fConst10;
+		fConst25 = 2.0 * fConst10;
+		fConst26 = 0.673619484454356 * fConst8;
 		fConst27 = 2.694477937817424 / fConst0;
 	}
 	
@@ -808,60 +722,60 @@ class flt_bpf72e : public flt_bpf72e_dsp {
 		FAUSTFLOAT* output0 = outputs[0];
 		double fSlow0 = double(fVslider0);
 		double fSlow1 = 0.5 / double(fHslider0);
-		double fSlow2 = std::tan(fConst4 * std::min<double>(fSlow0 * (fSlow1 + 1.0), fConst5));
-		double fSlow3 = std::sqrt(fConst3 * std::tan(fConst4 * std::max<double>(fSlow0 * (1.0 - fSlow1), 2e+01)) * fSlow2);
-		double fSlow4 = flt_bpf72e_faustpower4_f(fSlow3);
-		double fSlow5 = fConst2 * fSlow4;
-		double fSlow6 = flt_bpf72e_faustpower2_f(fSlow3);
-		double fSlow7 = 8.0 * fSlow6;
-		double fSlow8 = fConst7 * fSlow2 - fConst8 * (fSlow6 / fSlow2);
-		double fSlow9 = flt_bpf72e_faustpower2_f(fSlow8);
-		double fSlow10 = fConst6 * (fSlow7 + 4.277433630829248 * fSlow9);
-		double fSlow11 = fConst9 + fConst11 * fSlow6;
-		double fSlow12 = 1.0 / (fSlow5 + fSlow10 + fSlow8 * fSlow11 + 16.0);
-		double fSlow13 = fConst6 * (fSlow7 + 214.1446118182269 * fSlow9);
+		double fSlow2 = std::tan(fConst2 * std::min<double>(fSlow0 * (fSlow1 + 1.0), fConst3));
+		double fSlow3 = std::sqrt(fConst5 * std::tan(fConst2 * std::max<double>(fSlow0 * (1.0 - fSlow1), 2e+01)) * fSlow2);
+		double fSlow4 = flt_bpf72e_faustpower2_f(fSlow3);
+		double fSlow5 = fConst1 * fSlow2 - fConst4 * (fSlow4 / fSlow2);
+		double fSlow6 = fConst6 + fConst9 * fSlow4;
+		double fSlow7 = flt_bpf72e_faustpower4_f(fSlow3);
+		double fSlow8 = fConst10 * fSlow7;
+		double fSlow9 = 8.0 * fSlow4;
+		double fSlow10 = flt_bpf72e_faustpower2_f(fSlow5);
+		double fSlow11 = fConst11 * (fSlow9 + 4.277433630829248 * fSlow10);
+		double fSlow12 = 1.0 / (fSlow5 * fSlow6 + fSlow8 + fSlow11 + 16.0);
+		double fSlow13 = fConst11 * (fSlow9 + 214.1446118182269 * fSlow10);
 		double fSlow14 = fSlow13 + 16.0;
-		double fSlow15 = fConst6 * (fSlow7 + 2.7584854579387 * fSlow9);
-		double fSlow16 = fConst12 + fConst13 * fSlow6;
-		double fSlow17 = 1.0 / (fSlow5 + fSlow15 + fSlow8 * fSlow16 + 16.0);
-		double fSlow18 = fConst6 * (fSlow7 + 30.486925195482414 * fSlow9);
+		double fSlow15 = fConst11 * (fSlow9 + 2.7584854579387 * fSlow10);
+		double fSlow16 = fConst12 + fConst13 * fSlow4;
+		double fSlow17 = 1.0 / (fSlow8 + fSlow15 + fSlow5 * fSlow16 + 16.0);
+		double fSlow18 = fConst11 * (fSlow9 + 30.486925195482414 * fSlow10);
 		double fSlow19 = fSlow18 + 16.0;
-		double fSlow20 = fConst14 + fConst15 * fSlow6;
-		double fSlow21 = fSlow5 + fConst6 * (0.98116603482464 * fSlow9 + fSlow7);
-		double fSlow22 = 1.0 / (fSlow8 * fSlow20 + fSlow21 + 16.0);
-		double fSlow23 = fConst6 * (0.00173290880222 * fSlow9 + 0.00079999997644 * fSlow6);
+		double fSlow20 = fConst11 * (0.98116603482464 * fSlow10 + fSlow9);
+		double fSlow21 = fConst14 + fConst15 * fSlow4;
+		double fSlow22 = 1.0 / (fSlow8 + fSlow20 + fSlow5 * fSlow21 + 16.0);
+		double fSlow23 = fConst11 * (0.00173290880222 * fSlow10 + 0.00079999997644 * fSlow4);
 		double fSlow24 = fSlow23 + 0.00159999995288;
-		double fSlow25 = fConst16 * fSlow4;
-		double fSlow26 = fConst17 * fSlow6;
-		double fSlow27 = fSlow25 + fSlow8 * (fSlow26 - fConst18) + -64.0;
-		double fSlow28 = fConst19 * fSlow4;
-		double fSlow29 = 16.0 * fSlow6;
-		double fSlow30 = fSlow28 + fConst6 * (0.0 - (1.96233206964928 * fSlow9 + fSlow29)) + 96.0;
-		double fSlow31 = fSlow25 + fSlow8 * (fConst18 - fSlow26) + -64.0;
-		double fSlow32 = fSlow21 + fSlow8 * (0.0 - fSlow20) + 16.0;
-		double fSlow33 = fConst20 * fSlow4 + -0.00639999981152;
-		double fSlow34 = fConst21 * fSlow4 + fConst6 * (0.0 - (0.00346581760444 * fSlow9 + 0.00159999995288 * fSlow6)) + 0.009599999717279999;
-		double fSlow35 = fSlow23 + fConst22 * fSlow4 + 0.00159999995288;
-		double fSlow36 = fConst23 * fSlow6;
-		double fSlow37 = fSlow25 + fSlow8 * (fSlow36 - fConst24) + -64.0;
-		double fSlow38 = fSlow28 + fConst6 * (0.0 - (fSlow29 + 5.5169709158774 * fSlow9)) + 96.0;
-		double fSlow39 = fSlow25 + fSlow8 * (fConst24 - fSlow36) + -64.0;
-		double fSlow40 = fSlow5 + fSlow15 + fSlow8 * (0.0 - fSlow16) + 16.0;
+		double fSlow25 = fConst16 * fSlow7;
+		double fSlow26 = fConst17 * fSlow4;
+		double fSlow27 = fSlow25 + fSlow5 * (fSlow26 - fConst18) + -64.0;
+		double fSlow28 = fConst19 * fSlow7;
+		double fSlow29 = 16.0 * fSlow4;
+		double fSlow30 = fSlow28 + fConst11 * (0.0 - (1.96233206964928 * fSlow10 + fSlow29)) + 96.0;
+		double fSlow31 = fSlow25 + fSlow5 * (fConst18 - fSlow26) + -64.0;
+		double fSlow32 = fSlow8 + fSlow20 + fSlow5 * (0.0 - fSlow21) + 16.0;
+		double fSlow33 = fConst20 * fSlow7 + -0.00639999981152;
+		double fSlow34 = fConst21 * fSlow7 + fConst11 * (0.0 - (0.00346581760444 * fSlow10 + 0.00159999995288 * fSlow4)) + 0.009599999717279999;
+		double fSlow35 = fSlow23 + fConst22 * fSlow7 + 0.00159999995288;
+		double fSlow36 = fConst23 * fSlow4;
+		double fSlow37 = fSlow25 + fSlow5 * (fSlow36 - fConst24) + -64.0;
+		double fSlow38 = fSlow28 + fConst11 * (0.0 - (fSlow29 + 5.5169709158774 * fSlow10)) + 96.0;
+		double fSlow39 = fSlow25 + fSlow5 * (fConst24 - fSlow36) + -64.0;
+		double fSlow40 = fSlow8 + fSlow15 + fSlow5 * (0.0 - fSlow16) + 16.0;
 		double fSlow41 = fSlow25 + -64.0;
-		double fSlow42 = fSlow28 + fConst6 * (0.0 - (fSlow29 + 60.97385039096483 * fSlow9)) + 96.0;
-		double fSlow43 = fConst25 * fSlow4;
+		double fSlow42 = fSlow28 + fConst11 * (0.0 - (fSlow29 + 60.97385039096483 * fSlow10)) + 96.0;
+		double fSlow43 = fConst25 * fSlow7;
 		double fSlow44 = fSlow18 + fSlow43 + 16.0;
-		double fSlow45 = fConst26 * fSlow6;
-		double fSlow46 = fSlow25 + fSlow8 * (fSlow45 - fConst27) + -64.0;
-		double fSlow47 = fSlow28 + fConst6 * (0.0 - (fSlow29 + 8.554867261658496 * fSlow9)) + 96.0;
-		double fSlow48 = fSlow25 + fSlow8 * (fConst27 - fSlow45) + -64.0;
-		double fSlow49 = fSlow5 + fSlow10 + fSlow8 * (0.0 - fSlow11) + 16.0;
-		double fSlow50 = fSlow28 + fConst6 * (0.0 - (fSlow29 + 428.2892236364538 * fSlow9)) + 96.0;
+		double fSlow45 = fSlow28 + fConst11 * (0.0 - (fSlow29 + 8.554867261658496 * fSlow10)) + 96.0;
+		double fSlow46 = fConst26 * fSlow4;
+		double fSlow47 = fSlow25 + fSlow5 * (fSlow46 - fConst27) + -64.0;
+		double fSlow48 = fSlow25 + fSlow5 * (fConst27 - fSlow46) + -64.0;
+		double fSlow49 = fSlow11 + fSlow8 + fSlow5 * (0.0 - fSlow6) + 16.0;
+		double fSlow50 = fSlow28 + fConst11 * (0.0 - (fSlow29 + 428.2892236364538 * fSlow10)) + 96.0;
 		double fSlow51 = fSlow43 + fSlow13 + 16.0;
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			fRec2[0] = double(input0[i0]) - fSlow22 * (fSlow27 * fRec2[1] + fSlow30 * fRec2[2] + fSlow31 * fRec2[3] + fSlow32 * fRec2[4]);
 			fRec1[0] = fSlow22 * (fSlow24 * fRec2[0] + fSlow33 * fRec2[1] + fSlow34 * fRec2[2] + fSlow33 * fRec2[3] + fSlow35 * fRec2[4]) - fSlow17 * (fSlow37 * fRec1[1] + fSlow38 * fRec1[2] + fSlow39 * fRec1[3] + fSlow40 * fRec1[4]);
-			fRec0[0] = fSlow17 * (fSlow19 * fRec1[0] + fSlow41 * fRec1[1] + fSlow42 * fRec1[2] + fSlow41 * fRec1[3] + fSlow44 * fRec1[4]) - fSlow12 * (fSlow46 * fRec0[1] + fSlow47 * fRec0[2] + fSlow48 * fRec0[3] + fSlow49 * fRec0[4]);
+			fRec0[0] = fSlow17 * (fSlow19 * fRec1[0] + fSlow41 * fRec1[1] + fSlow42 * fRec1[2] + fSlow41 * fRec1[3] + fSlow44 * fRec1[4]) - fSlow12 * (fSlow45 * fRec0[2] + fSlow47 * fRec0[1] + fSlow48 * fRec0[3] + fSlow49 * fRec0[4]);
 			output0[i0] = FAUSTFLOAT(fSlow12 * (fSlow14 * fRec0[0] + fSlow41 * fRec0[1] + fSlow50 * fRec0[2] + fSlow41 * fRec0[3] + fSlow51 * fRec0[4]));
 			for (int j0 = 4; j0 > 0; j0 = j0 - 1) {
 				fRec2[j0] = fRec2[j0 - 1];
@@ -876,23 +790,12 @@ class flt_bpf72e : public flt_bpf72e_dsp {
 	}
 
 };
-// clang-format on
 #endif
 
-    template <class T>
-    struct _flt_bpf72e_UI : public UI {
-    static std::string name;
-};
-
-template <class T>
-std::string _flt_bpf72e_UI<T>::name(sym(flt_bpf72e));
-
-typedef _flt_bpf72e_UI<flt_bpf72e> flt_bpf72e_UI;
-
-class faust_flt_bpf72e_tilde : public FaustExternal<flt_bpf72e, flt_bpf72e_UI> {
+class faust_flt_bpf72e_tilde : public FaustExternal<flt_bpf72e> {
 public:
     faust_flt_bpf72e_tilde(const ceammc::PdArgs& args)
-        : FaustExternal(args)
+        : FaustExternal(args, sym(flt_bpf72e))
     {
     }
 };

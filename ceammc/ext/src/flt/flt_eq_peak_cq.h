@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "flt.eq_peak_cq"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_eq_peak_cq -scn flt_eq_peak_cq_dsp -es 1 -mcd 16 -single -ftz 0
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn flt_eq_peak_cq -scn flt_eq_peak_cq_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __flt_eq_peak_cq_H__
@@ -367,92 +367,40 @@ class FAUST_API ScopedNoDenormals {
 #endif
 
 /************************** END flt_eq_peak_cq_dsp.h **************************/
-/************************** BEGIN UI.h *****************************
- FAUST Architecture File
- Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
- ---------------------------------------------------------------------
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 2.1 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU Lesser General Public License for more details.
- 
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- 
- EXCEPTION : As a special exception, you may create a larger work
- that contains this FAUST architecture section and distribute
- that work under terms of your choice, so long as this FAUST
- architecture section is not modified.
- ********************************************************************/
+/************************** BEGIN misc.h *******************************
+FAUST Architecture File
+Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+---------------------------------------------------------------------
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 2.1 of the License, or
+(at your option) any later version.
 
-#ifndef __UI_H__
-#define __UI_H__
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
 
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-#ifndef FAUSTFLOAT
-#define FAUSTFLOAT float
-#endif
+EXCEPTION : As a special exception, you may create a larger work
+that contains this FAUST architecture section and distribute
+that work under terms of your choice, so long as this FAUST
+architecture section is not modified.
+***************************************************************************/
 
-/*******************************************************************************
- * UI : Faust DSP User Interface
- * User Interface as expected by the buildUserInterface() method of a DSP.
- * This abstract class contains only the method that the Faust compiler can
- * generate to describe a DSP user interface.
- ******************************************************************************/
+#ifndef __misc__
+#define __misc__
 
-struct Soundfile;
+#include <algorithm>
+#include <map>
+#include <cstdlib>
+#include <string.h>
+#include <fstream>
+#include <string>
 
-template <typename REAL>
-struct FAUST_API UIReal {
-    
-    UIReal() {}
-    virtual ~UIReal() {}
-    
-    // -- widget's layouts
-    
-    virtual void openTabBox(const char* label) = 0;
-    virtual void openHorizontalBox(const char* label) = 0;
-    virtual void openVerticalBox(const char* label) = 0;
-    virtual void closeBox() = 0;
-    
-    // -- active widgets
-    
-    virtual void addButton(const char* label, REAL* zone) = 0;
-    virtual void addCheckButton(const char* label, REAL* zone) = 0;
-    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    
-    // -- passive widgets
-    
-    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    
-    // -- soundfiles
-    
-    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-    
-    // -- metadata declarations
-    
-    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
-
-    // To be used by LLVM client
-    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
-};
-
-struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
-    UI() {}
-    virtual ~UI() {}
-};
-
-#endif
-/**************************  END  UI.h **************************/
 /************************** BEGIN meta.h *******************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
@@ -491,40 +439,6 @@ struct FAUST_API Meta {
 
 #endif
 /**************************  END  meta.h **************************/
-/************************** BEGIN misc.h *******************************
-FAUST Architecture File
-Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
----------------------------------------------------------------------
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-
-EXCEPTION : As a special exception, you may create a larger work
-that contains this FAUST architecture section and distribute
-that work under terms of your choice, so long as this FAUST
-architecture section is not modified.
-***************************************************************************/
-
-#ifndef __misc__
-#define __misc__
-
-#include <algorithm>
-#include <map>
-#include <cstdlib>
-#include <string.h>
-#include <fstream>
-#include <string>
-
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
@@ -652,10 +566,10 @@ class flt_eq_peak_cq : public flt_eq_peak_cq_dsp {
 	
 	int fSampleRate;
 	float fConst1;
-	FAUSTFLOAT fVslider0;
 	float fConst2;
-	float fRec1[2];
+	FAUSTFLOAT fVslider0;
 	float fConst3;
+	float fRec1[2];
 	FAUSTFLOAT fVslider1;
 	float fRec2[2];
 	FAUSTFLOAT fVslider2;
@@ -670,7 +584,7 @@ class flt_eq_peak_cq : public flt_eq_peak_cq_dsp {
 		m->declare("basics.lib/version", "0.8");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_eq_peak_cq -scn flt_eq_peak_cq_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn flt_eq_peak_cq -scn flt_eq_peak_cq_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("filename", "flt_eq_peak_cq.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
 		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -718,15 +632,15 @@ class flt_eq_peak_cq : public flt_eq_peak_cq_dsp {
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
 		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = 44.1f / fConst0;
-		fConst2 = 1.0f - fConst1;
-		fConst3 = 3.1415927f / fConst0;
+		fConst1 = 3.1415927f / fConst0;
+		fConst2 = 44.1f / fConst0;
+		fConst3 = 1.0f - fConst2;
 		fConst4 = 6.2831855f / fConst0;
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fVslider0 = FAUSTFLOAT(0.0f);
-		fVslider1 = FAUSTFLOAT(1e+03f);
+		fVslider0 = FAUSTFLOAT(1e+03f);
+		fVslider1 = FAUSTFLOAT(0.0f);
 		fVslider2 = FAUSTFLOAT(3.0f);
 	}
 	
@@ -765,10 +679,10 @@ class flt_eq_peak_cq : public flt_eq_peak_cq_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("flt.eq_peak_cq");
-		ui_interface->declare(&fVslider1, "unit", "Hz");
-		ui_interface->addVerticalSlider("freq", &fVslider1, FAUSTFLOAT(1e+03f), FAUSTFLOAT(2e+01f), FAUSTFLOAT(2e+04f), FAUSTFLOAT(0.1f));
-		ui_interface->declare(&fVslider0, "unit", "db");
-		ui_interface->addVerticalSlider("gain", &fVslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(-15.0f), FAUSTFLOAT(15.0f), FAUSTFLOAT(0.1f));
+		ui_interface->declare(&fVslider0, "unit", "Hz");
+		ui_interface->addVerticalSlider("freq", &fVslider0, FAUSTFLOAT(1e+03f), FAUSTFLOAT(2e+01f), FAUSTFLOAT(2e+04f), FAUSTFLOAT(0.1f));
+		ui_interface->declare(&fVslider1, "unit", "db");
+		ui_interface->addVerticalSlider("gain", &fVslider1, FAUSTFLOAT(0.0f), FAUSTFLOAT(-15.0f), FAUSTFLOAT(15.0f), FAUSTFLOAT(0.1f));
 		ui_interface->addVerticalSlider("q", &fVslider2, FAUSTFLOAT(3.0f), FAUSTFLOAT(0.1f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.1f));
 		ui_interface->closeBox();
 	}
@@ -776,25 +690,25 @@ class flt_eq_peak_cq : public flt_eq_peak_cq_dsp {
 	virtual void compute(int count, FAUSTFLOAT** RESTRICT inputs, FAUSTFLOAT** RESTRICT outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = fConst1 * float(fVslider0);
-		float fSlow1 = fConst1 * float(fVslider1);
-		float fSlow2 = fConst1 * float(fVslider2);
+		float fSlow0 = fConst2 * float(fVslider0);
+		float fSlow1 = fConst2 * float(fVslider1);
+		float fSlow2 = fConst2 * float(fVslider2);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
-			fRec1[0] = fSlow0 + fConst2 * fRec1[1];
-			int iTemp0 = fRec1[0] > 0.0f;
-			fRec2[0] = fSlow1 + fConst2 * fRec2[1];
-			fRec3[0] = fSlow2 + fConst2 * fRec3[1];
-			float fTemp1 = fRec3[0] * std::sin(fConst4 * fRec2[0]);
-			float fTemp2 = fConst3 * (fRec2[0] * std::pow(1e+01f, 0.05f * std::fabs(fRec1[0])) / fTemp1);
-			float fTemp3 = fConst3 * (fRec2[0] / fTemp1);
-			float fTemp4 = ((iTemp0) ? fTemp3 : fTemp2);
-			float fTemp5 = std::tan(fConst3 * fRec2[0]);
-			float fTemp6 = 1.0f / fTemp5;
-			float fTemp7 = 2.0f * fRec0[1] * (1.0f - 1.0f / flt_eq_peak_cq_faustpower2_f(fTemp5));
-			float fTemp8 = (fTemp6 + fTemp4) / fTemp5 + 1.0f;
-			fRec0[0] = float(input0[i0]) - (fRec0[2] * (1.0f - (fTemp4 - fTemp6) / fTemp5) + fTemp7) / fTemp8;
-			float fTemp9 = ((iTemp0) ? fTemp2 : fTemp3);
-			output0[i0] = FAUSTFLOAT((fTemp7 + fRec0[0] * ((fTemp6 + fTemp9) / fTemp5 + 1.0f) + fRec0[2] * (1.0f - (fTemp9 - fTemp6) / fTemp5)) / fTemp8);
+			fRec1[0] = fSlow0 + fConst3 * fRec1[1];
+			float fTemp0 = std::tan(fConst1 * fRec1[0]);
+			float fTemp1 = 1.0f / fTemp0;
+			fRec2[0] = fSlow1 + fConst3 * fRec2[1];
+			int iTemp2 = fRec2[0] > 0.0f;
+			fRec3[0] = fSlow2 + fConst3 * fRec3[1];
+			float fTemp3 = fRec3[0] * std::sin(fConst4 * fRec1[0]);
+			float fTemp4 = fConst1 * (fRec1[0] * std::pow(1e+01f, 0.05f * std::fabs(fRec2[0])) / fTemp3);
+			float fTemp5 = fConst1 * (fRec1[0] / fTemp3);
+			float fTemp6 = ((iTemp2) ? fTemp5 : fTemp4);
+			float fTemp7 = 2.0f * fRec0[1] * (1.0f - 1.0f / flt_eq_peak_cq_faustpower2_f(fTemp0));
+			float fTemp8 = (fTemp1 + fTemp6) / fTemp0 + 1.0f;
+			fRec0[0] = float(input0[i0]) - (fRec0[2] * ((fTemp1 - fTemp6) / fTemp0 + 1.0f) + fTemp7) / fTemp8;
+			float fTemp9 = ((iTemp2) ? fTemp4 : fTemp5);
+			output0[i0] = FAUSTFLOAT((fTemp7 + fRec0[0] * ((fTemp1 + fTemp9) / fTemp0 + 1.0f) + fRec0[2] * ((fTemp1 - fTemp9) / fTemp0 + 1.0f)) / fTemp8);
 			fRec1[1] = fRec1[0];
 			fRec2[1] = fRec2[0];
 			fRec3[1] = fRec3[0];
@@ -804,23 +718,12 @@ class flt_eq_peak_cq : public flt_eq_peak_cq_dsp {
 	}
 
 };
-// clang-format on
 #endif
 
-    template <class T>
-    struct _flt_eq_peak_cq_UI : public UI {
-    static std::string name;
-};
-
-template <class T>
-std::string _flt_eq_peak_cq_UI<T>::name(sym(flt_eq_peak_cq));
-
-typedef _flt_eq_peak_cq_UI<flt_eq_peak_cq> flt_eq_peak_cq_UI;
-
-class faust_flt_eq_peak_cq_tilde : public FaustExternal<flt_eq_peak_cq, flt_eq_peak_cq_UI> {
+class faust_flt_eq_peak_cq_tilde : public FaustExternal<flt_eq_peak_cq> {
 public:
     faust_flt_eq_peak_cq_tilde(const ceammc::PdArgs& args)
-        : FaustExternal(args)
+        : FaustExternal(args, sym(flt_eq_peak_cq))
     {
     }
 };

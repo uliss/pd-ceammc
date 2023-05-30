@@ -26,12 +26,11 @@ struct _outlet {
 
 struct Dummy : public FaustExternalBase {
     Dummy()
-        : FaustExternalBase(PdArgs { {}, &s_, 0, &s_ })
+        : FaustExternalBase(PdArgs { {}, &s_, 0, &s_ }, "faust_test")
     {
     }
     void processBlock(const t_sample** in, t_sample** out) { }
 };
-typedef PdUI<Dummy> UI;
 
 t_outlet outlet()
 {
@@ -135,20 +134,20 @@ TEST_CASE("Faust", "[ceammc::faust]")
     {
         SECTION("construct")
         {
-            UI a("osc.tri~");
+            PdUI a("osc.tri~");
             REQUIRE(a.uiCount() == 0);
 
-            UI b("osc.tri~");
+            PdUI b("osc.tri~");
             REQUIRE(b.uiCount() == 0);
 
-            UI c("osc.tri_c~");
+            PdUI c("osc.tri_c~");
             REQUIRE(c.uiCount() == 0);
         }
 
         SECTION("uiAt")
         {
             t_float b;
-            UI a("osc.tri~");
+            PdUI a("osc.tri~");
             REQUIRE(a.uiAt(0) == 0);
 
             a.addButton("run", &b);
@@ -157,7 +156,7 @@ TEST_CASE("Faust", "[ceammc::faust]")
             REQUIRE_FALSE(a.uiAt(1));
             REQUIRE(b == 0.f);
 
-            const UI& c = a;
+            const PdUI& c = a;
             REQUIRE(c.uiAt(0) != 0);
             REQUIRE(c.uiAt(1) == 0);
             REQUIRE(c.uiAt(0)->label() == SYM("run"));
@@ -167,7 +166,7 @@ TEST_CASE("Faust", "[ceammc::faust]")
         {
             t_float v;
             std::vector<t_float> v_empty;
-            UI a("test");
+            PdUI a("test");
             REQUIRE(a.uiValues() == v_empty);
             a.addVerticalSlider("vsl", &v, 5.f, -20, 20, 0.0f);
             REQUIRE(a.uiCount() == 1);

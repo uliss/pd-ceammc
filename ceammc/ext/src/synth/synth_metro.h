@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "synth.metro"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_metro -scn synth_metro_dsp -es 1 -mcd 16 -single -ftz 0
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn synth_metro -scn synth_metro_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __synth_metro_H__
@@ -367,92 +367,40 @@ class FAUST_API ScopedNoDenormals {
 #endif
 
 /************************** END synth_metro_dsp.h **************************/
-/************************** BEGIN UI.h *****************************
- FAUST Architecture File
- Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
- ---------------------------------------------------------------------
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 2.1 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU Lesser General Public License for more details.
- 
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- 
- EXCEPTION : As a special exception, you may create a larger work
- that contains this FAUST architecture section and distribute
- that work under terms of your choice, so long as this FAUST
- architecture section is not modified.
- ********************************************************************/
+/************************** BEGIN misc.h *******************************
+FAUST Architecture File
+Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+---------------------------------------------------------------------
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 2.1 of the License, or
+(at your option) any later version.
 
-#ifndef __UI_H__
-#define __UI_H__
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
 
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-#ifndef FAUSTFLOAT
-#define FAUSTFLOAT float
-#endif
+EXCEPTION : As a special exception, you may create a larger work
+that contains this FAUST architecture section and distribute
+that work under terms of your choice, so long as this FAUST
+architecture section is not modified.
+***************************************************************************/
 
-/*******************************************************************************
- * UI : Faust DSP User Interface
- * User Interface as expected by the buildUserInterface() method of a DSP.
- * This abstract class contains only the method that the Faust compiler can
- * generate to describe a DSP user interface.
- ******************************************************************************/
+#ifndef __misc__
+#define __misc__
 
-struct Soundfile;
+#include <algorithm>
+#include <map>
+#include <cstdlib>
+#include <string.h>
+#include <fstream>
+#include <string>
 
-template <typename REAL>
-struct FAUST_API UIReal {
-    
-    UIReal() {}
-    virtual ~UIReal() {}
-    
-    // -- widget's layouts
-    
-    virtual void openTabBox(const char* label) = 0;
-    virtual void openHorizontalBox(const char* label) = 0;
-    virtual void openVerticalBox(const char* label) = 0;
-    virtual void closeBox() = 0;
-    
-    // -- active widgets
-    
-    virtual void addButton(const char* label, REAL* zone) = 0;
-    virtual void addCheckButton(const char* label, REAL* zone) = 0;
-    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    
-    // -- passive widgets
-    
-    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    
-    // -- soundfiles
-    
-    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-    
-    // -- metadata declarations
-    
-    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
-
-    // To be used by LLVM client
-    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
-};
-
-struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
-    UI() {}
-    virtual ~UI() {}
-};
-
-#endif
-/**************************  END  UI.h **************************/
 /************************** BEGIN meta.h *******************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
@@ -491,40 +439,6 @@ struct FAUST_API Meta {
 
 #endif
 /**************************  END  meta.h **************************/
-/************************** BEGIN misc.h *******************************
-FAUST Architecture File
-Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
----------------------------------------------------------------------
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-
-EXCEPTION : As a special exception, you may create a larger work
-that contains this FAUST architecture section and distribute
-that work under terms of your choice, so long as this FAUST
-architecture section is not modified.
-***************************************************************************/
-
-#ifndef __misc__
-#define __misc__
-
-#include <algorithm>
-#include <map>
-#include <cstdlib>
-#include <string.h>
-#include <fstream>
-#include <string>
-
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
@@ -692,7 +606,7 @@ class synth_metro : public synth_metro_dsp {
 		m->declare("analyzers.lib/version", "0.2");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.8");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_metro -scn synth_metro_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn synth_metro -scn synth_metro_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("compressors.lib/compression_gain_mono:author", "Julius O. Smith III");
 		m->declare("compressors.lib/compression_gain_mono:copyright", "Copyright (C) 2014-2020 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("compressors.lib/compression_gain_mono:license", "MIT-style STK-4.3 license");
@@ -714,7 +628,7 @@ class synth_metro : public synth_metro_dsp {
 		m->declare("filters.lib/iir:author", "Julius O. Smith III");
 		m->declare("filters.lib/iir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/iir:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/resonlp:author", "Julius O. Smith III");
 		m->declare("filters.lib/resonlp:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -763,16 +677,16 @@ class synth_metro : public synth_metro_dsp {
 	virtual void instanceResetUserInterface() {
 		fHslider0 = FAUSTFLOAT(0.0f);
 		fHslider1 = FAUSTFLOAT(6.0f);
-		fHslider2 = FAUSTFLOAT(1e+01f);
-		fHslider3 = FAUSTFLOAT(5e+02f);
+		fHslider2 = FAUSTFLOAT(5e+01f);
+		fHslider3 = FAUSTFLOAT(1.5e+03f);
 		fButton0 = FAUSTFLOAT(0.0f);
 		fHslider4 = FAUSTFLOAT(6.0f);
-		fHslider5 = FAUSTFLOAT(5e+01f);
-		fHslider6 = FAUSTFLOAT(1.5e+03f);
+		fHslider5 = FAUSTFLOAT(3e+01f);
+		fHslider6 = FAUSTFLOAT(1e+03f);
 		fButton1 = FAUSTFLOAT(0.0f);
 		fHslider7 = FAUSTFLOAT(6.0f);
-		fHslider8 = FAUSTFLOAT(3e+01f);
-		fHslider9 = FAUSTFLOAT(1e+03f);
+		fHslider8 = FAUSTFLOAT(1e+01f);
+		fHslider9 = FAUSTFLOAT(5e+02f);
 		fButton2 = FAUSTFLOAT(0.0f);
 		fHslider10 = FAUSTFLOAT(6.0f);
 		fHslider11 = FAUSTFLOAT(5e+02f);
@@ -833,19 +747,19 @@ class synth_metro : public synth_metro_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("synth.metro");
-		ui_interface->declare(&fButton1, "type", "bool");
-		ui_interface->addButton(".down", &fButton1);
+		ui_interface->declare(&fButton0, "type", "bool");
+		ui_interface->addButton(".down", &fButton0);
 		ui_interface->declare(&fButton3, "type", "bool");
 		ui_interface->addButton(".mark", &fButton3);
-		ui_interface->declare(&fButton0, "type", "bool");
-		ui_interface->addButton(".off", &fButton0);
 		ui_interface->declare(&fButton2, "type", "bool");
-		ui_interface->addButton(".on", &fButton2);
-		ui_interface->declare(&fHslider6, "unit", "hz");
-		ui_interface->addHorizontalSlider("down.freq", &fHslider6, FAUSTFLOAT(1.5e+03f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(5e+03f), FAUSTFLOAT(0.01f));
-		ui_interface->declare(&fHslider4, "unit", "db");
-		ui_interface->addHorizontalSlider("down.gain", &fHslider4, FAUSTFLOAT(6.0f), FAUSTFLOAT(-12.0f), FAUSTFLOAT(12.0f), FAUSTFLOAT(0.01f));
-		ui_interface->addHorizontalSlider("down.reson", &fHslider5, FAUSTFLOAT(5e+01f), FAUSTFLOAT(5.0f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.01f));
+		ui_interface->addButton(".off", &fButton2);
+		ui_interface->declare(&fButton1, "type", "bool");
+		ui_interface->addButton(".on", &fButton1);
+		ui_interface->declare(&fHslider3, "unit", "hz");
+		ui_interface->addHorizontalSlider("down.freq", &fHslider3, FAUSTFLOAT(1.5e+03f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(5e+03f), FAUSTFLOAT(0.01f));
+		ui_interface->declare(&fHslider1, "unit", "db");
+		ui_interface->addHorizontalSlider("down.gain", &fHslider1, FAUSTFLOAT(6.0f), FAUSTFLOAT(-12.0f), FAUSTFLOAT(12.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("down.reson", &fHslider2, FAUSTFLOAT(5e+01f), FAUSTFLOAT(5.0f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.01f));
 		ui_interface->declare(&fHslider0, "unit", "db");
 		ui_interface->addHorizontalSlider("gain", &fHslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(-12.0f), FAUSTFLOAT(12.0f), FAUSTFLOAT(0.01f));
 		ui_interface->declare(&fHslider12, "unit", "hz");
@@ -853,16 +767,16 @@ class synth_metro : public synth_metro_dsp {
 		ui_interface->declare(&fHslider10, "unit", "db");
 		ui_interface->addHorizontalSlider("mark.gain", &fHslider10, FAUSTFLOAT(6.0f), FAUSTFLOAT(-12.0f), FAUSTFLOAT(12.0f), FAUSTFLOAT(0.01f));
 		ui_interface->addHorizontalSlider("mark.reson", &fHslider11, FAUSTFLOAT(5e+02f), FAUSTFLOAT(5.0f), FAUSTFLOAT(5e+02f), FAUSTFLOAT(0.01f));
-		ui_interface->declare(&fHslider3, "unit", "hz");
-		ui_interface->addHorizontalSlider("off.freq", &fHslider3, FAUSTFLOAT(5e+02f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(5e+03f), FAUSTFLOAT(0.01f));
-		ui_interface->declare(&fHslider1, "unit", "db");
-		ui_interface->addHorizontalSlider("off.gain", &fHslider1, FAUSTFLOAT(6.0f), FAUSTFLOAT(-12.0f), FAUSTFLOAT(12.0f), FAUSTFLOAT(0.01f));
-		ui_interface->addHorizontalSlider("off.reson", &fHslider2, FAUSTFLOAT(1e+01f), FAUSTFLOAT(5.0f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.01f));
 		ui_interface->declare(&fHslider9, "unit", "hz");
-		ui_interface->addHorizontalSlider("on.freq", &fHslider9, FAUSTFLOAT(1e+03f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(5e+03f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("off.freq", &fHslider9, FAUSTFLOAT(5e+02f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(5e+03f), FAUSTFLOAT(0.01f));
 		ui_interface->declare(&fHslider7, "unit", "db");
-		ui_interface->addHorizontalSlider("on.gain", &fHslider7, FAUSTFLOAT(6.0f), FAUSTFLOAT(-12.0f), FAUSTFLOAT(12.0f), FAUSTFLOAT(0.01f));
-		ui_interface->addHorizontalSlider("on.reson", &fHslider8, FAUSTFLOAT(3e+01f), FAUSTFLOAT(5.0f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("off.gain", &fHslider7, FAUSTFLOAT(6.0f), FAUSTFLOAT(-12.0f), FAUSTFLOAT(12.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("off.reson", &fHslider8, FAUSTFLOAT(1e+01f), FAUSTFLOAT(5.0f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.01f));
+		ui_interface->declare(&fHslider6, "unit", "hz");
+		ui_interface->addHorizontalSlider("on.freq", &fHslider6, FAUSTFLOAT(1e+03f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(5e+03f), FAUSTFLOAT(0.01f));
+		ui_interface->declare(&fHslider4, "unit", "db");
+		ui_interface->addHorizontalSlider("on.gain", &fHslider4, FAUSTFLOAT(6.0f), FAUSTFLOAT(-12.0f), FAUSTFLOAT(12.0f), FAUSTFLOAT(0.01f));
+		ui_interface->addHorizontalSlider("on.reson", &fHslider5, FAUSTFLOAT(3e+01f), FAUSTFLOAT(5.0f), FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.01f));
 		ui_interface->closeBox();
 	}
 	
@@ -942,23 +856,12 @@ class synth_metro : public synth_metro_dsp {
 	}
 
 };
-// clang-format on
 #endif
 
-    template <class T>
-    struct _synth_metro_UI : public UI {
-    static std::string name;
-};
-
-template <class T>
-std::string _synth_metro_UI<T>::name(sym(synth_metro));
-
-typedef _synth_metro_UI<synth_metro> synth_metro_UI;
-
-class faust_synth_metro_tilde : public FaustExternal<synth_metro, synth_metro_UI> {
+class faust_synth_metro_tilde : public FaustExternal<synth_metro> {
 public:
     faust_synth_metro_tilde(const ceammc::PdArgs& args)
-        : FaustExternal(args)
+        : FaustExternal(args, sym(synth_metro))
     {
     }
 };

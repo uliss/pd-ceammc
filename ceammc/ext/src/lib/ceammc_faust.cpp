@@ -11,18 +11,16 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
-#include <array>
 #include <cassert>
 
 #include "ceammc_containers.h"
+#include "ceammc_crc32.h"
 #include "ceammc_faust.h"
 #include "ceammc_format.h"
 #include "ceammc_osc.h"
 #include "ceammc_poll_dispatcher.h"
 #include "ceammc_random.h"
 #include "fmt/core.h"
-#include "lex/parser_units.h"
 
 namespace ceammc {
 
@@ -62,127 +60,6 @@ namespace {
 }
 
 namespace faust {
-    t_symbol* UIElement::typeSymbol() const
-    {
-        switch (type_) {
-        case UI_BUTTON:
-            return gensym("button");
-        case UI_CHECK_BUTTON:
-            return gensym("checkbox");
-        case UI_V_SLIDER:
-            return gensym("vslider");
-        case UI_H_SLIDER:
-            return gensym("hslider");
-        case UI_NUM_ENTRY:
-            return gensym("nentry");
-        case UI_V_BARGRAPH:
-            return gensym("vbargraph");
-        case UI_H_BARGRAPH:
-            return gensym("hbargraph");
-        default:
-            return 0;
-        }
-    }
-
-    void UIElement::initProperty()
-    {
-        // set type and view
-        switch (type_) {
-        case UI_CHECK_BUTTON:
-            pinfo_.setType(PropValueType::BOOLEAN);
-            pinfo_.setView(PropValueView::TOGGLE);
-            pinfo_.setDefault(init_ != 0);
-            break;
-        case UI_V_SLIDER:
-        case UI_H_SLIDER:
-            pinfo_.setType(PropValueType::FLOAT);
-            pinfo_.setView(PropValueView::SLIDER);
-            break;
-        case UI_NUM_ENTRY:
-            pinfo_.setType(PropValueType::FLOAT);
-            pinfo_.setView(PropValueView::NUMBOX);
-            break;
-        default:
-            pinfo_.setType(PropValueType::FLOAT);
-            pinfo_.setView(PropValueView::SLIDER);
-            break;
-        }
-
-        if (type_ != UI_CHECK_BUTTON) {
-            if (!pinfo_.setConstraints(PropValueConstraints::CLOSED_RANGE))
-                LIB_ERR << set_prop_symbol_ << " can't set constraints";
-
-            if (!pinfo_.setRangeFloat(min_, max_))
-                LIB_ERR << set_prop_symbol_ << " can't set range: " << min_ << " - " << max_;
-
-            pinfo_.setDefault(init_);
-            pinfo_.setStep(step_);
-        }
-    }
-
-    static t_symbol* makePropertyGet(const char* name)
-    {
-        char buf[MAXPDSTRING];
-        sprintf(buf, "@%s?", name);
-        return gensym(buf);
-    }
-
-    static t_symbol* makePropertySet(const char* name)
-    {
-        char buf[MAXPDSTRING];
-        sprintf(buf, "@%s", name);
-        return gensym(buf);
-    }
-
-    UIElement::UIElement(UIElementType t, t_symbol* label)
-        : type_(t)
-        , label_(label)
-        , init_(0)
-        , min_(0)
-        , max_(1)
-        , step_(0)
-        , vptr_(0)
-        , set_prop_symbol_(makePropertySet(label->s_name))
-        , get_prop_symbol_(makePropertyGet(label->s_name))
-        , pinfo_(set_prop_symbol_, PropValueType::FLOAT)
-    {
-        initProperty();
-    }
-
-    UIElement::UIElement(UIElementType t, const char* label)
-        : UIElement(t, gensym(label))
-    {
-    }
-
-    FAUSTFLOAT UIElement::value(FAUSTFLOAT def) const
-    {
-        if (!vptr_)
-            return std::min(max_, std::max(min_, def));
-
-        return std::min(max_, std::max(min_, *vptr_));
-    }
-
-    void UIElement::setValue(FAUSTFLOAT v, bool clip)
-    {
-        if (!vptr_)
-            return;
-
-        if (v < min_) {
-            if (clip)
-                *vptr_ = min_;
-
-            return;
-        }
-
-        if (v > max_) {
-            if (clip)
-                *vptr_ = max_;
-
-            return;
-        }
-
-        *vptr_ = v;
-    }
 
     bool isGetAllProperties(t_symbol* s)
     {
@@ -250,11 +127,12 @@ namespace faust {
         return res;
     }
 
-    FaustExternalBase::FaustExternalBase(const PdArgs& args)
+    FaustExternalBase::FaustExternalBase(const PdArgs& args, const char* name)
         : SoundExternal(args)
         , faust_bs_(0)
         , xfade_(0)
         , n_xfade_(0)
+        , ui_(new PdUI(name))
     {
         active_ = new BoolProperty("@active", true);
         addProperty(active_);
@@ -312,6 +190,8 @@ namespace faust {
             osc_queue_.reset(new OscQueue);
             Dispatcher::instance().subscribe(this, subscriberId());
             bindReceive(gensym(OSC_DISPATCHER));
+
+            bindUIElements(ui_->elements(), ui_->oscSegments());
         }
     }
 
@@ -477,6 +357,13 @@ namespace faust {
         addProperty(prop);
     }
 
+    void FaustExternalBase::createUIProperties()
+    {
+        const size_t n_ui = ui_->uiCount();
+        for (size_t i = 0; i < n_ui; i++)
+            createUIProperty(ui_->uiAt(i));
+    }
+
     void FaustExternalBase::bindUIElements(const std::vector<UIElementPtr>& ui, const OscSegmentList& prefix)
     {
         for (auto& a : ui)
@@ -514,6 +401,15 @@ namespace faust {
 
             OBJ_DBG << fmt::format("[osc] unsubscribed from server: '{}'", osc_->value()->s_name);
         }
+    }
+
+    void FaustExternalBase::m_update_osc_server(t_symbol* name, const AtomListView& lv)
+    {
+        if (!hasOscBinding() || lv != oscServer())
+            return;
+
+        unbindUIElements();
+        bindUIElements(ui_->elements(), ui_->oscSegments());
     }
 
     void FaustExternalBase::bufFadeIn(const t_sample** in, t_sample** out, float k0)
@@ -558,8 +454,52 @@ namespace faust {
         return true;
     }
 
+    int UIProperty::findEnumIndex(const char* str) const
+    {
+        auto hash = crc32_hash(str);
+        auto it = std::find_if(enum_data_.begin(), enum_data_.end(), [hash](const UIEnumEntry& e) { return e.hash() == hash; });
+
+        return (it == enum_data_.end()) ? -1 : std::distance(enum_data_.begin(), it);
+    }
+
+    bool UIProperty::setByEnumValue(const AtomListView& lv)
+    {
+        if (!lv.isSymbol())
+            return false;
+
+        auto idx = findEnumIndex(lv[0].asT<t_symbol*>());
+        if (idx < 0)
+            return false;
+
+        setValue(idx, true);
+        return true;
+    }
+
+    std::string UIProperty::usageStringVariants() const
+    {
+        std::string res;
+
+        if (hasEnum()) {
+            for (size_t i = 0; i < enum_data_.size(); i++) {
+                if (i != 0)
+                    res += '|';
+                else
+                    res += enum_data_[i].name();
+            }
+        }
+
+        if (!res.empty())
+            res += '|';
+
+        res += "random";
+
+        return res;
+    }
+
     bool UIProperty::setList(const AtomListView& lv)
     {
+        constexpr const char* MATH_OPS = "+-*/";
+
         if (!emptyCheck(lv))
             return false;
 
@@ -587,10 +527,10 @@ namespace faust {
                     return true;
                 }
             } else {
-                LIB_ERR << fmt::format("[{}] expected +-*/, got: {}", name()->s_name, to_string(lv[0]));
+                LIB_ERR << fmt::format("[{}] expected [{}], got: '{}'", name()->s_name, MATH_OPS, to_string(lv[0]));
                 return false;
             }
-        } else if (lv.size() == 1 && lv[0].isSymbol() && strcmp(lv[0].asT<t_symbol*>()->s_name, "random") == 0) {
+        } else if (lv.size() == 1 && lv[0] == "random") {
             random::RandomGen gen;
             if (isFloat()) {
                 setValue(gen.gen_uniform_float(el_->min(), el_->max()), true);
@@ -605,8 +545,15 @@ namespace faust {
                 LIB_ERR << fmt::format("[{}] unexpected property type for random: {}", name()->s_name, info().type());
                 return false;
             }
+        } else if (hasEnum() && setByEnumValue(lv)) {
+            return true;
         } else {
-            LIB_ERR << fmt::format("[{}] float value expected, got: {}", name()->s_name, to_string(lv));
+            LIB_ERR << fmt::format("[{}] float/int value, math operation [{}]N, or symbol {}; got: '{}'",
+                name()->s_name,
+                MATH_OPS,
+                usageStringVariants(),
+                to_string(lv));
+
             return false;
         }
     }
@@ -624,69 +571,6 @@ namespace faust {
     void UIProperty::setValue(t_float v, bool clip) const
     {
         el_->setValue(v, clip);
-    }
-
-    void UIElement::setContraints(FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
-    {
-        assert(min <= init && init <= max);
-
-        init_ = init;
-        min_ = min;
-        max_ = max;
-        step_ = step;
-
-        if (type() != UI_CHECK_BUTTON) {
-            if (pinfo_.type() != PropValueType::BOOLEAN && !pinfo_.setConstraints(PropValueConstraints::CLOSED_RANGE))
-                LIB_ERR << set_prop_symbol_ << " can't set constraints";
-
-            if (pinfo_.type() == PropValueType::FLOAT && !pinfo_.setRangeFloat(min_, max_))
-                LIB_ERR << set_prop_symbol_ << " can't set range: " << min_ << " - " << max_;
-            else if (pinfo_.type() == PropValueType::INTEGER && !pinfo_.setRangeInt(min_, max_))
-                LIB_ERR << set_prop_symbol_ << " can't set range: " << min_ << " - " << max_;
-
-            if (pinfo_.type() == PropValueType::FLOAT)
-                pinfo_.setDefault(init_);
-            else if (pinfo_.type() == PropValueType::INTEGER)
-                pinfo_.setDefault(static_cast<int>(init_));
-            else if (pinfo_.type() == PropValueType::BOOLEAN)
-                pinfo_.setDefault(static_cast<bool>(init_));
-
-            pinfo_.setStep(step_);
-        }
-    }
-
-    PropValueUnits to_units(const char* u)
-    {
-        parser::UnitTypeFullMatch p;
-        if (!p.parse(u))
-            return PropValueUnits::NONE;
-
-        switch (p.type()) {
-        case parser::TYPE_HZ:
-            return PropValueUnits::HZ;
-        case parser::TYPE_MSEC:
-            return PropValueUnits::MSEC;
-        case parser::TYPE_SEC:
-            return PropValueUnits::SEC;
-        case parser::TYPE_SAMP:
-            return PropValueUnits::SAMP;
-        case parser::TYPE_PERCENT:
-            return PropValueUnits::PERCENT;
-        case parser::TYPE_DB:
-            return PropValueUnits::DB;
-        case parser::TYPE_RADIAN:
-            return PropValueUnits::RAD;
-        case parser::TYPE_DEGREE:
-            return PropValueUnits::DEG;
-        case parser::TYPE_CENT:
-            return PropValueUnits::CENT;
-        case parser::TYPE_SEMITONE:
-            return PropValueUnits::SEMITONE;
-        case parser::TYPE_BPM:
-            return PropValueUnits::BPM;
-        default:
-            return PropValueUnits::NONE;
-        }
     }
 
     void copy_samples(size_t n_ch, size_t bs, const t_sample** in, t_sample** out, bool zero_abnormals)
@@ -709,22 +593,6 @@ namespace faust {
                     out[i][j + 7] = std::isnormal(in[i][j + 7]) ? in[i][j + 7] : 0;
                 }
             }
-        }
-    }
-
-    void process_declaration(UnitMap& um, TypeMap& tm, t_float* v, const char* name, const char* value)
-    {
-        if (strcmp(name, "unit") == 0) {
-            um[v] = value;
-        } else if (strcmp(name, "type") == 0) {
-            if (strcmp(value, "int") == 0)
-                tm[v] = PropValueType::INTEGER;
-            else if (strcmp(value, "bool") == 0)
-                tm[v] = PropValueType::BOOLEAN;
-            else if (strcmp(value, "float") == 0)
-                tm[v] = PropValueType::FLOAT;
-            else
-                LIB_ERR << "[dev][faust] unsupported type: " << value;
         }
     }
 }
