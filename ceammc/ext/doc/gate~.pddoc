@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="gate~">
+        <title>gate~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>multislot signal gate</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>gate</keywords>
+            <since>0.9.7</since>
+            <aliases>
+                <alias>ceammc/gate~</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="N" type="int" minvalue="1" maxvalue="64">number of
+            inputs/outputs</argument>
+        </arguments>
+        <properties>
+            <property name="@n" type="int" minvalue="1" default="1" maxvalue="64" access="initonly">number of [in|out]puts.</property>
+            <property name="@smooth" type="float" minvalue="0" default="50" maxvalue="1000"
+            units="millisecond">gain change smooth time</property>
+        </properties>
+        <inlets dynamic="true">
+            <inlet number="1" type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet number="..." type="audio">
+                <xinfo>... input signal</xinfo>
+            </inlet>
+            <inlet number="n" type="control">
+                <xinfo>n-th input signal</xinfo>
+            </inlet>
+            <inlet number="n+1" type="control">
+                <xinfo on="bool">on/off all channels</xinfo>
+                <xinfo on="list">list of 1|0, on/off specified channels only</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet number="1" type="audio">first output signal</outlet>
+            <outlet number="..." type="audio">... output signal</outlet>
+            <outlet number="n" type="audio">n-th output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[sig~ 1] [sig~ 2] [sig~ 100] [T]  [ui.hrd* 3]          [ui.dsp~]
+|        |.       |..        |... |...
+[gate~ 3                {i=4,o=3,w=30}]
+|         ^|        ^^|
+[ui.n~]   [ui.n~]   [ui.n~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

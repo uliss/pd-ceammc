@@ -265,6 +265,7 @@ set(DOC_FILES
     fx.wahwah~
     fx.zita_rev1~
     gain~
+    gate~
     global.dict
     global.float
     global.int

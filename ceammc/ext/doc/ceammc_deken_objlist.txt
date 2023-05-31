@@ -52,6 +52,8 @@ function.call	call named function
 func.call	call named function
 gain~	multislot signal gain
 ceammc/gain~	multislot signal gain
+gate~	multislot signal gate
+ceammc/gate~	multislot signal gate
 logger	advanced data logger
 ceammc/logger	advanced data logger
 log.error	advanced data logger

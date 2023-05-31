@@ -30,6 +30,9 @@ public:
     void initDone() final;
     void onInlet(size_t n, const AtomListView& lv) final;
     void processBlock(const t_sample** in, t_sample** out) final;
+
+    const char* annotateInlet(size_t n) const;
+    const char* annotateOutlet(size_t n) const;
 };
 
 void setup_base_gate_tilde();

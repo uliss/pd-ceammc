@@ -14,10 +14,23 @@
 #include "base_gate_tilde.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "fmt/core.h"
 
 constexpr int DEF_XLET = 1;
 constexpr int MIN_XLET = 1;
 constexpr int MAX_XLET = 64;
+
+static char INLET_INFO[MAX_XLET][16];
+static char OUTLET_INFO[MAX_XLET][16];
+
+static void initXletInfo()
+{
+    for (int i = 0; i < MAX_XLET; i++)
+        fmt::format_to(INLET_INFO[i], "input: {}\0", i + 1);
+
+    for (int i = 0; i < MAX_XLET; i++)
+        fmt::format_to(OUTLET_INFO[i], "outlet: {}\0", i + 1);
+}
 
 BaseGateTilde::BaseGateTilde(const PdArgs& args)
     : SoundExternal(args)
@@ -31,7 +44,7 @@ BaseGateTilde::BaseGateTilde(const PdArgs& args)
     addProperty(init_);
 
     smooth_ = new FloatProperty("@smooth", 50);
-    smooth_->checkClosedRange(0, 5000);
+    smooth_->checkClosedRange(0, 1000);
     smooth_->setUnitsMs();
     smooth_->setSuccessFn([this](Property*) {
         using namespace convert;
@@ -90,7 +103,18 @@ void BaseGateTilde::processBlock(const t_sample** in, t_sample** out)
     }
 }
 
+const char* BaseGateTilde::annotateInlet(size_t n) const
+{
+    return (n < n_->value()) ? INLET_INFO[n] : "bool or list of 1 and 0";
+}
+
+const char* BaseGateTilde::annotateOutlet(size_t n) const
+{
+    return (n < MAX_XLET) ? OUTLET_INFO[n] : "";
+}
+
 void setup_base_gate_tilde()
 {
+    initXletInfo();
     SoundExternalFactory<BaseGateTilde> obj("gate~");
 }

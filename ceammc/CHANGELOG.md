@@ -25,6 +25,7 @@
   - fx.ringmod~ - ring modulation
   - fx.scramble~ - scramble delayed fragments
   - fx.tremolo~ - tremolo effect from guitarix library
+  - gate~ - multichannel signal gate added
   - local.bimap - canvas local scope bimap container
   - merge~ - parametrized signal merge
   - metro.choice - randomly (uniformly) metronome time interval choice from specified set

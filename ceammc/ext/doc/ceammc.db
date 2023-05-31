@@ -267,6 +267,7 @@ fx.vocoder~		~~		~
 fx.wahwah~		~.		~
 fx.zita_rev1~		~~		~~
 gain~,ceammc/gain~		?		?
+gate~,ceammc/gate~		?		?
 global.dict,global.json		.		.
 global.float		.		.
 global.int		.		.
