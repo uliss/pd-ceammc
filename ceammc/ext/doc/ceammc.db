@@ -498,6 +498,7 @@ math.tan~		~		~
 math.trunc		.		.
 math.trunc~		~		~
 matrix~,ceammc/matrix~		?		?
+merge~,ceammc/merge~		?		~
 metro.choice		..		.
 metro.pattern		..		..
 metro.random		...		.

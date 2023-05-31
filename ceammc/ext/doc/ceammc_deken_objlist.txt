@@ -62,6 +62,8 @@ log.stdout	advanced data logger
 log.stderr	advanced data logger
 matrix~	signal routing matrix
 ceammc/matrix~	signal routing matrix
+merge~	parametrized signal merge
+ceammc/merge~	parametrized signal merge
 metro.choice	metro with random choice from timeset
 metro.pattern	metro with rhythmic patterns
 metro.random	metro random bang with specified range

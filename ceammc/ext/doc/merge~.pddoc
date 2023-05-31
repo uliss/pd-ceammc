@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="merge~">
+        <title>merge~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>parametrized signal merge</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>merge split</keywords>
+            <since>0.9.7</since>
+            <aliases>
+                <alias>ceammc/merge~</alias>
+            </aliases>
+            <also>
+                <see>split~</see>
+            </also>
+        </meta>
+        <info>
+            <par>mostly syntax sugar for clear schemes, but can be used in dynamic pathing</par>
+        </info>
+        <arguments>
+            <argument name="N" type="int" minvalue="2" maxvalue="64">
+            number of inputs</argument>
+        </arguments>
+        <properties>
+            <property name="@n" type="int" minvalue="2" maxvalue="64" default="2" access="initonly">number of inputs</property>
+        </properties>
+        <inlets dynamic="true">
+            <inlet type="audio" number="1">
+                <xinfo>first input signal</xinfo>
+            </inlet>
+            <inlet type="audio" number="...">
+                <xinfo>... input signal</xinfo>
+            </inlet>
+            <inlet type="audio" number="n">
+                <xinfo>n-th input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[sig~ 1] [sig~ 2] [sig~ 3] [ui.hrd* 3]
+|        |.       |..      |...
+[gate~ 3             {i=4,o=3,w=30}]
+*|*
+[merge~ 3            {i=3,o=1,w=30}]
+|
+[ui.n~]
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

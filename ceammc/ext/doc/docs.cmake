@@ -496,6 +496,7 @@ set(DOC_FILES
     math.trunc
     math.trunc~
     matrix~
+    merge~
     metro.choice
     metro.pattern
     metro.random
