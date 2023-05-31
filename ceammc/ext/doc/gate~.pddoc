@@ -21,7 +21,8 @@
             inputs/outputs</argument>
         </arguments>
         <properties>
-            <property name="@n" type="int" minvalue="1" default="1" maxvalue="64" access="initonly">number of [in|out]puts.</property>
+            <property name="@n" type="int" minvalue="1" default="1" maxvalue="64"
+            access="initonly">number of [in|out]puts.</property>
             <property name="@smooth" type="float" minvalue="0" default="50" maxvalue="1000"
             units="millisecond">gain change smooth time</property>
         </properties>

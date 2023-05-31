@@ -23,11 +23,11 @@
             <par>mostly syntax sugar for clear schemes, but can be used in dynamic pathing</par>
         </info>
         <arguments>
-            <argument name="N" type="int" minvalue="2" maxvalue="64">
-            number of inputs</argument>
+            <argument name="N" type="int" minvalue="2" maxvalue="64">number of inputs</argument>
         </arguments>
         <properties>
-            <property name="@n" type="int" minvalue="2" maxvalue="64" default="2" access="initonly">number of inputs</property>
+            <property name="@n" type="int" minvalue="2" maxvalue="64" default="2"
+            access="initonly">number of inputs</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio" number="1">

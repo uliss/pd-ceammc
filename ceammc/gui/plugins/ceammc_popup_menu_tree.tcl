@@ -43,9 +43,9 @@
         plot.hist~ plot.linspace~ plot.logspace~ plot.response~
     }}
     {base {
-        ceammc.search function function.call gain~ logger matrix~ metro.choice
-        metro.pattern metro.random metro.seq metro.wchoice mix~ nsig~
-        obj.props radio spring sync window xdac~ xfade2~ xfade~ z~
+        ceammc.search function function.call gain~ gate~ logger matrix~ merge~
+        metro.choice metro.pattern metro.random metro.seq metro.wchoice mix~
+        nsig~ obj.props radio spring sync window xdac~ xfade2~ xfade~ z~
     }}
     {chaos {
         chaos.gbman0 chaos.gbman0~ chaos.jong chaos.logistic chaos.std0

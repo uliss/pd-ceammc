@@ -166,6 +166,7 @@ ceammc/func
 ceammc/function
 ceammc/gain~
 ceammc/gate
+ceammc/gate~
 ceammc/group
 ceammc/helmholtz~
 ceammc/hex->int
@@ -563,6 +564,7 @@ fx.wahwah~
 fx.zita_rev1~
 gain~
 gate
+gate~
 global.dict
 global.float
 global.int
