@@ -353,6 +353,51 @@ namespace convert {
         return { r * std::cos(theta), r * std::sin(theta) };
     }
 
+    template <typename T>
+    T tau2pole(T tau, T sr)
+    {
+        static_assert(std::is_floating_point<T>(), "Float type expected");
+
+        if (std::abs(tau) < std::numeric_limits<T>::epsilon())
+            return 0;
+        else
+            return std::exp(-1 / (tau * sr));
+    }
+
+    template <typename T>
+    T pole2tau(T pole, T sr)
+    {
+        static_assert(std::is_floating_point<T>(), "Float type expected");
+        return -1.0 / (std::log(std::max(std::numeric_limits<T>::min(), pole)) * sr);
+    }
+
+    template <typename T>
+    T sec2tau(T s)
+    {
+        static_assert(std::is_floating_point<T>(), "Float type expected");
+        return s / std::log(1000);
+    }
+
+    template <typename T>
+    T tau2sec(T t)
+    {
+        static_assert(std::is_floating_point<T>(), "Float type expected");
+        return t * std::log(1000);
+    }
+
+    template <typename T>
+    T msec2tau(T ms)
+    {
+        static_assert(std::is_floating_point<T>(), "Float type expected");
+        return sec2tau(ms * 0.001);
+    }
+
+    template <typename T>
+    T tau2msec(T t)
+    {
+        static_assert(std::is_floating_point<T>(), "Float type expected");
+        return tau2sec(t) * 1000;
+    }
 }
 }
 

@@ -41,6 +41,54 @@ namespace interpolate {
     }
 }
 
+template <typename T>
+class SmoothExpT {
+    T y_, x_, smooth_;
+
+public:
+    SmoothExpT(T init = 0, T target = 0, T smooth = 0.997)
+        : y_(init)
+        , x_(target)
+        , smooth_(std::min<T>(1, std::max<T>(0, smooth)))
+    {
+        static_assert(std::is_floating_point<T>::value, "not floating point type");
+    }
+
+    T tick()
+    {
+        if (SmoothExpT::abs(x_ - y_) <= std::numeric_limits<T>::epsilon())
+            y_ = x_;
+        else // y[n] = (1 - s) * x[n] + s * y[n - 1]
+            y_ = ((1 - smooth_) * x_) + (smooth_ * y_);
+
+        return y_;
+    }
+
+    T operator()()
+    {
+        return tick();
+    }
+
+    T current() const { return y_; }
+    T target() const { return x_; }
+    T smooth() const { return smooth_; }
+
+    void setTarget(T x) { x_ = x; }
+    void setSmooth(T s) { smooth_ = s; }
+
+    void setSmoothSec(T sec, T sr)
+    {
+        const auto tau = sec / std::log(1000);
+        if (std::abs(tau) < std::numeric_limits<T>::epsilon())
+            smooth_ = 0;
+        else
+            smooth_ = std::exp(-1 / (tau * sr));
+    }
+
+private:
+    static T abs(T v) { return v < 0 ? -v : v; }
+};
+
 template <class T>
 class SmoothLinT {
     T current_;
