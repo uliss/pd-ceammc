@@ -39,6 +39,7 @@
   - rhythm.euclid - euclid pattern generator (using fast bresenham algorithm)
   - rhythm.lsystem - L-system pattern generator
   - route.cycle - advanced cyclic message router
+  - split~ - multichannel signal splitter
   - synth.metro~ - metronome synth with complex pattern support 
 - new object inlets:
   - dyn.gate~, dyn.gate2~ - second inlet added for setting threshold

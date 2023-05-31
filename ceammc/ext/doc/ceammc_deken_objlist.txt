@@ -78,6 +78,8 @@ ceammc/nsig~	Mulitchannel converter from control to audio rate
 obj.props	property extractor
 radio	float index to outlet values as radio switch
 ceammc/radio	float index to outlet values as radio switch
+split~	parametrized signal splitter
+ceammc/split~	parametrized signal splitter
 spring	float value "spring"
 ceammc/spring	float value "spring"
 sync	value synchronization

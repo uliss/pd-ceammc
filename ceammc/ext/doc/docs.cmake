@@ -675,6 +675,7 @@ set(DOC_FILES
     speech.flite
     speech.flite~
     speech.rhvoice~
+    split~
     spring
     string
     string.contains

@@ -45,7 +45,8 @@
     {base {
         ceammc.search function function.call gain~ gate~ logger matrix~ merge~
         metro.choice metro.pattern metro.random metro.seq metro.wchoice mix~
-        nsig~ obj.props radio spring sync window xdac~ xfade2~ xfade~ z~
+        nsig~ obj.props radio split~ spring sync window xdac~ xfade2~ xfade~
+        z~
     }}
     {chaos {
         chaos.gbman0 chaos.gbman0~ chaos.jong chaos.logistic chaos.std0

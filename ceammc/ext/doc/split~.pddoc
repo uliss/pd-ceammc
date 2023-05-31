@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="split~">
+        <title>split~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>parametrized signal splitter</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>merge split</keywords>
+            <since>0.9.7</since>
+            <aliases>
+                <alias>ceammc/split~</alias>
+            </aliases>
+            <also>
+                <see>merge~</see>
+            </also>
+        </meta>
+        <info>
+            <par>mostly syntax sugar for clear schemes, but can be used in dynamic pathing</par>
+        </info>
+        <arguments>
+            <argument name="N" type="int" minvalue="2" maxvalue="64">number of outputs</argument>
+        </arguments>
+        <properties>
+            <property name="@n" type="int" minvalue="2" maxvalue="64" default="2"
+            access="initonly">number of outputs</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet number="1" type="audio">first output signal</outlet>
+            <outlet number="..." type="audio">... output signal</outlet>
+            <outlet number="n" type="audio">n-th output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+[sig~ 1]
+|
+[split~ 3 {i=1,o=3,w=28}]
+|         ^|        ^^|
+[ui.n~]   [ui.n~]   [ui.n~]
+
+[ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
