@@ -49,6 +49,7 @@ void setup_base_canvas_name();
 void setup_base_canvas_path();
 void setup_base_clone();
 void setup_base_expand_env();
+void setup_base_gate_tilde();
 void setup_base_merge_tilde();
 void setup_base_msg();
 void setup_base_replace();
@@ -93,6 +94,7 @@ void ceammc_base_setup()
     setup_base_dac();
     setup_base_expand_env();
     setup_base_function();
+    setup_base_gate_tilde();
     setup_base_log();
     setup_base_matrix();
     setup_base_merge_tilde();

@@ -101,37 +101,30 @@ TEST_CASE("convert", "[PureData]")
     {
         using SmoothTest = SmoothExpT<double>;
 
-        SmoothTest t(0, 0, 0);
+        SmoothTest t(0, 0);
         REQUIRE(t.current() == 0);
         REQUIRE(t.target() == 0);
-        REQUIRE(t.smooth() == 0);
 
-        REQUIRE(t() == 0);
+        REQUIRE(t(0) == 0);
         t.setTarget(0.5);
-        REQUIRE(t() == 0.5);
+        REQUIRE(t(0) == 0.5);
         t.setTarget(1);
-        REQUIRE(t() == 1);
-        REQUIRE(t() == 1);
+        REQUIRE(t(0) == 1);
+        REQUIRE(t(0) == 1);
         REQUIRE(t.current() == 1);
 
-        t.setSmooth(0.5);
         t.setTarget(0);
         for (int i = 1; i <= 32; i++) {
-            REQUIRE(t() == Approx(std::exp2(-i)));
+            REQUIRE(t(0.5) == Approx(std::exp2(-i)));
         }
 
         for (int i = 0; i < 32; i++)
-            t();
+            t(0.5);
 
-        REQUIRE(t() == 0);
+        REQUIRE(t(0.5) == 0);
         t.setTarget(1);
-        REQUIRE(t() == 0.5);
-        REQUIRE(t() == 0.75);
-        REQUIRE(t() == 0.875);
-
-        t.setSmoothSec(1, 1024);
-        REQUIRE(convert::pole2tau<double>(t.smooth(), 1024) == Approx(convert::sec2tau(1.0)));
-        t.setSmoothSec(0.125, 1024);
-        REQUIRE(convert::pole2tau<double>(t.smooth(), 1024) == Approx(convert::msec2tau(125.0)));
+        REQUIRE(t(0.5) == 0.5);
+        REQUIRE(t(0.5) == 0.75);
+        REQUIRE(t(0.5) == 0.875);
     }
 }

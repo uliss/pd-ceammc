@@ -371,33 +371,17 @@ namespace convert {
         return -1.0 / (std::log(std::max(std::numeric_limits<T>::min(), pole)) * sr);
     }
 
-    template <typename T>
-    T sec2tau(T s)
-    {
-        static_assert(std::is_floating_point<T>(), "Float type expected");
-        return s / std::log(1000);
-    }
+    static inline double sec2tau(double s) { return s / std::log(1000); }
+    static inline float sec2tau(float s) { return s / std::logf(1000); }
 
-    template <typename T>
-    T tau2sec(T t)
-    {
-        static_assert(std::is_floating_point<T>(), "Float type expected");
-        return t * std::log(1000);
-    }
+    static inline double tau2sec(double t) { return t * std::log(1000); }
+    static inline float tau2sec(float t) { return t * std::logf(1000); }
 
-    template <typename T>
-    T msec2tau(T ms)
-    {
-        static_assert(std::is_floating_point<T>(), "Float type expected");
-        return sec2tau(ms * 0.001);
-    }
+    static inline double msec2tau(double ms) { return sec2tau(ms * 0.001); }
+    static inline float msec2tau(float ms) { return sec2tau(ms * 0.001f); }
 
-    template <typename T>
-    T tau2msec(T t)
-    {
-        static_assert(std::is_floating_point<T>(), "Float type expected");
-        return tau2sec(t) * 1000;
-    }
+    static inline double tau2msec(double t) { return tau2sec(t) * 1000; }
+    static inline float tau2msec(float t) { return tau2sec(t) * 1000; }
 }
 }
 
