@@ -249,7 +249,7 @@ void LtcOutTilde::m_seek(t_symbol* s, const AtomListView& lv)
     using namespace ceammc::parser;
 
     if (!lv.isAtom()) {
-        METHOD_ERR(s) << "";
+        METHOD_ERR(s) << "target time expected";
         return;
     }
 
@@ -296,7 +296,7 @@ void LtcOutTilde::m_seek(t_symbol* s, const AtomListView& lv)
             ltc_encoder_set_timecode(encoder_.get(), &tc);
         } break;
         default:
-            OBJ_ERR << "invalid unit type: " << p.type();
+            OBJ_ERR << "invalid seek value: " << p.type();
             break;
         }
     }

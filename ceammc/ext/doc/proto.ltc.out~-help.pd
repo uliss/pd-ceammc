@@ -14,77 +14,85 @@
 #X obj 414 162 ui.dsp~;
 #X obj 69 176 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 205 ltc.out~;
-#X obj 107 234 ui.dt;
-#X obj 50 262 ltc.in~;
-#X obj 50 291 ui.dt;
-#X obj 184 291 ui.dt;
-#X obj 20 340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 345 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X msg 146 190 seek 10sec;
+#X obj 50 219 ltc.out~;
+#X obj 107 248 ui.dt;
+#X obj 50 277 ltc.in~;
+#X obj 50 305 ui.dt;
+#X obj 184 305 ui.dt;
+#X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 359 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 380 @filter;
-#X text 245 380 Get/Set output signal filtering. LTC should have a
+#X msg 110 394 @filter;
+#X text 245 394 Get/Set output signal filtering. LTC should have a
 rise time of 40us+/-10 us. If you want a perfect square wave \, set
 to 0\. Type: float. Default value: 0\. Range: 0\...500\.;
-#X msg 110 437 @fps;
-#X text 245 437 Get/Set frames per second rate. Supported values are:
+#X msg 110 451 @fps;
+#X text 245 451 Get/Set frames per second rate. Supported values are:
 24 \, 25 \, 29.97 \, 30\. Type: float. Default value: 25\.;
-#X msg 110 479 @on;
-#X text 245 479 Get/Set encoder state. Type: bool. Default value: 0\.;
-#X msg 110 508 @speed;
-#X text 245 508 Get/Set playing speed. Type: float. Default value:
+#X msg 110 493 @on;
+#X text 245 493 Get/Set encoder state. Type: bool. Default value: 0\.;
+#X msg 110 522 @speed;
+#X text 245 522 Get/Set playing speed. Type: float. Default value:
 1\.;
-#X msg 110 537 @volume;
-#X text 245 537 Get/Set output signal level. Type: float. Units: db.
+#X msg 110 551 @volume;
+#X text 245 551 Get/Set output signal level. Type: float. Units: db.
 Default value: -3\. Range: -42\...0\.;
-#X obj 20 589 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 594 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 603 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 608 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 629 date;
-#X text 245 629 set current date. Arguments are:;
-#X obj 255 652 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 652 YEAR: year. Type: int. Range: 0\...3000\.;
-#X obj 255 675 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 675 MONTH: month. Type: int. Range: 1\...12\.;
-#X obj 255 698 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 698 DAY: day. Type: int. Range: 1\...31\.;
-#X obj 255 721 cnv 1 77 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 721 [TIMEZONE]: timezone in +HHMM format. Type: symbol.;
-#X msg 110 746 time;
-#X text 245 746 set current time. Arguments are:;
-#X obj 255 769 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 769 HOUR: hour. Type: int. Range: 0\...23\.;
-#X obj 255 792 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 792 MIN: minute. Type: int. Range: 0\...59\.;
-#X obj 255 815 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 815 SEC: second. Type: int. Range: 0\...59\.;
-#X obj 255 838 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 838 [FRAME]: frame number. Type: int. Range: 0\...30\.;
-#X obj 20 873 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 878 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 643 date;
+#X text 245 643 set current date. Arguments are:;
+#X obj 255 666 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 666 YEAR: year. Type: int. Range: 0\...3000\.;
+#X obj 255 689 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 689 MONTH: month. Type: int. Range: 1\...12\.;
+#X obj 255 712 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 712 DAY: day. Type: int. Range: 1\...31\.;
+#X obj 255 735 cnv 1 77 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 735 [TIMEZONE]: timezone in +HHMM format. Type: symbol.;
+#X msg 110 760 seek;
+#X text 245 760 time seek. Arguments are:;
+#X obj 255 783 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 783 UNIT: relative position seek. If float or int - seek
+in frames \, otherwise units are expected. Supported units are: day
+\, hour \, min \, sec. E.g.: 1day \, 3hour \, 5min \, 11sec etc. Type:
+atom.;
+#X msg 110 853 time;
+#X text 245 853 set current time. Arguments are:;
+#X obj 255 876 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 876 HOUR: hour. Type: int. Range: 0\...23\.;
+#X obj 255 899 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 899 MIN: minute. Type: int. Range: 0\...59\.;
+#X obj 255 922 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 922 SEC: second. Type: int. Range: 0\...59\.;
+#X obj 255 945 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 945 [FRAME]: frame number. Type: int. Range: 0\...30\.;
+#X obj 20 980 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 985 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 879 1\.;
-#X text 150 879 *bang*;
-#X text 245 879 output current time to second outlet.;
-#X text 150 899 *bool*;
-#X text 245 899 switch on/off encoder process.;
-#X obj 20 929 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 934 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 986 1\.;
+#X text 150 986 *bang*;
+#X text 245 986 output current time to second outlet.;
+#X text 150 1006 *bool*;
+#X text 245 1006 switch on/off encoder process.;
+#X obj 20 1036 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1041 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 935 1\.;
-#X text 245 935 list: HOUR MINUTE SECOND FRAME.;
-#X text 110 955 2\.;
-#X text 245 955 list: YEAR MONTH DAY.;
+#X text 110 1042 1\.;
+#X text 245 1042 list: HOUR MINUTE SECOND FRAME.;
+#X text 110 1062 2\.;
+#X text 245 1062 list: YEAR MONTH DAY.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 1005 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1008 library: ceammc v0.9.6;
-#X text 615 1020 see also:;
-#X obj 689 1020 ltc.in~;
-#N canvas 10 1027 400 290 info 0;
+#X obj 1 1112 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1115 library: ceammc v0.9.6;
+#X text 615 1127 see also:;
+#X obj 689 1127 ltc.in~;
+#N canvas 10 1134 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -108,14 +116,15 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1027 pd info;
+#X restore 10 1134 pd info;
 #X connect 7 0 9 0;
-#X connect 5 0 12 0;
-#X connect 11 0 12 0;
-#X connect 6 0 12 0;
-#X connect 8 0 12 0;
-#X connect 9 0 12 0;
-#X connect 12 1 13 0;
-#X connect 12 0 14 0;
-#X connect 14 0 15 0;
-#X connect 14 1 16 0;
+#X connect 5 0 13 0;
+#X connect 11 0 13 0;
+#X connect 6 0 13 0;
+#X connect 8 0 13 0;
+#X connect 12 0 13 0;
+#X connect 9 0 13 0;
+#X connect 13 1 14 0;
+#X connect 13 0 15 0;
+#X connect 15 0 16 0;
+#X connect 15 1 17 0;
