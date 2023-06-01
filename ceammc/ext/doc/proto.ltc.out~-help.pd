@@ -80,9 +80,9 @@ atom.;
 #X obj 20 1041 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 110 1042 1\.;
-#X text 245 1042 list: HOUR MINUTE SECOND FRAME.;
+#X text 245 1042 LTC signal.;
 #X text 110 1062 2\.;
-#X text 245 1062 list: YEAR MONTH DAY.;
+#X text 245 1062 list: HOUR MINUTE SECOND FRAME.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;

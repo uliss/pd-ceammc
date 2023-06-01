@@ -53,8 +53,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet type="audio">list: HOUR MINUTE SECOND FRAME</outlet>
-            <outlet>list: YEAR MONTH DAY</outlet>
+            <outlet type="audio">LTC signal</outlet>
+            <outlet>list: HOUR MINUTE SECOND FRAME</outlet>
         </outlets>
         <example>
             <pdascii>

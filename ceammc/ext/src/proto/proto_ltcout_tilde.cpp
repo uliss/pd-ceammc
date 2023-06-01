@@ -363,6 +363,10 @@ void setup_proto_ltcout_tilde()
     obj.addMethod("time", &LtcOutTilde::m_time);
     obj.addMethod("date", &LtcOutTilde::m_date);
     obj.addMethod("seek", &LtcOutTilde::m_seek);
+
+    obj.setXletsInfo({ "bool: start/pause encoder\n"
+                       "bang: output current time to second outlet" },
+        { "signal: encoded LTC signal", "list: HOUR MIN SEC FRAME" });
 }
 
 #endif
