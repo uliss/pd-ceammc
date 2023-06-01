@@ -617,6 +617,7 @@ proto.feelworld		.		.
 proto.firmata		.		.
 proto.inscore		.		.
 proto.ltc.in~,ltc.in~		~		..
+proto.ltc.out~,ltc.out~		.		~.
 proto.midi		.		..
 proto.midi.cc		.		.
 proto.midi.sysex		.		.

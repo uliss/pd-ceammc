@@ -7,18 +7,18 @@
   - array.tramp~ - triggered array ramp generator
   - chrono.datetime - get current date/time information
   - color.mix - color mixer
+  - conv.bar2ms - calculate bar and beat duration from tempo BPM and time signature
   - conv.char2morse - single character to morse code converter
   - conv.color2rgba - color converter added from named or hex colors to separate RGBA values
-  - conv.rgb2hex - convert RGB separate values to #RRGGBB symbol
   - conv.ms2str - convert time in milliseconds to formatted string or symbol
-  - conv.bar2ms - calculate bar and beat duration from tempo BPM and time signature
+  - conv.rgb2hex - convert RGB separate values to #RRGGBB symbol
   - conv.semi2ratio (with semi->ratio alias) added
   - data.bimap - bidirectional map for scalar types
   - data.color - Color datatype
-  - dyn.comp_peak~  - Peak FeedForward mono compressor
   - dyn.comp_peak2~ - Peak FeedForward stereo compressor with channel linking
-  - dyn.comp_up~ - upward mono compressor
+  - dyn.comp_peak~  - Peak FeedForward mono compressor
   - dyn.comp_up2~ - upward stereo compressor with channel linking
+  - dyn.comp_up~ - upward mono compressor
   - dyn.expand~ - mono dynamic range expander (attenuate levels under the threshold)
   - flt.speaker~ - low pass and high pass filter effect
   - fx.overdrive~ - overdrive effect
@@ -31,12 +31,12 @@
   - metro.choice - randomly (uniformly) metronome time interval choice from specified set
   - metro.wchoice - weighted metronome time interval choice from specified set
   - msg.onclose - send message on patch closing
-  - proto.morse - morse encoder with specified speed and other settings
-  - qrcode - QR code encoder
   - proto.ltc.in~ - LTC decoder
   - proto.ltc.out~ - LTC encoder
-  - rhythm.hexbeat - hexbeat pattern generator
+  - proto.morse - morse encoder with specified speed and other settings
+  - qrcode - QR code encoder
   - rhythm.euclid - euclid pattern generator (using fast bresenham algorithm)
+  - rhythm.hexbeat - hexbeat pattern generator
   - rhythm.lsystem - L-system pattern generator
   - route.cycle - advanced cyclic message router
   - split~ - multichannel signal splitter

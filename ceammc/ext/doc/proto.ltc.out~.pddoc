@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="proto.ltc.out~">
+        <title>proto.ltc.out~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>LTC encoder</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>proto</category>
+            <keywords>parser ltc</keywords>
+            <since>0.9.7</since>
+            <aliases>
+                <alias>ltc.out~</alias>
+            </aliases>
+            <also>
+                <see>ltc.in~</see>
+            </also>
+        </meta>
+        <properties>
+            <property name="@on" type="bool" default="0">encoder state</property>
+            <property name="@volume" type="float" default="-3" minvalue="-42" maxvalue="0"
+            units="decibel">output signal level</property>
+            <property name="@fps" type="float" default="25">frames per second rate. Supported values are: 24, 25, 29.97, 30.</property>
+            <property name="@speed" type="float" default="1">playing speed</property>
+            <property name="@filter" type="float" default="0" minvalue="0" maxvalue="500">output signal filtering.
+            LTC should have a rise time of 40us+/-10 us. If you want a perfect square wave, set to 0</property>
+        </properties>
+        <methods>
+            <method name="time">set current time
+            <param name="HOUR" type="int" required="true" minvalue="0" maxvalue="23">hour</param>
+            <param name="MIN" type="int" required="true" minvalue="0" maxvalue="59">minute</param>
+            <param name="SEC" type="int" required="true" minvalue="0" maxvalue="59">second</param>
+            <param name="FRAME" type="int" required="false" minvalue="0" maxvalue="30">frame number</param>
+            </method>
+            <method name="date">set current date
+            <param name="YEAR" type="int" required="true" minvalue="0" maxvalue="3000">year</param>
+            <param name="MONTH" type="int" required="true" minvalue="1" maxvalue="12">month</param>
+            <param name="DAY" type="int" required="true" minvalue="1" maxvalue="31">day</param>
+            <param name="TIMEZONE" type="symbol" required="false">timezone in +HHMM format</param>
+            </method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output current time to second outlet</xinfo>
+                <xinfo on="bool">switch on/off encoder process</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">list: HOUR MINUTE SECOND FRAME</outlet>
+            <outlet>list: YEAR MONTH DAY</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]   [date 83 1 11(   [ui.hsl 0.5 4 @show_value 1]
+|     |                |
+|     |                |
+|     | [time 0 4 15(  [@speed $1(    [ui.dsp~]
+| [B] | |              |
+| |   | |              |
+[ltc.out~    {i=1,o=2} #z]
+|     ^|
+|     [ui.dt]
+|
+[ltc.in~ #y]
+|
+[ui.dt]       [ui.dt #x]
+
+[X y:1->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

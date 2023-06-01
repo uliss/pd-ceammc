@@ -46,6 +46,8 @@ db. Default value: 0\. Range: -60\...0\.;
 #X obj 131 48 ui.link @title proto @url ceammc.proto-help.pd;
 #X obj 1 573 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 576 library: ceammc v0.9.6;
+#X text 608 588 see also:;
+#X obj 682 588 ltc.out~;
 #N canvas 10 595 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
@@ -63,7 +65,7 @@ db. Default value: 0\. Range: -60\...0\.;
 #X text 10 142 license:;
 #X text 120 142 GPL3 or later;
 #X text 10 164 keywords:;
-#X text 120 164 parser \, midi;
+#X text 120 164 parser \, ltc;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;

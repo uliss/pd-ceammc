@@ -1961,6 +1961,9 @@
     <entry name="proto.ltc.in~" descr="LTC decoder" ref_view="object">
       <xi:include href="proto.ltc.in~.pddoc" parse="xml"/>
     </entry>
+    <entry name="proto.ltc.out~" descr="LTC encoder" ref_view="object">
+      <xi:include href="proto.ltc.out~.pddoc" parse="xml"/>
+    </entry>
     <entry name="proto.midi" descr="raw midi encoder/parser" ref_view="object">
       <xi:include href="proto.midi.pddoc" parse="xml"/>
     </entry>

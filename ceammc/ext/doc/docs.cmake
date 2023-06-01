@@ -615,6 +615,7 @@ set(DOC_FILES
     proto.firmata
     proto.inscore
     proto.ltc.in~
+    proto.ltc.out~
     proto.midi
     proto.midi.cc
     proto.midi.sysex

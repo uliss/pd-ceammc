@@ -10,11 +10,14 @@
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>proto</category>
-            <keywords>parser midi</keywords>
+            <keywords>parser ltc</keywords>
             <since>0.9.7</since>
             <aliases>
                 <alias>ltc.in~</alias>
             </aliases>
+            <also>
+                <see>ltc.out~</see>
+            </also>
         </meta>
         <properties>
             <property name="@use_date" type="bool" default="1">decode date</property>

@@ -1038,6 +1038,8 @@ proto.firmata	Firmata Arduino protocol support
 proto.inscore	INScore message creator
 proto.ltc.in~	LTC decoder
 ltc.in~	LTC decoder
+proto.ltc.out~	LTC encoder
+ltc.out~	LTC encoder
 proto.midi	raw midi encoder/parser
 proto.midi.cc	raw midi CC encoder/parser
 proto.midi.sysex	raw midi SYSex encoder/parser
