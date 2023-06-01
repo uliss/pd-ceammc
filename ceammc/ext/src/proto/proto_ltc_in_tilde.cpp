@@ -68,25 +68,38 @@ void LtcInTilde::processBlock(const t_sample** in, t_sample** out)
     auto n = ltc_decoder_queue_length(dec);
     if (n > 0) {
         ltc_decoder_read(dec, &f);
-        updateData(f);
-        clock_.delay(0);
+        if (updateData(f))
+            clock_.delay(0);
     }
 }
 
-void LtcInTilde::updateData(const LTCFrameExt& frame)
+bool LtcInTilde::updateData(const LTCFrameExt& frame)
 {
+#define ON_CHANGE(a, b)    \
+    {                      \
+        if (a != b) {      \
+            a = b;         \
+            update = true; \
+        }                  \
+    }
+
+    bool update = false;
+    // volume has fluctation even on idle signal, no update
     data_.volume = frame.volume;
 
     SMPTETimecode tc;
     ltc_frame_to_time(&tc, const_cast<LTCFrame*>(&frame.ltc),
         use_date_->value() ? LTC_USE_DATE : LTC_TC_CLOCK);
-    data_.year = tc.years;
-    data_.month = tc.months;
-    data_.day = tc.days;
-    data_.hour = tc.hours;
-    data_.min = tc.mins;
-    data_.sec = tc.secs;
-    data_.frame = tc.frame;
+
+    ON_CHANGE(data_.year, tc.years);
+    ON_CHANGE(data_.month, tc.months);
+    ON_CHANGE(data_.day, tc.days);
+    ON_CHANGE(data_.hour, tc.hours);
+    ON_CHANGE(data_.min, tc.mins);
+    ON_CHANGE(data_.sec, tc.secs);
+    ON_CHANGE(data_.frame, tc.frame);
+
+    return update;
 }
 
 void LtcInTilde::outputData()

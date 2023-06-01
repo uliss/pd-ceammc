@@ -46,7 +46,7 @@ public:
     void processBlock(const t_sample** in, t_sample** out) final;
 
 private:
-    void updateData(const LTCFrameExt& frame);
+    bool updateData(const LTCFrameExt& frame);
     void outputData();
 };
 
