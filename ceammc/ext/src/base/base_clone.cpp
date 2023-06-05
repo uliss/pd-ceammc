@@ -55,6 +55,33 @@ using BinBufferPtr = deleted_unique_ptr<t_binbuf>;
 
 namespace {
 
+const char* to_string(ceammc::parser::TargetType t)
+{
+    using namespace ceammc::parser;
+    switch (t) {
+    case TARGET_TYPE_NONE:
+        return "none";
+    case TARGET_TYPE_ALL:
+        return "all";
+    case TARGET_TYPE_EXCEPT:
+        return "except";
+    case TARGET_TYPE_RANDOM:
+        return "random";
+    case TARGET_TYPE_EQ:
+        return "==";
+    case TARGET_TYPE_GT:
+        return ">";
+    case TARGET_TYPE_GE:
+        return ">=";
+    case TARGET_TYPE_LT:
+        return "<";
+    case TARGET_TYPE_LE:
+        return "<=";
+    case TARGET_TYPE_RANGE:
+        return "range";
+    }
+}
+
 template <typename T>
 T min3(T a, T b, T c)
 {
@@ -728,7 +755,7 @@ void BaseClone::send(const parser::TargetMessage& msg, const AtomListView& lv)
                 sendToInstanceInlets(i, msg.inlet, lv);
         }
     } else
-        OBJ_ERR << fmt::format("unsupported target: {:d}", msg.target);
+        OBJ_ERR << fmt::format("unsupported target: {:d}", ::to_string(msg.target));
 }
 
 void BaseClone::dspSet(const parser::TargetMessage& msg, const AtomListView& lv)
@@ -758,7 +785,7 @@ void BaseClone::dspSet(const parser::TargetMessage& msg, const AtomListView& lv)
                 dspSetInstance(i, v);
         }
     } else
-        OBJ_ERR << fmt::format("unsupported target: {:d}", msg.target);
+        OBJ_ERR << fmt::format("unsupported target: {:d}", (int)msg.target);
 }
 
 void BaseClone::dspSetInstance(int16_t idx, bool value)
@@ -797,7 +824,7 @@ void BaseClone::dspToggle(const parser::TargetMessage& msg)
                 dspToggleInstance(i);
         }
     } else
-        OBJ_ERR << fmt::format("unsupported target: {:d}", msg.target);
+        OBJ_ERR << fmt::format("unsupported target: {:d}", (int)msg.target);
 }
 
 void BaseClone::dspToggleInstance(int16_t idx)
@@ -829,7 +856,7 @@ void BaseClone::dspSpread(const parser::TargetMessage& msg, const AtomListView& 
         for (auto i = range.a; i < range.b; i++)
             dspSetInstance(i, lv.boolAt(i - range.a, false));
     } else
-        OBJ_ERR << fmt::format("unsupported target: {:d}", msg.target);
+        OBJ_ERR << fmt::format("unsupported target: {:d}", (int)msg.target);
 }
 
 uint16_t BaseClone::genRandomInstanceIndex() const
@@ -1147,7 +1174,7 @@ void BaseClone::sendSpread(const parser::TargetMessage& msg, const AtomListView&
             sendToInstance(i + mm.first, inlet, lv.subView(i, 1));
     } break;
     default:
-        OBJ_ERR << fmt::format("unknown target: {:d}", msg.target);
+        OBJ_ERR << fmt::format("unknown target: {:d}", (int)msg.target);
         break;
     }
 }

@@ -543,7 +543,7 @@ namespace faust {
                 setValue(gen.gen_uniform_int(0, 1), true);
                 return true;
             } else {
-                LIB_ERR << fmt::format("[{}] unexpected property type for random: {}", name()->s_name, info().type());
+                LIB_ERR << fmt::format("[{}] unexpected property type for random: {}", name()->s_name, to_string(info().type()));
                 return false;
             }
         } else if (hasEnum() && setByEnumValue(lv)) {

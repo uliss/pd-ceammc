@@ -135,7 +135,7 @@ SndPlayBase::Future SndPlayTilde::createTask()
         if (!calcEndSfPos(end, f->sampleRate(), f->sampleCount(), begin_samp, end_samp))
             return logger_.error(fmt::format("invalid end position: {}, expected value in [{} ... {}] range", end_samp, begin_samp, f->sampleCount()));
 
-        logger_.debug(fmt::format("start playing from {} to {} samp, loop={}, samples={}", begin_samp, end_samp, atomic_loop_, f->sampleCount()));
+        logger_.debug(fmt::format("start playing from {} to {} samp, loop={}, samples={}", begin_samp, end_samp, (bool)atomic_loop_, f->sampleCount()));
 
         const auto NUM_CH = std::min<size_t>(nch, f->channels());
         const double SAMP_SPEED = f->sampleRate() / double(sr);

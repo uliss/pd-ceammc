@@ -40,11 +40,11 @@ namespace ceammc {
 namespace osc {
 
     enum OscProto : uint8_t {
-        OSC_PROTO_UDP,
-        OSC_PROTO_TCP,
-        OSC_PROTO_UNIX,
+        OSC_PROTO_UDP = 0,
+        OSC_PROTO_TCP = 1,
+        OSC_PROTO_UNIX = 2,
         OSC_PROTO_DEFAULT = OSC_PROTO_UDP,
-        OSC_PROTO_INVALID,
+        OSC_PROTO_INVALID = 4,
     };
 
     enum class OscMessageSpec {

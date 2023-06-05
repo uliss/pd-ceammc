@@ -283,7 +283,7 @@ end
             case LUA_CMD_NOP: // ignore silently
                 break;
             default:
-                error(fmt::format("unsupported command: {}", cmd.cmd));
+                error(fmt::format("unsupported command: {}", (int)cmd.cmd));
                 break;
             }
         } catch (std::exception& e) {

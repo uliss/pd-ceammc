@@ -29,6 +29,7 @@ CEAMMC_DEFINE_STR(none)
 using MutexLock = std::lock_guard<std::mutex>;
 
 namespace {
+
 using AddressPtr = std::unique_ptr<std::remove_pointer<lo_address>::type, typeof(&lo_address_free)>;
 inline AddressPtr make_address(lo_address addr)
 {
@@ -45,6 +46,21 @@ using ServerPtr = std::unique_ptr<std::remove_pointer<lo_server>::type, typeof(&
 inline ServerPtr make_server(lo_server srv)
 {
     return ServerPtr(srv, &lo_server_free);
+}
+
+const char* to_string(ceammc::osc::OscProto p)
+{
+    using namespace ceammc::osc;
+    switch (p) {
+    case OSC_PROTO_UDP:
+        return "udp";
+    case OSC_PROTO_TCP:
+        return "tcp";
+    case OSC_PROTO_UNIX:
+        return "unix";
+    default:
+        return "??";
+    }
 }
 
 }
@@ -666,7 +682,7 @@ namespace osc {
                                 rc = lo_send_message(addr.get(), task.path.c_str(), task.m.get());
                                 break;
                             default:
-                                logger_.error(fmt::format("[osc_send] unsupported OSC protocol: {}", task.proto));
+                                logger_.error(fmt::format("[osc_send] unsupported OSC protocol: {}", ::to_string(task.proto)));
                                 break;
                             }
 
