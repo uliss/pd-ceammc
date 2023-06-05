@@ -1087,7 +1087,17 @@ void Fluid::processBlock(const t_sample** in, t_sample** out)
 
 void Fluid::samplerateChanged(size_t sr)
 {
+    fluid_settings_t* settings = new_fluid_settings();
+    if (settings == nullptr) {
+        OBJ_ERR << "couldn't create synth settings";
+        return;
+    }
 
+    fluid_settings_setnum(settings, "synth.sample-rate", sr);
+    synth_.reset(new_fluid_synth(settings));
+
+    if (synth_ == nullptr)
+        OBJ_ERR << "couldn't create synth";
 }
 
 void setup_misc_fluid()
