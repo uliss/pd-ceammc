@@ -18,6 +18,7 @@
         </meta>
         <info>
             <par>Note: if you want to specify property message in the init argument, you have to quote it</par>
+        </info>
         <properties>
             <property name="@delay" type="float" default="-1" minvalue="-1" units="millisecond">
             append delay. If &lt;0 append immediately at the same logical time, if equal zero -
