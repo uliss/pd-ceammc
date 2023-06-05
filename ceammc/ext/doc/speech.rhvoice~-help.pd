@@ -8,8 +8,8 @@
 #X obj 548 11 rhvoice~;
 #X obj 631 11 speech.rhvoice~;
 #X obj 210 80 cnv 1 555 136 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Note: no voices data in distributed with PureData-ceammc
-\, you have to install voices manually;
+#X text 215 80 Note: voices are not distributed with PureData-ceammc
+\, you have to install voice data manually;
 #X text 215 120 Download language and voice datafiles and put them
 into ~/Documents/Pd/rhvoice directory;
 #X obj 215 160 ui.link @background_color 0.98039 0.98039 0.98039

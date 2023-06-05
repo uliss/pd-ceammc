@@ -21,8 +21,8 @@
             </also>
         </meta>
         <info>
-            <par>Note: no voices data in distributed with PureData-ceammc, you have to install
-            voices manually</par>
+            <par>Note: voices are not distributed with PureData-ceammc, you have to install
+            voice data manually</par>
             <par>Download language and voice datafiles and put them into ~/Documents/Pd/rhvoice
             directory</par>
             <a href="https://github.com/RHVoice/Russian">https://github.com/RHVoice/Russian</a>
