@@ -21,13 +21,9 @@ FlowPrepend::FlowPrepend(const PdArgs& args)
     bindProxyInlet(inlet2_, 1);
     createOutlet();
 
-    auto& pargs = this->args();
-    if (pargs.size() >= 1 && pargs[0].isSymbol())
-        msg_.setAny(pargs[0].asT<t_symbol*>(), pargs.view(1));
-    else if (pargs.empty())
-        msg_.setBang();
-    else
-        msg_.setList(pargs);
+    message_ = new MessageProperty("@msg");
+    message_->setArgIndex(0);
+    addProperty(message_);
 }
 
 void FlowPrepend::onBang()
@@ -62,22 +58,21 @@ void FlowPrepend::onAny(t_symbol* s, const AtomListView& lv)
 
 void FlowPrepend::onProxyAny(int id, t_symbol* s, const AtomListView& lv)
 {
-    msg_.setAny(s, lv);
+    message_->value().setAny(s, lv);
 }
 
 void FlowPrepend::output()
 {
-    if (msg_.isNone())
+    if (message_->value().isNone())
         bangTo(0);
     else
-        messageTo(0, msg_);
+        messageTo(0, message_->value());
 }
 
 void setup_flow_prepend()
 {
     ObjectFactory<FlowPrepend> obj("flow.prepend");
     obj.noPropsDispatch();
-    obj.noArgsAndPropsParse();
     obj.setXletsInfo({ "any: input flow", "any: set prepend message" }, { "any: output" });
 
     obj.useProxyAny();

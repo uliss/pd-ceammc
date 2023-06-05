@@ -11,33 +11,33 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef FLOW_PREPEND_H
-#define FLOW_PREPEND_H
+#ifndef CEAMMC_PROPERTY_MESSAGE_H
+#define CEAMMC_PROPERTY_MESSAGE_H
 
-#include "ceammc_object.h"
-#include "ceammc_property_message.h"
-#include "ceammc_proxy.h"
-using namespace ceammc;
+#include "ceammc_message.h"
+#include "ceammc_property.h"
 
-class FlowPrepend : public BaseObject {
-    MessageProperty* message_ { nullptr };
-    InletProxy<FlowPrepend> inlet2_;
+namespace ceammc {
+
+class MessageProperty : public Property {
+    Message msg_;
 
 public:
-    FlowPrepend(const PdArgs& args);
+    MessageProperty(const char* name, const Message& init = Message(), PropValueAccess access = PropValueAccess::READWRITE);
 
-    void onBang() final;
-    void onFloat(t_float v) final;
-    void onSymbol(t_symbol* s) final;
-    void onList(const AtomListView& lv) final;
-    void onAny(t_symbol* s, const AtomListView& lv) final;
+    AtomList get() const override;
+    bool setList(const AtomListView& lv) override;
+    bool getList(AtomList& l) const override;
 
-    void onProxyAny(int id, t_symbol* s, const AtomListView& lv);
+    inline const Message& value() const { return msg_; }
+    inline Message& value() { return msg_; }
+    bool setValue(const Message& m);
+    const AtomList& defaultValue() const;
 
-private:
-    void output();
+public:
+    using value_type = Message;
 };
 
-void setup_flow_prepend();
+}
 
-#endif // FLOW_PREPEND_H
+#endif // CEAMMC_PROPERTY_MESSAGE_H

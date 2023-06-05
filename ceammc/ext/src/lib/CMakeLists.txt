@@ -100,6 +100,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_property_duration.cpp
     ceammc_property_enum.cpp
     ceammc_property_info.cpp
+    ceammc_property_message.cpp
     ceammc_property_timesig.cpp
     ceammc_random.cpp
     ceammc_regexp.cpp

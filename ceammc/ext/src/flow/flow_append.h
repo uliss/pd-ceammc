@@ -16,6 +16,7 @@
 
 #include "ceammc_clock.h"
 #include "ceammc_object.h"
+#include "ceammc_property_message.h"
 #include "ceammc_proxy.h"
 
 using namespace ceammc;
@@ -23,7 +24,7 @@ using namespace ceammc;
 class FlowAppend : public BaseObject {
     FloatProperty* delay_ { 0 };
     ClockLambdaFunction delay_fn_;
-    Message msg_;
+    MessageProperty* msg_ { nullptr };
     InletProxy<FlowAppend> inlet2_;
 
 public:
