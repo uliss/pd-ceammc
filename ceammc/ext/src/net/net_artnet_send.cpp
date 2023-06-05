@@ -212,9 +212,9 @@ namespace net {
         void dumpNodeConfig(artnet_node_entry ne)
         {
             logger_.post(fmt::format("--------- {}.{}.{}.{} -------------\n", ne->ip[0], ne->ip[1], ne->ip[2], ne->ip[3]));
-            logger_.post(fmt::format("Short Name:   {}", ne->shortname));
-            logger_.post(fmt::format("Long Name:    {}", ne->longname));
-            logger_.post(fmt::format("Node Report:  {}", ne->nodereport));
+            logger_.post(fmt::format("Short Name:   {}", (const char*)ne->shortname));
+            logger_.post(fmt::format("Long Name:    {}", (const char*)ne->longname));
+            logger_.post(fmt::format("Node Report:  {}", (const char*)ne->nodereport));
             logger_.post(fmt::format("Subnet:       {:02x}", ne->sub));
             logger_.post(fmt::format("Numb Ports:   {}", ne->numbports));
             logger_.post(fmt::format("Input Addrs:  {:02x}, {:02x}, {:02x}, {:02x}", ne->swin[0], ne->swin[1], ne->swin[2], ne->swin[3]));

@@ -186,7 +186,7 @@ namespace sys {
             if (running()) {
                 int rc;
                 if ((rc = ::kill(pid_, sig_map[sig])) != 0) {
-                    err_ = fmt::format("sendSignal({}) error: {}", sig, rc);
+                    err_ = fmt::format("sendSignal({}) error: {}", (int)sig, rc);
                     return false;
                 } else
                     return true;
@@ -202,7 +202,7 @@ namespace sys {
     bool Process::closeStdIn()
     {
         if (!ipc_->in.close()) {
-            err_ = fmt::format("fd ({}) close error", ipc_->in);
+            err_ = fmt::format("fd ({}) close error", (int)ipc_->in);
             return false;
         }
 

@@ -234,9 +234,9 @@
 | |          | [@sf sf2/VintageDreamsWaves-v2.sf2(
 | |          | |
 [fluid~        ]
-| ^|
-[ui.hgain~]    [ui.dsp~]
-| \
+*|*
+[ui.hgain2~]   [ui.dsp~]
+*|*
 [dac~]
 
 [fluid~.bend]   [fluid~.tune]    [fluid~.pan]  [fluid~.bank]

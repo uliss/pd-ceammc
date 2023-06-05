@@ -49,7 +49,7 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">output current time to second outlet</xinfo>
-                <xinfo on="bool">switch on/off encoder process</xinfo>
+<!--                <xinfo on="bool">switch on/off encoder process</xinfo>-->
             </inlet>
         </inlets>
         <outlets>

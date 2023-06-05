@@ -334,7 +334,7 @@ struct Scheme {
 
         if (init.size() != CN)
             LIB_DBG << fmt::format("warning: period number mismatch: {} != {} for cycle{}",
-                CN, init.size(), cycle);
+                CN, init.size(), (int)cycle);
 
         const auto N = std::min<size_t>(init.size(), CN);
         for (size_t i = 0; i < N; i++) {
