@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flow.prepend">
+        <title>flow.prepend</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>prepend message before received one</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>flow prepend</keywords>
+            <since>0.9.7</since>
+            <also>
+                <see>flow.append</see>
+            </also>
+        </meta>
+        <inlets>
+            <inlet>
+                <xinfo on="any">input message</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="any">set prepend value</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output message</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[F]
+|
+|  [L]
+|  |
+|  | [B]           [other prepend message(
+|  | |             |.
+[flow.prepend @message 1 2 3]
+|
+[print]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

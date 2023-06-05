@@ -12,6 +12,9 @@
             <category>flow</category>
             <keywords>flow append</keywords>
             <since>0.9</since>
+            <also>
+                <see>flow.prepend</see>
+            </also>
         </meta>
         <properties>
             <property name="@delay" type="float" default="-1" minvalue="-1" units="millisecond">

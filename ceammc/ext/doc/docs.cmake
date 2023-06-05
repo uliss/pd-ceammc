@@ -171,6 +171,7 @@ set(DOC_FILES
     flow.pass
     flow.pass_if
     flow.pipe
+    flow.prepend
     flow.queue
     flow.record
     flow.reject

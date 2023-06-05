@@ -171,6 +171,7 @@ flow.pack		?		.
 flow.pass,ceammc/pass,pass		..		.
 flow.pass_if,ceammc/pass_if,pass_if		..		..
 flow.pipe		..		.
+flow.prepend		..		.
 flow.queue		?		?
 flow.record,flow.rec		..		.
 flow.reject,ceammc/reject,reject,flow.!		..		.

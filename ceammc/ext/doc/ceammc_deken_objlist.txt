@@ -423,6 +423,7 @@ flow.pass_if	pass values that accepted by predicate object
 ceammc/pass_if	pass values that accepted by predicate object
 pass_if	pass values that accepted by predicate object
 flow.pipe	enhanced version on vanilla pipe object
+flow.prepend	prepend message before received one
 flow.queue	multi-channel control flow sync queue (or FIFO)
 flow.record	flow stream recorder/player
 flow.rec	flow stream recorder/player
