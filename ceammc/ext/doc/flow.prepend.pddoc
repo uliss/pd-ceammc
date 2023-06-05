@@ -16,6 +16,12 @@
                 <see>flow.append</see>
             </also>
         </meta>
+        <arguments>
+            <argument name="MSG" type="list">init value for prepended message</argument>
+        </arguments>
+        <properties>
+            <property name="@msg" type="list" default="">prepended message</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="any">input message</xinfo>
