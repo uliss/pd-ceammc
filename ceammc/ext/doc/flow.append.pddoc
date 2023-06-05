@@ -17,12 +17,16 @@
             </also>
         </meta>
         <info>
-            <par>Note: if you want to specify property message in the init argument, you have to quote it</par>
+            <par>Note: if you want to specify property message in the init argument, you have to quote it with double-quotes</par>
         </info>
+        <arguments>
+            <argument name="MSG" type="list">init value for appended message</argument>
+        </arguments>
         <properties>
             <property name="@delay" type="float" default="-1" minvalue="-1" units="millisecond">
             append delay. If &lt;0 append immediately at the same logical time, if equal zero -
             output after next DSP block.</property>
+            <property name="@msg" type="list" default="">appended message</property>
         </properties>
         <inlets>
             <inlet>

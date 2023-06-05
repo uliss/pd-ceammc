@@ -18,7 +18,12 @@ namespace ceammc {
 MessageProperty::MessageProperty(const char* name, const Message& init, PropValueAccess access)
     : Property(PropertyInfo(name, PropValueType::LIST), access)
 {
-    info().setDefault(init.anyValue());
+    if (init.isNone())
+        info().setDefault(AtomList());
+    else if (init.isList())
+        info().setDefault(init.listValue());
+    else
+        info().setDefault(init.anyValue());
 }
 
 AtomList MessageProperty::get() const
