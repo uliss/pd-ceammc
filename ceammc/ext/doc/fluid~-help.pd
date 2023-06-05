@@ -16,7 +16,7 @@
 #X msg 69 298 dump;
 #X msg 194 312 @sf sf2/VintageDreamsWaves-v2.sf2;
 #X obj 50 341 fluid~;
-#X obj 50 370 ui.hgain~;
+#X obj 50 370 ui.hgain2~;
 #X obj 194 370 ui.dsp~;
 #X obj 50 399 dac~;
 #X obj 50 428 fluid~.bend;
@@ -349,6 +349,6 @@ https://github.com/uliss/pure-data;
 #X connect 11 0 14 0;
 #X connect 13 0 14 0;
 #X connect 14 0 15 0;
-#X connect 14 1 15 0;
+#X connect 14 1 15 1;
 #X connect 15 0 17 0;
-#X connect 15 0 17 1;
+#X connect 15 1 17 1;
