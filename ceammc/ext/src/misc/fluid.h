@@ -18,12 +18,14 @@
 #include "ceammc_sound_external.h"
 #include "proto/proto_midi_parser.h"
 
+#include <memory>
 #include <tuple>
 
 using namespace ceammc;
 
 struct _fluid_synth_t;
 typedef struct _fluid_synth_t fluid_synth_t;
+using FluidSynthPtr = std::unique_ptr<fluid_synth_t, void(*)(fluid_synth_t*)>;
 
 class FluidSynthProperty;
 
@@ -31,7 +33,7 @@ class FluidSynthProperty;
  * @note MIDI channels are 1-based in PureData
  */
 class Fluid : public SoundExternal {
-    fluid_synth_t* synth_;
+    FluidSynthPtr synth_;
     t_symbol* sound_font_;
     midi::MidiParser midi_parser_;
     ClockLambdaFunction nvoices_cb_;
