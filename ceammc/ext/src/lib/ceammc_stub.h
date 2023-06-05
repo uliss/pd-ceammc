@@ -46,7 +46,7 @@ public:
     AUDIO_OBJECT_STUB(class_name, 0, 0, in, out, msg)
 
 #define OBJECT_STUB_SETUP(class_name, fn, obj_name, ...)       \
-    extern "C" void setup_##fn()                               \
+    extern void setup_##fn()                               \
     {                                                          \
         ceammc::SoundExternalFactory<class_name> obj(obj_name, \
             ceammc::OBJECT_FACTORY_NO_DEFAULT_INLET);          \

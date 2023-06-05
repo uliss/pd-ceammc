@@ -11,54 +11,47 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef MISC_LTC_IN_TILDE_H
-#define MISC_LTC_IN_TILDE_H
-
-#include "ceammc_clock.h"
-#include "ceammc_sound_external.h"
-
-using namespace ceammc;
+#ifndef ARRAY_LTCPLAY_TILDE_H
+#define ARRAY_LTCPLAY_TILDE_H
 
 #ifdef WITH_LIBLTC
+#include "array_base.h"
+#include "ceammc_property_enum.h"
 
 struct LTCDecoder;
 using LTCDecoderPtr = std::unique_ptr<LTCDecoder, int (*)(LTCDecoder*)>;
-
 struct LTCFrameExt;
-struct LtcDecoderData {
-    float volume;
-    std::uint8_t year, month, day;
-    std::uint8_t hour, min, sec, frame;
-};
 
-class LtcInTilde : public SoundExternal {
+class ArrayLtcPlayTilde : public ArraySoundBase {
     LTCDecoderPtr decoder_;
-    BoolProperty* use_date_;
-    std::int64_t off_;
-    ClockLambdaFunction clock_;
-    LtcDecoderData data_;
-    std::uint8_t prev_frame_, frame_rate_;
+    EnumProperty<Atom>* fps_ { nullptr };
+    size_t off_;
+    size_t read_pos_, prev_frame_samp_pos_;
+    double frame_rate_;
+    int prev_frame_;
+    bool zero_speed_;
 
 public:
-    LtcInTilde(const PdArgs& args);
-    ~LtcInTilde();
+    ArrayLtcPlayTilde(const PdArgs& args);
+    ~ArrayLtcPlayTilde();
+    void initDone() final;
 
-    void setupDSP(t_signal** sp) final;
+    void setupDSP(t_signal** sig) final;
     void processBlock(const t_sample** in, t_sample** out) final;
 
 private:
-    bool updateData(const LTCFrameExt& frame);
-    void outputData();
+    bool fpsAutoDetect() const { return fps_->value().isSymbol(); }
+    float samplesPerFrame() const { return samplerate() / frame_rate_; }
 };
 
-void setup_proto_ltcin_tilde();
+void setup_array_ltcplay_tilde();
 
 #else
 #include "ceammc_stub.h"
 
-AUDIO_OBJECT_STUB(LtcInTilde, 1, 0, 0, 1, "compiled without libltc support")
-OBJECT_STUB_SETUP(LtcInTilde, proto_ltcin_tilde, "proto.ltc.in~", "ltc.in~")
+AUDIO_OBJECT_STUB(ArrayLtcPlayTilde, 1, 1, 0, 0, "compiled without libltc support")
+OBJECT_STUB_SETUP(ArrayLtcPlayTilde, array_ltcplay_tilde, "array.ltcplay~")
 
 #endif
 
-#endif // MISC_LTC_IN_TILDE_H
+#endif // ARRAY_LTCPLAY_TILDE_H

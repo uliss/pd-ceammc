@@ -16,9 +16,8 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
-#include "ltc.h"
-
 #ifdef WITH_LIBLTC
+#include "ltc.h"
 
 LtcInTilde::LtcInTilde(const PdArgs& args)
     : SoundExternal(args)
@@ -26,6 +25,8 @@ LtcInTilde::LtcInTilde(const PdArgs& args)
     , use_date_(nullptr)
     , off_(0)
     , clock_([this]() { outputData(); })
+    , prev_frame_(0)
+    , frame_rate_(25)
 {
     createOutlet();
     createOutlet();
@@ -40,6 +41,8 @@ LtcInTilde::LtcInTilde(const PdArgs& args)
 
     use_date_ = new BoolProperty("@use_date", true);
     addProperty(use_date_);
+
+    createCbIntProperty("@fps", [this]() -> int { return frame_rate_; });
 }
 
 LtcInTilde::~LtcInTilde() = default;
@@ -48,6 +51,7 @@ void LtcInTilde::setupDSP(t_signal** sp)
 {
     SoundExternal::setupDSP(sp);
     off_ = 0;
+    prev_frame_ = 0;
     ltc_decoder_queue_flush(decoder_.get());
 }
 
@@ -65,9 +69,7 @@ void LtcInTilde::processBlock(const t_sample** in, t_sample** out)
     off_ += BS;
 
     LTCFrameExt f;
-    auto n = ltc_decoder_queue_length(dec);
-    if (n > 0) {
-        ltc_decoder_read(dec, &f);
+    while (ltc_decoder_read(dec, &f)) {
         if (updateData(f))
             clock_.delay(0);
     }
@@ -90,6 +92,14 @@ bool LtcInTilde::updateData(const LTCFrameExt& frame)
     SMPTETimecode tc;
     ltc_frame_to_time(&tc, const_cast<LTCFrame*>(&frame.ltc),
         use_date_->value() ? LTC_USE_DATE : LTC_TC_CLOCK);
+
+    if (tc.frame == 0) {
+        if (prev_frame_ == 24 || prev_frame_ == 25 || prev_frame_ == 30) {
+            frame_rate_ = prev_frame_;
+        }
+    }
+
+    prev_frame_ = (tc.frame + 1);
 
     ON_CHANGE(data_.year, tc.years);
     ON_CHANGE(data_.month, tc.months);

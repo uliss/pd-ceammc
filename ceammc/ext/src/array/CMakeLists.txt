@@ -28,6 +28,7 @@ ceammc_array_external(each)
 ceammc_array_external(fill)
 ceammc_array_external(grainer)
 ceammc_array_external(hist)
+ceammc_array_external(ltcplay_tilde)
 ceammc_array_external(mean)
 ceammc_array_external(minmax)
 ceammc_array_external(p2s)
@@ -71,6 +72,15 @@ endif()
 
 # ragel generated sources
 target_sources(ceammc_array PRIVATE grain_expr_parser.cpp)
+
+if(WITH_LTC)
+    find_package(LTC)
+    if(LTC_FOUND)
+        target_include_directories(ceammc_array PRIVATE ${LTC_INCLUDE_DIRS})
+        target_compile_definitions(ceammc_array PRIVATE -DWITH_LIBLTC=1)
+        target_link_libraries(ceammc_array PUBLIC ${LTC_LIBRARIES})
+    endif()
+endif()
 
 target_include_directories(ceammc_array PRIVATE
     "${PROJECT_SOURCE_DIR}/src"
