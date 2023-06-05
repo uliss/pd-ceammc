@@ -320,8 +320,8 @@ void Fluid::onList(const AtomListView& lv)
 
 void Fluid::setupDSP(t_signal** sp)
 {
-    SoundExternal::setupDSP(sp);
     nvoices_ = 0;
+    SoundExternal::setupDSP(sp);
 }
 
 bool Fluid::propSetSoundFont(t_symbol* s)
@@ -1087,8 +1087,7 @@ void Fluid::processBlock(const t_sample** in, t_sample** out)
 
 void Fluid::samplerateChanged(size_t sr)
 {
-    if (synth_)
-        fluid_synth_set_sample_rate(synth_.get(), sr);
+
 }
 
 void setup_misc_fluid()
