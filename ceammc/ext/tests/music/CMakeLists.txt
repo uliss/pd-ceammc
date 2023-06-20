@@ -30,6 +30,7 @@ endfunction()
 
 add_music_test(dur2time)
 add_music_test(scale)
+add_music_test(spn)
 add_music_test(temperament)
 add_music_test(theory)
 add_music_test(theory_alteration)

@@ -3,7 +3,7 @@
 %includes
 %enum
 %{
-#include <cstdint>
+# include <cstdint>
 struct MorseBitCode {
     std::uint8_t code;
     std::uint8_t length;

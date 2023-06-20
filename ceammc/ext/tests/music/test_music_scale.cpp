@@ -119,7 +119,7 @@ TEST_CASE("scale", "[ceammc::music]")
 
         SECTION("find nearest")
         {
-            t_float res = 0;
+            DegreeType res = 0;
             auto s0 = ScaleLibrary::instance().findByHash("chromatic"_hash);
             REQUIRE(s0);
 

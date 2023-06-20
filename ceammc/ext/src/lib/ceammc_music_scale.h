@@ -23,15 +23,19 @@
 namespace ceammc {
 namespace music {
 
+    using DegreeType = std::uint8_t;
+    using DegreeList = std::vector<DegreeType>;
+    using DegreeInitList = std::initializer_list<DegreeType>;
+
     class Scale {
         std::string name_;
         std::string full_name_;
         size_t pitches_per_octave_;
-        std::vector<t_float> degrees_i_;
-        const AtomList degrees_l_;
+        DegreeList degrees_i_;
+        AtomList degrees_l_;
 
     public:
-        Scale(const char* name, std::initializer_list<t_float> degrees, size_t pitchesPerOctave, const std::string& fullName = "");
+        Scale(const char* name, DegreeInitList degrees, size_t pitchesPerOctave, const std::string& fullName = "");
 
         const std::string& name() const { return name_; }
         const std::string& fullName() const { return full_name_; }
@@ -41,14 +45,14 @@ namespace music {
 
         int degreeToKey(int deg) const;
 
-        const std::vector<t_float>& all() const { return degrees_i_; }
+        const DegreeList& all() const { return degrees_i_; }
 
         /**
          * check if specified degree is in the scale
          * @param degree - degree
          * @return true on success
          */
-        bool find(t_float degree) const;
+        bool find(DegreeType degree) const;
 
         /**
          * find nearest degree to specified
@@ -56,7 +60,7 @@ namespace music {
          * @param result - to write nearest pitch on success, range is [0, pitches_per_octave] (closed!)
          * @return true on sucess, false if given degree is out of scale range
          */
-        bool findNearest(t_float degree, t_float& result) const;
+        bool findNearest(DegreeType degree, DegreeType& result) const;
     };
 
     class ScaleLibrary {
@@ -71,7 +75,7 @@ namespace music {
         static ScaleLibrary& instance();
 
     public:
-        bool insert(const char* name, std::initializer_list<t_float> degrees, size_t pitchesPerOctave, const std::string& fullName = "");
+        bool insert(const char* name, DegreeInitList degrees, size_t pitchesPerOctave, const std::string& fullName = "");
         const std::vector<Scale*>& all() const { return all_sorted_; }
         const Scale* find(t_symbol* name) const { return findByHash(crc32_hash(name)); }
         const Scale* find(const char* name) const { return findByHash(crc32_hash(name)); }
@@ -81,7 +85,7 @@ namespace music {
         std::vector<Scale*> findBySize(size_t n) const;
 
     private:
-        bool insertInternal(const char* name, uint32_t hash, std::initializer_list<t_float> degrees, size_t pitchesPerOctave, const std::string& fullName);
+        bool insertInternal(const char* name, uint32_t hash, DegreeInitList degrees, size_t pitchesPerOctave, const std::string& fullName);
     };
 }
 }

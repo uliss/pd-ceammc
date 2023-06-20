@@ -40,6 +40,14 @@ namespace music {
          */
         Tempo(float bpm, int div = 4, int dots = 0);
 
+        /**
+         * create tempo
+         * @param bpm
+         * @param dur
+         * @throw std::invalid_argument
+         */
+        Tempo(float bpm, const Duration& dur);
+
         bool operator==(const Tempo& t) const;
         bool operator!=(const Tempo& t) const { return !operator==(t); }
 
@@ -67,6 +75,9 @@ namespace music {
         double beatDurationMs() const;
         double subBeatDurationMs() const;
         double wholeNoteDurationMs() const;
+
+        const Duration& duration() const { return dur_; }
+        void setDuration(const Duration& d);
 
         bool isNull() const { return bpm_ == 0; }
     };

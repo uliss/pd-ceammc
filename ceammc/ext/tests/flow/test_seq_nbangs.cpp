@@ -38,6 +38,7 @@ TEST_CASE("seq.nbangs", "[externals]")
             REQUIRE(t.numOutlets() == 2);
             REQUIRE_PROPERTY(t, @t, 0);
             REQUIRE_PROPERTY(t, @n, 0);
+            REQUIRE_PROPERTY(t, @div, 1);
         }
 
         SECTION("args")
@@ -244,14 +245,14 @@ TEST_CASE("seq.nbangs", "[externals]")
         SECTION("bpm")
         {
             TObj t("seq.nbangs", LA(10, "120|8bpm"));
-            REQUIRE_PROPERTY(t, @t, 250);
+            REQUIRE_PROPERTY(t, @t, 500);
             REQUIRE_PROPERTY(t, @n, 10);
         }
 
         SECTION("bpm")
         {
             TObj t("seq.nbangs", LA(10, "120|16bpm"));
-            REQUIRE_PROPERTY(t, @t, 125);
+            REQUIRE_PROPERTY(t, @t, 500);
             REQUIRE_PROPERTY(t, @n, 10);
         }
 

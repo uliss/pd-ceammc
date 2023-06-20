@@ -22,7 +22,6 @@
 
 #include "fluidsynth.h"
 #include "midi/midi_names.h"
-#include "sfloader/fluid_sfont.h"
 
 #define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
 
@@ -129,12 +128,15 @@ Fluid::Fluid(const PdArgs& args)
     : SoundExternal(args)
     , synth_(nullptr,
           [](fluid_synth_t* synth) {
+              fluid_settings_t* settings = nullptr;
+
               if (synth) {
-                  auto settings = fluid_synth_get_settings(synth);
-                  delete_fluid_settings(settings);
+                  settings = fluid_synth_get_settings(synth);
+                  delete_fluid_synth(synth);
               }
 
-              delete_fluid_synth(synth);
+              if (settings)
+                  delete_fluid_settings(settings);
           })
     , sound_font_(&s_)
     , nvoices_cb_([this]() { floatTo(2, nvoices_); })

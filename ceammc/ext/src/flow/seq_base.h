@@ -50,6 +50,7 @@ protected:
     SymbolEnumProperty* mode_ { 0 };
     FloatProperty* upbeat_ { 0 };
     SeqTimeGrain* beat_duration_ { 0 };
+    IntProperty* beat_division_ { 0 };
     ClockLambdaFunction clock_;
     size_t num_repeats_ = { 0 };
     size_t sequence_counter_ = { 0 };
@@ -162,13 +163,13 @@ public:
     /**
      * return beat duration in milliseconds
      */
-    t_float beatDuration() const { return beat_duration_->value(); }
+    t_float beatDuration() const { return beat_duration_->value() / beat_division_->value(); }
 
     /**
      * set beat duration
      * @return true on success, false on error
      */
-    bool setBeatDuration(t_float ms) { return beat_duration_->setValue(ms); }
+    bool setBeatDuration(t_float ms) { return beat_duration_->setValue(ms * beat_division_->value()); }
 
 public:
     SeqBase(const PdArgs& args, t_float defBeatDuration);

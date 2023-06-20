@@ -103,7 +103,7 @@ MidiModus::NoteStatus MidiModus::mapNote(t_float note, t_float& res) const
 
     switch (crc32_hash(prop_mode_->value())) {
     case hash_snap: {
-        t_float degree = 0;
+        music::DegreeType degree = 0;
         if (scale_->findNearest(step, degree)) {
             const int oct = (static_cast<int>(note) / 12) - oct_wrap;
             res = degree + root + oct * 12;
@@ -133,5 +133,5 @@ void setup_midi_modus()
 
     obj.setDescription("snap/skip midi pitches according modus");
     obj.setCategory("midi");
-    obj.setKeywords({"midi", "modus", "tonality", "pitch"});
+    obj.setKeywords({ "midi", "modus", "tonality", "pitch" });
 }

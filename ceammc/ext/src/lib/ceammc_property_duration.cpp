@@ -47,7 +47,7 @@ bool DurationProperty::setFloat(t_float f)
 {
     int dur = f;
     if (dur > 0 && dur <= MAX_DIV) {
-        dur_ = music::Duration { int(f) };
+        dur_ = music::Duration { std::int16_t(f) };
         dirty_ = true;
         return true;
     } else {

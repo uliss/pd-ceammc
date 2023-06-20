@@ -1,9 +1,31 @@
 # include "parser_units.h"
 # include "parser_numeric.h"
+# include "ceammc_log.h"
 
 # include <cstdint>
 # include <cstring>
 # include <cstdio>
+
+namespace {
+    using namespace ceammc;
+    using namespace ceammc::music;
+
+    struct RagelTempo {
+        int ival { 0 };
+        int fnum { 0 };
+        int fden { 1 };
+        int dur_num { 1 };
+        int dur_den { 4 };
+    };
+
+    Tempo fromRagel(const RagelTempo& t)
+    {
+        float bpm = t.ival + t.fnum / float(t.fden);
+        Tempo res { bpm, t.dur_den };
+        res.setDuration(Duration(t.dur_num, t.dur_den));
+        return res;
+    }
+}
 
 namespace ceammc {
 namespace parser {
@@ -65,7 +87,7 @@ bool UnitsFullMatch::parse(const char* str)
     DECLARE_RAGEL_COMMON_VARS;
     DECLARE_RAGEL_NUMERIC_VARS;
 
-    fsm::BpmData bpm;
+    RagelTempo bpm;
     fsm::SmpteData smpte;
 
     reset();
@@ -99,7 +121,7 @@ bool UnitsFullMatch::parse(const char* str)
         unit_.smpte.min = smpte.min;
         unit_.smpte.sec = smpte.sec;
         unit_.smpte.frame = smpte.frame;
-        unit_.bpm = bpm;
+        unit_.tempo = fromRagel(bpm);
     }
 
     return ok;

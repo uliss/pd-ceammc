@@ -68,6 +68,10 @@ SeqBase::SeqBase(const PdArgs& args, t_float defBeatDuration)
     beat_duration_ = new SeqTimeGrain("@t", defBeatDuration);
     addProperty(beat_duration_);
 
+    beat_division_ = new IntProperty("@div", 1);
+    beat_division_->checkClosedRange(1, 64);
+    addProperty(beat_division_);
+
     repeat_ = new RepeatProperty("@r", 1);
     addProperty(repeat_);
 
@@ -274,7 +278,7 @@ bool SeqTimeGrain::setList(const AtomListView& lv)
 
                 switch (p.type()) {
                 case TYPE_BPM:
-                    return setValue(p.bpm().beatPeriodMs());
+                    return setValue(p.tempo().beatDurationMs());
                 case TYPE_MSEC:
                     return setValue(p.value());
                 case TYPE_SEC:

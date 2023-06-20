@@ -34,14 +34,18 @@ bpm = (
       %bpm_done;
 
 # Scientific (standard) Pitch Notation
-spn_alt = ( '#'  @{spn.alt = 1;}
-          | '##' @{spn.alt = 2;}
-          | 'b'  @{spn.alt = -1;}
-          | 'bb' @{spn.alt = -2;});
-spn_pitch  = ( 'A'     @{spn.note = 5;}
-             | [BH]    @{spn.note = 6;}
-             | [CDEFG] @{spn.note = (fc - 'C');}
-             ) %{spn.pitch = (spn.note * 2) - (spn.note > 2);};
+spn_alt = ( '#'  @{spn.alt = Alteration::SHARP; }
+          | '##' @{spn.alt = Alteration::DOUBLE_SHARP; }
+          | 'b'  @{spn.alt = Alteration::FLAT; }
+          | 'bb' @{spn.alt = Alteration::DOUBLE_FLAT; });
+spn_pitch  = ( 'A'     @{spn.note = PitchName::A; }
+             | [BH]    @{spn.note = PitchName::B; }
+             | 'C'     @{spn.note = PitchName::C; }
+             | 'D'     @{spn.note = PitchName::D; }
+             | 'E'     @{spn.note = PitchName::E; }
+             | 'F'     @{spn.note = PitchName::F; }
+             | 'G'     @{spn.note = PitchName::G; }
+             );
 
 spn_octave_abs =
     (
@@ -74,11 +78,11 @@ spn = (
         spn_octave?
         spn_dev?
       )
-      >{spn.alt = 0; spn.oct = 0; spn.octtype = OCTAVE_REL; spn.dev = 0;}
+      >{spn.alt = Alteration::NATURAL; spn.oct = 0; spn.octtype = OCTAVE_REL; spn.dev = 0;}
       %{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;};
 
 pitch = (spn_pitch spn_alt?)
-      >{spn.alt = 0; spn.oct = 0; spn.octtype = OCTAVE_REL; spn.dev = 0;}
+      >{spn.alt = Alteration::NATURAL; spn.oct = 0; spn.octtype = OCTAVE_REL; spn.dev = 0;}
       %{ragel_cat = CAT_UNIT; ragel_type = TYPE_SPN;};
 
 # notes
@@ -116,7 +120,7 @@ dur_sequence = dur_repeat ? note_dur_abs;
 note_dur_all = note_dur_rel | note_dur_abs;
 
 note_dur_par = '|' note_dur_all;
-note_rest = 'R' @{note.rest = 1;};
+note_rest = 'R' @{ spn.rest = 1; };
 
 note_single = (note_rest | spn) note_dur_par?
     >{note.num = 1; note.den = 4; note.dots = 0; note.durtype = DURATION_REL;}
@@ -145,5 +149,66 @@ time_signature
     time_signature_dur
     ('+' time_signature_dur)*
     '|';
+
+
+chord5 = 'maj'   %{ rg_chord_type.assign({0, 4, 7}); name = "Major triad"; }
+       | 'min'   %{ rg_chord_type.assign({0, 3, 7}); name = "Minor triad"; }
+       | 'aug'   %{ rg_chord_type.assign({0, 4, 8}); name = "Augmented triad";}
+       | 'dim'   %{ rg_chord_type.assign({0, 3, 6}); name = "Diminished triad"; }
+       | '+6'    %{ rg_chord_type.assign({0, 4, 10}); }
+       | ('sus' '4'?)   %{ rg_chord_type.assign({0, 5, 7}); }
+       | 'sus2'  %{ rg_chord_type.assign({0, 2, 7}); }
+       ;
+
+
+chord7  = '7'           %{ rg_chord_type.assign({0, 4, 7, 10}); }
+        | 'maj7'        %{ rg_chord_type.assign({0, 4, 7, 11}); }
+        | 'min7'        %{ rg_chord_type.assign({0, 3, 7, 10}); }
+        | 'minmaj7'     %{ rg_chord_type.assign({0, 3, 7, 11}); }
+        | 'aug7'        %{ rg_chord_type.assign({0, 4, 8, 10}); }
+        | 'augmaj7'     %{ rg_chord_type.assign({0, 4, 8, 11}); }
+        | 'dim7'        %{ rg_chord_type.assign({0, 3, 6, 9}); }
+        | 'halfdim7'    %{ rg_chord_type.assign({0, 3, 6, 10}); }
+        | '7-5'         %{ rg_chord_type.assign({0, 4, 6, 10}); }
+        | '7sus2'       %{ rg_chord_type.assign({0, 2, 7, 10}); }
+        | '7sus4'       %{ rg_chord_type.assign({0, 5, 7, 10}); }
+        ;
+
+chord9  = '9'           %{ rg_chord_type.assign({0, 4, 7, 10, 14}); }
+        | 'maj9'        %{ rg_chord_type.assign({0, 4, 7, 11, 14}); }
+        | 'min9'        %{ rg_chord_type.assign({0, 3, 7, 10, 14}); }
+        | '7-9'         %{ rg_chord_type.assign({0, 4, 7, 10, 13}); }
+        | 'minmaj9'     %{ rg_chord_type.assign({0, 3, 7, 11, 14}); }
+        | 'augmaj9'     %{ rg_chord_type.assign({0, 4, 8, 11, 14}); }
+        | 'aug9'        %{ rg_chord_type.assign({0, 4, 8, 10, 14}); }
+        | 'halfdim9'    %{ rg_chord_type.assign({0, 3, 6, 10, 14}); }
+        | 'halfdim-9'   %{ rg_chord_type.assign({0, 3, 6, 10, 13}); }
+        | 'dim9'        %{ rg_chord_type.assign({0, 3, 6, 9, 14}); }
+        | 'dim-9'       %{ rg_chord_type.assign({0, 3, 6, 9, 13}); }
+        | '9sus4'       %{ rg_chord_type.assign({0, 5, 7, 10, 14}); }
+        ;
+
+chord11 = '11'          %{ rg_chord_type.assign({0, 4, 7, 10, 14, 17}); }
+        | 'maj11'       %{ rg_chord_type.assign({0, 4, 7, 11, 14, 17}); }
+        | 'min11'       %{ rg_chord_type.assign({0, 3, 7, 10, 14, 17}); }
+        | 'minmaj11'    %{ rg_chord_type.assign({0, 3, 7, 11, 14, 17}); }
+        | 'augmaj11'    %{ rg_chord_type.assign({0, 4, 8, 11, 14, 17}); }
+        | 'aug11'       %{ rg_chord_type.assign({0, 4, 8, 10, 14, 17}); }
+        | 'halfdim11'   %{ rg_chord_type.assign({0, 3, 6, 10, 14, 17}); }
+        | 'dim11'       %{ rg_chord_type.assign({0, 3, 6, 9, 14, 17}); }
+        ;
+
+chord13 = '13'          %{ rg_chord_type.assign({0, 4, 7, 10, 14, 17, 21}); }
+        | 'maj13'       %{ rg_chord_type.assign({0, 4, 7, 11, 14, 17, 21}); }
+        | 'minmaj13'    %{ rg_chord_type.assign({0, 3, 7, 11, 14, 17, 21}); }
+        | 'min13'       %{ rg_chord_type.assign({0, 3, 7, 10, 14, 17, 21}); }
+        | 'augmaj13'    %{ rg_chord_type.assign({0, 4, 8, 11, 14, 17, 21}); }
+        | 'aug13'       %{ rg_chord_type.assign({0, 4, 8, 10, 14, 17, 21}); }
+        | 'halfdim13'   %{ rg_chord_type.assign({0, 3, 6, 10, 14, 17, 21}); }
+        ;
+
+chord_suffix = (chord5 | chord7 | chord9 | chord11 | chord13)**;
+
+chord_name  = pitch chord_suffix;
 
 }%%

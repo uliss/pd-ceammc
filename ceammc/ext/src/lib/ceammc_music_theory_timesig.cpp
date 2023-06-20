@@ -81,7 +81,7 @@ Duration TimeSignature::duration() const
 
 int TimeSignature::subDivision() const noexcept
 {
-    int lcm = 1;
+    std::int16_t lcm = 1;
     for (auto& s : sig_)
         lcm = boost::integer::lcm(lcm, s.division());
 
@@ -124,7 +124,7 @@ BeatList TimeSignature::beatList() const
 
 bool TimeSignature::parse(const char* str) noexcept
 {
-    return parser::TimeSignatureParser::parse(str, *this);
+    return parser::parse_time_signature(str, *this);
 }
 
 bool TimeSignature::operator==(const TimeSignature& ts) const

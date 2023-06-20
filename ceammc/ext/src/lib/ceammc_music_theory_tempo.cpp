@@ -31,13 +31,21 @@ Tempo::Tempo() noexcept
 Tempo::Tempo(float bpm, int div, int dots)
 {
     if (!setBpm(bpm))
-        throw std::invalid_argument("invalid BPM value");
+        throw std::invalid_argument(fmt::format("invalid BPM value: {}", bpm));
 
     if (!setDivision(div))
         throw std::invalid_argument("invalid tempo beat division");
 
     if (!setDots(dots))
-        throw std::invalid_argument("invalid dots");
+        throw std::invalid_argument(fmt::format("invalid dots: {}", dots));
+}
+
+Tempo::Tempo(float bpm, const Duration& dur)
+    : bpm_(60)
+    , dur_(dur)
+{
+    if (!setBpm(bpm))
+        throw std::invalid_argument(fmt::format("invalid BPM value: {}", bpm));
 }
 
 bool Tempo::operator==(const Tempo& t) const
@@ -86,20 +94,18 @@ bool Tempo::set(float bpm, int div, int dots) noexcept
 
 bool Tempo::parse(const char* str)
 {
-    parser::BpmFullMatch p;
-    parser::Bpm bpm;
-    if (!p.parse(str, bpm))
-        return false;
+    return parser::parse_tempo(str, *this);
+    //        return false;
 
-    Tempo tmp;
-    if (!tmp.setBpm(bpm.bpm))
-        return false;
+    //    Tempo tmp;
+    //    if (!tmp.setBpm(t.bpm))
+    //        return false;
 
-    if (!tmp.dur_.set(bpm.beat_num, bpm.beat_div, 0))
-        return false;
+    //    if (!tmp.dur_.set(t.beat_num, t.beat_div, 0))
+    //        return false;
 
-    *this = tmp;
-    return true;
+    //    *this = tmp;
+    //    return true;
 }
 
 std::string Tempo::toString() const
@@ -143,6 +149,11 @@ double Tempo::subBeatDurationMs() const
 double Tempo::wholeNoteDurationMs() const
 {
     return Duration { 1, 1 }.timeMs(*this);
+}
+
+void Tempo::setDuration(const Duration& d)
+{
+    dur_ = d;
 }
 
 std::ostream& ceammc::music::operator<<(std::ostream& os, const Tempo& t)

@@ -20,13 +20,15 @@
 namespace ceammc {
 namespace music {
 
-    Scale::Scale(const char* name, std::initializer_list<t_float> degrees, size_t pitchesPerOctave, const std::string& fullName)
+    Scale::Scale(const char* name, DegreeInitList degrees, size_t pitchesPerOctave, const std::string& fullName)
         : name_(name)
         , full_name_(fullName)
         , pitches_per_octave_(pitchesPerOctave)
         , degrees_i_(degrees)
-        , degrees_l_(degrees)
     {
+        for (auto d : degrees)
+            degrees_l_.append(Atom(d));
+
         auto it = std::max_element(degrees.begin(), degrees.end());
         if (it == degrees.end()) {
             LIB_ERR << "empty scale: " << name;
@@ -57,12 +59,12 @@ namespace music {
         }
     }
 
-    bool Scale::find(t_float degree) const
+    bool Scale::find(DegreeType degree) const
     {
         return std::find(degrees_i_.begin(), degrees_i_.end(), degree) != degrees_i_.end();
     }
 
-    bool Scale::findNearest(t_float degree, t_float& result) const
+    bool Scale::findNearest(DegreeType degree, DegreeType& result) const
     {
         if (degree < 0 || degree >= pitches_per_octave_ || degrees_i_.empty())
             return false;
@@ -252,7 +254,7 @@ namespace music {
         return lib;
     }
 
-    bool ScaleLibrary::insert(const char* name, std::initializer_list<t_float> degrees, size_t pitchesPerOctave, const std::string& fullName)
+    bool ScaleLibrary::insert(const char* name, DegreeInitList degrees, size_t pitchesPerOctave, const std::string& fullName)
     {
         return insertInternal(name, crc32_hash(name), degrees, pitchesPerOctave, fullName);
     }
@@ -288,7 +290,7 @@ namespace music {
         return res;
     }
 
-    bool ScaleLibrary::insertInternal(const char* name, uint32_t hash, std::initializer_list<t_float> degrees, size_t pitchesPerOctave, const std::string& fullName)
+    bool ScaleLibrary::insertInternal(const char* name, uint32_t hash, DegreeInitList degrees, size_t pitchesPerOctave, const std::string& fullName)
     {
         auto it = scales_.find(hash);
         if (it != scales_.end()) {

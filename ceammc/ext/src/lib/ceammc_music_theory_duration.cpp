@@ -19,15 +19,15 @@
 #include <boost/rational.hpp>
 #include <stdexcept>
 
-using Rational = boost::rational<int>;
+using Rational = boost::rational<std::int16_t>;
 
 using namespace ceammc::music;
 
 namespace {
-template <int MIN, int MAX>
-int clip_minmax(int v)
+template <typename T, int MIN, int MAX>
+T clip_minmax(T v)
 {
-    return std::max(MIN, std::min(MAX, v));
+    return std::max<T>(MIN, std::min<T>(MAX, v));
 }
 
 Rational dur2ratio(const Duration& dur)
@@ -59,7 +59,7 @@ Duration::Duration() noexcept
 {
 }
 
-Duration::Duration(int div)
+Duration::Duration(std::int16_t div)
     : num_ { 1 }
     , div_ { div }
     , dots_ { 0 }
@@ -68,10 +68,10 @@ Duration::Duration(int div)
         throw std::invalid_argument("zero duration division");
 }
 
-Duration::Duration(int num, int div, int dots)
+Duration::Duration(std::int16_t num, std::int16_t div, std::int8_t dots)
     : num_ { num }
     , div_ { div }
-    , dots_ { clip_minmax<0, DURATION_MAX_DOTS>(dots) }
+    , dots_ { clip_minmax<std::int8_t, 0, DURATION_MAX_DOTS>(dots) }
 {
     if (div_ == 0)
         throw std::invalid_argument("zero duration division");
@@ -170,8 +170,19 @@ bool Duration::set(int num, int div, int dots) noexcept
 
 std::string Duration::toString() const noexcept
 try {
-    const char* dots = &"..."[(DURATION_MAX_DOTS - clip_minmax<0, DURATION_MAX_DOTS>(dots_))];
+    const auto ndots = (DURATION_MAX_DOTS - clip_minmax<std::int8_t, 0, DURATION_MAX_DOTS>(dots_));
+    const char* dots = &"..."[ndots];
     return fmt::format("{}/{}{}", num_, div_, dots);
+
+    //    std::ostream& operator<<(std::ostream& os, const Duration& dur)
+    //    {
+    //        if (dur.repeats > 1)
+    //            os << (int)dur.repeats << '*';
+
+    //        os << (int)dur.num << '/' << (int)dur.den;
+    //        return os;
+    //    }
+
 } catch (...) {
     return {};
 }
@@ -212,13 +223,13 @@ Duration Duration::operator-(const Duration& dur) const
     return { res.numerator(), res.denominator() };
 }
 
-Duration Duration::operator*(int k) const
+Duration Duration::operator*(std::int16_t k) const
 {
     auto res = dur2ratio(*this) * k;
     return { res.numerator(), res.denominator() };
 }
 
-Duration Duration::operator/(int div) const
+Duration Duration::operator/(std::int16_t div) const
 {
     if (div == 0)
         throw std::invalid_argument("division by zero");
@@ -235,21 +246,7 @@ double Duration::timeMs(const Tempo& t) const
 
 bool Duration::parse(const char* str) noexcept
 {
-    parser::DurationFullMatch p;
-    if (!p.parse(str))
-        return false;
-
-    auto& dur = p.result();
-    if (!dur.isAbs())
-        return false;
-
-    num_ = dur.num;
-    if (dur.repeats > 0)
-        num_ += dur.repeats;
-
-    div_ = dur.den;
-    dots_ = dur.dots;
-    return true;
+    return parser::parse_duration(str, *this);
 }
 
 Duration Duration::operator*(const Duration& dur) const

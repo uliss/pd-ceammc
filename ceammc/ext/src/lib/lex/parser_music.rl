@@ -1,8 +1,130 @@
 # include "parser_music.h"
 # include "parser_numeric.h"
+# include "ceammc_log.h"
+# include "ceammc_music_theory_tempo.h"
 
 # include <cstdint>
 # include <cstring>
+
+using namespace ceammc;
+using namespace ceammc::music;
+
+namespace  {
+
+    struct RagelTempo {
+        int ival { 0 };
+        int fnum { 0 };
+        int fden { 1 };
+        int dur_num { 1 };
+        int dur_den { 4 };
+    };
+
+    struct RagelSpn {
+        PitchName note = PitchName::C;
+        Alteration alt = Alteration::NATURAL;
+        int oct { 0 };
+        int dev { 0 };
+        int sign { 1 };
+        int rest { 0 };
+        OctaveType octtype { OCTAVE_ABS };
+    };
+
+    struct RagelDuration {
+        int16_t num { 0 };
+        int16_t den { 1 };
+        int8_t dots { 0 };
+        int repeats { 1 };
+        DurationType durtype { DURATION_ABS };
+    };
+
+    struct RagelNotation {
+        int dots { 0 };
+        int num { 0 };
+        int den { 1 };
+        int rest { 0 };
+        int tnum { 0 };
+        int tden { 0 };
+        int repeats { 1 };
+        DurationType durtype { DURATION_ABS };
+    };
+
+    struct RagelTimeSig {
+        using Duration = std::pair<std::uint8_t, std::uint8_t>;
+        using DurationList = boost::container::small_vector<Duration, 2>;
+        DurationList sig;
+        std::uint8_t num { 0 }, div { 0 };
+    };
+
+    struct RagelChordType {
+        std::uint8_t data_[8] = { 0 };
+
+    public:
+        RagelChordType() { }
+        size_t size() const { return data_[0]; }
+
+        bool assign(std::initializer_list<int> data)
+        {
+            if (data.size() > 7)
+                return false;
+
+            for (int i = 0; i < 7; i++)
+                data_[i + 1] = *(data.begin() + i);
+
+            data_[0] = data.size();
+            return true;
+        }
+
+        std::uint8_t* begin() { return &data_[1]; }
+        const std::uint8_t* begin() const { return &data_[1]; }
+        std::uint8_t* end() { return &data_[1] + data_[0]; }
+        const std::uint8_t* end() const { return &data_[1] + data_[0]; }
+    };
+
+    Tempo fromRagel(const RagelTempo& t)
+    {
+        float bpm = t.ival + t.fnum / float(t.fden);
+        Tempo res { bpm, t.dur_den };
+        res.setDuration(Duration(t.dur_num, t.dur_den));
+        return res;
+    }
+
+    Spn fromRagel(const RagelSpn& x)
+    {
+        if (x.rest)
+            return {};
+
+        Spn res(PitchClass(x.note, x.alt), Octave(x.oct, x.octtype));
+        res.setDeviation(x.dev);
+        return res;
+    }
+
+    Duration fromRagel(const RagelDuration& x)
+    {
+        Duration res(x.num, x.den, x.dots);
+        res.setNumRepeats(x.repeats);
+        res.setType(x.durtype);
+        return res;
+    }
+
+    Notation fromRagel(const RagelSpn& spn, const RagelNotation& n)
+    {
+        auto x_spn = fromRagel(spn);
+        auto x_dur = Duration(n.num, n.den, n.dots);
+        x_dur.setType(n.durtype);
+        Notation res(x_spn, x_dur);
+        if (n.repeats > 1)
+            res.setNumRepeats(n.repeats);
+
+        return res;
+    }
+
+    ChordType fromRagel(const RagelChordType& t)
+    {
+        ChordType res{{}};
+        res.setFrom(t.begin(), t.end());
+        return res;
+    }
+}
 
 namespace ceammc {
 namespace parser {
@@ -15,31 +137,7 @@ namespace parser {
     write data;
 }%%
 
-std::ostream& operator<<(std::ostream& os, const Duration& dur)
-{
-    if (dur.repeats > 1)
-        os << (int)dur.repeats << '*';
-
-    os << (int)dur.num << '/' << (int)dur.den;
-    return os;
-}
-
-bool BpmFullMatch::parse(const Atom& a, Bpm& res)
-{
-    if (a.isSymbol())
-        return parse(a.asT<t_symbol*>()->s_name, res);
-    else if(a.isFloat()) {
-        auto f = a.asT<t_float>();
-        if (f < 0)
-            return false;
-
-        res = Bpm(a.asT<t_float>(), 1, 4);
-        return true;
-    } else
-        return false;
-}
-
-bool BpmFullMatch::parse(const char* str, Bpm& res)
+bool parse_tempo(const char* str, music::Tempo& t)
 {
     const auto len = strlen(str);
     if (len == 0)
@@ -51,7 +149,7 @@ bool BpmFullMatch::parse(const char* str, Bpm& res)
     const char* eof = pe;
 
     DECLARE_RAGEL_COMMON_VARS;
-    fsm::BpmData bpm;
+    RagelTempo bpm;
 
     %% write init;
     %% write exec;
@@ -59,26 +157,24 @@ bool BpmFullMatch::parse(const char* str, Bpm& res)
     const bool ok = cs >= %%{ write first_final; }%%;
 
     if (ok)
-        res = bpm;
+        t = fromRagel(bpm);
 
     return ok;
 }
 
-size_t BpmFullMatch::parse(const AtomListView& lv, SmallBpmVec& out)
+bool parse_tempo(const Atom& a, music::Tempo& t)
 {
-    const size_t N = lv.size();
+    if (a.isSymbol())
+        return parse_tempo(a.asT<t_symbol*>()->s_name, t);
+    else if(a.isFloat()) {
+        auto f = a.asT<t_float>();
+        if (f < 0)
+            return false;
 
-    Bpm bpm;
-
-    for (size_t i = 0; i < N; i++) {
-        const auto& a = lv[i];
-        if (!parse(a, bpm))
-            return i;
-
-        out.push_back(bpm);
-    }
-
-    return N;
+        t = Tempo(a.asT<t_float>(), 4);
+        return true;
+    } else
+        return false;
 }
 
 %%{
@@ -89,30 +185,19 @@ size_t BpmFullMatch::parse(const AtomListView& lv, SmallBpmVec& out)
     write data;
 }%%
 
-SpnFullMatch::SpnFullMatch()
-{
-    reset();
-}
-
-void SpnFullMatch::reset()
-{
-    spn_ = { };
-}
-
-bool SpnFullMatch::parse(const char* str)
+bool parse_spn(const char* str, music::Spn& res)
 {
     const auto len = strlen(str);
     if (len == 0)
         return false;
 
+    int cs = 0;
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;
 
     DECLARE_RAGEL_COMMON_VARS;
-    fsm::SpnData spn;
-
-    reset();
+    RagelSpn spn;
 
     %% write init;
     %% write exec;
@@ -120,32 +205,17 @@ bool SpnFullMatch::parse(const char* str)
     const bool ok = cs >= %%{ write first_final; }%%;
 
     if (ok)
-        spn_ = spn;
+        res = fromRagel(spn);
 
     return ok;
 }
 
-bool SpnFullMatch::parse(const Atom& a)
+bool parse_spn(const Atom& a, music::Spn& spn)
 {
     if (a.isSymbol())
-        return parse(a.asT<t_symbol*>()->s_name);
+        return parse_spn(a.asT<t_symbol*>()->s_name, spn);
     else
         return false;
-}
-
-size_t SpnFullMatch::parse(const AtomListView& lv, SmallSpnVec& out)
-{
-    const size_t N = lv.size();
-
-    for (size_t i = 0; i < N; i++) {
-        const auto& a = lv[i];
-        if (!parse(a))
-            return i;
-
-        out.push_back(spn_);
-    }
-
-    return N;
 }
 
 %%{
@@ -156,30 +226,20 @@ size_t SpnFullMatch::parse(const AtomListView& lv, SmallSpnVec& out)
     write data;
 }%%
 
-PitchFullMatch::PitchFullMatch()
-{
-    reset();
-}
 
-void PitchFullMatch::reset()
-{
-    spn_ = { };
-}
-
-bool PitchFullMatch::parse(const char* str)
+bool parse_pitch_class(const char* str, music::PitchClass& res)
 {
     const auto len = strlen(str);
     if (len == 0)
         return false;
 
+    int cs = 0;
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;
 
     DECLARE_RAGEL_COMMON_VARS;
-    fsm::SpnData spn;
-
-    reset();
+    RagelSpn spn;
 
     %% write init;
     %% write exec;
@@ -187,17 +247,17 @@ bool PitchFullMatch::parse(const char* str)
     const bool ok = cs >= %%{ write first_final; }%%;
 
     if (ok)
-        spn_ = spn;
+        res = PitchClass(static_cast<PitchName>(spn.note), static_cast<Alteration>(spn.alt));
 
     return ok;
 }
 
-bool PitchFullMatch::parse(const Atom& a)
+bool parse_pitch_class(const Atom& a, music::PitchClass& res)
 {
     if (a.isSymbol())
-        return parse(a.asT<t_symbol*>()->s_name);
+        return parse_pitch_class(a.asT<t_symbol*>()->s_name, res);
     else if(a.isInteger() && a.asT<int>() >= 0 && a.asT<int>() < 12) {
-        spn_.setSemitones(a.asT<int>());
+        res = PitchClass(a.asT<int>());
         return true;
     } else
         return false;
@@ -211,32 +271,20 @@ bool PitchFullMatch::parse(const Atom& a)
     write data;
 }%%
 
-NotationSingle::NotationSingle()
-{
-    reset();
-}
-
-void NotationSingle::reset()
-{
-    note_.spn = {};
-    note_.dur = {};
-}
-
-bool NotationSingle::parse(const char* str)
+bool parse_notation(const char* str, Notation& n)
 {
     const auto len = strlen(str);
     if (len == 0)
         return false;
 
+    int cs = 0;
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;
 
     DECLARE_RAGEL_COMMON_VARS;
-    fsm::NotationData note;
-    fsm::SpnData spn;
-
-    reset();
+    RagelNotation note;
+    RagelSpn spn;
 
     %% write init;
     %% write exec;
@@ -244,37 +292,17 @@ bool NotationSingle::parse(const char* str)
     const bool ok = cs >= %%{ write first_final; }%%;
 
     if (ok)
-        note_ = Notation(spn, note);
-
+        n = fromRagel(spn, note);
 
     return ok;
 }
 
-bool NotationSingle::parse(const Atom& a)
+bool parse_notation(const Atom& a, Notation& n)
 {
     if (a.isSymbol())
-        return parse(a.asT<t_symbol*>()->s_name);
+        return parse_notation(a.asT<t_symbol*>()->s_name, n);
     else
         return false;
-}
-
-size_t NotationSingle::parse(const AtomListView& lv, NoteVec& out)
-{
-    const size_t N = lv.size();
-
-    for (size_t i = 0; i < N; i++) {
-        if (!parse(lv[i]))
-            return i;
-
-        out.push_back(note_);
-        if (note_.dur.repeats > 1) {
-            std::cerr << note_.dur.repeats << "\n";
-            out.insert(out.end(), note_.dur.repeats - 1, out.back());
-            note_.dur.repeats = 1;
-        }
-    }
-
-    return N;
 }
 
 %%{
@@ -285,17 +313,7 @@ size_t NotationSingle::parse(const AtomListView& lv, NoteVec& out)
     write data;
 }%%
 
-DurationFullMatch::DurationFullMatch()
-{
-    reset();
-}
-
-void DurationFullMatch::reset()
-{
-    dur_ = {};
-}
-
-bool DurationFullMatch::parse(const char* str)
+bool parse_duration(const char* str, Duration& dur)
 {
     const auto len = strlen(str);
     if (len == 0)
@@ -307,9 +325,7 @@ bool DurationFullMatch::parse(const char* str)
     const char* eof = pe;
     int cat_ = 0;
     AtomType type_;
-    fsm::NotationData note;
-
-    reset();
+    RagelDuration note;
 
     %% write init;
     %% write exec;
@@ -317,42 +333,24 @@ bool DurationFullMatch::parse(const char* str)
     const bool ok = cs >= %%{ write first_final; }%%;
 
     if (ok)
-        dur_ = note;
+        dur = fromRagel(note);
 
     return ok;
 }
 
-bool DurationFullMatch::parse(const Atom& a)
+bool parse_duration(const Atom& a, Duration& dur)
 {
     if (a.isSymbol())
-        return parse(a.asT<t_symbol*>()->s_name);
+        return parse_duration(a.asT<t_symbol*>()->s_name, dur);
     else if(a.isFloat()) {
         const auto i = a.asT<int>();
         if (i >= 0)
-            dur_ = Duration(1, i);
+            dur = Duration(1, i);
 
         return i >= 0;
     }
     else
         return false;
-}
-
-size_t DurationFullMatch::parse(const AtomListView& lv, DurationVec& out)
-{
-    const size_t N = lv.size();
-
-    for (size_t i = 0; i < N; i++) {
-        if (!parse(lv[i]))
-            return i;
-
-        out.push_back(dur_);
-        if(dur_.repeats > 1) {
-            out.insert(out.end(), dur_.repeats - 1, out.back());
-            dur_.repeats = 1;
-        }
-    }
-
-    return N;
 }
 
 %%{
@@ -363,7 +361,7 @@ size_t DurationFullMatch::parse(const AtomListView& lv, DurationVec& out)
     write data;
 }%%
 
-bool TimeSignatureParser::parse(const char* str, music::TimeSignature& ts)
+bool parse_time_signature(const char* str, music::TimeSignature& ts)
 {
     const auto len = strlen(str);
     if (len == 0)
@@ -374,7 +372,7 @@ bool TimeSignatureParser::parse(const char* str, music::TimeSignature& ts)
     const char* pe = p + len;
     const char* eof = pe;
 
-    fsm::TimeSignatureData ragel_ts;
+    RagelTimeSig ragel_ts;
 
     %% write init;
     %% write exec;
@@ -391,6 +389,45 @@ bool TimeSignatureParser::parse(const char* str, music::TimeSignature& ts)
 
         for (size_t i = 1; i < N; i++)
             ts.append(data[i].first, data[i].second);
+    }
+
+    return ok;
+}
+
+%%{
+    machine chord_names;
+    include music_common "ragel_music.rl";
+
+    main := chord_name;
+    write data;
+}%%
+
+bool parse_chord_class(const char* str, ChordClass& res)
+{
+    const auto len = strlen(str);
+    if (len == 0)
+        return false;
+
+    int cs = 0;
+    const char* p = str;
+    const char* pe = p + len;
+    const char* eof = pe;
+
+    DECLARE_RAGEL_COMMON_VARS;
+    RagelSpn spn;
+    RagelChordType rg_chord_type;
+    const char* name = "";
+
+    %% write init;
+    %% write exec;
+
+    const bool ok = cs >= %%{ write first_final; }%%;
+
+    if (ok) {
+        auto x_spn = fromRagel(spn);
+        auto x_type = fromRagel(rg_chord_type);
+        res = ChordClass(x_spn, x_type);
+        return true;
     }
 
     return ok;

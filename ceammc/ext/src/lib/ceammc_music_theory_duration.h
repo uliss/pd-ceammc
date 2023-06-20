@@ -25,8 +25,16 @@ namespace music {
 
     constexpr int DURATION_MAX_DOTS = 3;
 
+    enum DurationType : int8_t {
+        DURATION_ABS = 0,
+        DURATION_REL
+    };
+
     class Duration {
-        int num_ { 0 }, div_ { 1 }, dots_ { 0 };
+        std::int16_t num_ { 0 }, div_ { 1 };
+        std::int8_t dots_ { 0 };
+        DurationType type_ { DURATION_ABS };
+        std::uint16_t repeats_ { 1 };
 
     public:
         /**
@@ -38,13 +46,13 @@ namespace music {
          * creates 1/div duration
          * @throw std::invalid_argument if div == 0
          */
-        explicit Duration(int div);
+        explicit Duration(std::int16_t div);
 
         /**
          * creates duration
          * @throw std::invalid_argument if div == 0
          */
-        Duration(int num, int div, int dots = 0);
+        Duration(std::int16_t num, std::int16_t div, std::int8_t dots = 0);
 
         /**
          * compare Durations by logical time: 1/4==2/8
@@ -74,9 +82,9 @@ namespace music {
          */
         bool strictEqual(const Duration& dur) const;
 
-        int numerator() const { return num_; }
-        int division() const { return div_; }
-        int dots() const { return dots_; }
+        std::int16_t numerator() const { return num_; }
+        std::int16_t division() const { return div_; }
+        std::int8_t dots() const { return dots_; }
 
         bool setNumerator(int num) noexcept;
         bool setDivision(int div) noexcept;
@@ -85,6 +93,9 @@ namespace music {
         bool set(int num, int div, int dots) noexcept;
 
         std::string toString() const noexcept;
+
+        std::uint16_t numRepeats() const { return repeats_; }
+        void setNumRepeats(std::uint16_t n) { repeats_ = n; }
 
         /**
          * duration float ratio: 1/4 -> 0.25
@@ -105,7 +116,7 @@ namespace music {
         /**
          * return multiplied duration
          */
-        Duration operator*(int k) const;
+        Duration operator*(std::int16_t k) const;
 
         /**
          * return multiplied duration
@@ -115,7 +126,7 @@ namespace music {
         /**
          * return divided duration
          */
-        Duration operator/(int div) const;
+        Duration operator/(std::int16_t div) const;
 
         /**
          * return duration time in milliseconds according to given tempo
@@ -123,6 +134,9 @@ namespace music {
         double timeMs(const Tempo& t) const;
 
         double timeSec(const Tempo& t) const { return timeMs(t) * 0.001; }
+
+        DurationType type() const { return type_; }
+        void setType(DurationType t) { type_ = t; }
 
     public:
         bool parse(const char* str) noexcept;

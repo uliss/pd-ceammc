@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "ceammc_units.h"
 #include "ceammc_format.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #include "lex/parser_music.h"
 #include "lex/parser_numeric.h"
 #include "lex/parser_units.h"
@@ -165,7 +165,7 @@ FreqValue::ParseResult FreqValue::parse(const Atom& atom)
 
             switch (v.type) {
             case TYPE_BPM:
-                return FreqValue(v.bpm.bpm, Units::BPM);
+                return FreqValue(v.tempo.bpm(), Units::BPM);
             case TYPE_HZ:
                 return FreqValue(v.value, Units::HZ);
             case TYPE_MSEC: {
@@ -187,13 +187,13 @@ FreqValue::ParseResult FreqValue::parse(const Atom& atom)
 BpmValue::ParseResult BpmValue::parse(const Atom& a)
 {
     using namespace ceammc::parser;
-    BpmFullMatch parser;
-    Bpm bpm;
+    music::Tempo bpm;
 
-    if (!parser.parse(a, bpm))
+    if (!parser::parse_tempo(a, bpm))
         return UnitParseError(fmt::format("invalid bpm: '{}'", to_string(a)));
     else {
-        return BpmValue(bpm.bpm, bpm.ratio());
+//        LIB_ERR << bpm.beatDuration().ratio();
+        return BpmValue(bpm.bpm(), bpm.beatDuration().ratio());
     }
 }
 

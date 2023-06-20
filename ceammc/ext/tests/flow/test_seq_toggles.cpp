@@ -46,6 +46,7 @@ TEST_CASE("seq.toggles", "[externals]")
             REQUIRE_PROPERTY(t, @t, 100);
             REQUIRE_PROPERTY(t, @p, L());
             REQUIRE_PROPERTY(t, @length, "75%");
+            REQUIRE_PROPERTY(t, @div, 1);
         }
 
         SECTION("args")
@@ -383,6 +384,7 @@ TEST_CASE("seq.toggles", "[externals]")
     {
         TExt t("seq.t", LA(1, 2, "@t", "60bpm"));
         REQUIRE_PROPERTY(t, @t, 1000);
+        REQUIRE(t->beatDuration() == 1000);
 
         t->setProperty("@t", A("120bpm"));
         REQUIRE_PROPERTY(t, @t, 500);
@@ -391,15 +393,22 @@ TEST_CASE("seq.toggles", "[externals]")
         REQUIRE_PROPERTY(t, @t, 1000);
 
         t->setProperty("@t", A("60|8bpm"));
-        REQUIRE_PROPERTY(t, @t, 500);
+        REQUIRE_PROPERTY(t, @t, 1000);
 
         t->setProperty("@t", A("60|1/16bpm"));
-        REQUIRE_PROPERTY(t, @t, 250);
+        REQUIRE_PROPERTY(t, @t, 1000);
 
         t->setProperty("@t", A("120|1/16bpm"));
-        REQUIRE_PROPERTY(t, @t, 125);
+        REQUIRE_PROPERTY(t, @t, 500);
 
         t->setProperty("@t", A("120|2/16bpm"));
-        REQUIRE_PROPERTY(t, @t, 250);
+        REQUIRE_PROPERTY(t, @t, 500);
+
+        REQUIRE(t->beatDuration() == 500);
+        t->setProperty("@div", LA(4));
+        REQUIRE(t->beatDuration() == 125);
+
+        t->setProperty("@div", LA(2));
+        REQUIRE(t->beatDuration() == 250);
     }
 }

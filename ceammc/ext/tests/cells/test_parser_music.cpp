@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "catch.hpp"
+#include "ceammc_music_theory_tempo.h"
 #include "lex/parser_music.h"
 #include "test_base.h"
 
@@ -26,137 +27,132 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
         SECTION("str")
         {
             using namespace ceammc::parser;
-            BpmFullMatch p;
-            Bpm bpm;
+            using namespace ceammc::music;
+            Tempo t;
 
-            REQUIRE(p.parse("120", bpm));
-            REQUIRE(bpm.bpm == 120);
-            REQUIRE(bpm.ratio() == 0.25);
-            REQUIRE(bpm.freqHz() == 2);
-            REQUIRE(bpm.value() == 120);
-            REQUIRE(bpm.beatPeriodMs() == 500);
-            REQUIRE(bpm.beatPeriodSamp(10000) == 5000);
+            REQUIRE(parse_tempo("120", t));
+            REQUIRE(t.bpm() == 120);
+            REQUIRE(t.beatDuration().ratio() == 0.25);
+            REQUIRE(t.beatDurationMs() == 500);
+            //            REQUIRE(bpm.beatPeriodSamp(10000) == 5000);
 
-            REQUIRE(p.parse("120.5", bpm));
-            REQUIRE(bpm.bpm == 120.5);
-            REQUIRE(bpm.ratio() == 0.25);
-            REQUIRE(bpm.value() == 120.5);
+            REQUIRE(parse_tempo("120.5", t));
+            REQUIRE(t.bpm() == 120.5);
+            REQUIRE(t.beatDuration().ratio() == 0.25);
 
-            REQUIRE(p.parse("120bpm", bpm));
-            REQUIRE(bpm.bpm == 120);
-            REQUIRE(bpm.ratio() == 0.25);
-            REQUIRE(bpm.value() == 120);
+            REQUIRE(parse_tempo("120bpm", t));
+            REQUIRE(t.bpm() == 120);
+            REQUIRE(t.beatDuration().ratio() == 0.25);
 
-            REQUIRE(p.parse("0", bpm));
-            REQUIRE(bpm.bpm == 0);
-            REQUIRE(bpm.ratio() == 0.25);
-            REQUIRE(bpm.beatPeriodMs() == 0);
-            REQUIRE(bpm.beatPeriodSamp(44100) == 0);
+            REQUIRE(parse_tempo("0", t));
+            REQUIRE(t.bpm() == 0);
+            REQUIRE(t.beatDuration().ratio() == 0.25);
+            REQUIRE(t.beatDurationMs() == 0);
+            //            REQUIRE(bpm.beatPeriodSamp(44100) == 0);
 
-            REQUIRE(p.parse("144bpm", bpm));
-            REQUIRE(bpm.bpm == 144);
-            REQUIRE(bpm.ratio() == 0.25);
+            REQUIRE(parse_tempo("144bpm", t));
+            REQUIRE(t.bpm() == 144);
+            REQUIRE(t.beatDuration().ratio() == 0.25);
 
-            REQUIRE(p.parse("50.25_bpm", bpm));
-            REQUIRE(bpm.bpm == 50.25);
-            REQUIRE(bpm.ratio() == 0.25);
+            REQUIRE(parse_tempo("50.25_bpm", t));
+            REQUIRE(t.bpm() == 50.25);
+            REQUIRE(t.beatDuration().ratio() == 0.25);
 
-            REQUIRE(p.parse("50|1_bpm", bpm));
-            REQUIRE(bpm.bpm == 50);
-            REQUIRE(bpm.ratio() == 1);
+            REQUIRE(parse_tempo("50|1_bpm", t));
+            REQUIRE(t.bpm() == 50);
+            REQUIRE(t.beatDuration().ratio() == 1);
 
-            REQUIRE(p.parse("50|2_bpm", bpm));
-            REQUIRE(bpm.bpm == 50);
-            REQUIRE(bpm.ratio() == 0.5);
+            REQUIRE(parse_tempo("50|2_bpm", t));
+            REQUIRE(t.bpm() == 50);
+            REQUIRE(t.beatDuration().ratio() == 0.5);
 
-            REQUIRE(p.parse("50|2._bpm", bpm));
-            REQUIRE(bpm.bpm == 50);
-            REQUIRE(bpm.ratio() == 0.75);
+            REQUIRE(parse_tempo("50|2._bpm", t));
+            REQUIRE(t.bpm() == 50);
+            REQUIRE(t.beatDuration().ratio() == 0.75);
 
-            REQUIRE(p.parse("50|4_bpm", bpm));
-            REQUIRE(bpm.bpm == 50);
-            REQUIRE(bpm.ratio() == 0.25);
+            REQUIRE(parse_tempo("50|4_bpm", t));
+            REQUIRE(t.bpm() == 50);
+            REQUIRE(t.beatDuration().ratio() == 0.25);
 
-            REQUIRE(p.parse("50|1/4._bpm", bpm));
-            REQUIRE(bpm.bpm == 50);
-            REQUIRE(bpm.ratio() == 0.375);
+            REQUIRE(parse_tempo("50|1/4._bpm", t));
+            REQUIRE(t.bpm() == 50);
+            REQUIRE(t.beatDuration().ratio() == 0.375);
 
-            REQUIRE(p.parse("50|16_bpm", bpm));
-            REQUIRE(bpm.value() == 50);
-            REQUIRE(bpm.ratio() == 1 / 16.0);
+            REQUIRE(parse_tempo("50|16_bpm", t));
+            REQUIRE(t.beatDuration().ratio() == 1 / 16.0);
 
-            REQUIRE(p.parse("0", bpm));
-            REQUIRE(bpm.freqHz() == 0);
-            REQUIRE(bpm.beatPeriodMs() == 0);
-            REQUIRE(bpm.beatPeriodMs(-100) == -100);
+            REQUIRE(parse_tempo("0", t));
+            REQUIRE(t.beatDurationMs() == 0);
+            //            REQUIRE(t.beatDurationMs(-100) == -100);
 
-            REQUIRE(p.parse("60|4.bpm", bpm));
+            REQUIRE(parse_tempo("60|4.bpm", t));
 
-            REQUIRE(p.parse("60|1/4bpm", bpm));
+            REQUIRE(parse_tempo("60|1/4bpm", t));
 
-            REQUIRE_FALSE(p.parse("00", bpm));
-            REQUIRE_FALSE(p.parse("+12", bpm));
-            REQUIRE_FALSE(p.parse("-12", bpm));
-            REQUIRE_FALSE(p.parse("", bpm));
+            REQUIRE_FALSE(parse_tempo("00", t));
+            REQUIRE_FALSE(parse_tempo("+12", t));
+            REQUIRE_FALSE(parse_tempo("-12", t));
+            REQUIRE_FALSE(parse_tempo("", t));
         }
 
         SECTION("float")
         {
             using namespace ceammc::parser;
-            BpmFullMatch p;
-            Bpm bpm;
+            using namespace ceammc::music;
+            Tempo t;
 
-            REQUIRE(p.parse(A(120.5), bpm));
-            REQUIRE(bpm.value() == 120.5);
+            REQUIRE(parse_tempo(A(120.5), t));
+            REQUIRE(t.bpm() == 120.5);
 
-            REQUIRE(p.parse(A(0.0), bpm));
-            REQUIRE(bpm.value() == 0);
+            REQUIRE(parse_tempo(A(0.0), t));
+            REQUIRE(t.bpm() == 0);
 
-            REQUIRE_FALSE(p.parse(A(-1), bpm));
+            REQUIRE_FALSE(parse_tempo(A(-1), t));
         }
 
         SECTION("list")
         {
             using namespace ceammc::parser;
-            BpmFullMatch p;
-            SmallBpmVec res;
+            using namespace ceammc::music;
 
-            REQUIRE(p.parse(LA(1, "23", "44.5_bpm", "unknown"), res) == 3);
+            std::vector<Tempo> res;
+
+            REQUIRE(parse_tempo(LA(1, "23", "44.5_bpm", "unknown"), res) == 3);
             REQUIRE(res.size() == 3);
-            REQUIRE(res[0].bpm == 1);
-            REQUIRE(res[1].bpm == 23);
-            REQUIRE(res[2].bpm == 44.5);
+            REQUIRE(res[0].bpm() == 1);
+            REQUIRE(res[1].bpm() == 23);
+            REQUIRE(res[2].bpm() == 44.5);
         }
 
         SECTION("N")
         {
             using namespace ceammc::parser;
-            BpmFullMatch p;
+            using namespace ceammc::music;
 
-            auto r0 = p.parseN<3>(L());
-            REQUIRE(r0[0] == Bpm { 0, 1, 4 });
-            REQUIRE(r0[1] == Bpm { 0, 1, 4 });
-            REQUIRE(r0[2] == Bpm { 0, 1, 4 });
+            auto r0 = parser::parse_tempo_n<3>(L(), { 0, 4 });
+            REQUIRE(r0[0] == Tempo { 0, 4 });
+            REQUIRE(r0[1] == Tempo { 0, 4 });
+            REQUIRE(r0[2] == Tempo { 0, 4 });
 
-            r0 = p.parseN<3>(LA(120), Bpm { 61, 1, 2 });
-            REQUIRE(r0[0] == Bpm { 120, 1, 4 });
-            REQUIRE(r0[1] == Bpm { 61, 1, 2 });
-            REQUIRE(r0[2] == Bpm { 61, 1, 2 });
+            r0 = parser::parse_tempo_n<3>(LA(120), Tempo { 61, 2 });
+            REQUIRE(r0[0] == Tempo { 120, 4 });
+            REQUIRE(r0[1] == Tempo { 61, 2 });
+            REQUIRE(r0[2] == Tempo { 61, 2 });
 
-            r0 = p.parseN<3>(LA(120, "140.5|8bpm"), Bpm { 62, 2, 1 });
-            REQUIRE(r0[0] == Bpm { 120, 1, 4 });
-            REQUIRE(r0[1] == Bpm { 140.5, 1, 8 });
-            REQUIRE(r0[2] == Bpm { 62, 2, 1 });
+            r0 = parser::parse_tempo_n<3>(LA(120, "140.5|8bpm"), Tempo { 62, 2 });
+            REQUIRE(r0[0] == Tempo { 120, 4 });
+            REQUIRE(r0[1] == Tempo { 140.5, 8 });
+            REQUIRE(r0[2] == Tempo { 62, 2 });
 
-            r0 = p.parseN<3>(LA(120, "140.5bpm", "100|16_bpm"), Bpm { 62, 1, 128 });
-            REQUIRE(r0[0] == Bpm { 120, 1, 4 });
-            REQUIRE(r0[1] == Bpm { 140.5, 1, 4 });
-            REQUIRE(r0[2] == Bpm { 100, 1, 16 });
+            r0 = parser::parse_tempo_n<3>(LA(120, "140.5bpm", "100|16_bpm"), Tempo { 62, 128 });
+            REQUIRE(r0[0] == Tempo { 120, 4 });
+            REQUIRE(r0[1] == Tempo { 140.5, 4 });
+            REQUIRE(r0[2] == Tempo { 100, 16 });
 
-            r0 = p.parseN<3>(LA(120, "???", "100|32_bpm"), Bpm { 63, 2, 1 });
-            REQUIRE(r0[0] == Bpm { 120, 1, 4 });
-            REQUIRE(r0[1] == Bpm { 63, 2, 1 });
-            REQUIRE(r0[2] == Bpm { 100, 1, 32 });
+            r0 = parser::parse_tempo_n<3>(LA(120, "???", "100|32_bpm"), Tempo { 63, 2 });
+            REQUIRE(r0[0] == Tempo { 120, 4 });
+            REQUIRE(r0[1] == Tempo { 63, 2 });
+            REQUIRE(r0[2] == Tempo { 100, 32 });
         }
     }
 
@@ -165,175 +161,197 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
         SECTION("str")
         {
             using namespace ceammc::parser;
-            SpnFullMatch p;
+            using namespace ceammc::music;
+            Spn spn;
 
-            REQUIRE(p.parse("C4"));
-            REQUIRE(p.spn().midi() == 60);
-            REQUIRE(p.spn().oct == 4);
-            REQUIRE(p.spn().note == 0);
-            REQUIRE(p.spn().alt == 0);
-            REQUIRE(p.spn().pitch() == 0);
-            REQUIRE(!p.spn().isRest());
+            REQUIRE(parse_spn("C4", spn));
+            REQUIRE(spn.pitch() == PitchClass::C);
+            REQUIRE(spn.octave() == Octave(4));
+            REQUIRE(spn.deviation() == 0);
+            REQUIRE(!spn.isRest());
 
-            REQUIRE(p.parse("C#4"));
-            REQUIRE(p.spn().oct == 4);
-            REQUIRE(p.spn().note == 0);
-            REQUIRE(p.spn().alt == 1);
-            REQUIRE(p.spn().pitch() == 1);
-            REQUIRE(p.spn().midi() == 61);
+            REQUIRE(parse_spn("C#4", spn));
+            REQUIRE(spn.pitch() == PitchClass::Cs);
+            REQUIRE(spn.octave() == Octave(4));
+            REQUIRE(spn.deviation() == 0);
 
-            REQUIRE(p.parse("C##4"));
-            REQUIRE(p.spn().midi() == 62);
+            REQUIRE(parse_spn("C##4", spn));
+            REQUIRE(spn.pitch() == music::PitchClass::Css);
+            REQUIRE(spn.octave() == Octave(4));
+            REQUIRE(spn.deviation() == 0);
 
-            REQUIRE(p.parse("Cb4"));
-            REQUIRE(p.spn().midi() == 59);
+            REQUIRE(parse_spn("Cb4", spn));
+            REQUIRE(spn.pitch() == music::PitchClass::Cf);
+            REQUIRE(spn.octave() == Octave(4));
+            REQUIRE(spn.deviation() == 0);
 
-            REQUIRE(p.parse("Cbb4"));
-            REQUIRE(p.spn().midi() == 58);
+            REQUIRE(parse_spn("Cbb4", spn));
+            REQUIRE(spn.pitch() == music::PitchClass::Cff);
+            REQUIRE(spn.octave() == Octave(4));
+            REQUIRE(spn.deviation() == 0);
 
-            REQUIRE(p.parse("C4(+50c)"));
-            REQUIRE(p.spn().midi() == 60.5);
+            REQUIRE(parse_spn("C4(+50c)", spn));
+            REQUIRE(spn.pitch() == music::PitchClass::C);
+            REQUIRE(spn.octave() == Octave(4));
+            REQUIRE(spn.deviation() == 50);
+            REQUIRE(!spn.isRest());
 
-            REQUIRE(p.parse("C4(+0c)"));
-            REQUIRE(p.spn().midi() == 60);
+            REQUIRE(parse_spn("C4(+0c)", spn));
+            REQUIRE(spn.pitch() == music::PitchClass::C);
+            REQUIRE(spn.octave() == Octave(4));
+            REQUIRE(spn.deviation() == 0);
+            REQUIRE(!spn.isRest());
 
-            REQUIRE(p.parse("C4(+01c)"));
-            REQUIRE(p.spn().midi() == Approx(60.01));
+            REQUIRE(parse_spn("C4(+01c)", spn));
+            REQUIRE(spn.pitch() == music::PitchClass::C);
+            REQUIRE(spn.octave() == Octave(4));
+            REQUIRE(spn.deviation() == 1);
+            REQUIRE(!spn.isRest());
 
-            REQUIRE(p.parse("C4(+5c)"));
-            REQUIRE(p.spn().midi() == Approx(60.05));
+            REQUIRE(parse_spn("C4(+05c)", spn));
+            REQUIRE(spn.pitch() == music::PitchClass::C);
+            REQUIRE(spn.octave() == Octave(4));
+            REQUIRE(spn.deviation() == 5);
+            REQUIRE(!spn.isRest());
 
-            REQUIRE(p.parse("C4(-25c)"));
-            REQUIRE(p.spn().midi() == 59.75);
+            REQUIRE(parse_spn("C4(-25c)", spn));
+            REQUIRE(spn.pitch() == music::PitchClass::C);
+            REQUIRE(spn.octave() == Octave(4));
+            REQUIRE(spn.deviation() == -25);
+            REQUIRE(!spn.isRest());
 
-            REQUIRE(p.parse("A4"));
-            REQUIRE(p.spn().midi() == 69);
-            REQUIRE(p.parse("B4"));
-            REQUIRE(p.spn().midi() == 71);
-            REQUIRE(p.parse("D4"));
-            REQUIRE(p.spn().midi() == 62);
-            REQUIRE(p.parse("E4"));
-            REQUIRE(p.spn().midi() == 64);
-            REQUIRE(p.parse("F4"));
-            REQUIRE(p.spn().midi() == 65);
-            REQUIRE(p.parse("G4"));
-            REQUIRE(p.spn().midi() == 67);
+            REQUIRE(parse_spn("A4", spn));
+            REQUIRE(spn.pitch() == music::PitchClass::A);
+            REQUIRE(spn.asMidi() == 69);
+            REQUIRE(parse_spn("B4", spn));
+            REQUIRE(spn.asMidi() == 71);
+            REQUIRE(parse_spn("D4", spn));
+            REQUIRE(spn.asMidi() == 62);
+            REQUIRE(parse_spn("E4", spn));
+            REQUIRE(spn.asMidi() == 64);
+            REQUIRE(parse_spn("F4", spn));
+            REQUIRE(spn.asMidi() == 65);
+            REQUIRE(parse_spn("G4", spn));
+            REQUIRE(spn.asMidi() == 67);
 
-            REQUIRE(p.parse("A4"));
-            REQUIRE(p.spn().midi() == 69);
-            REQUIRE(p.parse("B4"));
-            REQUIRE(p.spn().midi() == 71);
-            REQUIRE(p.parse("H4"));
-            REQUIRE(p.spn().midi() == 71);
-            REQUIRE(p.parse("D4"));
-            REQUIRE(p.spn().midi() == 62);
-            REQUIRE(p.parse("E4"));
-            REQUIRE(p.spn().midi() == 64);
-            REQUIRE(p.parse("F4"));
-            REQUIRE(p.spn().midi() == 65);
-            REQUIRE(p.parse("G4"));
-            REQUIRE(p.spn().midi() == 67);
+            REQUIRE(parse_spn("A4", spn));
+            REQUIRE(spn.asMidi() == 69);
+            REQUIRE(parse_spn("B4", spn));
+            REQUIRE(spn.asMidi() == 71);
+            REQUIRE(parse_spn("H4", spn));
+            REQUIRE(spn.asMidi() == 71);
+            REQUIRE(parse_spn("D4", spn));
+            REQUIRE(spn.asMidi() == 62);
+            REQUIRE(parse_spn("E4", spn));
+            REQUIRE(spn.asMidi() == 64);
+            REQUIRE(parse_spn("F4", spn));
+            REQUIRE(spn.asMidi() == 65);
+            REQUIRE(parse_spn("G4", spn));
+            REQUIRE(spn.asMidi() == 67);
 
-            REQUIRE(p.parse("C9"));
-            REQUIRE(p.spn().midi() == 120);
+            REQUIRE(parse_spn("C9", spn));
+            REQUIRE(spn.asMidi() == 120);
 
-            REQUIRE(p.parse("C0"));
-            REQUIRE(p.spn().midi() == 12);
+            REQUIRE(parse_spn("C0", spn));
+            REQUIRE(spn.asMidi() == 12);
 
-            REQUIRE(p.parse("C-1"));
-            REQUIRE(p.spn().midi() == 0);
+            REQUIRE(parse_spn("C-1", spn));
+            REQUIRE(spn.asMidi() == 0);
 
-            REQUIRE(p.parse("C"));
-            REQUIRE(p.spn().midi() == 60);
+            REQUIRE(parse_spn("C", spn));
+            REQUIRE(spn.asMidi() == 60);
 
-            REQUIRE(p.parse("C"));
-            REQUIRE(p.spn().midi(5) == 72);
+            REQUIRE(parse_spn("C", spn));
+            REQUIRE(spn.asMidi(5) == 72);
 
-            REQUIRE(p.parse("Db"));
-            REQUIRE(p.spn().midi() == 61);
+            REQUIRE(parse_spn("Db", spn));
+            REQUIRE(spn.asMidi() == 61);
 
-            REQUIRE(p.parse("Dbb"));
-            REQUIRE(p.spn().midi() == 60);
+            REQUIRE(parse_spn("Dbb", spn));
+            REQUIRE(spn.asMidi() == 60);
 
-            REQUIRE(p.parse("Dbb^"));
-            REQUIRE(p.spn().midi() == 72);
+            REQUIRE(parse_spn("Dbb^", spn));
+            REQUIRE(spn.asMidi() == 72);
 
-            REQUIRE(p.parse("Dbb^^"));
-            REQUIRE(p.spn().midi() == 84);
+            REQUIRE(parse_spn("Dbb^^", spn));
+            REQUIRE(spn.asMidi() == 84);
 
-            REQUIRE(p.parse("Dbb_"));
-            REQUIRE(p.spn().midi() == 48);
+            REQUIRE(parse_spn("Dbb_", spn));
+            REQUIRE(spn.asMidi() == 48);
 
-            REQUIRE(p.parse("D#____"));
-            REQUIRE(p.spn().midi() == 15);
+            REQUIRE(parse_spn("D#____", spn));
+            REQUIRE(spn.asMidi() == 15);
 
-            REQUIRE(!p.parse("C10"));
-            REQUIRE(!p.parse("C-2"));
+            REQUIRE(!parse_spn("C10", spn));
+            REQUIRE(!parse_spn("C-2", spn));
         }
 
         SECTION("atom")
         {
             using namespace ceammc::parser;
-            SpnFullMatch p;
+            music::Spn spn;
 
-            REQUIRE(!p.parse(A(100)));
+            REQUIRE(!parse_spn(A(100), spn));
 
-            REQUIRE(p.parse("C#5"));
-            REQUIRE(p.spn().midi() == 73);
+            REQUIRE(parse_spn("C#5", spn));
+            REQUIRE(spn.toMidi().isOk());
+            REQUIRE(spn.toMidi().value() == 73);
         }
 
         SECTION("next")
         {
             using namespace ceammc::parser;
-            SpnFullMatch p;
+            using namespace ceammc::music;
 
-            auto pitches = p.parseN<6>(LA("C", "D", "E", "F", "G", "C"));
-            REQUIRE(std::none_of(pitches.begin(), pitches.end(), [](const Spn& s) { return s.isAbsOctave(); }));
+            auto pitches = parse_spn_n<6>(LA("C", "D", "E", "F", "G", "C"));
+            REQUIRE(std::none_of(pitches.begin(), pitches.end(), [](const music::Spn& s) { return s.isAbs(); }));
+
+            //            Spn::setAbsOctaves(pitches.begin(), pitches.end());
 
             for (size_t i = 0; i + 1 < pitches.size(); i++) {
                 auto& p0 = pitches[i];
                 auto& p1 = pitches[i + 1];
-                Spn::setNextOctave(p0, p1);
+                p1.octave().setAbsOctave(p0.octave());
             }
 
-            REQUIRE(std::none_of(pitches.begin(), pitches.end(), [](const Spn& s) { return s.isAbsOctave(); }));
+            REQUIRE(std::none_of(pitches.begin(), pitches.end(), [](const music::Spn& s) { return s.isAbs(); }));
 
-            pitches[0].setAbsOctave(5);
+            pitches[0].setOctave(Octave(5));
             for (size_t i = 0; i + 1 < pitches.size(); i++) {
                 auto& p0 = pitches[i];
                 auto& p1 = pitches[i + 1];
-                Spn::setNextOctave(p0, p1);
+                p1.octave().setAbsOctave(p0.octave());
             }
 
-            REQUIRE(std::all_of(pitches.begin(), pitches.end(), [](const Spn& s) { return s.isAbsOctave(); }));
-            REQUIRE(pitches[0].oct == 5);
-            REQUIRE(pitches[1].oct == 5);
-            REQUIRE(pitches[2].oct == 5);
-            REQUIRE(pitches[3].oct == 5);
-            REQUIRE(pitches[4].oct == 5);
-            REQUIRE(pitches[5].oct == 5);
+            REQUIRE(std::all_of(pitches.begin(), pitches.end(), [](const music::Spn& s) { return s.isAbs(); }));
+            REQUIRE(pitches[0].octave() == Octave(5));
+            REQUIRE(pitches[1].octave() == Octave(5));
+            REQUIRE(pitches[2].octave() == Octave(5));
+            REQUIRE(pitches[3].octave() == Octave(5));
+            REQUIRE(pitches[4].octave() == Octave(5));
+            REQUIRE(pitches[5].octave() == Octave(5));
 
-            pitches = p.parseN<6>(LA("C", "A", "F", "F^", "F__", "C7"));
-            REQUIRE(pitches[0].octtype == OCTAVE_REL);
-            REQUIRE(pitches[1].octtype == OCTAVE_REL);
-            REQUIRE(pitches[2].octtype == OCTAVE_REL);
-            REQUIRE(pitches[3].octtype == OCTAVE_REL);
-            REQUIRE(pitches[4].octtype == OCTAVE_REL);
-            REQUIRE(pitches[5].octtype == OCTAVE_ABS);
+            pitches = parse_spn_n<6>(LA("C", "A", "F", "F^", "F__", "C7"));
+            REQUIRE(pitches[0].octave().type() == OCTAVE_REL);
+            REQUIRE(pitches[1].octave().type() == OCTAVE_REL);
+            REQUIRE(pitches[2].octave().type() == OCTAVE_REL);
+            REQUIRE(pitches[3].octave().type() == OCTAVE_REL);
+            REQUIRE(pitches[4].octave().type() == OCTAVE_REL);
+            REQUIRE(pitches[5].octave().type() == OCTAVE_ABS);
 
-            pitches[0].setAbsOctave(5);
+            pitches[0].setOctave(Octave(5));
             for (size_t i = 0; i + 1 < pitches.size(); i++) {
                 auto& p0 = pitches[i];
                 auto& p1 = pitches[i + 1];
-                Spn::setNextOctave(p0, p1);
+                p1.octave().setAbsOctave(p0.octave());
             }
 
-            REQUIRE(pitches[0].oct == 5);
-            REQUIRE(pitches[1].oct == 5);
-            REQUIRE(pitches[2].oct == 5);
-            REQUIRE(pitches[3].oct == 6);
-            REQUIRE(pitches[4].oct == 4);
-            REQUIRE(pitches[5].oct == 7);
+            REQUIRE(pitches[0].octave() == Octave(5));
+            REQUIRE(pitches[1].octave() == Octave(5));
+            REQUIRE(pitches[2].octave() == Octave(5));
+            REQUIRE(pitches[3].octave() == Octave(6));
+            REQUIRE(pitches[4].octave() == Octave(4));
+            REQUIRE(pitches[5].octave() == Octave(7));
         }
     }
 
@@ -342,257 +360,249 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
         SECTION("str")
         {
             using namespace ceammc::parser;
-            NotationSingle p;
+            using namespace ceammc::music;
+            Notation n;
 
-            REQUIRE(p.parse("C"));
-            REQUIRE(!p.note().spn.isRest());
-            REQUIRE(p.note().spn.midi() == 60);
-            REQUIRE(p.note().dur.ratio() == 0.25);
-            REQUIRE(p.note().dur.num == 1);
-            REQUIRE(p.note().dur.den == 4);
-            REQUIRE(!p.note().dur.isAbs());
-            REQUIRE(p.note().dur.timeMs() == 1000);
-            REQUIRE(p.note().dur.timeMs(Bpm(120, 1, 4)) == 500);
+            REQUIRE(parse_notation("C", n));
+            REQUIRE(!n.isRest());
+            REQUIRE(n.asMidi() == 60);
+            REQUIRE(n.duration().ratio() == 0.25);
+            REQUIRE(n.duration().numerator() == 1);
+            REQUIRE(n.duration().division() == 4);
+            REQUIRE(!n.isAbsPitch());
+            REQUIRE(n.timeMs({}) == 1000);
+            REQUIRE(n.timeMs(Tempo(120, 4)) == 500);
 
-            REQUIRE(p.parse("C3"));
-            REQUIRE(p.note().spn.midi() == 48);
-            REQUIRE(p.note().dur.num == 1);
-            REQUIRE(p.note().dur.den == 4);
-            REQUIRE(p.note().dur.ratio() == 0.25);
+            REQUIRE(parse_notation("C3", n));
+            REQUIRE(n.asMidi() == 48);
+            REQUIRE(n.duration().numerator() == 1);
+            REQUIRE(n.duration().division() == 4);
+            REQUIRE(n.duration().ratio() == 0.25);
 
-            REQUIRE(p.parse("C#1|4"));
-            REQUIRE(p.note().spn.midi() == 25);
-            REQUIRE(p.note().dur.isAbs());
-            REQUIRE(p.note().spn.oct == 1);
-            REQUIRE(p.note().dur.num == 1);
-            REQUIRE(p.note().dur.den == 4);
-            REQUIRE(p.note().dur.ratio() == 0.25);
-            REQUIRE(p.note().dur.timeMs() == 1000);
+            REQUIRE(parse_notation("C#1|4", n));
+            REQUIRE(n.asMidi() == 25);
+            REQUIRE(n.isAbsPitch());
+            REQUIRE(n.octave() == Octave(1));
+            REQUIRE(n.duration().numerator() == 1);
+            REQUIRE(n.duration().division() == 4);
+            REQUIRE(n.duration().ratio() == 0.25);
+            REQUIRE(n.timeMs({}) == 1000);
 
-            REQUIRE(p.parse("Cb5|2."));
-            REQUIRE(p.note().spn.midi() == 71);
-            REQUIRE(p.note().spn.oct == 5);
-            REQUIRE(p.note().dur.num == 1);
-            REQUIRE(p.note().dur.den == 2);
-            REQUIRE(p.note().dur.dots == 1);
-            REQUIRE(p.note().dur.ratio() == 0.75);
+            REQUIRE(parse_notation("Cb5|2.", n));
+            REQUIRE(n.asMidi() == 71);
+            REQUIRE(n.octave() == Octave(5));
+            REQUIRE(n.duration().numerator() == 1);
+            REQUIRE(n.duration().division() == 2);
+            REQUIRE(n.duration().dots() == 1);
+            REQUIRE(n.duration().ratio() == 0.75);
 
-            REQUIRE(p.parse("Cb5|2.."));
-            REQUIRE(p.note().spn.midi() == 71);
-            REQUIRE(p.note().spn.oct == 5);
-            REQUIRE(p.note().dur.num == 1);
-            REQUIRE(p.note().dur.den == 2);
-            REQUIRE(p.note().dur.dots == 2);
-            REQUIRE(p.note().dur.ratio() == 0.875);
+            REQUIRE(parse_notation("Cb5|2..", n));
+            REQUIRE(n.asMidi() == 71);
+            REQUIRE(n.octave() == Octave(5));
+            REQUIRE(n.duration().numerator() == 1);
+            REQUIRE(n.duration().division() == 2);
+            REQUIRE(n.duration().dots() == 2);
+            REQUIRE(n.duration().ratio() == 0.875);
 
-            REQUIRE(p.parse("Cbb5|2..."));
-            REQUIRE(p.note().spn.midi() == 70);
-            REQUIRE(p.note().spn.oct == 5);
-            REQUIRE(p.note().dur.num == 1);
-            REQUIRE(p.note().dur.den == 2);
-            REQUIRE(p.note().dur.dots == 3);
-            REQUIRE(p.note().dur.ratio() == 0.9375);
+            REQUIRE(parse_notation("Cbb5|2...", n));
+            REQUIRE(n.asMidi() == 70);
+            REQUIRE(n.octave() == Octave(5));
+            REQUIRE(n.duration().numerator() == 1);
+            REQUIRE(n.duration().division() == 2);
+            REQUIRE(n.duration().dots() == 3);
+            REQUIRE(n.duration().ratio() == 0.9375);
 
-            REQUIRE(p.parse("D|256"));
-            REQUIRE(p.note().dur.num == 1);
-            REQUIRE(p.note().dur.den == 256);
+            REQUIRE(parse_notation("D|256", n));
+            REQUIRE(n.duration().numerator() == 1);
+            REQUIRE(n.duration().division() == 256);
 
-            REQUIRE(p.parse("D|2/3"));
-            REQUIRE(p.note().dur.num == 2);
-            REQUIRE(p.note().dur.den == 3);
-            REQUIRE(p.note().dur.isAbs());
+            REQUIRE(parse_notation("D|2/3", n));
+            REQUIRE(n.duration().numerator() == 2);
+            REQUIRE(n.duration().division() == 3);
+            REQUIRE(!n.isAbsPitch());
 
-            REQUIRE(p.parse("D|1/4"));
-            REQUIRE(p.note().dur.num == 1);
-            REQUIRE(p.note().dur.den == 4);
-            REQUIRE(p.note().dur.ratio() == 0.25);
-            REQUIRE(p.note().dur.timeMs() == 1000);
+            REQUIRE(parse_notation("D|1/4", n));
+            REQUIRE(n.duration().numerator() == 1);
+            REQUIRE(n.duration().division() == 4);
+            REQUIRE(n.duration().ratio() == 0.25);
+            REQUIRE(n.timeMs({}) == 1000);
 
-            REQUIRE(p.parse("D|1/4."));
-            REQUIRE(p.note().dur.num == 1);
-            REQUIRE(p.note().dur.den == 4);
-            REQUIRE(p.note().dur.dots == 1);
-            REQUIRE(p.note().dur.ratio() == 0.375);
-            REQUIRE(p.note().dur.timeMs() == 1500);
+            REQUIRE(parse_notation("D|1/4.", n));
+            REQUIRE(n.duration().numerator() == 1);
+            REQUIRE(n.duration().division() == 4);
+            REQUIRE(n.duration().dots() == 1);
+            REQUIRE(n.duration().ratio() == 0.375);
+            REQUIRE(n.timeMs({}) == 1500);
 
-            REQUIRE(p.parse("C(+50c)|5/4"));
-            REQUIRE(p.note().spn.midi() == 60.5);
-            REQUIRE(p.note().dur.num == 5);
-            REQUIRE(p.note().dur.den == 4);
-            REQUIRE(p.note().dur.ratio() == 1.25);
+            REQUIRE(parse_notation("C(+50c)|5/4", n));
+            REQUIRE(n.asMidi() == 60.5);
+            REQUIRE(n.duration().numerator() == 5);
+            REQUIRE(n.duration().division() == 4);
+            REQUIRE(n.duration().ratio() == 1.25);
 
-            REQUIRE(p.parse("C(+50c)|2/4."));
-            REQUIRE(p.note().spn.midi() == 60.5);
-            REQUIRE(p.note().dur.num == 2);
-            REQUIRE(p.note().dur.den == 4);
-            REQUIRE(p.note().dur.dots == 1);
-            REQUIRE(p.note().dur.isAbs());
+            REQUIRE(parse_notation("C(+50c)|2/4.", n));
+            REQUIRE(n.asMidi() == 60.5);
+            REQUIRE(n.duration().numerator() == 2);
+            REQUIRE(n.duration().division() == 4);
+            REQUIRE(n.duration().dots() == 1);
+            REQUIRE(!n.isAbsPitch());
 
-            REQUIRE(p.parse("C(+25c)|2/4."));
-            REQUIRE(p.note().spn.midi() == 60.25);
-            REQUIRE(p.note().dur.num == 2);
-            REQUIRE(p.note().dur.den == 4);
-            REQUIRE(p.note().dur.dots == 1);
-            REQUIRE(p.note().dur.isAbs());
+            REQUIRE(parse_notation("C(+25c)|2/4.", n));
+            REQUIRE(n.asMidi() == 60.25);
+            REQUIRE(n.duration().numerator() == 2);
+            REQUIRE(n.duration().division() == 4);
+            REQUIRE(n.duration().dots() == 1);
+            REQUIRE(!n.isAbsPitch());
 
-            REQUIRE(p.parse("C(+12c)|2/4."));
-            REQUIRE(p.note().spn.midi() == Approx(60.12));
-            REQUIRE(p.note().dur.num == 2);
-            REQUIRE(p.note().dur.den == 4);
-            REQUIRE(p.note().dur.dots == 1);
-            REQUIRE(p.note().dur.isAbs());
+            REQUIRE(parse_notation("C(+12c)|2/4.", n));
+            REQUIRE(n.asMidi() == Approx(60.12));
+            REQUIRE(n.duration().numerator() == 2);
+            REQUIRE(n.duration().division() == 4);
+            REQUIRE(n.duration().dots() == 1);
+            REQUIRE(n.duration().type() == DURATION_ABS);
+            REQUIRE(!n.isAbsPitch());
 
-            REQUIRE(p.parse("C^(+50c)|*11"));
-            REQUIRE(p.note().spn.midi() == 72.5);
-            REQUIRE(p.note().dur.num == 11);
-            REQUIRE(p.note().dur.den == 1);
-            REQUIRE(p.note().dur.durtype == DURATION_REL);
-            REQUIRE(p.note().dur.ratio() == 11);
+            REQUIRE(parse_notation("C^(+50c)|*11", n));
+            REQUIRE(n.asMidi() == 72.5);
+            REQUIRE(n.duration().numerator() == 11);
+            REQUIRE(n.duration().division() == 1);
+            REQUIRE(n.duration().type() == DURATION_REL);
+            REQUIRE(n.duration().ratio() == 11);
 
-            REQUIRE(p.parse("C^(+50c)|*3/16"));
-            REQUIRE(p.note().dur.num == 3);
-            REQUIRE(p.note().dur.den == 16);
-            REQUIRE(p.note().dur.durtype == DURATION_REL);
-            REQUIRE(!p.note().dur.isAbs());
+            REQUIRE(parse_notation("C^(+50c)|*3/16", n));
+            REQUIRE(n.duration().numerator() == 3);
+            REQUIRE(n.duration().division() == 16);
+            REQUIRE(n.duration().type() == DURATION_REL);
+            REQUIRE(!n.isAbsPitch());
 
-            REQUIRE(p.parse("C^(-25c)|/16"));
-            REQUIRE(p.note().spn.midi() == 71.75);
-            REQUIRE(p.note().dur.num == 1);
-            REQUIRE(p.note().dur.den == 16);
-            REQUIRE(p.note().dur.durtype == DURATION_REL);
-            REQUIRE(!p.note().dur.isAbs());
+            REQUIRE(parse_notation("C^(-25c)|/16", n));
+            REQUIRE(n.asMidi() == 71.75);
+            REQUIRE(n.duration().numerator() == 1);
+            REQUIRE(n.duration().division() == 16);
+            REQUIRE(n.duration().type() == DURATION_REL);
+            REQUIRE(!n.isAbsPitch());
 
-            REQUIRE(p.parse("R|4"));
-            REQUIRE(p.note().isRest());
-            REQUIRE(p.note().dur.isAbs());
-            REQUIRE(p.note().dur.num == 1);
-            REQUIRE(p.note().dur.den == 4);
-            REQUIRE(p.note().dur.ratio() == 0.25);
-            REQUIRE(p.note().dur.timeMs() == 1000);
-            REQUIRE(p.note().dur.timeMs({ 60, 1, 4 }) == 1000);
-            REQUIRE(p.note().dur.timeMs({ 120, 1, 4 }) == 500);
-            REQUIRE(p.note().dur.timeMs({ 60, 1, 2 }) == 500);
-            REQUIRE(p.note().dur.timeMs({ 60, 1, 1 }) == 250);
-            REQUIRE(p.note().dur.timeMs({ 120, 1, 4 }) == 500);
-            REQUIRE(p.note().dur.timeSamp(44100) == Approx(44100));
-            REQUIRE(p.note().dur.timeSamp(44100, { 120, 1, 4 }) == Approx(22050));
+            REQUIRE(parse_notation("R|4", n));
+            REQUIRE(n.isRest());
+            REQUIRE(n.isAbsPitch());
+            REQUIRE(n.duration().numerator() == 1);
+            REQUIRE(n.duration().division() == 4);
+            REQUIRE(n.duration().ratio() == 0.25);
+            REQUIRE(n.timeMs({}) == 1000);
+            REQUIRE(n.timeMs({ 60, 4 }) == 1000);
+            REQUIRE(n.timeMs({ 120, 4 }) == 500);
+            REQUIRE(n.timeMs({ 60, 2 }) == 500);
+            REQUIRE(n.timeMs({ 60, 1 }) == 250);
+            REQUIRE(n.timeMs({ 120, 4 }) == 500);
 
-            REQUIRE(p.parse("R|7/8"));
-            REQUIRE(p.note().isRest());
-            REQUIRE(p.note().dur.num == 7);
-            REQUIRE(p.note().dur.den == 8);
-            REQUIRE(p.note().dur.timeMs({ 60, 1, 8 }) == 7000);
+            REQUIRE(parse_notation("R|7/8", n));
+            REQUIRE(n.isRest());
+            REQUIRE(n.duration().numerator() == 7);
+            REQUIRE(n.duration().division() == 8);
+            REQUIRE(n.timeMs({ 60, 8 }) == 7000);
         }
     }
 
     SECTION("duration")
     {
-        SECTION("bpm struct")
-        {
-            using namespace parser;
-            Bpm bpm { 60, 1, 4 };
-
-            REQUIRE(bpm.beatPeriodMs() == 1000);
-            REQUIRE(bpm.wholePeriodMs() == 4000);
-        }
-
         SECTION("struct")
         {
-            using namespace parser;
+            using namespace ceammc::parser;
+            using namespace ceammc::music;
             Duration dur;
-            REQUIRE(dur.isAbs());
-            REQUIRE(dur.ratio() == 0.25);
-            REQUIRE(dur.den == 4);
-            REQUIRE(dur.dots == 0);
-            REQUIRE(dur.repeats == 1);
-            REQUIRE(dur.num == 1);
-            REQUIRE(dur.timeMs({ 60, 1, 4 }) == 1000);
-            REQUIRE(dur.timeMs({ 120, 1, 4 }) == 500);
-            REQUIRE(dur.timeMs({ 120, 1, 8 }) == 1000);
-            REQUIRE(dur.timeMs({ 120, 1, 16 }) == 2000);
-            REQUIRE(dur.timeMs({ 120, 1, 32 }) == 4000);
 
-            REQUIRE(dur.timeMs({ 120, 1, 8 }) == 1000);
-            REQUIRE(dur.timeMs({ 120, 2, 8 }) == 500);
-            REQUIRE(dur.timeMs({ 120, 4, 8 }) == 250);
-            REQUIRE(dur.timeMs({ 120, 8, 8 }) == 125);
+            REQUIRE(dur.type() == DURATION_ABS);
+            REQUIRE(dur.ratio() == 0.25);
+            REQUIRE(dur.division() == 4);
+            REQUIRE(dur.dots() == 0);
+            REQUIRE(dur.numerator() == 1);
+            REQUIRE(dur.timeMs({ 60, 4 }) == 1000);
+            REQUIRE(dur.timeMs({ 120, 4 }) == 500);
+            REQUIRE(dur.timeMs({ 120, 8 }) == 1000);
+            REQUIRE(dur.timeMs({ 120, 16 }) == 2000);
+            REQUIRE(dur.timeMs({ 120, 32 }) == 4000);
+
+            REQUIRE(dur.timeMs({ 120, { 1, 8 } }) == 1000);
+            REQUIRE(dur.timeMs({ 120, { 2, 8 } }) == 500);
+            REQUIRE(dur.timeMs({ 120, { 4, 8 } }) == 250);
+            REQUIRE(dur.timeMs({ 120, { 8, 8 } }) == 125);
         }
 
         SECTION("str")
         {
             using namespace ceammc::parser;
-            DurationFullMatch p;
+            using namespace ceammc::music;
+            music::Duration dur;
 
-            REQUIRE(p.parse("4"));
-            REQUIRE(p.result().ratio() == 0.25);
-            REQUIRE(p.result().isAbs());
-            REQUIRE(p.result().den == 4);
-            REQUIRE(p.result().num == 1);
-            REQUIRE(p.result().dots == 0);
+            REQUIRE(parse_duration("4", dur));
+            REQUIRE(dur.ratio() == 0.25);
+            REQUIRE(dur.type() == DURATION_ABS);
+            REQUIRE(dur.division() == 4);
+            REQUIRE(dur.numerator() == 1);
+            REQUIRE(dur.dots() == 0);
 
-            REQUIRE(p.result().timeMs({ 60, 1, 4 }) == 1000);
+            REQUIRE(dur.timeMs({ 60, 4 }) == 1000);
 
-            REQUIRE(p.parse("2."));
-            REQUIRE(p.result().ratio() == 0.75);
-            REQUIRE(p.result().isAbs());
-            REQUIRE(p.result().den == 2);
-            REQUIRE(p.result().num == 1);
-            REQUIRE(p.result().dots == 1);
+            REQUIRE(parse_duration("2.", dur));
+            REQUIRE(dur.ratio() == 0.75);
+            REQUIRE(dur.type() == DURATION_ABS);
+            REQUIRE(dur.division() == 2);
+            REQUIRE(dur.numerator() == 1);
+            REQUIRE(dur.dots() == 1);
 
-            REQUIRE(p.parse("2.."));
-            REQUIRE(p.result().ratio() == 0.875);
+            REQUIRE(parse_duration("2..", dur));
+            REQUIRE(dur.ratio() == 0.875);
 
-            REQUIRE(p.parse("1/8"));
-            REQUIRE(p.result().ratio() == 0.125);
+            REQUIRE(parse_duration("1/8", dur));
+            REQUIRE(dur.ratio() == 0.125);
 
-            REQUIRE(p.parse("8/8"));
-            REQUIRE(p.result().ratio() == 1);
+            REQUIRE(parse_duration("8/8", dur));
+            REQUIRE(dur.ratio() == 1);
         }
 
         SECTION("Atom")
         {
             using namespace ceammc::parser;
-            DurationFullMatch p;
-            DurationVec out;
+            music::Duration dur;
+            std::vector<music::Duration> out;
 
-            REQUIRE(p.parse(A(2)));
-            REQUIRE(p.result().ratio() == 0.5);
+            REQUIRE(parse_duration(A(2), dur));
+            REQUIRE(dur.ratio() == 0.5);
 
-            REQUIRE(p.parse(A("2.")));
-            REQUIRE(p.result().ratio() == 0.75);
+            REQUIRE(parse_duration(A("2."), dur));
+            REQUIRE(dur.ratio() == 0.75);
 
-            REQUIRE(p.parse(AtomList::parseString("2.")[0]));
-            REQUIRE(p.result().ratio() == 0.5);
+            REQUIRE(parse_duration(AtomList::parseString("2.")[0], dur));
+            REQUIRE(dur.ratio() == 0.5);
 
-            REQUIRE(p.parse(AtomList::parseString("2_.")[0]));
-            REQUIRE(p.result().ratio() == 0.75);
+            REQUIRE(parse_duration(AtomList::parseString("2_.")[0], dur));
+            REQUIRE(dur.ratio() == 0.75);
 
-            REQUIRE(p.parse(AtomList::parseString("1*1/8")[0]));
-            REQUIRE(p.result().ratio() == 0.125);
+            REQUIRE(parse_duration(AtomList::parseString("1*1/8")[0], dur));
+            REQUIRE(dur.ratio() == 0.125);
 
-            REQUIRE(p.parse(AtomList::parseString("2*1/8"), out));
+            REQUIRE(parse_duration(AtomList::parseString("2*1/8"), out));
             REQUIRE(out.size() == 2);
             REQUIRE(out[0].ratio() == 0.125);
             REQUIRE(out[1].ratio() == 0.125);
 
             out.clear();
-            REQUIRE(p.parse(AtomList::parseString("10*4"), out));
+            REQUIRE(parse_duration(AtomList::parseString("10*4"), out));
             REQUIRE(out.size() == 10);
-            REQUIRE(std::all_of(out.begin(), out.end(), [](const Duration& d) { return d.ratio() == 0.25; }));
+            REQUIRE(std::all_of(out.begin(), out.end(), [](const music::Duration& d) { return d.ratio() == 0.25; }));
 
             out.clear();
-            REQUIRE(p.parse(AtomList::parseString("4*4."), out));
+            REQUIRE(parse_duration(AtomList::parseString("4*4."), out));
             REQUIRE(out.size() == 4);
-            REQUIRE(std::all_of(out.begin(), out.end(), [](const Duration& d) { return d.ratio() == 0.375; }));
+            REQUIRE(std::all_of(out.begin(), out.end(), [](const music::Duration& d) { return d.ratio() == 0.375; }));
         }
 
         SECTION("list")
         {
             using namespace ceammc::parser;
-            DurationFullMatch p;
-            DurationVec out;
+            std::vector<music::Duration> out;
 
-            REQUIRE(p.parse(LA(3, "3/16", "16.", "2", "???"), out) == 4);
+            REQUIRE(parse_duration(LA(3, "3/16", "16.", "2", "???"), out) == 4);
             REQUIRE(out.size() == 4);
 
             REQUIRE(out[0].ratio() == Approx(1 / 3.0));
@@ -605,88 +615,80 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
     SECTION("pitch")
     {
         using namespace ceammc::parser;
-        PitchFullMatch p;
+        using namespace ceammc::music;
+        PitchClass pc = PitchClass::C;
 
-        REQUIRE(p.parse("C"));
-        REQUIRE(p.spn().note == 0);
-        REQUIRE(p.spn().alt == 0);
-        REQUIRE(p.spn().p == 0);
-        REQUIRE(p.spn().oct == 0);
-        REQUIRE(p.spn().octtype == OCTAVE_REL);
+        REQUIRE(parse_pitch_class("C", pc));
+        REQUIRE(pc == PitchClass::C);
 
-        REQUIRE(p.parse("C#"));
-        REQUIRE(p.spn().note == 0);
-        REQUIRE(p.spn().alt == 1);
-        REQUIRE(p.spn().pitch() == 1);
+        REQUIRE(parse_pitch_class("C#", pc));
+        REQUIRE(pc == PitchClass::Cs);
 
-        REQUIRE(p.parse("Db"));
-        REQUIRE(p.spn().note == 1);
-        REQUIRE(p.spn().alt == -1);
-        REQUIRE(p.spn().pitch() == 1);
+        REQUIRE(parse_pitch_class("C##", pc));
+        REQUIRE(pc == PitchClass::Css);
 
-        REQUIRE(p.parse("Eb"));
-        REQUIRE(p.spn().note == 2);
-        REQUIRE(p.spn().alt == -1);
-        REQUIRE(p.spn().pitch() == 3);
+        REQUIRE(parse_pitch_class("Db", pc));
+        REQUIRE(pc == PitchClass::Df);
 
-        REQUIRE(p.parse(Atom(0.)));
-        REQUIRE(p.spn().note == 0);
-        REQUIRE(p.spn().alt == 0);
-        REQUIRE(p.spn().pitch() == 0);
+        REQUIRE(parse_pitch_class("Dbb", pc));
+        REQUIRE(pc == PitchClass::Dff);
 
-        REQUIRE(p.parse(Atom(1)));
-        REQUIRE(p.spn().note == 0);
-        REQUIRE(p.spn().alt == 1);
-        REQUIRE(p.spn().pitch() == 1);
+        REQUIRE(parse_pitch_class("Eb", pc));
+        REQUIRE(pc == PitchClass::Ef);
 
-        REQUIRE(p.parse(Atom(2)));
-        REQUIRE(p.spn().note == 1);
-        REQUIRE(p.spn().alt == 0);
-        REQUIRE(p.spn().pitch() == 2);
+        REQUIRE(parse_pitch_class(Atom(0.), pc));
+        REQUIRE(pc == PitchClass::C);
 
-        REQUIRE(p.parse(Atom(3)));
-        REQUIRE(p.spn().note == 1);
-        REQUIRE(p.spn().alt == 1);
-        REQUIRE(p.spn().pitch() == 3);
+        REQUIRE(parse_pitch_class(Atom(1), pc));
+        REQUIRE(pc == PitchClass::Cs);
 
-        REQUIRE(p.parse(Atom(4)));
-        REQUIRE(p.spn().note == 2);
-        REQUIRE(p.spn().alt == 0);
-        REQUIRE(p.spn().pitch() == 4);
+        REQUIRE(parse_pitch_class(Atom(2), pc));
+        REQUIRE(pc == PitchClass::D);
 
-        REQUIRE(p.parse(Atom(5)));
-        REQUIRE(p.spn().alt == 0);
-        REQUIRE(p.spn().note == 3);
-        REQUIRE(p.spn().pitch() == 5);
+        REQUIRE(parse_pitch_class(Atom(3), pc));
+        REQUIRE(pc == PitchClass::Ds);
 
-        REQUIRE(p.parse(Atom(6)));
-        REQUIRE(p.spn().note == 3);
-        REQUIRE(p.spn().alt == 1);
-        REQUIRE(p.spn().pitch() == 6);
+        REQUIRE(parse_pitch_class(Atom(4), pc));
+        REQUIRE(pc == PitchClass::E);
 
-        REQUIRE(p.parse(Atom(7)));
-        REQUIRE(p.spn().note == 4);
-        REQUIRE(p.spn().alt == 0);
-        REQUIRE(p.spn().pitch() == 7);
+        REQUIRE(parse_pitch_class(Atom(5), pc));
+        REQUIRE(pc == PitchClass::F);
 
-        REQUIRE(p.parse(Atom(8)));
-        REQUIRE(p.spn().note == 4);
-        REQUIRE(p.spn().alt == 1);
-        REQUIRE(p.spn().pitch() == 8);
+        REQUIRE(parse_pitch_class(Atom(6), pc));
+        REQUIRE(pc == PitchClass::Fs);
 
-        REQUIRE(p.parse(Atom(9)));
-        REQUIRE(p.spn().note == 5);
-        REQUIRE(p.spn().alt == 0);
-        REQUIRE(p.spn().pitch() == 9);
+        REQUIRE(parse_pitch_class(Atom(7), pc));
+        REQUIRE(pc == PitchClass::G);
 
-        REQUIRE(p.parse(Atom(10)));
-        REQUIRE(p.spn().note == 5);
-        REQUIRE(p.spn().alt == 1);
-        REQUIRE(p.spn().pitch() == 10);
+        REQUIRE(parse_pitch_class(Atom(8), pc));
+        REQUIRE(pc == PitchClass::Gs);
 
-        REQUIRE(p.parse(Atom(11)));
-        REQUIRE(p.spn().note == 6);
-        REQUIRE(p.spn().alt == 0);
-        REQUIRE(p.spn().pitch() == 11);
+        REQUIRE(parse_pitch_class(Atom(9), pc));
+        REQUIRE(pc == PitchClass::A);
+
+        REQUIRE(parse_pitch_class(Atom(10), pc));
+        REQUIRE(pc == PitchClass::As);
+
+        REQUIRE(parse_pitch_class(Atom(11), pc));
+        REQUIRE(pc == PitchClass::B);
+    }
+
+    SECTION("chord")
+    {
+        using namespace ceammc::parser;
+        using Vec = std::vector<std::uint8_t>;
+
+        music::ChordClass chord;
+
+        REQUIRE(parse_chord_class("Cmaj", chord));
+        REQUIRE(chord.type() == Vec { 0, 4, 7 });
+        REQUIRE(parse_chord_class("Cmaj7", chord));
+        REQUIRE(chord.type() == Vec { 0, 4, 7, 11 });
+        REQUIRE(parse_chord_class("Cmaj9", chord));
+        REQUIRE(chord.type() == Vec { 0, 4, 7, 11, 14 });
+        REQUIRE(parse_chord_class("Cmaj11", chord));
+        REQUIRE(chord.type() == Vec { 0, 4, 7, 11, 14, 17 });
+        REQUIRE(parse_chord_class("Cmaj13", chord));
+        REQUIRE(chord.type() == Vec { 0, 4, 7, 11, 14, 17, 21 });
     }
 }

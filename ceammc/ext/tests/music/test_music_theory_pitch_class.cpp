@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "test_base.h"
 #include "ceammc_music_theory.h"
+#include "test_base.h"
 
 #include "catch.hpp"
 
@@ -115,6 +115,13 @@ using namespace ceammc::music;
 
 #define REQUIRE_TO_STR(p, s, ns) REQUIRE(to_string(PitchClass::p, ns) == s)
 
+#define REQUIRE_PITCH(p1, p2)       \
+    {                               \
+        auto res = p1;              \
+        REQUIRE(res.isOk());        \
+        REQUIRE(res.value() == p2); \
+    }
+
 static bool pitchClassCmp(const PitchClass& c1, const PitchClass& c2)
 {
     return c1.pitchName().absolutePitch() < c2.pitchName().absolutePitch();
@@ -141,25 +148,21 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
         REQUIRE(p.pitchName() == PitchName::C);
         REQUIRE(p.alteration() == Alteration::NATURAL);
         REQUIRE(p.absolutePitch() == 0);
-        REQUIRE(p);
 
         PitchClass p1(PitchName::C, Alteration::SHARP);
         REQUIRE(p1.pitchName() == PitchName::C);
         REQUIRE(p1.alteration() == Alteration::SHARP);
         REQUIRE(p1.absolutePitch() == 1);
-        REQUIRE(p1);
 
         PitchClass p2(PitchName::D, Alteration::FLAT);
         REQUIRE(p2.pitchName() == PitchName::D);
         REQUIRE(p2.alteration() == Alteration::FLAT);
         REQUIRE(p2.absolutePitch() == 1);
-        REQUIRE(p2);
 
         PitchClass p3(PitchName::E, Alteration::NATURAL);
         REQUIRE(p3.pitchName() == PitchName::E);
         REQUIRE(p3.alteration() == Alteration::NATURAL);
         REQUIRE(p3.absolutePitch() == 4);
-        REQUIRE(p3);
 
         REQUIRE(PitchClass::C == PitchClass::C);
         REQUIRE(PitchClass::Cs == PitchClass::Cs);
@@ -333,94 +336,92 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
 
     SECTION("toneUp")
     {
-        REQUIRE_FALSE(PitchClass::Bss.toneUp());
-        REQUIRE(PitchClass::Bs.toneUp());
-        REQUIRE(PitchClass::Bs.toneUp() == PitchClass::Css);
-        REQUIRE(PitchClass::B.toneUp() == PitchClass::Cs);
-        REQUIRE(PitchClass::Bf.toneUp() == PitchClass::C);
-        REQUIRE(PitchClass::Bff.toneUp() == PitchClass::Cf);
+        REQUIRE(PitchClass::Bss.toneUp().isError());
+        REQUIRE_PITCH(PitchClass::Bs.toneUp(), PitchClass::Css);
+        REQUIRE_PITCH(PitchClass::B.toneUp(), PitchClass::Cs);
+        REQUIRE_PITCH(PitchClass::Bf.toneUp(), PitchClass::C);
+        REQUIRE_PITCH(PitchClass::Bff.toneUp(), PitchClass::Cf);
 
-        REQUIRE(PitchClass::Ass.toneUp() == PitchClass::Bss);
-        REQUIRE(PitchClass::As.toneUp() == PitchClass::Bs);
-        REQUIRE(PitchClass::A.toneUp() == PitchClass::B);
-        REQUIRE(PitchClass::Af.toneUp() == PitchClass::Bf);
-        REQUIRE(PitchClass::Aff.toneUp() == PitchClass::Bff);
+        REQUIRE_PITCH(PitchClass::Ass.toneUp(), PitchClass::Bss);
+        REQUIRE_PITCH(PitchClass::As.toneUp(), PitchClass::Bs);
+        REQUIRE_PITCH(PitchClass::A.toneUp(), PitchClass::B);
+        REQUIRE_PITCH(PitchClass::Af.toneUp(), PitchClass::Bf);
+        REQUIRE_PITCH(PitchClass::Aff.toneUp(), PitchClass::Bff);
 
-        REQUIRE(PitchClass::Gss.toneUp() == PitchClass::Ass);
-        REQUIRE(PitchClass::Gs.toneUp() == PitchClass::As);
-        REQUIRE(PitchClass::G.toneUp() == PitchClass::A);
-        REQUIRE(PitchClass::Gf.toneUp() == PitchClass::Af);
-        REQUIRE(PitchClass::Gff.toneUp() == PitchClass::Aff);
+        REQUIRE_PITCH(PitchClass::Gss.toneUp(), PitchClass::Ass);
+        REQUIRE_PITCH(PitchClass::Gs.toneUp(), PitchClass::As);
+        REQUIRE_PITCH(PitchClass::G.toneUp(), PitchClass::A);
+        REQUIRE_PITCH(PitchClass::Gf.toneUp(), PitchClass::Af);
+        REQUIRE_PITCH(PitchClass::Gff.toneUp(), PitchClass::Aff);
 
-        REQUIRE(PitchClass::Fss.toneUp() == PitchClass::Gss);
-        REQUIRE(PitchClass::Fs.toneUp() == PitchClass::Gs);
-        REQUIRE(PitchClass::F.toneUp() == PitchClass::G);
-        REQUIRE(PitchClass::Ff.toneUp() == PitchClass::Gf);
-        REQUIRE(PitchClass::Fff.toneUp() == PitchClass::Gff);
+        REQUIRE_PITCH(PitchClass::Fss.toneUp(), PitchClass::Gss);
+        REQUIRE_PITCH(PitchClass::Fs.toneUp(), PitchClass::Gs);
+        REQUIRE_PITCH(PitchClass::F.toneUp(), PitchClass::G);
+        REQUIRE_PITCH(PitchClass::Ff.toneUp(), PitchClass::Gf);
+        REQUIRE_PITCH(PitchClass::Fff.toneUp(), PitchClass::Gff);
 
-        REQUIRE_FALSE(PitchClass::Ess.toneUp());
-        REQUIRE(PitchClass::Es.toneUp());
-        REQUIRE(PitchClass::Es.toneUp() == PitchClass::Fss);
-        REQUIRE(PitchClass::E.toneUp() == PitchClass::Fs);
-        REQUIRE(PitchClass::Ef.toneUp() == PitchClass::F);
-        REQUIRE(PitchClass::Eff.toneUp() == PitchClass::Ff);
+        REQUIRE(PitchClass::Ess.toneUp().isError());
+        REQUIRE_PITCH(PitchClass::Es.toneUp(), PitchClass::Fss);
+        REQUIRE_PITCH(PitchClass::E.toneUp(), PitchClass::Fs);
+        REQUIRE_PITCH(PitchClass::Ef.toneUp(), PitchClass::F);
+        REQUIRE_PITCH(PitchClass::Eff.toneUp(), PitchClass::Ff);
 
-        REQUIRE(PitchClass::Dss.toneUp() == PitchClass::Ess);
-        REQUIRE(PitchClass::Ds.toneUp() == PitchClass::Es);
-        REQUIRE(PitchClass::D.toneUp() == PitchClass::E);
-        REQUIRE(PitchClass::Df.toneUp() == PitchClass::Ef);
-        REQUIRE(PitchClass::Dff.toneUp() == PitchClass::Eff);
+        REQUIRE_PITCH(PitchClass::Dss.toneUp(), PitchClass::Ess);
+        REQUIRE_PITCH(PitchClass::Ds.toneUp(), PitchClass::Es);
+        REQUIRE_PITCH(PitchClass::D.toneUp(), PitchClass::E);
+        REQUIRE_PITCH(PitchClass::Df.toneUp(), PitchClass::Ef);
+        REQUIRE_PITCH(PitchClass::Dff.toneUp(), PitchClass::Eff);
 
-        REQUIRE(PitchClass::Css.toneUp() == PitchClass::Dss);
-        REQUIRE(PitchClass::Cs.toneUp() == PitchClass::Ds);
-        REQUIRE(PitchClass::C.toneUp() == PitchClass::D);
-        REQUIRE(PitchClass::Cf.toneUp() == PitchClass::Df);
-        REQUIRE(PitchClass::Cff.toneUp() == PitchClass::Dff);
+        REQUIRE_PITCH(PitchClass::Css.toneUp(), PitchClass::Dss);
+        REQUIRE_PITCH(PitchClass::Cs.toneUp(), PitchClass::Ds);
+        REQUIRE_PITCH(PitchClass::C.toneUp(), PitchClass::D);
+        REQUIRE_PITCH(PitchClass::Cf.toneUp(), PitchClass::Df);
+        REQUIRE_PITCH(PitchClass::Cff.toneUp(), PitchClass::Dff);
     }
 
     SECTION("semitoneUp")
     {
-        REQUIRE(PitchClass::Bss.semitoneUp() == PitchClass::Css);
-        REQUIRE(PitchClass::Bs.semitoneUp() == PitchClass::Cs);
-        REQUIRE(PitchClass::B.semitoneUp() == PitchClass::C);
-        REQUIRE(PitchClass::Bf.semitoneUp() == PitchClass::Cf);
-        REQUIRE(PitchClass::Bff.semitoneUp() == PitchClass::Cff);
+        REQUIRE_PITCH(PitchClass::Bss.semitoneUp(), PitchClass::Css);
+        REQUIRE_PITCH(PitchClass::Bs.semitoneUp(), PitchClass::Cs);
+        REQUIRE_PITCH(PitchClass::B.semitoneUp(), PitchClass::C);
+        REQUIRE_PITCH(PitchClass::Bf.semitoneUp(), PitchClass::Cf);
+        REQUIRE_PITCH(PitchClass::Bff.semitoneUp(), PitchClass::Cff);
 
-        REQUIRE(PitchClass::Ass.semitoneUp() == PitchClass::Bs);
-        REQUIRE(PitchClass::As.semitoneUp() == PitchClass::B);
-        REQUIRE(PitchClass::A.semitoneUp() == PitchClass::Bf);
-        REQUIRE(PitchClass::Af.semitoneUp() == PitchClass::Bff);
-        REQUIRE_FALSE(PitchClass::Aff.semitoneUp());
+        REQUIRE_PITCH(PitchClass::Ass.semitoneUp(), PitchClass::Bs);
+        REQUIRE_PITCH(PitchClass::As.semitoneUp(), PitchClass::B);
+        REQUIRE_PITCH(PitchClass::A.semitoneUp(), PitchClass::Bf);
+        REQUIRE_PITCH(PitchClass::Af.semitoneUp(), PitchClass::Bff);
+        REQUIRE(PitchClass::Aff.semitoneUp().isError());
 
-        REQUIRE(PitchClass::Gss.semitoneUp() == PitchClass::As);
-        REQUIRE(PitchClass::Gs.semitoneUp() == PitchClass::A);
-        REQUIRE(PitchClass::G.semitoneUp() == PitchClass::Af);
-        REQUIRE(PitchClass::Gf.semitoneUp() == PitchClass::Aff);
-        REQUIRE_FALSE(PitchClass::Gff.semitoneUp());
+        REQUIRE_PITCH(PitchClass::Gss.semitoneUp(), PitchClass::As);
+        REQUIRE_PITCH(PitchClass::Gs.semitoneUp(), PitchClass::A);
+        REQUIRE_PITCH(PitchClass::G.semitoneUp(), PitchClass::Af);
+        REQUIRE_PITCH(PitchClass::Gf.semitoneUp(), PitchClass::Aff);
+        REQUIRE(PitchClass::Gff.semitoneUp().isError());
 
-        REQUIRE(PitchClass::Fss.semitoneUp() == PitchClass::Gs);
-        REQUIRE(PitchClass::Fs.semitoneUp() == PitchClass::G);
-        REQUIRE(PitchClass::F.semitoneUp() == PitchClass::Gf);
-        REQUIRE(PitchClass::Ff.semitoneUp() == PitchClass::Gff);
-        REQUIRE_FALSE(PitchClass::Fff.semitoneUp());
+        REQUIRE_PITCH(PitchClass::Fss.semitoneUp(), PitchClass::Gs);
+        REQUIRE_PITCH(PitchClass::Fs.semitoneUp(), PitchClass::G);
+        REQUIRE_PITCH(PitchClass::F.semitoneUp(), PitchClass::Gf);
+        REQUIRE_PITCH(PitchClass::Ff.semitoneUp(), PitchClass::Gff);
+        REQUIRE(PitchClass::Fff.semitoneUp().isError());
 
-        REQUIRE(PitchClass::Ess.semitoneUp() == PitchClass::Fss);
-        REQUIRE(PitchClass::Es.semitoneUp() == PitchClass::Fs);
-        REQUIRE(PitchClass::E.semitoneUp() == PitchClass::F);
-        REQUIRE(PitchClass::Ef.semitoneUp() == PitchClass::Ff);
-        REQUIRE(PitchClass::Eff.semitoneUp() == PitchClass::Fff);
+        REQUIRE_PITCH(PitchClass::Ess.semitoneUp(), PitchClass::Fss);
+        REQUIRE_PITCH(PitchClass::Es.semitoneUp(), PitchClass::Fs);
+        REQUIRE_PITCH(PitchClass::E.semitoneUp(), PitchClass::F);
+        REQUIRE_PITCH(PitchClass::Ef.semitoneUp(), PitchClass::Ff);
+        REQUIRE_PITCH(PitchClass::Eff.semitoneUp(), PitchClass::Fff);
 
-        REQUIRE(PitchClass::Dss.semitoneUp() == PitchClass::Es);
-        REQUIRE(PitchClass::Ds.semitoneUp() == PitchClass::E);
-        REQUIRE(PitchClass::D.semitoneUp() == PitchClass::Ef);
-        REQUIRE(PitchClass::Df.semitoneUp() == PitchClass::Eff);
-        REQUIRE_FALSE(PitchClass::Dff.semitoneUp());
+        REQUIRE_PITCH(PitchClass::Dss.semitoneUp(), PitchClass::Es);
+        REQUIRE_PITCH(PitchClass::Ds.semitoneUp(), PitchClass::E);
+        REQUIRE_PITCH(PitchClass::D.semitoneUp(), PitchClass::Ef);
+        REQUIRE_PITCH(PitchClass::Df.semitoneUp(), PitchClass::Eff);
+        REQUIRE(PitchClass::Dff.semitoneUp().isError());
 
-        REQUIRE(PitchClass::Css.semitoneUp() == PitchClass::Ds);
-        REQUIRE(PitchClass::Cs.semitoneUp() == PitchClass::D);
-        REQUIRE(PitchClass::C.semitoneUp() == PitchClass::Df);
-        REQUIRE(PitchClass::Cf.semitoneUp() == PitchClass::Dff);
-        REQUIRE_FALSE(PitchClass::Cff.semitoneUp());
+        REQUIRE_PITCH(PitchClass::Css.semitoneUp(), PitchClass::Ds);
+        REQUIRE_PITCH(PitchClass::Cs.semitoneUp(), PitchClass::D);
+        REQUIRE_PITCH(PitchClass::C.semitoneUp(), PitchClass::Df);
+        REQUIRE_PITCH(PitchClass::Cf.semitoneUp(), PitchClass::Dff);
+        REQUIRE(PitchClass::Cff.semitoneUp().isError());
     }
 
     SECTION("stepTranspose")
@@ -832,14 +833,14 @@ TEST_CASE("MusicTheory::PitchClass", "[ceammc::music]")
 
     SECTION("alterate")
     {
-        REQUIRE(PitchClass::C.alterate(1) == PitchClass::Cs);
-        REQUIRE(PitchClass::C.alterate(2) == PitchClass::Css);
-        REQUIRE(PitchClass::C.alterate(0) == PitchClass::C);
-        REQUIRE(PitchClass::C.alterate(-1) == PitchClass::Cf);
-        REQUIRE(PitchClass::C.alterate(-2) == PitchClass::Cff);
+        REQUIRE_PITCH(PitchClass::C.alterate(1), PitchClass::Cs);
+        REQUIRE_PITCH(PitchClass::C.alterate(2), PitchClass::Css);
+        REQUIRE_PITCH(PitchClass::C.alterate(0), PitchClass::C);
+        REQUIRE_PITCH(PitchClass::C.alterate(-1), PitchClass::Cf);
+        REQUIRE_PITCH(PitchClass::C.alterate(-2), PitchClass::Cff);
 
-        REQUIRE_FALSE(PitchClass::C.alterate(3));
-        REQUIRE_FALSE(PitchClass::C.alterate(-3));
+        REQUIRE(PitchClass::C.alterate(3).isError());
+        REQUIRE(PitchClass::C.alterate(-3).isError());
     }
 
     SECTION("to_string")

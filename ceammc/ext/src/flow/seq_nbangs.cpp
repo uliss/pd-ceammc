@@ -12,10 +12,11 @@
  * this file belongs to.
  *****************************************************************************/
 #include "seq_nbangs.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
-static t_symbol* SYM_DONE;
-static t_symbol* SYM_IDX;
+CEAMMC_DEFINE_SYM(done)
+CEAMMC_DEFINE_SYM(i)
 
 SeqNBangs::SeqNBangs(const PdArgs& args)
     : BaseObject(args)
@@ -24,7 +25,7 @@ SeqNBangs::SeqNBangs(const PdArgs& args)
     , counter_(0)
     , clock_([this]() {
         if (tick())
-            clock_.delay(interval_->value());
+            clock_.delay(interval_->value() / beat_division_->value());
     })
 {
     createInlet();
@@ -39,6 +40,10 @@ SeqNBangs::SeqNBangs(const PdArgs& args)
     interval_ = new SeqTimeGrain("@t", 0);
     interval_->setArgIndex(1);
     addProperty(interval_);
+
+    beat_division_ = new IntProperty("@div", 1);
+    beat_division_->checkClosedRange(1, 64);
+    addProperty(beat_division_);
 
     createCbFloatProperty(
         "@dur",
@@ -107,11 +112,11 @@ void SeqNBangs::reset()
 bool SeqNBangs::tick()
 {
     if ((int)counter_ >= n_->value()) {
-        anyTo(1, SYM_DONE, AtomListView());
+        anyTo(1, sym_done(), AtomListView());
         return false;
     } else {
         Atom l[2] = { counter_, n_->value() };
-        anyTo(1, SYM_IDX, AtomListView(l, 2));
+        anyTo(1, sym_i(), AtomListView(l, 2));
         bangTo(0);
 
         counter_++;
@@ -121,9 +126,6 @@ bool SeqNBangs::tick()
 
 void setup_seq_nbangs()
 {
-    SYM_DONE = gensym("done");
-    SYM_IDX = gensym("i");
-
     SequencerIFaceFactory<ObjectFactory, SeqNBangsT> obj("seq.nbangs");
     obj.addAlias("seq.nb");
 
@@ -138,5 +140,5 @@ void setup_seq_nbangs()
 
     obj.setDescription("output specified number of bang with time intervals");
     obj.setCategory("seq");
-    obj.setKeywords({"seq", "bang", "until"});
+    obj.setKeywords({ "seq", "bang", "until" });
 }

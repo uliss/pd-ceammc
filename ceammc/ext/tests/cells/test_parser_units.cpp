@@ -397,46 +397,46 @@ TEST_CASE("parser_units", "[ceammc::ceammc_units]")
         UnitsFullMatch p;
 
         REQUIRE(p.parse("120bpm"));
-        REQUIRE(p.bpm().bpm == 120);
-        REQUIRE(p.bpm().ratio() == 0.25);
-        REQUIRE(p.bpm().beatPeriodMs() == 500);
+        REQUIRE(p.tempo().bpm() == 120);
+        REQUIRE(p.tempo().beatDuration().ratio() == 0.25);
+        REQUIRE(p.tempo().beatDurationMs() == 500);
         REQUIRE(p.type() == TYPE_BPM);
 
         REQUIRE(p.parse("120|4._bpm"));
-        REQUIRE(p.bpm().bpm == 120);
-        REQUIRE(p.bpm().ratio() == 0.375);
-        REQUIRE(p.bpm().beatPeriodMs() == 750);
+        REQUIRE(p.tempo().bpm() == 120);
+        REQUIRE(p.tempo().beatDuration().ratio() == 0.375);
+        REQUIRE(p.tempo().beatDurationMs() == 500);
         REQUIRE(p.type() == TYPE_BPM);
 
         REQUIRE(p.parse("120|1/8_bpm"));
-        REQUIRE(p.bpm().bpm == 120);
-        REQUIRE(p.bpm().ratio() == 0.125);
-        REQUIRE(p.bpm().beatPeriodMs() == 250);
+        REQUIRE(p.tempo().bpm() == 120);
+        REQUIRE(p.tempo().beatDuration().ratio() == 0.125);
+        REQUIRE(p.tempo().beatDurationMs() == 500);
         REQUIRE(p.type() == TYPE_BPM);
 
         REQUIRE(p.parse("60|8_bpm"));
-        REQUIRE(p.bpm().bpm == 60);
-        REQUIRE(p.bpm().ratio() == 0.125);
-        REQUIRE(p.bpm().beatPeriodMs() == 500);
+        REQUIRE(p.tempo().bpm() == 60);
+        REQUIRE(p.tempo().beatDuration().ratio() == 0.125);
+        REQUIRE(p.tempo().beatDurationMs() == 1000);
         REQUIRE(p.type() == TYPE_BPM);
 
         REQUIRE(p.parse("40|4_bpm"));
-        REQUIRE(p.bpm().beatPeriodMs() == 1500);
+        REQUIRE(p.tempo().beatDurationMs() == 1500);
         REQUIRE(p.type() == TYPE_BPM);
 
         REQUIRE(p.parse("144|4._bpm"));
-        REQUIRE(p.bpm().bpm == 144);
-        REQUIRE(p.bpm().ratio() == 0.375);
+        REQUIRE(p.tempo().bpm() == 144);
+        REQUIRE(p.tempo().beatDuration().ratio() == 0.375);
         REQUIRE(p.type() == TYPE_BPM);
 
         REQUIRE(p.parse("12|1/8bpm"));
-        REQUIRE(p.bpm().bpm == 12);
-        REQUIRE(p.bpm().ratio() == 0.125);
+        REQUIRE(p.tempo().bpm() == 12);
+        REQUIRE(p.tempo().beatDuration().ratio() == 0.125);
         REQUIRE(p.type() == TYPE_BPM);
 
         REQUIRE(p.parse("4.5|3/4_bpm"));
-        REQUIRE(p.bpm().bpm == 4.5);
-        REQUIRE(p.bpm().ratio() == 0.75);
+        REQUIRE(p.tempo().bpm() == 4.5);
+        REQUIRE(p.tempo().beatDuration().ratio() == 0.75);
         REQUIRE(p.type() == TYPE_BPM);
 
         REQUIRE(!p.parse("+12_bpm"));

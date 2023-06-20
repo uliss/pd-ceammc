@@ -16,7 +16,6 @@
 #include "ceammc_factory.h"
 #include "lex/parser_music.h"
 
-
 Voice2Midi::Voice2Midi(const PdArgs& args)
     : BaseObject(args)
 {
@@ -31,12 +30,10 @@ void Voice2Midi::onSymbol(t_symbol* s)
 void Voice2Midi::onList(const AtomListView& lv)
 {
     using namespace ceammc::parser;
+    using NoteVec = boost::container::small_vector<music::Notation, 16>;
 
-    NotationSingle p;
     NoteVec out;
-
-    const auto n = p.parse(lv, out);
-    if (n == 0) {
+    if (!parser::parse_notation(lv, out)) {
         OBJ_ERR << "note list expected, got: " << lv;
         return;
     }
@@ -45,12 +42,10 @@ void Voice2Midi::onList(const AtomListView& lv)
     atoms.reserve(out.size());
 
     int prev_oct = 4;
-    NotationSingle::calcAbsOctaves(out, prev_oct);
+    music::Notation::setAbsOctaves(out.begin(), out.end(), prev_oct);
 
-    for (size_t i = 0; i < out.size(); i++) {
-        const auto& n = out[i];
-        atoms.push_back(n.isRest() ? 0 : n.spn.midi());
-    }
+    for (auto& n : out)
+        atoms.push_back(n.isRest() ? 0 : n.asMidi());
 
     listTo(0, atoms.view());
 }

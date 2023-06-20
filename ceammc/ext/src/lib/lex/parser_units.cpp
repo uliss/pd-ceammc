@@ -2,16 +2,38 @@
 #line 1 "lex/parser_units.rl"
 # include "parser_units.h"
 # include "parser_numeric.h"
+# include "ceammc_log.h"
 
 # include <cstdint>
 # include <cstring>
 # include <cstdio>
 
+namespace {
+    using namespace ceammc;
+    using namespace ceammc::music;
+
+    struct RagelTempo {
+        int ival { 0 };
+        int fnum { 0 };
+        int fden { 1 };
+        int dur_num { 1 };
+        int dur_den { 4 };
+    };
+
+    Tempo fromRagel(const RagelTempo& t)
+    {
+        float bpm = t.ival + t.fnum / float(t.fden);
+        Tempo res { bpm, t.dur_den };
+        res.setDuration(Duration(t.dur_num, t.dur_den));
+        return res;
+    }
+}
+
 namespace ceammc {
 namespace parser {
 
 
-#line 15 "lex/parser_units.cpp"
+#line 37 "lex/parser_units.cpp"
 static const int units_full_start = 1;
 static const int units_full_first_final = 48;
 static const int units_full_error = 0;
@@ -19,7 +41,7 @@ static const int units_full_error = 0;
 static const int units_full_en_main = 1;
 
 
-#line 17 "lex/parser_units.rl"
+#line 39 "lex/parser_units.rl"
 
 
 UnitsFullMatch::UnitsFullMatch()
@@ -71,20 +93,20 @@ bool UnitsFullMatch::parse(const char* str)
     DECLARE_RAGEL_COMMON_VARS;
     DECLARE_RAGEL_NUMERIC_VARS;
 
-    fsm::BpmData bpm;
+    RagelTempo bpm;
     fsm::SmpteData smpte;
 
     reset();
 
     
-#line 81 "lex/parser_units.cpp"
+#line 103 "lex/parser_units.cpp"
 	{
 	cs = units_full_start;
 	}
 
-#line 74 "lex/parser_units.rl"
+#line 96 "lex/parser_units.rl"
     
-#line 88 "lex/parser_units.cpp"
+#line 110 "lex/parser_units.cpp"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -118,7 +140,7 @@ st2:
 	if ( ++p == pe )
 		goto _test_eof2;
 case 2:
-#line 122 "lex/parser_units.cpp"
+#line 144 "lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 43: goto tr8;
 		case 45: goto tr8;
@@ -166,7 +188,7 @@ st3:
 	if ( ++p == pe )
 		goto _test_eof3;
 case 3:
-#line 170 "lex/parser_units.cpp"
+#line 192 "lex/parser_units.cpp"
 	if ( (*p) == 48 )
 		goto tr12;
 	if ( (*p) > 53 ) {
@@ -217,7 +239,7 @@ st48:
 	if ( ++p == pe )
 		goto _test_eof48;
 case 48:
-#line 221 "lex/parser_units.cpp"
+#line 243 "lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 37: goto tr65;
 		case 42: goto tr66;
@@ -261,7 +283,7 @@ st49:
 	if ( ++p == pe )
 		goto _test_eof49;
 case 49:
-#line 265 "lex/parser_units.cpp"
+#line 287 "lex/parser_units.cpp"
 	goto st0;
 tr66:
 #line 30 "lex/ragel_numeric.rl"
@@ -288,7 +310,7 @@ st50:
 	if ( ++p == pe )
 		goto _test_eof50;
 case 50:
-#line 292 "lex/parser_units.cpp"
+#line 314 "lex/parser_units.cpp"
 	goto st0;
 tr67:
 #line 30 "lex/ragel_numeric.rl"
@@ -307,7 +329,7 @@ st4:
 	if ( ++p == pe )
 		goto _test_eof4;
 case 4:
-#line 311 "lex/parser_units.cpp"
+#line 333 "lex/parser_units.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr15;
 	goto st0;
@@ -322,7 +344,7 @@ st51:
 	if ( ++p == pe )
 		goto _test_eof51;
 case 51:
-#line 326 "lex/parser_units.cpp"
+#line 348 "lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 37: goto tr79;
 		case 42: goto tr80;
@@ -362,7 +384,7 @@ st5:
 	if ( ++p == pe )
 		goto _test_eof5;
 case 5:
-#line 366 "lex/parser_units.cpp"
+#line 388 "lex/parser_units.cpp"
 	if ( (*p) == 122 )
 		goto st52;
 	goto st0;
@@ -398,7 +420,7 @@ st53:
 	if ( ++p == pe )
 		goto _test_eof53;
 case 53:
-#line 402 "lex/parser_units.cpp"
+#line 424 "lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 37: goto st49;
 		case 42: goto st54;
@@ -440,7 +462,7 @@ st55:
 	if ( ++p == pe )
 		goto _test_eof55;
 case 55:
-#line 444 "lex/parser_units.cpp"
+#line 466 "lex/parser_units.cpp"
 	if ( (*p) == 101 )
 		goto st6;
 	goto st0;
@@ -486,7 +508,7 @@ st57:
 	if ( ++p == pe )
 		goto _test_eof57;
 case 57:
-#line 490 "lex/parser_units.cpp"
+#line 512 "lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 97: goto st8;
 		case 98: goto st59;
@@ -559,7 +581,7 @@ st62:
 	if ( ++p == pe )
 		goto _test_eof62;
 case 62:
-#line 563 "lex/parser_units.cpp"
+#line 585 "lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 111: goto st11;
 		case 122: goto st52;
@@ -607,7 +629,7 @@ st64:
 	if ( ++p == pe )
 		goto _test_eof64;
 case 64:
-#line 611 "lex/parser_units.cpp"
+#line 633 "lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 105: goto st13;
 		case 115: goto st66;
@@ -669,7 +691,7 @@ st15:
 	if ( ++p == pe )
 		goto _test_eof15;
 case 15:
-#line 673 "lex/parser_units.cpp"
+#line 695 "lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 101: goto st16;
 		case 104: goto st20;
@@ -759,7 +781,7 @@ st23:
 	if ( ++p == pe )
 		goto _test_eof23;
 case 23:
-#line 763 "lex/parser_units.cpp"
+#line 785 "lex/parser_units.cpp"
 	if ( (*p) == 97 )
 		goto st24;
 	goto st0;
@@ -798,7 +820,7 @@ st71:
 	if ( ++p == pe )
 		goto _test_eof71;
 case 71:
-#line 802 "lex/parser_units.cpp"
+#line 824 "lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 97: goto st72;
 		case 101: goto st26;
@@ -894,7 +916,7 @@ st77:
 	if ( ++p == pe )
 		goto _test_eof77;
 case 77:
-#line 898 "lex/parser_units.cpp"
+#line 920 "lex/parser_units.cpp"
 	goto st0;
 tr45:
 #line 43 "lex/ragel_numeric.rl"
@@ -904,7 +926,7 @@ st78:
 	if ( ++p == pe )
 		goto _test_eof78;
 case 78:
-#line 908 "lex/parser_units.cpp"
+#line 930 "lex/parser_units.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr45;
 	goto st0;
@@ -916,7 +938,7 @@ st32:
 	if ( ++p == pe )
 		goto _test_eof32;
 case 32:
-#line 920 "lex/parser_units.cpp"
+#line 942 "lex/parser_units.cpp"
 	if ( (*p) == 58 )
 		goto st33;
 	goto st0;
@@ -937,7 +959,7 @@ st34:
 	if ( ++p == pe )
 		goto _test_eof34;
 case 34:
-#line 941 "lex/parser_units.cpp"
+#line 963 "lex/parser_units.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr48;
 	goto st0;
@@ -949,7 +971,7 @@ st79:
 	if ( ++p == pe )
 		goto _test_eof79;
 case 79:
-#line 953 "lex/parser_units.cpp"
+#line 975 "lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 46: goto st35;
 		case 58: goto st36;
@@ -972,7 +994,7 @@ st80:
 	if ( ++p == pe )
 		goto _test_eof80;
 case 80:
-#line 976 "lex/parser_units.cpp"
+#line 998 "lex/parser_units.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr116;
 	goto st0;
@@ -984,7 +1006,7 @@ st81:
 	if ( ++p == pe )
 		goto _test_eof81;
 case 81:
-#line 988 "lex/parser_units.cpp"
+#line 1010 "lex/parser_units.cpp"
 	goto st0;
 st36:
 	if ( ++p == pe )
@@ -1003,7 +1025,7 @@ st37:
 	if ( ++p == pe )
 		goto _test_eof37;
 case 37:
-#line 1007 "lex/parser_units.cpp"
+#line 1029 "lex/parser_units.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr51;
 	goto st0;
@@ -1015,7 +1037,7 @@ st82:
 	if ( ++p == pe )
 		goto _test_eof82;
 case 82:
-#line 1019 "lex/parser_units.cpp"
+#line 1041 "lex/parser_units.cpp"
 	if ( (*p) == 46 )
 		goto st35;
 	goto st0;
@@ -1061,7 +1083,7 @@ st83:
 	if ( ++p == pe )
 		goto _test_eof83;
 case 83:
-#line 1065 "lex/parser_units.cpp"
+#line 1087 "lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 37: goto tr65;
 		case 42: goto tr66;
@@ -1092,7 +1114,7 @@ st84:
 	if ( ++p == pe )
 		goto _test_eof84;
 case 84:
-#line 1096 "lex/parser_units.cpp"
+#line 1118 "lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 37: goto tr65;
 		case 42: goto tr66;
@@ -1138,7 +1160,7 @@ st85:
 	if ( ++p == pe )
 		goto _test_eof85;
 case 85:
-#line 1142 "lex/parser_units.cpp"
+#line 1164 "lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 37: goto tr65;
 		case 42: goto tr66;
@@ -1181,7 +1203,7 @@ st86:
 	if ( ++p == pe )
 		goto _test_eof86;
 case 86:
-#line 1185 "lex/parser_units.cpp"
+#line 1207 "lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 37: goto tr65;
 		case 42: goto tr66;
@@ -1219,7 +1241,7 @@ st38:
 	if ( ++p == pe )
 		goto _test_eof38;
 case 38:
-#line 1223 "lex/parser_units.cpp"
+#line 1245 "lex/parser_units.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr52;
 	goto st0;
@@ -1236,7 +1258,7 @@ st87:
 	if ( ++p == pe )
 		goto _test_eof87;
 case 87:
-#line 1240 "lex/parser_units.cpp"
+#line 1262 "lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 37: goto tr79;
 		case 42: goto tr80;
@@ -1282,7 +1304,7 @@ st88:
 	if ( ++p == pe )
 		goto _test_eof88;
 case 88:
-#line 1286 "lex/parser_units.cpp"
+#line 1308 "lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 37: goto st49;
 		case 42: goto st54;
@@ -1305,7 +1327,7 @@ st39:
 	if ( ++p == pe )
 		goto _test_eof39;
 case 39:
-#line 1309 "lex/parser_units.cpp"
+#line 1331 "lex/parser_units.cpp"
 	if ( (*p) == 112 )
 		goto st40;
 	goto st0;
@@ -1348,7 +1370,7 @@ st90:
 	if ( ++p == pe )
 		goto _test_eof90;
 case 90:
-#line 1352 "lex/parser_units.cpp"
+#line 1374 "lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 46: goto tr123;
 		case 47: goto st42;
@@ -1372,7 +1394,7 @@ st91:
 	if ( ++p == pe )
 		goto _test_eof91;
 case 91:
-#line 1376 "lex/parser_units.cpp"
+#line 1398 "lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 95: goto st92;
 		case 98: goto st39;
@@ -1386,7 +1408,7 @@ st92:
 	if ( ++p == pe )
 		goto _test_eof92;
 case 92:
-#line 1390 "lex/parser_units.cpp"
+#line 1412 "lex/parser_units.cpp"
 	if ( (*p) == 98 )
 		goto st39;
 	goto st0;
@@ -1411,7 +1433,7 @@ st93:
 	if ( ++p == pe )
 		goto _test_eof93;
 case 93:
-#line 1415 "lex/parser_units.cpp"
+#line 1437 "lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 46: goto tr129;
 		case 95: goto st92;
@@ -1444,7 +1466,7 @@ st94:
 	if ( ++p == pe )
 		goto _test_eof94;
 case 94:
-#line 1448 "lex/parser_units.cpp"
+#line 1470 "lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 37: goto tr65;
 		case 42: goto tr66;
@@ -1479,7 +1501,7 @@ st95:
 	if ( ++p == pe )
 		goto _test_eof95;
 case 95:
-#line 1483 "lex/parser_units.cpp"
+#line 1505 "lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 37: goto tr65;
 		case 42: goto tr66;
@@ -1527,7 +1549,7 @@ st96:
 	if ( ++p == pe )
 		goto _test_eof96;
 case 96:
-#line 1531 "lex/parser_units.cpp"
+#line 1553 "lex/parser_units.cpp"
 	switch( (*p) ) {
 		case 37: goto tr65;
 		case 42: goto tr66;
@@ -1558,7 +1580,7 @@ st43:
 	if ( ++p == pe )
 		goto _test_eof43;
 case 43:
-#line 1562 "lex/parser_units.cpp"
+#line 1584 "lex/parser_units.cpp"
 	if ( (*p) == 117 )
 		goto st44;
 	goto st0;
@@ -1594,7 +1616,7 @@ st46:
 	if ( ++p == pe )
 		goto _test_eof46;
 case 46:
-#line 1598 "lex/parser_units.cpp"
+#line 1620 "lex/parser_units.cpp"
 	if ( (*p) == 110 )
 		goto st47;
 	goto st0;
@@ -1938,14 +1960,14 @@ case 47:
 #line 9 "lex/ragel_units.rl"
 	{ ragel_cat = CAT_UNIT; }
 	break;
-#line 1942 "lex/parser_units.cpp"
+#line 1964 "lex/parser_units.cpp"
 	}
 	}
 
 	_out: {}
 	}
 
-#line 75 "lex/parser_units.rl"
+#line 97 "lex/parser_units.rl"
 
     const bool ok = cs >= 48;
     if (ok) {
@@ -1973,7 +1995,7 @@ case 47:
         unit_.smpte.min = smpte.min;
         unit_.smpte.sec = smpte.sec;
         unit_.smpte.frame = smpte.frame;
-        unit_.bpm = bpm;
+        unit_.tempo = fromRagel(bpm);
     }
 
     return ok;
@@ -1995,7 +2017,7 @@ size_t UnitsFullMatch::parse(const AtomListView& lv, UnitVec& out)
 }
 
 
-#line 1999 "lex/parser_units.cpp"
+#line 2021 "lex/parser_units.cpp"
 static const int units_type_start = 1;
 static const int units_type_first_final = 30;
 static const int units_type_error = 0;
@@ -2003,7 +2025,7 @@ static const int units_type_error = 0;
 static const int units_type_en_main = 1;
 
 
-#line 129 "lex/parser_units.rl"
+#line 151 "lex/parser_units.rl"
 
 
 bool UnitTypeFullMatch::parse(const char* str)
@@ -2019,14 +2041,14 @@ bool UnitTypeFullMatch::parse(const char* str)
     const char* eof = pe;
 
     
-#line 2023 "lex/parser_units.cpp"
+#line 2045 "lex/parser_units.cpp"
 	{
 	cs = units_type_start;
 	}
 
-#line 144 "lex/parser_units.rl"
+#line 166 "lex/parser_units.rl"
     
-#line 2030 "lex/parser_units.cpp"
+#line 2052 "lex/parser_units.cpp"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -2533,14 +2555,14 @@ case 54:
 #line 29 "lex/ragel_units.rl"
 	{ragel_type = TYPE_PHASE;}
 	break;
-#line 2537 "lex/parser_units.cpp"
+#line 2559 "lex/parser_units.cpp"
 	}
 	}
 
 	_out: {}
 	}
 
-#line 145 "lex/parser_units.rl"
+#line 167 "lex/parser_units.rl"
 
     return cs >= 30;
 }

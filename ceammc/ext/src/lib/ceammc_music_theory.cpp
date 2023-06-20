@@ -1,7 +1,6 @@
 #include "ceammc_music_theory.h"
 #include "ceammc_music_theory_names.h"
 #include "ceammc_music_theory_pitch_class.h"
-#include "ceammc_music_theory_pitch_name.h"
 
 #include <algorithm>
 #include <cstdlib>
@@ -168,76 +167,76 @@ void Tonality::calcScale()
     chrom_down_.clear();
 
     if (modus_ == MAJOR) {
-        scale_[1] = scale_[0].toneUp();
-        scale_[2] = scale_[1].toneUp();
-        scale_[3] = scale_[2].semitoneUp();
-        scale_[4] = scale_[3].toneUp();
-        scale_[5] = scale_[4].toneUp();
-        scale_[6] = scale_[5].toneUp();
+        scale_[1] = scale_[0].toneUp().value();
+        scale_[2] = scale_[1].toneUp().value();
+        scale_[3] = scale_[2].semitoneUp().value();
+        scale_[4] = scale_[3].toneUp().value();
+        scale_[5] = scale_[4].toneUp().value();
+        scale_[6] = scale_[5].toneUp().value();
 
-        alt_up_[0] = scale_[0].alterate(1);
-        alt_up_[1] = scale_[1].alterate(1);
-        alt_up_[2] = scale_[3].alterate(1);
-        alt_up_[3] = scale_[4].alterate(1);
-        alt_up_[4] = scale_[6].alterate(-1);
+        alt_up_[0] = scale_[0].alterate(1).value();
+        alt_up_[1] = scale_[1].alterate(1).value();
+        alt_up_[2] = scale_[3].alterate(1).value();
+        alt_up_[3] = scale_[4].alterate(1).value();
+        alt_up_[4] = scale_[6].alterate(-1).value();
 
-        alt_down_[0] = scale_[1].alterate(-1);
-        alt_down_[1] = scale_[2].alterate(-1);
-        alt_down_[2] = scale_[3].alterate(1);
-        alt_down_[3] = scale_[5].alterate(-1);
-        alt_down_[4] = scale_[6].alterate(-1);
+        alt_down_[0] = scale_[1].alterate(-1).value();
+        alt_down_[1] = scale_[2].alterate(-1).value();
+        alt_down_[2] = scale_[3].alterate(1).value();
+        alt_down_[3] = scale_[5].alterate(-1).value();
+        alt_down_[4] = scale_[6].alterate(-1).value();
 
         chrom_up_.push_back(scale_[0]);
-        chrom_up_.push_back(scale_[0].alterate(1));
+        chrom_up_.push_back(scale_[0].alterate(1).value());
         chrom_up_.push_back(scale_[1]);
-        chrom_up_.push_back(scale_[1].alterate(1));
+        chrom_up_.push_back(scale_[1].alterate(1).value());
         chrom_up_.push_back(scale_[2]);
         chrom_up_.push_back(scale_[3]);
-        chrom_up_.push_back(scale_[3].alterate(1));
+        chrom_up_.push_back(scale_[3].alterate(1).value());
         chrom_up_.push_back(scale_[4]);
-        chrom_up_.push_back(scale_[4].alterate(1));
+        chrom_up_.push_back(scale_[4].alterate(1).value());
         chrom_up_.push_back(scale_[5]);
-        chrom_up_.push_back(scale_[6].alterate(-1));
+        chrom_up_.push_back(scale_[6].alterate(-1).value());
         chrom_up_.push_back(scale_[6]);
 
         chrom_down_.push_back(scale_[0]);
-        chrom_down_.push_back(scale_[1].alterate(-1));
+        chrom_down_.push_back(scale_[1].alterate(-1).value());
         chrom_down_.push_back(scale_[1]);
-        chrom_down_.push_back(scale_[2].alterate(-1));
+        chrom_down_.push_back(scale_[2].alterate(-1).value());
         chrom_down_.push_back(scale_[2]);
         chrom_down_.push_back(scale_[3]);
-        chrom_down_.push_back(scale_[3].alterate(1));
+        chrom_down_.push_back(scale_[3].alterate(1).value());
         chrom_down_.push_back(scale_[4]);
-        chrom_down_.push_back(scale_[5].alterate(-1));
+        chrom_down_.push_back(scale_[5].alterate(-1).value());
         chrom_down_.push_back(scale_[5]);
-        chrom_down_.push_back(scale_[6].alterate(-1));
+        chrom_down_.push_back(scale_[6].alterate(-1).value());
         chrom_down_.push_back(scale_[6]);
     } else {
-        scale_[1] = scale_[0].toneUp();
-        scale_[2] = scale_[1].semitoneUp();
-        scale_[3] = scale_[2].toneUp();
-        scale_[4] = scale_[3].toneUp();
-        scale_[5] = scale_[4].semitoneUp();
-        scale_[6] = scale_[5].toneUp();
+        scale_[1] = scale_[0].toneUp().value();
+        scale_[2] = scale_[1].semitoneUp().value();
+        scale_[3] = scale_[2].toneUp().value();
+        scale_[4] = scale_[3].toneUp().value();
+        scale_[5] = scale_[4].semitoneUp().value();
+        scale_[6] = scale_[5].toneUp().value();
 
-        alt_up_[0] = scale_[1].alterate(-1);
-        alt_up_[1] = scale_[2].alterate(1);
-        alt_up_[2] = scale_[3].alterate(1);
-        alt_up_[3] = scale_[5].alterate(1);
-        alt_up_[4] = scale_[6].alterate(1);
+        alt_up_[0] = scale_[1].alterate(-1).value();
+        alt_up_[1] = scale_[2].alterate(1).value();
+        alt_up_[2] = scale_[3].alterate(1).value();
+        alt_up_[3] = scale_[5].alterate(1).value();
+        alt_up_[4] = scale_[6].alterate(1).value();
 
         chrom_up_.push_back(scale_[0]);
-        chrom_up_.push_back(scale_[1].alterate(-1));
+        chrom_up_.push_back(scale_[1].alterate(-1).value());
         chrom_up_.push_back(scale_[1]);
         chrom_up_.push_back(scale_[2]);
-        chrom_up_.push_back(scale_[2].alterate(1));
+        chrom_up_.push_back(scale_[2].alterate(1).value());
         chrom_up_.push_back(scale_[3]);
-        chrom_up_.push_back(scale_[3].alterate(1));
+        chrom_up_.push_back(scale_[3].alterate(1).value());
         chrom_up_.push_back(scale_[4]);
         chrom_up_.push_back(scale_[5]);
-        chrom_up_.push_back(scale_[5].alterate(1));
+        chrom_up_.push_back(scale_[5].alterate(1).value());
         chrom_up_.push_back(scale_[6]);
-        chrom_up_.push_back(scale_[6].alterate(1));
+        chrom_up_.push_back(scale_[6].alterate(1).value());
 
         alt_down_ = alt_up_;
         chrom_down_ = chrom_up_;
