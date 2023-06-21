@@ -11,6 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "ceammc_music_chord.h"
 #include "midi_note_pass.h"
 #include "test_midi_base.h"
 
@@ -44,7 +45,7 @@ TEST_CASE("midi.note.pass", "[externals]")
         SECTION(">")
         {
             TExt t("note.pass", LA("$N>60"));
-            t << LF(60, 127);
+            t << LF("C4"_midi, 127);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
             t << LF(61, 127);
             REQUIRE_LIST_AT_OUTLET(0, t, LF(61, 127));
@@ -119,15 +120,15 @@ TEST_CASE("midi.note.pass", "[externals]")
         SECTION("sus4")
         {
             TExt t("note.pass", LA("chord(\"Dsus2\")"));
-            t << LF(60, 127);
+            t << LF("C4"_midi, 127);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
             t << LF(61, 127);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
-            t << LF(62, 127);
+            t << LF("D4"_midi, 127);
             REQUIRE_LIST_AT_OUTLET(0, t, LF(62, 127));
             t << LF(63, 127);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
-            t << LF(64, 127);
+            t << LF("E4"_midi, 127);
             REQUIRE_LIST_AT_OUTLET(0, t, LF(64, 127));
             t << LF(65, 127);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
@@ -137,12 +138,16 @@ TEST_CASE("midi.note.pass", "[externals]")
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
             t << LF(68, 127);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
-            t << LF(69, 120);
+            t << LF("A4"_midi, 120);
             REQUIRE_LIST_AT_OUTLET(0, t, LF(69, 120));
             t << LF(70, 127);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
             t << LF(71, 127);
             REQUIRE_NO_MESSAGES_AT_OUTLET(0, t);
+            t << LF("D5"_midi, 120);
+            REQUIRE_LIST_AT_OUTLET(0, t, LF("D5"_midi, 120));
+            t << LF("E5"_midi, 120);
+            REQUIRE_LIST_AT_OUTLET(0, t, LF("E5"_midi, 120));
         }
     }
 }

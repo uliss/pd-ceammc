@@ -12,80 +12,21 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_music_chord.h"
-#include "ceammc_log.h"
-
-#include <boost/algorithm/string/predicate.hpp>
+#include "lex/parser_music.h"
 
 using namespace ceammc::music;
 
 constexpr unsigned int HASH_OFFSET = 8;
 
-// Chord::Chord(const ChordData* data)
-//     : data_(data)
-//{
-// }
-
-// const char* Chord::name() const
-//{
-//     return (data_ && data_->name) ? data_->name : "?";
-// }
-
-// const char* Chord::fullName() const
-//{
-//     return (data_ && data_->full_name) ? data_->full_name : "";
-// }
-
-// std::uint32_t Chord::hash() const
-//{
-//     auto n = name();
-//     return ceammc_chord_hash(n, strlen(n)) << HASH_OFFSET;
-// }
-
-// bool Chord::find(DegreeType degree) const
-//{
-//     if (data_) {
-//         auto& deg = data_->degrees;
-//         return std::find(deg.begin(), deg.end(), degree) != deg.end();
-//     } else
-//         return false;
-// }
-
-// ChordLibrary::ChordLibrary()
-//{
-//     for (auto& c : ceammc_chord_names) {
-//         if (c.name) {
-//             all_sorted_.push_back(Chord(&c));
-//             LIB_DBG << c.name;
-//         }
-//     }
-
-//    std::sort(all_sorted_.begin(), all_sorted_.end(), [](const Chord& a, const Chord& b) {
-//        return boost::lexicographical_compare(a.name(), b.name());
-//    });
-//}
-
-// ChordLibrary& ChordLibrary::instance()
-//{
-//     static ChordLibrary instance_;
-//     return instance_;
-// }
-
-// const Chord ChordLibrary::find(const char* name) const
-//{
-//     return ceammc_find_chord(name, strlen(name));
-// }
-
-// const Chord ChordLibrary::findByHash(std::uint32_t hash) const
-//{
-//     hash >>= HASH_OFFSET;
-
-//    if (hash <= MAX_HASH_VALUE) {
-//        if (ceammc_chord_names[hash].name)
-//            return &ceammc_chord_names[hash];
-//    }
-
-//    return {};
-//}
+t_float ceammc::operator""_midi(const char* str, size_t n)
+{
+    using namespace ceammc;
+    music::Spn res;
+    if (parser::parse_spn(str, res))
+        return res.asMidi();
+    else
+        return 0;
+}
 
 ChordType::ChordType(DegreeInitList init)
 {

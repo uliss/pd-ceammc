@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="midi.note.pass">
+        <title>midi.note.pass</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>midi note pass by expression</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>midi</category>
+            <keywords>midi expression pass</keywords>
+            <since>0.9.7</since>
+            <aliases>
+                <alias>note.pass</alias>
+            </aliases>
+            <also>
+                <see>expr</see>
+            </also>
+        </meta>
+        <info>
+            <par>Passes midi notes (list of PITCH VELOCITY DUR?) for which expression returns true.</par>
+            <par>Available variables: $n - MIDI note, $v - MIDI velocity</par>
+            <par>Available functions: white(NOTE), black(NOTE), oct(NOTE), abs(X), sqrt(X)</par>
+            <par>Available math operations: +,-,*,/,%,^,==,!=,&gt;,&gt;=,&lt;,&lt;=, &amp;&amp;,||</par>
+            <par>see for more information:</par>
+            <a href="https://beltoforion.de/en/muparser/features.php#idDef1">https://beltoforion.de/en/muparser/features.php#idDef1</a>
+        </info>
+        <arguments>
+            <argument name="EXPR" type="list">init expression</argument>
+        </arguments>
+        <properties>
+            <property name="@expr" type="list" default="">expression</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="list">NOTE VELOCITY [DUR] list</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>passed NOTE VELOCITY [DUR] list</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]              [ui.keyboard]
+|                |
+[metro 100]      |
+|                |
+[random.i 40 80] |
+|                |
+[makenote 120 95 ]
+*|*
+[pack f f]           [list(
+|
+[note.pass white($n) && $n>=60]
+|
+[msg note]
+|
+[sfizz~ \#tri @volume 6]   [ui.dsp~]
+*|*
+[ui.hgain2~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -19,6 +19,11 @@
 #include "ceammc_music_theory_duration.h"
 
 namespace ceammc {
+
+// clang-format off
+t_float operator ""_midi(const char* str, size_t n);
+// clang-format on
+
 namespace music {
 
     constexpr auto CHORD_MAX_PITCH_NUM = 7;

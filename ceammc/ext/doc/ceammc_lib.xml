@@ -1595,6 +1595,9 @@
     <entry name="midi.modus" descr="snap/skip midi pitches according modus" ref_view="object">
       <xi:include href="midi.modus.pddoc" parse="xml"/>
     </entry>
+    <entry name="midi.note.pass" descr="midi note pass by expression" ref_view="object">
+      <xi:include href="midi.note.pass.pddoc" parse="xml"/>
+    </entry>
     <entry name="midi.oct" descr="midi octave transpose" ref_view="object">
       <xi:include href="midi.oct.pddoc" parse="xml"/>
     </entry>

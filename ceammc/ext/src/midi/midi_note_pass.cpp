@@ -14,28 +14,109 @@
 #include "midi_note_pass.h"
 #include "args/argcheck2.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
+#include "ceammc_music_chord.h"
+#include "ceammc_music_scale.h"
 #include "ceammc_music_theory_keyboard.h"
 #include "fmt/core.h"
+#include "lex/parser_music.h"
 #include "muParser.h"
 
 using MuParserFn = double (*)(double);
+using MuParserFn2 = double (*)(double, double);
 
 MidiNotePass::MidiNotePass(const PdArgs& args)
     : BaseObject(args)
     , expr_(new mu::Parser)
 {
-    expr_->DefineNameChars("$0123456789_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ");
-    expr_->DefineVar("$n", &expr_note_);
-    expr_->DefineVar("$v", &expr_vel_);
-    expr_->DefineFun("is_black_key", static_cast<MuParserFn>([](double note) -> double {
-        return music::keyboard::is_black_key<int>(note);
-    }));
+    try {
+        expr_->DefineNameChars("#$0123456789_abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ:");
+        expr_->DefineVar("$N", &expr_note_);
+        expr_->DefineVar("$V", &expr_vel_);
 
-    prop_expr_ = new SymbolProperty("@expr", &s_);
+        expr_->DefineConst("Cb", 11);
+        expr_->DefineConst("C", 0);
+        expr_->DefineConst("C#", 1);
+        expr_->DefineConst("Db", 1);
+        expr_->DefineConst("D", 2);
+        expr_->DefineConst("D#", 3);
+        expr_->DefineConst("Eb", 3);
+        expr_->DefineConst("E", 4);
+        expr_->DefineConst("E#", 5);
+        expr_->DefineConst("Fb", 4);
+        expr_->DefineConst("F", 5);
+        expr_->DefineConst("F#", 6);
+        expr_->DefineConst("Gb", 6);
+        expr_->DefineConst("G", 7);
+        expr_->DefineConst("G#", 8);
+        expr_->DefineConst("Ab", 8);
+        expr_->DefineConst("A", 9);
+        expr_->DefineConst("A#", 10);
+        expr_->DefineConst("Bb", 10);
+        expr_->DefineConst("B", 11);
+        expr_->DefineConst("B#", 12);
+
+        for (auto s : music::ScaleLibrary::instance().all())
+            expr_->DefineConst(s->name(), crc32_hash(s->name()));
+
+        expr_->DefineFun("black", static_cast<MuParserFn>([](double note) -> double {
+            return music::keyboard::is_black_key<int>(note);
+        }));
+        expr_->DefineFun("white", static_cast<MuParserFn>([](double note) -> double {
+            return music::keyboard::is_white_key<int>(note);
+        }));
+        expr_->DefineFun("oct", static_cast<MuParserFn>([](double note) -> double {
+            return (int(note) / 12) - 1;
+        }));
+        expr_->DefineFun("oct", static_cast<MuParserFn>([](double note) -> double {
+            return (int(note) / 12) - 1;
+        }));
+        expr_->DefineFun("print", static_cast<MuParserFn>([](double value) -> double {
+            LIB_POST << fmt::format("[midi.note.pass] print: {}", value);
+            return 1;
+        }));
+        expr_->DefineFunUserData(
+            "scale", [](void* data, double base, double scale_hash) -> double {
+                const MidiNotePass* x = static_cast<const MidiNotePass*>(data);
+                if (!x)
+                    return 0;
+
+                auto scale = music::ScaleLibrary::instance().findByHash(scale_hash);
+                if (!scale) {
+                    LIB_ERR << "scale not found";
+                    return 0;
+                } else {
+                    auto degree = static_cast<music::DegreeType>(24 + x->currentNote() - base) % 12;
+                    return scale->find(degree);
+                }
+            },
+            this, false);
+        expr_->DefineFunUserData(
+            "chord", [](void* data, const char* chord) -> double {
+                const MidiNotePass* x = static_cast<const MidiNotePass*>(data);
+                if (!x)
+                    return 0;
+
+                music::ChordClass ch;
+                if (!parser::parse_chord_class(chord, ch)) {
+                    LIB_ERR << fmt::format("invaldi chord: '{}'", chord);
+                    return 0;
+                }
+
+                auto degree = static_cast<music::DegreeType>(24 + x->currentNote() - ch.basePitch().asMidi()) % 12;
+                return ch.type().contains(degree);
+            },
+            this, false);
+
+    } catch (mu::ParserError& e) {
+        OBJ_ERR << e.GetMsg();
+    }
+
+    prop_expr_ = new ListProperty("@expr");
     prop_expr_->setArgIndex(0);
-    prop_expr_->setSymbolCheckFn([this](t_symbol* s) -> bool {
+    prop_expr_->setListCheckFn([this](const AtomListView& lv) -> bool {
         try {
-            expr_->SetExpr(prop_expr_->value()->s_name);
+            expr_->SetExpr(to_string(lv, ""));
             return true;
         } catch (mu::Parser::exception_type& e) {
             OBJ_ERR << fmt::format("error '{}' in expression: '{}'", e.GetMsg(), e.GetExpr());
@@ -44,12 +125,8 @@ MidiNotePass::MidiNotePass(const PdArgs& args)
     });
     addProperty(prop_expr_);
 
+    createInlet();
     createOutlet();
-}
-
-void MidiNotePass::initDone()
-{
-    prop_expr_->set(prop_expr_->get());
 }
 
 void MidiNotePass::onList(const AtomListView& lv)
@@ -71,8 +148,19 @@ void MidiNotePass::onList(const AtomListView& lv)
     }
 }
 
+void MidiNotePass::onInlet(size_t n, const AtomListView& lv)
+{
+    prop_expr_->set(lv);
+}
+
 void setup_midi_note_pass()
 {
+    LIB_DBG << fmt::format("muparser: {}", mu::Parser().GetVersion(mu::pviBRIEF));
+
     ObjectFactory<MidiNotePass> obj("midi.note.pass");
+    obj.parseArgsMode(PdArgs::PARSE_COPY);
+    obj.parsePropsMode(PdArgs::PARSE_COPY);
     obj.addAlias("note.pass");
+
+    obj.setXletsInfo({ "list: NOTE VEL DUR?", "list: set new expression" }, { "list: NOTE VEL DUR?" });
 }

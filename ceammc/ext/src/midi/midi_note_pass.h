@@ -22,17 +22,18 @@ using namespace ceammc;
 namespace mu {
 class Parser;
 }
-
 class MidiNotePass : public BaseObject {
     std::unique_ptr<mu::Parser> expr_;
     double expr_note_ { 0 }, expr_vel_ { 0 };
-    SymbolProperty* prop_expr_ { 0 };
+    ListProperty* prop_expr_ { 0 };
 
 public:
     MidiNotePass(const PdArgs& args);
 
-    void initDone() final;
     void onList(const AtomListView& lv) final;
+    void onInlet(size_t n, const AtomListView& lv) final;
+
+    double currentNote() const { return expr_note_; }
 };
 
 void setup_midi_note_pass();
