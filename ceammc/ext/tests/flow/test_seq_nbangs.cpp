@@ -39,6 +39,8 @@ TEST_CASE("seq.nbangs", "[externals]")
             REQUIRE_PROPERTY(t, @t, 0);
             REQUIRE_PROPERTY(t, @n, 0);
             REQUIRE_PROPERTY(t, @div, 1);
+            REQUIRE_PROPERTY_FLOAT(t, @accel, 1);
+            REQUIRE_PROPERTY_FLOAT(t, @curve, 1);
         }
 
         SECTION("args")

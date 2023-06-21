@@ -33,6 +33,7 @@ TEST_CASE("seq.bangs", "[externals]")
             REQUIRE_PROPERTY(t, @t, 100);
             REQUIRE_PROPERTY(t, @dur, 0);
             REQUIRE_PROPERTY(t, @p, L());
+            REQUIRE_PROPERTY_FLOAT(t, @accel, 1);
         }
 
         SECTION("args")

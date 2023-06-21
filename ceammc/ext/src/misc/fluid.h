@@ -25,7 +25,11 @@ using namespace ceammc;
 
 struct _fluid_synth_t;
 typedef struct _fluid_synth_t fluid_synth_t;
-using FluidSynthPtr = std::unique_ptr<fluid_synth_t, void(*)(fluid_synth_t*)>;
+using FluidSynthPtr = std::unique_ptr<fluid_synth_t, void (*)(fluid_synth_t*)>;
+
+struct _fluid_hashtable_t;
+typedef struct _fluid_hashtable_t fluid_settings_t;
+using FluidSettingsPtr = std::unique_ptr<fluid_settings_t, void (*)(fluid_settings_t*)>;
 
 class FluidSynthProperty;
 
@@ -33,6 +37,7 @@ class FluidSynthProperty;
  * @note MIDI channels are 1-based in PureData
  */
 class Fluid : public SoundExternal {
+    FluidSettingsPtr settings_;
     FluidSynthPtr synth_;
     t_symbol* sound_font_;
     midi::MidiParser midi_parser_;

@@ -75,6 +75,8 @@
   - @upbeat added to seq.bangs, seq.toggles, seq.matrix and sequencer - wait specified number of beats before start
   - @msg added to flow.select to output message instead of bang
   - @attack, @decay, @sustain, @release added to live.capture~ for controlling loop envelope
+  - @accel and @curve added to seq.nbangs for accelerated sequences
+  - @div added to seq.nbangs for beat division
 - new init argument functions:
   - hexbeat(HEX) - expand hex to list of 1 and 0
   - ones(N) - list of length N, filled with 1

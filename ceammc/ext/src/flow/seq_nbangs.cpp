@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "seq_nbangs.h"
+#include "ceammc_convert.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
@@ -25,7 +26,7 @@ SeqNBangs::SeqNBangs(const PdArgs& args)
     , counter_(0)
     , clock_([this]() {
         if (tick())
-            clock_.delay(interval_->value() / beat_division_->value());
+            clock_.delay(nextBang());
     })
 {
     createInlet();
@@ -44,6 +45,14 @@ SeqNBangs::SeqNBangs(const PdArgs& args)
     beat_division_ = new IntProperty("@div", 1);
     beat_division_->checkClosedRange(1, 64);
     addProperty(beat_division_);
+
+    accel_ = new FloatProperty("@accel", 1);
+    accel_->checkClosedRange(0.25, 4);
+    addProperty(accel_);
+
+    accel_curve_ = new FloatProperty("@curve", 1);
+    accel_curve_->checkClosedRange(-8, 8);
+    addProperty(accel_curve_);
 
     createCbFloatProperty(
         "@dur",
@@ -121,6 +130,17 @@ bool SeqNBangs::tick()
 
         counter_++;
         return true;
+    }
+}
+
+t_float SeqNBangs::nextBang() const
+{
+    if (accel_->value() == 1)
+        return interval_->value() / beat_division_->value();
+    else {
+        auto ss = interval_->value() / beat_division_->value();
+        auto speed = convert::lin2curve(counter_, 0, n_->value(), 1, accel_->value(), accel_curve_->value());
+        return ss / speed;
     }
 }
 

@@ -72,6 +72,10 @@ SeqBase::SeqBase(const PdArgs& args, t_float defBeatDuration)
     beat_division_->checkClosedRange(1, 64);
     addProperty(beat_division_);
 
+    accel_ = new FloatProperty("@accel", 1);
+    accel_->checkClosedRange(0.125, 8);
+    addProperty(accel_);
+
     repeat_ = new RepeatProperty("@r", 1);
     addProperty(repeat_);
 

@@ -126,18 +126,8 @@ public:
 
 Fluid::Fluid(const PdArgs& args)
     : SoundExternal(args)
-    , synth_(nullptr,
-          [](fluid_synth_t* synth) {
-              fluid_settings_t* settings = nullptr;
-
-              if (synth) {
-                  settings = fluid_synth_get_settings(synth);
-                  delete_fluid_synth(synth);
-              }
-
-              if (settings)
-                  delete_fluid_settings(settings);
-          })
+    , settings_(nullptr, [](fluid_settings_t* s) { delete_fluid_settings(s); })
+    , synth_(nullptr, [](fluid_synth_t* synth) { delete_fluid_synth(synth); })
     , sound_font_(&s_)
     , nvoices_cb_([this]() { floatTo(2, nvoices_); })
     , nvoices_(0)
@@ -146,8 +136,8 @@ Fluid::Fluid(const PdArgs& args)
     createSignalOutlet();
     createOutlet();
 
-    fluid_settings_t* settings = new_fluid_settings();
-    if (settings == nullptr) {
+    settings_.reset(new_fluid_settings());
+    if (!settings_) {
         OBJ_ERR << "couldn't create synth settings";
         return;
     }
@@ -156,7 +146,7 @@ Fluid::Fluid(const PdArgs& args)
     //    fluid_settings_setnum(settings, "synth.midi-channels", 16);
 
     // Create fluidsynth instance:
-    synth_.reset(new_fluid_synth(settings));
+    synth_.reset(new_fluid_synth(settings_.get()));
 
     if (synth_ == nullptr)
         OBJ_ERR << "couldn't create synth";

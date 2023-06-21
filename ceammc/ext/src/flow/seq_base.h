@@ -51,6 +51,7 @@ protected:
     FloatProperty* upbeat_ { 0 };
     SeqTimeGrain* beat_duration_ { 0 };
     IntProperty* beat_division_ { 0 };
+    FloatProperty* accel_ { 0 };
     ClockLambdaFunction clock_;
     size_t num_repeats_ = { 0 };
     size_t sequence_counter_ = { 0 };
