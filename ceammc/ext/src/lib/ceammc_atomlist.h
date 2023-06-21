@@ -308,6 +308,18 @@ public:
     bool isList() const noexcept { return atoms_.size() > 1; }
     bool isData() const noexcept { return atoms_.size() == 1 && atoms_.front().isData(); }
 
+    bool isMsgBang() const noexcept { return atoms_.size() == 1 && atoms_[0] == &s_bang; }
+    bool isMsgFloat() const noexcept { return atoms_.size() == 2 && atoms_[0] == &s_float && atoms_[1].isFloat(); }
+    bool isMsgSymbol() const noexcept { return atoms_.size() == 2 && atoms_[0] == &s_symbol && atoms_[1].isSymbol(); }
+    bool isMsgList() const noexcept { return atoms_.size() > 0 && atoms_[0] == &s_list; }
+    bool isMsgAny() const noexcept;
+
+    bool isLogicList() const noexcept { return isMsgList() || (atoms_.size() > 1 && atoms_[0].isFloat()); }
+
+    t_float asMsgFloat(t_float def = 0) const noexcept;
+    t_symbol* asMsgSymbol(t_symbol* def = &s_) const noexcept;
+    AtomListView asLogicList() const noexcept;
+
     /**
      * Check if list is of specified type
      */

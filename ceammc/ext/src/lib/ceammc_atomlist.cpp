@@ -27,7 +27,7 @@
 
 namespace ceammc {
 
-using ElementAccessFn = const Atom* (AtomList::*)(int)const;
+using ElementAccessFn = const Atom* (AtomList::*)(int) const;
 
 AtomList::AtomList() noexcept
 {
@@ -95,7 +95,7 @@ void AtomList::operator=(const AtomListView& l)
     atoms_.clear();
     atoms_.reserve(l.size());
 
-    if(l.isNull() || l.empty())
+    if (l.isNull() || l.empty())
         return;
 
     for (auto& a : l)
@@ -471,6 +471,41 @@ const Atom* AtomList::first() const
 const Atom* AtomList::last() const
 {
     return const_cast<AtomList*>(this)->last();
+}
+
+bool AtomList::isMsgAny() const noexcept
+{
+    if (atoms_.size() > 0 && atoms_[0].isSymbol()) {
+        auto& f = atoms_[0];
+        return f != &s_bang && f != &s_float && f != &s_symbol && f != &s_pointer && f != &s_list;
+    } else
+        return false;
+}
+
+t_float AtomList::asMsgFloat(t_float def) const noexcept
+{
+    if (isMsgFloat())
+        return atoms_[1].asT<t_float>();
+    else
+        return def;
+}
+
+t_symbol* AtomList::asMsgSymbol(t_symbol* def) const noexcept
+{
+    if (isMsgSymbol())
+        return atoms_[1].asT<t_symbol*>();
+    else
+        return def;
+}
+
+AtomListView AtomList::asLogicList() const noexcept
+{
+    if (isMsgList())
+        return view(1);
+    else if (atoms_.size() > 1 && atoms_[0].isFloat())
+        return view();
+    else
+        return {};
 }
 
 void AtomList::fill(const Atom& a)
