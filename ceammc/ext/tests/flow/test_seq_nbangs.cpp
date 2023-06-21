@@ -306,5 +306,8 @@ TEST_CASE("seq.nbangs", "[externals]")
         REQUIRE(t.calcStepDelay(2) == 10);
         REQUIRE(t.calcTotalDur() == Approx(68.06824));
         REQUIRE(t.calcIntervalByDur(68.06824) == Approx(40));
+
+        t.setProperty("@div", LF(2));
+        REQUIRE(t.calcTotalDur() == Approx(68.06824 * 0.5));
     }
 }
