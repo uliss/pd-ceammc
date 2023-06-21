@@ -26,6 +26,7 @@ set(BASE_SOURCES
     msg.cpp
     msg_after.cpp
     msg_onclose.cpp
+    msg_pack.cpp
     msg_sched.cpp
     obj_info.cpp
     obj_props.cpp
