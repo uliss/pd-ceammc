@@ -26,7 +26,7 @@ SeqNBangs::SeqNBangs(const PdArgs& args)
     , counter_(0)
     , clock_([this]() {
         if (tick())
-            clock_.delay(nextBang());
+            clock_.delay(calcStepDelay(counter_));
     })
 {
     createInlet();
@@ -56,7 +56,7 @@ SeqNBangs::SeqNBangs(const PdArgs& args)
 
     createCbFloatProperty(
         "@dur",
-        [this]() -> t_float { return n_->value() * interval_->value(); },
+        [this]() -> t_float { return calcTotalDur(); },
         [this](t_float f) -> bool {
             const auto N = n_->value();
             if (N == 0) {
@@ -64,7 +64,7 @@ SeqNBangs::SeqNBangs(const PdArgs& args)
                 return false;
             }
 
-            return interval_->setValue(f / N);
+            return interval_->setValue(calcIntervalByDur(f));
         })
         ->checkNonNegative();
 }
@@ -133,14 +133,57 @@ bool SeqNBangs::tick()
     }
 }
 
-t_float SeqNBangs::nextBang() const
+t_float SeqNBangs::calcIntervalByDur(t_float dur) const
 {
-    if (accel_->value() == 1)
+    const auto N = n_->value();
+
+    if (accel_->value() == 1) {
+        return dur / N;
+    } else if (accel_curve_->value() == 0) {
+        // T = (i0+i0/a) * (N-1) / 2
+        // 2T/(N-1) == (i0 + i0/a)
+        // 2T/(N-1) == (i0 + i0/a)
+        // 2T/(N-1)*a == ai0 + i0
+        // 2T/(N-1)*a == i0(a + 1)
+        // 2T/(N-1)*a/(a+1) == i0
+        auto a = accel_->value();
+        return ((dur * 2) / (N - 1)) * (a / (1 + a));
+    } else {
+        auto k = dur / calcTotalDur();
+        return interval_->value() * k;
+    }
+}
+
+t_float SeqNBangs::calcTotalDur() const
+{
+    const auto N = n_->value();
+
+    if (N == 0)
+        return 0;
+    else if (accel_->value() == 1)
+        return N * interval_->value();
+    else if (accel_curve_->value() == 0) {
+        auto i0 = interval_->value();
+        auto in = i0 / accel_->value();
+        return ((i0 + in) * (N - 1) / 2);
+    } else {
+        t_float res = 0;
+        for (int i = 0; i < N - 1; i++)
+            res += calcStepDelay(i);
+
+        return res;
+    }
+    return 0;
+}
+
+t_float SeqNBangs::calcStepDelay(int n) const
+{
+    if (accel_->value() == 1) {
         return interval_->value() / beat_division_->value();
-    else {
-        auto ss = interval_->value() / beat_division_->value();
-        auto speed = convert::lin2curve(counter_, 0, n_->value(), 1, accel_->value(), accel_curve_->value());
-        return ss / speed;
+    } else {
+        auto interval = interval_->value() / beat_division_->value();
+        auto speed = convert::lin2curve(n, 0, n_->value() - 2, 1, 1 / accel_->value(), accel_curve_->value());
+        return interval * speed;
     }
 }
 

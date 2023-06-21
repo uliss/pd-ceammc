@@ -44,8 +44,9 @@ public:
     void resetCycleCounter() { }
     void resetSequenceCounter() { counter_ = 0; }
 
-private:
-    t_float nextBang() const;
+    t_float calcIntervalByDur(t_float dur) const;
+    t_float calcTotalDur() const;
+    t_float calcStepDelay(int n) const;
 };
 
 using SeqNBangsT = SequencerIFace<SeqNBangs>;
