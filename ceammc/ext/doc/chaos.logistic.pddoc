@@ -39,7 +39,7 @@
             population will approach oscillations among 8 values, then 16, 32, etc.</par>
             <par>• At λ ≈ 3.56995 is the onset of chaos, at the end of the period-doubling
             cascade.</par>
-            <par>• Most values of r beyond 3.56995 exhibit chaotic behaviour, but there are still
+            <par>• Most values of r beyond 3.56995 exhibit chaotic behavior, but there are still
             certain isolated ranges of r that show non-chaotic behavior.</par>
             <par>Beyond λ = 4, almost all initial values eventually leave the interval [0,1] and
             diverge.</par>
