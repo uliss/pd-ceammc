@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "seq_bangs.h"
 #include "ceammc_factory.h"
+#include "ceammc_fn_list.h"
 #include "ceammc_format.h"
 #include "fmt/core.h"
 
@@ -107,10 +108,34 @@ void SeqBangsBase::outputRepeatDone()
     anyTo(1, sym_done(), AtomListView());
 }
 
+void SeqBangsBase::m_hexbeat(t_symbol* s, const AtomListView& lv)
+{
+    if (lv.empty() || !lv.isSymbol()) {
+        METHOD_ERR(s) << "hex symbol expected, got: " << lv;
+        return;
+    }
+
+    AtomList dur;
+    int shift;
+    if (list::hexbeat_dur(lv.asSymbol()->s_name, dur, shift)) {
+        upbeat_->setValue(shift);
+        pattern_->setValue(dur);
+    }
+}
+
+void SeqBangsBase::m_jump(t_symbol* s, const AtomListView& lv)
+{
+    auto n = lv.asInt(0);
+    while (n-- > 0)
+        tick(false);
+}
+
 void setup_seq_bangs()
 {
     SequencerIFaceFactory<ObjectFactory, SeqBangs> obj("seq.bangs");
     obj.addAlias("seq.b");
+    obj.addMethod("hexbeat", &SeqBangsBase::m_hexbeat);
+    obj.addMethod("jump", &SeqBangsBase::m_jump);
 
     obj.setXletsInfo({ "bang:  start playing sequence\n"
                        "stop:  stop sequencer\n",

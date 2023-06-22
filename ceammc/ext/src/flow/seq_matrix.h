@@ -27,7 +27,7 @@ public:
     void onInlet(size_t n, const AtomListView& l) override;
 
     size_t sequenceSize() const final { return n_->value(); }
-    double calcNextTick() const final { return beat_duration_->value(); }
+    double calcNextTick() const final;
     void outputTick() override;
     void outputRepeat(size_t ridx) final;
     void outputRepeatDone() final;

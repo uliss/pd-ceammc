@@ -35,8 +35,7 @@ SeqMatrixBase::SeqMatrixBase(const PdArgs& args)
     n_->setArgIndex(0);
     addProperty(n_);
 
-    beat_duration_->setDefault(250.0);
-    beat_duration_->setArgIndex(1);
+    setBeatDurationDefs(250, 1);
 
     {
         auto p = createCbFloatProperty(
@@ -87,6 +86,11 @@ void SeqMatrixBase::onInlet(size_t n, const AtomListView& l)
         reset();
     else
         n_->set(l);
+}
+
+double SeqMatrixBase::calcNextTick() const
+{
+    return beatDuration();
 }
 
 void SeqMatrixBase::outputTick()

@@ -33,7 +33,7 @@ TEST_CASE("seq.bangs", "[externals]")
             REQUIRE_PROPERTY(t, @t, 100);
             REQUIRE_PROPERTY(t, @dur, 0);
             REQUIRE_PROPERTY(t, @p, L());
-            REQUIRE_PROPERTY_FLOAT(t, @accel, 1);
+            REQUIRE_PROPERTY_FLOAT(t, @div, 1);
         }
 
         SECTION("args")
@@ -241,5 +241,16 @@ TEST_CASE("seq.bangs", "[externals]")
                             ri(1, 2), i(0, 3), ed(1), i(1, 3), ed(2) });
             }
         }
+    }
+
+    SECTION("hexbeat")
+    {
+        TExt t("seq.b");
+        t.call("hexbeat", LA("0xBEEF"));
+        REQUIRE_PROPERTY(t, @p, LF(2, 1, 1, 1, 1, 2, 1, 1, 2, 1, 1, 1, 1));
+
+        t.call("hexbeat", LA("0x37")); // 00110111
+        REQUIRE_PROPERTY(t, @upbeat, 2);
+        REQUIRE_PROPERTY(t, @p, LF(1, 2, 1, 1, 3));
     }
 }

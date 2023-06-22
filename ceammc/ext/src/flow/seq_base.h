@@ -45,13 +45,13 @@ public:
 };
 
 class SeqBase : public BaseObject {
+    SeqTimeGrain* beat_duration_ { 0 };
+    IntProperty* beat_division_ { 0 };
+
 protected:
     RepeatProperty* repeat_ { 0 };
     SymbolEnumProperty* mode_ { 0 };
     FloatProperty* upbeat_ { 0 };
-    SeqTimeGrain* beat_duration_ { 0 };
-    IntProperty* beat_division_ { 0 };
-    FloatProperty* accel_ { 0 };
     ClockLambdaFunction clock_;
     size_t num_repeats_ = { 0 };
     size_t sequence_counter_ = { 0 };
@@ -171,6 +171,13 @@ public:
      * @return true on success, false on error
      */
     bool setBeatDuration(t_float ms) { return beat_duration_->setValue(ms * beat_division_->value()); }
+
+    void setBeatDurationDefs(t_float ms, int idx);
+
+    /**
+     * return beat division
+     */
+    int beatDivision() const { return beat_division_->value(); }
 
 public:
     SeqBase(const PdArgs& args, t_float defBeatDuration);

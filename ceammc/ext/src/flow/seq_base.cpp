@@ -72,10 +72,6 @@ SeqBase::SeqBase(const PdArgs& args, t_float defBeatDuration)
     beat_division_->checkClosedRange(1, 64);
     addProperty(beat_division_);
 
-    accel_ = new FloatProperty("@accel", 1);
-    accel_->checkClosedRange(0.125, 8);
-    addProperty(accel_);
-
     repeat_ = new RepeatProperty("@r", 1);
     addProperty(repeat_);
 
@@ -242,6 +238,12 @@ void SeqBase::moveSequenceCounter(long n)
         sequence_counter_ = LAST - (static_cast<size_t>(-nn - 1) % N);
     else
         sequence_counter_ = static_cast<size_t>(nn) % N;
+}
+
+void SeqBase::setBeatDurationDefs(t_float ms, int idx)
+{
+    beat_duration_->setDefault(ms);
+    beat_duration_->setArgIndex(idx);
 }
 
 void SeqBase::reset()
