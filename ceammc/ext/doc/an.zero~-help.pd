@@ -30,7 +30,7 @@ Default value: 1024\. Range: 1\...65536\.;
 impulse at each zero crossing. Type: list. Default value: 0\.;
 #X msg 110 651 @mode;
 #X text 245 651 Get/Set calculation mode: if 'count' - output number
-of zero crossing occured in a period of current block size \, if 'rate'
+of zero crossing occurred in a period of current block size \, if 'rate'
 - output zero crossing rate (zero crossing number / block size) \,
 if 'freq' - output zero crossing frequency in hertz. Type: symbol.
 Default value: count. Allowed values: count \, rate \, freq.;
