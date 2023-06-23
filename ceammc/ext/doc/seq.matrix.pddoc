@@ -31,6 +31,7 @@
             <property name="@once" type="alias">alias to @r 1, play once</property>
             <property name="@dur" type="float" default="4000" minvalue="0" units="millisecond">
             whole sequence duration. (Recalculates @t property accordingly)</property>
+            <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">beat subdivision</property>
             <property name="@upbeat" type="float" default="0" minvalue="0">wait specified number of
             beats before sequence start</property>
             <property name="@i" type="int" access="readonly" default="0">current sequence
@@ -72,8 +73,8 @@
 |   |         |
 |   |         [@mode $1(
 |   |         |
-[seq.matrix 16 120|16bpm] [loadmsg random]
-|                         |
+[seq.matrix #m]        [loadmsg random]
+|                      |
 [ui.matrix 3 16 @size 320 51]
 |
 |
@@ -99,6 +100,7 @@
 #g0 $1
 #g1 $1
 #g2 $1
+#m 16 120bpm @div 4
 [X a:1->g0]
 [X a:2->e1]
 [X a:3->e2]

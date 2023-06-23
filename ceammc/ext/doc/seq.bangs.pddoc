@@ -31,6 +31,7 @@
             <property name="@once" type="alias">alias to @r 1, play once</property>
             <property name="@dur" type="float" default="0" minvalue="0" units="millisecond">whole
             sequence duration. (Recalculates @t property accordingly)</property>
+            <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">beat subdivision</property>
             <property name="@upbeat" type="float" default="0" minvalue="0">wait specified number of
             beats before sequence start</property>
             <property name="@i" type="int" access="readonly" default="0">current sequence

@@ -33,75 +33,78 @@ list.;
 #X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 429 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 464 @dur;
-#X text 245 464 Get/Set whole sequence duration. (Recalculates @t property
+#X msg 110 464 @div;
+#X text 245 464 Get/Set beat subdivision. Type: int. Default value:
+1\. Range: 1\...64\.;
+#X msg 110 506 @dur;
+#X text 245 506 Get/Set whole sequence duration. (Recalculates @t property
 accordingly). Type: float. Units: ms. Default value: 0\. Min value:
 0\.;
-#X msg 110 521 @i;
-#X text 245 521 (readonly) Get current sequence iteration. Type: int.
+#X msg 110 563 @i;
+#X text 245 563 (readonly) Get current sequence iteration. Type: int.
 Default value: 0\.;
-#X msg 110 563 @inf;
-#X text 245 563 alias to @r -1 \, repeats infinitely.;
-#X msg 110 592 @mode;
-#X text 245 592 Get/Set sequencer mode. 'inc': from first to last \,
+#X msg 110 605 @inf;
+#X text 245 605 alias to @r -1 \, repeats infinitely.;
+#X msg 110 634 @mode;
+#X text 245 634 Get/Set sequencer mode. 'inc': from first to last \,
 'dec': from last to first \, 'tri': from first to last \, then back.
 Type: symbol. Default value: inc. Allowed values: inc \, dec \, tri.;
-#X msg 110 664 @once;
-#X text 245 664 alias to @r 1 \, play once.;
-#X msg 110 693 @p;
-#X text 245 693 Get/Set sequencer pattern in beat duration units. Type:
+#X msg 110 706 @once;
+#X text 245 706 alias to @r 1 \, play once.;
+#X msg 110 735 @p;
+#X text 245 735 Get/Set sequencer pattern in beat duration units. Type:
 list.;
-#X msg 110 722 @r;
-#X text 245 722 Get/Set number of whole sequence repeats. If -1: repeat
+#X msg 110 764 @r;
+#X text 245 764 Get/Set number of whole sequence repeats. If -1: repeat
 infinitely. Type: int. Default value: 1\. Min value: -1\.;
-#X msg 110 764 @ri;
-#X text 245 764 (readonly) Get current repeat iteration. Type: int.
+#X msg 110 806 @ri;
+#X text 245 806 (readonly) Get current repeat iteration. Type: int.
 Default value: 0\.;
-#X msg 110 806 @t;
-#X text 245 806 Get/Set time between beats. Unit values like 100ms
+#X msg 110 848 @t;
+#X text 245 848 Get/Set time between beats. Unit values like 100ms
 or 240bpm also can be used. Type: float. Units: ms. Default value:
 100\. Range: 1\...20000\.;
-#X msg 110 863 @upbeat;
-#X text 245 863 Get/Set wait specified number of beats before sequence
+#X msg 110 905 @upbeat;
+#X text 245 905 Get/Set wait specified number of beats before sequence
 start. Type: float. Default value: 0\. Min value: 0\.;
-#X obj 20 915 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 920 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 957 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 962 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 955 reset;
-#X text 245 955 reset all counters and stop.;
-#X msg 110 982 rewind;
-#X text 245 982 reset all counters without stopping.;
-#X msg 110 1009 start;
-#X text 245 1009 start sequencer from current position.;
-#X msg 110 1036 stop;
-#X text 245 1036 stop sequencer.;
-#X msg 110 1063 tick;
-#X text 245 1063 output current sequence element and move to next.;
-#X obj 20 1100 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1105 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 997 reset;
+#X text 245 997 reset all counters and stop.;
+#X msg 110 1024 rewind;
+#X text 245 1024 reset all counters without stopping.;
+#X msg 110 1051 start;
+#X text 245 1051 start sequencer from current position.;
+#X msg 110 1078 stop;
+#X text 245 1078 stop sequencer.;
+#X msg 110 1105 tick;
+#X text 245 1105 output current sequence element and move to next.;
+#X obj 20 1142 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1147 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1106 1\.;
-#X text 150 1106 *bang*;
-#X text 245 1106 reset all counters and start sequencer.;
-#X text 110 1126 2\.;
-#X text 150 1126 *list*;
-#X text 245 1126 set new pattern value.;
-#X obj 20 1156 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1161 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1148 1\.;
+#X text 150 1148 *bang*;
+#X text 245 1148 reset all counters and start sequencer.;
+#X text 110 1168 2\.;
+#X text 150 1168 *list*;
+#X text 245 1168 set new pattern value.;
+#X obj 20 1198 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1203 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1162 1\.;
-#X text 245 1162 bang.;
-#X text 110 1182 2\.;
-#X text 245 1182 [i IDX N( - sequence iteration \, [ri IDX N( - repeat
+#X text 110 1204 1\.;
+#X text 245 1204 bang.;
+#X text 110 1224 2\.;
+#X text 245 1224 [i IDX N( - sequence iteration \, [ri IDX N( - repeat
 iteration \, [ed MS( - event duration or [done( when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1247 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1250 library: ceammc v0.9.6;
-#N canvas 10 1269 400 290 info 0;
+#X obj 1 1289 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1292 library: ceammc v0.9.6;
+#N canvas 10 1311 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -125,7 +128,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1269 pd info;
+#X restore 10 1311 pd info;
 #X connect 5 0 8 0;
 #X connect 6 0 8 0;
 #X connect 7 0 8 0;
