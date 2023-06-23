@@ -36,6 +36,7 @@
             iteration</property>
             <property name="@ri" type="int" access="readonly" default="0">current repeat
             iteration</property>
+            <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">beat subdivision</property>
             <property name="@upbeat" type="float" default="0" minvalue="0">wait specified number of
             beats before sequence start</property>
             <property name="@mode" type="symbol" enum="inc dec tri" default="inc">sequencer mode.
@@ -72,7 +73,7 @@
 |   |          |            |
 |   |          |            [@mode $1(
 |   |          |            |
-[sequencer mtof(seq(56 90 3)) @t 360bpm @inf]
+[sequencer mtof(seq(56 90 3)) @t 120bpm @div 3 @inf]
 |                            ^|
 [t b f     ]                 [route done i ri]
 |         ^|                 |    ^|   ^^|

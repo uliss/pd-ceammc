@@ -58,7 +58,7 @@
 |
 [msg @v]  [T]
 |         |
-[seq @t 120|4_bpm @inf]
+[seq @t 120bpm @inf]
 |
 [+ 72]
 |
