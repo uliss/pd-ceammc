@@ -153,35 +153,38 @@ namespace sound {
         return frames_read_total;
     }
 
-    std::int64_t LibSndFile::write(const t_word** src, size_t num_frames, std::int64_t offset)
+    std::int64_t LibSndFile::write(const t_word* const* src, size_t num_frames, std::int64_t offset)
     {
         if (!isOpened()) {
             LIB_ERR << fmt::format("[sndfile] not opened");
             return -1;
         }
 
-        std::int64_t samples_written = 0;
         constexpr sf_count_t FRAME_COUNT = 256;
-        const sf_count_t OUT_BUF_SIZE = FRAME_COUNT * channels();
-        float frame_buf[OUT_BUF_SIZE];
-        std::int64_t frame_idx = 0;
+        const auto NCH = channels();
+        const sf_count_t OUT_BUF_SIZE = FRAME_COUNT * NCH;
 
-        for (size_t i = 0; i < num_frames; i++) {
-            frame_idx = i % FRAME_COUNT;
+        float frame_buf[OUT_BUF_SIZE];
+        size_t buf_frames = 0;
+        std::int64_t samples_written = 0;
+
+        for (size_t i = 0; i < num_frames; i++, buf_frames++) {
             // fill frame
-            for (size_t j = 0; j < channels(); j++)
-                frame_buf[frame_idx + j] = src[j][i].w_float * gain();
+            for (size_t j = 0; j < NCH; j++) {
+                auto samp = src[j][i].w_float * gain();
+                frame_buf[(i % FRAME_COUNT) * NCH + j] = samp;
+            }
 
             // frame buffer is full
-            if (frame_idx + 1 == FRAME_COUNT) {
-                frame_idx = -1;
-                samples_written += handle_.write(frame_buf, OUT_BUF_SIZE);
+            if (buf_frames == FRAME_COUNT) {
+                samples_written += handle_.write(frame_buf, buf_frames * NCH);
+                buf_frames = 0;
             }
         }
 
         // write remaining frames
-        if (frame_idx >= 0)
-            samples_written += handle_.write(frame_buf, (frame_idx + 1) * channels());
+        if (buf_frames > 0)
+            samples_written += handle_.write(frame_buf, buf_frames * NCH);
 
         handle_.writeSync();
         handle_ = {};

@@ -28,7 +28,7 @@ inline T getValue(fsm::NumericData& num, AtomType type)
 
 inline size_t clipArraySize(std::int64_t v, size_t arraySize)
 {
-    return std::min<std::int64_t>(arraySize - 1, std::max<std::int64_t>(0, v));
+    return std::min<std::int64_t>(arraySize, std::max<std::int64_t>(0, v));
 }
 
 inline std::int64_t getUnitValue(ArraySaverParams& params, fsm::NumericData& num, AtomType type, size_t arraySize)
@@ -160,13 +160,13 @@ tr136:
 	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
 tr144:
-#line 25 "lex/ragel_units.rl"
+#line 26 "lex/ragel_units.rl"
 	{ragel_type = TYPE_PERCENT;}
 #line 110 "lex/parser_array_saver.rl"
 	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
 tr145:
-#line 28 "lex/ragel_units.rl"
+#line 29 "lex/ragel_units.rl"
 	{ragel_type = TYPE_PHASE;}
 #line 110 "lex/parser_array_saver.rl"
 	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
@@ -187,19 +187,19 @@ tr153:
 	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
 tr157:
-#line 20 "lex/ragel_units.rl"
+#line 19 "lex/ragel_units.rl"
 	{ragel_type = TYPE_MSEC;}
 #line 110 "lex/parser_array_saver.rl"
 	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
 tr160:
-#line 19 "lex/ragel_units.rl"
+#line 22 "lex/ragel_units.rl"
 	{ragel_type = TYPE_SEC;}
 #line 110 "lex/parser_array_saver.rl"
 	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
 tr163:
-#line 12 "lex/ragel_units.rl"
+#line 21 "lex/ragel_units.rl"
 	{ragel_type = TYPE_SAMP;}
 #line 110 "lex/parser_array_saver.rl"
 	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
@@ -217,13 +217,13 @@ tr165:
 	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
 tr173:
-#line 25 "lex/ragel_units.rl"
+#line 26 "lex/ragel_units.rl"
 	{ragel_type = TYPE_PERCENT;}
 #line 111 "lex/parser_array_saver.rl"
 	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
 tr174:
-#line 28 "lex/ragel_units.rl"
+#line 29 "lex/ragel_units.rl"
 	{ragel_type = TYPE_PHASE;}
 #line 111 "lex/parser_array_saver.rl"
 	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
@@ -244,19 +244,19 @@ tr182:
 	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
 tr186:
-#line 20 "lex/ragel_units.rl"
+#line 19 "lex/ragel_units.rl"
 	{ragel_type = TYPE_MSEC;}
 #line 111 "lex/parser_array_saver.rl"
 	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
 tr189:
-#line 19 "lex/ragel_units.rl"
+#line 22 "lex/ragel_units.rl"
 	{ragel_type = TYPE_SEC;}
 #line 111 "lex/parser_array_saver.rl"
 	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
 tr192:
-#line 12 "lex/ragel_units.rl"
+#line 21 "lex/ragel_units.rl"
 	{ragel_type = TYPE_SAMP;}
 #line 111 "lex/parser_array_saver.rl"
 	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
@@ -287,7 +287,7 @@ tr199:
 	{ params.gain = getValue<float>(ragel_num, ragel_type); }
 	goto st2;
 tr203:
-#line 15 "lex/ragel_units.rl"
+#line 14 "lex/ragel_units.rl"
 	{ragel_type = TYPE_DB;}
 #line 81 "lex/parser_array_saver.rl"
 	{ params.gain = convert::dbfs2amp(params.gain); }
@@ -2657,77 +2657,77 @@ case 159:
 #line 114 "lex/parser_array_saver.rl"
 	{ params.out_sr = getValue<float>(ragel_num, ragel_type); }
 	break;
-	case 116: 
-	case 117: 
-#line 12 "lex/ragel_units.rl"
-	{ragel_type = TYPE_SAMP;}
-#line 110 "lex/parser_array_saver.rl"
-	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
-	break;
-	case 129: 
-	case 130: 
-#line 12 "lex/ragel_units.rl"
-	{ragel_type = TYPE_SAMP;}
-#line 111 "lex/parser_array_saver.rl"
-	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
-	break;
 	case 137: 
 	case 138: 
-#line 15 "lex/ragel_units.rl"
+#line 14 "lex/ragel_units.rl"
 	{ragel_type = TYPE_DB;}
 #line 81 "lex/parser_array_saver.rl"
 	{ params.gain = convert::dbfs2amp(params.gain); }
 	break;
-	case 115: 
-	case 118: 
-#line 19 "lex/ragel_units.rl"
-	{ragel_type = TYPE_SEC;}
-#line 110 "lex/parser_array_saver.rl"
-	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
-	break;
-	case 128: 
-	case 131: 
-#line 19 "lex/ragel_units.rl"
-	{ragel_type = TYPE_SEC;}
-#line 111 "lex/parser_array_saver.rl"
-	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
-	break;
 	case 112: 
 	case 113: 
-#line 20 "lex/ragel_units.rl"
+#line 19 "lex/ragel_units.rl"
 	{ragel_type = TYPE_MSEC;}
 #line 110 "lex/parser_array_saver.rl"
 	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	break;
 	case 125: 
 	case 126: 
-#line 20 "lex/ragel_units.rl"
+#line 19 "lex/ragel_units.rl"
 	{ragel_type = TYPE_MSEC;}
+#line 111 "lex/parser_array_saver.rl"
+	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
+	break;
+	case 116: 
+	case 117: 
+#line 21 "lex/ragel_units.rl"
+	{ragel_type = TYPE_SAMP;}
+#line 110 "lex/parser_array_saver.rl"
+	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
+	break;
+	case 129: 
+	case 130: 
+#line 21 "lex/ragel_units.rl"
+	{ragel_type = TYPE_SAMP;}
+#line 111 "lex/parser_array_saver.rl"
+	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
+	break;
+	case 115: 
+	case 118: 
+#line 22 "lex/ragel_units.rl"
+	{ragel_type = TYPE_SEC;}
+#line 110 "lex/parser_array_saver.rl"
+	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
+	break;
+	case 128: 
+	case 131: 
+#line 22 "lex/ragel_units.rl"
+	{ragel_type = TYPE_SEC;}
 #line 111 "lex/parser_array_saver.rl"
 	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	break;
 	case 108: 
 	case 114: 
-#line 25 "lex/ragel_units.rl"
+#line 26 "lex/ragel_units.rl"
 	{ragel_type = TYPE_PERCENT;}
 #line 110 "lex/parser_array_saver.rl"
 	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	break;
 	case 121: 
 	case 127: 
-#line 25 "lex/ragel_units.rl"
+#line 26 "lex/ragel_units.rl"
 	{ragel_type = TYPE_PERCENT;}
 #line 111 "lex/parser_array_saver.rl"
 	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	break;
 	case 109: 
-#line 28 "lex/ragel_units.rl"
+#line 29 "lex/ragel_units.rl"
 	{ragel_type = TYPE_PHASE;}
 #line 110 "lex/parser_array_saver.rl"
 	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	break;
 	case 122: 
-#line 28 "lex/ragel_units.rl"
+#line 29 "lex/ragel_units.rl"
 	{ragel_type = TYPE_PHASE;}
 #line 111 "lex/parser_array_saver.rl"
 	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }

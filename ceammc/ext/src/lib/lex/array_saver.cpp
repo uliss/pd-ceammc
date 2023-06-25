@@ -14,6 +14,8 @@
 #include "array_saver.h"
 #include "ceammc_array.h"
 #include "ceammc_log.h"
+#include "ceammc_object.h"
+#include "ceammc_platform.h"
 #include "ceammc_sound.h"
 #include "ceammc_string.h"
 #include "fmt/core.h"
@@ -28,6 +30,39 @@ namespace ceammc {
 
 ArraySaver::ArraySaver()
 {
+}
+
+std::int64_t ArraySaver::saveTo(const AtomListView& args, BaseObject* owner)
+{
+    if (!parse(args, owner))
+        return -1;
+
+    auto cnv = owner ? owner->canvas() : nullptr;
+    auto path = platform::make_abs_filepath_with_canvas(cnv, params_.filename.c_str());
+    if (!params_.overwrite && platform::path_exists(path.c_str())) {
+        PD_ERR(owner) << fmt::format("file already exists: '{}', use @overwrite option", path);
+        return -1;
+    }
+
+    if (path.empty())
+        return -1;
+
+    auto file = open(path);
+    if (!file) {
+        PD_ERR(owner) << fmt::format("can't open file: '{}'", path);
+        return -1;
+    }
+
+    auto arr = arrayData();
+    if (arr.empty()) {
+        PD_ERR(owner) << "empty data";
+        return -1;
+    }
+
+    if (normalize())
+        file->setGain(file->gain() / arr.peak);
+
+    return file->write(arr.rawData(), arr.length, 0);
 }
 
 bool ArraySaver::parse(const AtomListView& lv, BaseObject* obj)
@@ -93,10 +128,20 @@ bool ArraySaver::parse(const AtomListView& lv, BaseObject* obj)
         return false;
     }
 
+    if (params_.begin >= params_.end) {
+        PD_ERR(obj) << fmt::format("expected @begin < @end, got: {}>={}", params_.begin, params_.end);
+        return false;
+    }
+
+    if (params_.end > array_size) {
+        PD_ERR(obj) << fmt::format("expected @end <= {}, got: {}", array_size, params_.end);
+        return false;
+    }
+
     return true;
 }
 
-sound::SoundFilePtr ArraySaver::open(const std::string& path)
+sound::SoundFilePtr ArraySaver::open(const std::string& path) const
 {
     sound::SoundFileOpenParams params;
     params.samplerate = params_.out_sr;
@@ -123,12 +168,20 @@ ArrayDataView ArraySaver::arrayData() const
 
     auto N = arrays_.size();
     res.reserve(N);
-    res.length = params_.length() + 1;
+    res.length = params_.length();
 
     for (auto& name : arrays_) {
         Array arr(name);
-        if (arr.isValid())
-            res.data.push_back((arr.begin() + params_.begin).data());
+        if (arr.isValid()) {
+            res.ref().push_back((arr.begin() + params_.begin).data());
+            if (params_.normalize) {
+                auto it = std::max_element(arr.begin(), arr.end(), [](t_sample a, t_sample b) {
+                    return std::abs(a) < std::abs(b);
+                });
+                if (it != arr.end())
+                    res.peak = std::max<float>(res.peak, *it);
+            }
+        }
     }
     return res;
 }

@@ -24,18 +24,30 @@
 namespace ceammc {
 
 struct ArrayDataView {
-    std::vector<const t_word*> data;
+private:
+    std::vector<const t_word*> data_;
+
+public:
     size_t length { 0 };
+    float peak { 0 };
 
     bool empty() const
     {
-        return data.empty() || length == 0;
+        return data_.empty() || length == 0;
     }
 
     void reserve(size_t n)
     {
-        data.reserve(n);
+        data_.reserve(n);
     }
+
+    const t_word* const* rawData() const
+    {
+        return data_.data();
+    }
+
+    std::vector<const t_word*>& ref() { return data_; }
+    const std::vector<const t_word*>& cref() { return data_; }
 };
 
 class BaseObject;
@@ -46,6 +58,8 @@ class ArraySaver {
 
 public:
     ArraySaver();
+
+    std::int64_t saveTo(const AtomListView& args, BaseObject* owner = nullptr);
 
     /**
      * parse input string: arrays... @to FILE OPTIONS...
@@ -70,12 +84,15 @@ public:
     float resampleRatio() const { return params_.in_sr / params_.out_sr; }
 
     /** open file for writing */
-    sound::SoundFilePtr open(const std::string& path);
+    sound::SoundFilePtr open(const std::string& path) const;
 
     const std::string& filename() const { return params_.filename; }
 
     /** should overwrite existing files */
     bool overwrite() const { return params_.overwrite; }
+
+    /** should normalize levels */
+    bool normalize() const { return params_.normalize; }
 
     ArrayDataView arrayData() const;
 

@@ -136,7 +136,7 @@ namespace sound {
          * @param opts - write options (output format, samplerate etc.)
          * @return number of samples written or -1 on error
          */
-        virtual std::int64_t write(const t_word** src, size_t len, std::int64_t offset) { return -1; }
+        virtual std::int64_t write(const t_word* const* src, size_t len, std::int64_t offset) { return -1; }
 
     private:
         t_float gain_ = { 1.f };

@@ -26,7 +26,7 @@ inline T getValue(fsm::NumericData& num, AtomType type)
 
 inline size_t clipArraySize(std::int64_t v, size_t arraySize)
 {
-    return std::min<std::int64_t>(arraySize - 1, std::max<std::int64_t>(0, v));
+    return std::min<std::int64_t>(arraySize, std::max<std::int64_t>(0, v));
 }
 
 inline std::int64_t getUnitValue(ArraySaverParams& params, fsm::NumericData& num, AtomType type, size_t arraySize)

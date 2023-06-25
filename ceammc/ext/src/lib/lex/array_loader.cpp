@@ -169,7 +169,7 @@ bool ArrayLoader::loadArrays(const sound::SoundFilePtr& file, bool redraw)
                 std::fill(arr.begin() + ARRAY_SIZE, arr.begin() + ARRAY_OFFSET, 0);
 
             // read data from file to array
-            auto vecs = reinterpret_cast<t_word*>(&arr.at(ARRAY_OFFSET));
+            auto vecs = (arr.begin() + ARRAY_OFFSET).data();
             long read = file->read(vecs, SRC_LEN, channel, begin_, DEST_LEN);
 
             if (read == 0) {

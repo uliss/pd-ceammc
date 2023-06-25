@@ -1,5 +1,10 @@
 add_executable(test_cells test_property.h)
 
+find_program(SOX_EXEC sox)
+if(SOX_EXEC)
+    target_compile_definitions(test_cells PRIVATE SOX_EXEC="${SOX_EXEC}")
+endif()
+
 target_compile_definitions(test_cells
     PRIVATE -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"
     PRIVATE -DTEST_DIR="${CMAKE_CURRENT_BINARY_DIR}")
@@ -9,6 +14,7 @@ target_include_directories(test_cells
         "${PROJECT_SOURCE_DIR}/ceammc/ext/src/lib"
         "${CMAKE_CURRENT_SOURCE_DIR}/.."
         "$<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>"
+        "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
         "${CATCH_INCLUDE_DIR}")
 
 target_link_libraries(test_cells PUBLIC
