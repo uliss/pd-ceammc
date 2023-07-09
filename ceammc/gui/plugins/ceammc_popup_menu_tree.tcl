@@ -43,10 +43,10 @@
         plot.hist~ plot.linspace~ plot.logspace~ plot.response~
     }}
     {base {
-        ceammc.search function function.call gain~ gate~ logger matrix~ merge~
-        metro.choice metro.pattern metro.random metro.seq metro.wchoice mix~
-        nsig~ obj.props radio split~ spring sync window xdac~ xfade2~ xfade~
-        z~
+        ceammc.search chrono.datetime function function.call gain~ gate~
+        logger matrix~ merge~ metro.choice metro.pattern metro.random
+        metro.seq metro.wchoice mix~ nsig~ obj.props radio split~ spring sync
+        window xdac~ xfade2~ xfade~ z~
     }}
     {chaos {
         chaos.gbman0 chaos.gbman0~ chaos.jong chaos.logistic chaos.std0
@@ -89,11 +89,12 @@
         flow.dup flow.float flow.gate flow.greater flow.greater_eq flow.group
         flow.interval flow.less flow.less_eq flow.list2many flow.match
         flow.mem flow.multiplex flow.multiplex2~ flow.multiplex~ flow.once
-        flow.pack flow.pass flow.pass_if flow.pipe flow.queue flow.record
-        flow.reject flow.reject_if flow.ring flow.route flow.select
-        flow.seqdelay flow.space flow.speedlim flow.split flow.stack flow.sync
-        flow.sync_pack flow.tee~ replace route.any route.bang route.cycle
-        route.float route.list route.prop route.random route.symbol
+        flow.pack flow.pass flow.pass_if flow.pipe flow.prepend flow.queue
+        flow.record flow.reject flow.reject_if flow.ring flow.route
+        flow.select flow.seqdelay flow.space flow.speedlim flow.split
+        flow.stack flow.sync flow.sync_pack flow.tee~ replace route.any
+        route.bang route.cycle route.float route.list route.prop route.random
+        route.symbol
     }}
     {flt {
         flt.a-weight flt.biquad~ flt.bpf12~ flt.bpf24~ flt.c_apf flt.c_bpf~
@@ -174,8 +175,8 @@
     {midi {
         midi.arp midi.cc midi.clock midi.ctl2str midi.event2ctl
         midi.event2note midi.event2prg midi.file midi.kbd midi.key2str
-        midi.modus midi.oct midi.prg2str midi.split midi.sustain midi.sysex
-        midi.track midi.tuning midi.vramp midi.vrand
+        midi.modus midi.note.pass midi.oct midi.prg2str midi.split
+        midi.sustain midi.sysex midi.track midi.tuning midi.vramp midi.vrand
     }}
     {misc {
         click~ fluid~ modplug~ qrcode risset.gliss sfizz~ speech.flite
@@ -223,9 +224,10 @@
         prop.set prop.split
     }}
     {proto {
-        proto.feelworld proto.firmata proto.inscore proto.ltc.in~ proto.midi
-        proto.midi.cc proto.midi.sysex proto.moppy proto.morse proto.mpv
-        proto.sp.alpaca proto.vlc proto.whammy proto.xtouch_ext
+        proto.feelworld proto.firmata proto.inscore proto.ltc.in~
+        proto.ltc.out~ proto.midi proto.midi.cc proto.midi.sysex proto.moppy
+        proto.morse proto.mpv proto.sp.alpaca proto.vlc proto.whammy
+        proto.xtouch_ext
     }}
     {random {
         random.atom random.discrete random.float random.gauss random.int

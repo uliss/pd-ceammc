@@ -46,6 +46,7 @@ chaos.jong,noise.jong		.		..
 chaos.logistic,noise.logistic		.		.
 chaos.std0		..		..
 chaos.std0~		~~		~~
+chrono.datetime,ceammc/datetime,datetime		.		..
 click~,ceammc/click~		.		~
 conv.amp2dbfs,ceammc/amp->dbfs,amp->dbfs		.		.
 conv.amp2dbfs~,ceammc/amp->dbfs~,amp->dbfs~		~		~

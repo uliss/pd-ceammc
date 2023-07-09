@@ -44,6 +44,9 @@ plot.linspace~	outputs numbers spaced evenly spaced over a specified interval
 plot.logspace~	outputs numbers spaced evenly on a log scale
 plot.response~	output amp/phase freq response to impulse
 ceammc.search	ceammc library search object
+chrono.datetime	output current date and time info
+ceammc/datetime	output current date and time info
+datetime	output current date and time info
 function	named function
 func	named function
 ceammc/func	named function

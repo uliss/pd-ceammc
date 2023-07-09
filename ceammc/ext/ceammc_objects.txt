@@ -47,6 +47,7 @@ array.each
 array.fill
 array.grainer~
 array.hist
+array.ltcplay~
 array.mean
 array.minmax
 array.p->s
@@ -920,6 +921,7 @@ msg
 msg.after
 msg.onclose
 msg.onload
+msg.pack
 msg.sched
 music.d->t
 music.dur2time

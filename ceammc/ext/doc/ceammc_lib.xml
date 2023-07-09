@@ -119,6 +119,9 @@
     <entry name="ceammc.search" descr="ceammc library search object" ref_view="object">
       <xi:include href="ceammc.search.pddoc" parse="xml"/>
     </entry>
+    <entry name="chrono.datetime" descr="output current date and time info" ref_view="object">
+      <xi:include href="chrono.datetime.pddoc" parse="xml"/>
+    </entry>
     <entry name="function" descr="named function" ref_view="link">
       <xi:include href="function.pddoc" parse="xml"/>
     </entry>

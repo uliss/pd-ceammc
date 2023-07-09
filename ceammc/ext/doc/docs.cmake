@@ -46,6 +46,7 @@ set(DOC_FILES
     chaos.logistic
     chaos.std0
     chaos.std0~
+    chrono.datetime
     click~
     conv.amp2dbfs
     conv.amp2dbfs~

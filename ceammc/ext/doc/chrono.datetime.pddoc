@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="chrono.datetime">
+        <title>chrono.datetime</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>output current date and time info</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>base</keywords>
+            <since>0.9.6</since>
+            <aliases>
+                <alias>ceammc/datetime</alias>
+                <alias>datetime</alias>
+            </aliases>
+        </meta>
+        <properties>
+            <property name="@utc" type="bool" default="0">output in UTC format</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output HOUR MIN SEC to second outlet and YEAR MONTH DAY to first outlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list: YEAR MONTH DAY</outlet>
+            <outlet>list: HOUR MIN SEC</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]           [T]
+|             |
+[metro 1000]  [@utc $1(
+|             |
+[datetime     ]
+|     ^|
+|     [ui.dt]
+|
+[ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
