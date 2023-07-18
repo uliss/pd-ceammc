@@ -395,6 +395,7 @@ list.walk		.		..
 list.zip,list.interleave		?		.
 live.capture~		~.		~
 loadexpr,ceammc/loadexpr		-		.
+local.bimap		..		..
 local.dict,local.json		.		.
 local.float		.		.
 local.int		.		.

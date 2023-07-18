@@ -17,7 +17,6 @@
 LocalBiMap::LocalBiMap(const PdArgs& args)
     : LocalBiMapBase(args)
 {
-    setArgIndex(1); // first is @id
 }
 
 void setup_local_bimap()

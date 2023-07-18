@@ -251,7 +251,7 @@ void DataBiMapBase::m_clear(t_symbol* s, const AtomListView& lv)
 
 void DataBiMapBase::m_set(t_symbol* s, const AtomListView& lv)
 {
-    setProperty(s, lv);
+    setProperty(gensym("@value"), lv);
 }
 
 const char* DataBiMapBase::annotateInlet(size_t n) const

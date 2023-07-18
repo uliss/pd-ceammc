@@ -393,6 +393,7 @@ set(DOC_FILES
     list.zip
     live.capture~
     loadexpr
+    local.bimap
     local.dict
     local.float
     local.int

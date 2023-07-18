@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="local.bimap">
+        <title>local.bimap</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>local to patch bidirectional map container</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>data local map container bidirectional</keywords>
+            <since>0.9.7</since>
+            <also>
+                <see>data.bimap</see>
+                <see>global.bimap</see>
+            </also>
+        </meta>
+        <info>
+            <par>NOTE: all object inlets are 'hot'</par>
+        </info>
+        <mouse>
+            <event editmode="false" type="left-click">open data editor</event>
+        </mouse>
+        <arguments>
+            <argument name="ID" type="symbol">bimap ID</argument>
+        </arguments>
+        <properties>
+            <property name="@id" access="initonly" type="symbol" default="default">local variable
+            id</property>
+            <property name="@value" type="list" default="">value, list of pairs: LEFT_KEY1
+            RIGHT_KEY1 LEFT_KEY2 RIGHT_KEY2 etc.</property>
+            <property name="@size" type="int" default="0" access="readonly">number of left-right
+            pairs in map</property>
+            <property name="@empty" type="bool" default="1" access="readonly">true if
+            empty</property>
+            <property name="@keys_left" type="list" default="" access="readonly">list of left map
+            keys</property>
+            <property name="@keys_right" type="list" default="" access="readonly">list of right map
+            keys</property>
+        </properties>
+        <methods>
+            <method name="clear">clear bidirectional map content</method>
+            <method name="set">set bidirectional map content 
+            <param name="DATA" type="list" required="true">new value list</param></method>
+            <method name="insert">insert new left-right map entry 
+            <param name="PAIR" type="list" required="true">list: LEFT_KEY
+            RIGHT_KEY</param></method>
+            <method name="write">write to JSON file, to overwrite existing file use @force flag 
+            <param name="FNAME" type="symbol" required="true">path to file, absolute or
+            relative</param>
+            <param name="@force" type="symbol" required="false">force flag to overwrite existing
+            files</param></method>
+            <method name="read">read bimap from JSON file. Array of array pairs expected. 
+            <param name="FNAME" type="symbol" required="true">path to file, absolute or
+            relative</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="atom">try to find left key in the map and output the right value on
+                success</xinfo>
+                <xinfo on="list">try to find each left key of the list in the map and output the
+                result list of right values</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="atom">try to find right key in the map and output the left value on
+                success</xinfo>
+                <xinfo on="list">try to find each right key of the list in the map and output the
+                result list of left values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>atom or list: right value output</outlet>
+            <outlet>atom or list: left value output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[loadmsg 1 2 3 4 5 6]
+|
+[L]                   [1( [1 3 5( [2( [2 4 6(
+|                     |   |       |.  |.
+[msg set]             [local.bimap  LBM] /*click to view/edit*/
+|                     |            ^|
+[local.bimap LBM]     [ui.dt]      [ui.dt]
+
+
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
