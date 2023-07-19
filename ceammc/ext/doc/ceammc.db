@@ -270,6 +270,7 @@ fx.wahwah~		~.		~
 fx.zita_rev1~		~~		~~
 gain~,ceammc/gain~		?		?
 gate~,ceammc/gate~		?		?
+global.bimap		..		..
 global.dict,global.json		.		.
 global.float		.		.
 global.int		.		.

@@ -309,6 +309,7 @@ dict.to_list	converts dictionary to plain list
 ceammc/dict->list	converts dictionary to plain list
 dict->list	converts dictionary to plain list
 dict.values	dictionary values as mlist
+global.bimap	Global visibility bidirectional map container
 local.bimap	local to patch bidirectional map container
 mlist.flatten	flatten nested mlist
 rtree.to_list	convert OpenMusic-like rhythm tree to list of fractions

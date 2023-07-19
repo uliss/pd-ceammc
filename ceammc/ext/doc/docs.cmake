@@ -268,6 +268,7 @@ set(DOC_FILES
     fx.zita_rev1~
     gain~
     gate~
+    global.bimap
     global.dict
     global.float
     global.int

@@ -434,6 +434,9 @@
     <entry name="dict.values" descr="dictionary values as mlist" ref_view="object">
       <xi:include href="dict.values.pddoc" parse="xml"/>
     </entry>
+    <entry name="global.bimap" descr="Global visibility bidirectional map container" ref_view="object">
+      <xi:include href="global.bimap.pddoc" parse="xml"/>
+    </entry>
     <entry name="local.bimap" descr="local to patch bidirectional map container" ref_view="object">
       <xi:include href="local.bimap.pddoc" parse="xml"/>
     </entry>

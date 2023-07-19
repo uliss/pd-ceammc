@@ -46,6 +46,7 @@ ceammc_data_external(set symdiff)
 ceammc_data_external(set to_list)
 ceammc_data_external(set union)
 
+ceammc_data_external(global bimap)
 ceammc_data_external(global dict)
 ceammc_data_external(global float)
 ceammc_data_external(global int)
