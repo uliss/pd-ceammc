@@ -566,6 +566,7 @@ fx.zita_rev1~
 gain~
 gate
 gate~
+global.bimap
 global.dict
 global.float
 global.int
