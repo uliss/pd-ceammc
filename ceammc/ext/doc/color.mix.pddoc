@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="color.mix">
+        <title>color.mix</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>color mixer</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>data color</keywords>
+            <since>0.9.7</since>
+        </meta>
+        <arguments>
+            <argument name="C0" type="atom">first color</argument>
+            <argument name="C1" type="atom">second value</argument>
+        </arguments>
+        <properties>
+            <property name="@c0" type="atom">first color</property>
+            <property name="@c1" type="atom">second color</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float" minvalue="0" maxvalue="1">calculate color mix and output</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="data:color">set color and output</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="data:color">set color without output</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>data:color output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.hsl @show_value 1]
+|
+[color.mix Color(orange) \#0AF]
+|
+[color->rgba @pack @float]
+|
+[@background_color $1 $2 $3(
+|
+[ui.hsl]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

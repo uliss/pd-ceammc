@@ -22,6 +22,7 @@
             olive orange pink purple red white yellow</par>
         </info>
         <properties>
+            <property name="@pack" type="flag" access="initonly">output as list to first outlet</property>
             <property name="@mode" type="symbol" default="int" enum="int float">output
             mode</property>
             <property name="@int" type="alias">alias to @mode int. Output values in [0-255]
@@ -34,10 +35,11 @@
                 <xinfo on="symbol">color name or hex value in full (#RRGGBB or #RRGGBBAA) or short
                 (#RGB or #RGBA) format</xinfo>
                 <xinfo on="any">use message selector as color name</xinfo>
+                <xinfo on="data:color">Color data</xinfo>
             </inlet>
         </inlets>
-        <outlets>
-            <outlet>int[0-255] or float[0-1]: red channel value</outlet>
+        <outlets dynamic="true">
+            <outlet>list if @pack flag specified or int[0-255] or float[0-1]: red channel value</outlet>
             <outlet>int[0-255] or float[0-1]: green channel value</outlet>
             <outlet>int[0-255] or float[0-1]: blue channel value</outlet>
             <outlet>int[0-255] or float[0-1]: alpha channel value</outlet>
@@ -49,13 +51,13 @@
 |
 | [\#FF3399 #a( [\#39F #b( [\#444A #c(
 |
-|    [L]
-|    |
-[$2( [$1( [@float #d( [@int #e(
-|    |
-[color->rgba @float #x]
-|    ^|   ^^| ^^^|
-[F]  [F]  [F]  [F]
+|    [L]                        [symbol green(
+|    |                          |
+[$2( [$1( [@float #d( [@int #e( [S digits=10]
+|    |                          |
+[color->rgba @float #x]         [color->rgba @pack]
+|    ^|   ^^| ^^^|              |
+[F]  [F]  [F]  [F]              [ui.dt]
 
 [X a->x]
 [X b->x]

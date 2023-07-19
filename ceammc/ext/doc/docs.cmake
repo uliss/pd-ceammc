@@ -48,6 +48,7 @@ set(DOC_FILES
     chaos.std0~
     chrono.datetime
     click~
+    color.mix
     conv.amp2dbfs
     conv.amp2dbfs~
     conv.bar2ms

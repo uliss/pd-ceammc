@@ -49,4 +49,5 @@ void ColorMix::onInlet(size_t n, const AtomListView& lv)
 void setup_color_mix()
 {
     ObjectFactory<ColorMix> obj("color.mix");
+    obj.setXletsInfo({ "float: mix ratio 0..1", "first color", "second color" }, { "data:color mix result" });
 }

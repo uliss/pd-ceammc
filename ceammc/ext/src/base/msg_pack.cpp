@@ -71,8 +71,6 @@ void MsgPack::onSymbol(t_symbol* s)
 
 void MsgPack::onInlet(size_t n, const AtomListView& lv)
 {
-    OBJ_DBG << lv;
-
     if (checkIndex(n) && lv.isAtom()) {
         at(n) = lv[0];
         if (sync_->value())

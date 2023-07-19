@@ -48,6 +48,7 @@ chaos.std0		..		..
 chaos.std0~		~~		~~
 chrono.datetime,ceammc/datetime,datetime		.		..
 click~,ceammc/click~		.		~
+color.mix		...		.
 conv.amp2dbfs,ceammc/amp->dbfs,amp->dbfs		.		.
 conv.amp2dbfs~,ceammc/amp->dbfs~,amp->dbfs~		~		~
 conv.bar2ms,ceammc/bar->ms,bar->ms		..		..
@@ -61,7 +62,7 @@ conv.bpm2sec,ceammc/bpm->sec,bpm->sec		.		.
 conv.car2pol,ceammc/car->pol,car->pol		.		.
 conv.cc2amp,ceammc/cc->amp,cc->amp		.		.
 conv.char2morse,ceammc/char->morse,char->morse		.		.
-conv.color2rgba,ceammc/color->rgba,color->rgba		.		....
+conv.color2rgba,ceammc/color->rgba,color->rgba		.		?
 conv.dbfs2amp,ceammc/dbfs->amp,dbfs->amp		.		.
 conv.dbfs2amp~,ceammc/dbfs->amp~,dbfs->amp~		~		~
 conv.degree2key,ceammc/degree->key,degree->key		.		.

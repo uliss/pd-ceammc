@@ -22,15 +22,20 @@ using namespace ceammc;
 
 class ConvColor2RGBA : public BaseObject {
     parser::ColorFullMatch parser_;
-    SymbolEnumProperty* mode_;
+    SymbolEnumProperty* mode_ { nullptr };
+    FlagProperty* pack_ { nullptr };
 
 public:
     ConvColor2RGBA(const PdArgs& args);
+
+    void initDone() override;
 
     void onSymbol(t_symbol* s) override;
     void onAny(t_symbol* s, const AtomListView& lv) override;
 
     void onDataT(const DataAtom<DataTypeColor>& data);
+
+    const char* annotateOutlet(size_t n) const final;
 };
 
 void setup_conv_color2rgba();
