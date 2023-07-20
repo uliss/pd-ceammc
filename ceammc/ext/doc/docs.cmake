@@ -230,6 +230,7 @@ set(DOC_FILES
     flt.resonbp~
     flt.resonhp~
     flt.resonlp~
+    flt.speaker~
     fluid~
     function
     function.call

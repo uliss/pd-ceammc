@@ -844,6 +844,9 @@
     <entry name="flt.resonlp~" descr="Simple resonant lowpass filter" ref_view="object">
       <xi:include href="flt.resonlp~.pddoc" parse="xml"/>
     </entry>
+    <entry name="flt.speaker~" descr="speaker emulation band-pass filter" ref_view="object">
+      <xi:include href="flt.speaker~.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="fx">
     <entry name="fx.bitdown~" descr="bit downer and downsampler effect" ref_view="object">

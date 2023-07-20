@@ -230,6 +230,7 @@ flt.notch~		~.		~
 flt.resonbp~		~..		~
 flt.resonhp~		~..		~
 flt.resonlp~		~..		~
+flt.speaker~		~..		~
 fluid~,ceammc/fluid~		.		~~.
 function,func,ceammc/func,ceammc/function		..		..
 function.call,func.call		..		.

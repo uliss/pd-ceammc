@@ -534,6 +534,7 @@ flt.notch~	band-rejection filter
 flt.resonbp~	Simple resonant bandpass filter
 flt.resonhp~	Simple resonant highpass filter
 flt.resonlp~	Simple resonant lowpass filter
+flt.speaker~	speaker emulation band-pass filter
 fx.bitdown~	bit downer and downsampler effect
 fx.chorus~	Chorus effect
 fx.dattorro~	dattorro reverb

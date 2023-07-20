@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.speaker~">
+        <title>flt.speaker~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>speaker emulation band-pass filter</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter speaker bandpass bpf</keywords>
+            <since>0.9.7</since>
+            <also>
+                <see>flt.bpf24~</see>
+            </also>
+        </meta>
+        <info>
+            <par>Low-frequency speaker model = +12 dB/octave slope breaking to flat near @f1.</par>
+            <par>Implemented using two dc blockers in series.</par>
+            <par>High-frequency model = -24 dB/octave slope implemented using a fourth-order Butterworth lowpass.</par>
+        </info>
+        <arguments>
+            <argument name="F1" type="float" units="hertz" minvalue="20" maxvalue="1000">lower band
+            frequency</argument>
+            <argument name="F2" type="float" minvalue="1000" maxvalue="20000" units="hertz">high band frequency</argument>
+        </arguments>
+        <properties>
+            <property name="@f1" type="float" minvalue="20" maxvalue="1000" default="130"
+            units="hertz">lower band frequency</property>
+            <property name="@f2" type="float" minvalue="1000" maxvalue="20000" default="5000"
+            units="hertz">hight band frequency</property>
+            <property name="@gain" type="float" minvalue="-30" maxvalue="30" default="0"
+            units="decibel">filter gain</property>
+            <!-- MIX -->
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
+            of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
+            wet</property>
+            <property name="@bypass" type="bool" default="0">if set to 1 - bypass 'effected'
+            signal</property>
+            <!-- OSC -->
+            <property name="@osc" type="symbol" default="" access="initonly">OSC server name to
+            listen</property>
+            <property name="@id" type="symbol" default="" access="initonly">OSC address id. If
+            specified, bind properties to /ID/flt_speaker/PROP_NAME osc address, if empty bind to
+            /flt_speaker/PROP_NAME.</property>
+            <!-- common -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+        </properties>  
+        <methods>
+            <method name="reset">reset filter state</method>
+        </methods>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set @f1 property</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set @f2 property</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">filtered signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[L]
+|                             [bang #a( /*plot response*/
+|                             |
+[@f1 $1, @f2 $2(              [click~]
+|                             |
+[flt.speaker~ 1000 4000       ]
+|
+[plot.response~ @sr 1 @db 1 #b]
+|                          ^^|.
+[ui.plot~ @xlabels 1 @ylabels 1 @ymin -60 @ymax 0 @ymin_ticks 0 @ymaj_ticks 0 @size 400 200]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+[X a->b:1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
