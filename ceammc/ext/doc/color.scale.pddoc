@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="color.scale">
+        <title>color.scale</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>create color scales</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>data</category>
+            <keywords>data color scale</keywords>
+            <since>0.9.7</since>
+        </meta>
+        <arguments>
+            <argument name="SCALE" type="list">color list</argument>
+        </arguments>
+        <properties>
+            <property name="@scale" type="list">color list</property>
+            <property name="@mode" type="symbol" default="color" enum="color hex rgb">output
+            mode: if 'color' - output as data:color type, if 'hex' - output as hex value, if 'rgb' - RGB list</property>
+            <property name="@color" type="alias">alias to @mode color</property>
+            <property name="@rgb" type="alias">alias to @mode rgb</property>
+            <property name="@hex" type="alias">alias to @mode hex</property>
+            <property name="@interp" type="symbol" default="none" enum="none short long inc dec">hue interpolation strategy</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="float" minvalue="0" maxvalue="1">calculate color scale hue and output</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>data:color output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.hsl @show_value 1]     [ui.tab none short long inc dec @size 200 15]
+|                          |
+|                          [@interp $2(
+|                          |
+[color.scale Color(red) Color(blue) Color(yellow)]
+|
+[color->rgba @pack @float]
+|
+[@background_color $1 $2 $3(
+|
+[ui.hsl @nosave 1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

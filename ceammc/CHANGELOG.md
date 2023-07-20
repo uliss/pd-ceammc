@@ -7,9 +7,12 @@
   - array.tramp~ - triggered array ramp generator
   - chrono.datetime - get current date/time information
   - color.mix - color mixer
+  - color.scale - create color scales (gradients)
   - conv.bar2ms - calculate bar and beat duration from tempo BPM and time signature
   - conv.char2morse - single character to morse code converter
   - conv.color2rgba - color converter added from named or hex colors to separate RGBA values
+  - conv.hsl2rgb - convert HSL colors to RGB
+  - conv.lab2rgb - convert LAB colors to RGB
   - conv.ms2str - convert time in milliseconds to formatted string or symbol
   - conv.rgb2hex - convert RGB separate values to #RRGGBB symbol
   - conv.semi2ratio (with semi->ratio alias) added

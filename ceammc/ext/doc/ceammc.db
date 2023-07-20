@@ -49,6 +49,7 @@ chaos.std0~		~~		~~
 chrono.datetime,ceammc/datetime,datetime		.		..
 click~,ceammc/click~		.		~
 color.mix		...		.
+color.scale		.		.
 conv.amp2dbfs,ceammc/amp->dbfs,amp->dbfs		.		.
 conv.amp2dbfs~,ceammc/amp->dbfs~,amp->dbfs~		~		~
 conv.bar2ms,ceammc/bar->ms,bar->ms		..		..

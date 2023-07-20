@@ -275,6 +275,7 @@ music.d->t	convert duration list to time
 music.voice2midi	convert voice music list of midi pitches
 music.v->m	convert voice music list of midi pitches
 color.mix	color mixer
+color.scale	create color scales
 data.bimap	bidirectional map container
 ceammc/bimap	bidirectional map container
 bimap	bidirectional map container

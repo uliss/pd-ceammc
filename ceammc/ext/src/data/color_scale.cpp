@@ -22,32 +22,39 @@ CEAMMC_DEFINE_SYM_HASH(color);
 CEAMMC_DEFINE_SYM_HASH(hex);
 CEAMMC_DEFINE_SYM_HASH(rgb);
 CEAMMC_DEFINE_SYM_HASH(none);
-CEAMMC_DEFINE_SYM_HASH(shorter);
-CEAMMC_DEFINE_SYM_HASH(longer);
-CEAMMC_DEFINE_SYM_HASH(increasing);
-CEAMMC_DEFINE_SYM_HASH(decreasing);
+CEAMMC_DEFINE_SYM_HASH(short);
+CEAMMC_DEFINE_SYM_HASH(long);
+CEAMMC_DEFINE_SYM_HASH(inc);
+CEAMMC_DEFINE_SYM_HASH(dec);
 
-using ColorT = colorm::Oklab;
-using ColorList = std::vector<ColorT>;
+using ColorT = colorm::Oklch;
+using ColorListV = std::vector<ColorT>;
 using ColorScaleT = colorm::ColorScale<ColorT>;
 
 struct ColorScaleImpl {
     ColorScaleT scale;
     ColorT color(float f) const { return scale(f); }
-    void correctLightness() { scale = scale.correctLightness(); }
-    void setColors(const ColorList& colors, t_symbol* s)
+
+    void setColors(const std::vector<DataTypeColor>& cl, t_symbol* mode)
     {
-        switch (crc32_hash(s)) {
-        case hash_shorter:
+        ColorListV colors;
+        colors.reserve(cl.size());
+        for (auto& c : cl) {
+            colorm::Srgb rgb(c.red(), c.green(), c.blue(), c.alpha());
+            colors.push_back(ColorT(rgb));
+        }
+
+        switch (crc32_hash(mode)) {
+        case hash_short:
             scale = ColorScaleT(colors).shorter();
             break;
-        case hash_longer:
+        case hash_long:
             scale = ColorScaleT(colors).longer();
             break;
-        case hash_increasing:
+        case hash_inc:
             scale = ColorScaleT(colors).increasing();
             break;
-        case hash_decreasing:
+        case hash_dec:
             scale = ColorScaleT(colors).decreasing();
             break;
         case hash_none:
@@ -71,13 +78,7 @@ ColorScale::ColorScale(const PdArgs& args)
         if (!impl_)
             return;
 
-        ColorList colors;
-        colors.reserve(colors_->size());
-        for (auto& c : colors_->value())
-            colors.push_back(ColorT(colorm::Srgb(c.red(), c.green(), c.blue(), c.alpha())));
-
-        impl_->setColors(colors, mode_->value());
-        impl_->correctLightness();
+        impl_->setColors(colors_->value(), interp_->value());
     });
     addProperty(colors_);
 
@@ -87,7 +88,11 @@ ColorScale::ColorScale(const PdArgs& args)
     addProperty(new SymbolEnumAlias("@hex", mode_, sym_hex()));
     addProperty(new SymbolEnumAlias("@rgb", mode_, sym_rgb()));
 
-    interp_ = new SymbolEnumProperty("@interp", { str_none, str_shorter, str_longer, str_increasing, str_decreasing });
+    interp_ = new SymbolEnumProperty("@interp", { str_none, str_short, str_long, str_inc, str_dec });
+    interp_->setSuccessFn([this](Property*) {
+        if (impl_)
+            impl_->setColors(colors_->value(), interp_->value());
+    });
     addProperty(interp_);
 
     createOutlet();
@@ -97,14 +102,17 @@ ColorScale::~ColorScale() = default;
 
 void ColorScale::onFloat(t_float f)
 {
-    if (!impl_)
+    if (!impl_) {
+        OBJ_ERR << "null impl";
         return;
+    }
 
     auto color = colorm::Srgb(impl_->color(f));
 
     switch (crc32_hash(mode_->value())) {
-    case hash_color:
-        break;
+    case hash_color: {
+        atomTo(0, ColorAtom(DataTypeColor().setRgbf(color.red(), color.green(), color.blue())));
+    } break;
     case hash_hex: {
         colorm::Rgb rgb(color);
 
@@ -134,4 +142,5 @@ void ColorScale::onFloat(t_float f)
 void setup_color_scale()
 {
     ObjectFactory<ColorScale> obj("color.scale");
+    obj.setXletsInfo({ "float\\[0..1\\]" }, { "data:color, symbol or list R G B A" });
 }

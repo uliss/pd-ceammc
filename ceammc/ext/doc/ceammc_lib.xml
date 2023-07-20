@@ -380,6 +380,9 @@
     <entry name="color.mix" descr="color mixer" ref_view="object">
       <xi:include href="color.mix.pddoc" parse="xml"/>
     </entry>
+    <entry name="color.scale" descr="create color scales" ref_view="object">
+      <xi:include href="color.scale.pddoc" parse="xml"/>
+    </entry>
     <entry name="data.bimap" descr="bidirectional map container" ref_view="object">
       <xi:include href="data.bimap.pddoc" parse="xml"/>
     </entry>

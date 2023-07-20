@@ -49,6 +49,7 @@ set(DOC_FILES
     chrono.datetime
     click~
     color.mix
+    color.scale
     conv.amp2dbfs
     conv.amp2dbfs~
     conv.bar2ms

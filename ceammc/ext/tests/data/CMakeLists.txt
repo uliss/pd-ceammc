@@ -27,6 +27,7 @@ endfunction()
 
 add_data_test(bimap)
 add_data_test(color)
+add_data_test(color_scale)
 add_data_test(dict)
 add_data_test(dict_contains)
 add_data_test(dict_each)
