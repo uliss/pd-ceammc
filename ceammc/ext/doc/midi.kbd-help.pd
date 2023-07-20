@@ -43,7 +43,7 @@ qwerty. Allowed values: qwerty \, names \, custom.;
 #X text 245 652 Get/Set output octave. Type: int. Default value: 4\.
 Range: 0\...8\.;
 #X msg 110 694 @on;
-#X text 245 694 Get/Set on/off state. Type: bool. Default value: 1\.;
+#X text 245 694 Turn on/off state. Type: bool. Default value: 1\.;
 #X msg 110 723 @vel;
 #X text 245 723 Get/Set output velocity. Type: float. Default value:
 100\. Range: 0\...127\.;

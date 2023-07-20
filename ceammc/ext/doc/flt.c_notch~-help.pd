@@ -35,8 +35,8 @@
 #X obj 20 518 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 553 @active;
-#X text 245 553 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 553 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 582 @freq;
 #X text 245 582 Get/Set center frequency. Type: float. Units: Hz. Default
 value: 1000\. Range: 20\...20000\.;

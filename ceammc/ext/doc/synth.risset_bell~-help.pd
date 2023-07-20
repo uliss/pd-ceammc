@@ -31,8 +31,8 @@
 #X obj 20 464 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 499 @active;
-#X text 245 499 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 499 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 528 @dur;
 #X text 245 528 Get/Set duration. Type: float. Units: ms. Default value:
 5000\. Range: 10\...600000\.;

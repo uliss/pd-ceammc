@@ -31,8 +31,8 @@ noise \, and 1 violet/azure noise.. Type: float. Range: -1\...1;
 #X obj 20 602 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 637 @active;
-#X text 245 637 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 637 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 666 @alpha;
 #X text 245 666 Get/Set slope of roll-off \, between -1 and 1\. -1
 corresponds to brown/red noise \, -1/2 pink noise \, 0 white noise

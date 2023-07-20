@@ -27,8 +27,8 @@ tone bar connected to tube;
 #X obj 20 489 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 524 @active;
-#X text 245 524 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 524 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 553 @cutoff;
 #X text 245 553 Get/Set cuttoff frequency of the strike generator.
 Type: float. Default value: 7000\. Range: 1000\...10000\.;

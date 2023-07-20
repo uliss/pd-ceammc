@@ -64,8 +64,8 @@ bind to /fx_zita_rev1/PROP_NAME. Type: symbol.;
 #X text 245 837 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
 #X msg 110 866 @active;
-#X text 245 866 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 866 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 895 @bypass;
 #X text 245 895 Get/Set if set to 1 - bypass 'effected' signal. Type:
 bool. Default value: 0\.;

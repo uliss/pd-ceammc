@@ -30,7 +30,7 @@
             <property name="@f1" type="float" minvalue="20" maxvalue="1000" default="130"
             units="hertz">lower band frequency</property>
             <property name="@f2" type="float" minvalue="1000" maxvalue="20000" default="5000"
-            units="hertz">hight band frequency</property>
+            units="hertz">high band frequency</property>
             <property name="@gain" type="float" minvalue="-30" maxvalue="30" default="0"
             units="decibel">filter gain</property>
             <!-- MIX -->

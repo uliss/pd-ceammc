@@ -51,8 +51,8 @@ bind to /fx_freeverb2/PROP_NAME. Type: symbol.;
 #X text 245 685 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
 #X msg 110 714 @active;
-#X text 245 714 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 714 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 743 @bypass;
 #X text 245 743 Get/Set if set to 1 - bypass 'effected' signal. Type:
 bool. Default value: 0\.;

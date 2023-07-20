@@ -36,8 +36,8 @@ to /fx_echo/PROP_NAME. Type: symbol.;
 #X text 245 528 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
 #X msg 110 557 @active;
-#X text 245 557 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 557 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 586 @bypass;
 #X text 245 586 Get/Set if set to 1 - bypass 'effected' signal. Type:
 bool. Default value: 0\.;

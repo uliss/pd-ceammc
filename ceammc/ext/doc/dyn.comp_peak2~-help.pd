@@ -61,8 +61,8 @@ bind to /dyn_comp_peak2/PROP_NAME. Type: symbol.;
 #X text 245 778 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
 #X msg 110 807 @active;
-#X text 245 807 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 807 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 836 @attack;
 #X text 245 836 Get/Set time constant when level & compression going
 up. Type: float. Units: ms. Default value: 10\. Range: 0.1\...100\.;

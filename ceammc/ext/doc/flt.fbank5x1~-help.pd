@@ -54,8 +54,8 @@ Range: -6\...6;
 #X obj 20 849 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 884 @active;
-#X text 245 884 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 884 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 913 @f1000;
 #X text 245 913 Get/Set third filter (bandpass) gain at 1000Hz. Type:
 float. Units: db. Default value: 0\. Range: -6\...6\.;

@@ -38,8 +38,8 @@ bind to /fx_tapiir/PROP_NAME. Type: symbol.;
 #X text 245 581 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
 #X msg 110 610 @active;
-#X text 245 610 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 610 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 639 @delays;
 #X text 245 639 Get/Set list of all tap delays. Type: list. Units:
 ms. Default value: 0 0 0 0 0 0\.;

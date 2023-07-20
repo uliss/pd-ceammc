@@ -28,8 +28,8 @@ resonant lowpass;
 #X obj 20 561 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 596 @active;
-#X text 245 596 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 596 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 625 @cutoff;
 #X text 245 625 Get/Set cutoff frequency. Type: float. Default value:
 3000\. Range: 20\...20000\.;

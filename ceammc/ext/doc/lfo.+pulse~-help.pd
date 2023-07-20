@@ -29,8 +29,8 @@
 #X obj 20 421 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 456 @active;
-#X text 245 456 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 456 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 485 @duty;
 #X text 245 485 Get/Set duty cycle. Type: float. Default value: 0.5\.
 Range: 0\...1\.;

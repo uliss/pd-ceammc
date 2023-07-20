@@ -41,8 +41,8 @@ bind to /fx_shimmer/PROP_NAME. Type: symbol.;
 #X text 245 615 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
 #X msg 110 644 @active;
-#X text 245 644 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 644 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 673 @bypass;
 #X text 245 673 Get/Set if set to 1 - bypass 'effected' signal. Type:
 bool. Default value: 0\.;

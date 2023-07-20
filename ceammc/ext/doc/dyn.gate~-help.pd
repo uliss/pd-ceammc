@@ -49,8 +49,8 @@ to /dyn_gate/PROP_NAME. Type: symbol.;
 #X text 245 627 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
 #X msg 110 656 @active;
-#X text 245 656 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 656 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 685 @attack;
 #X text 245 685 Get/Set attack time = time constant (ms) for gate to
 open. Type: float. Units: ms. Default value: 0.1\. Range: 0\...500\.;

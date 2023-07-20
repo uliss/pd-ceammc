@@ -44,8 +44,8 @@ https://en.wikipedia.org/wiki/Comb_filter;
 #X text 245 785 Get/Set scaling factor of delayed signal. Type: float.
 Default value: 1\. Range: -1\...1\.;
 #X msg 110 827 @active;
-#X text 245 827 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 827 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X obj 20 866 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 871 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

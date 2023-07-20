@@ -30,8 +30,8 @@ bind to /dyn_limit2/PROP_NAME. Type: symbol.;
 #X text 245 460 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
 #X msg 110 489 @active;
-#X text 245 489 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 489 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X obj 20 528 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 533 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

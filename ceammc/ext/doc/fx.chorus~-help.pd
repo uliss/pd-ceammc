@@ -29,8 +29,8 @@ bind to /fx_chorus/PROP_NAME. Type: symbol.;
 #X text 245 466 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
 #X msg 110 495 @active;
-#X text 245 495 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 495 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 524 @bypass;
 #X text 245 524 Get/Set if set to 1 - bypass 'effected' signal. Type:
 bool. Default value: 0\.;

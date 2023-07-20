@@ -29,8 +29,8 @@ bind to /fx_distortion1/PROP_NAME. Type: symbol.;
 #X text 245 509 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
 #X msg 110 538 @active;
-#X text 245 538 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 538 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 567 @drive;
 #X text 245 567 Get/Set distortion amount. Type: float. Default value:
 0.64\. Range: 0\...1\.;

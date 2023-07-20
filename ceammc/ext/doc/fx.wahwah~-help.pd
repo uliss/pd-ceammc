@@ -36,8 +36,8 @@ bind to /fx_wahwah/PROP_NAME. Type: symbol.;
 #X text 245 542 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
 #X msg 110 571 @active;
-#X text 245 571 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 571 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 600 @angle;
 #X text 245 600 Get/Set pedal angle. Type: float. Default value: 0.6\.
 Range: 0\...1\.;

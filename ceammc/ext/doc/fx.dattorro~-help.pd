@@ -51,8 +51,8 @@ bind to /fx_dattorro/PROP_NAME. Type: symbol.;
 #X text 245 707 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
 #X msg 110 736 @active;
-#X text 245 736 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 736 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 765 @bw;
 #X text 245 765 Get/Set band-width filter (pre filtering). Type: float.
 Default value: 0.9995\. Range: 0\...1\.;

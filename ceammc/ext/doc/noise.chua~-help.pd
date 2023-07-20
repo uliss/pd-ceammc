@@ -25,8 +25,8 @@ Range: 6.5\...7.3\.;
 #X text 245 549 Get/Set R resistance in kOhm. Type: float. Default
 value: 1.6\. Range: 1.252\...1.7\.;
 #X msg 110 591 @active;
-#X text 245 591 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 591 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 620 @gate;
 #X text 245 620 Get/Set play trigger >0: on \, 0: off. To set output
 gain to 0.5 you can 0.5 as trigger value. Type: float. Default value:

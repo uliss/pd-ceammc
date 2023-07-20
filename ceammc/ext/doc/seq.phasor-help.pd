@@ -47,7 +47,7 @@ value: 0\. Range: 0\...100\.;
 #X text 245 606 Get/Set saw inversion mode. If true \, outputs descreasing
 waveform. Type: bool. Default value: 0\.;
 #X msg 110 648 @on;
-#X text 245 648 Get/Set on/off state. Type: bool. Default value: 0\.;
+#X text 245 648 Turn on/off state. Type: bool. Default value: 0\.;
 #X msg 110 677 @open;
 #X text 245 677 Get/Set output in open [0\..1) range \, otherwise output
 range is [0\..1]. Type: bool. Default value: 0\.;

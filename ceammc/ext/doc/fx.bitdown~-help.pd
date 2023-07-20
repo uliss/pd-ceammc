@@ -39,8 +39,8 @@ bind to /fx_bitdown/PROP_NAME. Type: symbol.;
 #X text 245 542 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
 #X msg 110 571 @active;
-#X text 245 571 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 571 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 600 @bits;
 #X text 245 600 Get/Set output bits. Type: int. Default value: 16\.
 Range: 1\...16\.;

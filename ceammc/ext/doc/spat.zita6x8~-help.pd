@@ -45,8 +45,8 @@ value: 0\. Range: 0\...1\.;
 #X text 245 648 Get/Set 6th source panning position. Type: float. Default
 value: 0\. Range: 0\...1\.;
 #X msg 110 690 @active;
-#X text 245 690 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 690 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 719 @dry0;
 #X text 245 719 Get/Set 1st source direct sound level. Type: float.
 Units: db. Default value: -3\. Range: -60\...0\.;

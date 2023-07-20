@@ -25,8 +25,8 @@ bind to /fx_vocoder/PROP_NAME. Type: symbol.;
 #X text 245 437 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
 #X msg 110 466 @active;
-#X text 245 466 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 466 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 495 @attack;
 #X text 245 495 Get/Set attack time. Type: float. Units: ms. Default
 value: 5\. Range: 0.1\...100\.;

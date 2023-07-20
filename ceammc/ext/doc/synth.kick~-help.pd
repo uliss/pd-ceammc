@@ -20,8 +20,8 @@
 #X obj 20 316 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 351 @active;
-#X text 245 351 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 351 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 380 @attack;
 #X text 245 380 Get/Set attack time. Type: float. Units: ms. Default
 value: 10\. Range: 1\...50\.;

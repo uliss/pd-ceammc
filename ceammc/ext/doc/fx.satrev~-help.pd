@@ -37,8 +37,8 @@ bind to /fx_satrev/PROP_NAME. Type: symbol.;
 #X text 245 565 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
 #X msg 110 594 @active;
-#X text 245 594 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 594 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 623 @bypass;
 #X text 245 623 Get/Set if set to 1 - bypass 'effected' signal. Type:
 bool. Default value: 0\.;

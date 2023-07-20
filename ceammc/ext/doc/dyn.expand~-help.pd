@@ -57,8 +57,8 @@ bind to /dyn_expand/PROP_NAME. Type: symbol.;
 #X text 245 733 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
 #X msg 110 762 @active;
-#X text 245 762 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 762 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 791 @attack;
 #X text 245 791 Get/Set time constant when expander is turning on.
 Type: float. Units: ms. Default value: 10\. Range: 0.1\...100\.;

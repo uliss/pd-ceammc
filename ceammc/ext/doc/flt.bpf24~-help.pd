@@ -45,8 +45,8 @@ https://en.wikipedia.org/wiki/Butterworth_filter;
 #X obj 20 812 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 847 @active;
-#X text 245 847 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 847 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 876 @freq;
 #X text 245 876 Get/Set cutoff frequency. Type: float. Units: Hz. Default
 value: 1000\. Range: 20\...20000\.;

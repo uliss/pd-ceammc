@@ -33,8 +33,8 @@
 #X obj 20 493 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 528 @active;
-#X text 245 528 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 528 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 557 @angle;
 #X text 245 557 Get/Set source panning position. Type: float. Default
 value: 0\. Range: 0\...1\.;

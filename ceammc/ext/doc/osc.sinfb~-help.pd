@@ -29,8 +29,8 @@
 #X obj 20 504 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 539 @active;
-#X text 245 539 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
+#X text 245 539 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
 #X msg 110 568 @feedback;
 #X text 245 568 Get/Set oscillator feedback coefficient. Type: float.
 Default value: 0\. Range: 0\...6.283\.;
