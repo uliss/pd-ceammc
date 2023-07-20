@@ -45,8 +45,8 @@ symbol.;
 #X text 245 600 Get/Set output bits. Type: int. Default value: 16\.
 Range: 1\...16\.;
 #X msg 110 642 @bypass;
-#X text 245 642 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
+#X text 245 642 Get/Set bypass flag. If true: bypass 'effected' signal.
+Type: bool. Default value: 0\.;
 #X msg 110 684 @downsamp;
 #X text 245 684 Get/Set number samples to skip. Type: int. Units: samp.
 Default value: 1\. Range: 1\...200\.;

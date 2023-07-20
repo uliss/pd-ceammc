@@ -39,8 +39,8 @@ symbol.;
 #X text 245 557 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
 #X msg 110 586 @bypass;
-#X text 245 586 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
+#X text 245 586 Get/Set bypass flag. If true: bypass 'effected' signal.
+Type: bool. Default value: 0\.;
 #X msg 110 628 @dev;
 #X text 245 628 Get/Set scramble freq deviation. Type: float. Default
 value: 0.25\. Range: 0\...1\.;

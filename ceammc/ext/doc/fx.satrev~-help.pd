@@ -40,8 +40,8 @@ symbol.;
 #X text 245 594 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
 #X msg 110 623 @bypass;
-#X text 245 623 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
+#X text 245 623 Get/Set bypass flag. If true: bypass 'effected' signal.
+Type: bool. Default value: 0\.;
 #X msg 110 665 @drywet;
 #X text 245 665 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.

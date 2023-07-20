@@ -44,8 +44,8 @@ symbol.;
 #X text 245 639 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
 #X msg 110 668 @bypass;
-#X text 245 668 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
+#X text 245 668 Get/Set bypass flag. If true: bypass 'effected' signal.
+Type: bool. Default value: 0\.;
 #X msg 110 710 @delay;
 #X text 245 710 Get/Set flange delay. Type: float. Units: ms. Default
 value: 10\. Range: 0\...20\.;

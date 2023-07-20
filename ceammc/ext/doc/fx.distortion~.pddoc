@@ -27,8 +27,8 @@
             wet.</property>
             <property name="@offset" type="float" minvalue="0" maxvalue="0.5" default="0">constant
             added before nonlinearity to give even harmonics</property>
-            <property name="@bypass" type="bool" default="0">if set to 1 - bypass 'effected'
-            signal.</property>
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <!-- OSC -->
             <property name="@osc" type="symbol" default="" access="initonly">OSC server name to

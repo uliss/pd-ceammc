@@ -67,8 +67,8 @@ symbol.;
 #X text 245 836 Get/Set time constant when level & compression going
 up. Type: float. Units: ms. Default value: 10\. Range: 0.1\...100\.;
 #X msg 110 893 @bypass;
-#X text 245 893 Get/Set if set to 1 - bypass compressor. Type: bool.
-Default value: 0\.;
+#X text 245 893 Get/Set bypass flag. If true: bypass 'effected' signal.
+Type: bool. Default value: 0\.;
 #X msg 110 935 @gain;
 #X text 245 935 Get/Set make up gain: applied to the signal after the
 compression takes place. Type: float. Units: db. Default value: 0\.

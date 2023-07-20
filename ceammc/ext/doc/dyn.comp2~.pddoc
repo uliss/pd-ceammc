@@ -43,8 +43,8 @@
             <property name="@gain" type="float" units="decibel" default="0" minvalue="-18"
             maxvalue="18">make up gain: applied to the signal after the compression takes
             place</property>
-            <property name="@bypass" type="bool" default="0">if set to 1 - bypass
-            compressor</property>
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
             <property name="@level" type="float" default="0" minvalue="0" maxvalue="1"
             access="readonly">current level of compression</property>
             <!-- faust common -->

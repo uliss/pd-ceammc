@@ -34,8 +34,8 @@ symbol.;
 #X text 245 538 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
 #X msg 110 567 @bypass;
-#X text 245 567 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
+#X text 245 567 Get/Set bypass flag. If true: bypass 'effected' signal.
+Type: bool. Default value: 0\.;
 #X msg 110 609 @drive;
 #X text 245 609 Get/Set distortion amount. Type: float. Default value:
 0.5\. Range: 0\...1\.;

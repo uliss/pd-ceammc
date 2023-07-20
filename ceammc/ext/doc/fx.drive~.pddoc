@@ -20,8 +20,8 @@
         <properties>
             <property name="@drive" type="float" minvalue="1" maxvalue="10" default="1">drive
             coefficient</property>
-            <property name="@bypass" type="bool" default="0">if set to 1 - bypass 'effected'
-            signal.</property>
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <!-- OSC -->
             <property name="@osc" type="symbol" default="" access="initonly">OSC server name to

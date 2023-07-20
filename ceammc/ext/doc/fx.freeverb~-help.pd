@@ -54,8 +54,8 @@ symbol.;
 #X text 245 714 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
 #X msg 110 743 @bypass;
-#X text 245 743 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
+#X text 245 743 Get/Set bypass flag. If true: bypass 'effected' signal.
+Type: bool. Default value: 0\.;
 #X msg 110 785 @damp;
 #X text 245 785 Get/Set damping of the lowpass comb filter. Type: float.
 Default value: 0.5\. Range: 0\...1\.;

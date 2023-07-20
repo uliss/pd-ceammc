@@ -75,8 +75,8 @@ symbol.;
 #X text 245 791 Get/Set time constant when expander is turning on.
 Type: float. Units: ms. Default value: 10\. Range: 0.1\...100\.;
 #X msg 110 833 @bypass;
-#X text 245 833 Get/Set if set to 1 - bypass expander. Type: bool.
-Default value: 0\.;
+#X text 245 833 Get/Set bypass flag. If true: bypass 'effected' signal.
+Type: bool. Default value: 0\.;
 #X msg 110 875 @hold;
 #X text 245 875 Get/Set hold period. Type: float. Units: samp. Default
 value: 128\. Range: 1\...255\.;

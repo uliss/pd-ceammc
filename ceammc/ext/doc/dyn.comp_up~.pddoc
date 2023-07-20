@@ -54,8 +54,8 @@
             thresh-(knee/2) there is no gain reduction, above thresh+(knee/2) there is the same
             gain reduction as without a knee, and in between there is a gradual increase in gain
             reduction</property>
-            <property name="@bypass" type="bool" default="0">if set to 1 - bypass
-            compressor</property>
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
             <property name="@level" type="float" units="decibel" default="0" minvalue="0"
             maxvalue="90" access="readonly">current level of compression</property>
             <property name="@refresh" type="int" default="100" minvalue="0" maxvalue="1000"

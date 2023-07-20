@@ -44,8 +44,8 @@ symbol.;
 #X text 245 644 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
 #X msg 110 673 @bypass;
-#X text 245 673 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
+#X text 245 673 Get/Set bypass flag. If true: bypass 'effected' signal.
+Type: bool. Default value: 0\.;
 #X msg 110 715 @control;
 #X text 245 715 Get/Set envelope follower to pitch shifter influence
 coefficient. Type: float. Default value: 0.5\. Range: 0\...1\.;

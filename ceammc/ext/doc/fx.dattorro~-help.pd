@@ -57,8 +57,8 @@ symbol.;
 #X text 245 765 Get/Set band-width filter (pre filtering). Type: float.
 Default value: 0.9995\. Range: 0\...1\.;
 #X msg 110 807 @bypass;
-#X text 245 807 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
+#X text 245 807 Get/Set bypass flag. If true: bypass 'effected' signal.
+Type: bool. Default value: 0\.;
 #X msg 110 849 @damp;
 #X text 245 849 Get/Set high-frequency damping. No damping = 0.0\.
 Type: float. Default value: 0.0005\. Range: 0\...1\.;

@@ -39,8 +39,8 @@
             T60</property>
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">Ratio
             between source signal (dry) and processed signal (wet)</property>
-            <property name="@bypass" type="bool" default="0">if set to 1 - bypass 'effected'
-            signal.</property>
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <property name="@freeze" type="bool" default="0">freeze reverberation tail</property>
             <property name="@fr_mdecay" type="float" minvalue="0" maxvalue="60" default="40"

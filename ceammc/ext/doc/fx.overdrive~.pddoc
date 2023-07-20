@@ -19,8 +19,8 @@
         <properties>
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">Ratio
             between processed signal (wet) and source signal</property>
-            <property name="@bypass" type="bool" default="0">if set to 1 - bypass 'effected'
-            signal.</property>
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
             <property name="@gain" type="float" minvalue="1" maxvalue="5" default="1">input
             gain</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>

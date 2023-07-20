@@ -38,8 +38,8 @@ symbol.;
 #X text 245 565 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
 #X msg 110 594 @bypass;
-#X text 245 594 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
+#X text 245 594 Get/Set bypass flag. If true: bypass 'effected' signal.
+Type: bool. Default value: 0\.;
 #X msg 110 636 @decay;
 #X text 245 636 Get/Set drone pluck decay time. Type: float. Units:
 ms. Default value: 4000\. Range: 100\...120000\.;

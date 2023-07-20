@@ -67,8 +67,8 @@ symbol.;
 #X text 245 866 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
 #X msg 110 895 @bypass;
-#X text 245 895 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
+#X text 245 895 Get/Set bypass flag. If true: bypass 'effected' signal.
+Type: bool. Default value: 0\.;
 #X msg 110 937 @damp_hf;
 #X text 245 937 Get/Set Frequency (Hz) at which the high-frequency
 T60 is half the middle-band's T60\. Type: float. Units: Hz. Default

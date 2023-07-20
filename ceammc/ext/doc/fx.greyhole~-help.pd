@@ -34,8 +34,8 @@ symbol.;
 #X text 245 576 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
 #X msg 110 605 @bypass;
-#X text 245 605 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
+#X text 245 605 Get/Set bypass flag. If true: bypass 'effected' signal.
+Type: bool. Default value: 0\.;
 #X msg 110 647 @damping;
 #X text 245 647 Get/Set controls damping of high-frequencies as the
 delay decays. 0 is no damping \, 1 is very strong damping. Type: float.

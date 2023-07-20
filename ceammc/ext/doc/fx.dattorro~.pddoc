@@ -43,8 +43,8 @@
             diffusion factor 1</property>
             <property name="@idiff2" type="float" minvalue="0" maxvalue="1" default="0.75">input
             diffusion factor 2</property>
-            <property name="@bypass" type="bool" default="0">if set to 1 - bypass 'effected'
-            signal</property>
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <property name="@ddiff1" type="float" minvalue="0" maxvalue="1" default="0.5">decay
             diffusion factor 1</property>

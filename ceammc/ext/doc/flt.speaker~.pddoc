@@ -19,12 +19,14 @@
         <info>
             <par>Low-frequency speaker model = +12 dB/octave slope breaking to flat near @f1.</par>
             <par>Implemented using two dc blockers in series.</par>
-            <par>High-frequency model = -24 dB/octave slope implemented using a fourth-order Butterworth lowpass.</par>
+            <par>High-frequency model = -24 dB/octave slope implemented using a fourth-order
+            Butterworth lowpass.</par>
         </info>
         <arguments>
             <argument name="F1" type="float" units="hertz" minvalue="20" maxvalue="1000">lower band
             frequency</argument>
-            <argument name="F2" type="float" minvalue="1000" maxvalue="20000" units="hertz">high band frequency</argument>
+            <argument name="F2" type="float" minvalue="1000" maxvalue="20000" units="hertz">high
+            band frequency</argument>
         </arguments>
         <properties>
             <property name="@f1" type="float" minvalue="20" maxvalue="1000" default="130"
@@ -37,8 +39,8 @@
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
             of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
             wet</property>
-            <property name="@bypass" type="bool" default="0">if set to 1 - bypass 'effected'
-            signal</property>
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
             <!-- OSC -->
             <property name="@osc" type="symbol" default="" access="initonly">OSC server name to
             listen</property>
@@ -47,7 +49,7 @@
             /flt_speaker/PROP_NAME.</property>
             <!-- common -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
-        </properties>  
+        </properties>
         <methods>
             <method name="reset">reset filter state</method>
         </methods>

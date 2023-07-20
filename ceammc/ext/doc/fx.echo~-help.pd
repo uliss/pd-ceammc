@@ -45,8 +45,8 @@ symbol.;
 #X text 245 582 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
 #X msg 110 611 @bypass;
-#X text 245 611 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
+#X text 245 611 Get/Set bypass flag. If true: bypass 'effected' signal.
+Type: bool. Default value: 0\.;
 #X msg 110 653 @c_attack;
 #X text 245 653 Get/Set feedback compression attack time. Type: float.
 Units: ms. Default value: 10\. Range: 0.1\...100\.;

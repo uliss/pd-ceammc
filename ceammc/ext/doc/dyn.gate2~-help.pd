@@ -58,8 +58,8 @@ symbol.;
 #X text 245 710 Get/Set attack time = time constant (ms) for gate to
 open. Type: float. Units: ms. Default value: 0.1\. Range: 0\...500\.;
 #X msg 110 767 @bypass;
-#X text 245 767 Get/Set if set to 1 - bypass gate. Type: bool. Default
-value: 0\.;
+#X text 245 767 Get/Set bypass flag. If true: bypass 'effected' signal.
+Type: bool. Default value: 0\.;
 #X msg 110 809 @hold;
 #X text 245 809 Get/Set hold time = time (ms) gate stays open after
 signal level < threshold. Type: float. Units: ms. Default value: 100\.
