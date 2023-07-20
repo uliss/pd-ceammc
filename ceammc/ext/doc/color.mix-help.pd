@@ -9,7 +9,7 @@
 #X obj 50 147 color.mix Color(orange) \#0AF;
 #X obj 50 176 color->rgba @pack @float;
 #X msg 50 205 @background_color \$1 \$2 \$3;
-#X obj 50 234 ui.hsl;
+#X obj 50 234 ui.hsl @nosave 1;
 #X obj 20 283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 288 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
