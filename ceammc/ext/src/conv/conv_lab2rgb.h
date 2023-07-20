@@ -19,16 +19,21 @@
 using namespace ceammc;
 
 class ConvLab2Rgb : public BaseObject {
-    FlagProperty* sync_;
-    SymbolEnumProperty* mode_;
+    FlagProperty* sync_ { nullptr };
+    FlagProperty* pack_ { nullptr };
+    SymbolEnumProperty* mode_ { nullptr };
     t_float l_, aa_, bb_;
 
 public:
     ConvLab2Rgb(const PdArgs& args);
 
+    void initDone() final;
+
     void onFloat(t_float f) override;
     void onList(const AtomListView& lv) override;
     void onInlet(size_t n, const AtomListView& lv) override;
+
+    const char* annotateOutlet(size_t n) const final;
 
 private:
     void outputRGB();

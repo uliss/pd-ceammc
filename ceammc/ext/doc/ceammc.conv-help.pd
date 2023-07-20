@@ -48,72 +48,74 @@
 #X text 200 683 convert HSL color values to RGB;
 #X obj 30 710 conv.int2bits;
 #X text 200 710 convert integer to list of bits;
-#X obj 30 737 conv.lin2curve;
-#X text 200 737 map linear to exponential range with 0 allowed.;
-#X obj 30 764 conv.lin2exp;
-#X text 200 764 maps linear range to exponential range;
-#X obj 30 791 conv.lin2lin;
-#X text 200 791 convert from one linear range to another;
-#X obj 30 818 conv.lin2lin~;
-#X text 200 818 convert from one linear range to another for signals;
-#X obj 30 845 conv.list2props;
-#X text 200 845 converts list to series of property messages;
-#X obj 30 872 conv.midi2freq;
-#X text 200 872 convert from midi pitch to frequency in hz (with various
+#X obj 30 737 conv.lab2rgb;
+#X text 200 737 convert LAB color values to RGB;
+#X obj 30 764 conv.lin2curve;
+#X text 200 764 map linear to exponential range with 0 allowed.;
+#X obj 30 791 conv.lin2exp;
+#X text 200 791 maps linear range to exponential range;
+#X obj 30 818 conv.lin2lin;
+#X text 200 818 convert from one linear range to another;
+#X obj 30 845 conv.lin2lin~;
+#X text 200 845 convert from one linear range to another for signals;
+#X obj 30 872 conv.list2props;
+#X text 200 872 converts list to series of property messages;
+#X obj 30 899 conv.midi2freq;
+#X text 200 899 convert from midi pitch to frequency in hz (with various
 base A and temperament);
-#X obj 30 912 conv.ms2bpm;
-#X text 200 912 convert period in milliseconds to frequency in BPM;
-#X obj 30 939 conv.ms2samp;
-#X text 200 939 convert time in milliseconds to number of samples according
+#X obj 30 939 conv.ms2bpm;
+#X text 200 939 convert period in milliseconds to frequency in BPM;
+#X obj 30 966 conv.ms2samp;
+#X text 200 966 convert time in milliseconds to number of samples according
 to current samplerate;
-#X obj 30 979 conv.ms2samp~;
-#X text 200 979 convert time in milliseconds to number of samples according
-to current samplerate;
-#X obj 30 1019 conv.ms2str;
-#X text 200 1019 converts float time in milliseconds to formated symbol
+#X obj 30 1006 conv.ms2samp~;
+#X text 200 1006 convert time in milliseconds to number of samples
+according to current samplerate;
+#X obj 30 1046 conv.ms2str;
+#X text 200 1046 converts float time in milliseconds to formated symbol
 (or string);
-#X obj 30 1059 conv.note2guido;
-#X text 200 1059 convert MIDI note to Guido notation;
-#X obj 30 1086 conv.phase2rad;
-#X text 200 1086 convert phase value [0-1] to radians [0-2π];
-#X obj 30 1113 conv.phase2rad~;
+#X obj 30 1086 conv.note2guido;
+#X text 200 1086 convert MIDI note to Guido notation;
+#X obj 30 1113 conv.phase2rad;
 #X text 200 1113 convert phase value [0-1] to radians [0-2π];
-#X obj 30 1140 conv.pitch2midi;
-#X text 200 1140 converts symbol pitch name to MIDI note number;
-#X obj 30 1167 conv.pol2car;
-#X text 200 1167 convert from polar coordinates to cartesian;
-#X obj 30 1194 conv.rad2phase;
-#X text 200 1194 convert radians value to phase;
-#X obj 30 1221 conv.rad2phase~;
+#X obj 30 1140 conv.phase2rad~;
+#X text 200 1140 convert phase value [0-1] to radians [0-2π];
+#X obj 30 1167 conv.pitch2midi;
+#X text 200 1167 converts symbol pitch name to MIDI note number;
+#X obj 30 1194 conv.pol2car;
+#X text 200 1194 convert from polar coordinates to cartesian;
+#X obj 30 1221 conv.rad2phase;
 #X text 200 1221 convert radians value to phase;
-#X obj 30 1248 conv.rgb2hex;
-#X text 200 1248 convert separate RGB values to hex color;
-#X obj 30 1275 conv.samp2ms;
-#X text 200 1275 convert samples to time according to samplerate;
-#X obj 30 1302 conv.samp2ms~;
-#X text 200 1302 convert samples to milliseconds according to samplerate;
-#X obj 30 1329 conv.samp2sec;
-#X text 200 1329 convert samples to time according to samplerate;
-#X obj 30 1356 conv.sec2bpm;
-#X text 200 1356 convert period in seconds to frequency in BPM;
-#X obj 30 1383 conv.sec2samp;
-#X text 200 1383 convert time in seconds to number of samples according
+#X obj 30 1248 conv.rad2phase~;
+#X text 200 1248 convert radians value to phase;
+#X obj 30 1275 conv.rgb2hex;
+#X text 200 1275 convert separate RGB values to hex color;
+#X obj 30 1302 conv.samp2ms;
+#X text 200 1302 convert samples to time according to samplerate;
+#X obj 30 1329 conv.samp2ms~;
+#X text 200 1329 convert samples to milliseconds according to samplerate;
+#X obj 30 1356 conv.samp2sec;
+#X text 200 1356 convert samples to time according to samplerate;
+#X obj 30 1383 conv.sec2bpm;
+#X text 200 1383 convert period in seconds to frequency in BPM;
+#X obj 30 1410 conv.sec2samp;
+#X text 200 1410 convert time in seconds to number of samples according
 to current samplerate;
-#X obj 30 1423 conv.sec2str;
-#X text 200 1423 converts float time in seconds to formated symbol
+#X obj 30 1450 conv.sec2str;
+#X text 200 1450 converts float time in seconds to formated symbol
 (or string);
-#X obj 30 1450 conv.semi2ratio;
-#X text 200 1450 convert interval in semitones to frequency ratio in
+#X obj 30 1477 conv.semi2ratio;
+#X text 200 1477 convert interval in semitones to frequency ratio in
 12-ET;
-#X obj 30 1477 conv.sig2float~;
-#X text 200 1477 convert signal to floats;
-#X obj 30 1504 conv.str2sec;
-#X text 200 1504 converts formatted time to float value in seconds;
-#X obj 30 1531 music.dur2time;
-#X text 200 1531 convert duration list to time;
-#X obj 30 1558 music.voice2midi;
-#X text 200 1558 convert voice music list of midi pitches;
+#X obj 30 1504 conv.sig2float~;
+#X text 200 1504 convert signal to floats;
+#X obj 30 1531 conv.str2sec;
+#X text 200 1531 converts formatted time to float value in seconds;
+#X obj 30 1558 music.dur2time;
+#X text 200 1558 convert duration list to time;
+#X obj 30 1585 music.voice2midi;
+#X text 200 1585 convert voice music list of midi pitches;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::conv 20 20 0 20 -104026
 -4096 0;
-#X obj 1 1585 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 1595 library: ceammc;
+#X obj 1 1612 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 20 1622 library: ceammc;

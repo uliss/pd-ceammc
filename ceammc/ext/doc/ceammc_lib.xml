@@ -285,6 +285,9 @@
     <entry name="conv.int2bits" descr="convert integer to list of bits" ref_view="object">
       <xi:include href="conv.int2bits.pddoc" parse="xml"/>
     </entry>
+    <entry name="conv.lab2rgb" descr="convert LAB color values to RGB" ref_view="object">
+      <xi:include href="conv.lab2rgb.pddoc" parse="xml"/>
+    </entry>
     <entry name="conv.lin2curve" descr="map linear to exponential range with 0 allowed." ref_view="object">
       <xi:include href="conv.lin2curve.pddoc" parse="xml"/>
     </entry>

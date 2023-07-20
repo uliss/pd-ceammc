@@ -176,6 +176,9 @@ hsl->rgb	convert HSL color values to RGB
 conv.int2bits	convert integer to list of bits
 ceammc/int->bits	convert integer to list of bits
 int->bits	convert integer to list of bits
+conv.lab2rgb	convert LAB color values to RGB
+ceammc/lab->rgb	convert LAB color values to RGB
+lab->rgb	convert LAB color values to RGB
 conv.lin2curve	map linear to exponential range with 0 allowed.
 ceammc/lin->curve	map linear to exponential range with 0 allowed.
 lin->curve	map linear to exponential range with 0 allowed.

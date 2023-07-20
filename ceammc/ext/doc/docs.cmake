@@ -70,6 +70,7 @@ set(DOC_FILES
     conv.hex2int
     conv.hsl2rgb
     conv.int2bits
+    conv.lab2rgb
     conv.lin2curve
     conv.lin2exp
     conv.lin2lin
