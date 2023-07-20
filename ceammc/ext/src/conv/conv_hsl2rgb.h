@@ -19,16 +19,22 @@
 using namespace ceammc;
 
 class ConvHsl2Rgb : public BaseObject {
-    FlagProperty* sync_;
-    SymbolEnumProperty* mode_;
+    FlagProperty* sync_ { nullptr };
+    FlagProperty* pack_ { nullptr };
+    SymbolEnumProperty* mode_ { nullptr };
     t_float h_, s_, l_;
 
 public:
     ConvHsl2Rgb(const PdArgs& args);
 
-    void onFloat(t_float f) override;
-    void onList(const AtomListView& lv) override;
-    void onInlet(size_t n, const AtomListView& lv) override;
+    void initDone() final;
+
+    void onBang() final;
+    void onFloat(t_float f) final;
+    void onList(const AtomListView& lv) final;
+    void onInlet(size_t n, const AtomListView& lv) final;
+
+    const char* annotateOutlet(size_t n) const final;
 
 private:
     void outputRGB();

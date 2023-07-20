@@ -170,6 +170,9 @@ edge->bang	edge detector for numeric stream
 conv.hex2int	hex symbol to int value
 ceammc/hex->int	hex symbol to int value
 hex->int	hex symbol to int value
+conv.hsl2rgb	convert HSL color values to RGB
+ceammc/hsl->rgb	convert HSL color values to RGB
+hsl->rgb	convert HSL color values to RGB
 conv.int2bits	convert integer to list of bits
 ceammc/int->bits	convert integer to list of bits
 int->bits	convert integer to list of bits

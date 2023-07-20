@@ -68,6 +68,7 @@ set(DOC_FILES
     conv.degree2key
     conv.edge2bang
     conv.hex2int
+    conv.hsl2rgb
     conv.int2bits
     conv.lin2curve
     conv.lin2exp

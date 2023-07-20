@@ -13,33 +13,51 @@
  *****************************************************************************/
 #include "conv_hsl2rgb.h"
 #include "args/argcheck2.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "colorm/colorm.h"
 
-CEAMMC_DEFINE_HASH(int);
-CEAMMC_DEFINE_HASH(float);
+CEAMMC_DEFINE_SYM_HASH(int);
+CEAMMC_DEFINE_SYM_HASH(float);
 
 ConvHsl2Rgb::ConvHsl2Rgb(const PdArgs& args)
     : BaseObject(args)
-    , sync_(nullptr)
-    , mode_(nullptr)
     , h_(0)
     , s_(0)
     , l_(0)
 {
-    createInlet();
-    createInlet();
-    createOutlet();
-    createOutlet();
-    createOutlet();
 
     mode_ = new SymbolEnumProperty("@mode", { str_int, str_float });
     addProperty(mode_);
+    addProperty(new SymbolEnumAlias("@int", mode_, sym_int()));
+    addProperty(new SymbolEnumAlias("@float", mode_, sym_float()));
 
     sync_ = new FlagProperty("@sync");
     addProperty(sync_);
+
+    pack_ = new FlagProperty("@pack");
+    addProperty(pack_);
+}
+
+void ConvHsl2Rgb::initDone()
+{
+    createInlet();
+    createInlet();
+
+    if (pack_->value()) {
+        createOutlet();
+    } else {
+        createOutlet();
+        createOutlet();
+        createOutlet();
+    }
+}
+
+void ConvHsl2Rgb::onBang()
+{
+    outputRGB();
 }
 
 void ConvHsl2Rgb::onFloat(t_float f)
@@ -79,6 +97,46 @@ void ConvHsl2Rgb::onInlet(size_t n, const AtomListView& lv)
     }
 }
 
+const char* ConvHsl2Rgb::annotateOutlet(size_t n) const
+{
+
+#define INT_PREFIX "int\\[0-255\\]: "
+#define FLOAT_PREFIX "float\\[0-1\\]: "
+
+    switch (crc32_hash(mode_->value())) {
+    case hash_float: {
+        if (pack_->value())
+            return "list\\[0-1\\]: R G B";
+
+        switch (n) {
+        case 0:
+            return FLOAT_PREFIX "red";
+        case 1:
+            return FLOAT_PREFIX "green";
+        case 2:
+        default:
+            return FLOAT_PREFIX "blue";
+        }
+    } break;
+    case hash_int: {
+        if (pack_->value())
+            return "list\\[0-255\\]: R G B";
+
+        switch (n) {
+        case 0:
+            return INT_PREFIX "red";
+        case 1:
+            return INT_PREFIX "green";
+        case 2:
+        default:
+            return INT_PREFIX "blue";
+        }
+    } break;
+    default:
+        return "";
+    }
+}
+
 void ConvHsl2Rgb::outputRGB()
 {
     colorm::Hsl hsl(h_, s_ * 100, l_ * 100);
@@ -86,14 +144,32 @@ void ConvHsl2Rgb::outputRGB()
 
     switch (crc32_hash(mode_->value())) {
     case hash_float: {
-        floatTo(2, rgb.blue());
-        floatTo(1, rgb.green());
-        floatTo(0, rgb.red());
+        if (pack_->value()) {
+
+            AtomArray<3> data;
+            data[0] = rgb.red() / 255;
+            data[1] = rgb.green() / 255;
+            data[2] = rgb.blue() / 255;
+            listTo(0, data.view());
+
+        } else {
+            floatTo(2, rgb.blue() / 255);
+            floatTo(1, rgb.green() / 255);
+            floatTo(0, rgb.red() / 255);
+        }
     } break;
     case hash_int: {
-        floatTo(2, rgb.blue8());
-        floatTo(1, rgb.green8());
-        floatTo(0, rgb.red8());
+        if (pack_->value()) {
+            AtomArray<3> data;
+            data[0] = rgb.red8();
+            data[1] = rgb.green8();
+            data[2] = rgb.blue8();
+            listTo(0, data.view());
+        } else {
+            floatTo(2, rgb.blue8());
+            floatTo(1, rgb.green8());
+            floatTo(0, rgb.red8());
+        }
     } break;
     }
 }
@@ -102,4 +178,11 @@ void setup_conv_hsl2rgb()
 {
     ObjectFactory<ConvHsl2Rgb> obj("conv.hsl2rgb");
     obj.addAlias("hsl->rgb");
+
+    obj.setXletsInfo({
+                         "float\\[0-360\\]: hue",
+                         "float\\[0-1\\]: saturation",
+                         "float\\[0-1\\]: lightness",
+                     },
+        {});
 }

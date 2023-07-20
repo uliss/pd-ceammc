@@ -279,6 +279,9 @@
     <entry name="conv.hex2int" descr="hex symbol to int value" ref_view="object">
       <xi:include href="conv.hex2int.pddoc" parse="xml"/>
     </entry>
+    <entry name="conv.hsl2rgb" descr="convert HSL color values to RGB" ref_view="object">
+      <xi:include href="conv.hsl2rgb.pddoc" parse="xml"/>
+    </entry>
     <entry name="conv.int2bits" descr="convert integer to list of bits" ref_view="object">
       <xi:include href="conv.int2bits.pddoc" parse="xml"/>
     </entry>

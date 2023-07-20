@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="conv.hsl2rgb">
+        <title>conv.hsl2rgb</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert HSL color values to RGB</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv color hsl rgb</keywords>
+            <since>0.9.7</since>
+            <aliases>
+                <alias>ceammc/hsl-&gt;rgb</alias>
+                <alias>hsl-&gt;rgb</alias>
+            </aliases>
+        </meta>
+        <properties>
+            <property name="@sync" type="flag" access="initonly">output at any inlet change</property>
+            <property name="@pack" type="flag" access="initonly">output as list (creates single outlet object)</property>
+            <property name="@mode" type="symbol" default="int" enum="int float">output
+            mode</property>
+            <property name="@int" type="alias">alias to @mode int. Output integer values in [0-255]
+            range</property>
+            <property name="@float" type="alias">alias to @mode float. Output float values in [0-1]
+            range</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">output current value</xinfo>
+                <xinfo on="float" minvalue="0" maxvalue="360">set color Hue and output</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float" minvalue="0" maxvalue="1">set color saturation without output</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float" minvalue="0" maxvalue="1">set color lightness without output</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet>list: R G B or red channel value (int[0-255] or float[0-1])</outlet>
+            <outlet>int[0-255] or float[0-1]: green channel value</outlet>
+            <outlet>int[0-255] or float[0-1]: blue channel value</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.hsl #h]
+
+         [ui.hsl #s]
+
+ [bang(              [ui.hsl #l]
+ |
+[hsl->rgb @sync @float @pack #z]
+|  |
+|  [ui.dt]
+|
+|
+[msg @background_color]
+|
+[ui.t @size 40 40 @nosave 1]
+
+[X h->z]
+[X s->z:1]
+[X l->z:2]
+
+#h 0 360 @label HUE  @label_inner 1 @show_value 1 @label_color 0.1 0.25 1
+#s @label SAT        @label_inner 1 @show_value 1 @label_color 0.1 0.25 1
+#l @label LIGHT      @label_inner 1 @show_value 1 @label_color 0.1 0.25 1
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
