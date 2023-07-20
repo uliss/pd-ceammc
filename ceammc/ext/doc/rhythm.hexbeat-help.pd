@@ -36,7 +36,7 @@
 -49933 0;
 #X msg 110 508 @hex;
 #X text 245 508 Get/Set hex pattern. Type: symbol.;
-#X msg 110 537 @pattern;
+#X msg 110 537 @pattern?;
 #X text 245 537 (readonly) Get list pattern. Type: list.;
 #X obj 20 576 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 581 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933

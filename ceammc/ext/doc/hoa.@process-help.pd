@@ -30,25 +30,25 @@ properties and get/set properties declared via [prop.declare];
 #X obj 20 495 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 500 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 535 @hdegree;
+#X msg 110 535 @hdegree?;
 #X text 245 535 (readonly) Get current harmonic degree in hoa.process~
 instance (only in harmonics mode). Type: int. Default value: 0\.;
-#X msg 110 592 @horder;
+#X msg 110 592 @horder?;
 #X text 245 592 (readonly) Get current harmonic order in hoa.process~
 instance (only in harmonics mode). Type: int. Default value: 0\.;
-#X msg 110 649 @index;
+#X msg 110 649 @index?;
 #X text 245 649 (readonly) Get current instance index starting from
 0\. Type: int. Default value: 0\.;
-#X msg 110 691 @order;
+#X msg 110 691 @order?;
 #X text 245 691 (readonly) Get order of parent hoa.process~. Type:
 int. Default value: 0\.;
-#X msg 110 733 @pmode;
+#X msg 110 733 @pmode?;
 #X text 245 733 (readonly) Get amibisonic mode. Type: symbol. Allowed
 values: 2d \, 3d.;
-#X msg 110 775 @ptype;
+#X msg 110 775 @ptype?;
 #X text 245 775 (readonly) Get amibisonic type. Type: symbol. Allowed
 values: harmonics \, planewaves.;
-#X msg 110 817 @total;
+#X msg 110 817 @total?;
 #X text 245 817 (readonly) Get total number of hoa.process~ instances.
 Type: int. Default value: 0\.;
 #X obj 20 869 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

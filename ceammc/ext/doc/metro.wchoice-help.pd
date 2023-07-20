@@ -25,20 +25,20 @@ values can be floats or percent. Type: list.;
 #X obj 20 396 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 401 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 436 @calc_w;
-#X text 245 436 (readonly) Get normalized list of probabilities. Type:
-list. Default value: 1\.;
-#X msg 110 478 @init;
-#X text 245 478 (initonly) Get/Set intermixed list of time and weights
+#X msg 110 436 @init;
+#X text 245 436 (initonly) Get/Set intermixed list of time and weights
 values. Type: list.;
-#X msg 110 520 @seed;
-#X text 245 520 Get/Set generator seed. Type: int. Default value: 0\.
+#X msg 110 478 @seed;
+#X text 245 478 Get/Set generator seed. Type: int. Default value: 0\.
 Min value: 0\.;
-#X msg 110 562 @t;
-#X text 245 562 Get/Set timeset (>0). Type: list. Units: ms.;
-#X msg 110 591 @w;
-#X text 245 591 Get/Set weight list \, float or percent values. Type:
+#X msg 110 520 @t;
+#X text 245 520 Get/Set timeset (>0). Type: list. Units: ms.;
+#X msg 110 549 @w;
+#X text 245 549 Get/Set weight list \, float or percent values. Type:
 list.;
+#X msg 110 578 @calc_w?;
+#X text 245 578 (readonly) Get normalized list of probabilities. Type:
+list. Default value: 1\.;
 #X obj 20 630 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 635 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

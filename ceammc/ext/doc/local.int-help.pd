@@ -33,7 +33,7 @@ accessible even from subpatch.;
 #X msg 110 462 @id;
 #X text 245 462 (initonly) Get/Set local variable id. Type: symbol.
 Default value: default.;
-#X msg 110 504 @value;
+#X msg 110 504 @value?;
 #X text 245 504 (readonly) Get current value. Type: int. Default value:
 0\.;
 #X obj 20 543 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

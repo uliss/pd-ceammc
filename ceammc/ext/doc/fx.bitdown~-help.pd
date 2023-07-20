@@ -31,25 +31,25 @@ Range: 1\...200;
 #X obj 20 445 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 450 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 485 @active;
-#X text 245 485 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 110 514 @bits;
-#X text 245 514 Get/Set output bits. Type: int. Default value: 16\.
-Range: 1\...16\.;
-#X msg 110 556 @bypass;
-#X text 245 556 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
-#X msg 110 598 @downsamp;
-#X text 245 598 Get/Set number samples to skip. Type: int. Units: samp.
-Default value: 1\. Range: 1\...200\.;
-#X msg 110 640 @id;
-#X text 245 640 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 485 @id;
+#X text 245 485 (initonly) Get/Set OSC address id. If specified \,
 bind properties to /ID/fx_bitdown/PROP_NAME osc address \, if empty
 bind to /fx_bitdown/PROP_NAME. Type: symbol.;
-#X msg 110 697 @osc;
-#X text 245 697 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 542 @osc;
+#X text 245 542 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
+#X msg 110 571 @active;
+#X text 245 571 Get/Set on/off dsp processing. Type: bool. Default
+value: 1\.;
+#X msg 110 600 @bits;
+#X text 245 600 Get/Set output bits. Type: int. Default value: 16\.
+Range: 1\...16\.;
+#X msg 110 642 @bypass;
+#X text 245 642 Get/Set if set to 1 - bypass 'effected' signal. Type:
+bool. Default value: 0\.;
+#X msg 110 684 @downsamp;
+#X text 245 684 Get/Set number samples to skip. Type: int. Units: samp.
+Default value: 1\. Range: 1\...200\.;
 #X obj 20 736 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 741 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

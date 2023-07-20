@@ -39,14 +39,14 @@ outlet;
 -49933 0;
 #X msg 110 616 @keys;
 #X text 245 616 (initonly) Get/Set list of mapped keys. Type: list.;
-#X msg 110 645 @mode;
-#X text 245 645 Get/Set mode for repeated notes. If 'off' - send note
+#X msg 110 645 @poly;
+#X text 245 645 polyphonic mode. (for using with [clone] object). Default
+value: 0\.;
+#X msg 110 687 @mode;
+#X text 245 687 Get/Set mode for repeated notes. If 'off' - send note
 off before retriggering \, if 'tie' - ignore repeated events \, if
 'raw' - always send on/off events. Type: symbol. Default value: off.
 Allowed values: off \, tie \, raw.;
-#X msg 110 717 @poly;
-#X text 245 717 polyphonic mode. (for using with [clone] object). Default
-value: 0\.;
 #X msg 110 759 @vel;
 #X text 245 759 Get/Set output velocity. Type: float. Default value:
 90\. Range: 0\...127\.;

@@ -24,7 +24,7 @@
 -49933 0;
 #X msg 110 380 @use_date;
 #X text 245 380 Get/Set decode date. Type: bool. Default value: 1\.;
-#X msg 110 409 @volume;
+#X msg 110 409 @volume?;
 #X text 245 409 (readonly) Get input signal level. Type: float. Units:
 db. Default value: 0\. Range: -60\...0\.;
 #X obj 20 461 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

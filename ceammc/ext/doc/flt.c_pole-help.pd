@@ -31,18 +31,18 @@
 #X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 469 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 504 @freq;
-#X text 245 504 Get/Set center frequency. Type: float. Units: Hz. Default
+#X msg 110 504 @rad;
+#X text 245 504 use angular frequency.;
+#X msg 110 533 @freq;
+#X text 245 533 Get/Set center frequency. Type: float. Units: Hz. Default
 value: 1000\. Range: 0\...22050\.;
-#X msg 110 546 @hpf;
-#X text 245 546 ti @mode hpf.;
-#X msg 110 575 @lpf;
-#X text 245 575 to @mode lpf.;
-#X msg 110 604 @mode;
-#X text 245 604 Get/Set filter modey. Type: symbol. Default value:
+#X msg 110 575 @hpf;
+#X text 245 575 ti @mode hpf.;
+#X msg 110 604 @lpf;
+#X text 245 604 to @mode lpf.;
+#X msg 110 633 @mode;
+#X text 245 633 Get/Set filter modey. Type: symbol. Default value:
 lpf. Allowed values: hpf \, lpf.;
-#X msg 110 646 @rad;
-#X text 245 646 use angular frequency.;
 #X obj 20 685 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 690 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

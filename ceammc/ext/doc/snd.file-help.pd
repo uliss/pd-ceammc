@@ -46,27 +46,27 @@ into arrays. Various formats are supported. Supports array name patterns.;
 #X obj 20 654 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 659 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 694 @channels;
-#X text 245 694 (readonly) Get list of loaded channels into each array.
+#X msg 110 694 @verbose;
+#X text 245 694 (initonly) Get/Set verbose output to Pd window. Type:
+bool. Default value: 0\.;
+#X msg 110 736 @smpte_fr;
+#X text 245 736 Get/Set SMPTE framerate for SMPTE offset calculations.
+Type: float. Default value: 30\. Range: 1\...99\.;
+#X msg 110 778 @channels?;
+#X text 245 778 (readonly) Get list of loaded channels into each array.
 Type: list.;
-#X msg 110 736 @filename;
-#X text 245 736 (readonly) Get filename. Type: list.;
-#X msg 110 765 @formats;
-#X text 245 765 (readonly) Get list of supported formats. Type: list.
+#X msg 110 820 @filename?;
+#X text 245 820 (readonly) Get filename. Type: list.;
+#X msg 110 849 @formats?;
+#X text 245 849 (readonly) Get list of supported formats. Type: list.
 Default value: AAC AIFF ALAC AU AVR CAF FLAC HTK IFF MACE3:1 MACE6:1
 MAT4 MAT5 MP3 MP4 MPC OGG PAF PVF RAW RF64 SD2 SDS SF VOC W64 WAV WAVEX
 WVE XI.;
-#X msg 110 837 @samples;
-#X text 245 837 (readonly) Get list of number of loaded samples into
+#X msg 110 921 @samples?;
+#X text 245 921 (readonly) Get list of number of loaded samples into
 each array. Type: list.;
-#X msg 110 879 @smpte_fr;
-#X text 245 879 Get/Set SMPTE framerate for SMPTE offset calculations.
-Type: float. Default value: 30\. Range: 1\...99\.;
-#X msg 110 921 @sr;
-#X text 245 921 (readonly) Get source file samplerate. Type: list.;
-#X msg 110 950 @verbose;
-#X text 245 950 (initonly) Get/Set verbose output to Pd window. Type:
-bool. Default value: 0\.;
+#X msg 110 963 @sr?;
+#X text 245 963 (readonly) Get source file samplerate. Type: list.;
 #X obj 20 1002 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1007 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

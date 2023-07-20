@@ -63,68 +63,68 @@ Default value: 0\.;
 #X msg 110 821 @mouse_events;
 #X text 245 821 Get/Set mouse events output mode. If on outputs @mouse_down
 \, @mouse_up and @mouse_drag events. Type: bool. Default value: 0\.;
-#X msg 110 878 @range;
-#X text 245 878 (readonly) Get selected slider value. Type: float.
-Default value: 0.2\. Min value: 0\.;
-#X msg 110 920 @receive;
-#X text 245 920 Get/Set receive source. Type: symbol. Default value:
+#X msg 110 878 @receive;
+#X text 245 878 Get/Set receive source. Type: symbol. Default value:
 (null).;
-#X msg 110 949 @send;
-#X text 245 949 Get/Set send destination. Type: symbol. Default value:
+#X msg 110 907 @send;
+#X text 245 907 Get/Set send destination. Type: symbol. Default value:
 (null).;
-#X msg 110 991 @value;
-#X text 245 991 Get/Set current slider value. Type: list.;
-#X msg 110 1020 @background_color;
-#X text 245 1020 Get/Set element background color (list of red \, green
+#X msg 110 949 @value;
+#X text 245 949 Get/Set current slider value. Type: list.;
+#X msg 110 978 @background_color;
+#X text 245 978 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 1077 @border_color;
-#X text 245 1077 Get/Set border color (list of red \, green \, blue
+#X msg 110 1035 @border_color;
+#X text 245 1035 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 1119 @knob_color;
-#X text 245 1119 Get/Set knob color (list of red \, green \, blue values
+#X msg 110 1077 @knob_color;
+#X text 245 1077 Get/Set knob color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 1161 @label_color;
-#X text 245 1161 Get/Set label color in RGB format within 0-1 range
+#X msg 110 1119 @label_color;
+#X text 245 1119 Get/Set label color in RGB format within 0-1 range
 \, for example: 0.2 0.4 0.1\. Type: list. Default value: 0 0 0 1\.;
-#X msg 110 1203 @label;
-#X text 245 1203 Get/Set label text. Type: symbol. Default value: (null).;
-#X msg 110 1232 @label_align;
-#X text 245 1232 Get/Set label horizontal align. Type: symbol. Default
+#X msg 110 1161 @label;
+#X text 245 1161 Get/Set label text. Type: symbol. Default value: (null).;
+#X msg 110 1190 @label_align;
+#X text 245 1190 Get/Set label horizontal align. Type: symbol. Default
 value: left. Allowed values: left \, center \, right.;
-#X msg 110 1274 @label_inner;
-#X text 245 1274 Get/Set label position (1 - inner \, 0 - outer). Type:
+#X msg 110 1232 @label_inner;
+#X text 245 1232 Get/Set label position (1 - inner \, 0 - outer). Type:
 bool. Default value: 0\.;
-#X msg 110 1316 @label_margins;
-#X text 245 1316 Get/Set label offset in pixels. Type: list. Default
+#X msg 110 1274 @label_margins;
+#X text 245 1274 Get/Set label offset in pixels. Type: list. Default
 value: 0 0\.;
-#X msg 110 1358 @label_side;
-#X text 245 1358 Get/Set label snap side. Type: symbol. Default value:
+#X msg 110 1316 @label_side;
+#X text 245 1316 Get/Set label snap side. Type: symbol. Default value:
 top. Allowed values: left \, top \, right \, bottom.;
-#X msg 110 1400 @label_valign;
-#X text 245 1400 Get/Set label vertical align. Type: symbol. Default
+#X msg 110 1358 @label_valign;
+#X text 245 1358 Get/Set label vertical align. Type: symbol. Default
 value: top. Allowed values: top \, center \, bottom.;
-#X msg 110 1442 @fontname;
-#X text 245 1442 Get/Set fontname. Type: symbol. Default value: Helvetica.
+#X msg 110 1400 @fontname;
+#X text 245 1400 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 1484 @fontsize;
-#X text 245 1484 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 1442 @fontsize;
+#X text 245 1442 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...100\.;
-#X msg 110 1526 @fontslant;
-#X text 245 1526 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1484 @fontslant;
+#X text 245 1484 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 1568 @fontweight;
-#X text 245 1568 Get/Set font weight. Type: symbol. Default value:
+#X msg 110 1526 @fontweight;
+#X text 245 1526 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 1610 @pinned;
-#X text 245 1610 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1568 @pinned;
+#X text 245 1568 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: bool. Default value: 0\.;
-#X msg 110 1652 @presetname;
-#X text 245 1652 Get/Set preset name for using with [ui.preset]. Type:
+#X msg 110 1610 @presetname;
+#X text 245 1610 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
-#X msg 110 1694 @size;
-#X text 245 1694 Get/Set element size (width \, height pair). Type:
+#X msg 110 1652 @size;
+#X text 245 1652 Get/Set element size (width \, height pair). Type:
 list. Default value: 120 15\.;
+#X msg 110 1694 @range?;
+#X text 245 1694 (readonly) Get selected slider value. Type: float.
+Default value: 0.2\. Min value: 0\.;
 #X obj 20 1746 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1751 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

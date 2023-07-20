@@ -44,26 +44,26 @@ gate to close. Type: float. Range: 1\...500;
 #X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 560 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 595 @active;
-#X text 245 595 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 110 624 @attack;
-#X text 245 624 Get/Set attack time = time constant (ms) for gate to
-open. Type: float. Units: ms. Default value: 0.1\. Range: 0\...500\.;
-#X msg 110 681 @bypass;
-#X text 245 681 Get/Set if set to 1 - bypass gate. Type: bool. Default
-value: 0\.;
-#X msg 110 723 @hold;
-#X text 245 723 Get/Set hold time = time (ms) gate stays open after
-signal level < threshold. Type: float. Units: ms. Default value: 100\.
-Range: 1\...500\.;
-#X msg 110 780 @id;
-#X text 245 780 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 595 @id;
+#X text 245 595 (initonly) Get/Set OSC address id. If specified \,
 bind properties to /ID/dyn_gate2/PROP_NAME osc address \, if empty
 bind to /dyn_gate2/PROP_NAME. Type: symbol.;
-#X msg 110 837 @osc;
-#X text 245 837 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 652 @osc;
+#X text 245 652 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
+#X msg 110 681 @active;
+#X text 245 681 Get/Set on/off dsp processing. Type: bool. Default
+value: 1\.;
+#X msg 110 710 @attack;
+#X text 245 710 Get/Set attack time = time constant (ms) for gate to
+open. Type: float. Units: ms. Default value: 0.1\. Range: 0\...500\.;
+#X msg 110 767 @bypass;
+#X text 245 767 Get/Set if set to 1 - bypass gate. Type: bool. Default
+value: 0\.;
+#X msg 110 809 @hold;
+#X text 245 809 Get/Set hold time = time (ms) gate stays open after
+signal level < threshold. Type: float. Units: ms. Default value: 100\.
+Range: 1\...500\.;
 #X msg 110 866 @release;
 #X text 245 866 Get/Set release time = time constant (ms) for gate
 to close. Type: float. Units: ms. Default value: 20\. Range: 1\...500\.;

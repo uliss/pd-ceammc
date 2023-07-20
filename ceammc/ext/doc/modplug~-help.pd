@@ -28,19 +28,19 @@
 #X msg 110 380 @done;
 #X text 245 380 Get/Set function called with bang when playing is finished.
 Type: symbol.;
-#X msg 110 422 @len;
-#X text 245 422 (readonly) Get length of mod file. Type: float. Units:
-ms. Default value: 0\.;
-#X msg 110 464 @name;
-#X text 245 464 (readonly) Get mod name. Type: symbol.;
-#X msg 110 493 @play;
-#X text 245 493 Get/Set play state. Type: bool. Default value: 0\.;
-#X msg 110 522 @pos;
-#X text 245 522 Get/Set position in mod file. Type: float. Units: ms.
+#X msg 110 422 @play;
+#X text 245 422 Get/Set play state. Type: bool. Default value: 0\.;
+#X msg 110 451 @pos;
+#X text 245 451 Get/Set position in mod file. Type: float. Units: ms.
 Default value: -1\.;
-#X msg 110 564 @rpos;
-#X text 245 564 Get/Set relative position in mod file. Type: float.
+#X msg 110 493 @rpos;
+#X text 245 493 Get/Set relative position in mod file. Type: float.
 Default value: 0\. Range: 0\...1\.;
+#X msg 110 535 @len?;
+#X text 245 535 (readonly) Get length of mod file. Type: float. Units:
+ms. Default value: 0\.;
+#X msg 110 577 @name?;
+#X text 245 577 (readonly) Get mod name. Type: symbol.;
 #X obj 20 616 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 621 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

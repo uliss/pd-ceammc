@@ -36,43 +36,43 @@ on Linux and /dev/cu.usbmodem411 on MacOSX. Type: symbol.;
 #X obj 20 558 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 563 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 598 @connected;
-#X text 245 598 (readonly) Get state of connection to device. Type:
-bool. Default value: 0\.;
-#X msg 110 640 @devices;
-#X text 245 640 (readonly) Get list of found Arduino devices. Type:
-list.;
-#X msg 110 669 @on_connect;
-#X text 245 669 Get/Set function called every time on connect. Type:
-symbol.;
-#X msg 110 698 @port;
-#X text 245 698 (initonly) Get/Set name of arduino serial port \, eg.:
+#X msg 110 598 @port;
+#X text 245 598 (initonly) Get/Set name of arduino serial port \, eg.:
 COM3 on Windows \, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on
 MacOSX. If specified on creation tries to connect to this device only.
 Type: symbol.;
-#X msg 110 770 @product_id;
-#X text 245 770 Get/Set USB device product id. If vendor and product
+#X msg 110 670 @reconnect;
+#X text 245 670 enables hot-pluggin. Default value: 0\.;
+#X msg 110 699 @on_connect;
+#X text 245 699 Get/Set function called every time on connect. Type:
+symbol.;
+#X msg 110 728 @product_id;
+#X text 245 728 Get/Set USB device product id. If vendor and product
 ids are specified at creation \, tries to connect to devices only with
 such properties. Note: product id is specified in decimal mode \, not
 in hex. Type: int. Default value: 0\.;
-#X msg 110 842 @rate;
-#X text 245 842 Get/Set serial baud rate. Standard value supported
+#X msg 110 800 @rate;
+#X text 245 800 Get/Set serial baud rate. Standard value supported
 by most serial ports: 110 \, 300 \, 600 \, 1200 \, 2400 \, 4800 \,
 9600 \, 14400 \, 19200 \, 28800 \, 38400 \, 56000 \, 57600 \, 115200\.
 Type: int. Default value: 57600\. Allowed values: 57600 \, 110 \, 300
 \, 600 \, 1200 \, 2400 \, 4800 \, 9600 \, 14400 \, 19200 \, 38400 \,
 56000 \, 115200 \, 128000 \, 256000\.;
-#X msg 110 944 @reconnect;
-#X text 245 944 enables hot-pluggin. Default value: 0\.;
-#X msg 110 973 @serial;
-#X text 245 973 Get/Set USB device serial number. If specified at creation
+#X msg 110 902 @serial;
+#X text 245 902 Get/Set USB device serial number. If specified at creation
 \, tries to connect to devices only with such serial number. Type:
 symbol.;
-#X msg 110 1030 @vendor_id;
-#X text 245 1030 Get/Set USB device vendor id. If specified at creation
+#X msg 110 959 @vendor_id;
+#X text 245 959 Get/Set USB device vendor id. If specified at creation
 \, tries to connect to devices only with such vendor. Note: vendor
 id is specified in decimal mode \, not in hex. Type: int. Default value:
 0\.;
+#X msg 110 1031 @connected?;
+#X text 245 1031 (readonly) Get state of connection to device. Type:
+bool. Default value: 0\.;
+#X msg 110 1073 @devices?;
+#X text 245 1073 (readonly) Get list of found Arduino devices. Type:
+list.;
 #X obj 20 1112 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1117 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

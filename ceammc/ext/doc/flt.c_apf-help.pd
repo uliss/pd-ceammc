@@ -42,14 +42,14 @@ https://en.wikipedia.org/wiki/All-pass_filter;
 #X obj 20 612 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 617 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 652 @freq;
-#X text 245 652 Get/Set center frequency. Type: float. Units: Hz. Default
+#X msg 110 652 @rad;
+#X text 245 652 use angular frequency.;
+#X msg 110 681 @freq;
+#X text 245 681 Get/Set center frequency. Type: float. Units: Hz. Default
 value: 0\. Range: 0\...22050\.;
-#X msg 110 694 @q;
-#X text 245 694 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
+#X msg 110 723 @q;
+#X text 245 723 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
 Default value: 0.7071\. Range: 0.01\...100\.;
-#X msg 110 736 @rad;
-#X text 245 736 use angular frequency.;
 #X obj 20 775 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 780 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

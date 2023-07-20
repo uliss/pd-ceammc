@@ -44,19 +44,19 @@ Type: atom.;
 #X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 623 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 658 @host;
-#X text 245 658 (readonly) Get destination host. Type: symbol.;
-#X msg 110 687 @path;
-#X text 245 687 (readonly) Get socket filesystem path (if using unix
+#X msg 110 658 @url;
+#X text 245 658 Get/Set destination url. Type: atom.;
+#X msg 110 687 @host?;
+#X text 245 687 (readonly) Get destination host. Type: symbol.;
+#X msg 110 716 @path?;
+#X text 245 716 (readonly) Get socket filesystem path (if using unix
 proto). Type: symbol.;
-#X msg 110 729 @port;
-#X text 245 729 (readonly) Get destination port. Type: int. Default
+#X msg 110 758 @port?;
+#X text 245 758 (readonly) Get destination port. Type: int. Default
 value: 0\.;
-#X msg 110 771 @proto;
-#X text 245 771 (readonly) Get sending protocol. Type: symbol. Default
+#X msg 110 800 @proto?;
+#X text 245 800 (readonly) Get sending protocol. Type: symbol. Default
 value: udp.;
-#X msg 110 813 @url;
-#X text 245 813 Get/Set destination url. Type: atom.;
 #X obj 20 852 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 857 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

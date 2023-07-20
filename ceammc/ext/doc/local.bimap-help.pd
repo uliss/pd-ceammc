@@ -34,20 +34,20 @@
 #X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 424 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 459 @empty;
-#X text 245 459 (readonly) Get true if empty. Type: bool. Default value:
-1\.;
-#X msg 110 488 @id;
-#X text 245 488 (initonly) Get/Set local variable id. Type: symbol.
+#X msg 110 459 @id;
+#X text 245 459 (initonly) Get/Set local variable id. Type: symbol.
 Default value: default.;
-#X msg 110 530 @keys_left;
-#X text 245 530 (readonly) Get list of left map keys. Type: list.;
-#X msg 110 559 @keys_right;
-#X text 245 559 (readonly) Get list of right map keys. Type: list.;
-#X msg 110 588 @value;
-#X text 245 588 Get/Set value \, list of pairs: LEFT_KEY1 RIGHT_KEY1
+#X msg 110 501 @value;
+#X text 245 501 Get/Set value \, list of pairs: LEFT_KEY1 RIGHT_KEY1
 LEFT_KEY2 RIGHT_KEY2 etc. Type: list.;
-#X msg 110 630 @size;
+#X msg 110 543 @empty?;
+#X text 245 543 (readonly) Get true if empty. Type: bool. Default value:
+1\.;
+#X msg 110 572 @keys_left?;
+#X text 245 572 (readonly) Get list of left map keys. Type: list.;
+#X msg 110 601 @keys_right?;
+#X text 245 601 (readonly) Get list of right map keys. Type: list.;
+#X msg 110 630 @size?;
 #X text 245 630 (readonly) Get number of left-right pairs in map. Type:
 int. Default value: 0\.;
 #X obj 20 682 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

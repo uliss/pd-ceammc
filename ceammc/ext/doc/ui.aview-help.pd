@@ -88,58 +88,58 @@ begin \, end. Type: list. Units: sec.;
 #X msg 110 1409 @show_rms;
 #X text 245 1409 Get/Set show RMS graph. Type: bool. Default value:
 0\.;
-#X msg 110 1438 @size_ms;
-#X text 245 1438 (readonly) Get array size in milliseconds. Type: float.
-Units: ms. Default value: 0\. Min value: 0\.;
-#X msg 110 1480 @size_samp;
-#X text 245 1480 (readonly) Get array size in samples. Type: int. Units:
-samp. Default value: 0\. Min value: 0\.;
-#X msg 110 1522 @size_sec;
-#X text 245 1522 (readonly) Get array size in seconds. Type: float.
-Units: sec. Default value: 0\. Min value: 0\.;
-#X msg 110 1564 @background_color;
-#X text 245 1564 Get/Set element background color (list of red \, green
+#X msg 110 1438 @background_color;
+#X text 245 1438 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 1621 @border_color;
-#X text 245 1621 Get/Set border color (list of red \, green \, blue
+#X msg 110 1495 @border_color;
+#X text 245 1495 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 1663 @cursor_color;
-#X text 245 1663 Get/Set cursor color (list of red \, green \, blue
+#X msg 110 1537 @cursor_color;
+#X text 245 1537 Get/Set cursor color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 1705 @selection_color;
-#X text 245 1705 Get/Set selection color (list of red \, green \, blue
+#X msg 110 1579 @selection_color;
+#X text 245 1579 Get/Set selection color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 1747 @wave_color;
-#X text 245 1747 Get/Set wave color (list of red \, green \, blue values
+#X msg 110 1621 @wave_color;
+#X text 245 1621 Get/Set wave color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0.3 0.3 0.3 1\.;
-#X msg 110 1789 @label_bottom;
-#X text 245 1789 Get/Set bottom right label if @show_labels is on.
+#X msg 110 1663 @label_bottom;
+#X text 245 1663 Get/Set bottom right label if @show_labels is on.
 Type: symbol.;
-#X msg 110 1831 @label_top;
-#X text 245 1831 Get/Set top right label if @show_labels is on. Type:
+#X msg 110 1705 @label_top;
+#X text 245 1705 Get/Set top right label if @show_labels is on. Type:
 symbol.;
-#X msg 110 1860 @show_labels;
-#X text 245 1860 Get/Set if show corner labels. Type: bool. Default
+#X msg 110 1734 @show_labels;
+#X text 245 1734 Get/Set if show corner labels. Type: bool. Default
 value: 0\.;
-#X msg 110 1889 @fontname;
-#X text 245 1889 Get/Set fontname. Type: symbol. Default value: Helvetica.
+#X msg 110 1763 @fontname;
+#X text 245 1763 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 1931 @fontsize;
-#X text 245 1931 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 1805 @fontsize;
+#X text 245 1805 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...100\.;
-#X msg 110 1973 @fontslant;
-#X text 245 1973 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1847 @fontslant;
+#X text 245 1847 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 2015 @fontweight;
-#X text 245 2015 Get/Set font weight. Type: symbol. Default value:
+#X msg 110 1889 @fontweight;
+#X text 245 1889 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 2057 @pinned;
-#X text 245 2057 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1931 @pinned;
+#X text 245 1931 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: bool. Default value: 0\.;
-#X msg 110 2099 @size;
-#X text 245 2099 Get/Set element size (width \, height pair). Type:
+#X msg 110 1973 @size;
+#X text 245 1973 Get/Set element size (width \, height pair). Type:
 list. Default value: 300 100\.;
+#X msg 110 2015 @size_ms?;
+#X text 245 2015 (readonly) Get array size in milliseconds. Type: float.
+Units: ms. Default value: 0\. Min value: 0\.;
+#X msg 110 2057 @size_samp?;
+#X text 245 2057 (readonly) Get array size in samples. Type: int. Units:
+samp. Default value: 0\. Min value: 0\.;
+#X msg 110 2099 @size_sec?;
+#X text 245 2099 (readonly) Get array size in seconds. Type: float.
+Units: sec. Default value: 0\. Min value: 0\.;
 #X obj 20 2151 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2156 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

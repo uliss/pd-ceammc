@@ -44,11 +44,8 @@ so substantially affecting the perceived pitch profile of the voice
 or instrument. 'False' apply no special formant processing. The spectral
 envelope will be pitch shifted as normal. Type: bool. Default value:
 0\.;
-#X msg 110 758 @latency;
-#X text 245 758 (readonly) Get object latency. Type: float. Units:
-samp. Default value: 1024\.;
-#X msg 110 800 @phase;
-#X text 245 800 Get/Set control the adjustment of component frequency
+#X msg 110 758 @phase;
+#X text 245 758 Get/Set control the adjustment of component frequency
 phases from one analysis window to the next during non-transient segments.
 'False' adjust the phase in each frequency bin independently from its
 neighbours. This usually results in a slightly softer \, phasier sound.
@@ -56,8 +53,8 @@ neighbours. This usually results in a slightly softer \, phasier sound.
 the continuity of phase relationships between adjacent frequency bins
 whose phases are behaving in similar ways. Type: bool. Default value:
 1\.;
-#X msg 110 947 @quality;
-#X text 245 947 Get/Set method used for pitch shifting. 'speed' may
+#X msg 110 905 @quality;
+#X text 245 905 Get/Set method used for pitch shifting. 'speed' may
 sound less clear than 'quality' \, especially for large pitch shifts.
 'quality' method has a CPU cost approximately proportional to the required
 frequency shift. 'consistency' gives greatest consistency when used
@@ -67,17 +64,17 @@ across the 1.0 pitch scale in real-time. It also consumes more CPU
 than the others in the case where the pitch scale is exactly 1.0\.
 Type: symbol. Default value: speed. Allowed values: speed \, quality
 \, consistency.;
-#X msg 110 1124 @scale;
-#X text 245 1124 Get/Set transposition as ratio. Type: float. Default
+#X msg 110 1082 @scale;
+#X text 245 1082 Get/Set transposition as ratio. Type: float. Default
 value: 1\. Range: 0.25\...4\.;
-#X msg 110 1166 @smooth;
-#X text 245 1166 Get/Set control the use of window-presum FFT and time-domain
+#X msg 110 1124 @smooth;
+#X text 245 1124 Get/Set control the use of window-presum FFT and time-domain
 smoothing. If true result in a softer sound with some audible artifacts
 around sharp transients \, but it may be appropriate for longer stretches
 of some instruments and can mix well with @window short. Type: bool.
 Default value: 0\.;
-#X msg 110 1253 @trans;
-#X text 245 1253 Get/Set control the component frequency phase-reset
+#X msg 110 1211 @trans;
+#X text 245 1211 Get/Set control the component frequency phase-reset
 mechanism that may be used at transient points to provide clarity and
 realism to percussion and other significant transient sounds. 'crisp'
 reset component phases at the peak of each transient (the start of
@@ -94,16 +91,19 @@ component phases at any point. The results will be smoother and more
 regular but may be less clear than with either of the other @trans
 settings. Type: symbol. Default value: crisp. Allowed values: crisp
 \, mixed \, smooth.;
-#X msg 110 1551 @transpose;
-#X text 245 1551 Get/Set transposition in semitones. Type: float. Units:
+#X msg 110 1509 @transpose;
+#X text 245 1509 Get/Set transposition in semitones. Type: float. Units:
 semitone. Default value: 0\. Range: -24\...24\.;
-#X msg 110 1593 @window;
-#X text 245 1593 Get/Set the window size. 'standard' is expected to
+#X msg 110 1551 @window;
+#X text 245 1551 Get/Set the window size. 'standard' is expected to
 produce better results than the other window options in most situations.
 'short' may result in crisper sound for audio that depends strongly
 on its timing qualities. 'long' is likely to result in a smoother sound
 at the expense of clarity and timing. Type: symbol. Default value:
 standard. Allowed values: standard \, short \, long.;
+#X msg 110 1668 @latency?;
+#X text 245 1668 (readonly) Get object latency. Type: float. Units:
+samp. Default value: 1024\.;
 #X obj 20 1720 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1725 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;

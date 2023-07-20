@@ -95,7 +95,7 @@ value: 0 0\.;
 #X msg 110 1304 @speed;
 #X text 245 1304 Get/Set playback speed. Negative value means reversed
 playback. Type: float. Default value: 1\.;
-#X msg 110 1346 @state;
+#X msg 110 1346 @state?;
 #X text 245 1346 (readonly) Get playing state. 0: stopped \, 1: playing
 \, 2: paused. Type: int. Default value: 0\.;
 #X obj 20 1398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

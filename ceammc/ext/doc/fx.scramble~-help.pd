@@ -28,35 +28,35 @@ float. Range: 0.25\...50;
 #X obj 20 431 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 436 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 471 @active;
-#X text 245 471 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 110 500 @bypass;
-#X text 245 500 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
-#X msg 110 542 @dev;
-#X text 245 542 Get/Set scramble freq deviation. Type: float. Default
-value: 0.25\. Range: 0\...1\.;
-#X msg 110 584 @drywet;
-#X text 245 584 Get/Set proportion of mix between the original (dry)
-and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 0.5\. Range: 0\...1\.;
-#X msg 110 641 @feedback;
-#X text 245 641 Get/Set feedback coefficient. Type: float. Default
-value: 0.25\. Range: 0\...0.99\.;
-#X msg 110 683 @freq1;
-#X text 245 683 Get/Set left channel scramble frequency. Type: float.
-Units: Hz. Default value: 7\. Range: 0.25\...50\.;
-#X msg 110 725 @freq2;
-#X text 245 725 Get/Set right channel scramble frequency. Type: float.
-Units: Hz. Default value: 5\. Range: 0.25\...50\.;
-#X msg 110 767 @id;
-#X text 245 767 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 471 @id;
+#X text 245 471 (initonly) Get/Set OSC address id. If specified \,
 bind properties to /ID/fx_echo/PROP_NAME osc address \, if empty bind
 to /fx_echo/PROP_NAME. Type: symbol.;
-#X msg 110 824 @osc;
-#X text 245 824 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 528 @osc;
+#X text 245 528 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
+#X msg 110 557 @active;
+#X text 245 557 Get/Set on/off dsp processing. Type: bool. Default
+value: 1\.;
+#X msg 110 586 @bypass;
+#X text 245 586 Get/Set if set to 1 - bypass 'effected' signal. Type:
+bool. Default value: 0\.;
+#X msg 110 628 @dev;
+#X text 245 628 Get/Set scramble freq deviation. Type: float. Default
+value: 0.25\. Range: 0\...1\.;
+#X msg 110 670 @drywet;
+#X text 245 670 Get/Set proportion of mix between the original (dry)
+and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
+Default value: 0.5\. Range: 0\...1\.;
+#X msg 110 727 @feedback;
+#X text 245 727 Get/Set feedback coefficient. Type: float. Default
+value: 0.25\. Range: 0\...0.99\.;
+#X msg 110 769 @freq1;
+#X text 245 769 Get/Set left channel scramble frequency. Type: float.
+Units: Hz. Default value: 7\. Range: 0.25\...50\.;
+#X msg 110 811 @freq2;
+#X text 245 811 Get/Set right channel scramble frequency. Type: float.
+Units: Hz. Default value: 5\. Range: 0.25\...50\.;
 #X msg 110 853 @range;
 #X text 245 853 Get/Set scramble delay amount. Type: float. Default
 value: 0.5\. Range: 0\...1\.;

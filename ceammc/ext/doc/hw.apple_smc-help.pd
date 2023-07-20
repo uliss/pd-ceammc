@@ -18,7 +18,7 @@
 #X obj 20 340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 345 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 380 @keys;
+#X msg 110 380 @keys?;
 #X text 245 380 (readonly) Get list of all found SMC key. Type: list.
 Default value: #KEY $Adr $Num +LKS ACCL ACEN ACFP ACIC ACID ACIN ACLM
 AL! ALA0 ALA1 ALA2 ALA3 ALA4 ALA5 ALAT ALFC ALI0 ALI1 ALP0 ALP1 ALRV

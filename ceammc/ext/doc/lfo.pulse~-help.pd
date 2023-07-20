@@ -28,15 +28,15 @@
 #X obj 20 401 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 406 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 441 @active;
-#X text 245 441 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 110 470 @duty;
-#X text 245 470 Get/Set duty cycle. Type: float. Default value: 0.5\.
-Range: 0\...1\.;
-#X msg 110 512 @initfreq;
-#X text 245 512 (initonly) Get/Set initial frequency. Type: float.
+#X msg 110 441 @initfreq;
+#X text 245 441 (initonly) Get/Set initial frequency. Type: float.
 Units: Hz. Default value: 0\.;
+#X msg 110 483 @active;
+#X text 245 483 Get/Set on/off dsp processing. Type: bool. Default
+value: 1\.;
+#X msg 110 512 @duty;
+#X text 245 512 Get/Set duty cycle. Type: float. Default value: 0.5\.
+Range: 0\...1\.;
 #X msg 110 554 @pause;
 #X text 245 554 Get/Set pause oscillator at current value. Type: bool.
 Default value: 0\.;

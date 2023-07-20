@@ -31,15 +31,15 @@ name and available from everywhere;
 #X obj 20 463 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 468 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 503 @empty;
-#X text 245 503 (readonly) Get 1 if dict is empty \, otherwise 0\.
-Type: bool. Default value: 1\.;
-#X msg 110 545 @id;
-#X text 245 545 (initonly) Get/Set global variable id. Type: symbol.
+#X msg 110 503 @id;
+#X text 245 503 (initonly) Get/Set global variable id. Type: symbol.
 Default value: default.;
-#X msg 110 587 @keys;
+#X msg 110 545 @empty?;
+#X text 245 545 (readonly) Get 1 if dict is empty \, otherwise 0\.
+Type: bool. Default value: 1\.;
+#X msg 110 587 @keys?;
 #X text 245 587 (readonly) Get keys of dictionary. Type: list.;
-#X msg 110 616 @size;
+#X msg 110 616 @size?;
 #X text 245 616 (readonly) Get number of entries in dictionary. Type:
 int. Default value: 0\. Min value: 0\.;
 #X obj 20 668 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

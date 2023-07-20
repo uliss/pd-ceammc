@@ -30,13 +30,13 @@ name and available only within its patch (canvas).;
 #X obj 20 434 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 439 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 474 @empty;
-#X text 245 474 (readonly) Get 1 if list is empty \, otherwise 0\.
-Type: bool. Default value: 1\.;
-#X msg 110 516 @id;
-#X text 245 516 (initonly) Get/Set local variable id. Type: symbol.
+#X msg 110 474 @id;
+#X text 245 474 (initonly) Get/Set local variable id. Type: symbol.
 Default value: default.;
-#X msg 110 558 @size;
+#X msg 110 516 @empty?;
+#X text 245 516 (readonly) Get 1 if list is empty \, otherwise 0\.
+Type: bool. Default value: 1\.;
+#X msg 110 558 @size?;
 #X text 245 558 (readonly) Get number of elements in list. Type: int.
 Default value: 0\. Min value: 0\.;
 #X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

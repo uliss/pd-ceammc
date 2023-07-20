@@ -27,16 +27,16 @@ etc.).;
 #X obj 20 338 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 343 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 378 @clip;
-#X text 245 378 alias for "@oversize clip" property. Pad shortest list
+#X msg 110 378 @n;
+#X text 245 378 (initonly) Get/Set number of inputs. Type: int. Default
+value: 2\. Range: 2\...20\.;
+#X msg 110 420 @clip;
+#X text 245 420 alias for "@oversize clip" property. Pad shortest list
 with last element to conform longest list.;
-#X msg 110 420 @fold;
-#X text 245 420 alias for "@oversize fold" property. Pad shortest list
+#X msg 110 462 @fold;
+#X text 245 462 alias for "@oversize fold" property. Pad shortest list
 with repeated values from the end to the beginning \, then back and
 so on.;
-#X msg 110 477 @lists;
-#X text 245 477 (readonly) Get input data list: list of data:mlist.
-Type: list.;
 #X msg 110 519 @method;
 #X text 245 519 Get/Set behavior \, if list have different sizes. Type:
 symbol. Default value: min. Allowed values: min \, pad \, clip \, wrap
@@ -44,15 +44,15 @@ symbol. Default value: min. Allowed values: min \, pad \, clip \, wrap
 #X msg 110 576 @min;
 #X text 245 576 alias for "@oversize min" property. Truncates lists
 to minimal common size.;
-#X msg 110 618 @n;
-#X text 245 618 (initonly) Get/Set number of inputs. Type: int. Default
-value: 2\. Range: 2\...20\.;
-#X msg 110 660 @pad;
-#X text 245 660 Get/Set pad value for pad method of resizing. Type:
+#X msg 110 618 @pad;
+#X text 245 618 Get/Set pad value for pad method of resizing. Type:
 atom. Default value: 0\.;
-#X msg 110 702 @wrap;
-#X text 245 702 alias for "@oversize wrap" property. Pad shortest list
+#X msg 110 660 @wrap;
+#X text 245 660 alias for "@oversize wrap" property. Pad shortest list
 with repeated values from the beginning.;
+#X msg 110 702 @lists?;
+#X text 245 702 (readonly) Get input data list: list of data:mlist.
+Type: list.;
 #X obj 20 754 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 759 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

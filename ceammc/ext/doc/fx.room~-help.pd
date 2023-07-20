@@ -34,29 +34,29 @@
 #X obj 20 488 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 493 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 528 @active;
-#X text 245 528 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 110 557 @bypass;
-#X text 245 557 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
-#X msg 110 599 @drywet;
-#X text 245 599 Get/Set proportion of mix between the original (dry)
-and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 0.5\. Range: 0\...1\.;
-#X msg 110 656 @fb;
-#X text 245 656 Get/Set feedback coefficient. Type: float. Default
-value: 0.3\. Range: 0\...1\.;
-#X msg 110 698 @hfdamp;
-#X text 245 698 Get/Set damping factor for high frequencies. Type:
-float. Default value: 1\. Range: 0\...1\.;
-#X msg 110 740 @id;
-#X text 245 740 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 528 @id;
+#X text 245 528 (initonly) Get/Set OSC address id. If specified \,
 bind properties to /ID/fx_room/PROP_NAME osc address \, if empty bind
 to /fx_room/PROP_NAME. Type: symbol.;
-#X msg 110 797 @osc;
-#X text 245 797 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 585 @osc;
+#X text 245 585 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
+#X msg 110 614 @active;
+#X text 245 614 Get/Set on/off dsp processing. Type: bool. Default
+value: 1\.;
+#X msg 110 643 @bypass;
+#X text 245 643 Get/Set if set to 1 - bypass 'effected' signal. Type:
+bool. Default value: 0\.;
+#X msg 110 685 @drywet;
+#X text 245 685 Get/Set proportion of mix between the original (dry)
+and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
+Default value: 0.5\. Range: 0\...1\.;
+#X msg 110 742 @fb;
+#X text 245 742 Get/Set feedback coefficient. Type: float. Default
+value: 0.3\. Range: 0\...1\.;
+#X msg 110 784 @hfdamp;
+#X text 245 784 Get/Set damping factor for high frequencies. Type:
+float. Default value: 1\. Range: 0\...1\.;
 #X msg 110 826 @predelay;
 #X text 245 826 Get/Set pre delay. Type: float. Units: ms. Default
 value: 20\. Range: 1\...200\.;

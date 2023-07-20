@@ -51,12 +51,12 @@ to last outlet if no match;
 #X msg 110 677 @as_any;
 #X text 245 677 trim list or symbol selector on output. Default value:
 0\.;
-#X msg 110 706 @simplify;
-#X text 245 706 Get/Set one element list simplification - transform
-them to floats or symbols. Type: bool. Default value: 1\.;
-#X msg 110 748 @trim;
-#X text 245 748 cut first element from list \, transform float or symbol
+#X msg 110 706 @trim;
+#X text 245 706 cut first element from list \, transform float or symbol
 to bang. Default value: 0\.;
+#X msg 110 748 @simplify;
+#X text 245 748 Get/Set one element list simplification - transform
+them to floats or symbols. Type: bool. Default value: 1\.;
 #X obj 20 800 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 805 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

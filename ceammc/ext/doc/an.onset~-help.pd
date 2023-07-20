@@ -42,15 +42,15 @@ int. Min value: 0;
 #X obj 20 543 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 548 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 583 @active;
-#X text 245 583 Get/Set audio processing state. Type: bool. Default
-value: 1\.;
-#X msg 110 625 @awhitening;
-#X text 245 625 Get/Set adaptive whitening. Type: bool. Default value:
-0\.;
-#X msg 110 654 @bs;
-#X text 245 654 (initonly) Get/Set buffer size. Type: int. Units: samp.
+#X msg 110 583 @bs;
+#X text 245 583 (initonly) Get/Set buffer size. Type: int. Units: samp.
 Default value: 1024\. Min value: 64\.;
+#X msg 110 625 @active;
+#X text 245 625 Get/Set audio processing state. Type: bool. Default
+value: 1\.;
+#X msg 110 667 @awhitening;
+#X text 245 667 Get/Set adaptive whitening. Type: bool. Default value:
+0\.;
 #X msg 110 696 @complex;
 #X text 245 696 alias to @method complex. Complex Domain Method onset
 detection function.;

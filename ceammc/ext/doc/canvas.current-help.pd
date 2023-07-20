@@ -21,38 +21,38 @@
 #X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 316 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 351 @abstraction;
+#X msg 110 351 @abstraction?;
 #X text 245 351 (readonly) Get 1 if canvas is abstraction. Type: bool.
 Default value: 1\.;
-#X msg 110 393 @args;
+#X msg 110 393 @args?;
 #X text 245 393 (readonly) Get canvas creation arguments. Type: list.;
-#X msg 110 422 @dir;
+#X msg 110 422 @dir?;
 #X text 245 422 (readonly) Get canvas directory (only if top level
 or abstraction). Type: symbol. Default value: /.;
-#X msg 110 464 @height;
+#X msg 110 464 @height?;
 #X text 245 464 (readonly) Get canvas height (window or GOP). Type:
 int. Default value: 400\.;
-#X msg 110 506 @name;
+#X msg 110 506 @name?;
 #X text 245 506 (readonly) Get canvas name. Type: symbol. Default value:
 test_canvas.;
-#X msg 110 548 @paths;
+#X msg 110 548 @paths?;
 #X text 245 548 (readonly) Get canvas search paths. Type: list.;
-#X msg 110 577 @root;
+#X msg 110 577 @root?;
 #X text 245 577 (readonly) Get 1 if canvas is top-level (window). Type:
 bool. Default value: 1\.;
-#X msg 110 619 @width;
+#X msg 110 619 @width?;
 #X text 245 619 (readonly) Get canvas width (window or GOP). Type:
 int. Default value: 600\.;
-#X msg 110 661 @x;
+#X msg 110 661 @x?;
 #X text 245 661 (readonly) Get canvas x-pos (window or GOP). Type:
 int. Default value: 0\.;
-#X msg 110 703 @y;
+#X msg 110 703 @y?;
 #X text 245 703 (readonly) Get canvas y-pos (window or GOP). Type:
 int. Default value: 0\.;
-#X msg 110 745 @font;
+#X msg 110 745 @font?;
 #X text 245 745 (readonly) Get canvas font size. Type: int. Default
 value: 10\.;
-#X msg 110 787 @size;
+#X msg 110 787 @size?;
 #X text 245 787 (readonly) Get canvas dimensions. If root canvas (window)
 return window size \, if subpatch return Graph on Parent size. Type:
 list. Default value: 600 400\.;

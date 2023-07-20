@@ -37,15 +37,15 @@ name and available only within its patch (canvas).;
 #X obj 20 483 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 488 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 523 @empty;
-#X text 245 523 (readonly) Get 1 if list is empty \, otherwise 0\.
-Type: bool. Default value: 1\.;
-#X msg 110 565 @id;
-#X text 245 565 (initonly) Get/Set local variable id. Type: symbol.
+#X msg 110 523 @id;
+#X text 245 523 (initonly) Get/Set local variable id. Type: symbol.
 Default value: default.;
-#X msg 110 607 @value;
-#X text 245 607 Get/Set current value. Type: list.;
-#X msg 110 636 @size;
+#X msg 110 565 @value;
+#X text 245 565 Get/Set current value. Type: list.;
+#X msg 110 594 @empty?;
+#X text 245 594 (readonly) Get 1 if list is empty \, otherwise 0\.
+Type: bool. Default value: 1\.;
+#X msg 110 636 @size?;
 #X text 245 636 (readonly) Get number of elements in list. Type: int.
 Default value: 0\. Min value: 0\.;
 #X obj 20 688 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

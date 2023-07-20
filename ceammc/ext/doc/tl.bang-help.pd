@@ -33,11 +33,11 @@ it canceled;
 #X obj 20 379 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 384 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 419 @cue;
-#X text 245 419 (readonly) Get related cue. Type: symbol.;
-#X msg 110 448 @delay;
-#X text 245 448 Get/Set bang delay after cue activation. Type: float.
+#X msg 110 419 @delay;
+#X text 245 419 Get/Set bang delay after cue activation. Type: float.
 Units: ms. Default value: 0\. Min value: 0\.;
+#X msg 110 461 @cue?;
+#X text 245 461 (readonly) Get related cue. Type: symbol.;
 #X obj 20 500 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 505 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

@@ -28,32 +28,32 @@
 #X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 458 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 493 @active;
-#X text 245 493 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 110 522 @bypass;
-#X text 245 522 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
-#X msg 110 564 @drive;
-#X text 245 564 Get/Set overdrive effect after modulator. Type: float.
-Default value: 1\. Range: 1\...10\.;
-#X msg 110 606 @drywet;
-#X text 245 606 Get/Set proportion of mix between the original (dry)
-and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 0.5\. Range: 0\...1\.;
-#X msg 110 663 @freq;
-#X text 245 663 Get/Set internal modulator frequency. Type: float.
-Units: Hz. Default value: 150\. Range: 0.5\...22050\.;
-#X msg 110 705 @id;
-#X text 245 705 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 493 @id;
+#X text 245 493 (initonly) Get/Set OSC address id. If specified \,
 bind properties to /ID/fx_ringmod/PROP_NAME osc address \, if empty
 bind to /fx_ringmod/PROP_NAME. Type: symbol.;
-#X msg 110 762 @offset;
-#X text 245 762 Get/Set modulator offset. Type: float. Default value:
-0\. Range: 0\...1\.;
-#X msg 110 804 @osc;
-#X text 245 804 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 550 @osc;
+#X text 245 550 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
+#X msg 110 579 @active;
+#X text 245 579 Get/Set on/off dsp processing. Type: bool. Default
+value: 1\.;
+#X msg 110 608 @bypass;
+#X text 245 608 Get/Set if set to 1 - bypass 'effected' signal. Type:
+bool. Default value: 0\.;
+#X msg 110 650 @drive;
+#X text 245 650 Get/Set overdrive effect after modulator. Type: float.
+Default value: 1\. Range: 1\...10\.;
+#X msg 110 692 @drywet;
+#X text 245 692 Get/Set proportion of mix between the original (dry)
+and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
+Default value: 0.5\. Range: 0\...1\.;
+#X msg 110 749 @freq;
+#X text 245 749 Get/Set internal modulator frequency. Type: float.
+Units: Hz. Default value: 150\. Range: 0.5\...22050\.;
+#X msg 110 791 @offset;
+#X text 245 791 Get/Set modulator offset. Type: float. Default value:
+0\. Range: 0\...1\.;
 #X msg 110 833 @src;
 #X text 245 833 Get/Set modulator source. 0: modulator from second
 inlet \, 1: internal sinusoid oscilallator \, 2: internal low freq

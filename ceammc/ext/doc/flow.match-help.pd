@@ -39,12 +39,12 @@ arg list: "@prop+";
 #X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 532 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 567 @cut;
-#X text 245 567 Get/Set cut or pass message selector. Type: bool. Default
-value: 0\.;
-#X msg 110 609 @patterns;
-#X text 245 609 (initonly) Get/Set list of regular expressions. Type:
+#X msg 110 567 @patterns;
+#X text 245 567 (initonly) Get/Set list of regular expressions. Type:
 list.;
+#X msg 110 596 @cut;
+#X text 245 596 Get/Set cut or pass message selector. Type: bool. Default
+value: 0\.;
 #X obj 20 648 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 653 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

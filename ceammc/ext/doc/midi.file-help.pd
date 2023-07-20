@@ -32,19 +32,19 @@
 -49933 0;
 #X msg 110 594 @filename;
 #X text 245 594 Get/Set current filename. Type: symbol.;
-#X msg 110 623 @length_beat;
+#X msg 110 623 @length_beat?;
 #X text 245 623 (readonly) Get file length in quarters. Type: float.
 Default value: 0\.;
-#X msg 110 665 @length_sec;
+#X msg 110 665 @length_sec?;
 #X text 245 665 (readonly) Get file length. Type: float. Units: sec.
 Default value: 0\.;
-#X msg 110 707 @length_tick;
+#X msg 110 707 @length_tick?;
 #X text 245 707 (readonly) Get file length in ticks. Type: int. Default
 value: 0\.;
-#X msg 110 749 @tempo;
+#X msg 110 749 @tempo?;
 #X text 245 749 (readonly) Get midi tempo in ticks per quarter. Type:
 int. Default value: 120\.;
-#X msg 110 791 @tracks;
+#X msg 110 791 @tracks?;
 #X text 245 791 (readonly) Get number of tracks. Type: int. Default
 value: 1\.;
 #X obj 20 843 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

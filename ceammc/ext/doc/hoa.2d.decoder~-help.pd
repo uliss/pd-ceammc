@@ -50,49 +50,49 @@ mode). Type: int.;
 #X obj 20 699 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 704 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 739 @angles;
-#X text 245 739 Get/Set angles of loudspeakers. Only available for
-@irregular mode. Type: list. Units: deg. Default value: 0 90 180 270\.;
-#X msg 110 781 @binaural;
-#X text 245 781 alias for @mode binaural.;
-#X msg 110 810 @crop;
-#X text 245 810 Get/Set crop HRIR response. Only for @binaural mode.
-Type: int. Units: samp. Default value: 16\. Range: 0\...512\.;
-#X msg 110 852 @irregular;
-#X text 245 852 alias for @mode irregular.;
-#X msg 110 881 @mode;
-#X text 245 881 Get/Set decoding mode. Type: symbol. Default value:
-regular. Allowed values: regular \, irregular \, binaural.;
-#X msg 110 923 @nharm;
-#X text 245 923 (readonly) Get number of circular harmonics. Type:
-int. Default value: 3\. Min value: 1\.;
-#X msg 110 965 @nwaves;
-#X text 245 965 (initonly) Get/Set number of plain waves. Type: int.
+#X msg 110 739 @nwaves;
+#X text 245 739 (initonly) Get/Set number of plain waves. Type: int.
 Default value: 0\. Min value: 1\.;
+#X msg 110 781 @order;
+#X text 245 781 (initonly) Get/Set the order of decomposition. Type:
+int. Default value: 1\. Range: 1\...63\.;
+#X msg 110 823 @angles;
+#X text 245 823 Get/Set angles of loudspeakers. Only available for
+@irregular mode. Type: list. Units: deg. Default value: 0 90 180 270\.;
+#X msg 110 865 @binaural;
+#X text 245 865 alias for @mode binaural.;
+#X msg 110 894 @crop;
+#X text 245 894 Get/Set crop HRIR response. Only for @binaural mode.
+Type: int. Units: samp. Default value: 16\. Range: 0\...512\.;
+#X msg 110 936 @irregular;
+#X text 245 936 alias for @mode irregular.;
+#X msg 110 965 @mode;
+#X text 245 965 Get/Set decoding mode. Type: symbol. Default value:
+regular. Allowed values: regular \, irregular \, binaural.;
 #X msg 110 1007 @offset;
 #X text 245 1007 Get/Set rotation of loudspeakers. Only available for
 @regular and @irregular mode. Type: float. Units: deg. Default value:
 0\.;
-#X msg 110 1064 @order;
-#X text 245 1064 (initonly) Get/Set the order of decomposition. Type:
-int. Default value: 1\. Range: 1\...63\.;
-#X msg 110 1106 @pw_x;
-#X text 245 1106 (readonly) Get list of plain wave x-coordinates (abscissas).
+#X msg 110 1064 @regular;
+#X text 245 1064 alias for @mode regular.;
+#X msg 110 1093 @nharm?;
+#X text 245 1093 (readonly) Get number of circular harmonics. Type:
+int. Default value: 3\. Min value: 1\.;
+#X msg 110 1135 @pw_x?;
+#X text 245 1135 (readonly) Get list of plain wave x-coordinates (abscissas).
 -1 is the left of the soundfield \, 0 is the center of the soundfield
 and 1 is the right of the soundfield. Type: list. Units: rad. Default
 value: 0 -1 0 1\. Range: -1\...1\.;
-#X msg 110 1178 @pw_y;
-#X text 245 1178 (readonly) Get list of plain wave y-coordinates (ordinatas).
+#X msg 110 1207 @pw_y?;
+#X text 245 1207 (readonly) Get list of plain wave y-coordinates (ordinatas).
 -1 is the back of the soundfield \, 0 is the center of the soundfield
 and 1 is the front of the soundfield. Type: list. Units: rad. Default
 value: 1 0 -1 0\. Range: -1\...1\.;
-#X msg 110 1250 @pw_z;
-#X text 245 1250 (readonly) Get list of plain wave z-coordinates (heights).
+#X msg 110 1279 @pw_z?;
+#X text 245 1279 (readonly) Get list of plain wave z-coordinates (heights).
 -1 is the bottom of the soundfield \, 0 is the center of the soundfield
 and 1 is the top of the soundfield. Type: list. Units: rad. Default
 value: 0 0 0 0\. Range: -1\...1\.;
-#X msg 110 1322 @regular;
-#X text 245 1322 alias for @mode regular.;
 #X obj 20 1361 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1366 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;

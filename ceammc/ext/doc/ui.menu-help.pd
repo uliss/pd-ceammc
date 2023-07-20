@@ -23,63 +23,63 @@
 #X obj 20 455 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 460 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 495 @count;
-#X text 245 495 (readonly) Get number of menu items. Type: int. Default
-value: 0\.;
-#X msg 110 537 @index;
-#X text 245 537 Get/Set current menu item index. Type: int. Default
+#X msg 110 495 @index;
+#X text 245 495 Get/Set current menu item index. Type: int. Default
 value: -1\.;
-#X msg 110 579 @items;
-#X text 245 579 Get/Set list of menu items. Type: list.;
-#X msg 110 608 @max_length;
-#X text 245 608 Get/Set maximum displayed item character length. Type:
+#X msg 110 537 @items;
+#X text 245 537 Get/Set list of menu items. Type: list.;
+#X msg 110 566 @max_length;
+#X text 245 566 Get/Set maximum displayed item character length. Type:
 int. Default value: 100\. Range: 10\...1024\.;
-#X msg 110 650 @open;
-#X text 245 650 Get/Set opened state. Type: bool. Default value: 0\.;
-#X msg 110 679 @receive;
-#X text 245 679 Get/Set receive source. Type: symbol. Default value:
+#X msg 110 608 @open;
+#X text 245 608 Get/Set opened state. Type: bool. Default value: 0\.;
+#X msg 110 637 @receive;
+#X text 245 637 Get/Set receive source. Type: symbol. Default value:
 (null).;
-#X msg 110 708 @send;
-#X text 245 708 Get/Set send destination. Type: symbol. Default value:
+#X msg 110 666 @send;
+#X text 245 666 Get/Set send destination. Type: symbol. Default value:
 (null).;
-#X msg 110 750 @title;
-#X text 245 750 (readonly) Get current element text. Type: symbol.;
-#X msg 110 779 @value;
-#X text 245 779 Get/Set current menu item value. Type: atom.;
-#X msg 110 808 @active_color;
-#X text 245 808 Get/Set active color (list of red \, green \, blue
+#X msg 110 708 @value;
+#X text 245 708 Get/Set current menu item value. Type: atom.;
+#X msg 110 737 @active_color;
+#X text 245 737 Get/Set active color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 850 @background_color;
-#X text 245 850 Get/Set element background color (list of red \, green
+#X msg 110 779 @background_color;
+#X text 245 779 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 907 @border_color;
-#X text 245 907 Get/Set border color (list of red \, green \, blue
+#X msg 110 836 @border_color;
+#X text 245 836 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 949 @text_color;
-#X text 245 949 Get/Set text color (list of red \, green \, blue values
+#X msg 110 878 @text_color;
+#X text 245 878 Get/Set text color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0 0 0 1\.;
-#X msg 110 991 @fontname;
-#X text 245 991 Get/Set fontname. Type: symbol. Default value: Helvetica.
+#X msg 110 920 @fontname;
+#X text 245 920 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 1033 @fontsize;
-#X text 245 1033 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 962 @fontsize;
+#X text 245 962 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...100\.;
-#X msg 110 1075 @fontslant;
-#X text 245 1075 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1004 @fontslant;
+#X text 245 1004 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 1117 @fontweight;
-#X text 245 1117 Get/Set font weight. Type: symbol. Default value:
+#X msg 110 1046 @fontweight;
+#X text 245 1046 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 1159 @pinned;
-#X text 245 1159 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1088 @pinned;
+#X text 245 1088 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: bool. Default value: 0\.;
-#X msg 110 1201 @presetname;
-#X text 245 1201 Get/Set preset name for using with [ui.preset]. Type:
+#X msg 110 1130 @presetname;
+#X text 245 1130 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
-#X msg 110 1243 @size;
-#X text 245 1243 Get/Set element size (width \, height pair). Type:
+#X msg 110 1172 @size;
+#X text 245 1172 Get/Set element size (width \, height pair). Type:
 list. Default value: 100 16\.;
+#X msg 110 1214 @count?;
+#X text 245 1214 (readonly) Get number of menu items. Type: int. Default
+value: 0\.;
+#X msg 110 1256 @title?;
+#X text 245 1256 (readonly) Get current element text. Type: symbol.;
 #X obj 20 1295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1300 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

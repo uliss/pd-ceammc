@@ -30,11 +30,11 @@
 #X obj 20 396 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 401 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 436 @array;
-#X text 245 436 Get/Set array name. Type: symbol.;
-#X msg 110 465 @normalize;
-#X text 245 465 scale input values to fit them in [0 \, 1] range. Default
+#X msg 110 436 @normalize;
+#X text 245 436 scale input values to fit them in [0 \, 1] range. Default
 value: 0\.;
+#X msg 110 478 @array;
+#X text 245 478 Get/Set array name. Type: symbol.;
 #X msg 110 507 @redraw;
 #X text 245 507 Get/Set redraw array view. Type: bool. Default value:
 1\.;

@@ -55,17 +55,17 @@ value: wrap. Allowed values: wrap \, fold.;
 #X msg 110 661 @r;
 #X text 245 661 Get/Set number of repeats. If -1: repeat infinitely.
 Type: int. Default value: -1\. Min value: -1\.;
-#X msg 110 703 @ri;
-#X text 245 703 (readonly) Get current repeat iteration. Type: int.
+#X msg 110 703 @to;
+#X text 245 703 Get/Set end value (inclusive). Type: int. Default value:
+0\.;
+#X msg 110 732 @wrap;
+#X text 245 732 alias to @mode wrap.;
+#X msg 110 761 @ri?;
+#X text 245 761 (readonly) Get current repeat iteration. Type: int.
 Default value: 0\.;
-#X msg 110 745 @to;
-#X text 245 745 Get/Set end value (inclusive). Type: int. Default value:
+#X msg 110 803 @value?;
+#X text 245 803 (readonly) Get current value. Type: int. Default value:
 0\.;
-#X msg 110 774 @value;
-#X text 245 774 (readonly) Get current value. Type: int. Default value:
-0\.;
-#X msg 110 803 @wrap;
-#X text 245 803 alias to @mode wrap.;
 #X obj 20 842 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 847 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

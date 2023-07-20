@@ -44,10 +44,10 @@ char. To separate by space - use " " argument. Type: symbol.;
 #X obj 20 581 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 586 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 621 @sep;
-#X text 245 621 Get/Set separator. Type: symbol.;
-#X msg 110 650 @sym;
-#X text 245 650 flag to output as list of Pd symbols.;
+#X msg 110 621 @sym;
+#X text 245 621 flag to output as list of Pd symbols.;
+#X msg 110 650 @sep;
+#X text 245 650 Get/Set separator. Type: symbol.;
 #X obj 20 689 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 694 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

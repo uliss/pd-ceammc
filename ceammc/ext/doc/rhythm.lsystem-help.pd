@@ -40,7 +40,7 @@
 value: 256\. Range: 1\...32768\.;
 #X msg 110 550 @rule;
 #X text 245 550 Get/Set generation rule dict. Type: atom.;
-#X msg 110 579 @value;
+#X msg 110 579 @value?;
 #X text 245 579 (readonly) Get current pattern value. Type: list.;
 #X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 623 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144

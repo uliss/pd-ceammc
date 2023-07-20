@@ -43,44 +43,44 @@ and 'effected' (wet) signals. Type: float. Range: 0\...1;
 #X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 615 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 650 @active;
-#X text 245 650 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 110 679 @bw;
-#X text 245 679 Get/Set band-width filter (pre filtering). Type: float.
-Default value: 0.9995\. Range: 0\...1\.;
-#X msg 110 721 @bypass;
-#X text 245 721 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
-#X msg 110 763 @damp;
-#X text 245 763 Get/Set high-frequency damping. No damping = 0.0\.
-Type: float. Default value: 0.0005\. Range: 0\...1\.;
-#X msg 110 805 @ddiff1;
-#X text 245 805 Get/Set decay diffusion factor 1\. Type: float. Default
-value: 0.5\. Range: 0\...1\.;
-#X msg 110 847 @ddiff2;
-#X text 245 847 Get/Set decay diffusion factor 2\. Type: float. Default
-value: 0.7\. Range: 0\...1\.;
-#X msg 110 889 @decay;
-#X text 245 889 Get/Set decay rate. Infinite decay = 1.0\. Type: float.
-Default value: 0.5\. Range: 0\...1\.;
-#X msg 110 931 @drywet;
-#X text 245 931 Get/Set proportion of mix between the original (dry)
-and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 0.33\. Range: 0\...1\.;
-#X msg 110 988 @id;
-#X text 245 988 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 650 @id;
+#X text 245 650 (initonly) Get/Set OSC address id. If specified \,
 bind properties to /ID/fx_dattorro/PROP_NAME osc address \, if empty
 bind to /fx_dattorro/PROP_NAME. Type: symbol.;
-#X msg 110 1045 @idiff1;
-#X text 245 1045 Get/Set input diffusion factor 1\. Type: float. Default
-value: 0.625\. Range: 0\...1\.;
-#X msg 110 1087 @idiff2;
-#X text 245 1087 Get/Set input diffusion factor 2\. Type: float. Default
-value: 0.75\. Range: 0\...1\.;
-#X msg 110 1129 @osc;
-#X text 245 1129 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 707 @osc;
+#X text 245 707 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
+#X msg 110 736 @active;
+#X text 245 736 Get/Set on/off dsp processing. Type: bool. Default
+value: 1\.;
+#X msg 110 765 @bw;
+#X text 245 765 Get/Set band-width filter (pre filtering). Type: float.
+Default value: 0.9995\. Range: 0\...1\.;
+#X msg 110 807 @bypass;
+#X text 245 807 Get/Set if set to 1 - bypass 'effected' signal. Type:
+bool. Default value: 0\.;
+#X msg 110 849 @damp;
+#X text 245 849 Get/Set high-frequency damping. No damping = 0.0\.
+Type: float. Default value: 0.0005\. Range: 0\...1\.;
+#X msg 110 891 @ddiff1;
+#X text 245 891 Get/Set decay diffusion factor 1\. Type: float. Default
+value: 0.5\. Range: 0\...1\.;
+#X msg 110 933 @ddiff2;
+#X text 245 933 Get/Set decay diffusion factor 2\. Type: float. Default
+value: 0.7\. Range: 0\...1\.;
+#X msg 110 975 @decay;
+#X text 245 975 Get/Set decay rate. Infinite decay = 1.0\. Type: float.
+Default value: 0.5\. Range: 0\...1\.;
+#X msg 110 1017 @drywet;
+#X text 245 1017 Get/Set proportion of mix between the original (dry)
+and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
+Default value: 0.33\. Range: 0\...1\.;
+#X msg 110 1074 @idiff1;
+#X text 245 1074 Get/Set input diffusion factor 1\. Type: float. Default
+value: 0.625\. Range: 0\...1\.;
+#X msg 110 1116 @idiff2;
+#X text 245 1116 Get/Set input diffusion factor 2\. Type: float. Default
+value: 0.75\. Range: 0\...1\.;
 #X msg 110 1158 @predelay;
 #X text 245 1158 Get/Set a delay operating on the 'wet' signal. Large
 values will provide the impression of a larger room. Type: float. Units:

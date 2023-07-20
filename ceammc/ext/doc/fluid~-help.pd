@@ -39,46 +39,46 @@
 #X obj 20 604 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 609 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 644 @avoices;
-#X text 245 644 (readonly) Get number midi channels. Type: float. Default
-value: 0\.;
-#X msg 110 686 @bufsize;
-#X text 245 686 (readonly) Get internal buffer size. Type: float. Units:
-samp. Default value: 0\.;
-#X msg 110 728 @cpuload;
-#X text 245 728 (readonly) Get current cpu load. Type: float. Default
-value: 0\.;
-#X msg 110 770 @gain;
-#X text 245 770 Get/Set output gain. Type: float. Default value: 0\.
+#X msg 110 644 @gain;
+#X text 245 644 Get/Set output gain. Type: float. Default value: 0\.
 Range: 0\...10\.;
-#X msg 110 812 @n;
-#X text 245 812 (readonly) Get number of active voices. Type: int.
-Default value: 16\.;
-#X msg 110 854 @poly;
-#X text 245 854 Get/Set max number of voices. Type: float. Default
+#X msg 110 686 @poly;
+#X text 245 686 Get/Set max number of voices. Type: float. Default
 value: 0\. Range: 1\...1024\.;
-#X msg 110 896 @reverb_damp;
-#X text 245 896 Get/Set reverberation damp. Type: float. Default value:
+#X msg 110 728 @reverb_damp;
+#X text 245 728 Get/Set reverberation damp. Type: float. Default value:
 0\.;
-#X msg 110 925 @reverb_level;
-#X text 245 925 Get/Set reverberation level. Type: float. Default value:
+#X msg 110 757 @reverb_level;
+#X text 245 757 Get/Set reverberation level. Type: float. Default value:
 0\.;
-#X msg 110 954 @reverb_room;
-#X text 245 954 Get/Set reverberation room size. Type: float. Default
+#X msg 110 786 @reverb_room;
+#X text 245 786 Get/Set reverberation room size. Type: float. Default
 value: 0\.;
-#X msg 110 996 @reverb_width;
-#X text 245 996 Get/Set reverberation spread width. Type: float. Default
+#X msg 110 828 @reverb_width;
+#X text 245 828 Get/Set reverberation spread width. Type: float. Default
 value: 0\.;
-#X msg 110 1038 @sf;
-#X text 245 1038 Get/Set soundfont path \, you can use **default**
-value to load default soundfont. Type: symbol.;
-#X msg 110 1080 @version;
-#X text 245 1080 (readonly) Get FluidSynth version. Type: symbol. Default
-value: 2.0.0\.;
-#X msg 110 1122 @volume;
-#X text 245 1122 Get/Set output volume (same as @gain but in db). Type:
+#X msg 110 870 @sf;
+#X text 245 870 Get/Set soundfont path \, you can use **default** value
+to load default soundfont. Type: symbol.;
+#X msg 110 912 @volume;
+#X text 245 912 Get/Set output volume (same as @gain but in db). Type:
 float. Units: db. Default value: 0\. Range: -60\...10\.;
-#X msg 110 1164 @soundfonts;
+#X msg 110 954 @avoices?;
+#X text 245 954 (readonly) Get number midi channels. Type: float. Default
+value: 0\.;
+#X msg 110 996 @bufsize?;
+#X text 245 996 (readonly) Get internal buffer size. Type: float. Units:
+samp. Default value: 0\.;
+#X msg 110 1038 @cpuload?;
+#X text 245 1038 (readonly) Get current cpu load. Type: float. Default
+value: 0\.;
+#X msg 110 1080 @n?;
+#X text 245 1080 (readonly) Get number of active voices. Type: int.
+Default value: 16\.;
+#X msg 110 1122 @version?;
+#X text 245 1122 (readonly) Get FluidSynth version. Type: symbol. Default
+value: 2.0.0\.;
+#X msg 110 1164 @soundfonts?;
 #X text 245 1164 (readonly) Get list of found soundfonts. Type: list.;
 #X obj 20 1203 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1208 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144

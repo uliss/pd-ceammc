@@ -25,17 +25,17 @@
 #X obj 20 375 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 380 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 415 @devices;
-#X text 245 415 (readonly) Get list of found serial devices. Type:
-list.;
-#X msg 110 444 @port;
-#X text 245 444 Get/Set name of serial port \, eg.: COM3 on Windows
+#X msg 110 415 @port;
+#X text 245 415 Get/Set name of serial port \, eg.: COM3 on Windows
 \, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX. Type: symbol.;
-#X msg 110 501 @rate;
-#X text 245 501 Get/Set serial baud rate. Type: int. Default value:
+#X msg 110 472 @rate;
+#X text 245 472 Get/Set serial baud rate. Type: int. Default value:
 57600\. Allowed values: 110 \, 300 \, 600 \, 1200 \, 2400 \, 4800 \,
 9600 \, 14400 \, 19200 \, 38400 \, 56000 \, 57600 \, 115200 \, 128000
 \, 256000\.;
+#X msg 110 529 @devices?;
+#X text 245 529 (readonly) Get list of found serial devices. Type:
+list.;
 #X obj 20 568 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 573 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

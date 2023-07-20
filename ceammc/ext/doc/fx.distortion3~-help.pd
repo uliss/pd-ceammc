@@ -23,35 +23,35 @@
 #X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 417 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 452 @active;
-#X text 245 452 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 110 481 @bypass;
-#X text 245 481 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
-#X msg 110 523 @drive;
-#X text 245 523 Get/Set distortion amount. Type: float. Default value:
-0.5\. Range: 0\...1\.;
-#X msg 110 565 @drywet;
-#X text 245 565 Get/Set proportion of mix between the original (dry)
-and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 1\. Range: 0\...1\.;
-#X msg 110 622 @gain;
-#X text 245 622 Get/Set total effect gain. Type: float. Units: db.
-Default value: 0\. Range: -30\...10\.;
-#X msg 110 664 @hp_freq;
-#X text 245 664 Get/Set high pass frequency. Type: float. Units: Hz.
-Default value: 30\. Range: 20\...2000\.;
-#X msg 110 706 @id;
-#X text 245 706 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 452 @id;
+#X text 245 452 (initonly) Get/Set OSC address id. If specified \,
 bind properties to /ID/fx_distortion3/PROP_NAME osc address \, if empty
 bind to /fx_distortion3/PROP_NAME. Type: symbol.;
-#X msg 110 763 @lp_freq;
-#X text 245 763 Get/Set low pass frequency. Type: float. Units: Hz.
-Default value: 10000\. Range: 1000\...20000\.;
-#X msg 110 805 @osc;
-#X text 245 805 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 509 @osc;
+#X text 245 509 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
+#X msg 110 538 @active;
+#X text 245 538 Get/Set on/off dsp processing. Type: bool. Default
+value: 1\.;
+#X msg 110 567 @bypass;
+#X text 245 567 Get/Set if set to 1 - bypass 'effected' signal. Type:
+bool. Default value: 0\.;
+#X msg 110 609 @drive;
+#X text 245 609 Get/Set distortion amount. Type: float. Default value:
+0.5\. Range: 0\...1\.;
+#X msg 110 651 @drywet;
+#X text 245 651 Get/Set proportion of mix between the original (dry)
+and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
+Default value: 1\. Range: 0\...1\.;
+#X msg 110 708 @gain;
+#X text 245 708 Get/Set total effect gain. Type: float. Units: db.
+Default value: 0\. Range: -30\...10\.;
+#X msg 110 750 @hp_freq;
+#X text 245 750 Get/Set high pass frequency. Type: float. Units: Hz.
+Default value: 30\. Range: 20\...2000\.;
+#X msg 110 792 @lp_freq;
+#X text 245 792 Get/Set low pass frequency. Type: float. Units: Hz.
+Default value: 10000\. Range: 1000\...20000\.;
 #X obj 20 844 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 849 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

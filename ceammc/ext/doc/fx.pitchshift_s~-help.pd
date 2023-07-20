@@ -19,26 +19,26 @@
 #X obj 20 340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 345 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 380 @active;
-#X text 245 380 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 110 409 @bypass;
-#X text 245 409 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
-#X msg 110 451 @drywet;
-#X text 245 451 Get/Set proportion of mix between the original (dry)
-and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 1\. Range: 0\...1\.;
-#X msg 110 508 @fade;
-#X text 245 508 Get/Set crossfade duration. Type: float. Units: ms.
-Default value: 100\. Range: 0\...1000\.;
-#X msg 110 550 @id;
-#X text 245 550 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 380 @id;
+#X text 245 380 (initonly) Get/Set OSC address id. If specified \,
 bind properties to /ID/fx_pitchshift_s/PROP_NAME osc address \, if
 empty bind to /fx_pitchshift_s/PROP_NAME. Type: symbol.;
-#X msg 110 607 @osc;
-#X text 245 607 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 437 @osc;
+#X text 245 437 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
+#X msg 110 466 @active;
+#X text 245 466 Get/Set on/off dsp processing. Type: bool. Default
+value: 1\.;
+#X msg 110 495 @bypass;
+#X text 245 495 Get/Set if set to 1 - bypass 'effected' signal. Type:
+bool. Default value: 0\.;
+#X msg 110 537 @drywet;
+#X text 245 537 Get/Set proportion of mix between the original (dry)
+and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
+Default value: 1\. Range: 0\...1\.;
+#X msg 110 594 @fade;
+#X text 245 594 Get/Set crossfade duration. Type: float. Units: ms.
+Default value: 100\. Range: 0\...1000\.;
 #X msg 110 636 @window;
 #X text 245 636 Get/Set the window size. Type: float. Units: ms. Default
 value: 200\. Range: 10\...2000\.;

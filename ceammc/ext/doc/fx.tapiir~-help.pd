@@ -30,46 +30,46 @@
 #X obj 20 484 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 489 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 524 @active;
-#X text 245 524 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 110 553 @delays;
-#X text 245 553 Get/Set list of all tap delays. Type: list. Units:
-ms. Default value: 0 0 0 0 0 0\.;
-#X msg 110 595 @fbs0;
-#X text 245 595 Get/Set list of all feedbacks to tap0\. Type: list.
-Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
-#X msg 110 637 @fbs1;
-#X text 245 637 Get/Set list of all feedbacks to tap1\. Type: list.
-Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
-#X msg 110 679 @fbs2;
-#X text 245 679 Get/Set list of all feedbacks to tap2\. Type: list.
-Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
-#X msg 110 721 @fbs3;
-#X text 245 721 Get/Set list of all feedbacks to tap3\. Type: list.
-Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
-#X msg 110 763 @fbs4;
-#X text 245 763 Get/Set list of all feedbacks to tap4\. Type: list.
-Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
-#X msg 110 805 @fbs5;
-#X text 245 805 Get/Set list of all feedbacks to tap5\. Type: list.
-Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
-#X msg 110 847 @gains;
-#X text 245 847 Get/Set list of all tap gains. Type: list. Units: db.
-Default value: 0 0 0 0 0 0\.;
-#X msg 110 889 @id;
-#X text 245 889 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 524 @id;
+#X text 245 524 (initonly) Get/Set OSC address id. If specified \,
 bind properties to /ID/fx_tapiir/PROP_NAME osc address \, if empty
 bind to /fx_tapiir/PROP_NAME. Type: symbol.;
-#X msg 110 946 @ins0;
-#X text 245 946 Get/Set list of all taps left channel input levels.
-Type: list. Default value: 1 1 1 1 1 1\. Range: 0\...1\.;
-#X msg 110 988 @ins1;
-#X text 245 988 Get/Set list of all taps right channel input levels.
-Type: list. Default value: 1 1 1 1 1 1\. Range: 0\...1\.;
-#X msg 110 1030 @osc;
-#X text 245 1030 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 581 @osc;
+#X text 245 581 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
+#X msg 110 610 @active;
+#X text 245 610 Get/Set on/off dsp processing. Type: bool. Default
+value: 1\.;
+#X msg 110 639 @delays;
+#X text 245 639 Get/Set list of all tap delays. Type: list. Units:
+ms. Default value: 0 0 0 0 0 0\.;
+#X msg 110 681 @fbs0;
+#X text 245 681 Get/Set list of all feedbacks to tap0\. Type: list.
+Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
+#X msg 110 723 @fbs1;
+#X text 245 723 Get/Set list of all feedbacks to tap1\. Type: list.
+Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
+#X msg 110 765 @fbs2;
+#X text 245 765 Get/Set list of all feedbacks to tap2\. Type: list.
+Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
+#X msg 110 807 @fbs3;
+#X text 245 807 Get/Set list of all feedbacks to tap3\. Type: list.
+Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
+#X msg 110 849 @fbs4;
+#X text 245 849 Get/Set list of all feedbacks to tap4\. Type: list.
+Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
+#X msg 110 891 @fbs5;
+#X text 245 891 Get/Set list of all feedbacks to tap5\. Type: list.
+Default value: 0 0 0 0 0 0\. Range: 0\...1\.;
+#X msg 110 933 @gains;
+#X text 245 933 Get/Set list of all tap gains. Type: list. Units: db.
+Default value: 0 0 0 0 0 0\.;
+#X msg 110 975 @ins0;
+#X text 245 975 Get/Set list of all taps left channel input levels.
+Type: list. Default value: 1 1 1 1 1 1\. Range: 0\...1\.;
+#X msg 110 1017 @ins1;
+#X text 245 1017 Get/Set list of all taps right channel input levels.
+Type: list. Default value: 1 1 1 1 1 1\. Range: 0\...1\.;
 #X msg 110 1059 @out0.gain;
 #X text 245 1059 Get/Set left channel output gain. Type: float. Units:
 db. Default value: 0\. Range: -60\...0\.;

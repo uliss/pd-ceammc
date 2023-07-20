@@ -36,14 +36,14 @@ Type: symbol.;
 #X text 245 496 use global path like /ID. Default value: 0\.;
 #X msg 110 525 @id;
 #X text 245 525 (initonly) Get/Set preset id. Type: symbol.;
-#X msg 110 554 @init;
-#X text 245 554 Get/Set init list value. Type: list.;
-#X msg 110 583 @path;
-#X text 245 583 (readonly) Get property OSC-like path that includes
+#X msg 110 554 @subpatch;
+#X text 245 554 include subpatch name to path. Default value: 0\.;
+#X msg 110 583 @init;
+#X text 245 583 Get/Set init list value. Type: list.;
+#X msg 110 612 @path?;
+#X text 245 612 (readonly) Get property OSC-like path that includes
 id \, abstraction name and may be subpatch name separated by slashes.
 Type: symbol.;
-#X msg 110 640 @subpatch;
-#X text 245 640 include subpatch name to path. Default value: 0\.;
 #X obj 20 679 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 684 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

@@ -72,17 +72,17 @@ Type: list.;
 #X obj 20 892 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 897 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 932 @length;
+#X msg 110 932 @length?;
 #X text 245 932 (readonly) Get total envelope time length. Type: float.
 Units: ms. Default value: 0\. Min value: 0\.;
-#X msg 110 974 @npoints;
+#X msg 110 974 @npoints?;
 #X text 245 974 (readonly) Get number of points. Type: int. Default
 value: 0\. Min value: 0\.;
-#X msg 110 1016 @points;
+#X msg 110 1016 @points?;
 #X text 245 1016 (readonly) Get list of point times (ms). Type: list.;
-#X msg 110 1045 @stops;
+#X msg 110 1045 @stops?;
 #X text 245 1045 (readonly) Get list of stop points. Type: list.;
-#X msg 110 1074 @values;
+#X msg 110 1074 @values?;
 #X text 245 1074 (readonly) Get list of point values. Type: list.;
 #X obj 20 1113 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1118 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144

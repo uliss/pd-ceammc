@@ -71,14 +71,14 @@ int. Min value: 0;
 #X obj 20 736 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 741 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 776 @array;
-#X text 245 776 Get/Set name of analyzed array. Type: symbol.;
-#X msg 110 805 @awhitening;
-#X text 245 805 Get/Set adaptive whitening. Type: bool. Default value:
-0\.;
-#X msg 110 834 @bs;
-#X text 245 834 (initonly) Get/Set buffer size. Type: int. Units: samp.
+#X msg 110 776 @bs;
+#X text 245 776 (initonly) Get/Set buffer size. Type: int. Units: samp.
 Default value: 1024\. Min value: 64\.;
+#X msg 110 818 @array;
+#X text 245 818 Get/Set name of analyzed array. Type: symbol.;
+#X msg 110 847 @awhitening;
+#X text 245 847 Get/Set adaptive whitening. Type: bool. Default value:
+0\.;
 #X msg 110 876 @complex;
 #X text 245 876 alias to @method complex. Complex Domain Method onset
 detection function.;

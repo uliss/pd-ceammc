@@ -34,13 +34,13 @@ name;
 #X obj 20 448 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 453 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 488 @empty;
-#X text 245 488 (readonly) Get 1 if list is empty \, otherwise 0\.
-Type: bool. Default value: 1\.;
-#X msg 110 530 @id;
-#X text 245 530 (initonly) Get/Set global variable id. Type: symbol.
+#X msg 110 488 @id;
+#X text 245 488 (initonly) Get/Set global variable id. Type: symbol.
 Default value: default.;
-#X msg 110 572 @size;
+#X msg 110 530 @empty?;
+#X text 245 530 (readonly) Get 1 if list is empty \, otherwise 0\.
+Type: bool. Default value: 1\.;
+#X msg 110 572 @size?;
 #X text 245 572 (readonly) Get number of elements in list. Type: int.
 Default value: 0\. Min value: 0\.;
 #X obj 20 624 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

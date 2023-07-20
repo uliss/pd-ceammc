@@ -31,14 +31,14 @@
 #X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 469 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 504 @freq;
-#X text 245 504 Get/Set center frequency. Type: float. Units: Hz. Default
+#X msg 110 504 @rad;
+#X text 245 504 use angular frequency.;
+#X msg 110 533 @freq;
+#X text 245 533 Get/Set center frequency. Type: float. Units: Hz. Default
 value: 1000\. Range: 20\...22050\.;
-#X msg 110 546 @q;
-#X text 245 546 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
+#X msg 110 575 @q;
+#X text 245 575 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
 Default value: 0.7071\. Range: 0.01\...100\.;
-#X msg 110 588 @rad;
-#X text 245 588 use angular frequency.;
 #X obj 20 627 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 632 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

@@ -54,29 +54,29 @@ last user event);
 #X obj 20 690 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 695 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 730 @current;
-#X text 245 730 (readonly) Get current time. Type: float. Units: ms.
-Default value: 0\.;
-#X msg 110 772 @events;
-#X text 245 772 (readonly) Get list of event names in chronological
-order. Type: list. Default value: end.;
-#X msg 110 814 @is_running;
-#X text 245 814 (readonly) Get if timeline is running. Type: bool.
-Default value: 0\.;
-#X msg 110 856 @length;
-#X text 245 856 (readonly) Get timeline length. Type: float. Units:
-sec. Default value: 60\.;
-#X msg 110 898 @loop;
-#X text 245 898 Get/Set loop mode. Type: bool. Default value: 0\.;
-#X msg 110 927 @mode;
-#X text 245 927 Get/Set timeline mode. If timeline is fixed \, when
+#X msg 110 730 @loop;
+#X text 245 730 Get/Set loop mode. Type: bool. Default value: 0\.;
+#X msg 110 759 @mode;
+#X text 245 759 Get/Set timeline mode. If timeline is fixed \, when
 reached \, it outputs *end* event and stops after that. Infinite timeline
 never stops by itself. Fixed timeline can have @loop property for repeats.
 Type: symbol. Default value: fixed. Allowed values: fixed \, inf.;
-#X msg 110 1014 @phase;
+#X msg 110 846 @current?;
+#X text 245 846 (readonly) Get current time. Type: float. Units: ms.
+Default value: 0\.;
+#X msg 110 888 @events?;
+#X text 245 888 (readonly) Get list of event names in chronological
+order. Type: list. Default value: end.;
+#X msg 110 930 @is_running?;
+#X text 245 930 (readonly) Get if timeline is running. Type: bool.
+Default value: 0\.;
+#X msg 110 972 @length?;
+#X text 245 972 (readonly) Get timeline length. Type: float. Units:
+sec. Default value: 60\.;
+#X msg 110 1014 @phase?;
 #X text 245 1014 (readonly) Get current phase in [0-1) range. Type:
 float. Default value: 0\. Range: 0\...1\.;
-#X msg 110 1056 @size;
+#X msg 110 1056 @size?;
 #X text 245 1056 (readonly) Get number of events in timeline. Type:
 int. Default value: 1\. Min value: 0\.;
 #X obj 20 1108 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -36,12 +36,12 @@ Type: symbol.;
 #X text 245 468 (initonly) Get/Set preset id. Type: symbol.;
 #X msg 110 497 @init;
 #X text 245 497 (initonly) Get/Set init symbol value. Type: symbol.;
-#X msg 110 526 @path;
-#X text 245 526 (readonly) Get property OSC-like path that includes
+#X msg 110 526 @subpatch;
+#X text 245 526 include subpatch name to path. Default value: 0\.;
+#X msg 110 555 @path?;
+#X text 245 555 (readonly) Get property OSC-like path that includes
 id \, abstraction name and may be subpatch name separated by slashes.
 Type: symbol.;
-#X msg 110 583 @subpatch;
-#X text 245 583 include subpatch name to path. Default value: 0\.;
 #X obj 20 622 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 627 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

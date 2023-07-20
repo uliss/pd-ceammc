@@ -29,23 +29,23 @@
 #X obj 20 468 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 473 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 508 @active;
-#X text 245 508 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 110 537 @bypass;
-#X text 245 537 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
-#X msg 110 579 @drywet;
-#X text 245 579 Get/Set proportion of mix between the original (dry)
-and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 0.25\. Range: 0\...1\.;
-#X msg 110 636 @id;
-#X text 245 636 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 508 @id;
+#X text 245 508 (initonly) Get/Set OSC address id. If specified \,
 bind properties to /ID/fx_satrev/PROP_NAME osc address \, if empty
 bind to /fx_satrev/PROP_NAME. Type: symbol.;
-#X msg 110 693 @osc;
-#X text 245 693 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 565 @osc;
+#X text 245 565 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
+#X msg 110 594 @active;
+#X text 245 594 Get/Set on/off dsp processing. Type: bool. Default
+value: 1\.;
+#X msg 110 623 @bypass;
+#X text 245 623 Get/Set if set to 1 - bypass 'effected' signal. Type:
+bool. Default value: 0\.;
+#X msg 110 665 @drywet;
+#X text 245 665 Get/Set proportion of mix between the original (dry)
+and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
+Default value: 0.25\. Range: 0\...1\.;
 #X obj 20 732 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 737 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

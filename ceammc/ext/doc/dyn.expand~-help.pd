@@ -49,50 +49,50 @@ of expanding. Type: float. Range: 1\...500;
 #X obj 20 636 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 641 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 676 @active;
-#X text 245 676 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 110 705 @attack;
-#X text 245 705 Get/Set time constant when expander is turning on.
-Type: float. Units: ms. Default value: 10\. Range: 0.1\...100\.;
-#X msg 110 747 @bypass;
-#X text 245 747 Get/Set if set to 1 - bypass expander. Type: bool.
-Default value: 0\.;
-#X msg 110 789 @hold;
-#X text 245 789 Get/Set hold period. Type: float. Units: samp. Default
-value: 128\. Range: 1\...255\.;
-#X msg 110 831 @id;
-#X text 245 831 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 676 @id;
+#X text 245 676 (initonly) Get/Set OSC address id. If specified \,
 bind properties to /ID/dyn_expand/PROP_NAME osc address \, if empty
 bind to /dyn_expand/PROP_NAME. Type: symbol.;
-#X msg 110 888 @knee;
-#X text 245 888 Get/Set a gradual increase in gain reduction around
+#X msg 110 733 @osc;
+#X text 245 733 (initonly) Get/Set OSC server name to listen. Type:
+symbol.;
+#X msg 110 762 @active;
+#X text 245 762 Get/Set on/off dsp processing. Type: bool. Default
+value: 1\.;
+#X msg 110 791 @attack;
+#X text 245 791 Get/Set time constant when expander is turning on.
+Type: float. Units: ms. Default value: 10\. Range: 0.1\...100\.;
+#X msg 110 833 @bypass;
+#X text 245 833 Get/Set if set to 1 - bypass expander. Type: bool.
+Default value: 0\.;
+#X msg 110 875 @hold;
+#X text 245 875 Get/Set hold period. Type: float. Units: samp. Default
+value: 128\. Range: 1\...255\.;
+#X msg 110 917 @knee;
+#X text 245 917 Get/Set a gradual increase in gain reduction around
 the threshold: below thresh-(knee/2) there is no gain reduction \,
 above thresh+(knee/2) there is the same gain reduction as without a
 knee \, and in between there is a gradual increase in gain reduction.
 Type: float. Units: db. Default value: 3\. Range: 0\...6\.;
-#X msg 110 990 @level;
-#X text 245 990 (readonly) Get current expander level. Type: float.
-Units: db. Default value: 0\. Range: 0\...90\.;
-#X msg 110 1032 @osc;
-#X text 245 1032 (initonly) Get/Set OSC server name to listen. Type:
-symbol.;
-#X msg 110 1061 @range;
-#X text 245 1061 Get/Set max expand range. Type: float. Units: db.
+#X msg 110 1019 @range;
+#X text 245 1019 Get/Set max expand range. Type: float. Units: db.
 Default value: -120\. Range: -120\...0\.;
-#X msg 110 1103 @refresh;
-#X text 245 1103 Get/Set expander level output time interval. If 0
+#X msg 110 1061 @refresh;
+#X text 245 1061 Get/Set expander level output time interval. If 0
 - no output. Type: int. Units: ms. Default value: 100\. Range: 0\...1000\.;
-#X msg 110 1160 @release;
-#X text 245 1160 Get/Set release time = time constant coming out of
+#X msg 110 1118 @release;
+#X text 245 1118 Get/Set release time = time constant coming out of
 expanding. Type: float. Units: ms. Default value: 50\. Range: 1\...500\.;
-#X msg 110 1202 @strength;
-#X text 245 1202 Get/Set expander strength (0: no expanding \, 1: increase
+#X msg 110 1160 @strength;
+#X text 245 1160 Get/Set expander strength (0: no expanding \, 1: increase
 level by @range db.). Type: float. Default value: 0\. Range: 0\...10\.;
-#X msg 110 1259 @threshold;
-#X text 245 1259 Get/Set level threshold above which compression kicks
+#X msg 110 1217 @threshold;
+#X text 245 1217 Get/Set level threshold above which compression kicks
 in (100 dB = max level). Type: float. Units: db. Default value: -48\.
 Range: -60\...0\.;
+#X msg 110 1274 @level?;
+#X text 245 1274 (readonly) Get current expander level. Type: float.
+Units: db. Default value: 0\. Range: 0\...90\.;
 #X obj 20 1326 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1331 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

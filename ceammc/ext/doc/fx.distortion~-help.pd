@@ -35,29 +35,29 @@ even harmonics. Type: float. Range: 0\...0.5;
 #X obj 20 517 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 522 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 557 @active;
-#X text 245 557 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 110 586 @bypass;
-#X text 245 586 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
-#X msg 110 628 @drive;
-#X text 245 628 Get/Set distortion amount. Type: float. Default value:
-0.5\. Range: 0\...1\.;
-#X msg 110 670 @drywet;
-#X text 245 670 Get/Set proportion of mix between the original (dry)
-and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 1\. Range: 0\...1\.;
-#X msg 110 727 @id;
-#X text 245 727 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 557 @id;
+#X text 245 557 (initonly) Get/Set OSC address id. If specified \,
 bind properties to /ID/fx_distortion/PROP_NAME osc address \, if empty
 bind to /fx_distortion/PROP_NAME. Type: symbol.;
-#X msg 110 784 @offset;
-#X text 245 784 Get/Set constant added before nonlinearity to give
-even harmonics. Type: float. Default value: 0\. Range: 0\...0.5\.;
-#X msg 110 826 @osc;
-#X text 245 826 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 614 @osc;
+#X text 245 614 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
+#X msg 110 643 @active;
+#X text 245 643 Get/Set on/off dsp processing. Type: bool. Default
+value: 1\.;
+#X msg 110 672 @bypass;
+#X text 245 672 Get/Set if set to 1 - bypass 'effected' signal. Type:
+bool. Default value: 0\.;
+#X msg 110 714 @drive;
+#X text 245 714 Get/Set distortion amount. Type: float. Default value:
+0.5\. Range: 0\...1\.;
+#X msg 110 756 @drywet;
+#X text 245 756 Get/Set proportion of mix between the original (dry)
+and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
+Default value: 1\. Range: 0\...1\.;
+#X msg 110 813 @offset;
+#X text 245 813 Get/Set constant added before nonlinearity to give
+even harmonics. Type: float. Default value: 0\. Range: 0\...0.5\.;
 #X obj 20 865 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 870 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

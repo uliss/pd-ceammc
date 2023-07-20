@@ -48,18 +48,18 @@ your ears.;
 #X obj 20 856 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 861 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 896 @basic;
-#X text 245 896 alias for @mode basic (no optimization).;
-#X msg 110 925 @inphase;
-#X text 245 925 alias for @mode inphase.;
-#X msg 110 954 @maxre;
-#X text 245 954 alias for @mode maxre.;
-#X msg 110 983 @mode;
-#X text 245 983 Get/Set optimization mode. Type: symbol. Default value:
-basic. Allowed values: basic \, maxre \, inphase.;
-#X msg 110 1025 @order;
-#X text 245 1025 (initonly) Get/Set the order of decomposition. Type:
+#X msg 110 896 @order;
+#X text 245 896 (initonly) Get/Set the order of decomposition. Type:
 int. Default value: 1\. Range: 1\...63\.;
+#X msg 110 938 @basic;
+#X text 245 938 alias for @mode basic (no optimization).;
+#X msg 110 967 @inphase;
+#X text 245 967 alias for @mode inphase.;
+#X msg 110 996 @maxre;
+#X text 245 996 alias for @mode maxre.;
+#X msg 110 1025 @mode;
+#X text 245 1025 Get/Set optimization mode. Type: symbol. Default value:
+basic. Allowed values: basic \, maxre \, inphase.;
 #X obj 20 1077 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1082 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;

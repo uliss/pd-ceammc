@@ -25,21 +25,21 @@
 #X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 358 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 393 @empty;
-#X text 245 393 (readonly) Get if stack is empty. Type: bool. Default
-value: 1\.;
-#X msg 110 435 @max_size;
-#X text 245 435 Get/Set maximum stack grow size. Type: int. Default
+#X msg 110 393 @max_size;
+#X text 245 393 Get/Set maximum stack grow size. Type: int. Default
 value: 100\. Min value: 1\.;
-#X msg 110 477 @on_empty;
-#X text 245 477 Get/Set message send to destination address when stack
+#X msg 110 435 @on_empty;
+#X text 245 435 Get/Set message send to destination address when stack
 becomes empty. First list element is address to send \, other additional
 elements treated as message or bang if not specified. Type: list.;
-#X msg 110 549 @on_full;
-#X text 245 549 Get/Set message send to destination address when stack
+#X msg 110 507 @on_full;
+#X text 245 507 Get/Set message send to destination address when stack
 becomes full. First list element is address to send \, other additional
 elements treated as message or bang if not specified. Type: list.;
-#X msg 110 621 @size;
+#X msg 110 579 @empty?;
+#X text 245 579 (readonly) Get if stack is empty. Type: bool. Default
+value: 1\.;
+#X msg 110 621 @size?;
 #X text 245 621 (readonly) Get current number of elements in stack.
 Type: int. Default value: 0\.;
 #X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

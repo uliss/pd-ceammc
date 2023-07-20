@@ -43,7 +43,7 @@
 #X msg 110 670 @rows;
 #X text 245 670 Get/Set number of rows. Type: int. Default value: 16\.
 Range: 1\...32\.;
-#X msg 110 712 @size;
+#X msg 110 712 @size?;
 #X text 245 712 (readonly) Get total cell count. Type: int. Default
 value: 256\.;
 #X obj 20 764 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

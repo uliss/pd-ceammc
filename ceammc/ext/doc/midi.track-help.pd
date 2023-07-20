@@ -32,27 +32,27 @@
 #X obj 20 583 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 588 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 623 @current;
-#X text 245 623 (readonly) Get current event tick index. Type: int.
-Default value: 0\.;
-#X msg 110 665 @join;
-#X text 245 665 join all tracks into one. Default value: 0\.;
-#X msg 110 694 @nevents;
-#X text 245 694 (readonly) Get number of events in track. Type: int.
-Default value: 0\.;
-#X msg 110 736 @speed;
-#X text 245 736 Get/Set play speed factor. Type: float. Default value:
+#X msg 110 623 @join;
+#X text 245 623 join all tracks into one. Default value: 0\.;
+#X msg 110 652 @speed;
+#X text 245 652 Get/Set play speed factor. Type: float. Default value:
 1\. Min value: 0.01\.;
-#X msg 110 778 @state;
-#X text 245 778 (readonly) Get current state. 0: stopped \, 1: playing
+#X msg 110 694 @track;
+#X text 245 694 Get/Set track number. Type: int. Default value: 0\.
+Min value: 0\.;
+#X msg 110 736 @current?;
+#X text 245 736 (readonly) Get current event tick index. Type: int.
+Default value: 0\.;
+#X msg 110 778 @nevents?;
+#X text 245 778 (readonly) Get number of events in track. Type: int.
+Default value: 0\.;
+#X msg 110 820 @state?;
+#X text 245 820 (readonly) Get current state. 0: stopped \, 1: playing
 \, 2: paused. Type: int. Default value: 0\. Allowed values: 0 \, 1
 \, 2\.;
-#X msg 110 835 @tempo;
-#X text 245 835 (readonly) Get current tempo in TPQ. Type: int. Default
+#X msg 110 877 @tempo?;
+#X text 245 877 (readonly) Get current tempo in TPQ. Type: int. Default
 value: 120\.;
-#X msg 110 877 @track;
-#X text 245 877 Get/Set track number. Type: int. Default value: 0\.
-Min value: 0\.;
 #X obj 20 929 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 934 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

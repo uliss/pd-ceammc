@@ -28,18 +28,18 @@
 #X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 458 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 493 @ampexp;
-#X text 245 493 Get/Set amplitude exponent. Type: float. Default value:
-2\.;
-#X msg 110 522 @base;
-#X text 245 522 Get/Set base pitch. Type: float. Units: semitone. Default
-value: 60\. Range: 10\...100\.;
-#X msg 110 564 @interval;
-#X text 245 564 Get/Set interval between bands. Type: float. Units:
-semitone. Default value: 12\.;
-#X msg 110 606 @n;
-#X text 245 606 (initonly) Get/Set number of bands. Type: int. Default
+#X msg 110 493 @n;
+#X text 245 493 (initonly) Get/Set number of bands. Type: int. Default
 value: 5\.;
+#X msg 110 535 @ampexp;
+#X text 245 535 Get/Set amplitude exponent. Type: float. Default value:
+2\.;
+#X msg 110 564 @base;
+#X text 245 564 Get/Set base pitch. Type: float. Units: semitone. Default
+value: 60\. Range: 10\...100\.;
+#X msg 110 606 @interval;
+#X text 245 606 Get/Set interval between bands. Type: float. Units:
+semitone. Default value: 12\.;
 #X msg 110 648 @shift;
 #X text 245 648 Get/Set band shift in octaves. Type: float. Default
 value: 0\.;

@@ -42,12 +42,12 @@ all messages (including property requests) are passed thru;
 #X obj 20 663 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 668 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 703 @index;
-#X text 245 703 Get/Set current outlet index. Type: int. Default value:
-0\.;
-#X msg 110 732 @n;
-#X text 245 732 (initonly) Get/Set number of outlets. Type: int. Default
+#X msg 110 703 @n;
+#X text 245 703 (initonly) Get/Set number of outlets. Type: int. Default
 value: 2\. Range: 1\...64\.;
+#X msg 110 745 @index;
+#X text 245 745 Get/Set current outlet index. Type: int. Default value:
+0\.;
 #X msg 110 774 @offset;
 #X text 245 774 Get/Set init cycle offset. Type: int. Default value:
 0\. Range: -64\...64\.;

@@ -32,21 +32,21 @@
 #X obj 20 583 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 588 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 623 @center;
-#X text 245 623 Get/Set shift the centre of the distribution. Type:
-float. Default value: 0\. Range: -0.5\...0.5\.;
-#X msg 110 665 @coeffs;
-#X text 245 665 (readonly) Get list of gain pairs. Type: list.;
-#X msg 110 694 @compensate;
-#X text 245 694 Get/Set compensate output level: divide amplitude to
-number of input channels. Type: bool. Default value: 0\.;
-#X msg 110 736 @n;
-#X text 245 736 (initonly) Get/Set number of input channels. Type:
+#X msg 110 623 @n;
+#X text 245 623 (initonly) Get/Set number of input channels. Type:
 int. Default value: 2\. Range: 2\...16\.;
-#X msg 110 778 @spread;
-#X text 245 778 Get/Set for @spread = 0 \, all channels are in the
+#X msg 110 665 @center;
+#X text 245 665 Get/Set shift the centre of the distribution. Type:
+float. Default value: 0\. Range: -0.5\...0.5\.;
+#X msg 110 707 @compensate;
+#X text 245 707 Get/Set compensate output level: divide amplitude to
+number of input channels. Type: bool. Default value: 0\.;
+#X msg 110 749 @spread;
+#X text 245 749 Get/Set for @spread = 0 \, all channels are in the
 centre \, for 1 \, they have maximum distribution. Type: float. Default
 value: 1\. Range: 0\...1\.;
+#X msg 110 806 @coeffs?;
+#X text 245 806 (readonly) Get list of gain pairs. Type: list.;
 #X obj 20 845 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 850 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

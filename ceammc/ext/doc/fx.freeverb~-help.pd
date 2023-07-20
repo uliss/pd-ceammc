@@ -43,38 +43,38 @@ and 'effected' (wet) signals. Type: float. Range: 0\...1;
 #X obj 20 588 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 593 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 628 @active;
-#X text 245 628 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 110 657 @bypass;
-#X text 245 657 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
-#X msg 110 699 @damp;
-#X text 245 699 Get/Set damping of the lowpass comb filter. Type: float.
-Default value: 0.5\. Range: 0\...1\.;
-#X msg 110 741 @drywet;
-#X text 245 741 Get/Set proportion of mix between the original (dry)
-and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 0.33\. Range: 0\...1\.;
-#X msg 110 798 @fr_damp;
-#X text 245 798 Get/Set freeze room damp. Type: float. Default value:
-0.0001\. Range: 0\...1\.;
-#X msg 110 840 @fr_room;
-#X text 245 840 Get/Set freeze room size. Type: float. Default value:
-0.999\. Range: 0\...1\.;
-#X msg 110 882 @fr_time;
-#X text 245 882 Get/Set length of freeze tail. Type: float. Units:
-ms. Default value: 100\. Range: 0\...1000\.;
-#X msg 110 924 @freeze;
-#X text 245 924 Get/Set freeze reverberation tail. Type: bool. Default
-value: 0\.;
-#X msg 110 966 @id;
-#X text 245 966 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 628 @id;
+#X text 245 628 (initonly) Get/Set OSC address id. If specified \,
 bind properties to /ID/fx_freeverb2/PROP_NAME osc address \, if empty
 bind to /fx_freeverb2/PROP_NAME. Type: symbol.;
-#X msg 110 1023 @osc;
-#X text 245 1023 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 685 @osc;
+#X text 245 685 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
+#X msg 110 714 @active;
+#X text 245 714 Get/Set on/off dsp processing. Type: bool. Default
+value: 1\.;
+#X msg 110 743 @bypass;
+#X text 245 743 Get/Set if set to 1 - bypass 'effected' signal. Type:
+bool. Default value: 0\.;
+#X msg 110 785 @damp;
+#X text 245 785 Get/Set damping of the lowpass comb filter. Type: float.
+Default value: 0.5\. Range: 0\...1\.;
+#X msg 110 827 @drywet;
+#X text 245 827 Get/Set proportion of mix between the original (dry)
+and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
+Default value: 0.33\. Range: 0\...1\.;
+#X msg 110 884 @fr_damp;
+#X text 245 884 Get/Set freeze room damp. Type: float. Default value:
+0.0001\. Range: 0\...1\.;
+#X msg 110 926 @fr_room;
+#X text 245 926 Get/Set freeze room size. Type: float. Default value:
+0.999\. Range: 0\...1\.;
+#X msg 110 968 @fr_time;
+#X text 245 968 Get/Set length of freeze tail. Type: float. Units:
+ms. Default value: 100\. Range: 0\...1000\.;
+#X msg 110 1010 @freeze;
+#X text 245 1010 Get/Set freeze reverberation tail. Type: bool. Default
+value: 0\.;
 #X msg 110 1052 @room;
 #X text 245 1052 Get/Set room size. Type: float. Default value: 0.5\.
 Range: 0\...1\.;

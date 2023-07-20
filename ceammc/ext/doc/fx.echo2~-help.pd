@@ -29,29 +29,29 @@
 #X obj 20 430 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 435 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 470 @active;
-#X text 245 470 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 110 499 @bypass;
-#X text 245 499 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
-#X msg 110 541 @delay;
-#X text 245 541 Get/Set echo time. Type: float. Units: ms. Default
-value: 500\. Range: 10\...5000\.;
-#X msg 110 583 @drywet;
-#X text 245 583 Get/Set proportion of mix between the original (dry)
-and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 1\. Range: 0\...1\.;
-#X msg 110 640 @feedback;
-#X text 245 640 Get/Set feedback coefficient. Type: float. Default
-value: 0.3\. Range: 0\...0.99\.;
-#X msg 110 682 @id;
-#X text 245 682 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 470 @id;
+#X text 245 470 (initonly) Get/Set OSC address id. If specified \,
 bind properties to /ID/fx_echo2/PROP_NAME osc address \, if empty bind
 to /fx_echo2/PROP_NAME. Type: symbol.;
-#X msg 110 739 @osc;
-#X text 245 739 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 527 @osc;
+#X text 245 527 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
+#X msg 110 556 @active;
+#X text 245 556 Get/Set on/off dsp processing. Type: bool. Default
+value: 1\.;
+#X msg 110 585 @bypass;
+#X text 245 585 Get/Set if set to 1 - bypass 'effected' signal. Type:
+bool. Default value: 0\.;
+#X msg 110 627 @delay;
+#X text 245 627 Get/Set echo time. Type: float. Units: ms. Default
+value: 500\. Range: 10\...5000\.;
+#X msg 110 669 @drywet;
+#X text 245 669 Get/Set proportion of mix between the original (dry)
+and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
+Default value: 1\. Range: 0\...1\.;
+#X msg 110 726 @feedback;
+#X text 245 726 Get/Set feedback coefficient. Type: float. Default
+value: 0.3\. Range: 0\...0.99\.;
 #X msg 110 768 @stereo;
 #X text 245 768 Get/Set The stereo parameter controls the amount of
 stereo spread. For stereo=0 you get a plain delay \, without crosstalk

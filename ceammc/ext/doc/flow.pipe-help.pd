@@ -33,10 +33,10 @@ or [prop.set] object;
 #X msg 110 602 @delay;
 #X text 245 602 Get/Set delay time. Type: float. Units: ms. Default
 value: 0\. Min value: 0\.;
-#X msg 110 644 @empty;
+#X msg 110 644 @empty?;
 #X text 245 644 (readonly) Get 1 if pipe is empty \, otherwise 0\.
 Type: bool. Default value: 1\.;
-#X msg 110 686 @size;
+#X msg 110 686 @size?;
 #X text 245 686 (readonly) Get pipe size. Type: int. Default value:
 0\.;
 #X obj 20 725 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

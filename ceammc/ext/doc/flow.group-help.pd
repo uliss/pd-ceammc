@@ -24,7 +24,7 @@
 #X msg 110 349 @by;
 #X text 245 349 Get/Set group size. Type: int. Default value: 1\. Min
 value: 1\.;
-#X msg 110 391 @free;
+#X msg 110 391 @free?;
 #X text 245 391 (readonly) Get free space left in group. Type: int.
 Default value: 0\. Min value: 0\.;
 #X obj 20 443 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

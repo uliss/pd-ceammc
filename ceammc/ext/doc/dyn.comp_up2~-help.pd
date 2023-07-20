@@ -62,55 +62,55 @@ of compression. Type: float. Range: 1\...500;
 #X obj 20 666 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 671 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 706 @active;
-#X text 245 706 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 110 735 @attack;
-#X text 245 735 Get/Set time constant when level & compression going
-up. Type: float. Units: ms. Default value: 10\. Range: 0.1\...100\.;
-#X msg 110 792 @bypass;
-#X text 245 792 Get/Set if set to 1 - bypass compressor. Type: bool.
-Default value: 0\.;
-#X msg 110 834 @hold;
-#X text 245 834 Get/Set hold period. Type: float. Units: samp. Default
-value: 128\. Range: 1\...255\.;
-#X msg 110 876 @id;
-#X text 245 876 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 706 @id;
+#X text 245 706 (initonly) Get/Set OSC address id. If specified \,
 bind properties to /ID/dyn_comp_up2/PROP_NAME osc address \, if empty
 bind to /dyn_comp_up2/PROP_NAME. Type: symbol.;
-#X msg 110 933 @knee;
-#X text 245 933 Get/Set a gradual increase in gain reduction around
+#X msg 110 763 @osc;
+#X text 245 763 (initonly) Get/Set OSC server name to listen. Type:
+symbol.;
+#X msg 110 792 @active;
+#X text 245 792 Get/Set on/off dsp processing. Type: bool. Default
+value: 1\.;
+#X msg 110 821 @attack;
+#X text 245 821 Get/Set time constant when level & compression going
+up. Type: float. Units: ms. Default value: 10\. Range: 0.1\...100\.;
+#X msg 110 878 @bypass;
+#X text 245 878 Get/Set if set to 1 - bypass compressor. Type: bool.
+Default value: 0\.;
+#X msg 110 920 @hold;
+#X text 245 920 Get/Set hold period. Type: float. Units: samp. Default
+value: 128\. Range: 1\...255\.;
+#X msg 110 962 @knee;
+#X text 245 962 Get/Set a gradual increase in gain reduction around
 the threshold: below thresh-(knee/2) there is no gain reduction \,
 above thresh+(knee/2) there is the same gain reduction as without a
 knee \, and in between there is a gradual increase in gain reduction.
 Type: float. Units: db. Default value: 3\. Range: 0\...24\.;
-#X msg 110 1035 @level;
-#X text 245 1035 (readonly) Get current level of compression. Type:
-float. Units: db. Default value: 0\. Range: 0\...90\.;
-#X msg 110 1077 @link;
-#X text 245 1077 Get/Set the amount of linkage between the channels:
+#X msg 110 1064 @link;
+#X text 245 1064 Get/Set the amount of linkage between the channels:
 0 = each channel is independent \, 1 = all channels have the same amount
 of gain reduction. Type: float. Default value: 1\. Range: 0\...1\.;
-#X msg 110 1149 @osc;
-#X text 245 1149 (initonly) Get/Set OSC server name to listen. Type:
-symbol.;
-#X msg 110 1178 @range;
-#X text 245 1178 Get/Set max upward compression range. Type: float.
+#X msg 110 1136 @range;
+#X text 245 1136 Get/Set max upward compression range. Type: float.
 Units: db. Default value: 12\. Range: 0\...32\.;
-#X msg 110 1220 @refresh;
-#X text 245 1220 Get/Set compression level output time interval. If
+#X msg 110 1178 @refresh;
+#X text 245 1178 Get/Set compression level output time interval. If
 0 - no output. Type: int. Units: ms. Default value: 100\. Range: 0\...1000\.;
-#X msg 110 1277 @release;
-#X text 245 1277 Get/Set release time = time constant coming out of
+#X msg 110 1235 @release;
+#X text 245 1235 Get/Set release time = time constant coming out of
 compression. Type: float. Units: ms. Default value: 50\. Range: 1\...500\.;
-#X msg 110 1334 @strength;
-#X text 245 1334 Get/Set compression strength (0: no compression \,
+#X msg 110 1292 @strength;
+#X text 245 1292 Get/Set compression strength (0: no compression \,
 1: increase level by @range db.). Type: float. Default value: 0\. Range:
 0\...1\.;
-#X msg 110 1391 @threshold;
-#X text 245 1391 Get/Set level threshold above which compression kicks
+#X msg 110 1349 @threshold;
+#X text 245 1349 Get/Set level threshold above which compression kicks
 in (100 dB = max level). Type: float. Units: db. Default value: -32\.
 Range: -60\...0\.;
+#X msg 110 1406 @level?;
+#X text 245 1406 (readonly) Get current level of compression. Type:
+float. Units: db. Default value: 0\. Range: 0\...90\.;
 #X obj 20 1458 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1463 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

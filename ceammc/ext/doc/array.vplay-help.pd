@@ -50,27 +50,27 @@
 #X obj 20 511 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 516 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 551 @abs_begin;
-#X text 245 551 (readonly) Get absolute start position in samples.
-Type: int. Units: samp. Default value: 0\.;
-#X msg 110 593 @abs_end;
-#X text 245 593 (readonly) Get absolute stop position in samples. Type:
-int. Units: samp. Default value: 0\.;
-#X msg 110 635 @array;
-#X text 245 635 Get/Set array name. Type: symbol.;
-#X msg 110 664 @begin;
-#X text 245 664 Get/Set begin position in samples. Type: int. Units:
+#X msg 110 551 @array;
+#X text 245 551 Get/Set array name. Type: symbol.;
+#X msg 110 580 @begin;
+#X text 245 580 Get/Set begin position in samples. Type: int. Units:
 samp. Default value: 0\.;
-#X msg 110 706 @end;
-#X text 245 706 Get/Set end position in samples. Type: int. Units:
+#X msg 110 622 @end;
+#X text 245 622 Get/Set end position in samples. Type: int. Units:
 samp. Default value: -1\.;
-#X msg 110 748 @reversed;
-#X text 245 748 Get/Set playing backwards (if set to 1). Type: bool.
+#X msg 110 664 @reversed;
+#X text 245 664 Get/Set playing backwards (if set to 1). Type: bool.
 Default value: 0\.;
-#X msg 110 790 @speed;
-#X text 245 790 Get/Set play speed. Type: float. Default value: 1\.
+#X msg 110 706 @speed;
+#X text 245 706 Get/Set play speed. Type: float. Default value: 1\.
 Min value: 0.1\.;
-#X msg 110 832 @state;
+#X msg 110 748 @abs_begin?;
+#X text 245 748 (readonly) Get absolute start position in samples.
+Type: int. Units: samp. Default value: 0\.;
+#X msg 110 790 @abs_end?;
+#X text 245 790 (readonly) Get absolute stop position in samples. Type:
+int. Units: samp. Default value: 0\.;
+#X msg 110 832 @state?;
 #X text 245 832 (readonly) Get player state. Type: symbol. Default
 value: stop. Allowed values: play \, stop.;
 #X obj 20 884 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

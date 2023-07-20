@@ -21,58 +21,58 @@
 #X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 417 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 452 @active;
-#X text 245 452 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 110 481 @drive;
-#X text 245 481 Get/Set distortion amount. Type: float. Default value:
-0.64\. Range: 0\...1\.;
-#X msg 110 523 @flt_on_off;
-#X text 245 523 Get/Set filter processing. Type: bool. Default value:
-0\.;
-#X msg 110 552 @gain;
-#X text 245 552 Get/Set total effect gain. Type: float. Units: db.
-Default value: 2\. Range: -10\...10\.;
-#X msg 110 594 @high_drive;
-#X text 245 594 Get/Set distortion amount on high frequencies. Type:
-float. Default value: 1\. Range: 0\...1\.;
-#X msg 110 636 @high_gain;
-#X text 245 636 Get/Set gain on high frequencies. Type: float. Units:
-db. Default value: 10\. Range: -10\...20\.;
-#X msg 110 678 @hp_freq;
-#X text 245 678 Get/Set high pass frequency. Type: float. Units: Hz.
-Default value: 130\. Range: 20\...7040\.;
-#X msg 110 720 @id;
-#X text 245 720 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 452 @id;
+#X text 245 452 (initonly) Get/Set OSC address id. If specified \,
 bind properties to /ID/fx_distortion1/PROP_NAME osc address \, if empty
 bind to /fx_distortion1/PROP_NAME. Type: symbol.;
-#X msg 110 777 @level;
-#X text 245 777 Get/Set effect level. Type: float. Default value: 0.01\.
-Range: 0\...0.5\.;
-#X msg 110 819 @low_drive;
-#X text 245 819 Get/Set distortion amount on low frequencies. Type:
-float. Default value: 1\. Range: 0\...1\.;
-#X msg 110 861 @low_gain;
-#X text 245 861 Get/Set gain on low frequencies. Type: float. Units:
-db. Default value: 10\. Range: -10\...20\.;
-#X msg 110 903 @lp_freq;
-#X text 245 903 Get/Set low pass frequency. Type: float. Units: Hz.
-Default value: 5000\. Range: 20\...12000\.;
-#X msg 110 945 @middle_h_drive;
-#X text 245 945 Get/Set distortion amount on middle high frequencies.
-Type: float. Default value: 1\. Range: 0\...1\.;
-#X msg 110 987 @middle_h_gain;
-#X text 245 987 Get/Set gain on middle high frequencies. Type: float.
-Units: db. Default value: 10\. Range: -10\...20\.;
-#X msg 110 1029 @middle_l_drive;
-#X text 245 1029 Get/Set distortion amount on middle low frequencies.
-Type: float. Default value: 1\. Range: 0\...1\.;
-#X msg 110 1071 @middle_l_gain;
-#X text 245 1071 Get/Set gain on middle low frequencies. Type: float.
-Units: db. Default value: 10\. Range: -10\...20\.;
-#X msg 110 1113 @osc;
-#X text 245 1113 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 509 @osc;
+#X text 245 509 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
+#X msg 110 538 @active;
+#X text 245 538 Get/Set on/off dsp processing. Type: bool. Default
+value: 1\.;
+#X msg 110 567 @drive;
+#X text 245 567 Get/Set distortion amount. Type: float. Default value:
+0.64\. Range: 0\...1\.;
+#X msg 110 609 @flt_on_off;
+#X text 245 609 Get/Set filter processing. Type: bool. Default value:
+0\.;
+#X msg 110 638 @gain;
+#X text 245 638 Get/Set total effect gain. Type: float. Units: db.
+Default value: 2\. Range: -10\...10\.;
+#X msg 110 680 @high_drive;
+#X text 245 680 Get/Set distortion amount on high frequencies. Type:
+float. Default value: 1\. Range: 0\...1\.;
+#X msg 110 722 @high_gain;
+#X text 245 722 Get/Set gain on high frequencies. Type: float. Units:
+db. Default value: 10\. Range: -10\...20\.;
+#X msg 110 764 @hp_freq;
+#X text 245 764 Get/Set high pass frequency. Type: float. Units: Hz.
+Default value: 130\. Range: 20\...7040\.;
+#X msg 110 806 @level;
+#X text 245 806 Get/Set effect level. Type: float. Default value: 0.01\.
+Range: 0\...0.5\.;
+#X msg 110 848 @low_drive;
+#X text 245 848 Get/Set distortion amount on low frequencies. Type:
+float. Default value: 1\. Range: 0\...1\.;
+#X msg 110 890 @low_gain;
+#X text 245 890 Get/Set gain on low frequencies. Type: float. Units:
+db. Default value: 10\. Range: -10\...20\.;
+#X msg 110 932 @lp_freq;
+#X text 245 932 Get/Set low pass frequency. Type: float. Units: Hz.
+Default value: 5000\. Range: 20\...12000\.;
+#X msg 110 974 @middle_h_drive;
+#X text 245 974 Get/Set distortion amount on middle high frequencies.
+Type: float. Default value: 1\. Range: 0\...1\.;
+#X msg 110 1016 @middle_h_gain;
+#X text 245 1016 Get/Set gain on middle high frequencies. Type: float.
+Units: db. Default value: 10\. Range: -10\...20\.;
+#X msg 110 1058 @middle_l_drive;
+#X text 245 1058 Get/Set distortion amount on middle low frequencies.
+Type: float. Default value: 1\. Range: 0\...1\.;
+#X msg 110 1100 @middle_l_gain;
+#X text 245 1100 Get/Set gain on middle low frequencies. Type: float.
+Units: db. Default value: 10\. Range: -10\...20\.;
 #X msg 110 1142 @res_on_off;
 #X text 245 1142 Get/Set resonator. Type: bool. Default value: 0\.;
 #X msg 110 1171 @sp_high_freq;

@@ -34,51 +34,51 @@ only delayed repeats.;
 #X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 461 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 496 @active;
-#X text 245 496 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 110 525 @bypass;
-#X text 245 525 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
-#X msg 110 567 @c_attack;
-#X text 245 567 Get/Set feedback compression attack time. Type: float.
-Units: ms. Default value: 10\. Range: 0.1\...100\.;
-#X msg 110 609 @c_release;
-#X text 245 609 Get/Set feedback compression release time. Type: float.
-Units: ms. Default value: 50\. Range: 1\...500\.;
-#X msg 110 651 @c_thresh;
-#X text 245 651 Get/Set feedback compression threshold level. Type:
-float. Units: db. Default value: 0\. Range: -60\...0\.;
-#X msg 110 693 @compress;
-#X text 245 693 Get/Set feedback compression factor. 0: means no compression
-\, 1: limit feedback level. Type: float. Default value: 0.5\. Range:
-0\...1\.;
-#X msg 110 750 @delay;
-#X text 245 750 Get/Set echo time. Type: float. Units: ms. Default
-value: 500\. Range: 10\...10000\.;
-#X msg 110 792 @drywet;
-#X text 245 792 Get/Set proportion of mix between the original (dry)
-and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 1\. Range: 0\...1\.;
-#X msg 110 849 @f_hpf;
-#X text 245 849 Get/Set feedback high-pass filter cutoff frequency.
-Type: float. Units: Hz. Default value: 300\. Range: 20\...20000\.;
-#X msg 110 891 @f_lpf;
-#X text 245 891 Get/Set feedback low-pass filter cutoff frequency.
-Type: float. Units: Hz. Default value: 9000\. Range: 20\...20000\.;
-#X msg 110 933 @feedback;
-#X text 245 933 Get/Set feedback coefficient. Type: float. Default
-value: 0.3\. Range: 0\...0.99\.;
-#X msg 110 975 @filter;
-#X text 245 975 Get/Set if true - apply filter to feedback signal.
-Type: bool. Default value: 0\.;
-#X msg 110 1017 @id;
-#X text 245 1017 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 496 @id;
+#X text 245 496 (initonly) Get/Set OSC address id. If specified \,
 bind properties to /ID/fx_echo/PROP_NAME osc address \, if empty bind
 to /fx_echo/PROP_NAME. Type: symbol.;
-#X msg 110 1074 @osc;
-#X text 245 1074 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 553 @osc;
+#X text 245 553 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
+#X msg 110 582 @active;
+#X text 245 582 Get/Set on/off dsp processing. Type: bool. Default
+value: 1\.;
+#X msg 110 611 @bypass;
+#X text 245 611 Get/Set if set to 1 - bypass 'effected' signal. Type:
+bool. Default value: 0\.;
+#X msg 110 653 @c_attack;
+#X text 245 653 Get/Set feedback compression attack time. Type: float.
+Units: ms. Default value: 10\. Range: 0.1\...100\.;
+#X msg 110 695 @c_release;
+#X text 245 695 Get/Set feedback compression release time. Type: float.
+Units: ms. Default value: 50\. Range: 1\...500\.;
+#X msg 110 737 @c_thresh;
+#X text 245 737 Get/Set feedback compression threshold level. Type:
+float. Units: db. Default value: 0\. Range: -60\...0\.;
+#X msg 110 779 @compress;
+#X text 245 779 Get/Set feedback compression factor. 0: means no compression
+\, 1: limit feedback level. Type: float. Default value: 0.5\. Range:
+0\...1\.;
+#X msg 110 836 @delay;
+#X text 245 836 Get/Set echo time. Type: float. Units: ms. Default
+value: 500\. Range: 10\...10000\.;
+#X msg 110 878 @drywet;
+#X text 245 878 Get/Set proportion of mix between the original (dry)
+and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
+Default value: 1\. Range: 0\...1\.;
+#X msg 110 935 @f_hpf;
+#X text 245 935 Get/Set feedback high-pass filter cutoff frequency.
+Type: float. Units: Hz. Default value: 300\. Range: 20\...20000\.;
+#X msg 110 977 @f_lpf;
+#X text 245 977 Get/Set feedback low-pass filter cutoff frequency.
+Type: float. Units: Hz. Default value: 9000\. Range: 20\...20000\.;
+#X msg 110 1019 @feedback;
+#X text 245 1019 Get/Set feedback coefficient. Type: float. Default
+value: 0.3\. Range: 0\...0.99\.;
+#X msg 110 1061 @filter;
+#X text 245 1061 Get/Set if true - apply filter to feedback signal.
+Type: bool. Default value: 0\.;
 #X msg 110 1103 @smooth;
 #X text 245 1103 Get/Set interpolation time on delay time change \,
 that prevents click and transpose \, if equal to 0 produces artifacts

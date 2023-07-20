@@ -31,12 +31,12 @@
 #X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 428 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 463 @empty;
-#X text 245 463 (readonly) Get 1 if list is empty \, otherwise 0\.
+#X msg 110 463 @value;
+#X text 245 463 Get/Set current value. Type: list.;
+#X msg 110 492 @empty?;
+#X text 245 492 (readonly) Get 1 if list is empty \, otherwise 0\.
 Type: bool. Default value: 1\.;
-#X msg 110 505 @value;
-#X text 245 505 Get/Set current value. Type: list.;
-#X msg 110 534 @size;
+#X msg 110 534 @size?;
 #X text 245 534 (readonly) Get number of elements in list. Type: int.
 Default value: 0\. Min value: 0\.;
 #X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

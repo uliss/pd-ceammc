@@ -44,7 +44,7 @@ sleigh_bells \, bamboo_chimes \, sand_paper \, coke_can \, sticks \,
 crunch \, big_rocks \, little_rocks \, next_mug \, penny_mug \, nickle_mug
 \, dime_mug \, quarter_mug \, franc_mug \, peso_mug \, guiro \, wrench
 \, water_drops \, tuned_bamboo_chimes.;
-#X msg 110 824 @types;
+#X msg 110 824 @types?;
 #X text 245 824 (readonly) Get all instrument types. Type: list. Default
 value: maraca cabasa sekere tambourine sleigh_bells bamboo_chimes sand_paper
 coke_can sticks crunch big_rocks little_rocks next_mug penny_mug nickle_mug

@@ -22,25 +22,25 @@ current canvas). Type: symbol.;
 #X obj 20 339 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 344 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 379 @b;
-#X text 245 379 alias to @type bool.;
-#X msg 110 408 @default;
-#X text 245 408 (initonly) Get/Set default property value. Type: list.;
-#X msg 110 437 @enum;
-#X text 245 437 (initonly) Get/Set allowed values (without default
+#X msg 110 379 @default;
+#X text 245 379 (initonly) Get/Set default property value. Type: list.;
+#X msg 110 408 @enum;
+#X text 245 408 (initonly) Get/Set allowed values (without default
 value) (for symbol properties only). Type: list.;
-#X msg 110 479 @f;
-#X text 245 479 alias to @type float.;
-#X msg 110 508 @i;
-#X text 245 508 alias to @type int.;
-#X msg 110 537 @l;
-#X text 245 537 alias to @type list.;
-#X msg 110 566 @max;
-#X text 245 566 (initonly) Get/Set maximum value (for float and int
+#X msg 110 450 @max;
+#X text 245 450 (initonly) Get/Set maximum value (for float and int
 properties only). Type: float. Default value: +inf.;
-#X msg 110 608 @min;
-#X text 245 608 (initonly) Get/Set minimal value (for float and int
+#X msg 110 492 @min;
+#X text 245 492 (initonly) Get/Set minimal value (for float and int
 properties only). Type: float. Default value: -inf.;
+#X msg 110 534 @b;
+#X text 245 534 alias to @type bool.;
+#X msg 110 563 @f;
+#X text 245 563 alias to @type float.;
+#X msg 110 592 @i;
+#X text 245 592 alias to @type int.;
+#X msg 110 621 @l;
+#X text 245 621 alias to @type list.;
 #X msg 110 650 @s;
 #X text 245 650 alias to @type symbol.;
 #X msg 110 679 @type;

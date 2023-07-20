@@ -58,40 +58,40 @@ list.;
 #X text 245 724 Get/Set whole sequence duration. (Recalculates @t property
 accordingly). Type: float. Units: ms. Default value: 0\. Min value:
 0\.;
-#X msg 110 781 @i;
-#X text 245 781 (readonly) Get current sequence iteration. Type: int.
-Default value: 0\.;
-#X msg 110 823 @inf;
-#X text 245 823 alias to @r -1 \, repeats infinitely.;
-#X msg 110 852 @length;
-#X text 245 852 Get/Set event length. In case of float or float wuth
+#X msg 110 781 @inf;
+#X text 245 781 alias to @r -1 \, repeats infinitely.;
+#X msg 110 810 @length;
+#X text 245 810 Get/Set event length. In case of float or float wuth
 'ms' suffix - event length is fixed for any event duration. In case
 of V% - @length expected to be in 0\..100 range and event length is
 percent of duration. In case of negative @length event duration is
 calculated as duration+@length \, but not less then 1\. Type: float.
 Default value: 75\.;
-#X msg 110 954 @mode;
-#X text 245 954 Get/Set sequencer mode. 'inc': from first to last \,
+#X msg 110 912 @mode;
+#X text 245 912 Get/Set sequencer mode. 'inc': from first to last \,
 'dec': from last to first \, 'tri': from first to last \, then back.
 Type: symbol. Default value: inc. Allowed values: inc \, dec \, tri.;
-#X msg 110 1026 @once;
-#X text 245 1026 alias to @r 1 \, play once.;
-#X msg 110 1055 @p;
-#X text 245 1055 Get/Set sequencer pattern in beat duration units.
+#X msg 110 984 @once;
+#X text 245 984 alias to @r 1 \, play once.;
+#X msg 110 1013 @p;
+#X text 245 1013 Get/Set sequencer pattern in beat duration units.
 Type: list.;
-#X msg 110 1084 @r;
-#X text 245 1084 Get/Set number of whole sequence repeats. If -1: repeat
+#X msg 110 1042 @r;
+#X text 245 1042 Get/Set number of whole sequence repeats. If -1: repeat
 infinitely. Type: int. Default value: 1\. Min value: -1\.;
-#X msg 110 1126 @ri;
-#X text 245 1126 (readonly) Get current repeat iteration. Type: int.
-Default value: 0\.;
-#X msg 110 1168 @t;
-#X text 245 1168 Get/Set time between beats. Unit values like 100ms
+#X msg 110 1084 @t;
+#X text 245 1084 Get/Set time between beats. Unit values like 100ms
 \, 240bpm or 60|4bpm also can be used. Type: float. Units: ms. Default
 value: 100\. Range: 1\...20000\.;
-#X msg 110 1225 @upbeat;
-#X text 245 1225 Get/Set wait specified number of beats before sequence
+#X msg 110 1141 @upbeat;
+#X text 245 1141 Get/Set wait specified number of beats before sequence
 start. Type: float. Default value: 0\. Min value: 0\.;
+#X msg 110 1183 @i?;
+#X text 245 1183 (readonly) Get current sequence iteration. Type: int.
+Default value: 0\.;
+#X msg 110 1225 @ri?;
+#X text 245 1225 (readonly) Get current repeat iteration. Type: int.
+Default value: 0\.;
 #X obj 20 1277 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1282 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

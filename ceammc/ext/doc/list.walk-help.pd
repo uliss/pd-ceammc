@@ -67,7 +67,7 @@ information. Type: symbol. Default value: single. Allowed values: single
 #X text 245 945 Get/Set current list. Type: list.;
 #X msg 110 974 @wrap;
 #X text 245 974 wrap pass mode. List values are repeated in a loop.;
-#X msg 110 1003 @size;
+#X msg 110 1003 @size?;
 #X text 245 1003 (readonly) Get current list size. Type: int. Default
 value: 0\. Min value: 0\.;
 #X obj 20 1055 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -30,12 +30,12 @@ at every pan position is 0 dB.;
 #X obj 20 451 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 456 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 491 @pos;
-#X text 245 491 Get/Set panning position. -1 means left \, 0 - center
-\, +1 - right. Type: float. Default value: 0\. Range: -1\...1\.;
-#X msg 110 533 @smooth;
-#X text 245 533 (initonly) Get/Set smooth control signal to avoid zipping-noise.
+#X msg 110 491 @smooth;
+#X text 245 491 (initonly) Get/Set smooth control signal to avoid zipping-noise.
 Type: int. Default value: 20\. Range: 0\...100\.;
+#X msg 110 548 @pos;
+#X text 245 548 Get/Set panning position. -1 means left \, 0 - center
+\, +1 - right. Type: float. Default value: 0\. Range: -1\...1\.;
 #X obj 20 600 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 605 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

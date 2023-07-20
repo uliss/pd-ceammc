@@ -27,26 +27,26 @@
 #X obj 20 439 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 444 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 479 @active;
-#X text 245 479 Get/Set on/off dsp processing. Type: bool. Default
-value: 1\.;
-#X msg 110 508 @bypass;
-#X text 245 508 Get/Set if set to 1 - bypass 'effected' signal. Type:
-bool. Default value: 0\.;
-#X msg 110 550 @decay;
-#X text 245 550 Get/Set drone pluck decay time. Type: float. Units:
-ms. Default value: 4000\. Range: 100\...120000\.;
-#X msg 110 592 @drywet;
-#X text 245 592 Get/Set proportion of mix between the original (dry)
-and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 0.5\. Range: 0\...1\.;
-#X msg 110 649 @id;
-#X text 245 649 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 479 @id;
+#X text 245 479 (initonly) Get/Set OSC address id. If specified \,
 bind properties to /ID/fx_drone_box/PROP_NAME osc address \, if empty
 bind to /fx_drone_box/PROP_NAME. Type: symbol.;
-#X msg 110 706 @osc;
-#X text 245 706 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 536 @osc;
+#X text 245 536 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
+#X msg 110 565 @active;
+#X text 245 565 Get/Set on/off dsp processing. Type: bool. Default
+value: 1\.;
+#X msg 110 594 @bypass;
+#X text 245 594 Get/Set if set to 1 - bypass 'effected' signal. Type:
+bool. Default value: 0\.;
+#X msg 110 636 @decay;
+#X text 245 636 Get/Set drone pluck decay time. Type: float. Units:
+ms. Default value: 4000\. Range: 100\...120000\.;
+#X msg 110 678 @drywet;
+#X text 245 678 Get/Set proportion of mix between the original (dry)
+and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
+Default value: 0.5\. Range: 0\...1\.;
 #X msg 110 735 @pitch;
 #X text 245 735 Get/Set drone MIDI pitch. Type: float. Default value:
 48\. Range: 36\...60\.;

@@ -33,12 +33,12 @@ volume of the signal drops in the middle. [pan.sqrt~] solves this.;
 #X obj 20 536 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 541 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 576 @pos;
-#X text 245 576 Get/Set panning position. -1 means left \, 0 - center
-\, +1 - right. Type: float. Default value: 0\. Range: -1\...1\.;
-#X msg 110 618 @smooth;
-#X text 245 618 (initonly) Get/Set smooth control signal to avoid zipping-noise.
+#X msg 110 576 @smooth;
+#X text 245 576 (initonly) Get/Set smooth control signal to avoid zipping-noise.
 Type: int. Default value: 20\. Range: 0\...100\.;
+#X msg 110 633 @pos;
+#X text 245 633 Get/Set panning position. -1 means left \, 0 - center
+\, +1 - right. Type: float. Default value: 0\. Range: -1\...1\.;
 #X obj 20 685 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 690 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

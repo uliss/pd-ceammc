@@ -19,62 +19,62 @@
 #X msg 110 406 @cols;
 #X text 245 406 Get/Set number of columns. Type: int. Default value:
 8\. Range: 2\...128\.;
-#X msg 110 448 @pixels;
-#X text 245 448 (readonly) Get number of pixels. Type: int. Default
-value: 64\.;
-#X msg 110 490 @receive;
-#X text 245 490 Get/Set receive source. Type: symbol. Default value:
+#X msg 110 448 @receive;
+#X text 245 448 Get/Set receive source. Type: symbol. Default value:
 (null).;
-#X msg 110 519 @rows;
-#X text 245 519 Get/Set number of rows. Type: int. Default value: 8\.
+#X msg 110 477 @rows;
+#X text 245 477 Get/Set number of rows. Type: int. Default value: 8\.
 Range: 2\...128\.;
-#X msg 110 561 @send;
-#X text 245 561 Get/Set send destination. Type: symbol. Default value:
+#X msg 110 519 @send;
+#X text 245 519 Get/Set send destination. Type: symbol. Default value:
 (null).;
-#X msg 110 603 @background_color;
-#X text 245 603 Get/Set element background color (list of red \, green
+#X msg 110 561 @background_color;
+#X text 245 561 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 1 1 1 1\.;
-#X msg 110 645 @border_color;
-#X text 245 645 Get/Set border color (list of red \, green \, blue
+#X msg 110 603 @border_color;
+#X text 245 603 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 687 @label_color;
-#X text 245 687 Get/Set label color in RGB format within 0-1 range
+#X msg 110 645 @label_color;
+#X text 245 645 Get/Set label color in RGB format within 0-1 range
 \, for example: 0.2 0.4 0.1\. Type: list. Default value: 0 0 0 1\.;
-#X msg 110 729 @label;
-#X text 245 729 Get/Set label text. Type: symbol. Default value: (null).;
-#X msg 110 758 @label_align;
-#X text 245 758 Get/Set label horizontal align. Type: symbol. Default
+#X msg 110 687 @label;
+#X text 245 687 Get/Set label text. Type: symbol. Default value: (null).;
+#X msg 110 716 @label_align;
+#X text 245 716 Get/Set label horizontal align. Type: symbol. Default
 value: left. Allowed values: left \, center \, right.;
-#X msg 110 800 @label_inner;
-#X text 245 800 Get/Set label position (1 - inner \, 0 - outer). Type:
+#X msg 110 758 @label_inner;
+#X text 245 758 Get/Set label position (1 - inner \, 0 - outer). Type:
 bool. Default value: 0\.;
-#X msg 110 842 @label_margins;
-#X text 245 842 Get/Set label offset in pixels. Type: list. Default
+#X msg 110 800 @label_margins;
+#X text 245 800 Get/Set label offset in pixels. Type: list. Default
 value: 0 0\.;
-#X msg 110 884 @label_side;
-#X text 245 884 Get/Set label snap side. Type: symbol. Default value:
+#X msg 110 842 @label_side;
+#X text 245 842 Get/Set label snap side. Type: symbol. Default value:
 top. Allowed values: left \, top \, right \, bottom.;
-#X msg 110 926 @label_valign;
-#X text 245 926 Get/Set label vertical align. Type: symbol. Default
+#X msg 110 884 @label_valign;
+#X text 245 884 Get/Set label vertical align. Type: symbol. Default
 value: top. Allowed values: top \, center \, bottom.;
-#X msg 110 968 @fontname;
-#X text 245 968 Get/Set fontname. Type: symbol. Default value: Helvetica.
+#X msg 110 926 @fontname;
+#X text 245 926 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 1010 @fontsize;
-#X text 245 1010 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 968 @fontsize;
+#X text 245 968 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...100\.;
-#X msg 110 1052 @fontslant;
-#X text 245 1052 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1010 @fontslant;
+#X text 245 1010 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 1094 @fontweight;
-#X text 245 1094 Get/Set font weight. Type: symbol. Default value:
+#X msg 110 1052 @fontweight;
+#X text 245 1052 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 1136 @pinned;
-#X text 245 1136 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1094 @pinned;
+#X text 245 1094 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: bool. Default value: 0\.;
-#X msg 110 1178 @size;
-#X text 245 1178 Get/Set element size (width \, height pair). Type:
+#X msg 110 1136 @size;
+#X text 245 1136 Get/Set element size (width \, height pair). Type:
 list. Default value: 64 64\.;
+#X msg 110 1178 @pixels?;
+#X text 245 1178 (readonly) Get number of pixels. Type: int. Default
+value: 64\.;
 #X obj 20 1230 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1235 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
