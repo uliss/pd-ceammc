@@ -17,7 +17,8 @@
             </also>
         </meta>
         <info>
-            <par>Note: if you want to specify property message in the init argument, you have to quote it with double-quotes</par>
+            <par>Note: if you want to specify property message in the init argument, you have to
+            quote it with double-quotes</par>
         </info>
         <arguments>
             <argument name="MSG" type="list">init value for appended message</argument>

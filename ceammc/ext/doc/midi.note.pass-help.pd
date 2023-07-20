@@ -16,7 +16,8 @@ oct(NOTE) \, abs(X) \, sqrt(X);
 ^ \, == \, != \, > \, >= \, < \, <= \, && \, ||;
 #X text 215 225 see for more information:;
 #X obj 215 250 ui.link @background_color 0.98039 0.98039 0.98039
-@title https://beltoforion.de/en/muparser/features.php#idDef1 @url
+@title
+https://beltoforion.de/en/muparser/features.php#idDef1 @url
 https://beltoforion.de/en/muparser/features.php#idDef1;
 #X obj 50 311 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 213 311 ui.keyboard;

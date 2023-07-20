@@ -22,7 +22,8 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">output HOUR MIN SEC to second outlet and YEAR MONTH DAY to first outlet</xinfo>
+                <xinfo on="bang">output HOUR MIN SEC to second outlet and YEAR MONTH DAY to first
+                outlet</xinfo>
             </inlet>
         </inlets>
         <outlets>

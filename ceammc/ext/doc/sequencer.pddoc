@@ -36,7 +36,8 @@
             iteration</property>
             <property name="@ri" type="int" access="readonly" default="0">current repeat
             iteration</property>
-            <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">beat subdivision</property>
+            <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">beat
+            subdivision</property>
             <property name="@upbeat" type="float" default="0" minvalue="0">wait specified number of
             beats before sequence start</property>
             <property name="@mode" type="symbol" enum="inc dec tri" default="inc">sequencer mode.

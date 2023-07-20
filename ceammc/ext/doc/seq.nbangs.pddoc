@@ -32,11 +32,13 @@
             <property name="@t" type="float" default="0" minvalue="1" maxvalue="20000"
             units="millisecond">time interval between bangs. You could also use units values like
             100ms or 120bpm.</property>
-            <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">beat subdivision</property>
-            <property name="@accel" type="float" minvalue="0.25" default="1" maxvalue="4">tempo acceleration. 1 - no acceleration,
-            &gt;1 - speed up, &lt;1 - slow down</property>
-            <property name="@curve" type="float" minvalue="-8" default="1" maxvalue="8">acceleration curve. Values &gt;>0 - slow changes, then fast encrease.
-            Values &lt;0 - fast changes, then slower</property>
+            <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">beat
+            subdivision</property>
+            <property name="@accel" type="float" minvalue="0.25" default="1" maxvalue="4">tempo
+            acceleration. 1 - no acceleration, &gt;1 - speed up, &lt;1 - slow down</property>
+            <property name="@curve" type="float" minvalue="-8" default="1" maxvalue="8">
+            acceleration curve. Values &gt;&gt;0 - slow changes, then fast encrease. Values &lt;0 -
+            fast changes, then slower</property>
         </properties>
         <methods>
             <method name="start">start/stop 

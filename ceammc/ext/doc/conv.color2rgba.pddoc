@@ -22,7 +22,8 @@
             olive orange pink purple red white yellow</par>
         </info>
         <properties>
-            <property name="@pack" type="flag" access="initonly">output as list to first outlet</property>
+            <property name="@pack" type="flag" access="initonly">output as list to first
+            outlet</property>
             <property name="@mode" type="symbol" default="int" enum="int float">output
             mode</property>
             <property name="@int" type="alias">alias to @mode int. Output values in [0-255]
@@ -39,7 +40,8 @@
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet>list if @pack flag specified or int[0-255] or float[0-1]: red channel value</outlet>
+            <outlet>list if @pack flag specified or int[0-255] or float[0-1]: red channel
+            value</outlet>
             <outlet>int[0-255] or float[0-1]: green channel value</outlet>
             <outlet>int[0-255] or float[0-1]: blue channel value</outlet>
             <outlet>int[0-255] or float[0-1]: alpha channel value</outlet>

@@ -21,8 +21,10 @@
             <wiki name="CIELAB_color_space">CIELAB color space</wiki>
         </info>
         <properties>
-            <property name="@sync" type="flag" access="initonly">output at any inlet change</property>
-            <property name="@pack" type="flag" access="initonly">output as list (creates single outlet object)</property>
+            <property name="@sync" type="flag" access="initonly">output at any inlet
+            change</property>
+            <property name="@pack" type="flag" access="initonly">output as list (creates single
+            outlet object)</property>
             <property name="@mode" type="symbol" default="int" enum="int float">output
             mode</property>
             <property name="@int" type="alias">alias to @mode int. Output integer values in [0-255]
@@ -33,7 +35,8 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">output current value</xinfo>
-                <xinfo on="float" minvalue="0" maxvalue="1">set color L-component and output</xinfo>
+                <xinfo on="float" minvalue="0" maxvalue="1">set color L-component and
+                output</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="float" minvalue="-1" maxvalue="1">set color a*-component</xinfo>

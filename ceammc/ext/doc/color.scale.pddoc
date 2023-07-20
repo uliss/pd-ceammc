@@ -18,16 +18,19 @@
         </arguments>
         <properties>
             <property name="@scale" type="list">color list</property>
-            <property name="@mode" type="symbol" default="color" enum="color hex rgb">output
-            mode: if 'color' - output as data:color type, if 'hex' - output as hex value, if 'rgb' - RGB list</property>
+            <property name="@mode" type="symbol" default="color" enum="color hex rgb">output mode:
+            if 'color' - output as data:color type, if 'hex' - output as hex value, if 'rgb' - RGB
+            list</property>
             <property name="@color" type="alias">alias to @mode color</property>
             <property name="@rgb" type="alias">alias to @mode rgb</property>
             <property name="@hex" type="alias">alias to @mode hex</property>
-            <property name="@interp" type="symbol" default="none" enum="none short long inc dec">hue interpolation strategy</property>
+            <property name="@interp" type="symbol" default="none" enum="none short long inc dec">
+            hue interpolation strategy</property>
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="float" minvalue="0" maxvalue="1">calculate color scale hue and output</xinfo>
+                <xinfo on="float" minvalue="0" maxvalue="1">calculate color scale hue and
+                output</xinfo>
             </inlet>
         </inlets>
         <outlets>
