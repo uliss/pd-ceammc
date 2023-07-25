@@ -36,6 +36,7 @@
   - metro.choice - randomly (uniformly) metronome time interval choice from specified set
   - metro.wchoice - weighted metronome time interval choice from specified set
   - msg.onclose - send message on patch closing
+  - msg.pack - construct message with specified number of arguments
   - proto.ltc.in~ - LTC decoder
   - proto.ltc.out~ - LTC encoder
   - proto.morse - morse encoder with specified speed and other settings

@@ -196,6 +196,7 @@ flt.a-weight		.		.
 flt.biquad~		~~~~~~		~
 flt.bpf12~		~		~
 flt.bpf24~		~		~
+flt.bpf36e~		~		~
 flt.bpf72e~		~		~
 flt.c_apf,ceammc/apf->biquad,apf->biquad		.		.
 flt.c_bpf~		.		~~~~~

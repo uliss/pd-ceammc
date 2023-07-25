@@ -98,14 +98,14 @@
         route.symbol
     }}
     {flt {
-        flt.a-weight flt.biquad~ flt.bpf12~ flt.bpf24~ flt.bpf72e~ flt.c_apf
-        flt.c_bpf~ flt.c_highshelf~ flt.c_hpf flt.c_hpf~ flt.c_lowshelf~
-        flt.c_lpf flt.c_lpf~ flt.c_notch flt.c_notch~ flt.c_peak~ flt.c_pole
-        flt.dcblock2~ flt.dcblock~ flt.eq10~ flt.eq_peak_cq~ flt.eq_peak~
-        flt.fb_comb~ flt.fbank5x1~ flt.ff_comb~ flt.freqz flt.freqz~
-        flt.highshelf~ flt.hpf12~ flt.hpf24~ flt.lowshelf~ flt.lpf12~
-        flt.lpf24~ flt.median flt.moog_vcf~ flt.notch~ flt.resonbp~
-        flt.resonhp~ flt.resonlp~ flt.speaker~
+        flt.a-weight flt.biquad~ flt.bpf12~ flt.bpf24~ flt.bpf36e~ flt.bpf72e~
+        flt.c_apf flt.c_bpf~ flt.c_highshelf~ flt.c_hpf flt.c_hpf~
+        flt.c_lowshelf~ flt.c_lpf flt.c_lpf~ flt.c_notch flt.c_notch~
+        flt.c_peak~ flt.c_pole flt.dcblock2~ flt.dcblock~ flt.eq10~
+        flt.eq_peak_cq~ flt.eq_peak~ flt.fb_comb~ flt.fbank5x1~ flt.ff_comb~
+        flt.freqz flt.freqz~ flt.highshelf~ flt.hpf12~ flt.hpf24~
+        flt.lowshelf~ flt.lpf12~ flt.lpf24~ flt.median flt.moog_vcf~
+        flt.notch~ flt.resonbp~ flt.resonhp~ flt.resonlp~ flt.speaker~
     }}
     {fx {
         fx.bitdown~ fx.chorus~ fx.dattorro~ fx.delay~ fx.distortion1~

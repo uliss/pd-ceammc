@@ -196,6 +196,7 @@ set(DOC_FILES
     flt.biquad~
     flt.bpf12~
     flt.bpf24~
+    flt.bpf36e~
     flt.bpf72e~
     flt.c_apf
     flt.c_bpf~

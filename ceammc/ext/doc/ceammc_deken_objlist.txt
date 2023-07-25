@@ -490,6 +490,7 @@ flt.a-weight	convert frequency to A-weight value
 flt.biquad~	second order IIR filter.
 flt.bpf12~	Two pole band-pass butterworth filter
 flt.bpf24~	Four pole band-pass butterworth filter
+flt.bpf36e~	elliptic band-pass filter with -36db rolloff
 flt.bpf72e~	elliptic band-pass filter with -72db rolloff
 flt.c_apf	Allpass filter coefficient calculator for biquad
 ceammc/apf->biquad	Allpass filter coefficient calculator for biquad

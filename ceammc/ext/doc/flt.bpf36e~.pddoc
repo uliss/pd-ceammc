@@ -1,18 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <pddoc version="1.0">
-    <object name="flt.bpf72e~">
-        <title>flt.bpf72e~</title>
+    <object name="flt.bpf36e~">
+        <title>flt.bpf36e~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>elliptic band-pass filter with -72db rolloff</description>
+            <description>elliptic band-pass filter with -36db rolloff</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>flt</category>
             <keywords>filter elliptic bpf</keywords>
             <since>0.9.7</since>
             <also>
+                <see>flt.bpf72e~</see>
                 <see>flt.bpf24~</see>
             </also>
         </meta>
@@ -55,21 +56,45 @@
         <example>
             <pdascii>
 <![CDATA[
-[noise~ #w]     [ui.dsp~]
+[bang #a(/*plot response*/
 |
-[flt.bpf72e~ 300 1 #x]
+[click~ #d]
 
-                [flt.bpf72e~ 320 1.5 #z]
 
-        [flt.bpf72e~ 280 0.25 #y]
 
-[pan.spread~ 3 #s {w=22}]
-*|*
-[ui.hgain2~]
-*|*
-[dac~]
+[flt.bpf36e~ #e]     [flt.bpf12~ #f]
+|
+[plot.response~ #g]  [plot.response~ #h]
 
-[X w->y] [X w->z] [X x->s] [X y->s:1] [X z->s:2]
+
+[ui.plot~ #z]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+[X a->g:1]
+[X a->h:1]
+[X d->f] [X d->e]
+[X f->h]
+[X g->z] [X h->z:1] [X h:2->z:2]
+#b $1
+#c $1
+#g @sr 1
+#h @sr 1
+#z @xlabels 1 @ylabels 1 @ymin 0 @ymax 1 @ymin_ticks 0 @ymaj_ticks 0 @n 2 @size 400 200
+#e 5000
+#f 5000
 ]]>
             </pdascii>
         </example>

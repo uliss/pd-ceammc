@@ -742,6 +742,9 @@
     <entry name="flt.bpf24~" descr="Four pole band-pass butterworth filter" ref_view="object">
       <xi:include href="flt.bpf24~.pddoc" parse="xml"/>
     </entry>
+    <entry name="flt.bpf36e~" descr="elliptic band-pass filter with -36db rolloff" ref_view="object">
+      <xi:include href="flt.bpf36e~.pddoc" parse="xml"/>
+    </entry>
     <entry name="flt.bpf72e~" descr="elliptic band-pass filter with -72db rolloff" ref_view="object">
       <xi:include href="flt.bpf72e~.pddoc" parse="xml"/>
     </entry>
