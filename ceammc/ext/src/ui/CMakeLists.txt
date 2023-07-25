@@ -58,6 +58,7 @@ target_link_libraries(ceammc_ui PRIVATE ceammc_nui ceammc_env http_lib readerwri
 
 find_package(Cairo)
 if(CAIRO_FOUND)
+    target_sources(ceammc_ui PRIVATE ui_canvas_cairo.cpp)
     target_include_directories(ceammc_ui PRIVATE ${CAIRO_INCLUDE_DIRS})
     target_link_libraries(ceammc_ui PUBLIC ${CAIRO_LIBRARIES})
 endif()

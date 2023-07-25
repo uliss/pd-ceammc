@@ -11,201 +11,215 @@
 #X obj 210 80 cnv 1 555 135 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Canvas drawing methods are close to Cairo graphic library;
 #X text 215 105 Basic drawing workflow is:;
-#X text 215 130 - create shape;
+#X text 215 130 - create line \, shape or text;
 #X text 215 155 - stroke or fill it with color;
 #X text 215 180 - update image;
-#X msg 50 243 clear;
+#X msg 50 243 clear \, matrix;
 #X msg 50 272 line 30 50 100% 100% \, stroke red \, update;
 #X msg 50 301 circle 0 0 50 \, fill blue \, update;
 #X msg 50 330 rect 80% 90% 15% 10% \, fill navy \, update;
 #X msg 50 359 curve 0 0 30% 50% 70% 50% 100% 0 \, stroke #FA0 \, update;
-#X msg 50 387 bg gray \, update;
-#X obj 50 416 ui.canvas @size 300 200;
-#X obj 50 618 ui.canvas.line;
-#X obj 20 667 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 672 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X msg 50 387 matrix \, translate 50% 50% \, rotate 35 \, font_size 40 \, text 0 0 CEAM \, fill gray \, update;
+#X msg 50 430 bg gray \, update;
+#X obj 50 459 ui.canvas @size 300 200;
+#X obj 50 675 ui.canvas.line;
+#X obj 213 675 ui.canvas.text;
+#X obj 20 724 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 729 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 707 @receive;
-#X text 245 707 Get/Set receive source. Type: symbol. Default value:
+#X msg 110 764 @receive;
+#X text 245 764 Get/Set receive source. Type: symbol. Default value:
 (null).;
-#X msg 110 736 @send;
-#X text 245 736 Get/Set send destination. Type: symbol. Default value:
+#X msg 110 793 @send;
+#X text 245 793 Get/Set send destination. Type: symbol. Default value:
 (null).;
-#X msg 110 778 @background_color;
-#X text 245 778 Get/Set element background color (list of red \, green
+#X msg 110 835 @background_color;
+#X text 245 835 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 835 @border_color;
-#X text 245 835 Get/Set border color (list of red \, green \, blue
+#X msg 110 892 @border_color;
+#X text 245 892 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 877 @label_color;
-#X text 245 877 Get/Set label color in RGB format within 0-1 range
+#X msg 110 934 @label_color;
+#X text 245 934 Get/Set label color in RGB format within 0-1 range
 \, for example: 0.2 0.4 0.1\. Type: list. Default value: 0 0 0 1\.;
-#X msg 110 919 @label;
-#X text 245 919 Get/Set label text. Type: symbol. Default value: (null).;
-#X msg 110 948 @label_align;
-#X text 245 948 Get/Set label horizontal align. Type: symbol. Default
+#X msg 110 976 @label;
+#X text 245 976 Get/Set label text. Type: symbol. Default value: (null).;
+#X msg 110 1005 @label_align;
+#X text 245 1005 Get/Set label horizontal align. Type: symbol. Default
 value: left. Allowed values: left \, center \, right.;
-#X msg 110 990 @label_inner;
-#X text 245 990 Get/Set label position (1 - inner \, 0 - outer). Type:
+#X msg 110 1047 @label_inner;
+#X text 245 1047 Get/Set label position (1 - inner \, 0 - outer). Type:
 bool. Default value: 0\.;
-#X msg 110 1032 @label_margins;
-#X text 245 1032 Get/Set label offset in pixels. Type: list. Default
+#X msg 110 1089 @label_margins;
+#X text 245 1089 Get/Set label offset in pixels. Type: list. Default
 value: 0 0\.;
-#X msg 110 1074 @label_side;
-#X text 245 1074 Get/Set label snap side. Type: symbol. Default value:
+#X msg 110 1131 @label_side;
+#X text 245 1131 Get/Set label snap side. Type: symbol. Default value:
 top. Allowed values: left \, top \, right \, bottom.;
-#X msg 110 1116 @label_valign;
-#X text 245 1116 Get/Set label vertical align. Type: symbol. Default
+#X msg 110 1173 @label_valign;
+#X text 245 1173 Get/Set label vertical align. Type: symbol. Default
 value: top. Allowed values: top \, center \, bottom.;
-#X msg 110 1158 @fontname;
-#X text 245 1158 Get/Set fontname. Type: symbol. Default value: Helvetica.
+#X msg 110 1215 @fontname;
+#X text 245 1215 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 1200 @fontsize;
-#X text 245 1200 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 1257 @fontsize;
+#X text 245 1257 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...100\.;
-#X msg 110 1242 @fontslant;
-#X text 245 1242 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1299 @fontslant;
+#X text 245 1299 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 1284 @fontweight;
-#X text 245 1284 Get/Set font weight. Type: symbol. Default value:
+#X msg 110 1341 @fontweight;
+#X text 245 1341 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 1326 @pinned;
-#X text 245 1326 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1383 @pinned;
+#X text 245 1383 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: bool. Default value: 0\.;
-#X msg 110 1368 @size;
-#X text 245 1368 Get/Set element size (width \, height pair). Type:
+#X msg 110 1425 @size;
+#X text 245 1425 Get/Set element size (width \, height pair). Type:
 list. Default value: 60 60\.;
-#X obj 20 1420 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1425 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1477 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1482 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1460 bg;
-#X text 245 1460 draws background. Arguments are:;
-#X obj 255 1483 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1483 [COLOR]: background color. Type: list.;
-#X msg 110 1508 circle;
-#X text 245 1508 create circle shape. Arguments are:;
-#X obj 255 1531 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1531 X: x-coord. Type: float.;
-#X obj 255 1554 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1554 Y: y-coord. Type: float.;
-#X obj 255 1577 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1577 RADIUS: radius. Type: float.;
-#X msg 110 1602 clear;
-#X text 245 1602 clear image.;
-#X msg 110 1629 curve;
-#X text 245 1629 create bezier-curve shape. Arguments are:;
-#X obj 255 1652 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1652 X0: x0-coord. Type: float.;
-#X obj 255 1675 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1675 Y0: y0-coord. Type: float.;
-#X obj 255 1698 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1698 X1: x1-coord. Type: float.;
-#X obj 255 1721 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1721 Y1: y1-coord. Type: float.;
-#X obj 255 1744 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1744 X2: x2-coord. Type: float.;
-#X obj 255 1767 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1767 Y2: y2-coord. Type: float.;
-#X obj 255 1790 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1790 X3: x3-coord. Type: float.;
-#X obj 255 1813 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1813 Y4: y3-coord. Type: float.;
-#X msg 110 1838 dash;
-#X text 245 1838 set line dash pattern. Arguments are:;
-#X obj 255 1861 cnv 1 59 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1861 PATTERN: line dash pattern. If empty - reset to solid
+#X msg 110 1517 bg;
+#X text 245 1517 draws background. Arguments are:;
+#X obj 255 1540 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1540 [COLOR]: background color. Type: list.;
+#X msg 110 1565 circle;
+#X text 245 1565 create circle shape. Arguments are:;
+#X obj 255 1588 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1588 X: x-coord. Type: float.;
+#X obj 255 1611 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1611 Y: y-coord. Type: float.;
+#X obj 255 1634 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1634 RADIUS: radius. Type: float.;
+#X msg 110 1659 clear;
+#X text 245 1659 clear image.;
+#X msg 110 1686 curve;
+#X text 245 1686 create bezier-curve shape. Arguments are:;
+#X obj 255 1709 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1709 X0: x0-coord. Type: float.;
+#X obj 255 1732 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1732 Y0: y0-coord. Type: float.;
+#X obj 255 1755 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1755 X1: x1-coord. Type: float.;
+#X obj 255 1778 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1778 Y1: y1-coord. Type: float.;
+#X obj 255 1801 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1801 X2: x2-coord. Type: float.;
+#X obj 255 1824 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1824 Y2: y2-coord. Type: float.;
+#X obj 255 1847 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1847 X3: x3-coord. Type: float.;
+#X obj 255 1870 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1870 Y4: y3-coord. Type: float.;
+#X msg 110 1895 dash;
+#X text 245 1895 set line dash pattern. Arguments are:;
+#X obj 255 1918 cnv 1 59 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1918 PATTERN: line dash pattern. If empty - reset to solid
 shape. Type: list.;
-#X msg 110 1901 fill;
-#X text 245 1901 fill shape with color. Arguments are:;
-#X obj 255 1924 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1924 COLOR: fill color. Type: list.;
-#X msg 110 1949 line;
-#X text 245 1949 create line shape. Arguments are:;
-#X obj 255 1972 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1972 X0: x0-coord. Type: float.;
-#X obj 255 1995 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1995 Y0: y0-coord. Type: float.;
-#X obj 255 2018 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2018 X1: x1-coord. Type: float.;
-#X obj 255 2041 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2041 Y1: y1-coord. Type: float.;
-#X msg 110 2066 line_cap;
-#X text 245 2066 set line cap. Arguments are:;
-#X obj 255 2089 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2089 X: line cap. Type: symbol. Allowed values: butt \,
+#X msg 110 1958 fill;
+#X text 245 1958 fill shape with color. Arguments are:;
+#X obj 255 1981 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1981 COLOR: fill color. Type: list.;
+#X obj 255 2004 cnv 1 77 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2004 [PRESERVE]: preserve path after fill. You can call
+stroke method after that. Type: atom. Allowed values: preserve \, 1\.;
+#X msg 110 2044 font_size;
+#X text 245 2044 set current font size. Arguments are:;
+#X obj 255 2067 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2067 X: font size. Type: float.;
+#X msg 110 2092 line;
+#X text 245 2092 create line shape. Arguments are:;
+#X obj 255 2115 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2115 X0: x0-coord. Type: float.;
+#X obj 255 2138 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2138 Y0: y0-coord. Type: float.;
+#X obj 255 2161 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2161 X1: x1-coord. Type: float.;
+#X obj 255 2184 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2184 Y1: y1-coord. Type: float.;
+#X msg 110 2209 line_cap;
+#X text 245 2209 set line cap. Arguments are:;
+#X obj 255 2232 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2232 X: line cap. Type: symbol. Allowed values: butt \,
 round \, square.;
-#X msg 110 2129 line_to;
-#X text 245 2129 add line segment to line shape. Arguments are:;
-#X obj 255 2152 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2152 X: x-coord. Type: float.;
-#X obj 255 2175 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2175 Y: y-coord. Type: float.;
-#X msg 110 2200 line_width;
-#X text 245 2200 set stroke width. Arguments are:;
-#X obj 255 2223 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2223 WIDTH: line width. Type: float.;
-#X msg 110 2248 move_by;
-#X text 245 2248 move current drawing point by relative offset. Arguments
+#X msg 110 2272 line_to;
+#X text 245 2272 add line segment to line shape. Arguments are:;
+#X obj 255 2295 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2295 X: x-coord. Type: float.;
+#X obj 255 2318 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2318 Y: y-coord. Type: float.;
+#X msg 110 2343 line_width;
+#X text 245 2343 set stroke width. Arguments are:;
+#X obj 255 2366 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2366 WIDTH: line width. Type: float.;
+#X msg 110 2391 move_by;
+#X text 245 2391 move current drawing point by relative offset. Arguments
 are:;
-#X obj 255 2271 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2271 X: x relative offset. Type: float.;
-#X obj 255 2294 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2294 Y: y relative offset. Type: float.;
-#X msg 110 2319 move_to;
-#X text 245 2319 move current drawing point to absolute position. Arguments
+#X obj 255 2414 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2414 X: x relative offset. Type: float.;
+#X obj 255 2437 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2437 Y: y relative offset. Type: float.;
+#X msg 110 2462 move_to;
+#X text 245 2462 move current drawing point to absolute position. Arguments
 are:;
-#X obj 255 2357 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2357 X: x-coord. Type: float.;
-#X obj 255 2380 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2380 Y: y-coord. Type: float.;
-#X msg 110 2405 pos;
-#X text 245 2405 set UI element position. Arguments are:;
-#X obj 255 2428 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2428 X: top left x-coord. Type: float.;
-#X obj 255 2451 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2451 Y: top right y-coord. Type: float.;
-#X msg 110 2476 rect;
-#X text 245 2476 create rectangle shape. Arguments are:;
-#X obj 255 2499 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2499 X: x-coord. Type: float.;
-#X obj 255 2522 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2522 Y: y-coord. Type: float.;
-#X obj 255 2545 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2545 W: width. Type: float.;
-#X obj 255 2568 cnv 1 13 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2568 H: height. Type: float.;
-#X msg 110 2593 stroke;
-#X text 245 2593 stroke shape with color. Arguments are:;
-#X obj 255 2616 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2616 COLOR: stroke color. Type: list.;
-#X msg 110 2641 update;
-#X text 245 2641 updates drawed image.;
-#X msg 110 2668 dump;
-#X text 245 2668 dumps all object info to Pd console window.;
-#X obj 20 2705 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2710 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 255 2500 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2500 X: x-coord. Type: float.;
+#X obj 255 2523 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2523 Y: y-coord. Type: float.;
+#X msg 110 2548 pos;
+#X text 245 2548 set UI element position. Arguments are:;
+#X obj 255 2571 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2571 X: top left x-coord. Type: float.;
+#X obj 255 2594 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2594 Y: top right y-coord. Type: float.;
+#X msg 110 2619 rect;
+#X text 245 2619 create rectangle shape. Arguments are:;
+#X obj 255 2642 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2642 X: x-coord. Type: float.;
+#X obj 255 2665 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2665 Y: y-coord. Type: float.;
+#X obj 255 2688 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2688 W: width. Type: float.;
+#X obj 255 2711 cnv 1 13 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2711 H: height. Type: float.;
+#X msg 110 2736 rotate;
+#X text 245 2736 rotate clock-wise. Arguments are:;
+#X obj 255 2759 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2759 X: rotation angle. Type: float. Units: deg.;
+#X msg 110 2784 stroke;
+#X text 245 2784 stroke shape with color. Arguments are:;
+#X obj 255 2807 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2807 COLOR: stroke color. Type: list.;
+#X msg 110 2832 text;
+#X text 245 2832 set current text shape. Arguments are:;
+#X obj 255 2855 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2855 X: x-coord. Type: float.;
+#X obj 255 2878 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2878 Y: y-coord. Type: float.;
+#X obj 255 2901 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2901 TXT: text content. Type: list.;
+#X msg 110 2926 update;
+#X text 245 2926 updates drawed image.;
+#X msg 110 2953 dump;
+#X text 245 2953 dumps all object info to Pd console window.;
+#X obj 20 2990 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2995 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2711 1\.;
-#X text 150 2711 *bang*;
-#X text 245 2711 outputs bang.;
-#X text 150 2731 *float*;
-#X text 245 2731 outputs bang.;
-#X text 150 2751 *symbol*;
-#X text 245 2751 outputs bang.;
-#X text 150 2771 *list*;
-#X text 245 2771 outputs bang.;
-#X obj 20 2801 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2806 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 2996 1\.;
+#X text 245 2996 draw commands.;
+#X obj 20 3026 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 3031 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2847 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2850 library: ceammc v0.9.6;
-#N canvas 10 2869 400 290 info 0;
+#X obj 1 3072 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 3075 library: ceammc v0.9.6;
+#N canvas 10 3094 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -229,10 +243,11 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2869 pd info;
-#X connect 11 0 17 0;
-#X connect 12 0 17 0;
-#X connect 13 0 17 0;
-#X connect 14 0 17 0;
-#X connect 15 0 17 0;
-#X connect 16 0 17 0;
+#X restore 10 3094 pd info;
+#X connect 11 0 18 0;
+#X connect 12 0 18 0;
+#X connect 13 0 18 0;
+#X connect 14 0 18 0;
+#X connect 15 0 18 0;
+#X connect 16 0 18 0;
+#X connect 17 0 18 0;

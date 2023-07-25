@@ -60,7 +60,6 @@ public:
     void m_background(const AtomListView& lv);
     void m_circle(const AtomListView& lv);
     void m_clear();
-    void m_color(const AtomListView& lv);
     void m_curve(const AtomListView& lv);
     void m_dash(const AtomListView& lv);
     void m_fill(const AtomListView& lv);

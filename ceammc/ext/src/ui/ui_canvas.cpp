@@ -200,7 +200,7 @@ void UICanvas::m_fill(const AtomListView& lv)
         return;
     }
 
-    bool preserve = (lv.size() == 2 && lv[1] == "preserve");
+    bool preserve = (lv.size() == 2 && (lv[1] == "preserve" || lv[1] == 1));
 
     out_queue_.enqueue(color);
     out_queue_.enqueue(draw::DrawFill(preserve));
@@ -208,7 +208,7 @@ void UICanvas::m_fill(const AtomListView& lv)
 
 void UICanvas::m_font(const AtomListView& lv)
 {
-    static const args::ArgChecker chk("FAMILY:s s=italic|bold? s=italic|bold?");
+    static const args::ArgChecker chk("FAMILY:s s=italic|normal? s=bold|normal?");
 
     if (!chk.check(lv, nullptr))
         return chk.usage();
@@ -380,17 +380,6 @@ void UICanvas::m_move_to(const AtomListView& lv)
     out_queue_.enqueue(cmd);
 }
 
-void UICanvas::m_color(const AtomListView& lv)
-{
-    draw::SetColorRGBA rgba;
-    if (!getColorArgs(lv, rgba)) {
-        UI_ERR << "usage: color COLOR or color RED[0-1] GREEN[0-1] BLUE[0-1] ALPHA[0-1]?";
-        return;
-    }
-
-    out_queue_.enqueue(rgba);
-}
-
 void UICanvas::m_curve(const AtomListView& lv)
 {
     if (lv.size() != 8) {
@@ -557,8 +546,7 @@ void UICanvas::m_background(const AtomListView& lv)
 void UICanvas::m_clear()
 {
     StaticAtomList<3> data = { 1, 1, 1 };
-    m_color(data.view());
-    m_background({});
+    m_background(data.view());
     m_update();
 }
 
@@ -577,6 +565,11 @@ void UICanvas::m_line_width(const AtomListView& lv)
 void UICanvas::m_matrix(const AtomListView& lv)
 {
     static const args::ArgChecker chk("XX:f XY:f YY:f YX:f X0:f Y0:f");
+
+    if (lv.empty()) {
+        out_queue_.enqueue(draw::ResetMatrix {});
+        return;
+    }
 
     if (!chk.check(lv, nullptr))
         return chk.usage();
@@ -743,7 +736,6 @@ void UICanvas::setup()
     obj.addMethod("bg", &UICanvas::m_background);
     obj.addMethod("circle", &UICanvas::m_circle);
     obj.addMethod("clear", &UICanvas::m_clear);
-    obj.addMethod("color", &UICanvas::m_color);
     obj.addMethod("ctx_restore", &UICanvas::m_ctx_restore);
     obj.addMethod("ctx_save", &UICanvas::m_ctx_save);
     obj.addMethod("curve", &UICanvas::m_curve);

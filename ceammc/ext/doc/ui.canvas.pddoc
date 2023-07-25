@@ -19,7 +19,7 @@
         <info>
             <par>Canvas drawing methods are close to Cairo graphic library</par>
             <par>Basic drawing workflow is:</par>
-            <par>- create shape</par>
+            <par>- create line, shape or text</par>
             <par>- stroke or fill it with color</par>
             <par>- update image</par>
         </info>
@@ -37,7 +37,9 @@
             <param name="Y" type="float" required="true">y-coord</param>
             <param name="RADIUS" type="float" required="true">radius</param></method>
             <method name="fill">fill shape with color
-            <param name="COLOR" type="list" required="true">fill color</param></method>
+            <param name="COLOR" type="list" required="true">fill color</param>
+            <param name="PRESERVE" type="atom" required="false" enum="preserve 1">preserve path after fill. You can
+            call stroke method after that</param></method>
             <method name="stroke">stroke shape with color
             <param name="COLOR" type="list" required="true">stroke color</param></method>
             <method name="curve">create bezier-curve shape
@@ -75,6 +77,14 @@
             <param name="Y" type="float" required="true">y-coord</param>
             <param name="W" type="float" required="true">width</param>
             <param name="H" type="float" required="true">height</param></method>
+            <method name="rotate">rotate clock-wise
+            <param name="X" type="float" required="true" units="degree">rotation angle</param></method>
+            <method name="font_size">set current font size
+            <param name="X" type="float" required="true">font size</param></method>
+            <method name="text">set current text shape
+            <param name="X" type="float" required="true">x-coord</param>
+            <param name="Y" type="float" required="true">y-coord</param>
+            <param name="TXT" type="list" required="true">text content</param></method>
         </methods>
         <properties>
             <property name="@send" type="symbol" default="(null)">send destination</property>
@@ -113,17 +123,14 @@
         </properties>
         <inlets>
             <inlet>
-                <xinfo on="bang">outputs bang</xinfo>
-                <xinfo on="float">outputs bang</xinfo>
-                <xinfo on="symbol">outputs bang</xinfo>
-                <xinfo on="list">outputs bang</xinfo>
+                <xinfo>draw commands</xinfo>
             </inlet>
         </inlets>
         <outlets/>
         <example>
             <pdascii>
 <![CDATA[
-[clear #a(
+[clear, matrix #a(
 
 [line 30 50 100% 100%, stroke red, update #b(
 
@@ -133,7 +140,10 @@
 
 [curve 0 0 30% 50% 70% 50% 100% 0, stroke \#FA0, update #e(
 
-[bg gray, update #f(
+[matrix, translate 50% 50%, rotate 35, font_size 40, text 0 0 CEAM, fill gray, update #f(
+
+
+[bg gray, update #g(
 
 [ui.canvas @size 300 200 {h:200} #z]
 
@@ -147,9 +157,10 @@
 
 
 
-[X a->z] [X b->z] [X c->z] [X d->z] [X e->z] [X f->z]
+[X a->z] [X b->z] [X c->z] [X d->z] [X e->z] [X f->z] [X g->z]
 
-[ui.canvas.line]
+
+[ui.canvas.line] [ui.canvas.text]
 ]]>
             </pdascii>
             <pdascii id="line">
@@ -182,6 +193,31 @@
 
 
 [X a->z] [X b->z] [X c->z] [X d->z] [X e->z] [X f->z]
+]]>
+            </pdascii>
+            <pdascii id="text">
+<![CDATA[
+[clear, matrix, translate 50% 50% #a(
+
+[rotate 30, font Verdana, font_size 20, text 20 0 CEAM, fill blue, update #b(
+
+
+[matrix, font Verdana bold, font_size 40, line_width 2, text 50 75 HELLO, fill gray preserve, stroke cyan, update #c(
+
+
+[ui.canvas @size 300 200 {h:200} #z]
+
+
+
+
+
+
+
+
+
+
+
+[X a->z] [X b->z] [X c->z]
 ]]>
             </pdascii>
         </example>

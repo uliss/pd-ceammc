@@ -14,7 +14,7 @@
 #ifndef UI_CANVAS_IMPL_H
 #define UI_CANVAS_IMPL_H
 
-#include "ceammc_poll_dispatcher.h"
+#include "ceammc_notify.h"
 
 #include <boost/variant.hpp>
 #include <string>
@@ -112,6 +112,8 @@ namespace draw {
         float y0;
     };
 
+    struct ResetMatrix { };
+
     struct CreateImage {
         int w, h;
     };
@@ -151,7 +153,8 @@ namespace draw {
         DrawPolygon,
         DrawSave,
         SetFont,
-        SetMatrix
+        SetMatrix,
+        ResetMatrix
         //
         >;
 
