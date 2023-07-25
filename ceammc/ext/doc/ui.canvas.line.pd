@@ -1,9 +1,9 @@
-#N canvas 0 0 754 457 12;
+#N canvas 0 0 992 457 12;
 #X msg 20 48 clear \, line_cap butt \, line_width 10 \, line 10% 10% 90% 90% \, stroke blue \, update;
 #X msg 20 92 clear \, line_cap square \, line_width 10 \, line 10% 10% 90% 90% \, stroke blue \, update;
 #X msg 20 135 clear \, line_cap round \, line_width 10 \, line 10% 10% 90% 90% \, stroke red \, update;
-#X msg 20 178 clear \, move_to 10% 50% \, line_to 90% 50% \, line_to 10% 10% \, line_to 50% 90% \, fill cyan \, update;
-#X obj 20 221 ui.canvas @size 300 200;
+#X msg 20 178 clear \, line_width 10 \, line_cap round \, move_to 10% 50% \, line_to 90% 50% \, line_to 50% 10% \, line_to 50% 90% \, stroke cyan \, update;
+#X obj 20 235 ui.canvas @size 300 200;
 #X connect 0 0 4 0;
 #X connect 1 0 4 0;
 #X connect 2 0 4 0;
