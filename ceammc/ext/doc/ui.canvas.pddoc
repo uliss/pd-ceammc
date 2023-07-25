@@ -64,9 +64,17 @@
             If empty - reset to solid shape</param></method>
             <method name="line_width">set stroke width
             <param name="WIDTH" type="float" required="true">line width</param></method>
-            <method name="move_to">move current drawing point
+            <method name="move_to">move current drawing point to absolute position
             <param name="X" type="float" required="true">x-coord</param>
             <param name="Y" type="float" required="true">y-coord</param></method>
+            <method name="move_by">move current drawing point by relative offset
+            <param name="X" type="float" required="true">x relative offset</param>
+            <param name="Y" type="float" required="true">y relative offset</param></method>
+            <method name="rect">create rectangle shape
+            <param name="X" type="float" required="true">x-coord</param>
+            <param name="Y" type="float" required="true">y-coord</param>
+            <param name="W" type="float" required="true">width</param>
+            <param name="H" type="float" required="true">height</param></method>
         </methods>
         <properties>
             <property name="@send" type="symbol" default="(null)">send destination</property>
@@ -117,13 +125,15 @@
 <![CDATA[
 [clear #a(
 
-[circle 0 0 50, fill blue, update #b(
+[line 30 50 100% 100%, stroke red, update #b(
 
-[line 30 50 100% 100%, stroke red, update #c(
+[circle 0 0 50, fill blue, update #c(
 
-[curve 0 0 30% 50% 70% 50% 100% 0, stroke \#FA0, update #d(
+[rect 80% 90% 15% 10%, fill navy, update #d(
 
-[bg gray, update #e(
+[curve 0 0 30% 50% 70% 50% 100% 0, stroke \#FA0, update #e(
+
+[bg gray, update #f(
 
 [ui.canvas @size 300 200 {h:200} #z]
 
@@ -137,7 +147,7 @@
 
 
 
-[X a->z] [X b->z] [X c->z] [X d->z] [X e->z]
+[X a->z] [X b->z] [X c->z] [X d->z] [X e->z] [X f->z]
 
 [ui.canvas.line]
 ]]>
