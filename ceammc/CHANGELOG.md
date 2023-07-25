@@ -49,6 +49,8 @@
   - synth.metro~ - metronome synth with complex pattern support 
 - new object inlets:
   - dyn.gate~, dyn.gate2~ - second inlet added for setting threshold
+  - flt.bpf12~: second and third inlet added for setting freq and q-factor 
+  - flt.bpf24~: second and third inlet added for setting freq and q-factor  
   - fx.drone_box~ - second inlet added for setting resonance frequency
   - fx.echo~ - second inlet added for setting delay time
   - fx.notch~: second (freq) inlet added
