@@ -18,13 +18,17 @@
         </meta>
         <info>
             <par>Canvas drawing methods are close to Cairo graphic library</par>
+            <par>Basic drawing workflow is:</par>
+            <par>- create shape</par>
+            <par>- stroke or fill it with color</par>
+            <par>- update image</par>
         </info>
         <methods>
             <method name="dump">dumps all object info to Pd console window.</method>
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
-            <method name="gray">draws background
+            <method name="bg">draws background
             <param name="COLOR" type="list" required="false">background color</param></method>
             <method name="update">updates drawed image</method>
             <method name="clear">clear image</method>
@@ -34,6 +38,8 @@
             <param name="RADIUS" type="float" required="true">radius</param></method>
             <method name="fill">fill shape with color
             <param name="COLOR" type="list" required="true">fill color</param></method>
+            <method name="stroke">stroke shape with color
+            <param name="COLOR" type="list" required="true">stroke color</param></method>
             <method name="curve">create bezier-curve shape
             <param name="X0" type="float" required="true">x0-coord</param>
             <param name="Y0" type="float" required="true">y0-coord</param>
@@ -49,12 +55,18 @@
             <param name="X1" type="float" required="true">x1-coord</param>
             <param name="Y1" type="float" required="true">y1-coord</param></method>
             <method name="line_to">add line segment to line shape
-            <param name="X" type="float" required="true">x0-coord</param>
-            <param name="Y" type="float" required="true">y0-coord</param></method>
+            <param name="X" type="float" required="true">x-coord</param>
+            <param name="Y" type="float" required="true">y-coord</param></method>
             <method name="line_cap">set line cap
             <param name="X" type="symbol" required="true" enum="butt round square">line cap</param></method>
+            <method name="dash">set line dash pattern
+            <param name="PATTERN" type="list" required="true">line dash pattern.
+            If empty - reset to solid shape</param></method>
             <method name="line_width">set stroke width
             <param name="WIDTH" type="float" required="true">line width</param></method>
+            <method name="move_to">move current drawing point
+            <param name="X" type="float" required="true">x-coord</param>
+            <param name="Y" type="float" required="true">y-coord</param></method>
         </methods>
         <properties>
             <property name="@send" type="symbol" default="(null)">send destination</property>
@@ -103,15 +115,15 @@
         <example>
             <pdascii>
 <![CDATA[
-[clear #b(
+[clear #a(
 
-[circle 0 0 50, fill blue, update #c(
+[circle 0 0 50, fill blue, update #b(
 
-[line 30 50 100% 100%, stroke red, update #e(
+[line 30 50 100% 100%, stroke red, update #c(
 
-[curve 0 0 30% 50% 70% 50% 100% 0, stroke red, update #d(
+[curve 0 0 30% 50% 70% 50% 100% 0, stroke \#FA0, update #d(
 
-[bg gray, update #a(
+[bg gray, update #e(
 
 [ui.canvas @size 300 200 {h:200} #z]
 
@@ -127,7 +139,6 @@
 
 [X a->z] [X b->z] [X c->z] [X d->z] [X e->z]
 
-
 [ui.canvas.line]
 ]]>
             </pdascii>
@@ -141,6 +152,8 @@
 
 [clear, line_cap round, line_width 10, line 10% 10% 90% 90%, stroke red, update #c(
 
+
+    [dash #e( [dash 5 5 12 #f(
 
 [clear, line_width 10, line_cap round, move_to 10% 50%, line_to 90% 50%, line_to 50% 10%, line_to 50% 90%, stroke cyan, update #d(
 
@@ -158,7 +171,7 @@
 
 
 
-[X a->z] [X b->z] [X c->z] [X d->z]
+[X a->z] [X b->z] [X c->z] [X d->z] [X e->z] [X f->z]
 ]]>
             </pdascii>
         </example>
