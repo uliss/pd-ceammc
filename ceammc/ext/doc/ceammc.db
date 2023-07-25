@@ -764,6 +764,7 @@ tl.transport		.		-
 ui.aview		.		.
 ui.bang,ui.b		.		.
 ui.button,ui.btn		.		.
+ui.canvas,ui.cnv		.		-
 ui.colorpanel		.		.
 ui.display,ui.d,ui.dt		.		-
 ui.dsp~		.		-

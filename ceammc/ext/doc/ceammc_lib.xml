@@ -2397,6 +2397,9 @@
     <entry name="ui.button" descr="button widget" ref_view="link">
       <xi:include href="ui.button.pddoc" parse="xml"/>
     </entry>
+    <entry name="ui.canvas" descr="UI canvas for drawing" ref_view="link">
+      <xi:include href="ui.canvas.pddoc" parse="xml"/>
+    </entry>
     <entry name="ui.colorpanel" descr="colorchooser widget" ref_view="link">
       <xi:include href="ui.colorpanel.pddoc" parse="xml"/>
     </entry>

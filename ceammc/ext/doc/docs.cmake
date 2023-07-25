@@ -763,6 +763,7 @@ set(DOC_FILES
     ui.aview
     ui.bang
     ui.button
+    ui.canvas
     ui.colorpanel
     ui.display
     ui.dsp~

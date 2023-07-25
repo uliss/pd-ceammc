@@ -26,19 +26,29 @@
 
 namespace {
 
-void set_parsed_color(cairo_t* c, const AtomListView& lv, double r = 0, double g = 0, double b = 0)
+bool getColorArgs(const AtomListView& lv, draw::SetColorRGBA& rgba)
 {
-    parser::RgbHexFullMatch p;
-
-    if (lv.isSymbol()) {
-        if (p.parse(lv.asSymbol()->s_name))
-            cairo_set_source_rgb(c, p.red() / 255.0, p.green() / 255.0, p.blue() / 255.0);
-        else
-            cairo_set_source_rgb(c, r, g, b);
-    } else if (lv.size() == 3)
-        cairo_set_source_rgb(c, lv[0].asFloat(), lv[1].asFloat(), lv[2].asFloat());
-    else
-        cairo_set_source_rgb(c, r, g, b);
+    if (lv.size() == 3 || lv.size() == 4) {
+        rgba.r = lv.floatAt(0, 0);
+        rgba.g = lv.floatAt(1, 0);
+        rgba.b = lv.floatAt(2, 0);
+        rgba.a = lv.floatAt(3, 1);
+        return true;
+    } else if (lv.isSymbol()) {
+        auto str = lv[0].asT<t_symbol*>()->s_name;
+        parser::ColorFullMatch p;
+        if (p.parse(str)) {
+            rgba.r = p.norm_red();
+            rgba.g = p.norm_green();
+            rgba.b = p.norm_blue();
+            rgba.a = p.norm_alpha();
+            return true;
+        } else {
+            LIB_ERR << fmt::format("can't parse color: '{}'", str);
+            return false;
+        }
+    } else
+        return false;
 }
 
 inline cairo_line_cap_t sym2line_cap(t_symbol* s)
@@ -372,29 +382,13 @@ void UICanvas::m_move_to(const AtomListView& lv)
 
 void UICanvas::m_color(const AtomListView& lv)
 {
-    if (lv.size() == 3 || lv.size() == 4) {
-        draw::SetColorRGBA rgba;
-        rgba.r = lv.floatAt(0, 0);
-        rgba.g = lv.floatAt(1, 0);
-        rgba.b = lv.floatAt(2, 0);
-        rgba.a = lv.floatAt(3, 1);
-        out_queue_.enqueue(rgba);
-    } else if (lv.isSymbol()) {
-        auto str = lv[0].asT<t_symbol*>()->s_name;
-        parser::ColorFullMatch p;
-        if (p.parse(str)) {
-            draw::SetColorRGBA rgba;
-            rgba.r = p.norm_red();
-            rgba.g = p.norm_green();
-            rgba.b = p.norm_blue();
-            rgba.a = p.norm_alpha();
-            out_queue_.enqueue(rgba);
-        } else {
-            UI_ERR << fmt::format("can't parse color: '{}'", str);
-        }
-    } else {
+    draw::SetColorRGBA rgba;
+    if (!getColorArgs(lv, rgba)) {
         UI_ERR << "usage: color COLOR or color RED[0-1] GREEN[0-1] BLUE[0-1] ALPHA[0-1]?";
+        return;
     }
+
+    out_queue_.enqueue(rgba);
 }
 
 void UICanvas::m_curve(const AtomListView& lv)
@@ -547,6 +541,16 @@ void UICanvas::m_image(const AtomListView& lv)
 
 void UICanvas::m_background(const AtomListView& lv)
 {
+    if (!lv.empty()) {
+        draw::SetColorRGBA rgba;
+        if (!getColorArgs(lv, rgba)) {
+            UI_ERR << "usage: color COLOR or color RED[0-1] GREEN[0-1] BLUE[0-1] ALPHA[0-1]?";
+            return;
+        }
+
+        out_queue_.enqueue(rgba);
+    }
+
     out_queue_.enqueue(draw::DrawBackground());
 }
 

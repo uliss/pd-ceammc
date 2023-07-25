@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="ui.canvas" type="gui">
+        <title>ui.canvas</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>UI canvas for drawing</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui canvas draw</keywords>
+            <since>0.9.7</since>
+            <aliases>
+                <alias view="link">ui.cnv</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Canvas drawing methods are close to Cairo graphic library</par>
+        </info>
+        <methods>
+            <method name="dump">dumps all object info to Pd console window.</method>
+            <method name="pos">set UI element position 
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <method name="gray">draws background
+            <param name="COLOR" type="list" required="false">background color</param></method>
+            <method name="update">updates drawed image</method>
+            <method name="clear">clear image</method>
+            <method name="circle">create circle shape
+            <param name="X" type="float" required="true">x-coord</param>
+            <param name="Y" type="float" required="true">y-coord</param>
+            <param name="RADIUS" type="float" required="true">radius</param></method>
+            <method name="fill">fill shape with color
+            <param name="COLOR" type="list" required="true">fill color</param></method>
+            <method name="curve">create bezier-curve shape
+            <param name="X0" type="float" required="true">x0-coord</param>
+            <param name="Y0" type="float" required="true">y0-coord</param>
+            <param name="X1" type="float" required="true">x1-coord</param>
+            <param name="Y1" type="float" required="true">y1-coord</param>
+            <param name="X2" type="float" required="true">x2-coord</param>
+            <param name="Y2" type="float" required="true">y2-coord</param>
+            <param name="X3" type="float" required="true">x3-coord</param>
+            <param name="Y4" type="float" required="true">y3-coord</param></method>
+            <method name="line">create line shape
+            <param name="X0" type="float" required="true">x0-coord</param>
+            <param name="Y0" type="float" required="true">y0-coord</param>
+            <param name="X1" type="float" required="true">x1-coord</param>
+            <param name="Y1" type="float" required="true">y1-coord</param></method>
+            <method name="line_to">add line segment to line shape
+            <param name="X" type="float" required="true">x0-coord</param>
+            <param name="Y" type="float" required="true">y0-coord</param></method>
+            <method name="line_cap">set line cap
+            <param name="X" type="symbol" required="true" enum="butt round square">line cap</param></method>
+        </methods>
+        <properties>
+            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <property name="@size" type="list" default="60 60">element size (width, height
+            pair)</property>
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
+            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
+            background color (list of red, green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
+            of red, green, blue values in 0-1 range)</property>
+            <!-- font -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
+            fontsize</property>
+            <property name="@fontname" type="symbol" default="Helvetica"
+            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
+            slant</property>
+            <!-- label -->
+            <property name="@label" type="symbol" default="(null)">label text</property>
+            <property name="@label_color" type="list" default="0 0 0 1">label color in RGB format
+            within 0-1 range, for example: 0.2 0.4 0.1</property>
+            <property name="@label_inner" type="bool" default="0">label position (1 - inner, 0 -
+            outer).</property>
+            <property name="@label_align" type="symbol" enum="left center right" default="left">
+            label horizontal align</property>
+            <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
+            label vertical align</property>
+            <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
+            label snap side</property>
+            <property name="@label_margins" type="list" default="0 0">label offset in
+            pixels</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">outputs bang</xinfo>
+                <xinfo on="float">outputs bang</xinfo>
+                <xinfo on="symbol">outputs bang</xinfo>
+                <xinfo on="list">outputs bang</xinfo>
+            </inlet>
+        </inlets>
+        <outlets/>
+        <example>
+            <pdascii>
+<![CDATA[
+[clear #b(
+
+[circle 0 0 50, fill blue, update #c(
+
+[line 30 50 100% 100%, stroke red, update #e(
+
+[curve 0 0 30% 50% 70% 50% 100% 0, stroke red, update #d(
+
+[bg gray, update #a(
+
+[ui.canvas @size 300 200 {h:200} #z]
+
+
+
+
+
+
+
+
+
+
+
+[X a->z] [X b->z] [X c->z] [X d->z] [X e->z]
+
+
+[ui.canvas.line]
+]]>
+            </pdascii>
+            <pdascii id="line">
+<![CDATA[
+[clear, line_cap butt, line_width 10, line 10% 10% 90% 90%, stroke blue, update #a(
+
+
+[clear, line_cap square, line_width 10, line 10% 10% 90% 90%, stroke blue, update #b(
+
+
+[clear, line_cap round, line_width 10, line 10% 10% 90% 90%, stroke red, update #c(
+
+
+[clear, move_to 10% 50%, line_to 90% 50%, line_to 10% 10%, line_to 50% 90%, fill cyan, update #d(
+
+
+[ui.canvas @size 300 200 {h:200} #z]
+
+
+
+
+
+
+
+
+
+
+
+[X a->z] [X b->z] [X c->z] [X d->z]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
