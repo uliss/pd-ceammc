@@ -67,12 +67,12 @@
         music.voice2midi
     }}
     {data {
-        color.mix data.bimap data.color data.copy data.dict data.fifo
-        data.float data.int data.list data.mlist data.set data.set2list
-        dict.contains dict.each dict.from_list dict.get dict.keys dict.pass
-        dict.reject dict.size dict.to_list dict.values global.bimap
-        local.bimap mlist.flatten rtree.to_list set.contains set.diff
-        set.equal set.intersect set.size set.symdiff set.union
+        color.mix color.scale data.bimap data.color data.copy data.dict
+        data.fifo data.float data.int data.list data.mlist data.set
+        data.set2list dict.contains dict.each dict.from_list dict.get
+        dict.keys dict.pass dict.reject dict.size dict.to_list dict.values
+        global.bimap local.bimap mlist.flatten rtree.to_list set.contains
+        set.diff set.equal set.intersect set.size set.symdiff set.union
     }}
     {dyn {
         dyn.comp2~ dyn.comp_peak2~ dyn.comp_peak~ dyn.comp_up2~ dyn.comp_up~
@@ -98,14 +98,14 @@
         route.symbol
     }}
     {flt {
-        flt.a-weight flt.biquad~ flt.bpf12~ flt.bpf24~ flt.c_apf flt.c_bpf~
-        flt.c_highshelf~ flt.c_hpf flt.c_hpf~ flt.c_lowshelf~ flt.c_lpf
-        flt.c_lpf~ flt.c_notch flt.c_notch~ flt.c_peak~ flt.c_pole
+        flt.a-weight flt.biquad~ flt.bpf12~ flt.bpf24~ flt.bpf72e~ flt.c_apf
+        flt.c_bpf~ flt.c_highshelf~ flt.c_hpf flt.c_hpf~ flt.c_lowshelf~
+        flt.c_lpf flt.c_lpf~ flt.c_notch flt.c_notch~ flt.c_peak~ flt.c_pole
         flt.dcblock2~ flt.dcblock~ flt.eq10~ flt.eq_peak_cq~ flt.eq_peak~
         flt.fb_comb~ flt.fbank5x1~ flt.ff_comb~ flt.freqz flt.freqz~
         flt.highshelf~ flt.hpf12~ flt.hpf24~ flt.lowshelf~ flt.lpf12~
         flt.lpf24~ flt.median flt.moog_vcf~ flt.notch~ flt.resonbp~
-        flt.resonhp~ flt.resonlp~
+        flt.resonhp~ flt.resonlp~ flt.speaker~
     }}
     {fx {
         fx.bitdown~ fx.chorus~ fx.dattorro~ fx.delay~ fx.distortion1~
@@ -184,7 +184,7 @@
         speech.flite~ speech.rhvoice~
     }}
     {msg {
-        loadexpr msg msg.after msg.onclose msg.onload msg.sched
+        loadexpr msg msg.after msg.onclose msg.onload msg.pack msg.sched
     }}
     {music {
         rhythm.euclid rhythm.hexbeat rhythm.lsystem
