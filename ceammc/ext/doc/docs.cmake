@@ -196,6 +196,7 @@ set(DOC_FILES
     flt.biquad~
     flt.bpf12~
     flt.bpf24~
+    flt.bpf72e~
     flt.c_apf
     flt.c_bpf~
     flt.c_highshelf~
@@ -540,6 +541,7 @@ set(DOC_FILES
     msg.after
     msg.onclose
     msg.onload
+    msg.pack
     msg.sched
     music.dur2time
     music.voice2midi

@@ -12,8 +12,10 @@
 #X text 200 197 send message when patch closes;
 #X obj 30 224 msg.onload;
 #X text 200 224 send message when patch loads;
-#X obj 30 251 msg.sched;
-#X text 200 251 message scheduler;
+#X obj 30 251 msg.pack;
+#X text 200 251 message pack;
+#X obj 30 278 msg.sched;
+#X text 200 278 message scheduler;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::msg 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

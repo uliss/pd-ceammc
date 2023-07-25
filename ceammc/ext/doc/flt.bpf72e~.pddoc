@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<pddoc version="1.0">
+    <object name="flt.bpf72e~">
+        <title>flt.bpf72e~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>elliptic band-pass filter with -72db rolloff</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter elliptic bpf</keywords>
+            <since>0.9.7</since>
+            <also>
+                <see>flt.bpf24~</see>
+            </also>
+        </meta>
+        <info>
+            <par>Band-pass filter passes frequencies within a certain range and rejects frequencies
+            outside that range.</par>
+            <par>Butterworth filter is a type of filter designed to have a frequency response as
+            flat as possible in the passband.</par>
+            <wiki name="Elliptic_filter">Elliptic filter</wiki>
+        </info>
+        <arguments>
+            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">center
+            frequency</argument>
+            <argument name="Q" type="float" minvalue="0.25" maxvalue="32">quality factory:
+            @freq/BANDWIDTH</argument>
+        </arguments>
+        <properties>
+            <property name="@freq" type="float" units="hertz" default="1000" minvalue="20"
+            maxvalue="20000" access="initonly">cutoff frequency</property>
+            <property name="@q" type="float" minvalue="0.25" maxvalue="32" default="2" access="initonly">quality
+            factor: @freq/BANDWIDTH</property>
+            <!-- common -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <!-- OSC -->
+            <property name="@osc" type="symbol" default="" access="initonly">OSC server name to
+            listen</property>
+            <property name="@id" type="symbol" default="" access="initonly">OSC address id. If
+            specified, bind properties to /ID/fx_flanger/PROP_NAME osc address, if empty bind to
+            /fx_flanger/PROP_NAME.</property>
+        </properties>
+        <methods>
+            <method name="reset">reset filter state</method>
+        </methods>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">filtered signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[noise~ #w]     [ui.dsp~]
+|
+[flt.bpf72e~ 300 1 #x]
+
+                [flt.bpf72e~ 320 1.5 #z]
+
+        [flt.bpf72e~ 280 0.25 #y]
+
+[pan.spread~ 3 #s {w=22}]
+*|*
+[ui.hgain2~]
+*|*
+[dac~]
+
+[X w->y] [X w->z] [X x->s] [X y->s:1] [X z->s:2]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

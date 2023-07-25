@@ -42,6 +42,12 @@ MsgPack::MsgPack(const PdArgs& args)
 
 void MsgPack::initDone()
 {
+    if (args().size() > 0)
+        n_->setList(args().view(0, 1));
+
+    if (args().size() > 1)
+        prefix_->setList(args().view(1));
+
     updateMessage();
 
     for (int i = 1; i < n_->value(); i++)
@@ -117,4 +123,5 @@ void setup_base_msg_pack()
 {
     ObjectFactory<MsgPack> obj("msg.pack");
     obj.noPropsDispatch();
+    obj.noArgsAndPropsParse();
 }

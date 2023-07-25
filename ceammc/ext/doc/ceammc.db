@@ -196,6 +196,7 @@ flt.a-weight		.		.
 flt.biquad~		~~~~~~		~
 flt.bpf12~		~		~
 flt.bpf24~		~		~
+flt.bpf72e~		~		~
 flt.c_apf,ceammc/apf->biquad,apf->biquad		.		.
 flt.c_bpf~		.		~~~~~
 flt.c_highshelf~		.		~~~~~
@@ -542,6 +543,7 @@ msg,ceammc/msg,ceammc/m,m,ceammc/prepend,prepend		..		.
 msg.after		..		.
 msg.onclose		-		.
 msg.onload,ceammc/loadmsg,loadmsg		-		.
+msg.pack		?		.
 msg.sched		..		.
 music.dur2time,music.d->t		.		.
 music.voice2midi,music.v->m		.		.

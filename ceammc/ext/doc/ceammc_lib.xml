@@ -742,6 +742,9 @@
     <entry name="flt.bpf24~" descr="Four pole band-pass butterworth filter" ref_view="object">
       <xi:include href="flt.bpf24~.pddoc" parse="xml"/>
     </entry>
+    <entry name="flt.bpf72e~" descr="elliptic band-pass filter with -72db rolloff" ref_view="object">
+      <xi:include href="flt.bpf72e~.pddoc" parse="xml"/>
+    </entry>
     <entry name="flt.c_apf" descr="Allpass filter coefficient calculator for biquad" ref_view="object">
       <xi:include href="flt.c_apf.pddoc" parse="xml"/>
     </entry>
@@ -1694,6 +1697,9 @@
     </entry>
     <entry name="msg.onload" descr="send message when patch loads" ref_view="object">
       <xi:include href="msg.onload.pddoc" parse="xml"/>
+    </entry>
+    <entry name="msg.pack" descr="message pack" ref_view="object">
+      <xi:include href="msg.pack.pddoc" parse="xml"/>
     </entry>
     <entry name="msg.sched" descr="message scheduler" ref_view="object">
       <xi:include href="msg.sched.pddoc" parse="xml"/>
