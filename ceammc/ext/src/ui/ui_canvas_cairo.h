@@ -71,6 +71,7 @@ public:
     void operator()(const draw::DrawRestore&) const;
     void operator()(const draw::Rotate& r) const;
     void operator()(const draw::Translate& r) const;
+    void operator()(const draw::Scale& s) const;
     void operator()(const draw::CreateImage& c) const;
     void operator()(const draw::DrawFill& f) const;
     void operator()(const draw::DrawLine& l) const;

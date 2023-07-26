@@ -108,6 +108,10 @@
             <method name="translate">translate draw origin 
             <param name="X" type="float" required="true">x offset</param>
             <param name="Y" type="float" required="true">y offset</param></method>
+            <method name="scale">scale current draw matrix 
+            <param name="X" type="float" required="true">x</param>
+            <param name="Y" type="float" required="false">y. If omitted, uses X-value to scale same
+            in both directions</param></method>
             <method name="font_size">set current font size 
             <param name="X" type="float" required="true">font size</param></method>
             <method name="text">set current text shape 
@@ -116,38 +120,43 @@
             <param name="Y" type="atom" required="true">y-coord in pixels or percents of
             height</param>
             <param name="TXT" type="list" required="true">text content</param></method>
-            <method name="ctx_save">save current drawing context (pen type, width, color etc.)</method>
+            <method name="ctx_save">save current drawing context (pen type, width, color
+            etc.)</method>
             <method name="ctx_restore">restore previously saved context</method>
             <!-- font -->
-            <method name="font">set current font
+            <method name="font">set current font 
             <param name="FONT" type="symbol" required="true">font family</param>
-            <param name="SIZE" type="float" required="false">font size</param>
-            </method>
-            <method name="font">set current font
+            <param name="SIZE" type="float" required="false">font size</param></method>
+            <method name="font">set current font 
             <param name="FONT" type="symbol" required="true">font family</param>
-            <param name="STYLE" type="symbol" enum="normal|italic|bold" required="true">font style</param>
-            <param name="SIZE" type="float" required="false">font size</param>
-            </method>
-            <method name="font">set current font
+            <param name="STYLE" type="symbol" enum="normal|italic|bold" required="true">font
+            style</param>
+            <param name="SIZE" type="float" required="false">font size</param></method>
+            <method name="font">set current font 
             <param name="FONT" type="symbol" required="true">font family</param>
-            <param name="italic" type="symbol" required="true"/>
-            <param name="bold" type="symbol" required="true"/>
-            <param name="SIZE" type="float" required="false">font size</param>
-            </method>
-            <method name="polygon">create polygon shape
-            <param name="X0" type="atom" required="true">x0-coord in pixel or percents of width</param>
-            <param name="Y0" type="atom" required="true">y0-coord in pixel or percents of height</param>
-            <param name="X..." type="atom" required="true">x...-coord in pixel or percents of width</param>
-            <param name="Y..." type="atom" required="true">y...-coord in pixel or percents of height</param>
-            <param name="XN" type="atom" required="true">xn-coord in pixel or percents of width</param>
-            <param name="YN" type="atom" required="true">yn-coord in pixel or percents of height</param>
-            </method>
-            <method name="rpolygon">create polygon shape
-            <param name="X" type="atom" required="true">x-coord of center in pixel or percents of width</param>
-            <param name="Y" type="atom" required="true">y-coord of center in pixel or percents of height</param>
+            <param name="italic" type="symbol" required="true" />
+            <param name="bold" type="symbol" required="true" />
+            <param name="SIZE" type="float" required="false">font size</param></method>
+            <method name="polygon">create polygon shape 
+            <param name="X0" type="atom" required="true">x0-coord in pixel or percents of
+            width</param>
+            <param name="Y0" type="atom" required="true">y0-coord in pixel or percents of
+            height</param>
+            <param name="X..." type="atom" required="true">x...-coord in pixel or percents of
+            width</param>
+            <param name="Y..." type="atom" required="true">y...-coord in pixel or percents of
+            height</param>
+            <param name="XN" type="atom" required="true">xn-coord in pixel or percents of
+            width</param>
+            <param name="YN" type="atom" required="true">yn-coord in pixel or percents of
+            height</param></method>
+            <method name="rpolygon">create polygon shape 
+            <param name="X" type="atom" required="true">x-coord of center in pixel or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord of center in pixel or percents of
+            height</param>
             <param name="N" type="int" required="true">number of vertexes</param>
-            <param name="R" type="float" required="true">polygon radius</param>
-            </method>
+            <param name="R" type="float" required="true">polygon radius</param></method>
         </methods>
         <properties>
             <property name="@send" type="symbol" default="(null)">send destination</property>

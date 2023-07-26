@@ -72,6 +72,10 @@ namespace draw {
         float x, y;
     };
 
+    struct Scale {
+        float x, y;
+    };
+
     struct SetStrokeWidth {
         float w;
     };
@@ -154,7 +158,8 @@ namespace draw {
         DrawSave,
         SetFont,
         SetMatrix,
-        ResetMatrix
+        ResetMatrix,
+        Scale
         //
         >;
 

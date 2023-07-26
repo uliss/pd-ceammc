@@ -375,6 +375,19 @@ void UICanvas::m_translate(const AtomListView& lv)
     out_queue_.enqueue(cmd);
 }
 
+void UICanvas::m_scale(const AtomListView& lv)
+{
+    static const args::ArgChecker chk("X:f Y:f?");
+    if (!chk.check(lv, nullptr))
+        return chk.usage();
+
+    draw::Scale cmd;
+    cmd.x = lv.floatAt(0, 1);
+    cmd.y = lv.floatAt(1, cmd.x);
+
+    out_queue_.enqueue(cmd);
+}
+
 void UICanvas::m_move_to(const AtomListView& lv)
 {
     if (lv.size() != 2) {
@@ -770,6 +783,7 @@ void UICanvas::setup()
     obj.addMethod("stroke", &UICanvas::m_stroke);
     obj.addMethod("text", &UICanvas::m_text);
     obj.addMethod("translate", &UICanvas::m_translate);
+    obj.addMethod("scale", &UICanvas::m_scale);
     obj.addMethod("update", &UICanvas::m_update);
 }
 

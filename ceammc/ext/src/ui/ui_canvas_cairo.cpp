@@ -203,6 +203,12 @@ void ceammc::DrawCommandVisitor::operator()(const draw::Translate& r) const
         cairo_translate(ctx_.get(), r.x, r.y);
 }
 
+void ceammc::DrawCommandVisitor::operator()(const draw::Scale& s) const
+{
+    if (ctx_)
+        cairo_scale(ctx_.get(), s.x, s.y);
+}
+
 void ceammc::DrawCommandVisitor::operator()(const draw::CreateImage& c) const
 {
     bool do_update = surface_ && ctx_;
