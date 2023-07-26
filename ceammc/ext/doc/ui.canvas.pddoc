@@ -165,6 +165,8 @@
 
 
 [ui.canvas.line] [ui.canvas.text]
+
+[ui.canvas.color]
 ]]>
             </pdascii>
             <pdascii id="line">
@@ -222,6 +224,36 @@
 
 
 [X a->z] [X b->z] [X c->z]
+]]>
+            </pdascii>
+            <pdascii id="color">
+<![CDATA[
+[clear, bg \#FFAAFF, update #a( /*RGB*/
+
+[bg \#DDAA33AA, update #b(      /*RGBA*/
+
+[bg \#BEF, update #c(           /*short RGB*/
+
+[bg \#30D5, update #d(          /*short RGBA*/
+
+[bg navy, update #e(            /*named color*/
+
+[bg navy!+50, update #f(        /*lighter named color*/
+
+[bg gray!-50, update #g(        /*darker named color*/
+
+[bg random, update #h(          /*random color*/
+
+[ui.canvas #z]
+
+
+
+
+
+
+
+[X a->z] [X b->z] [X c->z] [X d->z]
+[X e->z] [X f->z] [X g->z] [X h->z]
 ]]>
             </pdascii>
         </example>
