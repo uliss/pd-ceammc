@@ -44,22 +44,22 @@
             <param name="COLOR" type="atom" required="true">stroke color</param>
             <param name="PRESERVE" type="atom" required="false" enum="preserve 1">preserve path after stroke</param></method>
             <method name="curve">create bezier-curve shape
-            <param name="X0" type="float" required="true">x0-coord</param>
-            <param name="Y0" type="float" required="true">y0-coord</param>
-            <param name="X1" type="float" required="true">x1-coord</param>
-            <param name="Y1" type="float" required="true">y1-coord</param>
-            <param name="X2" type="float" required="true">x2-coord</param>
-            <param name="Y2" type="float" required="true">y2-coord</param>
-            <param name="X3" type="float" required="true">x3-coord</param>
-            <param name="Y4" type="float" required="true">y3-coord</param></method>
+            <param name="X0" type="atom" required="true">x0-coord in pixels or percents of width</param>
+            <param name="Y0" type="atom" required="true">y0-coord in pixels or percents of height</param>
+            <param name="X1" type="atom" required="true">x1-coord in pixels or percents of width</param>
+            <param name="Y1" type="atom" required="true">y1-coord in pixels or percents of height</param>
+            <param name="X2" type="atom" required="true">x2-coord in pixels or percents of width</param>
+            <param name="Y2" type="atom" required="true">y2-coord in pixels or percents of height</param>
+            <param name="X3" type="atom" required="true">x3-coord in pixels or percents of width</param>
+            <param name="Y4" type="atom" required="true">y3-coord in pixels or percents of height</param></method>
             <method name="line">create line shape
-            <param name="X0" type="float" required="true">x0-coord</param>
-            <param name="Y0" type="float" required="true">y0-coord</param>
-            <param name="X1" type="float" required="true">x1-coord</param>
-            <param name="Y1" type="float" required="true">y1-coord</param></method>
+            <param name="X0" type="atom" required="true">x0-coord in pixels or percents of width</param>
+            <param name="Y0" type="atom" required="true">y0-coord in pixels or percents of height</param>
+            <param name="X1" type="atom" required="true">x1-coord in pixels or percents of width</param>
+            <param name="Y1" type="atom" required="true">y1-coord in pixels or percents of height</param></method>
             <method name="line_to">add line segment to line shape
-            <param name="X" type="float" required="true">x-coord</param>
-            <param name="Y" type="float" required="true">y-coord</param></method>
+            <param name="X" type="atom" required="true">x-coord in pixels or percents of width</param>
+            <param name="Y" type="atom" required="true">y-coord in pixels or percents of height</param></method>
             <method name="line_cap">set line cap
             <param name="X" type="symbol" required="true" enum="butt round square">line cap</param></method>
             <method name="dash">set line dash pattern
@@ -68,16 +68,16 @@
             <method name="line_width">set stroke width
             <param name="WIDTH" type="float" required="true">line width</param></method>
             <method name="move_to">move current drawing point to absolute position
-            <param name="X" type="float" required="true">x-coord</param>
-            <param name="Y" type="float" required="true">y-coord</param></method>
+            <param name="X" type="atom" required="true">x-coord in pixels or percents of width</param>
+            <param name="Y" type="atom" required="true">y-coord in pixels or percents of height</param></method>
             <method name="move_by">move current drawing point by relative offset
-            <param name="X" type="float" required="true">x relative offset</param>
-            <param name="Y" type="float" required="true">y relative offset</param></method>
+            <param name="X" type="atom" required="true">x relative offset in pixels or percents of width</param>
+            <param name="Y" type="atom" required="true">y relative offset in pixels or percents of height</param></method>
             <method name="rect">create rectangle shape
-            <param name="X" type="float" required="true">x-coord</param>
-            <param name="Y" type="float" required="true">y-coord</param>
-            <param name="W" type="float" required="true">width</param>
-            <param name="H" type="float" required="true">height</param></method>
+            <param name="X" type="atom" required="true">x-coord in pixels or percents of width</param>
+            <param name="Y" type="atom" required="true">y-coord in pixels or percents of height</param>
+            <param name="W" type="atom" required="true">width in pixels or percents of width</param>
+            <param name="H" type="atom" required="true">height in pixels or percents of height</param></method>
             <method name="rotate">clock-wise rotatation of draw origin
             <param name="X" type="float" required="true" units="degree">rotation angle</param></method>
             <method name="translate">translate draw origin
@@ -86,8 +86,8 @@
             <method name="font_size">set current font size
             <param name="X" type="float" required="true">font size</param></method>
             <method name="text">set current text shape
-            <param name="X" type="float" required="true">x-coord</param>
-            <param name="Y" type="float" required="true">y-coord</param>
+            <param name="X" type="atom" required="true">x-coord in pixels or percents of width</param>
+            <param name="Y" type="atom" required="true">y-coord in pixels or percents of height</param>
             <param name="TXT" type="list" required="true">text content</param></method>
         </methods>
         <properties>

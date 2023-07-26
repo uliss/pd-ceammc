@@ -330,8 +330,8 @@ void UICanvas::m_text(const AtomListView& lv)
         return chk.usage();
 
     draw::DrawText c;
-    PARSE_PERCENT("translate", "X", lv[0], &c.x, boxW());
-    PARSE_PERCENT("translate", "Y", lv[1], &c.y, boxH());
+    PARSE_PERCENT("text", "X", lv[0], &c.x, boxW());
+    PARSE_PERCENT("text", "Y", lv[1], &c.y, boxH());
     c.str = to_string(lv.subView(2));
     out_queue_.enqueue(c);
 }
