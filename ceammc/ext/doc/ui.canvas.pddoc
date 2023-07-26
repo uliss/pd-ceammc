@@ -134,6 +134,14 @@
             <param name="bold" type="symbol" required="true"/>
             <param name="SIZE" type="float" required="false">font size</param>
             </method>
+            <method name="polygon">create polygon shape
+            <param name="X0" type="atom" required="true">x0-coord in pixel or percents of width</param>
+            <param name="Y0" type="atom" required="true">y0-coord in pixel or percents of height</param>
+            <param name="X..." type="atom" required="true">x...-coord in pixel or percents of width</param>
+            <param name="Y..." type="atom" required="true">y...-coord in pixel or percents of height</param>
+            <param name="XN" type="atom" required="true">xn-coord in pixel or percents of width</param>
+            <param name="YN" type="atom" required="true">yn-coord in pixel or percents of height</param>
+            </method>
         </methods>
         <properties>
             <property name="@send" type="symbol" default="(null)">send destination</property>
