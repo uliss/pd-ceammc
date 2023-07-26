@@ -18,6 +18,7 @@
 #include "ceammc_platform.h"
 #include "ceammc_poll_dispatcher.h"
 #include "ceammc_ui.h"
+#include "datatype_color.h"
 #include "fmt/core.h"
 #include "lex/parser_color.h"
 #include "lex/parser_numeric.h"
@@ -47,8 +48,17 @@ bool getColorArgs(const AtomListView& lv, draw::SetColorRGBA& rgba)
             LIB_ERR << fmt::format("can't parse color: '{}'", str);
             return false;
         }
-    } else
+    } else if (lv.isA<DataTypeColor>()) {
+        auto data = lv.asD<DataTypeColor>();
+        rgba.r = data->red();
+        rgba.g = data->green();
+        rgba.b = data->blue();
+        rgba.a = data->alpha();
+        return true;
+    } else {
+        LIB_ERR << fmt::format("invalid color value: '{}'", to_string(lv));
         return false;
+    }
 }
 
 inline cairo_line_cap_t sym2line_cap(t_symbol* s)
@@ -183,19 +193,7 @@ void UICanvas::m_fill(const AtomListView& lv)
 {
     draw::SetColorRGBA color;
 
-    if ((lv.size() == 1 || lv.size() == 2) && lv[0].isSymbol()) {
-        parser::ColorFullMatch p;
-        auto str = lv[0].asT<t_symbol*>()->s_name;
-        if (p.parse(str)) {
-            color.a = p.norm_alpha();
-            color.b = p.norm_blue();
-            color.g = p.norm_green();
-            color.r = p.norm_red();
-        } else {
-            UI_ERR << fmt::format("fill: can't parse color '{}'", str);
-            return;
-        }
-    } else {
+    if (!getColorArgs(lv.subView(0, 1), color)) {
         UI_ERR << "usage: fill COLOR preserve?";
         return;
     }
@@ -313,19 +311,7 @@ void UICanvas::m_stroke(const AtomListView& lv)
 {
     draw::SetColorRGBA color;
 
-    if ((lv.size() == 1 || lv.size() == 2) && lv[0].isSymbol()) {
-        parser::ColorFullMatch p;
-        auto str = lv[0].asT<t_symbol*>()->s_name;
-        if (p.parse(str)) {
-            color.a = p.norm_alpha();
-            color.b = p.norm_blue();
-            color.g = p.norm_green();
-            color.r = p.norm_red();
-        } else {
-            UI_ERR << fmt::format("stroke: can't parse color '{}'", str);
-            return;
-        }
-    } else {
+    if (!getColorArgs(lv.subView(0, 1), color)) {
         UI_ERR << "usage: stroke COLOR preserve?";
         return;
     }
@@ -338,14 +324,14 @@ void UICanvas::m_stroke(const AtomListView& lv)
 
 void UICanvas::m_text(const AtomListView& lv)
 {
-    static const args::ArgChecker chk("X:f Y:f TEXT:a+");
+    static const args::ArgChecker chk("X:a Y:a TEXT:a+");
 
     if (!chk.check(lv, nullptr))
         return chk.usage();
 
     draw::DrawText c;
-    c.x = lv.floatAt(0, 0);
-    c.y = lv.floatAt(1, 0);
+    PARSE_PERCENT("translate", "X", lv[0], &c.x, boxW());
+    PARSE_PERCENT("translate", "Y", lv[1], &c.y, boxH());
     c.str = to_string(lv.subView(2));
     out_queue_.enqueue(c);
 }
@@ -533,7 +519,7 @@ void UICanvas::m_background(const AtomListView& lv)
     if (!lv.empty()) {
         draw::SetColorRGBA rgba;
         if (!getColorArgs(lv, rgba)) {
-            UI_ERR << "usage: color COLOR or color RED[0-1] GREEN[0-1] BLUE[0-1] ALPHA[0-1]?";
+            UI_ERR << "usage: bg COLOR or color RED[0-1] GREEN[0-1] BLUE[0-1] ALPHA[0-1]?";
             return;
         }
 
