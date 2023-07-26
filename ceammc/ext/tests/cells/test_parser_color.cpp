@@ -275,6 +275,27 @@ TEST_CASE("parser_color", "[ceammc::ceammc_units]")
         REQUIRE(p.parse("blue"));
         REQUIRE(p.asInt() == 0x0000FFFF);
 
+        REQUIRE(p.parse("black!+0"));
+        REQUIRE(p.asInt() == 0x000000FF);
+        REQUIRE(p.parse("black!+50"));
+        REQUIRE(p.asInt() == 0x7F7F7FFF);
+        REQUIRE(p.parse("black!+100"));
+        REQUIRE(p.asInt() == 0xFFFFFFFF);
+
+        REQUIRE(p.parse("white!-0"));
+        REQUIRE(p.asInt() == 0xFFFFFFFF);
+        REQUIRE(p.parse("white!-50"));
+        REQUIRE(p.asInt() == 0x808080FF);
+        REQUIRE(p.parse("white!-100"));
+        REQUIRE(p.asInt() == 0x000000FF);
+
+        REQUIRE(p.parse("red!-50"));
+        REQUIRE(p.asInt() == 0x800000FF);
+        REQUIRE(p.parse("blue!+50"));
+        REQUIRE(p.asInt() == 0x7F7FFFFF);
+        REQUIRE(p.parse("green!+25"));
+        REQUIRE(p.asInt() == 0x3f9f3fFF);
+
         REQUIRE(p.parse("#123"));
         REQUIRE(p.red() == 0x11);
         REQUIRE(p.green() == 0x22);

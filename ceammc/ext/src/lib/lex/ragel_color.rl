@@ -71,6 +71,7 @@ color_rgba_short = '#'
 %%{
 
 machine color_named;
+include numeric_common "ragel_numeric.rl";
 
 black    = 'black'    %{ color.setHex(0x000000); };
 blue     = 'blue'     %{ color.setHex(0x0000FF); };
@@ -88,9 +89,20 @@ purple   = 'purple'   %{ color.setHex(0x800080); };
 red      = 'red'      %{ color.setHex(0xFF0000); };
 white    = 'white'    %{ color.setHex(0xFFFFFF); };
 yellow   = 'yellow'   %{ color.setHex(0xFFFF00); };
+random   = 'random'   %{ color.setRandom(); };
+
+lighter = '+' ((num_i $num_int_digit) %num_int_done) % {
+    color.setLighter(ragel_num.vint);
+};
+
+darker = '-' ((num_i $num_int_digit) %num_int_done) % {
+    color.setDarker(ragel_num.vint);
+};
+
+hue = '!' (lighter | darker);
 
 color_named =
-    black |
+    (black |
     blue |
     cyan |
     gold |
@@ -105,7 +117,9 @@ color_named =
     purple |
     red |
     white |
-    yellow
+    random |
+    yellow)
+    hue?
     ;
 
 }%%

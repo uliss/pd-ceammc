@@ -731,7 +731,8 @@ void UICanvas::setup()
     obj.addAlias("ui.cnv");
 
     obj.hideLabelInner();
-    obj.setDefaultSize(60, 60);
+    obj.hideProperty("background_color");
+    obj.setDefaultSize(120, 60);
 
     obj.addMethod("bg", &UICanvas::m_background);
     obj.addMethod("circle", &UICanvas::m_circle);

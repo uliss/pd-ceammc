@@ -1243,6 +1243,8 @@ ui.bang	A bang... that's all
 ui.b	A bang... that's all
 ui.button	button widget
 ui.btn	button widget
+ui.canvas	UI canvas for drawing
+ui.cnv	UI canvas for drawing
 ui.colorpanel	colorchooser widget
 ui.display	Display GUI object
 ui.d	Display GUI object

@@ -1,5 +1,8 @@
 # include "parser_color.h"
 # include "ragel_common.h"
+# include "parser_numeric.h"
+# include "ceammc_convert.h"
+# include "ceammc_random.h"
 
 # include <cstdint>
 # include <cstring>
@@ -18,6 +21,24 @@ struct ColorRagelData {
         r = (c & 0xFF0000) >> 16;
         g = (c & 0x00FF00) >> 8;
         b = c & 0x0000FF;
+    }
+    void setLighter(int perc) {
+        perc = clip<int, 0, 100>(perc);
+        r += perc * (255 - r) / 100;
+        g += perc * (255 - g) / 100;
+        b += perc * (255 - b) / 100;
+    }
+    void setDarker(int perc) {
+        perc = clip<int, 0, 100>(perc);
+        r += perc * (-r) / 100;
+        g += perc * (-g) / 100;
+        b += perc * (-b) / 100;
+    }
+    void setRandom() {
+        random::RandomGen gen;
+        r = gen.gen_uniform_int(0, 255);
+        g = gen.gen_uniform_int(0, 255);
+        b = gen.gen_uniform_int(0, 255);
     }
 };
 
@@ -281,6 +302,8 @@ bool ColorFullMatch::parse(const char* str, size_t len)
         const char* pe = p + strlen(str);
         const char* eof = pe;
         ColorRagelData color;
+        DECLARE_RAGEL_COMMON_VARS;
+        DECLARE_RAGEL_NUMERIC_VARS;
 
         reset();
 

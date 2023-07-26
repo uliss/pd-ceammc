@@ -37,11 +37,12 @@
             <param name="Y" type="float" required="true">y-coord</param>
             <param name="RADIUS" type="float" required="true">radius</param></method>
             <method name="fill">fill shape with color
-            <param name="COLOR" type="list" required="true">fill color</param>
+            <param name="COLOR" type="atom" required="true">fill color</param>
             <param name="PRESERVE" type="atom" required="false" enum="preserve 1">preserve path after fill. You can
             call stroke method after that</param></method>
             <method name="stroke">stroke shape with color
-            <param name="COLOR" type="list" required="true">stroke color</param></method>
+            <param name="COLOR" type="atom" required="true">stroke color</param>
+            <param name="PRESERVE" type="atom" required="false" enum="preserve 1">preserve path after stroke</param></method>
             <method name="curve">create bezier-curve shape
             <param name="X0" type="float" required="true">x0-coord</param>
             <param name="Y0" type="float" required="true">y0-coord</param>
@@ -77,8 +78,11 @@
             <param name="Y" type="float" required="true">y-coord</param>
             <param name="W" type="float" required="true">width</param>
             <param name="H" type="float" required="true">height</param></method>
-            <method name="rotate">rotate clock-wise
+            <method name="rotate">clock-wise rotatation of draw origin
             <param name="X" type="float" required="true" units="degree">rotation angle</param></method>
+            <method name="translate">translate draw origin
+            <param name="X" type="float" required="true">x offset</param>
+            <param name="Y" type="float" required="true">y offset</param></method>
             <method name="font_size">set current font size
             <param name="X" type="float" required="true">font size</param></method>
             <method name="text">set current text shape
@@ -89,7 +93,7 @@
         <properties>
             <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>
-            <property name="@size" type="list" default="60 60">element size (width, height
+            <property name="@size" type="list" default="120 60">element size (width, height
             pair)</property>
             <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
             lowest level</property>
@@ -143,7 +147,7 @@
 [matrix, translate 50% 50%, rotate 35, font_size 40, text 0 0 CEAM, fill gray, update #f(
 
 
-[bg gray, update #g(
+[bg gray!+75, update #g(
 
 [ui.canvas @size 300 200 {h:200} #z]
 
@@ -199,7 +203,7 @@
 <![CDATA[
 [clear, matrix, translate 50% 50% #a(
 
-[rotate 30, font Verdana, font_size 20, text 20 0 CEAM, fill blue, update #b(
+[rotate 30, font Verdana, font_size 20, text 20 0 CEAM, fill random, update #b(
 
 
 [matrix, font Verdana bold, font_size 40, line_width 2, text 50 75 HELLO, fill gray preserve, stroke cyan, update #c(
