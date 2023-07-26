@@ -142,6 +142,12 @@
             <param name="XN" type="atom" required="true">xn-coord in pixel or percents of width</param>
             <param name="YN" type="atom" required="true">yn-coord in pixel or percents of height</param>
             </method>
+            <method name="rpolygon">create polygon shape
+            <param name="X" type="atom" required="true">x-coord of center in pixel or percents of width</param>
+            <param name="Y" type="atom" required="true">y-coord of center in pixel or percents of height</param>
+            <param name="N" type="int" required="true">number of vertexes</param>
+            <param name="R" type="float" required="true">polygon radius</param>
+            </method>
         </methods>
         <properties>
             <property name="@send" type="symbol" default="(null)">send destination</property>
