@@ -31,8 +31,8 @@
         <properties>
             <property name="@freq" type="float" units="hertz" default="1000" minvalue="20"
             maxvalue="20000" access="initonly">cutoff frequency</property>
-            <property name="@q" type="float" minvalue="0.25" maxvalue="32" default="2" access="initonly">quality
-            factor: @freq/BANDWIDTH</property>
+            <property name="@q" type="float" minvalue="0.25" maxvalue="32" default="2"
+            access="initonly">quality factor: @freq/BANDWIDTH</property>
             <!-- common -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <!-- OSC -->

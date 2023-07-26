@@ -23,9 +23,10 @@
         <properties>
             <property name="@n" type="int" minvalue="1" default="2" maxvalue="32"
             access="initonly">number of inlets</property>
-            <property name="@sync" type="bool" default="0">sync mode.
-            If true: output value on each inlet value change</property>
-            <property name="@msg" type="list" default="">message prefix. Change value via [prop.set] object</property>
+            <property name="@sync" type="bool" default="0">sync mode. If true: output value on each
+            inlet value change</property>
+            <property name="@msg" type="list" default="">message prefix. Change value via
+            [prop.set] object</property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">
