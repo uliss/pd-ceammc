@@ -118,6 +118,22 @@
             <param name="TXT" type="list" required="true">text content</param></method>
             <method name="ctx_save">save current drawing context (pen type, width, color etc.)</method>
             <method name="ctx_restore">restore previously saved context</method>
+            <!-- font -->
+            <method name="font">set current font
+            <param name="FONT" type="symbol" required="true">font family</param>
+            <param name="SIZE" type="float" required="false">font size</param>
+            </method>
+            <method name="font">set current font
+            <param name="FONT" type="symbol" required="true">font family</param>
+            <param name="STYLE" type="symbol" enum="normal|italic|bold" required="true">font style</param>
+            <param name="SIZE" type="float" required="false">font size</param>
+            </method>
+            <method name="font">set current font
+            <param name="FONT" type="symbol" required="true">font family</param>
+            <param name="italic" type="symbol" required="true"/>
+            <param name="bold" type="symbol" required="true"/>
+            <param name="SIZE" type="float" required="false">font size</param>
+            </method>
         </methods>
         <properties>
             <property name="@send" type="symbol" default="(null)">send destination</property>
@@ -234,10 +250,16 @@
 <![CDATA[
 [clear, matrix, translate 50% 50% #a(
 
-[rotate 30, font Verdana, font_size 20, text 20 0 CEAM, fill random, update #b(
+ [rotate 30, font Verdana, font_size 20, text 20 0 CEAM, fill random, update #b(
 
 
-[matrix, font Verdana bold, font_size 40, line_width 2, text 50 75 HELLO, fill gray preserve, stroke cyan, update #c(
+  [matrix, font Verdana bold, font_size 40, line_width 2, text 50 75 HELLO, fill gray preserve, stroke cyan, update #c(
+
+
+   [clear, font Verdana italic, font_size 50, text 50 75 HELLO, fill black, update #d(
+
+
+    [clear, font Verdana italic bold 60, text 25% 75 HELLO, fill black, update #e(
 
 
 [ui.canvas @size 300 200 {h:200} #z]
@@ -252,7 +274,7 @@
 
 
 
-[X a->z] [X b->z] [X c->z]
+[X a->z] [X b->z] [X c->z] [X d->z] [X e->z]
 ]]>
             </pdascii>
             <pdascii id="color">

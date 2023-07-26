@@ -790,7 +790,7 @@ public:
 
 ArgChecker::~ArgChecker()  = default;
 
-bool ArgChecker::check(const AtomListView& lv, BaseObject* obj, ArgMatchList* matches) const
+bool ArgChecker::check(const AtomListView& lv, BaseObject* obj, ArgMatchList* matches, bool printErr) const
 {
     if (!chk_)
         return false;
@@ -808,10 +808,12 @@ bool ArgChecker::check(const AtomListView& lv, BaseObject* obj, ArgMatchList* ma
 
         for (int k = 0; k < check.rmin; k++, atom_idx++) {
             if (atom_idx >= N) {
-                pdError(x, fmt::format("{} expected at [{}]", check.argName(), atom_idx));
+                if (printErr)
+                    pdError(x, fmt::format("{} expected at [{}]", check.argName(), atom_idx));
+
                 return false;
             }
-            if (!checkAtom(check, lv[atom_idx], atom_idx, x, true))
+            if (!checkAtom(check, lv[atom_idx], atom_idx, x, printErr))
                 return false;
         }
 
@@ -827,7 +829,9 @@ bool ArgChecker::check(const AtomListView& lv, BaseObject* obj, ArgMatchList* ma
     }
 
     if (atom_idx < N) {
-        pdError(x, fmt::format("extra arguments left, starting from [{}]: {}", atom_idx, list_to_string(lv.subView(atom_idx))));
+        if (printErr)
+            pdError(x, fmt::format("extra arguments left, starting from [{}]: {}", atom_idx, list_to_string(lv.subView(atom_idx))));
+
         return false;
     }
 

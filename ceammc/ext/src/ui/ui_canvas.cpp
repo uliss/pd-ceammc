@@ -82,6 +82,10 @@ inline bool set_font_options(t_symbol* s, draw::SetFont* res)
     } else if (strcmp(s->s_name, "bold") == 0) {
         res->weight = CAIRO_FONT_WEIGHT_BOLD;
         return true;
+    } else if (strcmp(s->s_name, "normal") == 0) {
+        res->slant = CAIRO_FONT_SLANT_NORMAL;
+        res->weight = CAIRO_FONT_WEIGHT_NORMAL;
+        return true;
     } else
         return false;
 }
@@ -206,30 +210,50 @@ void UICanvas::m_fill(const AtomListView& lv)
 
 void UICanvas::m_font(const AtomListView& lv)
 {
-    static const args::ArgChecker chk("FAMILY:s s=italic|normal? s=bold|normal?");
+    static const args::ArgChecker chk1("FAMILY:s SIZE:f?");
+    static const args::ArgChecker chk2("FAMILY:s STYLE:s=normal|italic|bold SIZE:f?");
+    static const args::ArgChecker chk3("FAMILY:s ITALIC:s=italic BOLD:s=bold SIZE:f?");
 
-    if (!chk.check(lv, nullptr))
-        return chk.usage();
-
+    draw::SetFontSize sz;
     draw::SetFont cmd;
     cmd.slant = CAIRO_FONT_SLANT_NORMAL;
     cmd.weight = CAIRO_FONT_WEIGHT_NORMAL;
-    cmd.family = lv.symbolAt(0, &s_)->s_name;
-    if (lv.size() > 1) {
+
+    if (chk1.check(lv, nullptr, nullptr, false)) {
+        cmd.family = lv.symbolAt(0, &s_)->s_name;
+        out_queue_.enqueue(cmd);
+
+        if (lv.size() == 2) {
+            sz.size = lv.floatAt(1, 16);
+            out_queue_.enqueue(sz);
+        }
+    } else if (chk2.check(lv, nullptr, nullptr, false)) {
+        cmd.family = lv.symbolAt(0, &s_)->s_name;
         if (!set_font_options(lv.symbolAt(1, &s_), &cmd)) {
-            UI_ERR << fmt::format("invalid font option: '{}', expected italic|bold", to_string(lv[1]));
+            UI_ERR << fmt::format("invalid font option: '{}', expected normal|italic|bold", to_string(lv[1]));
             return;
         }
-    }
 
-    if (lv.size() > 2) {
-        if (!set_font_options(lv.symbolAt(2, &s_), &cmd)) {
-            UI_ERR << fmt::format("invalid font option: '{}', expected italic|bold", to_string(lv[2]));
-            return;
+        out_queue_.enqueue(cmd);
+        if (lv.size() == 3) {
+            sz.size = lv.floatAt(2, 16);
+            out_queue_.enqueue(sz);
         }
-    }
+    } else if (chk3.check(lv, nullptr, nullptr, false)) {
+        cmd.family = lv.symbolAt(0, &s_)->s_name;
+        cmd.slant = CAIRO_FONT_SLANT_ITALIC;
+        cmd.weight = CAIRO_FONT_WEIGHT_BOLD;
 
-    out_queue_.enqueue(cmd);
+        out_queue_.enqueue(cmd);
+        if (lv.size() == 4) {
+            sz.size = lv.floatAt(3, 16);
+            out_queue_.enqueue(sz);
+        }
+    } else {
+        chk1.usage();
+        chk2.usage();
+        chk3.usage();
+    }
 }
 
 void UICanvas::m_line(const AtomListView& lv)
