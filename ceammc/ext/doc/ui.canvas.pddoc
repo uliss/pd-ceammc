@@ -116,6 +116,8 @@
             <param name="Y" type="atom" required="true">y-coord in pixels or percents of
             height</param>
             <param name="TXT" type="list" required="true">text content</param></method>
+            <method name="ctx_save">save current drawing context (pen type, width, color etc.)</method>
+            <method name="ctx_restore">restore previously saved context</method>
         </methods>
         <properties>
             <property name="@send" type="symbol" default="(null)">send destination</property>
