@@ -189,10 +189,12 @@
 
 [curve 0 0 30% 50% 70% 50% 100% 0, stroke \#FA0, update #e(
 
-[matrix, translate 50% 50%, rotate 35, font_size 40, text 0 0 CEAM, fill gray, update #f(
+[polygon 20 90 40 70 100 70 90 190, fill lime!-30, update #f(
+
+[matrix, translate 50% 50%, rotate 35, font_size 40, text 0 0 CEAM, fill gray, update #g(
 
 
-[bg gray!+75, update #g(
+[bg gray!+75, update #h(
 
 [ui.canvas @size 300 200 {h:200} #z]
 
@@ -206,7 +208,7 @@
 
 
 
-[X a->z] [X b->z] [X c->z] [X d->z] [X e->z] [X f->z] [X g->z]
+[X a->z] [X b->z] [X c->z] [X d->z] [X e->z] [X f->z] [X g->z] [X h->z]
 
 
 [ui.canvas.line] [ui.canvas.text]
