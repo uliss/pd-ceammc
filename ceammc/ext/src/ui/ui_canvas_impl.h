@@ -22,6 +22,10 @@
 namespace ceammc {
 namespace draw {
 
+    struct ClosePath { };
+    struct NewPath { };
+    struct NewSubPath { };
+
     struct DrawCircle {
         float x, y, r;
     };
@@ -159,7 +163,10 @@ namespace draw {
         SetFont,
         SetMatrix,
         ResetMatrix,
-        Scale
+        Scale,
+        ClosePath,
+        NewPath,
+        NewSubPath
         //
         >;
 

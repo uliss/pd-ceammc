@@ -457,6 +457,16 @@ void UICanvas::m_move_to(const AtomListView& lv)
     out_queue_.enqueue(cmd);
 }
 
+void UICanvas::m_new_path(const AtomListView& lv)
+{
+    out_queue_.enqueue(draw::NewPath {});
+}
+
+void UICanvas::m_new_subpath(const AtomListView& lv)
+{
+    out_queue_.enqueue(draw::NewSubPath {});
+}
+
 void UICanvas::m_curve(const AtomListView& lv)
 {
     if (lv.size() != 8) {
@@ -573,6 +583,53 @@ void UICanvas::m_rpolygon(const AtomListView& lv)
     out_queue_.enqueue(cmd);
 }
 
+void UICanvas::m_polar(const AtomListView& lv)
+{
+    static const args::ArgChecker chk("X:a Y:a ADIV:i[0,12]? NR:i[0,12]? RDIST:i>0?");
+    if (!chk.check(lv, nullptr))
+        return chk.usage();
+
+    float x = 0, y = 0;
+    PARSE_PERCENT("image", "X", lv[0], &x, boxW());
+    PARSE_PERCENT("image", "Y", lv[1], &y, boxH());
+    const auto ADIV = lv.intAt(2, 0);
+    const auto NR = lv.intAt(3, 0);
+    const auto RDIST = lv.floatAt(4, 10);
+
+    // save
+    out_queue_.enqueue(draw::DrawSave {});
+    out_queue_.enqueue(draw::Translate { x, y });
+
+    const float MAXR = std::sqrtf(hypot2());
+
+    // draw circles
+    if (NR > 0) {
+        out_queue_.enqueue(draw::NewPath {});
+
+        for (int i = 1; i <= NR; i++) {
+            float r = i * RDIST;
+            if (r > MAXR)
+                break;
+
+            out_queue_.enqueue(draw::NewSubPath {});
+            out_queue_.enqueue(draw::DrawCircle { 0, 0, r });
+        }
+    }
+
+    // draw beams
+    auto NDIV = ADIV * 4;
+    const float R = NR > 0 ? std::min(MAXR, NR * RDIST) : MAXR;
+    for (int i = 0; i < NDIV; i++) {
+        float a = (2 * M_PI * i) / NDIV;
+        out_queue_.enqueue(draw::DrawLine { 0, 0, std::cos(a) * R, std::sin(a) * R });
+    }
+
+    out_queue_.enqueue(draw::ClosePath {});
+
+    // restore
+    out_queue_.enqueue(draw::DrawRestore {});
+}
+
 void UICanvas::m_font_size(t_float sz)
 {
     draw::SetFontSize c;
@@ -625,6 +682,11 @@ void UICanvas::m_clear()
     StaticAtomList<3> data = { 1, 1, 1 };
     m_background(data.view());
     m_update();
+}
+
+void UICanvas::m_close_path()
+{
+    out_queue_.enqueue(draw::ClosePath {});
 }
 
 void UICanvas::m_line_width(const AtomListView& lv)
@@ -795,8 +857,13 @@ bool UICanvas::parsePercent(const char* methodName, const char* argName, const A
         return false;
     } else {
         *res = p.asFloat();
-        if (p.isPercent())
+        if (p.isPercent()) {
+            float fraq = 0;
             *res *= total;
+            //            std::modf(*res, &fraq);
+            //            if (fraq == 0)
+            //                *res += 0.5;
+        }
 
         return true;
     }
@@ -817,6 +884,7 @@ void UICanvas::setup()
     obj.addMethod("ctx_restore", &UICanvas::m_ctx_restore);
     obj.addMethod("ctx_save", &UICanvas::m_ctx_save);
     obj.addMethod("curve", &UICanvas::m_curve);
+    obj.addMethod("close_path", &UICanvas::m_close_path);
     obj.addMethod("dash", &UICanvas::m_dash);
     obj.addMethod("fill", &UICanvas::m_fill);
     obj.addMethod("font", &UICanvas::m_font);
@@ -829,7 +897,11 @@ void UICanvas::setup()
     obj.addMethod("matrix", &UICanvas::m_matrix);
     obj.addMethod("move_by", &UICanvas::m_move_by);
     obj.addMethod("move_to", &UICanvas::m_move_to);
+    obj.addMethod("new_path", &UICanvas::m_new_path);
+    obj.addMethod("new_subpath", &UICanvas::m_new_subpath);
     obj.addMethod("node", &UICanvas::m_node);
+    obj.addMethod("node", &UICanvas::m_node);
+    obj.addMethod("polar", &UICanvas::m_polar);
     obj.addMethod("polygon", &UICanvas::m_polygon);
     obj.addMethod("rect", &UICanvas::m_rect);
     obj.addMethod("rotate", &UICanvas::m_rotate);

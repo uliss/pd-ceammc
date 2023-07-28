@@ -28,6 +28,24 @@ void ceammc::DrawCommandVisitor::operator()(const draw::DrawNextVariant& n) cons
     n.apply_visitor(*this);
 }
 
+void ceammc::DrawCommandVisitor::operator()(const draw::ClosePath&) const
+{
+    if (ctx_)
+        cairo_close_path(ctx_.get());
+}
+
+void ceammc::DrawCommandVisitor::operator()(const draw::NewPath&) const
+{
+    if (ctx_)
+        cairo_new_path(ctx_.get());
+}
+
+void ceammc::DrawCommandVisitor::operator()(const draw::NewSubPath&) const
+{
+    if (ctx_)
+        cairo_new_sub_path(ctx_.get());
+}
+
 void ceammc::DrawCommandVisitor::operator()(const draw::DrawCircle& c) const
 {
     if (ctx_)

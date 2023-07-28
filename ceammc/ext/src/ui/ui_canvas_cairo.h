@@ -51,6 +51,11 @@ public:
     DrawCommandVisitor(CairoSurface& surface, CairoContext& ctx, UICanvasInQueue& in);
 
     void operator()(const draw::DrawNextVariant& n) const;
+
+    void operator()(const draw::ClosePath&) const;
+    void operator()(const draw::NewPath&) const;
+    void operator()(const draw::NewSubPath&) const;
+
     void operator()(const draw::DrawCircle& c) const;
     void operator()(const draw::DrawCurve& c) const;
     void operator()(const draw::DrawRect& c) const;

@@ -60,6 +60,7 @@ public:
     void m_background(const AtomListView& lv);
     void m_circle(const AtomListView& lv);
     void m_clear();
+    void m_close_path();
     void m_curve(const AtomListView& lv);
     void m_dash(const AtomListView& lv);
     void m_fill(const AtomListView& lv);
@@ -73,12 +74,15 @@ public:
     void m_matrix(const AtomListView& lv);
     void m_move_by(const AtomListView& lv);
     void m_move_to(const AtomListView& lv);
+    void m_new_path(const AtomListView& lv);
+    void m_new_subpath(const AtomListView& lv);
     void m_node(const AtomListView& lv);
     void m_polygon(const AtomListView& lv);
     void m_rect(const AtomListView& lv);
     void m_ctx_restore();
     void m_rotate(const AtomListView& lv);
     void m_rpolygon(const AtomListView& lv);
+    void m_polar(const AtomListView& lv);
     void m_ctx_save();
     void m_stroke(const AtomListView& lv);
     void m_text(const AtomListView& lv);
@@ -99,6 +103,11 @@ private:
     bool parsePercent(const char* methodName, const char* argName, const Atom& a, float* res, float total);
     float boxW() const { return asEBox()->b_rect.w; }
     float boxH() const { return asEBox()->b_rect.h; }
+    float hypot2() const
+    {
+        return (asEBox()->b_rect.h * asEBox()->b_rect.h)
+            + (asEBox()->b_rect.w * asEBox()->b_rect.w);
+    }
 };
 
 void setup_ui_canvas();
