@@ -1,7 +1,5 @@
+#include "m_pd.h"
 #include <boost/math/special_functions/prime.hpp>
-#include <m_pd.h>
-
-#include "ceammc.h"
 
 t_class* math_prime_class;
 struct t_math_prime {

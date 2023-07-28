@@ -83,6 +83,7 @@ public:
     void m_stroke(const AtomListView& lv);
     void m_text(const AtomListView& lv);
     void m_translate(const AtomListView& lv);
+    void m_star(const AtomListView& lv);
     void m_scale(const AtomListView& lv);
     void m_update();
 

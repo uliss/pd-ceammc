@@ -25,6 +25,8 @@
 #include "lex/parser_units.h"
 #include "ui_canvas.tcl.h"
 
+#include <boost/integer/common_factor.hpp>
+
 namespace {
 
 bool getColorArgs(const AtomListView& lv, draw::SetColorRGBA& rgba)
@@ -373,6 +375,58 @@ void UICanvas::m_translate(const AtomListView& lv)
     PARSE_PERCENT("translate", "Y", lv[1], &cmd.y, boxH());
 
     out_queue_.enqueue(cmd);
+}
+
+void UICanvas::m_star(const AtomListView& lv)
+{
+    static const args::ArgChecker chk("X:a Y:a N:i>=3 RADIUS:f>0? STEP:i>0?");
+    if (!chk.check(lv, nullptr))
+        return chk.usage();
+
+    float x = 0, y = 0;
+    PARSE_PERCENT("star", "X", lv[0], &x, boxW());
+    PARSE_PERCENT("star", "Y", lv[1], &y, boxH());
+
+    draw::DrawPolygon cmd;
+    auto N = lv.intAt(2, 0);
+    auto R = lv.floatAt(3, std::min(boxH(), boxW()) * 0.5);
+    auto STEP = lv.intAt(4, 0);
+
+    if (STEP == 0) { // auto step
+        STEP = (N - 1) / 2;
+    }
+
+    const auto GCD = boost::integer::gcd(N, STEP);
+
+    if (GCD == 1) {
+        for (int i = 0; i < N; i++) {
+            float a = ((2 * M_PI) * (i * STEP) / N) + M_PI_2;
+            cmd.data.push_back(x + std::cos(a) * R);
+            cmd.data.push_back(y - std::sin(a) * R);
+        }
+        out_queue_.enqueue(cmd);
+    } else if (N % STEP != 0) { // 10/4, 14/6
+        const auto NK = N % STEP;
+        for (int k = 0; k < NK; k++) {
+            for (int i = 0; i < N / NK; i++) {
+                float a = ((2 * M_PI) * ((i * STEP) + k) / N) + M_PI_2;
+                cmd.data.push_back(x + std::cos(a) * R);
+                cmd.data.push_back(y - std::sin(a) * R);
+            }
+            out_queue_.enqueue(cmd);
+            cmd.data.clear();
+        }
+    } else { // 6/2 = 3, 8/2
+        for (int k = 0; k < STEP; k++) { // 0..2
+            for (int i = 0; i < N / STEP; i++) { // 0..3: 0 2 4 1 3 5
+                float a = ((2 * M_PI) * (((i * STEP) + k) % N) / N) + M_PI_2;
+                cmd.data.push_back(x + std::cos(a) * R);
+                cmd.data.push_back(y - std::sin(a) * R);
+            }
+            out_queue_.enqueue(cmd);
+            cmd.data.clear();
+        }
+    }
 }
 
 void UICanvas::m_scale(const AtomListView& lv)
@@ -780,10 +834,11 @@ void UICanvas::setup()
     obj.addMethod("rect", &UICanvas::m_rect);
     obj.addMethod("rotate", &UICanvas::m_rotate);
     obj.addMethod("rpolygon", &UICanvas::m_rpolygon);
+    obj.addMethod("scale", &UICanvas::m_scale);
+    obj.addMethod("star", &UICanvas::m_star);
     obj.addMethod("stroke", &UICanvas::m_stroke);
     obj.addMethod("text", &UICanvas::m_text);
     obj.addMethod("translate", &UICanvas::m_translate);
-    obj.addMethod("scale", &UICanvas::m_scale);
     obj.addMethod("update", &UICanvas::m_update);
 }
 
