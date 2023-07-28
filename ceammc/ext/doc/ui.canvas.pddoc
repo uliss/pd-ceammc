@@ -39,7 +39,7 @@
             <param name="Y" type="float" required="true">y-coord</param>
             <param name="RADIUS" type="float" required="true">radius</param></method>
             <!-- rect -->
-            <method name="rect">create rectangle shape
+            <method name="rect">create rectangle shape 
             <param name="X" type="atom" required="true">x-coord in pixels or percents of
             width</param>
             <param name="Y" type="atom" required="true">y-coord in pixels or percents of
@@ -82,7 +82,7 @@
             <param name="Y" type="atom" required="true">y-coord in pixels or percents of
             height</param></method>
             <!-- polygon -->
-            <method name="polygon">create polygon shape
+            <method name="polygon">create polygon shape 
             <param name="X0" type="atom" required="true">x0-coord in pixel or percents of
             width</param>
             <param name="Y0" type="atom" required="true">y0-coord in pixel or percents of
@@ -96,7 +96,7 @@
             <param name="YN" type="atom" required="true">yn-coord in pixel or percents of
             height</param></method>
             <!-- polygon -->
-            <method name="rpolygon">create polygon shape
+            <method name="rpolygon">create polygon shape 
             <param name="X" type="atom" required="true">x-coord of center in pixel or percents of
             width</param>
             <param name="Y" type="atom" required="true">y-coord of center in pixel or percents of
@@ -104,22 +104,32 @@
             <param name="N" type="int" required="true">number of vertexes</param>
             <param name="R" type="float" required="true">polygon radius</param></method>
             <!-- star -->
-            <method name="star">create star shape
+            <method name="star">create star shape 
             <param name="X" type="atom" required="true">x-coord of center in pixel or percents of
             width</param>
             <param name="Y" type="atom" required="true">y-coord of center in pixel or percents of
             height</param>
             <param name="N" type="int" required="true">number of vertexes</param>
             <param name="R" type="float" required="false" minvalue="0">star radius</param>
-            <param name="STEP" type="int" required="false" minvalue="1">connection step.
-            If omitted step is auto-calculated</param>
-            </method>
+            <param name="STEP" type="int" required="false" minvalue="1">connection step. If omitted
+            step is auto-calculated</param></method>
+            <!-- polar grid -->
+            <method name="polar">creates polar grid 
+            <param name="X" type="atom" required="true">x-coord of center in pixel or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord of center in pixel or percents of
+            height</param>
+            <param name="ADIV" type="int" required="false" minvalue="0">number of divisions of 90
+            degree angle</param>
+            <param name="NC" type="int" required="false" minvalue="0">number of circles</param>
+            <param name="CDIST" type="int" required="false" minvalue="1">circle
+            distance</param></method>
             <!-- DRAW -->
-            <method name="fill">fill shape with color
+            <method name="fill">fill shape with color 
             <param name="COLOR" type="atom" required="true">fill color</param>
             <param name="PRESERVE" type="atom" required="false" enum="preserve 1">preserve path
             after fill. You can call stroke method after that</param></method>
-            <method name="stroke">stroke shape with color
+            <method name="stroke">stroke shape with color 
             <param name="COLOR" type="atom" required="true">stroke color</param>
             <param name="PRESERVE" type="atom" required="false" enum="preserve 1">preserve path
             after stroke</param></method>
@@ -176,6 +186,11 @@
             <param name="italic" type="symbol" required="true" />
             <param name="bold" type="symbol" required="true" />
             <param name="SIZE" type="float" required="false">font size</param></method>
+            <!-- PATHS -->
+            <method name="new_path">starts new path</method>
+            <method name="new_subpath">starts new subpath, means no line connection between last
+            point and new subpath shape</method>
+            <method name="close_path">close path and its subpaths</method>
         </methods>
         <properties>
             <property name="@send" type="symbol" default="(null)">send destination</property>

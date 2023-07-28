@@ -585,7 +585,7 @@ void UICanvas::m_rpolygon(const AtomListView& lv)
 
 void UICanvas::m_polar(const AtomListView& lv)
 {
-    static const args::ArgChecker chk("X:a Y:a ADIV:i[0,12]? NR:i[0,12]? RDIST:i>0?");
+    static const args::ArgChecker chk("X:a Y:a ADIV:i[0,12]? NC:i[0,12]? CDIST:i>0?");
     if (!chk.check(lv, nullptr))
         return chk.usage();
 
@@ -593,8 +593,8 @@ void UICanvas::m_polar(const AtomListView& lv)
     PARSE_PERCENT("image", "X", lv[0], &x, boxW());
     PARSE_PERCENT("image", "Y", lv[1], &y, boxH());
     const auto ADIV = lv.intAt(2, 0);
-    const auto NR = lv.intAt(3, 0);
-    const auto RDIST = lv.floatAt(4, 10);
+    const auto NC = lv.intAt(3, 0);
+    const auto CDIST = lv.floatAt(4, 10);
 
     // save
     out_queue_.enqueue(draw::DrawSave {});
@@ -603,11 +603,11 @@ void UICanvas::m_polar(const AtomListView& lv)
     const float MAXR = std::sqrtf(hypot2());
 
     // draw circles
-    if (NR > 0) {
+    if (NC > 0) {
         out_queue_.enqueue(draw::NewPath {});
 
-        for (int i = 1; i <= NR; i++) {
-            float r = i * RDIST;
+        for (int i = 1; i <= NC; i++) {
+            float r = i * CDIST;
             if (r > MAXR)
                 break;
 
@@ -618,7 +618,7 @@ void UICanvas::m_polar(const AtomListView& lv)
 
     // draw beams
     auto NDIV = ADIV * 4;
-    const float R = NR > 0 ? std::min(MAXR, NR * RDIST) : MAXR;
+    const float R = NC > 0 ? std::min(MAXR, NC * CDIST) : MAXR;
     for (int i = 0; i < NDIV; i++) {
         float a = (2 * M_PI * i) / NDIV;
         out_queue_.enqueue(draw::DrawLine { 0, 0, std::cos(a) * R, std::sin(a) * R });
