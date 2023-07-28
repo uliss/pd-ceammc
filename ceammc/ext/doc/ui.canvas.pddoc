@@ -32,18 +32,23 @@
             <param name="COLOR" type="list" required="false">background color</param></method>
             <method name="update">updates drawed image</method>
             <method name="clear">clear image</method>
+            <!-- PATHS -->
+            <!-- circle -->
             <method name="circle">create circle shape 
             <param name="X" type="float" required="true">x-coord</param>
             <param name="Y" type="float" required="true">y-coord</param>
             <param name="RADIUS" type="float" required="true">radius</param></method>
-            <method name="fill">fill shape with color 
-            <param name="COLOR" type="atom" required="true">fill color</param>
-            <param name="PRESERVE" type="atom" required="false" enum="preserve 1">preserve path
-            after fill. You can call stroke method after that</param></method>
-            <method name="stroke">stroke shape with color 
-            <param name="COLOR" type="atom" required="true">stroke color</param>
-            <param name="PRESERVE" type="atom" required="false" enum="preserve 1">preserve path
-            after stroke</param></method>
+            <!-- rect -->
+            <method name="rect">create rectangle shape
+            <param name="X" type="atom" required="true">x-coord in pixels or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord in pixels or percents of
+            height</param>
+            <param name="W" type="atom" required="true">width in pixels or percents of
+            width</param>
+            <param name="H" type="atom" required="true">height in pixels or percents of
+            height</param></method>
+            <!-- curve -->
             <method name="curve">create bezier-curve shape 
             <param name="X0" type="atom" required="true">x0-coord in pixels or percents of
             width</param>
@@ -61,6 +66,7 @@
             width</param>
             <param name="Y4" type="atom" required="true">y3-coord in pixels or percents of
             height</param></method>
+            <!-- line -->
             <method name="line">create line shape 
             <param name="X0" type="atom" required="true">x0-coord in pixels or percents of
             width</param>
@@ -75,6 +81,48 @@
             width</param>
             <param name="Y" type="atom" required="true">y-coord in pixels or percents of
             height</param></method>
+            <!-- polygon -->
+            <method name="polygon">create polygon shape
+            <param name="X0" type="atom" required="true">x0-coord in pixel or percents of
+            width</param>
+            <param name="Y0" type="atom" required="true">y0-coord in pixel or percents of
+            height</param>
+            <param name="X..." type="atom" required="true">x...-coord in pixel or percents of
+            width</param>
+            <param name="Y..." type="atom" required="true">y...-coord in pixel or percents of
+            height</param>
+            <param name="XN" type="atom" required="true">xn-coord in pixel or percents of
+            width</param>
+            <param name="YN" type="atom" required="true">yn-coord in pixel or percents of
+            height</param></method>
+            <!-- polygon -->
+            <method name="rpolygon">create polygon shape
+            <param name="X" type="atom" required="true">x-coord of center in pixel or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord of center in pixel or percents of
+            height</param>
+            <param name="N" type="int" required="true">number of vertexes</param>
+            <param name="R" type="float" required="true">polygon radius</param></method>
+            <!-- star -->
+            <method name="star">create star shape
+            <param name="X" type="atom" required="true">x-coord of center in pixel or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord of center in pixel or percents of
+            height</param>
+            <param name="N" type="int" required="true">number of vertexes</param>
+            <param name="R" type="float" required="false" minvalue="0">star radius</param>
+            <param name="STEP" type="int" required="false" minvalue="1">connection step.
+            If omitted step is auto-calculated</param>
+            </method>
+            <!-- DRAW -->
+            <method name="fill">fill shape with color
+            <param name="COLOR" type="atom" required="true">fill color</param>
+            <param name="PRESERVE" type="atom" required="false" enum="preserve 1">preserve path
+            after fill. You can call stroke method after that</param></method>
+            <method name="stroke">stroke shape with color
+            <param name="COLOR" type="atom" required="true">stroke color</param>
+            <param name="PRESERVE" type="atom" required="false" enum="preserve 1">preserve path
+            after stroke</param></method>
             <method name="line_cap">set line cap 
             <param name="X" type="symbol" required="true" enum="butt round square">line
             cap</param></method>
@@ -92,15 +140,6 @@
             <param name="X" type="atom" required="true">x relative offset in pixels or percents of
             width</param>
             <param name="Y" type="atom" required="true">y relative offset in pixels or percents of
-            height</param></method>
-            <method name="rect">create rectangle shape 
-            <param name="X" type="atom" required="true">x-coord in pixels or percents of
-            width</param>
-            <param name="Y" type="atom" required="true">y-coord in pixels or percents of
-            height</param>
-            <param name="W" type="atom" required="true">width in pixels or percents of
-            width</param>
-            <param name="H" type="atom" required="true">height in pixels or percents of
             height</param></method>
             <method name="rotate">clock-wise rotatation of draw origin 
             <param name="X" type="float" required="true" units="degree">rotation
@@ -137,26 +176,6 @@
             <param name="italic" type="symbol" required="true" />
             <param name="bold" type="symbol" required="true" />
             <param name="SIZE" type="float" required="false">font size</param></method>
-            <method name="polygon">create polygon shape 
-            <param name="X0" type="atom" required="true">x0-coord in pixel or percents of
-            width</param>
-            <param name="Y0" type="atom" required="true">y0-coord in pixel or percents of
-            height</param>
-            <param name="X..." type="atom" required="true">x...-coord in pixel or percents of
-            width</param>
-            <param name="Y..." type="atom" required="true">y...-coord in pixel or percents of
-            height</param>
-            <param name="XN" type="atom" required="true">xn-coord in pixel or percents of
-            width</param>
-            <param name="YN" type="atom" required="true">yn-coord in pixel or percents of
-            height</param></method>
-            <method name="rpolygon">create polygon shape 
-            <param name="X" type="atom" required="true">x-coord of center in pixel or percents of
-            width</param>
-            <param name="Y" type="atom" required="true">y-coord of center in pixel or percents of
-            height</param>
-            <param name="N" type="int" required="true">number of vertexes</param>
-            <param name="R" type="float" required="true">polygon radius</param></method>
         </methods>
         <properties>
             <property name="@send" type="symbol" default="(null)">send destination</property>

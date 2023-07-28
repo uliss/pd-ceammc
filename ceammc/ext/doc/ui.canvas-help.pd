@@ -275,48 +275,63 @@ Type: atom.;
 #X obj 255 3579 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 3579 [Y]: y. If omitted \, uses X-value to scale same in
 both directions. Type: float.;
-#X msg 110 3619 stroke;
-#X text 245 3619 stroke shape with color. Arguments are:;
-#X obj 255 3642 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3642 COLOR: stroke color. Type: atom.;
-#X obj 255 3665 cnv 1 77 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3665 [PRESERVE]: preserve path after stroke. Type: atom.
+#X msg 110 3619 star;
+#X text 245 3619 create star shape. Arguments are:;
+#X obj 255 3642 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3642 X: x-coord of center in pixel or percents of width.
+Type: atom.;
+#X obj 255 3680 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3680 Y: y-coord of center in pixel or percents of height.
+Type: atom.;
+#X obj 255 3718 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3718 N: number of vertexes. Type: int.;
+#X obj 255 3741 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3741 [R]: star radius. Type: float. Min value: 0\.;
+#X obj 255 3764 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3764 [STEP]: connection step. If omitted step is auto-calculated.
+Type: int. Min value: 1\.;
+#X msg 110 3804 stroke;
+#X text 245 3804 stroke shape with color. Arguments are:;
+#X obj 255 3827 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3827 COLOR: stroke color. Type: atom.;
+#X obj 255 3850 cnv 1 77 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3850 [PRESERVE]: preserve path after stroke. Type: atom.
 Allowed values: preserve \, 1\.;
-#X msg 110 3705 text;
-#X text 245 3705 set current text shape. Arguments are:;
-#X obj 255 3728 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3728 X: x-coord in pixels or percents of width. Type: atom.;
-#X obj 255 3751 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3751 Y: y-coord in pixels or percents of height. Type:
+#X msg 110 3890 text;
+#X text 245 3890 set current text shape. Arguments are:;
+#X obj 255 3913 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3913 X: x-coord in pixels or percents of width. Type: atom.;
+#X obj 255 3936 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3936 Y: y-coord in pixels or percents of height. Type:
 atom.;
-#X obj 255 3774 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3774 TXT: text content. Type: list.;
-#X msg 110 3799 translate;
-#X text 245 3799 translate draw origin. Arguments are:;
-#X obj 255 3822 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3822 X: x offset. Type: float.;
-#X obj 255 3845 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3845 Y: y offset. Type: float.;
-#X msg 110 3870 update;
-#X text 245 3870 updates drawed image.;
-#X msg 110 3897 dump;
-#X text 245 3897 dumps all object info to Pd console window.;
-#X obj 20 3934 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 3939 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 255 3959 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 3959 TXT: text content. Type: list.;
+#X msg 110 3984 translate;
+#X text 245 3984 translate draw origin. Arguments are:;
+#X obj 255 4007 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4007 X: x offset. Type: float.;
+#X obj 255 4030 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 4030 Y: y offset. Type: float.;
+#X msg 110 4055 update;
+#X text 245 4055 updates drawed image.;
+#X msg 110 4082 dump;
+#X text 245 4082 dumps all object info to Pd console window.;
+#X obj 20 4119 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4124 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 3940 1\.;
-#X text 245 3940 draw commands.;
-#X obj 20 3970 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 3975 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 4125 1\.;
+#X text 245 4125 draw commands.;
+#X obj 20 4155 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 4160 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 4016 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 4019 library: ceammc v0.9.6;
-#N canvas 10 4038 400 290 info 0;
+#X obj 1 4201 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 4204 library: ceammc v0.9.6;
+#N canvas 10 4223 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -340,7 +355,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 4038 pd info;
+#X restore 10 4223 pd info;
 #X connect 11 0 19 0;
 #X connect 12 0 19 0;
 #X connect 13 0 19 0;
