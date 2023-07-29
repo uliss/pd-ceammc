@@ -57,6 +57,7 @@ public:
     void okSize(t_rect* newrect);
     void paint();
 
+    void m_arrow(const AtomListView& lv);
     void m_background(const AtomListView& lv);
     void m_circle(const AtomListView& lv);
     void m_clear();
@@ -108,6 +109,11 @@ private:
         return (asEBox()->b_rect.h * asEBox()->b_rect.h)
             + (asEBox()->b_rect.w * asEBox()->b_rect.w);
     }
+
+    void addLineCircle(float& x, float& y, float angle, float size);
+    void addLineCross(float x, float y, float angle, float size);
+    void addLineTail(float x, float y, float angle, float size);
+    void addLineArrow(float x, float y, float angle, float size);
 };
 
 void setup_ui_canvas();

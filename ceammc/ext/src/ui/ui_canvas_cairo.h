@@ -56,6 +56,7 @@ public:
     void operator()(const draw::NewPath&) const;
     void operator()(const draw::NewSubPath&) const;
 
+    void operator()(const draw::DrawArc& a) const;
     void operator()(const draw::DrawCircle& c) const;
     void operator()(const draw::DrawCurve& c) const;
     void operator()(const draw::DrawRect& c) const;

@@ -46,6 +46,12 @@ void ceammc::DrawCommandVisitor::operator()(const draw::NewSubPath&) const
         cairo_new_sub_path(ctx_.get());
 }
 
+void ceammc::DrawCommandVisitor::operator()(const draw::DrawArc& a) const
+{
+    if (ctx_)
+        cairo_arc(ctx_.get(), a.x, a.y, a.r, a.a0, a.a1);
+}
+
 void ceammc::DrawCommandVisitor::operator()(const draw::DrawCircle& c) const
 {
     if (ctx_)

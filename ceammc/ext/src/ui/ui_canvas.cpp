@@ -195,6 +195,92 @@ void UICanvas::paint()
         image_id_, data_.c_str());
 }
 
+void UICanvas::m_arrow(const AtomListView& lv)
+{
+    static const args::ArgChecker chk("X0:a Y0:a X1:a Y1:a START:s=A|a|X|x|O|o|T|t|V|v|n? END:s=A|a|X|x|O|o|T|t|V|v|n?");
+    if (!chk.check(lv, nullptr))
+        return chk.usage();
+
+    draw::DrawLine cmd;
+
+    PARSE_PERCENT("line", "X0", lv[0], &cmd.x0, boxW());
+    PARSE_PERCENT("line", "Y0", lv[1], &cmd.y0, boxH());
+    PARSE_PERCENT("line", "X1", lv[2], &cmd.x1, boxW());
+    PARSE_PERCENT("line", "Y1", lv[3], &cmd.y1, boxH());
+
+    auto abeg = lv.symbolAt(4, gensym("D"));
+    auto aend = lv.symbolAt(5, gensym("A"));
+
+    const float ANGLE = std::atan2f(cmd.y1 - cmd.y0, cmd.x1 - cmd.x0);
+    float SIZE = 0;
+
+    // draw start
+    switch (crc32_hash(abeg)) {
+    case "O"_hash:
+        addLineCircle(cmd.x0, cmd.y0, ANGLE, 6);
+        break;
+    case "o"_hash:
+        addLineCircle(cmd.x0, cmd.y0, ANGLE, 3);
+        break;
+    case "a"_hash:
+        addLineArrow(cmd.x0, cmd.y0, ANGLE, 8);
+        break;
+    case "A"_hash:
+        addLineArrow(cmd.x0, cmd.y0, ANGLE, 14);
+        break;
+    case "X"_hash:
+        addLineCross(cmd.x0, cmd.y0, ANGLE, 8);
+        break;
+    case "x"_hash:
+        addLineCross(cmd.x0, cmd.y0, ANGLE, 4);
+        break;
+    case "V"_hash:
+        addLineTail(cmd.x0, cmd.y0, ANGLE, 8);
+        break;
+    case "v"_hash:
+        addLineTail(cmd.x0, cmd.y0, ANGLE, 4);
+        break;
+    default:
+        break;
+    }
+
+    out_queue_.enqueue(draw::NewSubPath {});
+
+    switch (crc32_hash(aend)) {
+    case "X"_hash:
+        addLineCross(cmd.x1, cmd.y1, ANGLE, 8);
+        break;
+    case "x"_hash:
+        addLineCross(cmd.x1, cmd.y1, ANGLE, 4);
+        break;
+    case "O"_hash:
+        addLineCircle(cmd.x1, cmd.y1, ANGLE + M_PI, 6);
+        break;
+    case "o"_hash:
+        addLineCircle(cmd.x1, cmd.y1, ANGLE + M_PI, 3);
+        break;
+    case "V"_hash:
+        addLineTail(cmd.x1, cmd.y1, ANGLE + M_PI, 8);
+        break;
+    case "v"_hash:
+        addLineTail(cmd.x1, cmd.y1, ANGLE + M_PI, 4);
+        break;
+    case "a"_hash:
+        addLineArrow(cmd.x0, cmd.y0, ANGLE + M_PI, 8);
+        break;
+    case "A"_hash:
+        addLineArrow(cmd.x0, cmd.y0, ANGLE + M_PI, 14);
+        break;
+    case "T"_hash:
+        break;
+    default:
+        break;
+    }
+
+    out_queue_.enqueue(draw::NewSubPath {});
+    out_queue_.enqueue(cmd);
+}
+
 void UICanvas::m_fill(const AtomListView& lv)
 {
     draw::SetColorRGBA color;
@@ -869,6 +955,60 @@ bool UICanvas::parsePercent(const char* methodName, const char* argName, const A
     }
 }
 
+void UICanvas::addLineCircle(float& x, float& y, float angle, float size)
+{
+    out_queue_.enqueue(draw::DrawArc { x, y, size, 0, float(2 * M_PI) });
+
+    x += std::cosf(angle) * size;
+    y += std::sinf(angle) * size;
+}
+
+void UICanvas::addLineCross(float x, float y, float angle, float size)
+{
+    angle -= 3 * M_PI_4;
+    float ac = std::cosf(angle) * size;
+    float as = std::sinf(angle) * size;
+    float x1 = x + ac;
+    float y1 = y + as;
+    float x2 = x - ac;
+    float y2 = y - as;
+    //
+    float x3 = x + as;
+    float y3 = y - ac;
+    float x4 = x - as;
+    float y4 = y + ac;
+    out_queue_.enqueue(draw::DrawLine { x1, y1, x2, y2 });
+    out_queue_.enqueue(draw::DrawLine { x3, y3, x4, y4 });
+}
+
+void UICanvas::addLineTail(float x, float y, float angle, float size)
+{
+    angle -= 3 * M_PI_4;
+    float ac = std::cosf(angle) * size;
+    float as = std::sinf(angle) * size;
+    float x1 = x + ac;
+    float y1 = y + as;
+    float x2 = x + as;
+    float y2 = y - ac;
+    out_queue_.enqueue(draw::DrawLine { x, y, x1, y1 });
+    out_queue_.enqueue(draw::DrawLine { x, y, x2, y2 });
+}
+
+void UICanvas::addLineArrow(float x, float y, float angle, float size)
+{
+    float ca = 0.25;
+    float a0 = angle + ca;
+    float a1 = a0 - 2 * ca;
+    float r = 10;
+    float x1 = x + std::cosf(a0) * size;
+    float y1 = y + std::sinf(a0) * size;
+    float x2 = x + std::cosf(a1) * size;
+    float y2 = y + std::sinf(a1) * size;
+
+    out_queue_.enqueue(draw::DrawLine { x, y, x1, y1 });
+    out_queue_.enqueue(draw::DrawLine { x, y, x2, y2 });
+}
+
 void UICanvas::setup()
 {
     ceammc::UIObjectFactory<UICanvas> obj("ui.canvas", EBOX_GROWINDI);
@@ -878,6 +1018,7 @@ void UICanvas::setup()
     obj.hideProperty("background_color");
     obj.setDefaultSize(120, 60);
 
+    obj.addMethod("arrow", &UICanvas::m_arrow);
     obj.addMethod("bg", &UICanvas::m_background);
     obj.addMethod("circle", &UICanvas::m_circle);
     obj.addMethod("clear", &UICanvas::m_clear);

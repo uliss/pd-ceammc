@@ -42,6 +42,10 @@ namespace draw {
         float x, y;
     };
 
+    struct DrawArc {
+        float x, y, r, a0, a1;
+    };
+
     struct DrawCurve {
         float x0, y0, x1, y1, x2, y2, x3, y3;
     };
@@ -156,6 +160,7 @@ namespace draw {
 
     using DrawNextVariant = boost::variant<
         DrawCurve,
+        DrawArc,
         DrawImage,
         DrawLineTo,
         DrawPolygon,
