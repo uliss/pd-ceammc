@@ -124,6 +124,18 @@
             <param name="NC" type="int" required="false" minvalue="0">number of circles</param>
             <param name="CDIST" type="int" required="false" minvalue="1">circle
             distance</param></method>
+            <!-- arrow -->
+            <method name="arrow">creates arrow shape
+            <param name="X0" type="atom" required="true">x-coord of start point in pixel or percents of
+            width</param>
+            <param name="Y0" type="atom" required="true">y-coord of start point in pixel or percents of
+            height</param>
+            <param name="X1" type="atom" required="true">x-coord of target point in pixel or percents of
+            width</param>
+            <param name="Y1" type="atom" required="true">y-coord of target point in pixel or percents of
+            height</param>
+            <param name="START" type="symbol" required="false" enum="A a V v X x T t O o n">start shape</param>
+            <param name="END" type="symbol" required="false" enum="A a V v X x T t O o n">end shape</param></method>
             <!-- DRAW -->
             <method name="fill">fill shape with color 
             <param name="COLOR" type="atom" required="true">fill color</param>
@@ -268,9 +280,9 @@
 [X a->z] [X b->z] [X c->z] [X d->z] [X e->z] [X f->z] [X g->z] [X h->z]
 
 
-[ui.canvas.line] [ui.canvas.text]
+[ui.canvas.line]  [ui.canvas.text]
 
-[ui.canvas.color]
+[ui.canvas.color] [ui.canvas.arrows]
 ]]>
             </pdascii>
             <pdascii id="line">
@@ -364,6 +376,33 @@
 
 [X a->z] [X b->z] [X c->z] [X d->z]
 [X e->z] [X f->z] [X g->z] [X h->z]
+]]>
+            </pdascii>
+            <pdascii id="arrows">
+<![CDATA[
+[line_width 1, arrow 30 30 130 160 A a, stroke red, update #a(
+
+[arrow 60 30 160 160 O o, stroke blue, update #b(
+
+[arrow 90 30 190 160 T t, stroke navy, update #c(
+
+[arrow 120 30 220 160 V v, stroke orange, update #d(
+
+[arrow 150 30 250 160 X x, stroke gray, update #e(
+
+[arrow 180 30 280 160 n n, stroke green, update #f(
+
+
+[ui.canvas @size 300 200 #z]
+
+
+
+
+
+
+
+[X a->z] [X b->z] [X c->z] [X d->z]
+[X e->z] [X f->z]
 ]]>
             </pdascii>
         </example>
