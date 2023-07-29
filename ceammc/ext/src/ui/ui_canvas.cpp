@@ -240,6 +240,12 @@ void UICanvas::m_arrow(const AtomListView& lv)
     case "v"_hash:
         addLineTail(cmd.x0, cmd.y0, ANGLE, 4);
         break;
+    case "t"_hash:
+        addLineEnd(cmd.x0, cmd.y0, ANGLE, 4);
+        break;
+    case "T"_hash:
+        addLineEnd(cmd.x0, cmd.y0, ANGLE, 8);
+        break;
     default:
         break;
     }
@@ -266,12 +272,16 @@ void UICanvas::m_arrow(const AtomListView& lv)
         addLineTail(cmd.x1, cmd.y1, ANGLE + M_PI, 4);
         break;
     case "a"_hash:
-        addLineArrow(cmd.x0, cmd.y0, ANGLE + M_PI, 8);
+        addLineArrow(cmd.x1, cmd.y1, ANGLE + M_PI, 8);
         break;
     case "A"_hash:
-        addLineArrow(cmd.x0, cmd.y0, ANGLE + M_PI, 14);
+        addLineArrow(cmd.x1, cmd.y1, ANGLE + M_PI, 14);
+        break;
+    case "t"_hash:
+        addLineEnd(cmd.x1, cmd.y1, ANGLE, 4);
         break;
     case "T"_hash:
+        addLineEnd(cmd.x1, cmd.y1, ANGLE, 8);
         break;
     default:
         break;
@@ -1007,6 +1017,18 @@ void UICanvas::addLineArrow(float x, float y, float angle, float size)
 
     out_queue_.enqueue(draw::DrawLine { x, y, x1, y1 });
     out_queue_.enqueue(draw::DrawLine { x, y, x2, y2 });
+}
+
+void UICanvas::addLineEnd(float x, float y, float angle, float size)
+{
+    angle -= M_PI_2;
+    float ac = std::cosf(angle) * size;
+    float as = std::sinf(angle) * size;
+    float x1 = x + ac;
+    float y1 = y + as;
+    float x2 = x - ac;
+    float y2 = y - as;
+    out_queue_.enqueue(draw::DrawLine { x1, y1, x2, y2 });
 }
 
 void UICanvas::setup()

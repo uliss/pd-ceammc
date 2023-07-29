@@ -114,6 +114,7 @@ private:
     void addLineCross(float x, float y, float angle, float size);
     void addLineTail(float x, float y, float angle, float size);
     void addLineArrow(float x, float y, float angle, float size);
+    void addLineEnd(float x, float y, float angle, float size);
 };
 
 void setup_ui_canvas();
