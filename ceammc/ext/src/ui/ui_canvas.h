@@ -48,6 +48,7 @@ class UICanvas : public UIObject {
     ThreadNotify worker_notify_;
     std::atomic_bool worker_quit_;
     UINotify ui_notify_;
+    t_symbol* icon_font_;
 
 public:
     UICanvas();
@@ -67,6 +68,7 @@ public:
     void m_fill(const AtomListView& lv);
     void m_font(const AtomListView& lv);
     void m_font_size(t_float sz);
+    void m_icon(const AtomListView& lv);
     void m_image(const AtomListView& lv);
     void m_line(const AtomListView& lv);
     void m_line_to(const AtomListView& lv);
@@ -84,6 +86,7 @@ public:
     void m_rotate(const AtomListView& lv);
     void m_rpolygon(const AtomListView& lv);
     void m_polar(const AtomListView& lv);
+    void m_qrcode(const AtomListView& lv);
     void m_ctx_save();
     void m_stroke(const AtomListView& lv);
     void m_text(const AtomListView& lv);

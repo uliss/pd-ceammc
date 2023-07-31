@@ -104,7 +104,7 @@ namespace draw {
 
     struct SetFont {
         std::string family;
-        std::uint8_t slant, weight;
+        std::uint8_t slant, weight, freetype { 0 };
     };
 
     struct SetFontSize {
@@ -148,6 +148,11 @@ namespace draw {
     struct DrawSave { };
     struct DrawRestore { };
 
+    struct ShapeQrCode {
+        std::string text;
+        std::int16_t x, y, pixel;
+    };
+
     struct SyncImage {
         SyncImage(SubscriberId pid, float pzoom)
             : id(pid)
@@ -171,7 +176,8 @@ namespace draw {
         Scale,
         ClosePath,
         NewPath,
-        NewSubPath
+        NewSubPath,
+        ShapeQrCode
         //
         >;
 

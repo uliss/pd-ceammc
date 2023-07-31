@@ -20,6 +20,7 @@
 #include "ceammc_ui.h"
 #include "datatype_color.h"
 #include "fmt/core.h"
+#include "gperf_material_font.h"
 #include "lex/parser_color.h"
 #include "lex/parser_numeric.h"
 #include "lex/parser_units.h"
@@ -28,6 +29,11 @@
 #include <boost/integer/common_factor.hpp>
 
 namespace {
+
+void ceammc_freetype_done(void* lib)
+{
+    FT_Done_FreeType(static_cast<FT_Library>(lib));
+}
 
 bool getColorArgs(const AtomListView& lv, draw::SetColorRGBA& rgba)
 {
@@ -132,6 +138,7 @@ UICanvas::UICanvas()
     , ctx_(nullptr, &cairo_destroy)
     , ui_notify_(this)
     , worker_quit_(false)
+    , icon_font_(&s_)
 {
     static int image_counter = 0;
     image_id_ = ++image_counter;
@@ -161,10 +168,12 @@ void UICanvas::init(t_symbol* name, const AtomListView& args, bool usePresets)
     out_queue_.enqueue(cmd);
 
     worker_ = std::move(std::thread([this]() {
+        DrawCommandVisitor visitor(surface_, ctx_, in_queue_);
+
         while (!worker_quit_) {
             draw::DrawCommand cmd;
             while (out_queue_.try_dequeue(cmd)) // process all available commands
-                boost::apply_visitor(DrawCommandVisitor(surface_, ctx_, in_queue_), cmd);
+                boost::apply_visitor(visitor, cmd);
 
             worker_notify_.waitFor(100); // sleep 100ms if no notification
         }
@@ -316,6 +325,7 @@ void UICanvas::m_font(const AtomListView& lv)
     draw::SetFont cmd;
     cmd.slant = CAIRO_FONT_SLANT_NORMAL;
     cmd.weight = CAIRO_FONT_WEIGHT_NORMAL;
+    cmd.freetype = 0;
 
     if (chk1.check(lv, nullptr, nullptr, false)) {
         cmd.family = lv.symbolAt(0, &s_)->s_name;
@@ -726,11 +736,65 @@ void UICanvas::m_polar(const AtomListView& lv)
     out_queue_.enqueue(draw::DrawRestore {});
 }
 
+void UICanvas::m_qrcode(const AtomListView& lv)
+{
+    static const args::ArgChecker chk("X:a Y:a PIXEL:i>0 TEXT:s");
+    if (!chk.check(lv, nullptr))
+        return chk.usage();
+
+    float x = 0, y = 0;
+    PARSE_PERCENT("image", "X", lv[0], &x, boxW());
+    PARSE_PERCENT("image", "Y", lv[1], &y, boxH());
+    const std::int16_t pix = lv.intAt(2, 1);
+    const auto text = lv.symbolAt(3, &s_)->s_name;
+
+    out_queue_.enqueue(draw::ShapeQrCode { text, (int16_t)x, (int16_t)y, (int16_t)pix });
+}
+
 void UICanvas::m_font_size(t_float sz)
 {
     draw::SetFontSize c;
     c.size = sz;
     out_queue_.enqueue(c);
+}
+
+void UICanvas::m_icon(const AtomListView& lv)
+{
+    static const args::ArgChecker chk("X:a Y:a SIZE:i>=6 ICON:s");
+    if (!chk.check(lv, nullptr))
+        return chk.usage();
+
+    if (icon_font_ == &s_) {
+        constexpr auto FONT_AWESOME = "fonts/MaterialIcons-Regular.ttf";
+        auto path = platform::find_in_std_path(canvas(), FONT_AWESOME);
+        if (path.empty()) {
+            UI_ERR << "FontAwesome not found";
+            return;
+        }
+
+        icon_font_ = gensym(path.c_str());
+    }
+
+    draw::SetFont font;
+    font.family = icon_font_->s_name;
+    font.slant = 0;
+    font.weight = 0;
+    font.freetype = 1;
+
+    float x = 0, y = 0;
+    PARSE_PERCENT("image", "X", lv[0], &x, boxW());
+    PARSE_PERCENT("image", "Y", lv[1], &y, boxH());
+    const auto ft_size = lv.floatAt(2, 10);
+    const auto name = lv.symbolAt(3, &s_)->s_name;
+    auto data = MaterialFontHash::in_word_set(name, strlen(name));
+    if (!data) {
+        UI_ERR << fmt::format("icon not found: '{}'", name);
+        return;
+    }
+
+    out_queue_.enqueue(font);
+    out_queue_.enqueue(draw::SetFontSize { ft_size });
+    out_queue_.enqueue(draw::DrawText { x, y, data->glyph });
 }
 
 void UICanvas::m_image(const AtomListView& lv)
@@ -749,6 +813,8 @@ void UICanvas::m_image(const AtomListView& lv)
         UI_ERR << fmt::format("can't find file: '{}'", path);
         return;
     }
+
+    UI_DBG << "image path: " << full_path;
 
     draw::DrawImage cmd;
     cmd.path = std::move(full_path);
@@ -1052,6 +1118,7 @@ void UICanvas::setup()
     obj.addMethod("fill", &UICanvas::m_fill);
     obj.addMethod("font", &UICanvas::m_font);
     obj.addMethod("font_size", &UICanvas::m_font_size);
+    obj.addMethod("icon", &UICanvas::m_icon);
     obj.addMethod("image", &UICanvas::m_image);
     obj.addMethod("line", &UICanvas::m_line);
     obj.addMethod("line_cap", &UICanvas::m_line_cap);
@@ -1063,9 +1130,9 @@ void UICanvas::setup()
     obj.addMethod("new_path", &UICanvas::m_new_path);
     obj.addMethod("new_subpath", &UICanvas::m_new_subpath);
     obj.addMethod("node", &UICanvas::m_node);
-    obj.addMethod("node", &UICanvas::m_node);
     obj.addMethod("polar", &UICanvas::m_polar);
     obj.addMethod("polygon", &UICanvas::m_polygon);
+    obj.addMethod("qrcode", &UICanvas::m_qrcode);
     obj.addMethod("rect", &UICanvas::m_rect);
     obj.addMethod("rotate", &UICanvas::m_rotate);
     obj.addMethod("rpolygon", &UICanvas::m_rpolygon);

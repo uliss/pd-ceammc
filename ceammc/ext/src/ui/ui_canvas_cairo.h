@@ -14,9 +14,12 @@
 #ifndef UI_CANVAS_CAIRO_H
 #define UI_CANVAS_CAIRO_H
 
+#include <memory>
+
 #include <boost/variant.hpp>
 #include <cairo.h>
-#include <memory>
+#include <ft2build.h>
+#include FT_FREETYPE_H
 
 #include "readerwriterqueue.h"
 #include "ui_canvas_impl.h"
@@ -46,9 +49,12 @@ class DrawCommandVisitor : public boost::static_visitor<void> {
     CairoSurface& surface_;
     CairoContext& ctx_;
     UICanvasInQueue& queue_;
+    FT_Library ft_lib_;
+    cairo_user_data_key_t user_key_;
 
 public:
     DrawCommandVisitor(CairoSurface& surface, CairoContext& ctx, UICanvasInQueue& in);
+    ~DrawCommandVisitor();
 
     void operator()(const draw::DrawNextVariant& n) const;
 
@@ -85,6 +91,7 @@ public:
     void operator()(const draw::DrawStroke& s) const;
     void operator()(const draw::DrawText& t) const;
     void operator()(const draw::SyncImage& c) const;
+    void operator()(const draw::ShapeQrCode& q) const;
 };
 
 }

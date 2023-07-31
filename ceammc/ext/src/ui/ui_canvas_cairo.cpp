@@ -16,11 +16,24 @@
 #include "ceammc_poll_dispatcher.h"
 #include "fmt/core.h"
 
+#include "cairo-ft.h"
+#include "qrcodegen.hpp"
+
 ceammc::DrawCommandVisitor::DrawCommandVisitor(CairoSurface& surface, CairoContext& ctx, UICanvasInQueue& in)
     : surface_(surface)
     , ctx_(ctx)
     , queue_(in)
+    , ft_lib_(nullptr)
 {
+    auto err = FT_Init_FreeType(&ft_lib_);
+    if (err != 0)
+        queue_.enqueue(DrawResult { DRAW_RESULT_ERROR, "can't init Freetype library" });
+}
+
+ceammc::DrawCommandVisitor::~DrawCommandVisitor()
+{
+    if (ft_lib_)
+        FT_Done_FreeType(ft_lib_);
 }
 
 void ceammc::DrawCommandVisitor::operator()(const draw::DrawNextVariant& n) const
@@ -164,14 +177,38 @@ void ceammc::DrawCommandVisitor::operator()(const draw::SetFontSize& sz) const
 void ceammc::DrawCommandVisitor::operator()(const draw::SetFont& ft) const
 {
     if (ctx_) {
-        auto fc = cairo_toy_font_face_create(ft.family.c_str(),
-            static_cast<cairo_font_slant_t>(ft.slant),
-            static_cast<cairo_font_weight_t>(ft.weight));
+        if (ft.freetype) {
+            FT_Face face;
+            auto err = FT_New_Face(ft_lib_, ft.family.c_str(), 0, &face);
+            if (err != 0) {
+                queue_.enqueue(DrawResult { DRAW_RESULT_ERROR, fmt::format("can't load Freetype font: {}", ft.family) });
+                return;
+            }
 
-        if (fc)
+            auto fc = cairo_ft_font_face_create_for_ft_face(face, 0);
+            if (!fc) {
+                queue_.enqueue(DrawResult { DRAW_RESULT_ERROR, fmt::format("can't create cairo font from Freetype: {}", ft.family) });
+                return;
+            }
+
+            auto status = cairo_font_face_set_user_data(fc, &user_key_,
+                face, (cairo_destroy_func_t)FT_Done_Face);
+
+            if (status != 0) {
+                cairo_font_face_destroy(fc);
+                FT_Done_Face(face);
+                queue_.enqueue(DrawResult { DRAW_RESULT_ERROR, fmt::format("can't create font: {}", ft.family) });
+                return;
+            }
+
             cairo_set_font_face(ctx_.get(), fc);
-        else
-            queue_.enqueue(DrawResult { DRAW_RESULT_ERROR, fmt::format("unknown font: {}", ft.family) });
+
+        } else {
+            cairo_select_font_face(ctx_.get(),
+                ft.family.c_str(),
+                static_cast<cairo_font_slant_t>(ft.slant),
+                static_cast<cairo_font_weight_t>(ft.weight));
+        }
     }
 }
 
@@ -315,6 +352,23 @@ void ceammc::DrawCommandVisitor::operator()(const draw::DrawText& t) const
     if (ctx_) {
         cairo_move_to(ctx_.get(), t.x, t.y);
         cairo_text_path(ctx_.get(), t.str.c_str());
+    }
+}
+
+void ceammc::DrawCommandVisitor::operator()(const draw::ShapeQrCode& qr) const
+{
+    if (ctx_) {
+        auto code = qrcodegen::QrCode::encodeText(qr.text.c_str(), qrcodegen::QrCode::Ecc::MEDIUM);
+        cairo_save(ctx_.get());
+        cairo_translate(ctx_.get(), qr.x, qr.y);
+        auto sz = code.getSize();
+        for (int x = 0; x < sz; x++) {
+            for (int y = 0; y < sz; y++) {
+                if (code.getModule(x, y))
+                    cairo_rectangle(ctx_.get(), x * qr.pixel, y * qr.pixel, qr.pixel, qr.pixel);
+            }
+        }
+        cairo_restore(ctx_.get());
     }
 }
 

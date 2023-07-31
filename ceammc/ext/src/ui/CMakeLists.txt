@@ -58,10 +58,31 @@ target_link_libraries(ceammc_ui PRIVATE ceammc_nui ceammc_env http_lib readerwri
 
 find_package(Cairo)
 if(CAIRO_FOUND)
+    find_package(Freetype REQUIRED)
+
     target_sources(ceammc_ui PRIVATE ui_canvas_cairo.cpp)
-    target_include_directories(ceammc_ui PRIVATE ${CAIRO_INCLUDE_DIRS})
-    target_link_libraries(ceammc_ui PUBLIC ${CAIRO_LIBRARIES})
+    target_include_directories(ceammc_ui
+        PRIVATE
+            ${CAIRO_INCLUDE_DIRS}
+            ${FREETYPE_INCLUDE_DIRS}
+        )
+    target_link_libraries(ceammc_ui
+        PUBLIC
+            ${CAIRO_LIBRARIES}
+            ${FREETYPE_LIBRARIES}
+        PRIVATE qrcode
+    )
 endif()
+
+find_package(Gperf)
+if(Gperf_FOUND)
+    ecm_gperf_generate(material_font.gperf gperf_material_font.h MySources
+        GENERATION_FLAGS "-L C++ --class-name=MaterialFontHash -m 50 --struct-type")
+
+    add_custom_target(gen_material_font DEPENDS gperf_material_font.h)
+    add_custom_target(ui_extra SOURCES material_font.gperf)
+endif()
+
 
 target_include_directories(ceammc_ui
     PRIVATE
