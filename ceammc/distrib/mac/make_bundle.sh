@@ -33,6 +33,7 @@ PD_SFZ=$PD_CEAMMC/sfz
 PD_MIDI=$PD_CEAMMC/midi
 PD_LUA=$PD_CEAMMC/lua
 PD_SAMPLES=$PD_CEAMMC/sound
+PD_FONTS=$PD_CEAMMC/fonts
 
 # absolute dir names
 BUNDLE_APP="${DIST_DIR}/${PD_APP}"
@@ -52,6 +53,7 @@ BUNDLE_LUA="${DIST_DIR}/${PD_LUA}"
 BUNDLE_SAMPLES="${DIST_DIR}/${PD_SAMPLES}"
 BUNDLE_INCLUDE="${DIST_DIR}/${PD_INCLUDE}"
 BUNDLE_COMPLETIONS="${BUNDLE_TCL}/ceammc/custom_completions"
+BUNDLE_FONTS="${DIST_DIR}/${PD_FONTS}"
 
 # resources paths
 PD_INFO_PLIST="${BUILD_DIR}/dist/Info.plist"
@@ -91,7 +93,7 @@ function dylib_external_fix() {
         --dest-dir "${dir}" \
         --install-path @loader_path/ \
         --overwrite-files \
-        --ignore /usr/local/opt/llvm/lib > /dev/null
+        --ignore /usr/local/opt/llvm/lib &>"${BUILD_DIR}/bundle.log"
 }
 
 function copy()
@@ -295,7 +297,7 @@ do
 done
 
 section "Copying CEAMMC sf2 soundfonts"
-for sf in $SRC_CEAMMC/ext/doc/sf2/*
+for sf in $SRC_CEAMMC/ext/doc/sf2/*.ttf
 do
     copy ${sf} "${BUNDLE_SF2}"
 done
@@ -312,6 +314,13 @@ mkdir -p "${BUNDLE_SAMPLES}"
 for samp in $SRC_CEAMMC/ext/doc/sound/*
 do
     copy ${samp} "${BUNDLE_SAMPLES}"
+done
+
+section "Copying CEAMMC fonts"
+mkdir -p "${BUNDLE_FONTS}"
+for ft in $SRC_CEAMMC/distrib/fonts/*.ttf
+do
+    copy ${ft} "${BUNDLE_FONTS}"
 done
 
 section "Copying CEAMMC lua files"
