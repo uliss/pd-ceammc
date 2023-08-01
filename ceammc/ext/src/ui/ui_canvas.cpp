@@ -1020,11 +1020,7 @@ bool UICanvas::parsePercent(const char* methodName, const char* argName, const A
     } else {
         *res = p.asFloat();
         if (p.isPercent()) {
-            float fraq = 0;
             *res *= total;
-            //            std::modf(*res, &fraq);
-            //            if (fraq == 0)
-            //                *res += 0.5;
         }
 
         return true;
