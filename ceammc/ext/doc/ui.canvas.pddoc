@@ -136,6 +136,14 @@
             height</param>
             <param name="START" type="symbol" required="false" enum="A a V v X x T t O o n">start shape</param>
             <param name="END" type="symbol" required="false" enum="A a V v X x T t O o n">end shape</param></method>
+            <!-- image -->
+            <method name="image">draws image. Only PNG images are supported.
+            <param name="X" type="atom" required="true">left-coord in pixel or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">right-coord in pixel or percents of
+            height</param>
+            <param name="PATH" type="symbol" required="true">path to image file, full or relative to patch</param>
+            <param name="SCALE" type="float" required="false" minvalue="0">image scale</param></method>
             <!-- DRAW -->
             <method name="fill">fill shape with color 
             <param name="COLOR" type="atom" required="true">fill color</param>
@@ -248,7 +256,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[clear, matrix #a(
+[clear, matrix #a(             [clear, image 20 20 img/puredata-ceammc.png 0.3, update #i(
 
 [line 30 50 100% 100%, stroke red, update #b(
 
@@ -278,7 +286,7 @@
 
 
 [X a->z] [X b->z] [X c->z] [X d->z] [X e->z] [X f->z] [X g->z] [X h->z]
-
+[X i->z]
 
 [ui.canvas.line]  [ui.canvas.text]
 

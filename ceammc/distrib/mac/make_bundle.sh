@@ -54,6 +54,7 @@ BUNDLE_SAMPLES="${DIST_DIR}/${PD_SAMPLES}"
 BUNDLE_INCLUDE="${DIST_DIR}/${PD_INCLUDE}"
 BUNDLE_COMPLETIONS="${BUNDLE_TCL}/ceammc/custom_completions"
 BUNDLE_FONTS="${DIST_DIR}/${PD_FONTS}"
+BUNDLE_IMAGES="${DIST_DIR}/${PD_CEAMMC}/img"
 
 # resources paths
 PD_INFO_PLIST="${BUILD_DIR}/dist/Info.plist"
@@ -321,6 +322,13 @@ mkdir -p "${BUNDLE_FONTS}"
 for ft in $SRC_CEAMMC/distrib/fonts/*.ttf
 do
     copy ${ft} "${BUNDLE_FONTS}"
+done
+
+section "Copying doc images"
+mkdir -p "${BUNDLE_IMAGES}"
+for img in $SRC_CEAMMC/ext/doc/img/*.png
+do
+    copy ${img} "${BUNDLE_IMAGES}"
 done
 
 section "Copying CEAMMC lua files"
