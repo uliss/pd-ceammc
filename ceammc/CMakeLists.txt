@@ -1,6 +1,7 @@
 # we need 1.50.0 for boost random uniform distribution
 find_package(Boost 1.50.0 REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
+add_subdirectory(extra/corrosion)
 
 configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/ceammc_config.h.in
