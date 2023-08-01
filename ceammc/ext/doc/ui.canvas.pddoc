@@ -256,7 +256,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[clear, matrix #a(             [clear, image 20 20 img/puredata-ceammc.png 0.3, update #i(
+[clear, matrix #a(             [clear, scale 0.3, image 20 20 img/puredata-ceammc.png, update #i(
 
 [line 30 50 100% 100%, stroke red, update #b(
 

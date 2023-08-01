@@ -15,7 +15,7 @@
 #X text 215 155 - stroke or fill it with color;
 #X text 215 180 - update image;
 #X msg 50 243 clear \, matrix;
-#X msg 347 243 clear \, image 20 20 img/puredata-ceammc.png 0.3 \, update;
+#X msg 347 243 clear \, scale 0.3 \, image 20 20 img/puredata-ceammc.png \, update;
 #X msg 50 272 line 30 50 100% 100% \, stroke red \, update;
 #X msg 50 301 circle 0 0 50 \, fill blue \, update;
 #X msg 50 330 rect 80% 90% 15% 10% \, fill navy \, update;

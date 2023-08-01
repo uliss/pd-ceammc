@@ -104,7 +104,6 @@ void ceammc::DrawCommandVisitor::operator()(const draw::DrawImage& c) const
     if (ctx_) {
         CairoSurface img(cairo_image_surface_create_from_png(c.path.c_str()), &cairo_surface_destroy);
         cairo_save(ctx_.get());
-        cairo_scale(ctx_.get(), c.scale, c.scale);
         cairo_set_source_surface(ctx_.get(), img.get(), c.x, c.y);
         cairo_paint(ctx_.get());
         cairo_restore(ctx_.get());

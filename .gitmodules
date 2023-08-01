@@ -79,3 +79,6 @@
 [submodule "ceammc/extra/corrosion"]
 	path = ceammc/extra/corrosion
 	url = https://github.com/corrosion-rs/corrosion.git
+[submodule "ceammc/extra/rust/resvg"]
+	path = ceammc/extra/rust/resvg
+	url = https://github.com/RazrFalcon/resvg

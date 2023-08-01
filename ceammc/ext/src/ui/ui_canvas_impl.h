@@ -60,7 +60,7 @@ namespace draw {
     };
 
     struct DrawImage {
-        float x, y, scale;
+        float x, y;
         std::string path;
     };
 

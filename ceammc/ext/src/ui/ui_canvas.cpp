@@ -799,7 +799,7 @@ void UICanvas::m_icon(const AtomListView& lv)
 
 void UICanvas::m_image(const AtomListView& lv)
 {
-    static const args::ArgChecker chk("X:a Y:a FILE:s SCALE:f>0?");
+    static const args::ArgChecker chk("X:a Y:a FILE:s");
     if (!chk.check(lv, nullptr))
         return chk.usage();
 
@@ -818,7 +818,6 @@ void UICanvas::m_image(const AtomListView& lv)
 
     draw::DrawImage cmd;
     cmd.path = std::move(full_path);
-    cmd.scale = lv.floatAt(3, 1);
     cmd.x = x;
     cmd.y = y;
     out_queue_.enqueue(cmd);

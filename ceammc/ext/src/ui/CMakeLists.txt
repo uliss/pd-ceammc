@@ -54,7 +54,7 @@ ceammc_ui_external(touchosc)
 
 add_library(ceammc_ui STATIC mod_ui.cpp ${NUI_SOURCES} ${UI_SOURCES})
 
-target_link_libraries(ceammc_ui PRIVATE ceammc_nui ceammc_env http_lib readerwriterqueue touchosc)
+target_link_libraries(ceammc_ui PRIVATE ceammc_nui ceammc_env http_lib readerwriterqueue touchosc resvg)
 
 find_package(Cairo)
 if(CAIRO_FOUND)
