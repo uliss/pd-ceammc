@@ -162,7 +162,7 @@ void UICanvas::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 
-    draw::CreateImage cmd;
+    draw::Create cmd;
     cmd.w = width();
     cmd.h = height();
     out_queue_.enqueue(cmd);
@@ -186,7 +186,7 @@ void UICanvas::okSize(t_rect* newrect)
     newrect->w = pd_clip_minmax(newrect->w, 8, 512);
     newrect->h = pd_clip_minmax(newrect->h, 8, 512);
 
-    draw::CreateImage cmd;
+    draw::Create cmd;
     cmd.w = newrect->w;
     cmd.h = newrect->h;
     out_queue_.enqueue(cmd);
@@ -235,7 +235,7 @@ void UICanvas::m_arrow(const AtomListView& lv)
     if (!chk.check(lv, nullptr))
         return chk.usage();
 
-    draw::DrawLine cmd;
+    draw::Line cmd;
 
     PARSE_PERCENT("line", "X0", lv[0], &cmd.x0, boxW());
     PARSE_PERCENT("line", "Y0", lv[1], &cmd.y0, boxH());
@@ -396,7 +396,7 @@ void UICanvas::m_line(const AtomListView& lv)
         return;
     }
 
-    draw::DrawLine cmd;
+    draw::Line cmd;
 
     PARSE_PERCENT("line", "X0", lv[0], &cmd.x0, boxW());
     PARSE_PERCENT("line", "Y0", lv[1], &cmd.y0, boxH());
@@ -413,7 +413,7 @@ void UICanvas::m_line_to(const AtomListView& lv)
         return;
     }
 
-    draw::DrawLineTo cmd;
+    draw::LineTo cmd;
 
     PARSE_PERCENT("line", "X", lv[0], &cmd.x, boxW());
     PARSE_PERCENT("line", "Y", lv[1], &cmd.y, boxH());
@@ -438,7 +438,7 @@ void UICanvas::m_rect(const AtomListView& lv)
         return;
     }
 
-    draw::DrawRect cmd;
+    draw::Rect cmd;
 
     PARSE_PERCENT("rect", "X", lv[0], &cmd.x, boxW());
     PARSE_PERCENT("rect", "Y", lv[1], &cmd.y, boxH());
@@ -455,7 +455,7 @@ void UICanvas::m_circle(const AtomListView& lv)
         return;
     }
 
-    draw::DrawCircle cmd;
+    draw::Circle cmd;
 
     PARSE_PERCENT("circle", "X", lv[0], &cmd.x, boxW());
     PARSE_PERCENT("circle", "Y", lv[1], &cmd.y, boxH());
@@ -486,7 +486,7 @@ void UICanvas::m_text(const AtomListView& lv)
     if (!chk.check(lv, nullptr))
         return chk.usage();
 
-    draw::DrawText c;
+    draw::Text c;
     PARSE_PERCENT("text", "X", lv[0], &c.x, boxW());
     PARSE_PERCENT("text", "Y", lv[1], &c.y, boxH());
     c.str = to_string(lv.subView(2));
@@ -518,7 +518,7 @@ void UICanvas::m_star(const AtomListView& lv)
     PARSE_PERCENT("star", "X", lv[0], &x, boxW());
     PARSE_PERCENT("star", "Y", lv[1], &y, boxH());
 
-    draw::DrawPolygon cmd;
+    draw::Polygon cmd;
     auto N = lv.intAt(2, 0);
     auto R = lv.floatAt(3, std::min(boxH(), boxW()) * 0.5);
     auto STEP = lv.intAt(4, 0);
@@ -631,7 +631,7 @@ void UICanvas::m_curve(const AtomListView& lv)
         return;
     }
 
-    draw::DrawCurve cmd;
+    draw::Curve cmd;
 
     PARSE_PERCENT("curve", "X0", lv[0], &cmd.x0, boxW());
     PARSE_PERCENT("curve", "Y0", lv[1], &cmd.y0, boxH());
@@ -675,7 +675,7 @@ void UICanvas::m_move_by(const AtomListView& lv)
 
 void UICanvas::m_update()
 {
-    out_queue_.enqueue(draw::SyncImage(subscriberId(), zoom()));
+    out_queue_.enqueue(draw::Sync(subscriberId(), zoom()));
     worker_notify_.notifyOne();
 }
 
@@ -727,7 +727,7 @@ void UICanvas::m_rpolygon(const AtomListView& lv)
     PARSE_PERCENT("rpolygon", "X", lv[0], &x, boxW());
     PARSE_PERCENT("rpolygon", "Y", lv[1], &y, boxH());
 
-    draw::DrawPolygon cmd;
+    draw::Polygon cmd;
     auto N = lv.intAt(2, 0);
     auto R = lv.floatAt(3, std::min(boxH(), boxW()) * 0.5);
 
@@ -769,7 +769,7 @@ void UICanvas::m_polar(const AtomListView& lv)
                 break;
 
             out_queue_.enqueue(draw::NewSubPath {});
-            out_queue_.enqueue(draw::DrawCircle { 0, 0, r });
+            out_queue_.enqueue(draw::Circle { 0, 0, r });
         }
     }
 
@@ -778,7 +778,7 @@ void UICanvas::m_polar(const AtomListView& lv)
     const float R = NC > 0 ? std::min(MAXR, NC * CDIST) : MAXR;
     for (int i = 0; i < NDIV; i++) {
         float a = (2 * M_PI * i) / NDIV;
-        out_queue_.enqueue(draw::DrawLine { 0, 0, std::cos(a) * R, std::sin(a) * R });
+        out_queue_.enqueue(draw::Line { 0, 0, std::cos(a) * R, std::sin(a) * R });
     }
 
     out_queue_.enqueue(draw::ClosePath {});
@@ -799,7 +799,7 @@ void UICanvas::m_qrcode(const AtomListView& lv)
     const std::int16_t pix = lv.intAt(2, 1);
     const auto text = lv.symbolAt(3, &s_)->s_name;
 
-    out_queue_.enqueue(draw::ShapeQrCode { text, (int16_t)x, (int16_t)y, (int16_t)pix });
+    out_queue_.enqueue(draw::QRCode { text, (int16_t)x, (int16_t)y, (int16_t)pix });
 }
 
 void UICanvas::m_font_size(t_float sz)
@@ -845,7 +845,7 @@ void UICanvas::m_icon(const AtomListView& lv)
 
     out_queue_.enqueue(font);
     out_queue_.enqueue(draw::SetFontSize { ft_size });
-    out_queue_.enqueue(draw::DrawText { x, y, data->glyph });
+    out_queue_.enqueue(draw::Text { x, y, data->glyph });
 }
 
 void UICanvas::m_image(const AtomListView& lv)
@@ -1006,7 +1006,7 @@ void UICanvas::m_polygon(const AtomListView& lv)
 
     auto w = boxW();
     auto h = boxH();
-    draw::DrawPolygon cmd;
+    draw::Polygon cmd;
     cmd.data.reserve(lv.size());
 
     for (size_t i = 0; i < lv.size(); i++) {
@@ -1079,7 +1079,7 @@ bool UICanvas::parsePercent(const char* methodName, const char* argName, const A
 
 void UICanvas::addLineCircle(float& x, float& y, float angle, float size)
 {
-    out_queue_.enqueue(draw::DrawArc { x, y, size, 0, float(2 * M_PI) });
+    out_queue_.enqueue(draw::Arc { x, y, size, 0, float(2 * M_PI) });
 
     x += std::cosf(angle) * size;
     y += std::sinf(angle) * size;
@@ -1099,8 +1099,8 @@ void UICanvas::addLineCross(float x, float y, float angle, float size)
     float y3 = y - ac;
     float x4 = x - as;
     float y4 = y + ac;
-    out_queue_.enqueue(draw::DrawLine { x1, y1, x2, y2 });
-    out_queue_.enqueue(draw::DrawLine { x3, y3, x4, y4 });
+    out_queue_.enqueue(draw::Line { x1, y1, x2, y2 });
+    out_queue_.enqueue(draw::Line { x3, y3, x4, y4 });
 }
 
 void UICanvas::addLineTail(float x, float y, float angle, float size)
@@ -1112,8 +1112,8 @@ void UICanvas::addLineTail(float x, float y, float angle, float size)
     float y1 = y + as;
     float x2 = x + as;
     float y2 = y - ac;
-    out_queue_.enqueue(draw::DrawLine { x, y, x1, y1 });
-    out_queue_.enqueue(draw::DrawLine { x, y, x2, y2 });
+    out_queue_.enqueue(draw::Line { x, y, x1, y1 });
+    out_queue_.enqueue(draw::Line { x, y, x2, y2 });
 }
 
 void UICanvas::addLineArrow(float x, float y, float angle, float size)
@@ -1127,8 +1127,8 @@ void UICanvas::addLineArrow(float x, float y, float angle, float size)
     float x2 = x + std::cosf(a1) * size;
     float y2 = y + std::sinf(a1) * size;
 
-    out_queue_.enqueue(draw::DrawLine { x, y, x1, y1 });
-    out_queue_.enqueue(draw::DrawLine { x, y, x2, y2 });
+    out_queue_.enqueue(draw::Line { x, y, x1, y1 });
+    out_queue_.enqueue(draw::Line { x, y, x2, y2 });
 }
 
 void UICanvas::addLineEnd(float x, float y, float angle, float size)
@@ -1140,7 +1140,7 @@ void UICanvas::addLineEnd(float x, float y, float angle, float size)
     float y1 = y + as;
     float x2 = x - ac;
     float y2 = y - as;
-    out_queue_.enqueue(draw::DrawLine { x1, y1, x2, y2 });
+    out_queue_.enqueue(draw::Line { x1, y1, x2, y2 });
 }
 
 void UICanvas::setup()

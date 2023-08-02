@@ -59,43 +59,46 @@ public:
 
     void setLibraryPath(const std::string& path);
 
-    void operator()(const draw::DrawNextVariant& n) const;
+    void operator()(const draw::NextVariant& n) const;
 
     void operator()(const draw::ClosePath&) const;
     void operator()(const draw::NewPath&) const;
     void operator()(const draw::NewSubPath&) const;
 
-    void operator()(const draw::DrawArc& a) const;
-    void operator()(const draw::DrawCircle& c) const;
-    void operator()(const draw::DrawCurve& c) const;
-    void operator()(const draw::DrawRect& c) const;
-    void operator()(const draw::DrawPolygon& p) const;
-    void operator()(const draw::DrawImage& c) const;
-    void operator()(const draw::DrawBackground&) const;
-    void operator()(const draw::DrawMusic&) const;
-    void operator()(const draw::MoveTo& c) const;
+    void operator()(const draw::Arc& a) const;
+    void operator()(const draw::Circle& c) const;
+    void operator()(const draw::Curve& c) const;
+    void operator()(const draw::Line& l) const;
+    void operator()(const draw::LineTo& l) const;
     void operator()(const draw::MoveBy& c) const;
-    void operator()(const draw::SetStrokeWidth& c) const;
-    void operator()(const draw::SetLineCap& cap) const;
-    void operator()(const draw::SetDash& dash) const;
-    void operator()(const draw::SetFontSize& sz) const;
-    void operator()(const draw::SetFont& ft) const;
-    void operator()(const draw::SetColorRGBA& c) const;
-    void operator()(const draw::SetMatrix& m) const;
-    void operator()(const draw::ResetMatrix& m) const;
-    void operator()(const draw::DrawSave&) const;
-    void operator()(const draw::DrawRestore&) const;
-    void operator()(const draw::Rotate& r) const;
-    void operator()(const draw::Translate& r) const;
-    void operator()(const draw::Scale& s) const;
-    void operator()(const draw::CreateImage& c) const;
+    void operator()(const draw::MoveTo& c) const;
+    void operator()(const draw::Polygon& p) const;
+    void operator()(const draw::Rect& c) const;
+    void operator()(const draw::Text& t) const;
+    void operator()(const draw::QRCode& q) const;
+
+    void operator()(const draw::Create& c) const;
+    void operator()(const draw::Sync& c) const;
+
+    void operator()(const draw::DrawBackground&) const;
     void operator()(const draw::DrawFill& f) const;
-    void operator()(const draw::DrawLine& l) const;
-    void operator()(const draw::DrawLineTo& l) const;
+    void operator()(const draw::DrawImage& c) const;
+    void operator()(const draw::DrawMusic&) const;
+    void operator()(const draw::DrawRestore&) const;
+    void operator()(const draw::DrawSave&) const;
     void operator()(const draw::DrawStroke& s) const;
-    void operator()(const draw::DrawText& t) const;
-    void operator()(const draw::SyncImage& c) const;
-    void operator()(const draw::ShapeQrCode& q) const;
+
+    void operator()(const draw::ResetMatrix& m) const;
+    void operator()(const draw::Rotate& r) const;
+    void operator()(const draw::Scale& s) const;
+    void operator()(const draw::SetColorRGBA& c) const;
+    void operator()(const draw::SetDash& dash) const;
+    void operator()(const draw::SetFont& ft) const;
+    void operator()(const draw::SetFontSize& sz) const;
+    void operator()(const draw::SetLineCap& cap) const;
+    void operator()(const draw::SetMatrix& m) const;
+    void operator()(const draw::SetStrokeWidth& c) const;
+    void operator()(const draw::Translate& r) const;
 };
 
 }

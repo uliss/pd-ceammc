@@ -203,7 +203,7 @@ void ceammc::DrawCommandVisitor::setLibraryPath(const std::string& path)
     library_path_ = path;
 }
 
-void ceammc::DrawCommandVisitor::operator()(const draw::DrawNextVariant& n) const
+void ceammc::DrawCommandVisitor::operator()(const draw::NextVariant& n) const
 {
     n.apply_visitor(*this);
 }
@@ -226,19 +226,19 @@ void ceammc::DrawCommandVisitor::operator()(const draw::NewSubPath&) const
         cairo_new_sub_path(ctx_.get());
 }
 
-void ceammc::DrawCommandVisitor::operator()(const draw::DrawArc& a) const
+void ceammc::DrawCommandVisitor::operator()(const draw::Arc& a) const
 {
     if (ctx_)
         cairo_arc(ctx_.get(), a.x, a.y, a.r, a.a0, a.a1);
 }
 
-void ceammc::DrawCommandVisitor::operator()(const draw::DrawCircle& c) const
+void ceammc::DrawCommandVisitor::operator()(const draw::Circle& c) const
 {
     if (ctx_)
         cairo_arc(ctx_.get(), c.x, c.y, c.r, 0, M_PI * 2);
 }
 
-void ceammc::DrawCommandVisitor::operator()(const draw::DrawCurve& c) const
+void ceammc::DrawCommandVisitor::operator()(const draw::Curve& c) const
 {
     if (ctx_) {
         cairo_move_to(ctx_.get(), c.x0, c.y0);
@@ -246,13 +246,13 @@ void ceammc::DrawCommandVisitor::operator()(const draw::DrawCurve& c) const
     }
 }
 
-void ceammc::DrawCommandVisitor::operator()(const draw::DrawRect& c) const
+void ceammc::DrawCommandVisitor::operator()(const draw::Rect& c) const
 {
     if (ctx_)
         cairo_rectangle(ctx_.get(), c.x, c.y, c.w, c.h);
 }
 
-void ceammc::DrawCommandVisitor::operator()(const draw::DrawPolygon& p) const
+void ceammc::DrawCommandVisitor::operator()(const draw::Polygon& p) const
 {
     if (ctx_) {
         if (p.data.size() < 6 || (p.data.size() & 0x1))
@@ -481,7 +481,7 @@ void ceammc::DrawCommandVisitor::operator()(const draw::Scale& s) const
         cairo_scale(ctx_.get(), s.x, s.y);
 }
 
-void ceammc::DrawCommandVisitor::operator()(const draw::CreateImage& c) const
+void ceammc::DrawCommandVisitor::operator()(const draw::Create& c) const
 {
     bool do_update = surface_ && ctx_;
 
@@ -535,7 +535,7 @@ void ceammc::DrawCommandVisitor::operator()(const draw::DrawFill& f) const
     }
 }
 
-void ceammc::DrawCommandVisitor::operator()(const draw::DrawLine& l) const
+void ceammc::DrawCommandVisitor::operator()(const draw::Line& l) const
 {
     if (ctx_) {
         cairo_move_to(ctx_.get(), l.x0, l.y0);
@@ -543,7 +543,7 @@ void ceammc::DrawCommandVisitor::operator()(const draw::DrawLine& l) const
     }
 }
 
-void ceammc::DrawCommandVisitor::operator()(const draw::DrawLineTo& l) const
+void ceammc::DrawCommandVisitor::operator()(const draw::LineTo& l) const
 {
     if (ctx_)
         cairo_line_to(ctx_.get(), l.x, l.y);
@@ -558,7 +558,7 @@ void ceammc::DrawCommandVisitor::operator()(const draw::DrawStroke& s) const
     }
 }
 
-void ceammc::DrawCommandVisitor::operator()(const draw::DrawText& t) const
+void ceammc::DrawCommandVisitor::operator()(const draw::Text& t) const
 {
     if (ctx_) {
         cairo_move_to(ctx_.get(), t.x, t.y);
@@ -566,7 +566,7 @@ void ceammc::DrawCommandVisitor::operator()(const draw::DrawText& t) const
     }
 }
 
-void ceammc::DrawCommandVisitor::operator()(const draw::ShapeQrCode& qr) const
+void ceammc::DrawCommandVisitor::operator()(const draw::QRCode& qr) const
 {
     if (ctx_) {
         auto code = qrcodegen::QrCode::encodeText(qr.text.c_str(), qrcodegen::QrCode::Ecc::MEDIUM);
@@ -583,7 +583,7 @@ void ceammc::DrawCommandVisitor::operator()(const draw::ShapeQrCode& qr) const
     }
 }
 
-void ceammc::DrawCommandVisitor::operator()(const draw::SyncImage& c) const
+void ceammc::DrawCommandVisitor::operator()(const draw::Sync& c) const
 {
     auto write_mem_fn = [](void* closure,
                             const unsigned char* data,

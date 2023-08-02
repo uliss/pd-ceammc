@@ -34,35 +34,31 @@ namespace draw {
     struct NewPath { };
     struct NewSubPath { };
 
-    struct DrawCircle {
+    struct Circle {
         float x, y, r;
     };
 
-    struct DrawRect {
+    struct Rect {
         float x, y, w, h;
     };
 
-    struct DrawLine {
+    struct Line {
         float x0, y0, x1, y1;
     };
 
-    struct DrawLineTo {
-        float x, y;
-    };
-
-    struct DrawArc {
+    struct Arc {
         float x, y, r, a0, a1;
     };
 
-    struct DrawCurve {
+    struct Curve {
         float x0, y0, x1, y1, x2, y2, x3, y3;
     };
 
-    struct DrawPolygon {
+    struct Polygon {
         std::vector<float> data;
     };
 
-    struct DrawText {
+    struct Text {
         float x, y;
         std::string str;
     };
@@ -70,6 +66,10 @@ namespace draw {
     struct DrawImage {
         float x, y;
         std::string path;
+    };
+
+    struct LineTo {
+        float x, y;
     };
 
     struct MoveTo {
@@ -134,7 +134,7 @@ namespace draw {
 
     struct ResetMatrix { };
 
-    struct CreateImage {
+    struct Create {
         int w, h;
     };
 
@@ -161,13 +161,13 @@ namespace draw {
         MusicFormat format;
     };
 
-    struct ShapeQrCode {
+    struct QRCode {
         std::string text;
         std::int16_t x, y, pixel;
     };
 
-    struct SyncImage {
-        SyncImage(SubscriberId pid, float pzoom)
+    struct Sync {
+        Sync(SubscriberId pid, float pzoom)
             : id(pid)
             , zoom(pzoom)
         {
@@ -176,12 +176,12 @@ namespace draw {
         float zoom;
     };
 
-    using DrawNextVariant = boost::variant<
-        DrawCurve,
-        DrawArc,
+    using NextVariant = boost::variant<
+        Curve,
+        Arc,
         DrawImage,
-        DrawLineTo,
-        DrawPolygon,
+        LineTo,
+        Polygon,
         DrawSave,
         SetFont,
         SetMatrix,
@@ -190,21 +190,21 @@ namespace draw {
         ClosePath,
         NewPath,
         NewSubPath,
-        ShapeQrCode,
+        QRCode,
         DrawMusic
         //
         >;
 
     using DrawCommand = boost::variant<
-        CreateImage,
+        Create,
         DrawBackground,
-        DrawCircle,
+        Circle,
         DrawFill,
-        DrawLine,
-        DrawRect,
+        Line,
+        Rect,
         DrawRestore,
         DrawStroke,
-        DrawText,
+        Text,
         MoveBy,
         MoveTo,
         Rotate,
@@ -213,10 +213,10 @@ namespace draw {
         SetFontSize,
         SetLineCap,
         SetStrokeWidth,
-        SyncImage,
+        Sync,
         Translate,
 
-        DrawNextVariant //
+        NextVariant //
         >;
 }
 }
