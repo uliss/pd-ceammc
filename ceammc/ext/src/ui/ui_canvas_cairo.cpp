@@ -88,6 +88,7 @@ cairo_surface_t* resvg_to_surface(resvg_render_tree* tree, ceammc::UICanvasInQue
         return nullptr;
     }
 
+    //    OUT_DBG(fmt::format("mtx: a={} b={} c={} d={} e={} f={}", mtx.a, mtx.b, mtx.c, mtx.d, mtx.e, mtx.f));
     resvg_render(tree, resvg_transform_identity(), w, h, (char*)surface_data);
 
     rgba2bgra(surface_data, w, h);
@@ -113,6 +114,11 @@ cairo_surface_t* load_music(const ceammc::draw::DrawMusic& mus, const std::strin
     Verovio vo(vrvToolkit_constructorResourcePath(res_path.c_str()), vrvToolkit_destructor);
 
     OUT_DBG(fmt::format("verovio version: {}", vrvToolkit_getVersion(vo.get())));
+
+    if (!vrvToolkit_setOptions(vo.get(), R"({"scale": 75})")) {
+        OUT_ERR("can't set option: scale=75");
+        return nullptr;
+    }
 
     switch (mus.format) {
     case draw::FORMAT_ABC:
