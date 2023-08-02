@@ -16,8 +16,58 @@
 #include "ceammc_poll_dispatcher.h"
 #include "fmt/core.h"
 
+#include "c-api/resvg.h"
 #include "cairo-ft.h"
+#include "cairo-svg.h"
 #include "qrcodegen.hpp"
+
+#include <boost/algorithm/string.hpp>
+
+namespace {
+
+cairo_surface_t* load_svg(const char* path, ceammc::UICanvasInQueue& queue)
+{
+    auto* opt = resvg_options_create();
+    resvg_options_load_system_fonts(opt);
+
+    resvg_render_tree* tree;
+    int err = resvg_parse_tree_from_file(path, opt, &tree);
+    resvg_options_destroy(opt);
+    if (err != RESVG_OK)
+        return nullptr;
+
+    auto size = resvg_get_image_size(tree);
+    const auto w = (int)size.width;
+    const auto h = (int)size.height;
+
+    queue.enqueue(ceammc::DrawResult { ceammc::DRAW_RESULT_DEBUG, fmt::format("svg size: {}x{}", w, h) });
+
+    auto surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, w, h);
+
+    /* resvg doesn't support stride, so cairo_surface_t should have no padding */
+    assert(cairo_image_surface_get_stride(surface) == (int)size.width * 4);
+
+    auto surface_data = cairo_image_surface_get_data(surface);
+    if (!surface_data) {
+        queue.enqueue(ceammc::DrawResult { ceammc::DRAW_RESULT_ERROR, fmt::format("no data") });
+        return nullptr;
+    }
+
+    resvg_render(tree, resvg_transform_identity(), w, h, (char*)surface_data);
+    resvg_tree_destroy(tree);
+
+    /* RGBA -> BGRA */
+    for (int i = 0; i < (w * h * 4); i += 4) {
+        auto r = surface_data[i + 0];
+        surface_data[i + 0] = surface_data[i + 2];
+        surface_data[i + 2] = r;
+    }
+
+    cairo_surface_mark_dirty(surface);
+
+    return surface;
+}
+}
 
 ceammc::DrawCommandVisitor::DrawCommandVisitor(CairoSurface& surface, CairoContext& ctx, UICanvasInQueue& in)
     : surface_(surface)
@@ -102,10 +152,31 @@ void ceammc::DrawCommandVisitor::operator()(const draw::DrawPolygon& p) const
 void ceammc::DrawCommandVisitor::operator()(const draw::DrawImage& c) const
 {
     if (ctx_) {
-        CairoSurface img(cairo_image_surface_create_from_png(c.path.c_str()), &cairo_surface_destroy);
+        CairoSurface img = { nullptr, cairo_surface_destroy };
+
+        if (boost::algorithm::ends_with(c.path, ".svg")) {
+            img.reset(load_svg(c.path.c_str(), queue_));
+        } else {
+            img.reset(cairo_image_surface_create_from_png(c.path.c_str()));
+        }
+
+        if (!img) {
+            queue_.enqueue(DrawResult { DRAW_RESULT_ERROR, fmt::format("can't load image: '{}'", c.path) });
+            return;
+        }
+
         cairo_save(ctx_.get());
         cairo_set_source_surface(ctx_.get(), img.get(), c.x, c.y);
+        auto err = cairo_status(ctx_.get());
+        if (err != CAIRO_STATUS_SUCCESS) {
+            queue_.enqueue(DrawResult { DRAW_RESULT_ERROR, fmt::format("cairo error: '{}'", cairo_status_to_string(err)) });
+        }
         cairo_paint(ctx_.get());
+        err = cairo_status(ctx_.get());
+        if (err != CAIRO_STATUS_SUCCESS) {
+            queue_.enqueue(DrawResult { DRAW_RESULT_ERROR, fmt::format("cairo error: '{}'", cairo_status_to_string(err)) });
+        }
+
         cairo_restore(ctx_.get());
     }
 }
