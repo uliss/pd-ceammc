@@ -1164,10 +1164,10 @@ void UICanvas::setup()
     obj.addMethod("bg", &UICanvas::m_background);
     obj.addMethod("circle", &UICanvas::m_circle);
     obj.addMethod("clear", &UICanvas::m_clear);
-    obj.addMethod("restore", &UICanvas::m_restore);
-    obj.addMethod("save", &UICanvas::m_save);
-    obj.addMethod("curve", &UICanvas::m_curve);
     obj.addMethod("close_path", &UICanvas::m_close_path);
+    obj.addMethod("crestore", &UICanvas::m_restore);
+    obj.addMethod("csave", &UICanvas::m_save);
+    obj.addMethod("curve", &UICanvas::m_curve);
     obj.addMethod("dash", &UICanvas::m_dash);
     obj.addMethod("fill", &UICanvas::m_fill);
     obj.addMethod("font", &UICanvas::m_font);

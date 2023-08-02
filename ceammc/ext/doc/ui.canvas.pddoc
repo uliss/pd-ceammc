@@ -189,9 +189,11 @@
             <param name="Y" type="atom" required="true">y-coord in pixels or percents of
             height</param>
             <param name="TXT" type="list" required="true">text content</param></method>
-            <method name="save">save current drawing context (pen type, width, color
+            <!-- draw context -->
+            <method name="csave">save current drawing context (pen type, width, color, matrix
             etc.)</method>
-            <method name="restore">restore previously saved context</method>
+            <method name="crestore">restore previously saved context (pen type, width, color, matrix
+            etc.)</method>
             <!-- font -->
             <method name="font">set current font 
             <param name="FONT" type="symbol" required="true">font family</param>
