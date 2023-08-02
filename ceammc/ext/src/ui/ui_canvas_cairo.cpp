@@ -31,6 +31,16 @@ using Verovio = std::unique_ptr<void, void (*)(void*)>;
 using ReSvgTree = std::unique_ptr<resvg_render_tree*, void (*)(resvg_render_tree**)>;
 using ReSvgOpt = std::unique_ptr<resvg_options, void (*)(resvg_options*)>;
 
+// RGBA -> BGRA
+void rgba2bgra(unsigned char* data, int w, int h)
+{
+    for (int i = 0; i < (w * h * 4); i += 4) {
+        auto r = data[i + 0];
+        data[i + 0] = data[i + 2];
+        data[i + 2] = r;
+    }
+}
+
 resvg_render_tree** resvg_tree_new()
 {
     return new resvg_render_tree*;
@@ -46,12 +56,6 @@ void revsg_tree_delete(resvg_render_tree** t)
     }
 }
 
-constexpr const char* VEROVIO_RES = "/music/verovio";
-
-cairo_surface_t* load_music(const ceammc::draw::DrawMusic& mus, const std::string& lib_path, ceammc::UICanvasInQueue& out)
-{
-    using namespace ceammc;
-
 #define OUT_DBG(msg)                                        \
     {                                                       \
         out.enqueue(DrawResult { DRAW_RESULT_DEBUG, msg }); \
@@ -61,6 +65,42 @@ cairo_surface_t* load_music(const ceammc::draw::DrawMusic& mus, const std::strin
     {                                                       \
         out.enqueue(DrawResult { DRAW_RESULT_ERROR, msg }); \
     }
+
+cairo_surface_t* resvg_to_surface(resvg_render_tree* tree, ceammc::UICanvasInQueue& out)
+{
+    using namespace ceammc;
+
+    auto size = resvg_get_image_size(tree);
+    const auto w = (int)size.width;
+    const auto h = (int)size.height;
+
+    OUT_DBG(fmt::format("svg size: {}x{}", w, h));
+
+    auto surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, w, h);
+
+    /* resvg doesn't support stride, so cairo_surface_t should have no padding */
+    assert(cairo_image_surface_get_stride(surface) == (int)size.width * 4);
+
+    auto surface_data = cairo_image_surface_get_data(surface);
+    if (!surface_data) {
+        OUT_ERR("no data");
+        cairo_surface_destroy(surface);
+        return nullptr;
+    }
+
+    resvg_render(tree, resvg_transform_identity(), w, h, (char*)surface_data);
+
+    rgba2bgra(surface_data, w, h);
+    cairo_surface_mark_dirty(surface);
+
+    return surface;
+}
+
+constexpr const char* VEROVIO_RES = "/music/verovio";
+
+cairo_surface_t* load_music(const ceammc::draw::DrawMusic& mus, const std::string& lib_path, ceammc::UICanvasInQueue& out)
+{
+    using namespace ceammc;
 
     auto res_path = lib_path + VEROVIO_RES;
     OUT_DBG(fmt::format("verovio resource path: '{}'", res_path));
@@ -113,7 +153,7 @@ cairo_surface_t* load_music(const ceammc::draw::DrawMusic& mus, const std::strin
         break;
     }
 
-    auto svg = vrvToolkit_renderToSVG(vo.get(), 1, false);
+    auto svg = vrvToolkit_renderToSVG(vo.get(), 1, true);
 
     ReSvgOpt opt = { resvg_options_create(), resvg_options_destroy };
     //    resvg_options_load_system_fonts(opt);
@@ -124,76 +164,20 @@ cairo_surface_t* load_music(const ceammc::draw::DrawMusic& mus, const std::strin
 
     vo.release();
 
-    auto size = resvg_get_image_size(*tree);
-    const auto w = (int)size.width;
-    const auto h = (int)size.height;
-
-    out.enqueue(ceammc::DrawResult { ceammc::DRAW_RESULT_DEBUG, fmt::format("svg size: {}x{}", w, h) });
-
-    auto surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, w, h);
-
-    auto surface_data = cairo_image_surface_get_data(surface);
-    if (!surface_data) {
-        out.enqueue(ceammc::DrawResult { ceammc::DRAW_RESULT_ERROR, fmt::format("no data") });
-        cairo_surface_destroy(surface);
-        return nullptr;
-    }
-
-    resvg_render(*tree, resvg_transform_identity(), w, h, (char*)surface_data);
-
-    /* RGBA -> BGRA */
-    for (int i = 0; i < (w * h * 4); i += 4) {
-        auto r = surface_data[i + 0];
-        surface_data[i + 0] = surface_data[i + 2];
-        surface_data[i + 2] = r;
-    }
-
-    cairo_surface_mark_dirty(surface);
-
-    return surface;
+    return resvg_to_surface(*tree, out);
 }
 
-cairo_surface_t* load_svg(const char* path, ceammc::UICanvasInQueue& queue)
+cairo_surface_t* load_svg(const char* path, ceammc::UICanvasInQueue& out)
 {
-    auto* opt = resvg_options_create();
-    resvg_options_load_system_fonts(opt);
+    ReSvgOpt opt { resvg_options_create(), resvg_options_destroy };
+    resvg_options_load_system_fonts(opt.get());
 
-    resvg_render_tree* tree;
-    int err = resvg_parse_tree_from_file(path, opt, &tree);
-    resvg_options_destroy(opt);
+    ReSvgTree tree { resvg_tree_new(), revsg_tree_delete };
+    auto err = resvg_parse_tree_from_file(path, opt.get(), tree.get());
     if (err != RESVG_OK)
         return nullptr;
 
-    auto size = resvg_get_image_size(tree);
-    const auto w = (int)size.width;
-    const auto h = (int)size.height;
-
-    queue.enqueue(ceammc::DrawResult { ceammc::DRAW_RESULT_DEBUG, fmt::format("svg size: {}x{}", w, h) });
-
-    auto surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, w, h);
-
-    /* resvg doesn't support stride, so cairo_surface_t should have no padding */
-    assert(cairo_image_surface_get_stride(surface) == (int)size.width * 4);
-
-    auto surface_data = cairo_image_surface_get_data(surface);
-    if (!surface_data) {
-        queue.enqueue(ceammc::DrawResult { ceammc::DRAW_RESULT_ERROR, fmt::format("no data") });
-        return nullptr;
-    }
-
-    resvg_render(tree, resvg_transform_identity(), w, h, (char*)surface_data);
-    resvg_tree_destroy(tree);
-
-    /* RGBA -> BGRA */
-    for (int i = 0; i < (w * h * 4); i += 4) {
-        auto r = surface_data[i + 0];
-        surface_data[i + 0] = surface_data[i + 2];
-        surface_data[i + 2] = r;
-    }
-
-    cairo_surface_mark_dirty(surface);
-
-    return surface;
+    return resvg_to_surface(*tree, out);
 }
 }
 

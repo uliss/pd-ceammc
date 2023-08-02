@@ -588,6 +588,32 @@ void UICanvas::m_move_to(const AtomListView& lv)
     out_queue_.enqueue(cmd);
 }
 
+void UICanvas::m_musicxml(const AtomListView& lv)
+{
+    static const args::ArgChecker chk("X:a Y:a FILE:s");
+    if (!chk.check(lv, nullptr))
+        return chk.usage();
+
+    float x, y;
+    PARSE_PERCENT("line", "X", lv[0], &x, boxW());
+    PARSE_PERCENT("line", "Y", lv[1], &y, boxH());
+    auto fname = lv.symbolAt(2, &s_)->s_name;
+    auto path = platform::find_in_std_path(canvas(), fname);
+
+    if (path.empty()) {
+        UI_ERR << fmt::format("can't find file: '{}'", fname);
+        return;
+    }
+
+    draw::DrawMusic cmd;
+    cmd.x = x;
+    cmd.y = y;
+    cmd.format = draw::FORMAT_MUSICXML;
+    cmd.data = path;
+
+    out_queue_.enqueue(cmd);
+}
+
 void UICanvas::m_new_path(const AtomListView& lv)
 {
     out_queue_.enqueue(draw::NewPath {});
@@ -1148,6 +1174,7 @@ void UICanvas::setup()
     obj.addMethod("matrix", &UICanvas::m_matrix);
     obj.addMethod("move_by", &UICanvas::m_move_by);
     obj.addMethod("move_to", &UICanvas::m_move_to);
+    obj.addMethod("musicxml", &UICanvas::m_musicxml);
     obj.addMethod("new_path", &UICanvas::m_new_path);
     obj.addMethod("new_subpath", &UICanvas::m_new_subpath);
     obj.addMethod("node", &UICanvas::m_node);
