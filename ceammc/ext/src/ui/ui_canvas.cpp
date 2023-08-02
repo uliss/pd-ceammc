@@ -679,14 +679,14 @@ void UICanvas::m_update()
     worker_notify_.notifyOne();
 }
 
-void UICanvas::m_ctx_save()
+void UICanvas::m_save()
 {
-    out_queue_.enqueue(draw::DrawSave());
+    out_queue_.enqueue(draw::Save());
 }
 
-void UICanvas::m_ctx_restore()
+void UICanvas::m_restore()
 {
-    out_queue_.enqueue(draw::DrawRestore());
+    out_queue_.enqueue(draw::Restore());
 }
 
 void UICanvas::m_rotate(const AtomListView& lv)
@@ -754,7 +754,7 @@ void UICanvas::m_polar(const AtomListView& lv)
     const auto CDIST = lv.floatAt(4, 10);
 
     // save
-    out_queue_.enqueue(draw::DrawSave {});
+    out_queue_.enqueue(draw::Save {});
     out_queue_.enqueue(draw::Translate { x, y });
 
     const float MAXR = std::sqrtf(hypot2());
@@ -784,7 +784,7 @@ void UICanvas::m_polar(const AtomListView& lv)
     out_queue_.enqueue(draw::ClosePath {});
 
     // restore
-    out_queue_.enqueue(draw::DrawRestore {});
+    out_queue_.enqueue(draw::Restore {});
 }
 
 void UICanvas::m_qrcode(const AtomListView& lv)
@@ -1157,8 +1157,8 @@ void UICanvas::setup()
     obj.addMethod("bg", &UICanvas::m_background);
     obj.addMethod("circle", &UICanvas::m_circle);
     obj.addMethod("clear", &UICanvas::m_clear);
-    obj.addMethod("ctx_restore", &UICanvas::m_ctx_restore);
-    obj.addMethod("ctx_save", &UICanvas::m_ctx_save);
+    obj.addMethod("restore", &UICanvas::m_restore);
+    obj.addMethod("save", &UICanvas::m_save);
     obj.addMethod("curve", &UICanvas::m_curve);
     obj.addMethod("close_path", &UICanvas::m_close_path);
     obj.addMethod("dash", &UICanvas::m_dash);

@@ -134,9 +134,8 @@ namespace draw {
 
     struct ResetMatrix { };
 
-    struct Create {
-        int w, h;
-    };
+    struct Save { };
+    struct Restore { };
 
     struct DrawBackground { };
     struct DrawFill {
@@ -153,8 +152,7 @@ namespace draw {
         }
         bool preserve;
     };
-    struct DrawSave { };
-    struct DrawRestore { };
+
     struct DrawMusic {
         std::string data;
         std::int16_t x, y, pixel;
@@ -164,6 +162,10 @@ namespace draw {
     struct QRCode {
         std::string text;
         std::int16_t x, y, pixel;
+    };
+
+    struct Create {
+        int w, h;
     };
 
     struct Sync {
@@ -182,7 +184,7 @@ namespace draw {
         DrawImage,
         LineTo,
         Polygon,
-        DrawSave,
+        Save,
         SetFont,
         SetMatrix,
         ResetMatrix,
@@ -202,7 +204,7 @@ namespace draw {
         DrawFill,
         Line,
         Rect,
-        DrawRestore,
+        Restore,
         DrawStroke,
         Text,
         MoveBy,

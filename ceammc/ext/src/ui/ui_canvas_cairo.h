@@ -84,8 +84,8 @@ public:
     void operator()(const draw::DrawFill& f) const;
     void operator()(const draw::DrawImage& c) const;
     void operator()(const draw::DrawMusic&) const;
-    void operator()(const draw::DrawRestore&) const;
-    void operator()(const draw::DrawSave&) const;
+    void operator()(const draw::Restore&) const;
+    void operator()(const draw::Save&) const;
     void operator()(const draw::DrawStroke& s) const;
 
     void operator()(const draw::ResetMatrix& m) const;

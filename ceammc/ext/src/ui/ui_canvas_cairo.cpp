@@ -451,13 +451,13 @@ void ceammc::DrawCommandVisitor::operator()(const draw::ResetMatrix&) const
     }
 }
 
-void ceammc::DrawCommandVisitor::operator()(const draw::DrawSave&) const
+void ceammc::DrawCommandVisitor::operator()(const draw::Save&) const
 {
     if (ctx_)
         cairo_save(ctx_.get());
 }
 
-void ceammc::DrawCommandVisitor::operator()(const draw::DrawRestore&) const
+void ceammc::DrawCommandVisitor::operator()(const draw::Restore&) const
 {
     if (ctx_)
         cairo_restore(ctx_.get());
