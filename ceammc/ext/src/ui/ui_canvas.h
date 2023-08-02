@@ -58,6 +58,7 @@ public:
     void okSize(t_rect* newrect);
     void paint();
 
+    void m_abc(const AtomListView& lv);
     void m_arrow(const AtomListView& lv);
     void m_background(const AtomListView& lv);
     void m_circle(const AtomListView& lv);

@@ -169,6 +169,7 @@ void UICanvas::init(t_symbol* name, const AtomListView& args, bool usePresets)
 
     worker_ = std::move(std::thread([this]() {
         DrawCommandVisitor visitor(surface_, ctx_, in_queue_);
+        visitor.setLibraryPath(externalDir()->s_name);
 
         while (!worker_quit_) {
             draw::DrawCommand cmd;
@@ -202,6 +203,30 @@ void UICanvas::paint()
         asEBox()->b_canvas_id->s_name, asEBox(),
         (int)width(), (int)height(),
         image_id_, data_.c_str());
+}
+
+void UICanvas::m_abc(const AtomListView& lv)
+{
+    static const args::ArgChecker chk("X:a Y:a DATA:a+");
+    if (!chk.check(lv, nullptr))
+        return chk.usage();
+
+    float x, y;
+    PARSE_PERCENT("line", "X", lv[0], &x, boxW());
+    PARSE_PERCENT("line", "Y", lv[1], &y, boxH());
+
+    draw::DrawMusic cmd;
+    cmd.x = x;
+    cmd.y = y;
+    cmd.data = "X:1\n";
+    auto mus = to_string(lv.subView(2), "\n");
+    // append key signature (because of segfault in othercase)
+    if (strncmp(mus.c_str(), "K:", 2) != 0)
+        cmd.data += "K:C";
+
+    cmd.data.append(to_string(lv.subView(2), "\n"));
+
+    out_queue_.enqueue(cmd);
 }
 
 void UICanvas::m_arrow(const AtomListView& lv)
@@ -1101,6 +1126,7 @@ void UICanvas::setup()
     obj.hideProperty("background_color");
     obj.setDefaultSize(120, 60);
 
+    obj.addMethod("abc", &UICanvas::m_abc);
     obj.addMethod("arrow", &UICanvas::m_arrow);
     obj.addMethod("bg", &UICanvas::m_background);
     obj.addMethod("circle", &UICanvas::m_circle);

@@ -82,3 +82,6 @@
 [submodule "ceammc/extra/rust/resvg"]
 	path = ceammc/extra/rust/resvg
 	url = https://github.com/RazrFalcon/resvg
+[submodule "ceammc/extra/verovio/verovio"]
+	path = ceammc/extra/verovio/verovio
+	url = https://github.com/rism-digital/verovio.git

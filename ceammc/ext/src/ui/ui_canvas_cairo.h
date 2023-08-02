@@ -51,10 +51,13 @@ class DrawCommandVisitor : public boost::static_visitor<void> {
     UICanvasInQueue& queue_;
     FT_Library ft_lib_;
     cairo_user_data_key_t user_key_;
+    std::string library_path_;
 
 public:
     DrawCommandVisitor(CairoSurface& surface, CairoContext& ctx, UICanvasInQueue& in);
     ~DrawCommandVisitor();
+
+    void setLibraryPath(const std::string& path);
 
     void operator()(const draw::DrawNextVariant& n) const;
 
@@ -69,6 +72,7 @@ public:
     void operator()(const draw::DrawPolygon& p) const;
     void operator()(const draw::DrawImage& c) const;
     void operator()(const draw::DrawBackground&) const;
+    void operator()(const draw::DrawMusic&) const;
     void operator()(const draw::MoveTo& c) const;
     void operator()(const draw::MoveBy& c) const;
     void operator()(const draw::SetStrokeWidth& c) const;

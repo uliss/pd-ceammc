@@ -17,10 +17,18 @@
 #include "ceammc_notify.h"
 
 #include <boost/variant.hpp>
+#include <cstdint>
 #include <string>
 
 namespace ceammc {
 namespace draw {
+
+    enum MusicFormat : std::int8_t {
+        FORMAT_ABC,
+        FORMAT_MUSICXML,
+        FORMAT_HUMDRUM,
+        FORMAT_MEI
+    };
 
     struct ClosePath { };
     struct NewPath { };
@@ -147,6 +155,11 @@ namespace draw {
     };
     struct DrawSave { };
     struct DrawRestore { };
+    struct DrawMusic {
+        std::string data;
+        std::int16_t x, y, pixel;
+        MusicFormat format;
+    };
 
     struct ShapeQrCode {
         std::string text;
@@ -177,7 +190,8 @@ namespace draw {
         ClosePath,
         NewPath,
         NewSubPath,
-        ShapeQrCode
+        ShapeQrCode,
+        DrawMusic
         //
         >;
 

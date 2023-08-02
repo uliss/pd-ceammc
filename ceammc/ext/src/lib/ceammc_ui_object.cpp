@@ -172,6 +172,11 @@ bool UIObjectImpl::isVisible() const
     return box_ && ebox_isvisible(box_);
 }
 
+t_symbol* UIObjectImpl::externalDir()
+{
+    return pd::object_dir(asPdObject());
+}
+
 void UIObjectImpl::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     name_ = name;

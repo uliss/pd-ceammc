@@ -55,6 +55,7 @@ BUNDLE_INCLUDE="${DIST_DIR}/${PD_INCLUDE}"
 BUNDLE_COMPLETIONS="${BUNDLE_TCL}/ceammc/custom_completions"
 BUNDLE_FONTS="${DIST_DIR}/${PD_FONTS}"
 BUNDLE_IMAGES="${DIST_DIR}/${PD_CEAMMC}/img"
+BUNDLE_MUSIC="${DIST_DIR}/${PD_CEAMMC}/music"
 
 # resources paths
 PD_INFO_PLIST="${BUILD_DIR}/dist/Info.plist"
@@ -347,6 +348,10 @@ for midi in $SRC_CEAMMC/ext/doc/midi/*.@(mid|midi)
 do
     copy ${midi} "${BUNDLE_MIDI}"
 done
+
+section "Copying CEAMMC verovio files"
+mkdir -p "${BUNDLE_MUSIC}/verovio"
+cp -R $SRC_CEAMMC/extra/verovio/verovio/data/ "${BUNDLE_MUSIC}/verovio"
 
 section "Copying CEAMMC cmake files"
 mkdir -p "${BUNDLE_INCLUDE}"
