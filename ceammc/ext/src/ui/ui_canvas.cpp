@@ -794,8 +794,8 @@ void UICanvas::m_qrcode(const AtomListView& lv)
         return chk.usage();
 
     float x = 0, y = 0;
-    PARSE_PERCENT("image", "X", lv[0], &x, boxW());
-    PARSE_PERCENT("image", "Y", lv[1], &y, boxH());
+    PARSE_PERCENT("qrcode", "X", lv[0], &x, boxW());
+    PARSE_PERCENT("qrcode", "Y", lv[1], &y, boxH());
     const std::int16_t pix = lv.intAt(2, 1);
     const auto text = lv.symbolAt(3, &s_)->s_name;
 
@@ -833,8 +833,8 @@ void UICanvas::m_icon(const AtomListView& lv)
     font.freetype = 1;
 
     float x = 0, y = 0;
-    PARSE_PERCENT("image", "X", lv[0], &x, boxW());
-    PARSE_PERCENT("image", "Y", lv[1], &y, boxH());
+    PARSE_PERCENT("icon", "X", lv[0], &x, boxW());
+    PARSE_PERCENT("icon", "Y", lv[1], &y, boxH());
     const auto ft_size = lv.floatAt(2, 10);
     const auto name = lv.symbolAt(3, &s_)->s_name;
     auto data = MaterialFontHash::in_word_set(name, strlen(name));
@@ -875,6 +875,11 @@ void UICanvas::m_image(const AtomListView& lv)
     cmd.path = std::move(full_path);
     cmd.x = x;
     cmd.y = y;
+    if (zoom > 0) {
+        cmd.x /= zoom;
+        cmd.y /= zoom;
+    }
+
     out_queue_.enqueue(cmd);
 
     if (zoom > 0)

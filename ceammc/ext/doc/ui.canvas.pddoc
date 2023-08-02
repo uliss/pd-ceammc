@@ -137,13 +137,21 @@
             <param name="START" type="symbol" required="false" enum="A a V v X x T t O o n">start shape</param>
             <param name="END" type="symbol" required="false" enum="A a V v X x T t O o n">end shape</param></method>
             <!-- image -->
-            <method name="image">draws image. Only PNG images are supported.
+            <method name="image">draws image. Note: only PNG images are supported!
             <param name="X" type="atom" required="true">left-coord in pixel or percents of
             width</param>
             <param name="Y" type="atom" required="true">right-coord in pixel or percents of
             height</param>
             <param name="PATH" type="symbol" required="true">path to image file, full or relative to patch</param>
             <param name="SCALE" type="float" required="false" minvalue="0">image scale</param></method>
+            <!-- qrcode -->
+            <method name="qrcode">create QR-code shape.
+            <param name="X" type="atom" required="true">left-coord in pixel or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">right-coord in pixel or percents of
+            height</param>
+            <param name="PIXEL" type="int" required="true" minvalue="1">pixel size</param>
+            <param name="TEXT" type="symbol" required="true">message</param></method>
             <!-- DRAW -->
             <method name="fill">fill shape with color 
             <param name="COLOR" type="atom" required="true">fill color</param>
@@ -258,11 +266,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[clear, matrix #a(             [image 20 20 img/puredata-ceammc.png 0.3, update #i(
+[clear, matrix #a(             [image #i(
 
-[line 30 50 100% 100%, stroke red, update #b(
+[line #b(                      [qrcode #j(
 
-[circle 0 0 50, fill blue, update #c(
+[circle #c(                    [star #k(
 
 [rect 80% 90% 15% 10%, fill navy, update #d(
 
@@ -270,7 +278,7 @@
 
 [polygon 20 90 40 70 100 70 90 190, fill lime!-30, update #f(
 
-[matrix, translate 50% 50%, rotate 35, font_size 40, text 0 0 CEAM, fill gray, update #g(
+[csave, #g(
 
 
 [bg gray!+75, update #h(
@@ -288,11 +296,18 @@
 
 
 [X a->z] [X b->z] [X c->z] [X d->z] [X e->z] [X f->z] [X g->z] [X h->z]
-[X i->z]
+[X i->z] [X j->z] [X k->z]
 
 [ui.canvas.line]  [ui.canvas.text]
 
 [ui.canvas.color] [ui.canvas.arrows]
+
+#b 30 50 100% 100%, stroke red, update
+#c 0 0 50, fill blue, update
+#g translate 50% 50%, rotate 35, font_size 40, text 0 0 CEAM, fill gray, crestore, update
+#i 150 10 img/puredata-ceammc.png 0.13, update
+#j 220 40 3 message, fill black, update
+#k 150 160 5 30, stroke red, update
 ]]>
             </pdascii>
             <pdascii id="line">
