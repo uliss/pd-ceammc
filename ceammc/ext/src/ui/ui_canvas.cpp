@@ -850,7 +850,7 @@ void UICanvas::m_icon(const AtomListView& lv)
 
 void UICanvas::m_image(const AtomListView& lv)
 {
-    static const args::ArgChecker chk("X:a Y:a FILE:s");
+    static const args::ArgChecker chk("X:a Y:a FILE:s ZOOM:f>0?");
     if (!chk.check(lv, nullptr))
         return chk.usage();
 
@@ -858,6 +858,7 @@ void UICanvas::m_image(const AtomListView& lv)
     PARSE_PERCENT("image", "X", lv[0], &x, boxW());
     PARSE_PERCENT("image", "Y", lv[1], &y, boxH());
     auto path = lv.symbolAt(2, &s_)->s_name;
+    float zoom = lv.floatAt(3, 0);
 
     auto full_path = platform::find_in_std_path(canvas(), path);
     if (full_path.empty()) {
@@ -865,13 +866,19 @@ void UICanvas::m_image(const AtomListView& lv)
         return;
     }
 
-    UI_DBG << "image path: " << full_path;
+    if (zoom > 0) {
+        out_queue_.enqueue(draw::Save {});
+        out_queue_.enqueue(draw::Scale { zoom, zoom });
+    }
 
     draw::DrawImage cmd;
     cmd.path = std::move(full_path);
     cmd.x = x;
     cmd.y = y;
     out_queue_.enqueue(cmd);
+
+    if (zoom > 0)
+        out_queue_.enqueue(draw::Restore {});
 }
 
 void UICanvas::m_background(const AtomListView& lv)
