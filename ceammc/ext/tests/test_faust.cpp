@@ -12,6 +12,11 @@
  * this file belongs to.
  *****************************************************************************/
 #include "catch.hpp"
+
+#if PD_FLOATSIZE == 64
+#define FAUSTFLOAT double
+#endif
+
 #include "ceammc_faust.h"
 #include "test_external.h"
 
