@@ -56,10 +56,14 @@ void revsg_tree_delete(resvg_render_tree** t)
     }
 }
 
+#ifndef NDEBUG
 #define OUT_DBG(msg)                                        \
     {                                                       \
         out.enqueue(DrawResult { DRAW_RESULT_DEBUG, msg }); \
     }
+#else
+#define OUT_DBG(msg)
+#endif
 
 #define OUT_ERR(msg)                                        \
     {                                                       \
