@@ -107,10 +107,10 @@ TEST_CASE("gate~", "[externals]")
         sig.fillInput(1);
         t.sendFloat(1, 1);
         dsp.processBlock();
-        REQUIRE(dsp.out(0, 0) == 0.5);
-        REQUIRE(dsp.out(0, 1) == 0.75);
-        REQUIRE(dsp.out(0, 2) == 0.875);
-        REQUIRE(dsp.out(0, 3) == 0.9375);
+        REQUIRE(dsp.out(0, 0) == Approx(0.5));
+        REQUIRE(dsp.out(0, 1) == Approx(0.75));
+        REQUIRE(dsp.out(0, 2) == Approx(0.875));
+        REQUIRE(dsp.out(0, 3) == Approx(0.9375));
 
         dsp.processBlock(100);
         REQUIRE(dsp.out(0, 0) == 1);
