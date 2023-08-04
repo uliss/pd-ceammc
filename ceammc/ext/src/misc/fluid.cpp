@@ -1061,7 +1061,7 @@ void Fluid::processBlock(const t_sample** in, t_sample** out)
     float left[bs];
     float right[bs];
 
-    fluid_synth_write_float(synth_, bs, left, 0, 1, right, 0, 1);
+    fluid_synth_write_float(synth_.get(), bs, left, 0, 1, right, 0, 1);
 
     for (size_t i = 0; i < bs; i++)
         out[0][i] = left[i];
