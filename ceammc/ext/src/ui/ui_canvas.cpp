@@ -775,7 +775,7 @@ void UICanvas::m_polar(const AtomListView& lv)
 
     // draw beams
     auto NDIV = ADIV * 4;
-    const float R = NC > 0 ? std::min(MAXR, NC * CDIST) : MAXR;
+    const float R = NC > 0 ? std::min<float>(MAXR, NC * CDIST) : MAXR;
     for (int i = 0; i < NDIV; i++) {
         float a = (2 * M_PI * i) / NDIV;
         out_queue_.enqueue(draw::Line { 0, 0, std::cos(a) * R, std::sin(a) * R });
@@ -835,7 +835,7 @@ void UICanvas::m_icon(const AtomListView& lv)
     float x = 0, y = 0;
     PARSE_PERCENT("icon", "X", lv[0], &x, boxW());
     PARSE_PERCENT("icon", "Y", lv[1], &y, boxH());
-    const auto ft_size = lv.floatAt(2, 10);
+    const float ft_size = lv.floatAt(2, 10);
     const auto name = lv.symbolAt(3, &s_)->s_name;
     auto data = MaterialFontHash::in_word_set(name, strlen(name));
     if (!data) {
