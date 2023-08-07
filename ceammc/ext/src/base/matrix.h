@@ -26,13 +26,13 @@ using SmoothMatrix = boost::multi_array<SmoothLin, 2>;
 using DSPBlock = std::vector<t_sample>;
 
 class Matrix : public SoundExternal {
-    const size_t nouts_;
-    const size_t nins_;
+    IntProperty *nouts_ { nullptr }, *nins_ { nullptr };
     SmoothMatrix matrix_;
     std::vector<DSPBlock> blocks_;
 
 public:
     Matrix(const PdArgs& args);
+    void initDone() final;
 
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** in) override;

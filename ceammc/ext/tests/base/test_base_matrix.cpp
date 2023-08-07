@@ -62,10 +62,10 @@ TEST_CASE("matrix~", "[externals]")
             TestExtMatrix t("matrix~", LF(0.f, 17), true);
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numInputChannels() == 2);
-            REQUIRE(t.numOutlets() == 16);
-            REQUIRE(t.numOutputChannels() == 16);
+            REQUIRE(t.numOutlets() == 2);
+            REQUIRE(t.numOutputChannels() == 2);
             REQUIRE_PROPERTY_FLOAT(t, @inputs, 2);
-            REQUIRE_PROPERTY_FLOAT(t, @outputs, 16);
+            REQUIRE_PROPERTY_FLOAT(t, @outputs, 2);
         }
     }
 
