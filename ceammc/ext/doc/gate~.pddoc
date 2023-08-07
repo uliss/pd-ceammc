@@ -26,8 +26,8 @@
             access="initonly">number of [in|out]puts.</property>
             <property name="@smooth" type="float" minvalue="0" default="50" maxvalue="1000"
             units="millisecond">gain change smooth time</property>
-            <property name="@init" type="bool" access="initonly" default="true">init state for all slots.
-            If true: all slots are open.</property>
+            <property name="@init" type="bool" access="initonly" default="true">init state for all
+            slots. If true: all slots are open.</property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1" type="audio">

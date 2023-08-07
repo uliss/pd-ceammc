@@ -125,27 +125,31 @@
             <param name="CDIST" type="int" required="false" minvalue="1">circle
             distance</param></method>
             <!-- arrow -->
-            <method name="arrow">creates arrow shape
-            <param name="X0" type="atom" required="true">x-coord of start point in pixel or percents of
-            width</param>
-            <param name="Y0" type="atom" required="true">y-coord of start point in pixel or percents of
-            height</param>
-            <param name="X1" type="atom" required="true">x-coord of target point in pixel or percents of
-            width</param>
-            <param name="Y1" type="atom" required="true">y-coord of target point in pixel or percents of
-            height</param>
-            <param name="START" type="symbol" required="false" enum="A a V v X x T t O o n">start shape</param>
-            <param name="END" type="symbol" required="false" enum="A a V v X x T t O o n">end shape</param></method>
+            <method name="arrow">creates arrow shape 
+            <param name="X0" type="atom" required="true">x-coord of start point in pixel or
+            percents of width</param>
+            <param name="Y0" type="atom" required="true">y-coord of start point in pixel or
+            percents of height</param>
+            <param name="X1" type="atom" required="true">x-coord of target point in pixel or
+            percents of width</param>
+            <param name="Y1" type="atom" required="true">y-coord of target point in pixel or
+            percents of height</param>
+            <param name="START" type="symbol" required="false" enum="A a V v X x T t O o n">start
+            shape</param>
+            <param name="END" type="symbol" required="false" enum="A a V v X x T t O o n">end
+            shape</param></method>
             <!-- image -->
-            <method name="image">draws image. Note: only PNG images are supported!
+            <method name="image">draws image. Note: only PNG images are supported! 
             <param name="X" type="atom" required="true">left-coord in pixel or percents of
             width</param>
             <param name="Y" type="atom" required="true">top-coord in pixel or percents of
             height</param>
-            <param name="PATH" type="symbol" required="true">path to image file, full or relative to patch</param>
-            <param name="SCALE" type="float" required="false" minvalue="0">image scale</param></method>
+            <param name="PATH" type="symbol" required="true">path to image file, full or relative
+            to patch</param>
+            <param name="SCALE" type="float" required="false" minvalue="0">image
+            scale</param></method>
             <!-- qrcode -->
-            <method name="qrcode">create QR-code shape.
+            <method name="qrcode">create QR-code shape. 
             <param name="X" type="atom" required="true">left-coord in pixel or percents of
             width</param>
             <param name="Y" type="atom" required="true">top-coord in pixel or percents of
@@ -153,7 +157,7 @@
             <param name="PIXEL" type="int" required="true" minvalue="1">pixel size</param>
             <param name="TEXT" type="symbol" required="true">message</param></method>
             <!-- abc -->
-            <method name="abc">draw music in ABC notation.
+            <method name="abc">draw music in ABC notation. 
             <param name="X" type="atom" required="true">left-coord in pixel or percents of
             width</param>
             <param name="Y" type="atom" required="true">top-coord in pixel or percents of
@@ -207,8 +211,8 @@
             <!-- draw context -->
             <method name="csave">save current drawing context (pen type, width, color, matrix
             etc.)</method>
-            <method name="crestore">restore previously saved context (pen type, width, color, matrix
-            etc.)</method>
+            <method name="crestore">restore previously saved context (pen type, width, color,
+            matrix etc.)</method>
             <!-- font -->
             <method name="font">set current font 
             <param name="FONT" type="symbol" required="true">font family</param>
