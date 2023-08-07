@@ -17,17 +17,17 @@
 #X obj 20 309 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 314 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 349 @float;
-#X text 245 349 alias to @mode float. Expected input values are in
+#X msg 110 349 @sync;
+#X text 245 349 output value on any inlet change.;
+#X msg 110 378 @float;
+#X text 245 378 alias to @mode float. Expected input values are in
 [0-1] range.;
-#X msg 110 391 @int;
-#X text 245 391 alias to @mode int. Expected input values are in [0-255]
+#X msg 110 420 @int;
+#X text 245 420 alias to @mode int. Expected input values are in [0-255]
 range.;
-#X msg 110 433 @mode;
-#X text 245 433 Get/Set input mode. Type: symbol. Default value: int.
+#X msg 110 462 @mode;
+#X text 245 462 Get/Set input mode. Type: symbol. Default value: int.
 Allowed values: int \, float.;
-#X msg 110 475 @sync;
-#X text 245 475 output value on any inlet change.;
 #X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 519 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

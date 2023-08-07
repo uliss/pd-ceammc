@@ -24,7 +24,7 @@
             [0-255] range</property>
             <property name="@float" type="alias">alias to @mode float. Expected input values are in
             [0-1] range</property>
-            <property name="@sync" type="flag">output value on any inlet change</property>
+            <property name="@sync" type="flag" access="initonly">output value on any inlet change</property>
         </properties>
         <inlets>
             <inlet>
