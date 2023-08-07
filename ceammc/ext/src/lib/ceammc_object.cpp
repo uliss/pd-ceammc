@@ -718,8 +718,9 @@ void BaseObject::parseProps(int flags, PdArgs::ParseMode mode)
             init_times++;
 
         if (init_times > 1) {
-            OBJ_POST << "property '" << p->name()->s_name << "' was set twice: "
-                                                             "from positional and property argumets, using property argument";
+            OBJ_POST << fmt::format("property '{0}' was set twice: from positional ({1:d}) and property ({0}) arguments",
+                p->name()->s_name,
+                p->argIndex());
         }
     }
 }
