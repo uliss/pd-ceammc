@@ -40,7 +40,8 @@ BaseGateTilde::BaseGateTilde(const PdArgs& args)
     n_->setArgIndex(0);
     addProperty(n_);
 
-    init_ = new BoolProperty("@init", true);
+    init_ = new BoolProperty("@init", true, PropValueAccess::INITONLY);
+    init_->setArgIndex(1);
     addProperty(init_);
 
     smooth_ = new FloatProperty("@smooth", 50);
