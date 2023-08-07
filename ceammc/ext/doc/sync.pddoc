@@ -16,10 +16,16 @@
                 <alias>ceammc/sync</alias>
             </aliases>
         </meta>
+        <info>
+            <par>The value send to inlet repeated to all outlets except from the current one. This prevents infinite loops</par>
+        </info>
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="8">number of synchronized
             values</argument>
         </arguments>
+        <properties>
+            <property name="@n" type="int" minvalue="2" default="2" maxvalue="8" access="initonly">number of synced values</property>
+        </properties>
         <inlets dynamic="true">
             <inlet number="1">
                 <xinfo>first synchronized input</xinfo>

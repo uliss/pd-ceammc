@@ -12,9 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "base_sync.h"
-#include "ceammc_convert.h"
 #include "ceammc_factory.h"
-#include "fmt/format.h"
 
 constexpr size_t NUM_MIN = 2;
 constexpr size_t NUM_MAX = 8;
@@ -22,23 +20,17 @@ constexpr size_t NUM_DEFAULT = 2;
 
 BaseSync::BaseSync(const PdArgs& args)
     : BaseObject(args)
-    , n_(NUM_DEFAULT)
     , blocked_(false)
 {
-    const auto& pargs = parsedPosArgs();
-    if (!pargs.empty() && !pargs.isInteger()) {
-        OBJ_ERR << "number of inputs expected";
-    } else {
-        int n = parsedPosArgs().intAt(0, NUM_DEFAULT);
-        if (n < NUM_MIN || n > NUM_MAX) {
-            OBJ_ERR << fmt::format("argument is out of {}..{} range, got: {}, "
-                                   "using default value {}",
-                NUM_MIN, NUM_MAX, n, NUM_DEFAULT);
-        } else
-            n_ = n;
-    }
+    n_ = new IntProperty("@n", NUM_DEFAULT, PropValueAccess::INITONLY);
+    n_->checkClosedRange(NUM_MIN, NUM_MAX);
+    n_->setArgIndex(0);
+    addProperty(n_);
+}
 
-    for (size_t i = 0; i < n_; i++) {
+void BaseSync::initDone()
+{
+    for (int i = 0; i < n_->value(); i++) {
         createInlet();
         createOutlet();
     }
@@ -51,7 +43,7 @@ void BaseSync::onInlet(size_t idx, const AtomListView& lv)
 
     blocked_ = true;
 
-    for (size_t i = 0; i < n_; i++) {
+    for (int i = 0; i < n_->value(); i++) {
         if ((i + 1) == idx)
             continue;
 
@@ -67,5 +59,5 @@ void setup_base_sync()
 
     obj.setDescription("value synchronization");
     obj.setCategory("base");
-    obj.setKeywords({"sync"});
+    obj.setKeywords({ "sync" });
 }
