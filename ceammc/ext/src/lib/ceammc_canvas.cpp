@@ -584,9 +584,10 @@ t_symbol* canvas_expand_dollar(const _glist* c, t_symbol* s, bool check)
     if (strchr(s->s_name, '$')) {
         auto env = canvas_get_env(c);
         if (env) {
-            canvas_set_current(c);
+            auto old_cnv = s__X.s_thing;
+            s__X.s_thing = &((t_canvas*)c)->gl_pd; // set current canvas
             auto ret = binbuf_realizedollsym(s, env->ce_argc, env->ce_argv, !check);
-            canvas_unset_current(c);
+            s__X.s_thing = old_cnv; // restore previous canvas
             return ret;
         } else
             return s;
