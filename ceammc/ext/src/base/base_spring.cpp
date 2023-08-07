@@ -67,19 +67,19 @@ BaseSpring::BaseSpring(const PdArgs& args)
     total_time_->checkClosedRange(TAU, 100 * TAU);
     addProperty(total_time_);
 
-    createCbIntProperty(
+    createCbBoolProperty(
         "@mouse_up", []() { return 0; },
-        [this](int v) -> bool {
+        [this](bool v) -> bool {
             handleMouse(v);
-            if (v == 1) clock_.exec();
+            if (v) clock_.exec();
             return true; });
 
-    createCbIntProperty(
-        "@mouse_down", []() { return 0; }, [this](int v) { handleMouse(v); return true; });
-    createCbIntProperty(
-        "@mouse_move", []() { return 0; }, [this](int v) { handleMouse(v); return true; });
-    createCbIntProperty(
-        "@mouse_drag", []() { return 0; }, [this](int v) { handleMouse(v); return true; });
+    createCbBoolProperty(
+        "@mouse_down", []() { return 0; }, [this](bool v) { handleMouse(v); return true; });
+    createCbBoolProperty(
+        "@mouse_move", []() { return 0; }, [this](bool v) { handleMouse(v); return true; });
+    createCbBoolProperty(
+        "@mouse_drag", []() { return 0; }, [this](bool v) { handleMouse(v); return true; });
 
     accel_ = new FloatProperty("@accel", 0);
     accel_->checkClosedRange(-5, 5);
@@ -145,5 +145,5 @@ void setup_base_spring()
 
     obj.setDescription("float value \"spring\"");
     obj.setCategory("base");
-    obj.setKeywords({"spring", "float"});
+    obj.setKeywords({ "spring", "float" });
 }
