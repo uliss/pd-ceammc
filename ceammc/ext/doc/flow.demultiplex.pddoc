@@ -36,6 +36,8 @@
         <properties>
             <property name="@index" type="int" minvalue="0" default="0">current demultiplexer
             output index</property>
+            <property name="@n" type="int" minvalue="2" default="2" maxvalue="24"
+            access="initonly">number of outlets</property>
         </properties>
         <outlets dynamic="true">
             <outlet>demultiplexer first output</outlet>

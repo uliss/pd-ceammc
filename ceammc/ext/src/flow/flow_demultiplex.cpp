@@ -1,24 +1,31 @@
 #include "flow_demultiplex.h"
-#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
-static const size_t MIN_OUTLETS = 2;
-static const size_t MAX_OUTLETS = 24;
+constexpr int MIN_OUTLETS = 2;
+constexpr int DEF_OUTLETS = 2;
+constexpr int MAX_OUTLETS = 24;
 
 using TxtBuf = char[32];
 static TxtBuf ANNOT[MAX_OUTLETS] = {};
 
 FlowDemultiplex::FlowDemultiplex(const PdArgs& a)
     : BaseObject(a)
-    , index_(nullptr)
 {
+    n_ = new IntProperty("@n", DEF_OUTLETS, PropValueAccess::INITONLY);
+    n_->checkClosedRange(MIN_OUTLETS, MAX_OUTLETS);
+    n_->setArgIndex(0);
+    addProperty(n_);
+
     index_ = new SizeTProperty("@index", 0);
     addProperty(index_);
 
     createInlet();
+}
 
-    const size_t N = positionalConstant<MIN_OUTLETS, MIN_OUTLETS, MAX_OUTLETS>(0);
-    for (size_t i = 0; i < N; i++)
+void FlowDemultiplex::initDone()
+{
+    auto N = n_->value();
+    for (int i = 0; i < N; i++)
         createOutlet();
 }
 
@@ -110,5 +117,5 @@ void setup_flow_demultiplex()
 
     obj.setDescription("control flow demultiplexer");
     obj.setCategory("flow");
-    obj.setKeywords({"demultiplex"});
+    obj.setKeywords({ "demultiplex" });
 }
