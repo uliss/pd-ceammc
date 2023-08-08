@@ -18,7 +18,7 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="SIZE" type="int" minvalue="1">group by this size</argument>
+            <argument name="BY" type="int" minvalue="1">group by this size</argument>
         </arguments>
         <methods>
             <method name="flush">outputs and clears group</method>
