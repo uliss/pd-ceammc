@@ -30,6 +30,8 @@
             <property name="@gain" type="float" units="decibel" minvalue="-15" maxvalue="15"
             default="0">amount of boost or cut apply to the signal</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" data="$obj: flt_lowshelf" />
         </properties>
         <inlets>
             <inlet type="audio">

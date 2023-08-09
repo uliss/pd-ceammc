@@ -28,6 +28,8 @@
             <property name="@q" type="float" minvalue="0.1" maxvalue="300" default="80">
             Q</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" data="$obj: flt_resonbp" />
         </properties>
         <inlets>
             <inlet type="audio">

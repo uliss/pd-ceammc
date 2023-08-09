@@ -27,6 +27,8 @@
             <property name="@q" type="float" minvalue="0.1" maxvalue="100" default="40">Quality
             factor</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" data="$obj: flt_resonlp" />
         </properties>
         <inlets>
             <inlet type="audio">
