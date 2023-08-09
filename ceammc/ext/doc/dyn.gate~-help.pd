@@ -43,8 +43,8 @@ gate to close. Type: float. Range: 1\...500;
 -49933 0;
 #X msg 110 570 @id;
 #X text 245 570 (initonly) Get/Set OSC address id. If specified \,
-bind properties to /ID/dyn_gate/PROP_NAME osc address \, if empty bind
-to /dyn_gate/PROP_NAME. Type: symbol.;
+bind all properties to /ID/dyn_gate/PROP_NAME osc address \, if empty
+bind to /dyn_gate/PROP_NAME. Type: symbol.;
 #X msg 110 627 @osc;
 #X text 245 627 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
