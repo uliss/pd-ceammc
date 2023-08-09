@@ -41,12 +41,8 @@
             wet</property>
             <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
             'effected' signal.</property>
-            <!-- OSC -->
-            <property name="@osc" type="symbol" default="" access="initonly">OSC server name to
-            listen</property>
-            <property name="@id" type="symbol" default="" access="initonly">OSC address id. If
-            specified, bind properties to /ID/flt_speaker/PROP_NAME osc address, if empty bind to
-            /flt_speaker/PROP_NAME.</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" data="$obj: flt_speaker" />
             <!-- common -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>

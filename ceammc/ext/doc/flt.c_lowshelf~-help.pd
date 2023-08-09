@@ -37,8 +37,8 @@
 -49933 0;
 #X msg 110 636 @id;
 #X text 245 636 (initonly) Get/Set OSC address id. If specified \,
-bind properties to /ID/c_lowshelf/PROP_NAME osc address \, if empty
-bind to /c_lowshelf/PROP_NAME. Type: symbol.;
+bind all properties to /ID/flt_c_lowshelf/PROP_NAME osc address \,
+if empty bind to /flt_c_lowshelf/PROP_NAME. Type: symbol.;
 #X msg 110 693 @osc;
 #X text 245 693 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;

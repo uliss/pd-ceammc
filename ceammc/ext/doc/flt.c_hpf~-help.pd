@@ -34,8 +34,8 @@
 -49933 0;
 #X msg 110 539 @id;
 #X text 245 539 (initonly) Get/Set OSC address id. If specified \,
-bind properties to /ID/c_hpf/PROP_NAME osc address \, if empty bind
-to /c_hpf/PROP_NAME. Type: symbol.;
+bind all properties to /ID/flt_c_hpf/PROP_NAME osc address \, if empty
+bind to /flt_c_hpf/PROP_NAME. Type: symbol.;
 #X msg 110 596 @osc;
 #X text 245 596 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;

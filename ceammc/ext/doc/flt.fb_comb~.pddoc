@@ -32,12 +32,8 @@
             <property name="@a" type="float" minvalue="-1" maxvalue="1" default="0.75">scaling
             factor of delayed signal sum</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
-            <!-- OSC -->
-            <property name="@osc" type="symbol" default="" access="initonly">OSC server name to
-            listen</property>
-            <property name="@id" type="symbol" default="" access="initonly">OSC address id. If
-            specified, bind properties to /ID/fb_comb/PROP_NAME osc address, if empty bind to
-            /fb_comb/PROP_NAME.</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" data="$obj: flt_fb_comb" />
         </properties>
         <methods>
             <!-- reset -->

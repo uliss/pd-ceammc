@@ -36,12 +36,8 @@
             <property name="@bandwidth" type="float" units="hertz" minvalue="1" maxvalue="5000"
             default="100">bandwidth of peak</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
-            <!-- OSC -->
-            <property name="@osc" type="symbol" default="" access="initonly">OSC server name to
-            listen</property>
-            <property name="@id" type="symbol" default="" access="initonly">OSC address id. If
-            specified, bind properties to /ID/eq_peak/PROP_NAME osc address, if empty bind to
-            /eq_peak/PROP_NAME.</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" data="$obj: flt_eq_peak" />
         </properties>
         <inlets>
             <inlet type="audio">

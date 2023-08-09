@@ -38,12 +38,8 @@
             <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="1">quality
             factor: @freq/BANDWIDTH</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
-            <!-- OSC -->
-            <property name="@osc" type="symbol" default="" access="initonly">OSC server name to
-            listen</property>
-            <property name="@id" type="symbol" default="" access="initonly">OSC address id. If
-            specified, bind properties to /ID/c_peak/PROP_NAME osc address, if empty bind to
-            /c_peak/PROP_NAME.</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" data="$obj: flt_c_peak" />
         </properties>
         <inlets>
             <inlet>

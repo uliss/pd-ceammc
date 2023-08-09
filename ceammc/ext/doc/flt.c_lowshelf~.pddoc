@@ -35,12 +35,8 @@
             <property name="@gain" type="float" minvalue="-15" maxvalue="15" default="0"
             units="decibel">filter gain</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
-            <!-- OSC -->
-            <property name="@osc" type="symbol" default="" access="initonly">OSC server name to
-            listen</property>
-            <property name="@id" type="symbol" default="" access="initonly">OSC address id. If
-            specified, bind properties to /ID/c_lowshelf/PROP_NAME osc address, if empty bind to
-            /c_lowshelf/PROP_NAME.</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" data="$obj: flt_c_lowshelf" />
         </properties>
         <inlets>
             <inlet>

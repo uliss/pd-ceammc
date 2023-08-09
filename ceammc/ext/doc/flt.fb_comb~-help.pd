@@ -42,8 +42,8 @@ https://en.wikipedia.org/wiki/Comb_filter;
 -49933 0;
 #X msg 110 770 @id;
 #X text 245 770 (initonly) Get/Set OSC address id. If specified \,
-bind properties to /ID/fb_comb/PROP_NAME osc address \, if empty bind
-to /fb_comb/PROP_NAME. Type: symbol.;
+bind all properties to /ID/flt_fb_comb/PROP_NAME osc address \, if
+empty bind to /flt_fb_comb/PROP_NAME. Type: symbol.;
 #X msg 110 827 @osc;
 #X text 245 827 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;

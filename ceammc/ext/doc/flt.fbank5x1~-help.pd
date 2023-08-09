@@ -55,8 +55,8 @@ Range: -6\...6;
 -49933 0;
 #X msg 110 884 @id;
 #X text 245 884 (initonly) Get/Set OSC address id. If specified \,
-bind properties to /ID/fbank5x1/PROP_NAME osc address \, if empty bind
-to /fbank5x1/PROP_NAME. Type: symbol.;
+bind all properties to /ID/flt_fbank5x1/PROP_NAME osc address \, if
+empty bind to /flt_fbank5x1/PROP_NAME. Type: symbol.;
 #X msg 110 941 @osc;
 #X text 245 941 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;

@@ -42,8 +42,8 @@ https://en.wikipedia.org/wiki/Elliptic_filter;
 Hz. Default value: 1000\. Range: 20\...20000\.;
 #X msg 110 792 @id;
 #X text 245 792 (initonly) Get/Set OSC address id. If specified \,
-bind properties to /ID/fx_flanger/PROP_NAME osc address \, if empty
-bind to /fx_flanger/PROP_NAME. Type: symbol.;
+bind all properties to /ID/flt_bpf36e/PROP_NAME osc address \, if empty
+bind to /flt_bpf36e/PROP_NAME. Type: symbol.;
 #X msg 110 849 @osc;
 #X text 245 849 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;

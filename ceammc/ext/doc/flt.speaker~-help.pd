@@ -37,8 +37,8 @@ using a fourth-order Butterworth lowpass.;
 -49933 0;
 #X msg 110 763 @id;
 #X text 245 763 (initonly) Get/Set OSC address id. If specified \,
-bind properties to /ID/flt_speaker/PROP_NAME osc address \, if empty
-bind to /flt_speaker/PROP_NAME. Type: symbol.;
+bind all properties to /ID/flt_speaker/PROP_NAME osc address \, if
+empty bind to /flt_speaker/PROP_NAME. Type: symbol.;
 #X msg 110 820 @osc;
 #X text 245 820 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
