@@ -57,6 +57,15 @@ TEST_CASE("gate~", "[externals]")
             REQUIRE_PROPERTY_FLOAT(t, @n, 4);
             REQUIRE_PROPERTY_FLOAT(t, @init, 0);
         }
+
+        SECTION("both")
+        {
+            TExt t("gate~", LA(4, "@n", 4), true);
+            REQUIRE(t.numInlets() == 5);
+            REQUIRE(t.numInputChannels() == 4);
+            REQUIRE(t.numOutlets() == 4);
+            REQUIRE(t.numOutputChannels() == 4);
+        }
     }
 
     SECTION("process 1 |-> 1")
