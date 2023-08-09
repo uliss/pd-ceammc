@@ -7,16 +7,16 @@
 #X obj 646 11 noise.collatz;
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Collatz conjecture output;
-#X obj 50 158 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 187 metro 50;
-#X obj 69 215 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 69 244 om \$1;
-#X floatatom 59 273 5 0 0 0 - - -;
-#X obj 251 273 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 59 302 offset \$1;
-#X msg 251 302 mode \$1;
-#X obj 50 345 noise.collatz;
-#X obj 50 374 ui.display;
+#X obj 50 143 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 172 metro 50;
+#X obj 69 201 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 69 230 om \$1;
+#X floatatom 59 259 5 0 0 0 - - -;
+#X obj 251 259 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 59 287 offset \$1;
+#X msg 251 287 mode \$1;
+#X obj 50 330 noise.collatz;
+#X obj 50 359 ui.display;
 #X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 413 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;

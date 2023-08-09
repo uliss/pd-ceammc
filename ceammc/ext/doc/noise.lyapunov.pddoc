@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="noise.lyapunov">
         <title>noise.lyapunov</title>
         <meta>
@@ -42,14 +42,7 @@
             <argument name="Y" type="float">y value (optional)</argument>
         </arguments>
         <methods>
-            <method name="set">
-                <param type="float" name="SET" required="true">set to value</param>
-            </method>
-            <method name="reset">reset state</method>
-            <method name="om">
-                <param type="int" name="OM" required="true">enables output when cut or fold value
-                is changed</param>
-            </method>
+            <!-- a -->
             <method name="a">
                 <param type="float" name="A0" required="true">a[0] value</param>
                 <param type="float" name="A1" required="false">a[1] value</param>
@@ -58,6 +51,7 @@
                 <param type="float" name="A4" required="false">a[4] value</param>
                 <param type="float" name="A5" required="false">a[5] value</param>
             </method>
+            <!-- b -->
             <method name="b">
                 <param type="float" name="B0" required="true">b[0] value</param>
                 <param type="float" name="B1" required="false">b[1] value</param>
@@ -66,9 +60,22 @@
                 <param type="float" name="B4" required="false">b[4] value</param>
                 <param type="float" name="B5" required="false">b[5] value</param>
             </method>
+            <!-- om -->
+            <method name="om">
+                <param type="int" name="OM" required="true">enables output when cut or fold value
+                is changed</param>
+            </method>
+            <!-- reset -->
+            <method name="reset">reset state</method>
+            <!-- set -->
+            <method name="set">
+                <param type="float" name="SET" required="true">set to value</param>
+            </method>
+            <!-- x -->
             <method name="x">
                 <param type="float" name="NX" required="true">x value</param>
             </method>
+            <!-- y -->
             <method name="y">
                 <param type="float" name="NY" required="true">y value</param>
             </method>
@@ -85,7 +92,6 @@
         <example>
             <pdascii>
 <![CDATA[
-
 [T]
 |
 [metro 50 #metro]
@@ -118,7 +124,6 @@
 [X reset:0->noise-obj:0]
 
 [X metro->noise-obj]
-
 ]]>
             </pdascii>
         </example>

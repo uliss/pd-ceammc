@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flt.c_hpf">
         <title>flt.c_hpf</title>
         <meta>
@@ -36,6 +36,7 @@
             <property name="@rad" type="flag" access="initonly">use angular frequency</property>
         </properties>
         <methods>
+            <!-- bw -->
             <method name="bw">set bandwidth in octaves 
             <param type="float" name="OCT" required="true">bandwidth</param></method>
         </methods>

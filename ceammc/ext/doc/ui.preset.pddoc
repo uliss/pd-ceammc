@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.preset" type="gui">
         <title>ui.preset</title>
         <meta>
@@ -66,26 +66,34 @@
             slant</property>
         </properties>
         <methods>
+            <!-- clear -->
             <method name="clear">clear specified preset 
             <param type="int" name="IDX" required="true" minvalue="0">preset index</param></method>
+            <!-- clearall -->
             <method name="clearall">clear all existing presets</method>
-            <method name="load">loads specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- duplicate -->
+            <method name="duplicate">fill empty presets by coping exiting values</method>
+            <!-- interp -->
             <method name="interp">loads linearry interpolated value between preset, for example:
             1.5 means load interpolated value between preset 1 and 2. 
             <param type="float" name="IDX" required="true">preset interpolation
             index</param></method>
-            <method name="store">stores specified preset 
+            <!-- load -->
+            <method name="load">loads specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="read">read presets from file 
-            <param type="symbol" name="PATH" required="true">path to preset file</param></method>
-            <method name="write">read presets from file 
-            <param type="symbol" name="PATH" required="true">path to preset file</param></method>
-            <method name="duplicate">fill empty presets by coping exiting values</method>
-            <!-- common-->
+            <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- read -->
+            <method name="read">read presets from file 
+            <param type="symbol" name="PATH" required="true">path to preset file</param></method>
+            <!-- store -->
+            <method name="store">stores specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- write -->
+            <method name="write">read presets from file 
+            <param type="symbol" name="PATH" required="true">path to preset file</param></method>
         </methods>
         <inlets>
             <inlet />

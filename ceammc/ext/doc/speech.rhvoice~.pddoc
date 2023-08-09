@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="speech.rhvoice~">
         <title>speech.rhvoice~</title>
         <meta>
@@ -28,14 +28,6 @@
             <a href="https://github.com/RHVoice/Russian">https://github.com/RHVoice/Russian</a>
             <a href="https://github.com/RHVoice/anna-rus">https://github.com/RHVoice/anna-rus</a>
         </info>
-        <methods>
-            <method name="stop">stops speech and clear TTS queue</method>
-            <method name="clear">clear TTS queue</method>
-            <method name="read">read TTS file (text or SSML) 
-            <param name="FILE" type="symbol" required="true">absolute or relative path to the
-            file</param></method>
-            <method name="ssml">speak SSML text markup</method>
-        </methods>
         <properties>
             <property name="@voice" type="symbol" default="Anna">voice</property>
             <property name="@rate" type="float" minvalue="-1" maxvalue="1" default="0">speaking
@@ -48,6 +40,18 @@
             'all' - pronounce all, otherwise pronounce only specified punctuation
             characters.</property>
         </properties>
+        <methods>
+            <!-- clear -->
+            <method name="clear">clear TTS queue</method>
+            <!-- read -->
+            <method name="read">read TTS file (text or SSML) 
+            <param name="FILE" type="symbol" required="true">absolute or relative path to the
+            file</param></method>
+            <!-- ssml -->
+            <method name="ssml">speak SSML text markup</method>
+            <!-- stop -->
+            <method name="stop">stops speech and clear TTS queue</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="float">speak number</xinfo>

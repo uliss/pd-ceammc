@@ -5,10 +5,10 @@
 #X obj 1 1 cnv 5 765 40 empty empty system.screen_size 20 20 0 20
 -104026 -4096 0;
 #X obj 610 11 system.screen_size;
-#X obj 50 133 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 162 system.screen_size;
-#X obj 50 205 ui.display;
+#X obj 50 147 system.screen_size;
+#X obj 50 190 ui.display;
 #X obj 20 239 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 244 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

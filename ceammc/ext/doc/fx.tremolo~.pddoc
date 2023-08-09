@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="fx.tremolo~">
         <title>fx.tremolo~</title>
         <meta>
@@ -18,9 +18,6 @@
             frequency</argument>
             <argument name="DEPTH" type="float" minvalue="0" maxvalue="1">effect depth</argument>
         </arguments>
-        <methods>
-            <method name="reset">reset to initial state</method>
-        </methods>
         <properties>
             <property name="@freq" type="float" minvalue="0.1" maxvalue="50" units="hertz"
             default="5">tremolo frequency</property>
@@ -41,6 +38,10 @@
             specified, bind properties to /ID/fx_tremolo/PROP_NAME osc address, if empty bind to
             /fx_tremolo/PROP_NAME.</property>
         </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset to initial state</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flt.bpf24~">
         <title>flt.bpf24~</title>
         <meta>
@@ -24,6 +24,12 @@
             flat as possible in the passband.</par>
             <a href="https://en.wikipedia.org/wiki/Butterworth_filter">wiki: Butterworth filter</a>
         </info>
+        <arguments>
+            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">center
+            frequency</argument>
+            <argument name="Q" type="float" minvalue="0.01" maxvalue="100">quality factory:
+            @freq/BANDWIDTH</argument>
+        </arguments>
         <properties>
             <property name="@freq" type="float" units="hertz" default="1000" minvalue="20"
             maxvalue="20000">cutoff frequency</property>
@@ -37,13 +43,8 @@
             specified, bind properties to /ID/fx_bpf24/PROP_NAME osc address, if empty bind to
             /fx_bpf24/PROP_NAME.</property>
         </properties>
-        <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">center
-            frequency</argument>
-            <argument name="Q" type="float" minvalue="0.01" maxvalue="100">quality factory:
-            @freq/BANDWIDTH</argument>
-        </arguments>
         <methods>
+            <!-- reset -->
             <method name="reset">reset filter state</method>
         </methods>
         <inlets>

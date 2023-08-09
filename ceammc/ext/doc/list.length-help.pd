@@ -6,8 +6,8 @@
 -4096 0;
 #X obj 571 11 list.size;
 #X obj 661 11 list.length;
-#X msg 107 118 a b c d e;
-#X msg 290 118 ("a list" "of two elements") \, bang;
+#X msg 50 118 a b c d e;
+#X msg 232 118 ("a list" "of two elements") \, bang;
 #X msg 50 147 1 2;
 #X msg 126 147 list a b c;
 #X floatatom 251 147 5 0 0 0 - - -;

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="mix~">
         <title>mix~</title>
         <meta>
@@ -19,16 +19,6 @@
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="16">number of inputs</argument>
         </arguments>
-        <methods>
-            <method name="mute">mute specified channel 
-            <param name="CH" type="int" minvalue="0" required="true">channel index (from 0)</param>
-            <param name="VAL" type="int" enum="0 1" required="true">1 - mute, 0 -
-            unmute</param></method>
-            <method name="solo">solo (mute all others that not solo) specified channel 
-            <param name="CH" type="int" minvalue="0" required="true">channel index (from 0)</param>
-            <param name="VAL" type="int" enum="0 1">1 - enable solo, 0 - disable
-            solo</param></method>
-        </methods>
         <properties>
             <property name="@xfade_time" type="float" minvalue="1" default="20"
             units="millisecond">smooth time</property>
@@ -41,6 +31,18 @@
             <property name="@solo" type="list" default="0 0">solo channel list, allowed values: 0,
             1</property>
         </properties>
+        <methods>
+            <!-- mute -->
+            <method name="mute">mute specified channel 
+            <param name="CH" type="int" minvalue="0" required="true">channel index (from 0)</param>
+            <param name="VAL" type="int" enum="0 1" required="true">1 - mute, 0 -
+            unmute</param></method>
+            <!-- solo -->
+            <method name="solo">solo (mute all others that not solo) specified channel 
+            <param name="CH" type="int" minvalue="0" required="true">channel index (from 0)</param>
+            <param name="VAL" type="int" enum="0 1">1 - enable solo, 0 - disable
+            solo</param></method>
+        </methods>
         <inlets dynamic="true">
             <inlet number="1" type="audio">
                 <xinfo>input signal</xinfo>

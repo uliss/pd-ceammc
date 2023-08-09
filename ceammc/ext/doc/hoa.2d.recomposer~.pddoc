@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="hoa.2d.recomposer~">
         <title>hoa.2d.recomposer~</title>
         <meta>
@@ -59,10 +59,12 @@
             <property name="@ramp" type="float" default="100" minvalue="0">ramp time</property>
         </properties>
         <methods>
+            <!-- angles -->
             <method name="angles">set the angles of channels. Angles are in radians, wrapped
             between 0 and 2π 
             <param name="VALS" type="list" required="true" units="radian">list of
             angles</param></method>
+            <!-- wide -->
             <method name="wide">set the widening value of channels. Widening value is clipped
             between 0. (omnidirectional) and 1. (directional) 
             <param name="VALS" type="list" required="true">list of values per

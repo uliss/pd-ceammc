@@ -11,69 +11,69 @@
 but all kind of URL supported by your OS. If relative file path is
 given \, it searched in current directory \, then Pd doc directory
 and Pd external directories;
-#X text 50 203 [ui.link @url vu-help.pd @title VU-help];
-#X obj 50 232 ui.link @title VU-help @url vu-help.pd;
-#X text 50 260 [ui.link @url http://puredata.info @title puredata.info];
-#X obj 50 289 ui.link @title puredata.info @url http://puredata.info;
-#X obj 20 331 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 336 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X text 50 188 [ui.link @url vu-help.pd @title VU-help];
+#X obj 50 217 ui.link @title VU-help @url vu-help.pd;
+#X text 50 246 [ui.link @url http://puredata.info @title puredata.info];
+#X obj 50 275 ui.link @title puredata.info @url http://puredata.info;
+#X obj 20 332 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 337 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 371 1\.;
-#X text 150 371 symbol;
-#X obj 246 372 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 371 URL: @url property value. Type: symbol.;
-#X text 110 391 2\.;
-#X text 150 391 list;
-#X obj 246 392 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 391 TITLE: @title property value. Type: list.;
-#X obj 20 421 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 426 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 372 1\.;
+#X text 150 372 symbol;
+#X obj 246 373 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 372 URL: @url property value. Type: symbol.;
+#X text 110 392 2\.;
+#X text 150 392 list;
+#X obj 246 393 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 392 TITLE: @title property value. Type: list.;
+#X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 427 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 461 @title;
-#X text 245 461 Get/Set link title. Type: symbol. Default value: <no
+#X msg 110 462 @title;
+#X text 245 462 Get/Set link title. Type: symbol. Default value: <no
 title>.;
-#X msg 110 490 @url;
-#X text 245 490 Get/Set destination url. Type: symbol. Default value:
+#X msg 110 491 @url;
+#X text 245 491 Get/Set destination url. Type: symbol. Default value:
 <no url>.;
-#X msg 110 532 @hover_color;
-#X text 245 532 Get/Set color when mouse pointer is over element (list
+#X msg 110 533 @hover_color;
+#X text 245 533 Get/Set color when mouse pointer is over element (list
 of red \, green \, blue values in 0-1 range). Type: list. Default value:
 1 0 0.5 1\.;
-#X msg 110 589 @link_color;
-#X text 245 589 Get/Set link color (list of red \, green \, blue values
+#X msg 110 590 @link_color;
+#X text 245 590 Get/Set link color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0 0.625 0.75 1\.;
-#X msg 110 631 @fontname;
-#X text 245 631 Get/Set fontname. Type: symbol. Default value: Helvetica.
+#X msg 110 632 @fontname;
+#X text 245 632 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 673 @fontsize;
-#X text 245 673 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 674 @fontsize;
+#X text 245 674 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...100\.;
-#X msg 110 715 @fontslant;
-#X text 245 715 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 716 @fontslant;
+#X text 245 716 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 757 @fontweight;
-#X text 245 757 Get/Set font weight. Type: symbol. Default value: normal.
+#X msg 110 758 @fontweight;
+#X text 245 758 Get/Set font weight. Type: symbol. Default value: normal.
 Allowed values: normal \, bold.;
-#X msg 110 799 @pinned;
-#X text 245 799 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 800 @pinned;
+#X text 245 800 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: bool. Default value: 0\.;
-#X obj 20 851 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 856 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 852 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 857 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 891 pos;
-#X text 245 891 set UI element position. Arguments are:;
-#X obj 255 914 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 914 X: top left x-coord. Type: float.;
-#X obj 255 937 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 937 Y: top right y-coord. Type: float.;
+#X msg 110 892 pos;
+#X text 245 892 set UI element position. Arguments are:;
+#X obj 255 915 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 915 X: top left x-coord. Type: float.;
+#X obj 255 938 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 938 Y: top right y-coord. Type: float.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 992 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 995 library: ceammc v0.9.6;
-#N canvas 10 1014 400 290 info 0;
+#X obj 1 993 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 996 library: ceammc v0.9.6;
+#N canvas 10 1015 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -97,4 +97,4 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1014 pd info;
+#X restore 10 1015 pd info;

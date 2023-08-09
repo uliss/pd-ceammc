@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.polar" type="gui">
         <title>ui.polar</title>
         <meta>
@@ -77,36 +77,45 @@
             pixels</property>
         </properties>
         <methods>
-            <method name="dump">dumps all object info to Pd console window</method>
-            <method name="set">sets slider position without output 
-            <param name="RAD" type="float" minvalue="0" maxvalue="1" required="true">radius</param>
-            <param name="ANG" type="float" required="true">angle in degrees or radians (depends on
-            @use_degrees property)</param></method>
-            <method name="polar">sets slider position in polar coords and output 
-            <param name="RAD" type="float" minvalue="0" maxvalue="1" required="true">radius</param>
-            <param name="ANG" type="float" required="true">angle in degrees or radians (depends on
-            @use_degrees property)</param></method>
+            <!-- cartesian -->
             <method name="cartesian">sets slider position in cartesian coords and output 
             <param name="X" type="float" minvalue="-1" maxvalue="1" required="true">x-coord</param>
             <param name="Y" type="float" minvalue="-1" maxvalue="1" required="true">
             y-coord</param></method>
-            <method name="rotate">rotate slider by specified angle 
-            <param name="A" type="float" required="true">angle in degrees or radians (depends on
-            @use_degrees property)</param></method>
-            <method name="random">set to random value and output</method>
-            <!-- presets -->
-            <method name="load">loads specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="store">stores specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- clear -->
             <method name="clear">clears specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- dump -->
+            <method name="dump">dumps all object info to Pd console window</method>
+            <!-- interp -->
             <method name="interp">interplolates between presets 
             <param type="float" name="IDX" required="true">preset fraction index</param></method>
-            <!-- common-->
+            <!-- load -->
+            <method name="load">loads specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- polar -->
+            <method name="polar">sets slider position in polar coords and output 
+            <param name="RAD" type="float" minvalue="0" maxvalue="1" required="true">radius</param>
+            <param name="ANG" type="float" required="true">angle in degrees or radians (depends on
+            @use_degrees property)</param></method>
+            <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- random -->
+            <method name="random">set to random value and output</method>
+            <!-- rotate -->
+            <method name="rotate">rotate slider by specified angle 
+            <param name="A" type="float" required="true">angle in degrees or radians (depends on
+            @use_degrees property)</param></method>
+            <!-- set -->
+            <method name="set">sets slider position without output 
+            <param name="RAD" type="float" minvalue="0" maxvalue="1" required="true">radius</param>
+            <param name="ANG" type="float" required="true">angle in degrees or radians (depends on
+            @use_degrees property)</param></method>
+            <!-- store -->
+            <method name="store">stores specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
         </methods>
         <inlets>
             <inlet>

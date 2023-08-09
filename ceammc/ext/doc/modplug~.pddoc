@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="modplug~">
         <title>modplug~</title>
         <meta>
@@ -28,16 +28,19 @@
             position in mod file</property>
             <property name="@play" type="bool" default="0">play state</property>
         </properties>
+        <methods>
+            <!-- pause -->
+            <method name="pause">pause playing</method>
+            <!-- play -->
+            <method name="play">play mod file</method>
+            <!-- stop -->
+            <method name="stop">stop playing and move play position to the end of file</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="symbol">load mod file</xinfo>
             </inlet>
         </inlets>
-        <methods>
-            <method name="play">play mod file</method>
-            <method name="pause">pause playing</method>
-            <method name="stop">stop playing and move play position to the end of file</method>
-        </methods>
         <outlets>
             <outlet type="audio">left channel and property output</outlet>
             <outlet type="audio">right channel</outlet>

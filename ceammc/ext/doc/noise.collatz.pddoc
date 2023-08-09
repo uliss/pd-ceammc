@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="noise.collatz">
         <title>noise.collatz</title>
         <meta>
@@ -18,13 +18,16 @@
         </info>
         <arguments />
         <methods>
-            <method name="offset">
-                <param type="float" name="OFFSET" required="true">offset value</param>
-            </method>
+            <!-- mode -->
             <method name="mode">
                 <param type="int" name="MODE" required="true">mode value. 0 for Collatz, 1 for
                 Terras</param>
             </method>
+            <!-- offset -->
+            <method name="offset">
+                <param type="float" name="OFFSET" required="true">offset value</param>
+            </method>
+            <!-- om -->
             <method name="om">
                 <param type="int" name="OM" required="true">enables output when cut or fold value
                 is changed</param>
@@ -41,7 +44,6 @@
         <example>
             <pdascii>
 <![CDATA[
-
 [T]
 |
 [metro 50 #metro]
@@ -66,7 +68,6 @@
 [X mode:0->noise-obj:0]
 
 [X metro->noise-obj]
-
 ]]>
             </pdascii>
         </example>

@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty tl.transport 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 tl.transport;
-#X obj 184 118 tl.cue;
-#X obj 366 118 tl.cue;
+#X obj 50 118 tl.cue;
+#X obj 232 118 tl.cue;
 #X obj 50 147 hradio 15 1 0 3 empty empty empty 17 7 0 10 -262144 -1
 -1 0;
 #X obj 213 147 tl.bang;

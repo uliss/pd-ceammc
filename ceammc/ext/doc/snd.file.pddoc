@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="snd.file">
         <title>snd.file</title>
         <meta>
@@ -17,7 +17,24 @@
             <par>Deal with sound files: gets files info and loads them into arrays. Various formats
             are supported. Supports array name patterns.</par>
         </info>
+        <properties>
+            <property name="@formats" access="readonly" type="list"
+            default="AAC AIFF ALAC AU AVR CAF FLAC HTK IFF MACE3:1 MACE6:1 MAT4 MAT5 MP3 MP4 MPC OGG PAF PVF RAW RF64 SD2 SDS SF VOC W64 WAV WAVEX WVE XI">
+            list of supported formats</property>
+            <property name="@sr" access="readonly" type="list" default="">source file
+            samplerate</property>
+            <property name="@filename" access="readonly" type="list" default="">filename</property>
+            <property name="@samples" access="readonly" type="list" default="">list of number of
+            loaded samples into each array</property>
+            <property name="@channels" access="readonly" type="list" default="">list of loaded
+            channels into each array</property>
+            <property name="@smpte_fr" type="float" minvalue="1" maxvalue="99" default="30">SMPTE
+            framerate for SMPTE offset calculations</property>
+            <property name="@verbose" type="bool" default="0" access="initonly">verbose output to
+            Pd window</property>
+        </properties>
         <methods>
+            <!-- load -->
             <method name="load">Loads sound file. Outputs info properties and number of loaded
             samples after load. 
             <param type="symbol" required="true" name="PATH">path to soundfile</param>
@@ -44,22 +61,6 @@
             samplerate to current Pd samplerate. But you can manually specify R as float value or
             integer fraction - 44100/48000</param></method>
         </methods>
-        <properties>
-            <property name="@formats" access="readonly" type="list"
-            default="AAC AIFF ALAC AU AVR CAF FLAC HTK IFF MACE3:1 MACE6:1 MAT4 MAT5 MP3 MP4 MPC OGG PAF PVF RAW RF64 SD2 SDS SF VOC W64 WAV WAVEX WVE XI">
-            list of supported formats</property>
-            <property name="@sr" access="readonly" type="list" default="">source file
-            samplerate</property>
-            <property name="@filename" access="readonly" type="list" default="">filename</property>
-            <property name="@samples" access="readonly" type="list" default="">list of number of
-            loaded samples into each array</property>
-            <property name="@channels" access="readonly" type="list" default="">list of loaded
-            channels into each array</property>
-            <property name="@smpte_fr" type="float" minvalue="1" maxvalue="99" default="30">SMPTE
-            framerate for SMPTE offset calculations</property>
-            <property name="@verbose" type="bool" default="0" access="initonly">verbose output to
-            Pd window</property>
-        </properties>
         <inlets>
             <inlet type="control">
                 <xinfo>input inlet</xinfo>

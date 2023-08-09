@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="chaos.jong">
         <title>chaos.jong</title>
         <meta>
@@ -35,18 +35,27 @@
             <argument type="float" name="Y">y init value (default 0)</argument>
         </arguments>
         <methods>
-            <method name="reset">set to initial state</method>
-            <method name="set">set A B C D E X Y values. Also updates init state vars.</method>
+            <!-- a -->
             <method name="a">set a-value, does not not change init state value</method>
+            <!-- b -->
             <method name="b">set b-value, does not not change init state value</method>
+            <!-- c -->
             <method name="c">set c-value, does not not change init state value</method>
+            <!-- d -->
             <method name="d">set d-value, does not not change init state value</method>
-            <method name="x">set current x-value, does not not change init state value</method>
-            <method name="y">set current y-value, does not not change init state value</method>
+            <!-- om -->
             <method name="om">turn on/off method output mode. If true (1) outputs new generated
             value after each a,b,d,e,x,y method call, if 0 - change values without output. Default
             is 0. 
             <param name="BOOL" type="int" required="true">output mode</param></method>
+            <!-- reset -->
+            <method name="reset">set to initial state</method>
+            <!-- set -->
+            <method name="set">set A B C D E X Y values. Also updates init state vars.</method>
+            <!-- x -->
+            <method name="x">set current x-value, does not not change init state value</method>
+            <!-- y -->
+            <method name="y">set current y-value, does not not change init state value</method>
         </methods>
         <inlets>
             <inlet>

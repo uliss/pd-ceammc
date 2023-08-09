@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="midi.clock">
         <title>midi.clock</title>
         <meta>
@@ -20,14 +20,15 @@
         <arguments>
             <argument name="DIV" type="int" enum="0 4 8 16 32">@div clock subdivision</argument>
         </arguments>
-        <methods>
-            <method name="reset">reset beat counter</method>
-        </methods>
         <properties>
             <property name="@div" type="int" enum="0 4 8 16 32" default="0">clock subdivision. If
             0: bang each incoming midi clock message, if 4: output every quoter note, 8: every
             eight note etc.</property>
         </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset beat counter</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo>control input</xinfo>

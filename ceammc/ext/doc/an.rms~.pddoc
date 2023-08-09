@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="an.rms~">
         <title>an.rms~</title>
         <meta>
@@ -13,9 +13,6 @@
             <keywords>rms root mean square</keywords>
             <since>0.9.1</since>
         </meta>
-        <methods>
-            <method name="reset">clear averaging data</method>
-        </methods>
         <arguments>
             <argument name="PERIOD" type="float" minvalue="1" maxvalue="1000" units="millisecond">
             averaging frame</argument>
@@ -31,6 +28,10 @@
             specified, bind properties to /ID/fx_rms/PROP_NAME osc address, if empty bind to
             /fx_rms/PROP_NAME.</property>
         </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">clear averaging data</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>

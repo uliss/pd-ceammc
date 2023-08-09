@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="synth.standard_bell~">
         <title>synth.standard_bell~</title>
         <meta>
@@ -21,9 +21,6 @@
             <par>This model contains 7 excitation positions going linearly from the bottom to the
             top of the bell</par>
         </info>
-        <methods>
-            <method name="reset">reset synth</method>
-        </methods>
         <properties>
             <property name="@pos" type="int" minvalue="0" maxvalue="6" default="0">strike position
             (0 is on the bottom)</property>
@@ -43,6 +40,10 @@
             - 1: on, 0: off</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset synth</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="bang">play</xinfo>

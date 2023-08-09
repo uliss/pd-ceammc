@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="fx.echo~">
         <title>fx.echo~</title>
         <meta>
@@ -29,9 +29,6 @@
             <argument name="FEEDBACK" type="float" minvalue="0" maxvalue="0.99">feedback
             coefficient</argument>
         </arguments>
-        <methods>
-            <method name="reset">reset to initial state</method>
-        </methods>
         <properties>
             <property name="@delay" type="float" minvalue="10" maxvalue="10000" units="millisecond"
             default="500">echo time</property>
@@ -72,6 +69,10 @@
             <!-- common -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset to initial state</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>

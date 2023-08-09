@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.link" type="gui">
         <title>ui.link</title>
         <meta>
@@ -22,12 +22,6 @@
             <argument name="URL" type="symbol">@url property value</argument>
             <argument name="TITLE" type="list">@title property value</argument>
         </arguments>
-        <methods>
-            <!-- common-->
-            <method name="pos">set UI element position 
-            <param name="X" type="float" required="true">top left x-coord</param>
-            <param name="Y" type="float" required="true">top right y-coord</param></method>
-        </methods>
         <properties>
             <property name="@url" type="symbol" default="&lt;no url&gt;">destination url</property>
             <property name="@title" type="symbol" default="&lt;no title&gt;">link title</property>
@@ -48,10 +42,15 @@
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
         </properties>
+        <methods>
+            <!-- pos -->
+            <method name="pos">set UI element position 
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
+        </methods>
         <example>
             <pdascii>
 <![CDATA[
-
 /* [ui.link @url vu-help.pd @title VU-help] */
 
 [ui.link @url=vu-help.pd @title=VU-help]
@@ -59,8 +58,6 @@
 /* [ui.link @url http://puredata.info @title puredata.info] */
 
 [ui.link @url=http://puredata.info @title=puredata.info]
-
-
 ]]>
             </pdascii>
         </example>

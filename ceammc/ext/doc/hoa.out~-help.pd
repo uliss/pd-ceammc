@@ -8,8 +8,8 @@
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 defines a signal outlet for a patcher loaded by a hoa.process~
 object;
-#X msg 88 158 open 0;
-#X msg 203 158 open 1;
+#X msg 50 158 open 0;
+#X msg 165 158 open 1;
 #X obj 50 187 sig~ 0.5;
 #X obj 366 187 sig~ 1;
 #X obj 50 216 hoa.process~ 2 hoa/hoa_out_example3 planewaves;

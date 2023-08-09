@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="matrix~">
         <title>matrix~</title>
         <meta>
@@ -22,19 +22,20 @@
             <argument name="OUTPUTS" type="int" minvalue="2" maxvalue="16">number of matrix outputs
             (rows)</argument>
         </arguments>
-        <methods>
-            <method name="cell">on/off matrix cell. Note argument order: row, cols. 
-            <param name="ROW" type="int" minvalue="0" maxvalue="15" required="true">row (output)
-            index</param>
-            <param name="COL" type="int" minvalue="0" maxvalue="15" required="true">column (input)
-            index</param></method>
-        </methods>
         <properties>
             <property name="@inputs" type="int" minvalue="2" maxvalue="16" default="2"
             access="initonly">number of matrix inputs</property>
             <property name="@outputs" type="int" minvalue="2" maxvalue="16" default="2"
             access="initonly">number of matrix outputs</property>
         </properties>
+        <methods>
+            <!-- cell -->
+            <method name="cell">on/off matrix cell. Note argument order: row, cols. 
+            <param name="ROW" type="int" minvalue="0" maxvalue="15" required="true">row (output)
+            index</param>
+            <param name="COL" type="int" minvalue="0" maxvalue="15" required="true">column (input)
+            index</param></method>
+        </methods>
         <inlets dynamic="true">
             <inlet number="1" type="audio">
                 <xinfo>first input signal</xinfo>

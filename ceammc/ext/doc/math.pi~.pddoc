@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="math.pi~">
         <title>math.pi~</title>
         <meta>
@@ -20,16 +20,16 @@
                 <alias>pi~</alias>
             </aliases>
         </meta>
+        <info>
+            <par>The number PI is a mathematical constant, the ratio of a circle's circumference to
+            its diameter, commonly approximated as 3.14159.</par>
+        </info>
         <arguments>
             <argument name="K" type="float">multiplier. default is 1</argument>
         </arguments>
         <properties>
             <property type="float" name="@k" default="1" access="initonly">multiplier</property>
         </properties>
-        <info>
-            <par>The number PI is a mathematical constant, the ratio of a circle's circumference to
-            its diameter, commonly approximated as 3.14159.</par>
-        </info>
         <inlets />
         <outlets>
             <outlet type="audio">output value</outlet>

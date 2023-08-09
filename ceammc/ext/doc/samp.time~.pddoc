@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="samp.time~">
         <title>samp.time~</title>
         <meta>
@@ -21,7 +21,9 @@
             off</argument>
         </arguments>
         <methods>
+            <!-- reset -->
             <method name="reset">reset sample counter to 0</method>
+            <!-- set -->
             <method name="set">set current value 
             <param name="VAL" type="float" default="0">new counter value</param></method>
         </methods>

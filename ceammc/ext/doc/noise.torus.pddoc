@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="noise.torus">
         <title>noise.torus</title>
         <meta>
@@ -24,20 +24,26 @@
             <argument name="CR" type="float">cr value (optional)</argument>
         </arguments>
         <methods>
-            <method name="set">
-                <param type="float" name="SET" required="true">set to value</param>
+            <!-- cr -->
+            <method name="cr">
+                <param type="float" name="SEED" required="true">cr value</param>
             </method>
-            <method name="reset">reset state</method>
+            <!-- om -->
             <method name="om">
                 <param type="int" name="OM" required="true">enables output when cut or fold value
                 is changed</param>
             </method>
-            <method name="cr">
-                <param type="float" name="SEED" required="true">cr value</param>
+            <!-- reset -->
+            <method name="reset">reset state</method>
+            <!-- set -->
+            <method name="set">
+                <param type="float" name="SET" required="true">set to value</param>
             </method>
+            <!-- x -->
             <method name="x">
                 <param type="float" name="NX" required="true">x value</param>
             </method>
+            <!-- y -->
             <method name="y">
                 <param type="float" name="NY" required="true">y value</param>
             </method>

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="array.fill">
         <title>array.fill</title>
         <meta>
@@ -24,6 +24,7 @@
             <property name="@redraw" type="bool" default="1">redraw after array change</property>
         </properties>
         <methods>
+            <!-- fill -->
             <method name="fill">fill all array with specified value or pattern 
             <param name="@from" type="int">fill range begin index. If not specified set to
             0.</param>
@@ -32,35 +33,41 @@
             set to array length.</param>
             <param name="VAL1" type="float" required="true">value 1</param>
             <param name="VAL..." type="float">other values..</param></method>
-            <method name="sin">fill all array with sine wave 
-            <param name="T" type="float" minvalue="0" required="true" units="sample">wave period.
-            Should be &gt;0</param>
-            <param name="A" type="float" default="1">amplitude</param>
-            <param name="PHASE" type="float" default="0" minvalue="0" maxvalue="1">phase in 0...1
-            range</param></method>
+            <!-- gauss -->
             <method name="gauss">fill all array with random value with normal (gauss) distribution 
             <param name="MEAN" type="float" default="0">mean value</param>
             <param name="SIGMA" type="float" default="1" minvalue="0">standard
             deviation</param></method>
-            <method name="uniform">fill all array with random value with uniform distribution 
-            <param name="A" type="float" default="0">min value</param>
-            <param name="B" type="float" default="1">max value</param></method>
+            <!-- pulse -->
             <method name="pulse">fill all array with pulse wave 
             <param name="T" type="float" required="true" minvalue="1" units="sample">wave
             period</param>
             <param name="A" type="float" default="1">wave amplitude</param>
             <param name="D" type="float" default="0.5" minvalue="0.001" maxvalue="0.999">duty
             cycle</param></method>
-            <method name="tri">fill all array with triangle wave 
-            <param name="T" type="float" required="true" minvalue="1" units="sample">wave
-            period</param>
-            <param name="AMP" type="float" default="1">wave amplitude</param></method>
+            <!-- saw -->
             <method name="saw">fill all array with saw wave 
             <param name="T" type="float" required="true" minvalue="1" units="sample">wave
             period</param>
             <param name="A" type="float" default="1">wave amplitude</param>
             <param name="PHASE" type="float" default="0" minvalue="0" maxvalue="1">wave
             phase</param></method>
+            <!-- sin -->
+            <method name="sin">fill all array with sine wave 
+            <param name="T" type="float" minvalue="0" required="true" units="sample">wave period.
+            Should be &gt;0</param>
+            <param name="A" type="float" default="1">amplitude</param>
+            <param name="PHASE" type="float" default="0" minvalue="0" maxvalue="1">phase in 0...1
+            range</param></method>
+            <!-- tri -->
+            <method name="tri">fill all array with triangle wave 
+            <param name="T" type="float" required="true" minvalue="1" units="sample">wave
+            period</param>
+            <param name="AMP" type="float" default="1">wave amplitude</param></method>
+            <!-- uniform -->
+            <method name="uniform">fill all array with random value with uniform distribution 
+            <param name="A" type="float" default="0">min value</param>
+            <param name="B" type="float" default="1">max value</param></method>
         </methods>
         <inlets>
             <inlet>

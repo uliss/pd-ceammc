@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="gain~">
         <title>gain~</title>
         <meta>
@@ -20,28 +20,6 @@
             <argument name="N" type="int" minvalue="1" maxvalue="16">number of
             inputs/outputs</argument>
         </arguments>
-        <methods>
-            <method name="+">increase gain amplitude 
-            <param name="VALS" type="list">values for each input channel</param></method>
-            <method name="-">decrease gain amplitude 
-            <param name="VALS" type="list">values for each input channel</param></method>
-            <method name="+db">increase gain in db 
-            <param name="VALS" type="list">values for each input channel</param></method>
-            <method name="-db">decrease gain in db 
-            <param name="VALS" type="list">values for each input channel</param></method>
-            <method name="+all">increase gain amplitude for all inputs 
-            <param name="V" type="float" required="true">single value for each input
-            channel</param></method>
-            <method name="-all">decrease gain amplitude for all inputs 
-            <param name="V" type="float" required="true">single value for each input
-            channel</param></method>
-            <method name="set">set gain amplitude for all inputs 
-            <param name="V" type="float" required="true" minvalue="0">new gain
-            value</param></method>
-            <method name="set_db">set gain in db for all inputs 
-            <param name="V" type="float" required="true" minvalue="-144">new gain
-            value</param></method>
-        </methods>
         <properties>
             <property name="@value" type="list" minvalue="0" default="0">gain amplitude
             values</property>
@@ -50,6 +28,36 @@
             <property name="@smooth_time" type="float" minvalue="1" default="20"
             units="millisecond">gain change smooth time</property>
         </properties>
+        <methods>
+            <!-- + -->
+            <method name="+">increase gain amplitude 
+            <param name="VALS" type="list">values for each input channel</param></method>
+            <!-- +all -->
+            <method name="+all">increase gain amplitude for all inputs 
+            <param name="V" type="float" required="true">single value for each input
+            channel</param></method>
+            <!-- +db -->
+            <method name="+db">increase gain in db 
+            <param name="VALS" type="list">values for each input channel</param></method>
+            <!-- - -->
+            <method name="-">decrease gain amplitude 
+            <param name="VALS" type="list">values for each input channel</param></method>
+            <!-- -all -->
+            <method name="-all">decrease gain amplitude for all inputs 
+            <param name="V" type="float" required="true">single value for each input
+            channel</param></method>
+            <!-- -db -->
+            <method name="-db">decrease gain in db 
+            <param name="VALS" type="list">values for each input channel</param></method>
+            <!-- set -->
+            <method name="set">set gain amplitude for all inputs 
+            <param name="V" type="float" required="true" minvalue="0">new gain
+            value</param></method>
+            <!-- set_db -->
+            <method name="set_db">set gain in db for all inputs 
+            <param name="V" type="float" required="true" minvalue="-144">new gain
+            value</param></method>
+        </methods>
         <inlets dynamic="true">
             <inlet number="1" type="audio">
                 <xinfo>input signal</xinfo>

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flt.notch~">
         <title>flt.notch~</title>
         <meta>
@@ -20,6 +20,12 @@
             <par>filter that passes most frequencies unaltered, but attenuates those in a specific
             range to very low levels. It is the opposite of a band-pass filter.</par>
         </info>
+        <arguments>
+            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">center
+            frequency</argument>
+            <argument name="WIDTH" type="float" units="hertz" minvalue="1" maxvalue="10000">band
+            width (approximate)</argument>
+        </arguments>
         <properties>
             <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="1000"
             units="hertz">center frequency</property>
@@ -27,12 +33,6 @@
             maxvalue="10000">band width (approximate)</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
-        <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">center
-            frequency</argument>
-            <argument name="WIDTH" type="float" units="hertz" minvalue="1" maxvalue="10000">band
-            width (approximate)</argument>
-        </arguments>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
@@ -62,7 +62,6 @@
 [dac~]
 
 [ui.dsp~]
-
 ]]>
             </pdascii>
         </example>

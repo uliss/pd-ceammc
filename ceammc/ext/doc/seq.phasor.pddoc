@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="seq.phasor">
         <title>seq.phasor</title>
         <meta>
@@ -35,10 +35,15 @@
             output range is [0..1]</property>
         </properties>
         <methods>
-            <method name="start">start from current position</method>
+            <!-- reset -->
             <method name="reset">reset phase and stop</method>
+            <!-- rewind -->
             <method name="rewind">reset phase without stopping</method>
+            <!-- start -->
+            <method name="start">start from current position</method>
+            <!-- stop -->
             <method name="stop">stop</method>
+            <!-- tick -->
             <method name="tick">output current value and move to next</method>
         </methods>
         <inlets>

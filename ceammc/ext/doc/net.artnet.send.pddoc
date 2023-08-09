@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="net.artnet.send">
         <title>net.artnet.send</title>
         <meta>
@@ -20,28 +20,32 @@
             <argument name="UNIVERSE" type="int" minvalue="0" maxvalue="3">ArtNet
             universe</argument>
         </arguments>
-        <methods>
-            <method name="poll">send poll request, dump response to Pd window</method>
-            <method name="dmx_fill">set all DMX channels to given value 
-            <param name="VAL" type="int" required="true" minvalue="0" maxvalue="255">DMX
-            value</param></method>
-            <method name="dmx_set">set DMX channel value 
-            <param name="CHAN" type="int" required="true" minvalue="0" maxvalue="512">DMX
-            channel</param>
-            <param name="VAL" type="int" required="true" minvalue="0" maxvalue="255">DMX
-            value</param></method>
-            <method name="dmx">set DMX channel values 
-            <param name="CHAN" type="int" required="true" minvalue="0" maxvalue="512">DMX
-            channel</param>
-            <param name="VALUES" type="list" required="true">list of DMX values, first element sets
-            first channel etc.</param></method>
-        </methods>
         <properties>
             <property name="@universe" type="int" default="0" minvalue="0" maxvalue="3">ArtNet
             universe</property>
             <property name="@offset" type="int" default="0" minvalue="0" maxvalue="511">DMX channel
             offset</property>
         </properties>
+        <methods>
+            <!-- dmx -->
+            <method name="dmx">set DMX channel values 
+            <param name="CHAN" type="int" required="true" minvalue="0" maxvalue="512">DMX
+            channel</param>
+            <param name="VALUES" type="list" required="true">list of DMX values, first element sets
+            first channel etc.</param></method>
+            <!-- dmx_fill -->
+            <method name="dmx_fill">set all DMX channels to given value 
+            <param name="VAL" type="int" required="true" minvalue="0" maxvalue="255">DMX
+            value</param></method>
+            <!-- dmx_set -->
+            <method name="dmx_set">set DMX channel value 
+            <param name="CHAN" type="int" required="true" minvalue="0" maxvalue="512">DMX
+            channel</param>
+            <param name="VAL" type="int" required="true" minvalue="0" maxvalue="255">DMX
+            value</param></method>
+            <!-- poll -->
+            <method name="poll">send poll request, dump response to Pd window</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo>input</xinfo>

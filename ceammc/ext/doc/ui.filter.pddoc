@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.filter" type="gui">
         <title>ui.filter</title>
         <meta>
@@ -23,25 +23,6 @@
             <event editmode="false" type="drag">change frequency and Q/gain value</event>
             <event editmode="false" type="wheel">only for peakEq filter: change Q-factor</event>
         </mouse>
-        <methods>
-            <method name="biquad">set biquad coefficients (but not changes current filter
-            properties) 
-            <param type="list" name="b0 b1 b2 a1 a2" required="true">coefficients</param></method>
-            <method name="dump">dumps all object info to Pd console window</method>
-            <!-- presets -->
-            <method name="load">loads specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="store">stores specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="clear">clears specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="interp">for this object acts as *load*, no interpolation
-            performed</method>
-            <!-- common-->
-            <method name="pos">set UI element position 
-            <param name="X" type="float" required="true">top left x-coord</param>
-            <param name="Y" type="float" required="true">top right y-coord</param></method>
-        </methods>
         <properties>
             <property name="@freq" type="float" default="1000" minvalue="0" maxvalue="20000">filter
             frequency</property>
@@ -93,6 +74,30 @@
             <property name="@label_margins" type="list" default="0 0">label offset in
             pixels</property>
         </properties>
+        <methods>
+            <!-- biquad -->
+            <method name="biquad">set biquad coefficients (but not changes current filter
+            properties) 
+            <param type="list" name="b0 b1 b2 a1 a2" required="true">coefficients</param></method>
+            <!-- clear -->
+            <method name="clear">clears specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- dump -->
+            <method name="dump">dumps all object info to Pd console window</method>
+            <!-- interp -->
+            <method name="interp">for this object acts as *load*, no interpolation
+            performed</method>
+            <!-- load -->
+            <method name="load">loads specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- pos -->
+            <method name="pos">set UI element position 
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- store -->
+            <method name="store">stores specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo>control input</xinfo>

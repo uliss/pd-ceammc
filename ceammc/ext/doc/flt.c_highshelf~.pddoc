@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flt.c_highshelf~">
         <title>flt.c_highshelf~</title>
         <meta>
@@ -23,6 +23,12 @@
             <par>Calculates coefficients for transfer function: H(z)=(b0 + b1*z⁻¹ + b2*z⁻²)/(1 +
             a1*z⁻¹ + a2*z⁻²)</par>
         </info>
+        <arguments>
+            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">cutoff
+            frequency</argument>
+            <argument name="GAIN" type="float" minvalue="-15" maxvalue="+15" units="decibel">filter
+            gain</argument>
+        </arguments>
         <properties>
             <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="10000"
             units="hertz">center frequency</property>
@@ -36,12 +42,6 @@
             specified, bind properties to /ID/c_highshelf/PROP_NAME osc address, if empty bind to
             /c_highshelf/PROP_NAME.</property>
         </properties>
-        <arguments>
-            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">cutoff
-            frequency</argument>
-            <argument name="GAIN" type="float" minvalue="-15" maxvalue="+15" units="decibel">filter
-            gain</argument>
-        </arguments>
         <inlets>
             <inlet>
                 <xinfo>control input</xinfo>

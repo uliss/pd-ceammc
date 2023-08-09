@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="array.circular~">
         <title>array.circular~</title>
         <meta>
@@ -17,17 +17,18 @@
             <argument name="ARRAY" type="symbol">array name</argument>
             <argument name="ON" type="bool">write mode</argument>
         </arguments>
-        <methods>
-            <method name="resize">resize target array 
-            <param name="SZ" type="int" minvalue="10" units="sample" required="true">new
-            size</param></method>
-        </methods>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
             <property name="@on" type="bool" default="1">write mode</property>
             <property name="@interp" type="int" enum="0 1 3" default="0">interpolation
             mode</property>
         </properties>
+        <methods>
+            <!-- resize -->
+            <method name="resize">resize target array 
+            <param name="SZ" type="int" minvalue="10" units="sample" required="true">new
+            size</param></method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>write delay</xinfo>

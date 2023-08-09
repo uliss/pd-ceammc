@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="lang.lua">
         <title>lang.lua</title>
         <meta>
@@ -13,33 +13,37 @@
             <keywords>lua jit</keywords>
             <since>0.9.5</since>
         </meta>
-        <mouse>
-            <event editmode="0" type="left-click">open Lua code in the editor</event>
-        </mouse>
         <info>
             <par>Lua code is executed in separated thread in async mode.</par>
             <par>Each lang.lua object has own independent context.</par>
         </info>
+        <mouse>
+            <event editmode="0" type="left-click">open Lua code in the editor</event>
+        </mouse>
         <arguments>
             <argument name="IN" type="int" minvalue="1" maxvalue="16">number of inputs</argument>
             <argument name="OUT" type="int" minvalue="1" maxvalue="16">number of outputs</argument>
         </arguments>
-        <methods>
-            <method name="load">load lua file and eval it 
-            <param name="PATH" type="list" required="true">path to lua file</param></method>
-            <method name="eval">eval lua code 
-            <param name="CODE" type="list" required="true">lua code</param></method>
-            <method name="quit">abort lua script execution</method>
-            <method name="call">call lua function 
-            <param name="FN" type="symbol" required="true">function name</param>
-            <param name="ARGS" type="list">function arguments</param></method>
-        </methods>
         <properties>
             <property name="@in" type="int" default="1" minvalue="1" maxvalue="16"
             access="initonly">number of inputs</property>
             <property name="@out" type="int" default="1" minvalue="1" maxvalue="16"
             access="initonly">number of outputs</property>
         </properties>
+        <methods>
+            <!-- call -->
+            <method name="call">call lua function 
+            <param name="FN" type="symbol" required="true">function name</param>
+            <param name="ARGS" type="list">function arguments</param></method>
+            <!-- eval -->
+            <method name="eval">eval lua code 
+            <param name="CODE" type="list" required="true">lua code</param></method>
+            <!-- load -->
+            <method name="load">load lua file and eval it 
+            <param name="PATH" type="list" required="true">path to lua file</param></method>
+            <!-- quit -->
+            <method name="quit">abort lua script execution</method>
+        </methods>
         <inlets dynamic="true">
             <inlet number="1">
                 <xinfo>first lua input</xinfo>

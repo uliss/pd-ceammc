@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="fx.looper~">
         <title>fx.looper~</title>
         <meta>
@@ -54,19 +54,28 @@
             performed</property>
         </properties>
         <methods>
-            <method name="record">start loop record</method>
-            <method name="rec">same as record</method>
+            <!-- adjust -->
             <method name="adjust">increase loop length 
             <param type="float" name="DELTA" units="sample">loop length delta</param></method>
-            <method name="play">play recorded or stopped loop</method>
-            <method name="overdub">start loop overdubbing while keeping it playing</method>
-            <method name="stop">stop played loop</method>
-            <method name="pause">loop pause</method>
+            <!-- clear -->
             <method name="clear">clear loop data and stops playing</method>
+            <!-- overdub -->
+            <method name="overdub">start loop overdubbing while keeping it playing</method>
+            <!-- pause -->
+            <method name="pause">loop pause</method>
+            <!-- play -->
+            <method name="play">play recorded or stopped loop</method>
+            <!-- rec -->
+            <method name="rec">same as record</method>
+            <!-- record -->
+            <method name="record">start loop record</method>
+            <!-- smooth -->
             <method name="smooth">
                 <param name="TIME" units="millisecond" type="float">apply linear fadein/fadeout to
                 loop</param>
             </method>
+            <!-- stop -->
+            <method name="stop">stop played loop</method>
         </methods>
         <inlets>
             <inlet type="audio">
@@ -91,7 +100,6 @@
 [ui.gain~ @size 120 14]  [B]  [ui.dsp~]
 |\
 [dac~]
-
 ]]>
             </pdascii>
         </example>

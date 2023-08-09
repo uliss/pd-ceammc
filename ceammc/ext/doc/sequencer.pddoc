@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="sequencer">
         <title>sequencer</title>
         <meta>
@@ -45,12 +45,17 @@
             back</property>
         </properties>
         <methods>
+            <!-- reset -->
+            <method name="reset">reset counters and stop</method>
+            <!-- rewind -->
+            <method name="rewind">reset all counters without stopping</method>
+            <!-- start -->
             <method name="start">start/stop 
             <param name="on" type="int" enum="0 1" default="1" required="false">if true - starts
             sequencer, otherwise stops</param></method>
+            <!-- stop -->
             <method name="stop">stop output</method>
-            <method name="reset">reset counters and stop</method>
-            <method name="rewind">reset all counters without stopping</method>
+            <!-- tick -->
             <method name="tick">manually output current element and move to next</method>
         </methods>
         <inlets>

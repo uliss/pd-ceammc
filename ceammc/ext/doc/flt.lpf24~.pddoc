@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flt.lpf24~">
         <title>flt.lpf24~</title>
         <meta>
@@ -27,16 +27,17 @@
             flat as possible in the passband.</par>
             <a href="https://en.wikipedia.org/wiki/Butterworth_filter">wiki: Butterworth filter</a>
         </info>
+        <arguments>
+            <argument name="FREQ" type="float" minvalue="20" maxvalue="20000" units="hertz">cutoff
+            frequency</argument>
+        </arguments>
         <properties>
             <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
             default="1000">cutoff frequency</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
-        <arguments>
-            <argument name="FREQ" type="float" minvalue="20" maxvalue="20000" units="hertz">cutoff
-            frequency</argument>
-        </arguments>
         <methods>
+            <!-- reset -->
             <method name="reset">reset filter state</method>
         </methods>
         <inlets>

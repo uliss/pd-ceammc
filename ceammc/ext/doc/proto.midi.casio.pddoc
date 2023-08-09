@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="proto.midi.casio">
         <title>proto.midi.casio</title>
         <meta>
@@ -16,7 +16,11 @@
         <info>
             <par>Note: only PX160 model supported at this moment</par>
         </info>
+        <properties>
+            <property name="@model" default="px160" type="symbol">device model</property>
+        </properties>
         <methods>
+            <!-- instr -->
             <method name="instr">send Note On message 
             <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
             channel</param>
@@ -26,16 +30,15 @@
             concert|modern|classic|mellow|bright|0..4, for 'epiano': 0|1|fm|2|3|60, for 'strings':
             0|1, for 'bass': 0, for 'organ': pipe|jass|elec1|elec2|0..3, for 'vibr' and 'haprs':
             0</param></method>
-            <method name="rev_type">set reverb type 
-            <param type="int" minvalue="1" maxvalue="4" required="true" name="TYPE">reverb
-            type</param></method>
+            <!-- rev_time -->
             <method name="rev_time">set reverb time 
             <param type="int" minvalue="0" maxvalue="127" required="true" name="AMOUNT">reverb
             time</param></method>
+            <!-- rev_type -->
+            <method name="rev_type">set reverb type 
+            <param type="int" minvalue="1" maxvalue="4" required="true" name="TYPE">reverb
+            type</param></method>
         </methods>
-        <properties>
-            <property name="@model" default="px160" type="symbol">device model</property>
-        </properties>
         <inlets>
             <inlet>
                 <xinfo />

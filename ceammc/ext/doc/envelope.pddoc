@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="envelope">
         <title>envelope</title>
         <meta>
@@ -31,170 +31,6 @@
             <par>Exponential segment also has curve property: if 0 - (linear) &lt;0 (concave,
             negatively curved) &gt;0 (convex, positively curved)</par>
         </info>
-        <methods>
-            <method name="clear">remove all envelope points</method>
-            <!-- add point -->
-            <method name="add_point">add envelope point 
-            <param name="TIME" type="float" units="millisecond" required="true" minvalue="0">point
-            time</param>
-            <param name="VALUE" type="float" required="true">point value</param>
-            <param name="IS_STOP" type="int" enum="0 1" default="0">is stop point</param>
-            <param name="TYPE" type="symbol" enum="step line exp sin2 sigmoid" default="line">
-            segment type: step, linear, exponential, sin^2 or sigmoid curve</param>
-            <param name="CURVE" type="float" default="1">exponential curve degree: 0 (linear) &lt;0
-            (concave, negatively curved) &gt;0 (convex, positively curved)</param></method>
-            <!-- remove point -->
-            <method name="remove_point">remove envelope point by specified time 
-            <param name="IDX" type="int" required="true" minvalue="0">point index</param></method>
-            <!-- set point -->
-            <method name="set_point">set point time and value 
-            <param name="IDX" type="int" required="true" minvalue="0">point index</param>
-            <param name="TIME" type="float" units="millisecond" required="true" minvalue="0">point
-            time</param>
-            <param name="VALUE" type="int" required="true" minvalue="0">point value</param>
-            <param name="IS_STOP" type="int" enum="0 1" default="0">stop point</param></method>
-            <!-- set point time -->
-            <method name="set_point_time">set point time 
-            <param name="IDX" type="int" required="true" minvalue="0">point index</param>
-            <param name="TIME" type="float" units="millisecond" required="true" minvalue="0">point
-            time</param></method>
-            <!-- set point value -->
-            <method name="set_point_value">set point time 
-            <param name="IDX" type="int" required="true" minvalue="0">point index</param>
-            <param name="VALUE" type="int" required="true" minvalue="0">point
-            value</param></method>
-            <!-- set_stop_point -->
-            <method name="set_stop_point">set stop-point 
-            <param name="IDX" type="int" required="true" minvalue="0">point index</param>
-            <param name="IS_STOP" type="int" enum="0 1" required="true">stop point</param></method>
-            <!-- + value -->
-            <method name="+">add specified value to all envelope points 
-            <param name="VALUE" type="float" required="true">value</param></method>
-            <!-- * value -->
-            <method name="*">multiply all envelope points to specified value 
-            <param name="VALUE" type="float" required="true">value</param></method>
-            <!-- >> -->
-            <method name="&gt;&gt;">shift all envelope point by specified time in milliseconds 
-            <param name="SHIFT" type="float" required="true" units="millisecond">
-            value</param></method>
-            <!-- add_seg -->
-            <method name="add_seg">add segment to the end of envelope. On empty envelope adds start
-            point at 0ms and 0 value 
-            <param name="TYPE" type="symbol" required="true" enum="step line sin2 exp sigmoid">
-            segment type</param>
-            <param name="LENGTH" type="float" units="millisecond" required="true">segment
-            length</param>
-            <param name="VALUE" type="float" required="true">end segment value</param>
-            <param name="CURVE" type="float" required="false" default="0">curve (for exp and
-            sigmoid type)</param></method>
-            <!-- set_seg_type -->
-            <method name="set_seg_type">set segment type 
-            <param name="IDX" type="int" required="true" minvalue="0">segment index, starting from
-            0</param>
-            <param name="TYPE" type="symbol" required="true" enum="step line sin2 exp sigmoid">
-            segment type</param></method>
-            <!-- adsr -->
-            <method name="adsr">creates ADSR envelope with one stop point 
-            <param name="ATTACK" type="float" units="millisecond" required="true" minvalue="0">
-            attack time</param>
-            <param name="DECAY" type="float" units="millisecond" required="true" minvalue="0">decay
-            time</param>
-            <param name="SUSTAIN" type="float" units="percent" required="true" minvalue="0"
-            maxvalue="100">sustain level</param>
-            <param name="RELEASE" type="float" units="millisecond" required="true" minvalue="0">
-            release time</param></method>
-            <!-- asr-->
-            <method name="asr">creates ASR envelope with one stop point 
-            <param name="ATTACK" type="float" units="millisecond" required="true" minvalue="0">
-            attack time</param>
-            <param name="RELEASE" type="float" units="millisecond" required="true" minvalue="0">
-            release time</param></method>
-            <!-- ar-->
-            <method name="ar">creates AR envelope without stop points 
-            <param name="ATTACK" type="float" units="millisecond" required="true" minvalue="0">
-            attack time</param>
-            <param name="RELEASE" type="float" units="millisecond" required="true" minvalue="0">
-            release time</param></method>
-            <!-- eadsr-->
-            <method name="eadsr">creates exponential ADSR envelope with one stop point 
-            <param name="ATTACK" type="float" units="millisecond" required="true" minvalue="0">
-            attack time</param>
-            <param name="ATTACK_CURVE" type="float" required="true">attack segment curve</param>
-            <param name="DECAY" type="float" units="millisecond" required="true" minvalue="0">decay
-            time</param>
-            <param name="DECAY_CURVE" type="float" required="true">decay segment curve</param>
-            <param name="SUSTAIN" type="float" units="percent" required="true" minvalue="0"
-            maxvalue="100">sustain level</param>
-            <param name="RELEASE" type="float" units="millisecond" required="true" minvalue="0">
-            release time</param>
-            <param name="RELEASE_CURVE" type="float" required="true">release segment
-            curve</param></method>
-            <!-- easr-->
-            <method name="easr">creates exponential AR envelope with one stop point 
-            <param name="ATTACK" type="float" units="millisecond" required="true" minvalue="0">
-            attack time</param>
-            <param name="ATTACK_CURVE" type="float" required="true">attack segment curve</param>
-            <param name="RELEASE" type="float" units="millisecond" required="true" minvalue="0">
-            release time</param>
-            <param name="RELEASE_CURVE" type="float" required="true">release segment
-            curve</param></method>
-            <!-- ear-->
-            <method name="ear">creates exponential AR envelope without stop points 
-            <param name="ATTACK" type="float" units="millisecond" required="true">attack
-            time</param>
-            <param name="ATTACK_CURVE" type="float" required="true">attack segment curve</param>
-            <param name="RELEASE" type="float" units="millisecond" required="true">release
-            time</param>
-            <param name="RELEASE_CURVE" type="float" required="true">release segment
-            curve</param></method>
-            <!-- step -->
-            <method name="step">creates step-segmented envelope with arbitrary number of segments 
-            <param name="VAL0" type="float" required="true">begin value</param>
-            <param name="LEN0" type="float" units="millisecond" required="true" minvalue="1">step
-            length</param>
-            <param name="VAL1" type="float" required="true">value</param>
-            <param name="LEN1" type="float" required="false">segment length</param>
-            <param name="VAL2" type="float" required="false">value</param></method>
-            <!-- line -->
-            <method name="line">creates line-segmented envelope with arbitrary number of segments 
-            <param name="VAL0" type="float" required="true">begin value</param>
-            <param name="LEN0" type="float" units="millisecond" required="true" minvalue="1">line
-            length</param>
-            <param name="VAL1" type="float" required="true">value</param>
-            <param name="LEN1" type="float" required="false">segment length</param>
-            <param name="VAL2" type="float" required="false">value</param></method>
-            <!-- sin2 -->
-            <method name="sin2">creates quadratic sine-segmented envelope with arbitrary number of
-            segments 
-            <param name="VAL0" type="float" required="true">begin value</param>
-            <param name="LEN0" type="float" units="millisecond" required="true" minvalue="1">line
-            length</param>
-            <param name="VAL1" type="float" required="true">value</param>
-            <param name="LEN1" type="float" required="false">segment length</param>
-            <param name="VAL2" type="float" required="false">value</param></method>
-            <!-- exp -->
-            <method name="exp">creates exponential-segmented envelope with arbitrary number of
-            segments 
-            <param name="VAL0" type="float" required="true">begin value</param>
-            <param name="LEN0" type="float" units="millisecond" required="true" minvalue="1">line
-            length</param>
-            <param name="CURVE0" type="float" required="true">segment curve</param>
-            <param name="VAL1" type="float" required="true">value</param>
-            <param name="LEN1" type="float" required="false">segment length</param>
-            <param name="CURVE1" type="float" required="false">segment curve</param>
-            <param name="VAL2" type="float" required="false">value</param></method>
-            <!-- sigmoid -->
-            <method name="sigmoid">creates sigmoid-segmented envelope with arbitrary number of
-            segments 
-            <param name="VAL0" type="float" required="true">begin value</param>
-            <param name="LEN0" type="float" units="millisecond" required="true" minvalue="1">line
-            length</param>
-            <param name="CURVE0" type="float" required="true">segment curve</param>
-            <param name="VAL1" type="float" required="true">value</param>
-            <param name="LEN1" type="float" required="false">segment length</param>
-            <param name="CURVE1" type="float" required="false">segment curve</param>
-            <param name="VAL2" type="float" required="false">value</param></method>
-        </methods>
         <arguments>
             <argument name="adsr" type="list">ADSR envelope: attack(ms), decay(ms), sustain(%),
             release(ms)</argument>
@@ -220,6 +56,171 @@
             <property name="@stops" type="list" access="readonly" default="">list of stop
             points</property>
         </properties>
+        <methods>
+            <!-- * -->
+            <method name="*">multiply all envelope points to specified value 
+            <param name="VALUE" type="float" required="true">value</param></method>
+            <!-- + -->
+            <method name="+">add specified value to all envelope points 
+            <param name="VALUE" type="float" required="true">value</param></method>
+            <!-- >> -->
+            <method name="&gt;&gt;">shift all envelope point by specified time in milliseconds 
+            <param name="SHIFT" type="float" required="true" units="millisecond">
+            value</param></method>
+            <!-- add_point -->
+            <method name="add_point">add envelope point 
+            <param name="TIME" type="float" units="millisecond" required="true" minvalue="0">point
+            time</param>
+            <param name="VALUE" type="float" required="true">point value</param>
+            <param name="IS_STOP" type="int" enum="0 1" default="0">is stop point</param>
+            <param name="TYPE" type="symbol" enum="step line exp sin2 sigmoid" default="line">
+            segment type: step, linear, exponential, sin^2 or sigmoid curve</param>
+            <param name="CURVE" type="float" default="1">exponential curve degree: 0 (linear) &lt;0
+            (concave, negatively curved) &gt;0 (convex, positively curved)</param></method>
+            <!-- add_seg -->
+            <method name="add_seg">add segment to the end of envelope. On empty envelope adds start
+            point at 0ms and 0 value 
+            <param name="TYPE" type="symbol" required="true" enum="step line sin2 exp sigmoid">
+            segment type</param>
+            <param name="LENGTH" type="float" units="millisecond" required="true">segment
+            length</param>
+            <param name="VALUE" type="float" required="true">end segment value</param>
+            <param name="CURVE" type="float" required="false" default="0">curve (for exp and
+            sigmoid type)</param></method>
+            <!-- adsr -->
+            <method name="adsr">creates ADSR envelope with one stop point 
+            <param name="ATTACK" type="float" units="millisecond" required="true" minvalue="0">
+            attack time</param>
+            <param name="DECAY" type="float" units="millisecond" required="true" minvalue="0">decay
+            time</param>
+            <param name="SUSTAIN" type="float" units="percent" required="true" minvalue="0"
+            maxvalue="100">sustain level</param>
+            <param name="RELEASE" type="float" units="millisecond" required="true" minvalue="0">
+            release time</param></method>
+            <!-- ar -->
+            <method name="ar">creates AR envelope without stop points 
+            <param name="ATTACK" type="float" units="millisecond" required="true" minvalue="0">
+            attack time</param>
+            <param name="RELEASE" type="float" units="millisecond" required="true" minvalue="0">
+            release time</param></method>
+            <!-- asr -->
+            <method name="asr">creates ASR envelope with one stop point 
+            <param name="ATTACK" type="float" units="millisecond" required="true" minvalue="0">
+            attack time</param>
+            <param name="RELEASE" type="float" units="millisecond" required="true" minvalue="0">
+            release time</param></method>
+            <!-- clear -->
+            <method name="clear">remove all envelope points</method>
+            <!-- eadsr -->
+            <method name="eadsr">creates exponential ADSR envelope with one stop point 
+            <param name="ATTACK" type="float" units="millisecond" required="true" minvalue="0">
+            attack time</param>
+            <param name="ATTACK_CURVE" type="float" required="true">attack segment curve</param>
+            <param name="DECAY" type="float" units="millisecond" required="true" minvalue="0">decay
+            time</param>
+            <param name="DECAY_CURVE" type="float" required="true">decay segment curve</param>
+            <param name="SUSTAIN" type="float" units="percent" required="true" minvalue="0"
+            maxvalue="100">sustain level</param>
+            <param name="RELEASE" type="float" units="millisecond" required="true" minvalue="0">
+            release time</param>
+            <param name="RELEASE_CURVE" type="float" required="true">release segment
+            curve</param></method>
+            <!-- ear -->
+            <method name="ear">creates exponential AR envelope without stop points 
+            <param name="ATTACK" type="float" units="millisecond" required="true">attack
+            time</param>
+            <param name="ATTACK_CURVE" type="float" required="true">attack segment curve</param>
+            <param name="RELEASE" type="float" units="millisecond" required="true">release
+            time</param>
+            <param name="RELEASE_CURVE" type="float" required="true">release segment
+            curve</param></method>
+            <!-- easr -->
+            <method name="easr">creates exponential AR envelope with one stop point 
+            <param name="ATTACK" type="float" units="millisecond" required="true" minvalue="0">
+            attack time</param>
+            <param name="ATTACK_CURVE" type="float" required="true">attack segment curve</param>
+            <param name="RELEASE" type="float" units="millisecond" required="true" minvalue="0">
+            release time</param>
+            <param name="RELEASE_CURVE" type="float" required="true">release segment
+            curve</param></method>
+            <!-- exp -->
+            <method name="exp">creates exponential-segmented envelope with arbitrary number of
+            segments 
+            <param name="VAL0" type="float" required="true">begin value</param>
+            <param name="LEN0" type="float" units="millisecond" required="true" minvalue="1">line
+            length</param>
+            <param name="CURVE0" type="float" required="true">segment curve</param>
+            <param name="VAL1" type="float" required="true">value</param>
+            <param name="LEN1" type="float" required="false">segment length</param>
+            <param name="CURVE1" type="float" required="false">segment curve</param>
+            <param name="VAL2" type="float" required="false">value</param></method>
+            <!-- line -->
+            <method name="line">creates line-segmented envelope with arbitrary number of segments 
+            <param name="VAL0" type="float" required="true">begin value</param>
+            <param name="LEN0" type="float" units="millisecond" required="true" minvalue="1">line
+            length</param>
+            <param name="VAL1" type="float" required="true">value</param>
+            <param name="LEN1" type="float" required="false">segment length</param>
+            <param name="VAL2" type="float" required="false">value</param></method>
+            <!-- remove_point -->
+            <method name="remove_point">remove envelope point by specified time 
+            <param name="IDX" type="int" required="true" minvalue="0">point index</param></method>
+            <!-- set_point -->
+            <method name="set_point">set point time and value 
+            <param name="IDX" type="int" required="true" minvalue="0">point index</param>
+            <param name="TIME" type="float" units="millisecond" required="true" minvalue="0">point
+            time</param>
+            <param name="VALUE" type="int" required="true" minvalue="0">point value</param>
+            <param name="IS_STOP" type="int" enum="0 1" default="0">stop point</param></method>
+            <!-- set_point_time -->
+            <method name="set_point_time">set point time 
+            <param name="IDX" type="int" required="true" minvalue="0">point index</param>
+            <param name="TIME" type="float" units="millisecond" required="true" minvalue="0">point
+            time</param></method>
+            <!-- set_point_value -->
+            <method name="set_point_value">set point time 
+            <param name="IDX" type="int" required="true" minvalue="0">point index</param>
+            <param name="VALUE" type="int" required="true" minvalue="0">point
+            value</param></method>
+            <!-- set_seg_type -->
+            <method name="set_seg_type">set segment type 
+            <param name="IDX" type="int" required="true" minvalue="0">segment index, starting from
+            0</param>
+            <param name="TYPE" type="symbol" required="true" enum="step line sin2 exp sigmoid">
+            segment type</param></method>
+            <!-- set_stop_point -->
+            <method name="set_stop_point">set stop-point 
+            <param name="IDX" type="int" required="true" minvalue="0">point index</param>
+            <param name="IS_STOP" type="int" enum="0 1" required="true">stop point</param></method>
+            <!-- sigmoid -->
+            <method name="sigmoid">creates sigmoid-segmented envelope with arbitrary number of
+            segments 
+            <param name="VAL0" type="float" required="true">begin value</param>
+            <param name="LEN0" type="float" units="millisecond" required="true" minvalue="1">line
+            length</param>
+            <param name="CURVE0" type="float" required="true">segment curve</param>
+            <param name="VAL1" type="float" required="true">value</param>
+            <param name="LEN1" type="float" required="false">segment length</param>
+            <param name="CURVE1" type="float" required="false">segment curve</param>
+            <param name="VAL2" type="float" required="false">value</param></method>
+            <!-- sin2 -->
+            <method name="sin2">creates quadratic sine-segmented envelope with arbitrary number of
+            segments 
+            <param name="VAL0" type="float" required="true">begin value</param>
+            <param name="LEN0" type="float" units="millisecond" required="true" minvalue="1">line
+            length</param>
+            <param name="VAL1" type="float" required="true">value</param>
+            <param name="LEN1" type="float" required="false">segment length</param>
+            <param name="VAL2" type="float" required="false">value</param></method>
+            <!-- step -->
+            <method name="step">creates step-segmented envelope with arbitrary number of segments 
+            <param name="VAL0" type="float" required="true">begin value</param>
+            <param name="LEN0" type="float" units="millisecond" required="true" minvalue="1">step
+            length</param>
+            <param name="VAL1" type="float" required="true">value</param>
+            <param name="LEN1" type="float" required="false">segment length</param>
+            <param name="VAL2" type="float" required="false">value</param></method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="bang">outputs current envelope</xinfo>

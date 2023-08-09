@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="data.dict">
         <title>data.dict</title>
         <meta>
@@ -37,22 +37,32 @@
             entries in dictionary</property>
         </properties>
         <methods>
+            <!-- [....] -->
+            <method name="[....]" example="true">sets new content without output</method>
+            <!-- add -->
             <method name="add">adds entry to dictionary 
             <param name="KEY" type="symbol" required="true">entry key</param>
             <param name="VAL" type="list" required="true">single value or list</param></method>
+            <!-- choose -->
+            <method name="choose">choose random key and output it</method>
+            <!-- clear -->
             <method name="clear">removes all dict values. No output</method>
+            <!-- get_key -->
             <method name="get_key">get entry from dictionary 
             <param name="KEY" type="symbol" required="true">entry key</param></method>
-            <method name="choose">choose random key and output it</method>
+            <!-- read -->
+            <method name="read">read dict from JSON file 
+            <param name="PATH" type="symbol" required="true">file path</param></method>
+            <!-- remove -->
+            <method name="remove">remove entry from dictionary 
+            <param name="KEY" type="symbol" required="true">entry key</param></method>
+            <!-- set -->
+            <method name="set">set dict content without output</method>
+            <!-- set_key -->
             <method name="set_key">change entry in dictionary. If it's not exists, do nothing. 
             <param name="KEY" type="symbol" required="true">key</param>
             <param name="VAL" type="list" required="true">single value or list</param></method>
-            <method name="set">set dict content without output</method>
-            <method name="remove">remove entry from dictionary 
-            <param name="KEY" type="symbol" required="true">entry key</param></method>
-            <method name="[....]" example="true">sets new content without output</method>
-            <method name="read">read dict from JSON file 
-            <param name="PATH" type="symbol" required="true">file path</param></method>
+            <!-- write -->
             <method name="write">write dict as JSON file 
             <param name="PATH" type="symbol" required="true">file path</param></method>
         </methods>

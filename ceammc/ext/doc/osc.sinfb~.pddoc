@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="osc.sinfb~">
         <title>osc.sinfb~</title>
         <meta>
@@ -49,12 +49,6 @@
 [ui.gain~ @size 120 14]  [ui.dsp~]
 |\      |
 [dac~]  [ui.scope~]
-
-
-
-
-
-
 ]]>
             </pdascii>
         </example>

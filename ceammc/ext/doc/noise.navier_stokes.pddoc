@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="noise.navier_stokes">
         <title>noise.navier_stokes</title>
         <meta>
@@ -37,35 +37,45 @@
             <argument name="DT" type="float">dt value (optional)</argument>
         </arguments>
         <methods>
-            <method name="set">
-                <param type="float" name="SET" required="true">set to value</param>
-            </method>
-            <method name="reset">reset state</method>
-            <method name="om">
-                <param type="int" name="OM" required="true">enables output when cut or fold value
-                is changed</param>
-            </method>
+            <!-- a -->
             <method name="a">
                 <param type="float" name="A" required="true">a value</param>
             </method>
+            <!-- b -->
             <method name="b">
                 <param type="float" name="B" required="true">b value</param>
             </method>
+            <!-- c -->
             <method name="c">
                 <param type="float" name="C" required="true">c value</param>
             </method>
+            <!-- d -->
             <method name="d">
                 <param type="float" name="D" required="true">d value</param>
             </method>
-            <method name="r">
-                <param type="float" name="R" required="true">r value</param>
-            </method>
+            <!-- dt -->
             <method name="dt">
                 <param type="float" name="DT" required="true">dt value</param>
             </method>
+            <!-- om -->
             <method name="om">
                 <param type="int" name="OM" required="true">enables output when cut or fold value
                 is changed</param>
+            </method>
+            <!-- om -->
+            <method name="om">
+                <param type="int" name="OM" required="true">enables output when cut or fold value
+                is changed</param>
+            </method>
+            <!-- r -->
+            <method name="r">
+                <param type="float" name="R" required="true">r value</param>
+            </method>
+            <!-- reset -->
+            <method name="reset">reset state</method>
+            <!-- set -->
+            <method name="set">
+                <param type="float" name="SET" required="true">set to value</param>
             </method>
         </methods>
         <inlets>
@@ -83,7 +93,6 @@
         <example>
             <pdascii>
 <![CDATA[
-
 [T]
 |
 [metro 50 #metro]
@@ -118,7 +127,6 @@
 [X reset:0->noise-obj:0]
 
 [X metro->noise-obj]
-
 ]]>
             </pdascii>
         </example>

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="local.set">
         <title>local.set</title>
         <meta>
@@ -35,14 +35,19 @@
             elements in list</property>
         </properties>
         <methods>
+            <!-- add -->
             <method name="add">add values to the set 
             <param name="VAL" type="list" required="true">added values</param></method>
+            <!-- choose -->
+            <method name="choose">choose random element and output it</method>
+            <!-- clear -->
             <method name="clear">removes all set elements</method>
+            <!-- remove -->
             <method name="remove">remove elements from the set 
             <param name="VAL" type="list" required="true">elements</param></method>
+            <!-- set -->
             <method name="set">sets new set content without output 
             <param name="LIST" type="list" required="true">new set content</param></method>
-            <method name="choose">choose random element and output it</method>
         </methods>
         <inlets>
             <inlet>
@@ -58,7 +63,7 @@
         </outlets>
         <example>
             <pdascii>
-<![CDATA[                     
+<![CDATA[
 [B]   [1 2 3( [F] [clear(    [bang(
 |     |       |   |          |
 |     |       |   |          |

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="spat.zita6x8~">
         <title>spat.zita6x8~</title>
         <meta>
@@ -13,9 +13,6 @@
             <keywords>fx spat zita</keywords>
             <since>0.9.1</since>
         </meta>
-        <methods>
-            <method name="reset">reset reverb</method>
-        </methods>
         <properties>
             <property name="@a0" type="float" minvalue="0" default="0" maxvalue="1">1st source
             panning position</property>
@@ -85,6 +82,10 @@
             units="decibel">6th source reverb sound level</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset reverb</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>1st source input</xinfo>

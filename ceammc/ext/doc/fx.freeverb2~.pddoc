@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="fx.freeverb2~">
         <title>fx.freeverb2~</title>
         <meta>
@@ -24,9 +24,6 @@
             <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">proportion of mix
             between the original (dry) and 'effected' (wet) signals</argument>
         </arguments>
-        <methods>
-            <method name="reset">reset reverb</method>
-        </methods>
         <properties>
             <property name="@room" type="float" minvalue="0" maxvalue="1" default="0.5">room
             size</property>
@@ -54,6 +51,10 @@
             specified, bind properties to /ID/fx_freeverb/PROP_NAME osc address, if empty bind to
             /fx_freeverb/PROP_NAME.</property>
         </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset reverb</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>left channel</xinfo>

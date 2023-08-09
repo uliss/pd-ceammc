@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="noise.stein">
         <title>noise.stein</title>
         <meta>
@@ -23,19 +23,24 @@
             <argument name="ARG3" type="float">y value (optional)</argument>
         </arguments>
         <methods>
-            <method name="set">
-                <param type="float" name="SET" required="true">set to value</param>
+            <!-- lambda -->
+            <method name="lambda">
+                <param type="float" name="LAMBDA" required="true">lambda value</param>
             </method>
-            <method name="reset">reset state</method>
+            <!-- om -->
             <method name="om">
                 <param type="int" name="OM" required="true">enables output when cut or fold value
                 is changed</param>
             </method>
-            <method name="lambda">
-                <param type="float" name="LAMBDA" required="true">lambda value</param>
-            </method>
+            <!-- reset -->
+            <method name="reset">reset state</method>
+            <!-- seed -->
             <method name="seed">
                 <param type="float" name="SEED" required="true">seed value</param>
+            </method>
+            <!-- set -->
+            <method name="set">
+                <param type="float" name="SET" required="true">set to value</param>
             </method>
         </methods>
         <inlets>
@@ -49,7 +54,6 @@
         <example>
             <pdascii>
 <![CDATA[
-
 [T]
 |
 [metro 50 #metro]
@@ -75,7 +79,6 @@
 [X reset:0->noise-obj:0]
 
 [X metro->noise-obj]
-
 ]]>
             </pdascii>
         </example>

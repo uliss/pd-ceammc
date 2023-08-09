@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="spat.zita8~">
         <title>spat.zita8~</title>
         <meta>
@@ -19,9 +19,6 @@
             <argument name="ANGLE" type="float" minvalue="0" maxvalue="1">@angle
             property</argument>
         </arguments>
-        <methods>
-            <method name="reset">reset spat and reverb</method>
-        </methods>
         <properties>
             <property name="@angle" type="float" minvalue="0" default="0" maxvalue="1">source
             panning position</property>
@@ -41,6 +38,10 @@
             T60</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset spat and reverb</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input</xinfo>

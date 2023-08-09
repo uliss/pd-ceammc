@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="local.int">
         <title>local.int</title>
         <meta>
@@ -32,11 +32,16 @@
             value</property>
         </properties>
         <methods>
-            <method name="set">sets new value without output</method>
-            <method name="+">add to int, no output</method>
-            <method name="-">substruct from int, no output</method>
+            <!-- * -->
             <method name="*">multiply to, no output</method>
+            <!-- + -->
+            <method name="+">add to int, no output</method>
+            <!-- - -->
+            <method name="-">substruct from int, no output</method>
+            <!-- / -->
             <method name="/">divide by, no output</method>
+            <!-- set -->
+            <method name="set">sets new value without output</method>
         </methods>
         <inlets>
             <inlet>

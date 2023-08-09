@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="seq.life">
         <title>seq.life</title>
         <meta>
@@ -31,34 +31,45 @@
             count</property>
         </properties>
         <methods>
-            <method name="clear">clear all cells</method>
-            <method name="next">generate next state</method>
-            <method name="glider">adds glider 
+            <!-- blinker -->
+            <method name="blinker">adds blinker 
             <param name="ROW" type="int" required="true">row</param>
             <param name="COL" type="int" required="true">column</param></method>
-            <method name="hive">adds horizontal bee-hive 
-            <param name="ROW" type="int" required="true">row</param>
-            <param name="COL" type="int" required="true">column</param></method>
-            <method name="vhive">adds vertical bee-hive 
-            <param name="ROW" type="int" required="true">row</param>
-            <param name="COL" type="int" required="true">column</param></method>
-            <method name="rpent">adds R-pentamino 
-            <param name="ROW" type="int" required="true">row</param>
-            <param name="COL" type="int" required="true">column</param></method>
+            <!-- block -->
             <method name="block">adds block 
             <param name="ROW" type="int" required="true">row</param>
             <param name="COL" type="int" required="true">column</param></method>
-            <method name="oct2">adds octagon 
-            <param name="ROW" type="int" required="true">row</param>
-            <param name="COL" type="int" required="true">column</param></method>
+            <!-- cell -->
             <method name="cell">sets cell value 
             <param name="ROW" type="int" required="true">row</param>
             <param name="COL" type="int" required="true">column</param>
             <param name="VALUE" type="int" required="true">column</param></method>
-            <method name="blinker">adds blinker 
+            <!-- clear -->
+            <method name="clear">clear all cells</method>
+            <!-- glider -->
+            <method name="glider">adds glider 
             <param name="ROW" type="int" required="true">row</param>
             <param name="COL" type="int" required="true">column</param></method>
+            <!-- hive -->
+            <method name="hive">adds horizontal bee-hive 
+            <param name="ROW" type="int" required="true">row</param>
+            <param name="COL" type="int" required="true">column</param></method>
+            <!-- next -->
+            <method name="next">generate next state</method>
+            <!-- oct2 -->
+            <method name="oct2">adds octagon 
+            <param name="ROW" type="int" required="true">row</param>
+            <param name="COL" type="int" required="true">column</param></method>
+            <!-- random -->
             <method name="random">fills with random</method>
+            <!-- rpent -->
+            <method name="rpent">adds R-pentamino 
+            <param name="ROW" type="int" required="true">row</param>
+            <param name="COL" type="int" required="true">column</param></method>
+            <!-- vhive -->
+            <method name="vhive">adds vertical bee-hive 
+            <param name="ROW" type="int" required="true">row</param>
+            <param name="COL" type="int" required="true">column</param></method>
         </methods>
         <inlets>
             <inlet>

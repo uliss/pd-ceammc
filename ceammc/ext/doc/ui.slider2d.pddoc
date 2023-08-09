@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.slider2d" type="gui">
         <title>ui.slider2d</title>
         <meta>
@@ -84,26 +84,32 @@
             pixels</property>
         </properties>
         <methods>
+            <!-- clear -->
+            <method name="clear">clears specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- dump -->
             <method name="dump">dumps all object info to Pd console window</method>
-            <method name="set">sets slider position without output 
-            <param name="X" type="float" required="true">x-position</param>
-            <param name="Y" type="float" required="true">y-position</param></method>
+            <!-- interp -->
+            <method name="interp">interplolates between presets 
+            <param type="float" name="IDX" required="true">preset fraction index</param></method>
+            <!-- load -->
+            <method name="load">loads specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- move -->
             <method name="move">move slider by given offset 
             <param name="X" type="float" required="true">x-offset</param>
             <param name="Y" type="float" required="true">y-offset</param></method>
-            <!-- presets -->
-            <method name="load">loads specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="store">stores specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="clear">clears specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="interp">interplolates between presets 
-            <param type="float" name="IDX" required="true">preset fraction index</param></method>
-            <!-- common-->
+            <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- set -->
+            <method name="set">sets slider position without output 
+            <param name="X" type="float" required="true">x-position</param>
+            <param name="Y" type="float" required="true">y-position</param></method>
+            <!-- store -->
+            <method name="store">stores specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
         </methods>
         <inlets>
             <inlet>
@@ -117,7 +123,7 @@
         <example>
             <pdascii>
 <![CDATA[
-                           [T]
+[T]
                            |
 [set 0 0(  [move 0.1 -0.1( [@show_grid $1(
 |          |               |

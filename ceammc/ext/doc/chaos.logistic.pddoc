@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="chaos.logistic">
         <title>chaos.logistic</title>
         <meta>
@@ -49,14 +49,19 @@
             <argument type="float" name="LAMBDA">lambda value (default 3.9)</argument>
         </arguments>
         <methods>
-            <method name="reset">set to initial state</method>
-            <method name="set">set init value and lambda value and updates init value</method>
+            <!-- lambda -->
             <method name="lambda">set lambda value</method>
-            <method name="seed">set init value, updates init value</method>
+            <!-- om -->
             <method name="om">set output mode. 
             <param name="BOOL" type="int" required="true">output mode. If 1: outputs new generated
             value after lambda or seed method call, if 0 - change values without output. Default is
             0.</param></method>
+            <!-- reset -->
+            <method name="reset">set to initial state</method>
+            <!-- seed -->
+            <method name="seed">set init value, updates init value</method>
+            <!-- set -->
+            <method name="set">set init value and lambda value and updates init value</method>
         </methods>
         <inlets>
             <inlet>

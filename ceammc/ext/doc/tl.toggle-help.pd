@@ -9,8 +9,8 @@
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Output 1 when cue section activated \, 0 when switched
 to other cue section;
-#X obj 184 158 tl.cue;
-#X obj 366 158 tl.cue;
+#X obj 50 158 tl.cue;
+#X obj 232 158 tl.cue;
 #X obj 50 187 hradio 15 1 0 3 empty empty empty 17 7 0 10 -262144 -1
 -1 0;
 #X obj 213 187 tl.toggle;

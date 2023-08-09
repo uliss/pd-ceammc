@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="fx.pitchshift_s~">
         <title>fx.pitchshift_s~</title>
         <meta>
@@ -14,9 +14,6 @@
             <keywords>fx pitchshift</keywords>
             <since>0.9</since>
         </meta>
-        <methods>
-            <method name="reset">reset object state</method>
-        </methods>
         <properties>
             <property name="@window" type="float" units="millisecond" minvalue="10" maxvalue="2000"
             default="200">the window size</property>
@@ -35,6 +32,10 @@
             specified, bind properties to /ID/fx_pitchshift_s/PROP_NAME osc address, if empty bind
             to /fx_pitchshift_s/PROP_NAME.</property>
         </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset object state</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>

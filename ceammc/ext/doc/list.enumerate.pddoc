@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="list.enumerate">
         <title>list.enumerate</title>
         <meta>
@@ -13,12 +13,6 @@
             <keywords>list enumerate</keywords>
             <since>0.3</since>
         </meta>
-        <inlets>
-            <inlet>
-                <xinfo on="list">input list</xinfo>
-                <xinfo on="data:mlist">input mlist</xinfo>
-            </inlet>
-        </inlets>
         <arguments>
             <argument type="int" name="FROM">enumeration start index</argument>
         </arguments>
@@ -27,6 +21,12 @@
             <property name="@append" type="flag" default="0" access="initonly">put element index
             after element value</property>
         </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list</xinfo>
+                <xinfo on="data:mlist">input mlist</xinfo>
+            </inlet>
+        </inlets>
         <outlets>
             <outlet>output list</outlet>
         </outlets>

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="preset.float">
         <title>preset.float</title>
         <meta>
@@ -41,10 +41,14 @@
             name to path</property>
         </properties>
         <methods>
-            <method name="load">load preset value by specified index and output it</method>
-            <method name="store">stores preset value at specified index</method>
+            <!-- clear -->
             <method name="clear">clear preset at specified index</method>
+            <!-- interp -->
             <method name="interp">linearly interpolate between preset indexes and output</method>
+            <!-- load -->
+            <method name="load">load preset value by specified index and output it</method>
+            <!-- store -->
+            <method name="store">stores preset value at specified index</method>
         </methods>
         <inlets>
             <inlet>

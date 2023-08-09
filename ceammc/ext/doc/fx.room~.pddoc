@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="fx.room~">
         <title>fx.room~</title>
         <meta>
@@ -18,9 +18,6 @@
             <argument name="FB" type="float" minvalue="0" maxvalue="1">feedback
             coefficient</argument>
         </arguments>
-        <methods>
-            <method name="reset">reset to initial state</method>
-        </methods>
         <properties>
             <property name="@predelay" type="float" minvalue="1" maxvalue="200" default="20"
             units="millisecond">pre delay</property>
@@ -45,6 +42,10 @@
             specified, bind properties to /ID/fx_room/PROP_NAME osc address, if empty bind to
             /fx_room/PROP_NAME.</property>
         </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset to initial state</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>

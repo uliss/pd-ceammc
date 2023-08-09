@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.midi" type="gui">
         <title>ui.midi</title>
         <meta>
@@ -59,7 +59,7 @@
             slant</property>
         </properties>
         <methods>
-            <!-- common-->
+            <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>

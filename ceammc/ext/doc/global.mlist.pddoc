@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="global.mlist">
         <title>global.mlist</title>
         <meta>
@@ -35,32 +35,49 @@
             elements in list</property>
         </properties>
         <methods>
+            <!-- (....) -->
+            <method name="(....)" example="true">sets new list without output</method>
+            <!-- append -->
             <method name="append">adds values to the end of the list 
             <param name="VAL" type="atom" required="true">appended value</param></method>
-            <method name="prepend">inserts values to the list beginning 
-            <param name="VAL" type="atom" required="true">prepended value</param></method>
-            <method name="front">output first list element</method>
-            <method name="back">output last list element</method>
+            <!-- at -->
             <method name="at">outputs atom at the specified position 
             <param name="IDX" type="int" required="true">position (negative indexes are supported:
             -1 means last element)</param></method>
+            <!-- back -->
+            <method name="back">output last list element</method>
+            <!-- choose -->
+            <method name="choose">choose random element in list and output it</method>
+            <!-- clear -->
+            <method name="clear">removes all list elements</method>
+            <!-- dump -->
+            <method name="dump">dump object info to Pd window</method>
+            <!-- fill -->
+            <method name="fill">fills with specified value 
+            <param name="VAL" type="atom" required="true">fill value</param></method>
+            <!-- front -->
+            <method name="front">output first list element</method>
+            <!-- insert -->
             <method name="insert">inserts values to the specified position 
             <param name="IDX" type="int" required="true">insert position</param>
             <param name="VAL" type="atom" required="true">value</param></method>
-            <method name="fill">fills with specified value 
-            <param name="VAL" type="atom" required="true">fill value</param></method>
-            <method name="reverse">reverses list</method>
-            <method name="choose">choose random element in list and output it</method>
-            <method name="shuffle">put elements in random order</method>
-            <method name="sort">sorts list</method>
-            <method name="clear">removes all list elements</method>
+            <!-- pop -->
             <method name="pop">removes last list element</method>
+            <!-- prepend -->
+            <method name="prepend">inserts values to the list beginning 
+            <param name="VAL" type="atom" required="true">prepended value</param></method>
+            <!-- remove -->
             <method name="remove">removes specified element 
             <param name="IDX" type="int" required="true">element index</param></method>
+            <!-- reverse -->
+            <method name="reverse">reverses list</method>
+            <!-- set -->
             <method name="set">sets new list without output 
             <param name="LIST" type="list" required="true">new list content</param></method>
-            <method name="dump">dump object info to Pd window</method>
-            <method name="(....)" example="true">sets new list without output</method>
+            <!-- shuffle -->
+            <method name="shuffle">put elements in random order</method>
+            <!-- sort -->
+            <method name="sort">sorts list</method>
         </methods>
         <inlets>
             <inlet>

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="dyn.comp_up~">
         <title>dyn.comp_up~</title>
         <meta>
@@ -69,6 +69,7 @@
             /dyn_comp_up/PROP_NAME.</property>
         </properties>
         <methods>
+            <!-- reset -->
             <method name="reset">reset to initial state</method>
         </methods>
         <inlets>

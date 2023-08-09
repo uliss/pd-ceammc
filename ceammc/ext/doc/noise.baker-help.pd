@@ -7,25 +7,25 @@
 #X obj 660 11 noise.baker;
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Port of Richard's chaos-baker from chaos collection;
-#X obj 50 158 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 187 metro 50;
-#X obj 395 201 ui.slider, f 100;
-#X obj 626 201 ui.slider;
-#X obj 78 330 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 143 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 50 172 metro 50;
+#X obj 395 187 ui.slider, f 100;
+#X obj 626 187 ui.slider;
+#X obj 78 316 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 242 330 reset;
-#X msg 395 330 set \$1;
-#X msg 626 330 seed \$1;
-#X obj 414 359 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 664 359 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X msg 414 388 fold_cut \$1;
-#X msg 664 388 om \$1;
-#X floatatom 107 403 5 0 0 0 - - -;
-#X floatatom 270 403 5 0 0 0 - - -;
-#X msg 107 431 cut \$1;
-#X msg 270 431 fold \$1;
-#X obj 50 460 noise.baker 0.85;
-#X obj 50 489 ui.display;
+#X msg 242 316 reset;
+#X msg 395 316 set \$1;
+#X msg 626 316 seed \$1;
+#X obj 414 345 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 664 345 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X msg 414 374 fold_cut \$1;
+#X msg 664 374 om \$1;
+#X floatatom 107 388 5 0 0 0 - - -;
+#X floatatom 270 388 5 0 0 0 - - -;
+#X msg 107 417 cut \$1;
+#X msg 270 417 fold \$1;
+#X obj 50 446 noise.baker 0.85;
+#X obj 50 474 ui.display;
 #X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 528 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;

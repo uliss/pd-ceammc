@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.faust~" type="gui">
         <title>ui.faust~</title>
         <meta>
@@ -26,14 +26,6 @@
         <arguments>
             <argument name="FNAME" type="symbol">path to faust dsp file</argument>
         </arguments>
-        <methods>
-            <method name="open">open faust dsp file in external editor</method>
-            <method name="reset">reset object state</method>
-            <method name="update">update faust object, recompile if needed</method>
-            <method name="size">resize object 
-            <param name="W" type="int" required="true">new width</param>
-            <param name="H" type="int" required="true">new height</param></method>
-        </methods>
         <properties>
             <property name="@fname" type="symbol" default="">path to faust dsp file</property>
             <property name="@include" type="list" default="">list of faust include
@@ -42,6 +34,18 @@
             faust dsp file on change</property>
             <property name="@size" type="list" default="10 10">object size</property>
         </properties>
+        <methods>
+            <!-- open -->
+            <method name="open">open faust dsp file in external editor</method>
+            <!-- reset -->
+            <method name="reset">reset object state</method>
+            <!-- size -->
+            <method name="size">resize object 
+            <param name="W" type="int" required="true">new width</param>
+            <param name="H" type="int" required="true">new height</param></method>
+            <!-- update -->
+            <method name="update">update faust object, recompile if needed</method>
+        </methods>
         <inlets dynamic="true">
             <inlet number="1">
                 <xinfo>control input</xinfo>

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="data.bimap">
         <title>data.bimap</title>
         <meta>
@@ -40,20 +40,25 @@
             keys</property>
         </properties>
         <methods>
+            <!-- clear -->
             <method name="clear">clear bidirectional map content</method>
-            <method name="set">set bidirectional map content 
-            <param name="DATA" type="list" required="true">new value list</param></method>
+            <!-- insert -->
             <method name="insert">insert new left-right map entry 
             <param name="PAIR" type="list" required="true">list: LEFT_KEY
             RIGHT_KEY</param></method>
+            <!-- read -->
+            <method name="read">read bimap from JSON file. Array of array pairs expected. 
+            <param name="FNAME" type="symbol" required="true">path to file, absolute or
+            relative</param></method>
+            <!-- set -->
+            <method name="set">set bidirectional map content 
+            <param name="DATA" type="list" required="true">new value list</param></method>
+            <!-- write -->
             <method name="write">write to JSON file, to overwrite existing file use @force flag 
             <param name="FNAME" type="symbol" required="true">path to file, absolute or
             relative</param>
             <param name="@force" type="symbol" required="false">force flag to overwrite existing
             files</param></method>
-            <method name="read">read bimap from JSON file. Array of array pairs expected. 
-            <param name="FNAME" type="symbol" required="true">path to file, absolute or
-            relative</param></method>
         </methods>
         <inlets>
             <inlet>

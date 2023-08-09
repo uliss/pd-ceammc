@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="fx.granulator~">
         <title>fx.granulator~</title>
         <meta>
@@ -14,9 +14,6 @@
             <keywords>fx bits granulator</keywords>
             <since>0.7</since>
         </meta>
-        <methods>
-            <method name="reset">reset object state</method>
-        </methods>
         <properties>
             <property name="@density" type="int" minvalue="1" maxvalue="64" default="10">number of
             grains</property>
@@ -32,6 +29,10 @@
             specified, bind properties to /ID/fx_granulator/PROP_NAME osc address, if empty bind to
             /fx_granulator/PROP_NAME.</property>
         </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset object state</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>left channel</xinfo>

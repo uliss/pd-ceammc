@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="hoa.process~">
         <title>hoa.process~</title>
         <meta>
@@ -27,13 +27,6 @@
             with the hoa.process~</par>
             <a href="hoa/hoa.2d.process~-help.pd">CICM documentation</a>
         </info>
-        <methods>
-            <method name="dump">dumps all object info to Pd console window.</method>
-            <method name="open">open Pd window for specified instance 
-            <param name="IDX" type="int" required="true">instance index</param></method>
-            <method name="on">switch on/off DSP instance processing. Usage: on all 0|1 - turn
-            on/off all instances, on IDX 0|1 - turn on/off specified instance.</method>
-        </methods>
         <arguments>
             <argument name="N" type="int" minvalue="0">the order of decomposition</argument>
             <argument name="PATCH" type="symbol">patch name</argument>
@@ -50,6 +43,16 @@
             <property name="@args" type="list" access="initonly" default="">arguments passed to
             instances</property>
         </properties>
+        <methods>
+            <!-- dump -->
+            <method name="dump">dumps all object info to Pd console window.</method>
+            <!-- on -->
+            <method name="on">switch on/off DSP instance processing. Usage: on all 0|1 - turn
+            on/off all instances, on IDX 0|1 - turn on/off specified instance.</method>
+            <!-- open -->
+            <method name="open">open Pd window for specified instance 
+            <param name="IDX" type="int" required="true">instance index</param></method>
+        </methods>
         <inlets dynamic="true">
             <inlet type="audio">
                 <xinfo>first input harmonic/planewave</xinfo>

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="preset.symbol">
         <title>preset.symbol</title>
         <meta>
@@ -40,9 +40,12 @@
             name to path</property>
         </properties>
         <methods>
-            <method name="load">load preset value by specified index and output it</method>
-            <method name="store">stores preset value at specified index</method>
+            <!-- clear -->
             <method name="clear">clear preset at specified index</method>
+            <!-- load -->
+            <method name="load">load preset value by specified index and output it</method>
+            <!-- store -->
+            <method name="store">stores preset value at specified index</method>
         </methods>
         <inlets>
             <inlet>
@@ -55,14 +58,13 @@
         <example>
             <pdascii>
 <![CDATA[
-                    [store 0(  [store 1(
+[store 0(  [store 1(
                     |          |
            [load 0( | [load 1( |
            |        | |        |
            |        | |        |
            |        | |        |
 [S]    X   [preset.symbol     f1]
-
 ]]>
             </pdascii>
         </example>

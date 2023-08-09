@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="tl.cue" type="gui">
         <title>tl.cue</title>
         <meta>
@@ -18,13 +18,6 @@
                 <see view="link">tl.toggle</see>
             </also>
         </meta>
-        <inlets />
-        <outlets />
-        <methods>
-            <method name="pos">set UI element position 
-            <param name="X" type="float" required="true">top left x-coord</param>
-            <param name="Y" type="float" required="true">top right y-coord</param></method>
-        </methods>
         <properties>
             <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
             lowest level</property>
@@ -37,10 +30,18 @@
             <property name="@fontname" type="symbol" default="Helvetica"
             enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
         </properties>
+        <methods>
+            <!-- pos -->
+            <method name="pos">set UI element position 
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
+        </methods>
+        <inlets />
+        <outlets />
         <example>
             <pdascii>
 <![CDATA[
-              [tl.cue]              [tl.cue]           [tl.cue]
+[tl.cue]              [tl.cue]           [tl.cue]
 
 [HR number=3]  [tl.bang @delay 500]
 |              |

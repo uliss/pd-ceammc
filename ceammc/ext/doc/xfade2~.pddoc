@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="xfade2~">
         <title>xfade2~</title>
         <meta>
@@ -68,7 +68,7 @@
         </outlets>
         <example>
             <pdascii>
-<![CDATA[                             
+<![CDATA[
 [osc~ 440]    [osc~ 1000]   [ui.knob]
 |             |             |
 | [osc~ 441]  | [osc~ 1002] |

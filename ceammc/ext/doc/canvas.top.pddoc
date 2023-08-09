@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="canvas.top">
         <title>canvas.top</title>
         <meta>
@@ -35,6 +35,7 @@
             <property name="@y" access="readonly" type="int" default="0">window y-pos</property>
         </properties>
         <methods>
+            <!-- postscript -->
             <method name="postscript">save patch to postscript 
             <param type="symbol" name="FNAME" required="false">file. If not specified patch name
             used with .ps extension</param></method>
@@ -60,10 +61,6 @@
 [canvas.top           ]
 |
 [ui.display @display_type 1]
-
-
-
-
 ]]>
             </pdascii>
         </example>

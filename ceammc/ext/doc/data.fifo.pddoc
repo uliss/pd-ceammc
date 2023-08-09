@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="data.fifo">
         <title>data.fifo</title>
         <meta>
@@ -27,15 +27,6 @@
             <argument name="SIZE" type="int" minvalue="0">if specified, creates fixed-size queue.
             Value '0' means default size (1024)</argument>
         </arguments>
-        <methods>
-            <method name="clear">removes all queue values</method>
-            <method name="flush">outputs and removes all queue values</method>
-            <method name="pop">outputs and removes first values in queue</method>
-            <method name="resize">
-                <param type="int" minvalue="0">changes queue size. All previous values (if any) are
-                silently removed</param>
-            </method>
-        </methods>
         <properties>
             <property name="@empty" type="bool" access="readonly" default="1">if queue is
             empty</property>
@@ -46,6 +37,19 @@
             <property name="@free" type="int" minvalue="0" access="readonly" default="32">number of
             elements you can add to queue until it full</property>
         </properties>
+        <methods>
+            <!-- clear -->
+            <method name="clear">removes all queue values</method>
+            <!-- flush -->
+            <method name="flush">outputs and removes all queue values</method>
+            <!-- pop -->
+            <method name="pop">outputs and removes first values in queue</method>
+            <!-- resize -->
+            <method name="resize">
+                <param type="int" minvalue="0">changes queue size. All previous values (if any) are
+                silently removed</param>
+            </method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="bang">same as *flush* message</xinfo>
@@ -57,7 +61,7 @@
         <example>
             <pdascii>
 <![CDATA[
-                 [F]
+[F]
                  |
     [pop(  [1 2( [resize $1(
     |      |         |        [@size?( [@free?( [@filled?(

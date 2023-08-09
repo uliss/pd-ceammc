@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.scope~" type="gui">
         <title>ui.scope~</title>
         <meta>
@@ -60,15 +60,17 @@
             slant</property>
         </properties>
         <methods>
+            <!-- freeze -->
             <method name="freeze">stop/start processing 
             <param name="V" type="int" enum="0 1">1 - freeze, 0 - unfreeze</param></method>
-            <method name="scale">sets widget scale 
-            <param name="N" type="float" minvalue="0">1 - normal scale, 2 - range from -2..2
-            (zoomout), 0.1 - range from -0.1..0.1 (zoomin)</param></method>
-            <!-- common-->
+            <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- scale -->
+            <method name="scale">sets widget scale 
+            <param name="N" type="float" minvalue="0">1 - normal scale, 2 - range from -2..2
+            (zoomout), 0.1 - range from -0.1..0.1 (zoomin)</param></method>
         </methods>
         <inlets>
             <inlet type="audio">

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flow.demultiplex">
         <title>flow.demultiplex</title>
         <meta>
@@ -25,6 +25,12 @@
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="24">number of outlets</argument>
         </arguments>
+        <properties>
+            <property name="@index" type="int" minvalue="0" default="0">current demultiplexer
+            output index</property>
+            <property name="@n" type="int" minvalue="2" default="2" maxvalue="24"
+            access="initonly">number of outlets</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="any">input flow inlet</xinfo>
@@ -33,12 +39,6 @@
                 <xinfo on="int">output selector</xinfo>
             </inlet>
         </inlets>
-        <properties>
-            <property name="@index" type="int" minvalue="0" default="0">current demultiplexer
-            output index</property>
-            <property name="@n" type="int" minvalue="2" default="2" maxvalue="24"
-            access="initonly">number of outlets</property>
-        </properties>
         <outlets dynamic="true">
             <outlet>demultiplexer first output</outlet>
             <outlet number="n">demultiplexer N-th output</outlet>

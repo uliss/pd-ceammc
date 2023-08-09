@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.tab" type="gui">
         <title>ui.tab</title>
         <meta>
@@ -59,46 +59,62 @@
             slant</property>
         </properties>
         <methods>
+            <!-- + STEP -->
+            <method name="+ STEP">moves several steps forward on a loop (single mode only), output
+            newly selected item</method>
+            <!-- - STEP -->
+            <method name="- STEP">moves several step backwards on a loop (single mode only), output
+            newly selected item</method>
+            <!-- append -->
             <method name="append">appends new tab item 
             <param name="ATOMS" type="list" required="true">item name</param></method>
-            <method name="insert">inserts new tab item before specified position 
-            <param name="IDX" type="int" minvalue="0" required="true">item position</param>
-            <param name="ATOM" type="atom" required="true">item name</param></method>
+            <!-- clear -->
             <method name="clear">clears all tab menu</method>
+            <!-- clear -->
+            <method name="clear">clears specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- delete -->
             <method name="delete">removes item from tab 
             <param name="IDX" type="int" minvalue="0" required="true">removed item
             index</param></method>
-            <method name="set_item">renames tab item 
-            <param name="IDX" type="int" required="true" minvalue="0">item index</param>
-            <param name="ATOMS" type="list" required="true">item name</param></method>
-            <method name="set">silently sets tab state. 
-            <param name="IDX" type="int" minvalue="0" required="true">item index</param></method>
-            <method name="select">selects specified item in tab 
-            <param name="IDX" type="int" minvalue="0" required="true">item index</param></method>
-            <method name="random">select random item. If called [random move( moves to random item
-            (excluding the current one)</method>
+            <!-- flip -->
             <method name="flip">flips radio (only in checklist mode)</method>
-            <method name="next">moves to next item until last item is reached (single mode only).
-            Output new item</method>
-            <method name="prev">moves to previous item until first item is reached (single mode
-            only). Output new item</method>
-            <method name="+ STEP">moves several steps forward on a loop (single mode only), output
-            newly selected item</method>
-            <method name="- STEP">moves several step backwards on a loop (single mode only), output
-            newly selected item</method>
-            <!-- presets -->
-            <method name="load">loads specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="store">stores specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="clear">clears specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- insert -->
+            <method name="insert">inserts new tab item before specified position 
+            <param name="IDX" type="int" minvalue="0" required="true">item position</param>
+            <param name="ATOM" type="atom" required="true">item name</param></method>
+            <!-- interp -->
             <method name="interp">for this object acts as *load*, no interpolation
             performed</method>
-            <!-- common-->
+            <!-- load -->
+            <method name="load">loads specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- next -->
+            <method name="next">moves to next item until last item is reached (single mode only).
+            Output new item</method>
+            <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- prev -->
+            <method name="prev">moves to previous item until first item is reached (single mode
+            only). Output new item</method>
+            <!-- random -->
+            <method name="random">select random item. If called [random move( moves to random item
+            (excluding the current one)</method>
+            <!-- select -->
+            <method name="select">selects specified item in tab 
+            <param name="IDX" type="int" minvalue="0" required="true">item index</param></method>
+            <!-- set -->
+            <method name="set">silently sets tab state. 
+            <param name="IDX" type="int" minvalue="0" required="true">item index</param></method>
+            <!-- set_item -->
+            <method name="set_item">renames tab item 
+            <param name="IDX" type="int" required="true" minvalue="0">item index</param>
+            <param name="ATOMS" type="list" required="true">item name</param></method>
+            <!-- store -->
+            <method name="store">stores specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
         </methods>
         <inlets>
             <inlet>

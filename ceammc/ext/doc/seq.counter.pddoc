@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="seq.counter">
         <title>seq.counter</title>
         <meta>
@@ -37,9 +37,12 @@
             value</property>
         </properties>
         <methods>
-            <method name="reset">reset counter to start value and repeat counter to 0</method>
+            <!-- next -->
             <method name="next">increment counter then output</method>
+            <!-- prev -->
             <method name="prev">decrement counter then output</method>
+            <!-- reset -->
+            <method name="reset">reset counter to start value and repeat counter to 0</method>
         </methods>
         <inlets>
             <inlet>

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="array.vplay">
         <title>array.vplay</title>
         <meta>
@@ -36,8 +36,9 @@
             1)</property>
         </properties>
         <methods>
+            <!-- play -->
             <method name="play">start playing</method>
-            <method name="stop">stop playing</method>
+            <!-- range -->
             <method name="range">set play range. 
             <param name="VALUE" type="float" required="true">start value. Negative values (offset
             from end) are supported for ms, sec and sample units. *-1 sample* means last
@@ -47,6 +48,8 @@
             <param name="VALUE" type="float" required="false">end value</param>
             <param name="UNIT" type="symbol" required="true" enum="ms sec phase sample">value
             unit</param></method>
+            <!-- stop -->
+            <method name="stop">stop playing</method>
         </methods>
         <inlets>
             <inlet>

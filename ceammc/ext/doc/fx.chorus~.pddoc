@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="fx.chorus~">
         <title>fx.chorus~</title>
         <meta>
@@ -14,9 +14,6 @@
             <keywords>fx chorus</keywords>
             <since>0.7</since>
         </meta>
-        <methods>
-            <method name="reset">reset object</method>
-        </methods>
         <properties>
             <property name="@delay" type="float" minvalue="0" maxvalue="200" default="25"
             units="millisecond">delay amount</property>
@@ -36,6 +33,10 @@
             specified, bind properties to /ID/fx_chorus/PROP_NAME osc address, if empty bind to
             /fx_chorus/PROP_NAME.</property>
         </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset object</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>

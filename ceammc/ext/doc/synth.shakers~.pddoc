@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="synth.shakers~">
         <title>synth.shakers~</title>
         <meta>
@@ -34,6 +34,7 @@
             all instrument types</property>
         </properties>
         <methods>
+            <!-- cc -->
             <method name="cc">Control change 
             <param name="CTL" type="int" required="true">control number</param>
             <param name="VAL" type="float" required="true">value</param></method>

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="data.color">
         <title>data.color</title>
         <meta>
@@ -24,36 +24,52 @@
             <property name="@value" type="atom">current color</property>
         </properties>
         <methods>
-            <method name="blue">set blue channel value 
-            <param name="BLUE" type="float" minvalue="0" maxvalue="1" required="true">
-            value</param></method>
-            <method name="red">set red channel value 
-            <param name="RED" type="float" minvalue="0" maxvalue="1" required="true">
-            value</param></method>
-            <method name="green">set green channel value 
-            <param name="GREEN" type="float" minvalue="0" maxvalue="1" required="true">
-            value</param></method>
+            <!-- alpha -->
             <method name="alpha">set alpha channel value 
             <param name="ALPHA" type="float" minvalue="0" maxvalue="1" required="true">
             value</param></method>
-            <method name="rgb">set RGB with floats 
-            <param name="RED" type="float" minvalue="0" maxvalue="1" required="true">red
-            value</param>
-            <param name="GREEN" type="float" minvalue="0" maxvalue="1" required="true">green
-            value</param>
+            <!-- alpha -->
+            <method name="alpha">set alpha channel 
+            <param name="ALPHA" type="float" minvalue="0" maxvalue="1" required="true">alpha
+            value</param></method>
+            <!-- blue -->
+            <method name="blue">set blue channel value 
+            <param name="BLUE" type="float" minvalue="0" maxvalue="1" required="true">
+            value</param></method>
+            <!-- blue -->
+            <method name="blue">set blue channel 
             <param name="BLUE" type="float" minvalue="0" maxvalue="1" required="true">blue
-            value</param>
-            <param name="ALPHA" type="float" minvalue="0" maxvalue="1" required="false">alpha
             value</param></method>
-            <method name="rgb8">set RGB with int values 
-            <param name="RED" type="int" minvalue="0" maxvalue="255" required="true">red
-            value</param>
-            <param name="GREEN" type="int" minvalue="0" maxvalue="255" required="true">green
-            value</param>
-            <param name="BLUE" type="int" minvalue="0" maxvalue="255" required="true">blue
-            value</param>
-            <param name="ALPHA" type="int" minvalue="0" maxvalue="255" required="false">alpha
+            <!-- brighten -->
+            <method name="brighten">set color brighter 
+            <param name="V" type="float" minvalue="0" maxvalue="1" required="true">
             value</param></method>
+            <!-- darken -->
+            <method name="darken">set color darker 
+            <param name="V" type="float" minvalue="0" maxvalue="1" required="true">
+            value</param></method>
+            <!-- desaturate -->
+            <method name="desaturate">decrease color saturation 
+            <param name="V" type="float" minvalue="0" maxvalue="1" required="true">
+            value</param></method>
+            <!-- flip -->
+            <method name="flip">flip color hue 
+            <param name="V" type="float" minvalue="0" maxvalue="1" required="false">
+            v</param></method>
+            <!-- grayscale -->
+            <method name="grayscale">convert color to grayscale</method>
+            <!-- green -->
+            <method name="green">set green channel value 
+            <param name="GREEN" type="float" minvalue="0" maxvalue="1" required="true">
+            value</param></method>
+            <!-- green -->
+            <method name="green">set green channel 
+            <param name="GREEN" type="float" minvalue="0" maxvalue="1" required="true">green
+            value</param></method>
+            <!-- hex -->
+            <method name="hex">set color with hex #RGB or #RRGGBB value 
+            <param name="HEX" type="symbol" required="true">mix amount</param></method>
+            <!-- hsl -->
             <method name="hsl">set color in HSL colorspace 
             <param name="HUE" type="float" minvalue="0" maxvalue="360" required="true">hue
             value</param>
@@ -63,6 +79,7 @@
             lightness value</param>
             <param name="ALPHA" type="float" minvalue="0" maxvalue="1" required="false">alpha
             value</param></method>
+            <!-- hwb -->
             <method name="hwb">set color in HWB colorspace 
             <param name="HUE" type="float" minvalue="0" maxvalue="360" required="true">hue
             value</param>
@@ -72,6 +89,14 @@
             blackness value</param>
             <param name="ALPHA" type="float" minvalue="0" maxvalue="1" required="false">alpha
             value</param></method>
+            <!-- invert -->
+            <method name="invert">invert color in RGB colorspace</method>
+            <!-- mix -->
+            <method name="mix">mix with specified color 
+            <param name="COLOR" type="data:color" required="true">color to mix with</param>
+            <param name="MIX" type="float" minvalue="0" maxvalue="1" required="true">mix
+            amount</param></method>
+            <!-- oklab -->
             <method name="oklab">set color in OkLab colorspace 
             <param name="HUE" type="float" minvalue="0" maxvalue="360" required="true">hue
             value</param>
@@ -79,46 +104,45 @@
             <param name="b" type="float" minvalue="-1" maxvalue="1" required="true">b value</param>
             <param name="ALPHA" type="float" minvalue="0" maxvalue="1" required="false">alpha
             value</param></method>
+            <!-- red -->
+            <method name="red">set red channel value 
+            <param name="RED" type="float" minvalue="0" maxvalue="1" required="true">
+            value</param></method>
+            <!-- red -->
             <method name="red">set red channel 
             <param name="RED" type="float" minvalue="0" maxvalue="1" required="true">red
             value</param></method>
-            <method name="green">set green channel 
+            <!-- rgb -->
+            <method name="rgb">set RGB with floats 
+            <param name="RED" type="float" minvalue="0" maxvalue="1" required="true">red
+            value</param>
             <param name="GREEN" type="float" minvalue="0" maxvalue="1" required="true">green
-            value</param></method>
-            <method name="blue">set blue channel 
+            value</param>
             <param name="BLUE" type="float" minvalue="0" maxvalue="1" required="true">blue
+            value</param>
+            <param name="ALPHA" type="float" minvalue="0" maxvalue="1" required="false">alpha
             value</param></method>
-            <method name="alpha">set alpha channel 
-            <param name="ALPHA" type="float" minvalue="0" maxvalue="1" required="true">alpha
+            <!-- rgb8 -->
+            <method name="rgb8">set RGB with int values 
+            <param name="RED" type="int" minvalue="0" maxvalue="255" required="true">red
+            value</param>
+            <param name="GREEN" type="int" minvalue="0" maxvalue="255" required="true">green
+            value</param>
+            <param name="BLUE" type="int" minvalue="0" maxvalue="255" required="true">blue
+            value</param>
+            <param name="ALPHA" type="int" minvalue="0" maxvalue="255" required="false">alpha
             value</param></method>
-            <method name="set">set color 
-            <param name="COLOR" type="data:color" required="true">new color value</param></method>
-            <method name="mix">mix with specified color 
-            <param name="COLOR" type="data:color" required="true">color to mix with</param>
-            <param name="MIX" type="float" minvalue="0" maxvalue="1" required="true">mix
-            amount</param></method>
-            <method name="invert">invert color in RGB colorspace</method>
-            <method name="grayscale">convert color to grayscale</method>
-            <method name="darken">set color darker 
-            <param name="V" type="float" minvalue="0" maxvalue="1" required="true">
-            value</param></method>
-            <method name="brighten">set color brighter 
-            <param name="V" type="float" minvalue="0" maxvalue="1" required="true">
-            value</param></method>
-            <method name="saturate">increase color saturation 
-            <param name="V" type="float" minvalue="0" maxvalue="1" required="true">
-            value</param></method>
-            <method name="desaturate">decrease color saturation 
-            <param name="V" type="float" minvalue="0" maxvalue="1" required="true">
-            value</param></method>
+            <!-- rotate -->
             <method name="rotate">rotate color hue 
             <param name="V" type="float" minvalue="0" maxvalue="360" required="true">rotation
             angle</param></method>
-            <method name="hex">set color with hex #RGB or #RRGGBB value 
-            <param name="HEX" type="symbol" required="true">mix amount</param></method>
-            <method name="flip">flip color hue 
-            <param name="V" type="float" minvalue="0" maxvalue="1" required="false">
-            v</param></method>
+            <!-- saturate -->
+            <method name="saturate">increase color saturation 
+            <param name="V" type="float" minvalue="0" maxvalue="1" required="true">
+            value</param></method>
+            <!-- set -->
+            <method name="set">set color 
+            <param name="COLOR" type="data:color" required="true">new color value</param></method>
         </methods>
         <inlets>
             <inlet>

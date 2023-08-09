@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.radio" type="gui">
         <title>ui.radio</title>
         <meta>
@@ -72,44 +72,58 @@
             outputs @mouse_down and @mouse_drag events</property>
         </properties>
         <methods>
-            <method name="set">sets radio without output 
-            <param name="V" type="float" required="true">new value</param></method>
-            <method name="reset">reset radio (only in checklist mode)</method>
-            <method name="random">select random cells. If called as [random move( moves to another
-            random cell (excluding the current one)</method>
-            <method name="flip">flips radio (only in checklist mode)</method>
-            <method name="next">moves to next position until last cell is reached (single mode
-            only)</method>
-            <method name="prev">moves to previous position until first cell is reached (single mode
-            only)</method>
+            <!-- + STEP -->
             <method name="+ STEP">moves several steps forward on a loop (single mode only)</method>
+            <!-- - STEP -->
             <method name="- STEP">moves several step backwards on a loop (single mode
             only)</method>
+            <!-- cellsize -->
             <method name="cellsize">set cell size (resize widget) 
             <param name="X" required="true" type="int">cell size in pixels</param></method>
-            <!-- checklist mode -->
-            <method name="rotate">left rotate (checklist mode only) 
-            <param name="STEPS" required="true" type="int">number of steps</param></method>
-            <method name="hexbeat">set hexbeat pattern (checklist mode only) 
-            <param name="HEXSTR" required="true" type="symbol">hex string. For example, 0xF1 will
-            set 1 1 1 1 0 0 0 1 pattern</param></method>
+            <!-- clear -->
+            <method name="clear">clears specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- euclid -->
             <method name="euclid">set euclid pattern (checklist mode only) 
             <param name="BEATS" required="true" type="int">requested number of beats</param>
             <param name="OFFSET" required="false" type="int">pattern offset (rotation to the
             right)</param></method>
-            <!-- presets -->
-            <method name="load">loads specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="store">stores specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="clear">clears specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- flip -->
+            <method name="flip">flips radio (only in checklist mode)</method>
+            <!-- hexbeat -->
+            <method name="hexbeat">set hexbeat pattern (checklist mode only) 
+            <param name="HEXSTR" required="true" type="symbol">hex string. For example, 0xF1 will
+            set 1 1 1 1 0 0 0 1 pattern</param></method>
+            <!-- interp -->
             <method name="interp">for this object acts as *load*, no interpolation
             performed</method>
-            <!-- common-->
+            <!-- load -->
+            <method name="load">loads specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- next -->
+            <method name="next">moves to next position until last cell is reached (single mode
+            only)</method>
+            <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- prev -->
+            <method name="prev">moves to previous position until first cell is reached (single mode
+            only)</method>
+            <!-- random -->
+            <method name="random">select random cells. If called as [random move( moves to another
+            random cell (excluding the current one)</method>
+            <!-- reset -->
+            <method name="reset">reset radio (only in checklist mode)</method>
+            <!-- rotate -->
+            <method name="rotate">left rotate (checklist mode only) 
+            <param name="STEPS" required="true" type="int">number of steps</param></method>
+            <!-- set -->
+            <method name="set">sets radio without output 
+            <param name="V" type="float" required="true">new value</param></method>
+            <!-- store -->
+            <method name="store">stores specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
         </methods>
         <inlets>
             <inlet>

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="fx.greyhole~">
         <title>fx.greyhole~</title>
         <meta>
@@ -25,9 +25,6 @@
             delay-line. Excels at producing spacey washes of sound.</par>
             <par>Developed as part of the DEIND project.</par>
         </info>
-        <methods>
-            <method name="reset">reset to initial state</method>
-        </methods>
         <properties>
             <property name="@feedback" type="float" minvalue="0" maxvalue="1" default="0.9">amount
             of feedback for the delay line</property>
@@ -61,6 +58,10 @@
             specified, bind properties to /ID/fx_greyhole/PROP_NAME osc address, if empty bind to
             /fx_greyhole/PROP_NAME.</property>
         </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset to initial state</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>left channel</xinfo>

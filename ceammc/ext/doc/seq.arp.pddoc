@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="seq.arp">
         <title>seq.arp</title>
         <meta>
@@ -24,21 +24,7 @@
             <property name="@chord" type="list" default="">list of pitches to arpeggiate</property>
         </properties>
         <methods>
-            <method name="reset">reset all notes to off without output</method>
-            <method name="on">turn on inactive notes 
-            <param name="MODE" type="symbol" enum="first last all random">if =first play first
-            inactive note in chord list, if =last play last inactive note in chord list, if =all
-            play all inactive notes</param>
-            <param name="VEL" type="float" minvalue="1" maxvalue="127" default="127">note
-            velocity</param>
-            <param name="NUM" type="int" minvalue="1" default="1">number of notes to turn
-            on</param></method>
-            <method name="off">turn off active notes. 
-            <param name="MODE" type="symbol" enum="first last all random">if =first turn off first
-            active note in chord list, if =last turn off last inactive note in chord list, if =all
-            turn off all active notes</param>
-            <param name="NUM" type="int" minvalue="1" default="1">number of notes to turn
-            on</param></method>
+            <!-- asr -->
             <method name="asr">set arpeggiate mode and run 
             <param name="STEP" type="float" minvalue="0" units="millisecond" required="true">step
             duration</param>
@@ -48,6 +34,24 @@
             value</param>
             <param name="OFF_MODE" type="symbol" enum="all first last" required="true">off
             mode</param></method>
+            <!-- off -->
+            <method name="off">turn off active notes. 
+            <param name="MODE" type="symbol" enum="first last all random">if =first turn off first
+            active note in chord list, if =last turn off last inactive note in chord list, if =all
+            turn off all active notes</param>
+            <param name="NUM" type="int" minvalue="1" default="1">number of notes to turn
+            on</param></method>
+            <!-- on -->
+            <method name="on">turn on inactive notes 
+            <param name="MODE" type="symbol" enum="first last all random">if =first play first
+            inactive note in chord list, if =last play last inactive note in chord list, if =all
+            play all inactive notes</param>
+            <param name="VEL" type="float" minvalue="1" maxvalue="127" default="127">note
+            velocity</param>
+            <param name="NUM" type="int" minvalue="1" default="1">number of notes to turn
+            on</param></method>
+            <!-- reset -->
+            <method name="reset">reset all notes to off without output</method>
         </methods>
         <inlets>
             <inlet>

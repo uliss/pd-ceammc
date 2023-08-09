@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="list.length">
         <title>list.length</title>
         <meta>
@@ -31,7 +31,7 @@
         <example>
             <pdascii>
 <![CDATA[
-      [a b c d e(        [\("a list" "of two elements"\), bang(
+[a b c d e(        [\("a list" "of two elements"\), bang(
       |                  |
 [1 2( | [list a b c( [F] [ml]
 |     | |            |   |

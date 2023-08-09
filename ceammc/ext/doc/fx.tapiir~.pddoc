@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="fx.tapiir~">
         <title>fx.tapiir~</title>
         <meta>
@@ -14,19 +14,6 @@
             <keywords>fx delay tapiir</keywords>
             <since>0.9.4</since>
         </meta>
-        <methods>
-            <method name="reset">reset to initial state</method>
-            <method name="random">randomize values 
-            <param name="TYPE" type="symbol" enum="delays fb inputs outputs gains" required="true">
-            group name. If 'delays' - randomize @delays properties, if 'fb' - randomize @fb*
-            properties.</param>
-            <param name="MIN" type="float" minvalue="0">minimal value</param>
-            <param name="MAX" type="float" minvalue="0">maximum value</param></method>
-            <method name="pingpong">set pingpong delay values 
-            <param name="DELAY" type="float" units="millisecond" required="true">delay time</param>
-            <param name="FB" type="float" minvalue="0" maxvalue="1" required="true">feedback
-            value</param></method>
-        </methods>
         <properties>
             <property name="@delays" type="list" default="0 0 0 0 0 0" units="millisecond">list of
             all tap delays</property>
@@ -228,6 +215,22 @@
             specified, bind properties to /ID/fx_tapiir/PROP_NAME osc address, if empty bind to
             /fx_tapiir/PROP_NAME.</property>
         </properties>
+        <methods>
+            <!-- pingpong -->
+            <method name="pingpong">set pingpong delay values 
+            <param name="DELAY" type="float" units="millisecond" required="true">delay time</param>
+            <param name="FB" type="float" minvalue="0" maxvalue="1" required="true">feedback
+            value</param></method>
+            <!-- random -->
+            <method name="random">randomize values 
+            <param name="TYPE" type="symbol" enum="delays fb inputs outputs gains" required="true">
+            group name. If 'delays' - randomize @delays properties, if 'fb' - randomize @fb*
+            properties.</param>
+            <param name="MIN" type="float" minvalue="0">minimal value</param>
+            <param name="MAX" type="float" minvalue="0">maximum value</param></method>
+            <!-- reset -->
+            <method name="reset">reset to initial state</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>left in channel</xinfo>

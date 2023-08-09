@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="synth.glitch~">
         <title>synth.glitch~</title>
         <meta>
@@ -29,9 +29,12 @@
             value only when you are know what are you doing and at your own risk!</property>
         </properties>
         <methods>
+            <!-- byte -->
             <method name="byte">set expression wrapper to byte() glitch function</method>
+            <!-- read -->
             <method name="read">read glitch synth file 
             <param name="PATH" type="atom" required="true">path to file</param></method>
+            <!-- reset -->
             <method name="reset">reset synth</method>
         </methods>
         <inlets>

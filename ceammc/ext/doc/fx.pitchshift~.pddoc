@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="fx.pitchshift~">
         <title>fx.pitchshift~</title>
         <meta>
@@ -18,9 +18,6 @@
             <argument name="PITCH" type="float" minvalue="-38" maxvalue="60">pitch shift in
             semitones</argument>
         </arguments>
-        <methods>
-            <method name="reset">reset object state</method>
-        </methods>
         <properties>
             <property name="@pitch" type="float" minvalue="-38" maxvalue="60" default="0">
             pitchshift in semitones</property>
@@ -41,6 +38,10 @@
             specified, bind properties to /ID/fx_pitchshift/PROP_NAME osc address, if empty bind to
             /fx_pitchshift/PROP_NAME.</property>
         </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset object state</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="fx.scramble~">
         <title>fx.scramble~</title>
         <meta>
@@ -22,9 +22,6 @@
             <argument name="FREQ2" type="float" minvalue="0.25" maxvalue="50" units="hertz">right
             channel scramble frequency</argument>
         </arguments>
-        <methods>
-            <method name="reset">reset to initial state</method>
-        </methods>
         <properties>
             <property name="@dev" type="float" minvalue="0" maxvalue="1" default="0.25">scramble
             freq deviation</property>
@@ -51,6 +48,10 @@
             <!-- common -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset to initial state</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>

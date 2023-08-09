@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.dsp~" type="gui">
         <title>ui.dsp~</title>
         <meta>
@@ -23,14 +23,6 @@
             <event editmode="true" type="right-click" keys="Shift">open object help</event>
             <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
         </mouse>
-        <methods>
-            <method name="start">starts audio processing</method>
-            <method name="stop">stops audio processing</method>
-            <method name="settings">opens audio settings dialog</method>
-            <method name="pos">set UI element position 
-            <param name="X" type="float" required="true">top left x-coord</param>
-            <param name="Y" type="float" required="true">top right y-coord</param></method>
-        </methods>
         <properties>
             <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>
@@ -54,6 +46,18 @@
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
         </properties>
+        <methods>
+            <!-- pos -->
+            <method name="pos">set UI element position 
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- settings -->
+            <method name="settings">opens audio settings dialog</method>
+            <!-- start -->
+            <method name="start">starts audio processing</method>
+            <!-- stop -->
+            <method name="stop">stops audio processing</method>
+        </methods>
         <inlets>
             <inlet />
         </inlets>
@@ -64,9 +68,6 @@
 |       |      |
 |       |      |
 [ui.dsp~       ]
-
-
-
 ]]>
             </pdascii>
         </example>

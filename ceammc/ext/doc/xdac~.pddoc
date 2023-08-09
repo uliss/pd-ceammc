@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="xdac~">
         <title>xdac~</title>
         <meta>
@@ -28,13 +28,17 @@
             <property name="@channels" type="list" default="1 2">list of mapped channels</property>
         </properties>
         <methods>
+            <!-- reverse -->
             <method name="reverse">reverse output channels order</method>
-            <method name="shuffle">shuffle output channels order</method>
-            <method name="side2circle">map left/right side pairs to counter clockwise
-            layout</method>
+            <!-- rotate -->
             <method name="rotate">rotate output channels counter clockwise 
             <param name="N" type="int" required="true">number of rotation steps, can be
             negative</param></method>
+            <!-- shuffle -->
+            <method name="shuffle">shuffle output channels order</method>
+            <!-- side2circle -->
+            <method name="side2circle">map left/right side pairs to counter clockwise
+            layout</method>
         </methods>
         <inlets dynamic="true">
             <inlet type="audio" number="1">

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="tl.timeline">
         <title>tl.timeline</title>
         <meta>
@@ -51,11 +51,7 @@
             repeats</property>
         </properties>
         <methods>
-            <method name="start">start timeline from current position</method>
-            <method name="pause">stops timeline at current position</method>
-            <method name="stop">stops timeline and reset current position to the beginning</method>
-            <method name="reset">reset timeline (call only when stopped)</method>
-            <!--add-->
+            <!-- add -->
             <method name="add">add event to timeline. You can use simple syntax like [add 10.1 sec(
             to create event with default name, or use advanced: [add myEvent 510ms before end( 
             <param name="NAME" default="eventN" type="symbol" required="false">event name (if
@@ -65,19 +61,28 @@
             relative event before or after target event</param>
             <param name="REL_EVENT" type="symbol" required="false">relative event
             name</param></method>
-            <!--remove-->
+            <!-- clear -->
+            <method name="clear">remove all timeline events</method>
+            <!-- pause -->
+            <method name="pause">stops timeline at current position</method>
+            <!-- remove -->
             <method name="remove">remove event by given index or name. [remove event1( or [remove
             3( 
             <param name="NAME|IDX" type="atom">event name or index</param></method>
-            <!--remove at-->
+            <!-- remove_at -->
             <method name="remove_at">remove event at specified time 
             <param name="TIME" type="list">time in supported format. See *info*
             section</param></method>
-            <!--clear-->
-            <method name="clear">remove all timeline events</method>
-            <!--move to-->
+            <!-- reset -->
+            <method name="reset">reset timeline (call only when stopped)</method>
+            <!-- start -->
+            <method name="start">start timeline from current position</method>
+            <!-- stop -->
+            <method name="stop">stops timeline and reset current position to the beginning</method>
+            <!-- to_event -->
             <method name="to_event">move time to specified event 
             <param name="NAME|IDX" type="atom">event or index</param></method>
+            <!-- to_time -->
             <method name="to_time">move time to time 
             <param name="TIME" type="list">time in supported format. See *info*
             section</param></method>

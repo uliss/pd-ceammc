@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="noise.henon_heilles">
         <title>noise.henon_heilles</title>
         <meta>
@@ -25,24 +25,31 @@
             <argument name="DT" type="float">dt value (optional)</argument>
         </arguments>
         <methods>
-            <method name="set">
-                <param type="float" name="SET" required="true">set to value</param>
+            <!-- dt -->
+            <method name="dt">
+                <param type="float" name="NY" required="true">dt value</param>
             </method>
-            <method name="reset">reset state</method>
-            <method name="x">
-                <param type="float" name="NX" required="true">x value</param>
-            </method>
-            <method name="y">
-                <param type="float" name="NY" required="true">y value</param>
-            </method>
-            <method name="y'">
-                <param type="float" name="NY" required="true">y' value</param>
-            </method>
+            <!-- e -->
             <method name="e">
                 <param type="float" name="NY" required="true">e value</param>
             </method>
-            <method name="dt">
-                <param type="float" name="NY" required="true">dt value</param>
+            <!-- reset -->
+            <method name="reset">reset state</method>
+            <!-- set -->
+            <method name="set">
+                <param type="float" name="SET" required="true">set to value</param>
+            </method>
+            <!-- x -->
+            <method name="x">
+                <param type="float" name="NX" required="true">x value</param>
+            </method>
+            <!-- y -->
+            <method name="y">
+                <param type="float" name="NY" required="true">y value</param>
+            </method>
+            <!-- y' -->
+            <method name="y'">
+                <param type="float" name="NY" required="true">y' value</param>
             </method>
         </methods>
         <inlets>
@@ -91,7 +98,6 @@
 [X set:0->noise-obj:0]
 
 [X metro->noise-obj]
-
 ]]>
             </pdascii>
         </example>

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.canvas" type="gui">
         <title>ui.canvas</title>
         <meta>
@@ -23,216 +23,6 @@
             <par>- stroke or fill it with color</par>
             <par>- update image</par>
         </info>
-        <methods>
-            <method name="dump">dumps all object info to Pd console window.</method>
-            <method name="pos">set UI element position 
-            <param name="X" type="float" required="true">top left x-coord</param>
-            <param name="Y" type="float" required="true">top right y-coord</param></method>
-            <method name="bg">draws background 
-            <param name="COLOR" type="list" required="false">background color</param></method>
-            <method name="update">updates drawed image</method>
-            <method name="clear">clear image</method>
-            <!-- PATHS -->
-            <!-- circle -->
-            <method name="circle">create circle shape 
-            <param name="X" type="float" required="true">x-coord</param>
-            <param name="Y" type="float" required="true">y-coord</param>
-            <param name="RADIUS" type="float" required="true">radius</param></method>
-            <!-- rect -->
-            <method name="rect">create rectangle shape 
-            <param name="X" type="atom" required="true">x-coord in pixels or percents of
-            width</param>
-            <param name="Y" type="atom" required="true">y-coord in pixels or percents of
-            height</param>
-            <param name="W" type="atom" required="true">width in pixels or percents of
-            width</param>
-            <param name="H" type="atom" required="true">height in pixels or percents of
-            height</param></method>
-            <!-- curve -->
-            <method name="curve">create bezier-curve shape 
-            <param name="X0" type="atom" required="true">x0-coord in pixels or percents of
-            width</param>
-            <param name="Y0" type="atom" required="true">y0-coord in pixels or percents of
-            height</param>
-            <param name="X1" type="atom" required="true">x1-coord in pixels or percents of
-            width</param>
-            <param name="Y1" type="atom" required="true">y1-coord in pixels or percents of
-            height</param>
-            <param name="X2" type="atom" required="true">x2-coord in pixels or percents of
-            width</param>
-            <param name="Y2" type="atom" required="true">y2-coord in pixels or percents of
-            height</param>
-            <param name="X3" type="atom" required="true">x3-coord in pixels or percents of
-            width</param>
-            <param name="Y4" type="atom" required="true">y3-coord in pixels or percents of
-            height</param></method>
-            <!-- line -->
-            <method name="line">create line shape 
-            <param name="X0" type="atom" required="true">x0-coord in pixels or percents of
-            width</param>
-            <param name="Y0" type="atom" required="true">y0-coord in pixels or percents of
-            height</param>
-            <param name="X1" type="atom" required="true">x1-coord in pixels or percents of
-            width</param>
-            <param name="Y1" type="atom" required="true">y1-coord in pixels or percents of
-            height</param></method>
-            <method name="line_to">add line segment to line shape 
-            <param name="X" type="atom" required="true">x-coord in pixels or percents of
-            width</param>
-            <param name="Y" type="atom" required="true">y-coord in pixels or percents of
-            height</param></method>
-            <!-- polygon -->
-            <method name="polygon">create polygon shape 
-            <param name="X0" type="atom" required="true">x0-coord in pixel or percents of
-            width</param>
-            <param name="Y0" type="atom" required="true">y0-coord in pixel or percents of
-            height</param>
-            <param name="X..." type="atom" required="true">x...-coord in pixel or percents of
-            width</param>
-            <param name="Y..." type="atom" required="true">y...-coord in pixel or percents of
-            height</param>
-            <param name="XN" type="atom" required="true">xn-coord in pixel or percents of
-            width</param>
-            <param name="YN" type="atom" required="true">yn-coord in pixel or percents of
-            height</param></method>
-            <!-- polygon -->
-            <method name="rpolygon">create polygon shape 
-            <param name="X" type="atom" required="true">x-coord of center in pixel or percents of
-            width</param>
-            <param name="Y" type="atom" required="true">y-coord of center in pixel or percents of
-            height</param>
-            <param name="N" type="int" required="true">number of vertexes</param>
-            <param name="R" type="float" required="true">polygon radius</param></method>
-            <!-- star -->
-            <method name="star">create star shape 
-            <param name="X" type="atom" required="true">x-coord of center in pixel or percents of
-            width</param>
-            <param name="Y" type="atom" required="true">y-coord of center in pixel or percents of
-            height</param>
-            <param name="N" type="int" required="true">number of vertexes</param>
-            <param name="R" type="float" required="false" minvalue="0">star radius</param>
-            <param name="STEP" type="int" required="false" minvalue="1">connection step. If omitted
-            step is auto-calculated</param></method>
-            <!-- polar grid -->
-            <method name="polar">creates polar grid 
-            <param name="X" type="atom" required="true">x-coord of center in pixel or percents of
-            width</param>
-            <param name="Y" type="atom" required="true">y-coord of center in pixel or percents of
-            height</param>
-            <param name="ADIV" type="int" required="false" minvalue="0">number of divisions of 90
-            degree angle</param>
-            <param name="NC" type="int" required="false" minvalue="0">number of circles</param>
-            <param name="CDIST" type="int" required="false" minvalue="1">circle
-            distance</param></method>
-            <!-- arrow -->
-            <method name="arrow">creates arrow shape 
-            <param name="X0" type="atom" required="true">x-coord of start point in pixel or
-            percents of width</param>
-            <param name="Y0" type="atom" required="true">y-coord of start point in pixel or
-            percents of height</param>
-            <param name="X1" type="atom" required="true">x-coord of target point in pixel or
-            percents of width</param>
-            <param name="Y1" type="atom" required="true">y-coord of target point in pixel or
-            percents of height</param>
-            <param name="START" type="symbol" required="false" enum="A a V v X x T t O o n">start
-            shape</param>
-            <param name="END" type="symbol" required="false" enum="A a V v X x T t O o n">end
-            shape</param></method>
-            <!-- image -->
-            <method name="image">draws image. Note: only PNG images are supported! 
-            <param name="X" type="atom" required="true">left-coord in pixel or percents of
-            width</param>
-            <param name="Y" type="atom" required="true">top-coord in pixel or percents of
-            height</param>
-            <param name="PATH" type="symbol" required="true">path to image file, full or relative
-            to patch</param>
-            <param name="SCALE" type="float" required="false" minvalue="0">image
-            scale</param></method>
-            <!-- qrcode -->
-            <method name="qrcode">create QR-code shape. 
-            <param name="X" type="atom" required="true">left-coord in pixel or percents of
-            width</param>
-            <param name="Y" type="atom" required="true">top-coord in pixel or percents of
-            height</param>
-            <param name="PIXEL" type="int" required="true" minvalue="1">pixel size</param>
-            <param name="TEXT" type="symbol" required="true">message</param></method>
-            <!-- abc -->
-            <method name="abc">draw music in ABC notation. 
-            <param name="X" type="atom" required="true">left-coord in pixel or percents of
-            width</param>
-            <param name="Y" type="atom" required="true">top-coord in pixel or percents of
-            height</param>
-            <param name="MUSIC" type="list" required="true">ABC notation</param></method>
-            <!-- DRAW -->
-            <method name="fill">fill shape with color 
-            <param name="COLOR" type="atom" required="true">fill color</param>
-            <param name="PRESERVE" type="atom" required="false" enum="preserve 1">preserve path
-            after fill. You can call stroke method after that</param></method>
-            <method name="stroke">stroke shape with color 
-            <param name="COLOR" type="atom" required="true">stroke color</param>
-            <param name="PRESERVE" type="atom" required="false" enum="preserve 1">preserve path
-            after stroke</param></method>
-            <method name="line_cap">set line cap 
-            <param name="X" type="symbol" required="true" enum="butt round square">line
-            cap</param></method>
-            <method name="dash">set line dash pattern 
-            <param name="PATTERN" type="list" required="true">line dash pattern. If empty - reset
-            to solid shape</param></method>
-            <method name="line_width">set stroke width 
-            <param name="WIDTH" type="float" required="true">line width</param></method>
-            <method name="move_to">move current drawing point to absolute position 
-            <param name="X" type="atom" required="true">x-coord in pixels or percents of
-            width</param>
-            <param name="Y" type="atom" required="true">y-coord in pixels or percents of
-            height</param></method>
-            <method name="move_by">move current drawing point by relative offset 
-            <param name="X" type="atom" required="true">x relative offset in pixels or percents of
-            width</param>
-            <param name="Y" type="atom" required="true">y relative offset in pixels or percents of
-            height</param></method>
-            <method name="rotate">clock-wise rotatation of draw origin 
-            <param name="X" type="float" required="true" units="degree">rotation
-            angle</param></method>
-            <method name="translate">translate draw origin 
-            <param name="X" type="float" required="true">x offset</param>
-            <param name="Y" type="float" required="true">y offset</param></method>
-            <method name="scale">scale current draw matrix 
-            <param name="X" type="float" required="true">x</param>
-            <param name="Y" type="float" required="false">y. If omitted, uses X-value to scale same
-            in both directions</param></method>
-            <method name="font_size">set current font size 
-            <param name="X" type="float" required="true">font size</param></method>
-            <method name="text">set current text shape 
-            <param name="X" type="atom" required="true">x-coord in pixels or percents of
-            width</param>
-            <param name="Y" type="atom" required="true">y-coord in pixels or percents of
-            height</param>
-            <param name="TXT" type="list" required="true">text content</param></method>
-            <!-- draw context -->
-            <method name="csave">save current drawing context (pen type, width, color, matrix
-            etc.)</method>
-            <method name="crestore">restore previously saved context (pen type, width, color,
-            matrix etc.)</method>
-            <!-- font -->
-            <method name="font">set current font 
-            <param name="FONT" type="symbol" required="true">font family</param>
-            <param name="SIZE" type="float" required="false">font size</param></method>
-            <method name="font">set current font 
-            <param name="FONT" type="symbol" required="true">font family</param>
-            <param name="STYLE" type="symbol" enum="normal|italic|bold" required="true">font
-            style</param>
-            <param name="SIZE" type="float" required="false">font size</param></method>
-            <method name="font">set current font 
-            <param name="FONT" type="symbol" required="true">font family</param>
-            <param name="italic" type="symbol" required="true" />
-            <param name="bold" type="symbol" required="true" />
-            <param name="SIZE" type="float" required="false">font size</param></method>
-            <!-- PATHS -->
-            <method name="new_path">starts new path</method>
-            <method name="new_subpath">starts new subpath, means no line connection between last
-            point and new subpath shape</method>
-            <method name="close_path">close path and its subpaths</method>
-        </methods>
         <properties>
             <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>
@@ -268,6 +58,237 @@
             <property name="@label_margins" type="list" default="0 0">label offset in
             pixels</property>
         </properties>
+        <methods>
+            <!-- abc -->
+            <method name="abc">draw music in ABC notation. 
+            <param name="X" type="atom" required="true">left-coord in pixel or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">top-coord in pixel or percents of
+            height</param>
+            <param name="MUSIC" type="list" required="true">ABC notation</param></method>
+            <!-- arrow -->
+            <method name="arrow">creates arrow shape 
+            <param name="X0" type="atom" required="true">x-coord of start point in pixel or
+            percents of width</param>
+            <param name="Y0" type="atom" required="true">y-coord of start point in pixel or
+            percents of height</param>
+            <param name="X1" type="atom" required="true">x-coord of target point in pixel or
+            percents of width</param>
+            <param name="Y1" type="atom" required="true">y-coord of target point in pixel or
+            percents of height</param>
+            <param name="START" type="symbol" required="false" enum="A a V v X x T t O o n">start
+            shape</param>
+            <param name="END" type="symbol" required="false" enum="A a V v X x T t O o n">end
+            shape</param></method>
+            <!-- bg -->
+            <method name="bg">draws background 
+            <param name="COLOR" type="list" required="false">background color</param></method>
+            <!-- circle -->
+            <method name="circle">create circle shape 
+            <param name="X" type="float" required="true">x-coord</param>
+            <param name="Y" type="float" required="true">y-coord</param>
+            <param name="RADIUS" type="float" required="true">radius</param></method>
+            <!-- clear -->
+            <method name="clear">clear image</method>
+            <!-- close_path -->
+            <method name="close_path">close path and its subpaths</method>
+            <!-- crestore -->
+            <method name="crestore">restore previously saved context (pen type, width, color,
+            matrix etc.)</method>
+            <!-- csave -->
+            <method name="csave">save current drawing context (pen type, width, color, matrix
+            etc.)</method>
+            <!-- curve -->
+            <method name="curve">create bezier-curve shape 
+            <param name="X0" type="atom" required="true">x0-coord in pixels or percents of
+            width</param>
+            <param name="Y0" type="atom" required="true">y0-coord in pixels or percents of
+            height</param>
+            <param name="X1" type="atom" required="true">x1-coord in pixels or percents of
+            width</param>
+            <param name="Y1" type="atom" required="true">y1-coord in pixels or percents of
+            height</param>
+            <param name="X2" type="atom" required="true">x2-coord in pixels or percents of
+            width</param>
+            <param name="Y2" type="atom" required="true">y2-coord in pixels or percents of
+            height</param>
+            <param name="X3" type="atom" required="true">x3-coord in pixels or percents of
+            width</param>
+            <param name="Y4" type="atom" required="true">y3-coord in pixels or percents of
+            height</param></method>
+            <!-- dash -->
+            <method name="dash">set line dash pattern 
+            <param name="PATTERN" type="list" required="true">line dash pattern. If empty - reset
+            to solid shape</param></method>
+            <!-- dump -->
+            <method name="dump">dumps all object info to Pd console window.</method>
+            <!-- fill -->
+            <method name="fill">fill shape with color 
+            <param name="COLOR" type="atom" required="true">fill color</param>
+            <param name="PRESERVE" type="atom" required="false" enum="preserve 1">preserve path
+            after fill. You can call stroke method after that</param></method>
+            <!-- font -->
+            <method name="font">set current font 
+            <param name="FONT" type="symbol" required="true">font family</param>
+            <param name="SIZE" type="float" required="false">font size</param></method>
+            <!-- font -->
+            <method name="font">set current font 
+            <param name="FONT" type="symbol" required="true">font family</param>
+            <param name="STYLE" type="symbol" enum="normal|italic|bold" required="true">font
+            style</param>
+            <param name="SIZE" type="float" required="false">font size</param></method>
+            <!-- font -->
+            <method name="font">set current font 
+            <param name="FONT" type="symbol" required="true">font family</param>
+            <param name="italic" type="symbol" required="true" />
+            <param name="bold" type="symbol" required="true" />
+            <param name="SIZE" type="float" required="false">font size</param></method>
+            <!-- font_size -->
+            <method name="font_size">set current font size 
+            <param name="X" type="float" required="true">font size</param></method>
+            <!-- image -->
+            <method name="image">draws image. Note: only PNG images are supported! 
+            <param name="X" type="atom" required="true">left-coord in pixel or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">top-coord in pixel or percents of
+            height</param>
+            <param name="PATH" type="symbol" required="true">path to image file, full or relative
+            to patch</param>
+            <param name="SCALE" type="float" required="false" minvalue="0">image
+            scale</param></method>
+            <!-- line -->
+            <method name="line">create line shape 
+            <param name="X0" type="atom" required="true">x0-coord in pixels or percents of
+            width</param>
+            <param name="Y0" type="atom" required="true">y0-coord in pixels or percents of
+            height</param>
+            <param name="X1" type="atom" required="true">x1-coord in pixels or percents of
+            width</param>
+            <param name="Y1" type="atom" required="true">y1-coord in pixels or percents of
+            height</param></method>
+            <!-- line_cap -->
+            <method name="line_cap">set line cap 
+            <param name="X" type="symbol" required="true" enum="butt round square">line
+            cap</param></method>
+            <!-- line_to -->
+            <method name="line_to">add line segment to line shape 
+            <param name="X" type="atom" required="true">x-coord in pixels or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord in pixels or percents of
+            height</param></method>
+            <!-- line_width -->
+            <method name="line_width">set stroke width 
+            <param name="WIDTH" type="float" required="true">line width</param></method>
+            <!-- move_by -->
+            <method name="move_by">move current drawing point by relative offset 
+            <param name="X" type="atom" required="true">x relative offset in pixels or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y relative offset in pixels or percents of
+            height</param></method>
+            <!-- move_to -->
+            <method name="move_to">move current drawing point to absolute position 
+            <param name="X" type="atom" required="true">x-coord in pixels or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord in pixels or percents of
+            height</param></method>
+            <!-- new_path -->
+            <method name="new_path">starts new path</method>
+            <!-- new_subpath -->
+            <method name="new_subpath">starts new subpath, means no line connection between last
+            point and new subpath shape</method>
+            <!-- polar -->
+            <method name="polar">creates polar grid 
+            <param name="X" type="atom" required="true">x-coord of center in pixel or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord of center in pixel or percents of
+            height</param>
+            <param name="ADIV" type="int" required="false" minvalue="0">number of divisions of 90
+            degree angle</param>
+            <param name="NC" type="int" required="false" minvalue="0">number of circles</param>
+            <param name="CDIST" type="int" required="false" minvalue="1">circle
+            distance</param></method>
+            <!-- polygon -->
+            <method name="polygon">create polygon shape 
+            <param name="X0" type="atom" required="true">x0-coord in pixel or percents of
+            width</param>
+            <param name="Y0" type="atom" required="true">y0-coord in pixel or percents of
+            height</param>
+            <param name="X..." type="atom" required="true">x...-coord in pixel or percents of
+            width</param>
+            <param name="Y..." type="atom" required="true">y...-coord in pixel or percents of
+            height</param>
+            <param name="XN" type="atom" required="true">xn-coord in pixel or percents of
+            width</param>
+            <param name="YN" type="atom" required="true">yn-coord in pixel or percents of
+            height</param></method>
+            <!-- pos -->
+            <method name="pos">set UI element position 
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- qrcode -->
+            <method name="qrcode">create QR-code shape. 
+            <param name="X" type="atom" required="true">left-coord in pixel or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">top-coord in pixel or percents of
+            height</param>
+            <param name="PIXEL" type="int" required="true" minvalue="1">pixel size</param>
+            <param name="TEXT" type="symbol" required="true">message</param></method>
+            <!-- rect -->
+            <method name="rect">create rectangle shape 
+            <param name="X" type="atom" required="true">x-coord in pixels or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord in pixels or percents of
+            height</param>
+            <param name="W" type="atom" required="true">width in pixels or percents of
+            width</param>
+            <param name="H" type="atom" required="true">height in pixels or percents of
+            height</param></method>
+            <!-- rotate -->
+            <method name="rotate">clock-wise rotatation of draw origin 
+            <param name="X" type="float" required="true" units="degree">rotation
+            angle</param></method>
+            <!-- rpolygon -->
+            <method name="rpolygon">create polygon shape 
+            <param name="X" type="atom" required="true">x-coord of center in pixel or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord of center in pixel or percents of
+            height</param>
+            <param name="N" type="int" required="true">number of vertexes</param>
+            <param name="R" type="float" required="true">polygon radius</param></method>
+            <!-- scale -->
+            <method name="scale">scale current draw matrix 
+            <param name="X" type="float" required="true">x</param>
+            <param name="Y" type="float" required="false">y. If omitted, uses X-value to scale same
+            in both directions</param></method>
+            <!-- star -->
+            <method name="star">create star shape 
+            <param name="X" type="atom" required="true">x-coord of center in pixel or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord of center in pixel or percents of
+            height</param>
+            <param name="N" type="int" required="true">number of vertexes</param>
+            <param name="R" type="float" required="false" minvalue="0">star radius</param>
+            <param name="STEP" type="int" required="false" minvalue="1">connection step. If omitted
+            step is auto-calculated</param></method>
+            <!-- stroke -->
+            <method name="stroke">stroke shape with color 
+            <param name="COLOR" type="atom" required="true">stroke color</param>
+            <param name="PRESERVE" type="atom" required="false" enum="preserve 1">preserve path
+            after stroke</param></method>
+            <!-- text -->
+            <method name="text">set current text shape 
+            <param name="X" type="atom" required="true">x-coord in pixels or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord in pixels or percents of
+            height</param>
+            <param name="TXT" type="list" required="true">text content</param></method>
+            <!-- translate -->
+            <method name="translate">translate draw origin 
+            <param name="X" type="float" required="true">x offset</param>
+            <param name="Y" type="float" required="true">y offset</param></method>
+            <!-- update -->
+            <method name="update">updates drawed image</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo>draw commands</xinfo>

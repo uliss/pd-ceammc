@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="synth.fgrain~">
         <title>synth.fgrain~</title>
         <meta>
@@ -13,13 +13,6 @@
             <keywords>grain</keywords>
             <since>0.6</since>
         </meta>
-        <methods>
-            <method name="open">open a monophonic soundfile to be "granulated". Only WAV and AIFF
-            formats are supported. 
-            <param name="PATH" type="symbol">path to file</param></method>
-            <method name="reset">reset the file pointer and all existing grains to the file
-            start</method>
-        </methods>
         <properties>
             <property name="@file" type="symbol">path file to granulate. Only WAV and AIFF formats
             are supported.</property>
@@ -48,6 +41,15 @@
             <property name="@gdelay" type="int" minvalue="0" default="0" units="millisecond">delay
             parameter that causes grain calculations to pause between grains</property>
         </properties>
+        <methods>
+            <!-- open -->
+            <method name="open">open a monophonic soundfile to be "granulated". Only WAV and AIFF
+            formats are supported. 
+            <param name="PATH" type="symbol">path to file</param></method>
+            <!-- reset -->
+            <method name="reset">reset the file pointer and all existing grains to the file
+            start</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo>control inlet</xinfo>

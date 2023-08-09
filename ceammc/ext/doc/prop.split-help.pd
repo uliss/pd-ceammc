@@ -14,7 +14,7 @@
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Extracts properties from data stream with matching.
 Non property values are passed untouched;
-#X msg 146 158 any value;
+#X msg 50 158 any value;
 #X floatatom 50 187 5 0 0 0 - - -;
 #X msg 184 187 @prop1 a b c;
 #X msg 347 187 @oth 1 2 3 4;

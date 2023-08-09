@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="path.file">
         <title>path.file</title>
         <meta>
@@ -17,7 +17,9 @@
             <property name="@path" type="symbol" default="">file path</property>
         </properties>
         <methods>
+            <!-- close -->
             <method name="close">close file</method>
+            <!-- open -->
             <method name="open">open file, updates @path property 
             <param name="FNAME" required="true" type="symbol">file path: absolute or
             relative</param>
@@ -27,30 +29,39 @@
             file. 'r+': open text file for reading and writing. 'w+': truncate to 0 length, if
             existent, or create text file for reading and writing. 'a+': append, open or create
             text file for reading and writing, writing at end of file</param></method>
-            <method name="write">write space separated atoms to file, no newline added 
-            <param name="ARGS" required="true" type="list">atoms to write</param></method>
-            <method name="write_line">write space separated atoms to file, newline added 
-            <param name="ARGS" required="true" type="list">atoms to write</param></method>
-            <method name="write_bytes">write given bytes to file 
-            <param name="ARGS" required="true" type="list">list of bytes: integers in 0-255 or
-            symbols with '0x' prefix: 0x11, 0xFF etc..</param></method>
-            <method name="seek_write">change writing position 
-            <param name="POS" required="true" type="int">offset position</param>
-            <param name="ORIG" required="false" type="symbol" enum="beg|cur|end">offset origin, if
-            omitted offset from the beginning</param></method>
+            <!-- read_bytes -->
+            <method name="read_bytes">read bytes from file, output as list of integers 
+            <param name="N" required="false" type="int">number of bytes to read, if omitted read
+            all content</param></method>
+            <!-- read_line -->
+            <method name="read_line">read line from file, output as list as atoms</method>
+            <!-- remove -->
+            <method name="remove">remove file 
+            <param name="NAME" required="true" type="symbol">file path</param></method>
+            <!-- rename -->
+            <method name="rename">rename file 
+            <param name="PATH" required="true" type="symbol">old file path</param>
+            <param name="NEW_PATH" required="true" type="symbol">new file path</param></method>
+            <!-- seek_read -->
             <method name="seek_read">change reading position 
             <param name="POS" required="true" type="int">offset position</param>
             <param name="ORIG" required="false" type="symbol" enum="beg|cur|end">offset origin, if
             omitted offset from the beginning</param></method>
-            <method name="read_line">read line from file, output as list as atoms</method>
-            <method name="read_bytes">read bytes from file, output as list of integers 
-            <param name="N" required="false" type="int">number of bytes to read, if omitted read
-            all content</param></method>
-            <method name="remove">remove file 
-            <param name="NAME" required="true" type="symbol">file path</param></method>
-            <method name="rename">rename file 
-            <param name="PATH" required="true" type="symbol">old file path</param>
-            <param name="NEW_PATH" required="true" type="symbol">new file path</param></method>
+            <!-- seek_write -->
+            <method name="seek_write">change writing position 
+            <param name="POS" required="true" type="int">offset position</param>
+            <param name="ORIG" required="false" type="symbol" enum="beg|cur|end">offset origin, if
+            omitted offset from the beginning</param></method>
+            <!-- write -->
+            <method name="write">write space separated atoms to file, no newline added 
+            <param name="ARGS" required="true" type="list">atoms to write</param></method>
+            <!-- write_bytes -->
+            <method name="write_bytes">write given bytes to file 
+            <param name="ARGS" required="true" type="list">list of bytes: integers in 0-255 or
+            symbols with '0x' prefix: 0x11, 0xFF etc..</param></method>
+            <!-- write_line -->
+            <method name="write_line">write space separated atoms to file, newline added 
+            <param name="ARGS" required="true" type="list">atoms to write</param></method>
         </methods>
         <inlets>
             <inlet>

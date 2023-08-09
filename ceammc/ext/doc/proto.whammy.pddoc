@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="proto.whammy">
         <title>proto.whammy</title>
         <meta>
@@ -13,33 +13,6 @@
             <keywords>parser midi whammy</keywords>
             <since>0.9.5</since>
         </meta>
-        <methods>
-            <method name="toggle">toggle pedal on/off</method>
-            <method name="random">choose random preset 
-            <param name="MODE" type="symbol" enum="whammy harm detune" required="true">if 'whammy'
-            - select random preset from 'whammy' modes (right pedal side), if 'harm' - select
-            random preset from harmonizer modes (left pedal side), if 'detune' - select random
-            detune mode. If not specified - select random mode from all categories.</param>
-            <param name="STATE" type="int" enum="0 1">pedal state (on/off)</param></method>
-            <method name="reset">turn off pedal and select default preset</method>
-            <method name="set IDX">set preset by index 
-            <param name="IDX" type="int" minvalue="0" maxvalue="20" required="true">preset
-            index</param>
-            <param name="STATE" type="int" enum="0 1">pedal state (on/off)</param></method>
-            <method name="set NAME">set preset by name 
-            <param name="NAME" type="symbol"
-            enum="+2oct +1oct +5th +4th -2nd -4th -5th -1oct -2oct bomb deep shallow +2+3 +3b+3 +3+4 +4+5 +5+6 +5+7 -4-3 -5-4 -8+8"
-            minvalue="0" maxvalue="20" required="true">preset name</param>
-            <param name="STATE" type="int" enum="0 1">pedal state (on/off)</param></method>
-            <method name="set UP DOWN">set preset by transpose range. 
-            <param name="UP" type="int" required="true">up range</param>
-            <param name="DOWN" type="int" required="true">down range</param>
-            <param name="STATE" type="int" enum="0 1">pedal state (on/off)</param></method>
-            <method name="next">select next preset 
-            <param name="N" type="atom">positive step or 'random'</param></method>
-            <method name="prev">select previous preset 
-            <param name="N" type="atom">positive step or 'random'</param></method>
-        </methods>
         <arguments>
             <argument name="MODE" type="symbol" enum="chords classic">pedal mode (should correspond
             to hardware switch on pedal)</argument>
@@ -55,6 +28,41 @@
             <property name="@chords" type="alias">alias for @mode chords</property>
             <property name="@classic" type="alias">alias for @mode classic</property>
         </properties>
+        <methods>
+            <!-- next -->
+            <method name="next">select next preset 
+            <param name="N" type="atom">positive step or 'random'</param></method>
+            <!-- prev -->
+            <method name="prev">select previous preset 
+            <param name="N" type="atom">positive step or 'random'</param></method>
+            <!-- random -->
+            <method name="random">choose random preset 
+            <param name="MODE" type="symbol" enum="whammy harm detune" required="true">if 'whammy'
+            - select random preset from 'whammy' modes (right pedal side), if 'harm' - select
+            random preset from harmonizer modes (left pedal side), if 'detune' - select random
+            detune mode. If not specified - select random mode from all categories.</param>
+            <param name="STATE" type="int" enum="0 1">pedal state (on/off)</param></method>
+            <!-- reset -->
+            <method name="reset">turn off pedal and select default preset</method>
+            <!-- set IDX -->
+            <method name="set IDX">set preset by index 
+            <param name="IDX" type="int" minvalue="0" maxvalue="20" required="true">preset
+            index</param>
+            <param name="STATE" type="int" enum="0 1">pedal state (on/off)</param></method>
+            <!-- set NAME -->
+            <method name="set NAME">set preset by name 
+            <param name="NAME" type="symbol"
+            enum="+2oct +1oct +5th +4th -2nd -4th -5th -1oct -2oct bomb deep shallow +2+3 +3b+3 +3+4 +4+5 +5+6 +5+7 -4-3 -5-4 -8+8"
+            minvalue="0" maxvalue="20" required="true">preset name</param>
+            <param name="STATE" type="int" enum="0 1">pedal state (on/off)</param></method>
+            <!-- set UP DOWN -->
+            <method name="set UP DOWN">set preset by transpose range. 
+            <param name="UP" type="int" required="true">up range</param>
+            <param name="DOWN" type="int" required="true">down range</param>
+            <param name="STATE" type="int" enum="0 1">pedal state (on/off)</param></method>
+            <!-- toggle -->
+            <method name="toggle">toggle pedal on/off</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="int">1: turn on, 0: turn off pedal</xinfo>

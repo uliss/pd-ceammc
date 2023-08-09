@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="noise.lorenz">
         <title>noise.lorenz</title>
         <meta>
@@ -31,34 +31,44 @@
             <argument name="DT" type="float">dt value (optional)</argument>
         </arguments>
         <methods>
-            <method name="set">
-                <param type="float" name="SET" required="true">set to value</param>
+            <!-- a -->
+            <method name="a">
+                <param type="float" name="A" required="true">a value</param>
             </method>
-            <method name="reset">reset state</method>
+            <!-- c -->
+            <method name="c">
+                <param type="float" name="B" required="true">b value</param>
+            </method>
+            <!-- dt -->
+            <method name="dt">
+                <param type="float" name="DT" required="true">dt value</param>
+            </method>
+            <!-- om -->
             <method name="om">
                 <param type="int" name="OM" required="true">enables output when cut or fold value
                 is changed</param>
             </method>
-            <method name="a">
-                <param type="float" name="A" required="true">a value</param>
-            </method>
+            <!-- r -->
             <method name="r">
                 <param type="float" name="R" required="true">r value</param>
             </method>
-            <method name="c">
-                <param type="float" name="B" required="true">b value</param>
+            <!-- reset -->
+            <method name="reset">reset state</method>
+            <!-- set -->
+            <method name="set">
+                <param type="float" name="SET" required="true">set to value</param>
             </method>
+            <!-- x -->
             <method name="x">
                 <param type="float" name="NX" required="true">x value</param>
             </method>
+            <!-- y -->
             <method name="y">
                 <param type="float" name="NY" required="true">y value</param>
             </method>
+            <!-- z -->
             <method name="z">
                 <param type="float" name="NZ" required="true">z value</param>
-            </method>
-            <method name="dt">
-                <param type="float" name="DT" required="true">dt value</param>
             </method>
         </methods>
         <inlets>
@@ -114,7 +124,6 @@
 [X reset:0->noise-obj:0]
 
 [X metro->noise-obj]
-
 ]]>
             </pdascii>
         </example>

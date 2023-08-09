@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.incdec" type="gui">
         <title>ui.incdec</title>
         <meta>
@@ -45,23 +45,29 @@
             slant</property>
         </properties>
         <methods>
-            <method name="set">set widget value with no output 
-            <param name="VAL" type="float" required="true">value</param></method>
-            <method name="inc">increments widget with output</method>
-            <method name="dec">decrements widget with output</method>
-            <!-- presets -->
-            <method name="load">loads specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="store">stores specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- clear -->
             <method name="clear">clears specified preset 
             <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- dec -->
+            <method name="dec">decrements widget with output</method>
+            <!-- inc -->
+            <method name="inc">increments widget with output</method>
+            <!-- interp -->
             <method name="interp">for this object acts as *load*, no interpolation
             performed</method>
-            <!-- common-->
+            <!-- load -->
+            <method name="load">loads specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- set -->
+            <method name="set">set widget value with no output 
+            <param name="VAL" type="float" required="true">value</param></method>
+            <!-- store -->
+            <method name="store">stores specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
         </methods>
         <inlets>
             <inlet>

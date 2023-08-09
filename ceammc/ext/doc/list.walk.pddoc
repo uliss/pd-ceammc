@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="list.walk">
         <title>list.walk</title>
         <meta>
@@ -48,16 +48,21 @@
             <property name="@value" type="list" default="">current list</property>
         </properties>
         <methods>
+            <!-- current -->
             <method name="current">outputs current element</method>
+            <!-- dump -->
             <method name="dump">dump internal object state to Pd console window</method>
+            <!-- next -->
             <method name="next">
                 <param type="int" default="1" name="STEP">moves to next element with optional given
                 step and outputs it</param>
             </method>
+            <!-- prev -->
             <method name="prev">
                 <param type="int" default="1" name="STEP">moves to previous element with optional
                 given step and outputs it</param>
             </method>
+            <!-- reset -->
             <method name="reset">sets current position to 0</method>
         </methods>
         <inlets>

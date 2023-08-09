@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.matrix" type="gui">
         <title>ui.matrix</title>
         <meta>
@@ -64,63 +64,85 @@
             slant</property>
         </properties>
         <methods>
-            <method name="get cell R C">outputs single cell value as message [cell ROW COL VALUE( 
-            <param name="R" type="int" minvalue="0" required="true">row index</param>
-            <param name="C" type="int" minvalue="0" required="true">column index</param></method>
-            <method name="get col N">outputs column cells as message [col N V0 V1...( 
-            <param name="N" type="int" minvalue="0" required="true">column index</param></method>
-            <method name="get row N">outputs row cells as message [row N V0 V1...( 
-            <param name="N" type="int" minvalue="0" required="true">row index</param></method>
-            <method name="get list">output all cell values as list, row by raw. [0 1 1 1
-            0...(</method>
-            <method name="get cols">output all columns as separate messages [col N V0
-            V1...(</method>
-            <method name="get rows">output all rows as separate messages [row N V0 V1...(</method>
-            <method name="get cells">output all cells as separate messages [cell R C
-            VALUE(</method>
-            <method name="set col N ...">set specified column without output 
-            <param name="N" type="int" minvalue="0" required="true">column index</param>
-            <param name="..." type="list" required="true">cell values (1 - checked, 0 -
-            unchecked)</param></method>
-            <method name="set row N ...">set specified row without output 
-            <param name="N" type="int" minvalue="0" required="true">row index</param>
-            <param name="..." type="list" required="true">cell values (1 - checked, 0 -
-            unchecked)</param></method>
-            <method name="set list ...">set matrix without output 
-            <param name="..." type="list" required="true">cell values (1 - checked, 0 - unchecked),
-            row by row</param></method>
+            <!-- clear -->
+            <method name="clear">clears specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- dump -->
+            <method name="dump">dumps all object info to Pd console window.</method>
+            <!-- flip -->
             <method name="flip">flips all matrix cells</method>
-            <method name="flip col N">flips cells in specified column. 
-            <param name="N" type="int" minvalue="0" required="true">column index</param></method>
-            <method name="flip row N">flips cells in specified row. 
-            <param name="N" type="int" minvalue="0" required="true">row index</param></method>
+            <!-- flip R C -->
             <method name="flip R C">flips single cell 
             <param name="R" type="int" minvalue="0" required="true">row index</param>
             <param name="C" type="int" minvalue="0" required="true">column index</param></method>
+            <!-- flip col N -->
+            <method name="flip col N">flips cells in specified column. 
+            <param name="N" type="int" minvalue="0" required="true">column index</param></method>
+            <!-- flip row N -->
+            <method name="flip row N">flips cells in specified row. 
+            <param name="N" type="int" minvalue="0" required="true">row index</param></method>
+            <!-- get cell R C -->
+            <method name="get cell R C">outputs single cell value as message [cell ROW COL VALUE( 
+            <param name="R" type="int" minvalue="0" required="true">row index</param>
+            <param name="C" type="int" minvalue="0" required="true">column index</param></method>
+            <!-- get cells -->
+            <method name="get cells">output all cells as separate messages [cell R C
+            VALUE(</method>
+            <!-- get col N -->
+            <method name="get col N">outputs column cells as message [col N V0 V1...( 
+            <param name="N" type="int" minvalue="0" required="true">column index</param></method>
+            <!-- get cols -->
+            <method name="get cols">output all columns as separate messages [col N V0
+            V1...(</method>
+            <!-- get list -->
+            <method name="get list">output all cell values as list, row by raw. [0 1 1 1
+            0...(</method>
+            <!-- get row N -->
+            <method name="get row N">outputs row cells as message [row N V0 V1...( 
+            <param name="N" type="int" minvalue="0" required="true">row index</param></method>
+            <!-- get rows -->
+            <method name="get rows">output all rows as separate messages [row N V0 V1...(</method>
+            <!-- interp -->
+            <method name="interp">for this object acts as *load*, no interpolation
+            performed</method>
+            <!-- load -->
+            <method name="load">loads specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- pos -->
+            <method name="pos">set UI element position 
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- random -->
             <method name="random">fill matrix random and output</method>
-            <method name="dump">dumps all object info to Pd console window.</method>
-            <method name="reset">uncheck all matrix cells. No output</method>
+            <!-- read -->
             <method name="read">
                 <param type="symbol" name="FNAME">read matrix values from text file (space
                 separated). If fname argument is not specified opens file chooser dialog</param>
             </method>
+            <!-- reset -->
+            <method name="reset">uncheck all matrix cells. No output</method>
+            <!-- set col N ... -->
+            <method name="set col N ...">set specified column without output 
+            <param name="N" type="int" minvalue="0" required="true">column index</param>
+            <param name="..." type="list" required="true">cell values (1 - checked, 0 -
+            unchecked)</param></method>
+            <!-- set list ... -->
+            <method name="set list ...">set matrix without output 
+            <param name="..." type="list" required="true">cell values (1 - checked, 0 - unchecked),
+            row by row</param></method>
+            <!-- set row N ... -->
+            <method name="set row N ...">set specified row without output 
+            <param name="N" type="int" minvalue="0" required="true">row index</param>
+            <param name="..." type="list" required="true">cell values (1 - checked, 0 -
+            unchecked)</param></method>
+            <!-- store -->
+            <method name="store">stores specified preset 
+            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- write -->
             <method name="write">
                 <param type="symbol" name="FNAME">write matrix values to text file (space
                 separated). If fname argument is not specified opens file chooser dialog</param>
             </method>
-            <!-- presets -->
-            <method name="load">loads specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="store">stores specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="clear">clears specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="interp">for this object acts as *load*, no interpolation
-            performed</method>
-            <!-- common-->
-            <method name="pos">set UI element position 
-            <param name="X" type="float" required="true">top left x-coord</param>
-            <param name="Y" type="float" required="true">top right y-coord</param></method>
         </methods>
         <inlets>
             <inlet>
@@ -134,7 +156,7 @@
         <example>
             <pdascii>
 <![CDATA[
-          [F]          [F]
+[F]          [F]
 [dump(    |            |
 |         [get row $1( [get col $1(
 | [reset( |            |

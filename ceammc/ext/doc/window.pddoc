@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="window">
         <title>window</title>
         <meta>
@@ -23,25 +23,36 @@
             gauss, hamming, hann, nuttall, rect, sine, tri, welch</argument>
             <argument name="SIZE" type="int" minvalue="16" units="sample">window size</argument>
         </arguments>
-        <methods>
-            <method name="blackman">Sets Blackman window type</method>
-            <method name="blackman-harris">Sets Blackman-Harris window type</method>
-            <method name="flattop">Sets Flattop window type</method>
-            <method name="gauss">Sets Gauss window type</method>
-            <method name="hamming">Sets Hamming window type</method>
-            <method name="hann">Sets Hann window type</method>
-            <method name="nuttall">Sets Nuttall window type</method>
-            <method name="rect">Sets Rectangle window type</method>
-            <method name="sine">Sets Sine window type</method>
-            <method name="tri">Sets Triangle window type</method>
-            <method name="welch">Sets Welch window type</method>
-        </methods>
         <properties>
             <property name="@type" type="symbol" default="hann">window type. See argument
             description</property>
             <property name="@size" type="int" minvalue="16" default="512" units="sample">window
             size</property>
         </properties>
+        <methods>
+            <!-- blackman -->
+            <method name="blackman">Sets Blackman window type</method>
+            <!-- blackman-harris -->
+            <method name="blackman-harris">Sets Blackman-Harris window type</method>
+            <!-- flattop -->
+            <method name="flattop">Sets Flattop window type</method>
+            <!-- gauss -->
+            <method name="gauss">Sets Gauss window type</method>
+            <!-- hamming -->
+            <method name="hamming">Sets Hamming window type</method>
+            <!-- hann -->
+            <method name="hann">Sets Hann window type</method>
+            <!-- nuttall -->
+            <method name="nuttall">Sets Nuttall window type</method>
+            <!-- rect -->
+            <method name="rect">Sets Rectangle window type</method>
+            <!-- sine -->
+            <method name="sine">Sets Sine window type</method>
+            <!-- tri -->
+            <method name="tri">Sets Triangle window type</method>
+            <!-- welch -->
+            <method name="welch">Sets Welch window type</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="bang">output all window values as list</xinfo>
@@ -57,7 +68,6 @@
         <example>
             <pdascii>
 <![CDATA[
-
 [blackman(  [blackman-harris(    [flattop, bang(
 |           |                    |
 | [hamming( | [hann(  [nuttall(  | [rect, bang(
@@ -72,11 +82,6 @@
 
 
 [array array-window size=512 w=100 h=100 yr=0..1]
-
-
-
-
-
 ]]>
             </pdascii>
         </example>

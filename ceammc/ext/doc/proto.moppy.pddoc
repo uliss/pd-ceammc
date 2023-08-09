@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="proto.moppy">
         <title>proto.moppy</title>
         <meta>
@@ -24,8 +24,24 @@
             moppy device</property>
         </properties>
         <methods>
-            <method name="ping">send ping request to all devices</method>
+            <!-- bend:f -->
+            <method name="bend:f">note pitchbend 
+            <param name="VAL" required="true" type="float" minvalue="-1" maxvalue="1">pitch
+            bend</param></method>
+            <!-- freq -->
+            <method name="freq">set floppy frequency. Note: moppy.v1 version only. 
+            <param name="CHAN" required="false" type="int">optional floppy id (overrides @floppy
+            property)</param>
+            <param name="FREQ" required="true" type="float" units="hertz">freq</param></method>
+            <!-- note -->
             <method name="note">see noteon</method>
+            <!-- noteoff -->
+            <method name="noteoff">note off message 
+            <param name="CHAN" required="false" type="int">optional floppy id (overrides @floppy
+            property)</param>
+            <param name="NOTE" required="true" type="int" minvalue="24" maxvalue="72">MIDI
+            note</param></method>
+            <!-- noteon -->
             <method name="noteon">play note 
             <param name="CHAN" required="false" type="int">optional floppy id (overrides @floppy
             property)</param>
@@ -33,24 +49,16 @@
             note</param>
             <param name="VEL" required="true" type="int" minvalue="0" maxvalue="127">note velocity
             (if 0 - turns note off, otherwise ignored)</param></method>
-            <method name="noteoff">note off message 
-            <param name="CHAN" required="false" type="int">optional floppy id (overrides @floppy
-            property)</param>
-            <param name="NOTE" required="true" type="int" minvalue="24" maxvalue="72">MIDI
-            note</param></method>
-            <method name="reset">reset moppy device. 
-            <param name="all" type="symbol">reset all devices</param></method>
-            <method name="bend:f">note pitchbend 
-            <param name="VAL" required="true" type="float" minvalue="-1" maxvalue="1">pitch
-            bend</param></method>
-            <method name="freq">set floppy frequency. Note: moppy.v1 version only. 
-            <param name="CHAN" required="false" type="int">optional floppy id (overrides @floppy
-            property)</param>
-            <param name="FREQ" required="true" type="float" units="hertz">freq</param></method>
+            <!-- period -->
             <method name="period">directly set floppy drive period. Note: moppy.v1 version only. 
             <param name="CHAN" required="false" type="int">optional floppy id (overrides @floppy
             property)</param>
             <param name="TIME" required="true" type="int">period in microseconds</param></method>
+            <!-- ping -->
+            <method name="ping">send ping request to all devices</method>
+            <!-- reset -->
+            <method name="reset">reset moppy device. 
+            <param name="all" type="symbol">reset all devices</param></method>
         </methods>
         <inlets>
             <inlet>

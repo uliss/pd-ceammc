@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="array.stretch">
         <title>array.stretch</title>
         <meta>
@@ -73,7 +73,7 @@
         </outlets>
         <example>
             <pdascii>
-<![CDATA[ 
+<![CDATA[
 [loadbang]
 |
 [symbol voice.wav( [symbol bell.aiff( [array A1 w=100] [array A2 w=100]

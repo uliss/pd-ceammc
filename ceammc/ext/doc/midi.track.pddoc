@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="midi.track">
         <title>midi.track</title>
         <meta>
@@ -32,13 +32,19 @@
             state. 0: stopped, 1: playing, 2: paused</property>
         </properties>
         <methods>
-            <method name="play">start playing</method>
-            <method name="pause">pause playing</method>
-            <method name="stop">stop playing and send All Notes Off event</method>
+            <!-- next -->
             <method name="next">moves playing position to next event. No output</method>
+            <!-- pause -->
+            <method name="pause">pause playing</method>
+            <!-- play -->
+            <method name="play">start playing</method>
+            <!-- reset -->
             <method name="reset">set current event index to zero and send All Notes Off
             event</method>
+            <!-- seek -->
             <method name="seek">seek to specified tick</method>
+            <!-- stop -->
+            <method name="stop">stop playing and send All Notes Off event</method>
         </methods>
         <inlets>
             <inlet>

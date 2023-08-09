@@ -7,21 +7,21 @@
 #X obj 550 11 ceammc/win;
 #X obj 647 11 win;
 #X obj 695 11 window;
-#X msg 50 133 blackman;
-#X msg 165 133 blackman-harris;
-#X msg 366 133 flattop \, bang;
-#X msg 69 162 hamming;
-#X msg 184 162 hann;
-#X msg 261 162 nuttall;
-#X msg 386 162 rect \, bang;
-#X msg 88 190 sine;
-#X msg 203 190 tri;
-#X msg 290 190 welch;
-#X msg 405 190 gauss \, bang;
-#X obj 107 219 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X msg 50 118 blackman;
+#X msg 165 118 blackman-harris;
+#X msg 366 118 flattop \, bang;
+#X msg 69 147 hamming;
+#X msg 184 147 hann;
+#X msg 261 147 nuttall;
+#X msg 386 147 rect \, bang;
+#X msg 88 176 sine;
+#X msg 203 176 tri;
+#X msg 290 176 welch;
+#X msg 405 176 gauss \, bang;
+#X obj 107 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 50 248 window gauss 512;
-#X obj 50 277 array.set array-window;
+#X obj 50 234 window gauss 512;
+#X obj 50 262 array.set array-window;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array array-window 512 float 1;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
@@ -40,7 +40,7 @@
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
 #X coords 0 1 512 0 100 100 1;
-#X restore 50 320 graph;
+#X restore 50 305 graph;
 #X obj 20 437 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 442 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;

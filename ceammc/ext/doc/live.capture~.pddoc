@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="live.capture~">
         <title>live.capture~</title>
         <meta>
@@ -14,11 +14,6 @@
             <keywords>live record</keywords>
             <since>0.1</since>
         </meta>
-        <methods>
-            <method name="record">start record</method>
-            <method name="stop">stop record</method>
-            <method name="reset">reset recorded data</method>
-        </methods>
         <properties>
             <property name="@gate" type="bool" default="0">start/stop recording</property>
             <property name="@gain" type="float" default="0" minvalue="-60" maxvalue="12"
@@ -27,6 +22,14 @@
             units="millisecond">intput crossfade time</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
+        <methods>
+            <!-- record -->
+            <method name="record">start record</method>
+            <!-- reset -->
+            <method name="reset">reset recorded data</method>
+            <!-- stop -->
+            <method name="stop">stop record</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>source signal</xinfo>

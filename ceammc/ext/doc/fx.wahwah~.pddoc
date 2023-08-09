@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="fx.wahwah~">
         <title>fx.wahwah~</title>
         <meta>
@@ -13,9 +13,6 @@
             <keywords>wahwah guitar crybaby</keywords>
             <since>0.6</since>
         </meta>
-        <methods>
-            <method name="reset">reset object</method>
-        </methods>
         <arguments>
             <argument name="ANGLE" type="float" minvalue="0" maxvalue="1">pedal angle</argument>
             <argument name="SPEED" type="float" minvalue="360" maxvalue="780" units="bpm">
@@ -39,6 +36,10 @@
             specified, bind properties to /ID/fx_wahwah/PROP_NAME osc address, if empty bind to
             /fx_wahwah/PROP_NAME.</property>
         </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset object</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>

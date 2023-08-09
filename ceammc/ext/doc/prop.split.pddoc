@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="prop.split">
         <title>prop.split</title>
         <meta>
@@ -40,7 +40,7 @@
         <example>
             <pdascii>
 <![CDATA[
-          [any value(
+[any value(
           |
 [F]       |   [@prop1 a b c(   [@oth 1 2 3 4(
 |         |   |                |

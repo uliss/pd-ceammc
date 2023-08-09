@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="fx.zita_rev1~">
         <title>fx.zita_rev1~</title>
         <meta>
@@ -21,9 +21,6 @@
             <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">ratio between source
             signal (dry) and processed signal (wet)</argument>
         </arguments>
-        <methods>
-            <method name="reset">same as reset</method>
-        </methods>
         <properties>
             <property name="@decay_low" type="float" minvalue="1" maxvalue="60" default="3"
             units="second">time (in seconds) to decay 60dB in low-frequency band</property>
@@ -56,6 +53,10 @@
             specified, bind properties to /ID/fx_zita_rev1/PROP_NAME osc address, if empty bind to
             /fx_zita_rev1/PROP_NAME.</property>
         </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">same as reset</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>left channel</xinfo>
@@ -101,7 +102,6 @@
 [ui.hgain2~]
 *|*
 [dac~]
-
 ]]>
             </pdascii>
         </example>

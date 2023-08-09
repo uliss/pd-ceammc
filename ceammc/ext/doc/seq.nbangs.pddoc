@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="seq.nbangs">
         <title>seq.nbangs</title>
         <meta>
@@ -41,12 +41,17 @@
             fast changes, then slower</property>
         </properties>
         <methods>
+            <!-- reset -->
+            <method name="reset">stop bang output and reset bang counter</method>
+            <!-- rewind -->
+            <method name="rewind">reset all counters without stopping</method>
+            <!-- start -->
             <method name="start">start/stop 
             <param name="on" type="int" enum="0 1" default="1" required="false">if true - starts
             bang sequence, otherwise stops</param></method>
+            <!-- stop -->
             <method name="stop">stop bang output</method>
-            <method name="reset">stop bang output and reset bang counter</method>
-            <method name="rewind">reset all counters without stopping</method>
+            <!-- tick -->
             <method name="tick">manually output current sequence element and move to next</method>
         </methods>
         <inlets>

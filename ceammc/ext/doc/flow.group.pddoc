@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flow.group">
         <title>flow.group</title>
         <meta>
@@ -20,15 +20,17 @@
         <arguments>
             <argument name="BY" type="int" minvalue="1">group by this size</argument>
         </arguments>
-        <methods>
-            <method name="flush">outputs and clears group</method>
-            <method name="clear">clear without output</method>
-        </methods>
         <properties>
             <property name="@by" type="int" minvalue="1" default="1">group size</property>
             <property name="@free" type="int" access="readonly" default="0" minvalue="0">free space
             left in group</property>
         </properties>
+        <methods>
+            <!-- clear -->
+            <method name="clear">clear without output</method>
+            <!-- flush -->
+            <method name="flush">outputs and clears group</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="float">add float to group and flush if group is full packed</xinfo>

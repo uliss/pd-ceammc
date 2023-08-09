@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="list.gen">
         <title>list.gen</title>
         <meta>
@@ -25,13 +25,14 @@
             <argument type="int" minvalue="1" maxvalue="1024" name="COUNT">length of generated
             list</argument>
         </arguments>
-        <methods>
-            <method name="dump">dump internal object state to Pd console window</method>
-        </methods>
         <properties>
             <property name="@count" type="int" minvalue="1" maxvalue="1024" default="1">length of
             generated list</property>
         </properties>
+        <methods>
+            <!-- dump -->
+            <method name="dump">dump internal object state to Pd console window</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="bang">starts list generation</xinfo>
@@ -49,7 +50,7 @@
         <example>
             <pdascii>
 <![CDATA[
-    [F]       [F]
+[F]       [F]
     |         |
 [B] |  [dump( [@count $1(
 |   |  |      |

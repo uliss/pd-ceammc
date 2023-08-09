@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.lcd" type="gui">
         <title>ui.lcd</title>
         <meta>
@@ -13,22 +13,6 @@
             <keywords>ui display</keywords>
             <since>0.9.7</since>
         </meta>
-        <methods>
-            <method name="dump">dumps all object info to Pd console window.</method>
-            <method name="pos">set UI element position 
-            <param name="X" type="float" required="true">top left x-coord</param>
-            <param name="Y" type="float" required="true">top right y-coord</param></method>
-            <method name="clear">clear display</method>
-            <method name="invert">invert display</method>
-            <method name="set">set display content 
-            <param name="PIXELS" type="list" required="true">pixel values</param></method>
-            <method name="set col">set column content 
-            <param name="N" type="int" required="true">column index</param>
-            <param name="PIXELS" type="list" required="true">column pixel values</param></method>
-            <method name="set row">set row content 
-            <param name="N" type="int" required="true">row index</param>
-            <param name="PIXELS" type="list" required="true">row pixel values</param></method>
-        </methods>
         <properties>
             <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>
@@ -71,6 +55,29 @@
             <property name="@pixels" type="int" default="64" access="readonly">number of
             pixels</property>
         </properties>
+        <methods>
+            <!-- clear -->
+            <method name="clear">clear display</method>
+            <!-- dump -->
+            <method name="dump">dumps all object info to Pd console window.</method>
+            <!-- invert -->
+            <method name="invert">invert display</method>
+            <!-- pos -->
+            <method name="pos">set UI element position 
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- set -->
+            <method name="set">set display content 
+            <param name="PIXELS" type="list" required="true">pixel values</param></method>
+            <!-- set col -->
+            <method name="set col">set column content 
+            <param name="N" type="int" required="true">column index</param>
+            <param name="PIXELS" type="list" required="true">column pixel values</param></method>
+            <!-- set row -->
+            <method name="set row">set row content 
+            <param name="N" type="int" required="true">row index</param>
+            <param name="PIXELS" type="list" required="true">row pixel values</param></method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo>command input</xinfo>

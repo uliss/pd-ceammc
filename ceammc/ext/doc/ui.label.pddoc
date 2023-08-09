@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.label" type="gui">
         <title>ui.label</title>
         <meta>
@@ -44,23 +44,31 @@
             slant</property>
         </properties>
         <methods>
-            <method name="float">set label text to given float, but do not change @text
-            property</method>
-            <method name="symbol">set label text to given symbol, but do not change @text
-            property</method>
-            <method name="list">set label text to given list separated by spaces, but do not change
-            @text property</method>
+            <!-- any -->
             <method name="any">set label text to given message separated by spaces, but do not
             change @text property</method>
-            <method name="clear">clear label text and clear @text property</method>
+            <!-- append -->
             <method name="append">appends to @text end</method>
-            <method name="set">set label text and update @text property, so it would be saved in
-            patch</method>
-            <method name="prepend">insert into beginning of @text</method>
-            <!-- common-->
+            <!-- clear -->
+            <method name="clear">clear label text and clear @text property</method>
+            <!-- float -->
+            <method name="float">set label text to given float, but do not change @text
+            property</method>
+            <!-- list -->
+            <method name="list">set label text to given list separated by spaces, but do not change
+            @text property</method>
+            <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- prepend -->
+            <method name="prepend">insert into beginning of @text</method>
+            <!-- set -->
+            <method name="set">set label text and update @text property, so it would be saved in
+            patch</method>
+            <!-- symbol -->
+            <method name="symbol">set label text to given symbol, but do not change @text
+            property</method>
         </methods>
         <inlets />
         <outlets />

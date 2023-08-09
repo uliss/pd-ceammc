@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="list.normalize">
         <title>list.normalize</title>
         <meta>
@@ -18,18 +18,18 @@
             <par>1. by sum - multiply all elements to such number to get total sum = 1.0</par>
             <par>2. by value range - maps all values to range 0..1 lineary</par>
         </info>
-        <inlets>
-            <inlet>
-                <xinfo on="list">input list of floats. Non float values are rejected</xinfo>
-                <xinfo on="data:mlist">same as list</xinfo>
-            </inlet>
-        </inlets>
         <properties>
             <property name="@by" enum="sum range" default="sum" type="symbol">normalization
             mode</property>
             <property name="@sum" type="alias">alias to @by sum</property>
             <property name="@range" type="alias">alias to @by range</property>
         </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="list">input list of floats. Non float values are rejected</xinfo>
+                <xinfo on="data:mlist">same as list</xinfo>
+            </inlet>
+        </inlets>
         <outlets>
             <outlet>output list</outlet>
         </outlets>

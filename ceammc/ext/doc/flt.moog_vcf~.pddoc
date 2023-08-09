@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flt.moog_vcf~">
         <title>flt.moog_vcf~</title>
         <meta>
@@ -17,14 +17,15 @@
             <argument name="RES" type="float" minvalue="0" maxvalue="1">normalized amount of
             corner-resonance</argument>
         </arguments>
-        <methods>
-            <method name="reset">reset object state</method>
-        </methods>
         <properties>
             <property name="@res" type="float" minvalue="0" maxvalue="1" default="0.4">normalized
             amount of corner-resonance</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset object state</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>

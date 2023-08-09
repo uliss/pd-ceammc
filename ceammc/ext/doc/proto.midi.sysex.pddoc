@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="proto.midi.sysex">
         <title>proto.midi.sysex</title>
         <meta>
@@ -14,22 +14,27 @@
             <since>0.9.4</since>
         </meta>
         <methods>
-            <method name="mvolume">set device master volume 
-            <param type="float" minvalue="0" maxvalue="1" required="true" name="LEVEL">volume
-            level</param></method>
-            <method name="mtune~">set device master coarse tuning in semitones 
-            <param type="int" minvalue="-64" maxvalue="63" required="true" name="V"
-            units="semitone">tuning</param></method>
-            <method name="mtune.">set device master fine tuning in cents 
-            <param type="int" minvalue="-100" maxvalue="100" required="true" name="V" units="cent">
-            tuning</param></method>
+            <!-- mbal:f -->
+            <method name="mbal:f">set device master balance 
+            <param type="float" minvalue="-1" maxvalue="1" required="true" name="PAN">
+            balance</param></method>
+            <!-- mtune -->
             <method name="mtune">set device master tuning in float semitones (combination of coarse
             and fine tune) 
             <param type="float" minvalue="-64" maxvalue="63" required="true" name="V"
             units="semitone">tuning</param></method>
-            <method name="mbal:f">set device master balance 
-            <param type="float" minvalue="-1" maxvalue="1" required="true" name="PAN">
-            balance</param></method>
+            <!-- mtune. -->
+            <method name="mtune.">set device master fine tuning in cents 
+            <param type="int" minvalue="-100" maxvalue="100" required="true" name="V" units="cent">
+            tuning</param></method>
+            <!-- mtune~ -->
+            <method name="mtune~">set device master coarse tuning in semitones 
+            <param type="int" minvalue="-64" maxvalue="63" required="true" name="V"
+            units="semitone">tuning</param></method>
+            <!-- mvolume -->
+            <method name="mvolume">set device master volume 
+            <param type="float" minvalue="0" maxvalue="1" required="true" name="LEVEL">volume
+            level</param></method>
         </methods>
         <inlets>
             <inlet>

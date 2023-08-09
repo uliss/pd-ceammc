@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="fx.distortion3~">
         <title>fx.distortion3~</title>
         <meta>
@@ -43,6 +43,7 @@
             to /fx_distortion3/PROP_NAME.</property>
         </properties>
         <methods>
+            <!-- reset -->
             <method name="reset">reset object</method>
         </methods>
         <inlets>
