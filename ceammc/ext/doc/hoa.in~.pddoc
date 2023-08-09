@@ -38,7 +38,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[open 0 #a( [open 1 #b(        [F]
+[open 0 #a( [open 1 #b(           [F]
                                   |
 [sig~ 0.5]       [sig~ 1]         [sig~ 3]
 |                |.               |..

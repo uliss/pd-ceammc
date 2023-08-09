@@ -40,7 +40,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[any value(
+          [any value(
           |
 [F]       |   [@prop1 a b c(   [@oth 1 2 3 4(
 |         |   |                |

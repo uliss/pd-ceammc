@@ -50,7 +50,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]       [F]
+    [F]       [F]
     |         |
 [B] |  [dump( [@count $1(
 |   |  |      |

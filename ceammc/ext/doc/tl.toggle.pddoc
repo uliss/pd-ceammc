@@ -38,7 +38,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[tl.cue]           [tl.cue]
+            [tl.cue]           [tl.cue]
 
 [HR number=3]    [tl.toggle]              [tl.toggle]
 |                |                        |

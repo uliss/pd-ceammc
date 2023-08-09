@@ -37,7 +37,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[@pattern c(  [list a b c c(
+          [@pattern c(  [list a b c c(
           |             |
 [1 2 3 1( | [F]         |
 |         | |.          |

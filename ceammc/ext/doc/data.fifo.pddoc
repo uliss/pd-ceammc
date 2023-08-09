@@ -61,7 +61,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]
+                 [F]
                  |
     [pop(  [1 2( [resize $1(
     |      |         |        [@size?( [@free?( [@filled?(

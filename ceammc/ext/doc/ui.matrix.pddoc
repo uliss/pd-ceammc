@@ -156,7 +156,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]          [F]
+          [F]          [F]
 [dump(    |            |
 |         [get row $1( [get col $1(
 | [reset( |            |

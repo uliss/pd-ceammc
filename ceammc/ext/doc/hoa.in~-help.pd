@@ -10,7 +10,7 @@
 object;
 #X msg 50 158 open 0;
 #X msg 165 158 open 1;
-#X floatatom 347 158 5 0 0 0 - - -;
+#X floatatom 376 158 5 0 0 0 - - -;
 #X obj 50 187 sig~ 0.5;
 #X obj 213 187 sig~ 1;
 #X obj 376 187 sig~ 3;

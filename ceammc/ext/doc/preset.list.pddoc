@@ -58,7 +58,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[store 0(     [store 1(
+           [store 0(     [store 1(
            |             |
 [load 0(   | [load 1(    |
 |          | |           |

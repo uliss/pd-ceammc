@@ -10,8 +10,8 @@
 #X text 215 80 Bang only when nearest left tl.cue was activated. If
 other cue is activated and bang was scheduled by @delay property -
 it canceled;
-#X obj 50 173 tl.cue;
-#X obj 232 173 tl.cue;
+#X obj 126 173 tl.cue;
+#X obj 309 173 tl.cue;
 #X obj 50 202 hradio 15 1 0 3 empty empty empty 17 7 0 10 -262144 -1
 -1 0;
 #X obj 213 202 tl.bang;

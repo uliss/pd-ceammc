@@ -36,7 +36,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]   /* tempo */
+        [F]     /* tempo */
         |
         [* 8] /* 32nds */
         |

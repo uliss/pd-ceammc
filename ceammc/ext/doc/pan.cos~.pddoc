@@ -46,7 +46,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[hsl]
+          [hsl]
           |
           [lin->lin 0 127 -1 1]
           |

@@ -39,7 +39,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[1(
+            [1(
             |
 [osc~ 500]  [msg.after 500 0]
 |           |

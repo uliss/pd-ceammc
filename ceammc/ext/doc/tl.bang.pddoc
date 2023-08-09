@@ -45,7 +45,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[tl.cue]           [tl.cue]
+        [tl.cue]           [tl.cue]
 
 [HR number=3]    [tl.bang]                [tl.bang @delay 500]
 |                |                        |
