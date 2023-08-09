@@ -59,9 +59,9 @@ TEST_CASE("flow.demux2~", "[externals]")
             REQUIRE(t.blockSize() == 64);
             REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numInputChannels() == 2);
-            REQUIRE(t.numOutlets() == 32);
-            REQUIRE(t.numOutputChannels() == 32);
-            REQUIRE_PROPERTY_LIST(t, @value, LX(1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0));
+            REQUIRE(t.numOutlets() == 4);
+            REQUIRE(t.numOutputChannels() == 4);
+            REQUIRE_PROPERTY_LIST(t, @value, LX(1, 0));
         }
     }
 

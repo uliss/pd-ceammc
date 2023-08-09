@@ -24,21 +24,21 @@ enum FlowDemultiplexFlags {
 };
 
 class DemultiplexTilde : public SoundExternal {
+    IntProperty* n_ { nullptr };
+
 protected:
-    typedef SmoothLinT<t_float> t_smooth;
+    using t_smooth = SmoothLinT<t_float>;
     std::vector<t_smooth> gain_;
 
 public:
     DemultiplexTilde(const PdArgs& args);
+    void initDone() final;
 
     void processBlock(const t_sample** in, t_sample** out) override;
     void setupDSP(t_signal** in) override;
 
     void onInlet(size_t n, const AtomListView& lv) override;
     void onList(const AtomListView& lv) override;
-
-    AtomList propValue() const;
-    void propSetValue(const AtomListView& lv);
 };
 
 void setup_flow_demultiplex_tilde();

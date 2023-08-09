@@ -15,9 +15,9 @@
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
-constexpr size_t DEFAULT_OUTLETS = 2;
-constexpr size_t MIN_OUTLETS = 2;
-constexpr size_t MAX_OUTLETS = 16;
+constexpr int DEFAULT_OUTLETS = 2;
+constexpr int MIN_OUTLETS = 2;
+constexpr int MAX_OUTLETS = 16;
 
 static size_t chMultiplier(const PdArgs& args)
 {
@@ -27,19 +27,38 @@ static size_t chMultiplier(const PdArgs& args)
 DemultiplexTilde::DemultiplexTilde(const PdArgs& args)
     : SoundExternal(args)
 {
-    const size_t NCHAN = positionalConstant<DEFAULT_OUTLETS, MIN_OUTLETS, MAX_OUTLETS>(0);
-    for (size_t i = 0; i < NCHAN * chMultiplier(args); i++)
+    n_ = new IntProperty("@n", DEFAULT_OUTLETS, PropValueAccess::INITONLY);
+    n_->checkClosedRange(MIN_OUTLETS, MAX_OUTLETS);
+    n_->setArgIndex(0);
+    addProperty(n_);
+
+    createCbListProperty(
+        "@value",
+        [this]() -> AtomList {
+            AtomList res;
+            res.reserve(gain_.size());
+
+            for (size_t i = 0; i < gain_.size(); i++)
+                res.append(gain_[i].target());
+
+            return res;
+        },
+        [this](const AtomListView& lv) -> bool { onList(lv);return true; });
+}
+
+void DemultiplexTilde::initDone()
+{
+    const auto N = n_->value();
+    for (int i = 0; i < N * chMultiplier(pdArgs()); i++)
         createSignalOutlet();
 
-    if (args.flags == DEMULTIPLEX_STEREO)
+    if (pdArgs().flags == DEMULTIPLEX_STEREO)
         createSignalInlet();
 
     createInlet();
 
-    gain_.assign(NCHAN, t_smooth(0));
+    gain_.assign(N, t_smooth(0));
     gain_[0].setTargetValue(1);
-
-    createCbProperty("@value", &DemultiplexTilde::propValue, &DemultiplexTilde::propSetValue);
 }
 
 void DemultiplexTilde::processBlock(const t_sample** in, t_sample** out)
@@ -93,24 +112,9 @@ void DemultiplexTilde::onInlet(size_t /*n*/, const AtomListView& lv)
 
 void DemultiplexTilde::onList(const AtomListView& lv)
 {
-    for (size_t i = 0; i < gain_.size(); i++)
-        gain_[i].setTargetValue(clip<t_float>(lv.floatAt(i, 0), 0, 1));
-}
-
-AtomList DemultiplexTilde::propValue() const
-{
-    AtomList res;
-    res.reserve(gain_.size());
-
-    for (size_t i = 0; i < gain_.size(); i++)
-        res.append(gain_[i].target());
-
-    return res;
-}
-
-void DemultiplexTilde::propSetValue(const AtomListView& lv)
-{
-    onList(lv);
+    const auto N = std::min<size_t>(lv.size(), gain_.size());
+    for (size_t i = 0; i < N; i++)
+        gain_[i].setTargetValue(clip<t_float>(lv[i].asFloat(), 0, 1));
 }
 
 void setup_flow_demultiplex_tilde()
@@ -121,5 +125,5 @@ void setup_flow_demultiplex_tilde()
 
     obj.setDescription("audio stream demultiplexer");
     obj.setCategory("flow");
-    obj.setKeywords({"flow", "demultiplex"});
+    obj.setKeywords({ "flow", "demultiplex" });
 }
