@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include "array_ltcplay_tilde.h"
 #include "ceammc_factory.h"
-#include "fmt/core.h"
 
 #ifdef WITH_LIBLTC
 
