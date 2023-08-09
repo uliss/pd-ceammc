@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<pddoc version="1.0" xmlns:xi="http://www.w3.org/2001/XInclude">
     <object name="flt.hpf24~">
         <title>flt.hpf24~</title>
         <meta>
@@ -31,12 +31,8 @@
             <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
             default="10000">cutoff frequency</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
-            <!-- OSC -->
-            <property name="@osc" type="symbol" default="" access="initonly">OSC server name to
-            listen</property>
-            <property name="@id" type="symbol" default="" access="initonly">OSC address id. If
-            specified, bind properties to /ID/flt_hpf24/PROP_NAME osc address, if empty bind to
-            /flt_hpf24/PROP_NAME.</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" data="$obj: flt_hpf24" />
         </properties>
         <arguments>
             <argument name="FREQ" type="float" minvalue="20" maxvalue="20000" units="hertz">cutoff

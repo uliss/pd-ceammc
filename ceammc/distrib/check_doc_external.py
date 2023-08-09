@@ -493,7 +493,9 @@ if __name__ == '__main__':
 
     cprint(f"checking [{ext_name}] ...", "blue")
 
-    root = etree.fromstring(xml.encode())
+    doc = etree.parse(pddoc_path)
+    doc.xinclude()
+    root = doc.getroot()
 
     doc_methods_set = set()
     doc_props_set = set()

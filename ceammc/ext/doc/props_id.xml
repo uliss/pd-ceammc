@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<property name="@id" type="symbol" default="" access="initonly">OSC address id. If
+            specified, bind all properties to /ID/$obj/PROP_NAME osc address, if empty bind to
+            /$obj/PROP_NAME.</property>
+
+
