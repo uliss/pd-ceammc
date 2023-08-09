@@ -23,7 +23,7 @@
             </also>
         </meta>
         <arguments>
-            <argument type="list" name="VALUES">list of atoms to reject</argument>
+            <argument name="VALUES" type="list">list of atoms to reject</argument>
         </arguments>
         <properties>
             <property name="@values" type="list" default="">atoms to reject</property>

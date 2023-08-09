@@ -20,7 +20,7 @@
             <par>new random number every int(SR/freq) samples or so</par>
         </info>
         <arguments>
-            <argument type="float" name="FREQ" minvalue="5" maxvalue="22050" units="hertz">noise
+            <argument name="FREQ" type="float" minvalue="5" maxvalue="22050" units="hertz">noise
             generation freq</argument>
         </arguments>
         <properties>

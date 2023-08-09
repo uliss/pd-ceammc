@@ -17,13 +17,13 @@
             </also>
         </meta>
         <mouse>
-            <event editmode="false" type="left-click">jump to coord under mouse pointer</event>
-            <event editmode="false" type="right-click">opens popup menu for quick settings of
+            <event type="left-click" editmode="false">jump to coord under mouse pointer</event>
+            <event type="right-click" editmode="false">opens popup menu for quick settings of
             position: center, left, right, top, bottom</event>
-            <event editmode="false" type="drag">change slider coords</event>
-            <event editmode="false" type="drag" keys="Alt">change only angle coord</event>
-            <event editmode="false" type="wheel">change only radius coord</event>
-            <event editmode="false" type="wheel" keys="Shift">change precisely radius coord</event>
+            <event type="drag" editmode="false">change slider coords</event>
+            <event type="drag" editmode="false" keys="Alt">change only angle coord</event>
+            <event type="wheel" editmode="false">change only radius coord</event>
+            <event type="wheel" editmode="false" keys="Shift">change precisely radius coord</event>
         </mouse>
         <properties>
             <property name="@clockwise" type="bool" default="1">clockwise positive
@@ -84,15 +84,15 @@
             y-coord</param></method>
             <!-- clear -->
             <method name="clear">clears specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- dump -->
             <method name="dump">dumps all object info to Pd console window</method>
             <!-- interp -->
             <method name="interp">interplolates between presets 
-            <param type="float" name="IDX" required="true">preset fraction index</param></method>
+            <param name="IDX" type="float" required="true">preset fraction index</param></method>
             <!-- load -->
             <method name="load">loads specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- polar -->
             <method name="polar">sets slider position in polar coords and output 
             <param name="RAD" type="float" minvalue="0" maxvalue="1" required="true">radius</param>
@@ -115,7 +115,7 @@
             @use_degrees property)</param></method>
             <!-- store -->
             <method name="store">stores specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
         </methods>
         <inlets>
             <inlet>

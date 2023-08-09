@@ -22,7 +22,7 @@
             <par>in @poly mode if bit is on - send list (BIT_IDX bang) to single outlet</par>
         </info>
         <arguments>
-            <argument type="int" name="N" minvalue="1" maxvalue="64">number of outlets</argument>
+            <argument name="N" type="int" minvalue="1" maxvalue="64">number of outlets</argument>
         </arguments>
         <properties>
             <property name="@n" type="int" minvalue="1" maxvalue="64" default="8"

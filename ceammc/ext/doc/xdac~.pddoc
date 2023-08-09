@@ -17,7 +17,7 @@
             </aliases>
         </meta>
         <mouse>
-            <event editmode="false" type="left-click">opens audio properties dialog</event>
+            <event type="left-click" editmode="false">opens audio properties dialog</event>
         </mouse>
         <arguments>
             <argument name="OUTS" type="list">list of output channels: single channel number or X:Y

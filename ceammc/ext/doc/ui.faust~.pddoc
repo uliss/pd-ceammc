@@ -17,11 +17,11 @@
             <a href="https://faust.grame.fr/">https://faust.grame.fr/</a>
         </info>
         <mouse>
-            <event editmode="false" type="left-click" keys="Alt">open faust dsp file in external
+            <event type="left-click" editmode="false" keys="Alt">open faust dsp file in external
             editor</event>
-            <event editmode="false" type="right-click">open popup menu</event>
-            <event editmode="false" type="right-click" keys="Shift">open object help</event>
-            <event editmode="true" type="right-click" keys="Shift">open object help</event>
+            <event type="right-click" editmode="false">open popup menu</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="right-click" editmode="true" keys="Shift">open object help</event>
         </mouse>
         <arguments>
             <argument name="FNAME" type="symbol">path to faust dsp file</argument>

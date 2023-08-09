@@ -27,9 +27,9 @@
             property</argument>
         </arguments>
         <properties>
-            <property name="@nsamp" minvalue="8" maxvalue="32768" type="int" default="512">max
+            <property name="@nsamp" type="int" minvalue="8" maxvalue="32768" default="512">max
             number of input samples</property>
-            <property name="@nbins" minvalue="8" maxvalue="512" type="int" default="63">number of
+            <property name="@nbins" type="int" minvalue="8" maxvalue="512" default="63">number of
             histogram bins</property>
             <property name="@min" type="float" default="-1">minimal input value</property>
             <property name="@max" type="float" default="1">maximum input value</property>

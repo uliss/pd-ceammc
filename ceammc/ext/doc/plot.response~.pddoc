@@ -21,7 +21,7 @@
             <argument name="N" type="int" minvalue="32" maxvalue="8192">@n property</argument>
         </arguments>
         <properties>
-            <property name="@n" minvalue="32" maxvalue="8192" type="int" default="512">number of
+            <property name="@n" type="int" minvalue="32" maxvalue="8192" default="512">number of
             processed samples</property>
             <property name="@db" type="bool" default="0">decibel mode. It true outputs amplitude in
             decibels</property>

@@ -24,7 +24,7 @@
             <argument name="VALUE" type="int">set initial value</argument>
         </arguments>
         <properties>
-            <property name="@value" access="readonly" type="int" default="0">current
+            <property name="@value" type="int" access="readonly" default="0">current
             value</property>
         </properties>
         <methods>

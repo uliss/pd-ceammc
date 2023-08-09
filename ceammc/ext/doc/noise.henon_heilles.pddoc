@@ -27,29 +27,29 @@
         <methods>
             <!-- dt -->
             <method name="dt">
-                <param type="float" name="NY" required="true">dt value</param>
+                <param name="NY" type="float" required="true">dt value</param>
             </method>
             <!-- e -->
             <method name="e">
-                <param type="float" name="NY" required="true">e value</param>
+                <param name="NY" type="float" required="true">e value</param>
             </method>
             <!-- reset -->
             <method name="reset">reset state</method>
             <!-- set -->
             <method name="set">
-                <param type="float" name="SET" required="true">set to value</param>
+                <param name="SET" type="float" required="true">set to value</param>
             </method>
             <!-- x -->
             <method name="x">
-                <param type="float" name="NX" required="true">x value</param>
+                <param name="NX" type="float" required="true">x value</param>
             </method>
             <!-- y -->
             <method name="y">
-                <param type="float" name="NY" required="true">y value</param>
+                <param name="NY" type="float" required="true">y value</param>
             </method>
             <!-- y' -->
             <method name="y'">
-                <param type="float" name="NY" required="true">y' value</param>
+                <param name="NY" type="float" required="true">y' value</param>
             </method>
         </methods>
         <inlets>

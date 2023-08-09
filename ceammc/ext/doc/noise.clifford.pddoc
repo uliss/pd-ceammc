@@ -31,38 +31,38 @@
         <methods>
             <!-- a -->
             <method name="a">
-                <param type="float" name="A" required="true">a value</param>
+                <param name="A" type="float" required="true">a value</param>
             </method>
             <!-- b -->
             <method name="b">
-                <param type="float" name="B" required="true">b value</param>
+                <param name="B" type="float" required="true">b value</param>
             </method>
             <!-- c -->
             <method name="c">
-                <param type="float" name="C" required="true">c value</param>
+                <param name="C" type="float" required="true">c value</param>
             </method>
             <!-- d -->
             <method name="d">
-                <param type="float" name="D" required="true">d value</param>
+                <param name="D" type="float" required="true">d value</param>
             </method>
             <!-- om -->
             <method name="om">
-                <param type="int" name="OM" required="true">enables output when cut or fold value
+                <param name="OM" type="int" required="true">enables output when cut or fold value
                 is changed</param>
             </method>
             <!-- reset -->
             <method name="reset">reset state</method>
             <!-- set -->
             <method name="set">
-                <param type="float" name="SET" required="true">set to value</param>
+                <param name="SET" type="float" required="true">set to value</param>
             </method>
             <!-- x -->
             <method name="x">
-                <param type="float" name="X" required="true">x value</param>
+                <param name="X" type="float" required="true">x value</param>
             </method>
             <!-- y -->
             <method name="y">
-                <param type="float" name="Y" required="true">y value</param>
+                <param name="Y" type="float" required="true">y value</param>
             </method>
         </methods>
         <inlets>

@@ -26,34 +26,34 @@
         <methods>
             <!-- bend:f -->
             <method name="bend:f">note pitchbend 
-            <param name="VAL" required="true" type="float" minvalue="-1" maxvalue="1">pitch
+            <param name="VAL" type="float" required="true" minvalue="-1" maxvalue="1">pitch
             bend</param></method>
             <!-- freq -->
             <method name="freq">set floppy frequency. Note: moppy.v1 version only. 
-            <param name="CHAN" required="false" type="int">optional floppy id (overrides @floppy
+            <param name="CHAN" type="int" required="false">optional floppy id (overrides @floppy
             property)</param>
-            <param name="FREQ" required="true" type="float" units="hertz">freq</param></method>
+            <param name="FREQ" type="float" required="true" units="hertz">freq</param></method>
             <!-- note -->
             <method name="note">see noteon</method>
             <!-- noteoff -->
             <method name="noteoff">note off message 
-            <param name="CHAN" required="false" type="int">optional floppy id (overrides @floppy
+            <param name="CHAN" type="int" required="false">optional floppy id (overrides @floppy
             property)</param>
-            <param name="NOTE" required="true" type="int" minvalue="24" maxvalue="72">MIDI
+            <param name="NOTE" type="int" required="true" minvalue="24" maxvalue="72">MIDI
             note</param></method>
             <!-- noteon -->
             <method name="noteon">play note 
-            <param name="CHAN" required="false" type="int">optional floppy id (overrides @floppy
+            <param name="CHAN" type="int" required="false">optional floppy id (overrides @floppy
             property)</param>
-            <param name="NOTE" required="true" type="int" minvalue="24" maxvalue="72">MIDI
+            <param name="NOTE" type="int" required="true" minvalue="24" maxvalue="72">MIDI
             note</param>
-            <param name="VEL" required="true" type="int" minvalue="0" maxvalue="127">note velocity
+            <param name="VEL" type="int" required="true" minvalue="0" maxvalue="127">note velocity
             (if 0 - turns note off, otherwise ignored)</param></method>
             <!-- period -->
             <method name="period">directly set floppy drive period. Note: moppy.v1 version only. 
-            <param name="CHAN" required="false" type="int">optional floppy id (overrides @floppy
+            <param name="CHAN" type="int" required="false">optional floppy id (overrides @floppy
             property)</param>
-            <param name="TIME" required="true" type="int">period in microseconds</param></method>
+            <param name="TIME" type="int" required="true">period in microseconds</param></method>
             <!-- ping -->
             <method name="ping">send ping request to all devices</method>
             <!-- reset -->

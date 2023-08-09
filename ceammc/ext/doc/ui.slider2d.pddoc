@@ -22,14 +22,14 @@
             </also>
         </meta>
         <mouse>
-            <event editmode="false" type="left-click">jump to coord under mouse pointer</event>
-            <event editmode="false" type="right-click">opens popup menu for quick settings of
+            <event type="left-click" editmode="false">jump to coord under mouse pointer</event>
+            <event type="right-click" editmode="false">opens popup menu for quick settings of
             position</event>
-            <event editmode="false" type="drag">change slider coords</event>
-            <event editmode="false" type="wheel">change Y coord</event>
-            <event editmode="false" type="wheel" keys="Shift">change precisely Y coord</event>
-            <event editmode="false" type="wheel" keys="Alt">change X coord</event>
-            <event editmode="false" type="wheel" keys="Alt+Shift">change precisely X coord</event>
+            <event type="drag" editmode="false">change slider coords</event>
+            <event type="wheel" editmode="false">change Y coord</event>
+            <event type="wheel" editmode="false" keys="Shift">change precisely Y coord</event>
+            <event type="wheel" editmode="false" keys="Alt">change X coord</event>
+            <event type="wheel" editmode="false" keys="Alt+Shift">change precisely X coord</event>
         </mouse>
         <properties>
             <property name="@x_left" type="float" default="-1">leftmost x-value</property>
@@ -86,15 +86,15 @@
         <methods>
             <!-- clear -->
             <method name="clear">clears specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- dump -->
             <method name="dump">dumps all object info to Pd console window</method>
             <!-- interp -->
             <method name="interp">interplolates between presets 
-            <param type="float" name="IDX" required="true">preset fraction index</param></method>
+            <param name="IDX" type="float" required="true">preset fraction index</param></method>
             <!-- load -->
             <method name="load">loads specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- move -->
             <method name="move">move slider by given offset 
             <param name="X" type="float" required="true">x-offset</param>
@@ -109,7 +109,7 @@
             <param name="Y" type="float" required="true">y-position</param></method>
             <!-- store -->
             <method name="store">stores specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
         </methods>
         <inlets>
             <inlet>

@@ -20,16 +20,16 @@
         <methods>
             <!-- mode -->
             <method name="mode">
-                <param type="int" name="MODE" required="true">mode value. 0 for Collatz, 1 for
+                <param name="MODE" type="int" required="true">mode value. 0 for Collatz, 1 for
                 Terras</param>
             </method>
             <!-- offset -->
             <method name="offset">
-                <param type="float" name="OFFSET" required="true">offset value</param>
+                <param name="OFFSET" type="float" required="true">offset value</param>
             </method>
             <!-- om -->
             <method name="om">
-                <param type="int" name="OM" required="true">enables output when cut or fold value
+                <param name="OM" type="int" required="true">enables output when cut or fold value
                 is changed</param>
             </method>
         </methods>

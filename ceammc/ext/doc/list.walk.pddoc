@@ -23,7 +23,7 @@
             then output it.</par>
         </info>
         <arguments>
-            <argument type="list" name="VALUE">initial list</argument>
+            <argument name="VALUE" type="list">initial list</argument>
         </arguments>
         <properties>
             <property name="@mode" type="symbol" enum="single clip wrap fold" default="single">pass
@@ -54,12 +54,12 @@
             <method name="dump">dump internal object state to Pd console window</method>
             <!-- next -->
             <method name="next">
-                <param type="int" default="1" name="STEP">moves to next element with optional given
+                <param name="STEP" type="int" default="1">moves to next element with optional given
                 step and outputs it</param>
             </method>
             <!-- prev -->
             <method name="prev">
-                <param type="int" default="1" name="STEP">moves to previous element with optional
+                <param name="STEP" type="int" default="1">moves to previous element with optional
                 given step and outputs it</param>
             </method>
             <!-- reset -->

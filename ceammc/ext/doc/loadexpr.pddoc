@@ -24,7 +24,7 @@
             <par>Click on object sends message again</par>
         </info>
         <mouse>
-            <event editmode="false" type="left-click">output again</event>
+            <event type="left-click" editmode="false">output again</event>
         </mouse>
         <arguments>
             <argument name="ARGS" type="list">message. Comma separated messages are

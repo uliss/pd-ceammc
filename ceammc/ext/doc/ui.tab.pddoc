@@ -72,7 +72,7 @@
             <method name="clear">clears all tab menu</method>
             <!-- clear -->
             <method name="clear">clears specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- delete -->
             <method name="delete">removes item from tab 
             <param name="IDX" type="int" minvalue="0" required="true">removed item
@@ -88,7 +88,7 @@
             performed</method>
             <!-- load -->
             <method name="load">loads specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- next -->
             <method name="next">moves to next item until last item is reached (single mode only).
             Output new item</method>
@@ -114,7 +114,7 @@
             <param name="ATOMS" type="list" required="true">item name</param></method>
             <!-- store -->
             <method name="store">stores specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
         </methods>
         <inlets>
             <inlet>

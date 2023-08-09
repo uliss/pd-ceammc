@@ -14,9 +14,9 @@
             <since>0.9.1</since>
         </meta>
         <arguments>
-            <argument type="int" name="N" minvalue="1" maxvalue="32">number of memory
+            <argument name="N" type="int" minvalue="1" maxvalue="32">number of memory
             cells</argument>
-            <argument type="int" name="TTL" minvalue="0" maxvalue="1024">see @ttl
+            <argument name="TTL" type="int" minvalue="0" maxvalue="1024">see @ttl
             property</argument>
         </arguments>
         <properties>

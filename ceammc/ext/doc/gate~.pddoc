@@ -30,24 +30,24 @@
             slots. If true: all slots are open.</property>
         </properties>
         <inlets dynamic="true">
-            <inlet number="1" type="audio">
+            <inlet type="audio" number="1">
                 <xinfo>input signal</xinfo>
             </inlet>
-            <inlet number="..." type="audio">
+            <inlet type="audio" number="...">
                 <xinfo>... input signal</xinfo>
             </inlet>
-            <inlet number="n" type="control">
+            <inlet type="control" number="n">
                 <xinfo>n-th input signal</xinfo>
             </inlet>
-            <inlet number="n+1" type="control">
+            <inlet type="control" number="n+1">
                 <xinfo on="bool">on/off all channels</xinfo>
                 <xinfo on="list">list of 1|0, on/off specified channels only</xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet number="1" type="audio">first output signal</outlet>
-            <outlet number="..." type="audio">... output signal</outlet>
-            <outlet number="n" type="audio">n-th output signal</outlet>
+            <outlet type="audio" number="1">first output signal</outlet>
+            <outlet type="audio" number="...">... output signal</outlet>
+            <outlet type="audio" number="n">n-th output signal</outlet>
         </outlets>
         <example>
             <pdascii>

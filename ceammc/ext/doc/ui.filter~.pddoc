@@ -17,11 +17,11 @@
             </also>
         </meta>
         <mouse>
-            <event editmode="false" type="left-click">jump to coord under mouse pointer</event>
-            <event editmode="false" type="right-click">opens popup menu for filter type
+            <event type="left-click" editmode="false">jump to coord under mouse pointer</event>
+            <event type="right-click" editmode="false">opens popup menu for filter type
             selection</event>
-            <event editmode="false" type="drag">change frequency and Q/gain value</event>
-            <event editmode="false" type="wheel">only for peakEq filter: change Q-factor</event>
+            <event type="drag" editmode="false">change frequency and Q/gain value</event>
+            <event type="wheel" editmode="false">only for peakEq filter: change Q-factor</event>
         </mouse>
         <properties>
             <property name="@freq" type="float" default="1000" minvalue="0" maxvalue="20000">filter
@@ -78,10 +78,10 @@
             <!-- biquad -->
             <method name="biquad">set biquad coefficients (but not changes current filter
             properties) 
-            <param type="list" name="b0 b1 b2 a1 a2" required="true">coefficients</param></method>
+            <param name="b0 b1 b2 a1 a2" type="list" required="true">coefficients</param></method>
             <!-- clear -->
             <method name="clear">clears specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- dump -->
             <method name="dump">dumps all object info to Pd console window</method>
             <!-- interp -->
@@ -89,14 +89,14 @@
             performed</method>
             <!-- load -->
             <method name="load">loads specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
             <!-- store -->
             <method name="store">stores specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
         </methods>
         <inlets>
             <inlet type="audio">

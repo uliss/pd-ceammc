@@ -59,20 +59,20 @@
             value</param></method>
         </methods>
         <inlets dynamic="true">
-            <inlet number="1" type="audio">
+            <inlet type="audio" number="1">
                 <xinfo>input signal</xinfo>
             </inlet>
-            <inlet number="..." type="audio">
+            <inlet type="audio" number="...">
                 <xinfo>input signal</xinfo>
             </inlet>
-            <inlet number="n" type="control">
+            <inlet type="control" number="n">
                 <xinfo on="float">set gain for all inputs</xinfo>
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet number="1" type="audio">output signal</outlet>
-            <outlet number="..." type="audio">output signal</outlet>
-            <outlet number="n" type="audio">output signal</outlet>
+            <outlet type="audio" number="1">output signal</outlet>
+            <outlet type="audio" number="...">output signal</outlet>
+            <outlet type="audio" number="n">output signal</outlet>
         </outlets>
         <example>
             <pdascii>

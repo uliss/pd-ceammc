@@ -28,11 +28,11 @@
             alias for horizontal radio checklist.</par>
         </info>
         <mouse>
-            <event editmode="true" type="double-click" keys="Cmd">changes slider
+            <event type="double-click" editmode="true" keys="Cmd">changes slider
             orientation</event>
-            <event editmode="0" type="left-click">select cell in radio mode, toggle cell in check
+            <event type="left-click" editmode="0">select cell in radio mode, toggle cell in check
             list mode</event>
-            <event editmode="0" type="right-click">show context menu</event>
+            <event type="right-click" editmode="0">show context menu</event>
         </mouse>
         <arguments>
             <argument name="NCELLS" type="float" minvalue="2" maxvalue="128">number of
@@ -79,27 +79,27 @@
             only)</method>
             <!-- cellsize -->
             <method name="cellsize">set cell size (resize widget) 
-            <param name="X" required="true" type="int">cell size in pixels</param></method>
+            <param name="X" type="int" required="true">cell size in pixels</param></method>
             <!-- clear -->
             <method name="clear">clears specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- euclid -->
             <method name="euclid">set euclid pattern (checklist mode only) 
-            <param name="BEATS" required="true" type="int">requested number of beats</param>
-            <param name="OFFSET" required="false" type="int">pattern offset (rotation to the
+            <param name="BEATS" type="int" required="true">requested number of beats</param>
+            <param name="OFFSET" type="int" required="false">pattern offset (rotation to the
             right)</param></method>
             <!-- flip -->
             <method name="flip">flips radio (only in checklist mode)</method>
             <!-- hexbeat -->
             <method name="hexbeat">set hexbeat pattern (checklist mode only) 
-            <param name="HEXSTR" required="true" type="symbol">hex string. For example, 0xF1 will
+            <param name="HEXSTR" type="symbol" required="true">hex string. For example, 0xF1 will
             set 1 1 1 1 0 0 0 1 pattern</param></method>
             <!-- interp -->
             <method name="interp">for this object acts as *load*, no interpolation
             performed</method>
             <!-- load -->
             <method name="load">loads specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- next -->
             <method name="next">moves to next position until last cell is reached (single mode
             only)</method>
@@ -117,13 +117,13 @@
             <method name="reset">reset radio (only in checklist mode)</method>
             <!-- rotate -->
             <method name="rotate">left rotate (checklist mode only) 
-            <param name="STEPS" required="true" type="int">number of steps</param></method>
+            <param name="STEPS" type="int" required="true">number of steps</param></method>
             <!-- set -->
             <method name="set">sets radio without output 
             <param name="V" type="float" required="true">new value</param></method>
             <!-- store -->
             <method name="store">stores specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
         </methods>
         <inlets>
             <inlet>

@@ -18,7 +18,7 @@
             <par>if route starts with '*' - output with message selector</par>
         </info>
         <arguments>
-            <argument type="list" name="MATCHES">list of route matches</argument>
+            <argument name="MATCHES" type="list">list of route matches</argument>
         </arguments>
         <inlets>
             <inlet>

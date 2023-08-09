@@ -37,30 +37,30 @@
         <methods>
             <!-- a -->
             <method name="a">
-                <param type="float" name="A" required="true">a value</param>
+                <param name="A" type="float" required="true">a value</param>
             </method>
             <!-- b -->
             <method name="b">
-                <param type="float" name="B" required="true">b value</param>
+                <param name="B" type="float" required="true">b value</param>
             </method>
             <!-- dt -->
             <method name="dt">
-                <param type="float" name="DT" required="true">dt value</param>
+                <param name="DT" type="float" required="true">dt value</param>
             </method>
             <!-- om -->
             <method name="om">
-                <param type="int" name="OM" required="true">enables output when cut or fold value
+                <param name="OM" type="int" required="true">enables output when cut or fold value
                 is changed</param>
             </method>
             <!-- reset -->
             <method name="reset">reset state</method>
             <!-- set -->
             <method name="set">
-                <param type="float" name="SET" required="true">set to value</param>
+                <param name="SET" type="float" required="true">set to value</param>
             </method>
             <!-- w -->
             <method name="w">
-                <param type="float" name="W" required="true">w value</param>
+                <param name="W" type="float" required="true">w value</param>
             </method>
         </methods>
         <inlets>

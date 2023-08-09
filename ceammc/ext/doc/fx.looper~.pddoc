@@ -14,7 +14,7 @@
             <since>0.5</since>
         </meta>
         <arguments>
-            <argument name="CAPACITY" units="second" type="float" minvalue="0" maxvalue="120">max
+            <argument name="CAPACITY" type="float" units="second" minvalue="0" maxvalue="120">max
             loop time</argument>
         </arguments>
         <properties>
@@ -56,7 +56,7 @@
         <methods>
             <!-- adjust -->
             <method name="adjust">increase loop length 
-            <param type="float" name="DELTA" units="sample">loop length delta</param></method>
+            <param name="DELTA" type="float" units="sample">loop length delta</param></method>
             <!-- clear -->
             <method name="clear">clear loop data and stops playing</method>
             <!-- overdub -->
@@ -71,7 +71,7 @@
             <method name="record">start loop record</method>
             <!-- smooth -->
             <method name="smooth">
-                <param name="TIME" units="millisecond" type="float">apply linear fadein/fadeout to
+                <param name="TIME" type="float" units="millisecond">apply linear fadein/fadeout to
                 loop</param>
             </method>
             <!-- stop -->

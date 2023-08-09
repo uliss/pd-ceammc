@@ -28,16 +28,16 @@
             <par>Symbols with spaces: ("single item list")</par>
         </info>
         <mouse>
-            <event editmode="false" type="left-click">open data editor</event>
+            <event type="left-click" editmode="false">open data editor</event>
         </mouse>
         <arguments>
             <argument name="VALUE" type="atom">initial list values in (). For example: (1 2 3 (1 2)
             4)</argument>
         </arguments>
         <properties>
-            <property name="@empty" access="readonly" type="bool" default="1">1 if list is empty,
+            <property name="@empty" type="bool" access="readonly" default="1">1 if list is empty,
             otherwise 0</property>
-            <property name="@size" access="readonly" minvalue="0" type="int" default="0">number of
+            <property name="@size" type="int" access="readonly" minvalue="0" default="0">number of
             elements in list</property>
             <property name="@value" type="atom" default="[]">mlist value</property>
         </properties>

@@ -21,7 +21,7 @@
             exceed this limit, outputs and removes first value in queue.</par>
         </info>
         <mouse>
-            <event editmode="false" type="left-click">open data editor</event>
+            <event type="left-click" editmode="false">open data editor</event>
         </mouse>
         <arguments>
             <argument name="SIZE" type="int" minvalue="0">if specified, creates fixed-size queue.

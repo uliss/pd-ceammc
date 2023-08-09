@@ -25,11 +25,11 @@
             <par>[ui.dt] is alias for [ui.display @display_type 1]</par>
         </info>
         <mouse>
-            <event editmode="false" type="double-click">show/hide message type</event>
-            <event editmode="false" type="right-click" keys="Shift">open object help</event>
-            <event editmode="false" type="right-click" keys="Alt">open properties dialog</event>
-            <event editmode="true" type="right-click" keys="Shift">open object help</event>
-            <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
+            <event type="double-click" editmode="false">show/hide message type</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="true" keys="Shift">open object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
             <property name="@auto_size" type="bool" default="1">flag if automatically resize

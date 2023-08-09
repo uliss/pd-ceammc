@@ -26,9 +26,9 @@
         </arguments>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
-            <property name="@ymin" minvalue="-1024" maxvalue="1024" type="float" default="-1">
+            <property name="@ymin" type="float" minvalue="-1024" maxvalue="1024" default="-1">
             minimal y-axis value</property>
-            <property name="@ymax" minvalue="-1024" maxvalue="1024" type="float" default="1">
+            <property name="@ymax" type="float" minvalue="-1024" maxvalue="1024" default="1">
             minimal y-axis value</property>
             <property name="@yauto" type="bool" default="0">calculate y-axis range
             automatically</property>

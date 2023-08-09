@@ -21,13 +21,13 @@
             <par>NOTE: all object inlets are 'hot'</par>
         </info>
         <mouse>
-            <event editmode="false" type="left-click">open data editor</event>
+            <event type="left-click" editmode="false">open data editor</event>
         </mouse>
         <arguments>
             <argument name="ID" type="symbol">bimap ID</argument>
         </arguments>
         <properties>
-            <property name="@id" access="initonly" type="symbol" default="default">global variable
+            <property name="@id" type="symbol" access="initonly" default="default">global variable
             id</property>
             <property name="@value" type="list" default="">value, list of pairs: LEFT_KEY1
             RIGHT_KEY1 LEFT_KEY2 RIGHT_KEY2 etc.</property>

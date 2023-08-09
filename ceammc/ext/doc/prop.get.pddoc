@@ -23,7 +23,7 @@
             <par>Get properties from connected object/subpatch/abstraction</par>
         </info>
         <mouse>
-            <event editmode="false" type="left-click">get properties</event>
+            <event type="left-click" editmode="false">get properties</event>
         </mouse>
         <arguments>
             <argument name="PROPS" type="list">property names</argument>

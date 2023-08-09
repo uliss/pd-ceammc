@@ -22,7 +22,7 @@
             values can be floats or percent</argument>
         </arguments>
         <properties>
-            <property name="@t" units="millisecond" type="list" default="">timeset
+            <property name="@t" type="list" units="millisecond" default="">timeset
             (&gt;0)</property>
             <property name="@w" type="list" default="">weight list, float or percent
             values</property>

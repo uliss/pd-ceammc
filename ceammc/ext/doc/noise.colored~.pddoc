@@ -19,7 +19,7 @@
             so that an equal RMS level is maintained for different values of alpha.</par>
         </info>
         <arguments>
-            <argument type="float" name="ALPHA" minvalue="-1" maxvalue="1">slope of roll-off,
+            <argument name="ALPHA" type="float" minvalue="-1" maxvalue="1">slope of roll-off,
             between -1 and 1. -1 corresponds to brown/red noise, -1/2 pink noise, 0 white noise,
             1/2 blue noise, and 1 violet/azure noise.</argument>
         </arguments>

@@ -23,9 +23,9 @@
         <methods>
             <!-- note -->
             <method name="note">
-                <param name="PITCH" required="true" type="int">note pitch (pitch &lt;0 treated as
+                <param name="PITCH" type="int" required="true">note pitch (pitch &lt;0 treated as
                 rest)</param>
-                <param name="DUR" required="true" type="float">note duration</param>
+                <param name="DUR" type="float" required="true">note duration</param>
             </method>
         </methods>
         <inlets>

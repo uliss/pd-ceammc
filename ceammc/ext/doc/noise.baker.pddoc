@@ -22,31 +22,31 @@
         <methods>
             <!-- cut -->
             <method name="cut">
-                <param type="float" name="CUT" required="true">cut value [0..1]</param>
+                <param name="CUT" type="float" required="true">cut value [0..1]</param>
             </method>
             <!-- fold -->
             <method name="fold">
-                <param type="float" name="FOLD" required="true">fold value [0..1]</param>
+                <param name="FOLD" type="float" required="true">fold value [0..1]</param>
             </method>
             <!-- fold_cut -->
             <method name="fold_cut">
-                <param type="int" name="FOLD_CUT" required="true">enable fold / cut value
+                <param name="FOLD_CUT" type="int" required="true">enable fold / cut value
                 action</param>
             </method>
             <!-- om -->
             <method name="om">
-                <param type="int" name="OM" required="true">enables output when cut or fold value
+                <param name="OM" type="int" required="true">enables output when cut or fold value
                 is changed</param>
             </method>
             <!-- reset -->
             <method name="reset">reset state</method>
             <!-- seed -->
             <method name="seed">
-                <param type="float" name="SEED" required="true">seed value</param>
+                <param name="SEED" type="float" required="true">seed value</param>
             </method>
             <!-- set -->
             <method name="set">
-                <param type="float" name="SET" required="true">set to value</param>
+                <param name="SET" type="float" required="true">set to value</param>
             </method>
         </methods>
         <inlets>

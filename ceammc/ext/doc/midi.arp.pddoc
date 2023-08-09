@@ -24,7 +24,7 @@
             <par>'random1' - play random note (there can be repeats)</par>
         </info>
         <arguments>
-            <argument name="T" minvalue="1" maxvalue="1000" type="float" units="millisecond">time
+            <argument name="T" type="float" minvalue="1" maxvalue="1000" units="millisecond">time
             between arpeggio</argument>
         </arguments>
         <properties>

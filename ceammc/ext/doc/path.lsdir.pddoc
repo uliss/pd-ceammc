@@ -17,7 +17,7 @@
             </aliases>
         </meta>
         <arguments>
-            <argument type="list" name="PATH">init directory value</argument>
+            <argument name="PATH" type="list">init directory value</argument>
         </arguments>
         <properties>
             <property name="@match" type="symbol">match mask: for example *.wav for all wav

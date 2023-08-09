@@ -40,22 +40,22 @@
             property. Valid value in [0..N-1] range.</property>
         </properties>
         <inlets dynamic="true">
-            <inlet number="1" type="audio">
+            <inlet type="audio" number="1">
                 <xinfo>left input signal</xinfo>
             </inlet>
-            <inlet number="2" type="audio">
+            <inlet type="audio" number="2">
                 <xinfo>right input signal</xinfo>
             </inlet>
-            <inlet number="..." type="audio">
+            <inlet type="audio" number="...">
                 <xinfo>left input signal</xinfo>
             </inlet>
-            <inlet number="..." type="audio">
+            <inlet type="audio" number="...">
                 <xinfo>right input signal</xinfo>
             </inlet>
-            <inlet number="n-1" type="audio">
+            <inlet type="audio" number="n-1">
                 <xinfo>left input signal</xinfo>
             </inlet>
-            <inlet number="n" type="audio">
+            <inlet type="audio" number="n">
                 <xinfo>right input signal</xinfo>
             </inlet>
             <inlet type="control" number="n+1">

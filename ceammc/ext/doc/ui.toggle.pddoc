@@ -24,8 +24,8 @@
             <par>This is the ceammc counterpart of the vanilla toggle</par>
         </info>
         <mouse>
-            <event editmode="0" type="left-click">toggles state</event>
-            <event editmode="0" type="double-click" keys="Shift">toggle MIDI-learn mode (red border
+            <event type="left-click" editmode="0">toggles state</event>
+            <event type="double-click" editmode="0" keys="Shift">toggle MIDI-learn mode (red border
             displayed)</event>
         </mouse>
         <properties>
@@ -66,7 +66,7 @@
         <methods>
             <!-- clear -->
             <method name="clear">clears specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- dump -->
             <method name="dump">dumps all object info to Pd console window</method>
             <!-- interp -->
@@ -74,7 +74,7 @@
             performed</method>
             <!-- load -->
             <method name="load">loads specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
@@ -83,7 +83,7 @@
             <method name="set">sets toggle state without output</method>
             <!-- store -->
             <method name="store">stores specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
         </methods>
         <inlets>
             <inlet>

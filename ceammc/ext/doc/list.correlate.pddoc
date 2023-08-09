@@ -18,7 +18,7 @@
             the convolution</par>
         </info>
         <arguments>
-            <argument type="list" name="B">second argument values</argument>
+            <argument name="B" type="list">second argument values</argument>
         </arguments>
         <properties>
             <property name="@a" type="list" default="">first argument</property>

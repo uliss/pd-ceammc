@@ -14,7 +14,7 @@
             <since>0.6</since>
         </meta>
         <arguments>
-            <argument type="float" name="COEFFS">coefficient list</argument>
+            <argument name="COEFFS" type="float">coefficient list</argument>
         </arguments>
         <properties>
             <property name="@coeffs" type="list" default="">coefficient list</property>

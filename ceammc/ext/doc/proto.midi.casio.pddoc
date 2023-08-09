@@ -17,26 +17,26 @@
             <par>Note: only PX160 model supported at this moment</par>
         </info>
         <properties>
-            <property name="@model" default="px160" type="symbol">device model</property>
+            <property name="@model" type="symbol" default="px160">device model</property>
         </properties>
         <methods>
             <!-- instr -->
             <method name="instr">send Note On message 
-            <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
+            <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">midi
             channel</param>
-            <param type="symbol" enum="piano epiano strings bass organ vibr harps" required="true"
-            name="NAME">instrument name</param>
-            <param type="atom" required="true" name="TYPE">instrument type. for 'piano':
+            <param name="NAME" type="symbol" enum="piano epiano strings bass organ vibr harps"
+            required="true">instrument name</param>
+            <param name="TYPE" type="atom" required="true">instrument type. for 'piano':
             concert|modern|classic|mellow|bright|0..4, for 'epiano': 0|1|fm|2|3|60, for 'strings':
             0|1, for 'bass': 0, for 'organ': pipe|jass|elec1|elec2|0..3, for 'vibr' and 'haprs':
             0</param></method>
             <!-- rev_time -->
             <method name="rev_time">set reverb time 
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="AMOUNT">reverb
+            <param name="AMOUNT" type="int" minvalue="0" maxvalue="127" required="true">reverb
             time</param></method>
             <!-- rev_type -->
             <method name="rev_type">set reverb type 
-            <param type="int" minvalue="1" maxvalue="4" required="true" name="TYPE">reverb
+            <param name="TYPE" type="int" minvalue="1" maxvalue="4" required="true">reverb
             type</param></method>
         </methods>
         <inlets>

@@ -18,17 +18,17 @@
             </also>
         </meta>
         <mouse>
-            <event editmode="false" type="left-click" keys="Shift">Y-axis zoomin</event>
-            <event editmode="false" type="left-click" keys="Alt">Y-axis zoomout</event>
-            <event editmode="false" type="wheel">Y-axis zoom</event>
-            <event editmode="false" type="wheel" keys="Shift">X-axis zoom</event>
-            <event editmode="false" type="double-click">toggle freeze mode</event>
-            <event editmode="false" type="right-click">open object popup menu with zoom
+            <event type="left-click" editmode="false" keys="Shift">Y-axis zoomin</event>
+            <event type="left-click" editmode="false" keys="Alt">Y-axis zoomout</event>
+            <event type="wheel" editmode="false">Y-axis zoom</event>
+            <event type="wheel" editmode="false" keys="Shift">X-axis zoom</event>
+            <event type="double-click" editmode="false">toggle freeze mode</event>
+            <event type="right-click" editmode="false">open object popup menu with zoom
             options</event>
-            <event editmode="false" type="right-click" keys="Shift">open object help</event>
-            <event editmode="false" type="right-click" keys="Alt">open properties dialog</event>
-            <event editmode="true" type="right-click" keys="Shift">open object help</event>
-            <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="true" keys="Shift">open object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
             <property name="@max" type="float" default="1">maximum (top) graph value</property>

@@ -15,13 +15,13 @@
             <since>0.1</since>
         </meta>
         <mouse>
-            <event editmode="false" type="left-click">toggle DSP processing</event>
-            <event editmode="false" type="right-click">opens popup menu with items: Audio
+            <event type="left-click" editmode="false">toggle DSP processing</event>
+            <event type="right-click" editmode="false">opens popup menu with items: Audio
             Settings</event>
-            <event editmode="false" type="right-click" keys="Shift">open object help</event>
-            <event editmode="false" type="right-click" keys="Alt">open properties dialog</event>
-            <event editmode="true" type="right-click" keys="Shift">open object help</event>
-            <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="true" keys="Shift">open object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
             <property name="@send" type="symbol" default="(null)">send destination</property>

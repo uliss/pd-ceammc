@@ -23,7 +23,7 @@
             </also>
         </meta>
         <arguments>
-            <argument type="int" name="N" minvalue="2" maxvalue="8">number of input
+            <argument name="N" type="int" minvalue="2" maxvalue="8">number of input
             stereo-pairs</argument>
         </arguments>
         <properties>

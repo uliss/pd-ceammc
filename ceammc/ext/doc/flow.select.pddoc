@@ -29,7 +29,7 @@
             <par>set: A|B|C - match to A or B or C</par>
         </info>
         <arguments>
-            <argument type="list" name="ARGS">flow match expressions</argument>
+            <argument name="ARGS" type="list">flow match expressions</argument>
         </arguments>
         <properties>
             <property name="@v" type="alias">alias to @keep_value 1</property>

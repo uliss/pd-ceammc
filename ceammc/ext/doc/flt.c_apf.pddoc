@@ -45,7 +45,7 @@
         <methods>
             <!-- bw -->
             <method name="bw">set bandwidth in octaves 
-            <param type="float" name="OCT" required="true">bandwidth</param></method>
+            <param name="OCT" type="float" required="true">bandwidth</param></method>
         </methods>
         <inlets>
             <inlet>

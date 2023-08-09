@@ -21,9 +21,9 @@
             <method name="close">close file</method>
             <!-- open -->
             <method name="open">open file, updates @path property 
-            <param name="FNAME" required="true" type="symbol">file path: absolute or
+            <param name="FNAME" type="symbol" required="true">file path: absolute or
             relative</param>
-            <param name="MODE" required="false" type="symbol" enum="r w a r+ w+ a+">open mode, 'r':
+            <param name="MODE" type="symbol" required="false" enum="r w a r+ w+ a+">open mode, 'r':
             open text file for reading only. 'w': truncate to 0 length, if existent, or create text
             file for writing only. 'a': append, open or create text file only for writing at end of
             file. 'r+': open text file for reading and writing. 'w+': truncate to 0 length, if
@@ -31,37 +31,37 @@
             text file for reading and writing, writing at end of file</param></method>
             <!-- read_bytes -->
             <method name="read_bytes">read bytes from file, output as list of integers 
-            <param name="N" required="false" type="int">number of bytes to read, if omitted read
+            <param name="N" type="int" required="false">number of bytes to read, if omitted read
             all content</param></method>
             <!-- read_line -->
             <method name="read_line">read line from file, output as list as atoms</method>
             <!-- remove -->
             <method name="remove">remove file 
-            <param name="NAME" required="true" type="symbol">file path</param></method>
+            <param name="NAME" type="symbol" required="true">file path</param></method>
             <!-- rename -->
             <method name="rename">rename file 
-            <param name="PATH" required="true" type="symbol">old file path</param>
-            <param name="NEW_PATH" required="true" type="symbol">new file path</param></method>
+            <param name="PATH" type="symbol" required="true">old file path</param>
+            <param name="NEW_PATH" type="symbol" required="true">new file path</param></method>
             <!-- seek_read -->
             <method name="seek_read">change reading position 
-            <param name="POS" required="true" type="int">offset position</param>
-            <param name="ORIG" required="false" type="symbol" enum="beg|cur|end">offset origin, if
+            <param name="POS" type="int" required="true">offset position</param>
+            <param name="ORIG" type="symbol" required="false" enum="beg|cur|end">offset origin, if
             omitted offset from the beginning</param></method>
             <!-- seek_write -->
             <method name="seek_write">change writing position 
-            <param name="POS" required="true" type="int">offset position</param>
-            <param name="ORIG" required="false" type="symbol" enum="beg|cur|end">offset origin, if
+            <param name="POS" type="int" required="true">offset position</param>
+            <param name="ORIG" type="symbol" required="false" enum="beg|cur|end">offset origin, if
             omitted offset from the beginning</param></method>
             <!-- write -->
             <method name="write">write space separated atoms to file, no newline added 
-            <param name="ARGS" required="true" type="list">atoms to write</param></method>
+            <param name="ARGS" type="list" required="true">atoms to write</param></method>
             <!-- write_bytes -->
             <method name="write_bytes">write given bytes to file 
-            <param name="ARGS" required="true" type="list">list of bytes: integers in 0-255 or
+            <param name="ARGS" type="list" required="true">list of bytes: integers in 0-255 or
             symbols with '0x' prefix: 0x11, 0xFF etc..</param></method>
             <!-- write_line -->
             <method name="write_line">write space separated atoms to file, newline added 
-            <param name="ARGS" required="true" type="list">atoms to write</param></method>
+            <param name="ARGS" type="list" required="true">atoms to write</param></method>
         </methods>
         <inlets>
             <inlet>

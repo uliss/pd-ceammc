@@ -44,13 +44,13 @@
             solo</param></method>
         </methods>
         <inlets dynamic="true">
-            <inlet number="1" type="audio">
+            <inlet type="audio" number="1">
                 <xinfo>input signal</xinfo>
             </inlet>
-            <inlet number="..." type="audio">
+            <inlet type="audio" number="...">
                 <xinfo>input signal</xinfo>
             </inlet>
-            <inlet number="n" type="audio">
+            <inlet type="audio" number="n">
                 <xinfo on="float">input signal</xinfo>
             </inlet>
         </inlets>

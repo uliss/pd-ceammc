@@ -14,7 +14,7 @@
             <since>0.3</since>
         </meta>
         <arguments>
-            <argument type="int" name="FROM">enumeration start index</argument>
+            <argument name="FROM" type="int">enumeration start index</argument>
         </arguments>
         <properties>
             <property name="@from" type="int" default="0">enumeration start index</property>

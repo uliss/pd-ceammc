@@ -45,8 +45,8 @@
             diverge.</par>
         </info>
         <arguments>
-            <argument type="float" name="INIT">x init value (default 0.777)</argument>
-            <argument type="float" name="LAMBDA">lambda value (default 3.9)</argument>
+            <argument name="INIT" type="float">x init value (default 0.777)</argument>
+            <argument name="LAMBDA" type="float">lambda value (default 3.9)</argument>
         </arguments>
         <methods>
             <!-- lambda -->

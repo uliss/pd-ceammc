@@ -18,15 +18,15 @@
             are supported. Supports array name patterns.</par>
         </info>
         <properties>
-            <property name="@formats" access="readonly" type="list"
+            <property name="@formats" type="list" access="readonly"
             default="AAC AIFF ALAC AU AVR CAF FLAC HTK IFF MACE3:1 MACE6:1 MAT4 MAT5 MP3 MP4 MPC OGG PAF PVF RAW RF64 SD2 SDS SF VOC W64 WAV WAVEX WVE XI">
             list of supported formats</property>
-            <property name="@sr" access="readonly" type="list" default="">source file
+            <property name="@sr" type="list" access="readonly" default="">source file
             samplerate</property>
-            <property name="@filename" access="readonly" type="list" default="">filename</property>
-            <property name="@samples" access="readonly" type="list" default="">list of number of
+            <property name="@filename" type="list" access="readonly" default="">filename</property>
+            <property name="@samples" type="list" access="readonly" default="">list of number of
             loaded samples into each array</property>
-            <property name="@channels" access="readonly" type="list" default="">list of loaded
+            <property name="@channels" type="list" access="readonly" default="">list of loaded
             channels into each array</property>
             <property name="@smpte_fr" type="float" minvalue="1" maxvalue="99" default="30">SMPTE
             framerate for SMPTE offset calculations</property>
@@ -37,27 +37,27 @@
             <!-- load -->
             <method name="load">Loads sound file. Outputs info properties and number of loaded
             samples after load. 
-            <param type="symbol" required="true" name="PATH">path to soundfile</param>
-            <param type="symbol" required="true" name="to ARRAY_NAME">destination array names or
+            <param name="PATH" type="symbol" required="true">path to soundfile</param>
+            <param name="to ARRAY_NAME" type="symbol" required="true">destination array names or
             pattern. Array patterns specified in square braces: array_[1-4] means - array_1,
             array_2, array_3, array_4. array_[left|right] means array_left and array_right</param>
-            <param type="property" name="@resize">resize array to fit loaded samples</param>
-            <param type="property" name="@channel N">specify input channels. Spaces separated list
+            <param name="@resize" type="property">resize array to fit loaded samples</param>
+            <param name="@channel N" type="property">specify input channels. Spaces separated list
             or range x-y.</param>
-            <param type="property" name="@normalize">normalize array after loading</param>
-            <param type="property" name="@gain V">apply gain to loaded samples, examples: +3.1db,
+            <param name="@normalize" type="property">normalize array after loading</param>
+            <param name="@gain V" type="property">apply gain to loaded samples, examples: +3.1db,
             -6db, 0.5 etc.</param>
-            <param type="property" name="@begin X">specify input file begin position, by default in
+            <param name="@begin X" type="property">specify input file begin position, by default in
             samples, but you can use other units: 1s, 10ms, 00:01.12 (smpte). To specify value
             relative to file end you can use $-X syntax</param>
-            <param type="property" name="@end X">specify input file end position, by default in
+            <param name="@end X" type="property">specify input file end position, by default in
             samples, but you can use other units: 1s, 10ms, 00:01.12 (smpte). To specify value
             relative to file end you can use $-X syntax</param>
-            <param type="property" name="@length X">specify input length, by default in samples,
+            <param name="@length X" type="property">specify input length, by default in samples,
             but you can use other units: 1s, 10ms, 00:00:02.00 (smpte)</param>
-            <param type="property" name="@offset SAMPLES">offset in samples from beginning of file.
+            <param name="@offset SAMPLES" type="property">offset in samples from beginning of file.
             Deprecated, use @begin instead</param>
-            <param type="property" name="@resample R?">if R is not specified - resample from file
+            <param name="@resample R?" type="property">if R is not specified - resample from file
             samplerate to current Pd samplerate. But you can manually specify R as float value or
             integer fraction - 44100/48000</param></method>
         </methods>

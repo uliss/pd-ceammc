@@ -19,10 +19,10 @@
             <since>0.4</since>
         </meta>
         <arguments>
-            <argument name="FROM" minvalue="0" type="int">starting args index</argument>
+            <argument name="FROM" type="int" minvalue="0">starting args index</argument>
         </arguments>
         <properties>
-            <property name="@from" minvalue="0" type="int" default="0">starting args
+            <property name="@from" type="int" minvalue="0" default="0">starting args
             index</property>
         </properties>
         <inlets>

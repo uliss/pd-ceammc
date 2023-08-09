@@ -28,22 +28,22 @@
             <argument name="MAX" type="float">max value</argument>
         </arguments>
         <mouse>
-            <event editmode="false" type="drag">change the knob value (with ⇧ change
+            <event type="drag" editmode="false">change the knob value (with ⇧ change
             slowly)</event>
-            <event editmode="false" type="wheel">change the knob value (with ⇧ change
+            <event type="wheel" editmode="false">change the knob value (with ⇧ change
             slowly)</event>
-            <event editmode="false" type="double-click">set knob to the middle position</event>
-            <event editmode="false" type="double-click" keys="Shift">toggle MIDI-learn mode (red
+            <event type="double-click" editmode="false">set knob to the middle position</event>
+            <event type="double-click" editmode="false" keys="Shift">toggle MIDI-learn mode (red
             border displayed)</event>
-            <event editmode="false" type="right-click">open popup menu</event>
-            <event editmode="false" type="right-click" keys="Shift">open object help</event>
-            <event editmode="false" type="right-click" keys="Alt">open properties dialog</event>
-            <event editmode="true" type="drag" keys="Cmd">change the knob value (with ⇧ change
+            <event type="right-click" editmode="false">open popup menu</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+            <event type="drag" editmode="true" keys="Cmd">change the knob value (with ⇧ change
             slowly)</event>
-            <event editmode="true" type="wheel" keys="Cmd">change the knob value (with ⇧ change
+            <event type="wheel" editmode="true" keys="Cmd">change the knob value (with ⇧ change
             slowly)</event>
-            <event editmode="true" type="right-click" keys="Shift">open object help</event>
-            <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="true" keys="Shift">open object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
             <property name="@min" type="float" default="0">minimum knob value</property>
@@ -125,13 +125,13 @@
             <method name="random">set knob to random value and output</method>
             <!-- presets -->
             <method name="load" category="preset">loads specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <method name="store" category="preset">stores specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <method name="clear" category="preset">clears specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <method name="interp">interplolates between presets 
-            <param type="float" name="IDX" required="true">preset fraction index</param></method>
+            <param name="IDX" type="float" required="true">preset fraction index</param></method>
             <!-- common-->
             <method name="pos" category="basic">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>

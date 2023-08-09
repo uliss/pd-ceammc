@@ -17,7 +17,7 @@
             <a href="https://faust.grame.fr/">https://faust.grame.fr/</a>
         </info>
         <mouse>
-            <event editmode="0" type="left-click" keys="Alt">open faust dsp file in external
+            <event type="left-click" editmode="0" keys="Alt">open faust dsp file in external
             editor</event>
         </mouse>
         <arguments>

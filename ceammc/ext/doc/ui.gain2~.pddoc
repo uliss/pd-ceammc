@@ -18,24 +18,24 @@
             </aliases>
         </meta>
         <mouse>
-            <event editmode="false" type="left-click">jump to click position if @relative property
+            <event type="left-click" editmode="false">jump to click position if @relative property
             is off</event>
-            <event editmode="false" type="drag">relative gain change if @relative is on, otherwise
+            <event type="drag" editmode="false">relative gain change if @relative is on, otherwise
             follows mouse pointer</event>
-            <event editmode="false" type="drag" keys="Shift">slow relative gain change if @relative
+            <event type="drag" editmode="false" keys="Shift">slow relative gain change if @relative
             is on</event>
-            <event editmode="false" type="wheel">change the knob value</event>
-            <event editmode="false" type="wheel" keys="Shift">change the knob value slowly</event>
-            <event editmode="false" type="right-click">open popup menu</event>
-            <event editmode="false" type="right-click" keys="Shift">open object help</event>
-            <event editmode="false" type="right-click" keys="Alt">open properties dialog</event>
-            <event editmode="true" type="drag" keys="Cmd">relative gain change</event>
-            <event editmode="true" type="double-click" keys="Cmd">toggle horizontal/vertical
+            <event type="wheel" editmode="false">change the knob value</event>
+            <event type="wheel" editmode="false" keys="Shift">change the knob value slowly</event>
+            <event type="right-click" editmode="false">open popup menu</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+            <event type="drag" editmode="true" keys="Cmd">relative gain change</event>
+            <event type="double-click" editmode="true" keys="Cmd">toggle horizontal/vertical
             orientation</event>
-            <event editmode="0" type="double-click" keys="Shift">toggle MIDI-learn mode (red border
+            <event type="double-click" editmode="0" keys="Shift">toggle MIDI-learn mode (red border
             displayed)</event>
-            <event editmode="true" type="right-click" keys="Shift">open object help</event>
-            <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="true" keys="Shift">open object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
             <property name="@max" type="int" minvalue="-12" maxvalue="12" default="0"
@@ -92,13 +92,13 @@
             <method name="set N">set current gain to N db</method>
             <!-- presets -->
             <method name="load">loads specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <method name="store">stores specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <method name="clear">clears specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <method name="interp">interplolates between presets 
-            <param type="float" name="IDX" required="true">preset fraction index</param></method>
+            <param name="IDX" type="float" required="true">preset fraction index</param></method>
             <!-- common-->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>

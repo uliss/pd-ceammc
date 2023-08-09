@@ -66,7 +66,7 @@
         <methods>
             <!-- clear -->
             <method name="clear">clears specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- dump -->
             <method name="dump">dumps all object info to Pd console window.</method>
             <!-- flip -->
@@ -107,7 +107,7 @@
             performed</method>
             <!-- load -->
             <method name="load">loads specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
@@ -116,7 +116,7 @@
             <method name="random">fill matrix random and output</method>
             <!-- read -->
             <method name="read">
-                <param type="symbol" name="FNAME">read matrix values from text file (space
+                <param name="FNAME" type="symbol">read matrix values from text file (space
                 separated). If fname argument is not specified opens file chooser dialog</param>
             </method>
             <!-- reset -->
@@ -137,10 +137,10 @@
             unchecked)</param></method>
             <!-- store -->
             <method name="store">stores specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- write -->
             <method name="write">
-                <param type="symbol" name="FNAME">write matrix values to text file (space
+                <param name="FNAME" type="symbol">write matrix values to text file (space
                 separated). If fname argument is not specified opens file chooser dialog</param>
             </method>
         </methods>

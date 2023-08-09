@@ -69,10 +69,10 @@
             <method name="play">start playback from current play position</method>
             <!-- range -->
             <method name="range">set @begin and @end property 
-            <param type="atom" required="true" name="BEGIN">begin position. If float value given:
+            <param name="BEGIN" type="atom" required="true">begin position. If float value given:
             interpret as phase in [0..1] range. Otherwise unit value expected. Examples: 10ms, 5%,
             4sec, 20samp etc.</param>
-            <param type="atom" required="true" name="END">end position. Value type same as for
+            <param name="END" type="atom" required="true">end position. Value type same as for
             first argument</param></method>
             <!-- stop -->
             <method name="stop">stop playback and reset play position</method>

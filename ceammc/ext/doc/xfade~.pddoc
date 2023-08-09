@@ -36,13 +36,13 @@
             property. Valid value in [0..N-1] range.</property>
         </properties>
         <inlets dynamic="true">
-            <inlet number="1" type="audio">
+            <inlet type="audio" number="1">
                 <xinfo>input signal</xinfo>
             </inlet>
-            <inlet number="..." type="audio">
+            <inlet type="audio" number="...">
                 <xinfo>input signal</xinfo>
             </inlet>
-            <inlet number="n" type="audio">
+            <inlet type="audio" number="n">
                 <xinfo>input signal</xinfo>
             </inlet>
             <inlet type="control">

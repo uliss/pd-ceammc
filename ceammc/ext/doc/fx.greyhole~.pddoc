@@ -31,7 +31,7 @@
             <property name="@damping" type="float" minvalue="0" maxvalue="0.99" default="0">
             controls damping of high-frequencies as the delay decays. 0 is no damping, 1 is very
             strong damping</property>
-            <property name="@delaytime" units="second" type="float" minvalue="0.001"
+            <property name="@delaytime" type="float" units="second" minvalue="0.001"
             maxvalue="1.45" default="0.2">approximate delay time in seconds</property>
             <property name="@diffusion" type="float" minvalue="0" maxvalue="0.99" default="0.5">
             shape of the diffusion unit. Values greater than 0.707 produce smooth exponential

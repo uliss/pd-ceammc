@@ -21,15 +21,15 @@
             <par>Random distribution: uniform</par>
         </info>
         <arguments>
-            <argument name="MIN" units="millisecond" minvalue="1" type="int">minimal bang
+            <argument name="MIN" type="int" units="millisecond" minvalue="1">minimal bang
             interval</argument>
-            <argument name="MAX" units="millisecond" minvalue="1" type="int">maximum bang
+            <argument name="MAX" type="int" units="millisecond" minvalue="1">maximum bang
             interval</argument>
         </arguments>
         <properties>
-            <property name="@min" units="millisecond" minvalue="1" type="int" default="100">minimal
+            <property name="@min" type="int" units="millisecond" minvalue="1" default="100">minimal
             bang interval</property>
-            <property name="@max" units="millisecond" minvalue="1" type="int" default="200">maximum
+            <property name="@max" type="int" units="millisecond" minvalue="1" default="200">maximum
             bang interval</property>
             <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>

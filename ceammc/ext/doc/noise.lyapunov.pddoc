@@ -44,40 +44,40 @@
         <methods>
             <!-- a -->
             <method name="a">
-                <param type="float" name="A0" required="true">a[0] value</param>
-                <param type="float" name="A1" required="false">a[1] value</param>
-                <param type="float" name="A2" required="false">a[2] value</param>
-                <param type="float" name="A3" required="false">a[3] value</param>
-                <param type="float" name="A4" required="false">a[4] value</param>
-                <param type="float" name="A5" required="false">a[5] value</param>
+                <param name="A0" type="float" required="true">a[0] value</param>
+                <param name="A1" type="float" required="false">a[1] value</param>
+                <param name="A2" type="float" required="false">a[2] value</param>
+                <param name="A3" type="float" required="false">a[3] value</param>
+                <param name="A4" type="float" required="false">a[4] value</param>
+                <param name="A5" type="float" required="false">a[5] value</param>
             </method>
             <!-- b -->
             <method name="b">
-                <param type="float" name="B0" required="true">b[0] value</param>
-                <param type="float" name="B1" required="false">b[1] value</param>
-                <param type="float" name="B2" required="false">b[2] value</param>
-                <param type="float" name="B3" required="false">b[3] value</param>
-                <param type="float" name="B4" required="false">b[4] value</param>
-                <param type="float" name="B5" required="false">b[5] value</param>
+                <param name="B0" type="float" required="true">b[0] value</param>
+                <param name="B1" type="float" required="false">b[1] value</param>
+                <param name="B2" type="float" required="false">b[2] value</param>
+                <param name="B3" type="float" required="false">b[3] value</param>
+                <param name="B4" type="float" required="false">b[4] value</param>
+                <param name="B5" type="float" required="false">b[5] value</param>
             </method>
             <!-- om -->
             <method name="om">
-                <param type="int" name="OM" required="true">enables output when cut or fold value
+                <param name="OM" type="int" required="true">enables output when cut or fold value
                 is changed</param>
             </method>
             <!-- reset -->
             <method name="reset">reset state</method>
             <!-- set -->
             <method name="set">
-                <param type="float" name="SET" required="true">set to value</param>
+                <param name="SET" type="float" required="true">set to value</param>
             </method>
             <!-- x -->
             <method name="x">
-                <param type="float" name="NX" required="true">x value</param>
+                <param name="NX" type="float" required="true">x value</param>
             </method>
             <!-- y -->
             <method name="y">
-                <param type="float" name="NY" required="true">y value</param>
+                <param name="NY" type="float" required="true">y value</param>
             </method>
         </methods>
         <inlets>

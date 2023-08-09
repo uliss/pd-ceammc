@@ -39,13 +39,13 @@
         <methods>
             <!-- mute -->
             <method name="mute">mute/unmute specified source 
-            <param name="IDX" required="true" type="int" minvalue="0">source index</param>
-            <param name="STATE" required="true" type="int" enum="0 1">mute value</param></method>
+            <param name="IDX" type="int" required="true" minvalue="0">source index</param>
+            <param name="STATE" type="int" required="true" enum="0 1">mute value</param></method>
             <!-- polar -->
             <method name="polar">set source mapping in polar coordinates 
-            <param name="IDX" required="true" type="int" minvalue="0">source index</param>
-            <param name="RAD" required="true" type="float" minvalue="0" maxvalue="1">radius</param>
-            <param name="ANG" required="true" type="float" minvalue="0" maxvalue="2π"
+            <param name="IDX" type="int" required="true" minvalue="0">source index</param>
+            <param name="RAD" type="float" required="true" minvalue="0" maxvalue="1">radius</param>
+            <param name="ANG" type="float" required="true" minvalue="0" maxvalue="2π"
             units="radian">rotation angle</param></method>
         </methods>
         <inlets dynamic="true">

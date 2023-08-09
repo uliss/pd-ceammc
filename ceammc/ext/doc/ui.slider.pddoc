@@ -30,16 +30,16 @@
             <argument name="max" type="float">max value</argument>
         </arguments>
         <mouse>
-            <event editmode="true" type="drag" keys="Cmd">changes the slider value</event>
-            <event editmode="true" type="double-click" keys="Cmd">changes slider
+            <event type="drag" editmode="true" keys="Cmd">changes the slider value</event>
+            <event type="double-click" editmode="true" keys="Cmd">changes slider
             orientation</event>
-            <event editmode="0" type="drag">changes the slider value</event>
-            <event editmode="0" type="drag" keys="Shift">changes the slider value slowly (only in
+            <event type="drag" editmode="0">changes the slider value</event>
+            <event type="drag" editmode="0" keys="Shift">changes the slider value slowly (only in
             relative mode)</event>
-            <event editmode="0" type="left-click">jump to value unless @mode property is on</event>
-            <event editmode="0" type="double-click" keys="Shift">toggle MIDI-learn mode (red border
+            <event type="left-click" editmode="0">jump to value unless @mode property is on</event>
+            <event type="double-click" editmode="0" keys="Shift">toggle MIDI-learn mode (red border
             displayed)</event>
-            <event editmode="true" type="wheel" keys="Cmd">change the knob value (with ⇧ change
+            <event type="wheel" editmode="true" keys="Cmd">change the knob value (with ⇧ change
             slowly)</event>
         </mouse>
         <properties>
@@ -125,13 +125,13 @@
             <method name="random">set slider to random value and output</method>
             <!-- presets -->
             <method name="load">loads specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <method name="store">stores specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <method name="clear">clears specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <method name="interp">interplolates between presets 
-            <param type="float" name="IDX" required="true">preset fraction index</param></method>
+            <param name="IDX" type="float" required="true">preset fraction index</param></method>
             <!-- common-->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>

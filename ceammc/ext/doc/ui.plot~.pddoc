@@ -17,17 +17,17 @@
             <since>0.9</since>
         </meta>
         <mouse>
-            <event editmode="false" type="right-click" keys="Shift">open object help</event>
-            <event editmode="false" type="right-click" keys="Alt">open properties dialog</event>
-            <event editmode="true" type="right-click" keys="Shift">open object help</event>
-            <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="true" keys="Shift">open object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
-            <property name="@n" minvalue="1" maxvalue="4" type="int" default="1">number of
+            <property name="@n" type="int" minvalue="1" maxvalue="4" default="1">number of
             inputs</property>
-            <property name="@ymin" minvalue="-1024" maxvalue="1024" type="float" default="-1">
+            <property name="@ymin" type="float" minvalue="-1024" maxvalue="1024" default="-1">
             minimal y-axis value</property>
-            <property name="@ymax" minvalue="-1024" maxvalue="1024" type="float" default="1">
+            <property name="@ymax" type="float" minvalue="-1024" maxvalue="1024" default="1">
             minimal y-axis value</property>
             <property name="@yauto" type="bool" default="0">calculate y-axis range
             automatically</property>

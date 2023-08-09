@@ -25,7 +25,7 @@
             leftmost</par>
         </info>
         <arguments>
-            <argument type="int" minvalue="1" maxvalue="16" name="N">Number of
+            <argument name="N" type="int" minvalue="1" maxvalue="16">Number of
             input/outputs</argument>
         </arguments>
         <inlets dynamic="true">

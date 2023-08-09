@@ -25,19 +25,19 @@
             everywhere</par>
         </info>
         <mouse>
-            <event editmode="false" type="left-click">open data editor</event>
+            <event type="left-click" editmode="false">open data editor</event>
         </mouse>
         <arguments>
             <argument name="ID" type="symbol">object ID</argument>
         </arguments>
         <properties>
-            <property name="@id" access="initonly" type="symbol" default="default">global variable
+            <property name="@id" type="symbol" access="initonly" default="default">global variable
             id</property>
-            <property name="@keys" access="readonly" type="list" default="">keys of
+            <property name="@keys" type="list" access="readonly" default="">keys of
             dictionary</property>
-            <property name="@empty" access="readonly" type="bool" default="1">1 if dict is empty,
+            <property name="@empty" type="bool" access="readonly" default="1">1 if dict is empty,
             otherwise 0</property>
-            <property name="@size" access="readonly" minvalue="0" type="int" default="0">number of
+            <property name="@size" type="int" access="readonly" minvalue="0" default="0">number of
             entries in dictionary</property>
         </properties>
         <methods>

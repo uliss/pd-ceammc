@@ -17,7 +17,7 @@
             <since>0.3</since>
         </meta>
         <arguments>
-            <argument type="int" name="ARG2">second argument</argument>
+            <argument name="ARG2" type="int">second argument</argument>
         </arguments>
         <inlets>
             <inlet>

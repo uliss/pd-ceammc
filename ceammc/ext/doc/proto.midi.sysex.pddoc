@@ -16,24 +16,24 @@
         <methods>
             <!-- mbal:f -->
             <method name="mbal:f">set device master balance 
-            <param type="float" minvalue="-1" maxvalue="1" required="true" name="PAN">
+            <param name="PAN" type="float" minvalue="-1" maxvalue="1" required="true">
             balance</param></method>
             <!-- mtune -->
             <method name="mtune">set device master tuning in float semitones (combination of coarse
             and fine tune) 
-            <param type="float" minvalue="-64" maxvalue="63" required="true" name="V"
+            <param name="V" type="float" minvalue="-64" maxvalue="63" required="true"
             units="semitone">tuning</param></method>
             <!-- mtune. -->
             <method name="mtune.">set device master fine tuning in cents 
-            <param type="int" minvalue="-100" maxvalue="100" required="true" name="V" units="cent">
+            <param name="V" type="int" minvalue="-100" maxvalue="100" required="true" units="cent">
             tuning</param></method>
             <!-- mtune~ -->
             <method name="mtune~">set device master coarse tuning in semitones 
-            <param type="int" minvalue="-64" maxvalue="63" required="true" name="V"
+            <param name="V" type="int" minvalue="-64" maxvalue="63" required="true"
             units="semitone">tuning</param></method>
             <!-- mvolume -->
             <method name="mvolume">set device master volume 
-            <param type="float" minvalue="0" maxvalue="1" required="true" name="LEVEL">volume
+            <param name="LEVEL" type="float" minvalue="0" maxvalue="1" required="true">volume
             level</param></method>
         </methods>
         <inlets>

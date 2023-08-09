@@ -27,19 +27,19 @@
             [ui.mouse_filter]</par>
         </info>
         <mouse>
-            <event editmode="false" type="left-click">jump both ends to coord under mouse
+            <event type="left-click" editmode="false">jump both ends to coord under mouse
             pointer</event>
-            <event editmode="false" type="left-click" keys="Cmd">outputs current slider
+            <event type="left-click" editmode="false" keys="Cmd">outputs current slider
             value</event>
-            <event editmode="false" type="left-click" keys="Alt">jump nearest border to coord under
+            <event type="left-click" editmode="false" keys="Alt">jump nearest border to coord under
             mouse pointer</event>
-            <event editmode="false" type="drag">increase slider range</event>
-            <event editmode="false" type="drag" keys="Alt">change nearest border coord</event>
-            <event editmode="false" type="drag" keys="Shift">move slider range</event>
-            <event editmode="false" type="right-click" keys="Shift">open object help</event>
-            <event editmode="false" type="right-click" keys="Alt">open properties dialog</event>
-            <event editmode="true" type="right-click" keys="Shift">open object help</event>
-            <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
+            <event type="drag" editmode="false">increase slider range</event>
+            <event type="drag" editmode="false" keys="Alt">change nearest border coord</event>
+            <event type="drag" editmode="false" keys="Shift">move slider range</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="true" keys="Shift">open object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
             <property name="@min" type="float" default="0">minimum allowed slider value</property>
@@ -94,13 +94,13 @@
         <methods>
             <!-- clear -->
             <method name="clear">clears specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- interp -->
             <method name="interp">interplolates between presets 
-            <param type="float" name="IDX" required="true">preset fraction index</param></method>
+            <param name="IDX" type="float" required="true">preset fraction index</param></method>
             <!-- load -->
             <method name="load">loads specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
@@ -110,7 +110,7 @@
             <param name="V" type="float" required="true">new value</param></method>
             <!-- store -->
             <method name="store">stores specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
         </methods>
         <inlets>
             <inlet>

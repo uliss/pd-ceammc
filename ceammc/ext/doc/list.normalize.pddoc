@@ -19,7 +19,7 @@
             <par>2. by value range - maps all values to range 0..1 lineary</par>
         </info>
         <properties>
-            <property name="@by" enum="sum range" default="sum" type="symbol">normalization
+            <property name="@by" type="symbol" enum="sum range" default="sum">normalization
             mode</property>
             <property name="@sum" type="alias">alias to @by sum</property>
             <property name="@range" type="alias">alias to @by range</property>

@@ -34,7 +34,7 @@
         <methods>
             <!-- custom -->
             <method name="custom">set custom 
-            <param type="symbol" name="KEYSTR" required="true">key string</param></method>
+            <param name="KEYSTR" type="symbol" required="true">key string</param></method>
         </methods>
         <inlets>
             <inlet>

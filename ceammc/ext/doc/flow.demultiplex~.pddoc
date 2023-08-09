@@ -23,7 +23,7 @@
             </also>
         </meta>
         <arguments>
-            <argument type="int" name="N" minvalue="2" maxvalue="16">number of signals
+            <argument name="N" type="int" minvalue="2" maxvalue="16">number of signals
             outputs</argument>
         </arguments>
         <properties>

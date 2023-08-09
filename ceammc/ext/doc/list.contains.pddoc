@@ -19,7 +19,7 @@
             </also>
         </meta>
         <arguments>
-            <argument type="list" name="SUBLIST">list for @sublist mode</argument>
+            <argument name="SUBLIST" type="list">list for @sublist mode</argument>
         </arguments>
         <properties>
             <property name="@sublist" type="list" default="">sublist mode, output 1 if input list

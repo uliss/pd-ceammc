@@ -14,14 +14,14 @@
             <since>0.6</since>
         </meta>
         <mouse>
-            <event editmode="false" type="left-click">move view cursor under mouse pointer</event>
-            <event editmode="false" type="left-click" keys="Ctrl">starts range selection</event>
-            <event editmode="false" type="left-click" keys="Alt">edit selection nearest
+            <event type="left-click" editmode="false">move view cursor under mouse pointer</event>
+            <event type="left-click" editmode="false" keys="Ctrl">starts range selection</event>
+            <event type="left-click" editmode="false" keys="Alt">edit selection nearest
             border</event>
-            <event editmode="false" type="left-click" keys="Shift">starts moving selection</event>
-            <event editmode="false" type="drag">move view cursor</event>
-            <event editmode="false" type="drag" keys="Alt">change nearest selection border</event>
-            <event editmode="false" type="drag" keys="Shift">move selection</event>
+            <event type="left-click" editmode="false" keys="Shift">starts moving selection</event>
+            <event type="drag" editmode="false">move view cursor</event>
+            <event type="drag" editmode="false" keys="Alt">change nearest selection border</event>
+            <event type="drag" editmode="false" keys="Shift">move selection</event>
         </mouse>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>

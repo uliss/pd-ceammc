@@ -22,13 +22,13 @@
             </aliases>
         </meta>
         <mouse>
-            <event editmode="true" type="double-click" keys="Cmd">changes slider
+            <event type="double-click" editmode="true" keys="Cmd">changes slider
             orientation</event>
-            <event editmode="false" type="right-click">opens popup menu for quick settings of
+            <event type="right-click" editmode="false">opens popup menu for quick settings of
             values: fill, linup, lindown and random</event>
-            <event editmode="false" type="drag">change slider values</event>
-            <event editmode="false" type="drag" keys="Alt">locked movement</event>
-            <event editmode="false" type="drag" keys="Shift">snap to center</event>
+            <event type="drag" editmode="false">change slider values</event>
+            <event type="drag" editmode="false" keys="Alt">locked movement</event>
+            <event type="drag" editmode="false" keys="Shift">snap to center</event>
         </mouse>
         <arguments>
             <argument name="N" type="float" minvalue="1" maxvalue="1024">number of
@@ -95,7 +95,7 @@
         <methods>
             <method name="dump">dumps all object info to Pd console window</method>
             <method name="select">draws specified slider with select color 
-            <param name="N" required="true" minvalue="0" type="int">slider index, starting from
+            <param name="N" type="int" required="true" minvalue="0">slider index, starting from
             0.</param></method>
             <method name="random">fill sliders with random values without output</method>
             <method name="linup">fill sliders with increasing values without output</method>
@@ -104,12 +104,12 @@
             <method name="set">sets sliders values without output 
             <param name="VALUES" type="list">slider values</param></method>
             <method name="get slider N">get specified slider value 
-            <param name="N" required="true" type="int" minvalue="0">slider position, starting from
+            <param name="N" type="int" required="true" minvalue="0">slider position, starting from
             0</param></method>
             <method name="set slider N V">sets specified slider value 
-            <param name="N" required="true" type="int" minvalue="0">slider position, starting from
+            <param name="N" type="int" required="true" minvalue="0">slider position, starting from
             0</param>
-            <param name="V" required="true" type="float">slider value</param></method>
+            <param name="V" type="float" required="true">slider value</param></method>
             <method name="++">increment all sliders without output</method>
             <method name="--">decrement all sliders without output</method>
             <method name="+">add value to every slider without output 
@@ -122,13 +122,13 @@
             <param name="V" type="float" required="true">denominator value</param></method>
             <!-- presets -->
             <method name="load">loads specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <method name="store">stores specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <method name="clear">clears specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <method name="interp">interplolates between presets 
-            <param type="float" name="IDX" required="true">preset fraction index</param></method>
+            <param name="IDX" type="float" required="true">preset fraction index</param></method>
             <!-- common-->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>

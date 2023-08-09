@@ -27,19 +27,19 @@
             <par>[ui.vkeyboard] and [ui.vk] - aliases for vertical keyboard</par>
         </info>
         <mouse>
-            <event editmode="false" type="left-click">play selected note: output [NOTE VELOCITY( on
+            <event type="left-click" editmode="false">play selected note: output [NOTE VELOCITY( on
             mouse press and [NOTE 0( on mouse release. Velocity depends on click position: lower
             position produces higher velocity</event>
-            <event editmode="false" type="left-click" keys="Shift">play/stop sustained
+            <event type="left-click" editmode="false" keys="Shift">play/stop sustained
             note.</event>
-            <event editmode="false" type="left-click" keys="Alt">release all note (send [NOTE 0(
+            <event type="left-click" editmode="false" keys="Alt">release all note (send [NOTE 0(
             message for each sustained note)</event>
-            <event editmode="false" type="drag">play notes under cursor and release others</event>
-            <event editmode="false" type="right-click">open popup menu with various chords</event>
-            <event editmode="false" type="right-click" keys="Shift">open object help</event>
-            <event editmode="false" type="right-click" keys="Alt">open properties dialog</event>
-            <event editmode="true" type="right-click" keys="Shift">open object help</event>
-            <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
+            <event type="drag" editmode="false">play notes under cursor and release others</event>
+            <event type="right-click" editmode="false">open popup menu with various chords</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="true" keys="Shift">open object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <arguments>
             <argument name="NKEYS" type="int" minvalue="5" maxvalue="88">number of keys</argument>
