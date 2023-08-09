@@ -36,6 +36,9 @@
             <argument name="FREQ" type="float" minvalue="20" maxvalue="20000" units="hertz">cutoff
             frequency</argument>
         </arguments>
+        <methods>
+            <method name="reset">reset filter state</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
