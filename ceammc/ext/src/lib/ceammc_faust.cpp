@@ -186,7 +186,10 @@ namespace faust {
     {
         SoundExternal::initDone();
 
-        if (hasOscBinding()) {
+        if (properties().size() == 3) { // only @active, @id and @osc
+            id_->setInternal();
+            osc_->setInternal();
+        } else if (hasOscBinding()) {
             osc_queue_.reset(new OscQueue);
             Dispatcher::instance().subscribe(this, subscriberId());
             bindReceive(gensym(OSC_DISPATCHER));
