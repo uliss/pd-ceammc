@@ -63,8 +63,8 @@ of expanding. Type: float. Range: 1\...500;
 -49933 0;
 #X msg 110 676 @id;
 #X text 245 676 (initonly) Get/Set OSC address id. If specified \,
-bind properties to /ID/dyn_expand2/PROP_NAME osc address \, if empty
-bind to /dyn_expand2/PROP_NAME. Type: symbol.;
+bind all properties to /ID/dyn_expand2/PROP_NAME osc address \, if
+empty bind to /dyn_expand2/PROP_NAME. Type: symbol.;
 #X msg 110 733 @osc;
 #X text 245 733 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;

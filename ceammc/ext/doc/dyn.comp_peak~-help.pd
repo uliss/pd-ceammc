@@ -53,8 +53,8 @@ of compression. Type: float. Range: 1\...500;
 -49933 0;
 #X msg 110 735 @id;
 #X text 245 735 (initonly) Get/Set OSC address id. If specified \,
-bind properties to /ID/dyn_comp_peak/PROP_NAME osc address \, if empty
-bind to /dyn_comp_peak/PROP_NAME. Type: symbol.;
+bind all properties to /ID/dyn_comp_peak/PROP_NAME osc address \, if
+empty bind to /dyn_comp_peak/PROP_NAME. Type: symbol.;
 #X msg 110 792 @osc;
 #X text 245 792 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
