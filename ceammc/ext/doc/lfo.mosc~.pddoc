@@ -38,6 +38,8 @@
             <property name="@wave" type="symbol" default="sin"
             enum="sin saw tri sqr pulse +sin +saw +tri +sqr +pulse">wave type</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
             <!-- reset -->

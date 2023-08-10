@@ -32,6 +32,8 @@
             <property name="@initfreq" type="float" default="0" access="initonly" units="hertz">
             initial frequency</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
             <!-- reset -->
