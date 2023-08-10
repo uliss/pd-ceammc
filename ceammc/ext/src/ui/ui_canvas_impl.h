@@ -19,6 +19,7 @@
 #include <boost/variant.hpp>
 #include <cstdint>
 #include <string>
+#include <vector>
 
 namespace ceammc {
 namespace draw {

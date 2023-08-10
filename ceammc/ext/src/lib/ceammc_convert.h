@@ -21,6 +21,7 @@
 #include <algorithm>
 #include <cmath>
 #include <cstdlib> // std::ldiv
+#include <limits>
 #include <string>
 #include <type_traits>
 
@@ -371,11 +372,11 @@ namespace convert {
         return -1.0 / (std::log(std::max(std::numeric_limits<T>::min(), pole)) * sr);
     }
 
-    static inline double sec2tau(double s) { return s / std::log(1000); }
-    static inline float sec2tau(float s) { return s / std::logf(1000); }
+    static inline double sec2tau(double s) { return s / std::log(1000.0); }
+    static inline float sec2tau(float s) { return s / std::log(1000.f); }
 
-    static inline double tau2sec(double t) { return t * std::log(1000); }
-    static inline float tau2sec(float t) { return t * std::logf(1000); }
+    static inline double tau2sec(double t) { return t * std::log(1000.0); }
+    static inline float tau2sec(float t) { return t * std::log(1000.f); }
 
     static inline double msec2tau(double ms) { return sec2tau(ms * 0.001); }
     static inline float msec2tau(float ms) { return sec2tau(ms * 0.001f); }

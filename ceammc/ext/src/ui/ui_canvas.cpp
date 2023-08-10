@@ -26,6 +26,7 @@
 #include "lex/parser_units.h"
 #include "ui_canvas.tcl.h"
 
+#include <cmath>
 #include <boost/integer/common_factor.hpp>
 
 namespace {
@@ -245,7 +246,7 @@ void UICanvas::m_arrow(const AtomListView& lv)
     auto abeg = lv.symbolAt(4, gensym("D"));
     auto aend = lv.symbolAt(5, gensym("A"));
 
-    const float ANGLE = std::atan2f(cmd.y1 - cmd.y0, cmd.x1 - cmd.x0);
+    const float ANGLE = std::atan2(cmd.y1 - cmd.y0, cmd.x1 - cmd.x0);
     float SIZE = 0;
 
     // draw start
@@ -757,7 +758,7 @@ void UICanvas::m_polar(const AtomListView& lv)
     out_queue_.enqueue(draw::Save {});
     out_queue_.enqueue(draw::Translate { x, y });
 
-    const float MAXR = std::sqrtf(hypot2());
+    const float MAXR = std::sqrt(hypot2());
 
     // draw circles
     if (NC > 0) {
@@ -1093,15 +1094,15 @@ void UICanvas::addLineCircle(float& x, float& y, float angle, float size)
 {
     out_queue_.enqueue(draw::Arc { x, y, size, 0, float(2 * M_PI) });
 
-    x += std::cosf(angle) * size;
-    y += std::sinf(angle) * size;
+    x += std::cos(angle) * size;
+    y += std::sin(angle) * size;
 }
 
 void UICanvas::addLineCross(float x, float y, float angle, float size)
 {
     angle -= 3 * M_PI_4;
-    float ac = std::cosf(angle) * size;
-    float as = std::sinf(angle) * size;
+    float ac = std::cos(angle) * size;
+    float as = std::sin(angle) * size;
     float x1 = x + ac;
     float y1 = y + as;
     float x2 = x - ac;
@@ -1118,8 +1119,8 @@ void UICanvas::addLineCross(float x, float y, float angle, float size)
 void UICanvas::addLineTail(float x, float y, float angle, float size)
 {
     angle -= 3 * M_PI_4;
-    float ac = std::cosf(angle) * size;
-    float as = std::sinf(angle) * size;
+    float ac = std::cos(angle) * size;
+    float as = std::sin(angle) * size;
     float x1 = x + ac;
     float y1 = y + as;
     float x2 = x + as;
@@ -1134,10 +1135,10 @@ void UICanvas::addLineArrow(float x, float y, float angle, float size)
     float a0 = angle + ca;
     float a1 = a0 - 2 * ca;
     float r = 10;
-    float x1 = x + std::cosf(a0) * size;
-    float y1 = y + std::sinf(a0) * size;
-    float x2 = x + std::cosf(a1) * size;
-    float y2 = y + std::sinf(a1) * size;
+    float x1 = x + std::cos(a0) * size;
+    float y1 = y + std::sin(a0) * size;
+    float x2 = x + std::cos(a1) * size;
+    float y2 = y + std::sin(a1) * size;
 
     out_queue_.enqueue(draw::Line { x, y, x1, y1 });
     out_queue_.enqueue(draw::Line { x, y, x2, y2 });
@@ -1146,8 +1147,8 @@ void UICanvas::addLineArrow(float x, float y, float angle, float size)
 void UICanvas::addLineEnd(float x, float y, float angle, float size)
 {
     angle -= M_PI_2;
-    float ac = std::cosf(angle) * size;
-    float as = std::sinf(angle) * size;
+    float ac = std::cos(angle) * size;
+    float as = std::sin(angle) * size;
     float x1 = x + ac;
     float y1 = y + as;
     float x2 = x - ac;

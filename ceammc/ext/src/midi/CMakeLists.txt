@@ -36,10 +36,12 @@ target_include_directories(ceammc_midi
     PRIVATE
         ${PROJECT_SOURCE_DIR}/ceammc/extra/midifile
         "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+        "$<TARGET_PROPERTY:muparser,INCLUDE_DIRECTORIES>"
+
 )
 
 target_link_libraries(ceammc_midi
-    PRIVATE midifile muparser)
+    PRIVATE midifile)
 
 file(GLOB _MIDI_SRC_FILES "kbd_*.txt" "*.py")
 add_custom_target(ceammc_midi_src SOURCES ${_MIDI_SRC_FILES})

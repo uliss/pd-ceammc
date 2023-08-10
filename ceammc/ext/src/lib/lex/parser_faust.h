@@ -15,6 +15,7 @@
 #define PARSER_FAUST_H
 
 #include <functional>
+#include <string>
 
 namespace ceammc {
 namespace parser {

@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include <cassert>
+#include <thread>
 
 #include "ceammc_containers.h"
 #include "ceammc_crc32.h"

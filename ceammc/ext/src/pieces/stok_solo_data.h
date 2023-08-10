@@ -23,6 +23,8 @@
 #include <ctime>
 #include <random>
 #include <vector>
+#include <algorithm>
+#include <functional>
 
 #include <boost/container/small_vector.hpp>
 

@@ -22,10 +22,15 @@
 
 #include "config.h"
 #ifdef HAVE_UNISTD_H
-#ifdef SOX_EXEC
-#include <sys/wait.h>
-#define TEST_SOX 1
-#endif
+ #ifdef SOX_EXEC
+  #define TEST_SOX 1
+  #ifdef __WIN32__
+   #define WIFEXITED(x) ((x) != 3)
+   #define WEXITSTATUS(x) (x)
+  #else
+   #include <sys/wait.h>
+  #endif
+ #endif
 #endif
 
 #include <fstream>

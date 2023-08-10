@@ -15,6 +15,7 @@
 #define CEAMMC_CONTAINERS_H
 
 #include <algorithm>
+#include <array>
 #include <cstdint>
 #include <initializer_list>
 

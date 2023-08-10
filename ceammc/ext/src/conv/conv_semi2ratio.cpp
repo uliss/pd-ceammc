@@ -15,6 +15,8 @@
 #include "ceammc_containers.h"
 #include "ceammc_factory.h"
 
+#include <cmath>
+
 static inline t_float semi2ratio(t_float x)
 {
     return std::exp2(x / 12);

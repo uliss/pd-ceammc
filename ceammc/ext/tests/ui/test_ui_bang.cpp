@@ -14,6 +14,7 @@
 #include "ui_bang.h"
 
 #include "test_ui.h"
+#include <cstdarg>
 
 UI_COMPLETE_TEST_SETUP(Bang)
 

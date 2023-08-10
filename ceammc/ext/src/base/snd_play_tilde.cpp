@@ -11,6 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include <thread>
+
 #include "snd_play_tilde.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
