@@ -14,9 +14,12 @@
 #include "flow_demultiplex_tilde.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "fmt/core.h"
 
 constexpr int DEFAULT_OUTLETS = 2;
 constexpr int MIN_OUTLETS = 2;
+
+static char INFO_OUT[DEMUX_MAX_OUTLETS][8] = {};
 
 static size_t chMultiplier(const PdArgs& args)
 {
@@ -116,8 +119,19 @@ void DemultiplexTilde::onList(const AtomListView& lv)
         gain_[i].setTargetValue(clip<t_float>(lv[i].asFloat(), 0, 1));
 }
 
+const char* DemultiplexTilde::annotateOutlet(size_t n) const
+{
+    if (n < DEMUX_MAX_OUTLETS)
+        return INFO_OUT[n];
+    else
+        return "?";
+}
+
 void setup_flow_demultiplex_tilde()
 {
+    for (int i = 0; i < DEMUX_MAX_OUTLETS; i++)
+        fmt::format_to(INFO_OUT[i], "\\[{}\\]\0", i);
+
     SoundExternalFactory<DemultiplexTilde> obj("flow.demultiplex~");
     obj.addAlias("flow.demux~");
     obj.addAlias("demux~");
@@ -125,4 +139,5 @@ void setup_flow_demultiplex_tilde()
     obj.setDescription("audio stream demultiplexer");
     obj.setCategory("flow");
     obj.setKeywords({ "flow", "demultiplex" });
+    obj.setXletsInfo({ "input", "int: output select" }, {});
 }

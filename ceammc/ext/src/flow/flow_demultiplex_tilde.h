@@ -41,6 +41,8 @@ public:
 
     void onInlet(size_t n, const AtomListView& lv) override;
     void onList(const AtomListView& lv) override;
+
+    const char* annotateOutlet(size_t n) const override;
 };
 
 void setup_flow_demultiplex_tilde();
