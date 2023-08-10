@@ -13,6 +13,9 @@
  *****************************************************************************/
 #include "flow_demultiplex2_tilde.h"
 #include "ceammc_factory.h"
+#include "fmt/core.h"
+
+static char INFO_OUT[DEMUX_MAX_OUTLETS][8] = {};
 
 static PdArgs stereoArgs(const PdArgs& args)
 {
@@ -43,13 +46,25 @@ void Demultiplex2Tilde::processBlock(const t_sample** in, t_sample** out)
     }
 }
 
+const char* Demultiplex2Tilde::annotateOutlet(size_t n) const
+{
+    if (n < DEMUX_MAX_OUTLETS)
+        return INFO_OUT[n];
+    else
+        return "?";
+}
+
 void setup_flow_demultiplex2_tilde()
 {
+    for (int i = 0; i < DEMUX_MAX_OUTLETS; i++)
+        fmt::format_to(INFO_OUT[i], "{}\\[{}\\]\0", ((i & 1) ? 'R' : 'L'), i / 2);
+
     SoundExternalFactory<Demultiplex2Tilde> obj("flow.demultiplex2~");
     obj.addAlias("flow.demux2~");
     obj.addAlias("demux2~");
 
     obj.setDescription("audio stream stereo demultiplexer");
     obj.setCategory("flow");
-    obj.setKeywords({"flow", "demultiplex"});
+    obj.setKeywords({ "flow", "demultiplex" });
+    obj.setXletsInfo({ "signal: L", "signal: R", "int: output select" }, {});
 }

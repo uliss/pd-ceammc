@@ -17,7 +17,6 @@
 
 constexpr int DEFAULT_OUTLETS = 2;
 constexpr int MIN_OUTLETS = 2;
-constexpr int MAX_OUTLETS = 16;
 
 static size_t chMultiplier(const PdArgs& args)
 {
@@ -28,7 +27,7 @@ DemultiplexTilde::DemultiplexTilde(const PdArgs& args)
     : SoundExternal(args)
 {
     n_ = new IntProperty("@n", DEFAULT_OUTLETS, PropValueAccess::INITONLY);
-    n_->checkClosedRange(MIN_OUTLETS, MAX_OUTLETS);
+    n_->checkClosedRange(MIN_OUTLETS, DEMUX_MAX_OUTLETS);
     n_->setArgIndex(0);
     addProperty(n_);
 

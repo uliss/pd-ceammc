@@ -23,6 +23,8 @@ enum FlowDemultiplexFlags {
     DEMULTIPLEX_STEREO = 1
 };
 
+constexpr int DEMUX_MAX_OUTLETS = 16;
+
 class DemultiplexTilde : public SoundExternal {
     IntProperty* n_ { nullptr };
 
