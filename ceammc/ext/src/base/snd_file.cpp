@@ -146,27 +146,9 @@ void SndFile::m_load(t_symbol* s, const AtomListView& lv)
 void SndFile::m_save(t_symbol* s, const AtomListView& lv)
 {
     ArraySaver saver;
-    if (!saver.parse(lv, this))
-        return;
-
-    auto mfull_path = makeSavePath(saver.filename().c_str(), saver.overwrite());
-    if (!mfull_path)
-        return;
-
-    auto file = saver.open(*mfull_path);
-    if (!file) {
-        OBJ_ERR << fmt::format("can't open file: '{}'", *mfull_path);
-        return;
-    }
-
-    auto arr = saver.arrayData();
-    if (arr.empty()) {
-        OBJ_ERR << "empty data";
-        return;
-    }
-
-    auto n = file->write(arr.data.data(), arr.length, 0);
-    floatTo(0, n);
+    auto n = saver.saveTo(lv, this);
+    if (n >= 0)
+        floatTo(0, n);
 }
 
 void SndFile::postLoadUsage()
@@ -174,17 +156,6 @@ void SndFile::postLoadUsage()
     OBJ_DBG << fmt::format(
         "usage: load <FILENAME> (to | @to) <ARRAY>... \n\t{}\n",
         fmt::join(ArrayLoader::optionsList(), "\n\t"));
-}
-
-MaybeString SndFile::makeSavePath(const char* fname, bool overwrite) const
-{
-    auto path = platform::make_abs_filepath_with_canvas(canvas(), fname);
-    if (!overwrite && platform::path_exists(path.c_str())) {
-        OBJ_ERR << fmt::format("file already exists: '{}', use @overwrite option", path);
-        return {};
-    }
-
-    return path;
 }
 
 MaybeString SndFile::fullLoadPath(const std::string& fname) const

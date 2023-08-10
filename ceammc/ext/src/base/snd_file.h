@@ -39,7 +39,6 @@ private:
     void postLoadUsage();
 
     MaybeString fullLoadPath(const std::string& fname) const;
-    MaybeString makeSavePath(const char* fname, bool overwrite = false) const;
 
     bool extractLoadArgs(const AtomListView& lv, std::string& fname, std::string& array_opts);
 };
