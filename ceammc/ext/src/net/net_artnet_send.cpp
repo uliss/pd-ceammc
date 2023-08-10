@@ -9,7 +9,6 @@
 #include "readerwriterqueue.h"
 
 #include <future>
-#include <ifaddrs.h>
 
 using namespace ceammc::net;
 
@@ -37,7 +36,8 @@ void ArtNetCommand::setIp(const char* ip)
     if (!ip) {
         data[0] = 0;
     } else {
-        strlcpy((char*)data.data(), ip, sizeof(data));
+        strncpy((char*)data.data(), ip, sizeof(data) - 1);
+        data[sizeof(data) - 1] = '\0';
     }
 }
 
