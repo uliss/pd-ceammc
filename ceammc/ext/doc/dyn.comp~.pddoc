@@ -52,7 +52,7 @@
             units="millisecond">compression level output time interval. If 0 - no output</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" data="$obj: dyn_comp" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
             <!-- preset -->

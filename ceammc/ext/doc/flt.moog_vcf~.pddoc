@@ -22,7 +22,7 @@
             amount of corner-resonance</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" data="$obj: flt_moog_vcf" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
             <!-- reset -->

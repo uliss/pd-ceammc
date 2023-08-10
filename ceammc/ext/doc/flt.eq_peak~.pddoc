@@ -37,7 +37,7 @@
             default="100">bandwidth of peak</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" data="$obj: flt_eq_peak" />
+            <xi:include href="props_id.xml" />
         </properties>
         <inlets>
             <inlet type="audio">

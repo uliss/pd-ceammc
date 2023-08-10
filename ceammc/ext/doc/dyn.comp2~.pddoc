@@ -52,7 +52,7 @@
             <property name="@refresh" type="int" default="100" minvalue="0" maxvalue="1000"
             units="millisecond">compression level output time interval. If 0 - no output</property>
             <xi:include href="props_osc.xml" />
-            <xi:include href="props_id.xml" data="$obj: dyn_comp2" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
             <!-- preset -->
