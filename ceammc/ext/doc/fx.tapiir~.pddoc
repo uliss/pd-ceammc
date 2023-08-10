@@ -208,7 +208,6 @@
             feedback to tap5</property>
             <!-- -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
-            <!-- OSC -->
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
         </properties>
