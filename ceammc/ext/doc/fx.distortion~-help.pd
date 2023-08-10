@@ -37,8 +37,8 @@ even harmonics. Type: float. Range: 0\...0.5;
 -49933 0;
 #X msg 110 557 @id;
 #X text 245 557 (initonly) Get/Set OSC address id. If specified \,
-bind properties to /ID/fx_distortion/PROP_NAME osc address \, if empty
-bind to /fx_distortion/PROP_NAME. Type: symbol.;
+bind all properties to /ID/fx_distortion/PROP_NAME osc address \, if
+empty bind to /fx_distortion/PROP_NAME. Type: symbol.;
 #X msg 110 614 @osc;
 #X text 245 614 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;

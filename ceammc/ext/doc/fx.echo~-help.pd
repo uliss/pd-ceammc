@@ -36,8 +36,8 @@ only delayed repeats.;
 -49933 0;
 #X msg 110 496 @id;
 #X text 245 496 (initonly) Get/Set OSC address id. If specified \,
-bind properties to /ID/fx_echo/PROP_NAME osc address \, if empty bind
-to /fx_echo/PROP_NAME. Type: symbol.;
+bind all properties to /ID/fx_echo/PROP_NAME osc address \, if empty
+bind to /fx_echo/PROP_NAME. Type: symbol.;
 #X msg 110 553 @osc;
 #X text 245 553 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;

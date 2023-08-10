@@ -31,7 +31,7 @@
 -49933 0;
 #X msg 110 508 @id;
 #X text 245 508 (initonly) Get/Set OSC address id. If specified \,
-bind properties to /ID/fx_satrev/PROP_NAME osc address \, if empty
+bind all properties to /ID/fx_satrev/PROP_NAME osc address \, if empty
 bind to /fx_satrev/PROP_NAME. Type: symbol.;
 #X msg 110 565 @osc;
 #X text 245 565 (initonly) Get/Set OSC server name to listen. Type:

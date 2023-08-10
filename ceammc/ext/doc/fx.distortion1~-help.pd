@@ -23,8 +23,8 @@
 -49933 0;
 #X msg 110 452 @id;
 #X text 245 452 (initonly) Get/Set OSC address id. If specified \,
-bind properties to /ID/fx_distortion1/PROP_NAME osc address \, if empty
-bind to /fx_distortion1/PROP_NAME. Type: symbol.;
+bind all properties to /ID/fx_distortion1/PROP_NAME osc address \,
+if empty bind to /fx_distortion1/PROP_NAME. Type: symbol.;
 #X msg 110 509 @osc;
 #X text 245 509 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;

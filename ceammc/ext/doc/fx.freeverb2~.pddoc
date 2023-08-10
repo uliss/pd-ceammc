@@ -44,12 +44,8 @@
             freeze room damp</property>
             <property name="@fr_time" type="float" minvalue="0" maxvalue="1000" default="100"
             units="millisecond">length of freeze tail</property>
-            <!-- OSC -->
-            <property name="@osc" type="symbol" default="" access="initonly">OSC server name to
-            listen</property>
-            <property name="@id" type="symbol" default="" access="initonly">OSC address id. If
-            specified, bind properties to /ID/fx_freeverb/PROP_NAME osc address, if empty bind to
-            /fx_freeverb/PROP_NAME.</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
             <!-- reset -->

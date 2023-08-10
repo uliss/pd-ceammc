@@ -45,8 +45,8 @@ and 'effected' (wet) signals. Type: float. Range: 0\...1;
 -49933 0;
 #X msg 110 628 @id;
 #X text 245 628 (initonly) Get/Set OSC address id. If specified \,
-bind properties to /ID/fx_freeverb2/PROP_NAME osc address \, if empty
-bind to /fx_freeverb2/PROP_NAME. Type: symbol.;
+bind all properties to /ID/fx_freeverb/PROP_NAME osc address \, if
+empty bind to /fx_freeverb/PROP_NAME. Type: symbol.;
 #X msg 110 685 @osc;
 #X text 245 685 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;

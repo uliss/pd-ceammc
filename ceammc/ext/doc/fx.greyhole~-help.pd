@@ -25,8 +25,8 @@ Excels at producing spacey washes of sound.;
 -49933 0;
 #X msg 110 490 @id;
 #X text 245 490 (initonly) Get/Set OSC address id. If specified \,
-bind properties to /ID/fx_greyhole/PROP_NAME osc address \, if empty
-bind to /fx_greyhole/PROP_NAME. Type: symbol.;
+bind all properties to /ID/fx_greyhole/PROP_NAME osc address \, if
+empty bind to /fx_greyhole/PROP_NAME. Type: symbol.;
 #X msg 110 547 @osc;
 #X text 245 547 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;

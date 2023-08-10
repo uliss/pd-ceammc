@@ -30,8 +30,8 @@ float. Range: 0.25\...50;
 -49933 0;
 #X msg 110 471 @id;
 #X text 245 471 (initonly) Get/Set OSC address id. If specified \,
-bind properties to /ID/fx_echo/PROP_NAME osc address \, if empty bind
-to /fx_echo/PROP_NAME. Type: symbol.;
+bind all properties to /ID/fx_scramble/PROP_NAME osc address \, if
+empty bind to /fx_scramble/PROP_NAME. Type: symbol.;
 #X msg 110 528 @osc;
 #X text 245 528 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;

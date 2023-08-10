@@ -33,12 +33,8 @@
             <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
             'effected' signal.</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
-            <!-- OSC -->
-            <property name="@osc" type="symbol" default="" access="initonly">OSC server name to
-            listen</property>
-            <property name="@id" type="symbol" default="" access="initonly">OSC address id. If
-            specified, bind properties to /ID/fx_ringmod/PROP_NAME osc address, if empty bind to
-            /fx_ringmod/PROP_NAME.</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
             <!-- reset -->
