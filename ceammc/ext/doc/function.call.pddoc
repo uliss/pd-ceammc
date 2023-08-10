@@ -22,6 +22,9 @@
         <arguments>
             <argument name="NAME" type="symbol">function name</argument>
         </arguments>
+        <properties>
+            <property name="@name" type="symbol" default="">function name</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo>input value</xinfo>
