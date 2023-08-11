@@ -12,6 +12,7 @@ pub enum ResultCode {
     UnknownImageFormat,
     InvalidFileName,
     InvalidString,
+    InvalidArguments,
 } 
 
 #[repr(C)]
@@ -21,7 +22,12 @@ pub struct Result {
 }
 
 #[no_mangle]
-pub unsafe extern "C" fn rimg_free_result(res: &mut Result) {
+pub unsafe extern "C" fn rimg_free_result(res: Option<&mut Result>) {
+    if res.is_none() {
+        return;
+    }
+
+    let res = res.unwrap();
     if res.data.is_null() {
         return;
     }
@@ -34,12 +40,23 @@ pub unsafe extern "C" fn rimg_free_result(res: &mut Result) {
 #[no_mangle]
 pub extern "C" fn rimg_decode_image(
     fname: *const c_char,
-    layout: &mut SampleLayout,
-    result: &mut Result,
+    layout: Option<&mut SampleLayout>,
+    result: Option<&mut Result>,
 ) -> ResultCode { 
     if fname.is_null() {
         return ResultCode::InvalidFileName;
     }
+
+    if layout.is_none() {
+        return ResultCode::InvalidArguments;
+    }
+
+    if result.is_none() {
+        return ResultCode::InvalidArguments;
+    }
+
+    let layout = layout.unwrap();
+    let result = result.unwrap();
 
     let fname = unsafe { CStr::from_ptr(fname) };
     let fname = match fname.to_str() {

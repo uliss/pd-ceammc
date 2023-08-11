@@ -1,7 +1,7 @@
 #N canvas 0 0 992 587 12;
 #X msg 20 48 clear \, image 20 20 img/puredata-ceammc.png 0.5 \, update;
 #X msg 20 77 clear \, image -30 -20 img/sample.svg 0.6 \, update;
-#X msg 20 106 clear \, image -30 -20 img/bach.jpg 0.6 \, update;
+#X msg 20 106 clear \, image -30 -20 img/bach.jpg \, update;
 #X obj 20 135 ui.canvas @size 300 200;
 #X connect 0 0 3 0;
 #X connect 1 0 3 0;
