@@ -26,7 +26,7 @@ https://beltoforion.de/en/muparser/features.php#idDef1;
 #X obj 50 398 makenote 120 95;
 #X obj 50 427 pack f f;
 #X msg 165 427 dump;
-#X obj 50 455 note.pass white($n) && $n>=60;
+#X obj 50 455 note.pass white($N) && $N>=60;
 #X obj 50 484 msg note;
 #X obj 50 513 sfizz~ \#tri @volume 6;
 #X obj 309 513 ui.dsp~;

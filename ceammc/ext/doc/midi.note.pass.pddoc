@@ -57,7 +57,7 @@
 *|*
 [pack f f]  [dump(
 |           |
-[note.pass white($n) && $n>=60]
+[note.pass white($N) && $N>=60]
 |
 [msg note]
 |
