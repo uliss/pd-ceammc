@@ -196,6 +196,9 @@ if(RAGEL_FOUND)
     RAGEL_TARGET(parser_faust
         lex/parser_faust.rl lex/parser_faust.cpp
         COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(ragel_music
+        lex/ragel_music.rl lex/ragel_music.cpp
+        COMPILE_FLAGS "-G2 -s")
 
     add_custom_target(lemon_data_parser
         COMMAND $<TARGET_FILE:lemon> -s -q lemon_data_string.y
@@ -208,6 +211,10 @@ endif()
 # ragel generated sources
 target_sources(ceammc_core
     PRIVATE
+        lex/lemon_data_parser_impl.cpp
+        lex/lemon_data_parser_impl.h
+        lex/lemon_data_string_parser.cpp
+        lex/lemon_data_string_parser.h
         lex/parser_array_saver.cpp
         lex/parser_clone.cpp
         lex/parser_color.cpp
@@ -220,10 +227,7 @@ target_sources(ceammc_core
         lex/parser_props_details.cpp
         lex/parser_strings.cpp
         lex/parser_units.cpp
-        lex/lemon_data_parser_impl.h
-        lex/lemon_data_parser_impl.cpp
-        lex/lemon_data_string_parser.h
-        lex/lemon_data_string_parser.cpp
+        lex/ragel_music.cpp
 )
 
 # ragel files

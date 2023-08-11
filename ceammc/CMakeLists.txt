@@ -2,6 +2,7 @@
 find_package(Boost 1.50.0 REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
 add_subdirectory(extra/corrosion)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/extra/corrosion/cmake")
 
 configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/ceammc_config.h.in

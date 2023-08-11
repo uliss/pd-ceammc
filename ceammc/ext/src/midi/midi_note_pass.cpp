@@ -20,7 +20,10 @@
 #include "ceammc_music_theory_keyboard.h"
 #include "fmt/core.h"
 #include "lex/parser_music.h"
+#include "lex/ragel_music.h"
 #include "muParser.h"
+
+#include <cctype>
 
 using MuParserFn = double (*)(double);
 using MuParserFn2 = double (*)(double, double);
@@ -56,7 +59,7 @@ MidiNotePass::MidiNotePass(const PdArgs& args)
         expr_->DefineConst("B", 11);
         expr_->DefineConst("B#", 12);
 
-        for (auto s : music::ScaleLibrary::instance().all())
+        for (auto& s : music::ScaleLibrary::instance().all())
             expr_->DefineConst(s->name(), crc32_hash(s->name()));
 
         expr_->DefineFun("black", static_cast<MuParserFn>([](double note) -> double {
@@ -158,19 +161,63 @@ void MidiNotePass::dump() const
     BaseObject::dump();
 
     Post post(this);
-    post << "const: ";
-    for (auto& kv : expr_->GetConst())
-        post << kv.first << '=' << kv.second << ' ';
+    post << "const:\n";
 
-    post << "\nvars: ";
+    // notes
+    for (auto& kv : expr_->GetConst()) {
+        auto& name = kv.first;
+        auto ch = name[0];
+        if (!::isupper(ch))
+            break;
+
+        post << kv.first << ' ';
+    }
+    post.flush();
+
+    // scales
+    post << "scales:\n";
+    {
+        int cnt = 1;
+        for (auto& kv : expr_->GetConst()) {
+            auto& name = kv.first;
+            auto ch = name[0];
+            if (!::islower(ch))
+                continue;
+
+            post << kv.first << ' ';
+            if ((cnt++ % 4) == 0)
+                post.flush();
+        }
+    }
+
+    post.flush();
+
+    // chords
+    post << "chords: ";
+    {
+        int cnt = 1;
+        for (auto c : ragel::chord_suffix_list()) {
+            post << 'C' << c << ' ';
+            if ((cnt++ % 4) == 0)
+                post.flush();
+        }
+    }
+
+    post.flush();
+    post << "vars: ";
     for (auto& kv : expr_->GetVar())
         post << kv.first << ' ';
 
-    post << "\nfunctions: ";
-    for (auto& kv : expr_->GetFunDef())
-        post << kv.first << "() ";
+    post.flush();
+    {
+        post << "functions:\n";
+        int cnt = 1;
+        for (auto& fn : expr_->GetFunDef()) {
+            post << fn.first << "()";
+            post << ((cnt++ % 8) ? ' ' : '\n');
+        }
+    }
 
-    post << "\n";
     post.flush();
 }
 

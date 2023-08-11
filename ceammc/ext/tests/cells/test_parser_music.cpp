@@ -13,7 +13,9 @@
  *****************************************************************************/
 #include "catch.hpp"
 #include "ceammc_music_theory_tempo.h"
+#include "fmt/core.h"
 #include "lex/parser_music.h"
+#include "lex/ragel_music.h"
 #include "test_base.h"
 
 using namespace ceammc;
@@ -690,5 +692,14 @@ TEST_CASE("parser_music", "[ceammc::ceammc_units]")
         REQUIRE(chord.type() == Vec { 0, 4, 7, 11, 14, 17 });
         REQUIRE(parse_chord_class("Cmaj13", chord));
         REQUIRE(chord.type() == Vec { 0, 4, 7, 11, 14, 17, 21 });
+    }
+
+    SECTION("chord_list")
+    {
+        using namespace ceammc;
+        music::ChordClass chord;
+
+        for (auto& c : ragel::chord_suffix_list())
+            REQUIRE(parser::parse_chord_class(fmt::format("C{}", c).c_str(), chord));
     }
 }

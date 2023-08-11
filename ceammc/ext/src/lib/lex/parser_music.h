@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef RAGEL_MUSIC_H
-#define RAGEL_MUSIC_H
+#ifndef CEAMMC_PARSER_MUSIC_H
+#define CEAMMC_PARSER_MUSIC_H
 
 #include <array>
 #include <cstddef>
@@ -39,6 +39,7 @@ namespace parser {
     //            , beat_div(beatDiv)
     //        {
     //        }
+
 
     //        Bpm(const fsm::BpmData& d)
     //            : bpm(d.ival + double(d.fnum) / double(d.fden))
@@ -254,4 +255,4 @@ namespace parser {
 }
 }
 
-#endif // RAGEL_NUMERIC_H
+#endif // CEAMMC_PARSER_MUSIC_H
