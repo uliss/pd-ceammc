@@ -341,6 +341,9 @@ if(LIBSNDFILE_FOUND)
     target_sources(ceammc_core PRIVATE ceammc_loader_sndfile.cpp)
     target_include_directories(ceammc_core PRIVATE ${LIBSNDFILE_INCLUDE_DIRS})
     target_link_libraries(ceammc_core PUBLIC ${LIBSNDFILE_LIBRARIES})
+    if(${LIBSNDFILE_VERSION} VERSION_LESS "1.30.0")
+        target_compile_definitions(ceammc_core PRIVATE LIBSNDFILE_NO_OPUS)
+    endif()
 endif()
 
 # minimp3
