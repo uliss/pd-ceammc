@@ -28,12 +28,15 @@ PD_BIN=$PD_RESOURCES/bin
 PD_TCL=$PD_RESOURCES/tcl
 PD_PO=$PD_RESOURCES/po
 PD_CEAMMC=$PD_EXTRA/ceammc
+
+PD_FONTS=$PD_CEAMMC/fonts
+PD_IMG=$PD_CEAMMC/img
+PD_LUA=$PD_CEAMMC/lua
+PD_MIDI=$PD_CEAMMC/midi
+PD_MUSIC=$PD_CEAMMC/music
+PD_SAMPLES=$PD_CEAMMC/sound
 PD_SF2=$PD_CEAMMC/sf2
 PD_SFZ=$PD_CEAMMC/sfz
-PD_MIDI=$PD_CEAMMC/midi
-PD_LUA=$PD_CEAMMC/lua
-PD_SAMPLES=$PD_CEAMMC/sound
-PD_FONTS=$PD_CEAMMC/fonts
 
 # absolute dir names
 BUNDLE_APP="${DIST_DIR}/${PD_APP}"
@@ -54,8 +57,8 @@ BUNDLE_SAMPLES="${DIST_DIR}/${PD_SAMPLES}"
 BUNDLE_INCLUDE="${DIST_DIR}/${PD_INCLUDE}"
 BUNDLE_COMPLETIONS="${BUNDLE_TCL}/ceammc/custom_completions"
 BUNDLE_FONTS="${DIST_DIR}/${PD_FONTS}"
-BUNDLE_IMAGES="${DIST_DIR}/${PD_CEAMMC}/img"
-BUNDLE_MUSIC="${DIST_DIR}/${PD_CEAMMC}/music"
+BUNDLE_IMAGES="${DIST_DIR}/${PD_IMG}"
+BUNDLE_MUSIC="${DIST_DIR}/${PD_MUSIC}"
 
 # resources paths
 PD_INFO_PLIST="${BUILD_DIR}/dist/Info.plist"
@@ -348,6 +351,10 @@ for midi in $SRC_CEAMMC/ext/doc/midi/*.@(mid|midi)
 do
     copy ${midi} "${BUNDLE_MIDI}"
 done
+
+section "Copying CEAMMC music files"
+mkdir -p "${BUNDLE_MUSIC}"
+cp $SRC_CEAMMC/ext/doc/music/*.mxml "${BUNDLE_MUSIC}/"
 
 section "Copying CEAMMC verovio files"
 mkdir -p "${BUNDLE_MUSIC}/verovio"

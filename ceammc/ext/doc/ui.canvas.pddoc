@@ -330,7 +330,7 @@
 [X a->z] [X b->z] [X c->z] [X d->z] [X e->z] [X f->z] [X g->z] [X h->z]
 [X i->z] [X j->z] [X k->z] [X l->z]
 
-[ui.canvas.line]  [ui.canvas.text]
+[ui.canvas.line]  [ui.canvas.text]   [ui.canvas.music]
 
 [ui.canvas.color] [ui.canvas.arrows]
 
@@ -450,6 +450,24 @@
 [arrow 150 30 250 160 X x, stroke gray, update #e(
 
 [arrow 180 30 280 160 n n, stroke green, update #f(
+
+
+[ui.canvas @size 300 200 #z]
+
+
+
+
+
+
+
+[X a->z] [X b->z] [X c->z] [X d->z]
+[X e->z] [X f->z]
+]]>
+            </pdascii>
+            <pdascii id="music">
+<![CDATA[
+[clear, musicxml -100 -20 music/simple.mxml, update #a(
+
 
 
 [ui.canvas @size 300 200 #z]

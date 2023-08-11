@@ -29,6 +29,7 @@
 #X obj 50 488 ui.canvas @size 300 200;
 #X obj 50 704 ui.canvas.line;
 #X obj 222 704 ui.canvas.text;
+#X obj 405 704 ui.canvas.music;
 #X obj 50 733 ui.canvas.color;
 #X obj 222 733 ui.canvas.arrows;
 #X obj 20 782 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

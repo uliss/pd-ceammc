@@ -1,0 +1,4 @@
+#N canvas 0 0 992 587 12;
+#X msg 20 48 clear \, musicxml -100 -20 music/simple.mxml \, update;
+#X obj 20 106 ui.canvas @size 300 200;
+#X connect 0 0 1 0;
