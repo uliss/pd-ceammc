@@ -13,6 +13,7 @@ enum class RImgResultCode {
   UnknownImageFormat,
   InvalidFileName,
   InvalidString,
+  InvalidArguments,
 };
 
 /// A ffi compatible description of a sample buffer.
