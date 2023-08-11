@@ -18,14 +18,14 @@
 #include "colorm/colorm.h"
 #include "fmt/core.h"
 
-CEAMMC_DEFINE_SYM_HASH(color);
-CEAMMC_DEFINE_SYM_HASH(hex);
-CEAMMC_DEFINE_SYM_HASH(rgb);
-CEAMMC_DEFINE_SYM_HASH(none);
-CEAMMC_DEFINE_SYM_HASH(short);
-CEAMMC_DEFINE_SYM_HASH(long);
-CEAMMC_DEFINE_SYM_HASH(inc);
-CEAMMC_DEFINE_SYM_HASH(dec);
+CEAMMC_DEFINE_SYM_HASH(color)
+CEAMMC_DEFINE_SYM_HASH(hex)
+CEAMMC_DEFINE_SYM_HASH(rgb)
+CEAMMC_DEFINE_SYM_HASH(none)
+CEAMMC_DEFINE_SYM_HASH(short)
+CEAMMC_DEFINE_SYM_HASH(long)
+CEAMMC_DEFINE_SYM_HASH(inc)
+CEAMMC_DEFINE_SYM_HASH(dec)
 
 using ColorT = colorm::Oklch;
 using ColorListV = std::vector<ColorT>;
@@ -117,11 +117,11 @@ void ColorScale::onFloat(t_float f)
         colorm::Rgb rgb(color);
 
         if (rgb.alpha8() == 0xFF) {
-            char buf[8];
+            char buf[16];
             fmt::format_to(buf, "#{:02X}{:02X}{:02X}\0", rgb.red8(), rgb.green8(), rgb.blue8());
             symbolTo(0, gensym(buf));
         } else {
-            char buf[10];
+            char buf[16];
             fmt::format_to(buf, "#{:02X}{:02X}{:02X}{:02X}\0", rgb.red8(), rgb.green8(), rgb.blue8(), rgb.alpha8());
             symbolTo(0, gensym(buf));
         }
@@ -129,10 +129,10 @@ void ColorScale::onFloat(t_float f)
     } break;
     case hash_rgb: {
         StaticAtomList<4> data {
-            color.red(),
-            color.green(),
-            color.blue(),
-            color.alpha()
+            (t_float) color.red(),
+            (t_float) color.green(),
+            (t_float) color.blue(),
+            (t_float) color.alpha()
         };
         listTo(0, data.view());
     } break;
