@@ -9,7 +9,7 @@
 #X obj 210 80 cnv 1 555 203 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Passes midi notes (list of PITCH VELOCITY DUR?) for
 which expression returns true.;
-#X text 215 120 Available variables: $n - MIDI note \, $v - MIDI velocity;
+#X text 215 120 Available variables: $N - MIDI note \, $V - MIDI velocity;
 #X text 215 145 Available functions: white(NOTE) \, black(NOTE) \,
 oct(NOTE) \, abs(X) \, sqrt(X);
 #X text 215 185 Available math operations: + \, - \, * \, / \, % \,
@@ -25,7 +25,7 @@ https://beltoforion.de/en/muparser/features.php#idDef1;
 #X obj 50 369 random.i 40 80;
 #X obj 50 398 makenote 120 95;
 #X obj 50 427 pack f f;
-#X msg 251 427 list;
+#X msg 165 427 dump;
 #X obj 50 455 note.pass white($n) && $n>=60;
 #X obj 50 484 msg note;
 #X obj 50 513 sfizz~ \#tri @volume 6;
@@ -96,6 +96,7 @@ https://github.com/uliss/pure-data;
 #X connect 16 0 17 0;
 #X connect 16 1 17 1;
 #X connect 17 0 19 0;
+#X connect 18 0 19 0;
 #X connect 19 0 20 0;
 #X connect 20 0 21 0;
 #X connect 21 0 23 0;

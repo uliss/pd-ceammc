@@ -34,6 +34,8 @@ public:
     void onInlet(size_t n, const AtomListView& lv) final;
 
     double currentNote() const { return expr_note_; }
+
+    void dump() const final;
 };
 
 void setup_midi_note_pass();

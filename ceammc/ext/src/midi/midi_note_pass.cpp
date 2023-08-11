@@ -153,6 +153,27 @@ void MidiNotePass::onInlet(size_t n, const AtomListView& lv)
     prop_expr_->set(lv);
 }
 
+void MidiNotePass::dump() const
+{
+    BaseObject::dump();
+
+    Post post(this);
+    post << "const: ";
+    for (auto& kv : expr_->GetConst())
+        post << kv.first << '=' << kv.second << ' ';
+
+    post << "\nvars: ";
+    for (auto& kv : expr_->GetVar())
+        post << kv.first << ' ';
+
+    post << "\nfunctions: ";
+    for (auto& kv : expr_->GetFunDef())
+        post << kv.first << "() ";
+
+    post << "\n";
+    post.flush();
+}
+
 void setup_midi_note_pass()
 {
     LIB_DBG << fmt::format("muparser: {}", mu::Parser().GetVersion(mu::pviBRIEF));

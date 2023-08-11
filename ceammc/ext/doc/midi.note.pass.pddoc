@@ -22,7 +22,7 @@
         <info>
             <par>Passes midi notes (list of PITCH VELOCITY DUR?) for which expression returns
             true.</par>
-            <par>Available variables: $n - MIDI note, $v - MIDI velocity</par>
+            <par>Available variables: $N - MIDI note, $V - MIDI velocity</par>
             <par>Available functions: white(NOTE), black(NOTE), oct(NOTE), abs(X), sqrt(X)</par>
             <par>Available math operations: +,-,*,/,%,^,==,!=,&gt;,&gt;=,&lt;,&lt;=,
             &amp;&amp;,||</par>
@@ -55,8 +55,8 @@
 |                |
 [makenote 120 95 ]
 *|*
-[pack f f]           [list(
-|
+[pack f f]  [dump(
+|           |
 [note.pass white($n) && $n>=60]
 |
 [msg note]
