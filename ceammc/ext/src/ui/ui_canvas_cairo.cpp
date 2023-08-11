@@ -13,15 +13,14 @@
  *****************************************************************************/
 #include "ui_canvas_cairo.h"
 #include "ceammc_base64.h"
-#include "ceammc_filesystem.h"
-#include "ceammc_platform.h"
 #include "ceammc_poll_dispatcher.h"
 
-#include "c-api/resvg.h"
 #include "cairo-ft.h"
 #include "fmt/core.h"
 #include "qrcodegen.hpp"
-#include "verovio/tools/c_wrapper.h"
+#include "resvg_common.h"
+#include "rimg_common.h"
+#include "verovio_common.h"
 
 #include <boost/algorithm/string.hpp>
 
@@ -29,172 +28,6 @@
 #define _USE_MATH_DEFINES
 #endif
 #include <cmath>
-
-namespace {
-
-using Verovio = std::unique_ptr<void, void (*)(void*)>;
-using ReSvgTree = std::unique_ptr<resvg_render_tree*, void (*)(resvg_render_tree**)>;
-using ReSvgOpt = std::unique_ptr<resvg_options, void (*)(resvg_options*)>;
-
-// RGBA -> BGRA
-void rgba2bgra(unsigned char* data, int w, int h)
-{
-    for (int i = 0; i < (w * h * 4); i += 4) {
-        auto r = data[i + 0];
-        data[i + 0] = data[i + 2];
-        data[i + 2] = r;
-    }
-}
-
-resvg_render_tree** resvg_tree_new()
-{
-    return new resvg_render_tree*;
-}
-
-void revsg_tree_delete(resvg_render_tree** t)
-{
-    if (t) {
-        if (*t)
-            resvg_tree_destroy(*t);
-
-        delete t;
-    }
-}
-
-#ifndef NDEBUG
-#define OUT_DBG(msg)                                        \
-    {                                                       \
-        out.enqueue(DrawResult { DRAW_RESULT_DEBUG, msg }); \
-    }
-#else
-#define OUT_DBG(msg)
-#endif
-
-#define OUT_ERR(msg)                                        \
-    {                                                       \
-        out.enqueue(DrawResult { DRAW_RESULT_ERROR, msg }); \
-    }
-
-cairo_surface_t* resvg_to_surface(resvg_render_tree* tree, ceammc::UICanvasInQueue& out)
-{
-    using namespace ceammc;
-
-    auto size = resvg_get_image_size(tree);
-    const auto w = (int)size.width;
-    const auto h = (int)size.height;
-
-    OUT_DBG(fmt::format("svg size: {}x{}", w, h));
-
-    auto surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, w, h);
-
-    /* resvg doesn't support stride, so cairo_surface_t should have no padding */
-    assert(cairo_image_surface_get_stride(surface) == (int)size.width * 4);
-
-    auto surface_data = cairo_image_surface_get_data(surface);
-    if (!surface_data) {
-        OUT_ERR("no data");
-        cairo_surface_destroy(surface);
-        return nullptr;
-    }
-
-    //    OUT_DBG(fmt::format("mtx: a={} b={} c={} d={} e={} f={}", mtx.a, mtx.b, mtx.c, mtx.d, mtx.e, mtx.f));
-    resvg_render(tree, resvg_transform_identity(), w, h, (char*)surface_data);
-
-    rgba2bgra(surface_data, w, h);
-    cairo_surface_mark_dirty(surface);
-
-    return surface;
-}
-
-constexpr const char* VEROVIO_RES = "/music/verovio";
-
-cairo_surface_t* load_music(const ceammc::draw::DrawMusic& mus, const std::string& lib_path, ceammc::UICanvasInQueue& out)
-{
-    using namespace ceammc;
-
-    auto res_path = lib_path + VEROVIO_RES;
-    OUT_DBG(fmt::format("verovio resource path: '{}'", res_path));
-
-    if (!platform::path_exists(res_path.c_str())) {
-        OUT_ERR(fmt::format("verovio resource path not found: '{}'", res_path));
-        return nullptr;
-    }
-
-    Verovio vo(vrvToolkit_constructorResourcePath(res_path.c_str()), vrvToolkit_destructor);
-
-    OUT_DBG(fmt::format("verovio version: {}", vrvToolkit_getVersion(vo.get())));
-
-    if (!vrvToolkit_setOptions(vo.get(), R"({"scale": 75})")) {
-        OUT_ERR("can't set option: scale=75");
-        return nullptr;
-    }
-
-    switch (mus.format) {
-    case draw::FORMAT_ABC:
-        // set ABC option
-        if (!vrvToolkit_setOptions(vo.get(), R"({"inputFrom": "abc"})")) {
-            OUT_ERR("can't set option: inputFrom=abc");
-            return nullptr;
-        }
-
-        // load ABC string
-        if (!vrvToolkit_loadData(vo.get(), mus.data.c_str())) {
-            OUT_ERR(fmt::format("can't load data: '{}'", mus.data));
-            return nullptr;
-        }
-
-        break;
-    case draw::FORMAT_MUSICXML: {
-        // set MusicXML option
-        if (!vrvToolkit_setOptions(vo.get(), R"({"inputFrom": "xml"})")) {
-            OUT_ERR("can't set option: inputFrom=xml");
-            return nullptr;
-        }
-
-        auto res = ceammc::fs::readFileContent(mus.data.c_str());
-        std::string xml;
-        if (res.matchValue(xml)) {
-            // load MusicXML string
-            if (!vrvToolkit_loadData(vo.get(), xml.c_str())) {
-                OUT_ERR(fmt::format("can't load data: '{}'", mus.data));
-                return nullptr;
-            }
-        } else {
-            OUT_ERR(fmt::format("can't read file: '{}'", mus.data));
-            return nullptr;
-        }
-    } break;
-    default:
-        break;
-    }
-
-    auto svg = vrvToolkit_renderToSVG(vo.get(), 1, true);
-
-    ReSvgOpt opt = { resvg_options_create(), resvg_options_destroy };
-    //    resvg_options_load_system_fonts(opt);
-    ReSvgTree tree { resvg_tree_new(), revsg_tree_delete };
-    int err = resvg_parse_tree_from_data(svg, strlen(svg), opt.get(), tree.get());
-    if (err != RESVG_OK)
-        return nullptr;
-
-    vo.release();
-
-    return resvg_to_surface(*tree, out);
-}
-
-cairo_surface_t* load_svg(const char* path, ceammc::UICanvasInQueue& out)
-{
-    ReSvgOpt opt { resvg_options_create(), resvg_options_destroy };
-    resvg_options_load_system_fonts(opt.get());
-
-    ReSvgTree tree { resvg_tree_new(), revsg_tree_delete };
-    auto err = resvg_parse_tree_from_file(path, opt.get(), tree.get());
-    if (err != RESVG_OK)
-        return nullptr;
-
-    return resvg_to_surface(*tree, out);
-}
-}
 
 ceammc::DrawCommandVisitor::DrawCommandVisitor(CairoSurface& surface, CairoContext& ctx, UICanvasInQueue& in)
     : surface_(surface)
@@ -286,10 +119,14 @@ void ceammc::DrawCommandVisitor::operator()(const draw::DrawImage& c) const
     if (ctx_) {
         CairoSurface img = { nullptr, cairo_surface_destroy };
 
-        if (boost::algorithm::ends_with(c.path, ".svg")) {
+        using namespace boost::algorithm;
+
+        if (ends_with(c.path, ".svg")) {
             img.reset(load_svg(c.path.c_str(), queue_));
-        } else {
+        } else if (ends_with(c.path, ".png")) {
             img.reset(cairo_image_surface_create_from_png(c.path.c_str()));
+        } else {
+            img.reset(load_rimg(c.path.c_str(), queue_));
         }
 
         if (!img) {

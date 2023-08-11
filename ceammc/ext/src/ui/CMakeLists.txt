@@ -54,8 +54,18 @@ ceammc_ui_external(touchosc)
 
 add_library(ceammc_ui STATIC mod_ui.cpp ${NUI_SOURCES} ${UI_SOURCES})
 
-target_link_libraries(ceammc_ui PRIVATE ceammc_nui ceammc_env http_lib readerwriterqueue touchosc resvg verovio)
-target_include_directories(ceammc_ui PRIVATE ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/resvg/crates)
+target_link_libraries(ceammc_ui PRIVATE ceammc_nui ceammc_env http_lib readerwriterqueue touchosc)
+
+find_package(Rust)
+if(Rust_FOUND)
+    target_include_directories(ceammc_ui
+        PRIVATE
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/resvg/crates
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/rimg
+        )
+    target_link_libraries(ceammc_ui PRIVATE resvg rimg verovio)
+    target_compile_definitions(ceammc_ui PRIVATE WITH_RIMG WITH_RESVG WITH_VEROVIO)
+endif()
 
 find_package(Cairo)
 if(CAIRO_FOUND)

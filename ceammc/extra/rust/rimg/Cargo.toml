@@ -1,0 +1,13 @@
+[package]
+name = "rimg"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["staticlib"]
+
+[dependencies]
+image = { version = "0.24.7", features = [ "ico", "gif", "jpeg", "pnm", "bmp", "webp" ], default-features = false }
+
+[build-dependencies]
+cbindgen = "0.24.5"
