@@ -84,4 +84,4 @@
 	url = https://github.com/RazrFalcon/resvg
 [submodule "ceammc/extra/verovio/verovio"]
 	path = ceammc/extra/verovio/verovio
-	url = https://github.com/rism-digital/verovio.git
+	url = https://github.com/uliss/verovio.git
