@@ -316,7 +316,9 @@ namespace sound {
             case FORMAT_WAV:  fmt = SF_FORMAT_WAV;  break;
             case FORMAT_AIFF: fmt = SF_FORMAT_AIFF; break;
             case FORMAT_OGG:  fmt = SF_FORMAT_OGG | SF_FORMAT_VORBIS; break;
+#ifndef LIBSNDFILE_NO_OPUS
             case FORMAT_OPUS: fmt = SF_FORMAT_OGG | SF_FORMAT_OPUS; break;
+#endif
             case FORMAT_RAW:  fmt = SF_FORMAT_RAW; break;
             case FORMAT_FLAC: fmt = SF_FORMAT_FLAC; break;
             default:

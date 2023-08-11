@@ -111,8 +111,11 @@ endif()
 
 # libsndfile backend
 if(WITH_LIBSNDFILE)
-    include(FindLibSndFile REQUIRED)
+    find_package(LibSndFile REQUIRED)
     set(CEAMMC_HAVE_LIBSNDFILE TRUE)
+    if(PKGCONFIG_LIBSNDFILE_VERSION)
+        set(LIBSNDFILE_VERSION ${PKGCONFIG_LIBSNDFILE_VERSION})
+    endif()
 endif()
 
 # FFTW3
