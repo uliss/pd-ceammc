@@ -332,7 +332,7 @@
 
 [ui.canvas.line]  [ui.canvas.text]   [ui.canvas.music]
 
-[ui.canvas.color] [ui.canvas.arrows]
+[ui.canvas.color] [ui.canvas.arrows] [ui.canvas.image]
 
 #b 30 50 100% 100%, stroke red, update
 #c 0 0 50, fill blue, update
@@ -478,8 +478,26 @@
 
 
 
-[X a->z] [X b->z] [X c->z] [X d->z]
-[X e->z] [X f->z]
+[X a->z]
+]]>
+            </pdascii>
+            <pdascii id="image">
+<![CDATA[
+[clear, image 20 20 img/puredata-ceammc.png 0.5, update #a(
+
+[clear, image -30 -20 img/sample.svg 0.6, update #b(
+
+[clear, image -30 -20 img/bach.jpg, update #c(
+
+[ui.canvas @size 300 200 #z]
+
+
+
+
+
+
+
+[X a->z] [X b->z] [X c->z]
 ]]>
             </pdascii>
         </example>

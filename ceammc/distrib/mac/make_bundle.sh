@@ -330,7 +330,7 @@ done
 
 section "Copying doc images"
 mkdir -p "${BUNDLE_IMAGES}"
-for img in $SRC_CEAMMC/ext/doc/img/*.png
+for img in $SRC_CEAMMC/ext/doc/img/*.@(png|svg|jpg)
 do
     copy ${img} "${BUNDLE_IMAGES}"
 done
