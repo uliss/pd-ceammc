@@ -18,7 +18,7 @@
 #include "fmt/core.h"
 #include "ui_canvas_cairo.h"
 
-#ifdef NDEBUG
+#ifndef NDEBUG
 #define OUT_DBG(msg)                                        \
     {                                                       \
         out.enqueue(DrawResult { DRAW_RESULT_DEBUG, msg }); \
