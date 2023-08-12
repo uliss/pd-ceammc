@@ -8,8 +8,9 @@ then
 fi
 
 list_dll () {
-    $OBJDUMP -x $1 | grep 'DLL Name' | awk '{print $3}' | while read dll
+    $OBJDUMP -p $1 | grep 'DLL Name' | awk '{print $3}' | while read dll
     do
+        # check only /MINGW_PREFIX/bin dlls
         fname="$MINGW_PREFIX/bin/$dll"
         if [ -e "$fname" ]
         then
