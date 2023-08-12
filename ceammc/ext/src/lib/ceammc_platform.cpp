@@ -220,7 +220,7 @@ namespace platform {
         char dirname[MAXPDSTRING], *filename;
         int fd = canvas_open(cnv, fname.c_str(), "", dirname, &filename, MAXPDSTRING, 1);
         if (fd < 0)
-            return std::string();
+            return {};
 
         close(fd);
 
