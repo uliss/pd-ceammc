@@ -106,7 +106,7 @@ namespace draw {
     };
 
     struct SetDash {
-        static const size_t MAX_DASHES = 4;
+        enum { MAX_DASHES = 4 };
         std::uint8_t dashes[MAX_DASHES] { 2, 0, 0, 0 };
         std::uint8_t n { 1 };
     };
