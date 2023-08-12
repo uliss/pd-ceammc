@@ -38,10 +38,17 @@ cairo_surface_t* load_music(const ceammc::draw::DrawMusic& mus, const std::strin
     using namespace ceammc;
 
     auto res_path = lib_path + VEROVIO_RES;
-    OUT_DBG(fmt::format("verovio resource path: '{}'", res_path));
+    OUT_DBG(fmt::format("verovio resource directory: '{}'", res_path));
 
+    // check dir
     if (!platform::path_exists(res_path.c_str())) {
-        OUT_ERR(fmt::format("verovio resource path not found: '{}'", res_path));
+        OUT_ERR(fmt::format("verovio resource directory not found: '{}'", res_path));
+        return nullptr;
+    }
+
+    // check at least one file
+    if (!platform::path_exists((res_path + "/Bravura.xml").c_str())) {
+        OUT_ERR(fmt::format("verovio resource directory seems empty: '{}'", res_path));
         return nullptr;
     }
 
