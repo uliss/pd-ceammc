@@ -13,18 +13,23 @@
  *****************************************************************************/
 #include "ceammc_platform_win.h"
 
+#include <cstdlib>
+#include <cstring>
+#include <iostream>
+
 #include <Shlwapi.h>
 #include <Stringapiset.h>
 #include <Userenv.h>
-#include <Windows.h>
 #include <Winsock2.h>
-#include <cstdlib>
-#include <cstring>
 #include <direct.h>
 #include <fcntl.h>
 #include <io.h>
-#include <iostream>
 #include <ws2tcpip.h>
+
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
+#include <windows.h>
 
 #include "config.h"
 
@@ -275,6 +280,7 @@ namespace platform {
 
     bool win_net_socket_addr(int fd, std::string& addr)
     {
+        return false;
     }
 
 }
