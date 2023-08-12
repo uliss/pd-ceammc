@@ -127,7 +127,7 @@ namespace sound {
                 break;
 
             // write channel data to destination
-            for (sf_count_t j = 0; j < frames_read && frames_read_total < max_samples; j++) {
+            for (sf_count_t j = 0; (j < frames_read) && (frames_read_total < max_samples); j++) {
                 x->w_float = frame_buf[j * n + ch] * gain();
                 x++;
                 frames_read_total++;
@@ -143,7 +143,7 @@ namespace sound {
             const auto frames_read = handle_.readf(frame_buf, sf_count_t(sz) % FRAME_COUNT);
 
             // write channel data to destination
-            for (sf_count_t j = 0; j < frames_read && frames_read_total < max_samples; j++) {
+            for (sf_count_t j = 0; (j < frames_read) && (frames_read_total < max_samples); j++) {
                 x->w_float = frame_buf[j * n + ch] * gain();
                 x++;
                 frames_read_total++;
