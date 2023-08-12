@@ -9,7 +9,7 @@
 #ifdef WITH_RHVOICE
 #include "speech_rhvoice_tilde.h"
 #else
-extern "C" void setup_speech_rhvoice_tilde();
+void setup_speech_rhvoice_tilde();
 #endif
 
 #ifdef WITH_MODPLUG
