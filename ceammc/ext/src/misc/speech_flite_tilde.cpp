@@ -22,12 +22,6 @@ extern "C" {
 #include "cst_features.h"
 #include "cst_wave.h"
 #include "flite.h"
-
-extern cst_voice* register_cmu_us_kal16();
-extern cst_voice* register_cmu_us_slt();
-extern cst_voice* register_cmu_us_rms();
-extern cst_voice* register_cmu_us_awb();
-extern void unregister_cmu_us_kal16();
 }
 
 enum Status {
@@ -49,7 +43,8 @@ static int do_speech_synth(TtsQueue& queue,
         return ERR_UNKNOWN_VOICE;
 
     // set features
-    feat_set_float(vc->features, "duration_stretch", speed);
+    auto stretch = (speed > 0) ? (1 / speed) : 1;
+    feat_set_float(vc->features, "duration_stretch", stretch);
 
     if (pitch > 0)
         feat_set_float(vc->features, "int_f0_target_mean", pitch);
