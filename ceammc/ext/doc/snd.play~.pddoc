@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="snd.play~">
+        <title>snd.play~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Sound file player</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>snd</category>
+            <keywords>play sound</keywords>
+            <since>0.9.7</since>
+        </meta>
+        <info>
+            <par>Deal with sound files: gets files info and loads them into arrays. Various formats
+            are supported. Supports array name patterns.</par>
+        </info>
+        <properties>
+            <property name="@formats" type="list" access="readonly"
+            default="AAC AIFF ALAC AU AVR CAF FLAC HTK IFF MACE3:1 MACE6:1 MAT4 MAT5 MP3 MP4 MPC OGG PAF PVF RAW RF64 SD2 SDS SF VOC W64 WAV WAVEX WVE XI">
+            list of supported formats</property>
+            <property name="@sr" type="list" access="readonly" default="">source file
+            samplerate</property>
+            <property name="@filename" type="list" access="readonly" default="">filename</property>
+            <property name="@samples" type="list" access="readonly" default="">list of number of
+            loaded samples into each array</property>
+            <property name="@channels" type="list" access="readonly" default="">list of loaded
+            channels into each array</property>
+            <property name="@smpte_fr" type="float" minvalue="1" maxvalue="99" default="30">SMPTE
+            framerate for SMPTE offset calculations</property>
+            <property name="@verbose" type="bool" default="0" access="initonly">verbose output to
+            Pd window</property>
+        </properties>
+        <methods>
+            <!-- load -->
+            <method name="load">Loads sound file. Outputs info properties and number of loaded
+            samples after load. 
+            <param name="PATH" type="symbol" required="true">path to soundfile</param>
+            <param name="to ARRAY_NAME" type="symbol" required="true">destination array names or
+            pattern. Array patterns specified in square braces: array_[1-4] means - array_1,
+            array_2, array_3, array_4. array_[left|right] means array_left and array_right</param>
+            <param name="@resize" type="property">resize array to fit loaded samples</param>
+            <param name="@channel N" type="property">specify input channels. Spaces separated list
+            or range x-y.</param>
+            <param name="@normalize" type="property">normalize array after loading</param>
+            <param name="@gain V" type="property">apply gain to loaded samples, examples: +3.1db,
+            -6db, 0.5 etc.</param>
+            <param name="@begin X" type="property">specify input file begin position, by default in
+            samples, but you can use other units: 1s, 10ms, 00:01.12 (smpte). To specify value
+            relative to file end you can use $-X syntax</param>
+            <param name="@end X" type="property">specify input file end position, by default in
+            samples, but you can use other units: 1s, 10ms, 00:01.12 (smpte). To specify value
+            relative to file end you can use $-X syntax</param>
+            <param name="@length X" type="property">specify input length, by default in samples,
+            but you can use other units: 1s, 10ms, 00:00:02.00 (smpte)</param>
+            <param name="@offset SAMPLES" type="property">offset in samples from beginning of file.
+            Deprecated, use @begin instead</param>
+            <param name="@resample R?" type="property">if R is not specified - resample from file
+            samplerate to current Pd samplerate. But you can manually specify R as float value or
+            integer fraction - 44100/48000</param></method>
+        </methods>
+        <inlets>
+            <inlet type="control">
+                <xinfo>input inlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet type="audio" number="1"> first output channel</outlet>
+            <outlet type="audio" number="...">... output channel</outlet>
+            <outlet type="audio" number="n">n-th output channel</outlet>
+            <outlet type="control" number="n+1">control output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[openpanel #a]
+
+ [@name %CEAMMC%/sound/loop_breakbeat.flac, 1(
+ |
+ |  [@name %CEAMMC%/sound/vla-overtones-3.mp3, 1(
+ |  |
+[expand_env #x]  [T]
+|                |
+| [T]            [@loop $1(
+| |              |
+[snd.play~ 2 {w=20}]
+| ^|             ^^|
+|  |             [ui.dt]
+|  |.
+[ui.hgain2~ {i:2,o:2}] [ui.dsp~]
+*|*
+[dac~]
+
+[X a->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

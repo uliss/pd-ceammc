@@ -1099,6 +1099,7 @@ ceammc/sequencer	basic sequence player
 ceammc/seq	basic sequence player
 seq	basic sequence player
 snd.file	Sound file loader on steroids
+snd.play~	Sound file player
 hoa.2d.decoder~	hoa 2d decoder
 hoa.decoder~	hoa 2d decoder
 hoa.2d.encoder~	hoa 2d encoder

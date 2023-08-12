@@ -4,6 +4,8 @@
 #X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 116 snd.file;
 #X text 200 116 Sound file loader on steroids;
+#X obj 30 143 snd.play~;
+#X text 200 143 Sound file player;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::snd 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -682,6 +682,7 @@ set(DOC_FILES
     set.union
     sfizz~
     snd.file
+    snd.play~
     spat.pan4~
     spat.pan8~
     spat.zita6x8~
