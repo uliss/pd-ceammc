@@ -79,6 +79,8 @@ const char* to_string(ceammc::parser::TargetType t)
         return "<=";
     case TARGET_TYPE_RANGE:
         return "range";
+    default:
+        return "???";
     }
 }
 
