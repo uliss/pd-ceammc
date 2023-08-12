@@ -1,4 +1,4 @@
-#N canvas 0 0 842 357 12;
+#N canvas 0 0 842 400 12;
 #X msg 20 48 note 60 120 \, note 65 120 \, note 47 120;
 #X text 173 77 change modulation;
 #X msg 39 106 notes_off;

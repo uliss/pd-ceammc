@@ -8,11 +8,11 @@ if(WITH_VEROVIO)
     endif()
 
     target_include_directories(verovio INTERFACE ${CMAKE_CURRENT_SOURCE_DIR})
-    install(DIRECTORY verovio/data
+    install(DIRECTORY verovio/data/
         DESTINATION ${PD_DOC_INSTALL_PATH}/extra/ceammc/music/verovio
         FILES_MATCHING PATTERN "*.xml" PATTERN "*.svg" PATTERN "*.css")
 
-    if(WIN32)
+    if(WIN32 OR APPLE)
         install(TARGETS verovio RUNTIME DESTINATION extra/ceammc)
     endif()
 endif()

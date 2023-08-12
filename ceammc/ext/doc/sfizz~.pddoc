@@ -249,6 +249,13 @@
 <![CDATA[
 /*play MIDI keyboard with default Sine tone sample*/
 
+            [ui.keyboard]
+            |
+            |
+            |
+            |
+            [msg note #a]
+
             /*save and activate tuning at bank:1, preset:1*/
 
 [midiin]    [1 1 0 0 -50 0 0 0 0 0 0 0 0 -50(
@@ -257,11 +264,13 @@
 |           |
 [msg midi]  [msg tune:12] [tunesel 0 0( [tunesel 1 1(
 |           |             |             |
-[sfizz~ \#tri                           ] /*activate bank:1, preset:1*/
+[sfizz~ \#tri                          #x] /*activate bank:1, preset:1*/
 *|*
 [ui.hgain2~]    [ui.dsp~]
 *|*
 [dac~]
+
+[X a->x]
 ]]>
             </pdascii>
             <pdascii id="pan">
