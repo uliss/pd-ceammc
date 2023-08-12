@@ -19,6 +19,12 @@ if(WIN32)
         message(STATUS "GitHub command line found: ${GITHUB_CLI}")
     endif()
 
+    find_program(OBJDUMP_EXE NAMES "objdump.exe")
+    if(OBJDUMP_EXE)
+        message(STATUS "objdump.exe found at: ${OBJDUMP_EXE}")
+        set(CEAMMC_MINGW_PREFIX $ENV{MINGW_PREFIX})
+    endif()
+
     if(CMAKE_SIZEOF_VOID_P EQUAL 8)
         set(CEAMMC_DISTRIB_ARCH "x86_64")
     elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
@@ -39,6 +45,8 @@ if(WIN32)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/pd.iss
                    ${PROJECT_BINARY_DIR}/dist/pd.iss)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fix_dll_deps.sh
+                   ${PROJECT_BINARY_DIR} @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fix_dll_deps.py
                    ${PROJECT_BINARY_DIR} @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win_fix_pddoc_key_modifiers.sh
                    ${PROJECT_BINARY_DIR}/dist/win_fix_pddoc_key_modifiers.sh @ONLY)
