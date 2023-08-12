@@ -11,17 +11,36 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include <cassert>
 #include <thread>
 
-#include "snd_play_tilde.h"
+#include "args/argcheck2.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_signal.h"
 #include "ceammc_sound.h"
 #include "ceammc_units.h"
 #include "fmt/core.h"
+#include "snd_play_tilde.h"
 
-constexpr int EVENT_DONE = 0;
+enum {
+    EVENT_DONE = 0,
+    EVENT_LOOP = 1,
+};
+
+namespace {
+
+void eventDone(SubscriberId id)
+{
+    Dispatcher::instance().send({ id, EVENT_DONE });
+}
+
+void eventLoop(SubscriberId id)
+{
+    Dispatcher::instance().send({ id, EVENT_LOOP });
+}
+
+}
 
 SndPlayTilde::SndPlayTilde(const PdArgs& args)
     : SndPlayBase(args)
@@ -97,6 +116,11 @@ void SndPlayTilde::onFloat(t_float f)
         setQuit(true);
 }
 
+void SndPlayTilde::onSymbol(t_symbol* s)
+{
+    fname_->setValue(s);
+}
+
 void SndPlayTilde::processBlock(const t_sample** in, t_sample** out)
 {
     const auto NCH = n_->value();
@@ -110,6 +134,38 @@ void SndPlayTilde::processBlock(const t_sample** in, t_sample** out)
 
             out[k][i] = x;
         }
+    }
+}
+
+void SndPlayTilde::m_start(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("b?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    onFloat(lv.boolAt(0, true));
+}
+
+void SndPlayTilde::m_stop(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("b?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    onFloat(!lv.boolAt(0, true));
+}
+
+void SndPlayTilde::m_pause(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("b?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    if (lv.boolAt(0, true)) { // save current speed
+        speed_pause_ = atomic_speed_;
+        atomic_speed_ = 0;
+    } else { // restore speed
+        atomic_speed_ = speed_pause_;
     }
 }
 
@@ -129,97 +185,140 @@ SndPlayBase::Future SndPlayTilde::createTask()
             return;
         }
 
-        std::int64_t begin_samp = 0;
-        if (!calcBeginSfPos(begin, f->sampleRate(), f->sampleCount(), begin_samp))
-            return logger_.error(fmt::format("invalid begin position: {}, expected value in [{} ... {}) range", begin_samp, 0, f->sampleCount()));
+        std::int64_t file_begin = 0;
+        if (!calcBeginSfPos(begin, f->sampleRate(), f->sampleCount(), file_begin))
+            return logger_.error(fmt::format("invalid begin position: {}, expected value in [{} ... {}) range", file_begin, 0, f->sampleCount()));
 
-        std::int64_t end_samp = 0;
-        if (!calcEndSfPos(end, f->sampleRate(), f->sampleCount(), begin_samp, end_samp))
-            return logger_.error(fmt::format("invalid end position: {}, expected value in [{} ... {}] range", end_samp, begin_samp, f->sampleCount()));
+        std::int64_t file_end = 0;
+        if (!calcEndSfPos(end, f->sampleRate(), f->sampleCount(), file_begin, file_end))
+            return logger_.error(fmt::format("invalid end position: {}, expected value in [{} ... {}] range", file_end, file_begin, f->sampleCount()));
 
-        logger_.debug(fmt::format("start playing from {} to {} samp, loop={}, samples={}", begin_samp, end_samp, (bool)atomic_loop_, f->sampleCount()));
+        logger_.debug(fmt::format("start playing from {} to {} samp, loop={}, samples={}", file_begin, file_end, (bool)atomic_loop_, f->sampleCount()));
 
         const auto NUM_CH = std::min<size_t>(nch, f->channels());
-        const double SAMP_SPEED = f->sampleRate() / double(sr);
-        const auto SLEEP_TIME = std::chrono::microseconds(1000000 * bs / sr);
+        //        const double SAMP_SPEED = f->sampleRate() / double(sr);
+        const auto BLOCK_TIME_USEC = std::chrono::microseconds(1000000 * bs / sr);
 
         constexpr int BUF_SIZE = 4096;
         using Buffer = std::array<t_word, BUF_SIZE>;
         using BufferList = std::vector<Buffer>;
 
-        BufferList data(NUM_CH);
+        BufferList buf(NUM_CH);
 
         double buf_phase = 0;
-        std::int64_t offset = begin_samp;
+        std::int64_t file_cur_pos = file_begin;
         setQuit(false);
 
         while (!quit()) {
-            std::int64_t nsamp = 0;
+            std::int64_t nframes = 0;
 
             // read samples from file to buffers
+            // then read buffers (maybe with different speed) and push to queue
             for (size_t i = 0; i < NUM_CH; i++) {
-                nsamp = f->read(data[i].data(), data[i].size(), i, offset, data[i].size());
-                if (nsamp < 0) { // read error
-                    logger_.error(fmt::format("'{}': read error", fname));
-                    break;
-                } else if (nsamp == 0) // no more samples
-                    break;
+                // read channel by channel
+                // expected that each channel contains same number of samples ;)
+                nframes = f->read(buf[i].data(), buf[i].size(), i, file_cur_pos, buf[i].size());
+                if (nframes <= 0)
+                    break; // break reading
             }
 
-            // check error
-            if (nsamp < 0)
-                break;
-            else if (nsamp <= 1) { // last single sample or eof
-                if (nsamp == 1) {
-                    while (!quit() && outPipe().write_available() == nch)
-                        std::this_thread::sleep_for(SLEEP_TIME); // sleep for one block period
+            // read error
+            if (nframes < 0) {
+                logger_.error(fmt::format("'{}': read error", fname));
+                break; // quit
+            } else if (nframes == 0) { // no samples (eof)
+                if (!atomic_loop_)
+                    break; // quit playing
 
-                    for (size_t c = 0; c < nch && !quit(); c++)
-                        outPipe().push(data[c][0].w_float);
+                file_cur_pos = file_begin; // reset read position
+                buf_phase = 0;
+                eventLoop(subscriberId());
+                continue; // start new loop
+            } else if (nframes > 1) {
+                const auto UP_LIMIT = nframes - 1;
+                // keep buf_phase in [0, UP_LIMIT) range
+                buf_phase = std::fmod(buf_phase, UP_LIMIT);
+
+                // write samples from buffers to Pd
+                while (buf_phase < UP_LIMIT) {
+                    for (size_t c = 0; c < nch && !quit(); c++) {
+                        // wait while queue is full
+                        while (!quit() && outPipe().write_available() == 0)
+                            std::this_thread::sleep_for(BLOCK_TIME_USEC);
+
+                        // push one channel sample
+                        if (c < NUM_CH) {
+                            // split buffer phase to fractional and integer part
+                            double fip;
+                            auto fp = std::modf(buf_phase, &fip);
+                            size_t idx = fip;
+                            // read interpolated value from buffer
+                            auto value = interpolate::linear<float>(buf[c][idx].w_float, buf[c][idx + 1].w_float, fp);
+                            outPipe().push((atomic_speed_ > 0) ? value : 0); // if pause - output 0
+                        } else
+                            outPipe().push(0);
+                    }
+
+                    buf_phase += atomic_speed_;
                 }
 
-                if (!atomic_loop_) { // single run
-                    break;
-                } else {
-                    offset = begin_samp;
-                    buf_phase = 0;
-                    continue;
+                // move read position up one sample less number of frames for linear interpolation
+                file_cur_pos += UP_LIMIT;
+            } else {
+                // one last sample
+                assert(nframes == 1);
+
+                // keep buf_phase in [0, 1) range
+                buf_phase = std::fmod(buf_phase, 1);
+
+                // write samples from buffers to Pd
+                while (buf_phase < 1) {
+                    for (size_t c = 0; c < nch && !quit(); c++) {
+                        // wait while queue is full
+                        while (!quit() && outPipe().write_available() == 0)
+                            std::this_thread::sleep_for(BLOCK_TIME_USEC);
+
+                        // push one channel sample
+                        if (c < NUM_CH) {
+                            // read interpolated value from buffer
+                            auto value = interpolate::linear<float>(buf[c][0].w_float, 0, buf_phase);
+                            outPipe().push((atomic_speed_ > 0) ? value : 0); // if pause - output 0
+                        } else
+                            outPipe().push(0);
+                    }
+
+                    buf_phase += atomic_speed_;
                 }
-            }
 
-            offset += (nsamp - 1); // +1 for linear interpolation
-            buf_phase = std::fmod(buf_phase, (nsamp - 1));
+                if (!atomic_loop_)
+                    break; // quit playing
 
-            // write samples from buffers to Pd
-            while (buf_phase < (nsamp - 1)) {
-                for (size_t c = 0; c < nch && !quit(); c++) {
-                    // check queue is full
-                    while (!quit() && outPipe().write_available() == 0)
-                        std::this_thread::sleep_for(SLEEP_TIME); // sleep for one block period
-
-                    if (c < NUM_CH) {
-                        double fip;
-                        auto fp = std::modf(buf_phase, &fip);
-                        size_t idx = fip;
-                        auto value = interpolate::linear<float>(data[c][idx].w_float, data[c][idx + 1].w_float, fp);
-                        outPipe().push(value);
-                    } else
-                        outPipe().push(0);
-                }
-
-                buf_phase += (atomic_speed_ + SAMP_SPEED);
+                file_cur_pos = file_begin; // reset read position
+                buf_phase = 0;
+                eventLoop(subscriberId());
+                continue;
             }
         }
 
         f->close();
-        Dispatcher::instance().send({ subscriberId(), EVENT_DONE });
+        eventDone(subscriberId());
     });
 }
 
 void SndPlayTilde::processTask(int event)
 {
-    if (event == EVENT_DONE)
-        bangTo(numOutlets() - 1);
+    auto last_out_idx = numOutlets() - 1;
+
+    switch (event) {
+    case EVENT_DONE:
+        anyTo(last_out_idx, gensym("done"), Atom());
+        break;
+    case EVENT_LOOP:
+        anyTo(last_out_idx, gensym("loop"), Atom());
+        break;
+    default:
+        break;
+    }
 }
 
 bool SndPlayTilde::calcBeginSfPos(const units::TimeValue& tm, size_t sr, size_t sampleCount, std::int64_t& result)
@@ -249,4 +348,7 @@ bool SndPlayTilde::calcEndSfPos(const units::TimeValue& tm, size_t sr, size_t sa
 void setup_snd_play_tilde()
 {
     SoundExternalFactory<SndPlayTilde> obj("snd.play~", OBJECT_FACTORY_DEFAULT);
+    obj.addMethod("start", &SndPlayTilde::m_start);
+    obj.addMethod("stop", &SndPlayTilde::m_stop);
+    obj.addMethod("pause", &SndPlayTilde::m_pause);
 }

@@ -22,7 +22,7 @@
 
 using namespace ceammc;
 
-using Queue = boost::lockfree::spsc_queue<t_sample, boost::lockfree::capacity<1024>>;
+using Queue = boost::lockfree::spsc_queue<t_sample, boost::lockfree::capacity<8192>>;
 
 using SndPlayBase = PollThreadTaskObject<int, Queue, SoundExternal>;
 
@@ -34,17 +34,25 @@ private:
     IntProperty* n_ { nullptr };
     SymbolProperty* fname_ { nullptr };
     ThreadPdLogger logger_;
-    std::atomic<float> atomic_speed_ { 0 };
+    std::atomic<float> atomic_speed_ { 1 };
+    float speed_pause_ { 1 };
     std::atomic_bool atomic_loop_ { false };
     units::TimeValue time_begin_, time_end_;
     Atom begin_ { 0.f }, end_ { POS_END };
+    std::atomic_size_t src_frames_ { 0 }; // number of frames in current soundfile
+    std::atomic<float> src_samplerate_ { 0 }; // sample rate of current soundfile
 
 public:
     SndPlayTilde(const PdArgs& args);
     void initDone() final;
 
     void onFloat(t_float f) final;
+    void onSymbol(t_symbol* s) final;
     void processBlock(const t_sample** in, t_sample** out) final;
+
+    void m_start(t_symbol*, const AtomListView& lv);
+    void m_stop(t_symbol*, const AtomListView& lv);
+    void m_pause(t_symbol*, const AtomListView& lv);
 
     Future createTask() final;
     void processTask(int event) final;
