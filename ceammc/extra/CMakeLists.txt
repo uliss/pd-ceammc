@@ -54,6 +54,7 @@ endif()
 
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 set(CMAKE_BUILD_TYPE Release)
+set(FMT_INSTALL OFF CACHE BOOL "" FORCE)
 add_subdirectory(fmt)
 set_target_properties(fmt PROPERTIES DEBUG_POSTFIX "")
 
@@ -108,13 +109,17 @@ if(WITH_SFIZZ)
     set(SFIZZ_USE_SNDFILE OFF CACHE INTERNAL "")
 
     FetchContent_Declare(
-      sfizz
-      URL      https://github.com/sfztools/sfizz/releases/download/1.2.0/sfizz-1.2.0.tar.gz
-      URL_HASH MD5=13725a41a811dc81c973f303eaaea86b
+        sfizz
+        URL      https://github.com/sfztools/sfizz/releases/download/1.2.0/sfizz-1.2.0.tar.gz
+        URL_HASH MD5=13725a41a811dc81c973f303eaaea86b
     )
     FetchContent_GetProperties(sfizz)
     if(NOT sfizz_POPULATED)
-      FetchContent_Populate(sfizz)
-      add_subdirectory(${sfizz_SOURCE_DIR} ${sfizz_BINARY_DIR} EXCLUDE_FROM_ALL)
+        FetchContent_Populate(sfizz)
+        add_subdirectory(${sfizz_SOURCE_DIR} ${sfizz_BINARY_DIR} EXCLUDE_FROM_ALL)
+
+        if(WIN32)
+            install(TARGETS sfizz_shared RUNTIME DESTINATION extra/ceammc)
+        endif()
     endif()
 endif()
