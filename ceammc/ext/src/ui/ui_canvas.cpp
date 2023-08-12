@@ -655,7 +655,7 @@ void UICanvas::m_dash(const AtomListView& lv)
 
     draw::SetDash dash;
     dash.n = lv.size();
-    for (size_t i = 0; i < std::min(lv.size(), dash.MAX_DASHES); i++)
+    for (size_t i = 0; i < std::min<size_t>(lv.size(), dash.MAX_DASHES); i++)
         dash.dashes[i] = lv[i].asInt();
 
     out_queue_.enqueue(dash);
