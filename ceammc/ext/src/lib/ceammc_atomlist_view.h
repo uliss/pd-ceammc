@@ -213,6 +213,14 @@ public:
     t_symbol* symbolAt(size_t pos, t_symbol* def) const;
 
     /**
+     * Returns atom value at specified position or default if not found
+     * @param pos - position
+     * @param def - default value if not found
+     * @return atom value
+     */
+    const Atom& atomAt(size_t pos, const Atom& def) const { return pos >= n_ ? def : at(pos); }
+
+    /**
      * Returns float at specified position that is greater
      *   then specified value or default if index out of range or value not satisfied
      * @param pos - position

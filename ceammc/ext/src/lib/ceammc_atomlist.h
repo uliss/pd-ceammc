@@ -148,6 +148,14 @@ public:
     const Atom* foldAt(int pos) const;
 
     /**
+     * Returns atom value at specified position or default if not found
+     * @param pos - position
+     * @param def - default value if not found
+     * @return atom value
+     */
+    const Atom& atomAt(size_t pos, const Atom& def) const { return pos >= size() ? def : at(pos); }
+
+    /**
      * Try to get int from specified list position. If no int - return default value
      */
     bool boolAt(size_t pos, bool def) const noexcept;
