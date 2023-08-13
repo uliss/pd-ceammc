@@ -169,6 +169,80 @@ void SndPlayTilde::m_pause(t_symbol* s, const AtomListView& lv)
     }
 }
 
+void SndPlayTilde::m_ff(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("TIME:a?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    if (taskState() != TASK_RUNNING)
+        return;
+
+    using namespace units;
+
+    TimeValue x(0, TimeValue::MS, src_samplerate_);
+    auto res = TimeValue::parse(lv.atomAt(0, Atom(1000)));
+    if (res.matchValue(x)) {
+        file_cur_pos_ += x.toSamples();
+        if (file_cur_pos_ < file_begin_)
+            file_cur_pos_ = file_begin_;
+        else if (file_cur_pos_ > file_end_)
+            file_cur_pos_ = file_end_;
+    } else {
+        OBJ_ERR << res.error().msg;
+    }
+}
+
+void SndPlayTilde::m_rewind(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("RELTIME:a?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    if (taskState() != TASK_RUNNING)
+        return;
+
+    using namespace units;
+
+    TimeValue x(0, TimeValue::MS, src_samplerate_);
+    auto res = TimeValue::parse(lv.atomAt(0, Atom(1000)));
+    if (res.matchValue(x)) {
+        file_cur_pos_ -= x.toSamples();
+        if (file_cur_pos_ < file_begin_)
+            file_cur_pos_ = file_begin_;
+        else if (file_cur_pos_ > file_end_)
+            file_cur_pos_ = file_end_;
+    } else {
+        OBJ_ERR << res.error().msg;
+    }
+}
+
+void SndPlayTilde::m_seek(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("POS:a?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    if (taskState() != TASK_RUNNING)
+        return;
+
+    using namespace units;
+
+    TimeValue x(0, TimeValue::MS, src_samplerate_);
+    auto res = TimeValue::parse(lv.atomAt(0, Atom(0.)));
+    if (res.matchValue(x)) {
+        auto samp = x.toSamples();
+        if (samp >= 0)
+            file_cur_pos_ = samp + file_begin_;
+
+        if (file_cur_pos_ > file_end_)
+            file_cur_pos_ = file_end_;
+
+    } else {
+        OBJ_ERR << res.error().msg;
+    }
+}
+
 SndPlayBase::Future SndPlayTilde::createTask()
 {
     std::string fname = fname_->str();
@@ -185,15 +259,19 @@ SndPlayBase::Future SndPlayTilde::createTask()
             return;
         }
 
-        std::int64_t file_begin = 0;
-        if (!calcBeginSfPos(begin, f->sampleRate(), f->sampleCount(), file_begin))
-            return logger_.error(fmt::format("invalid begin position: {}, expected value in [{} ... {}) range", file_begin, 0, f->sampleCount()));
+        file_begin_ = 0;
+        if (!calcBeginSfPos(begin, f->sampleRate(), f->sampleCount(), file_begin_))
+            return logger_.error(fmt::format("invalid begin position: {}, expected value in [{} ... {}) range", file_begin_, 0, f->sampleCount()));
 
-        std::int64_t file_end = 0;
-        if (!calcEndSfPos(end, f->sampleRate(), f->sampleCount(), file_begin, file_end))
-            return logger_.error(fmt::format("invalid end position: {}, expected value in [{} ... {}] range", file_end, file_begin, f->sampleCount()));
+        file_end_ = 0;
+        if (!calcEndSfPos(end, f->sampleRate(), f->sampleCount(), file_begin_, file_end_))
+            return logger_.error(fmt::format("invalid end position: {}, expected value in [{} ... {}] range", file_end_, file_begin_, f->sampleCount()));
 
-        logger_.debug(fmt::format("start playing from {} to {} samp, loop={}, samples={}", file_begin, file_end, (bool)atomic_loop_, f->sampleCount()));
+        // store file info
+        src_samplerate_ = f->sampleRate();
+        src_frames_ = f->sampleCount();
+
+        logger_.debug(fmt::format("start playing from {} to {} samp, loop={}, samples={}", file_begin_, file_end_, (bool)atomic_loop_, f->sampleCount()));
 
         const auto NUM_CH = std::min<size_t>(nch, f->channels());
         //        const double SAMP_SPEED = f->sampleRate() / double(sr);
@@ -206,7 +284,7 @@ SndPlayBase::Future SndPlayTilde::createTask()
         BufferList buf(NUM_CH);
 
         double buf_phase = 0;
-        std::int64_t file_cur_pos = file_begin;
+        file_cur_pos_ = file_begin_;
         setQuit(false);
 
         while (!quit()) {
@@ -217,7 +295,7 @@ SndPlayBase::Future SndPlayTilde::createTask()
             for (size_t i = 0; i < NUM_CH; i++) {
                 // read channel by channel
                 // expected that each channel contains same number of samples ;)
-                nframes = f->read(buf[i].data(), buf[i].size(), i, file_cur_pos, buf[i].size());
+                nframes = f->read(buf[i].data(), buf[i].size(), i, file_cur_pos_, buf[i].size());
                 if (nframes <= 0)
                     break; // break reading
             }
@@ -230,8 +308,9 @@ SndPlayBase::Future SndPlayTilde::createTask()
                 if (!atomic_loop_)
                     break; // quit playing
 
-                file_cur_pos = file_begin; // reset read position
+                // reset read pos
                 buf_phase = 0;
+                seekToBeg();
                 eventLoop(subscriberId());
                 continue; // start new loop
             } else if (nframes > 1) {
@@ -263,7 +342,7 @@ SndPlayBase::Future SndPlayTilde::createTask()
                 }
 
                 // move read position up one sample less number of frames for linear interpolation
-                file_cur_pos += UP_LIMIT;
+                file_cur_pos_ += UP_LIMIT;
             } else {
                 // one last sample
                 assert(nframes == 1);
@@ -293,7 +372,7 @@ SndPlayBase::Future SndPlayTilde::createTask()
                 if (!atomic_loop_)
                     break; // quit playing
 
-                file_cur_pos = file_begin; // reset read position
+                seekToBeg(); // reset read position
                 buf_phase = 0;
                 eventLoop(subscriberId());
                 continue;
@@ -311,10 +390,10 @@ void SndPlayTilde::processTask(int event)
 
     switch (event) {
     case EVENT_DONE:
-        anyTo(last_out_idx, gensym("done"), Atom());
+        anyTo(last_out_idx, gensym("done"), AtomListView());
         break;
     case EVENT_LOOP:
-        anyTo(last_out_idx, gensym("loop"), Atom());
+        anyTo(last_out_idx, gensym("loop"), AtomListView());
         break;
     default:
         break;
@@ -351,4 +430,7 @@ void setup_snd_play_tilde()
     obj.addMethod("start", &SndPlayTilde::m_start);
     obj.addMethod("stop", &SndPlayTilde::m_stop);
     obj.addMethod("pause", &SndPlayTilde::m_pause);
+    obj.addMethod("ff", &SndPlayTilde::m_ff);
+    obj.addMethod("rewind", &SndPlayTilde::m_rewind);
+    obj.addMethod("seek", &SndPlayTilde::m_seek);
 }

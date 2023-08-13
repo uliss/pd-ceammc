@@ -41,6 +41,9 @@ private:
     Atom begin_ { 0.f }, end_ { POS_END };
     std::atomic_size_t src_frames_ { 0 }; // number of frames in current soundfile
     std::atomic<float> src_samplerate_ { 0 }; // sample rate of current soundfile
+    std::atomic_int64_t file_cur_pos_ { 0 }; // changed both in worker and caller threads
+    std::int64_t file_begin_ { 0 }, file_end_ { 0 };
+    std::size_t begin_samp_, end_samp_;
 
 public:
     SndPlayTilde(const PdArgs& args);
@@ -53,9 +56,15 @@ public:
     void m_start(t_symbol*, const AtomListView& lv);
     void m_stop(t_symbol*, const AtomListView& lv);
     void m_pause(t_symbol*, const AtomListView& lv);
+    void m_ff(t_symbol*, const AtomListView& lv);
+    void m_rewind(t_symbol*, const AtomListView& lv);
+    void m_seek(t_symbol*, const AtomListView& lv);
 
     Future createTask() final;
     void processTask(int event) final;
+
+private:
+    inline void seekToBeg() { file_cur_pos_ = file_begin_; }
 
 private:
     static bool calcBeginSfPos(const units::TimeValue& tm, size_t sr, size_t sampleCount, std::int64_t& result);
