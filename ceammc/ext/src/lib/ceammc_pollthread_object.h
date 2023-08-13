@@ -123,6 +123,11 @@ public:
     void setQuit(bool value) { quit_ = value; }
     const std::atomic_bool& quit() const { return quit_; }
 
+    bool isRunning() const
+    {
+        return taskState() == TASK_RUNNING;
+    }
+
     In& inPipe() { return task_in_; }
     const In& inPipe() const { return task_in_; }
     Out& outPipe() { return task_out_; }
