@@ -14,7 +14,9 @@
 #ifndef SND_PLAY_TILDE_H
 #define SND_PLAY_TILDE_H
 
+#include "ceammc_clock.h"
 #include "ceammc_pollthread_object.h"
+#include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
 #include "ceammc_units.h"
 
@@ -33,17 +35,24 @@ class SndPlayTilde : public SndPlayBase {
 private:
     IntProperty* n_ { nullptr };
     SymbolProperty* fname_ { nullptr };
+    SymbolEnumProperty* sync_mode_ { nullptr };
     ThreadPdLogger logger_;
-    std::atomic<float> atomic_speed_ { 1 };
+    // speed
+    std::atomic<float> atomic_speed_ { 1 }; // set in caller thread, read in worker thread
     float speed_pause_ { 1 };
-    std::atomic_bool atomic_loop_ { false };
+    // loop
+    std::atomic_bool atomic_loop_ { false }; // set in caller thread, read in worker thread
+    // begin/end
     units::TimeValue time_begin_, time_end_;
+    std::int64_t file_begin_ { 0 }, file_end_ { 0 };
     Atom begin_ { 0.f }, end_ { POS_END };
+
     std::atomic_size_t src_frames_ { 0 }; // number of frames in current soundfile
     std::atomic<float> src_samplerate_ { 0 }; // sample rate of current soundfile
     std::atomic_int64_t file_cur_pos_ { 0 }; // changed both in worker and caller threads
-    std::int64_t file_begin_ { 0 }, file_end_ { 0 };
-    std::size_t begin_samp_, end_samp_;
+
+    ClockLambdaFunction clock_play_;
+    bool defer_play_ { false };
 
 public:
     SndPlayTilde(const PdArgs& args);
@@ -65,6 +74,7 @@ public:
 
 private:
     inline void seekToBeg() { file_cur_pos_ = file_begin_; }
+    void start(bool value);
 
 private:
     static bool calcBeginSfPos(const units::TimeValue& tm, size_t sr, size_t sampleCount, std::int64_t& result);

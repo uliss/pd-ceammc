@@ -16,12 +16,17 @@
 
 #include "args/argcheck2.h"
 #include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_signal.h"
 #include "ceammc_sound.h"
 #include "ceammc_units.h"
 #include "fmt/core.h"
 #include "snd_play_tilde.h"
+
+CEAMMC_DEFINE_SYM_HASH(wait)
+CEAMMC_DEFINE_SYM_HASH(now)
+CEAMMC_DEFINE_SYM_HASH(defer)
 
 enum {
     EVENT_DONE = 0,
@@ -46,6 +51,13 @@ SndPlayTilde::SndPlayTilde(const PdArgs& args)
     : SndPlayBase(args)
     , time_begin_(0)
     , time_end_(POS_END)
+    , clock_play_([this] {
+        if (isRunning()) {
+            setQuit(true);
+            clock_play_.delay(0);
+        } else
+            runTask();
+    })
 {
     n_ = new IntProperty("@n", 2, PropValueAccess::INITONLY);
     n_->checkClosedRange(1, 32);
@@ -55,6 +67,9 @@ SndPlayTilde::SndPlayTilde(const PdArgs& args)
     fname_ = new SymbolProperty("@name", &s_);
     fname_->setArgIndex(1);
     addProperty(fname_);
+
+    sync_mode_ = new SymbolEnumProperty("@sync", { sym_now(), sym_wait(), sym_defer() });
+    addProperty(sync_mode_);
 
     auto speed = createCbFloatProperty(
         "@speed",
@@ -105,15 +120,7 @@ void SndPlayTilde::initDone()
 
 void SndPlayTilde::onFloat(t_float f)
 {
-    if (f == 1) {
-        if (fname_->value() == &s_) {
-            OBJ_ERR << "empty filename";
-            return;
-        }
-
-        runTask();
-    } else
-        setQuit(true);
+    start(f == 1);
 }
 
 void SndPlayTilde::onSymbol(t_symbol* s)
@@ -143,7 +150,7 @@ void SndPlayTilde::m_start(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    onFloat(lv.boolAt(0, true));
+    start(lv.boolAt(0, true));
 }
 
 void SndPlayTilde::m_stop(t_symbol* s, const AtomListView& lv)
@@ -152,7 +159,7 @@ void SndPlayTilde::m_stop(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    onFloat(!lv.boolAt(0, true));
+    start(!lv.boolAt(0, true));
 }
 
 void SndPlayTilde::m_pause(t_symbol* s, const AtomListView& lv)
@@ -274,7 +281,6 @@ SndPlayBase::Future SndPlayTilde::createTask()
         logger_.debug(fmt::format("start playing from {} to {} samp, loop={}, samples={}", file_begin_, file_end_, (bool)atomic_loop_, f->sampleCount()));
 
         const auto NUM_CH = std::min<size_t>(nch, f->channels());
-        //        const double SAMP_SPEED = f->sampleRate() / double(sr);
         const auto BLOCK_TIME_USEC = std::chrono::microseconds(1000000 * bs / sr);
 
         constexpr int BUF_SIZE = 4096;
@@ -391,13 +397,51 @@ void SndPlayTilde::processTask(int event)
     switch (event) {
     case EVENT_DONE:
         anyTo(last_out_idx, gensym("done"), AtomListView());
+        if (defer_play_) {
+            defer_play_ = false;
+            clock_play_.delay(0);
+        }
         break;
     case EVENT_LOOP:
         anyTo(last_out_idx, gensym("loop"), AtomListView());
+        if (defer_play_) {
+            defer_play_ = false;
+            clock_play_.delay(0);
+        }
         break;
     default:
         break;
     }
+}
+
+void SndPlayTilde::start(bool value)
+{
+    if (value) {
+        if (fname_->value() == &s_) {
+            OBJ_ERR << "empty filename";
+            return;
+        }
+
+        if (isRunning()) {
+            switch (crc32_hash(sync_mode_->value())) {
+            case hash_now:
+                clock_play_.delay(0);
+                break;
+            case hash_wait:
+                OBJ_ERR << "soundfile is playing, wait until it will finished or stop it";
+                break;
+            case hash_defer:
+            default:
+                defer_play_ = true;
+                break;
+            }
+
+        } else {
+            runTask();
+        }
+
+    } else
+        setQuit(true);
 }
 
 bool SndPlayTilde::calcBeginSfPos(const units::TimeValue& tm, size_t sr, size_t sampleCount, std::int64_t& result)
