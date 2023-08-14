@@ -177,13 +177,14 @@ namespace sound {
         }
 
         // seek to offset
-        const auto pos = std::min<size_t>(offset * channels(), frameCount());
+        const auto pos = std::min<size_t>(offset, frameCount()) * channels();
         if (mp3dec_ex_seek(decoder_.get(), pos)) {
             LIB_ERR << fmt::format(MINI_PREFIX "can't seek to sample #{}", offset);
             return -1;
         }
 
         static_assert(std::is_same<mp3d_sample_t, float>::value, "expected float for mp3 sample format");
+
         auto n = mp3dec_ex_read(decoder_.get(), dest, frames * channels());
         return n / channels();
     }
