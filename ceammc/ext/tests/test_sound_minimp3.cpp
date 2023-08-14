@@ -35,12 +35,13 @@ TEST_CASE("minimp3", "[ceammc_sound]")
     SECTION("load constant rate")
     {
         MiniMp3 loader;
+        REQUIRE(loader.probe(TEST_DATA_DIR "/test_data0.mp3"));
         REQUIRE(loader.open(TEST_DATA_DIR "/test_data0.mp3", SoundFile::READ, {}));
         REQUIRE(loader.channels() == 1);
         REQUIRE(loader.filename() == TEST_DATA_DIR "/test_data0.mp3");
         REQUIRE(loader.isOpened());
         REQUIRE(loader.sampleRate() == 44100);
-        REQUIRE(loader.sampleCount() == 441);
+        REQUIRE(loader.frameCount() == 441);
 
         t_word dest[1024];
         auto rc = loader.read(dest, 512, 0, 0, 1024);
@@ -56,12 +57,13 @@ TEST_CASE("minimp3", "[ceammc_sound]")
     SECTION("load vbr")
     {
         MiniMp3 loader;
+        REQUIRE(loader.probe(TEST_DATA_DIR "/test_data0_vbr.mp3"));
         REQUIRE(loader.open(TEST_DATA_DIR "/test_data0_vbr.mp3", SoundFile::READ, {}));
         REQUIRE(loader.channels() == 1);
         REQUIRE(loader.filename() == TEST_DATA_DIR "/test_data0_vbr.mp3");
         REQUIRE(loader.isOpened());
         REQUIRE(loader.sampleRate() == 44100);
-        REQUIRE(loader.sampleCount() == 441);
+        REQUIRE(loader.frameCount() == 441);
 
         t_word dest[1024];
         auto rc = loader.read(dest, 512, 0, 0, 1024);
@@ -85,7 +87,7 @@ TEST_CASE("minimp3", "[ceammc_sound]")
                 REQUIRE(loader.channels() == 1);
                 REQUIRE(loader.isOpened());
                 REQUIRE(loader.sampleRate() == 12000);
-                REQUIRE(loader.sampleCount() == 12000);
+                REQUIRE(loader.frameCount() == 12000);
 
                 t_word dest[3000];
                 auto rc = loader.read(dest, 3000, 0, 1000, 3000);
@@ -110,7 +112,7 @@ TEST_CASE("minimp3", "[ceammc_sound]")
                 REQUIRE(loader.channels() == 1);
                 REQUIRE(loader.isOpened());
                 REQUIRE(loader.sampleRate() == 44100);
-                REQUIRE(loader.sampleCount() == 44100);
+                REQUIRE(loader.frameCount() == 44100);
 
                 t_word dest[512];
                 auto rc = loader.read(dest, 512, 0, 1000, 512);
@@ -135,7 +137,7 @@ TEST_CASE("minimp3", "[ceammc_sound]")
                 REQUIRE(loader.channels() == 2);
                 REQUIRE(loader.isOpened());
                 REQUIRE(loader.sampleRate() == 44100);
-                REQUIRE(loader.sampleCount() == 88200);
+                REQUIRE(loader.frameCount() == 44100);
 
                 t_word dest[1000];
                 auto rc = loader.read(dest, 1000, 0, 1000, 1000);
@@ -160,7 +162,7 @@ TEST_CASE("minimp3", "[ceammc_sound]")
                 REQUIRE(loader.channels() == 2);
                 REQUIRE(loader.isOpened());
                 REQUIRE(loader.sampleRate() == 44100);
-                REQUIRE(loader.sampleCount() == 88200);
+                REQUIRE(loader.frameCount() == 44100);
 
                 t_word dest[1000];
                 auto rc = loader.read(dest, 1000, 1, 1000, 1000);
@@ -187,7 +189,7 @@ TEST_CASE("minimp3", "[ceammc_sound]")
             REQUIRE(loader.channels() == 1);
             REQUIRE(loader.isOpened());
             REQUIRE(loader.sampleRate() == 24000);
-            REQUIRE(loader.sampleCount() == 24000);
+            REQUIRE(loader.frameCount() == 24000);
 
             t_word dest[1000];
             auto rc = loader.read(dest, 1000, 0, 1000, 1000);
@@ -212,7 +214,7 @@ TEST_CASE("minimp3", "[ceammc_sound]")
             REQUIRE(loader.isOpened());
             REQUIRE(loader.channels() == 1);
             REQUIRE(loader.sampleRate() == 24000);
-            REQUIRE(loader.sampleCount() == 24000);
+            REQUIRE(loader.frameCount() == 24000);
             REQUIRE(loader.gain() == 1);
 
             loader.setResampleRatio(12000 / 24000.0);
@@ -253,7 +255,7 @@ TEST_CASE("minimp3", "[ceammc_sound]")
             REQUIRE(loader.isOpened());
             REQUIRE(loader.channels() == 1);
             REQUIRE(loader.sampleRate() == 24000);
-            REQUIRE(loader.sampleCount() == 24000);
+            REQUIRE(loader.frameCount() == 24000);
 
             loader.setResampleRatio(48000 / 24000.0);
 

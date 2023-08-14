@@ -45,6 +45,8 @@ typedef struct audio_player t_audio_player;
 
 int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info);
 int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, size_t count, t_word* buf, t_float gain, double resample_ratio, size_t max_samples);
+int64_t ceammc_coreaudio_read_frames(const char* path, float* buf, size_t frames, size_t offset);
+
 
 t_audio_player* ceammc_coreaudio_player_create();
 int ceammc_coreaudio_player_open(t_audio_player* p, const char* path, int sample_rate);

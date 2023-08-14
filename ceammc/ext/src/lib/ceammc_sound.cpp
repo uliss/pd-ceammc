@@ -146,7 +146,7 @@ namespace sound {
 
         for (auto& l : backends()) {
             auto ptr = l.make_sndfile();
-            if (ptr && ptr->open(path, SoundFile::READ, params))
+            if (ptr && ptr->probe(path.c_str()) && ptr->open(path, SoundFile::READ, params))
                 return ptr;
         }
 

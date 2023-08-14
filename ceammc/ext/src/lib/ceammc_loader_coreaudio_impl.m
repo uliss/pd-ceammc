@@ -465,3 +465,80 @@ size_t ceammc_coreaudio_player_samples(t_audio_player* p)
 
     return totalFrameCount;
 }
+
+int64_t ceammc_coreaudio_read_frames(const char* path, float* buf, size_t frames, size_t offset)
+{
+    if (buf == 0)
+        return INVALID_ARGS;
+
+    ExtAudioFileRef converter = 0;
+    if (!openConverter(path, &converter)) {
+        ExtAudioFileDispose(converter);
+        return FILEOPEN_ERR;
+    }
+
+    AudioStreamBasicDescription asbd;
+    if (!getASBD(converter, &asbd)) {
+        ExtAudioFileDispose(converter);
+        return FILEINFO_ERR;
+    }
+
+    AudioStreamBasicDescription audioOutFmt;
+    fillOutputASBD(&audioOutFmt, &asbd);
+
+    if (!setOutputFormat(converter, &audioOutFmt)) {
+        ExtAudioFileDispose(converter);
+        return PROPERTY_ERR;
+    }
+
+    UInt32 numSamples = 1024; // How many samples to read in at a time
+    UInt32 sizePerPacket = audioOutFmt.mBytesPerPacket;
+    UInt32 packetsPerBuffer = numSamples;
+    UInt32 outputBufferSize = packetsPerBuffer * sizePerPacket;
+    UInt8* outputBuffer = (UInt8*)malloc(sizeof(UInt8) * outputBufferSize);
+
+    AudioBufferList convertedData;
+
+    convertedData.mNumberBuffers = 1;
+    convertedData.mBuffers[0].mNumberChannels = audioOutFmt.mChannelsPerFrame;
+    convertedData.mBuffers[0].mDataByteSize = outputBufferSize;
+    convertedData.mBuffers[0].mData = outputBuffer;
+
+    UInt32 frameCount = numSamples;
+    size_t frameIdx = 0;
+
+    OSStatus err = ExtAudioFileSeek(converter, offset);
+    if (err != noErr) {
+        checkError(err, "error: ExtAudioFileSeek");
+        ExtAudioFileDispose(converter);
+        free(outputBuffer);
+        return OFFSET_ERR;
+    }
+
+    while (frameCount > 0) {
+        err = ExtAudioFileRead(converter, &frameCount, &convertedData);
+        if (err != noErr) {
+            checkError(err, "error: ExtAudioFileRead");
+            ExtAudioFileDispose(converter);
+            free(outputBuffer);
+            return OFFSET_ERR;
+        }
+
+        if (frameCount > 0) {
+            AudioBuffer audioBuffer = convertedData.mBuffers[0];
+            float* data = (float*)audioBuffer.mData;
+
+            for (UInt32 i = 0; i < frameCount && (frameIdx < frames); i++) {
+                for (UInt32 ch = 0; ch < audioBuffer.mNumberChannels; ch++)
+                    buf[frameIdx + ch] = data[audioBuffer.mNumberChannels * i + ch];
+
+                frameIdx++;
+            }
+        }
+    }
+
+    ExtAudioFileDispose(converter);
+    free(outputBuffer);
+
+    return frameIdx;
+}

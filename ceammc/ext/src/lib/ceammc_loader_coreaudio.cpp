@@ -24,9 +24,15 @@ using namespace ceammc::sound;
 CoreAudioFile::CoreAudioFile()
     : sample_rate_(0)
     , channels_(0)
-    , sample_count_(0)
+    , frame_count_(0)
     , is_opened_(false)
 {
+}
+
+bool CoreAudioFile::probe(const char* fname) const
+{
+    audiofile_info_t fi = { 0 };
+    return ceammc_coreaudio_getinfo(fname, &fi) == 0;
 }
 
 bool CoreAudioFile::open(const std::string& fname, OpenMode mode, const SoundFileOpenParams& params)
@@ -36,7 +42,7 @@ bool CoreAudioFile::open(const std::string& fname, OpenMode mode, const SoundFil
         audiofile_info_t fi = { 0 };
         if (ceammc_coreaudio_getinfo(fname.c_str(), &fi) == 0) {
             sample_rate_ = fi.sampleRate;
-            sample_count_ = fi.sampleCount;
+            frame_count_ = fi.sampleCount;
             channels_ = fi.channels;
             is_opened_ = true;
             fname_ = fname;
@@ -51,9 +57,9 @@ bool CoreAudioFile::open(const std::string& fname, OpenMode mode, const SoundFil
     return false;
 }
 
-size_t CoreAudioFile::sampleCount() const
+size_t CoreAudioFile::frameCount() const
 {
-    return is_opened_ ? sample_count_ : 0;
+    return is_opened_ ? frame_count_ : 0;
 }
 
 size_t CoreAudioFile::sampleRate() const
@@ -86,6 +92,17 @@ std::int64_t CoreAudioFile::read(t_word* dest, size_t sz, size_t channel, std::i
     }
 
     int64_t res = ceammc_coreaudio_load(filename().c_str(), channel, offset, sz, dest, gain(), resampleRatio(), max_samples);
+    return res < 0 ? -1 : res;
+}
+
+std::int64_t CoreAudioFile::readFrames(float* dest, size_t frames, std::int64_t offset)
+{
+    if (!isOpened() || openMode() != READ) {
+        LIB_ERR << fmt::format(CA_PREFIX "not opened for reading");
+        return -1;
+    }
+
+    int64_t res = ceammc_coreaudio_read_frames(filename().c_str(), dest, frames, offset);
     return res < 0 ? -1 : res;
 }
 

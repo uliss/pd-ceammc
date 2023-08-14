@@ -21,20 +21,31 @@ namespace sound {
     class CoreAudioFile : public SoundFile {
         size_t sample_rate_;
         size_t channels_;
-        size_t sample_count_;
+        size_t frame_count_;
         bool is_opened_;
 
     public:
         CoreAudioFile();
 
+        bool probe(const char* fname) const final;
         bool open(const std::string& fname, OpenMode mode, const SoundFileOpenParams& params) final;
-        size_t sampleCount() const final;
+        size_t frameCount() const final;
         size_t sampleRate() const final;
         size_t channels() const final;
         bool isOpened() const final;
         bool close() final;
 
         std::int64_t read(t_word* dest, size_t sz, size_t channel, std::int64_t offset, size_t max_samples) final;
+
+        /**
+         * @brief read audio frames to given buffer
+         * @param fname - input filepath
+         * @param dest - pointer to destination
+         * @param frames - destination buffer size in frames (samples * num_chan)
+         * @param offset - start position to read in frames
+         * @return number of readed frames or -1 on error
+         */
+        std::int64_t readFrames(float* dest, size_t frames, std::int64_t offset) final;
 
     public:
         static FormatList supportedReadFormats();

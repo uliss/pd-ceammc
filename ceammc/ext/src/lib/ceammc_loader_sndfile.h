@@ -26,8 +26,9 @@ namespace sound {
     public:
         LibSndFile();
 
+        bool probe(const char* fname) const final;
         bool open(const std::string& fname, OpenMode mode, const SoundFileOpenParams& params) final;
-        size_t sampleCount() const final;
+        size_t frameCount() const final;
         size_t sampleRate() const final;
         size_t channels() const final;
         bool isOpened() const final;
@@ -35,6 +36,16 @@ namespace sound {
 
         std::int64_t read(t_word* dest, size_t sz, size_t channel, std::int64_t offset, size_t max_samples) final;
         std::int64_t write(const t_word* const* src, size_t num_frames, std::int64_t offset) final;
+
+        /**
+         * @brief read audio frames to given buffer
+         * @param fname - input filepath
+         * @param dest - pointer to destination
+         * @param sz - destination buffer size in frames (samples * num_chan)
+         * @param offset - start position to read in frames
+         * @return number of readed frames or -1 on error
+         */
+        std::int64_t readFrames(float* dest, size_t sz, std::int64_t offset) final;
 
     public:
         static FormatList supportedReadFormats();

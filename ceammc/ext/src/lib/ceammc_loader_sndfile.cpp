@@ -27,13 +27,18 @@ namespace sound {
     {
     }
 
+    bool LibSndFile::probe(const char* fname) const
+    {
+        SndfileHandle sf(fname, SFM_READ);
+        return sf.rawHandle();
+    }
+
     bool LibSndFile::open(const std::string& fname, OpenMode mode, const SoundFileOpenParams& params)
     {
         auto fmt = makeLibFormat(params.file_format, params.sample_format);
 
         switch (mode) {
         case WRITE: {
-
             if (!handle_.formatCheck(fmt, params.num_channels, params.samplerate)) {
                 LIB_ERR << fmt::format("[sndfile] invalid options for format {} (0x{:0x}): "
                                        "num_channels={} samplerate={}",
@@ -48,7 +53,6 @@ namespace sound {
             }
         } break;
         case READ:
-        default:
             // auto detect soundfile format
             handle_ = SndfileHandle(fname, SFM_READ, fmt, params.num_channels, params.samplerate);
             if (handle_.rawHandle() == 0) {
@@ -56,6 +60,9 @@ namespace sound {
                 return false;
             }
             break;
+        case NONE:
+        default:
+            return false;
         }
 
         setOpenMode(mode);
@@ -63,7 +70,7 @@ namespace sound {
         return true;
     }
 
-    size_t LibSndFile::sampleCount() const
+    size_t LibSndFile::frameCount() const
     {
         return handle_.frames();
     }
@@ -189,6 +196,27 @@ namespace sound {
         handle_.writeSync();
         handle_ = {};
         return samples_written;
+    }
+
+    std::int64_t LibSndFile::readFrames(float* dest, size_t sz, std::int64_t offset)
+    {
+        if (!(isOpened() && openMode() == READ)) {
+            LIB_ERR << fmt::format("[sndfile] not opened for reading");
+            return -1;
+        }
+
+        constexpr sf_count_t FRAME_COUNT = 256;
+        const int n = channels();
+        const sf_count_t IN_BUF_SIZE = FRAME_COUNT * n;
+        float frame_buf[IN_BUF_SIZE];
+
+        // move to beginning
+        if (handle_.seek(offset, SEEK_SET) == -1) {
+            LIB_ERR << fmt::format("[sndfile] can't seek to frame: {}", offset);
+            return -1;
+        }
+
+        return handle_.readf(dest, sz);
     }
 
     std::int64_t LibSndFile::readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples)

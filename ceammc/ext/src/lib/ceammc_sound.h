@@ -83,6 +83,13 @@ namespace sound {
         void setResampleRatio(double r) { resample_ratio_ = r; }
 
         /**
+         * Try to open soundfile for reading
+         * @param fname
+         * @return true if soundformat is supported, false otherwise
+         */
+        virtual bool probe(const char* fname) const = 0;
+
+        /**
          * open soundfile
          * @param fname - full path to the soundfile
          * @param mode - open mode
@@ -102,9 +109,9 @@ namespace sound {
         virtual bool close() = 0;
 
         /**
-         * @brief size in samples
+         * @brief size in frames (each frame == number of channels() samples)
          */
-        virtual size_t sampleCount() const = 0;
+        virtual size_t frameCount() const = 0;
 
         /**
          * @return soundfile samplerate
@@ -127,6 +134,16 @@ namespace sound {
          * @return number of readed samples or -1 on error
          */
         virtual std::int64_t read(t_word* dest, size_t sz, size_t channel, std::int64_t offset, size_t max_samples) = 0;
+
+        /**
+         * @brief read audio frames to given buffer
+         * @param fname - input filepath
+         * @param dest - pointer to destination
+         * @param sz - destination buffer size in frames (samples * num_chan)
+         * @param offset - start position to read in frames
+         * @return number of readed frames or -1 on error
+         */
+        virtual std::int64_t readFrames(float* dest, size_t sz, std::int64_t offset) = 0;
 
         /**
          * write arrays content to the soundfile

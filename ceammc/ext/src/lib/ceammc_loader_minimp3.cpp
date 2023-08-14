@@ -61,21 +61,26 @@ namespace sound {
     {
     }
 
+    bool MiniMp3::probe(const char* fname) const
+    {
+        return mp3dec_detect(fname) == 0;
+    }
+
     bool MiniMp3::open(const std::string& fname, OpenMode mode, const SoundFileOpenParams& params)
     {
-        if (params.file_format != FORMAT_MP3 && params.file_format != FORMAT_UNKNOWN) {
-            LIB_ERR << fmt::format(MINI_PREFIX "non-supported format: {}", (int)params.file_format);
-            return false;
-        }
-
-        if (mode != READ) {
+        switch (mode) {
+        case SoundFile::WRITE:
             LIB_ERR << fmt::format(MINI_PREFIX "can't open for writing: '{}'", fname);
             return false;
-        }
-
-        if (mp3dec_ex_open(decoder_.get(), fname.c_str(), MP3D_SEEK_TO_SAMPLE)) {
-            LIB_ERR << fmt::format(MINI_PREFIX "can't open file: '{}'", fname);
-            decoder_.reset();
+        case SoundFile::READ:
+            if (mp3dec_ex_open(decoder_.get(), fname.c_str(), MP3D_SEEK_TO_SAMPLE)) {
+                LIB_ERR << fmt::format(MINI_PREFIX "can't open file: '{}'", fname);
+                decoder_.reset();
+                return false;
+            }
+            break;
+        case SoundFile::NONE:
+        default:
             return false;
         }
 
@@ -86,10 +91,10 @@ namespace sound {
 
     MiniMp3::~MiniMp3() = default;
 
-    size_t MiniMp3::sampleCount() const
+    size_t MiniMp3::frameCount() const
     {
         if (decoder_)
-            return decoder_->samples;
+            return decoder_->samples / decoder_->info.channels;
         else
             return 0;
     }
@@ -140,7 +145,7 @@ namespace sound {
             return readResampled(dest, sz, ch, offset, max_samples);
 
         // seek to offset
-        const auto pos = std::min<size_t>(offset * NUM_CH, sampleCount());
+        const auto pos = std::min<size_t>(offset, frameCount()) * NUM_CH;
         if (mp3dec_ex_seek(decoder_.get(), pos)) {
             LIB_ERR << fmt::format(MINI_PREFIX "can't seek to sample #{}", offset);
             return -1;
@@ -164,6 +169,25 @@ namespace sound {
         return readed / NUM_CH;
     }
 
+    std::int64_t MiniMp3::readFrames(float* dest, size_t frames, std::int64_t offset)
+    {
+        if (!(isOpened() && openMode() == READ)) {
+            LIB_ERR << fmt::format(MINI_PREFIX "not opened for reading");
+            return -1;
+        }
+
+        // seek to offset
+        const auto pos = std::min<size_t>(offset * channels(), frameCount());
+        if (mp3dec_ex_seek(decoder_.get(), pos)) {
+            LIB_ERR << fmt::format(MINI_PREFIX "can't seek to sample #{}", offset);
+            return -1;
+        }
+
+        static_assert(std::is_same<mp3d_sample_t, float>::value, "expected float for mp3 sample format");
+        auto n = mp3dec_ex_read(decoder_.get(), dest, frames * channels());
+        return n / channels();
+    }
+
 #ifdef WITH_LIBSAMPLERATE
     std::int64_t MiniMp3::readResampled(t_word* dest, size_t sz, size_t ch, std::int64_t offset, size_t max_samples)
     {
@@ -181,7 +205,7 @@ namespace sound {
         }
 
         // seek to position
-        const auto pos = std::min<size_t>(offset * NUM_CH * resampleRatio(), sampleCount());
+        const auto pos = std::min<size_t>(offset * NUM_CH * resampleRatio(), frameCount());
         if (pos > 0 && mp3dec_ex_seek(decoder_.get(), pos)) {
             LIB_ERR << MINI_PREFIX "can't seek to pos #" << offset;
             return -1;

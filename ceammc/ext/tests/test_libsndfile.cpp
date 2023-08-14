@@ -20,6 +20,8 @@
 #include "ceammc_loader_sndfile.h"
 
 #include <array>
+#include <boost/range/adaptor/strided.hpp>
+#include <boost/range/algorithm.hpp>
 #include <iostream>
 
 using namespace ceammc::sound;
@@ -39,7 +41,7 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
 
         LibSndFile sf;
         REQUIRE_FALSE(sf.isOpened());
-        REQUIRE(sf.sampleCount() == 0);
+        REQUIRE(sf.frameCount() == 0);
         REQUIRE(sf.sampleRate() == 0);
         REQUIRE(sf.channels() == 0);
         REQUIRE(sf.filename().empty());
@@ -55,7 +57,7 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 1);
         REQUIRE(sf.sampleRate() == 48000);
-        REQUIRE(sf.sampleCount() == 4800);
+        REQUIRE(sf.frameCount() == 4800);
         // invalid channel number
         REQUIRE(sf.read(nullptr, 100, 1, 0, 100) == -1);
 
@@ -73,7 +75,7 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 2);
         REQUIRE(sf.sampleRate() == 48000);
-        REQUIRE(sf.sampleCount() == 4800);
+        REQUIRE(sf.frameCount() == 4800);
 
         t_word buf_left[1024];
         t_word buf_right[1024];
@@ -93,7 +95,7 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 1);
         REQUIRE(sf.sampleRate() == 48000);
-        REQUIRE(sf.sampleCount() == 4800);
+        REQUIRE(sf.frameCount() == 4800);
     }
 
     SECTION("test 48k flac stereo")
@@ -103,7 +105,7 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 2);
         REQUIRE(sf.sampleRate() == 48000);
-        REQUIRE(sf.sampleCount() == 4800);
+        REQUIRE(sf.frameCount() == 4800);
     }
 
     SECTION("test 44.1k ogg mono")
@@ -113,7 +115,7 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 1);
         REQUIRE(sf.sampleRate() == 44100);
-        REQUIRE(sf.sampleCount() == 44100);
+        REQUIRE(sf.frameCount() == 44100);
     }
 
     SECTION("test 44.1k ogg stereo")
@@ -123,7 +125,7 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 2);
         REQUIRE(sf.sampleRate() == 44100);
-        REQUIRE(sf.sampleCount() == 44100);
+        REQUIRE(sf.frameCount() == 44100);
     }
 
     SECTION("test line mono")
@@ -133,7 +135,7 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 1);
         REQUIRE(sf.sampleRate() == 44100);
-        REQUIRE(sf.sampleCount() == 441);
+        REQUIRE(sf.frameCount() == 441);
 
         t_word buf[1024];
         REQUIRE(sf.read(buf, 1024, 0, 0, 1024) == 441);
@@ -151,7 +153,7 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 2);
         REQUIRE(sf.sampleRate() == 44100);
-        REQUIRE(sf.sampleCount() == 441);
+        REQUIRE(sf.frameCount() == 441);
 
         t_word left_buf[1024];
         t_word right_buf[1024];
@@ -173,7 +175,7 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 2);
         REQUIRE(sf.sampleRate() == 44100);
-        REQUIRE(sf.sampleCount() == 441);
+        REQUIRE(sf.frameCount() == 441);
 
         t_word left_buf[1024];
         t_word right_buf[1024];
@@ -214,7 +216,7 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.isOpened());
         REQUIRE(sf.channels() == 2);
         REQUIRE(sf.sampleRate() == 44100);
-        REQUIRE(sf.sampleCount() == 441);
+        REQUIRE(sf.frameCount() == 441);
 
         sf.setResampleRatio(48000.0 / 44100);
 
@@ -230,7 +232,7 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         LibSndFile sf;
         REQUIRE_FALSE(sf.isOpened());
         REQUIRE(sf.channels() == 0);
-        REQUIRE(sf.sampleCount() == 0);
+        REQUIRE(sf.frameCount() == 0);
         REQUIRE(sf.sampleRate() == 0);
 
         constexpr int SR = 44100;
@@ -257,5 +259,79 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.read(buf.data(), BUF_SIZE, 0, 0, BUF_SIZE) == BUF_SIZE);
         for (auto& b : buf)
             REQUIRE(b.w_float == Approx(0.25));
+    }
+
+    SECTION("readFrames")
+    {
+        SECTION("test 48k wav mono")
+        {
+            LibSndFile sf;
+            REQUIRE(sf.probe(TEST_DATA_DIR "/snd_mono_48k.wav"));
+            REQUIRE(sf.open(TEST_DATA_DIR "/snd_mono_48k.wav", SoundFile::READ, {}));
+            REQUIRE(sf.isOpened());
+            REQUIRE(sf.channels() == 1);
+            REQUIRE(sf.sampleRate() == 48000);
+            REQUIRE(sf.frameCount() == 4800);
+
+            std::array<float, 4800> buf;
+            REQUIRE(sf.readFrames(buf.data(), 4800, 0) == 4800);
+            REQUIRE(std::all_of(buf.begin(), buf.end(), [](float f) { return f == Approx(0.03125f); }));
+
+            buf.fill(0);
+            // read offset
+            REQUIRE(sf.readFrames(buf.begin(), 4800, 4000) == 800);
+            REQUIRE(std::all_of(buf.begin(), buf.begin() + 800, [](float f) { return f == Approx(0.03125f); }));
+            REQUIRE(std::all_of(buf.begin() + 800, buf.end(), [](float f) { return f == Approx(0); }));
+
+            buf.fill(0);
+            // read offset
+            REQUIRE(sf.readFrames(buf.begin(), 600, 4000) == 600);
+            REQUIRE(std::all_of(buf.begin(), buf.begin() + 600, [](float f) { return f == Approx(0.03125f); }));
+            REQUIRE(std::all_of(buf.begin() + 600, buf.end(), [](float f) { return f == Approx(0); }));
+
+            // max offset
+            buf.fill(0);
+            REQUIRE(sf.readFrames(buf.begin(), 600, 4800) == 0);
+            REQUIRE(std::all_of(buf.begin(), buf.end(), [](float f) { return f == Approx(0); }));
+
+            // max offset
+            buf.fill(0);
+            REQUIRE(sf.readFrames(buf.begin(), 600, 4801) == -1);
+        }
+
+        SECTION("test 48k wav stereo")
+        {
+            LibSndFile sf;
+            REQUIRE(sf.probe(TEST_DATA_DIR "/snd_stereo_48k.wav"));
+            REQUIRE(sf.open(TEST_DATA_DIR "/snd_stereo_48k.wav", SoundFile::READ, {}));
+            REQUIRE(sf.isOpened());
+            REQUIRE(sf.channels() == 2);
+            REQUIRE(sf.sampleRate() == 48000);
+            REQUIRE(sf.frameCount() == 4800);
+
+            std::array<float, 9600> buf;
+            REQUIRE(sf.readFrames(buf.data(), 4800, 0) == 4800);
+            auto s0 = boost::adaptors::stride(buf, 2);
+            REQUIRE(std::all_of(s0.begin(), s0.end(), [](float f) { return f == Approx(0.03125f); }));
+
+            for (int i = 1; i < 9600; i += 2)
+                REQUIRE(buf[i] == Approx(-0.03125f));
+
+            buf.fill(0);
+            REQUIRE(sf.readFrames(buf.data(), 10, 0) == 10);
+            for (int i = 0; i < 10; i += 2)
+                REQUIRE(buf[i] == Approx(0.03125f));
+
+            for (int i = 1; i < 10; i += 2)
+                REQUIRE(buf[i] == Approx(-0.03125f));
+
+            buf.fill(0);
+            REQUIRE(sf.readFrames(buf.data(), 10, 1) == 10);
+            for (int i = 0; i < 10; i += 2)
+                REQUIRE(buf[i] == Approx(0.03125f));
+
+            for (int i = 1; i < 10; i += 2)
+                REQUIRE(buf[i] == Approx(-0.03125f));
+        }
     }
 }

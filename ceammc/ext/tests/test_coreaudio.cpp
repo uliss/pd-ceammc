@@ -178,6 +178,7 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
     SECTION("resample")
     {
         CoreAudioFile sf;
+        REQUIRE(sf.probe(TEST_DATA_DIR "/test_data0.wav"));
         REQUIRE(sf.open(TEST_DATA_DIR "/test_data0.wav", SoundFile::READ, {}));
         REQUIRE(sf.resampleRatio() == 1);
 
