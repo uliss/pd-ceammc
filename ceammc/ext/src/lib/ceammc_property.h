@@ -71,7 +71,7 @@ public:
 
 public:
     Property(const PropertyInfo& info, PropValueAccess access = PropValueAccess::READWRITE);
-    virtual ~Property() = default;
+    virtual ~Property();
 
     /// pure virtual
     virtual AtomList get() const = 0;

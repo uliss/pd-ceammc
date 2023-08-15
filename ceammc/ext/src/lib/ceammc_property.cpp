@@ -13,14 +13,13 @@
  *****************************************************************************/
 #include "ceammc_property.h"
 #include "ceammc_containers.h"
-#include "ceammc_crc32.h"
-#include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "lex/parser_props.h"
+#include <memory>
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wsign-conversion"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #pragma clang diagnostic pop
 
 #include <algorithm>
@@ -69,6 +68,8 @@ Property::Property(const PropertyInfo& info, PropValueAccess access)
 {
     info_.setAccess(access);
 }
+
+Property::~Property() = default;
 
 bool Property::set(const AtomListView& lv)
 {
@@ -281,7 +282,7 @@ bool Property::setListCheckFn(Property::PropListCheckFn fn, const std::string& e
     return true;
 }
 
-bool Property::setSuccessFn(Property::PropSuccessFn fn)
+bool Property::setSuccessFn(PropSuccessFn fn)
 {
     if (isReadOnly()) {
         PROP_ERR() << "can't set success fn for readonly property";
