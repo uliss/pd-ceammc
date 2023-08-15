@@ -293,6 +293,9 @@ SndPlayBase::Future SndPlayTilde::createTask()
 
         auto res_fn = [this, file_chan, out_ch, SAMPLE_USEC, &buf](const t_sample* x, size_t rframes) -> bool {
             for (size_t i = 0; i < rframes; i++) {
+                while (!quit() && atomic_speed_ == 0)
+                    std::this_thread::sleep_for(64 * SAMPLE_USEC);
+
                 while (!quit() && outPipe().write_available() < out_ch)
                     std::this_thread::sleep_for(out_ch * SAMPLE_USEC);
 
@@ -308,6 +311,10 @@ SndPlayBase::Future SndPlayTilde::createTask()
         };
 
         while (!quit()) {
+            // sleep on pause
+            while (atomic_speed_ == 0)
+                std::this_thread::sleep_for(bs * SAMPLE_USEC);
+
             // read
             const auto buf_frames = buf.size() / f->channels();
             auto nframes = f->readFrames(buf.data(), buf_frames, file_cur_pos_);
@@ -327,8 +334,10 @@ SndPlayBase::Future SndPlayTilde::createTask()
                 eventLoop(subscriberId());
                 continue; // start new loop
             } else /* (nframes > 0) */ {
-                const auto nsamp = file_chan * nframes;
+                while (atomic_speed_ == 0)
+                    std::this_thread::sleep_for(bs * SAMPLE_USEC);
 
+                const auto nsamp = file_chan * nframes;
                 resampler.setResampleRatio(atomic_speed_);
                 resampler.process(buf.data(), nframes, res_fn);
                 file_cur_pos_ += nframes;
