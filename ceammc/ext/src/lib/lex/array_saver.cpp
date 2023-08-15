@@ -47,7 +47,7 @@ std::int64_t ArraySaver::saveTo(const AtomListView& args, BaseObject* owner)
     if (path.empty())
         return -1;
 
-    auto file = open(path);
+    auto file = open(path.c_str());
     if (!file) {
         PD_ERR(owner) << fmt::format("can't open file: '{}'", path);
         return -1;
@@ -141,7 +141,7 @@ bool ArraySaver::parse(const AtomListView& lv, BaseObject* obj)
     return true;
 }
 
-sound::SoundFilePtr ArraySaver::open(const std::string& path) const
+sound::SoundFilePtr ArraySaver::open(const char* path) const
 {
     sound::SoundFileOpenParams params;
     params.samplerate = params_.out_sr;

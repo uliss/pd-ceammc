@@ -52,7 +52,7 @@ public:
      * open soundfile by full path and fill input information
      * @return pointer to opened file or empty pointer on error
      */
-    sound::SoundFilePtr openFile(const std::string& path);
+    sound::SoundFilePtr openFile(const char* path);
 
     /**
      * parse input string: to arrays... OPTIONS...

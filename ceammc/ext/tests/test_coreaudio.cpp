@@ -136,29 +136,29 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
         REQUIRE(sf.gain() == 1);
 
         t_word buf[1024];
-        REQUIRE(sf.read(buf, 1024, 0, 0, 1024) == 441);
-        REQUIRE(sf.read(buf, 1024, 1, 1, 1024) == -1);
+        REQUIRE(sf.read(buf, 1024, 0, 0) == 441);
+        REQUIRE(sf.read(buf, 1024, 1, 1) == -1);
         for (int i = 0; i < 441; i++) {
             REQUIRE(buf[i].w_float == Approx((10.f * i) / 32767.f).epsilon(0.0001));
         }
 
-        REQUIRE(sf.read(buf, 1024, 0, 100, 1024) == 341);
+        REQUIRE(sf.read(buf, 1024, 0, 100) == 341);
         for (int i = 0; i < 341; i++) {
             REQUIRE(buf[i].w_float == Approx((10.f * (i + 100)) / 32767.f).epsilon(0.0001));
         }
 
-        REQUIRE(sf.read(buf, 1024, 0, -100, 1024) == -1);
+        REQUIRE(sf.read(buf, 1024, 0, -100) == -1);
 
         CoreAudioFile sf2;
         REQUIRE(sf2.open(TEST_DATA_DIR "/test_data0.mp3", SoundFile::READ, {}));
-        REQUIRE(sf2.read(buf, 1024, 0, 100, 1024) == 341);
+        REQUIRE(sf2.read(buf, 1024, 0, 100) == 341);
 
         CoreAudioFile sf3;
         REQUIRE(sf3.open(TEST_DATA_DIR "/test_data0.m4a", SoundFile::READ, {}));
-        REQUIRE(sf3.read(buf, 1024, 0, 100, 1024) == 341);
+        REQUIRE(sf3.read(buf, 1024, 0, 100) == 341);
 
         t_word buf2[10];
-        REQUIRE(sf3.read(buf2, 10, 0, 100, 1024) == 10);
+        REQUIRE(sf3.read(buf2, 10, 0, 100) == 10);
     }
 
     SECTION("gain")
@@ -169,7 +169,7 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
 
         t_word buf[1024];
         sf.setGain(0.5);
-        REQUIRE(sf.read(buf, 1024, 0, 0, 1024) == 441);
+        REQUIRE(sf.read(buf, 1024, 0, 0) == 441);
         for (int i = 0; i < 441; i++) {
             REQUIRE(buf[i].w_float == Approx((5.f * i) / 32767.f).epsilon(0.0001));
         }
@@ -181,22 +181,23 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
         REQUIRE(sf.probe(TEST_DATA_DIR "/test_data0.wav"));
         REQUIRE(sf.open(TEST_DATA_DIR "/test_data0.wav", SoundFile::READ, {}));
         REQUIRE(sf.resampleRatio() == 1);
+        REQUIRE(sf.frameCount() == 441);
 
         t_word buf[1024];
         sf.setResampleRatio(48000.0 / 44100);
         REQUIRE(sf.resampleRatio() == Approx(48000.0 / 44100));
-        REQUIRE(sf.read(buf, 1024, 0, 0, 1024) == 480);
+        REQUIRE(sf.read(buf, 1024, 0, 0) == 480);
 
-        REQUIRE(sf.read(buf, 1024, 0, 0, 256) == 256);
+        REQUIRE(sf.read(buf, 256, 0, 0) == 256);
     }
 
     SECTION("player")
     {
         REQUIRE(ceammc_coreaudio_player_tell(NULL) == 0);
         REQUIRE(ceammc_coreaudio_player_seek(NULL, 100) == 0);
-        REQUIRE(ceammc_coreaudio_player_channel_count(NULL) == 0);
+        REQUIRE(ceammc_coreaudio_player_channels(NULL) == 0);
         REQUIRE(ceammc_coreaudio_player_samplerate(NULL) == 0);
-        REQUIRE(ceammc_coreaudio_player_samples(NULL) == 0);
+        REQUIRE(ceammc_coreaudio_player_frames(NULL) == 0);
 
         t_audio_player* p = ceammc_coreaudio_player_create();
         REQUIRE(p);
@@ -204,9 +205,9 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
         // check nulls
         REQUIRE_FALSE(ceammc_coreaudio_player_is_opened(p));
         REQUIRE(ceammc_coreaudio_player_tell(p) == 0);
-        REQUIRE(ceammc_coreaudio_player_channel_count(p) == 0);
+        REQUIRE(ceammc_coreaudio_player_channels(p) == 0);
         REQUIRE(ceammc_coreaudio_player_samplerate(p) == 0);
-        REQUIRE(ceammc_coreaudio_player_samples(p) == 0);
+        REQUIRE(ceammc_coreaudio_player_frames(p) == 0);
 
         REQUIRE(ceammc_coreaudio_player_open(p, "not-exists", 44100) != 0);
         REQUIRE_FALSE(ceammc_coreaudio_player_is_opened(p));
@@ -216,9 +217,9 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
         // check ok
         REQUIRE(ceammc_coreaudio_player_is_opened(p));
         REQUIRE(ceammc_coreaudio_player_tell(p) == 0);
-        REQUIRE(ceammc_coreaudio_player_channel_count(p) == 2);
+        REQUIRE(ceammc_coreaudio_player_channels(p) == 2);
         REQUIRE(ceammc_coreaudio_player_samplerate(p) == 44100);
-        REQUIRE(ceammc_coreaudio_player_samples(p) == 441);
+        REQUIRE(ceammc_coreaudio_player_frames(p) == 441);
 
         // check tell/seek
         REQUIRE(ceammc_coreaudio_player_tell(p) == 0);

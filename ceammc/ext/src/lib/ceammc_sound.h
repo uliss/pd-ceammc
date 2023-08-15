@@ -72,7 +72,7 @@ namespace sound {
 
     public:
         SoundFile();
-        virtual ~SoundFile() = default;
+        virtual ~SoundFile();
 
         const std::string& filename() const { return fname_; }
 
@@ -95,7 +95,7 @@ namespace sound {
          * @param mode - open mode
          * @return true on success, false on error
          */
-        virtual bool open(const std::string& fname, OpenMode mode, const SoundFileOpenParams& params) = 0;
+        virtual bool open(const char* fname, OpenMode mode, const SoundFileOpenParams& params) = 0;
 
         /**
          * check if file was successfully opened
@@ -130,10 +130,9 @@ namespace sound {
          * @param sz - destination buffer size
          * @param channel - input channel
          * @param offset - start position to read in samples
-         * @param max_samples - max samples to write to the array
          * @return number of readed samples or -1 on error
          */
-        virtual std::int64_t read(t_word* dest, size_t sz, size_t channel, std::int64_t offset, size_t max_samples) = 0;
+        virtual std::int64_t read(t_word* dest, size_t sz, size_t channel, std::int64_t offset) = 0;
 
         /**
          * @brief read audio frames to given buffer
@@ -194,8 +193,8 @@ namespace sound {
         static FormatList supportedReadFormats();
         static FormatList supportedWriteFormats();
 
-        static SoundFilePtr openRead(const std::string& path, const SoundFileOpenParams& params = {});
-        static SoundFilePtr openWrite(const std::string& path, const SoundFileOpenParams& params);
+        static SoundFilePtr openRead(const char* path, const SoundFileOpenParams& params = {});
+        static SoundFilePtr openWrite(const char* path, const SoundFileOpenParams& params);
 
     private:
         using BackendList = std::vector<SoundFileBackend>;

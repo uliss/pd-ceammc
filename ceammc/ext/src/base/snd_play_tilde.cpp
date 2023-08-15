@@ -18,8 +18,8 @@
 #include "ceammc_convert.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
-#include "ceammc_signal.h"
 #include "ceammc_sound.h"
+#include "ceammc_soxr_resampler.h"
 #include "ceammc_units.h"
 #include "fmt/core.h"
 #include "snd_play_tilde.h"
@@ -253,135 +253,85 @@ void SndPlayTilde::m_seek(t_symbol* s, const AtomListView& lv)
 SndPlayBase::Future SndPlayTilde::createTask()
 {
     std::string fname = fname_->str();
-    const int nch = n_->value();
+    const int out_ch = n_->value();
     const int sr = samplerate();
     const int bs = blockSize();
     auto begin = time_begin_;
     auto end = time_end_;
 
-    return std::async([this, fname, nch, sr, bs, begin, end]() mutable {
-        auto f = sound::SoundFileFactory::openRead(fname);
+    return std::async([this, fname, out_ch, sr, bs, begin, end]() mutable {
+        auto f = sound::SoundFileFactory::openRead(fname.c_str());
         if (!f) {
             logger_.error(fmt::format("can't read '{}'", fname));
             return;
         }
 
+        logger_.debug(fmt::format("play SR={}, file SR={}, CH={}", sr, f->sampleRate(), f->channels()));
+
         file_begin_ = 0;
-        if (!calcBeginSfPos(begin, f->sampleRate(), f->sampleCount(), file_begin_))
-            return logger_.error(fmt::format("invalid begin position: {}, expected value in [{} ... {}) range", file_begin_, 0, f->sampleCount()));
+        if (!calcBeginSfPos(begin, sr, f->frameCount(), file_begin_))
+            return logger_.error(fmt::format("invalid begin position: {}, expected value in [{} ... {}) range", file_begin_, 0, f->frameCount()));
 
         file_end_ = 0;
-        if (!calcEndSfPos(end, f->sampleRate(), f->sampleCount(), file_begin_, file_end_))
-            return logger_.error(fmt::format("invalid end position: {}, expected value in [{} ... {}] range", file_end_, file_begin_, f->sampleCount()));
+        if (!calcEndSfPos(end, sr, f->frameCount(), file_begin_, file_end_))
+            return logger_.error(fmt::format("invalid end position: {}, expected value in [{} ... {}] range", file_end_, file_begin_, f->frameCount()));
 
         // store file info
         src_samplerate_ = f->sampleRate();
-        src_frames_ = f->sampleCount();
+        src_frames_ = f->frameCount();
 
-        logger_.debug(fmt::format("start playing from {} to {} samp, loop={}, samples={}", file_begin_, file_end_, (bool)atomic_loop_, f->sampleCount()));
+        logger_.debug(fmt::format("start playing from {} to {} samp, loop={}, samples={}", file_begin_, file_end_, (bool)atomic_loop_, f->frameCount()));
 
-        const auto NUM_CH = std::min<size_t>(nch, f->channels());
-        const auto BLOCK_TIME_USEC = std::chrono::microseconds(1000000 * bs / sr);
+        const auto SAMPLE_USEC = std::chrono::microseconds(1000000 / sr);
+        std::array<float, 4096> buf;
 
-        constexpr int BUF_SIZE = 4096;
-        using Buffer = std::array<t_word, BUF_SIZE>;
-        using BufferList = std::vector<Buffer>;
-
-        BufferList buf(NUM_CH);
-
-        double buf_phase = 0;
         file_cur_pos_ = file_begin_;
         setQuit(false);
 
-        while (!quit()) {
-            std::int64_t nframes = 0;
+        SoxrResampler resampler(f->sampleRate(), sr, f->channels(), SoxrResampler::QUICK, true);
+        const auto file_chan = f->channels();
 
-            // read samples from file to buffers
-            // then read buffers (maybe with different speed) and push to queue
-            for (size_t i = 0; i < NUM_CH; i++) {
-                // read channel by channel
-                // expected that each channel contains same number of samples ;)
-                nframes = f->read(buf[i].data(), buf[i].size(), i, file_cur_pos_, buf[i].size());
-                if (nframes <= 0)
-                    break; // break reading
+        auto res_fn = [this, file_chan, out_ch, SAMPLE_USEC, &buf](const t_sample* x, size_t rframes) -> bool {
+            for (size_t i = 0; i < rframes; i++) {
+                while (!quit() && outPipe().write_available() < out_ch)
+                    std::this_thread::sleep_for(out_ch * SAMPLE_USEC);
+
+                for (auto c = 0; c < out_ch; c++) {
+                    if (c < file_chan) {
+                        outPipe().push(x[(i * file_chan) + c]);
+                    } else
+                        outPipe().push(0);
+                }
             }
+
+            return true;
+        };
+
+        while (!quit()) {
+            // read
+            const auto buf_frames = buf.size() / f->channels();
+            auto nframes = f->readFrames(buf.data(), buf_frames, file_cur_pos_);
 
             // read error
             if (nframes < 0) {
                 logger_.error(fmt::format("'{}': read error", fname));
                 break; // quit
             } else if (nframes == 0) { // no samples (eof)
+                resampler.processDone(res_fn);
+                resampler.reset();
                 if (!atomic_loop_)
                     break; // quit playing
 
                 // reset read pos
-                buf_phase = 0;
                 seekToBeg();
                 eventLoop(subscriberId());
                 continue; // start new loop
-            } else if (nframes > 1) {
-                const auto UP_LIMIT = nframes - 1;
-                // keep buf_phase in [0, UP_LIMIT) range
-                buf_phase = std::fmod(buf_phase, UP_LIMIT);
+            } else /* (nframes > 0) */ {
+                const auto nsamp = file_chan * nframes;
 
-                // write samples from buffers to Pd
-                while (buf_phase < UP_LIMIT) {
-                    for (size_t c = 0; c < nch && !quit(); c++) {
-                        // wait while queue is full
-                        while (!quit() && outPipe().write_available() == 0)
-                            std::this_thread::sleep_for(BLOCK_TIME_USEC);
-
-                        // push one channel sample
-                        if (c < NUM_CH) {
-                            // split buffer phase to fractional and integer part
-                            double fip;
-                            auto fp = std::modf(buf_phase, &fip);
-                            size_t idx = fip;
-                            // read interpolated value from buffer
-                            auto value = interpolate::linear<float>(buf[c][idx].w_float, buf[c][idx + 1].w_float, fp);
-                            outPipe().push((atomic_speed_ > 0) ? value : 0); // if pause - output 0
-                        } else
-                            outPipe().push(0);
-                    }
-
-                    buf_phase += atomic_speed_;
-                }
-
-                // move read position up one sample less number of frames for linear interpolation
-                file_cur_pos_ += UP_LIMIT;
-            } else {
-                // one last sample
-                assert(nframes == 1);
-
-                // keep buf_phase in [0, 1) range
-                buf_phase = std::fmod(buf_phase, 1);
-
-                // write samples from buffers to Pd
-                while (buf_phase < 1) {
-                    for (size_t c = 0; c < nch && !quit(); c++) {
-                        // wait while queue is full
-                        while (!quit() && outPipe().write_available() == 0)
-                            std::this_thread::sleep_for(BLOCK_TIME_USEC);
-
-                        // push one channel sample
-                        if (c < NUM_CH) {
-                            // read interpolated value from buffer
-                            auto value = interpolate::linear<float>(buf[c][0].w_float, 0, buf_phase);
-                            outPipe().push((atomic_speed_ > 0) ? value : 0); // if pause - output 0
-                        } else
-                            outPipe().push(0);
-                    }
-
-                    buf_phase += atomic_speed_;
-                }
-
-                if (!atomic_loop_)
-                    break; // quit playing
-
-                seekToBeg(); // reset read position
-                buf_phase = 0;
-                eventLoop(subscriberId());
-                continue;
+                resampler.setResampleRatio(atomic_speed_);
+                resampler.process(buf.data(), nframes, res_fn);
+                file_cur_pos_ += nframes;
             }
         }
 

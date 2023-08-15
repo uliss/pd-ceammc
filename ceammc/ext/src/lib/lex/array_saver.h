@@ -84,7 +84,7 @@ public:
     float resampleRatio() const { return params_.in_sr / params_.out_sr; }
 
     /** open file for writing */
-    sound::SoundFilePtr open(const std::string& path) const;
+    sound::SoundFilePtr open(const char* path) const;
 
     const std::string& filename() const { return params_.filename; }
 

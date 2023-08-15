@@ -38,7 +38,8 @@ public:
 
     enum ResultCode {
         Ok,
-        Error,
+        NullHandle,
+        ProcessError,
         CallbackQuit,
     };
 

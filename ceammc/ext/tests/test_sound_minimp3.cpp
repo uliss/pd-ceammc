@@ -44,14 +44,14 @@ TEST_CASE("minimp3", "[ceammc_sound]")
         REQUIRE(loader.frameCount() == 441);
 
         t_word dest[1024];
-        auto rc = loader.read(dest, 512, 0, 0, 1024);
+        auto rc = loader.read(dest, 512, 0, 0);
         REQUIRE(rc == 441);
 
         // invalid channel
-        REQUIRE(loader.read(dest, 512, 1, 0, 1000) == -1);
+        REQUIRE(loader.read(dest, 512, 1, 0) == -1);
 
-        REQUIRE(loader.read(dest, 100, 0, 10, 1000) == 100);
-        REQUIRE(loader.read(dest, 1000, 0, 10, 1000) == 431);
+        REQUIRE(loader.read(dest, 100, 0, 10) == 100);
+        REQUIRE(loader.read(dest, 1000, 0, 10) == 431);
     }
 
     SECTION("load vbr")
@@ -66,14 +66,14 @@ TEST_CASE("minimp3", "[ceammc_sound]")
         REQUIRE(loader.frameCount() == 441);
 
         t_word dest[1024];
-        auto rc = loader.read(dest, 512, 0, 0, 1024);
+        auto rc = loader.read(dest, 512, 0, 0);
         REQUIRE(rc == 441);
 
         // invalid channel
-        REQUIRE(loader.read(dest, 512, 1, 0, 1000) == -1);
+        REQUIRE(loader.read(dest, 512, 1, 0) == -1);
 
-        REQUIRE(loader.read(dest, 100, 0, 10, 1000) == 100);
-        REQUIRE(loader.read(dest, 1000, 0, 10, 1000) == 431);
+        REQUIRE(loader.read(dest, 100, 0, 10) == 100);
+        REQUIRE(loader.read(dest, 1000, 0, 10) == 431);
     }
 
     SECTION("misc")
@@ -90,7 +90,7 @@ TEST_CASE("minimp3", "[ceammc_sound]")
                 REQUIRE(loader.frameCount() == 12000);
 
                 t_word dest[3000];
-                auto rc = loader.read(dest, 3000, 0, 1000, 3000);
+                auto rc = loader.read(dest, 3000, 0, 1000);
                 REQUIRE(rc == 3000);
 
                 // from test_1ch_12000_128_off1000_len32.dat
@@ -115,7 +115,7 @@ TEST_CASE("minimp3", "[ceammc_sound]")
                 REQUIRE(loader.frameCount() == 44100);
 
                 t_word dest[512];
-                auto rc = loader.read(dest, 512, 0, 1000, 512);
+                auto rc = loader.read(dest, 512, 0, 1000);
                 REQUIRE(rc == 512);
 
                 // from test_1ch_44100_192_off1000_len32.dat
@@ -140,7 +140,7 @@ TEST_CASE("minimp3", "[ceammc_sound]")
                 REQUIRE(loader.frameCount() == 44100);
 
                 t_word dest[1000];
-                auto rc = loader.read(dest, 1000, 0, 1000, 1000);
+                auto rc = loader.read(dest, 1000, 0, 1000);
                 REQUIRE(rc == 1000);
 
                 // from test_2ch_44100_192_off1000_len32.dat
@@ -165,7 +165,7 @@ TEST_CASE("minimp3", "[ceammc_sound]")
                 REQUIRE(loader.frameCount() == 44100);
 
                 t_word dest[1000];
-                auto rc = loader.read(dest, 1000, 1, 1000, 1000);
+                auto rc = loader.read(dest, 1000, 1, 1000);
                 REQUIRE(rc == 1000);
 
                 // from test_2ch_44100_192_off1000_len32.dat
@@ -192,7 +192,7 @@ TEST_CASE("minimp3", "[ceammc_sound]")
             REQUIRE(loader.frameCount() == 24000);
 
             t_word dest[1000];
-            auto rc = loader.read(dest, 1000, 0, 1000, 1000);
+            auto rc = loader.read(dest, 1000, 0, 1000);
             REQUIRE(rc == 1000);
 
             // from test_1ch_24000_vbr_off1000_len32.dat
@@ -220,7 +220,7 @@ TEST_CASE("minimp3", "[ceammc_sound]")
             loader.setResampleRatio(12000 / 24000.0);
 
             t_word dest[1000];
-            auto rc = loader.read(dest, 1000, 0, 2000, 1000);
+            auto rc = loader.read(dest, 1000, 0, 2000);
             REQUIRE(rc == 1000);
 
 #ifdef WITH_LIBSAMPLERATE
@@ -260,7 +260,7 @@ TEST_CASE("minimp3", "[ceammc_sound]")
             loader.setResampleRatio(48000 / 24000.0);
 
             t_word dest[1000];
-            auto rc = loader.read(dest, 1000, 0, 500, 1000);
+            auto rc = loader.read(dest, 1000, 0, 500);
             REQUIRE(rc == 1000);
 
 #ifdef WITH_LIBSAMPLERATE

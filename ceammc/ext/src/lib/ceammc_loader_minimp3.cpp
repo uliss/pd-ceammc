@@ -66,14 +66,14 @@ namespace sound {
         return mp3dec_detect(fname) == 0;
     }
 
-    bool MiniMp3::open(const std::string& fname, OpenMode mode, const SoundFileOpenParams& params)
+    bool MiniMp3::open(const char *fname, OpenMode mode, const SoundFileOpenParams& params)
     {
         switch (mode) {
         case SoundFile::WRITE:
             LIB_ERR << fmt::format(MINI_PREFIX "can't open for writing: '{}'", fname);
             return false;
         case SoundFile::READ:
-            if (mp3dec_ex_open(decoder_.get(), fname.c_str(), MP3D_SEEK_TO_SAMPLE)) {
+            if (mp3dec_ex_open(decoder_.get(), fname, MP3D_SEEK_TO_SAMPLE)) {
                 LIB_ERR << fmt::format(MINI_PREFIX "can't open file: '{}'", fname);
                 decoder_.reset();
                 return false;
@@ -89,7 +89,7 @@ namespace sound {
         return true;
     }
 
-    MiniMp3::~MiniMp3() = default;
+    MiniMp3::~MiniMp3() = default; // for std::unique
 
     size_t MiniMp3::frameCount() const
     {
@@ -128,7 +128,7 @@ namespace sound {
         return true;
     }
 
-    std::int64_t MiniMp3::read(t_word* dest, size_t sz, size_t ch, std::int64_t offset, size_t max_samples)
+    std::int64_t MiniMp3::read(t_word* dest, size_t sz, size_t ch, std::int64_t offset)
     {
         if (!(isOpened() && openMode() == READ)) {
             LIB_ERR << fmt::format(MINI_PREFIX "not opened for reading");
@@ -142,7 +142,7 @@ namespace sound {
         }
 
         if (resampleRatio() != 1)
-            return readResampled(dest, sz, ch, offset, max_samples);
+            return readResampled(dest, sz, ch, offset);
 
         // seek to offset
         const auto pos = std::min<size_t>(offset, frameCount()) * NUM_CH;
@@ -190,7 +190,7 @@ namespace sound {
     }
 
 #ifdef WITH_LIBSAMPLERATE
-    std::int64_t MiniMp3::readResampled(t_word* dest, size_t sz, size_t ch, std::int64_t offset, size_t max_samples)
+    std::int64_t MiniMp3::readResampled(t_word* dest, size_t size, size_t ch, std::int64_t offset)
     {
         static_assert(std::is_same<mp3d_sample_t, float>::value, "");
 
@@ -231,7 +231,7 @@ namespace sound {
         // decode to buffer
         const size_t mp3_out_bufsize = MINIMP3_MAX_SAMPLES_PER_FRAME;
         std::vector<mp3d_sample_t> in_buffer(mp3_out_bufsize);
-        const size_t should_read = sz * NUM_CH;
+        const size_t should_read = size * NUM_CH;
 
         if (debug)
             LIB_DBG << "should output " << should_read << " samples";
@@ -277,7 +277,7 @@ namespace sound {
             }
 
             // write channel data to destination
-            for (size_t j = 0; total_output_samples < max_samples; j++) {
+            for (size_t j = 0; total_output_samples < size; j++) {
                 x->w_float = out_buf[j * NUM_CH + ch] * gain();
                 x++;
                 total_output_samples++;
@@ -306,7 +306,7 @@ namespace sound {
                 break;
 
             // write channel data to destination
-            for (size_t j = 0; total_output_samples < max_samples; j++) {
+            for (size_t j = 0; total_output_samples < size; j++) {
                 x->w_float = out_buf[j * NUM_CH + ch] * gain();
                 x++;
                 total_output_samples++;
@@ -321,7 +321,7 @@ namespace sound {
         return total_output_samples;
     }
 #else
-    std::int64_t MiniMp3::readResampled(t_word* dest, size_t sz, size_t ch, std::int64_t offset, size_t max_samples)
+    std::int64_t MiniMp3::readResampled(t_word* dest, size_t size, size_t ch, std::int64_t offset)
     {
         if (resampleRatio() < 0.001) {
             LIB_ERR << "[minimp3] invalid resample ratio: " << resampleRatio();
@@ -344,7 +344,7 @@ namespace sound {
         }
 
         // seek to position
-        const auto pos = std::min<size_t>(offset * NUM_CH * resampleRatio(), sampleCount());
+        const auto pos = std::min<size_t>(offset * NUM_CH * resampleRatio(), frameCount());
         if (pos > 0 && mp3dec_ex_seek(decoder_.get(), pos)) {
             LIB_ERR << "[minimp3] can't seek to pos #" << offset;
             return -1;
@@ -356,7 +356,7 @@ namespace sound {
         // decode to buffer
         const size_t mp3_out_bufsize = MINIMP3_MAX_SAMPLES_PER_FRAME;
         std::vector<mp3d_sample_t> in_buffer(mp3_out_bufsize);
-        const size_t should_read = sz * NUM_CH;
+        const size_t should_read = size * NUM_CH;
 
         if (debug)
             LIB_DBG << "should output " << should_read << " samples";
@@ -395,7 +395,7 @@ namespace sound {
             }
 
             // write channel data to destination
-            for (size_t j = 0; j < odone && total_output_samples < max_samples; j++) {
+            for (size_t j = 0; j < odone && total_output_samples < size; j++) {
                 x->w_float = out_buf[j * NUM_CH + ch] * gain();
                 x++;
                 total_output_samples++;
@@ -419,7 +419,7 @@ namespace sound {
                 break;
 
             // write channel data to destination
-            for (size_t j = 0; j < odone && total_output_samples < max_samples; j++) {
+            for (size_t j = 0; j < odone && total_output_samples < size; j++) {
                 x->w_float = out_buf[j * NUM_CH + ch] * gain();
                 x++;
                 total_output_samples++;

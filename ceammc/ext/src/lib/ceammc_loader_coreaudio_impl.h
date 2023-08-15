@@ -37,7 +37,8 @@ enum ceammc_coreaudio_error {
     OFFSET_ERR = -6,
     READ_ERR = -7,
     CONVERTER_ERR = -8,
-    INVALID_RS_RATIO = -9
+    INVALID_RS_RATIO = -9,
+    CLOSE_ERR = -10,
 };
 
 struct audio_player;
@@ -47,18 +48,19 @@ int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info);
 int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, size_t count, t_word* buf, t_float gain, double resample_ratio, size_t max_samples);
 int64_t ceammc_coreaudio_read_frames(const char* path, float* buf, size_t frames, size_t offset);
 
-
 t_audio_player* ceammc_coreaudio_player_create();
-int ceammc_coreaudio_player_open(t_audio_player* p, const char* path, int sample_rate);
-void ceammc_coreaudio_player_close(t_audio_player* p);
+int ceammc_coreaudio_player_open(t_audio_player* p, const char* path, double sample_rate);
+int ceammc_coreaudio_player_close(t_audio_player* p);
 void ceammc_coreaudio_player_free(t_audio_player* p);
 double ceammc_coreaudio_player_samplerate(t_audio_player* p);
-size_t ceammc_coreaudio_player_samples(t_audio_player* p);
+size_t ceammc_coreaudio_player_frames(t_audio_player* p);
 int ceammc_coreaudio_player_is_opened(t_audio_player* p);
-int ceammc_coreaudio_player_channel_count(t_audio_player* p);
+int ceammc_coreaudio_player_channels(t_audio_player* p);
 int ceammc_coreaudio_player_seek(t_audio_player* p, int64_t offset);
 int64_t ceammc_coreaudio_player_tell(t_audio_player* p);
-int64_t ceammc_coreaudio_player_read(t_audio_player* p, t_sample** dest, size_t count);
+int64_t ceammc_coreaudio_player_read(t_audio_player* p, float** dest, size_t count);
+int64_t ceammc_coreaudio_player_read_array(t_audio_player* p, t_word* dest, size_t count, size_t channel, float gain);
+int ceammc_coreaudio_player_set_resample_ratio(t_audio_player* p, double ratio);
 
 #if defined(__cplusplus)
 }

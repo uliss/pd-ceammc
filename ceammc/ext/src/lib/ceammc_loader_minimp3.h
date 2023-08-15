@@ -19,10 +19,11 @@
 #include <memory>
 
 struct mp3dec_ex_t;
-using Mp3DecoderPtr = std::unique_ptr<mp3dec_ex_t>;
 
 namespace ceammc {
 namespace sound {
+    using Mp3DecoderPtr = std::unique_ptr<mp3dec_ex_t>;
+
     class MiniMp3 : public SoundFile {
         Mp3DecoderPtr decoder_;
 
@@ -30,15 +31,40 @@ namespace sound {
         MiniMp3();
         ~MiniMp3();
 
+        /**
+         * @brief try to open specified file and detect that the file format is supported
+         * @param fname - path to the file
+         * @return true if format is supported, otherwise false
+         */
         bool probe(const char* fname) const final;
-        bool open(const std::string& fname, OpenMode mode, const SoundFileOpenParams& params) final;
+        bool open(const char* fname, OpenMode mode, const SoundFileOpenParams& params) final;
+
+        /**
+         * returns number of frames in opened file
+         */
         size_t frameCount() const final;
+
+        /**
+         * return file samplerate
+         */
         size_t sampleRate() const final;
+
+        /**
+         * return file number of channels
+         */
         size_t channels() const final;
         bool isOpened() const final;
         bool close() final;
 
-        std::int64_t read(t_word* dest, size_t sz, size_t channel, std::int64_t offset, size_t max_samples) final;
+        /**
+         * read one file channel data to specified Pd array
+         * @param dest - pointer to Pd array data
+         * @param sz - Pd array size
+         * @param channel - channel to load
+         * @param offset - reading start point
+         * @return number of read samples
+         */
+        std::int64_t read(t_word* dest, size_t sz, size_t channel, std::int64_t offset) final;
 
         /**
          * @brief read audio frames to given buffer
@@ -53,15 +79,8 @@ namespace sound {
     public:
         static FormatList supportedReadFormats();
 
-    public:
-        struct buffer {
-            unsigned char const* start;
-            unsigned long length;
-        };
-
     private:
-        std::int64_t readResampled(t_word* dest, size_t sz, size_t ch, std::int64_t offset, size_t max_samples);
-        buffer buf_;
+        std::int64_t readResampled(t_word* dest, size_t size, size_t ch, std::int64_t offset);
     };
 }
 }

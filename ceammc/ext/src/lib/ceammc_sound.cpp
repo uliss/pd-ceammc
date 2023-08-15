@@ -68,6 +68,8 @@ namespace sound {
     {
     }
 
+    SoundFile::~SoundFile() = default;
+
     bool SoundFileFactory::registerBackend(const SoundFileBackend& backend)
     {
         if (std::find(backends().begin(), backends().end(), backend) == backends().end()) {
@@ -135,7 +137,7 @@ namespace sound {
         return res;
     }
 
-    SoundFilePtr SoundFileFactory::openRead(const std::string& path, const SoundFileOpenParams& params)
+    SoundFilePtr SoundFileFactory::openRead(const char* path, const SoundFileOpenParams& params)
     {
         SoundFilePtr ptr;
 
@@ -146,14 +148,14 @@ namespace sound {
 
         for (auto& l : backends()) {
             auto ptr = l.make_sndfile();
-            if (ptr && ptr->probe(path.c_str()) && ptr->open(path, SoundFile::READ, params))
+            if (ptr && ptr->probe(path) && ptr->open(path, SoundFile::READ, params))
                 return ptr;
         }
 
         return ptr;
     }
 
-    SoundFilePtr SoundFileFactory::openWrite(const std::string& path, const SoundFileOpenParams& params)
+    SoundFilePtr SoundFileFactory::openWrite(const char* path, const SoundFileOpenParams& params)
     {
         SoundFilePtr ptr;
 

@@ -33,7 +33,7 @@ namespace sound {
         return sf.rawHandle();
     }
 
-    bool LibSndFile::open(const std::string& fname, OpenMode mode, const SoundFileOpenParams& params)
+    bool LibSndFile::open(const char* fname, OpenMode mode, const SoundFileOpenParams& params)
     {
         auto fmt = makeLibFormat(params.file_format, params.sample_format);
 
@@ -97,7 +97,7 @@ namespace sound {
         return true;
     }
 
-    std::int64_t LibSndFile::read(t_word* dest, size_t sz, size_t ch, std::int64_t offset, size_t max_samples)
+    std::int64_t LibSndFile::read(t_word* dest, size_t sz, size_t ch, std::int64_t offset)
     {
         if (!isOpened()) {
             LIB_ERR << fmt::format("[sndfile] not opened");
@@ -110,7 +110,7 @@ namespace sound {
         }
 
         if (resampleRatio() != 1)
-            return readResampled(dest, sz, ch, offset, max_samples);
+            return readResampled(dest, sz, ch, offset, sz);
 
         t_word* x = dest;
         constexpr sf_count_t FRAME_COUNT = 256;
@@ -134,7 +134,7 @@ namespace sound {
                 break;
 
             // write channel data to destination
-            for (sf_count_t j = 0; (j < frames_read) && (frames_read_total < max_samples); j++) {
+            for (sf_count_t j = 0; (j < frames_read) && (frames_read_total < sz); j++) {
                 x->w_float = frame_buf[j * n + ch] * gain();
                 x++;
                 frames_read_total++;
@@ -150,7 +150,7 @@ namespace sound {
             const auto frames_read = handle_.readf(frame_buf, sf_count_t(sz) % FRAME_COUNT);
 
             // write channel data to destination
-            for (sf_count_t j = 0; (j < frames_read) && (frames_read_total < max_samples); j++) {
+            for (sf_count_t j = 0; (j < frames_read) && (frames_read_total < sz); j++) {
                 x->w_float = frame_buf[j * n + ch] * gain();
                 x++;
                 frames_read_total++;

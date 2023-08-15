@@ -27,14 +27,14 @@ namespace sound {
         LibSndFile();
 
         bool probe(const char* fname) const final;
-        bool open(const std::string& fname, OpenMode mode, const SoundFileOpenParams& params) final;
+        bool open(const char* fname, OpenMode mode, const SoundFileOpenParams& params) final;
         size_t frameCount() const final;
         size_t sampleRate() const final;
         size_t channels() const final;
         bool isOpened() const final;
         bool close() final;
 
-        std::int64_t read(t_word* dest, size_t sz, size_t channel, std::int64_t offset, size_t max_samples) final;
+        std::int64_t read(t_word* dest, size_t sz, size_t channel, std::int64_t offset) final;
         std::int64_t write(const t_word* const* src, size_t num_frames, std::int64_t offset) final;
 
         /**

@@ -22,10 +22,7 @@ using namespace ceammc::sound;
 #define CA_PREFIX "[coreaudio] "
 
 CoreAudioFile::CoreAudioFile()
-    : sample_rate_(0)
-    , channels_(0)
-    , frame_count_(0)
-    , is_opened_(false)
+    : impl_(ceammc_coreaudio_player_create(), ceammc_coreaudio_player_close)
 {
 }
 
@@ -35,17 +32,15 @@ bool CoreAudioFile::probe(const char* fname) const
     return ceammc_coreaudio_getinfo(fname, &fi) == 0;
 }
 
-bool CoreAudioFile::open(const std::string& fname, OpenMode mode, const SoundFileOpenParams& params)
+bool CoreAudioFile::open(const char* fname, OpenMode mode, const SoundFileOpenParams& params)
 {
     switch (mode) {
     case SoundFile::READ: {
-        audiofile_info_t fi = { 0 };
-        if (ceammc_coreaudio_getinfo(fname.c_str(), &fi) == 0) {
-            sample_rate_ = fi.sampleRate;
-            frame_count_ = fi.sampleCount;
-            channels_ = fi.channels;
-            is_opened_ = true;
-            fname_ = fname;
+        int rc = ceammc_coreaudio_player_open(impl_.get(), fname, params.samplerate);
+        if (rc != 0) {
+            close();
+            return false;
+        } else {
             setOpenMode(mode);
             return true;
         }
@@ -59,39 +54,46 @@ bool CoreAudioFile::open(const std::string& fname, OpenMode mode, const SoundFil
 
 size_t CoreAudioFile::frameCount() const
 {
-    return is_opened_ ? frame_count_ : 0;
+    return ceammc_coreaudio_player_frames(impl_.get());
 }
 
 size_t CoreAudioFile::sampleRate() const
 {
-    return is_opened_ ? sample_rate_ : 0;
+    return ceammc_coreaudio_player_samplerate(impl_.get());
 }
 
 size_t CoreAudioFile::channels() const
 {
-    return is_opened_ ? channels_ : 0;
+    return ceammc_coreaudio_player_channels(impl_.get());
 }
 
 bool CoreAudioFile::isOpened() const
 {
-    return is_opened_;
+    return ceammc_coreaudio_player_is_opened(impl_.get());
 }
 
 bool CoreAudioFile::close()
 {
-    fname_.clear();
-    is_opened_ = false;
-    return true;
+    return ceammc_coreaudio_player_close(impl_.get()) == 0;
 }
 
-std::int64_t CoreAudioFile::read(t_word* dest, size_t sz, size_t channel, std::int64_t offset, size_t max_samples)
+std::int64_t CoreAudioFile::read(t_word* dest, size_t sz, size_t channel, std::int64_t offset)
 {
     if (!isOpened() || openMode() != READ) {
         LIB_ERR << fmt::format(CA_PREFIX "not opened for reading");
         return -1;
     }
 
-    int64_t res = ceammc_coreaudio_load(filename().c_str(), channel, offset, sz, dest, gain(), resampleRatio(), max_samples);
+    if (resampleRatio() != 1) {
+        if (ceammc_coreaudio_player_set_resample_ratio(impl_.get(), resampleRatio()) != 0)
+            return -1;
+    }
+
+    if (!ceammc_coreaudio_player_seek(impl_.get(), offset))
+        return -1;
+
+    auto res = ceammc_coreaudio_player_read_array(impl_.get(), dest, sz, channel, gain());
+
     return res < 0 ? -1 : res;
 }
 
@@ -102,7 +104,10 @@ std::int64_t CoreAudioFile::readFrames(float* dest, size_t frames, std::int64_t 
         return -1;
     }
 
-    int64_t res = ceammc_coreaudio_read_frames(filename().c_str(), dest, frames, offset);
+    if (!ceammc_coreaudio_player_seek(impl_.get(), offset))
+        return -1;
+
+    auto res = ceammc_coreaudio_player_read(impl_.get(), &dest, frames);
     return res < 0 ? -1 : res;
 }
 

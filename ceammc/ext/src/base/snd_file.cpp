@@ -81,7 +81,7 @@ void SndFile::m_load(t_symbol* s, const AtomListView& lv)
     loader.setErr(&err.stream());
     loader.setLog(&log.stream());
 
-    auto file = loader.openFile(*mfull_path);
+    auto file = loader.openFile(mfull_path.value().c_str());
     if (!file) {
         OBJ_ERR << fmt::format("can't open file: {}", *mfull_path);
         return;

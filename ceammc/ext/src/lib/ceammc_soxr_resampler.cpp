@@ -89,54 +89,56 @@ void SoxrResampler::reset()
 SoxrResampler::ResultCode SoxrResampler::process(const t_sample* in, size_t numFrames, WriterCallback cb)
 {
     if (!soxr_)
-        return Error;
+        return NullHandle;
 
-    constexpr size_t OUT_BUF_SIZE = 1024;
+    constexpr size_t OUT_BUF_SIZE = 512;
     t_sample out_buf[OUT_BUF_SIZE];
-    const auto IN_SAMPLES = numFrames * num_chan_;
 
     auto it = in;
-    const auto end = it + IN_SAMPLES;
     auto in_frames = numFrames;
+    size_t out_frames_done = 0;
     const auto out_frames = OUT_BUF_SIZE / num_chan_;
 
-    while (it != end) {
-        size_t in_frames_done = 0, out_frames_done = 0;
+    do {
+        size_t in_frames_done = 0;
         auto err = soxr_process(soxr_.get(), it, in_frames, &in_frames_done, out_buf, out_frames, &out_frames_done);
 
-        if (err) {
-            std::cerr << fmt::format("soxr_process() error: {}", err);
-            return Error;
-        }
+        if (err)
+            return ProcessError;
 
         it += (in_frames_done * num_chan_);
         in_frames -= in_frames_done;
 
         if (!cb(out_buf, out_frames_done))
             return CallbackQuit;
-    }
+
+    } while (in_frames > 0 || out_frames_done > 0);
 
     return Ok;
 }
 
 SoxrResampler::ResultCode SoxrResampler::processDone(WriterCallback cb)
 {
-    constexpr size_t OUT_BUF_SIZE = 1024;
+    if (!soxr_)
+        return NullHandle;
+
+    constexpr size_t OUT_BUF_SIZE = 512;
     t_sample out_buf[OUT_BUF_SIZE];
     const auto out_frames = OUT_BUF_SIZE / num_chan_;
+    size_t out_frames_done = 0;
 
-    size_t in_frames_done = 0, out_frames_done = 0;
-    auto err = soxr_process(soxr_.get(), nullptr, 0, &in_frames_done, out_buf, out_frames, &out_frames_done);
+    do {
+        size_t in_frames_done = 0;
+        auto err = soxr_process(soxr_.get(), nullptr, 0, &in_frames_done, out_buf, out_frames, &out_frames_done);
+        if (err)
+            return ProcessError;
 
-    if (err) {
-        std::cerr << fmt::format("soxr_process() error: {}", err);
-        return Error;
-    }
+        if (!cb(out_buf, out_frames_done))
+            return CallbackQuit;
 
-    if (!cb(out_buf, out_frames_done))
-        return CallbackQuit;
-    else
-        return Ok;
+    } while (out_frames_done > 0);
+
+    return Ok;
 }
 
 SoxrResampler::~SoxrResampler() = default;

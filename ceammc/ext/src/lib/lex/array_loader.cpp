@@ -170,7 +170,7 @@ bool ArrayLoader::loadArrays(const sound::SoundFilePtr& file, bool redraw)
 
             // read data from file to array
             auto vecs = (arr.begin() + ARRAY_OFFSET).data();
-            long read = file->read(vecs, SRC_LEN, channel, begin_, DEST_LEN);
+            long read = file->read(vecs, DEST_LEN, channel, begin_);
 
             if (read == 0) {
                 err() << fmt::format("can't read {} samples to array '{}'\n", DEST_LEN, name);
@@ -193,7 +193,7 @@ bool ArrayLoader::loadArrays(const sound::SoundFilePtr& file, bool redraw)
             const size_t NIN_SAMPLES = resampleRatio() > 0 ? NOUT_SAMPLES / resampleRatio() : NOUT_SAMPLES;
 
             auto vecs = reinterpret_cast<t_word*>(&arr.at(ARRAY_OFFSET));
-            long read = file->read(vecs, NIN_SAMPLES, channel, begin_, DEST_MAX_SAMPLES);
+            long read = file->read(vecs, NIN_SAMPLES, channel, begin_);
             if (read != NOUT_SAMPLES) {
                 err() << fmt::format("can't read {} samples to array '{}', got {}\n", NOUT_SAMPLES, name, read);
                 return false;
@@ -234,14 +234,14 @@ bool ArrayLoader::setArrayOffset(long n, ArrayLoader::OffsetType t)
     return true;
 }
 
-sound::SoundFilePtr ArrayLoader::openFile(const std::string& path)
+sound::SoundFilePtr ArrayLoader::openFile(const char* path)
 {
     auto f = sound::SoundFileFactory::openRead(path);
 
     if (f) {
         src_samplerate_ = f->sampleRate();
         src_num_channels_ = f->channels();
-        src_sample_count_ = f->sampleCount();
+        src_sample_count_ = f->frameCount();
         begin_ = 0;
         end_ = src_sample_count_;
     } else {

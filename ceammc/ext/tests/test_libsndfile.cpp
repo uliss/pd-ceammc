@@ -45,7 +45,8 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.sampleRate() == 0);
         REQUIRE(sf.channels() == 0);
         REQUIRE(sf.filename().empty());
-        REQUIRE(sf.read(nullptr, 100, 1, 0, 100) == -1);
+        REQUIRE(sf.close());
+        REQUIRE(sf.read(nullptr, 100, 1, 0) == -1);
 
         REQUIRE_FALSE(sf.open("not-exists", SoundFile::READ, {}));
     }
@@ -59,10 +60,10 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.sampleRate() == 48000);
         REQUIRE(sf.frameCount() == 4800);
         // invalid channel number
-        REQUIRE(sf.read(nullptr, 100, 1, 0, 100) == -1);
+        REQUIRE(sf.read(nullptr, 100, 1, 0) == -1);
 
         t_word buf[1024];
-        REQUIRE(sf.read(buf, 1024, 0, 0, 1024) == 1024);
+        REQUIRE(sf.read(buf, 1024, 0, 0) == 1024);
         for (size_t i = 0; i < 1024; i++) {
             REQUIRE(buf[i].w_float == Approx(0.03125f));
         }
@@ -79,8 +80,8 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
 
         t_word buf_left[1024];
         t_word buf_right[1024];
-        REQUIRE(sf.read(buf_left, 441, 0, 0, 441) == 441);
-        REQUIRE(sf.read(buf_right, 441, 1, 0, 441) == 441);
+        REQUIRE(sf.read(buf_left, 441, 0, 0) == 441);
+        REQUIRE(sf.read(buf_right, 441, 1, 0) == 441);
 
         for (size_t i = 0; i < 441; i++) {
             REQUIRE(buf_left[i].w_float == Approx(0.03125f));
@@ -138,12 +139,12 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.frameCount() == 441);
 
         t_word buf[1024];
-        REQUIRE(sf.read(buf, 1024, 0, 0, 1024) == 441);
+        REQUIRE(sf.read(buf, 1024, 0, 0) == 441);
         for (int i = 0; i < 441; i++) {
             REQUIRE(buf[i].w_float == Approx((10.f * i) / 32767.f).epsilon(0.0001));
         }
 
-        REQUIRE(sf.read(buf, 1024, 0, 0, 220) == 220);
+        REQUIRE(sf.read(buf, 220, 0, 0) == 220);
     }
 
     SECTION("test line stereo")
@@ -157,9 +158,9 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
 
         t_word left_buf[1024];
         t_word right_buf[1024];
-        REQUIRE(sf.read(left_buf, 1024, 0, 0, 1024) == 441);
-        REQUIRE(sf.read(right_buf, 1024, 1, 0, 1024) == 441);
-        REQUIRE(sf.read(right_buf, 1024, 2, 0, 1024) == -1);
+        REQUIRE(sf.read(left_buf, 1024, 0, 0) == 441);
+        REQUIRE(sf.read(right_buf, 1024, 1, 0) == 441);
+        REQUIRE(sf.read(right_buf, 1024, 2, 0) == -1);
 
         for (int i = 0; i < 441; i++) {
             REQUIRE(left_buf[i].w_float == Approx(10 * i / 32767.0).epsilon(0.0001));
@@ -179,9 +180,9 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
 
         t_word left_buf[1024];
         t_word right_buf[1024];
-        REQUIRE(sf.read(left_buf, 1024, 0, 0, 1024) == 441);
-        REQUIRE(sf.read(right_buf, 1024, 1, 0, 1024) == 441);
-        REQUIRE(sf.read(right_buf, 1024, 2, 0, 1024) == -1);
+        REQUIRE(sf.read(left_buf, 1024, 0, 0) == 441);
+        REQUIRE(sf.read(right_buf, 1024, 1, 0) == 441);
+        REQUIRE(sf.read(right_buf, 1024, 2, 0) == -1);
 
         for (int i = 0; i < 441; i++) {
             REQUIRE(left_buf[i].w_float == Approx(5 * i / 32767.0).epsilon(0.0001));
@@ -195,18 +196,18 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         REQUIRE(sf.open(TEST_DATA_DIR "/test_data0.wav", SoundFile::READ, {}));
 
         t_word buf[1024];
-        REQUIRE(sf.read(buf, 1024, 0, 0, 1024) == 441);
-        REQUIRE(sf.read(buf, 1024, 1, 0, 1024) == -1);
+        REQUIRE(sf.read(buf, 1024, 0, 0) == 441);
+        REQUIRE(sf.read(buf, 1024, 1, 0) == -1);
         for (int i = 0; i < 441; i++) {
             REQUIRE(buf[i].w_float == Approx((10.f * i) / 32767.f).epsilon(0.0001));
         }
 
-        REQUIRE(sf.read(buf, 1024, 0, 100, 1024) == 341);
+        REQUIRE(sf.read(buf, 1024, 0, 100) == 341);
         for (int i = 0; i < 341; i++) {
             REQUIRE(buf[i].w_float == Approx((10.f * (i + 100)) / 32767.f).epsilon(0.0001));
         }
 
-        REQUIRE(sf.read(buf, 1024, 0, -100, 1024) == -1);
+        REQUIRE(sf.read(buf, 1024, 0, -100) == -1);
     }
 
     SECTION("test 48k/44.1k resample")
@@ -221,8 +222,8 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         sf.setResampleRatio(48000.0 / 44100);
 
         t_word buf[500];
-        REQUIRE(sf.read(buf, 500, 0, 0, 500) == 480);
-        REQUIRE(sf.read(buf, 500, 0, 0, 250) == 250);
+        REQUIRE(sf.read(buf, 500, 0, 0) == 480);
+        REQUIRE(sf.read(buf, 250, 0, 0) == 250);
     }
 
     SECTION("write")
@@ -256,7 +257,7 @@ TEST_CASE("ceammc::libsndfile", "sndfile")
         sf.setGain(1);
         fill_with(buf.data(), buf.size(), 0);
 
-        REQUIRE(sf.read(buf.data(), BUF_SIZE, 0, 0, BUF_SIZE) == BUF_SIZE);
+        REQUIRE(sf.read(buf.data(), BUF_SIZE, 0, 0) == BUF_SIZE);
         for (auto& b : buf)
             REQUIRE(b.w_float == Approx(0.25));
     }
