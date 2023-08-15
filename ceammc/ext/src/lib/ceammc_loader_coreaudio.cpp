@@ -99,6 +99,9 @@ std::int64_t CoreAudioFile::read(t_word* dest, size_t sz, size_t channel, std::i
 
 std::int64_t CoreAudioFile::readFrames(float* dest, size_t frames, std::int64_t offset)
 {
+    if (!dest)
+        return -1;
+
     if (!isOpened() || openMode() != READ) {
         LIB_ERR << fmt::format(CA_PREFIX "not opened for reading");
         return -1;
@@ -107,7 +110,7 @@ std::int64_t CoreAudioFile::readFrames(float* dest, size_t frames, std::int64_t 
     if (!ceammc_coreaudio_player_seek(impl_.get(), offset))
         return -1;
 
-    auto res = ceammc_coreaudio_player_read(impl_.get(), &dest, frames);
+    auto res = ceammc_coreaudio_player_read(impl_.get(), dest, frames);
     return res < 0 ? -1 : res;
 }
 

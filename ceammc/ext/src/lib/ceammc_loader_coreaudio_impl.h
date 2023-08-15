@@ -58,7 +58,7 @@ int ceammc_coreaudio_player_is_opened(t_audio_player* p);
 int ceammc_coreaudio_player_channels(t_audio_player* p);
 int ceammc_coreaudio_player_seek(t_audio_player* p, int64_t offset);
 int64_t ceammc_coreaudio_player_tell(t_audio_player* p);
-int64_t ceammc_coreaudio_player_read(t_audio_player* p, float** dest, size_t count);
+int64_t ceammc_coreaudio_player_read(t_audio_player* p, float* dest, size_t count);
 int64_t ceammc_coreaudio_player_read_array(t_audio_player* p, t_word* dest, size_t count, size_t channel, float gain);
 int ceammc_coreaudio_player_set_resample_ratio(t_audio_player* p, double ratio);
 

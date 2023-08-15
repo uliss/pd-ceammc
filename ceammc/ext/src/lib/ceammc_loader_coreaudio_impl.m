@@ -369,7 +369,7 @@ int ceammc_coreaudio_player_seek(t_audio_player* p, int64_t offset)
         return 1;
 }
 
-int64_t ceammc_coreaudio_player_read(t_audio_player* p, float** dest, size_t count)
+int64_t ceammc_coreaudio_player_read(t_audio_player* p, float* dest, size_t count)
 {
     if (!p)
         return INVALID_ARGS;
@@ -408,7 +408,7 @@ int64_t ceammc_coreaudio_player_read(t_audio_player* p, float** dest, size_t cou
 
             for (UInt32 ch = 0; ch < CHAN_NUM; ch++) {
                 t_sample s = buf[CHAN_NUM * i + ch];
-                dest[ch][outFrameIdx] = s;
+                dest[outFrameIdx * CHAN_NUM + ch] = s;
             }
         }
 
