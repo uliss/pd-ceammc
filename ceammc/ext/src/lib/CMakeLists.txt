@@ -109,6 +109,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_rtree.cpp
     ceammc_score.cpp
     ceammc_sound_external.cpp
+    ceammc_soxr_resampler.cpp
     ceammc_string.cpp
     ceammc_string_split.cpp
     ceammc_thread.cpp
