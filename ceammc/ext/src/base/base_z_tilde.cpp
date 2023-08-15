@@ -14,8 +14,6 @@
 #include "base_z_tilde.h"
 #include "ceammc_factory.h"
 
-#include <cstdlib>
-
 BaseZTilde::BaseZTilde(const PdArgs& args)
     : SoundExternal(args)
     , delay_(0)
@@ -54,5 +52,5 @@ void setup_base_z_tilde()
 
     obj.setDescription("sample delay");
     obj.setCategory("base");
-    obj.setKeywords({"delay", "z"});
+    obj.setKeywords({ "delay", "z" });
 }
