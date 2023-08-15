@@ -3,8 +3,11 @@
 
 #include <memory>
 
-#include "array_base.h"
+#include "ceammc_array.h"
+#include "ceammc_object.h"
 #include "ceammc_property_enum.h"
+
+using namespace ceammc;
 
 class ArrayResample : public BaseObject {
     Array src_array_;

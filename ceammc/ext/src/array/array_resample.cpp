@@ -1,7 +1,6 @@
 #include "array_resample.h"
-#include "ceammc_convert.h"
 #include "ceammc_factory.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 #include "soxr.h"
 
