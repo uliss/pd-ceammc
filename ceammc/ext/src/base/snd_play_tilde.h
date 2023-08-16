@@ -36,10 +36,13 @@ private:
     IntProperty* n_ { nullptr };
     SymbolProperty* fname_ { nullptr };
     SymbolEnumProperty* sync_mode_ { nullptr };
+    BoolProperty* stretch_ { nullptr };
     ThreadPdLogger logger_;
     // speed
     std::atomic<float> atomic_speed_ { 1 }; // set in caller thread, read in worker thread
     float speed_pause_ { 1 };
+    // pitch
+    std::atomic<float> atomic_pitch_ { 1 }; // set in caller thread, read in worker thread
     // loop
     std::atomic_bool atomic_loop_ { false }; // set in caller thread, read in worker thread
     // begin/end
@@ -77,8 +80,8 @@ private:
     void start(bool value);
 
 private:
-    static bool calcBeginSfPos(const units::TimeValue& tm, size_t sr, size_t sampleCount, std::int64_t& result);
-    static bool calcEndSfPos(const units::TimeValue& tm, size_t sr, size_t sampleCount, std::int64_t begin, std::int64_t& result);
+    static bool calcBegin(const units::TimeValue& tm, size_t sr, size_t sampleCount, std::int64_t& result);
+    static bool calcEnd(const units::TimeValue& tm, size_t sr, size_t sampleCount, std::int64_t begin, std::int64_t& result);
 };
 
 void setup_snd_play_tilde();

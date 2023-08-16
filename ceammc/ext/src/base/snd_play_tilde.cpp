@@ -21,12 +21,26 @@
 #include "ceammc_sound.h"
 #include "ceammc_soxr_resampler.h"
 #include "ceammc_units.h"
-#include "fmt/core.h"
 #include "snd_play_tilde.h"
+
+#include "fmt/core.h"
+#include "rubberband/RubberBandStretcher.h"
 
 CEAMMC_DEFINE_SYM_HASH(wait)
 CEAMMC_DEFINE_SYM_HASH(now)
 CEAMMC_DEFINE_SYM_HASH(defer)
+
+#define THREAD_ERR(...) logger_.error(fmt::format(__VA_ARGS__))
+
+#ifdef NDEBUG
+#define THREAD_DBG(...)
+#else
+#define THREAD_DBG(...) logger_.debug(fmt::format(__VA_ARGS__))
+#endif
+
+#define SLEEP_SAMPLES(nsamp) std::this_thread::sleep_for(nsamp* SAMPLE_USEC);
+
+using namespace RubberBand;
 
 enum {
     EVENT_DONE = 0,
@@ -71,11 +85,20 @@ SndPlayTilde::SndPlayTilde(const PdArgs& args)
     sync_mode_ = new SymbolEnumProperty("@sync", { sym_now(), sym_wait(), sym_defer() });
     addProperty(sync_mode_);
 
+    stretch_ = new BoolProperty("@stretch", false);
+    addProperty(stretch_);
+
     auto speed = createCbFloatProperty(
         "@speed",
         [this]() -> t_float { return atomic_speed_; },
         [this](t_float f) -> bool { atomic_speed_ = f; return true; });
     speed->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 0.25, 4);
+
+    auto pitch = createCbFloatProperty(
+        "@pitch",
+        [this]() -> t_float { return atomic_pitch_; },
+        [this](t_float f) -> bool { atomic_pitch_ = f; return true; });
+    pitch->setFloatCheck(PropValueConstraints::CLOSED_RANGE, 0.25, 4);
 
     createCbBoolProperty(
         "@loop",
@@ -256,75 +279,135 @@ SndPlayBase::Future SndPlayTilde::createTask()
     const int out_ch = n_->value();
     const int sr = samplerate();
     const int bs = blockSize();
+    const bool use_stretch = stretch_->value();
     auto begin = time_begin_;
     auto end = time_end_;
 
-    return std::async([this, fname, out_ch, sr, bs, begin, end]() mutable {
+    return std::async([this, fname, out_ch, sr, bs, begin, end, use_stretch]() mutable {
         auto f = sound::SoundFileFactory::openRead(fname.c_str());
         if (!f) {
-            logger_.error(fmt::format("can't read '{}'", fname));
+            THREAD_ERR("can't read '{}'", fname);
             return;
         }
 
         logger_.debug(fmt::format("play SR={}, file SR={}, CH={}", sr, f->sampleRate(), f->channels()));
 
         file_begin_ = 0;
-        if (!calcBeginSfPos(begin, sr, f->frameCount(), file_begin_))
-            return logger_.error(fmt::format("invalid begin position: {}, expected value in [{} ... {}) range", file_begin_, 0, f->frameCount()));
+        if (!calcBegin(begin, sr, f->frameCount(), file_begin_)) {
+            THREAD_ERR("invalid begin position: {}, expected value in [{} ... {}) range",
+                file_begin_, 0, f->frameCount());
+            return;
+        }
 
         file_end_ = 0;
-        if (!calcEndSfPos(end, sr, f->frameCount(), file_begin_, file_end_))
-            return logger_.error(fmt::format("invalid end position: {}, expected value in [{} ... {}] range", file_end_, file_begin_, f->frameCount()));
+        if (!calcEnd(end, sr, f->frameCount(), file_begin_, file_end_)) {
+            THREAD_ERR("invalid end position: {}, expected value in [{} ... {}] range",
+                file_end_, file_begin_, f->frameCount());
+            return;
+        }
 
         // store file info
         src_samplerate_ = f->sampleRate();
         src_frames_ = f->frameCount();
 
-        logger_.debug(fmt::format("start playing from {} to {} samp, loop={}, samples={}", file_begin_, file_end_, (bool)atomic_loop_, f->frameCount()));
+        THREAD_DBG("start playing from {} to {} samp, loop={}, samples={}",
+            file_begin_, file_end_, (bool)atomic_loop_, f->frameCount());
 
+        const auto FILE_NCH = f->channels();
         const auto SAMPLE_USEC = std::chrono::microseconds(1000000 / sr);
-        std::array<float, 4096> buf;
+        constexpr size_t SOXR_BUF_SIZE = 4096;
+        constexpr size_t RBS_BUF_SIZE = 512;
+
+        // alloc buffers
+        std::array<float, SOXR_BUF_SIZE> sox_buf;
+        // RubberBandStretch uses split channel buffer layout
+        std::vector<std::array<float, RBS_BUF_SIZE>> rbs_chan_buf(FILE_NCH);
+        // vector of pointers to channel
+        std::vector<float*> rbs_buf(FILE_NCH);
+        for (size_t i = 0; i < FILE_NCH; i++)
+            rbs_buf[i] = rbs_chan_buf[i].data();
 
         file_cur_pos_ = file_begin_;
         setQuit(false);
 
-        SoxrResampler resampler(f->sampleRate(), sr, f->channels(), SoxrResampler::QUICK, true);
-        const auto file_chan = f->channels();
-
-        auto res_fn = [this, file_chan, out_ch, SAMPLE_USEC, &buf](const t_sample* x, size_t rframes) -> bool {
-            for (size_t i = 0; i < rframes; i++) {
-                while (!quit() && atomic_speed_ == 0)
-                    std::this_thread::sleep_for(64 * SAMPLE_USEC);
-
-                while (!quit() && outPipe().write_available() < out_ch)
-                    std::this_thread::sleep_for(out_ch * SAMPLE_USEC);
-
-                for (auto c = 0; c < out_ch; c++) {
-                    if (c < file_chan) {
-                        outPipe().push(x[(i * file_chan) + c]);
-                    } else
-                        outPipe().push(0);
-                }
-            }
-
-            return true;
+        SoxrResamplerOptions sox_opts {
+            !use_stretch, // variable rate used without stretching
+            SoxrResamplerFormat::T_SAMPLE_I,
+            SoxrResamplerFormat::FLOAT_S,
         };
+        SoxrResampler resampler(f->sampleRate(), sr, FILE_NCH, SoxrResampler::QUICK, sox_opts);
 
+        RubberBandStretcher rbs(sr, FILE_NCH, RubberBandStretcher::DefaultOptions | RubberBandStretcher::OptionProcessRealTime);
+
+        if (use_stretch) {
+            if (!resampler.setOutputCallback(
+                    [this, FILE_NCH, out_ch, SAMPLE_USEC, &rbs, &rbs_buf, &rbs_chan_buf](const float* const* data, size_t rframes, bool done) -> bool {
+                        rbs.setPitchScale(atomic_pitch_);
+                        if (atomic_speed_ != 0)
+                            rbs.setTimeRatio(1 / atomic_speed_);
+
+                        rbs.process(data, rframes, false);
+
+                        while (rbs.available() > 0) {
+                            auto n = rbs.retrieve(rbs_buf.data(), RBS_BUF_SIZE);
+                            while (!quit() && atomic_speed_ == 0)
+                                SLEEP_SAMPLES(64);
+
+                            for (int i = 0; i < n; i++) {
+                                for (auto c = 0; c < out_ch; c++) {
+                                    while (!quit() && outPipe().write_available() == 0)
+                                        SLEEP_SAMPLES(1);
+
+                                    auto x = (c < FILE_NCH) ? rbs_chan_buf[c][i] : 0;
+                                    outPipe().push(x);
+                                }
+                            }
+                        }
+
+                        return true;
+                    })) {
+                THREAD_ERR("can't set resampler callback");
+                return;
+            }
+        } else { // no stretching
+            if (!resampler.setOutputCallback(
+                    [this, FILE_NCH, out_ch, SAMPLE_USEC](const float* const* data, size_t rframes, bool done) -> bool {
+                        for (size_t i = 0; i < rframes; i++) {
+                            while (!quit() && atomic_speed_ == 0)
+                                SLEEP_SAMPLES(64);
+
+                            while (!quit() && outPipe().write_available() < out_ch)
+                                SLEEP_SAMPLES(out_ch);
+
+                            for (auto c = 0; c < out_ch; c++) {
+                                auto x = (c < FILE_NCH) ? data[c][i] : 0;
+                                outPipe().push(x);
+                            }
+                        }
+
+                        return true;
+                    })) {
+                THREAD_ERR("can't set resampler callback");
+                return;
+            }
+        }
+
+        /* main cycle */
         while (!quit()) {
             // sleep on pause
             while (atomic_speed_ == 0)
-                std::this_thread::sleep_for(bs * SAMPLE_USEC);
+                SLEEP_SAMPLES(bs);
 
             // read
-            const auto buf_frames = buf.size() / f->channels();
-            auto nframes = f->readFrames(buf.data(), buf_frames, file_cur_pos_);
+            const auto buf_frames = sox_buf.size() / f->channels();
+            auto nframes = f->readFrames(sox_buf.data(), buf_frames, file_cur_pos_);
 
             // read error
             if (nframes < 0) {
-                logger_.error(fmt::format("'{}': read error", fname));
+                THREAD_ERR("'{}': read error", fname);
                 break; // quit
             } else if (nframes == 0) { // no samples (eof)
-                resampler.processDone(res_fn);
+                resampler.processDone();
                 resampler.reset();
                 if (!atomic_loop_)
                     break; // quit playing
@@ -337,9 +420,15 @@ SndPlayBase::Future SndPlayTilde::createTask()
                 while (atomic_speed_ == 0)
                     std::this_thread::sleep_for(bs * SAMPLE_USEC);
 
-                const auto nsamp = file_chan * nframes;
-                resampler.setResampleRatio(atomic_speed_);
-                resampler.process(buf.data(), nframes, res_fn);
+                const auto nsamp = FILE_NCH * nframes;
+                if (!use_stretch) {
+                    auto rc = resampler.setResampleRatio(atomic_speed_);
+
+                    if (!rc)
+                        THREAD_ERR("can't set resampler ratio");
+                }
+
+                resampler.process(sox_buf.data(), nframes);
                 file_cur_pos_ += nframes;
             }
         }
@@ -403,7 +492,7 @@ void SndPlayTilde::start(bool value)
         setQuit(true);
 }
 
-bool SndPlayTilde::calcBeginSfPos(const units::TimeValue& tm, size_t sr, size_t sampleCount, std::int64_t& result)
+bool SndPlayTilde::calcBegin(const units::TimeValue& tm, size_t sr, size_t sampleCount, std::int64_t& result)
 {
     auto t = tm;
     t.setSamplerate(sr);
@@ -412,7 +501,7 @@ bool SndPlayTilde::calcBeginSfPos(const units::TimeValue& tm, size_t sr, size_t 
     return result < sampleCount;
 }
 
-bool SndPlayTilde::calcEndSfPos(const units::TimeValue& tm, size_t sr, size_t sampleCount, std::int64_t begin, std::int64_t& result)
+bool SndPlayTilde::calcEnd(const units::TimeValue& tm, size_t sr, size_t sampleCount, std::int64_t begin, std::int64_t& result)
 {
     auto t = tm;
     t.setSamplerate(sr);
