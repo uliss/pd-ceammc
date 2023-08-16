@@ -34,18 +34,18 @@ TEST_CASE("resampler", "[ceammc]")
     {
         std::array<t_sample, 64> data;
         data.fill(1);
+
         SoxrResampler r(100, 100, 2);
         REQUIRE(r.delay() == 0);
 
         std::vector<t_sample> res;
-
-        auto cb = [&res](const t_sample* data, size_t len) -> bool {
-            std::copy(data, data + len, std::back_inserter(res));
+        r.setOutputCallback([&res](const t_sample* data, size_t len, bool done) -> bool {
+            std::copy(data, data + len * 2, std::back_inserter(res));
             return true;
-        };
+        });
 
-        REQUIRE(r.process(data.data(), data.size(), cb) == SoxrResampler::Ok);
-        REQUIRE(r.processDone(cb) == SoxrResampler::Ok);
+        REQUIRE(r.process(data.data(), data.size() / 2) == SoxrResampler::Ok);
+        REQUIRE(r.processDone() == SoxrResampler::Ok);
         REQUIRE(res.size() == 64);
         REQUIRE(std::all_of(res.begin(), res.end(), [](t_sample x) { return x == 1; }));
     }
@@ -58,14 +58,13 @@ TEST_CASE("resampler", "[ceammc]")
         REQUIRE(r.delay() == 0);
 
         std::vector<t_sample> res;
-
-        auto cb = [&res](const t_sample* data, size_t len) -> bool {
-            std::copy(data, data + len, std::back_inserter(res));
+        r.setOutputCallback([&res](const t_sample* data, size_t len, bool done) -> bool {
+            std::copy(data, data + len * 2, std::back_inserter(res));
             return true;
-        };
+        });
 
-        REQUIRE(r.process(data.data(), data.size(), cb) == SoxrResampler::Ok);
-        REQUIRE(r.processDone(cb) == SoxrResampler::Ok);
+        REQUIRE(r.process(data.data(), data.size() / 2) == SoxrResampler::Ok);
+        REQUIRE(r.processDone() == SoxrResampler::Ok);
         REQUIRE(res.size() == 128);
         REQUIRE(std::all_of(res.begin() + 8, res.end() - 8, [](t_sample x) { return x == Approx(1).margin(0.001); }));
     }
@@ -77,14 +76,13 @@ TEST_CASE("resampler", "[ceammc]")
         REQUIRE(r.delay() == 0);
 
         std::vector<t_sample> res;
-
-        auto cb = [&res](const t_sample* data, size_t len) -> bool {
-            std::copy(data, data + len, std::back_inserter(res));
+        r.setOutputCallback([&res](const t_sample* data, size_t len, bool done) -> bool {
+            std::copy(data, data + len * 3, std::back_inserter(res));
             return true;
-        };
+        });
 
-        REQUIRE(r.process(data.data(), data.size(), cb) == SoxrResampler::Ok);
-        REQUIRE(r.processDone(cb) == SoxrResampler::Ok);
+        REQUIRE(r.process(data.data(), data.size() / 3) == SoxrResampler::Ok);
+        REQUIRE(r.processDone() == SoxrResampler::Ok);
         REQUIRE(res.size() == 6);
     }
 
@@ -92,20 +90,129 @@ TEST_CASE("resampler", "[ceammc]")
     {
         std::array<t_sample, 64> data;
         data.fill(1);
-        SoxrResampler r(100, 100, 2, SoxrResampler::QUICK, true);
+
+        SoxrResampler r(100, 100, 2, SoxrResampler::QUICK, SoxrResamplerOptions(true));
         REQUIRE(r.delay() == 100);
 
         std::vector<t_sample> res;
-
-        auto cb = [&res](const t_sample* data, size_t len) -> bool {
-            std::copy(data, data + len, std::back_inserter(res));
+        r.setOutputCallback([&res](const t_sample* data, size_t len, bool done) -> bool {
+            std::copy(data, data + len * 2, std::back_inserter(res));
             return true;
-        };
+        });
 
         REQUIRE(r.setResampleRatio(1));
 
-        REQUIRE(r.process(data.data(), data.size(), cb) == SoxrResampler::Ok);
-        REQUIRE(r.processDone(cb) == SoxrResampler::Ok);
+        REQUIRE(r.process(data.data(), data.size() / 2) == SoxrResampler::Ok);
+        REQUIRE(r.processDone() == SoxrResampler::Ok);
         REQUIRE(res.size() == 64);
+    }
+
+    SECTION("formats")
+    {
+        SECTION("interleave")
+        {
+            SECTION("float -> float")
+            {
+                std::array<float, 64> data;
+                data.fill(1);
+                SoxrResamplerOptions opts {
+                    false,
+                    SoxrResamplerFormat::FLOAT_I,
+                    SoxrResamplerFormat::FLOAT_I,
+                };
+                SoxrResampler r(100, 200, 2, SoxrResampler::QUICK, opts);
+                REQUIRE(r.delay() == 0);
+
+                std::vector<float> res;
+                r.setOutputCallback([&res](const float* data, size_t len, bool done) -> bool {
+                    std::copy(data, data + len * 2, std::back_inserter(res));
+                    return true;
+                });
+
+                REQUIRE(r.process(data.data(), data.size() / 2) == SoxrResampler::Ok);
+                REQUIRE(r.processDone() == SoxrResampler::Ok);
+                REQUIRE(res.size() == 128);
+                REQUIRE(std::all_of(res.begin() + 8, res.end() - 8, [](t_sample x) { return x == Approx(1).margin(0.001); }));
+            }
+
+            SECTION("double -> float")
+            {
+                std::array<double, 64> data;
+                data.fill(1);
+                SoxrResamplerOptions opts {
+                    false,
+                    SoxrResamplerFormat::DOUBLE_I,
+                    SoxrResamplerFormat::FLOAT_I,
+                };
+                SoxrResampler r(100, 200, 2, SoxrResampler::QUICK, opts);
+                REQUIRE(r.delay() == 0);
+
+                std::vector<float> res;
+                r.setOutputCallback([&res](const float* data, size_t len, bool done) -> bool {
+                    std::copy(data, data + len * 2, std::back_inserter(res));
+                    return true;
+                });
+
+                REQUIRE(r.process(data.data(), data.size() / 2) == SoxrResampler::Ok);
+                REQUIRE(r.processDone() == SoxrResampler::Ok);
+                REQUIRE(res.size() == 128);
+                REQUIRE(std::all_of(res.begin() + 8, res.end() - 8, [](t_sample x) { return x == Approx(1).margin(0.001); }));
+            }
+
+            SECTION("double -> double")
+            {
+                std::array<double, 64> data;
+                data.fill(1);
+                SoxrResamplerOptions opts {
+                    false,
+                    SoxrResamplerFormat::DOUBLE_I,
+                    SoxrResamplerFormat::DOUBLE_I,
+                };
+                SoxrResampler r(100, 200, 2, SoxrResampler::QUICK, opts);
+                REQUIRE(r.delay() == 0);
+
+                std::vector<double> res;
+                r.setOutputCallback([&res](const double* data, size_t len, bool done) -> bool {
+                    std::copy(data, data + len * 2, std::back_inserter(res));
+                    return true;
+                });
+
+                REQUIRE(r.process(data.data(), data.size() / 2) == SoxrResampler::Ok);
+                REQUIRE(r.processDone() == SoxrResampler::Ok);
+                REQUIRE(res.size() == 128);
+                REQUIRE(std::all_of(res.begin() + 8, res.end() - 8, [](t_sample x) { return x == Approx(1).margin(0.001); }));
+            }
+        }
+
+        SECTION("split")
+        {
+            SECTION("float -> float")
+            {
+                std::array<float, 64> data;
+                data.fill(1);
+                SoxrResamplerOptions opts {
+                    false,
+                    SoxrResamplerFormat::FLOAT_I,
+                    SoxrResamplerFormat::FLOAT_S,
+                };
+                SoxrResampler r(100, 200, 2, SoxrResampler::QUICK, opts);
+                REQUIRE(r.delay() == 0);
+
+                std::vector<float> r0;
+                std::vector<float> r1;
+                r.setOutputCallback([&r1, &r0](const float* const* data, size_t len, bool done) -> bool {
+                    std::copy(data[0], data[0] + len, std::back_inserter(r0));
+                    std::copy(data[1], data[1] + len, std::back_inserter(r1));
+                    return true;
+                });
+
+                REQUIRE(r.process(data.data(), data.size() / 2) == SoxrResampler::Ok);
+                REQUIRE(r.processDone() == SoxrResampler::Ok);
+                REQUIRE(r0.size() == 64);
+                REQUIRE(std::all_of(r0.begin() + 8, r0.end() - 8, [](t_sample x) { return x == Approx(1).margin(0.001); }));
+                REQUIRE(r1.size() == 64);
+                REQUIRE(std::all_of(r1.begin() + 8, r1.end() - 8, [](t_sample x) { return x == Approx(1).margin(0.001); }));
+            }
+        }
     }
 }
