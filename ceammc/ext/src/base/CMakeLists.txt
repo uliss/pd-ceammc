@@ -1,5 +1,3 @@
-include_directories(${CMAKE_BINARY_DIR}) # for config.h
-
 set(BASE_SOURCES
     base_log.cpp
     base_sync.cpp
@@ -95,8 +93,17 @@ target_sources(ceammc_base PRIVATE snd_file.cpp parser_canvas_id.cpp)
 target_include_directories(ceammc_base
     PRIVATE
         "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+        "$<TARGET_PROPERTY:aubio,INCLUDE_DIRECTORIES>"
         ${PROJECT_SOURCE_DIR}/ceammc/extra/readerwriterqueue
+        ${CMAKE_BINARY_DIR} # for config.h
+
 )
+
+find_package(RubberBand REQUIRED)
+if(RUBBERBAND_FOUND)
+    target_include_directories(ceammc_base PRIVATE ${RUBBERBAND_INCLUDE_DIRS})
+    target_link_libraries(ceammc_base PRIVATE ${RUBBERBAND_LIBRARIES})
+endif()
 
 
 # separate external:
