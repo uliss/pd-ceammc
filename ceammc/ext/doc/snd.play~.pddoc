@@ -14,8 +14,7 @@
             <since>0.9.7</since>
         </meta>
         <info>
-            <par>Deal with sound files: gets files info and loads them into arrays. Various formats
-            are supported. Supports array name patterns.</par>
+            <par>TODO</par>
         </info>
         <properties>
             <property name="@formats" type="list" access="readonly"
@@ -79,15 +78,19 @@
 |
 [openpanel #a]
 
+[symbol %CEAMMC%/guitar1.wav, 1 #b(
+
  [@name %CEAMMC%/sound/loop_breakbeat.flac, 1(
  |
  |  [@name %CEAMMC%/sound/vla-overtones-3.mp3, 1(
  |  |
-[expand_env #x]  [T]
-|                |
-| [T]            [@loop $1(
-| |              |
-[snd.play~ 2 {w=20}]
+[expand_env #x]
+
+ [T] [T]        [T]        [ui.hsl #c]
+ |   |          |          |
+ |   [pause $1( [@loop $1( [@speed $1(
+ |   |          |          |
+[snd.play~ 2 @loop 1 #z    ]
 | ^|             ^^|
 |  |             [ui.dt]
 |  |.
@@ -95,7 +98,9 @@
 *|*
 [dac~]
 
-[X a->x]
+#c 0.25 4 @show_value 1
+
+[X a->x] [X b->x] [X x->z]
 ]]>
             </pdascii>
         </example>
