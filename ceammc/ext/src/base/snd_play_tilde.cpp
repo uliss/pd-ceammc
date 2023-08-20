@@ -360,6 +360,7 @@ SndPlayBase::Future SndPlayTilde::createTask()
             SoxrResamplerFormat::FLOAT_S,
         };
         SoxrResampler resampler(f->sampleRate(), sr, FILE_NCH, SoxrResampler::QUICK, sox_opts);
+        const double RESAMPLE_RATIO = f->sampleRate() / double(sr);
 
         RubberBandStretcher rbs(sr, FILE_NCH, RubberBandStretcher::DefaultOptions | RubberBandStretcher::OptionProcessRealTime);
 
@@ -446,7 +447,7 @@ SndPlayBase::Future SndPlayTilde::createTask()
 
                 const auto nsamp = FILE_NCH * nframes;
                 if (!use_stretch) {
-                    auto rc = resampler.setResampleRatio(atomic_speed_);
+                    auto rc = resampler.setResampleRatio(atomic_speed_ * RESAMPLE_RATIO);
 
                     if (!rc)
                         THREAD_ERR("can't set resampler ratio");
