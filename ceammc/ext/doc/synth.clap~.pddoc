@@ -29,6 +29,8 @@
             is not finished release time</property>
             <property name="@tone" type="float" default="3500" minvalue="400" maxvalue="3500"
             units="hertz">bandpass filter cutoff frequency</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
             <!-- reset -->

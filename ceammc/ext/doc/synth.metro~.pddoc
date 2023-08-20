@@ -53,6 +53,8 @@
             mark sound resonance value (Q)</property>
             <!-- -->
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <inlets>
             <inlet>

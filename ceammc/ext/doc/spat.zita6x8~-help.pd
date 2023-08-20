@@ -26,152 +26,159 @@
 #X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 403 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 438 @a0;
-#X text 245 438 Get/Set 1st source panning position. Type: float. Default
+#X msg 110 438 @id;
+#X text 245 438 (initonly) Get/Set OSC address id. If specified \,
+bind all properties to /ID/spat_zita6x8/PROP_NAME osc address \, if
+empty bind to /spat_zita6x8/PROP_NAME. Type: symbol.;
+#X msg 110 495 @osc;
+#X text 245 495 (initonly) Get/Set OSC server name to listen. Type:
+symbol.;
+#X msg 110 524 @a0;
+#X text 245 524 Get/Set 1st source panning position. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 480 @a1;
-#X text 245 480 Get/Set 2nd source panning position. Type: float. Default
+#X msg 110 566 @a1;
+#X text 245 566 Get/Set 2nd source panning position. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 522 @a2;
-#X text 245 522 Get/Set 3rd source panning position. Type: float. Default
+#X msg 110 608 @a2;
+#X text 245 608 Get/Set 3rd source panning position. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 564 @a3;
-#X text 245 564 Get/Set 4th source panning position. Type: float. Default
+#X msg 110 650 @a3;
+#X text 245 650 Get/Set 4th source panning position. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 606 @a4;
-#X text 245 606 Get/Set 5th source panning position. Type: float. Default
+#X msg 110 692 @a4;
+#X text 245 692 Get/Set 5th source panning position. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 648 @a5;
-#X text 245 648 Get/Set 6th source panning position. Type: float. Default
+#X msg 110 734 @a5;
+#X text 245 734 Get/Set 6th source panning position. Type: float. Default
 value: 0\. Range: 0\...1\.;
-#X msg 110 690 @active;
-#X text 245 690 Turn on/off dsp processing. Type: bool. Default value:
+#X msg 110 776 @active;
+#X text 245 776 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
-#X msg 110 719 @dry0;
-#X text 245 719 Get/Set 1st source direct sound level. Type: float.
-Units: db. Default value: -3\. Range: -60\...0\.;
-#X msg 110 761 @dry1;
-#X text 245 761 Get/Set 2nd source direct sound level. Type: float.
-Units: db. Default value: -3\. Range: -60\...0\.;
-#X msg 110 803 @dry2;
-#X text 245 803 Get/Set 3rd source direct sound level. Type: float.
-Units: db. Default value: -3\. Range: -60\...0\.;
-#X msg 110 845 @dry3;
-#X text 245 845 Get/Set 4th source direct sound level. Type: float.
-Units: db. Default value: -3\. Range: -60\...0\.;
-#X msg 110 887 @dry4;
-#X text 245 887 Get/Set 5th source direct sound level. Type: float.
-Units: db. Default value: -3\. Range: -60\...0\.;
-#X msg 110 929 @dry5;
-#X text 245 929 Get/Set 6th source direct sound level. Type: float.
-Units: db. Default value: -3\. Range: -60\...0\.;
-#X msg 110 971 @r0;
-#X text 245 971 Get/Set 1st source distance from circle center. Type:
+#X msg 110 805 @dry0;
+#X text 245 805 Get/Set 1st source direct sound level. Type: float.
+Units: 'db'. Default value: -3\. Range: -60\...0\.;
+#X msg 110 847 @dry1;
+#X text 245 847 Get/Set 2nd source direct sound level. Type: float.
+Units: 'db'. Default value: -3\. Range: -60\...0\.;
+#X msg 110 889 @dry2;
+#X text 245 889 Get/Set 3rd source direct sound level. Type: float.
+Units: 'db'. Default value: -3\. Range: -60\...0\.;
+#X msg 110 931 @dry3;
+#X text 245 931 Get/Set 4th source direct sound level. Type: float.
+Units: 'db'. Default value: -3\. Range: -60\...0\.;
+#X msg 110 973 @dry4;
+#X text 245 973 Get/Set 5th source direct sound level. Type: float.
+Units: 'db'. Default value: -3\. Range: -60\...0\.;
+#X msg 110 1015 @dry5;
+#X text 245 1015 Get/Set 6th source direct sound level. Type: float.
+Units: 'db'. Default value: -3\. Range: -60\...0\.;
+#X msg 110 1057 @r0;
+#X text 245 1057 Get/Set 1st source distance from circle center. Type:
 float. Default value: 1\. Range: 0\...1\.;
-#X msg 110 1013 @r1;
-#X text 245 1013 Get/Set 2nd source distance from circle center. Type:
+#X msg 110 1099 @r1;
+#X text 245 1099 Get/Set 2nd source distance from circle center. Type:
 float. Default value: 1\. Range: 0\...1\.;
-#X msg 110 1055 @r2;
-#X text 245 1055 Get/Set 3rd source distance from circle center. Type:
+#X msg 110 1141 @r2;
+#X text 245 1141 Get/Set 3rd source distance from circle center. Type:
 float. Default value: 1\. Range: 0\...1\.;
-#X msg 110 1097 @r3;
-#X text 245 1097 Get/Set 4th source distance from circle center. Type:
+#X msg 110 1183 @r3;
+#X text 245 1183 Get/Set 4th source distance from circle center. Type:
 float. Default value: 1\. Range: 0\...1\.;
-#X msg 110 1139 @r4;
-#X text 245 1139 Get/Set 5th source distance from circle center. Type:
+#X msg 110 1225 @r4;
+#X text 245 1225 Get/Set 5th source distance from circle center. Type:
 float. Default value: 1\. Range: 0\...1\.;
-#X msg 110 1181 @r5;
-#X text 245 1181 Get/Set 6th source distance from circle center. Type:
+#X msg 110 1267 @r5;
+#X text 245 1267 Get/Set 6th source distance from circle center. Type:
 float. Default value: 1\. Range: 0\...1\.;
-#X msg 110 1223 @t0;
-#X text 245 1223 Get/Set 1st source reverb time (in seconds) to decay
-60dB in low and mid-frequency band. Type: float. Units: sec. Default
+#X msg 110 1309 @t0;
+#X text 245 1309 Get/Set 1st source reverb time (in seconds) to decay
+60dB in low and mid-frequency band. Type: float. Units: 'sec'. Default
 value: 2\. Range: 0\...90\.;
-#X msg 110 1280 @t1;
-#X text 245 1280 Get/Set 2nd source reverb time (in seconds) to decay
-60dB in low and mid-frequency band. Type: float. Units: sec. Default
+#X msg 110 1366 @t1;
+#X text 245 1366 Get/Set 2nd source reverb time (in seconds) to decay
+60dB in low and mid-frequency band. Type: float. Units: 'sec'. Default
 value: 2\. Range: 0\...90\.;
-#X msg 110 1337 @t2;
-#X text 245 1337 Get/Set 3rd source reverb time (in seconds) to decay
-60dB in low and mid-frequency band. Type: float. Units: sec. Default
+#X msg 110 1423 @t2;
+#X text 245 1423 Get/Set 3rd source reverb time (in seconds) to decay
+60dB in low and mid-frequency band. Type: float. Units: 'sec'. Default
 value: 2\. Range: 0\...90\.;
-#X msg 110 1394 @t3;
-#X text 245 1394 Get/Set 4th source reverb time (in seconds) to decay
-60dB in low and mid-frequency band. Type: float. Units: sec. Default
+#X msg 110 1480 @t3;
+#X text 245 1480 Get/Set 4th source reverb time (in seconds) to decay
+60dB in low and mid-frequency band. Type: float. Units: 'sec'. Default
 value: 2\. Range: 0\...90\.;
-#X msg 110 1451 @t4;
-#X text 245 1451 Get/Set 5th source reverb time (in seconds) to decay
-60dB in low and mid-frequency band. Type: float. Units: sec. Default
+#X msg 110 1537 @t4;
+#X text 245 1537 Get/Set 5th source reverb time (in seconds) to decay
+60dB in low and mid-frequency band. Type: float. Units: 'sec'. Default
 value: 2\. Range: 0\...90\.;
-#X msg 110 1508 @t5;
-#X text 245 1508 Get/Set 6th source reverb time (in seconds) to decay
-60dB in low and mid-frequency band. Type: float. Units: sec. Default
+#X msg 110 1594 @t5;
+#X text 245 1594 Get/Set 6th source reverb time (in seconds) to decay
+60dB in low and mid-frequency band. Type: float. Units: 'sec'. Default
 value: 2\. Range: 0\...90\.;
-#X msg 110 1565 @wet0;
-#X text 245 1565 Get/Set 1st source reverb sound level. Type: float.
-Units: db. Default value: -8\. Range: -60\...0\.;
-#X msg 110 1607 @wet1;
-#X text 245 1607 Get/Set 2nd source reverb sound level. Type: float.
-Units: db. Default value: -8\. Range: -60\...0\.;
-#X msg 110 1649 @wet2;
-#X text 245 1649 Get/Set 3rd source reverb sound level. Type: float.
-Units: db. Default value: -8\. Range: -60\...0\.;
-#X msg 110 1691 @wet3;
-#X text 245 1691 Get/Set 4th source reverb sound level. Type: float.
-Units: db. Default value: -8\. Range: -60\...0\.;
-#X msg 110 1733 @wet4;
-#X text 245 1733 Get/Set 5th source reverb sound level. Type: float.
-Units: db. Default value: -8\. Range: -60\...0\.;
-#X msg 110 1775 @wet5;
-#X text 245 1775 Get/Set 6th source reverb sound level. Type: float.
-Units: db. Default value: -8\. Range: -60\...0\.;
-#X obj 20 1827 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1832 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 1651 @wet0;
+#X text 245 1651 Get/Set 1st source reverb sound level. Type: float.
+Units: 'db'. Default value: -8\. Range: -60\...0\.;
+#X msg 110 1693 @wet1;
+#X text 245 1693 Get/Set 2nd source reverb sound level. Type: float.
+Units: 'db'. Default value: -8\. Range: -60\...0\.;
+#X msg 110 1735 @wet2;
+#X text 245 1735 Get/Set 3rd source reverb sound level. Type: float.
+Units: 'db'. Default value: -8\. Range: -60\...0\.;
+#X msg 110 1777 @wet3;
+#X text 245 1777 Get/Set 4th source reverb sound level. Type: float.
+Units: 'db'. Default value: -8\. Range: -60\...0\.;
+#X msg 110 1819 @wet4;
+#X text 245 1819 Get/Set 5th source reverb sound level. Type: float.
+Units: 'db'. Default value: -8\. Range: -60\...0\.;
+#X msg 110 1861 @wet5;
+#X text 245 1861 Get/Set 6th source reverb sound level. Type: float.
+Units: 'db'. Default value: -8\. Range: -60\...0\.;
+#X obj 20 1913 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1918 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1867 reset;
-#X text 245 1867 reset reverb.;
-#X obj 20 1904 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1909 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1953 reset;
+#X text 245 1953 reset reverb.;
+#X obj 20 1990 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1995 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1910 1\.;
-#X text 245 1910 1st source input.;
-#X text 110 1930 2\.;
-#X text 245 1930 2nd source input.;
-#X text 110 1950 3\.;
-#X text 245 1950 3rd source input.;
-#X text 110 1970 4\.;
-#X text 245 1970 4th source input.;
-#X text 110 1990 5\.;
-#X text 245 1990 5th source input.;
-#X text 110 2010 6\.;
-#X text 245 2010 6th source input.;
-#X obj 20 2040 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2045 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1996 1\.;
+#X text 245 1996 1st source input.;
+#X text 110 2016 2\.;
+#X text 245 2016 2nd source input.;
+#X text 110 2036 3\.;
+#X text 245 2036 3rd source input.;
+#X text 110 2056 4\.;
+#X text 245 2056 4th source input.;
+#X text 110 2076 5\.;
+#X text 245 2076 5th source input.;
+#X text 110 2096 6\.;
+#X text 245 2096 6th source input.;
+#X obj 20 2126 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2131 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2046 1\.;
-#X text 245 2046 1st output.;
-#X text 110 2066 2\.;
-#X text 245 2066 2dn output.;
-#X text 110 2086 3\.;
-#X text 245 2086 3rd output.;
-#X text 110 2106 4\.;
-#X text 245 2106 4th output.;
-#X text 110 2126 5\.;
-#X text 245 2126 5th output.;
-#X text 110 2146 6\.;
-#X text 245 2146 6th output.;
-#X text 110 2166 7\.;
-#X text 245 2166 7th output.;
-#X text 110 2186 8\.;
-#X text 245 2186 8th output.;
+#X text 110 2132 1\.;
+#X text 245 2132 1st output.;
+#X text 110 2152 2\.;
+#X text 245 2152 2dn output.;
+#X text 110 2172 3\.;
+#X text 245 2172 3rd output.;
+#X text 110 2192 4\.;
+#X text 245 2192 4th output.;
+#X text 110 2212 5\.;
+#X text 245 2212 5th output.;
+#X text 110 2232 6\.;
+#X text 245 2232 6th output.;
+#X text 110 2252 7\.;
+#X text 245 2252 7th output.;
+#X text 110 2272 8\.;
+#X text 245 2272 8th output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 2236 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2239 library: ceammc v0.9.6;
-#N canvas 10 2258 400 290 info 0;
+#X obj 1 2322 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2325 library: ceammc v0.9.6;
+#N canvas 10 2344 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -195,7 +202,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2258 pd info;
+#X restore 10 2344 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 9 0;
 #X connect 7 0 10 0;

@@ -25,6 +25,8 @@
             resistance in kOhm</property>
             <property name="@L" type="float" default="7.07" minvalue="6.5" maxvalue="7.3">L in
             mH</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
             <!-- reset -->

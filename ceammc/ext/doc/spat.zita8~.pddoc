@@ -37,6 +37,8 @@
             units="hertz">Frequency (Hz) at which the high-frequency T60 is half the middle-band's
             T60</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
             <!-- reset -->

@@ -25,6 +25,8 @@
             is not finished release time</property>
             <property name="@freq" type="float" default="50" minvalue="10" maxvalue="5000"
             units="hertz">start frequency</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
             <!-- reset -->

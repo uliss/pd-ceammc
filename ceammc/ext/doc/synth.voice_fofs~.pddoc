@@ -51,6 +51,8 @@
             units="millisecond">vowel smoothing time</property>
             <property name="@fvowel" type="float" default="0" maxvalue="4" minvalue="0">vowel
             index: 0=a, 1=e, 2=i, 3=o, 4=u. Float values can be interpoltaed.</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <inlets>
             <inlet>

@@ -16,74 +16,81 @@
 #X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 432 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 467 @active;
-#X text 245 467 Turn on/off dsp processing. Type: bool. Default value:
+#X msg 110 467 @id;
+#X text 245 467 (initonly) Get/Set OSC address id. If specified \,
+bind all properties to /ID/synth_piano/PROP_NAME osc address \, if
+empty bind to /synth_piano/PROP_NAME. Type: symbol.;
+#X msg 110 524 @osc;
+#X text 245 524 (initonly) Get/Set OSC server name to listen. Type:
+symbol.;
+#X msg 110 553 @active;
+#X text 245 553 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
-#X msg 110 496 @brightness;
-#X text 245 496 Get/Set brightness. Type: float. Default value: 0\.
+#X msg 110 582 @brightness;
+#X text 245 582 Get/Set brightness. Type: float. Default value: 0\.
 Range: 0\...1\.;
-#X msg 110 538 @detuning;
-#X text 245 538 Get/Set detuning factor. Type: float. Default value:
+#X msg 110 624 @detuning;
+#X text 245 624 Get/Set detuning factor. Type: float. Default value:
 0.1\. Range: 0\...1\.;
-#X msg 110 580 @freq;
-#X text 245 580 Get/Set frequency. Type: float. Units: Hz. Default
-value: 130.813\.;
-#X msg 110 622 @gate;
-#X text 245 622 Get/Set play trigger - 1: on \, 0: off. Type: float.
+#X msg 110 666 @freq;
+#X text 245 666 Get/Set frequency. Type: float. Units: 'Hz'. Default
+value: 130.8128\.;
+#X msg 110 708 @gate;
+#X text 245 708 Get/Set play trigger - 1: on \, 0: off. Type: float.
 Default value: 0\. Range: 0\...1\.;
-#X msg 110 664 @hammer_hardness;
-#X text 245 664 Get/Set hammer hardness. Type: float. Default value:
+#X msg 110 750 @hammer_hardness;
+#X text 245 750 Get/Set hammer hardness. Type: float. Default value:
 0.1\. Range: 0\...1\.;
-#X msg 110 706 @pan;
-#X text 245 706 Get/Set pan angle. Type: float. Default value: 0.6\.
+#X msg 110 792 @pan;
+#X text 245 792 Get/Set pan angle. Type: float. Default value: 0.6\.
 Range: 0\...1\.;
-#X msg 110 748 @pitch;
-#X text 245 748 Get/Set midi pitch. Type: float. Default value: 48\.
+#X msg 110 834 @pitch;
+#X text 245 834 Get/Set midi pitch. Type: float. Default value: 48\.
 Range: 21\...108\.;
-#X msg 110 790 @reverb_gain;
-#X text 245 790 Get/Set reverb gain. Type: float. Default value: 0.137\.
+#X msg 110 876 @reverb_gain;
+#X text 245 876 Get/Set reverb gain. Type: float. Default value: 0.137\.
 Range: 0\...1\.;
-#X msg 110 832 @room_size;
-#X text 245 832 Get/Set reverb room size. Type: float. Default value:
+#X msg 110 918 @room_size;
+#X text 245 918 Get/Set reverb room size. Type: float. Default value:
 0.36\. Range: 0.005\...1\.;
-#X msg 110 874 @stiffness;
-#X text 245 874 Get/Set stiffness factor. Type: float. Default value:
+#X msg 110 960 @stiffness;
+#X text 245 960 Get/Set stiffness factor. Type: float. Default value:
 0.28\. Range: 0\...1\.;
-#X msg 110 916 @width;
-#X text 245 916 Get/Set spatialization width. Type: float. Default
+#X msg 110 1002 @width;
+#X text 245 1002 Get/Set spatialization width. Type: float. Default
 value: 0.5\. Range: 0\...1\.;
-#X obj 20 968 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 973 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1054 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1059 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1008 note;
-#X text 245 1008 note on/off message. Arguments are:;
-#X obj 255 1031 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1031 NOTE: midi note. Type: float.;
-#X obj 255 1054 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1054 VEL: velocity. Type: float. Range: 0\...127\.;
-#X msg 110 1079 reset;
-#X text 245 1079 reset synth.;
-#X obj 20 1116 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1121 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1094 note;
+#X text 245 1094 note on/off message. Arguments are:;
+#X obj 255 1117 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1117 NOTE: midi note. Type: float.;
+#X obj 255 1140 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1140 VEL: velocity. Type: float. Range: 0\...127\.;
+#X msg 110 1165 reset;
+#X text 245 1165 reset synth.;
+#X obj 20 1202 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1207 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1122 1\.;
-#X text 150 1122 *list*;
-#X text 245 1122 NOTE VEL.;
-#X obj 20 1152 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1157 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1208 1\.;
+#X text 150 1208 *list*;
+#X text 245 1208 NOTE VEL.;
+#X obj 20 1238 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1243 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1158 1\.;
-#X text 245 1158 left output.;
-#X text 110 1178 2\.;
-#X text 245 1178 right output.;
+#X text 110 1244 1\.;
+#X text 245 1244 left output.;
+#X text 110 1264 2\.;
+#X text 245 1264 right output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1228 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1231 library: ceammc v0.9.6;
-#N canvas 10 1250 400 290 info 0;
+#X obj 1 1314 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1317 library: ceammc v0.9.6;
+#N canvas 10 1336 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -107,7 +114,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1250 pd info;
+#X restore 10 1336 pd info;
 #X connect 4 0 5 1;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

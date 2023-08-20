@@ -17,7 +17,7 @@
         <properties>
             <property name="@pitch" type="float" minvalue="24" maxvalue="84" default="48">midi
             pitch</property>
-            <property name="@freq" type="float" units="hertz" default="130.813">
+            <property name="@freq" type="float" units="hertz" default="130.8128">
             frequency</property>
             <property name="@cutoff" type="float" minvalue="20" maxvalue="20000" default="3000">
             cutoff frequency</property>
@@ -26,6 +26,8 @@
             <property name="@q" type="float" minvalue="0.01" maxvalue="100" default="0.1">quality
             factor</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
             <!-- note -->

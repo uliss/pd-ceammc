@@ -81,6 +81,8 @@
             <property name="@wet5" type="float" minvalue="-60" maxvalue="0" default="-8"
             units="decibel">6th source reverb sound level</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
             <!-- reset -->

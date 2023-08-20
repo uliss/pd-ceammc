@@ -25,6 +25,8 @@
             units="millisecond">release time</property>
             <property name="@envwait" type="bool" default="0">ignore new notes until previous note
             is not finished release time</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
             <!-- reset -->

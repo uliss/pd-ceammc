@@ -15,8 +15,8 @@
             <since>0.5</since>
         </meta>
         <arguments>
-            <argument name="CENTROID" type="float">main frequency (MIDI pitch)</argument>
-            <argument name="RATE" type="float">glissanso speed</argument>
+            <argument name="CENTROID" type="float" minvalue="20" maxvalue="120">main frequency (MIDI pitch)</argument>
+            <argument name="RATE" type="float" minvalue="-2" maxvalue="2">glissanso speed</argument>
         </arguments>
         <properties>
             <property name="@rate" type="float" minvalue="-2" maxvalue="2" default="0.01">glissanso
@@ -26,6 +26,8 @@
             <property name="@range" type="float" minvalue="1" maxvalue="120" default="120">
             glissando range in MIDI note units</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
             <!-- reset -->

@@ -30,6 +30,8 @@
             units="hertz">base frequency</property>
             <property name="@tone" type="float" default="6400" minvalue="800" maxvalue="18000"
             units="hertz">bandpass filter cutoff frequency</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
             <!-- reset -->

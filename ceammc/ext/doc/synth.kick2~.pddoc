@@ -32,6 +32,8 @@
             units="millisecond">speed of the pitch envelope</property>
             <property name="@drive" type="float" default="2.5" minvalue="1" maxvalue="10">gain
             multiplier going into the saturator</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
             <!-- reset -->

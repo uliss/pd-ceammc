@@ -20,7 +20,7 @@ on the Karplus-Strong algorithm;
 -49933 0;
 #X msg 110 406 @freq;
 #X text 245 406 Get/Set maximum speed of whistles. Type: float. Units:
-Hz. Default value: 220\. Range: 0\...480\.;
+'Hz'. Default value: 220\. Range: 0\...480\.;
 #X msg 110 448 @gate;
 #X text 245 448 Get/Set synth gate (>0 - play). Type: float. Default
 value: 0\. Range: 0\...1\.;
