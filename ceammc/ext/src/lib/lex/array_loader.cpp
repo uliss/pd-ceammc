@@ -223,7 +223,7 @@ bool ArrayLoader::setArrayOffset(long n, ArrayLoader::OffsetType t)
     if (t == OFF_BEGIN && n < 0) {
         err() << fmt::format(
             "unexpected negative offset: {}, "
-            "use 'end(+-)N' syntax, if you want to specifiy relative end offset\n",
+            "use '$(+-)N' syntax, if you want to specifiy relative end offset\n",
             n);
 
         return false;
@@ -327,8 +327,10 @@ bool ceammc::ArrayLoader::setBeginOption(long pos, ArrayLoader::OffsetType off)
 
         return false;
     } else if (samp_pos < 0) {
-        err() << fmt::format(
-            "negative begin offset ({0}) is not supported, if you need relative to the end offset, use 'end{0}' syntax", samp_pos);
+        if (off == OFF_BEGIN)
+            err() << fmt::format("negative begin offset ({0}) is not supported, if you need relative to the end offset, use '${0}' syntax", samp_pos);
+        else
+            err() << fmt::format("invalid relative offset: '${}'", pos);
 
         return false;
     } else
@@ -424,7 +426,7 @@ void ceammc::ArrayLoader::dump() const
         "  @normalize:  {}\n",
         str_, src_samplerate_, smpte_framerate_, src_sample_count_, src_num_channels_,
         fmt::join(arrays_, ", "), fmt::join(channels_, ", "), dest_samplerate_,
-        ((array_offset_type_ == OFF_END) ? "end" : ""), array_offset_,
+        ((array_offset_type_ == OFF_END) ? "$" : ""), array_offset_,
         begin_, end_, gain_, resample_ratio_, resize_, normalize_);
 }
 

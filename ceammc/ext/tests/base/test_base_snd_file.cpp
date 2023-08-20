@@ -677,6 +677,7 @@ TEST_CASE("snd.file", "[externals]")
                 t <<= load_str("load " TEST_DATA_DIR
                                "/base/snd0_ch02_48k_480samp.wav to snd_file1 "
                                "@begin $-20ms @resize");
+
                 REQUIRE(!t.hasNewMessages(0));
             }
         }
