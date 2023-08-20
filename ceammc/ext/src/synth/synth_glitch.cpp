@@ -1,4 +1,5 @@
 #include "synth_glitch.h"
+#include "args/argcheck2.h"
 #include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
@@ -171,6 +172,10 @@ void SynthGlitch::m_read(t_symbol* s, const AtomListView& lv)
 
 void SynthGlitch::m_speed(t_symbol* s, const AtomListView& lv)
 {
+    static const args::ArgChecker chk("SPEED:f[0.25,4]");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
     resample_ = 1 / clip<float>(lv.asFloat(1), 0.25, 4);
     glitch_.setSamplerate(samplerate() * resample_);
 }

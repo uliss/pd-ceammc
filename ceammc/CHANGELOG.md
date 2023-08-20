@@ -75,6 +75,7 @@
   - proto.midi.cc - new portament method added
   - hexbeat and skip added to seq.bangs
   - save to snd.file
+  - speed to synth.glitch~ to set global synth speed
 - new object properties:
   - @punct added to rhvoice~, to specify pronounced characters
   - @bypass added to dyn.comp~ and dyn.comp2~
