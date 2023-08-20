@@ -341,7 +341,7 @@ void setup_proto_midi_sysex()
 {
     ObjectFactory<ProtoMidiSysex> obj("proto.midi.sysex");
     obj.addMethod("id_request", &ProtoMidiSysex::m_id_request);
-    obj.addMethod("id_reply", &ProtoMidiSysex::m_id_reply);
+//    obj.addMethod("id_reply", &ProtoMidiSysex::m_id_reply);
 
     obj.addMethod("mvolume", &ProtoMidiSysex::m_mvolume);
     obj.addMethod(MASTER_BALANCE_FLOAT, &ProtoMidiSysex::m_mbalance_float);
