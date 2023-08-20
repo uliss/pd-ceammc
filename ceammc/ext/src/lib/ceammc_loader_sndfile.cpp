@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_loader_sndfile.h"
+#include "ceammc_config.h"
 #include "fmt/core.h"
 #include "soxr.h"
 
@@ -343,7 +344,7 @@ namespace sound {
             case FORMAT_WAV:  fmt = SF_FORMAT_WAV;  break;
             case FORMAT_AIFF: fmt = SF_FORMAT_AIFF; break;
             case FORMAT_OGG:  fmt = SF_FORMAT_OGG | SF_FORMAT_VORBIS; break;
-#ifndef LIBSNDFILE_NO_OPUS
+#ifdef CEAMMC_HAVE_LIBSNDFILE_OPUS
             case FORMAT_OPUS: fmt = SF_FORMAT_OGG | SF_FORMAT_OPUS; break;
 #endif
             case FORMAT_RAW:  fmt = SF_FORMAT_RAW; break;

@@ -32,7 +32,7 @@ TEST_CASE("PropertyInfo", "[core]")
             REQUIRE(pi.type() == PropValueType::BOOLEAN);
             REQUIRE(pi.access() == PropValueAccess::READWRITE);
             REQUIRE(pi.view() == PropValueView::TOGGLE);
-            REQUIRE(pi.units() == PropValueUnits::NONE);
+            REQUIRE(pi.equalUnit(PropValueUnits::NONE));
             REQUIRE(pi.visibility() == PropValueVis::PUBLIC);
             REQUIRE(pi.constraints() == PropValueConstraints::NONE);
 
@@ -114,7 +114,7 @@ TEST_CASE("PropertyInfo", "[core]")
             REQUIRE(pi.type() == PropValueType::FLOAT);
             REQUIRE(pi.access() == PropValueAccess::READWRITE);
             REQUIRE(pi.view() == PropValueView::SLIDER);
-            REQUIRE(pi.units() == PropValueUnits::NONE);
+            REQUIRE(pi.equalUnit(PropValueUnits::NONE));
             REQUIRE(pi.visibility() == PropValueVis::PUBLIC);
 
             REQUIRE(pi.isPublic());
@@ -261,7 +261,7 @@ TEST_CASE("PropertyInfo", "[core]")
             REQUIRE(pi.type() == PropValueType::INTEGER);
             REQUIRE(pi.access() == PropValueAccess::READWRITE);
             REQUIRE(pi.view() == PropValueView::NUMBOX);
-            REQUIRE(pi.units() == PropValueUnits::NONE);
+            REQUIRE(pi.equalUnit(PropValueUnits::NONE));
             REQUIRE(pi.visibility() == PropValueVis::PUBLIC);
 
             REQUIRE(pi.isPublic());
@@ -405,7 +405,7 @@ TEST_CASE("PropertyInfo", "[core]")
             REQUIRE(pi.type() == PropValueType::SYMBOL);
             REQUIRE(pi.access() == PropValueAccess::READWRITE);
             REQUIRE(pi.view() == PropValueView::ENTRY);
-            REQUIRE(pi.units() == PropValueUnits::NONE);
+            REQUIRE(pi.equalUnit(PropValueUnits::NONE));
             REQUIRE(pi.visibility() == PropValueVis::PUBLIC);
 
             REQUIRE(pi.isPublic());

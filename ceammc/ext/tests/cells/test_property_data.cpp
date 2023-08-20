@@ -45,7 +45,7 @@ TEST_CASE("DataPropertyT", "[core]")
             REQUIRE(!p.isSymbol());
             REQUIRE(!p.isList());
             REQUIRE(p.type() == PropValueType::ATOM);
-            REQUIRE(p.units() == PropValueUnits::NONE);
+            REQUIRE(p.equalUnit(PropValueUnits::NONE));
             REQUIRE(p.access() == PropValueAccess::READWRITE);
             REQUIRE(p.view() == PropValueView::ENTRY);
             REQUIRE(p.value() == DataTypeString("TEST"));
@@ -154,7 +154,7 @@ TEST_CASE("DataPropertyT", "[core]")
             REQUIRE(!p.isSymbol());
             REQUIRE(p.isList());
             REQUIRE(p.type() == PropValueType::LIST);
-            REQUIRE(p.units() == PropValueUnits::NONE);
+            REQUIRE(p.equalUnit(PropValueUnits::NONE));
             REQUIRE(p.access() == PropValueAccess::READWRITE);
             REQUIRE(p.view() == PropValueView::ENTRY);
             REQUIRE(p.value() == StrVec { DataTypeString("A"), DataTypeString("B") });

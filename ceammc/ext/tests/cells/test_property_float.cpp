@@ -41,7 +41,7 @@ TEST_CASE("FloatProperty", "[core]")
         REQUIRE(!p.isSymbol());
         REQUIRE(!p.isList());
         REQUIRE(p.type() == PropValueType::FLOAT);
-        REQUIRE(p.units() == PropValueUnits::NONE);
+        REQUIRE(p.equalUnit(PropValueUnits::NONE));
         REQUIRE(p.access() == PropValueAccess::READWRITE);
         REQUIRE(p.view() == PropValueView::SLIDER);
         REQUIRE(p.value() == Approx(0.5));

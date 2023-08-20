@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_property_bpm.h"
+#include "datatype_dict.h"
 #include "test_property.h"
 
 TEST_CASE("BpmProperty", "[core]")
@@ -37,7 +38,8 @@ TEST_CASE("BpmProperty", "[core]")
         REQUIRE(p.isSymbol());
         REQUIRE(!p.isList());
         REQUIRE(p.type() == PropValueType::SYMBOL);
-        REQUIRE(p.units() == PropValueUnits::BPM);
+        REQUIRE(p.equalUnit(PropValueUnits::BPM));
+        REQUIRE(p.hasUnit(PropValueUnits::BPM));
         REQUIRE(p.access() == PropValueAccess::READWRITE);
         REQUIRE(p.value() == SYM("120|4bpm"));
         REQUIRE(p.defaultValue() == SYM("120|4bpm"));
@@ -166,5 +168,27 @@ TEST_CASE("BpmProperty", "[core]")
         REQUIRE_FALSE(p.setSymbol(SYM("60|0bpm")));
         REQUIRE(p.get() == LA("60|1/4bpm"));
         REQUIRE_FALSE(p.setSymbol(&s_));
+    }
+
+    SECTION("json")
+    {
+        std::string json;
+        REQUIRE(p.infoT().getJSON(json));
+        REQUIRE(json == R"({"access":"readwrite","default":"120|4bpm","name":"@bpm","type":"symbol","units":["bpm"],"view":"entry","visibility":"public"})");
+    }
+
+    SECTION("dict")
+    {
+        DataTypeDict d;
+        REQUIRE(p.infoT().getDict(d));
+        REQUIRE(d.contains("units"));
+        REQUIRE(d.at("units") == LA("bpm"));
+
+        p.infoT().addUnit(PropValueUnits::HZ);
+        REQUIRE(p.infoT().getDict(d));
+        REQUIRE(d.contains("units"));
+        REQUIRE(d.at("units").size() == 2);
+        REQUIRE(d.at("units")[0] == A("hertz"));
+        REQUIRE(d.at("units")[1] == A("bpm"));
     }
 }

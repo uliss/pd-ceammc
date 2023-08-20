@@ -38,7 +38,7 @@ TEST_CASE("TimeSignatureProperty", "[core]")
             REQUIRE(p.isSymbol());
             REQUIRE(!p.isList());
             REQUIRE(p.type() == PropValueType::SYMBOL);
-            REQUIRE(p.units() == PropValueUnits::NONE);
+            REQUIRE(p.equalUnit(PropValueUnits::NONE));
             REQUIRE(p.access() == PropValueAccess::READWRITE);
             REQUIRE(p.value() == SYM("|4/4|"));
             REQUIRE(p.get() == LA("|4/4|"));

@@ -119,6 +119,11 @@ SndPlayTilde::SndPlayTilde(const PdArgs& args)
         } else
             return true;
     });
+    begin->addUnit(PropValueUnits::MSEC);
+    begin->addUnit(PropValueUnits::SEC);
+    begin->addUnit(PropValueUnits::SAMP);
+    begin->addUnit(PropValueUnits::SMPTE);
+
     auto end = createCbAtomProperty(
         "@end",
         [this]() -> Atom { return end_; },
@@ -286,11 +291,26 @@ SndPlayBase::Future SndPlayTilde::createTask()
     return std::async([this, fname, out_ch, sr, bs, begin, end, use_stretch]() mutable {
         auto f = sound::SoundFileFactory::openRead(fname.c_str());
         if (!f) {
-            THREAD_ERR("can't read '{}'", fname);
+            THREAD_ERR("can't read soundfile '{}'", fname);
             return;
         }
 
-        logger_.debug(fmt::format("play SR={}, file SR={}, CH={}", sr, f->sampleRate(), f->channels()));
+        f->setLogFunction([this](LogLevel lv, const char* msg) {
+            switch (lv) {
+            case LOG_ERROR:
+                return logger_.error(msg);
+            case LOG_DEBUG:
+                return logger_.debug(msg);
+            case LOG_POST:
+                return logger_.post(msg);
+            case LOG_ALL:
+                return logger_.verbose(msg);
+            default:
+                break;
+            }
+        });
+
+        THREAD_DBG("play SR={}, file SR={}, CH={}", sr, f->sampleRate(), f->channels());
 
         file_begin_ = 0;
         if (!calcBegin(begin, sr, f->frameCount(), file_begin_)) {

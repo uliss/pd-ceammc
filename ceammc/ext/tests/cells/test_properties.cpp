@@ -58,7 +58,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(!p.isSymbol());
         REQUIRE(!p.isList());
         REQUIRE(p.type() == PropValueType::ATOM);
-        REQUIRE(p.units() == PropValueUnits::NONE);
+        REQUIRE(p.equalUnit(PropValueUnits::NONE));
         REQUIRE(p.access() == PropValueAccess::READWRITE);
         REQUIRE(p.view() == PropValueView::ENTRY);
         REQUIRE(p.defaultValue() == Atom(1.5f));
@@ -192,7 +192,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
             REQUIRE(!p.isSymbol());
             REQUIRE(!p.isList());
             REQUIRE(p.type() == PropValueType::INTEGER);
-            REQUIRE(p.units() == PropValueUnits::NONE);
+            REQUIRE(p.equalUnit(PropValueUnits::NONE));
             REQUIRE(p.access() == PropValueAccess::READWRITE);
             REQUIRE(p.view() == PropValueView::NUMBOX);
             REQUIRE(p.defaultValue() == 12);
@@ -276,7 +276,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
             REQUIRE(!p.isSymbol());
             REQUIRE(p.isList());
             REQUIRE(p.type() == PropValueType::LIST);
-            REQUIRE(p.units() == PropValueUnits::NONE);
+            REQUIRE(p.equalUnit(PropValueUnits::NONE));
             REQUIRE(p.access() == PropValueAccess::READONLY);
             REQUIRE(p.view() == PropValueView::ENTRY);
 
@@ -381,7 +381,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
             REQUIRE(!p.isSymbol());
             REQUIRE(!p.isList());
             REQUIRE(p.type() == PropValueType::INTEGER);
-            REQUIRE(p.units() == PropValueUnits::NONE);
+            REQUIRE(p.equalUnit(PropValueUnits::NONE));
             REQUIRE(p.access() == PropValueAccess::READONLY);
             REQUIRE(p.view() == PropValueView::NUMBOX);
             REQUIRE(p.value() == -100);
@@ -446,7 +446,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
         REQUIRE(!p.isSymbol());
         REQUIRE(!p.isList());
         REQUIRE(p.type() == PropValueType::INTEGER);
-        REQUIRE(p.units() == PropValueUnits::HZ);
+        REQUIRE(p.hasUnit(PropValueUnits::HZ));
         REQUIRE(p.view() == PropValueView::NUMBOX);
         REQUIRE(p.value() == 1);
 

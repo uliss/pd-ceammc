@@ -142,8 +142,13 @@ void ObjProps::onBang()
             if (p.hasEnumLimit())
                 prop_info->insert("enum", p.enumValues());
 
-            if (p.units() != PropValueUnits::NONE)
-                prop_info->insert("units", to_symbol(p.units()));
+            if (!p.equalUnit(PropValueUnits::NONE)) {
+                AtomList units;
+                p.unitsIterate([&units](const char* u) {
+                    units.append(gensym(u));
+                });
+                prop_info->insert("units", units);
+            }
         }
 
         obj_list.append(obj_info);
@@ -158,7 +163,7 @@ void setup_obj_props()
 
     obj.setDescription("property extractor");
     obj.addAuthor("Serge Poltavsky");
-    obj.setKeywords({"property"});
+    obj.setKeywords({ "property" });
     obj.setCategory("base");
     obj.setSinceVersion(0, 7);
 }

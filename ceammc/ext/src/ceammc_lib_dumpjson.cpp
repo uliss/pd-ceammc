@@ -15,7 +15,6 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_object_info.h"
 #include "ceammc_pd.h"
-#include "datatype_dict.h"
 #include "stk/stk/include/Stk.h"
 #include "json/json.hpp"
 

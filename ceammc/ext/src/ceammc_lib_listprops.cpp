@@ -30,7 +30,7 @@
 
 using namespace ceammc;
 
-static std::string to_string2(const AtomList& lst)
+static std::string to_array_str(const AtomList& lst)
 {
     std::string res;
     res += "[ ";
@@ -49,31 +49,13 @@ static std::string to_string2(const AtomList& lst)
     return res;
 }
 
-static std::string pddoc_units(const std::string& u)
-{
-    const static std::map<std::string, std::string> um = {
-        { "samp", "sample" },
-        { "db", "decibel" },
-        { "hz", "hertz" },
-        { "msec", "millisecond" },
-        { "sec", "second" },
-        { "rad", "radian" },
-        { "deg", "degree" }
-    };
-    auto it = um.find(u);
-    if (it == um.end())
-        return u;
-    else
-        return it->second;
-}
-
 static void printInfo(std::ostream& os, const PropertyInfo& pi)
 {
     os << "  \"" << pi.name()->s_name << "\": {\n";
     os << "    \"type\": \"" << to_string(pi.type()) << "\",\n";
     os << "    \"view\": \"" << to_string(pi.view()) << "\",\n";
     if (pi.hasEnumLimit())
-        os << "    \"enum\": " << to_string2(pi.enumValues()) << ",\n";
+        os << "    \"enum\": " << to_array_str(pi.enumValues()) << ",\n";
     if (pi.isFloat()) {
         if (pi.hasConstraintsMin())
             os << "    \"min\": " << pi.minFloat() << ",\n";
@@ -108,8 +90,11 @@ static void printInfo(std::ostream& os, const PropertyInfo& pi)
         break;
     }
 
-    if (pi.units() != PropValueUnits::NONE)
-        os << "    \"units\": \"" << pddoc_units(to_string(pi.units())) << "\",\n";
+    if (!pi.equalUnit(PropValueUnits::NONE)) {
+        AtomList u;
+        pi.unitsIterate([&u](const char* name) { u.push_back(gensym(name)); });
+        os << R"(    "units": )" << to_array_str(u) << ",\n";
+    }
 
     os << "    \"name\": \"" << pi.name()->s_name << "\",\n";
     os << "    \"access\": \"" << to_string(pi.access()) << "\",\n";

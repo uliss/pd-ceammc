@@ -86,11 +86,17 @@ public:
 
     inline PropValueAccess access() const { return info_.access(); }
     inline PropValueType type() const { return info_.type(); }
-    inline PropValueUnits units() const { return info_.units(); }
     inline PropValueView view() const { return info_.view(); }
     inline PropValueVis visibility() const { return info_.visibility(); }
     inline int8_t argIndex() const { return info_.argIndex(); }
     inline bool hasArgIndex() const { return info_.hasArgIndex(); }
+
+    // units
+    inline PropValueUnitsBase units() const { return info_.units(); }
+    inline bool equalUnit(PropValueUnits u) const { return info_.equalUnit(u); }
+    inline bool hasUnit(PropValueUnits u) const { return info_.hasUnit(u); }
+    inline void addUnit(PropValueUnits u) { return info_.addUnit(u); }
+    inline void setUnits(PropValueUnits u) { info_.setUnits(u); }
 
     inline void setReadOnly() { info_.setAccess(PropValueAccess::READONLY); }
     inline void setInitOnly() { info_.setAccess(PropValueAccess::INITONLY); }
@@ -101,7 +107,6 @@ public:
     bool setArgIndexNext(Property* p);
 
     inline void setType(PropValueType t) { info_.setType(t); }
-    inline void setUnits(PropValueUnits u) { info_.setUnits(u); }
     inline void setView(PropValueView v) { info_.setView(v); }
     inline void setVisibility(PropValueVis v) { info_.setVisibility(v); }
 
@@ -516,7 +521,7 @@ public:
         static_assert(std::is_base_of<Property, T>::value, "should be base of Property");
 
         setType(prop->type());
-        setUnits(prop->units());
+        setUnits(static_cast<PropValueUnits>(prop->units()));
         setView(prop->view());
         setHidden();
     }

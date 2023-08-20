@@ -58,7 +58,7 @@ TEST_CASE("ListProperty", "[ceammc::properties]")
         REQUIRE(!p.isSymbol());
         REQUIRE(p.isList());
         REQUIRE(p.type() == PropValueType::LIST);
-        REQUIRE(p.units() == PropValueUnits::NONE);
+        REQUIRE(p.equalUnit(PropValueUnits::NONE));
         REQUIRE(p.access() == PropValueAccess::READWRITE);
         REQUIRE(p.view() == PropValueView::ENTRY);
         REQUIRE(p.defaultValue() == LF(-1, -2, -3));
