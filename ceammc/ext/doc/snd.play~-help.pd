@@ -30,6 +30,7 @@
 #X obj 270 475 ui.dsp~;
 #X obj 50 504 dac~;
 #X obj 50 533 snd.play~.seek;
+#X obj 213 533 snd.play~.resamp;
 #X obj 20 582 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 587 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
@@ -187,5 +188,5 @@ https://github.com/uliss/pure-data;
 #X connect 23 1 25 1;
 #X connect 7 0 11 0;
 #X connect 8 0 11 0;
-#X connect 17 0 11 0;
+#X connect 17 0 21 0;
 #X connect 11 0 21 0;
