@@ -31,7 +31,7 @@
             <argument name="PATTERN" type="symbol">filename generation pattern</argument>
         </arguments>
         <properties>
-            <property name="@pattern" type="symbol">filename pattern</property>
+            <property name="@pattern" type="symbol" default="">filename pattern</property>
         </properties>
         <inlets>
             <inlet>

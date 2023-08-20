@@ -20,7 +20,7 @@
             <argument name="PATH" type="list">init directory value</argument>
         </arguments>
         <properties>
-            <property name="@match" type="symbol">match mask: for example *.wav for all wav
+            <property name="@match" type="symbol" default="">match mask: for example *.wav for all wav
             files</property>
             <property name="@path" type="list" default="">current path</property>
         </properties>
