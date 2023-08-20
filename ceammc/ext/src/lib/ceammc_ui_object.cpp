@@ -750,9 +750,14 @@ static PropertyInfo attr_to_prop(t_ebox* x, t_eattr* a)
             res.setType(PropValueType::FLOAT);
             set_constraints(res, a);
 
-            if (a->defvals)
-                res.setDefault((t_float)strtod(a->defvals->s_name, NULL));
-            else if (a->getter) {
+            if (a->defvals) {
+                if (strcmp(a->defvals->s_name, "3.40282e+38") == 0)
+                    res.setDefault(std::numeric_limits<float>::max());
+                else if (strcmp(a->defvals->s_name, "-3.40282e+38") == 0)
+                    res.setDefault(std::numeric_limits<float>::lowest());
+                else
+                    res.setDefault((t_float)strtod(a->defvals->s_name, NULL));
+            } else if (a->getter) {
                 int argc = 0;
                 t_atom* atoms = nullptr;
                 if (a->getter(x, a, &argc, &atoms)) {

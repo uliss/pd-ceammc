@@ -1207,11 +1207,45 @@ bool PropertyInfo::getJSON(std::string& str) const
     if (hasArgIndex())
         obj["arg_index"] = argIndex();
 
-    if (hasConstraintsMin())
-        obj["min"] = isFloat() ? minFloat() : minInt();
+    if (hasConstraintsMin()) {
+        if (isFloat()) {
+            auto f = minFloat();
+            if (f == FLOAT_INF_MAX)
+                obj["min"] = "inf";
+            else if (f == FLOAT_INF_MIN)
+                obj["min"] = "-inf";
+            else
+                obj["min"] = f;
+        } else {
+            auto x = minInt();
+            if (x == INT_INF_MAX)
+                obj["min"] = "inf";
+            else if (x == INT_INF_MIN)
+                obj["min"] = "-inf";
+            else
+                obj["min"] = x;
+        }
+    }
 
-    if (hasConstraintsMax())
-        obj["max"] = isFloat() ? maxFloat() : maxInt();
+    if (hasConstraintsMax()) {
+        if (isFloat()) {
+            auto f = maxFloat();
+            if (f == FLOAT_INF_MAX)
+                obj["max"] = "inf";
+            else if (f == FLOAT_INF_MIN)
+                obj["max"] = "-inf";
+            else
+                obj["max"] = f;
+        } else {
+            auto x = maxInt();
+            if (x == INT_INF_MAX)
+                obj["max"] = "inf";
+            else if (x == INT_INF_MIN)
+                obj["max"] = "-inf";
+            else
+                obj["max"] = x;
+        }
+    }
 
     if (hasStep())
         obj["step"] = step();
@@ -1224,13 +1258,26 @@ bool PropertyInfo::getJSON(std::string& str) const
 
     if (isBool())
         obj["default"] = defaultBool() ? 1 : 0;
-    else if (isFloat())
-        obj["default"] = defaultFloat();
-    else if (isInt())
-        obj["default"] = defaultInt();
-    else if (isSymbol())
+    else if (isFloat()) {
+        auto def = defaultFloat();
+        if (def == FLOAT_INF_MAX)
+            obj["default"] = "inf";
+        else if (def == FLOAT_INF_MIN)
+            obj["default"] = "-inf";
+        else
+            obj["default"] = def;
+    } else if (isInt()) {
+        auto def = defaultInt();
+
+        if (def == INT_INF_MAX)
+            obj["default"] = "inf";
+        else if (def == INT_INF_MAX)
+            obj["default"] = "-inf";
+        else
+            obj["default"] = def;
+    } else if (isSymbol()) {
         obj["default"] = defaultSymbol()->s_name;
-    else if (isVariant()) {
+    } else if (isVariant()) {
         nlohmann::json j;
         to_json(j, defaultAtom());
         obj["default"] = j;

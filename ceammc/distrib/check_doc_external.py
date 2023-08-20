@@ -38,6 +38,10 @@ def pddoc_float(value: str) -> float:
         return round(3.1415926, 4)
     elif value == "2π":
         return round(3.1415926 * 2, 4)
+    elif value == "inf" or value == "+inf":
+        return 2147483647
+    elif value == "-inf":
+        return -2147483647
     elif isinstance(value, float):
         return value
     elif len(value) > 0:
@@ -358,29 +362,19 @@ def check_single_prop(name, prop, doc, ext):
         # none
         if doc_def is None:
             pass
-        # float
         elif type_doc == "float":
-            if doc_def == "2π":
-                doc_def = round(3.1415926 * 2, 4)
-            elif doc_def == "π":
-                doc_def = round(3.1415926, 4)
-            elif doc_def == "+inf":
-                doc_def = 2147483647
-            elif doc_def == "-inf":
-                doc_def = -2147483648
-            else:
-                doc_def = round(float(doc_def), 4)
-        # int
+            doc_def = pddoc_float(doc_def)
         elif type_doc == "int":
             doc_def = int(doc_def)
         elif type_doc == "bool":
             doc_def = int(doc_def)
 
+
         ext_def = ext.get("default", None)
         if ext_def is None:
             pass
         elif type_ext == "float":
-            ext_def = round(ext_def, 4)
+            ext_def = pddoc_float(ext_def)
         elif type_ext == "int":
             ext_def = round(ext_def, 4)
         elif type_ext == "list":
