@@ -171,12 +171,12 @@ def has_mouse_methods():
         "rightclick" in EXT_METHODS)
 
 
-def check_units(name, prop, doc, ext):
-    doc_unit_str = doc.get("units", None)
-    if doc_unit_str is not None:
-        units_doc = set(doc_unit_str.split(" "))
+def check_units(name, tag, doc, ext):
+    if tag[0] == '@':
+        tag = f'[{tag}]'
     else:
-        units_doc = set()
+        tag = f'[arg][{tag}]'
+
 
     def unit2pddoc(unit: str):
         MAP = { 'millisecond': 'msec', 'second': 'sec' }
@@ -185,19 +185,25 @@ def check_units(name, prop, doc, ext):
         else:
             return unit
 
+    units_doc = set()
+    doc_unit_str = doc.get("units", None)
+    if doc_unit_str is not None:
+        for x in doc_unit_str.split(" "):
+            units_doc.add(unit2pddoc(x))
+
     units_ext = set()
     for x in ext.get("units", ()):
         units_ext.add(unit2pddoc(x))
 
     if units_doc != units_ext:
-        cprint(f"[{name}][{prop}] units in doc {units_doc} != units in ext {units_ext}", 'red')
+        cprint(f"[{name}]{tag} units in doc {units_doc} != units in ext {units_ext}", 'red')
         miss = units_ext - units_doc
         if len(miss) > 0:
-            cprint(f"[{name}][{prop}] missing units: {miss}", 'red')
+            cprint(f"[{name}]{tag} missing units: {miss}", 'red')
 
         invalid = units_doc - units_ext
         if len(invalid) > 0:
-            cprint(f"[{name}][{prop}] invalid units: {invalid}", 'red')
+            cprint(f"[{name}]{tag} invalid units: {invalid}", 'red')
 
 
 def check_aliases(name, doc, ext):
@@ -262,11 +268,7 @@ def check_single_arg(ext_name, arg_name, doc, ext):
     if doc_maxval != ext_maxval:
         cprint(f"[{ext_name}][arg][{arg_name}] invalid argument maxvalue in doc: {doc_maxval}, should be: {ext_maxval}", 'magenta')
 
-    # check units
-    doc_units = doc.get("units", ())
-    ext_units = ext.get("units", ())
-    if doc_units != ext_units:
-        cprint(f"[{ext_name}][arg][{arg_name}] invalid argument units in doc: {doc_units}, should be: {ext_units}", 'magenta')
+    check_units(ext_name, arg_name, doc, ext)
 
 
 def check_args(name, doc, ext):
