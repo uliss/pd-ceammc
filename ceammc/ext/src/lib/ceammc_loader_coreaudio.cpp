@@ -13,8 +13,6 @@
  *****************************************************************************/
 #include "ceammc_loader_coreaudio.h"
 #include "ceammc_loader_coreaudio_impl.h"
-#include "ceammc_log.h"
-#include "fmt/core.h"
 
 using namespace ceammc;
 using namespace ceammc::sound;
@@ -80,7 +78,7 @@ bool CoreAudioFile::close()
 std::int64_t CoreAudioFile::read(t_word* dest, size_t sz, size_t channel, std::int64_t offset)
 {
     if (!isOpened() || openMode() != READ) {
-        LIB_ERR << fmt::format(CA_PREFIX "not opened for reading");
+        error(CA_PREFIX "not opened for reading");
         return -1;
     }
 
@@ -103,7 +101,7 @@ std::int64_t CoreAudioFile::readFrames(float* dest, size_t frames, std::int64_t 
         return -1;
 
     if (!isOpened() || openMode() != READ) {
-        LIB_ERR << fmt::format(CA_PREFIX "not opened for reading");
+        error(CA_PREFIX "not opened for reading");
         return -1;
     }
 
