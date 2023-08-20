@@ -14,6 +14,9 @@
             <keywords>colorpanel</keywords>
             <since>0.1</since>
         </meta>
+        <mouse>
+            <event type="left-click" editmode="false" keys="Shift">open color chooser</event>
+        </mouse>
         <properties>
             <property name="@mode" type="symbol" enum="float int hex" default="float">output
             mode</property>
@@ -48,7 +51,7 @@
 <![CDATA[
 [bang(                [ui.menu float int hex]
 |                     |
-|  [symbol #FFAA77(   [@mode $2(
+|  [symbol \#FFAA77(  [@mode $2(
 |  |                  |
 [system.colorpanel  @f]
 |
