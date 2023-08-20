@@ -68,6 +68,43 @@ namespace sound {
     {
     }
 
+    void SoundFile::debug(const char* msg) const
+    {
+        if (!log_fn_)
+            std::clog << "[debug] " << msg;
+        else
+            log_fn_(LOG_DEBUG, msg);
+    }
+
+    void SoundFile::error(const char* msg) const
+    {
+        if (!log_fn_)
+            std::cerr << "[error] " << msg;
+        else
+            log_fn_(LOG_ERROR, msg);
+    }
+
+    void SoundFile::log(const char* msg) const
+    {
+        if (!log_fn_)
+            std::clog << "[log] " << msg;
+        else
+            log_fn_(LOG_ALL, msg);
+    }
+
+    void SoundFile::post(const char* msg) const
+    {
+        if (!log_fn_)
+            std::cout << msg;
+        else
+            log_fn_(LOG_POST, msg);
+    }
+
+    void SoundFile::setLogFunction(const SoundFileLogFunction& fn)
+    {
+        log_fn_ = fn;
+    }
+
     SoundFile::~SoundFile() = default;
 
     bool SoundFileFactory::registerBackend(const SoundFileBackend& backend)

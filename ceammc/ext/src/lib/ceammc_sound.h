@@ -14,9 +14,11 @@
 #ifndef CEAMMC_SOUND_H
 #define CEAMMC_SOUND_H
 
+#include "ceammc_log.h"
 #include "m_pd.h"
 
 #include <cstdint>
+#include <functional>
 #include <memory>
 #include <string>
 #include <utility>
@@ -24,6 +26,8 @@
 
 namespace ceammc {
 namespace sound {
+
+    using SoundFileLogFunction = std::function<void(LogLevel, const char*)>;
 
     enum SoundFileFormat : std::uint8_t {
         FORMAT_UNKNOWN,
@@ -154,10 +158,22 @@ namespace sound {
          */
         virtual std::int64_t write(const t_word* const* src, size_t len, std::int64_t offset) { return -1; }
 
+        void debug(const char* msg) const;
+        void debug(const std::string& msg) const;
+        void error(const char* msg) const;
+        void error(const std::string& msg) const;
+        void log(const char* msg) const;
+        void log(const std::string& msg) const;
+        void post(const char* msg) const;
+        void post(const std::string& msg) const;
+
+        void setLogFunction(const SoundFileLogFunction& fn);
+
     private:
         t_float gain_ = { 1.f };
         double resample_ratio_ = { 1 };
         OpenMode open_mode_ { NONE };
+        SoundFileLogFunction log_fn_;
 
     protected:
         std::string fname_;
