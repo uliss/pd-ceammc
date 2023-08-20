@@ -62,13 +62,13 @@ value: 0\.;
 to load default soundfont. Type: symbol.;
 #X msg 110 912 @volume;
 #X text 245 912 Get/Set output volume (same as @gain but in db). Type:
-float. Units: db. Default value: 0\. Range: -60\...10\.;
+float. Units: 'db'. Default value: 0\. Range: -60\...10\.;
 #X msg 110 954 @avoices?;
 #X text 245 954 (readonly) Get number midi channels. Type: float. Default
 value: 0\.;
 #X msg 110 996 @bufsize?;
 #X text 245 996 (readonly) Get internal buffer size. Type: float. Units:
-samp. Default value: 0\.;
+'samp'. Default value: 0\.;
 #X msg 110 1038 @cpuload?;
 #X text 245 1038 (readonly) Get current cpu load. Type: float. Default
 value: 0\.;
@@ -77,7 +77,7 @@ value: 0\.;
 Default value: 16\.;
 #X msg 110 1122 @version?;
 #X text 245 1122 (readonly) Get FluidSynth version. Type: symbol. Default
-value: 2.0.0\.;
+value: 2.3.2\.;
 #X msg 110 1164 @soundfonts?;
 #X text 245 1164 (readonly) Get list of found soundfonts. Type: list.;
 #X obj 20 1203 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -130,7 +130,7 @@ Type: int. Range: -8192\...8191\.;
 all channels. Type: int. Range: 0\...16\.;
 #X obj 255 1794 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1794 RANGE: semitones sensitivity. Type: int. Range: 0\...64\.
-Units: semitone.;
+Units: 'semitone'.;
 #X msg 110 1834 cc;
 #X text 245 1834 control change. Arguments are:;
 #X obj 255 1857 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -248,7 +248,7 @@ all channels. Type: int. Range: 0\...15\.;
 #X obj 255 3213 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 3213 VAL: pedal state. Type: int. Allowed values: 0 \,
 1\.;
-#X msg 110 3238 sounds_off;
+#X msg 110 3238 sound_off;
 #X text 245 3238 immediately stop all notes (skips release phase).
 Arguments are:;
 #X obj 255 3276 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;

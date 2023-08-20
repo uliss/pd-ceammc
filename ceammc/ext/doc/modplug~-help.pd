@@ -31,14 +31,14 @@ Type: symbol.;
 #X msg 110 422 @play;
 #X text 245 422 Get/Set play state. Type: bool. Default value: 0\.;
 #X msg 110 451 @pos;
-#X text 245 451 Get/Set position in mod file. Type: float. Units: ms.
+#X text 245 451 Get/Set position in mod file. Type: float. Units: 'ms'.
 Default value: -1\.;
 #X msg 110 493 @rpos;
 #X text 245 493 Get/Set relative position in mod file. Type: float.
 Default value: 0\. Range: 0\...1\.;
 #X msg 110 535 @len?;
 #X text 245 535 (readonly) Get length of mod file. Type: float. Units:
-ms. Default value: 0\.;
+'ms'. Default value: 0\.;
 #X msg 110 577 @name?;
 #X text 245 577 (readonly) Get mod name. Type: symbol.;
 #X obj 20 616 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

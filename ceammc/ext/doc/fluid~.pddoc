@@ -26,7 +26,7 @@
         <properties>
             <property name="@sf" type="symbol">soundfont path, you can use **default** value to
             load default soundfont</property>
-            <property name="@version" type="symbol" access="readonly" default="2.0.0">FluidSynth
+            <property name="@version" type="symbol" access="readonly" default="2.3.2">FluidSynth
             version</property>
             <property name="@soundfonts" type="list" access="readonly" default="">list of found
             soundfonts</property>
@@ -178,8 +178,8 @@
             <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">MIDI channel,
             if zero or ommited apply to all channels</param>
             <param name="VAL" type="int" enum="0 1" required="true">pedal state</param></method>
-            <!-- sounds_off -->
-            <method name="sounds_off">immediately stop all notes (skips release phase). 
+            <!-- sound_off -->
+            <method name="sound_off">immediately stop all notes (skips release phase).
             <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
             MIDI channel, if zero or not specified stop notes on all channels</param></method>
             <!-- sysex -->
