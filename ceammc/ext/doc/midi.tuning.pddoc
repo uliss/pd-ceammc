@@ -14,7 +14,7 @@
             <since>0.9.1</since>
         </meta>
         <arguments>
-            <argument name="LIST" type="list">if symbol - set named temperament deviations, valid
+            <argument name="DEV" type="list">if symbol - set named temperament deviations, valid
             names are: "eq", "just", "ganassi", "meantone", "kirnberger3", "pythagorean", "rameau",
             "valotti" or "zarlino". If list: set deviation in cents per pitch</argument>
         </arguments>

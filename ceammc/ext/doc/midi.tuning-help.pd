@@ -23,9 +23,9 @@
 -49933 0;
 #X text 110 495 1\.;
 #X text 150 495 list;
-#X obj 246 496 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 495 LIST: if symbol - set named temperament deviations
-\, valid names are: "eq" \, "just" \, "ganassi" \, "meantone" \, "kirnberger3"
+#X obj 246 496 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 495 DEV: if symbol - set named temperament deviations \,
+valid names are: "eq" \, "just" \, "ganassi" \, "meantone" \, "kirnberger3"
 \, "pythagorean" \, "rameau" \, "valotti" or "zarlino". If list: set
 deviation in cents per pitch. Type: list.;
 #X obj 20 585 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
