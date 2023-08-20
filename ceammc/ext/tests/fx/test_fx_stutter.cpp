@@ -31,7 +31,7 @@ TEST_CASE("fx.stutter~", "[externals]")
     {
         TExt t("fx.stutter~");
         REQUIRE(t.numInlets() == 2);
-        REQUIRE(t.numOutlets() == 2);
+        REQUIRE(t.numOutlets() == 1);
         REQUIRE_PROPERTY_FLOAT(t, @maxsize, 1000);
         REQUIRE_PROPERTY_FLOAT(t, @t, 50);
         REQUIRE_PROPERTY_LIST(t, @env, EnvAtom(DataTypeEnv().setAR(5000, 45000)));
