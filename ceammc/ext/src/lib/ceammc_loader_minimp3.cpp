@@ -12,7 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_loader_minimp3.h"
-#include "ceammc_log.h"
 #include "fmt/core.h"
 #include "soxr.h"
 
@@ -48,7 +47,7 @@ soxr_t ceammc_soxr_create(double ratio, unsigned ch, soxr_error_t* err)
         nullptr, nullptr, nullptr);
 }
 
-const bool debug = false;
+constexpr bool do_debug = false;
 
 }
 
@@ -70,11 +69,11 @@ namespace sound {
     {
         switch (mode) {
         case SoundFile::WRITE:
-            LIB_ERR << fmt::format(MINI_PREFIX "can't open for writing: '{}'", fname);
+            log(fmt::format(MINI_PREFIX "can't open for writing: '{}'", fname));
             return false;
         case SoundFile::READ:
             if (mp3dec_ex_open(decoder_.get(), fname, MP3D_SEEK_TO_SAMPLE)) {
-                LIB_ERR << fmt::format(MINI_PREFIX "can't open file: '{}'", fname);
+                log(fmt::format(MINI_PREFIX "can't open file: '{}'", fname));
                 decoder_.reset();
                 return false;
             }
@@ -131,13 +130,13 @@ namespace sound {
     std::int64_t MiniMp3::read(t_word* dest, size_t sz, size_t ch, std::int64_t offset)
     {
         if (!(isOpened() && openMode() == READ)) {
-            LIB_ERR << fmt::format(MINI_PREFIX "not opened for reading");
+            error(fmt::format(MINI_PREFIX "not opened for reading"));
             return -1;
         }
 
         const auto NUM_CH = channels();
         if (ch >= NUM_CH) {
-            LIB_ERR << fmt::format(MINI_PREFIX "invalid channel number: {}", ch);
+            error(fmt::format(MINI_PREFIX "invalid channel number: {}", ch));
             return -1;
         }
 
@@ -147,7 +146,7 @@ namespace sound {
         // seek to offset
         const auto pos = std::min<size_t>(offset, frameCount()) * NUM_CH;
         if (mp3dec_ex_seek(decoder_.get(), pos)) {
-            LIB_ERR << fmt::format(MINI_PREFIX "can't seek to sample #{}", offset);
+            error(fmt::format(MINI_PREFIX "can't seek to sample #{}", offset));
             return -1;
         }
 
@@ -156,7 +155,7 @@ namespace sound {
         size_t readed = mp3dec_ex_read(decoder_.get(), buffer.data(), buffer.size());
         if (readed != buffer.size()) { /* normal eof or error condition */
             if (decoder_->last_error) {
-                LIB_ERR << MINI_PREFIX "read error";
+                error(MINI_PREFIX "read error");
                 return -1;
             }
         }
@@ -175,14 +174,14 @@ namespace sound {
             return -1;
 
         if (!(isOpened() && openMode() == READ)) {
-            LIB_ERR << fmt::format(MINI_PREFIX "not opened for reading");
+            error(fmt::format(MINI_PREFIX "not opened for reading"));
             return -1;
         }
 
         // seek to offset
         const auto pos = std::min<size_t>(offset, frameCount()) * channels();
         if (mp3dec_ex_seek(decoder_.get(), pos) != 0) {
-            LIB_ERR << fmt::format(MINI_PREFIX "can't seek to sample #{}", offset);
+            error(fmt::format(MINI_PREFIX "can't seek to sample #{}", offset));
             return -1;
         }
 
@@ -198,36 +197,36 @@ namespace sound {
         static_assert(std::is_same<mp3d_sample_t, float>::value, "");
 
         if (resampleRatio() < 0.001) {
-            LIB_ERR << MINI_PREFIX "invalid resample ratio: " << resampleRatio();
+            error(fmt::format(MINI_PREFIX "invalid resample ratio: {}", resampleRatio()));
             return -1;
         }
 
         const auto NUM_CH = channels();
         if (ch >= NUM_CH) {
-            LIB_ERR << MINI_PREFIX "[minimp3] invalid channel number: " << ch;
+            error(fmt::format(MINI_PREFIX "[minimp3] invalid channel number: {}", ch));
             return -1;
         }
 
         // seek to position
         const auto pos = std::min<size_t>(offset * NUM_CH * resampleRatio(), frameCount());
         if (pos > 0 && mp3dec_ex_seek(decoder_.get(), pos)) {
-            LIB_ERR << MINI_PREFIX "can't seek to pos #" << offset;
+            error(fmt::format(MINI_PREFIX "can't seek to pos #{}", offset));
             return -1;
         }
 
-        if (debug)
-            LIB_DBG << "offset " << pos;
+        if (do_debug)
+            debug(fmt::format("offset {}", pos));
 
         int sr_error = 0;
         SampleRatePtr libsr(src_new(SRC_SINC_BEST_QUALITY, NUM_CH, &sr_error), &src_delete);
         if (!libsr) {
-            LIB_ERR << "[libsamplerate] init error: " << src_strerror(sr_error);
+            error(fmt::format("[libsamplerate] init error: {}", src_strerror(sr_error)));
             return -1;
         }
 
         sr_error = src_set_ratio(libsr.get(), resampleRatio());
         if (sr_error) {
-            LIB_ERR << "[libsamplerate] can't set ratio: " << src_strerror(sr_error);
+            error(fmt::format("[libsamplerate] can't set ratio: {}", src_strerror(sr_error)));
             return -1;
         }
 
@@ -236,8 +235,8 @@ namespace sound {
         std::vector<mp3d_sample_t> in_buffer(mp3_out_bufsize);
         const size_t should_read = size * NUM_CH;
 
-        if (debug)
-            LIB_DBG << "should output " << should_read << " samples";
+        if (do_debug)
+            debug(fmt::format("should output {} samples", should_read));
 
         const size_t OUT_BUF_SIZE = std::round(in_buffer.size() * resampleRatio());
         std::vector<float> out_buf(OUT_BUF_SIZE);
@@ -253,7 +252,7 @@ namespace sound {
 
             if (nsamp != in_buffer.size()) { /* normal eof or error condition */
                 if (decoder_->last_error) {
-                    LIB_ERR << "[minimp3] read error";
+                    error("[minimp3] read error");
                     return -1;
                 }
 
@@ -275,7 +274,7 @@ namespace sound {
 
             sr_error = src_process(libsr.get(), &data);
             if (sr_error) {
-                LIB_ERR << "[libsamplerate] error: " << src_strerror(sr_error);
+                error(fmt::format("[libsamplerate] error: ", src_strerror(sr_error)));
                 return -1;
             }
 
@@ -301,7 +300,7 @@ namespace sound {
             data.end_of_input = 1;
             sr_error = src_process(libsr.get(), &data);
             if (sr_error) {
-                LIB_ERR << "[libsamplerate] error: " << src_strerror(sr_error);
+                error(fmt::format("[libsamplerate] error: {}", src_strerror(sr_error)));
                 return -1;
             }
 
@@ -316,9 +315,9 @@ namespace sound {
             }
         }
 
-        if (debug) {
-            LIB_ERR << "total decoded mp3 samples: " << total_decoded_mp3_samples;
-            LIB_ERR << "total output samples: " << total_output_samples;
+        if (do_debug) {
+            debug(fmt::format("total decoded mp3 samples: {}", total_decoded_mp3_samples));
+            debug(fmt::format("total output samples: {}", total_output_samples));
         }
 
         return total_output_samples;
@@ -327,42 +326,42 @@ namespace sound {
     std::int64_t MiniMp3::readResampled(t_word* dest, size_t size, size_t ch, std::int64_t offset)
     {
         if (resampleRatio() < 0.001) {
-            LIB_ERR << "[minimp3] invalid resample ratio: " << resampleRatio();
+            error(fmt::format(MINI_PREFIX "invalid resample ratio: {}", resampleRatio()));
             return -1;
         }
 
         const auto NUM_CH = channels();
         if (ch >= NUM_CH) {
-            LIB_ERR << "[minimp3] invalid channel number: " << ch;
+            error(fmt::format(MINI_PREFIX "invalid channel number: {}", ch));
             return -1;
         }
 
         // resampler init
-        soxr_error_t error;
-        SoxPtr soxr(ceammc_soxr_create(resampleRatio(), NUM_CH, &error), &soxr_delete);
+        soxr_error_t err;
+        SoxPtr soxr(ceammc_soxr_create(resampleRatio(), NUM_CH, &err), &soxr_delete);
 
-        if (error || !soxr) {
-            LIB_ERR << "[minimp3] resampler init failed: " << error;
+        if (err || !soxr) {
+            error(fmt::format(MINI_PREFIX "resampler init failed: {}", err));
             return -1;
         }
 
         // seek to position
         const auto pos = std::min<size_t>(offset * NUM_CH * resampleRatio(), frameCount());
         if (pos > 0 && mp3dec_ex_seek(decoder_.get(), pos)) {
-            LIB_ERR << "[minimp3] can't seek to pos #" << offset;
+            error(fmt::format(MINI_PREFIX "can't seek to pos #{}", offset));
             return -1;
         }
 
-        if (debug)
-            LIB_DBG << "offset " << pos;
+        if (do_debug)
+            debug(fmt::format("offset {}", pos));
 
         // decode to buffer
         const size_t mp3_out_bufsize = MINIMP3_MAX_SAMPLES_PER_FRAME;
         std::vector<mp3d_sample_t> in_buffer(mp3_out_bufsize);
         const size_t should_read = size * NUM_CH;
 
-        if (debug)
-            LIB_DBG << "should output " << should_read << " samples";
+        if (do_debug)
+            debug(fmt::format("should output {} samples", should_read));
 
         const size_t OUT_BUF_SIZE = std::round(in_buffer.size() * resampleRatio());
         std::vector<float> out_buf(OUT_BUF_SIZE);
@@ -378,7 +377,7 @@ namespace sound {
 
             if (nsamp != in_buffer.size()) { /* normal eof or error condition */
                 if (decoder_->last_error) {
-                    LIB_ERR << "[minimp3] read error";
+                    error(MINI_PREFIX "read error");
                     return -1;
                 }
 
@@ -391,9 +390,9 @@ namespace sound {
              * to produce as much output as is possible to the given output buffer:
              */
             size_t odone;
-            error = soxr_process(soxr.get(), in_buffer.data(), in_buffer.size(), nullptr, out_buf.data(), NUM_CH, &odone);
-            if (error) {
-                std::cerr << "[soxr] error: " << error << "\n";
+            err = soxr_process(soxr.get(), in_buffer.data(), in_buffer.size(), nullptr, out_buf.data(), NUM_CH, &odone);
+            if (err) {
+                error(fmt::format(MINI_PREFIX "[soxr] error: {}", err));
                 break;
             }
 
@@ -412,9 +411,9 @@ namespace sound {
         while (true) {
             size_t odone = 0;
             // indicate end of input with nullptr
-            error = soxr_process(soxr.get(), nullptr, 0, nullptr, out_buf.data(), NUM_CH, &odone);
-            if (error) {
-                std::cerr << "[soxr] " << error << "\n";
+            err = soxr_process(soxr.get(), nullptr, 0, nullptr, out_buf.data(), NUM_CH, &odone);
+            if (err) {
+                error(fmt::format(MINI_PREFIX "[soxr] error: {}", err));
                 break;
             }
 
@@ -429,9 +428,9 @@ namespace sound {
             }
         }
 
-        if (debug) {
-            LIB_ERR << "total decoded mp3 samples: " << total_decoded_mp3_samples;
-            LIB_ERR << "total output samples: " << total_output_samples;
+        if (do_debug) {
+            debug(fmt::format("total decoded mp3 samples: {}", total_decoded_mp3_samples));
+            debug(fmt::format("total output samples: {}", total_output_samples));
         }
 
         return total_output_samples;
