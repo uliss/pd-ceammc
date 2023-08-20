@@ -21,8 +21,8 @@
             #saw, #square, #noise</argument>
         </arguments>
         <properties>
-            <property name="@sf" type="symbol" default="">soundfont path or builtin waveform name: #sine,
-            #tri, #saw, #square, #noise</property>
+            <property name="@sf" type="symbol" default="">soundfont path or builtin waveform name:
+            #sine, #tri, #saw, #square, #noise</property>
             <property name="@poly" type="int" minvalue="1" maxvalue="256" default="64">max number
             of voices</property>
             <property name="@avoices" type="int" default="0" access="readonly">number midi

@@ -17,8 +17,8 @@
             </aliases>
         </meta>
         <properties>
-            <property name="@done" type="symbol" default="">function called with bang when playing is
-            finished</property>
+            <property name="@done" type="symbol" default="">function called with bang when playing
+            is finished</property>
             <property name="@len" type="float" access="readonly" units="millisecond" default="0">
             length of mod file</property>
             <property name="@name" type="symbol" default="" access="readonly">mod name</property>

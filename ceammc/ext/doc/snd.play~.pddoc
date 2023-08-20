@@ -17,42 +17,48 @@
             <par>Supports variable speed playing, pausing, seeking and time-stretching</par>
         </info>
         <arguments>
-            <argument name="N" type="int" minvalue="1" maxvalue="32">number of output channels</argument>
-            <argument name="NAME" type="symbol">absolute or relative to patch soundfile name</argument>
+            <argument name="N" type="int" minvalue="1" maxvalue="32">number of output
+            channels</argument>
+            <argument name="NAME" type="symbol">absolute or relative to patch soundfile
+            name</argument>
         </arguments>
         <properties>
-            <property name="@n" type="int" access="initonly" default="2" minvalue="1" maxvalue="32">number of output channels</property>
-            <property name="@name" type="symbol" default="">absolute or relative to patch soundfile name</property>
-            <property name="@begin" type="atom" default="0" units="sample sec msec smpte">start playing position</property>
+            <property name="@n" type="int" access="initonly" default="2" minvalue="1"
+            maxvalue="32">number of output channels</property>
+            <property name="@name" type="symbol" default="">absolute or relative to patch soundfile
+            name</property>
+            <property name="@begin" type="atom" default="0" units="sample sec msec smpte">start
+            playing position</property>
         </properties>
         <methods>
             <!-- start -->
-            <method name="start">start playing
-            <param name="FLAG" type="bool" required="false">start/stop flag. If true or ommited: start, if false: stop.</param></method>
+            <method name="start">start playing 
+            <param name="FLAG" type="bool" required="false">start/stop flag. If true or ommited:
+            start, if false: stop.</param></method>
             <!-- stop -->
-            <method name="stop">stop playing
-            <param name="FLAG" type="bool" required="false">start/stop flag. If true or ommited: stop, if false: start.</param></method>
+            <method name="stop">stop playing 
+            <param name="FLAG" type="bool" required="false">start/stop flag. If true or ommited:
+            stop, if false: start.</param></method>
             <!-- pause -->
-            <method name="pause">pause
-            <param name="FLAG" type="bool" required="false">pause/resume flag. If true or ommited: pause, if false: resume.</param></method>
+            <method name="pause">pause 
+            <param name="FLAG" type="bool" required="false">pause/resume flag. If true or ommited:
+            pause, if false: resume.</param></method>
             <!-- ff -->
-            <method name="ff">fast forward by specified amount of timne
-            <param name="TIME" type="atom" required="false">time amount. Can't be in seconds, milliseconds, samples, SMPTE.
-            If the time unit is not specified treat float values as samples.
-            If argument is not specified: jump one second forward.
-            </param></method>
+            <method name="ff">fast forward by specified amount of timne 
+            <param name="TIME" type="atom" required="false">time amount. Can't be in seconds,
+            milliseconds, samples, SMPTE. If the time unit is not specified treat float values as
+            samples. If argument is not specified: jump one second forward.</param></method>
             <!-- rewind -->
-            <method name="rewind">move backwards by specified amount of time (relative value)
-            <param name="TIME" type="atom" required="false">time amount. Can't be in seconds, milliseconds, samples, SMPTE.
-            If the time unit is not specified treat float values as milliseconds.
-            If arguments is not specified jump: one second backward.
-            </param></method>
+            <method name="rewind">move backwards by specified amount of time (relative value) 
+            <param name="TIME" type="atom" required="false">time amount. Can't be in seconds,
+            milliseconds, samples, SMPTE. If the time unit is not specified treat float values as
+            milliseconds. If arguments is not specified jump: one second backward.</param></method>
             <!-- seek -->
-            <method name="seek">move to specified time (absolute value)
-            <param name="TIME" type="atom" required="false">Time position. Can't be in seconds, milliseconds, samples, SMPTE.
-            If the time unit is not specified treat float values as milliseconds.
-            If arguments is not specified jump: seek to the beginning
-            </param></method>
+            <method name="seek">move to specified time (absolute value) 
+            <param name="TIME" type="atom" required="false">Time position. Can't be in seconds,
+            milliseconds, samples, SMPTE. If the time unit is not specified treat float values as
+            milliseconds. If arguments is not specified jump: seek to the
+            beginning</param></method>
         </methods>
         <inlets>
             <inlet type="control">
@@ -60,7 +66,7 @@
             </inlet>
         </inlets>
         <outlets dynamic="true">
-            <outlet type="audio" number="1"> first output channel</outlet>
+            <outlet type="audio" number="1">first output channel</outlet>
             <outlet type="audio" number="...">... output channel</outlet>
             <outlet type="audio" number="n">n-th output channel</outlet>
             <outlet type="control" number="n+1">control output</outlet>

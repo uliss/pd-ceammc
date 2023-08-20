@@ -179,7 +179,7 @@
             if zero or ommited apply to all channels</param>
             <param name="VAL" type="int" enum="0 1" required="true">pedal state</param></method>
             <!-- sound_off -->
-            <method name="sound_off">immediately stop all notes (skips release phase).
+            <method name="sound_off">immediately stop all notes (skips release phase). 
             <param name="CHAN" type="int" required="false" default="0" minvalue="0" maxvalue="16">
             MIDI channel, if zero or not specified stop notes on all channels</param></method>
             <!-- sysex -->

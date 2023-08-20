@@ -17,15 +17,17 @@
             <par>Note: fast Bresenham algorithm is used</par>
         </info>
         <arguments>
-            <argument name="BEATS" type="int" minvalue="0" maxvalue="8192" >number of beats inside the
-            sequence</argument>
-            <argument name="N" type="int" minvalue="1" maxvalue="8192">the whole sequence length</argument>
+            <argument name="BEATS" type="int" minvalue="0" maxvalue="8192">number of beats inside
+            the sequence</argument>
+            <argument name="N" type="int" minvalue="1" maxvalue="8192">the whole sequence
+            length</argument>
             <argument name="OFFSET" type="int">sequence offset</argument>
         </arguments>
         <properties>
-            <property name="@beats" type="int" default="3" minvalue="0" maxvalue="8192">number of beats inside the
-            sequence</property>
-            <property name="@n" type="int" default="8" minvalue="1" maxvalue="8192">the whole sequence length</property>
+            <property name="@beats" type="int" default="3" minvalue="0" maxvalue="8192">number of
+            beats inside the sequence</property>
+            <property name="@n" type="int" default="8" minvalue="1" maxvalue="8192">the whole
+            sequence length</property>
             <property name="@offset" type="int" default="0">sequence offset</property>
         </properties>
         <inlets>
