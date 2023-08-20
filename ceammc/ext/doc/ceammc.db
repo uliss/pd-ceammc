@@ -527,7 +527,7 @@ midi.file		.		.
 midi.kbd		..		.
 midi.key2str,midi.key->str		.		.
 midi.modus		.		..
-midi.note.pass,note.pass		.		.
+midi.note.pass,note.pass		..		.
 midi.oct		..		.
 midi.prg2str,midi.prg->str		.		.
 midi.split		.		?

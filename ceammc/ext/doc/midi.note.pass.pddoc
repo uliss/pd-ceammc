@@ -40,6 +40,9 @@
             <inlet>
                 <xinfo on="list">NOTE VELOCITY [DUR] list</xinfo>
             </inlet>
+            <inlet>
+                <xinfo on="list">set new expression</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet>passed NOTE VELOCITY [DUR] list</outlet>
