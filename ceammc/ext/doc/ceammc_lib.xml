@@ -2098,7 +2098,7 @@
     <entry name="snd.file" descr="Sound file loader on steroids" ref_view="object">
       <xi:include href="snd.file.pddoc" parse="xml"/>
     </entry>
-    <entry name="snd.play~" descr="Sound file player" ref_view="object">
+    <entry name="snd.play~" descr="Sound file player on steriods" ref_view="object">
       <xi:include href="snd.play~.pddoc" parse="xml"/>
     </entry>
   </category>
