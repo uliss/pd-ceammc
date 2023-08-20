@@ -16,6 +16,9 @@
             </aliases>
             <since>0.4</since>
         </meta>
+        <arguments>
+            <argument name="TONALITY" type="list">initial tomality</argument>
+        </arguments>
         <properties>
             <property name="@symbol" type="flag" default="0" access="initonly">output as symbol
             instead of string by default</property>
