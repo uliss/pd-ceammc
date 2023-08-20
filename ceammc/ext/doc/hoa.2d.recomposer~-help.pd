@@ -34,8 +34,8 @@ hoa.2d.recomposer.;
 1\...63;
 #X text 110 755 2\.;
 #X text 150 755 int;
-#X obj 246 756 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 755 NCH: number of channels. Type: int. Range: 1\...63;
+#X obj 246 756 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 755 N: number of channels. Type: int. Range: 1\...63;
 #X text 110 775 3\.;
 #X text 150 775 symbol;
 #X obj 246 776 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -79,7 +79,7 @@ Min value: 0\.;
 #X text 245 1345 set the angles of channels. Angles are in radians
 \, wrapped between 0 and 2π. Arguments are:;
 #X obj 255 1383 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1383 VALS: list of angles. Type: list. Units: rad.;
+#X text 255 1383 VALS: list of angles. Type: list. Units: 'rad'.;
 #X msg 110 1408 wide;
 #X text 245 1408 set the widening value of channels. Widening value
 is clipped between 0\. (omnidirectional) and 1\. (directional). Arguments

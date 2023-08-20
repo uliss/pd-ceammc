@@ -32,7 +32,7 @@
         <arguments>
             <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of
             decomposition</argument>
-            <argument name="NCH" type="int" minvalue="1" maxvalue="63">number of
+            <argument name="N" type="int" minvalue="1" maxvalue="63">number of
             channels</argument>
             <argument name="MODE" type="symbol" enum="fixe fisheye free">recomposition mode. There
             is three modes: *fixe* - simply recomposes a plane wave decomposition into circular

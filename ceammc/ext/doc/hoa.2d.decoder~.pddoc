@@ -39,7 +39,7 @@
             decomposition</argument>
             <argument name="MODE" type="symbol" enum="ambisonic irregular binaural">decoding
             mode</argument>
-            <argument name="N" type="int">number of loud speakers (minimum 2*ORDER+1 for ambisonic
+            <argument name="NWAVES" type="int">number of loud speakers (minimum 2*ORDER+1 for ambisonic
             mode)</argument>
         </arguments>
         <properties>
@@ -57,7 +57,7 @@
             <property name="@angles" type="list" units="degree" default="0 90 180 270">angles of
             loudspeakers. Only available for @irregular mode.</property>
             <property name="@pw_x" type="list" units="radian" minvalue="-1" maxvalue="1"
-            access="readonly" default="0 -1 0 1">list of plain wave x-coordinates (abscissas). -1
+            access="readonly" default="0 -1 0.0 1">list of plain wave x-coordinates (abscissas). -1
             is the left of the soundfield, 0 is the center of the soundfield and 1 is the right of
             the soundfield.</property>
             <property name="@pw_y" type="list" units="radian" minvalue="-1" maxvalue="1"

@@ -28,8 +28,22 @@ EXT_PROPS_SET = set()
 EXT_PROPS_DICT = dict()
 EXT_ARGS_DICT = dict()
 
+
 def signal_handler(sig, frame):
     sys.exit(0)
+
+
+def pddoc_float(value: str) -> float:
+    if value == "π":
+        return round(3.1415926, 4)
+    elif value == "2π":
+        return round(3.1415926 * 2, 4)
+    elif isinstance(value, float):
+        return value
+    elif len(value) > 0:
+        return float(value)
+    else:
+        return ""
 
 
 signal.signal(signal.SIGINT, signal_handler)
@@ -308,13 +322,7 @@ def check_single_prop(name, prop, doc, ext):
     check_units(name, prop, doc, ext)
 
     # check minvalue
-    doc_minval = doc.get("min", "")
-    if doc_minval == "π":
-        doc_minval = round(3.1415926, 4)
-    elif doc_minval == "2π":
-        doc_minval = round(3.1415926 * 2, 4)
-    elif len(doc_minval) > 0:
-        doc_minval = float(doc_minval)
+    doc_minval = pddoc_float(doc.get("min", ""))
 
     ext_minval = ext.get("min", "")
     if isinstance(ext_minval, str) and len(ext_minval) > 0:
@@ -326,13 +334,7 @@ def check_single_prop(name, prop, doc, ext):
         cprint(f"[{ext_name}][{prop}] invalid property minvalue in doc: {doc_minval}, should be: {ext_minval}", 'magenta')
 
     # check maxvalue
-    doc_maxval = doc.get("max", "")
-    if doc_maxval == "π":
-        doc_maxval = round(3.1415926, 4)
-    elif doc_maxval == "2π":
-        doc_maxval = round(3.1415926 * 2, 4)
-    elif len(doc_maxval) > 0:
-        doc_maxval = float(doc_maxval)
+    doc_maxval = pddoc_float(doc.get("max", ""))
 
     ext_maxval = ext.get("max", "")
     if isinstance(ext_maxval, str) and len(ext_maxval) > 0:
@@ -573,9 +575,9 @@ if __name__ == '__main__':
                     if "units" in a.attrib:
                         doc_args_dict[name]["units"] = a.attrib["units"]
                     if "minvalue" in a.attrib:
-                        doc_args_dict[name]["min"] = float(a.attrib["minvalue"])
+                        doc_args_dict[name]["min"] = pddoc_float(a.attrib["minvalue"])
                     if "maxvalue" in a.attrib:
-                        doc_args_dict[name]["max"] = float(a.attrib["maxvalue"])
+                        doc_args_dict[name]["max"] = pddoc_float(a.attrib["maxvalue"])
                     if "enum" in a.attrib:
                         doc_args_dict[name]["enum"] = a.attrib["enum"]
 
