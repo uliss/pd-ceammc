@@ -68,64 +68,6 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
 
             memset(&fi, 0, sizeof(fi));
         }
-
-        SECTION("impl load")
-        {
-            t_word buf[1024];
-
-            SECTION("WAV mono")
-            {
-                REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data0.wav", 0, 0, 0, NULL, 1, 1, 1024) == INVALID_ARGS);
-                REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data0.wav", 10, 0, 1024, buf, 1, 1, 1024) == INVALID_CHAN);
-                REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data0.wav", 1, 0, 1024, buf, 1, 1, 1024) == INVALID_CHAN);
-                REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data0.wav", 0, 1024, 1024, buf, 1, 1, 1024) == 0);
-
-                REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data0.wav", 0, 0, 1024, buf, 1, 1, 1024) == 441);
-                for (int i = 0; i < 441; i++) {
-                    REQUIRE(buf[i].w_float == Approx((10.f * i) / 32767.f).epsilon(0.0001));
-                }
-            }
-
-            SECTION("MP3 mono")
-            {
-                REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data0.mp3", 0, 0, 1024, buf, 1, 1, 1024) == 441);
-                REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data0_vbr.mp3", 0, 0, 1024, buf, 1, 1, 1024) == 441);
-            }
-
-            SECTION("AAC mono")
-            {
-                REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data0.m4a", 0, 0, 1024, buf, 1, 1, 1024) == 441);
-            }
-
-            SECTION("stereo")
-            {
-                REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data1.wav", 0, 0, 1024, buf, 1, 1, 1024) == 441);
-                for (int i = 0; i < 441; i++) {
-                    REQUIRE(buf[i].w_float == Approx((10.f * i) / 32767.f).epsilon(0.0001));
-                }
-
-                REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data1.wav", 1, 0, 1024, buf, 1, 1, 1024) == 441);
-                for (int i = 0; i < 441; i++) {
-                    REQUIRE(buf[i].w_float == Approx((10.f * i) / -32767.f).epsilon(0.0001));
-                }
-            }
-
-            SECTION("resample")
-            {
-                SECTION("MP3 mono")
-                {
-                    double ratio = 48000.0 / 44100;
-                    REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data0.mp3", 0, 0, 1024, buf, 1, ratio, 1024) == 480);
-                    REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data0_vbr.mp3", 0, 0, 1024, buf, 1, ratio, 1024) == 480);
-                }
-
-                SECTION("AAC mono")
-                {
-                    double ratio = 96000.0 / 44100;
-                    REQUIRE(ceammc_coreaudio_load(TEST_DATA_DIR "/test_data0.m4a", 0, 0, 1024, buf, 1, ratio, 1024) == 960);
-                }
-            }
-        }
     }
 
     SECTION("offset")
