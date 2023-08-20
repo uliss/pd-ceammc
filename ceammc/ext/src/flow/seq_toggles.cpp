@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "seq_toggles.h"
 #include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "lex/parser_units.h"
 
@@ -21,9 +22,9 @@
 
 #define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
 
-static t_symbol* SYM_EVENT_DUR;
-static t_symbol* SYM_EVENT_LEN;
-static t_symbol* SYM_IDX;
+CEAMMC_DEFINE_SYM_HASH(ed)
+CEAMMC_DEFINE_SYM_HASH(el)
+CEAMMC_DEFINE_SYM_HASH(i)
 
 constexpr int MIN_NOTE_LEN = 1;
 
@@ -130,9 +131,9 @@ void SeqToggles::outputTick()
     const t_float event_len_ms = clip_min<t_float, MIN_NOTE_LEN>(length_->calcValue(event_dur_ms));
 
     Atom l[2] = { sequenceCounter(), sequenceSize() };
-    anyTo(1, SYM_IDX, AtomListView(l, 2));
-    anyTo(1, SYM_EVENT_DUR, Atom(event_dur_ms));
-    anyTo(1, SYM_EVENT_LEN, Atom(event_len_ms));
+    anyTo(1, sym_i(), AtomListView(l, 2));
+    anyTo(1, sym_ed(), Atom(event_dur_ms));
+    anyTo(1, sym_el(), Atom(event_len_ms));
     floatTo(0, 1);
 
     // schedule off event
@@ -156,10 +157,6 @@ void SeqToggles::outputOff()
 
 void setup_seq_toggles()
 {
-    SYM_EVENT_DUR = gensym("ed");
-    SYM_EVENT_LEN = gensym("el");
-    SYM_IDX = gensym("i");
-
     SequencerIFaceFactory<ObjectFactory, SeqToggles> obj("seq.toggles");
     obj.addAlias("seq.t");
 
@@ -174,5 +171,5 @@ void setup_seq_toggles()
 
     obj.setDescription("toggle sequencer");
     obj.setCategory("seq");
-    obj.setKeywords({"seq", "sequencer", "toggle", "pattern", "rhythm"});
+    obj.setKeywords({ "seq", "sequencer", "toggle", "pattern", "rhythm" });
 }

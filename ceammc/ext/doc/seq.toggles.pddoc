@@ -34,6 +34,8 @@
             <argument name="P" type="list">sequencer pattern in beat duration units</argument>
         </arguments>
         <properties>
+            <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">beat
+            subdivision</property>
             <property name="@t" type="float" default="100" minvalue="1" maxvalue="20000"
             units="millisecond">time between beats. Unit values like 100ms, 240bpm or 60|4bpm also
             can be used</property>
