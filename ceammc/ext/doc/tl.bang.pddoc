@@ -32,7 +32,7 @@
         <properties>
             <property name="@delay" type="float" minvalue="0" default="0" units="millisecond">bang
             delay after cue activation</property>
-            <property name="@cue" type="symbol" access="readonly">related cue</property>
+            <property name="@cue" type="symbol" access="readonly" default="">related cue</property>
         </properties>
         <inlets>
             <inlet>

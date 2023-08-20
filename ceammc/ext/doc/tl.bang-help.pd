@@ -35,7 +35,7 @@ it canceled;
 -49933 0;
 #X msg 110 419 @delay;
 #X text 245 419 Get/Set bang delay after cue activation. Type: float.
-Units: ms. Default value: 0\. Min value: 0\.;
+Units: 'ms'. Default value: 0\. Min value: 0\.;
 #X msg 110 461 @cue?;
 #X text 245 461 (readonly) Get related cue. Type: symbol.;
 #X obj 20 500 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
