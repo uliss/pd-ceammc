@@ -14,6 +14,8 @@
             <since>0.9.4</since>
         </meta>
         <methods>
+            <!-- id_request -->
+            <method name="id_request">send Identity Request SysEx message</method>
             <!-- mbal:f -->
             <method name="mbal:f">set device master balance 
             <param name="PAN" type="float" minvalue="-1" maxvalue="1" required="true">
