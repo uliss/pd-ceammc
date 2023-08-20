@@ -74,6 +74,7 @@
   - div added to live.capture~ to subdivide loop length while running
   - proto.midi.cc - new portament method added
   - hexbeat and skip added to seq.bangs
+  - save to snd.file
 - new object properties:
   - @punct added to rhvoice~, to specify pronounced characters
   - @bypass added to dyn.comp~ and dyn.comp2~

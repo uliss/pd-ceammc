@@ -68,7 +68,7 @@ inline size_t getArrayPos(ArraySaverParams& params, fsm::NumericData& num, AtomT
 
 #line 70 "lex/parser_array_saver.cpp"
 static const int array_saver_start = 1;
-static const int array_saver_first_final = 105;
+static const int array_saver_first_final = 109;
 static const int array_saver_error = 0;
 
 static const int array_saver_en_main = 1;
@@ -124,30 +124,30 @@ tr0:
 	{ ragel_atom.clear(); }
 #line 75 "lex/parser_array_saver.rl"
 	{ ragel_atom += (*p); }
-	goto st105;
-tr133:
+	goto st109;
+tr137:
 #line 75 "lex/parser_array_saver.rl"
 	{ ragel_atom += (*p); }
-	goto st105;
-st105:
+	goto st109;
+st109:
 	if ( ++p == pe )
-		goto _test_eof105;
-case 105:
+		goto _test_eof109;
+case 109:
 #line 137 "lex/parser_array_saver.cpp"
 	if ( (*p) == 32 )
-		goto tr134;
+		goto tr138;
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr134;
-	goto tr133;
-tr134:
+		goto tr138;
+	goto tr137;
+tr138:
 #line 129 "lex/parser_array_saver.rl"
 	{ params.filename = ragel_atom; }
 	goto st2;
-tr135:
+tr139:
 #line 120 "lex/parser_array_saver.rl"
 	{ params.format = sound::FORMAT_AIFF; }
 	goto st2;
-tr136:
+tr140:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -159,19 +159,19 @@ tr136:
 #line 110 "lex/parser_array_saver.rl"
 	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
-tr144:
+tr148:
 #line 26 "lex/ragel_units.rl"
 	{ragel_type = TYPE_PERCENT;}
 #line 110 "lex/parser_array_saver.rl"
 	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
-tr145:
+tr149:
 #line 29 "lex/ragel_units.rl"
 	{ragel_type = TYPE_PHASE;}
 #line 110 "lex/parser_array_saver.rl"
 	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
-tr146:
+tr150:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -179,32 +179,32 @@ tr146:
         ragel_type = TYPE_FLOAT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 110 "lex/parser_array_saver.rl"
-	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
-	goto st2;
-tr153:
 #line 110 "lex/parser_array_saver.rl"
 	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
 tr157:
+#line 110 "lex/parser_array_saver.rl"
+	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
+	goto st2;
+tr161:
 #line 19 "lex/ragel_units.rl"
 	{ragel_type = TYPE_MSEC;}
 #line 110 "lex/parser_array_saver.rl"
 	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
-tr160:
+tr164:
 #line 22 "lex/ragel_units.rl"
 	{ragel_type = TYPE_SEC;}
 #line 110 "lex/parser_array_saver.rl"
 	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
-tr163:
+tr167:
 #line 21 "lex/ragel_units.rl"
 	{ragel_type = TYPE_SAMP;}
 #line 110 "lex/parser_array_saver.rl"
 	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
-tr165:
+tr169:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -216,19 +216,19 @@ tr165:
 #line 111 "lex/parser_array_saver.rl"
 	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
-tr173:
+tr177:
 #line 26 "lex/ragel_units.rl"
 	{ragel_type = TYPE_PERCENT;}
 #line 111 "lex/parser_array_saver.rl"
 	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
-tr174:
+tr178:
 #line 29 "lex/ragel_units.rl"
 	{ragel_type = TYPE_PHASE;}
 #line 111 "lex/parser_array_saver.rl"
 	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
-tr175:
+tr179:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -239,60 +239,60 @@ tr175:
 #line 111 "lex/parser_array_saver.rl"
 	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
-tr182:
+tr186:
 #line 111 "lex/parser_array_saver.rl"
 	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
-tr186:
+tr190:
 #line 19 "lex/ragel_units.rl"
 	{ragel_type = TYPE_MSEC;}
 #line 111 "lex/parser_array_saver.rl"
 	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
-tr189:
+tr193:
 #line 22 "lex/ragel_units.rl"
 	{ragel_type = TYPE_SEC;}
 #line 111 "lex/parser_array_saver.rl"
 	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
-tr192:
+tr196:
 #line 21 "lex/ragel_units.rl"
 	{ragel_type = TYPE_SAMP;}
 #line 111 "lex/parser_array_saver.rl"
 	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	goto st2;
-tr194:
+tr198:
 #line 123 "lex/parser_array_saver.rl"
 	{ params.format = sound::FORMAT_FLAC; }
 	goto st2;
-tr195:
+tr199:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
         ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 79 "lex/parser_array_saver.rl"
-	{ params.gain = getValue<float>(ragel_num, ragel_type); }
-	goto st2;
-tr199:
-#line 58 "lex/ragel_numeric.rl"
-	{
-        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
-        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
-        ragel_type = TYPE_FLOAT;
         ragel_cat  = CAT_NUMBER;
     }
 #line 79 "lex/parser_array_saver.rl"
 	{ params.gain = getValue<float>(ragel_num, ragel_type); }
 	goto st2;
 tr203:
+#line 58 "lex/ragel_numeric.rl"
+	{
+        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+        ragel_type = TYPE_FLOAT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 79 "lex/parser_array_saver.rl"
+	{ params.gain = getValue<float>(ragel_num, ragel_type); }
+	goto st2;
+tr207:
 #line 14 "lex/ragel_units.rl"
 	{ragel_type = TYPE_DB;}
 #line 81 "lex/parser_array_saver.rl"
 	{ params.gain = convert::dbfs2amp(params.gain); }
 	goto st2;
-tr205:
+tr209:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -302,7 +302,7 @@ tr205:
 #line 113 "lex/parser_array_saver.rl"
 	{ params.in_sr  = getValue<float>(ragel_num, ragel_type); }
 	goto st2;
-tr207:
+tr211:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -313,23 +313,23 @@ tr207:
 #line 113 "lex/parser_array_saver.rl"
 	{ params.in_sr  = getValue<float>(ragel_num, ragel_type); }
 	goto st2;
-tr208:
+tr212:
 #line 117 "lex/parser_array_saver.rl"
 	{ params.format = sound::FORMAT_MP3; }
 	goto st2;
-tr209:
+tr213:
 #line 115 "lex/parser_array_saver.rl"
 	{ params.normalize = true; }
 	goto st2;
-tr210:
+tr215:
 #line 118 "lex/parser_array_saver.rl"
 	{ params.format = sound::FORMAT_OGG; }
 	goto st2;
-tr211:
+tr216:
 #line 119 "lex/parser_array_saver.rl"
 	{ params.format = sound::FORMAT_OPUS; }
 	goto st2;
-tr212:
+tr217:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -339,7 +339,7 @@ tr212:
 #line 114 "lex/parser_array_saver.rl"
 	{ params.out_sr = getValue<float>(ragel_num, ragel_type); }
 	goto st2;
-tr214:
+tr219:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -350,43 +350,43 @@ tr214:
 #line 114 "lex/parser_array_saver.rl"
 	{ params.out_sr = getValue<float>(ragel_num, ragel_type); }
 	goto st2;
-tr215:
+tr220:
 #line 124 "lex/parser_array_saver.rl"
 	{ params.overwrite = true; }
 	goto st2;
-tr216:
+tr221:
 #line 122 "lex/parser_array_saver.rl"
 	{ params.format = sound::FORMAT_RAW; }
 	goto st2;
-tr217:
+tr222:
 #line 83 "lex/parser_array_saver.rl"
 	{ params.sample_format = sound::SAMPLE_DEFAULT; }
 	goto st2;
-tr218:
+tr223:
 #line 85 "lex/parser_array_saver.rl"
 	{ params.sample_format = sound::SAMPLE_PCM_16; }
 	goto st2;
-tr219:
+tr224:
 #line 86 "lex/parser_array_saver.rl"
 	{ params.sample_format = sound::SAMPLE_PCM_24; }
 	goto st2;
-tr220:
+tr225:
 #line 87 "lex/parser_array_saver.rl"
 	{ params.sample_format = sound::SAMPLE_PCM_32; }
 	goto st2;
-tr221:
+tr226:
 #line 84 "lex/parser_array_saver.rl"
 	{ params.sample_format = sound::SAMPLE_PCM_8; }
 	goto st2;
-tr222:
+tr227:
 #line 88 "lex/parser_array_saver.rl"
 	{ params.sample_format = sound::SAMPLE_PCM_FLOAT; }
 	goto st2;
-tr223:
+tr228:
 #line 121 "lex/parser_array_saver.rl"
 	{ params.format = sound::FORMAT_TEXT; }
 	goto st2;
-tr224:
+tr229:
 #line 116 "lex/parser_array_saver.rl"
 	{ params.format = sound::FORMAT_WAV; }
 	goto st2;
@@ -425,11 +425,11 @@ case 3:
 		case 105: goto st59;
 		case 109: goto st67;
 		case 110: goto st69;
-		case 111: goto st72;
-		case 114: goto st91;
-		case 115: goto st93;
-		case 116: goto st101;
-		case 119: goto st103;
+		case 111: goto st76;
+		case 114: goto st95;
+		case 115: goto st97;
+		case 116: goto st105;
+		case 119: goto st107;
 	}
 	goto st0;
 st4:
@@ -451,16 +451,16 @@ st6:
 		goto _test_eof6;
 case 6:
 	if ( (*p) == 102 )
-		goto st106;
+		goto st110;
 	goto st0;
-st106:
+st110:
 	if ( ++p == pe )
-		goto _test_eof106;
-case 106:
+		goto _test_eof110;
+case 110:
 	if ( (*p) == 32 )
-		goto tr135;
+		goto tr139;
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr135;
+		goto tr139;
 	goto st0;
 st7:
 	if ( ++p == pe )
@@ -550,26 +550,26 @@ case 14:
 tr27:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st107;
-st107:
+	goto st111;
+st111:
 	if ( ++p == pe )
-		goto _test_eof107;
-case 107:
+		goto _test_eof111;
+case 111:
 #line 559 "lex/parser_array_saver.cpp"
 	switch( (*p) ) {
-		case 32: goto tr136;
-		case 37: goto tr137;
-		case 42: goto tr138;
-		case 46: goto tr139;
-		case 95: goto tr140;
-		case 109: goto tr141;
-		case 112: goto tr142;
-		case 115: goto tr143;
+		case 32: goto tr140;
+		case 37: goto tr141;
+		case 42: goto tr142;
+		case 46: goto tr143;
+		case 95: goto tr144;
+		case 109: goto tr145;
+		case 112: goto tr146;
+		case 115: goto tr147;
 	}
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr136;
+		goto tr140;
 	goto st0;
-tr137:
+tr141:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -578,8 +578,8 @@ tr137:
     }
 #line 71 "lex/parser_array_saver.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
-	goto st108;
-tr147:
+	goto st112;
+tr151:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -587,18 +587,18 @@ tr147:
         ragel_type = TYPE_FLOAT;
         ragel_cat  = CAT_NUMBER;
     }
-	goto st108;
-st108:
+	goto st112;
+st112:
 	if ( ++p == pe )
-		goto _test_eof108;
-case 108:
+		goto _test_eof112;
+case 112:
 #line 596 "lex/parser_array_saver.cpp"
 	if ( (*p) == 32 )
-		goto tr144;
+		goto tr148;
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr144;
+		goto tr148;
 	goto st0;
-tr138:
+tr142:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -607,8 +607,8 @@ tr138:
     }
 #line 71 "lex/parser_array_saver.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
-	goto st109;
-tr148:
+	goto st113;
+tr152:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -616,18 +616,18 @@ tr148:
         ragel_type = TYPE_FLOAT;
         ragel_cat  = CAT_NUMBER;
     }
-	goto st109;
-st109:
+	goto st113;
+st113:
 	if ( ++p == pe )
-		goto _test_eof109;
-case 109:
+		goto _test_eof113;
+case 113:
 #line 625 "lex/parser_array_saver.cpp"
 	if ( (*p) == 32 )
-		goto tr145;
+		goto tr149;
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr145;
+		goto tr149;
 	goto st0;
-tr139:
+tr143:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -654,28 +654,28 @@ tr29:
         (ragel_num.ratio.num *= 10) += ((*p) - '0');
         ragel_num.ratio.den *= 10;
     }
-	goto st110;
-st110:
+	goto st114;
+st114:
 	if ( ++p == pe )
-		goto _test_eof110;
-case 110:
+		goto _test_eof114;
+case 114:
 #line 663 "lex/parser_array_saver.cpp"
 	switch( (*p) ) {
-		case 32: goto tr146;
-		case 37: goto tr147;
-		case 42: goto tr148;
-		case 95: goto tr149;
-		case 109: goto tr150;
-		case 112: goto tr151;
-		case 115: goto tr152;
+		case 32: goto tr150;
+		case 37: goto tr151;
+		case 42: goto tr152;
+		case 95: goto tr153;
+		case 109: goto tr154;
+		case 112: goto tr155;
+		case 115: goto tr156;
 	}
 	if ( (*p) > 13 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr29;
 	} else if ( (*p) >= 9 )
-		goto tr146;
+		goto tr150;
 	goto st0;
-tr140:
+tr144:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -684,8 +684,8 @@ tr140:
     }
 #line 71 "lex/parser_array_saver.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
-	goto st111;
-tr149:
+	goto st115;
+tr153:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -693,24 +693,24 @@ tr149:
         ragel_type = TYPE_FLOAT;
         ragel_cat  = CAT_NUMBER;
     }
-	goto st111;
-st111:
+	goto st115;
+st115:
 	if ( ++p == pe )
-		goto _test_eof111;
-case 111:
+		goto _test_eof115;
+case 115:
 #line 702 "lex/parser_array_saver.cpp"
 	switch( (*p) ) {
-		case 32: goto tr153;
-		case 37: goto st108;
-		case 42: goto st109;
+		case 32: goto tr157;
+		case 37: goto st112;
+		case 42: goto st113;
 		case 109: goto st16;
 		case 112: goto st18;
-		case 115: goto st115;
+		case 115: goto st119;
 	}
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr153;
+		goto tr157;
 	goto st0;
-tr141:
+tr145:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -720,7 +720,7 @@ tr141:
 #line 71 "lex/parser_array_saver.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
 	goto st16;
-tr150:
+tr154:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -735,36 +735,36 @@ st16:
 case 16:
 #line 737 "lex/parser_array_saver.cpp"
 	if ( (*p) == 115 )
-		goto st112;
+		goto st116;
 	goto st0;
-st112:
+st116:
 	if ( ++p == pe )
-		goto _test_eof112;
-case 112:
+		goto _test_eof116;
+case 116:
 	switch( (*p) ) {
-		case 32: goto tr157;
+		case 32: goto tr161;
 		case 101: goto st17;
 	}
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr157;
+		goto tr161;
 	goto st0;
 st17:
 	if ( ++p == pe )
 		goto _test_eof17;
 case 17:
 	if ( (*p) == 99 )
-		goto st113;
+		goto st117;
 	goto st0;
-st113:
+st117:
 	if ( ++p == pe )
-		goto _test_eof113;
-case 113:
+		goto _test_eof117;
+case 117:
 	if ( (*p) == 32 )
-		goto tr157;
+		goto tr161;
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr157;
+		goto tr161;
 	goto st0;
-tr142:
+tr146:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -774,7 +774,7 @@ tr142:
 #line 71 "lex/parser_array_saver.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
 	goto st18;
-tr151:
+tr155:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -805,18 +805,18 @@ st20:
 		goto _test_eof20;
 case 20:
 	if ( (*p) == 99 )
-		goto st114;
+		goto st118;
 	goto st0;
-st114:
+st118:
 	if ( ++p == pe )
-		goto _test_eof114;
-case 114:
+		goto _test_eof118;
+case 118:
 	switch( (*p) ) {
-		case 32: goto tr144;
+		case 32: goto tr148;
 		case 101: goto st21;
 	}
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr144;
+		goto tr148;
 	goto st0;
 st21:
 	if ( ++p == pe )
@@ -830,7 +830,7 @@ st22:
 		goto _test_eof22;
 case 22:
 	if ( (*p) == 116 )
-		goto st108;
+		goto st112;
 	goto st0;
 st23:
 	if ( ++p == pe )
@@ -851,9 +851,9 @@ st25:
 		goto _test_eof25;
 case 25:
 	if ( (*p) == 101 )
-		goto st109;
+		goto st113;
 	goto st0;
-tr143:
+tr147:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -862,8 +862,8 @@ tr143:
     }
 #line 71 "lex/parser_array_saver.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
-	goto st115;
-tr152:
+	goto st119;
+tr156:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -871,87 +871,87 @@ tr152:
         ragel_type = TYPE_FLOAT;
         ragel_cat  = CAT_NUMBER;
     }
-	goto st115;
-st115:
+	goto st119;
+st119:
 	if ( ++p == pe )
-		goto _test_eof115;
-case 115:
+		goto _test_eof119;
+case 119:
 #line 880 "lex/parser_array_saver.cpp"
 	switch( (*p) ) {
-		case 32: goto tr160;
-		case 97: goto st116;
+		case 32: goto tr164;
+		case 97: goto st120;
 		case 101: goto st27;
 	}
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr160;
+		goto tr164;
 	goto st0;
-st116:
+st120:
 	if ( ++p == pe )
-		goto _test_eof116;
-case 116:
+		goto _test_eof120;
+case 120:
 	switch( (*p) ) {
-		case 32: goto tr163;
+		case 32: goto tr167;
 		case 109: goto st26;
 	}
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr163;
+		goto tr167;
 	goto st0;
 st26:
 	if ( ++p == pe )
 		goto _test_eof26;
 case 26:
 	if ( (*p) == 112 )
-		goto st117;
+		goto st121;
 	goto st0;
-st117:
+st121:
 	if ( ++p == pe )
-		goto _test_eof117;
-case 117:
+		goto _test_eof121;
+case 121:
 	if ( (*p) == 32 )
-		goto tr163;
+		goto tr167;
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr163;
+		goto tr167;
 	goto st0;
 st27:
 	if ( ++p == pe )
 		goto _test_eof27;
 case 27:
 	if ( (*p) == 99 )
-		goto st118;
+		goto st122;
 	goto st0;
-st118:
+st122:
 	if ( ++p == pe )
-		goto _test_eof118;
-case 118:
+		goto _test_eof122;
+case 122:
 	if ( (*p) == 32 )
-		goto tr160;
+		goto tr164;
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr160;
+		goto tr164;
 	goto st0;
 tr28:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st119;
-st119:
+	goto st123;
+st123:
 	if ( ++p == pe )
-		goto _test_eof119;
-case 119:
+		goto _test_eof123;
+case 123:
 #line 940 "lex/parser_array_saver.cpp"
 	switch( (*p) ) {
-		case 32: goto tr136;
-		case 37: goto tr137;
-		case 42: goto tr138;
-		case 46: goto tr139;
-		case 95: goto tr140;
-		case 109: goto tr141;
-		case 112: goto tr142;
-		case 115: goto tr143;
+		case 32: goto tr140;
+		case 37: goto tr141;
+		case 42: goto tr142;
+		case 46: goto tr143;
+		case 95: goto tr144;
+		case 109: goto tr145;
+		case 112: goto tr146;
+		case 115: goto tr147;
 	}
 	if ( (*p) > 13 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr28;
 	} else if ( (*p) >= 9 )
-		goto tr136;
+		goto tr140;
 	goto st0;
 st28:
 	if ( ++p == pe )
@@ -1027,26 +1027,26 @@ case 33:
 tr48:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st120;
-st120:
+	goto st124;
+st124:
 	if ( ++p == pe )
-		goto _test_eof120;
-case 120:
+		goto _test_eof124;
+case 124:
 #line 1036 "lex/parser_array_saver.cpp"
 	switch( (*p) ) {
-		case 32: goto tr165;
-		case 37: goto tr166;
-		case 42: goto tr167;
-		case 46: goto tr168;
-		case 95: goto tr169;
-		case 109: goto tr170;
-		case 112: goto tr171;
-		case 115: goto tr172;
+		case 32: goto tr169;
+		case 37: goto tr170;
+		case 42: goto tr171;
+		case 46: goto tr172;
+		case 95: goto tr173;
+		case 109: goto tr174;
+		case 112: goto tr175;
+		case 115: goto tr176;
 	}
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr165;
+		goto tr169;
 	goto st0;
-tr166:
+tr170:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -1055,8 +1055,8 @@ tr166:
     }
 #line 71 "lex/parser_array_saver.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
-	goto st121;
-tr176:
+	goto st125;
+tr180:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -1064,18 +1064,18 @@ tr176:
         ragel_type = TYPE_FLOAT;
         ragel_cat  = CAT_NUMBER;
     }
-	goto st121;
-st121:
+	goto st125;
+st125:
 	if ( ++p == pe )
-		goto _test_eof121;
-case 121:
+		goto _test_eof125;
+case 125:
 #line 1073 "lex/parser_array_saver.cpp"
 	if ( (*p) == 32 )
-		goto tr173;
+		goto tr177;
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr173;
+		goto tr177;
 	goto st0;
-tr167:
+tr171:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -1084,8 +1084,8 @@ tr167:
     }
 #line 71 "lex/parser_array_saver.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
-	goto st122;
-tr177:
+	goto st126;
+tr181:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -1093,18 +1093,18 @@ tr177:
         ragel_type = TYPE_FLOAT;
         ragel_cat  = CAT_NUMBER;
     }
-	goto st122;
-st122:
+	goto st126;
+st126:
 	if ( ++p == pe )
-		goto _test_eof122;
-case 122:
+		goto _test_eof126;
+case 126:
 #line 1102 "lex/parser_array_saver.cpp"
 	if ( (*p) == 32 )
-		goto tr174;
+		goto tr178;
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr174;
+		goto tr178;
 	goto st0;
-tr168:
+tr172:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -1131,28 +1131,28 @@ tr50:
         (ragel_num.ratio.num *= 10) += ((*p) - '0');
         ragel_num.ratio.den *= 10;
     }
-	goto st123;
-st123:
+	goto st127;
+st127:
 	if ( ++p == pe )
-		goto _test_eof123;
-case 123:
+		goto _test_eof127;
+case 127:
 #line 1140 "lex/parser_array_saver.cpp"
 	switch( (*p) ) {
-		case 32: goto tr175;
-		case 37: goto tr176;
-		case 42: goto tr177;
-		case 95: goto tr178;
-		case 109: goto tr179;
-		case 112: goto tr180;
-		case 115: goto tr181;
+		case 32: goto tr179;
+		case 37: goto tr180;
+		case 42: goto tr181;
+		case 95: goto tr182;
+		case 109: goto tr183;
+		case 112: goto tr184;
+		case 115: goto tr185;
 	}
 	if ( (*p) > 13 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr50;
 	} else if ( (*p) >= 9 )
-		goto tr175;
+		goto tr179;
 	goto st0;
-tr169:
+tr173:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -1161,8 +1161,8 @@ tr169:
     }
 #line 71 "lex/parser_array_saver.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
-	goto st124;
-tr178:
+	goto st128;
+tr182:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -1170,24 +1170,24 @@ tr178:
         ragel_type = TYPE_FLOAT;
         ragel_cat  = CAT_NUMBER;
     }
-	goto st124;
-st124:
+	goto st128;
+st128:
 	if ( ++p == pe )
-		goto _test_eof124;
-case 124:
+		goto _test_eof128;
+case 128:
 #line 1179 "lex/parser_array_saver.cpp"
 	switch( (*p) ) {
-		case 32: goto tr182;
-		case 37: goto st121;
-		case 42: goto st122;
+		case 32: goto tr186;
+		case 37: goto st125;
+		case 42: goto st126;
 		case 109: goto st35;
 		case 112: goto st37;
-		case 115: goto st128;
+		case 115: goto st132;
 	}
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr182;
+		goto tr186;
 	goto st0;
-tr170:
+tr174:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -1197,7 +1197,7 @@ tr170:
 #line 71 "lex/parser_array_saver.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
 	goto st35;
-tr179:
+tr183:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -1212,36 +1212,36 @@ st35:
 case 35:
 #line 1214 "lex/parser_array_saver.cpp"
 	if ( (*p) == 115 )
-		goto st125;
+		goto st129;
 	goto st0;
-st125:
+st129:
 	if ( ++p == pe )
-		goto _test_eof125;
-case 125:
+		goto _test_eof129;
+case 129:
 	switch( (*p) ) {
-		case 32: goto tr186;
+		case 32: goto tr190;
 		case 101: goto st36;
 	}
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr186;
+		goto tr190;
 	goto st0;
 st36:
 	if ( ++p == pe )
 		goto _test_eof36;
 case 36:
 	if ( (*p) == 99 )
-		goto st126;
+		goto st130;
 	goto st0;
-st126:
+st130:
 	if ( ++p == pe )
-		goto _test_eof126;
-case 126:
+		goto _test_eof130;
+case 130:
 	if ( (*p) == 32 )
-		goto tr186;
+		goto tr190;
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr186;
+		goto tr190;
 	goto st0;
-tr171:
+tr175:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -1251,7 +1251,7 @@ tr171:
 #line 71 "lex/parser_array_saver.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
 	goto st37;
-tr180:
+tr184:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -1282,18 +1282,18 @@ st39:
 		goto _test_eof39;
 case 39:
 	if ( (*p) == 99 )
-		goto st127;
+		goto st131;
 	goto st0;
-st127:
+st131:
 	if ( ++p == pe )
-		goto _test_eof127;
-case 127:
+		goto _test_eof131;
+case 131:
 	switch( (*p) ) {
-		case 32: goto tr173;
+		case 32: goto tr177;
 		case 101: goto st40;
 	}
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr173;
+		goto tr177;
 	goto st0;
 st40:
 	if ( ++p == pe )
@@ -1307,7 +1307,7 @@ st41:
 		goto _test_eof41;
 case 41:
 	if ( (*p) == 116 )
-		goto st121;
+		goto st125;
 	goto st0;
 st42:
 	if ( ++p == pe )
@@ -1328,9 +1328,9 @@ st44:
 		goto _test_eof44;
 case 44:
 	if ( (*p) == 101 )
-		goto st122;
+		goto st126;
 	goto st0;
-tr172:
+tr176:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -1339,8 +1339,8 @@ tr172:
     }
 #line 71 "lex/parser_array_saver.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
-	goto st128;
-tr181:
+	goto st132;
+tr185:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -1348,87 +1348,87 @@ tr181:
         ragel_type = TYPE_FLOAT;
         ragel_cat  = CAT_NUMBER;
     }
-	goto st128;
-st128:
+	goto st132;
+st132:
 	if ( ++p == pe )
-		goto _test_eof128;
-case 128:
+		goto _test_eof132;
+case 132:
 #line 1357 "lex/parser_array_saver.cpp"
 	switch( (*p) ) {
-		case 32: goto tr189;
-		case 97: goto st129;
+		case 32: goto tr193;
+		case 97: goto st133;
 		case 101: goto st46;
 	}
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr189;
+		goto tr193;
 	goto st0;
-st129:
+st133:
 	if ( ++p == pe )
-		goto _test_eof129;
-case 129:
+		goto _test_eof133;
+case 133:
 	switch( (*p) ) {
-		case 32: goto tr192;
+		case 32: goto tr196;
 		case 109: goto st45;
 	}
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr192;
+		goto tr196;
 	goto st0;
 st45:
 	if ( ++p == pe )
 		goto _test_eof45;
 case 45:
 	if ( (*p) == 112 )
-		goto st130;
+		goto st134;
 	goto st0;
-st130:
+st134:
 	if ( ++p == pe )
-		goto _test_eof130;
-case 130:
+		goto _test_eof134;
+case 134:
 	if ( (*p) == 32 )
-		goto tr192;
+		goto tr196;
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr192;
+		goto tr196;
 	goto st0;
 st46:
 	if ( ++p == pe )
 		goto _test_eof46;
 case 46:
 	if ( (*p) == 99 )
-		goto st131;
+		goto st135;
 	goto st0;
-st131:
+st135:
 	if ( ++p == pe )
-		goto _test_eof131;
-case 131:
+		goto _test_eof135;
+case 135:
 	if ( (*p) == 32 )
-		goto tr189;
+		goto tr193;
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr189;
+		goto tr193;
 	goto st0;
 tr49:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st132;
-st132:
+	goto st136;
+st136:
 	if ( ++p == pe )
-		goto _test_eof132;
-case 132:
+		goto _test_eof136;
+case 136:
 #line 1417 "lex/parser_array_saver.cpp"
 	switch( (*p) ) {
-		case 32: goto tr165;
-		case 37: goto tr166;
-		case 42: goto tr167;
-		case 46: goto tr168;
-		case 95: goto tr169;
-		case 109: goto tr170;
-		case 112: goto tr171;
-		case 115: goto tr172;
+		case 32: goto tr169;
+		case 37: goto tr170;
+		case 42: goto tr171;
+		case 46: goto tr172;
+		case 95: goto tr173;
+		case 109: goto tr174;
+		case 112: goto tr175;
+		case 115: goto tr176;
 	}
 	if ( (*p) > 13 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr49;
 	} else if ( (*p) >= 9 )
-		goto tr165;
+		goto tr169;
 	goto st0;
 st47:
 	if ( ++p == pe )
@@ -1449,16 +1449,16 @@ st49:
 		goto _test_eof49;
 case 49:
 	if ( (*p) == 99 )
-		goto st133;
+		goto st137;
 	goto st0;
-st133:
+st137:
 	if ( ++p == pe )
-		goto _test_eof133;
-case 133:
+		goto _test_eof137;
+case 137:
 	if ( (*p) == 32 )
-		goto tr194;
+		goto tr198;
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr194;
+		goto tr198;
 	goto st0;
 st50:
 	if ( ++p == pe )
@@ -1523,22 +1523,22 @@ case 55:
 tr72:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st134;
-st134:
+	goto st138;
+st138:
 	if ( ++p == pe )
-		goto _test_eof134;
-case 134:
+		goto _test_eof138;
+case 138:
 #line 1532 "lex/parser_array_saver.cpp"
 	switch( (*p) ) {
-		case 32: goto tr195;
-		case 46: goto tr196;
-		case 95: goto tr197;
-		case 100: goto tr198;
+		case 32: goto tr199;
+		case 46: goto tr200;
+		case 95: goto tr201;
+		case 100: goto tr202;
 	}
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr195;
+		goto tr199;
 	goto st0;
-tr196:
+tr200:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -1565,24 +1565,24 @@ tr74:
         (ragel_num.ratio.num *= 10) += ((*p) - '0');
         ragel_num.ratio.den *= 10;
     }
-	goto st135;
-st135:
+	goto st139;
+st139:
 	if ( ++p == pe )
-		goto _test_eof135;
-case 135:
+		goto _test_eof139;
+case 139:
 #line 1574 "lex/parser_array_saver.cpp"
 	switch( (*p) ) {
-		case 32: goto tr199;
-		case 95: goto tr200;
-		case 100: goto tr201;
+		case 32: goto tr203;
+		case 95: goto tr204;
+		case 100: goto tr205;
 	}
 	if ( (*p) > 13 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr74;
 	} else if ( (*p) >= 9 )
-		goto tr199;
+		goto tr203;
 	goto st0;
-tr197:
+tr201:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -1591,8 +1591,8 @@ tr197:
     }
 #line 79 "lex/parser_array_saver.rl"
 	{ params.gain = getValue<float>(ragel_num, ragel_type); }
-	goto st136;
-tr200:
+	goto st140;
+tr204:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -1602,11 +1602,11 @@ tr200:
     }
 #line 79 "lex/parser_array_saver.rl"
 	{ params.gain = getValue<float>(ragel_num, ragel_type); }
-	goto st136;
-st136:
+	goto st140;
+st140:
 	if ( ++p == pe )
-		goto _test_eof136;
-case 136:
+		goto _test_eof140;
+case 140:
 #line 1611 "lex/parser_array_saver.cpp"
 	switch( (*p) ) {
 		case 32: goto st2;
@@ -1615,7 +1615,7 @@ case 136:
 	if ( 9 <= (*p) && (*p) <= 13 )
 		goto st2;
 	goto st0;
-tr198:
+tr202:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -1625,7 +1625,7 @@ tr198:
 #line 79 "lex/parser_array_saver.rl"
 	{ params.gain = getValue<float>(ragel_num, ragel_type); }
 	goto st57;
-tr201:
+tr205:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -1642,55 +1642,55 @@ st57:
 case 57:
 #line 1644 "lex/parser_array_saver.cpp"
 	if ( (*p) == 98 )
-		goto st137;
+		goto st141;
 	goto st0;
-st137:
+st141:
 	if ( ++p == pe )
-		goto _test_eof137;
-case 137:
+		goto _test_eof141;
+case 141:
 	switch( (*p) ) {
-		case 32: goto tr203;
+		case 32: goto tr207;
 		case 102: goto st58;
 	}
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr203;
+		goto tr207;
 	goto st0;
 st58:
 	if ( ++p == pe )
 		goto _test_eof58;
 case 58:
 	if ( (*p) == 115 )
-		goto st138;
+		goto st142;
 	goto st0;
-st138:
+st142:
 	if ( ++p == pe )
-		goto _test_eof138;
-case 138:
+		goto _test_eof142;
+case 142:
 	if ( (*p) == 32 )
-		goto tr203;
+		goto tr207;
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr203;
+		goto tr207;
 	goto st0;
 tr73:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st139;
-st139:
+	goto st143;
+st143:
 	if ( ++p == pe )
-		goto _test_eof139;
-case 139:
+		goto _test_eof143;
+case 143:
 #line 1683 "lex/parser_array_saver.cpp"
 	switch( (*p) ) {
-		case 32: goto tr195;
-		case 46: goto tr196;
-		case 95: goto tr197;
-		case 100: goto tr198;
+		case 32: goto tr199;
+		case 46: goto tr200;
+		case 95: goto tr201;
+		case 100: goto tr202;
 	}
 	if ( (*p) > 13 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr73;
 	} else if ( (*p) >= 9 )
-		goto tr195;
+		goto tr199;
 	goto st0;
 st59:
 	if ( ++p == pe )
@@ -1762,20 +1762,20 @@ case 65:
 tr83:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st140;
-st140:
+	goto st144;
+st144:
 	if ( ++p == pe )
-		goto _test_eof140;
-case 140:
+		goto _test_eof144;
+case 144:
 #line 1771 "lex/parser_array_saver.cpp"
 	switch( (*p) ) {
-		case 32: goto tr205;
-		case 46: goto tr206;
+		case 32: goto tr209;
+		case 46: goto tr210;
 	}
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr205;
+		goto tr209;
 	goto st0;
-tr206:
+tr210:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -1802,38 +1802,38 @@ tr85:
         (ragel_num.ratio.num *= 10) += ((*p) - '0');
         ragel_num.ratio.den *= 10;
     }
-	goto st141;
-st141:
+	goto st145;
+st145:
 	if ( ++p == pe )
-		goto _test_eof141;
-case 141:
+		goto _test_eof145;
+case 145:
 #line 1811 "lex/parser_array_saver.cpp"
 	if ( (*p) == 32 )
-		goto tr207;
+		goto tr211;
 	if ( (*p) > 13 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr85;
 	} else if ( (*p) >= 9 )
-		goto tr207;
+		goto tr211;
 	goto st0;
 tr84:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st142;
-st142:
+	goto st146;
+st146:
 	if ( ++p == pe )
-		goto _test_eof142;
-case 142:
+		goto _test_eof146;
+case 146:
 #line 1828 "lex/parser_array_saver.cpp"
 	switch( (*p) ) {
-		case 32: goto tr205;
-		case 46: goto tr206;
+		case 32: goto tr209;
+		case 46: goto tr210;
 	}
 	if ( (*p) > 13 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
 			goto tr84;
 	} else if ( (*p) >= 9 )
-		goto tr205;
+		goto tr209;
 	goto st0;
 st67:
 	if ( ++p == pe )
@@ -1847,16 +1847,16 @@ st68:
 		goto _test_eof68;
 case 68:
 	if ( (*p) == 51 )
-		goto st143;
+		goto st147;
 	goto st0;
-st143:
+st147:
 	if ( ++p == pe )
-		goto _test_eof143;
-case 143:
+		goto _test_eof147;
+case 147:
 	if ( (*p) == 32 )
-		goto tr208;
+		goto tr212;
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr208;
+		goto tr212;
 	goto st0;
 st69:
 	if ( ++p == pe )
@@ -1877,257 +1877,72 @@ st71:
 		goto _test_eof71;
 case 71:
 	if ( (*p) == 109 )
-		goto st144;
+		goto st148;
 	goto st0;
-st144:
+st148:
 	if ( ++p == pe )
-		goto _test_eof144;
-case 144:
-	if ( (*p) == 32 )
-		goto tr209;
+		goto _test_eof148;
+case 148:
+	switch( (*p) ) {
+		case 32: goto tr213;
+		case 97: goto st72;
+	}
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr209;
+		goto tr213;
 	goto st0;
 st72:
 	if ( ++p == pe )
 		goto _test_eof72;
 case 72:
-	switch( (*p) ) {
-		case 103: goto st73;
-		case 112: goto st74;
-		case 117: goto st76;
-		case 118: goto st84;
-	}
+	if ( (*p) == 108 )
+		goto st73;
 	goto st0;
 st73:
 	if ( ++p == pe )
 		goto _test_eof73;
 case 73:
-	if ( (*p) == 103 )
-		goto st145;
-	goto st0;
-st145:
-	if ( ++p == pe )
-		goto _test_eof145;
-case 145:
-	if ( (*p) == 32 )
-		goto tr210;
-	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr210;
+	if ( (*p) == 105 )
+		goto st74;
 	goto st0;
 st74:
 	if ( ++p == pe )
 		goto _test_eof74;
 case 74:
-	if ( (*p) == 117 )
+	if ( (*p) == 122 )
 		goto st75;
 	goto st0;
 st75:
 	if ( ++p == pe )
 		goto _test_eof75;
 case 75:
-	if ( (*p) == 115 )
-		goto st146;
+	if ( (*p) == 101 )
+		goto st149;
 	goto st0;
-st146:
+st149:
 	if ( ++p == pe )
-		goto _test_eof146;
-case 146:
+		goto _test_eof149;
+case 149:
 	if ( (*p) == 32 )
-		goto tr211;
+		goto tr213;
 	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr211;
+		goto tr213;
 	goto st0;
 st76:
 	if ( ++p == pe )
 		goto _test_eof76;
 case 76:
-	if ( (*p) == 116 )
-		goto st77;
+	switch( (*p) ) {
+		case 103: goto st77;
+		case 112: goto st78;
+		case 117: goto st80;
+		case 118: goto st88;
+	}
 	goto st0;
 st77:
 	if ( ++p == pe )
 		goto _test_eof77;
 case 77:
-	if ( (*p) == 95 )
-		goto st78;
-	goto st0;
-st78:
-	if ( ++p == pe )
-		goto _test_eof78;
-case 78:
-	if ( (*p) == 115 )
-		goto st79;
-	goto st0;
-st79:
-	if ( ++p == pe )
-		goto _test_eof79;
-case 79:
-	if ( (*p) == 114 )
-		goto st80;
-	goto st0;
-st80:
-	if ( ++p == pe )
-		goto _test_eof80;
-case 80:
-	if ( (*p) == 32 )
-		goto st81;
-	if ( 9 <= (*p) && (*p) <= 13 )
-		goto st81;
-	goto st0;
-st81:
-	if ( ++p == pe )
-		goto _test_eof81;
-case 81:
-	switch( (*p) ) {
-		case 32: goto st81;
-		case 43: goto tr103;
-		case 45: goto tr103;
-		case 48: goto tr104;
-	}
-	if ( (*p) > 13 ) {
-		if ( 49 <= (*p) && (*p) <= 57 )
-			goto tr105;
-	} else if ( (*p) >= 9 )
-		goto st81;
-	goto st0;
-tr103:
-#line 21 "lex/ragel_numeric.rl"
-	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
-	goto st82;
-st82:
-	if ( ++p == pe )
-		goto _test_eof82;
-case 82:
-#line 2003 "lex/parser_array_saver.cpp"
-	if ( (*p) == 48 )
-		goto tr104;
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr105;
-	goto st0;
-tr104:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st147;
-st147:
-	if ( ++p == pe )
-		goto _test_eof147;
-case 147:
-#line 2017 "lex/parser_array_saver.cpp"
-	switch( (*p) ) {
-		case 32: goto tr212;
-		case 46: goto tr213;
-	}
-	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr212;
-	goto st0;
-tr213:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 50 "lex/ragel_numeric.rl"
-	{
-        ragel_num.ratio.num = 0;
-        ragel_num.ratio.den = 1;
-    }
-	goto st83;
-st83:
-	if ( ++p == pe )
-		goto _test_eof83;
-case 83:
-#line 2042 "lex/parser_array_saver.cpp"
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr106;
-	goto st0;
-tr106:
-#line 54 "lex/ragel_numeric.rl"
-	{
-        (ragel_num.ratio.num *= 10) += ((*p) - '0');
-        ragel_num.ratio.den *= 10;
-    }
-	goto st148;
-st148:
-	if ( ++p == pe )
-		goto _test_eof148;
-case 148:
-#line 2057 "lex/parser_array_saver.cpp"
-	if ( (*p) == 32 )
-		goto tr214;
-	if ( (*p) > 13 ) {
-		if ( 48 <= (*p) && (*p) <= 57 )
-			goto tr106;
-	} else if ( (*p) >= 9 )
-		goto tr214;
-	goto st0;
-tr105:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st149;
-st149:
-	if ( ++p == pe )
-		goto _test_eof149;
-case 149:
-#line 2074 "lex/parser_array_saver.cpp"
-	switch( (*p) ) {
-		case 32: goto tr212;
-		case 46: goto tr213;
-	}
-	if ( (*p) > 13 ) {
-		if ( 48 <= (*p) && (*p) <= 57 )
-			goto tr105;
-	} else if ( (*p) >= 9 )
-		goto tr212;
-	goto st0;
-st84:
-	if ( ++p == pe )
-		goto _test_eof84;
-case 84:
-	if ( (*p) == 101 )
-		goto st85;
-	goto st0;
-st85:
-	if ( ++p == pe )
-		goto _test_eof85;
-case 85:
-	if ( (*p) == 114 )
-		goto st86;
-	goto st0;
-st86:
-	if ( ++p == pe )
-		goto _test_eof86;
-case 86:
-	if ( (*p) == 119 )
-		goto st87;
-	goto st0;
-st87:
-	if ( ++p == pe )
-		goto _test_eof87;
-case 87:
-	if ( (*p) == 114 )
-		goto st88;
-	goto st0;
-st88:
-	if ( ++p == pe )
-		goto _test_eof88;
-case 88:
-	if ( (*p) == 105 )
-		goto st89;
-	goto st0;
-st89:
-	if ( ++p == pe )
-		goto _test_eof89;
-case 89:
-	if ( (*p) == 116 )
-		goto st90;
-	goto st0;
-st90:
-	if ( ++p == pe )
-		goto _test_eof90;
-case 90:
-	if ( (*p) == 101 )
+	if ( (*p) == 103 )
 		goto st150;
 	goto st0;
 st150:
@@ -2139,18 +1954,18 @@ case 150:
 	if ( 9 <= (*p) && (*p) <= 13 )
 		goto tr215;
 	goto st0;
-st91:
+st78:
 	if ( ++p == pe )
-		goto _test_eof91;
-case 91:
-	if ( (*p) == 97 )
-		goto st92;
+		goto _test_eof78;
+case 78:
+	if ( (*p) == 117 )
+		goto st79;
 	goto st0;
-st92:
+st79:
 	if ( ++p == pe )
-		goto _test_eof92;
-case 92:
-	if ( (*p) == 119 )
+		goto _test_eof79;
+case 79:
+	if ( (*p) == 115 )
 		goto st151;
 	goto st0;
 st151:
@@ -2162,98 +1977,196 @@ case 151:
 	if ( 9 <= (*p) && (*p) <= 13 )
 		goto tr216;
 	goto st0;
+st80:
+	if ( ++p == pe )
+		goto _test_eof80;
+case 80:
+	if ( (*p) == 116 )
+		goto st81;
+	goto st0;
+st81:
+	if ( ++p == pe )
+		goto _test_eof81;
+case 81:
+	if ( (*p) == 95 )
+		goto st82;
+	goto st0;
+st82:
+	if ( ++p == pe )
+		goto _test_eof82;
+case 82:
+	if ( (*p) == 115 )
+		goto st83;
+	goto st0;
+st83:
+	if ( ++p == pe )
+		goto _test_eof83;
+case 83:
+	if ( (*p) == 114 )
+		goto st84;
+	goto st0;
+st84:
+	if ( ++p == pe )
+		goto _test_eof84;
+case 84:
+	if ( (*p) == 32 )
+		goto st85;
+	if ( 9 <= (*p) && (*p) <= 13 )
+		goto st85;
+	goto st0;
+st85:
+	if ( ++p == pe )
+		goto _test_eof85;
+case 85:
+	switch( (*p) ) {
+		case 32: goto st85;
+		case 43: goto tr107;
+		case 45: goto tr107;
+		case 48: goto tr108;
+	}
+	if ( (*p) > 13 ) {
+		if ( 49 <= (*p) && (*p) <= 57 )
+			goto tr109;
+	} else if ( (*p) >= 9 )
+		goto st85;
+	goto st0;
+tr107:
+#line 21 "lex/ragel_numeric.rl"
+	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
+	goto st86;
+st86:
+	if ( ++p == pe )
+		goto _test_eof86;
+case 86:
+#line 2042 "lex/parser_array_saver.cpp"
+	if ( (*p) == 48 )
+		goto tr108;
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr109;
+	goto st0;
+tr108:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st152;
+st152:
+	if ( ++p == pe )
+		goto _test_eof152;
+case 152:
+#line 2056 "lex/parser_array_saver.cpp"
+	switch( (*p) ) {
+		case 32: goto tr217;
+		case 46: goto tr218;
+	}
+	if ( 9 <= (*p) && (*p) <= 13 )
+		goto tr217;
+	goto st0;
+tr218:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 50 "lex/ragel_numeric.rl"
+	{
+        ragel_num.ratio.num = 0;
+        ragel_num.ratio.den = 1;
+    }
+	goto st87;
+st87:
+	if ( ++p == pe )
+		goto _test_eof87;
+case 87:
+#line 2081 "lex/parser_array_saver.cpp"
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr110;
+	goto st0;
+tr110:
+#line 54 "lex/ragel_numeric.rl"
+	{
+        (ragel_num.ratio.num *= 10) += ((*p) - '0');
+        ragel_num.ratio.den *= 10;
+    }
+	goto st153;
+st153:
+	if ( ++p == pe )
+		goto _test_eof153;
+case 153:
+#line 2096 "lex/parser_array_saver.cpp"
+	if ( (*p) == 32 )
+		goto tr219;
+	if ( (*p) > 13 ) {
+		if ( 48 <= (*p) && (*p) <= 57 )
+			goto tr110;
+	} else if ( (*p) >= 9 )
+		goto tr219;
+	goto st0;
+tr109:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st154;
+st154:
+	if ( ++p == pe )
+		goto _test_eof154;
+case 154:
+#line 2113 "lex/parser_array_saver.cpp"
+	switch( (*p) ) {
+		case 32: goto tr217;
+		case 46: goto tr218;
+	}
+	if ( (*p) > 13 ) {
+		if ( 48 <= (*p) && (*p) <= 57 )
+			goto tr109;
+	} else if ( (*p) >= 9 )
+		goto tr217;
+	goto st0;
+st88:
+	if ( ++p == pe )
+		goto _test_eof88;
+case 88:
+	if ( (*p) == 101 )
+		goto st89;
+	goto st0;
+st89:
+	if ( ++p == pe )
+		goto _test_eof89;
+case 89:
+	if ( (*p) == 114 )
+		goto st90;
+	goto st0;
+st90:
+	if ( ++p == pe )
+		goto _test_eof90;
+case 90:
+	if ( (*p) == 119 )
+		goto st91;
+	goto st0;
+st91:
+	if ( ++p == pe )
+		goto _test_eof91;
+case 91:
+	if ( (*p) == 114 )
+		goto st92;
+	goto st0;
+st92:
+	if ( ++p == pe )
+		goto _test_eof92;
+case 92:
+	if ( (*p) == 105 )
+		goto st93;
+	goto st0;
 st93:
 	if ( ++p == pe )
 		goto _test_eof93;
 case 93:
-	if ( (*p) == 97 )
+	if ( (*p) == 116 )
 		goto st94;
 	goto st0;
 st94:
 	if ( ++p == pe )
 		goto _test_eof94;
 case 94:
-	if ( (*p) == 109 )
-		goto st95;
-	goto st0;
-st95:
-	if ( ++p == pe )
-		goto _test_eof95;
-case 95:
-	if ( (*p) == 112 )
-		goto st96;
-	goto st0;
-st96:
-	if ( ++p == pe )
-		goto _test_eof96;
-case 96:
-	if ( (*p) == 32 )
-		goto st97;
-	if ( 9 <= (*p) && (*p) <= 13 )
-		goto st97;
-	goto st0;
-st97:
-	if ( ++p == pe )
-		goto _test_eof97;
-case 97:
-	switch( (*p) ) {
-		case 32: goto st97;
-		case 48: goto st152;
-		case 49: goto st98;
-		case 50: goto st99;
-		case 51: goto st100;
-		case 56: goto st156;
-		case 102: goto st157;
-	}
-	if ( 9 <= (*p) && (*p) <= 13 )
-		goto st97;
-	goto st0;
-st152:
-	if ( ++p == pe )
-		goto _test_eof152;
-case 152:
-	if ( (*p) == 32 )
-		goto tr217;
-	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr217;
-	goto st0;
-st98:
-	if ( ++p == pe )
-		goto _test_eof98;
-case 98:
-	if ( (*p) == 54 )
-		goto st153;
-	goto st0;
-st153:
-	if ( ++p == pe )
-		goto _test_eof153;
-case 153:
-	if ( (*p) == 32 )
-		goto tr218;
-	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr218;
-	goto st0;
-st99:
-	if ( ++p == pe )
-		goto _test_eof99;
-case 99:
-	if ( (*p) == 52 )
-		goto st154;
-	goto st0;
-st154:
-	if ( ++p == pe )
-		goto _test_eof154;
-case 154:
-	if ( (*p) == 32 )
-		goto tr219;
-	if ( 9 <= (*p) && (*p) <= 13 )
-		goto tr219;
-	goto st0;
-st100:
-	if ( ++p == pe )
-		goto _test_eof100;
-case 100:
-	if ( (*p) == 50 )
+	if ( (*p) == 101 )
 		goto st155;
 	goto st0;
 st155:
@@ -2265,6 +2178,20 @@ case 155:
 	if ( 9 <= (*p) && (*p) <= 13 )
 		goto tr220;
 	goto st0;
+st95:
+	if ( ++p == pe )
+		goto _test_eof95;
+case 95:
+	if ( (*p) == 97 )
+		goto st96;
+	goto st0;
+st96:
+	if ( ++p == pe )
+		goto _test_eof96;
+case 96:
+	if ( (*p) == 119 )
+		goto st156;
+	goto st0;
 st156:
 	if ( ++p == pe )
 		goto _test_eof156;
@@ -2273,6 +2200,52 @@ case 156:
 		goto tr221;
 	if ( 9 <= (*p) && (*p) <= 13 )
 		goto tr221;
+	goto st0;
+st97:
+	if ( ++p == pe )
+		goto _test_eof97;
+case 97:
+	if ( (*p) == 97 )
+		goto st98;
+	goto st0;
+st98:
+	if ( ++p == pe )
+		goto _test_eof98;
+case 98:
+	if ( (*p) == 109 )
+		goto st99;
+	goto st0;
+st99:
+	if ( ++p == pe )
+		goto _test_eof99;
+case 99:
+	if ( (*p) == 112 )
+		goto st100;
+	goto st0;
+st100:
+	if ( ++p == pe )
+		goto _test_eof100;
+case 100:
+	if ( (*p) == 32 )
+		goto st101;
+	if ( 9 <= (*p) && (*p) <= 13 )
+		goto st101;
+	goto st0;
+st101:
+	if ( ++p == pe )
+		goto _test_eof101;
+case 101:
+	switch( (*p) ) {
+		case 32: goto st101;
+		case 48: goto st157;
+		case 49: goto st102;
+		case 50: goto st103;
+		case 51: goto st104;
+		case 56: goto st161;
+		case 102: goto st162;
+	}
+	if ( 9 <= (*p) && (*p) <= 13 )
+		goto st101;
 	goto st0;
 st157:
 	if ( ++p == pe )
@@ -2283,18 +2256,11 @@ case 157:
 	if ( 9 <= (*p) && (*p) <= 13 )
 		goto tr222;
 	goto st0;
-st101:
-	if ( ++p == pe )
-		goto _test_eof101;
-case 101:
-	if ( (*p) == 120 )
-		goto st102;
-	goto st0;
 st102:
 	if ( ++p == pe )
 		goto _test_eof102;
 case 102:
-	if ( (*p) == 116 )
+	if ( (*p) == 54 )
 		goto st158;
 	goto st0;
 st158:
@@ -2310,14 +2276,7 @@ st103:
 	if ( ++p == pe )
 		goto _test_eof103;
 case 103:
-	if ( (*p) == 97 )
-		goto st104;
-	goto st0;
-st104:
-	if ( ++p == pe )
-		goto _test_eof104;
-case 104:
-	if ( (*p) == 118 )
+	if ( (*p) == 52 )
 		goto st159;
 	goto st0;
 st159:
@@ -2329,14 +2288,94 @@ case 159:
 	if ( 9 <= (*p) && (*p) <= 13 )
 		goto tr224;
 	goto st0;
+st104:
+	if ( ++p == pe )
+		goto _test_eof104;
+case 104:
+	if ( (*p) == 50 )
+		goto st160;
+	goto st0;
+st160:
+	if ( ++p == pe )
+		goto _test_eof160;
+case 160:
+	if ( (*p) == 32 )
+		goto tr225;
+	if ( 9 <= (*p) && (*p) <= 13 )
+		goto tr225;
+	goto st0;
+st161:
+	if ( ++p == pe )
+		goto _test_eof161;
+case 161:
+	if ( (*p) == 32 )
+		goto tr226;
+	if ( 9 <= (*p) && (*p) <= 13 )
+		goto tr226;
+	goto st0;
+st162:
+	if ( ++p == pe )
+		goto _test_eof162;
+case 162:
+	if ( (*p) == 32 )
+		goto tr227;
+	if ( 9 <= (*p) && (*p) <= 13 )
+		goto tr227;
+	goto st0;
+st105:
+	if ( ++p == pe )
+		goto _test_eof105;
+case 105:
+	if ( (*p) == 120 )
+		goto st106;
+	goto st0;
+st106:
+	if ( ++p == pe )
+		goto _test_eof106;
+case 106:
+	if ( (*p) == 116 )
+		goto st163;
+	goto st0;
+st163:
+	if ( ++p == pe )
+		goto _test_eof163;
+case 163:
+	if ( (*p) == 32 )
+		goto tr228;
+	if ( 9 <= (*p) && (*p) <= 13 )
+		goto tr228;
+	goto st0;
+st107:
+	if ( ++p == pe )
+		goto _test_eof107;
+case 107:
+	if ( (*p) == 97 )
+		goto st108;
+	goto st0;
+st108:
+	if ( ++p == pe )
+		goto _test_eof108;
+case 108:
+	if ( (*p) == 118 )
+		goto st164;
+	goto st0;
+st164:
+	if ( ++p == pe )
+		goto _test_eof164;
+case 164:
+	if ( (*p) == 32 )
+		goto tr229;
+	if ( 9 <= (*p) && (*p) <= 13 )
+		goto tr229;
+	goto st0;
 	}
-	_test_eof105: cs = 105; goto _test_eof; 
+	_test_eof109: cs = 109; goto _test_eof; 
 	_test_eof2: cs = 2; goto _test_eof; 
 	_test_eof3: cs = 3; goto _test_eof; 
 	_test_eof4: cs = 4; goto _test_eof; 
 	_test_eof5: cs = 5; goto _test_eof; 
 	_test_eof6: cs = 6; goto _test_eof; 
-	_test_eof106: cs = 106; goto _test_eof; 
+	_test_eof110: cs = 110; goto _test_eof; 
 	_test_eof7: cs = 7; goto _test_eof; 
 	_test_eof8: cs = 8; goto _test_eof; 
 	_test_eof9: cs = 9; goto _test_eof; 
@@ -2345,83 +2384,83 @@ case 159:
 	_test_eof12: cs = 12; goto _test_eof; 
 	_test_eof13: cs = 13; goto _test_eof; 
 	_test_eof14: cs = 14; goto _test_eof; 
-	_test_eof107: cs = 107; goto _test_eof; 
-	_test_eof108: cs = 108; goto _test_eof; 
-	_test_eof109: cs = 109; goto _test_eof; 
-	_test_eof15: cs = 15; goto _test_eof; 
-	_test_eof110: cs = 110; goto _test_eof; 
 	_test_eof111: cs = 111; goto _test_eof; 
-	_test_eof16: cs = 16; goto _test_eof; 
 	_test_eof112: cs = 112; goto _test_eof; 
-	_test_eof17: cs = 17; goto _test_eof; 
 	_test_eof113: cs = 113; goto _test_eof; 
+	_test_eof15: cs = 15; goto _test_eof; 
+	_test_eof114: cs = 114; goto _test_eof; 
+	_test_eof115: cs = 115; goto _test_eof; 
+	_test_eof16: cs = 16; goto _test_eof; 
+	_test_eof116: cs = 116; goto _test_eof; 
+	_test_eof17: cs = 17; goto _test_eof; 
+	_test_eof117: cs = 117; goto _test_eof; 
 	_test_eof18: cs = 18; goto _test_eof; 
 	_test_eof19: cs = 19; goto _test_eof; 
 	_test_eof20: cs = 20; goto _test_eof; 
-	_test_eof114: cs = 114; goto _test_eof; 
+	_test_eof118: cs = 118; goto _test_eof; 
 	_test_eof21: cs = 21; goto _test_eof; 
 	_test_eof22: cs = 22; goto _test_eof; 
 	_test_eof23: cs = 23; goto _test_eof; 
 	_test_eof24: cs = 24; goto _test_eof; 
 	_test_eof25: cs = 25; goto _test_eof; 
-	_test_eof115: cs = 115; goto _test_eof; 
-	_test_eof116: cs = 116; goto _test_eof; 
-	_test_eof26: cs = 26; goto _test_eof; 
-	_test_eof117: cs = 117; goto _test_eof; 
-	_test_eof27: cs = 27; goto _test_eof; 
-	_test_eof118: cs = 118; goto _test_eof; 
 	_test_eof119: cs = 119; goto _test_eof; 
+	_test_eof120: cs = 120; goto _test_eof; 
+	_test_eof26: cs = 26; goto _test_eof; 
+	_test_eof121: cs = 121; goto _test_eof; 
+	_test_eof27: cs = 27; goto _test_eof; 
+	_test_eof122: cs = 122; goto _test_eof; 
+	_test_eof123: cs = 123; goto _test_eof; 
 	_test_eof28: cs = 28; goto _test_eof; 
 	_test_eof29: cs = 29; goto _test_eof; 
 	_test_eof30: cs = 30; goto _test_eof; 
 	_test_eof31: cs = 31; goto _test_eof; 
 	_test_eof32: cs = 32; goto _test_eof; 
 	_test_eof33: cs = 33; goto _test_eof; 
-	_test_eof120: cs = 120; goto _test_eof; 
-	_test_eof121: cs = 121; goto _test_eof; 
-	_test_eof122: cs = 122; goto _test_eof; 
-	_test_eof34: cs = 34; goto _test_eof; 
-	_test_eof123: cs = 123; goto _test_eof; 
 	_test_eof124: cs = 124; goto _test_eof; 
-	_test_eof35: cs = 35; goto _test_eof; 
 	_test_eof125: cs = 125; goto _test_eof; 
-	_test_eof36: cs = 36; goto _test_eof; 
 	_test_eof126: cs = 126; goto _test_eof; 
+	_test_eof34: cs = 34; goto _test_eof; 
+	_test_eof127: cs = 127; goto _test_eof; 
+	_test_eof128: cs = 128; goto _test_eof; 
+	_test_eof35: cs = 35; goto _test_eof; 
+	_test_eof129: cs = 129; goto _test_eof; 
+	_test_eof36: cs = 36; goto _test_eof; 
+	_test_eof130: cs = 130; goto _test_eof; 
 	_test_eof37: cs = 37; goto _test_eof; 
 	_test_eof38: cs = 38; goto _test_eof; 
 	_test_eof39: cs = 39; goto _test_eof; 
-	_test_eof127: cs = 127; goto _test_eof; 
+	_test_eof131: cs = 131; goto _test_eof; 
 	_test_eof40: cs = 40; goto _test_eof; 
 	_test_eof41: cs = 41; goto _test_eof; 
 	_test_eof42: cs = 42; goto _test_eof; 
 	_test_eof43: cs = 43; goto _test_eof; 
 	_test_eof44: cs = 44; goto _test_eof; 
-	_test_eof128: cs = 128; goto _test_eof; 
-	_test_eof129: cs = 129; goto _test_eof; 
-	_test_eof45: cs = 45; goto _test_eof; 
-	_test_eof130: cs = 130; goto _test_eof; 
-	_test_eof46: cs = 46; goto _test_eof; 
-	_test_eof131: cs = 131; goto _test_eof; 
 	_test_eof132: cs = 132; goto _test_eof; 
+	_test_eof133: cs = 133; goto _test_eof; 
+	_test_eof45: cs = 45; goto _test_eof; 
+	_test_eof134: cs = 134; goto _test_eof; 
+	_test_eof46: cs = 46; goto _test_eof; 
+	_test_eof135: cs = 135; goto _test_eof; 
+	_test_eof136: cs = 136; goto _test_eof; 
 	_test_eof47: cs = 47; goto _test_eof; 
 	_test_eof48: cs = 48; goto _test_eof; 
 	_test_eof49: cs = 49; goto _test_eof; 
-	_test_eof133: cs = 133; goto _test_eof; 
+	_test_eof137: cs = 137; goto _test_eof; 
 	_test_eof50: cs = 50; goto _test_eof; 
 	_test_eof51: cs = 51; goto _test_eof; 
 	_test_eof52: cs = 52; goto _test_eof; 
 	_test_eof53: cs = 53; goto _test_eof; 
 	_test_eof54: cs = 54; goto _test_eof; 
 	_test_eof55: cs = 55; goto _test_eof; 
-	_test_eof134: cs = 134; goto _test_eof; 
-	_test_eof56: cs = 56; goto _test_eof; 
-	_test_eof135: cs = 135; goto _test_eof; 
-	_test_eof136: cs = 136; goto _test_eof; 
-	_test_eof57: cs = 57; goto _test_eof; 
-	_test_eof137: cs = 137; goto _test_eof; 
-	_test_eof58: cs = 58; goto _test_eof; 
 	_test_eof138: cs = 138; goto _test_eof; 
+	_test_eof56: cs = 56; goto _test_eof; 
 	_test_eof139: cs = 139; goto _test_eof; 
+	_test_eof140: cs = 140; goto _test_eof; 
+	_test_eof57: cs = 57; goto _test_eof; 
+	_test_eof141: cs = 141; goto _test_eof; 
+	_test_eof58: cs = 58; goto _test_eof; 
+	_test_eof142: cs = 142; goto _test_eof; 
+	_test_eof143: cs = 143; goto _test_eof; 
 	_test_eof59: cs = 59; goto _test_eof; 
 	_test_eof60: cs = 60; goto _test_eof; 
 	_test_eof61: cs = 61; goto _test_eof; 
@@ -2429,148 +2468,154 @@ case 159:
 	_test_eof63: cs = 63; goto _test_eof; 
 	_test_eof64: cs = 64; goto _test_eof; 
 	_test_eof65: cs = 65; goto _test_eof; 
-	_test_eof140: cs = 140; goto _test_eof; 
+	_test_eof144: cs = 144; goto _test_eof; 
 	_test_eof66: cs = 66; goto _test_eof; 
-	_test_eof141: cs = 141; goto _test_eof; 
-	_test_eof142: cs = 142; goto _test_eof; 
+	_test_eof145: cs = 145; goto _test_eof; 
+	_test_eof146: cs = 146; goto _test_eof; 
 	_test_eof67: cs = 67; goto _test_eof; 
 	_test_eof68: cs = 68; goto _test_eof; 
-	_test_eof143: cs = 143; goto _test_eof; 
+	_test_eof147: cs = 147; goto _test_eof; 
 	_test_eof69: cs = 69; goto _test_eof; 
 	_test_eof70: cs = 70; goto _test_eof; 
 	_test_eof71: cs = 71; goto _test_eof; 
-	_test_eof144: cs = 144; goto _test_eof; 
+	_test_eof148: cs = 148; goto _test_eof; 
 	_test_eof72: cs = 72; goto _test_eof; 
 	_test_eof73: cs = 73; goto _test_eof; 
-	_test_eof145: cs = 145; goto _test_eof; 
 	_test_eof74: cs = 74; goto _test_eof; 
 	_test_eof75: cs = 75; goto _test_eof; 
-	_test_eof146: cs = 146; goto _test_eof; 
+	_test_eof149: cs = 149; goto _test_eof; 
 	_test_eof76: cs = 76; goto _test_eof; 
 	_test_eof77: cs = 77; goto _test_eof; 
+	_test_eof150: cs = 150; goto _test_eof; 
 	_test_eof78: cs = 78; goto _test_eof; 
 	_test_eof79: cs = 79; goto _test_eof; 
+	_test_eof151: cs = 151; goto _test_eof; 
 	_test_eof80: cs = 80; goto _test_eof; 
 	_test_eof81: cs = 81; goto _test_eof; 
 	_test_eof82: cs = 82; goto _test_eof; 
-	_test_eof147: cs = 147; goto _test_eof; 
 	_test_eof83: cs = 83; goto _test_eof; 
-	_test_eof148: cs = 148; goto _test_eof; 
-	_test_eof149: cs = 149; goto _test_eof; 
 	_test_eof84: cs = 84; goto _test_eof; 
 	_test_eof85: cs = 85; goto _test_eof; 
 	_test_eof86: cs = 86; goto _test_eof; 
+	_test_eof152: cs = 152; goto _test_eof; 
 	_test_eof87: cs = 87; goto _test_eof; 
+	_test_eof153: cs = 153; goto _test_eof; 
+	_test_eof154: cs = 154; goto _test_eof; 
 	_test_eof88: cs = 88; goto _test_eof; 
 	_test_eof89: cs = 89; goto _test_eof; 
 	_test_eof90: cs = 90; goto _test_eof; 
-	_test_eof150: cs = 150; goto _test_eof; 
 	_test_eof91: cs = 91; goto _test_eof; 
 	_test_eof92: cs = 92; goto _test_eof; 
-	_test_eof151: cs = 151; goto _test_eof; 
 	_test_eof93: cs = 93; goto _test_eof; 
 	_test_eof94: cs = 94; goto _test_eof; 
+	_test_eof155: cs = 155; goto _test_eof; 
 	_test_eof95: cs = 95; goto _test_eof; 
 	_test_eof96: cs = 96; goto _test_eof; 
-	_test_eof97: cs = 97; goto _test_eof; 
-	_test_eof152: cs = 152; goto _test_eof; 
-	_test_eof98: cs = 98; goto _test_eof; 
-	_test_eof153: cs = 153; goto _test_eof; 
-	_test_eof99: cs = 99; goto _test_eof; 
-	_test_eof154: cs = 154; goto _test_eof; 
-	_test_eof100: cs = 100; goto _test_eof; 
-	_test_eof155: cs = 155; goto _test_eof; 
 	_test_eof156: cs = 156; goto _test_eof; 
-	_test_eof157: cs = 157; goto _test_eof; 
+	_test_eof97: cs = 97; goto _test_eof; 
+	_test_eof98: cs = 98; goto _test_eof; 
+	_test_eof99: cs = 99; goto _test_eof; 
+	_test_eof100: cs = 100; goto _test_eof; 
 	_test_eof101: cs = 101; goto _test_eof; 
+	_test_eof157: cs = 157; goto _test_eof; 
 	_test_eof102: cs = 102; goto _test_eof; 
 	_test_eof158: cs = 158; goto _test_eof; 
 	_test_eof103: cs = 103; goto _test_eof; 
-	_test_eof104: cs = 104; goto _test_eof; 
 	_test_eof159: cs = 159; goto _test_eof; 
+	_test_eof104: cs = 104; goto _test_eof; 
+	_test_eof160: cs = 160; goto _test_eof; 
+	_test_eof161: cs = 161; goto _test_eof; 
+	_test_eof162: cs = 162; goto _test_eof; 
+	_test_eof105: cs = 105; goto _test_eof; 
+	_test_eof106: cs = 106; goto _test_eof; 
+	_test_eof163: cs = 163; goto _test_eof; 
+	_test_eof107: cs = 107; goto _test_eof; 
+	_test_eof108: cs = 108; goto _test_eof; 
+	_test_eof164: cs = 164; goto _test_eof; 
 
 	_test_eof: {}
 	if ( p == eof )
 	{
 	switch ( cs ) {
-	case 152: 
+	case 157: 
 #line 83 "lex/parser_array_saver.rl"
 	{ params.sample_format = sound::SAMPLE_DEFAULT; }
 	break;
-	case 156: 
+	case 161: 
 #line 84 "lex/parser_array_saver.rl"
 	{ params.sample_format = sound::SAMPLE_PCM_8; }
 	break;
-	case 153: 
+	case 158: 
 #line 85 "lex/parser_array_saver.rl"
 	{ params.sample_format = sound::SAMPLE_PCM_16; }
 	break;
-	case 154: 
+	case 159: 
 #line 86 "lex/parser_array_saver.rl"
 	{ params.sample_format = sound::SAMPLE_PCM_24; }
 	break;
-	case 155: 
+	case 160: 
 #line 87 "lex/parser_array_saver.rl"
 	{ params.sample_format = sound::SAMPLE_PCM_32; }
 	break;
-	case 157: 
+	case 162: 
 #line 88 "lex/parser_array_saver.rl"
 	{ params.sample_format = sound::SAMPLE_PCM_FLOAT; }
 	break;
-	case 111: 
+	case 115: 
 #line 110 "lex/parser_array_saver.rl"
 	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	break;
-	case 124: 
+	case 128: 
 #line 111 "lex/parser_array_saver.rl"
 	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	break;
-	case 144: 
+	case 148: 
+	case 149: 
 #line 115 "lex/parser_array_saver.rl"
 	{ params.normalize = true; }
 	break;
-	case 159: 
+	case 164: 
 #line 116 "lex/parser_array_saver.rl"
 	{ params.format = sound::FORMAT_WAV; }
 	break;
-	case 143: 
+	case 147: 
 #line 117 "lex/parser_array_saver.rl"
 	{ params.format = sound::FORMAT_MP3; }
 	break;
-	case 145: 
+	case 150: 
 #line 118 "lex/parser_array_saver.rl"
 	{ params.format = sound::FORMAT_OGG; }
 	break;
-	case 146: 
+	case 151: 
 #line 119 "lex/parser_array_saver.rl"
 	{ params.format = sound::FORMAT_OPUS; }
 	break;
-	case 106: 
+	case 110: 
 #line 120 "lex/parser_array_saver.rl"
 	{ params.format = sound::FORMAT_AIFF; }
 	break;
-	case 158: 
+	case 163: 
 #line 121 "lex/parser_array_saver.rl"
 	{ params.format = sound::FORMAT_TEXT; }
 	break;
-	case 151: 
+	case 156: 
 #line 122 "lex/parser_array_saver.rl"
 	{ params.format = sound::FORMAT_RAW; }
 	break;
-	case 133: 
+	case 137: 
 #line 123 "lex/parser_array_saver.rl"
 	{ params.format = sound::FORMAT_FLAC; }
 	break;
-	case 150: 
+	case 155: 
 #line 124 "lex/parser_array_saver.rl"
 	{ params.overwrite = true; }
 	break;
-	case 105: 
+	case 109: 
 #line 129 "lex/parser_array_saver.rl"
 	{ params.filename = ragel_atom; }
 	break;
-	case 134: 
-	case 139: 
+	case 138: 
+	case 143: 
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -2580,8 +2625,8 @@ case 159:
 #line 79 "lex/parser_array_saver.rl"
 	{ params.gain = getValue<float>(ragel_num, ragel_type); }
 	break;
-	case 140: 
-	case 142: 
+	case 144: 
+	case 146: 
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -2591,8 +2636,8 @@ case 159:
 #line 113 "lex/parser_array_saver.rl"
 	{ params.in_sr  = getValue<float>(ragel_num, ragel_type); }
 	break;
-	case 147: 
-	case 149: 
+	case 152: 
+	case 154: 
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -2602,7 +2647,7 @@ case 159:
 #line 114 "lex/parser_array_saver.rl"
 	{ params.out_sr = getValue<float>(ragel_num, ragel_type); }
 	break;
-	case 135: 
+	case 139: 
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -2613,7 +2658,7 @@ case 159:
 #line 79 "lex/parser_array_saver.rl"
 	{ params.gain = getValue<float>(ragel_num, ragel_type); }
 	break;
-	case 110: 
+	case 114: 
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -2624,7 +2669,7 @@ case 159:
 #line 110 "lex/parser_array_saver.rl"
 	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	break;
-	case 123: 
+	case 127: 
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -2635,7 +2680,7 @@ case 159:
 #line 111 "lex/parser_array_saver.rl"
 	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	break;
-	case 141: 
+	case 145: 
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -2646,7 +2691,7 @@ case 159:
 #line 113 "lex/parser_array_saver.rl"
 	{ params.in_sr  = getValue<float>(ragel_num, ragel_type); }
 	break;
-	case 148: 
+	case 153: 
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -2657,83 +2702,83 @@ case 159:
 #line 114 "lex/parser_array_saver.rl"
 	{ params.out_sr = getValue<float>(ragel_num, ragel_type); }
 	break;
-	case 137: 
-	case 138: 
+	case 141: 
+	case 142: 
 #line 14 "lex/ragel_units.rl"
 	{ragel_type = TYPE_DB;}
 #line 81 "lex/parser_array_saver.rl"
 	{ params.gain = convert::dbfs2amp(params.gain); }
 	break;
-	case 112: 
-	case 113: 
-#line 19 "lex/ragel_units.rl"
-	{ragel_type = TYPE_MSEC;}
-#line 110 "lex/parser_array_saver.rl"
-	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
-	break;
-	case 125: 
-	case 126: 
-#line 19 "lex/ragel_units.rl"
-	{ragel_type = TYPE_MSEC;}
-#line 111 "lex/parser_array_saver.rl"
-	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
-	break;
 	case 116: 
 	case 117: 
-#line 21 "lex/ragel_units.rl"
-	{ragel_type = TYPE_SAMP;}
+#line 19 "lex/ragel_units.rl"
+	{ragel_type = TYPE_MSEC;}
 #line 110 "lex/parser_array_saver.rl"
 	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	break;
 	case 129: 
 	case 130: 
+#line 19 "lex/ragel_units.rl"
+	{ragel_type = TYPE_MSEC;}
+#line 111 "lex/parser_array_saver.rl"
+	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
+	break;
+	case 120: 
+	case 121: 
+#line 21 "lex/ragel_units.rl"
+	{ragel_type = TYPE_SAMP;}
+#line 110 "lex/parser_array_saver.rl"
+	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
+	break;
+	case 133: 
+	case 134: 
 #line 21 "lex/ragel_units.rl"
 	{ragel_type = TYPE_SAMP;}
 #line 111 "lex/parser_array_saver.rl"
 	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	break;
-	case 115: 
-	case 118: 
-#line 22 "lex/ragel_units.rl"
-	{ragel_type = TYPE_SEC;}
-#line 110 "lex/parser_array_saver.rl"
-	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
-	break;
-	case 128: 
-	case 131: 
-#line 22 "lex/ragel_units.rl"
-	{ragel_type = TYPE_SEC;}
-#line 111 "lex/parser_array_saver.rl"
-	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
-	break;
-	case 108: 
-	case 114: 
-#line 26 "lex/ragel_units.rl"
-	{ragel_type = TYPE_PERCENT;}
-#line 110 "lex/parser_array_saver.rl"
-	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
-	break;
-	case 121: 
-	case 127: 
-#line 26 "lex/ragel_units.rl"
-	{ragel_type = TYPE_PERCENT;}
-#line 111 "lex/parser_array_saver.rl"
-	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
-	break;
-	case 109: 
-#line 29 "lex/ragel_units.rl"
-	{ragel_type = TYPE_PHASE;}
-#line 110 "lex/parser_array_saver.rl"
-	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
-	break;
-	case 122: 
-#line 29 "lex/ragel_units.rl"
-	{ragel_type = TYPE_PHASE;}
-#line 111 "lex/parser_array_saver.rl"
-	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
-	break;
-	case 107: 
 	case 119: 
+	case 122: 
+#line 22 "lex/ragel_units.rl"
+	{ragel_type = TYPE_SEC;}
+#line 110 "lex/parser_array_saver.rl"
+	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
+	break;
+	case 132: 
+	case 135: 
+#line 22 "lex/ragel_units.rl"
+	{ragel_type = TYPE_SEC;}
+#line 111 "lex/parser_array_saver.rl"
+	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
+	break;
+	case 112: 
+	case 118: 
+#line 26 "lex/ragel_units.rl"
+	{ragel_type = TYPE_PERCENT;}
+#line 110 "lex/parser_array_saver.rl"
+	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
+	break;
+	case 125: 
+	case 131: 
+#line 26 "lex/ragel_units.rl"
+	{ragel_type = TYPE_PERCENT;}
+#line 111 "lex/parser_array_saver.rl"
+	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
+	break;
+	case 113: 
+#line 29 "lex/ragel_units.rl"
+	{ragel_type = TYPE_PHASE;}
+#line 110 "lex/parser_array_saver.rl"
+	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
+	break;
+	case 126: 
+#line 29 "lex/ragel_units.rl"
+	{ragel_type = TYPE_PHASE;}
+#line 111 "lex/parser_array_saver.rl"
+	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
+	break;
+	case 111: 
+	case 123: 
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -2745,8 +2790,8 @@ case 159:
 #line 110 "lex/parser_array_saver.rl"
 	{ params.begin = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	break;
-	case 120: 
-	case 132: 
+	case 124: 
+	case 136: 
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -2758,7 +2803,7 @@ case 159:
 #line 111 "lex/parser_array_saver.rl"
 	{ params.end = getArrayPos(params, ragel_num, ragel_type, arraySize); }
 	break;
-#line 2762 "lex/parser_array_saver.cpp"
+#line 2807 "lex/parser_array_saver.cpp"
 	}
 	}
 
@@ -2768,7 +2813,7 @@ case 159:
 #line 162 "lex/parser_array_saver.rl"
 
 
-    if (cs >= 105) {
+    if (cs >= 109) {
         if (params.format == sound::FORMAT_UNKNOWN)
             params.format = detect_format(params.filename.c_str(), params.filename.size());
 
@@ -2778,7 +2823,7 @@ case 159:
 }
 
 
-#line 2782 "lex/parser_array_saver.cpp"
+#line 2827 "lex/parser_array_saver.cpp"
 static const int auto_format_detector_start = 1;
 static const int auto_format_detector_first_final = 30;
 static const int auto_format_detector_error = 0;
@@ -2799,12 +2844,12 @@ sound::SoundFileFormat detect_format(const char* str, size_t len)
     sound::SoundFileFormat fmt = sound::FORMAT_UNKNOWN;
 
     
-#line 2803 "lex/parser_array_saver.cpp"
+#line 2848 "lex/parser_array_saver.cpp"
 	{
 	cs = auto_format_detector_start;
 	}
 
-#line 2808 "lex/parser_array_saver.cpp"
+#line 2853 "lex/parser_array_saver.cpp"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -3233,7 +3278,7 @@ case 29:
 #line 182 "lex/parser_array_saver.rl"
 	{ fmt = sound::FORMAT_RAW; }
 	break;
-#line 3237 "lex/parser_array_saver.cpp"
+#line 3282 "lex/parser_array_saver.cpp"
 	}
 	}
 

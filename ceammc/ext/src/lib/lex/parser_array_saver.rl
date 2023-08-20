@@ -95,7 +95,7 @@ opt_end       = '@end'    >{ params.origin = ORIGIN_BEGIN; } ws array_unit_value
 opt_in_sr     = '@in_sr'  ws val;
 opt_out_sr    = '@out_sr' ws val;
 opt_samp      = '@samp'   ws samp_fmt;
-opt_norm      = '@norm';
+opt_norm      = '@norm' ('alize' ?);
 opt_overwrite = '@overwrite';
 opt_wav       = '@wav';
 opt_mp3       = '@mp3';
