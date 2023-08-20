@@ -39,8 +39,8 @@
             decomposition</argument>
             <argument name="MODE" type="symbol" enum="ambisonic irregular binaural">decoding
             mode</argument>
-            <argument name="NWAVES" type="int">number of loud speakers (minimum 2*ORDER+1 for ambisonic
-            mode)</argument>
+            <argument name="NWAVES" type="int">number of loud speakers (minimum 2*ORDER+1 for
+            ambisonic mode)</argument>
         </arguments>
         <properties>
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"

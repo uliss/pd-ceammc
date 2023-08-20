@@ -15,8 +15,10 @@
             <since>0.5</since>
         </meta>
         <arguments>
-            <argument name="CENTROID" type="float" minvalue="20" maxvalue="120">main frequency (MIDI pitch)</argument>
-            <argument name="RATE" type="float" minvalue="-2" maxvalue="2">glissanso speed</argument>
+            <argument name="CENTROID" type="float" minvalue="20" maxvalue="120">main frequency
+            (MIDI pitch)</argument>
+            <argument name="RATE" type="float" minvalue="-2" maxvalue="2">glissanso
+            speed</argument>
         </arguments>
         <properties>
             <property name="@rate" type="float" minvalue="-2" maxvalue="2" default="0.01">glissanso

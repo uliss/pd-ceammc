@@ -61,22 +61,24 @@
             samplerate to current Pd samplerate. But you can manually specify R as float value or
             integer fraction - 44100/48000</param></method>
             <!-- save -->
-            <method name="save">Save arrays to specified file
+            <method name="save">Save arrays to specified file 
             <param name="ARRAYS" type="list" required="true">list of arrays</param>
             <param name="@to FNAME" type="symbol" required="true">output filename</param>
-            <param name="@begin X" type="property">specify input array begin position, by default in
-            samples, but you can use other units: 1s, 10ms, 00:01.12 (smpte). To specify value
+            <param name="@begin X" type="property">specify input array begin position, by default
+            in samples, but you can use other units: 1s, 10ms, 00:01.12 (smpte). To specify value
             relative to array end you can use $-X syntax</param>
             <param name="@end X" type="property">specify input array end position, by default in
             samples, but you can use other units: 1s, 10ms, 00:01.12 (smpte). To specify value
             relative to array end you can use $-X syntax</param>
             <param name="@gain V" type="property">apply gain to saved arrays, examples: +3.1db,
             -6db, 0.5 etc.</param>
-            <param name="@in_sr SR" type="property">array source samplerate, if ommited using patch samplerate</param>
+            <param name="@in_sr SR" type="property">array source samplerate, if ommited using patch
+            samplerate</param>
             <param name="@out_sr SR" type="property">output samplerate</param>
             <param name="@norm[alize]" type="property">normalize output</param>
             <param name="@overwrite" type="property">overwrite existing file flag</param>
-            <param name="@samp FMT" type="property">output sample format. Supported values are: 0(use default), 8, 16, 24, 32, f</param>
+            <param name="@samp FMT" type="property">output sample format. Supported values are:
+            0(use default), 8, 16, 24, 32, f</param>
             <param name="@wav" type="property">WAV output format</param>
             <param name="@mp3" type="property">MP3 output format</param>
             <param name="@ogg" type="property">Ogg/Vorbis output format</param>
@@ -84,8 +86,7 @@
             <param name="@aiff" type="property">AIFF output format</param>
             <param name="@txt" type="property">TXT output format</param>
             <param name="@raw" type="property">RAW output format</param>
-            <param name="@flac" type="property">FLAC output format</param>
-            </method>
+            <param name="@flac" type="property">FLAC output format</param></method>
         </methods>
         <inlets>
             <inlet type="control">

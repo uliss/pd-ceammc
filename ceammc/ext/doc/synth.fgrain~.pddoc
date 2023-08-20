@@ -14,8 +14,8 @@
             <since>0.6</since>
         </meta>
         <properties>
-            <property name="@file" type="symbol" default="">path file to granulate. Only WAV and AIFF formats
-            are supported.</property>
+            <property name="@file" type="symbol" default="">path file to granulate. Only WAV and
+            AIFF formats are supported.</property>
             <property name="@voices" type="int" minvalue="0" maxvalue="200" default="1">number of
             simultaneous grain "voices" to use</property>
             <property name="@stretch" type="int" minvalue="1" maxvalue="1000" default="1">stretch

@@ -23,7 +23,8 @@
             <property name="@use_date" type="bool" default="1">decode date</property>
             <property name="@volume" type="float" default="0" minvalue="-60" maxvalue="0"
             units="decibel" access="readonly">input signal level</property>
-            <property name="@fps" type="int" default="25" access="readonly">current fpt rate</property>
+            <property name="@fps" type="int" default="25" access="readonly">current fpt
+            rate</property>
         </properties>
         <inlets>
             <inlet type="audio">

@@ -37,7 +37,7 @@
             <!-- reset -->
             <method name="reset">reset synth</method>
             <!-- speed -->
-            <method name="speed">set global playing speed for all synth.glitch~ objects
+            <method name="speed">set global playing speed for all synth.glitch~ objects 
             <param name="SPEED" type="float" required="true">speed</param></method>
         </methods>
         <inlets>

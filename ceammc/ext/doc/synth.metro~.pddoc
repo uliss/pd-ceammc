@@ -76,7 +76,8 @@
         </inlets>
         <outlets>
             <outlet type="audio">synth output</outlet>
-            <outlet type="control">current beat: 1: downbeat, 2: onbeat, 3: offbeat, 4: mark</outlet>
+            <outlet type="control">current beat: 1: downbeat, 2: onbeat, 3: offbeat, 4:
+            mark</outlet>
         </outlets>
         <example>
             <pdascii>

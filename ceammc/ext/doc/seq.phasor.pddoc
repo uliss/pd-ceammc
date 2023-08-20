@@ -35,7 +35,7 @@
         </properties>
         <methods>
             <!-- phase -->
-            <method name="phase">set current phase
+            <method name="phase">set current phase 
             <param name="VALUE" type="float">new phase value</param></method>
             <!-- reset -->
             <method name="reset">reset phase and stop</method>
