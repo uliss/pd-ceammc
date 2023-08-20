@@ -51,6 +51,9 @@
             <method name="reset">reset all counters and stop</method>
             <!-- rewind -->
             <method name="rewind">reset all counters without stopping</method>
+            <!-- skip -->
+            <method name="skip">skip specified number of steps
+            <param name="N" type="int" required="true">number of steps to skip</param></method>
             <!-- start -->
             <method name="start">start sequencer from current position</method>
             <!-- stop -->

@@ -33,7 +33,7 @@ public:
     void outputRepeatDone() final;
 
     void m_hexbeat(t_symbol* s, const AtomListView& lv);
-    void m_jump(t_symbol* s, const AtomListView& lv);
+    void m_skip(t_symbol* s, const AtomListView& lv);
 };
 
 using SeqBangs = SequencerIFace<SeqBangsBase>;

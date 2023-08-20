@@ -21,7 +21,6 @@
         <arguments>
             <argument name="FREQ" type="float" minvalue="0" maxvalue="100" units="hertz">
             frequency</argument>
-            <argument name="ON" type="int" enum="0 1">on/off initial state</argument>
         </arguments>
         <properties>
             <property name="@freq" type="float" minvalue="0" default="0" maxvalue="100"
@@ -35,6 +34,9 @@
             output range is [0..1]</property>
         </properties>
         <methods>
+            <!-- phase -->
+            <method name="phase">set current phase
+            <param name="VALUE" type="float">new phase value</param></method>
             <!-- reset -->
             <method name="reset">reset phase and stop</method>
             <!-- rewind -->

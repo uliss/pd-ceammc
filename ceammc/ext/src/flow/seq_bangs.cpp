@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "seq_bangs.h"
+#include "args/argcheck2.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 #include "ceammc_format.h"
@@ -123,8 +124,12 @@ void SeqBangsBase::m_hexbeat(t_symbol* s, const AtomListView& lv)
     }
 }
 
-void SeqBangsBase::m_jump(t_symbol* s, const AtomListView& lv)
+void SeqBangsBase::m_skip(t_symbol* s, const AtomListView& lv)
 {
+    static const args::ArgChecker chk("STEP:i>0");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
     auto n = lv.asInt(0);
     while (n-- > 0)
         tick(false);
@@ -135,7 +140,7 @@ void setup_seq_bangs()
     SequencerIFaceFactory<ObjectFactory, SeqBangs> obj("seq.bangs");
     obj.addAlias("seq.b");
     obj.addMethod("hexbeat", &SeqBangsBase::m_hexbeat);
-    obj.addMethod("jump", &SeqBangsBase::m_jump);
+    obj.addMethod("skip", &SeqBangsBase::m_skip);
 
     obj.setXletsInfo({ "bang:  start playing sequence\n"
                        "stop:  stop sequencer\n",

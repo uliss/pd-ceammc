@@ -12,7 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "seq_phasor.h"
-#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
 SeqPhasorBase::SeqPhasorBase(const PdArgs& a)
@@ -188,5 +187,5 @@ void setup_seq_phasor()
 
     obj.setDescription("control rate phasor (saw) generator");
     obj.setCategory("seq");
-    obj.setKeywords({"seq", "lfo", "phasor", "saw"});
+    obj.setKeywords({ "seq", "lfo", "phasor", "saw" });
 }
