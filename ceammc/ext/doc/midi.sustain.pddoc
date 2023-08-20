@@ -18,7 +18,7 @@
             <par>when pedal is off: output all sustained notes off</par>
         </info>
         <arguments>
-            <argument name="STATE" type="int" minvalue="0" maxvalue="1">initial state</argument>
+            <argument name="ON" type="bool">initial state</argument>
         </arguments>
         <properties>
             <property name="@on" type="bool" default="0">pedal state</property>

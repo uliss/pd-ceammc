@@ -18,9 +18,9 @@
 #X obj 20 424 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 110 459 1\.;
-#X text 150 459 int;
-#X obj 246 460 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 459 STATE: initial state. Type: int. Range: 0\...1;
+#X text 150 459 bool;
+#X obj 246 460 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 459 ON: initial state. Type: bool.;
 #X obj 20 489 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 494 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
