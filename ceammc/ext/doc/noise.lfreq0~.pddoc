@@ -20,13 +20,15 @@
             <par>new random number every int(SR/freq) samples or so</par>
         </info>
         <arguments>
-            <argument name="FREQ" type="float" minvalue="5" maxvalue="22050" units="hertz">noise
+            <argument name="FREQ" type="float" minvalue="0.5" maxvalue="22050" units="hertz">noise
             generation freq</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" minvalue="5" maxvalue="22050" default="1000"
+            <property name="@freq" type="float" minvalue="0.5" maxvalue="22050" default="1000"
             units="hertz">noise generation freq. New random number every int(SR/freq)</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <inlets>
             <inlet>

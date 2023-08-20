@@ -28,6 +28,8 @@
             roll-off, between -1 and 1. -1 corresponds to brown/red noise, -1/2 pink noise, 0 white
             noise, 1/2 blue noise, and 1 violet/azure noise.</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
             <!-- blue -->

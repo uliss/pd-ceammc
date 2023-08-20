@@ -24,6 +24,8 @@
             <property name="@freq" type="float" minvalue="5" maxvalue="22050" default="1000"
             units="hertz">noise generation freq</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <inlets>
             <inlet>
