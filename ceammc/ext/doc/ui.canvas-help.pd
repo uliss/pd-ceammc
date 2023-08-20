@@ -341,7 +341,7 @@ atom.;
 #X msg 110 4254 rotate;
 #X text 245 4254 clock-wise rotatation of draw origin. Arguments are:;
 #X obj 255 4277 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4277 X: rotation angle. Type: float. Units: deg.;
+#X text 255 4277 X: rotation angle. Type: float. Units: 'deg'.;
 #X msg 110 4302 rpolygon;
 #X text 245 4302 create polygon shape. Arguments are:;
 #X obj 255 4325 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;

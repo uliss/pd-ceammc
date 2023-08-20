@@ -41,7 +41,7 @@ See @x property. Type: float. Range: 0\...1;
 #X text 245 569 alias to @type pow.;
 #X msg 110 598 @smooth;
 #X text 245 598 Get/Set signal change smooth time. Type: float. Units:
-ms. Default value: 20\. Min value: 1\.;
+'ms'. Default value: 20\. Min value: 1\.;
 #X msg 110 640 @type;
 #X text 245 640 Get/Set fade curve type: linear or power. Type: symbol.
 Default value: pow. Allowed values: lin \, pow.;

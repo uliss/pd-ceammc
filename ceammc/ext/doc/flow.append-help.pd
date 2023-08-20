@@ -27,7 +27,7 @@ init argument \, you have to quote it with double-quotes;
 #X msg 110 433 @delay;
 #X text 245 433 Get/Set append delay. If <0 append immediately at the
 same logical time \, if equal zero - output after next DSP block. Type:
-float. Units: ms. Default value: -1\. Min value: -1\.;
+float. Units: 'ms'. Default value: -1\. Min value: -1\.;
 #X msg 110 490 @msg;
 #X text 245 490 Get/Set appended message. Type: list.;
 #X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

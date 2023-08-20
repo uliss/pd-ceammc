@@ -37,7 +37,7 @@ value: 0\.;
 #X text 255 595 NAME: object name. Type: symbol.;
 #X obj 255 618 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 618 ANGLE: rotation angle (clockwise). Type: float. Units:
-deg.;
+'deg'.;
 #X msg 110 643 color;
 #X text 245 643 set object color. Arguments are:;
 #X obj 255 666 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;

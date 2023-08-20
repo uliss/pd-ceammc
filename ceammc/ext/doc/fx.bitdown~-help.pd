@@ -48,7 +48,7 @@ Range: 1\...16\.;
 #X text 245 642 Get/Set bypass flag. If true: bypass 'effected' signal.
 Type: bool. Default value: 0\.;
 #X msg 110 684 @downsamp;
-#X text 245 684 Get/Set number samples to skip. Type: int. Units: samp.
+#X text 245 684 Get/Set number samples to skip. Type: int. Units: 'samp'.
 Default value: 1\. Range: 1\...200\.;
 #X obj 20 736 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 741 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144

@@ -34,7 +34,7 @@ bind all properties to /ID/lfo_pulse/PROP_NAME osc address \, if empty
 bind to /lfo_pulse/PROP_NAME. Type: symbol.;
 #X msg 110 498 @initfreq;
 #X text 245 498 (initonly) Get/Set initial frequency. Type: float.
-Units: Hz. Default value: 0\.;
+Units: 'Hz'. Default value: 0\.;
 #X msg 110 540 @osc;
 #X text 245 540 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;

@@ -34,7 +34,7 @@
 #X text 245 577 Get/Set ADSR 2 & 4 Target. Type: int. Default value:
 0\. Range: 0\...127\.;
 #X msg 110 619 @freq;
-#X text 245 619 Get/Set frequency. Type: float. Units: Hz. Default
+#X text 245 619 Get/Set frequency. Type: float. Units: 'Hz'. Default
 value: 220\. Range: 0\...10000\.;
 #X msg 110 661 @gate;
 #X text 245 661 Get/Set play trigger - 1: on \, 0: off. Type: float.

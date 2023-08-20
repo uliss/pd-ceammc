@@ -54,7 +54,7 @@ Default value: -1\.;
 (null).;
 #X msg 110 883 @refresh;
 #X text 245 883 Get/Set approximate refresh rate. Type: int. Units:
-ms. Default value: 40\. Range: 10\...1000\.;
+'ms'. Default value: 40\. Range: 10\...1000\.;
 #X msg 110 925 @window;
 #X text 245 925 Get/Set window size. Type: int. Default value: 2048\.
 Range: 512\...4096\.;

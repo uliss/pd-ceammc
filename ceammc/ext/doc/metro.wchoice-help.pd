@@ -32,7 +32,7 @@ values. Type: list.;
 #X text 245 478 Get/Set generator seed. Type: int. Default value: 0\.
 Min value: 0\.;
 #X msg 110 520 @t;
-#X text 245 520 Get/Set timeset (>0). Type: list. Units: ms.;
+#X text 245 520 Get/Set timeset (>0). Type: list. Units: 'ms'.;
 #X msg 110 549 @w;
 #X text 245 549 Get/Set weight list \, float or percent values. Type:
 list.;

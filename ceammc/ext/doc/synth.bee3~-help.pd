@@ -23,7 +23,7 @@ also referred to as algorithm 8 of the TX81Z;
 0\. Range: 0\...127\.;
 #X msg 110 448 @freq;
 #X text 245 448 Get/Set maximum speed of whistles. Type: float. Units:
-Hz. Default value: 220\. Range: 0\...480\.;
+'Hz'. Default value: 220\. Range: 0\...480\.;
 #X msg 110 490 @gate;
 #X text 245 490 Get/Set synth gate (>0 - play). Type: float. Default
 value: 0\. Range: 0\...1\.;

@@ -63,33 +63,34 @@ symbol.;
 1\.;
 #X msg 110 850 @attack;
 #X text 245 850 Get/Set time constant when level & compression going
-up. Type: float. Units: ms. Default value: 10\. Range: 0.1\...100\.;
+up. Type: float. Units: 'ms'. Default value: 10\. Range: 0.1\...100\.;
 #X msg 110 907 @bypass;
 #X text 245 907 Get/Set bypass flag. If true: bypass 'effected' signal.
 Type: bool. Default value: 0\.;
 #X msg 110 949 @gain;
 #X text 245 949 Get/Set make up gain: applied to the signal after the
-compression takes place. Type: float. Units: db. Default value: 0\.
+compression takes place. Type: float. Units: 'db'. Default value: 0\.
 Range: -18\...18\.;
 #X msg 110 1006 @knee;
 #X text 245 1006 Get/Set a gradual increase in gain reduction around
 the threshold: below thresh-(knee/2) there is no gain reduction \,
 above thresh+(knee/2) there is the same gain reduction as without a
 knee \, and in between there is a gradual increase in gain reduction.
-Type: float. Units: db. Default value: 3\. Range: 0\...24\.;
+Type: float. Units: 'db'. Default value: 3\. Range: 0\...24\.;
 #X msg 110 1108 @refresh;
 #X text 245 1108 Get/Set compression level output time interval. If
-0 - no output. Type: int. Units: ms. Default value: 100\. Range: 0\...1000\.;
+0 - no output. Type: int. Units: 'ms'. Default value: 100\. Range:
+0\...1000\.;
 #X msg 110 1165 @release;
 #X text 245 1165 Get/Set release time = time constant coming out of
-compression. Type: float. Units: ms. Default value: 50\. Range: 1\...500\.;
+compression. Type: float. Units: 'ms'. Default value: 50\. Range: 1\...500\.;
 #X msg 110 1222 @strength;
 #X text 245 1222 Get/Set compression ratio (0: no compression \, 1:
 hard limiting \, >1: overcompression). Type: float. Default value:
 0\. Range: 0\...2\.;
 #X msg 110 1279 @threshold;
 #X text 245 1279 Get/Set level threshold above which compression kicks
-in (100 dB = max level). Type: float. Units: db. Default value: -10\.
+in (100 dB = max level). Type: float. Units: 'db'. Default value: -10\.
 Range: -60\...0\.;
 #X msg 110 1336 @level?;
 #X text 245 1336 (readonly) Get current level of compression. Type:

@@ -24,7 +24,7 @@
 Type: bool. Default value: 0\.;
 #X msg 110 363 @delay;
 #X text 245 363 Get/Set exit PureData after specified delay time. Type:
-float. Units: ms. Default value: 0\. Min value: 0\.;
+float. Units: 'ms'. Default value: 0\. Min value: 0\.;
 #X msg 110 405 @rc;
 #X text 245 405 Get/Set exit code. Type: int. Default value: 0\.;
 #X obj 20 444 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

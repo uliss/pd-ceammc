@@ -31,48 +31,48 @@
 #X text 245 421 Get/Set use specified array for record instead of internal
 buffer. Type: symbol.;
 #X msg 110 463 @capacity;
-#X text 245 463 Get/Set max loop time. Type: float. Units: sec. Default
+#X text 245 463 Get/Set max loop time. Type: float. Units: 'sec'. Default
 value: 5\. Range: 0\...120\.;
 #X msg 110 505 @dub_to_play_time;
 #X text 245 505 Get/Set record fadeout time while transition from overdub
-to play. Type: float. Units: ms. Default value: 20\. Min value: 0\.;
+to play. Type: float. Units: 'ms'. Default value: 20\. Min value: 0\.;
 #X msg 110 562 @dub_to_stop_time;
 #X text 245 562 Get/Set fadeout time while transition from overdub
-to stop. Type: float. Units: ms. Default value: 20\. Min value: 0\.;
+to stop. Type: float. Units: 'ms'. Default value: 20\. Min value: 0\.;
 #X msg 110 604 @loop_bang;
 #X text 245 604 Get/Set output bang on each loop start. Type: bool.
 Default value: 1\.;
 #X msg 110 646 @loop_smooth;
 #X text 245 646 Get/Set time of lin fadein/fadeout applied to recorded
-loop for smooth playing. Type: float. Units: ms. Default value: 10\.
+loop for smooth playing. Type: float. Units: 'ms'. Default value: 10\.
 Min value: 0\.;
 #X msg 110 703 @play_to_dub_time;
 #X text 245 703 Get/Set fadein time of overdub input signal while transition
-from play mode. Type: float. Units: ms. Default value: 10\. Min value:
+from play mode. Type: float. Units: 'ms'. Default value: 10\. Min value:
 0\.;
 #X msg 110 760 @play_to_stop_time;
 #X text 245 760 Get/Set fadeout time while transition from play to
-stop. Type: float. Units: ms. Default value: 10\. Min value: 0\.;
+stop. Type: float. Units: 'ms'. Default value: 10\. Min value: 0\.;
 #X msg 110 802 @rec_to_play_time;
 #X text 245 802 Get/Set xfade between recorded and input signal while
-transition from record to play. Type: float. Units: ms. Default value:
+transition from record to play. Type: float. Units: 'ms'. Default value:
 30\. Min value: 0\.;
 #X msg 110 859 @round;
 #X text 245 859 Get/Set encrease loop length to be multiple of specified
-value. If *0* - no rounding is performed. Type: int. Units: samp. Default
-value: 0\. Min value: 0\.;
+value. If *0* - no rounding is performed. Type: int. Units: 'samp'.
+Default value: 0\. Min value: 0\.;
 #X msg 110 916 @stop_to_play_time;
 #X text 245 916 Get/Set fadein time of play while transition from stop.
-Type: float. Units: ms. Default value: 10\. Min value: 0\.;
+Type: float. Units: 'ms'. Default value: 10\. Min value: 0\.;
 #X msg 110 958 @length?;
 #X text 245 958 (readonly) Get recorded loop length. Type: float. Units:
-sec. Default value: 0\. Min value: 0\.;
+'sec'. Default value: 0\. Min value: 0\.;
 #X msg 110 1000 @play_phase?;
 #X text 245 1000 (readonly) Get current playing phase position. Type:
 float. Default value: 0\. Range: 0\...1\.;
 #X msg 110 1042 @play_pos?;
 #X text 245 1042 (readonly) Get current playing position. Type: float.
-Units: sec. Default value: 0\. Min value: 0\.;
+Units: 'sec'. Default value: 0\. Min value: 0\.;
 #X msg 110 1084 @state?;
 #X text 245 1084 (readonly) Get current state. Type: symbol. Default
 value: init. Allowed values: init \, stop \, record \, play \, overdub.;
@@ -82,7 +82,7 @@ value: init. Allowed values: init \, stop \, record \, play \, overdub.;
 #X msg 110 1176 adjust;
 #X text 245 1176 increase loop length. Arguments are:;
 #X obj 255 1199 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1199 [DELTA]: loop length delta. Type: float. Units: samp.;
+#X text 255 1199 [DELTA]: loop length delta. Type: float. Units: 'samp'.;
 #X msg 110 1224 clear;
 #X text 245 1224 clear loop data and stops playing.;
 #X msg 110 1251 overdub;
@@ -99,7 +99,7 @@ value: init. Allowed values: init \, stop \, record \, play \, overdub.;
 #X text 245 1386 Arguments are:;
 #X obj 255 1409 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1409 [TIME]: apply linear fadein/fadeout to loop. Type:
-float. Units: ms.;
+float. Units: 'ms'.;
 #X msg 110 1449 stop;
 #X text 245 1449 stop played loop.;
 #X obj 20 1486 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

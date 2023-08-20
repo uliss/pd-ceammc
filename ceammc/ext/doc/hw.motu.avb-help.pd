@@ -83,7 +83,7 @@ values: 0 \, 1\.;
 value: 0\.;
 #X obj 255 1145 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1145 DB: value in decibel. Type: float. Range: 0\...60\.
-Units: db.;
+Units: 'db'.;
 #X msg 110 1185 guitar_name;
 #X text 245 1185 set guitar channel name. Arguments are:;
 #X obj 255 1208 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -139,7 +139,7 @@ values: 0 \, 1\.;
 #X text 255 1767 CHAN: input channel (zero-based). Type: int. Min value:
 0\.;
 #X obj 255 1790 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1790 DB: value in decibel. Type: float. Units: db.;
+#X text 255 1790 DB: value in decibel. Type: float. Units: 'db'.;
 #X msg 110 1815 input_name;
 #X text 245 1815 set analogue input channel name. Arguments are:;
 #X obj 255 1838 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -151,7 +151,7 @@ values: 0 \, 1\.;
 #X text 245 1886 set main output gain. Arguments are:;
 #X obj 255 1909 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1909 DB: value in decibel. Type: float. Range: -127\...0\.
-Units: db.;
+Units: 'db'.;
 #X msg 110 1949 mic->comp;
 #X text 245 1949 set microphone input to computer routing. Arguments
 are:;
@@ -194,7 +194,7 @@ values: 0 \, 1\.;
 0\.;
 #X obj 255 2412 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 2412 DB: value in decibel. Type: float. Range: 0\...60\.
-Units: db.;
+Units: 'db'.;
 #X msg 110 2452 mic_name;
 #X text 245 2452 set microphone channel name. Arguments are:;
 #X obj 255 2475 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -222,7 +222,7 @@ Units: db.;
 #X text 255 2688 CHAN: input channel (zero-based). Type: int. Min value:
 0\.;
 #X obj 255 2711 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2711 DB: value in decibel. Type: float. Units: db.;
+#X text 255 2711 DB: value in decibel. Type: float. Units: 'db'.;
 #X msg 110 2736 phantom;
 #X text 245 2736 turns phantom on/off. Arguments are:;
 #X obj 255 2759 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -234,7 +234,7 @@ Units: db.;
 #X text 245 2807 set phones output gain. Arguments are:;
 #X obj 255 2830 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 2830 DB: value in decibel. Type: float. Range: -127\...0\.
-Units: db.;
+Units: 'db'.;
 #X obj 20 2880 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2885 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;

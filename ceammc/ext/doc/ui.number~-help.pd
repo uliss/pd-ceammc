@@ -17,7 +17,7 @@
 #X obj 20 241 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 276 @interval;
-#X text 245 276 Get/Set refresh interval. Type: int. Units: ms. Default
+#X text 245 276 Get/Set refresh interval. Type: int. Units: 'ms'. Default
 value: 50\. Range: 20\...1000\.;
 #X msg 110 318 @precision;
 #X text 245 318 Get/Set float precision. Type: int. Default value:

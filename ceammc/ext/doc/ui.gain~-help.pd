@@ -66,14 +66,14 @@ follows mouse pointer.;
 #X text 245 835 Get/Set gain as amplitude ratio. Type: float. Default
 value: 0\.;
 #X msg 110 877 @db;
-#X text 245 877 Get/Set gain in dbfs scale. Type: float. Units: db.
+#X text 245 877 Get/Set gain in dbfs scale. Type: float. Units: 'db'.
 Default value: -60\.;
 #X msg 110 919 @max;
-#X text 245 919 Get/Set maximum gain value. Type: int. Units: db. Default
-value: 0\. Range: -12\...12\.;
+#X text 245 919 Get/Set maximum gain value. Type: int. Units: 'db'.
+Default value: 0\. Range: -12\...12\.;
 #X msg 110 961 @min;
-#X text 245 961 Get/Set minimal gain value. Type: int. Units: db. Default
-value: -60\. Range: -90\...-15\.;
+#X text 245 961 Get/Set minimal gain value. Type: int. Units: 'db'.
+Default value: -60\. Range: -90\...-15\.;
 #X msg 110 1003 @mouse_events;
 #X text 245 1003 Get/Set mouse events output mode. If on outputs @mouse_down
 \, @mouse_up and @mouse_drag events. Type: bool. Default value: 0\.;

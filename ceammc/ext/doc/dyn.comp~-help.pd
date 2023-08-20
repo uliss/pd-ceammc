@@ -60,26 +60,27 @@ symbol.;
 1\.;
 #X msg 110 766 @attack;
 #X text 245 766 Get/Set time constant when level & compression going
-up. Type: float. Units: ms. Default value: 10\. Range: 0.1\...100\.;
+up. Type: float. Units: 'ms'. Default value: 10\. Range: 0.1\...100\.;
 #X msg 110 823 @bypass;
 #X text 245 823 Get/Set bypass flag. If true: bypass 'effected' signal.
 Type: bool. Default value: 0\.;
 #X msg 110 865 @gain;
 #X text 245 865 Get/Set make up gain: applied to the signal after the
-compression takes place. Type: float. Units: db. Default value: 0\.
+compression takes place. Type: float. Units: 'db'. Default value: 0\.
 Range: -18\...18\.;
 #X msg 110 922 @ratio;
 #X text 245 922 Get/Set compression ratio (1 = no compression \, >1
 means compression). Type: float. Default value: 1\. Range: 1\...16\.;
 #X msg 110 979 @refresh;
 #X text 245 979 Get/Set compression level output time interval. If
-0 - no output. Type: int. Units: ms. Default value: 100\. Range: 0\...1000\.;
+0 - no output. Type: int. Units: 'ms'. Default value: 100\. Range:
+0\...1000\.;
 #X msg 110 1036 @release;
 #X text 245 1036 Get/Set release time = time constant coming out of
-compression. Type: float. Units: ms. Default value: 50\. Range: 1\...500\.;
+compression. Type: float. Units: 'ms'. Default value: 50\. Range: 1\...500\.;
 #X msg 110 1093 @threshold;
 #X text 245 1093 Get/Set level threshold above which compression kicks
-in (100 dB = max level). Type: float. Units: db. Default value: -10\.
+in (100 dB = max level). Type: float. Units: 'db'. Default value: -10\.
 Range: -90\...0\.;
 #X msg 110 1150 @level?;
 #X text 245 1150 (readonly) Get current level of compression. Type:

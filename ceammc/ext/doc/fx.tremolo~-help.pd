@@ -53,7 +53,7 @@ Range: 0\...1\.;
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
 Default value: 0.75\. Range: 0\...1\.;
 #X msg 110 726 @freq;
-#X text 245 726 Get/Set tremolo frequency. Type: float. Units: Hz.
+#X text 245 726 Get/Set tremolo frequency. Type: float. Units: 'Hz'.
 Default value: 5\. Range: 0.1\...50\.;
 #X msg 110 768 @src;
 #X text 245 768 Get/Set modulation source: 0 (triangle) \, 1 (sin)

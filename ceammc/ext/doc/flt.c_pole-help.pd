@@ -34,8 +34,8 @@
 #X msg 110 504 @rad;
 #X text 245 504 use angular frequency.;
 #X msg 110 533 @freq;
-#X text 245 533 Get/Set center frequency. Type: float. Units: Hz. Default
-value: 1000\. Range: 0\...22050\.;
+#X text 245 533 Get/Set center frequency. Type: float. Units: 'Hz'.
+Default value: 1000\. Range: 0\...22050\.;
 #X msg 110 575 @hpf;
 #X text 245 575 ti @mode hpf.;
 #X msg 110 604 @lpf;

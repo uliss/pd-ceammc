@@ -93,7 +93,7 @@ settings. Type: symbol. Default value: crisp. Allowed values: crisp
 \, mixed \, smooth.;
 #X msg 110 1509 @transpose;
 #X text 245 1509 Get/Set transposition in semitones. Type: float. Units:
-semitone. Default value: 0\. Range: -24\...24\.;
+'semitone'. Default value: 0\. Range: -24\...24\.;
 #X msg 110 1551 @window;
 #X text 245 1551 Get/Set the window size. 'standard' is expected to
 produce better results than the other window options in most situations.
@@ -103,7 +103,7 @@ at the expense of clarity and timing. Type: symbol. Default value:
 standard. Allowed values: standard \, short \, long.;
 #X msg 110 1668 @latency?;
 #X text 245 1668 (readonly) Get object latency. Type: float. Units:
-samp. Default value: 1024\.;
+'samp'. Default value: 1024\.;
 #X obj 20 1720 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1725 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;

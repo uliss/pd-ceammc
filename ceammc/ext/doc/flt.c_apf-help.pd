@@ -45,8 +45,8 @@ https://en.wikipedia.org/wiki/All-pass_filter;
 #X msg 110 652 @rad;
 #X text 245 652 use angular frequency.;
 #X msg 110 681 @freq;
-#X text 245 681 Get/Set center frequency. Type: float. Units: Hz. Default
-value: 0\. Range: 0\...22050\.;
+#X text 245 681 Get/Set center frequency. Type: float. Units: 'Hz'.
+Default value: 0\. Range: 0\...22050\.;
 #X msg 110 723 @q;
 #X text 245 723 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
 Default value: 0.7071\. Range: 0.01\...100\.;

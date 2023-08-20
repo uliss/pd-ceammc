@@ -42,7 +42,7 @@ delay decays. 0 is no damping \, 1 is very strong damping. Type: float.
 Default value: 0\. Range: 0\...0.99\.;
 #X msg 110 704 @delaytime;
 #X text 245 704 Get/Set approximate delay time in seconds. Type: float.
-Units: sec. Default value: 0.2\. Range: 0.001\...1.45\.;
+Units: 'sec'. Default value: 0.2\. Range: 0.001\...1.45\.;
 #X msg 110 746 @diffusion;
 #X text 245 746 Get/Set shape of the diffusion unit. Values greater
 than 0.707 produce smooth exponential decay. Lower values produce a

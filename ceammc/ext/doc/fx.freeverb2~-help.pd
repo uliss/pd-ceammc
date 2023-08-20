@@ -69,7 +69,7 @@ Default value: 0.33\. Range: 0\...1\.;
 0.999\. Range: 0\...1\.;
 #X msg 110 997 @fr_time;
 #X text 245 997 Get/Set length of freeze tail. Type: float. Units:
-ms. Default value: 100\. Range: 0\...1000\.;
+'ms'. Default value: 100\. Range: 0\...1000\.;
 #X msg 110 1039 @freeze;
 #X text 245 1039 Get/Set freeze reverberation tail. Type: bool. Default
 value: 0\.;

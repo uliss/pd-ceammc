@@ -49,7 +49,7 @@ Type: bool. Default value: 0\.;
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
 Default value: 1\. Range: 0\...1\.;
 #X msg 110 741 @speed;
-#X text 245 741 Get/Set automatisation speed. Type: float. Units: bpm.
+#X text 245 741 Get/Set automatisation speed. Type: float. Units: 'bpm'.
 Default value: 540\. Range: 360\...780\.;
 #X obj 20 793 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 798 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144

@@ -91,7 +91,7 @@ is 19ms. This means that every 19ms analog data will be reported and
 any i2c devices with read continuous mode will be read. Arguments are:;
 #X obj 255 1416 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1416 TIME: time. Type: int. Range: 10\...10000\. Units:
-ms.;
+'ms'.;
 #X msg 110 1441 version?;
 #X text 245 1441 query firmata protocol version. Returns message like:
 [version MAJOR MINOR(.;

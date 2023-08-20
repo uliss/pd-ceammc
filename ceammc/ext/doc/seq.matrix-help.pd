@@ -44,7 +44,7 @@ Range: 1\...20000;
 1\. Range: 1\...64\.;
 #X msg 110 700 @dur;
 #X text 245 700 Get/Set whole sequence duration. (Recalculates @t property
-accordingly). Type: float. Units: ms. Default value: 4000\. Min value:
+accordingly). Type: float. Units: 'ms'. Default value: 4000\. Min value:
 0\.;
 #X msg 110 757 @inf;
 #X text 245 757 alias to @r -1 \, repeats infinitely.;
@@ -62,7 +62,7 @@ value: 16\. Min value: 0\.;
 infinitely. Type: int. Default value: -1\. Min value: -1\.;
 #X msg 110 971 @t;
 #X text 245 971 Get/Set time between beats. Unit values like 100ms
-or 240bpm also can be used. Type: float. Units: ms. Default value:
+or 240bpm also can be used. Type: float. Units: 'ms'. Default value:
 250\. Range: 1\...20000\.;
 #X msg 110 1028 @upbeat;
 #X text 245 1028 Get/Set wait specified number of beats before sequence

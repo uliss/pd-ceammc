@@ -57,7 +57,7 @@ Type: symbol. Default value: inc. Allowed values: inc \, dec \, tri.;
 infinitly. Type: int. Default value: 1\. Min value: -1\.;
 #X msg 110 779 @t;
 #X text 245 779 Get/Set time interval between bangs. You could also
-use units values like 100ms or 120bpm. Type: float. Units: ms. Default
+use units values like 100ms or 120bpm. Type: float. Units: 'ms'. Default
 value: 20\. Range: 1\...20000\.;
 #X msg 110 836 @upbeat;
 #X text 245 836 Get/Set wait specified number of beats before sequence

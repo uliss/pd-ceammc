@@ -25,9 +25,9 @@ sound in loop;
 1\.;
 #X msg 110 380 @fade;
 #X text 245 380 Get/Set intput crossfade time. Type: float. Units:
-ms. Default value: 70\. Range: 0\...200\.;
+'ms'. Default value: 70\. Range: 0\...200\.;
 #X msg 110 422 @gain;
-#X text 245 422 Get/Set playing gain. Type: float. Units: db. Default
+#X text 245 422 Get/Set playing gain. Type: float. Units: 'db'. Default
 value: 0\. Range: -60\...12\.;
 #X msg 110 464 @gate;
 #X text 245 464 Get/Set start/stop recording. Type: bool. Default value:

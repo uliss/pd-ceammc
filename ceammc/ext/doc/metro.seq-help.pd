@@ -40,7 +40,7 @@ on this beat. Type: list.;
 0\. Min value: 0\.;
 #X msg 110 610 @interval;
 #X text 245 610 Get/Set interval between beats. Type: float. Units:
-ms. Default value: 0\. Min value: 0\.;
+'ms'. Default value: 0\. Min value: 0\.;
 #X msg 110 652 @pattern;
 #X text 245 652 Get/Set list of 1 and 0\. Where 1 means output bang
 on this beat. Type: list.;

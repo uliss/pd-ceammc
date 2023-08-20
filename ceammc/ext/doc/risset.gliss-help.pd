@@ -35,11 +35,11 @@ value: 5\.;
 #X text 245 535 Get/Set amplitude exponent. Type: float. Default value:
 2\.;
 #X msg 110 564 @base;
-#X text 245 564 Get/Set base pitch. Type: float. Units: semitone. Default
-value: 60\. Range: 10\...100\.;
+#X text 245 564 Get/Set base pitch. Type: float. Units: 'semitone'.
+Default value: 60\. Range: 10\...100\.;
 #X msg 110 606 @interval;
 #X text 245 606 Get/Set interval between bands. Type: float. Units:
-semitone. Default value: 12\.;
+'semitone'. Default value: 12\.;
 #X msg 110 648 @shift;
 #X text 245 648 Get/Set band shift in octaves. Type: float. Default
 value: 0\.;

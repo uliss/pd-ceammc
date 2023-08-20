@@ -36,7 +36,7 @@
 #X text 245 623 (readonly) Get file length in quarters. Type: float.
 Default value: 0\.;
 #X msg 110 665 @length_sec?;
-#X text 245 665 (readonly) Get file length. Type: float. Units: sec.
+#X text 245 665 (readonly) Get file length. Type: float. Units: 'sec'.
 Default value: 0\.;
 #X msg 110 707 @length_tick?;
 #X text 245 707 (readonly) Get file length in ticks. Type: int. Default

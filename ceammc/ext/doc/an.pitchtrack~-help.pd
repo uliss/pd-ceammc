@@ -41,12 +41,12 @@ float. Default value: 0.2\. Range: 0\...1\.;
 #X text 245 533 Get/Set min fidelity threshold to report the pitch.
 Type: float. Default value: 0.95\. Range: 0\...1\.;
 #X msg 110 575 @framesize;
-#X text 245 575 Get/Set frame size in samples. Type: int. Units: samp.
+#X text 245 575 Get/Set frame size in samples. Type: int. Units: 'samp'.
 Default value: 1024\. Allowed values: 128 \, 256 \, 512 \, 1024 \,
 2048\.;
 #X msg 110 632 @maxfreq;
 #X text 245 632 Get/Set max tracked frequency. Type: float. Units:
-Hz. Default value: 1500\. Range: 10\...10000\.;
+'Hz'. Default value: 1500\. Range: 10\...10000\.;
 #X msg 110 674 @overlap;
 #X text 245 674 Get/Set overlap of analysis frames. Type: int. Default
 value: 1\. Allowed values: 1 \, 2 \, 4 \, 8\.;

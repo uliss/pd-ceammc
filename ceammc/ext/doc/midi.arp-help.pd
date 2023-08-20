@@ -67,7 +67,7 @@ value: 1\.;
 series). Type: int. Default value: 0\. Min value: 0\.;
 #X msg 110 1064 @t;
 #X text 245 1064 Get/Set time between arpeggio. Type: float. Units:
-ms. Default value: 100\. Range: 1\...1000\.;
+'ms'. Default value: 100\. Range: 1\...1000\.;
 #X obj 20 1116 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1121 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;

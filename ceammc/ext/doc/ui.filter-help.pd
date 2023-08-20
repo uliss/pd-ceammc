@@ -31,7 +31,7 @@
 1000\. Range: 0\...20000\.;
 #X msg 110 552 @gain;
 #X text 245 552 Get/Set gain (for low/highshelf/peak filters). Type:
-float. Units: db. Default value: 0\. Range: -24\...24\.;
+float. Units: 'db'. Default value: 0\. Range: -24\...24\.;
 #X msg 110 594 @mouse_events;
 #X text 245 594 Get/Set mouse events output mode. If on outputs @mouse_down
 \, @mouse_up and @mouse_drag events. Type: bool. Default value: 0\.;

@@ -53,10 +53,10 @@ Default value: 0.5\. Range: 0\...1\.;
 value: 0.25\. Range: 0\...0.99\.;
 #X msg 110 769 @freq1;
 #X text 245 769 Get/Set left channel scramble frequency. Type: float.
-Units: Hz. Default value: 7\. Range: 0.25\...50\.;
+Units: 'Hz'. Default value: 7\. Range: 0.25\...50\.;
 #X msg 110 811 @freq2;
 #X text 245 811 Get/Set right channel scramble frequency. Type: float.
-Units: Hz. Default value: 5\. Range: 0.25\...50\.;
+Units: 'Hz'. Default value: 5\. Range: 0.25\...50\.;
 #X msg 110 853 @range;
 #X text 245 853 Get/Set scramble delay amount. Type: float. Default
 value: 0.5\. Range: 0\...1\.;

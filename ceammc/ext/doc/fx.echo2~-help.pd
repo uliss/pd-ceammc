@@ -43,7 +43,7 @@ symbol.;
 #X text 245 585 Get/Set bypass flag. If true: bypass 'effected' signal.
 Type: bool. Default value: 0\.;
 #X msg 110 627 @delay;
-#X text 245 627 Get/Set echo time. Type: float. Units: ms. Default
+#X text 245 627 Get/Set echo time. Type: float. Units: 'ms'. Default
 value: 500\. Range: 10\...5000\.;
 #X msg 110 669 @drywet;
 #X text 245 669 Get/Set proportion of mix between the original (dry)

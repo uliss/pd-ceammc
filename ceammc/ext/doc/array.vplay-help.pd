@@ -54,10 +54,10 @@
 #X text 245 551 Get/Set array name. Type: symbol.;
 #X msg 110 580 @begin;
 #X text 245 580 Get/Set begin position in samples. Type: int. Units:
-samp. Default value: 0\.;
+'samp'. Default value: 0\.;
 #X msg 110 622 @end;
 #X text 245 622 Get/Set end position in samples. Type: int. Units:
-samp. Default value: -1\.;
+'samp'. Default value: -1\.;
 #X msg 110 664 @reversed;
 #X text 245 664 Get/Set playing backwards (if set to 1). Type: bool.
 Default value: 0\.;
@@ -66,10 +66,10 @@ Default value: 0\.;
 Min value: 0.1\.;
 #X msg 110 748 @abs_begin?;
 #X text 245 748 (readonly) Get absolute start position in samples.
-Type: int. Units: samp. Default value: 0\.;
+Type: int. Units: 'samp'. Default value: 0\.;
 #X msg 110 790 @abs_end?;
 #X text 245 790 (readonly) Get absolute stop position in samples. Type:
-int. Units: samp. Default value: 0\.;
+int. Units: 'samp'. Default value: 0\.;
 #X msg 110 832 @state?;
 #X text 245 832 (readonly) Get player state. Type: symbol. Default
 value: stop. Allowed values: play \, stop.;

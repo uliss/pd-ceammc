@@ -50,7 +50,7 @@ and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
 Default value: 0.5\. Range: 0\...1\.;
 #X msg 110 749 @freq;
 #X text 245 749 Get/Set internal modulator frequency. Type: float.
-Units: Hz. Default value: 150\. Range: 0.5\...22050\.;
+Units: 'Hz'. Default value: 150\. Range: 0.5\...22050\.;
 #X msg 110 791 @offset;
 #X text 245 791 Get/Set modulator offset. Type: float. Default value:
 0\. Range: 0\...1\.;

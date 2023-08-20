@@ -17,8 +17,8 @@
 -49933 0;
 #X text 110 452 1\.;
 #X text 150 452 float;
-#X obj 246 453 cnv 1 100 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 452 FREQ(['Hz']): noise generation freq. Type: float. Range:
+#X obj 246 453 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 452 FREQ(Hz): noise generation freq. Type: float. Range:
 5\...22050;
 #X obj 20 497 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 502 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144

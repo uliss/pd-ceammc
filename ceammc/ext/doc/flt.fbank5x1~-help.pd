@@ -65,19 +65,19 @@ symbol.;
 1\.;
 #X msg 110 999 @f1000;
 #X text 245 999 Get/Set third filter (bandpass) gain at 1000Hz. Type:
-float. Units: db. Default value: 0\. Range: -6\...6\.;
+float. Units: 'db'. Default value: 0\. Range: -6\...6\.;
 #X msg 110 1041 @f2000;
 #X text 245 1041 Get/Set fourth filter (bandpass) gain at 2000Hz. Type:
-float. Units: db. Default value: 0\. Range: -6\...6\.;
+float. Units: 'db'. Default value: 0\. Range: -6\...6\.;
 #X msg 110 1083 @f250;
 #X text 245 1083 Get/Set first filter (lowpass) gain at 250Hz. Type:
-float. Units: db. Default value: 0\. Range: -6\...6\.;
+float. Units: 'db'. Default value: 0\. Range: -6\...6\.;
 #X msg 110 1125 @f4000;
 #X text 245 1125 Get/Set fifth filter (highpass) gain at 4000Hz. Type:
-float. Units: db. Default value: 0\. Range: -6\...6\.;
+float. Units: 'db'. Default value: 0\. Range: -6\...6\.;
 #X msg 110 1167 @f500;
 #X text 245 1167 Get/Set second filter (bandpass) gain at 500Hz. Type:
-float. Units: db. Default value: 0\. Range: -6\...6\.;
+float. Units: 'db'. Default value: 0\. Range: -6\...6\.;
 #X obj 20 1219 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1224 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

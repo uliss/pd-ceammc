@@ -22,8 +22,8 @@ eight) \, 3/8 (three eights) etc.;
 #X obj 20 418 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 453 @bpm;
-#X text 245 453 Get/Set tempo. Type: symbol. Units: bpm. Default value:
-60|4bpm.;
+#X text 245 453 Get/Set tempo. Type: symbol. Units: 'bpm'. Default
+value: 60|4bpm.;
 #X msg 110 495 @seq;
 #X text 245 495 Get/Set sequential durations. Type: bool. Default value:
 1\.;

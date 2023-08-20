@@ -36,7 +36,7 @@ pythagorean rameau valotti zarlino;
 #X obj 20 516 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 551 @a;
-#X text 245 551 Get/Set A pitch frequency. Type: float. Units: Hz.
+#X text 245 551 Get/Set A pitch frequency. Type: float. Units: 'Hz'.
 Default value: 440\. Range: 200\...600\.;
 #X msg 110 593 @t;
 #X text 245 593 Get/Set temperament. Type: symbol. Default value: eq.

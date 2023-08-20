@@ -40,8 +40,8 @@ symbol.;
 #X text 245 614 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
 #X msg 110 643 @freq;
-#X text 245 643 Get/Set center frequency. Type: float. Units: Hz. Default
-value: 1000\. Range: 20\...20000\.;
+#X text 245 643 Get/Set center frequency. Type: float. Units: 'Hz'.
+Default value: 1000\. Range: 20\...20000\.;
 #X msg 110 685 @q;
 #X text 245 685 Get/Set Quality factor. Type: float. Default value:
 40\. Range: 0.1\...100\.;

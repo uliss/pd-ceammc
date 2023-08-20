@@ -36,7 +36,7 @@ to 0\. Type: float. Default value: 0\. Range: 0\...500\.;
 #X text 245 522 Get/Set playing speed. Type: float. Default value:
 1\.;
 #X msg 110 551 @volume;
-#X text 245 551 Get/Set output signal level. Type: float. Units: db.
+#X text 245 551 Get/Set output signal level. Type: float. Units: 'db'.
 Default value: -3\. Range: -42\...0\.;
 #X obj 20 603 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 608 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144

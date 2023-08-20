@@ -38,7 +38,7 @@ all slots are open. Type: bool. Default value: true.;
 Default value: 1\. Range: 1\...64\.;
 #X msg 110 439 @smooth;
 #X text 245 439 Get/Set gain change smooth time. Type: float. Units:
-ms. Default value: 50\. Range: 0\...1000\.;
+'ms'. Default value: 50\. Range: 0\...1000\.;
 #X obj 20 491 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 496 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

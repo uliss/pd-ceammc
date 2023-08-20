@@ -55,8 +55,8 @@ symbol.;
 #X text 245 933 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
 #X msg 110 962 @freq;
-#X text 245 962 Get/Set cutoff frequency. Type: float. Units: Hz. Default
-value: 1000\. Range: 20\...20000\.;
+#X text 245 962 Get/Set cutoff frequency. Type: float. Units: 'Hz'.
+Default value: 1000\. Range: 20\...20000\.;
 #X msg 110 1004 @q;
 #X text 245 1004 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
 Default value: 2\. Range: 0.01\...100\.;

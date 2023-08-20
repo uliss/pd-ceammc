@@ -34,7 +34,7 @@ field;
 #X text 245 547 Get/Set the order of decomposition. Type: int. Default
 value: 1\. Range: 1\...63\.;
 #X msg 110 589 @refresh;
-#X text 245 589 Get/Set redraw time. Type: int. Units: ms. Default
+#X text 245 589 Get/Set redraw time. Type: int. Units: 'ms'. Default
 value: 100\. Range: 20\...1000\.;
 #X msg 110 631 @view;
 #X text 245 631 Get/Set view rotation. Type: float. Default value:

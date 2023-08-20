@@ -35,7 +35,7 @@
 value: -144\. Min value: -144\.;
 #X msg 110 579 @smooth_time;
 #X text 245 579 Get/Set gain change smooth time. Type: float. Units:
-ms. Default value: 20\. Min value: 1\.;
+'ms'. Default value: 20\. Min value: 1\.;
 #X msg 110 621 @value;
 #X text 245 621 Get/Set gain amplitude values. Type: list. Default
 value: 0\. Min value: 0\.;

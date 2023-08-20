@@ -34,7 +34,7 @@ localhost.;
 #X text 245 469 Get/Set destination port. Type: int. Default value:
 80\. Range: 1\...32768\.;
 #X msg 110 511 @timeout;
-#X text 245 511 Get/Set TCP connection timeout. Type: int. Units: sec.
+#X text 245 511 Get/Set TCP connection timeout. Type: int. Units: 'sec'.
 Default value: 1\. Range: 1\...10\.;
 #X msg 110 553 @user;
 #X text 245 553 Get/Set Basic Auth user name. Type: symbol.;

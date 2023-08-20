@@ -72,7 +72,7 @@ int. Min value: 0;
 #X obj 20 741 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 776 @bs;
-#X text 245 776 (initonly) Get/Set buffer size. Type: int. Units: samp.
+#X text 245 776 (initonly) Get/Set buffer size. Type: int. Units: 'samp'.
 Default value: 1024\. Min value: 64\.;
 #X msg 110 818 @array;
 #X text 245 818 Get/Set name of analyzed array. Type: symbol.;
@@ -87,7 +87,8 @@ detection function.;
 to disable. Type: float. Default value: 1\. Min value: 0\.;
 #X msg 110 960 @delay;
 #X text 245 960 Get/Set constant system delay to take back from detection
-time. Type: float. Units: ms. Default value: 49.9093\. Min value: 0\.;
+time. Type: float. Units: 'ms'. Default value: 49.9093\. Min value:
+0\.;
 #X msg 110 1017 @energy;
 #X text 245 1017 alias to @method energy. Energy based onset detection
 function.;
@@ -96,7 +97,7 @@ function.;
 detection.;
 #X msg 110 1088 @hs;
 #X text 245 1088 Get/Set hop size. 0 means @bs/2\. Type: int. Units:
-samp. Default value: 0\. Min value: 0\.;
+'samp'. Default value: 0\. Min value: 0\.;
 #X msg 110 1130 @kl;
 #X text 245 1130 alias to @method kl. Kullback-Liebler onset detection
 function.;
@@ -114,7 +115,7 @@ detection function.;
 function.;
 #X msg 110 1328 @silence;
 #X text 245 1328 Get/Set onset detection silence threshold. Type: float.
-Units: db. Default value: -70\. Range: -80\...0\.;
+Units: 'db'. Default value: -70\. Range: -80\...0\.;
 #X msg 110 1370 @specdiff;
 #X text 245 1370 alias to @method specdiff. Spectral difference method
 onset detection function.;
@@ -122,7 +123,7 @@ onset detection function.;
 #X text 245 1412 alias to @method specflux. Spectral Flux.;
 #X msg 110 1441 @speedlim;
 #X text 245 1441 Get/Set minimum interval between two consecutive onsets.
-Type: float. Units: ms. Default value: 50\. Min value: 1\.;
+Type: float. Units: 'ms'. Default value: 50\. Min value: 1\.;
 #X msg 110 1483 @threshold;
 #X text 245 1483 Get/Set peak picking threshold. Type: float. Default
 value: 0.058\.;

@@ -41,7 +41,7 @@ Type: int. Min value: 0;
 -49933 0;
 #X msg 110 669 @delay;
 #X text 245 669 Get/Set time-space between messages. Type: float. Units:
-ms. Default value: 1\. Min value: 1\.;
+'ms'. Default value: 1\. Min value: 1\.;
 #X msg 110 711 @dev;
 #X text 245 711 Get/Set random deviation. Type: float. Default value:
 0\. Range: 0\...1\.;

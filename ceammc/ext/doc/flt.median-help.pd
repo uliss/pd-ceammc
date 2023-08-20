@@ -23,7 +23,7 @@ outputed;
 #X obj 20 396 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 431 @size;
-#X text 245 431 Get/Set filter windows size. Type: int. Units: samp.
+#X text 245 431 Get/Set filter windows size. Type: int. Units: 'samp'.
 Default value: 9\. Range: 1\...128\.;
 #X obj 20 483 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 488 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933

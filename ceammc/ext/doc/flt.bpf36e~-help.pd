@@ -39,7 +39,7 @@ https://en.wikipedia.org/wiki/Elliptic_filter;
 -49933 0;
 #X msg 110 750 @freq;
 #X text 245 750 (initonly) Get/Set cutoff frequency. Type: float. Units:
-Hz. Default value: 1000\. Range: 20\...20000\.;
+'Hz'. Default value: 1000\. Range: 20\...20000\.;
 #X msg 110 792 @id;
 #X text 245 792 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/flt_bpf36e/PROP_NAME osc address \, if empty

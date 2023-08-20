@@ -61,7 +61,7 @@ Type: symbol.;
 #X text 245 582 Get/Set window type. See argument description. Type:
 symbol. Default value: hann.;
 #X msg 110 624 @size;
-#X text 245 624 Get/Set window size. Type: int. Units: samp. Default
+#X text 245 624 Get/Set window size. Type: int. Units: 'samp'. Default
 value: 512\. Min value: 16\.;
 #X obj 20 676 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 681 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144

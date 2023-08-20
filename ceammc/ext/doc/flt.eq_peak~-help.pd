@@ -47,14 +47,14 @@ symbol.;
 #X text 245 649 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
 #X msg 110 678 @bandwidth;
-#X text 245 678 Get/Set bandwidth of peak. Type: float. Units: Hz.
+#X text 245 678 Get/Set bandwidth of peak. Type: float. Units: 'Hz'.
 Default value: 100\. Range: 1\...5000\.;
 #X msg 110 720 @freq;
-#X text 245 720 Get/Set peak frequency. Type: float. Units: Hz. Default
+#X text 245 720 Get/Set peak frequency. Type: float. Units: 'Hz'. Default
 value: 1000\. Range: 20\...20000\.;
 #X msg 110 762 @gain;
 #X text 245 762 Get/Set level at fx (boost if >0 or cut if <0). Type:
-float. Units: db. Default value: 0\. Range: -15\...15\.;
+float. Units: 'db'. Default value: 0\. Range: -15\...15\.;
 #X obj 20 814 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 819 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

@@ -45,7 +45,7 @@ slow \, then speed up. Type: float. Default value: 0\. Range: -5\...5\.;
 0\.;
 #X msg 110 587 @time;
 #X text 245 587 Get/Set time to reach target value. Type: float. Units:
-ms. Default value: 500\. Range: 50\...5000\.;
+'ms'. Default value: 500\. Range: 50\...5000\.;
 #X msg 110 629 @value;
 #X text 245 629 Get/Set target value. Type: float. Default value: 0\.;
 #X obj 20 668 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

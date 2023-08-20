@@ -62,7 +62,7 @@ reached \, it outputs *end* event and stops after that. Infinite timeline
 never stops by itself. Fixed timeline can have @loop property for repeats.
 Type: symbol. Default value: fixed. Allowed values: fixed \, inf.;
 #X msg 110 846 @current?;
-#X text 245 846 (readonly) Get current time. Type: float. Units: ms.
+#X text 245 846 (readonly) Get current time. Type: float. Units: 'ms'.
 Default value: 0\.;
 #X msg 110 888 @events?;
 #X text 245 888 (readonly) Get list of event names in chronological
@@ -72,7 +72,7 @@ order. Type: list. Default value: end.;
 Default value: 0\.;
 #X msg 110 972 @length?;
 #X text 245 972 (readonly) Get timeline length. Type: float. Units:
-sec. Default value: 60\.;
+'sec'. Default value: 60\.;
 #X msg 110 1014 @phase?;
 #X text 245 1014 (readonly) Get current phase in [0-1) range. Type:
 float. Default value: 0\. Range: 0\...1\.;

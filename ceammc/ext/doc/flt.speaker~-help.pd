@@ -53,13 +53,13 @@ Type: bool. Default value: 0\.;
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
 Default value: 1\. Range: 0\...1\.;
 #X msg 110 977 @f1;
-#X text 245 977 Get/Set lower band frequency. Type: float. Units: Hz.
+#X text 245 977 Get/Set lower band frequency. Type: float. Units: 'Hz'.
 Default value: 130\. Range: 20\...1000\.;
 #X msg 110 1019 @f2;
-#X text 245 1019 Get/Set high band frequency. Type: float. Units: Hz.
+#X text 245 1019 Get/Set high band frequency. Type: float. Units: 'Hz'.
 Default value: 5000\. Range: 1000\...20000\.;
 #X msg 110 1061 @gain;
-#X text 245 1061 Get/Set filter gain. Type: float. Units: db. Default
+#X text 245 1061 Get/Set filter gain. Type: float. Units: 'db'. Default
 value: 0\. Range: -30\...30\.;
 #X obj 20 1113 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1118 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144

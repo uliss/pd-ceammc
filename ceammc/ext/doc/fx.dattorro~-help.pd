@@ -84,7 +84,7 @@ value: 0.75\. Range: 0\...1\.;
 #X msg 110 1158 @predelay;
 #X text 245 1158 Get/Set a delay operating on the 'wet' signal. Large
 values will provide the impression of a larger room. Type: float. Units:
-ms. Default value: 40\. Range: 0\...100\.;
+'ms'. Default value: 40\. Range: 0\...100\.;
 #X obj 20 1225 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1230 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

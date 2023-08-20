@@ -34,35 +34,35 @@ symbol.;
 #X text 245 621 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
 #X msg 110 650 @f1000;
-#X text 245 650 Get/Set gain at 1000Hz. Type: float. Units: db. Default
+#X text 245 650 Get/Set gain at 1000Hz. Type: float. Units: 'db'. Default
 value: 0\. Range: -70\...10\.;
 #X msg 110 692 @f125;
-#X text 245 692 Get/Set gain at 125Hz. Type: float. Units: db. Default
+#X text 245 692 Get/Set gain at 125Hz. Type: float. Units: 'db'. Default
 value: 0\. Range: -70\...10\.;
 #X msg 110 734 @f16000;
-#X text 245 734 Get/Set gain at 16000Hz. Type: float. Units: db. Default
-value: 0\. Range: -70\...10\.;
+#X text 245 734 Get/Set gain at 16000Hz. Type: float. Units: 'db'.
+Default value: 0\. Range: -70\...10\.;
 #X msg 110 776 @f2000;
-#X text 245 776 Get/Set gain at 2000Hz. Type: float. Units: db. Default
+#X text 245 776 Get/Set gain at 2000Hz. Type: float. Units: 'db'. Default
 value: 0\. Range: -70\...10\.;
 #X msg 110 818 @f250;
-#X text 245 818 Get/Set gain at 250Hz. Type: float. Units: db. Default
+#X text 245 818 Get/Set gain at 250Hz. Type: float. Units: 'db'. Default
 value: 0\. Range: -70\...10\.;
 #X msg 110 860 @f31;
-#X text 245 860 Get/Set gain at 31.25Hz. Type: float. Units: db. Default
-value: 0\. Range: -70\...10\.;
+#X text 245 860 Get/Set gain at 31.25Hz. Type: float. Units: 'db'.
+Default value: 0\. Range: -70\...10\.;
 #X msg 110 902 @f4000;
-#X text 245 902 Get/Set gain at 4000Hz. Type: float. Units: db. Default
+#X text 245 902 Get/Set gain at 4000Hz. Type: float. Units: 'db'. Default
 value: 0\. Range: -70\...10\.;
 #X msg 110 944 @f500;
-#X text 245 944 Get/Set gain at 500Hz. Type: float. Units: db. Default
+#X text 245 944 Get/Set gain at 500Hz. Type: float. Units: 'db'. Default
 value: 0\. Range: -70\...10\.;
 #X msg 110 986 @f62;
-#X text 245 986 Get/Set gain at 62.5Hz. Type: float. Units: db. Default
+#X text 245 986 Get/Set gain at 62.5Hz. Type: float. Units: 'db'. Default
 value: 0\. Range: -70\...10\.;
 #X msg 110 1028 @f8000;
-#X text 245 1028 Get/Set gain at 8000Hz. Type: float. Units: db. Default
-value: 0\. Range: -70\...10\.;
+#X text 245 1028 Get/Set gain at 8000Hz. Type: float. Units: 'db'.
+Default value: 0\. Range: -70\...10\.;
 #X obj 20 1080 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1085 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

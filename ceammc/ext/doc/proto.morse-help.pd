@@ -25,7 +25,7 @@
 #X obj 20 415 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 450 @dot;
-#X text 245 450 Get/Set dot length. Type: float. Units: ms. Default
+#X text 245 450 Get/Set dot length. Type: float. Units: 'ms'. Default
 value: 100\. Range: 5\...1000\.;
 #X msg 110 492 @external;
 #X text 245 492 Get/Set use external clock. Type: bool. Default value:

@@ -18,8 +18,8 @@
 -49933 0;
 #X text 110 434 1\.;
 #X text 150 434 float;
-#X obj 246 435 cnv 1 100 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 434 FREQ(['Hz']): frequency. Type: float. Min value: 20;
+#X obj 246 435 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 434 FREQ(Hz): frequency. Type: float. Min value: 20;
 #X text 110 454 2\.;
 #X text 150 454 float;
 #X obj 246 455 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;

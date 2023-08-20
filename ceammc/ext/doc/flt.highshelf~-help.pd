@@ -42,10 +42,10 @@ symbol.;
 1\.;
 #X msg 110 586 @freq;
 #X text 245 586 Get/Set starting frequency for the shelf. Type: float.
-Units: Hz. Default value: 10000\. Range: 20\...20000\.;
+Units: 'Hz'. Default value: 10000\. Range: 20\...20000\.;
 #X msg 110 628 @gain;
 #X text 245 628 Get/Set amount of boost or cut apply to the signal.
-Type: float. Units: db. Default value: 0\. Range: -15\...15\.;
+Type: float. Units: 'db'. Default value: 0\. Range: -15\...15\.;
 #X obj 20 680 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 685 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

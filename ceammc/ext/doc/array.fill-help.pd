@@ -77,7 +77,7 @@ distribution. Arguments are:;
 #X text 245 990 fill all array with pulse wave. Arguments are:;
 #X obj 255 1013 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1013 T: wave period. Type: float. Min value: 1\. Units:
-samp.;
+'samp'.;
 #X obj 255 1036 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1036 [A=1]: wave amplitude. Type: float.;
 #X obj 255 1059 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -86,7 +86,7 @@ samp.;
 #X text 245 1084 fill all array with saw wave. Arguments are:;
 #X obj 255 1107 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1107 T: wave period. Type: float. Min value: 1\. Units:
-samp.;
+'samp'.;
 #X obj 255 1130 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1130 [A=1]: wave amplitude. Type: float.;
 #X obj 255 1153 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -95,7 +95,7 @@ samp.;
 #X text 245 1178 fill all array with sine wave. Arguments are:;
 #X obj 255 1201 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1201 T: wave period. Should be >0\. Type: float. Min value:
-0\. Units: samp.;
+0\. Units: 'samp'.;
 #X obj 255 1239 cnv 1 39 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1239 [A=1]: amplitude. Type: float.;
 #X obj 255 1262 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -105,7 +105,7 @@ samp.;
 #X text 245 1302 fill all array with triangle wave. Arguments are:;
 #X obj 255 1325 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1325 T: wave period. Type: float. Min value: 1\. Units:
-samp.;
+'samp'.;
 #X obj 255 1348 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1348 [AMP=1]: wave amplitude. Type: float.;
 #X msg 110 1373 uniform;

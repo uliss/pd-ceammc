@@ -29,7 +29,7 @@
 #X text 245 446 Get/Set generator seed. Type: int. Default value: 0\.
 Min value: 0\.;
 #X msg 110 488 @timeset;
-#X text 245 488 Get/Set timeset (>0). Type: list. Units: ms.;
+#X text 245 488 Get/Set timeset (>0). Type: list. Units: 'ms'.;
 #X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 532 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
 0;

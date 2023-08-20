@@ -54,16 +54,16 @@
 #X text 245 916 Get/Set array name. Type: symbol.;
 #X msg 110 945 @cursor_ms;
 #X text 245 945 Get/Set cursor position in milliseconds. Type: float.
-Units: ms. Default value: 0\.;
+Units: 'ms'. Default value: 0\.;
 #X msg 110 987 @cursor_phase;
 #X text 245 987 Get/Set cursor position in 0-1 range. Type: float.
 Default value: 0\. Range: 0\...1\.;
 #X msg 110 1029 @cursor_samp;
 #X text 245 1029 Get/Set cursor position in samples. Type: int. Units:
-samp. Default value: 0\.;
+'samp'. Default value: 0\.;
 #X msg 110 1071 @cursor_sec;
 #X text 245 1071 Get/Set cursor position in seconds. Type: float. Units:
-sec. Default value: 0\.;
+'sec'. Default value: 0\.;
 #X msg 110 1113 @mouse_events;
 #X text 245 1113 Get/Set mouse events output mode. If on outputs @mouse_down
 \, @mouse_up and @mouse_drag events. Type: bool. Default value: 1\.;
@@ -72,16 +72,16 @@ sec. Default value: 0\.;
 (null).;
 #X msg 110 1199 @select_ms;
 #X text 245 1199 Get/Set selection range in milliseconds \, pair of
-values: begin \, end. Type: list. Units: ms.;
+values: begin \, end. Type: list. Units: 'ms'.;
 #X msg 110 1241 @select_phase;
 #X text 245 1241 Get/Set selection range noramlized to 0-1 range \,
 pair of values: begin \, end. Type: list.;
 #X msg 110 1283 @select_samp;
 #X text 245 1283 Get/Set selection range in samples \, pair of values:
-begin \, end. Type: list. Units: samp.;
+begin \, end. Type: list. Units: 'samp'.;
 #X msg 110 1325 @select_sec;
 #X text 245 1325 Get/Set selection range in seconds \, pair of values:
-begin \, end. Type: list. Units: sec.;
+begin \, end. Type: list. Units: 'sec'.;
 #X msg 110 1367 @send;
 #X text 245 1367 Get/Set send destination. Type: symbol. Default value:
 (null).;
@@ -133,13 +133,13 @@ level. Type: bool. Default value: 0\.;
 list. Default value: 300 100\.;
 #X msg 110 2015 @size_ms?;
 #X text 245 2015 (readonly) Get array size in milliseconds. Type: float.
-Units: ms. Default value: 0\. Min value: 0\.;
+Units: 'ms'. Default value: 0\. Min value: 0\.;
 #X msg 110 2057 @size_samp?;
 #X text 245 2057 (readonly) Get array size in samples. Type: int. Units:
-samp. Default value: 0\. Min value: 0\.;
+'samp'. Default value: 0\. Min value: 0\.;
 #X msg 110 2099 @size_sec?;
 #X text 245 2099 (readonly) Get array size in seconds. Type: float.
-Units: sec. Default value: 0\. Min value: 0\.;
+Units: 'sec'. Default value: 0\. Min value: 0\.;
 #X obj 20 2151 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2156 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;

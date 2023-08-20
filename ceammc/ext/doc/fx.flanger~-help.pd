@@ -47,7 +47,7 @@ symbol.;
 #X text 245 668 Get/Set bypass flag. If true: bypass 'effected' signal.
 Type: bool. Default value: 0\.;
 #X msg 110 710 @delay;
-#X text 245 710 Get/Set flange delay. Type: float. Units: ms. Default
+#X text 245 710 Get/Set flange delay. Type: float. Units: 'ms'. Default
 value: 10\. Range: 0\...20\.;
 #X msg 110 752 @drywet;
 #X text 245 752 Get/Set proportion of mix between the original (dry)
@@ -60,10 +60,10 @@ Default value: 1\. Range: 0\...1\.;
 #X text 245 851 Get/Set 0 for normal \, 1 to invert sign of flanging
 sum. Type: bool. Default value: 0\.;
 #X msg 110 893 @offset;
-#X text 245 893 Get/Set flange delay offset. Type: float. Units: ms.
+#X text 245 893 Get/Set flange delay offset. Type: float. Units: 'ms'.
 Default value: 1\. Range: 0\...20\.;
 #X msg 110 935 @speed;
-#X text 245 935 Get/Set flanger frequency. Type: float. Units: Hz.
+#X text 245 935 Get/Set flanger frequency. Type: float. Units: 'Hz'.
 Default value: 0.5\. Range: 0\...10\.;
 #X obj 20 987 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 992 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144

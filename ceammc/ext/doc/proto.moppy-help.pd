@@ -44,7 +44,7 @@ Arguments are:;
 #X text 255 694 [CHAN]: optional floppy id (overrides @floppy property).
 Type: int.;
 #X obj 255 732 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 732 FREQ: freq. Type: float. Units: Hz.;
+#X text 255 732 FREQ: freq. Type: float. Units: 'Hz'.;
 #X msg 110 757 note;
 #X text 245 757 see noteon.;
 #X msg 110 784 noteoff;

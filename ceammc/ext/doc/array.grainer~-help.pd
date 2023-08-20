@@ -54,7 +54,7 @@ after they are finished \, if 'int': start grains after specified interval
 (@tsync). Type: symbol. Default value: none. Allowed values: none \,
 int \, ext.;
 #X msg 110 1070 @tsync;
-#X text 245 1070 Get/Set grain sync interval. Type: float. Units: ms.
+#X text 245 1070 Get/Set grain sync interval. Type: float. Units: 'ms'.
 Default value: 50\. Min value: 1\.;
 #X obj 20 1122 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1127 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
@@ -106,10 +106,10 @@ Allowed values: default \, hfc \, energy \, complex \, phase \, wphase
 \, specdiff \, kl \, mkl \, specflux.;
 #X obj 255 1738 cnv 1 77 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1738 [SPACE=64]: minimal space between onsets. Type: float.
-Units: ms.;
+Units: 'ms'.;
 #X obj 255 1776 cnv 1 100 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1776 [SILENCE=-40]: silence level. Type: float. Units:
-db.;
+'db'.;
 #X msg 110 1801 pause;
 #X text 245 1801 pause (resume) grain(s). Arguments are:;
 #X obj 255 1824 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;

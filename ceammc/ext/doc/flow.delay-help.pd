@@ -55,7 +55,7 @@ messages until scheduled message will output \, after that is ready
 to accept the new one. Otherwise acts like vanilla [del] object. Type:
 bool. Default value: 0\.;
 #X msg 110 931 @delay;
-#X text 245 931 Get/Set delay time. Type: float. Units: ms. Default
+#X text 245 931 Get/Set delay time. Type: float. Units: 'ms'. Default
 value: 0\. Min value: 0\.;
 #X obj 20 983 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 988 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
