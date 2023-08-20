@@ -32,7 +32,7 @@
             <property name="@rate" type="float" minvalue="0.1" maxvalue="2" default="1">playback
             rate - changes both tempo and pitch together as if a vinyl disc was played at different
             RPM rate</property>
-            <property name="@speech" type="bool">optimize for speech sound source</property>
+            <property name="@speech" type="bool" default="0">optimize for speech sound source</property>
             <property name="@antialias" type="bool" default="0">use of anti-alias filter.
             Anti-alias filter is used to prevent folding of high frequencies when transposing the
             sample rate with interpolation.</property>

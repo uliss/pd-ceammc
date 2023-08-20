@@ -40,7 +40,6 @@ FxStutter::FxStutter(const PdArgs& args)
     createInlet();
 
     createSignalOutlet();
-    createOutlet();
 
     max_size_ = new FloatProperty("@maxsize", PROP_MAXSIZE_DEF);
     max_size_->setUnits(PropValueUnits::MSEC);

@@ -27,6 +27,7 @@
             loop fragment in both directions</property>
             <property name="@speed" type="float" minvalue="0.25" maxvalue="4" default="1">loop
             fragment playing speed</property>
+            <property name="@env" type="atom">stutter envelope</property>
         </properties>
         <inlets>
             <inlet type="audio">
