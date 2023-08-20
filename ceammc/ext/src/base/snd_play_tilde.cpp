@@ -136,6 +136,10 @@ SndPlayTilde::SndPlayTilde(const PdArgs& args)
         } else
             return true;
     });
+    end->addUnit(PropValueUnits::MSEC);
+    end->addUnit(PropValueUnits::SEC);
+    end->addUnit(PropValueUnits::SAMP);
+    end->addUnit(PropValueUnits::SMPTE);
 }
 
 void SndPlayTilde::initDone()

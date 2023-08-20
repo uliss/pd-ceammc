@@ -29,6 +29,8 @@
             name</property>
             <property name="@begin" type="atom" default="0" units="sample sec msec smpte">start
             playing position</property>
+            <property name="@end" type="atom" default="-1" units="sample sec msec smpte">end
+            playing position</property>
         </properties>
         <methods>
             <!-- start -->
