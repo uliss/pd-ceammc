@@ -21,8 +21,6 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="NAME" type="symbol">OSC server name (for using with other
-            objects)</argument>
             <argument name="URL" type="atom">OSC server url (like
             osc.udp://localhost:12345)</argument>
         </arguments>
@@ -105,7 +103,7 @@
         <example>
             <pdascii>
 <![CDATA[
-/*default OSC server: osc.udp://:9000*/
+/*default receive OSC server: osc.udp://:9000*/
 
 [tgl]
 |

@@ -6,7 +6,7 @@
 -4096 0;
 #X obj 564 11 net.osc.s;
 #X obj 654 11 net.osc.send;
-#X text 50 118 default OSC server: osc.udp://:9000;
+#X text 50 118 default receive OSC server: osc.udp://:9000;
 #X obj 50 147 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X msg 50 176 @dump \$1;
 #X text 165 176 open Pd window to see OSC dump output;
@@ -32,136 +32,131 @@
 #X obj 20 503 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
 #X text 110 538 1\.;
-#X text 150 538 symbol;
-#X obj 246 539 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 538 NAME: OSC server name (for using with other objects).
-Type: symbol.;
-#X text 110 573 2\.;
-#X text 150 573 atom;
-#X obj 246 574 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 573 URL: OSC server url (like osc.udp://localhost:12345).
+#X text 150 538 atom;
+#X obj 246 539 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 538 URL: OSC server url (like osc.udp://localhost:12345).
 Type: atom.;
-#X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 623 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 583 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 588 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 658 @url;
-#X text 245 658 Get/Set destination url. Type: atom.;
-#X msg 110 687 @host?;
-#X text 245 687 (readonly) Get destination host. Type: symbol.;
-#X msg 110 716 @path?;
-#X text 245 716 (readonly) Get socket filesystem path (if using unix
+#X msg 110 623 @url;
+#X text 245 623 Get/Set destination url. Type: atom.;
+#X msg 110 652 @host?;
+#X text 245 652 (readonly) Get destination host. Type: symbol.;
+#X msg 110 681 @path?;
+#X text 245 681 (readonly) Get socket filesystem path (if using unix
 proto). Type: symbol.;
-#X msg 110 758 @port?;
-#X text 245 758 (readonly) Get destination port. Type: int. Default
+#X msg 110 723 @port?;
+#X text 245 723 (readonly) Get destination port. Type: int. Default
 value: 0\.;
-#X msg 110 800 @proto?;
-#X text 245 800 (readonly) Get sending protocol. Type: symbol. Default
+#X msg 110 765 @proto?;
+#X text 245 765 (readonly) Get sending protocol. Type: symbol. Default
 value: udp.;
-#X obj 20 852 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 857 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 817 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 822 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 892 send;
-#X text 245 892 send input values (autotyped). Arguments are:;
-#X obj 255 915 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 915 PATH: OSC path. Type: symbol.;
-#X obj 255 938 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 938 VALUES: values. Type: list.;
-#X msg 110 963 send_blob;
-#X text 245 963 send character. Arguments are:;
-#X obj 255 986 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 986 PATH: OSC path. Type: symbol.;
-#X obj 255 1009 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1009 VAL: list of bytes. Type: list.;
-#X msg 110 1034 send_bool;
-#X text 245 1034 send boolean value. Arguments are:;
-#X obj 255 1057 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1057 PATH: OSC path. Type: symbol.;
-#X obj 255 1080 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1080 VAL: value. Type: int. Allowed values: 0 \, 1\.;
-#X msg 110 1105 send_char;
-#X text 245 1105 send character. Arguments are:;
-#X obj 255 1128 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1128 PATH: OSC path. Type: symbol.;
-#X obj 255 1151 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1151 VAL: ASCII code in 0-127 range or single symbol. Type:
+#X msg 110 857 send;
+#X text 245 857 send input values (autotyped). Arguments are:;
+#X obj 255 880 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 880 PATH: OSC path. Type: symbol.;
+#X obj 255 903 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 903 VALUES: values. Type: list.;
+#X msg 110 928 send_blob;
+#X text 245 928 send character. Arguments are:;
+#X obj 255 951 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 951 PATH: OSC path. Type: symbol.;
+#X obj 255 974 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 974 VAL: list of bytes. Type: list.;
+#X msg 110 999 send_bool;
+#X text 245 999 send boolean value. Arguments are:;
+#X obj 255 1022 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1022 PATH: OSC path. Type: symbol.;
+#X obj 255 1045 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1045 VAL: value. Type: int. Allowed values: 0 \, 1\.;
+#X msg 110 1070 send_char;
+#X text 245 1070 send character. Arguments are:;
+#X obj 255 1093 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1093 PATH: OSC path. Type: symbol.;
+#X obj 255 1116 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1116 VAL: ASCII code in 0-127 range or single symbol. Type:
 atom.;
-#X msg 110 1176 send_double;
-#X text 245 1176 send double value. Arguments are:;
-#X obj 255 1199 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1199 PATH: OSC path. Type: symbol.;
-#X obj 255 1222 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1222 VAL: value. Type: float.;
-#X msg 110 1247 send_float;
-#X text 245 1247 send float value. Arguments are:;
-#X obj 255 1270 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1270 PATH: OSC path. Type: symbol.;
-#X obj 255 1293 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1293 VAL: value. Type: float.;
-#X msg 110 1318 send_i32;
-#X text 245 1318 send int32 value. Arguments are:;
-#X obj 255 1341 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1341 PATH: OSC path. Type: symbol.;
-#X obj 255 1364 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1364 VAL: value. Type: int.;
-#X msg 110 1389 send_i64;
-#X text 245 1389 send int64 value. Arguments are:;
-#X obj 255 1412 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1412 PATH: OSC path. Type: symbol.;
-#X obj 255 1435 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1435 VAL: value. Type: int.;
-#X msg 110 1460 send_inf;
-#X text 245 1460 send inf value. Arguments are:;
-#X obj 255 1483 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1483 PATH: OSC path. Type: symbol.;
-#X msg 110 1508 send_midi;
-#X text 245 1508 send midi message (4 bytes). Arguments are:;
-#X obj 255 1531 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1531 PATH: OSC path. Type: symbol.;
-#X obj 255 1554 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1554 VAL: hex symbol (0xAAFF1122) or list of 4 bytes. Type:
+#X msg 110 1141 send_double;
+#X text 245 1141 send double value. Arguments are:;
+#X obj 255 1164 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1164 PATH: OSC path. Type: symbol.;
+#X obj 255 1187 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1187 VAL: value. Type: float.;
+#X msg 110 1212 send_float;
+#X text 245 1212 send float value. Arguments are:;
+#X obj 255 1235 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1235 PATH: OSC path. Type: symbol.;
+#X obj 255 1258 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1258 VAL: value. Type: float.;
+#X msg 110 1283 send_i32;
+#X text 245 1283 send int32 value. Arguments are:;
+#X obj 255 1306 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1306 PATH: OSC path. Type: symbol.;
+#X obj 255 1329 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1329 VAL: value. Type: int.;
+#X msg 110 1354 send_i64;
+#X text 245 1354 send int64 value. Arguments are:;
+#X obj 255 1377 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1377 PATH: OSC path. Type: symbol.;
+#X obj 255 1400 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1400 VAL: value. Type: int.;
+#X msg 110 1425 send_inf;
+#X text 245 1425 send inf value. Arguments are:;
+#X obj 255 1448 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1448 PATH: OSC path. Type: symbol.;
+#X msg 110 1473 send_midi;
+#X text 245 1473 send midi message (4 bytes). Arguments are:;
+#X obj 255 1496 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1496 PATH: OSC path. Type: symbol.;
+#X obj 255 1519 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1519 VAL: hex symbol (0xAAFF1122) or list of 4 bytes. Type:
 list.;
-#X msg 110 1579 send_null;
-#X text 245 1579 send null value. Arguments are:;
-#X obj 255 1602 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1602 PATH: OSC path. Type: symbol.;
-#X msg 110 1627 send_string;
-#X text 245 1627 send string value. Arguments are:;
-#X obj 255 1650 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1650 PATH: OSC path. Type: symbol.;
-#X obj 255 1673 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1673 VAL: value. Type: list.;
-#X msg 110 1698 send_typed;
-#X text 245 1698 send list of typed values. Arguments are:;
-#X obj 255 1721 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1721 PATH: OSC path. Type: symbol.;
-#X obj 255 1744 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1744 TYPES: type string \, 'i': int32 \, 'f': 32-bit float
+#X msg 110 1544 send_null;
+#X text 245 1544 send null value. Arguments are:;
+#X obj 255 1567 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1567 PATH: OSC path. Type: symbol.;
+#X msg 110 1592 send_string;
+#X text 245 1592 send string value. Arguments are:;
+#X obj 255 1615 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1615 PATH: OSC path. Type: symbol.;
+#X obj 255 1638 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1638 VAL: value. Type: list.;
+#X msg 110 1663 send_typed;
+#X text 245 1663 send list of typed values. Arguments are:;
+#X obj 255 1686 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1686 PATH: OSC path. Type: symbol.;
+#X obj 255 1709 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1709 TYPES: type string \, 'i': int32 \, 'f': 32-bit float
 \, 's': string \, 'h': int64 \, 'd': 64-bit float \, 'T': #true value
 \, 'F': #false value \, 'N': #null value \, 'I': #inf value. Type:
 symbol.;
-#X obj 255 1812 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1812 VAL: values. Type: list.;
-#X obj 20 1847 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1852 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 255 1777 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1777 VAL: values. Type: list.;
+#X obj 20 1812 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1817 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1853 1\.;
-#X text 245 1853 message input.;
-#X obj 20 1883 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1888 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1818 1\.;
+#X text 245 1818 message input.;
+#X obj 20 1848 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1853 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1889 1\.;
-#X text 245 1889 none.;
+#X text 110 1854 1\.;
+#X text 245 1854 none.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 1939 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1942 library: ceammc v0.9.6;
-#X text 440 1954 see also:;
-#X obj 514 1954 net.osc.server;
-#X obj 631 1954 net.osc.receive;
-#N canvas 10 1961 400 290 info 0;
+#X obj 1 1904 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1907 library: ceammc v0.9.6;
+#X text 440 1919 see also:;
+#X obj 514 1919 net.osc.server;
+#X obj 631 1919 net.osc.receive;
+#N canvas 10 1926 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -185,7 +180,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1961 pd info;
+#X restore 10 1926 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 9 0;
 #X connect 13 0 16 0;
