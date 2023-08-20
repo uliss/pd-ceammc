@@ -275,4 +275,14 @@ TEST_CASE("ListProperty", "[ceammc::properties]")
             REQUIRE(p.get() == LA(1, 2, "a", 3, -2));
         }
     }
+
+    SECTION("json")
+    {
+        ListProperty p("@l");
+        p.setDefault(LA(3, 2, "a"));
+
+        std::string json;
+        REQUIRE(p.infoT().getJSON(json));
+        REQUIRE(json == R"({"access":"readwrite","default":[3,2,"a"],"name":"@l","type":"list","view":"entry","visibility":"public"})");
+    }
 }

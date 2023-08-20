@@ -1222,25 +1222,23 @@ bool PropertyInfo::getJSON(std::string& str) const
         obj["enum"] = j;
     }
 
-    if (!noDefault()) {
-        if (isBool())
-            obj["default"] = defaultBool() ? 1 : 0;
-        else if (isFloat())
-            obj["default"] = defaultFloat();
-        else if (isInt())
-            obj["default"] = defaultInt();
-        else if (isSymbol())
-            obj["default"] = defaultSymbol()->s_name;
-        else if (isVariant()) {
-            nlohmann::json j;
-            to_json(j, defaultAtom());
-            obj["default"] = j;
-        } else if (isList()) {
-            nlohmann::json j;
-            to_json(j, defaultList());
-            obj["default"] = j;
-        } else {
-        }
+    if (isBool())
+        obj["default"] = defaultBool() ? 1 : 0;
+    else if (isFloat())
+        obj["default"] = defaultFloat();
+    else if (isInt())
+        obj["default"] = defaultInt();
+    else if (isSymbol())
+        obj["default"] = defaultSymbol()->s_name;
+    else if (isVariant()) {
+        nlohmann::json j;
+        to_json(j, defaultAtom());
+        obj["default"] = j;
+    } else if (isList()) {
+        nlohmann::json j;
+        to_json(j, defaultList());
+        obj["default"] = j;
+    } else {
     }
 
     str = obj.dump(-1);
