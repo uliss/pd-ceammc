@@ -15,12 +15,12 @@
         </meta>
         <arguments>
             <argument name="TEMPO" type="symbol" units="bpm">tempo in beats per minute</argument>
-            <argument name="TS" type="symbol">time signature</argument>
+            <argument name="TSIG" type="symbol">time signature</argument>
         </arguments>
         <properties>
             <property name="@tempo" type="symbol" default="60|4bpm" units="bpm">tempo. If beat
             division is ommitted, using 1/4</property>
-            <property name="@ts" type="symbol" default="|4/4|">metronome time signature, can be
+            <property name="@tsig" type="symbol" default="|4/4|">metronome time signature, can be
             complex like: |1/4+15/16| etc.</property>
             <property name="@gain" type="float" default="0" minvalue="-12" maxvalue="12"
             units="decibel">common synth gain</property>
@@ -56,6 +56,13 @@
             <xi:include href="props_osc.xml" />
             <xi:include href="props_id.xml" />
         </properties>
+        <methods>
+            <!-- down -->
+            <method name="down">manually play downbeat sound</method>
+            <method name="on">manually play onbeat sound</method>
+            <method name="off">manually play offbeat sound</method>
+            <method name="mark">manually play mark sound</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="float">1: start, 0: stop metronome</xinfo>
@@ -69,19 +76,24 @@
         </inlets>
         <outlets>
             <outlet type="audio">synth output</outlet>
+            <outlet type="control">current beat: 1: downbeat, 2: onbeat, 3: offbeat, 4: mark</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[T]
+[T] [down #a( [on #b( [off #c( [mark #d(
 |
-|          [1( [2( [3( [4(     [F]
-|          |.  |.  |.  |.      |..
-[synth.metro~ 120|8bpm |5/4+3/16|]
-|
-[ui.hgain~]
+|   [F]
+|   |
+|   [@tempo $1( [1( [2( [3( [4(     [F]
+|   |           | .  |.  |.  |.     |..
+[synth.metro~ 120|8bpm |5/4+3/16| #z  ]
+|                          ^|
+[ui.hgain~]                [print BEAT]
 |\
 [dac~]
+
+[X a->z] [X b->z] [X c->z] [X d->z]
 ]]>
             </pdascii>
         </example>

@@ -135,7 +135,7 @@ void setup_synth_metro_tilde()
     obj.addMethod("off", &SynthMetro::m_off);
     obj.addMethod("mark", &SynthMetro::m_mark);
 
-    obj.setXletsInfo({ "bool: on/off metro", "int: bang beat", "float: set bpm" }, { "signal: out" });
+    obj.setXletsInfo({ "bool: on/off metro", "int: bang beat", "float: set bpm" }, { "signal: out", "int: current beat" });
 
     obj.setDescription("ready to use metronome synth");
     obj.setCategory("synth");
