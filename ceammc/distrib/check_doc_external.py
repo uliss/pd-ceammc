@@ -5,7 +5,6 @@ import signal
 import argparse
 import subprocess
 import os.path
-import time
 from lxml import etree
 from termcolor import cprint
 import json
@@ -171,6 +170,36 @@ def has_mouse_methods():
         "mouseenter" in EXT_METHODS or
         "rightclick" in EXT_METHODS)
 
+
+def check_units(name, prop, doc, ext):
+    doc_unit_str = doc.get("units", None)
+    if doc_unit_str is not None:
+        units_doc = set(doc_unit_str.split(" "))
+    else:
+        units_doc = set()
+
+    def unit2pddoc(unit: str):
+        MAP = { 'millisecond': 'msec', 'second': 'sec' }
+        if unit in MAP:
+            return MAP[unit]
+        else:
+            return unit
+
+    units_ext = set()
+    for x in ext.get("units", ()):
+        units_ext.add(unit2pddoc(x))
+
+    if units_doc != units_ext:
+        cprint(f"[{name}][{prop}] units in doc {units_doc} != units in ext {units_ext}", 'red')
+        miss = units_ext - units_doc
+        if len(miss) > 0:
+            cprint(f"[{name}][{prop}] missing units: {miss}", 'red')
+
+        invalid = units_doc - units_ext
+        if len(invalid) > 0:
+            cprint(f"[{name}][{prop}] invalid units: {invalid}", 'red')
+
+
 def check_aliases(name, doc, ext):
     undoc_aliases = ext - doc
     unknown_aliases = doc - ext
@@ -234,8 +263,8 @@ def check_single_arg(ext_name, arg_name, doc, ext):
         cprint(f"[{ext_name}][arg][{arg_name}] invalid argument maxvalue in doc: {doc_maxval}, should be: {ext_maxval}", 'magenta')
 
     # check units
-    doc_units = doc.get("units", "")
-    ext_units = ext.get("units", "")
+    doc_units = doc.get("units", ())
+    ext_units = ext.get("units", ())
     if doc_units != ext_units:
         cprint(f"[{ext_name}][arg][{arg_name}] invalid argument units in doc: {doc_units}, should be: {ext_units}", 'magenta')
 
@@ -274,12 +303,7 @@ def check_single_prop(name, prop, doc, ext):
     if ro_ext != ro_doc:
         cprint(f"[{ext_name}][{prop}] access in doc ({ro_doc}) != access in ext ({ro_ext})", 'red')
 
-    # units checks
-    units_doc = doc.get("units", None)
-    units_ext = ext.get("units", None)
-
-    if units_doc != units_ext:
-        cprint(f"[{ext_name}][{prop}] units in doc ({units_doc}) != units in ext ({units_ext})", 'red')
+    check_units(name, prop, doc, ext)
 
     # check minvalue
     doc_minval = doc.get("min", "")
