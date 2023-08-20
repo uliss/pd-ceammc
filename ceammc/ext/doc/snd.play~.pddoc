@@ -81,13 +81,15 @@
  |  |
 [expand_env #x]
 
- [T] [T]        [T]        [ui.hsl #c]
- |   |          |          |
- |   [pause $1( [@loop $1( [@speed $1(
- |   |          |          |
-[snd.play~ 2 @loop 1 #z    ]
-| ^|             ^^|
-|  |             [ui.dt]
+ [T]      [T]           [T]        [ui.hsl #c]
+ |        |             |          |
+ | [stop( [pause $1 #d( [@loop $1( [@speed $1(
+ | |                    |          |
+ | | [start(            |          |
+ | | |                  |          |
+[snd.play~ 2 @loop 1 #z            ]
+| ^|                    ^^|
+|  |                    [ui.dt]
 |  |.
 [ui.hgain2~ {i:2,o:2}] [ui.dsp~]
 *|*
@@ -97,23 +99,26 @@
 
 #c 0.25 4 @show_value 1
 
-[X a->x] [X b->x] [X x->z]
+[X a->x] [X b->x]  [X d->x]  [X x->z]
 ]]>
             </pdascii>
             <pdascii id="seek">
 <![CDATA[
-[symbol %CEAMMC%/guitar1.wav, 1(
-|
+[symbol #c(                [msg.onclose bang]
+|                          |
 [expand_env] [seek 500 #a( [stop #b(
 |
-| [seek( [seek 500ms( [seek 1.5sec( [seek 15000samp(
-| |      |            |              |
-[snd.play~ 1 @loop 1 #z              ]
+| [seek(     [seek 500ms(  [seek 1.5sec( [seek 15000samp(
+| |          |             |              |
+| |          |             |              |
+| |          |             |              |
+[snd.play~ 1 @loop 1 #z                   ]
 |*
 [ui.hgain2~ {i:2,o:2}] [ui.dsp~]
 *|*
 [dac~]
 
+#c %CEAMMC%/guitar1.wav, 1
 [X a->z] [X b->z]
 ]]>
             </pdascii>
