@@ -27,6 +27,9 @@
             with the hoa.process~</par>
             <a href="hoa/hoa.2d.process~-help.pd">CICM documentation</a>
         </info>
+        <mouse>
+            <event type="left-click" editmode="false">open process patch window</event>
+        </mouse>
         <arguments>
             <argument name="N" type="int" minvalue="0">the order of decomposition</argument>
             <argument name="PATCH" type="symbol">patch name</argument>
@@ -37,7 +40,7 @@
         <properties>
             <property name="@n" type="int" minvalue="0" maxvalue="63" default="0"
             access="initonly">the order of decomposition/number of planewaves</property>
-            <property name="@patch" type="symbol" access="initonly">patch name</property>
+            <property name="@patch" type="symbol" access="initonly" default="">patch name</property>
             <property name="@domain" type="symbol" access="initonly" default="harmonics"
             enum="harmonics planewaves">process domain: harmonics or planewaves</property>
             <property name="@args" type="list" access="initonly" default="">arguments passed to

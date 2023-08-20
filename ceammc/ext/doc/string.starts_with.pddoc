@@ -23,7 +23,7 @@
             <argument name="PREFIX" type="symbol">prefix</argument>
         </arguments>
         <properties>
-            <property name="@prefix" type="symbol">prefix</property>
+            <property name="@prefix" type="symbol" default="">prefix</property>
         </properties>
         <inlets>
             <inlet>

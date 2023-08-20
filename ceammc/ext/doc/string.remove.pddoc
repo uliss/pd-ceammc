@@ -28,7 +28,7 @@
             input string</property>
             <property name="@last" type="alias">alias to @mode last - remove last occurence in
             input string</property>
-            <property name="@str" type="symbol">removed string</property>
+            <property name="@str" type="symbol" default="">removed string</property>
         </properties>
         <inlets>
             <inlet>
