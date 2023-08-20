@@ -169,6 +169,12 @@ namespace sound {
 
         void setLogFunction(const SoundFileLogFunction& fn);
 
+        /**
+         * set logging with pd_error etc..
+         * @note single thread only!
+         */
+        void setPdLogger();
+
     private:
         t_float gain_ = { 1.f };
         double resample_ratio_ = { 1 };

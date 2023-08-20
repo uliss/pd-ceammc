@@ -244,6 +244,7 @@ sound::SoundFilePtr ArrayLoader::openFile(const char* path)
         src_sample_count_ = f->frameCount();
         begin_ = 0;
         end_ = src_sample_count_;
+        f->setPdLogger();
     } else {
         src_samplerate_ = 0;
         src_num_channels_ = 0;

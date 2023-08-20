@@ -105,6 +105,28 @@ namespace sound {
         log_fn_ = fn;
     }
 
+    void SoundFile::setPdLogger()
+    {
+        setLogFunction([](LogLevel lv, const char* msg) {
+            switch (lv) {
+            case LOG_ERROR:
+                pdError(nullptr, msg);
+                break;
+            case LOG_DEBUG:
+                pdDebug(nullptr, msg);
+                break;
+            case LOG_POST:
+                pdPost(nullptr, msg);
+                break;
+            case LOG_ALL:
+                pdLog(nullptr, lv, msg);
+                break;
+            default:
+                break;
+            }
+        });
+    }
+
     SoundFile::~SoundFile() = default;
 
     bool SoundFileFactory::registerBackend(const SoundFileBackend& backend)

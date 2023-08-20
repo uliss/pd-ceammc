@@ -53,6 +53,8 @@ std::int64_t ArraySaver::saveTo(const AtomListView& args, BaseObject* owner)
         return -1;
     }
 
+    file->setPdLogger();
+
     auto arr = arrayData();
     if (arr.empty()) {
         PD_ERR(owner) << "empty data";
