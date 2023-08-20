@@ -4,12 +4,16 @@ include_directories(${Boost_INCLUDE_DIRS})
 add_subdirectory(extra/corrosion)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/extra/corrosion/cmake")
 
+if(LibSndFile_FOUND)
+    if(${LIBSNDFILE_VERSION} VERSION_LESS "1.30.0")
+        set(CEAMMC_HAVE_LIBSNDFILE_OPUS TRUE)
+    endif()
+endif()
+
 configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/ceammc_config.h.in
     ${CMAKE_CURRENT_BINARY_DIR}/ceammc_config.h
     @ONLY)
-
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 find_program(PD_DOC2PD pd_doc2pd)
 find_program(PD_MAKELIB pd_makelibrary)

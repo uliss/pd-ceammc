@@ -3,6 +3,7 @@ add_library(ceammc_core SHARED ceammc.cpp)
 target_include_directories(ceammc_core PRIVATE ${CMAKE_BINARY_DIR}) # for config.h
 target_include_directories(ceammc_core PRIVATE
     ${PROJECT_SOURCE_DIR}/src # m_pd.h
+    ${PROJECT_BINARY_DIR}/ceammc # ceammc_config.h
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/utf8rewind
 )
@@ -342,9 +343,6 @@ if(LIBSNDFILE_FOUND)
     target_sources(ceammc_core PRIVATE ceammc_loader_sndfile.cpp)
     target_include_directories(ceammc_core PRIVATE ${LIBSNDFILE_INCLUDE_DIRS})
     target_link_libraries(ceammc_core PUBLIC ${LIBSNDFILE_LIBRARIES})
-    if(${LIBSNDFILE_VERSION} VERSION_LESS "1.30.0")
-        target_compile_definitions(ceammc_core PRIVATE LIBSNDFILE_NO_OPUS)
-    endif()
 endif()
 
 # minimp3

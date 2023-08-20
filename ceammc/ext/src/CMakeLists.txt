@@ -107,6 +107,11 @@ pd_add_external(NAME ceammc
     LIBRARY ceammc
     LINK ${CEAMMC_EXT_LINK_LIBRARIES})
 
+target_include_directories(ceammc
+    PRIVATE
+        ${PROJECT_BINARY_DIR}/ceammc # for ceammc_config.h
+)
+
 if(WIN32)
     target_link_options(ceammc PRIVATE -Wl,--exclude-all-symbols)
     target_link_libraries(ceammc PRIVATE soxr)

@@ -14,6 +14,7 @@ target_include_directories(ceammc_misc
     PRIVATE
         ${PROJECT_SOURCE_DIR}/ceammc/extra/aubio
         "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
+        ${PROJECT_BINARY_DIR}/ceammc # ceammc_config.h
     PUBLIC
         ${PROJECT_SOURCE_DIR}/ceammc/ext/src
 )
