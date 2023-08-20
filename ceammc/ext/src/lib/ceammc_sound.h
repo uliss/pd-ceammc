@@ -159,13 +159,13 @@ namespace sound {
         virtual std::int64_t write(const t_word* const* src, size_t len, std::int64_t offset) { return -1; }
 
         void debug(const char* msg) const;
-        void debug(const std::string& msg) const;
+        void debug(const std::string& msg) const { debug(msg.c_str()); }
         void error(const char* msg) const;
-        void error(const std::string& msg) const;
+        void error(const std::string& msg) const { error(msg.c_str()); }
         void log(const char* msg) const;
-        void log(const std::string& msg) const;
+        void log(const std::string& msg) const  { log(msg.c_str()); }
         void post(const char* msg) const;
-        void post(const std::string& msg) const;
+        void post(const std::string& msg) const { post(msg.c_str()); }
 
         void setLogFunction(const SoundFileLogFunction& fn);
 
