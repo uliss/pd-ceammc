@@ -17,6 +17,17 @@
 using namespace ceammc;
 using namespace ceammc::sound;
 
+namespace {
+
+void objc_log_error(const CoreAudioFile* ca, const char* msg)
+{
+    ca->error(msg);
+}
+
+using objc_log_fn_type = void (*)(const void*, const char*);
+
+}
+
 #define CA_PREFIX "[coreaudio] "
 
 CoreAudioFile::CoreAudioFile()
@@ -27,14 +38,23 @@ CoreAudioFile::CoreAudioFile()
 bool CoreAudioFile::probe(const char* fname) const
 {
     audiofile_info_t fi = { 0 };
-    return ceammc_coreaudio_getinfo(fname, &fi) == 0;
+    ceammc_coreaudio_logger log {
+        static_cast<const void*>(this),
+        reinterpret_cast<objc_log_fn_type>(objc_log_error),
+    };
+    return ceammc_coreaudio_getinfo(fname, &fi, &log) == 0;
 }
 
 bool CoreAudioFile::open(const char* fname, OpenMode mode, const SoundFileOpenParams& params)
 {
     switch (mode) {
     case SoundFile::READ: {
-        int rc = ceammc_coreaudio_player_open(impl_.get(), fname, params.samplerate);
+        ceammc_coreaudio_logger log {
+            static_cast<const void*>(this),
+            reinterpret_cast<objc_log_fn_type>(objc_log_error),
+        };
+
+        int rc = ceammc_coreaudio_player_open(impl_.get(), fname, params.samplerate, &log);
         if (rc != 0) {
             close();
             return false;
@@ -87,7 +107,7 @@ std::int64_t CoreAudioFile::read(t_word* dest, size_t sz, size_t channel, std::i
             return -1;
     }
 
-    if (!ceammc_coreaudio_player_seek(impl_.get(), offset))
+    if (ceammc_coreaudio_player_seek(impl_.get(), offset) != 0)
         return -1;
 
     auto res = ceammc_coreaudio_player_read_array(impl_.get(), dest, sz, channel, gain());
@@ -105,7 +125,7 @@ std::int64_t CoreAudioFile::readFrames(float* dest, size_t frames, std::int64_t 
         return -1;
     }
 
-    if (!ceammc_coreaudio_player_seek(impl_.get(), offset))
+    if (ceammc_coreaudio_player_seek(impl_.get(), offset) != 0)
         return -1;
 
     auto res = ceammc_coreaudio_player_read(impl_.get(), dest, frames);

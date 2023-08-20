@@ -41,13 +41,18 @@ enum ceammc_coreaudio_error {
     CLOSE_ERR = -10,
 };
 
+struct ceammc_coreaudio_logger {
+    const void* obj;
+    void (*log_err)(const void* obj, const char* msg);
+};
+
 struct audio_player;
 typedef struct audio_player t_audio_player;
 
-int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info);
+int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info, struct ceammc_coreaudio_logger* log);
 
 t_audio_player* ceammc_coreaudio_player_create();
-int ceammc_coreaudio_player_open(t_audio_player* p, const char* path, double sample_rate);
+int ceammc_coreaudio_player_open(t_audio_player* p, const char* path, double sample_rate, const struct ceammc_coreaudio_logger* log);
 int ceammc_coreaudio_player_close(t_audio_player* p);
 void ceammc_coreaudio_player_free(t_audio_player* p);
 double ceammc_coreaudio_player_samplerate(t_audio_player* p);

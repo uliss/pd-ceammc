@@ -29,10 +29,11 @@ struct audio_player {
     ExtAudioFileRef file_ref;
     AudioStreamBasicDescription in_asbd;
     AudioStreamBasicDescription out_asbd;
+    struct ceammc_coreaudio_logger logger;
     int is_opened;
 };
 
-static int checkError(OSStatus error, const char* op)
+static int checkError(OSStatus error, const char* op, struct ceammc_coreaudio_logger* log)
 {
     if (error == noErr)
         return 0;
@@ -50,7 +51,14 @@ static int checkError(OSStatus error, const char* op)
         sprintf(errorString, "%d", (int)error);
     }
 
-    pd_error(NULL, "[coreaudio] %s (%s)", op, errorString);
+    if (!log || !log->obj || !log->log_err)
+        fprintf(stderr, "[coreaudio] %s (%s)\n", op, errorString);
+    else {
+        char buf[128];
+        snprintf(buf, sizeof(buf) - 1, "[coreaudio] %s (%s)", op, errorString);
+        log->log_err(log->obj, buf);
+    }
+
     return -1;
 }
 
@@ -66,7 +74,7 @@ static void fillOutputASBD(AudioStreamBasicDescription* out, const AudioStreamBa
     out->mBytesPerPacket = out->mFramesPerPacket * out->mBytesPerFrame;
 }
 
-static Boolean getASBD(ExtAudioFileRef file, AudioStreamBasicDescription* asbd)
+static Boolean getASBD(ExtAudioFileRef file, AudioStreamBasicDescription* asbd, struct ceammc_coreaudio_logger* log)
 {
     UInt32 size = sizeof(AudioStreamBasicDescription);
     OSStatus err = ExtAudioFileGetProperty(file, kExtAudioFileProperty_FileDataFormat, &size, asbd);
@@ -74,33 +82,33 @@ static Boolean getASBD(ExtAudioFileRef file, AudioStreamBasicDescription* asbd)
     if (err == noErr)
         return true;
 
-    checkError(err, "error: can't get AudioStreamBasicDescription from file");
+    checkError(err, "error: can't get AudioStreamBasicDescription from file", log);
     return false;
 }
 
-static Boolean getPacketCount(AudioFileID file, UInt64* packetCount)
+static Boolean getPacketCount(AudioFileID file, UInt64* packetCount, struct ceammc_coreaudio_logger* log)
 {
     UInt32 propSize = sizeof(UInt64);
     OSStatus err = AudioFileGetProperty(file, kAudioFilePropertyAudioDataPacketCount, &propSize, packetCount);
     if (err == noErr)
         return true;
 
-    checkError(err, "error: can't get packet count");
+    checkError(err, "error: can't get packet count", log);
     return false;
 }
 
-static Boolean getMaxPacketSize(AudioFileID file, UInt32* maxPacketSize)
+static Boolean getMaxPacketSize(AudioFileID file, UInt32* maxPacketSize, struct ceammc_coreaudio_logger* log)
 {
     UInt32 propSize = sizeof(UInt32);
     OSStatus err = AudioFileGetProperty(file, kAudioFilePropertyMaximumPacketSize, &propSize, maxPacketSize);
     if (err == noErr)
         return true;
 
-    checkError(err, "error: can't get max packet size");
+    checkError(err, "error: can't get max packet size", log);
     return false;
 }
 
-static Boolean getPacketTableInfo(AudioFileID file, AudioFilePacketTableInfo* info)
+static Boolean getPacketTableInfo(AudioFileID file, AudioFilePacketTableInfo* info, struct ceammc_coreaudio_logger* log)
 {
     UInt32 propSize = sizeof(AudioFilePacketTableInfo);
     OSStatus err = AudioFileGetProperty(file, kAudioFilePropertyPacketTableInfo, &propSize, &info);
@@ -108,11 +116,11 @@ static Boolean getPacketTableInfo(AudioFileID file, AudioFilePacketTableInfo* in
     if (err == noErr)
         return true;
 
-    checkError(err, "error: can't get packet table info");
+    checkError(err, "error: can't get packet table info", log);
     return false;
 }
 
-static Boolean getVBRPacketBufferSize(AudioStreamBasicDescription* in_asbd, UInt32* out_bufsize)
+static Boolean getVBRPacketBufferSize(AudioStreamBasicDescription* in_asbd, UInt32* out_bufsize, struct ceammc_coreaudio_logger* log)
 {
     AudioStreamBasicDescription out_asbd;
     fillOutputASBD(&out_asbd, in_asbd);
@@ -120,7 +128,7 @@ static Boolean getVBRPacketBufferSize(AudioStreamBasicDescription* in_asbd, UInt
     AudioConverterRef converter;
     OSStatus err = AudioConverterNew(in_asbd, &out_asbd, &converter);
     if (err != noErr) {
-        checkError(err, "AudioConverterNew");
+        checkError(err, "AudioConverterNew", log);
         return false;
     }
 
@@ -136,7 +144,7 @@ static Boolean getVBRPacketBufferSize(AudioStreamBasicDescription* in_asbd, UInt
             &size, &sizePerPacket);
 
         if (err != noErr) {
-            checkError(err, "error: kAudioConverterPropertyMaximumOutputPacketSize");
+            checkError(err, "error: kAudioConverterPropertyMaximumOutputPacketSize", log);
             return false;
         }
 
@@ -149,7 +157,7 @@ static Boolean getVBRPacketBufferSize(AudioStreamBasicDescription* in_asbd, UInt
     return true;
 }
 
-static Boolean openAudiofile(const char* path, AudioFileID* file)
+static Boolean openAudiofile(const char* path, AudioFileID* file, struct ceammc_coreaudio_logger* log)
 {
     CFStringRef name = CFStringCreateWithCString(kCFAllocatorDefault, path, kCFStringEncodingUTF8);
     CFURLRef url = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, name, kCFURLPOSIXPathStyle, false);
@@ -161,11 +169,11 @@ static Boolean openAudiofile(const char* path, AudioFileID* file)
     if (err == noErr)
         return true;
 
-    checkError(err, "error: AudioFileOpenURL");
+    checkError(err, "error: AudioFileOpenURL", log);
     return false;
 }
 
-static Boolean openConverter(const char* path, ExtAudioFileRef* file)
+static Boolean openConverter(const char* path, ExtAudioFileRef* file, struct ceammc_coreaudio_logger* log)
 {
     CFStringRef name = CFStringCreateWithCString(kCFAllocatorDefault, path, kCFStringEncodingUTF8);
     CFURLRef url = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, name, kCFURLPOSIXPathStyle, false);
@@ -177,11 +185,11 @@ static Boolean openConverter(const char* path, ExtAudioFileRef* file)
     if (err == noErr)
         return true;
 
-    checkError(err, "error: AudioFileOpenURL");
+    checkError(err, "error: AudioFileOpenURL", log);
     return false;
 }
 
-static Boolean setOutputFormat(ExtAudioFileRef file, AudioStreamBasicDescription* format)
+static Boolean setOutputFormat(ExtAudioFileRef file, AudioStreamBasicDescription* format, struct ceammc_coreaudio_logger* log)
 {
     OSStatus err = ExtAudioFileSetProperty(file,
         kExtAudioFileProperty_ClientDataFormat,
@@ -191,20 +199,20 @@ static Boolean setOutputFormat(ExtAudioFileRef file, AudioStreamBasicDescription
     if (err == noErr)
         return true;
 
-    checkError(err, "error: ExtAudioFileSetProperty");
+    checkError(err, "error: ExtAudioFileSetProperty", log);
     return false;
 }
 
-int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info)
+int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info, struct ceammc_coreaudio_logger* log)
 {
     ExtAudioFileRef converter = 0;
-    if (!openConverter(path, &converter)) {
+    if (!openConverter(path, &converter, log)) {
         ExtAudioFileDispose(converter);
         return FILEOPEN_ERR;
     }
 
     AudioStreamBasicDescription asbd = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    if (!getASBD(converter, &asbd)) {
+    if (!getASBD(converter, &asbd, log)) {
         ExtAudioFileDispose(converter);
         return FILEINFO_ERR;
     }
@@ -216,7 +224,7 @@ int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info)
     UInt32 size = sizeof(totalFrameCount);
     OSStatus err = ExtAudioFileGetProperty(converter, kExtAudioFileProperty_FileLengthFrames, &size, &totalFrameCount);
     if (err != noErr) {
-        checkError(err, "error: kExtAudioFileProperty_FileLengthFrames");
+        checkError(err, "error: kExtAudioFileProperty_FileLengthFrames", log);
         ExtAudioFileDispose(converter);
         return FILEINFO_ERR;
     }
@@ -232,7 +240,7 @@ t_audio_player* ceammc_coreaudio_player_create()
     return p;
 }
 
-int ceammc_coreaudio_player_open(t_audio_player* p, const char* path, double sample_rate)
+int ceammc_coreaudio_player_open(t_audio_player* p, const char* path, double sample_rate, const struct ceammc_coreaudio_logger* log)
 {
     if (!p)
         return INVALID_ARGS;
@@ -240,24 +248,30 @@ int ceammc_coreaudio_player_open(t_audio_player* p, const char* path, double sam
     if (p->is_opened)
         ceammc_coreaudio_player_close(p);
 
-    if (!openConverter(path, &p->file_ref)) {
+    if (!openConverter(path, &p->file_ref, &p->logger)) {
         p->is_opened = 0;
         return FILEOPEN_ERR;
     }
 
-    if (!getASBD(p->file_ref, &p->in_asbd)) {
+    if (!getASBD(p->file_ref, &p->in_asbd, &p->logger)) {
         p->is_opened = 0;
         return FILEINFO_ERR;
     }
 
     fillOutputASBD(&p->out_asbd, &p->in_asbd);
 
-    if (!setOutputFormat(p->file_ref, &p->out_asbd)) {
+    if (!setOutputFormat(p->file_ref, &p->out_asbd, &p->logger)) {
         p->is_opened = 0;
         return PROPERTY_ERR;
     }
 
     p->is_opened = 1;
+
+    if (log) {
+        p->logger = *log;
+    } else {
+        p->logger.obj = 0;
+    }
     return 0;
 }
 
@@ -273,10 +287,11 @@ int ceammc_coreaudio_player_seek(t_audio_player* p, int64_t offset)
         return 0;
 
     OSStatus err = ExtAudioFileSeek(p->file_ref, offset);
-    if (err != noErr)
-        return 0;
-    else
+    if (err != noErr) {
+        checkError(err, "error: ExtAudioFileSeek", &p->logger);
         return 1;
+    } else
+        return 0;
 }
 
 int64_t ceammc_coreaudio_player_read(t_audio_player* p, float* dest, size_t count)
@@ -346,9 +361,10 @@ int ceammc_coreaudio_player_close(t_audio_player* p)
     OSStatus err = ExtAudioFileDispose(p->file_ref);
     p->is_opened = 0;
 
-    if (err != noErr)
+    if (err != noErr) {
+        checkError(err, "error: ExtAudioFileDispose", &p->logger);
         return CLOSE_ERR;
-    else
+    } else
         return 0;
 }
 
@@ -380,7 +396,7 @@ size_t ceammc_coreaudio_player_frames(t_audio_player* p)
         &size, &totalFrameCount);
 
     if (err != noErr) {
-        checkError(err, "error: kExtAudioFileProperty_FileLengthFrames");
+        checkError(err, "error: kExtAudioFileProperty_FileLengthFrames", &p->logger);
         return 0;
     }
 
@@ -447,7 +463,7 @@ int ceammc_coreaudio_player_set_resample_ratio(t_audio_player* p, double ratio)
 
     p->out_asbd.mSampleRate = p->in_asbd.mSampleRate * ratio;
 
-    if (!setOutputFormat(p->file_ref, &p->out_asbd))
+    if (!setOutputFormat(p->file_ref, &p->out_asbd, &p->logger))
         return PROPERTY_ERR;
 
     return 0;

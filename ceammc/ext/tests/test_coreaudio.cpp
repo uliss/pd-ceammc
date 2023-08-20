@@ -31,37 +31,37 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
         SECTION("impl get info")
         {
             audiofile_info_t fi = { 0 };
-            REQUIRE(ceammc_coreaudio_getinfo("unknown", &fi) != 0);
+            REQUIRE(ceammc_coreaudio_getinfo("unknown", &fi, nullptr) != 0);
 
-            REQUIRE(ceammc_coreaudio_getinfo(TEST_DATA_DIR "/test_data0.wav", &fi) == 0);
+            REQUIRE(ceammc_coreaudio_getinfo(TEST_DATA_DIR "/test_data0.wav", &fi, nullptr) == 0);
             REQUIRE(fi.sampleRate == 44100);
             REQUIRE(fi.channels == 1);
             REQUIRE(fi.sampleCount == 441);
 
             memset(&fi, 0, sizeof(fi));
 
-            REQUIRE(ceammc_coreaudio_getinfo(TEST_DATA_DIR "/test_data1.wav", &fi) == 0);
+            REQUIRE(ceammc_coreaudio_getinfo(TEST_DATA_DIR "/test_data1.wav", &fi, nullptr) == 0);
             REQUIRE(fi.sampleRate == 44100);
             REQUIRE(fi.channels == 2);
             REQUIRE(fi.sampleCount == 441);
 
             memset(&fi, 0, sizeof(fi));
 
-            REQUIRE(ceammc_coreaudio_getinfo(TEST_DATA_DIR "/test_data0.mp3", &fi) == 0);
+            REQUIRE(ceammc_coreaudio_getinfo(TEST_DATA_DIR "/test_data0.mp3", &fi, nullptr) == 0);
             REQUIRE(fi.sampleRate == 44100);
             REQUIRE(fi.channels == 1);
             REQUIRE(fi.sampleCount == 441);
 
             memset(&fi, 0, sizeof(fi));
 
-            REQUIRE(ceammc_coreaudio_getinfo(TEST_DATA_DIR "/test_data0_vbr.mp3", &fi) == 0);
+            REQUIRE(ceammc_coreaudio_getinfo(TEST_DATA_DIR "/test_data0_vbr.mp3", &fi, nullptr) == 0);
             REQUIRE(fi.sampleRate == 44100);
             REQUIRE(fi.channels == 1);
             REQUIRE(fi.sampleCount == 441);
 
             memset(&fi, 0, sizeof(fi));
 
-            REQUIRE(ceammc_coreaudio_getinfo(TEST_DATA_DIR "/test_data0.m4a", &fi) == 0);
+            REQUIRE(ceammc_coreaudio_getinfo(TEST_DATA_DIR "/test_data0.m4a", &fi, nullptr) == 0);
             REQUIRE(fi.sampleRate == 44100);
             REQUIRE(fi.channels == 1);
             REQUIRE(fi.sampleCount == 441);
@@ -73,6 +73,16 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
     SECTION("offset")
     {
         sound::CoreAudioFile sf;
+        sf.setLogFunction([](LogLevel lv, const char* msg) {
+            switch (lv) {
+            case LOG_ERROR:
+                std::cerr << "###### ERROR ####### " << msg;
+                break;
+            default:
+                break;
+            }
+        });
+
         REQUIRE(sf.open(TEST_DATA_DIR "/test_data0.wav", SoundFile::READ, {}));
         REQUIRE(sf.resampleRatio() == 1);
         REQUIRE(sf.gain() == 1);
@@ -151,11 +161,11 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
         REQUIRE(ceammc_coreaudio_player_samplerate(p) == 0);
         REQUIRE(ceammc_coreaudio_player_frames(p) == 0);
 
-        REQUIRE(ceammc_coreaudio_player_open(p, "not-exists", 44100) != 0);
+        REQUIRE(ceammc_coreaudio_player_open(p, "not-exists", 44100, nullptr) != 0);
         REQUIRE_FALSE(ceammc_coreaudio_player_is_opened(p));
 
         // opened
-        REQUIRE(ceammc_coreaudio_player_open(p, TEST_DATA_DIR "/test_data1.wav", 44100) == 0);
+        REQUIRE(ceammc_coreaudio_player_open(p, TEST_DATA_DIR "/test_data1.wav", 44100, nullptr) == 0);
         // check ok
         REQUIRE(ceammc_coreaudio_player_is_opened(p));
         REQUIRE(ceammc_coreaudio_player_tell(p) == 0);
@@ -165,7 +175,7 @@ TEST_CASE("CoreAudio", "[ceammc::ceammc_loader_coreaudio]")
 
         // check tell/seek
         REQUIRE(ceammc_coreaudio_player_tell(p) == 0);
-        REQUIRE(ceammc_coreaudio_player_seek(p, 100));
+        REQUIRE(ceammc_coreaudio_player_seek(p, 100) == 0);
         REQUIRE(ceammc_coreaudio_player_tell(p) == 100);
 
         t_float buf[441 * 2] = { 0 };
