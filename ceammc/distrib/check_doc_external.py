@@ -43,9 +43,9 @@ def pddoc_float(value: str) -> float:
     elif value == "-inf":
         return -2147483647
     elif isinstance(value, float):
-        return value
+        return round(value, 4)
     elif len(value) > 0:
-        return float(value)
+        return round(float(value), 4)
     else:
         return ""
 
@@ -368,7 +368,6 @@ def check_single_prop(name, prop, doc, ext):
             doc_def = int(doc_def)
         elif type_doc == "bool":
             doc_def = int(doc_def)
-
 
         ext_def = ext.get("default", None)
         if ext_def is None:
