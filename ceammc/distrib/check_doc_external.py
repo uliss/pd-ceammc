@@ -348,6 +348,8 @@ def check_single_prop(name, prop, doc, ext):
 
     if type_ext == "bool" and ro_ext == "initonly": # flag type
         pass
+    elif type_doc == "alias":
+        pass
     else:
         # check default
         doc_def = doc.get("default", None)

@@ -44,6 +44,9 @@
             back</property>
         </properties>
         <methods>
+            <!-- hexbeat -->
+            <method name="hexbeat">set hexbeat bang pattern
+            <param name="PATTERN" type="symbol" required="true">hex-string beat pattern</param></method>
             <!-- reset -->
             <method name="reset">reset all counters and stop</method>
             <!-- rewind -->
