@@ -21,7 +21,7 @@
             #saw, #square, #noise</argument>
         </arguments>
         <properties>
-            <property name="@sf" type="symbol">soundfont path or builtin waveform name: #sine,
+            <property name="@sf" type="symbol" default="">soundfont path or builtin waveform name: #sine,
             #tri, #saw, #square, #noise</property>
             <property name="@poly" type="int" minvalue="1" maxvalue="256" default="64">max number
             of voices</property>
@@ -153,8 +153,8 @@
             <param name="CHAN" type="int" minvalue="0" maxvalue="15" required="true">MIDI channel,
             ignored</param>
             <param name="VAL" type="int" enum="0 1" required="true">pedal state</param></method>
-            <!-- sounds_off -->
-            <method name="sounds_off">immediately stop all notes on a MIDI channel (skips release
+            <!-- sound_off -->
+            <method name="sound_off">immediately stop all notes on a MIDI channel (skips release
             phase). 
             <param name="CHAN" type="int" default="0">MIDI channel</param></method>
             <!-- tune:12 -->

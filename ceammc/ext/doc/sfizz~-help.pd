@@ -31,7 +31,7 @@
 #X obj 20 502 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 537 @freq;
-#X text 245 537 Get/Set A4 standard tuning. Type: float. Units: Hz.
+#X text 245 537 Get/Set A4 standard tuning. Type: float. Units: 'Hz'.
 Default value: 440\.;
 #X msg 110 579 @gain;
 #X text 245 579 Get/Set output gain (same as @value but in amp units).
@@ -44,7 +44,7 @@ Type: float. Default value: 0.429\. Range: 0\...16\.;
 \, #tri \, #saw \, #square \, #noise. Type: symbol.;
 #X msg 110 705 @volume;
 #X text 245 705 Get/Set output volume (same as @gain but in db). Type:
-float. Units: db. Default value: -7.35\. Range: -60\...10\.;
+float. Units: 'db'. Default value: -7.35\. Range: -60\...10\.;
 #X msg 110 747 @avoices?;
 #X text 245 747 (readonly) Get number midi channels. Type: int. Default
 value: 0\.;
@@ -96,7 +96,7 @@ stub function). Arguments are:;
 0\...16\.;
 #X obj 255 1313 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1313 RANGE: semitones sensitivity. Type: int. Range: 0\...64\.
-Units: semitone.;
+Units: 'semitone'.;
 #X msg 110 1353 cc;
 #X text 245 1353 control change. Arguments are:;
 #X obj 255 1376 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -203,7 +203,7 @@ notes when set to off. Arguments are:;
 #X obj 255 2506 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 2506 VAL: pedal state. Type: int. Allowed values: 0 \,
 1\.;
-#X msg 110 2531 sounds_off;
+#X msg 110 2531 sound_off;
 #X text 245 2531 immediately stop all notes on a MIDI channel (skips
 release phase). Arguments are:;
 #X obj 255 2569 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;

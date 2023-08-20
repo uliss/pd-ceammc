@@ -21,7 +21,7 @@
             <argument name="ARRAY" type="symbol">destination array name render to</argument>
         </arguments>
         <properties>
-            <property name="@array" type="symbol">destination array name</property>
+            <property name="@array" type="symbol" default="">destination array name</property>
             <property name="@voice" type="symbol" default="kal16" enum="kal16 slt rms awb">default
             voice</property>
             <property name="@speed" type="float" minvalue="1" maxvalue="4" default="1">speaking

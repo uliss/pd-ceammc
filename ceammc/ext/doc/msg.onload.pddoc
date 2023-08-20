@@ -23,8 +23,10 @@
         </meta>
         <info>
             <par>like [loadbang], but with message and click support.</par>
-            <par>Click on object sends message again.</par>
         </info>
+        <mouse>
+            <event type="left-click" editmode="false">send message</event>
+        </mouse>
         <arguments>
             <argument name="ARGS" type="list">message. Comma separated messages are
             supported</argument>

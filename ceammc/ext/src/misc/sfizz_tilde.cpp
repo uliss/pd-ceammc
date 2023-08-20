@@ -482,7 +482,7 @@ void SfizzTilde::m_legato_pedal(t_symbol* s, const AtomListView& lv)
     sfz_.cc(0, CC_LEGATO_PEDAL, v ? 127 : 0);
 }
 
-void SfizzTilde::m_soundsOff(t_symbol*, const AtomListView&)
+void SfizzTilde::m_soundOff(t_symbol*, const AtomListView&)
 {
     sfz_.allSoundOff();
 }
@@ -700,9 +700,9 @@ void setup_misc_sfizz_tilde()
     obj.addMethod(M_BEND_SENSIVITY, &SfizzTilde::m_set_bend_sens);
 
     obj.addMethod(M_ALL_NOTES_OFF, &SfizzTilde::m_notesOff);
-    obj.addMethod(M_ALL_SOUND_OFF, &SfizzTilde::m_soundsOff);
-    obj.addMethod(M_PANIC, &SfizzTilde::m_soundsOff);
-    obj.addMethod("reset", &SfizzTilde::m_soundsOff);
+    obj.addMethod(M_ALL_SOUND_OFF, &SfizzTilde::m_soundOff);
+    obj.addMethod(M_PANIC, &SfizzTilde::m_soundOff);
+    obj.addMethod("reset", &SfizzTilde::m_soundOff);
 
     obj.addMethod(M_TUNE_SELECT, &SfizzTilde::m_tune_select);
     obj.addMethod(M_TUNE_OCTAVE, &SfizzTilde::m_tune_octave);
