@@ -71,7 +71,7 @@ namespace sound {
     void SoundFile::debug(const char* msg) const
     {
         if (!log_fn_)
-            std::clog << "[debug] " << msg;
+            std::clog << "[debug] " << msg << std::endl;
         else
             log_fn_(LOG_DEBUG, msg);
     }
@@ -79,7 +79,7 @@ namespace sound {
     void SoundFile::error(const char* msg) const
     {
         if (!log_fn_)
-            std::cerr << "[error] " << msg;
+            std::cerr << "[error] " << msg << std::endl;
         else
             log_fn_(LOG_ERROR, msg);
     }
@@ -87,7 +87,7 @@ namespace sound {
     void SoundFile::log(const char* msg) const
     {
         if (!log_fn_)
-            std::clog << "[log] " << msg;
+            std::clog << "[log] " << msg << std::endl;
         else
             log_fn_(LOG_ALL, msg);
     }
@@ -95,7 +95,7 @@ namespace sound {
     void SoundFile::post(const char* msg) const
     {
         if (!log_fn_)
-            std::cout << msg;
+            std::cout << msg << std::endl;
         else
             log_fn_(LOG_POST, msg);
     }
