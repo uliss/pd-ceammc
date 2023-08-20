@@ -68,7 +68,7 @@ public:
     void m_panic(t_symbol* s, const AtomListView& lv);
     void m_reset(t_symbol* s, const AtomListView& lv);
     void m_notesOff(t_symbol* s, const AtomListView& lv);
-    void m_soundsOff(t_symbol* s, const AtomListView& lv);
+    void m_soundOff(t_symbol* s, const AtomListView& lv);
     void m_sysex(t_symbol* s, const AtomListView& lv);
     void m_midi(t_symbol* s, const AtomListView& lv);
     void m_aftertouch(t_symbol* s, const AtomListView& lv);

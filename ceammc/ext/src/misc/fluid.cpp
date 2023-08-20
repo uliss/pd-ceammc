@@ -623,7 +623,7 @@ void Fluid::m_notesOff(t_symbol* s, const AtomListView& lv)
     callFluidChannelFn(s, chan - 1, fn, 0, "notes_off", lv);
 }
 
-void Fluid::m_soundsOff(t_symbol* s, const AtomListView& lv)
+void Fluid::m_soundOff(t_symbol* s, const AtomListView& lv)
 {
     if (!synth_)
         return;
@@ -1114,7 +1114,7 @@ void setup_misc_fluid()
     obj.addMethod(M_PANIC, &Fluid::m_panic);
     obj.addMethod("reset", &Fluid::m_reset);
     obj.addMethod(M_ALL_NOTES_OFF, &Fluid::m_notesOff);
-    obj.addMethod(M_ALL_SOUND_OFF, &Fluid::m_soundsOff);
+    obj.addMethod(M_ALL_SOUND_OFF, &Fluid::m_soundOff);
     obj.addMethod("sysex", &Fluid::m_sysex);
     obj.addMethod("midi", &Fluid::m_midi);
 
