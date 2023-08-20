@@ -1,5 +1,6 @@
 include(CheckIncludeFiles)
 include(CheckFunctionExists)
+include(CheckSymbolExists)
 include(FindLibDL)
 
 if(LIBDL_FOUND)
@@ -41,6 +42,7 @@ check_include_file(io.h HAVE_IO_H)
 
 check_function_exists(nanosleep HAVE_NANOSLEEP)
 check_function_exists(setenv HAVE_SETENV)
+check_symbol_exists(ffs "strings.h" HAVE_FFS)
 
 if(WITH_FLUIDSYNTH)
     find_package(GLIB REQUIRED)
