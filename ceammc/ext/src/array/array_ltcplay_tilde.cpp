@@ -53,13 +53,18 @@ void ArrayLtcPlayTilde::initDone()
     decoder_.reset(ltc_decoder_create(APV, 2));
 }
 
+void ArrayLtcPlayTilde::onInlet(size_t n, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_SYMBOL, &s_))
+        return;
+
+    setArray(lv.asSymbol(&s_));
+}
+
 void ArrayLtcPlayTilde::setupDSP(t_signal** sp)
 {
     ArraySoundBase::setupDSP(sp);
-    off_ = 0;
     ltc_decoder_queue_flush(decoder_.get());
-    prev_frame_ = 0;
-    zero_speed_ = false;
 }
 
 ArrayLtcPlayTilde::~ArrayLtcPlayTilde() = default;
@@ -109,6 +114,7 @@ void ArrayLtcPlayTilde::processBlock(const t_sample** in, t_sample** out)
 void setup_array_ltcplay_tilde()
 {
     SoundExternalFactory<ArrayLtcPlayTilde> obj("array.ltcplay~");
+    obj.setXletsInfo({ "signal: LTC input", "symbol: set source array" }, { "signal: array output" });
 }
 
 #endif

@@ -5,6 +5,7 @@
 - new objects:
   - array.readwrite~ - ordered array reader/writer (read first, then write)
   - array.tramp~ - triggered array ramp generator
+  - array.ltcplay~ - array player, controlled by LTC signal
   - chrono.datetime - get current date/time information
   - color.mix - color mixer
   - color.scale - create color scales (gradients)

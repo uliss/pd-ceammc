@@ -51,6 +51,9 @@
     <entry name="array.hist" descr="calculates array histogram" ref_view="object">
       <xi:include href="array.hist.pddoc" parse="xml"/>
     </entry>
+    <entry name="array.ltcplay~" descr="array player controlled by LTC" ref_view="object">
+      <xi:include href="array.ltcplay~.pddoc" parse="xml"/>
+    </entry>
     <entry name="array.mean" descr="calculates array arithmetic mean value" ref_view="object">
       <xi:include href="array.mean.pddoc" parse="xml"/>
     </entry>

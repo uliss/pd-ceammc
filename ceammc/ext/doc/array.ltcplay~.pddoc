@@ -1,0 +1,63 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="array.ltcplay~">
+        <title>array.ltcplay~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>array player controlled by LTC</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array ltc play</keywords>
+            <since>0.9.7</since>
+        </meta>
+        <arguments>
+            <argument name="ARRAY" type="symbol">array name</argument>
+        </arguments>
+        <properties>
+            <property name="@array" type="symbol" default="">array name</property>
+            <property name="@fps" type="atom" enum="auto 24 25 29.97 30" default="auto">expected LTC stream framerate</property>
+        </properties>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>LTC input signal</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="symbol">set source array</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]         [msg.onload symbol %CEAMMC%/guitar1.wav]
+|           |
+[openpanel] [expand_env]
+|           |
+[load $1 to  altc @resize @resample(
+|
+[snd.file]
+
+
+[T] [time 0 0 0(          [array altc 100]
+|   |
+|   |   [seek -2s(
+|   |   |
+[ltc.out~]
+|
+|
+|
+[array.ltcplay~ altc]
+|
+[ui.hgain~]
+|\
+[dac~]                    [ui.dsp~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

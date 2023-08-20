@@ -16,6 +16,7 @@ array.each	process each array elements via side-chain
 array.fill	fill array with single value, pattern or function
 array.grainer~	array granulator
 array.hist	calculates array histogram
+array.ltcplay~	array player controlled by LTC
 array.mean	calculates array arithmetic mean value
 array.minmax	find array min and max element value
 array.play~	array player with variable speed and amplitude

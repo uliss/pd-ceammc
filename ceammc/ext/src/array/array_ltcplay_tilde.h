@@ -28,14 +28,15 @@ class ArrayLtcPlayTilde : public ArraySoundBase {
     size_t off_;
     size_t read_pos_, prev_frame_samp_pos_;
     double frame_rate_;
-    int prev_frame_;
-    bool zero_speed_;
+    int prev_frame_ { 0 };
+    bool zero_speed_ { false };
 
 public:
     ArrayLtcPlayTilde(const PdArgs& args);
     ~ArrayLtcPlayTilde();
     void initDone() final;
 
+    void onInlet(size_t n, const AtomListView& lv) final;
     void setupDSP(t_signal** sig) final;
     void processBlock(const t_sample** in, t_sample** out) final;
 
@@ -49,7 +50,7 @@ void setup_array_ltcplay_tilde();
 #else
 #include "ceammc_stub.h"
 
-AUDIO_OBJECT_STUB(ArrayLtcPlayTilde, 1, 1, 0, 0, "compiled without libltc support")
+AUDIO_OBJECT_STUB(ArrayLtcPlayTilde, 1, 1, 1, 0, "compiled without libltc support")
 OBJECT_STUB_SETUP(ArrayLtcPlayTilde, array_ltcplay_tilde, "array.ltcplay~")
 
 #endif

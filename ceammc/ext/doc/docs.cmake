@@ -15,6 +15,7 @@ set(DOC_FILES
     array.fill
     array.grainer~
     array.hist
+    array.ltcplay~
     array.mean
     array.minmax
     array.p2s
