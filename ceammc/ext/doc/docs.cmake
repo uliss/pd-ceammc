@@ -626,6 +626,7 @@ set(DOC_FILES
     prop.random
     prop.set
     prop.split
+    proto.arturia.minilab
     proto.feelworld
     proto.firmata
     proto.inscore

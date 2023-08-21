@@ -24,7 +24,8 @@
         </arguments>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
-            <property name="@mix" type="float" default="0" minvalue="0" maxvalue="1">mix amount between read signal and written</property>
+            <property name="@mix" type="float" default="0" minvalue="0" maxvalue="1">mix amount
+            between read signal and written</property>
         </properties>
         <methods>
             <!-- redraw -->

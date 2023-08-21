@@ -177,7 +177,7 @@ ProtoArturiaMinilab::ProtoArturiaMinilab(const PdArgs& args)
 
     parser_.setControlChangeFn([this](Byte b, Byte c, Byte v) {
         auto kn = findKnobByCC(c);
-        if (kn > 0) {
+        if (kn >= 0) {
             knobs_[kn] = v;
             AtomArray<2> data { kn, cc2float(v) };
             msgTo(gensym("knob"), data.view());

@@ -1994,6 +1994,9 @@
     </entry>
   </category>
   <category name="proto">
+    <entry name="proto.arturia.minilab" descr="simple SysEx control for Arturia MiniLab" ref_view="object">
+      <xi:include href="proto.arturia.minilab.pddoc" parse="xml"/>
+    </entry>
     <entry name="proto.feelworld" descr="protocol for FeelWorld LivePro L1 HDMI mixer" ref_view="object">
       <xi:include href="proto.feelworld.pddoc" parse="xml"/>
     </entry>

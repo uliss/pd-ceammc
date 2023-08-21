@@ -628,6 +628,7 @@ prop.join,prop<-		?		.
 prop.random		?		..
 prop.set,p.set		?		.
 prop.split,prop->,@->,ceammc/prop->,ceammc/@->		.		?
+proto.arturia.minilab		.		..
 proto.feelworld		.		.
 proto.firmata		.		.
 proto.inscore		.		.

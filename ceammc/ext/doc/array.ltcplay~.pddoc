@@ -18,7 +18,8 @@
         </arguments>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
-            <property name="@fps" type="atom" enum="auto 24 25 29.97 30" default="auto">expected LTC stream framerate</property>
+            <property name="@fps" type="atom" enum="auto 24 25 29.97 30" default="auto">expected
+            LTC stream framerate</property>
         </properties>
         <inlets>
             <inlet type="audio">

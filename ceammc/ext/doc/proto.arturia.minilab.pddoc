@@ -1,0 +1,70 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="proto.arturia.minilab">
+        <title>proto.arturia.minilab</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>simple SysEx control for Arturia MiniLab</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>proto</category>
+            <keywords>arturia midi sysex</keywords>
+            <since>0.9.7</since>
+        </meta>
+        <properties />
+        <methods>
+            <!-- backlight -->
+            <method name="backlight">turn on/off pad backlight 
+            <param name="VALUE" type="bool" required="true">on/off state</param></method>
+            <!-- channel -->
+            <method name="channel">set device MIDI channel 
+            <param name="CH" type="int" required="true" minvalue="0" maxvalue="15">MIDI
+            channel</param></method>
+            <!-- knob -->
+            <method name="knob">set knob value 
+            <param name="N" type="int" required="true" minvalue="0" maxvalue="17">knob
+            index</param>
+            <param name="VAL" type="float" required="true" minvalue="0" maxvalue="1">knob
+            value</param></method>
+            <!-- knob? -->
+            <method name="knob?">request knob value
+            <param name="N" type="int" required="true" minvalue="0" maxvalue="17">knob
+            index</param></method>
+            <!-- knobs? -->
+            <method name="knobs?">request all knob values</method>
+            <!-- pad_color -->
+            <method name="pad_color">set pad color 
+            <param name="N" type="int" required="false" minvalue="0" maxvalue="15">pad
+            index. If not specified set color to all pads</param>
+            <param name="COLOR" type="atom" required="true"
+            enum="0 1 2 3 4 5 6 7 black red green yellow blue magenta cyan white">
+            color</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>commands</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>MIDI bytes</outlet>
+            <outlet>parsed MIDI commands: noteon, noteoff, cc, program etc...</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[midiin]    [B]
+|           |
+|           [random.a red cyan green magenta yellow @nonrep 1]
+|           |
+| [knob? 1( [pad_color $1(
+| |         |
+[proto.arturia.minilab]
+|              ^|
+[midiout]      [ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
