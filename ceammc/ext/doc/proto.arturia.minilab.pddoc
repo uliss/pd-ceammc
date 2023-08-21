@@ -29,15 +29,15 @@
             <param name="VAL" type="float" required="true" minvalue="0" maxvalue="1">knob
             value</param></method>
             <!-- knob? -->
-            <method name="knob?">request knob value
+            <method name="knob?">request knob value 
             <param name="N" type="int" required="true" minvalue="0" maxvalue="17">knob
             index</param></method>
             <!-- knobs? -->
             <method name="knobs?">request all knob values</method>
             <!-- pad_color -->
             <method name="pad_color">set pad color 
-            <param name="N" type="int" required="false" minvalue="0" maxvalue="15">pad
-            index. If not specified set color to all pads</param>
+            <param name="N" type="int" required="false" minvalue="0" maxvalue="15">pad index. If
+            not specified set color to all pads</param>
             <param name="COLOR" type="atom" required="true"
             enum="0 1 2 3 4 5 6 7 black red green yellow blue magenta cyan white">
             color</param></method>
