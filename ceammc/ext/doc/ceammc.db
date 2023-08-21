@@ -21,6 +21,7 @@ array.p2s,array.p->s,array.phase->sample		.		.
 array.play~,array.p~		.		~..
 array.plot		..		.
 array.plot~		~.		-
+array.readwrite~,array.rw~		~~~		~
 array.resample,array.r		.		.
 array.risset_rhythm~		.		.
 array.rms		.		.

@@ -1,0 +1,83 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="array.readwrite~">
+        <title>array.readwrite~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>array reader/writer</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>array</category>
+            <keywords>array ltc play</keywords>
+            <since>0.9.7</since>
+            <aliases>
+                <alias>array.rw~</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Performes these array operations in order: read, write, output</par>
+        </info>
+        <arguments>
+            <argument name="ARRAY" type="symbol">array name</argument>
+        </arguments>
+        <properties>
+            <property name="@array" type="symbol" default="">array name</property>
+            <property name="@mix" type="float" default="0" minvalue="0" maxvalue="1">mix amount between read signal and written</property>
+        </properties>
+        <methods>
+            <!-- redraw -->
+            <method name="redraw">redraw array</method>
+        </methods>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>reading index</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>signal to write</xinfo>
+            </inlet>
+            <inlet type="audio">
+                <xinfo>write index</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]         [msg.onload symbol %CEAMMC%/guitar1.wav] [array arw 100]
+|           |
+[openpanel] [expand_env]
+|           |
+[load $1 to  arw @resize @resample(
+|
+[snd.file]            [T]
+                      |
+[phasor~ 0.22]        [metro.random 1000 1500]
+|                     |
+[expr~ $v1*120000]    [t b b b  #b]
+|                     |          ^|
+| [r~ arw]            [random.f] [random.i 400 1000]
+| |                   |          |.
+| |                   [pack f f #a]
+| |
+| |                   [vline~ #x] [random.i 120000 #c]
+| |                   |
+| |  [redraw(         [*~ #y]
+| |. |                |..
+[array.rw~ arw          ]
+| |
+| [s~ arw]
+|
+[ui.hgain~]
+|\
+[dac~]                    [ui.dsp~]
+
+[X a->x] [X b:2->c] [X c->y:1]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

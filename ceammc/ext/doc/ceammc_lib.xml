@@ -69,6 +69,9 @@
     <entry name="array.plot~" descr="plot signal on specified array" ref_view="object">
       <xi:include href="array.plot~.pddoc" parse="xml"/>
     </entry>
+    <entry name="array.readwrite~" descr="array reader/writer" ref_view="object">
+      <xi:include href="array.readwrite~.pddoc" parse="xml"/>
+    </entry>
     <entry name="array.resample" descr="array resampler" ref_view="object">
       <xi:include href="array.resample.pddoc" parse="xml"/>
     </entry>

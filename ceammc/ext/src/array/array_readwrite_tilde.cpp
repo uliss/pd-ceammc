@@ -89,4 +89,5 @@ void setup_array_readwrite_tilde()
     SoundExternalFactory<ArrayReadwriteTilde> obj("array.readwrite~");
     obj.addAlias("array.rw~");
     obj.addMethod("redraw", &ArrayReadwriteTilde::m_redraw);
+    obj.setXletsInfo({ "signal: read index", "signal: write signal", "signal: write index" }, { "signal: read output" });
 }

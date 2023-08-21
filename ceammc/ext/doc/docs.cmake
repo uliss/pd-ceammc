@@ -22,6 +22,7 @@ set(DOC_FILES
     array.play~
     array.plot
     array.plot~
+    array.readwrite~
     array.resample
     array.rms
     array.s2p

@@ -23,6 +23,8 @@ array.play~	array player with variable speed and amplitude
 array.p~	array player with variable speed and amplitude
 array.plot	array data plotter
 array.plot~	plot signal on specified array
+array.readwrite~	array reader/writer
+array.rw~	array reader/writer
 array.resample	array resampler
 array.r	array resampler
 array.rms	calculates root mean square value for array
