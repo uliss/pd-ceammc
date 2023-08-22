@@ -109,7 +109,7 @@ on delay change. Type: float. Units: 'ms'. Default value: 50\. Range:
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
 #X obj 1 1417 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1420 library: ceammc v0.9.6;
+#X text 10 1420 library: ceammc v0.9.7;
 #X text 607 1432 see also:;
 #X obj 681 1432 fx.echo~;
 #N canvas 10 1439 400 290 info 0;
@@ -117,7 +117,7 @@ on delay change. Type: float. Units: 'ms'. Default value: 50\. Range:
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.6;
+#X text 120 32 0.9.7;
 #X text 10 54 object:;
 #X text 120 54 fx.delay~;
 #X text 10 76 category:;

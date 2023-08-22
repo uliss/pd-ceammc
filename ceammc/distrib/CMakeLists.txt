@@ -80,7 +80,7 @@ add_custom_target(ceammc_doc_check_methods
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
 
 # ceammc release patch files
-set(RELEASE_TEMPLATE "template_release_${CEAMMC_LIB_VERSION}.pd")
+set(RELEASE_TEMPLATE "template_release.pd")
 set(RELEASE_PATCH "release_${CEAMMC_LIB_VERSION}.pd")
 configure_file(${RELEASE_TEMPLATE} ${CMAKE_CURRENT_SOURCE_DIR}/${RELEASE_PATCH} @ONLY)
 

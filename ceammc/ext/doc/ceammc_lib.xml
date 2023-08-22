@@ -2519,7 +2519,7 @@
     </entry>
   </category>
   <meta>
-    <version>0.9.6</version>
+    <version>0.9.7</version>
     <authors>
       <author>Albert Graef</author>
       <author>Alex Nadzharov</author>
@@ -2539,7 +2539,6 @@
       <author>Romain Michon</author>
       <author>Serge Poltavski</author>
       <author>Serge Poltavsky</author>
-      <author>Serge Potlavsky</author>
       <author>Thomas Le Meur</author>
       <author>Till Bovermann</author>
       <author>Viacheslav Lotsmanov</author>

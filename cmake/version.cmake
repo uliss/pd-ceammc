@@ -17,7 +17,7 @@ else()
     set(CEAMMC_PRECISION_SUFFIX "-float")
 endif()
 
-set(CEAMMC_DISTRIB_VERSION "2023.02")
+set(CEAMMC_DISTRIB_VERSION "2023.09")
 
 if(APPLE)
    exec_program(sw_vers ARGS -productVersion OUTPUT_VARIABLE MACOSX_VERSION)

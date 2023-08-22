@@ -55,7 +55,7 @@
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title property @url ceammc.property-help.pd;
 #X obj 1 690 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 693 library: ceammc v0.9.6;
+#X text 10 693 library: ceammc v0.9.7;
 #X text 441 705 see also:;
 #X obj 515 705 prop;
 #X obj 559 705 prop.declare;
@@ -65,7 +65,7 @@
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.6;
+#X text 120 32 0.9.7;
 #X text 10 54 object:;
 #X text 120 54 prop.random;
 #X text 10 76 category:;
