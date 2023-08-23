@@ -18,6 +18,8 @@
 using namespace ceammc;
 
 class CanvasDir : public BaseObject {
+    BoolProperty* abs_ { nullptr };
+
 public:
     CanvasDir(const PdArgs& args);
     void onBang() override;

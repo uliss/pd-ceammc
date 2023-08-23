@@ -79,6 +79,15 @@ bool canvas_info_is_root(const _glist* c);
 const _glist* canvas_root(const _glist* c);
 
 /**
+ * Returns parent canvas for given
+ * @param c - pointer to canvas
+ * @param level - netsted level, 0 for root canvas, >0 for subpatches
+ * @param breakOnAbs - if true: break on abstraction top level
+ * @return NULL on error
+ */
+const _glist* canvas_root(const _glist* c, int& level, bool breakOnAbs);
+
+/**
  * Checks if given canvas is abstraction
  * @param c - pointer to canvas
  */
@@ -118,6 +127,7 @@ void canvas_set_current(const _glist* c);
 void canvas_unset_current(const _glist* c);
 _canvasenvironment* canvas_get_env(const _glist* c);
 t_symbol* canvas_expand_dollar(const _glist* c, t_symbol* s, bool check);
+void canvas_send_bang(_glist* c);
 
 /**
  * Returns canvas rect, for root canvas - windows, for others - GOP

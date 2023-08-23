@@ -37,7 +37,7 @@ array.vplay		.		..
 array.window		.		.
 canvas.active		.		.
 canvas.current		.		.
-canvas.dir		.		.
+canvas.dir		.		..
 canvas.name		.		.
 canvas.path		.		.
 canvas.top		.		.

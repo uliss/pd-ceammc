@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>current canvas directory</description>
+            <description>current canvas directory ans nesting level</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>patch</category>
@@ -23,25 +23,64 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>current canvas directory as symbol</outlet>
+            <outlet>symbol: current canvas directory</outlet>
+            <outlet>int: nesting level</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[B]                         [B]
-|                           |
-[canvas.dir]                [canvas.dir.sp]
-|                           |
-[ui.dt]                     [ui.dt]
+[B]
+|
+[canvas.dir #a {i=1,o=2}]
+|
+[ui.dt @auto_size 0 @size 400 45]
+
+
+
+        [F #b]
+
+[canvas.dir.abs0] [canvas.dir.abs1]
+
+[X a:1->b]
 ]]>
             </pdascii>
-            <pdascii id="sp">
+            <pdascii id="abs0">
+<![CDATA[
+[B]
+|
+[canvas.dir.sp0 #a {i=1,o=2}]
+|
+[ui.dt @auto_size 0 @size 400 45]
+
+
+
+        [F #b]
+
+[X a:1->b]
+]]>
+            </pdascii>
+            <pdascii id="abs1">
+<![CDATA[
+[B]
+|
+[canvas.dir @abs 0 #a {i=1,o=2}]
+|
+[ui.dt @auto_size 0 @size 400 45]
+
+
+
+        [F #b]
+
+[X a:1->b]
+]]>
+            </pdascii>
+            <pdascii id="sp0">
 <![CDATA[
 [inlet]
 |
-[canvas.dir]
-|
-[outlet]
+[canvas.dir @abs 0]
+|         ^|
+[outlet]  [outlet]
 ]]>
             </pdascii>
         </example>

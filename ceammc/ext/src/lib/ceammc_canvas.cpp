@@ -411,7 +411,7 @@ AtomListView ceammc::canvas_info_args(const _glist* c)
     return AtomListView(env->ce_argv, env->ce_argc);
 }
 
-const _glist* ceammc::canvas_root(const _glist* c)
+const t_canvas* ceammc::canvas_root(const t_canvas* c)
 {
     if (!c)
         return nullptr;
@@ -420,6 +420,29 @@ const _glist* ceammc::canvas_root(const _glist* c)
 }
 
 namespace ceammc {
+
+namespace {
+    const t_canvas* canvas_find_root(const t_canvas* x, int& level, bool breakOnAbs)
+    {
+        if (!x->gl_owner)
+            return x;
+
+        if (breakOnAbs && canvas_isabstraction(x))
+            return x;
+        else
+            return canvas_find_root(x->gl_owner, ++level, breakOnAbs);
+    };
+}
+
+const t_canvas* canvas_root(const t_canvas* c, int& level, bool breakOnAbs)
+{
+    if (!c) {
+        level = 0;
+        return nullptr;
+    }
+
+    return canvas_find_root(c, level, breakOnAbs);
+}
 
 std::unique_ptr<pd::CanvasTree> canvas_info_tree(const t_canvas* c, CanvasClassPredicate pred)
 {
@@ -609,6 +632,11 @@ _canvasenvironment* canvas_get_env(const _glist* c)
     }
 
     return c->gl_env;
+}
+
+void canvas_send_bang(_glist* c)
+{
+    pd::bang_to(&c->gl_list->g_pd);
 }
 
 }

@@ -1,6 +1,6 @@
-#N canvas 0 0 309 213 12;
+#N canvas 0 0 365 241 12;
 #X obj 20 48 inlet;
-#X obj 20 77 canvas.dir;
+#X obj 20 77 canvas.dir @abs 0;
 #X obj 20 106 outlet;
 #X obj 116 106 outlet;
 #X connect 0 0 1 0;

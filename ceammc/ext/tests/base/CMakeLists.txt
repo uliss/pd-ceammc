@@ -27,6 +27,7 @@ endfunction()
 
 add_base_test(canvas_active)
 add_base_test(canvas_current)
+add_base_test(canvas_dir)
 add_base_test(canvas_top)
 add_base_test(dac)
 add_base_test(expand_env)
@@ -63,3 +64,7 @@ add_base_test(split)
 add_base_test(xfade)
 add_base_test(xfade2)
 add_base_test(z_tilde)
+
+
+file(GLOB _TEST_PD_FILES "*.pd")
+add_custom_target(test_ext_base_pd SOURCES ${_TEST_PD_FILES})
