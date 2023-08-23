@@ -242,15 +242,11 @@ do
     copy ${tcl} "${BUNDLE_TCL}/ceammc"
 done
 
+section "Copying Tk Completion plugin"
 mkdir -p "${BUNDLE_TCL}/completion-plugin"
-for tcl in ${SRC_DIR}/ceammc/gui/plugins/completion-plugin/*.tcl
+for f in ${SRC_DIR}/ceammc/gui/plugins/completion-plugin/*.@(tcl|cfg|pd)
 do
-    copy ${tcl} "${BUNDLE_TCL}/ceammc"
-done
-
-for cfg in ${SRC_DIR}/ceammc/gui/plugins/completion-plugin/*.cfg
-do
-    copy ${cfg} "${BUNDLE_TCL}/ceammc"
+    copy ${f} "${BUNDLE_TCL}/ceammc"
 done
 
 section "Copying Tk Drag-and-Drop plugin"
