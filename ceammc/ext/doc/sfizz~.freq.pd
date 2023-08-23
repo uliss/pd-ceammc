@@ -1,4 +1,4 @@
-#N canvas 0 0 536 342 12;
+#N canvas 0 0 529 342 12;
 #X text 20 48 low-A tuning;
 #X obj 20 77 ui.keyboard 25 48;
 #X obj 20 149 msg note;

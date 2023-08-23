@@ -199,7 +199,7 @@
 
 [sfizz~.freq]     [sfizz~.pan]     [sfizz~.pedals]
 
-[sfizz~.bend]     [sfizz~.tune-12] [sfizz~.soundsoff]
+[sfizz~.bend]     [sfizz~.tune-12] [sfizz~.soundoff]
 
 [sfizz~.notesoff] [sfizz~.sfz]
 ]]>
@@ -315,12 +315,12 @@
 [dac~]
 ]]>
             </pdascii>
-            <pdascii id="soundsoff">
+            <pdascii id="soundoff">
 <![CDATA[
 [note 1 60 120, note 1 65 120, note 2 47 120(
 |
 |
-| [sounds_off(
+| [sound_off(
 | |
 [sfizz~ \#sine]
 *|*

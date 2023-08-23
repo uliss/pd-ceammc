@@ -16,7 +16,7 @@
 #X obj 386 305 sfizz~.pedals;
 #X obj 50 334 sfizz~.bend;
 #X obj 222 334 sfizz~.tune-12;
-#X obj 386 334 sfizz~.soundsoff;
+#X obj 386 334 sfizz~.soundoff;
 #X obj 50 363 sfizz~.notesoff;
 #X obj 222 363 sfizz~.sfz;
 #X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

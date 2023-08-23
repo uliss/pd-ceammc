@@ -1,6 +1,6 @@
 #N canvas 0 0 842 400 12;
 #X msg 20 48 note 1 60 120 \, note 1 65 120 \, note 2 47 120;
-#X msg 39 92 sounds_off;
+#X msg 39 92 sound_off;
 #X obj 20 120 sfizz~ \#sine;
 #X obj 20 149 ui.hgain2~;
 #X obj 173 149 ui.dsp~;
