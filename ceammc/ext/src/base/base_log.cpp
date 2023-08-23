@@ -12,19 +12,11 @@
  * this file belongs to.
  *****************************************************************************/
 #include "base_log.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 
 #include <algorithm>
-#include <array>
-
-static t_symbol* SYM_ERROR;
-static t_symbol* SYM_POST;
-static t_symbol* SYM_DEBUG;
-static t_symbol* SYM_VERBOSE;
-static t_symbol* SYM_STDOUT;
-static t_symbol* SYM_STDERR;
-static std::array<t_symbol*, 6> sym_modes;
 
 #define OUT(os, v)                                    \
     do {                                              \
@@ -72,6 +64,28 @@ static std::array<t_symbol*, 6> sym_modes;
         }                                   \
     } while (0)
 
+namespace {
+BaseLog::Mode sym2mode(t_symbol* s)
+{
+    switch (crc32_hash(s)) {
+    case "log.error"_hash:
+        return BaseLog::LOG_ERROR;
+    case "log.post"_hash:
+        return BaseLog::LOG_POST;
+    case "log.debug"_hash:
+        return BaseLog::LOG_DEBUG;
+    case "log.verbose"_hash:
+        return BaseLog::LOG_VERBOSE;
+    case "log.stdout"_hash:
+        return BaseLog::LOG_STDOUT;
+    case "log.stderr"_hash:
+        return BaseLog::LOG_STDERR;
+    default:
+        return BaseLog::LOG_ERROR;
+    }
+}
+}
+
 BaseLog::BaseLog(const PdArgs& args)
     : BaseObject(args)
     , active_(nullptr)
@@ -85,12 +99,7 @@ BaseLog::BaseLog(const PdArgs& args)
     prefix_->setArgIndex(0);
     addProperty(prefix_);
 
-    for (size_t i = 0; i < sym_modes.size(); i++) {
-        if (sym_modes[i] == args.creationName) {
-            mode_ = static_cast<Mode>(i);
-            break;
-        }
-    }
+    mode_ = sym2mode(args.creationName);
 }
 
 void BaseLog::onBang()
@@ -144,22 +153,6 @@ void BaseLog::onInlet(size_t n, const AtomListView& l)
 
 void setup_base_log()
 {
-    SYM_ERROR = gensym("log.error");
-    SYM_POST = gensym("log.post");
-    SYM_DEBUG = gensym("log.debug");
-    SYM_VERBOSE = gensym("log.verbose");
-    SYM_STDOUT = gensym("log.stdout");
-    SYM_STDERR = gensym("log.stderr");
-
-    sym_modes = {
-        SYM_ERROR,
-        SYM_POST,
-        SYM_DEBUG,
-        SYM_VERBOSE,
-        SYM_STDOUT,
-        SYM_STDERR
-    };
-
     ObjectFactory<BaseLog> obj("logger");
     obj.addAlias("log.error");
     obj.addAlias("log.post");
@@ -172,5 +165,5 @@ void setup_base_log()
 
     obj.setDescription("advanced data logger");
     obj.setCategory("base");
-    obj.setKeywords({"log"});
+    obj.setKeywords({ "log" });
 }
