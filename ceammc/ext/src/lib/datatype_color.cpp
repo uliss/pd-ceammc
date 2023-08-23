@@ -144,6 +144,19 @@ DataTypeColor::DataTypeColor(const DataTypeColor& c)
     std::memcpy(data_, c.data_, sizeof(c.data_));
 }
 
+DataTypeColor& DataTypeColor::setRgb(const parser::RgbColor& color)
+{
+    setRgb8(color.r, color.g, color.b);
+    return *this;
+}
+
+DataTypeColor& DataTypeColor::setRgba(const parser::RgbaColor& color)
+{
+    setRgb8(color.r, color.g, color.b);
+    setAlpha8(color.a);
+    return *this;
+}
+
 DataTypeColor& DataTypeColor::setRgb8(std::uint8_t r, std::uint8_t g, std::uint8_t b, std::uint8_t a)
 {
     data_[0] = r / 255.0;
@@ -256,6 +269,27 @@ float DataTypeColor::contrast(const DataTypeColor& c) const
 float DataTypeColor::calculateLuminance() const
 {
     return toRGB(*this).calculateLuminance();
+}
+
+t_symbol* DataTypeColor::hex() const
+{
+    char buf[24];
+    if (data_[3] == 1)
+        fmt::format_to(buf, "#{:02X}{:02X}{:02X}\0", (int)red8(), (int)green8(), (int)blue8());
+    else
+        fmt::format_to(buf, "#{:02X}{:02X}{:02X}{:02X}\0", (int)red8(), (int)green8(), (int)blue8(), (int)alpha8());
+
+    return gensym(buf);
+}
+
+StaticAtomList<3> DataTypeColor::asRgb8List() const
+{
+    return { red8(), green8(), blue8() };
+}
+
+StaticAtomList<3> DataTypeColor::asRgbFList() const
+{
+    return { red(), green(), blue() };
 }
 
 std::string DataTypeColor::toListStringContent() const noexcept

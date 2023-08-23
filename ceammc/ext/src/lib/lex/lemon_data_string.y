@@ -14,11 +14,12 @@
 # include "ceammc_containers.h"
 # include "ceammc_data.h"
 # include "ceammc_datastorage.h"
+# include "ceammc_log.h"
+# include "datatype_color.h"
 # include "datatype_dict.h"
 # include "datatype_mlist.h"
 # include "datatype_string.h"
-# include "datatype_color.h"
-# include "fmt/format.h"
+# include "fmt/core.h"
 
 # define YYCOVERAGE
 

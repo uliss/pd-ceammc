@@ -16,6 +16,7 @@
 
 #include "ceammc_abstractdata.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_data.h"
 
@@ -23,6 +24,11 @@
 #include <iosfwd>
 
 namespace ceammc {
+
+namespace parser {
+    class RgbColor;
+    class RgbaColor;
+}
 
 class DataTypeColor;
 using ColorAtom = DataAtom<DataTypeColor>;
@@ -56,6 +62,16 @@ public:
     void setGreen8(std::uint8_t v) { data_[1] = clip01<float>(v / 255.0); }
     void setBlue8(std::uint8_t v) { data_[2] = clip01<float>(v / 255.0); }
     void setAlpha8(std::uint8_t v) { data_[3] = clip01<float>(v / 255.0); }
+
+    /**
+     * set RGB color with parsed color values
+     */
+    DataTypeColor& setRgb(const parser::RgbColor& color);
+
+    /**
+     * set RGB color with parsed color values
+     */
+    DataTypeColor& setRgba(const parser::RgbaColor& color);
 
     /**
      * set RGB color with integers values in [0,255] range
@@ -173,6 +189,14 @@ public:
      * returns the luminance of this color
      */
     float calculateLuminance() const;
+
+    /**
+     * @return color hex value
+     */
+    t_symbol* hex() const;
+
+    StaticAtomList<3> asRgb8List() const;
+    StaticAtomList<3> asRgbFList() const;
 
     /** pure virtual implementations*/
     DataTypeId type() const noexcept;

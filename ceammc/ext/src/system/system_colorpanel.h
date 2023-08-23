@@ -14,34 +14,28 @@
 #ifndef SYSTEM_COLORPANEL_H
 #define SYSTEM_COLORPANEL_H
 
-#include <cstdint>
-
 #include "ceammc_object.h"
+#include "ceammc_property_data.h"
 #include "ceammc_property_enum.h"
+#include "ceammc_tcl.h"
+#include "datatype_color.h"
 using namespace ceammc;
 
-class SystemColorpanel : public BaseObject {
-    uint8_t r_, g_, b_;
-    char hex_[8];
+using ColorProperty = DataPropertyT<DataTypeColor>;
 
-    SymbolEnumProperty* mode_;
+class SystemColorpanel : public BaseTclObject<> {
+    ColorProperty* color_ { nullptr };
+    SymbolEnumProperty* mode_ { nullptr };
 
 public:
     SystemColorpanel(const PdArgs& args);
 
-    void onBang() override;
-    void onSymbol(t_symbol* s) override;
+    void onBang() final;
+    void onSymbol(t_symbol* s) final;
+    void onDataT(const DataAtom<DataTypeColor>& c);
     void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
 
-    void m_callback(t_symbol* s, const AtomListView& args);
-
-private:
-    bool setHex(t_symbol* s);
-    AtomList propInt() const { return AtomList({ t_float(r_), t_float(g_), t_float(b_) }); }
-    AtomList propFloat() const { return AtomList({ r_ / t_float(255), g_ / t_float(255), b_ / t_float(255) }); }
-
-    void propSetFloat(const AtomListView& v);
-    void propSetInt(const AtomListView& v);
+    void onTclResponse(t_symbol* s, const AtomListView& args) final;
 };
 
 void setup_system_colorpanel();

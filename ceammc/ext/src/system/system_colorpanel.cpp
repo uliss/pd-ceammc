@@ -12,56 +12,88 @@
  * this file belongs to.
  *****************************************************************************/
 #include "system_colorpanel.h"
-#include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+#include "fmt/core.h"
 #include "system_colorpanel.tcl.h"
 
 #include <cinttypes>
 
-static t_symbol* SYM_FLOAT;
-static t_symbol* SYM_INT;
-static t_symbol* SYM_HEX;
+CEAMMC_DEFINE_SYM_HASH(float)
+CEAMMC_DEFINE_SYM_HASH(int)
+CEAMMC_DEFINE_SYM_HASH(hex)
+CEAMMC_DEFINE_SYM_HASH(data)
 
 SystemColorpanel::SystemColorpanel(const PdArgs& args)
-    : BaseObject(args)
-    , r_(255)
-    , g_(255)
-    , b_(255)
-    , hex_ { "#ffffff" }
-    , mode_(nullptr)
+    : BaseTclObject(args, gensym("::ceammc::colorpanel::open"))
 {
-    char buf[MAXPDSTRING];
-    sprintf(buf, "#%" PRIxPTR, reinterpret_cast<uintptr_t>(this));
-    bindReceive(gensym(buf));
-
     createOutlet();
 
-    mode_ = new SymbolEnumProperty("@mode", { SYM_FLOAT, SYM_INT, SYM_HEX });
+    color_ = new ColorProperty("@color", DataTypeColor {});
+    addProperty(color_);
+
+    mode_ = new SymbolEnumProperty("@mode", { sym_float(), sym_int(), sym_hex(), sym_data() });
     addProperty(mode_);
 
-    addProperty(new SymbolEnumAlias("@f", mode_, SYM_FLOAT));
-    addProperty(new SymbolEnumAlias("@i", mode_, SYM_INT));
-    addProperty(new SymbolEnumAlias("@h", mode_, SYM_HEX));
+    addProperty(new SymbolEnumAlias("@f", mode_, sym_float()));
+    addProperty(new SymbolEnumAlias("@i", mode_, sym_int()));
+    addProperty(new SymbolEnumAlias("@h", mode_, sym_hex()));
+    addProperty(new SymbolEnumAlias("@d", mode_, sym_data()));
 
-    createCbProperty("@float", &SystemColorpanel::propFloat, &SystemColorpanel::propSetFloat);
-    createCbProperty("@int", &SystemColorpanel::propInt, &SystemColorpanel::propSetInt);
+    createCbListProperty(
+        "@float",
+        [this]() -> AtomList {
+            return color_->value().asRgbFList().view();
+        },
+        [this](const AtomListView& lv) -> bool {
+            if (!checkArgs(lv, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT))
+                return false;
+
+            color_->value().setRgbf(lv.floatAt(0, 0), lv.floatAt(1, 0), lv.floatAt(2, 0));
+            return true;
+        });
+
+    createCbListProperty(
+        "@int",
+        [this]() -> AtomList {
+            return color_->value().asRgb8List().view();
+        },
+        [this](const AtomListView& lv) -> bool {
+            if (!(checkArgs(lv, ARG_INT, ARG_INT, ARG_INT)
+                    && lv.allOf([](const Atom& a) { return a.isFloat() && a.asFloat() >= 0 && a.asFloat() <= 255; }))) {
+                OBJ_ERR << "list of RGB int values expected in 0-255 range: " << lv;
+                return false;
+            }
+
+            color_->value().setRgb8(lv.intAt(0, 0), lv.intAt(1, 0), lv.intAt(2, 0));
+            return true;
+        });
 
     createCbSymbolProperty(
         "@hex",
-        [this]() -> t_symbol* { return gensym(hex_); },
-        [this](t_symbol* s) -> bool { return setHex(s); });
+        [this]() -> t_symbol* { return color_->value().hex(); },
+        [this](t_symbol* s) -> bool { return color_->value().setHex(s->s_name); });
 }
 
 void SystemColorpanel::onBang()
 {
-    sys_vgui("after idle [list after 100 ::ceammc::colorpanel::open %s %s]\n",
-        receive()->s_name, hex_);
+    tclCall(color_->value().hex());
 }
 
 void SystemColorpanel::onSymbol(t_symbol* s)
 {
-    if (setHex(s))
-        onBang();
+    DataTypeColor c;
+    if (!DataTypeColor::parseFromList({ s }, c)) {
+        OBJ_ERR << fmt::format("invalid color: {}", s->s_name);
+        return;
+    }
+
+    color_->setValue(c);
+}
+
+void SystemColorpanel::onDataT(const DataAtom<DataTypeColor>& c)
+{
+    color_->setAtom(c);
 }
 
 void SystemColorpanel::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
@@ -70,81 +102,38 @@ void SystemColorpanel::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shif
         onBang();
 }
 
-void SystemColorpanel::m_callback(t_symbol* s, const AtomListView& args)
+void SystemColorpanel::onTclResponse(t_symbol* s, const AtomListView& args)
 {
     if (!args.isSymbol())
         return;
 
-    t_symbol* color = atomlistToValue<t_symbol*>(args, &s_);
+    auto color = atomlistToValue<t_symbol*>(args, &s_);
 
     if (color != &s_) {
-        if (!setHex(color))
+        if (!color_->value().setHex(color->s_name))
             return;
 
-        if (mode_->value() == SYM_FLOAT)
-            listTo(0, propFloat());
-        else if (mode_->value() == SYM_INT)
-            listTo(0, propInt());
-        else if (mode_->value() == SYM_HEX)
-            symbolTo(0, gensym(hex_));
-        else
+        switch (crc32_hash(mode_->value())) {
+        case hash_float:
+            return listTo(0, color_->value().asRgbFList().view());
+        case hash_int:
+            return listTo(0, color_->value().asRgb8List().view());
+        case hash_hex:
+            return symbolTo(0, color_->value().hex());
+        case hash_data:
+            return atomTo(0, color_->asDataAtom());
+        default:
             OBJ_ERR << "unknown output mode: " << mode_->value();
+            break;
+        }
     }
-}
-
-bool SystemColorpanel::setHex(t_symbol* s)
-{
-    unsigned int red, green, blue;
-    auto n = sscanf(s->s_name, "#%02x%02x%02x", &red, &green, &blue);
-    if (n != 3) {
-        OBJ_ERR << "invalid color value: " << s;
-        return false;
-    }
-
-    r_ = red;
-    g_ = green;
-    b_ = blue;
-
-    snprintf(hex_, sizeof(hex_), "#%02x%02x%02x", r_, g_, b_);
-
-    return true;
-}
-
-void SystemColorpanel::propSetFloat(const AtomListView& v)
-{
-    if (!checkArgs(v, ARG_FLOAT, ARG_FLOAT, ARG_FLOAT)) {
-        OBJ_ERR << "list of RGB float values expected in 0-1 range: " << v;
-        return;
-    }
-
-    r_ = convert::lin2lin_clip<t_float, 0, 1>(v[0].asFloat(), 0, 255);
-    g_ = convert::lin2lin_clip<t_float, 0, 1>(v[1].asFloat(), 0, 255);
-    b_ = convert::lin2lin_clip<t_float, 0, 1>(v[2].asFloat(), 0, 255);
-}
-
-void SystemColorpanel::propSetInt(const AtomListView& v)
-{
-    if (!(checkArgs(v, ARG_INT, ARG_INT, ARG_INT)
-            && v.allOf([](const Atom& a) { return a.isFloat() && a.asFloat() >= 0 && a.asFloat() <= 255; }))) {
-        OBJ_ERR << "list of RGB int values expected in 0-255 range: " << v;
-        return;
-    }
-
-    r_ = v[0].asFloat();
-    g_ = v[1].asFloat();
-    b_ = v[2].asFloat();
 }
 
 void setup_system_colorpanel()
 {
-    SYM_FLOAT = &s_float;
-    SYM_INT = gensym("int");
-    SYM_HEX = gensym("hex");
-
-    sys_gui(system_colorpanel_tcl);
-
     ObjectFactory<SystemColorpanel> obj("system.colorpanel");
+    obj.processData<DataTypeColor>();
 
     obj.useClick();
-    obj.addMethod(".callback", &SystemColorpanel::m_callback);
+    SystemColorpanel::initMethods(obj, system_colorpanel_tcl);
 }
