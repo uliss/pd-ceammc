@@ -936,7 +936,7 @@ public:
 
     static void mouseMove(UI* z, t_object* view, t_pt pt, long modifiers)
     {
-        static t_symbol* SYM = gensym("@mouse_move");
+        auto SYM = gensym("@mouse_move");
 
         updateMousePos(pt);
 
@@ -947,7 +947,7 @@ public:
 
     static void mouseDown(UI* z, t_object* view, t_pt pt, t_pt abs_pt, long modifiers)
     {
-        static t_symbol* SYM = gensym("@mouse_down");
+        auto SYM = gensym("@mouse_down");
 
         updateMousePos(pt);
 
@@ -958,7 +958,7 @@ public:
 
     static void mouseUp(UI* z, t_object* view, t_pt pt, long modifiers)
     {
-        static t_symbol* SYM = gensym("@mouse_up");
+        auto SYM = gensym("@mouse_up");
 
         updateMousePos(pt);
 
@@ -969,7 +969,7 @@ public:
 
     static void mouseDrag(UI* z, t_object* view, t_pt pt, long modifiers)
     {
-        static t_symbol* SYM = gensym("@mouse_drag");
+        auto SYM = gensym("@mouse_drag");
 
         updateMousePos(pt);
 
@@ -980,7 +980,7 @@ public:
 
     static void mouseLeave(UI* z, t_object* view, t_pt pt, long modifiers)
     {
-        static t_symbol* SYM = gensym("@mouse_leave");
+        auto SYM = gensym("@mouse_leave");
 
         // invalidate mouse pointer coord on mouseLeave to prevent mouseWheel handle
         // when mouse is outside of widget
@@ -993,7 +993,7 @@ public:
 
     static void mouseEnter(UI* z, t_object* view, t_pt pt, long modifiers)
     {
-        static t_symbol* SYM = gensym("@mouse_enter");
+        auto SYM = gensym("@mouse_enter");
 
         updateMousePos(pt);
 
