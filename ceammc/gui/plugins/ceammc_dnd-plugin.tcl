@@ -224,11 +224,11 @@ proc ::text_on_patch::make_comments {mytoplevel text} {
     variable y
     set posx [expr $x - [winfo rootx $mytoplevel]]
     set posy [expr $y - [winfo rooty $mytoplevel]]
-    #pdwindow::error "::text_on_patch::make_comments $mytoplevel text $posx $posy\n"
     foreach line [split [regsub {\\\;} $text {}] "\n"] {
         if {$line ne ""} {
             set line [string map {"," " \\, " ";" " \\; "} $line]
-            pdsend "$mytoplevel text $posx $posy $line"
+            set len [expr min(100, [string length $line])]
+            pdsend "$mytoplevel text $posx $posy $line, f $len"
         }
         set posy [expr $posy + 20]
     }
