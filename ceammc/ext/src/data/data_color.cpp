@@ -51,8 +51,7 @@ void DataColor::onInlet(size_t n, const AtomListView& lv)
 
 void DataColor::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
 {
-    if (shift)
-        tclCall(color_->value().hex());
+    tclCall(color_->value().hex());
 }
 
 void DataColor::onTclResponse(t_symbol* s, const AtomListView& lv)

@@ -17,6 +17,9 @@
                 <alias>ceammc/color</alias>
             </aliases>
         </meta>
+        <mouse>
+            <event type="left-click" editmode="false">open color chooser popup</event>
+        </mouse>
         <arguments>
             <argument name="VALUE" type="atom">initial value</argument>
         </arguments>
