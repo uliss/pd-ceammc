@@ -46,20 +46,17 @@ namespace ceammc {
 // intializations in different modules
 t_symbol* SYM_DUMP()
 {
-    static t_symbol* s = gensym("dump");
-    return s;
+    return gensym("dump");
 }
 
 t_symbol* SYM_PROPS_ALL()
 {
-    static t_symbol* s = gensym("@*");
-    return s;
+    return gensym("@*");
 }
 
 t_symbol* SYM_PROPS_ALL_Q()
 {
-    static t_symbol* s = gensym("@*?");
-    return s;
+    return gensym("@*?");
 }
 
 Property::Property(const PropertyInfo& info, PropValueAccess access)
