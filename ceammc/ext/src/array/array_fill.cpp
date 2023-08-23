@@ -249,8 +249,8 @@ void ArrayFill::finish()
 
 AtomListView ArrayFill::parseRange(const AtomListView& args, size_t* from, size_t* to) const
 {
-    static t_symbol* PROP_FROM = gensym("@from");
-    static t_symbol* PROP_TO = gensym("@to");
+    auto PROP_FROM = gensym("@from");
+    auto PROP_TO = gensym("@to");
 
     AtomListView res;
 

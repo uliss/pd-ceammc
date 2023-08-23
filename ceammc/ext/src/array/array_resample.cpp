@@ -1,4 +1,5 @@
 #include "array_resample.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "fmt/core.h"
 
@@ -8,19 +9,28 @@
 
 constexpr size_t MAX_ARRAY_SIZE = 44100 * 600;
 
+CEAMMC_DEFINE_SYM_HASH(fast)
+CEAMMC_DEFINE_SYM_HASH(low)
+CEAMMC_DEFINE_SYM_HASH(medium)
+CEAMMC_DEFINE_SYM_HASH(high)
+CEAMMC_DEFINE_SYM_HASH(best)
+
 static int symbol2quality(t_symbol* s)
 {
-    static t_symbol* names[] = { gensym("fast"), gensym("low"), gensym("medium"), gensym("high"), gensym("best") };
-    static int q[] = { SOXR_QQ, SOXR_LQ, SOXR_MQ, SOXR_HQ, SOXR_VHQ };
-
-    static_assert(sizeof(names) / sizeof(names[0]) == sizeof(q) / sizeof(q[0]), "");
-
-    for (size_t i = 0; i < sizeof(names) / sizeof(names[0]); i++) {
-        if (names[i] == s)
-            return q[i];
+    switch (crc32_hash(s)) {
+    case hash_fast:
+        return SOXR_QQ;
+    case hash_low:
+        return SOXR_LQ;
+    case hash_medium:
+        return SOXR_MQ;
+    case hash_high:
+        return SOXR_HQ;
+    case hash_best:
+        return SOXR_VHQ;
+    default:
+        return SOXR_LQ;
     }
-
-    return SOXR_LQ;
 }
 
 ArrayResample::ArrayResample(const PdArgs& a)
@@ -47,14 +57,14 @@ ArrayResample::ArrayResample(const PdArgs& a)
     ratio_->checkMinEq(0);
     addProperty(ratio_);
 
-    quality_ = new SymbolEnumProperty("@quality", { "high", "fast", "low", "medium", "best" });
+    quality_ = new SymbolEnumProperty("@quality", { str_high, str_fast, str_low, str_medium, str_best });
     addProperty(quality_);
 
-    addProperty(new SymbolEnumAlias("@fast", quality_, gensym("fast")));
-    addProperty(new SymbolEnumAlias("@low", quality_, gensym("low")));
-    addProperty(new SymbolEnumAlias("@medium", quality_, gensym("medium")));
-    addProperty(new SymbolEnumAlias("@high", quality_, gensym("high")));
-    addProperty(new SymbolEnumAlias("@best", quality_, gensym("best")));
+    addProperty(new SymbolEnumAlias("@fast", quality_, sym_fast()));
+    addProperty(new SymbolEnumAlias("@low", quality_, sym_low()));
+    addProperty(new SymbolEnumAlias("@medium", quality_, sym_medium()));
+    addProperty(new SymbolEnumAlias("@high", quality_, sym_high()));
+    addProperty(new SymbolEnumAlias("@best", quality_, sym_best()));
 
     createOutlet();
 }
