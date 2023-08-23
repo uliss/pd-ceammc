@@ -96,6 +96,7 @@ foreach(f ${_RELEASE_FILES})
         DESTINATION ${DOC_INSTALL_PATH}
         PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 endforeach()
+add_custom_target( release_pd SOURCES ${_RELEASE_FILES})
 
 # bashrc function for testing
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bashrc_tests bashrc_tests @ONLY)
