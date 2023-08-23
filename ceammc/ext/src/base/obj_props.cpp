@@ -87,7 +87,7 @@ void ObjProps::onBang()
         obj_info->insert("properties", AtomList());
         auto& obj_props = obj_info->at("properties");
 
-        for (PropertyInfo& p : props) {
+        for (const auto& p : props) {
             DictAtom prop_info;
 
             obj_props.append(prop_info);
