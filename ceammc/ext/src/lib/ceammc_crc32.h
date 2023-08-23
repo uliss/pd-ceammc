@@ -141,7 +141,7 @@ inline uint32_t crc32_hash(const char* str)
 
 inline uint32_t crc32_hash(const std::string& str) { return crc32_hash(str.data()); }
 
-inline uint32_t crc32_hash(t_symbol* s) { return crc32_hash(s->s_name); }
+inline uint32_t crc32_hash(const t_symbol* s) { return crc32_hash(s->s_name); }
 
 constexpr bool crc32_check_unique(uint32_t a, uint32_t b) { return a != b; }
 
