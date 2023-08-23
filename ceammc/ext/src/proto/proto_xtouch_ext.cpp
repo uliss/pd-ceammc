@@ -14,8 +14,10 @@
 #include "proto_xtouch_ext.h"
 #include "ceammc_containers.h"
 #include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "fmt/core.h"
 
 #include <array>
 #include <cstdlib>
@@ -45,40 +47,55 @@ constexpr int XT_SELECT_LAST = XT_SELECT_FIRST + Scene::NCHAN;
 constexpr int XT_FADER_MOVE_FIRST = 110;
 constexpr int XT_FADER_MOVE_LAST = XT_FADER_MOVE_FIRST + Scene::NCHAN;
 
-static std::array<t_symbol*, MAX_CONTROLS> SYM_FADERS;
-static std::array<t_symbol*, MAX_CONTROLS> SYM_KNOBS;
-static std::array<t_symbol*, MAX_CONTROLS> SYM_BTN_REC;
-static std::array<t_symbol*, MAX_CONTROLS> SYM_BTN_SOLO;
-static std::array<t_symbol*, MAX_CONTROLS> SYM_BTN_MUTE;
-static std::array<t_symbol*, MAX_CONTROLS> SYM_BTN_SELECT;
-static std::array<t_symbol*, MAX_CONTROLS> SYM_BTN_KNOB;
+constexpr const char* PROTO_HUI = "hui";
+constexpr const char* PROTO_MCU = "mcu";
+constexpr const char* PROTO_XMIDI = "xmidi";
 
-static t_symbol* PROTO_HUI;
-static t_symbol* PROTO_MCU;
-static t_symbol* PROTO_XMIDI;
-static t_symbol* SYM_ALL;
-static t_symbol* SYM_BLACK;
-static t_symbol* SYM_BLUE;
-static t_symbol* SYM_CYAN;
-static t_symbol* SYM_GREEN;
-static t_symbol* SYM_MAGENTA;
-static t_symbol* SYM_RANDOM;
-static t_symbol* SYM_RED;
-static t_symbol* SYM_SCENE;
-static t_symbol* SYM_WHITE;
-static t_symbol* SYM_YELLOW;
-static t_symbol* SYM_CENTER;
-static t_symbol* SYM_LEFT;
-static t_symbol* SYM_RIGHT;
-static t_symbol* SYM_JUSTIFY;
-static t_symbol* SYM_AUTO;
-static t_symbol* SYM_SELECT;
-static t_symbol* SYM_MUTE;
-static t_symbol* SYM_SOLO;
-static t_symbol* SYM_REC;
-static t_symbol* SYM_BTN;
-static t_symbol* SYM_TILDE;
-static t_symbol* SYM_EXCLAM;
+constexpr const char* STR_TILDE = "~";
+constexpr const char* STR_EXCLAM = "!";
+
+CEAMMC_DEFINE_SYM_HASH(all)
+CEAMMC_DEFINE_SYM_HASH(auto)
+CEAMMC_DEFINE_SYM_HASH(black)
+CEAMMC_DEFINE_SYM_HASH(blue)
+CEAMMC_DEFINE_SYM_HASH(btn)
+CEAMMC_DEFINE_SYM_HASH(center)
+CEAMMC_DEFINE_SYM_HASH(cyan)
+CEAMMC_DEFINE_SYM_HASH(green)
+CEAMMC_DEFINE_SYM_HASH(justify)
+CEAMMC_DEFINE_SYM_HASH(left)
+CEAMMC_DEFINE_SYM_HASH(magenta)
+CEAMMC_DEFINE_SYM_HASH(mute)
+CEAMMC_DEFINE_SYM_HASH(random)
+CEAMMC_DEFINE_SYM_HASH(rec)
+CEAMMC_DEFINE_SYM_HASH(red)
+CEAMMC_DEFINE_SYM_HASH(right)
+CEAMMC_DEFINE_SYM_HASH(scene)
+CEAMMC_DEFINE_SYM_HASH(select)
+CEAMMC_DEFINE_SYM_HASH(solo)
+CEAMMC_DEFINE_SYM_HASH(white)
+CEAMMC_DEFINE_SYM_HASH(yellow)
+
+#define DEFINE_SYM_PRINT(name, format)       \
+    t_symbol* SYM_##name(int n)              \
+    {                                        \
+        if (n < 0 || n >= MAX_CONTROLS)      \
+            return &s_;                      \
+                                             \
+        char buf[64];                        \
+        fmt::format_to(buf, format "\0", n); \
+        return gensym(buf);                  \
+    }
+
+namespace {
+DEFINE_SYM_PRINT(FADERS, "fader%d");
+DEFINE_SYM_PRINT(KNOBS, "knob%d");
+DEFINE_SYM_PRINT(BTN_REC, "rec%d");
+DEFINE_SYM_PRINT(BTN_SOLO, "solo%d");
+DEFINE_SYM_PRINT(BTN_MUTE, "mute%d");
+DEFINE_SYM_PRINT(BTN_SELECT, "select%d");
+DEFINE_SYM_PRINT(BTN_KNOB, "knob%d");
+}
 
 enum MidiMSG {
     /* channel voice messages */
@@ -186,12 +203,11 @@ void XTouchExtender::onFloat(t_float f)
         }
 
         if (parser_.isReady()) {
-            const auto* proto = proto_->value();
-            if (proto == PROTO_XMIDI)
+            if (proto_->isEqual(PROTO_XMIDI))
                 parseXMidi();
-            else if (proto == PROTO_HUI)
+            else if (proto_->isEqual(PROTO_HUI))
                 parseHui();
-            else if (proto == PROTO_MCU)
+            else if (proto_->isEqual(PROTO_MCU))
                 parseMcu();
 
             parser_.reset();
@@ -427,7 +443,7 @@ void XTouchExtender::sendVu(uint8_t idx, int db)
     if (scene_->value() != scene_idx)
         return;
 
-    if (proto_->value() == PROTO_XMIDI) {
+    if (proto_->isEqual(PROTO_XMIDI)) {
         const uint8_t cc = XT_VU_FIRST + (0x0f & (idx % Scene::NCHAN));
         const uint8_t val = std::round(convert::lin2lin_clip<t_float>(db, MIN_VU_DB, MAX_VU_DB, 0, 127));
         sendCC(cc, val);
@@ -510,11 +526,11 @@ void XTouchExtender::sendFader(uint8_t scene_idx, uint8_t ctl_idx, t_float v)
 {
     OBJ_LOG << "sendFader: " << (int)scene_idx << ' ' << (int)ctl_idx << ' ' << v;
 
-    if (proto_->value() == PROTO_XMIDI) {
+    if (proto_->isEqual(PROTO_XMIDI)) {
         const int logic_idx = (scene_idx * Scene::NCHAN + ctl_idx) % MAX_CONTROLS;
 
         // output for any scenes
-        anyTo(1, SYM_FADERS[logic_idx], AtomListView(Atom(v)));
+        anyTo(1, SYM_FADERS(logic_idx), AtomListView(Atom(v)));
 
         const bool is_moving = sceneByIdx(scene_idx).fader_is_moving_[ctl_idx];
         // send MIDI only for current scene
@@ -532,11 +548,11 @@ void XTouchExtender::sendKnob(uint8_t scene_idx, uint8_t ctl_idx, t_float v)
 {
     OBJ_LOG << "sendKnob: " << (int)scene_idx << ' ' << (int)ctl_idx << ' ' << v;
 
-    if (proto_->value() == PROTO_XMIDI) {
+    if (proto_->isEqual(PROTO_XMIDI)) {
         const int logic_idx = (scene_idx * Scene::NCHAN + ctl_idx) % MAX_CONTROLS;
 
         // output for all scenes
-        anyTo(1, SYM_KNOBS.at(logic_idx), AtomListView(Atom(v)));
+        anyTo(1, SYM_KNOBS(logic_idx), AtomListView(Atom(v)));
 
         // send MIDI only for current scene
         if (scene_->value() == scene_idx) {
@@ -554,10 +570,10 @@ void XTouchExtender::sendKnobButton(uint8_t scene_idx, uint8_t ctl_idx, uint8_t 
 {
     OBJ_LOG << "sendKnobButton: " << (int)scene_idx << ' ' << (int)ctl_idx << ' ' << v;
 
-    if (proto_->value() == PROTO_XMIDI) {
+    if (proto_->isEqual(PROTO_XMIDI)) {
         const int logic_idx = (scene_idx * Scene::NCHAN + ctl_idx) % MAX_CONTROLS;
         // output for all scenes
-        anyTo(1, SYM_BTN_KNOB.at(logic_idx), AtomListView(Atom(v > 0)));
+        anyTo(1, SYM_BTN_KNOB(logic_idx), AtomListView(Atom(v > 0)));
     } else {
         OBJ_ERR << "not implemented yet: " << proto_->value() << " " << __FUNCTION__;
     }
@@ -567,11 +583,11 @@ void XTouchExtender::sendRec(uint8_t scene_idx, uint8_t ctl_idx, int v)
 {
     OBJ_LOG << "sendRec: " << (int)scene_idx << ' ' << (int)ctl_idx << ' ' << v;
 
-    if (proto_->value() == PROTO_XMIDI) {
+    if (proto_->isEqual(PROTO_XMIDI)) {
         const int logic_idx = (scene_idx * Scene::NCHAN + ctl_idx) % MAX_CONTROLS;
 
         // output for all scenes
-        anyTo(1, SYM_BTN_REC.at(logic_idx), AtomListView(Atom(v)));
+        anyTo(1, SYM_BTN_REC(logic_idx), AtomListView(Atom(v)));
 
         // send MIDI only for current scene
         if (scene_->value() == scene_idx) {
@@ -588,11 +604,11 @@ void XTouchExtender::sendSolo(uint8_t scene_idx, uint8_t ctl_idx, int v)
 {
     OBJ_LOG << "sendSolo: " << (int)scene_idx << ' ' << (int)ctl_idx << ' ' << v;
 
-    if (proto_->value() == PROTO_XMIDI) {
+    if (proto_->isEqual(PROTO_XMIDI)) {
         const int logic_idx = (scene_idx * Scene::NCHAN + ctl_idx) % MAX_CONTROLS;
 
         // output for all scenes
-        anyTo(1, SYM_BTN_SOLO.at(logic_idx), AtomListView(Atom(v)));
+        anyTo(1, SYM_BTN_SOLO(logic_idx), AtomListView(Atom(v)));
 
         // send MIDI only for current scene
         if (scene_->value() == scene_idx) {
@@ -609,11 +625,11 @@ void XTouchExtender::sendMute(uint8_t scene_idx, uint8_t ctl_idx, int v)
 {
     OBJ_LOG << "sendMute: " << (int)scene_idx << ' ' << (int)ctl_idx << ' ' << v;
 
-    if (proto_->value() == PROTO_XMIDI) {
+    if (proto_->isEqual(PROTO_XMIDI)) {
         const int logic_idx = (scene_idx * Scene::NCHAN + ctl_idx) % MAX_CONTROLS;
 
         // output for all scenes
-        anyTo(1, SYM_BTN_MUTE.at(logic_idx), AtomListView(Atom(v)));
+        anyTo(1, SYM_BTN_MUTE(logic_idx), AtomListView(Atom(v)));
 
         // send MIDI only for current scene
         if (scene_->value() == scene_idx) {
@@ -630,11 +646,11 @@ void XTouchExtender::sendSelect(uint8_t scene_idx, uint8_t ctl_idx, int v)
 {
     OBJ_LOG << "sendSelect: " << (int)scene_idx << ' ' << (int)ctl_idx << ' ' << v;
 
-    if (proto_->value() == PROTO_XMIDI) {
+    if (proto_->isEqual(PROTO_XMIDI)) {
         const int logic_idx = (scene_idx * Scene::NCHAN + ctl_idx) % MAX_CONTROLS;
 
         // output for all scenes
-        anyTo(1, SYM_BTN_SELECT.at(logic_idx), AtomListView(Atom(v)));
+        anyTo(1, SYM_BTN_SELECT(logic_idx), AtomListView(Atom(v)));
 
         // send MIDI only for current scene
         if (scene_->value() == scene_idx) {
@@ -975,12 +991,12 @@ void XTouchExtender::m_apply_fn(t_symbol* s, const AtomListView& lv, std::functi
     const auto sym_ch = lv[0].toT<t_symbol*>(INVALID);
 
     // set all channels on all scenes
-    if (sym_ch == SYM_ALL) {
+    if (sym_ch == sym_all()) {
         for (int i = 0; i < numLogicChannels(); i++)
             fn(i, lv[1]);
 
         return;
-    } else if (sym_ch == SYM_SCENE) { // set all channels on current scene
+    } else if (sym_ch == sym_scene()) { // set all channels on current scene
         for (int i = 0; i < Scene::NCHAN; i++)
             fn(calcLogicIdx(i), lv[1]);
     } else if (sym_ch != INVALID) {
@@ -1035,55 +1051,6 @@ void XTouchExtender::m_get_fader_fn(t_symbol* s, const AtomListView& lv, Fader& 
     lout[0] = lv[0];
     lout[1] = (sc.*fn)(idx).value();
     anyTo(1, s, AtomListView(lout, 2));
-}
-
-static void init_symbols()
-{
-    PROTO_XMIDI = gensym("xmidi");
-    PROTO_HUI = gensym("hui");
-    PROTO_MCU = gensym("mcu");
-
-    char buf[64];
-    for (int i = 0; i < MAX_CONTROLS; i++) {
-        sprintf(buf, "fader%d", i);
-        SYM_FADERS[i] = gensym(buf);
-        sprintf(buf, "knob%d", i);
-        SYM_KNOBS[i] = gensym(buf);
-        sprintf(buf, "rec%d", i);
-        SYM_BTN_REC[i] = gensym(buf);
-        sprintf(buf, "solo%d", i);
-        SYM_BTN_SOLO[i] = gensym(buf);
-        sprintf(buf, "mute%d", i);
-        SYM_BTN_MUTE[i] = gensym(buf);
-        sprintf(buf, "select%d", i);
-        SYM_BTN_SELECT[i] = gensym(buf);
-        sprintf(buf, "knobb%d", i);
-        SYM_BTN_KNOB[i] = gensym(buf);
-    }
-
-    SYM_ALL = gensym("all");
-    SYM_BLACK = gensym("black");
-    SYM_BLUE = gensym("blue");
-    SYM_CYAN = gensym("cyan");
-    SYM_GREEN = gensym("green");
-    SYM_MAGENTA = gensym("magenta");
-    SYM_RANDOM = gensym("random");
-    SYM_RED = gensym("red");
-    SYM_SCENE = gensym("scene");
-    SYM_WHITE = gensym("white");
-    SYM_YELLOW = gensym("yellow");
-    SYM_CENTER = gensym("center");
-    SYM_LEFT = gensym("left");
-    SYM_RIGHT = gensym("right");
-    SYM_JUSTIFY = gensym("justify");
-    SYM_AUTO = gensym("auto");
-    SYM_SELECT = gensym("select");
-    SYM_MUTE = gensym("mute");
-    SYM_SOLO = gensym("solo");
-    SYM_REC = gensym("rec");
-    SYM_BTN = gensym("btn");
-    SYM_TILDE = gensym("~");
-    SYM_EXCLAM = gensym("!");
 }
 
 void Display::setUpperText(const char* str)
@@ -1246,7 +1213,7 @@ void Display::setDefault()
 
 bool Display::setColor(const Atom& a)
 {
-    if (a == SYM_RANDOM) {
+    if (a == sym_random()) {
         setColor(randomColor());
         return true;
     } else if (a.isSymbol()) {
@@ -1273,41 +1240,44 @@ Display::Color Display::randomColor()
 
 Display::Color Display::namedColor(const t_symbol* c)
 {
-    const std::array<const t_symbol*, NUM_COLORS> all = {
-        SYM_BLACK,
-        SYM_RED,
-        SYM_GREEN,
-        SYM_YELLOW,
-        SYM_BLUE,
-        SYM_MAGENTA,
-        SYM_CYAN,
-        SYM_WHITE,
-    };
-
-    for (size_t i = 0; i < all.size(); i++) {
-        if (all[i] == c)
-            return static_cast<Color>(i);
+    switch (crc32_hash(c)) {
+    case hash_black:
+        return BLACK;
+    case hash_red:
+        return RED;
+    case hash_green:
+        return GREEN;
+    case hash_yellow:
+        return YELLOW;
+    case hash_blue:
+        return BLUE;
+    case hash_magenta:
+        return MAGENTA;
+    case hash_cyan:
+        return CYAN;
+    case hash_white:
+        return WHITE;
+    default:
+        return UNKNOWN;
     }
-
-    return UNKNOWN;
 }
 
 Display::Align Display::namedAlign(const t_symbol* a)
 {
-    const std::array<const t_symbol*, ALIGN_MAX + 1> all = {
-        SYM_CENTER,
-        SYM_LEFT,
-        SYM_RIGHT,
-        SYM_JUSTIFY,
-        SYM_AUTO
-    };
-
-    for (size_t i = 0; i < all.size(); i++) {
-        if (all[i] == a)
-            return static_cast<Align>(i);
+    switch (crc32_hash(a)) {
+    case hash_center:
+        return ALIGN_CENTER;
+    case hash_left:
+        return ALIGN_LEFT;
+    case hash_right:
+        return ALIGN_RIGHT;
+    case hash_justify:
+        return ALIGN_JUSTIFY;
+    case hash_auto:
+        return ALIGN_AUTO;
+    default:
+        return ALIGN_INVALID;
     }
-
-    return ALIGN_INVALID;
 }
 
 void Display::setCentered(char* dest, const char* txt)
@@ -1413,7 +1383,7 @@ bool Button::setMode(const Atom& a)
     if (a.isBool()) {
         mode_ = a.asBool(false) ? TOGGLE : BUTTON;
         return true;
-    } else if (a == SYM_TILDE || a == SYM_EXCLAM) {
+    } else if (a == STR_TILDE || a == STR_EXCLAM) {
         mode_ = (mode_ == TOGGLE) ? BUTTON : TOGGLE;
         return true;
     } else
@@ -1433,7 +1403,7 @@ bool Button::setState(const Atom& a)
     if (a.isBool()) {
         setState(a.asBool(false) ? ON : OFF);
         return true;
-    } else if (a == SYM_TILDE || a == SYM_EXCLAM) {
+    } else if (a == STR_TILDE || a == STR_EXCLAM) {
         toggle();
         return true;
     } else if (a == -1) {
@@ -1480,8 +1450,6 @@ bool Fader::setValue(const Atom& a)
 
 void setup_proto_xtouch_ext()
 {
-    init_symbols();
-
     ObjectFactory<XTouchExtender> obj("proto.xtouch_ext");
     obj.addMethod("vu", &XTouchExtender::m_vu);
     obj.addMethod("reset", &XTouchExtender::m_reset);
