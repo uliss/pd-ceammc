@@ -28,13 +28,13 @@ TEST_CASE("system.colorpanel", "[externals]")
         TExt t("system.colorpanel");
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 1);
-        REQUIRE_PROPERTY(t, @color, DColor());
-        REQUIRE_PROPERTY(t, @hex, LA("#000000"));
+        REQUIRE_PROPERTY(t, @color, DColor(0xFFFFFFFF));
+        REQUIRE_PROPERTY(t, @hex, LA("#FFFFFF"));
         REQUIRE_PROPERTY(t, @mode, LA("float"));
 
         // clang-format off
-        REQUIRE_PROPERTY(t, @int, LF(0, 0, 0));
-        REQUIRE_PROPERTY(t, @float, LF(0, 0, 0));
+        REQUIRE_PROPERTY(t, @int, LF(255, 255, 255));
+        REQUIRE_PROPERTY(t, @float, LF(1, 1, 1));
         // clang-format on
     }
 

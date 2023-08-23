@@ -18,7 +18,8 @@
             <event type="left-click" editmode="false" keys="Shift">open color chooser</event>
         </mouse>
         <properties>
-            <property name="@mode" type="symbol" enum="float int hex" default="float">output
+            <property name="@color" type="atom">current color</property>
+            <property name="@mode" type="symbol" enum="float int hex data" default="float">output
             mode</property>
             <property name="@f" type="alias">alias for @mode float. Output values as RGB list in
             0-1 range.</property>
@@ -26,11 +27,13 @@
             0-255 range.</property>
             <property name="@h" type="alias">alias for @mode hex. Output value as #RRGGBB
             symbol.</property>
+            <property name="@d" type="alias">alias for @mode data. Output value Color datatype.
+            </property>
             <property name="@float" type="list" default="1 1 1">RGB color value in float range
             (0-1)</property>
             <property name="@int" type="list" default="255 255 255">RGB color value in int range
             (0-255)</property>
-            <property name="@hex" type="symbol" default="#ffffff">color value as #RRGGBB
+            <property name="@hex" type="symbol" default="#FFFFFF">color value as #RRGGBB
             symbol</property>
         </properties>
         <inlets>

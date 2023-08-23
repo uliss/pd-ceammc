@@ -29,7 +29,7 @@ SystemColorpanel::SystemColorpanel(const PdArgs& args)
 {
     createOutlet();
 
-    color_ = new ColorProperty("@color", DataTypeColor {});
+    color_ = new ColorProperty("@color", DataTypeColor { 0xffffffff });
     addProperty(color_);
 
     mode_ = new SymbolEnumProperty("@mode", { sym_float(), sym_int(), sym_hex(), sym_data() });
