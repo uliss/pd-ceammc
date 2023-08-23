@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <library-info name="ceammc">
 <description>General purpose Pd library used for work and education purposes in
-Centre of ElectroAcoustic Music of Moscow Conservatory (CEAMMC).
+Centre of ElectroAcoustic Music of Moscow Conservatory (CEAM).
 </description>
 <website>https://github.com/uliss/pure-data</website>
 <license>GPL3</license>
