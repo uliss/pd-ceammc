@@ -1,4 +1,4 @@
-#N canvas 0 0 856 414 12;
+#N canvas 0 0 842 414 12;
 #X obj 20 48 notein;
 #X obj 20 77 pack f f;
 #X obj 20 106 ui.keyboard;

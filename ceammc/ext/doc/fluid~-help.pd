@@ -28,7 +28,7 @@
 #X obj 366 456 fluid~.prog;
 #X obj 501 456 fluid~.notesoff;
 #X obj 50 485 fluid~.pedals;
-#X obj 203 485 fluid~.soundsoff;
+#X obj 203 485 fluid~.soundoff;
 #X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 539 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;

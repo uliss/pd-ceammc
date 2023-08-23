@@ -249,7 +249,7 @@
 
 [fluid~.midi]   [fluid~.tune-12] [fluid~.prog] [fluid~.notesoff]
 
-[fluid~.pedals] [fluid~.soundsoff]
+[fluid~.pedals] [fluid~.soundoff]
 ]]>
             </pdascii>
             <pdascii id="bend">
@@ -415,15 +415,15 @@
 [dac~]
 ]]>
             </pdascii>
-            <pdascii id="soundsoff">
+            <pdascii id="soundoff">
 <![CDATA[
 [note 1 60 120, note 1 65 120, note 2 47 120(
 |
-| /*all*/      /*1st chan*/   /*2nd chan*/   [loadbang]
-|                                            |
-| [sounds_off( [sounds_off 1( [sounds_off 2( [bank 0 0, prog 0 1( /*slow attack/release*/
-| |            |              |              |
-[fluid~ sf2/waves.sf2                        ]
+| /*all*/    /*1st chan*/  /*2nd chan*/   [loadbang]
+|                                         |
+| [sound_off( [sound_off 1( [sound_off 2( [bank 0 0, prog 0 1( /*slow attack/release*/
+| |           |             |             |
+[fluid~ sf2/waves.sf2                     ]
 *|*
 [ui.hgain2~]    [ui.dsp~]
 *|*
