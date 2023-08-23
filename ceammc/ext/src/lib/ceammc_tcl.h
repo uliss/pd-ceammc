@@ -68,9 +68,11 @@ public:
     }
 
     template <typename Factory>
-    static void initMethods(Factory& f, const char* tclProc)
+    static void initMethods(Factory& f, const char* tclProc = "")
     {
-        sys_gui(tclProc);
+        if (tclProc && tclProc[0])
+            sys_gui(tclProc);
+
         f.addMethod(".tcl_callback", &BaseTclObject::tcl_callback);
     }
 

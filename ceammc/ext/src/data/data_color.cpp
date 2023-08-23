@@ -17,7 +17,7 @@
 #include "fmt/core.h"
 
 DataColor::DataColor(const PdArgs& args)
-    : BaseObject(args)
+    : BaseTclObject(args, gensym("::ceammc::colorpanel::open"))
     , color_(nullptr)
 {
     color_ = new DataPropertyT<DataTypeColor>("@value", DataTypeColor());
@@ -47,6 +47,25 @@ void DataColor::onInlet(size_t n, const AtomListView& lv)
     }
 
     color_->setAtom(lv.front());
+}
+
+void DataColor::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
+{
+    if (shift)
+        tclCall(color_->value().hex());
+}
+
+void DataColor::onTclResponse(t_symbol* s, const AtomListView& lv)
+{
+    if (!lv.isSymbol())
+        return;
+
+    auto color = lv.symbolAt(0, &s_);
+
+    if (color != &s_) {
+        color_->value().setHex(color->s_name);
+        atomTo(0, color_->asDataAtom());
+    }
 }
 
 void DataColor::m_brighten(t_symbol* s, const AtomListView& lv)
@@ -266,4 +285,7 @@ void setup_data_color()
 
     obj.addMethod("set", &DataColor::m_set);
     obj.addMethod("mix", &DataColor::m_mix);
+
+    obj.useClick();
+    DataColor::initMethods(obj);
 }

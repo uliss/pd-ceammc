@@ -16,10 +16,11 @@
 
 #include "ceammc_object.h"
 #include "ceammc_property_data.h"
+#include "ceammc_tcl.h"
 #include "datatype_color.h"
 using namespace ceammc;
 
-class DataColor : public BaseObject {
+class DataColor : public BaseTclObject<> {
     DataPropertyT<DataTypeColor>* color_;
 
 public:
@@ -28,6 +29,8 @@ public:
     void onBang() final;
     void onDataT(const ColorAtom& a);
     void onInlet(size_t n, const AtomListView& lv) final;
+    void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) final;
+    void onTclResponse(t_symbol* s, const AtomListView& lv) final;
 
     void m_brighten(t_symbol* s, const AtomListView& lv);
     void m_darken(t_symbol* s, const AtomListView& lv);
