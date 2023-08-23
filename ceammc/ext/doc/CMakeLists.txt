@@ -43,7 +43,7 @@ if(WC)
         set(CEAMMC_OBJECT_COUNT ${WC_OUT})
     endif()
 endif()
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/template_about.pd ${CMAKE_CURRENT_SOURCE_DIR}/about.pd @ONLY)
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/template_about.pd ${CMAKE_CURRENT_BINARY_DIR}/about.pd @ONLY)
 
 # doc file list
 include(docs.cmake)
@@ -116,6 +116,10 @@ if(WIN32)
 else()
     set(DOC_INSTALL_PATH "${PD_DOC_INSTALL_PATH}/extra/ceammc")
 endif()
+
+install(FILES "about.pd"
+    DESTINATION ${DOC_INSTALL_PATH}
+    PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 
 # install all help files
 foreach(_doc_file ${DOC_FILES})

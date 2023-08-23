@@ -79,10 +79,15 @@ add_custom_target(ceammc_doc_check_methods
     COMMAND ${PROJECT_BINARY_DIR}/doc_check_methods.sh
     WORKING_DIRECTORY ${PROJECT_BINARY_DIR})
 
+
 # ceammc release patch files
 set(RELEASE_TEMPLATE "template_release.pd")
-set(RELEASE_PATCH "release_${CEAMMC_LIB_VERSION}.pd")
-configure_file(${RELEASE_TEMPLATE} ${CMAKE_CURRENT_SOURCE_DIR}/${RELEASE_PATCH} @ONLY)
+function(config_release_patch LANG)
+   set(RELEASE_PATCH "release_${CEAMMC_LIB_VERSION}_${LANG}.pd")
+   configure_file(${RELEASE_TEMPLATE} ${CMAKE_CURRENT_SOURCE_DIR}/${RELEASE_PATCH} @ONLY)
+endfunction()
+config_release_patch(en)
+config_release_patch(ru)
 
 if(WIN32)
     set(DOC_INSTALL_PATH "extra/ceammc")
@@ -96,7 +101,13 @@ foreach(f ${_RELEASE_FILES})
         DESTINATION ${DOC_INSTALL_PATH}
         PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 endforeach()
-add_custom_target( release_pd SOURCES ${_RELEASE_FILES})
+file(GLOB _RELEASE_FILES_LUA "release_*.lua")
+foreach(f ${_RELEASE_FILES_LUA})
+    install(FILES ${f}
+        DESTINATION ${DOC_INSTALL_PATH}
+        PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+endforeach()
+add_custom_target(release_pd SOURCES ${_RELEASE_FILES} ${_RELEASE_FILES_LUA})
 
 # bashrc function for testing
 configure_file(${CMAKE_CURRENT_SOURCE_DIR}/bashrc_tests bashrc_tests @ONLY)

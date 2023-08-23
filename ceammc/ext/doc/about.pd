@@ -1,8 +1,8 @@
-#N canvas 155 51 682 597 12;
+#N canvas 418 235 682 597 12;
 #X obj 45 150 cnv 15 590 395 empty empty empty 20 12 0 14 #dcdcdc #404040 0;
-#X obj 69 337 ui.link @size 124 16 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "https://github.com/uliss/pure-data" @title "https://github.com/uliss/pure-data";
-#X text 60 314 The source code available at:;
-#X obj 60 481 ui.link @size 75 16 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "ceammc-help.pd" @title "ceammc:doc";
+#X obj 69 327 ui.link @size 124 16 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "https://github.com/uliss/pure-data" @title "https://github.com/uliss/pure-data";
+#X text 60 304 The source code available at:;
+#X obj 60 491 ui.link @size 75 16 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "ceammc-help.pd" @title "ceammc:doc";
 #X obj 585 525 cnv 15 50 20 empty empty empty 20 12 0 14 #606060 #404040 0;
 #X obj 45 525 cnv 15 50 20 empty empty empty 20 12 0 14 #606060 #404040 0;
 #X obj 45 150 cnv 15 50 20 empty empty empty 20 12 0 14 #606060 #404040 0;
@@ -18,8 +18,8 @@
 #X text 150 164 Distribution version:;
 #X text 150 179 ceammc version:;
 #X text 150 149 Git commit:;
-#X text 315 104 23 08 2023 UTC 03:05:24 ;
-#X text 315 149 v2022.11_pre-1280-gbf61be84d;
+#X text 315 104 23 08 2023 UTC 03:26:43 ;
+#X text 315 149 v2022.11_pre-1281-g89167a9af;
 #X text 315 134 devel;
 #X text 150 134 Git branch:;
 #X text 315 164 v2023.09;
@@ -30,11 +30,11 @@
 #X text 315 119 8.6.12;
 #X coords 0 -1 1 1 50 20 2 20 20;
 #X restore 585 150 pd info;
-#X text 60 194 This is PureData distribution v2023.09 by Centre of electoacoustic music of Moscow Conservatory (CEAM). Made by Serge Poltavsky and Alex Nadzharov. It based on original 'vanilla' Pd-0.53.0 by Miller Puckette.;
-#X text 60 284 Distribution license is GPL 3;
-#X text 60 389 This distribution contains ceammc-0.9.7 library \, that aims to be standard base for education and artists purposes. It contains over      813 objects for working with audio \, lists \, MIDI \, OSC \, user interface \, etc.;
+#X text 60 184 This is PureData distribution v2023.09 by Centre of electoacoustic music of Moscow Conservatory (CEAM). Made by Serge Poltavsky and Alex Nadzharov. It based on original 'vanilla' Pd-0.53.0 by Miller Puckette.;
+#X text 60 274 Distribution license is GPL 3;
+#X text 60 399 This distribution contains ceammc-0.9.7 library \, that aims to be standard base for education and artists purposes. It contains over      813 objects for working with audio \, lists \, MIDI \, OSC \, user interface \, etc.;
 #X obj 476 328 ui.lcd @size 150 150 @receive "about-qrcode" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @cols 25 @rows 25;
-#N canvas 602 286 700 500 qrcode 0;
+#N canvas 1009 305 700 500 qrcode 0;
 #X obj 108 233 s about-qrcode;
 #X obj 108 123 qrcode;
 #X obj 108 189 msg set;
@@ -49,3 +49,5 @@
 #X connect 5 0 0 0;
 #X restore 476 488 pd qrcode;
 #X text 474 303 Download links:;
+#X obj 67 348 ui.link @size 124 16 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "release_0.9.7_en.pd" @title "Release\ info\ (en)";
+#X obj 67 368 ui.link @size 124 16 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 1 1 1 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @link_color 0 0.625 0.75 1 @hover_color 1 0 0.5 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @url "release_0.9.7_ru.pd" @title "Release\ info\ (ru)";
