@@ -93,7 +93,8 @@
 [data.dict \[tempo: 120 title: "New Masterpiece"\] #z]
 |
 [ui.display @display_type 1]
-[X a->z] [X b->z]
+[X a->z]
+[X b->z]
 ]]>
             </pdascii>
         </example>

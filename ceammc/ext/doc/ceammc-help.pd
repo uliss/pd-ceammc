@@ -1796,7 +1796,7 @@ ui.spectroscope~-help.pd;
 #X text 200 24401 modern toggle widget;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc 20 20 0 20 -104026 -4096 0;
 #X obj 1 24426 cnv 5 740 80 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 20 24426 version: v0.9.6 \, license: GPL3;
+#X text 20 24426 version: v0.9.7 \, license: GPL3;
 #X obj 20 24454 ui.link @title https://github.com/uliss/pure-data @url
 https://github.com/uliss/pure-data;
 #X obj 20 24477 ui.link @title Generated with pddoc v0.7.2 @url

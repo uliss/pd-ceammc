@@ -46,9 +46,9 @@
 |                      |     |
 [flow.split]X[> 0]     [flow.split]X[<]   [flow.split.sound]
 |    ^|                |     ^|
-[F]  [F]               |     [ui.d @display_type 1]
+[F]  [F]               |     [ui.dt]
                        |
-                       [ui.d @display_type 1]
+                       [ui.dt]
 ]]>
             </pdascii>
             <pdascii id="more">
@@ -65,9 +65,9 @@
 |         |
 [flow.split]X[is_any]
 |   ^|
-|    [ui.d @display_type 1]
+|    [ui.dt]
 |
-[ui.d @display_type 1]
+[ui.dt]
 ]]>
             </pdascii>
             <pdascii id="sound">
