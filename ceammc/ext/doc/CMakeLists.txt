@@ -28,7 +28,22 @@ else()
 endif()
 
 # generating about info page
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/about.pd ${CMAKE_CURRENT_BINARY_DIR}/about.pd @ONLY)
+set(CEAMMC_OBJECT_COUNT 800)
+find_program(WC NAMES wc)
+if(WC)
+    execute_process(
+        COMMAND ${WC} -l
+        INPUT_FILE "${CMAKE_CURRENT_SOURCE_DIR}/ceammc.db"
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+        RESULT_VARIABLE WC_RC
+        OUTPUT_VARIABLE WC_OUT)
+
+    if(${WC_RC} EQUAL 0)
+        message(STATUS "number of ceammc objects: ${WC_OUT}")
+        set(CEAMMC_OBJECT_COUNT ${WC_OUT})
+    endif()
+endif()
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/template_about.pd ${CMAKE_CURRENT_SOURCE_DIR}/about.pd @ONLY)
 
 # doc file list
 include(docs.cmake)
@@ -117,10 +132,6 @@ foreach(_doc_file ${DOC_FILES})
         endif()
     endforeach()
 endforeach()
-
-# About Pd page
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/about.pd" DESTINATION ${DOC_INSTALL_PATH}
-    PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 
 # Documentation index install
 install(FILES "index-help.pd" DESTINATION "${DOC_INSTALL_PATH}/.."

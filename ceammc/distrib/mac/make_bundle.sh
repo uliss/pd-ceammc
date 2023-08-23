@@ -302,7 +302,7 @@ do
 done
 
 section "Copying CEAMMC sf2 soundfonts"
-for sf in $SRC_CEAMMC/ext/doc/sf2/*.ttf
+for sf in $SRC_CEAMMC/ext/doc/sf2/*.sf2
 do
     copy ${sf} "${BUNDLE_SF2}"
 done

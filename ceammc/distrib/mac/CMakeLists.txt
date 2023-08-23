@@ -66,6 +66,14 @@ if(APPLE)
         COMMAND ${CMAKE_CURRENT_SOURCE_DIR}/check_bundle.sh "${PROJECT_BINARY_DIR}/dist/${PD_MACOSX_APP}"
         USES_TERMINAL)
 
+    add_custom_target(dev_edit_release
+        COMMAND ${BUNDLE_FULL_PATH}/Contents/Resources/bin/pd ${PROJECT_SOURCE_DIR}/ceammc/distrib/template_release.pd
+        USES_TERMINAL)
+
+    add_custom_target(dev_edit_about
+        COMMAND ${BUNDLE_FULL_PATH}/Contents/Resources/bin/pd ${PROJECT_SOURCE_DIR}/ceammc/ext/doc/template_about.pd
+        USES_TERMINAL)
+
     find_program(LLDB lldb)
     if(LLDB)
         add_custom_target(dev_lldb
