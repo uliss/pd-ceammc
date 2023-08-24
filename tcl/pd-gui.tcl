@@ -384,6 +384,10 @@ proc init_for_platform {} {
             set ::cursor_editmode_resize "sb_h_double_arrow"
         }
         "win32" {
+            # ceammc dpi fix
+            set dpi [expr {[winfo screenwidth .]/double($physical_screenwidth_inch)}]
+            tk scaling [expr {$dpi/72.0}]
+            # ceammc end
             set ::modifier "Control"
             option add *PatchWindow*Canvas.background "white" startupFile
             # fix menu font size on Windows with tk scaling = 1
