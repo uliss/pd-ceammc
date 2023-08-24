@@ -31,15 +31,6 @@
 
 namespace {
 
-void stb_rgba2bgra(unsigned char* data, int w, int h)
-{
-    for (int i = 0; i < (w * h * 4); i += 4) {
-        auto r = data[i + 0];
-        data[i + 0] = data[i + 2];
-        data[i + 2] = r;
-    }
-}
-
 cairo_surface_t* load_stb(const char* path, ceammc::UICanvasInQueue& out)
 {
     using namespace ceammc;
@@ -52,9 +43,13 @@ cairo_surface_t* load_stb(const char* path, ceammc::UICanvasInQueue& out)
     }
 
     OUT_DBG(fmt::format("image size: {}x{}", x, y));
-    //    OUT_DBG(fmt::format("image strides: w:{} h:{} c:{}", layout.width_stride, layout.height_stride, layout.channel_stride));
-    auto surface = cairo_image_surface_create_for_data(data,
-        CAIRO_FORMAT_ARGB32, x, y, cairo_format_stride_for_width(CAIRO_FORMAT_ARGB32, x));
+
+    auto surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, x, y);
+    if (!surface) {
+        OUT_ERR(fmt::format("cairo_image_surface_create() failed ({}x{})", path, x, y));
+        stbi_image_free(data);
+        return nullptr;
+    }
 
     auto surface_data = cairo_image_surface_get_data(surface);
     if (!surface_data) {
@@ -64,9 +59,16 @@ cairo_surface_t* load_stb(const char* path, ceammc::UICanvasInQueue& out)
         return nullptr;
     }
 
-    stb_rgba2bgra(data, x, y);
-    cairo_surface_mark_dirty(surface);
+    // copy BGRA data to ARGB
+    for (int i = 0; i < (x * y * 4); i += 4) {
+        surface_data[i + 0] = data[i + 2];
+        surface_data[i + 1] = data[i + 1];
+        surface_data[i + 2] = data[i + 0];
+        surface_data[i + 3] = data[i + 3];
+    }
+
     stbi_image_free(data);
+    cairo_surface_mark_dirty(surface);
 
     return surface;
 }
