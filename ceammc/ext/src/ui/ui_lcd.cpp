@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ui_lcd.h"
+#include "args/argcheck2.h"
 #include "ceammc_convert.h"
 #include "ceammc_crc32.h"
 #include "ceammc_ui.h"
@@ -96,13 +97,17 @@ void UILcd::paint()
 void UILcd::m_set(const AtomListView& lv)
 {
     if (lv.size() < 3) {
-        UI_ERR << "usage: set [pixel|col|row]? ARGS...";
+        UI_ERR << "usage: set [pixel|col|row|cursor]? ARGS...";
         return;
     }
 
     auto sel = crc32_hash(lv.symbolAt(0, &s_));
 
     switch (sel) {
+    case "cursor"_hash:
+        cursor_.x = lv.intAt(1, 0);
+        cursor_.y = lv.intAt(2, 0);
+        break;
     case "pixel"_hash:
         pixels_.set(pixelIndex(lv.intAt(1, 0), lv.intAt(2, 0)), lv.boolAt(3, false));
         break;
@@ -183,6 +188,34 @@ void UILcd::m_invert(const AtomListView& lv)
     redrawBGLayer();
 }
 
+void UILcd::m_draw(const AtomListView& lv)
+{
+    static const args::ArgChecker chk_set("s=set VALUE:b");
+    static const args::ArgChecker chk_up("s=up N:i>0?");
+    static const args::ArgChecker chk_down("s=down N:i>0?");
+    static const args::ArgChecker chk_left("s=left N:i>0?");
+    static const args::ArgChecker chk_right("s=right N:i>0?");
+
+    if (chk_set.check(lv, nullptr, nullptr, false)) {
+        draw_value_ = lv.boolAt(1, true);
+        return;
+    } else if (chk_up.check(lv, nullptr, nullptr, false)) {
+        moveCursorY(-lv.intAt(1, 1));
+        drawCursor();
+    } else if (chk_down.check(lv, nullptr, nullptr, false)) {
+        moveCursorY(lv.intAt(1, 1));
+        drawCursor();
+    } else if (chk_left.check(lv, nullptr, nullptr, false)) {
+        moveCursorX(-lv.intAt(1, 1));
+        drawCursor();
+    } else if (chk_right.check(lv, nullptr, nullptr, false)) {
+        moveCursorX(lv.intAt(1, 1));
+        drawCursor();
+    }
+
+    redrawBGLayer();
+}
+
 void UILcd::p_setNumCols(t_int n)
 {
     int num = clip<int>(n, MIN_COLS, MAX_COLS);
@@ -225,6 +258,7 @@ void UILcd::setup()
     obj.addMethod("set", &UILcd::m_set);
     obj.addMethod("clear", &UILcd::m_clear);
     obj.addMethod("invert", &UILcd::m_invert);
+    obj.addMethod("draw", &UILcd::m_draw);
 }
 
 }

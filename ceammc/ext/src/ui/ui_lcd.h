@@ -14,6 +14,7 @@
 #ifndef UI_LCD_H
 #define UI_LCD_H
 
+#include "ceammc_convert.h"
 #include "ceammc_ui_object.h"
 
 #include <boost/dynamic_bitset.hpp>
@@ -28,6 +29,8 @@ private:
     t_rgba prop_color_active;
     int prop_ncols, prop_nrows, pixel_size;
     Pixels pixels_;
+    t_pt cursor_;
+    bool draw_value_ { true };
 
 public:
     UILcd();
@@ -41,6 +44,7 @@ public:
     void m_set(const AtomListView& lv);
     void m_clear();
     void m_invert(const AtomListView& lv);
+    void m_draw(const AtomListView& lv);
 
     t_int p_numCols() const { return prop_ncols; }
     void p_setNumCols(t_int n);
@@ -63,6 +67,26 @@ private:
     {
         auto pos = pixelIndex(x, y);
         return pos >= pixels_.size() ? false : pixels_.test(pos);
+    }
+
+    void setPixel(int x, int y, bool value = true)
+    {
+        pixels_[pixelIndex(clip<int>(x, 0, prop_ncols), clip<int>(y, 0, prop_nrows))] = value;
+    }
+
+    void moveCursorX(int x)
+    {
+        cursor_.x = clip<int>(cursor_.x + x, 0, prop_ncols);
+    }
+
+    void moveCursorY(int y)
+    {
+        cursor_.y = clip<int>(cursor_.y + y, 0, prop_nrows);
+    }
+
+    void drawCursor(bool value = true)
+    {
+        setPixel(cursor_.x, cursor_.y, value);
     }
 };
 
