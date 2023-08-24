@@ -1,7 +1,7 @@
 #N canvas 0 0 760 555 12;
 #X text 30 50 General purpose Pd library used for work and education
 purposes in Centre of ElectroAcoustic Music of Moscow Conservatory
-(CEAMMC).;
+(CEAM).;
 #X obj 20 105 cnv 5 27 31 empty empty an 4 13 0 17 -262144 -49933 0;
 #X obj 20 146 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 30 157 an.onset;
@@ -1315,7 +1315,7 @@ roll;
 #X obj 30 17900 canvas.current;
 #X text 200 17900 verbose information about current canvas;
 #X obj 30 17927 canvas.dir;
-#X text 200 17927 current canvas directory;
+#X text 200 17927 current canvas directory ans nesting level;
 #X obj 30 17954 canvas.name;
 #X text 200 17954 current canvas name;
 #X obj 30 17981 canvas.path;

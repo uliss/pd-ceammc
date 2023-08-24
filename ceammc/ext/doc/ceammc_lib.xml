@@ -1852,7 +1852,7 @@
     <entry name="canvas.current" descr="verbose information about current canvas" ref_view="object">
       <xi:include href="canvas.current.pddoc" parse="xml"/>
     </entry>
-    <entry name="canvas.dir" descr="current canvas directory" ref_view="object">
+    <entry name="canvas.dir" descr="current canvas directory ans nesting level" ref_view="object">
       <xi:include href="canvas.dir.pddoc" parse="xml"/>
     </entry>
     <entry name="canvas.name" descr="current canvas name" ref_view="object">

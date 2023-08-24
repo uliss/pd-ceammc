@@ -27,8 +27,8 @@
             0-255 range.</property>
             <property name="@h" type="alias">alias for @mode hex. Output value as #RRGGBB
             symbol.</property>
-            <property name="@d" type="alias">alias for @mode data. Output value Color datatype.
-            </property>
+            <property name="@d" type="alias">alias for @mode data. Output value Color
+            datatype.</property>
             <property name="@float" type="list" default="1 1 1">RGB color value in float range
             (0-1)</property>
             <property name="@int" type="list" default="255 255 255">RGB color value in int range

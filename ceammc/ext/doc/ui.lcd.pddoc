@@ -58,6 +58,22 @@
         <methods>
             <!-- clear -->
             <method name="clear">clear display</method>
+            <!-- draw left -->
+            <method name="draw left">moves draw cursor left along x-asis ans draw single pixel 
+            <param name="XOFF" type="int" required="false">x-offset. If omitted: 1</param></method>
+            <!-- draw right -->
+            <method name="draw right">moves cursor right along x-asis ans draw single pixel 
+            <param name="XOFF" type="int" required="false">x-offset. If omitted: 1</param></method>
+            <!-- draw up -->
+            <method name="draw up">moves draw cursor up along y-asis ans draw single pixel 
+            <param name="YOFF" type="int" required="false">y-offset. If omitted: 1</param></method>
+            <!-- draw down -->
+            <method name="draw down">moves draw cursor down along y-asis ans draw single pixel 
+            <param name="YOFF" type="int" required="false">y-offset. If omitted: 1</param></method>
+            <!-- draw set -->
+            <method name="draw set">set drawing value 
+            <param name="VALUE" type="bool" required="true">draw pixel value (1: black, 0:
+            white)</param></method>
             <!-- dump -->
             <method name="dump">dumps all object info to Pd console window.</method>
             <!-- invert -->
@@ -73,6 +89,15 @@
             <method name="set col">set column content 
             <param name="N" type="int" required="true">column index</param>
             <param name="PIXELS" type="list" required="true">column pixel values</param></method>
+            <!-- set cursor -->
+            <method name="set cursor">set draw cursor point 
+            <param name="X" type="int" required="true">X-position (from left)</param>
+            <param name="Y" type="int" required="true">Y-position (from top)</param></method>
+            <!-- set pixel -->
+            <method name="set pixel">set single pixel 
+            <param name="X" type="int" required="true">X-position (from left)</param>
+            <param name="Y" type="int" required="true">Y-position (from top)</param>
+            <param name="VALUE" type="bool" required="true">pixel value</param></method>
             <!-- set row -->
             <method name="set row">set row content 
             <param name="N" type="int" required="true">row index</param>
