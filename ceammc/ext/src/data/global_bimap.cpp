@@ -22,5 +22,5 @@ GlobalBiMap::GlobalBiMap(const PdArgs& args)
 void setup_global_bimap()
 {
     ObjectFactory<GlobalBiMap> obj("global.bimap");
-    GlobalBiMap::registerMethods(obj);
+    GlobalBiMap::factoryEditorObjectInit(obj);
 }

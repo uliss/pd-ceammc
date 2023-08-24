@@ -20,7 +20,7 @@ void setup_data_list()
     ListIFaceFactory<DataList> obj("data.list");
     obj.processData<DataTypeMList>();
 
-    DataList::registerMethods(obj);
+    DataList::factoryEditorObjectInit(obj);
 
     obj.setDescription("list container");
     obj.setCategory("data");

@@ -55,7 +55,7 @@ public:
     template <template <typename T> class Factory, typename T>
     static void registerMethods(Factory<T>& obj)
     {
-        EditorObject::registerMethods(obj);
+        EditorObject::factoryEditorObjectInit(obj);
         obj.addMethod("insert", &T::m_insert);
         obj.addMethod("clear", &T::m_clear);
 

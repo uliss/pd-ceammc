@@ -23,8 +23,9 @@
 using namespace ceammc;
 
 using MessageFifo = std::list<Message>;
+using DataFifoBase = EditorObject<BaseObject, EditorSyntax::SELECTOR>;
 
-class DataFifo : public EditorObject<BaseObject> {
+class DataFifo : public DataFifoBase {
     MessageFifo fifo_;
     size_t size_;
 

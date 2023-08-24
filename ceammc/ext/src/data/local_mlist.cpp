@@ -19,7 +19,6 @@
 LocalMList::LocalMList(const PdArgs& args)
     : LocalMListBase(args)
 {
-    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
     createOutlet();
 }
 
@@ -35,7 +34,7 @@ void setup_local_mlist()
     obj.useDefaultPdFloatFn();
     obj.useDefaultPdSymbolFn();
 
-    LocalMList::registerMethods(obj);
+    LocalMList::factoryEditorObjectInit(obj);
 
     obj.setDescription("local named mlist object");
     obj.setCategory("local");

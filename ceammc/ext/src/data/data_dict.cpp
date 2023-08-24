@@ -16,7 +16,6 @@
 DataDict::DataDict(const PdArgs& args)
     : DataDictBase(args)
 {
-    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
     dict_->setFromDataList(args.args);
 
     createOutlet();
@@ -31,7 +30,7 @@ void setup_data_dict()
                        "methods: add, clear, get_key, set_key, remove, set, read, write" },
         { "data: dict" });
 
-    DataDict::registerMethods(obj);
+    DataDict::factoryEditorObjectInit(obj);
 
     obj.setDescription("dictionary container: store values by key");
     obj.setCategory("data");

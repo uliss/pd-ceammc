@@ -17,8 +17,6 @@
 DataSet::DataSet(const PdArgs& a)
     : DataSetBase(a)
 {
-    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
-
     if (set_.looksLikeCtor(a.args))
         set_.setFromDataList(a.args);
     else
@@ -32,7 +30,7 @@ void setup_data_set()
     ColectionIFaceFactory<DataSet> obj("data.set");
     obj.processData<DataTypeSet>();
 
-    DataSet::registerMethods(obj);
+    DataSet::factoryEditorObjectInit(obj);
 
     obj.setDescription("container that store unique elements");
     obj.setCategory("data");

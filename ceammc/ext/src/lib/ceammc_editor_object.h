@@ -14,8 +14,8 @@
 #ifndef CEAMMC_EDITOR_OBJECT_H
 #define CEAMMC_EDITOR_OBJECT_H
 
-#include "ceammc_object.h"
 #include "ceammc_datatypes.h"
+#include "ceammc_object.h"
 
 #include <list>
 #include <string>
@@ -24,7 +24,8 @@
 
 namespace ceammc {
 
-using EditorTitleString = BoostStaticString<32>;
+constexpr size_t EditorTitleMaxLength = 40;
+using EditorTitleString = BoostStaticString<EditorTitleMaxLength>;
 
 EditorTitleString makeEditorTitleString(const char* dataName, const char* dataId = "");
 
@@ -74,17 +75,17 @@ public:
     static void dumpMemoryUsage();
 };
 
-enum EditorSyntax {
-    EDITOR_SYNTAX_NONE = 0,
-    EDITOR_SYNTAX_SELECTOR,
-    EDITOR_SYNTAX_LUA,
-    EDITOR_SYNTAX_DEFAULT
+enum class EditorSyntax {
+    NONE,
+    SELECTOR,
+    LUA,
+    DEFAULT
 };
 
-enum EditorEscapeMode {
-    EDITOR_ESC_MODE_DEFAULT = 0,
-    EDITOR_ESC_MODE_LUA,
-    EDITOR_ESC_MODE_DATA
+enum class EditorEscapeMode {
+    DEFAULT,
+    LUA,
+    DATA
 };
 
 class EditorObjectImpl {
@@ -93,7 +94,7 @@ class EditorObjectImpl {
     EditorEscapeMode esc_mode_;
 
 public:
-    EditorObjectImpl(t_object* owner);
+    EditorObjectImpl(t_object* owner, EditorEscapeMode mode = EditorEscapeMode::DEFAULT);
     ~EditorObjectImpl();
 
     /**
@@ -137,18 +138,22 @@ private:
     unsigned long xowner() const { return reinterpret_cast<std::uintptr_t>(owner_); }
 };
 
-template <typename BaseClass>
-class EditorObject : public BaseClass {
+template <typename T, EditorSyntax S = EditorSyntax::DEFAULT, EditorEscapeMode M = EditorEscapeMode::DEFAULT>
+class EditorObject : public T {
+public:
+    using EditorObjectT = EditorObject<T, S, M>;
+
+private:
     EditorObjectImpl impl_;
     EditorSyntax syntax_;
     bool line_nums_;
 
 public:
-    EditorObject(const PdArgs& args)
-        : BaseClass(args)
-        , impl_(this->owner())
+    explicit EditorObject(const PdArgs& args)
+        : T(args)
+        , impl_(this->owner(), M)
         , line_nums_(true)
-        , syntax_(EDITOR_SYNTAX_DEFAULT)
+        , syntax_(S)
     {
     }
 
@@ -196,27 +201,15 @@ public:
      */
     EditorSyntax highlightSyntax() const { return syntax_; }
 
-    /**
-     * Set on/off syntax highlighting in editor
-     */
-    void setHighlightSyntax(EditorSyntax value) { syntax_ = value; }
-
-    /**
-     * Enable/disable escaping of special chars
-     */
-    void setSpecialSymbolEscape(EditorEscapeMode mode) { impl_.setSpecialSymbolEscape(mode); }
-
 public:
-    using ThisType = EditorObject<BaseClass>;
-
     template <typename Factory>
-    static void registerMethods(Factory& obj)
+    static void factoryEditorObjectInit(Factory& f)
     {
-        obj.useClick();
-        obj.addMethod(".clear", &ThisType::m_editor_clear);
-        obj.addMethod(".close", &ThisType::m_editor_close);
-        obj.addMethod(".addline", &ThisType::m_editor_addline);
-        obj.addMethod(".sync", &ThisType::m_editor_sync);
+        f.useClick();
+        f.addMethod(".clear", &EditorObjectT::m_editor_clear);
+        f.addMethod(".close", &EditorObjectT::m_editor_close);
+        f.addMethod(".addline", &EditorObjectT::m_editor_addline);
+        f.addMethod(".sync", &EditorObjectT::m_editor_sync);
     }
 };
 

@@ -15,7 +15,6 @@
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_pd.h"
-#include "ceammc_platform.h"
 #include "lua_interp.h"
 
 #include <algorithm>
@@ -64,9 +63,6 @@ LangLuaJit::LangLuaJit(const PdArgs& args)
 
     if (!runTask())
         OBJ_ERR << "can't start LUA event loop";
-
-    setHighlightSyntax(EDITOR_SYNTAX_LUA);
-    setSpecialSymbolEscape(EDITOR_ESC_MODE_LUA);
 }
 
 LangLuaJit::~LangLuaJit()
@@ -395,8 +391,8 @@ void LangLuaJit::onRestore(const AtomListView& lv)
 
 void LangLuaJit::saveUser(t_binbuf* b)
 {
-    auto symA = gensym("#A");
-    auto symR = gensym(restoreSymbol);
+    auto symA = gensym(sym_A);
+    auto symR = gensym(sym_restore);
 
     for (auto& l : src_) {
         if (l.empty())
@@ -552,14 +548,15 @@ void setup_lang_luajit()
     LIB_DBG << LUAJIT_VERSION;
 
     Dispatcher::instance();
-    SaveObjectFactory<ObjectFactory, LangLuaJit> obj("lang.lua");
+    ObjectFactory<LangLuaJit> obj("lang.lua");
 
     obj.addMethod("load", &LangLuaJit::m_load);
     obj.addMethod("eval", &LangLuaJit::m_eval);
     obj.addMethod("call", &LangLuaJit::m_call);
     obj.addMethod("quit", &LangLuaJit::m_quit);
 
-    LangLuaJit::registerMethods(obj);
+    LangLuaJit::factoryEditorObjectInit(obj);
+    LangLuaJit::factorySaveObjectInit(obj);
 
     InletProxy<LangLuaJit>::init();
     InletProxy<LangLuaJit>::set_bang_callback(&LangLuaJit::inletBang);

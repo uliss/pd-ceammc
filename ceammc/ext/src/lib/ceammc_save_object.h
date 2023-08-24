@@ -21,6 +21,8 @@ namespace ceammc {
 
 template <typename T>
 class SaveObject : public T {
+    using SaveObjectT = SaveObject<T>;
+
 public:
     SaveObject(const PdArgs& args)
         : T(args)
@@ -46,12 +48,10 @@ public:
 
     void saveUserRecord(t_binbuf* b, t_symbol* restoreSym, const AtomListView& lv)
     {
-        binbuf_addv(b, "ss", gensym("#A"), restoreSym);
+        binbuf_addv(b, "ss", gensym(sym_A), restoreSym);
         binbuf_add(b, lv.size(), &lv.front().atom());
         binbuf_addsemi(b);
     }
-
-    virtual void saveUser(t_binbuf* b) = 0;
 
     virtual void onSave(t_binbuf* b)
     {
@@ -60,38 +60,46 @@ public:
         saveTextObjectWidth(b);
     }
 
-    virtual void onRestore(const AtomListView& lv) = 0;
-
     void m_restore(t_symbol* /*s*/, const AtomListView& lv) { this->onRestore(lv); }
 
+    /**
+     * override to save userdata
+     * @param b - binbuf to save
+     */
+    virtual void saveUser(t_binbuf* b) = 0;
+
+    /**
+     * override to restore saved data
+     * @param lv - saved data
+     */
+    virtual void onRestore(const AtomListView& lv) = 0;
+
 public:
-    static constexpr const char* restoreSymbol = ".restore";
+    static constexpr const char* sym_restore = ".restore";
+    static constexpr const char* sym_A = "#A";
+
+public:
+    template <typename Factory>
+    static void factorySaveObjectInit(Factory& f)
+    {
+        f.addMethod(SaveObjectT::sym_restore, &SaveObjectT::m_restore);
+        class_setsavefn(f.classPointer(), &processSave<Factory>);
+    }
+
+    template <typename Factory>
+    static void processSave(t_gobj* x, t_binbuf* b)
+    {
+        using ObjectProxy = typename Factory::ObjectProxy;
+        auto proxy = reinterpret_cast<ObjectProxy*>(x);
+        proxy->impl->onSave(b);
+    }
 
 private:
     void bindLoader()
     {
-        auto asym = gensym("#A");
-        asym->s_thing = nullptr;
+        auto asym = gensym(sym_A);
+        asym->s_thing = nullptr; // clear previous binding
         pd_bind(&this->owner()->te_g.g_pd, asym);
-    }
-};
-
-template <template <typename> class Factory, typename T>
-class SaveObjectFactory : public Factory<T> {
-public:
-    using ObjectProxy = typename Factory<T>::ObjectProxy;
-
-public:
-    SaveObjectFactory(const char* name, uint32_t flags = OBJECT_FACTORY_DEFAULT)
-        : Factory<T>(name, flags)
-    {
-        this->addMethod(T::restoreSymbol, &T::m_restore);
-        class_setsavefn(this->classPointer(), (t_savefn)processSave);
-    }
-
-    static void processSave(ObjectProxy* x, t_binbuf* b)
-    {
-        x->impl->onSave(b);
     }
 };
 

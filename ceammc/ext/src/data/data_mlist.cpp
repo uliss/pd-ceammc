@@ -17,8 +17,6 @@
 DataMList::DataMList(const PdArgs& args)
     : DataMListBase(args)
 {
-    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
-
     value_ = new MListProperty("@value", {});
     value_->setArgIndex(0);
     addProperty(value_);
@@ -33,7 +31,7 @@ void setup_data_mlist()
     obj.addAlias("ml");
     obj.processData<DataTypeMList>();
 
-    DataMList::registerMethods(obj);
+    DataMList::factoryEditorObjectInit(obj);
 
     obj.setDescription("multidimensional list container");
     obj.setCategory("data");

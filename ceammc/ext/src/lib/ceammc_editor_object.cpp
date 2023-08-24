@@ -25,13 +25,13 @@ namespace {
     const char* editorSyntaxStr(EditorSyntax s)
     {
         switch (s) {
-        case EDITOR_SYNTAX_SELECTOR:
+        case EditorSyntax::SELECTOR:
             return "selector";
-        case EDITOR_SYNTAX_DEFAULT:
+        case EditorSyntax::DEFAULT:
             return "default";
-        case EDITOR_SYNTAX_LUA:
+        case EditorSyntax::LUA:
             return "lua";
-        case EDITOR_SYNTAX_NONE:
+        case EditorSyntax::NONE:
         default:
             return "none";
         }
@@ -40,11 +40,11 @@ namespace {
     const char* escapeMode(EditorEscapeMode m)
     {
         switch (m) {
-        case EDITOR_ESC_MODE_LUA:
+        case EditorEscapeMode::LUA:
             return "lua";
-        case EDITOR_ESC_MODE_DATA:
+        case EditorEscapeMode::DATA:
             return "data";
-        case EDITOR_ESC_MODE_DEFAULT:
+        case EditorEscapeMode::DEFAULT:
         default:
             return "default";
         }
@@ -160,10 +160,10 @@ void EditorString::trim()
         str.pop_back();
 }
 
-EditorObjectImpl::EditorObjectImpl(t_object* owner)
+EditorObjectImpl::EditorObjectImpl(t_object* owner, EditorEscapeMode mode)
     : owner_(owner)
     , guiconnect_(nullptr)
-    , esc_mode_(EDITOR_ESC_MODE_DEFAULT)
+    , esc_mode_(mode)
 {
 }
 

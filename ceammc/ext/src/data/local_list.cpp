@@ -17,7 +17,7 @@ LocalList::LocalList(const PdArgs& a)
 
 EditorTitleString LocalList::editorTitle() const
 {
-    char buf[32];
+    char buf[EditorTitleMaxLength];
     snprintf(buf, sizeof(buf) - 1, "LOCAL.LIST (%s)", this->id()->s_name);
     return buf;
 }
@@ -27,7 +27,7 @@ void setup_local_list()
     ListIFaceFactory<LocalList> obj("local.list");
     obj.processData<DataTypeMList>();
 
-    LocalList::registerMethods(obj);
+    LocalList::factoryEditorObjectInit(obj);
 
     obj.setDescription("local named list object");
     obj.setCategory("local");

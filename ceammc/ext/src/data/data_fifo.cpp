@@ -10,7 +10,7 @@ constexpr size_t MIN_SIZE = 1;
 constexpr size_t MAX_SIZE = 1024;
 
 DataFifo::DataFifo(const PdArgs& args)
-    : EditorObject<BaseObject>(args)
+    : DataFifoBase(args)
     , size_(positionalConstant<DEFAULT_SIZE, MIN_SIZE, MAX_SIZE>(0))
 {
     createCbBoolProperty("@empty", [this]() -> bool { return fifo_.empty(); });
@@ -24,8 +24,6 @@ DataFifo::DataFifo(const PdArgs& args)
         ->checkNonNegative();
 
     createOutlet();
-
-    setHighlightSyntax(EDITOR_SYNTAX_SELECTOR);
 }
 
 void DataFifo::onBang() { flush(); }
@@ -193,9 +191,9 @@ void setup_data_fifo()
     obj.addMethod("pop", &DataFifo::m_pop);
     obj.addMethod("resize", &DataFifo::m_resize);
 
-    DataFifo::registerMethods(obj);
+    DataFifo::factoryEditorObjectInit(obj);
 
     obj.setDescription("First-In-First-Out (FIFO) queue data container");
     obj.setCategory("data");
-    obj.setKeywords({"data", "fifo"});
+    obj.setKeywords({ "data", "fifo" });
 }

@@ -22,5 +22,5 @@ LocalBiMap::LocalBiMap(const PdArgs& args)
 void setup_local_bimap()
 {
     ObjectFactory<LocalBiMap> obj("local.bimap");
-    LocalBiMap::registerMethods(obj);
+    LocalBiMap::factoryEditorObjectInit(obj);
 }

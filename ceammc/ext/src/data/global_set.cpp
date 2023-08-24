@@ -17,7 +17,6 @@
 GlobalSet::GlobalSet(const PdArgs& a)
     : GlobalSetBase(a)
 {
-    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
     createOutlet();
 }
 
@@ -33,7 +32,7 @@ void setup_global_set()
     ColectionIFaceFactory<GlobalSet> obj("global.set");
     obj.processData<DataTypeSet>();
 
-    GlobalSet::registerMethods(obj);
+    GlobalSet::factoryEditorObjectInit(obj);
 
     obj.setDescription("global named set object");
     obj.setCategory("global");

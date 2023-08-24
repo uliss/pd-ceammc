@@ -3,10 +3,7 @@
 
 #include "ceammc_abstractdata.h"
 #include "ceammc_convert.h"
-#include "ceammc_data.h"
-#include "ceammc_datatypes.h"
 #include "ceammc_editor_object.h"
-#include "ceammc_format.h"
 #include "ceammc_string.h"
 
 namespace ceammc {
@@ -14,13 +11,16 @@ namespace ceammc {
 void editorAppend(EditorLineList& res, const AtomListView& lv, int indentLevel);
 void editorAppend(EditorLineList& res, const AbstractData* d, int indentLevel);
 
+template <typename T>
+using EditorDataTBase = EditorObject<T, EditorSyntax::DEFAULT, EditorEscapeMode::DATA>;
+
 template <typename T, typename Data>
-class EditorDataT : public EditorObject<T> {
+class EditorDataT : public EditorDataTBase<T> {
     AtomList lines_;
 
 public:
     EditorDataT(const PdArgs& a)
-        : EditorObject<T>(a)
+        : EditorDataTBase<T>(a)
     {
     }
 
@@ -39,7 +39,7 @@ public:
             return;
         }
 
-        EditorObject<T>::editorSync();
+        EditorDataTBase<T>::editorSync();
     }
 
     void editorAddLine(t_symbol* sel, const AtomListView& lv) override
