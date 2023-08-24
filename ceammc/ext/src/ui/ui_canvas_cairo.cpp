@@ -20,6 +20,7 @@
 #include "qrcodegen.hpp"
 #include "resvg_common.h"
 #include "rimg_common.h"
+#include "stb_common.h"
 #include "verovio_common.h"
 
 #include <boost/algorithm/string.hpp>
@@ -126,7 +127,7 @@ void ceammc::DrawCommandVisitor::operator()(const draw::DrawImage& c) const
         } else if (ends_with(c.path, ".png")) {
             img.reset(cairo_image_surface_create_from_png(c.path.c_str()));
         } else {
-            img.reset(load_rimg(c.path.c_str(), queue_));
+            img.reset(load_stb(c.path.c_str(), queue_));
         }
 
         if (!img) {
