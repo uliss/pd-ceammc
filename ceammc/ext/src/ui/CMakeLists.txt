@@ -65,6 +65,8 @@ if(Rust_FOUND)
         )
     target_link_libraries(ceammc_ui PRIVATE resvg rimg verovio)
     target_compile_definitions(ceammc_ui PRIVATE WITH_RIMG WITH_RESVG WITH_VEROVIO)
+else()
+    target_compile_definitions(ceammc_ui PRIVATE WITH_STB)
 endif()
 
 find_package(Cairo)

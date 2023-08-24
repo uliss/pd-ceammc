@@ -19,8 +19,6 @@
 #include "resvg_common.h"
 #include "ui_canvas_cairo.h"
 
-#define WITH_STB
-
 #ifdef WITH_STB
 #define STBI_NO_HDR
 #define STBI_ONLY_JPEG
@@ -75,7 +73,7 @@ cairo_surface_t* load_stb(const char* path, ceammc::UICanvasInQueue& out)
 }
 #else
 namespace {
-cairo_surface_t* load_rimg(const char* path, ceammc::UICanvasInQueue& out)
+cairo_surface_t* load_stb(const char* path, ceammc::UICanvasInQueue& out)
 {
     OUT_ERR(fmt::format("can't load file: '{}'. compiled without STB support", path));
     return nullptr;

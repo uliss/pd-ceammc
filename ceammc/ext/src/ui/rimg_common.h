@@ -24,15 +24,6 @@
 
 namespace {
 
-void rimg_rgba2bgra(unsigned char* data, int w, int h)
-{
-    for (int i = 0; i < (w * h * 4); i += 4) {
-        auto r = data[i + 0];
-        data[i + 0] = data[i + 2];
-        data[i + 2] = r;
-    }
-}
-
 cairo_surface_t* load_rimg(const char* path, ceammc::UICanvasInQueue& out)
 {
     using namespace ceammc;
@@ -65,15 +56,13 @@ cairo_surface_t* load_rimg(const char* path, ceammc::UICanvasInQueue& out)
     }
 
     OUT_DBG(fmt::format("image size: {}x{}", layout.width, layout.height));
-    OUT_DBG(fmt::format("image strides: w:{} h:{} c:{}", layout.width_stride, layout.height_stride, layout.channel_stride));
-    auto surface = cairo_image_surface_create_for_data((unsigned char*)result.data,
-        CAIRO_FORMAT_ARGB32,
-        layout.width,
-        layout.height,
-        layout.height_stride);
 
-    /* resvg doesn't support stride, so cairo_surface_t should have no padding */
-    assert(cairo_image_surface_get_stride(surface) == (int)layout.width * 4);
+    auto surface = cairo_image_surface_create(CAIRO_FORMAT_ARGB32, layout.width, layout.height);
+    if (!surface) {
+        OUT_ERR(fmt::format("cairo_image_surface_create() failed ({}x{})", path, layout.width, layout.height));
+        rimg_free_result(&result);
+        return nullptr;
+    }
 
     auto surface_data = cairo_image_surface_get_data(surface);
     if (!surface_data) {
@@ -83,9 +72,16 @@ cairo_surface_t* load_rimg(const char* path, ceammc::UICanvasInQueue& out)
         return nullptr;
     }
 
-    rimg_rgba2bgra(surface_data, layout.width, layout.height);
-    cairo_surface_mark_dirty(surface);
+    // copy BGRA data to ARGB
+    for (int i = 0; i < (layout.width * layout.height * 4); i += 4) {
+        surface_data[i + 0] = result.data[i + 2];
+        surface_data[i + 1] = result.data[i + 1];
+        surface_data[i + 2] = result.data[i + 0];
+        surface_data[i + 3] = result.data[i + 3];
+    }
+
     rimg_free_result(&result);
+    cairo_surface_mark_dirty(surface);
 
     return surface;
 }

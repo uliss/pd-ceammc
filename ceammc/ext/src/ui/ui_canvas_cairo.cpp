@@ -20,7 +20,6 @@
 #include "qrcodegen.hpp"
 #include "resvg_common.h"
 #include "rimg_common.h"
-#include "stb_common.h"
 #include "verovio_common.h"
 
 #include <boost/algorithm/string.hpp>
@@ -29,6 +28,10 @@
 #define _USE_MATH_DEFINES
 #endif
 #include <cmath>
+
+#ifdef WITH_STB
+#include "stb_common.h"
+#endif
 
 ceammc::DrawCommandVisitor::DrawCommandVisitor(CairoSurface& surface, CairoContext& ctx, UICanvasInQueue& in)
     : surface_(surface)
@@ -126,8 +129,14 @@ void ceammc::DrawCommandVisitor::operator()(const draw::DrawImage& c) const
             img.reset(load_svg(c.path.c_str(), queue_));
         } else if (ends_with(c.path, ".png")) {
             img.reset(cairo_image_surface_create_from_png(c.path.c_str()));
-        } else {
+        }
+
+        else {
+#ifdef WITH_RIMG
+            img.reset(load_rimg(c.path.c_str(), queue_));
+#elif WITH_STB
             img.reset(load_stb(c.path.c_str(), queue_));
+#endif
         }
 
         if (!img) {
