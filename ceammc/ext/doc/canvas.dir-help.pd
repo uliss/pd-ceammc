@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 575 50 cnv 1 190 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 575 50 current canvas directory;
+#X obj 438 50 cnv 1 327 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 438 50 current canvas directory ans nesting level;
 #X obj 1 1 cnv 5 765 40 empty empty canvas.dir 20 20 0 20 -104026
 -4096 0;
 #X obj 667 11 canvas.dir;
@@ -22,7 +22,7 @@
 #X obj 20 352 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
 #X text 110 353 1\.;
-#X text 245 353 current canvas directory as symbol.;
+#X text 245 353 symbol: current canvas directory.;
 #X text 110 373 2\.;
 #X text 245 373 int: nesting level.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
