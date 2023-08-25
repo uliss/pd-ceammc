@@ -25,7 +25,6 @@
 
 #include "ceammc_atom.h"
 #include "ceammc_atomlist_view.h"
-#include "ceammc_output.h"
 
 namespace ceammc {
 
@@ -36,6 +35,11 @@ public:
 
     SmallAtomListN(std::initializer_list<Atom> atoms)
         : boost::container::small_vector<Atom, N>(atoms.begin(), atoms.end())
+    {
+    }
+
+    explicit SmallAtomListN(const AtomListView& lv)
+        : boost::container::small_vector<Atom, N>(lv.begin(), lv.end())
     {
     }
 
