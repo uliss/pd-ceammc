@@ -144,6 +144,18 @@ namespace eval texteditor {
                 ctext::addHighlightClassForRegexp $w strings $colors(green) {[\"][^\n\"]+[\"]}
                 ctext::addHighlightClassForRegexp $w comment $colors(comment) {--.*}
             }
+            "faust" {
+                ctext::addHighlightClass $w keywords $colors(purple) { process with declare case letrec where environment waveform mem }
+                ctext::addHighlightClass $w gui      $colors(cyan)   { hslider vslider hgroup vgroup tgroup button checkbox nentry soundfile hbargraph vbargraph }
+                ctext::addHighlightClass $w func     $colors(red)    { import library component ffunction fvariable inputs outputs par seq sum prod route acos asin \
+                                                                       atan atan2 cos sin tan exp log log10 pow sqrt abs min max fmod remainder floor ceil rint round \
+                                                                       rdtable rwtable select2 select3 attach
+                                                                     }
+                ctext::addHighlightClass $w vars     $colors(yellow) { SR BS }
+                ctext::addHighlightClassForRegexp $w numbers $colors(pink) {[-]?[0-9]+(?:\.[0-9]+)?(?:[eE][-+]?[0-9]+)?}
+                ctext::addHighlightClassForRegexp $w strings $colors(green) {[\"][^\n\"]+[\"]}
+                ctext::addHighlightClassForRegexp $w comment $colors(comment) {//.*}
+            }
             default {
                 ctext::addHighlightClassWithOnlyCharStart $w props $colors(cyan) "@"
                 ctext::addHighlightClassWithOnlyCharStart $w props $colors(cyan) "\$"
@@ -253,7 +265,8 @@ namespace eval texteditor {
                                 ","  {\\x2c}
                                 ";"  {\\x3b}
                                 "\\" {\\x5c}
-                                "\t" {\\x09 }
+                                "\t" {\\x09}
+                                "\$" {\\x24}
                                 "\ \ " { \  }
                             } $lin]
                             pdsend [concat $name .addline $lin]
