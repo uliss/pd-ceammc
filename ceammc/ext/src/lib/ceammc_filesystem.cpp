@@ -12,6 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_filesystem.h"
+#include "ceammc_platform.h"
+#include "fmt/core.h"
+
+#include <fstream>
 
 namespace ceammc {
 namespace fs {
@@ -36,5 +40,26 @@ namespace fs {
 
         return str;
     }
+
+    Either<bool> writeFileContent(const char* path, const char* data, size_t len, bool overwrite)
+    {
+        if (!overwrite && platform::path_exists(path))
+            return RuntimeError(fmt::format("file already exists: '{}'", path));
+
+        std::ofstream ofs(path);
+        if (!ofs)
+            return RuntimeError(fmt::format("can't open file for writing: '{}'", path));
+
+        if (ofs.write(data, len).bad())
+            return RuntimeError(fmt::format("writing to file '{}' failed", path));
+
+        return true;
+    }
+
+    Either<bool> writeFileContent(const char* path, const std::string& data, bool overwrite)
+    {
+        return writeFileContent(path, data.c_str(), data.length(), overwrite);
+    }
+
 }
 }

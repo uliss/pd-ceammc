@@ -47,6 +47,7 @@ add_cell_test(datatype_set)
 add_cell_test(datatype_string)
 
 add_cell_test(editor_unescape)
+add_cell_test(filesystem)
 
 add_cell_test(parser_array_saver)
 add_cell_test(parser_clone)

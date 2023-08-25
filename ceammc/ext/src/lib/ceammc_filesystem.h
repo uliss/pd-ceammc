@@ -17,19 +17,19 @@
 #include "ceammc_either.h"
 #include "ceammc_notify.h"
 #include "ceammc_object.h"
-#include "ceammc_platform.h"
 #include "ceammc_poll_dispatcher.h"
-#include "fmt/core.h"
 
 #include <chrono>
 #include <exception>
-#include <fstream>
 #include <future>
 
 namespace ceammc {
 
 namespace fs {
     Either<std::string> readFileContent(const char* path);
+    Either<bool> writeFileContent(const char* path, const char* data, size_t len, bool overwrite = false);
+    Either<bool> writeFileContent(const char* path, const std::string& data, bool overwrite = false);
+
 }
 
 template <typename Base>
