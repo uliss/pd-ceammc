@@ -213,14 +213,15 @@ namespace eval texteditor {
         variable escape_map
         if {[winfo exists $name]} {
             switch $escape_map("esc$name") {
-                lua     {
+                lua {
                     $name.f.text fastinsert end [string map {
                         {\x7b} "{"
                         {\x7d} "}"
                         {\x2c} ","
                         {\x3b} ";"
                         {\x5c} "\\"
-                        {\x09 } "\t"
+                        {\x09} "\t"
+                        {\x24} "\$"
                     } $contents]
                 }
                 data    {
