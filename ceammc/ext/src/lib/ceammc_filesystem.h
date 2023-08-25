@@ -21,12 +21,16 @@
 
 #include <chrono>
 #include <exception>
+#include <functional>
 #include <future>
 
 namespace ceammc {
 
 namespace fs {
     Either<std::string> readFileContent(const char* path);
+
+    Either<bool> readFileLines(const char* path, const std::function<void(size_t, const std::string&)>& line_cb);
+
     Either<bool> writeFileContent(const char* path, const char* data, size_t len, bool overwrite = false);
     Either<bool> writeFileContent(const char* path, const std::string& data, bool overwrite = false);
 

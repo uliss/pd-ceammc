@@ -41,6 +41,26 @@ namespace fs {
         return str;
     }
 
+    Either<bool> readFileLines(const char* path, const std::function<void(size_t, const std::string&)>& line_cb)
+    {
+        if (!platform::path_exists(path))
+            return RuntimeError(fmt::format("file not exists: '{}'", path));
+
+        if (!line_cb)
+            return RuntimeError(fmt::format("invalid callback"));
+
+        std::ifstream ifs(path);
+        if (!ifs)
+            return RuntimeError(fmt::format("can't open file: '{}'", path));
+
+        std::string line;
+        size_t lnum = 0;
+        while (std::getline(ifs, line))
+            line_cb(lnum++, line);
+
+        return true;
+    }
+
     Either<bool> writeFileContent(const char* path, const char* data, size_t len, bool overwrite)
     {
         if (!overwrite && platform::path_exists(path))

@@ -31,6 +31,23 @@ TEST_CASE("ceammc_filesystem", "[ceammc::fs]")
         CHECK(res.error().what() == "file not exists: 'not-exists'");
     }
 
+    SECTION("lines")
+    {
+        auto res = fs::readFileLines(TEST_DATA_DIR "/cells/fs_test.txt", [](size_t n, const std::string& ln) {
+            if (n == 0)
+                REQUIRE(ln == "one");
+            else if (n == 1)
+                REQUIRE(ln == "two");
+            else if (n == 2)
+                REQUIRE(ln == "three");
+        });
+        REQUIRE(res.isOk());
+        REQUIRE(res.value());
+
+        res = fs::readFileLines("not-exists", nullptr);
+        REQUIRE(res.isError());
+    }
+
     SECTION("write")
     {
         auto file = TEST_DIR "/fs_write_test.txt";
