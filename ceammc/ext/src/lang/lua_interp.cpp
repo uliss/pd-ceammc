@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "lua_interp.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #include "lua_func.h"
 #include "lua_stack_guard.h"
 
