@@ -16,25 +16,40 @@
 
 using namespace ceammc;
 
-#define REQUIRE_UNESCAPE(s0, s1)                                     \
+#define REQUIRE_UNESCAPE_LUA(s0, s1)                                 \
     do {                                                             \
         std::string str(s0);                                         \
         REQUIRE(editor_string_unescape(str, EditorEscapeMode::LUA)); \
         REQUIRE(str == s1);                                          \
     } while (0)
 
+#define REQUIRE_UNESCAPE_DATA(s0, s1)                                 \
+    do {                                                              \
+        std::string str(s0);                                          \
+        REQUIRE(editor_string_unescape(str, EditorEscapeMode::DATA)); \
+        REQUIRE(str == s1);                                           \
+    } while (0)
+
 TEST_CASE("ceammc_editor_unescape", "[ceammc]")
 {
-    SECTION("test")
+    SECTION("lua")
     {
-        REQUIRE_UNESCAPE("", "");
-        REQUIRE_UNESCAPE("\\x09", "\t");
-        REQUIRE_UNESCAPE("\\x09!\\x09", "\t!\t");
-        REQUIRE_UNESCAPE("a\\x2cb\\x2c", "a,b,");
-        REQUIRE_UNESCAPE("\\x7ba\\x7d", "{a}");
-        REQUIRE_UNESCAPE("\\x3b\\x7b\\x7d", ";{}");
-        REQUIRE_UNESCAPE("\\x5c", "\\");
-        REQUIRE_UNESCAPE("\\x5", "\\x5");
-        REQUIRE_UNESCAPE("\\x24", "$");
+        REQUIRE_UNESCAPE_LUA("", "");
+        REQUIRE_UNESCAPE_LUA("\\x09", "\t");
+        REQUIRE_UNESCAPE_LUA("\\x09!\\x09", "\t!\t");
+        REQUIRE_UNESCAPE_LUA("a\\x2cb\\x2c", "a,b,");
+        REQUIRE_UNESCAPE_LUA("\\x7ba\\x7d", "{a}");
+        REQUIRE_UNESCAPE_LUA("\\x3b\\x7b\\x7d", ";{}");
+        REQUIRE_UNESCAPE_LUA("\\x5c", "\\");
+        REQUIRE_UNESCAPE_LUA("\\x5", "\\x5");
+        REQUIRE_UNESCAPE_LUA("\\x24", "$");
+    }
+
+    SECTION("data")
+    {
+        REQUIRE_UNESCAPE_DATA("", "");
+        REQUIRE_UNESCAPE_DATA("`(", "{");
+        REQUIRE_UNESCAPE_DATA("`(`)", "{}");
+        REQUIRE_UNESCAPE_DATA("\\,\\$\\;", ",$;");
     }
 }

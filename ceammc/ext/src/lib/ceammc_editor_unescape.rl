@@ -49,11 +49,53 @@ bool editor_string_unescape_lua(std::string& str)
     return false;
 }
 
+%%{
+    machine editor_unescape_data;
+
+    esc_comma    = "\\,"   %{ fpc[-2] = ',';  fpc[-1] = REPLACE_CHAR; };
+    esc_lpar     = "`("    %{ fpc[-2] = '{';  fpc[-1] = REPLACE_CHAR; };
+    esc_rpar     = "`)"    %{ fpc[-2] = '}';  fpc[-1] = REPLACE_CHAR; };
+    esc_semi     = "\;"    %{ fpc[-2] = ';';  fpc[-1] = REPLACE_CHAR; };
+    esc_dollar   = "\\$"   %{ fpc[-2] = '$';  fpc[-1] = REPLACE_CHAR; };
+
+    esc_all = esc_comma | esc_lpar | esc_rpar | esc_semi | esc_dollar;
+    other = (any -- esc_all);
+    main := (other | esc_all)*;
+
+    write data;
+}%%
+
+bool editor_string_unescape_data(std::string& str)
+{
+    int cs = 0;
+    char* p = const_cast<char*>(str.data());
+    auto pe = p + str.length();
+    auto eof = pe;
+
+    %% write init;
+    %% write exec;
+
+    // algo:
+    // replace all unescape gaps with REPLACE_CHAR (we replace 4 characters with 1)
+    // remove all REPLACE_CHAR
+    // resize string
+
+    auto it = std::remove(str.begin(), str.end(), REPLACE_CHAR);
+    str.erase(it, str.end());
+
+    if (cs >= %%{ write first_final; }%%)
+        return true;
+
+    return false;
+}
+
 bool editor_string_unescape(std::string& str, EditorEscapeMode mode)
 {
     switch(mode) {
     case EditorEscapeMode::LUA:
         return editor_string_unescape_lua(str);
+    case EditorEscapeMode::DATA:
+        return editor_string_unescape_data(str);
     default:
         return false;
     }
