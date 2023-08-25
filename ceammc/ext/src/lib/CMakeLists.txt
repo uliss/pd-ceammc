@@ -201,6 +201,9 @@ if(RAGEL_FOUND)
     RAGEL_TARGET(ragel_music
         lex/ragel_music.rl lex/ragel_music.cpp
         COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(ceammc_editor_unescape
+        ceammc_editor_unescape.rl ceammc_editor_unescape.cpp
+        COMPILE_FLAGS "-G2 -s")
 
     add_custom_target(lemon_data_parser
         COMMAND $<TARGET_FILE:lemon> -s -q lemon_data_string.y
@@ -213,6 +216,7 @@ endif()
 # ragel generated sources
 target_sources(ceammc_core
     PRIVATE
+        ceammc_editor_unescape.cpp
         lex/lemon_data_parser_impl.cpp
         lex/lemon_data_parser_impl.h
         lex/lemon_data_string_parser.cpp
