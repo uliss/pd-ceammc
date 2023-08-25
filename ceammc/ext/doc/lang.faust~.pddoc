@@ -20,23 +20,18 @@
             <event type="left-click" editmode="0" keys="Alt">open faust dsp file in external
             editor</event>
         </mouse>
-        <arguments>
-            <argument name="FNAME" type="symbol">path to faust dsp file</argument>
-        </arguments>
         <properties>
-            <property name="@fname" type="symbol" default="">path to faust dsp file</property>
             <property name="@include" type="list" default="">list of faust include
             directories</property>
-            <property name="@auto" type="bool" default="0">auto update mode. If on - recompiles
-            faust dsp file on change</property>
         </properties>
         <methods>
             <!-- open -->
-            <method name="open">open faust dsp file in external editor</method>
+            <method name="open">open editor window</method>
             <!-- reset -->
             <method name="reset">reset object state</method>
-            <!-- update -->
-            <method name="update">update faust object, recompile if needed</method>
+            <!-- read -->
+            <method name="read">read Faust code from file and compile it.
+            <param name="FILE" type="symbol" required="true">file path, relative to patch or absolute</param></method>
         </methods>
         <inlets dynamic="true">
             <inlet number="1">
@@ -65,7 +60,7 @@
 |       |            |
 |       [@amp $1 #a( [@freq $1 #f(
 |
-| [@fname faust/ex2.dsp( [osc.square~ 300]
+| [read faust/ex2.dsp(   [osc.square~ 300]
 | |                      |
 | | [update(             |
 | | |                    |.
