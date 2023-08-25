@@ -15,25 +15,13 @@
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_platform.h"
+#include "fmt/core.h"
 
 #ifndef FAUSTFLOAT
 #define FAUSTFLOAT t_float
 #endif
 
 #include "faust/gui/UI.h"
-
-#include "config.h"
-#ifdef _WIN32
-#include <windows.h>
-#endif
-
-#ifdef HAVE_SYS_TYPES_H
-#include <sys/types.h>
-#endif
-
-#ifdef HAVE_SYS_STAT_H
-#include <sys/stat.h>
-#endif
 
 #include <cerrno>
 #include <chrono>
@@ -44,61 +32,6 @@
 extern "C" {
 int ceammc_init_done();
 void ceammc_setup();
-}
-
-enum RunEditorRc {
-    RUN_OK = 0,
-    RUN_FILE_NOT_FOUND = 1000,
-    RUN_NO_ASSOC,
-    RUN_ERR_UNKNOWN
-};
-
-static int runEditorCommand(const std::string& path)
-{
-    char msg[MAXPDSTRING];
-
-#ifdef _WIN32
-    char temp[MAXPDSTRING];
-    sys_bashfilename(path.c_str(), temp);
-    sprintf(msg, "\"%s\"", temp);
-    auto rc = reinterpret_cast<uint64_t>(ShellExecute(NULL, "edit", msg, NULL, NULL, SW_SHOWNORMAL));
-    if (rc > 32)
-        return RUN_OK;
-
-    switch (rc) {
-    case ERROR_FILE_NOT_FOUND:
-    case ERROR_PATH_NOT_FOUND:
-        return RUN_FILE_NOT_FOUND;
-    case SE_ERR_NOASSOC:
-        return RUN_NO_ASSOC;
-    default:
-        return RUN_ERR_UNKNOWN;
-    }
-
-    return 0;
-#elif __APPLE__
-    snprintf(msg, sizeof(msg) - 1, "open -t %s", path.c_str());
-    return system(msg);
-
-#else
-    snprintf(msg, sizeof(msg) - 1, "xdg-open %s", path.c_str());
-    return system(msg);
-#endif
-}
-
-static time_t getModificationTime(const std::string& path)
-{
-#ifdef _WIN32
-#define stat _stat
-#endif
-    struct stat attrib;
-    int err = stat(path.c_str(), &attrib);
-    if (!err) {
-        return attrib.st_mtime;
-    } else {
-        fprintf(stderr, "stat error for file '%s': %s", path.c_str(), strerror(errno));
-        return 0;
-    }
 }
 
 class DspState {
@@ -147,60 +80,21 @@ faust::FaustConfig& LangFaustTilde::faust_config_base()
 }
 
 LangFaustTilde::LangFaustTilde(const PdArgs& args)
-    : SoundExternal(args)
-    , fname_(nullptr)
-    , include_dirs_(nullptr)
-    , autocompile_(nullptr)
-    , autocompile_clock_([this]() {
-        if (!mod_time_.valid()) {
-            try {
-                mod_time_ = std::async(std::launch::async, getModificationTime, full_path_);
-            } catch (std::exception& e) {
-                OBJ_ERR << "can't get file modification time: " << e.what();
-                return;
-            }
-        } else {
-            auto rc = mod_time_.wait_for(std::chrono::seconds(0));
-            if (rc == std::future_status::ready) {
-                auto mtime = mod_time_.get();
-                if (mtime != last_mod_time_) {
-                    last_mod_time_ = mtime;
-                    compile();
-                }
-            }
-        }
-
-        if (autocompile_->value())
-            autocompile_clock_.delay(250);
-    })
-    , last_mod_time_(0)
+    : LangFaustBase(args)
 {
-    fname_ = new SymbolProperty("@fname", &s_);
-    fname_->setSuccessFn([this](Property*) { if(!isPatchLoading()) compile(); });
-    fname_->setArgIndex(0);
-    addProperty(fname_);
-
     include_dirs_ = new ListProperty("@include");
     addProperty(include_dirs_);
 
-    autocompile_ = new BoolProperty("@auto", false);
-    autocompile_->setSuccessFn([this](Property*) {
-        if (autocompile_->value())
-            autocompile_clock_.delay(0);
-        else
-            autocompile_clock_.unset();
-    });
-    addProperty(autocompile_);
+    nostd_ = new FlagProperty("@nostd");
+    addProperty(nostd_);
 }
 
-LangFaustTilde::~LangFaustTilde() // for std::unique_ptr
-{
-}
+LangFaustTilde::~LangFaustTilde() = default; // for std::unique_ptr
 
 void LangFaustTilde::initDone()
 {
     SoundExternal::initDone();
-    compile();
+    compile(); // virtual call
 }
 
 void LangFaustTilde::createFaustUI()
@@ -212,7 +106,7 @@ void LangFaustTilde::createFaustUI()
         for (size_t i = 0; i < n_ui; i++) {
             auto name = ui->uiAt(i)->propInfo().name();
             if (hasProperty(name)) {
-                OBJ_ERR << "UI control already exists: " << name << ", skipping";
+                OBJ_ERR << fmt::format("UI control already exists: '{}', skipping", name->s_name);
                 continue;
             }
 
@@ -234,17 +128,28 @@ bool LangFaustTilde::initFaustDsp()
         return false;
     }
 
-    OBJ_DBG << "compiled from source: " << full_path_;
-
     dsp_->init(sys_getsr());
     return true;
 }
 
 bool LangFaustTilde::initFaustDspFactory(const faust::FaustConfig& cfg)
 {
-    dsp_factory_.reset(new faust::LlvmDspFactory(full_path_.c_str(), cfg));
+    std::string code;
+
+    for (auto& l : src_) {
+        code.append(to_string(l.view()));
+        code += '\n';
+    }
+
+    if (!unescapeString(code))
+        return false;
+
+    {
+        OBJ_DBG << code;
+    }
+
+    dsp_factory_.reset(new faust::LlvmDspFactory(code.c_str(), cfg));
     if (!dsp_factory_ || !dsp_factory_->isOk()) {
-        OBJ_ERR << "Faust file load error " << fname_->value();
         if (dsp_factory_ && !dsp_factory_->errors().empty())
             OBJ_ERR << dsp_factory_->errors();
         return false;
@@ -342,46 +247,75 @@ void LangFaustTilde::m_reset(t_symbol*, const AtomListView&)
 
 void LangFaustTilde::m_open(t_symbol*, const AtomListView&)
 {
-    if (full_path_.empty() || !platform::path_exists(full_path_.c_str())) {
-        OBJ_ERR << "file not exists: " << full_path_;
-        return;
-    }
-
-    if (run_editor_.valid()) {
-        try {
-            auto st = run_editor_.wait_for(std::chrono::seconds(0));
-            if (st != std::future_status::ready) {
-                OBJ_ERR << "exec error: " << __FUNCTION__;
-            } else {
-                auto rc = run_editor_.get();
-                switch (rc) {
-                case RUN_FILE_NOT_FOUND:
-                    OBJ_DBG << "file not found error";
-                    break;
-                case RUN_NO_ASSOC:
-                    OBJ_DBG << "no editor associated with file";
-                    break;
-                default:
-                    OBJ_DBG << "result code: " << rc;
-                    break;
-                }
-            }
-        } catch (std::exception& e) {
-            OBJ_ERR << e.what();
-            return;
-        }
-    }
-
-    try {
-        run_editor_ = std::async(std::launch::async, runEditorCommand, full_path_);
-    } catch (std::exception& e) {
-        OBJ_ERR << "can't run editor: " << e.what();
-    }
-
-    return;
+    openEditor(0, 0);
 }
 
-void LangFaustTilde::m_update(t_symbol*, const AtomListView&)
+void LangFaustTilde::saveUser(t_binbuf* b)
+{
+    auto symA = gensym(sym_A);
+    auto symR = gensym(sym_restore);
+
+    for (auto& l : src_) {
+        if (l.empty())
+            continue;
+
+        binbuf_addv(b, "ss", symA, symR);
+        binbuf_add(b, l.size(), &l.front().atom());
+        binbuf_addsemi(b);
+    }
+
+    binbuf_addv(b, "ss", symA, symR);
+    binbuf_addsemi(b);
+}
+
+void LangFaustTilde::onRestore(const AtomListView& lv)
+{
+    if (lv.empty()) {
+        compile();
+    } else {
+        src_.push_back({});
+        auto& back = src_.back();
+
+        for (auto& a : lv)
+            back.push_back(a);
+    }
+}
+
+void LangFaustTilde::editorClear()
+{
+    src_.clear();
+    //    if (!nostd_->value())
+    //        src_.push_back({ Atom(gensym("import(\"stdfaust.lib\");")) });
+}
+
+void LangFaustTilde::editorAddLine(t_symbol* sel, const AtomListView& lv)
+{
+    src_.push_back({});
+    auto& b = src_.back();
+    b.reserve(lv.size());
+
+    for (auto& a : lv)
+        b.push_back(a);
+}
+
+EditorLineList LangFaustTilde::getContentForEditor() const
+{
+    EditorLineList res;
+    res.reserve(src_.size());
+
+    for (auto& l : src_) {
+        if (l.empty())
+            continue;
+
+        auto str = EditorStringPool::pool().allocate();
+        str->append(l.view());
+        res.push_back(str);
+    }
+
+    return res;
+}
+
+void LangFaustTilde::editorSync()
 {
     compile();
 }
@@ -404,14 +338,6 @@ void LangFaustTilde::dump() const
         dsp_factory_->dumpOpts(os);
 }
 
-void LangFaustTilde::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
-{
-    if (!alt)
-        return;
-
-    m_open(gensym("open"), {});
-}
-
 void LangFaustTilde::addIncludePath(const std::string& path)
 {
     faust_config_base().addIncludeDirectory(path);
@@ -426,14 +352,13 @@ void LangFaustTilde::compile()
 {
     ViewState view_guard(this);
 
-    for (auto& p : properties()) {
+    auto& props = properties();
+    for (auto& p : props) {
         if (dynamic_cast<faust::UIProperty*>(p)) {
             delete p;
             p = nullptr;
         }
     }
-
-    auto& props = properties();
     auto it = std::remove_if(props.begin(), props.end(), [](Property* p) { return p == nullptr; });
     props.erase(it, props.end());
     faust_properties_.clear();
@@ -447,16 +372,6 @@ void LangFaustTilde::compile()
 
     // dps suspend/resume
     DspState dsp_state_guard;
-
-    full_path_ = findInStdPaths(fname_->value()->s_name);
-    if (full_path_.empty()) {
-        OBJ_DBG << "Faust file is not found: " << fname_->value();
-        return;
-    }
-
-    last_mod_time_ = getModificationTime(full_path_);
-    if (autocompile_->value())
-        autocompile_clock_.delay(0);
 
     if (!initFaustDspFactory(makeFaustConfig()))
         return;
@@ -484,23 +399,24 @@ std::string LangFaustTilde::canvasDir() const
     return cnv ? canvas_getdir(cnv)->s_name : std::string();
 }
 
+void setup_lang_faust_non_external()
+{
+    SoundExternalFactory<LangFaustTilde> obj("lang.faust~", OBJECT_FACTORY_DEFAULT);
+    obj.addMethod("reset", &LangFaustTilde::m_reset);
+    obj.addMethod("open", &LangFaustTilde::m_open);
+
+    std::string path = class_gethelpdir(obj.classPointer());
+    path += "/faust";
+    LangFaustTilde::addIncludePath(path);
+
+    LangFaustTilde::factoryEditorObjectInit(obj);
+    LangFaustTilde::factorySaveObjectInit(obj);
+}
+
 void setup_lang0x2efaust_tilde()
 {
     if (!ceammc_init_done())
         ceammc_setup();
 
     setup_lang_faust_non_external();
-}
-
-void setup_lang_faust_non_external()
-{
-    SoundExternalFactory<LangFaustTilde> obj("lang.faust~", OBJECT_FACTORY_DEFAULT);
-    obj.addMethod("reset", &LangFaustTilde::m_reset);
-    obj.addMethod("open", &LangFaustTilde::m_open);
-    obj.addMethod("update", &LangFaustTilde::m_update);
-    obj.useClick();
-
-    std::string path = class_gethelpdir(obj.classPointer());
-    path += "/faust";
-    LangFaustTilde::addIncludePath(path);
 }

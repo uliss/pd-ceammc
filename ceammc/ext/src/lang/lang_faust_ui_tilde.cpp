@@ -95,7 +95,7 @@ LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
 void LangFaustUiTilde::buildUI()
 {
     vc_.setXlets(Xlets::fromInlets(owner()), Xlets::fromOutlets(owner()));
-    auto sz = vc_.build(faustProperties(), fname_->value());
+    auto sz = vc_.build(faustProperties(), &s_);
     setSize(sz);
 }
 
@@ -118,7 +118,7 @@ void LangFaustUiTilde::onWidgetSelect(bool state)
 void LangFaustUiTilde::onMouseDown(const Point& pt, const Point& abspt, uint32_t mod)
 {
     if (mod & KEY_MOD_ALT)
-        return m_open(&s_, {});
+        return openEditor(abspt.x(), abspt.y());
 
     vc_.sendEvent(EVENT_MOUSE_DOWN, pt, EventContext());
 }
@@ -467,7 +467,9 @@ t_class* setup_ui_faust_non_external()
 
     obj.addMethod("reset", &LangFaustUiTilde::m_reset);
     obj.addMethod("open", &LangFaustUiTilde::m_open);
-    obj.addMethod("update", &LangFaustUiTilde::m_update);
+
+    LangFaustUiTilde::factorySaveObjectInit(obj);
+    LangFaustUiTilde::factoryEditorObjectInit(obj);
 
     initFaustStyle();
 
