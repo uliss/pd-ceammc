@@ -56,12 +56,13 @@ namespace ui {
 
     template <template <typename> class Factory, typename T>
     class UIFactory : public Factory<T> {
+    public:
         using FactoryT = Factory<T>;
         using ObjectProxy = typename FactoryT::ObjectProxy;
-        using ObjectInitPtr = typename FactoryT::ObjectInitPtr;
-        static t_widgetbehavior wb_;
 
     private:
+        using ObjectInitPtr = typename FactoryT::ObjectInitPtr;
+        static t_widgetbehavior wb_;
         uint16_t ui_flags_ { UI_FACTORY_NONE };
 
     public:
