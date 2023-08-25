@@ -14,7 +14,6 @@
 #ifndef CEAMMC_SAVE_OBJECT_H
 #define CEAMMC_SAVE_OBJECT_H
 
-#include "ceammc_factory.h"
 #include "ceammc_object.h"
 
 namespace ceammc {
