@@ -31,6 +31,8 @@ namespace {
             return "default";
         case EditorSyntax::LUA:
             return "lua";
+        case EditorSyntax::FAUST:
+            return "faust";
         case EditorSyntax::NONE:
         default:
             return "none";

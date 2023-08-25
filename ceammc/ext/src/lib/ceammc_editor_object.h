@@ -79,6 +79,7 @@ enum class EditorSyntax {
     NONE,
     SELECTOR,
     LUA,
+    FAUST,
     DEFAULT
 };
 
@@ -87,6 +88,11 @@ enum class EditorEscapeMode {
     LUA,
     DATA
 };
+
+/**
+ * Unescape string according to mode
+ */
+bool editor_string_unescape(std::string& str, EditorEscapeMode mode);
 
 class EditorObjectImpl {
     t_object* owner_;
@@ -159,10 +165,15 @@ public:
 
     void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override
     {
+        openEditor(xpos, ypos);
+    }
+
+    void openEditor(int x, int y)
+    {
         impl_.open(this->canvas(),
             this->getContentForEditor(),
             this->editorTitle(),
-            (int)xpos, (int)ypos,
+            x, y,
             this->calcEditorChars(),
             this->calcEditorLines(),
             line_nums_, syntax_);
@@ -200,6 +211,12 @@ public:
      * highlight syntax in editor
      */
     EditorSyntax highlightSyntax() const { return syntax_; }
+
+    /**
+     * Inplace string unescape
+     * O = N
+     */
+    bool unescapeString(std::string& str) const { return editor_string_unescape(str, M); }
 
 public:
     template <typename Factory>
