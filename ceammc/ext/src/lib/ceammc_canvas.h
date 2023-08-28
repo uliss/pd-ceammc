@@ -123,6 +123,13 @@ int canvas_info_font(const _glist* c);
 
 int canvas_info_dollarzero(const _glist* c);
 
+/**
+ * mark/unmark canvas dirty (show changes in canvas window)
+ * @param c - canvas pointer
+ * @param value
+ */
+void canvas_mark_dirty(_glist* c, bool value = true);
+
 void canvas_set_current(const _glist* c);
 void canvas_unset_current(const _glist* c);
 _canvasenvironment* canvas_get_env(const _glist* c);

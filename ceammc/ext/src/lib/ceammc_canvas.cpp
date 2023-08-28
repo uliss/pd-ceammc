@@ -639,4 +639,9 @@ void canvas_send_bang(_glist* c)
     pd::bang_to(&c->gl_list->g_pd);
 }
 
+void canvas_mark_dirty(_glist* c, bool value)
+{
+    canvas_dirty(c, value);
+}
+
 }
