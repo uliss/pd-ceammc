@@ -64,7 +64,7 @@ public:
     FaustMasterView();
     ~FaustMasterView();
 
-    Size build(const std::vector<faust::UIProperty*>& props, t_symbol* fname);
+    Size build(const std::vector<faust::UIProperty*>& props, t_symbol* name);
 
     void addProperty(faust::UIProperty* p);
 
@@ -118,7 +118,7 @@ protected:
 };
 
 #ifdef _WIN32
-#define FAUST_UI_EXPORT extern "C"  __declspec(dllexport)
+#define FAUST_UI_EXPORT extern "C" __declspec(dllexport)
 #else
 #define FAUST_UI_EXPORT extern "C"
 #endif

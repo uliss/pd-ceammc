@@ -30,10 +30,10 @@ namespace faust {
         deleteDSPFactory(f);
     }
 
-    LlvmDspFactory::LlvmDspFactory(const char* code, const FaustConfig& config)
+    LlvmDspFactory::LlvmDspFactory(const char *name, const char* code, const FaustConfig& config)
         : factory_(nullptr, delete_factory)
     {
-        auto f = createDSPFactoryFromString("pd_faust", code,
+        auto f = createDSPFactoryFromString(name, code,
             config.numOptions(),
             config.options(),
             CURRENT_MACH_TARGET,

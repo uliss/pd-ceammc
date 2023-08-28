@@ -12,7 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "lang_faust_tilde.h"
+#include "ceammc_canvas.h"
 #include "ceammc_factory.h"
+#include "ceammc_filesystem.h"
 #include "ceammc_format.h"
 #include "ceammc_platform.h"
 #include "fmt/core.h"
@@ -85,8 +87,10 @@ LangFaustTilde::LangFaustTilde(const PdArgs& args)
     include_dirs_ = new ListProperty("@include");
     addProperty(include_dirs_);
 
-    nostd_ = new FlagProperty("@nostd");
-    addProperty(nostd_);
+    fname_ = new SymbolProperty("@load", &s_);
+    fname_->setInitOnly();
+    fname_->setArgIndex(0);
+    addProperty(fname_);
 }
 
 LangFaustTilde::~LangFaustTilde() = default; // for std::unique_ptr
@@ -94,7 +98,11 @@ LangFaustTilde::~LangFaustTilde() = default; // for std::unique_ptr
 void LangFaustTilde::initDone()
 {
     SoundExternal::initDone();
-    compile(); // virtual call
+
+    if (fname_->value() != &s_) {
+        m_read(gensym(sym_read), Atom(fname_->value()));
+        canvas_mark_dirty(canvas(), false);
+    }
 }
 
 void LangFaustTilde::createFaustUI()
@@ -134,21 +142,7 @@ bool LangFaustTilde::initFaustDsp()
 
 bool LangFaustTilde::initFaustDspFactory(const faust::FaustConfig& cfg)
 {
-    std::string code;
-
-    for (auto& l : src_) {
-        code.append(to_string(l.view()));
-        code += '\n';
-    }
-
-    if (!unescapeString(code))
-        return false;
-
-    {
-        OBJ_DBG << code;
-    }
-
-    dsp_factory_.reset(new faust::LlvmDspFactory(code.c_str(), cfg));
+    dsp_factory_.reset(new faust::LlvmDspFactory("faust", sourceCode().c_str(), cfg));
     if (!dsp_factory_ || !dsp_factory_->isOk()) {
         if (dsp_factory_ && !dsp_factory_->errors().empty())
             OBJ_ERR << dsp_factory_->errors();
@@ -320,6 +314,39 @@ void LangFaustTilde::editorSync()
     compile();
 }
 
+bool LangFaustTilde::proto_read(const std::string& path)
+{
+    auto res = fs::readFileLines(path.c_str(),
+        [this](size_t n, const std::string& line) {
+            if (n == 0)
+                src_.clear();
+
+            AtomList atoms;
+            if (!editor_string_escape(line.c_str(), atoms, EditorEscapeMode::LUA))
+                return;
+
+            src_.emplace_back(atoms.view());
+        });
+
+    if (res.isError()) {
+        OBJ_ERR << res.error().what();
+    } else {
+        compile();
+        canvas_mark_dirty(canvas(), true);
+    }
+
+    return res.isOk();
+}
+
+bool LangFaustTilde::proto_write(const std::string& path) const
+{
+    auto res = fs::writeFileContent(path.c_str(), sourceCode(), true);
+    if (res.isError())
+        OBJ_ERR << res.error().what();
+
+    return res.isOk();
+}
+
 void LangFaustTilde::dump() const
 {
     SoundExternal::dump();
@@ -336,6 +363,8 @@ void LangFaustTilde::dump() const
     os << "compile options: ";
     if (dsp_factory_)
         dsp_factory_->dumpOpts(os);
+
+    os << "source code: " << sourceCode();
 }
 
 void LangFaustTilde::addIncludePath(const std::string& path)
@@ -393,6 +422,24 @@ void LangFaustTilde::createCustomUI()
 {
 }
 
+std::string LangFaustTilde::sourceCode() const
+{
+    std::string res;
+
+    for (auto& l : src_) {
+        res.append(to_string(l.view()));
+        res += '\n';
+    }
+
+    unescapeString(res);
+    return res;
+}
+
+t_symbol* LangFaustTilde::name() const
+{
+    return dsp_factory_ ? gensym(dsp_factory_->name().c_str()) : &s_;
+}
+
 std::string LangFaustTilde::canvasDir() const
 {
     auto cnv = canvas();
@@ -411,6 +458,7 @@ void setup_lang_faust_non_external()
 
     LangFaustTilde::factoryEditorObjectInit(obj);
     LangFaustTilde::factorySaveObjectInit(obj);
+    LangFaustTilde::factoryFilesystemObjectInit(obj);
 }
 
 void setup_lang0x2efaust_tilde()

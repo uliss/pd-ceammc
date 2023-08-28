@@ -95,7 +95,7 @@ LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
 void LangFaustUiTilde::buildUI()
 {
     vc_.setXlets(Xlets::fromInlets(owner()), Xlets::fromOutlets(owner()));
-    auto sz = vc_.build(faustProperties(), &s_);
+    auto sz = vc_.build(faustProperties(), name());
     setSize(sz);
 }
 
@@ -141,7 +141,9 @@ void LangFaustUiTilde::setupDSP(t_signal** sp)
 
 void LangFaustUiTilde::compile()
 {
-    vc_.clearAll();
+    if (!isPatchLoading())
+        vc_.clearAll();
+
     LangFaustTilde::compile();
 }
 
@@ -157,11 +159,9 @@ FaustMasterView::FaustMasterView()
 {
 }
 
-FaustMasterView::~FaustMasterView()
-{
-}
+FaustMasterView::~FaustMasterView() = default;
 
-Size FaustMasterView::build(const std::vector<faust::UIProperty*>& props, t_symbol* fname)
+Size FaustMasterView::build(const std::vector<faust::UIProperty*>& props, t_symbol* name)
 {
     focused_ = nullptr;
     auto vgroup = new VGroupView({});
@@ -171,8 +171,8 @@ Size FaustMasterView::build(const std::vector<faust::UIProperty*>& props, t_symb
 
     auto lm = new LabelModel(faustThemeIdx);
     lm->data().setAnchor(ANCHOR_CORNER_LEFT_TOP);
-    lm->data().setText(fmt::format("FAUST: \"{}\"",
-        (fname == &s_) ? std::string() : platform::basename(fname->s_name)));
+    lm->data().setText(name->s_name);
+
     labels_.emplace_back(lm);
 
     ViewPtr lv(new LabelView(lm, LabelView::ViewImplPtr(new TclLabelImpl), {}));
@@ -468,8 +468,9 @@ t_class* setup_ui_faust_non_external()
     obj.addMethod("reset", &LangFaustUiTilde::m_reset);
     obj.addMethod("open", &LangFaustUiTilde::m_open);
 
-    LangFaustUiTilde::factorySaveObjectInit(obj);
     LangFaustUiTilde::factoryEditorObjectInit(obj);
+    LangFaustUiTilde::factorySaveObjectInit(obj);
+    LangFaustTilde::factoryFilesystemObjectInit(obj);
 
     initFaustStyle();
 

@@ -14,6 +14,7 @@
 #ifndef LANG_FAUST_TILDE_H
 #define LANG_FAUST_TILDE_H
 
+#include "../data/data_protocol.h"
 #include "ceammc_containers.h"
 #include "ceammc_editor_object.h"
 #include "ceammc_faust.h"
@@ -24,11 +25,11 @@ using namespace ceammc;
 
 #include "ceammc_llvm.h"
 
-using FactoryPtr = std::unique_ptr<faust::LlvmDspFactory>;
 class UI;
 using FaustUIPtr = std::unique_ptr<UI>;
+using FactoryPtr = std::unique_ptr<faust::LlvmDspFactory>;
 using FaustDspPtr = std::unique_ptr<faust::LlvmDsp>;
-using LangFaustBase = SaveObject<EditorObject<SoundExternal, EditorSyntax::FAUST, EditorEscapeMode::LUA>>;
+using LangFaustBase = SaveObject<EditorObject<FilesystemIFace<SoundExternal>, EditorSyntax::FAUST, EditorEscapeMode::LUA>>;
 
 class LangFaustTilde : public LangFaustBase {
 public:
@@ -38,7 +39,7 @@ public:
 
 private:
     ListProperty* include_dirs_ { nullptr };
-    FlagProperty* nostd_ { nullptr };
+    SymbolProperty* fname_ { nullptr };
     FaustProperyList faust_properties_;
 
     FactoryPtr dsp_factory_;
@@ -69,6 +70,11 @@ public:
     EditorTitleString editorTitle() const final { return "Faust Editor"; }
     void editorSync() final;
 
+    // ReaderObject
+    bool proto_read(const std::string& path) final;
+    // WriterObject
+    bool proto_write(const std::string& path) const final;
+
     void dump() const override;
 
 public:
@@ -78,6 +84,8 @@ protected:
     FaustProperyList& faustProperties();
     virtual void compile();
     virtual void createCustomUI();
+    std::string sourceCode() const;
+    t_symbol* name() const;
 
 private:
     std::string canvasDir() const;
