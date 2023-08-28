@@ -21,7 +21,7 @@ static const int editor_unescape_pd_en_main = 0;
 
 namespace ceammc {
 
-bool editor_string_unescape_lua(std::string& str)
+static bool editor_string_unescape_lua(std::string& str)
 {
     int cs = 0;
     char* p = const_cast<char*>(str.data());
@@ -308,7 +308,7 @@ static const int editor_unescape_data_en_main = 0;
 #line 66 "ceammc_editor_unescape.rl"
 
 
-bool editor_string_unescape_data(std::string& str)
+static bool editor_string_unescape_data(std::string& str)
 {
     int cs = 0;
     char* p = const_cast<char*>(str.data());
@@ -560,6 +560,47 @@ bool editor_string_unescape(std::string& str, EditorEscapeMode mode)
         return editor_string_unescape_lua(str);
     case EditorEscapeMode::DATA:
         return editor_string_unescape_data(str);
+    default:
+        return false;
+    }
+}
+
+static bool editor_string_escape_lua(const char* str, AtomList& res)
+{
+    auto len = strlen(str);
+    std::string str_res;
+    str_res.reserve(len);
+
+    int c = 0;
+    while ((c = *str++)) {
+        switch(c) {
+        case '\t': str_res += "\\\\x09"; break;
+        case ',':  str_res += "\\\\x2c"; break;
+        case '{':  str_res += "\\\\x7b"; break;
+        case '}':  str_res += "\\\\x7d"; break;
+        case ';':  str_res += "\\\\x3b"; break;
+        case '\\': str_res += "\\\\x09"; break;
+        case '$':  str_res += "\\\\x24";  break;
+        default:   str_res += c; break;
+        }
+    }
+
+    res = AtomList::parseString(str_res.c_str());
+    return true;
+}
+
+static bool editor_string_escape_data(const char* str, AtomList& res)
+{
+    return false;
+}
+
+bool editor_string_escape(const char* str, AtomList& res, EditorEscapeMode mode)
+{
+    switch(mode) {
+    case EditorEscapeMode::LUA:
+        return editor_string_escape_lua(str, res);
+    case EditorEscapeMode::DATA:
+        return editor_string_escape_data(str, res);
     default:
         return false;
     }

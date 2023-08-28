@@ -94,6 +94,8 @@ enum class EditorEscapeMode {
  */
 bool editor_string_unescape(std::string& str, EditorEscapeMode mode);
 
+bool editor_string_escape(const char* str, AtomList& res, EditorEscapeMode mode);
+
 class EditorObjectImpl {
     t_object* owner_;
     void* guiconnect_;

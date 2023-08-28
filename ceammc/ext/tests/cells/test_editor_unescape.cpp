@@ -13,6 +13,8 @@
  *****************************************************************************/
 #include "catch.hpp"
 #include "ceammc_editor_object.h"
+#include "test_macro.h"
+#include "test_wrappers.h"
 
 using namespace ceammc;
 
@@ -30,26 +32,45 @@ using namespace ceammc;
         REQUIRE(str == s1);                                           \
     } while (0)
 
+#define REQUIRE_ESCAPE_LUA(str, lst)                                    \
+    do {                                                                \
+        AtomList res;                                                   \
+        REQUIRE(editor_string_escape(str, res, EditorEscapeMode::LUA)); \
+        REQUIRE(res == lst);                                            \
+    } while (0)
+
 TEST_CASE("ceammc_editor_unescape", "[ceammc]")
 {
-    SECTION("lua")
+    SECTION("unescape")
     {
-        REQUIRE_UNESCAPE_LUA("", "");
-        REQUIRE_UNESCAPE_LUA("\\x09", "\t");
-        REQUIRE_UNESCAPE_LUA("\\x09!\\x09", "\t!\t");
-        REQUIRE_UNESCAPE_LUA("a\\x2cb\\x2c", "a,b,");
-        REQUIRE_UNESCAPE_LUA("\\x7ba\\x7d", "{a}");
-        REQUIRE_UNESCAPE_LUA("\\x3b\\x7b\\x7d", ";{}");
-        REQUIRE_UNESCAPE_LUA("\\x5c", "\\");
-        REQUIRE_UNESCAPE_LUA("\\x5", "\\x5");
-        REQUIRE_UNESCAPE_LUA("\\x24", "$");
+        SECTION("lua")
+        {
+            REQUIRE_UNESCAPE_LUA("", "");
+            REQUIRE_UNESCAPE_LUA("\\x09", "\t");
+            REQUIRE_UNESCAPE_LUA("\\x09!\\x09", "\t!\t");
+            REQUIRE_UNESCAPE_LUA("a\\x2cb\\x2c", "a,b,");
+            REQUIRE_UNESCAPE_LUA("\\x7ba\\x7d", "{a}");
+            REQUIRE_UNESCAPE_LUA("\\x3b\\x7b\\x7d", ";{}");
+            REQUIRE_UNESCAPE_LUA("\\x5c", "\\");
+            REQUIRE_UNESCAPE_LUA("\\x5", "\\x5");
+            REQUIRE_UNESCAPE_LUA("\\x24", "$");
+        }
+
+        SECTION("data")
+        {
+            REQUIRE_UNESCAPE_DATA("", "");
+            REQUIRE_UNESCAPE_DATA("`(", "{");
+            REQUIRE_UNESCAPE_DATA("`(`)", "{}");
+            REQUIRE_UNESCAPE_DATA("\\,\\$\\;", ",$;");
+        }
     }
 
-    SECTION("data")
+    SECTION("escape")
     {
-        REQUIRE_UNESCAPE_DATA("", "");
-        REQUIRE_UNESCAPE_DATA("`(", "{");
-        REQUIRE_UNESCAPE_DATA("`(`)", "{}");
-        REQUIRE_UNESCAPE_DATA("\\,\\$\\;", ",$;");
+        SECTION("lua")
+        {
+            REQUIRE_ESCAPE_LUA("", L());
+            REQUIRE_ESCAPE_LUA("\t", LA("\\x09"));
+        }
     }
 }
