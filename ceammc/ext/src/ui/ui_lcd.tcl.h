@@ -2,7 +2,7 @@
 // clang-format off
 #ifndef ui_lcd_tcl_h_
 #define ui_lcd_tcl_h_
-const char* ui_lcd_tcl = 
+constexpr const char* ui_lcd_tcl = 
 "namespace eval ::ui {\n"
 "proc lcd_update {cnv id w h cols rows sz args} {\n"
 "    set c [::ceammc::ui::widget_canvas $cnv $id]\n"

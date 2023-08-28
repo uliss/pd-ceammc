@@ -2,7 +2,7 @@
 // clang-format off
 #ifndef ui_link_tcl_h_
 #define ui_link_tcl_h_
-const char* ui_link_tcl = 
+constexpr const char* ui_link_tcl = 
 "namespace eval ::ui {\n"
 "namespace eval link {\n"
 "    variable font_size 11\n"

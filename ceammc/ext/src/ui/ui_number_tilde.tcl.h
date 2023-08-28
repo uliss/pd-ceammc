@@ -2,7 +2,7 @@
 // clang-format off
 #ifndef ui_number_tilde_tcl_h_
 #define ui_number_tilde_tcl_h_
-const char* ui_number_tilde_tcl = 
+constexpr const char* ui_number_tilde_tcl = 
 "namespace eval ui {\n"
 "namespace eval number_tilde {\n"
 "    variable font_size 11\n"

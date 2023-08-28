@@ -2,7 +2,7 @@
 // clang-format off
 #ifndef ui_display_tcl_h_
 #define ui_display_tcl_h_
-const char* ui_display_tcl = 
+constexpr const char* ui_display_tcl = 
 "namespace eval ::ui {\n"
 "namespace eval display {\n"
 "    variable font_size 11\n"

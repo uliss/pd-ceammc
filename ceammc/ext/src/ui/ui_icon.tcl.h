@@ -2,7 +2,7 @@
 // clang-format off
 #ifndef ui_icon_tcl_h_
 #define ui_icon_tcl_h_
-const char* ui_icon_tcl = 
+constexpr const char* ui_icon_tcl = 
 "namespace eval ::ui {\n"
 "namespace eval icon {\n"
 "variable png_support True\n"

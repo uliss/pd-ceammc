@@ -2,7 +2,7 @@
 // clang-format off
 #ifndef ui_filter_tcl_h_
 #define ui_filter_tcl_h_
-const char* ui_filter_tcl = 
+constexpr const char* ui_filter_tcl = 
 "namespace eval ui {\n"
 "namespace eval filter {\n"
 "    variable db_min -24.0\n"

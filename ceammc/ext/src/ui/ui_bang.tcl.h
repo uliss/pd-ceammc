@@ -2,7 +2,7 @@
 // clang-format off
 #ifndef ui_bang_tcl_h_
 #define ui_bang_tcl_h_
-const char* ui_bang_tcl = 
+constexpr const char* ui_bang_tcl = 
 "namespace eval ::ui {\n"
 "proc bang_update {cnv id w h zoom color state} {\n"
 "    set c [::ceammc::ui::widget_canvas $cnv $id]\n"

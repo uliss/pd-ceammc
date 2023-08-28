@@ -2,7 +2,7 @@
 // clang-format off
 #ifndef ui_knob_tcl_h_
 #define ui_knob_tcl_h_
-const char* ui_knob_tcl = 
+constexpr const char* ui_knob_tcl = 
 "namespace eval ::ui {\n"
 "namespace eval knob {\n"
 "namespace eval font {\n"

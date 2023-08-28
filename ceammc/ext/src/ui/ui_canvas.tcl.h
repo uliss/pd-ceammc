@@ -2,7 +2,7 @@
 // clang-format off
 #ifndef ui_canvas_tcl_h_
 #define ui_canvas_tcl_h_
-const char* ui_canvas_tcl = 
+constexpr const char* ui_canvas_tcl = 
 "namespace eval ::ui {\n"
 "namespace eval cnv {\n"
 "variable png_support True\n"

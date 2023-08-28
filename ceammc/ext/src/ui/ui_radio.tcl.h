@@ -2,7 +2,7 @@
 // clang-format off
 #ifndef ui_radio_tcl_h_
 #define ui_radio_tcl_h_
-const char* ui_radio_tcl = 
+constexpr const char* ui_radio_tcl = 
 "namespace eval ::ui {\n"
 "proc radio_draw_single {c t w h zoom orient states color} {\n"
 "    set min_size [expr 2 * $zoom]\n"

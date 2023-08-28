@@ -2,7 +2,7 @@
 // clang-format off
 #ifndef ui_button_tcl_h_
 #define ui_button_tcl_h_
-const char* ui_button_tcl = 
+constexpr const char* ui_button_tcl = 
 "namespace eval ::ui {\n"
 "proc button_update {cnv id w h zoom c0 c1 state} {\n"
 "    set c [::ceammc::ui::widget_canvas $cnv $id]\n"

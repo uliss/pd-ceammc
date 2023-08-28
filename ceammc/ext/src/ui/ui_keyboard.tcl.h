@@ -2,7 +2,7 @@
 // clang-format off
 #ifndef ui_keyboard_tcl_h_
 #define ui_keyboard_tcl_h_
-const char* ui_keyboard_tcl = 
+constexpr const char* ui_keyboard_tcl = 
 "namespace eval ui {\n"
 "proc keyboard_is_black_key {k} {\n"
 "    set k [expr $k % 12]\n"

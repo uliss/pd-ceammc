@@ -2,7 +2,7 @@
 // clang-format off
 #ifndef ui_dsp_tcl_h_
 #define ui_dsp_tcl_h_
-const char* ui_dsp_tcl = 
+constexpr const char* ui_dsp_tcl = 
 "namespace eval ui {\n"
 "proc dsp_update { cnv id w h zoom color } {\n"
 "    set c [::ceammc::ui::widget_canvas $cnv $id]\n"

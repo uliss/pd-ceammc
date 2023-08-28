@@ -2,7 +2,7 @@
 // clang-format off
 #ifndef ui_toggle_tcl_h_
 #define ui_toggle_tcl_h_
-const char* ui_toggle_tcl = 
+constexpr const char* ui_toggle_tcl = 
 "namespace eval ::ui {\n"
 "proc toggle_update {cnv id w h zoom color state} {\n"
 "    set c [::ceammc::ui::widget_canvas $cnv $id]\n"

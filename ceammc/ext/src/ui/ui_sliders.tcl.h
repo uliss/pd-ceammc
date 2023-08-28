@@ -2,7 +2,7 @@
 // clang-format off
 #ifndef ui_sliders_tcl_h_
 #define ui_sliders_tcl_h_
-const char* ui_sliders_tcl = 
+constexpr const char* ui_sliders_tcl = 
 "namespace eval ::ui {\n"
 "namespace eval sliders {\n"
 "    variable lbl_font_size 7\n"

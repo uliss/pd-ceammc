@@ -2,7 +2,7 @@
 // clang-format off
 #ifndef ui_meter_tcl_h_
 #define ui_meter_tcl_h_
-const char* ui_meter_tcl = 
+constexpr const char* ui_meter_tcl = 
 "namespace eval ui {\n"
 "proc meter_db2color { db cold tepid warm hot over } {\n"
 "    if {$db < -30} { return $cold  }\n"
