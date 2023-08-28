@@ -43,67 +43,70 @@ symbol.;
 #X msg 110 661 @load;
 #X text 245 661 (initonly) Get/Set initial file to load after object
 creation. Type: symbol.;
-#X msg 110 703 @include;
-#X text 245 703 Get/Set list of faust include directories. Type: list.;
-#X msg 110 732 @style;
-#X text 245 732 Get/Set view style. Type: int. Default value: 0\.;
-#X msg 110 761 @size;
-#X text 245 761 Get/Set object size. Type: list. Default value: 10
+#X msg 110 703 @active;
+#X text 245 703 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
+#X msg 110 732 @include;
+#X text 245 732 Get/Set list of faust include directories. Type: list.;
+#X msg 110 761 @style;
+#X text 245 761 Get/Set view style. Type: int. Default value: 0\.;
+#X msg 110 790 @size;
+#X text 245 790 Get/Set object size. Type: list. Default value: 10
 10\.;
-#X obj 20 800 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 805 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 829 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 834 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 840 open;
-#X text 245 840 open faust dsp file in external editor.;
-#X msg 110 867 read;
-#X text 245 867 read Faust code from file and compile it. Arguments
+#X msg 110 869 open;
+#X text 245 869 open faust dsp file in external editor.;
+#X msg 110 896 read;
+#X text 245 896 read Faust code from file and compile it. Arguments
 are:;
-#X obj 255 890 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 890 FILE: file path \, absolute or relative to patch \,
+#X obj 255 919 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 919 FILE: file path \, absolute or relative to patch \,
 include directories. Type: symbol.;
-#X msg 110 930 reset;
-#X text 245 930 reset object state.;
-#X msg 110 957 size;
-#X text 245 957 resize object. Arguments are:;
-#X obj 255 980 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 980 W: new width. Type: int.;
-#X obj 255 1003 cnv 1 13 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1003 H: new height. Type: int.;
-#X msg 110 1028 write;
-#X text 245 1028 write Faust code to file. Arguments are:;
-#X obj 255 1051 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1051 FILE: file path \, absolute or relative to patch.
+#X msg 110 959 reset;
+#X text 245 959 reset object state.;
+#X msg 110 986 size;
+#X text 245 986 resize object. Arguments are:;
+#X obj 255 1009 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1009 W: new width. Type: int.;
+#X obj 255 1032 cnv 1 13 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1032 H: new height. Type: int.;
+#X msg 110 1057 write;
+#X text 245 1057 write Faust code to file. Arguments are:;
+#X obj 255 1080 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1080 FILE: file path \, absolute or relative to patch.
 Type: symbol.;
-#X obj 255 1074 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1074 [@force]: overwrite existing files. Type: property.;
-#X obj 20 1109 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1114 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 255 1103 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1103 [@force]: overwrite existing files. Type: property.;
+#X obj 20 1138 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1143 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1115 1\.;
-#X text 245 1115 control input.;
-#X text 110 1135 2\.;
-#X text 245 1135 first faust input.;
-#X text 110 1155 ....;
-#X text 245 1155 ... faust input.;
-#X text 110 1175 n+1\.;
-#X text 245 1175 n-th faust input.;
-#X obj 20 1205 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1210 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1144 1\.;
+#X text 245 1144 control input.;
+#X text 110 1164 2\.;
+#X text 245 1164 first faust input.;
+#X text 110 1184 ....;
+#X text 245 1184 ... faust input.;
+#X text 110 1204 n+1\.;
+#X text 245 1204 n-th faust input.;
+#X obj 20 1234 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1239 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1211 1\.;
-#X text 245 1211 first faust output.;
-#X text 110 1231 ....;
-#X text 245 1231 ... faust output.;
-#X text 110 1251 n.;
-#X text 245 1251 n-th faust output.;
+#X text 110 1240 1\.;
+#X text 245 1240 first faust output.;
+#X text 110 1260 ....;
+#X text 245 1260 ... faust output.;
+#X text 110 1280 n.;
+#X text 245 1280 n-th faust output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title lang @url ceammc.lang-help.pd;
-#X obj 1 1301 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1304 library: ceammc v0.9.7;
-#N canvas 10 1323 400 290 info 0;
+#X obj 1 1330 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1333 library: ceammc v0.9.7;
+#N canvas 10 1352 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -127,7 +130,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1323 pd info;
+#X restore 10 1352 pd info;
 #X connect 6 0 9 0;
 #X connect 7 0 9 0;
 #X connect 8 0 9 1;

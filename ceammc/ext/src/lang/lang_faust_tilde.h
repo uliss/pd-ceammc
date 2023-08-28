@@ -40,6 +40,7 @@ public:
 private:
     ListProperty* include_dirs_ { nullptr };
     SymbolProperty* fname_ { nullptr };
+    BoolProperty* active_ { nullptr };
     FaustProperyList faust_properties_;
 
     FactoryPtr dsp_factory_;

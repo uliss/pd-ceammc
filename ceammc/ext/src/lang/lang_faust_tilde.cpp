@@ -91,6 +91,9 @@ LangFaustTilde::LangFaustTilde(const PdArgs& args)
     fname_->setInitOnly();
     fname_->setArgIndex(0);
     addProperty(fname_);
+
+    active_ = new BoolProperty("@active", true);
+    addProperty(active_);
 }
 
 LangFaustTilde::~LangFaustTilde() = default; // for std::unique_ptr
@@ -230,7 +233,16 @@ void LangFaustTilde::processBlock(const t_sample** in, t_sample** out)
     if (!dsp_)
         return;
 
-    dsp_->compute(in, out, blockSize());
+    if (active_->value()) {
+        dsp_->compute(in, out, blockSize());
+    } else {
+        auto N = numOutputChannels();
+        auto BS = blockSize();
+        for (size_t i = 0; i < N; i++) {
+            for (auto k = 0; k < BS; k++)
+                out[i][k] = 0;
+        }
+    }
 }
 
 void LangFaustTilde::m_reset(t_symbol*, const AtomListView&)

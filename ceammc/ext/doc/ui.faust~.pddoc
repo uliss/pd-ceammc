@@ -17,18 +17,22 @@
             <a href="https://faust.grame.fr/">https://faust.grame.fr/</a>
         </info>
         <mouse>
-            <event type="left-click" editmode="false" keys="Alt">open Faust source code editor</event>
+            <event type="left-click" editmode="false" keys="Alt">open Faust source code
+            editor</event>
             <event type="right-click" editmode="false">open popup menu</event>
             <event type="right-click" editmode="false" keys="Shift">open object help</event>
             <event type="right-click" editmode="true" keys="Shift">open object help</event>
         </mouse>
         <arguments>
-            <argument name="LOAD" type="symbol">initial file to load after object creation</argument>
+            <argument name="LOAD" type="symbol">initial file to load after object
+            creation</argument>
         </arguments>
         <properties>
-            <property name="@load" type="symbol" default="" access="initonly">initial file to load after object creation</property>
+            <property name="@load" type="symbol" default="" access="initonly">initial file to load
+            after object creation</property>
             <property name="@include" type="list" default="">list of faust include
             directories</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <property name="@size" type="list" default="10 10">object size</property>
             <property name="@style" type="int" default="0">view style</property>
         </properties>
@@ -42,13 +46,15 @@
             <param name="W" type="int" required="true">new width</param>
             <param name="H" type="int" required="true">new height</param></method>
             <!-- read -->
-            <method name="read">read Faust code from file and compile it.
-            <param name="FILE" type="symbol" required="true">file path, absolute or relative to patch, include directories</param></method>
+            <method name="read">read Faust code from file and compile it. 
+            <param name="FILE" type="symbol" required="true">file path, absolute or relative to
+            patch, include directories</param></method>
             <!-- write -->
-            <method name="write">write Faust code to file.
-            <param name="FILE" type="symbol" required="true">file path, absolute or relative to patch</param>
-            <param name="@force" type="property" required="false">overwrite existing files</param>
-            </method>
+            <method name="write">write Faust code to file. 
+            <param name="FILE" type="symbol" required="true">file path, absolute or relative to
+            patch</param>
+            <param name="@force" type="property" required="false">overwrite existing
+            files</param></method>
         </methods>
         <inlets dynamic="true">
             <inlet number="1">
