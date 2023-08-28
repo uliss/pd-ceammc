@@ -19,9 +19,11 @@
 constexpr t_float MIN_DB_VALUE = -90;
 constexpr int MIN_UI_DB_VALUE = -50;
 
-static t_symbol* SYM_HMETER;
-static t_symbol* SYM_VMETER;
-static t_symbol* SYM_VMETER2;
+namespace {
+t_symbol* sym_hmeter() { return gensym("ui.hm~"); }
+t_symbol* sym_vmeter() { return gensym("ui.vm~"); }
+t_symbol* sym_vmeter2() { return gensym("ui.m~"); }
+}
 
 UIMeter::UIMeter()
     : clock_(this, &UIMeter::clockTick)
@@ -47,7 +49,7 @@ void UIMeter::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIDspObject::init(name, args, usePresets);
 
-    if (name == SYM_HMETER) {
+    if (name == sym_hmeter()) {
         is_horizontal_ = true;
         std::swap(asEBox()->b_rect.w, asEBox()->b_rect.h);
     }
@@ -201,14 +203,10 @@ void UIMeter::setup()
 {
     sys_gui(ui_meter_tcl);
 
-    SYM_HMETER = gensym("ui.hm~");
-    SYM_VMETER = gensym("ui.vm~");
-    SYM_VMETER2 = gensym("ui.m~");
-
     UIObjectFactory<UIMeter> obj("ui.meter~", EBOX_GROWINDI);
-    obj.addAlias(SYM_VMETER->s_name);
-    obj.addAlias(SYM_VMETER2->s_name);
-    obj.addAlias(SYM_HMETER->s_name);
+    obj.addAlias(sym_vmeter()->s_name);
+    obj.addAlias(sym_vmeter2()->s_name);
+    obj.addAlias(sym_hmeter()->s_name);
     obj.useAnnotations();
     obj.useMouseEvents(UI_MOUSE_DBL_CLICK);
 
