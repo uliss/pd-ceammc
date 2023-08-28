@@ -77,6 +77,7 @@
   - hexbeat and skip added to seq.bangs
   - save to snd.file
   - speed to synth.glitch~ to set global synth speed
+  - read, write added to lang.faust~ and ui.faust~
 - new object properties:
   - @punct added to rhvoice~, to specify pronounced characters
   - @bypass added to dyn.comp~ and dyn.comp2~
@@ -110,6 +111,7 @@
 - fx.sdelay~ renamed to fx.delay~, fx.sdelay~ now is deprecated alias
 - proto.midi.cc - old portamento method renamed to portswitch
 - proto.midi - second outlet added, it outputs parsed messages
+- ui.faust~ and lang.faust~ now save their source code inside the patch
 
 ### Fixed:
 - proto.midi.cc - sound_off, notes_off crash fixes
