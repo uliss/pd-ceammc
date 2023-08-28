@@ -60,7 +60,36 @@
 | |     |   | |     | |
 [canvas.top           ]
 |
-[ui.display @display_type 1]
+[ui.dt]
+
+[canvas.top.abs]
+]]>
+            </pdascii>
+            <pdascii id="abs">
+<![CDATA[
+[bang(                       [bang(
+|                            |
+[canvas.top.abs0]            [canvas.top.abs1]
+|                            |
+[ui.dt]                      [ui.dt]
+]]>
+            </pdascii>
+            <pdascii id="abs0">
+<![CDATA[
+[inlet]
+|
+[canvas.top @abs 0]
+|
+[outlet]
+]]>
+            </pdascii>
+            <pdascii id="abs1">
+<![CDATA[
+[inlet]
+|
+[canvas.top @abs 1]
+|
+[outlet]
 ]]>
             </pdascii>
         </example>

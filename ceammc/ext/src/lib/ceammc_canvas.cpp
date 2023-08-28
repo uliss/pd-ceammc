@@ -161,7 +161,7 @@ t_rect ceammc::canvas_info_rect(const _glist* c)
     if (!c)
         return t_rect(0, 0, 0, 0);
 
-    if (canvas_info_is_root(c)) {
+    if (canvas_info_is_root(c) || canvas_info_is_abstraction(c)) {
         return t_rect(c->gl_screenx1,
             c->gl_screeny1,
             c->gl_screenx2 - c->gl_screenx1,

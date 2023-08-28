@@ -1,0 +1,11 @@
+#N canvas 0 0 471 241 12;
+#X msg 20 48 bang;
+#X msg 298 48 bang;
+#X obj 20 77 canvas.top.abs0;
+#X obj 298 77 canvas.top.abs1;
+#X obj 20 106 ui.dt;
+#X obj 298 106 ui.dt;
+#X connect 0 0 2 0;
+#X connect 1 0 3 0;
+#X connect 2 0 4 0;
+#X connect 3 0 5 0;

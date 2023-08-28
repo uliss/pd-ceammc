@@ -119,7 +119,7 @@ TEST_CASE("canvas.top", "[externals]")
         REQUIRE(cnv->connect(obj->object(), 0, log0.object(), 0));
 
         obj->sendBang();
-        REQUIRE(log0.msg() == DictAtom("[x: 0 y: 0 size: 0 0 font: 12 dir: \"~\" paths: "
-                                       "name: canvas_top_test1.pd dir: \"" TEST_DATA_DIR "/base\" width: 0 height: 0]"));
+        REQUIRE(log0.msg() == DictAtom("[x: 302 y: 338 size: 781 276 font: 12 dir: \"~\" paths: "
+                                       "name: canvas_top_test1.pd dir: \"" TEST_DATA_DIR "/base\" width: 781 height: 276]"));
     }
 }

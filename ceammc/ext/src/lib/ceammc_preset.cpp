@@ -133,7 +133,7 @@ bool PresetStorage::hasFloatValueAt(t_symbol* name, size_t presetIdx)
     return hasValueTypeAt(name, Message::FLOAT, presetIdx);
 }
 
-static t_canvas* rootCanvas(t_canvas* cnv)
+static t_canvas* find_root_canvas(t_canvas* cnv)
 {
     if (!cnv)
         return 0;
@@ -169,7 +169,7 @@ static std::string makeFullPresetPath(t_canvas* c, const std::string& name)
 
 bool PresetStorage::write(t_canvas* c, const std::string& path) const
 {
-    auto root_cnv = rootCanvas(c);
+    auto root_cnv = find_root_canvas(c);
     std::string name = makePresetFilename(root_cnv, path);
     std::string full_path = makeFullPresetPath(root_cnv, name);
 
@@ -237,7 +237,7 @@ bool PresetStorage::write(const char* path) const
 
 bool PresetStorage::read(t_canvas* c, const std::string& path)
 {
-    t_canvas* root_cnv = rootCanvas(c);
+    t_canvas* root_cnv = find_root_canvas(c);
     std::string name = makePresetFilename(root_cnv, path);
     std::string full_path = makeFullPresetPath(root_cnv, name);
 
