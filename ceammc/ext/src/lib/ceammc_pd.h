@@ -87,6 +87,7 @@ namespace pd {
         ~External();
 
         bool isNull() const;
+        bool isAbstraction() const;
 
         t_symbol* className() const;
 
@@ -102,6 +103,7 @@ namespace pd {
         const t_object* object() const;
         t_pd* pd() { return &obj_->te_g.g_pd; }
         void setParent(_glist* cnv);
+        _glist* asAbstraction();
 
         void sendBang();
         void sendFloat(t_float v);

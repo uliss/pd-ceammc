@@ -37,6 +37,7 @@ TEST_CASE("canvas.top", "[externals]")
         REQUIRE_PROPERTY(t, @font, 10);
         REQUIRE_PROPERTY(t, @width, 600);
         REQUIRE_PROPERTY(t, @height, 400);
+        REQUIRE_PROPERTY(t, @abs, 1);
 
         REQUIRE_PROPERTY(t, @x, 0.f);
         REQUIRE_PROPERTY(t, @y, 0.f);
@@ -60,7 +61,7 @@ TEST_CASE("canvas.top", "[externals]")
 
         auto props = subpatch_canvas_top->properties();
         REQUIRE(!props.empty());
-        REQUIRE(props.size() == 9);
+        REQUIRE(props.size() == 10);
 
         auto contains = [](decltype(props)& props, const std::string& name) -> bool {
             auto it = std::find_if(props.begin(), props.end(),
@@ -82,5 +83,43 @@ TEST_CASE("canvas.top", "[externals]")
         auto proxy = (const PdObject<CanvasTop>*)subpatch_canvas_top->object();
         proxy->impl->onBang();
         proxy->impl->dump();
+    }
+
+    SECTION("abstractions")
+    {
+        CanvasPtr cnv = PureData::instance().createTopCanvas("/path0");
+        auto obj = cnv->createObject(TEST_DATA_DIR "/base/canvas_top_test0", L());
+
+        REQUIRE(obj);
+        REQUIRE(obj->object());
+        REQUIRE(obj->isAbstraction());
+        REQUIRE(obj->numInlets() == 1);
+        REQUIRE(obj->numOutlets() == 1);
+
+        LogExternalOutput log0;
+        REQUIRE(cnv->connect(obj->object(), 0, log0.object(), 0));
+
+        obj->sendBang();
+        REQUIRE(log0.msg() == DictAtom("[x: 0 y: 0 size: 600 400 font: 10 dir: \"~\" "
+                                       "name: patch paths: \"" TEST_DIR "\" width: 600 height: 400]"));
+    }
+
+    SECTION("abstractions")
+    {
+        CanvasPtr cnv = PureData::instance().createTopCanvas("/path0");
+        auto obj = cnv->createObject(TEST_DATA_DIR "/base/canvas_top_test1", L());
+
+        REQUIRE(obj);
+        REQUIRE(obj->object());
+        REQUIRE(obj->isAbstraction());
+        REQUIRE(obj->numInlets() == 1);
+        REQUIRE(obj->numOutlets() == 1);
+
+        LogExternalOutput log0;
+        REQUIRE(cnv->connect(obj->object(), 0, log0.object(), 0));
+
+        obj->sendBang();
+        REQUIRE(log0.msg() == DictAtom("[x: 0 y: 0 size: 0 0 font: 12 dir: \"~\" paths: "
+                                       "name: canvas_top_test1.pd dir: \"" TEST_DATA_DIR "/base\" width: 0 height: 0]"));
     }
 }

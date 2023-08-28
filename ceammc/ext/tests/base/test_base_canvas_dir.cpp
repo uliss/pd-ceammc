@@ -44,7 +44,8 @@ TEST_CASE("canvas.dir", "[externals]")
 
         TExt t("canvas.dir");
         REQUIRE(t->canvas() == sub->pd_canvas());
-        REQUIRE(t->rootCanvas() == cnv->pd_canvas());
+        REQUIRE(t->canvas(CanvasDir::CanvasType::PARENT) == sub->pd_canvas());
+        REQUIRE(t->canvas(CanvasDir::CanvasType::ROOT) == cnv->pd_canvas());
         REQUIRE(t.numInlets() == 1);
         REQUIRE(t.numOutlets() == 2);
 

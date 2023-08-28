@@ -122,7 +122,10 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         REQUIRE(b.numOutlets() == 0);
         REQUIRE(b.numInlets() == 0);
         REQUIRE(b.canvas() != 0);
-        REQUIRE(b.rootCanvas() != 0);
+        REQUIRE(b.canvas(BaseObject::CanvasType::PARENT) != 0);
+        REQUIRE(b.canvas(BaseObject::CanvasType::ROOT) != 0);
+        REQUIRE(b.canvas(BaseObject::CanvasType::TOPLEVEL) != 0);
+        REQUIRE(b.canvasDir(BaseObject::CanvasType::PARENT, &s_) != &s_);
 
         REQUIRE_FALSE(b.hasProperty("@?"));
         REQUIRE(b.property("@?") == 0);
@@ -377,14 +380,12 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         BaseObject b1(PdArgs(L(), gensym("testname"), 0, gensym("testname")));
         REQUIRE(b1.canvas());
         REQUIRE(b1.findInStdPaths("test") == "");
-        REQUIRE(b1.rootCanvas() != 0);
 
         CanvasPtr cnv1 = PureData::instance().createTopCanvas("/dir/file.pd");
 
         BaseObject b2(PdArgs(L(), gensym("test"), 0, gensym("test")));
         REQUIRE(b2.canvas() == cnv1->pd_canvas());
         REQUIRE(b2.findInStdPaths("test") == "");
-        REQUIRE(b2.rootCanvas() == b2.canvas());
 
         CanvasPtr cnv2 = PureData::instance().createTopCanvas(TEST_DATA_DIR "/test.pd");
 
@@ -500,6 +501,7 @@ TEST_CASE("BaseObject", "[ceammc::BaseObject]")
         {
             External x0("base/test_std_path4");
             REQUIRE(x0.object());
+            REQUIRE(x0.isAbstraction());
             REQUIRE(x0.numInlets() == 1);
             REQUIRE(x0.numOutlets() == 1);
 

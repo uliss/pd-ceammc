@@ -157,6 +157,13 @@ bool pd::External::isNull() const
     return obj_ == 0;
 }
 
+bool pd::External::isAbstraction() const
+{
+    return obj_
+        && pd_class(&obj_->te_g.g_pd) == canvas_class
+        && canvas_isabstraction((t_canvas*)(obj_));
+}
+
 t_symbol* pd::External::className() const
 {
     if (isNull())
@@ -262,12 +269,23 @@ void pd::External::setParent(t_canvas* cnv)
     parent_ = cnv;
 }
 
+_glist* pd::External::asAbstraction()
+{
+    if (!isAbstraction())
+        return nullptr;
+    else
+        return (t_canvas*)(obj_);
+}
+
 void pd::External::sendBang()
 {
     if (!obj_)
         return;
 
-    pd_bang(pd());
+    if (isAbstraction())
+        canvas_send_bang(asAbstraction());
+    else
+        pd::bang_to(pd());
 }
 
 void pd::External::sendFloat(t_float v)
@@ -280,17 +298,11 @@ void pd::External::sendFloat(t_float v)
 
 void pd::External::sendSymbol(t_symbol* s)
 {
-    if (!obj_)
-        return;
-
-    pd_symbol(pd(), s);
+    pd::symbol_to(pd(), s);
 }
 
 void pd::External::sendList(const AtomList& lv)
 {
-    if (!obj_)
-        return;
-
     pd::list_to(pd(), lv.view());
 }
 

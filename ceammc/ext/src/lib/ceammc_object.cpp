@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_object.h"
+#include "ceammc_canvas.h"
 #include "ceammc_convert.h"
 #include "ceammc_data.h"
 #include "ceammc_datatypes.h"
@@ -22,7 +23,6 @@
 #include "ceammc_output.h"
 #include "ceammc_platform.h"
 #include "ceammc_property_callback.h"
-#include "ceammc_property_enum.h"
 #include "datatype_string.h"
 #include "fmt/format.h"
 #include "lex/parser_strings.h"
@@ -1087,20 +1087,42 @@ t_symbol* BaseObject::receive()
     return receive_from_;
 }
 
-t_canvas* BaseObject::rootCanvas()
+t_canvas* BaseObject::canvas(CanvasType t)
 {
-    if (!cnv_)
+    switch (t) {
+    case CanvasType::PARENT:
+        return cnv_;
+    case CanvasType::ROOT:
+        return const_cast<t_canvas*>(canvas_root(cnv_));
+    case CanvasType::TOPLEVEL: {
+        int lv = 0;
+        return const_cast<t_canvas*>(canvas_root(cnv_, lv, false));
+    }
+    default:
         return nullptr;
-
-    return canvas_getrootfor(cnv_);
+    }
 }
 
-t_canvas* BaseObject::rootCanvas() const
+const t_canvas* BaseObject::canvas(CanvasType t) const
 {
-    if (!cnv_)
+    switch (t) {
+    case CanvasType::PARENT:
+        return cnv_;
+    case CanvasType::ROOT:
+        return canvas_root(cnv_);
+    case CanvasType::TOPLEVEL: {
+        int lv = 0;
+        return canvas_root(cnv_, lv, false);
+    }
+    default:
         return nullptr;
+    }
+}
 
-    return canvas_getrootfor(const_cast<t_canvas*>(cnv_));
+t_symbol* BaseObject::canvasDir(CanvasType t, t_symbol* def) const
+{
+    auto dir = canvas_info_dir(canvas(t));
+    return dir != &s_ ? dir : def;
 }
 
 bool BaseObject::isPatchLoading() const

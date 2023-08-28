@@ -6,9 +6,6 @@
 #include "ceammc_platform.h"
 #include "ceammc_preset.h"
 
-#include <cstring>
-#include <fstream>
-
 PresetExternal::PresetExternal(const PdArgs& args)
     : BaseObject(args)
     , patch_dir_(".")
@@ -17,8 +14,7 @@ PresetExternal::PresetExternal(const PdArgs& args)
 
     createOutlet();
 
-    if (rootCanvas())
-        patch_dir_ = canvas_getdir(rootCanvas())->s_name;
+    patch_dir_ = canvasDir(CanvasType::TOPLEVEL)->s_name;
 }
 
 void PresetExternal::m_load(t_symbol*, const AtomListView& l)
@@ -69,9 +65,10 @@ void PresetExternal::m_duplicate(t_symbol*, const AtomListView& l)
 std::string PresetExternal::makeDefaultPresetPath() const
 {
     std::string res;
+    auto cnv = canvas(CanvasType::TOPLEVEL);
 
-    if (rootCanvas()) {
-        res += platform::strip_extension(canvas_info_name(rootCanvas())->s_name);
+    if (cnv) {
+        res += platform::strip_extension(canvas_info_name(cnv)->s_name);
         res += "-preset.txt";
     }
 

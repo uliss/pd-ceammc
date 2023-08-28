@@ -146,7 +146,7 @@ UiTouchOsc::UiTouchOsc(const PdArgs& args)
     server_ = new BoolProperty("@server", false);
     server_->setSuccessFn([this](Property*) {
         TouchOscHttpServer::instance().start(server_->value());
-        auto root = rootCanvas();
+        auto root = canvas(CanvasType::TOPLEVEL);
         if (root) {
             auto name = canvas_info_name(root);
             TouchOscHttpServer::instance().setFilename(name->s_name);
@@ -264,7 +264,7 @@ void UiTouchOsc::m_save(t_symbol* s, const AtomListView& lv)
                 METHOD_LOG(s) << "faved to " << path;
         }
     } else {
-        auto full_path = platform::make_abs_filepath_with_canvas(rootCanvas(), spath);
+        auto full_path = platform::make_abs_filepath_with_canvas(canvas(CanvasType::TOPLEVEL), spath);
 
         if (platform::path_exists(full_path.c_str())) {
             if (!platform::remove(full_path.c_str())) {

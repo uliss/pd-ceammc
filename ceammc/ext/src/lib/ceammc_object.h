@@ -124,6 +124,16 @@ public:
         PROP_PARSE_POS = (1 << 1)
     };
 
+    enum class CanvasType {
+        /// canvas on which object was created
+        PARENT,
+        /// root canvas on which (or within it's subpatch) object was created
+        /// for objects inside abstractions means abstraction root canvas
+        ROOT,
+        /// toplevel canvas inside which ierarchy object was created (including abstractions)
+        TOPLEVEL
+    };
+
 public:
     /**
      * Base class for ceammc objects
@@ -588,14 +598,10 @@ public:
      * Returns pointer to parent canvas
      * @return pointer to canvas or NULL
      */
-    t_canvas* canvas() { return cnv_; }
-    const t_canvas* canvas() const { return cnv_; }
+    t_canvas* canvas(CanvasType t = CanvasType::PARENT);
+    const t_canvas* canvas(CanvasType t = CanvasType::PARENT) const;
 
-    /**
-     * Returns pointer to root canvas (top window)
-     */
-    t_canvas* rootCanvas();
-    t_canvas* rootCanvas() const;
+    t_symbol* canvasDir(CanvasType t, t_symbol* def = gensym(".")) const;
 
     /**
      * Check if patch is loading
