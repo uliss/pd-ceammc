@@ -72,11 +72,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[open( [symbol ex1.dsp(    [osc~ 500]
-|      |                   |
-|      [@fname faust/$1(   |
-|      |                   |.
-[ui.faust~ faust/ex0.dsp    ]
+[open( [read faust/ex1.dsp( [osc~ 500]
+|      |                    |
+|      |                    |
+|      |                    |.
+[ui.faust~ faust/ex0.dsp     ]
 |
 |
 |
@@ -92,11 +92,11 @@
             </pdascii>
             <pdascii id="extra">
 <![CDATA[
-[@fname faust/ks.dsp #a(
+[read faust/ks.dsp #a(
 
-[@fname faust/blow.dsp #b(
+[read faust/blow.dsp #b(
 
-[@fname faust/xfm.dsp #c(
+[read faust/xfm.dsp #c(
 
 [ui.faust~ faust/ex0.dsp #x]
 |

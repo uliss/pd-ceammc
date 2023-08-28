@@ -1,7 +1,7 @@
-#N canvas 0 0 402 414 12;
-#X msg 20 48 @fname faust/ks.dsp;
-#X msg 20 77 @fname faust/blow.dsp;
-#X msg 20 106 @fname faust/xfm.dsp;
+#N canvas 0 0 411 414 12;
+#X msg 20 48 read faust/ks.dsp;
+#X msg 20 77 read faust/blow.dsp;
+#X msg 20 106 read faust/xfm.dsp;
 #X obj 20 135 ui.faust~ faust/ex0.dsp;
 #X obj 20 336 ui.hgain~;
 #X obj 192 336 ui.dsp~;
