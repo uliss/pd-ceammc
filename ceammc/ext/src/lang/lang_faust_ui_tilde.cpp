@@ -13,9 +13,7 @@
  *****************************************************************************/
 #include "lang_faust_ui_tilde.h"
 #include "ceammc_factory.h"
-#include "ceammc_platform.h"
 
-#include "fmt/core.h"
 #include "nui/button_view.h"
 #include "nui/factory.h"
 #include "nui/label_view.h"

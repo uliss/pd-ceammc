@@ -22,7 +22,7 @@ https://faust.grame.fr/ @url https://faust.grame.fr/;
 #X obj 20 411 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
 -49933 0;
 #X text 110 446 Left-click + ⌥;
-#X text 285 446 open faust dsp file in external editor.;
+#X text 285 446 open Faust source code editor.;
 #X text 110 466 Right-click;
 #X text 285 466 open popup menu.;
 #X text 110 486 Right-click + ⇧;
@@ -35,64 +35,76 @@ https://faust.grame.fr/ @url https://faust.grame.fr/;
 -49933 0;
 #X text 110 576 1\.;
 #X text 150 576 symbol;
-#X obj 246 577 cnv 1 46 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 576 FNAME: path to faust dsp file. Type: symbol.;
-#X obj 20 606 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 611 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 246 577 cnv 1 38 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 576 LOAD: initial file to load after object creation. Type:
+symbol.;
+#X obj 20 621 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 626 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 646 @auto;
-#X text 245 646 Get/Set auto update mode. If on - recompiles faust
-dsp file on change. Type: bool. Default value: 0\.;
-#X msg 110 688 @fname;
-#X text 245 688 Get/Set path to faust dsp file. Type: symbol.;
-#X msg 110 717 @include;
-#X text 245 717 Get/Set list of faust include directories. Type: list.;
-#X msg 110 746 @size;
-#X text 245 746 Get/Set object size. Type: list. Default value: 10
+#X msg 110 661 @load;
+#X text 245 661 (initonly) Get/Set initial file to load after object
+creation. Type: symbol.;
+#X msg 110 703 @include;
+#X text 245 703 Get/Set list of faust include directories. Type: list.;
+#X msg 110 732 @style;
+#X text 245 732 Get/Set view style. Type: int. Default value: 0\.;
+#X msg 110 761 @size;
+#X text 245 761 Get/Set object size. Type: list. Default value: 10
 10\.;
-#X obj 20 785 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 790 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 800 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 805 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 825 open;
-#X text 245 825 open faust dsp file in external editor.;
-#X msg 110 852 reset;
-#X text 245 852 reset object state.;
-#X msg 110 879 size;
-#X text 245 879 resize object. Arguments are:;
-#X obj 255 902 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 902 W: new width. Type: int.;
-#X obj 255 925 cnv 1 13 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 925 H: new height. Type: int.;
-#X msg 110 950 update;
-#X text 245 950 update faust object \, recompile if needed.;
-#X obj 20 987 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 992 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 110 993 1\.;
-#X text 245 993 control input.;
-#X text 110 1013 2\.;
-#X text 245 1013 first faust input.;
-#X text 110 1033 ....;
-#X text 245 1033 ... faust input.;
-#X text 110 1053 n+1\.;
-#X text 245 1053 n-th faust input.;
-#X obj 20 1083 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1088 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X msg 110 840 open;
+#X text 245 840 open faust dsp file in external editor.;
+#X msg 110 867 read;
+#X text 245 867 read Faust code from file and compile it. Arguments
+are:;
+#X obj 255 890 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 890 FILE: file path \, absolute or relative to patch \,
+include directories. Type: symbol.;
+#X msg 110 930 reset;
+#X text 245 930 reset object state.;
+#X msg 110 957 size;
+#X text 245 957 resize object. Arguments are:;
+#X obj 255 980 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 980 W: new width. Type: int.;
+#X obj 255 1003 cnv 1 13 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1003 H: new height. Type: int.;
+#X msg 110 1028 write;
+#X text 245 1028 write Faust code to file. Arguments are:;
+#X obj 255 1051 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1051 FILE: file path \, absolute or relative to patch.
+Type: symbol.;
+#X obj 255 1074 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1074 [@force]: overwrite existing files. Type: property.;
+#X obj 20 1109 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1114 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1089 1\.;
-#X text 245 1089 first faust output.;
-#X text 110 1109 ....;
-#X text 245 1109 ... faust output.;
-#X text 110 1129 n.;
-#X text 245 1129 n-th faust output.;
+#X text 110 1115 1\.;
+#X text 245 1115 control input.;
+#X text 110 1135 2\.;
+#X text 245 1135 first faust input.;
+#X text 110 1155 ....;
+#X text 245 1155 ... faust input.;
+#X text 110 1175 n+1\.;
+#X text 245 1175 n-th faust input.;
+#X obj 20 1205 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1210 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1211 1\.;
+#X text 245 1211 first faust output.;
+#X text 110 1231 ....;
+#X text 245 1231 ... faust output.;
+#X text 110 1251 n.;
+#X text 245 1251 n-th faust output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title lang @url ceammc.lang-help.pd;
-#X obj 1 1179 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1182 library: ceammc v0.9.7;
-#N canvas 10 1201 400 290 info 0;
+#X obj 1 1301 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1304 library: ceammc v0.9.7;
+#N canvas 10 1323 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -116,7 +128,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1201 pd info;
+#X restore 10 1323 pd info;
 #X connect 7 0 9 0;
 #X connect 6 0 10 0;
 #X connect 9 0 10 0;

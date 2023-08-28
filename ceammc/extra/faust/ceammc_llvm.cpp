@@ -82,7 +82,7 @@ namespace faust {
 
     std::string LlvmDspFactory::name() const
     {
-        return factory_ ? factory_->getName() : std::string();
+        return factory_ ? factory_->getName() : "Faust";
     }
 
     void LlvmDspFactory::deleteAll()

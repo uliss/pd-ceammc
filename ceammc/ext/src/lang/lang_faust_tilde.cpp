@@ -437,7 +437,7 @@ std::string LangFaustTilde::sourceCode() const
 
 t_symbol* LangFaustTilde::name() const
 {
-    return dsp_factory_ ? gensym(dsp_factory_->name().c_str()) : &s_;
+    return dsp_factory_ ? gensym(dsp_factory_->name().c_str()) : gensym("Faust");
 }
 
 std::string LangFaustTilde::canvasDir() const
