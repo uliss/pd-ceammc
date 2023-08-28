@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "catch.hpp"
 #include "ceammc_editor_object.h"
+#include "ceammc_format.h"
 #include "test_macro.h"
 #include "test_wrappers.h"
 
@@ -72,5 +73,18 @@ TEST_CASE("ceammc_editor_unescape", "[ceammc]")
             REQUIRE_ESCAPE_LUA("", L());
             REQUIRE_ESCAPE_LUA("\t", LA("\\x09"));
         }
+    }
+
+    SECTION("<->")
+    {
+#define REQUIRE_ESC(str)                                                \
+    do {                                                                \
+        AtomList res;                                                   \
+        REQUIRE(editor_string_escape(str, res, EditorEscapeMode::LUA)); \
+        std::string x = to_string(res, "");                             \
+        REQUIRE(editor_string_unescape(x, EditorEscapeMode::LUA));      \
+    } while (0)
+
+        REQUIRE_ESC("abcde{}[](),:,\t!\\b\\x3b");
     }
 }
