@@ -4,10 +4,8 @@
 #include "lang_luajit.h"
 #endif
 
-#ifndef FAUST_SEPARATE_EXTERNAL
-#include "lang_faust_tilde.h"
-#include "lang_faust_ui_tilde.h"
-#endif
+void setup_lang_faust_non_external();
+void setup_ui_faust_non_external();
 
 void ceammc_lang_setup()
 {
