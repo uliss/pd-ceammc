@@ -1430,7 +1430,9 @@ void BaseClone::onSave(t_binbuf* b) const
 
 void setup_base_clone()
 {
-    BaseCloneFactory obj("clone:", OBJECT_FACTORY_DEFAULT);
+    constexpr const char* OBJ_NAME = "clone:";
+
+    BaseCloneFactory obj(OBJ_NAME, OBJECT_FACTORY_DEFAULT);
     obj.useClick();
 
     using namespace ceammc::parser;
@@ -1447,6 +1449,7 @@ void setup_base_clone()
     auto sym_mouse = gensym("mouse");
     auto mouse_fn = (MouseFn)zgetfn(&canvas_class, sym_mouse);
     if (mouse_fn != canvas_new_mouse_fn) {
+        LIB_LOG << fmt::format("[{}] replace '{}' method for canvas:", OBJ_NAME, sym_mouse->s_name);
         ceammc_old_canvas_mouse_fn = mouse_fn;
         class_addmethod(canvas_class, (t_method)canvas_new_mouse_fn, sym_mouse, A_FLOAT, A_FLOAT, A_FLOAT, A_FLOAT, A_NULL);
     }
