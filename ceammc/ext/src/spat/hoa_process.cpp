@@ -74,16 +74,12 @@ void HoaProcess::initDone()
         allocSignals();
         allocInlets();
         allocOutlets();
-    } catch (std::exception& e) {
+    } catch (const std::exception& e) {
         if (!args().empty())
             OBJ_ERR << e.what();
         else
             OBJ_LOG << e.what(); // object without args - used in help
     }
-    // strange exception handling bug
-#if defined(__APPLE__) && defined(__arm64__)
-    catch(...) { }
-#endif
 
     // call loadbang in 5 ticks
     clock_.delay(5);
@@ -547,17 +543,12 @@ void HoaProcess::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_f
 
 void HoaProcess::m_open(t_symbol* m, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_FLOAT, m))
-        return;
+    auto idx = lv.intAt(0, -1);
 
-    t_float v = lv.floatAt(0, 0);
-    size_t idx = 0;
-
-    if (v < 0) { // open all
+    if (idx < 0) { // open all
         for (auto& in : instances_)
             in.show();
     } else {
-        idx = v;
         if (idx >= instances_.size()) {
             METHOD_ERR(m) << "invalid index: " << idx << ", should be < " << instances_.size();
             return;
