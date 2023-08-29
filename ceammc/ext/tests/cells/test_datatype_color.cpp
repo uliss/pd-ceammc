@@ -29,6 +29,7 @@ TEST_CASE("DataTypeColor", "[core]")
             Color c;
             REQUIRE(c.toList() == LF(0, 0, 0, 1));
             REQUIRE(c.toString() == "#000000");
+            REQUIRE(c.type() == Color::staticType());
         }
 
         SECTION("hex")

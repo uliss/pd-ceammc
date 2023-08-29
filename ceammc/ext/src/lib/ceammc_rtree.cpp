@@ -48,7 +48,7 @@ namespace rtree {
                     const auto f = a.asT<t_float>();
                     const auto subdur = (duration * f) / sum;
                     // number followed by mlist
-                    if ((i + 1 < N) && ml->at(i + 1).isDataType(DataTypeMList::dataType)) {
+                    if ((i + 1 < N) && ml->at(i + 1).isDataType(DataTypeMList::staticType())) {
                         res.append(rhythm_tree(subdur, ml->at(i + 1).asDataT<DataTypeMList>(), errPrefix, err));
                         i += 1;
                     } else {

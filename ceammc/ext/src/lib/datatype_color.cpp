@@ -36,16 +36,6 @@ using namespace ceammc;
 
 constexpr const char* TYPE_NAME = "Color";
 
-DataTypeId initType()
-{
-    DataTypeId id = DataStorage::instance().typeByName(TYPE_NAME);
-    if (id == data::DATA_INVALID)
-        id = DataStorage::instance().registerNewType(TYPE_NAME,
-            [](const AtomListView& lv) -> Atom { return new DataTypeColor(lv); });
-
-    return id;
-}
-
 colorm::Srgb toRGB(const DataTypeColor& color)
 {
     return colorm::Srgb(color.dataAt(0), color.dataAt(1), color.dataAt(2), color.dataAt(3)).clip();
@@ -63,7 +53,13 @@ void fromRGB(float* data, const colorm::Srgb& c)
 
 namespace ceammc {
 
-const DataTypeId DataTypeColor::dataType = initType();
+DataTypeId DataTypeColor::staticType()
+{
+    static DataTypeId id = DataStorage::instance().registerNewType(TYPE_NAME,
+        [](const AtomListView& lv) -> Atom { return new DataTypeColor(lv); });
+
+    return id;
+}
 
 DataTypeColor::DataTypeColor()
     : data_ { 0, 0, 0, 1 }
@@ -88,12 +84,12 @@ DataTypeColor::DataTypeColor(const AtomListView& lv)
 
 DataTypeId DataTypeColor::type() const noexcept
 {
-    return dataType;
+    return staticType();
 }
 
 bool DataTypeColor::isEqual(const AbstractData* d) const noexcept
 {
-    if (!d || d->type() != dataType)
+    if (!d || d->type() != type())
         return false;
 
     const DataTypeColor* ds = d->as<DataTypeColor>();

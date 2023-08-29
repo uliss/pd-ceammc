@@ -22,26 +22,17 @@
 #include <cmath>
 #include <cstring>
 
-namespace {
-using namespace ceammc;
-
 constexpr const char* TYPE_NAME = "MList";
-
-DataTypeId initType()
-{
-    DataTypeId id = DataStorage::instance().typeByName(TYPE_NAME);
-    if (id == data::DATA_INVALID)
-        id = DataStorage::instance().registerNewType(TYPE_NAME,
-            [](const AtomListView& args) -> Atom { return new DataTypeMList(args); });
-
-    return id;
-}
-
-}
 
 namespace ceammc {
 
-DataTypeId DataTypeMList::dataType = initType();
+DataTypeId DataTypeMList::staticType()
+{
+    static DataTypeId id = DataStorage::instance().registerNewType(TYPE_NAME,
+        [](const AtomListView& args) -> Atom { return new DataTypeMList(args); });
+
+    return id;
+}
 
 DataTypeMList::DataTypeMList() noexcept = default;
 
@@ -85,7 +76,7 @@ DataTypeMList& DataTypeMList::operator=(DataTypeMList&& mlist)
 
 DataTypeId DataTypeMList::type() const noexcept
 {
-    return dataType;
+    return staticType();
 }
 
 DataTypeMList* DataTypeMList::clone() const

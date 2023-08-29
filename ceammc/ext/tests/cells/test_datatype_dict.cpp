@@ -36,6 +36,7 @@ TEST_CASE("DataTypeDict", "[core]")
             REQUIRE(d.toString() == "[]");
             REQUIRE(d.toListStringContent() == "");
             REQUIRE(d.toListString() == "Dict()");
+            REQUIRE(d.type() == DataTypeDict::staticType());
         }
 
         SECTION("[]")

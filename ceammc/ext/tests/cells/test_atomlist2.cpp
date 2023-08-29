@@ -567,8 +567,7 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
         REQUIRE(listFrom(LA("a", "b", 3)) == LA("a", "b", 3));
         REQUIRE(listFrom(Atom(1)) == LF(1));
 
-        using namespace std;
-        vector<string> v;
+        std::vector<std::string> v;
         v.push_back("a");
         v.push_back("c");
         REQUIRE(listFrom(v) == LA("a", "c"));

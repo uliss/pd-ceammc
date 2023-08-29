@@ -28,8 +28,8 @@ TEST_CASE("DataTypeMList", "[core]")
     {
         DataTypeMList ml;
         REQUIRE(ml.size() == 0);
-        REQUIRE(ml.type() == DataTypeMList::dataType);
-        REQUIRE(ml.dataType == DataStorage::instance().typeByName("MList"));
+        REQUIRE(ml.type() == DataTypeMList::staticType());
+        REQUIRE(ml.type() == DataStorage::instance().typeByName("MList"));
         REQUIRE(ml.toString() == "()");
         REQUIRE(DataStorage::instance().fromListFunction("MList"));
         REQUIRE_FALSE(DataStorage::instance().fromDictFunction("MList"));
@@ -374,13 +374,13 @@ TEST_CASE("DataTypeMList", "[core]")
     SECTION("parse errors")
     {
         Atom res;
-        CHECK_FALSE(ML::parse(LP("123"), ML::dataType, res));
-        CHECK_FALSE(ML::parse(LP("ABC"), ML::dataType, res));
-        CHECK(ML::parse(LP("()"), ML::dataType, res));
-        CHECK_FALSE(ML::parse(LP("() 1"), ML::dataType, res));
-        CHECK_FALSE(ML::parse(LP("1 ()"), ML::dataType, res));
-        CHECK_FALSE(ML::parse(LP("[]"), ML::dataType, res));
-        CHECK_FALSE(ML::parse(LP("(    1 2 3"), ML::dataType, res));
-        CHECK_FALSE(ML::parse(LP("(    1 2 3))"), ML::dataType, res));
+        CHECK_FALSE(ML::parse(LP("123"), ML::staticType(), res));
+        CHECK_FALSE(ML::parse(LP("ABC"), ML::staticType(), res));
+        CHECK(ML::parse(LP("()"), ML::staticType(), res));
+        CHECK_FALSE(ML::parse(LP("() 1"), ML::staticType(), res));
+        CHECK_FALSE(ML::parse(LP("1 ()"), ML::staticType(), res));
+        CHECK_FALSE(ML::parse(LP("[]"), ML::staticType(), res));
+        CHECK_FALSE(ML::parse(LP("(    1 2 3"), ML::staticType(), res));
+        CHECK_FALSE(ML::parse(LP("(    1 2 3))"), ML::staticType(), res));
     }
 }

@@ -33,7 +33,7 @@ TEST_CASE("Atom2", "[core]")
             Atom a((AbstractData*)nullptr);
             REQUIRE(a.isNone());
             REQUIRE_FALSE(a.isData());
-            REQUIRE_FALSE(a.isDataType(IntData::dataType));
+            REQUIRE_FALSE(a.isDataType(IntData::staticType()));
             REQUIRE_FALSE(a.isA<IntData>());
         }
 
@@ -42,8 +42,8 @@ TEST_CASE("Atom2", "[core]")
             Atom a(new IntData(100));
             REQUIRE(a.isData());
             REQUIRE(a.isA<IntData>());
-            REQUIRE(a.isDataType(IntData::dataType));
-            REQUIRE_FALSE(a.isDataType(StrData::dataType));
+            REQUIRE(a.isDataType(IntData::staticType()));
+            REQUIRE_FALSE(a.isDataType(StrData::staticType()));
 
             REQUIRE_FALSE(a.isNone());
             REQUIRE_FALSE(a.isBool());
@@ -58,7 +58,7 @@ TEST_CASE("Atom2", "[core]")
             REQUIRE(a.asFloat(-10) == -10);
             REQUIRE(a.asSymbol() == &s_);
             REQUIRE(a.asData());
-            REQUIRE(a.asData()->type() == IntData::dataType);
+            REQUIRE(a.asData()->type() == IntData::staticType());
             REQUIRE(a.asData()->toString() == "IntData(100)");
             REQUIRE(a.asData()->toListString() == "IntData(100)");
             REQUIRE(a.asData()->toDictString() == "IntData[value: 100]");
@@ -74,13 +74,13 @@ TEST_CASE("Atom2", "[core]")
         {
             Atom a0(new IntData(200));
             REQUIRE(a0.isData());
-            REQUIRE(a0.isDataType(IntData::dataType));
-            REQUIRE(a0.dataType() == IntData::dataType);
+            REQUIRE(a0.isDataType(IntData::staticType()));
+            REQUIRE(a0.dataType() == IntData::staticType());
 
             Atom a1(a0);
             REQUIRE(a1.isData());
-            REQUIRE(a1.isDataType(IntData::dataType));
-            REQUIRE(a1.dataType() == IntData::dataType);
+            REQUIRE(a1.isDataType(IntData::staticType()));
+            REQUIRE(a1.dataType() == IntData::staticType());
 
             REQUIRE(a0.asData() == a1.asData());
 

@@ -1,10 +1,7 @@
 #include "editor_data.h"
-#include "ceammc_object.h"
 #include "ceammc_string.h"
 #include "datatype_dict.h"
 #include "datatype_mlist.h"
-#include "datatype_set.h"
-#include "datatype_string.h"
 
 namespace ceammc {
 
@@ -137,9 +134,9 @@ void editorAppend(EditorLineList& res, const AbstractData* d, int indentLevel)
     if (!d)
         return;
 
-    if (d->type() == DataTypeMList::dataType)
+    if (d->type() == DataTypeMList::staticType())
         return editorAppend(res, static_cast<const DataTypeMList&>(*d), indentLevel);
-    else if (d->type() == DataTypeDict::dataType)
+    else if (d->type() == DataTypeDict::staticType())
         return editorAppend(res, static_cast<const DataTypeDict&>(*d), indentLevel);
     else {
         auto str = EditorStringPool::pool().allocate();

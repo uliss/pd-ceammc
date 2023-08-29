@@ -14,6 +14,7 @@
 #ifndef CEAMMC_STRING_H
 #define CEAMMC_STRING_H
 
+#include "ceammc_datatypes.h"
 #include "ceammc_string_types.h"
 
 #include <cstddef>

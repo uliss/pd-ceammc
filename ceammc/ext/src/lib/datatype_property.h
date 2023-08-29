@@ -46,7 +46,7 @@ public:
     void restoreDefault();
 
     bool getFloat(t_float& out) const;
-    bool getInt(int &out) const;
+    bool getInt(int& out) const;
     bool getBool(bool& out) const;
     bool getSymbol(t_symbol** s) const;
     bool getList(AtomList& out) const;
@@ -80,9 +80,8 @@ public:
     std::string toDictStringContent() const final;
     bool set(const AbstractData* d) noexcept final;
 
-
 public:
-    static const DataTypeId dataType;
+    static DataTypeId staticType();
 
 private:
     void updateAll();

@@ -198,7 +198,7 @@ public:
     static void quotedListToString(const AtomListView& lv, string::MediumString& str);
 
 public:
-    static const DataTypeId dataType;
+    static DataTypeId staticType();
 
 private:
     void splitEveryChar(string::StringSplitResult& res) const;

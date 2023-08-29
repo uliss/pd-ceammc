@@ -14,11 +14,10 @@
 #ifndef CEAMMC_XDATASTORAGE_H
 #define CEAMMC_XDATASTORAGE_H
 
-#include "ceammc_abstractdata.h"
 #include "ceammc_data.h"
+#include "ceammc_datatypes.h"
 
 #include <boost/container/static_vector.hpp>
-#include <map>
 
 namespace ceammc {
 

@@ -6,7 +6,11 @@
 
 constexpr const char* TYPE_NAME = "MidiTrack";
 
-const DataTypeId DataTypeMidiTrack::dataType = DataStorage::instance().registerNewType(TYPE_NAME);
+DataTypeId DataTypeMidiTrack::staticType()
+{
+    static DataTypeId id = DataStorage::instance().registerNewType(TYPE_NAME);
+    return id;
+}
 
 DataTypeMidiTrack::DataTypeMidiTrack()
     : events_(new MidiEventList())
@@ -64,7 +68,7 @@ DataTypeMidiTrack* DataTypeMidiTrack::clone() const
 
 DataTypeId DataTypeMidiTrack::type() const noexcept
 {
-    return dataType;
+    return staticType();
 }
 
 size_t DataTypeMidiTrack::eventCount() const

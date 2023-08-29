@@ -21,7 +21,7 @@ TEST_CASE("DataTypeProperty", "[ceammc::DataTypeProperty]")
 {
     SECTION("init tests")
     {
-        REQUIRE(DataTypeProperty::dataType == data::DATA_PROPERTY);
+        REQUIRE(DataTypeProperty::staticType() == data::DATA_PROPERTY);
         DataTypeProperty t(SYM("test"));
         REQUIRE(t.type() == data::DATA_PROPERTY);
 
@@ -38,6 +38,7 @@ TEST_CASE("DataTypeProperty", "[ceammc::DataTypeProperty]")
         REQUIRE(f1.name() == SYM("f1"));
         f1.setTypeInt(4);
         f1.setIntRange(3, 5);
+        REQUIRE(f1.type() == data::DATA_PROPERTY);
 
         DataTypeProperty* f2 = f1.clone();
         REQUIRE(f1.name() == f2->name());

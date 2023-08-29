@@ -81,7 +81,7 @@ void SeqSequencerBase::outputTick()
     anyTo(1, sym_i(), AtomListView(l, 2));
 
     const auto& a = v[i];
-    if (a.isDataType(DataTypeMList::dataType))
+    if (a.isDataType(DataTypeMList::staticType()))
         listTo(0, a.asD<DataTypeMList>()->data());
     else
         atomTo(0, a);

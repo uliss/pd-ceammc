@@ -153,7 +153,7 @@ public:
     template <typename T>
     bool setDataT(const AbstractData* d) noexcept
     {
-        if (!d || d->type() != T::dataType)
+        if (!d || d->type() != T::staticType())
             return false;
 
         auto t = static_cast<const T*>(d);
@@ -183,9 +183,9 @@ public:
     static bool parse(const AtomListView& lv, int dataType, Atom& res);
 
     template <typename T>
-    bool parseT(const std::string& str, Atom& res) { return parse(str, T::dataType, res); }
+    bool parseT(const std::string& str, Atom& res) { return parse(str, T::staticType(), res); }
     template <typename T>
-    bool parseT(const AtomListView& lv, Atom& res) { return parse(lv, T::dataType, res); }
+    bool parseT(const AtomListView& lv, Atom& res) { return parse(lv, T::staticType(), res); }
 
     static DataTypeName findTypeName(DataTypeId dataType);
 };
@@ -193,7 +193,7 @@ public:
 template <class T>
 T* AbstractData::cloneT() const
 {
-    if (type() != T::dataType)
+    if (type() != T::staticType())
         return nullptr;
 
     return static_cast<T*>(clone());
@@ -202,13 +202,13 @@ T* AbstractData::cloneT() const
 template <class T>
 T* AbstractData::as()
 {
-    return type() == T::dataType ? static_cast<T*>(this) : nullptr;
+    return type() == T::staticType() ? static_cast<T*>(this) : nullptr;
 }
 
 template <class T>
 const T* AbstractData::as() const
 {
-    return type() == T::dataType ? static_cast<const T*>(this) : nullptr;
+    return type() == T::staticType() ? static_cast<const T*>(this) : nullptr;
 }
 }
 

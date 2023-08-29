@@ -28,7 +28,7 @@ RhythmTreeToList::RhythmTreeToList(const PdArgs& args)
 
     rtree_ = new AtomProperty("@rtree", MListAtom());
     rtree_->setAtomCheckFn([](const Atom& a) -> bool {
-        return a.isDataType(DataTypeMList::dataType);
+        return a.isDataType(DataTypeMList::staticType());
     });
     rtree_->setSuccessFn([this](Property*) { changed_ = true; });
     rtree_->setArgIndex(1);

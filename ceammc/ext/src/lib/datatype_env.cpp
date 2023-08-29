@@ -296,7 +296,14 @@ Atom createEnv(const DictAtom& dict)
 }
 }
 
-DataTypeId DataTypeEnv::dataType = DataStorage::instance().registerNewType(TYPE_NAME, nullptr, createEnv);
+DataTypeId DataTypeEnv::staticType()
+{
+    static DataTypeId id = DataStorage::instance().registerNewType(TYPE_NAME,
+        nullptr,
+        createEnv);
+
+    return id;
+}
 
 DataTypeEnv::DataTypeEnv()
 {
@@ -314,7 +321,7 @@ DataTypeEnv::DataTypeEnv(DataTypeEnv&& env)
 
 DataTypeId DataTypeEnv::type() const noexcept
 {
-    return dataType;
+    return staticType();
 }
 
 static const char* to_string(CurveType t)
@@ -341,10 +348,10 @@ const DataTypeEnv::NamedMethodList DataTypeEnv::named_methods = {
 
 bool DataTypeEnv::isEqual(const AbstractData* d) const noexcept
 {
-    if (d->type() != dataType)
+    if (d->type() != staticType())
         return false;
 
-    const DataTypeEnv* env = d->as<DataTypeEnv>();
+    auto env = d->as<DataTypeEnv>();
     return this->operator==(*env);
 }
 

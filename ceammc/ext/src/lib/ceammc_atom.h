@@ -187,7 +187,7 @@ public:
      * template parameterized atom type check
      */
     template <typename T>
-    inline bool isA() const noexcept { return isDataType(T::dataType); }
+    inline bool isA() const noexcept { return isDataType(T::staticType()); }
 
     /**
      * template parameterized atom value as typed value
@@ -508,7 +508,7 @@ public:
     template <typename T>
     const T* asDataT() const
     {
-        if (!isDataType(T::dataType))
+        if (!isDataType(T::staticType()))
             return nullptr;
 
         return static_cast<const T*>(asData());

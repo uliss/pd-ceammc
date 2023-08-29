@@ -23,27 +23,19 @@
 #include <algorithm>
 #include <iostream>
 
-namespace {
-using namespace ceammc;
-
 constexpr const char* TYPE_NAME = "String";
-
-DataTypeId initType()
-{
-    DataTypeId id = DataStorage::instance().typeByName(TYPE_NAME);
-    if (id == data::DATA_INVALID)
-        id = DataStorage::instance().registerNewType(TYPE_NAME,
-            [](const AtomListView& lv) -> Atom { return new DataTypeString(lv); });
-
-    return id;
-}
-}
 
 namespace ceammc {
 
-#define NDEBUG 1
+DataTypeId DataTypeString::staticType()
+{
+    static DataTypeId id = DataStorage::instance().registerNewType(TYPE_NAME,
+        [](const AtomListView& lv) -> Atom { return new DataTypeString(lv); });
 
-const DataTypeId DataTypeString::dataType = initType();
+    return id;
+}
+
+#define NDEBUG 1
 
 DataTypeString::DataTypeString()
 {
@@ -132,7 +124,7 @@ void DataTypeString::clear() noexcept
 
 DataTypeId DataTypeString::type() const noexcept
 {
-    return dataType;
+    return staticType();
 }
 
 void DataTypeString::setFromQuotedList(const AtomListView& lv)

@@ -206,7 +206,7 @@ public:
     bool operator!=(const DataTypeMList& ml) const { return !operator==(ml); }
 
 public:
-    static DataTypeId dataType;
+    static DataTypeId staticType();
 };
 
 std::ostream& operator<<(std::ostream& os, const DataTypeMList& d);

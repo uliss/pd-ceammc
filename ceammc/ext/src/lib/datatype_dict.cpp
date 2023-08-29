@@ -27,23 +27,7 @@
 #include <fstream>
 #include <random>
 
-namespace {
-using namespace ceammc;
-
 constexpr const char* TYPE_NAME = "Dict";
-
-DataTypeId initType()
-{
-    DataTypeId id = DataStorage::instance().typeByName(TYPE_NAME);
-    if (id == data::DATA_INVALID)
-        id = DataStorage::instance().registerNewType(TYPE_NAME,
-            nullptr,
-            [](const DictAtom& datom) -> Atom { return datom; });
-
-    return id;
-}
-
-}
 
 namespace ceammc {
 
@@ -55,7 +39,14 @@ static t_symbol* atom_to_symbol(const Atom& a)
         return gensym(to_string(a).c_str());
 }
 
-const DataTypeId DataTypeDict::dataType = initType();
+DataTypeId DataTypeDict::staticType()
+{
+    static DataTypeId id = DataStorage::instance().registerNewType(TYPE_NAME,
+        nullptr,
+        [](const DictAtom& datom) -> Atom { return datom; });
+
+    return id;
+}
 
 DataTypeDict::DataTypeDict() noexcept = default;
 
@@ -99,7 +90,7 @@ DataTypeDict* DataTypeDict::clone() const
 
 DataTypeId DataTypeDict::type() const noexcept
 {
-    return dataType;
+    return staticType();
 }
 
 std::string DataTypeDict::toString() const

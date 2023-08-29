@@ -220,8 +220,9 @@ public:
     static bool looksLikeCtor(const AtomListView& lv) noexcept;
     static bool parseFromList(const AtomListView& lv, DataTypeColor& res);
 
+
 public:
-    static const DataTypeId dataType;
+    static DataTypeId staticType();
 };
 
 std::ostream& operator<<(std::ostream& os, const DataTypeColor& color);

@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_atom.h"
+#include "ceammc_abstractdata.h"
 #include "ceammc_canvas.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_log.h"

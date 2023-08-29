@@ -333,7 +333,7 @@ public:
     bool set(const AbstractData* d) noexcept final;
 
 public:
-    static DataTypeId dataType;
+    static DataTypeId staticType();
 
     using setMethod = bool (DataTypeEnv::*)(const AtomListView&);
 

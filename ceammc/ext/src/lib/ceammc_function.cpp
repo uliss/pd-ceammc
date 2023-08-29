@@ -163,7 +163,7 @@ AtomList fn_reverse(const AtomListView& args)
 
 AtomList fn_rhythm_tree(const AtomListView& args)
 {
-    const bool ok = args.size() == 2 && args[0].isFloat() && args[1].isDataType(DataTypeMList::dataType);
+    const bool ok = args.size() == 2 && args[0].isFloat() && args[1].isDataType(DataTypeMList::staticType());
     if (!ok) {
         LIB_ERR << fmt::format(FN_RTREE "(): invalid arguments, usage: " FN_RTREE "(DUR MList), got: {}", to_string(args));
         return {};
