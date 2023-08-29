@@ -96,18 +96,6 @@ void PatchProps::onAny(t_symbol* s, const AtomListView& l)
     }
 }
 
-void PatchProps::m_all_props(t_symbol* s, const AtomListView& args)
-{
-    AtomList res;
-    canvas_foreach(canvas(), [&res](t_gobj* x, const t_class* c) {
-        auto obj = ObjectFactory<PropDeclare>::objectCast(x);
-        if (obj)
-            res.append(obj->name());
-    });
-
-    anyTo(0, SYM_PROPS_ALL(), res);
-}
-
 void PatchProps::m_default(t_symbol*, const AtomListView&)
 {
     canvas_foreach(canvas(), [](t_gobj* x, const t_class* c) {
@@ -141,6 +129,18 @@ void PatchProps::dump() const
     });
 }
 
+void PatchProps::outputAllProperties()
+{
+    AtomList res;
+    canvas_foreach(canvas(), [&res](t_gobj* x, const t_class* c) {
+        auto obj = ObjectFactory<PropDeclare>::objectCast(x);
+        if (obj)
+            res.append(obj->name());
+    });
+
+    anyTo(0, SYM_PROPS_ALL(), res);
+}
+
 void PatchProps::outputProp(const std::string& name, t_float f)
 {
     anyTo(0, gensym(name.c_str()), Atom(f));
@@ -159,7 +159,6 @@ void PatchProps::outputProp(const std::string& name, const AtomList& l)
 void setup_patch_props()
 {
     ObjectFactory<PatchProps> obj("patch.props");
-    obj.addMethod("@*?", &PatchProps::m_all_props);
     obj.addMethod("default", &PatchProps::m_default);
 
     obj.setDescription("patch properties manager");

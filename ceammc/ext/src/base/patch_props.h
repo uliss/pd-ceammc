@@ -23,10 +23,10 @@ public:
     bool processAnyProps(t_symbol* sel, const AtomListView& lv) override;
     void onBang() override;
     void onAny(t_symbol* s, const AtomListView& l) override;
+    void dump() const final;
+    void outputAllProperties() final;
 
-    void m_all_props(t_symbol* s, const AtomListView& args);
     void m_default(t_symbol*, const AtomListView&);
-    void dump() const override;
 
 private:
     void outputProp(const std::string& name, t_float f);

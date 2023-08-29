@@ -117,7 +117,7 @@ public:
         // add [dump( method to dump to Pd console
         class_addmethod(c, reinterpret_cast<t_method>(dumpMethodList), SymbolTable::instance().s_dump_fn, A_NULL);
         // add [@*?( method to output all properties
-        class_addmethod(c, reinterpret_cast<t_method>(queryPropNames), SYM_PROPS_ALL_Q(), A_NULL);
+        class_addmethod(c, reinterpret_cast<t_method>(outputAllProperties), SYM_PROPS_ALL_Q(), A_NULL);
         // direct property get
         ceammc_class_add_propget_fn(c, getProperty);
         // direct property set
@@ -537,9 +537,9 @@ public:
         x->impl->dump();
     }
 
-    static void queryPropNames(ObjectProxy* x)
+    static void outputAllProperties(ObjectProxy* x)
     {
-        x->impl->queryPropNames();
+        x->impl->outputAllProperties();
     }
 
     static int getProperty(t_object* x, t_symbol* sel, int* argc, t_atom** argv)

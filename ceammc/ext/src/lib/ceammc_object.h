@@ -265,7 +265,7 @@ public:
      * Outputs all properties name to Pd window
      * @example on message [@*?( outputs message [@* @prop1 @prop2 etc..(
      */
-    void queryPropNames();
+    virtual void outputAllProperties();
 
     /**
      * You should override this functions to react upon arrived messages.

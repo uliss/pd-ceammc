@@ -989,7 +989,7 @@ void BaseObject::fixLines()
         canvas_fixlinesfor(canvas(), owner());
 }
 
-void BaseObject::queryPropNames()
+void BaseObject::outputAllProperties()
 {
     AtomList res;
     res.reserve(props_.size());
