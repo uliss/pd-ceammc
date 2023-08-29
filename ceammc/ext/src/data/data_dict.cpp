@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "data_dict.h"
+#include "fmt/core.h"
 
 DataDict::DataDict(const PdArgs& args)
     : DataDictBase(args)
@@ -34,5 +35,7 @@ void setup_data_dict()
 
     obj.setDescription("dictionary container: store values by key");
     obj.setCategory("data");
-    obj.setKeywords({"data", "dictionary"});
+    obj.setKeywords({ "data", "dictionary" });
+
+    LIB_LOG << fmt::format("Dict datatype id: {:d}", DataTypeDict::staticType());
 }

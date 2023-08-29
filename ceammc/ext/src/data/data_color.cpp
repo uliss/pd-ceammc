@@ -287,4 +287,6 @@ void setup_data_color()
 
     obj.useClick();
     DataColor::initMethods(obj);
+
+    LIB_LOG << fmt::format("Color datatype id: {:d}", DataTypeColor::staticType());
 }

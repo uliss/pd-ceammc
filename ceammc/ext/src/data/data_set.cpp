@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "data_set.h"
 #include "ceammc_factory.h"
+#include "fmt/core.h"
 
 DataSet::DataSet(const PdArgs& a)
     : DataSetBase(a)
@@ -34,5 +35,7 @@ void setup_data_set()
 
     obj.setDescription("container that store unique elements");
     obj.setCategory("data");
-    obj.setKeywords({"data", "set"});
+    obj.setKeywords({ "data", "set" });
+
+    LIB_LOG << fmt::format("Set datatype id: {:d}", DataTypeSet::staticType());
 }

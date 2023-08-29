@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "data_mlist.h"
 #include "ceammc_factory.h"
+#include "fmt/core.h"
 
 DataMList::DataMList(const PdArgs& args)
     : DataMListBase(args)
@@ -36,4 +37,6 @@ void setup_data_mlist()
     obj.setDescription("multidimensional list container");
     obj.setCategory("data");
     obj.setKeywords({ "data", "multilist" });
+
+    LIB_LOG << fmt::format("Mlist datatype id: {:d}", DataTypeMList::staticType());
 }
