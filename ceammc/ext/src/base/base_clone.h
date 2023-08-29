@@ -16,13 +16,13 @@
 
 #include <cstdint>
 
+#include "ceammc_object.h"
 #include "ceammc_proxy.h"
-#include "ceammc_sound_external.h"
 #include "lex/parser_clone.h"
 using namespace ceammc;
 
 class CloneInstance {
-    t_canvas* canvas_;
+    t_canvas* canvas_ { nullptr };
     uint16_t idx_;
     bool dsp_on_ { true };
 
