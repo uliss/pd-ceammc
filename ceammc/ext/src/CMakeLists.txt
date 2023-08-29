@@ -42,11 +42,43 @@ endif()
 find_package(BISON)
 find_package(FLEX)
 
-set(CEAMMC_EXT_LINK_LIBRARIES ceammc_analyze ceammc_array ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_env
-    ceammc_flt ceammc_flow ceammc_fx ceammc_hw ceammc_lang ceammc_lfo ceammc_list ceammc_math ceammc_midi
-    ceammc_misc ceammc_music ceammc_net ceammc_noise ceammc_osc ceammc_preset ceammc_path ceammc_pieces ceammc_proto ceammc_random
-    ceammc_samp ceammc_spat ceammc_synth ceammc_system ceammc_string ceammc_tl ceammc_ui ceammc_window
-    ceammc_core)
+set(CEAMMC_EXT_LINK_LIBRARIES
+    ceammc_analyze
+    ceammc_array
+    ceammc_base
+    ceammc_conv
+    ceammc_data
+    ceammc_dyn
+    ceammc_env
+    ceammc_flow
+    ceammc_flt
+    ceammc_fx
+    ceammc_hw
+    ceammc_lang
+    ceammc_lfo
+    ceammc_list
+    ceammc_math
+    ceammc_midi
+    ceammc_misc
+    ceammc_music
+    ceammc_net
+    ceammc_noise
+    ceammc_osc
+    ceammc_path
+    ceammc_pieces
+    ceammc_preset
+    ceammc_proto
+    ceammc_random
+    ceammc_samp
+    ceammc_spat
+    ceammc_string
+    ceammc_synth
+    ceammc_system
+    ceammc_tl
+    ceammc_ui
+    ceammc_window
+    ceammc_core
+)
 
 add_subdirectory(lib)
 include_directories(lib)
@@ -62,7 +94,7 @@ add_subdirectory(conv)
 add_subdirectory(data)
 add_subdirectory(dyn)
 add_subdirectory(env)
-add_subdirectory(exp)
+#add_subdirectory(exp)
 add_subdirectory(flow)
 add_subdirectory(flt)
 add_subdirectory(fx)
