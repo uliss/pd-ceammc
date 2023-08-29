@@ -12,3 +12,8 @@ fi
 cp -v @PROJECT_SOURCE_DIR@/tcl/*.tcl "${TCL_DIR}/"
 
 cp -v @PROJECT_SOURCE_DIR@/ceammc/gui/plugins/*.tcl "${TCL_DIR}/ceammc"
+
+cp -v @PROJECT_SOURCE_DIR@/ceammc/gui/plugins/completion-plugin/*.tcl "${TCL_DIR}/ceammc"
+
+cp -v @PROJECT_SOURCE_DIR@/ceammc/gui/plugins/completion-plugin/*.pd "${TCL_DIR}/ceammc"
+

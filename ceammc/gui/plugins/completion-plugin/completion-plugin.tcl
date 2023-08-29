@@ -1389,7 +1389,7 @@ proc ::completion::choose_or_unedit {} {
 
 proc ::completion::text_unedit {} {
     ::completion::msg_debug "entering text unedit" "entering_procs"
-    pdsend "$::completion::focused_window reselect"
+    pdsend "$::focused_window reselect"
     set ::completion::new_object 0
     set ::completion::completion_text_updated 0
 }
@@ -1634,7 +1634,7 @@ proc ::completion::trimspaces {} {
 
 
 # just in case.
-bind all <$::modifier-Key-Return> {pdsend "$::completion::focused_window reselect"}
+bind all <$::modifier-Key-Return> {pdsend "$::focused_window reselect"}
 
 ###########################################################
 # main
