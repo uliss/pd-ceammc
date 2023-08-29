@@ -60,6 +60,7 @@ public:
         obj.addMethod("clear", &T::m_clear);
 
         protocol::ReaderWriter<Factory, T> rw(obj);
+        protocol::Base<Factory, T> base(obj);
     }
 
 private:

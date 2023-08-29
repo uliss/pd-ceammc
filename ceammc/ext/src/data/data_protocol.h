@@ -376,7 +376,7 @@ public:
 
     void m_read(t_symbol* s, const AtomListView& path)
     {
-        if(!T::checkArgs(path, T::ARG_SYMBOL, s))
+        if (!T::checkArgs(path, T::ARG_SYMBOL, s))
             return;
 
         auto fname = path.symbolAt(0, &s_);
@@ -469,7 +469,6 @@ public:
     }
 
 public:
-
     template <typename Factory>
     static void factoryFilesystemObjectInit(Factory& f)
     {
@@ -572,33 +571,30 @@ namespace protocol {
     };
 
     template <template <typename T> class Factory, typename T>
-    class Reader : public Base<Factory, T> {
+    class Reader {
     public:
         Reader(Factory<T>& obj)
-            : Base<Factory, T>(obj)
         {
             obj.addMethod("read", &T::m_read);
         }
     };
 
     template <template <typename T> class Factory, typename T>
-    class Writer : public Base<Factory, T> {
+    class Writer {
     public:
         Writer(Factory<T>& obj)
-            : Base<Factory, T>(obj)
         {
             obj.addMethod("write", &T::m_write);
         }
     };
 
     template <template <typename T> class Factory, typename T>
-    class ReaderWriter : public Base<Factory, T> {
+    class ReaderWriter {
     public:
         ReaderWriter(Factory<T>& obj)
-            : Base<Factory, T>(obj)
         {
-            obj.addMethod("read", &T::m_read);
-            obj.addMethod("write", &T::m_write);
+            protocol::Reader<Factory, T> r(obj);
+            protocol::Writer<Factory, T> w(obj);
         }
     };
 
