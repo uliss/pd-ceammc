@@ -5,12 +5,11 @@ target_include_directories(ceammc_lang
 
 set(FAUST_SEPARATE_EXTERNAL OFF)
 if(APPLE)
-    if(CMAKE_OSX_ARCHITECTURES STREQUAL "x86_64")
-        set(FAUST_SEPARATE_EXTERNAL ON)
-    endif()
+    set(FAUST_SEPARATE_EXTERNAL ON)
 endif()
 
 if(WITH_FAUST)
+    target_compile_definitions(ceammc_lang PRIVATE -DWITH_FAUST)
     if(FAUST_SEPARATE_EXTERNAL)
         target_compile_definitions(ceammc_lang PRIVATE -DFAUST_SEPARATE_EXTERNAL)
 
@@ -50,7 +49,7 @@ if(WITH_FAUST)
         target_link_libraries(ceammc_lang PUBLIC ceammc_faust ceammc_nui)
     endif()
 else()
-    target_sources(ceammc_lang PRIVATE lang_faust_tilde.cpp lang_faust_ui_tilde_stub.cpp)
+    target_sources(ceammc_lang PRIVATE lang_faust_tilde_stub.cpp lang_faust_ui_tilde_stub.cpp)
 endif()
 
 if(WITH_LUAJIT)
