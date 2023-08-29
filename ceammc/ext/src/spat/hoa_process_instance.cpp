@@ -124,7 +124,6 @@ bool ProcessInstance::init(t_symbol* name, const AtomListView& args)
     t_canvas* new_c = (t_canvas*)pd_this->pd_newest;
     pd_this->pd_newest = nullptr;
 
-    new_c->gl_owner = 0;
     new_c->gl_isclone = 1;
 
     setCanvas(new_c);
