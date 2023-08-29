@@ -143,7 +143,7 @@ TEST_CASE("ui.menu", "[ui.menu]")
     {
         TestExtMenu t("ui.menu");
 
-        t <<= LA("clear");
+        t <<= LA("erase");
         REQUIRE_NO_OUTPUT(t);
 
         t <<= LA("@items", "A", "Z");
@@ -153,6 +153,13 @@ TEST_CASE("ui.menu", "[ui.menu]")
 
         t <<= LA("clear");
         REQUIRE_NO_OUTPUT(t);
+        REQUIRE_UI_LIST_PROPERTY(t, "items", LA("A", "Z"));
+        REQUIRE_UI_FLOAT_PROPERTY(t, "index", 1);
+        REQUIRE(t->hasProperty(gensym("items")));
+
+        t <<= LA("erase"); // test for fixed clear/erase name conflict
+        REQUIRE_NO_OUTPUT(t);
+        REQUIRE_UI_LIST_PROPERTY(t, "items", L());
         REQUIRE_UI_FLOAT_PROPERTY(t, "index", -1);
         REQUIRE(t->hasProperty(gensym("items")));
     }

@@ -311,7 +311,7 @@ void UIMenu::m_append(const AtomListView& lv)
     redrawBGLayer();
 }
 
-void UIMenu::m_clear()
+void UIMenu::m_erase()
 {
     items_.clear();
     current_idx_ = -1;
@@ -555,7 +555,7 @@ void UIMenu::setup()
     obj.addProperty("title", &UIMenu::propTitle);
 
     obj.addMethod("append", &UIMenu::m_append);
-    obj.addMethod("clear", &UIMenu::m_clear);
+    obj.addMethod("erase", &UIMenu::m_erase);
     obj.addMethod("delete", &UIMenu::m_delete);
     obj.addMethod("set", &UIMenu::m_set);
     obj.addMethod("insert", &UIMenu::m_insert);

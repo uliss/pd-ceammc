@@ -119,6 +119,8 @@
 - expand_env - warning removed while processing @prop requests
 - speech.flite~ - @speed property (now: lesser - slower)
 - ui.tab - 'clear' method renamed to 'erase' preventing name conflict with preset 'clear' method
+- ui.menu - 'clear' method renamed to 'erase' preventing name conflict with preset 'clear' method
+
 
 ## [0.9.6]
 ### Added:

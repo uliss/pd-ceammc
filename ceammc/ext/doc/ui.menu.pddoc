@@ -18,7 +18,7 @@
             </also>
         </meta>
         <properties>
-            <property name="@items" type="list">list of menu items</property>
+            <property name="@items" type="list" default="">list of menu items</property>
             <property name="@index" type="int" default="-1">current menu item index</property>
             <property name="@value" type="atom">current menu item value</property>
             <property name="@count" type="int" access="readonly" default="0">number of menu
@@ -26,7 +26,7 @@
             <property name="@max_length" type="int" minvalue="10" maxvalue="1024" default="100">
             maximum displayed item character length</property>
             <property name="@open" type="bool" default="0">opened state</property>
-            <property name="@title" type="symbol" access="readonly">current element text</property>
+            <property name="@title" type="symbol" access="readonly" default="">current element text</property>
             <!-- common -->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
             [ui.preset]</property>
@@ -58,8 +58,11 @@
             <!-- append -->
             <method name="append">appends new menu item 
             <param name="ATOMS" type="list" required="true">item name</param></method>
+            <!-- erase -->
+            <method name="erase">clears all items menu</method>
             <!-- clear -->
-            <method name="clear">clears all items menu</method>
+            <method name="clear">clears specified preset
+            <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- delete -->
             <method name="delete">removes item from menu 
             <param name="IDX" type="int" minvalue="0" required="true">removed item
@@ -76,7 +79,7 @@
             <param name="IDX" type="int" minvalue="0" required="true">item position</param>
             <param name="ATOM" type="atom" required="true">item name</param></method>
             <!-- interp -->
-            <method name="interp">for this object acts as *load*, no interpolation
+            <method name="interp">for this object acts as *load*, no preset interpolation
             performed</method>
             <!-- load -->
             <method name="load">loads specified preset 

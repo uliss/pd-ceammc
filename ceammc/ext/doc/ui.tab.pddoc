@@ -18,7 +18,7 @@
             </also>
         </meta>
         <properties>
-            <property name="@items" type="list">list of tab names</property>
+            <property name="@items" type="list" default="">list of tab names</property>
             <property name="@toggle" type="bool" default="0">toggle mode. In toggle moe multiple
             selection is possible</property>
             <property name="@orientation" type="bool" default="0">tab orientation. 1 is vertical, 0
@@ -68,8 +68,8 @@
             <!-- append -->
             <method name="append">appends new tab item 
             <param name="ATOMS" type="list" required="true">item name</param></method>
-            <!-- clear -->
-            <method name="clear">clears all tab menu</method>
+            <!-- erase -->
+            <method name="erase">clears all tab menu</method>
             <!-- clear -->
             <method name="clear">clears specified preset 
             <param name="IDX" type="int" required="true">preset index</param></method>
@@ -84,7 +84,7 @@
             <param name="IDX" type="int" minvalue="0" required="true">item position</param>
             <param name="ATOM" type="atom" required="true">item name</param></method>
             <!-- interp -->
-            <method name="interp">for this object acts as *load*, no interpolation
+            <method name="interp">for this object acts as *load*, no preset interpolation
             performed</method>
             <!-- load -->
             <method name="load">loads specified preset 
@@ -136,7 +136,7 @@
 |                |
 | [insert 0 saw( | [delete 1(  [+ 1 #c(     [random move #e(
 | |              | |
-| | [clear( [F]  | | [B] [tri( [T]          [random #a(
+| | [erase( [F]  | | [B] [tri( [T]          [random #a(
 | | |       |    | | |   |     |
 | | |       |    | | |   |     [@toggle $1( [flip #b(
 | | |       |    | | |   |     |
