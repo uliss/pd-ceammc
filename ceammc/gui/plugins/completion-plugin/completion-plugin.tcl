@@ -1389,6 +1389,7 @@ proc ::completion::choose_or_unedit {} {
 
 proc ::completion::text_unedit {} {
     ::completion::msg_debug "entering text unedit" "entering_procs"
+    # ceammc fix
     pdsend "$::focused_window reselect"
     set ::completion::new_object 0
     set ::completion::completion_text_updated 0
@@ -1634,6 +1635,7 @@ proc ::completion::trimspaces {} {
 
 
 # just in case.
+# ceammc fix
 bind all <$::modifier-Key-Return> {pdsend "$::focused_window reselect"}
 
 ###########################################################
