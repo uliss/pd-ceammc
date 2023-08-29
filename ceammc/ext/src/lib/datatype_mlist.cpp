@@ -28,10 +28,7 @@ namespace ceammc {
 
 DataTypeId DataTypeMList::staticType()
 {
-    static DataTypeId id = DataStorage::instance().registerNewType(TYPE_NAME,
-        [](const AtomListView& args) -> Atom { return new DataTypeMList(args); });
-
-    return id;
+    CEAMMC_REGISTER_DATATYPE(TYPE_NAME, [](const AtomListView& args) -> Atom { return new DataTypeMList(args); }, {});
 }
 
 DataTypeMList::DataTypeMList() noexcept = default;

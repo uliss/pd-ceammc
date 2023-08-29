@@ -14,6 +14,7 @@
 #include "datatype_color.h"
 #include "ceammc_containers.h"
 #include "ceammc_datastorage.h"
+#include "ceammc_log.h"
 #include "ceammc_string.h"
 #include "colorm/colorm.h"
 #include "fmt/core.h"
@@ -55,10 +56,7 @@ namespace ceammc {
 
 DataTypeId DataTypeColor::staticType()
 {
-    static DataTypeId id = DataStorage::instance().registerNewType(TYPE_NAME,
-        [](const AtomListView& lv) -> Atom { return new DataTypeColor(lv); });
-
-    return id;
+    CEAMMC_REGISTER_DATATYPE(TYPE_NAME, [](const AtomListView& lv) -> Atom { return new DataTypeColor(lv); }, {});
 }
 
 DataTypeColor::DataTypeColor()

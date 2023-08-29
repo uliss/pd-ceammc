@@ -41,11 +41,7 @@ static t_symbol* atom_to_symbol(const Atom& a)
 
 DataTypeId DataTypeDict::staticType()
 {
-    static DataTypeId id = DataStorage::instance().registerNewType(TYPE_NAME,
-        nullptr,
-        [](const DictAtom& datom) -> Atom { return datom; });
-
-    return id;
+    CEAMMC_REGISTER_DATATYPE(TYPE_NAME, {}, [](const DictAtom& datom) -> Atom { return datom; });
 }
 
 DataTypeDict::DataTypeDict() noexcept = default;

@@ -298,11 +298,7 @@ Atom createEnv(const DictAtom& dict)
 
 DataTypeId DataTypeEnv::staticType()
 {
-    static DataTypeId id = DataStorage::instance().registerNewType(TYPE_NAME,
-        nullptr,
-        createEnv);
-
-    return id;
+    CEAMMC_REGISTER_DATATYPE(TYPE_NAME, {}, createEnv);
 }
 
 DataTypeEnv::DataTypeEnv()

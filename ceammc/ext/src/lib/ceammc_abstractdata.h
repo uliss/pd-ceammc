@@ -212,4 +212,20 @@ const T* AbstractData::as() const
 }
 }
 
+#define CEAMMC_REGISTER_DATATYPE(name, list_fn, dict_fn)                                      \
+    {                                                                                         \
+        static auto static_id_ = data::DATA_INVALID;                                          \
+        if (static_id_ == data::DATA_INVALID) {                                               \
+            auto id = DataStorage::instance().typeByName(name);                               \
+            if (id != data::DATA_INVALID) {                                                   \
+                static_id_ = id;                                                              \
+            } else {                                                                          \
+                static_id_ = DataStorage::instance().registerNewType(name, list_fn, dict_fn); \
+                if (static_id_ == data::DATA_INVALID)                                         \
+                    LIB_ERR << "can't register type: " << name;                               \
+            }                                                                                 \
+        }                                                                                     \
+        return static_id_;                                                                    \
+    }
+
 #endif // CEAMMC_ABSTRACTDATA_H

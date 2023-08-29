@@ -29,10 +29,7 @@ namespace ceammc {
 
 DataTypeId DataTypeString::staticType()
 {
-    static DataTypeId id = DataStorage::instance().registerNewType(TYPE_NAME,
-        [](const AtomListView& lv) -> Atom { return new DataTypeString(lv); });
-
-    return id;
+    CEAMMC_REGISTER_DATATYPE(TYPE_NAME, [](const AtomListView& lv) -> Atom { return new DataTypeString(lv); }, {});
 }
 
 #define NDEBUG 1

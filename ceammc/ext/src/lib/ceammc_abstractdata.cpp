@@ -167,4 +167,5 @@ DataTypeName AbstractData::findTypeName(DataTypeId dataType)
 {
     return DataStorage::instance().nameByType(dataType);
 }
+
 }
