@@ -127,6 +127,9 @@ pd::External::External(const char* name, const AtomList& lst)
     } catch (std::exception& e) {
         std::cerr << "error: " << e.what() << " while object creation [" << name << "]" << std::endl;
         obj_ = 0;
+    } catch(...) {
+        std::cerr << "unknown exception while object creation [" << name << "]" << std::endl;
+        obj_ = 0;
     }
 }
 
