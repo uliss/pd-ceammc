@@ -616,7 +616,8 @@ bool UIObjectImpl::getProperty(t_symbol* name, t_float& f) const
 {
     int argc = 0;
     t_atom* argv = 0;
-    eclass_attr_getter(asPdObject(), name, &argc, &argv);
+    if (!eclass_attr_getter(asPdObject(), name, &argc, &argv))
+        return false;
 
     if (argc && argv) {
         if (argc != 1) {
@@ -641,7 +642,8 @@ bool UIObjectImpl::getProperty(t_symbol* name, AtomList& lst) const
 {
     int argc = 0;
     t_atom* argv = 0;
-    eclass_attr_getter(asPdObject(), name, &argc, &argv);
+    if (!eclass_attr_getter(asPdObject(), name, &argc, &argv))
+        return false;
 
     if (argc && argv) {
         lst = AtomList(argc, argv);
@@ -649,7 +651,7 @@ bool UIObjectImpl::getProperty(t_symbol* name, AtomList& lst) const
         return true;
     }
 
-    return false;
+    return true;
 }
 
 bool UIObjectImpl::setProperty(t_symbol* name, const AtomListView& lv)

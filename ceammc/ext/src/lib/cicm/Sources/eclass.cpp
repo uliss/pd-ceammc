@@ -877,7 +877,7 @@ void eclass_attr_accessor(t_eclass* c, const char* attrname, t_getter_method get
     }
 }
 
-int eclass_attr_getter(t_object* x, t_symbol* s, int* argc, t_atom** argv)
+bool eclass_attr_getter(t_object* x, t_symbol* s, int* argc, t_atom** argv)
 {
     t_ebox* z = (t_ebox*)x;
     t_eclass* c = (t_eclass*)z->b_obj.o_obj.te_g.g_pd;
@@ -946,14 +946,14 @@ int eclass_attr_getter(t_object* x, t_symbol* s, int* argc, t_atom** argv)
                 }
             } else {
                 printf("Unknown property get method: %s\n", type->s_name);
-                return 0;
+                return false;
             }
         }
 
-        return 1;
+        return true;
     }
 
-    return 0;
+    return false;
 }
 
 static bool request_property(t_object* x, t_symbol* s, std::vector<t_atom>& res)
@@ -1013,7 +1013,9 @@ void eclass_attr_ceammc_getter(t_object* x, t_symbol* s, int argc, t_atom* argv)
     } else {
         // multiple request
         std::vector<t_atom> res;
-        request_property(x, s, res);
+        if (!request_property(x, s, res))
+            return;
+
         for (int i = 0; i < argc; i++) {
             t_atom* a = &argv[i];
             if (atom_gettype(a) != A_SYMBOL)

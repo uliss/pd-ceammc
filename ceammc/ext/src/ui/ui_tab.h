@@ -67,7 +67,7 @@ public:
     t_int propCurrent() const;
 
     void m_append(const AtomListView& lv);
-    void m_clear();
+    void m_erase();
     void m_delete(t_float f);
     void m_flip();
     void m_insert(const AtomListView& lv);

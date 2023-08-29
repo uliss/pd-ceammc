@@ -133,6 +133,9 @@ TEST_CASE("ui.tab", "[ui.tab]")
 
             t <<= LA("select", "B");
             REQUIRE_UI_LIST_PROPERTY(t, "selected", LA(0.f, 1.0));
+
+            t <<= LA("erase");
+            REQUIRE_UI_LIST_PROPERTY(t, "selected", L());
         }
 
         SECTION("toggle")
@@ -162,8 +165,12 @@ TEST_CASE("ui.tab", "[ui.tab]")
             REQUIRE_UI_LIST_PROPERTY(t, "selected", LF(0.f, 0.f));
 
             REQUIRE_UI_LIST_PROPERTY(t, "items", LA("A", "B"));
-            t <<= LA("clear");
-            REQUIRE(!t->hasProperty(gensym("@items")));
+            t <<= LA("clear"); // this is preset method
+            REQUIRE_UI_LIST_PROPERTY(t, "items", LA("A", "B"));
+
+            t <<= LA("erase");
+            REQUIRE(t->hasProperty(gensym("items")));
+            REQUIRE_UI_LIST_PROPERTY(t, "items", L());
         }
     }
 

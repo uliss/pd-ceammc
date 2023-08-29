@@ -335,7 +335,7 @@ void UITab::m_select(const AtomListView& lv)
     }
 }
 
-void UITab::m_clear()
+void UITab::m_erase()
 {
     item_selected_ = -1;
     items_.clear();
@@ -640,7 +640,7 @@ void UITab::setup()
     obj.addProperty("hover_color", _("Hover Color"), "0.5 0.5 0.5 1", &UITab::prop_color_hover);
 
     obj.addMethod("append", &UITab::m_append);
-    obj.addMethod("clear", &UITab::m_clear);
+    obj.addMethod("erase", &UITab::m_erase);
     obj.addMethod("delete", &UITab::m_delete);
     obj.addMethod("insert", &UITab::m_insert);
     obj.addMethod("select", &UITab::m_select);
