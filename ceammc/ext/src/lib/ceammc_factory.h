@@ -395,32 +395,48 @@ public:
             // construct ceammc object
             x->impl = new T(args);
 
-        } catch (std::exception& e) {
-            pd_error(0, "[ceammc] can't create object [%s]: %s", class_name_->s_name, e.what());
+        } catch (const std::exception& e) {
+            pd_error(0, "[ceammc] can't create object [%s]: exception thrown '%s'", class_name_->s_name, e.what());
 
             x->impl = nullptr;
             pd_free(&x->pd_obj.te_g.g_pd);
             return nullptr;
         } catch (...) {
-            pd_error(0, "[ceammc] can't create object [%s]", class_name_->s_name);
+            pd_error(0, "[ceammc] can't create object [%s], unknown exception", class_name_->s_name);
 
             x->impl = nullptr;
             pd_free(&x->pd_obj.te_g.g_pd);
             return nullptr;
         }
 
-        // property parsing
-        x->impl->parseProperties();
+        try {
+            // property parsing
+            x->impl->parseProperties();
 
-        // some properties (callback) knows their current value only after object creation
-        // update this information
-        x->impl->updatePropertyDefaults();
+            // some properties (callback) knows their current value only after object creation
+            // update this information
+            x->impl->updatePropertyDefaults();
 
-        if (initializer_)
-            initializer_->init(x->impl);
+            if (initializer_)
+                initializer_->init(x->impl);
 
-        // call overloaded init
-        x->impl->initDone();
+            // call overloaded init
+            x->impl->initDone();
+        } catch (const std::exception& e) {
+            pd_error(0, "[ceammc] exception while init object [%s]: %s", class_name_->s_name, e.what());
+
+            delete x->impl;
+            x->impl = nullptr;
+            pd_free(&x->pd_obj.te_g.g_pd);
+            return nullptr;
+        } catch (...) {
+            pd_error(0, "[ceammc] unknown exception while init object [%s]", class_name_->s_name);
+
+            delete x->impl;
+            x->impl = nullptr;
+            pd_free(&x->pd_obj.te_g.g_pd);
+            return nullptr;
+        }
 
         return x;
     }
