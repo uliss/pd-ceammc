@@ -20,6 +20,7 @@
 #include "ceammc_pd.h"
 
 #include <functional>
+#include <iosfwd>
 #include <map>
 #include <memory>
 #include <string>
@@ -99,6 +100,11 @@ bool canvas_info_is_abstraction(const _glist* c);
  */
 bool canvas_info_is_dirty(const _glist* c);
 
+/**
+ * Return canvas zoom or 0 on error
+ */
+int canvas_info_zoom(const _glist* c);
+
 AtomList canvas_info_paths(const _glist* c);
 AtomListView canvas_info_args(const _glist* c);
 
@@ -137,10 +143,16 @@ t_symbol* canvas_expand_dollar(const _glist* c, t_symbol* s, bool check);
 void canvas_send_bang(_glist* c);
 
 /**
- * Returns canvas rect, for root canvas - windows, for others - GOP
+ * Returns canvas rect, for root canvas and abstractions - window rect, for others - GOP
  * @param c - pointer to canvas
  */
 t_rect canvas_info_rect(const _glist* c);
+
+/**
+ * Returns GOP (graph-on-parent) rectangle
+ * @param c - pointer to canvas
+ */
+t_rect canvas_info_gop_rect(const _glist* c);
 
 using CanvasClassPredicate = std::function<bool(const _glist*, const t_object*)>;
 /**
@@ -218,6 +230,8 @@ public:
     static _glist* current();
     static void setCurrent(_glist* c);
 };
+
+std::ostream& operator<<(std::ostream& os, const Canvas& cnv);
 }
 
 #endif // CEAMMC_CANVAS_H

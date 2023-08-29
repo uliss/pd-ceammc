@@ -14,8 +14,7 @@
 #include "ceammc_canvas.h"
 #include "ceammc_containers.h"
 #include "ceammc_object.h"
-
-#include "m_pd.h"
+#include "fmt/core.h"
 
 extern "C" {
 #include "g_canvas.h"
@@ -151,15 +150,20 @@ bool ceammc::canvas_info_is_root(const t_canvas* c)
     return c ? (c->gl_owner == 0) : false;
 }
 
+int ceammc::canvas_info_zoom(const t_canvas* c)
+{
+    return c ? c->gl_zoom : 0;
+}
+
 bool ceammc::canvas_info_is_abstraction(const t_canvas* c)
 {
     return c ? canvas_isabstraction(const_cast<t_canvas*>(c)) : false;
 }
 
-t_rect ceammc::canvas_info_rect(const _glist* c)
+t_rect ceammc::canvas_info_rect(const t_canvas* c)
 {
     if (!c)
-        return t_rect(0, 0, 0, 0);
+        return { 0, 0, 0, 0 };
 
     if (canvas_info_is_root(c) || canvas_info_is_abstraction(c)) {
         return t_rect(c->gl_screenx1,
@@ -172,6 +176,14 @@ t_rect ceammc::canvas_info_rect(const _glist* c)
             c->gl_pixwidth,
             c->gl_pixheight);
     }
+}
+
+t_rect ceammc::canvas_info_gop_rect(const t_canvas* c)
+{
+    if (!c)
+        return { 0, 0, 0, 0 };
+
+    return { c->gl_xmargin, c->gl_ymargin, c->gl_pixwidth, c->gl_pixheight };
 }
 
 Canvas::Canvas(t_canvas* c)
@@ -642,6 +654,83 @@ void canvas_send_bang(_glist* c)
 void canvas_mark_dirty(_glist* c, bool value)
 {
     canvas_dirty(c, value);
+}
+
+std::ostream& operator<<(std::ostream& os, const Canvas& cnv)
+{
+    auto c = const_cast<Canvas*>(&cnv)->pd_canvas();
+
+    os << fmt::format(R"(
+struct t_canvas
+{{
+    t_gobj *gl_list;            {}
+    struct _gstub *gl_stub;     {}
+    int gl_valid;               {} /* incremented when pointers might be stale */
+    struct _glist *gl_owner;    {} /* parent glist, supercanvas, or 0 if none */
+    int gl_pixwidth;            {} /* width in pixels (on parent, if a graph) */
+    int gl_pixheight;           {}
+    t_float gl_x1;              {} /* bounding rectangle in our own coordinates */
+    t_float gl_y1;              {}
+    t_float gl_x2;              {}
+    t_float gl_y2;              {}
+    int gl_screenx1;            {} /* screen coordinates when toplevel */
+    int gl_screeny1;            {}
+    int gl_screenx2;            {}
+    int gl_screeny2;            {}
+    int gl_xmargin;             {} /* origin for GOP rectangle */
+    int gl_ymargin;             {}
+    t_tick gl_xtick;            {} {} {} /* ticks marking X values */
+    int gl_nxlabels;            {} /* number of X coordinate labels */
+    t_symbol **gl_xlabel;       {} /* ... an array to hold them */
+    t_float gl_xlabely;         {} /* ... and their Y coordinates */
+    t_tick gl_ytick;            {} {} {} /* same as above for Y ticks and labels */
+    int gl_nylabels;            {}
+    t_symbol **gl_ylabel;       {}
+    t_float gl_ylabelx;         {}
+    t_editor *gl_editor;        {} /* editor structure when visible */
+    t_symbol *gl_name;          "{}" /* symbol bound here */
+    int gl_font;                {} /* nominal font size in points, e.g., 10 */
+    struct _glist *gl_next;         {} /* link in list of toplevels */
+    t_canvasenvironment *gl_env;    {} /* root canvases and abstractions only */
+    unsigned int gl_havewindow:1;   {} /* true if we own a window */
+    unsigned int gl_mapped:1;       {} /* true if, moreover, it's "mapped" */
+    unsigned int gl_dirty:1;        {} /* (root canvas only:) patch has changed */
+    unsigned int gl_loading:1;      {} /* am now loading from file */
+    unsigned int gl_willvis:1;      {} /* make me visible after loading */
+    unsigned int gl_edit:1;         {} /* edit mode */
+    unsigned int gl_isdeleting:1;   {} /* we're inside glist_delete -- hack! */
+    unsigned int gl_goprect:1;      {} /* draw rectangle for graph-on-parent */
+    unsigned int gl_isgraph:1;      {} /* show as graph on parent */
+    unsigned int gl_hidetext:1;     {} /* hide object-name + args when doing graph on parent */
+    unsigned int gl_private:1;      {} /* private flag used in x_scalar.c */
+    unsigned int gl_isclone:1;      {} /* exists as part of a clone object */
+    int gl_zoom;                    {} /* zoom factor (integer zoom-in only) */
+    void *gl_privatedata;           {} /* private data */
+}};
+)",
+        (void*)c->gl_list, (void*)c->gl_stub, c->gl_valid, (void*)c->gl_owner, c->gl_pixwidth, c->gl_pixheight,
+        c->gl_x1, c->gl_y1, c->gl_x2, c->gl_y2,
+        c->gl_screenx1, c->gl_screeny1, c->gl_screenx2, c->gl_screeny2,
+        c->gl_xmargin, c->gl_ymargin,
+        c->gl_xtick.k_point, c->gl_xtick.k_inc, c->gl_xtick.k_lperb,
+        c->gl_nxlabels, (void*)c->gl_xlabel, c->gl_xlabely,
+        c->gl_ytick.k_point, c->gl_ytick.k_inc, c->gl_ytick.k_lperb,
+        c->gl_nylabels, (void*)c->gl_ylabel, c->gl_ylabelx,
+        (void*)c->gl_editor, c->gl_name->s_name, c->gl_font,
+        (void*)c->gl_next, (void*)c->gl_env,
+        (int)c->gl_havewindow,
+        (int)c->gl_mapped,
+        (int)c->gl_dirty,
+        (int)c->gl_loading,
+        (int)c->gl_willvis,
+        (int)c->gl_edit,
+        (int)c->gl_isdeleting,
+        (int)c->gl_goprect,
+        (int)c->gl_isgraph,
+        (int)c->gl_hidetext,
+        (int)c->gl_private,
+        (int)c->gl_isclone, c->gl_zoom, (void*)c->gl_privatedata);
+    return os;
 }
 
 }

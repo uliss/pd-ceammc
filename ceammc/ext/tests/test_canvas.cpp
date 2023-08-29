@@ -18,6 +18,13 @@
 using namespace ceammc;
 
 extern int sys_verbose;
+namespace ceammc {
+std::ostream& operator<<(std::ostream& os, const t_rect& r)
+{
+    os << "t_rect: " << r.x << ' ' << r.y << ' ' << r.w << ' ' << r.h;
+    return os;
+}
+}
 
 TEST_CASE("Canvas", "[ceammc::Canvas]")
 {
@@ -200,7 +207,7 @@ TEST_CASE("Canvas", "[ceammc::Canvas]")
             auto pabs = cnv->createAbstraction(10, 20, gensym("test_canvas_01"), LA(10, 20, 30));
             REQUIRE(pabs);
             REQUIRE(cnv->objectList().size() == 2);
-            REQUIRE(canvas_info_rect(pabs) == t_rect({ 0, 0, 0, 0 }));
+            REQUIRE(canvas_info_gop_rect(pabs) == t_rect(0, 0, 0, 0));
             REQUIRE(Canvas(pabs).owner());
             REQUIRE(Canvas(pabs).owner() == cnv->pd_canvas());
             REQUIRE(canvas_info_is_abstraction(pabs));
@@ -215,11 +222,12 @@ TEST_CASE("Canvas", "[ceammc::Canvas]")
             auto pabs3 = cnv->createAbstraction(10, 20, gensym("test_canvas_02"), LA(10, 20, 30));
             REQUIRE(pabs3);
             REQUIRE(cnv->objectList().size() == 4);
-            auto bbox3 = canvas_info_rect(pabs3);
-            REQUIRE(bbox3.x == 100);
-            REQUIRE(bbox3.y == 100);
-            REQUIRE(bbox3.w == 85);
-            REQUIRE(bbox3.h == 60);
+            REQUIRE(canvas_info_rect(pabs3) == t_rect(324, 151, 700, 500));
+            REQUIRE(canvas_info_gop_rect(pabs3) == t_rect(100, 100, 85, 60));
+            REQUIRE(canvas_info_font(pabs3) == 12);
+            REQUIRE(canvas_info_zoom(pabs3) == 1);
+
+            std::cerr << Canvas(pabs3);
 
             Canvas null(nullptr);
             REQUIRE_FALSE(null.createAbstraction(10, 20, gensym("test_canvas_02")));
