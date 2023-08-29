@@ -171,7 +171,6 @@ proc create_crms { id cnv w h cold tepid warm hot over nch data } {
     set t        [::ceammc::ui::widget_tag $id]
     set area_ht  [expr $w-(4*$LED_PAD)]
     set led_len  [expr $area_ht/5.0]
-    set led_ht   [expr $area_ht/2/$FS*9.0]
 
     set x0 $LED_PAD
     set y0 $LED_PAD
@@ -196,11 +195,11 @@ proc create_crms { id cnv w h cold tepid warm hot over nch data } {
 
     # draw lines
     for {set i 1} {$i <= 5} {incr i} {
-        set ww [expr $led_len*$i]
-        set x0 [expr ($w-$ww)/2]
-        set y0 [expr ($h-$ww)/2]
-        set x1 [expr $x0 + $ww]
-        set y1 [expr $y0 + $ww]
+        set led [expr $led_len*$i]
+        set x0 [expr ($w-$led)/2]
+        set y0 [expr ($h-$led)/2]
+        set x1 [expr $x0 + $led]
+        set y1 [expr $y0 + $led]
         $cnv create oval $x0 $y0 $x1 $y1 -outline gray -width 1 -tags $t
     }
 
@@ -216,6 +215,34 @@ proc create_crms { id cnv w h cold tepid warm hot over nch data } {
         $cnv create line $x0 $y0 $x1 $y1 -fill gray -width 3 -tags $t
         $cnv create oval [expr $x1-$CHAN_CIRCLE] [expr $y1-$CHAN_CIRCLE] [expr $x1+$CHAN_CIRCLE] [expr $y1+$CHAN_CIRCLE] -fill darkgray -width 0 -tags $t
         $cnv create text $x1 $y1 -text [expr ($nch-$ch)%$nch+1] -width 20 -justify center -anchor center -fill white -font $FONT -tags $t
+    }
+}
+
+proc create_cpeak { id cnv w h cold tepid warm hot over nch data } {
+    variable FS
+    variable PEAK_PAD
+    variable LED_PAD
+
+    set t [::ceammc::ui::widget_tag $id]
+    set area_ht  [expr $w-(4*$LED_PAD)]
+    set led_len  [expr $area_ht/5.0]
+
+    for {set ch 0} {$ch < $nch} {incr ch} {
+        set peak [lindex $data [expr $ch*3+1]]
+        if {$peak < -$FS} { continue }
+
+        set a0 [expr 360.0/$nch*($ch)+90]
+        set a1 [expr 360.0/$nch]
+        set c  [mmeter_db2color $peak $cold $tepid $warm $hot $over]
+
+        set led_db [expr ($FS+$peak)/9.0]
+        set pie [expr $led_len*$led_db]
+        set x0 [expr ($w-$pie)/2]
+        set y0 [expr ($h-$pie)/2]
+        set x1 [expr $x0 + $pie]
+        set y1 [expr $y0 + $pie]
+
+        $cnv create arc $x0 $y0 $x1 $y1 -style arc -outline $c -width 3 -start $a0 -extent $a1 -tags $t
     }
 }
 
@@ -236,7 +263,7 @@ proc create_v {id cnv w h bdcolor cold tepid warm hot over nch data} {
 
 proc create_c {id cnv w h bdcolor cold tepid warm hot over nch data} {
     create_crms  $id $cnv $w $h $cold $tepid $warm $hot $over $nch $data
-#    create_cpeak $id $cnv $w $h $cold $tepid $warm $hot $over $nch $data
+    create_cpeak $id $cnv $w $h $cold $tepid $warm $hot $over $nch $data
 }
 
 proc create {id cnv w h bdcolor cold tepid warm hot over mode nch args} {
