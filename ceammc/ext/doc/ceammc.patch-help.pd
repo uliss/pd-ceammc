@@ -7,7 +7,7 @@
 #X obj 30 143 canvas.current;
 #X text 200 143 verbose information about current canvas;
 #X obj 30 170 canvas.dir;
-#X text 200 170 current canvas directory ans nesting level;
+#X text 200 170 current canvas directory and nesting level;
 #X obj 30 197 canvas.name;
 #X text 200 197 current canvas name;
 #X obj 30 224 canvas.path;

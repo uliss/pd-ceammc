@@ -992,7 +992,7 @@ osc.square~	Bandlimited square wave oscillator
 osc.tri~	Bandlimited triangle wave oscillator
 canvas.active	checks if canvas window is on top and active
 canvas.current	verbose information about current canvas
-canvas.dir	current canvas directory ans nesting level
+canvas.dir	current canvas directory and nesting level
 canvas.name	current canvas name
 canvas.path	current canvas fullpath
 canvas.top	verbose information about top-level canvas

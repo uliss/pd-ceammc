@@ -1315,7 +1315,7 @@ roll;
 #X obj 30 17900 canvas.current;
 #X text 200 17900 verbose information about current canvas;
 #X obj 30 17927 canvas.dir;
-#X text 200 17927 current canvas directory ans nesting level;
+#X text 200 17927 current canvas directory and nesting level;
 #X obj 30 17954 canvas.name;
 #X text 200 17954 current canvas name;
 #X obj 30 17981 canvas.path;
