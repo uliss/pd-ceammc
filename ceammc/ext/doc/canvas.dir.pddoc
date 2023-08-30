@@ -18,11 +18,10 @@
             <since>0.8</since>
         </meta>
         <properties>
-            <property name="@abs" type="bool" default="1">abstraction mode.
-            If true: output topmost parent canvas directory if this object was not created inside an abstraction, and abstraction
-            directory if it was.
-            If false: output topmost parent canvas directory even this object was create inside the abstrction subpatch.
-            </property>
+            <property name="@abs" type="bool" default="1">abstraction mode. If true: output topmost
+            parent canvas directory if this object was not created inside an abstraction, and
+            abstraction directory if it was. If false: output topmost parent canvas directory even
+            this object was create inside the abstrction subpatch.</property>
         </properties>
         <inlets>
             <inlet>

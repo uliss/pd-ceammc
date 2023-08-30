@@ -26,7 +26,8 @@
             <property name="@max_length" type="int" minvalue="10" maxvalue="1024" default="100">
             maximum displayed item character length</property>
             <property name="@open" type="bool" default="0">opened state</property>
-            <property name="@title" type="symbol" access="readonly" default="">current element text</property>
+            <property name="@title" type="symbol" access="readonly" default="">current element
+            text</property>
             <!-- common -->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
             [ui.preset]</property>
@@ -61,7 +62,7 @@
             <!-- erase -->
             <method name="erase">clears all items menu</method>
             <!-- clear -->
-            <method name="clear">clears specified preset
+            <method name="clear">clears specified preset 
             <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- delete -->
             <method name="delete">removes item from menu 
