@@ -3,11 +3,31 @@
 %includes
 %enum
 %{
+#include <vector>
+class MaterialFontNamesAll {
+    std::vector<const char*> names_;
+    MaterialFontNamesAll() { names_.reserve(2300); };
+public:
+    static inline MaterialFontNamesAll& instance() {
+        static MaterialFontNamesAll instance_;
+        return instance_;
+    }
+
+    inline void add(const char* name) { names_.push_back(name); }
+    const std::vector<const char*>& names() const { return names_; }
+};
 %}
 struct MaterialFontNames
 {
     const char* name;
     const char* glyph;
+    MaterialFontNames(const char* n, const char* g = "")
+        : name(n),
+        glyph(g)
+    {
+        if (n[0] != '\0')
+            MaterialFontNamesAll::instance().add(name);
+    }
 };
 %%
 # misc

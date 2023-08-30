@@ -146,6 +146,14 @@
             <!-- font_size -->
             <method name="font_size">set current font size 
             <param name="X" type="float" required="true">font size</param></method>
+            <!-- icon -->
+            <method name="icon">draw named icon. Pass ? as single argument to dump all icons to Pd window.
+            <param name="X" type="atom" required="true">left-coord in pixel or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">top-coord in pixel or percents of
+            height</param>
+            <param name="SIZE" type="float" required="true">font size</param>
+            <param name="ICON" type="symbol" required="true">icon name. See https://fonts.google.com/icons for full list</param></method>
             <!-- image -->
             <method name="image">draws image. Note: only PNG images are supported! 
             <param name="X" type="atom" required="true">left-coord in pixel or percents of
@@ -489,6 +497,10 @@
 
 [clear, image -30 -20 img/bach.jpg, update #c(
 
+[clear, icon 100 150 120 settings, stroke navy, update #d(
+
+  [icon ?(
+  |
 [ui.canvas @size 300 200 #z]
 
 
@@ -497,7 +509,14 @@
 
 
 
-[X a->z] [X b->z] [X c->z]
+[X a->z] [X b->z] [X c->z] [X d->z]
+
+
+
+
+
+
+[ui.link @title=See_Material_Icons @url=https://fonts.google.com/icons]
 ]]>
             </pdascii>
         </example>

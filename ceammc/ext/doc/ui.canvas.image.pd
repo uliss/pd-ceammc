@@ -2,7 +2,13 @@
 #X msg 20 48 clear \, image 20 20 img/puredata-ceammc.png 0.5 \, update;
 #X msg 20 77 clear \, image -30 -20 img/sample.svg 0.6 \, update;
 #X msg 20 106 clear \, image -30 -20 img/bach.jpg \, update;
-#X obj 20 135 ui.canvas @size 300 200;
-#X connect 0 0 3 0;
-#X connect 1 0 3 0;
-#X connect 2 0 3 0;
+#X msg 20 135 clear \, icon 100 150 120 settings \, stroke navy \, update;
+#X msg 39 164 icon ?;
+#X obj 20 192 ui.canvas @size 300 200;
+#X obj 20 408 ui.link @title See_Material_Icons @url
+https://fonts.google.com/icons;
+#X connect 4 0 5 0;
+#X connect 0 0 5 0;
+#X connect 1 0 5 0;
+#X connect 2 0 5 0;
+#X connect 3 0 5 0;

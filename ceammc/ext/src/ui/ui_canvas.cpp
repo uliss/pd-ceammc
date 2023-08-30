@@ -15,6 +15,7 @@
 #include "args/argcheck2.h"
 #include "ceammc_containers.h"
 #include "ceammc_format.h"
+#include "ceammc_object.h"
 #include "ceammc_platform.h"
 #include "ceammc_poll_dispatcher.h"
 #include "ceammc_ui.h"
@@ -26,8 +27,8 @@
 #include "lex/parser_units.h"
 #include "ui_canvas.tcl.h"
 
-#include <cmath>
 #include <boost/integer/common_factor.hpp>
+#include <cmath>
 
 namespace {
 
@@ -813,8 +814,18 @@ void UICanvas::m_font_size(t_float sz)
 void UICanvas::m_icon(const AtomListView& lv)
 {
     static const args::ArgChecker chk("X:a Y:a SIZE:i>=6 ICON:s");
-    if (!chk.check(lv, nullptr))
+    if (lv.isSymbol() && lv == gensym("?")) {
+        // dump all icons
+        Post post(nullptr);
+        for (auto i : MaterialFontNamesAll::instance().names())
+            post << ' ' << i;
+
+        return;
+    }
+
+    if (!chk.check(lv, nullptr)) {
         return chk.usage();
+    }
 
     if (icon_font_ == &s_) {
         constexpr auto FONT_AWESOME = "fonts/MaterialIcons-Regular.ttf";
