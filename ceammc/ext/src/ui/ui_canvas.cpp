@@ -592,7 +592,7 @@ void UICanvas::m_move_to(const AtomListView& lv)
 
 void UICanvas::m_musicxml(const AtomListView& lv)
 {
-    static const args::ArgChecker chk("X:a Y:a FILE:s");
+    static const args::ArgChecker chk("X:a Y:a FILE:s SCALE:i[25,250]? PAGE:i>0?");
     if (!chk.check(lv, nullptr))
         return chk.usage();
 
@@ -601,6 +601,8 @@ void UICanvas::m_musicxml(const AtomListView& lv)
     PARSE_PERCENT("line", "Y", lv[1], &y, boxH());
     auto fname = lv.symbolAt(2, &s_)->s_name;
     auto path = platform::find_in_std_path(canvas(), fname);
+    auto scale = lv.intAt(3, 100);
+    auto page = lv.intAt(4, 1);
 
     if (path.empty()) {
         UI_ERR << fmt::format("can't find file: '{}'", fname);
@@ -612,6 +614,8 @@ void UICanvas::m_musicxml(const AtomListView& lv)
     cmd.y = y;
     cmd.format = draw::FORMAT_MUSICXML;
     cmd.data = path;
+    cmd.page = page;
+    cmd.scale = scale;
 
     out_queue_.enqueue(cmd);
 }

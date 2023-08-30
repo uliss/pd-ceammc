@@ -156,8 +156,9 @@ namespace draw {
 
     struct DrawMusic {
         std::string data;
-        std::int16_t x, y, pixel;
-        MusicFormat format;
+        std::int16_t x { 0 }, y { 0 };
+        std::uint8_t scale { 100 }, page { 1 };
+        MusicFormat format { FORMAT_ABC };
     };
 
     struct QRCode {

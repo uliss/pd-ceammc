@@ -199,6 +199,14 @@
             width</param>
             <param name="Y" type="atom" required="true">y-coord in pixels or percents of
             height</param></method>
+            <!-- musicxml -->
+            <method name="musicxml">render MusicXML file
+            <param name="X" type="atom" required="true">x-coord in pixels or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord in pixels or percents of
+            height</param>
+            <param name="FILE" type="symbol" required="true">absolute or relative to patch filepath of MusicXML file</param>
+            </method>
             <!-- new_path -->
             <method name="new_path">starts new path</method>
             <!-- new_subpath -->
@@ -474,11 +482,15 @@
             </pdascii>
             <pdascii id="music">
 <![CDATA[
-[clear, musicxml -100 -20 music/simple.mxml, update #a(
+[clear, musicxml -100 -20 music/simple.mxml 120, update #a(
 
-
-
-[ui.canvas @size 300 200 #z]
+  [B]
+  |
+  [openpanel]
+  |
+  [clear, musicxml 0 0 $1 50, update(
+  |
+[ui.canvas @size 500 400 #z]
 
 
 

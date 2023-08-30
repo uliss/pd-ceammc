@@ -56,9 +56,12 @@ cairo_surface_t* load_music(const ceammc::draw::DrawMusic& mus, const std::strin
 
     OUT_DBG(fmt::format("verovio version: {}", vrvToolkit_getVersion(vo.get())));
 
-    if (!vrvToolkit_setOptions(vo.get(), R"({"scale": 75})")) {
-        OUT_ERR("can't set option: scale=75");
-        return nullptr;
+    if (mus.scale != 100) {
+        auto opt = fmt::format(R"({{"scale": {}}})", (int)mus.scale);
+        if (!vrvToolkit_setOptions(vo.get(), opt.c_str())) {
+            OUT_ERR(fmt::format("can't set option: {}", opt));
+            return nullptr;
+        }
     }
 
     switch (mus.format) {
@@ -100,14 +103,20 @@ cairo_surface_t* load_music(const ceammc::draw::DrawMusic& mus, const std::strin
         break;
     }
 
-    auto svg = vrvToolkit_renderToSVG(vo.get(), 1, true);
+    auto svg = vrvToolkit_renderToSVG(vo.get(), mus.page, true);
+    if (!svg || !svg[0]) {
+        OUT_ERR(fmt::format("can't draw music file: '{}'", mus.data));
+        return nullptr;
+    }
 
     ReSvgOpt opt = { resvg_options_create(), resvg_options_destroy };
-    //    resvg_options_load_system_fonts(opt);
+    resvg_options_load_system_fonts(opt.get());
     ReSvgTree tree { resvg_tree_new(), revsg_tree_delete };
     int err = resvg_parse_tree_from_data(svg, strlen(svg), opt.get(), tree.get());
-    if (err != RESVG_OK)
+    if (err != RESVG_OK) {
+        OUT_ERR(fmt::format("Music render error: '{}'", mus.data));
         return nullptr;
+    }
 
     vo.release();
 

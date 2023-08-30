@@ -1,4 +1,11 @@
 #N canvas 0 0 992 587 12;
-#X msg 20 48 clear \, musicxml -100 -20 music/simple.mxml \, update;
-#X obj 20 106 ui.canvas @size 300 200;
-#X connect 0 0 1 0;
+#X msg 20 48 clear \, musicxml -100 -20 music/simple.mxml 120 \, update;
+#X obj 39 77 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 39 106 openpanel;
+#X msg 39 135 clear \, musicxml 0 0 \$1 50 \, update;
+#X obj 20 164 ui.canvas @size 500 400;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 0 0 4 0;
