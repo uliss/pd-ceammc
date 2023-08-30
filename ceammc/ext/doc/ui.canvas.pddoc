@@ -199,6 +199,14 @@
             width</param>
             <param name="Y" type="atom" required="true">y-coord in pixels or percents of
             height</param></method>
+            <!-- matrix -->
+            <method name="matrix">set 2D transformation matrix
+            <param name="XX" type="atom" required="true">xx component of the affine transformation</param>
+            <param name="YX" type="atom" required="true">yx component of the affine transformation</param>
+            <param name="XY" type="atom" required="true">xy component of the affine transformation</param>
+            <param name="YY" type="atom" required="true">yy component of the affine transformation</param>
+            <param name="X0" type="atom" required="true">x component of the affine transformation</param>
+            <param name="Y0" type="atom" required="true">y component of the affine transformation</param></method>
             <!-- musicxml -->
             <method name="musicxml">render MusicXML file
             <param name="X" type="atom" required="true">x-coord in pixels or percents of
@@ -346,7 +354,7 @@
 [X a->z] [X b->z] [X c->z] [X d->z] [X e->z] [X f->z] [X g->z] [X h->z]
 [X i->z] [X j->z] [X k->z] [X l->z]
 
-[ui.canvas.line]  [ui.canvas.text]   [ui.canvas.music]
+[ui.canvas.line]  [ui.canvas.text]   [ui.canvas.music] [ui.canvas.matrix]
 
 [ui.canvas.color] [ui.canvas.arrows] [ui.canvas.image]
 
@@ -529,6 +537,34 @@
 
 
 [ui.link @title=See_Material_Icons @url=https://fonts.google.com/icons]
+]]>
+            </pdascii>
+            <pdascii id="matrix">
+<![CDATA[
+[loadbang]
+|
+[clear, image 20 20 img/2d_matrix.svg 0.32, update #a(
+
+[ui.canvas @size 380 500 #z]             [#m1(
+
+
+                                          [#m2(
+
+
+                                           [#m3(
+
+
+                                            [#m4(
+
+
+
+[X a->z]                                 [ui.canvas @size 300 200 #y]
+
+#m1 clear, matrix 2 0 0 2 0 0, rect 50 50 100 100, stroke red, update
+#m2 clear, matrix 2 0 0 2 50 70, rect 50 50 100 100, stroke red, update
+#m3 clear, matrix 2.5 0 0 1.5 0 0, rect 50 50 100 100, stroke red, update
+#m4 clear, matrix 2 0.5 0 2 0 0, rect 50 50 100 100, stroke red, update
+[X m1->y] [X m2->y] [X m3->y] [X m4->y]
 ]]>
             </pdascii>
         </example>

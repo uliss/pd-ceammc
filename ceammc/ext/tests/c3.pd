@@ -1,0 +1,4 @@
+#N canvas 92 117 700 500 12;
+#X obj 186 118 ui.canvas @size 250 167 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0;
+#X msg 186 92 matrix \, clear \, rect 10 20 100 50 \, stroke black \, update;
+#X connect 1 0 0 0;

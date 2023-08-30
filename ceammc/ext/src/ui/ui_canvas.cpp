@@ -950,7 +950,7 @@ void UICanvas::m_line_width(const AtomListView& lv)
 
 void UICanvas::m_matrix(const AtomListView& lv)
 {
-    static const args::ArgChecker chk("XX:f XY:f YY:f YX:f X0:f Y0:f");
+    static const args::ArgChecker chk("A:f B:f C:f D:f X:f Y:f");
 
     if (lv.empty()) {
         out_queue_.enqueue(draw::ResetMatrix {});
@@ -963,8 +963,8 @@ void UICanvas::m_matrix(const AtomListView& lv)
     draw::SetMatrix cmd;
     cmd.xx = lv.floatAt(0, 1);
     cmd.xy = lv.floatAt(1, 1);
-    cmd.yy = lv.floatAt(2, 1);
-    cmd.yx = lv.floatAt(3, 1);
+    cmd.yx = lv.floatAt(2, 1);
+    cmd.yy = lv.floatAt(3, 1);
     cmd.x0 = lv.floatAt(4, 1);
     cmd.y0 = lv.floatAt(5, 1);
     out_queue_.enqueue(cmd);

@@ -1,0 +1,15 @@
+#N canvas 0 0 1000 587 12;
+#X obj 20 48 loadbang;
+#X msg 20 77 clear \, image 20 20 img/2d_matrix.svg 0.32 \, update;
+#X obj 20 106 ui.canvas @size 380 500;
+#X msg 413 106 clear \, matrix 2 0 0 2 0 0 \, rect 50 50 100 100 \, stroke red \, update;
+#X msg 423 149 clear \, matrix 2 0 0 2 50 70 \, rect 50 50 100 100 \, stroke red \, update;
+#X msg 432 192 clear \, matrix 2.5 0 0 1.5 0 0 \, rect 50 50 100 100 \, stroke red \, update;
+#X msg 442 235 clear \, matrix 2 0.5 0 2 0 0 \, rect 50 50 100 100 \, stroke red \, update;
+#X obj 413 293 ui.canvas @size 300 200;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 3 0 7 0;
+#X connect 4 0 7 0;
+#X connect 5 0 7 0;
+#X connect 6 0 7 0;
