@@ -815,10 +815,17 @@ void UICanvas::m_icon(const AtomListView& lv)
 {
     static const args::ArgChecker chk("X:a Y:a SIZE:i>=6 ICON:s");
     if (lv.isSymbol() && lv == gensym("?")) {
+        // NOTE: do not remove - fills static table if required
+        MaterialFontHash::in_word_set("?", 1);
         // dump all icons
         Post post(nullptr);
-        for (auto i : MaterialFontNamesAll::instance().names())
+        int sym_count = 1;
+        for (auto i : MaterialFontNamesAll::instance().names()) {
             post << ' ' << i;
+
+            if (((sym_count++) % 6) == 0)
+                post.flush();
+        }
 
         return;
     }

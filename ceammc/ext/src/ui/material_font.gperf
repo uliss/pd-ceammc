@@ -3,9 +3,13 @@
 %includes
 %enum
 %{
-#include <vector>
+# include <cstring>
+# include <vector>
+# include <algorithm>
+
 class MaterialFontNamesAll {
-    std::vector<const char*> names_;
+    mutable std::vector<const char*> names_;
+    mutable bool sorted_ {false};
     MaterialFontNamesAll() { names_.reserve(2300); };
 public:
     static inline MaterialFontNamesAll& instance() {
@@ -14,7 +18,13 @@ public:
     }
 
     inline void add(const char* name) { names_.push_back(name); }
-    const std::vector<const char*>& names() const { return names_; }
+    const std::vector<const char*>& names() const {
+        if (!sorted_) { // signle sort
+            sorted_ = true;
+            std::sort(names_.begin(), names_.end(), [](const char* a, const char* b) { return std::strcmp(a, b) < 0; });
+        }
+        return names_;
+    }
 };
 %}
 struct MaterialFontNames
