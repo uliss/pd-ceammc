@@ -53,8 +53,10 @@ MimeTypeChecker::MimeTypeChecker(const char* libPath)
 
 MimeTypeChecker::~MimeTypeChecker()
 {
+#ifdef WITH_MAGIC
     if (impl_)
         magic_close(static_cast<magic_t>(impl_));
+#endif
 }
 
 std::string MimeTypeChecker::mimeType(const char* file)
