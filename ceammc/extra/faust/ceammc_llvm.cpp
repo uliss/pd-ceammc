@@ -30,7 +30,7 @@ namespace faust {
         deleteDSPFactory(f);
     }
 
-    LlvmDspFactory::LlvmDspFactory(const char *name, const char* code, const FaustConfig& config)
+    LlvmDspFactory::LlvmDspFactory(const char* name, const char* code, const FaustConfig& config)
         : factory_(nullptr, delete_factory)
     {
         auto f = createDSPFactoryFromString(name, code,
@@ -88,6 +88,11 @@ namespace faust {
     void LlvmDspFactory::deleteAll()
     {
         deleteAllDSPFactories();
+    }
+
+    const char* LlvmDspFactory::faustVersion()
+    {
+        return getCLibFaustVersion();
     }
 
     void LlvmDspFactory::dumpIncludeDirs(std::ostream& os, const std::string& prefix) const

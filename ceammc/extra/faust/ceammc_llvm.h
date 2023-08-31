@@ -90,6 +90,7 @@ namespace faust {
 
     public:
         static void deleteAll();
+        static const char* faustVersion();
     };
 
     class LlvmDsp {

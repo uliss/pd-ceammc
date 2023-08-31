@@ -471,6 +471,8 @@ void setup_lang_faust_non_external()
     LangFaustTilde::factoryEditorObjectInit(obj);
     LangFaustTilde::factorySaveObjectInit(obj);
     LangFaustTilde::factoryFilesystemObjectInit(obj);
+
+    LIB_DBG << fmt::format("Faust version: {}", faust::LlvmDspFactory::faustVersion());
 }
 
 void setup_lang0x2efaust_tilde()
