@@ -11,6 +11,7 @@
 #cmakedefine CEAMMC_HAVE_TTS_FLITE
 #cmakedefine CEAMMC_HAVE_LIBSNDFILE
 #cmakedefine CEAMMC_HAVE_LIBSNDFILE_OPUS
+#cmakedefine CEAMMC_HAVE_LIBMAGIC
 
 /* Define if building for Mac OS X Darwin */
 #cmakedefine DARWIN @DARWIN@

@@ -172,6 +172,8 @@ namespace platform {
      * @return true on success
      */
     bool net_socket_addr(int fd, std::string& addr);
+
+    std::string file_mime_type(const char* path);
 }
 }
 

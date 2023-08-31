@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_platform.h"
 #include "ceammc_log.h"
+#include "ceammc_mime_type.h"
 #include "config.h"
 
 #include "g_canvas.h"
@@ -370,6 +371,11 @@ namespace platform {
     bool net_socket_addr(int fd, std::string& addr)
     {
         return NS(net_socket_addr(fd, addr));
+    }
+
+    std::string file_mime_type(const char* path)
+    {
+        return MimeTypeLibrary::instance().mimeType(path);
     }
 
 }

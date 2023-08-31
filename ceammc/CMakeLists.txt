@@ -10,6 +10,11 @@ if(LibSndFile_FOUND)
     endif()
 endif()
 
+find_package(LibMagic)
+if(LibMagic_FOUND)
+    set(CEAMMC_HAVE_LIBMAGIC TRUE)
+endif()
+
 configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/ceammc_config.h.in
     ${CMAKE_CURRENT_BINARY_DIR}/ceammc_config.h

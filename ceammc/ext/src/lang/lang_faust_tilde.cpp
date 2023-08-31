@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "lang_faust_tilde.h"
+#include "../path/filesystem.hpp"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
 #include "ceammc_filesystem.h"
@@ -30,6 +31,8 @@
 #include <cstdio>
 #include <cstdlib>
 #include <cstring>
+
+constexpr size_t FILE_MAX_SIZE = 10 * 1024;
 
 extern "C" {
 int ceammc_init_done();
@@ -328,6 +331,12 @@ void LangFaustTilde::editorSync()
 
 bool LangFaustTilde::proto_read(const std::string& path)
 {
+    auto size = ghc::filesystem::file_size(path);
+    if (size > FILE_MAX_SIZE) {
+        OBJ_ERR << fmt::format("file is too big: {}>{}", size, FILE_MAX_SIZE);
+        return false;
+    }
+
     auto res = fs::readFileLines(path.c_str(),
         [this](size_t n, const std::string& line) {
             if (n == 0)
@@ -477,8 +486,8 @@ void setup_lang_faust_non_external()
 
 void setup_lang0x2efaust_tilde()
 {
-    if (!ceammc_init_done())
-        ceammc_setup();
+    //    if (!ceammc_init_done())
+    //        ceammc_setup();
 
     setup_lang_faust_non_external();
 }

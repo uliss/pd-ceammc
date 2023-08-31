@@ -1,23 +1,9 @@
-/*****************************************************************************
- * Copyright 2017 Serge Poltavsky. All rights reserved.
- *
- * This file may be distributed under the terms of GNU Public License version
- * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
- * license should have been included with this file, or the project in which
- * this file belongs to. You may also find the details of GPL v3 at:
- * http://www.gnu.org/licenses/gpl-3.0.txt
- *
- * If you have any questions regarding the use of this file, feel free to
- * contact the author of this file, or the owner of the project in which
- * this file belongs to.
- *****************************************************************************/
-
 #include "catch.hpp"
 #include "m_pd.h"
 
+#include "ceammc_canvas.h"
 #include "ceammc_pd.h"
 #include "ceammc_platform.h"
-#include "ceammc_canvas.h"
 #include "config.h"
 
 #include <cstdlib>
@@ -372,5 +358,23 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         REQUIRE(platform::net_ifaces_ip(ADDR_IPV6).size() > 0);
         REQUIRE(platform::net_ifaces_ip(ADDR_IPANY).size() > 0);
 #endif
+    }
+
+    SECTION("file_mime_type")
+    {
+        using namespace ceammc;
+        REQUIRE(platform::file_mime_type("") == "");
+        REQUIRE(platform::file_mime_type("???") == "");
+        REQUIRE(platform::file_mime_type(__FILE__) == "text/x-c");
+        REQUIRE(platform::file_mime_type(TEST_DATA_DIR) == "inode/directory");
+        REQUIRE(platform::file_mime_type(TEST_DATA_DIR "/llvm_cov_gen.sh") == "text/x-shellscript");
+        REQUIRE(platform::file_mime_type(TEST_DATA_DIR "/gen_test_wav.py") == "text/x-script.python");
+        REQUIRE(platform::file_mime_type(TEST_DATA_DIR "/snd_mono_44k.ogg") == "audio/ogg");
+        REQUIRE(platform::file_mime_type(TEST_DATA_DIR "/snd_mono_48k.flac") == "audio/flac");
+        REQUIRE(platform::file_mime_type(TEST_DATA_DIR "/snd_mono_48k.wav") == "audio/x-wav");
+        REQUIRE(platform::file_mime_type(TEST_DATA_DIR "/test_data0.mp3") == "audio/mpeg");
+
+        REQUIRE(platform::file_mime_type(TEST_DATA_DIR "/test0.lua") == "text/plain");
+        REQUIRE(platform::file_mime_type(TEST_DATA_DIR "/test_canvas_01.pd") == "text/plain");
     }
 }

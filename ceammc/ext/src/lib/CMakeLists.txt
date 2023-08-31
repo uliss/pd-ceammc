@@ -74,6 +74,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_json.h
     ceammc_log.cpp
     ceammc_message.cpp
+    ceammc_mime_type.cpp
     ceammc_music_chord.cpp
     ceammc_music_scale.cpp
     ceammc_music_spn.cpp
@@ -290,8 +291,15 @@ if(WITH_LIBSAMPLERATE)
         message(FATAL "libsamplerate not found")
     endif()
     target_include_directories(ceammc_core PRIVATE ${LIBSAMPLERATE_INCLUDE_DIR}>)
-    target_link_libraries(ceammc_core PRIVATE ${LIBSAMPLERATE_LIBRARY})
+    target_link_libraries(ceammc_core PRIVATE ${LIBSAMPLERATE_LIBRARIES})
     target_compile_definitions(ceammc_core PRIVATE WITH_LIBSAMPLERATE)
+endif()
+
+find_package(LibMagic)
+if(LibMagic_FOUND)
+    target_include_directories(ceammc_core PRIVATE ${LIBMAGIC_INCLUDE_DIRS}>)
+    target_link_libraries(ceammc_core PRIVATE ${LIBMAGIC_LIBRARIES})
+    target_compile_definitions(ceammc_core PRIVATE WITH_LIBMAGIC)
 endif()
 
 target_link_libraries(ceammc_core PRIVATE re2)
