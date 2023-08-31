@@ -687,6 +687,37 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(parse_ceammc_quoted_string(LA(1, 2, 3, "\"A", 1000.25, "$1-B\"")) == LA(1, 2, 3, "A 1000.25 $1-B"));
         REQUIRE(parse_ceammc_quoted_string(LA(1, 2, 3, "\"A", 1000.25, "$1-B\"", 4, 5, 6)) == LA(1, 2, 3, "A 1000.25 $1-B", 4, 5, 6));
         REQUIRE(parse_ceammc_quoted_string(LA("\"A", 1000.25, "$1-B\"", 4, 5, 6)) == LA("A 1000.25 $1-B", 4, 5, 6));
+    }
 
+    SECTION("strlcpy")
+    {
+        char buf[8];
+        REQUIRE(string::strlcpy(buf, "", sizeof(buf)) == 0);
+        REQUIRE(buf == std::string(""));
+        REQUIRE(string::strlcpy(buf, "abcd", sizeof(buf)) == 4);
+        REQUIRE(buf == std::string("abcd"));
+        REQUIRE(string::strlcpy(buf, "1234", sizeof(buf)) == 4);
+        REQUIRE(buf == std::string("1234"));
+        REQUIRE(string::strlcpy(buf, "1234567", sizeof(buf)) == 7);
+        REQUIRE(buf == std::string("1234567"));
+        REQUIRE(string::strlcpy(buf, "12345678", sizeof(buf)) == 8);
+        REQUIRE(buf == std::string("1234567"));
+        REQUIRE(string::strlcpy(buf, "12345678", 3) == 8);
+        REQUIRE(buf == std::string("12"));
+    }
+
+    SECTION("strlcat")
+    {
+        char buf[4] = "";
+        REQUIRE(string::strlcat(buf, "", sizeof(buf)) == 0);
+        REQUIRE(string::strlcat(buf, "A", sizeof(buf)) == 1);
+        REQUIRE(string::strlcat(buf, "B", sizeof(buf)) == 2);
+        REQUIRE(string::strlcat(buf, "C", sizeof(buf)) == 3);
+        REQUIRE(string::strlcat(buf, "D", sizeof(buf)) == 4);
+        REQUIRE(string::strlcat(buf, "E", sizeof(buf)) == 4);
+        REQUIRE(string::strlcat(buf, "F", sizeof(buf)) == 4);
+        REQUIRE(string::strlcat(buf, "", sizeof(buf)) == 3);
+        REQUIRE(string::strlcat(buf, "12345", sizeof(buf)) == 8);
+        REQUIRE(buf == std::string("ABC"));
     }
 }

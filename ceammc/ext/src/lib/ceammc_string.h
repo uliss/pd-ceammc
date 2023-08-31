@@ -66,6 +66,28 @@ namespace string {
     bool contains(const std::string& haystack, const std::string& needle);
 
     /**
+     * size-bounded string copying and concatenation
+     * @param dst - pointer to destination
+     * @param src - source pointer
+     * @param dsize - max destination size
+     * @return strlen(src)
+     * @note always NUL terminates
+     * @note if the src and dst strings overlap, the behavior is undefined.
+     */
+    size_t strlcpy(char* dst, const char* src, size_t dsize);
+
+    /**
+     * size-bounded string copying and concatenation
+     * @param dst - pointer to destination
+     * @param src - source pointer
+     * @param dsize - full destination size
+     * @return strlen(src) + MIN(dsize, strlen(initial dst))
+     * @note always NUL terminates
+     * @note if the src and dst strings overlap, the behavior is undefined.
+     */
+    size_t strlcat(char* dst, const char* src, size_t dsize);
+
+    /**
      * remove all the occurrences of the string from the input
      */
     std::string remove_all(const std::string& input, const std::string& search);

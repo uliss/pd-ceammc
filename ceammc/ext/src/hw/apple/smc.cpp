@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "smc.h"
 #include "ceammc_log.h"
+#include "ceammc_string.h"
 
 #include <IOKit/IOKitLib.h>
 #include <cstdio>
@@ -151,7 +152,7 @@ bool SMC::readKey(const std::string& key, SMCValue& val) const
     memset(&val, 0, sizeof(SMCValue));
 
     SMCBytes bkey;
-    strlcpy(bkey, key.c_str(), sizeof(bkey));
+    string::strlcpy(bkey, key.c_str(), sizeof(bkey));
 
     in_data.key = smc_bytes_to_int(bkey, 4, 16);
     in_data.data8 = SMC_CMD_READ_KEYINFO;
