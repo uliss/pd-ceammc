@@ -247,6 +247,14 @@ namespace ui {
             utils::canvas_right(drawCanvas(), T::owner());
         }
 
+        virtual void onDropFiles(const AtomListView& lv)
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
+
+        virtual void onDropText(const AtomListView& lv)
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
+
         void mouseEnter()
         {
             syncDrawCanvas();
@@ -404,12 +412,12 @@ namespace ui {
 
         void dragAndDropFiles(const AtomListView& lv)
         {
-            OBJ_DBG << __FUNCTION__ << lv;
+            onDropFiles(lv);
         }
 
         void dragAndDropText(const AtomListView& lv)
         {
-            OBJ_DBG << __FUNCTION__ << lv;
+            onDropText(lv);
         }
 
         void openHelp()

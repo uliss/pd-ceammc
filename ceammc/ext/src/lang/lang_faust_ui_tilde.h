@@ -106,6 +106,10 @@ public:
     void onWidgetResize(const Size& sz) override;
     void onWidgetSelect(bool state) override;
 
+    // drag&drop
+    void onDropFiles(const AtomListView& lv) final;
+    void onDropText(const AtomListView& lv) final;
+
     void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod) override;
     void onMouseDrag(const Point& pt, uint32_t mod) override;
     void onMouseUp(const Point& pt, uint32_t mod) override;

@@ -113,6 +113,16 @@ void LangFaustUiTilde::onWidgetSelect(bool state)
     vc_.select(state);
 }
 
+void LangFaustUiTilde::onDropFiles(const AtomListView& lv)
+{
+    m_read(gensym(sym_read), lv);
+}
+
+void LangFaustUiTilde::onDropText(const AtomListView& lv)
+{
+//    this->se
+}
+
 void LangFaustUiTilde::onMouseDown(const Point& pt, const Point& abspt, uint32_t mod)
 {
     if (mod & KEY_MOD_ALT)

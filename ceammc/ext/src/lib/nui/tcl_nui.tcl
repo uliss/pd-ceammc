@@ -191,18 +191,23 @@ proc widget_mouse_right_bind {id obj} {
     }
 }
 
+proc widget_send_dnd_text {id txt res} {
+    pdsend "#$id droptext $txt"
+    return $res
+}
+
+proc widget_send_dnd_files {id files res} {
+    pdsend [string cat "#$id dropfiles " $files]
+    return $res
+}
+
 proc widget_dnd_drop_bind_files {cnv id} {
     variable tkdnd_found
     if { !$tkdnd_found } { return }
 
     set c [widget_canvas $cnv $id]
     tkdnd::drop_target register $c DND_Files
-    bind $c <<Drop:DND_Files>> [
-        subst {
-            pdsend "#$id dropfiles %D"
-            return %A
-        }
-    ]
+    bind $c <<Drop:DND_Files>> "::nui::widget_send_dnd_files $id %D %A"
 }
 
 proc widget_dnd_drop_bind_text {cnv id} {
@@ -211,12 +216,7 @@ proc widget_dnd_drop_bind_text {cnv id} {
 
     set c [widget_canvas $cnv $id]
     tkdnd::drop_target register $c DND_Text
-    bind $c <<Drop:DND_Text>> [
-        subst {
-            pdsend "#$id droptext %D"
-            return %A
-        }
-    ]
+    bind $c <<Drop:DND_Text>> "::nui::widget_send_dnd_text $id %D %A"
 }
 
 if { [catch {package require tooltip} ] } {
