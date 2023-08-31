@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include "ceammc_mime_type.h"
 #include "fmt/core.h"
-#include "fmt/printf.h"
 
 #ifdef WITH_LIBMAGIC
 #include <magic.h>
@@ -69,7 +68,7 @@ std::string MimeTypeChecker::mimeType(const char* file)
 
     auto res = magic_file(static_cast<magic_t>(impl_), file);
     if (!res) {
-        fmt::print(stderr, "can't load file '{}': {}\n", file, magic_error(static_cast<magic_t>(impl_)));
+        fmt::print(stderr, "can't check file '{}': {}\n", file, magic_error(static_cast<magic_t>(impl_)));
         return {};
     } else
         return res;

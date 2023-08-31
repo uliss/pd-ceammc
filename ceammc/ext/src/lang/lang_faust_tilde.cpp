@@ -12,12 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "lang_faust_tilde.h"
-#include "../path/filesystem.hpp"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
 #include "ceammc_filesystem.h"
 #include "ceammc_format.h"
+#include "ceammc_mime_type.h"
 #include "ceammc_platform.h"
+#include "ceammc_string.h"
 #include "fmt/core.h"
 
 #ifndef FAUSTFLOAT
@@ -331,9 +332,9 @@ void LangFaustTilde::editorSync()
 
 bool LangFaustTilde::proto_read(const std::string& path)
 {
-    auto size = ghc::filesystem::file_size(path);
-    if (size > FILE_MAX_SIZE) {
-        OBJ_ERR << fmt::format("file is too big: {}>{}", size, FILE_MAX_SIZE);
+    auto mime_type = MimeTypeLibrary::instance().mimeType(path.c_str());
+    if (!string::starts_with(mime_type, "text/")) {
+        OBJ_ERR << "Faust source code expected";
         return false;
     }
 
