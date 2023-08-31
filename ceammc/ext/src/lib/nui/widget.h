@@ -44,6 +44,7 @@ namespace ui {
         bool is_toplevel(t_glist* x);
         t_glist* object_get_draw_canvas(t_glist* c);
         void widget_bind_mouse(t_glist* c, t_object* obj, UIFactoryFlags flags);
+        void widget_bind_drag_and_drop(t_glist* c, t_object* obj, UIFactoryFlags flags);
         void widget_create(t_glist* c, t_object* obj, const Point& pos, const Size& sz, int zoom);
         void widget_erase(t_glist* c, t_object* obj);
         void widget_focus(t_glist* c, t_object* obj);
@@ -191,6 +192,7 @@ namespace ui {
             syncDrawCanvas();
             utils::widget_create(drawCanvas(), T::owner(), absPos(), size(), zoom());
             utils::widget_bind_mouse(drawCanvas(), T::owner(), ui_flags_);
+            utils::widget_bind_drag_and_drop(drawCanvas(), T::owner(), ui_flags_);
             onWidgetShow();
         }
 
@@ -398,6 +400,16 @@ namespace ui {
             } else {
                 onRightClick(pt, abspt, mod);
             }
+        }
+
+        void dragAndDropFiles(const AtomListView& lv)
+        {
+            OBJ_DBG << __FUNCTION__ << lv;
+        }
+
+        void dragAndDropText(const AtomListView& lv)
+        {
+            OBJ_DBG << __FUNCTION__ << lv;
         }
 
         void openHelp()

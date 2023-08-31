@@ -22,7 +22,7 @@ namespace ui {
 #ifdef __APPLE__
 #elif __WIN32
 #else
-            if (mod == 24) //right click
+            if (mod == 24) // right click
                 mod = KEY_MOD_CMD;
             else if (mod & KEY_MOD_CMD) {
                 mod ^= KEY_MOD_CMD;

@@ -36,6 +36,8 @@ namespace ui {
     constexpr const char* SYM_MOUSE_DOWN = "mousedown";
     constexpr const char* SYM_MOUSE_UP = "mouseup";
     constexpr const char* SYM_MOUSE_RIGHT = "rightclick";
+    constexpr const char* SYM_DRAG_AND_DROP_FILES = "dropfiles";
+    constexpr const char* SYM_DRAG_AND_DROP_TEXT = "droptext";
     constexpr const char* SYM_SIZE = "size";
 
     template <typename T>
@@ -134,6 +136,18 @@ namespace ui {
                     gensym(SYM_MOUSE_RIGHT), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
             }
 
+            if (ui_flags_ & UI_FACTORY_FLAG_DRAG_AND_DROP_FILES) {
+                class_addmethod(this->classPointer(),
+                    reinterpret_cast<t_method>(drag_and_drop_files),
+                    gensym(SYM_DRAG_AND_DROP_FILES), A_GIMME, 0);
+            }
+
+            if (ui_flags_ & UI_FACTORY_FLAG_DRAG_AND_DROP_TEXT) {
+                class_addmethod(this->classPointer(),
+                    reinterpret_cast<t_method>(drag_and_drop_text),
+                    gensym(SYM_DRAG_AND_DROP_TEXT), A_GIMME, 0);
+            }
+
             ObjectInitPtr init(new ObjectMouseInit<T>(static_cast<UIFactoryFlags>(ui_flags_)));
             FactoryT::setObjectInit(std::move(init));
 
@@ -148,6 +162,8 @@ namespace ui {
         void useMouseDown() { ui_flags_ |= UI_FACTORY_FLAG_MOUSE_DOWN; }
         void useMouseUp() { ui_flags_ |= UI_FACTORY_FLAG_MOUSE_UP; }
         void useMouseRight() { ui_flags_ |= UI_FACTORY_FLAG_MOUSE_RIGHT; }
+        void useDragAndDropFiles() { ui_flags_ |= UI_FACTORY_FLAG_DRAG_AND_DROP_FILES; }
+        void useDragAndDropText() { ui_flags_ |= UI_FACTORY_FLAG_DRAG_AND_DROP_TEXT; }
 
         /* PureData call this to get a gobj's bounding rectangle in pixels */
         static void widget_rect(t_gobj* x, t_glist* owner, int* x1, int* y1, int* x2, int* y2)
@@ -259,6 +275,16 @@ namespace ui {
         static void mouse_right(t_gobj* x, t_floatarg xpos, t_floatarg ypos, t_floatarg absx, t_floatarg absy, t_floatarg mod)
         {
             proxy(x)->impl->mouseRight(Point(xpos, ypos), Point(absx, absy), utils::platform_modifier(mod));
+        }
+
+        static void drag_and_drop_files(t_gobj* x, t_symbol* s, int argc, t_atom* argv)
+        {
+            proxy(x)->impl->dragAndDropFiles(AtomListView(argv, argc));
+        }
+
+        static void drag_and_drop_text(t_gobj* x, t_symbol* s, int argc, t_atom* argv)
+        {
+            proxy(x)->impl->dragAndDropText(AtomListView(argv, argc));
         }
     };
 

@@ -462,6 +462,8 @@ t_class* setup_ui_faust_non_external()
     obj.useMouseDown();
     obj.useMouseUp();
     obj.useMouseRight();
+    obj.useDragAndDropFiles();
+    obj.useDragAndDropText();
 
     obj.addMethod("reset", &LangFaustUiTilde::m_reset);
     obj.addMethod("open", &LangFaustUiTilde::m_open);

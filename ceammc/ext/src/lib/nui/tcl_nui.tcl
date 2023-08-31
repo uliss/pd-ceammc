@@ -1,6 +1,16 @@
 namespace eval ::nui {
 
-proc pd_canvas { cnv } { return ".x${cnv}.c" }
+variable tkdnd_version
+variable tkdnd_found 0
+
+if { [catch {set tkdnd_version [package require tkdnd]} ] } {
+    ::pdwindow::debug {[ceammc] no tkdnd found\n}
+} {
+    ::pdwindow::debug "\[ceammc\] tkdnd version: $tkdnd_version\n"
+    set tkdnd_found 1
+}
+
+proc pd_canvas {cnv} { return ".x${cnv}.c" }
 
 namespace eval utils {
     proc fix_mac_state {n} { if { $n > 256 } { return [expr $n & 0xFF ] } { return $n } }
@@ -33,11 +43,11 @@ namespace eval utils {
     }
 }
 
-proc widget_canvas { cnv id } { return ".x${cnv}.c.cnv${id}" }
-proc widget_window { cnv id } { return ".x${cnv}.c.win${id}" }
-proc widget_w   { w zoom } { expr $w * $zoom + 1 }
-proc widget_h   { h zoom } { expr $h * $zoom + 1 }
-proc widget_tag { id } { return "#${id}" }
+proc widget_canvas {cnv id} { return ".x${cnv}.c.cnv${id}" }
+proc widget_window {cnv id} { return ".x${cnv}.c.win${id}" }
+proc widget_w   {w zoom} { expr $w * $zoom + 1 }
+proc widget_h   {h zoom} { expr $h * $zoom + 1 }
+proc widget_tag {id} { return "#${id}" }
 
 proc canvas_motion {cnv id val} {
     set c  [pd_canvas $cnv]
@@ -179,6 +189,34 @@ proc widget_mouse_right_bind {id obj} {
             bind $id <ButtonPress-3> [subst {+pdsend "$obj rightclick %x %y %X %Y %s"}]
         }
     }
+}
+
+proc widget_dnd_drop_bind_files {cnv id} {
+    variable tkdnd_found
+    if { !$tkdnd_found } { return }
+
+    set c [widget_canvas $cnv $id]
+    tkdnd::drop_target register $c DND_Files
+    bind $c <<Drop:DND_Files>> [
+        subst {
+            pdsend "#$id dropfiles %D"
+            return %A
+        }
+    ]
+}
+
+proc widget_dnd_drop_bind_text {cnv id} {
+    variable tkdnd_found
+    if { !$tkdnd_found } { return }
+
+    set c [widget_canvas $cnv $id]
+    tkdnd::drop_target register $c DND_Text
+    bind $c <<Drop:DND_Text>> [
+        subst {
+            pdsend "#$id droptext %D"
+            return %A
+        }
+    ]
 }
 
 if { [catch {package require tooltip} ] } {

@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "nui/widget.h"
-#include "nui/tk_view_impl.h"
+#include "ceammc_string.h"
 
 extern "C" {
 #include "g_canvas.h"
@@ -27,7 +27,7 @@ namespace ceammc {
 namespace ui {
 
     namespace {
-        static std::array<const char*, CURSOR_MAX_COUNT> cursor_table = {
+        static const std::array<const char*, CURSOR_MAX_COUNT> cursor_table = {
             "left_ptr",
             "center_ptr",
             "plus",
@@ -78,13 +78,6 @@ namespace ui {
             x->te_ypix += dy;
         }
 
-        void object_bind(t_text* x)
-        {
-            char buf[32];
-            snprintf(buf, sizeof(buf) - 1, "#%lx", reinterpret_cast<uint64_t>(x));
-            pd_bind(&x->te_g.g_pd, gensym(buf));
-        }
-
         void canvas_update_object_lines(const t_glist* c, t_text* x)
         {
             canvas_fixlinesfor((t_glist*)c, x);
@@ -100,24 +93,48 @@ namespace ui {
             return c->gl_edit;
         }
 
+        void object_bind(t_text* x)
+        {
+            char buf[32];
+            snprintf(buf, sizeof(buf) - 1, "#%lx", reinterpret_cast<uint64_t>(x));
+            pd_bind(&x->te_g.g_pd, gensym(buf));
+        }
+
+        void widget_bind_drag_and_drop(t_glist* c, t_object* obj, UIFactoryFlags flags)
+        {
+
+            if (flags & UI_FACTORY_FLAG_DRAG_AND_DROP_FILES)
+                sys_vgui("nui::widget_dnd_drop_bind_files %lx %lx\n", c, obj);
+
+            if (flags & UI_FACTORY_FLAG_DRAG_AND_DROP_TEXT)
+                sys_vgui("nui::widget_dnd_drop_bind_text %lx %lx\n", c, obj);
+        }
+
         void widget_bind_mouse(t_glist* c, t_object* obj, UIFactoryFlags flags)
         {
-            char buf[128] = "";
+            char buf[128] = { 0 };
+
+#define STRCAT(str)                                 \
+    do {                                            \
+        string::strlcat(buf, " " str, sizeof(buf)); \
+    } while (0)
 
             if (flags & UI_FACTORY_FLAG_MOUSE_ENTER)
-                strcat(buf, " enter");
+                STRCAT("enter");
             if (flags & UI_FACTORY_FLAG_MOUSE_LEAVE)
-                strcat(buf, " leave");
+                STRCAT("leave");
             if (flags & UI_FACTORY_FLAG_MOUSE_MOVE)
-                strcat(buf, " move");
+                STRCAT("move");
             if (flags & UI_FACTORY_FLAG_MOUSE_DOWN)
-                strcat(buf, " down");
+                STRCAT("down");
             if (flags & UI_FACTORY_FLAG_MOUSE_UP)
-                strcat(buf, " up");
+                STRCAT("up");
             if (flags & UI_FACTORY_FLAG_MOUSE_RIGHT)
-                strcat(buf, " right");
+                STRCAT("right");
 
             sys_vgui("nui::widget_mouse_bind %lx %lx %lx %s\n", c, obj, obj, buf);
+
+#undef STRCAT
         }
 
         void widget_create(t_glist* c, t_object* obj, const Point& pos, const Size& sz, int zoom)
@@ -201,17 +218,17 @@ namespace ui {
             sys_vgui("nui::canvas_down %lx %lx %d\n", c, obj, mode);
         }
 
-        void canvas_right(_glist* c, t_object* obj)
+        void canvas_right(t_glist* c, t_object* obj)
         {
             sys_vgui("nui::canvas_right %lx %lx\n", c, obj);
         }
 
-        void widget_move(_glist* c, t_object* obj, const Point& pos)
+        void widget_move(t_glist* c, t_object* obj, const Point& pos)
         {
             sys_vgui("nui::widget_move %lx %lx %d %d\n", c, obj, pos.x(), pos.y());
         }
 
-        void canvas_up(_glist* c, t_object* obj)
+        void canvas_up(t_glist* c, t_object* obj)
         {
             sys_vgui("nui::canvas_up %lx %lx\n", c, obj);
         }
