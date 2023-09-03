@@ -30,7 +30,6 @@
 #include "data_iface.h"
 #include "wrapper_datatype.h"
 #include "wrapper_fn_traits.h"
-#include "wrapper_invocations.h"
 #include "wrapper_sequence.h"
 
 #include "ceammc_atomlist.h"
@@ -340,8 +339,8 @@ public:
 template <size_t nArgs, typename Args, typename FromAtomListConverter>
 class TupleFromAtomlistT<0, nArgs, Args, FromAtomListConverter> {
 public:
-    TupleFromAtomlistT(Args&) {}
-    void operator()(const AtomListView&, size_t) {}
+    TupleFromAtomlistT(Args&) { }
+    void operator()(const AtomListView&, size_t) { }
 };
 
 class ArgumentTypePrinter {
@@ -424,39 +423,13 @@ struct Converter {
         return idx + 1;
     }
 
-    static size_t fromAtomList(bool& out, const AtomListView& l, size_t idx)
+    static size_t fromAtomList(bool& out, const AtomListView& lv, size_t idx)
     {
-        static t_symbol* SYM_TRUE = gensym("true");
-        static t_symbol* SYM_FALSE = gensym("false");
-
-        if (l.size() <= idx)
+        if (lv.size() <= idx || !lv[idx].isBool())
             return 0;
 
-        if (l[idx].isFloat()) {
-            auto f = l[idx].asFloat();
-            if (f == 1)
-                out = true;
-            else if (f == 0)
-                out = false;
-            else {
-                LIB_DBG << "warning! not boolean value: " << f;
-                out = (f != 0);
-            }
-
-            return idx + 1;
-        } else if (l[idx].isSymbol()) {
-            t_symbol* s = l[idx].asSymbol();
-            if (s == SYM_TRUE) {
-                out = true;
-                return idx + 1;
-            } else if (s == SYM_FALSE) {
-                out = false;
-                return idx + 1;
-            } else {
-                LIB_DBG << "warning! not a boolean value: " << s;
-            }
-        }
-        return 0;
+        out = lv[idx].asBool(false);
+        return idx + 1;
     }
 
     static size_t fromAtomList(double& out, const AtomListView& l, size_t idx)
@@ -690,31 +663,10 @@ public:
 
     static ErrorMsg inletArgFromAtomList(bool& b, const AtomListView& lv)
     {
-        static t_symbol* SYM_TRUE = gensym("true");
-        static t_symbol* SYM_FALSE = gensym("false");
+        if (!lv.isBool())
+            return ErrorMsg::err("boolean value expected");
 
-        if (!lv.isFloat()) {
-            if (lv.isSymbol()) {
-                t_symbol* s = lv[0].asSymbol();
-                if (s == SYM_TRUE)
-                    b = true;
-                else if (s == SYM_FALSE)
-                    b = false;
-
-                return ErrorMsg::err("boolean value expected");
-            }
-        }
-
-        t_float f = lv[0].asFloat();
-        if (f == 0)
-            b = false;
-        else if (f == 1)
-            b = true;
-        else {
-            LIB_DBG << "warning! non boolean value: " << f;
-            b = (f != 0);
-        }
-
+        b = lv.asBool();
         return ErrorMsg::ok();
     }
 
@@ -898,7 +850,7 @@ static bool atomListToArguments(const AtomListView& lv, typename FunctionTraits<
 template <typename Args>
 class InletArgFromAtomList<0, Args> {
 public:
-    InletArgFromAtomList(Args&) {}
+    InletArgFromAtomList(Args&) { }
     ErrorMsg setNthArg(size_t n, const AtomListView&) { return ErrorMsg::ok(); }
 };
 

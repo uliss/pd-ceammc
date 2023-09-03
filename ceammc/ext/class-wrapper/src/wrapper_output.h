@@ -28,7 +28,6 @@
 #include <tuple>
 #include <vector>
 
-#include "ceammc_data.h"
 #include "ceammc_log.h"
 
 #include "wrapper_tuple.h"
@@ -374,7 +373,7 @@ struct PdOutput<T, std::vector<std::string>> {
         AtomList res;
         res.reserve(v.size());
 
-        for (auto s : v)
+        for (auto& s : v)
             res.append(Atom(gensym(s.c_str())));
 
         t_->listTo(n, res);
