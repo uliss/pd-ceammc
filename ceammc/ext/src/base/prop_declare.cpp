@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "prop_declare.h"
 #include "ceammc_canvas.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_globaldata.h"
 #include "datatype_property.h"
@@ -24,12 +25,11 @@
 
 extern "C" {
 #include "g_canvas.h"
-#include "m_imp.h"
 }
 
-static t_symbol* SYM_BOOL;
-static t_symbol* SYM_INT;
-static t_symbol* SYM_ENUM;
+CEAMMC_DEFINE_SYM_HASH(bool);
+CEAMMC_DEFINE_SYM_HASH(int);
+CEAMMC_DEFINE_SYM_HASH(enum);
 
 constexpr t_float FMIN = std::numeric_limits<t_float>::lowest();
 constexpr t_float FMAX = std::numeric_limits<t_float>::max();
@@ -94,9 +94,9 @@ PropDeclare::PropDeclare(const PdArgs& args)
     pprop_ = PropertyStorage::storage().acquire(sym_full_name_);
 
     type_ = new SymbolEnumProperty("@type", &s_float);
-    type_->appendEnum(SYM_BOOL);
-    type_->appendEnum(SYM_INT);
-    type_->appendEnum(SYM_ENUM);
+    type_->appendEnum(sym_bool());
+    type_->appendEnum(sym_int());
+    type_->appendEnum(sym_enum());
     type_->appendEnum(&s_symbol);
     type_->appendEnum(&s_list);
     addProperty(type_);
@@ -104,8 +104,8 @@ PropDeclare::PropDeclare(const PdArgs& args)
     addProperty(new SymbolEnumAlias("@f", type_, &s_float));
     addProperty(new SymbolEnumAlias("@s", type_, &s_symbol));
     addProperty(new SymbolEnumAlias("@l", type_, &s_list));
-    addProperty(new SymbolEnumAlias("@i", type_, SYM_INT));
-    addProperty(new SymbolEnumAlias("@b", type_, SYM_BOOL));
+    addProperty(new SymbolEnumAlias("@i", type_, sym_int()));
+    addProperty(new SymbolEnumAlias("@b", type_, sym_bool()));
 
     min_ = new FloatProperty("@min", FMIN);
     max_ = new FloatProperty("@max", FMAX);
@@ -213,12 +213,12 @@ bool PropDeclare::isFloat() const
 
 bool PropDeclare::isInt() const
 {
-    return type_->value() == SYM_INT;
+    return type_->value() == sym_int();
 }
 
 bool PropDeclare::isBool() const
 {
-    return type_->value() == SYM_BOOL;
+    return type_->value() == sym_bool();
 }
 
 bool PropDeclare::isSymbol() const
@@ -246,10 +246,6 @@ void PropDeclare::initName()
 
 void setup_prop_declare()
 {
-    SYM_BOOL = gensym("bool");
-    SYM_INT = gensym("int");
-    SYM_ENUM = gensym("enum");
-
     ObjectFactory<PropDeclare> obj("prop.declare", OBJECT_FACTORY_NO_DEFAULT_INLET);
     obj.useLoadBang();
 
