@@ -1,47 +1,23 @@
-#N canvas 401 139 753 728 10;
+#N canvas 547 133 753 728 10;
 #X obj 133 119 hoa.soundgrain;
 #X obj 87 630 hoa.help.pub;
 #X obj 438 18 hoa.help.also;
-#X text 27 62 hoa.fx.mirror~ reveals or hides the mirror image of the
-sound field.;
+#X text 27 62 hoa.fx.mirror~ reveals or hides the mirror image of the sound field.;
 #X text 387 256 1 : the orginal sound field;
 #X text 387 276 0 : the orginal and the mirror sound fields;
 #X text 381 296 -1 : the mirror sound field;
-#X obj 584 18 ui.dsp~ @size 42 42 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
-0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica"
-@fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)"
-@label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0;
+#X obj 584 18 ui.dsp~ @size 42 42 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0;
 #X obj 133 579 xdac~ 1:16, f 31;
 #X obj 133 547 hoa.2d.decoder~ 7 regular 16, f 31;
 #X obj 22 40 canvas.name;
 #X obj 22 18 msg.onload;
-#X obj 133 148 ui.gain~ @size 120 15 @receive "(null)" @send "(null)"
-@pinned 0 @presetname "ui.hgain~.0" @mouse_events 0 @background_color
-0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color
-0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
-@fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align
-"left" @label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value
-0 @relative 1 @midi_channel 0 @midi_control 0 @midi_pickup 1 @show_range
-1;
+#X obj 133 148 ui.gain~ @size 120 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.hgain~.0" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value 0 @relative 1 @midi_channel 0 @midi_control 0 @midi_pickup 1 @show_range 1;
 #X obj 319 117 lfo.+saw~ 0.25;
 #X obj 319 139 phase->rad~;
-#X obj 133 327 hoa.scope~ @size 190 190 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
-0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
-"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
-"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0 @gain 1 @refresh 100 @order 7 @view 0;
+#X obj 133 327 hoa.scope~ @size 190 190 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @gain 1 @refresh 100 @order 7 @view 0;
 #X obj 133 166 hoa.2d.encoder~ 7, f 29;
 #X obj 22 18 hoa.help.header;
-#X obj 388 193 ui.number @size 53 15 @receive "(null)" @send "(null)"
-@pinned 0 @presetname "ui.n.0" @background_color 0.93 0.93 0.93 1 @border_color
-0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color
-0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
-@fontsize 13 @label "(null)" @label_inner 0 @label_side "top" @label_align
-"left" @label_valign "top" @label_margins 0 0 @min -1 @max 1 @digits
-4;
+#X obj 388 193 ui.number @size 53 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.n.0" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 13 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min -1 @max 1 @digits 4;
 #X obj 133 283 hoa.process~ 7 hoa.fx.mirror~ harmonics 0.1, f 31;
 #X obj 388 166 msg.onload 0.2;
 #X connect 0 0 12 0;
@@ -82,35 +58,35 @@ sound field.;
 #X connect 16 13 19 13;
 #X connect 16 14 19 14;
 #X connect 18 0 19 15;
-#X connect 19 0 9 0;
 #X connect 19 0 15 0;
-#X connect 19 1 9 1;
+#X connect 19 0 9 0;
 #X connect 19 1 15 1;
-#X connect 19 2 9 2;
+#X connect 19 1 9 1;
 #X connect 19 2 15 2;
-#X connect 19 3 9 3;
+#X connect 19 2 9 2;
 #X connect 19 3 15 3;
-#X connect 19 4 9 4;
+#X connect 19 3 9 3;
 #X connect 19 4 15 4;
-#X connect 19 5 9 5;
+#X connect 19 4 9 4;
 #X connect 19 5 15 5;
-#X connect 19 6 9 6;
+#X connect 19 5 9 5;
 #X connect 19 6 15 6;
-#X connect 19 7 9 7;
+#X connect 19 6 9 6;
 #X connect 19 7 15 7;
-#X connect 19 8 9 8;
+#X connect 19 7 9 7;
 #X connect 19 8 15 8;
-#X connect 19 9 9 9;
+#X connect 19 8 9 8;
 #X connect 19 9 15 9;
-#X connect 19 10 9 10;
+#X connect 19 9 9 9;
 #X connect 19 10 15 10;
-#X connect 19 11 9 11;
+#X connect 19 10 9 10;
 #X connect 19 11 15 11;
-#X connect 19 12 9 12;
+#X connect 19 11 9 11;
 #X connect 19 12 15 12;
-#X connect 19 13 9 13;
+#X connect 19 12 9 12;
 #X connect 19 13 15 13;
-#X connect 19 14 9 14;
+#X connect 19 13 9 13;
 #X connect 19 14 15 14;
+#X connect 19 14 9 14;
 #X connect 20 0 18 0;
 #X coords 0 728 1 727 100 60 0;
