@@ -1,9 +1,7 @@
-#N canvas 425 97 696 681 10;
+#N canvas 731 89 696 681 10;
 #X obj 73 95 hoa.soundgrain;
 #X obj 32 582 hoa.help.pub;
 #X obj 418 4 hoa.help.also;
-#X obj 73 523 hoa.2d.decoder~ 7 ambisonics 16;
-#X text 363 188 You can also use it in the plane waves domain.;
 #N canvas 237 132 503 391 hoa_grain_env 0;
 #X obj 270 148 / 256;
 #X obj 270 193 * 1;
@@ -39,65 +37,27 @@
 #X connect 13 0 10 0;
 #X connect 14 0 8 0;
 #X connect 15 0 1 1;
-#X restore 447 97 pd hoa_grain_env;
-#X obj 446 77 table \$0-hoa_grain_array 512;
+#X restore 367 145 pd hoa_grain_env;
+#X obj 366 125 table \$0-hoa_grain_array 512;
 #X obj 256 131 r \$0-hoagrain;
 #X obj 453 349 s \$0-hoagrain;
 #X obj 453 469 s \$0-hoagrain;
 #X text 269 263 arg : the envelope table;
 #X text 267 284 attr : size (ms) \, delay;
 #X text 301 296 feedback \, rarefaction;
-#X text 363 168 The grain size and delay time are mapped depending
-;
-#X text 363 178 on the orders and the degrees of the harmonics.;
-#X text 7 54 hoa.syn.grain~ uses quasi-synchronous granular to synthesize
-a diffuse a sound field.;
-#X obj 73 124 ui.gain~ @size 157 14 @receive "(null)" @send "(null)"
-@pinned 0 @presetname "ui.gain~.1" @background_color 0.93 0.93 0.93
-1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75
-1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
-11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left"
-@label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value
-0 @show_range 1;
+#X text 363 168 The grain size and delay time are mapped depending;
+#X text 7 54 hoa.syn.grain~ uses quasi-synchronous granular to synthesize a diffuse a sound field.;
+#X obj 73 124 ui.gain~ @size 157 14 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.gain~.1" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value 0 @relative 1 @midi_channel 0 @midi_control -1 @midi_pickup 1 @show_range 1;
 #X obj 73 555 xdac~ 1:16, f 31;
 #X obj 453 263 msg.onload 20;
 #X obj 543 263 msg.onload 5000;
-#X obj 453 291 ui.number @size 53 17 @receive "(null)" @send "(null)"
-@pinned 0 @presetname "ui.number.0" @background_color 0.93 0.93 0.93
-1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
-0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal"
-@fontslant "roman" @fontsize 14 @label "(null)" @label_inner 0 @label_side
-"top" @label_align "left" @label_valign "top" @label_margins 0 0 @min
-0 @max 3.40282e+38 @digits -1;
-#X obj 543 291 ui.number @size 53 17 @receive "(null)" @send "(null)"
-@pinned 0 @presetname "ui.number.1" @background_color 0.93 0.93 0.93
-1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
-0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal"
-@fontslant "roman" @fontsize 14 @label "(null)" @label_inner 0 @label_side
-"top" @label_align "left" @label_valign "top" @label_margins 0 0 @min
-0 @max 5000 @digits -1;
+#X obj 453 291 ui.number @size 53 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.number.0" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 14 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min 0 @max 3.40282e+38 @digits -1;
+#X obj 543 291 ui.number @size 53 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.number.1" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 14 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min 0 @max 5000 @digits -1;
 #X obj 453 383 msg.onload 0.8;
 #X obj 543 383 msg.onload 0.4;
-#X obj 453 411 ui.number @size 53 17 @receive "(null)" @send "(null)"
-@pinned 0 @presetname "ui.number.2" @background_color 0.93 0.93 0.93
-1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
-0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal"
-@fontslant "roman" @fontsize 14 @label "(null)" @label_inner 0 @label_side
-"top" @label_align "left" @label_valign "top" @label_margins 0 0 @min
-0 @max 1 @digits -1;
-#X obj 543 411 ui.number @size 53 17 @receive "(null)" @send "(null)"
-@pinned 0 @presetname "ui.number.3" @background_color 0.93 0.93 0.93
-1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
-0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal"
-@fontslant "roman" @fontsize 14 @label "(null)" @label_inner 0 @label_side
-"top" @label_align "left" @label_valign "top" @label_margins 0 0 @min
-0 @max 1 @digits -1;
-#X obj 73 248 hoa.scope~ @size 189 189 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
-0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
-"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
-"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0 @gain 10 @refresh 100 @order 7 @view 0;
+#X obj 453 411 ui.number @size 53 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.number.2" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 14 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min 0 @max 1 @digits -1;
+#X obj 543 411 ui.number @size 53 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.number.3" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 14 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min 0 @max 1 @digits -1;
+#X obj 73 248 hoa.scope~ @size 189 189 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @gain 10 @refresh 100 @order 7 @view 0;
 #X obj 2 8 canvas.current;
 #X obj 2 6 msg.onload @name?;
 #X obj 2 30 prop-> @name;
@@ -106,80 +66,75 @@ a diffuse a sound field.;
 #X msg 543 318 @delay \$1;
 #X msg 453 438 @feedback \$1;
 #X msg 543 438 @rarefaction \$1;
-#X obj 278 380 ui.dsp~ @size 57 57 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
-0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica"
-@fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)"
-@label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0;
-#X msg 242 81 open 14;
-#X obj 73 165 hoa.process~ 7 hoa.syn.grain~ harmonics @array \$0-hoa_grain_array
-@size 100 @delay 1000 @feedback 0.5 @rarefaction 0, f 31;
-#X msg 296 78 open 1;
-#X connect 0 0 16 0;
-#X connect 3 0 17 0;
-#X connect 3 1 17 1;
-#X connect 3 2 17 2;
-#X connect 3 3 17 3;
-#X connect 3 4 17 4;
-#X connect 3 5 17 5;
-#X connect 3 6 17 6;
-#X connect 3 7 17 7;
-#X connect 3 8 17 8;
-#X connect 3 9 17 9;
-#X connect 3 10 17 10;
-#X connect 3 11 17 11;
-#X connect 3 12 17 12;
-#X connect 3 13 17 13;
-#X connect 3 14 17 14;
-#X connect 3 15 17 15;
-#X connect 7 0 37 15;
-#X connect 16 0 37 0;
-#X connect 18 0 20 0;
+#X obj 278 380 ui.dsp~ @size 57 57 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0;
+#X obj 256 88 ui.radio @size 240 16 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.hrd.0" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @nitems 15 @mode 0;
+#X msg 256 108 open \$1;
+#X obj 73 523 hoa.2d.decoder~ 7 regular 16, f 31;
+#X obj 73 165 hoa.process~ 7 hoa.syn.grain~ harmonics @args "@array" \$0-hoa_grain_array "@size" 100 "@delay" 1000 "@feedback" 0.5 "@rarefaction" 0, f 31;
+#X connect 0 0 13 0;
+#X connect 5 0 36 1;
+#X connect 13 0 36 0;
+#X connect 15 0 17 0;
+#X connect 16 0 18 0;
+#X connect 17 0 28 0;
+#X connect 18 0 29 0;
 #X connect 19 0 21 0;
-#X connect 20 0 31 0;
-#X connect 21 0 32 0;
-#X connect 22 0 24 0;
-#X connect 23 0 25 0;
-#X connect 24 0 33 0;
-#X connect 25 0 34 0;
-#X connect 27 0 29 0;
-#X connect 28 0 27 0;
-#X connect 29 1 30 0;
-#X connect 31 0 8 0;
-#X connect 32 0 8 0;
-#X connect 33 0 9 0;
-#X connect 34 0 9 0;
-#X connect 36 0 37 0;
-#X connect 37 0 3 0;
-#X connect 37 0 26 0;
-#X connect 37 1 3 1;
-#X connect 37 1 26 1;
-#X connect 37 2 3 2;
-#X connect 37 2 26 2;
-#X connect 37 3 3 3;
-#X connect 37 3 26 3;
-#X connect 37 4 3 4;
-#X connect 37 4 26 4;
-#X connect 37 5 3 5;
-#X connect 37 5 26 5;
-#X connect 37 6 3 6;
-#X connect 37 6 26 6;
-#X connect 37 7 3 7;
-#X connect 37 7 26 7;
-#X connect 37 8 3 8;
-#X connect 37 8 26 8;
-#X connect 37 9 3 9;
-#X connect 37 9 26 9;
-#X connect 37 10 3 10;
-#X connect 37 10 26 10;
-#X connect 37 11 3 11;
-#X connect 37 11 26 11;
-#X connect 37 12 3 12;
-#X connect 37 12 26 12;
-#X connect 37 13 3 13;
-#X connect 37 13 26 13;
-#X connect 37 14 3 14;
-#X connect 37 14 26 14;
-#X connect 38 0 37 0;
+#X connect 20 0 22 0;
+#X connect 21 0 30 0;
+#X connect 22 0 31 0;
+#X connect 24 0 26 0;
+#X connect 25 0 24 0;
+#X connect 26 1 27 0;
+#X connect 28 0 6 0;
+#X connect 29 0 6 0;
+#X connect 30 0 7 0;
+#X connect 31 0 7 0;
+#X connect 33 0 34 0;
+#X connect 34 0 36 0;
+#X connect 35 0 14 0;
+#X connect 35 1 14 1;
+#X connect 35 2 14 2;
+#X connect 35 3 14 3;
+#X connect 35 4 14 4;
+#X connect 35 5 14 5;
+#X connect 35 6 14 6;
+#X connect 35 7 14 7;
+#X connect 35 8 14 8;
+#X connect 35 9 14 9;
+#X connect 35 10 14 10;
+#X connect 35 11 14 11;
+#X connect 35 12 14 12;
+#X connect 35 13 14 13;
+#X connect 35 14 14 14;
+#X connect 35 15 14 15;
+#X connect 36 0 23 0;
+#X connect 36 0 35 0;
+#X connect 36 1 23 1;
+#X connect 36 1 35 1;
+#X connect 36 2 23 2;
+#X connect 36 2 35 2;
+#X connect 36 3 23 3;
+#X connect 36 3 35 3;
+#X connect 36 4 23 4;
+#X connect 36 4 35 4;
+#X connect 36 5 23 5;
+#X connect 36 5 35 5;
+#X connect 36 6 23 6;
+#X connect 36 6 35 6;
+#X connect 36 7 23 7;
+#X connect 36 7 35 7;
+#X connect 36 8 23 8;
+#X connect 36 8 35 8;
+#X connect 36 9 23 9;
+#X connect 36 9 35 9;
+#X connect 36 10 23 10;
+#X connect 36 10 35 10;
+#X connect 36 11 23 11;
+#X connect 36 11 35 11;
+#X connect 36 12 23 12;
+#X connect 36 12 35 12;
+#X connect 36 13 23 13;
+#X connect 36 13 35 13;
+#X connect 36 14 23 14;
+#X connect 36 14 35 14;
 #X coords 0 681 1 680 100 60 0;

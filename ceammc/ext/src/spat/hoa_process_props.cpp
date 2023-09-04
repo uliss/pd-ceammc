@@ -16,7 +16,6 @@
 #include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
-#include "ceammc_format.h"
 #include "datatype_property.h"
 #include "hoa_process.h"
 
