@@ -11,17 +11,14 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "ceammc_canvas.h"
 #include "datatype_string.h"
-#include "load_msg.h"
+#include "msg_onload.h"
 #include "test_base.h"
 #include "test_catch2.hpp"
 #include "test_datatypes.h"
 
-PD_COMPLETE_TEST_SETUP(LoadMsg, load, msg)
-
-extern "C" {
-int canvas_getdollarzero();
-}
+PD_COMPLETE_TEST_SETUP(MsgOnLoad, msg, onload)
 
 TEST_CASE("msg.onload", "[extension]")
 {
@@ -136,7 +133,7 @@ TEST_CASE("msg.onload", "[extension]")
             t->onLoadBang();
 
             char buf[32];
-            sprintf(buf, "%d-msg", canvas_getdollarzero());
+            sprintf(buf, "%d-msg", canvas_info_dollarzero(canvas_getcurrent()));
             REQUIRE(t.messagesAt(0) == ML { M { SYM("test"), LA(buf) } });
         }
     }

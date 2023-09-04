@@ -11,18 +11,18 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef LOAD_MSG_H
-#define LOAD_MSG_H
+#ifndef MSG_ONLOAD_H_
+#define MSG_ONLOAD_H_
 
 #include "ceammc_object.h"
 
 using namespace ceammc;
 
-class LoadMsg : public BaseObject {
+class MsgOnLoad : public BaseObject {
     std::vector<Message> msg_;
 
 public:
-    LoadMsg(const PdArgs& args);
+    MsgOnLoad(const PdArgs& args);
 
     void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
     void onLoadBang() override;
@@ -33,6 +33,6 @@ protected:
     const std::vector<Message>& messages() const { return msg_; }
 };
 
-void setup_load_msg();
+void setup_msg_onload();
 
-#endif // LOAD_MSG_H
+#endif // MSG_ONLOAD_H_

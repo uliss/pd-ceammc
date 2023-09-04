@@ -11,10 +11,10 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "load_msg.h"
+#include "msg_onload.h"
 #include "ceammc_factory.h"
 
-LoadMsg::LoadMsg(const PdArgs& args)
+MsgOnLoad::MsgOnLoad(const PdArgs& args)
     : BaseObject(args)
 {
     createOutlet();
@@ -28,25 +28,25 @@ LoadMsg::LoadMsg(const PdArgs& args)
         });
 }
 
-void LoadMsg::output()
+void MsgOnLoad::output()
 {
     for (auto& m : msg_)
         messageTo(0, m);
 }
 
-void LoadMsg::onClick(t_floatarg /*xpos*/, t_floatarg /*ypos*/, t_floatarg /*shift*/, t_floatarg /*ctrl*/, t_floatarg /*alt*/)
+void MsgOnLoad::onClick(t_floatarg /*xpos*/, t_floatarg /*ypos*/, t_floatarg /*shift*/, t_floatarg /*ctrl*/, t_floatarg /*alt*/)
 {
     output();
 }
 
-void LoadMsg::onLoadBang()
+void MsgOnLoad::onLoadBang()
 {
     output();
 }
 
-void setup_load_msg()
+void setup_msg_onload()
 {
-    ObjectFactory<LoadMsg> obj("msg.onload", OBJECT_FACTORY_NO_DEFAULT_INLET);
+    ObjectFactory<MsgOnLoad> obj("msg.onload", OBJECT_FACTORY_NO_DEFAULT_INLET);
     obj.addAlias("loadmsg");
     obj.useClick();
     obj.useLoadBang();

@@ -14,9 +14,7 @@
 #include "msg_onclose.h"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
-
 #include "fmt/core.h"
-#include "g_canvas.h"
 
 constexpr const char* MENUCLOSE = "menuclose";
 constexpr const char* ORIG_MENUCLOSE = "menuclose [msg.onclose]";
@@ -55,17 +53,17 @@ void MsgOnClose::onCloseBang()
         messageTo(0, m);
 }
 
-void setup_msg_on_close()
+void setup_msg_onclose()
 {
     constexpr const char* OBJ_NAME = "msg.onclose";
     ObjectFactory<MsgOnClose> obj(OBJ_NAME);
     obj.useLoadBang();
 
-    auto orgfun = zgetfn(&canvas_class, gensym(MENUCLOSE));
+    auto orgfun = zgetfn(&canvas_get_class(), gensym(MENUCLOSE));
     if ((t_gotfn)msg_onclose_menuclose != orgfun) {
         LIB_LOG << fmt::format("[{}] replace '{}' method for canvas:", OBJ_NAME, MENUCLOSE);
 
-        class_addmethod(canvas_class, (t_method)msg_onclose_menuclose, gensym(MENUCLOSE), A_DEFFLOAT, 0);
-        class_addmethod(canvas_class, (t_method)orgfun, gensym(ORIG_MENUCLOSE), A_DEFFLOAT, 0);
+        class_addmethod(canvas_get_class(), (t_method)msg_onclose_menuclose, gensym(MENUCLOSE), A_DEFFLOAT, 0);
+        class_addmethod(canvas_get_class(), (t_method)orgfun, gensym(ORIG_MENUCLOSE), A_DEFFLOAT, 0);
     }
 }

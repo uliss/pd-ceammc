@@ -16,7 +16,7 @@
 #include "ceammc_factory.h"
 
 LoadExpr::LoadExpr(const PdArgs& args)
-    : LoadMsg(args)
+    : MsgOnLoad(args)
 {
 }
 

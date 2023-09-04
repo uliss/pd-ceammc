@@ -15,7 +15,7 @@
 #include "test_base.h"
 #include "test_external.h"
 
-PD_COMPLETE_TEST_SETUP(MsgOnClose, msg, on_close)
+PD_COMPLETE_TEST_SETUP(MsgOnClose, msg, onclose)
 
 TEST_CASE("msg.onclose", "[extension]")
 {

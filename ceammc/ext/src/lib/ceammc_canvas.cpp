@@ -606,6 +606,10 @@ t_gobj* canvas_find_last(const _glist* c)
     return z;
 }
 
+t_class*& canvas_get_class() {
+    return canvas_class;
+}
+
 bool canvas_set_current(const t_canvas* c)
 {
     if (!c)

@@ -179,6 +179,8 @@ void canvas_foreach(const _glist* c, std::function<void(t_gobj*, const t_class*)
  */
 t_gobj* canvas_find_last(const _glist* c);
 
+t_class*& canvas_get_class();
+
 class BaseObject;
 typedef std::shared_ptr<Array> ArrayPtr;
 
