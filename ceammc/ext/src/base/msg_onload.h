@@ -19,18 +19,20 @@
 using namespace ceammc;
 
 class MsgOnLoad : public BaseObject {
+protected:
     std::vector<Message> msg_;
 
 public:
     MsgOnLoad(const PdArgs& args);
+    void initDone() final;
 
     void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
     void onLoadBang() override;
 
-    virtual void output();
+    void output();
 
 protected:
-    const std::vector<Message>& messages() const { return msg_; }
+    virtual void appendMessage(const AtomListView& lv);
 };
 
 void setup_msg_onload();

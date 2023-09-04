@@ -18,13 +18,16 @@ MsgOnLoad::MsgOnLoad(const PdArgs& args)
     : BaseObject(args)
 {
     createOutlet();
+}
 
+void MsgOnLoad::initDone()
+{
     AtomList raw_args;
     binbufArgs().restorePrimitives(raw_args);
     raw_args.expandDollarArgs(canvas());
     raw_args.view().split(Atom::comma(),
         [this](const AtomListView& lv) {
-            msg_.push_back(Message::makeTyped(lv));
+            appendMessage(lv);
         });
 }
 
@@ -32,6 +35,11 @@ void MsgOnLoad::output()
 {
     for (auto& m : msg_)
         messageTo(0, m);
+}
+
+void MsgOnLoad::appendMessage(const AtomListView& lv)
+{
+    msg_.push_back(Message::makeTyped(lv));
 }
 
 void MsgOnLoad::onClick(t_floatarg /*xpos*/, t_floatarg /*ypos*/, t_floatarg /*shift*/, t_floatarg /*ctrl*/, t_floatarg /*alt*/)

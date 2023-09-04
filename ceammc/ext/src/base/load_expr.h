@@ -20,7 +20,8 @@ class LoadExpr : public MsgOnLoad {
 public:
     LoadExpr(const PdArgs& args);
 
-    void output() final;
+protected:
+    void appendMessage(const AtomListView& lv) final;
 };
 
 void setup_load_expr();
