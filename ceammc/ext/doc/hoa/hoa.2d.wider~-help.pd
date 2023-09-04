@@ -1,28 +1,15 @@
-#N canvas 150 41 762 490 10;
+#N canvas 533 143 729 490 10;
 #X obj 313 78 hoa.2d.encoder~ 7, f 26;
 #X obj 313 392 hoa.2d.decoder~ 7 regular 16;
 #X obj 137 396 hoa-help;
-#X obj 11 370 text define -k \$0-scope-attrs;
-#A set gain 130 \; interval 150 \;;
-#X obj 6 3 cnv 15 200 20 empty empty hoa.2d.wider~ 4 10 0 14 -233017
--66577 0;
+#X obj 6 3 cnv 15 200 20 empty empty hoa.2d.wider~ 4 10 0 14 #e0e0e0 #404040 0;
 #X obj 313 177 hoa.2d.wider~ 7, f 28;
 #X text 558 161 The factor of widening (between 0 and 1), f 23;
-#X text 6 27 hoa.2d.wider~ simulates fractional orders of decomposition
-to reduce the precision of the sound field. When the factor of widening
-is 0 sound field \, only the first hamonic Y[0 \, 0] remains and the
-sound field is omni directional. By increasing the factor of widening
-toward 1 \, the other harmonics appears in a logarithmic way \, increasing
-the precision of the sound field that becomes more and more directional
-until all the harmonics appeared. The weight of the harmonics are defined
-by:, f 46;
-#X text 6 195 with N the order of decomposition \, l the degree \,
-m the azimuthal order and x the factor of widening., f 46;
+#X text 6 27 hoa.2d.wider~ simulates fractional orders of decomposition to reduce the precision of the sound field. When the factor of widening is 0 sound field \, only the first hamonic Y[0 \, 0] remains and the sound field is omni directional. By increasing the factor of widening toward 1 \, the other harmonics appears in a logarithmic way \, increasing the precision of the sound field that becomes more and more directional until all the harmonics appeared. The weight of the harmonics are defined by:, f 46;
+#X text 6 195 with N the order of decomposition \, l the degree \, m the azimuthal order and x the factor of widening., f 46;
 #X text 6 181 W[l \, m](x) = x^l((1-x)(N-l)+1), f 46;
-#X text 6 245 The (new) algorithm has the advantage to preserve a constant
-amplitude for the sound field whatever the factor of widening., f
-46;
-#N canvas 0 23 450 300 source~ 0;
+#X text 6 245 The (new) algorithm has the advantage to preserve a constant amplitude for the sound field whatever the factor of widening., f 46;
+#N canvas 0 25 450 300 source~ 0;
 #X obj 29 203 *~, f 19;
 #X obj 29 169 *~, f 9;
 #X obj 80 140 *~, f 10;
@@ -47,114 +34,86 @@ amplitude for the sound field whatever the factor of widening., f
 #X connect 10 0 0 1;
 #X connect 11 0 8 0;
 #X restore 313 19 pd source~;
-#N canvas 0 22 450 300 init 0;
-#X obj 21 37 loadbang;
-#X msg 21 59 0.666;
-#X obj 21 81 s \$0-wfac;
-#X connect 0 0 1 0;
-#X connect 1 0 2 0;
-#X restore 11 344 pd init;
 #X obj 478 78 osc~ 0.025;
 #X obj 466 24 phasor~ 0.2;
 #X obj 478 123 +~ 0.5;
 #X obj 478 145 clip~ 0 1;
 #X obj 478 100 *~ 0.75;
-#X obj 313 51 ui.gain~ @size 120 15 @receive "(null)" @send "(null)"
-@pinned 0 @presetname "ui.gain~.0" @background_color 0.93 0.93 0.93
-1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75
-1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
-11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left"
-@label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value
-0 @show_range 1;
-#X obj 205 357 ui.dsp~ @size 30 30 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
-0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica"
-@fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)"
-@label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0;
+#X obj 313 51 ui.gain~ @size 120 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.gain~.0" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value 0 @relative 1 @midi_channel 0 @midi_control -1 @midi_pickup 1 @show_range 1;
+#X obj 205 357 ui.dsp~ @size 30 30 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0;
 #X obj 466 52 phase->rad~;
-#X obj 499 175 ui.number~ @size 58 15 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color
-0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname
-"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
-"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0 @decimal 6 @interval 50;
-#X obj 322 206 hoa.scope~ @size 172 172 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
-0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
-"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
-"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0 @gain 1 @refresh 100 @order 7 @view 0;
+#X obj 499 175 ui.number~ @size 58 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color 0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @precision 6 @interval 50;
+#X obj 322 206 hoa.scope~ @size 172 172 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @gain 1 @refresh 100 @order 7 @view 0;
 #X obj 313 422 xdac~ 1:16, f 28;
 #X obj 10 396 hoa.credits;
-#X connect 0 0 5 0;
-#X connect 0 1 5 1;
-#X connect 0 2 5 2;
-#X connect 0 3 5 3;
-#X connect 0 4 5 4;
-#X connect 0 5 5 5;
-#X connect 0 6 5 6;
-#X connect 0 7 5 7;
-#X connect 0 8 5 8;
-#X connect 0 9 5 9;
-#X connect 0 10 5 10;
-#X connect 0 11 5 11;
-#X connect 0 12 5 12;
-#X connect 0 13 5 13;
-#X connect 0 14 5 14;
-#X connect 1 0 23 0;
-#X connect 1 1 23 1;
-#X connect 1 2 23 2;
-#X connect 1 3 23 3;
-#X connect 1 4 23 4;
-#X connect 1 5 23 5;
-#X connect 1 6 23 6;
-#X connect 1 7 23 7;
-#X connect 1 8 23 8;
-#X connect 1 9 23 9;
-#X connect 1 10 23 10;
-#X connect 1 11 23 11;
-#X connect 1 12 23 12;
-#X connect 1 13 23 13;
-#X connect 1 14 23 14;
-#X connect 1 15 23 15;
-#X connect 5 0 1 0;
-#X connect 5 0 22 0;
-#X connect 5 1 1 1;
-#X connect 5 1 22 1;
-#X connect 5 2 1 2;
-#X connect 5 2 22 2;
-#X connect 5 3 1 3;
-#X connect 5 3 22 3;
-#X connect 5 4 1 4;
-#X connect 5 4 22 4;
-#X connect 5 5 1 5;
-#X connect 5 5 22 5;
-#X connect 5 6 1 6;
-#X connect 5 6 22 6;
-#X connect 5 7 1 7;
-#X connect 5 7 22 7;
-#X connect 5 8 1 8;
-#X connect 5 8 22 8;
-#X connect 5 9 1 9;
-#X connect 5 9 22 9;
-#X connect 5 10 1 10;
-#X connect 5 10 22 10;
-#X connect 5 11 1 11;
-#X connect 5 11 22 11;
-#X connect 5 12 1 12;
-#X connect 5 12 22 12;
-#X connect 5 13 1 13;
-#X connect 5 13 22 13;
-#X connect 5 14 1 14;
-#X connect 5 14 22 14;
-#X connect 11 0 18 0;
-#X connect 13 0 17 0;
-#X connect 14 0 20 0;
-#X connect 15 0 16 0;
-#X connect 16 0 5 15;
-#X connect 16 0 21 0;
-#X connect 17 0 15 0;
-#X connect 18 0 0 0;
-#X connect 20 0 0 1;
+#X connect 0 0 4 0;
+#X connect 0 1 4 1;
+#X connect 0 2 4 2;
+#X connect 0 3 4 3;
+#X connect 0 4 4 4;
+#X connect 0 5 4 5;
+#X connect 0 6 4 6;
+#X connect 0 7 4 7;
+#X connect 0 8 4 8;
+#X connect 0 9 4 9;
+#X connect 0 10 4 10;
+#X connect 0 11 4 11;
+#X connect 0 12 4 12;
+#X connect 0 13 4 13;
+#X connect 0 14 4 14;
+#X connect 1 0 21 0;
+#X connect 1 1 21 1;
+#X connect 1 2 21 2;
+#X connect 1 3 21 3;
+#X connect 1 4 21 4;
+#X connect 1 5 21 5;
+#X connect 1 6 21 6;
+#X connect 1 7 21 7;
+#X connect 1 8 21 8;
+#X connect 1 9 21 9;
+#X connect 1 10 21 10;
+#X connect 1 11 21 11;
+#X connect 1 12 21 12;
+#X connect 1 13 21 13;
+#X connect 1 14 21 14;
+#X connect 1 15 21 15;
+#X connect 4 0 1 0;
+#X connect 4 0 20 0;
+#X connect 4 1 1 1;
+#X connect 4 1 20 1;
+#X connect 4 2 1 2;
+#X connect 4 2 20 2;
+#X connect 4 3 1 3;
+#X connect 4 3 20 3;
+#X connect 4 4 1 4;
+#X connect 4 4 20 4;
+#X connect 4 5 1 5;
+#X connect 4 5 20 5;
+#X connect 4 6 1 6;
+#X connect 4 6 20 6;
+#X connect 4 7 1 7;
+#X connect 4 7 20 7;
+#X connect 4 8 1 8;
+#X connect 4 8 20 8;
+#X connect 4 9 1 9;
+#X connect 4 9 20 9;
+#X connect 4 10 1 10;
+#X connect 4 10 20 10;
+#X connect 4 11 1 11;
+#X connect 4 11 20 11;
+#X connect 4 12 1 12;
+#X connect 4 12 20 12;
+#X connect 4 13 1 13;
+#X connect 4 13 20 13;
+#X connect 4 14 1 14;
+#X connect 4 14 20 14;
+#X connect 10 0 16 0;
+#X connect 11 0 15 0;
+#X connect 12 0 18 0;
+#X connect 13 0 14 0;
+#X connect 14 0 4 15;
+#X connect 14 0 19 0;
+#X connect 15 0 13 0;
+#X connect 16 0 0 0;
+#X connect 18 0 0 1;
 #X coords 0 490 1 489 100 60 0;
