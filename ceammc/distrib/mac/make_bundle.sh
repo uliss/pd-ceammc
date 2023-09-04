@@ -395,7 +395,7 @@ done
 
 section "Copying CEAMMC HOA help files"
 mkdir -p "${BUNDLE_CEAMMC}/hoa"
-for f in $SRC_CEAMMC/ext/doc/hoa/*.@(pd|txt)
+for f in $SRC_CEAMMC/ext/doc/hoa/*.@(pd|txt|svg|wav)
 do
     copy ${f} "${BUNDLE_CEAMMC}/hoa"
     chmod 0444 "${BUNDLE_CEAMMC}/hoa/$(basename $f)"

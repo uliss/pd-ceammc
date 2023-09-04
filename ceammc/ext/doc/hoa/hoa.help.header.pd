@@ -1,6 +1,5 @@
-#N canvas 264 189 758 436 10;
-#X obj 45 1 cnv 15 354 40 empty \$0-hoa.header HOA 10 12 0 14 -233017
--66577 0;
+#N canvas 268 134 758 436 10;
+#X obj 45 1 cnv 15 354 40 empty \$0-hoa.header HOA 10 12 0 14 #e0e0e0 #404040 0;
 #X obj 388 313 s \$0-hoa.header;
 #X obj 284 80 namecanvas \$0-r;
 #X msg 580 55 read hoa.objects.txt;
@@ -19,8 +18,8 @@
 #X obj 388 243 list.at 1;
 #X obj 533 9 inlet;
 #X obj 505 243 list.slice 2;
-#X obj 1 1 cnv 15 43 40 empty empty empty 20 12 0 14 -4032 -66577 0
-;
+#X obj 1 0 ui.canvas @size 43 41 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0;
+#X obj 1 112 loadmsg clear \, image 0 0 hoa_logo.svg 0.34 \, update;
 #X connect 3 0 6 0;
 #X connect 5 0 1 0;
 #X connect 6 0 9 0;
@@ -41,4 +40,5 @@
 #X connect 16 0 5 0;
 #X connect 17 0 10 0;
 #X connect 18 0 11 0;
+#X connect 20 0 19 0;
 #X coords 0 -1 1 1 400 42 2 0 0;
