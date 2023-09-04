@@ -1,4 +1,4 @@
-#N canvas 613 206 1012 764 10;
+#N canvas 954 233 1012 764 10;
 #X obj 305 115 hoa.soundgrain;
 #X obj 154 662 hoa.help.pub;
 #N canvas 237 132 503 391 hoa_grain_env 0;
@@ -38,48 +38,18 @@
 #X connect 15 0 1 1;
 #X restore 694 72 pd hoa_grain_env;
 #X obj 693 52 table \$0-hoa_grain_array 512;
-#X text 554 326 Prepend the list with dB \, to control with decibel
-;
+#X text 554 326 Prepend the list with dB \, to control with decibel;
 #X text 710 134 You can also use it in the harmonics domain.;
 #X text 710 144 In the harmonics domain \, you should use float;
 #X text 710 154 or dB+float to control the gain of all;
 #X text 710 164 the harmonics (just a multigain).;
 #X text 29 78 hoa.fx.gain~ controls the gains of the sound field.;
-#X obj 305 140 ui.gain~ @size 178 16 @receive "(null)" @send "(null)"
-@pinned 0 @presetname "ui.gain~.0" @mouse_events 0 @background_color
-0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color
-0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
-@fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align
-"left" @label_valign "top" @label_margins 0 0 @max 12 @min -60 @output_value
-0 @relative 1 @midi_channel 0 @midi_control 0 @midi_pickup 1 @show_range
-1;
-#X obj 95 246 hoa.scope~ @size 183 183 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
-0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
-"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
-"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0 @gain 10 @refresh 100 @order 7 @view 0;
-#X obj 571 452 hoa.scope~ @size 189 189 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
-0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
-"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
-"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0 @gain 10 @refresh 100 @order 7 @view 0;
-#X obj 95 441 ui.dsp~ @size 69 69 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
-0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica"
-@fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)"
-@label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0;
+#X obj 305 140 ui.gain~ @size 178 16 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.gain~.0" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @max 12 @min -60 @output_value 0 @relative 1 @midi_channel 0 @midi_control 0 @midi_pickup 1 @show_range 1;
+#X obj 95 246 hoa.scope~ @size 183 183 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @gain 10 @refresh 100 @order 7 @view 0;
+#X obj 571 452 hoa.scope~ @size 189 189 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @gain 10 @refresh 100 @order 7 @view 0;
+#X obj 95 441 ui.dsp~ @size 69 69 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0;
 #X obj 305 635 xdac~ 1:16, f 39;
-#X obj 554 193 ui.sliders @size 150 100 @receive "(null)" @send "(null)"
-@pinned 0 @presetname "ui.sliders.0" @mouse_events 0 @background_color
-0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @slider_color
-0.75 0.75 0.75 1 @select_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner
-0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
-0 0 @min -60 @max 12 @count 16 @auto_range_mode "none" @show_range
-1 @auto_count 0;
+#X obj 554 193 ui.sliders @size 150 100 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.sliders.0" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @slider_color 0.75 0.75 0.75 1 @select_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min -60 @max 12 @count 16 @auto_range_mode "none" @show_range 1 @auto_count 0 @show_lines 0;
 #X obj 442 34 hoa.help.also;
 #X obj 28 38 msg.onload @name?;
 #X obj 28 60 canvas.top;
@@ -88,48 +58,47 @@
 #X obj 305 397 hoa.recomposer~ 7 16 fixe, f 39;
 #X obj 305 328 hoa.process~ 16 hoa.fx.gain~ planewaves;
 #X obj 305 254 hoa.projector~ 7 16, f 37;
-#X floatatom 559 113 5 0 0 0 - - -;
 #X msg 559 135 open \$1;
 #X obj 305 603 hoa.2d.decoder~ 7 regular 16, f 39;
 #X obj 554 298 msg #: @db;
-#X obj 305 165 hoa.process~ 7 hoa.syn.grain~ harmonics "@array" \$0-hoa_grain_array
-, f 37;
+#X obj 305 165 hoa.process~ 7 hoa.syn.grain~ harmonics "@array" \$0-hoa_grain_array, f 37;
+#X obj 559 113 ui.radio @size 120 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.hrd.0" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @nitems 8 @mode 0;
 #X connect 0 0 10 0;
-#X connect 10 0 28 0;
-#X connect 15 0 27 0;
+#X connect 10 0 27 0;
+#X connect 15 0 26 0;
 #X connect 17 0 18 0;
 #X connect 18 0 19 0;
 #X connect 19 1 20 0;
 #X connect 21 0 12 0;
-#X connect 21 0 26 0;
+#X connect 21 0 25 0;
 #X connect 21 1 12 1;
-#X connect 21 1 26 1;
+#X connect 21 1 25 1;
 #X connect 21 2 12 2;
-#X connect 21 2 26 2;
+#X connect 21 2 25 2;
 #X connect 21 3 12 3;
-#X connect 21 3 26 3;
+#X connect 21 3 25 3;
 #X connect 21 4 12 4;
-#X connect 21 4 26 4;
+#X connect 21 4 25 4;
 #X connect 21 5 12 5;
-#X connect 21 5 26 5;
+#X connect 21 5 25 5;
 #X connect 21 6 12 6;
-#X connect 21 6 26 6;
+#X connect 21 6 25 6;
 #X connect 21 7 12 7;
-#X connect 21 7 26 7;
+#X connect 21 7 25 7;
 #X connect 21 8 12 8;
-#X connect 21 8 26 8;
+#X connect 21 8 25 8;
 #X connect 21 9 12 9;
-#X connect 21 9 26 9;
+#X connect 21 9 25 9;
 #X connect 21 10 12 10;
-#X connect 21 10 26 10;
+#X connect 21 10 25 10;
 #X connect 21 11 12 11;
-#X connect 21 11 26 11;
+#X connect 21 11 25 11;
 #X connect 21 12 12 12;
-#X connect 21 12 26 12;
+#X connect 21 12 25 12;
 #X connect 21 13 12 13;
-#X connect 21 13 26 13;
+#X connect 21 13 25 13;
 #X connect 21 14 12 14;
-#X connect 21 14 26 14;
+#X connect 21 14 25 14;
 #X connect 22 0 21 0;
 #X connect 22 1 21 1;
 #X connect 22 2 21 2;
@@ -162,53 +131,53 @@
 #X connect 23 13 22 13;
 #X connect 23 14 22 14;
 #X connect 23 15 22 15;
-#X connect 24 0 25 0;
-#X connect 25 0 28 0;
-#X connect 26 0 14 0;
-#X connect 26 1 14 1;
-#X connect 26 2 14 2;
-#X connect 26 3 14 3;
-#X connect 26 4 14 4;
-#X connect 26 5 14 5;
-#X connect 26 6 14 6;
-#X connect 26 7 14 7;
-#X connect 26 8 14 8;
-#X connect 26 9 14 9;
-#X connect 26 10 14 10;
-#X connect 26 11 14 11;
-#X connect 26 12 14 12;
-#X connect 26 13 14 13;
-#X connect 26 14 14 14;
-#X connect 26 15 14 15;
-#X connect 27 0 22 16;
-#X connect 28 0 11 0;
-#X connect 28 0 23 0;
-#X connect 28 1 11 1;
-#X connect 28 1 23 1;
-#X connect 28 2 11 2;
-#X connect 28 2 23 2;
-#X connect 28 3 11 3;
-#X connect 28 3 23 3;
-#X connect 28 4 11 4;
-#X connect 28 4 23 4;
-#X connect 28 5 11 5;
-#X connect 28 5 23 5;
-#X connect 28 6 11 6;
-#X connect 28 6 23 6;
-#X connect 28 7 11 7;
-#X connect 28 7 23 7;
-#X connect 28 8 11 8;
-#X connect 28 8 23 8;
-#X connect 28 9 11 9;
-#X connect 28 9 23 9;
-#X connect 28 10 11 10;
-#X connect 28 10 23 10;
-#X connect 28 11 11 11;
-#X connect 28 11 23 11;
-#X connect 28 12 11 12;
-#X connect 28 12 23 12;
-#X connect 28 13 11 13;
-#X connect 28 13 23 13;
-#X connect 28 14 11 14;
-#X connect 28 14 23 14;
+#X connect 24 0 27 0;
+#X connect 25 0 14 0;
+#X connect 25 1 14 1;
+#X connect 25 2 14 2;
+#X connect 25 3 14 3;
+#X connect 25 4 14 4;
+#X connect 25 5 14 5;
+#X connect 25 6 14 6;
+#X connect 25 7 14 7;
+#X connect 25 8 14 8;
+#X connect 25 9 14 9;
+#X connect 25 10 14 10;
+#X connect 25 11 14 11;
+#X connect 25 12 14 12;
+#X connect 25 13 14 13;
+#X connect 25 14 14 14;
+#X connect 25 15 14 15;
+#X connect 26 0 22 16;
+#X connect 27 0 11 0;
+#X connect 27 0 23 0;
+#X connect 27 1 11 1;
+#X connect 27 1 23 1;
+#X connect 27 2 11 2;
+#X connect 27 2 23 2;
+#X connect 27 3 11 3;
+#X connect 27 3 23 3;
+#X connect 27 4 11 4;
+#X connect 27 4 23 4;
+#X connect 27 5 11 5;
+#X connect 27 5 23 5;
+#X connect 27 6 11 6;
+#X connect 27 6 23 6;
+#X connect 27 7 11 7;
+#X connect 27 7 23 7;
+#X connect 27 8 11 8;
+#X connect 27 8 23 8;
+#X connect 27 9 11 9;
+#X connect 27 9 23 9;
+#X connect 27 10 11 10;
+#X connect 27 10 23 10;
+#X connect 27 11 11 11;
+#X connect 27 11 23 11;
+#X connect 27 12 11 12;
+#X connect 27 12 23 12;
+#X connect 27 13 11 13;
+#X connect 27 13 23 13;
+#X connect 27 14 11 14;
+#X connect 27 14 23 14;
+#X connect 28 0 24 0;
 #X coords 0 764 1 763 100 60 0;

@@ -1,78 +1,34 @@
-#N canvas 412 23 722 558 10;
+#N canvas 665 366 722 558 10;
 #X text 8 85 1st argument is the order., f 60;
-#X text 8 48 hoa.2d.decoder~ decodes an ambisonic sound field for several
-loudspeakers configurations or for headphones.;
+#X text 8 48 hoa.2d.decoder~ decodes an ambisonic sound field for several loudspeakers configurations or for headphones.;
 #X obj 568 98 phasor~ 0.3;
 #X obj 403 513 hoa-help;
-#X obj 10 22 cnv 15 200 20 empty empty hoa.2d.decoder~ 4 10 0 14 -233017
--66577 0;
+#X obj 10 22 cnv 15 200 20 empty empty hoa.2d.decoder~ 4 10 0 14 #e0e0e0 #404040 0;
 #X obj 403 150 hoa.2d.encoder~ 7, f 28;
-#X text 8 99 2nd argument is the decoding mode : regular \, irregular
-or binaural (for headphones)., f 60;
-#X text 8 126 3rd argument is the number of loudspeakers (minmum 2
-* order + 1 for regular mode) for regular or irregular modes.;
-#X text 8 261 • Irregular decoding is used for other configurations
-line mono (1) \, stereo (2) \, 3.1 (3) \, quadriphonie (4) \, 5.1 (5)
-\, 6.1 \, 7.1. You should use "inPhase" optimization to avoid artefacts.
-Ex:, f 60;
-#X text 8 364 • Binaural decoding is used for headphones. If the
-decoding cost too much CPU \, you can crop the HRIRs. Example on the
-right:;
+#X text 8 99 2nd argument is the decoding mode : regular \, irregular or binaural (for headphones)., f 60;
+#X text 8 126 3rd argument is the number of loudspeakers (minmum 2 * order + 1 for regular mode) for regular or irregular modes.;
+#X text 8 261 • Irregular decoding is used for other configurations line mono (1) \, stereo (2) \, 3.1 (3) \, quadriphonie (4) \, 5.1 (5) \, 6.1 \, 7.1. You should use "inPhase" optimization to avoid artefacts. Ex:, f 60;
+#X text 8 364 • Binaural decoding is used for headphones. If the decoding cost too much CPU \, you can crop the HRIRs. Example on the right:;
 #X obj 454 72 max~ 0;
 #X obj 403 96 *~, f 9;
 #X obj 403 50 noise~;
 #X obj 454 50 osc~ 7;
 #X obj 403 72 *~ 0.25;
-#X obj 403 119 ui.gain~ @size 120 15 @receive "(null)" @send "(null)"
-@pinned 0 @presetname "ui.gain~.0" @background_color 0.93 0.93 0.93
-1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75
-1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
-11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left"
-@label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value
-0 @show_range 1;
+#X obj 403 119 ui.gain~ @size 120 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.gain~.0" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value 0 @relative 1 @midi_channel 0 @midi_control -1 @midi_pickup 1 @show_range 1;
 #X obj 10 228 hoa.2d.decoder~ 7 regular 16 @offset 45, f 42;
-#X obj 10 327 hoa.2d.decoder~ 7 irregular 5 @angles 0 30 110 250 330
-;
+#X obj 10 327 hoa.2d.decoder~ 7 irregular 5 @angles 0 30 110 250 330;
 #X obj 403 464 xdac~ 1:2, f 28;
-#X obj 403 405 ui.meter~ @size 120 15 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
-0.6 1 @label_color 0 0 0 1 @cold_color 0 0.6 0 1 @tepid_color 0.6 0.73
-0 1 @warm_color 0.85 0.85 0 1 @hot_color 1 0.6 0 1 @over_color 1 0
-0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
-11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left"
-@label_valign "top" @label_margins 0 0 @interval 50;
-#X obj 607 430 ui.dsp~ @size 51 51 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
-0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica"
-@fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)"
-@label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0;
+#X obj 403 405 ui.meter~ @size 120 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @cold_color 0 0.6 0 1 @tepid_color 0.6 0.73 0 1 @warm_color 0.85 0.85 0 1 @hot_color 1 0.6 0 1 @over_color 1 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @interval 50;
+#X obj 607 430 ui.dsp~ @size 51 51 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0;
 #X obj 403 361 hoa.2d.decoder~ 7 binaural 2 @crop 256, f 28;
-#X text 8 465 @angles property defines the angles of the loudspeakers
-(in degrees). Only available for irregular mode.;
-#X text 8 495 @crop property defines the size of the HRIRs (in samples).
-the maximum is 512 samples. Only available for binaural mode.;
-#X obj 568 405 ui.meter~ @size 120 15 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
-0.6 1 @label_color 0 0 0 1 @cold_color 0 0.6 0 1 @tepid_color 0.6 0.73
-0 1 @warm_color 0.85 0.85 0 1 @hot_color 1 0.6 0 1 @over_color 1 0
-0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
-11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left"
-@label_valign "top" @label_margins 0 0 @interval 50;
+#X text 8 465 @angles property defines the angles of the loudspeakers (in degrees). Only available for irregular mode.;
+#X text 8 495 @crop property defines the size of the HRIRs (in samples). the maximum is 512 samples. Only available for binaural mode.;
+#X obj 568 405 ui.meter~ @size 120 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @cold_color 0 0.6 0 1 @tepid_color 0.6 0.73 0 1 @warm_color 0.85 0.85 0 1 @hot_color 1 0.6 0 1 @over_color 1 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @interval 50;
 #X obj 568 120 phase->rad~;
-#X text 8 425 @offset property the rotation of the loudspeakers (in
-degrees). Only available for regular and irregular modes.;
+#X text 8 425 @offset property the rotation of the loudspeakers (in degrees). Only available for regular and irregular modes.;
 #X obj 403 491 hoa.credits;
-#X text 8 165 • Regular decoding is used for a perfect circle of
-loudspeakers \, where all the loudspeakers are to equally spaced. The
-minimum number of loudspeakers is 2 * order + 1 (default : 2 * order
-+ 2). Ex:, f 60;
-#X obj 414 180 hoa.scope~ @size 171 171 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
-0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
-"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
-"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0 @gain 4 @refresh 30 @order 7 @view 0;
+#X text 8 165 • Regular decoding is used for a perfect circle of loudspeakers \, where all the loudspeakers are to equally spaced. The minimum number of loudspeakers is 2 * order + 1 (default : 2 * order + 2). Ex:, f 60;
+#X obj 414 180 hoa.scope~ @size 171 171 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @gain 4 @refresh 30 @order 7 @view 0;
 #X connect 2 0 25 0;
 #X connect 5 0 21 0;
 #X connect 5 0 29 0;

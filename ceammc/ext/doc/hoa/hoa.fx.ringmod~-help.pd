@@ -1,76 +1,35 @@
-#N canvas 429 123 1018 754 10;
+#N canvas 584 151 1018 754 10;
 #X obj 298 103 hoa.soundgrain;
 #X obj 141 650 hoa.help.pub;
 #X obj 427 22 hoa.help.also;
-#X text 23 67 hoa.fx.ringmod~ uses ring modulation to diffuse a sound
-field.;
-#X text 30 118 Control the global frequency of the ring modulation.
-, f 12;
+#X text 23 67 hoa.fx.ringmod~ uses ring modulation to diffuse a sound field.;
+#X text 30 118 Control the global frequency of the ring modulation., f 12;
 #X text 201 127 Control the diffusion factor., f 10;
 #X obj 28 327 hoa.process~ 7 hoa.fx.ringmod~ harmonics, f 31;
-#X obj 298 132 ui.gain~ @size 131 10 @receive "(null)" @send "(null)"
-@pinned 0 @presetname "ui.gain~.1" @mouse_events 0 @background_color
-0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color
-0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
-@fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align
-"left" @label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value
-0 @relative 1 @midi_channel 0 @midi_control 0 @midi_pickup 1 @show_range
-1;
+#X obj 298 128 ui.gain~ @size 131 14 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.gain~.1" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value 0 @relative 1 @midi_channel 0 @midi_control 0 @midi_pickup 1 @show_range 1;
 #X obj 292 623 xdac~ 1:16, f 31;
-#X obj 538 440 hoa.scope~ @size 189 189 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
-0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
-"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
-"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0 @gain 10 @refresh 100 @order 7 @view 0;
+#X obj 538 440 hoa.scope~ @size 189 189 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @gain 10 @refresh 100 @order 7 @view 0;
 #X obj 538 327 hoa.process~ 16 hoa.fx.ringmod~ planewaves, f 31;
 #X obj 37 187 msg.onload 10;
 #X obj 121 157 msg.onload 1;
 #X msg 121 208 @diffusion \$1;
-#X obj 28 380 hoa.scope~ @size 189 189 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
-0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
-"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
-"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0 @gain 10 @refresh 100 @order 7 @view 0;
-#X obj 298 200 hoa.scope~ @size 183 183 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
-0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
-"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
-"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0 @gain 10 @refresh 100 @order 7 @view 0;
+#X obj 28 380 hoa.scope~ @size 189 189 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @gain 10 @refresh 100 @order 7 @view 0;
+#X obj 298 200 hoa.scope~ @size 183 183 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @gain 10 @refresh 100 @order 7 @view 0;
 #X obj 298 150 hoa.2d.encoder~ 7, f 30;
 #X obj 475 119 phase->rad~;
 #X obj 475 94 lfo.saw~ 1;
-#X floatatom 121 179 5 0 0 0 - - -;
-#X floatatom 37 209 5 0 0 0 - - -;
+#X floatatom 121 179 5 0 1 0 - - - 0;
+#X floatatom 37 209 5 0 10000 0 - - - 0;
 #X obj 25 25 msg.onload @name?;
 #X obj 25 47 canvas.top;
 #X obj 25 25 prop-> @name;
 #X obj 21 22 hoa.help.header;
-#X obj 569 22 ui.dsp~ @size 42 42 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
-0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica"
-@fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)"
-@label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0;
+#X obj 569 22 ui.dsp~ @size 42 42 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0;
 #X obj 538 262 hoa.projector~ 7 16, f 29;
 #X obj 292 591 hoa.2d.decoder~ 7 regular 16, f 31;
 #X obj 538 396 hoa.recomposer~ 7 16 fixe, f 31;
-#X obj 754 256 ui.sliders @size 215 71 @receive "(null)" @send "(null)"
-@pinned 0 @presetname "ui.sliders.1" @mouse_events 0 @background_color
-0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @slider_color
-0.75 0.75 0.75 1 @select_color 0 0.75 1 1 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner
-0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
-0 0 @min 0 @max 50 @count 16 @auto_range_mode "none" @show_range 1
-@auto_count 0;
-#X obj 721 190 ui.radio @size 240 15 @receive "(null)" @send "(null)"
-@pinned 0 @presetname "ui.hrd.0" @mouse_events 0 @background_color
-0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color
-0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
-@fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align
-"left" @label_valign "top" @label_margins 0 0 @nitems 16 @mode 0;
+#X obj 754 256 ui.sliders @size 215 71 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.sliders.1" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @slider_color 0.75 0.75 0.75 1 @select_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min 0 @max 50 @count 16 @auto_range_mode "none" @show_range 1 @auto_count 0 @show_lines 0;
+#X obj 721 190 ui.radio @size 240 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.hrd.0" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @nitems 16 @mode 0;
 #X msg 721 212 open \$1;
 #X text 752 329 set freqs per instance;
 #X connect 0 0 7 0;

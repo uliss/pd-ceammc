@@ -1,4 +1,4 @@
-#N canvas 539 58 662 587 10;
+#N canvas 1177 429 411 669 10;
 #X obj 3 3 hoa.help.header;
 #X obj 24 518 hoa.help.pub;
 #N canvas 633 206 452 384 sel.hoa.txt 0;
@@ -144,31 +144,10 @@
 #X connect 27 0 22 0;
 #X connect 27 0 21 0;
 #X restore 42 267 pd hoa.open.hel;
-#X text 4 47 Hoa Library allows musicians and composers to synthesize
-\, transform and render sound fields in a creative and artistic way.
-This library facilitates the understanding and the appropriation of
-key concepts of Ambisonics. Thanks to original graphical interfaces
-a lot of new signal processings are allowed like diffuse sound field
-synthesis \, perspective distorsion or spatial filtering.;
+#X text 4 47 Hoa Library allows musicians and composers to synthesize \, transform and render sound fields in a creative and artistic way. This library facilitates the understanding and the appropriation of key concepts of Ambisonics. Thanks to original graphical interfaces a lot of new signal processings are allowed like diffuse sound field synthesis \, perspective distorsion or spatial filtering.;
 #X obj 6 173 msg.onload 0;
-#X obj 5 156 ui.tab @size 398 36 @receive "(null)" @send "(null)" @pinned
-0 @presetname "ui.tab.0" @background_color 0.93 0.93 0.93 1 @border_color
-0.6 0.6 0.6 1 @label_color 0 0 0 1 @text_color 0 0 0 1 @active_color
-0 0.75 1 1 @hover_color 0.5 0.5 0.5 1 @fontname "Monaco" @fontweight
-"normal" @fontslant "roman" @fontsize 13 @label "(null)" @label_inner
-0 @label_side "top" @label_align "left" @label_valign "top" @label_margins
-0 0 @orientation 0 @toggle 0 @items "2d" "3d" "common" "process" "tutos"
-;
-#X obj 5 201 ui.tab @size 398 264 @receive "(null)" @send "(null)"
-@pinned 0 @presetname "ui.tab.1" @background_color 0.93 0.93 0.93 1
-@border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @text_color 0 0 0
-1 @active_color 0 0.75 1 1 @hover_color 0.5 0.5 0.5 1 @fontname "Monaco"
-@fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)"
-@label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0 @orientation 1 @toggle 0 @items "hoa.fx.convolve~"
-"hoa.fx.delay~" "hoa.fx.freeverb~" "hoa.fx.gain~" "hoa.fx.ringmod~"
-"hoa.fx.mirror~" "hoa.syn.delay~" "hoa.syn.grain~" "hoa.syn.ringmod~"
-;
+#X obj 5 156 ui.tab @size 398 36 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.tab.0" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @text_color 0 0 0 1 @active_color 0 0.75 1 1 @hover_color 0.5 0.5 0.5 1 @fontname "Monaco" @fontweight "normal" @fontslant "roman" @fontsize 13 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @orientation 0 @toggle 0 @items "2d" "3d" "common" "process" "tutos";
+#X obj 5 201 ui.tab @size 398 420 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.tab.1" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @text_color 0 0 0 1 @active_color 0 0.75 1 1 @hover_color 0.5 0.5 0.5 1 @fontname "Monaco" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @orientation 1 @toggle 0 @items "hoa.fx.convolve~" "hoa.fx.delay~" "hoa.fx.freeverb~" "hoa.fx.gain~" "hoa.fx.ringmod~" "hoa.fx.mirror~" "hoa.syn.delay~" "hoa.syn.grain~" "hoa.syn.ringmod~" "hoa.2d.decoder~" "hoa.2d.encoder~" "hoa.2d.map~" "hoa.2d.meter~" "hoa.2d.optim~" "hoa.2d.projector~" "hoa.2d.recomposer~" "hoa.2d.rotate~" "hoa.2d.scope~" "hoa.2d.space" "hoa.2d.wider~" "hoa.2d.exchanger~";
 #X obj 5 202 list.at 1;
 #X connect 2 0 8 0;
 #X connect 6 0 7 0;
