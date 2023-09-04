@@ -51,4 +51,24 @@ TEST_CASE("msg.onclose", "[extension]")
             REQUIRE(t.messagesAt(0).at(1) == Message(LA(2)));
         }
     }
+
+    SECTION("commas")
+    {
+        using M = Message;
+        using ML = std::vector<Message>;
+        const auto c = Atom::comma();
+        const auto bng = Message::makeBang();
+
+        TExt t("msg.onclose", LA(c, 1, c, 2, c, "symbol", "ABC", c, 1, 2, c, 4, 5));
+
+        t->onCloseBang();
+        REQUIRE(t.messagesAt(0) == ML {
+                    bng,
+                    1,
+                    2,
+                    SYM("ABC"),
+                    LF(1, 2),
+                    LF(4, 5)
+                });
+    }
 }

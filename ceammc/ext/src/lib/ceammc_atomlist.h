@@ -47,6 +47,9 @@ public:
     AtomList(AtomList&& l) noexcept;
     AtomList(const Atom& a);
     AtomList(size_t n, t_atom* lst);
+    explicit AtomList(const t_binbuf* b);
+    // prevent call of template constructor on non const pointers
+    explicit AtomList(t_binbuf* b);
     AtomList(const AtomListView& v);
     explicit AtomList(int n, t_atom* lst);
     AtomList(std::initializer_list<t_float> l);
@@ -500,6 +503,21 @@ public:
      * Return list view from specified position till and specified length
      */
     AtomListView view(size_t from, size_t length) const;
+
+    /**
+     * expand dollar arguments via canvas pointer
+     * @param cnv - pointer to canvas
+     * @param def - default value in case of wrong dollar index
+     */
+    AtomList& expandDollarArgs(const t_canvas* cnv, const Atom& def = Atom(0.));
+
+    /**
+     * Convert symbols to Atom primitives:
+     * @example ";" goes to a Atom::SEMICOLON, "," to Atom::COMMA, "$.." to
+     *    Atom::DOLLAR or Atom::DOLLAR_SYMBOL
+     * @return
+     */
+    AtomList restorePrimitives() const;
 
 public:
     static AtomList zeroes(size_t n);

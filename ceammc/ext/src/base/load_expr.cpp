@@ -20,33 +20,40 @@ LoadExpr::LoadExpr(const PdArgs& args)
 {
 }
 
-void LoadExpr::doOutput(const AtomListView& lv)
+void LoadExpr::output()
 {
-    auto res = parseDataList(lv);
-    if (!res) {
-        OBJ_ERR << res.err();
-        return;
-    } else {
-        const auto& msg = res.result();
-
-        if (msg.empty())
-            bangTo(0);
-        else if (msg.isFloat())
-            floatTo(0, msg[0].asT<t_float>()); //
-        else if (msg.size() > 1 && msg[0] == &s_float) // explicit float: float 123
-            floatTo(0, msg[1].asFloat());
-        else if (msg.size() > 1 && msg[0] == &s_symbol) // symbol A B C
-            symbolTo(0, msg[1].asSymbol());
-        else if (msg.size() > 1 && msg[0].isFloat()) // implicit list: 1 2 3
-            listTo(0, msg);
-        else if (msg.size() > 1 && msg[0] == &s_list) // explicit list: list 1 2 3
-            listTo(0, msg.view(1));
-        else if (msg.isData())
-            atomTo(0, msg[0]);
-        else
-            anyTo(0, msg);
+    for (auto& m : messages()) {
+        messageTo(0, m);
     }
 }
+
+//void LoadExpr::doOutput(const AtomListView& lv)
+//{
+//    auto res = parseDataList(lv);
+//    if (!res) {
+//        OBJ_ERR << res.err();
+//        return;
+//    } else {
+//        const auto& msg = res.result();
+
+//        if (msg.empty())
+//            bangTo(0);
+//        else if (msg.isFloat())
+//            floatTo(0, msg[0].asT<t_float>()); //
+//        else if (msg.size() > 1 && msg[0] == &s_float) // explicit float: float 123
+//            floatTo(0, msg[1].asFloat());
+//        else if (msg.size() > 1 && msg[0] == &s_symbol) // symbol A B C
+//            symbolTo(0, msg[1].asSymbol());
+//        else if (msg.size() > 1 && msg[0].isFloat()) // implicit list: 1 2 3
+//            listTo(0, msg);
+//        else if (msg.size() > 1 && msg[0] == &s_list) // explicit list: list 1 2 3
+//            listTo(0, msg.view(1));
+//        else if (msg.isData())
+//            atomTo(0, msg[0]);
+//        else
+//            anyTo(0, msg);
+//    }
+//}
 
 void setup_load_expr()
 {

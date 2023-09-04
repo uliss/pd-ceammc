@@ -136,8 +136,8 @@ int canvas_info_dollarzero(const _glist* c);
  */
 void canvas_mark_dirty(_glist* c, bool value = true);
 
-void canvas_set_current(const _glist* c);
-void canvas_unset_current(const _glist* c);
+bool canvas_set_current(const _glist* c);
+bool canvas_unset_current(const _glist* c);
 _canvasenvironment* canvas_get_env(const _glist* c);
 t_symbol* canvas_expand_dollar(const _glist* c, t_symbol* s, bool check);
 void canvas_send_bang(_glist* c);
@@ -213,6 +213,9 @@ public:
 
     operator bool() { return canvas_ != nullptr; }
 
+    void setCurrent();
+    int dollarZero() const;
+
 public:
     _glist* pd_canvas() { return canvas_; }
     _glist* owner();
@@ -225,10 +228,6 @@ public:
     t_symbol* name();
     void setName(const char* str);
     const char* parentName() const;
-
-public:
-    static _glist* current();
-    static void setCurrent(_glist* c);
 };
 
 std::ostream& operator<<(std::ostream& os, const Canvas& cnv);

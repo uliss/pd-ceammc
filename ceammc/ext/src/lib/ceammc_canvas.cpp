@@ -375,6 +375,19 @@ void Canvas::setupDsp()
         mess0(&canvas_->gl_obj.te_g.g_pd, gensym("dsp"));
 }
 
+void Canvas::setCurrent()
+{
+    canvas_set_current(canvas_);
+}
+
+int Canvas::dollarZero() const
+{
+    if (!canvas_)
+        return -1;
+    else
+        return canvas_info_dollarzero(canvas_);
+}
+
 t_symbol* Canvas::name()
 {
     return canvas_ ? canvas_->gl_name : &s_;
@@ -388,17 +401,6 @@ void Canvas::setName(const char* str)
 const char* Canvas::parentName() const
 {
     return canvas_->gl_owner ? canvas_->gl_owner->gl_name->s_name : "";
-}
-
-_glist* Canvas::current()
-{
-    return canvas_getcurrent();
-}
-
-void Canvas::setCurrent(t_canvas* c)
-{
-    if (c)
-        canvas_setcurrent(c);
 }
 
 AtomListView ceammc::canvas_info_args(const _glist* c)
@@ -604,14 +606,22 @@ t_gobj* canvas_find_last(const _glist* c)
     return z;
 }
 
-void canvas_set_current(const t_canvas* c)
+bool canvas_set_current(const t_canvas* c)
 {
+    if (!c)
+        return false;
+
     ::canvas_setcurrent(const_cast<t_canvas*>(c));
+    return true;
 }
 
-void canvas_unset_current(const t_canvas* c)
+bool canvas_unset_current(const t_canvas* c)
 {
+    if (!c)
+        return false;
+
     ::canvas_unset_current(const_cast<t_canvas*>(c));
+    return true;
 }
 
 t_symbol* canvas_expand_dollar(const _glist* c, t_symbol* s, bool check)

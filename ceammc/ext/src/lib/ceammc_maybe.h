@@ -75,6 +75,11 @@ public:
         return value();
     }
 
+    bool isNull() const
+    {
+        return null_;
+    }
+
     const T& value() const
     {
         if (null_)

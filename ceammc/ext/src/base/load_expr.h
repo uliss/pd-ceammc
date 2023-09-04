@@ -20,7 +20,7 @@ class LoadExpr : public LoadMsg {
 public:
     LoadExpr(const PdArgs& args);
 
-    void doOutput(const AtomListView& lv) override;
+    void output() final;
 };
 
 void setup_load_expr();

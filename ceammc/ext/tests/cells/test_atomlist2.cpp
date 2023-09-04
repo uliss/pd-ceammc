@@ -11,7 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ceammc_format.h"
+#include "ceammc_canvas.h"
+#include "ceammc_pd.h"
 #include "test_common.h"
 
 #include <algorithm>
@@ -875,5 +876,42 @@ TEST_CASE("AtomList2", "[ceammc::AtomList]")
         REQUIRE(LF(1, 2, 3).contains(LF(1, 2)));
         REQUIRE(LF(1, 2, 3).contains(LF(2, 3)));
         REQUIRE(LF(1, 2, 3).contains(LF(1, 2, 3)));
+    }
+
+    SECTION("expandDollarArgs")
+    {
+        CanvasPtr cnv = PureData::instance().createTopCanvas(TEST_DATA_DIR "/patch_cnv_current", LF(100, 200, 300));
+        char buf[32];
+        sprintf(buf, "%d", cnv->dollarZero());
+
+        REQUIRE(L().expandDollarArgs(cnv->pd_canvas()) == L());
+        REQUIRE(LF(1, 2, 3).expandDollarArgs(cnv->pd_canvas()) == LF(1, 2, 3));
+        REQUIRE(AtomList::parseString("$1").expandDollarArgs(cnv->pd_canvas()) == LF(100));
+        REQUIRE(AtomList::parseString("$1-test").expandDollarArgs(cnv->pd_canvas()) == LA("100-test"));
+        REQUIRE(AtomList::parseString("$0").expandDollarArgs(cnv->pd_canvas()) == LA(gensym(buf)));
+        REQUIRE(AtomList::parseString("$2 $3").expandDollarArgs(cnv->pd_canvas()) == LF(200, 300));
+        REQUIRE(AtomList::parseString("$2 $3 $4").expandDollarArgs(cnv->pd_canvas()) == LF(200, 300, 0));
+        REQUIRE(AtomList::parseString("$2 $3 $4").expandDollarArgs(cnv->pd_canvas(), A("???")) == LA(200, 300, "???"));
+    }
+
+    SECTION("restorePrimitives")
+    {
+        const Atom c = Atom::comma();
+        const Atom s = Atom::semicolon();
+        const Atom dz = Atom::dollar(0);
+
+        REQUIRE(L().restorePrimitives() == L());
+        REQUIRE(LF(1, 2, 3).restorePrimitives() == LF(1, 2, 3));
+        REQUIRE(LA("A", "B", "C").restorePrimitives() == LA("A", "B", "C"));
+        REQUIRE(LA("A,B").restorePrimitives() == LA("A,B"));
+        REQUIRE(LA("A , B").restorePrimitives() == LA("A , B"));
+        REQUIRE(LA("A", ",", "B").restorePrimitives() == LA("A", c, "B"));
+        REQUIRE(LA("A;B").restorePrimitives() == LA("A;B"));
+        REQUIRE(LA("A ; B").restorePrimitives() == LA("A ; B"));
+        REQUIRE(LA("A", ";", "B").restorePrimitives() == LA("A", s, "B"));
+        REQUIRE(LA("$N").restorePrimitives() == LA("$N"));
+        REQUIRE(LA("$0").restorePrimitives() == LA(Atom::dollar(0)));
+        REQUIRE(LA("$1").restorePrimitives() == LA(Atom::dollar(1)));
+        REQUIRE(LA("$1-test").restorePrimitives() == LA(Atom::dollarSymbol(gensym("$1-test"))));
     }
 }

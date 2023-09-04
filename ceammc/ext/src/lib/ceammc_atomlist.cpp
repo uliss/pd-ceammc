@@ -54,6 +54,19 @@ AtomList::AtomList(size_t n, t_atom* lst)
     fromPdData(n, lst);
 }
 
+AtomList::AtomList(const t_binbuf* b)
+{
+    if (!b)
+        return;
+
+    fromPdData(binbuf_getnatom(b), binbuf_getvec(b));
+}
+
+AtomList::AtomList(t_binbuf* b)
+    : AtomList(const_cast<const t_binbuf*>(b))
+{
+}
+
 AtomList::AtomList(const AtomListView& v)
 {
     if (v.isNull() || v.empty())
@@ -644,6 +657,23 @@ AtomListView AtomList::view(size_t from, size_t length) const
         auto len = std::min(length, atoms_.size() - from);
         return AtomListView(toPdData() + from, len);
     }
+}
+
+AtomList& AtomList::expandDollarArgs(const t_canvas* cnv, const Atom& def)
+{
+    for (auto& a : atoms_) {
+        auto res = a.expandDollarArgs(cnv, true);
+        a = res ? *res : def;
+    }
+
+    return *this;
+}
+
+AtomList AtomList::restorePrimitives() const
+{
+    AtomList res;
+    view().restorePrimitives(res);
+    return res;
 }
 
 static AtomList listAdd(const AtomList& a, const AtomList& b, ElementAccessFn fn)

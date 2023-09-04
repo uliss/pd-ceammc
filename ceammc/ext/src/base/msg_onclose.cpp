@@ -33,14 +33,6 @@ static void msg_onclose_menuclose(t_canvas* x, t_floatarg f)
     pd::message_to((t_pd*)x, gensym(ORIG_MENUCLOSE), Atom(f));
 }
 
-static bool is_comma(const Atom& a)
-{
-    return a.isComma()
-        || (a.isSymbol()
-            && a.asT<t_symbol*>()->s_name[0] == ','
-            && a.asT<t_symbol*>()->s_name[1] == '\0');
-}
-
 MsgOnClose::MsgOnClose(const PdArgs& args)
     : BaseObject(args)
 {
@@ -48,22 +40,13 @@ MsgOnClose::MsgOnClose(const PdArgs& args)
 
     bindReceive(gensym(MENUCLOSE));
 
-    auto cnv = canvas();
-    auto& bargs = this->args();
-    AtomList m;
-
-    for (size_t i = 0; i < bargs.size(); i++) {
-        auto& a = bargs[i];
-        if (is_comma(a)) {
-            msg_.push_back(Message::makeTyped(m));
-            m.clear();
-        } else {
-            m.append(a.expandDollarArgs(cnv));
-        }
-    }
-
-    if (!m.empty())
-        msg_.push_back(Message::makeTyped(m));
+    AtomList raw_args;
+    binbufArgs().restorePrimitives(raw_args);
+    raw_args.expandDollarArgs(canvas());
+    raw_args.view().split(Atom::comma(),
+        [this](const AtomListView& lv) {
+            msg_.push_back(Message::makeTyped(lv));
+        });
 }
 
 void MsgOnClose::onCloseBang()
