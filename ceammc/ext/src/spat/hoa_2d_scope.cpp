@@ -263,8 +263,8 @@ void Hoa2dScope::drawHarmonics()
 
 void Hoa2dScope::setup()
 {
-    static t_symbol* SYM_REFRESH = gensym("refresh");
-    static t_symbol* SYM_MSEC = gensym("msec");
+    auto SYM_REFRESH = gensym("refresh");
+    auto SYM_MSEC = gensym("msec");
 
     UIObjectFactory<Hoa2dScope> obj("hoa.scope~", EBOX_IGNORELOCKCLICK | EBOX_GROWLINK);
     obj.setDefaultSize(120, 120);
