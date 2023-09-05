@@ -533,7 +533,11 @@ public:
         if (!lv.empty())
             LIB_ERR << "no arguments required for alias property: " << name();
 
-        return ptr_->setValue(val_);
+        auto res = ptr_->setValue(val_);
+        if (res)
+            ptr_->callSuccessFn();
+
+        return res;
     }
 
     AtomList get() const override { return listFrom(bool(ptr_->value() == val_)); }
