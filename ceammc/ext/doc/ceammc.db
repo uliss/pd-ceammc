@@ -360,7 +360,7 @@ list.insert		...		.
 list.integrator		.		.
 list.last		.		.
 list.length,list.size		.		.
-list.map		..		.
+list.map		..		..
 list.max		.		.
 list.mean,list.average		.		.
 list.min		.		.

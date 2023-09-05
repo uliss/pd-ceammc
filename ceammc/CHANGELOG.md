@@ -61,6 +61,7 @@
   - metro.seq - second inlet added to set interval and third inlet to set pattern
 - new object outlets:
   - dyn.comp~ - second outlet added for compression level output
+  - list.map - second outlet added for missing keys
 - new object methods:
   - euclid method added to ui.radio to set euclid pattern when in checklist mode
   - hexbeat method added to ui.radio to set hexbeat pattern when in checklist mode
@@ -89,6 +90,7 @@
   - @attack, @decay, @sustain, @release added to live.capture~ for controlling loop envelope
   - @accel and @curve added to seq.nbangs for accelerated sequences
   - @div added to seq.nbangs, seq.matrix, seq.bangs, seq.toggles and sequencer for beat division
+  - @def added to list.map for replacing missing keys with default values
 - new init argument functions:
   - hexbeat(HEX) - expand hex to list of 1 and 0
   - ones(N) - list of length N, filled with 1
