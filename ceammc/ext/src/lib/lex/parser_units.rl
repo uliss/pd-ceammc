@@ -1,6 +1,8 @@
 # include "parser_units.h"
 # include "parser_numeric.h"
+# include "ceammc_convert.h"
 # include "ceammc_log.h"
+# include "fmt/core.h"
 
 # include <cstdint>
 # include <cstring>
@@ -177,6 +179,90 @@ bool UnitTypeFullMatch::parse(const Atom& a)
         return true;
     } else
         return false;
+}
+
+%%{
+    machine parse_angles;
+    include units_common "ragel_units.rl";
+
+    unit = unit_rad | unit_deg;
+    angle_float = num_float | (num_int %{ ragel_num.vdouble = ragel_num.vint;});
+    main := angle_float unit?;
+
+    write data;
+}%%
+
+using AngleUnit = std::pair<float, parser::AtomType>;
+
+Either<float> parse_angle_as(const Atom& a, AtomType type)
+{
+    if (a.isFloat())
+        return a.asT<t_float>();
+    else if(a.isSymbol()) {
+        auto res = parse_angle(a.asT<t_symbol*>()->s_name);
+        if (res.isOk()) {
+            auto& x = res.value();
+            switch (x.second) {
+            case TYPE_RADIAN:
+                if (type == TYPE_DEGREE)
+                    return convert::rad2degree(x.first);
+                else
+                    return x.first;
+            case TYPE_DEGREE:
+                if (type == TYPE_RADIAN)
+                    return convert::degree2rad(x.first);
+                else
+                    return x.first;
+            case TYPE_INT:
+            case TYPE_FLOAT:
+                return x.first;
+            default:
+                return RuntimeError(fmt::format("invalid unit type: {}", (int)x.second));
+            }
+        } else
+            return res.error();
+    } else
+        return RuntimeError("invalid atom type");
+}
+
+Either<AngleUnit> parse_angle(const Atom &a, AtomType def)
+{
+    if (a.isFloat())
+        return AngleUnit(a.asT<t_float>(), def);
+    else if(a.isSymbol())
+        return parse_angle(a.asT<t_symbol*>()->s_name);
+    else
+        return RuntimeError("invalid atom type");
+}
+
+Either<AngleUnit> parse_angle(const char* str)
+{
+    if (!str)
+        return RuntimeError("NULL string pointer");
+
+    const auto len = strlen(str);
+    if (len == 0)
+        return RuntimeError("empty string");
+
+    int cs = 0;
+    const char* p = str;
+    const char* pe = p + len;
+    const char* eof = pe;
+    DECLARE_RAGEL_COMMON_VARS;
+    DECLARE_RAGEL_NUMERIC_VARS;
+
+    %% write init;
+    %% write exec;
+
+    if (cs >= %%{ write first_final; }%%) {
+        if (ragel_type == TYPE_INT)
+            return AngleUnit(ragel_num.getInteger(), TYPE_FLOAT);
+        else if (ragel_type == TYPE_FLOAT)
+            return AngleUnit(ragel_num.getFloat(), ragel_type);
+        else
+            return AngleUnit(ragel_num.getFloat(), ragel_type);
+    } else
+        return RuntimeError(fmt::format("can't parse string: '{}'", str));
 }
 
 }

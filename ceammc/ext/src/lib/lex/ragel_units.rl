@@ -12,7 +12,7 @@ unit_bpm  =  ('bpm')          %{ragel_type = TYPE_BPM;};
 unit_cent =  ('c' 'ent'?)     %{ragel_type = TYPE_CENT;};
 unit_day  =  ('d' 'ay'?)      %{ragel_type = TYPE_DAY;};
 unit_dbfs =  ('db' 'fs'?)     %{ragel_type = TYPE_DB;};
-unit_deg  =  ('deg')          %{ragel_type = TYPE_DEGREE;};
+unit_deg  =  ('deg'|'°')      %{ragel_type = TYPE_DEGREE;};
 unit_herz =  ([hH]'z')        %{ragel_type = TYPE_HZ;};
 unit_hour =  ('h' 'our'?)     %{ragel_type = TYPE_HOUR;};
 unit_min  =  ('m' 'in'?)      %{ragel_type = TYPE_MIN;};
