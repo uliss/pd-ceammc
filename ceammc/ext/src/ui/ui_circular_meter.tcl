@@ -48,10 +48,6 @@ proc create_crms { id cnv w h cold tepid warm hot over nch offset cw angles data
     set area_ht  [expr $w-(4*$LED_PAD)]
     set led_len  [expr $area_ht/5.0]
 
-    set x0 $LED_PAD
-    set y0 $LED_PAD
-    set x1 [expr $w-2*$LED_PAD]
-    set y1 [expr $h-2*$LED_PAD]
     set radius [expr $area_ht/2]
     set seg_off_deg [expr abs(([lindex $angles 1]-[lindex $angles 0])/2)]
     set seg_off_rad [expr $seg_off_deg*$rad]
@@ -63,7 +59,7 @@ proc create_crms { id cnv w h cold tepid warm hot over nch offset cw angles data
     # draw charts
     for {set ch 0} {$ch < $nch} {incr ch} {
         # RMS
-        set rms [lindex $data [expr $ch*3]]
+        set rms [lindex $data [expr $ch*2]]
         if {$rms <= -$FS} { continue }
 
         set idx   [expr ($ch-$offset)%$nch]
@@ -80,7 +76,7 @@ proc create_crms { id cnv w h cold tepid warm hot over nch offset cw angles data
         draw_pie $cnv $w $h $t 0 $led_db $led_len $a $segm $cold
 
         # peak
-        set peak [lindex $data [expr $ch*3+1]]
+        set peak [lindex $data [expr $ch*2+1]]
         if {$peak < -$FS} { continue }
 
         set c  [mmeter_db2color $peak $cold $tepid $warm $hot $over]
@@ -158,14 +154,14 @@ proc widget_tag {id} { return "tag_$id" }
     wm title . "ui.cm~ test"
     wm geometry . 840x450
     set c0 [tk::canvas .canvas0 -width 200 -height 200 -background white]
-    ui::cm::create id $c0 200 200 grey green yellow orange red black 5 0 0 [list 0 72 144 180 270] [list -3 0 0 -12 0 0 -21 0 0 -31 0 0 0 0 0]
+    ui::cm::create id $c0 200 200 grey green yellow orange red black 5 0 0 [list 0 72 144 180 270] [list -3 0 -12 -10 -21 -15 -31 -25 0 3]
     set c1 [tk::canvas .canvas1 -width 200 -height 200 -background white]
-    ui::cm::create id $c1 200 200 grey green yellow orange red black 5 -1 0 [list 0 72 144 180 270] [list -3 0 0 -12 0 0 -21 0 0 -31 0 0 0 0 0]
+    ui::cm::create id $c1 200 200 grey green yellow orange red black 5 -1 0 [list 0 72 144 180 270] [list -3 0 -12 -10 -21 -15 -31 -25 0 3]
 
     set c2 [tk::canvas .canvas2 -width 200 -height 200 -background white]
-    ui::cm::create id $c2 200 200 grey green yellow orange red black 5 0 1 [list 0 72 144 180 270] [list -3 1 0 -12 -10 0 -21 -15 0 -31 -25 0 0 3 0]
+    ui::cm::create id $c2 200 200 grey green yellow orange red black 5 0 1 [list 0 72 144 180 270] [list -3 0 -12 -10 -21 -15 -31 -25 0 3]
     set c3 [tk::canvas .canvas3 -width 200 -height 200 -background white]
-    ui::cm::create id $c3 200 200 grey green yellow orange red black 5 1 1 [list 0 72 144 180 270] [list -3 1 0 -12 -10 0 -21 -15 0 -31 -25 0 0 3 0]
+    ui::cm::create id $c3 200 200 grey green yellow orange red black 5 1 1 [list 0 72 144 180 270] [list -3 1 -12 -10 -21 -15 -31 -25 0 3]
 
     pack $c0 $c1 -side left
     pack $c2 $c3 -side left

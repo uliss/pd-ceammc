@@ -14,6 +14,7 @@
 #include "ui_circular_meter.h"
 #include "ceammc_convert.h"
 #include "ceammc_ui.h"
+#include "fmt/core.h"
 #include "ui_circular_meter.tcl.h"
 
 #include <boost/container/static_vector.hpp>
@@ -88,16 +89,25 @@ void UICircularMeter::paint()
     if (prop_angles.size() != prop_nchan)
         propSetAngles(prop_angles);
 
-    sys_vgui(" [list ");
-    for (int i = 0; i < prop_nchan; i++) {
-        sys_vgui(" %0.1f ", out_angles_[i]);
-    }
-    sys_vgui("] [list ");
-    for (int i = 0; i < prop_nchan; i++) {
-        sys_vgui(" %d %d %d", (int)out_rms_[i], (int)out_peak_[i], (int)out_over_[i]);
-    }
+    char buffer[MAXPDSTRING];
 
-    sys_vgui("]\n");
+    // write angles
+    auto p = fmt::format_to(buffer, " [list");
+    for (int i = 0; i < prop_nchan; i++)
+        p = fmt::format_to(p, " {:.1f}", out_angles_[i]);
+
+    p[0] = ']';
+    p[1] = '\0';
+    sys_vgui("%s", buffer);
+
+    // write RMS/peak data
+    p = fmt::format_to(buffer, " [list");
+    for (int i = 0; i < prop_nchan; i++)
+        p = fmt::format_to(p, " {} {}", (int)out_rms_[i], (int)out_peak_[i]);
+
+    p[0] = ']';
+    p[2] = '\0';
+    sys_vgui("%s\n", buffer);
 }
 
 void UICircularMeter::dspInit()
@@ -150,10 +160,6 @@ void UICircularMeter::propSetNumChan(t_int n)
 void UICircularMeter::propSetOffset(t_int off)
 {
     prop_offset = clip<int>(off, MIN_OFFSET, MAX_OFFSET);
-    auto state = canvas_suspend_dsp();
-    eobj_resize_inputs(asEObj(), prop_nchan);
-    canvas_update_dsp();
-    canvas_resume_dsp(state);
 }
 
 void UICircularMeter::propSetAngles(const AtomListView& lv)
