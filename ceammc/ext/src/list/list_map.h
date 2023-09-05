@@ -3,11 +3,11 @@
 
 #include "ceammc_data.h"
 #include "ceammc_object.h"
-#include "datatype_property.h"
 using namespace ceammc;
 
 class ListMap : public BaseObject {
     DictAtom dict_;
+    ListProperty* def_ { nullptr };
 
 public:
     ListMap(const PdArgs& args);
