@@ -25,6 +25,14 @@
             <par>hoa.process~ is a kind of poly~ object particulary suitable for multichannel
             ambisonic or plane wave processing. Create a patch/effect/operator, then parallelize it
             with the hoa.process~</par>
+            <par>Target selector examples:</par>
+            <par>#* send to all instances</par>
+            <par>#: send list values spreaded amoung all instances, one value per instance</par>
+            <par>#:2 send list values spreaded amoung instances with id&gt;=2</par>
+            <par>#1 send to second instance</par>
+            <par>#&lt;2 send to instance #0 and #1</par>
+            <par>#&gt;2 send to instances with id&gt;2</par>
+            <par>#2-4 send to instances with id in [2, 4] range</par>
             <a href="hoa/hoa.2d.process~-help.pd">CICM documentation</a>
         </info>
         <mouse>
