@@ -32,10 +32,10 @@
             starting from 0</property>
             <property name="@order" type="int" access="readonly" default="0">order of parent
             hoa.process~</property>
-            <property name="@pmode" type="symbol" enum="2d 3d" access="readonly">amibisonic
-            mode</property>
-            <property name="@ptype" type="symbol" enum="harmonics planewaves" access="readonly">
-            amibisonic type</property>
+            <property name="@pmode" type="symbol" enum="2d 3d" access="readonly" default="">
+            amibisonic mode</property>
+            <property name="@ptype" type="symbol" enum="harmonics planewaves" access="readonly"
+            default="">amibisonic type</property>
             <property name="@total" type="int" access="readonly" default="0">total number of
             hoa.process~ instances</property>
         </properties>

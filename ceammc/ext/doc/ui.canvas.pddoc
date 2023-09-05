@@ -147,13 +147,15 @@
             <method name="font_size">set current font size 
             <param name="X" type="float" required="true">font size</param></method>
             <!-- icon -->
-            <method name="icon">draw named icon. Pass ? as single argument to dump all icons to Pd window.
+            <method name="icon">draw named icon. Pass ? as single argument to dump all icons to Pd
+            window. 
             <param name="X" type="atom" required="true">left-coord in pixel or percents of
             width</param>
             <param name="Y" type="atom" required="true">top-coord in pixel or percents of
             height</param>
             <param name="SIZE" type="float" required="true">font size</param>
-            <param name="ICON" type="symbol" required="true">icon name. See https://fonts.google.com/icons for full list</param></method>
+            <param name="ICON" type="symbol" required="true">icon name. See
+            https://fonts.google.com/icons for full list</param></method>
             <!-- image -->
             <method name="image">draws image. Note: only PNG images are supported! 
             <param name="X" type="atom" required="true">left-coord in pixel or percents of
@@ -185,7 +187,7 @@
             <param name="Y" type="atom" required="true">y-coord in pixels or percents of
             height</param></method>
             <!-- width -->
-            <method name="width">set stroke width
+            <method name="width">set stroke width 
             <param name="WIDTH" type="float" required="true">line width</param></method>
             <!-- move_by -->
             <method name="move_by">move current drawing point by relative offset 
@@ -200,21 +202,27 @@
             <param name="Y" type="atom" required="true">y-coord in pixels or percents of
             height</param></method>
             <!-- matrix -->
-            <method name="matrix">set 2D transformation matrix
-            <param name="XX" type="atom" required="true">xx component of the affine transformation</param>
-            <param name="YX" type="atom" required="true">yx component of the affine transformation</param>
-            <param name="XY" type="atom" required="true">xy component of the affine transformation</param>
-            <param name="YY" type="atom" required="true">yy component of the affine transformation</param>
-            <param name="X0" type="atom" required="true">x component of the affine transformation</param>
-            <param name="Y0" type="atom" required="true">y component of the affine transformation</param></method>
+            <method name="matrix">set 2D transformation matrix 
+            <param name="XX" type="atom" required="true">xx component of the affine
+            transformation</param>
+            <param name="YX" type="atom" required="true">yx component of the affine
+            transformation</param>
+            <param name="XY" type="atom" required="true">xy component of the affine
+            transformation</param>
+            <param name="YY" type="atom" required="true">yy component of the affine
+            transformation</param>
+            <param name="X0" type="atom" required="true">x component of the affine
+            transformation</param>
+            <param name="Y0" type="atom" required="true">y component of the affine
+            transformation</param></method>
             <!-- musicxml -->
-            <method name="musicxml">render MusicXML file
+            <method name="musicxml">render MusicXML file 
             <param name="X" type="atom" required="true">x-coord in pixels or percents of
             width</param>
             <param name="Y" type="atom" required="true">y-coord in pixels or percents of
             height</param>
-            <param name="FILE" type="symbol" required="true">absolute or relative to patch filepath of MusicXML file</param>
-            </method>
+            <param name="FILE" type="symbol" required="true">absolute or relative to patch filepath
+            of MusicXML file</param></method>
             <!-- new_path -->
             <method name="new_path">starts new path</method>
             <!-- new_subpath -->

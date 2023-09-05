@@ -22,7 +22,8 @@
         <properties>
             <property name="@dict" type="list" default="[]">mapping dictionary, the syntax is [KEY:
             VALUES...], for example: [1: "one" 2: "two" k: "map values"]</property>
-            <property name="@def" type="list" default="">default value to replace missing keys. If empty (by default), missing keys are ignored.</property>
+            <property name="@def" type="list" default="">default value to replace missing keys. If
+            empty (by default), missing keys are ignored.</property>
         </properties>
         <inlets>
             <inlet>
