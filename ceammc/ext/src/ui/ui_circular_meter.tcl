@@ -34,7 +34,7 @@ proc draw_pie {cnv w h tag n db led_size a0 a1 color} {
 
 # offset - channel offset
 # cw - clockwise
-proc create_crms { id cnv w h cold tepid warm hot over nch offset cw angles data } {
+proc create_crms { id cnv w h cold tepid warm hot over nch offset cw rot angles data } {
     variable FS
     variable LED_PAD
     variable CHAN_CIRCLE
@@ -52,6 +52,8 @@ proc create_crms { id cnv w h cold tepid warm hot over nch offset cw angles data
     # first segments arc angle
     set seg0_deg [expr abs(([lindex $angles 1]-[lindex $angles 0]))]
     set seg0_rad [expr $seg0_deg*$rad]
+    set rot_deg  [expr 90-($seg0_deg/2)+$rot]
+    set rot_rad  [expr $rot_deg*$rad]
 
     # box center x/y
     set cx [expr $w/2]
@@ -74,7 +76,7 @@ proc create_crms { id cnv w h cold tepid warm hot over nch offset cw angles data
         # segment angle
         set segm [expr $end_angle-$angle]
         # chart angle
-        set angle [expr $angle+90-($seg0_deg/2)]
+        set angle [expr $angle+$rot_deg]
 
         if {$rms >= -$FS} {
             set led_db [expr ($FS+$rms)/9.0]
@@ -114,7 +116,7 @@ proc create_crms { id cnv w h cold tepid warm hot over nch offset cw angles data
         set angle [expr [lindex $angles $idx]*$rad]
         if {[expr $idx+1]<$nch} { set a1 [expr [lindex $angles [expr $idx+1]]*$rad] } { set a1 $pi2 }
         set segm [expr $a1-$angle]
-        set a [expr $angle-($seg0_rad/2)+$half_pi]
+        set a [expr $angle+$rot_rad]
 
         set x1 [expr $cx+$radius*cos($a)]
         set y1 [expr $cy-$radius*sin($a)]
@@ -146,8 +148,8 @@ proc delete {id cnv} {
 # offset - channel offset (int)
 # cw - clockwise or counter clockwise
 # args - data
-proc create {id cnv w h bdcolor cold tepid warm hot over nch offset cw angles data} {
-    create_crms  $id $cnv $w $h $cold $tepid $warm $hot $over $nch $offset $cw $angles $data
+proc create {id cnv w h bdcolor cold tepid warm hot over nch offset cw rot angles data} {
+    create_crms  $id $cnv $w $h $cold $tepid $warm $hot $over $nch $offset $cw $rot $angles $data
 }
 
 }
@@ -162,23 +164,24 @@ proc widget_tag {id} { return "tag_$id" }
     set angles [list 0 72 144 180 270]
     set data [list 0 3 -3 0 -12 -10 -21 -15 -31 -25]
     set offset -1
+    set rot 36
 
     wm title . "ui.cm~ test"
     wm geometry . 840x450
     set c0 [tk::canvas .canvas0 -width 200 -height 200 -background white]
-    $c0 create text 10 10 -text "cw:0,offset:0" -fill black -anchor w
-    ui::cm::create id $c0 200 200 grey green yellow orange red black 5 0 0  $angles $data
+    $c0 create text 10 10 -text "cw:0,offset:0,rot=$rot" -fill black -anchor w
+    ui::cm::create id $c0 200 200 grey green yellow orange red black 5 0 0 $rot $angles $data
     set c1 [tk::canvas .canvas1 -width 200 -height 200 -background white]
-    $c1 create text 10 10 -text "cw:0,offset:-1" -fill black -anchor w
-    ui::cm::create id $c1 200 200 grey green yellow orange red black 5 $offset 0 $angles $data
+    $c1 create text 10 10 -text "cw:0,offset:-1,rot=$rot" -fill black -anchor w
+    ui::cm::create id $c1 200 200 grey green yellow orange red black 5 $offset 0 $rot $angles $data
 
 
     set c2 [tk::canvas .canvas2 -width 200 -height 200 -background white]
-    $c2 create text 10 10 -text "cw:1,offset:0" -fill black -anchor w
-    ui::cm::create id $c2 200 200 grey green yellow orange red black 5 0 1  $angles $data
+    $c2 create text 10 10 -text "cw:1,offset:0,rot=$rot" -fill black -anchor w
+    ui::cm::create id $c2 200 200 grey green yellow orange red black 5 0 1 $rot $angles $data
     set c3 [tk::canvas .canvas3 -width 200 -height 200 -background white]
-    $c3 create text 10 10 -text "cw:1,offset:-1" -fill black -anchor w
-    ui::cm::create id $c3 200 200 grey green yellow orange red black 5 $offset 1 $angles $data
+    $c3 create text 10 10 -text "cw:1,offset:-1,rot=$rot" -fill black -anchor w
+    ui::cm::create id $c3 200 200 grey green yellow orange red black 5 $offset 1 $rot $angles $data
 
     pack $c0 $c1 -side left
     pack $c2 $c3 -side left

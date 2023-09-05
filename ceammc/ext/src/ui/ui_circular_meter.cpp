@@ -17,8 +17,6 @@
 #include "fmt/core.h"
 #include "ui_circular_meter.tcl.h"
 
-#include <boost/container/static_vector.hpp>
-
 constexpr t_float MIN_DB_VALUE = -90;
 constexpr int MIN_UI_DB_VALUE = -50;
 constexpr int DEF_REFRESH_MS = 100;
@@ -75,7 +73,7 @@ void UICircularMeter::paint()
     sys_vgui("ui::cm::create #%x %s "
              "%d %d "
              "#%6.6x #%6.6x #%6.6x #%6.6x #%6.6x #%6.6x "
-             "%d %d %d",
+             "%d %d %d %d",
         asEBox(), asEBox()->b_drawing_id->s_name,
         (int)width(), (int)height(),
         rgba_to_hex_int(prop_color_border),
@@ -84,7 +82,7 @@ void UICircularMeter::paint()
         rgba_to_hex_int(prop_color_warm),
         rgba_to_hex_int(prop_color_hot),
         rgba_to_hex_int(prop_color_over),
-        prop_nchan, prop_offset, prop_clockwise);
+        prop_nchan, prop_offset, prop_clockwise, prop_rotation);
 
     if (prop_angles.size() != prop_nchan)
         propSetAngles(prop_angles);
@@ -272,6 +270,8 @@ void UICircularMeter::setup()
     obj.setPropertyAccessor("offset", &UICircularMeter::propOffset, &UICircularMeter::propSetOffset);
 
     obj.addBoolProperty("clockwise", _("Clockwise"), false, &UICircularMeter::prop_clockwise, _("Main"));
+    obj.addIntProperty("rotation", _("Rotation"), 0, &UICircularMeter::prop_rotation, _("Main"));
+    obj.setPropertyUnits("rotation", "deg");
 
     obj.addProperty("angles", &UICircularMeter::propAngles, &UICircularMeter::propSetAngles);
     obj.showProperty("angles");
