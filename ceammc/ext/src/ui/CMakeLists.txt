@@ -6,6 +6,19 @@ macro(ceammc_ui_external name)
     list(APPEND UI_SOURCES "ui_${name}.cpp")
 endmacro()
 
+add_custom_target(ceammc_ui_tcl SOURCES)
+
+function(tcl_ui_deps tcl_file)
+    add_custom_command(
+        OUTPUT  ${tcl_file}.h
+        COMMAND $<TARGET_FILE:tcl2cxx> ${CMAKE_CURRENT_SOURCE_DIR}/${tcl_file} > ${CMAKE_CURRENT_SOURCE_DIR}/${tcl_file}.h
+        DEPENDS ${tcl_nui.tcl}
+        VERBATIM)
+    add_custom_target(${tcl_file}_h DEPENDS ${tcl_file}.h)
+    target_sources(ceammc_ui_tcl PRIVATE ${tcl_file})
+#    add_dependencies(ceammc_ui ${tcl_file}_h)
+endfunction()
+
 set(NUI_SOURCES nui_bang.cpp nui_toggle.cpp)
 
 add_subdirectory(touchosc)
@@ -14,6 +27,7 @@ ceammc_ui_external(arrayview)
 ceammc_ui_external(bang)
 ceammc_ui_external(button)
 ceammc_ui_external(canvas)
+ceammc_ui_external(circular_meter)
 ceammc_ui_external(colorpanel)
 ceammc_ui_external(display)
 ceammc_ui_external(dsp)
@@ -55,6 +69,8 @@ ceammc_ui_external(touchosc)
 add_library(ceammc_ui STATIC mod_ui.cpp ${NUI_SOURCES} ${UI_SOURCES})
 
 target_link_libraries(ceammc_ui PRIVATE ceammc_nui ceammc_env http_lib readerwriterqueue touchosc)
+
+tcl_ui_deps(ui_circular_meter.tcl)
 
 find_package(Rust)
 if(Rust_FOUND)
