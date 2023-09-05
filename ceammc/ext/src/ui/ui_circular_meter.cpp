@@ -90,7 +90,7 @@ void UICircularMeter::paint()
 
     sys_vgui(" [list ");
     for (int i = 0; i < prop_nchan; i++) {
-        sys_vgui(" %0.1f ", prop_angles.floatAt(i, 0));
+        sys_vgui(" %0.1f ", out_angles_[i]);
     }
     sys_vgui("] [list ");
     for (int i = 0; i < prop_nchan; i++) {
@@ -139,6 +139,8 @@ void UICircularMeter::dspProcess(t_sample** ins, long n_ins, t_sample** outs, lo
 void UICircularMeter::propSetNumChan(t_int n)
 {
     prop_nchan = clip<int>(n, MIN_NCHAN, MAX_NCHAN);
+    propSetAngles({});
+
     auto state = canvas_suspend_dsp();
     eobj_resize_inputs(asEObj(), prop_nchan);
     canvas_update_dsp();
@@ -156,36 +158,42 @@ void UICircularMeter::propSetOffset(t_int off)
 
 void UICircularMeter::propSetAngles(const AtomListView& lv)
 {
-    if (!lv.allOf([](const Atom& a) {
-            if (!a.isFloat())
-                return false;
+    if (lv.empty() || lv == s_null) {
+        for (int i = 0; i < prop_nchan; i++)
+            out_angles_[i] = (360.f * i) / prop_nchan;
 
-            auto f = a.asT<t_float>();
-            return f >= -360 && f <= 360;
-        })) {
-        UI_ERR << "invalid angles: " << lv;
-        return;
-    }
+        prop_angles = lv;
+    } else {
+        if (!lv.allOf([](const Atom& a) {
+                if (!a.isFloat())
+                    return false;
 
-    using StaticAngleList = boost::container::static_vector<float, MAX_NCHAN>;
-    StaticAngleList lst;
-    for (auto& a : lv)
-        lst.push_back(std::fmod(a.asT<t_float>() + 360, 360));
-
-    std::sort(lst.begin(), lst.end());
-    int left = prop_nchan - int(lst.size());
-    if (left > 0) {
-        auto start = lst.empty() ? 0 : lst.back();
-        auto segm = (360.f - start) / (left + 1);
-        for (int i = 1; i <= left; i++) {
-            lst.push_back(start + segm * i);
+                auto f = a.asT<t_float>();
+                return f >= -360 && f <= 360;
+            })) {
+            UI_ERR << "invalid angles: " << lv;
+            return;
         }
-    }
 
-    lst.resize(prop_nchan);
-    prop_angles.clear();
-    for (auto f : lst)
-        prop_angles.push_back(f);
+        const auto N = std::min<size_t>(lv.size(), prop_nchan);
+        for (size_t i = 0; i < N; i++)
+            out_angles_[i] = std::fmod(lv[i].asT<t_float>() + 360, 360);
+
+        std::sort(out_angles_.begin(), out_angles_.begin() + N);
+
+        // auto cacl last values
+        if (prop_nchan > N) {
+            auto left = prop_nchan - N;
+            auto start = out_angles_[N - 1];
+            auto segm = (360.f - start) / (left + 1);
+            for (size_t i = 0; i < left; i++)
+                out_angles_[N + i] = start + segm * (i + 1);
+        }
+
+        prop_angles.clear();
+        for (int i = 0; i < prop_nchan; i++)
+            prop_angles.append(out_angles_[i]);
+    }
 }
 
 void UICircularMeter::calc()

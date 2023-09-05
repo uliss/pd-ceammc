@@ -50,6 +50,7 @@ private:
     std::array<std::uint16_t, MAX_NCHAN> out_over_;
     std::array<std::int8_t, MAX_NCHAN> out_peak_;
     std::array<std::int8_t, MAX_NCHAN> out_rms_;
+    std::array<float, MAX_NCHAN> out_angles_;
 
     size_t num_samples_;
     bool start_clock_;
