@@ -2632,13 +2632,13 @@ bool UnitTypeFullMatch::parse(const Atom& a)
 
 #line 2634 "lex/parser_units.cpp"
 static const int parse_angles_start = 1;
-static const int parse_angles_first_final = 9;
+static const int parse_angles_first_final = 11;
 static const int parse_angles_error = 0;
 
 static const int parse_angles_en_main = 1;
 
 
-#line 193 "lex/parser_units.rl"
+#line 194 "lex/parser_units.rl"
 
 
 using AngleUnit = std::pair<float, parser::AtomType>;
@@ -2706,7 +2706,7 @@ Either<AngleUnit> parse_angle(const char* str)
 	cs = parse_angles_start;
 	}
 
-#line 255 "lex/parser_units.rl"
+#line 256 "lex/parser_units.rl"
     
 #line 2712 "lex/parser_units.cpp"
 	{
@@ -2743,30 +2743,32 @@ case 2:
 tr2:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st9;
-st9:
+	goto st11;
+st11:
 	if ( ++p == pe )
-		goto _test_eof9;
-case 9:
+		goto _test_eof11;
+case 11:
 #line 2752 "lex/parser_units.cpp"
 	switch( (*p) ) {
-		case -62: goto tr9;
-		case 46: goto tr10;
-		case 100: goto tr11;
-		case 114: goto tr12;
+		case -62: goto tr10;
+		case -49: goto tr11;
+		case 46: goto tr12;
+		case 100: goto tr13;
+		case 112: goto tr14;
+		case 114: goto tr15;
 	}
 	goto st0;
-tr9:
+tr10:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 189 "lex/parser_units.rl"
+#line 190 "lex/parser_units.rl"
 	{ ragel_num.vdouble = ragel_num.vint;}
 	goto st3;
-tr13:
+tr16:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -2779,16 +2781,48 @@ st3:
 	if ( ++p == pe )
 		goto _test_eof3;
 case 3:
-#line 2783 "lex/parser_units.cpp"
+#line 2785 "lex/parser_units.cpp"
 	if ( (*p) == -80 )
-		goto st10;
+		goto st12;
 	goto st0;
-st10:
+st12:
 	if ( ++p == pe )
-		goto _test_eof10;
-case 10:
+		goto _test_eof12;
+case 12:
 	goto st0;
-tr10:
+tr11:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 190 "lex/parser_units.rl"
+	{ ragel_num.vdouble = ragel_num.vint;}
+	goto st4;
+tr17:
+#line 58 "lex/ragel_numeric.rl"
+	{
+        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+        ragel_type = TYPE_FLOAT;
+        ragel_cat  = CAT_NUMBER;
+    }
+	goto st4;
+st4:
+	if ( ++p == pe )
+		goto _test_eof4;
+case 4:
+#line 2817 "lex/parser_units.cpp"
+	if ( (*p) == -128 )
+		goto st13;
+	goto st0;
+st13:
+	if ( ++p == pe )
+		goto _test_eof13;
+case 13:
+	goto st0;
+tr12:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -2800,80 +2834,48 @@ tr10:
         ragel_num.ratio.num = 0;
         ragel_num.ratio.den = 1;
     }
-	goto st4;
-st4:
-	if ( ++p == pe )
-		goto _test_eof4;
-case 4:
-#line 2809 "lex/parser_units.cpp"
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr5;
-	goto st0;
-tr5:
-#line 54 "lex/ragel_numeric.rl"
-	{
-        (ragel_num.ratio.num *= 10) += ((*p) - '0');
-        ragel_num.ratio.den *= 10;
-    }
-	goto st11;
-st11:
-	if ( ++p == pe )
-		goto _test_eof11;
-case 11:
-#line 2824 "lex/parser_units.cpp"
-	switch( (*p) ) {
-		case -62: goto tr13;
-		case 100: goto tr14;
-		case 114: goto tr15;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr5;
-	goto st0;
-tr11:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 189 "lex/parser_units.rl"
-	{ ragel_num.vdouble = ragel_num.vint;}
-	goto st5;
-tr14:
-#line 58 "lex/ragel_numeric.rl"
-	{
-        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
-        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
-        ragel_type = TYPE_FLOAT;
-        ragel_cat  = CAT_NUMBER;
-    }
 	goto st5;
 st5:
 	if ( ++p == pe )
 		goto _test_eof5;
 case 5:
-#line 2856 "lex/parser_units.cpp"
-	if ( (*p) == 101 )
-		goto st6;
+#line 2843 "lex/parser_units.cpp"
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr6;
 	goto st0;
-st6:
+tr6:
+#line 54 "lex/ragel_numeric.rl"
+	{
+        (ragel_num.ratio.num *= 10) += ((*p) - '0');
+        ragel_num.ratio.den *= 10;
+    }
+	goto st14;
+st14:
 	if ( ++p == pe )
-		goto _test_eof6;
-case 6:
-	if ( (*p) == 103 )
-		goto st10;
+		goto _test_eof14;
+case 14:
+#line 2858 "lex/parser_units.cpp"
+	switch( (*p) ) {
+		case -62: goto tr16;
+		case -49: goto tr17;
+		case 100: goto tr18;
+		case 112: goto tr19;
+		case 114: goto tr20;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr6;
 	goto st0;
-tr12:
+tr13:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 189 "lex/parser_units.rl"
+#line 190 "lex/parser_units.rl"
 	{ ragel_num.vdouble = ragel_num.vint;}
-	goto st7;
-tr15:
+	goto st6;
+tr18:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -2881,64 +2883,130 @@ tr15:
         ragel_type = TYPE_FLOAT;
         ragel_cat  = CAT_NUMBER;
     }
-	goto st7;
+	goto st6;
+st6:
+	if ( ++p == pe )
+		goto _test_eof6;
+case 6:
+#line 2892 "lex/parser_units.cpp"
+	if ( (*p) == 101 )
+		goto st7;
+	goto st0;
 st7:
 	if ( ++p == pe )
 		goto _test_eof7;
 case 7:
-#line 2890 "lex/parser_units.cpp"
-	if ( (*p) == 97 )
-		goto st8;
+	if ( (*p) == 103 )
+		goto st12;
 	goto st0;
+tr14:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 190 "lex/parser_units.rl"
+	{ ragel_num.vdouble = ragel_num.vint;}
+	goto st8;
+tr19:
+#line 58 "lex/ragel_numeric.rl"
+	{
+        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+        ragel_type = TYPE_FLOAT;
+        ragel_cat  = CAT_NUMBER;
+    }
+	goto st8;
 st8:
 	if ( ++p == pe )
 		goto _test_eof8;
 case 8:
-	if ( (*p) == 100 )
-		goto st12;
+#line 2926 "lex/parser_units.cpp"
+	if ( (*p) == 105 )
+		goto st13;
 	goto st0;
-st12:
+tr15:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 190 "lex/parser_units.rl"
+	{ ragel_num.vdouble = ragel_num.vint;}
+	goto st9;
+tr20:
+#line 58 "lex/ragel_numeric.rl"
+	{
+        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+        ragel_type = TYPE_FLOAT;
+        ragel_cat  = CAT_NUMBER;
+    }
+	goto st9;
+st9:
 	if ( ++p == pe )
-		goto _test_eof12;
-case 12:
+		goto _test_eof9;
+case 9:
+#line 2953 "lex/parser_units.cpp"
+	if ( (*p) == 97 )
+		goto st10;
+	goto st0;
+st10:
+	if ( ++p == pe )
+		goto _test_eof10;
+case 10:
+	if ( (*p) == 100 )
+		goto st15;
+	goto st0;
+st15:
+	if ( ++p == pe )
+		goto _test_eof15;
+case 15:
 	goto st0;
 tr3:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st13;
-st13:
+	goto st16;
+st16:
 	if ( ++p == pe )
-		goto _test_eof13;
-case 13:
-#line 2914 "lex/parser_units.cpp"
+		goto _test_eof16;
+case 16:
+#line 2977 "lex/parser_units.cpp"
 	switch( (*p) ) {
-		case -62: goto tr9;
-		case 46: goto tr10;
-		case 100: goto tr11;
-		case 114: goto tr12;
+		case -62: goto tr10;
+		case -49: goto tr11;
+		case 46: goto tr12;
+		case 100: goto tr13;
+		case 112: goto tr14;
+		case 114: goto tr15;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr3;
 	goto st0;
 	}
 	_test_eof2: cs = 2; goto _test_eof; 
-	_test_eof9: cs = 9; goto _test_eof; 
-	_test_eof3: cs = 3; goto _test_eof; 
-	_test_eof10: cs = 10; goto _test_eof; 
-	_test_eof4: cs = 4; goto _test_eof; 
 	_test_eof11: cs = 11; goto _test_eof; 
+	_test_eof3: cs = 3; goto _test_eof; 
+	_test_eof12: cs = 12; goto _test_eof; 
+	_test_eof4: cs = 4; goto _test_eof; 
+	_test_eof13: cs = 13; goto _test_eof; 
 	_test_eof5: cs = 5; goto _test_eof; 
+	_test_eof14: cs = 14; goto _test_eof; 
 	_test_eof6: cs = 6; goto _test_eof; 
 	_test_eof7: cs = 7; goto _test_eof; 
 	_test_eof8: cs = 8; goto _test_eof; 
-	_test_eof12: cs = 12; goto _test_eof; 
-	_test_eof13: cs = 13; goto _test_eof; 
+	_test_eof9: cs = 9; goto _test_eof; 
+	_test_eof10: cs = 10; goto _test_eof; 
+	_test_eof15: cs = 15; goto _test_eof; 
+	_test_eof16: cs = 16; goto _test_eof; 
 
 	_test_eof: {}
 	if ( p == eof )
 	{
 	switch ( cs ) {
-	case 11: 
+	case 14: 
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -2947,35 +3015,39 @@ case 13:
         ragel_cat  = CAT_NUMBER;
     }
 	break;
-	case 10: 
+	case 12: 
 #line 15 "lex/ragel_units.rl"
 	{ragel_type = TYPE_DEGREE;}
 	break;
-	case 12: 
+	case 15: 
 #line 20 "lex/ragel_units.rl"
 	{ragel_type = TYPE_RADIAN;}
 	break;
-	case 9: 
 	case 13: 
+#line 188 "lex/parser_units.rl"
+	{ ragel_num.vdouble *= std::acos(-1); ragel_type = TYPE_RADIAN; }
+	break;
+	case 11: 
+	case 16: 
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 189 "lex/parser_units.rl"
+#line 190 "lex/parser_units.rl"
 	{ ragel_num.vdouble = ragel_num.vint;}
 	break;
-#line 2970 "lex/parser_units.cpp"
+#line 3042 "lex/parser_units.cpp"
 	}
 	}
 
 	_out: {}
 	}
 
-#line 256 "lex/parser_units.rl"
+#line 257 "lex/parser_units.rl"
 
-    if (cs >= 9) {
+    if (cs >= 11) {
         if (ragel_type == TYPE_INT)
             return AngleUnit(ragel_num.getInteger(), TYPE_FLOAT);
         else if (ragel_type == TYPE_FLOAT)

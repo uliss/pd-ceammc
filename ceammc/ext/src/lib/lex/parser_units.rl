@@ -185,7 +185,8 @@ bool UnitTypeFullMatch::parse(const Atom& a)
     machine parse_angles;
     include units_common "ragel_units.rl";
 
-    unit = unit_rad | unit_deg;
+    unit_pi = ('pi' | 'π') %{ ragel_num.vdouble *= std::acos(-1); ragel_type = TYPE_RADIAN; };
+    unit = unit_rad | unit_deg | unit_pi;
     angle_float = num_float | (num_int %{ ragel_num.vdouble = ragel_num.vint;});
     main := angle_float unit?;
 
