@@ -55,6 +55,7 @@ using PolarLines2d = hoa::PolarLines<hoa::Hoa2d, t_sample>;
 using Rotate2d = hoa::Rotate<hoa::Hoa2d, t_sample>;
 using Wider2d = hoa::Wider<hoa::Hoa2d, t_sample>;
 using Scope2d = hoa::Scope<hoa::Hoa2d, t_sample>;
+using Exchanger2d = hoa::Exchanger<hoa::Hoa2d, t_sample>;
 
 using Signal = hoa::Signal<t_sample>;
 using Buffer = std::vector<t_sample>;
