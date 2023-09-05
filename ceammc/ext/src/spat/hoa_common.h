@@ -37,25 +37,29 @@
 #include "ceammc_sound_external.h"
 using namespace ceammc;
 
+namespace ceammc {
+
 constexpr size_t HOA_MIN_ORDER = 1;
 constexpr size_t HOA_MAX_ORDER = 63;
 constexpr size_t HOA_DEFAULT_ORDER = 1;
 constexpr size_t HOA_DEFAULT_BLOCK_SIZE = 64;
 
-typedef hoa::Optim<hoa::Hoa2d, t_sample> Optim2d;
-typedef hoa::Decoder<hoa::Hoa2d, t_sample> Decoder2d;
-typedef hoa::DecoderBinaural<hoa::Hoa2d, t_sample, hoa::hrir::Sadie_D2_2D> DecoderBinaural2d;
-typedef hoa::DecoderIrregular<hoa::Hoa2d, t_sample> DecoderIrregular2d;
-typedef hoa::DecoderRegular<hoa::Hoa2d, t_sample> DecoderRegular2d;
-typedef hoa::Encoder<hoa::Hoa2d, t_sample> Encoder2d;
-typedef hoa::MultiEncoder<hoa::Hoa2d, t_sample> MultiEncoder2d;
-typedef hoa::PolarLines<hoa::Hoa2d, t_sample> PolarLines2d;
-typedef hoa::Rotate<hoa::Hoa2d, t_sample> Rotate2d;
-typedef hoa::Wider<hoa::Hoa2d, t_sample> Wider2d;
-typedef hoa::Scope<hoa::Hoa2d, t_sample> Scope2d;
+using Optim2d = hoa::Optim<hoa::Hoa2d, t_sample>;
+using Decoder2d = hoa::Decoder<hoa::Hoa2d, t_sample>;
+using DecoderBinaural2d = hoa::DecoderBinaural<hoa::Hoa2d, t_sample, hoa::hrir::Sadie_D2_2D>;
+using DecoderIrregular2d = hoa::DecoderIrregular<hoa::Hoa2d, t_sample>;
+using DecoderRegular2d = hoa::DecoderRegular<hoa::Hoa2d, t_sample>;
+using Encoder2d = hoa::Encoder<hoa::Hoa2d, t_sample>;
+using MultiEncoder2d = hoa::MultiEncoder<hoa::Hoa2d, t_sample>;
+using PolarLines2d = hoa::PolarLines<hoa::Hoa2d, t_sample>;
+using Rotate2d = hoa::Rotate<hoa::Hoa2d, t_sample>;
+using Wider2d = hoa::Wider<hoa::Hoa2d, t_sample>;
+using Scope2d = hoa::Scope<hoa::Hoa2d, t_sample>;
 
-typedef hoa::Signal<t_sample> Signal;
-typedef std::vector<t_sample> Buffer;
+using Signal = hoa::Signal<t_sample>;
+using Buffer = std::vector<t_sample>;
+
+}
 
 class HoaBase : public SoundExternal {
 private:
