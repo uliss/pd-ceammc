@@ -94,17 +94,23 @@ void UICircularMeter::paint()
     for (int i = 0; i < prop_nchan; i++)
         p = fmt::format_to(p, " {:.1f}", out_angles_[i]);
 
-    p[0] = ']';
-    p[1] = '\0';
+    *(p++) = ']';
+    *(p++) = '\0';
     sys_vgui("%s", buffer);
 
     // write RMS/peak data
     p = fmt::format_to(buffer, " [list");
-    for (int i = 0; i < prop_nchan; i++)
+    for (int i = 0; i < prop_nchan; i++) {
         p = fmt::format_to(p, " {} {}", (int)out_rms_[i], (int)out_peak_[i]);
+        if (i % 8 == 7) {
+            *p = '\0';
+            sys_vgui("%s", buffer);
+            p = buffer;
+        }
+    }
 
-    p[0] = ']';
-    p[2] = '\0';
+    *(p++) = ']';
+    *(p++) = '\0';
     sys_vgui("%s\n", buffer);
 }
 
