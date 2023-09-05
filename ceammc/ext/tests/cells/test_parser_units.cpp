@@ -535,5 +535,10 @@ TEST_CASE("parser_units", "[ceammc::ceammc_units]")
         REQUIRE_ANGLE(A("1.5707963267948966rad"), TYPE_DEGREE, 90);
         REQUIRE_ANGLE(A("3.141592653589793rad"), TYPE_DEGREE, 180);
         REQUIRE_ANGLE(A("90°"), TYPE_RADIAN, std::acos(-1) / 2);
+        REQUIRE_ANGLE(A("1pi"), TYPE_DEGREE, 180);
+        REQUIRE_ANGLE(A("1pi"), TYPE_RADIAN, std::acos(-1));
+        REQUIRE_ANGLE(A("2pi"), TYPE_DEGREE, 0.);
+        REQUIRE_ANGLE(A("1.5π"), TYPE_DEGREE, 270);
+        REQUIRE_ANGLE(A("0.5pi"), TYPE_DEGREE, 90);
     }
 }
