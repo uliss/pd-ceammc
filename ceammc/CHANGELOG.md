@@ -99,6 +99,8 @@
   - zeros(N) - list of length N, filled with 0
 - new method arguments:
   - PHASE argument (3rd) added to \[saw( method in array.fill 
+- new aliases:
+  - hoa.2d.process~ alias added to hoa.process~
 - feedback compression and filter added to fx.echo~
 
 ### Changes:

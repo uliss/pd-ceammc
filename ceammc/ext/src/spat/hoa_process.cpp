@@ -595,6 +595,7 @@ void HoaProcess::m_dsp_on(t_symbol* m, const AtomListView& lv)
 void setup_spat_hoa_process()
 {
     SoundExternalFactory<HoaProcess> obj("hoa.process~");
+    obj.addAlias("hoa.2d.process~");
     obj.useClick();
     obj.addMethod("open", &HoaProcess::m_open);
     obj.addMethod("on", &HoaProcess::m_dsp_on);
