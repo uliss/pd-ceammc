@@ -46,6 +46,21 @@ if(APPLE)
         DEPENDS dev_ceammc
         USES_TERMINAL)
 
+    add_custom_target(dev_run1
+        COMMAND ${BUNDLE_FULL_PATH}/Contents/Resources/bin/pd -d 1
+        DEPENDS dev_ceammc
+        USES_TERMINAL)
+
+    add_custom_target(dev_run2
+        COMMAND ${BUNDLE_FULL_PATH}/Contents/Resources/bin/pd -d 2
+        DEPENDS dev_ceammc
+        USES_TERMINAL)
+
+    add_custom_target(dev_run3
+        COMMAND ${BUNDLE_FULL_PATH}/Contents/Resources/bin/pd -d 3
+        DEPENDS dev_ceammc
+        USES_TERMINAL)
+
     add_custom_target(dev_debug
         COMMAND ${BUNDLE_FULL_PATH}/Contents/Resources/bin/pd -verbose -d 1
         DEPENDS dev_ceammc
