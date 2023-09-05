@@ -1,7 +1,7 @@
-#N canvas 0 0 992 587 12;
+#N canvas 0 0 956 587 12;
 #X msg 20 48 clear \, matrix \, translate 50% 50%;
 #X msg 29 77 rotate 30 \, font Verdana \, font_size 20 \, text 20 0 CEAM \, fill random \, update;
-#X msg 39 120 matrix \, font Verdana bold \, font_size 40 \, line_width 2 \, text 50 75 HELLO \, fill gray preserve \, stroke cyan \, update;
+#X msg 39 120 matrix \, font Verdana bold \, font_size 40 \, width 2 \, text 50 75 HELLO \, fill gray preserve \, stroke cyan \, update;
 #X msg 48 164 clear \, font Verdana italic \, font_size 50 \, text 50 75 HELLO \, fill black \, update;
 #X msg 58 207 clear \, font Verdana italic bold 60 \, text 25% 75 HELLO \, fill black \, update;
 #X obj 20 250 ui.canvas @size 300 200;

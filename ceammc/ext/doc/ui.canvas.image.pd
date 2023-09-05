@@ -1,4 +1,4 @@
-#N canvas 0 0 992 587 12;
+#N canvas 0 0 956 587 12;
 #X msg 20 48 clear \, image 20 20 img/puredata-ceammc.png 0.5 \, update;
 #X msg 20 77 clear \, image -30 -20 img/sample.svg 0.6 \, update;
 #X msg 20 106 clear \, image -30 -20 img/bach.jpg \, update;

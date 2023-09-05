@@ -184,8 +184,8 @@
             width</param>
             <param name="Y" type="atom" required="true">y-coord in pixels or percents of
             height</param></method>
-            <!-- line_width -->
-            <method name="line_width">set stroke width 
+            <!-- width -->
+            <method name="width">set stroke width
             <param name="WIDTH" type="float" required="true">line width</param></method>
             <!-- move_by -->
             <method name="move_by">move current drawing point by relative offset 
@@ -370,18 +370,18 @@
             </pdascii>
             <pdascii id="line">
 <![CDATA[
-[clear, line_cap butt, line_width 10, line 10% 10% 90% 90%, stroke blue, update #a(
+[clear, line_cap butt, width 10, line 10% 10% 90% 90%, stroke blue, update #a(
 
 
-[clear, line_cap square, line_width 10, line 10% 10% 90% 90%, stroke blue, update #b(
+[clear, line_cap square, width 10, line 10% 10% 90% 90%, stroke blue, update #b(
 
 
-[clear, line_cap round, line_width 10, line 10% 10% 90% 90%, stroke red, update #c(
+[clear, line_cap round, width 10, line 10% 10% 90% 90%, stroke red, update #c(
 
 
     [dash #e( [dash 5 5 12 #f(
 
-[clear, line_width 10, line_cap round, move_to 10% 50%, line_to 90% 50%, line_to 50% 10%, line_to 50% 90%, stroke cyan, update #d(
+[clear, width 10, line_cap round, move_to 10% 50%, line_to 90% 50%, line_to 50% 10%, line_to 50% 90%, stroke cyan, update #d(
 
 
 
@@ -407,7 +407,7 @@
  [rotate 30, font Verdana, font_size 20, text 20 0 CEAM, fill random, update #b(
 
 
-  [matrix, font Verdana bold, font_size 40, line_width 2, text 50 75 HELLO, fill gray preserve, stroke cyan, update #c(
+  [matrix, font Verdana bold, font_size 40, width 2, text 50 75 HELLO, fill gray preserve, stroke cyan, update #c(
 
 
    [clear, font Verdana italic, font_size 50, text 50 75 HELLO, fill black, update #d(
@@ -463,7 +463,7 @@
             </pdascii>
             <pdascii id="arrows">
 <![CDATA[
-[line_width 1, arrow 30 30 130 160 A a, stroke red, update #a(
+[width 1, arrow 30 30 130 160 A a, stroke red, update #a(
 
 [arrow 60 30 160 160 O o, stroke blue, update #b(
 

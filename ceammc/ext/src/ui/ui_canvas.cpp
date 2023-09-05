@@ -1205,7 +1205,7 @@ void UICanvas::setup()
     obj.addMethod("line", &UICanvas::m_line);
     obj.addMethod("line_cap", &UICanvas::m_line_cap);
     obj.addMethod("line_to", &UICanvas::m_line_to);
-    obj.addMethod("line_width", &UICanvas::m_line_width);
+    obj.addMethod("width", &UICanvas::m_line_width);
     obj.addMethod("matrix", &UICanvas::m_matrix);
     obj.addMethod("move_by", &UICanvas::m_move_by);
     obj.addMethod("move_to", &UICanvas::m_move_to);
