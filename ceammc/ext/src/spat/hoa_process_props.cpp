@@ -14,18 +14,20 @@
 #include "hoa_process_props.h"
 #include "ceammc_canvas.h"
 #include "ceammc_containers.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
+#include "ceammc_format.h"
 #include "datatype_property.h"
+#include "fmt/core.h"
 #include "hoa_process.h"
 
-#include <sstream>
 #include <stdexcept>
 
-static t_symbol* SYM_2D;
-static t_symbol* SYM_3D;
-static t_symbol* SYM_HARMONICS;
-static t_symbol* SYM_PLANEWAVES;
+CEAMMC_DEFINE_SYM_HASH(2d)
+CEAMMC_DEFINE_SYM_HASH(3d)
+CEAMMC_DEFINE_SYM_HASH(harmonics)
+CEAMMC_DEFINE_SYM_HASH(planewaves)
 
 HoaProcessProps::HoaProcessProps(const PdArgs& args)
     : BaseObject(args)
@@ -39,10 +41,10 @@ HoaProcessProps::HoaProcessProps(const PdArgs& args)
     createOutlet();
 
     createCbSymbolProperty("@pmode", [this]() -> t_symbol* { return args_.mode; })
-        ->setSymbolEnumCheck({ SYM_2D, SYM_3D });
+        ->setSymbolEnumCheck({ sym_2d(), sym_3d() });
 
     createCbSymbolProperty("@ptype", [this]() -> t_symbol* { return args_.type; })
-        ->setSymbolEnumCheck({ SYM_HARMONICS, SYM_PLANEWAVES });
+        ->setSymbolEnumCheck({ sym_harmonics(), sym_planewaves() });
 
     createCbIntProperty("@order", [this]() -> int { return args_.order; });
     createCbIntProperty("@total", [this]() -> int { return args_.total; });
@@ -308,35 +310,23 @@ HoaProcessPropsData processHoaProps(const AtomListView& lv)
     auto idx0 = lv[3];
     auto idx1 = lv[4];
 
-    if (mode != SYM_2D && mode != SYM_3D) {
-        std::ostringstream os;
-        os << "invalid mode: " << mode << ", expecting " << SYM_2D << " or " << SYM_3D;
-        throw std::runtime_error(os.str());
-    }
+    const auto mode_hash = crc32_hash(mode);
+    const auto type_hash = crc32_hash(type);
 
-    if (type != SYM_HARMONICS && type != SYM_PLANEWAVES) {
-        std::ostringstream os;
-        os << "invalid type: " << type << ", expecting " << SYM_HARMONICS << " or " << SYM_PLANEWAVES;
-        throw std::runtime_error(os.str());
-    }
+    if (mode_hash != hash_2d && mode_hash != hash_3d)
+        throw std::runtime_error(fmt::format("invalid mode: '{}', expecting '{}' or '{}'", mode->s_name, str_2d, str_3d));
 
-    if (!order.isFloat()) {
-        std::ostringstream os;
-        os << "order value expected: " << order;
-        throw std::runtime_error(os.str());
-    }
+    if (type_hash != hash_harmonics && type_hash != hash_planewaves)
+        throw std::runtime_error(fmt::format("invalid type: '{}', expecting '{}' or '{}'", type->s_name, str_harmonics, str_planewaves));
 
-    if (order.asFloat() < 1) {
-        std::ostringstream os;
-        os << "order value should be >= 1: " << order;
-        throw std::runtime_error(os.str());
-    }
+    if (!order.isFloat())
+        throw std::runtime_error(fmt::format("order value expected: {}", to_string(order)));
 
-    if (!idx0.isFloat() || !idx1.isFloat()) {
-        std::ostringstream os;
-        os << "integer values expected: " << idx0 << " " << idx1;
-        throw std::runtime_error(os.str());
-    }
+    if (order.asFloat() < 1)
+        throw std::runtime_error(fmt::format("order value should be >= 1, got {}", to_string(order)));
+
+    if (!idx0.isFloat() || !idx1.isFloat())
+        throw std::runtime_error(fmt::format("integer values expected: {} {}", to_string(idx0), to_string(idx1)));
 
     HoaProcessPropsData res;
     res.mode = mode;
@@ -344,31 +334,31 @@ HoaProcessPropsData processHoaProps(const AtomListView& lv)
     res.order = order.asInt();
 
     // total
-    if (mode == SYM_2D && type == SYM_HARMONICS) {
+    if (mode_hash == hash_2d && type_hash == hash_harmonics) {
         res.total = HoaProcess::calcNumHarm2d(res.order);
-    } else if (mode == SYM_3D && type == SYM_HARMONICS) {
+    } else if (mode_hash == hash_3d && type_hash == hash_harmonics) {
         res.total = HoaProcess::calcNumHarm3d(res.order);
     } else {
         res.total = res.order;
     }
 
     // index
-    if (mode == SYM_2D && type == SYM_HARMONICS) {
+    if (mode_hash == hash_2d && type_hash == hash_harmonics) {
         res.index = HoaProcess::harmToIndex2d(idx0.asInt(), idx1.asInt());
-    } else if (mode == SYM_3D && type == SYM_HARMONICS) {
+    } else if (mode_hash == hash_3d && type_hash == hash_harmonics) {
         res.index = HoaProcess::harmToIndex3d(idx0.asInt(), idx1.asInt());
     } else {
         res.index = idx0.asInt();
     }
 
     // harm degree
-    if (type == SYM_HARMONICS)
+    if (type_hash == hash_harmonics)
         res.harm_degree = idx0.asInt();
     else
         res.harm_degree = -1;
 
     // harm order
-    if (type == SYM_HARMONICS)
+    if (type_hash == hash_harmonics)
         res.harm_order = idx1.asInt();
     else
         res.harm_order = -1;
@@ -378,10 +368,5 @@ HoaProcessPropsData processHoaProps(const AtomListView& lv)
 
 void setup_spat_hoa_process_props()
 {
-    SYM_2D = gensym("2d");
-    SYM_3D = gensym("3d");
-    SYM_HARMONICS = gensym("harmonics");
-    SYM_PLANEWAVES = gensym("planewaves");
-
     ObjectFactory<HoaProcessProps> obj("hoa.@process");
 }
