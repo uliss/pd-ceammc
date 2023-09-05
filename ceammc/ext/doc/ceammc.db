@@ -299,7 +299,7 @@ hoa.in		-		.
 hoa.in~		-		~
 hoa.out		.		-
 hoa.out~		~		-
-hoa.process~		?		?
+hoa.process~,hoa.2d.process~		?		?
 hoa.scope~		?		-
 hw.apple_smc		.		.
 hw.apple_sms		.		.

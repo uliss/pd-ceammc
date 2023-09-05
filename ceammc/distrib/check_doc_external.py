@@ -18,7 +18,7 @@ STK_RAWWAVES_PATH = "@PROJECT_SOURCE_DIR@/ceammc/extra/stk/stk/rawwaves"
 
 EXT_INFO = BIN_PATH + "ext_info"
 
-SPECIAL_OBJ = {"function": "f"}
+SPECIAL_OBJ = {"function": "f", "hoa.process~": "2 test.patch planewaves"}
 
 EXT_INLETS = []
 EXT_OUTLETS = []
