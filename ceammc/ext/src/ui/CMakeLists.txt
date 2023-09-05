@@ -9,14 +9,15 @@ endmacro()
 add_custom_target(ceammc_ui_tcl SOURCES)
 
 function(tcl_ui_deps tcl_file)
+    set(TCL_HEADER ${tcl_file}.h)
     add_custom_command(
-        OUTPUT  ${tcl_file}.h
-        COMMAND $<TARGET_FILE:tcl2cxx> ${CMAKE_CURRENT_SOURCE_DIR}/${tcl_file} > ${CMAKE_CURRENT_SOURCE_DIR}/${tcl_file}.h
-        DEPENDS ${tcl_nui.tcl}
+        OUTPUT  ${CMAKE_CURRENT_SOURCE_DIR}/${TCL_HEADER}
+        COMMAND $<TARGET_FILE:tcl2cxx> ${CMAKE_CURRENT_SOURCE_DIR}/${tcl_file} > ${TCL_HEADER}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        DEPENDS ${tcl_file}
         VERBATIM)
-    add_custom_target(${tcl_file}_h DEPENDS ${tcl_file}.h)
+    target_sources(ceammc_ui PRIVATE ${TCL_HEADER})
     target_sources(ceammc_ui_tcl PRIVATE ${tcl_file})
-#    add_dependencies(ceammc_ui ${tcl_file}_h)
 endfunction()
 
 set(NUI_SOURCES nui_bang.cpp nui_toggle.cpp)
@@ -70,8 +71,6 @@ add_library(ceammc_ui STATIC mod_ui.cpp ${NUI_SOURCES} ${UI_SOURCES})
 
 target_link_libraries(ceammc_ui PRIVATE ceammc_nui ceammc_env http_lib readerwriterqueue touchosc)
 
-tcl_ui_deps(ui_circular_meter.tcl)
-
 find_package(Rust)
 if(Rust_FOUND)
     target_include_directories(ceammc_ui
@@ -112,12 +111,13 @@ if(Gperf_FOUND)
     add_custom_target(ui_extra SOURCES material_font.gperf)
 endif()
 
-
 target_include_directories(ceammc_ui
     PRIVATE
         "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
         ${PROJECT_BINARY_DIR} # for config.h
     )
+
+tcl_ui_deps(ui_circular_meter.tcl)
 
 set(TCL_GEN_SCRIPT ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh)
 
