@@ -1,7 +1,6 @@
 hoa.2d.decoder~-help.pd hoa.2d.decoder~ An ambisonic decoder.;
 hoa.2d.encoder~-help.pd hoa.2d.encoder~ An ambisonic encoder.;
 hoa.2d.map~-help.pd hoa.2d.map~ An ambisonic sources spatializer.;
-hoa.2d.meter~-help.pd hoa.2d.meter~ A circular meter with sound field descriptor.;
 hoa.2d.optim~-help.pd hoa.2d.optim~ An ambisonic sound field optimization.;
 hoa.2d.projector~-help.pd hoa.2d.projector~ A plane waves decomposer from circular harmonics domain.;
 hoa.2d.recomposer~-help.pd hoa.2d.recomposer~ A plane waves recomposer to circular harmonics domain.;
