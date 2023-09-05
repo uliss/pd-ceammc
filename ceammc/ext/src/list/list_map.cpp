@@ -37,7 +37,7 @@ ListMap::ListMap(const PdArgs& args)
 void ListMap::onFloat(t_float f)
 {
     if (!math::is_integer<t_float>(f)) {
-        OBJ_ERR << fmt::format("invalid key: {}, only integer or symbol keys are supported", f);
+        OBJ_ERR << fmt::format("invalid key: '{}', only integer or symbol keys are supported", f);
         return;
     }
 
@@ -83,7 +83,7 @@ void ListMap::onList(const AtomListView& lv)
         else if (a.isInteger())
             key = gensym(fmt::format("{}", a.asT<int>()).c_str());
         else {
-            OBJ_ERR << fmt::format("skipping atom {}, only symbol or integer keys are allowed", to_string(a));
+            OBJ_ERR << fmt::format("skipping key '{}', only symbol or integer keys are allowed", to_string(a));
             continue;
         }
 
@@ -122,13 +122,19 @@ void ListMap::onDataT(const MListAtom& ma)
         else if (a.isInteger())
             key = gensym(fmt::format("{}", a.asT<int>()).c_str());
         else {
-            OBJ_ERR << fmt::format("skipping atom {} - only symbol or integer keys are allowed", to_string(a));
+            OBJ_ERR << fmt::format("skipping key '{}', only symbol or integer keys are allowed", to_string(a));
             continue;
         }
 
         auto it = d.find(key);
-        if (it != end_it)
+        if (it != end_it) {
             res->append(it->second);
+        } else if (def_->value().size() > 0) {
+            for (auto& a : def_->value())
+                res->append(a);
+        } else {
+            symbolTo(1, key);
+        }
     }
 
     atomTo(0, res);

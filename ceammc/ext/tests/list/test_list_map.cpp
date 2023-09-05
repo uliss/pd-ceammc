@@ -151,14 +151,17 @@ TEST_CASE("list.map", "[externals]")
         t << L();
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.outputListAt(0) == L());
+        REQUIRE(!t.hasOutputAt(1));
 
         t << LF(1);
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.outputListAt(0) == LA("one"));
+        REQUIRE(!t.hasOutputAt(1));
 
         t << LF(0);
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.outputListAt(0) == L());
+        REQUIRE(t.hasOutputAt(1));
 
         t << LF(3, 2, 1);
         REQUIRE(t.hasOutputAt(0));
@@ -179,6 +182,11 @@ TEST_CASE("list.map", "[externals]")
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.outputListAt(0) == LA("???", "three", "two", "one"));
         REQUIRE(!t.hasOutputAt(1));
+
+        t << LF(0, 3, 2, 1.1);
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.outputListAt(0) == LA("???", "three", "two"));
+        REQUIRE(!t.hasOutputAt(1));
     }
 
     SECTION("mlist")
@@ -192,13 +200,32 @@ TEST_CASE("list.map", "[externals]")
         t << MLA(1);
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.outputListAt(0) == MLA("one"));
+        REQUIRE(!t.hasOutputAt(1));
 
         t << MLA(0);
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.outputListAt(0) == MLA());
+        REQUIRE(t.hasOutputAt(1));
 
         t << MLA(3, 2, 1, 0, 1, 2, 3);
         REQUIRE(t.hasOutputAt(0));
         REQUIRE(t.outputListAt(0) == MLA("three", "two", "one", "one", "two", "three"));
+        REQUIRE(t.hasOutputAt(1));
+
+        t->setProperty("@def", LA("?", "?"));
+        t << MLA(3, 2, 1);
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.outputListAt(0) == MLA("three", "two", "one"));
+        REQUIRE(!t.hasOutputAt(1));
+
+        t << MLA(100, 3, 2, 1);
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.outputListAt(0) == MLA("?", "?", "three", "two", "one"));
+        REQUIRE(!t.hasOutputAt(1));
+
+        t << MLA(0.5, 3, 2, 1);
+        REQUIRE(t.hasOutputAt(0));
+        REQUIRE(t.outputListAt(0) == MLA("three", "two", "one"));
+        REQUIRE(!t.hasOutputAt(1));
     }
 }
