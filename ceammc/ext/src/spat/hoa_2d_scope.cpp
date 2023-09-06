@@ -267,6 +267,7 @@ void Hoa2dScope::setup()
     auto SYM_MSEC = gensym("msec");
 
     UIObjectFactory<Hoa2dScope> obj("hoa.scope~", EBOX_IGNORELOCKCLICK | EBOX_GROWLINK);
+    obj.addAlias("hoa.2d.scope~");
     obj.setDefaultSize(120, 120);
 
     // hide some properties
