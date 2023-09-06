@@ -15,6 +15,9 @@
             <category view="link">spat</category>
             <keywords>hoa scope</keywords>
             <since>0.8</since>
+            <aliases>
+                <alias>hoa.2d.scope~</alias>
+            </aliases>
         </meta>
         <info>
             <par>displays the circular harmonics of an ambisonic sound field</par>

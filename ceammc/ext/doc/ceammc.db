@@ -300,7 +300,7 @@ hoa.in~		-		~
 hoa.out		.		-
 hoa.out~		~		-
 hoa.process~,hoa.2d.process~		?		?
-hoa.scope~		?		-
+hoa.scope~,hoa.2d.scope~		?		-
 hw.apple_smc		.		.
 hw.apple_sms		.		.
 hw.arduino		.		.

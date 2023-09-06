@@ -101,6 +101,7 @@
   - PHASE argument (3rd) added to \[saw( method in array.fill 
 - new aliases:
   - hoa.2d.process~ alias added to hoa.process~
+  - hoa.2d.scope~ alias added to hoa.scope~
 - feedback compression and filter added to fx.echo~
 
 ### Changes:
