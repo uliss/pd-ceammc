@@ -6,7 +6,7 @@
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Conway gamw of life sequencer</description>
+            <description>Conway game of life sequencer</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>seq</category>
