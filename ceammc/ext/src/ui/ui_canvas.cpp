@@ -66,7 +66,9 @@ bool getColorArgs(const AtomListView& lv, draw::SetColorRGBA& rgba)
         rgba.a = data->alpha();
         return true;
     } else {
-        LIB_ERR << fmt::format("invalid color value: '{}'", to_string(lv));
+        if (!lv.empty())
+            LIB_ERR << fmt::format("invalid color value: '{}'", to_string(lv));
+
         return false;
     }
 }
@@ -115,6 +117,12 @@ inline cairo_font_weight_t sym2weight(t_symbol* s)
     {                                                      \
         if (!parsePercent(method, arg, value, res, total)) \
             return;                                        \
+    }
+
+#define PARSE_ANGLE(method, arg, value, res)      \
+    {                                             \
+        if (!parseAngle(method, arg, value, res)) \
+            return;                               \
     }
 
 }
@@ -231,6 +239,23 @@ void UICanvas::m_abc(const AtomListView& lv)
     out_queue_.enqueue(cmd);
 }
 
+void UICanvas::m_arc(const AtomListView& lv)
+{
+    static const args::ArgChecker chk("XC:a YC:a R:a ANG1:a ANG2:a");
+    if (!chk.check(lv, nullptr))
+        return chk.usage();
+
+    draw::Arc cmd;
+
+    PARSE_PERCENT("arc", "XC", lv[0], &cmd.x, boxW());
+    PARSE_PERCENT("arc", "YC", lv[1], &cmd.y, boxH());
+    PARSE_PERCENT("arc", "R", lv[2], &cmd.r, boxW());
+    PARSE_ANGLE("arc", "A1", lv[3], &cmd.a0);
+    PARSE_ANGLE("arc", "A2", lv[4], &cmd.a1);
+
+    out_queue_.enqueue(cmd);
+}
+
 void UICanvas::m_arrow(const AtomListView& lv)
 {
     static const args::ArgChecker chk("X0:a Y0:a X1:a Y1:a START:s=A|a|X|x|O|o|T|t|V|v|n? END:s=A|a|X|x|O|o|T|t|V|v|n?");
@@ -330,15 +355,12 @@ void UICanvas::m_arrow(const AtomListView& lv)
 void UICanvas::m_fill(const AtomListView& lv)
 {
     draw::SetColorRGBA color;
-
-    if (!getColorArgs(lv.subView(0, 1), color)) {
-        UI_ERR << "usage: fill COLOR preserve?";
-        return;
-    }
+    if (getColorArgs(lv.subView(0, 1), color))
+        color_ = color;
 
     bool preserve = (lv.size() == 2 && (lv[1] == "preserve" || lv[1] == 1));
 
-    out_queue_.enqueue(color);
+    out_queue_.enqueue(color_);
     out_queue_.enqueue(draw::DrawFill(preserve));
 }
 
@@ -469,15 +491,12 @@ void UICanvas::m_circle(const AtomListView& lv)
 void UICanvas::m_stroke(const AtomListView& lv)
 {
     draw::SetColorRGBA color;
-
-    if (!getColorArgs(lv.subView(0, 1), color)) {
-        UI_ERR << "usage: stroke COLOR preserve?";
-        return;
-    }
+    if (getColorArgs(lv.subView(0, 1), color))
+        color_ = color;
 
     bool preserve = (lv.size() == 2 && lv[1] == "preserve");
 
-    out_queue_.enqueue(color);
+    out_queue_.enqueue(color_);
     out_queue_.enqueue(draw::DrawStroke(preserve));
 }
 
@@ -664,6 +683,23 @@ void UICanvas::m_dash(const AtomListView& lv)
         dash.dashes[i] = lv[i].asInt();
 
     out_queue_.enqueue(dash);
+}
+
+void UICanvas::m_ellipse(const AtomListView& lv)
+{
+    if (lv.size() != 4) {
+        UI_ERR << "usage: ellipse X Y WIDTH HEIGHT";
+        return;
+    }
+
+    draw::Ellipse cmd;
+
+    PARSE_PERCENT("ellipse", "X", lv[0], &cmd.x, boxW());
+    PARSE_PERCENT("ellipse", "Y", lv[1], &cmd.y, boxH());
+    PARSE_PERCENT("ellipse", "WIDTH", lv[2], &cmd.w, boxW());
+    PARSE_PERCENT("ellipse", "HEIGHT", lv[3], &cmd.h, boxH());
+
+    out_queue_.enqueue(cmd);
 }
 
 void UICanvas::m_move_by(const AtomListView& lv)
@@ -914,7 +950,7 @@ void UICanvas::m_background(const AtomListView& lv)
     if (!lv.empty()) {
         draw::SetColorRGBA rgba;
         if (!getColorArgs(lv, rgba)) {
-            UI_ERR << "usage: bg COLOR or color RED[0-1] GREEN[0-1] BLUE[0-1] ALPHA[0-1]?";
+            UI_ERR << "usage: bg COLOR or bg RED[0-1] GREEN[0-1] BLUE[0-1] ALPHA[0-1]?";
             return;
         }
 
@@ -934,6 +970,18 @@ void UICanvas::m_clear()
 void UICanvas::m_close_path()
 {
     out_queue_.enqueue(draw::ClosePath {});
+}
+
+void UICanvas::m_color(const AtomListView& lv)
+{
+    draw::SetColorRGBA color;
+    if (!getColorArgs(lv, color)) {
+        UI_ERR << "usage: color COLOR or color RED[0-1] GREEN[0-1] BLUE[0-1] ALPHA[0-1]?";
+        return;
+    }
+
+    color_ = color;
+    out_queue_.enqueue(color_);
 }
 
 void UICanvas::m_line_width(const AtomListView& lv)
@@ -968,68 +1016,6 @@ void UICanvas::m_matrix(const AtomListView& lv)
     cmd.x0 = lv.floatAt(4, 1);
     cmd.y0 = lv.floatAt(5, 1);
     out_queue_.enqueue(cmd);
-}
-
-void UICanvas::m_node(const AtomListView& lv)
-{
-    static const args::ArgChecker chk("X:f Y:f TEXT:s SHAPE:s? COLOR:s?");
-
-    if (!ctx_)
-        return;
-
-    if (!chk.check(lv, nullptr))
-        return chk.usage();
-
-    auto x = lv.floatAt(0, 0);
-    auto y = lv.floatAt(1, 0);
-    auto txt = to_string(lv[2]);
-
-    //    switch (crc32_hash(lv.symbolAt(3, &s_))) {
-    //    case "circle"_hash: {
-    //        set_parsed_color(ctx_, lv.subView(4), 0.5, 0.5, 0.5);
-    //    cairo_rota
-    //            cairo_arc(ctx_, x, y, 10, 0, 2 * M_PI);
-    //        cairo_fill_preserve(ctx_);
-    //        cairo_set_source_rgb(ctx_, 0, 0, 0);
-    //        cairo_set_line_width(ctx_, 1);
-    //        cairo_stroke(ctx_);
-
-    //        cairo_text_extents_t extents;
-    //        cairo_text_extents(ctx_, txt.c_str(), &extents);
-    //        auto dx = extents.width / 2 + extents.x_bearing;
-    //        auto dy = extents.height / 2 + extents.y_bearing;
-
-    //        cairo_move_to(ctx_, x - dx, y - dy);
-    //        cairo_show_text(ctx_, txt.c_str());
-    //        syncImage();
-    //    } break;
-    //    case "rect"_hash: {
-    //        cairo_text_extents_t extents;
-    //        cairo_text_extents(ctx_, txt.c_str(), &extents);
-    //        auto w = extents.width;
-    //        auto h = extents.height;
-    //        auto dx = w / 2 + extents.x_bearing;
-    //        auto dy = h / 2 + extents.y_bearing;
-
-    //        set_parsed_color(ctx_, lv.subView(4), 0.5, 0.5, 0.5);
-    //        cairo_rectangle(ctx_,
-    //            x - dx - 3,
-    //            y - dy - 3,
-    //            6 + extents.x_advance,
-    //            h + 6 + extents.y_advance);
-
-    //        cairo_fill_preserve(ctx_);
-    //        cairo_set_source_rgb(ctx_, 0, 0, 0);
-    //        cairo_set_line_width(ctx_, 1);
-    //        cairo_stroke(ctx_);
-
-    //        cairo_move_to(ctx_, x - dx, y - dy + h);
-    //        cairo_show_text(ctx_, txt.c_str());
-    //        syncImage();
-    //    } break;
-    //    case "tri"_hash:
-    //        break;
-    //    }
 }
 
 void UICanvas::m_polygon(const AtomListView& lv)
@@ -1112,6 +1098,18 @@ bool UICanvas::parsePercent(const char* methodName, const char* argName, const A
     }
 }
 
+bool UICanvas::parseAngle(const char* method, const char* arg, const Atom& a, float* res)
+{
+    auto x = parser::parse_angle_as(a, parser::TYPE_DEGREE);
+    if (x.isOk()) {
+        *res = convert::degree2rad(x.value());
+        return true;
+    } else {
+        UI_ERR << x.error().what();
+        return false;
+    }
+}
+
 void UICanvas::addLineCircle(float& x, float& y, float angle, float size)
 {
     out_queue_.enqueue(draw::Arc { x, y, size, 0, float(2 * M_PI) });
@@ -1188,15 +1186,18 @@ void UICanvas::setup()
     obj.setDefaultSize(120, 60);
 
     obj.addMethod("abc", &UICanvas::m_abc);
+    obj.addMethod("arc", &UICanvas::m_arc);
     obj.addMethod("arrow", &UICanvas::m_arrow);
     obj.addMethod("bg", &UICanvas::m_background);
     obj.addMethod("circle", &UICanvas::m_circle);
     obj.addMethod("clear", &UICanvas::m_clear);
     obj.addMethod("close_path", &UICanvas::m_close_path);
+    obj.addMethod("color", &UICanvas::m_color);
     obj.addMethod("crestore", &UICanvas::m_restore);
     obj.addMethod("csave", &UICanvas::m_save);
     obj.addMethod("curve", &UICanvas::m_curve);
     obj.addMethod("dash", &UICanvas::m_dash);
+    obj.addMethod("ellipse", &UICanvas::m_ellipse);
     obj.addMethod("fill", &UICanvas::m_fill);
     obj.addMethod("font", &UICanvas::m_font);
     obj.addMethod("font_size", &UICanvas::m_font_size);
@@ -1212,7 +1213,6 @@ void UICanvas::setup()
     obj.addMethod("musicxml", &UICanvas::m_musicxml);
     obj.addMethod("new_path", &UICanvas::m_new_path);
     obj.addMethod("new_subpath", &UICanvas::m_new_subpath);
-    obj.addMethod("node", &UICanvas::m_node);
     obj.addMethod("polar", &UICanvas::m_polar);
     obj.addMethod("polygon", &UICanvas::m_polygon);
     obj.addMethod("qrcode", &UICanvas::m_qrcode);

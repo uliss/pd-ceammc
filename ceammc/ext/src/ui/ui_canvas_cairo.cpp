@@ -397,6 +397,36 @@ void ceammc::DrawCommandVisitor::operator()(const draw::DrawFill& f) const
     }
 }
 
+void ceammc::DrawCommandVisitor::operator()(const draw::Ellipse& e) const
+{
+    if (e.w <= 0 || e.h <= 0)
+        return;
+
+    if (ctx_) {
+        cairo_matrix_t save_matrix;
+        cairo_get_matrix(ctx_.get(), &save_matrix);
+        auto cx = e.x + (e.w / 2.0);
+        auto cy = e.y + (e.h / 2.0);
+        cairo_translate(ctx_.get(), cx, cy);
+
+        if (e.w < e.h)
+            cairo_scale(ctx_.get(), e.w / e.h, 1);
+        else
+            cairo_scale(ctx_.get(), 1, e.h / e.w);
+
+        cairo_translate(ctx_.get(), -cx, -cy);
+        cairo_new_path(ctx_.get());
+        cairo_arc(
+            ctx_.get(),
+            cx,
+            cy,
+            std::max(e.w, e.h) / 2,
+            0,
+            2 * M_PI);
+        cairo_set_matrix(ctx_.get(), &save_matrix);
+    }
+}
+
 void ceammc::DrawCommandVisitor::operator()(const draw::Line& l) const
 {
     if (ctx_) {

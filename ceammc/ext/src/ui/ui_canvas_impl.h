@@ -43,6 +43,10 @@ namespace draw {
         float x, y, w, h;
     };
 
+    struct Ellipse {
+        float x, y, w, h;
+    };
+
     struct Line {
         float x0, y0, x1, y1;
     };
@@ -195,7 +199,8 @@ namespace draw {
         NewPath,
         NewSubPath,
         QRCode,
-        DrawMusic
+        DrawMusic,
+        Ellipse
         //
         >;
 
