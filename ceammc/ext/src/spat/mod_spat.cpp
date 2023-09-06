@@ -8,6 +8,8 @@
 extern void setup_spat_hoa_connections();
 extern void setup_spat_hoa_decoder();
 extern void setup_spat_hoa_encoder();
+extern void setup_spat_hoa_encoder_3d();
+extern void setup_spat_hoa_exchanger();
 extern void setup_spat_hoa_map();
 extern void setup_spat_hoa_optim();
 extern void setup_spat_hoa_process();
@@ -20,8 +22,8 @@ extern void setup_spat_hoa_scope2d();
 extern void setup_spat_hoa_wider();
 extern void setup_spat_pan4_tilde();
 extern void setup_spat_pan8_tilde();
-extern void setup_spat_zita8_tilde();
 extern void setup_spat_zita6x8_tilde();
+extern void setup_spat_zita8_tilde();
 
 void ceammc_spat_setup()
 {
@@ -33,6 +35,8 @@ void ceammc_spat_setup()
     setup_spat_hoa_connections();
     setup_spat_hoa_decoder();
     setup_spat_hoa_encoder();
+    setup_spat_hoa_encoder_3d();
+    setup_spat_hoa_exchanger();
     setup_spat_hoa_map();
     setup_spat_hoa_optim();
     setup_spat_hoa_process();
@@ -45,6 +49,6 @@ void ceammc_spat_setup()
     setup_spat_hoa_wider();
     setup_spat_pan4_tilde();
     setup_spat_pan8_tilde();
-    setup_spat_zita8_tilde();
     setup_spat_zita6x8_tilde();
+    setup_spat_zita8_tilde();
 }

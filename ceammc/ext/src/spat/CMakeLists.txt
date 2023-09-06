@@ -14,10 +14,12 @@ set(SPAT_SOURCES
 
 set(HOA_SOURCES
     hoa_2d_scope.cpp
+    hoa_3d_encoder.cpp
     hoa_common.h
     hoa_connections.cpp
     hoa_decoder.cpp
     hoa_encoder.cpp
+    hoa_exchanger.cpp
     hoa_map.cpp
     hoa_optim.cpp
     hoa_process.cpp
