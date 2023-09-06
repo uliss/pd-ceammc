@@ -50,6 +50,7 @@ using DecoderBinaural2d = hoa::DecoderBinaural<hoa::Hoa2d, t_sample, hoa::hrir::
 using DecoderIrregular2d = hoa::DecoderIrregular<hoa::Hoa2d, t_sample>;
 using DecoderRegular2d = hoa::DecoderRegular<hoa::Hoa2d, t_sample>;
 using Encoder2d = hoa::Encoder<hoa::Hoa2d, t_sample>;
+using Encoder3d = hoa::Encoder<hoa::Hoa3d, t_sample>;
 using MultiEncoder2d = hoa::MultiEncoder<hoa::Hoa2d, t_sample>;
 using PolarLines2d = hoa::PolarLines<hoa::Hoa2d, t_sample>;
 using Rotate2d = hoa::Rotate<hoa::Hoa2d, t_sample>;

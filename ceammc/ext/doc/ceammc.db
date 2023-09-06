@@ -294,6 +294,7 @@ hoa.2d.projector~,hoa.projector~		?		?
 hoa.2d.recomposer~,hoa.recomposer~		?		?
 hoa.2d.rotate~,hoa.rotate~		?		?
 hoa.2d.wider~,hoa.wider~		?		?
+hoa.3d.encoder~		~~~		?
 hoa.@process		.		.
 hoa.in		-		.
 hoa.in~		-		~
