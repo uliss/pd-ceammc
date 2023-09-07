@@ -12,6 +12,7 @@ extern void setup_spat_hoa_encoder_3d();
 extern void setup_spat_hoa_exchanger();
 extern void setup_spat_hoa_map();
 extern void setup_spat_hoa_optim();
+extern void setup_spat_hoa_optim_3d();
 extern void setup_spat_hoa_process();
 extern void setup_spat_hoa_process_inlet();
 extern void setup_spat_hoa_process_props();
@@ -40,6 +41,7 @@ void ceammc_spat_setup()
     setup_spat_hoa_exchanger();
     setup_spat_hoa_map();
     setup_spat_hoa_optim();
+    setup_spat_hoa_optim_3d();
     setup_spat_hoa_process();
     setup_spat_hoa_process_inlet();
     setup_spat_hoa_process_props();

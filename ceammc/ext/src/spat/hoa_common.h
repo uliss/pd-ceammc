@@ -45,20 +45,21 @@ constexpr size_t HOA_MAX_ORDER_3D = 10;
 constexpr size_t HOA_DEFAULT_ORDER = 1;
 constexpr size_t HOA_DEFAULT_BLOCK_SIZE = 64;
 
-using Optim2d = hoa::Optim<hoa::Hoa2d, t_sample>;
 using Decoder2d = hoa::Decoder<hoa::Hoa2d, t_sample>;
 using DecoderBinaural2d = hoa::DecoderBinaural<hoa::Hoa2d, t_sample, hoa::hrir::Sadie_D2_2D>;
 using DecoderIrregular2d = hoa::DecoderIrregular<hoa::Hoa2d, t_sample>;
 using DecoderRegular2d = hoa::DecoderRegular<hoa::Hoa2d, t_sample>;
 using Encoder2d = hoa::Encoder<hoa::Hoa2d, t_sample>;
 using Encoder3d = hoa::Encoder<hoa::Hoa3d, t_sample>;
+using Exchanger2d = hoa::Exchanger<hoa::Hoa2d, t_sample>;
 using MultiEncoder2d = hoa::MultiEncoder<hoa::Hoa2d, t_sample>;
+using Optim2d = hoa::Optim<hoa::Hoa2d, t_sample>;
+using Optim3d = hoa::Optim<hoa::Hoa3d, t_sample>;
 using PolarLines2d = hoa::PolarLines<hoa::Hoa2d, t_sample>;
 using Rotate2d = hoa::Rotate<hoa::Hoa2d, t_sample>;
-using Wider2d = hoa::Wider<hoa::Hoa2d, t_sample>;
 using Scope2d = hoa::Scope<hoa::Hoa2d, t_sample>;
 using Scope3d = hoa::Scope<hoa::Hoa3d, t_sample>;
-using Exchanger2d = hoa::Exchanger<hoa::Hoa2d, t_sample>;
+using Wider2d = hoa::Wider<hoa::Hoa2d, t_sample>;
 
 using Signal = hoa::Signal<t_sample>;
 using Buffer = std::vector<t_sample>;
