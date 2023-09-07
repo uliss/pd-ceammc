@@ -12,26 +12,27 @@
  * this file belongs to.
  *****************************************************************************/
 #include "hoa_optim.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
 #include <type_traits>
 
-static t_symbol* SYM_BASIC;
-static t_symbol* SYM_MAXRE;
-static t_symbol* SYM_INPHASE;
+CEAMMC_DEFINE_SYM_HASH(basic)
+CEAMMC_DEFINE_SYM_HASH(maxre)
+CEAMMC_DEFINE_SYM_HASH(inphase)
 
 HoaOptim::HoaOptim(const PdArgs& args)
     : HoaBase(args)
     , mode_(nullptr)
 {
-    mode_ = new SymbolEnumProperty("@mode", { SYM_BASIC, SYM_MAXRE, SYM_INPHASE });
+    mode_ = new SymbolEnumProperty("@mode", { sym_basic(), sym_maxre(), sym_inphase() });
     mode_->setArgIndex(1);
     mode_->setSuccessFn([this](Property*) { adjustMode(); });
     addProperty(mode_);
 
-    addProperty(new SymbolEnumAlias("@basic", mode_, SYM_BASIC));
-    addProperty(new SymbolEnumAlias("@maxre", mode_, SYM_MAXRE));
-    addProperty(new SymbolEnumAlias("@inphase", mode_, SYM_INPHASE));
+    addProperty(new SymbolEnumAlias("@basic", mode_, sym_basic()));
+    addProperty(new SymbolEnumAlias("@maxre", mode_, sym_maxre()));
+    addProperty(new SymbolEnumAlias("@inphase", mode_, sym_inphase()));
 }
 
 void HoaOptim::initDone()
@@ -68,20 +69,24 @@ void HoaOptim::adjustMode()
     if (!optim_)
         return;
 
-    if (mode_->value() == SYM_BASIC)
+    switch (crc32_hash(mode_->value())) {
+    case hash_basic:
         optim_->setMode(Optim2d::Basic);
-    else if (mode_->value() == SYM_MAXRE)
+        break;
+    case hash_maxre:
         optim_->setMode(Optim2d::MaxRe);
-    else if (mode_->value() == SYM_INPHASE)
+        break;
+    case hash_inphase:
         optim_->setMode(Optim2d::InPhase);
+        break;
+    default:
+        OBJ_ERR << "unknown mode: " << mode_->value()->s_name;
+        break;
+    }
 }
 
 void setup_spat_hoa_optim()
 {
-    SYM_BASIC = gensym("basic");
-    SYM_MAXRE = gensym("maxre");
-    SYM_INPHASE = gensym("inphase");
-
     SoundExternalFactory<HoaOptim> obj("hoa.2d.optim~");
     obj.addAlias("hoa.optim~");
 }
