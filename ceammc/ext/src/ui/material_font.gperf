@@ -2,6 +2,7 @@
 %readonly-tables
 %includes
 %enum
+%switch=2
 %{
 # include <cstring>
 # include <vector>
