@@ -515,7 +515,7 @@ void Hoa3dScope::setup()
 
     // @view
     obj.addFloatArrayProperty("view", _("View rotation"), "0 0 0", &Hoa3dScope::prop_view, "Ambisonic");
-//    obj.setPropertyAccessor("view", &Hoa3dScope::propView, &Hoa3dScope::propSetView);
+    obj.setPropertyAccessor("view", &Hoa3dScope::propView, &Hoa3dScope::propSetView);
 
     // @gain
     obj.addFloatProperty("gain", _("Gain"), 1.f, &Hoa3dScope::prop_gain, "Main");
