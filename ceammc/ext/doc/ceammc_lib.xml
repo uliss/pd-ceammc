@@ -2084,7 +2084,7 @@
     <entry name="seq.counter" descr="sequencer counter" ref_view="object">
       <xi:include href="seq.counter.pddoc" parse="xml"/>
     </entry>
-    <entry name="seq.life" descr="Conway gamw of life sequencer" ref_view="object">
+    <entry name="seq.life" descr="Conway game of life sequencer" ref_view="object">
       <xi:include href="seq.life.pddoc" parse="xml"/>
     </entry>
     <entry name="seq.matrix" descr="sequencer control for ui.matrix" ref_view="object">
@@ -2135,6 +2135,9 @@
     </entry>
     <entry name="hoa.2d.wider~" descr="a 2d fractional ambisonic order simulator" ref_view="object">
       <xi:include href="hoa.2d.wider~.pddoc" parse="xml"/>
+    </entry>
+    <entry name="hoa.3d.encoder~" descr="hoa 3d encoder" ref_view="object">
+      <xi:include href="hoa.3d.encoder~.pddoc" parse="xml"/>
     </entry>
     <entry name="hoa.@process" descr="process properties manager for hoa.process~" ref_view="object">
       <xi:include href="hoa.%40process.pddoc" parse="xml"/>

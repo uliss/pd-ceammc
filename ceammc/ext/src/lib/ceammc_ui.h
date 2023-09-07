@@ -486,6 +486,22 @@ public:
         eclass_attr_category(pd_ui_class, name, category);
     }
 
+    template <size_t N>
+    void addFloatArrayProperty(const char* name, const char* label, const char* def, t_float (UI::*m)[N], const char* category = "Misc")
+    {
+        if (std::is_same<t_float, float>::value)
+            eclass_new_attr_typed(pd_ui_class, name, "float", N, 0, offset(m));
+        else if (std::is_same<t_float, double>::value)
+            eclass_new_attr_typed(pd_ui_class, name, "double", N, 0, offset(m));
+
+        eclass_attr_label(pd_ui_class, name, label);
+        eclass_attr_save(pd_ui_class, name);
+        eclass_attr_paint(pd_ui_class, name);
+        eclass_attr_default(pd_ui_class, name, def);
+        eclass_attr_style(pd_ui_class, name, str_number);
+        eclass_attr_category(pd_ui_class, name, category);
+    }
+
     /**
      * @brief adds integer property shown as integer spinbox entry in properties dialog
      * @param name - property name

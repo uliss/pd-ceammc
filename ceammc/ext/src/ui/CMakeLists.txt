@@ -6,6 +6,20 @@ macro(ceammc_ui_external name)
     list(APPEND UI_SOURCES "ui_${name}.cpp")
 endmacro()
 
+add_custom_target(ceammc_ui_tcl SOURCES)
+
+function(tcl_ui_deps tcl_file)
+    set(TCL_HEADER ${tcl_file}.h)
+    add_custom_command(
+        OUTPUT  ${CMAKE_CURRENT_SOURCE_DIR}/${TCL_HEADER}
+        COMMAND $<TARGET_FILE:tcl2cxx> ${CMAKE_CURRENT_SOURCE_DIR}/${tcl_file} > ${TCL_HEADER}
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        DEPENDS ${tcl_file}
+        VERBATIM)
+    target_sources(ceammc_ui PRIVATE ${TCL_HEADER})
+    target_sources(ceammc_ui_tcl PRIVATE ${tcl_file})
+endfunction()
+
 set(NUI_SOURCES nui_bang.cpp nui_toggle.cpp)
 
 add_subdirectory(touchosc)
@@ -14,6 +28,7 @@ ceammc_ui_external(arrayview)
 ceammc_ui_external(bang)
 ceammc_ui_external(button)
 ceammc_ui_external(canvas)
+ceammc_ui_external(circular_meter)
 ceammc_ui_external(colorpanel)
 ceammc_ui_external(display)
 ceammc_ui_external(dsp)
@@ -96,12 +111,13 @@ if(Gperf_FOUND)
     add_custom_target(ui_extra SOURCES material_font.gperf)
 endif()
 
-
 target_include_directories(ceammc_ui
     PRIVATE
         "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
         ${PROJECT_BINARY_DIR} # for config.h
     )
+
+tcl_ui_deps(ui_circular_meter.tcl)
 
 set(TCL_GEN_SCRIPT ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh)
 

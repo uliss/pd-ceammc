@@ -41,6 +41,7 @@ void setup_ui_canvas();
 void setup_ui_filter();
 void setup_ui_filter_tilde();
 void setup_ui_lcd();
+void setup_ui_circular_meter();
 
 void setup_nui_bang();
 void setup_nui_toggle();
@@ -72,6 +73,7 @@ void ceammc_ui_setup()
     setup_ui_midi();
     setup_ui_mouse_filter();
     setup_ui_mouse_route();
+    setup_ui_circular_meter();
     setup_ui_number();
     setup_ui_number_tilde();
     setup_ui_plot_tilde();

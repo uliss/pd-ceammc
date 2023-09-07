@@ -15,6 +15,7 @@
 #define CEAMMC_ATOM_H
 
 #include "ceammc_macro.h"
+#include "ceammc_maybe.h"
 
 #include <cassert>
 #include <functional>
@@ -418,13 +419,19 @@ public:
 
     /**
      * expand dollar arguments
+     * @param args - list of dollar arguments
+     * @param checkArgs - if set to true: return None on invalid dollar index,
+     * if false: return atom non-expanded copy on invalid dollar index
      */
-    Atom expandDollarArgs(const AtomListView& args, bool checkArgs = false) const;
+    Maybe<Atom> expandDollarArgs(const AtomListView& args, bool checkArgs = false) const;
 
     /**
      * expand dollar arguments via canvas pointer
+     * @param cnv - pointer to canvas
+     * @param checkArgs - if set to true: return None on invalid dollar index,
+     * if false: return atom non-expanded copy on invalid dollar index
      */
-    Atom expandDollarArgs(const t_canvas* cnv, bool checkArgs = false) const;
+    Maybe<Atom> expandDollarArgs(const t_canvas* cnv, bool checkArgs = false) const;
 
     /**
      * compare operator

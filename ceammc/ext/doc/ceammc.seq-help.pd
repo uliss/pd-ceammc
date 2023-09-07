@@ -9,7 +9,7 @@
 #X obj 30 170 seq.counter;
 #X text 200 170 sequencer counter;
 #X obj 30 197 seq.life;
-#X text 200 197 Conway gamw of life sequencer;
+#X text 200 197 Conway game of life sequencer;
 #X obj 30 224 seq.matrix;
 #X text 200 224 sequencer control for ui.matrix;
 #X obj 30 251 seq.nbangs;

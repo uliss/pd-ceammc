@@ -27,7 +27,6 @@
 #define WRAPPER_DATATYPE_H
 
 #include "ceammc_abstractdata.h"
-#include "ceammc_data.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_log.h"
 

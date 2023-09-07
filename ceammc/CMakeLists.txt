@@ -95,3 +95,9 @@ endif()
 add_custom_target(dev_faust
     COMMAND ${CMAKE_COMMAND} -D ALL_TARGETS="${CEAMMC_FAUST_TARGETS}" -P "${CMAKE_CURRENT_SOURCE_DIR}/scripts/list_faust_targets.cmake")
 
+add_custom_target(dev_graph
+    COMMAND ${CMAKE_COMMAND} --graphviz=${PROJECT_BINARY_DIR}/ceammc_deps.dot ${PROJECT_SOURCE_DIR}
+    COMMAND dot -Tpng ${PROJECT_BINARY_DIR}/ceammc_deps.dot > ${PROJECT_BINARY_DIR}/ceammc_deps.png
+    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+    USES_TERMINAL
+)

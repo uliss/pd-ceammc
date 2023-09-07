@@ -49,6 +49,7 @@ class UICanvas : public UIObject {
     std::atomic_bool worker_quit_;
     UINotify ui_notify_;
     t_symbol* icon_font_;
+    draw::SetColorRGBA color_;
 
 public:
     UICanvas();
@@ -59,13 +60,16 @@ public:
     void paint();
 
     void m_abc(const AtomListView& lv);
+    void m_arc(const AtomListView& lv);
     void m_arrow(const AtomListView& lv);
     void m_background(const AtomListView& lv);
     void m_circle(const AtomListView& lv);
     void m_clear();
     void m_close_path();
+    void m_color(const AtomListView& lv);
     void m_curve(const AtomListView& lv);
     void m_dash(const AtomListView& lv);
+    void m_ellipse(const AtomListView& lv);
     void m_fill(const AtomListView& lv);
     void m_font(const AtomListView& lv);
     void m_font_size(t_float sz);
@@ -81,7 +85,6 @@ public:
     void m_musicxml(const AtomListView& lv);
     void m_new_path(const AtomListView& lv);
     void m_new_subpath(const AtomListView& lv);
-    void m_node(const AtomListView& lv);
     void m_polygon(const AtomListView& lv);
     void m_rect(const AtomListView& lv);
     void m_restore();
@@ -107,6 +110,7 @@ public:
 
 private:
     bool parsePercent(const char* methodName, const char* argName, const Atom& a, float* res, float total);
+    bool parseAngle(const char* method, const char* arg, const Atom& a, float* res);
     float boxW() const { return asEBox()->b_rect.w; }
     float boxH() const { return asEBox()->b_rect.h; }
     float hypot2() const

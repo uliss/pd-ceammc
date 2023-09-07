@@ -22,6 +22,7 @@
 #include <boost/container/small_vector.hpp>
 
 #include "ceammc_atomlist_view.h"
+#include "ceammc_either.h"
 #include "ceammc_music_theory_tempo.h"
 #include "ragel_common.h"
 
@@ -148,6 +149,10 @@ namespace parser {
         bool parse(const char* str);
         bool parse(const Atom& a);
     };
+
+    Either<float> parse_angle_as(const Atom& a, AtomType type);
+    Either<std::pair<float, AtomType>> parse_angle(const char* str);
+    Either<std::pair<float, AtomType>> parse_angle(const Atom& a, AtomType def);
 }
 }
 

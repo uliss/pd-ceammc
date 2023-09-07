@@ -1091,7 +1091,7 @@ seq.arp	sequence arpeggiator
 seq.bangs	bang sequencer
 seq.b	bang sequencer
 seq.counter	sequencer counter
-seq.life	Conway gamw of life sequencer
+seq.life	Conway game of life sequencer
 seq.matrix	sequencer control for ui.matrix
 seq.nbangs	output specified number of bang with time intervals
 seq.nb	output specified number of bang with time intervals
@@ -1120,13 +1120,16 @@ hoa.2d.rotate~	a 2D ambisonic sound field rotation
 hoa.rotate~	a 2D ambisonic sound field rotation
 hoa.2d.wider~	a 2d fractional ambisonic order simulator
 hoa.wider~	a 2d fractional ambisonic order simulator
+hoa.3d.encoder~	hoa 3d encoder
 hoa.@process	process properties manager for hoa.process~
 hoa.in	message inlet for a patcher loaded by hoa.process~
 hoa.in~	signal inlet for a patcher loaded by hoa.process~
 hoa.out	message outlet for a patcher loaded by hoa.process~
 hoa.out~	signal inlet for a patcher loaded by hoa.process~
 hoa.process~	patcher loader for multichannel processing
+hoa.2d.process~	patcher loader for multichannel processing
 hoa.scope~	a 2d ambisonic harmonic scope
+hoa.2d.scope~	a 2d ambisonic harmonic scope
 pan.cos~	two channel equal power sine/cosine panner
 pan.linsig~	two channel linear panner with signal control
 pan.lin~	two channel linear panner

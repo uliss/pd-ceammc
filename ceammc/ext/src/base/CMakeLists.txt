@@ -15,7 +15,6 @@ set(BASE_SOURCES
     function.cpp
     function_call.cpp
     load_expr.cpp
-    load_msg.cpp
     metro_choice.cpp
     metro_pattern.cpp
     metro_random.cpp
@@ -24,6 +23,7 @@ set(BASE_SOURCES
     msg.cpp
     msg_after.cpp
     msg_onclose.cpp
+    msg_onload.cpp
     msg_pack.cpp
     msg_sched.cpp
     obj_info.cpp

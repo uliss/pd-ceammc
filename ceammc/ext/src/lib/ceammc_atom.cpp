@@ -548,16 +548,16 @@ size_t Atom::asSizeT(size_t def) const noexcept
     return (v < 0) ? def : static_cast<size_t>(v);
 }
 
-Atom Atom::expandDollarArgs(const AtomListView& args, bool checkArgs) const
+Maybe<Atom> Atom::expandDollarArgs(const AtomListView& args, bool checkArgs) const
 {
     if (isDollarSym()) {
         auto new_sym = binbuf_realizedollsym(asT<t_symbol*>(), args.size(), args.toPdData(), !checkArgs);
-        return new_sym ? new_sym : Atom();
+        return new_sym ? Atom(new_sym) : Maybe<Atom>();
     } else if (isDollar()) {
         auto idx = dollarIndex();
         if (idx < 0 || idx > args.size()) {
             if (checkArgs)
-                return Atom();
+                return Maybe<Atom>();
             else
                 return Atom(0.);
         } else if (idx == 0) {
@@ -566,26 +566,26 @@ Atom Atom::expandDollarArgs(const AtomListView& args, bool checkArgs) const
                 auto dz = canvas_info_dollarzero(cnv);
                 char buf[32] = { 0 };
                 sprintf(buf, "%d", dz);
-                return gensym(buf);
+                return Atom(gensym(buf));
             } else
-                return Atom();
+                return Maybe<Atom>();
         } else
             return args[idx - 1];
     } else
         return *this;
 }
 
-Atom Atom::expandDollarArgs(const t_canvas* cnv, bool checkArgs) const
+Maybe<Atom> Atom::expandDollarArgs(const t_canvas* cnv, bool checkArgs) const
 {
     if (isDollarSym()) {
         auto res = canvas_expand_dollar(cnv, asT<t_symbol*>(), checkArgs);
-        return res ? res : Atom();
+        return res ? Atom(res) : Maybe<Atom>();
     } else if (isDollar()) {
         auto args = canvas_info_args(cnv);
         auto idx = dollarIndex();
         if (idx < 0 || idx > args.size()) {
             if (checkArgs)
-                return Atom();
+                return Maybe<Atom>();
             else
                 return Atom(0.);
         } else if (idx == 0) {
@@ -594,9 +594,9 @@ Atom Atom::expandDollarArgs(const t_canvas* cnv, bool checkArgs) const
                 auto dz = canvas_info_dollarzero(cnv);
                 char buf[32] = { 0 };
                 sprintf(buf, "%d", dz);
-                return gensym(buf);
+                return Atom(gensym(buf));
             } else
-                return Atom();
+                return Maybe<Atom>();
         } else
             return args[idx - 1];
     } else

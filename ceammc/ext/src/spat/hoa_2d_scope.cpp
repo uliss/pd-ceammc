@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2019 Serge Poltavsky. All rights reserved.
+ * Copyright 2023 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -263,10 +263,11 @@ void Hoa2dScope::drawHarmonics()
 
 void Hoa2dScope::setup()
 {
-    static t_symbol* SYM_REFRESH = gensym("refresh");
-    static t_symbol* SYM_MSEC = gensym("msec");
+    auto SYM_REFRESH = gensym("refresh");
+    auto SYM_MSEC = gensym("msec");
 
     UIObjectFactory<Hoa2dScope> obj("hoa.scope~", EBOX_IGNORELOCKCLICK | EBOX_GROWLINK);
+    obj.addAlias("hoa.2d.scope~");
     obj.setDefaultSize(120, 120);
 
     // hide some properties
@@ -297,7 +298,7 @@ void Hoa2dScope::setup()
     obj.addColorProperty("nh_color", _("Negative Harmonics Color"), "0. 0. 1. 1.", &Hoa2dScope::prop_nh_color_);
 }
 
-void setup_spat_hoa_scope2d()
+void setup_spat_hoa_scope_2d()
 {
     Hoa2dScope::setup();
 }

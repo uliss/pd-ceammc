@@ -294,13 +294,14 @@ hoa.2d.projector~,hoa.projector~		?		?
 hoa.2d.recomposer~,hoa.recomposer~		?		?
 hoa.2d.rotate~,hoa.rotate~		?		?
 hoa.2d.wider~,hoa.wider~		?		?
+hoa.3d.encoder~		~~~		?
 hoa.@process		.		.
 hoa.in		-		.
 hoa.in~		-		~
 hoa.out		.		-
 hoa.out~		~		-
-hoa.process~		?		?
-hoa.scope~		?		-
+hoa.process~,hoa.2d.process~		?		?
+hoa.scope~,hoa.2d.scope~		?		-
 hw.apple_smc		.		.
 hw.apple_sms		.		.
 hw.arduino		.		.
@@ -360,7 +361,7 @@ list.insert		...		.
 list.integrator		.		.
 list.last		.		.
 list.length,list.size		.		.
-list.map		..		.
+list.map		..		..
 list.max		.		.
 list.mean,list.average		.		.
 list.min		.		.

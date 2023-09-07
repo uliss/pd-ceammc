@@ -14,13 +14,14 @@
 #ifndef LOAD_EXPR_H
 #define LOAD_EXPR_H
 
-#include "load_msg.h"
+#include "msg_onload.h"
 
-class LoadExpr : public LoadMsg {
+class LoadExpr : public MsgOnLoad {
 public:
     LoadExpr(const PdArgs& args);
 
-    void doOutput(const AtomListView& lv) override;
+protected:
+    void appendMessage(const AtomListView& lv) final;
 };
 
 void setup_load_expr();

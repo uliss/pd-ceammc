@@ -147,13 +147,15 @@
             <method name="font_size">set current font size 
             <param name="X" type="float" required="true">font size</param></method>
             <!-- icon -->
-            <method name="icon">draw named icon. Pass ? as single argument to dump all icons to Pd window.
+            <method name="icon">draw named icon. Pass ? as single argument to dump all icons to Pd
+            window. 
             <param name="X" type="atom" required="true">left-coord in pixel or percents of
             width</param>
             <param name="Y" type="atom" required="true">top-coord in pixel or percents of
             height</param>
             <param name="SIZE" type="float" required="true">font size</param>
-            <param name="ICON" type="symbol" required="true">icon name. See https://fonts.google.com/icons for full list</param></method>
+            <param name="ICON" type="symbol" required="true">icon name. See
+            https://fonts.google.com/icons for full list</param></method>
             <!-- image -->
             <method name="image">draws image. Note: only PNG images are supported! 
             <param name="X" type="atom" required="true">left-coord in pixel or percents of
@@ -184,8 +186,8 @@
             width</param>
             <param name="Y" type="atom" required="true">y-coord in pixels or percents of
             height</param></method>
-            <!-- line_width -->
-            <method name="line_width">set stroke width 
+            <!-- width -->
+            <method name="width">set stroke width 
             <param name="WIDTH" type="float" required="true">line width</param></method>
             <!-- move_by -->
             <method name="move_by">move current drawing point by relative offset 
@@ -200,21 +202,27 @@
             <param name="Y" type="atom" required="true">y-coord in pixels or percents of
             height</param></method>
             <!-- matrix -->
-            <method name="matrix">set 2D transformation matrix
-            <param name="XX" type="atom" required="true">xx component of the affine transformation</param>
-            <param name="YX" type="atom" required="true">yx component of the affine transformation</param>
-            <param name="XY" type="atom" required="true">xy component of the affine transformation</param>
-            <param name="YY" type="atom" required="true">yy component of the affine transformation</param>
-            <param name="X0" type="atom" required="true">x component of the affine transformation</param>
-            <param name="Y0" type="atom" required="true">y component of the affine transformation</param></method>
+            <method name="matrix">set 2D transformation matrix 
+            <param name="XX" type="atom" required="true">xx component of the affine
+            transformation</param>
+            <param name="YX" type="atom" required="true">yx component of the affine
+            transformation</param>
+            <param name="XY" type="atom" required="true">xy component of the affine
+            transformation</param>
+            <param name="YY" type="atom" required="true">yy component of the affine
+            transformation</param>
+            <param name="X0" type="atom" required="true">x component of the affine
+            transformation</param>
+            <param name="Y0" type="atom" required="true">y component of the affine
+            transformation</param></method>
             <!-- musicxml -->
-            <method name="musicxml">render MusicXML file
+            <method name="musicxml">render MusicXML file 
             <param name="X" type="atom" required="true">x-coord in pixels or percents of
             width</param>
             <param name="Y" type="atom" required="true">y-coord in pixels or percents of
             height</param>
-            <param name="FILE" type="symbol" required="true">absolute or relative to patch filepath of MusicXML file</param>
-            </method>
+            <param name="FILE" type="symbol" required="true">absolute or relative to patch filepath
+            of MusicXML file</param></method>
             <!-- new_path -->
             <method name="new_path">starts new path</method>
             <!-- new_subpath -->
@@ -370,18 +378,18 @@
             </pdascii>
             <pdascii id="line">
 <![CDATA[
-[clear, line_cap butt, line_width 10, line 10% 10% 90% 90%, stroke blue, update #a(
+[clear, line_cap butt, width 10, line 10% 10% 90% 90%, stroke blue, update #a(
 
 
-[clear, line_cap square, line_width 10, line 10% 10% 90% 90%, stroke blue, update #b(
+[clear, line_cap square, width 10, line 10% 10% 90% 90%, stroke blue, update #b(
 
 
-[clear, line_cap round, line_width 10, line 10% 10% 90% 90%, stroke red, update #c(
+[clear, line_cap round, width 10, line 10% 10% 90% 90%, stroke red, update #c(
 
 
     [dash #e( [dash 5 5 12 #f(
 
-[clear, line_width 10, line_cap round, move_to 10% 50%, line_to 90% 50%, line_to 50% 10%, line_to 50% 90%, stroke cyan, update #d(
+[clear, width 10, line_cap round, move_to 10% 50%, line_to 90% 50%, line_to 50% 10%, line_to 50% 90%, stroke cyan, update #d(
 
 
 
@@ -407,7 +415,7 @@
  [rotate 30, font Verdana, font_size 20, text 20 0 CEAM, fill random, update #b(
 
 
-  [matrix, font Verdana bold, font_size 40, line_width 2, text 50 75 HELLO, fill gray preserve, stroke cyan, update #c(
+  [matrix, font Verdana bold, font_size 40, width 2, text 50 75 HELLO, fill gray preserve, stroke cyan, update #c(
 
 
    [clear, font Verdana italic, font_size 50, text 50 75 HELLO, fill black, update #d(
@@ -463,7 +471,7 @@
             </pdascii>
             <pdascii id="arrows">
 <![CDATA[
-[line_width 1, arrow 30 30 130 160 A a, stroke red, update #a(
+[width 1, arrow 30 30 130 160 A a, stroke red, update #a(
 
 [arrow 60 30 160 160 O o, stroke blue, update #b(
 

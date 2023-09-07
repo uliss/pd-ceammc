@@ -14,9 +14,7 @@
 #include "msg_onclose.h"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
-
 #include "fmt/core.h"
-#include "g_canvas.h"
 
 constexpr const char* MENUCLOSE = "menuclose";
 constexpr const char* ORIG_MENUCLOSE = "menuclose [msg.onclose]";
@@ -33,14 +31,6 @@ static void msg_onclose_menuclose(t_canvas* x, t_floatarg f)
     pd::message_to((t_pd*)x, gensym(ORIG_MENUCLOSE), Atom(f));
 }
 
-static bool is_comma(const Atom& a)
-{
-    return a.isComma()
-        || (a.isSymbol()
-            && a.asT<t_symbol*>()->s_name[0] == ','
-            && a.asT<t_symbol*>()->s_name[1] == '\0');
-}
-
 MsgOnClose::MsgOnClose(const PdArgs& args)
     : BaseObject(args)
 {
@@ -48,22 +38,13 @@ MsgOnClose::MsgOnClose(const PdArgs& args)
 
     bindReceive(gensym(MENUCLOSE));
 
-    auto cnv = canvas();
-    auto& bargs = this->args();
-    AtomList m;
-
-    for (size_t i = 0; i < bargs.size(); i++) {
-        auto& a = bargs[i];
-        if (is_comma(a)) {
-            msg_.push_back(Message::makeTyped(m));
-            m.clear();
-        } else {
-            m.append(a.expandDollarArgs(cnv));
-        }
-    }
-
-    if (!m.empty())
-        msg_.push_back(Message::makeTyped(m));
+    AtomList raw_args;
+    binbufArgs().restorePrimitives(raw_args);
+    raw_args.expandDollarArgs(canvas());
+    raw_args.view().split(Atom::comma(),
+        [this](const AtomListView& lv) {
+            msg_.push_back(Message::makeTyped(lv));
+        });
 }
 
 void MsgOnClose::onCloseBang()
@@ -72,17 +53,17 @@ void MsgOnClose::onCloseBang()
         messageTo(0, m);
 }
 
-void setup_msg_on_close()
+void setup_msg_onclose()
 {
     constexpr const char* OBJ_NAME = "msg.onclose";
     ObjectFactory<MsgOnClose> obj(OBJ_NAME);
     obj.useLoadBang();
 
-    auto orgfun = zgetfn(&canvas_class, gensym(MENUCLOSE));
+    auto orgfun = zgetfn(&canvas_get_class(), gensym(MENUCLOSE));
     if ((t_gotfn)msg_onclose_menuclose != orgfun) {
         LIB_LOG << fmt::format("[{}] replace '{}' method for canvas:", OBJ_NAME, MENUCLOSE);
 
-        class_addmethod(canvas_class, (t_method)msg_onclose_menuclose, gensym(MENUCLOSE), A_DEFFLOAT, 0);
-        class_addmethod(canvas_class, (t_method)orgfun, gensym(ORIG_MENUCLOSE), A_DEFFLOAT, 0);
+        class_addmethod(canvas_get_class(), (t_method)msg_onclose_menuclose, gensym(MENUCLOSE), A_DEFFLOAT, 0);
+        class_addmethod(canvas_get_class(), (t_method)orgfun, gensym(ORIG_MENUCLOSE), A_DEFFLOAT, 0);
     }
 }

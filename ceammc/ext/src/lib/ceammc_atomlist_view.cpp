@@ -50,6 +50,14 @@ AtomListView::AtomListView(const AtomList& l) noexcept
 {
 }
 
+AtomListView::AtomListView(const t_binbuf* b) noexcept
+{
+    if (b) {
+        n_ = binbuf_getnatom(b);
+        data_ = n_ ? reinterpret_cast<const Atom*>(binbuf_getvec(b)) : nullptr;
+    }
+}
+
 void AtomListView::set(t_atom* a, size_t n)
 {
     data_ = reinterpret_cast<Atom*>(a);
@@ -389,6 +397,64 @@ bool AtomListView::getProperty(t_symbol* name, AtomListView& res) const
 
     res = subView(pos + 1);
     return true;
+}
+
+bool AtomListView::expandDollarArgs(const t_canvas* cnv, AtomList& res, InvalidDollarArgPolicy policy, const Atom& def) const
+{
+    res.reserve(res.size() + n_);
+
+    for (size_t i = 0; i < n_; i++) {
+        auto atom = data_[i].expandDollarArgs(cnv, true);
+
+        switch (policy) {
+        case InvalidDollarArgPolicy::DEFAULT_ARG:
+            res.append(atom ? *atom : def);
+            break;
+        case InvalidDollarArgPolicy::KEEP_RAW:
+            res.append(atom ? *atom : data_[i]);
+            break;
+        case InvalidDollarArgPolicy::DROP_ARG:
+        default:
+            break;
+        }
+    }
+
+    return true;
+}
+
+void AtomListView::restorePrimitives(AtomList& res) const
+{
+    if (empty())
+        return;
+
+    res.reserve(res.size() + n_);
+    auto bb = binbuf_new();
+    if (!bb)
+        return;
+
+    binbuf_restore(bb, n_, toPdData());
+
+    for (int i = 0; i < binbuf_getnatom(bb); i++)
+        res.append(binbuf_getvec(bb)[i]);
+
+    binbuf_free(bb);
+}
+
+void AtomListView::split(const Atom& sep, const std::function<void(const AtomListView&)>& msg) const
+{
+    if (!msg)
+        return;
+
+    size_t start = 0;
+
+    for (size_t i = 0; i < n_; i++) {
+        if (data_[i] == sep) {
+            msg(subView(start, i - start));
+            start = i + 1;
+        }
+    }
+
+    msg(subView(start));
 }
 
 std::ostream& operator<<(std::ostream& os, const AtomListView& l)

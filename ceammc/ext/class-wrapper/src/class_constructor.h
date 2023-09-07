@@ -27,14 +27,9 @@
 #define CLASS_CONSTRUCTOR_HPP
 
 #include "ceammc_atomlist.h"
-#include "ceammc_factory.h"
 #include "ceammc_object.h"
 
 #include "wrapper_datatype.h"
-#include "wrapper_fn_traits.h"
-#include "wrapper_invocations.h"
-#include "wrapper_sequence.h"
-#include "wrapper_tuple.h"
 
 using namespace ceammc;
 

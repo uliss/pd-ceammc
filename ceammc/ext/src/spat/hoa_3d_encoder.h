@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2018 Serge Poltavsky. All rights reserved.
+ * Copyright 2023 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,29 +11,27 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef LOAD_MSG_H
-#define LOAD_MSG_H
+#ifndef HOA_3D_ENCODER_H
+#define HOA_3D_ENCODER_H
 
-#include "ceammc_object.h"
+#include <memory>
 
-using namespace ceammc;
+#include "hoa_common.h"
 
-class LoadMsg : public BaseObject {
-    AtomList raw_args_;
+class HoaEncoder3D : public HoaBase {
+    std::unique_ptr<Encoder3d> encoder_;
+    Buffer signals_;
 
 public:
-    LoadMsg(const PdArgs& args);
-    void output();
+    HoaEncoder3D(const PdArgs& args);
 
-    void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
-    void onLoadBang() override;
+    void processBlock(const t_sample** in, t_sample** out) override;
+    void parseProperties() override;
+    void blockSizeChanged(size_t bs) override;
 
-    virtual void doOutput(const AtomListView& lv);
-
-private:
-    void realizeDollars();
+    const char* annotateInlet(size_t n) const override;
 };
 
-void setup_load_msg();
+void setup_spat_hoa_encoder_3d();
 
-#endif // LOAD_MSG_H
+#endif // HOA_3D_ENCODER_H

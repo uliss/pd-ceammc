@@ -17,7 +17,6 @@
 #include <array>
 #include <memory>
 
-#include "ceammc_sound_external.h"
 #include "hoa_common.h"
 using namespace ceammc;
 

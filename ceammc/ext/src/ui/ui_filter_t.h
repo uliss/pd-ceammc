@@ -15,6 +15,7 @@
 #define UI_FILTER_T_H
 
 #include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_filter.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
@@ -27,24 +28,23 @@ using namespace ceammc;
 namespace ceammc {
 namespace ui {
 
-    static t_symbol* SYM_BPF;
-    static t_symbol* SYM_BPFQ;
-    static t_symbol* SYM_HIGHSHELF;
-    static t_symbol* SYM_HPF;
-    static t_symbol* SYM_LIN;
-    static t_symbol* SYM_LOG10;
-    static t_symbol* SYM_LOWSHELF;
-    static t_symbol* SYM_LPF;
-    static t_symbol* SYM_NOTCH;
-    static t_symbol* SYM_PEAK_EQ;
-    static t_symbol* SYM_RAD;
+    CEAMMC_DEFINE_SYM_HASH(bpf);
+    CEAMMC_DEFINE_SYM_HASH(bpfq);
+    CEAMMC_DEFINE_SYM_HASH(highshelf);
+    CEAMMC_DEFINE_SYM_HASH(hpf);
+    CEAMMC_DEFINE_SYM_HASH(lin);
+    CEAMMC_DEFINE_SYM_HASH(log);
+    CEAMMC_DEFINE_SYM_HASH(lowshelf);
+    CEAMMC_DEFINE_SYM_HASH(lpf);
+    CEAMMC_DEFINE_SYM_HASH(notch);
+    CEAMMC_DEFINE_SYM_HASH(peak);
+    CEAMMC_DEFINE_SYM_HASH(rad);
 
-    static t_symbol* PROP_FREQ;
-    static t_symbol* PROP_GAIN;
-    static t_symbol* PROP_Q;
-    static t_symbol* PROP_TYPE;
-    static t_symbol* PROP_SCALE;
-    static bool sym_init_done = false;
+    CEAMMC_DEFINE_SYM_HASH(freq);
+    CEAMMC_DEFINE_SYM_HASH(q);
+    CEAMMC_DEFINE_SYM_HASH(gain);
+    CEAMMC_DEFINE_SYM_HASH(type);
+    CEAMMC_DEFINE_SYM_HASH(scale);
 
     constexpr int ipow(int num, unsigned int pow)
     {
@@ -75,8 +75,8 @@ namespace ui {
 
     private:
         t_pt knob_pt_;
-        t_symbol* prop_type { SYM_LPF };
-        t_symbol* prop_scale { SYM_LIN };
+        t_symbol* prop_type { sym_lpf() };
+        t_symbol* prop_scale { sym_lin() };
         t_rgba prop_color_grid;
         t_rgba prop_color_plot;
         t_rgba prop_color_knob;
@@ -93,35 +93,35 @@ namespace ui {
             TBase::initPopupMenu(
                 "main", {
                             { _("Low Pass"), [this](const t_pt&) {
-                                 TBase::setProperty(PROP_TYPE, AtomList(SYM_LPF));
+                                 TBase::setProperty(sym_type(), AtomList(sym_lpf()));
                              } },
                             { _("High Pass"), [this](const t_pt&) {
-                                 TBase::setProperty(PROP_TYPE, AtomList(SYM_HPF));
+                                 TBase::setProperty(sym_type(), AtomList(sym_hpf()));
                              } },
                             { _("Band Pass"), [this](const t_pt&) {
-                                 TBase::setProperty(PROP_TYPE, AtomList(SYM_BPF));
+                                 TBase::setProperty(sym_type(), AtomList(sym_bpf()));
                              } },
                             { _("Peak Eq"), [this](const t_pt&) {
-                                 TBase::setProperty(PROP_TYPE, AtomList(SYM_PEAK_EQ));
+                                 TBase::setProperty(sym_type(), AtomList(sym_peak()));
                              } },
                             { _("Low Shelf"), [this](const t_pt&) {
-                                 TBase::setProperty(PROP_TYPE, AtomList(SYM_LOWSHELF));
+                                 TBase::setProperty(sym_type(), AtomList(sym_lowshelf()));
                              } },
                             { _("High Shelf"), [this](const t_pt&) {
-                                 TBase::setProperty(PROP_TYPE, AtomList(SYM_HIGHSHELF));
+                                 TBase::setProperty(sym_type(), AtomList(sym_highshelf()));
                              } },
                             { _("Notch"), [this](const t_pt&) {
-                                 TBase::setProperty(PROP_TYPE, AtomList(SYM_NOTCH));
+                                 TBase::setProperty(sym_type(), AtomList(sym_notch()));
                              } },
                             { "", { /* separator */ } },
                             { _("Log"), [this](const t_pt&) {
-                                 TBase::setProperty(PROP_SCALE, AtomList(SYM_LOG10));
+                                 TBase::setProperty(sym_scale(), AtomList(sym_log()));
                              } },
                             { _("Linear Hz"), [this](const t_pt&) {
-                                 TBase::setProperty(PROP_SCALE, AtomList(SYM_LIN));
+                                 TBase::setProperty(sym_scale(), AtomList(sym_lin()));
                              } },
                             { _("Linear Rad"), [this](const t_pt&) {
-                                 TBase::setProperty(PROP_SCALE, AtomList(SYM_RAD));
+                                 TBase::setProperty(sym_scale(), AtomList(sym_rad()));
                              } },
                         });
         }
@@ -169,27 +169,6 @@ namespace ui {
         template <class Factory>
         static void setup(Factory& obj)
         {
-            if (!sym_init_done) {
-                SYM_BPF = gensym("bpf");
-                SYM_BPFQ = gensym("bpfq");
-                SYM_HIGHSHELF = gensym("highshelf");
-                SYM_HPF = gensym("hpf");
-                SYM_LIN = gensym("lin");
-                SYM_LOG10 = gensym("log");
-                SYM_LOWSHELF = gensym("lowshelf");
-                SYM_LPF = gensym("lpf");
-                SYM_NOTCH = gensym("notch");
-                SYM_PEAK_EQ = gensym("peak");
-                SYM_RAD = gensym("rad");
-
-                PROP_FREQ = gensym("freq");
-                PROP_Q = gensym("q");
-                PROP_GAIN = gensym("gain");
-                PROP_TYPE = gensym("type");
-                PROP_SCALE = gensym("scale");
-                sym_init_done = true;
-            }
-
             obj.hideLabelInner();
 
             obj.useAnnotations();
@@ -204,30 +183,30 @@ namespace ui {
             obj.addProperty("knob_color", _("Knob Color"), DEFAULT_ACTIVE_COLOR, &TFilter::prop_color_knob);
             obj.setPropertyDefaultValue("label_color", DEFAULT_BORDER_COLOR);
 
-            obj.addFloatProperty(PROP_FREQ->s_name,
+            obj.addFloatProperty(str_freq,
                 _("Frequency"), 1000, &TFilter::prop_freq, _("Main"));
-            obj.setPropertyRange(PROP_FREQ->s_name, 0, MAX_LIN_FREQ);
-            obj.setPropertySave(PROP_FREQ->s_name, false);
+            obj.setPropertyRange(str_freq, 0, MAX_LIN_FREQ);
+            obj.setPropertySave(str_freq, false);
 
-            obj.addFloatProperty(PROP_Q->s_name,
+            obj.addFloatProperty(str_q,
                 _("Quality factor"), std::sqrt(0.5), &TFilter::prop_q, _("Main"));
-            obj.setPropertySave(PROP_Q->s_name, false);
-            obj.setPropertyRange(PROP_Q->s_name, MIN_Q, MAX_Q);
+            obj.setPropertySave(str_q, false);
+            obj.setPropertyRange(str_q, MIN_Q, MAX_Q);
 
-            obj.addFloatProperty(PROP_GAIN->s_name,
+            obj.addFloatProperty(str_gain,
                 _("Gain"), 0, &TFilter::prop_gain, _("Main"));
-            obj.setPropertyRange(PROP_GAIN->s_name, MIN_DB, MAX_DB);
-            obj.setPropertyUnits(PROP_GAIN->s_name, "db");
-            obj.setPropertySave(PROP_GAIN->s_name, false);
+            obj.setPropertyRange(str_gain, MIN_DB, MAX_DB);
+            obj.setPropertyUnits(str_gain, "db");
+            obj.setPropertySave(str_gain, false);
 
-            obj.addMenuProperty(PROP_TYPE->s_name,
+            obj.addMenuProperty(str_type,
                 _("Filter Type"),
                 "lpf",
                 &TFilter::prop_type,
                 "lpf hpf bpf bpfq lowshelf highshelf peak notch",
                 _("Main"));
 
-            obj.addMenuProperty(PROP_SCALE->s_name,
+            obj.addMenuProperty(str_scale,
                 _("Scale"),
                 "lin",
                 &TFilter::prop_scale,
@@ -247,7 +226,7 @@ namespace ui {
         knobUpdateFreq();
         knobUpdateGain();
 
-        if (prop_type != SYM_PEAK_EQ)
+        if (crc32_hash(prop_type) != hash_peak)
             knobUpdateQ();
     }
 
@@ -275,15 +254,15 @@ namespace ui {
     {
         using namespace convert;
 
-        if (prop_scale == SYM_LIN) {
+        if (crc32_hash(prop_scale) == hash_lin) {
             prop_freq = lin2lin<float, 0, 1>(knob_pt_.x, MIN_LIN_FREQ, MAX_LIN_FREQ);
-        } else if (prop_scale == SYM_LOG10) {
+        } else if (crc32_hash(prop_scale) == hash_log) {
             static const float loga = std::log10(MIN_LOG10_FREQ);
             static const float logb = std::log10(MAX_LOG10_FREQ);
 
             const float fp = lin2lin_clip<float, 0, 1>(knob_pt_.x, loga, logb);
             prop_freq = std::pow(10, fp);
-        } else if (prop_scale == SYM_RAD) {
+        } else if (crc32_hash(prop_scale) == hash_rad) {
             prop_freq = lin2lin_clip<float, 0, 1>(knob_pt_.x, 0, nyquistFreq());
         } else {
             UI_ERR << "unknown scale: " << prop_scale;
@@ -312,16 +291,16 @@ namespace ui {
     {
         using namespace convert;
 
-        if (prop_scale == SYM_LIN) {
+        if (crc32_hash(prop_scale) == hash_lin) {
             knob_pt_.x = lin2lin<float, MIN_LIN_FREQ, MAX_LIN_FREQ>(prop_freq, 0, 1);
-        } else if (prop_scale == SYM_LOG10) {
+        } else if (crc32_hash(prop_scale) == hash_log) {
             static const float loga = std::log10(MIN_LOG10_FREQ);
             static const float logb = std::log10(MAX_LOG10_FREQ);
 
             const float fp = std::log10(prop_freq);
             const auto f = lin2lin_clip<float>(fp, loga, logb, 0, 1);
             knob_pt_.x = std::isnormal(f) ? f : 0;
-        } else if (prop_scale == SYM_RAD) {
+        } else if (crc32_hash(prop_scale) == hash_rad) {
             knob_pt_.x = lin2lin_clip<float>(prop_freq, 0, nyquistFreq(), 0, 1);
         } else {
             UI_ERR << "unknown scale: " << prop_scale;
@@ -410,7 +389,7 @@ namespace ui {
     template <class TBase>
     void TFilter<TBase>::onMouseWheel(const t_pt& pt, long, float delta)
     {
-        if (prop_type == SYM_PEAK_EQ) {
+        if (crc32_hash(prop_type) == hash_peak) {
             prop_q = clip<t_float>(prop_q * (1 + delta * 0.05), MIN_Q, MAX_Q);
             updateCoeffs();
             TBase::redraw();
@@ -421,26 +400,26 @@ namespace ui {
     template <class TBase>
     void TFilter<TBase>::onPropChange(t_symbol* name)
     {
-        if (name == PROP_FREQ
-            || name == PROP_Q
-            || name == PROP_GAIN
-            || name == PROP_TYPE)
+        switch (crc32_hash(name)) {
+        case hash_freq:
+            freqUpdateKnob();
             updateCoeffs();
-
-        if (name == PROP_Q) {
+            break;
+        case hash_q:
             qUpdateKnob();
             updateCoeffs();
-        } else if (name == PROP_GAIN) {
+            break;
+        case hash_gain:
             gainUpdateKnob();
             updateCoeffs();
-        } else if (name == PROP_FREQ) {
+            break;
+        case hash_type:
+            updateCoeffs();
+            break;
+        case hash_scale:
             freqUpdateKnob();
             updateCoeffs();
-        } else if (name == PROP_TYPE) {
-            updateCoeffs();
-        } else if (name == PROP_SCALE) {
-            freqUpdateKnob();
-            updateCoeffs();
+            break;
         }
 
         TBase::redraw();
@@ -478,64 +457,64 @@ namespace ui {
         auto Fs = sys_getsr();
         auto w = flt::freq2ang<float>(prop_freq, Fs);
 
-        if (prop_type == SYM_NOTCH) {
-            auto c = flt::calc_notch<double>(w, q());
-            setBA(c);
-        } else if (prop_type == SYM_LPF) {
-            auto c = flt::calc_lpf<double>(w, q());
-            setBA(c);
-        } else if (prop_type == SYM_HPF) {
-            auto c = flt::calc_hpf<double>(w, q());
-            setBA(c);
-        } else if (prop_type == SYM_PEAK_EQ) {
-            auto c = flt::calc_peak_eq<double>(w, q(), calcDb());
-            setBA(c);
-        } else if (prop_type == SYM_LOWSHELF) {
-            auto c = flt::calc_lowshelf<double>(w, calcDb(), 1);
-            setBA(c);
-        } else if (prop_type == SYM_HIGHSHELF) {
-            auto c = flt::calc_highshelf<double>(w, calcDb(), 1);
-            setBA(c);
-        } else if (prop_type == SYM_BPFQ) {
-            auto c = flt::calc_bpfq<double>(w, q());
-            setBA(c);
-        } else if (prop_type == SYM_BPF) {
-            auto c = flt::calc_bpf<double>(w, q());
-            setBA(c);
+#define CASE(type)    \
+    case hash_##type: \
+        return setBA(flt::calc_##type<double>(w, q()))
+
+        switch (crc32_hash(prop_type)) {
+            CASE(notch);
+            CASE(lpf);
+            CASE(hpf);
+            CASE(bpfq);
+            CASE(bpf);
+        case hash_peak:
+            return setBA(flt::calc_peak_eq<double>(w, q(), calcDb()));
+        case hash_lowshelf:
+            return setBA(flt::calc_lowshelf<double>(w, calcDb(), 1));
+        case hash_highshelf:
+            return setBA(flt::calc_highshelf<double>(w, calcDb(), 1));
+        default:
+            return;
         }
+#undef CASE
     }
 
     template <class TBase>
     float TFilter<TBase>::q() const
     {
-        if (prop_type == SYM_NOTCH
-            || prop_type == SYM_BPFQ
-            || prop_type == SYM_BPF
-            || prop_type == SYM_PEAK_EQ) {
+        switch (crc32_hash(prop_type)) {
+        case hash_notch:
+        case hash_bpfq:
+        case hash_bpf:
+        case hash_peak:
             return prop_q;
-        } else if (prop_type == SYM_LPF
-            || prop_type == SYM_HPF) {
+        case hash_lpf:
+        case hash_hpf:
             return std::sqrt(0.5);
-        } else
+        default:
             return 0.1;
+        }
     }
 
     template <class TBase>
     float TFilter<TBase>::calcDb() const
     {
-        if (prop_type == SYM_PEAK_EQ
-            || prop_type == SYM_LOWSHELF
-            || prop_type == SYM_HIGHSHELF) {
+        switch (crc32_hash(prop_type)) {
+
+        case hash_peak:
+        case hash_lowshelf:
+        case hash_highshelf:
             return prop_gain;
-        } else
+        default:
             return 0;
+        }
     }
 
     template <class TBase>
     float TFilter<TBase>::calcBandwidth(float q, float w) const
     {
         float bw = 0;
-        if (prop_scale == SYM_RAD)
+        if (crc32_hash(prop_scale) == hash_rad)
             bw = flt::q2bandwidth<float>(q, w);
         else
             bw = clip<t_float, MIN_LIN_FREQ, MAX_LIN_FREQ>(flt::q2bandwidth<float>(q, w) * prop_freq);

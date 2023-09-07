@@ -68,14 +68,15 @@ public:
     void operator()(const draw::Arc& a) const;
     void operator()(const draw::Circle& c) const;
     void operator()(const draw::Curve& c) const;
+    void operator()(const draw::Ellipse& e) const;
     void operator()(const draw::Line& l) const;
     void operator()(const draw::LineTo& l) const;
     void operator()(const draw::MoveBy& c) const;
     void operator()(const draw::MoveTo& c) const;
     void operator()(const draw::Polygon& p) const;
+    void operator()(const draw::QRCode& q) const;
     void operator()(const draw::Rect& c) const;
     void operator()(const draw::Text& t) const;
-    void operator()(const draw::QRCode& q) const;
 
     void operator()(const draw::Create& c) const;
     void operator()(const draw::Sync& c) const;

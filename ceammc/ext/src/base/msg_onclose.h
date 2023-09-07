@@ -26,6 +26,6 @@ public:
     void onCloseBang() final;
 };
 
-void setup_msg_on_close();
+void setup_msg_onclose();
 
 #endif // MSG_ONCLOSE_H

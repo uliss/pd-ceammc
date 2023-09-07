@@ -1,5 +1,5 @@
-#N canvas 0 0 992 587 12;
-#X msg 20 48 line_width 1 \, arrow 30 30 130 160 A a \, stroke red \, update;
+#N canvas 0 0 956 587 12;
+#X msg 20 48 width 1 \, arrow 30 30 130 160 A a \, stroke red \, update;
 #X msg 20 77 arrow 60 30 160 160 O o \, stroke blue \, update;
 #X msg 20 106 arrow 90 30 190 160 T t \, stroke navy \, update;
 #X msg 20 135 arrow 120 30 220 160 V v \, stroke orange \, update;
