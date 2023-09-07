@@ -24,7 +24,7 @@
 #X text 3 592 [0 \, 0] \, [1 \, -1] \, [1 \, 0] \, [1 \, 1] \, [2 \, -2] \, [2 \, -1] \, [2 \, 0] \, [2 \, 1] \, [2 \, 2] \, ...[3 \, -1] \, [3 \, 0] \, [3 \, 1] \, [3 \, 2] \, [3 \, 3], f 60;
 #X text 469 6 Representation of the circular harmonics;
 #X obj 471 383 sig~ 1;
-#N canvas 827 508 504 300 target.pro 1;
+#N canvas 827 508 504 300 target.pro 0;
 #X obj 259 47 inlet;
 #X obj 279 204 outlet;
 #X obj 261 85 t f b;
@@ -47,7 +47,7 @@
 #X text 830 399 Order of the harmonics;
 #X text 469 356 Representation of the spherical harmonics;
 #X obj 471 473 hoa.3d.process~ 7 hoa.tuto.gain~ harmonics, f 37;
-#X obj 471 507 hoa.3d.scope~ @size 225 225 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @receive "tuto3scope" @send "(null)" @order 7 @view 0 0 0 @gain 20 @interval 100 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7 1 @phcolor 1 0 0 1 @nhcolor 0 0 1 1;
+#X obj 471 507 hoa.3d.scope~ @size 225 225 @receive "tuto3scope" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @gain 20 @refresh 100 @order 7 @view 0 0 0;
 #X text 828 372 Degree of the harmonics;
 #X obj 734 651 s tuto3scope;
 #X text 734 551 Rotation around the axes x \, y and z :;
