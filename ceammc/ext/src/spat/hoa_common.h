@@ -41,6 +41,7 @@ namespace ceammc {
 
 constexpr size_t HOA_MIN_ORDER = 1;
 constexpr size_t HOA_MAX_ORDER = 63;
+constexpr size_t HOA_MAX_ORDER_3D = 10;
 constexpr size_t HOA_DEFAULT_ORDER = 1;
 constexpr size_t HOA_DEFAULT_BLOCK_SIZE = 64;
 
@@ -56,6 +57,7 @@ using PolarLines2d = hoa::PolarLines<hoa::Hoa2d, t_sample>;
 using Rotate2d = hoa::Rotate<hoa::Hoa2d, t_sample>;
 using Wider2d = hoa::Wider<hoa::Hoa2d, t_sample>;
 using Scope2d = hoa::Scope<hoa::Hoa2d, t_sample>;
+using Scope3d = hoa::Scope<hoa::Hoa3d, t_sample>;
 using Exchanger2d = hoa::Exchanger<hoa::Hoa2d, t_sample>;
 
 using Signal = hoa::Signal<t_sample>;

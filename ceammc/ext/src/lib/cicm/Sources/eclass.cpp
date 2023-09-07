@@ -563,6 +563,9 @@ void eclass_attr_redirect(t_eclass* c, const char* attrname, t_gotfn fn)
 
 void eclass_attr_default(t_eclass* c, const char* attrname, const char* value)
 {
+    if (!attrname || !value)
+        return pd_error(nullptr, "NULL str pointer");
+
     auto* sel = gensym(attrname);
 
     for (size_t i = 0; i < c->c_nattr; i++) {
