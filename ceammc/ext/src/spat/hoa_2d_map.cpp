@@ -14,7 +14,7 @@
 #include <cmath>
 
 #include "ceammc_factory.h"
-#include "hoa_map.h"
+#include "hoa_2d_map.h"
 
 Hoa2dMap::Hoa2dMap(const PdArgs& args)
     : HoaBase<hoa::Hoa2d>(args)

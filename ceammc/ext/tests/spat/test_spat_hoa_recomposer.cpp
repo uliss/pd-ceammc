@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "hoa_recomposer.h"
+#include "hoa_2d_recomposer.h"
 #include "test_spat_base.h"
 
 PD_COMPLETE_TEST_SETUP(Hoa2dRecomposer, spat, hoa_recomposer_2d)

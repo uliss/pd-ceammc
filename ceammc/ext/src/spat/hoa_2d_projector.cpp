@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "hoa_projector.h"
+#include "hoa_2d_projector.h"
 #include "ceammc_factory.h"
 
 Hoa2dProjector::Hoa2dProjector(const PdArgs& args)

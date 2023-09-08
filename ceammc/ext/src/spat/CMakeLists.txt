@@ -8,9 +8,14 @@ set(SPAT_SOURCES
 )
 
 set(HOA_SOURCES
+    hoa_2d_decoder.cpp
     hoa_2d_encoder.cpp
     hoa_2d_exchanger.cpp
+    hoa_2d_map.cpp
     hoa_2d_optim.cpp
+    hoa_2d_projector.cpp
+    hoa_2d_recomposer.cpp
+    hoa_2d_rotate.cpp
     hoa_2d_scope.cpp
     hoa_2d_wider.cpp
     hoa_3d_decoder.cpp
@@ -21,15 +26,10 @@ set(HOA_SOURCES
     hoa_3d_wider.cpp
     hoa_common.h
     hoa_connections.cpp
-    hoa_decoder.cpp
-    hoa_map.cpp
     hoa_process.cpp
     hoa_process_inlet.cpp
     hoa_process_instance.cpp
     hoa_process_props.cpp
-    hoa_projector.cpp
-    hoa_recomposer.cpp
-    hoa_rotate.cpp
 )
 
 macro(ceammc_spat_obj_ext name)

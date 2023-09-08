@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "hoa_decoder.h"
+#include "hoa_2d_decoder.h"
 #include "ceammc_convert.h"
 #include "ceammc_crc32.h"
 #include "ceammc_dsp.h"

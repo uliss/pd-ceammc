@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "hoa_rotate.h"
+#include "hoa_2d_rotate.h"
 #include "ceammc_factory.h"
 
 std::array<char[Hoa2dRotate::ANNOT_LEN], HOA_MAX_2D_ORDER> Hoa2dRotate::xlet_annotations_;
