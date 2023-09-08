@@ -30,7 +30,7 @@ const char* Hoa3dEncoder::annotateInlet(size_t n) const
     }
 }
 
-void setup_spat_hoa_encoder_3d()
+void setup_spat_hoa_3d_encoder()
 {
     SoundExternalFactory<Hoa3dEncoder> obj("hoa.3d.encoder~");
 }

@@ -25,7 +25,7 @@ const char* Hoa2dEncoder::annotateInlet(size_t n) const
         return "angle in radians (ccv)";
 }
 
-void setup_spat_hoa_encoder()
+void setup_spat_hoa_2d_encoder()
 {
 
     SoundExternalFactory<Hoa2dEncoder> obj("hoa.2d.encoder~");

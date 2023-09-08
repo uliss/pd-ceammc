@@ -98,7 +98,7 @@ Hoa2dExchanger::HoaExchangerBase(const PdArgs& args)
     addProperty(from_b);
 }
 
-void setup_spat_hoa_exchanger_2d()
+void setup_spat_hoa_2d_exchanger()
 {
     Hoa2dExchanger::initAnnotations();
     SoundExternalFactory<Hoa2dExchanger> obj("hoa.2d.exchanger~");

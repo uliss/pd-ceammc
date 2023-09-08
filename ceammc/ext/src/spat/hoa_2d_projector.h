@@ -29,6 +29,6 @@ public:
     void processBlock(const t_sample** in, t_sample** out) override;
 };
 
-void setup_spat_hoa_projector();
+void setup_spat_hoa_2d_projector();
 
 #endif // HOA_2D_PROJECTOR_H

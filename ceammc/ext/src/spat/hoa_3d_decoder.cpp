@@ -300,7 +300,7 @@ bool Hoa3dDecoder::propSetOffset(const AtomListView& lv)
     return true;
 }
 
-void setup_spat_hoa_decoder_3d()
+void setup_spat_hoa_3d_decoder_3d()
 {
     SoundExternalFactory<Hoa3dDecoder> obj("hoa.3d.decoder~");
 }

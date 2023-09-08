@@ -88,7 +88,7 @@ void Hoa2dRotate::initAnnotations()
         snprintf(xlet_annotations_[i], ANNOT_LEN, "signal: harmonic\\[%d\\]", (int)i);
 }
 
-void setup_spat_hoa_rotate_2d()
+void setup_spat_hoa_2d_rotate()
 {
     Hoa2dRotate::initAnnotations();
     SoundExternalFactory<Hoa2dRotate> obj("hoa.2d.rotate~");

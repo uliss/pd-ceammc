@@ -116,7 +116,7 @@ Hoa3dExchanger::HoaExchangerBase(const PdArgs& args)
     addProperty(from_daniel);
 }
 
-void setup_spat_hoa_exchanger_3d()
+void setup_spat_hoa_3d_exchanger()
 {
     Hoa3dExchanger::initAnnotations();
     SoundExternalFactory<Hoa3dExchanger> obj("hoa.3d.exchanger~");

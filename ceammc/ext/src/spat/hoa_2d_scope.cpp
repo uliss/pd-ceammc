@@ -297,7 +297,7 @@ void Hoa2dScope::setup()
     obj.addColorProperty("nh_color", _("Negative Harmonics Color"), "0. 0. 1. 1.", &Hoa2dScope::prop_nh_color_);
 }
 
-void setup_spat_hoa_scope_2d()
+void setup_spat_hoa_2d_scope()
 {
     Hoa2dScope::setup();
 }

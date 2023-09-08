@@ -14,7 +14,7 @@
 #include "ceammc_factory.h"
 #include "hoa_optim_base.h"
 
-void setup_spat_hoa_optim_2d()
+void setup_spat_hoa_2d_optim()
 {
     using Hoa2dOptim = HoaOptimBase<Optim2d, hoa::Hoa2d>;
     SoundExternalFactory<Hoa2dOptim> obj("hoa.2d.optim~");

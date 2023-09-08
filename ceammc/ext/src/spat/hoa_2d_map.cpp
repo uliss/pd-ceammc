@@ -190,7 +190,7 @@ const char* Hoa2dMap::annotateInlet(size_t n) const
     }
 }
 
-void setup_spat_hoa_map_2d()
+void setup_spat_hoa_2d_map()
 {
     SoundExternalFactory<Hoa2dMap> obj("hoa.2d.map~");
     obj.addAlias("hoa.map~");

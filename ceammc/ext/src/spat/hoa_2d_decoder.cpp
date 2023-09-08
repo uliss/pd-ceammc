@@ -348,7 +348,7 @@ bool Hoa2dDecoder::propSetOffset(t_float f)
     return true;
 }
 
-void setup_spat_hoa_decoder_2d()
+void setup_spat_hoa_2d_decoder()
 {
     SoundExternalFactory<Hoa2dDecoder> obj("hoa.2d.decoder~");
     obj.addAlias("hoa.decoder~");

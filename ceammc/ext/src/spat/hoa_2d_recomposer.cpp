@@ -218,7 +218,7 @@ void Hoa2dRecomposer::processFisheye()
         Signal::copy(BS, &out_buf_[i], NOUTS, &out[i][0], 1);
 }
 
-void setup_spat_hoa_recomposer_2d()
+void setup_spat_hoa_2d_recomposer()
 {
     SoundExternalFactory<Hoa2dRecomposer> obj("hoa.2d.recomposer~");
     obj.addAlias("hoa.recomposer~");

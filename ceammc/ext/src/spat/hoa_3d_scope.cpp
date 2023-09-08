@@ -530,7 +530,7 @@ void Hoa3dScope::setup()
     obj.addColorProperty("nh_color", _("Negative Harmonics Color"), "0. 0. 1. 1.", &Hoa3dScope::prop_nh_color);
 }
 
-void setup_spat_hoa_scope_3d()
+void setup_spat_hoa_3d_scope()
 {
     Hoa3dScope::setup();
 }

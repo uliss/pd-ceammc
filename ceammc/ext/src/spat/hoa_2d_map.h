@@ -78,6 +78,6 @@ private:
     }
 };
 
-void setup_spat_hoa_map_2d();
+void setup_spat_hoa_2d_map();
 
 #endif // HOA_2D_MAP_H

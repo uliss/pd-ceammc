@@ -68,6 +68,6 @@ private:
     }
 };
 
-void setup_spat_hoa_recomposer_2d();
+void setup_spat_hoa_2d_recomposer();
 
 #endif // HOA_2D_RECOMPOSER_H

@@ -67,7 +67,7 @@ void Hoa2dProjector::processBlock(const t_sample** in, t_sample** out)
         Signal::copy(BS, &out_buf_[i], NOUTS, &out[i][0], 1);
 }
 
-void setup_spat_hoa_projector()
+void setup_spat_hoa_2d_projector()
 {
     SoundExternalFactory<Hoa2dProjector> obj("hoa.2d.projector~");
     obj.addAlias("hoa.projector~");
