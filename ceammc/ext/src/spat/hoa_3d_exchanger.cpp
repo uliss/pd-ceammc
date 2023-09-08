@@ -87,19 +87,33 @@ Hoa3dExchanger::HoaExchangerBase(const PdArgs& args)
     norm_->setArgIndex(2);
     addProperty(norm_);
 
-//    auto to_b = new SymbolEnumAlias("@toB", num_, sym_toFurseMalham());
-//    to_b->setSuccessFn([this](Property*) {
-//        if (norm_->setValue(sym_toMaxN()))
-//            norm_->callSuccessFn();
-//    });
-//    addProperty(to_b);
+    auto to_b = new SymbolEnumAlias("@toB", num_, sym_toFurseMalham());
+    to_b->setSuccessFn([this](Property*) {
+        if (norm_->setValue(sym_toMaxN()))
+            norm_->callSuccessFn();
+    });
+    addProperty(to_b);
 
-//    auto from_b = new SymbolEnumAlias("@fromB", num_, sym_fromFurseMalham());
-//    from_b->setSuccessFn([this](Property*) {
-//        if (norm_->setValue(sym_fromMaxN()))
-//            norm_->callSuccessFn();
-//    });
-//    addProperty(from_b);
+    auto from_b = new SymbolEnumAlias("@fromB", num_, sym_fromFurseMalham());
+    from_b->setSuccessFn([this](Property*) {
+        if (norm_->setValue(sym_fromMaxN()))
+            norm_->callSuccessFn();
+    });
+    addProperty(from_b);
+
+    auto to_daniel = new SymbolEnumAlias("@toDaniel", num_, sym_toSID());
+    to_daniel->setSuccessFn([this](Property*) {
+        if (norm_->setValue(sym_toN3D()))
+            norm_->callSuccessFn();
+    });
+    addProperty(to_daniel);
+
+    auto from_daniel = new SymbolEnumAlias("@fromDaniel", num_, sym_fromSID());
+    from_daniel->setSuccessFn([this](Property*) {
+        if (norm_->setValue(sym_toN3D()))
+            norm_->callSuccessFn();
+    });
+    addProperty(from_daniel);
 }
 
 void setup_spat_hoa_exchanger_3d()
