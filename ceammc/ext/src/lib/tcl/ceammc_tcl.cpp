@@ -13,12 +13,18 @@
  *****************************************************************************/
 #include "ceammc_tcl.h"
 #include "ceammc_texteditor.h"
+#include "ceammc_tooltips.h"
 
 namespace ceammc {
 
 void ceammc_tcl_init()
 {
     ceammc_texteditor_tcl_output();
+}
+
+void ceammc_tcl_init_tooltips()
+{
+    ceammc_tooltips_tcl_output();
 }
 
 }

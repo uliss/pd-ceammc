@@ -102,7 +102,6 @@ public:
     const char* what() const noexcept;
 };
 
-void ceammc_tcl_init_tooltips();
 void ceammc_xlet_bind_tooltip(t_object* x, t_glist* glist, XletType type, const char* xlet_id, const char* txt);
 void ceammc_xlet_bind_tooltip(t_object* x, t_glist* glist, XletGetTclIdFn id_fn, XletGetAnnotationFn ann_fn, XletType type, int xlet_idx);
 void ceammc_class_add_propget_fn(t_class* c, PropertyGetFn fn);
