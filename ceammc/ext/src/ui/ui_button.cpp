@@ -88,7 +88,7 @@ void UIButton::off()
 
 void UIButton::setup()
 {
-    sys_gui(ui_button_tcl);
+    ui_button_tcl_output();
 
     UIObjectFactory<UIButton> obj("ui.button", EBOX_GROWLINK);
     obj.addAlias("ui.btn");

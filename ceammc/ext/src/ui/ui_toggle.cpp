@@ -191,7 +191,7 @@ void UIToggle::redrawAll()
 
 void UIToggle::setup()
 {
-    sys_vgui(ui_toggle_tcl);
+    ui_toggle_tcl_output();
 
     UIObjectFactory<UIToggle> obj("ui.toggle", EBOX_GROWLINK);
     obj.addAlias("ui.t");

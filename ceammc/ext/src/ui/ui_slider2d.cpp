@@ -363,7 +363,6 @@ void UISlider2D::setMouse(t_float x, t_float y)
 
 void setup_ui_slider2d()
 {
-    sys_gui(ui_slider2d_tcl);
-
+    ui_slider2d_tcl_output();
     UISlider2D::setup();
 }

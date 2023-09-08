@@ -346,7 +346,7 @@ void setup_ui_icon()
 {
     init_icon_list();
 
-    sys_gui(ui_icon_tcl);
+    ui_icon_tcl_output();
 
     for (auto& i : icons_list) {
         if (!i.name)

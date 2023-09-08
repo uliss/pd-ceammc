@@ -361,7 +361,7 @@ void UIDisplay::redrawAll()
 
 void UIDisplay::setup()
 {
-    sys_gui(ui_display_tcl);
+    ui_display_tcl_output();
 
     UIObjectFactory<UIDisplay> obj("ui.display");
     obj.addAlias("ui.d");

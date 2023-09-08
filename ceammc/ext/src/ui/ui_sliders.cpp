@@ -693,7 +693,7 @@ void UISliders::onPropChange(t_symbol* prop_name)
 
 void UISliders::setup()
 {
-    sys_gui(ui_sliders_tcl);
+    ui_sliders_tcl_output();
 
     random_seed = std::chrono::system_clock::now().time_since_epoch().count();
 

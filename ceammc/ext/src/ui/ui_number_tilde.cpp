@@ -31,7 +31,7 @@ UINumberTilde::UINumberTilde()
 {
 }
 
-void UINumberTilde::init(t_symbol* name, const AtomListView &args, bool usePresets)
+void UINumberTilde::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIDspObject::init(name, args, usePresets);
     dspSetup(1, 1);
@@ -92,7 +92,7 @@ void UINumberTilde::updateTextValue()
 
 void UINumberTilde::setup()
 {
-    sys_gui(ui_number_tilde_tcl);
+    ui_number_tilde_tcl_output();
 
     UIObjectFactory<UINumberTilde> obj("ui.number~", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK);
     obj.addAlias("ui.n~");

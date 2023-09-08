@@ -540,7 +540,7 @@ void UIRadio::onPropChange(t_symbol* prop_name)
 
 void UIRadio::setup()
 {
-    sys_vgui(ui_radio_tcl);
+    ui_radio_tcl_output();
 
     UIObjectFactory<UIRadio> obj("ui.radio");
     obj.addAlias("ui.hrd");

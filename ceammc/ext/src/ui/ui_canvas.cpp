@@ -1229,7 +1229,7 @@ void UICanvas::setup()
 
 void setup_ui_canvas()
 {
-    sys_gui(ui_canvas_tcl);
+    ui_canvas_tcl_output();
 
     UICanvas::setup();
     LIB_DBG << "cairo version: " << cairo_version_string();

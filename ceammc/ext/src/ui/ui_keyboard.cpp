@@ -491,7 +491,7 @@ void UIKeyboard::outputCurrentKey()
 
 void UIKeyboard::setup()
 {
-    sys_gui(ui_keyboard_tcl);
+    ui_keyboard_tcl_output();
 
     SYM_VKEYBOARD = gensym("ui.vkeyboard");
     SYM_VKEYBOARD2 = gensym("ui.vk");

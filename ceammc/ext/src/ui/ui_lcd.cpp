@@ -238,7 +238,7 @@ void UILcd::p_setNumRows(t_int n)
 
 void UILcd::setup()
 {
-    sys_gui(ui_lcd_tcl);
+    ui_lcd_tcl_output();
 
     UIObjectFactory<UILcd> obj("ui.lcd", EBOX_GROWLINK);
 

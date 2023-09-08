@@ -141,6 +141,6 @@ void UIKnob::setup()
 
 void setup_ui_knob()
 {
-    sys_gui(ui_knob_tcl);
+    ui_knob_tcl_output();
     ceammc::UIKnob::setup();
 }

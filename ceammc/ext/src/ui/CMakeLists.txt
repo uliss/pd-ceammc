@@ -118,44 +118,20 @@ target_include_directories(ceammc_ui
     )
 
 tcl_ui_deps(ui_circular_meter.tcl)
-
-set(TCL_GEN_SCRIPT ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh)
-
-add_custom_target(ceammc_ui_tcl_gen
-    COMMAND ${TCL_GEN_SCRIPT} ui_bang.tcl
-    COMMAND ${TCL_GEN_SCRIPT} ui_button.tcl
-    COMMAND ${TCL_GEN_SCRIPT} ui_canvas.tcl
-    COMMAND ${TCL_GEN_SCRIPT} ui_display.tcl
-    COMMAND ${TCL_GEN_SCRIPT} ui_dsp.tcl
-    COMMAND ${TCL_GEN_SCRIPT} ui_filter.tcl
-    COMMAND ${TCL_GEN_SCRIPT} ui_icon.tcl
-    COMMAND ${TCL_GEN_SCRIPT} ui_keyboard.tcl
-    COMMAND ${TCL_GEN_SCRIPT} ui_knob.tcl
-    COMMAND ${TCL_GEN_SCRIPT} ui_lcd.tcl
-    COMMAND ${TCL_GEN_SCRIPT} ui_link.tcl
-    COMMAND ${TCL_GEN_SCRIPT} ui_meter.tcl
-    COMMAND ${TCL_GEN_SCRIPT} ui_number_tilde.tcl
-    COMMAND ${TCL_GEN_SCRIPT} ui_radio.tcl
-    COMMAND ${TCL_GEN_SCRIPT} ui_slider2d.tcl
-    COMMAND ${TCL_GEN_SCRIPT} ui_sliders.tcl
-    COMMAND ${TCL_GEN_SCRIPT} ui_toggle.tcl
-    SOURCES
-        ui_bang.tcl
-        ui_button.tcl
-        ui_canvas.tcl
-        ui_display.tcl
-        ui_dsp.tcl
-        ui_filter.tcl
-        ui_icon.tcl
-        ui_keyboard.tcl
-        ui_knob.tcl
-        ui_lcd.tcl
-        ui_link.tcl
-        ui_meter.tcl
-        ui_number_tilde.tcl
-        ui_radio.tcl
-        ui_slider2d.tcl
-        ui_sliders.tcl
-        ui_toggle.tcl
-    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-)
+tcl_ui_deps(ui_bang.tcl)
+tcl_ui_deps(ui_button.tcl)
+tcl_ui_deps(ui_canvas.tcl)
+tcl_ui_deps(ui_display.tcl)
+tcl_ui_deps(ui_dsp.tcl)
+tcl_ui_deps(ui_filter.tcl)
+tcl_ui_deps(ui_icon.tcl)
+tcl_ui_deps(ui_keyboard.tcl)
+tcl_ui_deps(ui_knob.tcl)
+tcl_ui_deps(ui_lcd.tcl)
+tcl_ui_deps(ui_link.tcl)
+tcl_ui_deps(ui_meter.tcl)
+tcl_ui_deps(ui_number_tilde.tcl)
+tcl_ui_deps(ui_radio.tcl)
+tcl_ui_deps(ui_slider2d.tcl)
+tcl_ui_deps(ui_sliders.tcl)
+tcl_ui_deps(ui_toggle.tcl)

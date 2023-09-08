@@ -88,7 +88,7 @@ void UIDsp::redrawAll()
 
 void UIDsp::setup()
 {
-    sys_gui(ui_dsp_tcl);
+    ui_dsp_tcl_output();
 
     UIObjectFactory<UIDsp> obj("ui.dsp~", EBOX_GROWLINK);
     obj.hideLabelInner();

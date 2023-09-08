@@ -77,7 +77,7 @@ void UIBang::deactivate()
 
 void UIBang::setup()
 {
-    sys_gui(ui_bang_tcl);
+    ui_bang_tcl_output();
 
     UIObjectFactory<UIBang> obj("ui.bang", EBOX_GROWLINK);
     obj.addAlias("ui.b");

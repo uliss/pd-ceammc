@@ -112,6 +112,6 @@ void UILink::setup()
 
 void setup_ui_link()
 {
-    sys_gui(ui_link_tcl);
+    ui_link_tcl_output();
     UILink::setup();
 }

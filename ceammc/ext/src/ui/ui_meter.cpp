@@ -201,7 +201,7 @@ void UIMeter::output()
 
 void UIMeter::setup()
 {
-    sys_gui(ui_meter_tcl);
+    ui_meter_tcl_output();
 
     UIObjectFactory<UIMeter> obj("ui.meter~", EBOX_GROWINDI);
     obj.addAlias(sym_vmeter()->s_name);
