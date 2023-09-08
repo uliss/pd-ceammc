@@ -7,17 +7,10 @@ macro(ceammc_ui_external name)
 endmacro()
 
 add_custom_target(ceammc_ui_tcl SOURCES)
-
+include(tcl_autogen)
 function(tcl_ui_deps tcl_file)
+    tcl_autogen_header(${tcl_file} TARGET ceammc_ui SOURCES ${tcl_file})
     set(TCL_HEADER ${tcl_file}.h)
-    add_custom_command(
-        OUTPUT  ${CMAKE_CURRENT_SOURCE_DIR}/${TCL_HEADER}
-        COMMAND $<TARGET_FILE:tcl2cxx> ${CMAKE_CURRENT_SOURCE_DIR}/${tcl_file} > ${TCL_HEADER}
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
-        DEPENDS ${tcl_file}
-        VERBATIM)
-    target_sources(ceammc_ui PRIVATE ${TCL_HEADER})
-    target_sources(ceammc_ui_tcl PRIVATE ${tcl_file})
 endfunction()
 
 set(NUI_SOURCES nui_bang.cpp nui_toggle.cpp)
