@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "hoa_3d_scope.h"
 #include "ceammc_convert.h"
+#include "ceammc_dsp.h"
 #include "ceammc_ui.h"
 
 static const int MIN_SIZE = 20;
@@ -225,7 +226,7 @@ void Hoa3dScope::propSetOrder(t_float v)
     auto order = clip<int>(v, HOA_MIN_ORDER, HOA_MAX_ORDER_3D);
 
     if (!scope_ || (order != scope_->getDecompositionOrder())) {
-        auto dsp_state = canvas_suspend_dsp();
+        dsp::SuspendGuard guard;
 
         size_t nrow = 0;
         auto bbox = rect();
@@ -245,7 +246,6 @@ void Hoa3dScope::propSetOrder(t_float v)
 
         eobj_resize_inputs(asEObj(), nharm_);
         canvas_update_dsp();
-        canvas_resume_dsp(dsp_state);
     }
 }
 
@@ -259,7 +259,7 @@ void Hoa3dScope::propSetView(const AtomListView& angles)
     if (!angles.empty()) {
         using namespace ceammc::convert;
 
-        auto dsp_state = canvas_suspend_dsp();
+        dsp::SuspendGuard guard;
 
         prop_view[0] = angles.floatAt(0, rad2degree(scope_->getViewRotationX()));
         prop_view[1] = angles.floatAt(1, rad2degree(scope_->getViewRotationY()));
@@ -267,7 +267,6 @@ void Hoa3dScope::propSetView(const AtomListView& angles)
 
         scope_->setViewRotation(degree2rad(prop_view[0]), degree2rad(prop_view[1]), degree2rad(prop_view[2]));
         scope_->computeRendering();
-        canvas_resume_dsp(dsp_state);
 
         harm_layer_.invalidate();
         bg_layer_.invalidate();

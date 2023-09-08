@@ -14,6 +14,7 @@
 #include "base_clone.h"
 #include "ceammc_canvas.h"
 #include "ceammc_convert.h"
+#include "ceammc_dsp.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_inlet.h"
@@ -102,18 +103,6 @@ size_t atom_hash(const t_atom& a) noexcept
     return hash;
 }
 
-class DspSuspendGuard {
-    const int dsp_state_;
-
-public:
-    DspSuspendGuard()
-        : dsp_state_(canvas_suspend_dsp())
-    {
-    }
-
-    ~DspSuspendGuard() { canvas_resume_dsp(dsp_state_); }
-};
-
 void clone_pop_canvas(t_canvas* x, bool show)
 {
     if (show)
@@ -194,7 +183,7 @@ void clone_copy_canvas_content(const t_canvas* z, t_binbuf* b)
 
 void clone_set_canvas_content(t_canvas* x, const t_binbuf* b, int ninst, int inst)
 {
-    DspSuspendGuard dsp_guard;
+    dsp::SuspendGuard dsp_guard;
 
     t_symbol* aSym = gensym("#A");
     /* save and clear bindings to symbols #A, #N, #X; restore when done */
@@ -490,7 +479,7 @@ void BaseClone::initDone()
 
 bool BaseClone::initInstances()
 {
-    DspSuspendGuard dsp_guard;
+    dsp::SuspendGuard dsp_guard;
 
     const uint16_t NINSTANCE = num_->value();
     instances_.reserve(NINSTANCE);
@@ -523,7 +512,7 @@ void BaseClone::updateInstances()
         else
             return;
 
-        DspSuspendGuard dsp_guard;
+        dsp::SuspendGuard dsp_guard;
 
         if (visible)
             gobj_vis(&owner()->te_g, canvas(), 0);
@@ -772,14 +761,14 @@ void BaseClone::dspSet(const parser::TargetMessage& msg, const AtomListView& lv)
         if (range.empty())
             return;
 
-        DspSuspendGuard guard;
+        dsp::SuspendGuard guard;
         const auto v = lv.boolAt(0, false);
 
         for (auto i = range.a; i < range.b; i += range.step)
             dspSetInstance(i, v);
 
     } else if (msg.target == TARGET_TYPE_EXCEPT) {
-        DspSuspendGuard guard;
+        dsp::SuspendGuard guard;
         const auto v = lv.boolAt(0, false);
 
         for (size_t i = 0; i < numInstances(); i++) {
@@ -813,13 +802,13 @@ void BaseClone::dspToggle(const parser::TargetMessage& msg)
         if (range.empty())
             return;
 
-        DspSuspendGuard guard;
+        dsp::SuspendGuard guard;
 
         for (auto i = range.a; i < range.b; i++)
             dspToggleInstance(i);
 
     } else if (msg.target == TARGET_TYPE_EXCEPT) {
-        DspSuspendGuard guard;
+        dsp::SuspendGuard guard;
 
         for (size_t i = 0; i < numInstances(); i++) {
             if (i != msg.first)
@@ -853,7 +842,7 @@ void BaseClone::dspSpread(const parser::TargetMessage& msg, const AtomListView& 
         if (range.empty())
             return;
 
-        DspSuspendGuard guard;
+        dsp::SuspendGuard guard;
 
         for (auto i = range.a; i < range.b; i++)
             dspSetInstance(i, lv.boolAt(i - range.a, false));

@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ui_circular_meter.h"
 #include "ceammc_convert.h"
+#include "ceammc_dsp.h"
 #include "ceammc_ui.h"
 #include "fmt/core.h"
 #include "ui_circular_meter.tcl.h"
@@ -155,10 +156,9 @@ void UICircularMeter::propSetNumChan(t_int n)
     prop_nchan = clip<int>(n, MIN_NCHAN, MAX_NCHAN);
     propSetAngles({});
 
-    auto state = canvas_suspend_dsp();
+    dsp::SuspendGuard guard;
     eobj_resize_inputs(asEObj(), prop_nchan);
     canvas_update_dsp();
-    canvas_resume_dsp(state);
 }
 
 void UICircularMeter::propSetOffset(t_int off)
@@ -238,11 +238,10 @@ void UICircularMeter::reset()
 
 void UICircularMeter::setInputs(int n)
 {
-    auto dsp_state = canvas_suspend_dsp();
+    dsp::SuspendGuard guard;
     prop_nchan = clip<int, MIN_NCHAN, MAX_NCHAN>(n);
     eobj_resize_inputs(asEObj(), prop_nchan);
     canvas_update_dsp();
-    canvas_resume_dsp(dsp_state);
 }
 
 void UICircularMeter::setup()

@@ -241,7 +241,7 @@ bool HoaDecoder::propSetCropSize(int n)
         return false;
     }
 
-    dsp::StateGuard guard;
+    dsp::SuspendGuard guard;
     DecoderBinaural2d* p = static_cast<DecoderBinaural2d*>(decoder_.get());
     p->setCropSize(cache_crop_size_);
     // to assure limits
@@ -323,7 +323,7 @@ bool HoaDecoder::propSetAngles(const AtomListView& lv)
         return false;
     }
 
-    dsp::StateGuard guard;
+    dsp::SuspendGuard guard;
     auto N = std::min<size_t>(decoder_->getNumberOfPlanewaves(), lv.size());
     for (size_t i = 0; i < N; i++)
         decoder_->setPlanewaveAzimuth(i, convert::degree2rad(lv[i].asFloat()));
@@ -343,7 +343,7 @@ bool HoaDecoder::propSetOffset(t_float f)
         return false;
     }
 
-    dsp::StateGuard guard;
+    dsp::SuspendGuard guard;
     decoder_->setPlanewavesRotation(0, 0, convert::degree2rad(f));
     return true;
 }

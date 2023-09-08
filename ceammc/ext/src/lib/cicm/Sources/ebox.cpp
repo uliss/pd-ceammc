@@ -18,6 +18,7 @@
 #include "eobj.h"
 
 #include "ceammc.h"
+#include "ceammc_dsp.h"
 
 #include <algorithm>
 #include <array>
@@ -1239,7 +1240,7 @@ void ebox_dosave(t_ebox* x, t_binbuf* b)
 {
     t_eclass* c = eobj_getclass(&x->b_obj);
     if (c && b) {
-        auto state = canvas_suspend_dsp();
+        ceammc::dsp::SuspendGuard guard;
         binbuf_addv(b, "ssiis", &s__X, s_obj, (int)x->b_obj.o_obj.te_xpix, (int)x->b_obj.o_obj.te_ypix, eobj_getclassname(&x->b_obj));
         for (size_t i = 0; i < c->c_nattr; i++) {
             if (c->c_attr[i] && c->c_attr[i]->save && c->c_attr[i]->name) {
@@ -1259,7 +1260,6 @@ void ebox_dosave(t_ebox* x, t_binbuf* b)
             c->c_widget.w_save(x, b);
 
         binbuf_addv(b, ";");
-        canvas_resume_dsp(state);
     }
 }
 

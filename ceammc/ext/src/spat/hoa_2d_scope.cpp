@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "hoa_2d_scope.h"
 #include "ceammc_convert.h"
+#include "ceammc_dsp.h"
 #include "ceammc_ui.h"
 
 static const int MIN_SIZE = 20;
@@ -65,7 +66,7 @@ void Hoa2dScope::propSetOrder(t_float v)
     auto order = clip<int>(v, HOA_MIN_ORDER, HOA_MAX_ORDER);
 
     if (!scope_ || (order != scope_->getDecompositionOrder())) {
-        int dspState = canvas_suspend_dsp();
+        dsp::SuspendGuard guard;
         scope_.reset(new Scope2d(order, HOA_DISPLAY_NPOINTS));
         prop_order_ = scope_->getDecompositionOrder();
         nharm_ = scope_->getNumberOfHarmonics();
@@ -74,7 +75,6 @@ void Hoa2dScope::propSetOrder(t_float v)
 
         eobj_resize_inputs(asEObj(), nharm_);
         canvas_update_dsp();
-        canvas_resume_dsp(dspState);
     }
 }
 
@@ -85,11 +85,10 @@ t_float Hoa2dScope::propView() const
 
 void Hoa2dScope::propSetView(t_float angle)
 {
-    int dspState = canvas_suspend_dsp();
+    dsp::SuspendGuard guard;
     prop_view_ = wrapFloatMax<float>(angle, 360);
     scope_->setViewRotation(0., 0., convert::degree2rad(prop_view_));
     scope_->computeRendering();
-    canvas_resume_dsp(dspState);
 
     harm_layer_.invalidate();
     bg_layer_.invalidate();

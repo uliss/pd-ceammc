@@ -267,7 +267,7 @@ bool Hoa3dDecoder::propSetAngles(const AtomListView& lv)
         return false;
     }
 
-    dsp::StateGuard guard;
+    dsp::SuspendGuard guard;
 
     auto N = std::min<size_t>(decoder_->getNumberOfPlanewaves() * 2, lv.size());
     for (size_t i = 0; i < N; i++) {
@@ -290,7 +290,7 @@ bool Hoa3dDecoder::propSetOffset(const AtomListView& lv)
         return false;
     }
 
-    dsp::StateGuard guard;
+    dsp::SuspendGuard guard;
 
     const auto ax = convert::degree2rad(lv.floatAt(0, convert::rad2degree(decoder_->getPlanewavesRotationX())));
     const auto ay = convert::degree2rad(lv.floatAt(1, convert::rad2degree(decoder_->getPlanewavesRotationY())));

@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ui_plot_tilde.h"
 #include "ceammc_convert.h"
+#include "ceammc_dsp.h"
 #include "ceammc_ui.h"
 
 #include <cmath>
@@ -1300,14 +1301,13 @@ t_float UIPlotTilde::propNumInputs() const
 void UIPlotTilde::propSetNumInputs(t_float n)
 {
     prop_nins_ = clip<int, MIN_INPUTS, MAX_INPUTS>(n);
-    int dspState = canvas_suspend_dsp();
+    dsp::SuspendGuard guard;
 
     eobj_resize_inputs(asEObj(), 0);
     eobj_resize_inputs(asEObj(), prop_nins_);
     eobj_resize_inputs(asEObj(), n + 1, &s_list, gensym("_inlet_2"));
 
     canvas_update_dsp();
-    canvas_resume_dsp(dspState);
 }
 
 void UIPlotTilde::setup()

@@ -27,16 +27,16 @@
 namespace ceammc {
 namespace dsp {
 
-    class StateGuard {
+    class SuspendGuard {
         int state_ { 0 };
 
     public:
-        StateGuard() noexcept
+        SuspendGuard() noexcept
             : state_(canvas_suspend_dsp())
         {
         }
 
-        ~StateGuard()
+        ~SuspendGuard()
         {
             canvas_resume_dsp(state_);
         }
