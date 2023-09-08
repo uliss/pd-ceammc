@@ -2,7 +2,6 @@ namespace eval ::ceammc_tt {
     set txt {}
     set active 0
 }
-
 proc ::ceammc_tt::txt {c tag xlet text} {
     $c bind $tag <Enter>  [list ::ceammc_tt::enter $c $tag $xlet $text]
     $c bind $tag <Leave>  [list ::ceammc_tt::leave $c]

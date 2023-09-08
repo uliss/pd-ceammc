@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_tcl.h"
-#include "ceammc_texteditor.h"
-#include "ceammc_tooltips.h"
+#include "ceammc_texteditor.tcl.h"
+#include "ceammc_tooltips.tcl.h"
 
 namespace ceammc {
 
