@@ -1,8 +1,3 @@
-include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/HoaLibrary-Light/Sources)
-include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/HoaLibrary-Light/ThirdParty)
-include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/fmt/include)
-include_directories(${EIGEN3_DIR})
-
 set(SPAT_SOURCES
     pan_base.cpp
     pan_linear.cpp
@@ -13,6 +8,7 @@ set(SPAT_SOURCES
 )
 
 set(HOA_SOURCES
+    hoa_2d_optim.cpp
     hoa_2d_scope.cpp
     hoa_2d_wider.cpp
     hoa_3d_encoder.cpp
@@ -46,7 +42,15 @@ ceammc_spat_obj_ext(zita8)
 ceammc_spat_obj_ext(zita6x8)
 
 add_library(ceammc_spat STATIC mod_spat.cpp ${SPAT_SOURCES} ${HOA_SOURCES})
-set_target_properties(ceammc_spat PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")
-set_property(TARGET ceammc_spat PROPERTY CXX_STANDARD 14)
-target_include_directories(ceammc_spat PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
+
+target_compile_definitions(ceammc_spat PRIVATE FAUST_MACRO)
 target_compile_definitions(ceammc_spat PUBLIC -DFMT_USE_CONSTEXPR=0)
+target_compile_features(ceammc_spat PRIVATE cxx_std_14)
+
+target_include_directories(ceammc_spat
+    PRIVATE
+        $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>
+        ${EIGEN3_DIR}
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/HoaLibrary-Light/Sources
+)
+
