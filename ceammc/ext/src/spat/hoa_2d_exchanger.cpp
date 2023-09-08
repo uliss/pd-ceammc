@@ -25,7 +25,7 @@ CEAMMC_DEFINE_SYM_HASH(SN2D)
 CEAMMC_DEFINE_SYM_HASH(fromMaxN)
 CEAMMC_DEFINE_SYM_HASH(toMaxN)
 
-using Hoa2dExchanger = HoaExchangerBase<Exchanger2d>;
+using Hoa2dExchanger = HoaExchangerBase<Exchanger2d, hoa::Hoa2d>;
 
 template <>
 Exchanger2d::Numbering Hoa2dExchanger::to_numbering(const t_symbol* s)
@@ -64,7 +64,7 @@ Exchanger2d::Normalization Hoa2dExchanger::to_norm(const t_symbol* s)
 }
 
 template <>
-HoaExchangerBase<Exchanger2d>::HoaExchangerBase(const PdArgs& args)
+Hoa2dExchanger::HoaExchangerBase(const PdArgs& args)
     : HoaBase(args)
 {
     num_ = new SymbolEnumProperty("@num", { sym_ACN(), sym_fromFurseMalham(), sym_toFurseMalham(), sym_fromSID(), sym_toSID() });

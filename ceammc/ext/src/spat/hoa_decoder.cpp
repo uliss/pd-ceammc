@@ -33,7 +33,7 @@ constexpr bool is_in(T t, T v, Args... args)
     return t == v || is_in(t, args...);
 }
 
-HoaDecoder::HoaDecoder(const PdArgs& args)
+Hoa2dDecoder::Hoa2dDecoder(const PdArgs& args)
     : HoaBase(args)
     , mode_(nullptr)
     , plane_waves_(nullptr)
@@ -79,7 +79,7 @@ HoaDecoder::HoaDecoder(const PdArgs& args)
         ->setUnits(PropValueUnits::DEG);
 }
 
-void HoaDecoder::parsePlainWavesNum()
+void Hoa2dDecoder::parsePlainWavesNum()
 {
     switch (crc32_hash(mode_->value())) {
     case hash_binaural:
@@ -127,7 +127,7 @@ void HoaDecoder::parsePlainWavesNum()
     }
 }
 
-void HoaDecoder::initDone()
+void Hoa2dDecoder::initDone()
 {
     parsePlainWavesNum();
 
@@ -142,12 +142,12 @@ void HoaDecoder::initDone()
     updatePropertyDefaults();
 }
 
-void HoaDecoder::processBlock(const t_sample** in, t_sample** out)
+void Hoa2dDecoder::processBlock(const t_sample** in, t_sample** out)
 {
     // not used
 }
 
-void HoaDecoder::processCommon()
+void Hoa2dDecoder::processCommon()
 {
     const size_t NINS = numInputChannels();
     const size_t NOUTS = numOutputChannels();
@@ -169,7 +169,7 @@ void HoaDecoder::processCommon()
     }
 }
 
-void HoaDecoder::processBinaural()
+void Hoa2dDecoder::processBinaural()
 {
     t_sample** in_blocks = inputBlocks();
     t_sample** out_blocks = outputBlocks();
@@ -177,7 +177,7 @@ void HoaDecoder::processBinaural()
     p->processBlock((const t_sample**)in_blocks, out_blocks);
 }
 
-void HoaDecoder::setupDSP(t_signal** sp)
+void Hoa2dDecoder::setupDSP(t_signal** sp)
 {
     SoundExternal::signalInit(sp);
 
@@ -190,13 +190,13 @@ void HoaDecoder::setupDSP(t_signal** sp)
     }
 }
 
-void HoaDecoder::blockSizeChanged(size_t bs)
+void Hoa2dDecoder::blockSizeChanged(size_t bs)
 {
     in_buf_.resize(numInputChannels() * bs);
     out_buf_.resize(numOutputChannels() * bs);
 }
 
-void HoaDecoder::initDecoder()
+void Hoa2dDecoder::initDecoder()
 {
     auto mode = mode_->value();
     switch (crc32_hash(mode)) {
@@ -219,7 +219,7 @@ void HoaDecoder::initDecoder()
     }
 }
 
-int HoaDecoder::propCropSize() const
+int Hoa2dDecoder::propCropSize() const
 {
     if (!decoder_ || mode_->value() != sym_binaural())
         return cache_crop_size_;
@@ -229,7 +229,7 @@ int HoaDecoder::propCropSize() const
     return p->getCropSize();
 }
 
-bool HoaDecoder::propSetCropSize(int n)
+bool Hoa2dDecoder::propSetCropSize(int n)
 {
     cache_crop_size_ = n;
 
@@ -250,7 +250,7 @@ bool HoaDecoder::propSetCropSize(int n)
     return true;
 }
 
-AtomList HoaDecoder::propPlaneWavesX() const
+AtomList Hoa2dDecoder::propPlaneWavesX() const
 {
     if (!decoder_)
         return {};
@@ -264,7 +264,7 @@ AtomList HoaDecoder::propPlaneWavesX() const
     return res;
 }
 
-AtomList HoaDecoder::propPlaneWavesY() const
+AtomList Hoa2dDecoder::propPlaneWavesY() const
 {
     if (!decoder_)
         return {};
@@ -278,7 +278,7 @@ AtomList HoaDecoder::propPlaneWavesY() const
     return res;
 }
 
-AtomList HoaDecoder::propPlaneWavesZ() const
+AtomList Hoa2dDecoder::propPlaneWavesZ() const
 {
     if (!decoder_)
         return {};
@@ -292,7 +292,7 @@ AtomList HoaDecoder::propPlaneWavesZ() const
     return res;
 }
 
-AtomList HoaDecoder::propAngles() const
+AtomList Hoa2dDecoder::propAngles() const
 {
     if (!decoder_)
         return cache_angles_;
@@ -306,7 +306,7 @@ AtomList HoaDecoder::propAngles() const
     return res;
 }
 
-bool HoaDecoder::propSetAngles(const AtomListView& lv)
+bool Hoa2dDecoder::propSetAngles(const AtomListView& lv)
 {
     if (lv.empty()) {
         OBJ_ERR << "angle list in degrees expected";
@@ -331,7 +331,7 @@ bool HoaDecoder::propSetAngles(const AtomListView& lv)
     return true;
 }
 
-bool HoaDecoder::propSetOffset(t_float f)
+bool Hoa2dDecoder::propSetOffset(t_float f)
 {
     cache_offset_ = f;
 
@@ -350,6 +350,6 @@ bool HoaDecoder::propSetOffset(t_float f)
 
 void setup_spat_hoa_decoder_2d()
 {
-    SoundExternalFactory<HoaDecoder> obj("hoa.2d.decoder~");
+    SoundExternalFactory<Hoa2dDecoder> obj("hoa.2d.decoder~");
     obj.addAlias("hoa.decoder~");
 }

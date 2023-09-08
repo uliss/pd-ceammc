@@ -24,10 +24,10 @@ struct HoaExchangerXlet : XletAnnotationTraits {
     static const char* inletFormat()  { return "harmonic: \\[%d\\]"; }
     static const char* outletFormat() { return "harmonic: \\[%d\\]"; }
 };
-using XLetInfo = XletAnnotations<HOA_MAX_ORDER, HoaExchangerXlet, 32>;
+using XLetInfo = XletAnnotations<HOA_MAX_2D_ORDER, HoaExchangerXlet, 32>;
 
-template <typename HoaType>
-class HoaExchangerBase : public HoaBase {
+template <typename HoaType, hoa::Dimension D>
+class HoaExchangerBase : public HoaBase<D> {
     Buffer in_buf_;
     Buffer out_buf_;
     std::unique_ptr<HoaType> hoa_;
@@ -38,14 +38,14 @@ public:
     HoaExchangerBase(const PdArgs& args);
     void initDone() final
     {
-        hoa_.reset(new HoaType(order()));
+        hoa_.reset(new HoaType(this->order()));
 
         const size_t NHARM = hoa_->getNumberOfHarmonics();
         hoa_->setNumbering(to_numbering(num_->value()));
         hoa_->setNormalization(to_norm(norm_->value()));
 
-        createSignalInlets(NHARM);
-        createSignalOutlets(NHARM);
+        this->createSignalInlets(NHARM);
+        this->createSignalOutlets(NHARM);
 
         // alloc buffers
         in_buf_.resize(NHARM * HOA_DEFAULT_BLOCK_SIZE);
@@ -54,9 +54,9 @@ public:
 
     void processBlock(const t_sample** in, t_sample** out) final
     {
-        const size_t NOUTS = numOutputChannels();
-        const size_t NINS = numInputChannels() - 1; // last input is for Yaw
-        const size_t BS = blockSize();
+        const size_t NOUTS = this->numOutputChannels();
+        const size_t NINS = this->numInputChannels() - 1; // last input is for Yaw
+        const size_t BS = this->blockSize();
 
         for (size_t i = 0; i < NINS; i++) {
             Signal::copy(BS, &in[i][0], 1, &in_buf_[i], NINS);

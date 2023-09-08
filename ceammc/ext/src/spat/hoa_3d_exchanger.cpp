@@ -27,7 +27,7 @@ CEAMMC_DEFINE_SYM_HASH(toMaxN)
 CEAMMC_DEFINE_SYM_HASH(fromN3D)
 CEAMMC_DEFINE_SYM_HASH(toN3D)
 
-using Hoa3dExchanger = HoaExchangerBase<Exchanger3d>;
+using Hoa3dExchanger = HoaExchangerBase<Exchanger3d, hoa::Hoa2d>;
 
 template <>
 Exchanger3d::Numbering Hoa3dExchanger::to_numbering(const t_symbol* s)

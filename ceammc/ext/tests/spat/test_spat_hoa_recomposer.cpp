@@ -14,9 +14,9 @@
 #include "hoa_recomposer.h"
 #include "test_spat_base.h"
 
-PD_COMPLETE_TEST_SETUP(HoaRecomposer, spat, hoa_recomposer)
+PD_COMPLETE_TEST_SETUP(Hoa2dRecomposer, spat, hoa_recomposer_2d)
 
-TEST_CASE("hoa.recomposer~", "[externals]")
+TEST_CASE("hoa.2d.recomposer~", "[externals]")
 {
     pd_test_init();
 

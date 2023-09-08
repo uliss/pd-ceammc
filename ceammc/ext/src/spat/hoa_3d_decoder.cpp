@@ -33,7 +33,7 @@ constexpr bool is_in(T t, T v, Args... args)
 }
 
 Hoa3dDecoder::Hoa3dDecoder(const PdArgs& args)
-    : HoaBase(args)
+    : HoaBase<hoa::Hoa3d>(args)
     , mode_(nullptr)
 {
     mode_ = new SymbolEnumProperty("@mode", { sym_regular(), sym_binaural() });

@@ -14,8 +14,8 @@
 #include "hoa_projector.h"
 #include "ceammc_factory.h"
 
-HoaProjector::HoaProjector(const PdArgs& args)
-    : HoaBase(args)
+Hoa2dProjector::Hoa2dProjector(const PdArgs& args)
+    : HoaBase<hoa::Hoa2d>(args)
     , plane_waves_(nullptr)
 {
     plane_waves_ = new IntProperty("@n", 0);
@@ -24,7 +24,7 @@ HoaProjector::HoaProjector(const PdArgs& args)
     addProperty(plane_waves_);
 }
 
-void HoaProjector::initDone()
+void Hoa2dProjector::initDone()
 {
     const int MIN_PW_COUNT = 2 * order() + 1;
     const auto N = plane_waves_->value();
@@ -45,13 +45,13 @@ void HoaProjector::initDone()
     out_buf_.resize(numOutputChannels() * HOA_DEFAULT_BLOCK_SIZE);
 }
 
-void HoaProjector::blockSizeChanged(size_t bs)
+void Hoa2dProjector::blockSizeChanged(size_t bs)
 {
     in_buf_.resize(numInputChannels() * bs);
     out_buf_.resize(numOutputChannels() * bs);
 }
 
-void HoaProjector::processBlock(const t_sample** in, t_sample** out)
+void Hoa2dProjector::processBlock(const t_sample** in, t_sample** out)
 {
     const size_t NINS = numInputChannels();
     const size_t NOUTS = numOutputChannels();
@@ -69,6 +69,6 @@ void HoaProjector::processBlock(const t_sample** in, t_sample** out)
 
 void setup_spat_hoa_projector()
 {
-    SoundExternalFactory<HoaProjector> obj("hoa.2d.projector~");
+    SoundExternalFactory<Hoa2dProjector> obj("hoa.2d.projector~");
     obj.addAlias("hoa.projector~");
 }

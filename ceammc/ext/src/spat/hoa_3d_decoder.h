@@ -19,7 +19,7 @@
 
 #include <memory>
 
-class Hoa3dDecoder : public HoaBase {
+class Hoa3dDecoder : public HoaBase<hoa::Hoa3d> {
     SymbolEnumProperty* mode_ { nullptr };
     IntProperty* num_chan_ { nullptr };
     std::unique_ptr<Decoder3d> decoder_;

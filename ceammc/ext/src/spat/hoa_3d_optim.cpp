@@ -16,6 +16,6 @@
 
 void setup_spat_hoa_optim_3d()
 {
-    using Hoa3dOptim = HoaOptimBase<Optim3d>;
+    using Hoa3dOptim = HoaOptimBase<Optim3d, hoa::Hoa3d>;
     SoundExternalFactory<Hoa3dOptim> obj("hoa.3d.optim~");
 }

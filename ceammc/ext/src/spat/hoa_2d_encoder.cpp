@@ -14,8 +14,10 @@
 #include "ceammc_factory.h"
 #include "hoa_encoder_base.h"
 
+using Hoa2dEncoder = HoaEncoderBase<Encoder2d, 2, hoa::Hoa2d>;
+
 template <>
-const char* HoaEncoderBase<Encoder2d, 2>::annotateInlet(size_t n) const
+const char* Hoa2dEncoder::annotateInlet(size_t n) const
 {
     if (n == 0)
         return "input signal";
@@ -25,7 +27,7 @@ const char* HoaEncoderBase<Encoder2d, 2>::annotateInlet(size_t n) const
 
 void setup_spat_hoa_encoder()
 {
-    using Hoa2dEncoder = HoaEncoderBase<Encoder2d, 2>;
+
     SoundExternalFactory<Hoa2dEncoder> obj("hoa.2d.encoder~");
     obj.addAlias("hoa.encoder~");
 }

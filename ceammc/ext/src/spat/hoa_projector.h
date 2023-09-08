@@ -11,19 +11,19 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef HOA_PROJECTOR_H
-#define HOA_PROJECTOR_H
+#ifndef HOA_2D_PROJECTOR_H
+#define HOA_2D_PROJECTOR_H
 
 #include "hoa_common.h"
 
-class HoaProjector : public HoaBase {
+class Hoa2dProjector : public HoaBase<hoa::Hoa2d> {
     Buffer in_buf_;
     Buffer out_buf_;
     std::unique_ptr<DecoderRegular2d> processor_;
     IntProperty* plane_waves_;
 
 public:
-    HoaProjector(const PdArgs& args);
+    Hoa2dProjector(const PdArgs& args);
     void initDone() override;
     void blockSizeChanged(size_t bs) override;
     void processBlock(const t_sample** in, t_sample** out) override;
@@ -31,4 +31,4 @@ public:
 
 void setup_spat_hoa_projector();
 
-#endif // HOA_PROJECTOR_H
+#endif // HOA_2D_PROJECTOR_H

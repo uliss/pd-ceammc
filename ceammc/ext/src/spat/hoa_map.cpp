@@ -16,8 +16,8 @@
 #include "ceammc_factory.h"
 #include "hoa_map.h"
 
-HoaMap::HoaMap(const PdArgs& args)
-    : HoaBase(args)
+Hoa2dMap::Hoa2dMap(const PdArgs& args)
+    : HoaBase<hoa::Hoa2d>(args)
     , nins_(nullptr)
     , ramp_(nullptr)
 {
@@ -37,7 +37,7 @@ HoaMap::HoaMap(const PdArgs& args)
     addProperty(ramp_);
 }
 
-void HoaMap::initDone()
+void Hoa2dMap::initDone()
 {
     map_.reset(new MultiEncoder2d(order(), nins_->value()));
     lines_.reset(new PolarLines2d(map_->getNumberOfSources()));
@@ -64,7 +64,7 @@ void HoaMap::initDone()
     }
 }
 
-void HoaMap::setupDSP(t_signal** sp)
+void Hoa2dMap::setupDSP(t_signal** sp)
 {
     signalInit(sp);
 
@@ -77,17 +77,17 @@ void HoaMap::setupDSP(t_signal** sp)
     }
 }
 
-void HoaMap::blockSizeChanged(size_t bs)
+void Hoa2dMap::blockSizeChanged(size_t bs)
 {
     in_buf_.resize(numInputChannels() * bs);
     out_buf_.resize(numOutputChannels() * bs);
 }
 
-void HoaMap::processBlock(const t_sample** in, t_sample** out)
+void Hoa2dMap::processBlock(const t_sample** in, t_sample** out)
 {
 }
 
-void HoaMap::processMultiSource()
+void Hoa2dMap::processMultiSource()
 {
     const size_t NSRC = map_->getNumberOfSources();
     const size_t NINS = numInputChannels();
@@ -116,7 +116,7 @@ void HoaMap::processMultiSource()
         Signal::copy(BS, &out_buf_[i], NOUTS, &out[i][0], 1);
 }
 
-void HoaMap::processIn1In2()
+void Hoa2dMap::processIn1In2()
 {
     const size_t NOUTS = numOutputChannels();
     const size_t BS = blockSize();
@@ -134,7 +134,7 @@ void HoaMap::processIn1In2()
         Signal::copy(BS, &out_buf_[i], NOUTS, &out[i][0], 1);
 }
 
-void HoaMap::m_polar(t_symbol* s, const AtomListView& l)
+void Hoa2dMap::m_polar(t_symbol* s, const AtomListView& l)
 {
     if (!checkArgs(l, ARG_INT, ARG_FLOAT, ARG_FLOAT)) {
         METHOD_ERR(s) << "IDX RADIUS ANGLE expected: " << l;
@@ -151,7 +151,7 @@ void HoaMap::m_polar(t_symbol* s, const AtomListView& l)
     lines_->setAzimuth(idx, l[2].asFloat() - M_PI_2);
 }
 
-void HoaMap::m_mute(t_symbol* s, const AtomListView& l)
+void Hoa2dMap::m_mute(t_symbol* s, const AtomListView& l)
 {
     if (!checkArgs(l, ARG_NATURAL, ARG_BOOL)) {
         METHOD_ERR(s) << "SRC_IDX STATE expected: " << l;
@@ -168,7 +168,7 @@ void HoaMap::m_mute(t_symbol* s, const AtomListView& l)
     map_->setMute(idx, mute);
 }
 
-const char* HoaMap::annotateInlet(size_t n) const
+const char* Hoa2dMap::annotateInlet(size_t n) const
 {
 
     if (nins_->value() == 1) {
@@ -190,11 +190,11 @@ const char* HoaMap::annotateInlet(size_t n) const
     }
 }
 
-void setup_spat_hoa_map()
+void setup_spat_hoa_map_2d()
 {
-    SoundExternalFactory<HoaMap> obj("hoa.2d.map~");
+    SoundExternalFactory<Hoa2dMap> obj("hoa.2d.map~");
     obj.addAlias("hoa.map~");
 
-    obj.addMethod("polar", &HoaMap::m_polar);
-    obj.addMethod("mute", &HoaMap::m_mute);
+    obj.addMethod("polar", &Hoa2dMap::m_polar);
+    obj.addMethod("mute", &Hoa2dMap::m_mute);
 }

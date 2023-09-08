@@ -11,15 +11,15 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef HOA_DECODER_H
-#define HOA_DECODER_H
+#ifndef HOA_2D_DECODER_H
+#define HOA_2D_DECODER_H
 
 #include "ceammc_property_enum.h"
 #include "hoa_common.h"
 
 #include <memory>
 
-class HoaDecoder : public HoaBase {
+class Hoa2dDecoder : public HoaBase<hoa::Hoa2d> {
     SymbolEnumProperty* mode_;
     IntProperty* plane_waves_;
     std::unique_ptr<Decoder2d> decoder_;
@@ -32,7 +32,7 @@ class HoaDecoder : public HoaBase {
     AtomList cache_angles_;
 
 public:
-    HoaDecoder(const PdArgs& args);
+    Hoa2dDecoder(const PdArgs& args);
 
     void initDone() override;
     void processBlock(const t_sample** in, t_sample** out) override;
@@ -57,14 +57,14 @@ private:
 
     inline static t_int* dspPerformCommon(t_int* w)
     {
-        HoaDecoder* ext = reinterpret_cast<HoaDecoder*>(w[1]);
+        Hoa2dDecoder* ext = reinterpret_cast<Hoa2dDecoder*>(w[1]);
         ext->processCommon();
         return (w + 2);
     }
 
     inline static t_int* dspPerformBinaural(t_int* w)
     {
-        HoaDecoder* ext = reinterpret_cast<HoaDecoder*>(w[1]);
+        Hoa2dDecoder* ext = reinterpret_cast<Hoa2dDecoder*>(w[1]);
         ext->processBinaural();
         return (w + 2);
     }
@@ -75,4 +75,4 @@ private:
 
 void setup_spat_hoa_decoder_2d();
 
-#endif // HOA_DECODER_H
+#endif // HOA_2D_DECODER_H

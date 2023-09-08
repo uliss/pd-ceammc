@@ -12,14 +12,15 @@
  * this file belongs to.
  *****************************************************************************/
 #include "hoa_recomposer.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
-static t_symbol* SYM_FREE;
-static t_symbol* SYM_FIXE;
-static t_symbol* SYM_FISHEYE;
+CEAMMC_DEFINE_SYM_HASH(free);
+CEAMMC_DEFINE_SYM_HASH(fixe);
+CEAMMC_DEFINE_SYM_HASH(fisheye);
 
-HoaRecomposer::HoaRecomposer(const PdArgs& args)
-    : HoaBase(args)
+Hoa2dRecomposer::Hoa2dRecomposer(const PdArgs& args)
+    : HoaBase<hoa::Hoa2d>(args)
     , plane_waves_(nullptr)
     , mode_(nullptr)
     , ramp_(100)
@@ -30,13 +31,13 @@ HoaRecomposer::HoaRecomposer(const PdArgs& args)
     plane_waves_->setArgIndex(1);
     addProperty(plane_waves_);
 
-    mode_ = new SymbolEnumProperty("@mode", { SYM_FREE, SYM_FIXE, SYM_FISHEYE });
+    mode_ = new SymbolEnumProperty("@mode", { sym_free(), sym_fixe(), sym_fisheye() });
     mode_->setInitOnly();
     addProperty(mode_);
 
-    addProperty(new SymbolEnumAlias("@free", mode_, SYM_FREE));
-    addProperty(new SymbolEnumAlias("@fixe", mode_, SYM_FIXE));
-    addProperty(new SymbolEnumAlias("@fisheye", mode_, SYM_FISHEYE));
+    addProperty(new SymbolEnumAlias("@free", mode_, sym_free()));
+    addProperty(new SymbolEnumAlias("@fixe", mode_, sym_fixe()));
+    addProperty(new SymbolEnumAlias("@fisheye", mode_, sym_fisheye()));
 
     createCbFloatProperty(
         "@ramp",
@@ -45,13 +46,13 @@ HoaRecomposer::HoaRecomposer(const PdArgs& args)
         ->checkNonNegative();
 }
 
-void HoaRecomposer::initDone()
+void Hoa2dRecomposer::initDone()
 {
     parseNumPlaneWaves();
 
     processor_.reset(new MultiEncoder2d(order(), plane_waves_->value()));
 
-    if (mode_->value() == SYM_FREE) {
+    if (mode_->value() == sym_free()) {
         free_mode_lines_.reset(new PolarLines2d(plane_waves_->value()));
         free_mode_lines_->setRamp(ramp_ / 1000 * sys_getsr());
 
@@ -66,32 +67,32 @@ void HoaRecomposer::initDone()
     }
 
     // one more inlet for fisheye
-    createSignalInlets(processor_->getNumberOfSources() + (mode_->value() == SYM_FISHEYE ? 1 : 0));
+    createSignalInlets(processor_->getNumberOfSources() + (mode_->value() == sym_fisheye() ? 1 : 0));
     createSignalOutlets(processor_->getNumberOfHarmonics());
 
     in_buf_.resize(numInputChannels() * HOA_DEFAULT_BLOCK_SIZE);
     out_buf_.resize(numOutputChannels() * HOA_DEFAULT_BLOCK_SIZE);
 }
 
-void HoaRecomposer::blockSizeChanged(size_t bs)
+void Hoa2dRecomposer::blockSizeChanged(size_t bs)
 {
     in_buf_.resize(numInputChannels() * bs);
     out_buf_.resize(numOutputChannels() * bs);
 }
 
-void HoaRecomposer::processBlock(const t_sample** in, t_sample** out)
+void Hoa2dRecomposer::processBlock(const t_sample** in, t_sample** out)
 {
 }
 
-void HoaRecomposer::setupDSP(t_signal** sp)
+void Hoa2dRecomposer::setupDSP(t_signal** sp)
 {
     signalInit(sp);
 
-    if (mode_->value() == SYM_FIXE) {
+    if (mode_->value() == sym_fixe()) {
         dsp_add(dspPerformFixE, 1, static_cast<void*>(this));
-    } else if (mode_->value() == SYM_FISHEYE) {
+    } else if (mode_->value() == sym_fisheye()) {
         dsp_add(dspPerformFisheye, 1, static_cast<void*>(this));
-    } else if (mode_->value() == SYM_FREE) {
+    } else if (mode_->value() == sym_free()) {
         assert(free_mode_lines_);
         free_mode_lines_->setRamp(ramp_ / 1000 * sys_getsr());
         dsp_add(dspPerformFree, 1, static_cast<void*>(this));
@@ -99,7 +100,7 @@ void HoaRecomposer::setupDSP(t_signal** sp)
         OBJ_ERR << "unknown mode: " << mode_->value();
 }
 
-void HoaRecomposer::m_angles(t_symbol* s, const AtomListView& lst)
+void Hoa2dRecomposer::m_angles(t_symbol* s, const AtomListView& lst)
 {
     if (!free_mode_lines_) {
         OBJ_ERR << "not in @free mode, can't set angles";
@@ -111,7 +112,7 @@ void HoaRecomposer::m_angles(t_symbol* s, const AtomListView& lst)
         free_mode_lines_->setAzimuth(i, lst[i].asFloat());
 }
 
-void HoaRecomposer::m_wide(t_symbol* s, const AtomListView& lst)
+void Hoa2dRecomposer::m_wide(t_symbol* s, const AtomListView& lst)
 {
     if (!free_mode_lines_) {
         OBJ_ERR << "not in @free mode, can't set wide";
@@ -123,7 +124,7 @@ void HoaRecomposer::m_wide(t_symbol* s, const AtomListView& lst)
         free_mode_lines_->setRadius(i, lst[i].asFloat());
 }
 
-bool HoaRecomposer::propSetRamp(t_float f)
+bool Hoa2dRecomposer::propSetRamp(t_float f)
 {
     if (!free_mode_lines_) {
         OBJ_ERR << "not in @free mode, can't set @ramp";
@@ -135,7 +136,7 @@ bool HoaRecomposer::propSetRamp(t_float f)
     return true;
 }
 
-void HoaRecomposer::parseNumPlaneWaves()
+void Hoa2dRecomposer::parseNumPlaneWaves()
 {
     const int MIN_PW_COUNT = 2 * order() + 1;
     const auto N = plane_waves_->value();
@@ -148,7 +149,7 @@ void HoaRecomposer::parseNumPlaneWaves()
     }
 }
 
-void HoaRecomposer::processFixE()
+void Hoa2dRecomposer::processFixE()
 {
     const size_t NINS = numInputChannels();
     const size_t NOUTS = numOutputChannels();
@@ -167,7 +168,7 @@ void HoaRecomposer::processFixE()
         Signal::copy(BS, &out_buf_[i], NOUTS, &out[i][0], 1);
 }
 
-void HoaRecomposer::processFree()
+void Hoa2dRecomposer::processFree()
 {
     const size_t NINS = numInputChannels();
     const size_t NOUTS = numOutputChannels();
@@ -195,7 +196,7 @@ void HoaRecomposer::processFree()
         Signal::copy(BS, &out_buf_[i], NOUTS, &out[i][0], 1);
 }
 
-void HoaRecomposer::processFisheye()
+void Hoa2dRecomposer::processFisheye()
 {
     const size_t NPWS = numInputChannels() - 1;
     const size_t NOUTS = numOutputChannels();
@@ -217,14 +218,10 @@ void HoaRecomposer::processFisheye()
         Signal::copy(BS, &out_buf_[i], NOUTS, &out[i][0], 1);
 }
 
-void setup_spat_hoa_recomposer()
+void setup_spat_hoa_recomposer_2d()
 {
-    SYM_FREE = gensym("free");
-    SYM_FIXE = gensym("fixe");
-    SYM_FISHEYE = gensym("fisheye");
-
-    SoundExternalFactory<HoaRecomposer> obj("hoa.2d.recomposer~");
+    SoundExternalFactory<Hoa2dRecomposer> obj("hoa.2d.recomposer~");
     obj.addAlias("hoa.recomposer~");
-    obj.addMethod("angles", &HoaRecomposer::m_angles);
-    obj.addMethod("wide", &HoaRecomposer::m_wide);
+    obj.addMethod("angles", &Hoa2dRecomposer::m_angles);
+    obj.addMethod("wide", &Hoa2dRecomposer::m_wide);
 }

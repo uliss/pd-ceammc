@@ -23,37 +23,37 @@ namespace ceammc {
 
 struct HoaWiderXlet : XletAnnotationTraits { };
 
-using HoaWiderXLetInfo = XletAnnotations<HOA_MAX_ORDER, HoaWiderXlet, 32>;
+using HoaWiderXLetInfo = XletAnnotations<HOA_MAX_2D_ORDER, HoaWiderXlet, 32>;
 
-template <typename T>
-class HoaWiderBase : public HoaBase {
+template <typename T, hoa::Dimension D>
+class HoaWiderBase : public HoaBase<D> {
     std::unique_ptr<T> wider_;
     Buffer in_buf_;
     Buffer out_buf_;
 
 public:
     HoaWiderBase(const PdArgs& args)
-        : HoaBase(args)
+        : HoaBase<D>(args)
     {
     }
 
     void initDone() final
     {
-        wider_.reset(new T(order()));
+        wider_.reset(new T(this->order()));
 
         const size_t N = wider_->getNumberOfHarmonics();
         in_buf_.resize(N * HOA_DEFAULT_BLOCK_SIZE);
         out_buf_.resize(N * HOA_DEFAULT_BLOCK_SIZE);
 
-        createSignalInlets(N + 1);
-        createSignalOutlets(N);
+        this->createSignalInlets(N + 1);
+        this->createSignalOutlets(N);
     }
 
     void processBlock(const t_sample** in, t_sample** out) final
     {
-        const size_t NOUTS = numOutputChannels();
-        const size_t NINS = numInputChannels() - 1; // last input is for Widening
-        const size_t BS = blockSize();
+        const size_t NOUTS = this->numOutputChannels();
+        const size_t NINS = this->numInputChannels() - 1; // last input is for Widening
+        const size_t BS = this->blockSize();
 
         for (size_t i = 0; i < NINS; i++)
             Signal::copy(BS, &in[i][0], 1, &in_buf_[i], NINS);
@@ -69,7 +69,7 @@ public:
 
     const char* annotateInlet(size_t n) const final
     {
-        const size_t N = numInputChannels() - 1;
+        const size_t N = this->numInputChannels() - 1;
         if (n < N)
             return HoaWiderXLetInfo::instance().inletInfo(n);
         else if (n == N)

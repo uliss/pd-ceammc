@@ -11,13 +11,13 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef HOA_RECOMPOSER_H
-#define HOA_RECOMPOSER_H
+#ifndef HOA_2D_RECOMPOSER_H
+#define HOA_2D_RECOMPOSER_H
 
 #include "ceammc_property_enum.h"
 #include "hoa_common.h"
 
-class HoaRecomposer : public HoaBase {
+class Hoa2dRecomposer : public HoaBase<hoa::Hoa2d> {
     Buffer in_buf_;
     Buffer out_buf_;
     Buffer line_buf_;
@@ -28,7 +28,7 @@ class HoaRecomposer : public HoaBase {
     t_float ramp_;
 
 public:
-    HoaRecomposer(const PdArgs& args);
+    Hoa2dRecomposer(const PdArgs& args);
     void initDone() override;
     void blockSizeChanged(size_t bs) override;
     void processBlock(const t_sample** in, t_sample** out) override;
@@ -48,26 +48,26 @@ private:
 
     inline static t_int* dspPerformFixE(t_int* w)
     {
-        HoaRecomposer* ext = reinterpret_cast<HoaRecomposer*>(w[1]);
+        auto ext = reinterpret_cast<Hoa2dRecomposer*>(w[1]);
         ext->processFixE();
         return (w + 2);
     }
 
     inline static t_int* dspPerformFree(t_int* w)
     {
-        HoaRecomposer* ext = reinterpret_cast<HoaRecomposer*>(w[1]);
+        auto ext = reinterpret_cast<Hoa2dRecomposer*>(w[1]);
         ext->processFree();
         return (w + 2);
     }
 
     inline static t_int* dspPerformFisheye(t_int* w)
     {
-        HoaRecomposer* ext = reinterpret_cast<HoaRecomposer*>(w[1]);
+        auto ext = reinterpret_cast<Hoa2dRecomposer*>(w[1]);
         ext->processFisheye();
         return (w + 2);
     }
 };
 
-void setup_spat_hoa_recomposer();
+void setup_spat_hoa_recomposer_2d();
 
-#endif // HOA_RECOMPOSER_H
+#endif // HOA_2D_RECOMPOSER_H

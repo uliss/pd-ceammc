@@ -23,8 +23,8 @@ CEAMMC_DEFINE_SYM_HASH(inphase)
 
 namespace ceammc {
 
-template <typename HoaType>
-class HoaOptimBase : public HoaBase {
+template <typename HoaType, hoa::Dimension D>
+class HoaOptimBase : public HoaBase<D> {
     Buffer in_buf_;
     Buffer out_buf_;
     std::unique_ptr<HoaType> optim_;
@@ -32,36 +32,36 @@ class HoaOptimBase : public HoaBase {
 
 public:
     HoaOptimBase(const PdArgs& args)
-        : HoaBase(args)
+        : HoaBase<D>(args)
     {
         mode_ = new SymbolEnumProperty("@mode", { sym_basic(), sym_maxre(), sym_inphase() });
         mode_->setArgIndex(1);
         mode_->setSuccessFn([this](Property*) { adjustMode(); });
-        addProperty(mode_);
+        this->addProperty(mode_);
 
-        addProperty(new SymbolEnumAlias("@basic", mode_, sym_basic()));
-        addProperty(new SymbolEnumAlias("@maxre", mode_, sym_maxre()));
-        addProperty(new SymbolEnumAlias("@inphase", mode_, sym_inphase()));
+        this->addProperty(new SymbolEnumAlias("@basic", mode_, sym_basic()));
+        this->addProperty(new SymbolEnumAlias("@maxre", mode_, sym_maxre()));
+        this->addProperty(new SymbolEnumAlias("@inphase", mode_, sym_inphase()));
     }
 
     void initDone()
     {
-        optim_.reset(new HoaType(order()));
+        optim_.reset(new HoaType(this->order()));
         adjustMode();
 
         const size_t N = optim_->getNumberOfHarmonics();
         in_buf_.resize(N * HOA_DEFAULT_BLOCK_SIZE);
         out_buf_.resize(N * HOA_DEFAULT_BLOCK_SIZE);
 
-        createSignalInlets(N);
-        createSignalOutlets(N);
+        this->createSignalInlets(N);
+        this->createSignalOutlets(N);
     }
 
     void processBlock(const t_sample** in, t_sample** out)
     {
-        const size_t NOUTS = numOutputChannels();
-        const size_t NINS = numInputChannels();
-        const size_t BS = blockSize();
+        const size_t NOUTS = this->numOutputChannels();
+        const size_t NINS = this->numInputChannels();
+        const size_t BS = this->blockSize();
 
         for (size_t i = 0; i < NINS; i++)
             Signal::copy(BS, &in[i][0], 1, &in_buf_[i], NINS);

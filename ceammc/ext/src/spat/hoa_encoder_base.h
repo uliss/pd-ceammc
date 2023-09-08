@@ -15,32 +15,32 @@
 
 namespace ceammc {
 
-template <typename HoaType, size_t N>
-class HoaEncoderBase : public HoaBase {
+template <typename HoaType, size_t N, hoa::Dimension D>
+class HoaEncoderBase : public HoaBase<D> {
     std::unique_ptr<HoaType> encoder_;
     Buffer signals_;
 
 public:
     HoaEncoderBase(const PdArgs& args)
-        : HoaBase(args)
+        : HoaBase<D>(args)
     {
     }
 
     void parseProperties() final
     {
-        HoaBase::parseProperties();
-        encoder_.reset(new HoaType(order()));
+        HoaBase<D>::parseProperties();
+        encoder_.reset(new HoaType(this->order()));
 
-        createSignalInlets(N); // input, azimuth and elevation
-        createSignalOutlets(encoder_->getNumberOfHarmonics());
+        this->createSignalInlets(N); // input, azimuth and elevation
+        this->createSignalOutlets(encoder_->getNumberOfHarmonics());
 
         signals_.resize(encoder_->getNumberOfHarmonics() * HOA_DEFAULT_BLOCK_SIZE);
     }
 
     void processBlock(const t_sample** in, t_sample** out) final
     {
-        const size_t BS = blockSize();
-        const size_t NOUTS = numOutputChannels();
+        const size_t BS = this->blockSize();
+        const size_t NOUTS = this->numOutputChannels();
 
         for (size_t i = 0; i < BS; i++) {
             encoder_->setAzimuth(in[1][i]);

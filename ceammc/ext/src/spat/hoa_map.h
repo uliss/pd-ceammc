@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef HOA_MAP_H
-#define HOA_MAP_H
+#ifndef HOA_2D_MAP_H
+#define HOA_2D_MAP_H
 
 #include "hoa_common.h"
 
@@ -32,7 +32,7 @@ public:
 
 using MapXletInfo = XletInfoN<8>;
 
-class HoaMap : public HoaBase {
+class Hoa2dMap : public HoaBase<hoa::Hoa2d> {
     IntProperty* nins_;
     FloatProperty* ramp_;
 
@@ -46,7 +46,7 @@ class HoaMap : public HoaBase {
     std::vector<MapXletInfo> in_info_;
 
 public:
-    HoaMap(const PdArgs& args);
+    Hoa2dMap(const PdArgs& args);
 
     void initDone() final;
 
@@ -65,19 +65,19 @@ public:
 private:
     static t_int* dspPerformMultiSource(t_int* w)
     {
-        HoaMap* ext = reinterpret_cast<HoaMap*>(w[1]);
+        Hoa2dMap* ext = reinterpret_cast<Hoa2dMap*>(w[1]);
         ext->processMultiSource();
         return (w + 2);
     }
 
     static t_int* dspPerformIn1In2(t_int* w)
     {
-        HoaMap* ext = reinterpret_cast<HoaMap*>(w[1]);
+        Hoa2dMap* ext = reinterpret_cast<Hoa2dMap*>(w[1]);
         ext->processIn1In2();
         return (w + 2);
     }
 };
 
-void setup_spat_hoa_map();
+void setup_spat_hoa_map_2d();
 
-#endif // HOA_MAP_H
+#endif // HOA_2D_MAP_H

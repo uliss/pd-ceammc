@@ -4,6 +4,11 @@ target_compile_definitions(test_ext_spat
     PRIVATE -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"
     PRIVATE -DTEST_DIR="${CMAKE_CURRENT_BINARY_DIR}")
 
+if(APPLE)
+    # fix QtCreator parsing error of vDSP.h
+    target_compile_options(test_ext_spat PRIVATE -Wno-elaborated-enum-base)
+endif()
+
 target_include_directories(test_ext_spat
     PRIVATE
         "${PROJECT_SOURCE_DIR}/ceammc/ext/src/spat"

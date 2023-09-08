@@ -39,7 +39,7 @@ void Hoa2dScope::init(t_symbol* s, const AtomListView& args, bool usePresets)
 
     // first positional argument handling
     if (!args.empty() && args[0].isFloat())
-        propSetOrder(clip<t_float>(args[0].asFloat(), HOA_MIN_ORDER, HOA_MAX_ORDER));
+        propSetOrder(clip<t_float>(args[0].asFloat(), HOA_MIN_ORDER, HOA_MAX_2D_ORDER));
 
     dspSetup(nharm_, 0);
 }
@@ -63,7 +63,7 @@ t_float Hoa2dScope::propOrder() const
 
 void Hoa2dScope::propSetOrder(t_float v)
 {
-    auto order = clip<int>(v, HOA_MIN_ORDER, HOA_MAX_ORDER);
+    auto order = clip<int>(v, HOA_MIN_ORDER, HOA_MAX_2D_ORDER);
 
     if (!scope_ || (order != scope_->getDecompositionOrder())) {
         dsp::SuspendGuard guard;
@@ -276,7 +276,7 @@ void Hoa2dScope::setup()
     // @order
     obj.addIntProperty("order", _("Ambisonic Order"), HOA_DEFAULT_ORDER, &Hoa2dScope::prop_order_, "Ambisonic");
     obj.setPropertyAccessor("order", &Hoa2dScope::propOrder, &Hoa2dScope::propSetOrder);
-    obj.setPropertyRange("order", HOA_MIN_ORDER, HOA_MAX_ORDER);
+    obj.setPropertyRange("order", HOA_MIN_ORDER, HOA_MAX_2D_ORDER);
 
     // @view
     obj.addFloatProperty("view", _("View rotation"), 0, &Hoa2dScope::prop_view_, "Ambisonic");

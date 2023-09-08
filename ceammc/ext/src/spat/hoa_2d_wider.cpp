@@ -11,12 +11,13 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "hoa_wider_base.h"
 #include "ceammc_factory.h"
+#include "hoa_wider_base.h"
 
 void setup_spat_hoa_2d_wider()
 {
-    using Hoa2dWider = HoaWiderBase<Wider2d>;
+    using Hoa2dWider = HoaWiderBase<Wider2d, hoa::Hoa2d>;
+
     Hoa2dWider::initXletInfo();
     SoundExternalFactory<Hoa2dWider> obj("hoa.2d.wider~");
     obj.addAlias("hoa.wider~");

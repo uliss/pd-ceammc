@@ -40,8 +40,8 @@ using namespace ceammc;
 namespace ceammc {
 
 constexpr size_t HOA_MIN_ORDER = 1;
-constexpr size_t HOA_MAX_ORDER = 63;
-constexpr size_t HOA_MAX_ORDER_3D = 10;
+constexpr size_t HOA_MAX_2D_ORDER = 63;
+constexpr size_t HOA_MAX_3D_ORDER = 10;
 constexpr size_t HOA_DEFAULT_ORDER = 1;
 constexpr size_t HOA_DEFAULT_BLOCK_SIZE = 64;
 
@@ -70,20 +70,33 @@ using Wider3d = hoa::Wider<hoa::Hoa3d, t_sample>;
 using Signal = hoa::Signal<t_sample>;
 using Buffer = std::vector<t_sample>;
 
+template <hoa::Dimension D>
+struct HOA_ORDER {
+    static constexpr size_t MAX_VALUE = 1;
+};
+
+template <>
+struct HOA_ORDER<hoa::Hoa2d> {
+    static constexpr size_t MAX_VALUE = HOA_MAX_2D_ORDER;
+};
+
+template <>
+struct HOA_ORDER<hoa::Hoa3d> {
+    static constexpr size_t MAX_VALUE = HOA_MAX_3D_ORDER;
+};
 }
 
+template <hoa::Dimension D>
 class HoaBase : public SoundExternal {
-private:
-    IntProperty* order_;
+    IntProperty* order_ { nullptr };
 
 public:
     HoaBase(const PdArgs& args)
         : SoundExternal(args)
-        , order_(nullptr)
     {
-        order_ = new IntProperty("@order", positionalConstant<HOA_DEFAULT_ORDER, HOA_MIN_ORDER, HOA_MAX_ORDER>(0));
+        order_ = new IntProperty("@order", HOA_DEFAULT_ORDER);
         order_->setInitOnly();
-        order_->checkClosedRange(HOA_MIN_ORDER, HOA_MAX_ORDER);
+        order_->checkClosedRange(HOA_MIN_ORDER, HOA_ORDER<D>::MAX_VALUE);
         order_->setArgIndex(0);
         addProperty(order_);
     }

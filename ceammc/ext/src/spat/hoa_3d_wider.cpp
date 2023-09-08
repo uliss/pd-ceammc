@@ -16,7 +16,7 @@
 
 void setup_spat_hoa_3d_wider()
 {
-    using Hoa3DWider = HoaWiderBase<Wider3d>;
+    using Hoa3DWider = HoaWiderBase<Wider3d, hoa::Hoa3d>;
     Hoa3DWider::initXletInfo();
     SoundExternalFactory<Hoa3DWider> obj("hoa.3d.wider~");
 }

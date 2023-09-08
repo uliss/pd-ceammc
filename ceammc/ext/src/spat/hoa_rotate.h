@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef HOA_ROTATE_H
-#define HOA_ROTATE_H
+#ifndef HOA_2D_ROTATE_H
+#define HOA_2D_ROTATE_H
 
 #include <array>
 #include <memory>
@@ -20,13 +20,13 @@
 #include "hoa_common.h"
 using namespace ceammc;
 
-class HoaRotate : public HoaBase {
+class Hoa2dRotate : public HoaBase<hoa::Hoa2d> {
     Buffer in_buf_;
     Buffer out_buf_;
     std::unique_ptr<Rotate2d> rotate_;
 
 public:
-    HoaRotate(const PdArgs& args);
+    Hoa2dRotate(const PdArgs& args);
     void initDone() override;
 
     void processBlock(const t_sample** in, t_sample** out) override;
@@ -40,9 +40,9 @@ public:
 
 private:
     constexpr static size_t ANNOT_LEN = 32;
-    static std::array<char[ANNOT_LEN], HOA_MAX_ORDER> xlet_annotations_;
+    static std::array<char[ANNOT_LEN], HOA_MAX_2D_ORDER> xlet_annotations_;
 };
 
-void setup_spat_hoa_rotate();
+void setup_spat_hoa_rotate_2d();
 
-#endif // HOA_ROTATE_H
+#endif // HOA_2D_ROTATE_H

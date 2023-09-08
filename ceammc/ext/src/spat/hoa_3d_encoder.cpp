@@ -14,7 +14,7 @@
 #include "ceammc_factory.h"
 #include "hoa_encoder_base.h"
 
-using Hoa3dEncoder = HoaEncoderBase<Encoder3d, 3>;
+using Hoa3dEncoder = HoaEncoderBase<Encoder3d, 3, hoa::Hoa3d>;
 
 template <>
 const char* Hoa3dEncoder::annotateInlet(size_t n) const
