@@ -18,5 +18,5 @@ void setup_spat_hoa_optim_2d()
 {
     using Hoa2dOptim = HoaOptimBase<Optim2d>;
     SoundExternalFactory<Hoa2dOptim> obj("hoa.2d.optim~");
-    obj.addAlias("hoa.optims~");
+    obj.addAlias("hoa.optim~");
 }

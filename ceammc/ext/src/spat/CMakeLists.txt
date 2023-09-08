@@ -21,7 +21,6 @@ set(HOA_SOURCES
     hoa_encoder.cpp
     hoa_exchanger.cpp
     hoa_map.cpp
-    hoa_optim.cpp
     hoa_process.cpp
     hoa_process_inlet.cpp
     hoa_process_instance.cpp

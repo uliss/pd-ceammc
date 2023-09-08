@@ -21,6 +21,8 @@ CEAMMC_DEFINE_SYM_HASH(basic)
 CEAMMC_DEFINE_SYM_HASH(maxre)
 CEAMMC_DEFINE_SYM_HASH(inphase)
 
+namespace ceammc {
+
 template <typename HoaType>
 class HoaOptimBase : public HoaBase {
     Buffer in_buf_;
@@ -92,3 +94,4 @@ public:
         }
     }
 };
+}

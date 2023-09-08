@@ -11,49 +11,13 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "hoa_3d_encoder.h"
-
 #include "ceammc_factory.h"
-#include "hoa_common.h"
+#include "hoa_encoder_base.h"
 
-HoaEncoder3D::HoaEncoder3D(const PdArgs& args)
-    : HoaBase(args)
-{
-}
+using Hoa3dEncoder = HoaEncoderBase<Encoder3d, 3>;
 
-void HoaEncoder3D::parseProperties()
-{
-    HoaBase::parseProperties();
-    encoder_.reset(new Encoder3d(order()));
-
-    createSignalInlets(3); // input, azimuth and elevation
-    createSignalOutlets(encoder_->getNumberOfHarmonics());
-
-    signals_.resize(encoder_->getNumberOfHarmonics() * HOA_DEFAULT_BLOCK_SIZE);
-}
-
-void HoaEncoder3D::processBlock(const t_sample** in, t_sample** out)
-{
-    const size_t BS = blockSize();
-    const size_t NOUTS = numOutputChannels();
-
-    for (size_t i = 0; i < BS; i++) {
-        encoder_->setAzimuth(in[1][i]);
-        encoder_->setElevation(in[2][i]);
-        encoder_->process(in[0] + i, &signals_[NOUTS * i]);
-    }
-
-    for (size_t i = 0; i < NOUTS; i++) {
-        Signal::copy(BS, &signals_[i], NOUTS, out[i], 1);
-    }
-}
-
-void HoaEncoder3D::blockSizeChanged(size_t bs)
-{
-    signals_.resize(encoder_->getNumberOfHarmonics() * bs);
-}
-
-const char* HoaEncoder3D::annotateInlet(size_t n) const
+template <>
+const char* Hoa3dEncoder::annotateInlet(size_t n) const
 {
     switch (n) {
     case 0:
@@ -68,5 +32,5 @@ const char* HoaEncoder3D::annotateInlet(size_t n) const
 
 void setup_spat_hoa_encoder_3d()
 {
-    SoundExternalFactory<HoaEncoder3D> obj("hoa.3d.encoder~");
+    SoundExternalFactory<Hoa3dEncoder> obj("hoa.3d.encoder~");
 }

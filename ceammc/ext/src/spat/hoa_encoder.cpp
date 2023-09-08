@@ -11,48 +11,11 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "hoa_encoder.h"
-
 #include "ceammc_factory.h"
-#include "hoa_common.h"
+#include "hoa_encoder_base.h"
 
-HoaEncoder::HoaEncoder(const PdArgs& args)
-    : HoaBase(args)
-{
-}
-
-void HoaEncoder::parseProperties()
-{
-    HoaBase::parseProperties();
-    encoder_.reset(new Encoder2d(order()));
-
-    createSignalInlets(2);
-    createSignalOutlets(encoder_->getNumberOfHarmonics());
-
-    signals_.resize(encoder_->getNumberOfHarmonics() * HOA_DEFAULT_BLOCK_SIZE);
-}
-
-void HoaEncoder::processBlock(const t_sample** in, t_sample** out)
-{
-    const size_t BS = blockSize();
-    const size_t NOUTS = numOutputChannels();
-
-    for (size_t i = 0; i < BS; i++) {
-        encoder_->setAzimuth(in[1][i]);
-        encoder_->process(in[0] + i, &signals_[NOUTS * i]);
-    }
-
-    for (size_t i = 0; i < NOUTS; i++) {
-        Signal::copy(BS, &signals_[i], NOUTS, out[i], 1);
-    }
-}
-
-void HoaEncoder::blockSizeChanged(size_t bs)
-{
-    signals_.resize(encoder_->getNumberOfHarmonics() * bs);
-}
-
-const char* HoaEncoder::annotateInlet(size_t n) const
+template <>
+const char* HoaEncoderBase<Encoder2d, 2>::annotateInlet(size_t n) const
 {
     if (n == 0)
         return "input signal";
@@ -62,6 +25,7 @@ const char* HoaEncoder::annotateInlet(size_t n) const
 
 void setup_spat_hoa_encoder()
 {
-    SoundExternalFactory<HoaEncoder> obj("hoa.2d.encoder~");
+    using Hoa2dEncoder = HoaEncoderBase<Encoder2d, 2>;
+    SoundExternalFactory<Hoa2dEncoder> obj("hoa.2d.encoder~");
     obj.addAlias("hoa.encoder~");
 }
