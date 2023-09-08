@@ -11,9 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "hoa_exchanger.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+#include "hoa_exchanger_base.h"
 
 CEAMMC_DEFINE_SYM_HASH(ACN)
 CEAMMC_DEFINE_SYM_HASH(fromFurseMalham)
@@ -25,8 +25,10 @@ CEAMMC_DEFINE_SYM_HASH(SN2D)
 CEAMMC_DEFINE_SYM_HASH(fromMaxN)
 CEAMMC_DEFINE_SYM_HASH(toMaxN)
 
-namespace {
-Exchanger2d::Numbering to_numbering(const t_symbol* s)
+using Hoa2dExchanger = HoaExchangerBase<Exchanger2d>;
+
+template <>
+Exchanger2d::Numbering Hoa2dExchanger::to_numbering(const t_symbol* s)
 {
 #define CASE(name)    \
     case hash_##name: \
@@ -44,7 +46,8 @@ Exchanger2d::Numbering to_numbering(const t_symbol* s)
 #undef CASE
 }
 
-Exchanger2d::Normalization to_norm(const t_symbol* s)
+template <>
+Exchanger2d::Normalization Hoa2dExchanger::to_norm(const t_symbol* s)
 {
 #define CASE(name)    \
     case hash_##name: \
@@ -59,12 +62,9 @@ Exchanger2d::Normalization to_norm(const t_symbol* s)
     }
 #undef CASE
 }
-}
 
-std::array<char[HoaExchanger::ANNOT_LEN], HOA_MAX_ORDER>
-    HoaExchanger::xlet_annotations_;
-
-HoaExchanger::HoaExchanger(const PdArgs& args)
+template <>
+HoaExchangerBase<Exchanger2d>::HoaExchangerBase(const PdArgs& args)
     : HoaBase(args)
 {
     num_ = new SymbolEnumProperty("@num", { sym_ACN(), sym_fromFurseMalham(), sym_toFurseMalham(), sym_fromSID(), sym_toSID() });
@@ -98,77 +98,9 @@ HoaExchanger::HoaExchanger(const PdArgs& args)
     addProperty(from_b);
 }
 
-void HoaExchanger::initDone()
-{
-    hoa_.reset(new Exchanger2d(order()));
-
-    const size_t NHARM = hoa_->getNumberOfHarmonics();
-    hoa_->setNumbering(to_numbering(num_->value()));
-    hoa_->setNormalization(to_norm(norm_->value()));
-
-    createSignalInlets(NHARM);
-    createSignalOutlets(NHARM);
-
-    // alloc buffers
-    in_buf_.resize(NHARM * HOA_DEFAULT_BLOCK_SIZE);
-    out_buf_.resize(NHARM * HOA_DEFAULT_BLOCK_SIZE);
-}
-
-void HoaExchanger::processBlock(const t_sample** in, t_sample** out)
-{
-    const size_t NOUTS = numOutputChannels();
-    const size_t NINS = numInputChannels() - 1; // last input is for Yaw
-    const size_t BS = blockSize();
-
-    for (size_t i = 0; i < NINS; i++) {
-        Signal::copy(BS, &in[i][0], 1, &in_buf_[i], NINS);
-    }
-
-    for (size_t i = 0; i < BS; i++) {
-        hoa_->process(&in_buf_[NINS * i], &out_buf_[NOUTS * i]);
-    }
-
-    for (size_t i = 0; i < NOUTS; i++) {
-        Signal::copy(BS, &out_buf_[i], NOUTS, &out[i][0], 1);
-    }
-}
-
-void HoaExchanger::blockSizeChanged(size_t bs)
-{
-    const size_t SZ = hoa_->getNumberOfHarmonics() * bs;
-    in_buf_.resize(SZ);
-    out_buf_.resize(SZ);
-}
-
-const char* HoaExchanger::annotateInlet(size_t n) const
-{
-    const size_t N = numInputChannels() - 1;
-    if (n < N && n < HOA_MAX_ORDER)
-        return xlet_annotations_[n];
-    else if (n == N)
-        return "signal: rotation angle\n"
-               "    in radians in \\[0..2π) range, anti-clockwise";
-    else
-        return nullptr;
-}
-
-const char* HoaExchanger::annotateOutlet(size_t n) const
-{
-    if (n < in_buf_.size() && n < HOA_MAX_ORDER)
-        return xlet_annotations_[n];
-    else
-        return nullptr;
-}
-
-void HoaExchanger::initAnnotations()
-{
-    for (size_t i = 0; i < xlet_annotations_.size(); i++)
-        snprintf(xlet_annotations_[i], ANNOT_LEN, "signal: harmonic\\[%d\\]", (int)i);
-}
-
 void setup_spat_hoa_exchanger()
 {
-    HoaExchanger::initAnnotations();
-    SoundExternalFactory<HoaExchanger> obj("hoa.2d.exchanger~");
+    Hoa2dExchanger::initAnnotations();
+    SoundExternalFactory<Hoa2dExchanger> obj("hoa.2d.exchanger~");
     obj.addAlias("hoa.exchanger~");
 }

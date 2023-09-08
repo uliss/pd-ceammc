@@ -9,6 +9,7 @@ set(SPAT_SOURCES
 
 set(HOA_SOURCES
     hoa_2d_encoder.cpp
+    hoa_2d_exchanger.cpp
     hoa_2d_optim.cpp
     hoa_2d_scope.cpp
     hoa_2d_wider.cpp
@@ -19,7 +20,6 @@ set(HOA_SOURCES
     hoa_common.h
     hoa_connections.cpp
     hoa_decoder.cpp
-    hoa_exchanger.cpp
     hoa_map.cpp
     hoa_process.cpp
     hoa_process_inlet.cpp
