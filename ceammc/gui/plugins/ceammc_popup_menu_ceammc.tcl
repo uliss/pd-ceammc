@@ -4,11 +4,12 @@
     }}
     {array {
         array.bpm array.circular array.circular~ array.convolve array.copy
-        array.do array.each array.fill array.grainer~ array.hist array.mean
-        array.minmax array.play~ array.plot array.plot~ array.resample
-        array.rms array.set array.stddev array.stretch array.sum array.sum2
-        array.tramp~ array.variance array.vplay array.window plot.geomspace~
-        plot.hist~ plot.linspace~ plot.logspace~ plot.response~
+        array.do array.each array.fill array.grainer~ array.hist
+        array.ltcplay~ array.mean array.minmax array.play~ array.plot
+        array.plot~ array.readwrite~ array.resample array.rms array.set
+        array.stddev array.stretch array.sum array.sum2 array.tramp~
+        array.variance array.vplay array.window plot.geomspace~ plot.hist~
+        plot.linspace~ plot.logspace~ plot.response~
     }}
     {base {
         ceammc.search chrono.datetime function function.call gain~ gate~
@@ -193,10 +194,10 @@
         prop.set prop.split
     }}
     {proto {
-        proto.feelworld proto.firmata proto.inscore proto.ltc.in~
-        proto.ltc.out~ proto.midi proto.midi.cc proto.midi.sysex proto.moppy
-        proto.morse proto.mpv proto.sp.alpaca proto.vlc proto.whammy
-        proto.xtouch_ext
+        proto.arturia.minilab proto.feelworld proto.firmata proto.inscore
+        proto.ltc.in~ proto.ltc.out~ proto.midi proto.midi.cc proto.midi.sysex
+        proto.moppy proto.morse proto.mpv proto.sp.alpaca proto.vlc
+        proto.whammy proto.xtouch_ext
     }}
     {random {
         random.atom random.discrete random.float random.gauss random.int
@@ -210,14 +211,14 @@
         seq.phasor seq.toggles sequencer
     }}
     {snd {
-        snd.file
+        snd.file snd.play~
     }}
     {spat {
         hoa.2d.decoder~ hoa.2d.encoder~ hoa.2d.map~ hoa.2d.optim~
         hoa.2d.projector~ hoa.2d.recomposer~ hoa.2d.rotate~ hoa.2d.wider~
-        hoa.@process hoa.in hoa.in~ hoa.out hoa.out~ hoa.process~ hoa.scope~
-        pan.cos~ pan.linsig~ pan.lin~ pan.spread~ pan.sqrt~ spat.pan4~
-        spat.pan8~ spat.zita6x8~ spat.zita8~
+        hoa.3d.encoder~ hoa.@process hoa.in hoa.in~ hoa.out hoa.out~
+        hoa.process~ hoa.scope~ pan.cos~ pan.linsig~ pan.lin~ pan.spread~
+        pan.sqrt~ spat.pan4~ spat.pan8~ spat.zita6x8~ spat.zita8~
     }}
     {string {
         string string.contains string.ends_with string.equal string.format
@@ -247,11 +248,11 @@
         tl.bang tl.cue tl.timeline tl.toggle tl.transport
     }}
     {ui {
-        ui.aview ui.bang ui.button ui.colorpanel ui.display ui.dsp~ ui.env
-        ui.filter ui.filter~ ui.gain2~ ui.gain~ ui.icon ui.incdec ui.keyboard
-        ui.knob ui.label ui.lcd ui.link ui.matrix ui.menu ui.meter~ ui.midi
-        ui.mouse_filter ui.mouse_route ui.number ui.number~ ui.plot~ ui.polar
-        ui.preset ui.radio ui.rslider ui.scope~ ui.slider ui.slider2d
-        ui.sliders ui.spectroscope~ ui.tab ui.toggle
+        ui.aview ui.bang ui.button ui.canvas ui.colorpanel ui.display ui.dsp~
+        ui.env ui.filter ui.filter~ ui.gain2~ ui.gain~ ui.icon ui.incdec
+        ui.keyboard ui.knob ui.label ui.lcd ui.link ui.matrix ui.menu
+        ui.meter~ ui.midi ui.mouse_filter ui.mouse_route ui.number ui.number~
+        ui.plot~ ui.polar ui.preset ui.radio ui.rslider ui.scope~ ui.slider
+        ui.slider2d ui.sliders ui.spectroscope~ ui.tab ui.toggle
     }}
 }
