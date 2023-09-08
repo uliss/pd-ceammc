@@ -46,6 +46,11 @@ target_compile_definitions(ceammc_spat PRIVATE FAUST_MACRO)
 target_compile_definitions(ceammc_spat PUBLIC -DFMT_USE_CONSTEXPR=0)
 target_compile_features(ceammc_spat PRIVATE cxx_std_14)
 
+if(APPLE)
+    # fix QtCreator parsing error of vDSP.h
+    target_compile_options(ceammc_spat PRIVATE -Wno-elaborated-enum-base)
+endif()
+
 target_include_directories(ceammc_spat
     PRIVATE
         $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>
