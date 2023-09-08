@@ -9,8 +9,7 @@ endmacro()
 add_custom_target(ceammc_ui_tcl SOURCES)
 include(tcl_autogen)
 function(tcl_ui_deps tcl_file)
-    tcl_autogen_header(${tcl_file} TARGET ceammc_ui SOURCES ${tcl_file})
-    set(TCL_HEADER ${tcl_file}.h)
+    tcl_autogen_header(${tcl_file} TARGET ceammc_ui SOURCES ceammc_ui_tcl)
 endfunction()
 
 set(NUI_SOURCES nui_bang.cpp nui_toggle.cpp)
@@ -63,6 +62,7 @@ ceammc_ui_external(touchosc)
 add_library(ceammc_ui STATIC mod_ui.cpp ${NUI_SOURCES} ${UI_SOURCES})
 
 target_link_libraries(ceammc_ui PRIVATE ceammc_nui ceammc_env http_lib readerwriterqueue touchosc)
+target_include_directories(ceammc_ui PRIVATE ${CMAKE_CURRENT_BINARY_DIR})
 
 find_package(Rust)
 if(Rust_FOUND)

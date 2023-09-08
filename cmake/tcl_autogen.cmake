@@ -1,20 +1,32 @@
-function(tcl_autogen_header tcl_file)
+function(tcl_autogen_header)
+    set(_OPTS VERBOSE)
     set(_ONE_VALUE_ARGS TARGET SOURCES)
+    list(POP_FRONT ARGN tcl_file)
+    cmake_parse_arguments(_TCL_AUTOGEN "${_OPTS}" "${_ONE_VALUE_ARGS}" "" ${ARGN})
 
-    cmake_parse_arguments(_TCL_AUTOGEN "" "${_ONE_VALUE_ARGS}" "" ${ARGN})
+    if (${_TCL_AUTOGEN_VERBOSE})
+        message(STATUS "tcl source added: '${tcl_file}'")
+    endif()
 
-    set(TCL_HEADER ${tcl_file}.h)
+    set(TCL_HEADER ${CMAKE_CURRENT_BINARY_DIR}/${tcl_file}.h)
     add_custom_command(
-        OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/${TCL_HEADER}
+        OUTPUT ${TCL_HEADER}
         COMMAND $<TARGET_FILE:tcl2cxx> ${CMAKE_CURRENT_SOURCE_DIR}/${tcl_file} > ${TCL_HEADER}
-        WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}
         DEPENDS ${tcl_file}
         VERBATIM)
 
-    if (${_TCL_AUTOGEN_TARGET})
+    if (DEFINED _TCL_AUTOGEN_TARGET)
         target_sources(${_TCL_AUTOGEN_TARGET} PRIVATE ${TCL_HEADER})
+
+        if (${_TCL_AUTOGEN_VERBOSE})
+            message(STATUS "tcl header '${TCL_HEADER}' added to target: '${_TCL_AUTOGEN_TARGET}'")
+        endif()
     endif()
-    if (${_TCL_AUTOGEN_SOURCES})
-        target_sources(${_TCL_AUTOGEN_SOURCES} PRIVATE ${tcl_file}})
+    if (DEFINED _TCL_AUTOGEN_SOURCES)
+        target_sources(${_TCL_AUTOGEN_SOURCES} PRIVATE ${tcl_file})
+
+        if (${_TCL_AUTOGEN_VERBOSE})
+            message(STATUS "tcl file '${tcl_file}' added to source target: '${_TCL_AUTOGEN_SOURCES}'")
+        endif()
     endif()
 endfunction()
