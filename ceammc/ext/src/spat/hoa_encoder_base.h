@@ -43,8 +43,12 @@ public:
         const size_t NOUTS = this->numOutputChannels();
 
         for (size_t i = 0; i < BS; i++) {
-            encoder_->setAzimuth(in[1][i]);
-            encoder_->setElevation(in[2][i]);
+            if (N > 1)
+                encoder_->setAzimuth(in[1][i]);
+
+            if (N > 2)
+                encoder_->setElevation(in[2][i]);
+
             encoder_->process(in[0] + i, &signals_[NOUTS * i]);
         }
 
