@@ -27,6 +27,21 @@
 namespace ceammc {
 namespace dsp {
 
+    class StateGuard {
+        int state_ { 0 };
+
+    public:
+        StateGuard() noexcept
+            : state_(canvas_suspend_dsp())
+        {
+        }
+
+        ~StateGuard()
+        {
+            canvas_resume_dsp(state_);
+        }
+    };
+
     class DelayIface {
     public:
         virtual ~DelayIface() { }

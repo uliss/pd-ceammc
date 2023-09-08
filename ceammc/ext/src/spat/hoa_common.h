@@ -50,7 +50,6 @@ using Decoder3d = hoa::Decoder<hoa::Hoa3d, t_sample>;
 using DecoderBinaural2d = hoa::DecoderBinaural<hoa::Hoa2d, t_sample, hoa::hrir::Sadie_D2_2D>;
 using DecoderBinaural3d = hoa::DecoderBinaural<hoa::Hoa3d, t_sample, hoa::hrir::Sadie_D2_3D>;
 using DecoderIrregular2d = hoa::DecoderIrregular<hoa::Hoa2d, t_sample>;
-using DecoderIrregular3d = hoa::DecoderIrregular<hoa::Hoa3d, t_sample>;
 using DecoderRegular2d = hoa::DecoderRegular<hoa::Hoa2d, t_sample>;
 using DecoderRegular3d = hoa::DecoderRegular<hoa::Hoa3d, t_sample>;
 using Encoder2d = hoa::Encoder<hoa::Hoa2d, t_sample>;
