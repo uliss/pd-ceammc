@@ -73,6 +73,6 @@ private:
     void parsePlainWavesNum();
 };
 
-void setup_spat_hoa_decoder();
+void setup_spat_hoa_decoder_2d();
 
 #endif // HOA_DECODER_H

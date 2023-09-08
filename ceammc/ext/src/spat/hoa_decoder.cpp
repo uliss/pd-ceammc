@@ -13,12 +13,12 @@
  *****************************************************************************/
 #include "hoa_decoder.h"
 #include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
-static t_symbol* SYM_REGULAR;
-static t_symbol* SYM_IRREGULAR;
-static t_symbol* SYM_BINAURAL;
-static t_symbol* SYM_PROP_MODE;
+CEAMMC_DEFINE_SYM_HASH(regular);
+CEAMMC_DEFINE_SYM_HASH(irregular);
+CEAMMC_DEFINE_SYM_HASH(binaural);
 
 template <typename T>
 constexpr bool is_in(T t, T v)
@@ -37,12 +37,12 @@ HoaDecoder::HoaDecoder(const PdArgs& args)
     , mode_(nullptr)
     , plane_waves_(nullptr)
 {
-    mode_ = new SymbolEnumProperty("@mode", { SYM_REGULAR, SYM_IRREGULAR, SYM_BINAURAL });
+    mode_ = new SymbolEnumProperty("@mode", { sym_regular(), sym_irregular(), sym_binaural() });
     mode_->setArgIndex(1);
     addProperty(mode_);
-    addProperty(new SymbolEnumAlias("@regular", mode_, SYM_REGULAR));
-    addProperty(new SymbolEnumAlias("@irregular", mode_, SYM_IRREGULAR));
-    addProperty(new SymbolEnumAlias("@binaural", mode_, SYM_BINAURAL));
+    addProperty(new SymbolEnumAlias("@regular", mode_, sym_regular()));
+    addProperty(new SymbolEnumAlias("@irregular", mode_, sym_irregular()));
+    addProperty(new SymbolEnumAlias("@binaural", mode_, sym_binaural()));
 
     plane_waves_ = new IntProperty("@nwaves", 0);
     plane_waves_->setArgIndex(2);
@@ -80,10 +80,12 @@ HoaDecoder::HoaDecoder(const PdArgs& args)
 
 void HoaDecoder::parsePlainWavesNum()
 {
-    // num of plane waves ignored in binaural mode
-    if (mode_->value() == SYM_BINAURAL) {
+    switch (crc32_hash(mode_->value())) {
+    case hash_binaural:
+        // num of plane waves ignored in binaural mode
         plane_waves_->setValue(2);
-    } else if (mode_->value() == SYM_REGULAR) {
+        break;
+    case hash_regular: {
         const int MIN_PW_COUNT = 2 * order() + 1;
         const int DEFAULT = 2 * order() + 2;
 
@@ -100,7 +102,8 @@ void HoaDecoder::parsePlainWavesNum()
                     << MIN_PW_COUNT << ", setting to this value";
             plane_waves_->setValue(MIN_PW_COUNT);
         }
-    } else if (mode_->value() == SYM_IRREGULAR) {
+    } break;
+    case hash_irregular: {
         const int MIN_PW_COUNT = 1;
         const int DEFAULT = 5;
 
@@ -117,7 +120,8 @@ void HoaDecoder::parsePlainWavesNum()
                     << MIN_PW_COUNT << ", setting to this value";
             plane_waves_->setValue(MIN_PW_COUNT);
         }
-    } else {
+    } break;
+    default:
         OBJ_ERR << "unknown mode: " << mode_->value();
     }
 }
@@ -178,7 +182,7 @@ void HoaDecoder::setupDSP(t_signal** sp)
 
     decoder_->prepare(blockSize());
 
-    if (mode_->value() == SYM_BINAURAL) {
+    if (mode_->value() == sym_binaural()) {
         dsp_add(dspPerformBinaural, 1, static_cast<void*>(this));
     } else {
         dsp_add(dspPerformCommon, 1, static_cast<void*>(this));
@@ -193,26 +197,30 @@ void HoaDecoder::blockSizeChanged(size_t bs)
 
 void HoaDecoder::initDecoder()
 {
-    t_symbol* mode = mode_->value();
-    if (mode == SYM_REGULAR) {
+    auto mode = mode_->value();
+    switch (crc32_hash(mode)) {
+    case hash_regular: {
         decoder_.reset(new DecoderRegular2d(order(), plane_waves_->value()));
         decoder_->setPlanewavesRotation(0, 0, 0);
-    } else if (mode == SYM_IRREGULAR) {
+    } break;
+    case hash_irregular: {
         decoder_.reset(new DecoderIrregular2d(order(), plane_waves_->value()));
-    } else if (mode == SYM_BINAURAL) {
+    } break;
+    case hash_binaural: {
         DecoderBinaural2d* x = new DecoderBinaural2d(order());
         x->setCropSize(cache_crop_size_);
         // to assure limits
         cache_crop_size_ = x->getCropSize();
         decoder_.reset(x);
-    } else {
+    }
+    default:
         OBJ_ERR << "unknown mode: " << mode;
     }
 }
 
 int HoaDecoder::propCropSize() const
 {
-    if (!decoder_ || mode_->value() != SYM_BINAURAL)
+    if (!decoder_ || mode_->value() != sym_binaural())
         return cache_crop_size_;
 
     // only in binaural mode
@@ -227,7 +235,7 @@ bool HoaDecoder::propSetCropSize(int n)
     if (!decoder_)
         return true;
 
-    if (mode_->value() == SYM_BINAURAL) {
+    if (mode_->value() == sym_binaural()) {
         OBJ_ERR << "not in binaural mode: can not set cropsize";
         return false;
     }
@@ -308,7 +316,7 @@ bool HoaDecoder::propSetAngles(const AtomListView& lv)
 
     cache_angles_ = lv;
 
-    if (mode_->value() != SYM_IRREGULAR) {
+    if (mode_->value() != sym_irregular()) {
         OBJ_ERR << "not in irregular mode: can not set angles";
         return false;
     }
@@ -327,7 +335,7 @@ bool HoaDecoder::propSetOffset(t_float f)
     if (!decoder_)
         return true;
 
-    if (mode_->value() == SYM_BINAURAL) {
+    if (mode_->value() == sym_binaural()) {
         OBJ_ERR << "can not set offset in binaural mode";
         return false;
     }
@@ -336,13 +344,8 @@ bool HoaDecoder::propSetOffset(t_float f)
     return true;
 }
 
-void setup_spat_hoa_decoder()
+void setup_spat_hoa_decoder_2d()
 {
-    SYM_REGULAR = gensym("regular");
-    SYM_IRREGULAR = gensym("irregular");
-    SYM_BINAURAL = gensym("binaural");
-    SYM_PROP_MODE = gensym("@mode");
-
     SoundExternalFactory<HoaDecoder> obj("hoa.2d.decoder~");
     obj.addAlias("hoa.decoder~");
 }

@@ -8,7 +8,7 @@
 extern void setup_spat_hoa_2d_wider();
 extern void setup_spat_hoa_3d_wider();
 extern void setup_spat_hoa_connections();
-extern void setup_spat_hoa_decoder();
+extern void setup_spat_hoa_decoder_2d();
 extern void setup_spat_hoa_encoder();
 extern void setup_spat_hoa_encoder_3d();
 extern void setup_spat_hoa_exchanger_2d();
@@ -39,7 +39,7 @@ void ceammc_spat_setup()
     setup_spat_hoa_2d_wider();
     setup_spat_hoa_3d_wider();
     setup_spat_hoa_connections();
-    setup_spat_hoa_decoder();
+    setup_spat_hoa_decoder_2d();
     setup_spat_hoa_encoder();
     setup_spat_hoa_encoder_3d();
     setup_spat_hoa_exchanger_2d();
