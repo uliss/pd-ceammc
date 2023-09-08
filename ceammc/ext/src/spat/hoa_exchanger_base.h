@@ -21,7 +21,7 @@
 namespace ceammc {
 
 struct HoaExchangerXlet : XletAnnotationTraits {
-    static const char* inletFormat() { return "harmonic: \\[%d\\]"; }
+    static const char* inletFormat()  { return "harmonic: \\[%d\\]"; }
     static const char* outletFormat() { return "harmonic: \\[%d\\]"; }
 };
 using XLetInfo = XletAnnotations<HOA_MAX_ORDER, HoaExchangerXlet, 32>;

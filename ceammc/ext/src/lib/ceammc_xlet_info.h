@@ -23,13 +23,13 @@ namespace ceammc {
 struct XletAnnotationTraits {
     static constexpr const char* unknownInlet() { return "?"; }
     static constexpr const char* unknownOutlet() { return "?"; }
-    static void initInlet(size_t idx, char* str, size_t len)
+    static void initInlet(size_t idx, char* str, size_t maxlen, const char* fmt)
     {
-        snprintf(str, len, inletFormat(), static_cast<int>(idx));
+        snprintf(str, maxlen, fmt, static_cast<int>(idx));
     }
-    static void initOutlet(size_t idx, char* str, size_t len)
+    static void initOutlet(size_t idx, char* str, size_t maxlen, const char* fmt)
     {
-        snprintf(str, len, outletFormat(), static_cast<int>(idx));
+        snprintf(str, maxlen, fmt, static_cast<int>(idx));
     }
     static constexpr const char* inletFormat() { return "\\[%d\\]"; }
     static constexpr const char* outletFormat() { return "\\[%d\\]"; }
@@ -51,13 +51,13 @@ class XletAnnotations {
     void initInlets()
     {
         for (size_t i = 0; i < XLET_NUMBER; i++)
-            Traits::initInlet(i, in_[i], LEN);
+            Traits::initInlet(i, in_[i], LEN, Traits::inletFormat());
     }
 
     void initOutlets()
     {
         for (size_t i = 0; i < XLET_NUMBER; i++)
-            Traits::initOutlet(i, in_[i], LEN);
+            Traits::initOutlet(i, out_[i], LEN, Traits::outletFormat());
     }
 
 public:

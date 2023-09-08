@@ -21,18 +21,20 @@ CEAMMC_DEFINE_SYM_HASH(toFurseMalham)
 CEAMMC_DEFINE_SYM_HASH(fromSID)
 CEAMMC_DEFINE_SYM_HASH(toSID)
 
-CEAMMC_DEFINE_SYM_HASH(SN2D)
+CEAMMC_DEFINE_SYM_HASH(SN3D)
 CEAMMC_DEFINE_SYM_HASH(fromMaxN)
 CEAMMC_DEFINE_SYM_HASH(toMaxN)
+CEAMMC_DEFINE_SYM_HASH(fromN3D)
+CEAMMC_DEFINE_SYM_HASH(toN3D)
 
-using Hoa2dExchanger = HoaExchangerBase<Exchanger2d>;
+using Hoa3dExchanger = HoaExchangerBase<Exchanger3d>;
 
 template <>
-Exchanger2d::Numbering Hoa2dExchanger::to_numbering(const t_symbol* s)
+Exchanger3d::Numbering Hoa3dExchanger::to_numbering(const t_symbol* s)
 {
 #define CASE(name)    \
     case hash_##name: \
-        return Exchanger2d::Numbering::name
+        return Exchanger3d::Numbering::name
 
     switch (crc32_hash(s)) {
         CASE(fromFurseMalham);
@@ -41,30 +43,32 @@ Exchanger2d::Numbering Hoa2dExchanger::to_numbering(const t_symbol* s)
         CASE(toSID);
         CASE(ACN);
     default:
-        return Exchanger2d::Numbering::ACN;
+        return Exchanger3d::Numbering::ACN;
     }
 #undef CASE
 }
 
 template <>
-Exchanger2d::Normalization Hoa2dExchanger::to_norm(const t_symbol* s)
+Exchanger3d::Normalization Hoa3dExchanger::to_norm(const t_symbol* s)
 {
 #define CASE(name)    \
     case hash_##name: \
-        return Exchanger2d::Normalization::name
+        return Exchanger3d::Normalization::name
 
     switch (crc32_hash(s)) {
-        CASE(SN2D);
+        CASE(SN3D);
         CASE(fromMaxN);
         CASE(toMaxN);
+        CASE(fromN3D);
+        CASE(toN3D);
     default:
-        return Exchanger2d::Normalization::toMaxN;
+        return Exchanger3d::Normalization::toMaxN;
     }
 #undef CASE
 }
 
 template <>
-HoaExchangerBase<Exchanger2d>::HoaExchangerBase(const PdArgs& args)
+Hoa3dExchanger::HoaExchangerBase(const PdArgs& args)
     : HoaBase(args)
 {
     num_ = new SymbolEnumProperty("@num", { sym_ACN(), sym_fromFurseMalham(), sym_toFurseMalham(), sym_fromSID(), sym_toSID() });
@@ -75,7 +79,7 @@ HoaExchangerBase<Exchanger2d>::HoaExchangerBase(const PdArgs& args)
     num_->setArgIndex(1);
     addProperty(num_);
 
-    norm_ = new SymbolEnumProperty("@norm", { sym_SN2D(), sym_fromMaxN(), sym_toMaxN() });
+    norm_ = new SymbolEnumProperty("@norm", { sym_SN3D(), sym_fromMaxN(), sym_toMaxN(), sym_fromN3D(), sym_toN3D() });
     norm_->setSuccessFn([this](Property*) {
         if (hoa_)
             hoa_->setNormalization(to_norm(norm_->value()));
@@ -83,24 +87,23 @@ HoaExchangerBase<Exchanger2d>::HoaExchangerBase(const PdArgs& args)
     norm_->setArgIndex(2);
     addProperty(norm_);
 
-    auto to_b = new SymbolEnumAlias("@toB", num_, sym_toFurseMalham());
-    to_b->setSuccessFn([this](Property*) {
-        if (norm_->setValue(sym_toMaxN()))
-            norm_->callSuccessFn();
-    });
-    addProperty(to_b);
+//    auto to_b = new SymbolEnumAlias("@toB", num_, sym_toFurseMalham());
+//    to_b->setSuccessFn([this](Property*) {
+//        if (norm_->setValue(sym_toMaxN()))
+//            norm_->callSuccessFn();
+//    });
+//    addProperty(to_b);
 
-    auto from_b = new SymbolEnumAlias("@fromB", num_, sym_fromFurseMalham());
-    from_b->setSuccessFn([this](Property*) {
-        if (norm_->setValue(sym_fromMaxN()))
-            norm_->callSuccessFn();
-    });
-    addProperty(from_b);
+//    auto from_b = new SymbolEnumAlias("@fromB", num_, sym_fromFurseMalham());
+//    from_b->setSuccessFn([this](Property*) {
+//        if (norm_->setValue(sym_fromMaxN()))
+//            norm_->callSuccessFn();
+//    });
+//    addProperty(from_b);
 }
 
-void setup_spat_hoa_exchanger_2d()
+void setup_spat_hoa_exchanger_3d()
 {
-    Hoa2dExchanger::initAnnotations();
-    SoundExternalFactory<Hoa2dExchanger> obj("hoa.2d.exchanger~");
-    obj.addAlias("hoa.exchanger~");
+    Hoa3dExchanger::initAnnotations();
+    SoundExternalFactory<Hoa3dExchanger> obj("hoa.3d.exchanger~");
 }

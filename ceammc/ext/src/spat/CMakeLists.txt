@@ -14,6 +14,7 @@ set(HOA_SOURCES
     hoa_2d_scope.cpp
     hoa_2d_wider.cpp
     hoa_3d_encoder.cpp
+    hoa_3d_exchanger.cpp
     hoa_3d_optim.cpp
     hoa_3d_scope.cpp
     hoa_3d_wider.cpp
