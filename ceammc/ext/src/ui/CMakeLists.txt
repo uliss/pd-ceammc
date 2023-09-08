@@ -105,7 +105,7 @@ endif()
 find_package(Gperf)
 if(Gperf_FOUND)
     ecm_gperf_generate(material_font.gperf gperf_material_font.h MySources
-        GENERATION_FLAGS "-L C++ --class-name=MaterialFontHash -m 50 --struct-type")
+        GENERATION_FLAGS "-L C++ --class-name=MaterialFontHash -m 25 --struct-type --size-multiple=2")
 
     add_custom_target(gen_material_font DEPENDS gperf_material_font.h)
     add_custom_target(ui_extra SOURCES material_font.gperf)
