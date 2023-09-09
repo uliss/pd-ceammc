@@ -1122,6 +1122,7 @@ hoa.2d.wider~	a 2d fractional ambisonic order simulator
 hoa.wider~	a 2d fractional ambisonic order simulator
 hoa.3d.encoder~	hoa 3d encoder
 hoa.3d.optim~	a 3D ambisonic optimization tool
+hoa.3d.wider~	a 3d fractional ambisonic order simulator
 hoa.@process	process properties manager for hoa.process~
 hoa.in	message inlet for a patcher loaded by hoa.process~
 hoa.in~	signal inlet for a patcher loaded by hoa.process~

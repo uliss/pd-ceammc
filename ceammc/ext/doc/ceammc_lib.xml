@@ -2142,6 +2142,9 @@
     <entry name="hoa.3d.optim~" descr="a 3D ambisonic optimization tool" ref_view="object">
       <xi:include href="hoa.3d.optim~.pddoc" parse="xml"/>
     </entry>
+    <entry name="hoa.3d.wider~" descr="a 3d fractional ambisonic order simulator" ref_view="object">
+      <xi:include href="hoa.3d.wider~.pddoc" parse="xml"/>
+    </entry>
     <entry name="hoa.@process" descr="process properties manager for hoa.process~" ref_view="object">
       <xi:include href="hoa.%40process.pddoc" parse="xml"/>
     </entry>
