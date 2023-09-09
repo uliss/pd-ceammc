@@ -17,6 +17,7 @@ set(HOA_SOURCES
     hoa_2d_recomposer.cpp
     hoa_2d_rotate.cpp
     hoa_2d_scope.cpp
+    hoa_2d_space.cpp
     hoa_2d_wider.cpp
     hoa_3d_decoder.cpp
     hoa_3d_encoder.cpp

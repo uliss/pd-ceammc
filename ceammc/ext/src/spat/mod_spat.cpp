@@ -25,6 +25,7 @@ extern void setup_spat_hoa_connections();
 extern void setup_spat_hoa_process();
 extern void setup_spat_hoa_process_inlet();
 extern void setup_spat_hoa_process_props();
+extern void setup_spat_hoa_2d_space();
 extern void setup_spat_pan4_tilde();
 extern void setup_spat_pan8_tilde();
 extern void setup_spat_zita6x8_tilde();
@@ -57,6 +58,7 @@ void ceammc_spat_setup()
     setup_spat_hoa_process();
     setup_spat_hoa_process_inlet();
     setup_spat_hoa_process_props();
+    setup_spat_hoa_2d_space();
     setup_spat_pan4_tilde();
     setup_spat_pan8_tilde();
     setup_spat_zita6x8_tilde();

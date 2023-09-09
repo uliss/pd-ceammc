@@ -39,6 +39,8 @@ using namespace ceammc;
 
 namespace ceammc {
 
+constexpr size_t HOA_MIN_PLANEWAVES = 1;
+constexpr size_t HOA_MAX_PLANEWAVES = 128;
 constexpr size_t HOA_MIN_ORDER = 1;
 constexpr size_t HOA_MAX_2D_ORDER = 63;
 constexpr size_t HOA_MAX_3D_ORDER = 10;
