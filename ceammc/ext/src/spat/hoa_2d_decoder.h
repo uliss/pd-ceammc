@@ -58,14 +58,14 @@ private:
 
     inline static t_int* dspPerformCommon(t_int* w)
     {
-        Hoa2dDecoder* ext = reinterpret_cast<Hoa2dDecoder*>(w[1]);
+        auto ext = reinterpret_cast<Hoa2dDecoder*>(w[1]);
         ext->processCommon();
         return (w + 2);
     }
 
     inline static t_int* dspPerformBinaural(t_int* w)
     {
-        Hoa2dDecoder* ext = reinterpret_cast<Hoa2dDecoder*>(w[1]);
+        auto ext = reinterpret_cast<Hoa2dDecoder*>(w[1]);
         ext->processBinaural();
         return (w + 2);
     }

@@ -66,6 +66,6 @@ private:
     void initChannelNum();
 };
 
-void setup_spat_hoa_3d_decoder_3d();
+void setup_spat_hoa_3d_decoder();
 
 #endif // HOA_3D_DECODER_H

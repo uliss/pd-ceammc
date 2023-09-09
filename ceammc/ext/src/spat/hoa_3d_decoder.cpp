@@ -20,21 +20,8 @@
 CEAMMC_DEFINE_SYM_HASH(regular);
 CEAMMC_DEFINE_SYM_HASH(binaural);
 
-template <typename T>
-constexpr bool is_in(T t, T v)
-{
-    return t == v;
-}
-
-template <typename T, typename... Args>
-constexpr bool is_in(T t, T v, Args... args)
-{
-    return t == v || is_in(t, args...);
-}
-
 Hoa3dDecoder::Hoa3dDecoder(const PdArgs& args)
     : HoaBase<hoa::Hoa3d>(args)
-    , mode_(nullptr)
 {
     mode_ = new SymbolEnumProperty("@mode", { sym_regular(), sym_binaural() });
     mode_->setArgIndex(1);
@@ -47,33 +34,53 @@ Hoa3dDecoder::Hoa3dDecoder(const PdArgs& args)
     num_chan_->setInitOnly();
     addProperty(num_chan_);
 
-    createCbIntProperty("@nharm", [this]() -> int { return decoder_ ? decoder_->getNumberOfHarmonics() : 0; });
-    createCbListProperty("@pw_x", [this]() -> AtomList { return propPlaneWavesX(); })
-        ->setUnits(PropValueUnits::RAD);
-    createCbListProperty("@pw_y", [this]() -> AtomList { return propPlaneWavesY(); })
-        ->setUnits(PropValueUnits::RAD);
-    createCbListProperty("@pw_z", [this]() -> AtomList { return propPlaneWavesZ(); })
-        ->setUnits(PropValueUnits::RAD);
+    {
+        PropertyIntGetter fn = [this]() -> int { return decoder_ ? decoder_->getNumberOfHarmonics() : 0; };
+        createCbIntProperty("@nharm", fn);
+    }
 
-    createCbListProperty(
-        "@angles",
-        [this]() -> AtomList { return propAngles(); },
-        [this](const AtomListView& lv) -> bool { return propSetAngles(lv); })
-        ->setUnits(PropValueUnits::DEG);
+    {
+        PropertyListGetter fn = [this]() -> AtomList { return propPlaneWavesX(); };
+        createCbListProperty("@pw_x", fn)->setUnits(PropValueUnits::RAD);
+    }
 
-    createCbListProperty(
-        "@offset",
-        [this]() -> AtomList {
+    {
+        PropertyListGetter fn = [this]() -> AtomList { return propPlaneWavesY(); };
+        createCbListProperty("@pw_y", fn)->setUnits(PropValueUnits::RAD);
+    }
+
+    {
+        PropertyListGetter fn = [this]() -> AtomList { return propPlaneWavesZ(); };
+        createCbListProperty("@pw_z", fn)->setUnits(PropValueUnits::RAD);
+    }
+
+    {
+        PropertyListGetter lget = [this]() -> AtomList { return propAngles(); };
+        PropertyListSetter lset = [this](const AtomListView& lv) -> bool { return propSetAngles(lv); };
+        createCbListProperty(
+            "@angles",
+            lget,
+            lset)
+            ->setUnits(PropValueUnits::DEG);
+    }
+
+    {
+        PropertyListGetter lget = [this]() -> AtomList {
             AtomList res(0., 0., 0.0);
-            if (decoder_) {
+            if (decoder_ && mode_->value() == sym_regular()) {
                 res[0] = convert::rad2degree(decoder_->getPlanewavesRotationX());
                 res[1] = convert::rad2degree(decoder_->getPlanewavesRotationY());
                 res[2] = convert::rad2degree(decoder_->getPlanewavesRotationZ());
             }
             return res;
-        },
-        [this](const AtomListView& lv) -> bool { return propSetOffset(lv); })
-        ->setUnits(PropValueUnits::DEG);
+        };
+        PropertyListSetter lset = [this](const AtomListView& lv) -> bool { return propSetOffset(lv); };
+        createCbListProperty(
+            "@offset",
+            lget,
+            lset)
+            ->setUnits(PropValueUnits::DEG);
+    }
 }
 
 void Hoa3dDecoder::initChannelNum()
@@ -177,8 +184,10 @@ void Hoa3dDecoder::blockSizeChanged(size_t bs)
 
 void Hoa3dDecoder::initDecoder()
 {
-    auto mode = mode_->value();
-    switch (crc32_hash(mode)) {
+    if (!mode_)
+        return;
+
+    switch (crc32_hash(mode_->value())) {
     case hash_regular: {
         decoder_.reset(new DecoderRegular3d(order(), num_chan_->value()));
         decoder_->setPlanewavesRotation(0, 0, 0);
@@ -186,9 +195,9 @@ void Hoa3dDecoder::initDecoder()
     case hash_binaural: {
         auto x = new DecoderBinaural3d(order());
         decoder_.reset(x);
-    }
+    } break;
     default:
-        OBJ_ERR << "unknown mode: " << mode;
+        OBJ_ERR << "unknown mode: " << mode_->value();
     }
 }
 
@@ -236,15 +245,15 @@ AtomList Hoa3dDecoder::propPlaneWavesZ() const
 
 AtomList Hoa3dDecoder::propAngles() const
 {
-    if (!decoder_)
+    if (!decoder_ || mode_->value() == sym_binaural())
         return cache_angles_;
 
-    auto N = decoder_->getNumberOfPlanewaves() * 2;
+    auto N = decoder_->getNumberOfPlanewaves();
     AtomList res;
-    res.reserve(N);
+    res.reserve(2 * N);
     for (size_t i = 0; i < N; i++) {
-        res.append(Atom(convert::rad2degree(decoder_->getPlanewaveAzimuth(i, true))));
-        res.append(Atom(convert::rad2degree(decoder_->getPlanewaveElevation(i, true))));
+        res.append(Atom(convert::rad2degree(decoder_->getPlanewaveAzimuth(i, false))));
+        res.append(Atom(convert::rad2degree(decoder_->getPlanewaveElevation(i, false))));
     }
 
     return res;
@@ -272,9 +281,9 @@ bool Hoa3dDecoder::propSetAngles(const AtomListView& lv)
     auto N = std::min<size_t>(decoder_->getNumberOfPlanewaves() * 2, lv.size());
     for (size_t i = 0; i < N; i++) {
         if (i % 2)
-            decoder_->setPlanewaveElevation(i, convert::degree2rad(lv[i].asFloat()));
+            decoder_->setPlanewaveElevation(i / 2, convert::degree2rad(lv[i].asFloat()));
         else
-            decoder_->setPlanewaveAzimuth(i, convert::degree2rad(lv[i].asFloat()));
+            decoder_->setPlanewaveAzimuth(i / 2, convert::degree2rad(lv[i].asFloat()));
     }
 
     return true;
@@ -290,6 +299,8 @@ bool Hoa3dDecoder::propSetOffset(const AtomListView& lv)
         return false;
     }
 
+    return false;
+
     dsp::SuspendGuard guard;
 
     const auto ax = convert::degree2rad(lv.floatAt(0, convert::rad2degree(decoder_->getPlanewavesRotationX())));
@@ -300,7 +311,7 @@ bool Hoa3dDecoder::propSetOffset(const AtomListView& lv)
     return true;
 }
 
-void setup_spat_hoa_3d_decoder_3d()
+void setup_spat_hoa_3d_decoder()
 {
     SoundExternalFactory<Hoa3dDecoder> obj("hoa.3d.decoder~");
 }

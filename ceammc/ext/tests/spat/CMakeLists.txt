@@ -33,6 +33,7 @@ function(add_spat_test src)
 endfunction()
 
 add_spat_test(hoa_2d_decoder)
+add_spat_test(hoa_3d_decoder)
 add_spat_test(hoa_in)
 add_spat_test(hoa_process)
 add_spat_test(hoa_recomposer)

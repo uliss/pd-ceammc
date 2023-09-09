@@ -15,7 +15,7 @@ extern void setup_spat_hoa_2d_recomposer();
 extern void setup_spat_hoa_2d_rotate();
 extern void setup_spat_hoa_2d_scope();
 extern void setup_spat_hoa_2d_wider();
-extern void setup_spat_hoa_3d_decoder_3d();
+extern void setup_spat_hoa_3d_decoder();
 extern void setup_spat_hoa_3d_encoder();
 extern void setup_spat_hoa_3d_exchanger();
 extern void setup_spat_hoa_3d_optim();
@@ -47,7 +47,7 @@ void ceammc_spat_setup()
     setup_spat_hoa_2d_rotate();
     setup_spat_hoa_2d_scope();
     setup_spat_hoa_2d_wider();
-    setup_spat_hoa_3d_decoder_3d();
+    setup_spat_hoa_3d_decoder();
     setup_spat_hoa_3d_encoder();
     setup_spat_hoa_3d_exchanger();
     setup_spat_hoa_3d_optim();
