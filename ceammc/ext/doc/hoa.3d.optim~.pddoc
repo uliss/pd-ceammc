@@ -67,11 +67,11 @@
 |                       |
 [ui.gain~ @size 120 14] [phase->rad~] [ui.menu basic maxre inphase]
 |                       |.            |
-[hoa.3d.encoder~ 3 {w=25,i=11,o=11}]     [@mode $2(
+[hoa.3d.encoder~ 3 {w=30,i=16,o=16}]  [@mode $2(
 *|*                                   |
-[hoa.3d.optim~ 3 inphase {w=25,i=11,o=11}]
+[hoa.3d.optim~ 3 inphase {w=30,i=16,o=16}]
 *|* *|*
-*|* [hoa.3d.scope~ 3 @gain 4 {i=11} @size 164 164]
+*|* [hoa.3d.scope~ 3 @gain 4 {i=16} @size 164 164]
 *|*
 *|*
 *|*
@@ -83,9 +83,9 @@
 *|*
 *|*
 *|*
-[hoa.3d.decoder~ 3 regular 11 {w=25,i=11,o=11}]
+[hoa.3d.decoder~ 3 regular 16 {w=30,i=16,o=16}]
 *|*
-[xdac~ 1:11 {w=25,i=11}]
+[xdac~ 1:16 {w=30,i=16}]
 
 [ui.dsp~]
 ]]>
