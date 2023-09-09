@@ -212,8 +212,6 @@ constexpr int MIN_SIZE = 20;
 
 Hoa2dSpace::Hoa2dSpace()
     : prop_nchan(4)
-    , clock_([this]() {})
-    , start_clock_(false)
     , space_layer_(asEBox(), gensym("space_layer"))
     , points_layer_(asEBox(), gensym("points_layer"))
 {
@@ -224,9 +222,9 @@ void Hoa2dSpace::init(t_symbol* s, const AtomListView& args, bool usePresets)
 {
     UIObject::init(s, args, usePresets);
 
-    //     first positional argument handling
-    //    if (!args.empty() && args[0].isFloat())
-    //        propSetOrder(clip<t_float>(args[0].asFloat(), HOA_MIN_ORDER, HOA_MAX_2D_ORDER));
+    // first positional argument handling
+    if (!args.empty() && args[0].isFloat())
+        propSetNumChan(clip<t_float>(args[0].asFloat(), HOA_MIN_PLANEWAVES, HOA_MAX_PLANEWAVES));
 }
 
 void Hoa2dSpace::okSize(t_rect* newrect)
@@ -259,11 +257,12 @@ void Hoa2dSpace::drawBackground()
     egraphics_matrix_init(&transform, 1, 0, 0, -1, center, center);
     p.setMatrix(transform);
 
+    // draw beams
     for (int i = 0; i < prop_nchan; i++) {
-        auto angle = (i - 0.5 - ((prop_nchan & 1) * 0.25)) / prop_nchan * HOA_2PI;
+        auto angle = ((float(i) - 0.5) / prop_nchan) * HOA_2PI;
 
-        auto rx = cos(angle) * radius;
-        auto ry = sin(angle) * radius;
+        auto rx = fabscissa(radius, angle);
+        auto ry = fordinate(radius, angle);
         auto x1 = rx * 0.2;
         auto y1 = ry * 0.2;
 
@@ -278,6 +277,7 @@ void Hoa2dSpace::drawBackground()
         p.stroke();
     }
 
+    // draw circles
     for (int i = 5; i > 0; i--) {
         p.drawCircle(0, 0, (double)i * 0.2 * radius);
         p.setLineWidth(3);
@@ -359,8 +359,7 @@ void Hoa2dSpace::drawPoints()
 
     for (int i = 0; i < prop_nchan; i++) {
         auto radius = chan_radius_[i] - 3.5;
-        auto angle = (double)(i + 1.) / (double)prop_nchan * HOA_2PI;
-        angle -= HOA_2PI / (double)prop_nchan;
+        auto angle = (float(i) / prop_nchan) * HOA_2PI;
         auto abscissa = fabscissa(radius, angle);
         auto ordinate = fordinate(radius, angle);
         p.drawCircle(abscissa, ordinate, 3.);
@@ -420,13 +419,13 @@ void Hoa2dSpace::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt,
 
     if (modifiers == EMOD_ALT) { // alt : rotation
         mode_ = EDIT_ROTATE;
-        angle_ref_ = Math<float>::wrap_twopi(Math<float>::azimuth(mouse.x, mouse.y) - HOA_PI + (HOA_PI / (double)prop_nchan));
-        std::copy(chan_refs_.begin(), chan_refs_.begin() + prop_nchan, chan_values_.end());
+        angle_ref_ = Math<float>::wrap_twopi(Math<float>::azimuth(mouse.x, mouse.y) - HOA_PI + (HOA_PI / prop_nchan));
+        std::copy(chan_values_.begin(), chan_values_.begin() + prop_nchan, chan_refs_.begin()); // save ref values
     } else if (modifiers == EMOD_SHIFT) { // shift : gain
         mode_ = EDIT_ZOOM;
         auto radius = Math<float>::radius(mouse.x, mouse.y);
         value_ref_ = convert::lin2lin_clip<float>(radius, center * 0.2, center * 0.95, prop_min, prop_max);
-        std::copy(chan_values_.begin(), chan_values_.begin() + prop_nchan, chan_refs_.begin());
+        std::copy(chan_values_.begin(), chan_values_.begin() + prop_nchan, chan_refs_.begin()); // save ref values
     } else {
         mode_ = EDIT_DEFAULT;
         onMouseDrag(view, pt, modifiers);
@@ -442,23 +441,21 @@ void Hoa2dSpace::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
     mouse.y = center - pt.y;
 
     if (mode_ == EDIT_ROTATE) { // alt : rotation
-        auto angle = Math<float>::wrap_twopi(Math<float>::azimuth(mouse.x, mouse.y) - HOA_PI + (HOA_PI / (double)prop_nchan));
+        auto angle = Math<float>::wrap_twopi(Math<float>::azimuth(mouse.x, mouse.y) - HOA_PI + (HOA_PI / prop_nchan));
         auto inc = angle_ref_ - angle;
         for (int i = 0; i < prop_nchan; i++) {
             auto angle = Math<float>::wrap_twopi((double)i / (double)prop_nchan * HOA_2PI + inc);
-            int index = angle / HOA_2PI * prop_nchan;
-            int index2 = index + 1;
-            if (index2 >= prop_nchan)
-                index2 = 0;
+            int idx1 = angle / HOA_2PI * prop_nchan;
+            int idx2 = (idx1 + 1) % prop_nchan;
 
-            auto mu = (double)index / (double)prop_nchan * (double)HOA_2PI;
-            mu = (double)(angle - mu) / ((double)HOA_2PI / (double)prop_nchan);
-            auto value = cosine_interpolation(chan_refs_[index], chan_refs_[index2], mu);
-            chan_values_[i] = pd_clip_minmax(value, prop_min, prop_max);
+            auto mu = float(idx1) / prop_nchan * HOA_2PI;
+            mu = (angle - mu) / (HOA_2PI / prop_nchan);
+            auto value = cosine_interpolation(chan_refs_[idx1], chan_refs_[idx2], mu);
+            chan_values_[i] = clip<float>(value, prop_min, prop_max);
         }
     } else if (mode_ == EDIT_ZOOM) { // shift : gain
         auto radius = Math<float>::radius(mouse.x, mouse.y);
-        auto inc = convert::lin2lin_clip<float>(radius, center * 0.2, center * 0.95, prop_min, prop_max) - value_ref_;
+        auto inc = convert::lin2lin<float>(radius, center * 0.2, center * 0.95, prop_min, prop_max) - value_ref_;
         for (int i = 0; i < prop_nchan; i++)
             chan_values_[i] = clip<float>(chan_refs_[i] + inc, prop_min, prop_max);
     } else {

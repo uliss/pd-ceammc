@@ -14,7 +14,6 @@
 #ifndef HOA_2D_SPACE_H
 #define HOA_2D_SPACE_H
 
-#include "ceammc_clock.h"
 #include "ceammc_ui_object.h"
 #include "hoa_common.h"
 
@@ -27,9 +26,6 @@ class Hoa2dSpace : public UIObject {
     float prop_min { 0 }, prop_max { 1 };
     int prop_nchan { 0 };
     std::array<float, HOA_MAX_PLANEWAVES> chan_values_, chan_refs_, chan_radius_;
-
-    ClockLambdaFunction clock_;
-    bool start_clock_;
 
     UILayer space_layer_, points_layer_;
     float angle_ref_, value_ref_;
@@ -57,13 +53,6 @@ public:
 
     void onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
-    //    void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
-
-    //    void onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long modifiers);
-    //    void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
-    //    void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
-    void onDblClick(t_object* view, const t_pt& pt, long modifiers);
-    void onMouseWheel(const t_pt& pt, long modifiers, double delta);
 
 public:
     static void setup();
