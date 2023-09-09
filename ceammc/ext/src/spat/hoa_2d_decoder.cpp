@@ -21,34 +21,21 @@ CEAMMC_DEFINE_SYM_HASH(regular);
 CEAMMC_DEFINE_SYM_HASH(irregular);
 CEAMMC_DEFINE_SYM_HASH(binaural);
 
-template <typename T>
-constexpr bool is_in(T t, T v)
-{
-    return t == v;
-}
-
-template <typename T, typename... Args>
-constexpr bool is_in(T t, T v, Args... args)
-{
-    return t == v || is_in(t, args...);
-}
-
 Hoa2dDecoder::Hoa2dDecoder(const PdArgs& args)
-    : HoaBase(args)
-    , mode_(nullptr)
-    , plane_waves_(nullptr)
+    : HoaBase<hoa::Hoa2d>(args)
+    , num_chan_(nullptr)
 {
-    mode_ = new SymbolEnumProperty("@mode", { sym_regular(), sym_irregular(), sym_binaural() });
+    mode_ = new SymbolEnumProperty("@mode", { str_regular, str_irregular, str_binaural });
     mode_->setArgIndex(1);
     addProperty(mode_);
     addProperty(new SymbolEnumAlias("@regular", mode_, sym_regular()));
     addProperty(new SymbolEnumAlias("@irregular", mode_, sym_irregular()));
     addProperty(new SymbolEnumAlias("@binaural", mode_, sym_binaural()));
 
-    plane_waves_ = new IntProperty("@nwaves", 0);
-    plane_waves_->setArgIndex(2);
-    plane_waves_->setInitOnly();
-    addProperty(plane_waves_);
+    num_chan_ = new IntProperty("@nch", 0);
+    num_chan_->setArgIndex(2);
+    num_chan_->setInitOnly();
+    addProperty(num_chan_);
 
     Property* pcrop = createCbIntProperty(
         "@crop",
@@ -62,8 +49,6 @@ Hoa2dDecoder::Hoa2dDecoder(const PdArgs& args)
     createCbListProperty("@pw_x", [this]() -> AtomList { return propPlaneWavesX(); })
         ->setUnits(PropValueUnits::RAD);
     createCbListProperty("@pw_y", [this]() -> AtomList { return propPlaneWavesY(); })
-        ->setUnits(PropValueUnits::RAD);
-    createCbListProperty("@pw_z", [this]() -> AtomList { return propPlaneWavesZ(); })
         ->setUnits(PropValueUnits::RAD);
 
     createCbListProperty(
@@ -84,24 +69,24 @@ void Hoa2dDecoder::parsePlainWavesNum()
     switch (crc32_hash(mode_->value())) {
     case hash_binaural:
         // num of plane waves ignored in binaural mode
-        plane_waves_->setValue(2);
+        num_chan_->setValue(2);
         break;
     case hash_regular: {
         const int MIN_PW_COUNT = 2 * order() + 1;
         const int DEFAULT = 2 * order() + 2;
 
         // property was not specified, set default
-        if (plane_waves_->value() == 0)
-            plane_waves_->setValue(DEFAULT);
+        if (num_chan_->value() == 0)
+            num_chan_->setValue(DEFAULT);
 
-        const auto N = plane_waves_->value();
+        const auto N = num_chan_->value();
 
         if (N >= MIN_PW_COUNT) {
-            plane_waves_->setValue(N);
+            num_chan_->setValue(N);
         } else {
             OBJ_ERR << "minimal number of plane waves for regular mode should be >= "
                     << MIN_PW_COUNT << ", setting to this value";
-            plane_waves_->setValue(MIN_PW_COUNT);
+            num_chan_->setValue(MIN_PW_COUNT);
         }
     } break;
     case hash_irregular: {
@@ -109,17 +94,17 @@ void Hoa2dDecoder::parsePlainWavesNum()
         const int DEFAULT = 5;
 
         // property was not specified, use default
-        if (plane_waves_->value() == 0)
-            plane_waves_->setValue(DEFAULT);
+        if (num_chan_->value() == 0)
+            num_chan_->setValue(DEFAULT);
 
-        const auto N = plane_waves_->value();
+        const auto N = num_chan_->value();
 
         if (N >= MIN_PW_COUNT) {
-            plane_waves_->setValue(N);
+            num_chan_->setValue(N);
         } else {
             OBJ_ERR << "minimal number of plane waves for irregular mode should be >= "
                     << MIN_PW_COUNT << ", setting to this value";
-            plane_waves_->setValue(MIN_PW_COUNT);
+            num_chan_->setValue(MIN_PW_COUNT);
         }
     } break;
     default:
@@ -130,7 +115,6 @@ void Hoa2dDecoder::parsePlainWavesNum()
 void Hoa2dDecoder::initDone()
 {
     parsePlainWavesNum();
-
     initDecoder();
 
     createSignalInlets(decoder_->getNumberOfHarmonics());
@@ -198,14 +182,13 @@ void Hoa2dDecoder::blockSizeChanged(size_t bs)
 
 void Hoa2dDecoder::initDecoder()
 {
-    auto mode = mode_->value();
-    switch (crc32_hash(mode)) {
+    switch (crc32_hash(mode_->value())) {
     case hash_regular: {
-        decoder_.reset(new DecoderRegular2d(order(), plane_waves_->value()));
+        decoder_.reset(new DecoderRegular2d(order(), num_chan_->value()));
         decoder_->setPlanewavesRotation(0, 0, 0);
     } break;
     case hash_irregular: {
-        decoder_.reset(new DecoderIrregular2d(order(), plane_waves_->value()));
+        decoder_.reset(new DecoderIrregular2d(order(), num_chan_->value()));
     } break;
     case hash_binaural: {
         DecoderBinaural2d* x = new DecoderBinaural2d(order());
@@ -213,9 +196,10 @@ void Hoa2dDecoder::initDecoder()
         // to assure limits
         cache_crop_size_ = x->getCropSize();
         decoder_.reset(x);
+        break;
     }
     default:
-        OBJ_ERR << "unknown mode: " << mode;
+        OBJ_ERR << "unknown mode: " << mode_->value();
     }
 }
 
@@ -224,9 +208,8 @@ int Hoa2dDecoder::propCropSize() const
     if (!decoder_ || mode_->value() != sym_binaural())
         return cache_crop_size_;
 
-    // only in binaural mode
-    DecoderBinaural2d* p = static_cast<DecoderBinaural2d*>(decoder_.get());
-    return p->getCropSize();
+    auto bin = dynamic_cast<DecoderBinaural2d*>(decoder_.get());
+    return bin ? bin->getCropSize() : 0;
 }
 
 bool Hoa2dDecoder::propSetCropSize(int n)
@@ -236,17 +219,21 @@ bool Hoa2dDecoder::propSetCropSize(int n)
     if (!decoder_)
         return true;
 
-    if (mode_->value() == sym_binaural()) {
+    if (mode_->value() != sym_binaural()) {
         OBJ_ERR << "not in binaural mode: can not set cropsize";
         return false;
     }
 
     dsp::SuspendGuard guard;
-    DecoderBinaural2d* p = static_cast<DecoderBinaural2d*>(decoder_.get());
-    p->setCropSize(cache_crop_size_);
-    // to assure limits
-    cache_crop_size_ = p->getCropSize();
+    auto bin = dynamic_cast<DecoderBinaural2d*>(decoder_.get());
+    if (!bin) {
+        OBJ_ERR << "invalid pointer";
+        return false;
+    }
 
+    bin->setCropSize(cache_crop_size_);
+    // to assure limits
+    cache_crop_size_ = bin->getCropSize();
     return true;
 }
 
@@ -258,8 +245,13 @@ AtomList Hoa2dDecoder::propPlaneWavesX() const
     auto N = decoder_->getNumberOfPlanewaves();
     AtomList res;
     res.reserve(N);
-    for (size_t i = 0; i < N; i++)
-        res.append(decoder_->getPlanewaveAbscissa(i, true));
+    for (size_t i = 0; i < N; i++) {
+        auto x = decoder_->getPlanewaveAbscissa(i, true);
+        if (abs(x) < 0.00001)
+            x = 0;
+
+        res.append(x);
+    }
 
     return res;
 }
@@ -272,22 +264,13 @@ AtomList Hoa2dDecoder::propPlaneWavesY() const
     auto N = decoder_->getNumberOfPlanewaves();
     AtomList res;
     res.reserve(N);
-    for (size_t i = 0; i < N; i++)
-        res.append(decoder_->getPlanewaveOrdinate(i, true));
+    for (size_t i = 0; i < N; i++) {
+        auto y = decoder_->getPlanewaveOrdinate(i, true);
+        if (abs(y) < 0.00001)
+            y = 0;
 
-    return res;
-}
-
-AtomList Hoa2dDecoder::propPlaneWavesZ() const
-{
-    if (!decoder_)
-        return {};
-
-    auto N = decoder_->getNumberOfPlanewaves();
-    AtomList res;
-    res.reserve(N);
-    for (size_t i = 0; i < N; i++)
-        res.append(decoder_->getPlanewaveHeight(i, true));
+        res.append(y);
+    }
 
     return res;
 }

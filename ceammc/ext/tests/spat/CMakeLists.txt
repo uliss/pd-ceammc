@@ -32,6 +32,7 @@ function(add_spat_test src)
     target_sources(test_ext_spat PRIVATE "test_spat_${src}.cpp")
 endfunction()
 
+add_spat_test(hoa_2d_decoder)
 add_spat_test(hoa_in)
 add_spat_test(hoa_process)
 add_spat_test(hoa_recomposer)

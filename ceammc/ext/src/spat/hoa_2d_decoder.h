@@ -20,9 +20,11 @@
 #include <memory>
 
 class Hoa2dDecoder : public HoaBase<hoa::Hoa2d> {
-    SymbolEnumProperty* mode_;
-    IntProperty* plane_waves_;
+    SymbolEnumProperty* mode_ { nullptr };
+    IntProperty* num_chan_ { nullptr };
+
     std::unique_ptr<Decoder2d> decoder_;
+
     Buffer in_buf_;
     Buffer out_buf_;
     // decoder_ is not available while parsing properties
@@ -41,7 +43,6 @@ public:
 
     AtomList propPlaneWavesX() const;
     AtomList propPlaneWavesY() const;
-    AtomList propPlaneWavesZ() const;
 
     int propCropSize() const;
     bool propSetCropSize(int n);
