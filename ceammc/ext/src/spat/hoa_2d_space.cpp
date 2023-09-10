@@ -322,6 +322,7 @@ void Hoa2dSpace::setup()
     obj.addAlias("hoa.space");
     obj.setDefaultSize(120, 120);
 
+    obj.useList();
     obj.usePresets();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG);
 

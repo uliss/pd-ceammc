@@ -9,34 +9,40 @@
                 <author>Eliott Paris</author>
                 <author>Thomas Le Meur</author>
             </authors>
-            <description>a 2d ambisonic harmonic scope</description>
+            <description>planewaves amp control</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category view="link">spat</category>
-            <keywords>hoa scope</keywords>
+            <keywords>hoa space ui control circular</keywords>
             <since>0.9.7</since>
             <aliases>
                 <alias view="link">hoa.space</alias>
             </aliases>
         </meta>
         <info>
-            <par>displays the circular harmonics of an ambisonic sound field</par>
+            <par>The graphical user interface that facilitates the control of processing in the plane wave domain.</par>
             <a href="hoa/hoa.2d.space-help.pd">CICM documentation</a>
         </info>
         <arguments>
-            <argument name="ORDER" type="int" minvalue="1">the order of decomposition</argument>
+            <argument name="N" type="int" minvalue="1">number of planewave channels</argument>
         </arguments>
+        <mouse>
+            <event type="drag" editmode="false">change the single amp value</event>
+            <event type="drag" editmode="false" keys="Shift">change the all amp values</event>
+            <event type="drag" editmode="false" keys="Alt">rotate all values</event>
+            <event type="right-click" editmode="false">open popup menu</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+            <event type="drag" editmode="true" keys="Cmd">change the single amp value</event>
+            <event type="right-click" editmode="true" keys="Shift">open object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+        </mouse>
         <properties>
-            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1">the order of
-            decomposition</property>
-            <property name="@view" type="float" default="0">view rotation</property>
-            <property name="@gain" type="float" default="1" minvalue="0">gain</property>
-            <property name="@refresh" type="int" default="100" minvalue="20" maxvalue="1000"
-            units="millisecond">redraw time</property>
-            <property name="@ph_color" type="list" default="1 0 0 1">positive harmonics
-            color</property>
-            <property name="@nh_color" type="list" default="0 0 1 1">negative harmonics
-            color</property>
+            <property name="@min" type="float" default="0">minimum amp value</property>
+            <property name="@max" type="float" default="1">maximum amp value</property>
+            <property name="@nch" type="int" minvalue="1" maxvalue="128" default="4">number of channels</property>
+            <property name="@sp_color" type="list" default=" 0.27 0.43 0.54 1">space color</property>
+            <property name="@pt_color" type="list" default="0 0 0 1">point color</property>
             <!-- common-->
             <property name="@size" type="list" default="120 120">element size (width, height
             pair)</property>
@@ -54,6 +60,13 @@
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
+            <!-- common -->
+            <property name="@presetname" type="symbol" category="basic" default="(null)">preset
+            name for using with [ui.preset]</property>
+            <property name="@send" type="symbol" category="basic" default="(null)">send
+            destination</property>
+            <property name="@receive" type="symbol" category="basic" default="(null)">receive
+            source</property>
             <!-- label -->
             <property name="@label" type="symbol" default="(null)">label text</property>
             <property name="@label_color" type="list" default="0 0 0 1">label color in RGB format
@@ -76,37 +89,39 @@
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- presets -->
+            <method name="load" category="preset">loads specified preset
+            <param name="IDX" type="int" required="true">preset index</param></method>
+            <method name="store" category="preset">stores specified preset
+            <param name="IDX" type="int" required="true">preset index</param></method>
+            <method name="clear" category="preset">clears specified preset
+            <param name="IDX" type="int" required="true">preset index</param></method>
+            <method name="interp">interplolates between presets
+            <param name="IDX" type="float" required="true">preset fraction index</param></method>
         </methods>
-        <inlets dynamic="true">
-            <inlet type="audio">
-                <xinfo>first input harmonic</xinfo>
-            </inlet>
-            <inlet type="audio" number="...">
-                <xinfo>... input harmonic</xinfo>
-            </inlet>
-            <inlet type="audio" number="n">
-                <xinfo>n-th input harmonic</xinfo>
+        <inlets>
+            <inlet>
+                <xinfo>list: amp values</xinfo>
             </inlet>
         </inlets>
+        <outlets>
+            <outlet>list: amp values</outlet>
+        </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[osc.square~ 0.15]      [phasor~ 0.15]
-|                       |
-[ui.gain~ @size 120 14] [phase->rad~]
-|                       |.
-[hoa.encoder~ 5 {w=17,i=11,o=11}]
-*|*
-[hoa.scope~ 5 {i=11}]
-
-
-
-
-
-
-
-
-[ui.dsp~]
+[hoa.2d.space 8 {0:]
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+[ui.dt]
 ]]>
             </pdascii>
         </example>

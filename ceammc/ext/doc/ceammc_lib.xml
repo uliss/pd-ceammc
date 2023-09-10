@@ -2133,7 +2133,7 @@
     <entry name="hoa.2d.rotate~" descr="a 2D ambisonic sound field rotation" ref_view="object">
       <xi:include href="hoa.2d.rotate~.pddoc" parse="xml"/>
     </entry>
-    <entry name="hoa.2d.space" descr="a 2d ambisonic harmonic scope" ref_view="link">
+    <entry name="hoa.2d.space" descr="planewaves amp control" ref_view="link">
       <xi:include href="hoa.2d.space.pddoc" parse="xml"/>
     </entry>
     <entry name="hoa.2d.wider~" descr="a 2d fractional ambisonic order simulator" ref_view="object">

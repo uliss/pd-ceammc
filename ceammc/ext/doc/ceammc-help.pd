@@ -1522,7 +1522,7 @@ harmonics;
 #X text 200 20782 a 2D ambisonic sound field rotation;
 #X obj 30 20812 ui.link @title [hoa.2d.space] @url
 hoa.2d.space-help.pd;
-#X text 200 20809 a 2d ambisonic harmonic scope;
+#X text 200 20809 planewaves amp control;
 #X obj 30 20834 hoa.2d.wider~;
 #X text 200 20834 a 2d fractional ambisonic order simulator;
 #X obj 30 20861 hoa.3d.encoder~;
