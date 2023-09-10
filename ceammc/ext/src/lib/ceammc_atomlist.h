@@ -184,7 +184,7 @@ public:
      * @param n - new size
      * @param v - pad value
      */
-    void resizePad(size_t n, const Atom& v);
+    AtomList& resizePad(size_t n, const Atom& v);
 
     /**
      * Resize list. If new size is less than current, last values are dropped.
@@ -193,7 +193,7 @@ public:
      * @param v - pad value
      * @note do nothing on empty list
      */
-    void resizeClip(size_t n);
+    AtomList& resizeClip(size_t n);
 
     /**
      * Resize list. If new size is less than current, last values are dropped.
@@ -202,7 +202,7 @@ public:
      * @param v - pad value
      * @note do nothing on empty list
      */
-    void resizeWrap(size_t n);
+    AtomList& resizeWrap(size_t n);
 
     /**
      * Resize list. If new size is less than current, last values are dropped.
@@ -211,7 +211,7 @@ public:
      * @param v - pad value
      * @note do nothing on empty list
      */
-    void resizeFold(size_t n);
+    AtomList& resizeFold(size_t n);
 
     /**
      * Get property value from list

@@ -216,40 +216,47 @@ t_symbol* AtomList::symbolAt(size_t pos, t_symbol* def) const noexcept
     return res;
 }
 
-void AtomList::resizePad(size_t n, const Atom& v)
+AtomList& AtomList::resizePad(size_t n, const Atom& v)
 {
     atoms_.resize(n, v);
+    return *this;
 }
 
-void AtomList::resizeClip(size_t n)
+AtomList& AtomList::resizeClip(size_t n)
 {
     if (empty())
-        return;
+        return *this;
 
-    resizePad(n, atoms_.back());
+    return resizePad(n, atoms_.back());
 }
 
-void AtomList::resizeWrap(size_t n)
+AtomList& AtomList::resizeWrap(size_t n)
 {
     if (empty())
-        return;
+        return *this;
 
-    if (n < size())
-        return atoms_.resize(n);
+    if (n < size()) {
+        atoms_.resize(n);
+        return *this;
+    }
 
     atoms_.reserve(n);
     const size_t old_size = size();
     for (size_t i = old_size; i < n; i++)
         atoms_.push_back(atoms_[i % old_size]);
+
+    return *this;
 }
 
-void AtomList::resizeFold(size_t n)
+AtomList& AtomList::resizeFold(size_t n)
 {
     if (empty())
-        return;
+        return *this;
 
-    if (n < size())
-        return atoms_.resize(n);
+    if (n < size()) {
+        atoms_.resize(n);
+        return *this;
+    }
 
     atoms_.reserve(n);
     const size_t old_size = size();
@@ -263,6 +270,8 @@ void AtomList::resizeFold(size_t n)
         size_t wrap = i % fold_size;
         atoms_.push_back(atoms_[std::min(wrap, fold_size - wrap)]);
     }
+
+    return *this;
 }
 
 bool AtomList::property(t_symbol* name, Atom* dest) const noexcept
