@@ -580,31 +580,45 @@ void eclass_attr_default(t_eclass* c, const char* attrname, const char* value)
 
 void eclass_attr_category(t_eclass* c, const char* attrname, const char* category)
 {
-    t_symbol* cat = gensym(category);
-    t_symbol* sel = gensym(attrname);
+#undef _
+#define _(msg) msg##_hash
+
+    using namespace ceammc;
+    auto cat = gensym(category);
+    auto sel = gensym(attrname);
 
     for (size_t i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == sel) {
             c->c_attr[i]->category = cat;
 
-            if (cat == gensym(_("Basic")))
+            switch (crc32_hash(category)) {
+            case _("Basic"):
                 c->c_attr[i]->order += CAT_BASE;
-            else if (cat == gensym(_("Colors")))
+                break;
+            case _("Colors"):
                 c->c_attr[i]->order += CAT_COLOR;
-            else if (cat == gensym(_("Bounds")))
+                break;
+            case _("Bounds"):
                 c->c_attr[i]->order += CAT_BOUNDS;
-            else if (cat == gensym(_("Label")))
+                break;
+            case _("Label"):
                 c->c_attr[i]->order += CAT_LABEL;
-            else if (cat == gensym(_("Main")))
+                break;
+            case _("Main"):
                 c->c_attr[i]->order += CAT_MAIN;
-            else if (cat == gensym(_("MIDI")))
+                break;
+            case _("MIDI"):
                 c->c_attr[i]->order += CAT_MIDI;
-            else
+                break;
+            default:
                 c->c_attr[i]->order += CAT_MISC;
-
-            return;
+                break;
+            }
         }
     }
+
+#undef _
+#define _(msg) msg
 }
 
 void eclass_attr_order(t_eclass* c, const char* attrname, const char* order)
