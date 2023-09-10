@@ -346,4 +346,42 @@ TEST_CASE("ceammc_preset", "[PureData]")
 
         REQUIRE(s.floatValueAt(SYM("B"), 0, -100) == Approx(-100));
     }
+
+    SECTION("interp")
+    {
+        SECTION("float")
+        {
+            PresetStorage& s = PresetStorage::instance();
+            s.clearAll();
+            REQUIRE(s.setFloatValueAt(SYM("A"), 0, 0));
+            REQUIRE(s.setFloatValueAt(SYM("A"), 1, 100));
+            REQUIRE(s.setFloatValueAt(SYM("A"), 3, 300));
+            REQUIRE(s.floatValueAt(SYM("A"), 0, -100) == 0);
+            REQUIRE(s.floatValueAt(SYM("A"), 0.25, -100) == 25);
+            REQUIRE(s.floatValueAt(SYM("A"), 0.75, -100) == 75);
+            REQUIRE(s.floatValueAt(SYM("A"), 1, -100) == 100);
+            REQUIRE(s.floatValueAt(SYM("A"), -1, -100) == -100);
+            REQUIRE(s.floatValueAt(SYM("A"), -0.00001, -100) == -100);
+            REQUIRE(s.floatValueAt(SYM("A"), 2, -100) == -100);
+            REQUIRE(s.floatValueAt(SYM("A"), 2.5, -100) == -100);
+            REQUIRE(s.floatValueAt(SYM("A"), 3, -100) == 300);
+            REQUIRE(s.floatValueAt(SYM("A"), 3.5, -100) == 150);
+        }
+
+        SECTION("list")
+        {
+            PresetStorage& s = PresetStorage::instance();
+            s.clearAll();
+            REQUIRE(s.setListValueAt(SYM("L"), 0, LF(0, 1, 2)));
+            REQUIRE(s.setListValueAt(SYM("L"), 1, LF(1, 2, 3)));
+            REQUIRE(s.setListValueAt(SYM("L"), 3, LF(3, 4, 5)));
+            REQUIRE(s.interListValue(SYM("L"), 0, L()) == LF(0, 1, 2));
+            REQUIRE(s.interListValue(SYM("L"), 0.25, L()) == LF(0.25, 1.25, 2.25));
+            REQUIRE(s.interListValue(SYM("L"), 0.75, L()) == LF(0.75, 1.75, 2.75));
+            REQUIRE(s.interListValue(SYM("L"), 1, L()) == LF(1, 2, 3));
+            REQUIRE(s.interListValue(SYM("L"), 1.5, L()) == LF(0.5, 1, 1.5));
+            REQUIRE(s.interListValue(SYM("L"), 1.75, L()) == LF(0.25, 0.5, 0.75));
+            REQUIRE(s.interListValue(SYM("L"), 2, L()) == L());
+        }
+    }
 }

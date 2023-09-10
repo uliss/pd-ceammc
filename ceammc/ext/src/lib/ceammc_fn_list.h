@@ -225,6 +225,15 @@ namespace list {
      * @note no dynamic memory allocation
      */
     ViewSlice findProperty(const AtomListView& lv);
+
+    /**
+     * Linear list interpoltation
+     * @param l0 - first list
+     * @param l1 - second list
+     * @param k - interpolation factor [0-1]
+     * @return interpolated list of size min(l0.size(), l1.size())
+     */
+    AtomList interpolate_lin(const AtomListView& l0, const AtomListView& l1, t_float k, AtomList::NonEqualLengthBehaivor mode = AtomList::MINSIZE);
 }
 }
 

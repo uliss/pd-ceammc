@@ -12,6 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_fn_list.h"
+#include "ceammc_convert.h"
+#include "ceammc_signal.h"
 #include "datatype_dict.h"
 #include "lex/parser_hexbeat.h"
 #include "soxr.h"
@@ -754,6 +756,72 @@ namespace list {
         }
 
         return res;
+    }
+
+    AtomList interpolate_lin(const AtomListView& l0, const AtomListView& l1, t_float k, AtomList::NonEqualLengthBehaivor mode)
+    {
+        auto lerp = [](const AtomListView& l0, const AtomListView& l1, t_float k, size_t N) {
+            N = std::min(N, std::min(l0.size(), l1.size()));
+            AtomList res;
+            res.reserve(N);
+            k = clip01(k);
+            for (size_t i = 0; i < N; i++)
+                res.append(ceammc::interpolate::linear<t_float>(l0[i].asFloat(), l1[i].asFloat(), k));
+
+            return res;
+        };
+
+        if (l0.size() == l1.size())
+            return lerp(l0, l1, k, l0.size());
+
+        switch (mode) {
+        case AtomList::MINSIZE: {
+            auto N = std::min(l0.size(), l1.size());
+            return lerp(l0, l1, k, N);
+        }
+        case AtomList::PADZERO: {
+            if (l0.size() < l1.size()) {
+                size_t N = l1.size();
+                return lerp(AtomList(l0).resizePad(N, Atom(0.)), l1, k, N);
+            } else {
+                size_t N = l0.size();
+                return lerp(l0, AtomList(l1).resizePad(N, Atom(0.)), k, N);
+            }
+            break;
+        }
+        case AtomList::CLIP: {
+            if (l0.size() < l1.size()) {
+                size_t N = l1.size();
+                return lerp(AtomList(l0).resizeClip(N), l1, k, N);
+            } else {
+                size_t N = l0.size();
+                return lerp(l0, AtomList(l1).resizeClip(N), k, N);
+            }
+            break;
+        }
+        case AtomList::WRAP: {
+            if (l0.size() < l1.size()) {
+                size_t N = l1.size();
+                return lerp(AtomList(l0).resizeWrap(N), l1, k, N);
+            } else {
+                size_t N = l0.size();
+                return lerp(l0, AtomList(l1).resizeWrap(N), k, N);
+            }
+            break;
+        }
+        case AtomList::FOLD: {
+            if (l0.size() < l1.size()) {
+                size_t N = l1.size();
+                return lerp(AtomList(l0).resizeFold(N), l1, k, N);
+            } else {
+                size_t N = l0.size();
+                return lerp(l0, AtomList(l1).resizeFold(N), k, N);
+            }
+            break;
+        }
+        default:
+            return {};
+        }
     }
 }
 }

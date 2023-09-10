@@ -1,8 +1,10 @@
 #include "ceammc_preset.h"
 #include "ceammc_containers.h"
+#include "ceammc_fn_list.h"
 #include "ceammc_log.h"
 #include "ceammc_pd.h"
 #include "ceammc_platform.h"
+#include "ceammc_signal.h"
 
 extern "C" {
 #include "g_canvas.h"
@@ -83,6 +85,15 @@ AtomListView PresetStorage::listValueAt(t_symbol* name, size_t presetIdx, const 
         return def;
 
     return it->second->listAt(presetIdx, def);
+}
+
+AtomList PresetStorage::interListValue(t_symbol* name, t_float presetIdx, const AtomListView& def) const
+{
+    auto it = params_.find(name);
+    if (it == params_.end())
+        return def;
+
+    return it->second->interpListAt(presetIdx, def);
 }
 
 bool PresetStorage::setAnyValueAt(t_symbol* name, size_t presetIdx, t_symbol* sel, const AtomList& l)
@@ -667,6 +678,26 @@ AtomListView Preset::listAt(size_t idx, const AtomListView& def) const
         return def;
 
     return data_[idx].isList() ? data_[idx].listValue().view() : def;
+}
+
+AtomList Preset::interpListAt(t_float fidx, const AtomListView& def) const
+{
+    if (fidx < 0 || fidx >= data_.size())
+        return def;
+
+    auto idx = static_cast<size_t>(fidx);
+    const bool is_int = (fidx == idx);
+
+    if (is_int) {
+        return data_[idx].isList() ? data_[idx].listValue().view() : def;
+    } else {
+        const auto i0 = idx;
+        const auto i1 = std::min<size_t>(idx + 1, data_.size() - 1);
+        const auto& v0 = data_[i0].listValue();
+        const auto& v1 = data_[i1].listValue();
+        t_float t = fidx - idx;
+        return list::interpolate_lin(v0.view(), v1.view(), t, AtomList::PADZERO);
+    }
 }
 
 AtomList Preset::anyAt(size_t idx, const AtomList& def) const

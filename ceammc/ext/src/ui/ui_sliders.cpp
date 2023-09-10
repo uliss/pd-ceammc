@@ -11,7 +11,6 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
 #include <algorithm>
 #include <chrono>
 #include <random>
@@ -27,12 +26,12 @@ using namespace ceammc;
 
 static const int MAX_SLIDERS_NUM = 1024;
 
-constexpr const char * SYM_SLIDER = "slider";
-constexpr const char * SYM_VSLIDERS = "ui.vsliders";
-constexpr const char * SYM_NONE = "none";
-constexpr const char * SYM_BOTH = "both";
-constexpr const char * SYM_MIN = "min";
-constexpr const char * SYM_MAX = "max";
+constexpr const char* SYM_SLIDER = "slider";
+constexpr const char* SYM_VSLIDERS = "ui.vsliders";
+constexpr const char* SYM_NONE = "none";
+constexpr const char* SYM_BOTH = "both";
+constexpr const char* SYM_MIN = "min";
+constexpr const char* SYM_MAX = "max";
 
 static decltype(std::chrono::system_clock::now().time_since_epoch().count()) random_seed;
 
@@ -158,19 +157,6 @@ void UISliders::onList(const AtomListView& lv)
     outputList();
 }
 
-static AtomList interp_lists(const AtomListView& lv0, const AtomListView& lv1, size_t n, float k)
-{
-    Atom res[n];
-
-    for (size_t i = 0; i < n; i++) {
-        auto v0 = lv0.floatAt(i, 0);
-        auto v1 = lv1.floatAt(i, 0);
-        res[i] = v0 * (1 - k) + v1 * k;
-    }
-
-    return AtomList(AtomListView(res, n));
-}
-
 void UISliders::interpPreset(t_float idx)
 {
     const size_t N = pos_values_.size();
@@ -178,11 +164,7 @@ void UISliders::interpPreset(t_float idx)
     for (size_t i = 0; i < N; i++)
         def[i] = realValueAt(i);
 
-    auto lv0 = PresetStorage::instance().listValueAt(presetId(), static_cast<int>(idx), AtomListView(def, N));
-    auto lv1 = PresetStorage::instance().listValueAt(presetId(), static_cast<int>(idx) + 1, AtomListView(def, N));
-
-    float k = (static_cast<float>(idx) - static_cast<int>(idx));
-    onList(interp_lists(lv0, lv1, N, k));
+    onList(PresetStorage::instance().interListValue(presetId(), idx, AtomListView(def, N)));
 }
 
 void UISliders::loadPreset(size_t idx)
