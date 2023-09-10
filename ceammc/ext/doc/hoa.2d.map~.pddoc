@@ -23,6 +23,7 @@
             <par>Encodes several sources in the circular harmonics domain with distance
             compensation and muting system</par>
             <par>If nsrc==1 radius and angle controlled with signal values</par>
+            <a href="hoa/hoa.2d.map~-help.pd">CICM documentation</a>
         </info>
         <arguments>
             <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of

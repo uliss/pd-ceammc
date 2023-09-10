@@ -22,6 +22,9 @@
                 <alias>hoa.rotate~</alias>
             </aliases>
         </meta>
+        <info>
+            <a href="hoa/hoa.2d.rotate~-help.pd">CICM documentation</a>
+        </info>
         <arguments>
             <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of
             decomposition</argument>

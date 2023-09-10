@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
-    <object name="hoa.scope~" type="gui">
-        <title>hoa.scope~</title>
+    <object name="hoa.2d.space" type="gui">
+        <title>hoa.2d.space</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
@@ -14,13 +14,14 @@
             <library>ceammc</library>
             <category view="link">spat</category>
             <keywords>hoa scope</keywords>
-            <since>0.8</since>
+            <since>0.9.7</since>
             <aliases>
-                <alias view="link">hoa.2d.scope~</alias>
+                <alias view="link">hoa.space</alias>
             </aliases>
         </meta>
         <info>
             <par>displays the circular harmonics of an ambisonic sound field</par>
+            <a href="hoa/hoa.2d.space-help.pd">CICM documentation</a>
         </info>
         <arguments>
             <argument name="ORDER" type="int" minvalue="1">the order of decomposition</argument>

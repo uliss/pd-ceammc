@@ -4,8 +4,9 @@
 #X text 537 50 a 2d ambisonic harmonic scope;
 #X obj 1 1 cnv 5 765 40 empty empty hoa.scope~ 20 20 0 20 -104026
 -4096 0;
-#X obj 545 11 hoa.2d.scope~;
-#X obj 665 14 ui.link @background_color 0.39216 0.39216 0.39216 @title
+#X obj 543 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[hoa.2d.scope~] @url hoa.scope~-help.pd;
+#X obj 665 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [hoa.scope~] @url hoa.scope~-help.pd;
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 displays the circular harmonics of an ambisonic sound

@@ -291,6 +291,7 @@ set(DOC_FILES
     hoa.2d.projector~
     hoa.2d.recomposer~
     hoa.2d.rotate~
+    hoa.2d.space
     hoa.2d.wider~
     hoa.3d.encoder~
     hoa.3d.optim~

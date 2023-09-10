@@ -28,6 +28,7 @@
             modes, fixe (default), fisheye and free.</par>
             <par>The hoa.2d.recomposer~ can be controlled either by message or with the help of its
             dedicated graphical user interface hoa.2d.recomposer.</par>
+            <a href="hoa/hoa.2d.recomposer~-help.pd">CICM documentation</a>
         </info>
         <arguments>
             <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of

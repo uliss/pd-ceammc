@@ -24,6 +24,7 @@
         </meta>
         <info>
             <par>Discretizes the ambisonic sound field into the plane waves domain.</par>
+            <a href="hoa/hoa.2d.projector~-help.pd">CICM documentation</a>
         </info>
         <arguments>
             <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of

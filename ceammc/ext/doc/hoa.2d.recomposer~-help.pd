@@ -7,114 +7,116 @@ harmonics;
 -104026 -4096 0;
 #X obj 475 11 hoa.recomposer~;
 #X obj 609 11 hoa.2d.recomposer~;
-#X obj 210 80 cnv 1 555 120 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 143 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Recomposes a plane wave decomposition into circular
 harmonics. There's three modes \, fixe (default) \, fisheye and free.;
 #X text 215 135 The hoa.2d.recomposer~ can be controlled either by
 message or with the help of its dedicated graphical user interface
 hoa.2d.recomposer.;
-#X obj 50 228 hoa/hoa.soundgrain;
-#X obj 50 257 ui.gain~ @size 120 14;
-#X obj 50 286 hoa.2d.encoder~ 7 16, f 46;
-#X obj 50 315 hoa.projector~ 7 16, f 46;
-#X obj 50 344 hoa.process~ 16 hoa/hoa.fx.delay2~ planewaves, f 46;
-#X obj 50 372 hoa.process~ 16 hoa/hoa.fx.gain~ planewaves 1, f 46;
-#X obj 50 401 hoa.2d.recomposer~ 7 16, f 46;
-#X obj 88 444 hoa.scope~ 7 @gain 4 @size 164 164;
-#X obj 50 617 hoa.decoder~ 7 regular, f 46;
-#X obj 453 617 ui.dsp~;
-#X obj 50 646 xdac~ 1:16, f 46;
-#X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 700 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 215 190 ui.link @background_color 0.98039 0.98039 0.98039
+@title CICM documentation @url hoa/hoa.2d.recomposer~-help.pd;
+#X obj 50 251 hoa/hoa.soundgrain;
+#X obj 50 280 ui.gain~ @size 120 14;
+#X obj 50 309 hoa.2d.encoder~ 7 16, f 46;
+#X obj 50 338 hoa.projector~ 7 16, f 46;
+#X obj 50 367 hoa.process~ 16 hoa/hoa.fx.delay2~ planewaves, f 46;
+#X obj 50 395 hoa.process~ 16 hoa/hoa.fx.gain~ planewaves 1, f 46;
+#X obj 50 424 hoa.2d.recomposer~ 7 16, f 46;
+#X obj 88 467 hoa.scope~ 7 @gain 4 @size 164 164;
+#X obj 50 640 hoa.decoder~ 7 regular, f 46;
+#X obj 453 640 ui.dsp~;
+#X obj 50 669 xdac~ 1:16, f 46;
+#X obj 20 718 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 723 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 735 1\.;
-#X text 150 735 int;
-#X obj 246 736 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 735 ORDER: the order of decomposition. Type: int. Range:
+#X text 110 758 1\.;
+#X text 150 758 int;
+#X obj 246 759 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 758 ORDER: the order of decomposition. Type: int. Range:
 1\...63;
-#X text 110 755 2\.;
-#X text 150 755 int;
-#X obj 246 756 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 755 N: number of channels. Type: int. Range: 1\...63;
-#X text 110 775 3\.;
-#X text 150 775 symbol;
-#X obj 246 776 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 775 MODE: recomposition mode. There is three modes: *fixe*
+#X text 110 778 2\.;
+#X text 150 778 int;
+#X obj 246 779 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 778 N: number of channels. Type: int. Range: 1\...63;
+#X text 110 798 3\.;
+#X text 150 798 symbol;
+#X obj 246 799 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 798 MODE: recomposition mode. There is three modes: *fixe*
 - simply recomposes a plane wave decomposition into circular harmonics.
 *fisheye* - allows you to perform an operation similar to the visual
 "fisheye" effect by distorsion of the sound field perspective to the
 front of the scene. *free* - allows you to change the angles and the
 widening value for each channels.. Allowed values: fixe \, fisheye
 \, free. . Type: symbol.;
-#X obj 20 910 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 915 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 933 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 938 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 950 @fisheye;
-#X text 245 950 alias for @mode fisheye.;
-#X msg 110 979 @fixe;
-#X text 245 979 alias for @mode fixe.;
-#X msg 110 1008 @free;
-#X text 245 1008 alias for @mode free.;
-#X msg 110 1037 @mode;
-#X text 245 1037 (initonly) Get/Set recomposition mode. There is three
+#X msg 110 973 @fisheye;
+#X text 245 973 alias for @mode fisheye.;
+#X msg 110 1002 @fixe;
+#X text 245 1002 alias for @mode fixe.;
+#X msg 110 1031 @free;
+#X text 245 1031 alias for @mode free.;
+#X msg 110 1060 @mode;
+#X text 245 1060 (initonly) Get/Set recomposition mode. There is three
 modes: *fixe* - simply recomposes a plane wave decomposition into circular
 harmonics. *fisheye* - allows you to perform an operation similar to
 the visual "fisheye" effect by distorsion of the sound field perspective
 to the front of the scene. *free* - allows you to change the angles
 and the widening value for each channels. Type: symbol. Default value:
 free. Allowed values: fixe \, fisheye \, free.;
-#X msg 110 1169 @n;
-#X text 245 1169 (initonly) Get/Set number of channels (planewaves).
+#X msg 110 1192 @n;
+#X text 245 1192 (initonly) Get/Set number of channels (planewaves).
 Type: int. Default value: 0\. Range: 0\...63\.;
-#X msg 110 1211 @order;
-#X text 245 1211 (initonly) Get/Set the order of decomposition. Type:
+#X msg 110 1234 @order;
+#X text 245 1234 (initonly) Get/Set the order of decomposition. Type:
 int. Default value: 1\. Range: 1\...63\.;
-#X msg 110 1253 @ramp;
-#X text 245 1253 Get/Set ramp time. Type: float. Default value: 100\.
+#X msg 110 1276 @ramp;
+#X text 245 1276 Get/Set ramp time. Type: float. Default value: 100\.
 Min value: 0\.;
-#X obj 20 1305 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1310 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1328 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1333 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1345 angles;
-#X text 245 1345 set the angles of channels. Angles are in radians
+#X msg 110 1368 angles;
+#X text 245 1368 set the angles of channels. Angles are in radians
 \, wrapped between 0 and 2π. Arguments are:;
-#X obj 255 1383 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1383 VALS: list of angles. Type: list. Units: 'rad'.;
-#X msg 110 1408 wide;
-#X text 245 1408 set the widening value of channels. Widening value
+#X obj 255 1406 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1406 VALS: list of angles. Type: list. Units: 'rad'.;
+#X msg 110 1431 wide;
+#X text 245 1431 set the widening value of channels. Widening value
 is clipped between 0\. (omnidirectional) and 1\. (directional). Arguments
 are:;
-#X obj 255 1461 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1461 VALS: list of values per channel. Type: list.;
-#X obj 20 1496 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1501 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 255 1484 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1484 VALS: list of values per channel. Type: list.;
+#X obj 20 1519 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1524 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1502 1\.;
-#X text 245 1502 input harmonic.;
-#X text 110 1522 ....;
-#X text 245 1522 input harmonic.;
-#X text 110 1542 n.;
-#X text 245 1542 input harmonic. If @fisheye mode is used: fisheye
+#X text 110 1525 1\.;
+#X text 245 1525 input harmonic.;
+#X text 110 1545 ....;
+#X text 245 1545 input harmonic.;
+#X text 110 1565 n.;
+#X text 245 1565 input harmonic. If @fisheye mode is used: fisheye
 factor [0-1] in last inlet.;
-#X obj 20 1587 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1592 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1610 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1615 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1593 1\.;
-#X text 245 1593 first planewave output.;
-#X text 110 1613 ....;
-#X text 245 1613 ... planewave output.;
-#X text 110 1633 n.;
-#X text 245 1633 n-th planewave output.;
+#X text 110 1616 1\.;
+#X text 245 1616 first planewave output.;
+#X text 110 1636 ....;
+#X text 245 1636 ... planewave output.;
+#X text 110 1656 n.;
+#X text 245 1656 n-th planewave output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1683 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1686 library: ceammc v0.9.7;
-#X text 542 1698 see also:;
-#X obj 616 1698 hoa.2d.projector~;
-#N canvas 10 1705 400 290 info 0;
+#X obj 1 1706 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1709 library: ceammc v0.9.7;
+#X text 542 1721 see also:;
+#X obj 616 1721 hoa.2d.projector~;
+#N canvas 10 1728 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -139,24 +141,9 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1705 pd info;
-#X connect 8 0 9 0;
+#X restore 10 1728 pd info;
 #X connect 9 0 10 0;
 #X connect 10 0 11 0;
-#X connect 10 1 11 1;
-#X connect 10 2 11 2;
-#X connect 10 3 11 3;
-#X connect 10 4 11 4;
-#X connect 10 5 11 5;
-#X connect 10 6 11 6;
-#X connect 10 7 11 7;
-#X connect 10 8 11 8;
-#X connect 10 9 11 9;
-#X connect 10 10 11 10;
-#X connect 10 11 11 11;
-#X connect 10 12 11 12;
-#X connect 10 13 11 13;
-#X connect 10 14 11 14;
 #X connect 11 0 12 0;
 #X connect 11 1 12 1;
 #X connect 11 2 12 2;
@@ -172,7 +159,6 @@ https://github.com/uliss/pure-data;
 #X connect 11 12 12 12;
 #X connect 11 13 12 13;
 #X connect 11 14 12 14;
-#X connect 11 15 12 15;
 #X connect 12 0 13 0;
 #X connect 12 1 13 1;
 #X connect 12 2 13 2;
@@ -220,34 +206,50 @@ https://github.com/uliss/pure-data;
 #X connect 14 12 15 12;
 #X connect 14 13 15 13;
 #X connect 14 14 15 14;
-#X connect 14 0 16 0;
-#X connect 14 1 16 1;
-#X connect 14 2 16 2;
-#X connect 14 3 16 3;
-#X connect 14 4 16 4;
-#X connect 14 5 16 5;
-#X connect 14 6 16 6;
-#X connect 14 7 16 7;
-#X connect 14 8 16 8;
-#X connect 14 9 16 9;
-#X connect 14 10 16 10;
-#X connect 14 11 16 11;
-#X connect 14 12 16 12;
-#X connect 14 13 16 13;
-#X connect 14 14 16 14;
-#X connect 16 0 18 0;
-#X connect 16 1 18 1;
-#X connect 16 2 18 2;
-#X connect 16 3 18 3;
-#X connect 16 4 18 4;
-#X connect 16 5 18 5;
-#X connect 16 6 18 6;
-#X connect 16 7 18 7;
-#X connect 16 8 18 8;
-#X connect 16 9 18 9;
-#X connect 16 10 18 10;
-#X connect 16 11 18 11;
-#X connect 16 12 18 12;
-#X connect 16 13 18 13;
-#X connect 16 14 18 14;
-#X connect 16 15 18 15;
+#X connect 14 15 15 15;
+#X connect 15 0 16 0;
+#X connect 15 1 16 1;
+#X connect 15 2 16 2;
+#X connect 15 3 16 3;
+#X connect 15 4 16 4;
+#X connect 15 5 16 5;
+#X connect 15 6 16 6;
+#X connect 15 7 16 7;
+#X connect 15 8 16 8;
+#X connect 15 9 16 9;
+#X connect 15 10 16 10;
+#X connect 15 11 16 11;
+#X connect 15 12 16 12;
+#X connect 15 13 16 13;
+#X connect 15 14 16 14;
+#X connect 15 0 17 0;
+#X connect 15 1 17 1;
+#X connect 15 2 17 2;
+#X connect 15 3 17 3;
+#X connect 15 4 17 4;
+#X connect 15 5 17 5;
+#X connect 15 6 17 6;
+#X connect 15 7 17 7;
+#X connect 15 8 17 8;
+#X connect 15 9 17 9;
+#X connect 15 10 17 10;
+#X connect 15 11 17 11;
+#X connect 15 12 17 12;
+#X connect 15 13 17 13;
+#X connect 15 14 17 14;
+#X connect 17 0 19 0;
+#X connect 17 1 19 1;
+#X connect 17 2 19 2;
+#X connect 17 3 19 3;
+#X connect 17 4 19 4;
+#X connect 17 5 19 5;
+#X connect 17 6 19 6;
+#X connect 17 7 19 7;
+#X connect 17 8 19 8;
+#X connect 17 9 19 9;
+#X connect 17 10 19 10;
+#X connect 17 11 19 11;
+#X connect 17 12 19 12;
+#X connect 17 13 19 13;
+#X connect 17 14 19 14;
+#X connect 17 15 19 15;

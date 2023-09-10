@@ -1118,6 +1118,8 @@ hoa.2d.recomposer~	recomposes a 2d plane wave decomposition into circular harmon
 hoa.recomposer~	recomposes a 2d plane wave decomposition into circular harmonics
 hoa.2d.rotate~	a 2D ambisonic sound field rotation
 hoa.rotate~	a 2D ambisonic sound field rotation
+hoa.2d.space	a 2d ambisonic harmonic scope
+hoa.space	a 2d ambisonic harmonic scope
 hoa.2d.wider~	a 2d fractional ambisonic order simulator
 hoa.wider~	a 2d fractional ambisonic order simulator
 hoa.3d.encoder~	hoa 3d encoder
