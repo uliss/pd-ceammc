@@ -318,8 +318,8 @@ void Hoa2dSpace::interpPreset(t_float idx)
 
 void Hoa2dSpace::setup()
 {
-    UIObjectFactory<Hoa2dSpace> obj("hoa.space", EBOX_GROWLINK);
-    obj.addAlias("hoa.2d.space");
+    UIObjectFactory<Hoa2dSpace> obj("hoa.2d.space", EBOX_GROWLINK);
+    obj.addAlias("hoa.space");
     obj.setDefaultSize(120, 120);
 
     obj.usePresets();
