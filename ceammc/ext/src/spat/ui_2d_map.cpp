@@ -119,6 +119,11 @@ void HoaMapUI::paint()
     drawGroups();
 }
 
+void HoaMapUI::onBang()
+{
+    output();
+}
+
 void HoaMapUI::drawBackground()
 {
     const auto rect = this->rect();
@@ -936,10 +941,6 @@ void HoaMapUI::updateAllAndOutput()
     output();
 }
 
-void HoaMapUI::onList(const AtomListView& lv)
-{
-}
-
 void HoaMapUI::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     f_rect_selection_exist = -1;
@@ -1456,7 +1457,6 @@ void HoaMapUI::setup()
     obj.setDefaultSize(225, 225);
 
     obj.useBang();
-    obj.useList();
     obj.usePresets();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_UP | UI_MOUSE_MOVE | UI_MOUSE_WHEEL);
     obj.usePopup();
