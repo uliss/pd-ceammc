@@ -25,7 +25,7 @@ namespace ceammc {
 
 struct t_linkmap;
 
-class Hoa2dMapUI : public UIObject {
+class HoaMapUI : public UIObject {
     hoa::Source::Manager* f_manager;
     hoa::Source::Manager* f_self_manager;
 
@@ -55,8 +55,8 @@ class Hoa2dMapUI : public UIObject {
     UILayer sources_, groups_, selection_;
 
 public:
-    Hoa2dMapUI();
-    ~Hoa2dMapUI();
+    HoaMapUI();
+    ~HoaMapUI();
 
     void okSize(t_rect* newrect);
     void paint();
@@ -76,15 +76,16 @@ public:
     void interpPreset(t_float idx);
     bool hasPresetInterp() const { return true; }
 
-    void m_source(const AtomListView& lv);
-    void m_group(const AtomListView& lv);
     void m_clear_all(const AtomListView& lv);
     void m_set(const AtomListView& lv);
+    void m_source(const AtomListView& lv);
+    void m_group(const AtomListView& lv);
 
     AtomList m_get_zoom() const { return Atom(f_zoom_factor); }
     void m_set_zoom(const AtomListView& lv);
 
     void m_set_bind(const AtomListView& lv);
+    AtomList m_get_bind() const { return Atom(f_binding_name); }
 
 public:
     static void setup();
@@ -100,8 +101,6 @@ private:
     void linkmapRemoveWithBindingName(t_symbol* binding_name);
     void sendBindedMapUpdate(long flags);
     void selectElement(const t_pt& pt);
-    void ctl_source(const AtomListView& lv);
-    void ctl_group(const AtomListView& lv);
 
     void updateAllAndOutput();
 };
