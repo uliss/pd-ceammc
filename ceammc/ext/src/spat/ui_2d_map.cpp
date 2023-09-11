@@ -86,9 +86,9 @@ struct t_linkmap {
 };
 
 Hoa2dMapUI::Hoa2dMapUI()
-    : sources_(asEBox(), gensym("sources"))
+    : selection_(asEBox(), gensym("selections"))
+    , sources_(asEBox(), gensym("sources"))
     , groups_(asEBox(), gensym("groups"))
-    , selection_(asEBox(), gensym("selections"))
 {
 
     f_manager = new hoa::Source::Manager(1. / (double)MIN_ZOOM - 5.);
@@ -245,6 +245,20 @@ void Hoa2dMapUI::drawBackground()
 
 void Hoa2dMapUI::drawSelection()
 {
+    const auto r = rect();
+    auto p = selection_.painter(r);
+
+    if (!p)
+        return;
+
+    const t_rgba color_sel = rgba_addContrast(prop_color_background, -0.14);
+
+    if (f_rect_selection_exist) {
+        p.setLineWidth(1);
+        p.setColor(color_sel);
+        p.drawRect(f_rect_selection);
+        p.fill();
+    }
 }
 
 void Hoa2dMapUI::drawSources()
