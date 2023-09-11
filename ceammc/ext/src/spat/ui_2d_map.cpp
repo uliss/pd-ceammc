@@ -927,6 +927,15 @@ void Hoa2dMapUI::ctl_group(const AtomListView& lv)
     sendBindedMapUpdate(BMAP_REDRAW | BMAP_NOTIFY);
 }
 
+void Hoa2dMapUI::updateAllAndOutput()
+{
+    sources_.invalidate();
+    groups_.invalidate();
+    ebox_notify(asEBox(), sym_modified());
+    redraw();
+    output();
+}
+
 void Hoa2dMapUI::onList(const AtomListView& lv)
 {
 }
@@ -1248,7 +1257,7 @@ void Hoa2dMapUI::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
     selectElement(pt);
 
     if (f_selected_source || f_selected_group)
-        setCursor(t_cursor::ECURSOR_CIRCLE);
+        setCursor(t_cursor::ECURSOR_HAND);
     else
         setCursor(t_cursor::ECURSOR_CENTER_PTR);
 
@@ -1259,60 +1268,38 @@ void Hoa2dMapUI::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
 
 void Hoa2dMapUI::showPopup(const t_pt& pt, const t_pt& abs_pt)
 {
-    //    UIObject::showPopup(pt, abs_pt);
-
-    t_pt pos(10.0, 10.0);
-    t_canvas* cnv = this->canvas();
-    if (cnv) {
-        pos.x = cnv->gl_screenx1 + x() + pt.x;
-        pos.y = cnv->gl_screeny1 + y() + pt.y + 55.;
-    }
-
     if (f_selected_group) {
+        popup_menu_list_.clear();
+        PopupMenuCallbacks menu("group");
+        menu.addItem("Group Menu", {});
+        menu.addSeparator();
+        menu.addItem("Remove Group", [this](const t_pt&) {
+            AtomArray<3> data { f_selected_group->getIndex(), sym_mute(), 1 };
+            listTo(GROUP_OUTLET, data.view());
+            f_manager->removeGroup(f_selected_group->getIndex());
+            updateAllAndOutput();
+            return true;
+        });
+        menu.addItem("Remove group and sources", [this](const t_pt&) {
+            f_selected_group->setMute(true);
+            output();
+            sendBindedMapUpdate(BMAP_OUTPUT);
+            f_manager->removeGroupWithSources(f_selected_group->getIndex());
+            updateAllAndOutput();
+            return true;
+        });
+        menu.addItem("Mute group", [this](const t_pt&) {
+            f_selected_group->setMute(true);
+            return true;
+        });
+        if (f_selected_group->getSubMute())
+            menu.addItem("Unmute group", [this](const t_pt&) {
+                f_selected_group->setMute(false);
+                return true;
+            });
 
-        //        initPopupMenu("selected_group", {
-        //                                            { "Group Menu", {} },
-        //                                            { "", {} },
-        //                                            { "Remove group", {} },
-        //                                            { "Remove group", {} },
-        //                                            { "Remove group and sources", {} },
-        //                                            { "Mute group", {} },
-        //                                            { "Unmute group", {} },
-        //                                        });
-
-        //        initPopupMenu("selected_source", {
-        //                                             { "Source Menu", {} },
-        //                                             { "", {} },
-        //                                             { "Remove source", {} },
-        //                                             { "Unmute source", {} },
-        //                                             { "Mute source", {} },
-        //                                         });
-
-        //        showPopupMenu("selected_group", pt, abs_pt);
-        //            if (f_selected_group->getSubMute())
-        //                epopupmenu_additem(popup, 4, "Unmute group", 0, 0);
-
-        //        case 1:
-        //                    {
-        //                        t_atom av[3];
-        //                        atom_setlong(av, x->f_selected_source->getIndex());
-        //                        atom_setsym(av+1, hoa_sym_mute);
-        //                        atom_setlong(av+2, 1);
-        //                        outlet_list(x->f_out_sources, 0L, 3, av);
-        //                        x->f_manager->removeSource(x->f_selected_source->getIndex());
-        //                        causeOutput = causeRedraw = causeNotify = 1;
-        //                        break;
-        //                    }
-        //                    case 2:
-        //                    {
-        //                        if(x->f_selected_source->getMute())
-        //                            x->f_selected_source->setMute(false);
-        //                        else
-        //                            x->f_selected_source->setMute(true);
-
-        //                        causeOutput = causeRedraw = causeNotify = 1;
-        //                        break;
-        //                    }
+        popup_menu_list_.push_back(menu);
+        showDefaultPopupMenu(pt, abs_pt);
 
     } else if (f_selected_source) {
         popup_menu_list_.clear();
@@ -1323,21 +1310,13 @@ void Hoa2dMapUI::showPopup(const t_pt& pt, const t_pt& abs_pt)
             AtomArray<3> data { f_selected_source->getIndex(), sym_mute(), 1 };
             listTo(SOURCE_OUTLET, data.view());
             f_manager->removeSource(f_selected_source->getIndex());
-            sources_.invalidate();
-            groups_.invalidate();
-            ebox_notify(asEBox(), sym_modified());
-            redraw();
-            output();
+            updateAllAndOutput();
             return true;
         });
 
         auto mute_cb = [this](const t_pt& pos) {
             f_selected_source->setMute(!f_selected_source->getMute());
-            sources_.invalidate();
-            groups_.invalidate();
-            ebox_notify(asEBox(), sym_modified());
-            redraw();
-            output();
+            updateAllAndOutput();
             return true;
         };
 
@@ -1363,11 +1342,7 @@ void Hoa2dMapUI::showPopup(const t_pt& pt, const t_pt& abs_pt)
 
             f_manager->newSource(index);
 
-            sources_.invalidate();
-            groups_.invalidate();
-            ebox_notify(asEBox(), sym_modified());
-            redraw();
-            output();
+            updateAllAndOutput();
             return true;
         });
         menu.addItem("Clear all", [this](const t_pt& pt) {

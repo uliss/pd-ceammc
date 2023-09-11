@@ -102,6 +102,8 @@ private:
     void selectElement(const t_pt& pt);
     void ctl_source(const AtomListView& lv);
     void ctl_group(const AtomListView& lv);
+
+    void updateAllAndOutput();
 };
 
 }
