@@ -24,6 +24,9 @@ static const int HOA_DISPLAY_NPOINTS = 65;
 static const float HOA_CONTRAST_DARKER = 0.2;
 static const float HOA_CONTRAST_LIGHTER = 0.2;
 
+constexpr size_t SOURCE_OUTLET = 0;
+constexpr size_t GROUP_OUTLET = 1;
+
 CEAMMC_DEFINE_SYM_HASH(polar);
 CEAMMC_DEFINE_SYM_HASH(pol);
 CEAMMC_DEFINE_SYM_HASH(radius);
@@ -358,61 +361,68 @@ void Hoa2dMapUI::drawGroups()
 
 void Hoa2dMapUI::output()
 {
-    return;
     if (!f_output_enabled)
         return;
 
-    StaticAtomList<5> data;
-    data.push_back(0.);
-    data.push_back(sym_mute());
-
     // output group mute state
     for (auto it = f_manager->getFirstGroup(); it != f_manager->getLastGroup(); it++) {
-        data[0] = it->first;
-        data[1] = sym_mute();
-        data.push_back(it->second->getMute());
-        listTo(1, data.view());
+        AtomArray<3> data {
+            it->first,
+            sym_mute(),
+            it->second->getMute()
+        };
+        listTo(GROUP_OUTLET, data.view());
     }
     // output source mute state
     for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
-        data[0] = it->first;
-        data[1] = sym_mute();
-        data.push_back(it->second->getMute());
-        listTo(0, data.view());
+        AtomArray<3> data {
+            it->first,
+            sym_mute(),
+            it->second->getMute()
+        };
+        listTo(SOURCE_OUTLET, data.view());
     }
     if (f_output_mode == sym_polar()) {
         for (auto it = f_manager->getFirstGroup(); it != f_manager->getLastGroup(); it++) {
-            data[0] = it->first;
-            data[1] = sym_polar();
-            data.push_back(it->second->getRadius());
-            data.push_back(it->second->getAzimuth());
-            data.push_back(it->second->getElevation());
-            listTo(1, data.view());
+            AtomArray<5> data {
+                it->first,
+                sym_polar(),
+                it->second->getRadius(),
+                it->second->getAzimuth(),
+                it->second->getElevation(),
+            };
+            listTo(GROUP_OUTLET, data.view());
         }
         for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
-            data[0] = it->first;
-            data[1] = sym_polar();
-            data.push_back(it->second->getRadius());
-            data.push_back(it->second->getAzimuth());
-            data.push_back(it->second->getElevation());
-            listTo(0, data.view());
+            AtomArray<5> data {
+                it->first,
+                sym_polar(),
+                it->second->getRadius(),
+                it->second->getAzimuth(),
+                it->second->getElevation(),
+            };
+            listTo(SOURCE_OUTLET, data.view());
         }
     } else {
         for (auto it = f_manager->getFirstGroup(); it != f_manager->getLastGroup(); it++) {
-            data[0] = it->first;
-            data[1] = sym_cartesian();
-            data.push_back(it->second->getAbscissa());
-            data.push_back(it->second->getOrdinate());
-            data.push_back(it->second->getHeight());
-            listTo(1, data.view());
+            AtomArray<5> data {
+                it->first,
+                sym_cartesian(),
+                it->second->getAbscissa(),
+                it->second->getOrdinate(),
+                it->second->getHeight(),
+            };
+            listTo(GROUP_OUTLET, data.view());
         }
         for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
-            data[0] = it->first;
-            data[1] = sym_cartesian();
-            data.push_back(it->second->getAbscissa());
-            data.push_back(it->second->getOrdinate());
-            data.push_back(it->second->getHeight());
-            listTo(0, data.view());
+            AtomArray<5> data {
+                it->first,
+                sym_cartesian(),
+                it->second->getAbscissa(),
+                it->second->getOrdinate(),
+                it->second->getHeight(),
+            };
+            listTo(SOURCE_OUTLET, data.view());
         }
     }
 }
