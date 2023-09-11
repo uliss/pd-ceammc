@@ -1483,8 +1483,6 @@ void Hoa2dMapUI::setup()
     obj.addSymbolProperty("mapname", _("Map Name"), "(null)", &Hoa2dMapUI::f_binding_name, _("Main"));
     obj.setPropertyAccessor("mapname", {}, &Hoa2dMapUI::m_set_bind);
 
-    //    eclass_addmethod(c, (method) hoa_map_popup,         "popup",          A_CANT,  0);
-
     //    eclass_addmethod(c, (method) hoa_map_preset,        "preset",         A_CANT,  0);
     //    eclass_addmethod(c, (method) hoa_map_interpolate,   "interpolate",    A_CANT,  0);
     //    eclass_addmethod(c, (method) hoa_map_sourcesPreset, "sources_preset",  A_GIMME, 0);
