@@ -13,8 +13,13 @@
  *****************************************************************************/
 #include <cmath>
 
+#include "args/argcheck2.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "hoa_2d_map.h"
+
+CEAMMC_DEFINE_STR(mute)
+CEAMMC_DEFINE_STR(polar)
 
 Hoa2dMap::Hoa2dMap(const PdArgs& args)
     : HoaBase<hoa::Hoa2d>(args)
@@ -134,38 +139,66 @@ void Hoa2dMap::processIn1In2()
         Signal::copy(BS, &out_buf_[i], NOUTS, &out[i][0], 1);
 }
 
-void Hoa2dMap::m_polar(t_symbol* s, const AtomListView& l)
+bool Hoa2dMap::checkSourceIdx(int idx) const
 {
-    if (!checkArgs(l, ARG_INT, ARG_FLOAT, ARG_FLOAT)) {
-        METHOD_ERR(s) << "IDX RADIUS ANGLE expected: " << l;
-        return;
-    }
-
-    int idx = l[0].asInt();
-    if (idx < 0 || idx >= (int)map_->getNumberOfSources()) {
-        METHOD_ERR(s) << "invalid source index: " << idx;
-        return;
-    }
-
-    lines_->setRadius(idx, l[1].asFloat());
-    lines_->setAzimuth(idx, l[2].asFloat() - M_PI_2);
+    if (idx < 1 || idx > (int)map_->getNumberOfSources()) {
+        OBJ_ERR << "invalid source index: " << idx;
+        return false;
+    } else
+        return true;
 }
 
-void Hoa2dMap::m_mute(t_symbol* s, const AtomListView& l)
+void Hoa2dMap::setPolar(int idx, t_float r, t_float azimuth)
 {
-    if (!checkArgs(l, ARG_NATURAL, ARG_BOOL)) {
-        METHOD_ERR(s) << "SRC_IDX STATE expected: " << l;
+    if (!checkSourceIdx(idx))
+        return;
+
+    lines_->setRadius(idx - 1, r);
+    lines_->setAzimuth(idx - 1, azimuth - M_PI_2);
+}
+
+void Hoa2dMap::setMute(int idx, bool value)
+{
+    if (!checkSourceIdx(idx))
+        return;
+
+    map_->setMute(idx - 1, value);
+}
+
+void Hoa2dMap::onList(const AtomListView& lv)
+{
+    static const args::ArgChecker is_polar("IDX:i>=1 s=polar RADIUS:f AZIMUTH:f ELEV:f?");
+    static const args::ArgChecker is_mute("IDX:i>=1 s=mute VALUE:b");
+
+    if (is_polar.check(lv, 0, 0, false))
+        return setPolar(lv[0].asT<int>(), lv[2].asT<t_float>(), lv[3].asT<t_float>());
+    else if (is_mute.check(lv, 0, 0, false)) {
+        return setMute(lv[0].asT<int>(), lv[2].asT<bool>());
+    } else {
+        OBJ_ERR << "invalid list: " << lv;
+        is_polar.usage(this);
+        is_mute.usage(this);
+    }
+}
+
+void Hoa2dMap::m_polar(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_INT, ARG_FLOAT, ARG_FLOAT)) {
+        METHOD_ERR(s) << "IDX RADIUS ANGLE expected: " << lv;
         return;
     }
 
-    int idx = l[0].asInt();
-    if (idx < 0 || idx >= (int)map_->getNumberOfSources()) {
-        METHOD_ERR(s) << "invalid source index: " << idx;
+    setPolar(lv[0].asT<int>(), lv[1].asT<t_float>(), lv[2].asT<t_float>());
+}
+
+void Hoa2dMap::m_mute(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_NATURAL, ARG_BOOL)) {
+        METHOD_ERR(s) << "SRC_IDX STATE expected: " << lv;
         return;
     }
 
-    bool mute = l[1].asInt();
-    map_->setMute(idx, mute);
+    setMute(lv[0].asInt(), lv[1].asBool(true));
 }
 
 const char* Hoa2dMap::annotateInlet(size_t n) const
@@ -195,6 +228,6 @@ void setup_spat_hoa_2d_map()
     SoundExternalFactory<Hoa2dMap> obj("hoa.2d.map~");
     obj.addAlias("hoa.map~");
 
-    obj.addMethod("polar", &Hoa2dMap::m_polar);
-    obj.addMethod("mute", &Hoa2dMap::m_mute);
+    obj.addMethod(str_polar, &Hoa2dMap::m_polar);
+    obj.addMethod(str_mute, &Hoa2dMap::m_mute);
 }

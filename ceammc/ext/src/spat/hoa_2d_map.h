@@ -57,8 +57,10 @@ public:
     void processMultiSource();
     void processIn1In2();
 
-    void m_polar(t_symbol* s, const AtomListView& l);
-    void m_mute(t_symbol* s, const AtomListView& l);
+    void onList(const AtomListView& lv) final;
+
+    void m_polar(t_symbol* s, const AtomListView& lv);
+    void m_mute(t_symbol* s, const AtomListView& lv);
 
     const char* annotateInlet(size_t n) const final;
 
@@ -76,6 +78,10 @@ private:
         ext->processIn1In2();
         return (w + 2);
     }
+
+    bool checkSourceIdx(int idx) const;
+    void setPolar(int idx, t_float r, t_float azimuth);
+    void setMute(int idx, bool value);
 };
 
 void setup_spat_hoa_2d_map();
