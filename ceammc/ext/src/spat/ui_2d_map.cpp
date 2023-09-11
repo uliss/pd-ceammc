@@ -12,20 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ui_2d_map.h"
+#include "args/argcheck2.h"
 #include "ceammc_containers.h"
-#include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
-#include "hoa_common.h"
-//#include "hoa_math_compat.h"
-#include "args/argcheck2.h"
 
-static const int HOA_DISPLAY_NPOINTS = 65;
-static const float HOA_CONTRAST_DARKER = 0.2;
-static const float HOA_CONTRAST_LIGHTER = 0.2;
-
-constexpr size_t SOURCE_OUTLET = 0;
-constexpr size_t GROUP_OUTLET = 1;
+namespace ceammc {
 
 CEAMMC_DEFINE_SYM_HASH(abscissa);
 CEAMMC_DEFINE_SYM_HASH(azimuth);
@@ -52,26 +45,25 @@ CEAMMC_DEFINE_SYM_HASH(xy);
 CEAMMC_DEFINE_SYM_HASH(xz);
 CEAMMC_DEFINE_SYM_HASH(yz);
 
-namespace ceammc {
-
 constexpr int MIN_SIZE = 20;
 constexpr float MAX_ZOOM = 1.;
 constexpr float MIN_ZOOM = 0.01;
+constexpr size_t SOURCE_OUTLET = 0;
+constexpr size_t GROUP_OUTLET = 1;
+constexpr const char* ODD_BINDING_SUFFIX = "map1572";
 
-typedef enum _BindingMapMsgFlag {
+enum BindingMapMsgFlag {
     BMAP_REDRAW = 0x01,
     BMAP_NOTIFY = 0x02,
     BMAP_OUTPUT = 0x04
-} BindingMapMsgFlag;
+};
+
+using ulong = unsigned long;
 
 static inline double hoa_pd_distance(double x1, double y1, double x2, double y2, double z1 = 0., double z2 = 0.)
 {
     return sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) + (z1 - z2) * (z1 - z2));
 }
-
-using ulong = unsigned long;
-
-#define ODD_BINDING_SUFFIX "map1572"
 
 struct t_linkmap {
     t_linkmap* next;

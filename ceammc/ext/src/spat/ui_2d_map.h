@@ -15,13 +15,11 @@
 #define UI_2D_MAP_H
 
 #include "ceammc_ui_object.h"
-#include "hoa_common.h"
-//#include "hoa_math_compat.h"
 
 #include "Hoa_Source.hpp"
-#include <map>
 
 #include <array>
+#include <map>
 
 namespace ceammc {
 
