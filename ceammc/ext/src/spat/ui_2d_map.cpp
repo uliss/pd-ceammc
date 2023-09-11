@@ -249,7 +249,6 @@ void Hoa2dMapUI::drawSelection()
 
 void Hoa2dMapUI::drawSources()
 {
-
     t_rgba sourceColor;
     char description[250];
 
@@ -887,11 +886,9 @@ void Hoa2dMapUI::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt,
 void Hoa2dMapUI::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
     using namespace hoa;
-    const auto rect = this->rect();
+    const auto r = rect();
 
     f_mouse_was_dragging = 0;
-
-    t_pt screen_source_coord;
 
     int causeOutput = 0;
     int causeRedraw = 0;
@@ -899,16 +896,17 @@ void Hoa2dMapUI::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 
     if (f_rect_selection_exist) {
         ulong indexOfNewGroup = 1;
-        for (Source::group_iterator it = f_manager->getFirstGroup(); it != f_manager->getLastGroup(); it++) {
+        for (auto it = f_manager->getFirstGroup(); it != f_manager->getLastGroup(); it++) {
             if (it->first != indexOfNewGroup)
                 break;
+
             indexOfNewGroup++;
         }
 
-        double x1 = ((f_rect_selection.x / rect.w * 2.) - 1.) / f_zoom_factor;
-        double x2 = (((f_rect_selection.x + f_rect_selection.w) / rect.w * 2.) - 1.) / f_zoom_factor;
-        double y1 = ((-f_rect_selection.y / rect.h * 2.) + 1.) / f_zoom_factor;
-        double y2 = (((-f_rect_selection.y - f_rect_selection.h) / rect.h * 2.) + 1.) / f_zoom_factor;
+        double x1 = ((f_rect_selection.x / r.w * 2.) - 1.) / f_zoom_factor;
+        double x2 = (((f_rect_selection.x + f_rect_selection.w) / r.w * 2.) - 1.) / f_zoom_factor;
+        double y1 = ((-f_rect_selection.y / r.h * 2.) + 1.) / f_zoom_factor;
+        double y2 = (((-f_rect_selection.y - f_rect_selection.h) / r.h * 2.) + 1.) / f_zoom_factor;
 
         bool newGroupCreated = false;
         Source::Group* tmp = f_manager->getGroup(indexOfNewGroup);
@@ -917,6 +915,7 @@ void Hoa2dMapUI::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
             newGroupCreated = true;
         }
         for (Source::source_iterator it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
+            t_pt screen_source_coord;
             if (f_coord_view == sym_xy()) {
                 screen_source_coord.x = it->second->getAbscissa();
                 screen_source_coord.y = it->second->getOrdinate();
@@ -928,7 +927,10 @@ void Hoa2dMapUI::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
                 screen_source_coord.y = it->second->getHeight();
             }
 
-            if (((screen_source_coord.x > x1 && screen_source_coord.x < x2) || (screen_source_coord.x < x1 && screen_source_coord.x > x2)) && ((screen_source_coord.y > y1 && screen_source_coord.y < y2) || (screen_source_coord.y < y1 && screen_source_coord.y > y2))) {
+            if (((screen_source_coord.x > x1 && screen_source_coord.x < x2)
+                    || (screen_source_coord.x < x1 && screen_source_coord.x > x2))
+                && ((screen_source_coord.y > y1 && screen_source_coord.y < y2)
+                    || (screen_source_coord.y < y1 && screen_source_coord.y > y2))) {
                 tmp->addSource(it->second);
                 causeOutput = causeRedraw = causeNotify = 1;
             }
@@ -967,45 +969,51 @@ void Hoa2dMapUI::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 void Hoa2dMapUI::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
     using namespace hoa;
-    const auto rect = this->rect();
+    using mf = Math<float>;
+    const auto r = rect();
 
     t_pt cursor;
-    cursor.x = ((pt.x / rect.w * 2.) - 1.) / f_zoom_factor;
-    cursor.y = ((-pt.y / rect.h * 2.) + 1.) / f_zoom_factor;
+    cursor.x = ((pt.x / r.w * 2.) - 1.) / f_zoom_factor;
+    cursor.y = ((-pt.y / r.h * 2.) + 1.) / f_zoom_factor;
 
     int causeOutput = 0;
     int causeRedraw = 0;
     int causeNotify = 0;
 
     if (f_selected_source) {
-        if ((modifiers & EMOD_SHIFT) && !(modifiers & EMOD_CTRL)) {
+        const bool mode_set_radius = modifiers & EMOD_ALT;
+        const bool mode_set_abscissa = (modifiers & EMOD_CTRL) && !(modifiers & EMOD_SHIFT);
+        const bool mode_set_ordinate = (modifiers & EMOD_CTRL) && (modifiers & EMOD_SHIFT);
+        const bool mode_set_both = (modifiers & EMOD_SHIFT) && !(modifiers & EMOD_CTRL);
+
+        if (mode_set_both) {
             if (f_coord_view == sym_xy()) {
-                f_selected_source->setAzimuth(Math<float>::azimuth(cursor.x, cursor.y));
+                f_selected_source->setAzimuth(mf::azimuth(cursor.x, cursor.y));
             } else if (f_coord_view == sym_xz()) {
-                double source_radius = Math<float>::radius(f_selected_source->getAbscissa(), f_selected_source->getHeight());
-                double mouse_azimuth = Math<float>::wrap_twopi(Math<float>::azimuth(cursor.x, cursor.y));
+                auto source_radius = mf::radius(f_selected_source->getAbscissa(), f_selected_source->getHeight());
+                auto mouse_azimuth = mf::wrap_twopi(mf::azimuth(cursor.x, cursor.y));
 
-                f_selected_source->setAbscissa(Math<float>::abscissa(source_radius, mouse_azimuth));
-                f_selected_source->setHeight(Math<float>::ordinate(source_radius, mouse_azimuth));
+                f_selected_source->setAbscissa(mf::abscissa(source_radius, mouse_azimuth));
+                f_selected_source->setHeight(mf::ordinate(source_radius, mouse_azimuth));
             } else {
-                double source_radius = Math<float>::radius(f_selected_source->getOrdinate(), f_selected_source->getHeight());
-                double mouse_azimuth = Math<float>::wrap_twopi(Math<float>::azimuth(cursor.x, cursor.y));
+                auto source_radius = mf::radius(f_selected_source->getOrdinate(), f_selected_source->getHeight());
+                auto mouse_azimuth = mf::wrap_twopi(mf::azimuth(cursor.x, cursor.y));
 
-                f_selected_source->setOrdinate(Math<float>::abscissa(source_radius, mouse_azimuth));
-                f_selected_source->setHeight(Math<float>::ordinate(source_radius, mouse_azimuth));
+                f_selected_source->setOrdinate(mf::abscissa(source_radius, mouse_azimuth));
+                f_selected_source->setHeight(mf::ordinate(source_radius, mouse_azimuth));
             }
 
             causeOutput = causeRedraw = causeNotify = 1;
-        } else if (modifiers & EMOD_ALT) {
-            f_selected_source->setRadius(Math<float>::radius(cursor.x, cursor.y));
+        } else if (mode_set_radius) {
+            f_selected_source->setRadius(mf::radius(cursor.x, cursor.y));
             causeOutput = causeRedraw = causeNotify = 1;
-        } else if ((modifiers & EMOD_CTRL) && !(modifiers & EMOD_SHIFT)) {
+        } else if (mode_set_abscissa) {
             if (f_coord_view == sym_xy() || f_coord_view == sym_xz())
                 f_selected_source->setAbscissa(cursor.x);
             else
                 f_selected_source->setOrdinate(cursor.x);
             causeOutput = causeRedraw = causeNotify = 1;
-        } else if ((modifiers & EMOD_CTRL) && (modifiers & EMOD_SHIFT)) {
+        } else if (mode_set_ordinate) {
             if (f_coord_view == sym_xy())
                 f_selected_source->setOrdinate(cursor.y);
             else
@@ -1024,96 +1032,96 @@ void Hoa2dMapUI::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
     } else if (f_selected_group) {
         if ((modifiers & EMOD_SHIFT) && !(modifiers & EMOD_ALT) && !(modifiers & EMOD_CTRL)) {
             if (f_coord_view == sym_xy()) {
-                f_selected_group->setRelativeAzimuth(Math<float>::azimuth(cursor.x, cursor.y));
+                f_selected_group->setRelativeAzimuth(mf::azimuth(cursor.x, cursor.y));
             } else if (f_coord_view == sym_xz()) {
                 if (f_mouse_was_dragging) {
                     t_pt source_display;
-                    double source_radius, source_azimuth, mouse_azimuth, mouse_azimuth_prev;
-                    mouse_azimuth = Math<float>::wrap_twopi(Math<float>::azimuth(cursor.x, cursor.y));
-                    mouse_azimuth_prev = Math<float>::wrap_twopi(Math<float>::azimuth(f_cursor_position.x, f_cursor_position.y));
+                    float source_radius, source_azimuth, mouse_azimuth, mouse_azimuth_prev;
+                    mouse_azimuth = mf::wrap_twopi(mf::azimuth(cursor.x, cursor.y));
+                    mouse_azimuth_prev = mf::wrap_twopi(mf::azimuth(f_cursor_position.x, f_cursor_position.y));
 
                     std::map<ulong, Source*>& sourcesOfGroup = f_selected_group->getSources();
                     for (auto it = sourcesOfGroup.begin(); it != sourcesOfGroup.end(); it++) {
                         source_display.x = it->second->getAbscissa();
                         source_display.y = it->second->getHeight();
-                        source_radius = Math<float>::radius(source_display.x, source_display.y);
-                        source_azimuth = Math<float>::azimuth(source_display.x, source_display.y);
+                        source_radius = mf::radius(source_display.x, source_display.y);
+                        source_azimuth = mf::azimuth(source_display.x, source_display.y);
                         source_azimuth += mouse_azimuth - mouse_azimuth_prev;
 
-                        it->second->setAbscissa(Math<float>::abscissa(source_radius, source_azimuth));
-                        it->second->setHeight(Math<float>::ordinate(source_radius, source_azimuth));
+                        it->second->setAbscissa(mf::abscissa(source_radius, source_azimuth));
+                        it->second->setHeight(mf::ordinate(source_radius, source_azimuth));
                     }
                 }
             } else {
                 if (f_mouse_was_dragging) {
                     t_pt source_display;
-                    double source_radius, source_azimuth, mouse_azimuth, mouse_azimuth_prev;
-                    mouse_azimuth = Math<float>::wrap_twopi(Math<float>::azimuth(cursor.x, cursor.y));
-                    mouse_azimuth_prev = Math<float>::wrap_twopi(Math<float>::azimuth(f_cursor_position.x, f_cursor_position.y));
+                    float source_radius, source_azimuth, mouse_azimuth, mouse_azimuth_prev;
+                    mouse_azimuth = mf::wrap_twopi(mf::azimuth(cursor.x, cursor.y));
+                    mouse_azimuth_prev = mf::wrap_twopi(mf::azimuth(f_cursor_position.x, f_cursor_position.y));
 
                     std::map<ulong, Source*>& sourcesOfGroup = f_selected_group->getSources();
                     for (auto it = sourcesOfGroup.begin(); it != sourcesOfGroup.end(); it++) {
                         source_display.x = it->second->getOrdinate();
                         source_display.y = it->second->getHeight();
-                        source_radius = Math<float>::radius(source_display.x, source_display.y);
-                        source_azimuth = Math<float>::azimuth(source_display.x, source_display.y);
+                        source_radius = mf::radius(source_display.x, source_display.y);
+                        source_azimuth = mf::azimuth(source_display.x, source_display.y);
                         source_azimuth += mouse_azimuth - mouse_azimuth_prev;
 
-                        it->second->setOrdinate(Math<float>::abscissa(source_radius, source_azimuth));
-                        it->second->setHeight(Math<float>::ordinate(source_radius, source_azimuth));
+                        it->second->setOrdinate(mf::abscissa(source_radius, source_azimuth));
+                        it->second->setHeight(mf::ordinate(source_radius, source_azimuth));
                     }
                 }
             }
             causeOutput = causeRedraw = causeNotify = 1;
         } else if ((modifiers & EMOD_ALT) && !(modifiers & EMOD_SHIFT)) {
-            f_selected_group->setRelativeRadius(Math<float>::radius(cursor.x, cursor.y));
+            f_selected_group->setRelativeRadius(mf::radius(cursor.x, cursor.y));
             causeOutput = causeRedraw = causeNotify = 1;
         } else if ((modifiers & EMOD_ALT) && (modifiers & EMOD_SHIFT)) {
             if (f_coord_view == sym_xy()) {
-                f_selected_group->setRelativeRadius(Math<float>::radius(cursor.x, cursor.y));
-                f_selected_group->setRelativeAzimuth(Math<float>::azimuth(cursor.x, cursor.y));
+                f_selected_group->setRelativeRadius(mf::radius(cursor.x, cursor.y));
+                f_selected_group->setRelativeAzimuth(mf::azimuth(cursor.x, cursor.y));
             } else if (f_coord_view == sym_xz()) {
                 if (f_mouse_was_dragging) {
                     t_pt source_display;
                     double source_radius, source_azimuth, mouse_azimuth, mouse_azimuth_prev, mouse_radius, mouse_radius_prev;
-                    mouse_radius = pd_clip_min(Math<float>::radius(cursor.x, cursor.y), 0);
-                    mouse_radius_prev = pd_clip_min(Math<float>::radius(f_cursor_position.x, f_cursor_position.y), 0);
-                    mouse_azimuth = Math<float>::wrap_twopi(Math<float>::azimuth(cursor.x, cursor.y));
-                    mouse_azimuth_prev = Math<float>::wrap_twopi(Math<float>::azimuth(f_cursor_position.x, f_cursor_position.y));
+                    mouse_radius = pd_clip_min(mf::radius(cursor.x, cursor.y), 0);
+                    mouse_radius_prev = pd_clip_min(mf::radius(f_cursor_position.x, f_cursor_position.y), 0);
+                    mouse_azimuth = mf::wrap_twopi(mf::azimuth(cursor.x, cursor.y));
+                    mouse_azimuth_prev = mf::wrap_twopi(mf::azimuth(f_cursor_position.x, f_cursor_position.y));
 
                     std::map<ulong, Source*>& sourcesOfGroup = f_selected_group->getSources();
                     for (Source::source_iterator it = sourcesOfGroup.begin(); it != sourcesOfGroup.end(); it++) {
                         source_display.x = it->second->getAbscissa();
                         source_display.y = it->second->getHeight();
-                        source_radius = Math<float>::radius(source_display.x, source_display.y);
+                        source_radius = mf::radius(source_display.x, source_display.y);
                         source_radius += mouse_radius - mouse_radius_prev;
-                        source_azimuth = Math<float>::azimuth(source_display.x, source_display.y);
+                        source_azimuth = mf::azimuth(source_display.x, source_display.y);
                         source_azimuth += mouse_azimuth - mouse_azimuth_prev;
 
-                        it->second->setAbscissa(Math<float>::abscissa(source_radius, source_azimuth));
-                        it->second->setHeight(Math<float>::ordinate(source_radius, source_azimuth));
+                        it->second->setAbscissa(mf::abscissa(source_radius, source_azimuth));
+                        it->second->setHeight(mf::ordinate(source_radius, source_azimuth));
                     }
                 }
             } else {
                 if (f_mouse_was_dragging) {
                     t_pt source_display;
                     double source_radius, source_azimuth, mouse_azimuth, mouse_azimuth_prev, mouse_radius, mouse_radius_prev;
-                    mouse_radius = pd_clip_min(Math<float>::radius(cursor.x, cursor.y), 0);
-                    mouse_radius_prev = pd_clip_min(Math<float>::radius(f_cursor_position.x, f_cursor_position.y), 0);
-                    mouse_azimuth = Math<float>::wrap_twopi(Math<float>::azimuth(cursor.x, cursor.y));
-                    mouse_azimuth_prev = Math<float>::wrap_twopi(Math<float>::azimuth(f_cursor_position.x, f_cursor_position.y));
+                    mouse_radius = pd_clip_min(mf::radius(cursor.x, cursor.y), 0);
+                    mouse_radius_prev = pd_clip_min(mf::radius(f_cursor_position.x, f_cursor_position.y), 0);
+                    mouse_azimuth = mf::wrap_twopi(mf::azimuth(cursor.x, cursor.y));
+                    mouse_azimuth_prev = mf::wrap_twopi(mf::azimuth(f_cursor_position.x, f_cursor_position.y));
 
                     std::map<ulong, Source*>& sourcesOfGroup = f_selected_group->getSources();
                     for (Source::source_iterator it = sourcesOfGroup.begin(); it != sourcesOfGroup.end(); it++) {
                         source_display.x = it->second->getOrdinate();
                         source_display.y = it->second->getHeight();
-                        source_radius = Math<float>::radius(source_display.x, source_display.y);
+                        source_radius = mf::radius(source_display.x, source_display.y);
                         source_radius += mouse_radius - mouse_radius_prev;
-                        source_azimuth = Math<float>::azimuth(source_display.x, source_display.y);
+                        source_azimuth = mf::azimuth(source_display.x, source_display.y);
                         source_azimuth += mouse_azimuth - mouse_azimuth_prev;
 
-                        it->second->setOrdinate(Math<float>::abscissa(source_radius, source_azimuth));
-                        it->second->setHeight(Math<float>::ordinate(source_radius, source_azimuth));
+                        it->second->setOrdinate(mf::abscissa(source_radius, source_azimuth));
+                        it->second->setHeight(mf::ordinate(source_radius, source_azimuth));
                     }
                 }
             }
