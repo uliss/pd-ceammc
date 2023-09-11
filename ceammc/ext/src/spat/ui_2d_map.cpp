@@ -566,7 +566,7 @@ void Hoa2dMapUI::selectElement(const t_pt& pt)
 {
     const auto r = rect();
 
-    t_pt cursor, displayed_coords;
+    t_pt cursor;
     cursor.x = ((pt.x / r.w * 2.) - 1.) / f_zoom_factor;
     cursor.y = ((-pt.y / r.h * 2.) + 1.) / f_zoom_factor;
     double distanceSelected = fontSize() / (f_zoom_factor * 2. * r.w);
@@ -578,6 +578,7 @@ void Hoa2dMapUI::selectElement(const t_pt& pt)
     f_selected_group = NULL;
 
     for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
+        t_pt displayed_coords;
         if (f_coord_view == sym_xy()) {
             displayed_coords.x = it->second->getAbscissa();
             displayed_coords.y = it->second->getOrdinate();
@@ -598,6 +599,7 @@ void Hoa2dMapUI::selectElement(const t_pt& pt)
 
     if (!f_selected_source) {
         for (auto it = f_manager->getFirstGroup(); it != f_manager->getLastGroup(); it++) {
+            t_pt displayed_coords;
             if (f_coord_view == sym_xy()) {
                 displayed_coords.x = it->second->getAbscissa();
                 displayed_coords.y = it->second->getOrdinate();
