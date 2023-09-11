@@ -39,8 +39,13 @@ CEAMMC_DEFINE_SYM_HASH(ordinate);
 CEAMMC_DEFINE_SYM_HASH(height);
 CEAMMC_DEFINE_SYM_HASH(remove);
 CEAMMC_DEFINE_SYM_HASH(mute);
-// CEAMMC_DEFINE_SYM_HASH(color);
+CEAMMC_DEFINE_SYM_HASH(xy);
+CEAMMC_DEFINE_SYM_HASH(xz);
+CEAMMC_DEFINE_SYM_HASH(yz);
 CEAMMC_DEFINE_SYM_HASH(description);
+CEAMMC_DEFINE_SYM_HASH(modified);
+CEAMMC_DEFINE_SYM_HASH(source);
+CEAMMC_DEFINE_SYM_HASH(group);
 
 namespace ceammc {
 
@@ -61,13 +66,6 @@ static inline double hoa_pd_distance(double x1, double y1, double x2, double y2,
 
 using ulong = unsigned long;
 
-static t_symbol* hoa_sym_sources_preset;
-static t_symbol* hoa_sym_view_xy = gensym("xy");
-static t_symbol* hoa_sym_view_xz = gensym("xz");
-static t_symbol* hoa_sym_view_yz = gensym("yz");
-static t_symbol* hoa_sym_modified = gensym("modified");
-static t_symbol* hoa_sym_source = gensym("source");
-static t_symbol* hoa_sym_group = gensym("group");
 #define ODD_BINDING_SUFFIX "map1572"
 
 struct t_linkmap {
@@ -136,7 +134,7 @@ Hoa2dMapUI::Hoa2dMapUI()
 
                                       sources_.invalidate();
                                       groups_.invalidate();
-                                      ebox_notify(asEBox(), hoa_sym_modified);
+                                      ebox_notify(asEBox(), sym_modified());
                                       redraw();
                                       output();
                                       return true;
@@ -281,10 +279,10 @@ void Hoa2dMapUI::drawSources()
     UITextLayout jtl(&b_font);
 
     for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
-        if (f_coord_view == hoa_sym_view_xy) {
+        if (f_coord_view == sym_xy()) {
             sourceDisplayPos.x = (it->second->getAbscissa() * f_zoom_factor + 1.) * ctr.x;
             sourceDisplayPos.y = (-it->second->getOrdinate() * f_zoom_factor + 1.) * ctr.y;
-        } else if (f_coord_view == hoa_sym_view_xz) {
+        } else if (f_coord_view == sym_xz()) {
             sourceDisplayPos.x = (it->second->getAbscissa() * f_zoom_factor + 1.) * ctr.x;
             sourceDisplayPos.y = (-it->second->getHeight() * f_zoom_factor + 1.) * ctr.y;
         } else {
@@ -321,10 +319,10 @@ void Hoa2dMapUI::drawSources()
             for (auto ti = groupsOfSources.begin(); ti != groupsOfSources.end(); ti++) {
                 p.moveTo(sourceDisplayPos.x, sourceDisplayPos.y);
 
-                if (f_coord_view == hoa_sym_view_xy) {
+                if (f_coord_view == sym_xy()) {
                     groupDisplayPos.x = (ti->second->getAbscissa() * f_zoom_factor + 1.) * ctr.x;
                     groupDisplayPos.y = (-ti->second->getOrdinate() * f_zoom_factor + 1.) * ctr.y;
-                } else if (f_coord_view == hoa_sym_view_xz) {
+                } else if (f_coord_view == sym_xz()) {
                     groupDisplayPos.x = (ti->second->getAbscissa() * f_zoom_factor + 1.) * ctr.x;
                     groupDisplayPos.y = (-ti->second->getHeight() * f_zoom_factor + 1.) * ctr.y;
                 } else {
@@ -557,7 +555,7 @@ void Hoa2dMapUI::hoa_map_sendBindedMapUpdate(long flags)
                     redraw();
                 }
                 if (flags & BMAP_NOTIFY) {
-                    ebox_notify(mapobj->asEBox(), hoa_sym_modified);
+                    ebox_notify(mapobj->asEBox(), sym_modified());
                 }
                 if (flags & BMAP_OUTPUT && f_output_enabled) {
                     mapobj->bangTo(0);
@@ -585,10 +583,10 @@ void Hoa2dMapUI::hoa_map_isElementSelected(const t_pt& pt)
     f_selected_group = NULL;
 
     for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
-        if (f_coord_view == hoa_sym_view_xy) {
+        if (f_coord_view == sym_xy()) {
             displayed_coords.x = it->second->getAbscissa();
             displayed_coords.y = it->second->getOrdinate();
-        } else if (f_coord_view == hoa_sym_view_xz) {
+        } else if (f_coord_view == sym_xz()) {
             displayed_coords.x = it->second->getAbscissa();
             displayed_coords.y = it->second->getHeight();
         } else {
@@ -605,10 +603,10 @@ void Hoa2dMapUI::hoa_map_isElementSelected(const t_pt& pt)
 
     if (!f_selected_source) {
         for (auto it = f_manager->getFirstGroup(); it != f_manager->getLastGroup(); it++) {
-            if (f_coord_view == hoa_sym_view_xy) {
+            if (f_coord_view == sym_xy()) {
                 displayed_coords.x = it->second->getAbscissa();
                 displayed_coords.y = it->second->getOrdinate();
-            } else if (f_coord_view == hoa_sym_view_xz) {
+            } else if (f_coord_view == sym_xz()) {
                 displayed_coords.x = it->second->getAbscissa();
                 displayed_coords.y = it->second->getHeight();
             } else {
@@ -678,7 +676,7 @@ void Hoa2dMapUI::hoa_map_source(const AtomListView& lv)
                 strcat(description, " ");
                 if (lv[2].asSymbol() == sym_remove()) {
                     tmp->setDescription("");
-                    ebox_notify(asEBox(), hoa_sym_modified);
+                    ebox_notify(asEBox(), sym_modified());
                     sources_.invalidate();
                     groups_.invalidate();
                     redraw();
@@ -705,7 +703,7 @@ void Hoa2dMapUI::hoa_map_source(const AtomListView& lv)
             causeOutput = 0;
         }
 
-        ebox_notify(asEBox(), hoa_sym_modified);
+        ebox_notify(asEBox(), sym_modified());
         sources_.invalidate();
         groups_.invalidate();
         redraw();
@@ -781,9 +779,9 @@ void Hoa2dMapUI::hoa_map_group(const AtomListView& lv)
         } else if (param == sym_relradius()) {
             tmp->setRelativeRadius(lv.floatAt(2, 0) + tmp->getRadius());
         } else if (param == sym_relazimuth()) {
-            if (f_coord_view == hoa_sym_view_xy) {
+            if (f_coord_view == sym_xy()) {
                 tmp->setRelativeAzimuth(lv.floatAt(2, 0) + tmp->getAzimuth());
-            } else if (f_coord_view == hoa_sym_view_xz) {
+            } else if (f_coord_view == sym_xz()) {
                 t_pt source_display;
                 double source_radius, source_azimuth, aAngleOffset = lv.floatAt(2, 0);
                 std::map<ulong, Source*>& sourcesOfGroup = tmp->getSources();
@@ -832,7 +830,7 @@ void Hoa2dMapUI::hoa_map_group(const AtomListView& lv)
                 strcat(description, " ");
                 if (lv.symbolAt(2, &s_) == sym_remove()) {
                     tmp->setDescription("");
-                    ebox_notify(asEBox(), hoa_sym_modified);
+                    ebox_notify(asEBox(), sym_modified());
                     groups_.invalidate();
                     redraw();
                     return;
@@ -865,7 +863,7 @@ void Hoa2dMapUI::hoa_map_group(const AtomListView& lv)
         }
     }
 
-    ebox_notify(asEBox(), hoa_sym_modified);
+    ebox_notify(asEBox(), sym_modified());
     groups_.invalidate();
     sources_.invalidate();
     redraw();
@@ -939,10 +937,10 @@ void Hoa2dMapUI::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
             newGroupCreated = true;
         }
         for (Source::source_iterator it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
-            if (f_coord_view == hoa_sym_view_xy) {
+            if (f_coord_view == sym_xy()) {
                 screen_source_coord.x = it->second->getAbscissa();
                 screen_source_coord.y = it->second->getOrdinate();
-            } else if (f_coord_view == hoa_sym_view_xz) {
+            } else if (f_coord_view == sym_xz()) {
                 screen_source_coord.x = it->second->getAbscissa();
                 screen_source_coord.y = it->second->getHeight();
             } else {
@@ -969,7 +967,7 @@ void Hoa2dMapUI::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
     redraw();
 
     if (causeNotify) {
-        ebox_notify(asEBox(), hoa_sym_modified);
+        ebox_notify(asEBox(), sym_modified());
         hoa_map_sendBindedMapUpdate(BMAP_NOTIFY);
     }
 
@@ -1001,9 +999,9 @@ void Hoa2dMapUI::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 
     if (f_selected_source) {
         if ((modifiers & EMOD_SHIFT) && !(modifiers & EMOD_CTRL)) {
-            if (f_coord_view == hoa_sym_view_xy) {
+            if (f_coord_view == sym_xy()) {
                 f_selected_source->setAzimuth(Math<float>::azimuth(cursor.x, cursor.y));
-            } else if (f_coord_view == hoa_sym_view_xz) {
+            } else if (f_coord_view == sym_xz()) {
                 double source_radius = Math<float>::radius(f_selected_source->getAbscissa(), f_selected_source->getHeight());
                 double mouse_azimuth = Math<float>::wrap_twopi(Math<float>::azimuth(cursor.x, cursor.y));
 
@@ -1022,21 +1020,21 @@ void Hoa2dMapUI::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
             f_selected_source->setRadius(Math<float>::radius(cursor.x, cursor.y));
             causeOutput = causeRedraw = causeNotify = 1;
         } else if ((modifiers & EMOD_CTRL) && !(modifiers & EMOD_SHIFT)) {
-            if (f_coord_view == hoa_sym_view_xy || f_coord_view == hoa_sym_view_xz)
+            if (f_coord_view == sym_xy() || f_coord_view == sym_xz())
                 f_selected_source->setAbscissa(cursor.x);
             else
                 f_selected_source->setOrdinate(cursor.x);
             causeOutput = causeRedraw = causeNotify = 1;
         } else if ((modifiers & EMOD_CTRL) && (modifiers & EMOD_SHIFT)) {
-            if (f_coord_view == hoa_sym_view_xy)
+            if (f_coord_view == sym_xy())
                 f_selected_source->setOrdinate(cursor.y);
             else
                 f_selected_source->setHeight(cursor.y);
             causeOutput = causeRedraw = causeNotify = 1;
         } else {
-            if (f_coord_view == hoa_sym_view_xy) {
+            if (f_coord_view == sym_xy()) {
                 f_selected_source->setCoordinatesCartesian(cursor.x, cursor.y);
-            } else if (f_coord_view == hoa_sym_view_xz) {
+            } else if (f_coord_view == sym_xz()) {
                 f_selected_source->setCoordinatesCartesian(cursor.x, f_selected_source->getOrdinate(), cursor.y);
             } else {
                 f_selected_source->setCoordinatesCartesian(f_selected_source->getAbscissa(), cursor.x, cursor.y);
@@ -1045,9 +1043,9 @@ void Hoa2dMapUI::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
         }
     } else if (f_selected_group) {
         if ((modifiers & EMOD_SHIFT) && !(modifiers & EMOD_ALT) && !(modifiers & EMOD_CTRL)) {
-            if (f_coord_view == hoa_sym_view_xy) {
+            if (f_coord_view == sym_xy()) {
                 f_selected_group->setRelativeAzimuth(Math<float>::azimuth(cursor.x, cursor.y));
-            } else if (f_coord_view == hoa_sym_view_xz) {
+            } else if (f_coord_view == sym_xz()) {
                 if (f_mouse_was_dragging) {
                     t_pt source_display;
                     double source_radius, source_azimuth, mouse_azimuth, mouse_azimuth_prev;
@@ -1091,10 +1089,10 @@ void Hoa2dMapUI::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
             f_selected_group->setRelativeRadius(Math<float>::radius(cursor.x, cursor.y));
             causeOutput = causeRedraw = causeNotify = 1;
         } else if ((modifiers & EMOD_ALT) && (modifiers & EMOD_SHIFT)) {
-            if (f_coord_view == hoa_sym_view_xy) {
+            if (f_coord_view == sym_xy()) {
                 f_selected_group->setRelativeRadius(Math<float>::radius(cursor.x, cursor.y));
                 f_selected_group->setRelativeAzimuth(Math<float>::azimuth(cursor.x, cursor.y));
-            } else if (f_coord_view == hoa_sym_view_xz) {
+            } else if (f_coord_view == sym_xz()) {
                 if (f_mouse_was_dragging) {
                     t_pt source_display;
                     double source_radius, source_azimuth, mouse_azimuth, mouse_azimuth_prev, mouse_radius, mouse_radius_prev;
@@ -1141,21 +1139,21 @@ void Hoa2dMapUI::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
             }
             causeOutput = causeRedraw = causeNotify = 1;
         } else if ((modifiers & EMOD_CTRL) && !(modifiers & EMOD_SHIFT)) {
-            if (f_coord_view == hoa_sym_view_xy || f_coord_view == hoa_sym_view_xz)
+            if (f_coord_view == sym_xy() || f_coord_view == sym_xz())
                 f_selected_group->setAbscissa(cursor.x);
             else
                 f_selected_group->setOrdinate(cursor.x);
             causeOutput = causeRedraw = causeNotify = 1;
         } else if ((modifiers & EMOD_CTRL) && (modifiers & EMOD_SHIFT)) {
-            if (f_coord_view == hoa_sym_view_xy)
+            if (f_coord_view == sym_xy())
                 f_selected_group->setOrdinate(cursor.y);
             else
                 f_selected_group->setHeight(cursor.y);
             causeOutput = causeRedraw = causeNotify = 1;
         } else {
-            if (f_coord_view == hoa_sym_view_xy) {
+            if (f_coord_view == sym_xy()) {
                 f_selected_group->setCoordinatesCartesian(cursor.x, cursor.y);
-            } else if (f_coord_view == hoa_sym_view_xz) {
+            } else if (f_coord_view == sym_xz()) {
                 f_selected_group->setAbscissa(cursor.x);
                 f_selected_group->setHeight(cursor.y);
             } else {
@@ -1178,7 +1176,7 @@ void Hoa2dMapUI::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
     f_mouse_was_dragging = 1;
 
     if (causeNotify) {
-        ebox_notify(asEBox(), hoa_sym_modified);
+        ebox_notify(asEBox(), sym_modified());
         hoa_map_sendBindedMapUpdate(BMAP_NOTIFY);
     }
 
@@ -1281,7 +1279,7 @@ void Hoa2dMapUI::m_clear_all(const AtomListView& lv)
     // now we can clear, then notify, output and redraw all maps
     f_manager->clear();
 
-    ebox_notify(asEBox(), hoa_sym_modified);
+    ebox_notify(asEBox(), sym_modified());
     sources_.invalidate();
     groups_.invalidate();
     redraw();
@@ -1294,9 +1292,9 @@ void Hoa2dMapUI::m_set(const AtomListView& lv)
     f_output_enabled = 0;
     if (lv.size() > 0) {
         t_symbol* msgtype = lv[0].asSymbol();
-        if (msgtype == hoa_sym_source)
+        if (msgtype == sym_source())
             hoa_map_source(lv.subView(1));
-        else if (msgtype == hoa_sym_group)
+        else if (msgtype == sym_group())
             hoa_map_group(lv.subView(1));
     }
     f_output_enabled = 1;
