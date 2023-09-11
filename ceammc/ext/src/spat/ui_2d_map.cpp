@@ -249,23 +249,17 @@ void Hoa2dMapUI::drawSelection()
 
 void Hoa2dMapUI::drawSources()
 {
-    t_rgba sourceColor;
-    char description[250];
-
-    const auto rect = this->rect();
-    auto p = sources_.painter(rect);
+    const auto r = rect();
+    auto p = sources_.painter(r);
 
     if (!p)
         return;
 
-    float w = rect.w;
-    float h = rect.h;
-    t_pt ctr = { w * 0.5f, h * 0.5f };
-    t_pt sourceDisplayPos, groupDisplayPos, textDisplayPos;
+    const t_pt center = { r.w * 0.5f, r.h * 0.5f };
 
-    t_rgba color_sel = rgba_addContrast(prop_color_background, -0.14);
-    double font_size = ebox_getfontsize(asEBox());
-    double source_size = font_size / 2.5;
+    const t_rgba color_sel = rgba_addContrast(prop_color_background, -0.14);
+    const auto font_size = ebox_getfontsize(asEBox());
+    const float source_size = font_size / 2.5;
 
     p.setLineWidth(1);
 
@@ -273,33 +267,39 @@ void Hoa2dMapUI::drawSources()
     jtl.reserve(f_manager->getNumberOfSources());
 
     for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
+        t_pt src_pos;
         if (f_coord_view == sym_xy()) {
-            sourceDisplayPos.x = (it->second->getAbscissa() * f_zoom_factor + 1.) * ctr.x;
-            sourceDisplayPos.y = (-it->second->getOrdinate() * f_zoom_factor + 1.) * ctr.y;
+            src_pos.x = (it->second->getAbscissa() * f_zoom_factor + 1.) * center.x;
+            src_pos.y = (-it->second->getOrdinate() * f_zoom_factor + 1.) * center.y;
         } else if (f_coord_view == sym_xz()) {
-            sourceDisplayPos.x = (it->second->getAbscissa() * f_zoom_factor + 1.) * ctr.x;
-            sourceDisplayPos.y = (-it->second->getHeight() * f_zoom_factor + 1.) * ctr.y;
+            src_pos.x = (it->second->getAbscissa() * f_zoom_factor + 1.) * center.x;
+            src_pos.y = (-it->second->getHeight() * f_zoom_factor + 1.) * center.y;
         } else {
-            sourceDisplayPos.x = (it->second->getOrdinate() * f_zoom_factor + 1.) * ctr.x;
-            sourceDisplayPos.y = (-it->second->getHeight() * f_zoom_factor + 1.) * ctr.y;
+            src_pos.x = (it->second->getOrdinate() * f_zoom_factor + 1.) * center.x;
+            src_pos.y = (-it->second->getHeight() * f_zoom_factor + 1.) * center.y;
         }
-        // post("%f : (%f %f %f)", float(it->second->getElevation()), float(it->second->getAbscissa()), float(it->second->getOrdinate()), float(it->second->getHeight()));
-        sourceColor.red = it->second->getColor()[0];
-        sourceColor.green = it->second->getColor()[1];
-        sourceColor.blue = it->second->getColor()[2];
-        sourceColor.alpha = it->second->getColor()[3];
 
+        // post("%f : (%f %f %f)", float(it->second->getElevation()), float(it->second->getAbscissa()), float(it->second->getOrdinate()), float(it->second->getHeight()));
+
+        t_rgba src_color;
+        src_color.red = it->second->getColor()[0];
+        src_color.green = it->second->getColor()[1];
+        src_color.blue = it->second->getColor()[2];
+        src_color.alpha = it->second->getColor()[3];
+
+        char description[250];
         if (it->second->getDescription().c_str()[0])
             sprintf(description, "%i : %s", (int)it->first, it->second->getDescription().c_str());
         else
             sprintf(description, "%i", (int)it->first);
 
-        textDisplayPos.x = sourceDisplayPos.x - 2. * source_size;
-        textDisplayPos.y = sourceDisplayPos.y - source_size - font_size - 1.;
+        t_pt txt_pos;
+        txt_pos.x = src_pos.x - 2. * source_size;
+        txt_pos.y = src_pos.y - source_size - font_size - 1.;
 
         jtl.push_back(UITextLayout(&b_font));
-        jtl.back().setColor(sourceColor);
-        jtl.back().set(description, textDisplayPos.x, textDisplayPos.y, font_size * 10., font_size * 2.);
+        jtl.back().setColor(src_color);
+        jtl.back().set(description, txt_pos.x, txt_pos.y, font_size * 10., font_size * 2.);
         jtl.back().setWrap(false);
         jtl.back().setAnchor(ETEXT_LEFT);
         jtl.back().setJustify(ETEXT_JCENTER);
@@ -307,42 +307,44 @@ void Hoa2dMapUI::drawSources()
 
         if (f_selected_source && f_selected_source->getIndex() == it->first) {
             p.setColor(color_sel);
-            p.drawCircle(sourceDisplayPos.x, sourceDisplayPos.y, source_size * 1.5);
+            p.drawCircle(src_pos.x, src_pos.y, source_size * 1.5);
             p.fill();
 
-            std::map<ulong, hoa::Source::Group*>& groupsOfSources = it->second->getGroups();
-            for (auto ti = groupsOfSources.begin(); ti != groupsOfSources.end(); ti++) {
-                p.moveTo(sourceDisplayPos.x, sourceDisplayPos.y);
+            for (const auto& g : it->second->getGroups()) {
+                t_pt group_pos;
+                p.moveTo(src_pos.x, src_pos.y);
 
                 if (f_coord_view == sym_xy()) {
-                    groupDisplayPos.x = (ti->second->getAbscissa() * f_zoom_factor + 1.) * ctr.x;
-                    groupDisplayPos.y = (-ti->second->getOrdinate() * f_zoom_factor + 1.) * ctr.y;
+                    group_pos.x = (g.second->getAbscissa() * f_zoom_factor + 1.) * center.x;
+                    group_pos.y = (-g.second->getOrdinate() * f_zoom_factor + 1.) * center.y;
                 } else if (f_coord_view == sym_xz()) {
-                    groupDisplayPos.x = (ti->second->getAbscissa() * f_zoom_factor + 1.) * ctr.x;
-                    groupDisplayPos.y = (-ti->second->getHeight() * f_zoom_factor + 1.) * ctr.y;
+                    group_pos.x = (g.second->getAbscissa() * f_zoom_factor + 1.) * center.x;
+                    group_pos.y = (-g.second->getHeight() * f_zoom_factor + 1.) * center.y;
                 } else {
-                    groupDisplayPos.x = (ti->second->getOrdinate() * f_zoom_factor + 1.) * ctr.x;
-                    groupDisplayPos.y = (-ti->second->getHeight() * f_zoom_factor + 1.) * ctr.y;
+                    group_pos.x = (g.second->getOrdinate() * f_zoom_factor + 1.) * center.x;
+                    group_pos.y = (-g.second->getHeight() * f_zoom_factor + 1.) * center.y;
                 }
 
-                p.drawLineTo(groupDisplayPos.x, groupDisplayPos.y);
+                p.drawLineTo(group_pos.x, group_pos.y);
                 p.stroke();
             }
         }
 
+        using mf = hoa::Math<float>;
+
         if (!it->second->getMute()) {
-            p.setColor(sourceColor);
-            p.drawCircle(sourceDisplayPos.x, sourceDisplayPos.y, source_size);
+            p.setColor(src_color);
+            p.drawCircle(src_pos.x, src_pos.y, source_size);
             p.fill();
         } else {
-            p.setColor(sourceColor);
-            p.drawCircle(sourceDisplayPos.x, sourceDisplayPos.y, source_size);
+            p.setColor(src_color);
+            p.drawCircle(src_pos.x, src_pos.y, source_size);
             p.fill();
             p.setColor(rgba_red);
-            p.drawCircle(sourceDisplayPos.x, sourceDisplayPos.y, source_size);
+            p.drawCircle(src_pos.x, src_pos.y, source_size);
             p.stroke();
-            p.moveTo(sourceDisplayPos.x + hoa::Math<float>::abscissa(source_size * 1., HOA_PI2 / 2.), sourceDisplayPos.y + hoa::Math<float>::ordinate(source_size * 1., HOA_PI2 / 2.));
-            p.drawLineTo(sourceDisplayPos.x + hoa::Math<float>::abscissa(source_size * 1., HOA_PI2 * 5. / 2.), sourceDisplayPos.y + hoa::Math<float>::ordinate(source_size * 1., HOA_PI * 5. / 4.));
+            p.moveTo(src_pos.x + mf::abscissa(source_size * 1., HOA_PI2 / 2.), src_pos.y + mf::ordinate(source_size * 1., HOA_PI2 / 2.));
+            p.drawLineTo(src_pos.x + mf::abscissa(source_size * 1., HOA_PI2 * 5. / 2.), src_pos.y + mf::ordinate(source_size * 1., HOA_PI * 5. / 4.));
             p.stroke();
         }
     }
