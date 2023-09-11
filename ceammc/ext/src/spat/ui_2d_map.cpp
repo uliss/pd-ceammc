@@ -84,17 +84,11 @@ HoaMapUI::HoaMapUI()
     , sources_(asEBox(), gensym("sources"))
     , groups_(asEBox(), gensym("groups"))
 {
-
     f_manager = new hoa::Source::Manager(1. / (double)MIN_ZOOM - 5.);
     f_self_manager = f_manager;
 
-    f_rect_selection_exist = 0;
-    f_read = 0;
-    f_write = 0;
-
     f_binding_name = s_null;
-    f_listmap = NULL;
-    f_output_enabled = 1;
+    f_listmap = nullptr;
 
     createOutlet();
     createOutlet();
@@ -135,13 +129,13 @@ void HoaMapUI::drawBackground()
         return;
 
     p.setColor(prop_color_background);
-    p.drawCircle(rect.w / 2., rect.w / 2., (rect.w / 2.) * (1. / MIN_ZOOM * f_zoom_factor) - 1.);
+    p.drawCircle(rect.w / 2., rect.w / 2., (rect.w / 2.) * (1. / MIN_ZOOM * prop_zoom) - 1.);
     p.fill();
 
     const t_rgba black = rgba_addContrast(prop_color_background, -0.14);
 
     /* Circles */
-    double radius = f_zoom_factor * rect.w / 10.;
+    double radius = prop_zoom * rect.w / 10.;
     for (int i = 5; i > 0; i--) {
         p.setLineWidth(2);
         p.setColor(prop_color_background);
@@ -154,7 +148,7 @@ void HoaMapUI::drawBackground()
         p.stroke();
     }
 
-    double ecart = f_zoom_factor * rect.w / 2.;
+    double ecart = prop_zoom * rect.w / 2.;
     if (ecart < 10 && ecart >= 5)
         ecart *= 2;
     else if (ecart < 5 && ecart > 2.5)
@@ -212,7 +206,7 @@ void HoaMapUI::drawSelection()
         p.setLineWidth(1);
         p.setColor(color_sel);
         p.drawRect(f_rect_selection);
-        p.fill();
+        p.stroke();
     }
 }
 
@@ -238,14 +232,14 @@ void HoaMapUI::drawSources()
     for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
         t_pt src_pos;
         if (f_coord_view == sym_xy()) {
-            src_pos.x = (it->second->getAbscissa() * f_zoom_factor + 1.) * center.x;
-            src_pos.y = (-it->second->getOrdinate() * f_zoom_factor + 1.) * center.y;
+            src_pos.x = (it->second->getAbscissa() * prop_zoom + 1.) * center.x;
+            src_pos.y = (-it->second->getOrdinate() * prop_zoom + 1.) * center.y;
         } else if (f_coord_view == sym_xz()) {
-            src_pos.x = (it->second->getAbscissa() * f_zoom_factor + 1.) * center.x;
-            src_pos.y = (-it->second->getHeight() * f_zoom_factor + 1.) * center.y;
+            src_pos.x = (it->second->getAbscissa() * prop_zoom + 1.) * center.x;
+            src_pos.y = (-it->second->getHeight() * prop_zoom + 1.) * center.y;
         } else {
-            src_pos.x = (it->second->getOrdinate() * f_zoom_factor + 1.) * center.x;
-            src_pos.y = (-it->second->getHeight() * f_zoom_factor + 1.) * center.y;
+            src_pos.x = (it->second->getOrdinate() * prop_zoom + 1.) * center.x;
+            src_pos.y = (-it->second->getHeight() * prop_zoom + 1.) * center.y;
         }
 
         // post("%f : (%f %f %f)", float(it->second->getElevation()), float(it->second->getAbscissa()), float(it->second->getOrdinate()), float(it->second->getHeight()));
@@ -284,14 +278,14 @@ void HoaMapUI::drawSources()
                 p.moveTo(src_pos.x, src_pos.y);
 
                 if (f_coord_view == sym_xy()) {
-                    group_pos.x = (g.second->getAbscissa() * f_zoom_factor + 1.) * center.x;
-                    group_pos.y = (-g.second->getOrdinate() * f_zoom_factor + 1.) * center.y;
+                    group_pos.x = (g.second->getAbscissa() * prop_zoom + 1.) * center.x;
+                    group_pos.y = (-g.second->getOrdinate() * prop_zoom + 1.) * center.y;
                 } else if (f_coord_view == sym_xz()) {
-                    group_pos.x = (g.second->getAbscissa() * f_zoom_factor + 1.) * center.x;
-                    group_pos.y = (-g.second->getHeight() * f_zoom_factor + 1.) * center.y;
+                    group_pos.x = (g.second->getAbscissa() * prop_zoom + 1.) * center.x;
+                    group_pos.y = (-g.second->getHeight() * prop_zoom + 1.) * center.y;
                 } else {
-                    group_pos.x = (g.second->getOrdinate() * f_zoom_factor + 1.) * center.x;
-                    group_pos.y = (-g.second->getHeight() * f_zoom_factor + 1.) * center.y;
+                    group_pos.x = (g.second->getOrdinate() * prop_zoom + 1.) * center.x;
+                    group_pos.y = (-g.second->getHeight() * prop_zoom + 1.) * center.y;
                 }
 
                 p.drawLineTo(group_pos.x, group_pos.y);
@@ -341,14 +335,14 @@ void HoaMapUI::drawGroups()
     for (auto it = f_manager->getFirstGroup(); it != f_manager->getLastGroup(); it++) {
         t_pt src_pos;
         if (f_coord_view == sym_xy()) {
-            src_pos.x = (it->second->getAbscissa() * f_zoom_factor + 1.) * center.x;
-            src_pos.y = (-it->second->getOrdinate() * f_zoom_factor + 1.) * center.y;
+            src_pos.x = (it->second->getAbscissa() * prop_zoom + 1.) * center.x;
+            src_pos.y = (-it->second->getOrdinate() * prop_zoom + 1.) * center.y;
         } else if (f_coord_view == sym_xz()) {
-            src_pos.x = (it->second->getAbscissa() * f_zoom_factor + 1.) * center.x;
-            src_pos.y = (-it->second->getHeight() * f_zoom_factor + 1.) * center.y;
+            src_pos.x = (it->second->getAbscissa() * prop_zoom + 1.) * center.x;
+            src_pos.y = (-it->second->getHeight() * prop_zoom + 1.) * center.y;
         } else {
-            src_pos.x = (it->second->getOrdinate() * f_zoom_factor + 1.) * center.x;
-            src_pos.y = (-it->second->getHeight() * f_zoom_factor + 1.) * center.y;
+            src_pos.x = (it->second->getOrdinate() * prop_zoom + 1.) * center.x;
+            src_pos.y = (-it->second->getHeight() * prop_zoom + 1.) * center.y;
         }
 
         t_rgba src_color;
@@ -385,14 +379,14 @@ void HoaMapUI::drawGroups()
 
                 t_pt groupDisplayPos;
                 if (f_coord_view == sym_xy()) {
-                    groupDisplayPos.x = (g.second->getAbscissa() * f_zoom_factor + 1.) * center.x;
-                    groupDisplayPos.y = (-g.second->getOrdinate() * f_zoom_factor + 1.) * center.y;
+                    groupDisplayPos.x = (g.second->getAbscissa() * prop_zoom + 1.) * center.x;
+                    groupDisplayPos.y = (-g.second->getOrdinate() * prop_zoom + 1.) * center.y;
                 } else if (f_coord_view == sym_xz()) {
-                    groupDisplayPos.x = (g.second->getAbscissa() * f_zoom_factor + 1.) * center.x;
-                    groupDisplayPos.y = (-g.second->getHeight() * f_zoom_factor + 1.) * center.y;
+                    groupDisplayPos.x = (g.second->getAbscissa() * prop_zoom + 1.) * center.x;
+                    groupDisplayPos.y = (-g.second->getHeight() * prop_zoom + 1.) * center.y;
                 } else {
-                    groupDisplayPos.x = (g.second->getOrdinate() * f_zoom_factor + 1.) * center.x;
-                    groupDisplayPos.y = (-g.second->getHeight() * f_zoom_factor + 1.) * center.y;
+                    groupDisplayPos.x = (g.second->getOrdinate() * prop_zoom + 1.) * center.x;
+                    groupDisplayPos.y = (-g.second->getHeight() * prop_zoom + 1.) * center.y;
                 }
 
                 p.drawLineTo(groupDisplayPos.x, groupDisplayPos.y);
@@ -423,7 +417,7 @@ void HoaMapUI::drawGroups()
 
 void HoaMapUI::output()
 {
-    if (!f_output_enabled)
+    if (!output_enabled_)
         return;
 
     // output group mute state
@@ -621,7 +615,7 @@ void HoaMapUI::sendBindedMapUpdate(long flags)
                 if (flags & BMAP_NOTIFY)
                     ebox_notify(mapobj->asEBox(), sym_modified());
 
-                if (flags & BMAP_OUTPUT && f_output_enabled)
+                if (flags & BMAP_OUTPUT && output_enabled_)
                     mapobj->bangTo(0);
             }
 
@@ -635,9 +629,9 @@ void HoaMapUI::selectElement(const t_pt& pt)
     const auto r = rect();
 
     t_pt cursor;
-    cursor.x = ((pt.x / r.w * 2.) - 1.) / f_zoom_factor;
-    cursor.y = ((-pt.y / r.h * 2.) + 1.) / f_zoom_factor;
-    double distanceSelected = fontSize() / (f_zoom_factor * 2. * r.w);
+    cursor.x = ((pt.x / r.w * 2.) - 1.) / prop_zoom;
+    cursor.y = ((-pt.y / r.h * 2.) + 1.) / prop_zoom;
+    double distanceSelected = fontSize() / (prop_zoom * 2. * r.w);
 
     f_cursor_position.x = cursor.x;
     f_cursor_position.y = cursor.y;
@@ -964,7 +958,7 @@ void HoaMapUI::m_info()
     }
 
     { // mutes
-        AtomArray<4> data { sym_source(), sym_mute() };
+        AtomArray<4> data { sym_source(), sym_mute(), 0., 0. };
         for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
             data[2] = it->first;
             data[3] = it->second->getMute();
@@ -1010,7 +1004,7 @@ void HoaMapUI::m_info()
     }
 
     { // mutes
-        AtomArray<4> data { sym_group(), sym_mute() };
+        AtomArray<4> data { sym_group(), sym_mute(), 0., 0. };
         for (auto it = f_manager->getFirstGroup(); it != f_manager->getLastGroup(); it++) {
             data[2] = it->first;
             data[3] = it->second->getMute();
@@ -1030,7 +1024,7 @@ void HoaMapUI::updateAllAndOutput()
 
 void HoaMapUI::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    f_rect_selection_exist = -1;
+    f_rect_selection_exist = false;
     f_rect_selection.w = f_rect_selection.h = 0.;
 
     selectElement(pt);
@@ -1038,7 +1032,7 @@ void HoaMapUI::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, l
     if (!f_selected_source && !f_selected_group) {
         f_rect_selection.x = pt.x;
         f_rect_selection.y = pt.y;
-        f_rect_selection_exist = 1;
+        f_rect_selection_exist = true;
     }
 }
 
@@ -1047,7 +1041,7 @@ void HoaMapUI::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
     using namespace hoa;
     const auto r = rect();
 
-    f_mouse_was_dragging = 0;
+    mouse_was_dragging_ = false;
 
     int causeOutput = 0;
     int causeRedraw = 0;
@@ -1062,10 +1056,10 @@ void HoaMapUI::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
             indexOfNewGroup++;
         }
 
-        double x1 = ((f_rect_selection.x / r.w * 2.) - 1.) / f_zoom_factor;
-        double x2 = (((f_rect_selection.x + f_rect_selection.w) / r.w * 2.) - 1.) / f_zoom_factor;
-        double y1 = ((-f_rect_selection.y / r.h * 2.) + 1.) / f_zoom_factor;
-        double y2 = (((-f_rect_selection.y - f_rect_selection.h) / r.h * 2.) + 1.) / f_zoom_factor;
+        double x1 = ((f_rect_selection.x / r.w * 2.) - 1.) / prop_zoom;
+        double x2 = (((f_rect_selection.x + f_rect_selection.w) / r.w * 2.) - 1.) / prop_zoom;
+        double y1 = ((-f_rect_selection.y / r.h * 2.) + 1.) / prop_zoom;
+        double y2 = (((-f_rect_selection.y - f_rect_selection.h) / r.h * 2.) + 1.) / prop_zoom;
 
         bool newGroupCreated = false;
         Source::Group* tmp = f_manager->getGroup(indexOfNewGroup);
@@ -1102,7 +1096,8 @@ void HoaMapUI::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
         }
     }
 
-    f_rect_selection_exist = f_rect_selection.w = f_rect_selection.h = 0;
+    f_rect_selection_exist = false;
+    f_rect_selection.w = f_rect_selection.h = 0;
 
     selection_.invalidate();
     redraw();
@@ -1132,8 +1127,8 @@ void HoaMapUI::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
     const auto r = rect();
 
     t_pt cursor;
-    cursor.x = ((pt.x / r.w * 2.) - 1.) / f_zoom_factor;
-    cursor.y = ((-pt.y / r.h * 2.) + 1.) / f_zoom_factor;
+    cursor.x = ((pt.x / r.w * 2.) - 1.) / prop_zoom;
+    cursor.y = ((-pt.y / r.h * 2.) + 1.) / prop_zoom;
 
     int causeOutput = 0;
     int causeRedraw = 0;
@@ -1193,7 +1188,7 @@ void HoaMapUI::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
             if (f_coord_view == sym_xy()) {
                 f_selected_group->setRelativeAzimuth(mf::azimuth(cursor.x, cursor.y));
             } else if (f_coord_view == sym_xz()) {
-                if (f_mouse_was_dragging) {
+                if (mouse_was_dragging_) {
                     t_pt source_display;
                     float source_radius, source_azimuth, mouse_azimuth, mouse_azimuth_prev;
                     mouse_azimuth = mf::wrap_twopi(mf::azimuth(cursor.x, cursor.y));
@@ -1212,7 +1207,7 @@ void HoaMapUI::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
                     }
                 }
             } else {
-                if (f_mouse_was_dragging) {
+                if (mouse_was_dragging_) {
                     t_pt source_display;
                     float source_radius, source_azimuth, mouse_azimuth, mouse_azimuth_prev;
                     mouse_azimuth = mf::wrap_twopi(mf::azimuth(cursor.x, cursor.y));
@@ -1240,7 +1235,7 @@ void HoaMapUI::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
                 f_selected_group->setRelativeRadius(mf::radius(cursor.x, cursor.y));
                 f_selected_group->setRelativeAzimuth(mf::azimuth(cursor.x, cursor.y));
             } else if (f_coord_view == sym_xz()) {
-                if (f_mouse_was_dragging) {
+                if (mouse_was_dragging_) {
                     t_pt source_display;
                     double source_radius, source_azimuth, mouse_azimuth, mouse_azimuth_prev, mouse_radius, mouse_radius_prev;
                     mouse_radius = pd_clip_min(mf::radius(cursor.x, cursor.y), 0);
@@ -1262,7 +1257,7 @@ void HoaMapUI::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
                     }
                 }
             } else {
-                if (f_mouse_was_dragging) {
+                if (mouse_was_dragging_) {
                     t_pt source_display;
                     double source_radius, source_azimuth, mouse_azimuth, mouse_azimuth_prev, mouse_radius, mouse_radius_prev;
                     mouse_radius = pd_clip_min(mf::radius(cursor.x, cursor.y), 0);
@@ -1320,7 +1315,7 @@ void HoaMapUI::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 
     f_cursor_position.x = cursor.x;
     f_cursor_position.y = cursor.y;
-    f_mouse_was_dragging = 1;
+    mouse_was_dragging_ = true;
 
     if (causeNotify) {
         ebox_notify(asEBox(), sym_modified());
@@ -1352,6 +1347,19 @@ void HoaMapUI::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
     sources_.invalidate();
     groups_.invalidate();
     redraw();
+}
+
+void HoaMapUI::onMouseWheel(const t_pt& pt, long modifiers, float delta)
+{
+    if (modifiers == EMOD_ALT) {
+        double newZoom = prop_zoom + delta / 100.;
+        prop_zoom = pd_clip_minmax(newZoom, MIN_ZOOM, MAX_ZOOM);
+
+        bg_layer_.invalidate();
+        sources_.invalidate();
+        groups_.invalidate();
+        redraw();
+    }
 }
 
 void HoaMapUI::showPopup(const t_pt& pt, const t_pt& abs_pt)
@@ -1489,7 +1497,7 @@ void HoaMapUI::m_clear_all(const AtomListView& lv)
 
 void HoaMapUI::m_set(const AtomListView& lv)
 {
-    f_output_enabled = 0;
+    output_enabled_ = false;
     if (lv.size() > 0) {
         t_symbol* msgtype = lv[0].asSymbol();
         if (msgtype == sym_source())
@@ -1497,7 +1505,7 @@ void HoaMapUI::m_set(const AtomListView& lv)
         else if (msgtype == sym_group())
             m_group(lv.subView(1));
     }
-    f_output_enabled = 1;
+    output_enabled_ = true;
 }
 
 void HoaMapUI::m_set_zoom(const AtomListView& lv)
@@ -1505,7 +1513,9 @@ void HoaMapUI::m_set_zoom(const AtomListView& lv)
     if (!lv.isFloat())
         return;
 
-    f_zoom_factor = pd_clip_minmax(lv.floatAt(0, 0), MIN_ZOOM, MAX_ZOOM);
+    prop_zoom = pd_clip_minmax(lv.floatAt(0, 0), MIN_ZOOM, MAX_ZOOM);
+
+    bg_layer_.invalidate();
     sources_.invalidate();
     groups_.invalidate();
     redraw();
@@ -1539,8 +1549,7 @@ void HoaMapUI::m_set_bind(const AtomListView& lv)
 
 void HoaMapUI::setup()
 {
-    UIObjectFactory<HoaMapUI> obj("ui.2d.map", EBOX_GROWLINK);
-    obj.addAlias("hoa.map.ui");
+    UIObjectFactory<HoaMapUI> obj("hoa.map.ui", EBOX_GROWLINK);
     obj.setDefaultSize(225, 225);
 
     obj.useBang();
@@ -1557,7 +1566,7 @@ void HoaMapUI::setup()
     obj.addMenuProperty("view", _("Coordinate View"), "xy", &HoaMapUI::f_coord_view, "xy xz yz", _("Main"));
     obj.addMenuProperty("outputmode", _("Output Mode"), "polar", &HoaMapUI::f_output_mode, "polar cartesian", _("Behavior"));
 
-    obj.addFloatProperty("zoom", _("Zoom"), 0.35, &HoaMapUI::f_zoom_factor, _("Behavior"));
+    obj.addFloatProperty("zoom", _("Zoom"), 0.35, &HoaMapUI::prop_zoom, _("Behavior"));
     obj.setPropertyAccessor("zoom", &HoaMapUI::m_get_zoom, &HoaMapUI::m_set_zoom);
 
     obj.addSymbolProperty("mapname", _("Map Name"), "(null)", &HoaMapUI::f_binding_name, _("Main"));

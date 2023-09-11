@@ -26,33 +26,30 @@ namespace ceammc {
 struct t_linkmap;
 
 class HoaMapUI : public UIObject {
+    friend struct t_linkmap;
+
     hoa::Source::Manager* f_manager;
     hoa::Source::Manager* f_self_manager;
 
     hoa::Source* f_selected_source;
     hoa::Source::Group* f_selected_group;
 
+    t_symbol* f_output_mode;
+    t_symbol* f_coord_view;
+    t_symbol* f_binding_name;
+
     t_pt f_cursor_position;
 
-    float f_zoom_factor;
-
     t_rect f_rect_selection;
-    int f_rect_selection_exist;
 
-    t_symbol* f_output_mode;
-    uint32_t f_read;
-    uint32_t f_write;
-
-    int f_mouse_was_dragging;
-
-    t_symbol* f_coord_view;
-
-    t_symbol* f_binding_name;
     t_linkmap* f_listmap;
-    int f_output_enabled;
-    friend struct t_linkmap;
 
     UILayer sources_, groups_, selection_;
+    float prop_zoom;
+
+    bool output_enabled_ { true };
+    bool mouse_was_dragging_ { false };
+    bool f_rect_selection_exist { false };
 
 public:
     HoaMapUI();
@@ -67,6 +64,7 @@ public:
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);
     void onMouseDrag(t_object* view, const t_pt& pt, long modifiers);
     void onMouseMove(t_object* view, const t_pt& pt, long modifiers);
+    void onMouseWheel(const t_pt& pt, long modifiers, float delta);
 
     void showPopup(const t_pt& pt, const t_pt& abs_pt);
 
@@ -82,7 +80,7 @@ public:
     void m_group(const AtomListView& lv);
     void m_info();
 
-    AtomList m_get_zoom() const { return Atom(f_zoom_factor); }
+    AtomList m_get_zoom() const { return Atom(prop_zoom); }
     void m_set_zoom(const AtomListView& lv);
 
     void m_set_bind(const AtomListView& lv);
