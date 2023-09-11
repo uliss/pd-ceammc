@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.53.0_ceammc\n"
 "Report-Msgid-Bugs-To: serge.uliss at gmail.com\n"
-"POT-Creation-Date: 2022-12-02 02:32+0300\n"
+"POT-Creation-Date: 2023-09-12 02:05+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -94,7 +94,11 @@ msgstr ""
 
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
-#: ../ceammc/ext/src/ui/ui_arrayview.cpp ../ceammc/ext/src/ui/ui_button.cpp
+#: ../ceammc/ext/src/spat/hoa_2d_space.cpp
+#: ../ceammc/ext/src/spat/hoa_3d_scope.cpp
+#: ../ceammc/ext/src/spat/hoa_map_ui.cpp ../ceammc/ext/src/ui/ui_arrayview.cpp
+#: ../ceammc/ext/src/ui/ui_button.cpp
+#: ../ceammc/ext/src/ui/ui_circular_meter.cpp
 #: ../ceammc/ext/src/ui/ui_display.cpp ../ceammc/ext/src/ui/ui_env.cpp
 #: ../ceammc/ext/src/ui/ui_filter_t.h ../ceammc/ext/src/ui/ui_gain.cpp
 #: ../ceammc/ext/src/ui/ui_gain2.cpp ../ceammc/ext/src/ui/ui_icon.cpp
@@ -146,28 +150,126 @@ msgid "normal"
 msgstr ""
 
 #: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
+#: ../ceammc/ext/src/spat/hoa_3d_scope.cpp
 msgid "Ambisonic Order"
 msgstr ""
 
-#: ../ceammc/ext/src/spat/hoa_2d_scope.cpp ../ceammc/ext/src/ui/ui_filter_t.h
+#: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
+#: ../ceammc/ext/src/spat/hoa_3d_scope.cpp ../ceammc/ext/src/ui/ui_filter_t.h
 msgid "Gain"
 msgstr ""
 
 #: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
+#: ../ceammc/ext/src/spat/hoa_3d_scope.cpp
 msgid "Negative Harmonics Color"
 msgstr ""
 
 #: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
+#: ../ceammc/ext/src/spat/hoa_3d_scope.cpp
 msgid "Positive Harmonics Color"
 msgstr ""
 
-#: ../ceammc/ext/src/spat/hoa_2d_scope.cpp ../ceammc/ext/src/ui/ui_scope.cpp
+#: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
+#: ../ceammc/ext/src/spat/hoa_3d_scope.cpp ../ceammc/ext/src/ui/ui_scope.cpp
 #: ../ceammc/ext/src/ui/ui_spectroscope.cpp
 msgid "Refresh time (ms)"
 msgstr ""
 
 #: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
+#: ../ceammc/ext/src/spat/hoa_3d_scope.cpp
 msgid "View rotation"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_2d_space.cpp ../ceammc/ext/src/ui/ui_knob.cpp
+#: ../ceammc/ext/src/ui/ui_number.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
+#: ../ceammc/ext/src/ui/ui_slider.cpp ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "Maximum Value"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_2d_space.cpp ../ceammc/ext/src/ui/ui_knob.cpp
+#: ../ceammc/ext/src/ui/ui_number.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
+#: ../ceammc/ext/src/ui/ui_slider.cpp ../ceammc/ext/src/ui/ui_sliders.cpp
+msgid "Minimum Value"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_2d_space.cpp
+msgid "Number of Channels"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_2d_space.cpp
+msgid "Space Color"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_2d_space.cpp
+msgid "Virtuals Microphones Color"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_map_ui.cpp
+msgid "Add source"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_map_ui.cpp
+msgid "Behavior"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_map_ui.cpp
+msgid "Clear all"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_map_ui.cpp
+msgid "Coordinate View"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_map_ui.cpp
+msgid "Group menu"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_map_ui.cpp
+msgid "Main menu"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_map_ui.cpp
+msgid "Map Name"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_map_ui.cpp
+msgid "Mute group"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_map_ui.cpp
+msgid "Mute source"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_map_ui.cpp ../ceammc/ext/src/ui/ui_env.cpp
+msgid "Output Mode"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_map_ui.cpp
+msgid "Remove group"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_map_ui.cpp
+msgid "Remove group and sources"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_map_ui.cpp
+msgid "Remove source"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_map_ui.cpp
+msgid "Source menu"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_map_ui.cpp
+msgid "Unmute group"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_map_ui.cpp
+msgid "Unmute source"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_map_ui.cpp ../tcl/pd_menus.tcl
+msgid "Zoom"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
@@ -212,6 +314,51 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_button.cpp ../ceammc/ext/src/ui/ui_toggle.cpp
 msgid "On value"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_circular_meter.cpp
+msgid "Angles"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_circular_meter.cpp
+msgid "Channel offset"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_circular_meter.cpp ../ceammc/ext/src/ui/ui_polar.cpp
+msgid "Clockwise"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_circular_meter.cpp ../ceammc/ext/src/ui/ui_meter.cpp
+msgid "Cold signal color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_circular_meter.cpp ../ceammc/ext/src/ui/ui_meter.cpp
+msgid "Hot signal color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_circular_meter.cpp
+msgid "Number of channels"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_circular_meter.cpp ../ceammc/ext/src/ui/ui_meter.cpp
+msgid "Overload signal color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_circular_meter.cpp ../ceammc/ext/src/ui/ui_meter.cpp
+#: ../ceammc/ext/src/ui/ui_number_tilde.cpp
+msgid "Refresh interval (ms)"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_circular_meter.cpp
+msgid "Rotation"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_circular_meter.cpp ../ceammc/ext/src/ui/ui_meter.cpp
+msgid "Tepid signal color"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_circular_meter.cpp ../ceammc/ext/src/ui/ui_meter.cpp
+msgid "Warm signal color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_colorpanel.cpp
@@ -279,10 +426,6 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_env.cpp
 msgid "Normalize input"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_env.cpp
-msgid "Output Mode"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_filter_t.h
@@ -468,18 +611,6 @@ msgstr ""
 msgid "Draw active scale"
 msgstr ""
 
-#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_number.cpp
-#: ../ceammc/ext/src/ui/ui_rslider.cpp ../ceammc/ext/src/ui/ui_slider.cpp
-#: ../ceammc/ext/src/ui/ui_sliders.cpp
-msgid "Maximum Value"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_number.cpp
-#: ../ceammc/ext/src/ui/ui_rslider.cpp ../ceammc/ext/src/ui/ui_slider.cpp
-#: ../ceammc/ext/src/ui/ui_sliders.cpp
-msgid "Minimum Value"
-msgstr ""
-
 #: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_spectroscope.cpp
 msgid "Scale Color"
 msgstr ""
@@ -519,6 +650,14 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_label.cpp
 msgid "Margin top"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_lcd.cpp
+msgid "Number of columns"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_lcd.cpp
+msgid "Number of rows"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_link.cpp ../ceammc/ext/src/ui/ui_tab.cpp
@@ -592,30 +731,6 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_menu.cpp
 msgid "Maximum item length"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_meter.cpp
-msgid "Cold signal color"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_meter.cpp
-msgid "Hot signal color"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_meter.cpp
-msgid "Overload signal color"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_meter.cpp ../ceammc/ext/src/ui/ui_number_tilde.cpp
-msgid "Refresh interval (ms)"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_meter.cpp
-msgid "Tepid signal color"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_meter.cpp
-msgid "Warm signal color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_midi.cpp
@@ -732,10 +847,6 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_plot_tilde.cpp
 msgid "Third plot color"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_polar.cpp
-msgid "Clockwise"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_polar.cpp
@@ -932,6 +1043,7 @@ msgstr ""
 
 #: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
 msgid "Save settings"
 msgstr ""
 
@@ -963,6 +1075,10 @@ msgid "Display"
 msgstr ""
 
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Envelope"
+msgstr ""
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Horizontal radio"
 msgstr ""
 
@@ -976,6 +1092,10 @@ msgstr ""
 
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Knob"
+msgstr ""
+
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "List box"
 msgstr ""
 
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/pd_menus.tcl
@@ -1025,14 +1145,6 @@ msgstr ""
 
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Vertical radio"
-msgstr ""
-
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "List box"
-msgstr ""
-
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Envelope"
 msgstr ""
 
 #: ../ceammc/gui/plugins/patch2svg-plugin.tcl
@@ -2514,10 +2626,6 @@ msgid "Undo"
 msgstr ""
 
 #: ../tcl/pd_menus.tcl
-msgid "Zoom"
-msgstr ""
-
-#: ../tcl/pd_menus.tcl
 msgid "Zoom In"
 msgstr ""
 
@@ -2696,6 +2804,18 @@ msgstr ""
 
 #: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
 msgid "skipping background color"
+msgstr ""
+
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "Hotkey (require save&restart)"
+msgstr ""
+
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "Rescan externals"
+msgstr ""
+
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "Open Manual"
 msgstr ""
 
 #: iemgui_dynamic_strings.tcl
