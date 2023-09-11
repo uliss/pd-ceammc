@@ -904,6 +904,7 @@ void HoaMapUI::updateAllAndOutput()
     ebox_notify(asEBox(), sym_modified());
     redraw();
     output();
+    sendBindedMapUpdate(BMAP_REDRAW | BMAP_OUTPUT | BMAP_NOTIFY);
 }
 
 t_symbol* HoaMapUI::makeBindSymbol(t_symbol* sym) const
@@ -1281,11 +1282,13 @@ void HoaMapUI::showPopup(const t_pt& pt, const t_pt& abs_pt)
         });
         menu.addItem("Mute group", [this](const t_pt&) {
             f_selected_group->setMute(true);
+            updateAllAndOutput();
             return true;
         });
         if (f_selected_group->getSubMute())
             menu.addItem("Unmute group", [this](const t_pt&) {
                 f_selected_group->setMute(false);
+                updateAllAndOutput();
                 return true;
             });
 
