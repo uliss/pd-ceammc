@@ -6,8 +6,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.53.0_ceammc\n"
-"Report-Msgid-Bugs-To: serge.uliss at gmail.com\n"
-"POT-Creation-Date: 2023-09-12 02:05+0300\n"
+"Report-Msgid-Bugs-To: pd-dev@iem.at\n"
+"POT-Creation-Date: 2023-09-12 02:06+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -1052,99 +1052,122 @@ msgstr ""
 msgid "Show"
 msgstr ""
 
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/dialog_array.tcl
-#: ../tcl/pd_menus.tcl
-msgid "Array"
-msgstr ""
-
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Button"
-msgstr ""
-
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/dialog_iemgui.tcl
-#: ../tcl/pd_menus.tcl
-msgid "Canvas"
-msgstr ""
-
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/pd_menus.tcl
-msgid "Comment"
-msgstr ""
-
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Display"
-msgstr ""
-
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Envelope"
-msgstr ""
-
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Horizontal radio"
-msgstr ""
-
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Horizontal slider"
-msgstr ""
-
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Keyboard"
-msgstr ""
-
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Knob"
-msgstr ""
-
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "List box"
-msgstr ""
-
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/pd_menus.tcl
 msgid "Message"
 msgstr ""
 
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Number box"
 msgstr ""
 
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Number box2"
-msgstr ""
-
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Presets"
-msgstr ""
-
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Scope"
-msgstr ""
-
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Slider 2D"
-msgstr ""
-
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Sliders"
-msgstr ""
-
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Spectroscope"
-msgstr ""
-
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Symbol box"
 msgstr ""
 
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "List box"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/pd_menus.tcl
+msgid "Comment"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Button"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/dialog_iemgui.tcl
 #: ../tcl/pd_menus.tcl
 msgid "Toggle"
 msgstr ""
 
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Number box2"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Horizontal slider"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Vertial slider"
 msgstr ""
 
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Horizontal radio"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Vertical radio"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/dialog_iemgui.tcl
+#: ../tcl/pd_menus.tcl
+msgid "Canvas"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/dialog_array.tcl
+#: ../tcl/pd_menus.tcl
+msgid "Array"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Knob"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Sliders"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Slider 2D"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Keyboard"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Envelope"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Display"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Scope"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Spectroscope"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Presets"
 msgstr ""
 
 #: ../ceammc/gui/plugins/patch2svg-plugin.tcl
@@ -2753,6 +2776,14 @@ msgid "Default"
 msgstr ""
 
 #: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "Hotkey (require save&restart)"
+msgstr ""
+
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "Open Manual"
+msgstr ""
+
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
 msgid "PD AutoComplete Settings"
 msgstr ""
 
@@ -2762,6 +2793,10 @@ msgstr ""
 
 #: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
 msgid "Rescan"
+msgstr ""
+
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "Rescan externals"
 msgstr ""
 
 #: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
@@ -2804,18 +2839,6 @@ msgstr ""
 
 #: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
 msgid "skipping background color"
-msgstr ""
-
-#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
-msgid "Hotkey (require save&restart)"
-msgstr ""
-
-#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
-msgid "Rescan externals"
-msgstr ""
-
-#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
-msgid "Open Manual"
 msgstr ""
 
 #: iemgui_dynamic_strings.tcl
