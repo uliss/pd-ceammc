@@ -1263,16 +1263,16 @@ void HoaMapUI::showPopup(const t_pt& pt, const t_pt& abs_pt)
     if (f_selected_group) {
         popup_menu_list_.clear();
         PopupMenuCallbacks menu("group");
-        menu.addItem("Group Menu", {});
+        menu.addItem(_("Group menu"), {});
         menu.addSeparator();
-        menu.addItem("Remove Group", [this](const t_pt&) {
+        menu.addItem(_("Remove group"), [this](const t_pt&) {
             AtomArray<3> data { f_selected_group->getIndex(), sym_mute(), 1 };
             listTo(GROUP_OUTLET, data.view());
             f_manager->manager.removeGroup(f_selected_group->getIndex());
             updateAllAndOutput();
             return true;
         });
-        menu.addItem("Remove group and sources", [this](const t_pt&) {
+        menu.addItem(_("Remove group and sources"), [this](const t_pt&) {
             f_selected_group->setMute(true);
             output();
             sendBindedMapUpdate(BMAP_OUTPUT);
@@ -1280,13 +1280,13 @@ void HoaMapUI::showPopup(const t_pt& pt, const t_pt& abs_pt)
             updateAllAndOutput();
             return true;
         });
-        menu.addItem("Mute group", [this](const t_pt&) {
+        menu.addItem(_("Mute group"), [this](const t_pt&) {
             f_selected_group->setMute(true);
             updateAllAndOutput();
             return true;
         });
         if (f_selected_group->getSubMute())
-            menu.addItem("Unmute group", [this](const t_pt&) {
+            menu.addItem(_("Unmute group"), [this](const t_pt&) {
                 f_selected_group->setMute(false);
                 updateAllAndOutput();
                 return true;
@@ -1298,9 +1298,9 @@ void HoaMapUI::showPopup(const t_pt& pt, const t_pt& abs_pt)
     } else if (f_selected_source) {
         popup_menu_list_.clear();
         PopupMenuCallbacks menu("source");
-        menu.addItem("Source Menu", {});
+        menu.addItem(_("Source menu"), {});
         menu.addSeparator();
-        menu.addItem("Remove source", [this](const t_pt& pos) {
+        menu.addItem(_("Remove source"), [this](const t_pt& pos) {
             AtomArray<3> data { f_selected_source->getIndex(), sym_mute(), 1 };
             listTo(SOURCE_OUTLET, data.view());
             f_manager->manager.removeSource(f_selected_source->getIndex());
@@ -1315,18 +1315,18 @@ void HoaMapUI::showPopup(const t_pt& pt, const t_pt& abs_pt)
         };
 
         if (f_selected_source->getMute())
-            menu.addItem("Unmute source", mute_cb);
+            menu.addItem(_("Unmute source"), mute_cb);
         else
-            menu.addItem("Mute source", mute_cb);
+            menu.addItem(_("Mute source"), mute_cb);
 
         popup_menu_list_.push_back(menu);
         showDefaultPopupMenu(pt, abs_pt);
     } else {
         popup_menu_list_.clear();
         PopupMenuCallbacks menu("default");
-        menu.addItem("Menu", {});
+        menu.addItem(_("Main menu"), {});
         menu.addSeparator();
-        menu.addItem("Add source", [this](const t_pt&) {
+        menu.addItem(_("Add source"), [this](const t_pt&) {
             ulong index = 1;
             for (auto it = f_manager->manager.getFirstSource(); it != f_manager->manager.getLastSource(); it++) {
                 if (it->first != index)
@@ -1339,7 +1339,7 @@ void HoaMapUI::showPopup(const t_pt& pt, const t_pt& abs_pt)
             updateAllAndOutput();
             return true;
         });
-        menu.addItem("Clear all", [this](const t_pt& pt) {
+        menu.addItem(_("Clear all"), [this](const t_pt& pt) {
             m_clear_all({});
             return true;
         });
