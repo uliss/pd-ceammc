@@ -27,11 +27,11 @@ set(HOA_SOURCES
     hoa_3d_wider.cpp
     hoa_common.h
     hoa_connections.cpp
+    hoa_map_ui.cpp
     hoa_process.cpp
     hoa_process_inlet.cpp
     hoa_process_instance.cpp
     hoa_process_props.cpp
-    ui_2d_map.cpp
 )
 
 macro(ceammc_spat_obj_ext name)

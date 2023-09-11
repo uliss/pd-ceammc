@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ui_2d_map.h"
+#include "hoa_map_ui.h"
 #include "args/argcheck2.h"
 #include "ceammc_containers.h"
 #include "ceammc_crc32.h"
@@ -1578,7 +1578,7 @@ void HoaMapUI::setup()
 }
 }
 
-void setup_spat_hoa_2d_map_ui()
+void setup_spat_hoa_map_ui()
 {
     ceammc::HoaMapUI::setup();
 }

@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef UI_2D_MAP_H
-#define UI_2D_MAP_H
+#ifndef HOA_MAP_UI_H
+#define HOA_MAP_UI_H
 
 #include "ceammc_ui_object.h"
 
@@ -106,6 +106,6 @@ private:
 
 }
 
-void setup_spat_hoa_2d_map_ui();
+void setup_spat_hoa_map_ui();
 
-#endif // UI_2D_MAP_H
+#endif // HOA_MAP_UI_H
