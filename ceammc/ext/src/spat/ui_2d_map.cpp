@@ -97,50 +97,6 @@ Hoa2dMapUI::Hoa2dMapUI()
     createOutlet();
     createOutlet();
     createOutlet();
-
-    initPopupMenu("selected_group", {
-                                        { "Group Menu", {} },
-                                        { "", {} },
-                                        { "Remove group", {} },
-                                        { "Remove group", {} },
-                                        { "Remove group and sources", {} },
-                                        { "Mute group", {} },
-                                        { "Unmute group", {} },
-                                    });
-
-    initPopupMenu("selected_source", {
-                                         { "Source Menu", {} },
-                                         { "", {} },
-                                         { "Remove source", {} },
-                                         { "Unmute source", {} },
-                                         { "Mute source", {} },
-                                     });
-
-    initPopupMenu("nothing", {
-                                 { "Menu", {} },
-                                 { "", {} },
-                                 { "Add source", [this](const t_pt&) {
-                                      ulong index = 1;
-                                      for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
-                                          if (it->first != index)
-                                              break;
-                                          index++;
-                                      }
-
-                                      f_manager->newSource(index);
-
-                                      sources_.invalidate();
-                                      groups_.invalidate();
-                                      ebox_notify(asEBox(), sym_modified());
-                                      redraw();
-                                      output();
-                                      return true;
-                                  } },
-                                 { "Clear all", [this](const t_pt& pt) {
-                                      m_clear_all({});
-                                      return true;
-                                  } },
-                             });
 }
 
 Hoa2dMapUI::~Hoa2dMapUI()
@@ -1313,20 +1269,115 @@ void Hoa2dMapUI::showPopup(const t_pt& pt, const t_pt& abs_pt)
     }
 
     if (f_selected_group) {
-        showPopupMenu("selected_group", pt, abs_pt);
+
+        //        initPopupMenu("selected_group", {
+        //                                            { "Group Menu", {} },
+        //                                            { "", {} },
+        //                                            { "Remove group", {} },
+        //                                            { "Remove group", {} },
+        //                                            { "Remove group and sources", {} },
+        //                                            { "Mute group", {} },
+        //                                            { "Unmute group", {} },
+        //                                        });
+
+        //        initPopupMenu("selected_source", {
+        //                                             { "Source Menu", {} },
+        //                                             { "", {} },
+        //                                             { "Remove source", {} },
+        //                                             { "Unmute source", {} },
+        //                                             { "Mute source", {} },
+        //                                         });
+
+        //        showPopupMenu("selected_group", pt, abs_pt);
         //            if (f_selected_group->getSubMute())
         //                epopupmenu_additem(popup, 4, "Unmute group", 0, 0);
-    } else if (f_selected_source) {
-        //            showPopupMenu("selected_source", pt, abs_pt);
-        //            if (f_selected_source->getMute())
-        //                epopupmenu_additem(popup, 2, "Unmute source", 0, 0);
-        //            else
-        //                epopupmenu_additem(popup, 2, "Mute source", 0, 0);
-    } else {
-        showPopupMenu("nothing", pt, abs_pt);
-    }
 
-    UI_ERR << __FUNCTION__;
+        //        case 1:
+        //                    {
+        //                        t_atom av[3];
+        //                        atom_setlong(av, x->f_selected_source->getIndex());
+        //                        atom_setsym(av+1, hoa_sym_mute);
+        //                        atom_setlong(av+2, 1);
+        //                        outlet_list(x->f_out_sources, 0L, 3, av);
+        //                        x->f_manager->removeSource(x->f_selected_source->getIndex());
+        //                        causeOutput = causeRedraw = causeNotify = 1;
+        //                        break;
+        //                    }
+        //                    case 2:
+        //                    {
+        //                        if(x->f_selected_source->getMute())
+        //                            x->f_selected_source->setMute(false);
+        //                        else
+        //                            x->f_selected_source->setMute(true);
+
+        //                        causeOutput = causeRedraw = causeNotify = 1;
+        //                        break;
+        //                    }
+
+    } else if (f_selected_source) {
+        popup_menu_list_.clear();
+        PopupMenuCallbacks menu("source");
+        menu.addItem("Source Menu", {});
+        menu.addSeparator();
+        menu.addItem("Remove source", [this](const t_pt& pos) {
+            AtomArray<3> data { f_selected_source->getIndex(), sym_mute(), 1 };
+            listTo(SOURCE_OUTLET, data.view());
+            f_manager->removeSource(f_selected_source->getIndex());
+            sources_.invalidate();
+            groups_.invalidate();
+            ebox_notify(asEBox(), sym_modified());
+            redraw();
+            output();
+            return true;
+        });
+
+        auto mute_cb = [this](const t_pt& pos) {
+            f_selected_source->setMute(!f_selected_source->getMute());
+            sources_.invalidate();
+            groups_.invalidate();
+            ebox_notify(asEBox(), sym_modified());
+            redraw();
+            output();
+            return true;
+        };
+
+        if (f_selected_source->getMute())
+            menu.addItem("Unmute source", mute_cb);
+        else
+            menu.addItem("Mute source", mute_cb);
+
+        popup_menu_list_.push_back(menu);
+        showDefaultPopupMenu(pt, abs_pt);
+    } else {
+        popup_menu_list_.clear();
+        PopupMenuCallbacks menu("default");
+        menu.addItem("Menu", {});
+        menu.addSeparator();
+        menu.addItem("Add source", [this](const t_pt&) {
+            ulong index = 1;
+            for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
+                if (it->first != index)
+                    break;
+                index++;
+            }
+
+            f_manager->newSource(index);
+
+            sources_.invalidate();
+            groups_.invalidate();
+            ebox_notify(asEBox(), sym_modified());
+            redraw();
+            output();
+            return true;
+        });
+        menu.addItem("Clear all", [this](const t_pt& pt) {
+            m_clear_all({});
+            return true;
+        });
+
+        popup_menu_list_.push_back(menu);
+        showDefaultPopupMenu(pt, abs_pt);
+    }
 }
 
 void Hoa2dMapUI::loadPreset(size_t idx)
