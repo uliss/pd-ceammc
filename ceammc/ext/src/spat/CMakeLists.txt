@@ -31,6 +31,7 @@ set(HOA_SOURCES
     hoa_process_inlet.cpp
     hoa_process_instance.cpp
     hoa_process_props.cpp
+    ui_2d_map.cpp
 )
 
 macro(ceammc_spat_obj_ext name)
