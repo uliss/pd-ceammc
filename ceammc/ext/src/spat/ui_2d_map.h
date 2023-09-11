@@ -84,7 +84,8 @@ public:
     void m_set(const AtomListView& lv);
 
     AtomList m_get_zoom() const { return Atom(f_zoom_factor); }
-    void m_zoom(const AtomListView& lv);
+    void m_set_zoom(const AtomListView& lv);
+
     void m_set_bind(const AtomListView& lv);
 
 public:
@@ -97,12 +98,12 @@ private:
     void drawGroups();
     void output();
 
-    void hoa_map_linkmapAddWithBindingName(t_symbol* name);
-    void hoa_map_linkmapRemoveWithBindingName(t_symbol* binding_name);
-    void hoa_map_sendBindedMapUpdate(long flags);
-    void hoa_map_isElementSelected(const t_pt& pt);
-    void hoa_map_source(const AtomListView& lv);
-    void hoa_map_group(const AtomListView& lv);
+    void linkmapAddWithBindingName(t_symbol* name);
+    void linkmapRemoveWithBindingName(t_symbol* binding_name);
+    void sendBindedMapUpdate(long flags);
+    void isElementSelected(const t_pt& pt);
+    void ctl_source(const AtomListView& lv);
+    void ctl_group(const AtomListView& lv);
 };
 
 }

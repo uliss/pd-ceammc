@@ -148,7 +148,7 @@ Hoa2dMapUI::Hoa2dMapUI()
 
 Hoa2dMapUI::~Hoa2dMapUI()
 {
-    hoa_map_linkmapRemoveWithBindingName(f_binding_name);
+    linkmapRemoveWithBindingName(f_binding_name);
     delete f_self_manager;
 }
 
@@ -414,7 +414,7 @@ void Hoa2dMapUI::output()
     }
 }
 
-void Hoa2dMapUI::hoa_map_linkmapAddWithBindingName(t_symbol* binding_name)
+void Hoa2dMapUI::linkmapAddWithBindingName(t_symbol* binding_name)
 {
     char strname[2048];
     t_symbol* name = NULL;
@@ -472,7 +472,7 @@ void Hoa2dMapUI::hoa_map_linkmapAddWithBindingName(t_symbol* binding_name)
     }
 }
 
-void Hoa2dMapUI::hoa_map_linkmapRemoveWithBindingName(t_symbol* binding_name)
+void Hoa2dMapUI::linkmapRemoveWithBindingName(t_symbol* binding_name)
 {
     char strname[2048];
     t_symbol* name = NULL;
@@ -529,7 +529,7 @@ void Hoa2dMapUI::hoa_map_linkmapRemoveWithBindingName(t_symbol* binding_name)
     }
 }
 
-void Hoa2dMapUI::hoa_map_sendBindedMapUpdate(long flags)
+void Hoa2dMapUI::sendBindedMapUpdate(long flags)
 {
     if (f_listmap) {
         t_linkmap* temp = f_listmap;
@@ -556,7 +556,7 @@ void Hoa2dMapUI::hoa_map_sendBindedMapUpdate(long flags)
     }
 }
 
-void Hoa2dMapUI::hoa_map_isElementSelected(const t_pt& pt)
+void Hoa2dMapUI::isElementSelected(const t_pt& pt)
 {
     auto rect = this->rect();
 
@@ -612,7 +612,7 @@ void Hoa2dMapUI::hoa_map_isElementSelected(const t_pt& pt)
     }
 }
 
-void Hoa2dMapUI::hoa_map_source(const AtomListView& lv)
+void Hoa2dMapUI::ctl_source(const AtomListView& lv)
 {
     static const args::ArgChecker chk("INDEX:i PARAM:s OPTS:a*");
     if (!chk.check(lv, nullptr))
@@ -699,10 +699,10 @@ void Hoa2dMapUI::hoa_map_source(const AtomListView& lv)
 
         if (causeOutput) {
             output();
-            hoa_map_sendBindedMapUpdate(BMAP_OUTPUT);
+            sendBindedMapUpdate(BMAP_OUTPUT);
         }
 
-        hoa_map_sendBindedMapUpdate(BMAP_REDRAW | BMAP_NOTIFY);
+        sendBindedMapUpdate(BMAP_REDRAW | BMAP_NOTIFY);
     }
 }
 
@@ -712,7 +712,7 @@ CEAMMC_DEFINE_SYM_HASH(relradius);
 CEAMMC_DEFINE_SYM_HASH(relazimuth);
 CEAMMC_DEFINE_SYM_HASH(relelevation);
 
-void Hoa2dMapUI::hoa_map_group(const AtomListView& lv)
+void Hoa2dMapUI::ctl_group(const AtomListView& lv)
 {
     using namespace hoa;
 
@@ -859,9 +859,9 @@ void Hoa2dMapUI::hoa_map_group(const AtomListView& lv)
 
     if (causeOutput) {
         output();
-        hoa_map_sendBindedMapUpdate(BMAP_OUTPUT);
+        sendBindedMapUpdate(BMAP_OUTPUT);
     }
-    hoa_map_sendBindedMapUpdate(BMAP_REDRAW | BMAP_NOTIFY);
+    sendBindedMapUpdate(BMAP_REDRAW | BMAP_NOTIFY);
 }
 
 void Hoa2dMapUI::onList(const AtomListView& lv)
@@ -873,7 +873,7 @@ void Hoa2dMapUI::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt,
     f_rect_selection_exist = -1;
     f_rect_selection.w = f_rect_selection.h = 0.;
 
-    hoa_map_isElementSelected(pt);
+    isElementSelected(pt);
 
     UI_ERR << __FUNCTION__;
 
@@ -948,19 +948,19 @@ void Hoa2dMapUI::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 
     if (causeNotify) {
         ebox_notify(asEBox(), sym_modified());
-        hoa_map_sendBindedMapUpdate(BMAP_NOTIFY);
+        sendBindedMapUpdate(BMAP_NOTIFY);
     }
 
     if (causeRedraw) {
         sources_.invalidate();
         groups_.invalidate();
         redraw();
-        hoa_map_sendBindedMapUpdate(BMAP_REDRAW);
+        sendBindedMapUpdate(BMAP_REDRAW);
     }
 
     if (causeOutput) {
         output();
-        hoa_map_sendBindedMapUpdate(BMAP_OUTPUT);
+        sendBindedMapUpdate(BMAP_OUTPUT);
     }
 }
 
@@ -1157,25 +1157,25 @@ void Hoa2dMapUI::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 
     if (causeNotify) {
         ebox_notify(asEBox(), sym_modified());
-        hoa_map_sendBindedMapUpdate(BMAP_NOTIFY);
+        sendBindedMapUpdate(BMAP_NOTIFY);
     }
 
     if (causeRedraw) {
         sources_.invalidate();
         groups_.invalidate();
         redraw();
-        hoa_map_sendBindedMapUpdate(BMAP_REDRAW);
+        sendBindedMapUpdate(BMAP_REDRAW);
     }
 
     if (causeOutput) {
         output();
-        hoa_map_sendBindedMapUpdate(BMAP_OUTPUT);
+        sendBindedMapUpdate(BMAP_OUTPUT);
     }
 }
 
 void Hoa2dMapUI::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
 {
-    hoa_map_isElementSelected(pt);
+    isElementSelected(pt);
 
     if (f_selected_source || f_selected_group)
         setCursor(t_cursor::ECURSOR_CIRCLE);
@@ -1254,7 +1254,7 @@ void Hoa2dMapUI::m_clear_all(const AtomListView& lv)
         it->second->setMute(true);
 
     output();
-    hoa_map_sendBindedMapUpdate(BMAP_OUTPUT);
+    sendBindedMapUpdate(BMAP_OUTPUT);
 
     // now we can clear, then notify, output and redraw all maps
     f_manager->clear();
@@ -1264,7 +1264,7 @@ void Hoa2dMapUI::m_clear_all(const AtomListView& lv)
     groups_.invalidate();
     redraw();
     output();
-    hoa_map_sendBindedMapUpdate(BMAP_REDRAW | BMAP_OUTPUT | BMAP_NOTIFY);
+    sendBindedMapUpdate(BMAP_REDRAW | BMAP_OUTPUT | BMAP_NOTIFY);
 }
 
 void Hoa2dMapUI::m_set(const AtomListView& lv)
@@ -1273,14 +1273,14 @@ void Hoa2dMapUI::m_set(const AtomListView& lv)
     if (lv.size() > 0) {
         t_symbol* msgtype = lv[0].asSymbol();
         if (msgtype == sym_source())
-            hoa_map_source(lv.subView(1));
+            ctl_source(lv.subView(1));
         else if (msgtype == sym_group())
-            hoa_map_group(lv.subView(1));
+            ctl_group(lv.subView(1));
     }
     f_output_enabled = 1;
 }
 
-void Hoa2dMapUI::m_zoom(const AtomListView& lv)
+void Hoa2dMapUI::m_set_zoom(const AtomListView& lv)
 {
     if (!lv.isFloat())
         return;
@@ -1294,7 +1294,7 @@ void Hoa2dMapUI::m_zoom(const AtomListView& lv)
 void Hoa2dMapUI::m_set_bind(const AtomListView& lv)
 {
     if (!lv.isSymbol()) {
-        hoa_map_linkmapRemoveWithBindingName(f_binding_name);
+        linkmapRemoveWithBindingName(f_binding_name);
         f_binding_name = s_null;
         return;
     }
@@ -1302,9 +1302,9 @@ void Hoa2dMapUI::m_set_bind(const AtomListView& lv)
     t_symbol* new_binding_name = lv.asSymbol();
 
     if (new_binding_name != f_binding_name) {
-        hoa_map_linkmapRemoveWithBindingName(f_binding_name);
+        linkmapRemoveWithBindingName(f_binding_name);
         if (new_binding_name != &s_ || new_binding_name != s_null) {
-            hoa_map_linkmapAddWithBindingName(new_binding_name);
+            linkmapAddWithBindingName(new_binding_name);
             f_binding_name = new_binding_name;
         } else {
             f_binding_name = s_null;
@@ -1338,7 +1338,7 @@ void Hoa2dMapUI::setup()
     obj.addMenuProperty("outputmode", _("Output Mode"), "polar", &Hoa2dMapUI::f_output_mode, "polar cartesian", _("Behavior"));
 
     obj.addFloatProperty("zoom", _("Zoom"), 0.35, &Hoa2dMapUI::f_zoom_factor, _("Behavior"));
-    obj.setPropertyAccessor("zoom", &Hoa2dMapUI::m_get_zoom, &Hoa2dMapUI::m_zoom);
+    obj.setPropertyAccessor("zoom", &Hoa2dMapUI::m_get_zoom, &Hoa2dMapUI::m_set_zoom);
 
     obj.addSymbolProperty("mapname", _("Map Name"), "(null)", &Hoa2dMapUI::f_binding_name, _("Main"));
     obj.setPropertyAccessor("mapname", {}, &Hoa2dMapUI::m_set_bind);
