@@ -149,18 +149,7 @@ Hoa2dMapUI::Hoa2dMapUI()
 Hoa2dMapUI::~Hoa2dMapUI()
 {
     hoa_map_linkmapRemoveWithBindingName(f_binding_name);
-
-    //        ebox_free((t_ebox *)x);
     delete f_self_manager;
-}
-
-void Hoa2dMapUI::init(t_symbol* s, const AtomListView& args, bool usePresets)
-{
-    UIObject::init(s, args, usePresets);
-
-    // first positional argument handling
-    if (!args.empty() && args[0].isFloat())
-        propSetNumChan(clip<t_float>(args[0].asFloat(), HOA_MIN_PLANEWAVES, HOA_MAX_PLANEWAVES));
 }
 
 void Hoa2dMapUI::okSize(t_rect* newrect)
@@ -873,15 +862,6 @@ void Hoa2dMapUI::hoa_map_group(const AtomListView& lv)
         hoa_map_sendBindedMapUpdate(BMAP_OUTPUT);
     }
     hoa_map_sendBindedMapUpdate(BMAP_REDRAW | BMAP_NOTIFY);
-}
-
-t_float Hoa2dMapUI::propNumChan() const
-{
-    //    return prop_nchan;
-}
-
-void Hoa2dMapUI::propSetNumChan(t_float v)
-{
 }
 
 void Hoa2dMapUI::onList(const AtomListView& lv)

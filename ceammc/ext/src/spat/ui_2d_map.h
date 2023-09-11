@@ -60,13 +60,8 @@ public:
     Hoa2dMapUI();
     ~Hoa2dMapUI();
 
-    void init(t_symbol* s, const AtomListView& args, bool usePresets);
-
     void okSize(t_rect* newrect);
     void paint();
-
-    t_float propNumChan() const;
-    void propSetNumChan(t_float v);
 
     void onList(const AtomListView& lv);
 
