@@ -352,6 +352,104 @@ void Hoa2dMapUI::drawSources()
 
 void Hoa2dMapUI::drawGroups()
 {
+    const auto rect = this->rect();
+    auto p = groups_.painter(rect);
+
+    if (!p)
+        return;
+
+    t_pt center = { rect.w * 0.5f, rect.h * 0.5f };
+
+    const auto color_sel = rgba_addContrast(prop_color_background, -0.14);
+    const auto font_size = fontSize();
+    const auto source_size = font_size / 2.f;
+
+    std::vector<UITextLayout> jtl;
+    jtl.reserve(f_manager->getNumberOfGroups());
+
+    p.setLineWidth(2);
+
+    for (auto it = f_manager->getFirstGroup(); it != f_manager->getLastGroup(); it++) {
+        t_pt src_pos;
+        if (f_coord_view == sym_xy()) {
+            src_pos.x = (it->second->getAbscissa() * f_zoom_factor + 1.) * center.x;
+            src_pos.y = (-it->second->getOrdinate() * f_zoom_factor + 1.) * center.y;
+        } else if (f_coord_view == sym_xz()) {
+            src_pos.x = (it->second->getAbscissa() * f_zoom_factor + 1.) * center.x;
+            src_pos.y = (-it->second->getHeight() * f_zoom_factor + 1.) * center.y;
+        } else {
+            src_pos.x = (it->second->getOrdinate() * f_zoom_factor + 1.) * center.x;
+            src_pos.y = (-it->second->getHeight() * f_zoom_factor + 1.) * center.y;
+        }
+
+        t_rgba src_color;
+        src_color.red = it->second->getColor()[0];
+        src_color.green = it->second->getColor()[1];
+        src_color.blue = it->second->getColor()[2];
+        src_color.alpha = it->second->getColor()[3];
+
+        char description[250] = { 0 };
+        if (it->second->getDescription().c_str()[0])
+            sprintf(description, "%i : %s", (int)it->first, it->second->getDescription().c_str());
+        else
+            sprintf(description, "%i", (int)it->first);
+
+        t_pt txt_pos;
+        txt_pos.x = src_pos.x - 2. * source_size;
+        txt_pos.y = src_pos.y - source_size - font_size - 1.;
+
+        jtl.push_back(UITextLayout(&b_font));
+        jtl.back().setColor(src_color);
+        jtl.back().set(description, txt_pos.x, txt_pos.y, font_size * 10., font_size * 2.);
+        jtl.back().setWrap(false);
+        jtl.back().setAnchor(ETEXT_LEFT);
+        jtl.back().setJustify(ETEXT_JLEFT);
+        p.drawText(jtl.back());
+
+        if (f_selected_group && f_selected_group->getIndex() == it->first) {
+            p.setColor(color_sel);
+            p.drawCircle(src_pos.x, src_pos.y, source_size * 1.5);
+            p.fill();
+
+            for (auto& g : it->second->getSources()) {
+                p.moveTo(src_pos.x, src_pos.y);
+
+                t_pt groupDisplayPos;
+                if (f_coord_view == sym_xy()) {
+                    groupDisplayPos.x = (g.second->getAbscissa() * f_zoom_factor + 1.) * center.x;
+                    groupDisplayPos.y = (-g.second->getOrdinate() * f_zoom_factor + 1.) * center.y;
+                } else if (f_coord_view == sym_xz()) {
+                    groupDisplayPos.x = (g.second->getAbscissa() * f_zoom_factor + 1.) * center.x;
+                    groupDisplayPos.y = (-g.second->getHeight() * f_zoom_factor + 1.) * center.y;
+                } else {
+                    groupDisplayPos.x = (g.second->getOrdinate() * f_zoom_factor + 1.) * center.x;
+                    groupDisplayPos.y = (-g.second->getHeight() * f_zoom_factor + 1.) * center.y;
+                }
+
+                p.drawLineTo(groupDisplayPos.x, groupDisplayPos.y);
+                p.stroke();
+            }
+        }
+
+        p.setColor(src_color);
+
+        if (!it->second->getMute()) {
+            p.setColor(src_color);
+            p.drawCircle(src_pos.x, src_pos.y, source_size * 1.);
+            p.stroke();
+            p.drawText(jtl.back());
+        } else {
+            p.setColor(rgba_red);
+            p.drawCircle(src_pos.x, src_pos.y, source_size);
+            p.stroke();
+            for (int j = 0; j < 2; j++) {
+                using mf = hoa::Math<float>;
+                p.moveTo(src_pos.x, src_pos.y);
+                p.drawLineTo(src_pos.x + mf::abscissa(source_size * 1., HOA_2PI * j / 2. + HOA_PI2 / 2.), src_pos.y + mf::ordinate(source_size * 1., HOA_2PI * j / 2. + HOA_PI2 / 2.));
+                p.stroke();
+            }
+        }
+    }
 }
 
 void Hoa2dMapUI::output()
