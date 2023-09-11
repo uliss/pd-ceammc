@@ -28,6 +28,7 @@ CEAMMC_DEFINE_SYM_HASH(description);
 CEAMMC_DEFINE_SYM_HASH(elevation);
 CEAMMC_DEFINE_SYM_HASH(group);
 CEAMMC_DEFINE_SYM_HASH(height);
+CEAMMC_DEFINE_SYM_HASH(index);
 CEAMMC_DEFINE_SYM_HASH(modified);
 CEAMMC_DEFINE_SYM_HASH(mute);
 CEAMMC_DEFINE_SYM_HASH(ordinate);
@@ -50,6 +51,7 @@ constexpr float MAX_ZOOM = 1.;
 constexpr float MIN_ZOOM = 0.01;
 constexpr size_t SOURCE_OUTLET = 0;
 constexpr size_t GROUP_OUTLET = 1;
+constexpr size_t INFO_OUTLET = 2;
 constexpr const char* ODD_BINDING_SUFFIX = "map1572";
 
 enum BindingMapMsgFlag {
@@ -932,6 +934,91 @@ void HoaMapUI::m_group(const AtomListView& lv)
     sendBindedMapUpdate(BMAP_REDRAW | BMAP_NOTIFY);
 }
 
+void HoaMapUI::m_info()
+{
+    //    t_atom avNumber[3];
+    //    t_atom* avIndex;
+    //    t_atom* avSource;
+    //    t_atom avMute[4];
+
+    // Sources
+    const auto numberOfSource = f_manager->getNumberOfSources();
+
+    { // number
+        AtomArray<3> data { sym_source(), sym_number(), numberOfSource };
+        listTo(INFO_OUTLET, data.view());
+    }
+
+    { // indexes
+        AtomList res;
+        res.fill(Atom(0.), numberOfSource + 2);
+        res[0] = sym_source();
+        res[1] = sym_index();
+
+        int j = 2;
+        for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
+            res[j++] = it->first;
+        }
+
+        listTo(INFO_OUTLET, res);
+    }
+
+    { // mutes
+        AtomArray<4> data { sym_source(), sym_mute() };
+        for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
+            data[2] = it->first;
+            data[3] = it->second->getMute();
+            listTo(INFO_OUTLET, data.view());
+        }
+    }
+
+    // Groups
+    auto numberOfGroups = f_manager->getNumberOfGroups();
+    { // number
+        AtomArray<3> data { sym_group(), sym_number(), numberOfGroups };
+        listTo(INFO_OUTLET, data.view());
+    }
+
+    { // indexes
+        AtomList res;
+        res.fill(Atom(0.), numberOfGroups + 2);
+        res[0] = sym_group();
+        res[1] = sym_index();
+
+        int j = 2;
+        for (auto it = f_manager->getFirstGroup(); it != f_manager->getLastGroup(); it++) {
+            res[j++] = it->first;
+        }
+
+        listTo(INFO_OUTLET, res);
+    }
+
+    AtomList res;
+    for (auto it = f_manager->getFirstGroup(); it != f_manager->getLastGroup(); it++) {
+        auto N = it->second->getNumberOfSources() + 3;
+        res.resizePad(N, Atom(0.));
+
+        res[0] = sym_group();
+        res[1] = sym_source();
+        res[2] = it->first;
+
+        int j = 3;
+        for (auto& kv : it->second->getSources())
+            res[j++] = kv.first;
+
+        listTo(INFO_OUTLET, res);
+    }
+
+    { // mutes
+        AtomArray<4> data { sym_group(), sym_mute() };
+        for (auto it = f_manager->getFirstGroup(); it != f_manager->getLastGroup(); it++) {
+            data[2] = it->first;
+            data[3] = it->second->getMute();
+            listTo(INFO_OUTLET, data.view());
+        }
+    }
+}
+
 void HoaMapUI::updateAllAndOutput()
 {
     sources_.invalidate();
@@ -1461,10 +1548,11 @@ void HoaMapUI::setup()
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DRAG | UI_MOUSE_UP | UI_MOUSE_MOVE | UI_MOUSE_WHEEL);
     obj.usePopup();
 
-    obj.addMethod("source", &HoaMapUI::m_source);
-    obj.addMethod("group", &HoaMapUI::m_group);
     obj.addMethod("clear_all", &HoaMapUI::m_clear_all);
+    obj.addMethod("group", &HoaMapUI::m_group);
+    obj.addMethod("info", &HoaMapUI::m_info);
     obj.addMethod("set", &HoaMapUI::m_set);
+    obj.addMethod("source", &HoaMapUI::m_source);
 
     obj.addMenuProperty("view", _("Coordinate View"), "xy", &HoaMapUI::f_coord_view, "xy xz yz", _("Main"));
     obj.addMenuProperty("outputmode", _("Output Mode"), "polar", &HoaMapUI::f_output_mode, "polar cartesian", _("Behavior"));

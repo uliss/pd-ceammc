@@ -80,6 +80,7 @@ public:
     void m_set(const AtomListView& lv);
     void m_source(const AtomListView& lv);
     void m_group(const AtomListView& lv);
+    void m_info();
 
     AtomList m_get_zoom() const { return Atom(f_zoom_factor); }
     void m_set_zoom(const AtomListView& lv);
