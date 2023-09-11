@@ -13,10 +13,12 @@
  *****************************************************************************/
 #include "hoa_map_ui.h"
 #include "args/argcheck2.h"
+#include "ceammc_canvas.h"
 #include "ceammc_containers.h"
 #include "ceammc_crc32.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "fmt/core.h"
 
 namespace ceammc {
 
@@ -485,115 +487,107 @@ void HoaMapUI::output()
 
 void HoaMapUI::linkmapAddWithBindingName(t_symbol* binding_name)
 {
-    char strname[2048];
-    t_symbol* name = NULL;
-    t_canvas* canvas = canvas_getrootfor(this->canvas());
-
     if (!binding_name || binding_name == &s_ || binding_name == s_null)
         return;
 
-    if (canvas) {
-        sprintf(strname, "p%ld_%s_%s", (unsigned long)canvas, binding_name->s_name, ODD_BINDING_SUFFIX);
-        name = gensym(strname);
+    auto cnv = canvas_root(canvas());
+    if (!cnv)
+        return;
 
-        if (name->s_thing == NULL) {
-            f_listmap = (t_linkmap*)malloc(sizeof(t_linkmap));
-            if (f_listmap) {
-                f_listmap->map = this;
-                f_listmap->next = NULL;
-                name->s_thing = (t_class**)f_listmap;
-                f_manager = f_self_manager;
-            }
-        } else // t_listmap exist => add our object in it
-        {
-            t_linkmap *temp, *temp2;
+    char strname[MAXPDSTRING];
+    fmt::format_to(strname, "p{:x}_{}_{}\0", static_cast<const void*>(cnv), binding_name->s_name, ODD_BINDING_SUFFIX);
+    auto name = gensym(strname);
 
-            if (f_listmap != NULL) {
-                temp = f_listmap;
-                while (temp) {
-                    if (temp->next != NULL && temp->next->map == this) {
-                        temp2 = temp->next->next;
-                        free(temp->next);
-                        temp->next = temp2;
-                    }
-                    temp = temp->next;
-                }
-            }
-
-            f_listmap = (t_linkmap*)name->s_thing;
-            temp = f_listmap;
-            HoaMapUI* head_map = temp->map;
-
+    if (name->s_thing == nullptr) {
+        f_listmap = new t_linkmap { nullptr, this };
+        name->s_thing = (t_class**)f_listmap;
+        f_manager = f_self_manager;
+    } else // t_listmap exist => add our object in it
+    {
+        if (f_listmap != nullptr) {
+            auto temp = f_listmap;
             while (temp) {
-                if (temp->next == NULL) {
-                    temp2 = (t_linkmap*)malloc(sizeof(t_linkmap));
-                    if (temp2) {
-                        temp2->map = this;
-                        temp2->next = NULL;
-                        temp->next = temp2;
-                        temp->next->map->f_manager = head_map->f_self_manager;
-                    }
-                    break;
+                if (temp->next != NULL && temp->next->map == this) {
+                    auto temp2 = temp->next->next;
+                    delete temp->next;
+                    temp->next = temp2;
                 }
                 temp = temp->next;
             }
+        }
+
+        f_listmap = (t_linkmap*)name->s_thing;
+        auto temp = f_listmap;
+        HoaMapUI* head_map = temp->map;
+
+        while (temp) {
+            if (temp->next == nullptr) {
+                auto temp2 = new t_linkmap;
+                if (temp2) {
+                    temp2->map = this;
+                    temp2->next = NULL;
+                    temp->next = temp2;
+                    temp->next->map->f_manager = head_map->f_self_manager;
+                }
+                break;
+            }
+            temp = temp->next;
         }
     }
 }
 
 void HoaMapUI::linkmapRemoveWithBindingName(t_symbol* binding_name)
 {
-    char strname[2048];
-    t_symbol* name = NULL;
-    t_canvas* canvas = canvas_getrootfor(this->canvas());
-
     if (!binding_name || binding_name == &s_ || binding_name == s_null)
         return;
 
-    if (canvas) {
-        sprintf(strname, "p%ld_%s_%s", (ulong)canvas, binding_name->s_name, ODD_BINDING_SUFFIX);
-        name = gensym(strname);
+    auto cnv = canvas_getrootfor(this->canvas());
+    if (!cnv)
+        return;
 
-        if (name->s_thing != NULL) {
-            t_linkmap *temp, *temp2;
-            temp = (t_linkmap*)name->s_thing;
-            HoaMapUI* head_map = temp->map;
-            int counter = 0;
+    char strname[MAXPDSTRING];
+    fmt::format_to(strname, "p{:x}_{}_{}\0", static_cast<const void*>(cnv), binding_name->s_name, ODD_BINDING_SUFFIX);
+    auto name = gensym(strname);
 
-            while (temp) {
-                if (counter == 0 && temp->map == this) // head of the linkmap
+    if (name->s_thing != NULL) {
+        t_linkmap *temp, *temp2;
+        temp = (t_linkmap*)name->s_thing;
+        HoaMapUI* head_map = temp->map;
+        int counter = 0;
+
+        while (temp) {
+            if (counter == 0 && temp->map == this) // head of the linkmap
+            {
+                head_map = temp->map;
+
+                if (temp->next == NULL) // is also the last item of the linkmap
                 {
-                    head_map = temp->map;
+                    name->s_thing = NULL;
+                } else {
+                    name->s_thing = (t_class**)temp->next;
 
-                    if (temp->next == NULL) // is also the last item of the linkmap
-                    {
-                        name->s_thing = NULL;
-                    } else {
-                        name->s_thing = (t_class**)temp->next;
-
-                        // bind all object to the next Source::Manager (next becoming the new head of the t_linkmap)
-                        temp->next->map->f_self_manager = new hoa::Source::Manager(*head_map->f_manager);
-                        temp->next->update_headptr((t_linkmap*)name->s_thing, temp->next->map->f_self_manager);
-                    }
-
-                    // free(f_listmap);
-                    f_listmap = NULL;
-
-                    f_manager = f_self_manager; // not sure if this is necessary (normally it is the same pointer)
-                } else if (temp->next != NULL && temp->next->map == this) {
-                    // we restore the original pointer
-                    temp->next->map->f_manager = temp->next->map->f_manager;
-                    // then we copy the shared Source::Manager into the original one
-                    temp->next->map->f_manager = new hoa::Source::Manager(*head_map->f_self_manager);
-
-                    temp2 = temp->next->next;
-                    free(temp->next);
-                    f_listmap = NULL;
-                    temp->next = temp2;
+                    // bind all object to the next Source::Manager (next becoming the new head of the t_linkmap)
+                    temp->next->map->f_self_manager = new hoa::Source::Manager(*head_map->f_manager);
+                    temp->next->update_headptr((t_linkmap*)name->s_thing, temp->next->map->f_self_manager);
                 }
 
-                temp = temp->next;
+                // free(f_listmap);
+                f_listmap = NULL;
+
+                f_manager = f_self_manager; // not sure if this is necessary (normally it is the same pointer)
+            } else if (temp->next != NULL && temp->next->map == this) {
+                // we restore the original pointer
+                temp->next->map->f_manager = temp->next->map->f_manager;
+                // then we copy the shared Source::Manager into the original one
+                temp->next->map->f_manager = new hoa::Source::Manager(*head_map->f_self_manager);
+
+                temp2 = temp->next->next;
+                free(temp->next);
+                f_listmap = NULL;
+                temp->next = temp2;
             }
+
+            temp = temp->next;
         }
     }
 }
@@ -602,9 +596,8 @@ void HoaMapUI::sendBindedMapUpdate(long flags)
 {
     if (f_listmap) {
         t_linkmap* temp = f_listmap;
-        HoaMapUI* mapobj;
         while (temp) {
-            mapobj = temp->map;
+            auto mapobj = temp->map;
 
             if (mapobj != this) {
                 if (flags & BMAP_REDRAW) {
