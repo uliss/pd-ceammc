@@ -15,10 +15,12 @@
 #include "args/argcheck2.h"
 #include "ceammc_canvas.h"
 #include "ceammc_containers.h"
+#include "ceammc_convert.h"
 #include "ceammc_crc32.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 #include "fmt/core.h"
+#include <forward_list>
 
 namespace ceammc {
 
@@ -69,15 +71,26 @@ static inline double hoa_pd_distance(double x1, double y1, double x2, double y2,
     return sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2) + (z1 - z2) * (z1 - z2));
 }
 
-struct t_linkmap {
-    t_linkmap* next;
-    HoaMapUI* map;
-    void update_headptr(t_linkmap* linkmap_headptr, ::hoa::Source::Manager* manager)
+using SubscriberList = std::forward_list<HoaMapUI*>;
+struct HoaManagerData {
+    hoa::Source::Manager manager;
+    SubscriberList subscribers;
+
+    void subscribe(HoaMapUI* p)
     {
-        map->f_listmap = linkmap_headptr;
-        map->f_manager = manager;
-        if (next != NULL)
-            next->update_headptr(linkmap_headptr, manager);
+        auto it = std::find(subscribers.begin(), subscribers.end(), p);
+        if (it == subscribers.end())
+            subscribers.push_front(p);
+    }
+
+    void unsubscribe(HoaMapUI* p)
+    {
+        subscribers.remove(p);
+    }
+
+    std::shared_ptr<HoaManagerData> clone() const
+    {
+        return std::shared_ptr<HoaManagerData> { new HoaManagerData { manager, SubscriberList() } };
     }
 };
 
@@ -86,11 +99,8 @@ HoaMapUI::HoaMapUI()
     , sources_(asEBox(), gensym("sources"))
     , groups_(asEBox(), gensym("groups"))
 {
-    f_manager = new hoa::Source::Manager(1. / (double)MIN_ZOOM - 5.);
-    f_self_manager = f_manager;
-
     f_binding_name = s_null;
-    f_listmap = nullptr;
+    f_manager.reset(new HoaManagerData { { 1. / (double)MIN_ZOOM - 5. }, SubscriberList { this } });
 
     createOutlet();
     createOutlet();
@@ -99,8 +109,8 @@ HoaMapUI::HoaMapUI()
 
 HoaMapUI::~HoaMapUI()
 {
-    linkmapRemoveWithBindingName(f_binding_name);
-    delete f_self_manager;
+    f_manager->unsubscribe(this);
+    f_manager.reset();
 }
 
 void HoaMapUI::okSize(t_rect* newrect)
@@ -229,9 +239,9 @@ void HoaMapUI::drawSources()
     p.setLineWidth(1);
 
     std::vector<UITextLayout> jtl;
-    jtl.reserve(f_manager->getNumberOfSources());
+    jtl.reserve(f_manager->manager.getNumberOfSources());
 
-    for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
+    for (auto it = f_manager->manager.getFirstSource(); it != f_manager->manager.getLastSource(); it++) {
         t_pt src_pos;
         if (f_coord_view == sym_xy()) {
             src_pos.x = (it->second->getAbscissa() * prop_zoom + 1.) * center.x;
@@ -330,11 +340,11 @@ void HoaMapUI::drawGroups()
     const auto source_size = font_size / 2.f;
 
     std::vector<UITextLayout> jtl;
-    jtl.reserve(f_manager->getNumberOfGroups());
+    jtl.reserve(f_manager->manager.getNumberOfGroups());
 
     p.setLineWidth(2);
 
-    for (auto it = f_manager->getFirstGroup(); it != f_manager->getLastGroup(); it++) {
+    for (auto it = f_manager->manager.getFirstGroup(); it != f_manager->manager.getLastGroup(); it++) {
         t_pt src_pos;
         if (f_coord_view == sym_xy()) {
             src_pos.x = (it->second->getAbscissa() * prop_zoom + 1.) * center.x;
@@ -423,7 +433,7 @@ void HoaMapUI::output()
         return;
 
     // output group mute state
-    for (auto it = f_manager->getFirstGroup(); it != f_manager->getLastGroup(); it++) {
+    for (auto it = f_manager->manager.getFirstGroup(); it != f_manager->manager.getLastGroup(); it++) {
         AtomArray<3> data {
             it->first,
             sym_mute(),
@@ -432,7 +442,7 @@ void HoaMapUI::output()
         listTo(GROUP_OUTLET, data.view());
     }
     // output source mute state
-    for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
+    for (auto it = f_manager->manager.getFirstSource(); it != f_manager->manager.getLastSource(); it++) {
         AtomArray<3> data {
             it->first,
             sym_mute(),
@@ -441,7 +451,7 @@ void HoaMapUI::output()
         listTo(SOURCE_OUTLET, data.view());
     }
     if (f_output_mode == sym_polar()) {
-        for (auto it = f_manager->getFirstGroup(); it != f_manager->getLastGroup(); it++) {
+        for (auto it = f_manager->manager.getFirstGroup(); it != f_manager->manager.getLastGroup(); it++) {
             AtomArray<5> data {
                 it->first,
                 sym_polar(),
@@ -451,7 +461,7 @@ void HoaMapUI::output()
             };
             listTo(GROUP_OUTLET, data.view());
         }
-        for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
+        for (auto it = f_manager->manager.getFirstSource(); it != f_manager->manager.getLastSource(); it++) {
             AtomArray<5> data {
                 it->first,
                 sym_polar(),
@@ -462,7 +472,7 @@ void HoaMapUI::output()
             listTo(SOURCE_OUTLET, data.view());
         }
     } else {
-        for (auto it = f_manager->getFirstGroup(); it != f_manager->getLastGroup(); it++) {
+        for (auto it = f_manager->manager.getFirstGroup(); it != f_manager->manager.getLastGroup(); it++) {
             AtomArray<5> data {
                 it->first,
                 sym_cartesian(),
@@ -472,7 +482,7 @@ void HoaMapUI::output()
             };
             listTo(GROUP_OUTLET, data.view());
         }
-        for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
+        for (auto it = f_manager->manager.getFirstSource(); it != f_manager->manager.getLastSource(); it++) {
             AtomArray<5> data {
                 it->first,
                 sym_cartesian(),
@@ -485,134 +495,20 @@ void HoaMapUI::output()
     }
 }
 
-void HoaMapUI::linkmapAddWithBindingName(t_symbol* binding_name)
-{
-    if (!binding_name || binding_name == &s_ || binding_name == s_null)
-        return;
-
-    auto cnv = canvas_root(canvas());
-    if (!cnv)
-        return;
-
-    char strname[MAXPDSTRING];
-    fmt::format_to(strname, "p{:x}_{}_{}\0", static_cast<const void*>(cnv), binding_name->s_name, ODD_BINDING_SUFFIX);
-    auto name = gensym(strname);
-
-    if (name->s_thing == nullptr) {
-        f_listmap = new t_linkmap { nullptr, this };
-        name->s_thing = (t_class**)f_listmap;
-        f_manager = f_self_manager;
-    } else // t_listmap exist => add our object in it
-    {
-        if (f_listmap != nullptr) {
-            auto temp = f_listmap;
-            while (temp) {
-                if (temp->next != NULL && temp->next->map == this) {
-                    auto temp2 = temp->next->next;
-                    delete temp->next;
-                    temp->next = temp2;
-                }
-                temp = temp->next;
-            }
-        }
-
-        f_listmap = (t_linkmap*)name->s_thing;
-        auto temp = f_listmap;
-        HoaMapUI* head_map = temp->map;
-
-        while (temp) {
-            if (temp->next == nullptr) {
-                auto temp2 = new t_linkmap;
-                if (temp2) {
-                    temp2->map = this;
-                    temp2->next = NULL;
-                    temp->next = temp2;
-                    temp->next->map->f_manager = head_map->f_self_manager;
-                }
-                break;
-            }
-            temp = temp->next;
-        }
-    }
-}
-
-void HoaMapUI::linkmapRemoveWithBindingName(t_symbol* binding_name)
-{
-    if (!binding_name || binding_name == &s_ || binding_name == s_null)
-        return;
-
-    auto cnv = canvas_getrootfor(this->canvas());
-    if (!cnv)
-        return;
-
-    char strname[MAXPDSTRING];
-    fmt::format_to(strname, "p{:x}_{}_{}\0", static_cast<const void*>(cnv), binding_name->s_name, ODD_BINDING_SUFFIX);
-    auto name = gensym(strname);
-
-    if (name->s_thing != NULL) {
-        t_linkmap *temp, *temp2;
-        temp = (t_linkmap*)name->s_thing;
-        HoaMapUI* head_map = temp->map;
-        int counter = 0;
-
-        while (temp) {
-            if (counter == 0 && temp->map == this) // head of the linkmap
-            {
-                head_map = temp->map;
-
-                if (temp->next == NULL) // is also the last item of the linkmap
-                {
-                    name->s_thing = NULL;
-                } else {
-                    name->s_thing = (t_class**)temp->next;
-
-                    // bind all object to the next Source::Manager (next becoming the new head of the t_linkmap)
-                    temp->next->map->f_self_manager = new hoa::Source::Manager(*head_map->f_manager);
-                    temp->next->update_headptr((t_linkmap*)name->s_thing, temp->next->map->f_self_manager);
-                }
-
-                // free(f_listmap);
-                f_listmap = NULL;
-
-                f_manager = f_self_manager; // not sure if this is necessary (normally it is the same pointer)
-            } else if (temp->next != NULL && temp->next->map == this) {
-                // we restore the original pointer
-                temp->next->map->f_manager = temp->next->map->f_manager;
-                // then we copy the shared Source::Manager into the original one
-                temp->next->map->f_manager = new hoa::Source::Manager(*head_map->f_self_manager);
-
-                temp2 = temp->next->next;
-                free(temp->next);
-                f_listmap = NULL;
-                temp->next = temp2;
-            }
-
-            temp = temp->next;
-        }
-    }
-}
-
 void HoaMapUI::sendBindedMapUpdate(long flags)
 {
-    if (f_listmap) {
-        t_linkmap* temp = f_listmap;
-        while (temp) {
-            auto mapobj = temp->map;
-
-            if (mapobj != this) {
-                if (flags & BMAP_REDRAW) {
-                    sources_.invalidate();
-                    groups_.invalidate();
-                    redraw();
-                }
-                if (flags & BMAP_NOTIFY)
-                    ebox_notify(mapobj->asEBox(), sym_modified());
-
-                if (flags & BMAP_OUTPUT && output_enabled_)
-                    mapobj->bangTo(0);
+    for (auto x : f_manager->subscribers) {
+        if (x != this) {
+            if (flags & BMAP_REDRAW) {
+                x->sources_.invalidate();
+                x->groups_.invalidate();
+                x->redraw();
             }
+            if (flags & BMAP_NOTIFY)
+                ebox_notify(x->asEBox(), sym_modified());
 
-            temp = temp->next;
+            if (flags & BMAP_OUTPUT && output_enabled_)
+                x->bangTo(0);
         }
     }
 }
@@ -632,7 +528,7 @@ void HoaMapUI::selectElement(const t_pt& pt)
     f_selected_source = NULL;
     f_selected_group = NULL;
 
-    for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
+    for (auto it = f_manager->manager.getFirstSource(); it != f_manager->manager.getLastSource(); it++) {
         t_pt displayed_coords;
         if (f_coord_view == sym_xy()) {
             displayed_coords.x = it->second->getAbscissa();
@@ -653,7 +549,7 @@ void HoaMapUI::selectElement(const t_pt& pt)
     }
 
     if (!f_selected_source) {
-        for (auto it = f_manager->getFirstGroup(); it != f_manager->getLastGroup(); it++) {
+        for (auto it = f_manager->manager.getFirstGroup(); it != f_manager->manager.getLastGroup(); it++) {
             t_pt displayed_coords;
             if (f_coord_view == sym_xy()) {
                 displayed_coords.x = it->second->getAbscissa();
@@ -686,7 +582,7 @@ void HoaMapUI::m_source(const AtomListView& lv)
 
     int causeOutput = 1;
     if (index > 0) {
-        auto tmp = f_manager->newSource(ulong(index));
+        auto tmp = f_manager->manager.newSource(ulong(index));
 
         if (param == sym_polar() || param == sym_pol()) {
             if (lv.size() >= 5 && lv[2].isFloat() && lv[3].isFloat() && lv[4].isFloat())
@@ -711,7 +607,7 @@ void HoaMapUI::m_source(const AtomListView& lv)
         else if (param == sym_height())
             tmp->setHeight(lv.floatAt(2, 0));
         else if (param == sym_remove()) {
-            f_manager->removeSource(ulong(index));
+            f_manager->manager.removeSource(ulong(index));
             AtomArray<3> data;
             data[0] = index;
             data[1] = sym_mute();
@@ -783,9 +679,9 @@ void HoaMapUI::m_group(const AtomListView& lv)
     int causeOutput = 1;
     if (index > 0) {
         bool newGroupCreated = false;
-        hoa::Source::Group* tmp = f_manager->getGroup(index);
+        hoa::Source::Group* tmp = f_manager->manager.getGroup(index);
         if (!tmp) {
-            tmp = f_manager->createGroup(index);
+            tmp = f_manager->manager.createGroup(index);
             newGroupCreated = true;
         }
 
@@ -793,7 +689,7 @@ void HoaMapUI::m_group(const AtomListView& lv)
             for (int i = 2; i < lv.size(); i++) {
                 ulong ind = ulong(lv.intAt(i, 0));
                 if (ind > 0) {
-                    auto* src = f_manager->newSource(ind);
+                    auto* src = f_manager->manager.newSource(ind);
                     tmp->addSource(src);
                 }
             }
@@ -845,7 +741,7 @@ void HoaMapUI::m_group(const AtomListView& lv)
                 t_pt source_display;
                 double source_radius, source_azimuth, aAngleOffset = lv.floatAt(2, 0);
                 std::map<ulong, Source*>& sourcesOfGroup = tmp->getSources();
-                for (Source::source_iterator it = sourcesOfGroup.begin(); it != sourcesOfGroup.end(); it++) {
+                for (auto it = sourcesOfGroup.begin(); it != sourcesOfGroup.end(); it++) {
                     source_display.x = it->second->getOrdinate();
                     source_display.y = it->second->getHeight();
                     source_radius = Math<float>::radius(source_display.x, source_display.y);
@@ -861,7 +757,7 @@ void HoaMapUI::m_group(const AtomListView& lv)
         } else if (param == sym_mute()) {
             tmp->setMute(lv.intAt(2, 0));
         } else if (param == sym_remove()) {
-            f_manager->removeGroup(index);
+            f_manager->manager.removeGroup(index);
             AtomArray<3> data;
             data[0] = index;
             data[1] = sym_mute();
@@ -903,7 +799,7 @@ void HoaMapUI::m_group(const AtomListView& lv)
         }
 
         if (newGroupCreated) {
-            if (!f_manager->addGroup(tmp)) {
+            if (!f_manager->manager.addGroup(tmp)) {
                 delete tmp;
             }
         }
@@ -923,27 +819,22 @@ void HoaMapUI::m_group(const AtomListView& lv)
 
 void HoaMapUI::m_info()
 {
-    //    t_atom avNumber[3];
-    //    t_atom* avIndex;
-    //    t_atom* avSource;
-    //    t_atom avMute[4];
-
     // Sources
-    const auto numberOfSource = f_manager->getNumberOfSources();
+    const auto num_src = f_manager->manager.getNumberOfSources();
 
     { // number
-        AtomArray<3> data { sym_source(), sym_number(), numberOfSource };
+        AtomArray<3> data { sym_source(), sym_number(), num_src };
         listTo(INFO_OUTLET, data.view());
     }
 
     { // indexes
         AtomList res;
-        res.fill(Atom(0.), numberOfSource + 2);
+        res.fill(Atom(0.), num_src + 2);
         res[0] = sym_source();
         res[1] = sym_index();
 
         int j = 2;
-        for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
+        for (auto it = f_manager->manager.getFirstSource(); it != f_manager->manager.getLastSource(); it++) {
             res[j++] = it->first;
         }
 
@@ -952,7 +843,7 @@ void HoaMapUI::m_info()
 
     { // mutes
         AtomArray<4> data { sym_source(), sym_mute(), 0., 0. };
-        for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
+        for (auto it = f_manager->manager.getFirstSource(); it != f_manager->manager.getLastSource(); it++) {
             data[2] = it->first;
             data[3] = it->second->getMute();
             listTo(INFO_OUTLET, data.view());
@@ -960,20 +851,20 @@ void HoaMapUI::m_info()
     }
 
     // Groups
-    auto numberOfGroups = f_manager->getNumberOfGroups();
+    auto num_groups = f_manager->manager.getNumberOfGroups();
     { // number
-        AtomArray<3> data { sym_group(), sym_number(), numberOfGroups };
+        AtomArray<3> data { sym_group(), sym_number(), num_groups };
         listTo(INFO_OUTLET, data.view());
     }
 
     { // indexes
         AtomList res;
-        res.fill(Atom(0.), numberOfGroups + 2);
+        res.fill(Atom(0.), num_groups + 2);
         res[0] = sym_group();
         res[1] = sym_index();
 
         int j = 2;
-        for (auto it = f_manager->getFirstGroup(); it != f_manager->getLastGroup(); it++) {
+        for (auto it = f_manager->manager.getFirstGroup(); it != f_manager->manager.getLastGroup(); it++) {
             res[j++] = it->first;
         }
 
@@ -981,7 +872,7 @@ void HoaMapUI::m_info()
     }
 
     AtomList res;
-    for (auto it = f_manager->getFirstGroup(); it != f_manager->getLastGroup(); it++) {
+    for (auto it = f_manager->manager.getFirstGroup(); it != f_manager->manager.getLastGroup(); it++) {
         auto N = it->second->getNumberOfSources() + 3;
         res.resizePad(N, Atom(0.));
 
@@ -998,7 +889,7 @@ void HoaMapUI::m_info()
 
     { // mutes
         AtomArray<4> data { sym_group(), sym_mute(), 0., 0. };
-        for (auto it = f_manager->getFirstGroup(); it != f_manager->getLastGroup(); it++) {
+        for (auto it = f_manager->manager.getFirstGroup(); it != f_manager->manager.getLastGroup(); it++) {
             data[2] = it->first;
             data[3] = it->second->getMute();
             listTo(INFO_OUTLET, data.view());
@@ -1013,6 +904,18 @@ void HoaMapUI::updateAllAndOutput()
     ebox_notify(asEBox(), sym_modified());
     redraw();
     output();
+}
+
+t_symbol* HoaMapUI::makeBindSymbol(t_symbol* sym) const
+{
+    auto cnv = canvas_root(canvas());
+    if (!cnv || !sym || sym == &s_ || sym == s_null)
+        return nullptr;
+
+    char buf[MAXPDSTRING];
+    auto end = fmt::format_to(buf, "p{}_{}_{}", static_cast<const void*>(cnv), sym->s_name, ODD_BINDING_SUFFIX);
+    *end = '\0';
+    return gensym(buf);
 }
 
 void HoaMapUI::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
@@ -1042,7 +945,7 @@ void HoaMapUI::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 
     if (f_rect_selection_exist) {
         ulong indexOfNewGroup = 1;
-        for (auto it = f_manager->getFirstGroup(); it != f_manager->getLastGroup(); it++) {
+        for (auto it = f_manager->manager.getFirstGroup(); it != f_manager->manager.getLastGroup(); it++) {
             if (it->first != indexOfNewGroup)
                 break;
 
@@ -1055,12 +958,12 @@ void HoaMapUI::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
         double y2 = (((-f_rect_selection.y - f_rect_selection.h) / r.h * 2.) + 1.) / prop_zoom;
 
         bool newGroupCreated = false;
-        Source::Group* tmp = f_manager->getGroup(indexOfNewGroup);
+        auto tmp = f_manager->manager.getGroup(indexOfNewGroup);
         if (!tmp) {
-            tmp = f_manager->createGroup(indexOfNewGroup);
+            tmp = f_manager->manager.createGroup(indexOfNewGroup);
             newGroupCreated = true;
         }
-        for (Source::source_iterator it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
+        for (auto it = f_manager->manager.getFirstSource(); it != f_manager->manager.getLastSource(); it++) {
             t_pt screen_source_coord;
             if (f_coord_view == sym_xy()) {
                 screen_source_coord.x = it->second->getAbscissa();
@@ -1083,7 +986,7 @@ void HoaMapUI::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
         }
 
         if (newGroupCreated) {
-            if (!f_manager->addGroup(tmp)) {
+            if (!f_manager->manager.addGroup(tmp)) {
                 delete tmp;
             }
         }
@@ -1187,7 +1090,7 @@ void HoaMapUI::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
                     mouse_azimuth = mf::wrap_twopi(mf::azimuth(cursor.x, cursor.y));
                     mouse_azimuth_prev = mf::wrap_twopi(mf::azimuth(f_cursor_position.x, f_cursor_position.y));
 
-                    std::map<ulong, Source*>& sourcesOfGroup = f_selected_group->getSources();
+                    auto& sourcesOfGroup = f_selected_group->getSources();
                     for (auto it = sourcesOfGroup.begin(); it != sourcesOfGroup.end(); it++) {
                         source_display.x = it->second->getAbscissa();
                         source_display.y = it->second->getHeight();
@@ -1206,7 +1109,7 @@ void HoaMapUI::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
                     mouse_azimuth = mf::wrap_twopi(mf::azimuth(cursor.x, cursor.y));
                     mouse_azimuth_prev = mf::wrap_twopi(mf::azimuth(f_cursor_position.x, f_cursor_position.y));
 
-                    std::map<ulong, Source*>& sourcesOfGroup = f_selected_group->getSources();
+                    auto& sourcesOfGroup = f_selected_group->getSources();
                     for (auto it = sourcesOfGroup.begin(); it != sourcesOfGroup.end(); it++) {
                         source_display.x = it->second->getOrdinate();
                         source_display.y = it->second->getHeight();
@@ -1236,8 +1139,8 @@ void HoaMapUI::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
                     mouse_azimuth = mf::wrap_twopi(mf::azimuth(cursor.x, cursor.y));
                     mouse_azimuth_prev = mf::wrap_twopi(mf::azimuth(f_cursor_position.x, f_cursor_position.y));
 
-                    std::map<ulong, Source*>& sourcesOfGroup = f_selected_group->getSources();
-                    for (Source::source_iterator it = sourcesOfGroup.begin(); it != sourcesOfGroup.end(); it++) {
+                    auto& sourcesOfGroup = f_selected_group->getSources();
+                    for (auto it = sourcesOfGroup.begin(); it != sourcesOfGroup.end(); it++) {
                         source_display.x = it->second->getAbscissa();
                         source_display.y = it->second->getHeight();
                         source_radius = mf::radius(source_display.x, source_display.y);
@@ -1258,8 +1161,8 @@ void HoaMapUI::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
                     mouse_azimuth = mf::wrap_twopi(mf::azimuth(cursor.x, cursor.y));
                     mouse_azimuth_prev = mf::wrap_twopi(mf::azimuth(f_cursor_position.x, f_cursor_position.y));
 
-                    std::map<ulong, Source*>& sourcesOfGroup = f_selected_group->getSources();
-                    for (Source::source_iterator it = sourcesOfGroup.begin(); it != sourcesOfGroup.end(); it++) {
+                    auto& sourcesOfGroup = f_selected_group->getSources();
+                    for (auto it = sourcesOfGroup.begin(); it != sourcesOfGroup.end(); it++) {
                         source_display.x = it->second->getOrdinate();
                         source_display.y = it->second->getHeight();
                         source_radius = mf::radius(source_display.x, source_display.y);
@@ -1345,8 +1248,7 @@ void HoaMapUI::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
 void HoaMapUI::onMouseWheel(const t_pt& pt, long modifiers, float delta)
 {
     if (modifiers == EMOD_ALT) {
-        double newZoom = prop_zoom + delta / 100.;
-        prop_zoom = pd_clip_minmax(newZoom, MIN_ZOOM, MAX_ZOOM);
+        prop_zoom = clip<float>(prop_zoom + delta / 100., MIN_ZOOM, MAX_ZOOM);
 
         bg_layer_.invalidate();
         sources_.invalidate();
@@ -1365,7 +1267,7 @@ void HoaMapUI::showPopup(const t_pt& pt, const t_pt& abs_pt)
         menu.addItem("Remove Group", [this](const t_pt&) {
             AtomArray<3> data { f_selected_group->getIndex(), sym_mute(), 1 };
             listTo(GROUP_OUTLET, data.view());
-            f_manager->removeGroup(f_selected_group->getIndex());
+            f_manager->manager.removeGroup(f_selected_group->getIndex());
             updateAllAndOutput();
             return true;
         });
@@ -1373,7 +1275,7 @@ void HoaMapUI::showPopup(const t_pt& pt, const t_pt& abs_pt)
             f_selected_group->setMute(true);
             output();
             sendBindedMapUpdate(BMAP_OUTPUT);
-            f_manager->removeGroupWithSources(f_selected_group->getIndex());
+            f_manager->manager.removeGroupWithSources(f_selected_group->getIndex());
             updateAllAndOutput();
             return true;
         });
@@ -1398,7 +1300,7 @@ void HoaMapUI::showPopup(const t_pt& pt, const t_pt& abs_pt)
         menu.addItem("Remove source", [this](const t_pt& pos) {
             AtomArray<3> data { f_selected_source->getIndex(), sym_mute(), 1 };
             listTo(SOURCE_OUTLET, data.view());
-            f_manager->removeSource(f_selected_source->getIndex());
+            f_manager->manager.removeSource(f_selected_source->getIndex());
             updateAllAndOutput();
             return true;
         });
@@ -1423,13 +1325,13 @@ void HoaMapUI::showPopup(const t_pt& pt, const t_pt& abs_pt)
         menu.addSeparator();
         menu.addItem("Add source", [this](const t_pt&) {
             ulong index = 1;
-            for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
+            for (auto it = f_manager->manager.getFirstSource(); it != f_manager->manager.getLastSource(); it++) {
                 if (it->first != index)
                     break;
                 index++;
             }
 
-            f_manager->newSource(index);
+            f_manager->manager.newSource(index);
 
             updateAllAndOutput();
             return true;
@@ -1471,14 +1373,14 @@ void HoaMapUI::interpPreset(t_float idx)
 void HoaMapUI::m_clear_all(const AtomListView& lv)
 {
     // mute all source and output before clearing them to notify hoa.#.map~
-    for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++)
+    for (auto it = f_manager->manager.getFirstSource(); it != f_manager->manager.getLastSource(); it++)
         it->second->setMute(true);
 
     output();
     sendBindedMapUpdate(BMAP_OUTPUT);
 
     // now we can clear, then notify, output and redraw all maps
-    f_manager->clear();
+    f_manager->manager.clear();
 
     ebox_notify(asEBox(), sym_modified());
     sources_.invalidate();
@@ -1516,8 +1418,23 @@ void HoaMapUI::m_set_zoom(const AtomListView& lv)
 
 void HoaMapUI::m_set_bind(const AtomListView& lv)
 {
+    using SharedManagerWeak = std::weak_ptr<HoaManagerData>;
+
+    static std::unordered_map<t_symbol*, SharedManagerWeak> map_;
+
     if (!lv.isSymbol()) {
-        linkmapRemoveWithBindingName(f_binding_name);
+        auto bind_sym = makeBindSymbol(f_binding_name);
+        if (bind_sym) {
+            auto it = map_.find(bind_sym);
+            if (it != map_.end()) {
+                if (!it->second.expired()) { // make clone
+                    f_manager->unsubscribe(this);
+                    f_manager = f_manager->clone();
+                    f_manager->subscribe(this);
+                }
+            }
+        }
+
         f_binding_name = s_null;
         return;
     }
@@ -1525,18 +1442,37 @@ void HoaMapUI::m_set_bind(const AtomListView& lv)
     auto new_binding_name = lv.asSymbol();
 
     if (new_binding_name != f_binding_name) {
-        linkmapRemoveWithBindingName(f_binding_name);
-        if (new_binding_name != &s_ || new_binding_name != s_null) {
-            linkmapAddWithBindingName(new_binding_name);
-            f_binding_name = new_binding_name;
-        } else {
-            f_binding_name = s_null;
+        auto bind_sym = makeBindSymbol(f_binding_name);
+        if (bind_sym) { // detach from old
+            auto it = map_.find(bind_sym);
+            if (it != map_.end()) {
+                if (!it->second.expired()) { // make clone
+                    f_manager->unsubscribe(this);
+                    f_manager = f_manager->clone();
+                    f_manager->subscribe(this);
+                }
+            }
         }
 
-        sources_.invalidate();
-        groups_.invalidate();
-        redraw();
-        output();
+        f_binding_name = s_null;
+
+        bind_sym = makeBindSymbol(new_binding_name);
+        if (bind_sym) { // bind to new
+            auto it = map_.find(bind_sym);
+            if (it == map_.end() || it->second.expired()) {
+                map_[bind_sym] = f_manager;
+            } else {
+                f_manager = it->second.lock();
+                f_manager->subscribe(this);
+            }
+
+            f_binding_name = new_binding_name;
+
+            sources_.invalidate();
+            groups_.invalidate();
+            redraw();
+            output();
+        }
     }
 }
 

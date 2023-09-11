@@ -19,17 +19,19 @@
 #include "Hoa_Source.hpp"
 
 #include <array>
+#include <forward_list>
 #include <map>
+#include <memory>
 
 namespace ceammc {
 
-struct t_linkmap;
+struct HoaManagerData;
+using SharedManager = std::shared_ptr<HoaManagerData>;
 
 class HoaMapUI : public UIObject {
     friend struct t_linkmap;
 
-    hoa::Source::Manager* f_manager;
-    hoa::Source::Manager* f_self_manager;
+    SharedManager f_manager;
 
     hoa::Source* f_selected_source;
     hoa::Source::Group* f_selected_group;
@@ -41,8 +43,6 @@ class HoaMapUI : public UIObject {
     t_pt f_cursor_position;
 
     t_rect f_rect_selection;
-
-    t_linkmap* f_listmap;
 
     UILayer sources_, groups_, selection_;
     float prop_zoom;
@@ -96,12 +96,11 @@ private:
     void drawGroups();
     void output();
 
-    void linkmapAddWithBindingName(t_symbol* name);
-    void linkmapRemoveWithBindingName(t_symbol* binding_name);
     void sendBindedMapUpdate(long flags);
     void selectElement(const t_pt& pt);
 
     void updateAllAndOutput();
+    t_symbol* makeBindSymbol(t_symbol* sym) const;
 };
 
 }
