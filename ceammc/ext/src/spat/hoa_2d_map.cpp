@@ -154,7 +154,7 @@ void Hoa2dMap::setPolar(int idx, t_float r, t_float azimuth)
         return;
 
     lines_->setRadius(idx - 1, r);
-    lines_->setAzimuth(idx - 1, azimuth - M_PI_2);
+    lines_->setAzimuth(idx - 1, azimuth);
 }
 
 void Hoa2dMap::setMute(int idx, bool value)

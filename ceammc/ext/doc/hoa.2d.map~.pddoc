@@ -23,6 +23,7 @@
             <par>Encodes several sources in the circular harmonics domain with distance
             compensation and muting system</par>
             <par>If nsrc==1 radius and angle controlled with signal values</par>
+            <par>Note: source indexes are 1-based.</par>
             <a href="hoa/hoa.2d.map~-help.pd">CICM documentation</a>
         </info>
         <arguments>
@@ -40,11 +41,11 @@
         <methods>
             <!-- mute -->
             <method name="mute">mute/unmute specified source 
-            <param name="IDX" type="int" required="true" minvalue="0">source index</param>
+            <param name="IDX" type="int" required="true" minvalue="1">source index. 1-based</param>
             <param name="STATE" type="int" required="true" enum="0 1">mute value</param></method>
             <!-- polar -->
             <method name="polar">set source mapping in polar coordinates 
-            <param name="IDX" type="int" required="true" minvalue="0">source index</param>
+            <param name="IDX" type="int" required="true" minvalue="1">source index. 1-based</param>
             <param name="RAD" type="float" required="true" minvalue="0" maxvalue="1">radius</param>
             <param name="ANG" type="float" required="true" minvalue="0" maxvalue="2π"
             units="radian">rotation angle</param></method>
@@ -52,6 +53,7 @@
         <inlets dynamic="true">
             <inlet type="audio">
                 <xinfo>first source input</xinfo>
+                <xinfo on="list">SRC_IDX polar RADIUS AZIMUTH or SRC_IDX mute VALUE</xinfo>
             </inlet>
             <inlet type="audio" number="...">
                 <xinfo>... source input</xinfo>
@@ -90,19 +92,19 @@
 
 /*multiple sources: control via properties*/
 
-[msg.onload        ] /*use Alt+drag to fix radius value*/
-|                  |
-[ui.polar #a]      [ui.polar #b]
-|                  |
-|                  |
-|                  |
-|                  |                 [ui.hrd @nitems 2 @mode 1 @size 41 20]
-|                  |                 |
-|                  |                 [0 $1, 1 $2(
-|                  |                 |
-[msg polar 0 #c]   [msg polar 1 #d]  [msg mute #e]
+[msg.onload 1 1.57] [msg.onload 1 -1.57]
+|                   |
+[ui.polar #a]       [ui.polar #b]    /*use Alt+drag to fix radius value*/
+|                   |
+|                   |
+|                   |
+|                   |                 [ui.hrd @nitems 2 @mode 1]
+|                   |                 |
+|                   |                 [1 $1, 2 $2(
+|                   |                 |
+[msg polar 1 #c]    [msg polar 2 #d]  [msg mute #e]
 
- [sig~ 1]        [sig~ -1]
+ [sig~ 1]        [sig~ -1]            [hoa.map.ui {o=3} #f]
  |               |.
 [hoa.2d.map~ 7 2 {w=23,i=3,o=15} #z]
 *|*
@@ -123,8 +125,9 @@
 [X c->z]
 [X d->z]
 [X e->z]
-#a @clockwise 0 @direction E @radians 1 @angle 0 @radius 0.5
-#b @clockwise 0 @direction E @radians 1 @angle -3.1415 @radius 0.5
+[X f->z]
+#a @clockwise 0 @direction N @radians 1 @radius 0.5
+#b @clockwise 0 @direction N @radians 1 @radius 0.5
 ]]>
             </pdascii>
         </example>
