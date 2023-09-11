@@ -27,25 +27,30 @@ static const float HOA_CONTRAST_LIGHTER = 0.2;
 constexpr size_t SOURCE_OUTLET = 0;
 constexpr size_t GROUP_OUTLET = 1;
 
-CEAMMC_DEFINE_SYM_HASH(polar);
-CEAMMC_DEFINE_SYM_HASH(pol);
-CEAMMC_DEFINE_SYM_HASH(radius);
+CEAMMC_DEFINE_SYM_HASH(abscissa);
 CEAMMC_DEFINE_SYM_HASH(azimuth);
-CEAMMC_DEFINE_SYM_HASH(elevation);
 CEAMMC_DEFINE_SYM_HASH(car);
 CEAMMC_DEFINE_SYM_HASH(cartesian);
-CEAMMC_DEFINE_SYM_HASH(abscissa);
-CEAMMC_DEFINE_SYM_HASH(ordinate);
+CEAMMC_DEFINE_SYM_HASH(description);
+CEAMMC_DEFINE_SYM_HASH(elevation);
+CEAMMC_DEFINE_SYM_HASH(group);
 CEAMMC_DEFINE_SYM_HASH(height);
-CEAMMC_DEFINE_SYM_HASH(remove);
+CEAMMC_DEFINE_SYM_HASH(modified);
 CEAMMC_DEFINE_SYM_HASH(mute);
+CEAMMC_DEFINE_SYM_HASH(ordinate);
+CEAMMC_DEFINE_SYM_HASH(pol);
+CEAMMC_DEFINE_SYM_HASH(polar);
+CEAMMC_DEFINE_SYM_HASH(radius);
+CEAMMC_DEFINE_SYM_HASH(relazimuth);
+CEAMMC_DEFINE_SYM_HASH(relelevation);
+CEAMMC_DEFINE_SYM_HASH(relpolar);
+CEAMMC_DEFINE_SYM_HASH(relradius);
+CEAMMC_DEFINE_SYM_HASH(remove);
+CEAMMC_DEFINE_SYM_HASH(set);
+CEAMMC_DEFINE_SYM_HASH(source);
 CEAMMC_DEFINE_SYM_HASH(xy);
 CEAMMC_DEFINE_SYM_HASH(xz);
 CEAMMC_DEFINE_SYM_HASH(yz);
-CEAMMC_DEFINE_SYM_HASH(description);
-CEAMMC_DEFINE_SYM_HASH(modified);
-CEAMMC_DEFINE_SYM_HASH(source);
-CEAMMC_DEFINE_SYM_HASH(group);
 
 namespace ceammc {
 
@@ -265,7 +270,8 @@ void Hoa2dMapUI::drawSources()
 
     p.setLineWidth(1);
 
-    UITextLayout jtl(&b_font);
+    std::vector<UITextLayout> jtl;
+    jtl.reserve(f_manager->getNumberOfSources());
 
     for (auto it = f_manager->getFirstSource(); it != f_manager->getLastSource(); it++) {
         if (f_coord_view == sym_xy()) {
@@ -292,12 +298,13 @@ void Hoa2dMapUI::drawSources()
         textDisplayPos.x = sourceDisplayPos.x - 2. * source_size;
         textDisplayPos.y = sourceDisplayPos.y - source_size - font_size - 1.;
 
-        jtl.setColor(sourceColor);
-        jtl.set(description, textDisplayPos.x, textDisplayPos.y, font_size * 10., font_size * 2.);
-        jtl.setWrap(false);
-        jtl.setAnchor(ETEXT_LEFT);
-        jtl.setJustify(ETEXT_JCENTER);
-        p.drawText(jtl);
+        jtl.push_back(UITextLayout(&b_font));
+        jtl.back().setColor(sourceColor);
+        jtl.back().set(description, textDisplayPos.x, textDisplayPos.y, font_size * 10., font_size * 2.);
+        jtl.back().setWrap(false);
+        jtl.back().setAnchor(ETEXT_LEFT);
+        jtl.back().setJustify(ETEXT_JCENTER);
+        p.drawText(jtl.back());
 
         if (f_selected_source && f_selected_source->getIndex() == it->first) {
             p.setColor(color_sel);
@@ -543,12 +550,11 @@ void Hoa2dMapUI::sendBindedMapUpdate(long flags)
                     groups_.invalidate();
                     redraw();
                 }
-                if (flags & BMAP_NOTIFY) {
+                if (flags & BMAP_NOTIFY)
                     ebox_notify(mapobj->asEBox(), sym_modified());
-                }
-                if (flags & BMAP_OUTPUT && f_output_enabled) {
+
+                if (flags & BMAP_OUTPUT && f_output_enabled)
                     mapobj->bangTo(0);
-                }
             }
 
             temp = temp->next;
@@ -556,14 +562,14 @@ void Hoa2dMapUI::sendBindedMapUpdate(long flags)
     }
 }
 
-void Hoa2dMapUI::isElementSelected(const t_pt& pt)
+void Hoa2dMapUI::selectElement(const t_pt& pt)
 {
-    auto rect = this->rect();
+    const auto r = rect();
 
     t_pt cursor, displayed_coords;
-    cursor.x = ((pt.x / rect.w * 2.) - 1.) / f_zoom_factor;
-    cursor.y = ((-pt.y / rect.h * 2.) + 1.) / f_zoom_factor;
-    double distanceSelected = ebox_getfontsize(this->asEBox()) / (f_zoom_factor * 2. * rect.w);
+    cursor.x = ((pt.x / r.w * 2.) - 1.) / f_zoom_factor;
+    cursor.y = ((-pt.y / r.h * 2.) + 1.) / f_zoom_factor;
+    double distanceSelected = fontSize() / (f_zoom_factor * 2. * r.w);
 
     f_cursor_position.x = cursor.x;
     f_cursor_position.y = cursor.y;
@@ -623,7 +629,7 @@ void Hoa2dMapUI::ctl_source(const AtomListView& lv)
 
     int causeOutput = 1;
     if (index > 0) {
-        hoa::Source* tmp = f_manager->newSource(ulong(index));
+        auto tmp = f_manager->newSource(ulong(index));
 
         if (param == sym_polar() || param == sym_pol()) {
             if (lv.size() >= 5 && lv[2].isFloat() && lv[3].isFloat() && lv[4].isFloat())
@@ -705,12 +711,6 @@ void Hoa2dMapUI::ctl_source(const AtomListView& lv)
         sendBindedMapUpdate(BMAP_REDRAW | BMAP_NOTIFY);
     }
 }
-
-CEAMMC_DEFINE_SYM_HASH(set);
-CEAMMC_DEFINE_SYM_HASH(relpolar);
-CEAMMC_DEFINE_SYM_HASH(relradius);
-CEAMMC_DEFINE_SYM_HASH(relazimuth);
-CEAMMC_DEFINE_SYM_HASH(relelevation);
 
 void Hoa2dMapUI::ctl_group(const AtomListView& lv)
 {
@@ -873,9 +873,7 @@ void Hoa2dMapUI::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt,
     f_rect_selection_exist = -1;
     f_rect_selection.w = f_rect_selection.h = 0.;
 
-    isElementSelected(pt);
-
-    UI_ERR << __FUNCTION__;
+    selectElement(pt);
 
     if (!f_selected_source && !f_selected_group) {
         f_rect_selection.x = pt.x;
@@ -1175,7 +1173,7 @@ void Hoa2dMapUI::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 
 void Hoa2dMapUI::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
 {
-    isElementSelected(pt);
+    selectElement(pt);
 
     if (f_selected_source || f_selected_group)
         setCursor(t_cursor::ECURSOR_CIRCLE);

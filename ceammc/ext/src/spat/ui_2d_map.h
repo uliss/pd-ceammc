@@ -101,7 +101,7 @@ private:
     void linkmapAddWithBindingName(t_symbol* name);
     void linkmapRemoveWithBindingName(t_symbol* binding_name);
     void sendBindedMapUpdate(long flags);
-    void isElementSelected(const t_pt& pt);
+    void selectElement(const t_pt& pt);
     void ctl_source(const AtomListView& lv);
     void ctl_group(const AtomListView& lv);
 };
