@@ -6,8 +6,6 @@ if(WITH_DOUBLE_PRECISION)
     add_definitions(-DFAUSTFLOAT=double)
 endif()
 
-add_compile_options(-Wno-deprecated-builtins)
-
 # do no use pd macroses in our code
 add_definitions(-DPD_CLASS_DEF)
 

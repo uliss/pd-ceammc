@@ -25,7 +25,6 @@ option(WITH_VEROVIO  "Build with Verovio music notation render" ON)
 
 if(UNIX)
     option(WITH_ASAN "Build with address sanitizer" OFF)
-    option(WITH_PD_ASAN "Build with address sanitizer for PureData core" OFF)
     option(WITH_PROFILE "Build with gprof support" OFF)
 endif()
 
