@@ -28,6 +28,7 @@ using ColorA = ColorAtom;
 TEST_CASE("color.scale", "[externals]")
 {
     pd_test_init();
+    auto t = DataTypeColor::staticType();
 
     SECTION("create")
     {
