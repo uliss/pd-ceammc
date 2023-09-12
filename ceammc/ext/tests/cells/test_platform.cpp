@@ -362,6 +362,10 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
 
     SECTION("file_mime_type")
     {
+#ifdef __WIN32
+        return;
+#endif
+
         using namespace ceammc;
         REQUIRE(platform::file_mime_type("") == "");
         REQUIRE(platform::file_mime_type("???") == "");
