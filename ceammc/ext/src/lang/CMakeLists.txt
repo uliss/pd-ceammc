@@ -5,7 +5,7 @@ target_include_directories(ceammc_lang
 
 set(FAUST_SEPARATE_EXTERNAL OFF)
 if(APPLE)
-    set(FAUST_SEPARATE_EXTERNAL ON)
+#    set(FAUST_SEPARATE_EXTERNAL ON)
 endif()
 
 if(WITH_FAUST)
