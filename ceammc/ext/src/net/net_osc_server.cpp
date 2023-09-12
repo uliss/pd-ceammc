@@ -83,7 +83,8 @@ namespace net {
             OBJ_ERR << fmt::format("can't create server '{}': {}", name, to_string(url));
         } else {
             server_->setDumpAll(dump_->value());
-            srv_list.registerServer(name, server_);
+            if (!srv_list.registerServer(name, server_))
+                OBJ_ERR << fmt::format("server already registered '{}': {}", name, to_string(url));
 
             if (auto_start_->value())
                 server_->start(true);

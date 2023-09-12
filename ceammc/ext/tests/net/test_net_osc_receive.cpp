@@ -179,4 +179,25 @@ TEST_CASE("net.osc.receive", "[externals]")
         send.call("send", LA("/x", 10, 20, 30));
         REQUIRE_OSC_NO_RECV(t);
     }
+
+    SECTION("update server")
+    {
+        TExt send("net.osc.send", LA("osc.udp://localhost:9013"));
+        poll_ms(POLL_DEFAULT);
+        TExt t("net.osc.receive", "/x", "test:update0");
+        poll_ms(POLL_DEFAULT);
+
+        {
+            TExt s("net.osc.server", "test:update0", "osc.udp://:9013");
+            poll_ms(POLL_DEFAULT);
+
+            send.call("send", LA("/x", "ABC", 1));
+            REQUIRE_OSC_SEND_LIST(t, LA("ABC", 1));
+            t.clearAll();
+            poll_ms(POLL_DEFAULT);
+        }
+
+        send.call("send", LA("/x", "ABC", 1));
+        REQUIRE_OSC_NO_RECV(t);
+    }
 }

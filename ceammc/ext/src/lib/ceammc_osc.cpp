@@ -14,6 +14,7 @@
 #include "ceammc_osc.h"
 #include "ceammc_crc32.h"
 #include "ceammc_format.h"
+#include "ceammc_pd.h"
 #include "ceammc_poll_dispatcher.h"
 #include "fmt/core.h"
 
@@ -557,15 +558,6 @@ namespace osc {
     //            return {};
     //    }
 
-    bool OscServerList::start(const char* name, bool value)
-    {
-        auto wosc = findByName(name);
-        if (!wosc.expired())
-            return wosc.lock()->start(value);
-        else
-            return false;
-    }
-
     bool OscServerList::registerServer(const char* name, const OscServerPtr& wptr)
     {
         if (wptr.expired())
@@ -577,6 +569,14 @@ namespace osc {
             return false;
 
         servers_.push_back(Entry { wptr, hash, 0 });
+
+        auto x = gensym(OSC_DISPATCHER);
+        if (x->s_thing) {
+            auto s = gensym(OSC_METHOD_UPDATE);
+            Atom a(gensym(name));
+            pd::message_to(x->s_thing, s, a);
+        }
+
         return true;
     }
 

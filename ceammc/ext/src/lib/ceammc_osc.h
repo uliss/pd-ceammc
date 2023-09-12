@@ -294,7 +294,6 @@ namespace osc {
         OscServerPtr findByName(t_symbol* name) { return findByName(name->s_name); }
         OscServerPtr findByName(const char* name);
 
-        bool start(const char* name, bool value);
         bool registerServer(const char* name, const OscServerPtr& wptr);
         bool unregisterServer(const char* name);
 
