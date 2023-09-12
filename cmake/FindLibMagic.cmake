@@ -21,7 +21,7 @@ find_path(LIBMAGIC_INCLUDE_DIR
       /opt/local/include)
 
 find_library(LIBMAGIC_LIBRARY
-    NAMES magic libmagic
+    NAMES magic libmagic libmagic-1
     HINTS ${PKGCONFIG_LIBMAGIC_LIBDIR} ${PKGCONFIG_LIBMAGIC_LIBRARY_DIRS}
     PATH_SUFFIXES lib lib/arm-linux-gnueabihf
     PATHS

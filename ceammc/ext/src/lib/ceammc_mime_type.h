@@ -19,13 +19,15 @@
 #include <mutex>
 #include <string>
 
+typedef struct magic_set *magic_t;
+
 namespace ceammc {
 
 /**
  * thread safe MimeTypeChecker
  */
 class MimeTypeChecker {
-    void* impl_ { nullptr };
+    magic_t impl_ { nullptr };
     std::mutex mtx_;
 
 public:

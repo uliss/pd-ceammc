@@ -299,7 +299,7 @@ if(WITH_LIBSAMPLERATE)
 endif()
 
 find_package(LibMagic)
-if(LibMagic_FOUND)
+if(LibMagic_FOUND AND NOT WIN32) # strange crash in windows
     target_include_directories(ceammc_core PRIVATE ${LIBMAGIC_INCLUDE_DIRS})
     target_link_libraries(ceammc_core PRIVATE ${LIBMAGIC_LIBRARIES})
     target_compile_definitions(ceammc_core PRIVATE WITH_LIBMAGIC)

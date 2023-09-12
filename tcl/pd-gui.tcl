@@ -385,8 +385,8 @@ proc init_for_platform {} {
         }
         "win32" {
             # ceammc dpi fix
-            set dpi [expr {[winfo screenwidth .]/double($physical_screenwidth_inch)}]
-            tk scaling [expr {$dpi/72.0}]
+#            set dpi [expr {[winfo screenwidth .]/double($physical_screenwidth_inch)}]
+#            tk scaling [expr {$dpi/72.0}]
             # ceammc end
             set ::modifier "Control"
             option add *PatchWindow*Canvas.background "white" startupFile

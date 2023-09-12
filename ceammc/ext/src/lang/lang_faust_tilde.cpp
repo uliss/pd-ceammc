@@ -332,11 +332,13 @@ void LangFaustTilde::editorSync()
 
 bool LangFaustTilde::proto_read(const std::string& path)
 {
+#ifdef WITH_MAGIC
     auto mime_type = MimeTypeLibrary::instance().mimeType(path.c_str());
     if (!string::starts_with(mime_type, "text/")) {
         OBJ_ERR << "Faust source code expected";
         return false;
     }
+#endif
 
     auto res = fs::readFileLines(path.c_str(),
         [this](size_t n, const std::string& line) {
