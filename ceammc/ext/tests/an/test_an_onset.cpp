@@ -12,13 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "an_aubio_onset_tilde.h"
-#include "ceammc_format.h"
 #include "test_external.h"
 #include "test_sound.h"
-
-extern "C" {
-#include "s_stuff.h"
-}
 
 PD_COMPLETE_SND_TEST_SETUP(AubioOnsetTilde, an, onset_tilde)
 

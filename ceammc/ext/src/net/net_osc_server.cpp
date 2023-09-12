@@ -41,10 +41,11 @@ namespace net {
         addProperty(url_);
 
         dump_ = new BoolProperty("@dump", false);
-        dump_->setSuccessFn([this](Property*) {
+        Property::PropSuccessFn fn = [this](Property*) {
             if (server_ && server_->isValid())
                 server_->setDumpAll(dump_->value());
-        });
+        };
+        dump_->setSuccessFn(fn);
         addProperty(dump_);
 
         auto_start_ = new BoolProperty("@auto_start", true);

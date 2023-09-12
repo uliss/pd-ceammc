@@ -24,7 +24,7 @@ namespace ceammc {
 
 class DispatcherImpl {
 public:
-    virtual ~DispatcherImpl() { }
+    virtual ~DispatcherImpl();
     virtual bool send(const NotifyMessage& msg) = 0;
     virtual bool recv(NotifyMessage& msg, int fd) = 0;
     virtual int inSocket() const = 0;

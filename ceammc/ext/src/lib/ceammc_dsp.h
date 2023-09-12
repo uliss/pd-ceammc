@@ -44,7 +44,7 @@ namespace dsp {
 
     class DelayIface {
     public:
-        virtual ~DelayIface() { }
+        virtual ~DelayIface();
         virtual uint32_t maxSize() const noexcept = 0;
         virtual uint32_t delay() const noexcept = 0;
         virtual bool setDelay(uint32_t delay) = 0;

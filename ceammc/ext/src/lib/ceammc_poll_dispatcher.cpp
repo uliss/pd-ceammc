@@ -80,7 +80,7 @@ void Dispatcher::dump() const
     }
 }
 
-Dispatcher &Dispatcher::instance()
+Dispatcher& Dispatcher::instance()
 {
     static Dispatcher instance_;
     return instance_;
@@ -111,3 +111,5 @@ bool Dispatcher::send(const NotifyMessage& msg)
 
     return impl_->send(msg);
 }
+
+DispatcherImpl::~DispatcherImpl() { }

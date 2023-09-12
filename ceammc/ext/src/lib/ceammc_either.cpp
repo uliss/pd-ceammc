@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2021 Serge Poltavsky. All rights reserved.
+ * Copyright 2023 Serge Poltavski. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -11,31 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ceammc_dsp.h"
+#include "ceammc_either.h"
 
-#include <cmath>
-
-namespace ceammc {
-
-namespace dsp {
-
-    constexpr long double operator""__2(long double v)
-    {
-        return v * v;
-    }
-
-    double curves::a_weight(double f)
-    {
-        const auto f2 = f * f;
-        const auto f4 = f2 * f2;
-
-        return (12194 * 12194 * f4) / ( //
-                   (f2 + 20.6 * 20.6) //
-                   * std::sqrt((f2 + 107.7 * 107.7) * (f2 + 737.9 * 737.9)) //
-                   * (f2 + 12194 * 12194) //
-               );
-    }
-
-    DelayIface::~DelayIface() { }
-}
-}
+// for vtable in library
+ceammc::RuntimeError::~RuntimeError() { }

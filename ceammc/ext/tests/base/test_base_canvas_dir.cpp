@@ -52,8 +52,6 @@ TEST_CASE("canvas.dir", "[externals]")
         t.bang();
         REQUIRE_FLOAT_AT_OUTLET(1, t, 1);
         REQUIRE_SYMBOL_AT_OUTLET(0, t, TEST_DATA_DIR);
-
-        canvas_unset_current(sub->pd_canvas());
     }
 
     SECTION("abstraction 0")

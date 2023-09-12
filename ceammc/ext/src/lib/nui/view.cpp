@@ -310,5 +310,9 @@ namespace ui {
         }
     }
 
+    ViewImplVptr::~ViewImplVptr()
+    {
+    }
+
 }
 }

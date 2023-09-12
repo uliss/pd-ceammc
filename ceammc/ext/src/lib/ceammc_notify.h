@@ -12,7 +12,7 @@ namespace ceammc {
  */
 class NotifiedObject {
 public:
-    virtual ~NotifiedObject() { }
+    virtual ~NotifiedObject();
     virtual bool notify(int code) = 0;
 };
 

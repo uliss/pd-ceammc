@@ -63,8 +63,9 @@ set(CEAMMC_LIB_SOURCES
     ceammc_deprecated.cpp
     ceammc_dsp.cpp
     ceammc_editor_object.cpp
+    ceammc_either.cpp
     ceammc_externals.cpp
-    ceammc_factory.h
+    ceammc_factory.cpp
     ceammc_faust.cpp
     ceammc_faust_ui.cpp
     ceammc_filesystem.cpp

@@ -35,7 +35,7 @@ public:
     {
     }
 
-    virtual ~RuntimeError() {}
+    virtual ~RuntimeError();
 
     const std::string& what() const { return msg_; }
 };

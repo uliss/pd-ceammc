@@ -46,10 +46,8 @@ namespace net {
 
         types_ = new SymbolProperty("@types", gensym(str_none));
         types_->setArgIndex(2);
-        types_->setSymbolCheckFn([this](t_symbol* s) -> bool {
-            return validOscTypeString(s->s_name);
-        },
-            "invalid type string");
+        Property::PropSymbolCheckFn fn = [this](t_symbol* s) -> bool { return validOscTypeString(s->s_name); };
+        types_->setSymbolCheckFn(fn, "invalid type string");
         addProperty(types_);
 
         bindReceive(gensym(OSC_DISPATCHER));
@@ -71,10 +69,11 @@ namespace net {
     bool NetOscReceive::subscribe(const OscServerList::OscServerPtr& osc, t_symbol* path)
     {
         if (!osc.expired() && osc.lock()->isValid() && path != &s_) {
-            osc.lock()->subscribeMethod(path->s_name, types(), subscriberId(),
-                [this](const OscRecvMessage& m) -> bool {
-                    return pipe_.try_enqueue(m);
-                });
+            osc::OscMethodFn fn = [this](const OscRecvMessage& m) -> bool {
+                return pipe_.try_enqueue(m);
+            };
+
+            osc.lock()->subscribeMethod(path->s_name, types(), subscriberId(), fn);
 
             OBJ_LOG << fmt::format("[osc] #{} subscribed to {} at \"{}\"", subscriberId(), path->s_name, osc.lock()->name());
             return true;
@@ -102,13 +101,14 @@ namespace net {
     {
         subscribe(OscServerList::instance().findByName(server_->value()), path_->value());
 
-        path_->setSymbolCheckFn([this](t_symbol* new_path) -> bool {
+        Property::PropSymbolCheckFn fn = [this](t_symbol* new_path) -> bool {
             auto osc = OscServerList::instance().findByName(server_->value());
             if (!unsubscribe(osc, path_->value()))
                 return false;
 
             return subscribe(osc, new_path);
-        });
+        };
+        path_->setSymbolCheckFn(fn);
     }
 
     bool NetOscReceive::notify(int code)

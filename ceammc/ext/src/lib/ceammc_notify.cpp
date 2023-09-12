@@ -37,4 +37,8 @@ void ThreadNotify::waitFor(int ms)
     notify_.wait_for(lock, std::chrono::milliseconds(ms));
 }
 
+NotifiedObject::~NotifiedObject()
+{
+}
+
 }

@@ -58,10 +58,13 @@ enum ObjectFactoryFlags : uint32_t {
     OBJECT_FACTORY_PARSE_POS_PROPS = 0x1000, // process positional properties
 };
 
+struct ObjectInitVptr {
+    virtual ~ObjectInitVptr();
+};
+
 template <typename T>
-class ObjectInitT {
+class ObjectInitT : public ObjectInitVptr {
 public:
-    virtual ~ObjectInitT() { }
     virtual void init(T* obj) = 0;
 };
 
