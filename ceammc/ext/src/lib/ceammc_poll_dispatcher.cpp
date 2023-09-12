@@ -62,7 +62,7 @@ bool Dispatcher::notify(SubscriberId id, int t)
 
 void Dispatcher::pollFn(void* x, int fd)
 {
-    Dispatcher* dp = static_cast<Dispatcher*>(x);
+    auto dp = static_cast<Dispatcher*>(x);
 
     NotifyMessage msg;
     if (!dp->impl_->recv(msg, fd))
@@ -70,6 +70,20 @@ void Dispatcher::pollFn(void* x, int fd)
 
     if (!dp->notify(msg.id, msg.event))
         LIB_ERR << MSG_PREFIX "subscriber not found #" << msg.id;
+}
+
+void Dispatcher::dump() const
+{
+    std::cerr << "Dispatcher: \n";
+    for (auto& x : subscribers_) {
+        std::cerr << fmt::format("\t{} #{}\n", (void*)x.obj, x.id);
+    }
+}
+
+Dispatcher &Dispatcher::instance()
+{
+    static Dispatcher instance_;
+    return instance_;
 }
 
 void Dispatcher::subscribe(NotifiedObject* x, SubscriberId id)
