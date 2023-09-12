@@ -693,7 +693,8 @@ namespace osc {
                             }
                         }
 
-                        notify_.waitFor(100);
+                        if (!quit_)
+                            notify_.waitFor(100);
 
                     } catch (std::exception& e) {
                         std::cerr << "[osc_send]  exception: " << e.what();
@@ -707,7 +708,16 @@ namespace osc {
     OscSendWorker::~OscSendWorker()
     {
         quit_ = true;
-        future_.get();
+        if (!future_.valid())
+            return;
+
+        while (true) {
+            auto st = future_.wait_for(std::chrono::milliseconds(100));
+            if (st == std::future_status::ready)
+                break;
+
+            LIB_ERR << "waiting OscSendWorker thread to stop ...";
+        }
     }
 
     OscSendWorker& OscSendWorker::instance()
