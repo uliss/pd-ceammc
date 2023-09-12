@@ -146,7 +146,7 @@ if(WIN32)
 endif()
 
 add_custom_target(ceammc_distrib_win_sources SOURCES
-    fix_dll_deps.sh
+    fix_dll_deps.py
     make_lib_win.sh
     win_fix_pddoc_key_modifiers.sh
     install_external.sh
