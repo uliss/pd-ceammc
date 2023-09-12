@@ -73,7 +73,7 @@ namespace net {
         if (osc.expired()) {
             t_symbol* str_url = &s_;
             if (url_->isProtoPortAddr()) {
-                server_.reset(new osc::OscServer(name, 19090, osc::OSC_PROTO_UDP));
+                server_.reset(new osc::OscServer(name, url_->port(), url_->proto()));
                 srv_list.registerServer(name, server_);
             } else if (url_->isUrlAddr() && url_->value().getSymbol(&str_url)) {
                 server_.reset(new osc::OscServer(name, str_url->s_name));

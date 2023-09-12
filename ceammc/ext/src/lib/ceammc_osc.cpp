@@ -340,7 +340,7 @@ namespace osc {
         if (!lo_)
             return false;
 
-        if (value) {
+        if (value && !is_running_) {
             auto rc = lo_server_thread_start(lo_);
             LIB_LOG << fmt::format("[osc] server started: \"{}\" at {} [{}]", name_, hostname(), rc);
             if (rc == 0) {
@@ -348,7 +348,7 @@ namespace osc {
                 return true;
             } else
                 return false;
-        } else {
+        } else if (!value && is_running_) {
             auto rc = lo_server_thread_stop(lo_);
             LIB_LOG << fmt::format("[osc] server stopped: \"{}\" at {} [{}]", name_, hostname(), rc);
             if (rc == 0) {
@@ -356,7 +356,8 @@ namespace osc {
                 return true;
             } else
                 return false;
-        }
+        } else
+            return true;
     }
 
     bool OscServer::isValid() const
@@ -538,25 +539,6 @@ namespace osc {
         } else
             return it->wosc;
     }
-
-    //    OscServerList::OscServerPtr OscServerList::addToList(const OscServerPtr& osc)
-    //    {
-    //        if (osc && osc->isValid()) {
-    //            servers_.push_front({ osc, 0 });
-
-    //            auto res = servers_.front().first;
-
-    //            auto x = gensym(OSC_DISPATCHER);
-    //            if (x->s_thing) {
-    //                auto s = gensym(OSC_METHOD_UPDATE);
-    //                Atom a(gensym(res->name().c_str()));
-    //                pd::message_to(x->s_thing, s, a);
-    //            }
-
-    //            return res;
-    //        } else
-    //            return {};
-    //    }
 
     bool OscServerList::registerServer(const char* name, const OscServerPtr& wptr)
     {
