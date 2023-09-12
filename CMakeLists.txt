@@ -77,6 +77,7 @@ endif()
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99")
 enable_language(CXX C)
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
@@ -90,13 +91,7 @@ include(PdPlatform)
 include(PdExternal)
 find_package(Gettext)
 #find_package(LibUSB)
-include(config)
-include(sound)
 include(cmake_uninstall)
-
-if(WITH_PD_INSTANCE)
-    add_definitions(-DPD_INSTANCE)
-endif()
 
 if(WITH_CLANG_TIDY)
     find_program(CLANG_TIDY_COMMAND NAMES clang-tidy)

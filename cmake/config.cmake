@@ -44,31 +44,6 @@ check_function_exists(nanosleep HAVE_NANOSLEEP)
 check_function_exists(setenv HAVE_SETENV)
 check_symbol_exists(ffs "strings.h" HAVE_FFS)
 
-if(WITH_FLUIDSYNTH)
-    find_package(GLIB REQUIRED)
-    if(GLIB_FOUND)
-        set(CEAMMC_HAVE_FLUIDSYNTH ON)
-        #include paths
-        list(APPEND FLUIDSYNTH_INCLUDES
-            ${GLIB_INCLUDES}
-            ${PROJECT_BINARY_DIR}/ceammc/extra/fluidsynth
-            ${PROJECT_SOURCE_DIR}/ceammc/extra/fluidsynth/fluidsynth/include)
-        # libs
-        list(APPEND FLUIDSYNTH_LIBRARIES fluidsynth ${GLIB_LIBRARIES})
-    else()
-        message(FATAL "Glib is not found: no fluidsynth build")
-    endif()
-endif()
-
-if(WITH_TTS_FLITE)
-    set(CEAMMC_HAVE_TTS_FLITE ON)
-    #include paths
-    list(APPEND FLITE_INCLUDES
-        ${PROJECT_SOURCE_DIR}/ceammc/extra/speech/flite/include)
-    # libs
-    list(APPEND FLITE_LIBRARIES flite)
-endif()
-
 # 64bit arch
 if(CMAKE_SIZEOF_VOID_P EQUAL 8)
     check_type_size("long" LONG_INT_SIZE)
