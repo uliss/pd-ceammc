@@ -726,7 +726,7 @@ void HoaMapUI::m_group(const AtomListView& lv)
             } else if (f_coord_view == sym_xz()) {
                 t_pt source_display;
                 double source_radius, source_azimuth, aAngleOffset = lv.floatAt(2, 0);
-                std::map<ulong, Source*>& sourcesOfGroup = tmp->getSources();
+                auto& sourcesOfGroup = tmp->getSources();
                 for (auto it = sourcesOfGroup.begin(); it != sourcesOfGroup.end(); it++) {
                     source_display.x = it->second->getAbscissa();
                     source_display.y = it->second->getHeight();
@@ -740,7 +740,7 @@ void HoaMapUI::m_group(const AtomListView& lv)
             } else {
                 t_pt source_display;
                 double source_radius, source_azimuth, aAngleOffset = lv.floatAt(2, 0);
-                std::map<ulong, Source*>& sourcesOfGroup = tmp->getSources();
+                auto& sourcesOfGroup = tmp->getSources();
                 for (auto it = sourcesOfGroup.begin(); it != sourcesOfGroup.end(); it++) {
                     source_display.x = it->second->getOrdinate();
                     source_display.y = it->second->getHeight();
