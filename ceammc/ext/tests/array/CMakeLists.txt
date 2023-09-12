@@ -58,3 +58,5 @@ add_array_test(sum2)
 add_array_test(variance)
 add_array_test(vplay)
 add_array_test(window)
+
+set_source_files_properties(test_array_grain_expr.cpp PROPERTIES COMPILE_OPTIONS -Wno-deprecated-declarations)

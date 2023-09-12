@@ -8,6 +8,13 @@ endif()
 
 # do no use pd macroses in our code
 add_definitions(-DPD_CLASS_DEF)
+# needed for math constants in <math.h>: M_PI etc.
+add_definitions(-D_USE_MATH_DEFINES)
+
+set(CEAMMC_COMPILER_WARNING_FLAGS "-Wall -Wextra")
+if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(CEAMMC_COMPILER_WARNING_FLAGS "${CEAMMC_COMPILER_WARNING_FLAGS} -Wno-unused-function -Wcast-align -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wduplicate-enum -Wextra-semi -Wfloat-equal -Wlong-long -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wsign-conversion -Wsign-promo")
+endif()
 
 # debug warning flags
 if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug" AND NOT $ENV{TRAVIS})
@@ -16,17 +23,11 @@ endif()
 
 if(WITH_COVERAGE)
     if(APPLE)
-        if (NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU") # Clang or AppleClang
-            set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage")
-            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
-        endif()
+        add_compile_options(-fprofile-arcs)
+        add_compile_options(-ftest-coverage)
     else()
-        if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-            set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --coverage")
-            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
-            set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} --coverage")
-            set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
-        endif()
+        add_compile_options(--coverage)
+        add_link_options(--coverage)
     endif()
 endif()
 

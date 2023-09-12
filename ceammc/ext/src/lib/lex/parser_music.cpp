@@ -69,7 +69,7 @@ namespace  {
             if (data.size() > 7)
                 return false;
 
-            for (int i = 0; i < 7; i++)
+            for (int i = 0; i < data.size(); i++)
                 data_[i + 1] = *(data.begin() + i);
 
             data_[0] = data.size();

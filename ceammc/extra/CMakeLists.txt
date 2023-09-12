@@ -78,7 +78,17 @@ if(WITH_EXPERIMENTAL)
 endif()
 
 if(WITH_FLUIDSYNTH)
-    add_subdirectory(fluidsynth)
+    find_package(GLIB REQUIRED)
+    if(GLIB_FOUND)
+        #include paths
+        list(APPEND FLUIDSYNTH_INCLUDES
+            ${GLIB_INCLUDES}
+            ${PROJECT_BINARY_DIR}/ceammc/extra/fluidsynth
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/fluidsynth/fluidsynth/include)
+        # libs
+        list(APPEND FLUIDSYNTH_LIBRARIES fluidsynth ${GLIB_LIBRARIES})
+        add_subdirectory(fluidsynth)
+    endif()
 endif()
 
 if(WITH_TTS_FLITE)

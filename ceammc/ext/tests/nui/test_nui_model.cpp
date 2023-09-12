@@ -97,7 +97,6 @@ TEST_CASE("nui::model", "[nui]")
         TestModel bm(data(true, 100));
         BoolProperty bp("@test", false);
         REQUIRE(bp.value() == false);
-
         TestBoolPropObserver bo1(&bp, &bm);
 
         REQUIRE(bp.value() == false);

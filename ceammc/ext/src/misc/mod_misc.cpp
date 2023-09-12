@@ -1,7 +1,6 @@
 #include "mod_misc.h"
-#include "ceammc_config.h"
 
-#ifdef CEAMMC_HAVE_TTS_FLITE
+#ifdef WITH_TTS_FLITE
 #include "speech_flite.h"
 #include "speech_flite_tilde.h"
 #endif
@@ -36,7 +35,7 @@ void ceammc_misc_setup()
     setup_misc_modplug_tilde();
 #endif
 
-#ifdef CEAMMC_HAVE_FLUIDSYNTH
+#ifdef WITH_FLUIDSYNTH
     setup_misc_fluid();
 #endif
 
@@ -44,7 +43,7 @@ void ceammc_misc_setup()
     setup_misc_sfizz_tilde();
 #endif
 
-#ifdef CEAMMC_HAVE_TTS_FLITE
+#ifdef WITH_TTS_FLITE
     setup_misc_speech_flite();
     setup_misc_speech_filte_tilde();
 #endif

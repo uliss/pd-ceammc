@@ -224,6 +224,5 @@ add_custom_target(fluid_gen_tables DEPENDS "${CMAKE_CURRENT_BINARY_DIR}/fluid_co
 target_link_libraries(fluidsynth_make_table PRIVATE m)
 add_dependencies(fluidsynth fluid_gen_tables)
 
-if(UNIX)
-    set_target_properties(fluidsynth PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()
+target_include_directories(fluidsynth INTERFACE fluidsynth/include ${CMAKE_CURRENT_BINARY_DIR})
+

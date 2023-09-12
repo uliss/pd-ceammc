@@ -6,7 +6,7 @@
 0;
 #X obj 687 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.menu] @url ui.menu-help.pd;
-#X msg 50 118 clear \, file_glob * %DOC%/sound \, 0;
+#X msg 50 118 erase \, file_glob * %DOC%/sound \, 0;
 #X obj 50 147 expand_env;
 #X obj 50 176 ui.menu @max_length 32 @size 200 16;
 #X obj 50 205 list.at 1;

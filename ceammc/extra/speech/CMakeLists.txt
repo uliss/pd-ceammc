@@ -173,6 +173,4 @@ target_include_directories(flite PRIVATE flite/include)
 target_include_directories(flite PRIVATE flite/lang/cmulex)
 target_include_directories(flite PRIVATE flite/lang/usenglish)
 
-if(UNIX)
-    set_target_properties(flite PROPERTIES COMPILE_FLAGS "-fPIC")
-endif()
+target_include_directories(flite INTERFACE flite/include)
