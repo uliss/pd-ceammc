@@ -18,11 +18,14 @@
 
 using namespace wrapper;
 
+
+
 TEST_CASE("wrapper_class", "[class-wrapper]")
 {
     SECTION("AbstractWrapper")
     {
         using W = AbstractDataWrapper<WrapperDataVoid>;
+        W::staticType();
         W data;
         REQUIRE(data.toListStringContent() == "void");
         REQUIRE(data.toDictStringContent() == "value: void");
@@ -37,6 +40,8 @@ TEST_CASE("wrapper_class", "[class-wrapper]")
         using DataType = wrapper::ClassConstructorCustom<WrapperDataVoid>::TypeWrapped;
         using TestType = TestPdExternal<ExternalType>;
         using TestAtom = DataAtom<DataType>;
+
+        DataType::staticType();
 
         SECTION("ctor")
         {
@@ -76,6 +81,7 @@ TEST_CASE("wrapper_class", "[class-wrapper]")
         using ExternalType = wrapper::ClassConstructorCustom<WrapperInt>;
         using DataType = wrapper::ClassConstructorCustom<WrapperInt>::TypeWrapped;
         using TestType = TestPdExternal<ExternalType>;
+        DataType::staticType();
 
         SECTION("ctor")
         {
@@ -261,6 +267,7 @@ TEST_CASE("wrapper_class", "[class-wrapper]")
         using DataType = wrapper::ClassConstructorCustom<WrapperIntPair>::TypeWrapped;
         using TestType = TestPdExternal<WrapperIntPair>;
         using IntPair = std::pair<int, int>;
+        DataType::staticType();
 
         SECTION("ctor")
         {

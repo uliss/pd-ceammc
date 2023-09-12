@@ -23,6 +23,7 @@ TEST_CASE("wrapper_method", "[class-wrapper]")
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
         using DataType = ExternalType::DataType;
+        DataType::staticType();
 
         SECTION("ctor")
         {
@@ -117,6 +118,7 @@ TEST_CASE("wrapper_method", "[class-wrapper]")
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
         using DataType = ExternalType::DataType;
+        DataType::staticType();
 
         SECTION("ctor")
         {
@@ -144,6 +146,7 @@ TEST_CASE("wrapper_method", "[class-wrapper]")
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
         using DataType = ExternalType::DataType;
+        DataType::staticType();
 
         SECTION("ctor")
         {
@@ -198,6 +201,7 @@ TEST_CASE("wrapper_method", "[class-wrapper]")
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
         using DataType = ExternalType::DataType;
+        DataType::staticType();
 
         SECTION("ctor")
         {

@@ -113,6 +113,7 @@ TEST_CASE("wrapper static method", "[class-wrapper]")
         using mtype = decltype(&WrapperInt::parse);
         using ExternalType = wrapper::ClassStaticMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
+        DataType::staticType();
 
         SECTION("register")
         {
@@ -379,6 +380,7 @@ TEST_CASE("wrapper static method", "[class-wrapper]")
     SECTION("parse string")
     {
         using DataInt = AbstractDataWrapper<WrapperInt>;
+        DataInt::staticType();
 
         {
             auto lst = parseDataString("DataInt(255)");
