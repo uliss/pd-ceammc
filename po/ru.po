@@ -6,7 +6,7 @@ msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
 "POT-Creation-Date: 2023-09-12 02:06+0300\n"
-"PO-Revision-Date: 2023-09-12 02:15+0300\n"
+"PO-Revision-Date: 2023-09-12 02:22+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -1843,7 +1843,7 @@ msgstr "Удалить группу и источники"
 
 #: ../ceammc/ext/src/spat/hoa_map_ui.cpp
 msgid "Remove source"
-msgstr "Удалить источники"
+msgstr "Удалить источник"
 
 #: ../tcl/pd_deken.tcl
 #, tcl-format
