@@ -208,14 +208,14 @@ if(RAGEL_FOUND)
     RAGEL_TARGET(ceammc_editor_unescape
         ceammc_editor_unescape.rl ceammc_editor_unescape.cpp
         COMPILE_FLAGS "-G2 -s")
-
-    add_custom_target(lemon_data_parser
-        COMMAND $<TARGET_FILE:lemon> -s -q lemon_data_string.y
-        COMMAND mv lemon_data_string.c lemon_data_parser_impl.cpp
-        SOURCES lex/lemon_data_string.y
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex
-    )
 endif()
+
+add_custom_target(lemon_data_parser
+    COMMAND $<TARGET_FILE:lemon> -s -q lemon_data_string.y
+    COMMAND mv lemon_data_string.c lemon_data_parser_impl.cpp
+    SOURCES lex/lemon_data_string.y
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex
+)
 
 # ragel generated sources
 target_sources(ceammc_core
