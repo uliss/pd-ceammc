@@ -602,6 +602,7 @@ hoa.encoder~
 hoa.exchanger~
 hoa.in
 hoa.in~
+hoa.map.ui
 hoa.map~
 hoa.optim~
 hoa.out
