@@ -232,6 +232,7 @@ namespace osc {
         std::string name_;
         uint32_t name_hash_;
         MethodSubscriberMap subs_;
+        bool is_running_ { false };
 #ifdef WITH_LIBLO
         lo_server_thread lo_;
 #endif
@@ -248,8 +249,9 @@ namespace osc {
         const std::string& name() const { return name_; }
         uint32_t nameHash() const { return name_hash_; }
 
-        void start(bool value);
+        bool start(bool value);
         bool isValid() const;
+        bool isRunning() const { return is_running_; }
 
 #ifdef WITH_LIBLO
         // called from worker thread

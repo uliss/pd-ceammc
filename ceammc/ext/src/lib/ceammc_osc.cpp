@@ -333,20 +333,30 @@ namespace osc {
             lo_ = nullptr;
         }
 
-        LIB_LOG << fmt::format("[osc] Server destroyed: \"{}\" at {}", name_, host);
+        LIB_LOG << fmt::format("[osc] server destroyed: \"{}\" at {}", name_, host);
     }
 
-    void OscServer::start(bool value)
+    bool OscServer::start(bool value)
     {
         if (!lo_)
-            return;
+            return false;
 
         if (value) {
             auto rc = lo_server_thread_start(lo_);
-            LIB_LOG << fmt::format("OSC server started: \"{}\" [{}]", name_, rc);
+            LIB_LOG << fmt::format("[osc] server started: \"{}\" at {} [{}]", name_, hostname(), rc);
+            if (rc == 0) {
+                is_running_ = true;
+                return true;
+            } else
+                return false;
         } else {
             auto rc = lo_server_thread_stop(lo_);
-            LIB_LOG << fmt::format("OSC server stopped: \"{}\" [{}]", name_, rc);
+            LIB_LOG << fmt::format("[osc] server stopped: \"{}\" at {} [{}]", name_, hostname(), rc);
+            if (rc == 0) {
+                is_running_ = false;
+                return true;
+            } else
+                return false;
         }
     }
 
