@@ -169,6 +169,7 @@ void setup_net_osc_receive()
 
     ObjectFactory<net::NetOscReceive> obj("net.osc.receive");
     obj.addAlias("net.osc.r");
+    obj.setXletsInfo({ "any", "symbol: set OSC path" }, { "any: osc messages" });
 
     obj.addMethod(OSC_METHOD_UPDATE, &net::NetOscReceive::updateServer);
 }
