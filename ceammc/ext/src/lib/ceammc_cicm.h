@@ -203,6 +203,7 @@ class UIPopupMenu {
     t_pt rel_pos_;
     PopupMenuCallbacks menu_items_;
     std::vector<std::string> disabled_items_;
+    t_efont font_;
 
 public:
     UIPopupMenu(t_eobj* x,
@@ -214,6 +215,7 @@ public:
 
     void disable(const std::string& name);
     void disable(const std::vector<std::string>& names);
+    void setFontSize(int sz);
 };
 
 }

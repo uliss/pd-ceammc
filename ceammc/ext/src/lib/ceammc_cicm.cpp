@@ -1,4 +1,5 @@
 #include "ceammc_cicm.h"
+#include "ceammc_fonts.h"
 
 #include <algorithm>
 
@@ -426,19 +427,23 @@ UIPopupMenu::UIPopupMenu(t_eobj* x,
     , abs_pos_(absPos)
     , rel_pos_(relPos)
     , menu_items_(items)
+    , font_ { gensym(fonts::default_menu_font_family()), gensym("normal"), gensym("normal"), fonts::default_menu_font_size(), -1 }
 {
     menu_ = epopupmenu_create(x, gensym(items.name().c_str()));
 }
 
 UIPopupMenu::~UIPopupMenu()
 {
+    if (font_.c_size > 0)
+        epopupmenu_setfont(menu_, &font_);
+
     int cnt = 0;
     for (auto& m : menu_items_.items()) {
         if (std::get<0>(m).empty())
             epopupmenu_addseparator(menu_);
         else {
-            auto it = std::find(disabled_items_.begin(), disabled_items_.end(), std::get<0>(m));
-            epopupmenu_additem(menu_, cnt, std::get<0>(m).c_str(), it == disabled_items_.end(), rel_pos_);
+            bool disable = std::find(disabled_items_.begin(), disabled_items_.end(), std::get<0>(m)) == disabled_items_.end();
+            epopupmenu_additem(menu_, cnt, std::get<0>(m).c_str(), disable || !std::get<1>(m), !std::get<1>(m), rel_pos_);
         }
 
         // counter increment
@@ -458,6 +463,11 @@ void UIPopupMenu::disable(const std::string& name)
 void UIPopupMenu::disable(const std::vector<std::string>& names)
 {
     disabled_items_.insert(disabled_items_.end(), names.begin(), names.end());
+}
+
+void UIPopupMenu::setFontSize(int sz)
+{
+    font_.c_size = sz;
 }
 
 PopupMenuCallbacks::PopupMenuCallbacks(const std::string& name,

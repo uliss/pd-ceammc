@@ -2503,3 +2503,8 @@ bool ebox_isvisible(t_ebox* x)
 {
     return x && ebox_isdrawable(x) && x->b_obj.o_canvas->gl_havewindow && x->b_have_window && x->b_visible;
 }
+
+t_efont* ebox_getfont(t_ebox* x)
+{
+    return &x->b_font;
+}
