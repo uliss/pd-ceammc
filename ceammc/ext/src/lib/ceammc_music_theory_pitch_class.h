@@ -7,6 +7,7 @@
 #include <cstddef>
 #include <iostream>
 #include <vector>
+#include <cstdint>
 
 namespace ceammc {
 namespace music {

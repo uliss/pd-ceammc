@@ -18,6 +18,7 @@
 #include <functional>
 #include <memory>
 #include <stdexcept>
+#include <cstdint>
 
 #include <boost/variant.hpp>
 

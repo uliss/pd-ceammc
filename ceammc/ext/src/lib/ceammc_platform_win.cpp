@@ -17,10 +17,12 @@
 #include <cstring>
 #include <iostream>
 
+// sshould be included BEFORE windows.h
+#include <Winsock2.h>
+
 #include <Shlwapi.h>
 #include <Stringapiset.h>
 #include <Userenv.h>
-#include <Winsock2.h>
 #include <direct.h>
 #include <fcntl.h>
 #include <io.h>
