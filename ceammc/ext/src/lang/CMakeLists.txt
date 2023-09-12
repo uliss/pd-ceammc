@@ -3,7 +3,7 @@ target_include_directories(ceammc_lang
     PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
             ${PROJECT_BINARY_DIR})
 
-if(LibMagic_FOUND)
+if(LibMagic_FOUND AND NOT WIN32) # windows crash
     add_compile_definitions(ceammc_lang PRIVATE WITH_MAGIC)
 endif()
 
