@@ -15,6 +15,9 @@
 #include "test_base.h"
 #include "test_external.h"
 
+#include <chrono>
+#include <thread>
+
 using namespace ceammc::osc;
 using namespace ceammc::net;
 
