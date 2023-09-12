@@ -1,5 +1,15 @@
 add_definitions(-DPD)
 
+# address sanitizer
+if(WITH_PD_ASAN)
+    add_compile_options(-fno-omit-frame-pointer)
+    add_compile_options(-fsanitize=undefined)
+    add_compile_options(-fsanitize=address)
+    add_link_options(-fsanitize=undefined)
+    add_link_options(-fsanitize=address)
+endif()
+
+
 if(UNIX)
     add_definitions("-DINSTALL_PREFIX=\"${CMAKE_INSTALL_PREFIX}\"")
 endif()
@@ -172,15 +182,6 @@ if(WITH_OSS)
     list(APPEND PD_NEEDED_LIBS ${OSSLIB})
 endif()
 
-# Dummy
-if(WITH_DUMMY_AUDIO)
-    list(APPEND S_SRC s_audio_dummy.c)
-endif()
-
-if(WITH_DUMMY_MIDI)
-    list(APPEND S_SRC s_midi_dummy.c)
-endif()
-
 if(LIBDL_FOUND)
     list(APPEND PLATFORM_LINK_LIBRARIES ${LIBDL_LIBRARIES})
 endif()
@@ -203,6 +204,15 @@ else()
         target_link_libraries(puredata-core PRIVATE "-framework CoreMedia")
         target_link_libraries(puredata-core PRIVATE "-framework CoreFoundation")
     endif()
+endif()
+
+# Dummy
+if(WITH_DUMMY_AUDIO)
+    target_sources(puredata-core PRIVATE s_audio_dummy.c)
+endif()
+
+if(WITH_DUMMY_MIDI)
+    target_sources(puredata-core PRIVATE s_midi_dummy.c)
 endif()
 
 target_link_libraries(puredata-core PUBLIC ${PD_NEEDED_LIBS} ${PLATFORM_LINK_LIBRARIES})
