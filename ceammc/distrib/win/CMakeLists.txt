@@ -44,8 +44,6 @@ if(WIN32)
 
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/pd.iss
                    ${PROJECT_BINARY_DIR}/dist/pd.iss)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fix_dll_deps.sh
-                   ${PROJECT_BINARY_DIR} @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fix_dll_deps.py
                    ${PROJECT_BINARY_DIR} @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win_fix_pddoc_key_modifiers.sh
@@ -62,7 +60,7 @@ if(WIN32)
                    ${PROJECT_BINARY_DIR}/dist/calc_checksums.sh @ONLY)
 
    add_custom_target(dev_fixdll
-       COMMAND bash -c "${PROJECT_BINARY_DIR}/fix_dll_deps.sh"
+       COMMAND bash -c "${PROJECT_BINARY_DIR}/fix_dll_deps.py"
        USES_TERMINAL)
 
    add_custom_target(dev_fixdoc
