@@ -44,13 +44,10 @@ private:
 
 private:
     static void pollFn(void* x, int fd);
+    void dump() const;
 
 public:
-    static Dispatcher& instance()
-    {
-        static Dispatcher instance_;
-        return instance_;
-    }
+    static Dispatcher& instance();
 
     void subscribe(NotifiedObject* x, SubscriberId id);
     void unsubscribe(NotifiedObject* x);

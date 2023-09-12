@@ -76,10 +76,10 @@ namespace net {
                     return pipe_.try_enqueue(m);
                 });
 
-            OBJ_LOG << fmt::format("[osc] subscribed to {} at \"{}\"", path->s_name, osc.lock()->name());
+            OBJ_LOG << fmt::format("[osc] #{} subscribed to {} at \"{}\"", subscriberId(), path->s_name, osc.lock()->name());
             return true;
         } else if (path != &s_) {
-            OBJ_LOG << fmt::format("[osc] can't subscribe to {} '{}'", path->s_name, server_->value()->s_name);
+            OBJ_LOG << fmt::format("[osc] #{} can't subscribe to {} '{}'", subscriberId(), path->s_name, server_->value()->s_name);
             return false;
         } else
             return true;
