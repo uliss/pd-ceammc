@@ -1,5 +1,14 @@
 include(PdExternal)
 
+# address sanitizer
+if(WITH_ASAN)
+    add_compile_options(-fno-omit-frame-pointer)
+    add_compile_options(-fsanitize=undefined)
+    add_compile_options(-fsanitize=address)
+    add_link_options(-fsanitize=undefined)
+    add_link_options(-fsanitize=address)
+endif()
+
 add_subdirectory(src)
 add_subdirectory(doc)
 

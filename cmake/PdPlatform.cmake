@@ -36,23 +36,7 @@ if(UNIX AND NOT APPLE)
     set(LINUX True)
 endif()
 
-# address sanitizer
-if(WITH_ASAN)
-    set (CEAMMC_ASAN "-fno-omit-frame-pointer -fsanitize=undefined -fsanitize=address")
-    set (CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${CEAMMC_ASAN}")
-    set (CMAKE_LINKER_FLAGS_DEBUG "${CMAKE_STATIC_LINKER_FLAGS_DEBUG} ${CEAMMC_ASAN}")
-    set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${CEAMMC_ASAN}")
-    set (CMAKE_LINKER_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${CEAMMC_ASAN}")
-    set (CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} ${CEAMMC_ASAN}")
-
-    ceammc_remove_duplicate_substring(${CMAKE_CXX_FLAGS_DEBUG} CMAKE_CXX_FLAGS_DEBUG)
-    ceammc_remove_duplicate_substring(${CMAKE_LINKER_FLAGS_DEBUG} CMAKE_LINKER_FLAGS_DEBUG)
-    ceammc_remove_duplicate_substring(${CMAKE_CXX_FLAGS_RELEASE} CMAKE_CXX_FLAGS_RELEASE)
-    ceammc_remove_duplicate_substring(${CMAKE_LINKER_FLAGS_RELEASE} CMAKE_LINKER_FLAGS_RELEASE)
-    ceammc_remove_duplicate_substring(${CMAKE_LINKER_FLAGS} CMAKE_LINKER_FLAGS)
-endif()
-
-# address sanitizer
+# profiler
 if(WITH_PROFILE)
     if(APPLE)
         set (CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -fprofile-instr-generate -fcoverage-mapping")
