@@ -34,6 +34,9 @@
 
 #ifdef WITH_LIBLO
 #include <lo/lo.h>
+#else
+typedef void* lo_message;
+typedef void *lo_server_thread;
 #endif
 
 namespace ceammc {
@@ -153,9 +156,7 @@ namespace osc {
     };
 
     class LoOscMessage {
-#ifdef WITH_LIBLO
         lo_message message;
-#endif
 
     public:
         LoOscMessage();
@@ -166,12 +167,10 @@ namespace osc {
 
         LoOscMessage& operator=(const LoOscMessage& m) noexcept;
 
-#ifdef WITH_LIBLO
         lo_message get() const noexcept
         {
             return message;
         }
-#endif
     };
 
     class OscServerSubscriberList {
@@ -233,9 +232,8 @@ namespace osc {
         uint32_t name_hash_;
         MethodSubscriberMap subs_;
         bool is_running_ { false };
-#ifdef WITH_LIBLO
+
         lo_server_thread lo_;
-#endif
 
         OscServer(const OscServer&) = delete;
         OscServer& operator=(const OscServer&) = delete;
@@ -278,8 +276,12 @@ namespace osc {
 
     class OscServerList {
     public:
-        using OscServerPtr = std::shared_ptr<OscServer>;
-        using Entry = std::pair<OscServerPtr, int>;
+        using OscServerPtr = std::weak_ptr<OscServer>;
+        struct Entry {
+            OscServerPtr wosc;
+            size_t hash;
+            int ref_counter;
+        };
 
     private:
         std::list<Entry> servers_;
@@ -292,18 +294,11 @@ namespace osc {
         OscServerPtr findByName(t_symbol* name) { return findByName(name->s_name); }
         OscServerPtr findByName(const char* name);
 
-        OscServerPtr createByUrl(const char* name, const char* url);
-        OscServerPtr createByPortProto(const char* name, OscProto proto, int port);
-
-        void start(const char* name, bool value);
-
-        void addRef(const char* name);
-        void unRef(const char* name);
+        bool start(const char* name, bool value);
+        bool registerServer(const char* name, const OscServerPtr& wptr);
+        bool unregisterServer(const char* name);
 
         void dump();
-
-    private:
-        OscServerPtr addToList(const OscServerPtr& osc);
     };
 
     struct SendOscTask {

@@ -27,7 +27,7 @@ namespace net {
         OscUrlProperty* url_;
         BoolProperty* dump_;
         BoolProperty* auto_start_;
-        std::weak_ptr<osc::OscServer> server_;
+        std::shared_ptr<osc::OscServer> server_;
 
     public:
         NetOscServer(const PdArgs& args);

@@ -42,11 +42,8 @@ namespace net {
 
         dump_ = new BoolProperty("@dump", false);
         dump_->setSuccessFn([this](Property*) {
-            if (!server_.expired()) {
-                auto osc = server_.lock();
-                if (osc)
-                    osc->setDumpAll(dump_->value());
-            }
+            if (server_ && server_->isValid())
+                server_->setDumpAll(dump_->value());
         });
         addProperty(dump_);
 
@@ -56,7 +53,7 @@ namespace net {
 
     NetOscServer::~NetOscServer()
     {
-        osc::OscServerList::instance().unRef(name_->value()->s_name);
+        osc::OscServerList::instance().unregisterServer(name_->value()->s_name);
     }
 
     void NetOscServer::dump() const
@@ -73,24 +70,23 @@ namespace net {
         auto& srv_list = osc::OscServerList::instance();
 
         auto osc = srv_list.findByName(name);
-        if (!osc) {
+        if (osc.expired()) {
             t_symbol* str_url = &s_;
-
             if (url_->isProtoPortAddr())
-                osc = srv_list.createByPortProto(name, url_->proto(), url_->port());
+                server_.reset(new osc::OscServer(name, 19090, osc::OSC_PROTO_UDP));
             else if (url_->isUrlAddr() && url_->value().getSymbol(&str_url))
-                osc = srv_list.createByUrl(name, str_url->s_name);
-        }
+                server_.reset(new osc::OscServer(name, str_url->s_name));
+        } else
+            server_ = osc.lock();
 
-        if (!osc || !osc->isValid())
-            LIB_ERR << fmt::format("can't create server '{}': {}", name, to_string(url));
-        else {
-            server_ = osc;
-            osc->setDumpAll(dump_->value());
-            srv_list.addRef(name);
+        if (!server_ || !server_->isValid()) {
+            OBJ_ERR << fmt::format("can't create server '{}': {}", name, to_string(url));
+        } else {
+            server_->setDumpAll(dump_->value());
+            srv_list.registerServer(name, server_);
 
             if (auto_start_->value())
-                osc->start(true);
+                server_->start(true);
         }
     }
 
@@ -107,12 +103,12 @@ namespace net {
             return;
         }
 
-        if (!server_.expired()) {
-            auto srv = server_.lock();
-            if (srv) {
-                srv->start(value);
-            }
-        }
+        bool ok = false;
+        if (server_ && server_->isValid())
+            ok = server_->start(value);
+
+        if (!ok)
+            METHOD_ERR(s) << "can't start osc server";
     }
 
     void NetOscServer::m_stop(t_symbol* s, const AtomListView& lv)
@@ -128,12 +124,12 @@ namespace net {
             return;
         }
 
-        if (!server_.expired()) {
-            auto srv = server_.lock();
-            if (srv) {
-                srv->start(!value);
-            }
-        }
+        bool ok = false;
+        if (server_ && server_->isValid())
+            ok = server_->start(!value);
+
+        if (!ok)
+            METHOD_ERR(s) << "can't stop osc server";
     }
 }
 }

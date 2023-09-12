@@ -24,6 +24,8 @@ extern "C" {
 #include "s_stuff.h"
 }
 
+extern int sys_verbose;
+
 static void sleep_ms(int ms)
 {
     std::this_thread::sleep_for(std::chrono::milliseconds(ms));
@@ -45,6 +47,7 @@ PD_COMPLETE_TEST_SETUP(NetOscReceive, net, osc_receive)
 
 TEST_CASE("net.osc.receive", "[externals]")
 {
+    sys_verbose = 1;
     pd_test_init();
     setup_net_osc_server();
     setup_net_osc_send();

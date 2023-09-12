@@ -335,6 +335,12 @@ void NetOscSend::initTask(osc::SendOscTask& task, const char* path)
 
 void setup_net_osc_send()
 {
+    static bool first_time = true;
+    if (!first_time)
+        return;
+
+    first_time = false;
+
     osc::dumpVersion();
 
     ObjectFactory<NetOscSend> obj("net.osc.send");

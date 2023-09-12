@@ -14,7 +14,6 @@
 #include "ceammc_osc.h"
 #include "ceammc_crc32.h"
 #include "ceammc_format.h"
-#include "ceammc_pd.h"
 #include "ceammc_poll_dispatcher.h"
 #include "fmt/core.h"
 
@@ -299,13 +298,12 @@ namespace osc {
         if (port <= 0) {
             // create at free system port
             lo_ = lo_server_thread_new_with_proto(nullptr, lo_proto, errorHandler);
-        } else
-            lo_ = lo_server_thread_new_with_proto(fmt::format("{}", port).c_str(), lo_proto, errorHandler);
-
-        if (lo_) {
-            ThreadPdLogger l;
+        } else {
+            auto str_port = fmt::format("{}", port);
+            lo_ = lo_server_thread_new_with_proto(str_port.c_str(), lo_proto, errorHandler);
         }
-        OscServerLogger::instance().print(fmt::format("Server created: \"{}\" at {}", name_, hostname()).c_str());
+
+        OscServerLogger::instance().print(fmt::format("server created: \"{}\" at {}", name_, hostname()).c_str());
     }
 
     OscServer::OscServer(const char* name, const char* url)
@@ -314,7 +312,7 @@ namespace osc {
         , lo_(lo_server_thread_new_from_url(url, errorHandler))
     {
         if (lo_)
-            OscServerLogger::instance().print(fmt::format("Server created: \"{}\" at {}", name_, hostname()).c_str());
+            OscServerLogger::instance().print(fmt::format("server created: \"{}\" at {}", name_, hostname()).c_str());
     }
 
     OscServer::OscServer(OscServer&& srv)
@@ -526,83 +524,71 @@ namespace osc {
     {
         const auto hash = crc32_hash(name);
 
-        // assuming that list of OSC servers if not long,
-        // so doing linear search
-        for (auto& s : servers_) {
-            if (s.first && s.first->nameHash() == hash)
-                return s.first;
-        }
+        // assuming that list of OSC servers is not long,
+        // so doing linear search, it should be faster
+        auto it = std::find_if(servers_.begin(), servers_.end(), [hash](const Entry& x) { return x.hash == hash; });
+        if (it == servers_.end())
+            return {};
 
-        return {};
-    }
-
-    OscServerList::OscServerPtr OscServerList::addToList(const OscServerPtr& osc)
-    {
-        if (osc && osc->isValid()) {
-            servers_.push_front({ osc, 0 });
-
-            auto res = servers_.front().first;
-
-            auto x = gensym(OSC_DISPATCHER);
-            if (x->s_thing) {
-                auto s = gensym(OSC_METHOD_UPDATE);
-                Atom a(gensym(res->name().c_str()));
-                pd::message_to(x->s_thing, s, a);
-            }
-
-            return res;
+        // remove expiried weak pointers
+        if (it->wosc.expired()) {
+            servers_.erase(it);
+            return {};
         } else
-            return {};
+            return it->wosc;
     }
 
-    OscServerList::OscServerPtr OscServerList::createByUrl(const char* name, const char* url)
+    //    OscServerList::OscServerPtr OscServerList::addToList(const OscServerPtr& osc)
+    //    {
+    //        if (osc && osc->isValid()) {
+    //            servers_.push_front({ osc, 0 });
+
+    //            auto res = servers_.front().first;
+
+    //            auto x = gensym(OSC_DISPATCHER);
+    //            if (x->s_thing) {
+    //                auto s = gensym(OSC_METHOD_UPDATE);
+    //                Atom a(gensym(res->name().c_str()));
+    //                pd::message_to(x->s_thing, s, a);
+    //            }
+
+    //            return res;
+    //        } else
+    //            return {};
+    //    }
+
+    bool OscServerList::start(const char* name, bool value)
     {
-        if (findByName(name)) {
-            LIB_ERR << fmt::format("server already exists: \"{}\"", name);
-            return {};
-        }
-
-        return addToList(std::make_shared<OscServer>(name, url));
+        auto wosc = findByName(name);
+        if (!wosc.expired())
+            return wosc.lock()->start(value);
+        else
+            return false;
     }
 
-    OscServerList::OscServerPtr OscServerList::createByPortProto(const char* name, OscProto proto, int port)
+    bool OscServerList::registerServer(const char* name, const OscServerPtr& wptr)
     {
-        if (findByName(name)) {
-            LIB_ERR << fmt::format("server already exists: \"{}\"", name);
-            return {};
-        }
+        if (wptr.expired())
+            return false;
 
-        return addToList(std::make_shared<OscServer>(name, port, proto));
+        const auto hash = crc32_hash(name);
+        auto ptr = findByName(name);
+        if (!ptr.expired()) // already registered with same name
+            return false;
+
+        servers_.push_back(Entry { wptr, hash, 0 });
+        return true;
     }
 
-    void OscServerList::start(const char* name, bool value)
-    {
-        auto osc = findByName(name);
-        if (osc)
-            osc->start(value);
-    }
-
-    void OscServerList::addRef(const char* name)
+    bool OscServerList::unregisterServer(const char* name)
     {
         const auto hash = crc32_hash(name);
-        for (auto& s : servers_) {
-            if (s.first->nameHash() == hash) {
-                s.second++;
-                break;
-            }
-        }
-    }
-
-    void OscServerList::unRef(const char* name)
-    {
-        const auto hash = crc32_hash(name);
-        for (auto it = servers_.begin(); it != servers_.end(); ++it) {
-            if (it->first->nameHash() == hash) {
-                if (--(it->second) <= 0)
-                    servers_.erase(it);
-
-                return;
-            }
+        auto it = std::find_if(servers_.begin(), servers_.end(), [hash](const Entry& x) { return x.hash == hash; });
+        if (it == servers_.end()) {
+            return false;
+        } else {
+            servers_.erase(it);
+            return false;
         }
     }
 
@@ -610,7 +596,11 @@ namespace osc {
     {
         LIB_POST << "OSC servers:";
         for (auto& s : servers_) {
-            LIB_POST << fmt::format(" - '{}': {} [{}]", s.first->name(), s.first->hostname(), s.second);
+            if (!s.wosc.expired()) {
+                auto osc = s.wosc.lock();
+                if (osc)
+                    LIB_POST << fmt::format(" - '{}': {} [{}]", osc->name(), osc->hostname(), s.wosc.use_count());
+            }
         }
     }
 

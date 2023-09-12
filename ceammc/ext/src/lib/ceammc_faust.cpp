@@ -383,8 +383,8 @@ namespace faust {
         }
 
         auto osc = osc::OscServerList::instance().findByName(osc_->value());
-        if (osc && osc->isValid()) {
-            osc->subscribeMethod(osc_path.c_str(), nullptr, subscriberId(),
+        if (!osc.expired()) {
+            osc.lock()->subscribeMethod(osc_path.c_str(), nullptr, subscriberId(),
                 [this, ui](const osc::OscRecvMessage& m) -> bool {
                     FaustOscVisitor visitor(osc_queue_.get(), ui);
                     if (m.size() == 1)
@@ -400,9 +400,8 @@ namespace faust {
     void FaustExternalBase::unbindUIElements()
     {
         auto osc = osc::OscServerList::instance().findByName(osc_->value());
-        if (osc && osc->isValid()) {
-            osc->unsubscribeAll(subscriberId());
-
+        if (!osc.expired()) {
+            osc.lock()->unsubscribeAll(subscriberId());
             OBJ_DBG << fmt::format("[osc] unsubscribed from server: '{}'", osc_->value()->s_name);
         }
     }

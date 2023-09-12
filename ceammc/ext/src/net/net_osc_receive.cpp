@@ -58,8 +58,8 @@ namespace net {
     NetOscReceive::~NetOscReceive()
     {
         auto osc = OscServerList::instance().findByName(server_->value());
-        if (osc)
-            osc->unsubscribeAll(subscriberId());
+        if (!osc.expired())
+            osc.lock()->unsubscribeAll(subscriberId());
     }
 
     const char* NetOscReceive::types() const
@@ -70,16 +70,16 @@ namespace net {
 
     bool NetOscReceive::subscribe(const OscServerList::OscServerPtr& osc, t_symbol* path)
     {
-        if (osc && osc->isValid() && path != &s_) {
-            osc->subscribeMethod(path->s_name, types(), subscriberId(),
+        if (!osc.expired() && osc.lock()->isValid() && path != &s_) {
+            osc.lock()->subscribeMethod(path->s_name, types(), subscriberId(),
                 [this](const OscRecvMessage& m) -> bool {
                     return pipe_.try_enqueue(m);
                 });
 
-            LIB_LOG << fmt::format("[osc] subscribed to {} at \"{}\"", path->s_name, osc->name());
+            OBJ_LOG << fmt::format("[osc] subscribed to {} at \"{}\"", path->s_name, osc.lock()->name());
             return true;
         } else if (path != &s_) {
-            LIB_LOG << fmt::format("[osc] can't subscribe to {} '{}'", path->s_name, server_->value()->s_name);
+            OBJ_LOG << fmt::format("[osc] can't subscribe to {} '{}'", path->s_name, server_->value()->s_name);
             return false;
         } else
             return true;
@@ -87,12 +87,12 @@ namespace net {
 
     bool NetOscReceive::unsubscribe(const OscServerList::OscServerPtr& osc, t_symbol* path)
     {
-        if (osc && osc->isValid() && path != &s_) {
-            osc->unsubscribeMethod(path->s_name, types(), subscriberId());
-            LIB_LOG << fmt::format("[osc] unsubscribed from {} at \"{}\"", path->s_name, osc->name());
+        if (!osc.expired() && osc.lock()->isValid() && path != &s_) {
+            osc.lock()->unsubscribeMethod(path->s_name, types(), subscriberId());
+            OBJ_LOG << fmt::format("[osc] unsubscribed from {} at \"{}\"", path->s_name, osc.lock()->name());
             return true;
         } else if (path != &s_) {
-            LIB_LOG << fmt::format("[osc] can't unsubscribe from {} '{}'", path->s_name, server_->value()->s_name);
+            OBJ_LOG << fmt::format("[osc] can't unsubscribe from {} '{}'", path->s_name, server_->value()->s_name);
             return false;
         } else
             return true;
