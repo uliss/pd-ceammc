@@ -3,6 +3,10 @@ target_include_directories(ceammc_lang
     PRIVATE "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
             ${PROJECT_BINARY_DIR})
 
+if(LibMagic_FOUND)
+    add_compile_definitions(ceammc_lang PRIVATE WITH_MAGIC)
+endif()
+
 set(FAUST_SEPARATE_EXTERNAL OFF)
 if(APPLE)
     set(FAUST_SEPARATE_EXTERNAL ON)

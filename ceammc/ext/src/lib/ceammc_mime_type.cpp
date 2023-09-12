@@ -39,11 +39,11 @@ MimeTypeChecker::MimeTypeChecker(const char* libPath)
         return;
 
     size_t bytes_max = 128;
-    magic_setparam(static_cast<magic_t>(impl_), MAGIC_PARAM_BYTES_MAX, &bytes_max);
+    magic_setparam(impl_, MAGIC_PARAM_BYTES_MAX, &bytes_max);
 
-    if (magic_load(static_cast<magic_t>(impl_), libPath) != 0) {
-        fmt::print(stderr, "can't load magic database: {}\n", magic_error(static_cast<magic_t>(impl_)));
-        magic_close(static_cast<magic_t>(impl_));
+    if (magic_load(impl_, libPath) != 0) {
+        fmt::print(stderr, "can't load magic database: {}\n", magic_error(impl_));
+        magic_close(impl_);
         impl_ = nullptr;
         return;
     }
@@ -53,24 +53,23 @@ MimeTypeChecker::MimeTypeChecker(const char* libPath)
 
 MimeTypeChecker::~MimeTypeChecker()
 {
-#ifdef WITH_MAGIC
+#ifdef WITH_LIBMAGIC
     if (impl_)
-        magic_close(static_cast<magic_t>(impl_));
+        magic_close(impl_);
 #endif
 }
 
 std::string MimeTypeChecker::mimeType(const char* file)
 {
+#ifdef WITH_LIBMAGIC
     std::lock_guard<typeof(mtx_)> guard(mtx_);
 
     if (!impl_)
         return {};
 
-#ifdef WITH_LIBMAGIC
-
-    auto res = magic_file(static_cast<magic_t>(impl_), file);
+    auto res = magic_file(impl_, file);
     if (!res) {
-        fmt::print(stderr, "can't check file '{}': {}\n", file, magic_error(static_cast<magic_t>(impl_)));
+        fmt::print(stderr, "can't check file '{}': {}\n", file, magic_error(impl_));
         return {};
     } else
         return res;
@@ -78,6 +77,7 @@ std::string MimeTypeChecker::mimeType(const char* file)
 #else
     return {};
 #endif
+
     return {};
 }
 
