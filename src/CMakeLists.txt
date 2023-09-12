@@ -1,20 +1,23 @@
+include(sound)
+include(config)
+
 add_definitions(-DPD)
 
-# address sanitizer
-if(WITH_PD_ASAN)
-    add_compile_options(-fno-omit-frame-pointer)
-    add_compile_options(-fsanitize=undefined)
-    add_compile_options(-fsanitize=address)
-    add_link_options(-fsanitize=undefined)
-    add_link_options(-fsanitize=address)
+# big endian check
+test_big_endian(IS_BIG_ENDIAN)
+if(NOT ${IS_BIG_ENDIAN})
+    add_definitions(-DLITTLE_ENDIAN=0x0001 -DBYTE_ORDER=LITTLE_ENDIAN)
 endif()
-
 
 if(UNIX)
     add_definitions("-DINSTALL_PREFIX=\"${CMAKE_INSTALL_PREFIX}\"")
 endif()
 
 add_definitions(-include ${PROJECT_BINARY_DIR}/config.h)
+
+if(WITH_PD_INSTANCE)
+    add_definitions(-DPD_INSTANCE)
+endif()
 
 set(M_SRC m_atom.c
     m_binbuf.c
