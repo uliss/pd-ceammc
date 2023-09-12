@@ -72,10 +72,13 @@ namespace net {
         auto osc = srv_list.findByName(name);
         if (osc.expired()) {
             t_symbol* str_url = &s_;
-            if (url_->isProtoPortAddr())
+            if (url_->isProtoPortAddr()) {
                 server_.reset(new osc::OscServer(name, 19090, osc::OSC_PROTO_UDP));
-            else if (url_->isUrlAddr() && url_->value().getSymbol(&str_url))
+                srv_list.registerServer(name, server_);
+            } else if (url_->isUrlAddr() && url_->value().getSymbol(&str_url)) {
                 server_.reset(new osc::OscServer(name, str_url->s_name));
+                srv_list.registerServer(name, server_);
+            }
         } else
             server_ = osc.lock();
 
@@ -83,8 +86,6 @@ namespace net {
             OBJ_ERR << fmt::format("can't create server '{}': {}", name, to_string(url));
         } else {
             server_->setDumpAll(dump_->value());
-            if (!srv_list.registerServer(name, server_))
-                OBJ_ERR << fmt::format("server already registered '{}': {}", name, to_string(url));
 
             if (auto_start_->value())
                 server_->start(true);
