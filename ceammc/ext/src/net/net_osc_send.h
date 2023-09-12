@@ -26,6 +26,7 @@ struct NetOscSendOscTask;
 
 class NetOscSend : public BaseObject {
     net::OscUrlProperty* url_;
+    std::shared_ptr<osc::OscSendWorker> worker_;
 
 public:
     NetOscSend(const PdArgs& args);

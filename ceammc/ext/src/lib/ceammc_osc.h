@@ -36,7 +36,7 @@
 #include <lo/lo.h>
 #else
 typedef void* lo_message;
-typedef void *lo_server_thread;
+typedef void* lo_server_thread;
 #endif
 
 namespace ceammc {
@@ -329,17 +329,17 @@ namespace osc {
         using Pipe = moodycamel::ReaderWriterQueue<SendOscTask, 64>;
         ThreadPdLogger logger_;
 
-        OscSendWorker();
-        ~OscSendWorker();
-
         Pipe pipe_;
         std::future<bool> future_;
         std::atomic_bool quit_;
         ThreadNotify notify_;
 
     public:
-        static OscSendWorker& instance();
+        OscSendWorker();
+        ~OscSendWorker();
         bool add(const SendOscTask& task);
+
+        static void setPointer(std::shared_ptr<OscSendWorker>& ptr);
     };
 
     bool validOscTypeString(const char* str);

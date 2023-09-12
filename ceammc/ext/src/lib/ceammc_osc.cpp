@@ -711,19 +711,14 @@ namespace osc {
         if (!future_.valid())
             return;
 
-        while (true) {
-            auto st = future_.wait_for(std::chrono::milliseconds(100));
-            if (st == std::future_status::ready)
-                break;
+        auto st = future_.wait_for(std::chrono::milliseconds(10));
 
-            LIB_ERR << "waiting OscSendWorker thread to stop ...";
+        while (st != std::future_status::ready) {
+            st = future_.wait_for(std::chrono::milliseconds(100));
+            LIB_LOG << "waiting OscSendWorker thread to stop ...";
         }
-    }
 
-    OscSendWorker& OscSendWorker::instance()
-    {
-        static OscSendWorker w;
-        return w;
+        LIB_LOG << "[osc_send] OSC sender worker process done";
     }
 
     bool OscSendWorker::add(const SendOscTask& task)
@@ -733,6 +728,17 @@ namespace osc {
             notify_.notifyOne();
 
         return ok;
+    }
+
+    void OscSendWorker::setPointer(std::shared_ptr<OscSendWorker>& ptr)
+    {
+        static std::weak_ptr<OscSendWorker> shared;
+        if (!shared.expired()) {
+            ptr = shared.lock();
+        } else {
+            ptr.reset(new OscSendWorker);
+            shared = ptr;
+        }
     }
 
     void SendOscTask::addBool(bool v)

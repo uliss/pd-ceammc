@@ -32,6 +32,8 @@ NetOscSend::NetOscSend(const PdArgs& args)
     addProperty(url_);
 
     createOutlet();
+
+    osc::OscSendWorker::setPointer(worker_);
 }
 
 void NetOscSend::m_send(t_symbol* s, const AtomListView& lv)
@@ -53,7 +55,7 @@ void NetOscSend::m_send(t_symbol* s, const AtomListView& lv)
             task.addFloat(a.asFloat());
     }
 
-    if (!OscSendWorker::instance().add(task))
+    if (!worker_->add(task))
         LIB_ERR << "[osc_send] can't add task";
 }
 
@@ -68,7 +70,7 @@ void NetOscSend::m_send_bool(t_symbol* s, const AtomListView& lv)
     initTask(task, lv[0].asT<t_symbol*>()->s_name);
     task.addBool(lv[1].asT<bool>());
 
-    if (!OscSendWorker::instance().add(task))
+    if (!worker_->add(task))
         LIB_ERR << "[osc_send] can't add task";
 }
 
@@ -83,7 +85,7 @@ void NetOscSend::m_send_i32(t_symbol* s, const AtomListView& lv)
     initTask(task, lv[0].asT<t_symbol*>()->s_name);
     task.addInt32(lv[1].asT<int>());
 
-    if (!OscSendWorker::instance().add(task))
+    if (!worker_->add(task))
         LIB_ERR << "[osc_send] can't add task";
 }
 
@@ -98,7 +100,7 @@ void NetOscSend::m_send_i64(t_symbol* s, const AtomListView& lv)
     initTask(task, lv[0].asT<t_symbol*>()->s_name);
     task.addInt64(lv[1].asT<t_float>());
 
-    if (!OscSendWorker::instance().add(task))
+    if (!worker_->add(task))
         LIB_ERR << "[osc_send] can't add task";
 }
 
@@ -113,7 +115,7 @@ void NetOscSend::m_send_float(t_symbol* s, const AtomListView& lv)
     initTask(task, lv[0].asT<t_symbol*>()->s_name);
     task.addFloat(lv[1].asT<t_float>());
 
-    if (!OscSendWorker::instance().add(task))
+    if (!worker_->add(task))
         LIB_ERR << "[osc_send] can't add task";
 }
 
@@ -128,7 +130,7 @@ void NetOscSend::m_send_double(t_symbol* s, const AtomListView& lv)
     initTask(task, lv[0].asT<t_symbol*>()->s_name);
     task.addDouble(lv[1].asT<t_float>());
 
-    if (!OscSendWorker::instance().add(task))
+    if (!worker_->add(task))
         LIB_ERR << "[osc_send] can't add task";
 }
 
@@ -143,7 +145,7 @@ void NetOscSend::m_send_null(t_symbol* s, const AtomListView& lv)
     initTask(task, lv[0].asT<t_symbol*>()->s_name);
     task.addNil();
 
-    if (!OscSendWorker::instance().add(task))
+    if (!worker_->add(task))
         LIB_ERR << "[osc_send] can't add task";
 }
 
@@ -158,7 +160,7 @@ void NetOscSend::m_send_inf(t_symbol* s, const AtomListView& lv)
     initTask(task, lv[0].asT<t_symbol*>()->s_name);
     task.addInf();
 
-    if (!OscSendWorker::instance().add(task))
+    if (!worker_->add(task))
         LIB_ERR << "[osc_send] can't add task";
 }
 
@@ -174,7 +176,7 @@ void NetOscSend::m_send_string(t_symbol* s, const AtomListView& lv)
     initTask(task, lv[0].asT<t_symbol*>()->s_name);
     task.addString(to_string(lv.subView(1)).c_str());
 
-    if (!OscSendWorker::instance().add(task))
+    if (!worker_->add(task))
         LIB_ERR << "[osc_send] can't add task";
 }
 
@@ -210,7 +212,7 @@ void NetOscSend::m_send_typed(t_symbol* s, const AtomListView& lv)
         }
     }
 
-    if (!OscSendWorker::instance().add(task))
+    if (!worker_->add(task))
         LIB_ERR << "[osc_send] can't add task";
 }
 
@@ -243,7 +245,7 @@ void NetOscSend::m_send_char(t_symbol* s, const AtomListView& lv)
     initTask(task, lv[0].asT<t_symbol*>()->s_name);
     task.addChar(ch);
 
-    if (!OscSendWorker::instance().add(task))
+    if (!worker_->add(task))
         LIB_ERR << "[osc_send] can't add task";
 }
 
@@ -288,7 +290,7 @@ void NetOscSend::m_send_midi(t_symbol* s, const AtomListView& lv)
     initTask(task, lv[0].asT<t_symbol*>()->s_name);
     task.addMidi(midi);
 
-    if (!OscSendWorker::instance().add(task))
+    if (!worker_->add(task))
         LIB_ERR << "[osc_send] can't add task";
 }
 
@@ -318,7 +320,7 @@ void NetOscSend::m_send_blob(t_symbol* s, const AtomListView& lv)
 
     task.addBlob(data);
 
-    if (!OscSendWorker::instance().add(task))
+    if (!worker_->add(task))
         LIB_ERR << "[osc_send] can't add task";
 }
 
