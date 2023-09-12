@@ -12,21 +12,13 @@
  * this file belongs to.
  *****************************************************************************/
 #include "model.h"
-#include "nui/nui.h"
-#include "nui/frame_model.h"
-#include "nui/slider_model.h"
-#include "nui/label_model.h"
-
-#include "ceammc_log.h"
-#include "ceammc_property.h"
-
-#include <cassert>
 
 namespace ceammc {
 namespace ui {
 
-
-
+    ModelBaseVPtr::~ModelBaseVPtr()
+    {
+    }
 
 }
 }
