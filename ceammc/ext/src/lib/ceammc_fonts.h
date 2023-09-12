@@ -23,7 +23,7 @@ namespace fonts {
 
     constexpr const char* DEFAULT_MACOS_MENU_FONT_FAMILY = "systemSmallSystemFont";
     constexpr const char* DEFAULT_LINUX_MENU_FONT_FAMILY = "Helvetica";
-    constexpr const char* DEFAULT_WINDOWS_MENU_FONT_FAMILY = "Dejavu Sans";
+    constexpr const char* DEFAULT_WINDOWS_MENU_FONT_FAMILY = "TkTooltipFont";
 
     static inline float default_menu_font_size()
     {
