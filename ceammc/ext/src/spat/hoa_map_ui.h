@@ -29,8 +29,6 @@ struct HoaManagerData;
 using SharedManager = std::shared_ptr<HoaManagerData>;
 
 class HoaMapUI : public UIObject {
-    friend struct t_linkmap;
-
     SharedManager f_manager;
 
     hoa::Source* f_selected_source;
@@ -41,8 +39,8 @@ class HoaMapUI : public UIObject {
     t_symbol* f_binding_name;
 
     t_pt f_cursor_position;
-
     t_rect f_rect_selection;
+    t_rgba prop_selection_color;
 
     UILayer sources_, groups_, selection_;
     float prop_zoom;
