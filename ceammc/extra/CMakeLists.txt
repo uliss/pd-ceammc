@@ -48,7 +48,7 @@ add_subdirectory(subprocess)
 add_subdirectory(tcltk)
 add_subdirectory(verovio)
 
-if(WITH_FAUST)
+if(WITH_FAUST AND APPLE)
     add_subdirectory(faust)
 endif()
 
@@ -130,7 +130,52 @@ if(WITH_SFIZZ)
         add_subdirectory(${sfizz_SOURCE_DIR} ${sfizz_BINARY_DIR} EXCLUDE_FROM_ALL)
 
         if(WIN32)
-            install(TARGETS sfizz_shared RUNTIME DESTINATION extra/ceammc)
+            #install(TARGETS sfizz_shared RUNTIME DESTINATION extra/ceammc)
         endif()
     endif()
 endif()
+
+if(WITH_FAUST AND NOT APPLE)
+    cmake_minimum_required(VERSION 3.14)
+
+    include(FetchContent)
+    set(FETCHCONTENT_QUIET FALSE)
+    set(INCLUDE_STATIC      ON  CACHE STRING  "Include static library"        FORCE)
+    set(INCLUDE_EXECUTABLE  OFF CACHE STRING  "Include runtime executable"    FORCE)
+    set(INCLUDE_DYNAMIC     OFF CACHE STRING  "Include dynamic library"       FORCE)
+    set(INCLUDE_OSC         OFF CACHE STRING  "Include Faust OSC library"     FORCE)
+    set(INCLUDE_HTTP        OFF CACHE STRING  "Include Faust HTTPD library"   FORCE)
+    set(INCLUDE_EMCC        OFF CACHE STRING  ""   FORCE )
+    set(INCLUDE_WASM_GLUE   OFF CACHE STRING  ""   FORCE )
+
+    ## Hardcoded backends for faust
+    set(ASMJS_BACKEND  OFF                            CACHE STRING  "Include ASMJS backend"     FORCE)
+    set(C_BACKEND      OFF                            CACHE STRING  "Include C backend"         FORCE)
+    set(CPP_BACKEND    OFF                            CACHE STRING  "Include CPP backend"       FORCE)
+    set(FIR_BACKEND    OFF                            CACHE STRING  "Include FIR backend"       FORCE)
+    set(INTERP_BACKEND OFF                            CACHE STRING  "Include INTERPRETER backend" FORCE)
+    set(JAVA_BACKEND   OFF                            CACHE STRING  "Include JAVA backend"      FORCE)
+    set(JS_BACKEND     OFF                            CACHE STRING  "Include JAVASCRIPT backend" FORCE)
+    set(LLVM_BACKEND   COMPILER STATIC DYNAMIC        CACHE STRING  "Include LLVM backend"      FORCE)
+    set(OLDCPP_BACKEND OFF                            CACHE STRING  "Include old CPP backend"   FORCE)
+    set(RUST_BACKEND   OFF                            CACHE STRING  "Include RUST backend"      FORCE)
+    set(WASM_BACKEND   OFF                            CACHE STRING  "Include WASM backend"      FORCE)
+
+    if(WIN32)
+        find_package(Patch REQUIRED)
+
+        FetchContent_Declare(
+            faust
+            URL      https://github.com/grame-cncm/faust/releases/download/2.60.3/faust-2.60.3.tar.gz
+            URL_HASH MD5=d0c436cebafbce0b5affc082bc2f8297
+            PATCH_COMMAND ${Patch_EXECUTABLE} -i "${CMAKE_CURRENT_SOURCE_DIR}/faust/cstdint.patch" -l -N -u --verbose ${PROJECT_BINARY_DIR}/_deps/faust-src/compiler/generator/Text.hh
+            UPDATE_DISCONNECTED 1
+        )
+        FetchContent_GetProperties(faust)
+        if(NOT faust_POPULATED)
+            FetchContent_Populate(faust)
+            add_subdirectory(${faust_SOURCE_DIR}/build ${faust_BINARY_DIR} EXCLUDE_FROM_ALL)
+        endif()
+    endif()
+endif()
+
