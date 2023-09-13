@@ -79,6 +79,9 @@ namespace net {
             } else if (url_->isUrlAddr() && url_->value().getSymbol(&str_url)) {
                 server_.reset(new osc::OscServer(name, str_url->s_name));
                 srv_list.registerServer(name, server_);
+            } else {
+                server_.reset(new osc::OscServer(name, 0));
+                srv_list.registerServer(name, server_);
             }
         } else
             server_ = osc.lock();
