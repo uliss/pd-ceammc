@@ -175,6 +175,47 @@ if(WITH_FAUST AND NOT APPLE)
         if(NOT faust_POPULATED)
             FetchContent_Populate(faust)
             add_subdirectory(${faust_SOURCE_DIR}/build ${faust_BINARY_DIR} EXCLUDE_FROM_ALL)
+            add_library(ceammc_faust STATIC ${PROJECT_SOURCE_DIR}/ceammc/extra/faust/ceammc_llvm.cpp)
+            target_link_libraries(ceammc_faust PRIVATE staticlib)
+            target_compile_definitions(ceammc_faust PRIVATE ${LLVM_DEFINITIONS})
+            target_include_directories(ceammc_faust PRIVATE
+                ${CMAKE_CURRENT_SOURCE_DIR}/faust/architecture
+                ${LLVM_INCLUDE_DIRS}
+                ${PROJECT_SOURCE_DIR}/src)
+
+            if(COMMAND llvm_map_components_to_libnames)
+                set(llvm_libs)
+                if(APPLE)
+                    if(CMAKE_OSX_ARCHITECTURES STREQUAL "arm64")
+                        llvm_map_components_to_libnames(llvm_libs_arm64
+                            AArch64AsmParser AArch64Info AArch64Desc AArch64CodeGen)
+                        list(APPEND llvm_libs ${llvm_libs_arm64})
+                    else (CMAKE_OSX_ARCHITECTURES STREQUAL "x86_64")
+                        llvm_map_components_to_libnames(llvm_libs_x86
+                            x86asmparser x86info x86desc x86codegen)
+                        list(APPEND llvm_libs ${llvm_libs_x86})
+                    endif()
+                elseif(WIN32 OR UNIX)
+                    llvm_map_components_to_libnames(llvm_libs_x86
+                        x86asmparser x86info x86desc x86codegen)
+                    list(APPEND llvm_libs ${llvm_libs_x86})
+                endif()
+                llvm_map_components_to_libnames(llvm_libs_base
+                    support core irreader executionengine
+                    asmprinter mcjit ipo objcarcopts)
+                list(APPEND llvm_libs ${llvm_libs_base})
+
+                message(STATUS "llvm-libs: ${llvm_libs}")
+                target_link_libraries(ceammc_faust PRIVATE ${llvm_libs})
+            endif()
+
+            set(DOC_INSTALL_PATH "${PD_DOC_INSTALL_PATH}/extra/ceammc")
+
+            install(DIRECTORY faust/libraries/
+                DESTINATION ${DOC_INSTALL_PATH}/faust
+                FILES_MATCHING PATTERN "*.lib"
+                PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+
         endif()
     endif()
 endif()
