@@ -58,6 +58,8 @@ if(WIN32)
                    ${PROJECT_BINARY_DIR}/dist/build_all.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/calc_checksums.sh
                    ${PROJECT_BINARY_DIR}/dist/calc_checksums.sh @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/install_mingw64_deps.sh
+                   ${PROJECT_BINARY_DIR}/scripts/install_mingw64_deps.sh @ONLY)
 
    add_custom_target(dev_fixdll
        COMMAND bash -c "${PROJECT_BINARY_DIR}/fix_dll_deps.py"
@@ -146,11 +148,12 @@ if(WIN32)
 endif()
 
 add_custom_target(ceammc_distrib_win_sources SOURCES
-    fix_dll_deps.py
-    make_lib_win.sh
-    win_fix_pddoc_key_modifiers.sh
-    install_external.sh
-    remove_external.sh
     build_all.sh
+    fix_dll_deps.py
+    install_external.sh
+    install_mingw64_deps.sh
+    make_lib_win.sh
+    remove_external.sh
+    win_fix_pddoc_key_modifiers.sh
     pd.iss
 )
