@@ -212,7 +212,7 @@ void HoaMapUI::drawSelection()
     if (!p)
         return;
 
-    const t_rgba color_sel = rgba_addContrast(prop_color_background, -0.14);
+    const t_rgba color_sel = rgba_addContrast(prop_selection_color, -0.14);
 
     if (f_rect_selection_exist) {
         p.setLineWidth(1);
@@ -1503,6 +1503,9 @@ void HoaMapUI::setup()
 
     obj.addSymbolProperty("mapname", _("Map Name"), "(null)", &HoaMapUI::f_binding_name, _("Main"));
     obj.setPropertyAccessor("mapname", &HoaMapUI::m_get_bind, &HoaMapUI::m_set_bind);
+
+    obj.addProperty("selection_color", _("Selection Color"), DEFAULT_ACTIVE_COLOR, &HoaMapUI::prop_selection_color);
+
 
     //    eclass_addmethod(c, (method) hoa_map_preset,        "preset",         A_CANT,  0);
     //    eclass_addmethod(c, (method) hoa_map_interpolate,   "interpolate",    A_CANT,  0);
