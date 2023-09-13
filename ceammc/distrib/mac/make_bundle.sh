@@ -81,7 +81,7 @@ CEAMMC_EXT_BIN_DIR="${BUILD_DIR}/ceammc/ext/src"
 # find all Pd externals in specified directory
 # usage: external_files DIR
 function external_files() {
-    find "$1" -type f | grep -e 'd_fat' -e 'd_amd64' -e 'd_i386' -e 'pd_darwin' -e '\.pd' -e '\.tcl'
+    find "$1" -type f | grep -e '\.d_fat' -e '\.d_amd64' -e '\.d_i386' -e '\.pd_darwin'
 }
 
 function dylib_external_fix() {
