@@ -92,17 +92,20 @@ proc ::dialog_startup::create_dialog {mytoplevel} {
     wm withdraw $mytoplevel
     ::pd_bindings::dialog_bindings $mytoplevel "startup"
 
-    frame $mytoplevel.flags
+    # ceammc ttk
+    ttk::frame $mytoplevel.flags
     pack $mytoplevel.flags -side top -anchor s -fill x -padx 2m
-    label $mytoplevel.flags.entryname -text [_ "Startup flags:"]
-    entry $mytoplevel.flags.entry -textvariable ::startup_flags
+    # ceammc ttk
+    ttk::label $mytoplevel.flags.entryname -text [_ "Startup flags:"]
+    ttk::entry $mytoplevel.flags.entry -textvariable ::startup_flags
     pack $mytoplevel.flags.entry -side right -expand 1 -fill x
     pack $mytoplevel.flags.entryname -side right
 
     if {$::windowingsystem ne "win32"} {
-        frame $mytoplevel.defeatrtframe
+        ttk::frame $mytoplevel.defeatrtframe
         pack $mytoplevel.defeatrtframe -side top -anchor s -fill x -padx 2m -pady 5
-        checkbutton $mytoplevel.defeatrtframe.defeatrt -anchor w \
+        # ceammc ttk
+        ttk::checkbutton $mytoplevel.defeatrtframe.defeatrt \
             -text [_ "Defeat real-time scheduling"] \
             -variable ::dialog_startup::defeatrt_button
         pack $mytoplevel.defeatrtframe.defeatrt
@@ -119,7 +122,7 @@ proc ::dialog_startup::create_dialog {mytoplevel} {
         bind $mytoplevel.flags.entry <KeyPress-Return> "::dialog_startup::rebind_return $mytoplevel"
 
         # unbind Return from ok button when an entry takes focus
-        $mytoplevel.flags.entry config -validate focusin -vcmd "::dialog_startup::unbind_return $mytoplevel"
+        $mytoplevel.flags.entry config -validate focusin -validatecommand "::dialog_startup::unbind_return $mytoplevel"
 
         # remove cancel button from focus list since it's not activated on Return
         $mytoplevel.nb.buttonframe.cancel config -takefocus 0
@@ -130,8 +133,8 @@ proc ::dialog_startup::create_dialog {mytoplevel} {
         bind $mytoplevel.nb.buttonframe.ok <FocusOut> "$mytoplevel.nb.buttonframe.ok config -default normal"
 
         # since we show the active focus, disable the highlight outline
-        $mytoplevel.nb.buttonframe.ok config -highlightthickness 0
-        $mytoplevel.nb.buttonframe.cancel config -highlightthickness 0
+        # $mytoplevel.nb.buttonframe.ok config -highlightthickness 0
+        # $mytoplevel.nb.buttonframe.cancel config -highlightthickness 0
     }
 
     # set min size based on widget sizing

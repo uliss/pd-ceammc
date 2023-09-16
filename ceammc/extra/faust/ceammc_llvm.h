@@ -72,7 +72,7 @@ namespace faust {
         LlvmDspFactory& operator=(const LlvmDspFactory&) = delete;
 
     public:
-        explicit LlvmDspFactory(const char* fname, const FaustConfig& config = {});
+        explicit LlvmDspFactory(const char* name, const char* code, const FaustConfig& config = {});
         LlvmDspFactory(LlvmDspFactory&& f);
         ~LlvmDspFactory();
 
@@ -90,6 +90,7 @@ namespace faust {
 
     public:
         static void deleteAll();
+        static const char* faustVersion();
     };
 
     class LlvmDsp {

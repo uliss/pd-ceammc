@@ -16,19 +16,20 @@
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 
-static const int DEFAULT_MATRIX_X = 24;
-static const int DEFAULT_MATRIX_Y = 13;
+constexpr int DEFAULT_MATRIX_X = 24;
+constexpr int DEFAULT_MATRIX_Y = 13;
 
-static t_symbol* SYM_PROP_PD;
-static t_symbol* SYM_PROP_RGB;
-static t_symbol* SYM_PROP_HSL;
-static t_symbol* SYM_PROP_HEX;
+constexpr const char* SYM_PROP_PD = "@pd";
+constexpr const char* SYM_PROP_RGB = "@rgb";
+constexpr const char* SYM_PROP_HSL = "@hsl";
+constexpr const char* SYM_PROP_HEX = "@hex";
 
 static int rgb_to_pd(const t_rgba& c)
 {
-    return -256 * 256 * int(roundf(c.red * 255.f))
-        - 256 * int(roundf(c.green * 255.f))
-        - 1 * int(roundf(c.blue * 255.f)) - 1;
+    return -(0x10000 * (int(std::round(c.red * 255)) & 0xFF)
+               + 0x100 * (int(std::round(c.green * 255)) & 0xFF)
+               + (int(std::round(c.blue * 255)) & 0xFF))
+        - 1;
 }
 
 UIColorPanel::UIColorPanel()
@@ -49,26 +50,32 @@ UIColorPanel::UIColorPanel()
     createOutlet();
 }
 
+void UIColorPanel::init(t_symbol* name, const AtomListView& args, bool usePresets)
+{
+    UIObject::init(name, args, usePresets);
+    computeColors();
+}
+
 void UIColorPanel::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 49);
-    newrect->height = pd_clip_min(newrect->height, 10.);
+    newrect->w = pd_clip_min(newrect->w, 49);
+    newrect->h = pd_clip_min(newrect->h, 10.);
 
-    float ratio = (newrect->width - 1) / matrix_x_;
+    float ratio = (newrect->w - 1) / matrix_x_;
 
     if (ratio - (int)ratio != 0) {
         ratio = roundf(ratio);
-        newrect->width = ratio * matrix_x_ + 1;
+        newrect->w = ratio * matrix_x_ + 1;
     }
 
-    ratio = (newrect->height - 1) / matrix_y_;
+    ratio = (newrect->h - 1) / matrix_y_;
     if (ratio - (int)ratio != 0) {
         ratio = roundf(ratio);
-        newrect->height = ratio * matrix_y_ + 1;
+        newrect->h = ratio * matrix_y_ + 1;
     }
 
-    newrect->width = pd_clip_min(newrect->width, 49);
-    newrect->height = pd_clip_min(newrect->height, 10);
+    newrect->w = pd_clip_min(newrect->w, 49);
+    newrect->h = pd_clip_min(newrect->h, 10);
 }
 
 void UIColorPanel::onPropChange(t_symbol* prop_name)
@@ -91,8 +98,8 @@ void UIColorPanel::drawBackground()
     if (!p)
         return;
 
-    int block_width = r.width / matrix_x_;
-    int block_height = r.height / matrix_y_;
+    int block_width = r.w / matrix_x_;
+    int block_height = r.h / matrix_y_;
 
     for (int incx = 0, i = 0; i < matrix_x_; i++, incx += block_width) {
         for (int incY = 0, j = 0; j < matrix_y_; j++, incY += block_height) {
@@ -114,8 +121,8 @@ void UIColorPanel::drawHover()
         return;
 
     if (hover_x_ >= 0 && hover_y_ >= 0) {
-        int cell_w = r.width / matrix_x_;
-        int cell_h = r.height / matrix_y_;
+        int cell_w = r.w / matrix_x_;
+        int cell_h = r.h / matrix_y_;
 
         p.setColor(colors_[hover_x_][hover_y_]);
         p.drawRect(hover_x_ * cell_w - 3, hover_y_ * cell_h - 3, cell_w + 6, cell_h + 6);
@@ -134,8 +141,8 @@ void UIColorPanel::drawPicked()
         return;
 
     if (picked_x_ >= 0 && picked_y_ >= 0) {
-        int cell_w = r.width / matrix_x_;
-        int cell_h = r.height / matrix_y_;
+        int cell_w = r.w / matrix_x_;
+        int cell_h = r.h / matrix_y_;
         int rw = std::max<int>(cell_w - 2, 1);
         int rh = std::max<int>(cell_h - 2, 1);
 
@@ -153,8 +160,8 @@ void UIColorPanel::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_p
     hover_x_ = -1;
     hover_y_ = -1;
 
-    picked_x_ = clip<int>(pt.x / (r.width / matrix_x_), 0, matrix_x_ - 1);
-    picked_y_ = clip<int>(pt.y / (r.height / matrix_y_), 0, matrix_y_ - 1);
+    picked_x_ = clip<int>(pt.x / (r.w / matrix_x_), 0, matrix_x_ - 1);
+    picked_y_ = clip<int>(pt.y / (r.h / matrix_y_), 0, matrix_y_ - 1);
 
     hover_layer_.invalidate();
     picked_layer_.invalidate();
@@ -174,8 +181,8 @@ void UIColorPanel::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
 void UIColorPanel::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
 {
     const auto r = rect();
-    hover_x_ = clip<int>(pt.x / (r.width / matrix_x_), 0, matrix_x_ - 1);
-    hover_y_ = clip<int>(pt.y / (r.height / matrix_y_), 0, matrix_y_ - 1);
+    hover_x_ = clip<int>(pt.x / (r.w / matrix_x_), 0, matrix_x_ - 1);
+    hover_y_ = clip<int>(pt.y / (r.h / matrix_y_), 0, matrix_y_ - 1);
     hover_layer_.invalidate();
     redraw();
 }
@@ -192,10 +199,10 @@ AtomList UIColorPanel::propMatrixSize() const
 
 void UIColorPanel::propSetMatrixSize(const AtomListView& lv)
 {
-    bool ok = lv.size() > 1 && lv[0].isFloat() && lv[1].isFloat();
+    const bool ok = (lv.size() == 2 && lv[0].isFloat() && lv[1].isFloat());
 
     if (!ok) {
-        UI_ERR << "matrix size expected: X Y";
+        UI_ERR << "matrix size expected: X Y, got: " << lv;
         return;
     }
 
@@ -203,8 +210,8 @@ void UIColorPanel::propSetMatrixSize(const AtomListView& lv)
     matrix_y_ = clip<int>(lv[1].asFloat(), 1, 32);
     colors_.assign(matrix_x_, RgbCol(matrix_y_, t_rgba()));
 
-    t_rect r = rect();
-    resize(r.width, r.height);
+    auto r = rect();
+    resize(r.w, r.h);
     computeColors();
 }
 
@@ -253,7 +260,7 @@ AtomList UIColorPanel::propHslColor() const
 
 t_symbol* UIColorPanel::propHexColor() const
 {
-    if (picked_x_ < 0 || picked_y_ < 0)
+    if (picked_x_ < 0 || picked_y_ < 0 || picked_x_ >= matrix_x_ || picked_y_ >= matrix_y_)
         return gensym("#FFFFFF");
 
     return gensym(rgba_to_hex(colors_[picked_x_][picked_y_]));
@@ -262,13 +269,13 @@ t_symbol* UIColorPanel::propHexColor() const
 void UIColorPanel::m_set(const AtomListView& lv)
 {
     if (lv.size() < 2) {
-        UI_ERR << "color indexes expected: X Y";
+        UI_ERR << "color indexes expected: X Y, got: " << lv;
         return;
     }
 
     t_float x, y;
     if (!lv[0].getFloat(&x) || !lv[1].getFloat(&y)) {
-        UI_ERR << "color indexes excpected: X Y";
+        UI_ERR << "color indexes expected: X Y, got: " << lv;
         return;
     }
 
@@ -381,27 +388,27 @@ void UIColorPanel::output()
 
     // output pd
     out[0] = rgb_to_pd(color_rgb);
-    anyTo(0, SYM_PROP_PD, AtomListView(out, 1));
-    send(SYM_PROP_PD, AtomListView(out, 1));
+    anyTo(0, gensym(SYM_PROP_PD), AtomListView(out, 1));
+    send(gensym(SYM_PROP_PD), AtomListView(out, 1));
 
     // output rgb
     out[0] = color_rgb.red;
     out[1] = color_rgb.green;
     out[2] = color_rgb.blue;
-    anyTo(0, SYM_PROP_RGB, AtomListView(out, 3));
-    send(SYM_PROP_RGB, AtomListView(out, 3));
+    anyTo(0, gensym(SYM_PROP_RGB), AtomListView(out, 3));
+    send(gensym(SYM_PROP_RGB), AtomListView(out, 3));
 
     // hsl
     out[0] = color_hls.hue;
     out[1] = color_hls.saturation;
     out[2] = color_hls.lightness;
-    anyTo(0, SYM_PROP_HSL, AtomListView(out, 3));
-    send(SYM_PROP_HSL, AtomListView(out, 3));
+    anyTo(0, gensym(SYM_PROP_HSL), AtomListView(out, 3));
+    send(gensym(SYM_PROP_HSL), AtomListView(out, 3));
 
     // hex
     out[0] = color_hex;
-    anyTo(0, SYM_PROP_HEX, AtomListView(out, 1));
-    send(SYM_PROP_HEX, AtomListView(out, 1));
+    anyTo(0, gensym(SYM_PROP_HEX), AtomListView(out, 1));
+    send(gensym(SYM_PROP_HEX), AtomListView(out, 1));
 }
 
 void UIColorPanel::setup()
@@ -413,11 +420,12 @@ void UIColorPanel::setup()
     obj.usePresets();
     obj.useBang();
 
-    obj.addProperty("matrix", &UIColorPanel::propMatrixSize, &UIColorPanel::propSetMatrixSize);
+    obj.addRawProperty("matrix", "int", 2, 0);
     obj.showProperty("matrix");
     obj.setPropertyCategory("matrix", "Basic");
     obj.setPropertyLabel("matrix", _("Matrix Size"));
     obj.setPropertyDefaultValue("matrix", "24 13");
+    obj.setPropertyAccessor("matrix", &UIColorPanel::propMatrixSize, &UIColorPanel::propSetMatrixSize);
 
     obj.addFloatProperty("saturation", _("Saturation"), 1., &UIColorPanel::saturation_);
     obj.setPropertyRange("saturation", 0, 1);
@@ -439,15 +447,10 @@ void UIColorPanel::setup()
     obj.addProperty("pd", &UIColorPanel::propPdColor, 0);
     obj.addProperty("rgb", &UIColorPanel::propRgbColor, 0);
     obj.addProperty("hsl", &UIColorPanel::propHslColor, 0);
-    obj.addProperty("hex", &UIColorPanel::propHexColor);
+    obj.addProperty("hex", &UIColorPanel::propHexColor, nullptr);
 }
 
 void setup_ui_colorpanel()
 {
-    SYM_PROP_PD = gensym("@pd");
-    SYM_PROP_RGB = gensym("@rgb");
-    SYM_PROP_HSL = gensym("@hsl");
-    SYM_PROP_HEX = gensym("@hex");
-
     UIColorPanel::setup();
 }

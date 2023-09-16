@@ -7,9 +7,9 @@ add_subdirectory(aubio)
 add_subdirectory(comport)
 add_subdirectory(fftconv)
 add_subdirectory(helmholtz)
-add_subdirectory(import)
-add_subdirectory(libdir)
 add_subdirectory(airwindows)
+add_subdirectory(colorm)
+add_subdirectory(date)
 
 if(WITH_EXT_AUTOTUNE)
     add_subdirectory(autotune)
@@ -27,26 +27,34 @@ if(WITH_EXT_LYONPOTPOURRI)
     add_subdirectory(lyonpotpourri)
 endif()
 
+if(WITH_ARTNET)
+    add_subdirectory(artnet)
+endif()
+
 add_subdirectory(glitch)
+add_subdirectory(httplib)
 add_subdirectory(midifile)
+add_subdirectory(miniz)
 add_subdirectory(muparser)
+add_subdirectory(qrcode)
+add_subdirectory(readerwriterqueue)
 add_subdirectory(reflex)
+add_subdirectory(rust)
 add_subdirectory(serial)
 add_subdirectory(sf2)
 add_subdirectory(soxr)
 add_subdirectory(stk)
 add_subdirectory(subprocess)
-add_subdirectory(httplib)
-add_subdirectory(miniz)
-add_subdirectory(readerwriterqueue)
 add_subdirectory(tcltk)
+add_subdirectory(verovio)
 
-if(WITH_FAUST)
+if(WITH_FAUST AND APPLE)
     add_subdirectory(faust)
 endif()
 
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 set(CMAKE_BUILD_TYPE Release)
+set(FMT_INSTALL OFF CACHE BOOL "" FORCE)
 add_subdirectory(fmt)
 set_target_properties(fmt PROPERTIES DEBUG_POSTFIX "")
 
@@ -64,11 +72,23 @@ if(UNIX)
 endif()
 
 if(WITH_EXPERIMENTAL)
+    add_subdirectory(import)
+    add_subdirectory(libdir)
     add_subdirectory(libusb)
 endif()
 
 if(WITH_FLUIDSYNTH)
-    add_subdirectory(fluidsynth)
+    find_package(GLIB REQUIRED)
+    if(GLIB_FOUND)
+        #include paths
+        list(APPEND FLUIDSYNTH_INCLUDES
+            ${GLIB_INCLUDES}
+            ${PROJECT_BINARY_DIR}/ceammc/extra/fluidsynth
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/fluidsynth/fluidsynth/include)
+        # libs
+        list(APPEND FLUIDSYNTH_LIBRARIES fluidsynth ${GLIB_LIBRARIES})
+        add_subdirectory(fluidsynth)
+    endif()
 endif()
 
 if(WITH_TTS_FLITE)
@@ -89,6 +109,7 @@ if(WITH_SFIZZ)
     set(SFIZZ_VST OFF CACHE INTERNAL "")
     set(SFIZZ_JACK OFF CACHE INTERNAL "")
     set(SFIZZ_RENDER OFF CACHE INTERNAL "")
+    set(ABSL_PROPAGATE_CXX_STD ON CACHE INTERNAL "")
 
     if(WIN32)
         set(SFIZZ_SHARED ON CACHE INTERNAL "")
@@ -99,13 +120,103 @@ if(WITH_SFIZZ)
     set(SFIZZ_USE_SNDFILE OFF CACHE INTERNAL "")
 
     FetchContent_Declare(
-      sfizz
-      URL      https://github.com/sfztools/sfizz/releases/download/1.1.1/sfizz-1.1.1.tar.gz
-      URL_HASH MD5=cc4770c287d52da517a7ae25fd826a3e
+        sfizz
+        URL      https://github.com/sfztools/sfizz/releases/download/1.2.0/sfizz-1.2.0.tar.gz
+        URL_HASH MD5=13725a41a811dc81c973f303eaaea86b
     )
     FetchContent_GetProperties(sfizz)
     if(NOT sfizz_POPULATED)
-      FetchContent_Populate(sfizz)
-      add_subdirectory(${sfizz_SOURCE_DIR} ${sfizz_BINARY_DIR} EXCLUDE_FROM_ALL)
+        FetchContent_Populate(sfizz)
+        add_subdirectory(${sfizz_SOURCE_DIR} ${sfizz_BINARY_DIR} EXCLUDE_FROM_ALL)
+
+        if(WIN32)
+            #install(TARGETS sfizz_shared RUNTIME DESTINATION extra/ceammc)
+        endif()
     endif()
 endif()
+
+if(WITH_FAUST AND NOT APPLE)
+    cmake_minimum_required(VERSION 3.14)
+
+    include(FetchContent)
+    set(FETCHCONTENT_QUIET FALSE)
+    set(INCLUDE_STATIC      ON  CACHE STRING  "Include static library"        FORCE)
+    set(INCLUDE_EXECUTABLE  OFF CACHE STRING  "Include runtime executable"    FORCE)
+    set(INCLUDE_DYNAMIC     OFF CACHE STRING  "Include dynamic library"       FORCE)
+    set(INCLUDE_OSC         OFF CACHE STRING  "Include Faust OSC library"     FORCE)
+    set(INCLUDE_HTTP        OFF CACHE STRING  "Include Faust HTTPD library"   FORCE)
+    set(INCLUDE_EMCC        OFF CACHE STRING  ""   FORCE )
+    set(INCLUDE_WASM_GLUE   OFF CACHE STRING  ""   FORCE )
+
+    ## Hardcoded backends for faust
+    set(ASMJS_BACKEND  OFF                            CACHE STRING  "Include ASMJS backend"     FORCE)
+    set(C_BACKEND      OFF                            CACHE STRING  "Include C backend"         FORCE)
+    set(CPP_BACKEND    OFF                            CACHE STRING  "Include CPP backend"       FORCE)
+    set(FIR_BACKEND    OFF                            CACHE STRING  "Include FIR backend"       FORCE)
+    set(INTERP_BACKEND OFF                            CACHE STRING  "Include INTERPRETER backend" FORCE)
+    set(JAVA_BACKEND   OFF                            CACHE STRING  "Include JAVA backend"      FORCE)
+    set(JS_BACKEND     OFF                            CACHE STRING  "Include JAVASCRIPT backend" FORCE)
+    set(LLVM_BACKEND   COMPILER STATIC DYNAMIC        CACHE STRING  "Include LLVM backend"      FORCE)
+    set(OLDCPP_BACKEND OFF                            CACHE STRING  "Include old CPP backend"   FORCE)
+    set(RUST_BACKEND   OFF                            CACHE STRING  "Include RUST backend"      FORCE)
+    set(WASM_BACKEND   OFF                            CACHE STRING  "Include WASM backend"      FORCE)
+
+    if(WIN32)
+        find_package(Patch REQUIRED)
+
+        FetchContent_Declare(
+            faust
+            URL      https://github.com/grame-cncm/faust/releases/download/2.60.3/faust-2.60.3.tar.gz
+            URL_HASH MD5=d0c436cebafbce0b5affc082bc2f8297
+            PATCH_COMMAND ${Patch_EXECUTABLE} -i "${CMAKE_CURRENT_SOURCE_DIR}/faust/cstdint.patch" -l -N -u --verbose ${PROJECT_BINARY_DIR}/_deps/faust-src/compiler/generator/Text.hh
+            UPDATE_DISCONNECTED 1
+        )
+        FetchContent_GetProperties(faust)
+        if(NOT faust_POPULATED)
+            FetchContent_Populate(faust)
+            add_subdirectory(${faust_SOURCE_DIR}/build ${faust_BINARY_DIR} EXCLUDE_FROM_ALL)
+            add_library(ceammc_faust STATIC ${PROJECT_SOURCE_DIR}/ceammc/extra/faust/ceammc_llvm.cpp)
+            target_link_libraries(ceammc_faust PRIVATE staticlib)
+            target_compile_definitions(ceammc_faust PRIVATE ${LLVM_DEFINITIONS})
+            target_include_directories(ceammc_faust PRIVATE
+                ${CMAKE_CURRENT_SOURCE_DIR}/faust/architecture
+                ${LLVM_INCLUDE_DIRS}
+                ${PROJECT_SOURCE_DIR}/src)
+
+            if(COMMAND llvm_map_components_to_libnames)
+                set(llvm_libs)
+                if(APPLE)
+                    if(CMAKE_OSX_ARCHITECTURES STREQUAL "arm64")
+                        llvm_map_components_to_libnames(llvm_libs_arm64
+                            AArch64AsmParser AArch64Info AArch64Desc AArch64CodeGen)
+                        list(APPEND llvm_libs ${llvm_libs_arm64})
+                    else (CMAKE_OSX_ARCHITECTURES STREQUAL "x86_64")
+                        llvm_map_components_to_libnames(llvm_libs_x86
+                            x86asmparser x86info x86desc x86codegen)
+                        list(APPEND llvm_libs ${llvm_libs_x86})
+                    endif()
+                elseif(WIN32 OR UNIX)
+                    llvm_map_components_to_libnames(llvm_libs_x86
+                        x86asmparser x86info x86desc x86codegen)
+                    list(APPEND llvm_libs ${llvm_libs_x86})
+                endif()
+                llvm_map_components_to_libnames(llvm_libs_base
+                    support core irreader executionengine
+                    asmprinter mcjit ipo objcarcopts)
+                list(APPEND llvm_libs ${llvm_libs_base})
+
+                message(STATUS "llvm-libs: ${llvm_libs}")
+                target_link_libraries(ceammc_faust PRIVATE ${llvm_libs})
+            endif()
+
+            set(DOC_INSTALL_PATH "${PD_DOC_INSTALL_PATH}/extra/ceammc")
+
+            install(DIRECTORY faust/libraries/
+                DESTINATION ${DOC_INSTALL_PATH}/faust
+                FILES_MATCHING PATTERN "*.lib"
+                PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+
+        endif()
+    endif()
+endif()
+

@@ -27,7 +27,7 @@
 
 namespace ceammc {
 
-using ElementAccessFn = const Atom* (AtomList::*)(int)const;
+using ElementAccessFn = const Atom* (AtomList::*)(int) const;
 
 AtomList::AtomList() noexcept
 {
@@ -52,6 +52,19 @@ AtomList::AtomList(const Atom& a)
 AtomList::AtomList(size_t n, t_atom* lst)
 {
     fromPdData(n, lst);
+}
+
+AtomList::AtomList(const t_binbuf* b)
+{
+    if (!b)
+        return;
+
+    fromPdData(binbuf_getnatom(b), binbuf_getvec(b));
+}
+
+AtomList::AtomList(t_binbuf* b)
+    : AtomList(const_cast<const t_binbuf*>(b))
+{
 }
 
 AtomList::AtomList(const AtomListView& v)
@@ -95,7 +108,7 @@ void AtomList::operator=(const AtomListView& l)
     atoms_.clear();
     atoms_.reserve(l.size());
 
-    if(l.isNull() || l.empty())
+    if (l.isNull() || l.empty())
         return;
 
     for (auto& a : l)
@@ -203,40 +216,47 @@ t_symbol* AtomList::symbolAt(size_t pos, t_symbol* def) const noexcept
     return res;
 }
 
-void AtomList::resizePad(size_t n, const Atom& v)
+AtomList& AtomList::resizePad(size_t n, const Atom& v)
 {
     atoms_.resize(n, v);
+    return *this;
 }
 
-void AtomList::resizeClip(size_t n)
+AtomList& AtomList::resizeClip(size_t n)
 {
     if (empty())
-        return;
+        return *this;
 
-    resizePad(n, atoms_.back());
+    return resizePad(n, atoms_.back());
 }
 
-void AtomList::resizeWrap(size_t n)
+AtomList& AtomList::resizeWrap(size_t n)
 {
     if (empty())
-        return;
+        return *this;
 
-    if (n < size())
-        return atoms_.resize(n);
+    if (n < size()) {
+        atoms_.resize(n);
+        return *this;
+    }
 
     atoms_.reserve(n);
     const size_t old_size = size();
     for (size_t i = old_size; i < n; i++)
         atoms_.push_back(atoms_[i % old_size]);
+
+    return *this;
 }
 
-void AtomList::resizeFold(size_t n)
+AtomList& AtomList::resizeFold(size_t n)
 {
     if (empty())
-        return;
+        return *this;
 
-    if (n < size())
-        return atoms_.resize(n);
+    if (n < size()) {
+        atoms_.resize(n);
+        return *this;
+    }
 
     atoms_.reserve(n);
     const size_t old_size = size();
@@ -250,6 +270,8 @@ void AtomList::resizeFold(size_t n)
         size_t wrap = i % fold_size;
         atoms_.push_back(atoms_[std::min(wrap, fold_size - wrap)]);
     }
+
+    return *this;
 }
 
 bool AtomList::property(t_symbol* name, Atom* dest) const noexcept
@@ -473,6 +495,41 @@ const Atom* AtomList::last() const
     return const_cast<AtomList*>(this)->last();
 }
 
+bool AtomList::isMsgAny() const noexcept
+{
+    if (atoms_.size() > 0 && atoms_[0].isSymbol()) {
+        auto& f = atoms_[0];
+        return f != &s_bang && f != &s_float && f != &s_symbol && f != &s_pointer && f != &s_list;
+    } else
+        return false;
+}
+
+t_float AtomList::asMsgFloat(t_float def) const noexcept
+{
+    if (isMsgFloat())
+        return atoms_[1].asT<t_float>();
+    else
+        return def;
+}
+
+t_symbol* AtomList::asMsgSymbol(t_symbol* def) const noexcept
+{
+    if (isMsgSymbol())
+        return atoms_[1].asT<t_symbol*>();
+    else
+        return def;
+}
+
+AtomListView AtomList::asLogicList() const noexcept
+{
+    if (isMsgList())
+        return view(1);
+    else if (atoms_.size() > 1 && atoms_[0].isFloat())
+        return view();
+    else
+        return {};
+}
+
 void AtomList::fill(const Atom& a)
 {
     std::fill(atoms_.begin(), atoms_.end(), a);
@@ -609,6 +666,23 @@ AtomListView AtomList::view(size_t from, size_t length) const
         auto len = std::min(length, atoms_.size() - from);
         return AtomListView(toPdData() + from, len);
     }
+}
+
+AtomList& AtomList::expandDollarArgs(const t_canvas* cnv, const Atom& def)
+{
+    for (auto& a : atoms_) {
+        auto res = a.expandDollarArgs(cnv, true);
+        a = res ? *res : def;
+    }
+
+    return *this;
+}
+
+AtomList AtomList::restorePrimitives() const
+{
+    AtomList res;
+    view().restorePrimitives(res);
+    return res;
 }
 
 static AtomList listAdd(const AtomList& a, const AtomList& b, ElementAccessFn fn)

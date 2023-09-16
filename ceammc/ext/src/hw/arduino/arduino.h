@@ -1,12 +1,14 @@
 #ifndef ARDUINO_H
 #define ARDUINO_H
 
-#include <pthread.h>
-#include <stdint.h>
+#include <cstdint>
+#include <mutex>
 
 #include <deque>
 #include <string>
 #include <vector>
+
+#include <pthread.h>
 
 namespace ceammc {
 namespace hw {
@@ -34,7 +36,7 @@ namespace hw {
         volatile bool is_running_;
         volatile bool reconnect_;
         pthread_t thread_;
-        mutable pthread_mutex_t mutex_;
+        mutable std::mutex mutex_;
         int baud_rate_;
         int vendor_id_;
         int product_id_;

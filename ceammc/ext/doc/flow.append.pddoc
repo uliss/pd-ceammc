@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flow.append">
         <title>flow.append</title>
         <meta>
@@ -12,11 +12,22 @@
             <category>flow</category>
             <keywords>flow append</keywords>
             <since>0.9</since>
+            <also>
+                <see>flow.prepend</see>
+            </also>
         </meta>
+        <info>
+            <par>Note: if you want to specify property message in the init argument, you have to
+            quote it with double-quotes</par>
+        </info>
+        <arguments>
+            <argument name="MSG" type="list">init value for appended message</argument>
+        </arguments>
         <properties>
             <property name="@delay" type="float" default="-1" minvalue="-1" units="millisecond">
-            append delay. If &lt;0 append immidiately at the same logical time, if equal zero -
+            append delay. If &lt;0 append immediately at the same logical time, if equal zero -
             output after next DSP block.</property>
+            <property name="@msg" type="list" default="">appended message</property>
         </properties>
         <inlets>
             <inlet>

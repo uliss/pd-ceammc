@@ -10,6 +10,8 @@ GlobalList::GlobalList(const PdArgs& a)
         [this]() -> AtomList { return list(); },
         [this](const AtomListView& lv) -> bool { list() = lv; return true; })
         ->setArgIndex(1);
+
+    createOutlet();
 }
 
 EditorTitleString GlobalList::editorTitle() const
@@ -24,5 +26,9 @@ void setup_global_list()
     ListIFaceFactory<GlobalList> obj("global.list");
     obj.processData<DataTypeMList>();
 
-    GlobalList::registerMethods(obj);
+    GlobalList::factoryEditorObjectInit(obj);
+
+    obj.setDescription("global named list object");
+    obj.setCategory("global");
+    obj.setKeywords({ "list", "global" });
 }

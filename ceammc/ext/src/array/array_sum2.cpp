@@ -35,4 +35,8 @@ void ArraySum2::onBang()
 void setup_array_sum2()
 {
     ObjectFactory<ArraySum2> obj("array.sum2");
+
+    obj.setDescription("calculates sum of squares of array elements");
+    obj.setCategory("array");
+    obj.setKeywords({"array", "sum"});
 }

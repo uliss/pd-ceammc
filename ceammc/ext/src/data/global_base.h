@@ -14,7 +14,6 @@
 #ifndef GLOBAL_BASE_H
 #define GLOBAL_BASE_H
 
-#include "ceammc_format.h"
 #include "ceammc_globaldata.h"
 #include "ceammc_object.h"
 
@@ -22,32 +21,40 @@ namespace ceammc {
 
 constexpr const char* DEFAULT_ID = "default";
 
-template <typename T>
-class GlobalBase : public BaseObject {
+template <typename T, typename Base = BaseObject>
+class GlobalBase : public Base {
     GlobalData<T> data_;
     GlobalBase(const GlobalBase&) = delete;
     void operator=(const GlobalBase&) = delete;
 
 public:
     GlobalBase(const PdArgs& a)
-        : BaseObject(a)
-        , data_(parsedPosArgs().symbolAt(0, gensym(DEFAULT_ID)), a.className->s_name)
+        : Base(a)
+        , data_(this->parsedPosArgs().symbolAt(0, gensym(DEFAULT_ID)), a.className->s_name)
     {
+        auto id = new SymbolProperty("@id", gensym(DEFAULT_ID));
+        id->setInitOnly();
+        id->setArgIndex(0);
+        this->addProperty(id);
+
         if (data_.name() == gensym(DEFAULT_ID))
             OBJ_DBG << "global object ID required! Using default id: " << data_.name();
+    }
 
-        createOutlet();
+    void dump() const override
+    {
+        Base::dump();
+        OBJ_POST << "ref count: " << refCount();
 
-        createCbSymbolProperty("@.id", [this]() -> t_symbol* { return data_.name(); })
-            ->setInternal();
-
-        createCbListProperty("@.obj_refs",
-            [this]() -> AtomList { return m_refs(); })
-            ->setInternal();
-
-        createCbListProperty("@.obj_keys",
-            [this]() -> AtomList { return m_keys(); })
-            ->setInternal();
+        // print keys
+        {
+            Post pk(this);
+            pk.stream() << "existing keys:";
+            std::vector<t_symbol*> keys;
+            data_.keys(keys);
+            for (auto k : keys)
+                pk.stream() << ' ' << k;
+        }
     }
 
     T& ref() { return data_.ref(); }
@@ -56,24 +63,6 @@ public:
     t_symbol* id() const { return data_.name(); }
 
     size_t refCount() const { return data_.refCount(); }
-
-    AtomList m_keys() const
-    {
-        std::vector<t_symbol*> keys;
-        data_.keys(keys);
-
-        AtomList res;
-        res.reserve(keys.size());
-        for (auto& s : keys)
-            res.append(Atom(s));
-
-        return res;
-    }
-
-    AtomList m_refs() const
-    {
-        return listFrom(data_.refCount());
-    }
 };
 }
 

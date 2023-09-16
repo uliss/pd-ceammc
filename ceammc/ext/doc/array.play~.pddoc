@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="array.play~">
         <title>array.play~</title>
         <meta>
@@ -33,16 +33,15 @@
             reversed playback</property>
             <property name="@amp" type="float" default="1" minvalue="0">playback
             amplitude</property>
-            <property name="@loop" type="int" default="0" enum="0 1">samplewise loop playing
-            mode</property>
+            <property name="@loop" type="bool" default="0">samplewise loop playing mode</property>
             <property name="@interp" type="int" enum="0 1 3" default="1">interpolation type. 0: no
-            interpolationm 1: linear, 3: cubic.</property>
+            interpolation 1: linear, 3: cubic.</property>
             <property name="@clock" type="float" default="0" minvalue="0" maxvalue="20"
             units="second">clock output period. Zero means: no clock output (by
             default).</property>
             <property name="@cfmt" type="symbol" default="sec" enum="sec ms samp phase">clock
             output format</property>
-            <property name="@state" type="int" default="0" readonly="true">playing state. 0:
+            <property name="@state" type="int" default="0" access="readonly">playing state. 0:
             stopped, 1: playing, 2: paused.</property>
             <property name="@cursor_ms" type="float" default="0" units="millisecond">current play
             position</property>
@@ -62,17 +61,21 @@
             range</property>
         </properties>
         <methods>
-            <method name="play">start playback from current play position</method>
-            <method name="stop">stop playback and reset play position</method>
+            <!-- pause -->
             <method name="pause">pause/resume playback 
             <param type="int" enum="0 1" default="1">if true: pause, else resume
             playing</param></method>
+            <!-- play -->
+            <method name="play">start playback from current play position</method>
+            <!-- range -->
             <method name="range">set @begin and @end property 
-            <param type="atom" required="true" name="BEGIN">begin position. If float value given:
+            <param name="BEGIN" type="atom" required="true">begin position. If float value given:
             interpret as phase in [0..1] range. Otherwise unit value expected. Examples: 10ms, 5%,
             4sec, 20samp etc.</param>
-            <param type="atom" required="true" name="END">end position. Value type same as for
+            <param name="END" type="atom" required="true">end position. Value type same as for
             first argument</param></method>
+            <!-- stop -->
+            <method name="stop">stop playback and reset play position</method>
         </methods>
         <inlets>
             <inlet>

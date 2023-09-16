@@ -129,6 +129,14 @@ public:
     bool checkNegative() final;
     bool checkNonNegative() final;
 
+    bool checkMin(t_float v);
+    bool checkMinEq(t_float v);
+    bool checkMax(t_float v);
+    bool checkMaxEq(t_float v);
+    bool checkClosedRange(t_float a, t_float b);
+    bool checkOpenedRange(t_float a, t_float b);
+    bool checkNonZero();
+
     void updateDefault() override;
 
 private:

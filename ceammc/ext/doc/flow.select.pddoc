@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flow.select">
         <title>flow.select</title>
         <meta>
@@ -29,14 +29,16 @@
             <par>set: A|B|C - match to A or B or C</par>
         </info>
         <arguments>
-            <argument type="list" name="ARGS">flow match expressions</argument>
+            <argument name="ARGS" type="list">flow match expressions</argument>
         </arguments>
         <properties>
             <property name="@v" type="alias">alias to @keep_value 1</property>
-            <property name="@keep_value" type="int" default="0" enum="0 1 on off">vakue output
-            mode. If false (by default) acts like vanilla select: output bang on match or full
-            unmatched message to last outlet. If true always outputs full matched message to
-            corresponding outlet.</property>
+            <property name="@keep_value" type="bool" default="0">value output mode. If false (by
+            default) acts like vanilla select: output bang on match or full unmatched message to
+            last outlet. If true always outputs full matched message to corresponding
+            outlet.</property>
+            <property name="@msg" type="list" default="">output this message on match, instead of
+            bang</property>
         </properties>
         <inlets>
             <inlet>

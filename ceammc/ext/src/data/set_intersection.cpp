@@ -45,4 +45,8 @@ void setup_set_intersection()
 {
     ObjectFactory<SetIntersection> obj("set.intersect");
     obj.processData<DataTypeSet>();
+
+    obj.setDescription("output intersection of given sets");
+    obj.setCategory("data");
+    obj.setKeywords({"data", "intersection", "set"});
 }

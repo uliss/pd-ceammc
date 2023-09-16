@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include "plot_linspace_tilde.h"
 #include "ceammc_factory.h"
-#include "fmt/format.h"
 
 using PropAlias = AliasProperty<EnumProperty<Atom>>;
 
@@ -99,4 +98,8 @@ void PlotLinTilde::processBlock(const t_sample** in, t_sample** out)
 void setup_plot_linspace_tilde()
 {
     SoundExternalFactory<PlotLinTilde> obj("plot.linspace~", OBJECT_FACTORY_DEFAULT);
+
+    obj.setDescription("outputs numbers spaced evenly spaced over a specified interval");
+    obj.setCategory("array");
+    obj.setKeywords({"array", "linear", "scale"});
 }

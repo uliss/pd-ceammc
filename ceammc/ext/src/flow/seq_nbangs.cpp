@@ -12,10 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "seq_nbangs.h"
+#include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 
-static t_symbol* SYM_DONE;
-static t_symbol* SYM_IDX;
+CEAMMC_DEFINE_SYM(done)
+CEAMMC_DEFINE_SYM(i)
 
 SeqNBangs::SeqNBangs(const PdArgs& args)
     : BaseObject(args)
@@ -24,7 +26,7 @@ SeqNBangs::SeqNBangs(const PdArgs& args)
     , counter_(0)
     , clock_([this]() {
         if (tick())
-            clock_.delay(interval_->value());
+            clock_.delay(calcStepDelay(counter_));
     })
 {
     createInlet();
@@ -40,9 +42,21 @@ SeqNBangs::SeqNBangs(const PdArgs& args)
     interval_->setArgIndex(1);
     addProperty(interval_);
 
+    beat_division_ = new IntProperty("@div", 1);
+    beat_division_->checkClosedRange(1, 64);
+    addProperty(beat_division_);
+
+    accel_ = new FloatProperty("@accel", 1);
+    accel_->checkClosedRange(0.25, 4);
+    addProperty(accel_);
+
+    accel_curve_ = new FloatProperty("@curve", 1);
+    accel_curve_->checkClosedRange(-8, 8);
+    addProperty(accel_curve_);
+
     createCbFloatProperty(
         "@dur",
-        [this]() -> t_float { return n_->value() * interval_->value(); },
+        [this]() -> t_float { return calcTotalDur(); },
         [this](t_float f) -> bool {
             const auto N = n_->value();
             if (N == 0) {
@@ -50,7 +64,7 @@ SeqNBangs::SeqNBangs(const PdArgs& args)
                 return false;
             }
 
-            return interval_->setValue(f / N);
+            return interval_->setValue(calcIntervalByDur(f));
         })
         ->checkNonNegative();
 }
@@ -107,11 +121,11 @@ void SeqNBangs::reset()
 bool SeqNBangs::tick()
 {
     if ((int)counter_ >= n_->value()) {
-        anyTo(1, SYM_DONE, AtomListView());
+        anyTo(1, sym_done(), AtomListView());
         return false;
     } else {
         Atom l[2] = { counter_, n_->value() };
-        anyTo(1, SYM_IDX, AtomListView(l, 2));
+        anyTo(1, sym_i(), AtomListView(l, 2));
         bangTo(0);
 
         counter_++;
@@ -119,11 +133,62 @@ bool SeqNBangs::tick()
     }
 }
 
+t_float SeqNBangs::calcIntervalByDur(t_float dur) const
+{
+    const auto N = n_->value();
+
+    if (accel_->value() == 1) {
+        return dur / N;
+    } else if (accel_curve_->value() == 0) {
+        // T = (i0+i0/a) * (N-1) / 2
+        // 2T/(N-1) == (i0 + i0/a)
+        // 2T/(N-1) == (i0 + i0/a)
+        // 2T/(N-1)*a == ai0 + i0
+        // 2T/(N-1)*a == i0(a + 1)
+        // 2T/(N-1)*a/(a+1) == i0
+        auto a = accel_->value();
+        return ((dur * 2) / (N - 1)) * (a / (1 + a));
+    } else {
+        auto k = dur / calcTotalDur();
+        return interval_->value() * k;
+    }
+}
+
+t_float SeqNBangs::calcTotalDur() const
+{
+    const auto N = n_->value();
+
+    if (N == 0)
+        return 0;
+    else if (accel_->value() == 1)
+        return N * interval_->value();
+    else if (accel_curve_->value() == 0) {
+        auto i0 = interval_->value();
+        auto in = i0 / accel_->value();
+        return ((i0 + in) * (N - 1) / 2);
+    } else {
+        t_float res = 0;
+        for (int i = 0; i < N - 1; i++)
+            res += calcStepDelay(i);
+
+        return res;
+    }
+    return 0;
+}
+
+t_float SeqNBangs::calcStepDelay(int n) const
+{
+    if (accel_->value() == 1) {
+        return interval_->value() / beat_division_->value();
+    } else {
+        auto interval = interval_->value() / beat_division_->value();
+        auto speed = convert::lin2curve(n, 0, n_->value() - 2, 1, 1 / accel_->value(), accel_curve_->value());
+        return interval * speed;
+    }
+}
+
 void setup_seq_nbangs()
 {
-    SYM_DONE = gensym("done");
-    SYM_IDX = gensym("i");
-
     SequencerIFaceFactory<ObjectFactory, SeqNBangsT> obj("seq.nbangs");
     obj.addAlias("seq.nb");
 
@@ -135,4 +200,8 @@ void setup_seq_nbangs()
                          "float: set number of bangs" },
         { "bang", "\\[i IDX N( - sequence iteration\n"
                   "\\[done( - when done" });
+
+    obj.setDescription("output specified number of bang with time intervals");
+    obj.setCategory("seq");
+    obj.setKeywords({ "seq", "bang", "until" });
 }

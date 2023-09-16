@@ -22,11 +22,16 @@
 namespace ceammc {
 namespace json {
 
-    std::string to_json(const Atom& a, int indent = -1);
-    std::string to_json(const AtomList& l, int indent = -1);
-    std::string to_json(const DataTypeString& str, int indent = -1);
-    std::string to_json(const DataTypeMList& ml, int indent = -1);
-    std::string to_json(const DataTypeDict& dict, int indent = -1);
+    struct JsonWriteOpts {
+        int indent { -1 };
+        bool compressSingleList { true };
+    };
+
+    std::string to_json_string(const Atom& a, const JsonWriteOpts& opt = JsonWriteOpts());
+    std::string to_json_string(const AtomList& l, const JsonWriteOpts& opt = JsonWriteOpts());
+    std::string to_json_string(const DataTypeString& str, const JsonWriteOpts& opt = JsonWriteOpts());
+    std::string to_json_string(const DataTypeMList& ml, const JsonWriteOpts& opt = JsonWriteOpts());
+    std::string to_json_string(const DataTypeDict& dict, const JsonWriteOpts& opt = JsonWriteOpts());
 }
 
 }

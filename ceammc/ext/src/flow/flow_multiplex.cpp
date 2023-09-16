@@ -145,4 +145,8 @@ void setup_flow_multiplex()
     FlowMultiplex::ControlProxy::set_float_callback(&FlowMultiplex::ControlInlet::on_float);
 
     obj.addOutletInfo("any: multiplexed flow");
+
+    obj.setDescription("control flow multiplexer");
+    obj.setCategory("flow");
+    obj.setKeywords({"multiplex"});
 }

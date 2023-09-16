@@ -1,96 +1,83 @@
-#N canvas 148 46 675 681 10;
-#X msg 363 361 \; pd dsp 1;
-#X msg 363 396 \; pd dsp 0;
+#N canvas 729 369 675 681 10;
 #X obj 75 99 hoa.soundgrain;
 #X obj 34 586 hoa.help.pub;
 #X obj 420 8 hoa.help.also;
-#X obj 75 527 hoa.2d.decoder~ 7 ambisonics 16;
-#X text 345 222 orders and the degrees of the harmonics.;
-#X text 345 232 You can also use it in the plane waves domain.;
+#X text 345 372 orders and the degrees of the harmonics.;
+#X text 345 382 You can also use it in the plane waves domain.;
 #X text 260 75 Control the global frequency., f 12;
-#X text 299 288 arg : frequency (Hz);
-#X text 345 212 The frequency is mapped depending on the;
-#X text 9 52 hoa.syn.ringmod~ uses ring modulation to synthesize a
-diffuse a sound field.;
+#X text 345 362 The frequency is mapped depending on the;
+#X text 9 52 hoa.syn.ringmod~ uses ring modulation to synthesize a diffuse a sound field.;
 #X obj 7 15 msg.onload @name?;
 #X obj 7 27 canvas.current;
 #X obj 7 19 prop-> @name;
 #X obj 4 8 hoa.help.header;
-#X obj 75 128 ui.gain~ @size 131 10 @receive "(null)" @send "(null)"
-@pinned 0 @presetname "ui.gain~.1" @background_color 0.93 0.93 0.93
-1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75
-1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
-11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left"
-@label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value
-0 @show_range 1;
+#X obj 75 128 ui.gain~ @size 131 14 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.gain~.1" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value 0 @relative 1 @midi_channel 0 @midi_control -1 @midi_pickup 1 @show_range 1;
 #X obj 257 124 msg.onload 20;
-#X obj 258 145 ui.number @size 53 17 @receive "(null)" @send "(null)"
-@pinned 0 @presetname "ui.number.0" @background_color 0.93 0.93 0.93
-1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0
-0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal"
-@fontslant "roman" @fontsize 14 @label "Hz" @label_inner 0 @label_side
-"right" @label_align "left" @label_valign "top" @label_margins 0 0
-@min 0 @max 5000 @digits -1;
+#X obj 258 145 ui.number @size 53 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.number.0" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 14 @label "Hz" @label_inner 0 @label_side "right" @label_align "left" @label_valign "top" @label_margins 0 0 @min 0 @max 5000 @digits -1;
 #X obj 75 559 xdac~ 1:16, f 31;
-#X obj 75 252 hoa.scope~ @size 189 189 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
-0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
-"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
-"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0 @gain 10 @refresh 100 @order 7 @view 0;
-#X obj 75 169 hoa.process~ 7 hoa.syn.ringmod~ harmonics 100, f 31
-;
-#X connect 2 0 16 0;
-#X connect 5 0 19 0;
-#X connect 5 1 19 1;
-#X connect 5 2 19 2;
-#X connect 5 3 19 3;
-#X connect 5 4 19 4;
-#X connect 5 5 19 5;
-#X connect 5 6 19 6;
-#X connect 5 7 19 7;
-#X connect 5 8 19 8;
-#X connect 5 9 19 9;
-#X connect 5 10 19 10;
-#X connect 5 11 19 11;
-#X connect 5 12 19 12;
-#X connect 5 13 19 13;
-#X connect 5 14 19 14;
-#X connect 5 15 19 15;
-#X connect 12 0 13 0;
+#X obj 75 252 hoa.scope~ @size 189 189 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @gain 10 @refresh 100 @order 7 @view 0;
+#X obj 296 410 ui.dsp~ @size 30 30 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0;
+#X obj 75 527 hoa.2d.decoder~ 7 regular 16, f 31;
+#X obj 390 132 ui.radio @size 225 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.hrd.0" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @nitems 15 @mode 0;
+#X msg 390 152 open \$1;
+#X obj 75 169 hoa.process~ 7 hoa.syn.ringmod~ harmonics "@freq" 100, f 31;
+#X obj 390 190 ui.sliders @size 225 53 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.sliders.0" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @slider_color 0.75 0.75 0.75 1 @select_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min 0 @max 400 @count 15 @auto_range_mode "none" @show_range 1 @auto_count 0 @show_lines 1;
+#X obj 390 265 msg #: @freq;
+#X connect 0 0 12 0;
+#X connect 8 0 9 0;
+#X connect 9 0 10 0;
+#X connect 10 1 11 0;
+#X connect 12 0 21 0;
 #X connect 13 0 14 0;
-#X connect 14 1 15 0;
-#X connect 16 0 21 0;
-#X connect 17 0 18 0;
-#X connect 18 0 21 1;
-#X connect 21 0 5 0;
-#X connect 21 0 20 0;
-#X connect 21 1 5 1;
-#X connect 21 1 20 1;
-#X connect 21 2 5 2;
-#X connect 21 2 20 2;
-#X connect 21 3 5 3;
-#X connect 21 3 20 3;
-#X connect 21 4 5 4;
-#X connect 21 4 20 4;
-#X connect 21 5 5 5;
-#X connect 21 5 20 5;
-#X connect 21 6 5 6;
-#X connect 21 6 20 6;
-#X connect 21 7 5 7;
-#X connect 21 7 20 7;
-#X connect 21 8 5 8;
-#X connect 21 8 20 8;
-#X connect 21 9 5 9;
-#X connect 21 9 20 9;
-#X connect 21 10 5 10;
-#X connect 21 10 20 10;
-#X connect 21 11 5 11;
-#X connect 21 11 20 11;
-#X connect 21 12 5 12;
-#X connect 21 12 20 12;
-#X connect 21 13 5 13;
-#X connect 21 13 20 13;
-#X connect 21 14 5 14;
-#X connect 21 14 20 14;
+#X connect 14 0 21 1;
+#X connect 18 0 15 0;
+#X connect 18 1 15 1;
+#X connect 18 2 15 2;
+#X connect 18 3 15 3;
+#X connect 18 4 15 4;
+#X connect 18 5 15 5;
+#X connect 18 6 15 6;
+#X connect 18 7 15 7;
+#X connect 18 8 15 8;
+#X connect 18 9 15 9;
+#X connect 18 10 15 10;
+#X connect 18 11 15 11;
+#X connect 18 12 15 12;
+#X connect 18 13 15 13;
+#X connect 18 14 15 14;
+#X connect 18 15 15 15;
+#X connect 19 0 20 0;
+#X connect 20 0 21 0;
+#X connect 21 0 16 0;
+#X connect 21 0 18 0;
+#X connect 21 1 16 1;
+#X connect 21 1 18 1;
+#X connect 21 2 16 2;
+#X connect 21 2 18 2;
+#X connect 21 3 16 3;
+#X connect 21 3 18 3;
+#X connect 21 4 16 4;
+#X connect 21 4 18 4;
+#X connect 21 5 16 5;
+#X connect 21 5 18 5;
+#X connect 21 6 16 6;
+#X connect 21 6 18 6;
+#X connect 21 7 16 7;
+#X connect 21 7 18 7;
+#X connect 21 8 16 8;
+#X connect 21 8 18 8;
+#X connect 21 9 16 9;
+#X connect 21 9 18 9;
+#X connect 21 10 16 10;
+#X connect 21 10 18 10;
+#X connect 21 11 16 11;
+#X connect 21 11 18 11;
+#X connect 21 12 16 12;
+#X connect 21 12 18 12;
+#X connect 21 13 16 13;
+#X connect 21 13 18 13;
+#X connect 21 14 16 14;
+#X connect 21 14 18 14;
+#X connect 22 0 23 0;
+#X connect 23 0 21 1;
 #X coords 0 681 1 680 100 60 0;

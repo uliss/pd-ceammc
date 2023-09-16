@@ -12,14 +12,30 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_property_info.h"
-#include "ceammc_convert.h"
 #include "ceammc_log.h"
+#include "config.h"
 #include "datatype_dict.h"
+#include "datatype_json.h"
 
 #include <algorithm>
+#include <cstring> // for ffs
+#include <limits>
 #include <numeric>
 
 #define PROP_LOG() LIB_ERR << "[" << name()->s_name << "] "
+
+namespace {
+using namespace ceammc;
+inline PropValueUnitsBase unit2int(PropValueUnits u)
+{
+    return static_cast<PropValueUnitsBase>(u);
+}
+
+inline PropValueUnits int2unit(PropValueUnitsBase i)
+{
+    return static_cast<PropValueUnits>(i);
+}
+}
 
 namespace ceammc {
 
@@ -27,101 +43,157 @@ constexpr t_float FLOAT_INF_MIN = std::numeric_limits<t_float>::lowest();
 constexpr t_float FLOAT_INF_MAX = std::numeric_limits<t_float>::max();
 constexpr int INT_INF_MIN = std::numeric_limits<int>::lowest();
 constexpr int INT_INF_MAX = std::numeric_limits<int>::max();
+constexpr size_t UNITS_MAX = std::numeric_limits<PropValueUnitsBase>::digits;
+
+const char* to_str(PropValueType t)
+{
+    static const char* STR[] = {
+        "bool",
+        "int",
+        "float",
+        "symbol",
+        "atom",
+        "list"
+    };
+
+    auto idx = static_cast<size_t>(t);
+    return (idx < sizeof(STR) / (sizeof(const char*))) ? STR[idx] : "?";
+}
+
+const char* to_str(PropValueView v)
+{
+    static const char* STR[] = {
+        "slider",
+        "knob",
+        "numbox",
+        "spinbox",
+        "toggle",
+        "menu",
+        "entry",
+        "color"
+    };
+
+    auto idx = static_cast<size_t>(v);
+    return (idx < sizeof(STR) / (sizeof(const char*))) ? STR[idx] : "?";
+}
+
+#include <cstring>
+#include <unistd.h>
+
+const char* to_str(PropValueUnits u)
+{
+    static const char* STR[] = {
+        "unknown",
+        "millisecond",
+        "second",
+        "sample",
+        "decibel",
+        "degree",
+        "radian",
+        "hertz",
+        "percent",
+        "cent",
+        "semitone",
+        "tone",
+        "bpm",
+        "smpte"
+    };
+
+    size_t idx = 0;
+    auto bits = static_cast<PropValueUnitsBase>(u);
+
+#ifdef HAVE_FFS
+    idx = ffs(bits);
+#else
+
+    for (size_t i = 0; i < std::numeric_limits<PropValueUnitsBase>::digits; i++) {
+        if (bits & (1 << i)) {
+            idx = i + 1;
+            break;
+        }
+    }
+
+#endif
+
+    return (idx < sizeof(STR) / (sizeof(const char*))) ? STR[idx] : "?";
+}
+
+const char* to_str(PropValueAccess v)
+{
+    static const char* STR[] = {
+        "readonly",
+        "initonly",
+        "readwrite"
+    };
+
+    auto idx = static_cast<size_t>(v);
+    return (idx < sizeof(STR) / (sizeof(const char*))) ? STR[idx] : "?";
+}
+
+const char* to_str(PropValueVis v)
+{
+    static const char* STR[] = {
+        "public",
+        "hidden",
+        "internal"
+    };
+
+    auto idx = static_cast<size_t>(v);
+    return (idx < sizeof(STR) / (sizeof(const char*))) ? STR[idx] : "?";
+}
+
+const char* to_str(PropValueConstraints v)
+{
+    static const char* STR[] = {
+        "",
+        ">",
+        ">=",
+        "<",
+        "<=",
+        "[]",
+        "()",
+        "(]",
+        "[)",
+        "!=0",
+        "enum",
+        "min count",
+        "max count",
+        "range count",
+        "..."
+    };
+
+    auto idx = static_cast<size_t>(v);
+    return (idx < sizeof(STR) / (sizeof(const char*))) ? STR[idx] : "?";
+}
 
 t_symbol* to_symbol(PropValueType t)
 {
-    static t_symbol* SYM[] = {
-        gensym("bool"),
-        gensym("int"),
-        gensym("float"),
-        gensym("symbol"),
-        gensym("atom"),
-        gensym("list")
-    };
-
-    return SYM[static_cast<size_t>(t)];
+    return gensym(to_str(t));
 }
 
 t_symbol* to_symbol(PropValueView v)
 {
-    static t_symbol* SYM[] = {
-        gensym("slider"),
-        gensym("knob"),
-        gensym("numbox"),
-        gensym("spinbox"),
-        gensym("toggle"),
-        gensym("menu"),
-        gensym("entry"),
-        gensym("color")
-    };
-
-    return SYM[static_cast<size_t>(v)];
+    return gensym(to_str(v));
 }
 
 t_symbol* to_symbol(PropValueUnits u)
 {
-    static t_symbol* SYM[] = {
-        gensym("unknown"),
-        gensym("msec"),
-        gensym("sec"),
-        gensym("samp"),
-        gensym("db"),
-        gensym("deg"),
-        gensym("rad"),
-        gensym("hz"),
-        gensym("percent"),
-        gensym("cent"),
-        gensym("semitone"),
-        gensym("tone"),
-        gensym("bpm")
-    };
-
-    return SYM[static_cast<size_t>(u)];
+    return gensym(to_str(u));
 }
 
 t_symbol* to_symbol(PropValueAccess v)
 {
-    static t_symbol* SYM[] = {
-        gensym("readonly"),
-        gensym("initonly"),
-        gensym("readwrite")
-    };
-
-    return SYM[static_cast<size_t>(v)];
+    return gensym(to_str(v));
 }
 
 t_symbol* to_symbol(PropValueVis v)
 {
-    static t_symbol* SYM[] = {
-        gensym("public"),
-        gensym("hidden"),
-        gensym("internal")
-    };
-
-    return SYM[static_cast<size_t>(v)];
+    return gensym(to_str(v));
 }
 
 t_symbol* to_symbol(PropValueConstraints v)
 {
-    static t_symbol* SYM[] = {
-        gensym(""),
-        gensym(">"),
-        gensym(">="),
-        gensym("<"),
-        gensym("<="),
-        gensym("[]"),
-        gensym("()"),
-        gensym("(]"),
-        gensym("[)"),
-        gensym("!=0"),
-        gensym("enum"),
-        gensym("min count"),
-        gensym("max count"),
-        gensym("range count"),
-        gensym("...")
-    };
-
-    return SYM[static_cast<size_t>(v)];
+    return gensym(to_str(v));
 }
 
 static PropValueView defaultView(PropValueType type)
@@ -151,7 +223,7 @@ PropertyInfo::PropertyInfo(t_symbol* name, PropValueType type, PropValueAccess a
     , step_(0)
     , arg_index_(-1)
     , type_(type)
-    , units_(PropValueUnits::NONE)
+    , units_(unit2int(PropValueUnits::NONE))
     , view_(defaultView(type))
     , access_(access)
     , vis_(PropValueVis::PUBLIC)
@@ -185,9 +257,54 @@ PropertyInfo::PropertyInfo(const PropertyInfo& info)
 {
 }
 
+PropertyInfo::PropertyInfo(PropertyInfo&& info)
+    : min_(info.min_)
+    , max_(info.max_)
+{
+    *this = std::move(info);
+}
+
 PropertyInfo::~PropertyInfo()
 {
     validate();
+}
+
+PropertyInfo& PropertyInfo::operator=(const PropertyInfo& info)
+{
+    name_ = info.name_;
+    default_ = info.default_;
+    enum_.reset(info.enum_.get() ? new AtomList(*info.enum_) : nullptr);
+    min_ = info.min_;
+    max_ = info.max_;
+    step_ = info.step_;
+    arg_index_ = info.arg_index_;
+    type_ = info.type_;
+    units_ = info.units_;
+    view_ = info.view_;
+    access_ = info.access_;
+    vis_ = info.vis_;
+    constraints_ = info.constraints_;
+
+    return *this;
+}
+
+PropertyInfo& PropertyInfo::operator=(PropertyInfo&& info)
+{
+    name_ = info.name_;
+    default_ = std::move(info.default_);
+    enum_ = std::move(info.enum_);
+    min_ = info.min_;
+    max_ = info.max_;
+    step_ = info.step_;
+    arg_index_ = info.arg_index_;
+    type_ = info.type_;
+    units_ = info.units_;
+    view_ = info.view_;
+    access_ = info.access_;
+    vis_ = info.vis_;
+    constraints_ = info.constraints_;
+
+    return *this;
 }
 
 bool PropertyInfo::enumContains(int v) const
@@ -786,7 +903,7 @@ void PropertyInfo::setType(PropValueType t)
 {
     type_ = t;
     constraints_ = PropValueConstraints::NONE;
-    units_ = PropValueUnits::NONE;
+    units_ = unit2int(PropValueUnits::NONE);
     view_ = defaultView(t);
 
     if (isInt())
@@ -798,7 +915,10 @@ void PropertyInfo::setType(PropValueType t)
 bool PropertyInfo::setUnits(PropValueUnits u)
 {
     if (isInt() || isFloat() || isList() || u == PropValueUnits::NONE) {
-        units_ = u;
+        units_ = unit2int(u);
+        return true;
+    } else if (isSymbol() && u == PropValueUnits::BPM) {
+        units_ = unit2int(u);
         return true;
     } else {
         PROP_LOG() << "invalid type " << to_string(type()) << " for setting units: " << to_string(u);
@@ -853,6 +973,39 @@ bool PropertyInfo::setConstraints(PropValueConstraints c)
 void PropertyInfo::setArgIndex(int8_t idx)
 {
     arg_index_ = idx;
+}
+
+void PropertyInfo::addUnit(PropValueUnits u)
+{
+    units_ |= static_cast<PropValueUnitsBase>(u);
+}
+
+void PropertyInfo::unitsIterate(const std::function<void(const char*)>& fn) const
+{
+    for (size_t i = 0; i < UNITS_MAX; i++) {
+        PropValueUnitsBase x = (1 << i);
+        if (units_ & x)
+            fn(to_str(int2unit(x)));
+    }
+}
+
+void PropertyInfo::unitsIterate(const std::function<void(PropValueUnits)>& fn) const
+{
+    for (size_t i = 0; i < UNITS_MAX; i++) {
+        PropValueUnitsBase x = (1 << i);
+        if (units_ & x)
+            fn(int2unit(x));
+    }
+}
+
+bool PropertyInfo::hasUnit(PropValueUnits u) const
+{
+    return units_ & unit2int(u);
+}
+
+bool PropertyInfo::equalUnit(PropValueUnits u) const
+{
+    return units_ == unit2int(u);
 }
 
 bool PropertyInfo::defaultBool(bool def) const
@@ -930,7 +1083,7 @@ bool PropertyInfo::validate() const
             PROP_LOG() << "should not have value constraints";
         }
 
-        if (units_ != PropValueUnits::NONE) {
+        if (units_ != unit2int(PropValueUnits::NONE)) {
             ok = false;
             PROP_LOG() << "should not have units";
         }
@@ -990,8 +1143,11 @@ bool PropertyInfo::getDict(DataTypeDict& res) const
     if (constraints() != PropValueConstraints::NONE)
         res.insert("constraints", to_symbol(constraints()));
 
-    if (units() != PropValueUnits::NONE)
-        res.insert("units", to_symbol(units()));
+    if (units() != unit2int(PropValueUnits::NONE)) {
+        AtomList en;
+        unitsIterate([&en](const char* name) { en.push_back(gensym(name)); });
+        res.insert("units", en);
+    }
 
     if (hasArgIndex())
         res.insert("arg_index", argIndex());
@@ -1015,6 +1171,8 @@ bool PropertyInfo::getDict(DataTypeDict& res) const
             res.insert("default", defaultFloat());
         else if (isInt())
             res.insert("default", defaultInt());
+        else if (isSymbol())
+            res.insert("default", defaultSymbol());
         else if (isVariant())
             res.insert("default", defaultAtom());
         else if (isList())
@@ -1022,6 +1180,115 @@ bool PropertyInfo::getDict(DataTypeDict& res) const
         else {
         }
     }
+
+    return true;
+}
+
+bool PropertyInfo::getJSON(std::string& str) const
+{
+    auto obj = nlohmann::json::object();
+
+    obj["name"] = name()->s_name;
+    obj["type"] = to_str(type());
+    obj["access"] = to_str(access());
+    obj["visibility"] = to_str(visibility());
+    obj["view"] = to_str(view());
+
+    if (constraints() != PropValueConstraints::NONE)
+        obj["constraints"] = to_str(constraints());
+
+    if (units() != unit2int(PropValueUnits::NONE)) {
+        auto u = nlohmann::json::array();
+        unitsIterate([&u](const char* name) { u.push_back(name); });
+
+        obj["units"] = u;
+    }
+
+    if (hasArgIndex())
+        obj["arg_index"] = argIndex();
+
+    if (hasConstraintsMin()) {
+        if (isFloat()) {
+            auto f = minFloat();
+            if (f == FLOAT_INF_MAX)
+                obj["min"] = "inf";
+            else if (f == FLOAT_INF_MIN)
+                obj["min"] = "-inf";
+            else
+                obj["min"] = f;
+        } else {
+            auto x = minInt();
+            if (x == INT_INF_MAX)
+                obj["min"] = "inf";
+            else if (x == INT_INF_MIN)
+                obj["min"] = "-inf";
+            else
+                obj["min"] = x;
+        }
+    }
+
+    if (hasConstraintsMax()) {
+        if (isFloat()) {
+            auto f = maxFloat();
+            if (f == FLOAT_INF_MAX)
+                obj["max"] = "inf";
+            else if (f == FLOAT_INF_MIN)
+                obj["max"] = "-inf";
+            else
+                obj["max"] = f;
+        } else {
+            auto x = maxInt();
+            if (x == INT_INF_MAX)
+                obj["max"] = "inf";
+            else if (x == INT_INF_MIN)
+                obj["max"] = "-inf";
+            else
+                obj["max"] = x;
+        }
+    }
+
+    if (hasStep())
+        obj["step"] = step();
+
+    if (hasEnumLimit()) {
+        nlohmann::json j;
+        to_json(j, enumValues());
+        obj["enum"] = j;
+    }
+
+    if (isBool())
+        obj["default"] = defaultBool() ? 1 : 0;
+    else if (isFloat()) {
+        auto def = defaultFloat();
+        if (def == FLOAT_INF_MAX)
+            obj["default"] = "inf";
+        else if (def == FLOAT_INF_MIN)
+            obj["default"] = "-inf";
+        else
+            obj["default"] = def;
+    } else if (isInt()) {
+        auto def = defaultInt();
+
+        if (def == INT_INF_MAX)
+            obj["default"] = "inf";
+        else if (def == INT_INF_MAX)
+            obj["default"] = "-inf";
+        else
+            obj["default"] = def;
+    } else if (isSymbol()) {
+        obj["default"] = defaultSymbol()->s_name;
+    } else if (isVariant()) {
+        nlohmann::json j;
+        to_json(j, defaultAtom());
+        obj["default"] = j;
+    } else if (isList()) {
+        nlohmann::json j;
+        to_json(j, defaultList());
+        obj["default"] = j;
+    } else {
+    }
+
+    str = obj.dump(-1);
 
     return true;
 }

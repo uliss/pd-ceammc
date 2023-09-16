@@ -14,22 +14,24 @@
 #ifndef CEAMMC_EDITOR_OBJECT_H
 #define CEAMMC_EDITOR_OBJECT_H
 
+#include "ceammc_datatypes.h"
 #include "ceammc_object.h"
 
-#include <boost/static_string.hpp>
 #include <list>
+#include <string>
 
 #include "extra/boost_intrusive_pool.hpp"
 
 namespace ceammc {
 
-using EditorTitleString = boost::static_string<32>;
+constexpr size_t EditorTitleMaxLength = 40;
+using EditorTitleString = BoostStaticString<EditorTitleMaxLength>;
 
 EditorTitleString makeEditorTitleString(const char* dataName, const char* dataId = "");
 
 class EditorString : public memorypool::boost_intrusive_pool_item {
 public:
-    boost::static_string<MAXPDSTRING> str;
+    BoostStaticString<MAXPDSTRING> str;
 
     EditorString() { }
     void destroy() final { str.clear(); }
@@ -73,18 +75,26 @@ public:
     static void dumpMemoryUsage();
 };
 
-enum EditorSyntax {
-    EDITOR_SYNTAX_NONE = 0,
-    EDITOR_SYNTAX_SELECTOR,
-    EDITOR_SYNTAX_LUA,
-    EDITOR_SYNTAX_DEFAULT
+enum class EditorSyntax {
+    NONE,
+    SELECTOR,
+    LUA,
+    FAUST,
+    DEFAULT
 };
 
-enum EditorEscapeMode {
-    EDITOR_ESC_MODE_DEFAULT = 0,
-    EDITOR_ESC_MODE_LUA,
-    EDITOR_ESC_MODE_DATA
+enum class EditorEscapeMode {
+    DEFAULT,
+    LUA,
+    DATA
 };
+
+/**
+ * Unescape string according to mode
+ */
+bool editor_string_unescape(std::string& str, EditorEscapeMode mode);
+
+bool editor_string_escape(const char* str, AtomList& res, EditorEscapeMode mode);
 
 class EditorObjectImpl {
     t_object* owner_;
@@ -92,7 +102,7 @@ class EditorObjectImpl {
     EditorEscapeMode esc_mode_;
 
 public:
-    EditorObjectImpl(t_object* owner);
+    EditorObjectImpl(t_object* owner, EditorEscapeMode mode = EditorEscapeMode::DEFAULT);
     ~EditorObjectImpl();
 
     /**
@@ -133,30 +143,39 @@ public:
     void setDirty(t_canvas* c, bool value);
 
 private:
-    unsigned long xowner() const { return reinterpret_cast<unsigned long>(owner_); }
+    unsigned long xowner() const { return reinterpret_cast<std::uintptr_t>(owner_); }
 };
 
-template <typename BaseClass>
-class EditorObject : public BaseClass {
+template <typename T, EditorSyntax S = EditorSyntax::DEFAULT, EditorEscapeMode M = EditorEscapeMode::DEFAULT>
+class EditorObject : public T {
+public:
+    using EditorObjectT = EditorObject<T, S, M>;
+
+private:
     EditorObjectImpl impl_;
     EditorSyntax syntax_;
     bool line_nums_;
 
 public:
-    EditorObject(const PdArgs& args)
-        : BaseClass(args)
-        , impl_(this->owner())
+    explicit EditorObject(const PdArgs& args)
+        : T(args)
+        , impl_(this->owner(), M)
         , line_nums_(true)
-        , syntax_(EDITOR_SYNTAX_DEFAULT)
+        , syntax_(S)
     {
     }
 
     void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override
     {
+        openEditor(xpos, ypos);
+    }
+
+    void openEditor(int x, int y)
+    {
         impl_.open(this->canvas(),
             this->getContentForEditor(),
             this->editorTitle(),
-            (int)xpos, (int)ypos,
+            x, y,
             this->calcEditorChars(),
             this->calcEditorLines(),
             line_nums_, syntax_);
@@ -196,26 +215,20 @@ public:
     EditorSyntax highlightSyntax() const { return syntax_; }
 
     /**
-     * Set on/off syntax highlighting in editor
+     * Inplace string unescape
+     * O = N
      */
-    void setHighlightSyntax(EditorSyntax value) { syntax_ = value; }
-
-    /**
-     * Enable/disable escaping of special chars
-     */
-    void setSpecialSymbolEscape(EditorEscapeMode mode) { impl_.setSpecialSymbolEscape(mode); }
+    bool unescapeString(std::string& str) const { return editor_string_unescape(str, M); }
 
 public:
-    using ThisType = EditorObject<BaseClass>;
-
     template <typename Factory>
-    static void registerMethods(Factory& obj)
+    static void factoryEditorObjectInit(Factory& f)
     {
-        obj.useClick();
-        obj.addMethod(".clear", &ThisType::m_editor_clear);
-        obj.addMethod(".close", &ThisType::m_editor_close);
-        obj.addMethod(".addline", &ThisType::m_editor_addline);
-        obj.addMethod(".sync", &ThisType::m_editor_sync);
+        f.useClick();
+        f.addMethod(".clear", &EditorObjectT::m_editor_clear);
+        f.addMethod(".close", &EditorObjectT::m_editor_close);
+        f.addMethod(".addline", &EditorObjectT::m_editor_addline);
+        f.addMethod(".sync", &EditorObjectT::m_editor_sync);
     }
 };
 

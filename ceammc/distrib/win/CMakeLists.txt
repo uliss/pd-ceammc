@@ -19,6 +19,12 @@ if(WIN32)
         message(STATUS "GitHub command line found: ${GITHUB_CLI}")
     endif()
 
+    find_program(OBJDUMP_EXE NAMES "objdump.exe")
+    if(OBJDUMP_EXE)
+        message(STATUS "objdump.exe found at: ${OBJDUMP_EXE}")
+        set(CEAMMC_MINGW_PREFIX $ENV{MINGW_PREFIX})
+    endif()
+
     if(CMAKE_SIZEOF_VOID_P EQUAL 8)
         set(CEAMMC_DISTRIB_ARCH "x86_64")
     elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
@@ -38,7 +44,7 @@ if(WIN32)
 
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/pd.iss
                    ${PROJECT_BINARY_DIR}/dist/pd.iss)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fix_dll_deps.sh
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fix_dll_deps.py
                    ${PROJECT_BINARY_DIR} @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win_fix_pddoc_key_modifiers.sh
                    ${PROJECT_BINARY_DIR}/dist/win_fix_pddoc_key_modifiers.sh @ONLY)
@@ -54,7 +60,7 @@ if(WIN32)
                    ${PROJECT_BINARY_DIR}/dist/calc_checksums.sh @ONLY)
 
    add_custom_target(dev_fixdll
-       COMMAND bash -c "${PROJECT_BINARY_DIR}/fix_dll_deps.sh"
+       COMMAND bash -c "${PROJECT_BINARY_DIR}/fix_dll_deps.py"
        USES_TERMINAL)
 
    add_custom_target(dev_fixdoc
@@ -78,6 +84,10 @@ if(WIN32)
 
     add_custom_target(dev_build_all
         COMMAND bash -c "${PROJECT_BINARY_DIR}/dist/build_all.sh"
+        USES_TERMINAL)
+
+    add_custom_target(dev_run
+        COMMAND "${CMAKE_INSTALL_PREFIX}/${PD_EXE_INSTALL_PATH}/pd"
         USES_TERMINAL)
 
     # deploy to github
@@ -136,7 +146,7 @@ if(WIN32)
 endif()
 
 add_custom_target(ceammc_distrib_win_sources SOURCES
-    fix_dll_deps.sh
+    fix_dll_deps.py
     make_lib_win.sh
     win_fix_pddoc_key_modifiers.sh
     install_external.sh

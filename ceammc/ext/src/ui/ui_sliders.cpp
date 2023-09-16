@@ -11,15 +11,12 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
 #include <algorithm>
 #include <chrono>
 #include <random>
 
 #include "ceammc_atomlist.h"
 #include "ceammc_convert.h"
-#include "ceammc_fn_list.h"
-#include "ceammc_format.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 #include "ui_sliders.h"
@@ -29,12 +26,12 @@ using namespace ceammc;
 
 static const int MAX_SLIDERS_NUM = 1024;
 
-constexpr const char * SYM_SLIDER = "slider";
-constexpr const char * SYM_VSLIDERS = "ui.vsliders";
-constexpr const char * SYM_NONE = "none";
-constexpr const char * SYM_BOTH = "both";
-constexpr const char * SYM_MIN = "min";
-constexpr const char * SYM_MAX = "max";
+constexpr const char* SYM_SLIDER = "slider";
+constexpr const char* SYM_VSLIDERS = "ui.vsliders";
+constexpr const char* SYM_NONE = "none";
+constexpr const char* SYM_BOTH = "both";
+constexpr const char* SYM_MIN = "min";
+constexpr const char* SYM_MAX = "max";
 
 static decltype(std::chrono::system_clock::now().time_since_epoch().count()) random_seed;
 
@@ -93,15 +90,15 @@ void UISliders::init(t_symbol* name, const AtomListView& args, bool usePresets)
     }
 
     if (name == gensym(SYM_VSLIDERS))
-        std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
+        std::swap(asEBox()->b_rect.w, asEBox()->b_rect.h);
 }
 
 void UISliders::okSize(t_rect* newrect)
 {
-    is_vertical_ = newrect->width < newrect->height;
+    is_vertical_ = newrect->w < newrect->h;
 
-    newrect->width = std::max(20.f, newrect->width);
-    newrect->height = std::max(20.f, newrect->height);
+    newrect->w = std::max(20.f, newrect->w);
+    newrect->h = std::max(20.f, newrect->h);
 }
 
 void UISliders::paint()
@@ -160,19 +157,6 @@ void UISliders::onList(const AtomListView& lv)
     outputList();
 }
 
-static AtomList interp_lists(const AtomListView& lv0, const AtomListView& lv1, size_t n, float k)
-{
-    Atom res[n];
-
-    for (size_t i = 0; i < n; i++) {
-        auto v0 = lv0.floatAt(i, 0);
-        auto v1 = lv1.floatAt(i, 0);
-        res[i] = v0 * (1 - k) + v1 * k;
-    }
-
-    return AtomList(AtomListView(res, n));
-}
-
 void UISliders::interpPreset(t_float idx)
 {
     const size_t N = pos_values_.size();
@@ -180,11 +164,7 @@ void UISliders::interpPreset(t_float idx)
     for (size_t i = 0; i < N; i++)
         def[i] = realValueAt(i);
 
-    auto lv0 = PresetStorage::instance().listValueAt(presetId(), static_cast<int>(idx), AtomListView(def, N));
-    auto lv1 = PresetStorage::instance().listValueAt(presetId(), static_cast<int>(idx) + 1, AtomListView(def, N));
-
-    float k = (static_cast<float>(idx) - static_cast<int>(idx));
-    onList(interp_lists(lv0, lv1, N, k));
+    onList(PresetStorage::instance().interListValue(presetId(), idx, AtomListView(def, N)));
 }
 
 void UISliders::loadPreset(size_t idx)
@@ -235,14 +215,14 @@ void UISliders::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, 
         if (pt.y < 0)
             return;
 
-        idx = clip<size_t>(floorf(pt.y / r.height * N), 0, N - 1);
-        val = clip01<t_float>(pt.x / r.width);
+        idx = clip<size_t>(floorf(pt.y / r.h * N), 0, N - 1);
+        val = clip01<t_float>(pt.x / r.w);
     } else {
         if (pt.x < 0)
             return;
 
-        idx = clip<size_t>(floorf(pt.x / r.width * N), 0, N - 1);
-        val = clip01<t_float>(1.f - pt.y / r.height);
+        idx = clip<size_t>(floorf(pt.x / r.w * N), 0, N - 1);
+        val = clip01<t_float>(1.f - pt.y / r.h);
     }
 
     pos_values_[idx] = val;
@@ -286,14 +266,14 @@ std::pair<t_float*, t_float> UISliders::sliderPosValueAt(const t_pt& pt)
         if (pt.y < 0)
             return { nullptr, 0 };
 
-        const auto idx = clip<size_t>(floorf(pt.y / r.height * N), 0, N - 1);
-        return { &pos_values_[idx], clip01<t_float>(pt.x / r.width) };
+        const auto idx = clip<size_t>(floorf(pt.y / r.h * N), 0, N - 1);
+        return { &pos_values_[idx], clip01<t_float>(pt.x / r.w) };
     } else {
         if (pt.x < 0)
             return { nullptr, 0 };
 
-        const auto idx = clip<size_t>(floorf(pt.x / r.width * N), 0, N - 1);
-        return { &pos_values_[idx], clip01<t_float>(1.f - pt.y / r.height) };
+        const auto idx = clip<size_t>(floorf(pt.x / r.w * N), 0, N - 1);
+        return { &pos_values_[idx], clip01<t_float>(1.f - pt.y / r.h) };
     }
 }
 
@@ -695,7 +675,7 @@ void UISliders::onPropChange(t_symbol* prop_name)
 
 void UISliders::setup()
 {
-    sys_gui(ui_sliders_tcl);
+    ui_sliders_tcl_output();
 
     random_seed = std::chrono::system_clock::now().time_since_epoch().count();
 

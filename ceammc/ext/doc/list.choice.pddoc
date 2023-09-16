@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="list.choice">
         <title>list.choice</title>
         <meta>
@@ -17,9 +17,9 @@
             </also>
         </meta>
         <properties>
-            <property name="@norepeat" type="int" default="0" enum="0 1">norepeat property. If 1 is
-            given: every time output value at new list position, do not repeat choosed position
-            twice at adjacent events.</property>
+            <property name="@norepeat" type="bool" default="0">norepeat property. If 1 is given:
+            every time output value at new list position, do not repeat choosed position twice at
+            adjacent events.</property>
         </properties>
         <inlets>
             <inlet>

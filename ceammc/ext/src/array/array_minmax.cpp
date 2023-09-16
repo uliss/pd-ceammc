@@ -56,4 +56,8 @@ void ArrayMinMax::perform()
 void setup_array_minmax()
 {
     ObjectFactory<ArrayMinMax> obj("array.minmax");
+
+    obj.setDescription("find array min and max element value");
+    obj.setCategory("array");
+    obj.setKeywords({"array", "minmax"});
 }

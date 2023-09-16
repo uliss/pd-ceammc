@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="path.search">
         <title>path.search</title>
         <meta>
@@ -30,25 +30,25 @@
             <argument name="PATHS" type="list">list of paths, can be quoted to handle
             whitespace.</argument>
         </arguments>
-        <methods>
-            <method name="cancel">cancel search process</method>
-        </methods>
         <properties>
-            <property name="@async" type="int" enum="0 1" default="1">perform async search in
-            separate thread</property>
+            <property name="@async" type="bool" default="1">perform async search in separate
+            thread</property>
             <property name="@sync" type="alias">alias to @async 0</property>
             <property name="@depth" type="int" minvalue="-1" default="0">search recursion depth
             (-1: infinite)</property>
-            <property name="@paths" type="list">user defined search paths</property>
-            <property name="@home" type="int" enum="0 1" default="1">search in home
-            directory</property>
-            <property name="@std" type="int" enum="0 1" default="1">search in PureData standard
+            <property name="@paths" type="list" default="">user defined search paths</property>
+            <property name="@home" type="bool" default="1">search in home directory</property>
+            <property name="@std" type="bool" default="1">search in PureData standard
             directory</property>
             <property name="@nohome" type="alias">alias to @home 0, do not search in home
             directory</property>
             <property name="@nostd" type="alias">alias to @std 0, do not search in standard
             dirs</property>
         </properties>
+        <methods>
+            <!-- cancel -->
+            <method name="cancel">cancel search process</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="symbol">filename</xinfo>

@@ -271,4 +271,8 @@ void setup_seq_arp()
     obj.addMethod("reset", &SeqArp::m_reset);
 
     obj.addMethod("asr", &SeqArp::m_asr);
+
+    obj.setDescription("sequence arpeggiator");
+    obj.setCategory("seq");
+    obj.setKeywords({"seq", "arpeggio", "pattern"});
 }

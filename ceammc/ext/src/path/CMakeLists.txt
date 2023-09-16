@@ -20,14 +20,19 @@ if(RAGEL_FOUND)
         new_file_pattern.rl new_file_pattern.cpp
         COMPILE_FLAGS "-G2 -s")
 
-    add_custom_target(ceammc_path_rl SOURCES new_file_pattern.rl)
+    RAGEL_TARGET(parser_bytes
+        parser_bytes.rl parser_bytes.cpp
+        COMPILE_FLAGS "-G2 -s")
+
+    add_custom_target(ceammc_path_rl SOURCES parser_bytes.rl new_file_pattern.rl)
 endif()
 
-target_sources(ceammc_path PRIVATE new_file_pattern.cpp)
+target_sources(ceammc_path PRIVATE new_file_pattern.cpp parser_bytes.cpp)
 
 ceammc_path_external(basename)
 ceammc_path_external(dirname)
 ceammc_path_external(exists)
+ceammc_path_external(file)
 ceammc_path_external(is_dir)
 ceammc_path_external(listdir)
 ceammc_path_external(monitor)

@@ -86,4 +86,8 @@ void setup_string_replace()
     ObjectFactory<StringReplace> obj("string.replace");
     obj.processData<DataTypeString>();
     obj.addAlias("str.replace");
+
+    obj.setDescription("replace from one substring to another in input string");
+    obj.setCategory("string");
+    obj.setKeywords({"replace"});
 }

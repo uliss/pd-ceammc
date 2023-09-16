@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="chaos.std0">
         <title>chaos.std0</title>
         <meta>
             <authors>
-                <author>Serge Poltavski</author>
+                <author>Serge Poltavsky</author>
             </authors>
             <description>Standard map chaotic generator</description>
             <license>GPL3 or later</license>
@@ -34,6 +34,9 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">generates and outputs next x-value</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set k value</xinfo>
             </inlet>
         </inlets>
         <outlets>

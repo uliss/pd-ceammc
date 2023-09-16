@@ -14,7 +14,6 @@
 #ifndef REPLACE_H
 #define REPLACE_H
 
-#include "ceammc_factory.h"
 #include "ceammc_object.h"
 
 namespace ceammc {

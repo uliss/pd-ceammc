@@ -56,7 +56,7 @@ proc ::scrollboxwindow::ok {mytoplevel commit_method } {
 proc ::scrollboxwindow::make {mytoplevel listdata add_method edit_method commit_method title width height resizable } {
     wm deiconify .pdwindow
     raise .pdwindow
-    toplevel $mytoplevel -class DialogWindow
+    toplevel $mytoplevel -class DialogWindow -background $::pd_colors::window_background
     wm title $mytoplevel $title
     wm group $mytoplevel .
     if {$resizable == 0} {
@@ -77,25 +77,25 @@ proc ::scrollboxwindow::make {mytoplevel listdata add_method edit_method commit_
     ::scrollbox::make $mytoplevel $listdata $add_method $edit_method
 
     # Use two frames for the buttons, since we want them both bottom and right
-    frame $mytoplevel.nb
+    ttk::frame $mytoplevel.nb
     pack $mytoplevel.nb -side bottom -fill x -pady 2m
 
     # buttons
-    frame $mytoplevel.nb.buttonframe -pady 5
+    ttk::frame $mytoplevel.nb.buttonframe
     pack $mytoplevel.nb.buttonframe -side right -fill x -padx 2m
 
-    # ceammc: padx
-    button $mytoplevel.nb.buttonframe.cancel -text [_ "Cancel"] \
-        -command "::scrollboxwindow::cancel $mytoplevel" -padx 10
+    # ceammc: ttk
+    ttk::button $mytoplevel.nb.buttonframe.cancel -text [_ "Cancel"] \
+        -command "::scrollboxwindow::cancel $mytoplevel"
     pack $mytoplevel.nb.buttonframe.cancel -side left -expand 1 -fill x -padx 15 -ipadx 10
     if {$::windowingsystem ne "aqua"} {
-        # ceammc: padx
-        button $mytoplevel.nb.buttonframe.apply -text [_ "Apply"] \
-            -command "::scrollboxwindow::apply $mytoplevel $commit_method" -padx 10
+        # ceammc: ttk
+        ttk::button $mytoplevel.nb.buttonframe.apply -text [_ "Apply"] \
+            -command "::scrollboxwindow::apply $mytoplevel $commit_method"
         pack $mytoplevel.nb.buttonframe.apply -side left -expand 1 -fill x -padx 15 -ipadx 10
     }
     # ceammc: padx
-    button $mytoplevel.nb.buttonframe.ok -text [_ "OK"] \
-        -command "::scrollboxwindow::ok $mytoplevel $commit_method" -padx 10
+    ttk::button $mytoplevel.nb.buttonframe.ok -text [_ "OK"] \
+        -command "::scrollboxwindow::ok $mytoplevel $commit_method"
     pack $mytoplevel.nb.buttonframe.ok -side left -expand 1 -fill x -padx 15 -ipadx 10
 }

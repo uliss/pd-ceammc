@@ -1,5 +1,6 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_log.h"
+#include "ceammc_object_info.h"
 
 #include <algorithm>
 #include <cassert>
@@ -138,8 +139,9 @@ void setup_prop_get_tilde()
         reinterpret_cast<t_newmethod>(prop_get_new),
         reinterpret_cast<t_method>(prop_get_free),
         sizeof(t_prop_tilde), 0, A_GIMME, A_NULL);
-    class_addcreator(reinterpret_cast<t_newmethod>(prop_get_new), gensym("prop~>"), A_GIMME, A_NULL);
-    class_addcreator(reinterpret_cast<t_newmethod>(prop_get_new), gensym("@~>"), A_GIMME, A_NULL);
+
+    ceammc::ObjectInfoStorage::instance().addAlias("prop~>", prop_get_tilde_class, reinterpret_cast<t_newmethod>(prop_get_new));
+    ceammc::ObjectInfoStorage::instance().addAlias("@~>", prop_get_tilde_class, reinterpret_cast<t_newmethod>(prop_get_new));
 
     class_addanything(prop_get_tilde_class, reinterpret_cast<t_method>(prop_get_anything));
 

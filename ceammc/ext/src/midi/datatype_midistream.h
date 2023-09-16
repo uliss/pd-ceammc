@@ -74,7 +74,7 @@ public:
     std::string toDictStringContent() const final;
 
 public:
-    static const DataTypeId dataType;
+    static DataTypeId staticType();
 
 private:
     void calcTime();

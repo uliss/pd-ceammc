@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "fx.freeverb"
-Code generated with Faust 2.44.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_freeverb -scn fx_freeverb_dsp -es 1 -mcd 16 -single -ftz 0
+Code generated with Faust 2.53.1 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn fx_freeverb -scn fx_freeverb_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_freeverb_H__
@@ -45,30 +45,33 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_ds
 #include <vector>
 
 /************************************************************************
- ************************************************************************
-    FAUST compiler
-    Copyright (C) 2003-2018 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- ************************************************************************
- ************************************************************************/
+ FAUST Architecture File
+ Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Lesser General Public License for more details.
+ 
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
+ ***************************************************************************/
 
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.44.1"
+#define FAUSTVERSION "2.53.1"
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -116,7 +119,7 @@ struct FAUST_API dsp_memory_manager {
      * Inform the Memory Manager with the number of expected memory zones.
      * @param count - the number of expected memory zones
      */
-    virtual void begin(size_t count) {}
+    virtual void begin(size_t /*count*/) {}
     
     /**
      * Give the Memory Manager information on a given memory zone.
@@ -124,8 +127,8 @@ struct FAUST_API dsp_memory_manager {
      * @param reads - the number of Read access to the zone used to compute one frame
      * @param writes - the number of Write access to the zone used to compute one frame
      */
-    virtual void info(size_t size, size_t reads, size_t writes) {}
-    
+    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
+
     /**
      * Inform the Memory Manager that all memory zones have been described,
      * to possibly start a 'compute the best allocation strategy' step.
@@ -310,14 +313,17 @@ class FAUST_API ScopedNoDenormals {
     
     private:
     
-        intptr_t fpsr;
+        intptr_t fpsr = 0;
         
         void setFpStatusRegister(intptr_t fpsr_aux) noexcept
         {
         #if defined (__arm64__) || defined (__aarch64__)
-           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+            asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
         #elif defined (__SSE__)
-            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+            // The volatile keyword here is needed to workaround a bug in AppleClang 13.0
+            // which aggressively optimises away the variable otherwise
+            volatile uint32_t fpsr_w = static_cast<uint32_t>(fpsr_aux);
+            _mm_setcsr(fpsr_w);
         #endif
         }
         
@@ -325,7 +331,7 @@ class FAUST_API ScopedNoDenormals {
         {
         #if defined (__arm64__) || defined (__aarch64__)
             asm volatile("mrs %0, fpcr" : "=r" (fpsr));
-        #elif defined ( __SSE__)
+        #elif defined (__SSE__)
             fpsr = static_cast<intptr_t>(_mm_getcsr());
         #endif
         }
@@ -336,16 +342,14 @@ class FAUST_API ScopedNoDenormals {
         {
         #if defined (__arm64__) || defined (__aarch64__)
             intptr_t mask = (1 << 24 /* FZ */);
+        #elif defined (__SSE__)
+        #if defined (__SSE2__)
+            intptr_t mask = 0x8040;
         #else
-            #if defined(__SSE__)
-            #if defined(__SSE2__)
-                intptr_t mask = 0x8040;
-            #else
-                intptr_t mask = 0x8000;
-            #endif
-            #else
-                intptr_t mask = 0x0000;
-            #endif
+            intptr_t mask = 0x8000;
+        #endif
+        #else
+            intptr_t mask = 0x0000;
         #endif
             getFpStatusRegister();
             setFpStatusRegister(fpsr | mask);
@@ -358,97 +362,45 @@ class FAUST_API ScopedNoDenormals {
 
 };
 
-#define AVOIDDENORMALS ScopedNoDenormals();
+#define AVOIDDENORMALS ScopedNoDenormals ftz_scope;
 
 #endif
 
 /************************** END fx_freeverb_dsp.h **************************/
-/************************** BEGIN UI.h *****************************
- FAUST Architecture File
- Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
- ---------------------------------------------------------------------
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 2.1 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU Lesser General Public License for more details.
- 
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- 
- EXCEPTION : As a special exception, you may create a larger work
- that contains this FAUST architecture section and distribute
- that work under terms of your choice, so long as this FAUST
- architecture section is not modified.
- ********************************************************************/
+/************************** BEGIN misc.h *******************************
+FAUST Architecture File
+Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+---------------------------------------------------------------------
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 2.1 of the License, or
+(at your option) any later version.
 
-#ifndef __UI_H__
-#define __UI_H__
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
 
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-#ifndef FAUSTFLOAT
-#define FAUSTFLOAT float
-#endif
+EXCEPTION : As a special exception, you may create a larger work
+that contains this FAUST architecture section and distribute
+that work under terms of your choice, so long as this FAUST
+architecture section is not modified.
+***************************************************************************/
 
-/*******************************************************************************
- * UI : Faust DSP User Interface
- * User Interface as expected by the buildUserInterface() method of a DSP.
- * This abstract class contains only the method that the Faust compiler can
- * generate to describe a DSP user interface.
- ******************************************************************************/
+#ifndef __misc__
+#define __misc__
 
-struct Soundfile;
+#include <algorithm>
+#include <map>
+#include <cstdlib>
+#include <string.h>
+#include <fstream>
+#include <string>
 
-template <typename REAL>
-struct FAUST_API UIReal {
-    
-    UIReal() {}
-    virtual ~UIReal() {}
-    
-    // -- widget's layouts
-    
-    virtual void openTabBox(const char* label) = 0;
-    virtual void openHorizontalBox(const char* label) = 0;
-    virtual void openVerticalBox(const char* label) = 0;
-    virtual void closeBox() = 0;
-    
-    // -- active widgets
-    
-    virtual void addButton(const char* label, REAL* zone) = 0;
-    virtual void addCheckButton(const char* label, REAL* zone) = 0;
-    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    
-    // -- passive widgets
-    
-    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    
-    // -- soundfiles
-    
-    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-    
-    // -- metadata declarations
-    
-    virtual void declare(REAL* zone, const char* key, const char* val) {}
-    
-    // To be used by LLVM client
-    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
-};
-
-struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
-    UI() {}
-    virtual ~UI() {}
-};
-
-#endif
-/**************************  END  UI.h **************************/
 /************************** BEGIN meta.h *******************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
@@ -487,40 +439,6 @@ struct FAUST_API Meta {
 
 #endif
 /**************************  END  meta.h **************************/
-/************************** BEGIN misc.h *******************************
-FAUST Architecture File
-Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
----------------------------------------------------------------------
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-
-EXCEPTION : As a special exception, you may create a larger work
-that contains this FAUST architecture section and distribute
-that work under terms of your choice, so long as this FAUST
-architecture section is not modified.
-***************************************************************************/
-
-#ifndef __misc__
-#define __misc__
-
-#include <algorithm>
-#include <map>
-#include <cstdlib>
-#include <string.h>
-#include <fstream>
-#include <string>
-
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
@@ -714,10 +632,10 @@ class fx_freeverb : public fx_freeverb_dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.8");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1.2");
+		m->declare("ceammc.lib/version", "0.1.4");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_freeverb -scn fx_freeverb_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn fx_freeverb -scn fx_freeverb_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
 		m->declare("filename", "fx_freeverb.dsp");
@@ -754,31 +672,31 @@ class fx_freeverb : public fx_freeverb_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = 44.0999985f / fConst0;
+		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst1 = 44.1f / fConst0;
 		fConst2 = 1.0f - fConst1;
 		fConst3 = 1.0f / fConst0;
-		iConst4 = int(0.0253061224f * fConst0);
-		iConst5 = int(0.0269387756f * fConst0);
-		iConst6 = int(0.0289569162f * fConst0);
-		iConst7 = int(0.0307482984f * fConst0);
-		iConst8 = int(0.0322448984f * fConst0);
-		iConst9 = int(0.033809524f * fConst0);
-		iConst10 = int(0.0353061222f * fConst0);
-		iConst11 = int(0.0366666652f * fConst0);
+		iConst4 = int(0.025306122f * fConst0);
+		iConst5 = int(0.035306122f * fConst0);
+		iConst6 = int(0.033809524f * fConst0);
+		iConst7 = int(0.0322449f * fConst0);
+		iConst8 = int(0.030748298f * fConst0);
+		iConst9 = int(0.028956916f * fConst0);
+		iConst10 = int(0.026938776f * fConst0);
+		iConst11 = int(0.036666665f * fConst0);
 		iConst12 = std::min<int>(1024, std::max<int>(0, int(0.0126077095f * fConst0) + -1));
-		iConst13 = std::min<int>(1024, std::max<int>(0, int(0.00999999978f * fConst0) + -1));
-		iConst14 = std::min<int>(1024, std::max<int>(0, int(0.00773242628f * fConst0) + -1));
-		iConst15 = std::min<int>(1024, std::max<int>(0, int(0.00510204071f * fConst0) + -1));
+		iConst13 = std::min<int>(1024, std::max<int>(0, int(0.01f * fConst0) + -1));
+		iConst14 = std::min<int>(1024, std::max<int>(0, int(0.0077324263f * fConst0) + -1));
+		iConst15 = std::min<int>(1024, std::max<int>(0, int(0.0051020407f * fConst0) + -1));
 	}
 	
 	virtual void instanceResetUserInterface() {
 		fCheckbox0 = FAUSTFLOAT(0.0f);
-		fHslider0 = FAUSTFLOAT(0.33000000000000002f);
+		fHslider0 = FAUSTFLOAT(0.33f);
 		fCheckbox1 = FAUSTFLOAT(0.0f);
 		fHslider1 = FAUSTFLOAT(0.5f);
 		fHslider2 = FAUSTFLOAT(0.0001f);
-		fHslider3 = FAUSTFLOAT(100.0f);
+		fHslider3 = FAUSTFLOAT(1e+02f);
 		fHslider4 = FAUSTFLOAT(0.5f);
 		fHslider5 = FAUSTFLOAT(0.999f);
 	}
@@ -923,20 +841,20 @@ class fx_freeverb : public fx_freeverb_dsp {
 		ui_interface->openVerticalBox("fx.freeverb");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->declare(&fHslider1, "style", "knob");
-		ui_interface->addHorizontalSlider("damp", &fHslider1, FAUSTFLOAT(0.5f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00100000005f));
+		ui_interface->addHorizontalSlider("damp", &fHslider1, FAUSTFLOAT(0.5f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.001f));
 		ui_interface->declare(&fHslider0, "style", "knob");
-		ui_interface->addHorizontalSlider("drywet", &fHslider0, FAUSTFLOAT(0.330000013f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00999999978f));
+		ui_interface->addHorizontalSlider("drywet", &fHslider0, FAUSTFLOAT(0.33f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
 		ui_interface->declare(&fHslider2, "style", "knob");
-		ui_interface->addHorizontalSlider("fr_damp", &fHslider2, FAUSTFLOAT(9.99999975e-05f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00100000005f));
+		ui_interface->addHorizontalSlider("fr_damp", &fHslider2, FAUSTFLOAT(0.0001f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.001f));
 		ui_interface->declare(&fHslider5, "style", "knob");
-		ui_interface->addHorizontalSlider("fr_room", &fHslider5, FAUSTFLOAT(0.999000013f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00100000005f));
+		ui_interface->addHorizontalSlider("fr_room", &fHslider5, FAUSTFLOAT(0.999f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.001f));
 		ui_interface->declare(&fHslider3, "style", "knob");
 		ui_interface->declare(&fHslider3, "unit", "ms");
-		ui_interface->addHorizontalSlider("fr_time", &fHslider3, FAUSTFLOAT(100.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1000.0f), FAUSTFLOAT(0.00100000005f));
+		ui_interface->addHorizontalSlider("fr_time", &fHslider3, FAUSTFLOAT(1e+02f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1e+03f), FAUSTFLOAT(0.001f));
 		ui_interface->declare(&fCheckbox1, "type", "bool");
 		ui_interface->addCheckButton("freeze", &fCheckbox1);
 		ui_interface->declare(&fHslider4, "stye", "knob");
-		ui_interface->addHorizontalSlider("room", &fHslider4, FAUSTFLOAT(0.5f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.00100000005f));
+		ui_interface->addHorizontalSlider("room", &fHslider4, FAUSTFLOAT(0.5f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.001f));
 		ui_interface->closeBox();
 	}
 	
@@ -948,10 +866,9 @@ class fx_freeverb : public fx_freeverb_dsp {
 		int iSlow2 = int(float(fCheckbox1));
 		float fSlow3 = fConst1 * float(fHslider1);
 		float fSlow4 = float(fHslider2);
-		float fSlow5 = 0.00100000005f * float(fHslider3);
+		float fSlow5 = 0.001f * float(fHslider3);
 		int iSlow6 = std::fabs(fSlow5) < 1.1920929e-07f;
-		float fThen3 = std::exp(0.0f - fConst3 / ((iSlow6) ? 1.0f : fSlow5));
-		float fSlow7 = ((iSlow6) ? 0.0f : fThen3);
+		float fSlow7 = ((iSlow6) ? 0.0f : std::exp(0.0f - fConst3 / ((iSlow6) ? 1.0f : fSlow5)));
 		float fSlow8 = 1.0f - fSlow7;
 		float fSlow9 = fConst1 * float(fHslider4);
 		float fSlow10 = float(fHslider5);
@@ -991,7 +908,7 @@ class fx_freeverb : public fx_freeverb_dsp {
 			fRec29[0] = fRec11[0] * fRec29[1] + fTemp2 * fRec28[1];
 			fVec7[IOTA0 & 8191] = fTemp3 + fRec13[0] * fRec29[0];
 			fRec28[0] = fVec7[(IOTA0 - iConst11) & 8191];
-			float fTemp4 = fRec9[0] + fRec16[0] + fRec18[0] + fRec20[0] + fRec22[0] + fRec24[0] + fRec26[0] + fRec28[0] + 0.5f * fRec7[1];
+			float fTemp4 = 0.5f * fRec7[1] + fRec9[0] + fRec16[0] + fRec18[0] + fRec20[0] + fRec22[0] + fRec24[0] + fRec26[0] + fRec28[0];
 			fVec8[IOTA0 & 2047] = fTemp4;
 			fRec7[0] = fVec8[(IOTA0 - iConst12) & 2047];
 			float fRec8 = 0.0f - 0.5f * fTemp4;
@@ -1007,8 +924,7 @@ class fx_freeverb : public fx_freeverb_dsp {
 			fVec11[IOTA0 & 1023] = fTemp7;
 			fRec1[0] = fVec11[(IOTA0 - iConst15) & 1023];
 			float fRec2 = 0.0f - 0.5f * fTemp7;
-			float fThen5 = fTemp1 * (1.0f - fRec0[0]) + fRec0[0] * (fRec2 + fRec1[1]);
-			output0[i0] = FAUSTFLOAT(((iSlow0) ? fTemp0 : fThen5));
+			output0[i0] = FAUSTFLOAT(((iSlow0) ? fTemp0 : fTemp1 * (1.0f - fRec0[0]) + fRec0[0] * (fRec2 + fRec1[1])));
 			fRec0[1] = fRec0[0];
 			fRec12[1] = fRec12[0];
 			fRec11[1] = fRec11[0];
@@ -1040,23 +956,12 @@ class fx_freeverb : public fx_freeverb_dsp {
 	}
 
 };
-// clang-format on
 #endif
 
-    template <class T>
-    struct _fx_freeverb_UI : public UI {
-    static std::string name;
-};
-
-template <class T>
-std::string _fx_freeverb_UI<T>::name(sym(fx_freeverb));
-
-typedef _fx_freeverb_UI<fx_freeverb> fx_freeverb_UI;
-
-class faust_fx_freeverb_tilde : public FaustExternal<fx_freeverb, fx_freeverb_UI> {
+class faust_fx_freeverb_tilde : public FaustExternal<fx_freeverb> {
 public:
     faust_fx_freeverb_tilde(const ceammc::PdArgs& args)
-        : FaustExternal(args)
+        : FaustExternal(args, sym(fx_freeverb))
     {
     }
 };

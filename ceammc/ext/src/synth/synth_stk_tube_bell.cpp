@@ -35,4 +35,8 @@ void setup_synth_tube_bell()
 {
     StkSynthFactory<SynthTubeBell> obj("synth.tube_bell~");
     obj.addMethod("note", &SynthTubeBell::m_note);
+
+    obj.setDescription("STK tubular bell (orchestral chime) FM synthesis instrument");
+    obj.setCategory("synth");
+    obj.setKeywords({"tubular", "stk", "bell"});
 }

@@ -86,4 +86,6 @@ void setup_an_pitchtrack()
 {
     SoundExternalFactory<PitchTrack> obj("an.pitchtrack~");
     obj.addAlias("helmholtz~");
+
+    obj.setXletsInfo({ "input signal" }, { "output signal", "float: freq in hz", "float: fidelity" });
 }

@@ -46,6 +46,7 @@ extern "C" {
 #include "noise/mod_noise.h"
 #include "osc/mod_osc.h"
 #include "path/mod_path.h"
+#include "pieces/mod_pieces.h"
 #include "preset/mod_preset.h"
 #include "proto/mod_proto.h"
 #include "random/mod_random.h"
@@ -90,6 +91,16 @@ static void setup_env_ceammc_doc_path()
 
     std::string path(ceammc_class->c_externdir->s_name);
     ceammc::platform::set_env("CEAMMC", path.c_str());
+}
+
+static void setup_env_user_path()
+{
+    if (!ceammc_class || !ceammc_class->c_externdir) {
+        pd_error(nullptr, "[ceammc] library is not initialized");
+        return;
+    }
+
+    ceammc::platform::set_env("PD", ceammc::platform::pd_user_directory().c_str());
 }
 
 namespace {
@@ -153,6 +164,7 @@ void ceammc_init()
     // setup env variables
     setup_env_doc_path();
     setup_env_ceammc_doc_path();
+    setup_env_user_path();
 
 #ifndef __WIN32
     // save vanilla external list
@@ -182,6 +194,7 @@ void ceammc_init()
     ceammc_music_setup();
     ceammc_net_setup();
     ceammc_noise_setup();
+    ceammc_pieces_setup();
     ceammc_preset_setup();
     ceammc_path_setup();
     ceammc_proto_setup();

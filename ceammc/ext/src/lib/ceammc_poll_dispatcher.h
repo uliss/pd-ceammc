@@ -22,21 +22,9 @@
 
 namespace ceammc {
 
-using SubscriberId = uint64_t;
-
-struct NotifyMessage {
-    SubscriberId id;
-    NotifyEventType event;
-};
-
-struct SubscriberInfo {
-    SubscriberId id;
-    NotifiedObject* obj;
-};
-
 class DispatcherImpl {
 public:
-    virtual ~DispatcherImpl() { }
+    virtual ~DispatcherImpl();
     virtual bool send(const NotifyMessage& msg) = 0;
     virtual bool recv(NotifyMessage& msg, int fd) = 0;
     virtual int inSocket() const = 0;
@@ -52,22 +40,37 @@ private:
     Dispatcher(const Dispatcher&) = delete;
     Dispatcher& operator=(const Dispatcher&) = delete;
 
-    bool notify(SubscriberId id, NotifyEventType t);
+    bool notify(SubscriberId id, int t);
 
 private:
     static void pollFn(void* x, int fd);
+    void dump() const;
 
 public:
-    static Dispatcher& instance()
-    {
-        static Dispatcher instance_;
-        return instance_;
-    }
+    static Dispatcher& instance();
 
     void subscribe(NotifiedObject* x, SubscriberId id);
     void unsubscribe(NotifiedObject* x);
 
     bool send(const NotifyMessage& msg);
+};
+
+template <typename T>
+class DispatchedObject : public T, public NotifiedObject {
+public:
+    template <typename... Args>
+    DispatchedObject(Args&& ... args)
+        : T(std::forward<Args>(args)...)
+    {
+        Dispatcher::instance().subscribe(this, subscriberId());
+    }
+
+    ~DispatchedObject()
+    {
+        Dispatcher::instance().unsubscribe(this);
+    }
+
+    SubscriberId subscriberId() const { return reinterpret_cast<SubscriberId>(this); }
 };
 
 }

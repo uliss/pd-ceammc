@@ -16,7 +16,6 @@
 #include <cmath>
 
 #include "ceammc_abstractdata.h"
-#include "ceammc_atomlist.h"
 #include "ceammc_format.h"
 #include "ceammc_string_types.h"
 #include "datatype_string.h"
@@ -27,11 +26,11 @@
 
 using namespace ceammc;
 
-static t_symbol* SYM_DATA_TYPE;
-static t_symbol* SYM_PROP_SIZE;
-static t_symbol* SYM_SIZE;
-static t_symbol* SYM_DEFAULT;
-static t_symbol* SYM_UI_DT;
+constexpr const char* STR_DATA_TYPE = "data";
+constexpr const char* STR_PROP_SIZE = "@size";
+constexpr const char* STR_SIZE = "size";
+constexpr const char* STR_DEFAULT = "...";
+constexpr const char* STR_UI_DT = "ui.dt";
 
 static t_rgba COLOR_LIST_TYPE = hex_to_rgba("#00A0C0");
 static t_rgba COLOR_FLOAT_TYPE = hex_to_rgba("#E000A0");
@@ -83,7 +82,7 @@ UIDisplay::UIDisplay()
     , prop_active_color(rgba_white)
     , timer_(this, &UIDisplay::onClock)
     , last_update_(clock_getlogicaltime())
-    , msg_type_(SYM_DEFAULT)
+    , msg_type_(gensym(STR_DEFAULT))
     , on_bang_(false)
     , type_(MSG_TYPE_ANY)
 {
@@ -97,14 +96,15 @@ UIDisplay::UIDisplay()
 
 UIDisplay::~UIDisplay()
 {
-    pd_unbind(asPd(), rid_);
+    if (rid_ && rid_->s_thing)
+        pd_unbind(asPd(), rid_);
 }
 
 void UIDisplay::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 
-    if (name == SYM_UI_DT)
+    if (name == gensym(STR_UI_DT))
         prop_display_type = 1;
 }
 
@@ -128,7 +128,7 @@ void UIDisplay::paint()
     auto escaped = msg_txt_.find_first_of("{}");
     if (escaped == std::string::npos) {
         paint(msg_txt_.c_str());
-    } else if (msg_txt_.size() < (string::StaticString::static_capacity / 2)) {
+    } else if (msg_txt_.size() < (STATIC_STRING_SIZE(string::StaticString) / 2)) {
         try {
             string::StaticString buf;
             for (auto ch : msg_txt_) {
@@ -161,8 +161,8 @@ void UIDisplay::okSize(t_rect* newrect)
     constexpr auto MIN_WIDTH = 32;
     constexpr auto MIN_HEIGHT = 18;
 
-    newrect->width = pd_clip_min(newrect->width, MIN_WIDTH);
-    newrect->height = pd_clip_min(newrect->height, MIN_HEIGHT);
+    newrect->w = pd_clip_min(newrect->w, MIN_WIDTH);
+    newrect->h = pd_clip_min(newrect->h, MIN_HEIGHT);
 }
 
 void UIDisplay::onBang()
@@ -285,8 +285,8 @@ void UIDisplay::onAny(t_symbol* s, const AtomListView& lv)
 
 void UIDisplay::onProperty(t_symbol* s, const AtomListView& lv)
 {
-    if (s == SYM_PROP_SIZE && asEBox()->b_resize) {
-        eclass_attr_setter(asPdObject(), SYM_SIZE, lv.size(), lv.toPdData());
+    if (s == gensym(STR_PROP_SIZE) && asEBox()->b_resize) {
+        eclass_attr_setter(asPdObject(), gensym(STR_SIZE), lv.size(), lv.toPdData());
         return;
     }
 
@@ -361,17 +361,17 @@ void UIDisplay::redrawAll()
 
 void UIDisplay::setup()
 {
-    sys_gui(ui_display_tcl);
+    ui_display_tcl_output();
 
     UIObjectFactory<UIDisplay> obj("ui.display");
     obj.addAlias("ui.d");
-    obj.addAlias(SYM_UI_DT->s_name);
+    obj.addAlias(STR_UI_DT);
     obj.hideLabel();
     obj.useAnnotations();
 
     obj.setDefaultSize(80, 18);
 
-    obj.hideProperty("send");
+    obj.internalProperty("send");
     obj.addProperty("display_events", _("Display events"), true, &UIDisplay::prop_display_events, _("Main"));
     obj.addProperty("display_type", _("Display type"), false, &UIDisplay::prop_display_type, _("Main"));
     obj.addProperty("auto_size", _("Auto size"), true, &UIDisplay::prop_auto_size, _("Main"));
@@ -415,11 +415,5 @@ void UIDisplay::setup()
 
 void setup_ui_display()
 {
-    SYM_DATA_TYPE = gensym("data");
-    SYM_PROP_SIZE = gensym("@size");
-    SYM_SIZE = gensym("size");
-    SYM_DEFAULT = gensym("...");
-    SYM_UI_DT = gensym("ui.dt");
-
     UIDisplay::setup();
 }

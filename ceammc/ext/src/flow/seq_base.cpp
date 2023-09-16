@@ -12,14 +12,15 @@
  * this file belongs to.
  *****************************************************************************/
 #include "seq_base.h"
-#include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "lex/parser_units.h"
 
-#define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
+CEAMMC_DEFINE_SYM(inf);
+CEAMMC_DEFINE_SYM_HASH(inc);
+CEAMMC_DEFINE_SYM_HASH(dec);
+CEAMMC_DEFINE_SYM_HASH(tri);
 
-static t_symbol* SYM_INC;
-static t_symbol* SYM_DEC;
-static t_symbol* SYM_TRI;
+#define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
 
 static constexpr const int DIR_UP = 1;
 static constexpr const int DIR_DOWN = 0;
@@ -32,10 +33,8 @@ RepeatProperty::RepeatProperty(const std::string& name, int defValue)
 
 AtomList RepeatProperty::get() const
 {
-    static t_symbol* SYM_INF = gensym("inf");
-
     if (value() < 0)
-        return Atom(SYM_INF);
+        return Atom(sym_inf());
     else
         return IntProperty::get();
 }
@@ -56,10 +55,8 @@ bool RepeatProperty::setList(const AtomListView& lv)
     }
 }
 
-SeqBase::SeqBase(const PdArgs& args)
+SeqBase::SeqBase(const PdArgs& args, t_float defBeatDuration)
     : BaseObject(args)
-    , repeat_(nullptr)
-    , mode_(nullptr)
     , clock_([this]() {
         const auto ms = calcNextTick();
         if (tick())
@@ -68,21 +65,28 @@ SeqBase::SeqBase(const PdArgs& args)
     , inc_(DIR_UP)
     , r0_ouput_(false)
 {
+    beat_duration_ = new SeqTimeGrain("@t", defBeatDuration);
+    addProperty(beat_duration_);
+
+    beat_division_ = new IntProperty("@div", 1);
+    beat_division_->checkClosedRange(1, 64);
+    addProperty(beat_division_);
+
     repeat_ = new RepeatProperty("@r", 1);
     addProperty(repeat_);
 
-    if (!SYM_INC)
-        initSymTab();
-
-    mode_ = new SymbolEnumProperty("@mode", { SYM_INC, SYM_DEC, SYM_TRI });
+    mode_ = new SymbolEnumProperty("@mode", { sym_inc(), sym_dec(), sym_tri() });
     addProperty(mode_);
-    //    addProperty(new SymbolEnumAlias("@tri-"))
 
     addProperty(new AliasProperty<RepeatProperty>("@inf", repeat_, -1));
     addProperty(new AliasProperty<RepeatProperty>("@once", repeat_, 1));
 
     createCbIntProperty("@i", [this]() -> int { return sequence_counter_; });
     createCbIntProperty("@ri", [this]() -> int { return num_repeats_; });
+
+    upbeat_ = new FloatProperty("@upbeat", 0);
+    upbeat_->checkNonNegative();
+    addProperty(upbeat_);
 }
 
 void SeqBase::outputSequenceFirst() { }
@@ -91,7 +95,10 @@ void SeqBase::outputSequenceLast() { }
 
 void SeqBase::clockStart()
 {
-    clock_.exec();
+    if (upbeat_->value() > 0)
+        clock_.delay(upbeat_->value() * beatDuration());
+    else
+        clock_.exec();
 }
 
 void SeqBase::clockStop()
@@ -104,14 +111,14 @@ void SeqBase::initDone()
     const auto N = sequenceSize();
     if (N < 1)
         return;
-    else if (mode_->value() == SYM_DEC)
+    else if (mode_->isEqual(str_dec))
         sequence_counter_ = N - 1;
 }
 
 void SeqBase::resetSequenceCounter()
 {
     const auto N = sequenceSize();
-    if (mode_->value() == SYM_DEC && N > 1)
+    if (mode_->isEqual(str_dec) && N > 1)
         sequence_counter_ = N - 1;
     else
         sequence_counter_ = 0;
@@ -136,19 +143,19 @@ bool SeqBase::tickForward(bool output)
         if (output)
             outputTick();
 
-        const auto m = mode_->value();
-        if (m == SYM_INC) {
+        const auto m = crc32_hash(mode_->value());
+        if (m == hash_inc) {
             if (++sequence_counter_ >= N) {
                 sequence_counter_ = 0;
                 num_repeats_++;
             }
-        } else if (m == SYM_DEC) {
+        } else if (m == hash_dec) {
             if (sequence_counter_ == 0) {
                 sequence_counter_ = LAST;
                 num_repeats_++;
             } else
                 sequence_counter_--;
-        } else if (m == SYM_TRI) {
+        } else if (m == hash_tri) {
             if (sequence_counter_ == 0) {
                 sequence_counter_++;
                 inc_ = DIR_UP;
@@ -179,21 +186,14 @@ bool SeqBase::isSeqBegin() const
         return true;
     else if (!r0_ouput_ && num_repeats_ == 0)
         return true;
-    else if (mode_->value() == SYM_INC && sequence_counter_ == 0)
+    else if (mode_->isEqual(str_inc) && sequence_counter_ == 0)
         return true;
-    else if (mode_->value() == SYM_DEC && sequence_counter_ == N - 1)
+    else if (mode_->isEqual(str_dec) && sequence_counter_ == N - 1)
         return true;
-    else if (mode_->value() == SYM_TRI && sequence_counter_ == 0)
+    else if (mode_->isEqual(str_tri) && sequence_counter_ == 0)
         return true;
     else
         return false;
-}
-
-void SeqBase::initSymTab()
-{
-    SYM_INC = gensym("inc");
-    SYM_DEC = gensym("dec");
-    SYM_TRI = gensym("tri");
 }
 
 bool SeqBase::tick(bool output)
@@ -240,6 +240,12 @@ void SeqBase::moveSequenceCounter(long n)
         sequence_counter_ = static_cast<size_t>(nn) % N;
 }
 
+void SeqBase::setBeatDurationDefs(t_float ms, int idx)
+{
+    beat_duration_->setDefault(ms);
+    beat_duration_->setArgIndex(idx);
+}
+
 void SeqBase::reset()
 {
     r0_ouput_ = 0;
@@ -278,7 +284,7 @@ bool SeqTimeGrain::setList(const AtomListView& lv)
 
                 switch (p.type()) {
                 case TYPE_BPM:
-                    return setValue(p.bpm().beatPeriodMs());
+                    return setValue(p.tempo().beatDurationMs());
                 case TYPE_MSEC:
                     return setValue(p.value());
                 case TYPE_SEC:
@@ -289,7 +295,7 @@ bool SeqTimeGrain::setList(const AtomListView& lv)
                     return false;
                 }
 
-            } else  {
+            } else {
                 PROP_ERR() << "parse error";
                 return false;
             }

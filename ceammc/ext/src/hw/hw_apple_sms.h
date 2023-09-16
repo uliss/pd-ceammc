@@ -38,6 +38,6 @@ private:
     AtomList getXYZ() const;
 };
 
-void setup_hw_apple_sms();
+extern "C" void setup_hw_apple_sms();
 
 #endif // HW_APPLE_SMS_H

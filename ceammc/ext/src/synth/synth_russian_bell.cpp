@@ -27,4 +27,8 @@ void setup_synth_russian_bell_tilde()
 {
     SoundExternalFactory<SynthRussianBell> obj("synth.russian_bell~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("reset", &SynthRussianBell::m_reset);
+
+    obj.setDescription("russian church bell modal model");
+    obj.setCategory("synth");
+    obj.setKeywords({"bell", "church", "russian"});
 }

@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="fx.satrev~">
+        <title>fx.satrev~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Schroeder reverberator from 1971</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx room reverb schroeder</keywords>
+            <since>0.9.6</since>
+        </meta>
+        <arguments>
+            <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">drywet mix</argument>
+        </arguments>
+        <properties>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="0.25">
+            proportion of mix between the original (dry) and 'effected' (wet) signals. 0 - dry
+            signal, 1 - wet</property>
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+        </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset to initial state</method>
+        </methods>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set drywet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">left output signal</outlet>
+            <outlet type="audio">right output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[metro 250]
+|
+[random.a 68 26 84]
+|
+[makenote 127 200] [ui.k]
+*|*                |
+[pack f f]         |             [T]
+|                  |             |
+[synth.dubdub~]    [@drywet $1(  [@bypass $1(
+|                  |             |
+[fx.satrev~                      ]
+*|*
+[ui.hgain2~]       [ui.dsp~]
+*|*
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

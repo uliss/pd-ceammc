@@ -14,7 +14,6 @@
 #include "ceammc_atomlist_view.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_convert.h"
-#include "ceammc_log.h"
 #include "ceammc_numeric.h"
 
 #include <cmath>
@@ -49,6 +48,14 @@ AtomListView::AtomListView(const Atom& a) noexcept
 AtomListView::AtomListView(const AtomList& l) noexcept
     : AtomListView(l.toPdData(), l.size())
 {
+}
+
+AtomListView::AtomListView(const t_binbuf* b) noexcept
+{
+    if (b) {
+        n_ = binbuf_getnatom(b);
+        data_ = n_ ? reinterpret_cast<const Atom*>(binbuf_getvec(b)) : nullptr;
+    }
 }
 
 void AtomListView::set(t_atom* a, size_t n)
@@ -120,11 +127,8 @@ bool AtomListView::operator==(const AtomListView& v) const
 
 bool AtomListView::isBool() const
 {
-    static t_symbol* SYM_TRUE = gensym("true");
-    static t_symbol* SYM_FALSE = gensym("false");
-
     return (isFloat() && (asFloat() == 1 || asFloat() == 0))
-        || ((isSymbol() && (asSymbol() == SYM_TRUE || asSymbol() == SYM_FALSE)));
+        || ((isSymbol() && (asSymbol() == gensym("true") || asSymbol() == gensym("false"))));
 }
 
 bool AtomListView::isInteger() const
@@ -259,6 +263,23 @@ AtomListView AtomListView::subView(size_t from, size_t len) const
     return AtomListView(&data_[from].atom(), std::min(n_ - from, len));
 }
 
+AtomListView AtomListView::argSubView(size_t from) const
+{
+    if (!data_)
+        return {};
+
+    if (from >= n_)
+        return {};
+
+    for (size_t i = 0; i < n_; i++) {
+        auto& a = data_[i];
+        if (a.isProperty())
+            return (i < from) ? AtomListView {} : AtomListView(&data_[from].atom(), i - from);
+    }
+
+    return AtomListView(&data_[from].atom(), n_ - from);
+}
+
 bool AtomListView::contains(const Atom& a) const
 {
     if (empty() || isNull())
@@ -351,6 +372,89 @@ bool AtomListView::range(Atom& min, Atom& max) const noexcept
     min = *res.first;
     max = *res.second;
     return true;
+}
+
+bool AtomListView::getProperty(t_symbol* name, AtomListView& res) const
+{
+    constexpr size_t NPOS = std::numeric_limits<size_t>::max();
+    size_t pos = NPOS;
+    for (size_t i = 0; i < n_; i++) {
+        if (data_[i] == name) {
+            pos = i;
+            break;
+        }
+    }
+
+    if (pos == NPOS)
+        return false;
+
+    for (size_t i = pos + 1; i < n_; i++) {
+        if (data_[i].isProperty()) {
+            res = subView(pos + 1, i - (pos + 1));
+            return true;
+        }
+    }
+
+    res = subView(pos + 1);
+    return true;
+}
+
+bool AtomListView::expandDollarArgs(const t_canvas* cnv, AtomList& res, InvalidDollarArgPolicy policy, const Atom& def) const
+{
+    res.reserve(res.size() + n_);
+
+    for (size_t i = 0; i < n_; i++) {
+        auto atom = data_[i].expandDollarArgs(cnv, true);
+
+        switch (policy) {
+        case InvalidDollarArgPolicy::DEFAULT_ARG:
+            res.append(atom ? *atom : def);
+            break;
+        case InvalidDollarArgPolicy::KEEP_RAW:
+            res.append(atom ? *atom : data_[i]);
+            break;
+        case InvalidDollarArgPolicy::DROP_ARG:
+        default:
+            break;
+        }
+    }
+
+    return true;
+}
+
+void AtomListView::restorePrimitives(AtomList& res) const
+{
+    if (empty())
+        return;
+
+    res.reserve(res.size() + n_);
+    auto bb = binbuf_new();
+    if (!bb)
+        return;
+
+    binbuf_restore(bb, n_, toPdData());
+
+    for (int i = 0; i < binbuf_getnatom(bb); i++)
+        res.append(binbuf_getvec(bb)[i]);
+
+    binbuf_free(bb);
+}
+
+void AtomListView::split(const Atom& sep, const std::function<void(const AtomListView&)>& msg) const
+{
+    if (!msg)
+        return;
+
+    size_t start = 0;
+
+    for (size_t i = 0; i < n_; i++) {
+        if (data_[i] == sep) {
+            msg(subView(start, i - start));
+            start = i + 1;
+        }
+    }
+
+    msg(subView(start));
 }
 
 std::ostream& operator<<(std::ostream& os, const AtomListView& l)

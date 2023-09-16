@@ -183,7 +183,7 @@ public:
      */
     void clear() noexcept { dict_.clear(); }
 
-    MaybeString toJSON(int indent = -1) const;
+    MaybeString toJSON(int indent = -1, bool compressSingleList = true) const;
     bool fromJSON(const std::string& str);
 
     bool read(const std::string& path);
@@ -210,7 +210,7 @@ public:
     const DictMap& innerData() const { return dict_; }
 
 public:
-    static const DataTypeId dataType;
+    static DataTypeId staticType();
 };
 
 std::ostream& operator<<(std::ostream& os, const DataTypeDict& dict);

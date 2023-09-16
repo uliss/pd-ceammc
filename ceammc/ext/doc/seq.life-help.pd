@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
 #X obj 537 50 cnv 1 228 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 537 50 Conway gamw of life sequencer;
+#X text 537 50 Conway game of life sequencer;
 #X obj 1 1 cnv 5 765 40 empty empty seq.life 20 20 0 20 -104026 -4096
 0;
 #X obj 682 11 seq.life;
@@ -43,7 +43,7 @@
 #X msg 110 670 @rows;
 #X text 245 670 Get/Set number of rows. Type: int. Default value: 16\.
 Range: 1\...32\.;
-#X msg 110 712 @size;
+#X msg 110 712 @size?;
 #X text 245 712 (readonly) Get total cell count. Type: int. Default
 value: 256\.;
 #X obj 20 764 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -122,7 +122,7 @@ value: 256\.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title seq @url ceammc.seq-help.pd;
 #X obj 1 1578 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1581 library: ceammc v0.9.4;
+#X text 10 1581 library: ceammc v0.9.7;
 #X text 579 1593 see also:;
 #X obj 653 1593 seq.b;
 #X obj 704 1593 seq.t;
@@ -131,7 +131,7 @@ value: 256\.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.4;
+#X text 120 32 0.9.7;
 #X text 10 54 object:;
 #X text 120 54 seq.life;
 #X text 10 76 category:;

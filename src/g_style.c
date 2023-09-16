@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include "g_style.h"
 
-#include "g_all_guis.h"
 #include "g_canvas.h"
 #include "m_imp.h"
 
@@ -32,16 +31,6 @@ int style_xlet_height(t_glist* glist)
 {
     //    return 1 - 2*glist->gl_zoom;
     return 1 + 1; // EXTRAPIX;
-}
-
-int style_cord_color()
-{
-    return STYLE_CORD_NORMAL;
-}
-
-int style_cord_select_color()
-{
-    return STYLE_SELECT_COLOR;
 }
 
 int style_cord_width_by_type(int issignal)

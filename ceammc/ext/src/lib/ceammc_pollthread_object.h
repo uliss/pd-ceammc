@@ -25,19 +25,26 @@
 
 namespace ceammc {
 
-template <class Result>
-class PollThreadTaskObject : public BaseObject, public NotifiedObject {
+template <typename In, typename Out, typename T = BaseObject>
+class PollThreadTaskObject : public DispatchedObject<T> {
 public:
     using Future = std::future<void>;
 
+    enum TaskState {
+        TASK_NONE,
+        TASK_READY,
+        TASK_RUNNING,
+    };
+
 private:
     Future future_;
-    Result task_in_, task_out_;
+    In task_in_;
+    Out task_out_;
     std::atomic_bool quit_ { false };
 
 public:
     PollThreadTaskObject(const PdArgs& args)
-        : BaseObject(args)
+        : DispatchedObject<T>(args)
     {
     }
 
@@ -50,8 +57,6 @@ public:
     {
         quit_ = true;
 
-        Dispatcher::instance().unsubscribe(this);
-
         if (future_.valid()) {
             try {
                 future_.get();
@@ -61,35 +66,43 @@ public:
         }
     }
 
-    inline SubscriberId subscriberId() const { return reinterpret_cast<SubscriberId>(this); }
-
     virtual Future createTask() = 0;
-    virtual void processTask(NotifyEventType event) = 0;
+    virtual void processTask(int event) = 0;
+
+    TaskState taskState() const
+    {
+        if (future_.valid()) {
+            switch (future_.wait_for(std::chrono::seconds(0))) {
+            case std::future_status::ready:
+            case std::future_status::deferred:
+                return TASK_READY;
+            default:
+                return TASK_RUNNING;
+            }
+        } else
+            return TASK_NONE;
+    }
 
     bool runTask()
     {
         try {
-            if (future_.valid()) {
-                auto st = future_.wait_for(std::chrono::seconds(0));
+            auto ts = taskState();
 
-                switch (st) {
-                case std::future_status::ready:
-                case std::future_status::deferred:
-                    future_.get();
-                    return true;
-                default:
-                    OBJ_ERR << "previous task is not finished";
-                    return false;
-                }
+            switch (ts) {
+            case TASK_RUNNING:
+                // can't start task
+                OBJ_ERR << "previous task is not finished";
+                return false;
+            case TASK_READY:
+                // get result
+                future_.get();
+                break;
+            default:
+                break;
             }
 
             future_ = createTask();
-
-            // deferred
-            if (future_.valid() && future_.wait_for(std::chrono::seconds(0)) == std::future_status::deferred) {
-                future_.get();
-                return true;
-            }
+            processResultIfReady();
         } catch (std::exception& e) {
             OBJ_ERR << e.what();
             return false;
@@ -98,15 +111,10 @@ public:
         return true;
     }
 
-    bool notify(NotifyEventType event) override
+    bool notify(int event) override
     {
         processTask(event);
-
-        if (future_.valid()
-            && std::future_status::ready == future_.wait_for(std::chrono::seconds(0))) {
-            future_.get();
-        }
-
+        processResultIfReady();
         return true;
     }
 
@@ -115,31 +123,51 @@ public:
     void setQuit(bool value) { quit_ = value; }
     const std::atomic_bool& quit() const { return quit_; }
 
-    Result& inPipe() { return task_in_; }
-    const Result& inPipe() const { return task_in_; }
-    Result& outPipe() { return task_out_; }
-    const Result& outPipe() const { return task_out_; }
+    bool isRunning() const
+    {
+        return taskState() == TASK_RUNNING;
+    }
+
+    In& inPipe() { return task_in_; }
+    const In& inPipe() const { return task_in_; }
+    Out& outPipe() { return task_out_; }
+    const Out& outPipe() const { return task_out_; }
+
+private:
+    void processResultIfReady()
+    {
+        if (future_.valid()) {
+            const auto fst = future_.wait_for(std::chrono::seconds(0));
+            if (fst == std::future_status::deferred || fst == std::future_status::ready)
+                future_.get();
+        }
+    }
 };
 
-template <typename Msg>
-using PollThreadQueue = moodycamel::ReaderWriterQueue<Msg>;
+template <typename T>
+using PollThreadQueue = moodycamel::ReaderWriterQueue<T>;
 
-template <typename Msg, typename Result = PollThreadQueue<Msg>>
-class PollThreadQueueObject : public PollThreadTaskObject<Result> {
+template <typename In, typename Out>
+class PollThreadQueueObject
+    : public PollThreadTaskObject<
+          PollThreadQueue<In>,
+          PollThreadQueue<Out>> {
 public:
     PollThreadQueueObject(const PdArgs& args)
-        : PollThreadTaskObject<Result>(args)
+        : PollThreadTaskObject<
+            PollThreadQueue<In>,
+            PollThreadQueue<Out>>(args)
     {
     }
 
-    void processTask(NotifyEventType /*event*/) override
+    void processTask(int /*event*/) override
     {
-        Msg msg;
+        Out msg;
         while (this->outPipe().try_dequeue(msg))
             processMessage(msg);
     }
 
-    virtual void processMessage(const Msg& msg) = 0;
+    virtual void processMessage(const Out& msg) = 0;
 };
 
 }

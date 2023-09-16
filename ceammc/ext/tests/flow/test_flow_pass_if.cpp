@@ -27,7 +27,7 @@ TEST_CASE("flow.pass_if", "[externals]")
         REQUIRE(t.numInlets() == 2);
         REQUIRE(t.numOutlets() == 2);
         REQUIRE(t.canvas() != 0);
-        REQUIRE(t.canvas() == t.rootCanvas());
+        REQUIRE(t.canvas() == t.canvas(FlowPassIf::CanvasType::TOPLEVEL));
     }
 
     SECTION("float")

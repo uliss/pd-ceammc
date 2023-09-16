@@ -1,13 +1,12 @@
 #include "snd_file.h"
-#include "ceammc_array.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_platform.h"
-#include "ceammc_property_callback.h"
 #include "ceammc_sound.h"
-#include "ceammc_string.h"
 #include "fmt/format.h"
 #include "lex/array_loader.h"
+#include "lex/array_saver.h"
 #include "lex/parser_strings.h"
 
 #include "config.h"
@@ -44,7 +43,7 @@ SndFile::SndFile(const PdArgs& a)
     createCbListProperty("@formats",
         []() -> AtomList {
             AtomList res;
-            FormatList lst = SoundFileLoader::supportedFormats();
+            FormatList lst = SoundFileFactory::supportedReadFormats();
             res.reserve(lst.size());
             for (size_t i = 0; i < lst.size(); i++)
                 res.append(gensym(lst[i].first.c_str()));
@@ -82,7 +81,7 @@ void SndFile::m_load(t_symbol* s, const AtomListView& lv)
     loader.setErr(&err.stream());
     loader.setLog(&log.stream());
 
-    auto file = loader.openFile(*mfull_path);
+    auto file = loader.openFile(mfull_path.value().c_str());
     if (!file) {
         OBJ_ERR << fmt::format("can't open file: {}", *mfull_path);
         return;
@@ -144,6 +143,14 @@ void SndFile::m_load(t_symbol* s, const AtomListView& lv)
     listTo(0, samplecount_);
 }
 
+void SndFile::m_save(t_symbol* s, const AtomListView& lv)
+{
+    ArraySaver saver;
+    auto n = saver.saveTo(lv, this);
+    if (n >= 0)
+        floatTo(0, n);
+}
+
 void SndFile::postLoadUsage()
 {
     OBJ_DBG << fmt::format(
@@ -173,12 +180,17 @@ MaybeString SndFile::fullLoadPath(const std::string& fname) const
 
 bool SndFile::extractLoadArgs(const AtomListView& lv, std::string& fname, std::string& array_opts)
 {
-    static t_symbol* SYM_TO = gensym("to");
+    CEAMMC_DEFINE_HASH(to);
 
     if (lv.size() < 3)
         return false;
 
-    auto it = std::find_if(lv.begin(), lv.end(), [](const Atom& a) { return a.isProperty() || a == Atom(SYM_TO); });
+    auto it = std::find_if(lv.begin(), lv.end(),
+        [](const Atom& a) {
+            return a.isProperty()
+                || (a.isSymbol() && crc32_hash(a.asT<t_symbol*>()) == hash_to);
+        });
+
     if (it == lv.end())
         return false;
 
@@ -199,6 +211,7 @@ void setup_snd_file()
 {
     ObjectFactory<SndFile> obj("snd.file");
     obj.addMethod("load", &SndFile::m_load);
+    obj.addMethod("save", &SndFile::m_save);
 
     obj.setDescription("Sound file loader on steroids");
     obj.addAuthor("Serge Poltavsky");

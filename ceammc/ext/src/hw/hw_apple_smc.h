@@ -34,6 +34,6 @@ public:
     void m_read(t_symbol* s, const AtomListView& l);
 };
 
-void setup_hw_apple_smc();
+extern "C" void setup_hw_apple_smc();
 
 #endif // HW_APPLE_SMC_H

@@ -19,7 +19,7 @@
 #include <cstdint>
 #include <stdexcept>
 
-#include "ceammc_atomlist.h"
+#include "ceammc_atomlist_view.h"
 #include "ceammc_log.h"
 
 namespace ceammc {
@@ -69,6 +69,11 @@ namespace units {
         const T& value() const
         {
             return boost::get<T>(*this);
+        }
+
+        const UnitParseError& error() const
+        {
+            return boost::get<UnitParseError>(*this);
         }
     };
 
@@ -311,8 +316,11 @@ namespace units {
 
         UnitType type() const final { return UnitType::TIME; }
 
+        bool setParsed(const Atom& a, UnitParseError& err);
+
     public:
         static ParseResult parse(const AtomListView& lv);
+        static ParseResult parse(const Atom& a);
     };
 
     class FreqValue : public UnitValue {

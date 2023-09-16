@@ -1,7 +1,13 @@
 set(FLOW_SOURCES mod_flow.h mod_flow.cpp
     conway_life.cpp
+    route_any.cpp
+    route_bang.cpp
+    route_cycle.cpp
     route_float.cpp
+    route_list.cpp
+    route_prop.cpp
     route_random.cpp
+    route_symbol.cpp
     seq_arp.cpp
     seq_bangs.cpp
     seq_base.cpp
@@ -49,6 +55,7 @@ ceammc_flow_external(pass)
 ceammc_flow_external(pass_if)
 ceammc_flow_external(pass_float)
 ceammc_flow_external(pipe)
+ceammc_flow_external(prepend)
 ceammc_flow_external(queue)
 ceammc_flow_external(record)
 ceammc_flow_external(reject)

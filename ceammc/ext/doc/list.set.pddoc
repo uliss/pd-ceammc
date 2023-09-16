@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="list.set">
         <title>list.set</title>
         <meta>
@@ -14,9 +14,9 @@
             <since>0.6</since>
         </meta>
         <arguments>
-            <argument name="IDX" type="int">element position. Negative indexes are supported. -1
+            <argument name="INDEX" type="int">element position. Negative indexes are supported. -1
             means last element</argument>
-            <argument name="VAL" type="atom">element value</argument>
+            <argument name="VALUE" type="atom">element value</argument>
         </arguments>
         <properties>
             <property name="@index" type="int" default="0">element index</property>

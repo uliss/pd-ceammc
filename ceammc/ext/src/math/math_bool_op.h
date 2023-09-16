@@ -22,11 +22,13 @@ using namespace ceammc;
 
 class MathBoolOp : public BaseObject {
 public:
-    static const size_t MIN_ARGS = 3;
-    static const size_t MAX_ARGS = 16;
+    using VectorBool = std::vector<bool>;
+    using BoolIterator = VectorBool::const_iterator;
 
 public:
     MathBoolOp(const PdArgs& a);
+
+    void initDone() override;
     void onFloat(t_float f) override;
     void onInlet(size_t n, const AtomListView& l) override;
 
@@ -35,11 +37,14 @@ public:
 
 private:
     AtomList p_state() const;
+    VectorBool vars_;
 
 protected:
     FlagProperty* sync_;
-    const size_t arg_num_;
-    std::vector<bool> vars_;
+    IntProperty* n_;
+
+    BoolIterator begin() const { return vars_.begin(); }
+    BoolIterator end() const { return vars_.end(); }
 };
 
 #endif // MATH_BOOL_OP_H

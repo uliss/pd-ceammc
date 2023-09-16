@@ -15,8 +15,8 @@
 #include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
-#include "ceammc_property_callback.h"
 #include "ceammc_signal.h"
+#include "fmt/core.h"
 
 static t_float toDb(t_float amp)
 {
@@ -42,9 +42,16 @@ Gain::Gain(const PdArgs& args)
 {
     const size_t NCHAN(positionalConstant<DEFAULT_N, MIN_N, MAX_N>(0));
 
+    info_in_.assign(NCHAN, {});
+    info_out_.assign(NCHAN, {});
+    info_in_[0] = fmt::format("in\\[{}\\]", 0);
+    info_out_[0] = fmt::format("out\\[{}\\]", 0);
     for (size_t i = 1; i < NCHAN; i++) {
         createSignalInlet();
         createSignalOutlet();
+
+        info_in_[i] = fmt::format("in\\[{}\\]", i);
+        info_out_[i] = fmt::format("out\\[{}\\]", i);
     }
 
     createInlet();
@@ -222,6 +229,22 @@ void Gain::allocateOutBlocks()
 {
     const size_t N = std::max<size_t>(1, gain_.size()) * blockSize();
     outs_.resize(N, 0);
+}
+
+const char* Gain::annotateInlet(size_t n) const
+{
+    if (n < info_in_.size())
+        return info_in_[n].c_str();
+    else
+        return "float: set amplitue for all sources";
+}
+
+const char* Gain::annotateOutlet(size_t n) const
+{
+    if (n < info_out_.size())
+        return info_out_[n].c_str();
+    else
+        return "float: set amplitue for all sources";
 }
 
 void setup_gain_tilde()

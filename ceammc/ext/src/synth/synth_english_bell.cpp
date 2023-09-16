@@ -27,4 +27,8 @@ void setup_synth_english_bell_tilde()
 {
     SoundExternalFactory<SynthEnglishBell> obj("synth.english_bell~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("reset", &SynthEnglishBell::m_reset);
+
+    obj.setDescription("english church bell modal model");
+    obj.setCategory("synth");
+    obj.setKeywords({"bell", "church", "english"});
 }

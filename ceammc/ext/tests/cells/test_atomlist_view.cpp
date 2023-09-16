@@ -443,4 +443,111 @@ TEST_CASE("AtomListView", "core")
         REQUIRE_FILTER_ATOM(LA("a", 2, 3, "b"), isFloat, LF(2, 3));
         REQUIRE_FILTER_ATOM(LA("a", 2, 3, "b"), isSymbol, LA("a", "b"));
     }
+
+    SECTION("getProperty")
+    {
+        AtomListView res;
+        REQUIRE_FALSE(AtomListView().getProperty(SYM("@p"), res));
+        REQUIRE(res.empty());
+        REQUIRE(AtomListView(LA("@p")).getProperty(SYM("@p"), res));
+        REQUIRE(res.empty());
+        REQUIRE(AtomListView(LA(1, 2, 3, "@p")).getProperty(SYM("@p"), res));
+        REQUIRE(res.empty());
+        REQUIRE(AtomListView(LA(1, 2, 3, "@p", 4)).getProperty(SYM("@p"), res));
+        REQUIRE(res == LF(4));
+        REQUIRE(AtomListView(LA(1, 2, 3, "@p", 4, 5)).getProperty(SYM("@p"), res));
+        REQUIRE(res == LF(4, 5));
+        REQUIRE(AtomListView(LA(1, 2, 3, "@p", 4, 5, 6, "@other")).getProperty(SYM("@p"), res));
+        REQUIRE(res == LF(4, 5, 6));
+        REQUIRE(AtomListView(LA(1, 2, 3, "@p", "@other")).getProperty(SYM("@p"), res));
+        REQUIRE(res.empty());
+    }
+
+    SECTION("argSubView")
+    {
+        REQUIRE(AtomListView(LA(1, 2, 3, 4)).argSubView(0) == LF(1, 2, 3, 4));
+        REQUIRE(AtomListView(LA(1, 2, 3, 4)).argSubView(1) == LF(2, 3, 4));
+        REQUIRE(AtomListView(LA(1, 2, 3, 4)).argSubView(2) == LF(3, 4));
+        REQUIRE(AtomListView(LA(1, 2, 3, 4)).argSubView(3) == LF(4));
+        REQUIRE(AtomListView(LA(1, 2, 3, 4)).argSubView(4) == L());
+
+        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).argSubView(0) == LF(1, 2));
+        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).argSubView(1) == LF(2));
+        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).argSubView(2) == L());
+        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).argSubView(3) == L());
+        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).argSubView(4) == L());
+
+        REQUIRE(AtomListView(LA("@a", 4)).argSubView(0) == L());
+        REQUIRE(AtomListView(LA("@a", 4)).argSubView(1) == L());
+    }
+
+    SECTION("expandDollarArgs")
+    {
+        CanvasPtr cnv = PureData::instance().createTopCanvas(TEST_DATA_DIR "/patch_cnv_current", LF(100, 200, 300));
+        char buf[32];
+        sprintf(buf, "%d", cnv->dollarZero());
+
+        AtomList res;
+        REQUIRE(AtomListView(L()).expandDollarArgs(cnv->pd_canvas(), res));
+        REQUIRE(res == L());
+        REQUIRE(AtomListView(LF(1, 2, 3)).expandDollarArgs(cnv->pd_canvas(), res));
+        REQUIRE(res == LF(1, 2, 3));
+
+        REQUIRE(AtomListView(LF(Atom::dollar(1))).expandDollarArgs(cnv->pd_canvas(), res));
+        REQUIRE(res == LF(1, 2, 3, 100));
+        REQUIRE(AtomListView(LF(Atom::dollar(3))).expandDollarArgs(cnv->pd_canvas(), res));
+        REQUIRE(res == LF(1, 2, 3, 100, 300));
+        REQUIRE(AtomListView(LF(Atom::dollar(4))).expandDollarArgs(cnv->pd_canvas(), res));
+        REQUIRE(res == LF(1, 2, 3, 100, 300, 0));
+        REQUIRE(AtomListView(LF(Atom::dollar(4))).expandDollarArgs(cnv->pd_canvas(), res));
+        REQUIRE(res == LF(1, 2, 3, 100, 300, 0, 0));
+        REQUIRE(AtomListView(LF(Atom::dollar(10))).expandDollarArgs(cnv->pd_canvas(), res, AtomListView::InvalidDollarArgPolicy::DROP_ARG));
+        REQUIRE(res == LF(1, 2, 3, 100, 300, 0, 0));
+        REQUIRE(AtomListView(LF(Atom::dollar(10))).expandDollarArgs(cnv->pd_canvas(), res, AtomListView::InvalidDollarArgPolicy::DEFAULT_ARG, Atom(-100)));
+        REQUIRE(res == LF(1, 2, 3, 100, 300, 0, 0, -100));
+        REQUIRE(AtomListView(LF(Atom::dollar(10))).expandDollarArgs(cnv->pd_canvas(), res, AtomListView::InvalidDollarArgPolicy::KEEP_RAW));
+        REQUIRE(res == LA(1, 2, 3, 100, 300, 0., 0., -100, Atom::dollar(10)));
+    }
+
+    SECTION("restorePrimitive")
+    {
+#define REQUIRE_PRIM(v0, v1)                       \
+    {                                              \
+        AtomList data = v0;                        \
+        AtomList out;                              \
+        AtomListView(data).restorePrimitives(out); \
+        REQUIRE(out == v1);                        \
+    }
+
+        REQUIRE_PRIM(L(), L());
+        REQUIRE_PRIM(LF(1, 2, 3), LF(1, 2, 3));
+        REQUIRE_PRIM(LA(";"), LA(Atom::semicolon()));
+        REQUIRE_PRIM(LA(","), LA(Atom::comma()));
+        REQUIRE_PRIM(LA("$1"), LA(Atom::dollar(1)));
+        REQUIRE_PRIM(LA("$9"), LA(Atom::dollar(9)));
+        REQUIRE_PRIM(LA("$1-test"), LA(Atom::dollarSymbol(gensym("$1-test"))));
+    }
+
+    SECTION("split")
+    {
+        using Result = std::vector<AtomList>;
+        Result res;
+        auto fn = [&res](const AtomListView& lv) { res.push_back(lv); };
+
+        AtomListView().split(Atom(1), {});
+
+#define REQUIRE_SPLIT(lv, a, ...)               \
+    do {                                        \
+        res.clear();                            \
+        lv.view().split(a, fn);                 \
+        REQUIRE(res == Result { __VA_ARGS__ }); \
+    } while (0)
+
+        REQUIRE_SPLIT(L(), A(1), L());
+        REQUIRE_SPLIT(LF(1, 2, 3), A(100), LF(1, 2, 3));
+        REQUIRE_SPLIT(LF(1, 2, 3), A(2), LF(1), LF(3));
+        REQUIRE_SPLIT(LF(1, 2, 3), A(1), L(), LF(2, 3));
+        REQUIRE_SPLIT(LF(1, 2, 3), A(3), LF(1, 2), L());
+        REQUIRE_SPLIT(LA(1, Atom::comma(), 3), Atom::comma(), LF(1), LF(3));
+    }
 }

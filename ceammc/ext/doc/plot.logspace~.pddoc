@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="plot.logspace~">
         <title>plot.logspace~</title>
         <meta>
@@ -22,25 +22,26 @@
             and ends with base^stop (see @endpoint).</par>
         </info>
         <arguments>
-            <argument name="start" type="float">@start property</argument>
-            <argument name="stop" type="float">@stop property</argument>
+            <argument name="START" type="float">@start property</argument>
+            <argument name="STOP" type="float">@stop property</argument>
+            <argument name="BASE" type="atom">@base property</argument>
+            <argument name="N" type="int" minvalue="4" maxvalue="1024">@n property</argument>
         </arguments>
         <properties>
-            <property name="@start" minvalue="0" type="float" default="0">starting value of the
-            sequence: base^start</property>
-            <property name="@stop" minvalue="0" type="float" default="2">the final value
-            (base^stop) of the sequence, unless @endpoint is false. In that case, @n + 1 values are
-            spaced over the interval in log-space, of which all but the last (a sequence of length
-            @n) are returned.</property>
-            <property name="@n" minvalue="4" maxvalue="1024" type="int" default="100">number of
+            <property name="@start" type="float" default="0">starting value of the sequence:
+            base^start</property>
+            <property name="@stop" type="float" default="2">the final value (base^stop) of the
+            sequence, unless @endpoint is false. In that case, @n + 1 values are spaced over the
+            interval in log-space, of which all but the last (a sequence of length @n) are
+            returned.</property>
+            <property name="@n" type="int" minvalue="4" maxvalue="1024" default="100">number of
             points</property>
-            <property name="@base" enum="10 2 e" type="atom" default="10">x-axis scale
+            <property name="@base" type="atom" enum="10 2 e" default="10">x-axis scale
             base</property>
             <property name="@2" type="atom">alias to @base 2</property>
             <property name="@10" type="atom">alias to @base 10</property>
             <property name="@e" type="atom">alias to @base e</property>
-            <property name="@endpoint" type="int" enum="0 1" default="1">include @stop to
-            interval</property>
+            <property name="@endpoint" type="bool" default="1">include @stop to interval</property>
         </properties>
         <inlets>
             <inlet>

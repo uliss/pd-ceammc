@@ -14,13 +14,12 @@
 #ifndef SYSTEM_GETENV_H
 #define SYSTEM_GETENV_H
 
-#include "ceammc_factory.h"
 #include "ceammc_object.h"
 
 using namespace ceammc;
 
 class SystemGetEnv : public BaseObject {
-    t_symbol* var_name_;
+    SymbolProperty* var_;
 
 public:
     SystemGetEnv(const PdArgs& a);

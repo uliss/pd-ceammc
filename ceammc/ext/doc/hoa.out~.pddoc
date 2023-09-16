@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="hoa.out~">
         <title>hoa.out~</title>
         <meta>
@@ -32,14 +32,16 @@
             are added to the "normal" instance inlet and can be used to send signal to all
             instances</property>
         </properties>
-        <outlets>
-            <outlet type="audio">output signal in the corresponding hoa.process~ object's signal
-            outlet</outlet>
-        </outlets>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>output signal in the corresponding hoa.process~ object's signal
+                outlet</xinfo>
+            </inlet>
+        </inlets>
         <example>
             <pdascii>
 <![CDATA[
-    [open 0 #a( [open 1 #b(
+[open 0 #a( [open 1 #b(
 
 [sig~ 0.5]                       [sig~ 1]
 |                                |.

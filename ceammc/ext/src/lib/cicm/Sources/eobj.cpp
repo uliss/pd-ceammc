@@ -9,12 +9,12 @@
  */
 
 #include "eobj.h"
-#include "eclass.h"
 #include "ceammc_platform.h"
+#include "eclass.h"
 #include "ecommon.h"
 #include "egraphics.h"
 
-#include <inttypes.h>
+#include <cinttypes>
 #include <string>
 
 static t_eproxy* eproxy_new(t_eobj* owner, t_symbol* sym_from, t_symbol* sym_to);
@@ -29,7 +29,7 @@ void* eobj_new(t_eclass* c)
 
         if (!x) {
             bug("pd_new: object %s allocation failed", c->c_class.c_name->s_name);
-            return 0;
+            return nullptr;
         }
 
         x->o_nproxy = 0;
@@ -39,7 +39,7 @@ void* eobj_new(t_eclass* c)
         x->o_id = gensym(buffer);
         pd_bind(&x->o_obj.ob_pd, x->o_id);
         sprintf(buffer, ".x%" PRIxPTR ".c", (uintptr_t)x->o_canvas);
-        c->c_widget.w_dosave = (t_typ_method)eobj_dosave;
+        c->c_widget.w_dosave = eobj_dosave;
     } else {
         bug("pd_new: apparently called before setup routine");
     }
@@ -109,28 +109,30 @@ void eobj_popup(t_eobj* x, t_symbol* s, t_float itemid, t_float xpos, t_float yp
     }
 }
 
-void eobj_dosave(t_eobj* x, t_binbuf* b)
+void eobj_dosave(void* z, t_binbuf* b)
 {
-    t_binbuf* d;
-    t_eclass* c = eobj_getclass(x);
+    auto x = static_cast<t_eobj*>(z);
+    auto c = eobj_getclass(x);
     if (c && b) {
-        binbuf_addv(b, (char*)"ssii", &s__X, s_obj, (t_int)x->o_obj.te_xpix, (t_int)x->o_obj.te_ypix);
-        d = x->o_obj.te_binbuf;
+        binbuf_addv(b, "ssii", &s__X, s_obj, (t_int)x->o_obj.te_xpix, (t_int)x->o_obj.te_ypix);
+        auto d = x->o_obj.te_binbuf;
         if (d) {
             binbuf_addbinbuf(b, d);
         }
-        if (c->c_widget.w_save != NULL) {
+        if (c->c_widget.w_save) {
             c->c_widget.w_save(x, b);
         }
         binbuf_addv(b, (char*)";");
     }
 }
 
-void eobj_save(t_eobj* x, t_binbuf* b)
+void eobj_save(void* z, t_binbuf* b)
 {
+    auto x = static_cast<t_eobj*>(z);
+
     if (x && b) {
         t_eclass* c = eobj_getclass(x);
-        if (c && c->c_widget.w_dosave != NULL)
+        if (c && c->c_widget.w_dosave)
             c->c_widget.w_dosave((t_eobj*)x, b);
     }
 }
@@ -341,7 +343,7 @@ void eobj_dsp(t_eobj* x, t_signal** sp)
                     free(dsp->d_sigs_out);
                     dsp->d_sigs_out = NULL;
                 }
-                pd_error(dsp, "can't allocate memory for ni inpace processing.");
+                pd_error(dsp, "can't allocate memory for ni inplace processing.");
                 return;
             }
             dsp->d_sigs_out = tempout;
@@ -358,7 +360,7 @@ void eobj_dsp(t_eobj* x, t_signal** sp)
                 }
                 free(dsp->d_sigs_out);
                 dsp->d_sigs_out = NULL;
-                pd_error(dsp, "can't allocate memory for ni inpace processing.");
+                pd_error(dsp, "can't allocate memory for ni inplace processing.");
                 return;
             }
             dsp->d_sigs_real = tempreal;
@@ -423,7 +425,7 @@ void eobj_dsp(t_eobj* x, t_signal** sp)
                 }
             }
 
-            c->c_widget.w_dsp(x, x, count, sp[0]->s_sr, sp[0]->s_n, 0);
+            c->c_widget.w_dsp(x, &x->o_obj, count, sp[0]->s_sr, sp[0]->s_n, 0);
             if (dsp->d_perform_method != NULL && dsp->d_misc == E_INPLACE) {
                 dsp_addv(eobj_perform_inplace, (int)dsp->d_size, dsp->d_vectors);
             } else if (dsp->d_perform_method != NULL && dsp->d_misc == E_NO_INPLACE) {
@@ -489,7 +491,6 @@ t_int* eobj_perform_inplace(t_int* w)
 
 t_int* eobj_perform_noinplace(t_int* w)
 {
-    int i;
     t_eobj* x = (t_eobj*)(w[1]);
     t_edsp* dsp = (t_edsp*)(w[2]);
     long nsamples = (long)(w[3]);
@@ -500,7 +501,7 @@ t_int* eobj_perform_noinplace(t_int* w)
     t_sample** ins = (t_sample**)(&w[8]);
     t_sample** outs = (t_sample**)(&w[8 + nins]);
 
-    for (i = 0; i < nouts; i++) {
+    for (int i = 0; i < nouts; i++) {
         memcpy(outs[i], dsp->d_sigs_out[i], (size_t)nsamples * sizeof(t_float));
     }
 
@@ -509,7 +510,7 @@ t_int* eobj_perform_noinplace(t_int* w)
     return w + (dsp->d_size + 1);
 }
 
-void eobj_dsp_add(t_eobj* x, t_symbol* s, t_object* za, t_typ_method m, long flags, void* userparam)
+void eobj_dsp_add(t_eobj* x, t_symbol* s, t_object* za, t_dsp_add_method m, long flags, void* userparam)
 {
     t_edsp* dsp = eobj_getdsp(x);
     if (dsp) {
@@ -653,7 +654,7 @@ static void new_inlet_list(t_inlet* x, t_symbol* s, int argc, t_atom* argv)
         z->o_current_proxy = 0;
     } else if (!x->i_symfrom) {
         typedmess(x->i_dest, s, argc, argv);
-        //pd_list(x->i_dest, s, argc, argv);
+        // pd_list(x->i_dest, s, argc, argv);
     } else if (!argc)
         new_inlet_bang(x);
     else if (argc == 1 && argv->a_type == A_FLOAT)

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="string.replace">
         <title>string.replace</title>
         <meta>
@@ -24,8 +24,8 @@
             <argument name="TO" type="symbol">substring to replace</argument>
         </arguments>
         <properties>
-            <property name="@from" type="symbol">replace from</property>
-            <property name="@to" type="symbol">replace to</property>
+            <property name="@from" type="symbol" default="">replace from</property>
+            <property name="@to" type="symbol" default="">replace to</property>
             <property name="@mode" type="symbol" enum="all first last" default="all">replace
             mode</property>
             <property name="@all" type="alias">alias to @mode all - replace all occurences in input

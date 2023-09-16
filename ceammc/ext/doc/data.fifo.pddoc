@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="data.fifo">
         <title>data.fifo</title>
         <meta>
@@ -20,29 +20,36 @@
             <par>If size argument specified - creates queue with fixed size. When count of values
             exceed this limit, outputs and removes first value in queue.</par>
         </info>
+        <mouse>
+            <event type="left-click" editmode="false">open data editor</event>
+        </mouse>
         <arguments>
-            <argument name="size" type="int" minvalue="0">if specified, creates fixed-size queue.
+            <argument name="SIZE" type="int" minvalue="0">if specified, creates fixed-size queue.
             Value '0' means default size (1024)</argument>
         </arguments>
+        <properties>
+            <property name="@empty" type="bool" access="readonly" default="1">if queue is
+            empty</property>
+            <property name="@filled" type="int" minvalue="0" access="readonly" default="0">current
+            number of elements in queue</property>
+            <property name="@size" type="int" minvalue="1" maxvalue="1024" default="32">size of
+            queue</property>
+            <property name="@free" type="int" minvalue="0" access="readonly" default="32">number of
+            elements you can add to queue until it full</property>
+        </properties>
         <methods>
+            <!-- clear -->
             <method name="clear">removes all queue values</method>
+            <!-- flush -->
             <method name="flush">outputs and removes all queue values</method>
+            <!-- pop -->
             <method name="pop">outputs and removes first values in queue</method>
+            <!-- resize -->
             <method name="resize">
                 <param type="int" minvalue="0">changes queue size. All previous values (if any) are
                 silently removed</param>
             </method>
         </methods>
-        <properties>
-            <property name="@empty" type="int" enum="0 1" readonly="true" default="1">if queue is
-            empty</property>
-            <property name="@filled" type="int" minvalue="0" readonly="true" default="0">current
-            number of elements in queue</property>
-            <property name="@size" type="int" minvalue="1" maxvalue="1024" default="32">size of
-            queue</property>
-            <property name="@free" type="int" minvalue="0" readonly="true" default="32">number of
-            elements you can add to queue until it full</property>
-        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">same as *flush* message</xinfo>

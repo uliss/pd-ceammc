@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="synth.glitch~">
         <title>synth.glitch~</title>
         <meta>
@@ -24,16 +24,21 @@
             <argument name="EXPR" type="list">Glitch expression</argument>
         </arguments>
         <properties>
-            <property name="@expr" type="list">expression</property>
-            <property name="@clip" type="int" enum="0 1" default="1">clip output to -1..+1 range.
-            Use false value only when you are know what are you doing and at your own
-            risk!</property>
+            <property name="@expr" type="list" default="">expression</property>
+            <property name="@clip" type="bool" default="1">clip output to -1..+1 range. Use false
+            value only when you are know what are you doing and at your own risk!</property>
         </properties>
         <methods>
+            <!-- byte -->
             <method name="byte">set expression wrapper to byte() glitch function</method>
+            <!-- read -->
             <method name="read">read glitch synth file 
             <param name="PATH" type="atom" required="true">path to file</param></method>
+            <!-- reset -->
             <method name="reset">reset synth</method>
+            <!-- speed -->
+            <method name="speed">set global playing speed for all synth.glitch~ objects 
+            <param name="SPEED" type="float" required="true">speed</param></method>
         </methods>
         <inlets>
             <inlet>
@@ -50,9 +55,9 @@
                                                  |
 [byte \(t>>6|t|t>>\(t>>16))*10+\(\(t>>11)&7) #c( [ui.scope~ @refresh 60]
 
-[read sur_la_planche.glitch #g(
-
-[byte \(\(t>>3|t^5|t<<4)<<3) #e(
+[read sur_la_planche.glitch #g(   [ui.hsl 0.25 4 @show_value 1]
+                                  |
+[byte \(\(t>>3|t^5|t<<4)<<3) #e(  [speed $1 #h(
 
 [@expr byte\(\(t*5&t>>7)|\(t*3&t>>10)) #b(
 
@@ -69,7 +74,7 @@
 [ui.hgain~]   [s~ \$0-gl] [ui.dsp~]
 |\
 [dac~]
-[X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x]
+[X a->x] [X b->x] [X c->x] [X d->x] [X e->x] [X f->x] [X g->x] [X h->x]
 ]]>
             </pdascii>
         </example>

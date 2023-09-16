@@ -29,4 +29,8 @@ void setup_dict_keys()
 {
     ObjectFactory<DictKeys> obj("dict.keys");
     obj.processData<DataTypeDict>();
+
+    obj.setDescription("get list of dict keys");
+    obj.setCategory("data");
+    obj.setKeywords({"list", "keys", "dictionary"});
 }

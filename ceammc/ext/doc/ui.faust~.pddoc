@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.faust~" type="gui">
         <title>ui.faust~</title>
         <meta>
@@ -17,26 +17,45 @@
             <a href="https://faust.grame.fr/">https://faust.grame.fr/</a>
         </info>
         <mouse>
-            <event editmode="false" type="left-click" keys="Alt">open faust dsp file in external
+            <event type="left-click" editmode="false" keys="Alt">open Faust source code
             editor</event>
-            <event editmode="false" type="right-click">open popup menu</event>
-            <event editmode="false" type="right-click" keys="Shift">open object help</event>
-            <event editmode="true" type="right-click" keys="Shift">open object help</event>
+            <event type="right-click" editmode="false">open popup menu</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="right-click" editmode="true" keys="Shift">open object help</event>
         </mouse>
         <arguments>
-            <argument name="FNAME" type="symbol">path to faust dsp file</argument>
+            <argument name="LOAD" type="symbol">initial file to load after object
+            creation</argument>
         </arguments>
-        <methods>
-            <method name="open">open faust dsp file in external editor</method>
-            <method name="reset">reset object state</method>
-            <method name="update">update faust object, recompile if needed</method>
-        </methods>
         <properties>
-            <property name="@fname" type="symbol">path to faust dsp file</property>
-            <property name="@include" type="list">list of faust include directories</property>
-            <property name="@auto" type="int" enum="0 1" default="1">auto update mode. If on -
-            recompiles faust dsp file on change</property>
+            <property name="@load" type="symbol" default="" access="initonly">initial file to load
+            after object creation</property>
+            <property name="@include" type="list" default="">list of faust include
+            directories</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <property name="@size" type="list" default="10 10">object size</property>
+            <property name="@style" type="int" default="0">view style</property>
         </properties>
+        <methods>
+            <!-- open -->
+            <method name="open">open faust dsp file in external editor</method>
+            <!-- reset -->
+            <method name="reset">reset object state</method>
+            <!-- size -->
+            <method name="size">resize object 
+            <param name="W" type="int" required="true">new width</param>
+            <param name="H" type="int" required="true">new height</param></method>
+            <!-- read -->
+            <method name="read">read Faust code from file and compile it. 
+            <param name="FILE" type="symbol" required="true">file path, absolute or relative to
+            patch, include directories</param></method>
+            <!-- write -->
+            <method name="write">write Faust code to file. 
+            <param name="FILE" type="symbol" required="true">file path, absolute or relative to
+            patch</param>
+            <param name="@force" type="property" required="false">overwrite existing
+            files</param></method>
+        </methods>
         <inlets dynamic="true">
             <inlet number="1">
                 <xinfo>control input</xinfo>
@@ -59,11 +78,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[open( [symbol ex1.dsp(    [osc~ 500]
-|      |                   |
-|      [@fname faust/$1(   |
-|      |                   |.
-[ui.faust~ faust/ex0.dsp    ]
+[open( [read faust/ex1.dsp( [osc~ 500]
+|      |                    |
+|      |                    |
+|      |                    |.
+[ui.faust~ faust/ex0.dsp     ]
 |
 |
 |
@@ -73,6 +92,39 @@
 [ui.hgain~]       [ui.dsp~]
 |\
 [dac~]
+
+[ui.faust~.extra]
+]]>
+            </pdascii>
+            <pdascii id="extra">
+<![CDATA[
+[read faust/ks.dsp #a(
+
+[read faust/blow.dsp #b(
+
+[read faust/xfm.dsp #c(
+
+[ui.faust~ faust/ex0.dsp #x]
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+[ui.hgain~]       [ui.dsp~]
+|\
+[dac~]
+
+[X a->x]
+[X b->x]
+[X c->x]
 ]]>
             </pdascii>
         </example>

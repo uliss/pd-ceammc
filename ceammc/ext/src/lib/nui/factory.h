@@ -16,7 +16,8 @@
 
 #include "ceammc_factory.h"
 #include "nui/common.h"
-#include "nui/widget.h"
+#include "nui/point.h"
+#include "nui/size.h"
 
 extern "C" {
 #include "g_canvas.h"
@@ -29,20 +30,15 @@ namespace ui {
         uint32_t platform_modifier(uint32_t mod);
     }
 
-    class SymTable {
-        SymTable();
-
-    public:
-        t_symbol* mouseenter;
-        t_symbol* mouseleave;
-        t_symbol* mousemove;
-        t_symbol* mousedown;
-        t_symbol* mouseup;
-        t_symbol* mouseright;
-        t_symbol* m_size;
-
-        static const SymTable& instance();
-    };
+    constexpr const char* SYM_MOUSE_ENTER = "mouseenter";
+    constexpr const char* SYM_MOUSE_LEAVE = "mouseleave";
+    constexpr const char* SYM_MOUSE_MOVE = "mousemove";
+    constexpr const char* SYM_MOUSE_DOWN = "mousedown";
+    constexpr const char* SYM_MOUSE_UP = "mouseup";
+    constexpr const char* SYM_MOUSE_RIGHT = "rightclick";
+    constexpr const char* SYM_DRAG_AND_DROP_FILES = "dropfiles";
+    constexpr const char* SYM_DRAG_AND_DROP_TEXT = "droptext";
+    constexpr const char* SYM_SIZE = "size";
 
     template <typename T>
     class ObjectMouseInit : public ceammc::ObjectInitT<T> {
@@ -62,12 +58,13 @@ namespace ui {
 
     template <template <typename> class Factory, typename T>
     class UIFactory : public Factory<T> {
+    public:
         using FactoryT = Factory<T>;
         using ObjectProxy = typename FactoryT::ObjectProxy;
-        using ObjectInitPtr = typename FactoryT::ObjectInitPtr;
-        static t_widgetbehavior wb_;
 
     private:
+        using ObjectInitPtr = typename FactoryT::ObjectInitPtr;
+        static t_widgetbehavior wb_;
         uint16_t ui_flags_ { UI_FACTORY_NONE };
 
     public:
@@ -106,43 +103,55 @@ namespace ui {
             if (ui_flags_ & UI_FACTORY_FLAG_MOUSE_ENTER) {
                 class_addmethod(this->classPointer(),
                     reinterpret_cast<t_method>(mouse_enter),
-                    SymTable::instance().mouseenter, A_NULL, 0);
+                    gensym(SYM_MOUSE_ENTER), A_NULL, 0);
             }
 
             if (ui_flags_ & UI_FACTORY_FLAG_MOUSE_LEAVE) {
                 class_addmethod(this->classPointer(),
                     reinterpret_cast<t_method>(mouse_leave),
-                    SymTable::instance().mouseleave, A_NULL, 0);
+                    gensym(SYM_MOUSE_LEAVE), A_NULL, 0);
             }
 
             if (ui_flags_ & UI_FACTORY_FLAG_MOUSE_MOVE) {
                 class_addmethod(this->classPointer(),
                     reinterpret_cast<t_method>(mouse_move),
-                    SymTable::instance().mousemove, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+                    gensym(SYM_MOUSE_MOVE), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
             }
 
             if (ui_flags_ & UI_FACTORY_FLAG_MOUSE_DOWN) {
                 class_addmethod(this->classPointer(),
                     reinterpret_cast<t_method>(mouse_down),
-                    SymTable::instance().mousedown, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+                    gensym(SYM_MOUSE_DOWN), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
             }
 
             if (ui_flags_ & UI_FACTORY_FLAG_MOUSE_UP) {
                 class_addmethod(this->classPointer(),
                     reinterpret_cast<t_method>(mouse_up),
-                    SymTable::instance().mouseup, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+                    gensym(SYM_MOUSE_UP), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
             }
 
             if (ui_flags_ & UI_FACTORY_FLAG_MOUSE_RIGHT) {
                 class_addmethod(this->classPointer(),
                     reinterpret_cast<t_method>(mouse_right),
-                    SymTable::instance().mouseright, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+                    gensym(SYM_MOUSE_RIGHT), A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, A_DEFFLOAT, 0);
+            }
+
+            if (ui_flags_ & UI_FACTORY_FLAG_DRAG_AND_DROP_FILES) {
+                class_addmethod(this->classPointer(),
+                    reinterpret_cast<t_method>(drag_and_drop_files),
+                    gensym(SYM_DRAG_AND_DROP_FILES), A_GIMME, 0);
+            }
+
+            if (ui_flags_ & UI_FACTORY_FLAG_DRAG_AND_DROP_TEXT) {
+                class_addmethod(this->classPointer(),
+                    reinterpret_cast<t_method>(drag_and_drop_text),
+                    gensym(SYM_DRAG_AND_DROP_TEXT), A_GIMME, 0);
             }
 
             ObjectInitPtr init(new ObjectMouseInit<T>(static_cast<UIFactoryFlags>(ui_flags_)));
             FactoryT::setObjectInit(std::move(init));
 
-            class_addmethod(this->classPointer(), (t_method)widget_size, SymTable::instance().m_size, A_DEFFLOAT, A_DEFFLOAT, 0);
+            class_addmethod(this->classPointer(), (t_method)widget_size, gensym(SYM_SIZE), A_DEFFLOAT, A_DEFFLOAT, 0);
         }
 
         static ObjectProxy* proxy(t_gobj* x) { return reinterpret_cast<ObjectProxy*>(x); }
@@ -153,6 +162,8 @@ namespace ui {
         void useMouseDown() { ui_flags_ |= UI_FACTORY_FLAG_MOUSE_DOWN; }
         void useMouseUp() { ui_flags_ |= UI_FACTORY_FLAG_MOUSE_UP; }
         void useMouseRight() { ui_flags_ |= UI_FACTORY_FLAG_MOUSE_RIGHT; }
+        void useDragAndDropFiles() { ui_flags_ |= UI_FACTORY_FLAG_DRAG_AND_DROP_FILES; }
+        void useDragAndDropText() { ui_flags_ |= UI_FACTORY_FLAG_DRAG_AND_DROP_TEXT; }
 
         /* PureData call this to get a gobj's bounding rectangle in pixels */
         static void widget_rect(t_gobj* x, t_glist* owner, int* x1, int* y1, int* x2, int* y2)
@@ -264,6 +275,16 @@ namespace ui {
         static void mouse_right(t_gobj* x, t_floatarg xpos, t_floatarg ypos, t_floatarg absx, t_floatarg absy, t_floatarg mod)
         {
             proxy(x)->impl->mouseRight(Point(xpos, ypos), Point(absx, absy), utils::platform_modifier(mod));
+        }
+
+        static void drag_and_drop_files(t_gobj* x, t_symbol* s, int argc, t_atom* argv)
+        {
+            proxy(x)->impl->dragAndDropFiles(AtomListView(argv, argc));
+        }
+
+        static void drag_and_drop_text(t_gobj* x, t_symbol* s, int argc, t_atom* argv)
+        {
+            proxy(x)->impl->dragAndDropText(AtomListView(argv, argc));
         }
     };
 

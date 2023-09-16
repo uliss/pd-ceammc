@@ -15,7 +15,6 @@
 #define UI_TOUCHOSC_H
 
 #include "ceammc_object.h"
-#include "ceammc_pollthread_object.h"
 
 #include <memory>
 

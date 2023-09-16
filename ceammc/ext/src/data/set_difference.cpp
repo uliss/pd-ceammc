@@ -47,4 +47,8 @@ void setup_set_difference()
     obj.processData<DataTypeSet>();
 
     obj.setXletsInfo({ "list or Set", "list or Set" }, { "list or Set: difference" });
+
+    obj.setDescription("difference between two sets");
+    obj.setCategory("data");
+    obj.setKeywords({"data", "difference", "set"});
 }

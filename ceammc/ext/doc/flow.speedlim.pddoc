@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flow.speedlim">
         <title>flow.speedlim</title>
         <meta>
@@ -24,7 +24,8 @@
             After this interval expiried goes to opened state</par>
         </info>
         <arguments>
-            <argument name="TIME" type="int" units="millisecond">limit time</argument>
+            <argument name="LIMIT" type="int" minvalue="0" units="millisecond">limit
+            time</argument>
         </arguments>
         <properties>
             <property name="@limit" type="int" minvalue="0" units="millisecond" default="0">speed

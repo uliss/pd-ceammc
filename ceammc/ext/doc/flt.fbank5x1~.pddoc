@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flt.fbank5x1~">
         <title>flt.fbank5x1~</title>
         <meta>
@@ -22,15 +22,15 @@
             conventional term for this is an "allpass-complementary filter bank"</par>
         </info>
         <arguments>
-            <argument name="f250" type="float" units="decibel" minvalue="-6" maxvalue="6">@f250
+            <argument name="F250" type="float" units="decibel" minvalue="-6" maxvalue="6">@f250
             property init value</argument>
-            <argument name="f500" type="float" units="decibel" minvalue="-6" maxvalue="6">@f500
+            <argument name="F500" type="float" units="decibel" minvalue="-6" maxvalue="6">@f500
             property init value</argument>
-            <argument name="f1000" type="float" units="decibel" minvalue="-6" maxvalue="6">@f1000
+            <argument name="F1000" type="float" units="decibel" minvalue="-6" maxvalue="6">@f1000
             property init value</argument>
-            <argument name="f2000" type="float" units="decibel" minvalue="-6" maxvalue="6">@f2000
+            <argument name="F2000" type="float" units="decibel" minvalue="-6" maxvalue="6">@f2000
             property init value</argument>
-            <argument name="f4000" type="float" units="decibel" minvalue="-6" maxvalue="6">@f4000
+            <argument name="F4000" type="float" units="decibel" minvalue="-6" maxvalue="6">@f4000
             property init value</argument>
         </arguments>
         <properties>
@@ -44,10 +44,12 @@
             units="decibel">fourth filter (bandpass) gain at 2000Hz</property>
             <property name="@f4000" type="float" minvalue="-6" maxvalue="6" default="0"
             units="decibel">fifth filter (highpass) gain at 4000Hz</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
+            <!-- reset -->
             <method name="reset">reset filter state</method>
         </methods>
         <inlets>

@@ -54,7 +54,7 @@ function dylib_external_fix() {
         --dest-dir "${dir}" \
         --install-path @loader_path/ \
         --overwrite-files \
-        --ignore /usr/local/opt/llvm/lib > /dev/null
+        --ignore /usr/local/opt/llvm/lib &>"${BINDIR}/ceammc_lib.log"
 }
 
 # main

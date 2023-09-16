@@ -41,7 +41,7 @@ TEST_CASE("FloatProperty", "[core]")
         REQUIRE(!p.isSymbol());
         REQUIRE(!p.isList());
         REQUIRE(p.type() == PropValueType::FLOAT);
-        REQUIRE(p.units() == PropValueUnits::NONE);
+        REQUIRE(p.equalUnit(PropValueUnits::NONE));
         REQUIRE(p.access() == PropValueAccess::READWRITE);
         REQUIRE(p.view() == PropValueView::SLIDER);
         REQUIRE(p.value() == Approx(0.5));
@@ -282,10 +282,11 @@ TEST_CASE("FloatProperty", "[core]")
 
     SECTION("denormals")
     {
+#ifndef __FAST_MATH__
+
         REQUIRE_FALSE(p.setList(LF(std::numeric_limits<t_float>::infinity())));
         REQUIRE(p.value() == 0.5);
 
-#ifndef NDEBUG
         REQUIRE_FALSE(p.setList(LF(std::numeric_limits<t_float>::signaling_NaN())));
         REQUIRE(p.value() == 0.5);
 

@@ -15,6 +15,7 @@
 
 #include <algorithm>
 #include <cstdint>
+#include <limits>
 
 namespace ceammc {
 namespace touchosc {

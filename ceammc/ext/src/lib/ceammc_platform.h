@@ -90,6 +90,11 @@ namespace platform {
      */
     std::string pd_user_directory();
 
+    /**
+     * checks if path starts with ~/
+     */
+    bool is_tilde_path(const char* path);
+
     std::string expand_tilde_path(const std::string& path);
 
     std::string strip_extension(const std::string& name);
@@ -104,16 +109,16 @@ namespace platform {
 
     /**
      * @brief make_path_with_canvas
-     * @param cnv
-     * @param path
-     * @return
+     * @param cnv - pointer to object canvas (can be NULL)
+     * @param path - absolute or relative path
+     * @return new path
      */
-    std::string make_abs_filepath_with_canvas(t_canvas* cnv, const std::string& path);
+    std::string make_abs_filepath_with_canvas(const t_canvas* cnv, const std::string& path);
 
     /**
-      * Search file in directory of external
-      * @return On success returns full path to file, else returns empty string
-      */
+     * Search file in directory of external
+     * @return On success returns full path to file, else returns empty string
+     */
     std::string find_in_exernal_dir(t_object* obj, const char* path);
 
     typedef std::vector<std::string> StringList;
@@ -140,7 +145,8 @@ namespace platform {
 
     enum NetAddressType {
         ADDR_IPV4 = 0,
-        ADDR_IPV6
+        ADDR_IPV6,
+        ADDR_IPANY
     };
 
     typedef std::vector<std::string> NetAddressList;
@@ -152,6 +158,22 @@ namespace platform {
 
     Either<int, PlatformError> fd_set_non_blocking(int fd);
     Either<bool, PlatformError> init_pipe(int fd[]);
+
+    /**
+     * Return list of local ifaces ip
+     * @param type - NetAddressType or -1 to return all ip types
+     */
+    std::vector<std::string> net_ifaces_ip(NetAddressType type = ADDR_IPV4);
+
+    /**
+     * retrive socket address from given socket descriptor
+     * @param fd - socket descriptor
+     * @param addr - result
+     * @return true on success
+     */
+    bool net_socket_addr(int fd, std::string& addr);
+
+    std::string file_mime_type(const char* path);
 }
 }
 

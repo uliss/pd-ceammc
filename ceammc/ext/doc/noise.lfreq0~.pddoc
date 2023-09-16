@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="noise.lfreq0~">
         <title>noise.lfreq0~</title>
         <meta>
@@ -20,13 +20,15 @@
             <par>new random number every int(SR/freq) samples or so</par>
         </info>
         <arguments>
-            <argument type="float" name="FREQ">noise generation freq</argument>
+            <argument name="FREQ" type="float" minvalue="0.5" maxvalue="22050" units="hertz">noise
+            generation freq</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" minvalue="5" maxvalue="22050" default="1000"
-            units="herz">noise generation freq. New random number every int(SR/freq)</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@freq" type="float" minvalue="0.5" maxvalue="22050" default="1000"
+            units="hertz">noise generation freq. New random number every int(SR/freq)</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <inlets>
             <inlet>

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="list.pass">
         <title>list.pass</title>
         <meta>
@@ -16,8 +16,11 @@
                 <see>list.pass_if</see>
             </also>
         </meta>
+        <arguments>
+            <argument name="ARGS" type="list">list of passed value</argument>
+        </arguments>
         <properties>
-            <property name="@args" type="list">list of passed value</property>
+            <property name="@args" type="list" default="">list of passed value</property>
         </properties>
         <inlets>
             <inlet>

@@ -15,4 +15,8 @@ void setup_flt_biquad_tilde()
 {
     SoundExternalFactory<FltBiquad> obj("flt.biquad~");
     obj.addMethod("reset", &FltBiquad::m_reset);
+
+    obj.setDescription("second order IIR filter.");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "biquad"});
 }

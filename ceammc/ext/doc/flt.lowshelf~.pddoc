@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flt.lowshelf~">
         <title>flt.lowshelf~</title>
         <meta>
@@ -19,18 +19,19 @@
             </also>
         </meta>
         <arguments>
-            <argument name="freq" type="float" units="herz" minvalue="20" maxvalue="20000">corner
+            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">corner
             frequency for the shelf</argument>
-            <argument name="gain" type="float" units="decibel" minvalue="-15" maxvalue="15">amount
+            <argument name="GAIN" type="float" units="decibel" minvalue="-15" maxvalue="15">amount
             of boost or cut apply to the signal</argument>
         </arguments>
         <properties>
-            <property name="@freq" type="float" units="herz" minvalue="20" maxvalue="20000"
+            <property name="@freq" type="float" units="hertz" minvalue="20" maxvalue="20000"
             default="1000">corner frequency for the shelf</property>
             <property name="@gain" type="float" units="decibel" minvalue="-15" maxvalue="15"
             default="0">amount of boost or cut apply to the signal</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <inlets>
             <inlet type="audio">

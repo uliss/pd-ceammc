@@ -63,4 +63,8 @@ void setup_list_resample()
     ObjectFactory<ListResample> obj("list.resample");
     obj.addAlias("list.r");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("resample list with specified ratio");
+    obj.setCategory("list");
+    obj.setKeywords({"list"});
 }

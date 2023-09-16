@@ -1,10 +1,10 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="patch.deps">
         <title>patch.deps</title>
         <meta>
             <authors>
-                <author>Serge Poltavski</author>
+                <author>Serge Poltavsky</author>
             </authors>
             <description>patch dependencies: used objects and abstractions</description>
             <license>GPL3 or later</license>
@@ -17,6 +17,7 @@
             </also>
         </meta>
         <methods>
+            <!-- dump -->
             <method name="dump">output dependency tree to Pd window</method>
         </methods>
         <inlets>

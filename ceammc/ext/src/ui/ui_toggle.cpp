@@ -4,6 +4,7 @@
 #include "ui_toggle.tcl.h"
 
 constexpr const char* SYM_CTLIN = "#ctlin";
+constexpr int MIDI_CTL_NONE = -1;
 
 const t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
 
@@ -65,8 +66,8 @@ void UIToggle::output()
 
 void UIToggle::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 8);
-    newrect->height = pd_clip_min(newrect->height, 8);
+    newrect->w = pd_clip_min(newrect->w, 8);
+    newrect->h = pd_clip_min(newrect->h, 8);
 }
 
 void UIToggle::paint()
@@ -100,7 +101,7 @@ void UIToggle::onPropChange(t_symbol* prop_name)
     UIObject::onPropChange(prop_name);
 
     if (prop_name == gensym("midi_control")) {
-        if (prop_midi_ctl != 0) {
+        if (prop_midi_ctl != MIDI_CTL_NONE) {
             // info
             std::ostringstream ss;
             ss << "binded to MIDI ctl #"
@@ -190,7 +191,7 @@ void UIToggle::redrawAll()
 
 void UIToggle::setup()
 {
-    sys_vgui(ui_toggle_tcl);
+    ui_toggle_tcl_output();
 
     UIObjectFactory<UIToggle> obj("ui.toggle", EBOX_GROWLINK);
     obj.addAlias("ui.t");
@@ -206,6 +207,7 @@ void UIToggle::setup()
 
     obj.addProperty("active_color", _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIToggle::prop_color_active);
     obj.addProperty("value", &UIToggle::value, &UIToggle::setValue);
+    obj.setPropertyDefaultValue("value", "0");
 
     obj.addFloatProperty("on_value", _("On value"), 1, &UIToggle::prop_value_on_, _("Main"));
     obj.addFloatProperty("off_value", _("Off value"), 0, &UIToggle::prop_value_off_, _("Main"));

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="conv.car2pol">
         <title>conv.car2pol</title>
         <meta>
@@ -21,8 +21,8 @@
             </aliases>
         </meta>
         <properties>
-            <property name="@positive" type="int" default="0" enum="0 1">output in positive range.
-            If true output is in [0..2π) range, otherwise output range is [-π..+π]</property>
+            <property name="@positive" type="bool" default="0">output in positive range. If true
+            output is in [0..2π) range, otherwise output range is [-π..+π]</property>
         </properties>
         <inlets>
             <inlet>

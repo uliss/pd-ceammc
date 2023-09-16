@@ -108,17 +108,17 @@ proc ::dialog_canvas::pdtk_canvas_dialog {mytoplevel xscale yscale graphmeflags 
     }
     switch -- $graphmeflags {
         0 {
-            $mytoplevel.parent.graphme deselect
-            $mytoplevel.parent.hidetext deselect
+            set ::graphme_button($mytoplevel) 0
+            set ::hidetext_button($mytoplevel) 0
         } 1 {
-            $mytoplevel.parent.graphme select
-            $mytoplevel.parent.hidetext deselect
+            set ::graphme_button($mytoplevel) 1
+            set ::hidetext_button($mytoplevel) 0
         } 2 {
-            $mytoplevel.parent.graphme deselect
-            $mytoplevel.parent.hidetext select
+            set ::graphme_button($mytoplevel) 0
+            set ::hidetext_button($mytoplevel) 1
         } 3 {
-            $mytoplevel.parent.graphme select
-            $mytoplevel.parent.hidetext select
+            set ::graphme_button($mytoplevel) 1
+            set ::hidetext_button($mytoplevel) 1
         } default {
             ::pdwindow::error [_ "WARNING: unknown graphme flags received in pdtk_canvas_dialog"]
         }
@@ -140,7 +140,7 @@ proc ::dialog_canvas::pdtk_canvas_dialog {mytoplevel xscale yscale graphmeflags 
 
 # ceammc additional args added: x, y
 proc ::dialog_canvas::create_dialog {mytoplevel x y} {
-    toplevel $mytoplevel -class DialogWindow
+    toplevel $mytoplevel -class DialogWindow -background $::pd_colors::window_background
     wm title $mytoplevel [_ "Canvas Properties"]
     wm group $mytoplevel .
     wm resizable $mytoplevel 0 0
@@ -152,74 +152,74 @@ proc ::dialog_canvas::create_dialog {mytoplevel x y} {
     $mytoplevel configure -padx 8 -pady 8
     ::pd_bindings::dialog_bindings $mytoplevel "canvas"
 
-    labelframe $mytoplevel.scale -text [_ "Scale"] -borderwidth 1
+    ttk::labelframe $mytoplevel.scale -text [_ "Scale"]
     pack $mytoplevel.scale -side top -fill x
-    frame $mytoplevel.scale.x -pady 2
+    ttk::frame $mytoplevel.scale.x
     pack $mytoplevel.scale.x -side top
-    label $mytoplevel.scale.x.label -text [_ "X units per pixel:"]
-    entry $mytoplevel.scale.x.entry -width 10
+    ttk::label $mytoplevel.scale.x.label -text [_ "X units per pixel:"]
+    ttk::entry $mytoplevel.scale.x.entry -width 10
     pack $mytoplevel.scale.x.label $mytoplevel.scale.x.entry -side left
-    frame $mytoplevel.scale.y -pady 2
+    ttk::frame $mytoplevel.scale.y
     pack $mytoplevel.scale.y -side top
-    label $mytoplevel.scale.y.label -text [_ "Y units per pixel:"]
-    entry $mytoplevel.scale.y.entry -width 10
+    ttk::label $mytoplevel.scale.y.label -text [_ "Y units per pixel:"]
+    ttk::entry $mytoplevel.scale.y.entry -width 10
     pack $mytoplevel.scale.y.label $mytoplevel.scale.y.entry -side left
 
-    labelframe $mytoplevel.parent -text [_ "Appearance on parent patch"] -borderwidth 1
+    ttk::labelframe $mytoplevel.parent -text [_ "Appearance on parent patch"]
     pack $mytoplevel.parent -side top -fill x
-    checkbutton $mytoplevel.parent.graphme -text [_ "Graph-On-Parent"] \
-        -anchor w -variable graphme_button($mytoplevel) \
+    ttk::checkbutton $mytoplevel.parent.graphme -text [_ "Graph-On-Parent"] \
+        -variable graphme_button($mytoplevel) \
         -command [concat ::dialog_canvas::checkcommand $mytoplevel]
     pack $mytoplevel.parent.graphme -side top -anchor w -padx 40
-    checkbutton $mytoplevel.parent.hidetext -text [_ "Hide object name and arguments"] \
-        -anchor w -variable hidetext_button($mytoplevel) \
+    ttk::checkbutton $mytoplevel.parent.hidetext -text [_ "Hide object name and arguments"] \
+        -variable hidetext_button($mytoplevel) \
         -command [concat ::dialog_canvas::checkcommand $mytoplevel]
     pack $mytoplevel.parent.hidetext -side top -anchor w -padx 40
 
-    labelframe $mytoplevel.range -text [_ "Range and size"] -borderwidth 1
+    ttk::labelframe $mytoplevel.range -text [_ "Range and size"]
     pack $mytoplevel.range -side top -fill x
-    frame $mytoplevel.range.x -padx 2 -pady 2
+    ttk::frame $mytoplevel.range.x
     pack $mytoplevel.range.x -side top
-    label $mytoplevel.range.x.from_label -text [_ "X range: from"]
-    entry $mytoplevel.range.x.from_entry -width 6
-    label $mytoplevel.range.x.to_label -text [_ "to"]
-    entry $mytoplevel.range.x.to_entry -width 6
-    label $mytoplevel.range.x.size_label -text [_ "Size:"]
-    entry $mytoplevel.range.x.size_entry -width 4
-    label $mytoplevel.range.x.margin_label -text [_ "Margin:"]
-    entry $mytoplevel.range.x.margin_entry -width 4
+    ttk::label $mytoplevel.range.x.from_label -text [_ "X range: from"]
+    ttk::entry $mytoplevel.range.x.from_entry -width 6
+    ttk::label $mytoplevel.range.x.to_label -text [_ "to"]
+    ttk::entry $mytoplevel.range.x.to_entry -width 6
+    ttk::label $mytoplevel.range.x.size_label -text [_ "Size:"]
+    ttk::entry $mytoplevel.range.x.size_entry -width 4
+    ttk::label $mytoplevel.range.x.margin_label -text [_ "Margin:"]
+    ttk::entry $mytoplevel.range.x.margin_entry -width 4
     pack $mytoplevel.range.x.from_label $mytoplevel.range.x.from_entry \
         $mytoplevel.range.x.to_label $mytoplevel.range.x.to_entry \
         $mytoplevel.range.x.size_label $mytoplevel.range.x.size_entry \
         $mytoplevel.range.x.margin_label $mytoplevel.range.x.margin_entry \
         -side left
-    frame $mytoplevel.range.y -padx 2 -pady 2
+    ttk::frame $mytoplevel.range.y
     pack $mytoplevel.range.y -side top
-    label $mytoplevel.range.y.from_label -text [_ "Y range: from"]
-    entry $mytoplevel.range.y.from_entry -width 6
-    label $mytoplevel.range.y.to_label -text [_ "to"]
-    entry $mytoplevel.range.y.to_entry -width 6
-    label $mytoplevel.range.y.size_label -text [_ "Size:"]
-    entry $mytoplevel.range.y.size_entry -width 4
-    label $mytoplevel.range.y.margin_label -text [_ "Margin:"]
-    entry $mytoplevel.range.y.margin_entry -width 4
+    ttk::label $mytoplevel.range.y.from_label -text [_ "Y range: from"]
+    ttk::entry $mytoplevel.range.y.from_entry -width 6
+    ttk::label $mytoplevel.range.y.to_label -text [_ "to"]
+    ttk::entry $mytoplevel.range.y.to_entry -width 6
+    ttk::label $mytoplevel.range.y.size_label -text [_ "Size:"]
+    ttk::entry $mytoplevel.range.y.size_entry -width 4
+    ttk::label $mytoplevel.range.y.margin_label -text [_ "Margin:"]
+    ttk::entry $mytoplevel.range.y.margin_entry -width 4
     pack $mytoplevel.range.y.from_label $mytoplevel.range.y.from_entry \
         $mytoplevel.range.y.to_label $mytoplevel.range.y.to_entry \
         $mytoplevel.range.y.size_label $mytoplevel.range.y.size_entry \
         $mytoplevel.range.y.margin_label $mytoplevel.range.y.margin_entry \
         -side left
 
-    frame $mytoplevel.buttons
+    ttk::frame $mytoplevel.buttons
     pack $mytoplevel.buttons -side bottom -pady 2m
-    button $mytoplevel.buttons.cancel -text [_ "Cancel"] \
+    ttk::button $mytoplevel.buttons.cancel -text [_ "Cancel"] \
         -command "::dialog_canvas::cancel $mytoplevel"
     pack $mytoplevel.buttons.cancel -side left -expand 1 -fill x -padx 15 -ipadx 10
     if {$::windowingsystem ne "aqua"} {
-        button $mytoplevel.buttons.apply -text [_ "Apply"] \
+        ttk::button $mytoplevel.buttons.apply -text [_ "Apply"] \
             -command "::dialog_canvas::apply $mytoplevel"
         pack $mytoplevel.buttons.apply -side left -expand 1 -fill x -padx 15 -ipadx 10
     }
-    button $mytoplevel.buttons.ok -text [_ "OK"] \
+    ttk::button $mytoplevel.buttons.ok -text [_ "OK"] \
         -command "::dialog_canvas::ok $mytoplevel" -default active
     pack $mytoplevel.buttons.ok -side left -expand 1 -fill x -padx 15 -ipadx 10
 
@@ -243,16 +243,16 @@ proc ::dialog_canvas::create_dialog {mytoplevel x y} {
         bind $mytoplevel.range.y.margin_entry <KeyPress-Return> "::dialog_canvas::apply_and_rebind_return $mytoplevel"
 
         # unbind Return from ok button when an entry takes focus
-        $mytoplevel.scale.x.entry config -validate focusin -vcmd "::dialog_canvas::unbind_return $mytoplevel"
-        $mytoplevel.scale.y.entry config -validate focusin -vcmd "::dialog_canvas::unbind_return $mytoplevel"
-        $mytoplevel.range.x.from_entry config -validate focusin -vcmd "::dialog_canvas::unbind_return $mytoplevel"
-        $mytoplevel.range.y.from_entry config -validate focusin -vcmd "::dialog_canvas::unbind_return $mytoplevel"
-        $mytoplevel.range.x.to_entry config -validate focusin -vcmd "::dialog_canvas::unbind_return $mytoplevel"
-        $mytoplevel.range.y.to_entry config -validate focusin -vcmd "::dialog_canvas::unbind_return $mytoplevel"
-        $mytoplevel.range.x.size_entry config -validate focusin -vcmd "::dialog_canvas::unbind_return $mytoplevel"
-        $mytoplevel.range.y.size_entry config -validate focusin -vcmd "::dialog_canvas::unbind_return $mytoplevel"
-        $mytoplevel.range.x.margin_entry config -validate focusin -vcmd "::dialog_canvas::unbind_return $mytoplevel"
-        $mytoplevel.range.y.margin_entry config -validate focusin -vcmd "::dialog_canvas::unbind_return $mytoplevel"
+        $mytoplevel.scale.x.entry config -validate focusin -validatecommand "::dialog_canvas::unbind_return $mytoplevel"
+        $mytoplevel.scale.y.entry config -validate focusin -validatecommand "::dialog_canvas::unbind_return $mytoplevel"
+        $mytoplevel.range.x.from_entry config -validate focusin -validatecommand "::dialog_canvas::unbind_return $mytoplevel"
+        $mytoplevel.range.y.from_entry config -validate focusin -validatecommand "::dialog_canvas::unbind_return $mytoplevel"
+        $mytoplevel.range.x.to_entry config -validate focusin -validatecommand "::dialog_canvas::unbind_return $mytoplevel"
+        $mytoplevel.range.y.to_entry config -validate focusin -validatecommand "::dialog_canvas::unbind_return $mytoplevel"
+        $mytoplevel.range.x.size_entry config -validate focusin -validatecommand "::dialog_canvas::unbind_return $mytoplevel"
+        $mytoplevel.range.y.size_entry config -validate focusin -validatecommand "::dialog_canvas::unbind_return $mytoplevel"
+        $mytoplevel.range.x.margin_entry config -validate focusin -validatecommand "::dialog_canvas::unbind_return $mytoplevel"
+        $mytoplevel.range.y.margin_entry config -validate focusin -validatecommand "::dialog_canvas::unbind_return $mytoplevel"
 
         # remove cancel button from focus list since it's not activated on Return
         $mytoplevel.buttons.cancel config -takefocus 0
@@ -263,8 +263,8 @@ proc ::dialog_canvas::create_dialog {mytoplevel x y} {
         bind $mytoplevel.buttons.ok <FocusOut> "$mytoplevel.buttons.ok config -default normal"
 
         # since we show the active focus, disable the highlight outline
-        $mytoplevel.buttons.ok config -highlightthickness 0
-        $mytoplevel.buttons.cancel config -highlightthickness 0
+        # $mytoplevel.buttons.ok config -highlightthickness 0
+        # $mytoplevel.buttons.cancel config -highlightthickness 0
     }
 
     position_over_window $mytoplevel $::focused_window

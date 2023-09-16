@@ -25,4 +25,8 @@ void setup_env_tscale()
 {
     ObjectFactory<EnvTimeScale> obj("env.tscale");
     obj.processData<DataTypeEnv>();
+
+    obj.setDescription("Envelope time-scale");
+    obj.setCategory("env");
+    obj.setKeywords({"time", "scale"});
 }

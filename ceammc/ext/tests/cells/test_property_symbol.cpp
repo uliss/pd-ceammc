@@ -36,7 +36,7 @@ TEST_CASE("SymbolProperty", "[core]")
         REQUIRE(p.isSymbol());
         REQUIRE(!p.isList());
         REQUIRE(p.type() == PropValueType::SYMBOL);
-        REQUIRE(p.units() == PropValueUnits::NONE);
+        REQUIRE(p.equalUnit(PropValueUnits::NONE));
         REQUIRE(p.access() == PropValueAccess::READWRITE);
         REQUIRE(p.view() == PropValueView::ENTRY);
         REQUIRE(p.defaultValue() == SYM("AAAA"));

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="list.walk">
         <title>list.walk</title>
         <meta>
@@ -23,7 +23,7 @@
             then output it.</par>
         </info>
         <arguments>
-            <argument type="list" name="INIT">initial list</argument>
+            <argument name="VALUE" type="list">initial list</argument>
         </arguments>
         <properties>
             <property name="@mode" type="symbol" enum="single clip wrap fold" default="single">pass
@@ -37,27 +37,32 @@
             loop</property>
             <property name="@fold" type="alias">fold pass mode. List values are repeated in a loop
             with folding</property>
-            <property name="@direction" type="int" default="1" enum="0 1">walking direction. "1" -
-            forwards, "0" - backwards.</property>
+            <property name="@direction" type="bool" default="1">walking direction. "1" - forwards,
+            "0" - backwards.</property>
             <property name="@index" type="list" minvalue="0" default="0">current
             position</property>
             <property name="@length" type="int" minvalue="1" default="1">output list
             length</property>
-            <property name="@size" type="int" minvalue="0" readonly="true" default="0">current list
-            size</property>
-            <property name="@value" type="list">current list</property>
+            <property name="@size" type="int" minvalue="0" access="readonly" default="0">current
+            list size</property>
+            <property name="@value" type="list" default="">current list</property>
         </properties>
         <methods>
+            <!-- current -->
             <method name="current">outputs current element</method>
+            <!-- dump -->
             <method name="dump">dump internal object state to Pd console window</method>
+            <!-- next -->
             <method name="next">
-                <param type="int" default="1" name="STEP">moves to next element with optional given
+                <param name="STEP" type="int" default="1">moves to next element with optional given
                 step and outputs it</param>
             </method>
+            <!-- prev -->
             <method name="prev">
-                <param type="int" default="1" name="STEP">moves to previous element with optional
+                <param name="STEP" type="int" default="1">moves to previous element with optional
                 given step and outputs it</param>
             </method>
+            <!-- reset -->
             <method name="reset">sets current position to 0</method>
         </methods>
         <inlets>
@@ -69,6 +74,7 @@
         </inlets>
         <outlets>
             <outlet>list element</outlet>
+            <outlet>bang: when last element reached</outlet>
         </outlets>
         <example>
             <pdascii>

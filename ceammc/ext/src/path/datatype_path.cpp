@@ -12,11 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "datatype_path.h"
-#include "ceammc_atomlist.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_format.h"
 #include "ceammc_string.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 #include "filesystem.hpp"
 
@@ -27,8 +26,12 @@ namespace path {
 
     namespace fs = ghc::filesystem;
 
-    const DataTypeId DataTypePath::dataType = DataStorage::instance().registerNewType(TYPE_NAME,
-        [](const AtomListView& lv) { return Atom(new DataTypePath(ceammc::to_string(lv))); });
+    DataTypeId DataTypePath::staticType()
+    {
+        static DataTypeId id = DataStorage::instance().registerNewType(TYPE_NAME,
+            [](const AtomListView& lv) { return Atom(new DataTypePath(ceammc::to_string(lv))); });
+        return id;
+    }
 
     DataTypePath::DataTypePath()
     {
@@ -88,7 +91,7 @@ namespace path {
 
     DataTypeId DataTypePath::type() const noexcept
     {
-        return dataType;
+        return staticType();
     }
 
     std::string DataTypePath::toJsonString() const

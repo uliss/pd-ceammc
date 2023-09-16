@@ -36,7 +36,7 @@ void MidiKey2Str::onFloat(t_float f)
     key %= 12;
 
     if (cache_[key] == 0)
-        cache_[key] = midi::key_to_name(key, tonality_, true);
+        cache_[key] = gensym(midi::key_to_name(key, tonality_, true).c_str());
 
     if (as_symbol_->value())
         symbolTo(0, cache_[key]);
@@ -71,4 +71,8 @@ void setup_midi_key2str()
 {
     ObjectFactory<MidiKey2Str> obj("midi.key2str");
     obj.addAlias("midi.key->str");
+
+    obj.setDescription("convert key number to SPN name according to tonality");
+    obj.setCategory("midi");
+    obj.setKeywords({"midi", "key", "name"});
 }

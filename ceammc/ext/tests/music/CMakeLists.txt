@@ -1,4 +1,7 @@
-add_executable(test_ext_music test_music_base.h)
+add_executable(test_ext_music test_music_base.h
+    test_rhythm_hexbeat.cpp
+    test_rhythm_euclid.cpp
+)
 
 target_compile_definitions(test_ext_music
     PRIVATE -DPROJECT_SOURCE_DIR="${PROJECT_SOURCE_DIR}"
@@ -26,11 +29,15 @@ function(add_music_test src)
 endfunction()
 
 add_music_test(dur2time)
-add_music_test(voice2midi)
 add_music_test(scale)
+add_music_test(spn)
+add_music_test(temperament)
 add_music_test(theory)
 add_music_test(theory_alteration)
+add_music_test(theory_duration)
 add_music_test(theory_keyboard)
 add_music_test(theory_pitch_class)
 add_music_test(theory_pitch_name)
-add_music_test(temperament)
+add_music_test(theory_tempo)
+add_music_test(theory_timesig)
+add_music_test(voice2midi)

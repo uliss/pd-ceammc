@@ -12,7 +12,7 @@
 
 t_epopup* epopupmenu_create(t_eobj* x, t_symbol* name)
 {
-    t_epopup* popup = (t_epopup*)malloc(sizeof(t_epopup));
+    auto popup = (t_epopup*)malloc(sizeof(t_epopup));
     if (popup) {
         popup->c_send = x->o_id;
         popup->c_name = name;
@@ -22,18 +22,25 @@ t_epopup* epopupmenu_create(t_eobj* x, t_symbol* name)
     return popup;
 }
 
-void epopupmenu_setfont(t_epopup* popup, t_efont* font)
+void epopupmenu_setfont(t_epopup* popup, const t_efont* font)
 {
-    sys_vgui(".eboxpopup%s configure -font {%s %d %s italic}\n", popup->c_name->s_name, font[0].c_family->s_name, (int)font[0].c_size, font[0].c_weight->s_name, font[0].c_slant->s_name);
+    sys_vgui(".eboxpopup%s configure -font {{%s} %d %s %s}\n",
+        popup->c_name->s_name, font->c_family->s_name,
+        (int)font->c_size, font->c_weight->s_name, font->c_slant->s_name);
 }
 
-void epopupmenu_additem(t_epopup* popup, int itemid, const char* text, bool enabled, const t_pt& pos)
+void epopupmenu_additem(t_epopup* popup, int itemid, const char* text, bool enabled, bool readonly, const t_pt& pos)
 {
     sys_vgui(".eboxpopup%s add command ", popup->c_name->s_name);
-    sys_vgui("-command {pdsend {%s popup %s %d %i %i}} ", popup->c_send->s_name, popup->c_name->s_name, itemid, (int)pos.x, (int)pos.y);
+
+    if (!readonly)
+        sys_vgui("-command {pdsend {%s popup %s %d %i %i}} ", popup->c_send->s_name, popup->c_name->s_name, itemid, (int)pos.x, (int)pos.y);
+
     sys_vgui("-label [_ {%s} ] ", text);
     if (enabled)
         sys_vgui("-state active\n");
+    else if (readonly)
+        sys_vgui("-state normal\n");
     else
         sys_vgui("-state disable\n");
 }

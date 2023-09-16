@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="synth.marimba~">
         <title>synth.marimba~</title>
         <meta>
@@ -14,16 +14,11 @@
             <keywords>marimba</keywords>
             <since>0.6</since>
         </meta>
-        <methods>
-            <method name="note">note on/off message 
-            <param name="NOTE" type="float" required="true">midi note</param>
-            <param name="VEL" type="float" minvalue="0" maxvalue="127" required="true">
-            velocity</param></method>
-        </methods>
         <properties>
             <property name="@pitch" type="float" minvalue="36" maxvalue="84" default="48">midi
             pitch</property>
-            <property name="@freq" type="float" units="herz" default="130.813">frequency</property>
+            <property name="@freq" type="float" units="hertz" default="130.8128">
+            frequency</property>
             <property name="@pos" type="float" minvalue="0" maxvalue="4" default="0">excitation
             position</property>
             <property name="@cutoff" type="float" minvalue="1000" maxvalue="10000" default="7000">
@@ -34,9 +29,17 @@
             gain</property>
             <property name="@gate" type="float" minvalue="0" maxvalue="1" default="0">play trigger
             - 1: on, 0: off</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
+        <methods>
+            <!-- note -->
+            <method name="note">note on/off message 
+            <param name="NOTE" type="float" required="true">midi note</param>
+            <param name="VEL" type="float" minvalue="0" maxvalue="127" required="true">
+            velocity</param></method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo>input signal</xinfo>

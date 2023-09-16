@@ -2,11 +2,14 @@
 // clang-format off
 #ifndef system_colorpanel_tcl_h_
 #define system_colorpanel_tcl_h_
-const char* system_colorpanel_tcl = 
+constexpr const char* system_colorpanel_tcl = 
 "namespace eval ::ceammc::colorpanel:: { }\n"
-"proc ::ceammc::colorpanel::open {objectid initialcolor} {\n"
+"proc ::ceammc::colorpanel::do_open {objectid initialcolor} {\n"
 "    set color [tk_chooseColor -initialcolor $initialcolor]\n"
-"    pdsend \"$objectid .callback $color\"\n"
+"    pdsend \"$objectid .tcl_callback $color\"\n"
+"}\n"
+"proc ::ceammc::colorpanel::open {objectid initialcolor} {\n"
+"    after idle [list after 100 ::ceammc::colorpanel::do_open $objectid $initialcolor]\n"
 "}\n"
 ;
 #endif

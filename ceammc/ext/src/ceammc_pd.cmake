@@ -65,10 +65,12 @@ macro(ceammc_faust_gen_obj module name)
 
     add_custom_target("faust_${module}_${name}"
         COMMAND ${FAUST_BIN} -i
-            -a ${CMAKE_SOURCE_DIR}/ceammc/faust/ceammc_dsp_ext.cpp
+            -a ${CMAKE_SOURCE_DIR}/ceammc/faust/faust_arch_ceammc.cpp
             --class-name "${module}_${name}"
             --super-class-name "${module}_${name}_dsp"
             ${_args}
             "${CMAKE_SOURCE_DIR}/ceammc/faust/${module}_${name}.dsp"
             -o ${CMAKE_CURRENT_SOURCE_DIR}/${module}_${name}.h)
+
+    set(CEAMMC_FAUST_TARGETS "${CEAMMC_FAUST_TARGETS};faust_${module}_${name}" CACHE INTERNAL "")
 endmacro()

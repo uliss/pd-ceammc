@@ -23,7 +23,6 @@
         <properties>
             <property name="@pitch" type="float" default="0">
             relative pitch change in semitones</property>
-            <property name="@speech" type="flag">optimize for speech sound source</property>
             <property name="@antialias" type="int" enum="0 1" default="0">use of anti-alias filter.
             Anti-alias filter is used to prevent folding of high frequencies when 
             transposing the sample rate with interpolation.</property>
@@ -31,6 +30,8 @@
             pitch transposer anti-alias filter length</property>
             <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
             'effected' signal.</property>
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">Ratio
+            between processed signal (wet) and source signal</property>
         </properties>
         <inlets>
             <inlet type="audio">
@@ -46,21 +47,21 @@
         <example>
             <pdascii>
 <![CDATA[ 
-[open %CEAMMC%/guitar1.wav, 1(
+[open %CEAMMC%/guitar1.wav, 1 #a(
 |
-[expand_env]
+[expand_env] [0(
+|            |
+[readsf~   #x]
 |
-[readsf~]
-|
-|           [hsl min=-24 max=24]
-|           |
-|           [F]
+|           [ui.hsl -24 24 @show_value 1]
 |           |.
 [soundtouch~  -12]
 |
 [ui.gain~ @size 120 16] [ui.dsp~]
 |\
 [dac~]
+
+[X x:1->a]
 ]]>
             </pdascii>
         </example>

@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_window.h"
+#include "ceammc_canvas.h"
 #include "test_external.h"
 
 PD_COMPLETE_TEST_SETUP(ArrayWindow, array, window)

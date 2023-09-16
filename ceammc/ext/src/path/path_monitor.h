@@ -21,7 +21,7 @@
 
 using namespace ceammc;
 
-class PathMonitor : public BaseObject, public NotifiedObject {
+class PathMonitor : public DispatchedObject<BaseObject> {
     SymbolProperty* path_;
     std::string path_info_;
     std::mutex mtx_;
@@ -30,7 +30,7 @@ public:
     PathMonitor(const PdArgs& args);
     ~PathMonitor();
 
-    bool notify(NotifyEventType code) override;
+    bool notify(int code) override;
     void setPath(const char* path);
 };
 

@@ -12,6 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_loader_sndfile.h"
+#include "ceammc_config.h"
+#include "fmt/core.h"
 #include "soxr.h"
 
 #include <cmath>
@@ -21,16 +23,54 @@ namespace ceammc {
 
 namespace sound {
 
-    LibSndFile::LibSndFile(const std::string& fname)
-        : SoundFile(fname)
-        , handle_(fname, SFM_READ, 0, 0, 0)
+    LibSndFile::LibSndFile()
     {
-        if (handle_.rawHandle() == 0) {
-            std::cerr << "[SNDFILE] error while opening \"" << fname << "\": " << sf_strerror(0) << "\n";
-        }
     }
 
-    size_t LibSndFile::sampleCount() const
+    bool LibSndFile::probe(const char* fname) const
+    {
+        SndfileHandle sf(fname, SFM_READ);
+        return sf.rawHandle();
+    }
+
+    bool LibSndFile::open(const char* fname, OpenMode mode, const SoundFileOpenParams& params)
+    {
+        auto fmt = makeLibFormat(params.file_format, params.sample_format);
+
+        switch (mode) {
+        case WRITE: {
+            if (!handle_.formatCheck(fmt, params.num_channels, params.samplerate)) {
+                error(fmt::format("[sndfile] invalid options for format {} (0x{:0x}): "
+                                  "num_channels={} samplerate={}",
+                    to_string(params.file_format), fmt, params.num_channels, params.samplerate));
+                return false;
+            }
+
+            handle_ = SndfileHandle(fname, SFM_WRITE, fmt, params.num_channels, params.samplerate);
+            if (handle_.rawHandle() == 0) {
+                error(fmt::format("[sndfile] can't open file '{}' for writing. {}", fname, handle_.strError()));
+                return false;
+            }
+        } break;
+        case READ:
+            // auto detect soundfile format
+            handle_ = SndfileHandle(fname, SFM_READ, fmt, params.num_channels, params.samplerate);
+            if (handle_.rawHandle() == 0) {
+                error(fmt::format("[sndfile] can't open file '{}' for reading. {}", fname, handle_.strError()));
+                return false;
+            }
+            break;
+        case NONE:
+        default:
+            return false;
+        }
+
+        setOpenMode(mode);
+        fname_ = fname;
+        return true;
+    }
+
+    size_t LibSndFile::frameCount() const
     {
         return handle_.frames();
     }
@@ -52,30 +92,37 @@ namespace sound {
 
     bool LibSndFile::close()
     {
+        fname_.clear();
         handle_ = SndfileHandle();
         return true;
     }
 
-    long LibSndFile::read(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples)
+    std::int64_t LibSndFile::read(t_word* dest, size_t sz, size_t ch, std::int64_t offset)
     {
-        if (!handle_)
+        if (!isOpened()) {
+            error(fmt::format("[sndfile] not opened"));
             return -1;
+        }
 
-        if (ch >= channels())
+        if (ch >= channels()) {
+            error(fmt::format("[sndfile] invalid channel number: {}", ch));
             return -1;
+        }
 
         if (resampleRatio() != 1)
-            return readResampled(dest, sz, ch, offset, max_samples);
+            return readResampled(dest, sz, ch, offset, sz);
 
         t_word* x = dest;
-        const sf_count_t FRAME_COUNT = 256;
+        constexpr sf_count_t FRAME_COUNT = 256;
         const int n = channels();
         const sf_count_t IN_BUF_SIZE = FRAME_COUNT * n;
         float frame_buf[IN_BUF_SIZE];
 
         // move to beginning
-        if (handle_.seek(offset, SEEK_SET) == -1)
+        if (handle_.seek(offset, SEEK_SET) == -1) {
+            error(fmt::format("[sndfile] can't seek to sample: {}", offset));
             return -1;
+        }
 
         // read frames
         sf_count_t frames_read_total = 0;
@@ -87,7 +134,7 @@ namespace sound {
                 break;
 
             // write channel data to destination
-            for (sf_count_t j = 0; j < frames_read && frames_read_total < max_samples; j++) {
+            for (sf_count_t j = 0; (j < frames_read) && (frames_read_total < sz); j++) {
                 x->w_float = frame_buf[j * n + ch] * gain();
                 x++;
                 frames_read_total++;
@@ -103,7 +150,7 @@ namespace sound {
             const auto frames_read = handle_.readf(frame_buf, sf_count_t(sz) % FRAME_COUNT);
 
             // write channel data to destination
-            for (sf_count_t j = 0; j < frames_read && frames_read_total < max_samples; j++) {
+            for (sf_count_t j = 0; (j < frames_read) && (frames_read_total < sz); j++) {
                 x->w_float = frame_buf[j * n + ch] * gain();
                 x++;
                 frames_read_total++;
@@ -113,10 +160,71 @@ namespace sound {
         return frames_read_total;
     }
 
-    long LibSndFile::readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples)
+    std::int64_t LibSndFile::write(const t_word* const* src, size_t num_frames, std::int64_t offset)
     {
-        if (resampleRatio() < 0.001)
+        if (!isOpened()) {
+            error(fmt::format("[sndfile] not opened"));
             return -1;
+        }
+
+        constexpr sf_count_t FRAME_COUNT = 256;
+        const auto NCH = channels();
+        const sf_count_t OUT_BUF_SIZE = FRAME_COUNT * NCH;
+
+        float frame_buf[OUT_BUF_SIZE];
+        size_t buf_frames = 0;
+        std::int64_t samples_written = 0;
+
+        for (size_t i = 0; i < num_frames; i++, buf_frames++) {
+            // fill frame
+            for (size_t j = 0; j < NCH; j++) {
+                auto samp = src[j][i].w_float * gain();
+                frame_buf[(i % FRAME_COUNT) * NCH + j] = samp;
+            }
+
+            // frame buffer is full
+            if (buf_frames == FRAME_COUNT) {
+                samples_written += handle_.write(frame_buf, buf_frames * NCH);
+                buf_frames = 0;
+            }
+        }
+
+        // write remaining frames
+        if (buf_frames > 0)
+            samples_written += handle_.write(frame_buf, buf_frames * NCH);
+
+        handle_.writeSync();
+        handle_ = {};
+        return samples_written;
+    }
+
+    std::int64_t LibSndFile::readFrames(float* dest, size_t sz, std::int64_t offset)
+    {
+        if (!(isOpened() && openMode() == READ)) {
+            error(fmt::format("[sndfile] not opened for reading"));
+            return -1;
+        }
+
+        constexpr sf_count_t FRAME_COUNT = 256;
+        const int n = channels();
+        const sf_count_t IN_BUF_SIZE = FRAME_COUNT * n;
+        float frame_buf[IN_BUF_SIZE];
+
+        // move to beginning
+        if (handle_.seek(offset, SEEK_SET) == -1) {
+            error(fmt::format("[sndfile] can't seek to frame: {}", offset));
+            return -1;
+        }
+
+        return handle_.readf(dest, sz);
+    }
+
+    std::int64_t LibSndFile::readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples)
+    {
+        if (resampleRatio() < 0.001) {
+            error(fmt::format("[sndfile] invalid resample ratio: {}", resampleRatio()));
+            return -1;
+        }
 
         t_word* x = dest;
         const sf_count_t FRAME_COUNT = 256;
@@ -125,17 +233,20 @@ namespace sound {
         float frame_buf[IN_BUF_SIZE];
 
         // move to beginning
-        if (handle_.seek(offset, SEEK_SET) == -1)
+        if (handle_.seek(offset, SEEK_SET) == -1) {
+            error(fmt::format("[sndfile] can't seek to sample: {}", offset));
             return -1;
+        }
 
         // SoxR
-        soxr_error_t error;
+        soxr_error_t err;
         soxr_t soxr = soxr_create(
             1, resampleRatio(), n, /* Input rate, output rate, # of channels. */
-            &error, /* To report any error during creation. */
+            &err, /* To report any error during creation. */
             nullptr, nullptr, nullptr); /* Use configuration defaults.*/
 
-        if (error) {
+        if (err) {
+            error(fmt::format("[soxr] init error: {}", soxr_strerror(err)));
             soxr_delete(soxr);
             return -1;
         }
@@ -146,7 +257,7 @@ namespace sound {
 
         // read frames
         sf_count_t frames_read_total = 0;
-        size_t frames_resampled_total = 0;
+        std::int64_t frames_resampled_total = 0;
         const sf_count_t steps = sf_count_t(sz) / FRAME_COUNT;
 
         // read full buffers
@@ -160,10 +271,10 @@ namespace sound {
              * to produce as much output as is possible to the given output buffer:
              */
             size_t odone;
-            error = soxr_process(soxr, frame_buf, frames_read, nullptr, resampled_buf, OUT_FRAME_COUNT, &odone);
+            err = soxr_process(soxr, frame_buf, frames_read, nullptr, resampled_buf, OUT_FRAME_COUNT, &odone);
 
-            if (error) {
-                std::cerr << "[soxr] error: " << error << "\n";
+            if (err) {
+                error(fmt::format("[soxr] error: {}", err));
                 break;
             }
 
@@ -186,26 +297,25 @@ namespace sound {
             const sf_count_t frames_read = handle_.readf(frame_buf, sf_count_t(sz) % FRAME_COUNT);
 
             size_t odone;
-            error = soxr_process(soxr, frame_buf, frames_read, nullptr, resampled_buf, OUT_FRAME_COUNT, &odone);
+            err = soxr_process(soxr, frame_buf, frames_read, nullptr, resampled_buf, OUT_FRAME_COUNT, &odone);
 
-            if (!error) {
+            if (!err) {
                 // write channel data to destination
                 for (sf_count_t j = 0; j < odone && frames_resampled_total < max_samples; j++) {
                     x->w_float = resampled_buf[j * n + ch] * gain();
                     x++;
-
                 }
             } else
-                std::cerr << "soxr: " << error << "\n";
+                error(fmt::format("[soxr] error: {}", err));
         }
 
         // process remaining resample data
         while (true) {
             size_t odone = 0;
             // indicate end of input with nullptr
-            error = soxr_process(soxr, nullptr, 0, nullptr, resampled_buf, OUT_FRAME_COUNT, &odone);
-            if (error) {
-                std::cerr << "[soxr] " << error << "\n";
+            err = soxr_process(soxr, nullptr, 0, nullptr, resampled_buf, OUT_FRAME_COUNT, &odone);
+            if (err) {
+                error(fmt::format("[soxr] error: {}", err));
                 break;
             }
 
@@ -225,7 +335,46 @@ namespace sound {
         return frames_resampled_total;
     }
 
-    FormatList LibSndFile::supportedFormats()
+    int LibSndFile::makeLibFormat(SoundFileFormat fileFormat, SampleFormat sampFormat) const
+    {
+        int fmt = 0;
+
+        // clang-format off
+        switch (fileFormat) {
+            case FORMAT_WAV:  fmt = SF_FORMAT_WAV;  break;
+            case FORMAT_AIFF: fmt = SF_FORMAT_AIFF; break;
+            case FORMAT_OGG:  fmt = SF_FORMAT_OGG | SF_FORMAT_VORBIS; break;
+#ifdef CEAMMC_HAVE_LIBSNDFILE_OPUS
+            case FORMAT_OPUS: fmt = SF_FORMAT_OGG | SF_FORMAT_OPUS; break;
+#endif
+            case FORMAT_RAW:  fmt = SF_FORMAT_RAW; break;
+            case FORMAT_FLAC: fmt = SF_FORMAT_FLAC; break;
+            default:
+                return fmt;
+        }
+
+        switch(sampFormat) {
+            case SAMPLE_PCM_8:     fmt |= SF_FORMAT_PCM_S8; break;
+            case SAMPLE_PCM_16:    fmt |= SF_FORMAT_PCM_16; break;
+            case SAMPLE_PCM_24:    fmt |= SF_FORMAT_PCM_24; break;
+            case SAMPLE_PCM_32:    fmt |= SF_FORMAT_PCM_32; break;
+            case SAMPLE_PCM_FLOAT: fmt |= SF_FORMAT_FLOAT; break;
+            default:
+                switch(fileFormat) {
+                    case FORMAT_WAV:  fmt |= SF_FORMAT_PCM_24;  break;
+                    case FORMAT_AIFF: fmt |= SF_FORMAT_PCM_24; break;
+                    case FORMAT_RAW:  fmt |= SF_FORMAT_PCM_24; break;
+                    case FORMAT_FLAC: fmt |= SF_FORMAT_PCM_24; break;
+                    default: break;
+                }
+            break;
+        }
+
+        return fmt;
+        // clang-format on
+    }
+
+    FormatList LibSndFile::supportedReadFormats()
     {
         FormatList res;
 

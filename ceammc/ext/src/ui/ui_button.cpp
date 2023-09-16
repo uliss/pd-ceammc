@@ -26,8 +26,8 @@ UIButton::UIButton()
 
 void UIButton::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, MIN_SIZE);
-    newrect->height = pd_clip_min(newrect->height, MIN_SIZE);
+    newrect->w = pd_clip_min(newrect->w, MIN_SIZE);
+    newrect->h = pd_clip_min(newrect->h, MIN_SIZE);
 }
 
 void UIButton::paint()
@@ -88,7 +88,7 @@ void UIButton::off()
 
 void UIButton::setup()
 {
-    sys_gui(ui_button_tcl);
+    ui_button_tcl_output();
 
     UIObjectFactory<UIButton> obj("ui.button", EBOX_GROWLINK);
     obj.addAlias("ui.btn");

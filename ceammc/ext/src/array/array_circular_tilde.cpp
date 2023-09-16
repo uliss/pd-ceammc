@@ -129,4 +129,8 @@ void setup_array_circular_tilde()
     obj.addMethod("resize", &ArrayCircularTilde::m_resize);
 
     obj.setXletsInfo({ "write signal", "read delay" }, { "read signal" });
+
+    obj.setDescription("circular buffer for arrays");
+    obj.setCategory("array");
+    obj.setKeywords({"array", "circular", "ring"});
 }

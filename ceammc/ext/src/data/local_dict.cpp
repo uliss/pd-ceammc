@@ -17,7 +17,7 @@
 LocalDict::LocalDict(const PdArgs& args)
     : LocalDictBase(args)
 {
-    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
+    createOutlet();
 }
 
 EditorTitleString LocalDict::editorTitle() const
@@ -34,5 +34,9 @@ void setup_local_dict()
                        "methods: add, clear, get_key, set_key, remove, set, read, write" },
         { "data: dict" });
 
-    LocalDict::registerMethods(obj);
+    LocalDict::factoryEditorObjectInit(obj);
+
+    obj.setDescription("local named dict object");
+    obj.setCategory("local");
+    obj.setKeywords({ "dict", "local", "global" });
 }

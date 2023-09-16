@@ -75,7 +75,7 @@ void XMidiFile::m_write(t_symbol*, const AtomListView& l)
     std::string filepath = l[0].asSymbol()->s_name;
     if (!isAbsolutePath(filepath.c_str())) {
 
-        std::string top_level_dir(canvas_info_dir(rootCanvas())->s_name);
+        std::string top_level_dir = canvasDir(CanvasType::TOPLEVEL)->s_name;
 
         if (!top_level_dir.empty())
             filepath = top_level_dir + "/" + filepath;
@@ -116,4 +116,8 @@ void setup_midi_file()
     obj.addMethod("read", &XMidiFile::m_read);
     obj.addMethod("clear", &XMidiFile::m_clear);
     obj.addMethod("write", &XMidiFile::m_write);
+
+    obj.setDescription("standard midi file SMF reader and writer");
+    obj.setCategory("midi");
+    obj.setKeywords({"midi", "file"});
 }

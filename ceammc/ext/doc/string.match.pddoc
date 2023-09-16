@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="string.match">
         <title>string.match</title>
         <meta>
@@ -25,7 +25,7 @@
             <par>For example, all digits: `d+, two or three chars: [a-z]((2..3)) etc.</par>
         </info>
         <arguments>
-            <argument name="RE" type="symbol">regular expression</argument>
+            <argument name="RE" type="list">regular expression</argument>
         </arguments>
         <properties>
             <property name="@re" type="list" default="">regular expression</property>

@@ -79,8 +79,8 @@ TEST_CASE("Atom", "[core]")
         REQUIRE(a == Atom());
         REQUIRE_FALSE(a != Atom());
 
-        REQUIRE_FALSE(a == 0);
-        REQUIRE(a != 0);
+        REQUIRE_FALSE(a == 0.);
+        REQUIRE(a != 0.);
 
         REQUIRE((a += 10).isNone());
         REQUIRE((a -= 10).isNone());
@@ -137,8 +137,8 @@ TEST_CASE("Atom", "[core]")
         REQUIRE(a != Atom());
         REQUIRE_FALSE(a == Atom());
 
-        REQUIRE_FALSE(a == 0);
-        REQUIRE(a != 0);
+        REQUIRE_FALSE(a == 0.);
+        REQUIRE(a != 0.);
 
         REQUIRE((a += 10) == 12.5);
         REQUIRE((a -= 10) == 2.5);
@@ -198,8 +198,8 @@ TEST_CASE("Atom", "[core]")
         REQUIRE(a != Atom(1));
         REQUIRE_FALSE(a == Atom(1));
 
-        REQUIRE_FALSE(a == 0);
-        REQUIRE(a != 0);
+        REQUIRE_FALSE(a == 0.);
+        REQUIRE(a != 0.);
 
         REQUIRE((a += 10).isSymbol());
         REQUIRE((a -= 10).isSymbol());

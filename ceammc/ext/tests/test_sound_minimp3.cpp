@@ -27,49 +27,53 @@ TEST_CASE("minimp3", "[ceammc_sound]")
 {
     SECTION("supportedFormats")
     {
-        FormatList lst = MiniMp3::supportedFormats();
+        FormatList lst = MiniMp3::supportedReadFormats();
         REQUIRE(lst.size() == 1);
         REQUIRE(lst[0].first == "MP3");
     }
 
     SECTION("load constant rate")
     {
-        MiniMp3 loader(TEST_DATA_DIR "/test_data0.mp3");
+        MiniMp3 loader;
+        REQUIRE(loader.probe(TEST_DATA_DIR "/test_data0.mp3"));
+        REQUIRE(loader.open(TEST_DATA_DIR "/test_data0.mp3", SoundFile::READ, {}));
         REQUIRE(loader.channels() == 1);
         REQUIRE(loader.filename() == TEST_DATA_DIR "/test_data0.mp3");
         REQUIRE(loader.isOpened());
         REQUIRE(loader.sampleRate() == 44100);
-        REQUIRE(loader.sampleCount() == 441);
+        REQUIRE(loader.frameCount() == 441);
 
         t_word dest[1024];
-        auto rc = loader.read(dest, 512, 0, 0, 1024);
+        auto rc = loader.read(dest, 512, 0, 0);
         REQUIRE(rc == 441);
 
         // invalid channel
-        REQUIRE(loader.read(dest, 512, 1, 0, 1000) == -1);
+        REQUIRE(loader.read(dest, 512, 1, 0) == -1);
 
-        REQUIRE(loader.read(dest, 100, 0, 10, 1000) == 100);
-        REQUIRE(loader.read(dest, 1000, 0, 10, 1000) == 431);
+        REQUIRE(loader.read(dest, 100, 0, 10) == 100);
+        REQUIRE(loader.read(dest, 1000, 0, 10) == 431);
     }
 
     SECTION("load vbr")
     {
-        MiniMp3 loader(TEST_DATA_DIR "/test_data0_vbr.mp3");
+        MiniMp3 loader;
+        REQUIRE(loader.probe(TEST_DATA_DIR "/test_data0_vbr.mp3"));
+        REQUIRE(loader.open(TEST_DATA_DIR "/test_data0_vbr.mp3", SoundFile::READ, {}));
         REQUIRE(loader.channels() == 1);
         REQUIRE(loader.filename() == TEST_DATA_DIR "/test_data0_vbr.mp3");
         REQUIRE(loader.isOpened());
         REQUIRE(loader.sampleRate() == 44100);
-        REQUIRE(loader.sampleCount() == 441);
+        REQUIRE(loader.frameCount() == 441);
 
         t_word dest[1024];
-        auto rc = loader.read(dest, 512, 0, 0, 1024);
+        auto rc = loader.read(dest, 512, 0, 0);
         REQUIRE(rc == 441);
 
         // invalid channel
-        REQUIRE(loader.read(dest, 512, 1, 0, 1000) == -1);
+        REQUIRE(loader.read(dest, 512, 1, 0) == -1);
 
-        REQUIRE(loader.read(dest, 100, 0, 10, 1000) == 100);
-        REQUIRE(loader.read(dest, 1000, 0, 10, 1000) == 431);
+        REQUIRE(loader.read(dest, 100, 0, 10) == 100);
+        REQUIRE(loader.read(dest, 1000, 0, 10) == 431);
     }
 
     SECTION("misc")
@@ -78,14 +82,15 @@ TEST_CASE("minimp3", "[ceammc_sound]")
         {
             SECTION("1")
             {
-                MiniMp3 loader(TEST_DATA_DIR "/mp3/test_1ch_12000_128.mp3");
+                MiniMp3 loader;
+                REQUIRE(loader.open(TEST_DATA_DIR "/mp3/test_1ch_12000_128.mp3", SoundFile::READ, {}));
                 REQUIRE(loader.channels() == 1);
                 REQUIRE(loader.isOpened());
                 REQUIRE(loader.sampleRate() == 12000);
-                REQUIRE(loader.sampleCount() == 12000);
+                REQUIRE(loader.frameCount() == 12000);
 
                 t_word dest[3000];
-                auto rc = loader.read(dest, 3000, 0, 1000, 3000);
+                auto rc = loader.read(dest, 3000, 0, 1000);
                 REQUIRE(rc == 3000);
 
                 // from test_1ch_12000_128_off1000_len32.dat
@@ -102,14 +107,15 @@ TEST_CASE("minimp3", "[ceammc_sound]")
 
             SECTION("1")
             {
-                MiniMp3 loader(TEST_DATA_DIR "/mp3/test_1ch_44100_192.mp3");
+                MiniMp3 loader;
+                REQUIRE(loader.open(TEST_DATA_DIR "/mp3/test_1ch_44100_192.mp3", SoundFile::READ, {}));
                 REQUIRE(loader.channels() == 1);
                 REQUIRE(loader.isOpened());
                 REQUIRE(loader.sampleRate() == 44100);
-                REQUIRE(loader.sampleCount() == 44100);
+                REQUIRE(loader.frameCount() == 44100);
 
                 t_word dest[512];
-                auto rc = loader.read(dest, 512, 0, 1000, 512);
+                auto rc = loader.read(dest, 512, 0, 1000);
                 REQUIRE(rc == 512);
 
                 // from test_1ch_44100_192_off1000_len32.dat
@@ -126,14 +132,15 @@ TEST_CASE("minimp3", "[ceammc_sound]")
 
             SECTION("2ch: first")
             {
-                MiniMp3 loader(TEST_DATA_DIR "/mp3/test_2ch_44100_192.mp3");
+                MiniMp3 loader;
+                REQUIRE(loader.open(TEST_DATA_DIR "/mp3/test_2ch_44100_192.mp3", SoundFile::READ, {}));
                 REQUIRE(loader.channels() == 2);
                 REQUIRE(loader.isOpened());
                 REQUIRE(loader.sampleRate() == 44100);
-                REQUIRE(loader.sampleCount() == 88200);
+                REQUIRE(loader.frameCount() == 44100);
 
                 t_word dest[1000];
-                auto rc = loader.read(dest, 1000, 0, 1000, 1000);
+                auto rc = loader.read(dest, 1000, 0, 1000);
                 REQUIRE(rc == 1000);
 
                 // from test_2ch_44100_192_off1000_len32.dat
@@ -150,14 +157,15 @@ TEST_CASE("minimp3", "[ceammc_sound]")
 
             SECTION("2ch: second")
             {
-                MiniMp3 loader(TEST_DATA_DIR "/mp3/test_2ch_44100_192.mp3");
+                MiniMp3 loader;
+                REQUIRE(loader.open(TEST_DATA_DIR "/mp3/test_2ch_44100_192.mp3", SoundFile::READ, {}));
                 REQUIRE(loader.channels() == 2);
                 REQUIRE(loader.isOpened());
                 REQUIRE(loader.sampleRate() == 44100);
-                REQUIRE(loader.sampleCount() == 88200);
+                REQUIRE(loader.frameCount() == 44100);
 
                 t_word dest[1000];
-                auto rc = loader.read(dest, 1000, 1, 1000, 1000);
+                auto rc = loader.read(dest, 1000, 1, 1000);
                 REQUIRE(rc == 1000);
 
                 // from test_2ch_44100_192_off1000_len32.dat
@@ -175,15 +183,16 @@ TEST_CASE("minimp3", "[ceammc_sound]")
 
         SECTION("vbr")
         {
-            MiniMp3 loader(TEST_DATA_DIR "/mp3/test_1ch_24000_vbr.mp3");
+            MiniMp3 loader;
+            REQUIRE(loader.open(TEST_DATA_DIR "/mp3/test_1ch_24000_vbr.mp3", SoundFile::READ, {}));
             loader.setGain(0.5);
             REQUIRE(loader.channels() == 1);
             REQUIRE(loader.isOpened());
             REQUIRE(loader.sampleRate() == 24000);
-            REQUIRE(loader.sampleCount() == 24000);
+            REQUIRE(loader.frameCount() == 24000);
 
             t_word dest[1000];
-            auto rc = loader.read(dest, 1000, 0, 1000, 1000);
+            auto rc = loader.read(dest, 1000, 0, 1000);
             REQUIRE(rc == 1000);
 
             // from test_1ch_24000_vbr_off1000_len32.dat
@@ -200,18 +209,32 @@ TEST_CASE("minimp3", "[ceammc_sound]")
 
         SECTION("resample to 12000 (x0.5)")
         {
-            MiniMp3 loader(TEST_DATA_DIR "/mp3/test_1ch_24000_vbr.mp3");
+            MiniMp3 loader;
+            REQUIRE(loader.open(TEST_DATA_DIR "/mp3/test_1ch_24000_vbr.mp3", SoundFile::READ, {}));
             REQUIRE(loader.isOpened());
             REQUIRE(loader.channels() == 1);
             REQUIRE(loader.sampleRate() == 24000);
-            REQUIRE(loader.sampleCount() == 24000);
+            REQUIRE(loader.frameCount() == 24000);
+            REQUIRE(loader.gain() == 1);
 
             loader.setResampleRatio(12000 / 24000.0);
 
             t_word dest[1000];
-            auto rc = loader.read(dest, 1000, 0, 2000, 1000);
+            auto rc = loader.read(dest, 1000, 0, 2000);
             REQUIRE(rc == 1000);
 
+#ifdef WITH_LIBSAMPLERATE
+            // from test_1ch_24000_vbr_off1000_len32.dat
+            REQUIRE(dest[0].w_float == Approx(0.01857).margin(0.0001));
+            REQUIRE(dest[1].w_float == Approx(0.21395).margin(0.0001));
+            REQUIRE(dest[2].w_float == Approx(0.4156).margin(0.0001));
+            REQUIRE(dest[3].w_float == Approx(0.56803).margin(0.0001));
+            REQUIRE(dest[4].w_float == Approx(0.67063).margin(0.0001));
+            REQUIRE(dest[5].w_float == Approx(0.70276).margin(0.0001));
+            REQUIRE(dest[6].w_float == Approx(0.67046).margin(0.0001));
+            REQUIRE(dest[7].w_float == Approx(0.56856).margin(0.0001));
+            REQUIRE(dest[8].w_float == Approx(0.41485).margin(0.0001));
+#else
             // from test_1ch_24000_vbr_off1000_len32.dat
             REQUIRE(dest[0].w_float == Approx(0.01883).margin(0.0001));
             REQUIRE(dest[1].w_float == Approx(0.21369).margin(0.0001));
@@ -222,22 +245,35 @@ TEST_CASE("minimp3", "[ceammc_sound]")
             REQUIRE(dest[6].w_float == Approx(0.67064).margin(0.0001));
             REQUIRE(dest[7].w_float == Approx(0.56840).margin(0.0001));
             REQUIRE(dest[8].w_float == Approx(0.41485).margin(0.0001));
+#endif
         }
 
         SECTION("resample to 48000 (x2)")
         {
-            MiniMp3 loader(TEST_DATA_DIR "/mp3/test_1ch_24000_vbr.mp3");
+            MiniMp3 loader;
+            REQUIRE(loader.open(TEST_DATA_DIR "/mp3/test_1ch_24000_vbr.mp3", SoundFile::READ, {}));
             REQUIRE(loader.isOpened());
             REQUIRE(loader.channels() == 1);
             REQUIRE(loader.sampleRate() == 24000);
-            REQUIRE(loader.sampleCount() == 24000);
+            REQUIRE(loader.frameCount() == 24000);
 
             loader.setResampleRatio(48000 / 24000.0);
 
             t_word dest[1000];
-            auto rc = loader.read(dest, 1000, 0, 500, 1000);
+            auto rc = loader.read(dest, 1000, 0, 500);
             REQUIRE(rc == 1000);
 
+#ifdef WITH_LIBSAMPLERATE
+            REQUIRE(dest[0].w_float == Approx(0.00082).margin(0.0001));
+            REQUIRE(dest[1].w_float == Approx(0.04509).margin(0.0001));
+            REQUIRE(dest[2].w_float == Approx(0.10908).margin(0.0001));
+            REQUIRE(dest[3].w_float == Approx(0.16921).margin(0.0001));
+            REQUIRE(dest[4].w_float == Approx(0.21842).margin(0.0001));
+            REQUIRE(dest[5].w_float == Approx(0.26624).margin(0.0001));
+            REQUIRE(dest[6].w_float == Approx(0.31859).margin(0.0001));
+            REQUIRE(dest[7].w_float == Approx(0.37001).margin(0.0001));
+            REQUIRE(dest[8].w_float == Approx(0.41464).margin(0.0001));
+#else
             // from test_1ch_24000_vbr_off1000_len32.dat
             REQUIRE(dest[0].w_float == Approx(0.00107).margin(0.0001));
             REQUIRE(dest[1].w_float == Approx(0.04509).margin(0.0001));
@@ -248,6 +284,81 @@ TEST_CASE("minimp3", "[ceammc_sound]")
             REQUIRE(dest[6].w_float == Approx(0.31837).margin(0.0001));
             REQUIRE(dest[7].w_float == Approx(0.3699).margin(0.0001));
             REQUIRE(dest[8].w_float == Approx(0.41485).margin(0.0001));
+#endif
+        }
+    }
+
+    SECTION("Frames")
+    {
+        SECTION("invalid")
+        {
+            float buf[10];
+
+            MiniMp3 loader;
+            REQUIRE(loader.readFrames(buf, 10, 0) == -1);
+            REQUIRE(loader.readFrames(nullptr, 10, 0) == -1);
+        }
+
+        SECTION("constant rate mono")
+        {
+            MiniMp3 loader;
+            REQUIRE(loader.probe(TEST_DATA_DIR "/test_data0.mp3"));
+            REQUIRE(loader.open(TEST_DATA_DIR "/test_data0.mp3", SoundFile::READ, {}));
+            REQUIRE(loader.channels() == 1);
+            REQUIRE(loader.filename() == TEST_DATA_DIR "/test_data0.mp3");
+            REQUIRE(loader.isOpened());
+            REQUIRE(loader.sampleRate() == 44100);
+            REQUIRE(loader.frameCount() == 441);
+
+            float buf[512];
+            REQUIRE(loader.readFrames(buf, 512, 0) == 441);
+            REQUIRE(loader.readFrames(buf, 512, 41) == 400);
+            REQUIRE(loader.readFrames(buf, 512, 441) == 0);
+
+            REQUIRE(loader.close());
+
+            REQUIRE(loader.open(TEST_DATA_DIR "/mp3/test_1ch_12000_128.mp3", SoundFile::READ, {}));
+            REQUIRE(loader.channels() == 1);
+            REQUIRE(loader.isOpened());
+            REQUIRE(loader.sampleRate() == 12000);
+            REQUIRE(loader.frameCount() == 12000);
+
+            REQUIRE(loader.readFrames(buf, 512, 1000) == 512);
+
+            // from test_1ch_12000_128_off1000_len32.dat
+            REQUIRE(buf[0] == Approx(-0.58001708984).margin(0.0001));
+            REQUIRE(buf[1] == Approx(-0.64694213867).margin(0.0001));
+            REQUIRE(buf[2] == Approx(-0.66976928711).margin(0.0001));
+            REQUIRE(buf[3] == Approx(-0.64694213867).margin(0.0001));
+            REQUIRE(buf[4] == Approx(-0.58004760742).margin(0.0001));
+            REQUIRE(buf[5] == Approx(-0.4736328125).margin(0.0001));
+            REQUIRE(buf[6] == Approx(-0.33493041992).margin(0.0001));
+            REQUIRE(buf[7] == Approx(-0.17340087891).margin(0.0001));
+            REQUIRE(buf[8] == Approx(-6.103515625e-05).margin(0.0001));
+        }
+
+        SECTION("stereo")
+        {
+            MiniMp3 loader;
+            REQUIRE(loader.open(TEST_DATA_DIR "/mp3/test_2ch_44100_192.mp3", SoundFile::READ, {}));
+            REQUIRE(loader.channels() == 2);
+            REQUIRE(loader.isOpened());
+            REQUIRE(loader.sampleRate() == 44100);
+            REQUIRE(loader.frameCount() == 44100);
+
+            float dest[8];
+            auto rc = loader.readFrames(dest, 4, 1000);
+            REQUIRE(rc == 4);
+
+            // from test_2ch_44100_192_off1000_len32.dat
+            REQUIRE(dest[0] == Approx(0.29229736328).margin(0.0001));
+            REQUIRE(dest[1] == Approx(0.29229736328).margin(0.0001));
+            REQUIRE(dest[2] == Approx(0.32705688477).margin(0.0001));
+            REQUIRE(dest[3] == Approx(0.32705688477).margin(0.0001));
+            REQUIRE(dest[4] == Approx(0.36071777344).margin(0.0001));
+            REQUIRE(dest[5] == Approx(0.36071777344).margin(0.0001));
+            REQUIRE(dest[6] == Approx(0.39324951172).margin(0.0001));
+            REQUIRE(dest[7] == Approx(0.39324951172).margin(0.0001));
         }
     }
 }

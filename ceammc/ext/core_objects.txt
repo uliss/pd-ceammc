@@ -81,6 +81,23 @@ exp~
 f
 fexpr~
 fft~
+file
+file copy
+file define
+file delete
+file glob
+file handle
+file isdirectory
+file isfile
+file join
+file mkdir
+file move
+file size
+file split
+file splitext
+file splitname
+file stat
+file which
 filledcurve
 filledpolygon
 framp~
@@ -247,6 +264,7 @@ timer
 toggle
 touchin
 touchout
+trace
 trigger
 unpack
 until

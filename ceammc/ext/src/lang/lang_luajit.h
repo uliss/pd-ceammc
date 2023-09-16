@@ -18,7 +18,6 @@
 #include "ceammc_editor_object.h"
 #include "ceammc_proxy.h"
 #include "ceammc_save_object.h"
-#include "ceammc_thread.h"
 #include "lua_cmd.h"
 #include "lua_interp.h"
 
@@ -26,7 +25,14 @@
 
 using namespace ceammc;
 
-using LangLuaBase = SaveObject<EditorObject<PollThreadQueueObject<lua::LuaCmd, lua::LuaCommandQueue>>>;
+using LangLuaBase = SaveObject<
+    EditorObject<
+        PollThreadTaskObject<
+            PollThreadQueue<lua::LuaCmd>, lua::LuaCommandQueue //
+            >,
+        EditorSyntax::LUA, EditorEscapeMode::LUA //
+        > //
+    >;
 
 class LangLuaJit : public LangLuaBase {
 public:
@@ -57,7 +63,8 @@ public:
     void dump() const override;
 
     Future createTask() override;
-    void processMessage(const lua::LuaCmd& msg) override;
+    void processTask(int) override;
+    void processMessage(const lua::LuaCmd& msg);
 
     void m_load(t_symbol* s, const AtomListView& lv);
     void m_eval(t_symbol* s, const AtomListView& lv);

@@ -39,6 +39,9 @@ static double d_sign(double d)
 
 static double d_fact(double d)
 {
+    if (d < 0)
+        return 0;
+
     try {
         return boost::math::factorial<double>(d);
     } catch (std::exception& e) {

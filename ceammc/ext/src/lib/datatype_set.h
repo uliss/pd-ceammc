@@ -120,7 +120,7 @@ public:
     static bool looksLikeCtor(const AtomListView& lv) noexcept;
 
 public:
-    static const DataTypeId dataType;
+    static DataTypeId staticType();
 
     /**
      * Set intersection

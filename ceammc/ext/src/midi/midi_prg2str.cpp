@@ -25,16 +25,20 @@ void Prg2Str::onFloat(t_float v)
         return;
     }
 
-    t_symbol* name = family_->value() ? midi::instrument_family(val) : midi::instrument_name(val);
+    auto name = family_->value() ? midi::instrument_family(val) : midi::instrument_name(val);
 
     if (as_symbol_->value())
-        symbolTo(0, name);
+        symbolTo(0, gensym(name));
     else
-        atomTo(0, new DataTypeString(name->s_name));
+        atomTo(0, new DataTypeString(name));
 }
 
 void setup_midi_prg2str()
 {
     ObjectFactory<Prg2Str> obj("midi.prg2str");
     obj.addAlias("midi.prg->str");
+
+    obj.setDescription("convert GM Instrument number to name (string or symbol)");
+    obj.setCategory("midi");
+    obj.setKeywords({"midi", "convert", "midi"});
 }

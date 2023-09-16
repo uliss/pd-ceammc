@@ -21,4 +21,8 @@ public:
 void setup_symbol_length()
 {
     ObjectFactory<SymbolLength> obj("symbol.length");
+
+    obj.setDescription("number of characters in symbol (unicode supported)");
+    obj.setCategory("symbol");
+    obj.setKeywords({"symbol", "length"});
 }

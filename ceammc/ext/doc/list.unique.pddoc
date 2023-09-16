@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="list.unique">
         <title>list.unique</title>
         <meta>
@@ -17,8 +17,8 @@
             </also>
         </meta>
         <properties>
-            <property name="@stable" type="int" enum="0 1" default="1">if true - preserves element
-            appearing order</property>
+            <property name="@stable" type="bool" default="1">if true - preserves element appearing
+            order</property>
         </properties>
         <inlets>
             <inlet>
@@ -37,9 +37,7 @@
 |
 [list.unique]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

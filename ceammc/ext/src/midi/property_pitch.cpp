@@ -12,7 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "property_pitch.h"
-#include "ceammc_music_theory_names.h"
 #include "lex/parser_music.h"
 
 namespace ceammc {
@@ -58,17 +57,7 @@ PropertyPitch::PropertyPitch(const std::string& name, const music::PitchClass& d
     }
 
     setAtomCheckFn([this](const Atom& a) -> bool {
-        parser::PitchFullMatch parser;
-        if (!parser.parse(a))
-            return false;
-
-        const auto spn = parser.spn();
-        pitch_.setPitchName(music::PitchName::C + spn.note);
-
-        auto alt = music::Alteration::NATURAL;
-        alt.alterate(spn.alt);
-        pitch_.setAlteration(alt);
-        return true;
+        return parser::parse_pitch_class(a, pitch_);
     });
 }
 

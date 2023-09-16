@@ -30,10 +30,10 @@ namespace faust {
         deleteDSPFactory(f);
     }
 
-    LlvmDspFactory::LlvmDspFactory(const char* fname, const FaustConfig& config)
+    LlvmDspFactory::LlvmDspFactory(const char* name, const char* code, const FaustConfig& config)
         : factory_(nullptr, delete_factory)
     {
-        auto f = createDSPFactoryFromFile(fname,
+        auto f = createDSPFactoryFromString(name, code,
             config.numOptions(),
             config.options(),
             CURRENT_MACH_TARGET,
@@ -82,12 +82,17 @@ namespace faust {
 
     std::string LlvmDspFactory::name() const
     {
-        return factory_ ? factory_->getName() : std::string();
+        return factory_ ? factory_->getName() : "Faust";
     }
 
     void LlvmDspFactory::deleteAll()
     {
         deleteAllDSPFactories();
+    }
+
+    const char* LlvmDspFactory::faustVersion()
+    {
+        return getCLibFaustVersion();
     }
 
     void LlvmDspFactory::dumpIncludeDirs(std::ostream& os, const std::string& prefix) const
@@ -173,12 +178,11 @@ namespace faust {
         }
     }
 
-    FaustConfig::FaustConfig(FaustConfig&& config) :
-        opts_(std::move(config.opts_)),
-        copts_(std::move(config.copts_)),
-        opt_level_(config.opt_level_)
+    FaustConfig::FaustConfig(FaustConfig&& config)
+        : opts_(std::move(config.opts_))
+        , copts_(std::move(config.copts_))
+        , opt_level_(config.opt_level_)
     {
-
     }
 
     FaustConfig::FaustConfig()

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="system.getenv">
         <title>system.getenv</title>
         <meta>
@@ -18,8 +18,11 @@
             </also>
         </meta>
         <arguments>
-            <argument name="VAR" type="symbol">environment variable name</argument>
+            <argument name="NAME" type="symbol">environment variable name</argument>
         </arguments>
+        <properties>
+            <property name="@name" type="symbol" default="">environment variable name</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">outputs variable value</xinfo>

@@ -39,4 +39,8 @@ void setup_list_runsum()
 {
     ObjectFactory<ListRunningSum> obj("list.runsum");
     obj.setXletsInfo({ "list: input" }, { "list: result" });
+
+    obj.setDescription("running sum");
+    obj.setCategory("list");
+    obj.setKeywords({"list", "running", "total", "sum", "partial", "cumulative"});
 }

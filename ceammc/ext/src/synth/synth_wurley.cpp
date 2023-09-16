@@ -20,4 +20,8 @@ void setup_synth_wurley()
 {
     StkSynthFactory<SynthWurley> obj("synth.wurley~");
     obj.addMethod("note", &SynthWurley::m_note);
+
+    obj.setDescription("Wurlitzer electric piano FM synthesis instrument");
+    obj.setCategory("synth");
+    obj.setKeywords({"wurlitzer", "synth", "fm"});
 }

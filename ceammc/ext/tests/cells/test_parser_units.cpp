@@ -397,46 +397,46 @@ TEST_CASE("parser_units", "[ceammc::ceammc_units]")
         UnitsFullMatch p;
 
         REQUIRE(p.parse("120bpm"));
-        REQUIRE(p.bpm().bpm == 120);
-        REQUIRE(p.bpm().beatlen == 0.25);
-        REQUIRE(p.bpm().beatPeriodMs() == 500);
+        REQUIRE(p.tempo().bpm() == 120);
+        REQUIRE(p.tempo().beatDuration().ratio() == 0.25);
+        REQUIRE(p.tempo().beatDurationMs() == 500);
         REQUIRE(p.type() == TYPE_BPM);
 
         REQUIRE(p.parse("120|4._bpm"));
-        REQUIRE(p.bpm().bpm == 120);
-        REQUIRE(p.bpm().beatlen == 0.375);
-        REQUIRE(p.bpm().beatPeriodMs() == 750);
+        REQUIRE(p.tempo().bpm() == 120);
+        REQUIRE(p.tempo().beatDuration().ratio() == 0.375);
+        REQUIRE(p.tempo().beatDurationMs() == 500);
         REQUIRE(p.type() == TYPE_BPM);
 
         REQUIRE(p.parse("120|1/8_bpm"));
-        REQUIRE(p.bpm().bpm == 120);
-        REQUIRE(p.bpm().beatlen == 0.125);
-        REQUIRE(p.bpm().beatPeriodMs() == 250);
+        REQUIRE(p.tempo().bpm() == 120);
+        REQUIRE(p.tempo().beatDuration().ratio() == 0.125);
+        REQUIRE(p.tempo().beatDurationMs() == 500);
         REQUIRE(p.type() == TYPE_BPM);
 
         REQUIRE(p.parse("60|8_bpm"));
-        REQUIRE(p.bpm().bpm == 60);
-        REQUIRE(p.bpm().beatlen == 0.125);
-        REQUIRE(p.bpm().beatPeriodMs() == 500);
+        REQUIRE(p.tempo().bpm() == 60);
+        REQUIRE(p.tempo().beatDuration().ratio() == 0.125);
+        REQUIRE(p.tempo().beatDurationMs() == 1000);
         REQUIRE(p.type() == TYPE_BPM);
 
         REQUIRE(p.parse("40|4_bpm"));
-        REQUIRE(p.bpm().beatPeriodMs() == 1500);
+        REQUIRE(p.tempo().beatDurationMs() == 1500);
         REQUIRE(p.type() == TYPE_BPM);
 
         REQUIRE(p.parse("144|4._bpm"));
-        REQUIRE(p.bpm().bpm == 144);
-        REQUIRE(p.bpm().beatlen == 0.375);
+        REQUIRE(p.tempo().bpm() == 144);
+        REQUIRE(p.tempo().beatDuration().ratio() == 0.375);
         REQUIRE(p.type() == TYPE_BPM);
 
         REQUIRE(p.parse("12|1/8bpm"));
-        REQUIRE(p.bpm().bpm == 12);
-        REQUIRE(p.bpm().beatlen == 0.125);
+        REQUIRE(p.tempo().bpm() == 12);
+        REQUIRE(p.tempo().beatDuration().ratio() == 0.125);
         REQUIRE(p.type() == TYPE_BPM);
 
         REQUIRE(p.parse("4.5|3/4_bpm"));
-        REQUIRE(p.bpm().bpm == 4.5);
-        REQUIRE(p.bpm().beatlen == 0.75);
+        REQUIRE(p.tempo().bpm() == 4.5);
+        REQUIRE(p.tempo().beatDuration().ratio() == 0.75);
         REQUIRE(p.type() == TYPE_BPM);
 
         REQUIRE(!p.parse("+12_bpm"));
@@ -503,5 +503,42 @@ TEST_CASE("parser_units", "[ceammc::ceammc_units]")
 
         REQUIRE(p.parse(A("db")));
         REQUIRE(p.type() == TYPE_DB);
+    }
+
+    SECTION("angles")
+    {
+
+#define REQUIRE_ANGLE(x, type, v)           \
+    {                                       \
+        auto res = parse_angle_as(x, type); \
+        REQUIRE(res.isOk());                \
+        REQUIRE(res.value() == Approx(v));  \
+    }
+
+        using namespace ceammc::parser;
+        REQUIRE_ANGLE(A(0.5), TYPE_DEGREE, 0.5);
+        REQUIRE_ANGLE(A(-0.5), TYPE_DEGREE, -0.5);
+        REQUIRE_ANGLE(A(-0.5), TYPE_RADIAN, -0.5);
+        REQUIRE_ANGLE(A("100"), TYPE_DEGREE, 100);
+        REQUIRE_ANGLE(A("100"), TYPE_RADIAN, 100);
+        REQUIRE_ANGLE(A("-100"), TYPE_DEGREE, -100);
+        REQUIRE_ANGLE(A("+100"), TYPE_RADIAN, 100);
+        REQUIRE_ANGLE(A("0.125"), TYPE_DEGREE, 0.125);
+        REQUIRE_ANGLE(A("-0.125"), TYPE_RADIAN, -0.125);
+        REQUIRE_ANGLE(A("+0.125deg"), TYPE_DEGREE, 0.125);
+        REQUIRE_ANGLE(A("-0.125rad"), TYPE_RADIAN, -0.125);
+        REQUIRE_ANGLE(A("0deg"), TYPE_RADIAN, 0.);
+        REQUIRE_ANGLE(A("0rad"), TYPE_DEGREE, 0.);
+        REQUIRE_ANGLE(A("180deg"), TYPE_RADIAN, std::acos(-1));
+        REQUIRE_ANGLE(A("-180deg"), TYPE_RADIAN, std::acos(-1));
+        REQUIRE_ANGLE(A("90deg"), TYPE_RADIAN, std::acos(-1) / 2);
+        REQUIRE_ANGLE(A("1.5707963267948966rad"), TYPE_DEGREE, 90);
+        REQUIRE_ANGLE(A("3.141592653589793rad"), TYPE_DEGREE, 180);
+        REQUIRE_ANGLE(A("90°"), TYPE_RADIAN, std::acos(-1) / 2);
+        REQUIRE_ANGLE(A("1pi"), TYPE_DEGREE, 180);
+        REQUIRE_ANGLE(A("1pi"), TYPE_RADIAN, std::acos(-1));
+        REQUIRE_ANGLE(A("2pi"), TYPE_DEGREE, 0.);
+        REQUIRE_ANGLE(A("1.5π"), TYPE_DEGREE, 270);
+        REQUIRE_ANGLE(A("0.5pi"), TYPE_DEGREE, 90);
     }
 }

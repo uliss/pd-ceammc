@@ -27,8 +27,8 @@ UIBang::UIBang()
 
 void UIBang::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 8);
-    newrect->height = pd_clip_min(newrect->height, 8);
+    newrect->w = pd_clip_min(newrect->w, 8);
+    newrect->h = pd_clip_min(newrect->h, 8);
 }
 
 void UIBang::paint()
@@ -77,7 +77,7 @@ void UIBang::deactivate()
 
 void UIBang::setup()
 {
-    sys_gui(ui_bang_tcl);
+    ui_bang_tcl_output();
 
     UIObjectFactory<UIBang> obj("ui.bang", EBOX_GROWLINK);
     obj.addAlias("ui.b");

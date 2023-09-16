@@ -22,14 +22,22 @@
 #include <sstream>
 
 #ifdef __WIN32
-static const int FONT_SIZE_CORR = 4;
+static int font_size_corr(float h) {
+    return std::floor(0.6 * h);
+}
 #else
-static const int FONT_SIZE_CORR = 8;
+static int font_size_corr(float h) {
+    return 0.875 * h;
+}
 #endif
+
+constexpr const char* DEFAULT_FONT_FAMILY = "Helvetica";
+constexpr int DEFAULT_FONT_SIZE = 13;
 
 UINumber::UINumber()
     : clock_(this, &UINumber::updateTextValue)
-    , text_(&asEBox()->b_font, ColorRGBA::black(), ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
+    , font_(gensym(DEFAULT_FONT_FAMILY), DEFAULT_FONT_SIZE)
+    , text_(font_.font(), ColorRGBA::black(), ETEXT_LEFT, ETEXT_JLEFT, ETEXT_NOWRAP)
     , text_layer_(asEBox(), gensym("text_layer"))
     , enter_value_("...")
     , value_(0)
@@ -51,14 +59,13 @@ UINumber::UINumber()
 
 void UINumber::okSize(t_rect* newrect)
 {
-    float border_min = std::min<float>(newrect->width, newrect->height);
+    float border_min = std::min<float>(newrect->w, newrect->h);
     border_min = std::max<float>(10, border_min);
-    newrect->height = border_min;
-    newrect->width = pd_clip_min(newrect->width, sys_fontwidth(fontSize()) * 3 + 8);
+    newrect->h = border_min;
+    newrect->w = pd_clip_min(newrect->w, sys_fontwidth(font_.size()) * 3 + 8);
 
-    t_atom a;
-    SETFLOAT(&a, (newrect->height - newrect->height / FONT_SIZE_CORR));
-    ebox_set_fontsize(asEBox(), 0, 1, &a);
+    auto new_val_font_size = font_size_corr(newrect->h);
+    font_.setSize(new_val_font_size);
 }
 
 void UINumber::onPropChange(t_symbol* prop_name)
@@ -82,12 +89,12 @@ void UINumber::drawBackground()
     if (!p)
         return;
 
-    const float width = r.height * 0.4f;
+    const float width = r.h * 0.4f;
     p.setLineWidth(1);
     p.setColor(prop_color_border);
     p.moveTo(0, 0);
-    p.drawLineTo(width, r.height * 0.5f);
-    p.drawLineTo(0, r.height);
+    p.drawLineTo(width, r.h * 0.5f);
+    p.drawLineTo(0, r.h);
     p.stroke();
 }
 
@@ -99,7 +106,7 @@ void UINumber::drawValue()
     if (!p)
         return;
 
-    const float y_off = r.height * 0.5;
+    const float y_off = r.h * 0.5;
     const float x_off = std::max<float>(y_off, 5) + 2;
 
     switch (edit_mode_) {

@@ -269,6 +269,40 @@ Message Message::makeBang()
     return m;
 }
 
+Message Message::makeTyped(const AtomListView& lv)
+{
+    Message m;
+    if (lv.empty() || (lv.size() == 1 && lv[0] == &s_bang)) // empty or [bang(
+        m.type_ = BANG;
+    else if (lv.isFloat()) { // [123(
+        m.type_ = FLOAT;
+        m.value_ = lv[0];
+    } else if (lv.size() == 2 && lv[0] == &s_float && lv[1].isFloat()) { // [float 1(
+        m.type_ = FLOAT;
+        m.value_ = lv[1];
+    } else if (lv.size() == 2 && lv[0] == &s_symbol && lv[1].isSymbol()) { // [symbol ABC(
+        m.type_ = SYMBOL;
+        m.value_ = lv[1];
+    } else if (lv.size() > 0 && lv[0] == &s_list) {
+        m.type_ = LIST;
+        m.v_list_ = lv.subView(1);
+    } else if (lv.size() >= 2 && lv[0].isFloat()) { // [1 3(
+        m.type_ = LIST;
+        m.v_list_ = lv;
+    } else if (lv.size() > 0 && lv[0].isSymbol()) {
+        m.type_ = ANY;
+        m.value_ = lv[0];
+        m.v_list_ = lv.subView(1);
+    } else if (lv.isData()) {
+        m.type_ = DATA;
+        m.value_ = lv[0];
+    } else {
+        LIB_ERR << "unknown message: " << lv;
+    }
+
+    return m;
+}
+
 bool operator==(const Message& c1, const Message& c2)
 {
     return c1.isEqual(c2);

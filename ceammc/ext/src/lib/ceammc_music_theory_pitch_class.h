@@ -1,10 +1,13 @@
 #ifndef CEAMMC_MUSIC_THEORY_PITCH_CLASS_H
 #define CEAMMC_MUSIC_THEORY_PITCH_CLASS_H
 
+#include "ceammc_either.h"
+
 #include <array>
 #include <cstddef>
 #include <iostream>
 #include <vector>
+#include <cstdint>
 
 namespace ceammc {
 namespace music {
@@ -51,8 +54,8 @@ namespace music {
         static const Alteration DOUBLE_SHARP;
 
     private:
-        signed char value_;
-        Alteration(signed char t);
+        std::int8_t value_;
+        Alteration(std::int8_t t);
     };
 
     enum PitchNameType {
@@ -66,8 +69,8 @@ namespace music {
     };
 
     class PitchName {
-        unsigned char value_;
-        PitchName(unsigned char v);
+        std::uint8_t value_;
+        PitchName(std::uint8_t v);
 
     public:
         PitchName(const PitchName& p);
@@ -81,8 +84,8 @@ namespace music {
 
         PitchNameType type() const;
 
-        unsigned int index() const;
-        unsigned int absolutePitch() const;
+        std::uint8_t index() const;
+        std::uint8_t absolutePitch() const;
 
         char letterName() const;
 
@@ -109,15 +112,17 @@ namespace music {
     };
 
     class PitchClass;
-    typedef std::vector<PitchClass> Enharmonics;
+    using Enharmonics = std::vector<PitchClass>;
+
+    struct InvalidAlteration { };
+    using EitherPitch = Either<PitchClass, InvalidAlteration>;
 
     class PitchClass {
         PitchName pitch_name_;
         Alteration alt_;
-        bool invalid_;
 
     public:
-        explicit PitchClass(size_t semitoneValue);
+        explicit PitchClass(std::uint8_t semitoneValue);
         PitchClass(PitchName p, Alteration a);
 
         PitchName pitchName() const { return pitch_name_; }
@@ -131,28 +136,28 @@ namespace music {
         bool enharmonicEqual(const PitchClass& c) const { return absolutePitch() == c.absolutePitch(); }
 
         /** return pitch value in [0..11] range */
-        size_t absolutePitch() const;
-
-        operator bool() const;
+        std::uint8_t absolutePitch() const;
+        /** return pitch value in [-2..13] range */
+        std::int8_t pitch() const;
 
         PitchClass simplifyFull() const;
         PitchClass simplifyDouble() const;
 
-        PitchClass alterate(int n) const;
+        EitherPitch alterate(int n) const;
 
         /**
          * Moves pitch class tone up
          * @return invalid pitch on error - test with operator bool()
          * @see semitoneUp()
          */
-        PitchClass toneUp() const;
+        EitherPitch toneUp() const;
 
         /**
          * Moves pitch class semitone up
          * @return invalid pitch on error - test with operator bool()
          * @see toneUp()
          */
-        PitchClass semitoneUp() const;
+        EitherPitch semitoneUp() const;
         PitchClass stepTranspose(int n) const;
 
         /**

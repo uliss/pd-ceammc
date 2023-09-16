@@ -20,4 +20,8 @@ public:
 void setup_noise_lfreq0_tilde()
 {
     SoundExternalFactory<NoiseLfreq0> obj("noise.lfreq0~", OBJECT_FACTORY_DEFAULT);
+
+    obj.setDescription("sampled/held noise (piecewise constant)");
+    obj.setCategory("noise");
+    obj.setKeywords({"noise", "white"});
 }

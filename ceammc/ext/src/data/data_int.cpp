@@ -26,4 +26,8 @@ void setup_data_int()
     NumericIFaceFactory<DataInt> obj("data.int");
     obj.addAlias(".int");
     obj.addAlias(".i");
+
+    obj.setDescription("robust int object");
+    obj.setCategory("data");
+    obj.setKeywords({"data", "int"});
 }

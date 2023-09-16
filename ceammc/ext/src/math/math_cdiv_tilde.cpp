@@ -48,4 +48,7 @@ void setup_math_cdiv_tilde()
 {
     SoundExternalFactory<MathComplexDivTilde> obj("math.cdiv~");
     obj.addAlias("cdiv~");
+
+    obj.setDescription("division of complex signals");
+    obj.setCategory("math");
 }

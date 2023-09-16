@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.scope~" type="gui">
         <title>ui.scope~</title>
         <meta>
@@ -18,17 +18,17 @@
             </also>
         </meta>
         <mouse>
-            <event editmode="false" type="left-click" keys="Shift">Y-axis zoomin</event>
-            <event editmode="false" type="left-click" keys="Alt">Y-axis zoomout</event>
-            <event editmode="false" type="wheel">Y-axis zoom</event>
-            <event editmode="false" type="wheel" keys="Shift">X-axis zoom</event>
-            <event editmode="false" type="double-click">toggle freeze mode</event>
-            <event editmode="false" type="right-click">open object popup menu with zoom
+            <event type="left-click" editmode="false" keys="Shift">Y-axis zoomin</event>
+            <event type="left-click" editmode="false" keys="Alt">Y-axis zoomout</event>
+            <event type="wheel" editmode="false">Y-axis zoom</event>
+            <event type="wheel" editmode="false" keys="Shift">X-axis zoom</event>
+            <event type="double-click" editmode="false">toggle freeze mode</event>
+            <event type="right-click" editmode="false">open object popup menu with zoom
             options</event>
-            <event editmode="false" type="right-click" keys="Shift">open object help</event>
-            <event editmode="false" type="right-click" keys="Alt">open properties dialog</event>
-            <event editmode="true" type="right-click" keys="Shift">open object help</event>
-            <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="true" keys="Shift">open object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
             <property name="@max" type="float" default="1">maximum (top) graph value</property>
@@ -38,39 +38,42 @@
             <property name="@refresh" type="int" minvalue="10" maxvalue="1000" default="40"
             units="millisecond">approximate refresh rate</property>
             <!-- common -->
-            <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>
             <property name="@size" type="list" default="150 100">element size (width, height
             pair)</property>
-            <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
-            to the lowest level</property>
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
             <property name="@active_color" type="list" default="0 0.75 1 1">active color (list of
             red, green, blue values in 0-1 range)</property>
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
             background color (list of red, green, blue values in 0-1 range)</property>
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
             of red, green, blue values in 0-1 range)</property>
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
+            <!-- font -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica"
+            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
         </properties>
         <methods>
+            <!-- freeze -->
             <method name="freeze">stop/start processing 
             <param name="V" type="int" enum="0 1">1 - freeze, 0 - unfreeze</param></method>
-            <method name="scale">sets widget scale 
-            <param name="N" type="float" minvalue="0">1 - normal scale, 2 - range from -2..2
-            (zoomout), 0.1 - range from -0.1..0.1 (zoomin)</param></method>
-            <!-- common-->
+            <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- scale -->
+            <method name="scale">sets widget scale 
+            <param name="N" type="float" minvalue="0">1 - normal scale, 2 - range from -2..2
+            (zoomout), 0.1 - range from -0.1..0.1 (zoomin)</param></method>
         </methods>
         <inlets>
-            <inlet>
+            <inlet type="audio">
                 <xinfo>signal input</xinfo>
             </inlet>
         </inlets>

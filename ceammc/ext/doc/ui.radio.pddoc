@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.radio" type="gui">
         <title>ui.radio</title>
         <meta>
@@ -28,11 +28,11 @@
             alias for horizontal radio checklist.</par>
         </info>
         <mouse>
-            <event editmode="true" type="double-click" keys="Cmd">changes slider
+            <event type="double-click" editmode="true" keys="Cmd">changes slider
             orientation</event>
-            <event editmode="0" type="left-click">select cell in radio mode, toggle cell in check
+            <event type="left-click" editmode="0">select cell in radio mode, toggle cell in check
             list mode</event>
-            <event editmode="0" type="right-click">show context menu</event>
+            <event type="right-click" editmode="0">show context menu</event>
         </mouse>
         <arguments>
             <argument name="NCELLS" type="float" minvalue="2" maxvalue="128">number of
@@ -41,9 +41,9 @@
         <properties>
             <property name="@nitems" type="int" default="8" minvalue="2" maxvalue="128">number of
             items</property>
-            <property name="@mode" type="int" enum="0 1" default="0">check list mode. If true acts
-            as checklist</property>
-            <property name="@value" type="list">widget value (float or list)</property>
+            <property name="@mode" type="bool" default="0">check list mode. If true acts as
+            checklist</property>
+            <property name="@value" type="list" default="">widget value (float or list)</property>
             <!-- common -->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
             [ui.preset]</property>
@@ -51,50 +51,79 @@
             <property name="@receive" type="symbol" default="(null)">receive source</property>
             <property name="@size" type="list" default="120 15">element size (width, height
             pair)</property>
-            <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
-            to the lowest level</property>
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
             <property name="@active_color" type="list" default="0 0.75 1 1">active color (list of
             red, green, blue values in 0-1 range)</property>
             <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
             background color (list of red, green, blue values in 0-1 range)</property>
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
             of red, green, blue values in 0-1 range)</property>
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
+            <!-- font -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica"
+            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
-            <property name="@mouse_events" type="int" enum="0 1" default="0">mouse events output
-            mode. If on outputs @mouse_down and @mouse_drag events</property>
+            <property name="@mouse_events" type="bool" default="0">mouse events output mode. If on
+            outputs @mouse_down and @mouse_drag events</property>
         </properties>
         <methods>
-            <method name="set">sets radio without output 
-            <param name="V" type="float" required="true">new value</param></method>
-            <method name="reset">reset radio (only in checklist mode)</method>
-            <method name="random">check random cells</method>
-            <method name="flip">flips radio (only in checklist mode)</method>
-            <method name="next">moves to next position until last cell is reached (single mode
-            only)</method>
-            <method name="prev">moves to previous position until first cell is reached (single mode
-            only)</method>
+            <!-- + STEP -->
             <method name="+ STEP">moves several steps forward on a loop (single mode only)</method>
+            <!-- - STEP -->
             <method name="- STEP">moves several step backwards on a loop (single mode
             only)</method>
-            <!-- presets -->
-            <method name="load">loads specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="store">stores specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- cellsize -->
+            <method name="cellsize">set cell size (resize widget) 
+            <param name="X" type="int" required="true">cell size in pixels</param></method>
+            <!-- clear -->
             <method name="clear">clears specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <param name="IDX" type="int" required="true">preset index</param></method>
+            <!-- euclid -->
+            <method name="euclid">set euclid pattern (checklist mode only) 
+            <param name="BEATS" type="int" required="true">requested number of beats</param>
+            <param name="OFFSET" type="int" required="false">pattern offset (rotation to the
+            right)</param></method>
+            <!-- flip -->
+            <method name="flip">flips radio (only in checklist mode)</method>
+            <!-- hexbeat -->
+            <method name="hexbeat">set hexbeat pattern (checklist mode only) 
+            <param name="HEXSTR" type="symbol" required="true">hex string. For example, 0xF1 will
+            set 1 1 1 1 0 0 0 1 pattern</param></method>
+            <!-- interp -->
             <method name="interp">for this object acts as *load*, no interpolation
             performed</method>
-            <!-- common-->
+            <!-- load -->
+            <method name="load">loads specified preset 
+            <param name="IDX" type="int" required="true">preset index</param></method>
+            <!-- next -->
+            <method name="next">moves to next position until last cell is reached (single mode
+            only)</method>
+            <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- prev -->
+            <method name="prev">moves to previous position until first cell is reached (single mode
+            only)</method>
+            <!-- random -->
+            <method name="random">select random cells. If called as [random move( moves to another
+            random cell (excluding the current one)</method>
+            <!-- reset -->
+            <method name="reset">reset radio (only in checklist mode)</method>
+            <!-- rotate -->
+            <method name="rotate">left rotate (checklist mode only) 
+            <param name="STEPS" type="int" required="true">number of steps</param></method>
+            <!-- set -->
+            <method name="set">sets radio without output 
+            <param name="V" type="float" required="true">new value</param></method>
+            <!-- store -->
+            <method name="store">stores specified preset 
+            <param name="IDX" type="int" required="true">preset index</param></method>
         </methods>
         <inlets>
             <inlet>
@@ -109,17 +138,23 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]  [set 2(         [flip( [reset( [1 1 0 1 0 0 1(
+[F]  [set 2(         [flip( [reset( [1 1 0 1 0 0 1( [euclid 3 1 #a(
 |    |               |      |       |
-|    |               |      |       |
-[ui.radio ]          [ui.radio @mode 1]
+|    |               |      |       |  [rotate 1(   [hexbeat BE #b(
+|    |               |      |       |  |
+[ui.radio ]          [ui.radio*         #x]
 |                    |
-[F]                  [ui.display @display_type 1]
+[F]                  [ui.dt]
 
-[+ 3( [- 1( [prev( [next(
-|     |     |      |
-|     |     |      |
-[ui.radio          ]
+[+ 3( [- 1( [prev( [next( [random( [random move(
+|     |     |      |      |        |
+|     |     |      |      |        |
+[ui.radio 4                        ]
+|
+[ui.dt]
+
+[X a->x]
+[X b->x]
 ]]>
             </pdascii>
         </example>

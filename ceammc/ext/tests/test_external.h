@@ -40,14 +40,14 @@ extern "C" t_float* get_sys_dacsr();
     typedef TestSoundExternal<T> TestExt##T; \
     using TExt = TestExt##T;
 
-#define PD_TEST_SND_DSP(T)                                       \
-    template <size_t IN, size_t OUT>                             \
-    class T##DSP : public DSP<TestSignal<IN, OUT>, TestExt##T> { \
-    public:                                                      \
-        T##DSP(TestSignal<IN, OUT>& sig, TestExt##T& ext)        \
-            : DSP<TestSignal<IN, OUT>, TestExt##T>(sig, ext)     \
-        {                                                        \
-        }                                                        \
+#define PD_TEST_SND_DSP(T)                                           \
+    template <size_t IN, size_t OUT, size_t BS = 64>                 \
+    class T##DSP : public DSP<TestSignal<IN, OUT, BS>, TestExt##T> { \
+    public:                                                          \
+        T##DSP(TestSignal<IN, OUT, BS>& sig, TestExt##T& ext)        \
+            : DSP<TestSignal<IN, OUT, BS>, TestExt##T>(sig, ext)     \
+        {                                                            \
+        }                                                            \
     };
 
 #define PD_TEST_MOD_INIT(mod, name)               \
@@ -88,7 +88,7 @@ extern "C" t_float* get_sys_dacsr();
     PD_TEST_FULL_INIT(mod, name);
 
 struct BANG__ {
-    BANG__() {}
+    BANG__() { }
 };
 
 extern const BANG__ BANG;
@@ -191,6 +191,18 @@ public:
     TestPdExternal(const char* name, Args... args)
         : TestPdExternal(name, AtomList(args...))
     {
+    }
+
+    ~TestPdExternal()
+    {
+        for (size_t i = 0; i < outs_.size(); i++) {
+            auto& p = outs_[i];
+            obj_disconnect(object(), i, p->object(), 0);
+            delete p;
+        }
+
+        for (auto& kv : listeners_)
+            delete kv.second;
     }
 
     const t_object* pdObject() const { return object(); }
@@ -622,15 +634,6 @@ public:
         AtomList res;
         operator->()->getProperty(p, res);
         return res;
-    }
-
-    ~TestPdExternal()
-    {
-        for (auto p : outs_)
-            delete p;
-
-        for (auto& kv : listeners_)
-            delete kv.second;
     }
 
     TestPdExternal& operator<<(const PropertySetter& p)

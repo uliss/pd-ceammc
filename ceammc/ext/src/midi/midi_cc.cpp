@@ -74,4 +74,8 @@ void MidiCC::onList(const AtomListView& lv)
 void setup_midi_cc()
 {
     ObjectFactory<MidiCC> obj("midi.cc");
+
+    obj.setDescription("enhanced version of vanilla ctlin");
+    obj.setCategory("midi");
+    obj.setKeywords({"midi", "controller", "name", "cc", "ctlin"});
 }

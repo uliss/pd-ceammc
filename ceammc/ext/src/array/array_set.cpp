@@ -54,4 +54,8 @@ void setup_array_set()
 {
     ObjectFactory<ArraySet> obj("array.set");
     obj.addAlias("list->array");
+
+    obj.setDescription("set array content from list");
+    obj.setCategory("array");
+    obj.setKeywords({"array", "set"});
 }

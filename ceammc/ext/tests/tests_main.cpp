@@ -23,8 +23,9 @@
 #include <future>
 #include <thread>
 
-#include "ceammc_preset.h"
+#include "ceammc_canvas.h"
 #include "ceammc_datastorage.h"
+#include "ceammc_preset.h"
 #include "test_base.h"
 #include "test_external.h"
 
@@ -64,6 +65,8 @@ void pdPrintToStdError(bool value)
 
 void pdSetPrintFunction(pdPrintFunction fn)
 {
+    sys_verbose = 1;
+    STUFF->st_printhook = fn; // update for Pd-0.53
     sys_printhook = fn;
 }
 

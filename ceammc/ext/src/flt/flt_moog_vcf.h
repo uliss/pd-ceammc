@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "flt.moog_vcf"
-Code generated with Faust 2.44.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_moog_vcf -scn flt_moog_vcf_dsp -es 1 -mcd 16 -double -ftz 0
+Code generated with Faust 2.53.1 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn flt_moog_vcf -scn flt_moog_vcf_dsp -es 1 -mcd 16 -double -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __flt_moog_vcf_H__
@@ -45,30 +45,33 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_ds
 #include <vector>
 
 /************************************************************************
- ************************************************************************
-    FAUST compiler
-    Copyright (C) 2003-2018 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- ************************************************************************
- ************************************************************************/
+ FAUST Architecture File
+ Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Lesser General Public License for more details.
+ 
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
+ ***************************************************************************/
 
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.44.1"
+#define FAUSTVERSION "2.53.1"
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -116,7 +119,7 @@ struct FAUST_API dsp_memory_manager {
      * Inform the Memory Manager with the number of expected memory zones.
      * @param count - the number of expected memory zones
      */
-    virtual void begin(size_t count) {}
+    virtual void begin(size_t /*count*/) {}
     
     /**
      * Give the Memory Manager information on a given memory zone.
@@ -124,8 +127,8 @@ struct FAUST_API dsp_memory_manager {
      * @param reads - the number of Read access to the zone used to compute one frame
      * @param writes - the number of Write access to the zone used to compute one frame
      */
-    virtual void info(size_t size, size_t reads, size_t writes) {}
-    
+    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
+
     /**
      * Inform the Memory Manager that all memory zones have been described,
      * to possibly start a 'compute the best allocation strategy' step.
@@ -310,14 +313,17 @@ class FAUST_API ScopedNoDenormals {
     
     private:
     
-        intptr_t fpsr;
+        intptr_t fpsr = 0;
         
         void setFpStatusRegister(intptr_t fpsr_aux) noexcept
         {
         #if defined (__arm64__) || defined (__aarch64__)
-           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+            asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
         #elif defined (__SSE__)
-            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+            // The volatile keyword here is needed to workaround a bug in AppleClang 13.0
+            // which aggressively optimises away the variable otherwise
+            volatile uint32_t fpsr_w = static_cast<uint32_t>(fpsr_aux);
+            _mm_setcsr(fpsr_w);
         #endif
         }
         
@@ -325,7 +331,7 @@ class FAUST_API ScopedNoDenormals {
         {
         #if defined (__arm64__) || defined (__aarch64__)
             asm volatile("mrs %0, fpcr" : "=r" (fpsr));
-        #elif defined ( __SSE__)
+        #elif defined (__SSE__)
             fpsr = static_cast<intptr_t>(_mm_getcsr());
         #endif
         }
@@ -336,16 +342,14 @@ class FAUST_API ScopedNoDenormals {
         {
         #if defined (__arm64__) || defined (__aarch64__)
             intptr_t mask = (1 << 24 /* FZ */);
+        #elif defined (__SSE__)
+        #if defined (__SSE2__)
+            intptr_t mask = 0x8040;
         #else
-            #if defined(__SSE__)
-            #if defined(__SSE2__)
-                intptr_t mask = 0x8040;
-            #else
-                intptr_t mask = 0x8000;
-            #endif
-            #else
-                intptr_t mask = 0x0000;
-            #endif
+            intptr_t mask = 0x8000;
+        #endif
+        #else
+            intptr_t mask = 0x0000;
         #endif
             getFpStatusRegister();
             setFpStatusRegister(fpsr | mask);
@@ -358,97 +362,45 @@ class FAUST_API ScopedNoDenormals {
 
 };
 
-#define AVOIDDENORMALS ScopedNoDenormals();
+#define AVOIDDENORMALS ScopedNoDenormals ftz_scope;
 
 #endif
 
 /************************** END flt_moog_vcf_dsp.h **************************/
-/************************** BEGIN UI.h *****************************
- FAUST Architecture File
- Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
- ---------------------------------------------------------------------
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 2.1 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU Lesser General Public License for more details.
- 
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- 
- EXCEPTION : As a special exception, you may create a larger work
- that contains this FAUST architecture section and distribute
- that work under terms of your choice, so long as this FAUST
- architecture section is not modified.
- ********************************************************************/
+/************************** BEGIN misc.h *******************************
+FAUST Architecture File
+Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+---------------------------------------------------------------------
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 2.1 of the License, or
+(at your option) any later version.
 
-#ifndef __UI_H__
-#define __UI_H__
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
 
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-#ifndef FAUSTFLOAT
-#define FAUSTFLOAT float
-#endif
+EXCEPTION : As a special exception, you may create a larger work
+that contains this FAUST architecture section and distribute
+that work under terms of your choice, so long as this FAUST
+architecture section is not modified.
+***************************************************************************/
 
-/*******************************************************************************
- * UI : Faust DSP User Interface
- * User Interface as expected by the buildUserInterface() method of a DSP.
- * This abstract class contains only the method that the Faust compiler can
- * generate to describe a DSP user interface.
- ******************************************************************************/
+#ifndef __misc__
+#define __misc__
 
-struct Soundfile;
+#include <algorithm>
+#include <map>
+#include <cstdlib>
+#include <string.h>
+#include <fstream>
+#include <string>
 
-template <typename REAL>
-struct FAUST_API UIReal {
-    
-    UIReal() {}
-    virtual ~UIReal() {}
-    
-    // -- widget's layouts
-    
-    virtual void openTabBox(const char* label) = 0;
-    virtual void openHorizontalBox(const char* label) = 0;
-    virtual void openVerticalBox(const char* label) = 0;
-    virtual void closeBox() = 0;
-    
-    // -- active widgets
-    
-    virtual void addButton(const char* label, REAL* zone) = 0;
-    virtual void addCheckButton(const char* label, REAL* zone) = 0;
-    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    
-    // -- passive widgets
-    
-    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    
-    // -- soundfiles
-    
-    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-    
-    // -- metadata declarations
-    
-    virtual void declare(REAL* zone, const char* key, const char* val) {}
-    
-    // To be used by LLVM client
-    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
-};
-
-struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
-    UI() {}
-    virtual ~UI() {}
-};
-
-#endif
-/**************************  END  UI.h **************************/
 /************************** BEGIN meta.h *******************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
@@ -487,40 +439,6 @@ struct FAUST_API Meta {
 
 #endif
 /**************************  END  meta.h **************************/
-/************************** BEGIN misc.h *******************************
-FAUST Architecture File
-Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
----------------------------------------------------------------------
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-
-EXCEPTION : As a special exception, you may create a larger work
-that contains this FAUST architecture section and distribute
-that work under terms of your choice, so long as this FAUST
-architecture section is not modified.
-***************************************************************************/
-
-#ifndef __misc__
-#define __misc__
-
-#include <algorithm>
-#include <map>
-#include <cstdlib>
-#include <string.h>
-#include <fstream>
-#include <string>
-
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
@@ -662,7 +580,7 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.8");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_moog_vcf -scn flt_moog_vcf_dsp -es 1 -mcd 16 -double -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn flt_moog_vcf -scn flt_moog_vcf_dsp -es 1 -mcd 16 -double -ftz 0");
 		m->declare("filename", "flt_moog_vcf.dsp");
 		m->declare("filters.lib/allpassnnlt:author", "Julius O. Smith III");
 		m->declare("filters.lib/allpassnnlt:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -702,14 +620,14 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		double fConst0 = std::min<double>(192000.0, std::max<double>(1.0, double(fSampleRate)));
-		fConst1 = 44.100000000000001 / fConst0;
+		double fConst0 = std::min<double>(1.92e+05, std::max<double>(1.0, double(fSampleRate)));
+		fConst1 = 44.1 / fConst0;
 		fConst2 = 1.0 - fConst1;
-		fConst3 = 3.1415926535897931 / fConst0;
+		fConst3 = 3.141592653589793 / fConst0;
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fVslider0 = FAUSTFLOAT(0.40000000000000002);
+		fVslider0 = FAUSTFLOAT(0.4);
 	}
 	
 	virtual void instanceClear() {
@@ -750,7 +668,7 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 	
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("flt.moog_vcf");
-		ui_interface->addVerticalSlider("res", &fVslider0, FAUSTFLOAT(0.40000000000000002), FAUSTFLOAT(0.0), FAUSTFLOAT(1.0), FAUSTFLOAT(0.001));
+		ui_interface->addVerticalSlider("res", &fVslider0, FAUSTFLOAT(0.4), FAUSTFLOAT(0.0), FAUSTFLOAT(1.0), FAUSTFLOAT(0.001));
 		ui_interface->closeBox();
 	}
 	
@@ -766,17 +684,17 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 			double fTemp2 = 1.9999800000000003 * fRec0[0];
 			double fTemp3 = fTemp1 + fTemp2;
 			double fTemp4 = fTemp2 + 2.0;
-			double fTemp5 = std::tan(fConst3 * std::max<double>(double(input1[i0]), 20.0));
+			double fTemp5 = std::tan(fConst3 * std::max<double>(double(input1[i0]), 2e+01));
 			double fTemp6 = 1.0 / fTemp5;
-			double fTemp7 = fTemp3 + (fTemp4 + fTemp6) / fTemp5 + 1.0;
-			double fTemp8 = (fTemp3 + 1.0 - (fTemp4 - fTemp6) / fTemp5) / fTemp7;
-			double fTemp9 = std::max<double>(-0.99999999999999978, std::min<double>(0.99999999999999978, fTemp8));
+			double fTemp7 = fTemp1 + fTemp2 + (fTemp4 + fTemp6) / fTemp5 + 1.0;
+			double fTemp8 = (fTemp3 + (1.0 - (fTemp4 - fTemp6) / fTemp5)) / fTemp7;
+			double fTemp9 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, fTemp8));
 			double fTemp10 = 1.0 - flt_moog_vcf_faustpower2_f(fTemp9);
 			double fTemp11 = std::sqrt(std::max<double>(0.0, fTemp10));
 			double fTemp12 = fTemp0 * fTemp11 - fTemp9 * fRec1[1];
 			double fTemp13 = 1.0 / flt_moog_vcf_faustpower2_f(fTemp5);
-			double fTemp14 = fTemp3 + 1.0 - fTemp13;
-			double fTemp15 = std::max<double>(-0.99999999999999978, std::min<double>(0.99999999999999978, 2.0 * fTemp14 / (fTemp7 * (fTemp8 + 1.0))));
+			double fTemp14 = fTemp3 + (1.0 - fTemp13);
+			double fTemp15 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, 2.0 * (fTemp14 / (fTemp7 * (fTemp8 + 1.0)))));
 			double fTemp16 = 1.0 - flt_moog_vcf_faustpower2_f(fTemp15);
 			double fTemp17 = std::sqrt(std::max<double>(0.0, fTemp16));
 			fRec3[0] = fTemp12 * fTemp17 - fTemp15 * fRec3[1];
@@ -784,17 +702,17 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 			double fRec2 = fRec3[0];
 			double fTemp18 = 1.0 - fTemp14 / fTemp7;
 			double fTemp19 = std::sqrt(fTemp10);
-			double fTemp20 = fTemp0 * fTemp9 + fRec1[1] * fTemp11 + 2.0 * (fRec1[0] * fTemp18) / fTemp19 + (fRec2 * (1.0 - fTemp8 - 2.0 * fTemp15 * fTemp18)) / (fTemp19 * std::sqrt(fTemp16));
+			double fTemp20 = fTemp0 * fTemp9 + fRec1[1] * fTemp11 + 2.0 * (fRec1[0] * fTemp18 / fTemp19) + fRec2 * (1.0 - fTemp8 - 2.0 * fTemp15 * fTemp18) / (fTemp19 * std::sqrt(fTemp16));
 			double fTemp21 = 2.0 - fTemp2;
 			double fTemp22 = 1.0 - fTemp2;
 			double fTemp23 = fTemp1 + (fTemp6 + fTemp21) / fTemp5 + fTemp22;
 			double fTemp24 = (fTemp1 + (fTemp6 - fTemp21) / fTemp5 + fTemp22) / fTemp23;
-			double fTemp25 = std::max<double>(-0.99999999999999978, std::min<double>(0.99999999999999978, fTemp24));
+			double fTemp25 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, fTemp24));
 			double fTemp26 = 1.0 - flt_moog_vcf_faustpower2_f(fTemp25);
 			double fTemp27 = std::sqrt(std::max<double>(0.0, fTemp26));
-			double fTemp28 = (fTemp20 * fTemp27) / fTemp7 - fTemp25 * fRec4[1];
-			double fTemp29 = fTemp1 + 1.0 - (fTemp2 + fTemp13);
-			double fTemp30 = std::max<double>(-0.99999999999999978, std::min<double>(0.99999999999999978, 2.0 * fTemp29 / (fTemp23 * (fTemp24 + 1.0))));
+			double fTemp28 = fTemp20 * fTemp27 / fTemp7 - fTemp25 * fRec4[1];
+			double fTemp29 = fTemp1 + (1.0 - (fTemp2 + fTemp13));
+			double fTemp30 = std::max<double>(-0.9999999999999998, std::min<double>(0.9999999999999998, 2.0 * (fTemp29 / (fTemp23 * (fTemp24 + 1.0)))));
 			double fTemp31 = 1.0 - flt_moog_vcf_faustpower2_f(fTemp30);
 			double fTemp32 = std::sqrt(std::max<double>(0.0, fTemp31));
 			fRec6[0] = fTemp28 * fTemp32 - fTemp30 * fRec6[1];
@@ -802,7 +720,7 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 			double fRec5 = fRec6[0];
 			double fTemp33 = 1.0 - fTemp29 / fTemp23;
 			double fTemp34 = std::sqrt(fTemp26);
-			output0[i0] = FAUSTFLOAT(((fTemp20 * fTemp25) / fTemp7 + fRec4[1] * fTemp27 + 2.0 * (fRec4[0] * fTemp33) / fTemp34 + (fRec5 * (1.0 - fTemp24 - 2.0 * fTemp30 * fTemp33)) / (fTemp34 * std::sqrt(fTemp31))) / fTemp23);
+			output0[i0] = FAUSTFLOAT((fTemp20 * fTemp25 / fTemp7 + fRec4[1] * fTemp27 + 2.0 * (fRec4[0] * fTemp33 / fTemp34) + fRec5 * (1.0 - fTemp24 - 2.0 * fTemp30 * fTemp33) / (fTemp34 * std::sqrt(fTemp31))) / fTemp23);
 			fRec0[1] = fRec0[0];
 			fRec3[1] = fRec3[0];
 			fRec1[1] = fRec1[0];
@@ -812,23 +730,12 @@ class flt_moog_vcf : public flt_moog_vcf_dsp {
 	}
 
 };
-// clang-format on
 #endif
 
-    template <class T>
-    struct _flt_moog_vcf_UI : public UI {
-    static std::string name;
-};
-
-template <class T>
-std::string _flt_moog_vcf_UI<T>::name(sym(flt_moog_vcf));
-
-typedef _flt_moog_vcf_UI<flt_moog_vcf> flt_moog_vcf_UI;
-
-class faust_flt_moog_vcf_tilde : public FaustExternal<flt_moog_vcf, flt_moog_vcf_UI> {
+class faust_flt_moog_vcf_tilde : public FaustExternal<flt_moog_vcf> {
 public:
     faust_flt_moog_vcf_tilde(const ceammc::PdArgs& args)
-        : FaustExternal(args)
+        : FaustExternal(args, sym(flt_moog_vcf))
     {
     }
 };

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="seq.nbangs">
         <title>seq.nbangs</title>
         <meta>
@@ -22,8 +22,8 @@
         </meta>
         <arguments>
             <argument name="N" type="int" minvalue="0">number of bangs</argument>
-            <argument name="T" type="float" minvalue="1" units="millisecond">time interval between
-            bangs</argument>
+            <argument name="T" type="float" minvalue="1" maxvalue="20000" units="millisecond">time
+            interval between bangs</argument>
         </arguments>
         <properties>
             <property name="@dur" type="float" minvalue="0" default="0">sequence duration. Changing
@@ -32,14 +32,26 @@
             <property name="@t" type="float" default="0" minvalue="1" maxvalue="20000"
             units="millisecond">time interval between bangs. You could also use units values like
             100ms or 120bpm.</property>
+            <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">beat
+            subdivision</property>
+            <property name="@accel" type="float" minvalue="0.25" default="1" maxvalue="4">tempo
+            acceleration. 1 - no acceleration, &gt;1 - speed up, &lt;1 - slow down</property>
+            <property name="@curve" type="float" minvalue="-8" default="1" maxvalue="8">
+            acceleration curve. Values &gt;&gt;0 - slow changes, then fast encrease. Values &lt;0 -
+            fast changes, then slower</property>
         </properties>
         <methods>
+            <!-- reset -->
+            <method name="reset">stop bang output and reset bang counter</method>
+            <!-- rewind -->
+            <method name="rewind">reset all counters without stopping</method>
+            <!-- start -->
             <method name="start">start/stop 
             <param name="on" type="int" enum="0 1" default="1" required="false">if true - starts
             bang sequence, otherwise stops</param></method>
+            <!-- stop -->
             <method name="stop">stop bang output</method>
-            <method name="reset">stop bang output and reset bang counter</method>
-            <method name="rewind">reset all counters without stopping</method>
+            <!-- tick -->
             <method name="tick">manually output current sequence element and move to next</method>
         </methods>
         <inlets>
@@ -60,6 +72,8 @@
 <![CDATA[
 [10( [15( [2(         [ui.dsp~]
 |    |    |
+|    |    | [@div 2(
+|    |    | |
 [seq.nbangs @t 110]
 |            ^|
 |            [route done i]
@@ -71,6 +85,30 @@
 [ui.hgain~]
 |\
 [dac~]
+
+[seq.nbangs.accel]
+]]>
+            </pdascii>
+            <pdascii id="accel">
+<![CDATA[
+[17( [ui.k #a]   [ui.k #b]
+|    |           |
+|    |           |
+|    |           |
+|    [@accel $1( [@curve $1(
+|    |           |
+[seq.nbangs @t 200]
+|
+[click~]
+|
+[flt.resonbp~ 1000 40]
+|
+[ui.hgain~]
+|\
+[dac~]
+
+#a 0.25 4 @show_value 1
+#b -8 8 @show_value 1
 ]]>
             </pdascii>
         </example>

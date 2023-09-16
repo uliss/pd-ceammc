@@ -55,4 +55,7 @@ void setup_math_mul()
 {
     ObjectFactory<MathMul> obj("math.mul");
     obj.addAlias("math.*");
+
+    obj.setDescription("multiplication (on lists too)");
+    obj.setCategory("math");
 }

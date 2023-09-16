@@ -18,6 +18,7 @@
 #include "ceammc_message.h"
 #include "ceammc_object_info.h"
 #include "ceammc_property.h"
+#include "ceammc_proxy.h"
 
 #include <array>
 #include <cstdint>
@@ -123,6 +124,16 @@ public:
         PROP_PARSE_POS = (1 << 1)
     };
 
+    enum class CanvasType {
+        /// canvas on which object was created
+        PARENT,
+        /// root canvas on which (or within it's subpatch) object was created
+        /// for objects inside abstractions means abstraction root canvas
+        ROOT,
+        /// toplevel canvas inside which ierarchy object was created (including abstractions)
+        TOPLEVEL
+    };
+
 public:
     /**
      * Base class for ceammc objects
@@ -221,6 +232,16 @@ public:
     t_object* owner() const { return pd_.owner; }
 
     /**
+     * pointer to basic pd struct
+     */
+    t_pd* asPd() const { return &pd_.owner->te_g.g_pd; }
+
+    /**
+     * pointer to graphic object struct
+     */
+    t_gobj* asGObj() const { return &pd_.owner->te_g; }
+
+    /**
      * Dumps object info to Pd window
      */
     virtual void dump() const;
@@ -244,7 +265,7 @@ public:
      * Outputs all properties name to Pd window
      * @example on message [@*?( outputs message [@* @prop1 @prop2 etc..(
      */
-    void queryPropNames();
+    virtual void outputAllProperties();
 
     /**
      * You should override this functions to react upon arrived messages.
@@ -307,6 +328,13 @@ public:
      * @return pointer to new inlet
      */
     t_inlet* createInlet(t_symbol** s);
+
+    template <typename T>
+    t_inlet* bindProxyInlet(InletProxy<T>& inlet, int idx)
+    {
+        inlet.setIndex(idx);
+        return inlet_new(owner(), inlet.target(), nullptr, nullptr);
+    }
 
     /**
      * Returns number of inlets
@@ -570,14 +598,10 @@ public:
      * Returns pointer to parent canvas
      * @return pointer to canvas or NULL
      */
-    t_canvas* canvas() { return cnv_; }
-    const t_canvas* canvas() const { return cnv_; }
+    t_canvas* canvas(CanvasType t = CanvasType::PARENT);
+    const t_canvas* canvas(CanvasType t = CanvasType::PARENT) const;
 
-    /**
-     * Returns pointer to root canvas (top window)
-     */
-    t_canvas* rootCanvas();
-    t_canvas* rootCanvas() const;
+    t_symbol* canvasDir(CanvasType t, t_symbol* def = gensym(".")) const;
 
     /**
      * Check if patch is loading

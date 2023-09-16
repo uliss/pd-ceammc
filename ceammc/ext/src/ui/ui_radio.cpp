@@ -1,7 +1,9 @@
 #include "ui_radio.h"
 #include "ceammc_convert.h"
+#include "ceammc_fn_list.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+#include "fmt/core.h"
 #include "ui_radio.tcl.h"
 
 #include <cassert>
@@ -23,27 +25,28 @@ UIRadio::UIRadio()
     , prop_checklist_mode_(0)
     , prop_color_active(hex_to_rgba(DEFAULT_ACTIVE_COLOR))
     , items_layer_(asEBox(), gensym("items_layer"))
+    , gen_(std::chrono::system_clock::now().time_since_epoch().count())
 {
     createOutlet();
 
     initPopupMenu("checklist",
         { { _("reset"), [this](const t_pt&) { if(prop_checklist_mode_) m_reset(); } },
             { _("flip"), [this](const t_pt&) { if(prop_checklist_mode_) m_flip(); } },
-            { _("random"), [this](const t_pt&) { if(prop_checklist_mode_) m_random(); } } });
+            { _("random"), [this](const t_pt&) { if(prop_checklist_mode_) m_random(AtomList()); } } });
 }
 
 void UIRadio::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
-    t_symbol* SYM_VRD = gensym("ui.vrd");
-    t_symbol* SYM_VRD_MULT = gensym("ui.vrd*");
-    t_symbol* SYM_HRD_MULT = gensym("ui.hrd*");
-    t_symbol* SYM_RADIO_MULT = gensym("ui.radio*");
+    auto SYM_VRD = gensym("ui.vrd");
+    auto SYM_VRD_MULT = gensym("ui.vrd*");
+    auto SYM_HRD_MULT = gensym("ui.hrd*");
+    auto SYM_RADIO_MULT = gensym("ui.radio*");
 
     UIObject::init(name, args, usePresets);
 
     // check for vertical aliases and change orientation
     if (name == SYM_VRD || name == SYM_VRD_MULT)
-        std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
+        std::swap(asEBox()->b_rect.w, asEBox()->b_rect.h);
 
     // check checklist mode
     if (name == SYM_VRD_MULT || name == SYM_HRD_MULT || name == SYM_RADIO_MULT)
@@ -56,11 +59,11 @@ void UIRadio::init(t_symbol* name, const AtomListView& args, bool usePresets)
         const int dim1 = DEFAULT_CELL_SIZE;
         const int dim2 = dim1 * prop_nitems_;
         if (isVertical()) {
-            asEBox()->b_rect.width = dim1;
-            asEBox()->b_rect.height = dim2;
+            asEBox()->b_rect.w = dim1;
+            asEBox()->b_rect.h = dim2;
         } else {
-            asEBox()->b_rect.width = dim2;
-            asEBox()->b_rect.height = dim1;
+            asEBox()->b_rect.w = dim2;
+            asEBox()->b_rect.h = dim1;
         }
     } else {
         bool prop_size_found = false;
@@ -95,8 +98,8 @@ void UIRadio::init(t_symbol* name, const AtomListView& args, bool usePresets)
                 if (isVertical())
                     std::swap(h, w);
 
-                asEBox()->b_rect.width = w;
-                asEBox()->b_rect.height = h;
+                asEBox()->b_rect.w = w;
+                asEBox()->b_rect.h = h;
                 break;
             }
         }
@@ -145,7 +148,7 @@ void UIRadio::onList(const AtomListView& lv)
 int UIRadio::click2Cell(const t_pt& pt) const
 {
     auto r = rect();
-    return isVertical() ? (pt.y / r.height * prop_nitems_) : (pt.x / r.width * prop_nitems_);
+    return isVertical() ? (pt.y / r.h * prop_nitems_) : (pt.x / r.w * prop_nitems_);
 }
 
 void UIRadio::onMouseDown(t_object*, const t_pt& pt, const t_pt& abs_pt, long mod)
@@ -291,22 +294,26 @@ void UIRadio::m_next()
     }
 }
 
-void UIRadio::m_random()
+void UIRadio::m_random(const AtomListView& lv)
 {
-    auto seed = std::chrono::system_clock::now().time_since_epoch().count();
-    std::default_random_engine gen(seed);
-
     if (prop_checklist_mode_) {
         std::uniform_int_distribution<int> dist(0, 1);
 
         for (int i = 0; i < prop_nitems_; i++)
-            items_.set(i, dist(gen));
+            items_.set(i, dist(gen_));
 
         output();
         redrawItems();
     } else {
-        std::uniform_int_distribution<int> dist(0, prop_nitems_ - 1);
-        onFloat(dist(gen));
+        if (lv.isSymbol() && lv == gensym("move")) {
+            std::uniform_int_distribution<int> dist(1, prop_nitems_ - 1);
+            idx_ = (idx_ + dist(gen_)) % prop_nitems_;
+            output();
+            redrawItems();
+        } else {
+            std::uniform_int_distribution<int> dist(0, prop_nitems_ - 1);
+            onFloat(dist(gen_));
+        }
     }
 }
 
@@ -348,6 +355,75 @@ void UIRadio::m_minus(t_float f)
     idx_ = (v >= 0) ? v % prop_nitems_ : prop_nitems_ - (abs(v) % prop_nitems_);
     output();
     redrawItems();
+}
+
+void UIRadio::m_hexbeat(const AtomListView& lv)
+{
+    if (!prop_checklist_mode_) {
+        UI_ERR << "check list mode required";
+        return;
+    }
+
+    if (!lv.isSymbol()) {
+        UI_ERR << "hex symbol expexted, got: " << lv;
+        return;
+    }
+
+    setListValue(list::hexbeat_bin(lv.asSymbol()->s_name));
+    output();
+    redrawItems();
+}
+
+void UIRadio::m_euclid(const AtomListView& lv)
+{
+    if (!prop_checklist_mode_) {
+        UI_ERR << "check list mode required";
+        return;
+    }
+
+    if (lv.size() < 1 || lv.size() > 2) {
+        UI_ERR << fmt::format("usage: euclid(N ROTATE=0?)");
+        return;
+    }
+
+    auto nbeats = lv.intAt(0, -1);
+    if (nbeats < 0 || nbeats > prop_nitems_) {
+        UI_ERR << fmt::format("integer number of beats expected in [{}...{}] range, got: ", 0, prop_nitems_) << lv[0];
+        return;
+    }
+
+    auto rot = lv.intAt(1, 0);
+    if (!rot)
+        setListValue(list::bresenham(nbeats, prop_nitems_));
+    else
+        setListValue(list::rotate(list::bresenham(nbeats, prop_nitems_), -rot));
+
+    output();
+    redrawItems();
+}
+
+void UIRadio::m_rotate(t_float f)
+{
+    if (!prop_checklist_mode_) {
+        UI_ERR << "check list mode required";
+        return;
+    }
+
+    setListValue(list::rotate(listValue(), f));
+    output();
+    redrawItems();
+}
+
+void UIRadio::m_cellsize(t_float f)
+{
+    const int cell_size = pd_clip_min(f, 8);
+
+    asEBox()->b_resize_redraw_all = true;
+
+    if (isVertical())
+        resize(cell_size, prop_nitems_ * cell_size);
+    else
+        resize(prop_nitems_ * cell_size, cell_size);
 }
 
 void UIRadio::loadPreset(size_t idx)
@@ -434,13 +510,13 @@ void UIRadio::okSize(t_rect* newrect)
     assert(prop_nitems_ > 0);
 
     if (isVertical()) {
-        const int box_size = std::round(pd_clip_min(newrect->height / prop_nitems_, 8));
-        newrect->height = prop_nitems_ * box_size;
-        newrect->width = box_size;
+        const int box_size = std::round(pd_clip_min(newrect->h / prop_nitems_, 8));
+        newrect->h = prop_nitems_ * box_size;
+        newrect->w = box_size;
     } else {
-        const int box_size = std::round(pd_clip_min(newrect->width / prop_nitems_, 8));
-        newrect->width = prop_nitems_ * box_size;
-        newrect->height = box_size;
+        const int box_size = std::round(pd_clip_min(newrect->w / prop_nitems_, 8));
+        newrect->w = prop_nitems_ * box_size;
+        newrect->h = box_size;
     }
 }
 
@@ -464,7 +540,7 @@ void UIRadio::onPropChange(t_symbol* prop_name)
 
 void UIRadio::setup()
 {
-    sys_vgui(ui_radio_tcl);
+    ui_radio_tcl_output();
 
     UIObjectFactory<UIRadio> obj("ui.radio");
     obj.addAlias("ui.hrd");
@@ -500,4 +576,8 @@ void UIRadio::setup()
     obj.addMethod("random", &UIRadio::m_random);
     obj.addMethod("reset", &UIRadio::m_reset);
     obj.addMethod("set", &UIRadio::p_setValue);
+    obj.addMethod("euclid", &UIRadio::m_euclid);
+    obj.addMethod("hexbeat", &UIRadio::m_hexbeat);
+    obj.addMethod("rotate", &UIRadio::m_rotate);
+    obj.addMethod("cellsize", &UIRadio::m_cellsize);
 }

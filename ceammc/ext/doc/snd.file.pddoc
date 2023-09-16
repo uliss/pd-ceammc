@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="snd.file">
         <title>snd.file</title>
         <meta>
@@ -17,55 +17,84 @@
             <par>Deal with sound files: gets files info and loads them into arrays. Various formats
             are supported. Supports array name patterns.</par>
         </info>
-        <methods>
-            <method name="load">Loads sound file. Outputs info properties and number of loaded
-            samples after load. 
-            <param type="symbol" required="true" name="PATH">path to soundfile</param>
-            <param type="symbol" required="true" name="to ARRAY_NAME">destination array names or
-            pattern. Array patterns specified in square braces: array_[1-4] means - array_1,
-            array_2, array_3, array_4. array_[left|right] means array_left and array_right</param>
-            <param type="property" name="@resize">resize array to fit loaded samples</param>
-            <param type="property" name="@channel N">specify input channels. Spaces separated list
-            or range x-y.</param>
-            <param type="property" name="@normalize">normalize array after loading</param>
-            <param type="property" name="@gain V">apply gain to loaded samples, examples: +3.1db,
-            -6db, 0.5 etc.</param>
-            <param type="property" name="@begin X">specify input file begin position, by default in
-            samples, but you can use other units: 1s, 10ms, 00:01.12 (smpte). To specify value
-            relative to file end you can use $-X syntax</param>
-            <param type="property" name="@end X">specify input file end position, by default in
-            samples, but you can use other units: 1s, 10ms, 00:01.12 (smpte). To specify value
-            relative to file end you can use $-X syntax</param>
-            <param type="property" name="@length X">specify input length, by default in samples,
-            but you can use other units: 1s, 10ms, 00:00:02.00 (smpte)</param>
-            <param type="property" name="@offset SAMPLES">offset in samples from beginning of file.
-            Deprecated, use @begin instead</param>
-            <param type="property" name="@resample R?">if R is not specified - resample from file
-            samplerate to current Pd samplerate. But you can manually specify R as float value or
-            integer fraction - 44100/48000</param></method>
-        </methods>
         <properties>
-            <property name="@formats" readonly="true" type="list"
+            <property name="@formats" type="list" access="readonly"
             default="AAC AIFF ALAC AU AVR CAF FLAC HTK IFF MACE3:1 MACE6:1 MAT4 MAT5 MP3 MP4 MPC OGG PAF PVF RAW RF64 SD2 SDS SF VOC W64 WAV WAVEX WVE XI">
             list of supported formats</property>
-            <property name="@sr" readonly="true" type="list">source file samplerate</property>
-            <property name="@filename" readonly="true" type="list">filename</property>
-            <property name="@samples" readonly="true" type="list">list of number of loaded samples
-            into each array</property>
-            <property name="@channels" readonly="true" type="list">list of loaded channels into
-            each array</property>
+            <property name="@sr" type="list" access="readonly" default="">source file
+            samplerate</property>
+            <property name="@filename" type="list" access="readonly" default="">filename</property>
+            <property name="@samples" type="list" access="readonly" default="">list of number of
+            loaded samples into each array</property>
+            <property name="@channels" type="list" access="readonly" default="">list of loaded
+            channels into each array</property>
             <property name="@smpte_fr" type="float" minvalue="1" maxvalue="99" default="30">SMPTE
             framerate for SMPTE offset calculations</property>
-            <property name="@verbose" type="int" enum="0 1" default="0">verbose output to Pd
-            window</property>
+            <property name="@verbose" type="bool" default="0" access="initonly">verbose output to
+            Pd window</property>
         </properties>
+        <methods>
+            <!-- load -->
+            <method name="load">Loads sound file. Outputs info properties and number of loaded
+            samples after load. 
+            <param name="PATH" type="symbol" required="true">path to soundfile</param>
+            <param name="to ARRAY_NAME" type="symbol" required="true">destination array names or
+            pattern. Array patterns specified in square braces: array_[1-4] means - array_1,
+            array_2, array_3, array_4. array_[left|right] means array_left and array_right</param>
+            <param name="@resize" type="property">resize array to fit loaded samples</param>
+            <param name="@channel N" type="property">specify input channels. Spaces separated list
+            or range x-y.</param>
+            <param name="@normalize" type="property">normalize array after loading</param>
+            <param name="@gain V" type="property">apply gain to loaded samples, examples: +3.1db,
+            -6db, 0.5 etc.</param>
+            <param name="@begin X" type="property">specify input file begin position, by default in
+            samples, but you can use other units: 1s, 10ms, 00:01.12 (smpte). To specify value
+            relative to file end you can use $-X syntax</param>
+            <param name="@end X" type="property">specify input file end position, by default in
+            samples, but you can use other units: 1s, 10ms, 00:01.12 (smpte). To specify value
+            relative to file end you can use $-X syntax</param>
+            <param name="@length X" type="property">specify input length, by default in samples,
+            but you can use other units: 1s, 10ms, 00:00:02.00 (smpte)</param>
+            <param name="@offset SAMPLES" type="property">offset in samples from beginning of file.
+            Deprecated, use @begin instead</param>
+            <param name="@resample R?" type="property">if R is not specified - resample from file
+            samplerate to current Pd samplerate. But you can manually specify R as float value or
+            integer fraction - 44100/48000</param></method>
+            <!-- save -->
+            <method name="save">Save arrays to specified file 
+            <param name="ARRAYS" type="list" required="true">list of arrays</param>
+            <param name="@to FNAME" type="symbol" required="true">output filename</param>
+            <param name="@begin X" type="property">specify input array begin position, by default
+            in samples, but you can use other units: 1s, 10ms, 00:01.12 (smpte). To specify value
+            relative to array end you can use $-X syntax</param>
+            <param name="@end X" type="property">specify input array end position, by default in
+            samples, but you can use other units: 1s, 10ms, 00:01.12 (smpte). To specify value
+            relative to array end you can use $-X syntax</param>
+            <param name="@gain V" type="property">apply gain to saved arrays, examples: +3.1db,
+            -6db, 0.5 etc.</param>
+            <param name="@in_sr SR" type="property">array source samplerate, if ommited using patch
+            samplerate</param>
+            <param name="@out_sr SR" type="property">output samplerate</param>
+            <param name="@norm[alize]" type="property">normalize output</param>
+            <param name="@overwrite" type="property">overwrite existing file flag</param>
+            <param name="@samp FMT" type="property">output sample format. Supported values are:
+            0(use default), 8, 16, 24, 32, f</param>
+            <param name="@wav" type="property">WAV output format</param>
+            <param name="@mp3" type="property">MP3 output format</param>
+            <param name="@ogg" type="property">Ogg/Vorbis output format</param>
+            <param name="@opus" type="property">Opus output format</param>
+            <param name="@aiff" type="property">AIFF output format</param>
+            <param name="@txt" type="property">TXT output format</param>
+            <param name="@raw" type="property">RAW output format</param>
+            <param name="@flac" type="property">FLAC output format</param></method>
+        </methods>
         <inlets>
             <inlet type="control">
                 <xinfo>input inlet</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>number of loaded samples</outlet>
+            <outlet>number of loaded/saved samples or -1 on error</outlet>
         </outlets>
         <example>
             <pdascii>

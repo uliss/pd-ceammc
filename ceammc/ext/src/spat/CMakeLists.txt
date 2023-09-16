@@ -1,8 +1,3 @@
-include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/HoaLibrary-Light/Sources)
-include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/HoaLibrary-Light/ThirdParty)
-include_directories(${PROJECT_SOURCE_DIR}/ceammc/extra/fmt/include)
-include_directories(${EIGEN3_DIR})
-
 set(SPAT_SOURCES
     pan_base.cpp
     pan_linear.cpp
@@ -13,21 +8,30 @@ set(SPAT_SOURCES
 )
 
 set(HOA_SOURCES
+    hoa_2d_decoder.cpp
+    hoa_2d_encoder.cpp
+    hoa_2d_exchanger.cpp
+    hoa_2d_map.cpp
+    hoa_2d_optim.cpp
+    hoa_2d_projector.cpp
+    hoa_2d_recomposer.cpp
+    hoa_2d_rotate.cpp
     hoa_2d_scope.cpp
+    hoa_2d_space.cpp
+    hoa_2d_wider.cpp
+    hoa_3d_decoder.cpp
+    hoa_3d_encoder.cpp
+    hoa_3d_exchanger.cpp
+    hoa_3d_optim.cpp
+    hoa_3d_scope.cpp
+    hoa_3d_wider.cpp
     hoa_common.h
     hoa_connections.cpp
-    hoa_decoder.cpp
-    hoa_encoder.cpp
-    hoa_map.cpp
-    hoa_optim.cpp
+    hoa_map_ui.cpp
     hoa_process.cpp
     hoa_process_inlet.cpp
     hoa_process_instance.cpp
     hoa_process_props.cpp
-    hoa_projector.cpp
-    hoa_recomposer.cpp
-    hoa_rotate.cpp
-    hoa_wider.cpp
 )
 
 macro(ceammc_spat_obj_ext name)
@@ -41,7 +45,23 @@ ceammc_spat_obj_ext(zita8)
 ceammc_spat_obj_ext(zita6x8)
 
 add_library(ceammc_spat STATIC mod_spat.cpp ${SPAT_SOURCES} ${HOA_SOURCES})
-set_target_properties(ceammc_spat PROPERTIES COMPILE_DEFINITIONS "FAUST_MACRO")
-set_property(TARGET ceammc_spat PROPERTY CXX_STANDARD 14)
-target_include_directories(ceammc_spat PRIVATE $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>)
+
+target_compile_definitions(ceammc_spat PRIVATE FAUST_MACRO)
 target_compile_definitions(ceammc_spat PUBLIC -DFMT_USE_CONSTEXPR=0)
+target_compile_features(ceammc_spat PRIVATE cxx_std_14)
+
+if(APPLE)
+    check_cxx_compiler_flag(-Wno-elaborated-enum-base DO_FIX)
+    # fix QtCreator parsing error of vDSP.h
+    if(DO_FIX)
+        target_compile_options(ceammc_spat PRIVATE -Wno-elaborated-enum-base)
+    endif()
+endif()
+
+target_include_directories(ceammc_spat
+    PRIVATE
+        $<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>
+        ${EIGEN3_DIR}
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/HoaLibrary-Light/Sources
+)
+

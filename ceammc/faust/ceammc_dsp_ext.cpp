@@ -6,7 +6,6 @@
 #include <string>
 
 #include "faust/dsp/dsp.h"
-#include "faust/gui/UI.h"
 #include "faust/gui/meta.h"
 #include "faust/misc.h"
 
@@ -33,19 +32,19 @@ struct mydsp : public dsp {
 #ifdef FAUST_MACRO
 // clang-format off
 <<includeclass>>
-// clang-format on
 #endif
 
-    template <class T>
-    struct _mydsp_UI : public UI {
-    static std::string name;
+// clang-format off
+template <class T>
+struct _mydsp_UI : public UI {
+    static const char* name;
 };
+// clang-format on
 
 template <class T>
-std::string _mydsp_UI<T>::name(sym(mydsp));
+const char* _mydsp_UI<T>::name(sym(mydsp));
 
-typedef _mydsp_UI<mydsp> mydsp_UI;
-
+using mydsp_UI = _mydsp_UI<mydsp>;
 class faust_mydsp_tilde : public FaustExternal<mydsp, mydsp_UI> {
 public:
     faust_mydsp_tilde(const ceammc::PdArgs& args)

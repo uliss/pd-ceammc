@@ -1,10 +1,9 @@
 #ifndef ARDUINO_CONNECTION_STORAGE_H
 #define ARDUINO_CONNECTION_STORAGE_H
 
+#include <mutex>
 #include <set>
 #include <string>
-
-#include <pthread.h>
 
 namespace ceammc {
 namespace hw {
@@ -15,10 +14,8 @@ namespace hw {
         ~ConnectionStorage();
         ConnectionStorage(const ConnectionStorage&);
         void operator=(const ConnectionStorage&);
-        static pthread_mutex_t mutex_;
+        static std::mutex mutex_;
         static ConnectionStorage* instance_;
-        static bool init_;
-        static bool initMutex();
 
     public:
         /**

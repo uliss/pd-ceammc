@@ -15,6 +15,7 @@
 #define CEAMMC_TCL_H
 
 namespace ceammc {
+void ceammc_tcl_init_tooltips();
 void ceammc_tcl_init();
 }
 

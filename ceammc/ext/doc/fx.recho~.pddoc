@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="fx.recho~">
         <title>fx.recho~</title>
         <meta>
@@ -17,14 +17,11 @@
             </also>
         </meta>
         <arguments>
-            <argument name="time" type="float" minvalue="0" maxvalue="2000" units="millisecond">
+            <argument name="DELAY" type="float" minvalue="0" maxvalue="2000" units="millisecond">
             echo time</argument>
-            <argument name="feedback" type="float" minvalue="0" maxvalue="0.99">feedback
+            <argument name="FEEDBACK" type="float" minvalue="0" maxvalue="0.99">feedback
             coefficient</argument>
         </arguments>
-        <methods>
-            <method name="reset">reset to initial state</method>
-        </methods>
         <properties>
             <property name="@delay" type="float" minvalue="0" maxvalue="2000" units="millisecond"
             default="500">echo time</property>
@@ -33,11 +30,16 @@
             <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
             of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
             wet</property>
-            <property name="@bypass" type="int" enum="0 1" default="0">if set to 1 - bypass
-            'effected' signal</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset to initial state</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>

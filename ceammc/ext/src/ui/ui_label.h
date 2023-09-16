@@ -55,6 +55,9 @@ public:
 
 public:
     static void setup();
+
+private:
+    void updateDollarRaute();
 };
 
 void setup_ui_label();

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.number~" type="gui">
         <title>ui.number~</title>
         <meta>
@@ -29,12 +29,10 @@
             <property name="@precision" type="int" minvalue="0" maxvalue="16" default="6">float
             precision</property>
             <!-- common -->
-            <property name="@send" type="symbol" default="(null)">send destination</property>
-            <property name="@receive" type="symbol" default="(null)">receive source</property>
             <property name="@size" type="list" default="80 15">element size (width, height
             pair)</property>
-            <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
-            to the lowest level</property>
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
             <property name="@active_color" type="list" default="0 0.75 1 1">active color (list of
             red, green, blue values in 0-1 range)</property>
             <property name="@text_color" type="list" default="0.9 0.9 0.9 1">text color (list of
@@ -43,16 +41,18 @@
             background color (list of red, green, blue values in 0-1 range)</property>
             <property name="@border_color" type="list" default="0 0 0 1">border color (list of red,
             green, blue values in 0-1 range)</property>
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
+            <!-- font -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica"
+            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
         </properties>
         <methods>
-            <!-- common-->
+            <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>

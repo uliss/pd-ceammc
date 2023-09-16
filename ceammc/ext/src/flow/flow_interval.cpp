@@ -61,4 +61,8 @@ void setup_flow_interval()
 {
     ObjectFactory<FlowInterval> obj("flow.interval");
     obj.setXletsInfo({ "input messages" }, { "float: time(ms) between current and previous message" });
+
+    obj.setDescription("measure time between flow events");
+    obj.setCategory("flow");
+    obj.setKeywords({"time", "interval"});
 }

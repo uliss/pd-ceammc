@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_object.h"
+#include "ceammc_canvas.h"
 #include "ceammc_convert.h"
 #include "ceammc_data.h"
 #include "ceammc_datatypes.h"
@@ -22,7 +23,6 @@
 #include "ceammc_output.h"
 #include "ceammc_platform.h"
 #include "ceammc_property_callback.h"
-#include "ceammc_property_enum.h"
 #include "datatype_string.h"
 #include "fmt/format.h"
 #include "lex/parser_strings.h"
@@ -718,8 +718,9 @@ void BaseObject::parseProps(int flags, PdArgs::ParseMode mode)
             init_times++;
 
         if (init_times > 1) {
-            OBJ_POST << "property '" << p->name()->s_name << "' was set twice: "
-                                                             "from positional and property argumets, using property argument";
+            OBJ_POST << fmt::format("property '{0}' was set twice: from positional ({1:d}) and property ({0}) arguments",
+                p->name()->s_name,
+                p->argIndex());
         }
     }
 }
@@ -840,7 +841,7 @@ bool BaseObject::checkArg(const Atom& atom, BaseObject::ArgumentType type, int p
         break;
     case ARG_BYTE:
         if (!atom.isFloat())
-            ARG_ERROR("byte value expexted");
+            ARG_ERROR("byte value expected");
 
         if (atom.asFloat() < 0 || atom.asFloat() > 255)
             ARG_ERROR("byte range expected: [0-255]");
@@ -988,7 +989,7 @@ void BaseObject::fixLines()
         canvas_fixlinesfor(canvas(), owner());
 }
 
-void BaseObject::queryPropNames()
+void BaseObject::outputAllProperties()
 {
     AtomList res;
     res.reserve(props_.size());
@@ -1074,7 +1075,9 @@ void BaseObject::bindReceive(t_symbol* path)
 void BaseObject::unbindReceive()
 {
     if (receive_from_) {
-        pd_unbind(&owner()->te_g.g_pd, receive_from_);
+        if (receive_from_->s_thing)
+            pd_unbind(&owner()->te_g.g_pd, receive_from_);
+
         receive_from_ = 0;
     }
 }
@@ -1084,20 +1087,42 @@ t_symbol* BaseObject::receive()
     return receive_from_;
 }
 
-t_canvas* BaseObject::rootCanvas()
+t_canvas* BaseObject::canvas(CanvasType t)
 {
-    if (!cnv_)
+    switch (t) {
+    case CanvasType::PARENT:
+        return cnv_;
+    case CanvasType::ROOT:
+        return const_cast<t_canvas*>(canvas_root(cnv_));
+    case CanvasType::TOPLEVEL: {
+        int lv = 0;
+        return const_cast<t_canvas*>(canvas_root(cnv_, lv, false));
+    }
+    default:
         return nullptr;
-
-    return canvas_getrootfor(cnv_);
+    }
 }
 
-t_canvas* BaseObject::rootCanvas() const
+const t_canvas* BaseObject::canvas(CanvasType t) const
 {
-    if (!cnv_)
+    switch (t) {
+    case CanvasType::PARENT:
+        return cnv_;
+    case CanvasType::ROOT:
+        return canvas_root(cnv_);
+    case CanvasType::TOPLEVEL: {
+        int lv = 0;
+        return canvas_root(cnv_, lv, false);
+    }
+    default:
         return nullptr;
+    }
+}
 
-    return canvas_getrootfor(const_cast<t_canvas*>(cnv_));
+t_symbol* BaseObject::canvasDir(CanvasType t, t_symbol* def) const
+{
+    auto dir = canvas_info_dir(canvas(t));
+    return dir != &s_ ? dir : def;
 }
 
 bool BaseObject::isPatchLoading() const

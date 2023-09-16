@@ -1,0 +1,94 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="proto.moppy">
+        <title>proto.moppy</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>protocol for Musical flOPPY controller</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>proto</category>
+            <keywords>floppy diy serial</keywords>
+            <since>0.9.5</since>
+        </meta>
+        <info>
+            <a href="https://github.com/Sammy1Am/Moppy2">https://github.com/Sammy1Am/Moppy2</a>
+        </info>
+        <properties>
+            <property name="@v" type="int" default="2" enum="2 1">MOPPY protocol version</property>
+            <property name="@device" type="int" default="1" minvalue="1" maxvalue="255">moppy
+            device ID</property>
+            <property name="@floppy" type="int" default="1" minvalue="1" maxvalue="16">floppy ID on
+            moppy device</property>
+        </properties>
+        <methods>
+            <!-- bend:f -->
+            <method name="bend:f">note pitchbend 
+            <param name="VAL" type="float" required="true" minvalue="-1" maxvalue="1">pitch
+            bend</param></method>
+            <!-- freq -->
+            <method name="freq">set floppy frequency. Note: moppy.v1 version only. 
+            <param name="CHAN" type="int" required="false">optional floppy id (overrides @floppy
+            property)</param>
+            <param name="FREQ" type="float" required="true" units="hertz">freq</param></method>
+            <!-- note -->
+            <method name="note">see noteon</method>
+            <!-- noteoff -->
+            <method name="noteoff">note off message 
+            <param name="CHAN" type="int" required="false">optional floppy id (overrides @floppy
+            property)</param>
+            <param name="NOTE" type="int" required="true" minvalue="24" maxvalue="72">MIDI
+            note</param></method>
+            <!-- noteon -->
+            <method name="noteon">play note 
+            <param name="CHAN" type="int" required="false">optional floppy id (overrides @floppy
+            property)</param>
+            <param name="NOTE" type="int" required="true" minvalue="24" maxvalue="72">MIDI
+            note</param>
+            <param name="VEL" type="int" required="true" minvalue="0" maxvalue="127">note velocity
+            (if 0 - turns note off, otherwise ignored)</param></method>
+            <!-- period -->
+            <method name="period">directly set floppy drive period. Note: moppy.v1 version only. 
+            <param name="CHAN" type="int" required="false">optional floppy id (overrides @floppy
+            property)</param>
+            <param name="TIME" type="int" required="true">period in microseconds</param></method>
+            <!-- ping -->
+            <method name="ping">send ping request to all devices</method>
+            <!-- reset -->
+            <method name="reset">reset moppy device. 
+            <param name="all" type="symbol">reset all devices</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>commands</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list: output to moppy</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.keyboard 60 12]
+|
+|
+|
+|
+|
+|                  [choose(
+|                  |
+[msg note] [reset( [data.list 1 14 15 19]
+|          |       |
+|          |       [@v 1, period $1 #a(
+|          |
+[proto.moppy #x]   [dump(
+|                  |
+[hw.arduino @rate 57600]
+[X a->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

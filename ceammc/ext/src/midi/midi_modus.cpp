@@ -14,9 +14,9 @@
 #include "midi_modus.h"
 #include "ceammc_factory.h"
 #include "ceammc_music_scale.h"
-#include "lex/parser_music.h"
 
 #include <algorithm>
+#include <cmath>
 
 CEAMMC_DEFINE_HASH(snap)
 CEAMMC_DEFINE_HASH(skip)
@@ -103,7 +103,7 @@ MidiModus::NoteStatus MidiModus::mapNote(t_float note, t_float& res) const
 
     switch (crc32_hash(prop_mode_->value())) {
     case hash_snap: {
-        t_float degree = 0;
+        music::DegreeType degree = 0;
         if (scale_->findNearest(step, degree)) {
             const int oct = (static_cast<int>(note) / 12) - oct_wrap;
             res = degree + root + oct * 12;
@@ -130,4 +130,8 @@ void setup_midi_modus()
     obj.setXletsInfo({ "float: PITCH\n"
                        "list: PITCH VEL DUR?" },
         { "float or list: accepted note", "float or list: discarded note" });
+
+    obj.setDescription("snap/skip midi pitches according modus");
+    obj.setCategory("midi");
+    obj.setKeywords({ "midi", "modus", "tonality", "pitch" });
 }

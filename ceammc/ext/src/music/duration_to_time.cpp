@@ -18,6 +18,7 @@
 #include <boost/container/small_vector.hpp>
 
 using SmallAtomVec = boost::container::small_vector<Atom, 16>;
+using DurationVec = boost::container::small_vector<music::Duration, 16>;
 
 Duration2Time::Duration2Time(const PdArgs& args)
     : BaseObject(args)
@@ -41,7 +42,7 @@ void Duration2Time::onFloat(t_float f)
         return;
     }
 
-    const auto ms = bpm_->wholePeriodMs() / f;
+    const auto ms = bpm_->tempo().wholeNoteDurationMs() / f;
     floatTo(0, ms);
 }
 
@@ -49,10 +50,8 @@ void Duration2Time::onSymbol(t_symbol* s)
 {
     using namespace ceammc::parser;
 
-    DurationFullMatch p;
     DurationVec out;
-
-    if (!p.parse(AtomListView(s), out)) {
+    if (!parse_duration(AtomListView(s), out)) {
         OBJ_ERR << "invalid duration: " << s->s_name;
         return;
     }
@@ -64,7 +63,7 @@ void Duration2Time::onSymbol(t_symbol* s)
     const bool seq = seq_->value();
 
     for (size_t i = 0; i < out.size(); i++) {
-        const auto ms = out[i].timeMs(Bpm(bpm_->value(), bpm_->beatlen()));
+        const auto ms = out[i].timeMs(bpm_->tempo());
 
         if (seq)
             t += ms;
@@ -81,10 +80,8 @@ void Duration2Time::onList(const AtomListView& lv)
 {
     using namespace ceammc::parser;
 
-    DurationFullMatch p;
     DurationVec out;
-    const auto n = p.parse(lv, out);
-    if (n == 0) {
+    if (!parse_duration(lv, out)) {
         OBJ_ERR << "duration list expected, got: " << lv;
         return;
     }
@@ -96,7 +93,7 @@ void Duration2Time::onList(const AtomListView& lv)
     const bool seq = seq_->value();
 
     for (size_t i = 0; i < out.size(); i++) {
-        const auto ms = out[i].timeMs(Bpm(bpm_->value(), bpm_->beatlen()));
+        const auto ms = out[i].timeMs(bpm_->tempo());
 
         if (seq)
             t += ms;

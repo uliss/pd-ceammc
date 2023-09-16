@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="osc.blit~">
         <title>osc.blit~</title>
         <meta>
@@ -18,8 +18,10 @@
             </also>
         </meta>
         <arguments>
-            <argument name="freq" type="float" units="herz" minvalue="0">default frequency (440hz
+            <argument name="FREQ" type="float" units="hertz" minvalue="0">default frequency (440hz
             if not specified)</argument>
+            <argument name="HARMONICS" type="int" minvalue="0">number of harmonics. Missing or 0
+            means all available harmonics until SR/2</argument>
         </arguments>
         <properties>
             <property name="@harmonics" type="int" minvalue="0" default="0">number of harmonics. 0

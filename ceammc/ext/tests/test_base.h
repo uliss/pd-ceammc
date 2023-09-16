@@ -17,6 +17,7 @@
 #include "catch.hpp"
 
 #include "ceammc.h"
+#include "ceammc_canvas.h"
 #include "ceammc_factory.h"
 #include "ceammc_message.h"
 #include "ceammc_object.h"
@@ -171,6 +172,13 @@ public:
         T::setBlockSize(64);
         T::setSamplerate(48000);
         setTestSampleRate(48000);
+    }
+
+    void setDspParams(int sr, int bs = 64)
+    {
+        T::setBlockSize(bs);
+        T::setSamplerate(sr);
+        setTestSampleRate(sr);
     }
 };
 

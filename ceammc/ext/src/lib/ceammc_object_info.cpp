@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "ceammc_object_info.h"
 #include "ceammc_config.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 extern "C" {
 #include "m_imp.h"

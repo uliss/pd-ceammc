@@ -14,15 +14,22 @@
 #ifndef FLUID_H
 #define FLUID_H
 
+#include "ceammc_clock.h"
 #include "ceammc_sound_external.h"
 #include "proto/proto_midi_parser.h"
 
+#include <memory>
 #include <tuple>
 
 using namespace ceammc;
 
 struct _fluid_synth_t;
 typedef struct _fluid_synth_t fluid_synth_t;
+using FluidSynthPtr = std::unique_ptr<fluid_synth_t, void (*)(fluid_synth_t*)>;
+
+struct _fluid_hashtable_t;
+typedef struct _fluid_hashtable_t fluid_settings_t;
+using FluidSettingsPtr = std::unique_ptr<fluid_settings_t, void (*)(fluid_settings_t*)>;
 
 class FluidSynthProperty;
 
@@ -30,9 +37,12 @@ class FluidSynthProperty;
  * @note MIDI channels are 1-based in PureData
  */
 class Fluid : public SoundExternal {
-    fluid_synth_t* synth_;
+    FluidSettingsPtr settings_;
+    FluidSynthPtr synth_;
     t_symbol* sound_font_;
     midi::MidiParser midi_parser_;
+    ClockLambdaFunction nvoices_cb_;
+    int nvoices_;
 
 public:
     Fluid(const PdArgs& args);
@@ -44,6 +54,7 @@ public:
 
     void setupDSP(t_signal** sp) final;
     void processBlock(const t_sample** in, t_sample** out) final;
+    void samplerateChanged(size_t sr) final;
 
     bool propSetSoundFont(t_symbol* s);
     AtomList propVersion() const;
@@ -57,7 +68,7 @@ public:
     void m_panic(t_symbol* s, const AtomListView& lv);
     void m_reset(t_symbol* s, const AtomListView& lv);
     void m_notesOff(t_symbol* s, const AtomListView& lv);
-    void m_soundsOff(t_symbol* s, const AtomListView& lv);
+    void m_soundOff(t_symbol* s, const AtomListView& lv);
     void m_sysex(t_symbol* s, const AtomListView& lv);
     void m_midi(t_symbol* s, const AtomListView& lv);
     void m_aftertouch(t_symbol* s, const AtomListView& lv);

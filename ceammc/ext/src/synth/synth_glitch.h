@@ -12,8 +12,8 @@ using namespace ceammc;
 class SynthGlitch : public SoundExternal {
     double t_;
     Glitch glitch_;
-    ListProperty* expr_;
-    BoolProperty* clip_;
+    ListProperty* expr_ { 0 };
+    BoolProperty* clip_ { 0 };
 
     std::future<std::string> read_content_;
     ClockLambdaFunction read_clock_;
@@ -23,11 +23,15 @@ public:
     SynthGlitch(const PdArgs& args);
 
     void processBlock(const t_sample** in, t_sample** out) override;
-    void samplerateChanged(size_t sr) override;
+    void samplerateChanged(size_t sr) final;
 
     void m_byte(t_symbol* s, const AtomListView& lv);
     void m_reset(t_symbol* s, const AtomListView& lv);
     void m_read(t_symbol* s, const AtomListView& lv);
+    void m_speed(t_symbol* s, const AtomListView& lv);
+
+private:
+    static float resample_;
 };
 
 void setup_synth_glitch();

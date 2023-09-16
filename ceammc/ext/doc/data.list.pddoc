@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="data.list">
         <title>data.list</title>
         <meta>
@@ -16,42 +16,61 @@
                 <see>data.fifo</see>
             </also>
         </meta>
+        <mouse>
+            <event type="left-click" editmode="false">open data editor</event>
+        </mouse>
         <arguments>
-            <argument name="X" type="any">initial list values</argument>
+            <argument name="VALUE" type="list">initial list values</argument>
         </arguments>
         <properties>
-            <property name="@empty" readonly="true" enum="0 1" type="int" default="1">1 if list is
-            empty, otherwise 0</property>
-            <property name="@size" readonly="true" minvalue="0" type="int" default="0">number of
+            <property name="@empty" type="bool" access="readonly" default="1">1 if list is empty,
+            otherwise 0</property>
+            <property name="@size" type="int" access="readonly" minvalue="0" default="0">number of
             elements in list</property>
-            <property name="@value" type="list">current value</property>
+            <property name="@value" type="list" default="">current value</property>
         </properties>
         <methods>
+            <!-- append -->
             <method name="append">adds values to the end of the list 
             <param name="VAL" type="atom" required="true">appended value</param></method>
-            <method name="prepend">inserts values to the list beginning 
-            <param name="VAL" type="atom" required="true">prepended value</param></method>
-            <method name="front">output first list element</method>
-            <method name="back">output last list element</method>
+            <!-- at -->
             <method name="at">outputs atom at the specified position 
             <param name="IDX" type="int" required="true">position (negative indexes are supported:
             -1 means last element)</param></method>
+            <!-- back -->
+            <method name="back">output last list element</method>
+            <!-- choose -->
+            <method name="choose">choose random element in list and output it</method>
+            <!-- clear -->
+            <method name="clear">removes all list elements</method>
+            <!-- dump -->
+            <method name="dump">dump object info to Pd window</method>
+            <!-- fill -->
+            <method name="fill">fills with specified value 
+            <param name="VAL" type="atom" required="true">fill value</param></method>
+            <!-- front -->
+            <method name="front">output first list element</method>
+            <!-- insert -->
             <method name="insert">inserts values to the specified position 
             <param name="IDX" type="int" required="true">insert position</param>
             <param name="VAL" type="atom" required="true">value</param></method>
-            <method name="fill">fills with specified value 
-            <param name="VAL" type="atom" required="true">fill value</param></method>
-            <method name="reverse">reverses list</method>
-            <method name="choose">choose random element in list and output it</method>
-            <method name="shuffle">put elements in random order</method>
-            <method name="sort">sorts list</method>
-            <method name="clear">removes all list elements</method>
+            <!-- pop -->
             <method name="pop">removes last list element</method>
+            <!-- prepend -->
+            <method name="prepend">inserts values to the list beginning 
+            <param name="VAL" type="atom" required="true">prepended value</param></method>
+            <!-- remove -->
             <method name="remove">removes specified element 
             <param name="IDX" type="int" required="true">element index</param></method>
+            <!-- reverse -->
+            <method name="reverse">reverses list</method>
+            <!-- set -->
             <method name="set">sets new list without output 
             <param name="LIST" type="list" required="true">new list content</param></method>
-            <method name="dump">dump object info to Pd window</method>
+            <!-- shuffle -->
+            <method name="shuffle">put elements in random order</method>
+            <!-- sort -->
+            <method name="sort">sorts list</method>
         </methods>
         <inlets>
             <inlet>

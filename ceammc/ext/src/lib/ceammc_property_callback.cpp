@@ -220,6 +220,90 @@ bool CallbackProperty::checkNonNegative()
     }
 }
 
+bool CallbackProperty::checkMin(t_float v)
+{
+    if (isFloat())
+        return setFloatCheck(PropValueConstraints::GREATER_THEN, v);
+    else if (isInt())
+        return setIntCheck(PropValueConstraints::GREATER_THEN, v);
+    else {
+        PROP_ERR << "can't set greater-then check";
+        return false;
+    }
+}
+
+bool CallbackProperty::checkMinEq(t_float v)
+{
+    if (isFloat())
+        return setFloatCheck(PropValueConstraints::GREATER_EQUAL, v);
+    else if (isInt())
+        return setIntCheck(PropValueConstraints::GREATER_EQUAL, v);
+    else {
+        PROP_ERR << "can't set greater-eq check";
+        return false;
+    }
+}
+
+bool CallbackProperty::checkMax(t_float v)
+{
+    if (isFloat())
+        return setFloatCheck(PropValueConstraints::LESS_THEN, v);
+    else if (isInt())
+        return setIntCheck(PropValueConstraints::LESS_THEN, v);
+    else {
+        PROP_ERR << "can't set less-then check";
+        return false;
+    }
+}
+
+bool CallbackProperty::checkMaxEq(t_float v)
+{
+    if (isFloat())
+        return setFloatCheck(PropValueConstraints::LESS_EQUAL, v);
+    else if (isInt())
+        return setIntCheck(PropValueConstraints::LESS_EQUAL, v);
+    else {
+        PROP_ERR << "can't set less-equal check";
+        return false;
+    }
+}
+
+bool CallbackProperty::checkClosedRange(t_float a, t_float b)
+{
+    if (isFloat())
+        return setFloatCheck(PropValueConstraints::CLOSED_RANGE, a, b);
+    else if (isInt())
+        return setIntCheck(PropValueConstraints::CLOSED_RANGE, a, b);
+    else {
+        PROP_ERR << "can't set closed range check";
+        return false;
+    }
+}
+
+bool CallbackProperty::checkOpenedRange(t_float a, t_float b)
+{
+    if (isFloat())
+        return setFloatCheck(PropValueConstraints::OPEN_RANGE, a, b);
+    else if (isInt())
+        return setIntCheck(PropValueConstraints::OPEN_RANGE, a, b);
+    else {
+        PROP_ERR << "can't set open range check";
+        return false;
+    }
+}
+
+bool CallbackProperty::checkNonZero()
+{
+    if (isFloat())
+        return setFloatCheck(PropValueConstraints::NON_ZERO);
+    else if (isInt())
+        return setIntCheck(PropValueConstraints::NON_ZERO);
+    else {
+        PROP_ERR << "can't set non-zero check";
+        return false;
+    }
+}
+
 void CallbackProperty::updateDefault()
 {
     if (isBool() && getter_.fn_bool)

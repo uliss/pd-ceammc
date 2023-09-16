@@ -30,7 +30,7 @@ TEST_CASE("list.repeat", "[externals]")
             TObj t("list.repeat");
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY_FLOAT(t, @times, 1);
+            REQUIRE_PROPERTY_FLOAT(t, @n, 1);
         }
 
         SECTION("args")
@@ -38,7 +38,7 @@ TEST_CASE("list.repeat", "[externals]")
             TObj t("list.repeat", LF(3));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY_FLOAT(t, @times, 3);
+            REQUIRE_PROPERTY_FLOAT(t, @n, 3);
         }
 
         SECTION("args")
@@ -46,15 +46,15 @@ TEST_CASE("list.repeat", "[externals]")
             TObj t("list.repeat", LF(0.f));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY_FLOAT(t, @times, 0.f);
+            REQUIRE_PROPERTY_FLOAT(t, @n, 0.f);
         }
 
         SECTION("props")
         {
-            TObj t("list.repeat", LA("@times", 5));
+            TObj t("list.repeat", LA("@n", 5));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY_FLOAT(t, @times, 5);
+            REQUIRE_PROPERTY_FLOAT(t, @n, 5);
         }
 
         SECTION("negative")
@@ -62,7 +62,7 @@ TEST_CASE("list.repeat", "[externals]")
             TObj t("list.repeat", LF(-1));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY_FLOAT(t, @times, 1);
+            REQUIRE_PROPERTY_FLOAT(t, @n, 1);
         }
 
         SECTION("huge")
@@ -70,7 +70,7 @@ TEST_CASE("list.repeat", "[externals]")
             TObj t("list.repeat", LF(10000));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY_FLOAT(t, @times, 10000);
+            REQUIRE_PROPERTY_FLOAT(t, @n, 10000);
         }
 
         SECTION("huge")
@@ -78,29 +78,29 @@ TEST_CASE("list.repeat", "[externals]")
             TObj t("list.repeat", LF(10001));
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
-            REQUIRE_PROPERTY_FLOAT(t, @times, 1);
+            REQUIRE_PROPERTY_FLOAT(t, @n, 1);
         }
     }
 
     SECTION("inlets")
     {
         TObj t("list.repeat", LF(10));
-        REQUIRE_PROPERTY_FLOAT(t, @times, 10);
+        REQUIRE_PROPERTY_FLOAT(t, @n, 10);
 
         WHEN_SEND_FLOAT_TO(1, t, 5);
-        REQUIRE_PROPERTY_FLOAT(t, @times, 5);
+        REQUIRE_PROPERTY_FLOAT(t, @n, 5);
 
         WHEN_SEND_FLOAT_TO(1, t, 1);
-        REQUIRE_PROPERTY_FLOAT(t, @times, 1);
+        REQUIRE_PROPERTY_FLOAT(t, @n, 1);
         WHEN_SEND_FLOAT_TO(1, t, 0);
-        REQUIRE_PROPERTY_FLOAT(t, @times, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @n, 0);
         WHEN_SEND_FLOAT_TO(1, t, -1);
-        REQUIRE_PROPERTY_FLOAT(t, @times, 0);
+        REQUIRE_PROPERTY_FLOAT(t, @n, 0);
 
         WHEN_SEND_FLOAT_TO(1, t, 10000);
-        REQUIRE_PROPERTY_FLOAT(t, @times, 10000);
+        REQUIRE_PROPERTY_FLOAT(t, @n, 10000);
         WHEN_SEND_FLOAT_TO(1, t, 10001);
-        REQUIRE_PROPERTY_FLOAT(t, @times, 10000);
+        REQUIRE_PROPERTY_FLOAT(t, @n, 10000);
     }
 
     SECTION("float")

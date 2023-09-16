@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="list.^at">
         <title>list.^at</title>
         <meta>
@@ -17,11 +17,11 @@
             </also>
         </meta>
         <arguments>
-            <argument name="LIST" type="list">list contents</argument>
+            <argument name="VALUE" type="list">list contents</argument>
         </arguments>
         <properties>
-            <property name="@value" type="list">list contents</property>
-            <property name="@default" type="atom" default="none">default output value if element
+            <property name="@value" type="list" default="">list contents</property>
+            <property name="@default" type="atom" default="None">default output value if element
             was not found</property>
             <property name="@method" type="symbol" enum="rel clip fold wrap" default="rel">methods
             of processing of negative/invalid indexes</property>

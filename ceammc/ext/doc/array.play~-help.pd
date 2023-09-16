@@ -49,53 +49,54 @@
 #X text 245 627 Get/Set array name. Type: symbol.;
 #X msg 110 656 @begin;
 #X text 245 656 Get/Set playback start position. Negative value means
-position relative to the end of the array. Type: float. Units: samp.
+position relative to the end of the array. Type: float. Units: 'samp'.
 Default value: 0\.;
 #X msg 110 713 @cfmt;
 #X text 245 713 Get/Set clock output format. Type: symbol. Default
 value: sec. Allowed values: sec \, ms \, samp \, phase.;
 #X msg 110 755 @clock;
 #X text 245 755 Get/Set clock output period. Zero means: no clock output
-(by default). Type: float. Units: sec. Default value: 0\. Range: 0\...20\.;
+(by default). Type: float. Units: 'sec'. Default value: 0\. Range:
+0\...20\.;
 #X msg 110 812 @cursor_ms;
 #X text 245 812 Get/Set current play position. Type: float. Units:
-ms. Default value: 0\.;
+'ms'. Default value: 0\.;
 #X msg 110 854 @cursor_phase;
 #X text 245 854 Get/Set current play position. Type: float. Default
 value: 0\.;
 #X msg 110 896 @cursor_samp;
 #X text 245 896 Get/Set current play position. Type: float. Units:
-samp. Default value: 0\.;
+'samp'. Default value: 0\.;
 #X msg 110 938 @cursor_sec;
 #X text 245 938 Get/Set current play position. Type: float. Units:
-sec. Default value: 0\.;
+'sec'. Default value: 0\.;
 #X msg 110 980 @end;
 #X text 245 980 Get/Set playback end position. Negative value means
-position relative to the end of the array. Type: float. Units: samp.
+position relative to the end of the array. Type: float. Units: 'samp'.
 Default value: -1\.;
 #X msg 110 1037 @interp;
-#X text 245 1037 Get/Set interpolation type. 0: no interpolationm 1:
+#X text 245 1037 Get/Set interpolation type. 0: no interpolation 1:
 linear \, 3: cubic. Type: int. Default value: 1\. Allowed values: 0
 \, 1 \, 3\.;
 #X msg 110 1094 @loop;
-#X text 245 1094 Get/Set samplewise loop playing mode. Type: int. Default
-value: 0\. Allowed values: 0 \, 1\.;
+#X text 245 1094 Get/Set samplewise loop playing mode. Type: bool.
+Default value: 0\.;
 #X msg 110 1136 @select_ms;
-#X text 245 1136 Get/Set selection range. Type: list. Units: ms. Default
-value: 0 0\.;
+#X text 245 1136 Get/Set selection range. Type: list. Units: 'ms'.
+Default value: 0 0\.;
 #X msg 110 1178 @select_phase;
 #X text 245 1178 Get/Set selection range in [0 \, 1] range. Type: list.
 Default value: 0 0\.;
 #X msg 110 1220 @select_samp;
-#X text 245 1220 Get/Set selection range. Type: list. Units: samp.
+#X text 245 1220 Get/Set selection range. Type: list. Units: 'samp'.
 Default value: 0 0\.;
 #X msg 110 1262 @select_sec;
-#X text 245 1262 Get/Set selection range. Type: list. Units: sec. Default
-value: 0 0\.;
+#X text 245 1262 Get/Set selection range. Type: list. Units: 'sec'.
+Default value: 0 0\.;
 #X msg 110 1304 @speed;
 #X text 245 1304 Get/Set playback speed. Negative value means reversed
 playback. Type: float. Default value: 1\.;
-#X msg 110 1346 @state;
+#X msg 110 1346 @state?;
 #X text 245 1346 (readonly) Get playing state. 0: stopped \, 1: playing
 \, 2: paused. Type: int. Default value: 0\.;
 #X obj 20 1398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -145,7 +146,7 @@ property. By default output seconds.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
 #X obj 1 1878 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1881 library: ceammc v0.9.4;
+#X text 10 1881 library: ceammc v0.9.7;
 #X text 607 1893 see also:;
 #X obj 681 1893 tabplay~;
 #N canvas 10 1900 400 290 info 0;
@@ -153,7 +154,7 @@ property. By default output seconds.;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.4;
+#X text 120 32 0.9.7;
 #X text 10 54 object:;
 #X text 120 54 array.play~;
 #X text 10 76 category:;

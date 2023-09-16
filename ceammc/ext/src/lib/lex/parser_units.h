@@ -21,10 +21,9 @@
 
 #include <boost/container/small_vector.hpp>
 
-#include "ceammc_atomlist.h"
-#include "ceammc_convert.h"
-#include "parser_music.h"
-#include "parser_numeric.h"
+#include "ceammc_atomlist_view.h"
+#include "ceammc_either.h"
+#include "ceammc_music_theory_tempo.h"
 #include "ragel_common.h"
 
 namespace ceammc {
@@ -65,13 +64,13 @@ namespace parser {
         AtomType type;
         PositionType pos { POSITION_ABS };
         Smpte smpte;
-        Bpm bpm;
+        music::Tempo tempo;
 
         Unit(t_float v = 0, AtomType t = TYPE_UNKNOWN)
             : value(v)
             , type(t)
             , smpte {}
-            , bpm {}
+            , tempo {}
         {
         }
 
@@ -79,15 +78,15 @@ namespace parser {
             : value(0)
             , type(TYPE_SMPTE)
             , smpte(s)
-            , bpm {}
+            , tempo {}
         {
         }
 
-        Unit(const Bpm& b)
+        Unit(const music::Tempo& t)
             : value(0)
             , type(TYPE_BPM)
             , smpte {}
-            , bpm(b)
+            , tempo(t)
         {
         }
 
@@ -109,7 +108,7 @@ namespace parser {
         AtomType type() const { return unit_.type; }
         t_float value() const { return unit_.value; }
         const Smpte& smpte() const { return unit_.smpte; }
-        const Bpm& bpm() const { return unit_.bpm; }
+        const music::Tempo& tempo() const { return unit_.tempo; }
         PositionType position() const { return unit_.pos; }
 
         const Unit& result() const { return unit_; }
@@ -142,7 +141,7 @@ namespace parser {
         AtomType ragel_type { TYPE_UNKNOWN };
 
     public:
-        UnitTypeFullMatch() {}
+        UnitTypeFullMatch() { }
         void reset() { ragel_type = TYPE_UNKNOWN; }
 
         AtomType type() const { return ragel_type; }
@@ -150,6 +149,10 @@ namespace parser {
         bool parse(const char* str);
         bool parse(const Atom& a);
     };
+
+    Either<float> parse_angle_as(const Atom& a, AtomType type);
+    Either<std::pair<float, AtomType>> parse_angle(const char* str);
+    Either<std::pair<float, AtomType>> parse_angle(const Atom& a, AtomType def);
 }
 }
 

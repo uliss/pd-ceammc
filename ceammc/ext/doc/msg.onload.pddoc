@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="msg.onload">
         <title>msg.onload</title>
         <meta>
@@ -18,13 +18,15 @@
             <since>0.7</since>
             <also>
                 <!--                <see>msg.oninit</see>-->
-                <!--                <see>msg.onclose</see>-->
+                <see>msg.onclose</see>
             </also>
         </meta>
         <info>
             <par>like [loadbang], but with message and click support.</par>
-            <par>Click on object sends message again.</par>
         </info>
+        <mouse>
+            <event type="left-click" editmode="false">send message</event>
+        </mouse>
         <arguments>
             <argument name="ARGS" type="list">message. Comma separated messages are
             supported</argument>

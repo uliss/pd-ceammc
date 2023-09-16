@@ -44,4 +44,7 @@ void MathLCM::onList(const AtomListView& lv)
 void setup_math_lcm()
 {
     ObjectFactory<MathLCM> obj("math.lcm");
+
+    obj.setDescription("calculate least common multiple");
+    obj.setCategory("math");
 }

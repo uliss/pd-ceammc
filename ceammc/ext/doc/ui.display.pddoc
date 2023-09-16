@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.display" type="gui">
         <title>ui.display</title>
         <meta>
@@ -25,42 +25,30 @@
             <par>[ui.dt] is alias for [ui.display @display_type 1]</par>
         </info>
         <mouse>
-            <event editmode="false" type="double-click">show/hide message type</event>
-            <event editmode="false" type="right-click" keys="Shift">open object help</event>
-            <event editmode="false" type="right-click" keys="Alt">open properties dialog</event>
-            <event editmode="true" type="right-click" keys="Shift">open object help</event>
-            <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
+            <event type="double-click" editmode="false">show/hide message type</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="true" keys="Shift">open object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
-        <inlets>
-            <inlet>
-                <xinfo>accepts any messages and displays it</xinfo>
-            </inlet>
-        </inlets>
-        <methods>
-            <method name="pos">set UI element position 
-            <param name="X" type="float" required="true">top left x-coord</param>
-            <param name="Y" type="float" required="true">top right y-coord</param></method>
-        </methods>
         <properties>
-            <property name="@auto_size" type="int" default="1" enum="0 1">flag if automatically
-            resize contents to feet incoming message</property>
-            <property name="@display_type" type="int" default="0" enum="0 1">flag for displaying
-            incoming message type</property>
-            <property name="@display_events" type="int" default="1" enum="0 1">flag for blinking on
-            incoming messages</property>
+            <property name="@auto_size" type="bool" default="1">flag if automatically resize
+            contents to feet incoming message</property>
+            <property name="@display_type" type="bool" default="0">flag for displaying incoming
+            message type</property>
+            <property name="@display_events" type="bool" default="1">flag for blinking on incoming
+            messages</property>
             <property name="@float_width" type="int" default="-1" minvalue="-1" maxvalue="17">
             number of digits after floating point. If -1: skip trailing zeroes, if 0 - output as
             integers</property>
             <property name="@hex_width" type="int" default="2" minvalue="0" maxvalue="16">hex
             output format width</property>
-            <property name="@hex" type="int" default="0" enum="0 1">output integers in hex
-            format</property>
-            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <property name="@hex" type="bool" default="0">output integers in hex format</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>
             <property name="@size" type="list" default="80 18">element size (width, height
             pair)</property>
-            <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
-            to the lowest level</property>
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
             <property name="@active_color" type="list" default="0 0.75 1 1">element active color
             (list of red, green, blue values in 0-1 range)</property>
             <property name="@text_color" type="list" default="0 0 0 1">text color (list of red,
@@ -69,18 +57,30 @@
             background color (list of red, green, blue values in 0-1 range)</property>
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
             of red, green, blue values in 0-1 range)</property>
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
+            <!-- font -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica"
+            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
         </properties>
+        <methods>
+            <!-- pos -->
+            <method name="pos">set UI element position 
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>accepts any messages and displays it</xinfo>
+            </inlet>
+        </inlets>
         <example>
             <pdascii>
 <![CDATA[
-
 [list a b c( [1( [symbol X( [any msg( [bang(
 |            |   |          |         |
 |            |   |          |         |
@@ -95,8 +95,6 @@
 |            |   |          |         |
 |            |   |          |         |
 [ui.dt                                ]
-
-
 ]]>
             </pdascii>
         </example>

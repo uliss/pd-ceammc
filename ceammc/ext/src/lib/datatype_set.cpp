@@ -15,10 +15,9 @@
 #include "ceammc_abstractdata.h"
 #include "ceammc_containers.h"
 #include "ceammc_datastorage.h"
-#include "ceammc_string.h"
-#include "ceammc_format.h"
 #include "ceammc_log.h"
-#include "fmt/format.h"
+#include "ceammc_string.h"
+#include "fmt/core.h"
 
 #include <algorithm>
 #include <boost/algorithm/string/predicate.hpp>
@@ -26,16 +25,10 @@
 #include <ctime>
 #include <random>
 
-constexpr const char* TYPE_NAME = "Set";
-
 namespace {
-
 using namespace ceammc;
 
-Atom newFromList(const AtomListView& lv)
-{
-    return new DataTypeSet(lv);
-}
+constexpr const char* TYPE_NAME = "Set";
 
 size_t hash_value(const Atom& a) noexcept
 {
@@ -55,7 +48,10 @@ size_t hash_value(const Atom& a) noexcept
 
 namespace ceammc {
 
-const DataTypeId DataTypeSet::dataType = DataStorage::instance().registerNewType(TYPE_NAME, newFromList);
+DataTypeId DataTypeSet::staticType()
+{
+    CEAMMC_REGISTER_DATATYPE(TYPE_NAME, [](const AtomListView& lv) -> Atom { return new DataTypeSet(lv); }, {});
+}
 
 DataTypeSet::DataTypeSet()
     : data_(0, hash_value)
@@ -153,15 +149,15 @@ bool DataTypeSet::choose(Atom& res) const noexcept
 
 DataTypeId DataTypeSet::type() const noexcept
 {
-    return dataType;
+    return staticType();
 }
 
 bool DataTypeSet::isEqual(const AbstractData* d) const noexcept
 {
-    if (!d || d->type() != dataType)
+    if (!d || d->type() != type())
         return false;
 
-    const DataTypeSet* ds = d->as<DataTypeSet>();
+    auto ds = d->as<DataTypeSet>();
     if (size() != ds->size())
         return false;
 

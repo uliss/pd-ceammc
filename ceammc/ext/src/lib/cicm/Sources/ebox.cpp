@@ -9,13 +9,16 @@
  */
 
 #include "ebox.h"
+#include "ceammc_atomlist.h"
+#include "ceammc_crc32.h"
 #include "ceammc_impl.h"
-#include "eclass.h"
+#include "ceammc_syms.h"
+#include "ecommon.h"
 #include "egraphics.h"
 #include "eobj.h"
-#include "g_style.h"
 
 #include "ceammc.h"
+#include "ceammc_dsp.h"
 
 #include <algorithm>
 #include <array>
@@ -86,10 +89,6 @@ static const char* SYM_NORMAL = "normal";
 static const char* SYM_ITALIC = "italic";
 static const char* SYM_ROMAN = "roman";
 static const char* SYM_ALL_PROPS = "@*";
-
-static const char* SYM_CHECKBUTTON = "checkbutton";
-static const char* SYM_MENU = "menu";
-static const char* SYM_COLOR = "color";
 
 static t_pt ebox_calc_pos(t_ebox* x, t_glist* glist);
 static void ebox_create_window(t_ebox* x, t_glist* glist);
@@ -252,8 +251,8 @@ static std::pair<int, int> ebox_label_coord(t_ebox* x,
 
     switch (pos) {
     case LABEL_POSITION_INNER: {
-        const auto w = int(x->b_rect.width * x->b_zoom);
-        const auto h = int(x->b_rect.height * x->b_zoom);
+        const auto w = int(x->b_rect.w * x->b_zoom);
+        const auto h = int(x->b_rect.h * x->b_zoom);
         const auto xc = int(w * 0.5);
         const auto yc = int(h * 0.5);
 
@@ -300,10 +299,10 @@ static std::pair<int, int> ebox_label_coord(t_ebox* x,
     case LABEL_POSITION_OUTER: {
         int x0 = int(x->b_rect.x);
         int y0 = int(x->b_rect.y);
-        int x1 = int(x0 + x->b_rect.width * x->b_zoom);
-        int y1 = int(y0 + x->b_rect.height * x->b_zoom);
-        int xc = int(x0 + x->b_rect.width * x->b_zoom * 0.5);
-        int yc = int(y0 + x->b_rect.height * x->b_zoom * 0.5);
+        int x1 = int(x0 + x->b_rect.w * x->b_zoom);
+        int y1 = int(y0 + x->b_rect.h * x->b_zoom);
+        int xc = int(x0 + x->b_rect.w * x->b_zoom * 0.5);
+        int yc = int(y0 + x->b_rect.h * x->b_zoom * 0.5);
 
         switch (side) {
         case LABEL_SIDE_LEFT: {
@@ -407,7 +406,7 @@ static void ebox_create_label(t_ebox* x)
         x->b_font.c_family->s_name,
         int(x->b_font.c_sizereal * x->b_zoom),
         rgba_to_hex_int(x->b_boxparameters.d_labelcolor),
-        x->b_label->s_name);
+        x->b_label_real->s_name);
 }
 
 static void ebox_update_label_pos(t_ebox* x)
@@ -449,6 +448,7 @@ void ebox_new(t_ebox* x, long flags)
     x->b_zoom = 1;
 
     x->b_label = s_null;
+    x->b_label_real = s_null;
     x->label_align = s_value_label_align_left;
     x->label_valign = s_value_label_valign_center;
     x->label_inner = 0;
@@ -459,7 +459,7 @@ void ebox_new(t_ebox* x, long flags)
 
     x->wis_canvas = nullptr;
 
-    eobj_getclass(&x->b_obj)->c_widget.w_dosave = reinterpret_cast<t_typ_method>(ebox_dosave);
+    eobj_getclass(&x->b_obj)->c_widget.w_dosave = reinterpret_cast<t_save_method>(ebox_dosave);
     ebox_attrprocess_default(x);
 }
 
@@ -494,8 +494,9 @@ void ebox_free(t_ebox* x)
     eobj_free(&x->b_obj);
     if (x->b_receive_id && x->b_receive_id != s_null) {
         // replace #n => $d
-        t_symbol* sname = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_receive_id);
-        pd_unbind(&x->b_obj.o_obj.te_g.g_pd, sname);
+        auto sname = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_receive_id);
+        if (sname && sname->s_thing)
+            pd_unbind(&x->b_obj.o_obj.te_g.g_pd, sname);
     }
     gfxstub_deleteforkey(x);
 
@@ -600,27 +601,31 @@ void ebox_attrprocess_viabinbuf(t_ebox* x, t_binbuf* d)
 
 static void ebox_attrprocess_default(t_ebox* x)
 {
-    t_eclass* c = eobj_getclass(&x->b_obj);
+    auto* c = eobj_getclass(&x->b_obj);
 
     for (size_t i = 0; i < c->c_nattr; i++) {
-        auto defvals = c->c_attr[i]->defvals;
+        auto attr = c->c_attr[i];
+        auto defvals = attr->defvals;
 
         // skip if default is not set
-        if (!defvals)
+        if (!attr || !defvals)
             continue;
 
-        if (c->c_attr[i]->size < 1) {
-            pd_error(x, "[%s] invalid attribute size: %ld", c->c_class.c_name->s_name, c->c_attr[i]->size);
+        const size_t N = attr->size;
+        if (N < 1) {
+            pd_error(x, "[%s] invalid attribute size: %d", c->c_class.c_name->s_name, (int)N);
             return;
         }
 
-        const size_t N = c->c_attr[i]->size;
         t_atom defv[N];
         memset(defv, 0, sizeof(defv));
 
-        // list of numbers
-        auto type = c->c_attr[i]->type;
-        if (type == s_int || type == s_long || type == &s_float || type == s_double) {
+        using namespace ceammc;
+        switch (crc32_hash(attr->type)) {
+        case "int"_hash:
+        case "long"_hash:
+        case "float"_hash:
+        case "double"_hash: { // list of numbers
             std::vector<std::string> result;
             boost::split(result, defvals->s_name, boost::is_any_of(" "), boost::token_compress_on);
 
@@ -634,7 +639,7 @@ static void ebox_attrprocess_default(t_ebox* x)
                 const char* s = result[j].c_str();
                 char* e = nullptr;
 #if PD_FLOATSIZE == 32
-                float f = std::strtof(s, &e);
+                const auto f = std::strtof(s, &e);
                 if (f == HUGE_VALF) {
                     pd_error(x, "[%s] value is too big: %s", c->c_class.c_name->s_name, s);
                     return;
@@ -645,7 +650,7 @@ static void ebox_attrprocess_default(t_ebox* x)
                     atom_setfloat(&defv[j], f);
                 }
 #elif PD_FLOATSIZE == 64
-                double f = std::strtod(s, &e);
+                const auto f = std::strtod(s, &e);
                 if (f == HUGE_VAL) {
                     pd_error(x, "[%s] value is too big: %s", c->c_class.c_name->s_name, s);
                     return;
@@ -657,24 +662,25 @@ static void ebox_attrprocess_default(t_ebox* x)
                 }
 #endif
             }
-        } else {
+        } break;
+        default: {
             // single symbol
             if (N == 1) {
                 atom_setsym(&defv[0], defvals);
             } else {
-                // symbol list
-                std::vector<std::string> result;
-                boost::split(result, defvals->s_name, boost::is_any_of(" "), boost::token_compress_on);
+                auto args = AtomList::parseString(defvals->s_name);
 
-                if (N != result.size()) {
+                if (N != args.size()) {
                     pd_error(x, "[%s] mismatched size of default values: %d != %d",
-                        c->c_class.c_name->s_name, int(N), int(result.size()));
-                    return;
+                        c->c_class.c_name->s_name, int(N), int(args.size()));
+                    continue;
                 }
 
-                for (size_t j = 0; j < N; j++)
-                    atom_setsym(&defv[j], gensym(result[j].c_str()));
+                for (size_t i = 0; i < N; i++) {
+                    defv[i] = args[i].atom();
+                }
             }
+        } break;
         }
 
         bool readonly = (c->c_attr[i]->getter) && (!c->c_attr[i]->setter);
@@ -689,8 +695,8 @@ void ebox_wgetrect(t_gobj* z, t_glist* glist, int* xp1, int* yp1, int* xp2, int*
     t_ebox* x = reinterpret_cast<t_ebox*>(z);
     *xp1 = text_xpix(&x->b_obj.o_obj, glist);
     *yp1 = text_ypix(&x->b_obj.o_obj, glist);
-    *xp2 = int(*xp1 + x->b_rect.width * x->b_zoom);
-    *yp2 = int(*yp1 + x->b_rect.height * x->b_zoom);
+    *xp2 = int(*xp1 + x->b_rect.w * x->b_zoom);
+    *yp2 = int(*yp1 + x->b_rect.h * x->b_zoom);
 }
 
 static void ebox_paint(t_ebox* x)
@@ -842,7 +848,7 @@ static void ebox_create_widget(t_ebox* x)
 {
     sys_vgui("::ceammc::ui::create_widget %lx %s %d %d %d\n",
         x, x->b_drawing_id->s_name,
-        int(x->b_rect.width), int(x->b_rect.height), int(x->b_zoom));
+        int(x->b_rect.w), int(x->b_rect.h), int(x->b_zoom));
 }
 
 static t_pt ebox_calc_pos(t_ebox* x, t_glist* glist)
@@ -885,7 +891,7 @@ static void ebox_create_window(t_ebox* x, t_glist* glist)
 
     sys_vgui("::ceammc::ui::create_window %s %lx %d %d %d %d %d\n",
         x->b_canvas_id->s_name, x,
-        (int)x->b_rect.x, (int)x->b_rect.y, (int)x->b_rect.width, (int)x->b_rect.height,
+        (int)x->b_rect.x, (int)x->b_rect.y, (int)x->b_rect.w, (int)x->b_rect.h,
         (int)x->b_zoom);
 
     if (x->b_label != s_null)
@@ -979,8 +985,8 @@ void ebox_mouse_move(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod
             x->b_selected_item = EITEM_NONE;
             sys_vgui("eobj_canvas_motion %s 0\n", x->b_canvas_id->s_name);
 
-            const int right = int(x->b_rect.width * x->b_zoom);
-            const int bottom = int(x->b_rect.height * x->b_zoom);
+            const int right = int(x->b_rect.w * x->b_zoom);
+            const int bottom = int(x->b_rect.h * x->b_zoom);
             const int CURSOR_AREA = 3 * x->b_zoom;
 
             // BOTTOM & RIGHT //
@@ -1001,7 +1007,7 @@ void ebox_mouse_move(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod
                 for (int i = 0; i < N; i++) {
                     int pos_x_outlet = 0;
                     if (N > 1)
-                        pos_x_outlet = int(i / float(N - 1) * (x->b_rect.width * x->b_zoom - (XLET_ZW + 1)));
+                        pos_x_outlet = int(i / float(N - 1) * (x->b_rect.w * x->b_zoom - (XLET_ZW + 1)));
 
                     if (mouse.x >= pos_x_outlet && mouse.x <= pos_x_outlet + XLET_ZW) {
                         x->b_selected_outlet = i;
@@ -1038,11 +1044,11 @@ void ebox_mouse_move(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod
             } else if (!(x->b_flags & EBOX_GROWNO)) {
                 if (x->b_flags & EBOX_GROWLINK) {
                     if (x->b_selected_item == EITEM_BOTTOM) {
-                        atom_setfloat(av, x->b_rect_last.width + (mouse.y - x->b_rect_last.height));
+                        atom_setfloat(av, x->b_rect_last.w + (mouse.y - x->b_rect_last.h));
                         atom_setfloat(av + 1, mouse.y);
                     } else if (x->b_selected_item == EITEM_RIGHT) {
                         atom_setfloat(av, mouse.x);
-                        atom_setfloat(av + 1, x->b_rect_last.height + (mouse.x - x->b_rect_last.width));
+                        atom_setfloat(av + 1, x->b_rect_last.h + (mouse.x - x->b_rect_last.w));
                     } else if (x->b_selected_item == EITEM_CORNER) {
                         if (mouse.y > mouse.x) {
                             atom_setfloat(av, mouse.y);
@@ -1054,11 +1060,11 @@ void ebox_mouse_move(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg mod
                     }
                 } else if (x->b_flags & EBOX_GROWINDI) {
                     if (x->b_selected_item == EITEM_BOTTOM) {
-                        atom_setfloat(av, x->b_rect_last.width);
+                        atom_setfloat(av, x->b_rect_last.w);
                         atom_setfloat(av + 1, mouse.y);
                     } else if (x->b_selected_item == EITEM_RIGHT) {
                         atom_setfloat(av, mouse.x);
-                        atom_setfloat(av + 1, x->b_rect_last.height);
+                        atom_setfloat(av + 1, x->b_rect_last.h);
                     } else if (x->b_selected_item == EITEM_CORNER) {
                         atom_setfloat(av, mouse.x);
                         atom_setfloat(av + 1, mouse.y);
@@ -1100,8 +1106,8 @@ void ebox_mouse_down(t_ebox* x, t_floatarg xpos, t_floatarg ypos, t_floatarg abs
         } else {
             const float z = x->b_zoom;
             t_rect br = x->b_rect;
-            br.height *= z;
-            br.width *= z;
+            br.h *= z;
+            br.w *= z;
             x->b_rect_last = br;
         }
     }
@@ -1234,7 +1240,7 @@ void ebox_dosave(t_ebox* x, t_binbuf* b)
 {
     t_eclass* c = eobj_getclass(&x->b_obj);
     if (c && b) {
-        auto state = canvas_suspend_dsp();
+        ceammc::dsp::SuspendGuard guard;
         binbuf_addv(b, "ssiis", &s__X, s_obj, (int)x->b_obj.o_obj.te_xpix, (int)x->b_obj.o_obj.te_ypix, eobj_getclassname(&x->b_obj));
         for (size_t i = 0; i < c->c_nattr; i++) {
             if (c->c_attr[i] && c->c_attr[i]->save && c->c_attr[i]->name) {
@@ -1254,7 +1260,6 @@ void ebox_dosave(t_ebox* x, t_binbuf* b)
             c->c_widget.w_save(x, b);
 
         binbuf_addv(b, ";");
-        canvas_resume_dsp(state);
     }
 }
 
@@ -1294,64 +1299,70 @@ void ebox_vis(t_ebox* x, t_float v)
     }
 }
 
-t_pd_err ebox_set_receiveid(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_receiveid(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
     if (argc && argv && atom_gettype(argv) == A_SYMBOL && atom_getsymbol(argv) != s_null) {
         t_symbol* new_sym = atom_getsymbol(argv);
 
         if (new_sym == x->b_receive_id)
-            return 0; // no change
+            return true; // no change
 
         // unbind previous
         if (x->b_receive_id != s_null) {
             // replace #0 => ID
-            t_symbol* sname = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_receive_id);
-            if (sname)
+            auto sname = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_receive_id);
+            if (sname && sname->s_thing)
                 pd_unbind(&x->b_obj.o_obj.ob_pd, sname);
         }
 
         // bind new
         x->b_receive_id = new_sym;
-        t_symbol* sname = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_receive_id);
+        auto sname = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_receive_id);
         pd_bind(&x->b_obj.o_obj.ob_pd, sname);
     } else {
         // unbind
         if (x->b_receive_id != s_null) {
-            t_symbol* sname = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_receive_id);
-            pd_unbind(&x->b_obj.o_obj.ob_pd, sname);
+            auto sname = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), x->b_receive_id);
+            if (sname && sname->s_thing)
+                pd_unbind(&x->b_obj.o_obj.ob_pd, sname);
         }
 
         x->b_receive_id = s_null;
     }
 
-    return 0;
+    return true;
 }
 
-t_pd_err ebox_set_sendid(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_sendid(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
     if (argc && argv && atom_gettype(argv) == A_SYMBOL && atom_getsymbol(argv) != s_null) {
         x->b_send_id = atom_getsymbol(argv);
     } else {
         x->b_send_id = s_null;
     }
 
-    return 0;
+    return true;
 }
 
-t_pd_err ebox_set_label(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_label(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
     if (argc && argv && atom_gettype(argv) == A_SYMBOL && atom_getsymbol(argv) != s_null) {
 
         if (x->b_label == s_null) {
             // create new label
             x->b_label = atom_getsymbol(argv);
+            x->b_label_real = ceammc_realizeraute(x->b_obj.o_canvas, x->b_label);
             if (ebox_isvisible(x))
                 ebox_create_label(x);
         } else {
             // change label text
-            if (argc == 1)
+            if (argc == 1) {
                 x->b_label = atom_getsymbol(argv);
-            else {
+                x->b_label_real = ceammc_realizeraute(x->b_obj.o_canvas, x->b_label);
+            } else {
                 auto to_str = [](const t_atom& a) -> std::string {
                     auto t = atom_gettype(&a);
                     if (t == A_SYMBOL)
@@ -1371,11 +1382,13 @@ t_pd_err ebox_set_label(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
                 }
 
                 x->b_label = gensym(res.c_str());
+                x->b_label_real = ceammc_realizeraute(x->b_obj.o_canvas, x->b_label);
             }
 
             if (ebox_isvisible(x)) {
                 sys_vgui("::ceammc::ui::label_text %s %lx %d {%s}\n",
-                    x->b_canvas_id->s_name, x, (int)x->label_inner, x->b_label->s_name);
+                    x->b_canvas_id->s_name, x, (int)x->label_inner,
+                    x->b_label_real->s_name);
             }
         }
     } else {
@@ -1384,13 +1397,15 @@ t_pd_err ebox_set_label(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
             ebox_erase_label(x);
 
         x->b_label = s_null;
+        x->b_label_real = s_null;
     }
 
-    return 0;
+    return true;
 }
 
-t_pd_err ebox_set_label_align(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_label_align(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
     static t_symbol* items[] = {
         s_value_label_align_center,
         s_value_label_align_left,
@@ -1411,18 +1426,19 @@ t_pd_err ebox_set_label_align(t_ebox* x, t_object* /*attr*/, int argc, t_atom* a
             }
 
             pd_error(x, "[%s] supported values are:%s", eobj_getclassname(&x->b_obj)->s_name, values.c_str());
-            return 1;
+            return false;
         }
 
         x->label_align = s;
         ebox_update_label_pos(x);
     }
 
-    return 0;
+    return true;
 }
 
-t_pd_err ebox_set_label_valign(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_label_valign(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
     static t_symbol* items[] = {
         s_value_label_valign_top,
         s_value_label_valign_center,
@@ -1450,11 +1466,12 @@ t_pd_err ebox_set_label_valign(t_ebox* x, t_object* /*attr*/, int argc, t_atom* 
         ebox_update_label_pos(x);
     }
 
-    return 0;
+    return true;
 }
 
-t_pd_err ebox_set_label_side(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_label_side(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
     static t_symbol* items[] = {
         s_value_label_side_bottom,
         s_value_label_side_left,
@@ -1482,11 +1499,13 @@ t_pd_err ebox_set_label_side(t_ebox* x, t_object* /*attr*/, int argc, t_atom* ar
         ebox_update_label_pos(x);
     }
 
-    return 0;
+    return true;
 }
 
-t_pd_err ebox_set_label_position(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_label_position(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
+
     if (argc && argv && atom_gettype(argv) == A_FLOAT) {
         int pos = (atom_getfloat(argv) != 0) ? 1 : 0;
 
@@ -1503,19 +1522,23 @@ t_pd_err ebox_set_label_position(t_ebox* x, t_object* /*attr*/, int argc, t_atom
         }
     }
 
-    return 0;
+    return true;
 }
 
-t_pd_err ebox_set_label_margins(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_label_margins(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
+
     if (argc == 2 && argv && atom_gettype(argv) == A_FLOAT) {
         x->label_margins[0] = int(atom_getfloat(argv));
         x->label_margins[1] = int(atom_getfloat(argv + 1));
         ebox_update_label_pos(x);
-    } else
+    } else {
         pd_error(x, "[%s] X Y margin pair expected", eobj_getclassname(&x->b_obj)->s_name);
+        return false;
+    }
 
-    return 0;
+    return true;
 }
 
 t_symbol* ebox_get_presetid(t_ebox* x)
@@ -1527,18 +1550,20 @@ t_symbol* ebox_get_presetid(t_ebox* x)
     }
 }
 
-t_pd_err ebox_set_presetid(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_presetid(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
     if (argc && argv && atom_gettype(argv) == A_SYMBOL && atom_getsymbol(argv) != s_null) {
-        x->b_objpreset_id = atom_getsymbol(argv);
+        x->b_objpreset_id = ceammc_realizeraute(eobj_getcanvas(&x->b_obj), atom_getsymbol(argv));
     } else {
         x->b_objpreset_id = s_null;
     }
-    return 0;
+    return true;
 }
 
-t_pd_err ebox_set_font(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_font(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
     if (argc && argv && atom_gettype(argv) == A_SYMBOL) {
         if (atom_getsymbol(argv) == s_null || atom_getsymbol(argv) == &s_)
             x->b_font.c_family = gensym(SYM_DEFAULT_FONT_FAMILY);
@@ -1549,11 +1574,13 @@ t_pd_err ebox_set_font(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
 
     auto ftname = strdup(x->b_font.c_family->s_name);
     if (!ftname)
-        return -1;
+        return false;
 
     auto ftname_uc = strtok(ftname, " ',.-");
-    if (!ftname_uc)
-        return -1;
+    if (!ftname_uc) {
+        free(ftname);
+        return false;
+    }
 
     ftname_uc[0] = (char)toupper(ftname_uc[0]);
     x->b_font.c_family = gensym(ftname_uc);
@@ -1561,11 +1588,12 @@ t_pd_err ebox_set_font(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
 
     ebox_update_label_font(x);
 
-    return 0;
+    return true;
 }
 
-t_pd_err ebox_set_fontweight(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_fontweight(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
     if (argc && argv && atom_gettype(argv) == A_SYMBOL) {
         if (atom_getsymbol(argv) == gensym(SYM_BOLD))
             x->b_font.c_weight = gensym(SYM_BOLD);
@@ -1574,11 +1602,12 @@ t_pd_err ebox_set_fontweight(t_ebox* x, t_object* /*attr*/, int argc, t_atom* ar
     } else
         x->b_font.c_weight = gensym(SYM_NORMAL);
 
-    return 0;
+    return true;
 }
 
-t_pd_err ebox_set_fontslant(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_fontslant(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
     if (argc && argv && atom_gettype(argv) == A_SYMBOL) {
         if (atom_getsymbol(argv) == gensym(SYM_ITALIC))
             x->b_font.c_slant = gensym(SYM_ITALIC);
@@ -1587,7 +1616,7 @@ t_pd_err ebox_set_fontslant(t_ebox* x, t_object* /*attr*/, int argc, t_atom* arg
     } else
         x->b_font.c_slant = gensym(SYM_ROMAN);
 
-    return 0;
+    return true;
 }
 
 #ifdef __APPLE__
@@ -1598,8 +1627,9 @@ static const int FONT_SIZE = 9;
 static const int FONT_SIZE = 10;
 #endif
 
-t_pd_err ebox_set_fontsize(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_set_fontsize(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
+    auto x = static_cast<t_ebox*>(z);
     if (argc && argv && atom_gettype(argv) == A_FLOAT)
         x->b_font.c_sizereal = static_cast<int>(pd_clip_min(atom_getfloat(argv), 4));
     else
@@ -1614,45 +1644,45 @@ t_pd_err ebox_set_fontsize(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv
 #endif
 
     ebox_update_label_font(x);
-    return 0;
+    return true;
 }
 
-t_pd_err ebox_size_set(t_ebox* x, t_object* /*attr*/, int argc, t_atom* argv)
+bool ebox_size_set(void* z, t_eattr* /*attr*/, int argc, t_atom* argv)
 {
-    float width, height;
+    auto x = static_cast<t_ebox*>(z);
     if (argc && argv) {
         if (x->b_flags & EBOX_GROWNO)
-            return 0;
+            return false;
         else if (x->b_flags & EBOX_GROWLINK) {
             if (atom_gettype(argv) == A_FLOAT) {
-                width = (float)pd_clip_min(atom_getfloat(argv), 4) / x->b_zoom;
-                height = x->b_rect.height;
-                x->b_rect.height += width - x->b_rect.width;
-                if (x->b_rect.height < 4) {
-                    x->b_rect.width += 4 - height;
-                    x->b_rect.height = 4;
+                float width = (float)pd_clip_min(atom_getfloat(argv), 4) / x->b_zoom;
+                float height = x->b_rect.h;
+                x->b_rect.h += width - x->b_rect.w;
+                if (x->b_rect.h < 4) {
+                    x->b_rect.w += 4 - height;
+                    x->b_rect.h = 4;
                 } else {
-                    x->b_rect.width = width;
+                    x->b_rect.w = width;
                 }
             }
 
         } else if (x->b_flags & EBOX_GROWINDI) {
             if (atom_gettype(argv) == A_FLOAT)
-                x->b_rect.width = (float)pd_clip_min(atom_getfloat(argv), 4) / x->b_zoom;
+                x->b_rect.w = (float)pd_clip_min(atom_getfloat(argv), 4) / x->b_zoom;
             if (atom_gettype(argv + 1) == A_FLOAT)
-                x->b_rect.height = (float)pd_clip_min(atom_getfloat(argv + 1), 4) / x->b_zoom;
+                x->b_rect.h = (float)pd_clip_min(atom_getfloat(argv + 1), 4) / x->b_zoom;
         }
     }
 
-    return 0;
+    return true;
 }
 
 bool ebox_notify(t_ebox* x, t_symbol* s)
 {
-    t_eclass* c = eobj_getclass(&x->b_obj);
     if (s == s_size) {
+        auto* c = eobj_getclass(&x->b_obj);
         if (c->c_widget.w_oksize != nullptr)
-            c->c_widget.w_oksize(x, &x->b_rect);
+            c->c_widget.w_oksize(x, &(x->b_rect));
 
         if (x->b_resize_redraw_all) {
             ebox_invalidate_all(x);
@@ -1661,7 +1691,7 @@ bool ebox_notify(t_ebox* x, t_symbol* s)
         if (ebox_isvisible(x)) {
             sys_vgui("::ceammc::ui::widget_resize %s %lx %d %d %d\n",
                 x->b_canvas_id->s_name, x,
-                int(x->b_rect.width), int(x->b_rect.height), int(x->b_zoom));
+                int(x->b_rect.w), int(x->b_rect.h), int(x->b_zoom));
 
             canvas_fixlinesfor(x->b_obj.o_canvas, (t_text*)x);
             ebox_update_label_pos(x);
@@ -1758,7 +1788,7 @@ void ebox_properties(t_ebox* x, t_glist* glist)
     std::string buffer(temp);
 
     for (size_t i = 0; i < c->c_nattr; i++) {
-        if (!c->c_attr[i]->invisible) {
+        if (c->c_attr[i]->visibility == ceammc::PropValueVis::PUBLIC) {
             t_atom* argv = 0;
             int argc = 0;
             eobj_attr_getvalueof(&x->b_obj, c->c_attr[i]->name, &argc, &argv);
@@ -1861,9 +1891,7 @@ std::string ceammc_quote_str(const std::string& str, char q)
 
 void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
 {
-    static t_symbol* S_COLOR = gensym(SYM_COLOR);
-    static t_symbol* S_CHECKBUTTON = gensym(SYM_CHECKBUTTON);
-    static t_symbol* S_MENU = gensym(SYM_MENU);
+    using namespace ceammc;
 
     static const bool is_ceammc = (getenv("is_ceammc") != nullptr);
     const bool use_sframe = !is_ceammc;
@@ -1899,17 +1927,17 @@ void ebox_dialog(t_ebox* x, t_symbol* s, int argc, t_atom* argv)
                 if (ac && av) {
                     const auto style = c->c_attr[attrindex]->style;
 
-                    if (style == S_CHECKBUTTON) {
+                    if (style == sym_checkbutton()) {
                         if (atom_getfloat(av) == 0)
                             sys_vgui("%s state !selected\n", WIDGET_ID);
                         else
                             sys_vgui("%s state selected\n", WIDGET_ID);
-                    } else if (style == S_COLOR) {
+                    } else if (style == sym_color()) {
                         color.red = atom_getfloat(av);
                         color.green = atom_getfloat(av + 1);
                         color.blue = atom_getfloat(av + 2);
                         sys_vgui("%s configure -readonlybackground #%6.6x\n", WIDGET_ID, rgb_to_hex_int(color));
-                    } else if (style == S_MENU) {
+                    } else if (style == sym_menu()) {
                         atom_string(av, temp, MAXPDSTRING);
                         std::string buffer(temp);
                         for (int i = 1; i < ac; i++) {
@@ -1964,8 +1992,8 @@ void ebox_get_rect_for_view(t_ebox* x, t_rect* rect)
 {
     rect->x = x->b_rect.x;
     rect->y = x->b_rect.y;
-    rect->width = x->b_rect.width;
-    rect->height = x->b_rect.height;
+    rect->w = x->b_rect.w;
+    rect->h = x->b_rect.h;
 }
 
 t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
@@ -1989,8 +2017,8 @@ t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
                 graphic->e_color = 0;
                 graphic->e_rect.x = 0.f;
                 graphic->e_rect.y = 0.f;
-                graphic->e_rect.height = (float)pd_clip_min(height, 0.);
-                graphic->e_rect.width = (float)pd_clip_min(width, 0.);
+                graphic->e_rect.h = (float)pd_clip_min(height, 0.);
+                graphic->e_rect.w = (float)pd_clip_min(width, 0.);
                 graphic->e_optimize = false;
 
                 graphic->e_objects.clear();
@@ -2023,8 +2051,8 @@ t_elayer* ebox_start_layer(t_ebox* x, t_symbol* name, float width, float height)
     graphic->e_color = 0;
     graphic->e_rect.x = 0.f;
     graphic->e_rect.y = 0.f;
-    graphic->e_rect.height = (float)pd_clip_min(height, 0.);
-    graphic->e_rect.width = (float)pd_clip_min(width, 0.);
+    graphic->e_rect.h = (float)pd_clip_min(height, 0.);
+    graphic->e_rect.w = (float)pd_clip_min(width, 0.);
 
     graphic->e_name = name;
     sprintf(text, "%s%" PRIdPTR, name->s_name, (intptr_t)x);
@@ -2161,11 +2189,11 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                         g->e_id->s_name, x->b_all_id->s_name);
                 }
 
-                int mode = E_PATH_MOVE;
+                int mode = ceammc::E_PATH_MOVE;
                 for (int j = 0; j < gobj.e_points.size();) {
                     switch ((int)gobj.e_points[j].x) {
-                    case E_PATH_MOVE:
-                        if (mode != E_PATH_MOVE) // output previous
+                    case ceammc::E_PATH_MOVE:
+                        if (mode != ceammc::E_PATH_MOVE) // output previous
                             sys_vgui("%s", bottom);
 
                         sys_vgui("%s", header);
@@ -2173,26 +2201,26 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                             (int)(gobj.e_points[j + 1].x + x_p),
                             (int)(gobj.e_points[j + 1].y + y_p));
                         j += 2;
-                        mode = E_PATH_MOVE;
+                        mode = ceammc::E_PATH_MOVE;
                         break;
-                    case E_PATH_LINE:
+                    case ceammc::E_PATH_LINE:
                         sys_vgui("%d %d ",
                             (int)(gobj.e_points[j + 1].x + x_p),
                             (int)(gobj.e_points[j + 1].y + y_p));
                         j += 2;
-                        mode = E_PATH_LINE;
+                        mode = ceammc::E_PATH_LINE;
                         break;
-                    case E_PATH_CURVE:
+                    case ceammc::E_PATH_CURVE:
                         sys_vgui("%d %d %d %d %d %d ",
                             (int)(gobj.e_points[j + 1].x + x_p), (int)(gobj.e_points[j + 1].y + y_p),
                             (int)(gobj.e_points[j + 2].x + x_p), (int)(gobj.e_points[j + 2].y + y_p),
                             (int)(gobj.e_points[j + 3].x + x_p), (int)(gobj.e_points[j + 3].y + y_p));
                         j += 4;
-                        mode = E_PATH_CURVE;
+                        mode = ceammc::E_PATH_CURVE;
                         break;
-                    case E_PATH_CLOSE:
+                    case ceammc::E_PATH_CLOSE:
                         j += 1;
-                        mode = E_PATH_CLOSE;
+                        mode = ceammc::E_PATH_CLOSE;
                         break;
                     }
                 }
@@ -2218,6 +2246,7 @@ t_pd_err ebox_paint_layer(t_ebox* x, t_symbol* name, float x_p, float y_p)
                     x->b_all_id->s_name);
 
             } else if (gobj.e_type == E_GOBJ_SHAPE) {
+                using namespace ceammc;
                 int type = gobj.e_points[0].x;
                 switch (type) {
                 case E_SHAPE_RECT:
@@ -2256,13 +2285,19 @@ static void ebox_draw_border(t_ebox* x)
 
     sys_vgui("::ceammc::ui::border_draw %s %lx %d %d %d #%6.6x\n",
         x->b_canvas_id->s_name, x,
-        int(x->b_rect.width), int(x->b_rect.height), int(x->b_zoom),
+        int(x->b_rect.w), int(x->b_rect.h), int(x->b_zoom),
         color);
 }
 
-static void do_draw_inlets(const char* cnv, t_object* x, int w, int h, int zoom, ceammc::XletGetAnnotationFn fn)
+static void do_draw_inlets(const char* cnv, t_object* x, int w, int h, int zoom, bool hide, ceammc::XletGetAnnotationFn fn)
 {
     const int N_IN = obj_ninlets(x);
+    if (N_IN < 1)
+        return;
+
+    if (hide && N_IN == 1) // do not draw in case of hide flag and single inlet
+        return;
+
     char buf[N_IN + 1];
 
     for (int i = 0; i < N_IN; i++)
@@ -2282,9 +2317,15 @@ static void do_draw_inlets(const char* cnv, t_object* x, int w, int h, int zoom,
     }
 }
 
-static void do_draw_outlets(const char* cnv, t_object* x, int w, int h, int zoom, ceammc::XletGetAnnotationFn fn)
+static void do_draw_outlets(const char* cnv, t_object* x, int w, int h, int zoom, bool hide, ceammc::XletGetAnnotationFn fn)
 {
     const int N_OUT = obj_noutlets(x);
+    if (N_OUT < 1)
+        return;
+
+    if (hide && N_OUT == 1) // do not draw in case of hide flag and single outlet
+        return;
+
     char buf[N_OUT + 1];
 
     for (int i = 0; i < N_OUT; i++)
@@ -2314,10 +2355,10 @@ static void ebox_draw_iolets(t_ebox* x)
             auto ann_fn = ceammc::ceammc_get_annotation_fn(&obj->te_g.g_pd);
 
             do_draw_inlets(x->b_canvas_id->s_name, obj,
-                x->b_rect.width, x->b_rect.height, x->b_zoom, ann_fn);
+                x->b_rect.w, x->b_rect.h, x->b_zoom, (x->b_receive_id != s_null), ann_fn);
 
             do_draw_outlets(x->b_canvas_id->s_name, obj,
-                x->b_rect.width, x->b_rect.height, x->b_zoom, ann_fn);
+                x->b_rect.w, x->b_rect.h, x->b_zoom, (x->b_send_id != s_null), ann_fn);
         }
     }
 }
@@ -2461,4 +2502,9 @@ void ebox_free_layer(t_elayer* l)
 bool ebox_isvisible(t_ebox* x)
 {
     return x && ebox_isdrawable(x) && x->b_obj.o_canvas->gl_havewindow && x->b_have_window && x->b_visible;
+}
+
+t_efont* ebox_getfont(t_ebox* x)
+{
+    return &x->b_font;
 }

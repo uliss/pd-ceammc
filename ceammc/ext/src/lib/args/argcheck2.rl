@@ -3,13 +3,13 @@
 # include "ceammc_object.h"
 # include "ceammc_crc32.h"
 # include "fmt/core.h"
+# include "ceammc_datatypes.h"
 
 # include <cstdint>
 # include <iostream>
 # include <limits>
 # include <cmath>
 # include <algorithm>
-# include <boost/static_string.hpp>
 # include <boost/container/static_vector.hpp>
 # include <boost/variant.hpp>
 
@@ -21,22 +21,39 @@
 #define debug(prefix, arg)
 #endif
 
+// keep in sync with typeNames values!
+enum CheckType : int8_t {
+    CHECK_NONE,
+    CHECK_ATOM,
+    CHECK_BOOL,
+    CHECK_BYTE,
+    CHECK_INT,
+    CHECK_FLOAT,
+    CHECK_SYMBOL,
+    CHECK_TIME,
+};
+
+enum CompareType : int8_t {
+    CMP_NONE,
+    CMP_LESS,
+    CMP_LESS_EQ,
+    CMP_GREATER,
+    CMP_GREATER_EQ,
+    CMP_EQUAL,
+    CMP_NOT_EQUAL,
+    CMP_MODULE,
+    CMP_POWER2,
+    CMP_RANGE_CLOSED,
+    CMP_RANGE_SEMIOPEN,
+    CMP_APPROX,
+};
+
 namespace {
     constexpr int16_t REPEAT_INF = -1;
 
-    // keep in sync with typeNames values!
-    enum CheckType : int8_t {
-        CHECK_ATOM,
-        CHECK_BOOL,
-        CHECK_BYTE,
-        CHECK_INT,
-        CHECK_FLOAT,
-        CHECK_SYMBOL,
-        CHECK_TIME,
-    };
-
     // keep in sync with CheckType values!
     const char* typeNames[] = {
+        "",
         "atom",
         "bool",
         "byte",
@@ -44,21 +61,6 @@ namespace {
         "float",
         "symbol",
         "time",
-    };
-
-    enum CompareType : int8_t {
-        CMP_NONE,
-        CMP_LESS,
-        CMP_LESS_EQ,
-        CMP_GREATER,
-        CMP_GREATER_EQ,
-        CMP_EQUAL,
-        CMP_NOT_EQUAL,
-        CMP_MODULE,
-        CMP_POWER2,
-        CMP_RANGE_CLOSED,
-        CMP_RANGE_SEMIOPEN,
-        CMP_APPROX,
     };
 
     std::string atom_to_string(const ceammc::Atom& a) {
@@ -78,8 +80,8 @@ namespace {
     }
 
 
-    using ArgString = std::pair<boost::static_string<14>, uint32_t>;
-    using ArgName = boost::static_string<10>;
+    using ArgString = std::pair<ceammc::BoostStaticString<14>, uint32_t>;
+    using ArgName = ceammc::BoostStaticString<10>;
     using ArgValue = boost::variant<double, int64_t, ArgString>;
     using ArgList = boost::container::small_vector<ArgValue, 3>;
 
@@ -121,102 +123,102 @@ namespace {
     {
         return std::fabs(a - b) <= e;
     }
-
-    struct Check {
-        ArgList values;
-        ArgName name;
-        CheckType type;
-        CompareType cmp;
-        int8_t rmin;
-        int8_t rmax;
-
-        inline int repeatMin() const { return rmin; }
-        inline int repeatMax() const { return (rmax == REPEAT_INF) ? std::numeric_limits<int>::max() : rmax; }
-        inline void setRepeats(int min, int max) { rmin = min; rmax = max; }
-
-        inline static bool isEqual(const ArgValue& v, int64_t i)
-        {
-            auto int_ptr = boost::get<int64_t>(&v);
-            return (int_ptr && i == *int_ptr);
-        }
-
-        inline static bool isEqual(const ArgValue& v, double d)
-        {
-            auto dbl_ptr = boost::get<double>(&v);
-            return (dbl_ptr && d == *dbl_ptr);
-        }
-
-        inline static bool isApproxEqual(const ArgValue& v, double d)
-        {
-            auto dbl_ptr = boost::get<double>(&v);
-            return dbl_ptr && approx_equal(d, *dbl_ptr);
-        }
-
-        inline static bool isEqualHash(const ArgValue& v, uint32_t hash)
-        {
-            auto str_ptr = boost::get<ArgString>(&v);
-            return (str_ptr && str_ptr->second == hash);
-        }
-
-        inline std::string argName() const {
-            if (name.empty())
-                return typeNames[type];
-            else
-                return { name.data(), name.size() };
-        }
-
-        inline std::string checkInfo() const {
-            switch (cmp) {
-            case CMP_MODULE:
-                return fmt::format("check: %{}==0", arg_to_string(values));
-            case CMP_LESS:
-                return fmt::format("check: <{}", arg_to_string(values));
-            case CMP_LESS_EQ:
-                return fmt::format("check: <={}", arg_to_string(values));
-            case CMP_GREATER:
-                return fmt::format("check: >{}", arg_to_string(values));
-            case CMP_GREATER_EQ:
-                return fmt::format("check: >={}", arg_to_string(values));
-            case CMP_RANGE_CLOSED:
-                return fmt::format("range: [{}]", arg_to_string(values, ","));
-            case CMP_RANGE_SEMIOPEN:
-                return fmt::format("range: [{})", arg_to_string(values, ","));
-            case CMP_EQUAL:
-                if (values.size() == 1)
-                    return fmt::format("check: ={}", arg_to_string(values));
-                else
-                    return fmt::format("enum: {}", arg_to_string(values, "|"));
-            case CMP_APPROX:
-                if (values.size() == 1)
-                    return fmt::format("check: ~{}", arg_to_string(values));
-                else
-                    return fmt::format("enum: ~{}", arg_to_string(values, "|"));
-            default:
-                return {};
-            }
-        }
-
-        inline std::string argInfo() const {
-            if (name.empty())
-                return fmt::format("{:10s} [{}]{}", typeNames[type], checkInfo(), helpRepeats());
-            else
-                return fmt::format("{:10s} [type: {} {}]{}", name.data(), typeNames[type], checkInfo(), helpRepeats());
-        }
-
-        inline std::string helpRepeats() const {
-            if (rmin == 1 && rmax == 1) return {};
-            if (rmin == 0 && rmax == 1) return { '?', 1 };
-            if (rmin == 0 && rmax == REPEAT_INF) return { '*', 1 };
-            if (rmin == 1 && rmax == REPEAT_INF) return { '+', 1 };
-            if (rmin == rmax)
-                return fmt::format("{{{}}}", (int)rmin);
-            if (rmax != REPEAT_INF)
-                return fmt::format("{{{},{}}}", (int)rmin, (int)rmax);
-            else
-                return fmt::format("{{{},}}", (int)rmin);
-        }
-    };
 }
+
+struct Check {
+    ArgList values;
+    ArgName name;
+    CheckType type { CHECK_NONE };
+    CompareType cmp { CMP_NONE };
+    int8_t rmin { 0 };
+    int8_t rmax { 0 };
+
+    inline int repeatMin() const { return rmin; }
+    inline int repeatMax() const { return (rmax == REPEAT_INF) ? std::numeric_limits<int>::max() : rmax; }
+    inline void setRepeats(int min, int max) { rmin = min; rmax = max; }
+
+    inline static bool isEqual(const ArgValue& v, int64_t i)
+    {
+        auto int_ptr = boost::get<int64_t>(&v);
+        return (int_ptr && i == *int_ptr);
+    }
+
+    inline static bool isEqual(const ArgValue& v, double d)
+    {
+        auto dbl_ptr = boost::get<double>(&v);
+        return (dbl_ptr && d == *dbl_ptr);
+    }
+
+    inline static bool isApproxEqual(const ArgValue& v, double d)
+    {
+        auto dbl_ptr = boost::get<double>(&v);
+        return dbl_ptr && approx_equal(d, *dbl_ptr);
+    }
+
+    inline static bool isEqualHash(const ArgValue& v, uint32_t hash)
+    {
+        auto str_ptr = boost::get<ArgString>(&v);
+        return (str_ptr && str_ptr->second == hash);
+    }
+
+    inline std::string argName() const {
+        if (name.empty())
+            return typeNames[type];
+        else
+            return { name.data(), name.size() };
+    }
+
+    inline std::string checkInfo() const {
+        switch (cmp) {
+        case CMP_MODULE:
+            return fmt::format("check: %{}==0", arg_to_string(values));
+        case CMP_LESS:
+            return fmt::format("check: <{}", arg_to_string(values));
+        case CMP_LESS_EQ:
+            return fmt::format("check: <={}", arg_to_string(values));
+        case CMP_GREATER:
+            return fmt::format("check: >{}", arg_to_string(values));
+        case CMP_GREATER_EQ:
+            return fmt::format("check: >={}", arg_to_string(values));
+        case CMP_RANGE_CLOSED:
+            return fmt::format("range: [{}]", arg_to_string(values, ","));
+        case CMP_RANGE_SEMIOPEN:
+            return fmt::format("range: [{})", arg_to_string(values, ","));
+        case CMP_EQUAL:
+            if (values.size() == 1)
+                return fmt::format("check: ={}", arg_to_string(values));
+            else
+                return fmt::format("enum: {}", arg_to_string(values, "|"));
+        case CMP_APPROX:
+            if (values.size() == 1)
+                return fmt::format("check: ~{}", arg_to_string(values));
+            else
+                return fmt::format("enum: ~{}", arg_to_string(values, "|"));
+        default:
+            return {};
+        }
+    }
+
+    inline std::string argInfo() const {
+        if (name.empty())
+            return fmt::format("{:10s} [{}]{}", typeNames[type], checkInfo(), helpRepeats());
+        else
+            return fmt::format("{:10s} [type: {} {}]{}", name.data(), typeNames[type], checkInfo(), helpRepeats());
+    }
+
+    inline std::string helpRepeats() const {
+        if (rmin == 1 && rmax == 1) return {};
+        if (rmin == 0 && rmax == 1) return { '?', 1 };
+        if (rmin == 0 && rmax == REPEAT_INF) return { '*', 1 };
+        if (rmin == 1 && rmax == REPEAT_INF) return { '+', 1 };
+        if (rmin == rmax)
+            return fmt::format("{{{}}}", (int)rmin);
+        if (rmax != REPEAT_INF)
+            return fmt::format("{{{},{}}}", (int)rmin, (int)rmax);
+        else
+            return fmt::format("{{{},}}", (int)rmin);
+    }
+};
 
 %%{
 machine time_check;
@@ -478,8 +480,8 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x, bool pErr) {
             return false;
         } else {
             const int64_t val = a.asT<int>();
-            const int64_t arg = (c.values.size() == 1 && boost::get<int64_t>(&c.values[0]))
-                ? *boost::strict_get<int64_t>(&c.values[0])
+            const int64_t arg = (c.values.size() >= 1 && boost::get<int64_t>(&c.values[0]))
+                ? *boost::get<int64_t>(&c.values[0])
                 : -999999999;
 
             switch (c.cmp) {
@@ -788,7 +790,7 @@ public:
 
 ArgChecker::~ArgChecker()  = default;
 
-bool ArgChecker::check(const AtomListView& lv, BaseObject* obj, ArgMatchList* matches) const
+bool ArgChecker::check(const AtomListView& lv, BaseObject* obj, ArgMatchList* matches, bool printErr) const
 {
     if (!chk_)
         return false;
@@ -806,10 +808,12 @@ bool ArgChecker::check(const AtomListView& lv, BaseObject* obj, ArgMatchList* ma
 
         for (int k = 0; k < check.rmin; k++, atom_idx++) {
             if (atom_idx >= N) {
-                pdError(x, fmt::format("{} expected at [{}]", check.argName(), atom_idx));
+                if (printErr)
+                    pdError(x, fmt::format("{} expected at [{}]", check.argName(), atom_idx));
+
                 return false;
             }
-            if (!checkAtom(check, lv[atom_idx], atom_idx, x, true))
+            if (!checkAtom(check, lv[atom_idx], atom_idx, x, printErr))
                 return false;
         }
 
@@ -825,7 +829,9 @@ bool ArgChecker::check(const AtomListView& lv, BaseObject* obj, ArgMatchList* ma
     }
 
     if (atom_idx < N) {
-        pdError(x, fmt::format("extra arguments left, starting from [{}]: {}", atom_idx, list_to_string(lv.subView(atom_idx))));
+        if (printErr)
+            pdError(x, fmt::format("extra arguments left, starting from [{}]: {}", atom_idx, list_to_string(lv.subView(atom_idx))));
+
         return false;
     }
 
@@ -859,7 +865,7 @@ ArgChecker::ArgChecker(const char* str)
     }
 }
 
-void ArgChecker::usage(BaseObject* obj, t_symbol* m)
+void ArgChecker::usage(BaseObject* obj, t_symbol* m) const
 {
     if (!chk_)
         return;

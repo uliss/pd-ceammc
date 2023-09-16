@@ -65,4 +65,8 @@ void setup_route_random()
 {
     ObjectFactory<RouteRandom> obj("route.random");
     obj.addAlias("route.r");
+
+    obj.setDescription("routes input flow to random outlet");
+    obj.setCategory("flow");
+    obj.setKeywords({"route"});
 }

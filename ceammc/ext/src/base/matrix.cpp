@@ -12,9 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "matrix.h"
-#include "ceammc_convert.h"
 #include "ceammc_factory.h"
-#include "ceammc_property_callback.h"
 
 constexpr size_t DEFAULT_INS = 2;
 constexpr size_t MIN_INS = 2;
@@ -25,33 +23,44 @@ constexpr size_t MAX_OUTS = MAX_INS;
 
 Matrix::Matrix(const PdArgs& args)
     : SoundExternal(args)
-    , nouts_(positionalConstant<DEFAULT_OUTS, MIN_OUTS, MAX_OUTS>(1))
-    , nins_(positionalConstant<DEFAULT_INS, MIN_INS, MAX_INS>(0))
-    , matrix_(boost::extents[nouts_][nins_])
 {
-    for (size_t i = 1; i < nins_; i++)
+    nins_ = new IntProperty("@inputs", DEFAULT_INS, PropValueAccess::INITONLY);
+    nins_->checkClosedRange(MIN_INS, MAX_INS);
+    nins_->setArgIndex(0);
+    addProperty(nins_);
+
+    nouts_ = new IntProperty("@outputs", DEFAULT_OUTS, PropValueAccess::INITONLY);
+    nouts_->setInitOnly();
+    nouts_->checkClosedRange(MIN_OUTS, MAX_OUTS);
+    nouts_->setArgIndex(1);
+    addProperty(nouts_);
+}
+
+void Matrix::initDone()
+{
+    auto NIN = nins_->value();
+    auto NOUT = nouts_->value();
+    matrix_.resize(boost::extents[NOUT][NIN]);
+
+    for (int i = 1; i < NIN; i++)
         createSignalInlet();
 
-    for (size_t i = 0; i < nouts_; i++)
+    for (int i = 0; i < NOUT; i++)
         createSignalOutlet();
 
-    blocks_.assign(nouts_, DSPBlock(64, 0));
-
-    createCbIntProperty("@outputs", [this]() -> int { return nouts_; })
-        ->setIntCheck(PropValueConstraints::CLOSED_RANGE, MIN_OUTS, MAX_OUTS);
-
-    createCbIntProperty("@inputs", [this]() -> int { return nins_; })
-        ->setIntCheck(PropValueConstraints::CLOSED_RANGE, MIN_INS, MAX_INS);
+    blocks_.assign(NOUT, DSPBlock(64, 0));
 }
 
 void Matrix::processBlock(const t_sample** in, t_sample** out)
 {
+    const size_t NIN = nins_->value();
+    const size_t NOUT = nouts_->value();
     const size_t BS = blockSize();
 
-    for (size_t out_idx = 0; out_idx < nouts_; out_idx++) {
+    for (size_t out_idx = 0; out_idx < NOUT; out_idx++) {
         DSPBlock& b = blocks_[out_idx];
 
-        for (size_t in_idx = 0; in_idx < nins_; in_idx++) {
+        for (size_t in_idx = 0; in_idx < NIN; in_idx++) {
             if (in_idx == 0)
                 std::fill(b.begin(), b.end(), 0);
 
@@ -64,7 +73,7 @@ void Matrix::processBlock(const t_sample** in, t_sample** out)
         }
     }
 
-    for (size_t out_idx = 0; out_idx < nouts_; out_idx++) {
+    for (size_t out_idx = 0; out_idx < NOUT; out_idx++) {
         for (size_t i = 0; i < BS; i++)
             out[out_idx][i] = blocks_[out_idx][i];
     }
@@ -84,16 +93,19 @@ void Matrix::m_cell(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_NATURAL, ARG_NATURAL, ARG_NATURAL, s))
         return;
 
+    const auto NIN = nins_->value();
+    const auto NOUT = nouts_->value();
+
     int cell_row = lv.intAt(0, -1);
     int cell_col = lv.intAt(1, -1);
     int cell_val = lv.intAt(2, -1);
 
-    if (cell_row < 0 || cell_row >= nouts_) {
+    if (cell_row < 0 || cell_row >= NOUT) {
         OBJ_ERR << "invalid cell row: " << lv[0];
         return;
     }
 
-    if (cell_col < 0 || cell_col >= nins_) {
+    if (cell_col < 0 || cell_col >= NIN) {
         OBJ_ERR << "invalid cell column: " << lv[1];
         return;
     }

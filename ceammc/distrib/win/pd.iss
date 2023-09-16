@@ -55,6 +55,7 @@ Source: "{#AppRoot}/tcl/*.txt"; DestDir: "{app}/tcl"; Flags: ignoreversion recur
 Source: "{#AppRoot}/tcl/*.cfg"; DestDir: "{app}/tcl"; Flags: ignoreversion recursesubdirs
 Source: "{#AppRoot}/tcl/pd.ico"; DestDir: "{app}/tcl";
 Source: "{#AppRoot}/tcl/pd_ceammc.ico"; DestDir: "{app}/tcl";
+Source: "{#AppRoot}/tcl/tkdnd/*"; DestDir: "{app}/tcl/tkdnd"; Flags: ignoreversion recursesubdirs
 Source: "{#AppRoot}/lib/*"; DestDir: "{app}/lib"; Flags: ignoreversion recursesubdirs
 Source: "{#AppRoot}/extra/*"; Excludes: "*.a"; DestDir: "{app}/extra"; Flags: ignoreversion recursesubdirs
 Source: "{#AppRoot}/doc/*"; DestDir: "{app}/doc"; Flags: ignoreversion recursesubdirs

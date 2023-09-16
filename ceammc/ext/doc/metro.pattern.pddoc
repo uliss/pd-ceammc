@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="metro.pattern">
         <title>metro.pattern</title>
         <meta>
@@ -21,36 +21,39 @@
             <argument name="PATTERN" type="list">list of time intervals (in ms)</argument>
         </arguments>
         <properties>
-            <property name="@pattern" type="list">time intervals (in ms) performed in a
+            <property name="@pattern" type="list" default="">time intervals (in ms) performed in a
             loop</property>
             <property name="@current" type="int" minvalue="0" default="0">current pattern
             index</property>
-            <property name="@sync" type="int" enum="0 1" default="0">sync mode - change pattern
-            after full cycle</property>
+            <property name="@sync" type="bool" default="0">sync mode - change pattern after full
+            cycle</property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">starts (on 1) or stops (on 0) metro</xinfo>
             </inlet>
+            <inlet>
+                <xinfo on="list">set new pattern</xinfo>
+            </inlet>
         </inlets>
         <outlets>
             <outlet>outputs *bang*</outlet>
-            <outlet>outputs current pattern index and bang on loop return</outlet>
+            <outlet>outputs current pattern index and bang on each cycle</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
 [@pattern 100 290 110 70(
 |
-| [T]   [@pattern 500 150(
-| |     |
+| [T]          [500 150(
+| |            |.
 [metro.pattern 268 200]
-|                   ^|
-[click~]            [is_bang]
-|                         ^|
-[flt.resonbp~ 1600]       [B]
+|                    ^|
+[click~]             [route.b]
+|                    |
+[flt.resonbp~ 1600]  [B]
 |
-[ui.gain~ @size 120 16] [ui.dsp~]
+[ui.hgain~]          [ui.dsp~]
 | \
 [dac~]
 ]]>

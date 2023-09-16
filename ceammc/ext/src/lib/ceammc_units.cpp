@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "ceammc_units.h"
 #include "ceammc_format.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #include "lex/parser_music.h"
 #include "lex/parser_numeric.h"
 #include "lex/parser_units.h"
@@ -39,11 +39,25 @@ UnitParseError::UnitParseError(const std::string& s)
 
 TimeValue::ParseResult TimeValue::parse(const AtomListView& lv)
 {
-    if (lv.empty())
+    if (lv.size() != 1)
         return UnitParseError("empty list");
+    else
+        return parse(lv.front());
+}
 
-    if (lv.isSymbol()) {
-        auto cstr = lv[0].asT<t_symbol*>()->s_name;
+bool TimeValue::setParsed(const Atom& a, UnitParseError& err)
+{
+    auto res = parse(a);
+    if (res.matchError(err))
+        return false;
+
+    return res.matchValue(*this);
+}
+
+TimeValue::ParseResult TimeValue::parse(const Atom& a)
+{
+    if (a.isSymbol()) {
+        auto cstr = a.asT<t_symbol*>()->s_name;
         using namespace ceammc::parser;
         UnitsFullMatch parser;
 
@@ -88,10 +102,10 @@ TimeValue::ParseResult TimeValue::parse(const AtomListView& lv)
             tval.end_offset_ = (v.pos == POSITION_END);
             return tval;
         }
-    } else if (lv.isFloat())
-        return TimeValue(lv.asT<t_float>(), MS);
+    } else if (a.isFloat())
+        return TimeValue(a.asT<t_float>(), MS);
     else
-        return UnitParseError(fmt::format("unexpected time format: {}", to_string(lv)));
+        return UnitParseError(fmt::format("unexpected time format: {}", to_string(a)));
 }
 
 FractionValue::ParseResult FractionValue::parse(const AtomListView& lv)
@@ -151,7 +165,7 @@ FreqValue::ParseResult FreqValue::parse(const Atom& atom)
 
             switch (v.type) {
             case TYPE_BPM:
-                return FreqValue(v.bpm.bpm, Units::BPM);
+                return FreqValue(v.tempo.bpm(), Units::BPM);
             case TYPE_HZ:
                 return FreqValue(v.value, Units::HZ);
             case TYPE_MSEC: {
@@ -173,13 +187,13 @@ FreqValue::ParseResult FreqValue::parse(const Atom& atom)
 BpmValue::ParseResult BpmValue::parse(const Atom& a)
 {
     using namespace ceammc::parser;
-    BpmFullMatch parser;
+    music::Tempo bpm;
 
-    if (!parser.parse(a))
+    if (!parser::parse_tempo(a, bpm))
         return UnitParseError(fmt::format("invalid bpm: '{}'", to_string(a)));
     else {
-        const auto& v = parser.bpm();
-        return BpmValue(v.bpm, v.beatlen);
+//        LIB_ERR << bpm.beatDuration().ratio();
+        return BpmValue(bpm.bpm(), bpm.beatDuration().ratio());
     }
 }
 

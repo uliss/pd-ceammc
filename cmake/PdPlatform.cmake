@@ -9,21 +9,6 @@ function(ceammc_remove_duplicate_substring stringIn stringOut)
     set(${stringOut} "${stringIn}" PARENT_SCOPE)
 endfunction()
 
-
-# big endian check
-test_big_endian(IS_BIG_ENDIAN)
-if(NOT ${IS_BIG_ENDIAN})
-    add_definitions(-DLITTLE_ENDIAN=0x0001 -DBYTE_ORDER=LITTLE_ENDIAN)
-endif()
-
-set(CEAMMC_COMPILER_WARNING_FLAGS "-Wall -Wextra")
-if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
-    set(CEAMMC_COMPILER_WARNING_FLAGS "${CEAMMC_COMPILER_WARNING_FLAGS} -Wno-unused-function -Wcast-align -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wduplicate-enum -Wextra-semi -Wfloat-equal -Wlong-long -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wsign-conversion -Wsign-promo")
-endif()
-
-# needed for math constants in <math.h>: M_PI etc.
-add_definitions(-D_USE_MATH_DEFINES)
-
 set(CMAKE_THREAD_PREFER_PTHREAD ON)
 find_package(Threads)
 
@@ -38,34 +23,20 @@ endif()
 
 # address sanitizer
 if(WITH_ASAN)
-    set (CEAMMC_ASAN "-fno-omit-frame-pointer -fsanitize=undefined -fsanitize=address")
-    set (CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} ${CEAMMC_ASAN}")
-    set (CMAKE_LINKER_FLAGS_DEBUG "${CMAKE_STATIC_LINKER_FLAGS_DEBUG} ${CEAMMC_ASAN}")
-    set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${CEAMMC_ASAN}")
-    set (CMAKE_LINKER_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} ${CEAMMC_ASAN}")
-    set (CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} ${CEAMMC_ASAN}")
-
-    ceammc_remove_duplicate_substring(${CMAKE_CXX_FLAGS_DEBUG} CMAKE_CXX_FLAGS_DEBUG)
-    ceammc_remove_duplicate_substring(${CMAKE_LINKER_FLAGS_DEBUG} CMAKE_LINKER_FLAGS_DEBUG)
-    ceammc_remove_duplicate_substring(${CMAKE_CXX_FLAGS_RELEASE} CMAKE_CXX_FLAGS_RELEASE)
-    ceammc_remove_duplicate_substring(${CMAKE_LINKER_FLAGS_RELEASE} CMAKE_LINKER_FLAGS_RELEASE)
-    ceammc_remove_duplicate_substring(${CMAKE_LINKER_FLAGS} CMAKE_LINKER_FLAGS)
+    add_compile_options(-fno-omit-frame-pointer)
+    add_compile_options(-fsanitize=undefined)
+    add_compile_options(-fsanitize=address)
+    add_link_options(-fsanitize=undefined)
+    add_link_options(-fsanitize=address)
 endif()
 
 # address sanitizer
 if(WITH_PROFILE)
     if(APPLE)
-        set (CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG} -g -fprofile-instr-generate -fcoverage-mapping")
-        set (CMAKE_LINKER_FLAGS_DEBUG "${CMAKE_STATIC_LINKER_FLAGS_DEBUG} -fprofile-instr-generate")
-        set (CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -g -fprofile-instr-generate -fcoverage-mapping")
-        set (CMAKE_LINKER_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE} -fprofile-instr-generate")
-        set (CMAKE_LINKER_FLAGS "${CMAKE_LINKER_FLAGS} -fprofile-instr-generate")
-
-        ceammc_remove_duplicate_substring(${CMAKE_CXX_FLAGS_DEBUG} CMAKE_CXX_FLAGS_DEBUG)
-        ceammc_remove_duplicate_substring(${CMAKE_LINKER_FLAGS_DEBUG} CMAKE_LINKER_FLAGS_DEBUG)
-        ceammc_remove_duplicate_substring(${CMAKE_CXX_FLAGS_RELEASE} CMAKE_CXX_FLAGS_RELEASE)
-        ceammc_remove_duplicate_substring(${CMAKE_LINKER_FLAGS_RELEASE} CMAKE_LINKER_FLAGS_RELEASE)
-        ceammc_remove_duplicate_substring(${CMAKE_LINKER_FLAGS} CMAKE_LINKER_FLAGS)
+        add_compile_options(-fprofile-instr-generate)
+        add_compile_options(-fcoverage-mapping)
+        add_compile_options(-g)
+        add_link_options(-fprofile-instr-generate)
     endif()
 endif()
 
@@ -133,6 +104,7 @@ if(WIN32)
     install_tcl_dir(tcllib1.18)
     install_tcl_dir(tcllib1.19)
     install_tcl_dir(tcllib1.20)
+    install_tcl_dir(tcllib1.21)
     # try different tooltip location
     install_tcl_dir(tklib0.6)
     install_tcl_dir(tklib0.6/tooltip)
@@ -154,7 +126,7 @@ if(WIN32)
     set(CMAKE_CXX_STANDARD_LIBRARIES "-lkernel32 -lgdi32 -lole32 -lwinmm -luuid -lwsock32 -lws2_32")
     set(CMAKE_C_STANDARD_LIBRARIES ${CMAKE_CXX_STANDARD_LIBRARIES})
 
-    add_definitions(-DPD_INTERNAL -DWINVER=0x0502 -D_WIN32_WINNT=0x0502 -D_USE_MATH_DEFINES -D_WINDOWS)
+    add_definitions(-DPD_INTERNAL -DWINVER=0x0502 -D_WIN32_WINNT=0x0502 -D_WINDOWS)
     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -mms-bitfields")
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -mms-bitfields")
 
@@ -181,15 +153,15 @@ if(WIN32)
 endif()
 
 if(APPLE)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -funroll-loops")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -funroll-loops")
+    add_compile_options(-funroll-loops)
 
-    set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG -ffast-math -funroll-loops -fomit-frame-pointer")
-    set(CMAKE_CXX_FLAGS_RELEASE "-std=c++11 -O2 -DNDEBUG -ffast-math -funroll-loops -fomit-frame-pointer")
+    if(CMAKE_BUILD_TYPE STREQUAL "Release")
+        add_compile_options(-O2)
+        add_compile_options(-ffast-math)
+    endif()
 
     if(NOT WITH_ASAN AND NOT WITH_PROFILE)
-        set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fomit-frame-pointer")
-        set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fomit-frame-pointer")
+        add_compile_options(-fomit-frame-pointer)
     endif()
 
     set(BUNDLE ${PD_MACOSX_APP})
@@ -202,7 +174,7 @@ if(APPLE)
     configure_file(${PROJECT_SOURCE_DIR}/ceammc/gui/Info.plist ${PROJECT_BINARY_DIR}/dist/Info.plist)
 
     # tk versions later then 8.6.8 have problems with russian keyboard shortcuts
-    set(TK_VERSION "8.6.12")
+    set(TK_VERSION ${WISH_VERSION})
     set(EMBEDDED_WISH "${PROJECT_SOURCE_DIR}/mac/Wish-${TK_VERSION}.app")
 
     if(EXISTS ${EMBEDDED_WISH})
@@ -263,9 +235,14 @@ if(APPLE)
 endif()
 
 if(UNIX AND NOT APPLE)
-    set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -funroll-loops -fomit-frame-pointer")
-    set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11 -funroll-loops -fomit-frame-pointer")
+    add_compile_options(-funroll-loops)
 
-    set(CMAKE_C_FLAGS_RELEASE "-O2 -DNDEBUG -ffast-math -funroll-loops -fomit-frame-pointer")
-    set(CMAKE_CXX_FLAGS_RELEASE "-std=c++11 -O2 -DNDEBUG -ffast-math -funroll-loops -fomit-frame-pointer")
+    if(CMAKE_BUILD_TYPE STREQUAL "Release")
+        add_compile_options(-O2)
+        add_compile_options(-ffast-math)
+    endif()
+
+    if(NOT WITH_ASAN AND NOT WITH_PROFILE)
+        add_compile_options(-fomit-frame-pointer)
+    endif()
 endif()

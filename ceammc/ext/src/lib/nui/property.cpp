@@ -25,6 +25,7 @@ namespace ui {
         : Property(PropertyInfo(name, PropValueType::LIST, access), access)
         , size_(init)
     {
+        setDefault(AtomList(init.width(), init.height()));
     }
 
     AtomList SizeProperty::get() const

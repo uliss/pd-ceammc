@@ -18,11 +18,13 @@
 #include "ceammc_log.h"
 #include "ceammc_platform.h"
 #include "ceammc_rtree.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #include "muParser.h"
 
 #include <algorithm>
 #include <cmath>
+
+constexpr size_t MAX_LIST_LEN = 256;
 
 namespace {
 
@@ -152,48 +154,108 @@ AtomList fn_reverse(const AtomListView& args)
     return res;
 }
 
-#define RTREE_FN_NAME "rtree"
+#define FN_RTREE "rtree"
+#define FN_EUCLID "euclid"
+#define FN_HEXBEAT "hexbeat"
+#define FN_ROTATE "rotate"
+#define FN_ONES "ones"
+#define FN_ZEROS "zeros"
 
-AtomList fn_rythm_tree(const AtomListView& args)
+AtomList fn_rhythm_tree(const AtomListView& args)
 {
-    const bool ok = args.size() == 2 && args[0].isFloat() && args[1].isDataType(DataTypeMList::dataType);
+    const bool ok = args.size() == 2 && args[0].isFloat() && args[1].isDataType(DataTypeMList::staticType());
     if (!ok) {
-        LIB_ERR << fmt::format(RTREE_FN_NAME "(): invalid arguments, usage: " RTREE_FN_NAME "(DUR MList), got: {}", to_string(args));
+        LIB_ERR << fmt::format(FN_RTREE "(): invalid arguments, usage: " FN_RTREE "(DUR MList), got: {}", to_string(args));
         return {};
     }
 
     const auto len = args[0].asT<t_float>();
     auto ml = args[1].asD<DataTypeMList>();
-    return rtree::rythm_tree(len, ml, RTREE_FN_NAME "(): ", LIB_ERR);
+    return rtree::rhythm_tree(len, ml, FN_RTREE "(): ", LIB_ERR);
 }
 
 AtomList fn_euclid(const AtomListView& args)
 {
-    const bool ok = args.size() == 2 && args[0].isInteger() && args[1].isInteger();
+    const bool ok = (args.size() >= 1 && args.size() <= 3)
+        && args[0].isInteger();
+
     if (!ok) {
-        LIB_ERR << fmt::format("euclid(): usage euclid(ONSETS N)");
+        LIB_ERR << fmt::format(FN_EUCLID "(): usage " FN_EUCLID "(BEATS N=8? ROTATE=0?)");
         return {};
     }
 
     const auto onsets = args[0].asT<int>();
-    const auto pulses = args[1].asT<int>();
+    const auto pulses = clip_max<int>(args.intAt(1, 8), MAX_LIST_LEN);
+    const auto rotate = args.intAt(2, 0);
 
     if (onsets < 0) {
-        LIB_ERR << fmt::format("euclid(): number of onsets should be >0, got {}", onsets);
+        LIB_ERR << fmt::format(FN_EUCLID "(): number of onsets should be >0, got {}", onsets);
         return {};
     }
 
     if (pulses < 1) {
-        LIB_ERR << fmt::format("euclid(): pattern length should be >1, got {}", pulses);
+        LIB_ERR << fmt::format(FN_EUCLID "(): pattern length should be >1, got {}", pulses);
         return {};
     }
 
     if (onsets > pulses) {
-        LIB_ERR << fmt::format("euclid(): number of pulses should be <={}, got {}", pulses, onsets);
+        LIB_ERR << fmt::format(FN_EUCLID "(): number of pulses should be <={}, got {}", pulses, onsets);
         return {};
     }
 
-    return list::bresenham(onsets, pulses);
+    if (!rotate)
+        return list::bresenham(onsets, pulses);
+    else
+        return list::rotate(list::bresenham(onsets, pulses), -rotate);
+}
+
+AtomList fn_hexbeat(const AtomListView& args)
+{
+    if (!args.isSymbol()) {
+        LIB_ERR << fmt::format(FN_HEXBEAT "(): usage " FN_HEXBEAT "(HEX)");
+        return {};
+    }
+
+    return list::hexbeat_bin(args[0].asT<t_symbol*>()->s_name);
+}
+
+AtomList fn_rotate(const AtomListView& args)
+{
+    const auto ok = args.size() > 1 && args[0].isFloat();
+    if (!ok) {
+        LIB_ERR << fmt::format(FN_ROTATE "(): usage " FN_ROTATE "(N args...)");
+        return {};
+    }
+
+    return list::rotate(args.subView(1), args[0].asFloat());
+}
+
+AtomList fn_ones(const AtomListView& args)
+{
+    const auto ok = (args.size() == 1)
+        && args[0].isInteger()
+        && (args[0].asInt() >= 0);
+
+    if (!ok) {
+        LIB_ERR << fmt::format(FN_ONES "(): usage " FN_ONES "(N)");
+        return {};
+    }
+
+    return AtomList::ones(clip_max<int>(args[0].asInt(), MAX_LIST_LEN));
+}
+
+AtomList fn_zeros(const AtomListView& args)
+{
+    const auto ok = (args.size() == 1)
+        && args[0].isInteger()
+        && (args[0].asInt() >= 0);
+
+    if (!ok) {
+        LIB_ERR << fmt::format(FN_ZEROS "(): usage " FN_ZEROS "(N)");
+        return {};
+    }
+
+    return AtomList::zeroes(clip_max<int>(args[0].asInt(), MAX_LIST_LEN));
 }
 
 }
@@ -259,13 +321,16 @@ BuiltinFunctionMap::BuiltinFunctionMap()
     registerFn(gensym("amp2db"), fn_amp2db);
     registerFn(gensym("repeat"), fn_repeat);
     registerFn(gensym("reverse"), fn_reverse);
-    registerFn(gensym(RTREE_FN_NAME), fn_rythm_tree);
-    registerFn(gensym("euclid"), fn_euclid);
+    registerFn(gensym("sort"), [](const AtomListView& lv) -> AtomList {  AtomList res(lv); res.sort(); return res; });
+    registerFn(gensym(FN_RTREE), fn_rhythm_tree);
+    registerFn(gensym(FN_EUCLID), fn_euclid);
+    registerFn(gensym(FN_HEXBEAT), fn_hexbeat);
+    registerFn(gensym(FN_ROTATE), fn_rotate);
+    registerFn(gensym(FN_ONES), fn_ones);
+    registerFn(gensym(FN_ZEROS), fn_zeros);
 }
 
-BuiltinFunctionMap::~BuiltinFunctionMap()
-{
-}
+BuiltinFunctionMap::~BuiltinFunctionMap() = default;
 
 BuiltinFunctionMap& BuiltinFunctionMap::instance()
 {

@@ -1,7 +1,6 @@
 #include "canvas_current.h"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
-#include "ceammc_property_callback.h"
 #include "datatype_dict.h"
 
 CanvasCurrent::CanvasCurrent(const PdArgs& a)

@@ -24,7 +24,7 @@ process =  ba.bypass1(ui.bypass, bd: ds) with {
         ba.if(downsampling > 1 , dsWet(s, counter(downsampling)) , s);
 
     downbit =
-        vslider("bits [type:int]", bitLimit, 1, bitLimit, 0.1)
+        vslider("bits [type:int]", bitLimit, 1, bitLimit, 1)
         : (2 ^ (_-1)) : int;
 
     downsampling =

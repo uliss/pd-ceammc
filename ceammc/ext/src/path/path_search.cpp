@@ -127,14 +127,14 @@ static std::string searchFileTask(
                     return fname.generic_string();
                 } else if (search_recursive(search_depth)) {
                     // recursive search in relative user paths
-                    auto res = searchRecursive(abs_dir, file, search_depth, quit);
+                    auto res = searchRecursive(abs_dir, file, search_depth - 1, quit);
                     if (!res.empty())
                         return res.generic_string();
                 }
             }
         } else if (search_recursive(search_depth)) {
             // recursive search in standard user paths
-            auto res = searchRecursive(std_dir, file, search_depth, quit);
+            auto res = searchRecursive(std_dir, file, search_depth - 1, quit);
             if (!res.empty())
                 return res.generic_string();
         }
@@ -226,7 +226,7 @@ PathSearch::FutureResult PathSearch::createTask()
                 sys_paths.push_back(fs::path(cnv_dir->s_name).generic_string());
 
             // patch search paths
-            for (auto c : canvas_info_paths(canvas())) {
+            for (auto& c : canvas_info_paths(canvas())) {
                 if (c.isSymbol())
                     sys_paths.push_back(fs::path(c.asT<t_symbol*>()->s_name).generic_string());
             }

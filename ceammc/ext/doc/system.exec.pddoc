@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="system.exec">
         <title>system.exec</title>
         <meta>
@@ -14,18 +14,22 @@
             <since>0.7</since>
         </meta>
         <properties>
-            <property name="@is_running" type="int" enum="0 1" readonly="true" default="0">is
-            process is running</property>
+            <property name="@is_running" type="bool" access="readonly" default="0">is process is
+            running</property>
             <property name="@low" type="alias">alias to @priority low</property>
             <property name="@priority" type="symbol" enum="normal low" default="normal">subprocess
             priority (not all platforms are supported)</property>
-            <property name="@state" type="int" default="-1" readonly="true">running process state:
-            -1 (no process), 0 (not started), 1 (running), 2 (finished)</property>
+            <property name="@state" type="int" default="-1" access="readonly">running process
+            state: -1 (no process), 0 (not started), 1 (running), 2 (finished)</property>
         </properties>
         <methods>
+            <!-- eof -->
             <method name="eof">send EOF to running processes</method>
+            <!-- stop -->
             <method name="stop">stop running process</method>
+            <!-- terminate -->
             <method name="terminate">terminate running process</method>
+            <!-- write -->
             <method name="write">write data to process stdin</method>
         </methods>
         <inlets>

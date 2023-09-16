@@ -22,6 +22,8 @@ public:
     Demultiplex2Tilde(const PdArgs& args);
 
     void processBlock(const t_sample** in, t_sample** out) override;
+
+    const char* annotateOutlet(size_t n) const final;
 };
 
 void setup_flow_demultiplex2_tilde();

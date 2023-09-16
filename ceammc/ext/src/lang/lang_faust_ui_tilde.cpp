@@ -13,10 +13,12 @@
  *****************************************************************************/
 #include "lang_faust_ui_tilde.h"
 #include "ceammc_factory.h"
-#include "ceammc_platform.h"
 
-#include "fmt/format.h"
+#include "nui/button_view.h"
 #include "nui/factory.h"
+#include "nui/label_view.h"
+#include "nui/slider_view.h"
+#include "nui/tk_view_impl.h"
 
 extern "C" {
 int ceammc_init_done();
@@ -46,7 +48,7 @@ void initFaustStyle()
     const HexColor PALLETE1 = 0x457b9d;
     const HexColor PALLETE2 = 0xa8dadc;
     const HexColor PALLETE3 = 0xf1faee;
-    const HexColor PALLETE4 = 0xe63946; //e63946
+    const HexColor PALLETE4 = 0xe63946; // e63946
 
     st.insertColor("box:fill_color"_hash, PALLETE0);
     st.insertColor("label:color"_hash, PALLETE3);
@@ -91,7 +93,7 @@ LangFaustUiTilde::LangFaustUiTilde(const PdArgs& args)
 void LangFaustUiTilde::buildUI()
 {
     vc_.setXlets(Xlets::fromInlets(owner()), Xlets::fromOutlets(owner()));
-    auto sz = vc_.build(faustProperties(), fname_->value());
+    auto sz = vc_.build(faustProperties(), name());
     setSize(sz);
 }
 
@@ -111,10 +113,20 @@ void LangFaustUiTilde::onWidgetSelect(bool state)
     vc_.select(state);
 }
 
+void LangFaustUiTilde::onDropFiles(const AtomListView& lv)
+{
+    m_read(gensym(sym_read), lv);
+}
+
+void LangFaustUiTilde::onDropText(const AtomListView& lv)
+{
+//    this->se
+}
+
 void LangFaustUiTilde::onMouseDown(const Point& pt, const Point& abspt, uint32_t mod)
 {
     if (mod & KEY_MOD_ALT)
-        return m_open(&s_, {});
+        return openEditor(abspt.x(), abspt.y());
 
     vc_.sendEvent(EVENT_MOUSE_DOWN, pt, EventContext());
 }
@@ -137,7 +149,9 @@ void LangFaustUiTilde::setupDSP(t_signal** sp)
 
 void LangFaustUiTilde::compile()
 {
-    vc_.clearAll();
+    if (!isPatchLoading())
+        vc_.clearAll();
+
     LangFaustTilde::compile();
 }
 
@@ -153,11 +167,9 @@ FaustMasterView::FaustMasterView()
 {
 }
 
-FaustMasterView::~FaustMasterView()
-{
-}
+FaustMasterView::~FaustMasterView() = default;
 
-Size FaustMasterView::build(const std::vector<faust::UIProperty*>& props, t_symbol* fname)
+Size FaustMasterView::build(const std::vector<faust::UIProperty*>& props, t_symbol* name)
 {
     focused_ = nullptr;
     auto vgroup = new VGroupView({});
@@ -167,8 +179,8 @@ Size FaustMasterView::build(const std::vector<faust::UIProperty*>& props, t_symb
 
     auto lm = new LabelModel(faustThemeIdx);
     lm->data().setAnchor(ANCHOR_CORNER_LEFT_TOP);
-    lm->data().setText(fmt::format("FAUST: \"{}\"",
-        (fname == &s_) ? std::string() : platform::basename(fname->s_name)));
+    lm->data().setText(name->s_name);
+
     labels_.emplace_back(lm);
 
     ViewPtr lv(new LabelView(lm, LabelView::ViewImplPtr(new TclLabelImpl), {}));
@@ -437,16 +449,21 @@ void FaustMasterView::createButtonEntry(faust::UIProperty* p)
     vgroup->appendChild(std::move(hgroup));
 }
 
-#ifdef _WIN32
-#define EXPORT extern "C"  __declspec(dllexport)
-#else
-#define EXPORT extern "C"
-#endif
-
-EXPORT void setup_ui0x2efaust_tilde()
+void setup_ui0x2efaust_tilde()
 {
     if (!ceammc_init_done())
         ceammc_setup();
+
+    auto cls = setup_ui_faust_non_external();
+
+    std::string path = class_gethelpdir(cls);
+    path += "/faust";
+    LangFaustUiTilde::addIncludePath(path);
+}
+
+t_class* setup_ui_faust_non_external()
+{
+    tcl_nui_init();
 
     ui::UIFactory<SoundExternalFactory, LangFaustUiTilde> obj("ui.faust~");
     obj.useMouseEnter();
@@ -455,15 +472,17 @@ EXPORT void setup_ui0x2efaust_tilde()
     obj.useMouseDown();
     obj.useMouseUp();
     obj.useMouseRight();
+    obj.useDragAndDropFiles();
+    obj.useDragAndDropText();
 
     obj.addMethod("reset", &LangFaustUiTilde::m_reset);
     obj.addMethod("open", &LangFaustUiTilde::m_open);
-    obj.addMethod("update", &LangFaustUiTilde::m_update);
+
+    LangFaustUiTilde::factoryEditorObjectInit(obj);
+    LangFaustUiTilde::factorySaveObjectInit(obj);
+    LangFaustTilde::factoryFilesystemObjectInit(obj);
 
     initFaustStyle();
 
-    obj.classPointer();
-    std::string path = class_gethelpdir(obj.classPointer());
-    path += "/faust";
-    LangFaustUiTilde::addIncludePath(path);
+    return obj.classPointer();
 }

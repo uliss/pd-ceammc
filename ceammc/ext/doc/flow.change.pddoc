@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flow.change">
         <title>flow.change</title>
         <meta>
@@ -22,7 +22,8 @@
             <par>Note: [list a b c( and [a b c( are different values!</par>
         </info>
         <properties>
-            <property name="@onrepeat" type="symbol">function called when repeat occurs</property>
+            <property name="@onrepeat" type="symbol" default="">function called when repeat
+            occurs</property>
         </properties>
         <inlets>
             <inlet>

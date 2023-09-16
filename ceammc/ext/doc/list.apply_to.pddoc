@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="list.apply_to">
         <title>list.apply_to</title>
         <meta>
@@ -18,11 +18,11 @@
             </also>
         </meta>
         <arguments>
-            <argument name="index" type="list">apply index(es) (starting from 0). Negative value
+            <argument name="INDEXES" type="list">apply index(es) (starting from 0). Negative value
             means position from end of the list. For example: '-1' means last element.</argument>
         </arguments>
         <properties>
-            <property name="@indexes" type="list">applied index(es)</property>
+            <property name="@indexes" type="list" default="">applied index(es)</property>
         </properties>
         <inlets>
             <inlet>
@@ -47,9 +47,7 @@
 |
 [list.apply_to 1 -2] X [mtof]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

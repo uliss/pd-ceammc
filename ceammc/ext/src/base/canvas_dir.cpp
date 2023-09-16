@@ -18,12 +18,19 @@
 CanvasDir::CanvasDir(const PdArgs& args)
     : BaseObject(args)
 {
+    abs_ = new BoolProperty("@abs", true);
+    addProperty(abs_);
+
+    createOutlet();
     createOutlet();
 }
 
 void CanvasDir::onBang()
 {
-    symbolTo(0, canvas_info_dir(canvas()));
+    int level = 0;
+    auto dir = canvas_info_dir(canvas_root(canvas(), level, abs_->value()));
+    floatTo(1, level);
+    symbolTo(0, dir);
 }
 
 void setup_base_canvas_dir()
@@ -32,7 +39,9 @@ void setup_base_canvas_dir()
 
     obj.setDescription("current canvas directory");
     obj.addAuthor("Serge Poltavsky");
-    obj.setKeywords({"canvas", "directory"});
+    obj.setKeywords({ "canvas", "directory" });
     obj.setCategory("patch");
     obj.setSinceVersion(0, 8);
+
+    obj.setXletsInfo({ "bang" }, { "symbol: canvas directory", "int: nested level" });
 }

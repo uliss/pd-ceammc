@@ -23,7 +23,7 @@ MathOr::MathOr(const PdArgs& a)
 
 int MathOr::operate() const
 {
-    return (std::find(vars_.begin(), vars_.begin() + long(arg_num_), true) == vars_.end()) ? 0 : 1;
+    return (std::find(begin(), end(), true) == end()) ? 0 : 1;
 }
 
 void setup_math_or()
@@ -31,4 +31,7 @@ void setup_math_or()
     ObjectFactory<MathOr> obj("math.or");
     obj.addAlias("or");
     obj.addMethod("reset", &MathOr::m_reset);
+
+    obj.setDescription("operation OR for multiple arguments");
+    obj.setCategory("math");
 }

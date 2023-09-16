@@ -14,23 +14,19 @@
 #ifndef NET_OSC_SEND_H
 #define NET_OSC_SEND_H
 
-#ifndef WIN32
-#include <unistd.h>
-#endif
-
 #include <cstdarg>
 #include <cstdint>
 
 #include "ceammc_object.h"
-#include "readerwriterqueue.h"
+#include "osc_property.h"
 
 using namespace ceammc;
 
 struct NetOscSendOscTask;
 
 class NetOscSend : public BaseObject {
-    SymbolProperty* host_;
-    IntProperty* port_;
+    net::OscUrlProperty* url_;
+    std::shared_ptr<osc::OscSendWorker> worker_;
 
 public:
     NetOscSend(const PdArgs& args);
@@ -45,9 +41,12 @@ public:
     void m_send_inf(t_symbol* s, const AtomListView& lv);
     void m_send_string(t_symbol* s, const AtomListView& lv);
     void m_send_typed(t_symbol* s, const AtomListView& lv);
+    void m_send_midi(t_symbol* s, const AtomListView& lv);
+    void m_send_char(t_symbol* s, const AtomListView& lv);
+    void m_send_blob(t_symbol* s, const AtomListView& lv);
 
 private:
-    void initTask(NetOscSendOscTask& task, const char* path);
+    void initTask(osc::SendOscTask& task, const char* path);
 };
 
 void setup_net_osc_send();

@@ -43,24 +43,24 @@ specflux kl mkl;
 #X text 245 635 METHOD: onset detection method. Type: symbol.;
 #X text 110 655 3\.;
 #X text 150 655 int;
-#X obj 246 656 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 655 HS: hop size (by default buffer_size/2). Type: int.
-Min value: 0;
+#X obj 246 656 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 655 HS(samp): hop size (by default buffer_size/2). Type:
+int. Min value: 0;
 #X obj 20 700 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 705 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 740 @active;
-#X text 245 740 Get/Set audio processing state. Type: int. Default
-value: 1\. Allowed values: 0 \, 1\.;
-#X msg 110 782 @bs;
-#X text 245 782 Get/Set buffer size. Type: int. Units: samp. Default
-value: 1024\. Min value: 64\.;
+#X msg 110 740 @bs;
+#X text 245 740 (initonly) Get/Set buffer size. Type: int. Units: 'samp'.
+Default value: 1024\. Min value: 64\.;
+#X msg 110 782 @active;
+#X text 245 782 Get/Set audio processing state. Type: bool. Default
+value: 1\.;
 #X msg 110 824 @complex;
 #X text 245 824 alias to @method complex. Complex Domain Method onset
 detection function.;
 #X msg 110 866 @delay;
 #X text 245 866 Get/Set constant system delay to take back from detection
-time. Type: float. Units: ms. Default value: 0\. Min value: 0\.;
+time. Type: float. Units: 'ms'. Default value: 0\. Min value: 0\.;
 #X msg 110 923 @energy;
 #X text 245 923 alias to @method energy. Energy based onset detection
 function.;
@@ -69,7 +69,7 @@ function.;
 detection.;
 #X msg 110 994 @hs;
 #X text 245 994 Get/Set hop size. 0 means @bs/2\. Type: int. Units:
-samp. Default value: 0\. Min value: 0\.;
+'samp'. Default value: 0\. Min value: 0\.;
 #X msg 110 1036 @kl;
 #X text 245 1036 alias to @method kl. Kullback-Liebler onset detection
 function.;
@@ -87,7 +87,7 @@ detection function.;
 function.;
 #X msg 110 1234 @silence;
 #X text 245 1234 Get/Set onset detection silence threshold. Type: float.
-Units: db. Default value: -90\. Range: -90\...0\.;
+Units: 'db'. Default value: -90\. Range: -90\...0\.;
 #X msg 110 1276 @specdiff;
 #X text 245 1276 alias to @method specdiff. Spectral difference method
 onset detection function.;
@@ -117,13 +117,13 @@ detection function.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title an @url ceammc.an-help.pd;
 #X obj 1 1553 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1556 library: ceammc v0.9.4;
+#X text 10 1556 library: ceammc v0.9.7;
 #N canvas 10 1575 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.4;
+#X text 120 32 0.9.7;
 #X text 10 54 object:;
 #X text 120 54 an.tempo~;
 #X text 10 76 category:;

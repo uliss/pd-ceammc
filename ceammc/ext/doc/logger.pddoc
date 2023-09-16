@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="logger">
         <title>logger</title>
         <meta>
@@ -26,8 +26,8 @@
             <argument name="PREFIX" type="list">log message prefix</argument>
         </arguments>
         <properties>
-            <property name="@prefix" type="list">log message prefix</property>
-            <property name="@active" type="int" enum="0 1" default="1">enabled/disabled logging
+            <property name="@prefix" type="list" default="">log message prefix</property>
+            <property name="@active" type="bool" default="1">enabled/disabled logging
             state</property>
         </properties>
         <inlets>

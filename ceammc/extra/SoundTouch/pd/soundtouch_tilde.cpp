@@ -1,17 +1,14 @@
 #include "soundtouch_tilde.h"
-#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
 #include <cmath>
 
 constexpr t_float DEF_PITCH = 0;
-static t_symbol* PROP_ANTIALIAS_LENGTH;
 
 SoundTouchExt::SoundTouchExt(const PdArgs& a)
     : SoundExternal(a)
-    , bypass_(nullptr)
-    , pitch_(nullptr)
     , pitch_value_(DEF_PITCH)
+    , drywet_(0, 1)
 {
     createSignalOutlet();
     createInlet();
@@ -44,7 +41,21 @@ SoundTouchExt::SoundTouchExt(const PdArgs& a)
     bypass_ = new BoolProperty("@bypass", false);
     addProperty(bypass_);
 
+    {
+        auto dw = new FloatProperty("@drywet", 1);
+        dw->checkClosedRange(0, 1);
+        dw->setSuccessFn([dw, this](Property* p) { drywet_.setTargetValue(dw->value()); });
+
+        addProperty(dw);
+    }
+
     initSoundTouch();
+}
+
+void SoundTouchExt::setupDSP(t_signal** sp)
+{
+    SoundExternal::setupDSP(sp);
+    drywet_.setDurationMs(100, samplerate());
 }
 
 void SoundTouchExt::processBlock(const t_sample** in, t_sample** out)
@@ -56,22 +67,20 @@ void SoundTouchExt::processBlock(const t_sample** in, t_sample** out)
 
     const size_t bs = blockSize();
 
-#if PD_FLOATSIZE == 32
-    stouch_.putSamples(in[0], bs);
-    stouch_.receiveSamples(out[0], bs);
-#elif PD_FLOATSIZE == 64
     float fin[bs];
     float fout[bs];
 
-    for(size_t i = 0; i < bs; i++)
+    for (size_t i = 0; i < bs; i++)
         fin[i] = in[0][i];
 
     stouch_.putSamples(fin, bs);
-    stouch_.receiveSamples(fout, bs);
+    auto nsamp = stouch_.receiveSamples(fout, bs);
+    for (size_t i = nsamp; i < bs; i++)
+        fout[i] = 0;
 
-    for(size_t i = 0; i < bs; i++)
-        out[0][i] = fout[i];
-#endif
+    for (size_t i = 0; i < bs; i++) {
+        out[0][i] = interpolate::linear<t_sample>(in[0][i], fout[i], drywet_());
+    }
 }
 
 void SoundTouchExt::onInlet(size_t, const AtomListView& lst)
@@ -96,7 +105,7 @@ void SoundTouchExt::initSoundTouch()
 
 extern "C" void soundtouch_tilde_setup()
 {
-    PROP_ANTIALIAS_LENGTH = gensym("@aalength");
-
     SoundExternalFactory<SoundTouchExt> obj("soundtouch~");
+
+    LIB_DBG << "Soundtouch version: " << SOUNDTOUCH_VERSION;
 }

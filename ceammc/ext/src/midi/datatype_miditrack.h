@@ -59,7 +59,7 @@ public:
     const_iterator end() const;
 
 public:
-    static const DataTypeId dataType;
+    static DataTypeId staticType();
 };
 
 #endif // DATATYPE_MIDITRACK_H

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="pan.lin~">
         <title>pan.lin~</title>
         <meta>
@@ -40,7 +40,7 @@
             <property name="@pos" type="float" minvalue="-1" maxvalue="1" default="0">panning
             position. -1 means left, 0 - center, +1 - right</property>
             <property name="@smooth" type="int" minvalue="0" maxvalue="100" default="20"
-            readonly="true">smooth control signal to avoid zipping-noise</property>
+            access="initonly">smooth control signal to avoid zipping-noise</property>
         </properties>
         <inlets>
             <inlet type="audio">

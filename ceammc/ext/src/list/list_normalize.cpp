@@ -47,4 +47,8 @@ void setup_list_normalize()
 {
     ObjectFactory<ListNormalize> obj("list.normalize");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("normalizes float list values to get their sum = 1.0");
+    obj.setCategory("list");
+    obj.setKeywords({"list", "normalize"});
 }

@@ -16,6 +16,7 @@ FlowSpeedLimit::FlowSpeedLimit(const PdArgs& a)
     period_ = new IntProperty("@limit", 0);
     period_->setArgIndex(0);
     period_->setUnitsMs();
+    period_->checkMinEq(0);
     addProperty(period_);
 }
 
@@ -105,4 +106,8 @@ void setup_flow_speedlim()
     InletProxy<FlowSpeedLimit>::set_method_callback(gensym("reset"), &FlowSpeedLimit::onInletReset);
 
     obj.setXletsInfo({ "any: input flow", "float: change speed" }, { "any: output flow" });
+
+    obj.setDescription("control stream speed limiter");
+    obj.setCategory("flow");
+    obj.setKeywords({"speelim", "drop"});
 }

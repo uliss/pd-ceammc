@@ -198,4 +198,8 @@ void setup_seq_life()
     obj.addMethod("oct2", &SeqLife::m_oct2);
     obj.addMethod("rpent", &SeqLife::m_rpent);
     obj.addMethod("vhive", &SeqLife::m_vhive);
+
+    obj.setDescription("Conway game of life sequencer");
+    obj.setCategory("seq");
+    obj.setKeywords({"seq", "conway", "life", "game"});
 }

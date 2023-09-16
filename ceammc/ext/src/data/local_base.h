@@ -14,20 +14,17 @@
 #ifndef LOCAL_BASE_H
 #define LOCAL_BASE_H
 
-#include <cstdio>
-
-#include "ceammc_format.h"
 #include "global_base.h"
 
 namespace ceammc {
 
 PdArgs make_local_id(const PdArgs& a);
 
-template <typename T>
-class LocalBase : public GlobalBase<T> {
+template <typename T, typename Base = BaseObject>
+class LocalBase : public GlobalBase<T, Base> {
 public:
     LocalBase(const PdArgs& a)
-        : GlobalBase<T>(make_local_id(a))
+        : GlobalBase<T, Base>(make_local_id(a))
     {
     }
 };

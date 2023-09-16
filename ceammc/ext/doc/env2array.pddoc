@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="env2array">
         <title>env2array</title>
         <meta>
@@ -25,9 +25,8 @@
             <argument name="ARRAY" type="symbol">array name</argument>
         </arguments>
         <properties>
-            <property name="@array" type="symbol">target array name</property>
-            <property name="@redraw" type="int" enum="0 1" default="1">redraw after array
-            change</property>
+            <property name="@array" type="symbol" default="">target array name</property>
+            <property name="@redraw" type="bool" default="1">redraw after array change</property>
             <property name="@mode" type="symbol" enum="fit resize raw" default="fit">rendering
             mode: *fit* to array size, *resize* array to envelope length or *raw* render while
             enough space in array</property>

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="seq.toggles">
         <title>seq.toggles</title>
         <meta>
@@ -10,7 +10,7 @@
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>seq</category>
-            <keywords>seq sequencer toggle pattern rythm</keywords>
+            <keywords>seq sequencer toggle pattern rhythm</keywords>
             <since>0.9.1</since>
             <aliases>
                 <alias>seq.t</alias>
@@ -31,38 +31,47 @@
             event length is 60 (100-40)</par>
         </info>
         <arguments>
-            <argument name="PATTERN" type="list">sequencer pattern in beat duration
-            units</argument>
+            <argument name="P" type="list">sequencer pattern in beat duration units</argument>
         </arguments>
         <properties>
+            <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">beat
+            subdivision</property>
             <property name="@t" type="float" default="100" minvalue="1" maxvalue="20000"
             units="millisecond">time between beats. Unit values like 100ms, 240bpm or 60|4bpm also
             can be used</property>
-            <property name="@p" type="list">sequencer pattern in beat duration units</property>
+            <property name="@p" type="list" default="">sequencer pattern in beat duration
+            units</property>
             <property name="@r" type="int" minvalue="-1" default="1">number of whole sequence
             repeats. If -1: repeat infinitely</property>
             <property name="@inf" type="alias">alias to @r -1, repeats infinitely</property>
             <property name="@once" type="alias">alias to @r 1, play once</property>
             <property name="@dur" type="float" default="0" minvalue="0" units="millisecond">whole
             sequence duration. (Recalculates @t property accordingly)</property>
+            <property name="@upbeat" type="float" default="0" minvalue="0">wait specified number of
+            beats before sequence start</property>
             <property name="@length" type="float" default="75">event length. In case of float or
             float wuth 'ms' suffix - event length is fixed for any event duration. In case of V% -
             @length expected to be in 0..100 range and event length is percent of duration. In case
             of negative @length event duration is calculated as duration+@length, but not less then
             1</property>
-            <property name="@i" type="int" minvalue="0" readonly="true" default="0">current
-            sequence iteration</property>
-            <property name="@ri" type="int" minvalue="0" readonly="true" default="0">current repeat
+            <property name="@i" type="int" access="readonly" default="0">current sequence
+            iteration</property>
+            <property name="@ri" type="int" access="readonly" default="0">current repeat
             iteration</property>
             <property name="@mode" type="symbol" enum="inc dec tri" default="inc">sequencer mode.
             'inc': from first to last, 'dec': from last to first, 'tri': from first to last, then
             back</property>
         </properties>
         <methods>
-            <method name="start">start sequencer from current position</method>
+            <!-- reset -->
             <method name="reset">reset all counters and stop</method>
+            <!-- rewind -->
             <method name="rewind">reset all counters without stopping</method>
+            <!-- start -->
+            <method name="start">start sequencer from current position</method>
+            <!-- stop -->
             <method name="stop">stop sequencer</method>
+            <!-- tick -->
             <method name="tick">output current sequence element and move to next</method>
         </methods>
         <inlets>

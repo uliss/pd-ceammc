@@ -51,4 +51,8 @@ t_symbol* SymbolEqual::pattern() const
 void setup_symbol_equal()
 {
     ObjectFactory<SymbolEqual> obj("symbol.equal");
+
+    obj.setDescription("check symbols for equality");
+    obj.setCategory("symbol");
+    obj.setKeywords({"symbol", "compare"});
 }

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="string.join">
         <title>string.join</title>
         <meta>
@@ -24,7 +24,7 @@
             <argument name="SEP" type="list">separator. For space use quotes.</argument>
         </arguments>
         <properties>
-            <property name="@sep" type="symbol" default="">separator</property>
+            <property name="@sep" type="list" default="">separator</property>
         </properties>
         <inlets>
             <inlet>

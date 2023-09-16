@@ -33,20 +33,20 @@
 are supported. Type: symbol.;
 #X msg 110 537 @gdelay;
 #X text 245 537 Get/Set delay parameter that causes grain calculations
-to pause between grains. Type: int. Units: ms. Default value: 0\. Min
-value: 0\.;
+to pause between grains. Type: int. Units: 'ms'. Default value: 0\.
+Min value: 0\.;
 #X msg 110 594 @gdur;
-#X text 245 594 Get/Set grain duration. Type: int. Units: ms. Default
+#X text 245 594 Get/Set grain duration. Type: int. Units: 'ms'. Default
 value: 30\. Min value: 1\.;
 #X msg 110 636 @goffset;
 #X text 245 636 Get/Set offset parameter that controls grain pointer
-jumps between enveloped grain segments. Type: int. Units: ms. Default
+jumps between enveloped grain segments. Type: int. Units: 'ms'. Default
 value: 0\. Min value: 0\.;
 #X msg 110 693 @gramp;
 #X text 245 693 Get/Set grain ramp. For values of @gramp greater than
 zero \, a linear envelope will be applied to each grain. If @gramp
 = 100 \, the resultant grain "window" is triangular while @gramp =
-50 produces a trapezoidal window. Type: int. Units: %. Default value:
+50 produces a trapezoidal window. Type: int. Units: '%'. Default value:
 50\. Range: 1\...100\.;
 #X msg 110 780 @random;
 #X text 245 780 Get/Set factor used when setting individual grain parameters.
@@ -92,13 +92,13 @@ the file start.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
 #X obj 1 1311 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1314 library: ceammc v0.9.4;
+#X text 10 1314 library: ceammc v0.9.7;
 #N canvas 10 1333 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.4;
+#X text 120 32 0.9.7;
 #X text 10 54 object:;
 #X text 120 54 synth.fgrain~;
 #X text 10 76 category:;

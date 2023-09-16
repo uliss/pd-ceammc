@@ -68,7 +68,7 @@ void FlowCount::onInletAny(int id, t_symbol* s, const AtomListView& lv)
         counter_->setValue(default_value_);
         break;
     case "float"_hash:
-        counter_->setValue(lv.asFloat());
+        counter_->setValue(lv.floatAt(0, 0));
         break;
     case "@value"_hash:
         counter_->set(lv);
@@ -77,13 +77,13 @@ void FlowCount::onInletAny(int id, t_symbol* s, const AtomListView& lv)
         floatTo(0, counter_->value());
         break;
     case "-"_hash:
-        counter_->setValue(counter_->value() - lv.asFloat());
+        counter_->setValue(counter_->value() - lv.floatAt(0, 0));
         break;
     case "+"_hash:
-        counter_->setValue(counter_->value() + lv.asFloat());
+        counter_->setValue(counter_->value() + lv.floatAt(0, 0));
         break;
     default:
-        OBJ_ERR << "bang, int or @value message expected, got: " << s->s_name << ' ' << lv;
+        OBJ_ERR << "bang, int, +, - or @value message expected, got: " << s->s_name << ' ' << lv;
         break;
     }
 }
@@ -117,4 +117,8 @@ void setup_flow_count()
 
     InletProxy<FlowCount>::init();
     InletProxy<FlowCount>::set_any_callback(&FlowCount::onInletAny);
+
+    obj.setDescription("control flow event counter");
+    obj.setCategory("flow");
+    obj.setKeywords({"counter"});
 }

@@ -22,8 +22,6 @@
 #include <limits>
 #include <sstream>
 
-const DataTypeId DataTypeProperty::dataType = data::DATA_PROPERTY;
-
 constexpr auto min_fdefault = std::numeric_limits<t_float>::lowest();
 constexpr auto max_fdefault = std::numeric_limits<t_float>::max();
 constexpr auto min_idefault = std::numeric_limits<int>::lowest();
@@ -61,9 +59,14 @@ DataTypeProperty::DataTypeProperty(const DataTypeProperty& p)
 {
 }
 
+DataTypeId DataTypeProperty::staticType()
+{
+    return data::DATA_PROPERTY;
+}
+
 DataTypeId DataTypeProperty::type() const noexcept
 {
-    return dataType;
+    return data::DATA_PROPERTY;
 }
 
 DataTypeProperty* DataTypeProperty::clone() const

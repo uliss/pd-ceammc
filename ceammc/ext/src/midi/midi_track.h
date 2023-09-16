@@ -5,6 +5,7 @@
 #include "ceammc_object.h"
 #include "datatype_midistream.h"
 #include "datatype_miditrack.h"
+#include "ceammc_clock.h"
 
 using namespace ceammc;
 
@@ -26,7 +27,7 @@ class MidiTrack : public BaseObject {
     // used with reserved memory
     // to avoid allocation on every outputEvent() call
     AtomList current_event_;
-    t_clock* clock_;
+    ClockLambdaFunction clock_;
     PlayState play_state_;
 
 public:
@@ -49,6 +50,7 @@ public:
     void m_pause(t_symbol*, const AtomListView&);
 
     void outputEvent(MidiEvent* ev);
+    void allNotesOff();
 
     /**
      * find next tick event after specified event
@@ -93,7 +95,6 @@ private:
      */
     double outputCurrent();
 
-    static void clockTickHandler(MidiTrack* p);
     void clockTick();
 };
 

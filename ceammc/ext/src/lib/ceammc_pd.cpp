@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ceammc_pd.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_canvas.h"
 #include "ceammc_externals.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
@@ -107,8 +108,8 @@ pd::External::External(const char* name, const AtomList& lst)
     , parent_(nullptr)
 {
     try {
-        t_symbol* OBJ_NAME = gensym(name);
-        pd_typedmess(&pd_objectmaker, OBJ_NAME, int(lst.size()), lst.toPdData());
+        auto OBJ_NAME = gensym(name);
+        pd::message_to(&pd_objectmaker, OBJ_NAME, lst);
 
         t_pd* ptr = pd_newest();
         if (!ptr) {
@@ -125,6 +126,9 @@ pd::External::External(const char* name, const AtomList& lst)
         obj_ = res;
     } catch (std::exception& e) {
         std::cerr << "error: " << e.what() << " while object creation [" << name << "]" << std::endl;
+        obj_ = 0;
+    } catch(...) {
+        std::cerr << "unknown exception while object creation [" << name << "]" << std::endl;
         obj_ = 0;
     }
 }
@@ -154,6 +158,13 @@ pd::External::~External()
 bool pd::External::isNull() const
 {
     return obj_ == 0;
+}
+
+bool pd::External::isAbstraction() const
+{
+    return obj_
+        && pd_class(&obj_->te_g.g_pd) == canvas_class
+        && canvas_isabstraction((t_canvas*)(obj_));
 }
 
 t_symbol* pd::External::className() const
@@ -261,12 +272,23 @@ void pd::External::setParent(t_canvas* cnv)
     parent_ = cnv;
 }
 
+_glist* pd::External::asAbstraction()
+{
+    if (!isAbstraction())
+        return nullptr;
+    else
+        return (t_canvas*)(obj_);
+}
+
 void pd::External::sendBang()
 {
     if (!obj_)
         return;
 
-    pd_bang(pd());
+    if (isAbstraction())
+        canvas_send_bang(asAbstraction());
+    else
+        pd::bang_to(pd());
 }
 
 void pd::External::sendFloat(t_float v)
@@ -279,18 +301,12 @@ void pd::External::sendFloat(t_float v)
 
 void pd::External::sendSymbol(t_symbol* s)
 {
-    if (!obj_)
-        return;
-
-    pd_symbol(pd(), s);
+    pd::symbol_to(pd(), s);
 }
 
-void pd::External::sendList(const AtomList& l)
+void pd::External::sendList(const AtomList& lv)
 {
-    if (!obj_)
-        return;
-
-    pd_list(pd(), &s_list, int(l.size()), l.toPdData());
+    pd::list_to(pd(), lv.view());
 }
 
 void pd::External::sendBangTo(size_t inlet)
@@ -326,14 +342,14 @@ void pd::External::sendSymbolTo(t_symbol* s, size_t inlet)
     }
 }
 
-void pd::External::sendListTo(const AtomList& l, size_t inlet)
+void pd::External::sendListTo(const AtomList& lv, size_t inlet)
 {
     if (inlet == 0)
-        sendList(l);
+        sendList(lv);
     else {
         External pd_l("list");
         if (pd_l.connectTo(0, *this, inlet))
-            pd_list(pd_l.pd(), &s_list, int(l.size()), l.toPdData());
+            pd::list_to(pd_l.pd(), lv.view());
     }
 }
 
@@ -342,7 +358,7 @@ void pd::External::sendMessage(t_symbol* msg, const AtomList& args)
     if (!obj_)
         return;
 
-    pd_typedmess(&obj_->te_g.g_pd, msg, int(args.size()), args.toPdData());
+    pd::message_to(&obj_->te_g.g_pd, msg, args.view());
 }
 
 void pd::External::sendMessage(const Message& m)
@@ -613,4 +629,133 @@ void pd::object_bang(t_object* x)
         return;
 
     x->te_g.g_pd->c_bangmethod(&x->te_g.g_pd);
+}
+
+void pd::message_to(t_pd* x, t_symbol* s, const AtomListView& lv)
+{
+    if (x)
+        pd_typedmess(x, s, lv.size(), lv.toPdData());
+}
+
+void pd::message_to(BaseObject* x, t_symbol* s, const AtomListView& lv)
+{
+    if (x && x->owner())
+        pd_typedmess(x->asPd(), s, lv.size(), lv.toPdData());
+}
+
+t_pd* pd::object_pd(t_object* x)
+{
+    if (!x)
+        return nullptr;
+
+    return &x->te_g.g_pd;
+}
+
+void pd::bang_to(t_pd* x)
+{
+    if (x)
+        pd_bang(x);
+}
+
+void pd::float_to(t_pd* x, t_float f)
+{
+    if (x)
+        pd_float(x, f);
+}
+
+void pd::float_to(t_pd* x, const t_atom& a)
+{
+    if (x)
+        pd_float(x, a.a_w.w_float);
+}
+
+void pd::symbol_to(t_pd* x, t_symbol* s)
+{
+    if (x)
+        pd_symbol(x, s);
+}
+
+void pd::symbol_to(t_pd* x, const char* s)
+{
+    if (x)
+        pd_symbol(x, gensym(s));
+}
+
+void pd::symbol_to(t_pd* x, const t_atom& a)
+{
+    if (x)
+        pd_symbol(x, a.a_w.w_symbol);
+}
+
+void pd::typed_message_to(t_pd* x, const AtomListView& lv)
+{
+    if (!x)
+        return;
+
+    if (lv.empty())
+        return pd::bang_to(x);
+    else if (lv.isFloat())
+        return pd::float_to(x, lv[0].atom());
+    else if (lv.isSymbol())
+        return pd::symbol_to(x, lv[0].atom());
+    else if (lv.size() > 1 && lv[0].isFloat())
+        return pd::list_to(x, lv);
+    else if (lv[0].isSymbol())
+        return message_to(x, lv[0].asT<t_symbol*>(), lv.subView(1));
+}
+
+void pd::list_to(t_pd* x, const AtomListView& lv)
+{
+    if (x)
+        pd_list(x, &s_list, lv.size(), lv.toPdData());
+}
+
+bool pd::send_bang(t_symbol* addr)
+{
+    if (!addr->s_thing)
+        return false;
+
+    pd_bang(addr->s_thing);
+    return true;
+}
+
+bool pd::send_float(t_symbol* addr, t_float f)
+{
+    if (!addr->s_thing)
+        return false;
+
+    pd_float(addr->s_thing, f);
+    return true;
+}
+
+bool pd::send_symbol(t_symbol* addr, t_symbol* s)
+{
+    if (!addr->s_thing)
+        return false;
+
+    pd_symbol(addr->s_thing, s);
+    return true;
+}
+
+bool pd::send_symbol(t_symbol* addr, const char* s)
+{
+    return pd::send_symbol(addr, gensym(s));
+}
+
+bool pd::send_list(t_symbol* addr, const AtomListView& lv)
+{
+    if (!addr->s_thing)
+        return false;
+
+    pd_list(addr->s_thing, &s_list, lv.size(), lv.toPdData());
+    return true;
+}
+
+bool pd::send_message(t_symbol* addr, t_symbol* s, const AtomListView& lv)
+{
+    if (!addr->s_thing)
+        return false;
+
+    pd_typedmess(addr->s_thing, s, lv.size(), lv.toPdData());
+    return true;
 }

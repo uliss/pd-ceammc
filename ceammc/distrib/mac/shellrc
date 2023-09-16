@@ -1,0 +1,7 @@
+ntestm() {
+	ninja test_ext_${1} && ./ceammc/ext/tests/test_ext_${1} ${@:2}
+}
+
+ntest() {
+	ninja test_${1} && ./ceammc/ext/tests/test_${1} ${@:2}
+}

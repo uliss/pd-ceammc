@@ -145,4 +145,8 @@ void setup_flow_multiplex_tilde()
     obj.addAlias("mux~");
 
     obj.addOutletInfo("signal: output");
+
+    obj.setDescription("audio stream multiplexer");
+    obj.setCategory("flow");
+    obj.setKeywords({"flow", "multiplex"});
 }

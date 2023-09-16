@@ -15,14 +15,13 @@
 #define CONV_NOTE2GUIDO_H
 
 #include <array>
-#include <boost/static_string.hpp>
 
+#include "ceammc_datatypes.h"
 #include "ceammc_object.h"
 using namespace ceammc;
 
 class ConvNote2Guido : public BaseObject {
-    std::array<t_symbol*, 8> pc_;
-    using GuidoNote = boost::static_string<8>;
+    using GuidoNote = BoostStaticString<15>;
 
 public:
     ConvNote2Guido(const PdArgs& args);
@@ -30,8 +29,9 @@ public:
     void onFloat(t_float f) final;
     void onList(const AtomListView& lv) override;
 
+    void m_note(t_symbol* s, const AtomListView& lv);
 public:
-    GuidoNote guidoNote(size_t midiPitch, int dur = -1, int dots = 0) const;
+    GuidoNote guidoNote(int midiPitch, int dur = -1, int dots = 0) const;
 };
 
 void setup_conv_note2guido();

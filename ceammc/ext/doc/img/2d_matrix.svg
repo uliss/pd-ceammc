@@ -1,0 +1,220 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg xmlns:xlink="http://www.w3.org/1999/xlink" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" version="1.1" width="100%" height="100%" viewBox="-130 -360 1140 1520" id="svg353">
+  <title id="title2">2D affine transformation matrix</title>
+  <desc id="desc4">Illustration of the effect of applying various 2D affine transformation matrices on a unit square by CMG Lee. Note that the reflection matrices are special cases of the scaling matrix.</desc>
+  <style type="text/css" id="style6">
+.point_0 { stroke:#009900; fill:#009900; }
+.point_x { stroke:#0000ff; fill:#0000ff; }
+.point_y { stroke:#cc0000; fill:#cc0000; }
+.default { stroke:#000000; fill:#000000; }
+.ghost   { stroke:#999999; fill:#999999; }
+.angle   { stroke:#660099; fill:#cc00ff; }
+.nostroke { stroke:none; }
+ </style>
+  <defs id="defs51">
+    <g id="square">
+      <circle cx="0" cy="0" r="6.4" class="point_0" opacity="0.75" id="circle8"/>
+      <circle cx="100" cy="0" r="6.4" class="point_x" opacity="0.75" id="circle10"/>
+      <circle cx="0" cy="-100" r="6.4" class="point_y" opacity="0.75" id="circle12"/>
+      <rect x="0" y="-100" width="100" height="100" id="rect14"/>
+      <path d="M 80,-80 H 20 V -20 H 30 V -45 H 70 V -55 H 30 V -70 H 80 Z" stroke="none" fill="#cc9900" opacity="0.9" id="path16"/>
+    </g>
+    <path id="axis" d="M -120,0 H 170 m -10,-10 l 10,10 l -10,10 M -100,-10 V 10 M 100,-10 V 10" stroke="#999999"/>
+    <path id="bracket" d="M 0,10 H -10 V 120 H 0"/>
+    <g id="base_matrix" transform="translate(40,-315)">
+      <switch><text x="-50" y="120" class="ghost nostroke" id="text21"><tspan id="trsvg1">0</tspan></text></switch>
+      <switch><text x="0" y="120" class="ghost nostroke" id="text23"><tspan id="trsvg2">0</tspan></text></switch>
+      <switch><text x="50" y="120" class="ghost nostroke" id="text25-ro" systemLanguage="ro"><tspan id="trsvg3-ro">1</tspan></text><text x="50" y="120" class="ghost nostroke" id="text25"><tspan id="trsvg3">1</tspan></text></switch>
+      <use xlink:href="#bracket" transform="translate(-80)" id="use27"/>
+      <use xlink:href="#bracket" transform="translate(80) scale(-1,1)" id="use29"/>
+    </g>
+    <g id="base">
+      <use xlink:href="#axis" id="use32"/>
+      <use xlink:href="#axis" transform="rotate(-90)" id="use34"/>
+      <g stroke="none" fill="#999999" id="g46">
+        <switch><text x="-20" y="-85" id="text36-ro" systemLanguage="ro"><tspan id="trsvg4-ro">1</tspan></text><text x="-20" y="-85" id="text36"><tspan id="trsvg4">1</tspan></text></switch>
+        <switch><text x="-20" y="45" id="text38"><tspan id="trsvg5">0</tspan></text></switch>
+        <switch><text x="100" y="45" id="text40-ro" systemLanguage="ro"><tspan id="trsvg6-ro">1</tspan></text><text x="100" y="45" id="text40"><tspan id="trsvg6">1</tspan></text></switch>
+        <switch><text x="160" y="45" font-style="italic" id="text42-ro" systemLanguage="ro"><tspan id="trsvg7-ro">x</tspan></text><text x="160" y="45" font-style="italic" id="text42"><tspan id="trsvg7">x</tspan></text></switch>
+        <switch><text x="-30" y="-160" font-style="italic" id="text44-ro" systemLanguage="ro"><tspan id="trsvg8-ro">y</tspan></text><text x="-30" y="-160" font-style="italic" id="text44"><tspan id="trsvg8">y</tspan></text></switch>
+      </g>
+      <use xlink:href="#square" stroke-width="3.5" stroke-dasharray="0.1,4.9" fill-opacity="0.4" id="use48"/>
+    </g>
+  </defs>
+  <rect x="-4657.8037" y="-4621.6094" width="9999" height="9999" fill="#ffffff" id="rect53" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke:none;stroke-linecap:round;stroke-linejoin:round"/>
+  <g id="g30500">
+    <g id="g139" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round">
+      <g id="g83">
+        <use xlink:href="#base" id="use55" x="0" y="0" width="100%" height="100%"/>
+        <use xlink:href="#base_matrix" id="use57" x="0" y="0" width="100%" height="100%"/>
+        <use xlink:href="#square" id="use59" x="0" y="0" width="100%" height="100%"/>
+        <switch><text x="105" y="-15" text-anchor="start" class="point_x nostroke" id="text61-ro" systemLanguage="ro"><tspan id="trsvg9-ro">(1, 0)</tspan></text><text x="105" y="-15" text-anchor="start" class="point_x nostroke" id="text61"><tspan id="trsvg9">(1, 0)</tspan></text></switch>
+        <switch><text x="5" y="-115" text-anchor="start" class="point_y nostroke" id="text63-ro" systemLanguage="ro"><tspan id="trsvg10-ro">(0, 1)</tspan></text><text x="5" y="-115" text-anchor="start" class="point_y nostroke" id="text63"><tspan id="trsvg10">(0, 1)</tspan></text></switch>
+        <switch><text x="-5" y="-15" text-anchor="end" class="point_0 nostroke" id="text65-ro" systemLanguage="ro"><tspan id="trsvg11-ro">(0, 0)</tspan></text><text x="-5" y="-15" text-anchor="end" class="point_0 nostroke" id="text65"><tspan id="trsvg11">(0, 0)</tspan></text></switch>
+        <g transform="translate(40,-315)" id="g81">
+          <switch><text x="0" y="-9" class="default nostroke" id="text67-ro" systemLanguage="ro"><tspan id="trsvg12-ro">Neschimbat</tspan></text><text x="0" y="-9" class="default nostroke" id="text67"><tspan id="trsvg12">No change</tspan></text></switch>
+          <switch><text x="-50" y="40" class="point_x nostroke" id="text69-ro" systemLanguage="ro"><tspan id="trsvg13-ro">1</tspan></text><text x="-50" y="40" class="point_x nostroke" id="text69"><tspan id="trsvg13">1</tspan></text></switch>
+          <switch><text x="-50" y="80" class="point_x nostroke" id="text71"><tspan id="trsvg14">0</tspan></text></switch>
+          <switch><text x="0" y="40" class="point_y nostroke" id="text73"><tspan id="trsvg15">0</tspan></text></switch>
+          <switch><text x="0" y="80" class="point_y nostroke" id="text75-ro" systemLanguage="ro"><tspan id="trsvg16-ro">1</tspan></text><text x="0" y="80" class="point_y nostroke" id="text75"><tspan id="trsvg16">1</tspan></text></switch>
+          <switch><text x="50" y="40" class="point_0 nostroke" id="text77"><tspan id="trsvg17">0</tspan></text></switch>
+          <switch><text x="50" y="80" class="point_0 nostroke" id="text79"><tspan id="trsvg18">0</tspan></text></switch>
+        </g>
+      </g>
+      <g transform="translate(375)" id="g109">
+        <use xlink:href="#base" id="use85" x="0" y="0" width="100%" height="100%"/>
+        <use xlink:href="#base_matrix" id="use87" x="0" y="0" width="100%" height="100%"/>
+        <use xlink:href="#square" transform="translate(10,-40)" id="use89" x="0" y="0" width="100%" height="100%"/>
+        <switch><text x="-5" y="-30" text-anchor="end" class="point_0 nostroke" id="text91-ro" systemLanguage="ro"><tspan id="trsvg19-ro">(X, Y)</tspan></text><text x="-5" y="-30" text-anchor="end" class="point_0 nostroke" id="text91"><tspan id="trsvg19">(X, Y)</tspan></text></switch>
+        <g transform="translate(40,-315)" id="g107">
+          <switch><text x="0" y="-9" class="default nostroke" id="text93-ro" systemLanguage="ro"><tspan id="trsvg20-ro">Translație</tspan></text><text x="0" y="-9" class="default nostroke" id="text93"><tspan id="trsvg20">Translate</tspan></text></switch>
+          <switch><text x="-50" y="40" class="default nostroke" id="text95-ro" systemLanguage="ro"><tspan id="trsvg21-ro">1</tspan></text><text x="-50" y="40" class="default nostroke" id="text95"><tspan id="trsvg21">1</tspan></text></switch>
+          <switch><text x="-50" y="80" class="default nostroke" id="text97"><tspan id="trsvg22">0</tspan></text></switch>
+          <switch><text x="0" y="40" class="default nostroke" id="text99"><tspan id="trsvg23">0</tspan></text></switch>
+          <switch><text x="0" y="80" class="default nostroke" id="text101-ro" systemLanguage="ro"><tspan id="trsvg24-ro">1</tspan></text><text x="0" y="80" class="default nostroke" id="text101"><tspan id="trsvg24">1</tspan></text></switch>
+          <switch><text x="50" y="40" class="point_0 nostroke" id="text103-ro" systemLanguage="ro"><tspan id="trsvg25-ro">X</tspan></text><text x="50" y="40" class="point_0 nostroke" id="text103"><tspan id="trsvg25">X</tspan></text></switch>
+          <switch><text x="50" y="80" class="point_0 nostroke" id="text105-ro" systemLanguage="ro"><tspan id="trsvg26-ro">Y</tspan></text><text x="50" y="80" class="point_0 nostroke" id="text105"><tspan id="trsvg26">Y</tspan></text></switch>
+        </g>
+      </g>
+      <g transform="translate(750)" id="g137">
+        <use xlink:href="#base" id="use111" x="0" y="0" width="100%" height="100%"/>
+        <use xlink:href="#base_matrix" id="use113" x="0" y="0" width="100%" height="100%"/>
+        <use xlink:href="#square" transform="scale(1.2,1.1)" id="use115" x="0" y="0" width="100%" height="100%"/>
+        <switch><text x="125" y="-20" text-anchor="start" class="point_x nostroke" id="text117-ro" systemLanguage="ro"><tspan id="trsvg27-ro">(W, 0)</tspan></text><text x="125" y="-20" text-anchor="start" class="point_x nostroke" id="text117"><tspan id="trsvg27">(W, 0)</tspan></text></switch>
+        <switch><text x="5" y="-125" text-anchor="start" class="point_y nostroke" id="text119-ro" systemLanguage="ro"><tspan id="trsvg28-ro">(0, H)</tspan></text><text x="5" y="-125" text-anchor="start" class="point_y nostroke" id="text119"><tspan id="trsvg28">(0, H)</tspan></text></switch>
+        <g transform="translate(40,-315)" id="g135">
+          <switch><text x="0" y="-9" class="default nostroke" id="text121-ro" systemLanguage="ro"><tspan id="trsvg29-ro">Scalare față de origine</tspan></text><text x="0" y="-9" class="default nostroke" id="text121"><tspan id="trsvg29">Scale about origin</tspan></text></switch>
+          <switch><text x="-50" y="40" class="point_x nostroke" id="text123-ro" systemLanguage="ro"><tspan id="trsvg30-ro">W</tspan></text><text x="-50" y="40" class="point_x nostroke" id="text123"><tspan id="trsvg30">W</tspan></text></switch>
+          <switch><text x="-50" y="80" class="point_x nostroke" id="text125"><tspan id="trsvg31">0</tspan></text></switch>
+          <switch><text x="0" y="40" class="point_y nostroke" id="text127"><tspan id="trsvg32">0</tspan></text></switch>
+          <switch><text x="0" y="80" class="point_y nostroke" id="text129-ro" systemLanguage="ro"><tspan id="trsvg33-ro">H</tspan></text><text x="0" y="80" class="point_y nostroke" id="text129"><tspan id="trsvg33">H</tspan></text></switch>
+          <switch><text x="50" y="40" class="default nostroke" id="text131"><tspan id="trsvg34">0</tspan></text></switch>
+          <switch><text x="50" y="80" class="default nostroke" id="text133"><tspan id="trsvg35">0</tspan></text></switch>
+        </g>
+      </g>
+    </g>
+    <g id="g30348">
+      <g id="g30283">
+        <use xlink:href="#base" id="use141" x="0" y="0" width="100%" height="100%" transform="translate(0,500)" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"/>
+        <use xlink:href="#square" transform="rotate(-36.742516,752.78836,250)" id="use143" x="0" y="0" width="100%" height="100%" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"/>
+        <switch style="font-size:32px;font-family:Helvetica, Arial, sans-serif;text-align:end;letter-spacing:-2;text-anchor:end;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><text x="185.04749" y="440.2876" text-anchor="start" class="point_x nostroke" id="text145-ro" style="font-size:32px;font-family:Helvetica, Arial, sans-serif;text-align:end;letter-spacing:-2;text-anchor:end;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" systemLanguage="ro"><tspan id="tspan16289-ro" x="185.04749" y="440.2876">(cos θ,</tspan><tspan x="183.04749" y="480.2876" id="tspan17377-ro">sin θ)</tspan></text><text x="185.04749" y="440.2876" text-anchor="start" class="point_x nostroke" id="text145" style="font-size:32px;font-family:Helvetica, Arial, sans-serif;text-align:end;letter-spacing:-2;text-anchor:end;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><tspan id="tspan16289" x="185.04749" y="440.2876">(cos θ,</tspan><tspan x="183.04749" y="480.2876" id="tspan17377">sin θ)</tspan></text></switch>
+        <switch style="font-size:32px;font-family:Helvetica, Arial, sans-serif;text-align:end;letter-spacing:-2;text-anchor:end;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><text x="-39.849266" y="360.63504" text-anchor="start" class="point_y nostroke" id="text147-ro" style="font-size:32px;font-family:Helvetica, Arial, sans-serif;text-align:end;letter-spacing:-2;text-anchor:end;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" systemLanguage="ro"><tspan id="tspan22911-ro" x="-39.849266" y="360.63504">(−sin θ,</tspan><tspan id="tspan22913-ro" x="-41.849266" y="400.63504">cos θ)</tspan></text><text x="-39.849266" y="360.63504" text-anchor="start" class="point_y nostroke" id="text147" style="font-size:32px;font-family:Helvetica, Arial, sans-serif;text-align:end;letter-spacing:-2;text-anchor:end;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><tspan id="tspan22911" x="-39.849266" y="360.63504">(−sin θ,</tspan><tspan id="tspan22913" x="-41.849266" y="400.63504">cos θ)</tspan></text></switch>
+        <switch style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><text x="-26.224321" y="496.10803" text-anchor="end" class="angle   nostroke" id="text149-ro" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" systemLanguage="ro"><tspan id="trsvg36-ro">θ</tspan></text><text x="-26.224321" y="496.10803" text-anchor="end" class="angle   nostroke" id="text149" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><tspan id="trsvg36">θ</tspan></text></switch>
+        <path d="m 0,500 v -40 a 40,40 0 0 0 -24,8 z" class="angle" id="path151" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"/>
+        <switch style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><text x="40" y="176" class="default nostroke" id="text153-ro" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" systemLanguage="ro"><tspan id="trsvg37-ro">Rotație în jurul originii</tspan></text><text x="40" y="176" class="default nostroke" id="text153" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><tspan id="trsvg37">Rotate about origin</tspan></text></switch>
+        <switch style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><text x="-50" y="225" class="point_x nostroke" id="text155-ro" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" systemLanguage="ro"><tspan id="trsvg38-ro">cos θ</tspan></text><text x="-50" y="225" class="point_x nostroke" id="text155" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><tspan id="trsvg38">cos θ</tspan></text></switch>
+        <switch style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><text x="-50" y="265" class="point_x nostroke" id="text157-ro" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" systemLanguage="ro"><tspan id="trsvg39-ro">sin θ</tspan></text><text x="-50" y="265" class="point_x nostroke" id="text157" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><tspan id="trsvg39">sin θ</tspan></text></switch>
+        <switch style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><text x="75" y="225" class="point_y nostroke" id="text159-ro" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" systemLanguage="ro"><tspan id="trsvg40-ro">−sin θ</tspan></text><text x="75" y="225" class="point_y nostroke" id="text159" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><tspan id="trsvg40">−sin θ</tspan></text></switch>
+        <switch style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><text x="75" y="265" class="point_y nostroke" id="text161-ro" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" systemLanguage="ro"><tspan id="trsvg41-ro">cos θ</tspan></text><text x="75" y="265" class="point_y nostroke" id="text161" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><tspan id="trsvg41">cos θ</tspan></text></switch>
+        <switch style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><text x="160" y="225" class="default nostroke" id="text163" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><tspan id="trsvg42">0</tspan></text></switch>
+        <switch style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><text x="160" y="265" class="default nostroke" id="text165" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><tspan id="trsvg43">0</tspan></text></switch>
+        <switch style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><text x="-50" y="305" class="ghost nostroke" id="text167" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><tspan id="trsvg44">0</tspan></text></switch>
+        <switch style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><text x="75" y="305" class="ghost nostroke" id="text169" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><tspan id="trsvg45">0</tspan></text></switch>
+        <switch style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><text x="160" y="305" class="ghost nostroke" id="text171-ro" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round" systemLanguage="ro"><tspan id="trsvg46-ro">1</tspan></text><text x="160" y="305" class="ghost nostroke" id="text171" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"><tspan id="trsvg46">1</tspan></text></switch>
+        <use xlink:href="#bracket" transform="translate(-110,185)" id="use173" x="0" y="0" width="100%" height="100%" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"/>
+        <use xlink:href="#bracket" transform="matrix(-1,0,0,1,190,185)" id="use175" x="0" y="0" width="100%" height="100%" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round"/>
+      </g>
+      <g transform="translate(375,500)" id="g219" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round">
+        <use xlink:href="#base" id="use181" x="0" y="0" width="100%" height="100%"/>
+        <use xlink:href="#square" transform="skewX(-26.565051)" id="use183" x="0" y="0" width="100%" height="100%"/>
+        <switch><text x="120" y="-10" text-anchor="start" class="point_x nostroke" id="text185-ro" systemLanguage="ro"><tspan id="trsvg47-ro">(1, 0)</tspan></text><text x="120" y="-10" text-anchor="start" class="point_x nostroke" id="text185"><tspan id="trsvg47">(1, 0)</tspan></text></switch>
+        <switch><text x="20" y="-115" text-anchor="start" class="point_y nostroke" id="text187-ro" systemLanguage="ro"><tspan id="trsvg48-ro">(tan ϕ, 1)</tspan></text><text x="20" y="-115" text-anchor="start" class="point_y nostroke" id="text187"><tspan id="trsvg48">(tan ϕ, 1)</tspan></text></switch>
+        <switch><text x="-5" y="-15" text-anchor="end" class="angle   nostroke" id="text189-ro" systemLanguage="ro"><tspan id="trsvg49-ro">ϕ</tspan></text><text x="-5" y="-15" text-anchor="end" class="angle   nostroke" id="text189"><tspan id="trsvg49">ϕ</tspan></text></switch>
+        <path d="m 0,0 v -40 a 40,40 0 0 1 18,4 z" class="angle" id="path191"/>
+        <g transform="translate(40,-315)" id="g217">
+          <switch><text x="0" y="-9" class="default nostroke" id="text193-ro" systemLanguage="ro"><tspan id="trsvg50-ro">Forfecare pe direcția x</tspan></text><text x="0" y="-9" class="default nostroke" id="text193"><tspan id="trsvg50">Shear in x direction</tspan></text></switch>
+          <switch><text x="-80" y="40" class="point_x nostroke" id="text195-ro" systemLanguage="ro"><tspan id="trsvg51-ro">1</tspan></text><text x="-80" y="40" class="point_x nostroke" id="text195"><tspan id="trsvg51">1</tspan></text></switch>
+          <switch><text x="-80" y="80" class="point_x nostroke" id="text197"><tspan id="trsvg52">0</tspan></text></switch>
+          <switch><text x="0" y="40" class="point_y nostroke" id="text199-ro" systemLanguage="ro"><tspan id="trsvg53-ro">tan ϕ</tspan></text><text x="0" y="40" class="point_y nostroke" id="text199"><tspan id="trsvg53">tan ϕ</tspan></text></switch>
+          <switch><text x="0" y="80" class="point_y nostroke" id="text201-ro" systemLanguage="ro"><tspan id="trsvg54-ro">1</tspan></text><text x="0" y="80" class="point_y nostroke" id="text201"><tspan id="trsvg54">1</tspan></text></switch>
+          <switch><text x="80" y="40" class="default nostroke" id="text203"><tspan id="trsvg55">0</tspan></text></switch>
+          <switch><text x="80" y="80" class="default nostroke" id="text205"><tspan id="trsvg56">0</tspan></text></switch>
+          <switch><text x="-80" y="120" class="ghost nostroke" id="text207"><tspan id="trsvg57">0</tspan></text></switch>
+          <switch><text x="0" y="120" class="ghost nostroke" id="text209"><tspan id="trsvg58">0</tspan></text></switch>
+          <switch><text x="80" y="120" class="ghost nostroke" id="text211-ro" systemLanguage="ro"><tspan id="trsvg59-ro">1</tspan></text><text x="80" y="120" class="ghost nostroke" id="text211"><tspan id="trsvg59">1</tspan></text></switch>
+          <use xlink:href="#bracket" transform="translate(-110)" id="use213" x="0" y="0" width="100%" height="100%"/>
+          <use xlink:href="#bracket" transform="matrix(-1,0,0,1,110,0)" id="use215" x="0" y="0" width="100%" height="100%"/>
+        </g>
+      </g>
+      <g transform="translate(750,500)" id="g259" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round">
+        <use xlink:href="#base" id="use221" x="0" y="0" width="100%" height="100%"/>
+        <use xlink:href="#square" transform="skewY(-26.565051)" id="use223" x="0" y="0" width="100%" height="100%"/>
+        <switch><text x="120" y="-25" text-anchor="start" class="point_x nostroke" transform="scale(0.9,1)" id="text225-ro" systemLanguage="ro"><tspan id="trsvg60-ro">(1, tan ψ)</tspan></text><text x="120" y="-25" text-anchor="start" class="point_x nostroke" transform="scale(0.9,1)" id="text225"><tspan id="trsvg60">(1, tan ψ)</tspan></text></switch>
+        <switch><text x="-2" y="-120" text-anchor="end" class="point_y nostroke" id="text227-ro" systemLanguage="ro"><tspan id="trsvg61-ro">(0, 1)</tspan></text><text x="-2" y="-120" text-anchor="end" class="point_y nostroke" id="text227"><tspan id="trsvg61">(0, 1)</tspan></text></switch>
+        <switch><text x="20" y="35" text-anchor="start" class="angle   nostroke" id="text229-ro" systemLanguage="ro"><tspan id="trsvg62-ro">ψ</tspan></text><text x="20" y="35" text-anchor="start" class="angle   nostroke" id="text229"><tspan id="trsvg62">ψ</tspan></text></switch>
+        <path d="M 0,0 H 40 A 40,40 0 0 0 36,-18" class="angle" id="path231"/>
+        <g transform="translate(40,-315)" id="g257">
+          <switch><text x="0" y="-9" class="default nostroke" id="text233-ro" systemLanguage="ro"><tspan id="trsvg63-ro">Forfecare pe direcția y</tspan></text><text x="0" y="-9" class="default nostroke" id="text233"><tspan id="trsvg63">Shear in y direction</tspan></text></switch>
+          <switch><text x="-55" y="40" class="point_x nostroke" id="text235-ro" systemLanguage="ro"><tspan id="trsvg64-ro">1</tspan></text><text x="-55" y="40" class="point_x nostroke" id="text235"><tspan id="trsvg64">1</tspan></text></switch>
+          <switch><text x="-55" y="80" class="point_x nostroke" id="text237-ro" systemLanguage="ro"><tspan id="trsvg65-ro">tan ψ</tspan></text><text x="-55" y="80" class="point_x nostroke" id="text237"><tspan id="trsvg65">tan ψ</tspan></text></switch>
+          <switch><text x="25" y="40" class="point_y nostroke" id="text239"><tspan id="trsvg66">0</tspan></text></switch>
+          <switch><text x="25" y="80" class="point_y nostroke" id="text241-ro" systemLanguage="ro"><tspan id="trsvg67-ro">1</tspan></text><text x="25" y="80" class="point_y nostroke" id="text241"><tspan id="trsvg67">1</tspan></text></switch>
+          <switch><text x="80" y="40" class="default nostroke" id="text243"><tspan id="trsvg68">0</tspan></text></switch>
+          <switch><text x="80" y="80" class="default nostroke" id="text245"><tspan id="trsvg69">0</tspan></text></switch>
+          <switch><text x="-55" y="120" class="ghost nostroke" id="text247"><tspan id="trsvg70">0</tspan></text></switch>
+          <switch><text x="25" y="120" class="ghost nostroke" id="text249"><tspan id="trsvg71">0</tspan></text></switch>
+          <switch><text x="80" y="120" class="ghost nostroke" id="text251-ro" systemLanguage="ro"><tspan id="trsvg72-ro">1</tspan></text><text x="80" y="120" class="ghost nostroke" id="text251"><tspan id="trsvg72">1</tspan></text></switch>
+          <use xlink:href="#bracket" transform="translate(-110)" id="use253" x="0" y="0" width="100%" height="100%"/>
+          <use xlink:href="#bracket" transform="matrix(-1,0,0,1,110,0)" id="use255" x="0" y="0" width="100%" height="100%"/>
+        </g>
+      </g>
+    </g>
+    <g transform="translate(0,1040)" id="g347" style="font-size:40px;font-family:Helvetica, Arial, sans-serif;letter-spacing:-2;text-anchor:middle;fill:none;stroke:#000000;stroke-width:2;stroke-linecap:round;stroke-linejoin:round">
+      <g id="g289">
+        <use xlink:href="#base" id="use263" x="0" y="0" width="100%" height="100%"/>
+        <use xlink:href="#base_matrix" id="use265" x="0" y="0" width="100%" height="100%"/>
+        <use xlink:href="#square" transform="scale(-1)" id="use267" x="0" y="0" width="100%" height="100%"/>
+        <switch><text x="-125" y="-15" text-anchor="start" class="point_x nostroke" id="text269-ro" systemLanguage="ro"><tspan id="trsvg73-ro">(−1, 0)</tspan></text><text x="-125" y="-15" text-anchor="start" class="point_x nostroke" id="text269"><tspan id="trsvg73">(−1, 0)</tspan></text></switch>
+        <switch><text x="10" y="100" text-anchor="start" class="point_y nostroke" id="text271-ro" systemLanguage="ro"><tspan id="trsvg74-ro">(0, −1)</tspan></text><text x="10" y="100" text-anchor="start" class="point_y nostroke" id="text271"><tspan id="trsvg74">(0, −1)</tspan></text></switch>
+        <g transform="translate(40,-315)" id="g287">
+          <switch><text x="0" y="-9" class="default nostroke" id="text273-ro" systemLanguage="ro"><tspan id="trsvg75-ro">Reflexie față de origine</tspan></text><text x="0" y="-9" class="default nostroke" id="text273"><tspan id="trsvg75">Reflect about origin</tspan></text></switch>
+          <switch><text x="-50" y="40" class="point_x nostroke" id="text275-ro" systemLanguage="ro"><tspan id="trsvg76-ro">−1</tspan></text><text x="-50" y="40" class="point_x nostroke" id="text275"><tspan id="trsvg76">−1</tspan></text></switch>
+          <switch><text x="-50" y="80" class="point_x nostroke" id="text277"><tspan id="trsvg77">0</tspan></text></switch>
+          <switch><text x="0" y="40" class="point_y nostroke" id="text279"><tspan id="trsvg78">0</tspan></text></switch>
+          <switch><text x="0" y="80" class="point_y nostroke" id="text281-ro" systemLanguage="ro"><tspan id="trsvg79-ro">−1</tspan></text><text x="0" y="80" class="point_y nostroke" id="text281"><tspan id="trsvg79">−1</tspan></text></switch>
+          <switch><text x="50" y="40" class="default nostroke" id="text283"><tspan id="trsvg80">0</tspan></text></switch>
+          <switch><text x="50" y="80" class="default nostroke" id="text285"><tspan id="trsvg81">0</tspan></text></switch>
+        </g>
+      </g>
+      <g transform="translate(375)" id="g317">
+        <use xlink:href="#base" id="use291" x="0" y="0" width="100%" height="100%"/>
+        <use xlink:href="#base_matrix" id="use293" x="0" y="0" width="100%" height="100%"/>
+        <use xlink:href="#square" transform="scale(1,-1)" id="use295" x="0" y="0" width="100%" height="100%"/>
+        <switch><text x="105" y="-15" text-anchor="start" class="point_x nostroke" id="text297-ro" systemLanguage="ro"><tspan id="trsvg82-ro">(1, 0)</tspan></text><text x="105" y="-15" text-anchor="start" class="point_x nostroke" id="text297"><tspan id="trsvg82">(1, 0)</tspan></text></switch>
+        <switch><text x="-10" y="100" text-anchor="end" class="point_y nostroke" id="text299-ro" systemLanguage="ro"><tspan id="trsvg83-ro">(0, −1)</tspan></text><text x="-10" y="100" text-anchor="end" class="point_y nostroke" id="text299"><tspan id="trsvg83">(0, −1)</tspan></text></switch>
+        <g transform="translate(40,-315)" id="g315">
+          <switch><text x="0" y="-9" class="default nostroke" id="text301-ro" systemLanguage="ro"><tspan id="trsvg84-ro">Reflexie față de axa x</tspan></text><text x="0" y="-9" class="default nostroke" id="text301"><tspan id="trsvg84">Reflect about x-axis</tspan></text></switch>
+          <switch><text x="-50" y="40" class="point_x nostroke" id="text303-ro" systemLanguage="ro"><tspan id="trsvg85-ro">1</tspan></text><text x="-50" y="40" class="point_x nostroke" id="text303"><tspan id="trsvg85">1</tspan></text></switch>
+          <switch><text x="-50" y="80" class="point_x nostroke" id="text305"><tspan id="trsvg86">0</tspan></text></switch>
+          <switch><text x="0" y="40" class="point_y nostroke" id="text307"><tspan id="trsvg87">0</tspan></text></switch>
+          <switch><text x="0" y="80" class="point_y nostroke" id="text309-ro" systemLanguage="ro"><tspan id="trsvg88-ro">−1</tspan></text><text x="0" y="80" class="point_y nostroke" id="text309"><tspan id="trsvg88">−1</tspan></text></switch>
+          <switch><text x="50" y="40" class="default nostroke" id="text311"><tspan id="trsvg89">0</tspan></text></switch>
+          <switch><text x="50" y="80" class="default nostroke" id="text313"><tspan id="trsvg90">0</tspan></text></switch>
+        </g>
+      </g>
+      <g transform="translate(750)" id="g345">
+        <use xlink:href="#base" id="use319" x="0" y="0" width="100%" height="100%"/>
+        <use xlink:href="#base_matrix" id="use321" x="0" y="0" width="100%" height="100%"/>
+        <use xlink:href="#square" transform="scale(-1,1)" id="use323" x="0" y="0" width="100%" height="100%"/>
+        <switch><text x="-60" y="45" text-anchor="end" class="point_x nostroke" id="text325-ro" systemLanguage="ro"><tspan id="trsvg91-ro">(−1, 0)</tspan></text><text x="-60" y="45" text-anchor="end" class="point_x nostroke" id="text325"><tspan id="trsvg91">(−1, 0)</tspan></text></switch>
+        <switch><text x="10" y="-115" text-anchor="start" class="point_y nostroke" id="text327-ro" systemLanguage="ro"><tspan id="trsvg92-ro">(0, 1)</tspan></text><text x="10" y="-115" text-anchor="start" class="point_y nostroke" id="text327"><tspan id="trsvg92">(0, 1)</tspan></text></switch>
+        <g transform="translate(40,-315)" id="g343">
+          <switch><text x="0" y="-9" class="default nostroke" id="text329-ro" systemLanguage="ro"><tspan id="trsvg93-ro">Reflexie față de axa y</tspan></text><text x="0" y="-9" class="default nostroke" id="text329"><tspan id="trsvg93">Reflect about y-axis</tspan></text></switch>
+          <switch><text x="-50" y="40" class="point_x nostroke" id="text331-ro" systemLanguage="ro"><tspan id="trsvg94-ro">−1</tspan></text><text x="-50" y="40" class="point_x nostroke" id="text331"><tspan id="trsvg94">−1</tspan></text></switch>
+          <switch><text x="-50" y="80" class="point_x nostroke" id="text333"><tspan id="trsvg95">0</tspan></text></switch>
+          <switch><text x="0" y="40" class="point_y nostroke" id="text335"><tspan id="trsvg96">0</tspan></text></switch>
+          <switch><text x="0" y="80" class="point_y nostroke" id="text337-ro" systemLanguage="ro"><tspan id="trsvg97-ro">1</tspan></text><text x="0" y="80" class="point_y nostroke" id="text337"><tspan id="trsvg97">1</tspan></text></switch>
+          <switch><text x="50" y="40" class="default nostroke" id="text339"><tspan id="trsvg98">0</tspan></text></switch>
+          <switch><text x="50" y="80" class="default nostroke" id="text341"><tspan id="trsvg99">0</tspan></text></switch>
+        </g>
+      </g>
+    </g>
+  </g>
+  <metadata id="metadata1172">
+    <rdf:RDF>
+      <cc:Work rdf:about="">
+        <dc:title>2D affine transformation matrix</dc:title>
+      </cc:Work>
+    </rdf:RDF>
+  </metadata>
+</svg>

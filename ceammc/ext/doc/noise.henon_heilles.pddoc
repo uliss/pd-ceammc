@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="noise.henon_heilles">
         <title>noise.henon_heilles</title>
         <meta>
@@ -7,42 +7,49 @@
                 <author>Richard Dudas</author>
                 <author>André Sier</author>
             </authors>
-            <description>Part of a-chaos library</description>
+            <description>Hénon–Heiles_system</description>
             <license>%</license>
             <library>ceammc</library>
             <category>noise</category>
             <keywords>noise</keywords>
-            <since>.5</since>
+            <since>0.5</since>
         </meta>
         <info>
             <par>a port of Richard's chaos-henon-heilles from chaos collection</par>
         </info>
         <arguments>
-            <argument name="ARG0" type="float">x value (optional)</argument>
-            <argument name="ARG1" type="float">y value (optional)</argument>
-            <argument name="ARG2" type="float">y' value (optional)</argument>
-            <argument name="ARG3" type="float">e value (optional)</argument>
-            <argument name="ARG4" type="float">dt value (optional)</argument>
+            <argument name="X" type="float">x value (optional)</argument>
+            <argument name="Y" type="float">y value (optional)</argument>
+            <argument name="Y'" type="float">y' value (optional)</argument>
+            <argument name="E" type="float">e value (optional)</argument>
+            <argument name="DT" type="float">dt value (optional)</argument>
         </arguments>
         <methods>
-            <method name="set">
-                <param type="float" name="SET" required="true">set to value</param>
-            </method>
-            <method name="reset">reset state</method>
-            <method name="x">
-                <param type="float" name="NX" required="true">x value</param>
-            </method>
-            <method name="y">
-                <param type="float" name="NY" required="true">y value</param>
-            </method>
-            <method name="y'">
-                <param type="float" name="NY" required="true">y' value</param>
-            </method>
-            <method name="e">
-                <param type="float" name="NY" required="true">e value</param>
-            </method>
+            <!-- dt -->
             <method name="dt">
-                <param type="float" name="NY" required="true">dt value</param>
+                <param name="NY" type="float" required="true">dt value</param>
+            </method>
+            <!-- e -->
+            <method name="e">
+                <param name="NY" type="float" required="true">e value</param>
+            </method>
+            <!-- reset -->
+            <method name="reset">reset state</method>
+            <!-- set -->
+            <method name="set">
+                <param name="SET" type="float" required="true">set to value</param>
+            </method>
+            <!-- x -->
+            <method name="x">
+                <param name="NX" type="float" required="true">x value</param>
+            </method>
+            <!-- y -->
+            <method name="y">
+                <param name="NY" type="float" required="true">y value</param>
+            </method>
+            <!-- y' -->
+            <method name="y'">
+                <param name="NY" type="float" required="true">y' value</param>
             </method>
         </methods>
         <inlets>
@@ -53,11 +60,12 @@
         <outlets>
             <outlet>x outlet</outlet>
             <outlet>y outlet</outlet>
+            <outlet>xdot outlet</outlet>
+            <outlet>ydot outlet</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-
 [T]
 |
 [metro 50 #metro]
@@ -90,7 +98,6 @@
 [X set:0->noise-obj:0]
 
 [X metro->noise-obj]
-
 ]]>
             </pdascii>
         </example>

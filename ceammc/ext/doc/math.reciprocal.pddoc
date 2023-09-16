@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="math.reciprocal">
         <title>math.reciprocal</title>
         <meta>
@@ -34,11 +34,11 @@
 <![CDATA[
 [F]  [1 2 3 4 5(      [F]
 |    |                |
-[math.reciprocal]     [1 $1(
+[1/x ]                [1 $1(
 |                     |
-[msg set]             [/]
-|                     |
-[ (                   [F]
+[ui.dt]               [/]
+                      |
+                      [F]
 ]]>
             </pdascii>
         </example>

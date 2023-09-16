@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="hoa.2d.projector~">
         <title>hoa.2d.projector~</title>
         <meta>
@@ -24,18 +24,18 @@
         </meta>
         <info>
             <par>Discretizes the ambisonic sound field into the plane waves domain.</par>
+            <a href="hoa/hoa.2d.projector~-help.pd">CICM documentation</a>
         </info>
         <arguments>
             <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of
             decomposition</argument>
-            <argument name="NCH" type="int" minvalue="1" maxvalue="63">number of
-            channels</argument>
+            <argument name="N" type="int" minvalue="1" maxvalue="63">number of channels</argument>
         </arguments>
         <properties>
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
-            readonly="true">the order of decomposition</property>
-            <property name="@n" type="int" minvalue="0" maxvalue="63" default="0" readonly="true">
-            number of channels (planewaves)</property>
+            access="initonly">the order of decomposition</property>
+            <property name="@n" type="int" minvalue="0" maxvalue="63" default="0"
+            access="initonly">number of channels (planewaves)</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">

@@ -16,6 +16,7 @@
 
 #include "ceammc_property.h"
 
+#include <cstring>
 #include <initializer_list>
 
 namespace ceammc {
@@ -177,6 +178,8 @@ public:
     SymbolEnumProperty(const std::string& name, std::initializer_list<const char*> values, PropValueAccess access = PropValueAccess::READWRITE);
 
     bool setList(const AtomListView& lv) override;
+
+    bool isEqual(const char* str) const { return std::strcmp(value()->s_name, str) == 0; }
 };
 
 /**

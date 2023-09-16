@@ -67,3 +67,21 @@
 [submodule "ceammc/extra/miniz/miniz"]
 	path = ceammc/extra/miniz/miniz
 	url = https://github.com/richgel999/miniz.git
+[submodule "ceammc/extra/artnet/libartnet"]
+	path = ceammc/extra/artnet/libartnet
+	url = https://github.com/uliss/libartnet.git
+[submodule "ceammc/distrib/tcl/tkdnd"]
+	path = ceammc/distrib/tcl/tkdnd
+	url = https://github.com/uliss/tkdnd.git
+[submodule "ceammc/extra/colorm/colorm"]
+	path = ceammc/extra/colorm/colorm
+	url = https://github.com/soreja/colorm.git
+[submodule "ceammc/extra/corrosion"]
+	path = ceammc/extra/corrosion
+	url = https://github.com/corrosion-rs/corrosion.git
+[submodule "ceammc/extra/rust/resvg"]
+	path = ceammc/extra/rust/resvg
+	url = https://github.com/RazrFalcon/resvg
+[submodule "ceammc/extra/verovio/verovio"]
+	path = ceammc/extra/verovio/verovio
+	url = https://github.com/uliss/verovio.git

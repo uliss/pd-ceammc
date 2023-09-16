@@ -23,7 +23,7 @@ MathAnd::MathAnd(const PdArgs& a)
 
 int MathAnd::operate() const
 {
-    return (std::find(vars_.begin(), vars_.begin() + long(arg_num_), false) == vars_.end()) ? 1 : 0;
+    return (std::find(begin(), end(), false) == end()) ? 1 : 0;
 }
 
 void setup_math_and()
@@ -31,4 +31,7 @@ void setup_math_and()
     ObjectFactory<MathAnd> obj("math.and");
     obj.addAlias("and");
     obj.addMethod("reset", &MathAnd::m_reset);
+
+    obj.setDescription("operation AND for multiple arguments");
+    obj.setCategory("math");
 }

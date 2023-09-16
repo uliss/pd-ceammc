@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_fill.h"
+#include "args/argcheck2.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 
@@ -170,28 +171,23 @@ void ArrayFill::m_pulse(t_symbol* m, const AtomListView& l)
     finish();
 }
 
-void ArrayFill::m_saw(t_symbol* m, const AtomListView& l)
+void ArrayFill::m_saw(t_symbol* s, const AtomListView& lv)
 {
     if (!checkArray())
         return;
 
-    if (l.empty()) {
-        METHOD_ERR(m) << "usage: " << m << " PERIOD [AMPLITUDE] [PHASE]";
-        return;
-    }
+    static const args::ArgChecker chk("PERIOD:f>=1 AMP:f? PHASE:f?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
-    const t_float period = l.floatAt(0, 0);
-    const t_float amp = l.floatAt(1, 1);
-
-    if (period <= 1) {
-        METHOD_ERR(m) << "invalid period value: " << period;
-        return;
-    }
+    const auto period = lv.floatAt(0, 0);
+    const auto amp = lv.floatAt(1, 1);
+    const auto phase = lv.floatAt(2, 0);
 
     int i = 0;
     for (auto& v : array_) {
         t_float n = (i++ / period);
-        auto frac = std::fmod(n, 1);
+        auto frac = std::fmod(n + phase, 1);
         v = convert::lin2lin<t_sample>(frac, 0, 1, -amp, amp);
     }
 
@@ -253,8 +249,8 @@ void ArrayFill::finish()
 
 AtomListView ArrayFill::parseRange(const AtomListView& args, size_t* from, size_t* to) const
 {
-    static t_symbol* PROP_FROM = gensym("@from");
-    static t_symbol* PROP_TO = gensym("@to");
+    auto PROP_FROM = gensym("@from");
+    auto PROP_TO = gensym("@to");
 
     AtomListView res;
 
@@ -346,4 +342,8 @@ void setup_array_fill()
     obj.addMethod("pulse", &ArrayFill::m_pulse);
     obj.addMethod("saw", &ArrayFill::m_saw);
     obj.addMethod("tri", &ArrayFill::m_tri);
+
+    obj.setDescription("fill array with single value or pattern");
+    obj.setCategory("array");
+    obj.setKeywords({ "array", "fill" });
 }

@@ -61,7 +61,7 @@ TEST_CASE("math.and", "[externals]")
 
         {
             MathAndTest t("math.and", LF(20));
-            REQUIRE(t.numInlets() == 16);
+            REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 1);
         }
 

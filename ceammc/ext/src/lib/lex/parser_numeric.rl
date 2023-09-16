@@ -25,6 +25,12 @@ void NumericFullMatch::reset()
     res_ = {};
 }
 
+bool NumericFullMatch::parseAs(const Atom& a, AtomType t)
+{
+    const bool ok = parse(a);
+    return ok && (res_.t == t || res_.t == TYPE_INT || res_.t == TYPE_FLOAT);
+}
+
 bool NumericFullMatch::parse(const Atom& a)
 {
     reset();
@@ -52,6 +58,7 @@ bool NumericFullMatch::parse(const char* str)
     if (len == 0)
         return false;
 
+    int cs = 0;
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;
@@ -167,7 +174,6 @@ NumericMatchSome::NumericMatchSome()
 
 void NumericMatchSome::reset()
 {
-    %% write init;
     res_.clear();
 }
 
@@ -177,6 +183,7 @@ bool NumericMatchSome::parseSingle(const char* str, const char*& endptr)
     if (len == 0)
         return false;
 
+    int cs = 0;
     const char* p = str;
     const char* pe = p + len;
     const char* eof = pe;

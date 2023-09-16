@@ -1,5 +1,5 @@
 #include "fx_zita_rev1.h"
-#include "ceammc_factory.h"
+#include "ceammc_faust_factory.h"
 
 using namespace ceammc;
 
@@ -8,15 +8,15 @@ public:
     FxZitaRev1(const PdArgs& args)
         : faust_fx_zita_rev1_tilde(args)
     {
-        static t_symbol* SYM_PROP_DECAY_LOW = gensym("@decay_low");
-        static t_symbol* SYM_PROP_DECAY_MID = gensym("@decay_mid");
-
-        bindPositionalArgsToProps({ SYM_PROP_DECAY_LOW, SYM_PROP_DECAY_MID });
+        bindPositionalArgsToProps({ gensym("@decay_low"), gensym("@decay_mid"), gensym("@drywet") });
     }
 };
 
 void setup_fx_zita_rev1_tilde()
 {
-    SoundExternalFactory<FxZitaRev1> obj("fx.zita_rev1~");
-    obj.addMethod("reset", &FxZitaRev1::m_reset);
+    FaustFactory<FxZitaRev1> obj("fx.zita_rev1~");
+
+    obj.setDescription("Zita stereo reverb");
+    obj.setCategory("fx");
+    obj.setKeywords({"fx", "reverb"});
 }

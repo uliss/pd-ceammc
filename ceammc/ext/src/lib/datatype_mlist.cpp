@@ -12,26 +12,24 @@
  * this file belongs to.
  *****************************************************************************/
 #include "datatype_mlist.h"
-#include "ceammc_data.h"
 #include "ceammc_datastorage.h"
-#include "ceammc_format.h"
 #include "ceammc_json.h"
 #include "ceammc_log.h"
 #include "ceammc_string.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 #include <algorithm>
 #include <cmath>
 #include <cstring>
 
+constexpr const char* TYPE_NAME = "MList";
+
 namespace ceammc {
 
-static Atom newMList(const AtomListView& args)
+DataTypeId DataTypeMList::staticType()
 {
-    return new DataTypeMList(args);
+    CEAMMC_REGISTER_DATATYPE(TYPE_NAME, [](const AtomListView& args) -> Atom { return new DataTypeMList(args); }, {});
 }
-
-DataTypeId DataTypeMList::dataType = DataStorage::instance().registerNewType("MList", newMList);
 
 DataTypeMList::DataTypeMList() noexcept = default;
 
@@ -75,7 +73,7 @@ DataTypeMList& DataTypeMList::operator=(DataTypeMList&& mlist)
 
 DataTypeId DataTypeMList::type() const noexcept
 {
-    return dataType;
+    return staticType();
 }
 
 DataTypeMList* DataTypeMList::clone() const
@@ -94,7 +92,7 @@ bool DataTypeMList::isEqual(const AbstractData* cmp) const noexcept
 
 std::string DataTypeMList::toJsonString() const
 {
-    return ceammc::json::to_json(*this);
+    return ceammc::json::to_json_string(*this);
 }
 
 std::string DataTypeMList::toListStringContent() const noexcept

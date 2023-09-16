@@ -1,10 +1,23 @@
+include(sound)
+include(config)
+
 add_definitions(-DPD)
+
+# big endian check
+test_big_endian(IS_BIG_ENDIAN)
+if(NOT ${IS_BIG_ENDIAN})
+    add_definitions(-DLITTLE_ENDIAN=0x0001 -DBYTE_ORDER=LITTLE_ENDIAN)
+endif()
 
 if(UNIX)
     add_definitions("-DINSTALL_PREFIX=\"${CMAKE_INSTALL_PREFIX}\"")
 endif()
 
 add_definitions(-include ${PROJECT_BINARY_DIR}/config.h)
+
+if(WITH_PD_INSTANCE)
+    add_definitions(-DPD_INSTANCE)
+endif()
 
 set(M_SRC m_atom.c
     m_binbuf.c
@@ -29,6 +42,10 @@ set(D_SRC d_arithmetic.c
     d_osc.c
     d_resample.c
     d_soundfile.c
+    d_soundfile_aiff.c
+    d_soundfile_caf.c
+    d_soundfile_next.c
+    d_soundfile_wave.c
     d_ugen.c)
 
 set(G_SRC
@@ -42,22 +59,20 @@ set(G_SRC
     g_editor_extras.c
     g_graph.c
     g_guiconnect.c
-    g_hdial.c
-    g_hslider.c
     g_io.c
     g_mycanvas.c
     g_numbox.c
+    g_radio.c
     g_readwrite.c
     g_rtext.c
     g_scalar.c
+    g_slider.c
     g_style.c
     g_template.c
     g_text.c
     g_toggle.c
     g_traversal.c
     g_undo.c
-    g_vdial.c
-    g_vslider.c
     g_vumeter.c)
 
 set(S_SRC
@@ -68,6 +83,7 @@ set(S_SRC
 #    s_entry.c
     s_file.c
     s_inter.c
+    s_inter_gui.c
     s_loader.c
     s_main.c
     s_midi.c
@@ -83,6 +99,7 @@ set(X_SRC
     x_array.c
     x_connective.c
     x_gui.c
+    x_file.c
     x_interface.c
     x_list.c
     x_midi.c
@@ -168,22 +185,13 @@ if(WITH_OSS)
     list(APPEND PD_NEEDED_LIBS ${OSSLIB})
 endif()
 
-# Dummy
-if(WITH_DUMMY_AUDIO)
-    list(APPEND S_SRC s_audio_dummy.c)
-endif()
-
-if(WITH_DUMMY_MIDI)
-    list(APPEND S_SRC s_midi_dummy.c)
-endif()
-
 if(LIBDL_FOUND)
     list(APPEND PLATFORM_LINK_LIBRARIES ${LIBDL_LIBRARIES})
 endif()
 
 if(WIN32 OR MSYS)
     set(RESOURCE "${CMAKE_CURRENT_BINARY_DIR}/pd.rc")
-    configure_file("pd.rc" ${RESOURCE})
+    configure_file("pd-ceammc.rc.in" ${RESOURCE})
 
     add_library(puredata-core SHARED ${D_SRC} ${G_SRC} ${M_SRC} ${S_SRC} ${X_SRC})
     set_target_properties(puredata-core PROPERTIES PREFIX "" OUTPUT_NAME pd)
@@ -201,12 +209,24 @@ else()
     endif()
 endif()
 
+# Dummy
+if(WITH_DUMMY_AUDIO)
+    target_sources(puredata-core PRIVATE s_audio_dummy.c)
+endif()
+
+if(WITH_DUMMY_MIDI)
+    target_sources(puredata-core PRIVATE s_midi_dummy.c)
+endif()
+
 target_link_libraries(puredata-core PUBLIC ${PD_NEEDED_LIBS} ${PLATFORM_LINK_LIBRARIES})
 target_link_libraries(pd PUBLIC puredata-core ${PD_NEEDED_LIBS})
 
 if(UNIX AND NOT APPLE)
     add_executable(pd-watchdog s_watchdog.c)
     target_link_libraries(pd-watchdog ${PLATFORM_LINK_LIBRARIES})
+    target_link_options(pd PRIVATE -Wl,--export-dynamic)
+    target_compile_definitions(pd PRIVATE -DPD_INTERNAL)
+    target_compile_definitions(puredata-core PRIVATE -DPD_INTERNAL)
 endif()
 
 add_executable(pdsend u_pdsend.c s_net.c)

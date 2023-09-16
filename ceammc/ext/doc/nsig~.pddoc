@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="nsig~">
         <title>nsig~</title>
         <meta>
@@ -20,13 +20,15 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="NUM" type="float" minvalue="1" maxvalue="12">@n property</argument>
-            <argument name="INIT" type="list">init values</argument>
+            <argument name="N" type="int" minvalue="1" maxvalue="12">number of
+            inputs/outputs</argument>
+            <argument name="VALUES" type="list">init values</argument>
         </arguments>
         <properties>
-            <property name="@n" type="int" minvalue="1" default="1" maxvalue="12">number of
-            inputs/outputs</property>
-            <property name="@values" type="list">current output values. Default: 0</property>
+            <property name="@n" type="int" minvalue="1" default="1" maxvalue="12"
+            access="initonly">number of inputs/outputs</property>
+            <property name="@values" type="list" default="">current output values. Default:
+            0</property>
         </properties>
         <inlets dynamic="true">
             <inlet number="1">

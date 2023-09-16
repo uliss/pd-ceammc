@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include "random_atom.h"
 #include "ceammc_factory.h"
-#include "ceammc_fn_list.h"
 #include "fmt/core.h"
 
 #include <cassert>
@@ -25,7 +24,7 @@ RandomAtom::RandomAtom(const PdArgs& args)
     , last_idx_(std::numeric_limits<uint32_t>::max())
     , is_uniform_(true)
 {
-    atoms_ = new ListProperty("@a");
+    atoms_ = new ListProperty("@value");
     atoms_->setArgIndex(0);
     addProperty(atoms_);
 

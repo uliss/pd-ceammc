@@ -1,5 +1,5 @@
 /*****************************************************************************
- * Copyright 2019 Serge Poltavsky. All rights reserved.
+ * Copyright 2023 Serge Poltavsky. All rights reserved.
  *
  * This file may be distributed under the terms of GNU Public License version
  * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "hoa_2d_scope.h"
 #include "ceammc_convert.h"
+#include "ceammc_dsp.h"
 #include "ceammc_ui.h"
 
 static const int MIN_SIZE = 20;
@@ -38,15 +39,15 @@ void Hoa2dScope::init(t_symbol* s, const AtomListView& args, bool usePresets)
 
     // first positional argument handling
     if (!args.empty() && args[0].isFloat())
-        propSetOrder(clip<t_float>(args[0].asFloat(), HOA_MIN_ORDER, HOA_MAX_ORDER));
+        propSetOrder(clip<t_float>(args[0].asFloat(), HOA_MIN_ORDER, HOA_MAX_2D_ORDER));
 
     dspSetup(nharm_, 0);
 }
 
 void Hoa2dScope::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, MIN_SIZE);
-    newrect->height = pd_clip_min(newrect->height, MIN_SIZE);
+    newrect->w = pd_clip_min(newrect->w, MIN_SIZE);
+    newrect->h = pd_clip_min(newrect->h, MIN_SIZE);
 }
 
 void Hoa2dScope::paint()
@@ -62,10 +63,10 @@ t_float Hoa2dScope::propOrder() const
 
 void Hoa2dScope::propSetOrder(t_float v)
 {
-    auto order = clip<int>(v, HOA_MIN_ORDER, HOA_MAX_ORDER);
+    auto order = clip<int>(v, HOA_MIN_ORDER, HOA_MAX_2D_ORDER);
 
     if (!scope_ || (order != scope_->getDecompositionOrder())) {
-        int dspState = canvas_suspend_dsp();
+        dsp::SuspendGuard guard;
         scope_.reset(new Scope2d(order, HOA_DISPLAY_NPOINTS));
         prop_order_ = scope_->getDecompositionOrder();
         nharm_ = scope_->getNumberOfHarmonics();
@@ -74,7 +75,6 @@ void Hoa2dScope::propSetOrder(t_float v)
 
         eobj_resize_inputs(asEObj(), nharm_);
         canvas_update_dsp();
-        canvas_resume_dsp(dspState);
     }
 }
 
@@ -85,11 +85,10 @@ t_float Hoa2dScope::propView() const
 
 void Hoa2dScope::propSetView(t_float angle)
 {
-    int dspState = canvas_suspend_dsp();
+    dsp::SuspendGuard guard;
     prop_view_ = wrapFloatMax<float>(angle, 360);
     scope_->setViewRotation(0., 0., convert::degree2rad(prop_view_));
     scope_->computeRendering();
-    canvas_resume_dsp(dspState);
 
     harm_layer_.invalidate();
     bg_layer_.invalidate();
@@ -102,7 +101,7 @@ void Hoa2dScope::tick()
 
     harm_layer_.invalidate();
     redraw();
-    if (canvas_dspstate)
+    if (pd_getdspstate())
         clock_.delay(prop_refresh_);
 }
 
@@ -263,20 +262,21 @@ void Hoa2dScope::drawHarmonics()
 
 void Hoa2dScope::setup()
 {
-    static t_symbol* SYM_REFRESH = gensym("refresh");
-    static t_symbol* SYM_MSEC = gensym("msec");
+    auto SYM_REFRESH = gensym("refresh");
+    auto SYM_MSEC = gensym("msec");
 
     UIObjectFactory<Hoa2dScope> obj("hoa.scope~", EBOX_IGNORELOCKCLICK | EBOX_GROWLINK);
+    obj.addAlias("hoa.2d.scope~");
     obj.setDefaultSize(120, 120);
 
     // hide some properties
-    obj.hideProperty("send");
-    obj.hideProperty("receive");
+    obj.internalProperty("send");
+    obj.internalProperty("receive");
 
     // @order
     obj.addIntProperty("order", _("Ambisonic Order"), HOA_DEFAULT_ORDER, &Hoa2dScope::prop_order_, "Ambisonic");
     obj.setPropertyAccessor("order", &Hoa2dScope::propOrder, &Hoa2dScope::propSetOrder);
-    obj.setPropertyRange("order", HOA_MIN_ORDER, HOA_MAX_ORDER);
+    obj.setPropertyRange("order", HOA_MIN_ORDER, HOA_MAX_2D_ORDER);
 
     // @view
     obj.addFloatProperty("view", _("View rotation"), 0, &Hoa2dScope::prop_view_, "Ambisonic");
@@ -297,7 +297,7 @@ void Hoa2dScope::setup()
     obj.addColorProperty("nh_color", _("Negative Harmonics Color"), "0. 0. 1. 1.", &Hoa2dScope::prop_nh_color_);
 }
 
-void setup_spat_hoa_scope2d()
+void setup_spat_hoa_2d_scope()
 {
     Hoa2dScope::setup();
 }

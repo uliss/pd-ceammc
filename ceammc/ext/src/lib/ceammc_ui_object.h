@@ -80,6 +80,8 @@ public:
     const AtomListView& args() const { return args_; }
     AtomListView& args() { return args_; }
 
+    t_symbol* externalDir();
+
     void init(t_symbol* name, const AtomListView& args, bool usePresets);
     t_symbol* name() const;
     t_symbol* presetId();

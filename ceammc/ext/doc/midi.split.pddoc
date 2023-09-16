@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="midi.split">
         <title>midi.split</title>
         <meta>
@@ -20,8 +20,8 @@
             <argument name="NOTES" type="list">list of note values (split points)</argument>
         </arguments>
         <properties>
-            <property name="@points" type="list" readonly="true">split points. Should be in strict
-            ascending order</property>
+            <property name="@points" type="list" access="readonly" default="">split points. Should
+            be in strict ascending order</property>
         </properties>
         <inlets>
             <inlet>

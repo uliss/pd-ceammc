@@ -31,7 +31,7 @@ UINumberTilde::UINumberTilde()
 {
 }
 
-void UINumberTilde::init(t_symbol* name, const AtomListView &args, bool usePresets)
+void UINumberTilde::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIDspObject::init(name, args, usePresets);
     dspSetup(1, 1);
@@ -39,8 +39,8 @@ void UINumberTilde::init(t_symbol* name, const AtomListView &args, bool usePrese
 
 void UINumberTilde::okSize(t_rect* newrect)
 {
-    newrect->height = 15;
-    newrect->width = pd_clip_min(newrect->width, sys_fontwidth(fontSizeZoomed()) * 3 + 8);
+    newrect->h = 15;
+    newrect->w = pd_clip_min(newrect->w, sys_fontwidth(fontSizeZoomed()) * 3 + 8);
 }
 
 void UINumberTilde::paint()
@@ -92,7 +92,7 @@ void UINumberTilde::updateTextValue()
 
 void UINumberTilde::setup()
 {
-    sys_gui(ui_number_tilde_tcl);
+    ui_number_tilde_tcl_output();
 
     UIObjectFactory<UINumberTilde> obj("ui.number~", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK);
     obj.addAlias("ui.n~");
@@ -110,8 +110,8 @@ void UINumberTilde::setup()
 
     obj.setPropertyDefaultValue(PROP_BACKGROUND_COLOR, "0.3 0.3 0.3 1");
     obj.setPropertyDefaultValue(PROP_BORDER_COLOR, DEFAULT_TEXT_COLOR);
-    obj.hideProperty("send");
-    obj.hideProperty("receive");
+    obj.internalProperty("send");
+    obj.internalProperty("receive");
 }
 
 void setup_ui_number_tilde()

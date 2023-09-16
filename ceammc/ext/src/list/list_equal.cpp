@@ -10,6 +10,7 @@ ListEqual::ListEqual(const PdArgs& a)
     createOutlet();
 
     pattern_ = new ListProperty("@pattern", a.args);
+    pattern_->setArgIndex(0);
     addProperty(pattern_);
 }
 
@@ -30,4 +31,8 @@ void setup_list_equal()
 {
     ObjectFactory<ListEqual> obj("list.equal");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("checks if given lists are equal");
+    obj.setCategory("list");
+    obj.setKeywords({"list", "compare", "equal"});
 }

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flow.pass">
         <title>flow.pass</title>
         <meta>
@@ -21,8 +21,11 @@
                 <see>flow.reject</see>
             </also>
         </meta>
+        <arguments>
+            <argument name="VALUES" type="list">atoms to pass</argument>
+        </arguments>
         <properties>
-            <property name="@values" type="list">atoms to pass</property>
+            <property name="@values" type="list" default="">atoms to pass</property>
         </properties>
         <inlets>
             <inlet>

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flow.count">
         <title>flow.count</title>
         <meta>
@@ -14,7 +14,7 @@
             <since>0.4</since>
         </meta>
         <arguments>
-            <argument name="N" type="int" minvalue="0">counter init value</argument>
+            <argument name="VALUE" type="int" minvalue="0">counter init value</argument>
         </arguments>
         <properties>
             <property name="@value" type="int" minvalue="0" default="0">current counter state. Can

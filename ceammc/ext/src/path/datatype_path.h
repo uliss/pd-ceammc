@@ -93,7 +93,7 @@ namespace path {
         static DataTypePath find(const DataTypePath& dir, const std::string& filename, int max_iters = -1);
 
     public:
-        static const DataTypeId dataType;
+        static DataTypeId staticType();
     };
 
 }

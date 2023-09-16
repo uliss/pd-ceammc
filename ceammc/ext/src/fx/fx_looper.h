@@ -81,6 +81,7 @@ class FxLooper : public SoundExternal {
     LinFadeoutProperty* x_dub_to_play_;
     LinFadeoutProperty* x_dub_to_stop_;
     FloatProperty* loop_smooth_ms_;
+    BoolProperty* debug_ { 0 };
     size_t max_samples_;
     size_t loop_len_;
     size_t play_phase_;

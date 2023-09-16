@@ -1,90 +1,127 @@
 #include "synth_metro.h"
+#include "args/argcheck2.h"
 #include "ceammc_clock.h"
 #include "ceammc_factory.h"
-#include "fmt/core.h"
+#include "ceammc_property_bpm.h"
+#include "ceammc_property_timesig.h"
+
+#include <cstdint>
 
 using namespace ceammc;
 
-constexpr int CLOCK_BANG = 5;
-constexpr int DOWNBEAT = 1;
-constexpr int UPBEAT = 0;
-constexpr int SECTION = 2;
-
 class SynthMetro : public faust_synth_metro_tilde {
-    UIProperty* b0_;
-    UIProperty* b1_;
-    UIProperty* b2_;
-    ClockLambdaFunction clock_;
-    bool beats_[3];
+    std::array<UIProperty*, 4> beats_;
+    ClockLambdaFunction clock_on_, clock_off_;
+    music::BeatList pattern_;
+    std::uint32_t pattern_idx_ { 0 };
+    BpmProperty* tempo_ { 0 };
+    TimeSignatureProperty* tsig_ { 0 };
 
 public:
     SynthMetro(const PdArgs& args)
         : faust_synth_metro_tilde(args)
-        , b0_(static_cast<UIProperty*>(property(gensym("@b0"))))
-        , b1_(static_cast<UIProperty*>(property(gensym("@b1"))))
-        , b2_(static_cast<UIProperty*>(property(gensym("@b2"))))
-        , clock_([this]() {
-            if (beats_[0]) {
-                beats_[0] = false;
-                b0_->setValue(0);
-            }
+        , beats_ { findUIProperty("@.down"), findUIProperty("@.on"), findUIProperty("@.off"), findUIProperty("@.mark") }
+        , clock_on_([this]() {
+            if (pattern_.empty())
+                return;
 
-            if (beats_[1]) {
-                beats_[1] = false;
-                b1_->setValue(0);
-            }
+            if (pattern_idx_ >= pattern_.size())
+                pattern_idx_ = 0;
 
-            if (beats_[2]) {
-                beats_[2] = false;
-                b2_->setValue(0);
+            auto beat = pattern_[pattern_idx_++];
+            bangBeat(beat.type);
+            if (!tempo_->isNull())
+                clock_on_.delay(tempo_->wholeNoteDurationMs() / beat.division);
+        })
+        , clock_off_([this]() {
+            for (auto x : beats_) {
+                if (x)
+                    x->setValue(0, true);
             }
         })
-        , beats_ { 0, 0, 0 }
     {
-        b0_->setInternal();
-        b1_->setInternal();
-        b2_->setInternal();
-
         createInlet();
         createInlet();
+        createOutlet();
+
+        for (auto p : beats_)
+            p->setInternal();
+
+        tempo_ = new BpmProperty("@tempo", 60);
+        tempo_->setArgIndex(0);
+        addProperty(tempo_);
+
+        tsig_ = new TimeSignatureProperty("@tsig");
+        tsig_->setArgIndex(1);
+        tsig_->setSuccessFn([this](Property*) { syncPattern(); });
+        addProperty(tsig_);
     }
 
-    void onBang() final
+    void initDone() final
     {
-        b0_->setValue(1);
-        beats_[0] = true;
-        clock_.delay(CLOCK_BANG);
+        syncPattern();
     }
 
-    void onFloat(t_float v) final
+    void syncPattern()
     {
-        int b = v;
-        if (b < 0 || b > 2) {
-            OBJ_ERR << fmt::format("0, 1 or 2 expected, got: {}", v);
-            return;
-        }
+        pattern_.clear();
+        pattern_ = tsig_->signature().beatList();
+    }
 
-        switch (b) {
-        case UPBEAT:
-            return onInlet(1, {});
-        case SECTION:
-            return onInlet(2, {});
-        case DOWNBEAT:
-        default:
-            return onBang();
-        }
+    void onBang() override
+    {
+        bangBeat(music::BEAT_DOWN);
+    }
+
+    void onFloat(t_float f) override
+    {
+        if (f > 0)
+            clock_on_.exec();
+        else
+            clock_on_.unset();
     }
 
     void onInlet(size_t n, const AtomListView& lv) final
     {
-        if (n == 1) {
-            b1_->setValue(1);
-            beats_[1] = true;
-            clock_.delay(CLOCK_BANG);
-        } else if (n == 2) {
-            b2_->setValue(1);
-            beats_[2] = true;
-            clock_.delay(CLOCK_BANG);
+        switch (n) {
+        case 1:
+            return bangBeat(lv.intAt(0, music::BEAT_DOWN));
+        case 2:
+            tempo_->setList(lv);
+            break;
+        default:
+            break;
+        }
+    }
+
+    void m_tempo(t_symbol* s, const AtomListView& lv)
+    {
+        static const args::ArgChecker chk("TEMPO:f>=0");
+        if (!chk.check(lv, this))
+            return chk.usage(this, s);
+
+        tempo_->setBpm(lv.asT<t_float>());
+    }
+
+    void m_down(t_symbol*, const AtomListView&) { bangBeat(music::BEAT_DOWN); }
+    void m_on(t_symbol*, const AtomListView&) { bangBeat(music::BEAT_ON); }
+    void m_off(t_symbol*, const AtomListView&) { bangBeat(music::BEAT_OFF); }
+    void m_mark(t_symbol*, const AtomListView&) { bangBeat(music::BEAT_MARK); }
+
+private:
+    void bangBeat(int t)
+    {
+        if (t < music::BEAT_DOWN || t > music::BEAT_MAX)
+            return;
+
+        try {
+            if (beats_.at(t - 1)) {
+                beats_[t - 1]->setValue(1, true);
+                clock_off_.delay(10);
+                floatTo(1, t);
+            }
+        } catch (std::exception& e) {
+            OBJ_ERR << e.what();
         }
     }
 };
@@ -92,13 +129,15 @@ public:
 void setup_synth_metro_tilde()
 {
     SoundExternalFactory<SynthMetro> obj("synth.metro~", OBJECT_FACTORY_DEFAULT);
-    obj.setXletsInfo({
-                         "bang: downbeat\n"
-                         "0:    upbeat\n"
-                         "1:    downbeat\n"
-                         "2:    section",
-                         "bang: upbeat",
-                         "bang: section",
-                     },
-        { "signal: output" });
+    obj.addMethod("tempo", &SynthMetro::m_tempo);
+    obj.addMethod("down", &SynthMetro::m_down);
+    obj.addMethod("on", &SynthMetro::m_on);
+    obj.addMethod("off", &SynthMetro::m_off);
+    obj.addMethod("mark", &SynthMetro::m_mark);
+
+    obj.setXletsInfo({ "bool: on/off metro", "int: bang beat", "float: set bpm" }, { "signal: out", "int: current beat" });
+
+    obj.setDescription("ready to use metronome synth");
+    obj.setCategory("synth");
+    obj.setKeywords({ "metro" });
 }

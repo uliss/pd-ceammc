@@ -28,7 +28,22 @@ else()
 endif()
 
 # generating about info page
-configure_file(${CMAKE_CURRENT_SOURCE_DIR}/about.pd ${CMAKE_CURRENT_BINARY_DIR}/about.pd @ONLY)
+set(CEAMMC_OBJECT_COUNT 800)
+find_program(WC NAMES wc)
+if(WC)
+    execute_process(
+        COMMAND ${WC} -l
+        INPUT_FILE "${CMAKE_CURRENT_SOURCE_DIR}/ceammc.db"
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+        RESULT_VARIABLE WC_RC
+        OUTPUT_VARIABLE WC_OUT)
+
+    if(${WC_RC} EQUAL 0)
+        message(STATUS "number of ceammc objects: ${WC_OUT}")
+        set(CEAMMC_OBJECT_COUNT ${WC_OUT})
+    endif()
+endif()
+configure_file(${CMAKE_CURRENT_SOURCE_DIR}/template_about.pd ${CMAKE_CURRENT_BINARY_DIR}/about.pd @ONLY)
 
 # doc file list
 include(docs.cmake)
@@ -102,6 +117,10 @@ else()
     set(DOC_INSTALL_PATH "${PD_DOC_INSTALL_PATH}/extra/ceammc")
 endif()
 
+install(FILES "about.pd"
+    DESTINATION ${DOC_INSTALL_PATH}
+    PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
+
 # install all help files
 foreach(_doc_file ${DOC_FILES})
     install(FILES "${_doc_file}-help.pd"
@@ -117,10 +136,6 @@ foreach(_doc_file ${DOC_FILES})
         endif()
     endforeach()
 endforeach()
-
-# About Pd page
-install(FILES "${CMAKE_CURRENT_BINARY_DIR}/about.pd" DESTINATION ${DOC_INSTALL_PATH}
-    PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 
 # Documentation index install
 install(FILES "index-help.pd" DESTINATION "${DOC_INSTALL_PATH}/.."
@@ -171,6 +186,7 @@ if(TIDY)
         COMMAND ls *.pddoc | while read f\;
         do
             ${TIDY} -quiet -xml --indent auto
+            --priority-attributes "name,type"
             --indent-spaces 4 --indent-cdata no --wrap 100 --wrap-sections no $$f > "${CMAKE_CURRENT_BINARY_DIR}/$$f" \;
             ${CMAKE_COMMAND} -E copy_if_different
                 "${CMAKE_CURRENT_BINARY_DIR}/$$f" . \;
@@ -188,14 +204,20 @@ file(GLOB _PDDOC_PD_FILES "*.pd")
 add_custom_target(pddoc_pd_files SOURCES ${_PDDOC_PD_FILES})
 file(GLOB _PDDOC_FAUST_FILES "faust/*")
 add_custom_target(pddoc_faust_files SOURCES ${_PDDOC_FAUST_FILES})
+file(GLOB _PDDOC_HOA_FILES "hoa/*")
+add_custom_target(pddoc_hoa_files SOURCES ${_PDDOC_HOA_FILES})
 
 # install HOA library docs and examples
 install(DIRECTORY hoa DESTINATION ${DOC_INSTALL_PATH})
 install(DIRECTORY faust DESTINATION ${DOC_INSTALL_PATH})
 
-add_subdirectory(sound)
+add_subdirectory(img)
+add_subdirectory(lua)
+add_subdirectory(midi)
+add_subdirectory(music)
 add_subdirectory(sf2)
 add_subdirectory(sfz)
+add_subdirectory(sound)
 
 find_program(RSYNC_EXEC rsync)
 

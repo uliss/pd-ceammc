@@ -386,4 +386,174 @@ TEST_CASE("list functions2", "[core]")
             res = list::findProperty(res.second);
         }
     }
+
+    SECTION("hexbeat")
+    {
+        REQUIRE(list::hexbeat_bin("") == L());
+        REQUIRE(list::hexbeat_bin("?") == L());
+        REQUIRE(list::hexbeat_bin("#") == L());
+        REQUIRE(list::hexbeat_bin("#?") == L());
+        REQUIRE(list::hexbeat_bin("0x0") == LF(0, 0, 0, 0));
+        REQUIRE(list::hexbeat_bin("#0") == LF(0, 0, 0, 0));
+        REQUIRE(list::hexbeat_bin("#1") == LF(0, 0, 0, 1));
+        REQUIRE(list::hexbeat_bin("#2") == LF(0, 0, 1, 0));
+        REQUIRE(list::hexbeat_bin("#3") == LF(0, 0, 1, 1));
+        REQUIRE(list::hexbeat_bin("#4") == LF(0, 1, 0, 0));
+        REQUIRE(list::hexbeat_bin("#5") == LF(0, 1, 0, 1));
+        REQUIRE(list::hexbeat_bin("#6") == LF(0, 1, 1, 0));
+        REQUIRE(list::hexbeat_bin("#7") == LF(0, 1, 1, 1));
+        REQUIRE(list::hexbeat_bin("#8") == LF(1, 0, 0, 0));
+        REQUIRE(list::hexbeat_bin("#9") == LF(1, 0, 0, 1));
+        REQUIRE(list::hexbeat_bin("#A") == LF(1, 0, 1, 0));
+        REQUIRE(list::hexbeat_bin("#B") == LF(1, 0, 1, 1));
+        REQUIRE(list::hexbeat_bin("#C") == LF(1, 1, 0, 0));
+        REQUIRE(list::hexbeat_bin("#D") == LF(1, 1, 0, 1));
+        REQUIRE(list::hexbeat_bin("#E") == LF(1, 1, 1, 0));
+        REQUIRE(list::hexbeat_bin("#F") == LF(1, 1, 1, 1));
+        REQUIRE(list::hexbeat_bin("#a") == LF(1, 0, 1, 0));
+        REQUIRE(list::hexbeat_bin("#b") == LF(1, 0, 1, 1));
+        REQUIRE(list::hexbeat_bin("#c") == LF(1, 1, 0, 0));
+        REQUIRE(list::hexbeat_bin("#d") == LF(1, 1, 0, 1));
+        REQUIRE(list::hexbeat_bin("#e") == LF(1, 1, 1, 0));
+        REQUIRE(list::hexbeat_bin("#f") == LF(1, 1, 1, 1));
+        REQUIRE(list::hexbeat_bin("#BEEF") == LF(1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1));
+        REQUIRE(list::hexbeat_bin("0xBEEF") == LF(1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1));
+        REQUIRE(list::hexbeat_bin("#B?E?E?F???") == LF(1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 1, 1, 1, 1));
+        REQUIRE(list::hexbeat_bin("#кириллица") == L());
+    }
+
+    SECTION("hexbeat_dur")
+    {
+        AtomList values;
+        int shift = 0;
+        REQUIRE(!list::hexbeat_dur("", values, shift));
+        REQUIRE(list::hexbeat_dur("0xF", values, shift));
+        REQUIRE(shift == 0);
+        REQUIRE(values == LF(1, 1, 1, 1));
+        // 0 1 1 1 -> 1 1 2 with 1 upbeat
+        REQUIRE(list::hexbeat_dur("0x7", values, shift));
+        REQUIRE(shift == 1);
+        REQUIRE(values == LF(1, 1, 2));
+        // 0 0 1 1 -> 1 3 with 2 upbeat
+        REQUIRE(list::hexbeat_dur("0x3", values, shift));
+        REQUIRE(shift == 2);
+        REQUIRE(values == LF(1, 3));
+        // 0 0 0 1 -> 4 with 3 upbeat
+        REQUIRE(list::hexbeat_dur("0x1", values, shift));
+        REQUIRE(shift == 3);
+        REQUIRE(values == LF(4));
+        // 0 0 1 0 -> 4 with 2 upbeat
+        REQUIRE(list::hexbeat_dur("0x2", values, shift));
+        REQUIRE(shift == 2);
+        REQUIRE(values == LF(4));
+        // 0 1 1 0 -> 1 3 with 1 upbeat
+        REQUIRE(list::hexbeat_dur("0x6", values, shift));
+        REQUIRE(shift == 1);
+        REQUIRE(values == LF(1, 3));
+        // 0 1 0 1 -> 2 2 with 1 upbeat
+        REQUIRE(list::hexbeat_dur("0x5", values, shift));
+        REQUIRE(shift == 1);
+        REQUIRE(values == LF(2, 2));
+    }
+
+    SECTION("interpolate lin")
+    {
+        SECTION("default")
+        {
+            REQUIRE(list::interpolate_lin(L(), L(), 0) == L());
+            REQUIRE(list::interpolate_lin(L(), L(), 1) == L());
+            REQUIRE(list::interpolate_lin(LF(1), L(), 0) == L());
+            REQUIRE(list::interpolate_lin(L(), LF(1), 0) == L());
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 0) == LF(1, 2, 3));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 1) == LF(2, 3, 4));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 2) == LF(2, 3, 4));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), -1) == LF(1, 2, 3));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 0.5) == LF(1.5, 2.5, 3.5));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 0.25) == LF(1.25, 2.25, 3.25));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3), 0.25) == LF(1.25, 2.25));
+        }
+
+        SECTION("minsize")
+        {
+            REQUIRE(list::interpolate_lin(L(), L(), 0, AtomList::MINSIZE) == L());
+            REQUIRE(list::interpolate_lin(L(), L(), 1, AtomList::MINSIZE) == L());
+            REQUIRE(list::interpolate_lin(LF(1), L(), 0, AtomList::MINSIZE) == L());
+            REQUIRE(list::interpolate_lin(L(), LF(1), 0, AtomList::MINSIZE) == L());
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 0, AtomList::MINSIZE) == LF(1, 2, 3));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 1, AtomList::MINSIZE) == LF(2, 3, 4));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 2, AtomList::MINSIZE) == LF(2, 3, 4));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), -1, AtomList::MINSIZE) == LF(1, 2, 3));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 0.5, AtomList::MINSIZE) == LF(1.5, 2.5, 3.5));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 0.25, AtomList::MINSIZE) == LF(1.25, 2.25, 3.25));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3), 0.25, AtomList::MINSIZE) == LF(1.25, 2.25));
+        }
+
+        SECTION("padzero")
+        {
+            REQUIRE(list::interpolate_lin(L(), L(), 0, AtomList::PADZERO) == L());
+            REQUIRE(list::interpolate_lin(L(), L(), 1, AtomList::PADZERO) == L());
+            REQUIRE(list::interpolate_lin(LF(1), L(), 0, AtomList::PADZERO) == LF(1));
+            REQUIRE(list::interpolate_lin(L(), LF(1), 0, AtomList::PADZERO) == LF(0));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 0, AtomList::PADZERO) == LF(1, 2, 3));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 1, AtomList::PADZERO) == LF(2, 3, 4));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 2, AtomList::PADZERO) == LF(2, 3, 4));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), -1, AtomList::PADZERO) == LF(1, 2, 3));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 0.5, AtomList::PADZERO) == LF(1.5, 2.5, 3.5));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 0.25, AtomList::PADZERO) == LF(1.25, 2.25, 3.25));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3), 0.25, AtomList::PADZERO) == LF(1.25, 2.25, 2.25));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3), 0.5, AtomList::PADZERO) == LF(1.5, 2.5, 1.5));
+            REQUIRE(list::interpolate_lin(LF(2, 3), LF(1, 2, 3), 0.5, AtomList::PADZERO) == LF(1.5, 2.5, 1.5));
+        }
+
+        SECTION("clip")
+        {
+            REQUIRE(list::interpolate_lin(L(), L(), 0, AtomList::CLIP) == L());
+            REQUIRE(list::interpolate_lin(L(), L(), 1, AtomList::CLIP) == L());
+            REQUIRE(list::interpolate_lin(LF(1), L(), 0, AtomList::CLIP) == L());
+            REQUIRE(list::interpolate_lin(L(), LF(1), 0, AtomList::CLIP) == L());
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 0, AtomList::CLIP) == LF(1, 2, 3));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 1, AtomList::CLIP) == LF(2, 3, 4));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 2, AtomList::CLIP) == LF(2, 3, 4));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), -1, AtomList::CLIP) == LF(1, 2, 3));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 0.5, AtomList::CLIP) == LF(1.5, 2.5, 3.5));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 0.25, AtomList::CLIP) == LF(1.25, 2.25, 3.25));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3), 0.25, AtomList::CLIP) == LF(1.25, 2.25, 3));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3), 0.5, AtomList::CLIP) == LF(1.5, 2.5, 3));
+            REQUIRE(list::interpolate_lin(LF(2, 3), LF(1, 2, 3), 0.5, AtomList::CLIP) == LF(1.5, 2.5, 3));
+        }
+
+        SECTION("wrap")
+        {
+            REQUIRE(list::interpolate_lin(L(), L(), 0, AtomList::WRAP) == L());
+            REQUIRE(list::interpolate_lin(L(), L(), 1, AtomList::WRAP) == L());
+            REQUIRE(list::interpolate_lin(LF(1), L(), 0, AtomList::WRAP) == L());
+            REQUIRE(list::interpolate_lin(L(), LF(1), 0, AtomList::WRAP) == L());
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 0, AtomList::WRAP) == LF(1, 2, 3));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 1, AtomList::WRAP) == LF(2, 3, 4));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 2, AtomList::WRAP) == LF(2, 3, 4));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), -1, AtomList::WRAP) == LF(1, 2, 3));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 0.5, AtomList::WRAP) == LF(1.5, 2.5, 3.5));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 0.25, AtomList::WRAP) == LF(1.25, 2.25, 3.25));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3), 0.25, AtomList::WRAP) == LF(1.25, 2.25, 2.75));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3), 0.5, AtomList::WRAP) == LF(1.5, 2.5, 2.5));
+            REQUIRE(list::interpolate_lin(LF(2, 3), LF(1, 2, 3), 0.5, AtomList::WRAP) == LF(1.5, 2.5, 2.5));
+        }
+
+        SECTION("fold")
+        {
+            REQUIRE(list::interpolate_lin(L(), L(), 0, AtomList::FOLD) == L());
+            REQUIRE(list::interpolate_lin(L(), L(), 1, AtomList::FOLD) == L());
+            REQUIRE(list::interpolate_lin(LF(1), L(), 0, AtomList::FOLD) == L());
+            REQUIRE(list::interpolate_lin(L(), LF(1), 0, AtomList::FOLD) == L());
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 0, AtomList::FOLD) == LF(1, 2, 3));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 1, AtomList::FOLD) == LF(2, 3, 4));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 2, AtomList::FOLD) == LF(2, 3, 4));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), -1, AtomList::FOLD) == LF(1, 2, 3));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 0.5, AtomList::FOLD) == LF(1.5, 2.5, 3.5));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3, 4), 0.25, AtomList::FOLD) == LF(1.25, 2.25, 3.25));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3), 0.25, AtomList::FOLD) == LF(1.25, 2.25, 2.75));
+            REQUIRE(list::interpolate_lin(LF(1, 2, 3), LF(2, 3), 0.5, AtomList::FOLD) == LF(1.5, 2.5, 2.5));
+            REQUIRE(list::interpolate_lin(LF(2, 3), LF(1, 2, 3), 0.5, AtomList::FOLD) == LF(1.5, 2.5, 2.5));
+        }
+    }
 }

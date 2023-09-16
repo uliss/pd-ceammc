@@ -1,4 +1,5 @@
 #include "mod_midi.h"
+#include "midi_arp.h"
 #include "midi_cc.h"
 #include "midi_clock.h"
 #include "midi_ctl2str.h"
@@ -18,8 +19,11 @@
 #include "midi_velocity_ramp.h"
 #include "midi_vrand.h"
 
+void setup_midi_note_pass();
+
 void ceammc_midi_setup()
 {
+    setup_midi_arp();
     setup_midi_cc();
     setup_midi_clock();
     setup_midi_ctl2str();
@@ -29,6 +33,7 @@ void ceammc_midi_setup()
     setup_midi_kbd();
     setup_midi_key2str();
     setup_midi_modus();
+    setup_midi_note_pass();
     setup_midi_octave();
     setup_midi_prg2str();
     setup_midi_split();

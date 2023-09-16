@@ -3,6 +3,7 @@ add_library(ceammc_core SHARED ceammc.cpp)
 target_include_directories(ceammc_core PRIVATE ${CMAKE_BINARY_DIR}) # for config.h
 target_include_directories(ceammc_core PRIVATE
     ${PROJECT_SOURCE_DIR}/src # m_pd.h
+    ${PROJECT_BINARY_DIR}/ceammc # ceammc_config.h
     ${CMAKE_CURRENT_SOURCE_DIR}
     ${CMAKE_CURRENT_SOURCE_DIR}/utf8rewind
 )
@@ -23,7 +24,11 @@ set(UTF8REWIND_SOURCES
 target_sources(ceammc_core PRIVATE ${UTF8REWIND_SOURCES})
 
 # tcl stuff
-add_subdirectory(tcl)
+include(tcl_autogen)
+add_custom_target(ceammc_lib_tcl SOURCES)
+tcl_autogen_header(tcl/ceammc_tooltips.tcl TARGET ceammc_core SOURCES ceammc_lib_tcl)
+tcl_autogen_header(tcl/ceammc_texteditor.tcl TARGET ceammc_core SOURCES ceammc_lib_tcl)
+target_include_directories(ceammc_core PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/tcl)
 
 set(CEAMMC_LIB_SOURCES
     ceammc.h
@@ -43,7 +48,6 @@ set(CEAMMC_LIB_SOURCES
     args/arg_is_int.cpp
     args/arg_is_symbol.cpp
     args/argcheck2.cpp
-    tcl/ceammc_texteditor.h
     tcl/ceammc_tcl.cpp
     ceammc_array.cpp
     ceammc_atom.cpp
@@ -58,29 +62,39 @@ set(CEAMMC_LIB_SOURCES
     ceammc_datastorage.cpp
     ceammc_deprecated.cpp
     ceammc_dsp.cpp
+    ceammc_editor_object.cpp
+    ceammc_either.cpp
     ceammc_externals.cpp
-    ceammc_factory.h
+    ceammc_factory.cpp
     ceammc_faust.cpp
+    ceammc_faust_ui.cpp
+    ceammc_filesystem.cpp
     ceammc_fn_list.cpp
     ceammc_format.cpp
     ceammc_function.cpp
     ceammc_impl.cpp
     ceammc_inlet.cpp
-    ceammc_outlet.cpp
-    ceammc_json.h
     ceammc_json.cpp
+    ceammc_json.h
     ceammc_log.cpp
     ceammc_message.cpp
+    ceammc_mime_type.cpp
+    ceammc_music_chord.cpp
     ceammc_music_scale.cpp
+    ceammc_music_spn.cpp
     ceammc_music_temperament.cpp
     ceammc_music_theory.cpp
+    ceammc_music_theory_duration.cpp
     ceammc_music_theory_names.cpp
     ceammc_music_theory_pitch_class.cpp
+    ceammc_music_theory_tempo.cpp
+    ceammc_music_theory_timesig.cpp
     ceammc_node_external.cpp
+    ceammc_notify.cpp
     ceammc_numeric.h
-    ceammc_editor_object.cpp
     ceammc_object.cpp
     ceammc_object_info.cpp
+    ceammc_outlet.cpp
     ceammc_output.cpp
     ceammc_pd.cpp
     ceammc_platform.cpp
@@ -89,14 +103,19 @@ set(CEAMMC_LIB_SOURCES
     ceammc_socket_dispatcher.cpp
     ceammc_preset.cpp
     ceammc_property.cpp
+    ceammc_property_bpm.cpp
     ceammc_property_callback.cpp
+    ceammc_property_duration.cpp
     ceammc_property_enum.cpp
     ceammc_property_info.cpp
+    ceammc_property_message.cpp
+    ceammc_property_timesig.cpp
     ceammc_random.cpp
     ceammc_regexp.cpp
     ceammc_rtree.cpp
     ceammc_score.cpp
     ceammc_sound_external.cpp
+    ceammc_soxr_resampler.cpp
     ceammc_string.cpp
     ceammc_string_split.cpp
     ceammc_thread.cpp
@@ -104,7 +123,10 @@ set(CEAMMC_LIB_SOURCES
     ceammc_transport.cpp
     ceammc_units.cpp
     ceammc_window.cpp
+    datatype_color.cpp
     datatype_dict.cpp
+    datatype_env.cpp
+    datatype_json.cpp
     datatype_mlist.cpp
     datatype_property.cpp
     datatype_set.cpp
@@ -149,9 +171,14 @@ if(RAGEL_FOUND)
     RAGEL_TARGET(parser_color
         lex/parser_color.rl lex/parser_color.cpp
         COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_hexbeat
+        lex/parser_hexbeat.rl lex/parser_hexbeat.cpp
+        COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(parser_music
         lex/parser_music.rl lex/parser_music.cpp
         COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_midi
+        lex/parser_midi.rl lex/parser_midi.cpp)
     RAGEL_TARGET(parser_units
         lex/parser_units.rl lex/parser_units.cpp
         COMPILE_FLAGS "-G2 -s")
@@ -170,35 +197,62 @@ if(RAGEL_FOUND)
     RAGEL_TARGET(parser_argcheck
         args/argcheck2.rl args/argcheck2.cpp
         COMPILE_FLAGS "-G2 -s")
-
-    add_custom_target(lemon_data_parser
-        COMMAND $<TARGET_FILE:lemon> -s -q lemon_data_string.y
-        COMMAND mv lemon_data_string.c lemon_data_parser_impl.cpp
-        SOURCES lex/lemon_data_string.y
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex
-    )
+    RAGEL_TARGET(parser_array_saver
+        lex/parser_array_saver.rl lex/parser_array_saver.cpp
+        COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_faust
+        lex/parser_faust.rl lex/parser_faust.cpp
+        COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(ragel_music
+        lex/ragel_music.rl lex/ragel_music.cpp
+        COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(ceammc_editor_unescape
+        ceammc_editor_unescape.rl ceammc_editor_unescape.cpp
+        COMPILE_FLAGS "-G2 -s")
 endif()
+
+add_custom_target(lemon_data_parser
+    COMMAND $<TARGET_FILE:lemon> -s -q lemon_data_string.y
+    COMMAND mv lemon_data_string.c lemon_data_parser_impl.cpp
+    SOURCES lex/lemon_data_string.y
+    WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/lex
+)
 
 # ragel generated sources
 target_sources(ceammc_core
     PRIVATE
+        ceammc_editor_unescape.cpp
+        lex/lemon_data_parser_impl.cpp
+        lex/lemon_data_parser_impl.h
+        lex/lemon_data_string_parser.cpp
+        lex/lemon_data_string_parser.h
+        lex/parser_array_saver.cpp
         lex/parser_clone.cpp
         lex/parser_color.cpp
+        lex/parser_faust.cpp
+        lex/parser_hexbeat.cpp
+        lex/parser_midi.cpp
         lex/parser_music.cpp
         lex/parser_numeric.cpp
         lex/parser_props.cpp
         lex/parser_props_details.cpp
-        lex/parser_units.cpp
         lex/parser_strings.cpp
-        lex/lemon_data_parser_impl.h
-        lex/lemon_data_parser_impl.cpp
-        lex/lemon_data_string_parser.h
-        lex/lemon_data_string_parser.cpp
+        lex/parser_units.cpp
+        lex/ragel_music.cpp
 )
 
 # ragel files
 file(GLOB RAGEL_SOURCES lex/*.rl)
 add_custom_target(lex_ragel_sources SOURCES ${RAGEL_SOURCES} args/argcheck2.rl)
+
+# liblo
+find_package(liblo)
+if(LIBLO_FOUND)
+    target_compile_definitions(ceammc_core PRIVATE WITH_LIBLO)
+    target_include_directories(ceammc_core PRIVATE ${LIBLO_INCLUDE_DIRS})
+    target_link_libraries(ceammc_core PUBLIC ${LIBLO_LIBRARIES})
+endif()
+target_sources(ceammc_core PRIVATE ceammc_osc.cpp)
 
 if(BISON_FOUND AND FLEX_FOUND)
     add_custom_target(ceammc_argcheck_gen
@@ -235,10 +289,28 @@ else()
     target_link_libraries(ceammc_core PRIVATE fmt soxr)
 endif()
 
+if(WITH_LIBSAMPLERATE)
+    find_package(LibSamplerate)
+    if(NOT LIBSAMPLERATE_FOUND)
+        message(FATAL "libsamplerate not found")
+    endif()
+    target_include_directories(ceammc_core PRIVATE ${LIBSAMPLERATE_INCLUDE_DIR}>)
+    target_link_libraries(ceammc_core PRIVATE ${LIBSAMPLERATE_LIBRARIES})
+    target_compile_definitions(ceammc_core PRIVATE WITH_LIBSAMPLERATE)
+endif()
+
+find_package(LibMagic)
+if(LibMagic_FOUND AND NOT WIN32) # strange crash in windows
+    target_include_directories(ceammc_core PRIVATE ${LIBMAGIC_INCLUDE_DIRS})
+    target_link_libraries(ceammc_core PRIVATE ${LIBMAGIC_LIBRARIES})
+    target_compile_definitions(ceammc_core PRIVATE WITH_LIBMAGIC)
+endif()
+
 target_link_libraries(ceammc_core PRIVATE re2)
 target_link_libraries(ceammc_core PRIVATE reflex)
 target_link_libraries(ceammc_core PRIVATE muparser)
 target_link_libraries(ceammc_core PRIVATE readerwriterqueue)
+target_link_libraries(ceammc_core PRIVATE colorm)
 #target_link_libraries(ceammc_core PRIVATE ${Boost_FILESYSTEM_LIBRARY} ${Boost_SYSTEM_LIBRARY})
 #target_link_libraries(ceammc_core PRIVATE puredata-core)
 
@@ -272,6 +344,7 @@ set(CEAMMC_LOAD_SRC
     lex/array_loader.lexer.cpp
     lex/array_loader.parser.cpp
     lex/array_loader.cpp
+    lex/array_saver.cpp
     lex/select.lexer.cpp
     lex/select.parser.cpp
     lex/score.lexer.cpp

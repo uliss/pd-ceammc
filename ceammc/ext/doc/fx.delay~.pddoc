@@ -1,0 +1,107 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="fx.delay~">
+        <title>fx.delay~</title>
+        <meta>
+            <authors>
+                <author>Yann Orlarey</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>smooth delay with a feedback control</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>fx</category>
+            <keywords>fx echo delay</keywords>
+            <since>0.6</since>
+            <also>
+                <see>fx.echo~</see>
+            </also>
+            <aliases>
+                <alias>fx.sdelay~</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>delay that doesn't click and doesn't transpose when the delay time is
+            changed</par>
+        </info>
+        <arguments>
+            <argument name="DELAY" type="float" minvalue="0" maxvalue="6000" units="millisecond">
+            delay time</argument>
+            <argument name="FEEDBACK" type="float" minvalue="0" maxvalue="1">feedback
+            coefficient</argument>
+        </arguments>
+        <properties>
+            <property name="@delay" type="float" minvalue="0" maxvalue="6000" units="millisecond"
+            default="1">echo time</property>
+            <property name="@feedback" type="float" minvalue="0" maxvalue="1" default="0">feedback
+            coefficient</property>
+            <!-- FILTER -->
+            <property name="@filter" type="bool" default="0">if true - apply filter to feedback
+            signal</property>
+            <property name="@f_lpf" type="float" units="hertz" minvalue="20" maxvalue="20000"
+            default="9000">feedback low-pass filter cutoff frequency</property>
+            <property name="@f_hpf" type="float" units="hertz" minvalue="20" maxvalue="20000"
+            default="300">feedback high-pass filter cutoff frequency</property>
+            <!-- COMPRESSION -->
+            <property name="@compress" type="float" minvalue="0" maxvalue="1" default="0.5">
+            feedback compression factor. 0: means no compression, 1: limit feedback
+            level.</property>
+            <property name="@c_thresh" type="float" minvalue="-60" maxvalue="0" default="0"
+            units="decibel">feedback compression threshold level</property>
+            <property name="@c_attack" type="float" minvalue="0.1" maxvalue="100" default="10"
+            units="millisecond">feedback compression attack time</property>
+            <property name="@c_release" type="float" minvalue="1" maxvalue="500" default="50"
+            units="millisecond">feedback compression release time</property>
+            <property name="@smooth" type="float" default="50" minvalue="0" maxvalue="500"
+            units="millisecond">interpolation time on delay time change, that prevents click and
+            transpose, if equal to 0 produces artifacts on delay change</property>
+            <!-- MIX -->
+            <property name="@drywet" type="float" minvalue="0" maxvalue="1" default="1">proportion
+            of mix between the original (dry) and 'effected' (wet) signals. 0 - dry signal, 1 -
+            wet.</property>
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+            <!-- COMMON -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+        </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">clears delay line</method>
+        </methods>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set delay time</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %CEAMMC%/guitar1.wav, 1 #b(
+|
+[expand_env] [ui.hsl 0 1000 @show_value 1]
+|            |
+|            |
+[readsf~ #a] |           [F]
+|            |           |
+|            [@delay $1( [@smooth $1(
+|            |           |
+[fx.delay~ @drywet 0.5   ]
+|
+[ui.gain~ @size 120 16]  [ui.dsp~]
+|\
+[dac~]
+
+[X a:1->b]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

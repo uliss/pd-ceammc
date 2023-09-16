@@ -22,7 +22,7 @@ UIFilter::UIFilter()
 
 void setup_ui_filter()
 {
-    sys_vgui(ui_filter_tcl);
+    ui_filter_tcl_output();
 
     UIObjectFactory<UIFilter> obj("ui.filter", EBOX_GROWINDI);
     ui::TFilter<UIObject>::setup(obj);

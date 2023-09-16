@@ -16,7 +16,6 @@
 
 #include "ceammc_maybe.h"
 #include "ceammc_object.h"
-#include "ceammc_sound.h"
 
 using namespace ceammc;
 
@@ -33,6 +32,7 @@ public:
 
 public:
     void m_load(t_symbol* s, const AtomListView& lv);
+    void m_save(t_symbol* s, const AtomListView& lv);
 
 private:
     void postInfoUsage();

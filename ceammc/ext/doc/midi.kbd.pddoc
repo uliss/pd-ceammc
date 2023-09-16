@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="midi.kbd">
         <title>midi.kdb</title>
         <meta>
@@ -18,12 +18,8 @@
         </info>
         <arguments>
             <argument name="LAYOUT" type="symbol" enum="qwerty names custom">layout name</argument>
-            <argument name="ON" type="int">init on/off state</argument>
+            <argument name="ON" type="bool">init on/off state</argument>
         </arguments>
-        <methods>
-            <method name="custom">set custom 
-            <param type="symbol" name="KEYSTR" required="true">key string</param></method>
-        </methods>
         <properties>
             <property name="@octave" type="int" default="4" minvalue="0" maxvalue="8">output
             octave</property>
@@ -33,8 +29,13 @@
             current layout</property>
             <property name="@custom" type="atom" default="[]">custom layout (Dict data
             type)</property>
-            <property name="@on" type="int" enum="0 1" default="1">on/off state</property>
+            <property name="@on" type="bool" default="1">on/off state</property>
         </properties>
+        <methods>
+            <!-- custom -->
+            <method name="custom">set custom 
+            <param name="KEYSTR" type="symbol" required="true">key string</param></method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo>control input</xinfo>

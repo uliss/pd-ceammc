@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="midi.event2prg">
         <title>midi.event2prg</title>
         <meta>
@@ -22,7 +22,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output MIDI patch number</outlet>
+            <outlet>int: MIDI program change value</outlet>
+            <outlet>int: MIDI track</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -41,9 +42,7 @@
 |
 [midi.prg->str @symbol]
 |
-[msg set]
-|
-[ (
+[ui.dt]
 ]]>
             </pdascii>
         </example>

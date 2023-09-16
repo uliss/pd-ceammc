@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="math.round~">
         <title>math.round~</title>
         <meta>
@@ -13,6 +13,7 @@
             <keywords>math round~</keywords>
             <aliases>
                 <alias>round~</alias>
+                <alias>ceammc/round~</alias>
             </aliases>
             <also>
                 <see>math.round</see>
@@ -20,12 +21,12 @@
             <since>0.4</since>
         </meta>
         <inlets>
-            <inlet>
+            <inlet type="audio">
                 <xinfo>input signal</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output rounded signal</outlet>
+            <outlet type="audio">output rounded signal</outlet>
         </outlets>
         <example>
             <pdascii>

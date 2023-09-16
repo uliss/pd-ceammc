@@ -94,6 +94,16 @@ constexpr uint32_t crc32_constexpr(char const* const str, int32_t const len, uin
 
 constexpr uint32_t crc32_hash_seed() { return -1; }
 
+constexpr uint32_t crc32_constexpr_strlen(const char* str)
+{
+    return *str ? 1 + crc32_constexpr_strlen(str + 1) : 0;
+}
+
+constexpr uint32_t crc32_constexpr(char const* const str)
+{
+    return crc32_constexpr(str, crc32_constexpr_strlen(str), crc32_hash_seed());
+}
+
 /**
  * a user-defined string literal for static string hashing, to be used together
  * with @ref str_hash() along the lines of:
@@ -131,7 +141,7 @@ inline uint32_t crc32_hash(const char* str)
 
 inline uint32_t crc32_hash(const std::string& str) { return crc32_hash(str.data()); }
 
-inline uint32_t crc32_hash(t_symbol* s) { return crc32_hash(s->s_name); }
+inline uint32_t crc32_hash(const t_symbol* s) { return crc32_hash(s->s_name); }
 
 constexpr bool crc32_check_unique(uint32_t a, uint32_t b) { return a != b; }
 
@@ -170,6 +180,18 @@ constexpr bool crc32_check_unique(uint32_t a, uint32_t b, uint32_t c, uint32_t d
     CEAMMC_DEFINE_STR(name)          \
     CEAMMC_DEFINE_CRC32(name)        \
     CEAMMC_DEFINE_SYM(name)
+
+#define CEAMMC_DEFINE_PROP_STR(name) constexpr const char* str_prop_##name = "@" #name;
+#define CEAMMC_DEFINE_PROP_SYM(name) \
+    static inline t_symbol* sym_prop_##name() { return gensym("@" #name); }
+
+#define CEAMMC_DEFINE_PROP(name) \
+    CEAMMC_DEFINE_PROP_STR(name) \
+    CEAMMC_DEFINE_PROP_SYM(name)
+
+#define CEAMMC_DEFINE_PROP_VAR(name) \
+    CEAMMC_DEFINE_PROP_STR(name) \
+    auto* sym_prop_##name = gensym("@" #name);
 }
 
 #endif

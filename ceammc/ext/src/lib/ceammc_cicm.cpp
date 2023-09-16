@@ -1,4 +1,5 @@
 #include "ceammc_cicm.h"
+#include "ceammc_fonts.h"
 
 #include <algorithm>
 
@@ -32,23 +33,13 @@ static t_symbol* toSymbol(FontWeight w)
 }
 
 UIFont::UIFont(t_symbol* family, int size, FontDecoration decoration, FontWeight w)
-    : font_(0)
-    , family_(family)
-    , size_(size)
-    , dec_(decoration)
-    , w_(w)
+    : font_(efont_create(family, toSymbol(decoration), toSymbol(w), size))
 {
-    font_ = efont_create(family_, toSymbol(dec_), toSymbol(w_), size_);
 }
 
 UIFont::UIFont(const UIFont& font)
-    : font_(0)
-    , family_(font.family_)
-    , size_(font.size_)
-    , dec_(font.dec_)
-    , w_(font.w_)
+    : font_(efont_create(font.font_->c_family, font.font_->c_slant, font.font_->c_weight, font.font_->c_sizereal))
 {
-    font_ = efont_create(family_, toSymbol(dec_), toSymbol(w_), size_);
 }
 
 void UIFont::operator=(const UIFont& font)
@@ -58,11 +49,7 @@ void UIFont::operator=(const UIFont& font)
         return;
 
     efont_destroy(font_);
-    family_ = font.family_;
-    size_ = font.size_;
-    dec_ = font.dec_;
-    w_ = font.w_;
-    font_ = efont_create(family_, toSymbol(dec_), toSymbol(w_), size_);
+    font_ = efont_create(font.font_->c_family, font.font_->c_slant, font.font_->c_weight, font.font_->c_sizereal);
 }
 
 UIFont::~UIFont() noexcept
@@ -167,21 +154,21 @@ void UITextLayout::setPos(float x, float y)
 void UITextLayout::setWidth(float w)
 {
     w_ = w;
-    text_->c_rect.width = w;
+    text_->c_rect.w = w;
 }
 
 void UITextLayout::setHeight(float h)
 {
     h_ = h;
-    text_->c_rect.height = h;
+    text_->c_rect.h = h;
 }
 
 void UITextLayout::setSize(float w, float h)
 {
     w_ = w;
     h_ = h;
-    text_->c_rect.width = w;
-    text_->c_rect.height = h;
+    text_->c_rect.w = w;
+    text_->c_rect.h = h;
 }
 
 void UITextLayout::setJustify(etextjustify_flags j)
@@ -267,7 +254,7 @@ bool contains_point(const t_rect& r, const t_pt& pt)
 {
     const float dx = pt.x - r.x;
     const float dy = pt.y - r.y;
-    return dx >= 0 && dy >= 0 && dx <= r.width && dy <= r.height;
+    return dx >= 0 && dy >= 0 && dx <= r.w && dy <= r.h;
 }
 
 UIPainter::UIPainter(t_ebox* box, t_symbol* name, const t_rect& brect)
@@ -275,7 +262,7 @@ UIPainter::UIPainter(t_ebox* box, t_symbol* name, const t_rect& brect)
     , name_(name)
     , layer_(0)
 {
-    layer_ = ebox_start_layer(parent_, name_, brect.width, brect.height);
+    layer_ = ebox_start_layer(parent_, name_, brect.w, brect.h);
 }
 
 UIPainter::~UIPainter()
@@ -311,7 +298,7 @@ void UIPainter::drawRect(float x, float y, float w, float h)
 
 void UIPainter::drawRect(const t_rect& r)
 {
-    egraphics_rectangle(layer_, r.x, r.y, r.width, r.height);
+    egraphics_rectangle(layer_, r.x, r.y, r.w, r.h);
 }
 
 void UIPainter::drawCircle(float x, float y, float r)
@@ -361,8 +348,8 @@ void UIPainter::closePath()
 
 void UIPainter::fillLayer(const t_rgba& color)
 {
-    float w = layer_->e_rect.width;
-    float h = layer_->e_rect.height;
+    float w = layer_->e_rect.w;
+    float h = layer_->e_rect.h;
 
     setColor(color);
     drawRect(0, 0, w, h);
@@ -440,19 +427,23 @@ UIPopupMenu::UIPopupMenu(t_eobj* x,
     , abs_pos_(absPos)
     , rel_pos_(relPos)
     , menu_items_(items)
+    , font_ { gensym(fonts::default_menu_font_family()), gensym("normal"), gensym("normal"), fonts::default_menu_font_size(), -1 }
 {
     menu_ = epopupmenu_create(x, gensym(items.name().c_str()));
 }
 
 UIPopupMenu::~UIPopupMenu()
 {
+    if (font_.c_size > 0)
+        epopupmenu_setfont(menu_, &font_);
+
     int cnt = 0;
     for (auto& m : menu_items_.items()) {
         if (std::get<0>(m).empty())
             epopupmenu_addseparator(menu_);
         else {
-            auto it = std::find(disabled_items_.begin(), disabled_items_.end(), std::get<0>(m));
-            epopupmenu_additem(menu_, cnt, std::get<0>(m).c_str(), it == disabled_items_.end(), rel_pos_);
+            bool disable = std::find(disabled_items_.begin(), disabled_items_.end(), std::get<0>(m)) == disabled_items_.end();
+            epopupmenu_additem(menu_, cnt, std::get<0>(m).c_str(), disable || !std::get<1>(m), !std::get<1>(m), rel_pos_);
         }
 
         // counter increment
@@ -472,6 +463,11 @@ void UIPopupMenu::disable(const std::string& name)
 void UIPopupMenu::disable(const std::vector<std::string>& names)
 {
     disabled_items_.insert(disabled_items_.end(), names.begin(), names.end());
+}
+
+void UIPopupMenu::setFontSize(int sz)
+{
+    font_.c_size = sz;
 }
 
 PopupMenuCallbacks::PopupMenuCallbacks(const std::string& name,

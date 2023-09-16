@@ -25,4 +25,6 @@ public:
     void onList(const AtomListView& lv) override;
 };
 
+void setup_conv_bpm2ms();
+
 #endif // CONV_BPM2MS_H

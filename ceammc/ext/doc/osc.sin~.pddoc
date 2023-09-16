@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="osc.sin~">
         <title>osc.sin~</title>
         <meta>
@@ -23,11 +23,10 @@
             <par>included for library comprehension</par>
         </info>
         <arguments>
-            <argument name="freq" type="float" units="herz" minvalue="20">frequency</argument>
+            <argument name="FREQ" type="float" units="hertz" minvalue="20">frequency</argument>
         </arguments>
         <properties>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
         <inlets>
             <inlet type="audio">

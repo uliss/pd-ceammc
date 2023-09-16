@@ -38,6 +38,9 @@ TEST_CASE("seq.nbangs", "[externals]")
             REQUIRE(t.numOutlets() == 2);
             REQUIRE_PROPERTY(t, @t, 0);
             REQUIRE_PROPERTY(t, @n, 0);
+            REQUIRE_PROPERTY(t, @div, 1);
+            REQUIRE_PROPERTY_FLOAT(t, @accel, 1);
+            REQUIRE_PROPERTY_FLOAT(t, @curve, 1);
         }
 
         SECTION("args")
@@ -241,11 +244,70 @@ TEST_CASE("seq.nbangs", "[externals]")
             REQUIRE_PROPERTY(t, @n, 10);
         }
 
+        SECTION("bpm")
+        {
+            TObj t("seq.nbangs", LA(10, "120|8bpm"));
+            REQUIRE_PROPERTY(t, @t, 500);
+            REQUIRE_PROPERTY(t, @n, 10);
+        }
+
+        SECTION("bpm")
+        {
+            TObj t("seq.nbangs", LA(10, "120|16bpm"));
+            REQUIRE_PROPERTY(t, @t, 500);
+            REQUIRE_PROPERTY(t, @n, 10);
+        }
+
         SECTION("dur")
         {
             TObj t("seq.nbangs", LA(10, "@dur", 150));
             REQUIRE_PROPERTY(t, @t, 15);
             REQUIRE_PROPERTY(t, @n, 10);
         }
+    }
+
+    SECTION("total")
+    {
+        TObj t("seq.nbangs", LA(4, "40ms", "@curve", 0.));
+        REQUIRE(t.calcTotalDur() == 160);
+
+        REQUIRE(t.calcStepDelay(0) == 40);
+        REQUIRE(t.calcStepDelay(1) == 40);
+        REQUIRE(t.calcStepDelay(2) == 40);
+        REQUIRE(t.calcStepDelay(3) == 40);
+        REQUIRE(t.calcIntervalByDur(160) == 40);
+
+        t.setProperty("@accel", LF(4));
+
+        REQUIRE(t.calcStepDelay(0) == 40);
+        REQUIRE(t.calcStepDelay(1) == 25);
+        REQUIRE(t.calcStepDelay(2) == 10);
+
+        REQUIRE(t.calcTotalDur() == (40 + 25 + 10));
+        REQUIRE(t.calcIntervalByDur(40 + 25 + 10) == Approx(40));
+
+        t.setProperty("@curve", LF(1));
+        REQUIRE(t.calcStepDelay(0) == 40);
+        REQUIRE(t.calcStepDelay(1) == Approx(28.67378));
+        REQUIRE(t.calcStepDelay(2) == Approx(10));
+        REQUIRE(t.calcTotalDur() == Approx(78.67378));
+        REQUIRE(t.calcIntervalByDur(78.67378) == Approx(40));
+
+        t.setProperty("@curve", LF(2));
+        REQUIRE(t.calcStepDelay(0) == 40);
+        REQUIRE(t.calcStepDelay(1) == Approx(31.93176));
+        REQUIRE(t.calcStepDelay(2) == Approx(10));
+        REQUIRE(t.calcTotalDur() == Approx(81.93176));
+        REQUIRE(t.calcIntervalByDur(81.93176) == Approx(40));
+
+        t.setProperty("@curve", LF(-2));
+        REQUIRE(t.calcStepDelay(0) == 40);
+        REQUIRE(t.calcStepDelay(1) == Approx(18.06824));
+        REQUIRE(t.calcStepDelay(2) == Approx(10));
+        REQUIRE(t.calcTotalDur() == Approx(68.06824));
+        REQUIRE(t.calcIntervalByDur(68.06824) == Approx(40));
+
+        t.setProperty("@div", LF(2));
+        REQUIRE(t.calcTotalDur() == Approx(68.06824 * 0.5));
     }
 }

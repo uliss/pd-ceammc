@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flow.space">
         <title>flow.space</title>
         <meta>
@@ -17,8 +17,9 @@
             <par>first message is delayed to next scheduler time</par>
         </info>
         <arguments>
-            <argument type="float" name="MS" units="msec">time space between messages</argument>
-            <argument type="int" name="N" minvalue="0">time space = N*space after last outputted
+            <argument name="DELAY" type="float" units="millisecond" minvalue="1">time space between
+            messages</argument>
+            <argument name="DONE" type="int" minvalue="0">time space = N*space after last outputted
             message</argument>
         </arguments>
         <properties>
@@ -26,6 +27,8 @@
             time-space between messages</property>
             <property name="@done" type="int" default="1" minvalue="0">time space (=@done*@delay)
             after last outputted message. After that delay output bang to second outlet</property>
+            <property name="@dev" type="float" default="0" minvalue="0" maxvalue="1">random
+            deviation</property>
         </properties>
         <inlets>
             <inlet>
@@ -46,7 +49,11 @@
             <pdascii>
 <![CDATA[
 [7, 2, 1, 2, 0, 2, 1, 2 #a( [reset(
-|                           |.
+|                           |
+|   [ui.hsl @show_value 1]  |
+|   |                       |
+|   [@dev $1(               |
+|   |                       |.
 [flow.space 110            #b]
 |
 [degree->key minor {i=1,o=1}]

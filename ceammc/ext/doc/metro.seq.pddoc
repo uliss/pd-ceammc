@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="metro.seq">
         <title>metro.seq</title>
         <meta>
@@ -21,15 +21,15 @@
             <par>Easy way to build beat machines</par>
         </info>
         <arguments>
-            <argument name="INTERVAL" units="millisecond" minvalue="1" type="float">metro tempo in
+            <argument name="INTERVAL" type="float" units="millisecond" minvalue="0">metro tempo in
             ms</argument>
             <argument name="PATTERN" type="list">list of 1 and 0. Where 1 means output bang on this
             beat</argument>
         </arguments>
         <properties>
-            <property name="@pattern" type="list">list of 1 and 0. Where 1 means output bang on
-            this beat</property>
-            <property name="@interval" units="millisecond" minvalue="1" type="float" default="0">
+            <property name="@pattern" type="list" default="">list of 1 and 0. Where 1 means output
+            bang on this beat</property>
+            <property name="@interval" type="float" units="millisecond" minvalue="0" default="0">
             interval between beats</property>
             <property name="@current" type="int" minvalue="0" default="0">current pattern
             index</property>
@@ -37,6 +37,12 @@
         <inlets>
             <inlet>
                 <xinfo on="float">starts (on 1) or stops (on 0) metro</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set new step interval</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="list">set new pattern</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -47,16 +53,20 @@
 <![CDATA[
 [1 0 1 1 0 1 0 1(
 |
-[ui.radio @mode 1]
+[ui.radio*]
 |
 [msg @pattern]
 |
-|  [T]
-|  |
+|  [T]  [F]        [1 0 1(
+|  |    |.         |..
 [metro.seq 100 1 0 0 1]
 |
 [click~]
 |
+[flt.resonbp~ 440 80]  [ui.dsp~]
+|
+[ui.hgain~]
+|\
 [dac~]
 ]]>
             </pdascii>

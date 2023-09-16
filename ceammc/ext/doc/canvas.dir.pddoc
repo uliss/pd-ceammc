@@ -1,12 +1,12 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="canvas.dir">
         <title>canvas.dir</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>current canvas directory</description>
+            <description>current canvas directory and nesting level</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>patch</category>
@@ -17,31 +17,76 @@
             </also>
             <since>0.8</since>
         </meta>
+        <properties>
+            <property name="@abs" type="bool" default="1">abstraction mode. If true: output topmost
+            parent canvas directory if this object was not created inside an abstraction, and
+            abstraction directory if it was. If false: output topmost parent canvas directory even
+            this object was create inside the abstrction subpatch.</property>
+        </properties>
         <inlets>
             <inlet>
                 <xinfo on="bang">output current canvas directory</xinfo>
             </inlet>
         </inlets>
         <outlets>
-            <outlet>current canvas directory as symbol</outlet>
+            <outlet>symbol: current canvas directory</outlet>
+            <outlet>int: nesting level</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[B]                         [B]
-|                           |
-[canvas.dir]                [canvas.dir.sp]
-|                           |
-[ui.dt]                     [ui.dt]
+[B]
+|
+[canvas.dir #a {i=1,o=2}]
+|
+[ui.dt @auto_size 0 @size 400 45]
+
+
+
+        [F #b]
+
+[canvas.dir.abs0] [canvas.dir.abs1]
+
+[X a:1->b]
 ]]>
             </pdascii>
-            <pdascii id="sp">
+            <pdascii id="abs0">
+<![CDATA[
+[B]
+|
+[canvas.dir.sp0 #a {i=1,o=2}]
+|
+[ui.dt @auto_size 0 @size 400 45]
+
+
+
+        [F #b]
+
+[X a:1->b]
+]]>
+            </pdascii>
+            <pdascii id="abs1">
+<![CDATA[
+[B]
+|
+[canvas.dir @abs 0 #a {i=1,o=2}]
+|
+[ui.dt @auto_size 0 @size 400 45]
+
+
+
+        [F #b]
+
+[X a:1->b]
+]]>
+            </pdascii>
+            <pdascii id="sp0">
 <![CDATA[
 [inlet]
 |
-[canvas.dir]
-|
-[outlet]
+[canvas.dir @abs 0]
+|         ^|
+[outlet]  [outlet]
 ]]>
             </pdascii>
         </example>

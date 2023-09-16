@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="plot.hist~">
         <title>plot.hist~</title>
         <meta>
@@ -23,17 +23,18 @@
             <since>0.9</since>
         </meta>
         <arguments>
-            <argument name="NSAMP" type="int">@nsamp property</argument>
+            <argument name="NSAMP" type="int" minvalue="8" maxvalue="32768">@nsamp
+            property</argument>
         </arguments>
         <properties>
-            <property name="@nsamp" minvalue="8" maxvalue="32768" type="int" default="512">max
+            <property name="@nsamp" type="int" minvalue="8" maxvalue="32768" default="512">max
             number of input samples</property>
-            <property name="@nbins" minvalue="8" maxvalue="512" type="int" default="63">number of
+            <property name="@nbins" type="int" minvalue="8" maxvalue="512" default="63">number of
             histogram bins</property>
             <property name="@min" type="float" default="-1">minimal input value</property>
             <property name="@max" type="float" default="1">maximum input value</property>
-            <property name="@clip" enum="0 1" type="int" default="1">clip input values into input
-            range, otherwise just ignore them</property>
+            <property name="@clip" type="bool" default="1">clip input values into input range,
+            otherwise just ignore them</property>
         </properties>
         <inlets>
             <inlet type="audio">

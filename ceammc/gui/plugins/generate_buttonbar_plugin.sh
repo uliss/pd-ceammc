@@ -1,6 +1,7 @@
 #!/bin/bash
 
 IMGDIR="../icons/buttonbar/cyan"
+DARKDIR="../icons/buttonbar/dark"
 OUT="$1"
 
 if [ $# -ne 1 ]
@@ -15,8 +16,11 @@ for i in ${IMGDIR}/*.gif
 do
     name=${i%.gif}
     shortname=$(basename $name)
-    echo "set ${shortname}data {$(base64 $i)}" >> ${OUT}
-    echo "image create photo buttonimage${shortname} -data \$${shortname}data" >> ${OUT}
+    img_dark="${DARKDIR}/${shortname}.png"
+    echo "set ${shortname}data_light {$(base64 $i)}" >> ${OUT}
+    echo "set ${shortname}data_dark {$(base64 $img_dark)}" >> ${OUT}
+    echo "image create photo btn_image_${shortname}_light -data \$${shortname}data_light" >> ${OUT}
+    echo "image create photo btn_image_${shortname}_dark -data \$${shortname}data_dark" >> ${OUT}
     echo "" >> ${OUT}
 done
 

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.preset" type="gui">
         <title>ui.preset</title>
         <meta>
@@ -26,24 +26,23 @@
             <par>Active slot is highlighted, available slots are dark gray</par>
         </info>
         <mouse>
-            <event editmode="false" type="left-click">select preset slot under cursor</event>
-            <event editmode="false" type="left-click" keys="Shift">saves current settings to
+            <event type="left-click" editmode="false">select preset slot under cursor</event>
+            <event type="left-click" editmode="false" keys="Shift">saves current settings to
             specified preset slot</event>
-            <event editmode="false" type="left-click" keys="Alt">clear all values from specified
+            <event type="left-click" editmode="false" keys="Alt">clear all values from specified
             preset slot</event>
-            <event editmode="false" type="right-click">opens popup menu with read/write/duplicate
+            <event type="right-click" editmode="false">opens popup menu with read/write/duplicate
             actions</event>
         </mouse>
         <properties>
-            <property name="@current" type="int" default="0" readonly="true">current preset
+            <property name="@current" type="int" default="-1" access="readonly">current preset
             index</property>
             <!-- common -->
-            <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>
             <property name="@size" type="list" default="102 42">element size (width, height
             pair)</property>
-            <property name="@pinned" type="int" enum="0 1" default="0">pin mode. if 1 - put element
-            to the lowest level</property>
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
             <property name="@active_color" type="list" default="0 0.75 1 1">active color (list of
             red, green, blue values in 0-1 range)</property>
             <property name="@text_color" type="list" default="0 0 0 1">text color (list of red,
@@ -56,35 +55,45 @@
             background color (list of red, green, blue values in 0-1 range)</property>
             <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
             of red, green, blue values in 0-1 range)</property>
-            <property name="@fontsize" type="int" minvalue="4" maxvalue="11" default="11">
+            <!-- font -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
             fontsize</property>
-            <property name="@fontname" type="symbol" default="Helvetica">fontname</property>
+            <property name="@fontname" type="symbol" default="Helvetica"
+            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
             <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
             weight</property>
             <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
             slant</property>
         </properties>
         <methods>
+            <!-- clear -->
             <method name="clear">clear specified preset 
-            <param type="int" name="IDX" required="true" minvalue="0">preset index</param></method>
+            <param name="IDX" type="int" required="true" minvalue="0">preset index</param></method>
+            <!-- clearall -->
             <method name="clearall">clear all existing presets</method>
-            <method name="load">loads specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
+            <!-- duplicate -->
+            <method name="duplicate">fill empty presets by coping exiting values</method>
+            <!-- interp -->
             <method name="interp">loads linearry interpolated value between preset, for example:
             1.5 means load interpolated value between preset 1 and 2. 
-            <param type="float" name="IDX" required="true">preset interpolation
+            <param name="IDX" type="float" required="true">preset interpolation
             index</param></method>
-            <method name="store">stores specified preset 
-            <param type="int" name="IDX" required="true">preset index</param></method>
-            <method name="read">read presets from file 
-            <param type="symbol" name="PATH" required="true">path to preset file</param></method>
-            <method name="write">read presets from file 
-            <param type="symbol" name="PATH" required="true">path to preset file</param></method>
-            <method name="duplicate">fill empty presets by coping exiting values</method>
-            <!-- common-->
+            <!-- load -->
+            <method name="load">loads specified preset 
+            <param name="IDX" type="int" required="true">preset index</param></method>
+            <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- read -->
+            <method name="read">read presets from file 
+            <param name="PATH" type="symbol" required="true">path to preset file</param></method>
+            <!-- store -->
+            <method name="store">stores specified preset 
+            <param name="IDX" type="int" required="true">preset index</param></method>
+            <!-- write -->
+            <method name="write">read presets from file 
+            <param name="PATH" type="symbol" required="true">path to preset file</param></method>
         </methods>
         <inlets>
             <inlet />

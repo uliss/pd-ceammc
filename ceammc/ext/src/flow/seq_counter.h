@@ -34,14 +34,24 @@ public:
     void onInlet(size_t n, const AtomListView& l) override;
 
     void m_reset(t_symbol*, const AtomListView& lv);
+    void m_next(t_symbol*, const AtomListView& lv);
+    void m_prev(t_symbol*, const AtomListView& lv);
 
 private:
+    void next();
     void nextWrapped();
     void nextFolded();
     void nextConst();
+    //
+    void prev();
+    void prevWrapped();
+    void prevFolded();
     void reset();
+    void outputCurrent();
+    void outputCycleCounter();
 
     inline bool shouldRepeat() const { return !done_ && repeat_->shouldRepeat(ri_); }
+    bool nextCycle();
 
     inline int range() const { return to_->value() - from_->value(); }
     inline int absRange() const { return std::abs(range()); }

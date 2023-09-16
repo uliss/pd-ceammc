@@ -22,6 +22,7 @@
 #include <boost/variant.hpp>
 #include <cstddef>
 #include <cstdint>
+#include <functional>
 #include <initializer_list>
 #include <memory>
 #include <string>
@@ -67,20 +68,22 @@ enum class PropValueView : uint8_t {
 
 // on order change/adding new type
 // change also in to_string(PropValueType)
-enum class PropValueUnits : uint8_t {
+using PropValueUnitsBase = std::uint16_t;
+enum class PropValueUnits : PropValueUnitsBase {
     NONE = 0,
-    MSEC, // milliseconds
-    SEC, // seconds
-    SAMP, // samples
-    DB, // decibels
-    DEG, // degree
-    RAD, // radians
-    HZ, // herz
-    PERCENT, // percents
-    CENT, // cents
-    SEMITONE, //semitone
-    TONE, // tone
-    BPM // bpm
+    MSEC = 1, // milliseconds
+    SEC = 1 << 1, // seconds
+    SAMP = 1 << 2, // samples
+    DB = 1 << 3, // decibels
+    DEG = 1 << 4, // degree
+    RAD = 1 << 5, // radians
+    HZ = 1 << 6, // herz
+    PERCENT = 1 << 7, // percents
+    CENT = 1 << 8, // cents
+    SEMITONE = 1 << 9, // semitone
+    TONE = 1 << 10, // tone
+    BPM = 1 << 11, // bpm
+    SMPTE = 1 << 12, // smpte
 };
 
 // on order change/adding new type
@@ -153,7 +156,7 @@ private:
     int8_t arg_index_;
     // info
     PropValueType type_;
-    PropValueUnits units_;
+    PropValueUnitsBase units_;
     PropValueView view_;
     PropValueAccess access_;
     PropValueVis vis_;
@@ -163,14 +166,17 @@ public:
     PropertyInfo(t_symbol* name, PropValueType type, PropValueAccess access = PropValueAccess::READWRITE);
     PropertyInfo(const std::string& name, PropValueType type, PropValueAccess access = PropValueAccess::READWRITE);
     PropertyInfo(const PropertyInfo& getTree);
+    PropertyInfo(PropertyInfo&& info);
     ~PropertyInfo();
+
+    PropertyInfo& operator=(const PropertyInfo& info);
+    PropertyInfo& operator=(PropertyInfo&& info);
 
     t_symbol* name() const { return name_; }
 
     /// value info
     /// get
     inline PropValueType type() const { return type_; }
-    inline PropValueUnits units() const { return units_; }
     inline PropValueView view() const { return view_; }
     inline PropValueAccess access() const { return access_; }
     inline PropValueVis visibility() const { return vis_; }
@@ -195,11 +201,20 @@ public:
     /// set
     bool setView(PropValueView v);
     void setType(PropValueType t);
-    bool setUnits(PropValueUnits u);
     void setAccess(PropValueAccess a);
     void setVisibility(PropValueVis v);
     bool setConstraints(PropValueConstraints c);
     void setArgIndex(int8_t idx);
+
+    /// units
+    inline PropValueUnitsBase units() const { return units_; }
+    bool equalUnit(PropValueUnits u) const;
+    bool hasUnit(PropValueUnits u) const;
+    bool setUnits(PropValueUnits u);
+    void addUnit(PropValueUnits u);
+    void resetUnits() { units_ = 0; }
+    void unitsIterate(const std::function<void (const char *)> &fn) const;
+    void unitsIterate(const std::function<void(PropValueUnits)>& fn) const;
 
     /// ui hints
     // step ui hint, eg. for spinbox
@@ -308,6 +323,7 @@ public:
     bool validate() const;
 
     bool getDict(DataTypeDict& d) const;
+    bool getJSON(std::string& str) const;
 };
 
 template <>

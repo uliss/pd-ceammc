@@ -20,8 +20,6 @@
 typedef char SMCBytes[32];
 typedef char UInt32CharKey[5];
 
-size_t strlcpy(char* dst, const char* src, size_t dsize);
-
 UInt32 smc_bytes_to_int(const SMCBytes& str, int size, int base);
 float smc_bytes_to_float(const SMCBytes& str, int size, int e);
 float smc_bytes_sp78_to_float(const SMCBytes& str);

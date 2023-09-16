@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="list.correlate">
         <title>list.correlate</title>
         <meta>
@@ -18,11 +18,11 @@
             the convolution</par>
         </info>
         <arguments>
-            <argument type="list" name="B">second argument values</argument>
+            <argument name="B" type="list">second argument values</argument>
         </arguments>
         <properties>
-            <property name="@a" type="list">first argument</property>
-            <property name="@b" type="list">second argument</property>
+            <property name="@a" type="list" default="">first argument</property>
+            <property name="@b" type="list" default="">second argument</property>
             <property name="@mode" type="symbol" enum="valid same full" default="valid">output
             mode. 'full' - output the cross-correlation at each point of overlap, with an output
             length of (M+N-1). At the end-points of the cross-correlation, the signals do not

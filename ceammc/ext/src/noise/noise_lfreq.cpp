@@ -20,4 +20,8 @@ public:
 void setup_noise_lfreq_tilde()
 {
     SoundExternalFactory<NoiseLfreq> obj("noise.lfreq~", OBJECT_FACTORY_DEFAULT);
+
+    obj.setDescription("noise.lfreq0~ smoothed with no overshoot");
+    obj.setCategory("noise");
+    obj.setKeywords({"noise", "lfreq"});
 }

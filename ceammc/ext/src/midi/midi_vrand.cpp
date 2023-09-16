@@ -171,4 +171,8 @@ void setup_midi_vrand()
     onlist_chk.reset(new ArgChecker("f0..127 f0..127 f?"));
 
     ObjectFactory<MidiVRrand> obj("midi.vrand");
+
+    obj.setDescription("midi velocity randomizer");
+    obj.setCategory("midi");
+    obj.setKeywords({"midi", "velocity", "random"});
 }

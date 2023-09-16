@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "noise.lfreq"
-Code generated with Faust 2.44.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn noise_lfreq -scn noise_lfreq_dsp -es 1 -mcd 16 -single -ftz 0
+Code generated with Faust 2.53.1 (https://faust.grame.fr)
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn noise_lfreq -scn noise_lfreq_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __noise_lfreq_H__
@@ -45,30 +45,33 @@ Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_ds
 #include <vector>
 
 /************************************************************************
- ************************************************************************
-    FAUST compiler
-    Copyright (C) 2003-2018 GRAME, Centre National de Creation Musicale
-    ---------------------------------------------------------------------
-    This program is free software; you can redistribute it and/or modify
-    it under the terms of the GNU General Public License as published by
-    the Free Software Foundation; either version 2 of the License, or
-    (at your option) any later version.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-    GNU General Public License for more details.
-
-    You should have received a copy of the GNU General Public License
-    along with this program; if not, write to the Free Software
-    Foundation, Inc., 675 Mass Ave, Cambridge, MA 02139, USA.
- ************************************************************************
- ************************************************************************/
+ FAUST Architecture File
+ Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+ ---------------------------------------------------------------------
+ This program is free software; you can redistribute it and/or modify
+ it under the terms of the GNU Lesser General Public License as published by
+ the Free Software Foundation; either version 2.1 of the License, or
+ (at your option) any later version.
+ 
+ This program is distributed in the hope that it will be useful,
+ but WITHOUT ANY WARRANTY; without even the implied warranty of
+ MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+ GNU Lesser General Public License for more details.
+ 
+ You should have received a copy of the GNU Lesser General Public License
+ along with this program; if not, write to the Free Software
+ Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
+ 
+ EXCEPTION : As a special exception, you may create a larger work
+ that contains this FAUST architecture section and distribute
+ that work under terms of your choice, so long as this FAUST
+ architecture section is not modified.
+ ***************************************************************************/
 
 #ifndef __export__
 #define __export__
 
-#define FAUSTVERSION "2.44.1"
+#define FAUSTVERSION "2.53.1"
 
 // Use FAUST_API for code that is part of the external API but is also compiled in faust and libfaust
 // Use LIBFAUST_API for code that is compiled in faust and libfaust
@@ -116,7 +119,7 @@ struct FAUST_API dsp_memory_manager {
      * Inform the Memory Manager with the number of expected memory zones.
      * @param count - the number of expected memory zones
      */
-    virtual void begin(size_t count) {}
+    virtual void begin(size_t /*count*/) {}
     
     /**
      * Give the Memory Manager information on a given memory zone.
@@ -124,8 +127,8 @@ struct FAUST_API dsp_memory_manager {
      * @param reads - the number of Read access to the zone used to compute one frame
      * @param writes - the number of Write access to the zone used to compute one frame
      */
-    virtual void info(size_t size, size_t reads, size_t writes) {}
-    
+    virtual void info(size_t /*size*/, size_t /*reads*/, size_t /*writes*/) {}
+
     /**
      * Inform the Memory Manager that all memory zones have been described,
      * to possibly start a 'compute the best allocation strategy' step.
@@ -310,14 +313,17 @@ class FAUST_API ScopedNoDenormals {
     
     private:
     
-        intptr_t fpsr;
+        intptr_t fpsr = 0;
         
         void setFpStatusRegister(intptr_t fpsr_aux) noexcept
         {
         #if defined (__arm64__) || defined (__aarch64__)
-           asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
+            asm volatile("msr fpcr, %0" : : "ri" (fpsr_aux));
         #elif defined (__SSE__)
-            _mm_setcsr(static_cast<uint32_t>(fpsr_aux));
+            // The volatile keyword here is needed to workaround a bug in AppleClang 13.0
+            // which aggressively optimises away the variable otherwise
+            volatile uint32_t fpsr_w = static_cast<uint32_t>(fpsr_aux);
+            _mm_setcsr(fpsr_w);
         #endif
         }
         
@@ -325,7 +331,7 @@ class FAUST_API ScopedNoDenormals {
         {
         #if defined (__arm64__) || defined (__aarch64__)
             asm volatile("mrs %0, fpcr" : "=r" (fpsr));
-        #elif defined ( __SSE__)
+        #elif defined (__SSE__)
             fpsr = static_cast<intptr_t>(_mm_getcsr());
         #endif
         }
@@ -336,16 +342,14 @@ class FAUST_API ScopedNoDenormals {
         {
         #if defined (__arm64__) || defined (__aarch64__)
             intptr_t mask = (1 << 24 /* FZ */);
+        #elif defined (__SSE__)
+        #if defined (__SSE2__)
+            intptr_t mask = 0x8040;
         #else
-            #if defined(__SSE__)
-            #if defined(__SSE2__)
-                intptr_t mask = 0x8040;
-            #else
-                intptr_t mask = 0x8000;
-            #endif
-            #else
-                intptr_t mask = 0x0000;
-            #endif
+            intptr_t mask = 0x8000;
+        #endif
+        #else
+            intptr_t mask = 0x0000;
         #endif
             getFpStatusRegister();
             setFpStatusRegister(fpsr | mask);
@@ -358,97 +362,45 @@ class FAUST_API ScopedNoDenormals {
 
 };
 
-#define AVOIDDENORMALS ScopedNoDenormals();
+#define AVOIDDENORMALS ScopedNoDenormals ftz_scope;
 
 #endif
 
 /************************** END noise_lfreq_dsp.h **************************/
-/************************** BEGIN UI.h *****************************
- FAUST Architecture File
- Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
- ---------------------------------------------------------------------
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 2.1 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU Lesser General Public License for more details.
- 
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- 
- EXCEPTION : As a special exception, you may create a larger work
- that contains this FAUST architecture section and distribute
- that work under terms of your choice, so long as this FAUST
- architecture section is not modified.
- ********************************************************************/
+/************************** BEGIN misc.h *******************************
+FAUST Architecture File
+Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+---------------------------------------------------------------------
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 2.1 of the License, or
+(at your option) any later version.
 
-#ifndef __UI_H__
-#define __UI_H__
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
 
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-#ifndef FAUSTFLOAT
-#define FAUSTFLOAT float
-#endif
+EXCEPTION : As a special exception, you may create a larger work
+that contains this FAUST architecture section and distribute
+that work under terms of your choice, so long as this FAUST
+architecture section is not modified.
+***************************************************************************/
 
-/*******************************************************************************
- * UI : Faust DSP User Interface
- * User Interface as expected by the buildUserInterface() method of a DSP.
- * This abstract class contains only the method that the Faust compiler can
- * generate to describe a DSP user interface.
- ******************************************************************************/
+#ifndef __misc__
+#define __misc__
 
-struct Soundfile;
+#include <algorithm>
+#include <map>
+#include <cstdlib>
+#include <string.h>
+#include <fstream>
+#include <string>
 
-template <typename REAL>
-struct FAUST_API UIReal {
-    
-    UIReal() {}
-    virtual ~UIReal() {}
-    
-    // -- widget's layouts
-    
-    virtual void openTabBox(const char* label) = 0;
-    virtual void openHorizontalBox(const char* label) = 0;
-    virtual void openVerticalBox(const char* label) = 0;
-    virtual void closeBox() = 0;
-    
-    // -- active widgets
-    
-    virtual void addButton(const char* label, REAL* zone) = 0;
-    virtual void addCheckButton(const char* label, REAL* zone) = 0;
-    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    
-    // -- passive widgets
-    
-    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    
-    // -- soundfiles
-    
-    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-    
-    // -- metadata declarations
-    
-    virtual void declare(REAL* zone, const char* key, const char* val) {}
-    
-    // To be used by LLVM client
-    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
-};
-
-struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
-    UI() {}
-    virtual ~UI() {}
-};
-
-#endif
-/**************************  END  UI.h **************************/
 /************************** BEGIN meta.h *******************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
@@ -487,40 +439,6 @@ struct FAUST_API Meta {
 
 #endif
 /**************************  END  meta.h **************************/
-/************************** BEGIN misc.h *******************************
-FAUST Architecture File
-Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
----------------------------------------------------------------------
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-
-EXCEPTION : As a special exception, you may create a larger work
-that contains this FAUST architecture section and distribute
-that work under terms of your choice, so long as this FAUST
-architecture section is not modified.
-***************************************************************************/
-
-#ifndef __misc__
-#define __misc__
-
-#include <algorithm>
-#include <map>
-#include <cstdlib>
-#include <string.h>
-#include <fstream>
-#include <string>
-
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
@@ -643,13 +561,13 @@ class noise_lfreq : public noise_lfreq_dsp {
 	
  private:
 	
-	int iVec0[2];
 	int fSampleRate;
 	float fConst1;
 	float fConst2;
 	FAUSTFLOAT fHslider0;
 	float fConst3;
-	float fRec1[2];
+	int iVec0[2];
+	float fRec3[2];
 	float fConst4;
 	float fRec7[2];
 	float fRec8[2];
@@ -657,8 +575,8 @@ class noise_lfreq : public noise_lfreq_dsp {
 	float fRec6[2];
 	float fRec5[2];
 	float fRec4[2];
-	float fRec3[2];
 	float fRec2[2];
+	float fRec1[2];
 	float fRec0[2];
 	
  public:
@@ -666,7 +584,7 @@ class noise_lfreq : public noise_lfreq_dsp {
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.8");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn noise_lfreq -scn noise_lfreq_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn noise_lfreq -scn noise_lfreq_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("filename", "noise_lfreq.dsp");
 		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
 		m->declare("filters.lib/lowpass0_highpass1:author", "Julius O. Smith III");
@@ -712,15 +630,15 @@ class noise_lfreq : public noise_lfreq_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		float fConst0 = std::min<float>(192000.0f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = 3.14159274f / fConst0;
-		fConst2 = 44.0999985f / fConst0;
+		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
+		fConst1 = 3.1415927f / fConst0;
+		fConst2 = 44.1f / fConst0;
 		fConst3 = 1.0f - fConst2;
-		fConst4 = 6.28318548f / fConst0;
+		fConst4 = 6.2831855f / fConst0;
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fHslider0 = FAUSTFLOAT(1000.0f);
+		fHslider0 = FAUSTFLOAT(1e+03f);
 	}
 	
 	virtual void instanceClear() {
@@ -728,7 +646,7 @@ class noise_lfreq : public noise_lfreq_dsp {
 			iVec0[l0] = 0;
 		}
 		for (int l1 = 0; l1 < 2; l1 = l1 + 1) {
-			fRec1[l1] = 0.0f;
+			fRec3[l1] = 0.0f;
 		}
 		for (int l2 = 0; l2 < 2; l2 = l2 + 1) {
 			fRec7[l2] = 0.0f;
@@ -749,10 +667,10 @@ class noise_lfreq : public noise_lfreq_dsp {
 			fRec4[l7] = 0.0f;
 		}
 		for (int l8 = 0; l8 < 2; l8 = l8 + 1) {
-			fRec3[l8] = 0.0f;
+			fRec2[l8] = 0.0f;
 		}
 		for (int l9 = 0; l9 < 2; l9 = l9 + 1) {
-			fRec2[l9] = 0.0f;
+			fRec1[l9] = 0.0f;
 		}
 		for (int l10 = 0; l10 < 2; l10 = l10 + 1) {
 			fRec0[l10] = 0.0f;
@@ -780,7 +698,7 @@ class noise_lfreq : public noise_lfreq_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("noise.lfreq");
 		ui_interface->declare(&fHslider0, "unit", "Hz");
-		ui_interface->addHorizontalSlider("freq", &fHslider0, FAUSTFLOAT(1000.0f), FAUSTFLOAT(5.0f), FAUSTFLOAT(22050.0f), FAUSTFLOAT(0.100000001f));
+		ui_interface->addHorizontalSlider("freq", &fHslider0, FAUSTFLOAT(1e+03f), FAUSTFLOAT(5.0f), FAUSTFLOAT(2.205e+04f), FAUSTFLOAT(0.1f));
 		ui_interface->closeBox();
 	}
 	
@@ -789,56 +707,45 @@ class noise_lfreq : public noise_lfreq_dsp {
 		float fSlow0 = fConst2 * float(fHslider0);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			iVec0[0] = 1;
-			fRec1[0] = fSlow0 + fConst3 * fRec1[1];
-			float fTemp0 = 1.0f / std::tan(fConst1 * fRec1[0]);
+			fRec3[0] = fSlow0 + fConst3 * fRec3[1];
+			float fTemp0 = 1.0f / std::tan(fConst1 * fRec3[0]);
 			float fTemp1 = 1.0f - fTemp0;
-			float fTemp2 = fConst4 * fRec1[0];
+			float fTemp2 = fConst4 * fRec3[0];
 			float fTemp3 = std::sin(fTemp2);
 			float fTemp4 = std::cos(fTemp2);
 			fRec7[0] = fRec8[1] * fTemp3 + fRec7[1] * fTemp4;
-			fRec8[0] = (float(1 - iVec0[1]) + fRec8[1] * fTemp4) - fTemp3 * fRec7[1];
+			fRec8[0] = float(1 - iVec0[1]) + fRec8[1] * fTemp4 - fTemp3 * fRec7[1];
 			int iTemp5 = (fRec7[1] <= 0.0f) & (fRec7[0] > 0.0f);
 			iRec9[0] = 1103515245 * iRec9[1] + 12345;
-			fRec6[0] = fRec6[1] * float(1 - iTemp5) + 4.65661287e-10f * float(iRec9[0]) * float(iTemp5);
+			fRec6[0] = fRec6[1] * float(1 - iTemp5) + 4.656613e-10f * float(iRec9[0]) * float(iTemp5);
 			float fTemp6 = fTemp0 + 1.0f;
 			fRec5[0] = 0.0f - (fTemp1 * fRec5[1] - (fRec6[0] + fRec6[1])) / fTemp6;
 			fRec4[0] = 0.0f - (fTemp1 * fRec4[1] - (fRec5[0] + fRec5[1])) / fTemp6;
-			fRec3[0] = 0.0f - (fTemp1 * fRec3[1] - (fRec4[0] + fRec4[1])) / fTemp6;
-			fRec2[0] = 0.0f - (fTemp1 * fRec2[1] - (fRec3[0] + fRec3[1])) / fTemp6;
-			fRec0[0] = 0.0f - (fRec0[1] * fTemp1 - (fRec2[0] + fRec2[1])) / fTemp6;
+			fRec2[0] = 0.0f - (fTemp1 * fRec2[1] - (fRec4[0] + fRec4[1])) / fTemp6;
+			fRec1[0] = (fRec2[0] + fRec2[1] - fTemp1 * fRec1[1]) / fTemp6;
+			fRec0[0] = (fRec1[0] + fRec1[1] - fRec0[1] * fTemp1) / fTemp6;
 			output0[i0] = FAUSTFLOAT(fRec0[0]);
 			iVec0[1] = iVec0[0];
-			fRec1[1] = fRec1[0];
+			fRec3[1] = fRec3[0];
 			fRec7[1] = fRec7[0];
 			fRec8[1] = fRec8[0];
 			iRec9[1] = iRec9[0];
 			fRec6[1] = fRec6[0];
 			fRec5[1] = fRec5[0];
 			fRec4[1] = fRec4[0];
-			fRec3[1] = fRec3[0];
 			fRec2[1] = fRec2[0];
+			fRec1[1] = fRec1[0];
 			fRec0[1] = fRec0[0];
 		}
 	}
 
 };
-// clang-format on
 #endif
 
-    template <class T>
-    struct _noise_lfreq_UI : public UI {
-    static std::string name;
-};
-
-template <class T>
-std::string _noise_lfreq_UI<T>::name(sym(noise_lfreq));
-
-typedef _noise_lfreq_UI<noise_lfreq> noise_lfreq_UI;
-
-class faust_noise_lfreq_tilde : public FaustExternal<noise_lfreq, noise_lfreq_UI> {
+class faust_noise_lfreq_tilde : public FaustExternal<noise_lfreq> {
 public:
     faust_noise_lfreq_tilde(const ceammc::PdArgs& args)
-        : FaustExternal(args)
+        : FaustExternal(args, sym(noise_lfreq))
     {
     }
 };

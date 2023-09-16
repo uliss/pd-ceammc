@@ -34,4 +34,8 @@ void setup_synth_piano_tilde()
     SoundExternalFactory<SynthPiano> obj("synth.piano~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("reset", &SynthPiano::m_reset);
     obj.addMethod("note", &SynthPiano::m_note);
+
+    obj.setDescription("waveguide commuted piano");
+    obj.setCategory("synth");
+    obj.setKeywords({"piano", "model", "synth"});
 }

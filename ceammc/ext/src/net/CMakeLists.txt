@@ -1,16 +1,22 @@
 add_library(ceammc_net STATIC mod_net.cpp net_host.cpp)
 
-# liblo
-find_package(liblo)
-if(LIBLO_FOUND)
-    target_sources(ceammc_net
+target_sources(ceammc_net
         PRIVATE
         net_osc_send.cpp
         net_osc_server.cpp
         net_osc_receive.cpp
+        osc_property.cpp)
+
+# libartnet
+if(WITH_ARTNET)
+    target_compile_definitions(ceammc_net PRIVATE WITH_ARTNET)
+    target_sources(ceammc_net
+        PRIVATE
+        net_artnet_send.cpp
+        net_artnet_impl.cpp
     )
-    target_include_directories(ceammc_net PUBLIC ${LIBLO_INCLUDE_DIRS})
-    target_link_libraries(ceammc_net PUBLIC ${LIBLO_LIBRARIES})
+    target_include_directories(ceammc_net PUBLIC ${PROJECT_SOURCE_DIR}/ceammc/extra/artnet/libartnet)
+    target_link_libraries(ceammc_net PUBLIC artnet)
 endif()
 
 find_package(RAGEL 6.6)
@@ -31,4 +37,10 @@ target_include_directories(ceammc_net
         ${PROJECT_BINARY_DIR} # for config.h
         "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
 )
+
+# http
+target_sources(ceammc_net PRIVATE net_http_send.cpp)
+target_link_libraries(ceammc_net PRIVATE http_lib)
+
+
 

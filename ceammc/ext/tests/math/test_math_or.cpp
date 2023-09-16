@@ -61,7 +61,7 @@ TEST_CASE("math.or", "[externals]")
 
         {
             MathOrTest t("math.or", LF(20));
-            REQUIRE(t.numInlets() == 16);
+            REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numOutlets() == 1);
         }
 

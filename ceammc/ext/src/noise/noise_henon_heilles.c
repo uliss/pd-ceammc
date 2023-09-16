@@ -121,14 +121,12 @@ void henon_heilles_set(henon_heilles* x, t_symbol* msg, short argc, t_atom* argv
 
 void henon_heilles_calc(henon_heilles* x)
 {
-    double nx, ny, nxdot, nydot, e, dt;
+    double nx, ny, nxdot, nydot, dt;
     double xdd, ydd;
 
     nx = x->nx;
     ny = x->ny;
-    nydot = x->nydot;
     dt = x->dt;
-    e = x->e;
 
     xdd = -nx - (2 * nx * ny);
     ydd = ny * ny - ny - (nx * nx);

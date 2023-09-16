@@ -21,8 +21,9 @@ namespace random {
     static RandomGenPtr default_gen()
     {
         static RandomGenPtr instance_;
-        if (!instance_)
+        if (!instance_) {
             instance_.reset(new DefaultRandomGen(std::time(nullptr)));
+        }
 
         return instance_;
     }
@@ -49,6 +50,12 @@ namespace random {
     uint32_t RandomGen::gen_uniform_uint(uint32_t a, uint32_t b)
     {
         std::uniform_int_distribution<uint32_t> dist(a, b);
+        return dist(*gen_);
+    }
+
+    int32_t RandomGen::gen_uniform_int(int32_t a, int32_t b)
+    {
+        std::uniform_int_distribution<int32_t> dist(a, b);
         return dist(*gen_);
     }
 

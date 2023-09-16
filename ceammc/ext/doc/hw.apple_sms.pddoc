@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="hw.apple_sms">
         <title>hw.apple_sms</title>
         <meta>
@@ -21,7 +21,7 @@
             us this information</par>
         </info>
         <properties>
-            <property name="@raw" type="int" enum="0 1" default="0">raw data output mode</property>
+            <property name="@raw" type="bool" default="0">raw data output mode</property>
         </properties>
         <inlets>
             <inlet>

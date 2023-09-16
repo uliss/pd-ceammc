@@ -97,4 +97,8 @@ void setup_string_match()
     obj.addAlias("str.match");
     obj.parseArgsMode(PdArgs::PARSE_UNQUOTE);
     obj.parsePropsMode(PdArgs::PARSE_UNQUOTE);
+
+    obj.setDescription("check if string match regular expression");
+    obj.setCategory("string");
+    obj.setKeywords({"match", "regex"});
 }

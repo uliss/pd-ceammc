@@ -53,7 +53,7 @@ t_pd_err eobj_iscicm(void* x);
  * \brief       Adds a proxy inlet to a t_eobj.
  * \details     Allocates and initializes a new proxy inlet. \n This function should replace inlet_new().
  * \param x     The t_eobj pointer.
-  * \return     This function returns a pointer to the new proxy inlet.
+ * \return     This function returns a pointer to the new proxy inlet.
  */
 t_eproxy* eobj_proxynew(t_eobj* x);
 
@@ -227,7 +227,7 @@ t_sample* eobj_getsignaloutput(t_eobj* x, long index);
  * \param z         The eobj pointor
  * \param b         The binbuf
  */
-void eobj_save(t_eobj* x, t_binbuf* b);
+void eobj_save(void* x, t_binbuf* b);
 
 //! The default save method for UI ebox (PRIVATE)
 /*
@@ -235,7 +235,7 @@ void eobj_save(t_eobj* x, t_binbuf* b);
  * \param z         The eobj pointor
  * \param b         The binbuf
  */
-void eobj_dosave(t_eobj* x, t_binbuf* b);
+void eobj_dosave(void* x, t_binbuf* b);
 
 //! The popup method called by tcl/tk (PRIVATE)
 /*
@@ -294,7 +294,7 @@ t_int* eobj_perform_noinplace(t_int* w);
  * \param flags     The user perform flags
  * \param userparam The user perform parameters
  */
-void eobj_dsp_add(t_eobj* x, t_symbol* s, t_object* obj, t_typ_method m, long flags, void* userparam);
+void eobj_dsp_add(t_eobj* x, t_symbol* s, t_object* obj, t_dsp_add_method m, long flags, void* userparam);
 //! @endcond
 
 #endif

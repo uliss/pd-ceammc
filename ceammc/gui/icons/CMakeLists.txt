@@ -5,7 +5,11 @@ set(CMAKE_FIND_FRAMEWORK "NEVER")
 set(CMAKE_FIND_APPBUNDLE "NEVER")
 
 find_program(INKSCAPE inkscape
-    PATHS /usr/bin /usr/local/bin)
+    PATHS
+        /usr/bin
+        /usr/local/bin
+        /Applications/Inkscape.app/Contents/MacOS
+)
 
 if(INKSCAPE)
     message(STATUS "Inkscape found: ${INKSCAPE}")
@@ -15,7 +19,8 @@ if(INKSCAPE)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/make_icons.sh ${CMAKE_CURRENT_BINARY_DIR} @ONLY)
     add_custom_target(icons
         COMMAND sh ${CMAKE_CURRENT_BINARY_DIR}/make_icons.sh ${SVG_ICON} ${SVG_ICON_WIN}
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
+        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}
+        USES_TERMINAL)
     message(STATUS "*icons* target added to generate pixmap icons from SVG files")
 endif()
 

@@ -119,4 +119,28 @@ TEST_CASE("flow.count", "[externals]")
         REQUIRE(t.hasOutput());
         REQUIRE(t.outputFloatAt(0) == 1);
     }
+
+    SECTION("+")
+    {
+        TExt t("flow.count");
+        REQUIRE_PROPERTY(t, @value, 0);
+
+        t.sendMessageTo(Message(SYM("+"), AtomList()), 1);
+        REQUIRE_PROPERTY(t, @value, 0);
+
+        t.sendMessageTo(Message("+", 2), 1);
+        REQUIRE_PROPERTY(t, @value, 2);
+
+        t.sendMessageTo(Message("+", 3), 1);
+        REQUIRE_PROPERTY(t, @value, 5);
+
+        t.sendMessageTo(Message(SYM("-"), AtomList()), 1);
+        REQUIRE_PROPERTY(t, @value, 5);
+
+        t.sendMessageTo(Message("-", 1), 1);
+        REQUIRE_PROPERTY(t, @value, 4);
+
+        t.sendMessageTo(Message("-", 3), 1);
+        REQUIRE_PROPERTY(t, @value, 1);
+    }
 }

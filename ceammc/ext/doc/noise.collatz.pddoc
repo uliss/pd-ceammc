@@ -1,32 +1,35 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="noise.collatz">
         <title>noise.collatz</title>
         <meta>
             <authors>
                 <author>André Sier</author>
             </authors>
-            <description>Part of a-chaos library</description>
+            <description>collatz conjecture output</description>
             <license>%</license>
             <library>ceammc</library>
             <category>noise</category>
             <keywords>noise</keywords>
-            <since>.5</since>
+            <since>0.5</since>
         </meta>
         <info>
             <par>Collatz conjecture output</par>
         </info>
-        <arguments></arguments>
+        <arguments />
         <methods>
-            <method name="offset">
-                <param type="float" name="OFFSET" required="true">offset value</param>
-            </method>
+            <!-- mode -->
             <method name="mode">
-                <param type="int" name="MODE" required="true">mode value. 0 for Collatz, 1 for
+                <param name="MODE" type="int" required="true">mode value. 0 for Collatz, 1 for
                 Terras</param>
             </method>
+            <!-- offset -->
+            <method name="offset">
+                <param name="OFFSET" type="float" required="true">offset value</param>
+            </method>
+            <!-- om -->
             <method name="om">
-                <param type="int" name="OM" required="true">enables output when cut or fold value
+                <param name="OM" type="int" required="true">enables output when cut or fold value
                 is changed</param>
             </method>
         </methods>
@@ -41,7 +44,6 @@
         <example>
             <pdascii>
 <![CDATA[
-
 [T]
 |
 [metro 50 #metro]
@@ -66,7 +68,6 @@
 [X mode:0->noise-obj:0]
 
 [X metro->noise-obj]
-
 ]]>
             </pdascii>
         </example>

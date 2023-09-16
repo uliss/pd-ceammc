@@ -21,7 +21,7 @@ public:
     AnRms(const PdArgs& args)
         : faust_an_rms_tilde(args)
     {
-        static t_symbol* SYM_PROP_PERIOD = gensym("@period");
+        auto SYM_PROP_PERIOD = gensym("@period");
 
         bindPositionalArgsToProps({ SYM_PROP_PERIOD });
     }
@@ -31,4 +31,8 @@ void setup_an_rms_tilde()
 {
     SoundExternalFactory<AnRms> obj("an.rms~");
     obj.addMethod("reset", &AnRms::m_reset);
+
+    obj.setDescription("root mean square with moving-average algorithm.");
+    obj.setCategory("an");
+    obj.setKeywords({"rms", "root", "mean", "square"});
 }

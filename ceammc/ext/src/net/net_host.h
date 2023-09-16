@@ -35,7 +35,7 @@ struct HostResult {
     std::string data;
 };
 
-using NetHostBase = PollThreadQueueObject<HostResult, PollThreadQueue<HostResult>>;
+using NetHostBase = PollThreadQueueObject<HostResult, HostResult>;
 
 class NetHost : public NetHostBase {
     SymbolEnumProperty* addr_type_;
@@ -50,7 +50,7 @@ public:
     void processMessage(const HostResult& msg) final;
     Future createTask() final;
 
-    bool notify(NotifyEventType event) final;
+    bool notify(int event) final;
 };
 
 }

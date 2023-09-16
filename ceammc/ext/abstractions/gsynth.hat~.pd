@@ -1,0 +1,100 @@
+#N canvas 0 0 950 600 12;
+#X obj 25 125 synth.hat~;
+#X obj 325 25 inlet;
+#X obj 325 125 route synth.hat * .;
+#X obj 525 150 route.prop;
+#X obj 375 200 msg *;
+#X obj 325 250 route @attack @freq @gate @release @tone default reset;
+#X obj 575 350 t b a;
+#X msg 575 375 supported messages are: @attack @freq @gate @release @tone default reset;
+#X obj 575 425 print;
+#X obj 625 425 print [gsynth.hat~] unknown message;
+#X msg 225 75 @attack 20 \, @freq 317 \, @release 100 \, @tone 6400 \,;
+#X obj 25 50 t b b;
+#X msg 25 75 reset;
+#X obj 225 25 msg.onload;
+#X obj 500 550 outlet~;
+#X obj 600 550 outlet ctl;
+#X obj 3 202 cnv 8 198 159 empty empty empty 17 7 0 10 -174763 -1 0;
+#X obj 3 202 cnv 8 198 18 empty empty [synth.hat~] 3 9 0 12 -104026
+-262144 0;
+#X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label
+attack(ms): @label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.hat~/slider0 @min 5 @max 400;
+#X obj 215 236 sync;
+#X obj 145 236 ui.number @size 50 12 @min 5 @max 400 @digits 0;
+#X msg 260 236 @attack \$1;
+#X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label freq(Hz):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.hat~/slider1 @min 300 @max 4000;
+#X obj 215 266 sync;
+#X obj 145 266 ui.number @size 50 12 @min 300 @max 4000 @digits 0;
+#X msg 260 266 @freq \$1;
+#X obj 12 286 ui.toggle @size 12 12 @label gate @label_side right
+@label_align left @fontsize 10;
+#X msg 260 278 @gate \$1;
+#X obj 12 314 ui.slider @size 125 12 @active_scale 1 @label
+release(ms): @label_side top @label_align left @fontsize 10
+@presetname /gui/\$1/synth.hat~/slider3 @min 5 @max 4000;
+#X obj 215 314 sync;
+#X obj 145 314 ui.number @size 50 12 @min 5 @max 4000 @digits 0;
+#X msg 260 314 @release \$1;
+#X obj 12 344 ui.slider @size 125 12 @active_scale 1 @label tone(Hz):
+@label_side top @label_align left @fontsize 10 @presetname
+/gui/\$1/synth.hat~/slider4 @min 800 @max 18000;
+#X obj 215 344 sync;
+#X obj 145 344 ui.number @size 50 12 @min 800 @max 18000 @digits 0;
+#X msg 260 344 @tone \$1;
+#X connect 1 0 2 0;
+#X connect 2 3 3 0;
+#X connect 2 1 4 0;
+#X connect 2 0 5 0;
+#X connect 2 1 5 0;
+#X connect 2 2 5 0;
+#X connect 3 0 5 0;
+#X connect 5 7 6 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 6 1 9 0;
+#X connect 10 0 5 0;
+#X connect 5 5 10 0;
+#X connect 11 1 12 0;
+#X connect 11 0 10 0;
+#X connect 12 0 0 0;
+#X connect 5 6 11 0;
+#X connect 13 0 10 0;
+#X connect 0 0 14 0;
+#X connect 3 1 15 0;
+#X connect 4 0 15 0;
+#X connect 18 0 19 0;
+#X connect 19 0 18 0;
+#X connect 20 0 19 1;
+#X connect 19 1 20 0;
+#X connect 18 0 21 0;
+#X connect 21 0 0 0;
+#X connect 5 0 18 0;
+#X connect 22 0 23 0;
+#X connect 23 0 22 0;
+#X connect 24 0 23 1;
+#X connect 23 1 24 0;
+#X connect 22 0 25 0;
+#X connect 25 0 0 0;
+#X connect 5 1 22 0;
+#X connect 26 0 27 0;
+#X connect 27 0 0 0;
+#X connect 5 2 26 0;
+#X connect 28 0 29 0;
+#X connect 29 0 28 0;
+#X connect 30 0 29 1;
+#X connect 29 1 30 0;
+#X connect 28 0 31 0;
+#X connect 31 0 0 0;
+#X connect 5 3 28 0;
+#X connect 32 0 33 0;
+#X connect 33 0 32 0;
+#X connect 34 0 33 1;
+#X connect 33 1 34 0;
+#X connect 32 0 35 0;
+#X connect 35 0 0 0;
+#X connect 5 4 32 0;
+#X coords 0 -1 1 1 200 164 2 2 200;

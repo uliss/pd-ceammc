@@ -33,4 +33,12 @@ std::string base64_encode(const char* str)
     return tmp.append((3 - N % 3) % 3, '=');
 }
 
+std::string base64_encode(const unsigned char* data, size_t length)
+{
+    using namespace boost::archive::iterators;
+    using It = base64_from_binary<transform_width<const unsigned char*, 6, 8>>;
+    auto tmp = std::string(It(data), It(data + length));
+    return tmp.append((3 - length % 3) % 3, '=');
+}
+
 }

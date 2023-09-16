@@ -15,91 +15,25 @@
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_output.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 #include <cstring>
 
 namespace ceammc {
 
+using namespace ceammc::osc;
+
 CEAMMC_DEFINE_HASH(none);
-
-static bool validOscTypeString(const char* str)
-{
-    const char* s = str;
-    char c;
-    while ((c = *s++)) {
-        switch (c) {
-        case LO_FLOAT:
-        case LO_DOUBLE:
-        case LO_INT32:
-        case LO_INT64:
-        case LO_TRUE:
-        case LO_FALSE:
-        case LO_MIDI:
-        case LO_INFINITUM:
-        case LO_NIL:
-        case LO_CHAR:
-        case LO_STRING:
-        case LO_SYMBOL:
-            continue;
-        default:
-            return strcmp(str, str_none) == 0;
-        }
-    }
-
-    return true;
-}
-
-class OscAtomVisitor : public boost::static_visitor<> {
-    AtomList& r_;
-
-public:
-    OscAtomVisitor(AtomList& res)
-        : r_(res)
-    {
-    }
-
-    void operator()(float f) const { r_.append(Atom(f)); }
-    void operator()(double d) const { r_.append(Atom(d)); }
-    void operator()(bool b) const { r_.append(b ? 1 : 0); }
-    void operator()(int32_t i) const { r_.append(i); }
-    void operator()(int64_t h) const { r_.append(h); }
-    void operator()(const std::string& s) const { r_.append(gensym(s.c_str())); }
-    void operator()(char c) const
-    {
-        char buf[2] = { c, '\0' };
-        r_.append(gensym(buf));
-    }
-    void operator()(net::OscMessageSpec spec)
-    {
-        switch (spec) {
-        case net::OscMessageSpec::INF:
-            r_.append(gensym("inf"));
-            break;
-        case net::OscMessageSpec::NIL:
-            r_.append(gensym("null"));
-            break;
-        default:
-            break;
-        }
-    }
-    void operator()(const net::OscMessageMidi& midi)
-    {
-        r_.append(gensym("midi"));
-        for (int i = 0; i < 4; i++)
-            r_.append(midi.data[i]);
-    }
-};
 
 namespace net {
 
     NetOscReceive::NetOscReceive(const PdArgs& args)
-        : BaseObject(args)
+        : DispatchedObject<BaseObject>(args)
         , server_(nullptr)
         , path_(nullptr)
         , types_(nullptr)
-        , disp_(this)
     {
+        createInlet();
         createOutlet();
 
         server_ = new SymbolProperty("@server", gensym("default"));
@@ -112,58 +46,106 @@ namespace net {
 
         types_ = new SymbolProperty("@types", gensym(str_none));
         types_->setArgIndex(2);
-        types_->setSymbolCheckFn([this](t_symbol* s) -> bool {
-            return validOscTypeString(s->s_name);
-        },
-            "invalid type string");
+        Property::PropSymbolCheckFn fn = [this](t_symbol* s) -> bool { return validOscTypeString(s->s_name); };
+        types_->setSymbolCheckFn(fn, "invalid type string");
         addProperty(types_);
 
-        bindReceive(gensym(OscServerList::DISPATCHER));
+        bindReceive(gensym(OSC_DISPATCHER));
     }
 
     NetOscReceive::~NetOscReceive()
     {
         auto osc = OscServerList::instance().findByName(server_->value());
-        if (osc)
-            osc->unsubscribeAll(disp_.id());
+        if (!osc.expired())
+            osc.lock()->unsubscribeAll(subscriberId());
+    }
+
+    const char* NetOscReceive::types() const
+    {
+        return (crc32_hash(types_->value()) == hash_none) ? nullptr
+                                                          : types_->value()->s_name;
+    }
+
+    bool NetOscReceive::subscribe(const OscServerList::OscServerPtr& osc, t_symbol* path)
+    {
+        if (!osc.expired() && osc.lock()->isValid() && path != &s_) {
+            osc::OscMethodFn fn = [this](const OscRecvMessage& m) -> bool {
+                return pipe_.try_enqueue(m);
+            };
+
+            osc.lock()->subscribeMethod(path->s_name, types(), subscriberId(), fn);
+
+            OBJ_LOG << fmt::format("[osc] #{} subscribed to {} at \"{}\"", subscriberId(), path->s_name, osc.lock()->name());
+            return true;
+        } else if (path != &s_) {
+            OBJ_LOG << fmt::format("[osc] #{} can't subscribe to {} '{}'", subscriberId(), path->s_name, server_->value()->s_name);
+            return false;
+        } else
+            return true;
+    }
+
+    bool NetOscReceive::unsubscribe(const OscServerList::OscServerPtr& osc, t_symbol* path)
+    {
+        if (!osc.expired() && osc.lock()->isValid() && path != &s_) {
+            osc.lock()->unsubscribeMethod(path->s_name, types(), subscriberId());
+            OBJ_LOG << fmt::format("[osc] unsubscribed from {} at \"{}\"", path->s_name, osc.lock()->name());
+            return true;
+        } else if (path != &s_) {
+            OBJ_LOG << fmt::format("[osc] can't unsubscribe from {} '{}'", path->s_name, server_->value()->s_name);
+            return false;
+        } else
+            return true;
     }
 
     void NetOscReceive::initDone()
     {
-        auto osc = net::OscServerList::instance().findByName(server_->value());
-        if (osc != nullptr && osc->isValid()) {
-            const char* types = (crc32_hash(types_->value()) == hash_none) ? nullptr
-                                                                           : types_->value()->s_name;
-            osc->subscribeMethod(path_->value()->s_name, types, disp_.id(), &pipe_);
-            LIB_LOG << fmt::format("[osc] subscribed to {} at \"{}\"", path_->value()->s_name, osc->name());
-        } else
-            LIB_LOG << fmt::format("[osc] can't subscribe to {} '{}'", path_->value()->s_name, server_->value()->s_name);
+        subscribe(OscServerList::instance().findByName(server_->value()), path_->value());
+
+        Property::PropSymbolCheckFn fn = [this](t_symbol* new_path) -> bool {
+            auto osc = OscServerList::instance().findByName(server_->value());
+            if (!unsubscribe(osc, path_->value()))
+                return false;
+
+            return subscribe(osc, new_path);
+        };
+        path_->setSymbolCheckFn(fn);
     }
 
-    bool NetOscReceive::notify(NotifyEventType code)
+    bool NetOscReceive::notify(int code)
     {
-        switch (code) {
-        case NOTIFY_UPDATE: {
-            OscMessage msg;
-            while (pipe_.try_dequeue(msg))
-                processMessage(msg);
-        } break;
-        default:
-            break;
-        }
+        OscRecvMessage msg;
+        while (pipe_.try_dequeue(msg))
+            processMessage(msg);
+
         return true;
     }
 
-    void NetOscReceive::processMessage(const OscMessage& msg)
+    void NetOscReceive::processMessage(const OscRecvMessage& msg)
     {
         AtomList res;
         res.reserve(msg.size());
 
         OscAtomVisitor v(res);
-        for (auto& a : msg)
+        for (auto& a : msg.atoms())
             a.apply_visitor(v);
 
-        outletAtomList(outletAt(0), res, true);
+        if (msg.isSpec()) {
+            auto spec = boost::get<OscMessageSpec>(msg[0]);
+            if (spec == OscMessageSpec::INF)
+                anyTo(0, gensym("inf"), AtomListView());
+            else if (spec == OscMessageSpec::NIL)
+                anyTo(0, gensym("null"), AtomListView());
+        } else if (msg.isMidi()) {
+            anyTo(0, gensym("midi"), res);
+        } else if (msg.isBlob()) {
+            anyTo(0, gensym("blob"), res);
+        } else
+            outletAtomList(outletAt(0), res, true);
+    }
+
+    void NetOscReceive::onInlet(size_t n, const AtomListView& lv)
+    {
+        path_->set(lv);
     }
 
     void NetOscReceive::updateServer(t_symbol* name, const AtomListView& lv)
@@ -171,12 +153,12 @@ namespace net {
         if (lv != server_->value())
             return;
 
-        auto osc = net::OscServerList::instance().findByName(server_->value());
-        if (osc != nullptr && osc->isValid()) {
-            const char* types = (crc32_hash(types_->value()) == hash_none) ? nullptr
-                                                                           : types_->value()->s_name;
-            osc->subscribeMethod(path_->value()->s_name, types, disp_.id(), &pipe_);
-        }
+        auto osc = OscServerList::instance().findByName(server_->value());
+
+        if (!unsubscribe(osc, path_->value()))
+            return;
+
+        subscribe(osc, path_->value());
     }
 }
 }
@@ -187,6 +169,7 @@ void setup_net_osc_receive()
 
     ObjectFactory<net::NetOscReceive> obj("net.osc.receive");
     obj.addAlias("net.osc.r");
+    obj.setXletsInfo({ "any", "symbol: set OSC path" }, { "any: osc messages" });
 
-    obj.addMethod(net::OscServerList::METHOD_UPDATE, &net::NetOscReceive::updateServer);
+    obj.addMethod(OSC_METHOD_UPDATE, &net::NetOscReceive::updateServer);
 }

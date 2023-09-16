@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="spring">
         <title>spring</title>
         <meta>
@@ -17,8 +17,9 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="VAL" type="float">target value</argument>
-            <argument name="TIME" type="float">time to reach the target value</argument>
+            <argument name="VALUE" type="float">target value</argument>
+            <argument name="TIME" type="float" minvalue="50" maxvalue="5000" units="millisecond">
+            time to reach the target value</argument>
         </arguments>
         <properties>
             <property name="@value" type="float" default="0">target value</property>
@@ -27,14 +28,10 @@
             <property name="@accel" type="float" minvalue="-5" maxvalue="5" default="0">
             acceleration factor, 0: means linear motion (no acceleration), &gt;0: begin fast, then
             slow down, &lt;0: begin slow, then speed up</property>
-            <property name="@mouse_down" type="int" minvalue="0" maxvalue="1" default="0">internal
-            state</property>
-            <property name="@mouse_up" type="int" minvalue="0" maxvalue="1" default="0">internal
-            state</property>
-            <property name="@mouse_move" type="int" minvalue="0" maxvalue="1" default="0">internal
-            state</property>
-            <property name="@mouse_drag" type="int" minvalue="0" maxvalue="1" default="0">internal
-            state</property>
+            <property name="@mouse_down" type="bool" default="0">internal state</property>
+            <property name="@mouse_up" type="bool" default="0">internal state</property>
+            <property name="@mouse_move" type="bool" default="0">internal state</property>
+            <property name="@mouse_drag" type="bool" default="0">internal state</property>
         </properties>
         <inlets>
             <inlet>

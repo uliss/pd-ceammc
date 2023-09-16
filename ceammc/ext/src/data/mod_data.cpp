@@ -39,8 +39,14 @@
 #include "set_to_list.h"
 #include "set_union.h"
 
-void setup_rtree_to_list();
+void setup_color_mix();
+void setup_color_scale();
+void setup_data_bimap();
+void setup_data_color();
 void setup_data_copy();
+void setup_global_bimap();
+void setup_local_bimap();
+void setup_rtree_to_list();
 
 void ceammc_data_setup()
 {
@@ -53,6 +59,11 @@ void ceammc_data_setup()
     setup_set_union();
     setup_set_symdiff();
 
+    setup_color_mix();
+    setup_color_scale();
+
+    setup_data_bimap();
+    setup_data_color();
     setup_data_copy();
     setup_data_dict();
     setup_data_fifo();
@@ -74,6 +85,7 @@ void ceammc_data_setup()
     setup_dict_values();
     setup_is_dict();
 
+    setup_local_bimap();
     setup_local_dict();
     setup_local_float();
     setup_local_int();
@@ -81,6 +93,7 @@ void ceammc_data_setup()
     setup_local_mlist();
     setup_local_set();
 
+    setup_global_bimap();
     setup_global_dict();
     setup_global_float();
     setup_global_int();

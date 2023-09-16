@@ -18,7 +18,6 @@
 #include <cstdint>
 #include <type_traits>
 
-#include "ceammc_canvas.h"
 #include "ceammc_object.h"
 #include "nui/common.h"
 #include "nui/property.h"
@@ -45,6 +44,7 @@ namespace ui {
         bool is_toplevel(t_glist* x);
         t_glist* object_get_draw_canvas(t_glist* c);
         void widget_bind_mouse(t_glist* c, t_object* obj, UIFactoryFlags flags);
+        void widget_bind_drag_and_drop(t_glist* c, t_object* obj, UIFactoryFlags flags);
         void widget_create(t_glist* c, t_object* obj, const Point& pos, const Size& sz, int zoom);
         void widget_erase(t_glist* c, t_object* obj);
         void widget_focus(t_glist* c, t_object* obj);
@@ -77,6 +77,7 @@ namespace ui {
             draw_canvas_ = T::canvas();
 
             size_ = new ui::SizeProperty("@size", { 10, 10 });
+            size_->setSuccessFn([this](Property*) { resizeWidget(size_->value()); });
             T::addProperty(size_);
         }
 
@@ -129,18 +130,32 @@ namespace ui {
 
         virtual Size fixNewSize(const Size& sz) { return sz.clippedMin({ 10, 10 }); }
 
-        virtual void onWidgetActivation(bool state) { /*LIB_ERR << __FUNCTION__;*/ }
-        virtual void onWidgetMove(int dx, int dy) { /*LIB_ERR << __FUNCTION__;*/ }
-        virtual void onWidgetDelete() { /*LIB_ERR << __FUNCTION__;*/ }
-        virtual void onWidgetSelect(bool state) { /*LIB_ERR << __FUNCTION__;*/ }
-        virtual void onWidgetShow() { /*LIB_ERR << __FUNCTION__;*/ }
+        virtual void onWidgetActivation(bool state)
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
+        virtual void onWidgetMove(int dx, int dy)
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
+        virtual void onWidgetDelete()
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
+        virtual void onWidgetSelect(bool state)
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
+        virtual void onWidgetShow()
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
 
         /**
          * called right after widget resize
          * @param sz - new widget size in model coordinates (without zoom)
          */
-        virtual void onWidgetResize(const Size& sz) { /*LIB_ERR << __FUNCTION__ << ' ' << sz;*/ }
-        virtual void onWidgetHide() { /*LIB_ERR << __FUNCTION__;*/ }
+        virtual void onWidgetResize(const Size& sz)
+        { /*LIB_ERR << __FUNCTION__ << ' ' << sz;*/
+        }
+        virtual void onWidgetHide()
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
 
         virtual void activateWidget(t_glist* owner, bool state)
         {
@@ -177,6 +192,7 @@ namespace ui {
             syncDrawCanvas();
             utils::widget_create(drawCanvas(), T::owner(), absPos(), size(), zoom());
             utils::widget_bind_mouse(drawCanvas(), T::owner(), ui_flags_);
+            utils::widget_bind_drag_and_drop(drawCanvas(), T::owner(), ui_flags_);
             onWidgetShow();
         }
 
@@ -206,17 +222,37 @@ namespace ui {
         {
         }
 
-        virtual void onMouseEnter() { /*LIB_ERR << __FUNCTION__;*/ }
-        virtual void onMouseLeave() { /*LIB_ERR << __FUNCTION__;*/ }
-        virtual void onMouseMove() { /*LIB_ERR << __FUNCTION__;*/ }
-        virtual void onMouseDrag(const Point& pt, uint32_t mod) { /*LIB_ERR << __FUNCTION__;*/ }
-        virtual void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod) { /*LIB_ERR << __FUNCTION__;*/ }
-        virtual void onMouseUp(const Point& pt, uint32_t mod) { /*LIB_ERR << __FUNCTION__;*/ }
+        virtual void onMouseEnter()
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
+        virtual void onMouseLeave()
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
+        virtual void onMouseMove()
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
+        virtual void onMouseDrag(const Point& pt, uint32_t mod)
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
+        virtual void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod)
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
+        virtual void onMouseUp(const Point& pt, uint32_t mod)
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
 
         virtual void onRightClick(const Point& pt, const Point& abspt, uint32_t mod)
         {
             // LIB_ERR << __FUNCTION__;
             utils::canvas_right(drawCanvas(), T::owner());
+        }
+
+        virtual void onDropFiles(const AtomListView& lv)
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
+
+        virtual void onDropText(const AtomListView& lv)
+        { /*LIB_ERR << __FUNCTION__;*/
         }
 
         void mouseEnter()
@@ -317,7 +353,7 @@ namespace ui {
                         }
                     }
                 } else {
-                    utils::canvas_motion(drawCanvas(), T::owner(), 1);
+                    return utils::canvas_motion(drawCanvas(), T::owner(), 1);
                 }
             } else { // mouse move
                 if (editModeAccept(mod)) {
@@ -372,6 +408,16 @@ namespace ui {
             } else {
                 onRightClick(pt, abspt, mod);
             }
+        }
+
+        void dragAndDropFiles(const AtomListView& lv)
+        {
+            onDropFiles(lv);
+        }
+
+        void dragAndDropText(const AtomListView& lv)
+        {
+            onDropText(lv);
         }
 
         void openHelp()

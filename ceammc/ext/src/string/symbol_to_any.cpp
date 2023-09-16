@@ -53,4 +53,8 @@ void setup_symbol_to_any()
     obj.addAlias("sym->any");
     obj.addAlias("str->any");
     obj.addAlias("string2any");
+
+    obj.setDescription("converts symbol or string to message");
+    obj.setCategory("symbol");
+    obj.setKeywords({"symbol", "any"});
 }

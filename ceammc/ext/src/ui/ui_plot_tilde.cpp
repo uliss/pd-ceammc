@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "ui_plot_tilde.h"
 #include "ceammc_convert.h"
+#include "ceammc_dsp.h"
 #include "ceammc_ui.h"
 
 #include <cmath>
@@ -31,7 +32,7 @@ constexpr float XTICK_MIN = 3;
 constexpr float XGRID_AVOID = 10;
 
 constexpr const char* SYM_BARS = "bars";
-constexpr const char* SYM_YAUTO= "yauto";
+constexpr const char* SYM_YAUTO = "yauto";
 constexpr const char* SYM_YMIN = "ymin";
 constexpr const char* SYM_YMAX = "ymax";
 
@@ -272,8 +273,8 @@ UIPlotTilde::UIPlotTilde()
 
 bool UIPlotTilde::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 50);
-    newrect->height = pd_clip_min(newrect->height, 50);
+    newrect->w = pd_clip_min(newrect->w, 50);
+    newrect->h = pd_clip_min(newrect->h, 50);
     return true;
 }
 
@@ -931,7 +932,7 @@ void UIPlotTilde::drawYRangeLabels(UIPainter& p, float from, float to, float wd,
 t_rect UIPlotTilde::calcXButton(int n, bool real) const
 {
     if (n < 0 || n > N_BTNS)
-        return { 0 };
+        return {};
 
     const float xoff = std::max(MIN_XOFF, width() * OFF_K);
     const float yoff = std::max(MIN_YOFF, height() * OFF_K);
@@ -954,7 +955,7 @@ t_rect UIPlotTilde::calcXButton(int n, bool real) const
 t_rect UIPlotTilde::calcYButton(int n, bool real) const
 {
     if (n < 0 || n > N_BTNS)
-        return { 0 };
+        return {};
 
     const float xoff = std::max(MIN_XOFF, width() * OFF_K);
     const float yoff = std::max(MIN_YOFF, height() * OFF_K);
@@ -973,7 +974,7 @@ t_rect UIPlotTilde::calcYButton(int n, bool real) const
 t_rect UIPlotTilde::calcInButton(int n, bool real) const
 {
     if (n < 0 || n > N_BTNS)
-        return { 0 };
+        return {};
 
     const float xoff = std::max(MIN_XOFF, width() * OFF_K);
     const float yoff = std::max(MIN_YOFF, height() * OFF_K);
@@ -1001,7 +1002,7 @@ void UIPlotTilde::drawXCtrlButtons(UIPainter& p)
 
     for (int i = 0; i < N_BTNS; i++) {
         const t_rect r = calcXButton(i, false);
-        p.drawRect(r.x, r.y, r.width, r.height);
+        p.drawRect(r.x, r.y, r.w, r.h);
         if (props[i]) {
             p.setColor(prop_color_border);
             p.fillPreserve();
@@ -1014,9 +1015,9 @@ void UIPlotTilde::drawXCtrlButtons(UIPainter& p)
         txt_x_.back().setJustify(ETEXT_JCENTER);
         txt_x_.back().setAnchor(ETEXT_CENTER);
 
-        auto xc = r.x + r.width / 2 + 1; // button x-center
-        auto yc = r.y + r.height / 2 + 1; // button y-center
-        txt_x_.back().set(BTN_LABELS[i], xc, yc, r.width, FONT_SIZE_SMALL);
+        auto xc = r.x + r.w / 2 + 1; // button x-center
+        auto yc = r.y + r.h / 2 + 1; // button y-center
+        txt_x_.back().set(BTN_LABELS[i], xc, yc, r.w, FONT_SIZE_SMALL);
         p.drawText(txt_x_.back());
     }
 }
@@ -1033,7 +1034,7 @@ void UIPlotTilde::drawYCtrlButtons(UIPainter& p)
     for (int i = 0; i < N_BTNS; i++) {
         int btn_idx = N_BTNS - (i + 1);
         const t_rect r = calcYButton(i, false);
-        p.drawRect(r.x, r.y, r.width, r.height);
+        p.drawRect(r.x, r.y, r.w, r.h);
         if (props[btn_idx]) {
             p.setColor(prop_color_border);
             p.fillPreserve();
@@ -1046,9 +1047,9 @@ void UIPlotTilde::drawYCtrlButtons(UIPainter& p)
         txt_y_.back().setJustify(ETEXT_JCENTER);
         txt_y_.back().setAnchor(ETEXT_CENTER);
 
-        auto xc = r.x + r.width / 2 + 1; // button x-center
-        auto yc = r.y + r.height / 2 + 1; // button y-center
-        txt_y_.back().set(BTN_LABELS[btn_idx], xc, yc, r.width, FONT_SIZE_SMALL);
+        auto xc = r.x + r.w / 2 + 1; // button x-center
+        auto yc = r.y + r.h / 2 + 1; // button y-center
+        txt_y_.back().set(BTN_LABELS[btn_idx], xc, yc, r.w, FONT_SIZE_SMALL);
         p.drawText(txt_y_.back());
     }
 }
@@ -1063,7 +1064,7 @@ void UIPlotTilde::drawInCtrlButtons(UIPainter& p)
     for (int i = 0; i < prop_nins_; i++) {
         const int btn_idx = prop_nins_ - (i + 1);
         const t_rect r = calcInButton(btn_idx, false);
-        p.drawRect(r.x, r.y, r.width, r.height);
+        p.drawRect(r.x, r.y, r.w, r.h);
         if (plot_show_mask_ & (1 << i)) {
             p.setColor(*colors[i]);
             p.fillPreserve();
@@ -1076,9 +1077,9 @@ void UIPlotTilde::drawInCtrlButtons(UIPainter& p)
         txt_y_.back().setJustify(ETEXT_JCENTER);
         txt_y_.back().setAnchor(ETEXT_CENTER);
 
-        auto xc = r.x + r.width / 2 + 1; // button x-center
-        auto yc = r.y + r.height / 2 + 1; // button y-center
-        txt_y_.back().set(txt[i], xc, yc, r.width, FONT_SIZE_SMALL);
+        auto xc = r.x + r.w / 2 + 1; // button x-center
+        auto yc = r.y + r.h / 2 + 1; // button y-center
+        txt_y_.back().set(txt[i], xc, yc, r.w, FONT_SIZE_SMALL);
         p.drawText(txt_y_.back());
     }
 }
@@ -1215,9 +1216,9 @@ void UIPlotTilde::onInlet(const AtomListView& args)
 
 static bool inRect(const t_pt& p, const t_rect& r)
 {
-    if (p.x < r.x || p.x > (r.x + r.width))
+    if (p.x < r.x || p.x > (r.x + r.w))
         return false;
-    else if (p.y < r.y || p.y > (r.y + r.height))
+    else if (p.y < r.y || p.y > (r.y + r.h))
         return false;
     else
         return true;
@@ -1300,21 +1301,20 @@ t_float UIPlotTilde::propNumInputs() const
 void UIPlotTilde::propSetNumInputs(t_float n)
 {
     prop_nins_ = clip<int, MIN_INPUTS, MAX_INPUTS>(n);
-    int dspState = canvas_suspend_dsp();
+    dsp::SuspendGuard guard;
 
     eobj_resize_inputs(asEObj(), 0);
     eobj_resize_inputs(asEObj(), prop_nins_);
     eobj_resize_inputs(asEObj(), n + 1, &s_list, gensym("_inlet_2"));
 
     canvas_update_dsp();
-    canvas_resume_dsp(dspState);
 }
 
 void UIPlotTilde::setup()
 {
     UIObjectFactory<UIPlotTilde> obj("ui.plot~");
     obj.hideLabelInner();
-    obj.hideProperty("send");
+    obj.internalProperty("send");
 
     obj.setDefaultSize(200, 200);
     obj.useBang();
@@ -1322,7 +1322,10 @@ void UIPlotTilde::setup()
 
     obj.addBoolProperty(SYM_YAUTO, _("Auto Y-range"), 0, &UIPlotTilde::yauto_, _("Bounds"));
     obj.addFloatProperty(SYM_YMIN, _("Minimum Y-value"), -1, &UIPlotTilde::ymin_, _("Bounds"));
+    obj.setPropertyRange(SYM_YMIN, -1024, 1024);
     obj.addFloatProperty(SYM_YMAX, _("Maximum Y-value"), 1, &UIPlotTilde::ymax_, _("Bounds"));
+    obj.setPropertyRange(SYM_YMAX, -1024, 1024);
+
     obj.addBoolProperty("xmaj_ticks", _("Major ticks on x-axis"), 1, &UIPlotTilde::xmaj_ticks_, _("Bounds"));
     obj.addBoolProperty("xmin_ticks", _("Minor ticks on x-axis"), 1, &UIPlotTilde::xmin_ticks_, _("Bounds"));
     obj.addBoolProperty("xmaj_grid", _("Major grid on x-axis"), 1, &UIPlotTilde::xmaj_grid_, _("Bounds"));

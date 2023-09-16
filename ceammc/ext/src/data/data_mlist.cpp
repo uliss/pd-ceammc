@@ -12,15 +12,15 @@
  * this file belongs to.
  *****************************************************************************/
 #include "data_mlist.h"
-#include "ceammc_data.h"
 #include "ceammc_factory.h"
-#include "ceammc_format.h"
+#include "fmt/core.h"
 
 DataMList::DataMList(const PdArgs& args)
     : DataMListBase(args)
 {
-    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
-    mlist_->setFromDataList(args.args);
+    value_ = new MListProperty("@value", {});
+    value_->setArgIndex(0);
+    addProperty(value_);
 
     createOutlet();
 }
@@ -31,7 +31,12 @@ void setup_data_mlist()
     obj.addAlias("mlist");
     obj.addAlias("ml");
     obj.processData<DataTypeMList>();
-    obj.noArgsAndPropsParse();
 
-    DataMList::registerMethods(obj);
+    DataMList::factoryEditorObjectInit(obj);
+
+    obj.setDescription("multidimensional list container");
+    obj.setCategory("data");
+    obj.setKeywords({ "data", "multilist" });
+
+    LIB_LOG << fmt::format("Mlist datatype id: {:d}", DataTypeMList::staticType());
 }

@@ -24,11 +24,6 @@ using namespace ceammc::sound;
 
 extern "C" int* array_load_parse(const char* input);
 
-SoundFilePtr testLoadFunc(const std::string& path)
-{
-    return SoundFilePtr();
-}
-
 FormatList testFormatFunc()
 {
     return FormatList();
@@ -38,23 +33,24 @@ TEST_CASE("ceammc_sound", "[ceammc_sound]")
 {
     SECTION("supportedFormats")
     {
-        FormatList lst = SoundFileLoader::supportedFormats();
+        FormatList lst = SoundFileFactory::supportedReadFormats();
 
         REQUIRE(lst.size() > 0);
     }
 
     SECTION("open")
     {
-        SoundFilePtr ptr = SoundFileLoader::open(TEST_DATA_DIR "/test_data1.wav");
+        SoundFilePtr ptr = SoundFileFactory::openRead(TEST_DATA_DIR "/test_data1.wav");
         REQUIRE(ptr);
         REQUIRE(ptr->isOpened());
     }
 
     SECTION("register")
     {
-        LoaderDescr ld("test_loader", testLoadFunc, testFormatFunc);
-        REQUIRE(SoundFileLoader::registerLoader(ld));
+        SoundFileBackend ld(
+            "test_loader", []() { return SoundFilePtr(); }, testFormatFunc, []() { return FormatList {}; });
+        REQUIRE(SoundFileFactory::registerBackend(ld));
         // double register
-        REQUIRE_FALSE(SoundFileLoader::registerLoader(ld));
+        REQUIRE_FALSE(SoundFileFactory::registerBackend(ld));
     }
 }

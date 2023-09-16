@@ -27,9 +27,24 @@
 namespace ceammc {
 namespace dsp {
 
+    class SuspendGuard {
+        int state_ { 0 };
+
+    public:
+        SuspendGuard() noexcept
+            : state_(canvas_suspend_dsp())
+        {
+        }
+
+        ~SuspendGuard()
+        {
+            canvas_resume_dsp(state_);
+        }
+    };
+
     class DelayIface {
     public:
-        virtual ~DelayIface() { }
+        virtual ~DelayIface();
         virtual uint32_t maxSize() const noexcept = 0;
         virtual uint32_t delay() const noexcept = 0;
         virtual bool setDelay(uint32_t delay) = 0;

@@ -14,6 +14,8 @@
 #include "lang_luajit.h"
 #include "test_lang_base.h"
 
+#include <thread>
+
 PD_COMPLETE_TEST_SETUP(LangLuaJit, lang, luajit)
 
 TEST_CASE("lang.luajit", "[externals]")
@@ -34,7 +36,7 @@ TEST_CASE("lang.luajit", "[externals]")
 #define WAIT(t, ms)                                                 \
     {                                                               \
         std::this_thread::sleep_for(std::chrono::milliseconds(ms)); \
-        t->processTask(NOTIFY_DONE);                                \
+        t->processTask(0);                                \
     }
 
         TExt t("lang.lua");

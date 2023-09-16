@@ -51,6 +51,8 @@ void ebox_ready(t_ebox* x);
  */
 void ebox_free(t_ebox* x);
 
+t_efont* ebox_getfont(t_ebox* x);
+
 /*!
  * \fn          t_symbol* ebox_getfontname(t_ebox* x)
  * \brief       Retrieves the name of the font of the t_ebox.
@@ -320,9 +322,9 @@ void ebox_vis(t_ebox* x, t_float vis);
  * \param attr      Nothing (for Max 6 compatibility)
  * \param argc      The size of the array of atoms
  * \param argv      The array of atoms
- * \return          Always 0 (for the moment)
+ * \return          Always true (for the moment)
  */
-t_pd_err ebox_set_receiveid(t_ebox* x, t_object* attr, int argc, t_atom* argv);
+bool ebox_set_receiveid(void* z, t_eattr *attr, int argc, t_atom* argv);
 
 //! The default user send id method for all ebox called by PD (PRIVATE)
 /*
@@ -331,9 +333,9 @@ t_pd_err ebox_set_receiveid(t_ebox* x, t_object* attr, int argc, t_atom* argv);
  * \param attr      Nothing (for Max 6 compatibility)
  * \param argc      The size of the array of atoms
  * \param argv      The array of atoms
- * \return          Always 0 (for the moment)
+ * \return          Always true (for the moment)
  */
-t_pd_err ebox_set_sendid(t_ebox* x, t_object* attr, int argc, t_atom* argv);
+bool ebox_set_sendid(void* x, t_eattr* attr, int argc, t_atom* argv);
 
 //! The default user preset id method for all ebox called by PD (PRIVATE)
 /*
@@ -342,9 +344,9 @@ t_pd_err ebox_set_sendid(t_ebox* x, t_object* attr, int argc, t_atom* argv);
  * \param attr      Nothing (for Max 6 compatibility)
  * \param argc      The size of the array of atoms
  * \param argv      The array of atoms
- * \return          Always 0 (for the moment)
+ * \return          Always true (for the moment)
  */
-t_pd_err ebox_set_presetid(t_ebox* x, t_object* attr, int argc, t_atom* argv);
+bool ebox_set_presetid(void *z, t_eattr *attr, int argc, t_atom* argv);
 
 //! Retrive the preset id of an ebox
 /*
@@ -362,7 +364,7 @@ t_symbol* ebox_get_presetid(t_ebox* x);
  * \param argv      The array of atoms
  * \return          Always 0 (for the moment)
  */
-t_pd_err ebox_set_font(t_ebox* x, t_object* attr, int argc, t_atom* argv);
+bool ebox_set_font(void* x, t_eattr* attr, int argc, t_atom* argv);
 
 //! The default user fontweight method for all ebox called by PD (PRIVATE)
 /*
@@ -373,7 +375,7 @@ t_pd_err ebox_set_font(t_ebox* x, t_object* attr, int argc, t_atom* argv);
  * \param argv      The array of atoms
  * \return          Always 0 (for the moment)
  */
-t_pd_err ebox_set_fontweight(t_ebox* x, t_object* attr, int argc, t_atom* argv);
+bool ebox_set_fontweight(void *z, t_eattr *attr, int argc, t_atom* argv);
 
 //! The default user fontslant method for all ebox called by PD (PRIVATE)
 /*
@@ -384,7 +386,7 @@ t_pd_err ebox_set_fontweight(t_ebox* x, t_object* attr, int argc, t_atom* argv);
  * \param argv      The array of atoms
  * \return          Always 0 (for the moment)
  */
-t_pd_err ebox_set_fontslant(t_ebox* x, t_object* attr, int argc, t_atom* argv);
+bool ebox_set_fontslant(void *z, t_eattr* attr, int argc, t_atom* argv);
 
 //! The default user fontsize method for all ebox called by PD (PRIVATE)
 /*
@@ -395,7 +397,7 @@ t_pd_err ebox_set_fontslant(t_ebox* x, t_object* attr, int argc, t_atom* argv);
  * \param argv      The array of atoms
  * \return          Always 0 (for the moment)
  */
-t_pd_err ebox_set_fontsize(t_ebox* x, t_object* attr, int argc, t_atom* argv);
+bool ebox_set_fontsize(void* z, t_eattr* attr, int argc, t_atom* argv);
 
 //! Open the properties window (PRIVATE)
 /*
@@ -433,7 +435,7 @@ bool ebox_notify(t_ebox* x, t_symbol* s);
  * \param argv      The array of atoms that contains the new width and the new height
  * \return          Always 0 (for the moment)
  */
-t_pd_err ebox_size_set(t_ebox* x, t_object* attr, int argc, t_atom* argv);
+bool ebox_size_set(void* x, t_eattr *attr, int argc, t_atom* argv);
 
 //! The dumps all attributes values in the PD console // PRIVATE
 /*
@@ -451,12 +453,12 @@ void ebox_attr_dump(t_ebox* x);
  */
 void ebox_output_all_attrs(t_ebox* x);
 
-t_pd_err ebox_set_label(t_ebox* x, t_object* attr, int argc, t_atom* argv);
-t_pd_err ebox_set_label_align(t_ebox* x, t_object* attr, int argc, t_atom* argv);
-t_pd_err ebox_set_label_valign(t_ebox* x, t_object* attr, int argc, t_atom* argv);
-t_pd_err ebox_set_label_side(t_ebox* x, t_object* attr, int argc, t_atom* argv);
-t_pd_err ebox_set_label_position(t_ebox* x, t_object* attr, int argc, t_atom* argv);
-t_pd_err ebox_set_label_margins(t_ebox* x, t_object* attr, int argc, t_atom* argv);
+bool ebox_set_label(void* z, t_eattr* attr, int argc, t_atom* argv);
+bool ebox_set_label_align(void* z, t_eattr* attr, int argc, t_atom* argv);
+bool ebox_set_label_valign(void* z, t_eattr* attr, int argc, t_atom* argv);
+bool ebox_set_label_side(void* z, t_eattr* attr, int argc, t_atom* argv);
+bool ebox_set_label_position(void* z, t_eattr* attr, int argc, t_atom* argv);
+bool ebox_set_label_margins(void* z, t_eattr* attr, int argc, t_atom* argv);
 
 // The defaults pd widgets
 void ebox_wgetrect(t_gobj* z, t_glist* glist, int* xp1, int* yp1, int* xp2, int* yp2);

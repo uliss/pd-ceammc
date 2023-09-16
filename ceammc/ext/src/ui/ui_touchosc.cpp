@@ -12,12 +12,15 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ui_touchosc.h"
-#include "ceammc_base64.h"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
 #include "ceammc_platform.h"
+#include "ceammc_poll_dispatcher.h"
+#include "ceammc_thread.h"
 
-#include "fmt/format.h"
+//#include "ceammc_thread.h"
+#include "fmt/core.h"
 #include "httplib.h"
 
 #include <chrono>
@@ -42,71 +45,10 @@ constexpr int TOUCH_OSC_HTTP_PORT = 9658;
 
 namespace ceammc {
 
-class Logger : public NotifiedObject {
-    std::list<std::pair<NotifyEventType, std::string>> messages_;
-    std::mutex mtx_;
-
-public:
-    Logger()
-    {
-        Dispatcher::instance().subscribe(this, id());
-    }
-
-    ~Logger()
-    {
-        Dispatcher::instance().unsubscribe(this);
-    }
-
-    SubscriberId id() const { return reinterpret_cast<SubscriberId>(this); }
-
-    bool notify(NotifyEventType code)
-    {
-        MutexLock lock(mtx_);
-        while (!messages_.empty()) {
-            auto& msg = messages_.front();
-
-            switch (msg.first) {
-            case NOTIFY_LOG_ERROR:
-                LIB_ERR << TOUCH_OSC_LOG_PREFIX << msg.second;
-                break;
-            case NOTIFY_LOG_DEBUG:
-                LIB_DBG << TOUCH_OSC_LOG_PREFIX << msg.second;
-                break;
-            default:
-                break;
-            }
-
-            messages_.pop_front();
-        }
-
-        return true;
-    }
-
-    void error(const std::string& msg)
-    {
-        {
-            MutexLock lock(mtx_);
-            messages_.push_back({ NOTIFY_LOG_ERROR, msg });
-        }
-
-        Dispatcher::instance().send({ id(), NOTIFY_LOG_ERROR });
-    }
-
-    void debug(const std::string& msg)
-    {
-        {
-            MutexLock lock(mtx_);
-            messages_.push_back({ NOTIFY_LOG_DEBUG, msg });
-        }
-
-        Dispatcher::instance().send({ id(), NOTIFY_LOG_DEBUG });
-    }
-};
-
 class TouchOscHttpServer {
     httplib::Server http_;
     std::future<bool> rc_;
-    Logger log_;
+    ThreadPdLogger log_;
     std::string content_;
     std::string filename_;
     std::mutex content_mtx_;
@@ -116,8 +58,14 @@ class TouchOscHttpServer {
     {
         using namespace httplib;
 
-        http_.set_exception_handler([this](const Request& req, Response& res, std::exception& e) {
-            log_.error(e.what());
+        http_.set_exception_handler([this](const Request&, Response&, std::exception_ptr ep) {
+            try {
+                if (ep)
+                    std::rethrow_exception(ep);
+
+            } catch (const std::exception& e) {
+                log_.error(e.what());
+            }
         });
 
         http_.Get("/", [this](const Request&, Response& res) {
@@ -198,7 +146,7 @@ UiTouchOsc::UiTouchOsc(const PdArgs& args)
     server_ = new BoolProperty("@server", false);
     server_->setSuccessFn([this](Property*) {
         TouchOscHttpServer::instance().start(server_->value());
-        auto root = rootCanvas();
+        auto root = canvas(CanvasType::TOPLEVEL);
         if (root) {
             auto name = canvas_info_name(root);
             TouchOscHttpServer::instance().setFilename(name->s_name);
@@ -219,10 +167,10 @@ void UiTouchOsc::m_auto(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    const auto cbng = &UIObjectFactory<UIBang>::pd_class->c_class;
-    const auto ctgl = &UIObjectFactory<UIToggle>::pd_class->c_class;
-    const auto cknob = &UIObjectFactory<UIKnob>::pd_class->c_class;
-    const auto csl = &UIObjectFactory<UISlider>::pd_class->c_class;
+    const auto cbng = &UIObjectFactory<UIBang>::pd_ui_class->c_class;
+    const auto ctgl = &UIObjectFactory<UIToggle>::pd_ui_class->c_class;
+    const auto cknob = &UIObjectFactory<UIKnob>::pd_ui_class->c_class;
+    const auto csl = &UIObjectFactory<UISlider>::pd_ui_class->c_class;
 
     enum UIType {
         UI_BANG,
@@ -316,7 +264,7 @@ void UiTouchOsc::m_save(t_symbol* s, const AtomListView& lv)
                 METHOD_LOG(s) << "faved to " << path;
         }
     } else {
-        auto full_path = platform::make_abs_filepath_with_canvas(rootCanvas(), spath);
+        auto full_path = platform::make_abs_filepath_with_canvas(canvas(CanvasType::TOPLEVEL), spath);
 
         if (platform::path_exists(full_path.c_str())) {
             if (!platform::remove(full_path.c_str())) {

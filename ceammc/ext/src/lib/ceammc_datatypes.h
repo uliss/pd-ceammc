@@ -14,9 +14,9 @@
 #ifndef CEAMMC_DATATYPES_H
 #define CEAMMC_DATATYPES_H
 
-#include <boost/static_string.hpp>
-
 #include <cstdint>
+
+#include "ceammc_string_types.h"
 
 namespace ceammc {
 
@@ -28,7 +28,7 @@ namespace data {
     constexpr uint16_t DATA_WRAPPER = 32;
 }
 
-using DataTypeName = boost::static_string<DATA_TYPE_NAME_MAX_LENGTH>;
+using DataTypeName = ceammc::BoostStaticString<DATA_TYPE_NAME_MAX_LENGTH>;
 using DataTypeId = uint16_t;
 
 }

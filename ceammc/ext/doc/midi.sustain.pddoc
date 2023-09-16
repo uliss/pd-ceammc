@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="midi.sustain">
         <title>midi.sustain</title>
         <meta>
@@ -18,11 +18,11 @@
             <par>when pedal is off: output all sustained notes off</par>
         </info>
         <arguments>
-            <argument name="STATE" type="int" minvalue="0" maxvalue="1">initial state</argument>
+            <argument name="ON" type="bool">initial state</argument>
         </arguments>
         <properties>
-            <property name="@on" type="int" enum="0 1" default="0">pedal state</property>
-            <property name="@ctlin" type="int" enum="0 1" default="0">listen to CTL64 from MIDI
+            <property name="@on" type="bool" default="0">pedal state</property>
+            <property name="@ctlin" type="bool" default="0">listen to CTL64 from MIDI
             controller</property>
         </properties>
         <inlets>

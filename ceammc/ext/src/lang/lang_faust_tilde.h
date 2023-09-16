@@ -14,44 +14,40 @@
 #ifndef LANG_FAUST_TILDE_H
 #define LANG_FAUST_TILDE_H
 
-#include "ceammc_clock.h"
+#include "../data/data_protocol.h"
+#include "ceammc_containers.h"
+#include "ceammc_editor_object.h"
 #include "ceammc_faust.h"
+#include "ceammc_save_object.h"
 #include "ceammc_sound_external.h"
 
 using namespace ceammc;
 
 #include "ceammc_llvm.h"
-#include <ctime>
-#include <future>
-#include <memory>
-#include <thread>
 
-using FactoryPtr = std::unique_ptr<faust::LlvmDspFactory>;
 class UI;
 using FaustUIPtr = std::unique_ptr<UI>;
+using FactoryPtr = std::unique_ptr<faust::LlvmDspFactory>;
 using FaustDspPtr = std::unique_ptr<faust::LlvmDsp>;
+using LangFaustBase = SaveObject<EditorObject<FilesystemIFace<SoundExternal>, EditorSyntax::FAUST, EditorEscapeMode::LUA>>;
 
-class LangFaustTilde : public SoundExternal {
+class LangFaustTilde : public LangFaustBase {
 public:
     using FaustProperyList = std::vector<faust::UIProperty*>;
-
-protected:
-    SymbolProperty* fname_;
+    using SourceCodeLine = SmallAtomListN<8>;
+    using SourceCode = boost::container::small_vector<SourceCodeLine, 48>;
 
 private:
-    ListProperty* include_dirs_;
-    std::string full_path_;
+    ListProperty* include_dirs_ { nullptr };
+    SymbolProperty* fname_ { nullptr };
+    BoolProperty* active_ { nullptr };
     FaustProperyList faust_properties_;
 
     FactoryPtr dsp_factory_;
     FaustDspPtr dsp_;
     FaustUIPtr ui_;
-    BoolProperty* autocompile_;
-    ClockLambdaFunction autocompile_clock_;
 
-    time_t last_mod_time_;
-    std::future<time_t> mod_time_;
-    std::future<int> run_editor_;
+    SourceCode src_;
 
 public:
     LangFaustTilde(const PdArgs& args);
@@ -63,11 +59,24 @@ public:
 
     void m_reset(t_symbol*, const AtomListView&);
     void m_open(t_symbol*, const AtomListView&);
-    void m_update(t_symbol*, const AtomListView&);
+
+    // SaveObject virtual
+    void saveUser(t_binbuf* b) final;
+    void onRestore(const AtomListView& lv) final;
+
+    // EditorObject virtual
+    void editorClear() final;
+    void editorAddLine(t_symbol* sel, const AtomListView& lv) final;
+    EditorLineList getContentForEditor() const final;
+    EditorTitleString editorTitle() const final { return "Faust Editor"; }
+    void editorSync() final;
+
+    // ReaderObject
+    bool proto_read(const std::string& path) final;
+    // WriterObject
+    bool proto_write(const std::string& path) const final;
 
     void dump() const override;
-
-    void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) override;
 
 public:
     static void addIncludePath(const std::string& path);
@@ -76,6 +85,8 @@ protected:
     FaustProperyList& faustProperties();
     virtual void compile();
     virtual void createCustomUI();
+    std::string sourceCode() const;
+    t_symbol* name() const;
 
 private:
     std::string canvasDir() const;
@@ -89,5 +100,15 @@ private:
 private:
     static faust::FaustConfig& faust_config_base();
 };
+
+#ifdef _WIN32
+#define FAUST_LANG_EXPORT extern "C" __declspec(dllexport)
+#else
+#define FAUST_LANG_EXPORT extern "C"
+#endif
+
+FAUST_LANG_EXPORT void setup_lang0x2efaust_tilde();
+
+void setup_lang_faust_non_external();
 
 #endif // LANG_FAUST_TILDE_H

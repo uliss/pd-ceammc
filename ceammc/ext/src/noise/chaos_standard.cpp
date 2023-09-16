@@ -100,4 +100,8 @@ void setup_chaos_standard()
 {
     ObjectFactory<ChaosStandard> obj("chaos.std0");
     SoundExternalFactory<ChaosStandardTilde> obj_tilde("chaos.std0~", OBJECT_FACTORY_DEFAULT | OBJECT_FACTORY_MAIN_SIGNAL_INLET);
+
+    obj.setDescription("Standard map chaotic generator");
+    obj.setCategory("chaos");
+    obj.setKeywords({"chaos", "standard", "map"});
 }

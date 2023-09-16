@@ -14,49 +14,35 @@
 #ifndef NET_OSC_RECEIVE_H
 #define NET_OSC_RECEIVE_H
 
+#include "ceammc_object.h"
+#include "ceammc_osc.h"
 #include "ceammc_poll_dispatcher.h"
-#include "net_osc_server.h"
 
 namespace ceammc {
 namespace net {
     class OscServer;
 
-    template <typename T>
-    class DispatcherSubscriber {
-        T* ptr_;
-
-    public:
-        DispatcherSubscriber(T* p)
-            : ptr_(p)
-        {
-            Dispatcher::instance().subscribe(ptr_, id());
-        }
-
-        ~DispatcherSubscriber()
-        {
-            Dispatcher::instance().unsubscribe(ptr_);
-        }
-
-        SubscriberId id() const { return reinterpret_cast<SubscriberId>(ptr_); }
-    };
-
-    class NetOscReceive : public BaseObject, public NotifiedObject {
+    class NetOscReceive : public DispatchedObject<BaseObject> {
         SymbolProperty* server_;
         SymbolProperty* path_;
         SymbolProperty* types_;
-        DispatcherSubscriber<NetOscReceive> disp_;
-        OscMethodPipe pipe_;
+        osc::OscMethodPipe pipe_;
 
     public:
         NetOscReceive(const PdArgs& args);
         ~NetOscReceive();
 
         void initDone() override;
-        bool notify(NotifyEventType code) final;
-        void processMessage(const OscMessage& msg);
+        bool notify(int code) final;
+        void processMessage(const osc::OscRecvMessage& msg);
+
+        void onInlet(size_t n, const AtomListView& lv) override;
 
     public:
         void updateServer(t_symbol* name, const AtomListView& lv);
+        const char* types() const;
+        bool subscribe(const osc::OscServerList::OscServerPtr& osc, t_symbol* path);
+        bool unsubscribe(const osc::OscServerList::OscServerPtr& osc, t_symbol* path);
     };
 }
 }

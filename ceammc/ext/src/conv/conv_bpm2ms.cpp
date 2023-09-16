@@ -12,12 +12,14 @@
  * this file belongs to.
  *****************************************************************************/
 #include "conv_bpm2ms.h"
-#include "ceammc_factory.h"
 #include "ceammc_containers.h"
+#include "ceammc_factory.h"
 
-static t_float bpm2ms(t_float v)
+static t_float bpm2ms(t_float x)
 {
-    return 60000 / v;
+    return x == 0
+        ? std::numeric_limits<t_float>::max()
+        : (60000 / x);
 }
 
 BpmToMs::BpmToMs(const PdArgs& a)
@@ -34,7 +36,8 @@ void BpmToMs::onFloat(t_float v)
 void BpmToMs::onList(const AtomListView& lv)
 {
     SmallAtomList res;
-    lv.mapFloat(bpm2ms, res);
+
+    lv.mapFloat([](t_float x) -> t_float { return bpm2ms(x); }, res);
     listTo(0, res.view());
 }
 
@@ -45,4 +48,7 @@ void setup_conv_bpm2ms()
 
     obj.setXletsInfo({ "float: bpm" }, { "float: period in ms" });
 
+    obj.setDescription("convert frequency in BPM to period in milliseconds");
+    obj.setCategory("conv");
+    obj.setKeywords({ "conv", "time" });
 }

@@ -12,23 +12,23 @@
  * this file belongs to.
  *****************************************************************************/
 #include "seq_bangs.h"
+#include "args/argcheck2.h"
 #include "ceammc_factory.h"
+#include "ceammc_fn_list.h"
 #include "ceammc_format.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
-static t_symbol* SYM_DONE;
-static t_symbol* SYM_EVENT_DUR;
-static t_symbol* SYM_REPEAT_IDX;
-static t_symbol* SYM_IDX;
+#include "ceammc_crc32.h"
+
+CEAMMC_DEFINE_SYM(done)
+CEAMMC_DEFINE_SYM(ed)
+CEAMMC_DEFINE_SYM(ri)
+CEAMMC_DEFINE_SYM(i)
 
 SeqBangsBase::SeqBangsBase(const PdArgs& args)
-    : SeqBase(args)
+    : SeqBase(args, 100)
     , pattern_(nullptr)
-    , interval_(nullptr)
 {
-    interval_ = new SeqTimeGrain("@t", 100);
-    addProperty(interval_);
-
     pattern_ = new ListProperty("@p");
     pattern_->setArgIndex(0);
     pattern_->setFilterAtomFn([this](const Atom& a) -> bool {
@@ -46,7 +46,7 @@ SeqBangsBase::SeqBangsBase(const PdArgs& args)
             "@dur",
             [this]() -> t_float {
                 const auto total = pattern_->value().sum().get_value_or(0);
-                return total * interval_->value();
+                return total * beatDuration();
             },
             [this](t_float f) -> bool {
                 const auto total = pattern_->value().sum().get_value_or(0);
@@ -55,7 +55,7 @@ SeqBangsBase::SeqBangsBase(const PdArgs& args)
                     return false;
                 }
 
-                return interval_->setValue(f / total);
+                return setBeatDuration(f / total);
             });
 
         p->setUnits(PropValueUnits::MSEC);
@@ -80,7 +80,7 @@ void SeqBangsBase::onInlet(size_t n, const AtomListView& l)
 
 double SeqBangsBase::calcNextTick() const
 {
-    const auto i = interval_->value();
+    const auto i = beatDuration();
     const auto N = pattern_->value().size();
     if (N == 0)
         return i;
@@ -92,8 +92,8 @@ double SeqBangsBase::calcNextTick() const
 void SeqBangsBase::outputTick()
 {
     Atom l[2] = { sequenceCounter(), sequenceSize() };
-    anyTo(1, SYM_IDX, AtomListView(l, 2));
-    anyTo(1, SYM_EVENT_DUR, Atom(calcNextTick()));
+    anyTo(1, sym_i(), AtomListView(l, 2));
+    anyTo(1, sym_ed(), Atom(calcNextTick()));
 
     bangTo(0);
 }
@@ -101,23 +101,46 @@ void SeqBangsBase::outputTick()
 void SeqBangsBase::outputRepeat(size_t ridx)
 {
     Atom l[2] = { ridx, numRepeats() };
-    anyTo(1, SYM_REPEAT_IDX, AtomListView(l, 2));
+    anyTo(1, sym_ri(), AtomListView(l, 2));
 }
 
 void SeqBangsBase::outputRepeatDone()
 {
-    anyTo(1, SYM_DONE, AtomListView());
+    anyTo(1, sym_done(), AtomListView());
+}
+
+void SeqBangsBase::m_hexbeat(t_symbol* s, const AtomListView& lv)
+{
+    if (lv.empty() || !lv.isSymbol()) {
+        METHOD_ERR(s) << "hex symbol expected, got: " << lv;
+        return;
+    }
+
+    AtomList dur;
+    int shift;
+    if (list::hexbeat_dur(lv.asSymbol()->s_name, dur, shift)) {
+        upbeat_->setValue(shift);
+        pattern_->setValue(dur);
+    }
+}
+
+void SeqBangsBase::m_skip(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("STEP:i>0");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    auto n = lv.asInt(0);
+    while (n-- > 0)
+        tick(false);
 }
 
 void setup_seq_bangs()
 {
-    SYM_DONE = gensym("done");
-    SYM_EVENT_DUR = gensym("ed");
-    SYM_REPEAT_IDX = gensym("ri");
-    SYM_IDX = gensym("i");
-
     SequencerIFaceFactory<ObjectFactory, SeqBangs> obj("seq.bangs");
     obj.addAlias("seq.b");
+    obj.addMethod("hexbeat", &SeqBangsBase::m_hexbeat);
+    obj.addMethod("skip", &SeqBangsBase::m_skip);
 
     obj.setXletsInfo({ "bang:  start playing sequence\n"
                        "stop:  stop sequencer\n",
@@ -126,4 +149,8 @@ void setup_seq_bangs()
                                   "\\[ri IDX N( - repeat iteration\n"
                                   "\\[ed MS( - event duration\n"
                                   "\\[done( - when done" });
+
+    obj.setDescription("bang sequencer");
+    obj.setCategory("seq");
+    obj.setKeywords({ "seq", "sequencer", "bang", "pattern", "rhythm" });
 }

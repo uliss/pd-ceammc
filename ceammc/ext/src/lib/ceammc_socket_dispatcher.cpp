@@ -21,6 +21,8 @@ extern "C" {
 #include "s_stuff.h"
 }
 
+#include <cstring>
+
 constexpr int SOCK_FAMILY = AF_INET;
 constexpr int SOCK_TYPE = SOCK_DGRAM;
 

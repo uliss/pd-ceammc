@@ -24,4 +24,5 @@ function(add_fx_test src)
 endfunction()
 
 add_fx_test(looper)
+add_fx_test(stutter)
 add_fx_test(tapiir)

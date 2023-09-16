@@ -160,4 +160,8 @@ void setup_synth_fgrain()
     SoundExternalFactory<SynthFGrain> obj("synth.fgrain~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("open", &SynthFGrain::m_open);
     obj.addMethod("reset", &SynthFGrain::m_reset);
+
+    obj.setDescription("file granulator from STK");
+    obj.setCategory("synth");
+    obj.setKeywords({"grain"});
 }

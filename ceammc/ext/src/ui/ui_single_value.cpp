@@ -1,21 +1,15 @@
 #include "ui_single_value.h"
 #include "ceammc_cicm.h"
 #include "ceammc_proxy.h"
-#include "ceammc_ui.h"
 #include "ceammc_ui_object.h"
 
-#include "ceammc_atomlist.h"
 #include "ceammc_convert.h"
-#include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "ceammc_preset.h"
 
 #include <numeric>
 #include <random>
 
-extern "C" {
-#include "m_imp.h"
-}
 
 // see ui_gain.cpp
 static t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");

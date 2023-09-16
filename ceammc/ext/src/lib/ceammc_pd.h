@@ -15,7 +15,6 @@
 #define CEAMMC_PD_H
 
 #include "ceammc_atomlist.h"
-#include "ceammc_canvas.h"
 #include "ceammc_message.h"
 #include "ceammc_property_info.h"
 
@@ -33,6 +32,24 @@ class BaseObject;
 class UIObject;
 
 namespace pd {
+
+    void bang_to(t_pd* x);
+    void float_to(t_pd* x, t_float f);
+    void float_to(t_pd* x, const t_atom& a);
+    void symbol_to(t_pd* x, t_symbol* s);
+    void symbol_to(t_pd* x, const char* s);
+    void symbol_to(t_pd* x, const t_atom& a);
+    void list_to(t_pd* x, const AtomListView& lv);
+    void message_to(t_pd* x, t_symbol* s, const AtomListView& lv);
+    void message_to(BaseObject* x, t_symbol* s, const AtomListView& lv);
+    void typed_message_to(t_pd* x, const AtomListView& lv);
+
+    bool send_bang(t_symbol* addr);
+    bool send_float(t_symbol* addr, t_float f);
+    bool send_symbol(t_symbol* addr, t_symbol* s);
+    bool send_symbol(t_symbol* addr, const char* s);
+    bool send_list(t_symbol* addr, const AtomListView& lv);
+    bool send_message(t_symbol* addr, t_symbol* s, const AtomListView& lv);
 
     struct XletInfo {
         enum Type {
@@ -70,6 +87,7 @@ namespace pd {
         ~External();
 
         bool isNull() const;
+        bool isAbstraction() const;
 
         t_symbol* className() const;
 
@@ -85,12 +103,13 @@ namespace pd {
         const t_object* object() const;
         t_pd* pd() { return &obj_->te_g.g_pd; }
         void setParent(_glist* cnv);
+        _glist* asAbstraction();
 
         void sendBang();
         void sendFloat(t_float v);
         void sendSymbol(t_symbol* s);
         void sendSymbol(const char* s) { sendSymbol(gensym(s)); }
-        void sendList(const AtomList& l);
+        void sendList(const AtomList& lv);
         template <typename... Args>
         void sendList(Args... args)
         {
@@ -100,8 +119,8 @@ namespace pd {
         void sendBangTo(size_t inlet);
         void sendFloatTo(t_float v, size_t inlet);
         void sendSymbolTo(t_symbol* s, size_t inlet);
-        void sendListTo(const AtomList& l, size_t inlet);
-        void sendMessage(t_symbol* msg, const AtomList& args = AtomList());
+        void sendListTo(const AtomList& lv, size_t inlet);
+        void sendMessage(t_symbol* msg, const AtomList& args = {});
         void sendMessage(const Message& m);
         void sendMessageTo(const Message& m, size_t inlet);
 
@@ -140,6 +159,7 @@ namespace pd {
         std::vector<PropertyInfo> properties() const;
     };
 
+    t_pd* object_pd(t_object* x);
     t_class* object_class(t_object* x);
     t_symbol* object_name(t_object* x);
     t_symbol* object_dir(t_object* x);

@@ -17,6 +17,9 @@
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 
+#include <ctime>
+#include <random>
+
 static const size_t MAX_ITEMS = 128;
 
 UITab::UITab()
@@ -27,6 +30,7 @@ UITab::UITab()
     , prop_color_text(rgba_black)
     , prop_color_hover(rgba_grey)
     , prop_color_active(rgba_blue)
+    , gen_(std::time(nullptr))
 {
     createOutlet();
 }
@@ -49,11 +53,11 @@ void UITab::init(t_symbol* name, const AtomListView& args, bool usePresets)
 void UITab::okSize(t_rect* newrect)
 {
     if (prop_is_vertical) {
-        newrect->width = pd_clip_min(newrect->width, 8);
-        newrect->height = pd_clip_min(newrect->height, pd_clip_min(items_.size(), 1) * 20);
+        newrect->w = pd_clip_min(newrect->w, 8);
+        newrect->h = pd_clip_min(newrect->h, pd_clip_min(items_.size(), 1) * 20);
     } else {
-        newrect->width = pd_clip_min(newrect->width, pd_clip_min(items_.size(), 1) * 20);
-        newrect->height = pd_clip_min(newrect->height, 8);
+        newrect->w = pd_clip_min(newrect->w, pd_clip_min(items_.size(), 1) * 20);
+        newrect->h = pd_clip_min(newrect->h, 8);
     }
 }
 
@@ -71,52 +75,52 @@ void UITab::paint()
     if (prop_is_vertical) {
 
         // draw cells
-        float cell_h = roundf(r.height / N);
+        float cell_h = roundf(r.h / N);
         for (size_t i = 0; i < N; i++) {
             // draw cell
             if (isSelected(i) || i == item_hover_) {
                 p.setColor(isSelected(i) ? prop_color_active : prop_color_hover);
-                p.drawRect(-1, i * cell_h, r.width + 1, cell_h);
+                p.drawRect(-1, i * cell_h, r.w + 1, cell_h);
                 p.fill();
             }
 
             // draw separator
             if (i > 0) {
                 p.setColor(prop_color_border);
-                p.drawLine(-1, i * cell_h, r.width + 1, i * cell_h);
+                p.drawLine(-1, i * cell_h, r.w + 1, i * cell_h);
             }
 
             // draw label
             Layout& l = layouts_[i];
             std::string& s = labels_[i];
 
-            l->set(s.c_str(), r.width / 2, (i + 0.5) * cell_h, 0, 0);
+            l->set(s.c_str(), r.w / 2, (i + 0.5) * cell_h, 0, 0);
             l->setColor(prop_color_text);
             p.drawText(*l.get());
         }
 
     } else {
         // draw cells
-        float cell_w = roundf(r.width / N);
+        float cell_w = roundf(r.w / N);
         for (size_t i = 0; i < N; i++) {
             // draw cell
             if (isSelected(i) || i == item_hover_) {
                 p.setColor(isSelected(i) ? prop_color_active : prop_color_hover);
-                p.drawRect(i * cell_w, -1, cell_w, r.height + 1);
+                p.drawRect(i * cell_w, -1, cell_w, r.h + 1);
                 p.fill();
             }
 
             // draw separator
             if (i > 0) {
                 p.setColor(prop_color_border);
-                p.drawLine(i * cell_w, -1, i * cell_w, r.height + 1);
+                p.drawLine(i * cell_w, -1, i * cell_w, r.h + 1);
             }
 
             // draw label
             Layout& l = layouts_[i];
             std::string& s = labels_[i];
 
-            l->set(s.c_str(), (i + 0.5) * cell_w, r.height / 2, 0, 0);
+            l->set(s.c_str(), (i + 0.5) * cell_w, r.h / 2, 0, 0);
             l->setColor(prop_color_text);
             p.drawText(*l.get());
         }
@@ -331,7 +335,7 @@ void UITab::m_select(const AtomListView& lv)
     }
 }
 
-void UITab::m_clear()
+void UITab::m_erase()
 {
     item_selected_ = -1;
     items_.clear();
@@ -383,6 +387,19 @@ void UITab::m_delete(t_float f)
     redrawBGLayer();
 }
 
+void UITab::m_flip()
+{
+    if (!prop_toggle_mode) {
+        UI_ERR << "multiple check mode expected";
+        return;
+    }
+
+    toggles_.flip();
+    item_selected_ = -1;
+    output();
+    redrawBGLayer();
+}
+
 void UITab::m_insert(const AtomListView& lv)
 {
     if (lv.size() != 2) {
@@ -402,6 +419,97 @@ void UITab::m_insert(const AtomListView& lv)
     }
 
     propSetItems(items_);
+}
+
+void UITab::m_minus(t_float f)
+{
+    if (prop_toggle_mode) {
+        UI_ERR << "single check mode expected";
+        return;
+    }
+
+    const size_t N = items_.size();
+    if (N < 2)
+        return;
+
+    int v = item_selected_ - int(f);
+    item_selected_ = (v >= 0) ? v % N : N - (abs(v) % N);
+    output();
+    redrawBGLayer();
+}
+
+void UITab::m_next()
+{
+    if (prop_toggle_mode) {
+        UI_ERR << "single check mode expected";
+        return;
+    }
+
+    if ((item_selected_ + 1) < items_.size()) {
+        item_selected_++;
+        output();
+        redrawBGLayer();
+    }
+}
+
+void UITab::m_plus(t_float f)
+{
+    if (prop_toggle_mode) {
+        UI_ERR << "single check mode expected";
+        return;
+    }
+
+    const size_t N = items_.size();
+    if (N < 2)
+        return;
+
+    int v = item_selected_ + int(f);
+    item_selected_ = (v >= 0) ? v % N : N - (abs(v) % N);
+    output();
+    redrawBGLayer();
+}
+
+void UITab::m_prev()
+{
+    if (prop_toggle_mode) {
+        UI_ERR << "single check mode expected";
+        return;
+    }
+
+    if (item_selected_ > 0) {
+        item_selected_--;
+        output();
+        redrawBGLayer();
+    }
+}
+
+void UITab::m_random(const AtomListView& lv)
+{
+    if (prop_toggle_mode) {
+        std::uniform_int_distribution<int> dist(0, 1);
+        for (size_t i = 0; i < items_.size(); i++)
+            toggles_.set(i, dist(gen_));
+
+        item_selected_ = -1;
+        output();
+        redrawBGLayer();
+    } else {
+        const auto N = items_.size();
+        if (N < 1)
+            return;
+
+        if (lv == gensym("move")) {
+            std::uniform_int_distribution<int> dist(1, N - 1);
+            item_selected_ = (item_selected_ + dist(gen_)) % N;
+            output();
+        } else {
+            std::uniform_int_distribution<int> dist(0, N - 1);
+            item_selected_ = dist(gen_);
+            output();
+        }
+
+        redrawBGLayer();
+    }
 }
 
 bool UITab::isSelected(size_t idx) const
@@ -424,7 +532,7 @@ void UITab::output()
             res[i] = toggles_.test(i) ? 1 : 0;
         }
 
-        t_symbol* SYM_PROP_SELECTED = gensym("@selected");
+        auto SYM_PROP_SELECTED = gensym("@selected");
         anyTo(0, SYM_PROP_SELECTED, AtomListView(res, N));
         send(SYM_PROP_SELECTED, AtomListView(res, N));
 
@@ -517,22 +625,34 @@ void UITab::setup()
     obj.setPropertyCategory("items", "Main");
     obj.setPropertyLabel("items", _("Items"));
     obj.setPropertySave("items");
+
     obj.addProperty("count", &UITab::propCount);
+    obj.setPropertyDefaultValue("count", "0");
+
+    obj.addProperty("current", &UITab::propCurrent);
+    obj.setPropertyDefaultValue("current", "0");
 
     obj.addProperty("selected", &UITab::propSelected);
-    obj.addProperty("current", &UITab::propCurrent);
+    obj.setPropertyDefaultValue("selected", "");
 
     obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UITab::prop_color_text);
     obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UITab::prop_color_active);
     obj.addProperty("hover_color", _("Hover Color"), "0.5 0.5 0.5 1", &UITab::prop_color_hover);
 
     obj.addMethod("append", &UITab::m_append);
-    obj.addMethod("clear", &UITab::m_clear);
+    obj.addMethod("erase", &UITab::m_erase);
     obj.addMethod("delete", &UITab::m_delete);
     obj.addMethod("insert", &UITab::m_insert);
     obj.addMethod("select", &UITab::m_select);
     obj.addMethod("set", &UITab::propSetItems);
     obj.addMethod("set_item", &UITab::m_set_item);
+
+    obj.addMethod("+", &UITab::m_plus);
+    obj.addMethod("-", &UITab::m_minus);
+    obj.addMethod("next", &UITab::m_next);
+    obj.addMethod("prev", &UITab::m_prev);
+    obj.addMethod("random", &UITab::m_random);
+    obj.addMethod("flip", &UITab::m_flip);
 }
 
 void setup_ui_tab()

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="speech.flite~">
         <title>speech.flite~</title>
         <meta>
@@ -19,9 +19,6 @@
         <info>
             <par>Speaks floats, symbols and list to wavetables using flite TTS engine.</par>
         </info>
-        <methods>
-            <method name="stop">stops speech and clear speech queue</method>
-        </methods>
         <properties>
             <property name="@voice" type="symbol" default="kal16" enum="kal16 slt rms awb">default
             voice</property>
@@ -30,6 +27,10 @@
             <property name="@pitch" type="float" default="-1">voice pitch (-1 - default
             value)</property>
         </properties>
+        <methods>
+            <!-- stop -->
+            <method name="stop">stops speech and clear speech queue</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="float">speak number</xinfo>

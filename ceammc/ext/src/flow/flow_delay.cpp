@@ -165,4 +165,8 @@ void setup_flow_delay()
     InletProxy<FlowDelay>::set_method_callback(gensym("reset"), &FlowDelay::proxy_reset);
     InletProxy<FlowDelay>::set_method_callback(gensym("+"), &FlowDelay::proxy_add);
     InletProxy<FlowDelay>::set_method_callback(gensym("-"), &FlowDelay::proxy_sub);
+
+    obj.setDescription("enhanced version on vanilla delay object");
+    obj.setCategory("flow");
+    obj.setKeywords({"flow", "delay"});
 }

@@ -650,7 +650,7 @@ TEST_CASE("hoa.process~", "[externals]")
         // bang - to all: ok
         t.clearAll();
         tr.sendBang();
-        REQUIRE(t.messagesAt(0) == messageList(L(), L(), L(), L(), L()));
+        REQUIRE(t.messagesAt(0) == messageList(Message::makeBang(), Message::makeBang(), Message::makeBang(), Message::makeBang(), Message::makeBang()));
 
         // float - to all: ok
         t.clearAll();

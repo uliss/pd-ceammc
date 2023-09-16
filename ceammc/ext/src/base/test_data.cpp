@@ -11,17 +11,14 @@
 #include <string>
 #include <vector>
 
-#include "ceammc.h"
-
 typedef boost::variant<t_float, std::string> test_atom;
 typedef std::vector<test_atom> test_atom_lst;
 typedef std::string test_condition;
 typedef boost::property_tree::ptree::iterator iterator;
 typedef boost::property_tree::ptree ptree;
 
-
 struct single_test {
-    single_test() {}
+    single_test() { }
     single_test(const test_atom_lst& in, const test_condition& cond, const test_atom_lst& exp)
         : input(in)
         , expect(exp)
@@ -166,7 +163,7 @@ static void test_data_load(t_test_data* x, t_symbol* s)
             add_single_check(x->data, input, cond, expect);
         }
     } catch (std::exception const& e) {
-        error("test.data: %s", e.what());
+        pd_error(0, "test.data: %s", e.what());
     }
 }
 

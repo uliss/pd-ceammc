@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "hw_apple_sms.h"
 #include "ceammc_factory.h"
+#include "ceammc_stub.h"
 
 HwAppleSMS::HwAppleSMS(const PdArgs& args)
     : BaseObject(args)
@@ -59,7 +60,12 @@ AtomList HwAppleSMS::getXYZ() const
 #endif
 }
 
-void setup_hw_apple_sms()
+#if !defined(__arm64__) && defined(WITH_SMS)
+extern "C" void setup_hw_apple_sms()
 {
     ObjectFactory<HwAppleSMS> obj("hw.apple_sms");
 }
+#else
+CONTROL_OBJECT_STUB(HwAppleSMS_stub, 1, 1, "not supported on this platform");
+OBJECT_STUB_SETUP(HwAppleSMS_stub, hw_apple_sms, "hw.apple_sms");
+#endif

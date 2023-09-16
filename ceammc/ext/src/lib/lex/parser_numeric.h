@@ -19,7 +19,7 @@
 
 #include <boost/container/small_vector.hpp>
 
-#include "ceammc_atomlist.h"
+#include "ceammc_atomlist_view.h"
 #include "ragel_common.h"
 
 namespace ceammc {
@@ -87,7 +87,6 @@ namespace parser {
     };
 
     class NumericFullMatch {
-        int cs { 0 };
         NumericResult res_;
 
     public:
@@ -116,6 +115,7 @@ namespace parser {
 
         bool parse(const char* str);
         bool parse(const Atom& a);
+        bool parseAs(const Atom& a, AtomType t);
         bool parseAll(const AtomListView& lv, SmallFVec& out);
         size_t parseSome(const AtomListView& lv, SmallFVec& out);
     };
@@ -126,7 +126,6 @@ namespace parser {
 
     private:
         ResultList res_;
-        int cs { 0 };
 
     public:
         NumericMatchSome();

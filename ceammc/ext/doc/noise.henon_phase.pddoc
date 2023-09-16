@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="noise.henon_phase">
         <title>noise.henon_phase</title>
         <meta>
@@ -7,7 +7,7 @@
                 <author>Paul Bourke</author>
                 <author>André Sier</author>
             </authors>
-            <description>Part of a-chaos library</description>
+            <description>henon phase Ddagrams</description>
             <license>%</license>
             <library>ceammc</library>
             <category>noise</category>
@@ -18,38 +18,46 @@
             <par>Henon Phase Diagrams</par>
             <par>Written by Paul Bourke</par>
             <par>January 1991</par>
-            <par>xn+1 = xn cos(a) - (yn - xn2) sin(a)</par>
-            <par>yn+1 = xn sin(a) + (yn - xn2) cos(a)</par>
+            <par>x[n+1] = x[n]*cos(a) - (y[n] - x[n]^2)*sin(a)</par>
+            <par>y[n+1] = x[n]*sin(a) + (y[n] - x[n]^2)*cos(a)</par>
         </info>
         <arguments>
-            <argument name="ARG0" type="float">a value (optional)</argument>
-            <argument name="ARG1" type="float">b value (optional)</argument>
-            <argument name="ARG2" type="float">x value (optional)</argument>
-            <argument name="ARG3" type="float">y value (optional)</argument>
+            <argument name="A" type="float">a value (optional)</argument>
+            <argument name="B" type="float">b value (optional)</argument>
+            <argument name="X" type="float">x value (optional)</argument>
+            <argument name="Y" type="float">y value (optional)</argument>
         </arguments>
         <methods>
-            <method name="set">
-                <param type="float" name="SET" required="true">set to value</param>
+            <!-- a -->
+            <method name="a">
+                <param name="A" type="float" required="true">a value</param>
             </method>
-            <method name="reset">reset state</method>
+            <!-- b -->
+            <method name="b">
+                <param name="B" type="float" required="true">b value</param>
+            </method>
+            <!-- dt -->
+            <method name="dt">
+                <param name="DT" type="float" required="true">dt value</param>
+            </method>
+            <!-- om -->
             <method name="om">
-                <param type="int" name="OM" required="true">enables output when cut or fold value
+                <param name="OM" type="int" required="true">enables output when cut or fold value
                 is changed</param>
             </method>
-            <method name="a">
-                <param type="float" name="A" required="true">a value</param>
+            <!-- reset -->
+            <method name="reset">reset state</method>
+            <!-- set -->
+            <method name="set">
+                <param name="SET" type="float" required="true">set to value</param>
             </method>
-            <method name="b">
-                <param type="float" name="B" required="true">b value</param>
-            </method>
+            <!-- x -->
             <method name="x">
-                <param type="float" name="X" required="true">x value</param>
+                <param name="X" type="float" required="true">x value</param>
             </method>
+            <!-- y -->
             <method name="y">
-                <param type="float" name="Y" required="true">y value</param>
-            </method>
-            <method name="dt">
-                <param type="float" name="DT" required="true">dt value</param>
+                <param name="Y" type="float" required="true">y value</param>
             </method>
         </methods>
         <inlets>
@@ -58,16 +66,15 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>main outlet</outlet>
+            <outlet>x outlet</outlet>
+            <outlet>y outlet</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-
 [T]
 |
 [metro 50 #metro]
-
 
   [T]         [F]
   |           |
@@ -96,7 +103,6 @@
 [X reset:0->noise-obj:0]
 
 [X metro->noise-obj]
-
 ]]>
             </pdascii>
         </example>

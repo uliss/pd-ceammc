@@ -17,26 +17,29 @@
 #include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "ceammc_string.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #include "lex/parser_strings.h"
 
 #include <algorithm>
 #include <iostream>
 
+constexpr const char* TYPE_NAME = "String";
+
 namespace ceammc {
+
+DataTypeId DataTypeString::staticType()
+{
+    CEAMMC_REGISTER_DATATYPE(TYPE_NAME, [](const AtomListView& lv) -> Atom { return new DataTypeString(lv); }, {});
+}
 
 #define NDEBUG 1
 
-constexpr const char* TYPE_NAME = "String";
-
-namespace {
-    Atom newString(const AtomListView& lv)
-    {
-        return new DataTypeString(lv);
-    }
+DataTypeString::DataTypeString()
+{
+#ifndef NDEBUG
+    LIB_DBG << "string created: " << str_;
+#endif
 }
-
-const DataTypeId DataTypeString::dataType = DataStorage::instance().registerNewType(TYPE_NAME, newString);
 
 DataTypeString::DataTypeString(t_symbol* s)
     : str_(s->s_name)
@@ -118,7 +121,7 @@ void DataTypeString::clear() noexcept
 
 DataTypeId DataTypeString::type() const noexcept
 {
-    return dataType;
+    return staticType();
 }
 
 void DataTypeString::setFromQuotedList(const AtomListView& lv)

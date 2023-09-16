@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="sequencer">
         <title>sequencer</title>
         <meta>
@@ -19,10 +19,10 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="VALUES" type="list">sequence elements</argument>
+            <argument name="V" type="list">sequence elements</argument>
         </arguments>
         <properties>
-            <property name="@v" type="list">sequence elements</property>
+            <property name="@v" type="list" default="">sequence elements</property>
             <property name="@dur" type="float" minvalue="0" default="0">whole sequence duration.
             Changing this property also changes @t interval between bangs.</property>
             <property name="@t" type="float" default="20" minvalue="1" maxvalue="20000"
@@ -32,21 +32,30 @@
             repeats. If -1: output infinitly.</property>
             <property name="@once" type="alias">alias to @r 1</property>
             <property name="@inf" type="alias">alias to @r -1</property>
-            <property name="@i" type="int" minvalue="0" readonly="true" default="0">current
-            sequence iteration</property>
-            <property name="@ri" type="int" minvalue="0" readonly="true" default="0">current repeat
+            <property name="@i" type="int" access="readonly" default="0">current sequence
             iteration</property>
+            <property name="@ri" type="int" access="readonly" default="0">current repeat
+            iteration</property>
+            <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">beat
+            subdivision</property>
+            <property name="@upbeat" type="float" default="0" minvalue="0">wait specified number of
+            beats before sequence start</property>
             <property name="@mode" type="symbol" enum="inc dec tri" default="inc">sequencer mode.
             'inc': from first to last, 'dec': from last to first, 'tri': from first to last, then
             back</property>
         </properties>
         <methods>
+            <!-- reset -->
+            <method name="reset">reset counters and stop</method>
+            <!-- rewind -->
+            <method name="rewind">reset all counters without stopping</method>
+            <!-- start -->
             <method name="start">start/stop 
             <param name="on" type="int" enum="0 1" default="1" required="false">if true - starts
             sequencer, otherwise stops</param></method>
+            <!-- stop -->
             <method name="stop">stop output</method>
-            <method name="reset">reset counters and stop</method>
-            <method name="rewind">reset all counters without stopping</method>
+            <!-- tick -->
             <method name="tick">manually output current element and move to next</method>
         </methods>
         <inlets>
@@ -70,7 +79,7 @@
 |   |          |            |
 |   |          |            [@mode $1(
 |   |          |            |
-[sequencer mtof(seq(56 90 3)) @t 360bpm @inf]
+[sequencer mtof(seq(56 90 3)) @t 120bpm @div 3 @inf]
 |                            ^|
 [t b f     ]                 [route done i ri]
 |         ^|                 |    ^|   ^^|

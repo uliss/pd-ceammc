@@ -8,8 +8,8 @@ using namespace ceammc;
 
 class MetroPattern : public BaseObject {
     ClockMemberFunction<MetroPattern> clock_;
-    AtomList pattern_;
     AtomList new_pattern_;
+    AtomList pattern_;
     SizeTProperty* current_;
     BoolProperty* sync_;
     bool sync_update_;
@@ -18,7 +18,7 @@ public:
     MetroPattern(const PdArgs& args);
 
     void onFloat(t_float on) override;
-    bool p_set_pattern(const AtomListView& lv);
+    void onInlet(size_t n, const AtomListView& lv) override;
 
 public:
     void tick();
@@ -27,6 +27,7 @@ public:
     bool next();
 
 private:
+    bool updatePattern(const AtomListView& lv);
     void output(bool on_start);
 };
 

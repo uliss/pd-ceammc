@@ -13,10 +13,17 @@
  *****************************************************************************/
 #include "ceammc_poll_dispatcher.h"
 #include "ceammc_log.h"
+#include "fmt/core.h"
 
 #include <algorithm>
 
 #define MSG_PREFIX "[dispatch] "
+
+#if 0
+#define DISPATCHER_DEBUG(msg) std::cerr << MSG_PREFIX << msg << std::endl;
+#else
+#define DISPATCHER_DEBUG(msg)
+#endif
 
 #ifdef __WIN32__
 #define USE_SOCKET_DISPATCHER
@@ -39,8 +46,10 @@ Dispatcher::Dispatcher()
 {
 }
 
-bool Dispatcher::notify(SubscriberId id, NotifyEventType t)
+bool Dispatcher::notify(SubscriberId id, int t)
 {
+    DISPATCHER_DEBUG(fmt::format("notify: #{} -> {}", id, t));
+
     for (auto& x : subscribers_) {
         if (x.id == id) {
             x.obj->notify(t);
@@ -53,7 +62,7 @@ bool Dispatcher::notify(SubscriberId id, NotifyEventType t)
 
 void Dispatcher::pollFn(void* x, int fd)
 {
-    Dispatcher* dp = static_cast<Dispatcher*>(x);
+    auto dp = static_cast<Dispatcher*>(x);
 
     NotifyMessage msg;
     if (!dp->impl_->recv(msg, fd))
@@ -63,13 +72,31 @@ void Dispatcher::pollFn(void* x, int fd)
         LIB_ERR << MSG_PREFIX "subscriber not found #" << msg.id;
 }
 
+void Dispatcher::dump() const
+{
+    std::cerr << "Dispatcher: \n";
+    for (auto& x : subscribers_) {
+        std::cerr << fmt::format("\t{} #{}\n", (void*)x.obj, x.id);
+    }
+}
+
+Dispatcher& Dispatcher::instance()
+{
+    static Dispatcher instance_;
+    return instance_;
+}
+
 void Dispatcher::subscribe(NotifiedObject* x, SubscriberId id)
 {
+    DISPATCHER_DEBUG(fmt::format("subscribe: {} #{}", (void*)x, id));
+
     subscribers_.push_back({ id, x });
 }
 
 void Dispatcher::unsubscribe(NotifiedObject* x)
 {
+    DISPATCHER_DEBUG(fmt::format("unsubscribe: {}", (void*)x));
+
     auto it = std::remove_if(
         subscribers_.begin(),
         subscribers_.end(),
@@ -80,5 +107,9 @@ void Dispatcher::unsubscribe(NotifiedObject* x)
 
 bool Dispatcher::send(const NotifyMessage& msg)
 {
+    DISPATCHER_DEBUG(fmt::format("send: #{} -> {}", msg.id, msg.event));
+
     return impl_->send(msg);
 }
+
+DispatcherImpl::~DispatcherImpl() { }

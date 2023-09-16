@@ -22,6 +22,7 @@
 
 namespace ceammc {
 class AtomListView;
+class DataTypeDict;
 
 namespace list {
 
@@ -110,7 +111,7 @@ namespace list {
     };
 
     /**
-     * Generate euclidean rythm pattern using bresenham line algorithm
+     * Generate euclidean rhythm pattern using bresenham line algorithm
      * @see https://en.wikipedia.org/wiki/Euclidean_rhythm
      * @see https://en.wikipedia.org/wiki/Bresenham%27s_line_algorithm
      * @param onsets- number of onsets, should be <= pulses
@@ -119,6 +120,22 @@ namespace list {
      * @return list of 1 and 0
      */
     AtomList bresenham(size_t onsets, size_t pulses);
+
+    /**
+     * Generate rhythm pattern based on hex value bits
+     * @param str - hex string with options 0[Xx] prefix
+     * @return list of 1 and 0
+     */
+    AtomList hexbeat_bin(const char* str);
+
+    /**
+     * Generate rhythm pattern based on hex value bits
+     * @param str - hex string with options 0[Xx] prefix
+     * @return list of beat durations
+     */
+    bool hexbeat_dur(const char* str, AtomList& res, int& shift);
+
+    AtomList lsystem(const AtomListView& state, const DataTypeDict& rules);
 
     AtomList enumerate(const AtomListView& lv, int from = 0, enumerateMode mode = PREPEND);
 
@@ -208,6 +225,15 @@ namespace list {
      * @note no dynamic memory allocation
      */
     ViewSlice findProperty(const AtomListView& lv);
+
+    /**
+     * Linear list interpoltation
+     * @param l0 - first list
+     * @param l1 - second list
+     * @param k - interpolation factor [0-1]
+     * @return interpolated list of size min(l0.size(), l1.size())
+     */
+    AtomList interpolate_lin(const AtomListView& l0, const AtomListView& l1, t_float k, AtomList::NonEqualLengthBehaivor mode = AtomList::MINSIZE);
 }
 }
 

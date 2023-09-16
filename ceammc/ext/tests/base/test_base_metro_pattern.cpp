@@ -48,7 +48,7 @@ TEST_CASE("metro.pattern", "[externals]")
         SECTION("default")
         {
             TObj t("metro.pattern");
-            REQUIRE(t.numInlets() == 1);
+            REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 2);
             REQUIRE_PROPERTY_LIST(t, @pattern, L());
             REQUIRE_PROPERTY(t, @current, 0.f);
@@ -289,5 +289,13 @@ TEST_CASE("metro.pattern", "[externals]")
         REQUIRE(t->property("@pattern")->get() == LX(3_ticks, 2_ticks));
         BANG_AFTER_NTICKS(t, 3);
         BANG_AFTER_NTICKS(t, 2);
+    }
+
+    SECTION("2d inlet")
+    {
+        TExt t("metro.pattern", LF(100, 50));
+        REQUIRE_PROPERTY_LIST(t, @pattern, LF(100, 50));
+        t.sendListTo(LF(1, 2, 3), 1);
+        REQUIRE_PROPERTY_LIST(t, @pattern, LF(1, 2, 3));
     }
 }

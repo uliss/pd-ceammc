@@ -65,4 +65,8 @@ void setup_list_correlate()
         { "list: set first cross-correlation arg then calculate",
             "list: set second cross-correlation arg" },
         { "list: cross-correlation result" });
+
+    obj.setDescription("list cross-correlation");
+    obj.setCategory("list");
+    obj.setKeywords({"list", "correlation", "cross"});
 }

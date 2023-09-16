@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="conv.sec2str">
         <title>conv.sec2str</title>
         <meta>
@@ -22,9 +22,10 @@
             </aliases>
         </meta>
         <properties>
-            <property name="@ms" type="flag" default="0">output milliseconds</property>
-            <property name="@symbol" type="flag" default="0">if specified - output formatted time
-            as symbol, otherwise as string.</property>
+            <property name="@ms" type="flag" default="0" access="initonly">output
+            milliseconds</property>
+            <property name="@symbol" type="flag" default="0" access="initonly">if specified -
+            output formatted time as symbol, otherwise as string.</property>
         </properties>
         <inlets>
             <inlet>

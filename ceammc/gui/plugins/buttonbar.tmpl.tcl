@@ -93,10 +93,10 @@ proc ::btnbar::show_options_gui {} {
         return
     }
 
-    toplevel .options
+    toplevel .options -background $::pd_colors::window_background
     wm title .options [_ "Button Bar Settings"]
 
-    frame .options.f -padx 5 -pady 5 -background #ECECEC
+    ttk::frame .options.f
 
     ttk::checkbutton .options.f.show -variable ::btnbar::show -onvalue 1 -offvalue 0 -command {
         if {$::btnbar::show} {
@@ -135,67 +135,92 @@ proc ::btnbar::show_options_gui {} {
     grid .options.f.save_btn -column 1 -row $current_row -padx $padding -pady 8 -sticky "w"
 }
 
+proc buttonbar_theme_suffix {mytoplevel} {
+    if {[tk::windowingsystem] eq "aqua"} then {
+        if {[tk::unsupported::MacWindowStyle isdark $mytoplevel]} {
+            return "dark"
+        } else {
+            return "light"
+        }
+    } else {
+        return "light"
+    }
+}
+
 proc make_pd_button {mytoplevel name tooltip} {
-    button $mytoplevel.buttonbar.$name -image buttonimage$name \
+    set theme [buttonbar_theme_suffix $mytoplevel]
+
+    button $mytoplevel.buttonbar.$name -image btn_image_${name}_${theme} \
         -relief flat -borderwidth 0 -highlightthickness 0 \
-        -highlightcolor grey -highlightbackground grey -padx 1 -pady 1 \
+        -highlightcolor $::pd_colors::window_background -highlightbackground $::pd_colors::window_background \
+        -padx 1 -pady 1 \
         -command "menu_send_float \$::focused_window $name 0"
     pack $mytoplevel.buttonbar.$name -side left -padx 0 -pady 0
     ::btnbar::tooltip $mytoplevel.buttonbar.$name $tooltip
 }
 
 proc make_iemgui_button {mytoplevel name tooltip} {
-    button $mytoplevel.buttonbar.$name -image buttonimage$name \
+    set theme [buttonbar_theme_suffix $mytoplevel]
+
+    button $mytoplevel.buttonbar.$name -image btn_image_${name}_${theme} \
         -relief flat -borderwidth 0 -highlightthickness 0 \
-        -highlightcolor grey -highlightbackground grey -padx 1 -pady 1 \
+        -highlightcolor $::pd_colors::window_background -highlightbackground $::pd_colors::window_background \
+        -padx 1 -pady 1 \
         -command "menu_send \$::focused_window $name"
     pack $mytoplevel.buttonbar.$name -side left -padx 0 -pady 0
     ::btnbar::tooltip $mytoplevel.buttonbar.$name $tooltip
 }
 
 proc make_ceammc_button {mytoplevel name tooltip} {
-    button $mytoplevel.buttonbar.$name -image buttonimage$name \
+    set theme [buttonbar_theme_suffix $mytoplevel]
+
+    button $mytoplevel.buttonbar.$name -image btn_image_${name}_${theme} \
         -relief flat -borderwidth 0 -highlightthickness 0 \
-        -highlightcolor grey -highlightbackground grey -padx 1 -pady 1 \
+        -highlightcolor $::pd_colors::window_background -highlightbackground $::pd_colors::window_background \
+        -padx 1 -pady 1 \
         -command "menu_send \$::focused_window ui.$name"
     pack $mytoplevel.buttonbar.$name -side left -padx 0 -pady 0
     ::btnbar::tooltip $mytoplevel.buttonbar.$name $tooltip
 }
 
 proc make_ceammc_button_tilde {mytoplevel name tooltip} {
-    button $mytoplevel.buttonbar.$name -image buttonimage$name \
+    set theme [buttonbar_theme_suffix $mytoplevel]
+
+    button $mytoplevel.buttonbar.$name -image btn_image_${name}_${theme} \
         -relief flat -borderwidth 0 -highlightthickness 0 \
-        -highlightcolor grey -highlightbackground grey -padx 1 -pady 1 \
+        -highlightcolor $::pd_colors::window_background -highlightbackground $::pd_colors::window_background \
+        -padx 1 -pady 1 \
         -command "menu_send \$::focused_window ui.$name~"
     pack $mytoplevel.buttonbar.$name -side left -padx 0 -pady 0
     ::btnbar::tooltip $mytoplevel.buttonbar.$name $tooltip
 }
 
 proc ::btnbar::init {mytoplevel} {
-    frame $mytoplevel.buttonbar -cursor arrow -background lightgrey
-    make_pd_button $mytoplevel obj [_ "Object"]
-    make_pd_button $mytoplevel msg "Message"
-    make_pd_button $mytoplevel floatatom "Number box"
-    make_pd_button $mytoplevel symbolatom "Symbol box"
-    make_pd_button $mytoplevel text "Comment"
-    make_iemgui_button $mytoplevel bng "Button"
-    make_iemgui_button $mytoplevel toggle "Toggle"
-    make_iemgui_button $mytoplevel numbox "Number box2"
-    make_iemgui_button $mytoplevel hslider "Horizontal slider"
-    make_iemgui_button $mytoplevel vslider "Vertial slider"
-    make_iemgui_button $mytoplevel hradio  "Horizontal radio"
-    make_iemgui_button $mytoplevel vradio  "Vertical radio"
-    make_iemgui_button $mytoplevel mycnv   "Canvas"
-    make_iemgui_button $mytoplevel menuarray "Array"
-    make_ceammc_button $mytoplevel knob "Knob"
-    make_ceammc_button $mytoplevel sliders "Sliders"
-    make_ceammc_button $mytoplevel slider2d "Slider 2D"
-    make_ceammc_button $mytoplevel keyboard "Keyboard"
-    make_ceammc_button $mytoplevel env "Breakpoint function"
-    make_ceammc_button $mytoplevel display "Display"
-    make_ceammc_button_tilde $mytoplevel scope "Scope"
-    make_ceammc_button_tilde $mytoplevel spectroscope "Spectroscope"
-    make_ceammc_button $mytoplevel preset "Presets"
+    frame $mytoplevel.buttonbar -cursor arrow -background $::pd_colors::window_background
+    make_pd_button $mytoplevel obj                      [_ "Object"]
+    make_pd_button $mytoplevel msg                      [_ "Message"]
+    make_pd_button $mytoplevel floatatom                [_ "Number box"]
+    make_pd_button $mytoplevel symbolatom               [_ "Symbol box"]
+    make_pd_button $mytoplevel listbox                  [_ "List box"]
+    make_pd_button $mytoplevel text                     [_ "Comment"]
+    make_ceammc_button $mytoplevel bang                 [_ "Button"]
+    make_ceammc_button $mytoplevel toggle               [_ "Toggle"]
+    make_ceammc_button $mytoplevel number               [_ "Number box2"]
+    make_ceammc_button $mytoplevel hsl                  [_ "Horizontal slider"]
+    make_ceammc_button $mytoplevel vsl                  [_ "Vertial slider"]
+    make_ceammc_button $mytoplevel hrd                  [_ "Horizontal radio"]
+    make_ceammc_button $mytoplevel vrd                  [_ "Vertical radio"]
+    make_iemgui_button $mytoplevel mycnv                [_ "Canvas"]
+    make_iemgui_button $mytoplevel menuarray            [_ "Array"]
+    make_ceammc_button $mytoplevel knob                 [_ "Knob"]
+    make_ceammc_button $mytoplevel sliders              [_ "Sliders"]
+    make_ceammc_button $mytoplevel slider2d             [_ "Slider 2D"]
+    make_ceammc_button $mytoplevel keyboard             [_ "Keyboard"]
+    make_ceammc_button $mytoplevel env                  [_ "Envelope"]
+    make_ceammc_button $mytoplevel display              [_ "Display"]
+    make_ceammc_button_tilde $mytoplevel scope          [_ "Scope"]
+    make_ceammc_button_tilde $mytoplevel spectroscope   [_ "Spectroscope"]
+    make_ceammc_button $mytoplevel preset               [_ "Presets"]
 }
 
 proc ::btnbar::show {mytoplevel} {

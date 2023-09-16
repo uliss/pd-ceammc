@@ -1,4 +1,6 @@
 #include "synth_glitch.h"
+#include "args/argcheck2.h"
+#include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
@@ -9,6 +11,10 @@
 #include <stdexcept>
 
 constexpr size_t MAX_GLITCH_FILE_SIZE = 4 * 1024;
+constexpr const char* STR_BYTE_BEGIN = "byte(";
+constexpr const char* STR_BYTE_END = ")";
+
+float SynthGlitch::resample_ = 1;
 
 static std::future<std::string> readFile(const std::string& fullPath)
 {
@@ -40,15 +46,9 @@ static std::future<std::string> readFile(const std::string& fullPath)
     return future;
 }
 
-static t_symbol* SYM_BYTE_BEGIN;
-static t_symbol* SYM_BYTE_END;
-static t_symbol* SYM_FILE;
-
 SynthGlitch::SynthGlitch(const PdArgs& args)
     : SoundExternal(args)
     , t_(0)
-    , expr_(nullptr)
-    , clip_(nullptr)
     , read_clock_([this]() {
         if (read_content_.valid()) {
             auto st = read_content_.wait_for(std::chrono::milliseconds(0));
@@ -75,7 +75,7 @@ SynthGlitch::SynthGlitch(const PdArgs& args)
     })
 {
     createSignalOutlet();
-    glitch_.setSamplerate(sys_getsr());
+    glitch_.setSamplerate(sys_getsr() * resample_);
 
     expr_ = new ListProperty("@expr");
     if (!expr_->setListCheckFn(
@@ -120,7 +120,7 @@ void SynthGlitch::processBlock(const t_sample** /*in*/, t_sample** out)
 
 void SynthGlitch::samplerateChanged(size_t sr)
 {
-    glitch_.setSamplerate(sr);
+    glitch_.setSamplerate(sr * resample_);
 }
 
 void SynthGlitch::m_byte(t_symbol* /*s*/, const AtomListView& lv)
@@ -128,13 +128,16 @@ void SynthGlitch::m_byte(t_symbol* /*s*/, const AtomListView& lv)
     const size_t n = lv.size() + 2;
 
     // using stack allocation
-    Atom atoms[n];
-    atoms[0].setSymbol(SYM_BYTE_BEGIN, true);
-    atoms[n - 1].setSymbol(SYM_BYTE_END, true);
-    for (size_t i = 0; i < lv.size(); i++)
-        atoms[i + 1] = lv[i];
+    AtomList256 atoms;
+    atoms.reserve(n);
+    atoms.push_back(gensym(STR_BYTE_BEGIN));
 
-    expr_->setList(AtomListView(atoms, n));
+    for (auto& a : lv)
+        atoms.push_back(a);
+
+    atoms.push_back(gensym(STR_BYTE_END));
+
+    expr_->setList(atoms.view());
 }
 
 void SynthGlitch::m_reset(t_symbol* s, const AtomListView& lv)
@@ -167,17 +170,28 @@ void SynthGlitch::m_read(t_symbol* s, const AtomListView& lv)
     read_clock_.delay(20);
 }
 
+void SynthGlitch::m_speed(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("SPEED:f[0.25,4]");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    resample_ = 1 / clip<float>(lv.asFloat(1), 0.25, 4);
+    glitch_.setSamplerate(samplerate() * resample_);
+}
+
 void setup_synth_glitch()
 {
-    SYM_BYTE_BEGIN = gensym("byte(");
-    SYM_BYTE_END = gensym(")");
-    SYM_FILE = gensym("file");
-
     SoundExternalFactory<SynthGlitch> obj("synth.glitch~", OBJECT_FACTORY_DEFAULT);
     obj.addMethod("byte", &SynthGlitch::m_byte);
     obj.addMethod("reset", &SynthGlitch::m_reset);
     obj.addMethod("read", &SynthGlitch::m_read);
+    obj.addMethod("speed", &SynthGlitch::m_speed);
     obj.useDefaultPdFloatFn();
     obj.parseArgsMode(PdArgs::PARSE_COPY);
     obj.parsePropsMode(PdArgs::PARSE_COPY);
+
+    obj.setDescription("Glitch synthesizer by naivesound");
+    obj.setCategory("synth");
+    obj.setKeywords({ "glitch" });
 }

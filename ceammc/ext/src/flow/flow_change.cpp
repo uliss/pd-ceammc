@@ -121,4 +121,8 @@ void setup_flow_change()
     InletProxy<FlowChange>::init();
     InletProxy<FlowChange>::set_method_callback(gensym("reset"), &FlowChange::m_reset);
     InletProxy<FlowChange>::set_method_callback(gensym("set"), &FlowChange::m_set);
+
+    obj.setDescription("rejects redundant input values");
+    obj.setCategory("flow");
+    obj.setKeywords({"flow", "change"});
 }

@@ -22,4 +22,8 @@ void setup_list_distribution()
 {
     ObjectFactory<ListDistribution> obj("list.distribution");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("list value distribution");
+    obj.setCategory("list");
+    obj.setKeywords({"list", "distribution"});
 }

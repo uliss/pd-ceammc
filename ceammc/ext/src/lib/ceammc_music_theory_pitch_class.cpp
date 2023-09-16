@@ -1,6 +1,7 @@
 #include "ceammc_music_theory_pitch_class.h"
 #include "ceammc_music_theory_names.h"
 
+using namespace ceammc;
 using namespace ceammc::music;
 
 const char* PitchName::pitch_names_[7] = { "C", "D", "E", "F", "G", "A", "B" };
@@ -73,7 +74,7 @@ const std::array<PitchClass, 35> PitchClass::all = {
     Bff, Bf, B, Bs, Bss
 };
 
-PitchName::PitchName(unsigned char v)
+PitchName::PitchName(std::uint8_t v)
     : value_(v % 7)
 {
 }
@@ -105,12 +106,12 @@ PitchNameType PitchName::type() const
     return PitchNameType(value_);
 }
 
-unsigned int PitchName::index() const
+std::uint8_t PitchName::index() const
 {
     return value_;
 }
 
-unsigned int PitchName::absolutePitch() const
+std::uint8_t PitchName::absolutePitch() const
 {
     return value_ < 3 ? value_ * 2
                       : value_ * 2 - 1;
@@ -250,15 +251,14 @@ double Alteration::cents() const
     return value_ * 100;
 }
 
-Alteration::Alteration(signed char t)
+Alteration::Alteration(std::int8_t t)
     : value_(t)
 {
 }
 
-PitchClass::PitchClass(size_t semitoneValue)
+PitchClass::PitchClass(std::uint8_t semitoneValue)
     : pitch_name_(PitchName::C)
     , alt_(Alteration::NATURAL)
-    , invalid_(false)
 {
     size_t p = (semitoneValue < 5) ? (semitoneValue / 2) : ((semitoneValue + 1) / 2);
     size_t a = (semitoneValue < 5) ? (semitoneValue % 2) : ((semitoneValue + 1) % 2);
@@ -270,7 +270,6 @@ PitchClass::PitchClass(size_t semitoneValue)
 PitchClass::PitchClass(PitchName p, Alteration a)
     : pitch_name_(p)
     , alt_(a)
-    , invalid_(false)
 {
 }
 
@@ -284,15 +283,15 @@ bool PitchClass::operator!=(const PitchClass& c) const
     return !this->operator==(c);
 }
 
-size_t PitchClass::absolutePitch() const
+std::uint8_t PitchClass::absolutePitch() const
 {
     int res = int(pitch_name_.absolutePitch()) + alt_.semitones();
     return (res < 0 ? (12 + res) : res) % 12;
 }
 
-PitchClass::operator bool() const
+std::int8_t PitchClass::pitch() const
 {
-    return invalid_ == false;
+    return pitch_name_.absolutePitch() + alt_.semitones();
 }
 
 PitchClass PitchClass::simplifyFull() const
@@ -359,7 +358,7 @@ PitchClass PitchClass::simplifyDouble() const
     return *this;
 }
 
-PitchClass PitchClass::toneUp() const
+EitherPitch PitchClass::toneUp() const
 {
     PitchClass new_pitch(pitch_name_ + 1, alt_);
     size_t semi = minSemitoneDistance(*this, new_pitch);
@@ -367,7 +366,7 @@ PitchClass PitchClass::toneUp() const
     if (semi == 1) {
         Alteration a = alt_;
         if (!a.alterate(1))
-            new_pitch.invalid_ = true;
+            return InvalidAlteration {};
 
         new_pitch.setAlteration(a);
     }
@@ -375,7 +374,7 @@ PitchClass PitchClass::toneUp() const
     return new_pitch;
 }
 
-PitchClass PitchClass::semitoneUp() const
+EitherPitch PitchClass::semitoneUp() const
 {
     PitchClass new_pitch(pitch_name_ + 1, alt_);
     size_t semi = minSemitoneDistance(*this, new_pitch);
@@ -383,7 +382,7 @@ PitchClass PitchClass::semitoneUp() const
     if (semi == 2) {
         Alteration a = alt_;
         if (!a.alterate(-1))
-            new_pitch.invalid_ = true;
+            return InvalidAlteration {};
 
         new_pitch.setAlteration(a);
     }
@@ -483,14 +482,12 @@ std::ostream& ceammc::music::operator<<(std::ostream& os, const PitchClass& p)
     return os;
 }
 
-PitchClass PitchClass::alterate(int n) const
+EitherPitch PitchClass::alterate(int n) const
 {
     PitchClass pitch(*this);
     Alteration new_alt(alt_);
-    if (!new_alt.alterate(n)) {
-        pitch.invalid_ = true;
-        return pitch;
-    }
+    if (!new_alt.alterate(n))
+        return InvalidAlteration {};
 
     pitch.setAlteration(new_alt);
     return pitch;

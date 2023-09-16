@@ -82,4 +82,8 @@ void setup_flow_pass_if()
     obj.addAlias("pass_if");
     obj.noPropsDispatch();
     obj.setXletsInfo({ "any: input", "float: 0|1 from predicate" }, { "any: output", "any: output to predicate" });
+
+    obj.setDescription("pass values that accepted by predicate object");
+    obj.setCategory("flow");
+    obj.setKeywords({"pass", "functional"});
 }

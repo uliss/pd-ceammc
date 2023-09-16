@@ -5,8 +5,8 @@
 #X obj 1 1 cnv 5 765 40 empty empty tl.transport 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 tl.transport;
-#X obj 184 118 tl.cue;
-#X obj 366 118 tl.cue;
+#X obj 126 118 tl.cue;
+#X obj 309 118 tl.cue;
 #X obj 50 147 hradio 15 1 0 3 empty empty empty 17 7 0 10 -262144 -1
 -1 0;
 #X obj 213 147 tl.bang;
@@ -38,7 +38,7 @@
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title tl @url ceammc.tl-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.9.4;
+#X text 10 508 library: ceammc v0.9.7;
 #X text 620 520 see also:;
 #X obj 694 523 ui.link @background_color 0.78431 0.78431 0.78431
 @title [tl.cue] @url tl.cue-help.pd;
@@ -47,7 +47,7 @@
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.4;
+#X text 120 32 0.9.7;
 #X text 10 54 object:;
 #X text 120 54 tl.transport;
 #X text 10 76 category:;

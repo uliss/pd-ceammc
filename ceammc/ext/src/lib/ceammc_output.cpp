@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_output.h"
-#include "ceammc_atomlist.h"
+#include "ceammc_atomlist_view.h"
 #include "ceammc_log.h"
 
 namespace ceammc {
@@ -67,7 +67,7 @@ bool outletAny(t_outlet* o, t_symbol* s, const Atom& a)
     return true;
 }
 
-bool outletAny(_outlet* o, t_symbol* s, const AtomListView& v)
+bool outletAny(t_outlet* o, t_symbol* s, const AtomListView& v)
 {
     outlet_anything(o, s,
         static_cast<int>(v.size()),

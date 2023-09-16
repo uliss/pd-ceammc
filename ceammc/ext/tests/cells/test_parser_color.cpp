@@ -58,6 +58,27 @@ TEST_CASE("parser_color", "[ceammc::ceammc_units]")
         REQUIRE(!p.parse("#1234567"));
     }
 
+    SECTION("short")
+    {
+        using namespace ceammc::parser;
+        RgbHexFullMatch p;
+
+        REQUIRE(p.parse("#000"));
+        REQUIRE(p.red() == 0);
+        REQUIRE(p.green() == 0);
+        REQUIRE(p.blue() == 0);
+
+        REQUIRE(p.parse("#123"));
+        REQUIRE(p.red() == 0x11);
+        REQUIRE(p.green() == 0x22);
+        REQUIRE(p.blue() == 0x33);
+
+        REQUIRE(p.parse("#ABC"));
+        REQUIRE(p.red() == 0xAA);
+        REQUIRE(p.green() == 0xBB);
+        REQUIRE(p.blue() == 0xCC);
+    }
+
     SECTION("atom")
     {
         using namespace ceammc::parser;
@@ -105,5 +126,186 @@ TEST_CASE("parser_color", "[ceammc::ceammc_units]")
         REQUIRE(res[0] == 0xFF11AA);
         REQUIRE(res[1] == 0xABABBA);
         REQUIRE(res[2] == 0x123456);
+    }
+
+    SECTION("rgba hex")
+    {
+        using namespace ceammc::parser;
+        RgbaHexFullMatch p;
+
+        REQUIRE(p.parse("#00000000"));
+        REQUIRE(p.red() == 0);
+        REQUIRE(p.green() == 0);
+        REQUIRE(p.blue() == 0);
+        REQUIRE(p.alpha() == 0);
+
+        REQUIRE(p.parse("#000000"));
+        REQUIRE(p.red() == 0);
+        REQUIRE(p.green() == 0);
+        REQUIRE(p.blue() == 0);
+        REQUIRE(p.alpha() == 0xff);
+
+        REQUIRE(p.parse("#090000DA"));
+        REQUIRE(p.red() == 9);
+        REQUIRE(p.green() == 0);
+        REQUIRE(p.blue() == 0);
+        REQUIRE(p.alpha() == 0xDA);
+
+        REQUIRE(p.parse("#f90000FF"));
+        REQUIRE(p.red() == 0xf9);
+        REQUIRE(p.green() == 0);
+        REQUIRE(p.blue() == 0);
+        REQUIRE(p.alpha() == 255);
+        REQUIRE(p.norm_alpha() == 1);
+
+        REQUIRE(p.parse("#F91c0010"));
+        REQUIRE(p.red() == 0xf9);
+        REQUIRE(p.green() == 0x1C);
+        REQUIRE(p.blue() == 0);
+        REQUIRE(p.alpha() == 0x10);
+        REQUIRE(p.asInt() == 0xF91C0010);
+
+        REQUIRE(p.parse("#00003aF0"));
+        REQUIRE(p.red() == 0);
+        REQUIRE(p.green() == 0);
+        REQUIRE(p.blue() == 0x3A);
+        REQUIRE(p.alpha() == 0xF0);
+
+        REQUIRE(p.parse("#00003a"));
+        REQUIRE(p.red() == 0);
+        REQUIRE(p.green() == 0);
+        REQUIRE(p.blue() == 0x3A);
+        REQUIRE(p.alpha() == 0xFF);
+
+        REQUIRE(!p.parse(""));
+        REQUIRE(!p.parse("000000"));
+        REQUIRE(!p.parse("#12345"));
+        REQUIRE(!p.parse("#1234567"));
+    }
+
+    SECTION("atom")
+    {
+        using namespace ceammc::parser;
+        RgbaHexFullMatch p;
+
+        REQUIRE(p.parse(A("#01234567")));
+        REQUIRE(p.asInt() == 0x01234567);
+
+        REQUIRE_FALSE(p.parse(A(0x112233)));
+    }
+
+    SECTION("N")
+    {
+        using namespace ceammc::parser;
+        RgbaHexFullMatch p;
+
+        auto res = p.parseN<3>(L(), 0x000000);
+        REQUIRE(res[0] == 0x000000);
+        REQUIRE(res[1] == 0x000000);
+        REQUIRE(res[2] == 0x000000);
+
+        res = p.parseN<3>(LA("#FF11AADD"), 0x000001);
+        REQUIRE(res[0] == 0xFF11AADD);
+        REQUIRE(res[1] == 0x000001);
+        REQUIRE(res[2] == 0x000001);
+
+        res = p.parseN<3>(LA("#FF11AABB", "#ababbacc"), 0x000002);
+        REQUIRE(res[0] == 0xFF11AABB);
+        REQUIRE(res[1] == 0xABABBACC);
+        REQUIRE(res[2] == 0x000002);
+
+        res = p.parseN<3>(LA("#FF11AABB", "#ababbacc", "#123456DD"), 0x000003);
+        REQUIRE(res[0] == 0xFF11AABB);
+        REQUIRE(res[1] == 0xABABBACC);
+        REQUIRE(res[2] == 0x123456DD);
+
+        res = p.parseN<3>(LA("#FF11AABB", "#ababbacc", "#123456DD", "#12345678"), 0x000003);
+        REQUIRE(res[0] == 0xFF11AABB);
+        REQUIRE(res[1] == 0xABABBACC);
+        REQUIRE(res[2] == 0x123456DD);
+    }
+
+    SECTION("short")
+    {
+        using namespace ceammc::parser;
+        RgbaHexFullMatch p;
+
+        REQUIRE(p.parse("#0000"));
+        REQUIRE(p.red() == 0);
+        REQUIRE(p.green() == 0);
+        REQUIRE(p.blue() == 0);
+        REQUIRE(p.alpha() == 0);
+
+        REQUIRE(p.parse("#1234"));
+        REQUIRE(p.red() == 0x11);
+        REQUIRE(p.green() == 0x22);
+        REQUIRE(p.blue() == 0x33);
+        REQUIRE(p.alpha() == 0x44);
+
+        REQUIRE(p.parse("#000"));
+        REQUIRE(p.red() == 0);
+        REQUIRE(p.green() == 0);
+        REQUIRE(p.blue() == 0);
+        REQUIRE(p.alpha() == 0xFF);
+
+        REQUIRE(p.parse("#123"));
+        REQUIRE(p.red() == 0x11);
+        REQUIRE(p.green() == 0x22);
+        REQUIRE(p.blue() == 0x33);
+        REQUIRE(p.alpha() == 0xFF);
+    }
+
+    SECTION("named colors")
+    {
+        using namespace ceammc::parser;
+        ColorFullMatch p;
+
+        REQUIRE(p.parse("black"));
+        REQUIRE(p.asInt() == 0x000000FF);
+
+        REQUIRE(p.parse("white"));
+        REQUIRE(p.asInt() == 0xFFFFFFFF);
+
+        REQUIRE(p.parse("red"));
+        REQUIRE(p.asInt() == 0xFF0000FF);
+
+        REQUIRE(p.parse("lime"));
+        REQUIRE(p.asInt() == 0x00FF00FF);
+
+        REQUIRE(p.parse("blue"));
+        REQUIRE(p.asInt() == 0x0000FFFF);
+
+        REQUIRE(p.parse("black!+0"));
+        REQUIRE(p.asInt() == 0x000000FF);
+        REQUIRE(p.parse("black!+50"));
+        REQUIRE(p.asInt() == 0x7F7F7FFF);
+        REQUIRE(p.parse("black!+100"));
+        REQUIRE(p.asInt() == 0xFFFFFFFF);
+
+        REQUIRE(p.parse("white!-0"));
+        REQUIRE(p.asInt() == 0xFFFFFFFF);
+        REQUIRE(p.parse("white!-50"));
+        REQUIRE(p.asInt() == 0x808080FF);
+        REQUIRE(p.parse("white!-100"));
+        REQUIRE(p.asInt() == 0x000000FF);
+
+        REQUIRE(p.parse("red!-50"));
+        REQUIRE(p.asInt() == 0x800000FF);
+        REQUIRE(p.parse("blue!+50"));
+        REQUIRE(p.asInt() == 0x7F7FFFFF);
+        REQUIRE(p.parse("green!+25"));
+        REQUIRE(p.asInt() == 0x3f9f3fFF);
+
+        REQUIRE(p.parse("#123"));
+        REQUIRE(p.red() == 0x11);
+        REQUIRE(p.green() == 0x22);
+        REQUIRE(p.blue() == 0x33);
+        REQUIRE(p.alpha() == 0xFF);
+
+        REQUIRE(p.parse("#ABCD"));
+        REQUIRE(p.red() == 0xAA);
+        REQUIRE(p.green() == 0xBB);
+        REQUIRE(p.blue() == 0xCC);
+        REQUIRE(p.alpha() == 0xDD);
     }
 }

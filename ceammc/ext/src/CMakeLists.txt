@@ -8,6 +8,13 @@ endif()
 
 # do no use pd macroses in our code
 add_definitions(-DPD_CLASS_DEF)
+# needed for math constants in <math.h>: M_PI etc.
+add_definitions(-D_USE_MATH_DEFINES)
+
+set(CEAMMC_COMPILER_WARNING_FLAGS "-Wall -Wextra")
+if(APPLE AND CMAKE_CXX_COMPILER_ID MATCHES "Clang")
+    set(CEAMMC_COMPILER_WARNING_FLAGS "${CEAMMC_COMPILER_WARNING_FLAGS} -Wno-unused-function -Wcast-align -Wcast-qual -Wconversion -Wctor-dtor-privacy -Wduplicate-enum -Wextra-semi -Wfloat-equal -Wlong-long -Wnon-virtual-dtor -Wold-style-cast -Woverloaded-virtual -Wredundant-decls -Wsign-conversion -Wsign-promo")
+endif()
 
 # debug warning flags
 if("${CMAKE_BUILD_TYPE}" STREQUAL "Debug" AND NOT $ENV{TRAVIS})
@@ -16,17 +23,11 @@ endif()
 
 if(WITH_COVERAGE)
     if(APPLE)
-        if (NOT "${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU") # Clang or AppleClang
-            set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -fprofile-arcs -ftest-coverage")
-            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fprofile-arcs -ftest-coverage")
-        endif()
+        add_compile_options(-fprofile-arcs)
+        add_compile_options(-ftest-coverage)
     else()
-        if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
-            set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} --coverage")
-            set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} --coverage")
-            set(CMAKE_SHARED_LINKER_FLAGS "${CMAKE_SHARED_LINKER_FLAGS} --coverage")
-            set(CMAKE_EXE_LINKER_FLAGS "${CMAKE_EXE_LINKER_FLAGS} --coverage")
-        endif()
+        add_compile_options(--coverage)
+        add_link_options(--coverage)
     endif()
 endif()
 
@@ -42,11 +43,43 @@ endif()
 find_package(BISON)
 find_package(FLEX)
 
-set(CEAMMC_EXT_LINK_LIBRARIES ceammc_analyze ceammc_array ceammc_base ceammc_conv ceammc_data ceammc_dyn ceammc_env
-    ceammc_flt ceammc_flow ceammc_fx ceammc_hw ceammc_lang ceammc_lfo ceammc_list ceammc_math ceammc_midi
-    ceammc_misc ceammc_music ceammc_net ceammc_noise ceammc_osc ceammc_preset ceammc_path ceammc_proto ceammc_random
-    ceammc_samp ceammc_spat ceammc_synth ceammc_system ceammc_string ceammc_tl ceammc_ui ceammc_window
-    ceammc_core)
+set(CEAMMC_EXT_LINK_LIBRARIES
+    ceammc_analyze
+    ceammc_array
+    ceammc_base
+    ceammc_conv
+    ceammc_data
+    ceammc_dyn
+    ceammc_env
+    ceammc_flow
+    ceammc_flt
+    ceammc_fx
+    ceammc_hw
+    ceammc_lang
+    ceammc_lfo
+    ceammc_list
+    ceammc_math
+    ceammc_midi
+    ceammc_misc
+    ceammc_music
+    ceammc_net
+    ceammc_noise
+    ceammc_osc
+    ceammc_path
+    ceammc_pieces
+    ceammc_preset
+    ceammc_proto
+    ceammc_random
+    ceammc_samp
+    ceammc_spat
+    ceammc_string
+    ceammc_synth
+    ceammc_system
+    ceammc_tl
+    ceammc_ui
+    ceammc_window
+    ceammc_core
+)
 
 add_subdirectory(lib)
 include_directories(lib)
@@ -62,7 +95,7 @@ add_subdirectory(conv)
 add_subdirectory(data)
 add_subdirectory(dyn)
 add_subdirectory(env)
-add_subdirectory(exp)
+#add_subdirectory(exp)
 add_subdirectory(flow)
 add_subdirectory(flt)
 add_subdirectory(fx)
@@ -78,6 +111,7 @@ add_subdirectory(net)
 add_subdirectory(noise)
 add_subdirectory(osc)
 add_subdirectory(path)
+add_subdirectory(pieces)
 add_subdirectory(preset)
 add_subdirectory(proto)
 add_subdirectory(random)
@@ -105,6 +139,11 @@ pd_add_external(NAME ceammc
     INTERNAL True
     LIBRARY ceammc
     LINK ${CEAMMC_EXT_LINK_LIBRARIES})
+
+target_include_directories(ceammc
+    PRIVATE
+        ${PROJECT_BINARY_DIR}/ceammc # for ceammc_config.h
+)
 
 if(WIN32)
     target_link_options(ceammc PRIVATE -Wl,--exclude-all-symbols)

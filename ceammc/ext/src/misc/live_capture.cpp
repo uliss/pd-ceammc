@@ -4,9 +4,13 @@
 using namespace ceammc;
 
 class LiveCapture : public faust_live_capture_tilde {
+    UIProperty *gate_ { 0 }, *div_ { 0 };
+
 public:
     LiveCapture(const PdArgs& args)
         : faust_live_capture_tilde(args)
+        , gate_(findUIProperty("@gate"))
+        , div_(findUIProperty("@.div"))
     {
         createInlet();
     }
@@ -18,12 +22,12 @@ public:
 
     void m_record(t_symbol*, const AtomListView&)
     {
-        setProperty(gensym("@gate"), Atom(1));
+        switchOn(true);
     }
 
     void m_stop(t_symbol*, const AtomListView&)
     {
-        setProperty(gensym("@gate"), Atom(0.f));
+        switchOn(false);
     }
 
     void onInlet(size_t, const AtomListView& lv) override
@@ -33,7 +37,22 @@ public:
             return;
         }
 
-        setProperty(gensym("@gate"), Atom(lv.asT<bool>()));
+        switchOn(lv.asT<bool>());
+    }
+
+    void m_div(t_symbol* s, const AtomListView& lv)
+    {
+        if (div_)
+            div_->setValue(lv.asFloat(1), true);
+    }
+
+    void switchOn(bool v)
+    {
+        if (div_)
+            div_->setValue(1, true);
+
+        if (gate_)
+            gate_->setValue(v);
     }
 };
 
@@ -43,6 +62,10 @@ void setup_live_capture_tilde()
     obj.addMethod("reset", &LiveCapture::m_reset);
     obj.addMethod("record", &LiveCapture::m_record);
     obj.addMethod("stop", &LiveCapture::m_stop);
+    obj.addMethod("div", &LiveCapture::m_div);
 
-    obj.setXletsInfo({ "signal: input\nmethods: @gate, start, stop", "float: 1|0 to start or stop recording" }, { "signal: recorded loop" });
+    obj.setXletsInfo({ "signal: input\n"
+                       "methods: @gate, start, stop",
+                         "float: 1|0 to start or stop recording" },
+        { "signal: recorded loop" });
 }

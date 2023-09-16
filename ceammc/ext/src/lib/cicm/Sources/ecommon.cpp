@@ -96,7 +96,7 @@ void epd_init(void)
 
 void object_method(void* x, t_symbol* s, void* z, t_typ_method method, long number, void* other)
 {
-    t_ret_method nrmethod = (t_ret_method)getfn((t_pd*)x, s);
+    auto nrmethod = (t_ret_method)getfn((t_pd*)x, s);
     nrmethod(x, s, z, method, number, other);
 }
 
@@ -167,7 +167,7 @@ static long unformat_atoms(int ac, t_atom* av)
                     }
                 } else {
                     len = (int)strlen(buf);
-                    strncat(buf, " ", 1);
+                    strncat(buf, " ", sizeof(buf) - 1);
                     str = (char)unformat_symbol(s->s_name, buf + len + 1, MAXPDSTRING - len - 1);
                 }
                 if (!str) {

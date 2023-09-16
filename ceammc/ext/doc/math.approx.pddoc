@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="math.approx">
         <title>math.approx</title>
         <meta>
@@ -18,16 +18,16 @@
             </aliases>
         </meta>
         <info>
-            <par>checks is |x - pattern| &lt;= |epsilon|</par>
+            <par>checks if |x - pattern| &lt;= |epsilon|</par>
         </info>
+        <arguments>
+            <argument name="VALUE" type="float">compare pattern</argument>
+            <argument name="EPSILON" type="float">compare epsilon</argument>
+        </arguments>
         <properties>
             <property name="@value" type="float" default="0">compare pattern</property>
             <property name="@epsilon" type="float" default="0.01">compare epsilon</property>
         </properties>
-        <arguments>
-            <argument name="P" type="float">compare pattern</argument>
-            <argument name="E" type="float">compare epsilon</argument>
-        </arguments>
         <inlets>
             <inlet>
                 <xinfo on="float">input value</xinfo>

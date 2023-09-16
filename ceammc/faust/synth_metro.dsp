@@ -1,24 +1,29 @@
 declare name "synth.metro";
+import("stdfaust.lib");
 
-ui = library("ceammc_ui.lib");
-cm = library("ceammc.lib");
-ba = library("basics.lib");
-fi = library("filters.lib");
 
-f0 = vslider("freq0 [unit:Hz]", 2000, 100, 10000, 0.1);
-f1 = vslider("freq1 [unit:Hz]", 1000, 100, 10000, 0.1);
-f2 = vslider("freq2 [unit:Hz]", 1500, 100, 10000, 0.1);
+process = metro with {
+    metro = down_beat, on_beat, off_beat, mark :> *(gain) : co.limiter_1176_R4_mono;
 
-db0 = vslider("gain0 [unit:db]", 3, -60, 12, 0.1) +3 : ba.db2linear;
-db1 = vslider("gain1 [unit:db]", 0, -60, 12, 0.1) +3 : ba.db2linear;
-db2 = vslider("gain2 [unit:db]", 3, -60, 12, 0.1) +3 : ba.db2linear;
-
-Q0 = vslider("q0", 30,  3, 300, 0.1);
-Q1 = vslider("q1", 10,  3, 300, 0.1);
-Q2 = vslider("q2", 300, 3, 300, 0.1);
-
-b0 = button("b0") : ba.impulsify : fi.resonbp(f0, Q0, db0) : fi.lowpass(2, f0);
-b1 = button("b1") : ba.impulsify : fi.resonbp(f1, Q1, db1) : fi.lowpass(2, f1);
-b2 = button("b2") : ba.impulsify : fi.resonbp(f2, Q2, db2) : fi.lowpass(2, f2);
-
-process = b0 , b1 , b2 :> _ ;
+    down_beat = button(".down [type:bool]") : ba.impulsify : fi.resonlp(freq, reson, gain) with {
+        freq = hslider("down.freq [unit:hz]", 1500, 100, 5000, 0.01);
+        reson = hslider("down.reson", 50, 5, 100, 0.01);
+        gain = hslider("down.gain [unit:db]", 6, -12, 12, 0.01) : ba.db2linear;
+    };
+    on_beat = button(".on [type:bool]") : ba.impulsify : fi.resonlp(freq, reson, gain) with {
+        freq = hslider("on.freq [unit:hz]", 1000, 100, 5000, 0.01);
+        reson = hslider("on.reson", 30, 5, 100, 0.01);
+        gain = hslider("on.gain [unit:db]", 6, -12, 12, 0.01) : ba.db2linear;
+    };
+    off_beat = button(".off [type:bool]") : ba.impulsify : fi.resonlp(freq, reson, gain) with {
+        freq = hslider("off.freq [unit:hz]", 500, 100, 5000, 0.01);
+        reson = hslider("off.reson", 10, 5, 100, 0.01);
+        gain = hslider("off.gain [unit:db]", 6, -12, 12, 0.01) : ba.db2linear;
+    };
+    mark = button(".mark [type:bool]") : ba.impulsify : fi.resonlp(freq, reson, gain) with {
+        freq = hslider("mark.freq [unit:hz]", 2000, 100, 5000, 0.01);
+        reson = hslider("mark.reson", 500, 5, 500, 0.01);
+        gain = hslider("mark.gain [unit:db]", 6, -12, 12, 0.01) : ba.db2linear;
+    };
+    gain = hslider("gain [unit:db]", 0, -12, 12, 0.01) : ba.db2linear;
+};

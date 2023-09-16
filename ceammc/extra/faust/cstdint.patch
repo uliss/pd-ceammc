@@ -1,0 +1,10 @@
+--- Text.hh	2023-06-17 10:13:24.000000000 +0300
++++ Text.hh	2023-09-13 02:13:47.962433700 +0300
+@@ -31,6 +31,7 @@
+ #include <string>
+ #include <vector>
+ #include <cmath>
++#include <cstdint>
+ 
+ std::string subst(const std::string& m, const std::string& a0);
+ std::string subst(const std::string& m, const std::vector<std::string>& vargs);

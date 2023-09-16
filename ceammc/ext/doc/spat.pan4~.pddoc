@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="spat.pan4~">
         <title>spat.pan4~</title>
         <meta>
@@ -21,17 +21,19 @@
             </also>
         </meta>
         <arguments>
-            <argument name="RADIUS" type="float" minvalue="0">panning radius</argument>
+            <argument name="RADIUS" type="float" minvalue="0" maxvalue="1">panning
+            radius</argument>
             <argument name="ANGLE" type="float" minvalue="0" units="radian" maxvalue="2π">circle
             panning position in radians</argument>
         </arguments>
         <properties>
-            <property name="@angle" type="float" minvalue="0" default="0" maxvalue="2π">panning
-            position in radians</property>
+            <property name="@angle" type="float" minvalue="0" default="0" maxvalue="2π"
+            units="radian">panning position in radians</property>
             <property name="@radius" type="float" minvalue="0" maxvalue="1" default="1">distance
             from circle center</property>
-            <property name="@active" type="int" enum="0 1" default="1">on/off dsp
-            processing</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <inlets>
             <inlet type="audio">

@@ -40,6 +40,7 @@
 #include "hw_kbd_light.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
+#include "ceammc_stub.h"
 
 #ifdef __APPLE__
 #include <mach/mach.h>
@@ -188,7 +189,12 @@ bool HwKeyboardLight::setLevel(t_float v)
 #endif
 }
 
-void setup_hw_keyboard_light()
+#if !defined(__arm64__) && defined(__APPLE__)
+extern "C" void setup_hw_keyboard_light()
 {
     ObjectFactory<HwKeyboardLight> obj("hw.kbd_light");
 }
+#else
+CONTROL_OBJECT_STUB(HwKeyboardLight_stub, 1, 1, "not supported on this platform");
+OBJECT_STUB_SETUP(HwKeyboardLight_stub, hw_keyboard_light, "hw.kbd_light");
+#endif

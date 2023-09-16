@@ -10,13 +10,14 @@ in future releases.  The public (stable) API is in m_pd.h. */
 
 /* LATER consider whether to use 'char' for method arg types to save space */
 #ifndef __m_imp_h_
+#include "m_pd.h" // ceammc
 
 /* the structure for a method handler ala Max */
 typedef struct _methodentry
 {
     t_symbol *me_name;
     t_gotfn me_fun;
-    t_atomtype me_arg[MAXPDARG+1];
+    unsigned char me_arg[MAXPDARG+1];
 } t_methodentry;
 
 EXTERN_STRUCT _widgetbehavior;

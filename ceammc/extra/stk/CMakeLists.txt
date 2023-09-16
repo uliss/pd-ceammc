@@ -97,3 +97,12 @@ endforeach()
 if(UNIX)
     set_target_properties(stk PROPERTIES COMPILE_FLAGS "-fPIC")
 endif()
+
+# try to read STK version
+file(STRINGS "${CMAKE_CURRENT_SOURCE_DIR}/stk/configure.ac" STK_AUTOCONF_FILE LIMIT_COUNT 2)
+string(REGEX MATCH "AC_INIT\\(STK,[ ]*([0-9.]+)" STK_AC_INIT ${STK_AUTOCONF_FILE})
+if(STK_AC_INIT)
+    set(STK_VERSION ${CMAKE_MATCH_1} CACHE INTERNAL "")
+    message(STATUS "STK version: ${STK_VERSION}")
+endif()
+

@@ -14,11 +14,12 @@
 #include "base_clone.h"
 #include "ceammc_canvas.h"
 #include "ceammc_convert.h"
+#include "ceammc_dsp.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_inlet.h"
 #include "ceammc_outlet.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #include "lex/parser_clone.h"
 
 #include <boost/container/small_vector.hpp>
@@ -55,6 +56,35 @@ using BinBufferPtr = deleted_unique_ptr<t_binbuf>;
 
 namespace {
 
+const char* to_string(ceammc::parser::TargetType t)
+{
+    using namespace ceammc::parser;
+    switch (t) {
+    case TARGET_TYPE_NONE:
+        return "none";
+    case TARGET_TYPE_ALL:
+        return "all";
+    case TARGET_TYPE_EXCEPT:
+        return "except";
+    case TARGET_TYPE_RANDOM:
+        return "random";
+    case TARGET_TYPE_EQ:
+        return "==";
+    case TARGET_TYPE_GT:
+        return ">";
+    case TARGET_TYPE_GE:
+        return ">=";
+    case TARGET_TYPE_LT:
+        return "<";
+    case TARGET_TYPE_LE:
+        return "<=";
+    case TARGET_TYPE_RANGE:
+        return "range";
+    default:
+        return "???";
+    }
+}
+
 template <typename T>
 T min3(T a, T b, T c)
 {
@@ -72,18 +102,6 @@ size_t atom_hash(const t_atom& a) noexcept
 
     return hash;
 }
-
-class DspSuspendGuard {
-    const int dsp_state_;
-
-public:
-    DspSuspendGuard()
-        : dsp_state_(canvas_suspend_dsp())
-    {
-    }
-
-    ~DspSuspendGuard() { canvas_resume_dsp(dsp_state_); }
-};
 
 void clone_pop_canvas(t_canvas* x, bool show)
 {
@@ -165,7 +183,7 @@ void clone_copy_canvas_content(const t_canvas* z, t_binbuf* b)
 
 void clone_set_canvas_content(t_canvas* x, const t_binbuf* b, int ninst, int inst)
 {
-    DspSuspendGuard dsp_guard;
+    dsp::SuspendGuard dsp_guard;
 
     t_symbol* aSym = gensym("#A");
     /* save and clear bindings to symbols #A, #N, #X; restore when done */
@@ -461,7 +479,7 @@ void BaseClone::initDone()
 
 bool BaseClone::initInstances()
 {
-    DspSuspendGuard dsp_guard;
+    dsp::SuspendGuard dsp_guard;
 
     const uint16_t NINSTANCE = num_->value();
     instances_.reserve(NINSTANCE);
@@ -494,7 +512,7 @@ void BaseClone::updateInstances()
         else
             return;
 
-        DspSuspendGuard dsp_guard;
+        dsp::SuspendGuard dsp_guard;
 
         if (visible)
             gobj_vis(&owner()->te_g, canvas(), 0);
@@ -728,7 +746,7 @@ void BaseClone::send(const parser::TargetMessage& msg, const AtomListView& lv)
                 sendToInstanceInlets(i, msg.inlet, lv);
         }
     } else
-        OBJ_ERR << fmt::format("unsupported target: {:d}", msg.target);
+        OBJ_ERR << fmt::format("unsupported target: {:d}", ::to_string(msg.target));
 }
 
 void BaseClone::dspSet(const parser::TargetMessage& msg, const AtomListView& lv)
@@ -743,14 +761,14 @@ void BaseClone::dspSet(const parser::TargetMessage& msg, const AtomListView& lv)
         if (range.empty())
             return;
 
-        DspSuspendGuard guard;
+        dsp::SuspendGuard guard;
         const auto v = lv.boolAt(0, false);
 
         for (auto i = range.a; i < range.b; i += range.step)
             dspSetInstance(i, v);
 
     } else if (msg.target == TARGET_TYPE_EXCEPT) {
-        DspSuspendGuard guard;
+        dsp::SuspendGuard guard;
         const auto v = lv.boolAt(0, false);
 
         for (size_t i = 0; i < numInstances(); i++) {
@@ -758,7 +776,7 @@ void BaseClone::dspSet(const parser::TargetMessage& msg, const AtomListView& lv)
                 dspSetInstance(i, v);
         }
     } else
-        OBJ_ERR << fmt::format("unsupported target: {:d}", msg.target);
+        OBJ_ERR << fmt::format("unsupported target: {:d}", (int)msg.target);
 }
 
 void BaseClone::dspSetInstance(int16_t idx, bool value)
@@ -784,20 +802,20 @@ void BaseClone::dspToggle(const parser::TargetMessage& msg)
         if (range.empty())
             return;
 
-        DspSuspendGuard guard;
+        dsp::SuspendGuard guard;
 
         for (auto i = range.a; i < range.b; i++)
             dspToggleInstance(i);
 
     } else if (msg.target == TARGET_TYPE_EXCEPT) {
-        DspSuspendGuard guard;
+        dsp::SuspendGuard guard;
 
         for (size_t i = 0; i < numInstances(); i++) {
             if (i != msg.first)
                 dspToggleInstance(i);
         }
     } else
-        OBJ_ERR << fmt::format("unsupported target: {:d}", msg.target);
+        OBJ_ERR << fmt::format("unsupported target: {:d}", (int)msg.target);
 }
 
 void BaseClone::dspToggleInstance(int16_t idx)
@@ -824,12 +842,12 @@ void BaseClone::dspSpread(const parser::TargetMessage& msg, const AtomListView& 
         if (range.empty())
             return;
 
-        DspSuspendGuard guard;
+        dsp::SuspendGuard guard;
 
         for (auto i = range.a; i < range.b; i++)
             dspSetInstance(i, lv.boolAt(i - range.a, false));
     } else
-        OBJ_ERR << fmt::format("unsupported target: {:d}", msg.target);
+        OBJ_ERR << fmt::format("unsupported target: {:d}", (int)msg.target);
 }
 
 uint16_t BaseClone::genRandomInstanceIndex() const
@@ -1004,22 +1022,7 @@ const char* BaseClone::annotateOutlet(size_t n) const
 
 void BaseClone::sendToInlet(t_inlet* inlet, const AtomListView& lv)
 {
-    auto x = util::inlet_object(inlet);
-
-    if (lv.empty())
-        return pd_bang(x);
-    else if (lv.isFloat())
-        return pd_float(x, lv[0].asT<t_float>());
-    else if (lv.isSymbol())
-        return pd_symbol(x, lv[0].asT<t_symbol*>());
-    else if (lv.size() > 1 && lv[0].isFloat())
-        return pd_list(x, &s_list, lv.size(), lv.toPdData());
-    else if (lv[0].isSymbol()) {
-        auto lv0 = lv.subView(1);
-        return pd_typedmess(x, lv[0].asT<t_symbol*>(), lv.size(), lv.toPdData());
-    } else {
-        OBJ_ERR << "invalid list: " << lv;
-    }
+    pd::typed_message_to(util::inlet_object(inlet), lv);
 }
 
 void BaseClone::sendToInstance(uint16_t inst, uint16_t inlet, const AtomListView& lv)
@@ -1162,7 +1165,7 @@ void BaseClone::sendSpread(const parser::TargetMessage& msg, const AtomListView&
             sendToInstance(i + mm.first, inlet, lv.subView(i, 1));
     } break;
     default:
-        OBJ_ERR << fmt::format("unknown target: {:d}", msg.target);
+        OBJ_ERR << fmt::format("unknown target: {:d}", (int)msg.target);
         break;
     }
 }
@@ -1416,7 +1419,9 @@ void BaseClone::onSave(t_binbuf* b) const
 
 void setup_base_clone()
 {
-    BaseCloneFactory obj("clone:", OBJECT_FACTORY_DEFAULT);
+    constexpr const char* OBJ_NAME = "clone:";
+
+    BaseCloneFactory obj(OBJ_NAME, OBJECT_FACTORY_DEFAULT);
     obj.useClick();
 
     using namespace ceammc::parser;
@@ -1433,6 +1438,7 @@ void setup_base_clone()
     auto sym_mouse = gensym("mouse");
     auto mouse_fn = (MouseFn)zgetfn(&canvas_class, sym_mouse);
     if (mouse_fn != canvas_new_mouse_fn) {
+        LIB_LOG << fmt::format("[{}] replace '{}' method for canvas:", OBJ_NAME, sym_mouse->s_name);
         ceammc_old_canvas_mouse_fn = mouse_fn;
         class_addmethod(canvas_class, (t_method)canvas_new_mouse_fn, sym_mouse, A_FLOAT, A_FLOAT, A_FLOAT, A_FLOAT, A_NULL);
     }

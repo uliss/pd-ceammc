@@ -170,4 +170,8 @@ void setup_flow_queue()
     FlowQueue::ControlProxy::set_method_callback(gensym("clear"), &FlowQueue::ControlInlet::m_clear);
     FlowQueue::ControlProxy::set_method_callback(gensym("output"), &FlowQueue::ControlInlet::m_output);
     FlowQueue::ControlProxy::set_method_callback(gensym("flush"), &FlowQueue::ControlInlet::m_flush);
+
+    obj.setDescription("multi-channel control flow sync queue (or FIFO)");
+    obj.setCategory("flow");
+    obj.setKeywords({"counter"});
 }

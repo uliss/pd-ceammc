@@ -27,6 +27,8 @@ class Gain : public SoundExternal {
     OutBlocks outs_;
     size_t prev_bs_; // previous block size
     FloatProperty* smooth_;
+    std::vector<std::string> info_in_;
+    std::vector<std::string> info_out_;
 
 public:
     Gain(const PdArgs& args);
@@ -51,6 +53,9 @@ public:
 
     void m_set(t_symbol* s, const AtomListView& lv);
     void m_setDb(t_symbol* s, const AtomListView& lv);
+
+    const char* annotateInlet(size_t n) const override;
+    const char* annotateOutlet(size_t n) const override;
 
 private:
     void allocateOutBlocks();
