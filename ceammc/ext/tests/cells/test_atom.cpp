@@ -381,7 +381,7 @@ TEST_CASE("Atom", "[core]")
             Atom a1;
             std::ostringstream ss;
             ss << a1;
-            REQUIRE(ss.str() == "NONE");
+            REQUIRE(ss.str() == "[NONE]");
         }
 
         {

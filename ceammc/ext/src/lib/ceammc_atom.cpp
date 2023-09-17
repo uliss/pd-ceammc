@@ -838,6 +838,8 @@ std::ostream& operator<<(std::ostream& os, const Atom& a)
         os << "[$" << a.dollarIndex() << "]";
     else if (a.isDollarSym())
         os << "[" << a.asT<t_symbol*>()->s_name << "]";
+    else if (a.isNone())
+        os << "[NONE]";
     else
         os << "???";
 
