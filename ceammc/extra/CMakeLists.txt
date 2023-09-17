@@ -140,28 +140,28 @@ if(WITH_FAUST AND NOT APPLE)
 
     include(FetchContent)
     set(FETCHCONTENT_QUIET FALSE)
-    set(INCLUDE_STATIC      ON  CACHE STRING  "Include static library"        FORCE)
-    set(INCLUDE_EXECUTABLE  OFF CACHE STRING  "Include runtime executable"    FORCE)
-    set(INCLUDE_DYNAMIC     OFF CACHE STRING  "Include dynamic library"       FORCE)
-    set(INCLUDE_OSC         OFF CACHE STRING  "Include Faust OSC library"     FORCE)
-    set(INCLUDE_HTTP        OFF CACHE STRING  "Include Faust HTTPD library"   FORCE)
-    set(INCLUDE_EMCC        OFF CACHE STRING  ""   FORCE )
-    set(INCLUDE_WASM_GLUE   OFF CACHE STRING  ""   FORCE )
+    set(INCLUDE_STATIC      ON  CACHE INTERNAL "")
+    set(INCLUDE_EXECUTABLE  OFF CACHE INTERNAL "")
+    set(INCLUDE_DYNAMIC     OFF CACHE INTERNAL "")
+    set(INCLUDE_OSC         OFF CACHE INTERNAL "")
+    set(INCLUDE_HTTP        OFF CACHE INTERNAL "")
+    set(INCLUDE_EMCC        OFF CACHE INTERNAL "")
+    set(INCLUDE_WASM_GLUE   OFF CACHE INTERNAL "")
 
     ## Hardcoded backends for faust
-    set(ASMJS_BACKEND  OFF                            CACHE STRING  "Include ASMJS backend"     FORCE)
-    set(C_BACKEND      OFF                            CACHE STRING  "Include C backend"         FORCE)
-    set(CPP_BACKEND    OFF                            CACHE STRING  "Include CPP backend"       FORCE)
-    set(FIR_BACKEND    OFF                            CACHE STRING  "Include FIR backend"       FORCE)
-    set(INTERP_BACKEND OFF                            CACHE STRING  "Include INTERPRETER backend" FORCE)
-    set(JAVA_BACKEND   OFF                            CACHE STRING  "Include JAVA backend"      FORCE)
-    set(JS_BACKEND     OFF                            CACHE STRING  "Include JAVASCRIPT backend" FORCE)
-    set(LLVM_BACKEND   COMPILER STATIC DYNAMIC        CACHE STRING  "Include LLVM backend"      FORCE)
-    set(OLDCPP_BACKEND OFF                            CACHE STRING  "Include old CPP backend"   FORCE)
-    set(RUST_BACKEND   OFF                            CACHE STRING  "Include RUST backend"      FORCE)
-    set(WASM_BACKEND   OFF                            CACHE STRING  "Include WASM backend"      FORCE)
+    set(ASMJS_BACKEND  OFF            CACHE INTERNAL "")
+    set(C_BACKEND      OFF            CACHE INTERNAL "")
+    set(CPP_BACKEND    OFF            CACHE INTERNAL "")
+    set(FIR_BACKEND    OFF            CACHE INTERNAL "")
+    set(INTERP_BACKEND OFF            CACHE INTERNAL "")
+    set(JAVA_BACKEND   OFF            CACHE INTERNAL "")
+    set(JS_BACKEND     OFF            CACHE INTERNAL "")
+    set(LLVM_BACKEND   STATIC DYNAMIC CACHE INTERNAL "")
+    set(OLDCPP_BACKEND OFF            CACHE INTERNAL "")
+    set(RUST_BACKEND   OFF            CACHE INTERNAL "")
+    set(WASM_BACKEND   OFF            CACHE INTERNAL "")
 
-    if(WIN32)
+    if(WIN32 OR UNIX)
         find_package(Patch REQUIRED)
 
         FetchContent_Declare(
@@ -174,14 +174,18 @@ if(WITH_FAUST AND NOT APPLE)
         FetchContent_GetProperties(faust)
         if(NOT faust_POPULATED)
             FetchContent_Populate(faust)
+            file(REMOVE ${faust_SOURCE_DIR}/compiler/libcode.cpp)
             add_subdirectory(${faust_SOURCE_DIR}/build ${faust_BINARY_DIR} EXCLUDE_FROM_ALL)
+            target_compile_options(staticlib PRIVATE -Wno-unused-variable -Wno-cast-function-type -Wno-attributes)
+
+            # ceammc binding
             add_library(ceammc_faust STATIC ${PROJECT_SOURCE_DIR}/ceammc/extra/faust/ceammc_llvm.cpp)
-            target_link_libraries(ceammc_faust PRIVATE staticlib)
             target_compile_definitions(ceammc_faust PRIVATE ${LLVM_DEFINITIONS})
             target_include_directories(ceammc_faust PRIVATE
                 ${CMAKE_CURRENT_SOURCE_DIR}/faust/architecture
-                ${LLVM_INCLUDE_DIRS}
+                ${faust_SOURCE_DIR}/architecture
                 ${PROJECT_SOURCE_DIR}/src)
+            target_link_libraries(ceammc_faust PRIVATE ${faust_SOURCE_DIR}/build/lib/libfaust.a)
 
             if(COMMAND llvm_map_components_to_libnames)
                 set(llvm_libs)
@@ -206,12 +210,12 @@ if(WITH_FAUST AND NOT APPLE)
                 list(APPEND llvm_libs ${llvm_libs_base})
 
                 message(STATUS "llvm-libs: ${llvm_libs}")
-                target_link_libraries(ceammc_faust PRIVATE ${llvm_libs})
+#                target_link_libraries(ceammc_faust PRIVATE ${llvm_libs})
             endif()
 
             set(DOC_INSTALL_PATH "${PD_DOC_INSTALL_PATH}/extra/ceammc")
 
-            install(DIRECTORY faust/libraries/
+            install(DIRECTORY ${faust_SOURCE_DIR}/libraries/
                 DESTINATION ${DOC_INSTALL_PATH}/faust
                 FILES_MATCHING PATTERN "*.lib"
                 PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
