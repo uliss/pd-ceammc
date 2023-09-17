@@ -606,7 +606,8 @@ t_gobj* canvas_find_last(const _glist* c)
     return z;
 }
 
-t_class*& canvas_get_class() {
+t_class*& canvas_get_class()
+{
     return canvas_class;
 }
 
@@ -667,6 +668,9 @@ void canvas_send_bang(_glist* c)
 
 void canvas_mark_dirty(_glist* c, bool value)
 {
+    if (!c)
+        return;
+
     canvas_dirty(c, value);
 }
 

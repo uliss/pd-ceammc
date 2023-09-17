@@ -183,16 +183,19 @@ void EditorObjectImpl::open(t_canvas* cnv, const EditorLineList& data, const Edi
     if (guiconnect_) {
         sys_vgui("ceammc::texteditor::show .x%lx\n", xowner());
     } else {
-        const auto z = glist_getzoom(cnv);
-        const auto ft = glist_getfont(cnv);
+        const auto root = canvas_root(cnv);
+        const auto z = canvas_info_zoom(root);
+        const auto ft = canvas_info_font(root);
         const auto fsz = sys_hostfontsize(ft, z);
-        const auto brect = canvas_info_rect(canvas_getrootfor(cnv));
+        const auto brect = canvas_info_rect(canvas_root(cnv));
 
         const auto w = std::min(800, sys_zoomfontwidth(ft, z, 0) * nchars);
         const auto h = std::min(600, sys_zoomfontheight(fsz, z, 0) * nlines);
 
         sys_vgui("ceammc::texteditor::open .x%lx %dx%d+%d+%d {%s} %d %d %s\n",
-            xowner(), w, h, brect.x + x, brect.y + y, title.c_str(), fsz, (int)lineNumbers, editorSyntaxStr(syntax));
+            xowner(), w, h, brect.x + x, brect.y + y,
+            title.c_str(), fsz, (int)lineNumbers,
+            editorSyntaxStr(syntax));
 
         sys_vgui("ceammc::texteditor::set_escape .x%lx %s\n", xowner(), escapeMode(esc_mode_));
 
@@ -238,7 +241,7 @@ void EditorObjectImpl::setSpecialSymbolEscape(EditorEscapeMode mode)
 
 void EditorObjectImpl::setDirty(t_canvas* c, bool value)
 {
-    canvas_dirty(c, value ? 1 : 0);
+    canvas_mark_dirty(c, value);
 }
 
 EditorStringPool::Pool& EditorStringPool::pool()
