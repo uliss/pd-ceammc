@@ -8,7 +8,7 @@
 # Use pkg-config to get hints about paths
 find_package(PkgConfig QUIET)
 if(PKG_CONFIG_FOUND)
-    pkg_check_modules(PKGCONFIG_LIBMAGIC libmagic)
+    pkg_check_modules(PKGCONFIG_LIBMAGIC QUIET libmagic)
 endif()
 
 find_path(LIBMAGIC_INCLUDE_DIR
@@ -37,6 +37,9 @@ find_package_handle_standard_args(LibMagic DEFAULT_MSG LIBMAGIC_INCLUDE_DIR LIBM
 if(LibMagic_FOUND)
     set(LIBMAGIC_LIBRARIES ${LIBMAGIC_LIBRARY})
     set(LIBMAGIC_INCLUDE_DIRS ${LIBMAGIC_INCLUDE_DIR})
+    message(STATUS "Found libmagic: ${LIBMAGIC_LIBRARY}")
+else()
+    message(STATUS "libmagic found")
 endif()
 
 mark_as_advanced(LIBMAGIC_LIBRARY LIBMAGIC_LIBRARIES LIBMAGIC_INCLUDE_DIR LIBMAGIC_INCLUDE_DIRS)
