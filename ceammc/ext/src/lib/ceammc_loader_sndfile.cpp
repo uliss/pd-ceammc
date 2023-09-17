@@ -205,11 +205,6 @@ namespace sound {
             return -1;
         }
 
-        constexpr sf_count_t FRAME_COUNT = 256;
-        const int n = channels();
-        const sf_count_t IN_BUF_SIZE = FRAME_COUNT * n;
-        float frame_buf[IN_BUF_SIZE];
-
         // move to beginning
         if (handle_.seek(offset, SEEK_SET) == -1) {
             error(fmt::format("[sndfile] can't seek to frame: {}", offset));
