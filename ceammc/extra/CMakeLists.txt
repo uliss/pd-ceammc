@@ -31,6 +31,10 @@ if(WITH_ARTNET)
     add_subdirectory(artnet)
 endif()
 
+if(WITH_WEBSOCKET)
+    add_subdirectory(websocket)
+endif()
+
 add_subdirectory(glitch)
 add_subdirectory(httplib)
 add_subdirectory(midifile)
@@ -47,10 +51,6 @@ add_subdirectory(stk)
 add_subdirectory(subprocess)
 add_subdirectory(tcltk)
 add_subdirectory(verovio)
-
-if(WITH_FAUST AND APPLE)
-    add_subdirectory(faust)
-endif()
 
 set(BUILD_SHARED_LIBS OFF CACHE BOOL "" FORCE)
 set(CMAKE_BUILD_TYPE Release)
@@ -135,33 +135,36 @@ if(WITH_SFIZZ)
     endif()
 endif()
 
-if(WITH_FAUST AND NOT APPLE)
-    cmake_minimum_required(VERSION 3.14)
+if(WITH_FAUST)
+    if(APPLE)
+        add_subdirectory(faust)
+    else()
+        cmake_minimum_required(VERSION 3.14)
 
-    include(FetchContent)
-    set(FETCHCONTENT_QUIET FALSE)
-    set(INCLUDE_STATIC      ON  CACHE INTERNAL "")
-    set(INCLUDE_EXECUTABLE  OFF CACHE INTERNAL "")
-    set(INCLUDE_DYNAMIC     OFF CACHE INTERNAL "")
-    set(INCLUDE_OSC         OFF CACHE INTERNAL "")
-    set(INCLUDE_HTTP        OFF CACHE INTERNAL "")
-    set(INCLUDE_EMCC        OFF CACHE INTERNAL "")
-    set(INCLUDE_WASM_GLUE   OFF CACHE INTERNAL "")
+        include(FetchContent)
+        set(FETCHCONTENT_QUIET FALSE)
+        set(INCLUDE_STATIC      ON  CACHE INTERNAL "")
+        set(INCLUDE_EXECUTABLE  OFF CACHE INTERNAL "")
+        set(INCLUDE_DYNAMIC     OFF CACHE INTERNAL "")
+        set(INCLUDE_OSC         OFF CACHE INTERNAL "")
+        set(INCLUDE_HTTP        OFF CACHE INTERNAL "")
+        set(INCLUDE_EMCC        OFF CACHE INTERNAL "")
+        set(INCLUDE_WASM_GLUE   OFF CACHE INTERNAL "")
+        set(INCLUDE_LLVM        OFF CACHE INTERNAL "")
 
-    ## Hardcoded backends for faust
-    set(ASMJS_BACKEND  OFF            CACHE INTERNAL "")
-    set(C_BACKEND      OFF            CACHE INTERNAL "")
-    set(CPP_BACKEND    OFF            CACHE INTERNAL "")
-    set(FIR_BACKEND    OFF            CACHE INTERNAL "")
-    set(INTERP_BACKEND OFF            CACHE INTERNAL "")
-    set(JAVA_BACKEND   OFF            CACHE INTERNAL "")
-    set(JS_BACKEND     OFF            CACHE INTERNAL "")
-    set(LLVM_BACKEND   STATIC DYNAMIC CACHE INTERNAL "")
-    set(OLDCPP_BACKEND OFF            CACHE INTERNAL "")
-    set(RUST_BACKEND   OFF            CACHE INTERNAL "")
-    set(WASM_BACKEND   OFF            CACHE INTERNAL "")
+        ## Hardcoded backends for faust
+        set(ASMJS_BACKEND  OFF            CACHE INTERNAL "")
+        set(C_BACKEND      OFF            CACHE INTERNAL "")
+        set(CPP_BACKEND    OFF            CACHE INTERNAL "")
+        set(FIR_BACKEND    OFF            CACHE INTERNAL "")
+        set(INTERP_BACKEND OFF            CACHE INTERNAL "")
+        set(JAVA_BACKEND   OFF            CACHE INTERNAL "")
+        set(JS_BACKEND     OFF            CACHE INTERNAL "")
+        set(LLVM_BACKEND   STATIC DYNAMIC CACHE INTERNAL "")
+        set(OLDCPP_BACKEND OFF            CACHE INTERNAL "")
+        set(RUST_BACKEND   OFF            CACHE INTERNAL "")
+        set(WASM_BACKEND   OFF            CACHE INTERNAL "")
 
-    if(WIN32 OR UNIX)
         find_package(Patch REQUIRED)
 
         FetchContent_Declare(
@@ -178,41 +181,6 @@ if(WITH_FAUST AND NOT APPLE)
             add_subdirectory(${faust_SOURCE_DIR}/build ${faust_BINARY_DIR} EXCLUDE_FROM_ALL)
             target_compile_options(staticlib PRIVATE -Wno-unused-variable -Wno-cast-function-type -Wno-attributes)
 
-            # ceammc binding
-            add_library(ceammc_faust STATIC ${PROJECT_SOURCE_DIR}/ceammc/extra/faust/ceammc_llvm.cpp)
-            target_compile_definitions(ceammc_faust PRIVATE ${LLVM_DEFINITIONS})
-            target_include_directories(ceammc_faust PRIVATE
-                ${CMAKE_CURRENT_SOURCE_DIR}/faust/architecture
-                ${faust_SOURCE_DIR}/architecture
-                ${PROJECT_SOURCE_DIR}/src)
-            target_link_libraries(ceammc_faust PRIVATE ${faust_SOURCE_DIR}/build/lib/libfaust.a)
-
-            if(COMMAND llvm_map_components_to_libnames)
-                set(llvm_libs)
-                if(APPLE)
-                    if(CMAKE_OSX_ARCHITECTURES STREQUAL "arm64")
-                        llvm_map_components_to_libnames(llvm_libs_arm64
-                            AArch64AsmParser AArch64Info AArch64Desc AArch64CodeGen)
-                        list(APPEND llvm_libs ${llvm_libs_arm64})
-                    else (CMAKE_OSX_ARCHITECTURES STREQUAL "x86_64")
-                        llvm_map_components_to_libnames(llvm_libs_x86
-                            x86asmparser x86info x86desc x86codegen)
-                        list(APPEND llvm_libs ${llvm_libs_x86})
-                    endif()
-                elseif(WIN32 OR UNIX)
-                    llvm_map_components_to_libnames(llvm_libs_x86
-                        x86asmparser x86info x86desc x86codegen)
-                    list(APPEND llvm_libs ${llvm_libs_x86})
-                endif()
-                llvm_map_components_to_libnames(llvm_libs_base
-                    support core irreader executionengine
-                    asmprinter mcjit ipo objcarcopts)
-                list(APPEND llvm_libs ${llvm_libs_base})
-
-                message(STATUS "llvm-libs: ${llvm_libs}")
-#                target_link_libraries(ceammc_faust PRIVATE ${llvm_libs})
-            endif()
-
             set(DOC_INSTALL_PATH "${PD_DOC_INSTALL_PATH}/extra/ceammc")
 
             install(DIRECTORY ${faust_SOURCE_DIR}/libraries/
@@ -220,6 +188,44 @@ if(WITH_FAUST AND NOT APPLE)
                 FILES_MATCHING PATTERN "*.lib"
                 PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 
+             message(STATUS "############## ${LLVM_LIB_DIR} ############")
+
+        endif()
+
+        # ceammc binding
+        add_library(ceammc_faust STATIC ${PROJECT_SOURCE_DIR}/ceammc/extra/faust/ceammc_llvm.cpp)
+        target_compile_definitions(ceammc_faust PRIVATE ${LLVM_DEFINITIONS})
+        target_include_directories(ceammc_faust PRIVATE
+            ${CMAKE_CURRENT_SOURCE_DIR}/faust/architecture
+            ${faust_SOURCE_DIR}/architecture
+            ${PROJECT_SOURCE_DIR}/src)
+        target_link_libraries(ceammc_faust PUBLIC staticlib)
+        target_link_directories(ceammc_faust PUBLIC ${LLVM_LIB_DIR})
+
+
+
+        if(COMMAND llvm_map_components_to_libnames)
+            set(llvm_libs)
+            llvm_map_components_to_libnames(llvm_libs_base
+                support core irreader executionengine
+                asmprinter mcjit ipo objcarcopts)
+    #        target_link_libraries(ceammc_faust PUBLIC ${llvm_libs_base})
+            if(APPLE)
+                if(CMAKE_OSX_ARCHITECTURES STREQUAL "arm64")
+                    llvm_map_components_to_libnames(llvm_libs_arm64
+                        AArch64AsmParser AArch64Info AArch64Desc AArch64CodeGen)
+    #                target_link_libraries(ceammc_faust PUBLIC ${llvm_libs_arm64})
+                    message(STATUS "llvm-libs: ${llvm_libs_base} ${llvm_libs_arm64}")
+                else (CMAKE_OSX_ARCHITECTURES STREQUAL "x86_64")
+                    llvm_map_components_to_libnames(llvm_libs_x86
+                        x86asmparser x86info x86desc x86codegen)
+                    target_link_libraries(ceammc_faust PRIVATE ${llvm_libs_x86})
+                endif()
+            elseif(WIN32 OR UNIX)
+                llvm_map_components_to_libnames(llvm_libs_x86
+                    x86asmparser x86info x86desc x86codegen)
+                list(APPEND llvm_libs ${llvm_libs_x86})
+            endif()
         endif()
     endif()
 endif()
