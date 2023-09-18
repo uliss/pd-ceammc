@@ -31,10 +31,6 @@ if(WITH_ARTNET)
     add_subdirectory(artnet)
 endif()
 
-if(WITH_WEBSOCKET)
-    add_subdirectory(websocket)
-endif()
-
 add_subdirectory(glitch)
 add_subdirectory(httplib)
 add_subdirectory(midifile)
