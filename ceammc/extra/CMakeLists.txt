@@ -119,6 +119,7 @@ if(WITH_SFIZZ)
         sfizz
         URL      https://github.com/sfztools/sfizz/releases/download/1.2.0/sfizz-1.2.0.tar.gz
         URL_HASH MD5=13725a41a811dc81c973f303eaaea86b
+        DOWNLOAD_EXTRACT_TIMESTAMP ON
     )
     FetchContent_GetProperties(sfizz)
     if(NOT sfizz_POPULATED)
@@ -169,6 +170,7 @@ if(WITH_FAUST)
             URL_HASH MD5=d0c436cebafbce0b5affc082bc2f8297
             PATCH_COMMAND ${Patch_EXECUTABLE} -i "${CMAKE_CURRENT_SOURCE_DIR}/faust/cstdint.patch" -l -N -u --verbose ${PROJECT_BINARY_DIR}/_deps/faust-src/compiler/generator/Text.hh
             UPDATE_DISCONNECTED 1
+            DOWNLOAD_EXTRACT_TIMESTAMP ON
         )
         FetchContent_GetProperties(faust)
         if(NOT faust_POPULATED)
