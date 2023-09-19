@@ -47,10 +47,10 @@
   - rhythm.lsystem - L-system pattern generator
   - route.cycle - advanced cyclic message router
   - split~ - multichannel signal splitter
-  - synth.metro~ - metronome synth with complex pattern support 
+  - synth.metro~ - metronome synth with complex pattern support
 - new object inlets:
   - dyn.gate~, dyn.gate2~ - second inlet added for setting threshold
-  - flt.bpf12~: second and third inlet added for setting freq and q-factor 
+  - flt.bpf12~: second and third inlet added for setting freq and q-factor
   - flt.bpf24~: second and third inlet added for setting freq and q-factor  
   - fx.drone_box~ - second inlet added for setting resonance frequency
   - fx.echo~ - second inlet added for setting delay time
@@ -98,7 +98,7 @@
   - sort(...) - sort list in ascending order
   - zeros(N) - list of length N, filled with 0
 - new method arguments:
-  - PHASE argument (3rd) added to \[saw( method in array.fill 
+  - PHASE argument (3rd) added to \[saw( method in array.fill
 - new aliases:
   - hoa.2d.process~ alias added to hoa.process~
   - hoa.2d.scope~ alias added to hoa.scope~
@@ -253,6 +253,7 @@
 ### Fixed:
 - system.cursor no normalization in subpatch
 - conv.dbfs2amp~: signal version fix
+- msg.onload: comma sperated message fixed
 
 ### Changes:
 - @i property of seq.counter made writable

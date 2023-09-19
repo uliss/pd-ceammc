@@ -86,8 +86,7 @@ void ArrayLtcPlayTilde::processBlock(const t_sample** in, t_sample** out)
             if (fpsAutoDetect()) {
                 if (tc.frame == 0) {
                     if (prev_frame_ == 24 || prev_frame_ == 25 || prev_frame_ == 30) {
-                        if (frame_rate_ != prev_frame_)
-                            frame_rate_ = prev_frame_;
+                        frame_rate_ = prev_frame_;
                     }
                 }
 

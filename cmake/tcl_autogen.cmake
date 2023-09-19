@@ -22,7 +22,7 @@ function(tcl_autogen_header)
             message(STATUS "tcl header '${TCL_HEADER}' added to target: '${_TCL_AUTOGEN_TARGET}'")
         endif()
     endif()
-    if (DEFINED _TCL_AUTOGEN_SOURCES)
+    if (DEFINED _TCL_AUTOGEN_SOURCES AND CMAKE_VERSION VERSION_GREATER_EQUAL "3.20")
         target_sources(${_TCL_AUTOGEN_SOURCES} PRIVATE ${tcl_file})
 
         if (${_TCL_AUTOGEN_VERBOSE})

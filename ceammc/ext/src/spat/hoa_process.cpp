@@ -50,36 +50,38 @@ HoaProcess::HoaProcess(const PdArgs& args)
 
 void HoaProcess::initDone()
 {
-    try {
-        if (patch_->value() == &s_)
-            throw std::invalid_argument("@patch property required");
+#define LOG_ERR(msg)         \
+    do {                     \
+        if (!args().empty()) \
+            OBJ_ERR << msg;  \
+        else                 \
+            OBJ_LOG << msg;  \
+        return;              \
+    } while (0)
 
-        if (num_->value() < 1) {
-            if (domain_->value() == gensym(HOA_STR_HARMONICS))
-                throw std::invalid_argument("order required");
-            else
-                throw std::invalid_argument("number of planewaves required");
-        }
+    if (patch_->value() == &s_)
+        LOG_ERR("@patch property required");
 
-        if (domain_->value() == gensym(HOA_STR_HARMONICS)) {
-            if (!loadHarmonics(patch_->value(), args_->value().view())) {
-                throw std::runtime_error(fmt::format("can't load the patch {0}.pd", patch_->value()->s_name));
-            }
-        } else {
-            if (!loadPlaneWaves(patch_->value(), args_->value().view())) {
-                throw std::runtime_error(fmt::format("can't load the patch {0}.pd", patch_->value()->s_name));
-            }
-        }
-
-        allocSignals();
-        allocInlets();
-        allocOutlets();
-    } catch (const std::exception& e) {
-        if (!args().empty())
-            OBJ_ERR << e.what();
+    if (num_->value() < 1) {
+        if (domain_->value() == gensym(HOA_STR_HARMONICS))
+            LOG_ERR("order required");
         else
-            OBJ_LOG << e.what(); // object without args - used in help
+            LOG_ERR("number of planewaves required");
     }
+
+    if (domain_->value() == gensym(HOA_STR_HARMONICS)) {
+        if (!loadHarmonics(patch_->value(), args_->value().view())) {
+            LOG_ERR(fmt::format("can't load the patch {0}.pd", patch_->value()->s_name));
+        }
+    } else {
+        if (!loadPlaneWaves(patch_->value(), args_->value().view())) {
+            LOG_ERR(fmt::format("can't load the patch {0}.pd", patch_->value()->s_name));
+        }
+    }
+
+    allocSignals();
+    allocInlets();
+    allocOutlets();
 
     // call loadbang in 5 ticks
     clock_.delay(5);

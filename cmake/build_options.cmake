@@ -22,6 +22,7 @@ option(WITH_SFIZZ      "Build with Sfizz support" ON)
 option(WITH_TTS_FLITE    "Build with Flite TTS support" ON)
 option(WITH_TTS_RHVOICE  "Build with RHVoice TTS support" OFF)
 option(WITH_VEROVIO  "Build with Verovio music notation render" ON)
+option(WITH_WEBSOCKET  "Build with websocket client support" ON)
 
 if(UNIX)
     option(WITH_ASAN "Build with address sanitizer" OFF)

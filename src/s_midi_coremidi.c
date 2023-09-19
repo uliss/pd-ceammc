@@ -703,7 +703,7 @@ Boolean coremidi_create_client()
 
 Boolean coremidi_create_virtual_source()
 {
-#if defined(MAC_OS_VERSION_11_0) && (MAC_OS_X_VERSION_MAX_ALLOWED >= MAC_OS_VERSION_11_0)
+#if defined(MAC_OS_VERSION_11_0) && (MAC_OS_X_VERSION_MIN_REQUIRED >= MAC_OS_VERSION_11_0)
     OSStatus err = MIDISourceCreateWithProtocol(coremidi_client, CFSTR("from PureData"), kMIDIProtocol_1_0, &virtual_src_output);
 #else
     OSStatus err = MIDISourceCreate(coremidi_client, CFSTR("from PureData"), &virtual_src_output);

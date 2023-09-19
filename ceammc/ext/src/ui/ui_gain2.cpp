@@ -81,7 +81,7 @@ void UIGain2::setup()
     obj.addBoolProperty("relative", _("Relative mode"), true, &UIGain2::prop_relative_mode, _("Main"));
 
     obj.addProperty("midi_channel", _("MIDI channel"), 0, &UIGain2::prop_midi_chn, "MIDI");
-    obj.setPropertyRange("midi_channel", 0, 16);
+    obj.setPropertyRange("midi_channel", 0, 255);
     obj.addProperty("midi_control", _("MIDI control"), -1, &UIGain2::prop_midi_ctl, "MIDI");
     obj.setPropertyRange("midi_control", -1, 127);
     obj.addProperty("midi_pickup", _("MIDI pickup"), true, &UIGain2::prop_pickup_midi, "MIDI");

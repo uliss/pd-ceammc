@@ -828,9 +828,7 @@ std::ostream& operator<<(std::ostream& os, const Atom& a)
         } else {
             os << "NULL data pointer";
         }
-    } else if (a.isNone())
-        os << "NONE";
-    else if (a.isComma())
+    } else if (a.isComma())
         os << "[A_COMMA]";
     else if (a.isSemicolon())
         os << "[A_SEMI]";
@@ -840,6 +838,8 @@ std::ostream& operator<<(std::ostream& os, const Atom& a)
         os << "[$" << a.dollarIndex() << "]";
     else if (a.isDollarSym())
         os << "[" << a.asT<t_symbol*>()->s_name << "]";
+    else if (a.isNone())
+        os << "[NONE]";
     else
         os << "???";
 
