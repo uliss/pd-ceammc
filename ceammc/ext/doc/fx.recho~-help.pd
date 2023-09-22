@@ -18,7 +18,7 @@
 #X text 110 351 1\.;
 #X text 150 351 float;
 #X obj 246 352 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 351 DELAY(ms): echo time. Type: float. Range: 0\...2000;
+#X text 245 351 DELAY(ms): echo time. Type: float. Range: 0\...4000;
 #X text 110 371 2\.;
 #X text 150 371 float;
 #X obj 246 372 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -42,7 +42,7 @@ symbol.;
 Type: bool. Default value: 0\.;
 #X msg 110 598 @delay;
 #X text 245 598 Get/Set echo time. Type: float. Units: 'ms'. Default
-value: 500\. Range: 0\...2000\.;
+value: 500\. Range: 0\...4000\.;
 #X msg 110 640 @drywet;
 #X text 245 640 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.

@@ -118,6 +118,7 @@
 - proto.midi - second outlet added, it outputs parsed messages
 - ui.faust~ and lang.faust~ now save their source code inside the patch
 - @fname property renamed to @load in ui.faust~ and lang.faust~ and made initonly
+- fx.recho~ max delay time increased to 4000ms
 
 ### Fixed:
 - proto.midi.cc - sound_off, notes_off crash fixes
