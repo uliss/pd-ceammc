@@ -222,19 +222,10 @@ namespace faust {
 
     void FaustExternalBase::processInactive(const t_sample** in, t_sample** out)
     {
-        const size_t N_IN = numInputChannels();
         const size_t N_OUT = numOutputChannels();
         const size_t BS = blockSize();
 
-        if (N_IN == N_OUT) {
-            // in non-active state - just pass thru samples
-            copy_samples(N_IN, BS, in, faust_buf_.data(), false);
-            copy_samples(N_OUT, BS, const_cast<const t_sample**>(faust_buf_.data()), out, false);
-        } else {
-            // if state is non-active and different inputs and outputs count
-            // fill outs with zero
-            zero_samples(N_OUT, BS, out);
-        }
+        zero_samples(N_OUT, BS, out);
     }
 
     void FaustExternalBase::processXfade(const t_sample** in, t_sample** out)

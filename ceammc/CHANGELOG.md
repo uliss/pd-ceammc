@@ -119,6 +119,8 @@
 - ui.faust~ and lang.faust~ now save their source code inside the patch
 - @fname property renamed to @load in ui.faust~ and lang.faust~ and made initonly
 - fx.recho~ max delay time increased to 4000ms
+- in all faust plugin when @active is 0, object output zero signal 
+    (previous behaivor was more complicated: when NINS != NOUTS filled with zeros, otherwise passed thru)
 
 ### Fixed:
 - proto.midi.cc - sound_off, notes_off crash fixes
