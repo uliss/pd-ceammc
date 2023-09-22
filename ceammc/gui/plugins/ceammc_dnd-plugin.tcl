@@ -105,8 +105,14 @@ proc ::dnd_object_create::dropped_object_files {mytoplevel files} {
                 ::pdwindow::debug "dropping $dropobj on $::focused_window\n"
                 ::dnd_object_create::make_object $mytoplevel $dropobj
             }
-
-           # 2018 Modification
+        } elseif {$ext == ".wav"} {
+            set patchname_bsl [::dnd_object_create::correct_spaces $file]
+            ::pdwindow::debug "dropping $patchname_bsl on $::focused_window\n"
+            variable x
+            variable y
+            set posx [expr $x - [winfo rootx $mytoplevel]]
+            set posy [expr $y - [winfo rooty $mytoplevel]]
+            pdsend "$mytoplevel msg $posx $posy $patchname_bsl"
         } else {
             ::dnd_object_create::send_filename $mytoplevel $file $ext $dir $obj
         }
