@@ -26,17 +26,23 @@ constexpr const char* SYM_FIXED = "fixed";
 
 TlTimeLine::TlTimeLine(const PdArgs& args)
     : BaseObject(args)
-    , tl_(this, parsedPosArgs().floatAt(0, 60) * 1000)
+    , tl_(this, 0)
     , cmd_parser_(this)
 {
     createOutlet();
 
+    length_ = new FloatProperty("@length", 60);
+    length_->setInitOnly();
+    length_->setUnitsSec();
+    length_->checkMin(0);
+    length_->setArgIndex(0);
+    length_->setSuccessFn([this](Property*) {
+        tl_.setLength(length_->value() * 1000);
+    });
+    addProperty(length_);
+
     createCbBoolProperty("@is_running",
         [this]() -> bool { return tl_.state() == tl::STATE_RUN; });
-
-    createCbFloatProperty("@length",
-        [this]() -> t_float { return tl_.length() / 1000; })
-        ->setUnitsSec();
 
     createCbFloatProperty("@phase",
         [this]() -> t_float { return (tl_.length() == 0) ? 0 : (tl_.currentTime() / tl_.length()); })
@@ -48,6 +54,10 @@ TlTimeLine::TlTimeLine(const PdArgs& args)
     createCbFloatProperty("@current",
         [this]() -> t_float { return tl_.currentTime(); })
         ->setUnitsMs();
+
+    createCbFloatProperty("@current_sec",
+        [this]() -> t_float { return std::round(tl_.currentTime() * 0.001); })
+        ->setUnitsSec();
 
     createCbProperty("@events", &TlTimeLine::propEvents);
 
@@ -82,6 +92,11 @@ TlTimeLine::TlTimeLine(const PdArgs& args)
     res->infoT().setConstraints(PropValueConstraints::ENUM);
     if (!res->infoT().addEnums({ SYM_INF, SYM_FIXED }))
         OBJ_ERR << "can't set enums";
+}
+
+void TlTimeLine::initDone()
+{
+    length_->callSuccessFn();
 }
 
 void TlTimeLine::dump() const

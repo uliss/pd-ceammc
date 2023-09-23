@@ -23,9 +23,11 @@ using namespace ceammc;
 class TlTimeLine : public BaseObject, tl::TlIFace {
     tl::TimeLineSingle<TlTimeLine> tl_;
     tl::TlCmdDriver cmd_parser_;
+    FloatProperty* length_ { nullptr };
 
 public:
     TlTimeLine(const PdArgs& args);
+    void initDone() final;
 
     void dump() const override;
 
