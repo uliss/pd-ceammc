@@ -94,7 +94,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs pair: event index and event name</outlet>
+            <outlet>list: event index, event name, current event time</outlet>
         </outlets>
         <example>
             <pdascii>

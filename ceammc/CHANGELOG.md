@@ -121,6 +121,7 @@
 - fx.recho~ max delay time increased to 4000ms
 - in all faust plugin when @active is 0, object output zero signal 
     (previous behaivor was more complicated: when NINS != NOUTS filled with zeros, otherwise passed thru)
+- tl.timeline: output list changed and fix error in doc, now outputs EVENT_IDX, EVENT_NAME, EVENT_TIME
 
 ### Fixed:
 - proto.midi.cc - sound_off, notes_off crash fixes
