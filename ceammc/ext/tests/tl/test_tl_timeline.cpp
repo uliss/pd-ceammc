@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "tl_timeline.h"
 #include "test_external.h"
+#include "tl_timeline.h"
 
 PD_COMPLETE_TEST_SETUP(TlTimeLine, tl, timeline)
 
@@ -61,7 +61,7 @@ TEST_CASE("tl.timeline", "[externals]")
         t.call("start");
         REQUIRE(t->state() == tl::STATE_RUN);
         REQUIRE(t.hasOutput());
-        REQUIRE(t.outputListAt(0) == LAX("begin", 0.f));
+        REQUIRE(t.outputListAt(0) == LAX(0.f, "begin", 0.f));
         REQUIRE_PROPERTY(t, @is_running, 1);
 
         // save start time
@@ -72,7 +72,7 @@ TEST_CASE("tl.timeline", "[externals]")
         t.schedTicks(2);
         REQUIRE(clock_gettimesince(start_tm) == Approx(101_ticks));
         REQUIRE(t.hasOutput());
-        REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LAX(1, "end", 100_ticks));
         REQUIRE_PROPERTY(t, @is_running, 0.f);
 
         NO_OUTPUT_NTICKS(t, 200);
@@ -92,7 +92,7 @@ TEST_CASE("tl.timeline", "[externals]")
         // INIT -> START
         t.call("start");
         REQUIRE(t.hasOutput());
-        REQUIRE(t.outputListAt(0) == LAX("begin", 0.f));
+        REQUIRE(t.outputListAt(0) == LAX(0., "begin", 0.f));
         REQUIRE_PROPERTY(t, @is_running, 1);
         REQUIRE(t->state() == tl::STATE_RUN);
 
@@ -107,13 +107,13 @@ TEST_CASE("tl.timeline", "[externals]")
 
         // STOP -> START
         t.call("start");
-        REQUIRE(t.outputListAt(0) == LAX("begin", 0.f));
+        REQUIRE(t.outputListAt(0) == LAX(0., "begin", 0.f));
         REQUIRE_PROPERTY(t, @is_running, 1);
         NO_OUTPUT_NTICKS(t, 99);
         REQUIRE_PROPERTY_FLOAT(t, @current, Approx(99_ticks));
         t.schedTicks(2);
         REQUIRE(t.hasOutput());
-        REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LAX(1, "end", 100_ticks));
         REQUIRE_PROPERTY_FLOAT(t, @current, Approx(0_ticks));
         REQUIRE_PROPERTY(t, @is_running, 0.f);
 
@@ -157,7 +157,7 @@ TEST_CASE("tl.timeline", "[externals]")
 
         t.call("start");
         REQUIRE(t.hasOutput());
-        REQUIRE(t.outputListAt(0) == LAX("begin", 0.f));
+        REQUIRE(t.outputListAt(0) == LAX(0., "begin", 0.f));
         REQUIRE_PROPERTY(t, @is_running, 1);
         REQUIRE_PROPERTY(t, @current, 0.f);
 
@@ -165,22 +165,22 @@ TEST_CASE("tl.timeline", "[externals]")
         REQUIRE_PROPERTY_FLOAT(t, @current, Approx(59_ticks));
         // event at 60
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LX(0, 60_ticks));
+        REQUIRE(t.outputListAt(0) == LAX(1, "event1", 60_ticks));
         NO_OUTPUT_NTICKS(t, 8);
         REQUIRE_PROPERTY_FLOAT(t, @current, Approx(69_ticks));
         // event at 70
         t.schedTicks(2);
         REQUIRE_PROPERTY_FLOAT(t, @current, Approx(71_ticks));
-        REQUIRE(t.outputListAt(0) == LX(1, 70_ticks));
+        REQUIRE(t.outputListAt(0) == LAX(2, "event2", 70_ticks));
         NO_OUTPUT_NTICKS(t, 28);
         // end event
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LAX(3, "end", 100_ticks));
         REQUIRE_PROPERTY_FLOAT(t, @is_running, 0);
 
         // try to start again
         t.call("start");
-        REQUIRE(t.outputListAt(0) == LAX("begin", 0.f));
+        REQUIRE(t.outputListAt(0) == LAX(0., "begin", 0.f));
         REQUIRE_PROPERTY_FLOAT(t, @is_running, 1);
     }
 
@@ -188,8 +188,6 @@ TEST_CASE("tl.timeline", "[externals]")
     {
         setTestSampleRate(44100);
         test::pdPrintToStdError();
-
-        auto start_tm = clock_getlogicaltime();
 
         t_float tm = 100_ticks / 1000.0;
         TExt t("tl.timeline", tm);
@@ -202,7 +200,7 @@ TEST_CASE("tl.timeline", "[externals]")
 
         // init -> start
         t.call("start");
-        REQUIRE(t.outputListAt(0) == LA("begin", 0.f));
+        REQUIRE(t.outputListAt(0) == LA(0., "begin", 0.f));
         t.call("start");
         REQUIRE(!t.hasOutput());
 
@@ -233,7 +231,7 @@ TEST_CASE("tl.timeline", "[externals]")
 
         // stop -> start
         t.call("start");
-        REQUIRE(t.outputListAt(0) == LAX("begin", 0.f));
+        REQUIRE(t.outputListAt(0) == LAX(0., "begin", 0.f));
         NO_OUTPUT_NTICKS(t, 10);
         REQUIRE_PROPERTY_FLOAT(t, @current, Approx(10_ticks));
 
@@ -269,14 +267,14 @@ TEST_CASE("tl.timeline", "[externals]")
 
         // first event at 30'
         t.schedTicks(1);
-        REQUIRE(t.outputListAt(0) == LX(0, 30_ticks));
+        REQUIRE(t.outputListAt(0) == LAX(1, "event1", 30_ticks));
         REQUIRE_PROPERTY_FLOAT(t, @current, Approx(30_ticks));
 
         NO_OUTPUT_NTICKS(t, 69);
         // last event
         // run -> stop
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LAX("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LAX(2, "end", 100_ticks));
         REQUIRE_PROPERTY_FLOAT(t, @current, Approx(0_ticks));
     }
 
@@ -284,8 +282,6 @@ TEST_CASE("tl.timeline", "[externals]")
     {
         setTestSampleRate(44100);
         test::pdPrintToStdError();
-
-        auto start_tm = clock_getlogicaltime();
 
         t_float tm = 100_ticks / 1000.0;
         TExt t("tl.timeline", tm);
@@ -331,7 +327,7 @@ TEST_CASE("tl.timeline", "[externals]")
         REQUIRE_PROPERTY_FLOAT(t, @current, Approx(20_ticks));
         NO_OUTPUT_NTICKS(t, 59);
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LX(0, 80_ticks));
+        REQUIRE(t.outputListAt(0) == LAX(1, "event1", 80_ticks));
 
         NO_OUTPUT_NTICKS(t, 10);
         t.call("pause");
@@ -353,12 +349,12 @@ TEST_CASE("tl.timeline", "[externals]")
         REQUIRE(t->state() == tl::STATE_RUN);
         REQUIRE_PROPERTY_FLOAT(t, @current, Approx(79_ticks));
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LX(0, 80_ticks));
+        REQUIRE(t.outputListAt(0) == LAX(1, "event1", 80_ticks));
 
         NO_OUTPUT_NTICKS(t, 18);
         REQUIRE_PROPERTY_FLOAT(t, @current, Approx(99_ticks));
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LA("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LAX(2, "end", 100_ticks));
 
         // stop -> goto
         t.call("add", LA(20_ticks, "ms"));
@@ -373,7 +369,7 @@ TEST_CASE("tl.timeline", "[externals]")
         // 40 -> 80 -> 100
         NO_OUTPUT_NTICKS(t, 39);
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LX(1, 80_ticks));
+        REQUIRE(t.outputListAt(0) == LAX(2, "event1", 80_ticks));
     }
 
     SECTION("stop->run")
@@ -385,12 +381,12 @@ TEST_CASE("tl.timeline", "[externals]")
         t.call("add", LA(30_ticks, "ms"));
 
         t.call("start");
-        REQUIRE(t.outputListAt(0) == LA("begin", 0.f));
+        REQUIRE(t.outputListAt(0) == LA(0., "begin", 0.f));
 
         // nothing
         NO_OUTPUT_NTICKS(t, 29);
         t.schedTicks(1);
-        REQUIRE(t.outputListAt(0) == LX(0, 30_ticks));
+        REQUIRE(t.outputListAt(0) == LAX(1, "event1", 30_ticks));
     }
 
     SECTION("to event")
@@ -425,7 +421,7 @@ TEST_CASE("tl.timeline", "[externals]")
         REQUIRE_PROPERTY_FLOAT(t, @current, 30_ticks);
         REQUIRE(!t.hasOutput());
         t.call("start");
-        REQUIRE(t.outputListAt(0) == LX(0, 30_ticks));
+        REQUIRE(t.outputListAt(0) == LAX(1, "", 30_ticks));
         t.call("stop");
 
         t.call("to_event", 3);
@@ -437,9 +433,9 @@ TEST_CASE("tl.timeline", "[externals]")
         REQUIRE(!t.hasOutput());
 
         t.call("start");
-        REQUIRE(t.outputListAt(0) == LA("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LA(4, "end", 100_ticks));
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LA("end", 100_ticks));
+        REQUIRE(t.outputListAt(0) == LA(4, "end", 100_ticks));
     }
 
     SECTION("@loop empty")
@@ -450,14 +446,14 @@ TEST_CASE("tl.timeline", "[externals]")
         TExt t("tl.timeline", LA(tm, "@loop", 1));
 
         t.call("start");
-        REQUIRE(t.outputListAt(0) == LA("begin", 0.f));
+        REQUIRE(t.outputListAt(0) == LA(0., "begin", 0.f));
         NO_OUTPUT_NTICKS(t, 1);
 
         for (int i = 0; i < 10; i++) {
             REQUIRE_PROPERTY_FLOAT(t, @current, 1);
             NO_OUTPUT_NTICKS(t, 8);
             t.schedTicks(2);
-            REQUIRE(t.outputListAt(0) == LAX("end", 10));
+            REQUIRE(t.outputListAt(0) == LAX(1, "end", 10));
         }
     }
 
@@ -470,7 +466,7 @@ TEST_CASE("tl.timeline", "[externals]")
 
         t.call("add", LA(10, "ms"));
         t.call("start");
-        REQUIRE(t.outputListAt(0) == LAX("begin", 0.f));
+        REQUIRE(t.outputListAt(0) == LAX(0., "begin", 0.f));
         NO_OUTPUT_NTICKS(t, 1);
 
         for (int i = 0; i < 10; i++) {
@@ -478,10 +474,10 @@ TEST_CASE("tl.timeline", "[externals]")
             t.schedTicks(2);
             REQUIRE_PROPERTY_FLOAT(t, @current, 11);
 
-            REQUIRE(t.outputListAt(0) == LX(0, 10));
+            REQUIRE(t.outputListAt(0) == LAX(1, "event1", 10));
             NO_OUTPUT_NTICKS(t, 8);
             t.schedTicks(2);
-            REQUIRE(t.outputListAt(0) == LAX("end", 20));
+            REQUIRE(t.outputListAt(0) == LAX(2, "end", 20));
         }
     }
 
@@ -494,7 +490,7 @@ TEST_CASE("tl.timeline", "[externals]")
         REQUIRE_PROPERTY(t, @mode, "inf");
 
         t.call("start");
-        REQUIRE(t.outputListAt(0) == LA("begin", 0.f));
+        REQUIRE(t.outputListAt(0) == LA(0., "begin", 0.f));
 
         NO_OUTPUT_NTICKS(t, 101);
         REQUIRE_PROPERTY_FLOAT(t, @current, 101);
@@ -503,7 +499,7 @@ TEST_CASE("tl.timeline", "[externals]")
         NO_OUTPUT_NTICKS(t, 98);
         REQUIRE_PROPERTY_FLOAT(t, @current, 199);
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LX(0, 200));
+        REQUIRE(t.outputListAt(0) == LAX(1, "event1", 200));
 
         NO_OUTPUT_NTICKS(t, 99);
         REQUIRE_PROPERTY_FLOAT(t, @current, 300);
@@ -512,7 +508,7 @@ TEST_CASE("tl.timeline", "[externals]")
         t.call("add", LA(350_ticks, "ms"));
         NO_OUTPUT_NTICKS(t, 39);
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LX(1, 350));
+        REQUIRE(t.outputListAt(0) == LAX(2, "event2", 350));
         NO_OUTPUT_NTICKS(t, 9);
 
         t.call("add", LA(400_ticks, "ms"));
@@ -522,7 +518,7 @@ TEST_CASE("tl.timeline", "[externals]")
         t.call("add", LA(150_ticks, "ms"));
         REQUIRE_PROPERTY_FLOAT(t, @current, 399);
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LX(4, 400));
+        REQUIRE(t.outputListAt(0) == LAX(5, "event3", 400));
     }
 
     SECTION("clear")
@@ -543,26 +539,26 @@ TEST_CASE("tl.timeline", "[externals]")
         NO_OUTPUT_NTICKS(t, 79);
         REQUIRE_PROPERTY_FLOAT(t, @current, 99);
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LAX("end", 100));
+        REQUIRE(t.outputListAt(0) == LAX(1, "end", 100));
 
         // next loop iteration
         NO_OUTPUT_NTICKS(t, 49);
         t.call("add", LA(80, "ms"));
         NO_OUTPUT_NTICKS(t, 29);
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LX(0, 80));
+        REQUIRE(t.outputListAt(0) == LAX(1, "event1", 80));
         NO_OUTPUT_NTICKS(t, 9);
 
         // clear after event
         t.call("clear");
         NO_OUTPUT_NTICKS(t, 9);
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LAX("end", 100));
+        REQUIRE(t.outputListAt(0) == LAX(1, "end", 100));
 
         // empty loop
         NO_OUTPUT_NTICKS(t, 98);
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LAX("end", 100));
+        REQUIRE(t.outputListAt(0) == LAX(1, "end", 100));
     }
 
     SECTION("add named")
@@ -596,7 +592,7 @@ TEST_CASE("tl.timeline", "[externals]")
         t.call("start");
         NO_OUTPUT_NTICKS(t, 29);
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LX(0, 30));
+        REQUIRE(t.outputListAt(0) == LAX(1, "event1", 30));
 
         t.call("remove");
         t.call("remove", 100);
@@ -607,7 +603,7 @@ TEST_CASE("tl.timeline", "[externals]")
         REQUIRE_PROPERTY_FLOAT(t, @size, 1);
         NO_OUTPUT_NTICKS(t, 68);
         t.schedTicks(3);
-        REQUIRE(t.outputListAt(0) == LAX("end", 100));
+        REQUIRE(t.outputListAt(0) == LAX(1, "end", 100));
 
         t.call("add", LA(30, "ms"));
         t.call("add", LA(90, "ms"));
@@ -618,7 +614,7 @@ TEST_CASE("tl.timeline", "[externals]")
         NO_OUTPUT_NTICKS(t, 38);
         REQUIRE_PROPERTY_FLOAT(t, @current, 99);
         t.schedTicks(2);
-        REQUIRE(t.outputListAt(0) == LAX("end", 100));
+        REQUIRE(t.outputListAt(0) == LAX(2, "end", 100));
 
         REQUIRE_PROPERTY_LIST(t, @events, LA("event1", "end"));
         t.call("remove", LA("end"));

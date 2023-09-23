@@ -102,19 +102,19 @@ void TlTimeLine::onFloat(t_float v)
 
 void TlTimeLine::event(size_t n, const tl::Event& e)
 {
-    AtomArray<2> lst { n, e.abs_time };
+    AtomArray<3> lst { n + 1, e.name, e.abs_time };
     listTo(0, lst.view());
 }
 
 void TlTimeLine::eventStart()
 {
-    AtomArray<2> lst { gensym(SYM_START), 0.f };
+    AtomArray<3> lst { 0., gensym(SYM_START), 0.f };
     listTo(0, lst.view());
 }
 
 void TlTimeLine::eventEnd()
 {
-    AtomArray<2> lst { gensym(SYM_END), tl_.length() };
+    AtomArray<3> lst { tl_.events().size(), gensym(SYM_END), tl_.length() };
     listTo(0, lst.view());
 }
 
