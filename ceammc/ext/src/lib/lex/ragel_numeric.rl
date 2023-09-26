@@ -91,6 +91,7 @@
     # actions
     num_bin   = (num_bpre (num_b $num_bin_digit)) %num_bin_done;
     num_int   = ((num_sign @num_sign_done)? num_i $num_int_digit) %num_int_done;
+    num_uint  = (num_i $num_int_digit) %num_int_done;
     num_hex   = (num_xpre (num_x $num_hex_digit)) %num_hex_done;
 
     num_ratio = ((num_sign @num_sign_done)?

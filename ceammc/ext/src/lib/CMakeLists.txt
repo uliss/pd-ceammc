@@ -206,6 +206,9 @@ if(RAGEL_FOUND)
     RAGEL_TARGET(ragel_music
         lex/ragel_music.rl lex/ragel_music.cpp
         COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_timeline
+        lex/parser_timeline.rl lex/parser_timeline.cpp
+        COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(ceammc_editor_unescape
         ceammc_editor_unescape.rl ceammc_editor_unescape.cpp
         COMPILE_FLAGS "-G2 -s")
@@ -237,6 +240,7 @@ target_sources(ceammc_core
         lex/parser_props.cpp
         lex/parser_props_details.cpp
         lex/parser_strings.cpp
+        lex/parser_timeline.cpp
         lex/parser_units.cpp
         lex/ragel_music.cpp
 )

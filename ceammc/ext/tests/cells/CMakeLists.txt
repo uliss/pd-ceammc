@@ -60,6 +60,7 @@ add_cell_test(parser_midi)
 add_cell_test(parser_music)
 add_cell_test(parser_numeric)
 add_cell_test(parser_score)
+add_cell_test(parser_timeline)
 add_cell_test(parser_units)
 
 add_cell_test(properties)
