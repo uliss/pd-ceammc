@@ -25,8 +25,6 @@ TEST_CASE("parser_timeline", "[ceammc::ceammc_units]")
 
     SECTION("duration")
     {
-        REQUIRE(parse_timelime("duration inf", tl));
-        REQUIRE(tl.duration == std::numeric_limits<t_float>::max());
         REQUIRE(parse_timelime("duration *", tl));
         REQUIRE(tl.duration == std::numeric_limits<t_float>::max());
         REQUIRE(parse_timelime("duration 100ms", tl));
@@ -67,7 +65,7 @@ TEST_CASE("parser_timeline", "[ceammc::ceammc_units]")
         REQUIRE(tl.duration == 38000);
     }
 
-    SECTION("vars")
+    SECTION("var defs")
     {
         REQUIRE(parse_timelime("var name", tl));
         REQUIRE(tl.vars.size() == 1);
@@ -87,11 +85,45 @@ TEST_CASE("parser_timeline", "[ceammc::ceammc_units]")
         REQUIRE(tl.vars[0].def == -50);
         REQUIRE(tl.vars[1].name == SYM("name2"));
         REQUIRE(tl.vars[1].def == -150.25);
+
+        tl.vars.clear();
+        REQUIRE(parse_timelime("var name @preset 11", tl));
+        REQUIRE(tl.vars.size() == 1);
+        REQUIRE(tl.vars[0].name == SYM("name"));
+        REQUIRE(tl.vars[0].preset == 11);
     }
 
-    SECTION("init()")
+    SECTION("event defs")
     {
-        REQUIRE(parse_timelime("init()", tl));
-        REQUIRE(parse_timelime("init() @send TARGET", tl));
+        REQUIRE(parse_timelime("event NAME", tl));
+        REQUIRE_FALSE(parse_timelime("event 1NAME", tl));
+
+        REQUIRE(parse_timelime("event NAME !send", tl));
+        REQUIRE(parse_timelime("event NAME !out", tl));
+        REQUIRE(parse_timelime("event NAME !preset", tl));
+        REQUIRE(parse_timelime("event NAME !osc", tl));
+        REQUIRE(parse_timelime("event NAME !midi:note", tl));
+        REQUIRE(parse_timelime("event NAME !midi:ctl", tl));
+        REQUIRE(parse_timelime("event NAME !midi:pgm", tl));
+        REQUIRE(parse_timelime("event NAME !midi:sysex", tl));
+    }
+
+    SECTION("events")
+    {
+        REQUIRE(parse_timelime("100ms event EVENT", tl));
+        REQUIRE(parse_timelime("+100ms event EVENT", tl));
+        REQUIRE(parse_timelime("00:00:25 event EVENT2", tl));
+        REQUIRE(parse_timelime("#EVENT2+1ms event EVENT", tl));
+        REQUIRE(parse_timelime("#EVENT2-10s event EVENT", tl));
+        REQUIRE(parse_timelime("#EVENT2-10s event !send", tl));
+        REQUIRE(parse_timelime("#10.1+10s event !send", tl));
+        REQUIRE(parse_timelime("#10.2-10.5s event !out", tl));
+    }
+
+    SECTION("vars")
+    {
+        REQUIRE(parse_timelime("100ms var $var line -60 100 1000ms", tl));
+        REQUIRE(parse_timelime("100ms var $var lineto 100 1000ms", tl));
+        REQUIRE(parse_timelime("#event var $var set -200.5", tl));
     }
 }
