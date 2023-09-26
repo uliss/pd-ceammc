@@ -144,7 +144,7 @@ tr19:
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 108 "lex/ragel_numeric.rl"
+#line 110 "lex/ragel_numeric.rl"
 	{ragel_num.vdouble = ragel_num.vint;}
 	goto st15;
 tr25:
@@ -169,7 +169,7 @@ tr20:
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 113 "lex/ragel_numeric.rl"
+#line 115 "lex/ragel_numeric.rl"
 	{ragel_num.vdouble = ragel_num.vint;}
 	goto st16;
 tr26:
@@ -236,9 +236,9 @@ tr23:
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 108 "lex/ragel_numeric.rl"
+#line 110 "lex/ragel_numeric.rl"
 	{ragel_num.vdouble = ragel_num.vint;}
-#line 113 "lex/ragel_numeric.rl"
+#line 115 "lex/ragel_numeric.rl"
 	{ragel_num.vdouble = ragel_num.vint;}
 	goto st4;
 tr27:
@@ -267,7 +267,7 @@ tr24:
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 113 "lex/ragel_numeric.rl"
+#line 115 "lex/ragel_numeric.rl"
 	{ragel_num.vdouble = ragel_num.vint;}
 	goto st5;
 tr28:
@@ -828,7 +828,7 @@ tr21:
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 108 "lex/ragel_numeric.rl"
+#line 110 "lex/ragel_numeric.rl"
 	{ragel_num.vdouble = ragel_num.vint;}
 	goto st17;
 tr32:
@@ -857,7 +857,7 @@ tr22:
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 113 "lex/ragel_numeric.rl"
+#line 115 "lex/ragel_numeric.rl"
 	{ragel_num.vdouble = ragel_num.vint;}
 	goto st18;
 tr33:
@@ -930,9 +930,9 @@ tr25:
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 108 "lex/ragel_numeric.rl"
+#line 110 "lex/ragel_numeric.rl"
 	{ragel_num.vdouble = ragel_num.vint;}
-#line 113 "lex/ragel_numeric.rl"
+#line 115 "lex/ragel_numeric.rl"
 	{ragel_num.vdouble = ragel_num.vint;}
 	goto st4;
 tr34:
@@ -961,7 +961,7 @@ tr26:
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 113 "lex/ragel_numeric.rl"
+#line 115 "lex/ragel_numeric.rl"
 	{ragel_num.vdouble = ragel_num.vint;}
 	goto st5;
 tr35:
