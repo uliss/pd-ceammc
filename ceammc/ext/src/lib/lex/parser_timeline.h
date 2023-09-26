@@ -14,13 +14,44 @@
 #ifndef PARSER_TIMELINE_H
 #define PARSER_TIMELINE_H
 
+#include <cstdint>
+#include <vector>
+
+#include "m_pd.h"
+
 namespace ceammc {
 namespace parser {
 
+    struct TimeLineBar {
+        float bpm { 60 };
+        std::uint16_t num { 4 };
+        std::uint16_t div { 4 };
+        std::uint16_t count { 1 };
+
+        double durationMs() const
+        {
+            return count * (bpm * 4000 / 60.0) * num / div;
+        }
+    };
+
+    struct TimeLineVar {
+        t_symbol* name { &s_ };
+        double def { 0 };
+    };
+
     struct TimeLine {
         double duration { 0 };
+        std::vector<TimeLineBar> bars;
+        std::vector<TimeLineVar> vars;
 
         TimeLine() { }
+
+        void calcBarDuration()
+        {
+            duration = 0;
+            for (auto& b : bars)
+                duration += b.durationMs();
+        }
     };
 
     bool parse_timelime(const char* str, TimeLine& tl);
