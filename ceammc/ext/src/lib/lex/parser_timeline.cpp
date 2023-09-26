@@ -39,6 +39,7 @@ struct RagelEventTime {
     t_symbol* rel_event {&s_};
     int bar  {-1};
     int beat {0};
+    bool relative {false};
 
     void reset() { *this = RagelEventTime{}; }
 };
@@ -94,15 +95,15 @@ struct FSM {
 }
 
 
-#line 98 "lex/parser_timeline.cpp"
+#line 99 "lex/parser_timeline.cpp"
 static const int timeline_parser_start = 1;
-static const int timeline_parser_first_final = 284;
+static const int timeline_parser_first_final = 280;
 static const int timeline_parser_error = 0;
 
 static const int timeline_parser_en_main = 1;
 
 
-#line 338 "lex/parser_timeline.rl"
+#line 345 "lex/parser_timeline.rl"
 
 
 namespace ceammc {
@@ -129,14 +130,14 @@ bool parse_timelime(const char* str, TimeLine& tl)
     RagelTempo bpm;
 
     
-#line 133 "lex/parser_timeline.cpp"
+#line 134 "lex/parser_timeline.cpp"
 	{
 	cs = timeline_parser_start;
 	}
 
-#line 364 "lex/parser_timeline.rl"
+#line 371 "lex/parser_timeline.rl"
     
-#line 140 "lex/parser_timeline.cpp"
+#line 141 "lex/parser_timeline.cpp"
 	{
 	if ( p == pe )
 		goto _test_eof;
@@ -147,19 +148,19 @@ case 1:
 		case 32: goto st2;
 		case 35: goto st4;
 		case 43: goto tr3;
-		case 45: goto tr3;
+		case 45: goto tr4;
 		case 47: goto st3;
-		case 48: goto tr5;
-		case 98: goto st148;
-		case 100: goto st160;
-		case 101: goto st210;
-		case 118: goto st259;
+		case 48: goto tr6;
+		case 98: goto st147;
+		case 100: goto st159;
+		case 101: goto st206;
+		case 118: goto st255;
 	}
 	if ( (*p) > 53 ) {
 		if ( 54 <= (*p) && (*p) <= 57 )
-			goto tr7;
+			goto tr8;
 	} else if ( (*p) >= 49 )
-		goto tr6;
+		goto tr7;
 	goto st0;
 st0:
 cs = 0;
@@ -178,33 +179,33 @@ st3:
 		goto _test_eof3;
 case 3:
 	if ( (*p) == 47 )
-		goto st284;
+		goto st280;
 	goto st0;
-st284:
+st280:
 	if ( ++p == pe )
-		goto _test_eof284;
-case 284:
+		goto _test_eof280;
+case 280:
 	if ( (*p) == 10 )
 		goto st0;
-	goto st284;
+	goto st280;
 st4:
 	if ( ++p == pe )
 		goto _test_eof4;
 case 4:
 	switch( (*p) ) {
-		case 48: goto tr13;
-		case 95: goto tr15;
+		case 48: goto tr14;
+		case 95: goto tr16;
 	}
 	if ( (*p) < 65 ) {
 		if ( 49 <= (*p) && (*p) <= 57 )
-			goto tr14;
+			goto tr15;
 	} else if ( (*p) > 90 ) {
 		if ( 97 <= (*p) && (*p) <= 122 )
-			goto tr15;
+			goto tr16;
 	} else
-		goto tr15;
+		goto tr16;
 	goto st0;
-tr13:
+tr14:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st5;
@@ -212,27 +213,27 @@ st5:
 	if ( ++p == pe )
 		goto _test_eof5;
 case 5:
-#line 216 "lex/parser_timeline.cpp"
+#line 217 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr16;
-		case 43: goto tr17;
-		case 45: goto tr18;
-		case 46: goto tr19;
+		case 32: goto tr17;
+		case 43: goto tr18;
+		case 45: goto tr19;
+		case 46: goto tr20;
 	}
 	goto st0;
-tr16:
+tr17:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 166 "lex/parser_timeline.rl"
+#line 172 "lex/parser_timeline.rl"
 	{
         event_time.bar = ragel_num.vint;
         ragel_num.vint = 0;
     }
-#line 192 "lex/parser_timeline.rl"
+#line 198 "lex/parser_timeline.rl"
 	{
         fmt::println("#{}.{}{}{}", event_time.bar, event_time.beat, event_time.sign > 0 ? '+' : '-', event_time.time);
 
@@ -248,10 +249,10 @@ tr16:
         fsm.time_unit = 0;
     }
 	goto st6;
-tr119:
+tr116:
 #line 17 "lex/ragel_units.rl"
 	{ragel_type = TYPE_HOUR;}
-#line 100 "lex/parser_timeline.rl"
+#line 101 "lex/parser_timeline.rl"
 	{
         switch(ragel_type) {
         case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
@@ -262,12 +263,12 @@ tr119:
         break;
         }
     }
-#line 161 "lex/parser_timeline.rl"
+#line 167 "lex/parser_timeline.rl"
 	{
         event_time.time = fsm.time_unit;
         fsm.time_unit = 0;
     }
-#line 192 "lex/parser_timeline.rl"
+#line 198 "lex/parser_timeline.rl"
 	{
         fmt::println("#{}.{}{}{}", event_time.bar, event_time.beat, event_time.sign > 0 ? '+' : '-', event_time.time);
 
@@ -283,10 +284,10 @@ tr119:
         fsm.time_unit = 0;
     }
 	goto st6;
-tr123:
+tr120:
 #line 18 "lex/ragel_units.rl"
 	{ragel_type = TYPE_MIN;}
-#line 100 "lex/parser_timeline.rl"
+#line 101 "lex/parser_timeline.rl"
 	{
         switch(ragel_type) {
         case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
@@ -297,12 +298,47 @@ tr123:
         break;
         }
     }
-#line 161 "lex/parser_timeline.rl"
+#line 167 "lex/parser_timeline.rl"
 	{
         event_time.time = fsm.time_unit;
         fsm.time_unit = 0;
     }
-#line 192 "lex/parser_timeline.rl"
+#line 198 "lex/parser_timeline.rl"
+	{
+        fmt::println("#{}.{}{}{}", event_time.bar, event_time.beat, event_time.sign > 0 ? '+' : '-', event_time.time);
+
+        auto t = tl.findBarTime(event_time.bar, event_time.beat);
+
+        if (t >= 0) {
+            event_time.time = t + (event_time.time * event_time.sign);
+        } else {
+            fmt::println("can't find bar #{}.{}", event_time.bar, event_time.beat);
+            event_time.time = -1;
+        }
+
+        fsm.time_unit = 0;
+    }
+	goto st6;
+tr124:
+#line 19 "lex/ragel_units.rl"
+	{ragel_type = TYPE_MSEC;}
+#line 101 "lex/parser_timeline.rl"
+	{
+        switch(ragel_type) {
+        case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
+        case TYPE_SEC:   fsm.time_unit = ragel_num.getFloat() * 1000; break;
+        case TYPE_MIN:   fsm.time_unit = ragel_num.getFloat() * 60000; break;
+        case TYPE_HOUR:  fsm.time_unit = ragel_num.getFloat() * 3600000; break;
+        default:
+        break;
+        }
+    }
+#line 167 "lex/parser_timeline.rl"
+	{
+        event_time.time = fsm.time_unit;
+        fsm.time_unit = 0;
+    }
+#line 198 "lex/parser_timeline.rl"
 	{
         fmt::println("#{}.{}{}{}", event_time.bar, event_time.beat, event_time.sign > 0 ? '+' : '-', event_time.time);
 
@@ -319,9 +355,9 @@ tr123:
     }
 	goto st6;
 tr127:
-#line 19 "lex/ragel_units.rl"
-	{ragel_type = TYPE_MSEC;}
-#line 100 "lex/parser_timeline.rl"
+#line 22 "lex/ragel_units.rl"
+	{ragel_type = TYPE_SEC;}
+#line 101 "lex/parser_timeline.rl"
 	{
         switch(ragel_type) {
         case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
@@ -332,12 +368,12 @@ tr127:
         break;
         }
     }
-#line 161 "lex/parser_timeline.rl"
+#line 167 "lex/parser_timeline.rl"
 	{
         event_time.time = fsm.time_unit;
         fsm.time_unit = 0;
     }
-#line 192 "lex/parser_timeline.rl"
+#line 198 "lex/parser_timeline.rl"
 	{
         fmt::println("#{}.{}{}{}", event_time.bar, event_time.beat, event_time.sign > 0 ? '+' : '-', event_time.time);
 
@@ -353,26 +389,19 @@ tr127:
         fsm.time_unit = 0;
     }
 	goto st6;
-tr130:
-#line 22 "lex/ragel_units.rl"
-	{ragel_type = TYPE_SEC;}
-#line 100 "lex/parser_timeline.rl"
+tr135:
+#line 30 "lex/ragel_numeric.rl"
 	{
-        switch(ragel_type) {
-        case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
-        case TYPE_SEC:   fsm.time_unit = ragel_num.getFloat() * 1000; break;
-        case TYPE_MIN:   fsm.time_unit = ragel_num.getFloat() * 60000; break;
-        case TYPE_HOUR:  fsm.time_unit = ragel_num.getFloat() * 3600000; break;
-        default:
-        break;
-        }
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
     }
-#line 161 "lex/parser_timeline.rl"
+#line 177 "lex/parser_timeline.rl"
 	{
-        event_time.time = fsm.time_unit;
-        fsm.time_unit = 0;
+        event_time.beat = ragel_num.vint;
+        ragel_num.vint = 0;
     }
-#line 192 "lex/parser_timeline.rl"
+#line 198 "lex/parser_timeline.rl"
 	{
         fmt::println("#{}.{}{}{}", event_time.bar, event_time.beat, event_time.sign > 0 ? '+' : '-', event_time.time);
 
@@ -389,40 +418,12 @@ tr130:
     }
 	goto st6;
 tr138:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 171 "lex/parser_timeline.rl"
-	{
-        event_time.beat = ragel_num.vint;
-        ragel_num.vint = 0;
-    }
-#line 192 "lex/parser_timeline.rl"
-	{
-        fmt::println("#{}.{}{}{}", event_time.bar, event_time.beat, event_time.sign > 0 ? '+' : '-', event_time.time);
-
-        auto t = tl.findBarTime(event_time.bar, event_time.beat);
-
-        if (t >= 0) {
-            event_time.time = t + (event_time.time * event_time.sign);
-        } else {
-            fmt::println("can't find bar #{}.{}", event_time.bar, event_time.beat);
-            event_time.time = -1;
-        }
-
-        fsm.time_unit = 0;
-    }
-	goto st6;
-tr141:
-#line 151 "lex/parser_timeline.rl"
+#line 157 "lex/parser_timeline.rl"
 	{
        event_time.rel_event = fsm.gensym();
        fsm.symbol.clear();
     }
-#line 176 "lex/parser_timeline.rl"
+#line 182 "lex/parser_timeline.rl"
 	{
         //fmt::println("#{}{}{}", event_time.rel_event->s_name, event_time.sign > 0 ? '+' : '-', event_time.time);
 
@@ -439,10 +440,10 @@ tr141:
         fsm.symbol.clear();
     }
 	goto st6;
-tr157:
+tr151:
 #line 17 "lex/ragel_units.rl"
 	{ragel_type = TYPE_HOUR;}
-#line 100 "lex/parser_timeline.rl"
+#line 101 "lex/parser_timeline.rl"
 	{
         switch(ragel_type) {
         case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
@@ -453,12 +454,12 @@ tr157:
         break;
         }
     }
-#line 161 "lex/parser_timeline.rl"
+#line 167 "lex/parser_timeline.rl"
 	{
         event_time.time = fsm.time_unit;
         fsm.time_unit = 0;
     }
-#line 176 "lex/parser_timeline.rl"
+#line 182 "lex/parser_timeline.rl"
 	{
         //fmt::println("#{}{}{}", event_time.rel_event->s_name, event_time.sign > 0 ? '+' : '-', event_time.time);
 
@@ -475,10 +476,10 @@ tr157:
         fsm.symbol.clear();
     }
 	goto st6;
-tr161:
+tr155:
 #line 18 "lex/ragel_units.rl"
 	{ragel_type = TYPE_MIN;}
-#line 100 "lex/parser_timeline.rl"
+#line 101 "lex/parser_timeline.rl"
 	{
         switch(ragel_type) {
         case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
@@ -489,12 +490,12 @@ tr161:
         break;
         }
     }
-#line 161 "lex/parser_timeline.rl"
+#line 167 "lex/parser_timeline.rl"
 	{
         event_time.time = fsm.time_unit;
         fsm.time_unit = 0;
     }
-#line 176 "lex/parser_timeline.rl"
+#line 182 "lex/parser_timeline.rl"
 	{
         //fmt::println("#{}{}{}", event_time.rel_event->s_name, event_time.sign > 0 ? '+' : '-', event_time.time);
 
@@ -511,10 +512,10 @@ tr161:
         fsm.symbol.clear();
     }
 	goto st6;
-tr165:
+tr159:
 #line 19 "lex/ragel_units.rl"
 	{ragel_type = TYPE_MSEC;}
-#line 100 "lex/parser_timeline.rl"
+#line 101 "lex/parser_timeline.rl"
 	{
         switch(ragel_type) {
         case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
@@ -525,12 +526,12 @@ tr165:
         break;
         }
     }
-#line 161 "lex/parser_timeline.rl"
+#line 167 "lex/parser_timeline.rl"
 	{
         event_time.time = fsm.time_unit;
         fsm.time_unit = 0;
     }
-#line 176 "lex/parser_timeline.rl"
+#line 182 "lex/parser_timeline.rl"
 	{
         //fmt::println("#{}{}{}", event_time.rel_event->s_name, event_time.sign > 0 ? '+' : '-', event_time.time);
 
@@ -547,10 +548,10 @@ tr165:
         fsm.symbol.clear();
     }
 	goto st6;
-tr168:
+tr162:
 #line 22 "lex/ragel_units.rl"
 	{ragel_type = TYPE_SEC;}
-#line 100 "lex/parser_timeline.rl"
+#line 101 "lex/parser_timeline.rl"
 	{
         switch(ragel_type) {
         case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
@@ -561,12 +562,12 @@ tr168:
         break;
         }
     }
-#line 161 "lex/parser_timeline.rl"
+#line 167 "lex/parser_timeline.rl"
 	{
         event_time.time = fsm.time_unit;
         fsm.time_unit = 0;
     }
-#line 176 "lex/parser_timeline.rl"
+#line 182 "lex/parser_timeline.rl"
 	{
         //fmt::println("#{}{}{}", event_time.rel_event->s_name, event_time.sign > 0 ? '+' : '-', event_time.time);
 
@@ -583,88 +584,8 @@ tr168:
         fsm.symbol.clear();
     }
 	goto st6;
-tr185:
-#line 17 "lex/ragel_units.rl"
-	{ragel_type = TYPE_HOUR;}
-#line 100 "lex/parser_timeline.rl"
-	{
-        switch(ragel_type) {
-        case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
-        case TYPE_SEC:   fsm.time_unit = ragel_num.getFloat() * 1000; break;
-        case TYPE_MIN:   fsm.time_unit = ragel_num.getFloat() * 60000; break;
-        case TYPE_HOUR:  fsm.time_unit = ragel_num.getFloat() * 3600000; break;
-        default:
-        break;
-        }
-    }
-#line 156 "lex/parser_timeline.rl"
-	{
-        event_time.time = fsm.time_unit;
-        fsm.time_unit = 0;
-    }
-	goto st6;
-tr189:
-#line 18 "lex/ragel_units.rl"
-	{ragel_type = TYPE_MIN;}
-#line 100 "lex/parser_timeline.rl"
-	{
-        switch(ragel_type) {
-        case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
-        case TYPE_SEC:   fsm.time_unit = ragel_num.getFloat() * 1000; break;
-        case TYPE_MIN:   fsm.time_unit = ragel_num.getFloat() * 60000; break;
-        case TYPE_HOUR:  fsm.time_unit = ragel_num.getFloat() * 3600000; break;
-        default:
-        break;
-        }
-    }
-#line 156 "lex/parser_timeline.rl"
-	{
-        event_time.time = fsm.time_unit;
-        fsm.time_unit = 0;
-    }
-	goto st6;
-tr193:
-#line 19 "lex/ragel_units.rl"
-	{ragel_type = TYPE_MSEC;}
-#line 100 "lex/parser_timeline.rl"
-	{
-        switch(ragel_type) {
-        case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
-        case TYPE_SEC:   fsm.time_unit = ragel_num.getFloat() * 1000; break;
-        case TYPE_MIN:   fsm.time_unit = ragel_num.getFloat() * 60000; break;
-        case TYPE_HOUR:  fsm.time_unit = ragel_num.getFloat() * 3600000; break;
-        default:
-        break;
-        }
-    }
-#line 156 "lex/parser_timeline.rl"
-	{
-        event_time.time = fsm.time_unit;
-        fsm.time_unit = 0;
-    }
-	goto st6;
-tr196:
-#line 22 "lex/ragel_units.rl"
-	{ragel_type = TYPE_SEC;}
-#line 100 "lex/parser_timeline.rl"
-	{
-        switch(ragel_type) {
-        case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
-        case TYPE_SEC:   fsm.time_unit = ragel_num.getFloat() * 1000; break;
-        case TYPE_MIN:   fsm.time_unit = ragel_num.getFloat() * 60000; break;
-        case TYPE_HOUR:  fsm.time_unit = ragel_num.getFloat() * 3600000; break;
-        default:
-        break;
-        }
-    }
-#line 156 "lex/parser_timeline.rl"
-	{
-        event_time.time = fsm.time_unit;
-        fsm.time_unit = 0;
-    }
-	goto st6;
-tr202:
-#line 52 "lex/ragel_units.rl"
+tr177:
+#line 53 "lex/ragel_units.rl"
 	{
     ragel_type = TYPE_SMPTE;
     smpte.hour *= smpte.sign;
@@ -678,9 +599,89 @@ tr202:
         smpte.hour = 0;
     }
 }
-#line 111 "lex/parser_timeline.rl"
+#line 112 "lex/parser_timeline.rl"
 	{ fsm.onTimeSmpteDone(smpte); }
-#line 156 "lex/parser_timeline.rl"
+#line 162 "lex/parser_timeline.rl"
+	{
+        event_time.time = fsm.time_unit;
+        fsm.time_unit = 0;
+    }
+	goto st6;
+tr192:
+#line 17 "lex/ragel_units.rl"
+	{ragel_type = TYPE_HOUR;}
+#line 101 "lex/parser_timeline.rl"
+	{
+        switch(ragel_type) {
+        case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
+        case TYPE_SEC:   fsm.time_unit = ragel_num.getFloat() * 1000; break;
+        case TYPE_MIN:   fsm.time_unit = ragel_num.getFloat() * 60000; break;
+        case TYPE_HOUR:  fsm.time_unit = ragel_num.getFloat() * 3600000; break;
+        default:
+        break;
+        }
+    }
+#line 162 "lex/parser_timeline.rl"
+	{
+        event_time.time = fsm.time_unit;
+        fsm.time_unit = 0;
+    }
+	goto st6;
+tr196:
+#line 18 "lex/ragel_units.rl"
+	{ragel_type = TYPE_MIN;}
+#line 101 "lex/parser_timeline.rl"
+	{
+        switch(ragel_type) {
+        case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
+        case TYPE_SEC:   fsm.time_unit = ragel_num.getFloat() * 1000; break;
+        case TYPE_MIN:   fsm.time_unit = ragel_num.getFloat() * 60000; break;
+        case TYPE_HOUR:  fsm.time_unit = ragel_num.getFloat() * 3600000; break;
+        default:
+        break;
+        }
+    }
+#line 162 "lex/parser_timeline.rl"
+	{
+        event_time.time = fsm.time_unit;
+        fsm.time_unit = 0;
+    }
+	goto st6;
+tr200:
+#line 19 "lex/ragel_units.rl"
+	{ragel_type = TYPE_MSEC;}
+#line 101 "lex/parser_timeline.rl"
+	{
+        switch(ragel_type) {
+        case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
+        case TYPE_SEC:   fsm.time_unit = ragel_num.getFloat() * 1000; break;
+        case TYPE_MIN:   fsm.time_unit = ragel_num.getFloat() * 60000; break;
+        case TYPE_HOUR:  fsm.time_unit = ragel_num.getFloat() * 3600000; break;
+        default:
+        break;
+        }
+    }
+#line 162 "lex/parser_timeline.rl"
+	{
+        event_time.time = fsm.time_unit;
+        fsm.time_unit = 0;
+    }
+	goto st6;
+tr203:
+#line 22 "lex/ragel_units.rl"
+	{ragel_type = TYPE_SEC;}
+#line 101 "lex/parser_timeline.rl"
+	{
+        switch(ragel_type) {
+        case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
+        case TYPE_SEC:   fsm.time_unit = ragel_num.getFloat() * 1000; break;
+        case TYPE_MIN:   fsm.time_unit = ragel_num.getFloat() * 60000; break;
+        case TYPE_HOUR:  fsm.time_unit = ragel_num.getFloat() * 3600000; break;
+        default:
+        break;
+        }
+    }
+#line 162 "lex/parser_timeline.rl"
 	{
         event_time.time = fsm.time_unit;
         fsm.time_unit = 0;
@@ -690,7 +691,7 @@ st6:
 	if ( ++p == pe )
 		goto _test_eof6;
 case 6:
-#line 694 "lex/parser_timeline.cpp"
+#line 695 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
 		case 32: goto st6;
 		case 101: goto st7;
@@ -739,13 +740,13 @@ case 12:
 	switch( (*p) ) {
 		case 32: goto st12;
 		case 33: goto st13;
-		case 95: goto tr29;
+		case 95: goto tr30;
 	}
 	if ( (*p) > 90 ) {
 		if ( 97 <= (*p) && (*p) <= 122 )
-			goto tr29;
+			goto tr30;
 	} else if ( (*p) >= 65 )
-		goto tr29;
+		goto tr30;
 	goto st0;
 st13:
 	if ( ++p == pe )
@@ -769,25 +770,25 @@ st15:
 		goto _test_eof15;
 case 15:
 	if ( (*p) == 116 )
-		goto st285;
+		goto st281;
 	goto st0;
-st285:
+st281:
 	if ( ++p == pe )
-		goto _test_eof285;
-case 285:
+		goto _test_eof281;
+case 281:
 	if ( (*p) == 32 )
-		goto st286;
+		goto st282;
 	goto st0;
-tr384:
-#line 115 "lex/parser_timeline.rl"
+tr378:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-	goto st286;
-st286:
+	goto st282;
+st282:
 	if ( ++p == pe )
-		goto _test_eof286;
-case 286:
-#line 790 "lex/parser_timeline.cpp"
-	goto tr384;
+		goto _test_eof282;
+case 282:
+#line 791 "lex/parser_timeline.cpp"
+	goto tr378;
 st16:
 	if ( ++p == pe )
 		goto _test_eof16;
@@ -836,40 +837,40 @@ st22:
 case 22:
 	switch( (*p) ) {
 		case 32: goto st22;
-		case 48: goto tr41;
+		case 48: goto tr42;
 	}
 	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr42;
+		goto tr43;
 	goto st0;
-tr41:
-#line 255 "lex/parser_timeline.rl"
-	{ragel_num.vint = 0;}
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st287;
-st287:
-	if ( ++p == pe )
-		goto _test_eof287;
-case 287:
-#line 855 "lex/parser_timeline.cpp"
-	goto st0;
-tr385:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st288;
 tr42:
-#line 255 "lex/parser_timeline.rl"
+#line 261 "lex/parser_timeline.rl"
 	{ragel_num.vint = 0;}
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st288;
-st288:
+	goto st283;
+st283:
 	if ( ++p == pe )
-		goto _test_eof288;
-case 288:
-#line 871 "lex/parser_timeline.cpp"
+		goto _test_eof283;
+case 283:
+#line 856 "lex/parser_timeline.cpp"
+	goto st0;
+tr379:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st284;
+tr43:
+#line 261 "lex/parser_timeline.rl"
+	{ragel_num.vint = 0;}
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st284;
+st284:
+	if ( ++p == pe )
+		goto _test_eof284;
+case 284:
+#line 872 "lex/parser_timeline.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr385;
+		goto tr379;
 	goto st0;
 st23:
 	if ( ++p == pe )
@@ -905,59 +906,59 @@ st27:
 case 27:
 	switch( (*p) ) {
 		case 32: goto st27;
-		case 43: goto tr48;
-		case 45: goto tr48;
-		case 48: goto tr49;
+		case 43: goto tr49;
+		case 45: goto tr49;
+		case 48: goto tr50;
 	}
 	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr50;
-	goto tr47;
-tr47:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-	goto st289;
-st289:
-	if ( ++p == pe )
-		goto _test_eof289;
-case 289:
-#line 924 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr386;
-	goto tr47;
-tr387:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-	goto st290;
-tr386:
-#line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
-	goto st290;
-st290:
-	if ( ++p == pe )
-		goto _test_eof290;
-case 290:
-#line 940 "lex/parser_timeline.cpp"
-	goto tr387;
+		goto tr51;
+	goto tr48;
 tr48:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+	goto st285;
+st285:
+	if ( ++p == pe )
+		goto _test_eof285;
+case 285:
+#line 925 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr380;
+	goto tr48;
+tr381:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+	goto st286;
+tr380:
+#line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+	goto st286;
+st286:
+	if ( ++p == pe )
+		goto _test_eof286;
+case 286:
+#line 941 "lex/parser_timeline.cpp"
+	goto tr381;
+tr49:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 21 "lex/ragel_numeric.rl"
 	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
-	goto st291;
-st291:
+	goto st287;
+st287:
 	if ( ++p == pe )
-		goto _test_eof291;
-case 291:
-#line 952 "lex/parser_timeline.cpp"
+		goto _test_eof287;
+case 287:
+#line 953 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr386;
-		case 48: goto tr49;
+		case 32: goto tr380;
+		case 48: goto tr50;
 	}
 	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr50;
-	goto tr47;
-tr49:
-#line 115 "lex/parser_timeline.rl"
+		goto tr51;
+	goto tr48;
+tr50:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
@@ -966,14 +967,14 @@ st28:
 	if ( ++p == pe )
 		goto _test_eof28;
 case 28:
-#line 970 "lex/parser_timeline.cpp"
+#line 971 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
 		case 32: goto st0;
-		case 46: goto tr51;
+		case 46: goto tr52;
 	}
-	goto tr47;
-tr51:
-#line 115 "lex/parser_timeline.rl"
+	goto tr48;
+tr52:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 30 "lex/ragel_numeric.rl"
 	{
@@ -986,19 +987,19 @@ tr51:
         ragel_num.ratio.num = 0;
         ragel_num.ratio.den = 1;
     }
-	goto st292;
-st292:
+	goto st288;
+st288:
 	if ( ++p == pe )
-		goto _test_eof292;
-case 292:
-#line 995 "lex/parser_timeline.cpp"
+		goto _test_eof288;
+case 288:
+#line 996 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr386;
+		goto tr380;
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr52;
-	goto tr47;
-tr52:
-#line 115 "lex/parser_timeline.rl"
+		goto tr53;
+	goto tr48;
+tr53:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 54 "lex/ragel_numeric.rl"
 	{
@@ -1010,14 +1011,14 @@ st29:
 	if ( ++p == pe )
 		goto _test_eof29;
 case 29:
-#line 1014 "lex/parser_timeline.cpp"
+#line 1015 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
 		goto st0;
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr52;
-	goto tr47;
-tr50:
-#line 115 "lex/parser_timeline.rl"
+		goto tr53;
+	goto tr48;
+tr51:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
@@ -1026,33 +1027,33 @@ st30:
 	if ( ++p == pe )
 		goto _test_eof30;
 case 30:
-#line 1030 "lex/parser_timeline.cpp"
+#line 1031 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
 		case 32: goto st0;
-		case 46: goto tr51;
+		case 46: goto tr52;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr50;
-	goto tr47;
-tr29:
-#line 115 "lex/parser_timeline.rl"
+		goto tr51;
+	goto tr48;
+tr30:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-	goto st293;
-st293:
+	goto st289;
+st289:
 	if ( ++p == pe )
-		goto _test_eof293;
-case 293:
-#line 1046 "lex/parser_timeline.cpp"
+		goto _test_eof289;
+case 289:
+#line 1047 "lex/parser_timeline.cpp"
 	if ( (*p) == 95 )
-		goto tr29;
+		goto tr30;
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
-			goto tr29;
+			goto tr30;
 	} else if ( (*p) > 90 ) {
 		if ( 97 <= (*p) && (*p) <= 122 )
-			goto tr29;
+			goto tr30;
 	} else
-		goto tr29;
+		goto tr30;
 	goto st0;
 st31:
 	if ( ++p == pe )
@@ -1089,34 +1090,34 @@ st35:
 		goto _test_eof35;
 case 35:
 	if ( (*p) == 95 )
-		goto tr57;
+		goto tr58;
 	if ( (*p) > 90 ) {
 		if ( 97 <= (*p) && (*p) <= 122 )
-			goto tr57;
+			goto tr58;
 	} else if ( (*p) >= 65 )
-		goto tr57;
+		goto tr58;
 	goto st0;
-tr57:
-#line 225 "lex/parser_timeline.rl"
+tr58:
+#line 231 "lex/parser_timeline.rl"
 	{ var_name += *p; }
 	goto st36;
 st36:
 	if ( ++p == pe )
 		goto _test_eof36;
 case 36:
-#line 1108 "lex/parser_timeline.cpp"
+#line 1109 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
 		case 32: goto st37;
-		case 95: goto tr57;
+		case 95: goto tr58;
 	}
 	if ( (*p) < 65 ) {
 		if ( 48 <= (*p) && (*p) <= 57 )
-			goto tr57;
+			goto tr58;
 	} else if ( (*p) > 90 ) {
 		if ( 97 <= (*p) && (*p) <= 122 )
-			goto tr57;
+			goto tr58;
 	} else
-		goto tr57;
+		goto tr58;
 	goto st0;
 st37:
 	if ( ++p == pe )
@@ -1125,7 +1126,7 @@ case 37:
 	switch( (*p) ) {
 		case 32: goto st37;
 		case 108: goto st38;
-		case 115: goto st67;
+		case 115: goto st66;
 	}
 	goto st0;
 st38:
@@ -1155,7 +1156,7 @@ st41:
 case 41:
 	switch( (*p) ) {
 		case 32: goto st42;
-		case 116: goto st65;
+		case 116: goto st64;
 	}
 	goto st0;
 st42:
@@ -1164,14 +1165,14 @@ st42:
 case 42:
 	switch( (*p) ) {
 		case 32: goto st42;
-		case 43: goto tr66;
-		case 45: goto tr66;
-		case 48: goto tr67;
+		case 43: goto tr67;
+		case 45: goto tr67;
+		case 48: goto tr68;
 	}
 	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr68;
+		goto tr69;
 	goto st0;
-tr66:
+tr67:
 #line 21 "lex/ragel_numeric.rl"
 	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
 	goto st43;
@@ -1179,13 +1180,13 @@ st43:
 	if ( ++p == pe )
 		goto _test_eof43;
 case 43:
-#line 1183 "lex/parser_timeline.cpp"
+#line 1184 "lex/parser_timeline.cpp"
 	if ( (*p) == 48 )
-		goto tr67;
-	if ( 49 <= (*p) && (*p) <= 57 )
 		goto tr68;
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr69;
 	goto st0;
-tr67:
+tr68:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st44;
@@ -1193,13 +1194,13 @@ st44:
 	if ( ++p == pe )
 		goto _test_eof44;
 case 44:
-#line 1197 "lex/parser_timeline.cpp"
+#line 1198 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr69;
-		case 46: goto tr70;
+		case 32: goto tr70;
+		case 46: goto tr71;
 	}
 	goto st0;
-tr69:
+tr70:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -1222,17 +1223,17 @@ st45:
 	if ( ++p == pe )
 		goto _test_eof45;
 case 45:
-#line 1226 "lex/parser_timeline.cpp"
+#line 1227 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
 		case 32: goto st45;
-		case 43: goto tr72;
-		case 45: goto tr72;
-		case 48: goto tr73;
+		case 43: goto tr73;
+		case 45: goto tr73;
+		case 48: goto tr74;
 	}
 	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr74;
+		goto tr75;
 	goto st0;
-tr72:
+tr73:
 #line 21 "lex/ragel_numeric.rl"
 	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
 	goto st46;
@@ -1240,13 +1241,13 @@ st46:
 	if ( ++p == pe )
 		goto _test_eof46;
 case 46:
-#line 1244 "lex/parser_timeline.cpp"
+#line 1245 "lex/parser_timeline.cpp"
 	if ( (*p) == 48 )
-		goto tr73;
-	if ( 49 <= (*p) && (*p) <= 57 )
 		goto tr74;
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr75;
 	goto st0;
-tr73:
+tr74:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st47;
@@ -1254,13 +1255,13 @@ st47:
 	if ( ++p == pe )
 		goto _test_eof47;
 case 47:
-#line 1258 "lex/parser_timeline.cpp"
+#line 1259 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr75;
-		case 46: goto tr76;
+		case 32: goto tr76;
+		case 46: goto tr77;
 	}
 	goto st0;
-tr75:
+tr76:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -1283,39 +1284,23 @@ st48:
 	if ( ++p == pe )
 		goto _test_eof48;
 case 48:
-#line 1287 "lex/parser_timeline.cpp"
+#line 1288 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
 		case 32: goto st48;
-		case 43: goto tr78;
-		case 45: goto tr78;
 		case 48: goto tr79;
 	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr80;
-	goto st0;
-tr78:
-#line 21 "lex/ragel_numeric.rl"
-	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
-	goto st49;
-st49:
-	if ( ++p == pe )
-		goto _test_eof49;
-case 49:
-#line 1305 "lex/parser_timeline.cpp"
-	if ( (*p) == 48 )
-		goto tr79;
 	if ( 49 <= (*p) && (*p) <= 57 )
 		goto tr80;
 	goto st0;
 tr79:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st50;
-st50:
+	goto st49;
+st49:
 	if ( ++p == pe )
-		goto _test_eof50;
-case 50:
-#line 1319 "lex/parser_timeline.cpp"
+		goto _test_eof49;
+case 49:
+#line 1304 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
 		case 46: goto tr81;
 		case 104: goto tr82;
@@ -1335,12 +1320,12 @@ tr81:
         ragel_num.ratio.num = 0;
         ragel_num.ratio.den = 1;
     }
-	goto st51;
-st51:
+	goto st50;
+st50:
 	if ( ++p == pe )
-		goto _test_eof51;
-case 51:
-#line 1344 "lex/parser_timeline.cpp"
+		goto _test_eof50;
+case 50:
+#line 1329 "lex/parser_timeline.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr85;
 	goto st0;
@@ -1350,12 +1335,12 @@ tr85:
         (ragel_num.ratio.num *= 10) += ((*p) - '0');
         ragel_num.ratio.den *= 10;
     }
-	goto st52;
-st52:
+	goto st51;
+st51:
 	if ( ++p == pe )
-		goto _test_eof52;
-case 52:
-#line 1359 "lex/parser_timeline.cpp"
+		goto _test_eof51;
+case 51:
+#line 1344 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
 		case 104: goto tr86;
 		case 109: goto tr87;
@@ -1373,7 +1358,7 @@ tr82:
     }
 #line 7 "lex/ragel_units.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
-	goto st294;
+	goto st290;
 tr86:
 #line 58 "lex/ragel_numeric.rl"
 	{
@@ -1382,33 +1367,33 @@ tr86:
         ragel_type = TYPE_FLOAT;
         ragel_cat  = CAT_NUMBER;
     }
-	goto st294;
-st294:
+	goto st290;
+st290:
 	if ( ++p == pe )
-		goto _test_eof294;
-case 294:
-#line 1391 "lex/parser_timeline.cpp"
+		goto _test_eof290;
+case 290:
+#line 1376 "lex/parser_timeline.cpp"
 	if ( (*p) == 111 )
+		goto st52;
+	goto st0;
+st52:
+	if ( ++p == pe )
+		goto _test_eof52;
+case 52:
+	if ( (*p) == 117 )
 		goto st53;
 	goto st0;
 st53:
 	if ( ++p == pe )
 		goto _test_eof53;
 case 53:
-	if ( (*p) == 117 )
-		goto st54;
-	goto st0;
-st54:
-	if ( ++p == pe )
-		goto _test_eof54;
-case 54:
 	if ( (*p) == 114 )
-		goto st295;
+		goto st291;
 	goto st0;
-st295:
+st291:
 	if ( ++p == pe )
-		goto _test_eof295;
-case 295:
+		goto _test_eof291;
+case 291:
 	goto st0;
 tr83:
 #line 30 "lex/ragel_numeric.rl"
@@ -1419,8 +1404,68 @@ tr83:
     }
 #line 7 "lex/ragel_units.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
-	goto st296;
+	goto st292;
 tr87:
+#line 58 "lex/ragel_numeric.rl"
+	{
+        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+        ragel_type = TYPE_FLOAT;
+        ragel_cat  = CAT_NUMBER;
+    }
+	goto st292;
+st292:
+	if ( ++p == pe )
+		goto _test_eof292;
+case 292:
+#line 1422 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 105: goto st54;
+		case 115: goto st294;
+	}
+	goto st0;
+st54:
+	if ( ++p == pe )
+		goto _test_eof54;
+case 54:
+	if ( (*p) == 110 )
+		goto st293;
+	goto st0;
+st293:
+	if ( ++p == pe )
+		goto _test_eof293;
+case 293:
+	goto st0;
+st294:
+	if ( ++p == pe )
+		goto _test_eof294;
+case 294:
+	if ( (*p) == 101 )
+		goto st55;
+	goto st0;
+st55:
+	if ( ++p == pe )
+		goto _test_eof55;
+case 55:
+	if ( (*p) == 99 )
+		goto st295;
+	goto st0;
+st295:
+	if ( ++p == pe )
+		goto _test_eof295;
+case 295:
+	goto st0;
+tr84:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 7 "lex/ragel_units.rl"
+	{ ragel_num.vdouble = ragel_num.vint; }
+	goto st296;
+tr88:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -1433,28 +1478,7 @@ st296:
 	if ( ++p == pe )
 		goto _test_eof296;
 case 296:
-#line 1437 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 105: goto st55;
-		case 115: goto st298;
-	}
-	goto st0;
-st55:
-	if ( ++p == pe )
-		goto _test_eof55;
-case 55:
-	if ( (*p) == 110 )
-		goto st297;
-	goto st0;
-st297:
-	if ( ++p == pe )
-		goto _test_eof297;
-case 297:
-	goto st0;
-st298:
-	if ( ++p == pe )
-		goto _test_eof298;
-case 298:
+#line 1482 "lex/parser_timeline.cpp"
 	if ( (*p) == 101 )
 		goto st56;
 	goto st0;
@@ -1463,61 +1487,22 @@ st56:
 		goto _test_eof56;
 case 56:
 	if ( (*p) == 99 )
-		goto st299;
+		goto st297;
 	goto st0;
-st299:
+st297:
 	if ( ++p == pe )
-		goto _test_eof299;
-case 299:
-	goto st0;
-tr84:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 7 "lex/ragel_units.rl"
-	{ ragel_num.vdouble = ragel_num.vint; }
-	goto st300;
-tr88:
-#line 58 "lex/ragel_numeric.rl"
-	{
-        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
-        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
-        ragel_type = TYPE_FLOAT;
-        ragel_cat  = CAT_NUMBER;
-    }
-	goto st300;
-st300:
-	if ( ++p == pe )
-		goto _test_eof300;
-case 300:
-#line 1497 "lex/parser_timeline.cpp"
-	if ( (*p) == 101 )
-		goto st57;
-	goto st0;
-st57:
-	if ( ++p == pe )
-		goto _test_eof57;
-case 57:
-	if ( (*p) == 99 )
-		goto st301;
-	goto st0;
-st301:
-	if ( ++p == pe )
-		goto _test_eof301;
-case 301:
+		goto _test_eof297;
+case 297:
 	goto st0;
 tr80:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st58;
-st58:
+	goto st57;
+st57:
 	if ( ++p == pe )
-		goto _test_eof58;
-case 58:
-#line 1521 "lex/parser_timeline.cpp"
+		goto _test_eof57;
+case 57:
+#line 1506 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
 		case 46: goto tr81;
 		case 104: goto tr82;
@@ -1527,7 +1512,7 @@ case 58:
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr80;
 	goto st0;
-tr76:
+tr77:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -1539,12 +1524,12 @@ tr76:
         ragel_num.ratio.num = 0;
         ragel_num.ratio.den = 1;
     }
-	goto st59;
-st59:
+	goto st58;
+st58:
 	if ( ++p == pe )
-		goto _test_eof59;
-case 59:
-#line 1548 "lex/parser_timeline.cpp"
+		goto _test_eof58;
+case 58:
+#line 1533 "lex/parser_timeline.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr94;
 	goto st0;
@@ -1554,34 +1539,34 @@ tr94:
         (ragel_num.ratio.num *= 10) += ((*p) - '0');
         ragel_num.ratio.den *= 10;
     }
-	goto st60;
-st60:
+	goto st59;
+st59:
 	if ( ++p == pe )
-		goto _test_eof60;
-case 60:
-#line 1563 "lex/parser_timeline.cpp"
+		goto _test_eof59;
+case 59:
+#line 1548 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
 		goto tr95;
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr94;
 	goto st0;
-tr74:
+tr75:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st61;
-st61:
+	goto st60;
+st60:
 	if ( ++p == pe )
-		goto _test_eof61;
-case 61:
-#line 1577 "lex/parser_timeline.cpp"
+		goto _test_eof60;
+case 60:
+#line 1562 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr75;
-		case 46: goto tr76;
+		case 32: goto tr76;
+		case 46: goto tr77;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr74;
+		goto tr75;
 	goto st0;
-tr70:
+tr71:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -1593,12 +1578,12 @@ tr70:
         ragel_num.ratio.num = 0;
         ragel_num.ratio.den = 1;
     }
-	goto st62;
-st62:
+	goto st61;
+st61:
 	if ( ++p == pe )
-		goto _test_eof62;
-case 62:
-#line 1602 "lex/parser_timeline.cpp"
+		goto _test_eof61;
+case 61:
+#line 1587 "lex/parser_timeline.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr96;
 	goto st0;
@@ -1608,74 +1593,74 @@ tr96:
         (ragel_num.ratio.num *= 10) += ((*p) - '0');
         ragel_num.ratio.den *= 10;
     }
-	goto st63;
-st63:
+	goto st62;
+st62:
 	if ( ++p == pe )
-		goto _test_eof63;
-case 63:
-#line 1617 "lex/parser_timeline.cpp"
+		goto _test_eof62;
+case 62:
+#line 1602 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
 		goto tr97;
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr96;
 	goto st0;
-tr68:
+tr69:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st64;
+	goto st63;
+st63:
+	if ( ++p == pe )
+		goto _test_eof63;
+case 63:
+#line 1616 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr70;
+		case 46: goto tr71;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr69;
+	goto st0;
 st64:
 	if ( ++p == pe )
 		goto _test_eof64;
 case 64:
-#line 1631 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr69;
-		case 46: goto tr70;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr68;
+	if ( (*p) == 111 )
+		goto st65;
 	goto st0;
 st65:
 	if ( ++p == pe )
 		goto _test_eof65;
 case 65:
-	if ( (*p) == 111 )
-		goto st66;
+	if ( (*p) == 32 )
+		goto st45;
 	goto st0;
 st66:
 	if ( ++p == pe )
 		goto _test_eof66;
 case 66:
-	if ( (*p) == 32 )
-		goto st45;
+	if ( (*p) == 101 )
+		goto st67;
 	goto st0;
 st67:
 	if ( ++p == pe )
 		goto _test_eof67;
 case 67:
-	if ( (*p) == 101 )
+	if ( (*p) == 116 )
 		goto st68;
 	goto st0;
 st68:
 	if ( ++p == pe )
 		goto _test_eof68;
 case 68:
-	if ( (*p) == 116 )
+	if ( (*p) == 32 )
 		goto st69;
 	goto st0;
 st69:
 	if ( ++p == pe )
 		goto _test_eof69;
 case 69:
-	if ( (*p) == 32 )
-		goto st70;
-	goto st0;
-st70:
-	if ( ++p == pe )
-		goto _test_eof70;
-case 70:
 	switch( (*p) ) {
-		case 32: goto st70;
+		case 32: goto st69;
 		case 43: goto tr102;
 		case 45: goto tr102;
 		case 48: goto tr103;
@@ -1686,12 +1671,12 @@ case 70:
 tr102:
 #line 21 "lex/ragel_numeric.rl"
 	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
-	goto st71;
-st71:
+	goto st70;
+st70:
 	if ( ++p == pe )
-		goto _test_eof71;
-case 71:
-#line 1695 "lex/parser_timeline.cpp"
+		goto _test_eof70;
+case 70:
+#line 1680 "lex/parser_timeline.cpp"
 	if ( (*p) == 48 )
 		goto tr103;
 	if ( 49 <= (*p) && (*p) <= 57 )
@@ -1700,16 +1685,16 @@ case 71:
 tr103:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st302;
-st302:
+	goto st298;
+st298:
 	if ( ++p == pe )
-		goto _test_eof302;
-case 302:
-#line 1709 "lex/parser_timeline.cpp"
+		goto _test_eof298;
+case 298:
+#line 1694 "lex/parser_timeline.cpp"
 	if ( (*p) == 46 )
-		goto tr393;
+		goto tr387;
 	goto st0;
-tr393:
+tr387:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -1721,12 +1706,12 @@ tr393:
         ragel_num.ratio.num = 0;
         ragel_num.ratio.den = 1;
     }
-	goto st72;
-st72:
+	goto st71;
+st71:
 	if ( ++p == pe )
-		goto _test_eof72;
-case 72:
-#line 1730 "lex/parser_timeline.cpp"
+		goto _test_eof71;
+case 71:
+#line 1715 "lex/parser_timeline.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr105;
 	goto st0;
@@ -1736,348 +1721,28 @@ tr105:
         (ragel_num.ratio.num *= 10) += ((*p) - '0');
         ragel_num.ratio.den *= 10;
     }
-	goto st303;
-st303:
+	goto st299;
+st299:
 	if ( ++p == pe )
-		goto _test_eof303;
-case 303:
-#line 1745 "lex/parser_timeline.cpp"
+		goto _test_eof299;
+case 299:
+#line 1730 "lex/parser_timeline.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr105;
 	goto st0;
 tr104:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st304;
-st304:
+	goto st300;
+st300:
 	if ( ++p == pe )
-		goto _test_eof304;
-case 304:
-#line 1757 "lex/parser_timeline.cpp"
+		goto _test_eof300;
+case 300:
+#line 1742 "lex/parser_timeline.cpp"
 	if ( (*p) == 46 )
-		goto tr393;
+		goto tr387;
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr104;
-	goto st0;
-tr17:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 166 "lex/parser_timeline.rl"
-	{
-        event_time.bar = ragel_num.vint;
-        ragel_num.vint = 0;
-    }
-	goto st73;
-tr139:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 171 "lex/parser_timeline.rl"
-	{
-        event_time.beat = ragel_num.vint;
-        ragel_num.vint = 0;
-    }
-	goto st73;
-st73:
-	if ( ++p == pe )
-		goto _test_eof73;
-case 73:
-#line 1793 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 43: goto tr106;
-		case 45: goto tr106;
-		case 48: goto tr107;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr108;
-	goto st0;
-tr106:
-#line 280 "lex/parser_timeline.rl"
-	{ event_time.sign = 1; }
-#line 21 "lex/ragel_numeric.rl"
-	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
-	goto st74;
-tr133:
-#line 281 "lex/parser_timeline.rl"
-	{ event_time.sign = -1; }
-#line 21 "lex/ragel_numeric.rl"
-	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
-	goto st74;
-st74:
-	if ( ++p == pe )
-		goto _test_eof74;
-case 74:
-#line 1818 "lex/parser_timeline.cpp"
-	if ( (*p) == 48 )
-		goto tr109;
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr110;
-	goto st0;
-tr109:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st75;
-tr107:
-#line 280 "lex/parser_timeline.rl"
-	{ event_time.sign = 1; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st75;
-tr134:
-#line 281 "lex/parser_timeline.rl"
-	{ event_time.sign = -1; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st75;
-st75:
-	if ( ++p == pe )
-		goto _test_eof75;
-case 75:
-#line 1844 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 46: goto tr111;
-		case 104: goto tr112;
-		case 109: goto tr113;
-		case 115: goto tr114;
-	}
-	goto st0;
-tr111:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 50 "lex/ragel_numeric.rl"
-	{
-        ragel_num.ratio.num = 0;
-        ragel_num.ratio.den = 1;
-    }
-	goto st76;
-st76:
-	if ( ++p == pe )
-		goto _test_eof76;
-case 76:
-#line 1869 "lex/parser_timeline.cpp"
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr115;
-	goto st0;
-tr115:
-#line 54 "lex/ragel_numeric.rl"
-	{
-        (ragel_num.ratio.num *= 10) += ((*p) - '0');
-        ragel_num.ratio.den *= 10;
-    }
-	goto st77;
-st77:
-	if ( ++p == pe )
-		goto _test_eof77;
-case 77:
-#line 1884 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 104: goto tr116;
-		case 109: goto tr117;
-		case 115: goto tr118;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr115;
-	goto st0;
-tr112:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 7 "lex/ragel_units.rl"
-	{ ragel_num.vdouble = ragel_num.vint; }
-	goto st78;
-tr116:
-#line 58 "lex/ragel_numeric.rl"
-	{
-        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
-        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
-        ragel_type = TYPE_FLOAT;
-        ragel_cat  = CAT_NUMBER;
-    }
-	goto st78;
-st78:
-	if ( ++p == pe )
-		goto _test_eof78;
-case 78:
-#line 1916 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr119;
-		case 111: goto st79;
-	}
-	goto st0;
-st79:
-	if ( ++p == pe )
-		goto _test_eof79;
-case 79:
-	if ( (*p) == 117 )
-		goto st80;
-	goto st0;
-st80:
-	if ( ++p == pe )
-		goto _test_eof80;
-case 80:
-	if ( (*p) == 114 )
-		goto st81;
-	goto st0;
-st81:
-	if ( ++p == pe )
-		goto _test_eof81;
-case 81:
-	if ( (*p) == 32 )
-		goto tr119;
-	goto st0;
-tr113:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 7 "lex/ragel_units.rl"
-	{ ragel_num.vdouble = ragel_num.vint; }
-	goto st82;
-tr117:
-#line 58 "lex/ragel_numeric.rl"
-	{
-        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
-        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
-        ragel_type = TYPE_FLOAT;
-        ragel_cat  = CAT_NUMBER;
-    }
-	goto st82;
-st82:
-	if ( ++p == pe )
-		goto _test_eof82;
-case 82:
-#line 1966 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr123;
-		case 105: goto st83;
-		case 115: goto st85;
-	}
-	goto st0;
-st83:
-	if ( ++p == pe )
-		goto _test_eof83;
-case 83:
-	if ( (*p) == 110 )
-		goto st84;
-	goto st0;
-st84:
-	if ( ++p == pe )
-		goto _test_eof84;
-case 84:
-	if ( (*p) == 32 )
-		goto tr123;
-	goto st0;
-st85:
-	if ( ++p == pe )
-		goto _test_eof85;
-case 85:
-	switch( (*p) ) {
-		case 32: goto tr127;
-		case 101: goto st86;
-	}
-	goto st0;
-st86:
-	if ( ++p == pe )
-		goto _test_eof86;
-case 86:
-	if ( (*p) == 99 )
-		goto st87;
-	goto st0;
-st87:
-	if ( ++p == pe )
-		goto _test_eof87;
-case 87:
-	if ( (*p) == 32 )
-		goto tr127;
-	goto st0;
-tr114:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 7 "lex/ragel_units.rl"
-	{ ragel_num.vdouble = ragel_num.vint; }
-	goto st88;
-tr118:
-#line 58 "lex/ragel_numeric.rl"
-	{
-        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
-        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
-        ragel_type = TYPE_FLOAT;
-        ragel_cat  = CAT_NUMBER;
-    }
-	goto st88;
-st88:
-	if ( ++p == pe )
-		goto _test_eof88;
-case 88:
-#line 2033 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr130;
-		case 101: goto st89;
-	}
-	goto st0;
-st89:
-	if ( ++p == pe )
-		goto _test_eof89;
-case 89:
-	if ( (*p) == 99 )
-		goto st90;
-	goto st0;
-st90:
-	if ( ++p == pe )
-		goto _test_eof90;
-case 90:
-	if ( (*p) == 32 )
-		goto tr130;
-	goto st0;
-tr110:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st91;
-tr108:
-#line 280 "lex/parser_timeline.rl"
-	{ event_time.sign = 1; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st91;
-tr135:
-#line 281 "lex/parser_timeline.rl"
-	{ event_time.sign = -1; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st91;
-st91:
-	if ( ++p == pe )
-		goto _test_eof91;
-case 91:
-#line 2073 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 46: goto tr111;
-		case 104: goto tr112;
-		case 109: goto tr113;
-		case 115: goto tr114;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr110;
 	goto st0;
 tr18:
 #line 30 "lex/ragel_numeric.rl"
@@ -2086,206 +1751,60 @@ tr18:
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 166 "lex/parser_timeline.rl"
+#line 172 "lex/parser_timeline.rl"
 	{
         event_time.bar = ragel_num.vint;
         ragel_num.vint = 0;
     }
-	goto st92;
-tr140:
+	goto st72;
+tr136:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 171 "lex/parser_timeline.rl"
+#line 177 "lex/parser_timeline.rl"
 	{
         event_time.beat = ragel_num.vint;
         ragel_num.vint = 0;
     }
-	goto st92;
-st92:
+	goto st72;
+st72:
 	if ( ++p == pe )
-		goto _test_eof92;
-case 92:
-#line 2113 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 43: goto tr133;
-		case 45: goto tr133;
-		case 48: goto tr134;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr135;
-	goto st0;
-tr19:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 166 "lex/parser_timeline.rl"
-	{
-        event_time.bar = ragel_num.vint;
-        ragel_num.vint = 0;
-    }
-	goto st93;
-st93:
-	if ( ++p == pe )
-		goto _test_eof93;
-case 93:
-#line 2139 "lex/parser_timeline.cpp"
+		goto _test_eof72;
+case 72:
+#line 1778 "lex/parser_timeline.cpp"
 	if ( (*p) == 48 )
-		goto tr136;
+		goto tr106;
 	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr137;
+		goto tr107;
 	goto st0;
-tr136:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st94;
-st94:
-	if ( ++p == pe )
-		goto _test_eof94;
-case 94:
-#line 2153 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr138;
-		case 43: goto tr139;
-		case 45: goto tr140;
-	}
-	goto st0;
-tr137:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st95;
-st95:
-	if ( ++p == pe )
-		goto _test_eof95;
-case 95:
-#line 2168 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr138;
-		case 43: goto tr139;
-		case 45: goto tr140;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr137;
-	goto st0;
-tr14:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st96;
-st96:
-	if ( ++p == pe )
-		goto _test_eof96;
-case 96:
-#line 2185 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr16;
-		case 43: goto tr17;
-		case 45: goto tr18;
-		case 46: goto tr19;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr14;
-	goto st0;
-tr15:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-	goto st97;
-st97:
-	if ( ++p == pe )
-		goto _test_eof97;
-case 97:
-#line 2203 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr141;
-		case 43: goto tr142;
-		case 45: goto tr143;
-		case 95: goto tr15;
-	}
-	if ( (*p) < 65 ) {
-		if ( 48 <= (*p) && (*p) <= 57 )
-			goto tr15;
-	} else if ( (*p) > 90 ) {
-		if ( 97 <= (*p) && (*p) <= 122 )
-			goto tr15;
-	} else
-		goto tr15;
-	goto st0;
-tr142:
-#line 151 "lex/parser_timeline.rl"
-	{
-       event_time.rel_event = fsm.gensym();
-       fsm.symbol.clear();
-    }
-	goto st98;
-st98:
-	if ( ++p == pe )
-		goto _test_eof98;
-case 98:
-#line 2230 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 43: goto tr144;
-		case 45: goto tr144;
-		case 48: goto tr145;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr146;
-	goto st0;
-tr144:
-#line 280 "lex/parser_timeline.rl"
-	{ event_time.sign = 1; }
-#line 21 "lex/ragel_numeric.rl"
-	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
-	goto st99;
-tr171:
-#line 281 "lex/parser_timeline.rl"
-	{ event_time.sign = -1; }
-#line 21 "lex/ragel_numeric.rl"
-	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
-	goto st99;
-st99:
-	if ( ++p == pe )
-		goto _test_eof99;
-case 99:
-#line 2255 "lex/parser_timeline.cpp"
-	if ( (*p) == 48 )
-		goto tr147;
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr148;
-	goto st0;
-tr147:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st100;
-tr145:
-#line 280 "lex/parser_timeline.rl"
+tr106:
+#line 286 "lex/parser_timeline.rl"
 	{ event_time.sign = 1; }
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st100;
-tr172:
-#line 281 "lex/parser_timeline.rl"
+	goto st73;
+tr131:
+#line 287 "lex/parser_timeline.rl"
 	{ event_time.sign = -1; }
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st100;
-st100:
+	goto st73;
+st73:
 	if ( ++p == pe )
-		goto _test_eof100;
-case 100:
-#line 2281 "lex/parser_timeline.cpp"
+		goto _test_eof73;
+case 73:
+#line 1800 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 46: goto tr149;
-		case 104: goto tr150;
-		case 109: goto tr151;
-		case 115: goto tr152;
+		case 46: goto tr108;
+		case 104: goto tr109;
+		case 109: goto tr110;
+		case 115: goto tr111;
 	}
 	goto st0;
-tr149:
+tr108:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -2297,36 +1816,36 @@ tr149:
         ragel_num.ratio.num = 0;
         ragel_num.ratio.den = 1;
     }
-	goto st101;
-st101:
+	goto st74;
+st74:
 	if ( ++p == pe )
-		goto _test_eof101;
-case 101:
-#line 2306 "lex/parser_timeline.cpp"
+		goto _test_eof74;
+case 74:
+#line 1825 "lex/parser_timeline.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr153;
+		goto tr112;
 	goto st0;
-tr153:
+tr112:
 #line 54 "lex/ragel_numeric.rl"
 	{
         (ragel_num.ratio.num *= 10) += ((*p) - '0');
         ragel_num.ratio.den *= 10;
     }
-	goto st102;
-st102:
+	goto st75;
+st75:
 	if ( ++p == pe )
-		goto _test_eof102;
-case 102:
-#line 2321 "lex/parser_timeline.cpp"
+		goto _test_eof75;
+case 75:
+#line 1840 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 104: goto tr154;
-		case 109: goto tr155;
-		case 115: goto tr156;
+		case 104: goto tr113;
+		case 109: goto tr114;
+		case 115: goto tr115;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr153;
+		goto tr112;
 	goto st0;
-tr150:
+tr109:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -2335,8 +1854,8 @@ tr150:
     }
 #line 7 "lex/ragel_units.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
-	goto st103;
-tr154:
+	goto st76;
+tr113:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -2344,29 +1863,478 @@ tr154:
         ragel_type = TYPE_FLOAT;
         ragel_cat  = CAT_NUMBER;
     }
-	goto st103;
+	goto st76;
+st76:
+	if ( ++p == pe )
+		goto _test_eof76;
+case 76:
+#line 1872 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr116;
+		case 111: goto st77;
+	}
+	goto st0;
+st77:
+	if ( ++p == pe )
+		goto _test_eof77;
+case 77:
+	if ( (*p) == 117 )
+		goto st78;
+	goto st0;
+st78:
+	if ( ++p == pe )
+		goto _test_eof78;
+case 78:
+	if ( (*p) == 114 )
+		goto st79;
+	goto st0;
+st79:
+	if ( ++p == pe )
+		goto _test_eof79;
+case 79:
+	if ( (*p) == 32 )
+		goto tr116;
+	goto st0;
+tr110:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 7 "lex/ragel_units.rl"
+	{ ragel_num.vdouble = ragel_num.vint; }
+	goto st80;
+tr114:
+#line 58 "lex/ragel_numeric.rl"
+	{
+        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+        ragel_type = TYPE_FLOAT;
+        ragel_cat  = CAT_NUMBER;
+    }
+	goto st80;
+st80:
+	if ( ++p == pe )
+		goto _test_eof80;
+case 80:
+#line 1922 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr120;
+		case 105: goto st81;
+		case 115: goto st83;
+	}
+	goto st0;
+st81:
+	if ( ++p == pe )
+		goto _test_eof81;
+case 81:
+	if ( (*p) == 110 )
+		goto st82;
+	goto st0;
+st82:
+	if ( ++p == pe )
+		goto _test_eof82;
+case 82:
+	if ( (*p) == 32 )
+		goto tr120;
+	goto st0;
+st83:
+	if ( ++p == pe )
+		goto _test_eof83;
+case 83:
+	switch( (*p) ) {
+		case 32: goto tr124;
+		case 101: goto st84;
+	}
+	goto st0;
+st84:
+	if ( ++p == pe )
+		goto _test_eof84;
+case 84:
+	if ( (*p) == 99 )
+		goto st85;
+	goto st0;
+st85:
+	if ( ++p == pe )
+		goto _test_eof85;
+case 85:
+	if ( (*p) == 32 )
+		goto tr124;
+	goto st0;
+tr111:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 7 "lex/ragel_units.rl"
+	{ ragel_num.vdouble = ragel_num.vint; }
+	goto st86;
+tr115:
+#line 58 "lex/ragel_numeric.rl"
+	{
+        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+        ragel_type = TYPE_FLOAT;
+        ragel_cat  = CAT_NUMBER;
+    }
+	goto st86;
+st86:
+	if ( ++p == pe )
+		goto _test_eof86;
+case 86:
+#line 1989 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr127;
+		case 101: goto st87;
+	}
+	goto st0;
+st87:
+	if ( ++p == pe )
+		goto _test_eof87;
+case 87:
+	if ( (*p) == 99 )
+		goto st88;
+	goto st0;
+st88:
+	if ( ++p == pe )
+		goto _test_eof88;
+case 88:
+	if ( (*p) == 32 )
+		goto tr127;
+	goto st0;
+tr130:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st89;
+tr107:
+#line 286 "lex/parser_timeline.rl"
+	{ event_time.sign = 1; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st89;
+tr132:
+#line 287 "lex/parser_timeline.rl"
+	{ event_time.sign = -1; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st89;
+st89:
+	if ( ++p == pe )
+		goto _test_eof89;
+case 89:
+#line 2029 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 46: goto tr108;
+		case 104: goto tr109;
+		case 109: goto tr110;
+		case 115: goto tr111;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr130;
+	goto st0;
+tr19:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 172 "lex/parser_timeline.rl"
+	{
+        event_time.bar = ragel_num.vint;
+        ragel_num.vint = 0;
+    }
+	goto st90;
+tr137:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 177 "lex/parser_timeline.rl"
+	{
+        event_time.beat = ragel_num.vint;
+        ragel_num.vint = 0;
+    }
+	goto st90;
+st90:
+	if ( ++p == pe )
+		goto _test_eof90;
+case 90:
+#line 2069 "lex/parser_timeline.cpp"
+	if ( (*p) == 48 )
+		goto tr131;
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr132;
+	goto st0;
+tr20:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 172 "lex/parser_timeline.rl"
+	{
+        event_time.bar = ragel_num.vint;
+        ragel_num.vint = 0;
+    }
+	goto st91;
+st91:
+	if ( ++p == pe )
+		goto _test_eof91;
+case 91:
+#line 2092 "lex/parser_timeline.cpp"
+	if ( (*p) == 48 )
+		goto tr133;
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr134;
+	goto st0;
+tr133:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st92;
+st92:
+	if ( ++p == pe )
+		goto _test_eof92;
+case 92:
+#line 2106 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr135;
+		case 43: goto tr136;
+		case 45: goto tr137;
+	}
+	goto st0;
+tr134:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st93;
+st93:
+	if ( ++p == pe )
+		goto _test_eof93;
+case 93:
+#line 2121 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr135;
+		case 43: goto tr136;
+		case 45: goto tr137;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr134;
+	goto st0;
+tr15:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st94;
+st94:
+	if ( ++p == pe )
+		goto _test_eof94;
+case 94:
+#line 2138 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr17;
+		case 43: goto tr18;
+		case 45: goto tr19;
+		case 46: goto tr20;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr15;
+	goto st0;
+tr16:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+	goto st95;
+st95:
+	if ( ++p == pe )
+		goto _test_eof95;
+case 95:
+#line 2156 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr138;
+		case 43: goto tr139;
+		case 45: goto tr140;
+		case 95: goto tr16;
+	}
+	if ( (*p) < 65 ) {
+		if ( 48 <= (*p) && (*p) <= 57 )
+			goto tr16;
+	} else if ( (*p) > 90 ) {
+		if ( 97 <= (*p) && (*p) <= 122 )
+			goto tr16;
+	} else
+		goto tr16;
+	goto st0;
+tr139:
+#line 157 "lex/parser_timeline.rl"
+	{
+       event_time.rel_event = fsm.gensym();
+       fsm.symbol.clear();
+    }
+	goto st96;
+st96:
+	if ( ++p == pe )
+		goto _test_eof96;
+case 96:
+#line 2183 "lex/parser_timeline.cpp"
+	if ( (*p) == 48 )
+		goto tr141;
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr142;
+	goto st0;
+tr141:
+#line 286 "lex/parser_timeline.rl"
+	{ event_time.sign = 1; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st97;
+tr166:
+#line 287 "lex/parser_timeline.rl"
+	{ event_time.sign = -1; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st97;
+st97:
+	if ( ++p == pe )
+		goto _test_eof97;
+case 97:
+#line 2205 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 46: goto tr143;
+		case 104: goto tr144;
+		case 109: goto tr145;
+		case 115: goto tr146;
+	}
+	goto st0;
+tr143:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 50 "lex/ragel_numeric.rl"
+	{
+        ragel_num.ratio.num = 0;
+        ragel_num.ratio.den = 1;
+    }
+	goto st98;
+st98:
+	if ( ++p == pe )
+		goto _test_eof98;
+case 98:
+#line 2230 "lex/parser_timeline.cpp"
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr147;
+	goto st0;
+tr147:
+#line 54 "lex/ragel_numeric.rl"
+	{
+        (ragel_num.ratio.num *= 10) += ((*p) - '0');
+        ragel_num.ratio.den *= 10;
+    }
+	goto st99;
+st99:
+	if ( ++p == pe )
+		goto _test_eof99;
+case 99:
+#line 2245 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 104: goto tr148;
+		case 109: goto tr149;
+		case 115: goto tr150;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr147;
+	goto st0;
+tr144:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 7 "lex/ragel_units.rl"
+	{ ragel_num.vdouble = ragel_num.vint; }
+	goto st100;
+tr148:
+#line 58 "lex/ragel_numeric.rl"
+	{
+        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+        ragel_type = TYPE_FLOAT;
+        ragel_cat  = CAT_NUMBER;
+    }
+	goto st100;
+st100:
+	if ( ++p == pe )
+		goto _test_eof100;
+case 100:
+#line 2277 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr151;
+		case 111: goto st101;
+	}
+	goto st0;
+st101:
+	if ( ++p == pe )
+		goto _test_eof101;
+case 101:
+	if ( (*p) == 117 )
+		goto st102;
+	goto st0;
+st102:
+	if ( ++p == pe )
+		goto _test_eof102;
+case 102:
+	if ( (*p) == 114 )
+		goto st103;
+	goto st0;
 st103:
 	if ( ++p == pe )
 		goto _test_eof103;
 case 103:
-#line 2353 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr157;
-		case 111: goto st104;
-	}
+	if ( (*p) == 32 )
+		goto tr151;
 	goto st0;
+tr145:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 7 "lex/ragel_units.rl"
+	{ ragel_num.vdouble = ragel_num.vint; }
+	goto st104;
+tr149:
+#line 58 "lex/ragel_numeric.rl"
+	{
+        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+        ragel_type = TYPE_FLOAT;
+        ragel_cat  = CAT_NUMBER;
+    }
+	goto st104;
 st104:
 	if ( ++p == pe )
 		goto _test_eof104;
 case 104:
-	if ( (*p) == 117 )
-		goto st105;
+#line 2327 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr155;
+		case 105: goto st105;
+		case 115: goto st107;
+	}
 	goto st0;
 st105:
 	if ( ++p == pe )
 		goto _test_eof105;
 case 105:
-	if ( (*p) == 114 )
+	if ( (*p) == 110 )
 		goto st106;
 	goto st0;
 st106:
@@ -2374,9 +2342,32 @@ st106:
 		goto _test_eof106;
 case 106:
 	if ( (*p) == 32 )
-		goto tr157;
+		goto tr155;
 	goto st0;
-tr151:
+st107:
+	if ( ++p == pe )
+		goto _test_eof107;
+case 107:
+	switch( (*p) ) {
+		case 32: goto tr159;
+		case 101: goto st108;
+	}
+	goto st0;
+st108:
+	if ( ++p == pe )
+		goto _test_eof108;
+case 108:
+	if ( (*p) == 99 )
+		goto st109;
+	goto st0;
+st109:
+	if ( ++p == pe )
+		goto _test_eof109;
+case 109:
+	if ( (*p) == 32 )
+		goto tr159;
+	goto st0;
+tr146:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -2385,8 +2376,8 @@ tr151:
     }
 #line 7 "lex/ragel_units.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
-	goto st107;
-tr155:
+	goto st110;
+tr150:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -2394,38 +2385,14 @@ tr155:
         ragel_type = TYPE_FLOAT;
         ragel_cat  = CAT_NUMBER;
     }
-	goto st107;
-st107:
-	if ( ++p == pe )
-		goto _test_eof107;
-case 107:
-#line 2403 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr161;
-		case 105: goto st108;
-		case 115: goto st110;
-	}
-	goto st0;
-st108:
-	if ( ++p == pe )
-		goto _test_eof108;
-case 108:
-	if ( (*p) == 110 )
-		goto st109;
-	goto st0;
-st109:
-	if ( ++p == pe )
-		goto _test_eof109;
-case 109:
-	if ( (*p) == 32 )
-		goto tr161;
-	goto st0;
+	goto st110;
 st110:
 	if ( ++p == pe )
 		goto _test_eof110;
 case 110:
+#line 2394 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr165;
+		case 32: goto tr162;
 		case 101: goto st111;
 	}
 	goto st0;
@@ -2441,155 +2408,268 @@ st112:
 		goto _test_eof112;
 case 112:
 	if ( (*p) == 32 )
-		goto tr165;
+		goto tr162;
 	goto st0;
-tr152:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 7 "lex/ragel_units.rl"
-	{ ragel_num.vdouble = ragel_num.vint; }
+tr165:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st113;
-tr156:
-#line 58 "lex/ragel_numeric.rl"
-	{
-        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
-        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
-        ragel_type = TYPE_FLOAT;
-        ragel_cat  = CAT_NUMBER;
-    }
+tr142:
+#line 286 "lex/parser_timeline.rl"
+	{ event_time.sign = 1; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st113;
+tr167:
+#line 287 "lex/parser_timeline.rl"
+	{ event_time.sign = -1; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st113;
 st113:
 	if ( ++p == pe )
 		goto _test_eof113;
 case 113:
-#line 2470 "lex/parser_timeline.cpp"
+#line 2434 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr168;
-		case 101: goto st114;
+		case 46: goto tr143;
+		case 104: goto tr144;
+		case 109: goto tr145;
+		case 115: goto tr146;
 	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr165;
 	goto st0;
+tr140:
+#line 157 "lex/parser_timeline.rl"
+	{
+       event_time.rel_event = fsm.gensym();
+       fsm.symbol.clear();
+    }
+	goto st114;
 st114:
 	if ( ++p == pe )
 		goto _test_eof114;
 case 114:
-	if ( (*p) == 99 )
-		goto st115;
+#line 2455 "lex/parser_timeline.cpp"
+	if ( (*p) == 48 )
+		goto tr166;
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr167;
 	goto st0;
+tr3:
+#line 79 "lex/ragel_units.rl"
+	{smpte.np = 0;}
+#line 74 "lex/ragel_units.rl"
+	{smpte.sign = ((*p)=='-')?-1:1;}
+	goto st115;
 st115:
 	if ( ++p == pe )
 		goto _test_eof115;
 case 115:
-	if ( (*p) == 32 )
-		goto tr168;
+#line 2471 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 43: goto tr168;
+		case 45: goto tr168;
+		case 48: goto tr169;
+	}
+	if ( (*p) > 53 ) {
+		if ( 54 <= (*p) && (*p) <= 57 )
+			goto tr171;
+	} else if ( (*p) >= 49 )
+		goto tr170;
 	goto st0;
-tr148:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+tr4:
+#line 79 "lex/ragel_units.rl"
+	{smpte.np = 0;}
+#line 74 "lex/ragel_units.rl"
+	{smpte.sign = ((*p)=='-')?-1:1;}
 	goto st116;
-tr146:
-#line 280 "lex/parser_timeline.rl"
-	{ event_time.sign = 1; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st116;
-tr173:
-#line 281 "lex/parser_timeline.rl"
-	{ event_time.sign = -1; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+tr168:
+#line 296 "lex/parser_timeline.rl"
+	{ event_time.relative = true; }
+#line 79 "lex/ragel_units.rl"
+	{smpte.np = 0;}
+#line 74 "lex/ragel_units.rl"
+	{smpte.sign = ((*p)=='-')?-1:1;}
 	goto st116;
 st116:
 	if ( ++p == pe )
 		goto _test_eof116;
 case 116:
-#line 2510 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 46: goto tr149;
-		case 104: goto tr150;
-		case 109: goto tr151;
-		case 115: goto tr152;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr148;
+#line 2501 "lex/parser_timeline.cpp"
+	if ( 48 <= (*p) && (*p) <= 53 )
+		goto tr172;
 	goto st0;
-tr143:
-#line 151 "lex/parser_timeline.rl"
-	{
-       event_time.rel_event = fsm.gensym();
-       fsm.symbol.clear();
-    }
+tr172:
+#line 67 "lex/ragel_units.rl"
+	{smpte.hour = 0; smpte.np++;}
+#line 67 "lex/ragel_units.rl"
+	{(smpte.hour *= 10) += ((*p) - '0');}
 	goto st117;
 st117:
 	if ( ++p == pe )
 		goto _test_eof117;
 case 117:
-#line 2531 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 43: goto tr171;
-		case 45: goto tr171;
-		case 48: goto tr172;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
+#line 2515 "lex/parser_timeline.cpp"
+	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr173;
 	goto st0;
-tr3:
-#line 21 "lex/ragel_numeric.rl"
-	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
-#line 78 "lex/ragel_units.rl"
-	{smpte.np = 0;}
-#line 73 "lex/ragel_units.rl"
-	{smpte.sign = ((*p)=='-')?-1:1;}
+tr173:
+#line 67 "lex/ragel_units.rl"
+	{(smpte.hour *= 10) += ((*p) - '0');}
 	goto st118;
 st118:
 	if ( ++p == pe )
 		goto _test_eof118;
 case 118:
-#line 2552 "lex/parser_timeline.cpp"
-	if ( (*p) == 48 )
-		goto tr174;
-	if ( (*p) > 53 ) {
-		if ( 54 <= (*p) && (*p) <= 57 )
-			goto tr7;
-	} else if ( (*p) >= 49 )
-		goto tr175;
+#line 2527 "lex/parser_timeline.cpp"
+	if ( (*p) == 58 )
+		goto st119;
 	goto st0;
-tr5:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 78 "lex/ragel_units.rl"
-	{smpte.np = 0;}
-#line 66 "lex/ragel_units.rl"
-	{smpte.hour = 0; smpte.np++;}
-#line 66 "lex/ragel_units.rl"
-	{(smpte.hour *= 10) += ((*p) - '0');}
-	goto st119;
-tr174:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 66 "lex/ragel_units.rl"
-	{smpte.hour = 0; smpte.np++;}
-#line 66 "lex/ragel_units.rl"
-	{(smpte.hour *= 10) += ((*p) - '0');}
-	goto st119;
 st119:
 	if ( ++p == pe )
 		goto _test_eof119;
 case 119:
-#line 2583 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 46: goto tr176;
-		case 104: goto tr178;
-		case 109: goto tr179;
-		case 115: goto tr180;
-	}
+	if ( 48 <= (*p) && (*p) <= 53 )
+		goto tr175;
+	goto st0;
+tr175:
+#line 68 "lex/ragel_units.rl"
+	{smpte.min = 0; smpte.np++;}
+#line 68 "lex/ragel_units.rl"
+	{(smpte.min *= 10) += ((*p) - '0');}
+	goto st120;
+st120:
+	if ( ++p == pe )
+		goto _test_eof120;
+case 120:
+#line 2548 "lex/parser_timeline.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr177;
+		goto tr176;
 	goto st0;
 tr176:
+#line 68 "lex/ragel_units.rl"
+	{(smpte.min *= 10) += ((*p) - '0');}
+	goto st121;
+st121:
+	if ( ++p == pe )
+		goto _test_eof121;
+case 121:
+#line 2560 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr177;
+		case 46: goto st122;
+		case 58: goto st125;
+	}
+	goto st0;
+st122:
+	if ( ++p == pe )
+		goto _test_eof122;
+case 122:
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr180;
+	goto st0;
+tr180:
+#line 70 "lex/ragel_units.rl"
+	{smpte.frame = 0;}
+#line 70 "lex/ragel_units.rl"
+	{(smpte.frame *= 10) += ((*p) - '0');}
+	goto st123;
+st123:
+	if ( ++p == pe )
+		goto _test_eof123;
+case 123:
+#line 2584 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr177;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr181;
+	goto st0;
+tr181:
+#line 70 "lex/ragel_units.rl"
+	{(smpte.frame *= 10) += ((*p) - '0');}
+	goto st124;
+st124:
+	if ( ++p == pe )
+		goto _test_eof124;
+case 124:
+#line 2598 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr177;
+	goto st0;
+st125:
+	if ( ++p == pe )
+		goto _test_eof125;
+case 125:
+	if ( 48 <= (*p) && (*p) <= 53 )
+		goto tr182;
+	goto st0;
+tr182:
+#line 69 "lex/ragel_units.rl"
+	{smpte.sec = 0; smpte.np++;}
+#line 69 "lex/ragel_units.rl"
+	{(smpte.sec *= 10) += ((*p) - '0');}
+	goto st126;
+st126:
+	if ( ++p == pe )
+		goto _test_eof126;
+case 126:
+#line 2619 "lex/parser_timeline.cpp"
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr183;
+	goto st0;
+tr183:
+#line 69 "lex/ragel_units.rl"
+	{(smpte.sec *= 10) += ((*p) - '0');}
+	goto st127;
+st127:
+	if ( ++p == pe )
+		goto _test_eof127;
+case 127:
+#line 2631 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr177;
+		case 46: goto st122;
+	}
+	goto st0;
+tr6:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+#line 79 "lex/ragel_units.rl"
+	{smpte.np = 0;}
+#line 67 "lex/ragel_units.rl"
+	{smpte.hour = 0; smpte.np++;}
+#line 67 "lex/ragel_units.rl"
+	{(smpte.hour *= 10) += ((*p) - '0');}
+	goto st128;
+tr169:
+#line 296 "lex/parser_timeline.rl"
+	{ event_time.relative = true; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+#line 79 "lex/ragel_units.rl"
+	{smpte.np = 0;}
+#line 67 "lex/ragel_units.rl"
+	{smpte.hour = 0; smpte.np++;}
+#line 67 "lex/ragel_units.rl"
+	{(smpte.hour *= 10) += ((*p) - '0');}
+	goto st128;
+st128:
+	if ( ++p == pe )
+		goto _test_eof128;
+case 128:
+#line 2663 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 46: goto tr184;
+		case 104: goto tr185;
+		case 109: goto tr186;
+		case 115: goto tr187;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr173;
+	goto st0;
+tr184:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -2601,153 +2681,36 @@ tr176:
         ragel_num.ratio.num = 0;
         ragel_num.ratio.den = 1;
     }
-	goto st120;
-st120:
+	goto st129;
+st129:
 	if ( ++p == pe )
-		goto _test_eof120;
-case 120:
-#line 2610 "lex/parser_timeline.cpp"
+		goto _test_eof129;
+case 129:
+#line 2690 "lex/parser_timeline.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr181;
+		goto tr188;
 	goto st0;
-tr181:
+tr188:
 #line 54 "lex/ragel_numeric.rl"
 	{
         (ragel_num.ratio.num *= 10) += ((*p) - '0');
         ragel_num.ratio.den *= 10;
     }
-	goto st121;
-st121:
-	if ( ++p == pe )
-		goto _test_eof121;
-case 121:
-#line 2625 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 104: goto tr182;
-		case 109: goto tr183;
-		case 115: goto tr184;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr181;
-	goto st0;
-tr178:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 7 "lex/ragel_units.rl"
-	{ ragel_num.vdouble = ragel_num.vint; }
-	goto st122;
-tr182:
-#line 58 "lex/ragel_numeric.rl"
-	{
-        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
-        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
-        ragel_type = TYPE_FLOAT;
-        ragel_cat  = CAT_NUMBER;
-    }
-	goto st122;
-st122:
-	if ( ++p == pe )
-		goto _test_eof122;
-case 122:
-#line 2657 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr185;
-		case 111: goto st123;
-	}
-	goto st0;
-st123:
-	if ( ++p == pe )
-		goto _test_eof123;
-case 123:
-	if ( (*p) == 117 )
-		goto st124;
-	goto st0;
-st124:
-	if ( ++p == pe )
-		goto _test_eof124;
-case 124:
-	if ( (*p) == 114 )
-		goto st125;
-	goto st0;
-st125:
-	if ( ++p == pe )
-		goto _test_eof125;
-case 125:
-	if ( (*p) == 32 )
-		goto tr185;
-	goto st0;
-tr179:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 7 "lex/ragel_units.rl"
-	{ ragel_num.vdouble = ragel_num.vint; }
-	goto st126;
-tr183:
-#line 58 "lex/ragel_numeric.rl"
-	{
-        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
-        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
-        ragel_type = TYPE_FLOAT;
-        ragel_cat  = CAT_NUMBER;
-    }
-	goto st126;
-st126:
-	if ( ++p == pe )
-		goto _test_eof126;
-case 126:
-#line 2707 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr189;
-		case 105: goto st127;
-		case 115: goto st129;
-	}
-	goto st0;
-st127:
-	if ( ++p == pe )
-		goto _test_eof127;
-case 127:
-	if ( (*p) == 110 )
-		goto st128;
-	goto st0;
-st128:
-	if ( ++p == pe )
-		goto _test_eof128;
-case 128:
-	if ( (*p) == 32 )
-		goto tr189;
-	goto st0;
-st129:
-	if ( ++p == pe )
-		goto _test_eof129;
-case 129:
-	switch( (*p) ) {
-		case 32: goto tr193;
-		case 101: goto st130;
-	}
-	goto st0;
+	goto st130;
 st130:
 	if ( ++p == pe )
 		goto _test_eof130;
 case 130:
-	if ( (*p) == 99 )
-		goto st131;
+#line 2705 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 104: goto tr189;
+		case 109: goto tr190;
+		case 115: goto tr191;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr188;
 	goto st0;
-st131:
-	if ( ++p == pe )
-		goto _test_eof131;
-case 131:
-	if ( (*p) == 32 )
-		goto tr193;
-	goto st0;
-tr180:
+tr185:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -2756,8 +2719,8 @@ tr180:
     }
 #line 7 "lex/ragel_units.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
-	goto st132;
-tr184:
+	goto st131;
+tr189:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -2765,22 +2728,29 @@ tr184:
         ragel_type = TYPE_FLOAT;
         ragel_cat  = CAT_NUMBER;
     }
-	goto st132;
+	goto st131;
+st131:
+	if ( ++p == pe )
+		goto _test_eof131;
+case 131:
+#line 2737 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr192;
+		case 111: goto st132;
+	}
+	goto st0;
 st132:
 	if ( ++p == pe )
 		goto _test_eof132;
 case 132:
-#line 2774 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr196;
-		case 101: goto st133;
-	}
+	if ( (*p) == 117 )
+		goto st133;
 	goto st0;
 st133:
 	if ( ++p == pe )
 		goto _test_eof133;
 case 133:
-	if ( (*p) == 99 )
+	if ( (*p) == 114 )
 		goto st134;
 	goto st0;
 st134:
@@ -2788,347 +2758,349 @@ st134:
 		goto _test_eof134;
 case 134:
 	if ( (*p) == 32 )
-		goto tr196;
+		goto tr192;
 	goto st0;
-tr177:
-#line 66 "lex/ragel_units.rl"
-	{(smpte.hour *= 10) += ((*p) - '0');}
-	goto st135;
-st135:
-	if ( ++p == pe )
-		goto _test_eof135;
-case 135:
-#line 2802 "lex/parser_timeline.cpp"
-	if ( (*p) == 58 )
-		goto st136;
-	goto st0;
-st136:
-	if ( ++p == pe )
-		goto _test_eof136;
-case 136:
-	if ( 48 <= (*p) && (*p) <= 53 )
-		goto tr200;
-	goto st0;
-tr200:
-#line 67 "lex/ragel_units.rl"
-	{smpte.min = 0; smpte.np++;}
-#line 67 "lex/ragel_units.rl"
-	{(smpte.min *= 10) += ((*p) - '0');}
-	goto st137;
-st137:
-	if ( ++p == pe )
-		goto _test_eof137;
-case 137:
-#line 2823 "lex/parser_timeline.cpp"
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr201;
-	goto st0;
-tr201:
-#line 67 "lex/ragel_units.rl"
-	{(smpte.min *= 10) += ((*p) - '0');}
-	goto st138;
-st138:
-	if ( ++p == pe )
-		goto _test_eof138;
-case 138:
-#line 2835 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr202;
-		case 46: goto st139;
-		case 58: goto st142;
-	}
-	goto st0;
-st139:
-	if ( ++p == pe )
-		goto _test_eof139;
-case 139:
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr205;
-	goto st0;
-tr205:
-#line 69 "lex/ragel_units.rl"
-	{smpte.frame = 0;}
-#line 69 "lex/ragel_units.rl"
-	{(smpte.frame *= 10) += ((*p) - '0');}
-	goto st140;
-st140:
-	if ( ++p == pe )
-		goto _test_eof140;
-case 140:
-#line 2859 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr202;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr206;
-	goto st0;
-tr206:
-#line 69 "lex/ragel_units.rl"
-	{(smpte.frame *= 10) += ((*p) - '0');}
-	goto st141;
-st141:
-	if ( ++p == pe )
-		goto _test_eof141;
-case 141:
-#line 2873 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr202;
-	goto st0;
-st142:
-	if ( ++p == pe )
-		goto _test_eof142;
-case 142:
-	if ( 48 <= (*p) && (*p) <= 53 )
-		goto tr207;
-	goto st0;
-tr207:
-#line 68 "lex/ragel_units.rl"
-	{smpte.sec = 0; smpte.np++;}
-#line 68 "lex/ragel_units.rl"
-	{(smpte.sec *= 10) += ((*p) - '0');}
-	goto st143;
-st143:
-	if ( ++p == pe )
-		goto _test_eof143;
-case 143:
-#line 2894 "lex/parser_timeline.cpp"
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr208;
-	goto st0;
-tr208:
-#line 68 "lex/ragel_units.rl"
-	{(smpte.sec *= 10) += ((*p) - '0');}
-	goto st144;
-st144:
-	if ( ++p == pe )
-		goto _test_eof144;
-case 144:
-#line 2906 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr202;
-		case 46: goto st139;
-	}
-	goto st0;
-tr6:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 78 "lex/ragel_units.rl"
-	{smpte.np = 0;}
-#line 66 "lex/ragel_units.rl"
-	{smpte.hour = 0; smpte.np++;}
-#line 66 "lex/ragel_units.rl"
-	{(smpte.hour *= 10) += ((*p) - '0');}
-	goto st145;
-tr175:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 66 "lex/ragel_units.rl"
-	{smpte.hour = 0; smpte.np++;}
-#line 66 "lex/ragel_units.rl"
-	{(smpte.hour *= 10) += ((*p) - '0');}
-	goto st145;
-st145:
-	if ( ++p == pe )
-		goto _test_eof145;
-case 145:
-#line 2934 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 46: goto tr176;
-		case 104: goto tr178;
-		case 109: goto tr179;
-		case 115: goto tr180;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr209;
-	goto st0;
-tr209:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 66 "lex/ragel_units.rl"
-	{(smpte.hour *= 10) += ((*p) - '0');}
-	goto st146;
-st146:
-	if ( ++p == pe )
-		goto _test_eof146;
-case 146:
-#line 2954 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 46: goto tr176;
-		case 58: goto st136;
-		case 104: goto tr178;
-		case 109: goto tr179;
-		case 115: goto tr180;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr7;
-	goto st0;
-tr7:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st147;
-st147:
-	if ( ++p == pe )
-		goto _test_eof147;
-case 147:
-#line 2973 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 46: goto tr176;
-		case 104: goto tr178;
-		case 109: goto tr179;
-		case 115: goto tr180;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr7;
-	goto st0;
-st148:
-	if ( ++p == pe )
-		goto _test_eof148;
-case 148:
-	if ( (*p) == 112 )
-		goto st149;
-	goto st0;
-st149:
-	if ( ++p == pe )
-		goto _test_eof149;
-case 149:
-	if ( (*p) == 109 )
-		goto st150;
-	goto st0;
-st150:
-	if ( ++p == pe )
-		goto _test_eof150;
-case 150:
-	if ( (*p) == 32 )
-		goto st151;
-	goto st0;
-st151:
-	if ( ++p == pe )
-		goto _test_eof151;
-case 151:
-	switch( (*p) ) {
-		case 32: goto st151;
-		case 48: goto tr213;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr214;
-	goto st0;
-tr213:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st152;
-st152:
-	if ( ++p == pe )
-		goto _test_eof152;
-case 152:
-#line 3023 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr215;
-	goto st0;
-tr215:
+tr186:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-	goto st153;
-st153:
+#line 7 "lex/ragel_units.rl"
+	{ ragel_num.vdouble = ragel_num.vint; }
+	goto st135;
+tr190:
+#line 58 "lex/ragel_numeric.rl"
+	{
+        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+        ragel_type = TYPE_FLOAT;
+        ragel_cat  = CAT_NUMBER;
+    }
+	goto st135;
+st135:
 	if ( ++p == pe )
-		goto _test_eof153;
-case 153:
-#line 3039 "lex/parser_timeline.cpp"
+		goto _test_eof135;
+case 135:
+#line 2787 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto st153;
-		case 48: goto tr217;
+		case 32: goto tr196;
+		case 105: goto st136;
+		case 115: goto st138;
+	}
+	goto st0;
+st136:
+	if ( ++p == pe )
+		goto _test_eof136;
+case 136:
+	if ( (*p) == 110 )
+		goto st137;
+	goto st0;
+st137:
+	if ( ++p == pe )
+		goto _test_eof137;
+case 137:
+	if ( (*p) == 32 )
+		goto tr196;
+	goto st0;
+st138:
+	if ( ++p == pe )
+		goto _test_eof138;
+case 138:
+	switch( (*p) ) {
+		case 32: goto tr200;
+		case 101: goto st139;
+	}
+	goto st0;
+st139:
+	if ( ++p == pe )
+		goto _test_eof139;
+case 139:
+	if ( (*p) == 99 )
+		goto st140;
+	goto st0;
+st140:
+	if ( ++p == pe )
+		goto _test_eof140;
+case 140:
+	if ( (*p) == 32 )
+		goto tr200;
+	goto st0;
+tr187:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 7 "lex/ragel_units.rl"
+	{ ragel_num.vdouble = ragel_num.vint; }
+	goto st141;
+tr191:
+#line 58 "lex/ragel_numeric.rl"
+	{
+        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+        ragel_type = TYPE_FLOAT;
+        ragel_cat  = CAT_NUMBER;
+    }
+	goto st141;
+st141:
+	if ( ++p == pe )
+		goto _test_eof141;
+case 141:
+#line 2854 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr203;
+		case 101: goto st142;
+	}
+	goto st0;
+st142:
+	if ( ++p == pe )
+		goto _test_eof142;
+case 142:
+	if ( (*p) == 99 )
+		goto st143;
+	goto st0;
+st143:
+	if ( ++p == pe )
+		goto _test_eof143;
+case 143:
+	if ( (*p) == 32 )
+		goto tr203;
+	goto st0;
+tr7:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+#line 79 "lex/ragel_units.rl"
+	{smpte.np = 0;}
+#line 67 "lex/ragel_units.rl"
+	{smpte.hour = 0; smpte.np++;}
+#line 67 "lex/ragel_units.rl"
+	{(smpte.hour *= 10) += ((*p) - '0');}
+	goto st144;
+tr170:
+#line 296 "lex/parser_timeline.rl"
+	{ event_time.relative = true; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+#line 79 "lex/ragel_units.rl"
+	{smpte.np = 0;}
+#line 67 "lex/ragel_units.rl"
+	{smpte.hour = 0; smpte.np++;}
+#line 67 "lex/ragel_units.rl"
+	{(smpte.hour *= 10) += ((*p) - '0');}
+	goto st144;
+st144:
+	if ( ++p == pe )
+		goto _test_eof144;
+case 144:
+#line 2900 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 46: goto tr184;
+		case 104: goto tr185;
+		case 109: goto tr186;
+		case 115: goto tr187;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr206;
+	goto st0;
+tr206:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+#line 67 "lex/ragel_units.rl"
+	{(smpte.hour *= 10) += ((*p) - '0');}
+	goto st145;
+st145:
+	if ( ++p == pe )
+		goto _test_eof145;
+case 145:
+#line 2920 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 46: goto tr184;
+		case 58: goto st119;
+		case 104: goto tr185;
+		case 109: goto tr186;
+		case 115: goto tr187;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr8;
+	goto st0;
+tr8:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st146;
+tr171:
+#line 296 "lex/parser_timeline.rl"
+	{ event_time.relative = true; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st146;
+st146:
+	if ( ++p == pe )
+		goto _test_eof146;
+case 146:
+#line 2945 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 46: goto tr184;
+		case 104: goto tr185;
+		case 109: goto tr186;
+		case 115: goto tr187;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr8;
+	goto st0;
+st147:
+	if ( ++p == pe )
+		goto _test_eof147;
+case 147:
+	if ( (*p) == 112 )
+		goto st148;
+	goto st0;
+st148:
+	if ( ++p == pe )
+		goto _test_eof148;
+case 148:
+	if ( (*p) == 109 )
+		goto st149;
+	goto st0;
+st149:
+	if ( ++p == pe )
+		goto _test_eof149;
+case 149:
+	if ( (*p) == 32 )
+		goto st150;
+	goto st0;
+st150:
+	if ( ++p == pe )
+		goto _test_eof150;
+case 150:
+	switch( (*p) ) {
+		case 32: goto st150;
+		case 48: goto tr210;
 	}
 	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr218;
+		goto tr211;
 	goto st0;
-tr217:
+tr210:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st151;
+st151:
+	if ( ++p == pe )
+		goto _test_eof151;
+case 151:
+#line 2995 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr212;
+	goto st0;
+tr212:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+	goto st152;
+st152:
+	if ( ++p == pe )
+		goto _test_eof152;
+case 152:
+#line 3011 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto st152;
+		case 48: goto tr214;
+	}
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr215;
+	goto st0;
+tr214:
 #line 9 "lex/ragel_music.rl"
 	{ bpm.dur_num = 1; bpm.dur_den = 4; }
 #line 6 "lex/ragel_music.rl"
 	{ (bpm.ival *= 10) += ((*p) - '0'); }
-	goto st305;
-st305:
+	goto st301;
+st301:
 	if ( ++p == pe )
-		goto _test_eof305;
-case 305:
-#line 3057 "lex/parser_timeline.cpp"
+		goto _test_eof301;
+case 301:
+#line 3029 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 46: goto st154;
-		case 95: goto st307;
-		case 98: goto st155;
-		case 124: goto st157;
+		case 46: goto st153;
+		case 95: goto st303;
+		case 98: goto st154;
+		case 124: goto st156;
 	}
 	goto st0;
+st153:
+	if ( ++p == pe )
+		goto _test_eof153;
+case 153:
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr216;
+	goto st0;
+tr216:
+#line 7 "lex/ragel_music.rl"
+	{ (bpm.fnum *= 10) += ((*p) - '0'); bpm.fden *= 10; }
+	goto st302;
+st302:
+	if ( ++p == pe )
+		goto _test_eof302;
+case 302:
+#line 3052 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 95: goto st303;
+		case 98: goto st154;
+		case 124: goto st156;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr216;
+	goto st0;
+tr395:
+#line 24 "lex/ragel_music.rl"
+	{bpm.dur_num = 1;}
+	goto st303;
+st303:
+	if ( ++p == pe )
+		goto _test_eof303;
+case 303:
+#line 3069 "lex/parser_timeline.cpp"
+	if ( (*p) == 98 )
+		goto st154;
+	goto st0;
+tr396:
+#line 24 "lex/ragel_music.rl"
+	{bpm.dur_num = 1;}
+	goto st154;
 st154:
 	if ( ++p == pe )
 		goto _test_eof154;
 case 154:
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr219;
-	goto st0;
-tr219:
-#line 7 "lex/ragel_music.rl"
-	{ (bpm.fnum *= 10) += ((*p) - '0'); bpm.fden *= 10; }
-	goto st306;
-st306:
-	if ( ++p == pe )
-		goto _test_eof306;
-case 306:
-#line 3080 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 95: goto st307;
-		case 98: goto st155;
-		case 124: goto st157;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr219;
-	goto st0;
-tr401:
-#line 24 "lex/ragel_music.rl"
-	{bpm.dur_num = 1;}
-	goto st307;
-st307:
-	if ( ++p == pe )
-		goto _test_eof307;
-case 307:
-#line 3097 "lex/parser_timeline.cpp"
-	if ( (*p) == 98 )
+#line 3081 "lex/parser_timeline.cpp"
+	if ( (*p) == 112 )
 		goto st155;
 	goto st0;
-tr402:
-#line 24 "lex/ragel_music.rl"
-	{bpm.dur_num = 1;}
-	goto st155;
 st155:
 	if ( ++p == pe )
 		goto _test_eof155;
 case 155:
-#line 3109 "lex/parser_timeline.cpp"
-	if ( (*p) == 112 )
-		goto st156;
+	if ( (*p) == 109 )
+		goto st304;
+	goto st0;
+st304:
+	if ( ++p == pe )
+		goto _test_eof304;
+case 304:
 	goto st0;
 st156:
 	if ( ++p == pe )
 		goto _test_eof156;
 case 156:
-	if ( (*p) == 109 )
-		goto st308;
-	goto st0;
-st308:
-	if ( ++p == pe )
-		goto _test_eof308;
-case 308:
-	goto st0;
-st157:
-	if ( ++p == pe )
-		goto _test_eof157;
-case 157:
 	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr222;
+		goto tr219;
 	goto st0;
-tr222:
+tr219:
 #line 11 "lex/ragel_music.rl"
 	{ bpm.dur_num = 0; }
 #line 12 "lex/ragel_music.rl"
@@ -3137,313 +3109,313 @@ tr222:
 	{ bpm.dur_den = 0;}
 #line 14 "lex/ragel_music.rl"
 	{ (bpm.dur_den *= 10) += ((*p) - '0'); }
-	goto st309;
-tr400:
+	goto st305;
+tr394:
 #line 12 "lex/ragel_music.rl"
 	{ (bpm.dur_num *= 10) += ((*p) - '0'); }
 #line 14 "lex/ragel_music.rl"
 	{ (bpm.dur_den *= 10) += ((*p) - '0'); }
-	goto st309;
-st309:
+	goto st305;
+st305:
 	if ( ++p == pe )
-		goto _test_eof309;
-case 309:
-#line 3152 "lex/parser_timeline.cpp"
+		goto _test_eof305;
+case 305:
+#line 3124 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 46: goto tr398;
-		case 47: goto st158;
-		case 95: goto tr401;
-		case 98: goto tr402;
+		case 46: goto tr392;
+		case 47: goto st157;
+		case 95: goto tr395;
+		case 98: goto tr396;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr400;
+		goto tr394;
 	goto st0;
-tr398:
+tr392:
 #line 24 "lex/ragel_music.rl"
 	{bpm.dur_num = 1;}
 #line 8 "lex/ragel_music.rl"
 	{ bpm.dur_num *= 3; bpm.dur_den *= 2; }
-	goto st310;
-tr403:
+	goto st306;
+tr397:
 #line 8 "lex/ragel_music.rl"
 	{ bpm.dur_num *= 3; bpm.dur_den *= 2; }
-	goto st310;
-st310:
+	goto st306;
+st306:
 	if ( ++p == pe )
-		goto _test_eof310;
-case 310:
-#line 3176 "lex/parser_timeline.cpp"
+		goto _test_eof306;
+case 306:
+#line 3148 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 95: goto st307;
-		case 98: goto st155;
+		case 95: goto st303;
+		case 98: goto st154;
 	}
 	goto st0;
-st158:
+st157:
 	if ( ++p == pe )
-		goto _test_eof158;
-case 158:
+		goto _test_eof157;
+case 157:
 	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr223;
+		goto tr220;
 	goto st0;
-tr223:
+tr220:
 #line 13 "lex/ragel_music.rl"
 	{ bpm.dur_den = 0;}
 #line 14 "lex/ragel_music.rl"
 	{ (bpm.dur_den *= 10) += ((*p) - '0'); }
-	goto st311;
-tr404:
+	goto st307;
+tr398:
 #line 14 "lex/ragel_music.rl"
 	{ (bpm.dur_den *= 10) += ((*p) - '0'); }
-	goto st311;
-st311:
+	goto st307;
+st307:
 	if ( ++p == pe )
-		goto _test_eof311;
-case 311:
-#line 3203 "lex/parser_timeline.cpp"
+		goto _test_eof307;
+case 307:
+#line 3175 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 46: goto tr403;
-		case 95: goto st307;
-		case 98: goto st155;
+		case 46: goto tr397;
+		case 95: goto st303;
+		case 98: goto st154;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr404;
+		goto tr398;
 	goto st0;
-tr218:
+tr215:
 #line 9 "lex/ragel_music.rl"
 	{ bpm.dur_num = 1; bpm.dur_den = 4; }
 #line 6 "lex/ragel_music.rl"
 	{ (bpm.ival *= 10) += ((*p) - '0'); }
-	goto st312;
-tr405:
+	goto st308;
+tr399:
 #line 6 "lex/ragel_music.rl"
 	{ (bpm.ival *= 10) += ((*p) - '0'); }
-	goto st312;
-st312:
+	goto st308;
+st308:
 	if ( ++p == pe )
-		goto _test_eof312;
-case 312:
-#line 3226 "lex/parser_timeline.cpp"
+		goto _test_eof308;
+case 308:
+#line 3198 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 46: goto st154;
-		case 95: goto st307;
-		case 98: goto st155;
-		case 124: goto st157;
+		case 46: goto st153;
+		case 95: goto st303;
+		case 98: goto st154;
+		case 124: goto st156;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr405;
+		goto tr399;
 	goto st0;
-tr214:
+tr211:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st159;
+	goto st158;
+st158:
+	if ( ++p == pe )
+		goto _test_eof158;
+case 158:
+#line 3216 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr212;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr211;
+	goto st0;
 st159:
 	if ( ++p == pe )
 		goto _test_eof159;
 case 159:
-#line 3244 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr215;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr214;
+	if ( (*p) == 117 )
+		goto st160;
 	goto st0;
 st160:
 	if ( ++p == pe )
 		goto _test_eof160;
 case 160:
-	if ( (*p) == 117 )
+	if ( (*p) == 114 )
 		goto st161;
 	goto st0;
 st161:
 	if ( ++p == pe )
 		goto _test_eof161;
 case 161:
-	if ( (*p) == 114 )
+	if ( (*p) == 97 )
 		goto st162;
 	goto st0;
 st162:
 	if ( ++p == pe )
 		goto _test_eof162;
 case 162:
-	if ( (*p) == 97 )
+	if ( (*p) == 116 )
 		goto st163;
 	goto st0;
 st163:
 	if ( ++p == pe )
 		goto _test_eof163;
 case 163:
-	if ( (*p) == 116 )
+	if ( (*p) == 105 )
 		goto st164;
 	goto st0;
 st164:
 	if ( ++p == pe )
 		goto _test_eof164;
 case 164:
-	if ( (*p) == 105 )
+	if ( (*p) == 111 )
 		goto st165;
 	goto st0;
 st165:
 	if ( ++p == pe )
 		goto _test_eof165;
 case 165:
-	if ( (*p) == 111 )
+	if ( (*p) == 110 )
 		goto st166;
 	goto st0;
 st166:
 	if ( ++p == pe )
 		goto _test_eof166;
 case 166:
-	if ( (*p) == 110 )
+	if ( (*p) == 32 )
 		goto st167;
 	goto st0;
 st167:
 	if ( ++p == pe )
 		goto _test_eof167;
 case 167:
-	if ( (*p) == 32 )
+	switch( (*p) ) {
+		case 32: goto st167;
+		case 42: goto tr229;
+		case 43: goto tr230;
+		case 45: goto tr230;
+		case 48: goto tr231;
+	}
+	if ( (*p) > 53 ) {
+		if ( 54 <= (*p) && (*p) <= 57 )
+			goto tr233;
+	} else if ( (*p) >= 49 )
+		goto tr232;
+	goto st0;
+tr229:
+#line 333 "lex/parser_timeline.rl"
+	{ bar.inf = true; tl.bars.clear(); }
+	goto st309;
+st309:
+	if ( ++p == pe )
+		goto _test_eof309;
+case 309:
+#line 3303 "lex/parser_timeline.cpp"
+	if ( (*p) == 124 )
 		goto st168;
 	goto st0;
 st168:
 	if ( ++p == pe )
 		goto _test_eof168;
 case 168:
-	switch( (*p) ) {
-		case 32: goto st168;
-		case 42: goto tr232;
-		case 43: goto tr233;
-		case 45: goto tr233;
-		case 48: goto tr234;
-	}
-	if ( (*p) > 53 ) {
-		if ( 54 <= (*p) && (*p) <= 57 )
-			goto tr236;
-	} else if ( (*p) >= 49 )
+	if ( (*p) == 48 )
+		goto tr234;
+	if ( 49 <= (*p) && (*p) <= 57 )
 		goto tr235;
 	goto st0;
-tr232:
-#line 326 "lex/parser_timeline.rl"
-	{ bar.inf = true; tl.bars.clear(); }
-	goto st313;
-st313:
-	if ( ++p == pe )
-		goto _test_eof313;
-case 313:
-#line 3331 "lex/parser_timeline.cpp"
-	if ( (*p) == 124 )
-		goto st169;
-	goto st0;
+tr234:
+#line 319 "lex/parser_timeline.rl"
+	{ ragel_num.vint = 0; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st169;
 st169:
 	if ( ++p == pe )
 		goto _test_eof169;
 case 169:
-	if ( (*p) == 48 )
-		goto tr237;
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr238;
-	goto st0;
-tr237:
-#line 312 "lex/parser_timeline.rl"
-	{ ragel_num.vint = 0; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st170;
-st170:
-	if ( ++p == pe )
-		goto _test_eof170;
-case 170:
-#line 3354 "lex/parser_timeline.cpp"
+#line 3326 "lex/parser_timeline.cpp"
 	if ( (*p) == 47 )
-		goto tr239;
+		goto tr236;
 	goto st0;
-tr239:
+tr236:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 312 "lex/parser_timeline.rl"
+#line 319 "lex/parser_timeline.rl"
 	{ bar.num = ragel_num.vint; ragel_num.vint = 0; }
-	goto st171;
+	goto st170;
+st170:
+	if ( ++p == pe )
+		goto _test_eof170;
+case 170:
+#line 3344 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 49: goto st171;
+		case 50: goto st179;
+		case 51: goto st180;
+		case 52: goto st182;
+		case 54: goto st183;
+		case 56: goto st185;
+	}
+	goto st0;
 st171:
 	if ( ++p == pe )
 		goto _test_eof171;
 case 171:
-#line 3372 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 49: goto st172;
-		case 50: goto st180;
-		case 51: goto st181;
-		case 52: goto st183;
-		case 54: goto st184;
-		case 56: goto st186;
+		case 50: goto st172;
+		case 54: goto st178;
+		case 124: goto tr245;
 	}
 	goto st0;
 st172:
 	if ( ++p == pe )
 		goto _test_eof172;
 case 172:
-	switch( (*p) ) {
-		case 50: goto st173;
-		case 54: goto st179;
-		case 124: goto tr248;
-	}
+	if ( (*p) == 56 )
+		goto st173;
 	goto st0;
 st173:
 	if ( ++p == pe )
 		goto _test_eof173;
 case 173:
-	if ( (*p) == 56 )
-		goto st174;
-	goto st0;
-st174:
-	if ( ++p == pe )
-		goto _test_eof174;
-case 174:
 	if ( (*p) == 124 )
-		goto tr250;
+		goto tr247;
 	goto st0;
-tr248:
-#line 313 "lex/parser_timeline.rl"
-	{ bar.div = 1; }
-	goto st314;
-tr250:
+tr245:
 #line 320 "lex/parser_timeline.rl"
+	{ bar.div = 1; }
+	goto st310;
+tr247:
+#line 327 "lex/parser_timeline.rl"
 	{ bar.div = 128; }
-	goto st314;
-tr257:
-#line 317 "lex/parser_timeline.rl"
+	goto st310;
+tr254:
+#line 324 "lex/parser_timeline.rl"
 	{ bar.div = 16; }
-	goto st314;
-tr258:
-#line 314 "lex/parser_timeline.rl"
+	goto st310;
+tr255:
+#line 321 "lex/parser_timeline.rl"
 	{ bar.div = 2; }
-	goto st314;
-tr260:
-#line 318 "lex/parser_timeline.rl"
+	goto st310;
+tr257:
+#line 325 "lex/parser_timeline.rl"
 	{ bar.div = 32; }
-	goto st314;
-tr261:
-#line 315 "lex/parser_timeline.rl"
+	goto st310;
+tr258:
+#line 322 "lex/parser_timeline.rl"
 	{ bar.div = 4; }
-	goto st314;
-tr263:
-#line 319 "lex/parser_timeline.rl"
+	goto st310;
+tr260:
+#line 326 "lex/parser_timeline.rl"
 	{ bar.div = 64; }
-	goto st314;
-tr264:
-#line 316 "lex/parser_timeline.rl"
+	goto st310;
+tr261:
+#line 323 "lex/parser_timeline.rl"
 	{ bar.div = 8; }
-	goto st314;
-st314:
+	goto st310;
+st310:
 	if ( ++p == pe )
-		goto _test_eof314;
-case 314:
-#line 3442 "lex/parser_timeline.cpp"
+		goto _test_eof310;
+case 310:
+#line 3414 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr406;
+		goto tr400;
 	goto st0;
-tr406:
-#line 207 "lex/parser_timeline.rl"
+tr400:
+#line 213 "lex/parser_timeline.rl"
 	{
         if (bar.inf) {
             tl.duration = std::numeric_limits<t_float>::max();
@@ -3455,39 +3427,51 @@ tr406:
             tl.bars.push_back(b);
         }
     }
-	goto st175;
-st175:
+	goto st174;
+st174:
 	if ( ++p == pe )
-		goto _test_eof175;
-case 175:
-#line 3464 "lex/parser_timeline.cpp"
+		goto _test_eof174;
+case 174:
+#line 3436 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto st175;
-		case 42: goto st176;
-		case 48: goto tr253;
+		case 32: goto st174;
+		case 42: goto st175;
+		case 48: goto tr250;
 	}
 	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr254;
+		goto tr251;
 	goto st0;
-tr256:
+tr253:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 323 "lex/parser_timeline.rl"
+#line 330 "lex/parser_timeline.rl"
 	{ bar.inf = false; bar.count = ragel_num.vint; }
+	goto st175;
+st175:
+	if ( ++p == pe )
+		goto _test_eof175;
+case 175:
+#line 3459 "lex/parser_timeline.cpp"
+	if ( (*p) == 124 )
+		goto st168;
+	goto st0;
+tr250:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st176;
 st176:
 	if ( ++p == pe )
 		goto _test_eof176;
 case 176:
-#line 3487 "lex/parser_timeline.cpp"
-	if ( (*p) == 124 )
-		goto st169;
+#line 3471 "lex/parser_timeline.cpp"
+	if ( (*p) == 42 )
+		goto tr253;
 	goto st0;
-tr253:
+tr251:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st177;
@@ -3495,22 +3479,17 @@ st177:
 	if ( ++p == pe )
 		goto _test_eof177;
 case 177:
-#line 3499 "lex/parser_timeline.cpp"
+#line 3483 "lex/parser_timeline.cpp"
 	if ( (*p) == 42 )
-		goto tr256;
+		goto tr253;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr251;
 	goto st0;
-tr254:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st178;
 st178:
 	if ( ++p == pe )
 		goto _test_eof178;
 case 178:
-#line 3511 "lex/parser_timeline.cpp"
-	if ( (*p) == 42 )
-		goto tr256;
-	if ( 48 <= (*p) && (*p) <= 57 )
+	if ( (*p) == 124 )
 		goto tr254;
 	goto st0;
 st179:
@@ -3518,121 +3497,237 @@ st179:
 		goto _test_eof179;
 case 179:
 	if ( (*p) == 124 )
-		goto tr257;
+		goto tr255;
 	goto st0;
 st180:
 	if ( ++p == pe )
 		goto _test_eof180;
 case 180:
-	if ( (*p) == 124 )
-		goto tr258;
+	if ( (*p) == 50 )
+		goto st181;
 	goto st0;
 st181:
 	if ( ++p == pe )
 		goto _test_eof181;
 case 181:
-	if ( (*p) == 50 )
-		goto st182;
+	if ( (*p) == 124 )
+		goto tr257;
 	goto st0;
 st182:
 	if ( ++p == pe )
 		goto _test_eof182;
 case 182:
 	if ( (*p) == 124 )
-		goto tr260;
+		goto tr258;
 	goto st0;
 st183:
 	if ( ++p == pe )
 		goto _test_eof183;
 case 183:
-	if ( (*p) == 124 )
-		goto tr261;
+	if ( (*p) == 52 )
+		goto st184;
 	goto st0;
 st184:
 	if ( ++p == pe )
 		goto _test_eof184;
 case 184:
-	if ( (*p) == 52 )
-		goto st185;
+	if ( (*p) == 124 )
+		goto tr260;
 	goto st0;
 st185:
 	if ( ++p == pe )
 		goto _test_eof185;
 case 185:
 	if ( (*p) == 124 )
-		goto tr263;
+		goto tr261;
 	goto st0;
+tr262:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st186;
+tr235:
+#line 319 "lex/parser_timeline.rl"
+	{ ragel_num.vint = 0; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st186;
 st186:
 	if ( ++p == pe )
 		goto _test_eof186;
 case 186:
-	if ( (*p) == 124 )
-		goto tr264;
+#line 3559 "lex/parser_timeline.cpp"
+	if ( (*p) == 47 )
+		goto tr236;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr262;
 	goto st0;
-tr265:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st187;
-tr238:
-#line 312 "lex/parser_timeline.rl"
-	{ ragel_num.vint = 0; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+tr230:
+#line 79 "lex/ragel_units.rl"
+	{smpte.np = 0;}
+#line 74 "lex/ragel_units.rl"
+	{smpte.sign = ((*p)=='-')?-1:1;}
 	goto st187;
 st187:
 	if ( ++p == pe )
 		goto _test_eof187;
 case 187:
-#line 3587 "lex/parser_timeline.cpp"
-	if ( (*p) == 47 )
-		goto tr239;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr265;
+#line 3575 "lex/parser_timeline.cpp"
+	if ( 48 <= (*p) && (*p) <= 53 )
+		goto tr263;
 	goto st0;
-tr233:
-#line 21 "lex/ragel_numeric.rl"
-	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
-#line 78 "lex/ragel_units.rl"
-	{smpte.np = 0;}
-#line 73 "lex/ragel_units.rl"
-	{smpte.sign = ((*p)=='-')?-1:1;}
+tr263:
+#line 67 "lex/ragel_units.rl"
+	{smpte.hour = 0; smpte.np++;}
+#line 67 "lex/ragel_units.rl"
+	{(smpte.hour *= 10) += ((*p) - '0');}
 	goto st188;
 st188:
 	if ( ++p == pe )
 		goto _test_eof188;
 case 188:
-#line 3605 "lex/parser_timeline.cpp"
-	if ( (*p) == 48 )
-		goto tr266;
-	if ( (*p) > 53 ) {
-		if ( 54 <= (*p) && (*p) <= 57 )
-			goto tr268;
-	} else if ( (*p) >= 49 )
-		goto tr267;
+#line 3589 "lex/parser_timeline.cpp"
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr264;
 	goto st0;
-tr266:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 66 "lex/ragel_units.rl"
-	{smpte.hour = 0; smpte.np++;}
-#line 66 "lex/ragel_units.rl"
+tr264:
+#line 67 "lex/ragel_units.rl"
 	{(smpte.hour *= 10) += ((*p) - '0');}
 	goto st189;
 st189:
 	if ( ++p == pe )
 		goto _test_eof189;
 case 189:
-#line 3626 "lex/parser_timeline.cpp"
+#line 3601 "lex/parser_timeline.cpp"
+	if ( (*p) == 58 )
+		goto st190;
+	goto st0;
+st190:
+	if ( ++p == pe )
+		goto _test_eof190;
+case 190:
+	if ( 48 <= (*p) && (*p) <= 53 )
+		goto tr266;
+	goto st0;
+tr266:
+#line 68 "lex/ragel_units.rl"
+	{smpte.min = 0; smpte.np++;}
+#line 68 "lex/ragel_units.rl"
+	{(smpte.min *= 10) += ((*p) - '0');}
+	goto st191;
+st191:
+	if ( ++p == pe )
+		goto _test_eof191;
+case 191:
+#line 3622 "lex/parser_timeline.cpp"
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr267;
+	goto st0;
+tr267:
+#line 68 "lex/ragel_units.rl"
+	{(smpte.min *= 10) += ((*p) - '0');}
+	goto st311;
+st311:
+	if ( ++p == pe )
+		goto _test_eof311;
+case 311:
+#line 3634 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 46: goto tr269;
-		case 104: goto tr271;
-		case 109: goto tr272;
-		case 115: goto tr273;
+		case 46: goto st192;
+		case 58: goto st193;
 	}
+	goto st0;
+st192:
+	if ( ++p == pe )
+		goto _test_eof192;
+case 192:
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr268;
+	goto st0;
+tr268:
+#line 70 "lex/ragel_units.rl"
+	{smpte.frame = 0;}
+#line 70 "lex/ragel_units.rl"
+	{(smpte.frame *= 10) += ((*p) - '0');}
+	goto st312;
+st312:
+	if ( ++p == pe )
+		goto _test_eof312;
+case 312:
+#line 3657 "lex/parser_timeline.cpp"
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr403;
+	goto st0;
+tr403:
+#line 70 "lex/ragel_units.rl"
+	{(smpte.frame *= 10) += ((*p) - '0');}
+	goto st313;
+st313:
+	if ( ++p == pe )
+		goto _test_eof313;
+case 313:
+#line 3669 "lex/parser_timeline.cpp"
+	goto st0;
+st193:
+	if ( ++p == pe )
+		goto _test_eof193;
+case 193:
+	if ( 48 <= (*p) && (*p) <= 53 )
+		goto tr269;
+	goto st0;
+tr269:
+#line 69 "lex/ragel_units.rl"
+	{smpte.sec = 0; smpte.np++;}
+#line 69 "lex/ragel_units.rl"
+	{(smpte.sec *= 10) += ((*p) - '0');}
+	goto st194;
+st194:
+	if ( ++p == pe )
+		goto _test_eof194;
+case 194:
+#line 3688 "lex/parser_timeline.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr270;
 	goto st0;
-tr269:
+tr270:
+#line 69 "lex/ragel_units.rl"
+	{(smpte.sec *= 10) += ((*p) - '0');}
+	goto st314;
+st314:
+	if ( ++p == pe )
+		goto _test_eof314;
+case 314:
+#line 3700 "lex/parser_timeline.cpp"
+	if ( (*p) == 46 )
+		goto st192;
+	goto st0;
+tr231:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+#line 79 "lex/ragel_units.rl"
+	{smpte.np = 0;}
+#line 67 "lex/ragel_units.rl"
+	{smpte.hour = 0; smpte.np++;}
+#line 67 "lex/ragel_units.rl"
+	{(smpte.hour *= 10) += ((*p) - '0');}
+#line 333 "lex/parser_timeline.rl"
+	{ bar.inf = true; tl.bars.clear(); }
+	goto st195;
+st195:
+	if ( ++p == pe )
+		goto _test_eof195;
+case 195:
+#line 3720 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 42: goto tr253;
+		case 46: goto tr271;
+		case 104: goto tr272;
+		case 109: goto tr273;
+		case 115: goto tr274;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr264;
+	goto st0;
+tr271:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -3644,36 +3739,36 @@ tr269:
         ragel_num.ratio.num = 0;
         ragel_num.ratio.den = 1;
     }
-	goto st190;
-st190:
+	goto st196;
+st196:
 	if ( ++p == pe )
-		goto _test_eof190;
-case 190:
-#line 3653 "lex/parser_timeline.cpp"
+		goto _test_eof196;
+case 196:
+#line 3748 "lex/parser_timeline.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr274;
+		goto tr275;
 	goto st0;
-tr274:
+tr275:
 #line 54 "lex/ragel_numeric.rl"
 	{
         (ragel_num.ratio.num *= 10) += ((*p) - '0');
         ragel_num.ratio.den *= 10;
     }
-	goto st191;
-st191:
+	goto st197;
+st197:
 	if ( ++p == pe )
-		goto _test_eof191;
-case 191:
-#line 3668 "lex/parser_timeline.cpp"
+		goto _test_eof197;
+case 197:
+#line 3763 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 104: goto tr275;
-		case 109: goto tr276;
-		case 115: goto tr277;
+		case 104: goto tr276;
+		case 109: goto tr277;
+		case 115: goto tr278;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr274;
+		goto tr275;
 	goto st0;
-tr271:
+tr272:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -3683,7 +3778,7 @@ tr271:
 #line 7 "lex/ragel_units.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
 	goto st315;
-tr275:
+tr276:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -3696,21 +3791,21 @@ st315:
 	if ( ++p == pe )
 		goto _test_eof315;
 case 315:
-#line 3700 "lex/parser_timeline.cpp"
+#line 3795 "lex/parser_timeline.cpp"
 	if ( (*p) == 111 )
-		goto st192;
+		goto st198;
 	goto st0;
-st192:
+st198:
 	if ( ++p == pe )
-		goto _test_eof192;
-case 192:
+		goto _test_eof198;
+case 198:
 	if ( (*p) == 117 )
-		goto st193;
+		goto st199;
 	goto st0;
-st193:
+st199:
 	if ( ++p == pe )
-		goto _test_eof193;
-case 193:
+		goto _test_eof199;
+case 199:
 	if ( (*p) == 114 )
 		goto st316;
 	goto st0;
@@ -3719,7 +3814,7 @@ st316:
 		goto _test_eof316;
 case 316:
 	goto st0;
-tr272:
+tr273:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -3729,7 +3824,7 @@ tr272:
 #line 7 "lex/ragel_units.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
 	goto st317;
-tr276:
+tr277:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -3742,16 +3837,16 @@ st317:
 	if ( ++p == pe )
 		goto _test_eof317;
 case 317:
-#line 3746 "lex/parser_timeline.cpp"
+#line 3841 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 105: goto st194;
+		case 105: goto st200;
 		case 115: goto st319;
 	}
 	goto st0;
-st194:
+st200:
 	if ( ++p == pe )
-		goto _test_eof194;
-case 194:
+		goto _test_eof200;
+case 200:
 	if ( (*p) == 110 )
 		goto st318;
 	goto st0;
@@ -3765,12 +3860,12 @@ st319:
 		goto _test_eof319;
 case 319:
 	if ( (*p) == 101 )
-		goto st195;
+		goto st201;
 	goto st0;
-st195:
+st201:
 	if ( ++p == pe )
-		goto _test_eof195;
-case 195:
+		goto _test_eof201;
+case 201:
 	if ( (*p) == 99 )
 		goto st320;
 	goto st0;
@@ -3779,7 +3874,7 @@ st320:
 		goto _test_eof320;
 case 320:
 	goto st0;
-tr273:
+tr274:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -3789,7 +3884,7 @@ tr273:
 #line 7 "lex/ragel_units.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
 	goto st321;
-tr277:
+tr278:
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -3802,14 +3897,14 @@ st321:
 	if ( ++p == pe )
 		goto _test_eof321;
 case 321:
-#line 3806 "lex/parser_timeline.cpp"
+#line 3901 "lex/parser_timeline.cpp"
 	if ( (*p) == 101 )
-		goto st196;
+		goto st202;
 	goto st0;
-st196:
+st202:
 	if ( ++p == pe )
-		goto _test_eof196;
-case 196:
+		goto _test_eof202;
+case 202:
 	if ( (*p) == 99 )
 		goto st322;
 	goto st0;
@@ -3818,421 +3913,254 @@ st322:
 		goto _test_eof322;
 case 322:
 	goto st0;
-tr270:
-#line 66 "lex/ragel_units.rl"
-	{(smpte.hour *= 10) += ((*p) - '0');}
-	goto st197;
-st197:
-	if ( ++p == pe )
-		goto _test_eof197;
-case 197:
-#line 3830 "lex/parser_timeline.cpp"
-	if ( (*p) == 58 )
-		goto st198;
-	goto st0;
-st198:
-	if ( ++p == pe )
-		goto _test_eof198;
-case 198:
-	if ( 48 <= (*p) && (*p) <= 53 )
-		goto tr284;
-	goto st0;
-tr284:
-#line 67 "lex/ragel_units.rl"
-	{smpte.min = 0; smpte.np++;}
-#line 67 "lex/ragel_units.rl"
-	{(smpte.min *= 10) += ((*p) - '0');}
-	goto st199;
-st199:
-	if ( ++p == pe )
-		goto _test_eof199;
-case 199:
-#line 3851 "lex/parser_timeline.cpp"
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr285;
-	goto st0;
-tr285:
-#line 67 "lex/ragel_units.rl"
-	{(smpte.min *= 10) += ((*p) - '0');}
-	goto st323;
-st323:
-	if ( ++p == pe )
-		goto _test_eof323;
-case 323:
-#line 3863 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 46: goto st200;
-		case 58: goto st201;
-	}
-	goto st0;
-st200:
-	if ( ++p == pe )
-		goto _test_eof200;
-case 200:
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr286;
-	goto st0;
-tr286:
-#line 69 "lex/ragel_units.rl"
-	{smpte.frame = 0;}
-#line 69 "lex/ragel_units.rl"
-	{(smpte.frame *= 10) += ((*p) - '0');}
-	goto st324;
-st324:
-	if ( ++p == pe )
-		goto _test_eof324;
-case 324:
-#line 3886 "lex/parser_timeline.cpp"
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr414;
-	goto st0;
-tr414:
-#line 69 "lex/ragel_units.rl"
-	{(smpte.frame *= 10) += ((*p) - '0');}
-	goto st325;
-st325:
-	if ( ++p == pe )
-		goto _test_eof325;
-case 325:
-#line 3898 "lex/parser_timeline.cpp"
-	goto st0;
-st201:
-	if ( ++p == pe )
-		goto _test_eof201;
-case 201:
-	if ( 48 <= (*p) && (*p) <= 53 )
-		goto tr287;
-	goto st0;
-tr287:
-#line 68 "lex/ragel_units.rl"
-	{smpte.sec = 0; smpte.np++;}
-#line 68 "lex/ragel_units.rl"
-	{(smpte.sec *= 10) += ((*p) - '0');}
-	goto st202;
-st202:
-	if ( ++p == pe )
-		goto _test_eof202;
-case 202:
-#line 3917 "lex/parser_timeline.cpp"
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr288;
-	goto st0;
-tr288:
-#line 68 "lex/ragel_units.rl"
-	{(smpte.sec *= 10) += ((*p) - '0');}
-	goto st326;
-st326:
-	if ( ++p == pe )
-		goto _test_eof326;
-case 326:
-#line 3929 "lex/parser_timeline.cpp"
-	if ( (*p) == 46 )
-		goto st200;
-	goto st0;
-tr267:
+tr232:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 66 "lex/ragel_units.rl"
+#line 79 "lex/ragel_units.rl"
+	{smpte.np = 0;}
+#line 67 "lex/ragel_units.rl"
 	{smpte.hour = 0; smpte.np++;}
-#line 66 "lex/ragel_units.rl"
+#line 67 "lex/ragel_units.rl"
 	{(smpte.hour *= 10) += ((*p) - '0');}
+#line 333 "lex/parser_timeline.rl"
+	{ bar.inf = true; tl.bars.clear(); }
 	goto st203;
 st203:
 	if ( ++p == pe )
 		goto _test_eof203;
 case 203:
-#line 3945 "lex/parser_timeline.cpp"
+#line 3933 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 46: goto tr269;
-		case 104: goto tr271;
-		case 109: goto tr272;
-		case 115: goto tr273;
+		case 42: goto tr253;
+		case 46: goto tr271;
+		case 104: goto tr272;
+		case 109: goto tr273;
+		case 115: goto tr274;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr289;
+		goto tr284;
 	goto st0;
-tr289:
+tr284:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 66 "lex/ragel_units.rl"
+#line 67 "lex/ragel_units.rl"
 	{(smpte.hour *= 10) += ((*p) - '0');}
 	goto st204;
 st204:
 	if ( ++p == pe )
 		goto _test_eof204;
 case 204:
-#line 3965 "lex/parser_timeline.cpp"
+#line 3954 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 46: goto tr269;
-		case 58: goto st198;
-		case 104: goto tr271;
-		case 109: goto tr272;
-		case 115: goto tr273;
+		case 42: goto tr253;
+		case 46: goto tr271;
+		case 58: goto st190;
+		case 104: goto tr272;
+		case 109: goto tr273;
+		case 115: goto tr274;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr268;
+		goto tr285;
 	goto st0;
-tr268:
+tr285:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st205;
+tr233:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+#line 333 "lex/parser_timeline.rl"
+	{ bar.inf = true; tl.bars.clear(); }
 	goto st205;
 st205:
 	if ( ++p == pe )
 		goto _test_eof205;
 case 205:
-#line 3984 "lex/parser_timeline.cpp"
+#line 3980 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 46: goto tr269;
-		case 104: goto tr271;
-		case 109: goto tr272;
-		case 115: goto tr273;
+		case 42: goto tr253;
+		case 46: goto tr271;
+		case 104: goto tr272;
+		case 109: goto tr273;
+		case 115: goto tr274;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr268;
+		goto tr285;
 	goto st0;
-tr234:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 78 "lex/ragel_units.rl"
-	{smpte.np = 0;}
-#line 66 "lex/ragel_units.rl"
-	{smpte.hour = 0; smpte.np++;}
-#line 66 "lex/ragel_units.rl"
-	{(smpte.hour *= 10) += ((*p) - '0');}
-#line 326 "lex/parser_timeline.rl"
-	{ bar.inf = true; tl.bars.clear(); }
-	goto st206;
 st206:
 	if ( ++p == pe )
 		goto _test_eof206;
 case 206:
-#line 4010 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 42: goto tr256;
-		case 46: goto tr269;
-		case 104: goto tr271;
-		case 109: goto tr272;
-		case 115: goto tr273;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr270;
+	if ( (*p) == 118 )
+		goto st207;
 	goto st0;
-tr235:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 78 "lex/ragel_units.rl"
-	{smpte.np = 0;}
-#line 66 "lex/ragel_units.rl"
-	{smpte.hour = 0; smpte.np++;}
-#line 66 "lex/ragel_units.rl"
-	{(smpte.hour *= 10) += ((*p) - '0');}
-#line 326 "lex/parser_timeline.rl"
-	{ bar.inf = true; tl.bars.clear(); }
-	goto st207;
 st207:
 	if ( ++p == pe )
 		goto _test_eof207;
 case 207:
-#line 4037 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 42: goto tr256;
-		case 46: goto tr269;
-		case 104: goto tr271;
-		case 109: goto tr272;
-		case 115: goto tr273;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr290;
+	if ( (*p) == 101 )
+		goto st208;
 	goto st0;
-tr290:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 66 "lex/ragel_units.rl"
-	{(smpte.hour *= 10) += ((*p) - '0');}
-	goto st208;
 st208:
 	if ( ++p == pe )
 		goto _test_eof208;
 case 208:
-#line 4058 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 42: goto tr256;
-		case 46: goto tr269;
-		case 58: goto st198;
-		case 104: goto tr271;
-		case 109: goto tr272;
-		case 115: goto tr273;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr291;
+	if ( (*p) == 110 )
+		goto st209;
 	goto st0;
-tr291:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st209;
-tr236:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 326 "lex/parser_timeline.rl"
-	{ bar.inf = true; tl.bars.clear(); }
-	goto st209;
 st209:
 	if ( ++p == pe )
 		goto _test_eof209;
 case 209:
-#line 4084 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 42: goto tr256;
-		case 46: goto tr269;
-		case 104: goto tr271;
-		case 109: goto tr272;
-		case 115: goto tr273;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr291;
+	if ( (*p) == 116 )
+		goto st210;
 	goto st0;
 st210:
 	if ( ++p == pe )
 		goto _test_eof210;
 case 210:
-	if ( (*p) == 118 )
+	if ( (*p) == 32 )
 		goto st211;
 	goto st0;
 st211:
 	if ( ++p == pe )
 		goto _test_eof211;
 case 211:
-	if ( (*p) == 101 )
-		goto st212;
+	switch( (*p) ) {
+		case 32: goto st211;
+		case 95: goto tr291;
+	}
+	if ( (*p) > 90 ) {
+		if ( 97 <= (*p) && (*p) <= 122 )
+			goto tr291;
+	} else if ( (*p) >= 65 )
+		goto tr291;
 	goto st0;
+tr291:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+	goto st323;
+st323:
+	if ( ++p == pe )
+		goto _test_eof323;
+case 323:
+#line 4048 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr409;
+		case 95: goto tr291;
+	}
+	if ( (*p) < 65 ) {
+		if ( 48 <= (*p) && (*p) <= 57 )
+			goto tr291;
+	} else if ( (*p) > 90 ) {
+		if ( 97 <= (*p) && (*p) <= 122 )
+			goto tr291;
+	} else
+		goto tr291;
+	goto st0;
+tr411:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+	goto st212;
+tr409:
+#line 118 "lex/parser_timeline.rl"
+	{ fsm.onEventIdDone(); tl.addEvent(fsm.event_id); }
+	goto st212;
+tr779:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 261 "lex/parser_timeline.rl"
+	{ fsm.act_preset.idx = ragel_num.vint; }
+#line 123 "lex/parser_timeline.rl"
+	{ tl.addEventAction(fsm.event_id, fsm.act_preset); }
+	goto st212;
 st212:
 	if ( ++p == pe )
 		goto _test_eof212;
 case 212:
-	if ( (*p) == 110 )
-		goto st213;
+#line 4090 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto st212;
+		case 33: goto st213;
+	}
 	goto st0;
 st213:
 	if ( ++p == pe )
 		goto _test_eof213;
 case 213:
-	if ( (*p) == 116 )
-		goto st214;
+	switch( (*p) ) {
+		case 109: goto st214;
+		case 111: goto st237;
+		case 112: goto st240;
+		case 115: goto st247;
+	}
 	goto st0;
 st214:
 	if ( ++p == pe )
 		goto _test_eof214;
 case 214:
-	if ( (*p) == 32 )
+	if ( (*p) == 105 )
 		goto st215;
 	goto st0;
 st215:
 	if ( ++p == pe )
 		goto _test_eof215;
 case 215:
-	switch( (*p) ) {
-		case 32: goto st215;
-		case 95: goto tr297;
-	}
-	if ( (*p) > 90 ) {
-		if ( 97 <= (*p) && (*p) <= 122 )
-			goto tr297;
-	} else if ( (*p) >= 65 )
-		goto tr297;
+	if ( (*p) == 100 )
+		goto st216;
 	goto st0;
-tr297:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-	goto st327;
-st327:
-	if ( ++p == pe )
-		goto _test_eof327;
-case 327:
-#line 4152 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr415;
-		case 95: goto tr297;
-	}
-	if ( (*p) < 65 ) {
-		if ( 48 <= (*p) && (*p) <= 57 )
-			goto tr297;
-	} else if ( (*p) > 90 ) {
-		if ( 97 <= (*p) && (*p) <= 122 )
-			goto tr297;
-	} else
-		goto tr297;
-	goto st0;
-tr417:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-	goto st216;
-tr415:
-#line 117 "lex/parser_timeline.rl"
-	{ fsm.onEventIdDone(); tl.addEvent(fsm.event_id); }
-	goto st216;
-tr785:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 255 "lex/parser_timeline.rl"
-	{ fsm.act_preset.idx = ragel_num.vint; }
-#line 122 "lex/parser_timeline.rl"
-	{ tl.addEventAction(fsm.event_id, fsm.act_preset); }
-	goto st216;
 st216:
 	if ( ++p == pe )
 		goto _test_eof216;
 case 216:
-#line 4194 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto st216;
-		case 33: goto st217;
-	}
+	if ( (*p) == 105 )
+		goto st217;
 	goto st0;
 st217:
 	if ( ++p == pe )
 		goto _test_eof217;
 case 217:
-	switch( (*p) ) {
-		case 109: goto st218;
-		case 111: goto st241;
-		case 112: goto st244;
-		case 115: goto st251;
-	}
+	if ( (*p) == 58 )
+		goto st218;
 	goto st0;
 st218:
 	if ( ++p == pe )
 		goto _test_eof218;
 case 218:
-	if ( (*p) == 105 )
-		goto st219;
+	switch( (*p) ) {
+		case 99: goto st219;
+		case 110: goto st227;
+		case 112: goto st230;
+		case 115: goto st233;
+	}
 	goto st0;
 st219:
 	if ( ++p == pe )
 		goto _test_eof219;
 case 219:
-	if ( (*p) == 100 )
+	if ( (*p) == 116 )
 		goto st220;
 	goto st0;
 st220:
 	if ( ++p == pe )
 		goto _test_eof220;
 case 220:
-	if ( (*p) == 105 )
+	if ( (*p) == 108 )
 		goto st221;
 	goto st0;
 st221:
 	if ( ++p == pe )
 		goto _test_eof221;
 case 221:
-	if ( (*p) == 58 )
+	if ( (*p) == 32 )
 		goto st222;
 	goto st0;
 st222:
@@ -4240,925 +4168,983 @@ st222:
 		goto _test_eof222;
 case 222:
 	switch( (*p) ) {
-		case 99: goto st223;
-		case 110: goto st231;
-		case 112: goto st234;
-		case 115: goto st237;
+		case 32: goto st222;
+		case 48: goto tr309;
 	}
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr310;
 	goto st0;
+tr309:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st223;
 st223:
 	if ( ++p == pe )
 		goto _test_eof223;
 case 223:
-	if ( (*p) == 116 )
-		goto st224;
+#line 4186 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr311;
 	goto st0;
+tr311:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+	goto st224;
 st224:
 	if ( ++p == pe )
 		goto _test_eof224;
 case 224:
-	if ( (*p) == 108 )
-		goto st225;
+#line 4202 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto st224;
+		case 48: goto tr313;
+	}
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr314;
 	goto st0;
+tr313:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st324;
+st324:
+	if ( ++p == pe )
+		goto _test_eof324;
+case 324:
+#line 4218 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr410;
+	goto st0;
+tr410:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+	goto st225;
 st225:
 	if ( ++p == pe )
 		goto _test_eof225;
 case 225:
-	if ( (*p) == 32 )
-		goto st226;
-	goto st0;
-st226:
-	if ( ++p == pe )
-		goto _test_eof226;
-case 226:
+#line 4234 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto st226;
-		case 48: goto tr315;
+		case 32: goto st225;
+		case 33: goto st213;
+		case 48: goto tr316;
 	}
 	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr316;
-	goto st0;
-tr315:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st227;
-st227:
-	if ( ++p == pe )
-		goto _test_eof227;
-case 227:
-#line 4290 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
 		goto tr317;
-	goto st0;
-tr317:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-	goto st228;
-st228:
-	if ( ++p == pe )
-		goto _test_eof228;
-case 228:
-#line 4306 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto st228;
-		case 48: goto tr319;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr320;
-	goto st0;
-tr319:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st328;
-st328:
-	if ( ++p == pe )
-		goto _test_eof328;
-case 328:
-#line 4322 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr416;
-	goto st0;
-tr416:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-	goto st229;
-st229:
-	if ( ++p == pe )
-		goto _test_eof229;
-case 229:
-#line 4338 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto st229;
-		case 33: goto st217;
-		case 48: goto tr322;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr323;
-	goto st0;
-tr322:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st329;
-st329:
-	if ( ++p == pe )
-		goto _test_eof329;
-case 329:
-#line 4355 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr417;
-	goto st0;
-tr323:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st330;
-st330:
-	if ( ++p == pe )
-		goto _test_eof330;
-case 330:
-#line 4367 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr417;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr323;
-	goto st0;
-tr320:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st331;
-st331:
-	if ( ++p == pe )
-		goto _test_eof331;
-case 331:
-#line 4381 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr416;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr320;
 	goto st0;
 tr316:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st230;
+	goto st325;
+st325:
+	if ( ++p == pe )
+		goto _test_eof325;
+case 325:
+#line 4251 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr411;
+	goto st0;
+tr317:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st326;
+st326:
+	if ( ++p == pe )
+		goto _test_eof326;
+case 326:
+#line 4263 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr411;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr317;
+	goto st0;
+tr314:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st327;
+st327:
+	if ( ++p == pe )
+		goto _test_eof327;
+case 327:
+#line 4277 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr410;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr314;
+	goto st0;
+tr310:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st226;
+st226:
+	if ( ++p == pe )
+		goto _test_eof226;
+case 226:
+#line 4291 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr311;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr310;
+	goto st0;
+st227:
+	if ( ++p == pe )
+		goto _test_eof227;
+case 227:
+	if ( (*p) == 111 )
+		goto st228;
+	goto st0;
+st228:
+	if ( ++p == pe )
+		goto _test_eof228;
+case 228:
+	if ( (*p) == 116 )
+		goto st229;
+	goto st0;
+st229:
+	if ( ++p == pe )
+		goto _test_eof229;
+case 229:
+	if ( (*p) == 101 )
+		goto st221;
+	goto st0;
 st230:
 	if ( ++p == pe )
 		goto _test_eof230;
 case 230:
-#line 4395 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr317;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr316;
+	if ( (*p) == 103 )
+		goto st231;
 	goto st0;
 st231:
 	if ( ++p == pe )
 		goto _test_eof231;
 case 231:
-	if ( (*p) == 111 )
+	if ( (*p) == 109 )
 		goto st232;
 	goto st0;
 st232:
 	if ( ++p == pe )
 		goto _test_eof232;
 case 232:
-	if ( (*p) == 116 )
-		goto st233;
+	if ( (*p) == 32 )
+		goto st224;
 	goto st0;
 st233:
 	if ( ++p == pe )
 		goto _test_eof233;
 case 233:
-	if ( (*p) == 101 )
-		goto st225;
+	if ( (*p) == 121 )
+		goto st234;
 	goto st0;
 st234:
 	if ( ++p == pe )
 		goto _test_eof234;
 case 234:
-	if ( (*p) == 103 )
+	if ( (*p) == 115 )
 		goto st235;
 	goto st0;
 st235:
 	if ( ++p == pe )
 		goto _test_eof235;
 case 235:
-	if ( (*p) == 109 )
+	if ( (*p) == 101 )
 		goto st236;
 	goto st0;
 st236:
 	if ( ++p == pe )
 		goto _test_eof236;
 case 236:
-	if ( (*p) == 32 )
-		goto st228;
-	goto st0;
-st237:
-	if ( ++p == pe )
-		goto _test_eof237;
-case 237:
-	if ( (*p) == 121 )
-		goto st238;
-	goto st0;
-st238:
-	if ( ++p == pe )
-		goto _test_eof238;
-case 238:
-	if ( (*p) == 115 )
-		goto st239;
-	goto st0;
-st239:
-	if ( ++p == pe )
-		goto _test_eof239;
-case 239:
-	if ( (*p) == 101 )
-		goto st240;
-	goto st0;
-st240:
-	if ( ++p == pe )
-		goto _test_eof240;
-case 240:
 	if ( (*p) == 120 )
-		goto st332;
+		goto st328;
 	goto st0;
+st328:
+	if ( ++p == pe )
+		goto _test_eof328;
+case 328:
+	if ( (*p) == 32 )
+		goto st329;
+	goto st0;
+tr414:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+	goto st329;
+tr440:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+	goto st329;
+tr766:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 261 "lex/parser_timeline.rl"
+	{ fsm.act_preset.idx = ragel_num.vint; }
+#line 123 "lex/parser_timeline.rl"
+	{ tl.addEventAction(fsm.event_id, fsm.act_preset); }
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+	goto st329;
+st329:
+	if ( ++p == pe )
+		goto _test_eof329;
+case 329:
+#line 4412 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr414;
+		case 33: goto tr415;
+	}
+	goto tr413;
+tr413:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+	goto st330;
+st330:
+	if ( ++p == pe )
+		goto _test_eof330;
+case 330:
+#line 4426 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr414;
+	goto tr413;
+tr415:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+	goto st331;
+st331:
+	if ( ++p == pe )
+		goto _test_eof331;
+case 331:
+#line 4438 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr414;
+		case 109: goto tr416;
+		case 111: goto tr417;
+		case 112: goto tr418;
+		case 115: goto tr419;
+	}
+	goto tr413;
+tr416:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+	goto st332;
 st332:
 	if ( ++p == pe )
 		goto _test_eof332;
 case 332:
-	if ( (*p) == 32 )
-		goto st333;
-	goto st0;
+#line 4455 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr414;
+		case 105: goto tr420;
+	}
+	goto tr413;
 tr420:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-	goto st333;
-tr446:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-	goto st333;
-tr772:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 255 "lex/parser_timeline.rl"
-	{ fsm.act_preset.idx = ragel_num.vint; }
-#line 122 "lex/parser_timeline.rl"
-	{ tl.addEventAction(fsm.event_id, fsm.act_preset); }
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
 	goto st333;
 st333:
 	if ( ++p == pe )
 		goto _test_eof333;
 case 333:
-#line 4516 "lex/parser_timeline.cpp"
+#line 4469 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr420;
-		case 33: goto tr421;
+		case 32: goto tr414;
+		case 100: goto tr421;
 	}
-	goto tr419;
-tr419:
-#line 115 "lex/parser_timeline.rl"
+	goto tr413;
+tr421:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st334;
 st334:
 	if ( ++p == pe )
 		goto _test_eof334;
 case 334:
-#line 4530 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr420;
-	goto tr419;
-tr421:
-#line 115 "lex/parser_timeline.rl"
+#line 4483 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr414;
+		case 105: goto tr422;
+	}
+	goto tr413;
+tr422:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st335;
 st335:
 	if ( ++p == pe )
 		goto _test_eof335;
 case 335:
-#line 4542 "lex/parser_timeline.cpp"
+#line 4497 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr420;
-		case 109: goto tr422;
-		case 111: goto tr423;
-		case 112: goto tr424;
-		case 115: goto tr425;
+		case 32: goto tr414;
+		case 58: goto tr423;
 	}
-	goto tr419;
-tr422:
-#line 115 "lex/parser_timeline.rl"
+	goto tr413;
+tr423:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st336;
 st336:
 	if ( ++p == pe )
 		goto _test_eof336;
 case 336:
-#line 4559 "lex/parser_timeline.cpp"
+#line 4511 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr420;
-		case 105: goto tr426;
+		case 32: goto tr414;
+		case 99: goto tr424;
+		case 110: goto tr425;
+		case 112: goto tr426;
 	}
-	goto tr419;
-tr426:
-#line 115 "lex/parser_timeline.rl"
+	goto tr413;
+tr424:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st337;
 st337:
 	if ( ++p == pe )
 		goto _test_eof337;
 case 337:
-#line 4573 "lex/parser_timeline.cpp"
+#line 4527 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr420;
-		case 100: goto tr427;
+		case 32: goto tr414;
+		case 116: goto tr427;
 	}
-	goto tr419;
+	goto tr413;
 tr427:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st338;
 st338:
 	if ( ++p == pe )
 		goto _test_eof338;
 case 338:
-#line 4587 "lex/parser_timeline.cpp"
+#line 4541 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr420;
-		case 105: goto tr428;
+		case 32: goto tr414;
+		case 108: goto tr428;
 	}
-	goto tr419;
+	goto tr413;
 tr428:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st339;
 st339:
 	if ( ++p == pe )
 		goto _test_eof339;
 case 339:
-#line 4601 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr420;
-		case 58: goto tr429;
-	}
-	goto tr419;
+#line 4555 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr429;
+	goto tr413;
 tr429:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
 	goto st340;
 st340:
 	if ( ++p == pe )
 		goto _test_eof340;
 case 340:
-#line 4615 "lex/parser_timeline.cpp"
+#line 4569 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr420;
-		case 99: goto tr430;
-		case 110: goto tr431;
-		case 112: goto tr432;
+		case 32: goto tr429;
+		case 33: goto tr415;
+		case 48: goto tr430;
 	}
-	goto tr419;
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr431;
+	goto tr413;
 tr430:
-#line 115 "lex/parser_timeline.rl"
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st341;
 st341:
 	if ( ++p == pe )
 		goto _test_eof341;
 case 341:
-#line 4631 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr420;
-		case 116: goto tr433;
-	}
-	goto tr419;
+#line 4588 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr432;
+	goto tr413;
 tr433:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+	goto st342;
+tr432:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
 	goto st342;
 st342:
 	if ( ++p == pe )
 		goto _test_eof342;
 case 342:
-#line 4645 "lex/parser_timeline.cpp"
+#line 4614 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr420;
-		case 108: goto tr434;
+		case 32: goto tr433;
+		case 33: goto tr415;
+		case 48: goto tr434;
 	}
-	goto tr419;
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr435;
+	goto tr413;
 tr434:
-#line 115 "lex/parser_timeline.rl"
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st343;
 st343:
 	if ( ++p == pe )
 		goto _test_eof343;
 case 343:
-#line 4659 "lex/parser_timeline.cpp"
+#line 4633 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr435;
-	goto tr419;
-tr435:
-#line 115 "lex/parser_timeline.rl"
+		goto tr436;
+	goto tr413;
+tr437:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+	goto st344;
+tr436:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
 	goto st344;
 st344:
 	if ( ++p == pe )
 		goto _test_eof344;
 case 344:
-#line 4673 "lex/parser_timeline.cpp"
+#line 4659 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr435;
-		case 33: goto tr421;
-		case 48: goto tr436;
+		case 32: goto tr437;
+		case 33: goto tr415;
+		case 48: goto tr438;
 	}
 	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr437;
-	goto tr419;
-tr436:
+		goto tr439;
+	goto tr413;
+tr438:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st345;
 st345:
 	if ( ++p == pe )
 		goto _test_eof345;
 case 345:
-#line 4692 "lex/parser_timeline.cpp"
+#line 4678 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr438;
-	goto tr419;
+		goto tr440;
+	goto tr413;
 tr439:
-#line 115 "lex/parser_timeline.rl"
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-	goto st346;
-tr438:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
 	goto st346;
 st346:
 	if ( ++p == pe )
 		goto _test_eof346;
 case 346:
-#line 4718 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr439;
-		case 33: goto tr421;
-		case 48: goto tr440;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr441;
-	goto tr419;
-tr440:
+#line 4692 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr440;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr439;
+	goto tr413;
+tr435:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st347;
 st347:
 	if ( ++p == pe )
 		goto _test_eof347;
 case 347:
-#line 4737 "lex/parser_timeline.cpp"
+#line 4708 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr442;
-	goto tr419;
-tr443:
-#line 115 "lex/parser_timeline.rl"
+		goto tr436;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr435;
+	goto tr413;
+tr431:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-	goto st348;
-tr442:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
 	goto st348;
 st348:
 	if ( ++p == pe )
 		goto _test_eof348;
 case 348:
-#line 4763 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr443;
-		case 33: goto tr421;
-		case 48: goto tr444;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr445;
-	goto tr419;
-tr444:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 115 "lex/parser_timeline.rl"
+#line 4724 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr432;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr431;
+	goto tr413;
+tr425:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st349;
 st349:
 	if ( ++p == pe )
 		goto _test_eof349;
 case 349:
-#line 4782 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr446;
-	goto tr419;
-tr445:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 115 "lex/parser_timeline.rl"
+#line 4738 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr414;
+		case 111: goto tr441;
+	}
+	goto tr413;
+tr441:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st350;
 st350:
 	if ( ++p == pe )
 		goto _test_eof350;
 case 350:
-#line 4796 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr446;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr445;
-	goto tr419;
-tr441:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 115 "lex/parser_timeline.rl"
+#line 4752 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr414;
+		case 116: goto tr442;
+	}
+	goto tr413;
+tr442:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st351;
 st351:
 	if ( ++p == pe )
 		goto _test_eof351;
 case 351:
-#line 4812 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr442;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr441;
-	goto tr419;
-tr437:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 115 "lex/parser_timeline.rl"
+#line 4766 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr414;
+		case 101: goto tr428;
+	}
+	goto tr413;
+tr426:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st352;
 st352:
 	if ( ++p == pe )
 		goto _test_eof352;
 case 352:
-#line 4828 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr438;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr437;
-	goto tr419;
-tr431:
-#line 115 "lex/parser_timeline.rl"
+#line 4780 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr414;
+		case 103: goto tr443;
+	}
+	goto tr413;
+tr443:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st353;
 st353:
 	if ( ++p == pe )
 		goto _test_eof353;
 case 353:
-#line 4842 "lex/parser_timeline.cpp"
+#line 4794 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr420;
-		case 111: goto tr447;
+		case 32: goto tr414;
+		case 109: goto tr444;
 	}
-	goto tr419;
-tr447:
-#line 115 "lex/parser_timeline.rl"
+	goto tr413;
+tr444:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st354;
 st354:
 	if ( ++p == pe )
 		goto _test_eof354;
 case 354:
-#line 4856 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr420;
-		case 116: goto tr448;
-	}
-	goto tr419;
-tr448:
-#line 115 "lex/parser_timeline.rl"
+#line 4808 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr433;
+	goto tr413;
+tr417:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st355;
 st355:
 	if ( ++p == pe )
 		goto _test_eof355;
 case 355:
-#line 4870 "lex/parser_timeline.cpp"
+#line 4820 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr420;
-		case 101: goto tr434;
+		case 32: goto tr414;
+		case 115: goto tr445;
+		case 117: goto tr446;
 	}
-	goto tr419;
-tr432:
-#line 115 "lex/parser_timeline.rl"
+	goto tr413;
+tr445:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st356;
 st356:
 	if ( ++p == pe )
 		goto _test_eof356;
 case 356:
-#line 4884 "lex/parser_timeline.cpp"
+#line 4835 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr420;
-		case 103: goto tr449;
+		case 32: goto tr414;
+		case 99: goto tr447;
 	}
-	goto tr419;
-tr449:
-#line 115 "lex/parser_timeline.rl"
+	goto tr413;
+tr447:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st357;
 st357:
 	if ( ++p == pe )
 		goto _test_eof357;
 case 357:
-#line 4898 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr420;
-		case 109: goto tr450;
-	}
-	goto tr419;
-tr450:
-#line 115 "lex/parser_timeline.rl"
+#line 4849 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr448;
+	goto tr413;
+tr448:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+	goto st358;
+tr475:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+	goto st358;
+tr622:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 261 "lex/parser_timeline.rl"
+	{ fsm.act_preset.idx = ragel_num.vint; }
+#line 123 "lex/parser_timeline.rl"
+	{ tl.addEventAction(fsm.event_id, fsm.act_preset); }
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
 	goto st358;
 st358:
 	if ( ++p == pe )
 		goto _test_eof358;
 case 358:
-#line 4912 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr439;
-	goto tr419;
-tr423:
-#line 115 "lex/parser_timeline.rl"
+#line 4891 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr448;
+		case 33: goto tr450;
+	}
+	goto tr449;
+tr449:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st359;
 st359:
 	if ( ++p == pe )
 		goto _test_eof359;
 case 359:
-#line 4924 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr420;
-		case 115: goto tr451;
-		case 117: goto tr452;
-	}
-	goto tr419;
-tr451:
-#line 115 "lex/parser_timeline.rl"
+#line 4905 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr448;
+	goto tr449;
+tr450:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st360;
 st360:
 	if ( ++p == pe )
 		goto _test_eof360;
 case 360:
-#line 4939 "lex/parser_timeline.cpp"
+#line 4917 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr420;
-		case 99: goto tr453;
+		case 32: goto tr448;
+		case 109: goto tr451;
+		case 111: goto tr452;
+		case 112: goto tr453;
+		case 115: goto tr454;
 	}
-	goto tr419;
-tr453:
-#line 115 "lex/parser_timeline.rl"
+	goto tr449;
+tr451:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st361;
 st361:
 	if ( ++p == pe )
 		goto _test_eof361;
 case 361:
-#line 4953 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr454;
-	goto tr419;
-tr454:
-#line 115 "lex/parser_timeline.rl"
+#line 4934 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr448;
+		case 105: goto tr455;
+	}
+	goto tr449;
+tr455:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-	goto st362;
-tr481:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-	goto st362;
-tr628:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 255 "lex/parser_timeline.rl"
-	{ fsm.act_preset.idx = ragel_num.vint; }
-#line 122 "lex/parser_timeline.rl"
-	{ tl.addEventAction(fsm.event_id, fsm.act_preset); }
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
 	goto st362;
 st362:
 	if ( ++p == pe )
 		goto _test_eof362;
 case 362:
-#line 4995 "lex/parser_timeline.cpp"
+#line 4948 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr454;
-		case 33: goto tr456;
+		case 32: goto tr448;
+		case 100: goto tr456;
 	}
-	goto tr455;
-tr455:
-#line 115 "lex/parser_timeline.rl"
+	goto tr449;
+tr456:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st363;
 st363:
 	if ( ++p == pe )
 		goto _test_eof363;
 case 363:
-#line 5009 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr454;
-	goto tr455;
-tr456:
-#line 115 "lex/parser_timeline.rl"
+#line 4962 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr448;
+		case 105: goto tr457;
+	}
+	goto tr449;
+tr457:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st364;
 st364:
 	if ( ++p == pe )
 		goto _test_eof364;
 case 364:
-#line 5021 "lex/parser_timeline.cpp"
+#line 4976 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr454;
-		case 109: goto tr457;
-		case 111: goto tr458;
-		case 112: goto tr459;
-		case 115: goto tr460;
+		case 32: goto tr448;
+		case 58: goto tr458;
 	}
-	goto tr455;
-tr457:
-#line 115 "lex/parser_timeline.rl"
+	goto tr449;
+tr458:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st365;
 st365:
 	if ( ++p == pe )
 		goto _test_eof365;
 case 365:
-#line 5038 "lex/parser_timeline.cpp"
+#line 4990 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr454;
-		case 105: goto tr461;
+		case 32: goto tr448;
+		case 99: goto tr459;
+		case 110: goto tr460;
+		case 112: goto tr461;
 	}
-	goto tr455;
-tr461:
-#line 115 "lex/parser_timeline.rl"
+	goto tr449;
+tr459:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st366;
 st366:
 	if ( ++p == pe )
 		goto _test_eof366;
 case 366:
-#line 5052 "lex/parser_timeline.cpp"
+#line 5006 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr454;
-		case 100: goto tr462;
+		case 32: goto tr448;
+		case 116: goto tr462;
 	}
-	goto tr455;
+	goto tr449;
 tr462:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st367;
 st367:
 	if ( ++p == pe )
 		goto _test_eof367;
 case 367:
-#line 5066 "lex/parser_timeline.cpp"
+#line 5020 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr454;
-		case 105: goto tr463;
+		case 32: goto tr448;
+		case 108: goto tr463;
 	}
-	goto tr455;
+	goto tr449;
 tr463:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st368;
 st368:
 	if ( ++p == pe )
 		goto _test_eof368;
 case 368:
-#line 5080 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr454;
-		case 58: goto tr464;
-	}
-	goto tr455;
+#line 5034 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr464;
+	goto tr449;
 tr464:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
 	goto st369;
 st369:
 	if ( ++p == pe )
 		goto _test_eof369;
 case 369:
-#line 5094 "lex/parser_timeline.cpp"
+#line 5048 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr454;
-		case 99: goto tr465;
-		case 110: goto tr466;
-		case 112: goto tr467;
+		case 32: goto tr464;
+		case 33: goto tr450;
+		case 48: goto tr465;
 	}
-	goto tr455;
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr466;
+	goto tr449;
 tr465:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st370;
 st370:
 	if ( ++p == pe )
 		goto _test_eof370;
 case 370:
-#line 5110 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr454;
-		case 116: goto tr468;
-	}
-	goto tr455;
+#line 5067 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr467;
+	goto tr449;
 tr468:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+	goto st371;
+tr467:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
 	goto st371;
 st371:
 	if ( ++p == pe )
 		goto _test_eof371;
 case 371:
-#line 5124 "lex/parser_timeline.cpp"
+#line 5093 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr454;
-		case 108: goto tr469;
+		case 32: goto tr468;
+		case 33: goto tr450;
+		case 48: goto tr469;
 	}
-	goto tr455;
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr470;
+	goto tr449;
 tr469:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st372;
 st372:
 	if ( ++p == pe )
 		goto _test_eof372;
 case 372:
-#line 5138 "lex/parser_timeline.cpp"
+#line 5112 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr470;
-	goto tr455;
-tr470:
-#line 115 "lex/parser_timeline.rl"
+		goto tr471;
+	goto tr449;
+tr472:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
+	goto st373;
+tr471:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
 	goto st373;
 st373:
 	if ( ++p == pe )
 		goto _test_eof373;
 case 373:
-#line 5152 "lex/parser_timeline.cpp"
+#line 5138 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr470;
-		case 33: goto tr456;
-		case 48: goto tr471;
+		case 32: goto tr472;
+		case 33: goto tr450;
+		case 48: goto tr473;
 	}
 	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr472;
-	goto tr455;
-tr471:
-#line 115 "lex/parser_timeline.rl"
+		goto tr474;
+	goto tr449;
+tr473:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
@@ -5167,43 +5153,28 @@ st374:
 	if ( ++p == pe )
 		goto _test_eof374;
 case 374:
-#line 5171 "lex/parser_timeline.cpp"
+#line 5157 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr473;
-	goto tr455;
+		goto tr475;
+	goto tr449;
 tr474:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-	goto st375;
-tr473:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st375;
 st375:
 	if ( ++p == pe )
 		goto _test_eof375;
 case 375:
-#line 5197 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr474;
-		case 33: goto tr456;
-		case 48: goto tr475;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr476;
-	goto tr455;
-tr475:
-#line 115 "lex/parser_timeline.rl"
+#line 5171 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr475;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr474;
+	goto tr449;
+tr470:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
@@ -5212,450 +5183,473 @@ st376:
 	if ( ++p == pe )
 		goto _test_eof376;
 case 376:
-#line 5216 "lex/parser_timeline.cpp"
+#line 5187 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr477;
-	goto tr455;
-tr478:
-#line 115 "lex/parser_timeline.rl"
+		goto tr471;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr470;
+	goto tr449;
+tr466:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-	goto st377;
-tr477:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st377;
 st377:
 	if ( ++p == pe )
 		goto _test_eof377;
 case 377:
-#line 5242 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr478;
-		case 33: goto tr456;
-		case 48: goto tr479;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr480;
-	goto tr455;
-tr479:
-#line 115 "lex/parser_timeline.rl"
+#line 5203 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr467;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr466;
+	goto tr449;
+tr460:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st378;
 st378:
 	if ( ++p == pe )
 		goto _test_eof378;
 case 378:
-#line 5261 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr481;
-	goto tr455;
-tr480:
-#line 115 "lex/parser_timeline.rl"
+#line 5217 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr448;
+		case 111: goto tr476;
+	}
+	goto tr449;
+tr476:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st379;
 st379:
 	if ( ++p == pe )
 		goto _test_eof379;
 case 379:
-#line 5275 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr481;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr480;
-	goto tr455;
-tr476:
-#line 115 "lex/parser_timeline.rl"
+#line 5231 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr448;
+		case 116: goto tr477;
+	}
+	goto tr449;
+tr477:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st380;
 st380:
 	if ( ++p == pe )
 		goto _test_eof380;
 case 380:
-#line 5291 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr477;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr476;
-	goto tr455;
-tr472:
-#line 115 "lex/parser_timeline.rl"
+#line 5245 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr448;
+		case 101: goto tr463;
+	}
+	goto tr449;
+tr461:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st381;
 st381:
 	if ( ++p == pe )
 		goto _test_eof381;
 case 381:
-#line 5307 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr473;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr472;
-	goto tr455;
-tr466:
-#line 115 "lex/parser_timeline.rl"
+#line 5259 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr448;
+		case 103: goto tr478;
+	}
+	goto tr449;
+tr478:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st382;
 st382:
 	if ( ++p == pe )
 		goto _test_eof382;
 case 382:
-#line 5321 "lex/parser_timeline.cpp"
+#line 5273 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr454;
-		case 111: goto tr482;
+		case 32: goto tr448;
+		case 109: goto tr479;
 	}
-	goto tr455;
-tr482:
-#line 115 "lex/parser_timeline.rl"
+	goto tr449;
+tr479:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st383;
 st383:
 	if ( ++p == pe )
 		goto _test_eof383;
 case 383:
-#line 5335 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr454;
-		case 116: goto tr483;
-	}
-	goto tr455;
-tr483:
-#line 115 "lex/parser_timeline.rl"
+#line 5287 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr468;
+	goto tr449;
+tr452:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st384;
 st384:
 	if ( ++p == pe )
 		goto _test_eof384;
 case 384:
-#line 5349 "lex/parser_timeline.cpp"
+#line 5299 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr454;
-		case 101: goto tr469;
+		case 32: goto tr448;
+		case 117: goto tr480;
 	}
-	goto tr455;
-tr467:
-#line 115 "lex/parser_timeline.rl"
+	goto tr449;
+tr480:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st385;
 st385:
 	if ( ++p == pe )
 		goto _test_eof385;
 case 385:
-#line 5363 "lex/parser_timeline.cpp"
+#line 5313 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr454;
-		case 103: goto tr484;
+		case 32: goto tr448;
+		case 116: goto tr481;
 	}
-	goto tr455;
-tr484:
-#line 115 "lex/parser_timeline.rl"
+	goto tr449;
+tr481:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st386;
 st386:
 	if ( ++p == pe )
 		goto _test_eof386;
 case 386:
-#line 5377 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr454;
-		case 109: goto tr485;
-	}
-	goto tr455;
-tr485:
-#line 115 "lex/parser_timeline.rl"
+#line 5327 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr482;
+	goto tr449;
+tr482:
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+	goto st387;
+tr484:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+	goto st387;
+tr509:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+	goto st387;
+tr522:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 261 "lex/parser_timeline.rl"
+	{ fsm.act_preset.idx = ragel_num.vint; }
+#line 123 "lex/parser_timeline.rl"
+	{ tl.addEventAction(fsm.event_id, fsm.act_preset); }
+	goto st387;
+tr778:
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
 	goto st387;
 st387:
 	if ( ++p == pe )
 		goto _test_eof387;
 case 387:
-#line 5391 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr474;
-	goto tr455;
-tr458:
-#line 115 "lex/parser_timeline.rl"
+#line 5387 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr484;
+		case 33: goto tr485;
+	}
+	goto tr483;
+tr483:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st388;
 st388:
 	if ( ++p == pe )
 		goto _test_eof388;
 case 388:
-#line 5403 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr454;
-		case 117: goto tr486;
-	}
-	goto tr455;
-tr486:
-#line 115 "lex/parser_timeline.rl"
+#line 5401 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr484;
+	goto tr483;
+tr485:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st389;
 st389:
 	if ( ++p == pe )
 		goto _test_eof389;
 case 389:
-#line 5417 "lex/parser_timeline.cpp"
+#line 5413 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr454;
-		case 116: goto tr487;
+		case 32: goto tr484;
+		case 109: goto tr486;
+		case 112: goto tr487;
+		case 115: goto tr488;
 	}
-	goto tr455;
-tr487:
-#line 115 "lex/parser_timeline.rl"
+	goto tr483;
+tr486:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st390;
 st390:
 	if ( ++p == pe )
 		goto _test_eof390;
 case 390:
-#line 5431 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr488;
-	goto tr455;
-tr488:
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 115 "lex/parser_timeline.rl"
+#line 5429 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr484;
+		case 105: goto tr489;
+	}
+	goto tr483;
+tr489:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-	goto st391;
-tr490:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-	goto st391;
-tr515:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-	goto st391;
-tr528:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 255 "lex/parser_timeline.rl"
-	{ fsm.act_preset.idx = ragel_num.vint; }
-#line 122 "lex/parser_timeline.rl"
-	{ tl.addEventAction(fsm.event_id, fsm.act_preset); }
-	goto st391;
-tr784:
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
 	goto st391;
 st391:
 	if ( ++p == pe )
 		goto _test_eof391;
 case 391:
-#line 5491 "lex/parser_timeline.cpp"
+#line 5443 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr490;
-		case 33: goto tr491;
+		case 32: goto tr484;
+		case 100: goto tr490;
 	}
-	goto tr489;
-tr489:
-#line 115 "lex/parser_timeline.rl"
+	goto tr483;
+tr490:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st392;
 st392:
 	if ( ++p == pe )
 		goto _test_eof392;
 case 392:
-#line 5505 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr490;
-	goto tr489;
+#line 5457 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr484;
+		case 105: goto tr491;
+	}
+	goto tr483;
 tr491:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st393;
 st393:
 	if ( ++p == pe )
 		goto _test_eof393;
 case 393:
-#line 5517 "lex/parser_timeline.cpp"
+#line 5471 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr490;
-		case 109: goto tr492;
-		case 112: goto tr493;
-		case 115: goto tr494;
+		case 32: goto tr484;
+		case 58: goto tr492;
 	}
-	goto tr489;
+	goto tr483;
 tr492:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st394;
 st394:
 	if ( ++p == pe )
 		goto _test_eof394;
 case 394:
-#line 5533 "lex/parser_timeline.cpp"
+#line 5485 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr490;
-		case 105: goto tr495;
+		case 32: goto tr484;
+		case 99: goto tr493;
+		case 110: goto tr494;
+		case 112: goto tr495;
 	}
-	goto tr489;
-tr495:
-#line 115 "lex/parser_timeline.rl"
+	goto tr483;
+tr493:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st395;
 st395:
 	if ( ++p == pe )
 		goto _test_eof395;
 case 395:
-#line 5547 "lex/parser_timeline.cpp"
+#line 5501 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr490;
-		case 100: goto tr496;
+		case 32: goto tr484;
+		case 116: goto tr496;
 	}
-	goto tr489;
+	goto tr483;
 tr496:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st396;
 st396:
 	if ( ++p == pe )
 		goto _test_eof396;
 case 396:
-#line 5561 "lex/parser_timeline.cpp"
+#line 5515 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr490;
-		case 105: goto tr497;
+		case 32: goto tr484;
+		case 108: goto tr497;
 	}
-	goto tr489;
+	goto tr483;
 tr497:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st397;
 st397:
 	if ( ++p == pe )
 		goto _test_eof397;
 case 397:
-#line 5575 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr490;
-		case 58: goto tr498;
-	}
-	goto tr489;
+#line 5529 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr498;
+	goto tr483;
 tr498:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
 	goto st398;
 st398:
 	if ( ++p == pe )
 		goto _test_eof398;
 case 398:
-#line 5589 "lex/parser_timeline.cpp"
+#line 5545 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr490;
-		case 99: goto tr499;
-		case 110: goto tr500;
-		case 112: goto tr501;
+		case 32: goto tr498;
+		case 33: goto tr485;
+		case 48: goto tr499;
 	}
-	goto tr489;
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr500;
+	goto tr483;
 tr499:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st399;
 st399:
 	if ( ++p == pe )
 		goto _test_eof399;
 case 399:
-#line 5605 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr490;
-		case 116: goto tr502;
-	}
-	goto tr489;
+#line 5564 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr501;
+	goto tr483;
 tr502:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+	goto st400;
+tr501:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
 	goto st400;
 st400:
 	if ( ++p == pe )
 		goto _test_eof400;
 case 400:
-#line 5619 "lex/parser_timeline.cpp"
+#line 5594 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr490;
-		case 108: goto tr503;
+		case 32: goto tr502;
+		case 33: goto tr485;
+		case 48: goto tr503;
 	}
-	goto tr489;
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr504;
+	goto tr483;
 tr503:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st401;
 st401:
 	if ( ++p == pe )
 		goto _test_eof401;
 case 401:
-#line 5633 "lex/parser_timeline.cpp"
+#line 5613 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr504;
-	goto tr489;
-tr504:
-#line 115 "lex/parser_timeline.rl"
+		goto tr505;
+	goto tr483;
+tr506:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
+#line 120 "lex/parser_timeline.rl"
 	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+	goto st402;
+tr505:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
 	goto st402;
 st402:
 	if ( ++p == pe )
 		goto _test_eof402;
 case 402:
-#line 5649 "lex/parser_timeline.cpp"
+#line 5643 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr504;
-		case 33: goto tr491;
-		case 48: goto tr505;
+		case 32: goto tr506;
+		case 33: goto tr485;
+		case 48: goto tr507;
 	}
 	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr506;
-	goto tr489;
-tr505:
-#line 115 "lex/parser_timeline.rl"
+		goto tr508;
+	goto tr483;
+tr507:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
@@ -5664,47 +5658,28 @@ st403:
 	if ( ++p == pe )
 		goto _test_eof403;
 case 403:
-#line 5668 "lex/parser_timeline.cpp"
+#line 5662 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr507;
-	goto tr489;
+		goto tr509;
+	goto tr483;
 tr508:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-	goto st404;
-tr507:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st404;
 st404:
 	if ( ++p == pe )
 		goto _test_eof404;
 case 404:
-#line 5698 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr508;
-		case 33: goto tr491;
-		case 48: goto tr509;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr510;
-	goto tr489;
-tr509:
-#line 115 "lex/parser_timeline.rl"
+#line 5676 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr509;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr508;
+	goto tr483;
+tr504:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
@@ -5713,700 +5688,739 @@ st405:
 	if ( ++p == pe )
 		goto _test_eof405;
 case 405:
-#line 5717 "lex/parser_timeline.cpp"
+#line 5692 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr511;
-	goto tr489;
-tr512:
-#line 115 "lex/parser_timeline.rl"
+		goto tr505;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr504;
+	goto tr483;
+tr500:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-	goto st406;
-tr511:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st406;
 st406:
 	if ( ++p == pe )
 		goto _test_eof406;
 case 406:
-#line 5747 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr512;
-		case 33: goto tr491;
-		case 48: goto tr513;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr514;
-	goto tr489;
-tr513:
-#line 115 "lex/parser_timeline.rl"
+#line 5708 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr501;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr500;
+	goto tr483;
+tr494:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st407;
 st407:
 	if ( ++p == pe )
 		goto _test_eof407;
 case 407:
-#line 5766 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr515;
-	goto tr489;
-tr514:
-#line 115 "lex/parser_timeline.rl"
+#line 5722 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr484;
+		case 111: goto tr510;
+	}
+	goto tr483;
+tr510:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st408;
 st408:
 	if ( ++p == pe )
 		goto _test_eof408;
 case 408:
-#line 5780 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr515;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr514;
-	goto tr489;
-tr510:
-#line 115 "lex/parser_timeline.rl"
+#line 5736 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr484;
+		case 116: goto tr511;
+	}
+	goto tr483;
+tr511:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st409;
 st409:
 	if ( ++p == pe )
 		goto _test_eof409;
 case 409:
-#line 5796 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr511;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr510;
-	goto tr489;
-tr506:
-#line 115 "lex/parser_timeline.rl"
+#line 5750 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr484;
+		case 101: goto tr497;
+	}
+	goto tr483;
+tr495:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st410;
 st410:
 	if ( ++p == pe )
 		goto _test_eof410;
 case 410:
-#line 5812 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr507;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr506;
-	goto tr489;
-tr500:
-#line 115 "lex/parser_timeline.rl"
+#line 5764 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr484;
+		case 103: goto tr512;
+	}
+	goto tr483;
+tr512:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st411;
 st411:
 	if ( ++p == pe )
 		goto _test_eof411;
 case 411:
-#line 5826 "lex/parser_timeline.cpp"
+#line 5778 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr490;
-		case 111: goto tr516;
+		case 32: goto tr484;
+		case 109: goto tr513;
 	}
-	goto tr489;
-tr516:
-#line 115 "lex/parser_timeline.rl"
+	goto tr483;
+tr513:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st412;
 st412:
 	if ( ++p == pe )
 		goto _test_eof412;
 case 412:
-#line 5840 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr490;
-		case 116: goto tr517;
-	}
-	goto tr489;
-tr517:
-#line 115 "lex/parser_timeline.rl"
+#line 5792 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr502;
+	goto tr483;
+tr487:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st413;
 st413:
 	if ( ++p == pe )
 		goto _test_eof413;
 case 413:
-#line 5854 "lex/parser_timeline.cpp"
+#line 5804 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr490;
-		case 101: goto tr503;
+		case 32: goto tr484;
+		case 114: goto tr514;
 	}
-	goto tr489;
-tr501:
-#line 115 "lex/parser_timeline.rl"
+	goto tr483;
+tr514:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st414;
 st414:
 	if ( ++p == pe )
 		goto _test_eof414;
 case 414:
-#line 5868 "lex/parser_timeline.cpp"
+#line 5818 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr490;
-		case 103: goto tr518;
+		case 32: goto tr484;
+		case 101: goto tr515;
 	}
-	goto tr489;
-tr518:
-#line 115 "lex/parser_timeline.rl"
+	goto tr483;
+tr515:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st415;
 st415:
 	if ( ++p == pe )
 		goto _test_eof415;
 case 415:
-#line 5882 "lex/parser_timeline.cpp"
+#line 5832 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr490;
-		case 109: goto tr519;
+		case 32: goto tr484;
+		case 115: goto tr516;
 	}
-	goto tr489;
-tr519:
-#line 115 "lex/parser_timeline.rl"
+	goto tr483;
+tr516:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st416;
 st416:
 	if ( ++p == pe )
 		goto _test_eof416;
 case 416:
-#line 5896 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr508;
-	goto tr489;
-tr493:
-#line 115 "lex/parser_timeline.rl"
+#line 5846 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr484;
+		case 101: goto tr517;
+	}
+	goto tr483;
+tr517:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st417;
 st417:
 	if ( ++p == pe )
 		goto _test_eof417;
 case 417:
-#line 5908 "lex/parser_timeline.cpp"
+#line 5860 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr490;
-		case 114: goto tr520;
+		case 32: goto tr484;
+		case 116: goto tr518;
 	}
-	goto tr489;
-tr520:
-#line 115 "lex/parser_timeline.rl"
+	goto tr483;
+tr518:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st418;
 st418:
 	if ( ++p == pe )
 		goto _test_eof418;
 case 418:
-#line 5922 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr490;
-		case 101: goto tr521;
-	}
-	goto tr489;
-tr521:
-#line 115 "lex/parser_timeline.rl"
+#line 5874 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr519;
+	goto tr483;
+tr519:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
 	goto st419;
 st419:
 	if ( ++p == pe )
 		goto _test_eof419;
 case 419:
-#line 5936 "lex/parser_timeline.cpp"
+#line 5890 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr490;
-		case 115: goto tr522;
+		case 32: goto tr519;
+		case 33: goto tr485;
+		case 48: goto tr520;
 	}
-	goto tr489;
-tr522:
-#line 115 "lex/parser_timeline.rl"
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr521;
+	goto tr483;
+tr520:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 261 "lex/parser_timeline.rl"
+	{ragel_num.vint = 0;}
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st420;
 st420:
 	if ( ++p == pe )
 		goto _test_eof420;
 case 420:
-#line 5950 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr490;
-		case 101: goto tr523;
-	}
-	goto tr489;
+#line 5911 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr522;
+	goto tr483;
 tr523:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st421;
+tr521:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 261 "lex/parser_timeline.rl"
+	{ragel_num.vint = 0;}
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st421;
 st421:
 	if ( ++p == pe )
 		goto _test_eof421;
 case 421:
-#line 5964 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr490;
-		case 116: goto tr524;
-	}
-	goto tr489;
-tr524:
-#line 115 "lex/parser_timeline.rl"
+#line 5933 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr522;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr523;
+	goto tr483;
+tr488:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st422;
 st422:
 	if ( ++p == pe )
 		goto _test_eof422;
 case 422:
-#line 5978 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr525;
-	goto tr489;
-tr525:
-#line 115 "lex/parser_timeline.rl"
+#line 5947 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr484;
+		case 101: goto tr524;
+	}
+	goto tr483;
+tr524:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
 	goto st423;
 st423:
 	if ( ++p == pe )
 		goto _test_eof423;
 case 423:
-#line 5994 "lex/parser_timeline.cpp"
+#line 5961 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr525;
-		case 33: goto tr491;
-		case 48: goto tr526;
+		case 32: goto tr484;
+		case 110: goto tr525;
 	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr527;
-	goto tr489;
-tr526:
-#line 115 "lex/parser_timeline.rl"
+	goto tr483;
+tr525:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 255 "lex/parser_timeline.rl"
-	{ragel_num.vint = 0;}
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st424;
 st424:
 	if ( ++p == pe )
 		goto _test_eof424;
 case 424:
-#line 6015 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr528;
-	goto tr489;
-tr529:
-#line 115 "lex/parser_timeline.rl"
+#line 5975 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr484;
+		case 100: goto tr526;
+	}
+	goto tr483;
+tr526:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st425;
-tr527:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 255 "lex/parser_timeline.rl"
-	{ragel_num.vint = 0;}
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st425;
 st425:
 	if ( ++p == pe )
 		goto _test_eof425;
 case 425:
-#line 6037 "lex/parser_timeline.cpp"
+#line 5989 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr528;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr529;
-	goto tr489;
-tr494:
-#line 115 "lex/parser_timeline.rl"
+		goto tr527;
+	goto tr483;
+tr527:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
 	goto st426;
 st426:
 	if ( ++p == pe )
 		goto _test_eof426;
 case 426:
-#line 6051 "lex/parser_timeline.cpp"
+#line 6005 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr490;
-		case 101: goto tr530;
+		case 32: goto tr527;
+		case 33: goto tr529;
+		case 43: goto tr530;
+		case 45: goto tr530;
+		case 48: goto tr531;
 	}
-	goto tr489;
-tr530:
-#line 115 "lex/parser_timeline.rl"
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr532;
+	goto tr528;
+tr528:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st427;
 st427:
 	if ( ++p == pe )
 		goto _test_eof427;
 case 427:
-#line 6065 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr490;
-		case 110: goto tr531;
-	}
-	goto tr489;
-tr531:
-#line 115 "lex/parser_timeline.rl"
+#line 6024 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr533;
+	goto tr528;
+tr533:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+	goto st428;
+tr535:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+	goto st428;
+tr560:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+	goto st428;
+tr573:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 261 "lex/parser_timeline.rl"
+	{ fsm.act_preset.idx = ragel_num.vint; }
+#line 123 "lex/parser_timeline.rl"
+	{ tl.addEventAction(fsm.event_id, fsm.act_preset); }
+	goto st428;
+tr668:
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+	goto st428;
+tr710:
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+	goto st428;
+tr744:
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
 	goto st428;
 st428:
 	if ( ++p == pe )
 		goto _test_eof428;
 case 428:
-#line 6079 "lex/parser_timeline.cpp"
+#line 6124 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr490;
-		case 100: goto tr532;
+		case 32: goto tr535;
+		case 33: goto tr536;
 	}
-	goto tr489;
-tr532:
-#line 115 "lex/parser_timeline.rl"
+	goto tr534;
+tr534:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st429;
 st429:
 	if ( ++p == pe )
 		goto _test_eof429;
 case 429:
-#line 6093 "lex/parser_timeline.cpp"
+#line 6138 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr533;
-	goto tr489;
-tr533:
-#line 115 "lex/parser_timeline.rl"
+		goto tr535;
+	goto tr534;
+tr536:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
 	goto st430;
 st430:
 	if ( ++p == pe )
 		goto _test_eof430;
 case 430:
-#line 6109 "lex/parser_timeline.cpp"
+#line 6150 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr533;
-		case 33: goto tr535;
-		case 43: goto tr536;
-		case 45: goto tr536;
-		case 48: goto tr537;
+		case 32: goto tr535;
+		case 109: goto tr537;
+		case 112: goto tr538;
+		case 115: goto tr539;
 	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr538;
 	goto tr534;
-tr534:
-#line 115 "lex/parser_timeline.rl"
+tr537:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st431;
 st431:
 	if ( ++p == pe )
 		goto _test_eof431;
 case 431:
-#line 6128 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr539;
+#line 6166 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr535;
+		case 105: goto tr540;
+	}
 	goto tr534;
-tr539:
-#line 115 "lex/parser_timeline.rl"
+tr540:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-	goto st432;
-tr541:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-	goto st432;
-tr566:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-	goto st432;
-tr579:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 255 "lex/parser_timeline.rl"
-	{ fsm.act_preset.idx = ragel_num.vint; }
-#line 122 "lex/parser_timeline.rl"
-	{ tl.addEventAction(fsm.event_id, fsm.act_preset); }
-	goto st432;
-tr674:
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-	goto st432;
-tr716:
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-	goto st432;
-tr750:
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
 	goto st432;
 st432:
 	if ( ++p == pe )
 		goto _test_eof432;
 case 432:
-#line 6228 "lex/parser_timeline.cpp"
+#line 6180 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr541;
-		case 33: goto tr542;
+		case 32: goto tr535;
+		case 100: goto tr541;
 	}
-	goto tr540;
-tr540:
-#line 115 "lex/parser_timeline.rl"
+	goto tr534;
+tr541:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st433;
 st433:
 	if ( ++p == pe )
 		goto _test_eof433;
 case 433:
-#line 6242 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr541;
-	goto tr540;
+#line 6194 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr535;
+		case 105: goto tr542;
+	}
+	goto tr534;
 tr542:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st434;
 st434:
 	if ( ++p == pe )
 		goto _test_eof434;
 case 434:
-#line 6254 "lex/parser_timeline.cpp"
+#line 6208 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr541;
-		case 109: goto tr543;
-		case 112: goto tr544;
-		case 115: goto tr545;
+		case 32: goto tr535;
+		case 58: goto tr543;
 	}
-	goto tr540;
+	goto tr534;
 tr543:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st435;
 st435:
 	if ( ++p == pe )
 		goto _test_eof435;
 case 435:
-#line 6270 "lex/parser_timeline.cpp"
+#line 6222 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr541;
-		case 105: goto tr546;
+		case 32: goto tr535;
+		case 99: goto tr544;
+		case 110: goto tr545;
+		case 112: goto tr546;
 	}
-	goto tr540;
-tr546:
-#line 115 "lex/parser_timeline.rl"
+	goto tr534;
+tr544:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st436;
 st436:
 	if ( ++p == pe )
 		goto _test_eof436;
 case 436:
-#line 6284 "lex/parser_timeline.cpp"
+#line 6238 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr541;
-		case 100: goto tr547;
+		case 32: goto tr535;
+		case 116: goto tr547;
 	}
-	goto tr540;
+	goto tr534;
 tr547:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st437;
 st437:
 	if ( ++p == pe )
 		goto _test_eof437;
 case 437:
-#line 6298 "lex/parser_timeline.cpp"
+#line 6252 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr541;
-		case 105: goto tr548;
+		case 32: goto tr535;
+		case 108: goto tr548;
 	}
-	goto tr540;
+	goto tr534;
 tr548:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st438;
 st438:
 	if ( ++p == pe )
 		goto _test_eof438;
 case 438:
-#line 6312 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr541;
-		case 58: goto tr549;
-	}
-	goto tr540;
-tr549:
-#line 115 "lex/parser_timeline.rl"
+#line 6266 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr549;
+	goto tr534;
+tr594:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+	goto st439;
+tr549:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 	goto st439;
 st439:
 	if ( ++p == pe )
 		goto _test_eof439;
 case 439:
-#line 6326 "lex/parser_timeline.cpp"
+#line 6296 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr541;
-		case 99: goto tr550;
-		case 110: goto tr551;
-		case 112: goto tr552;
+		case 32: goto tr549;
+		case 33: goto tr536;
+		case 48: goto tr550;
 	}
-	goto tr540;
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr551;
+	goto tr534;
 tr550:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st440;
 st440:
 	if ( ++p == pe )
 		goto _test_eof440;
 case 440:
-#line 6342 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr541;
-		case 116: goto tr553;
-	}
-	goto tr540;
-tr553:
-#line 115 "lex/parser_timeline.rl"
+#line 6315 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr552;
+	goto tr534;
+tr599:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+	goto st441;
+tr553:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+	goto st441;
+tr552:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
 	goto st441;
 st441:
 	if ( ++p == pe )
 		goto _test_eof441;
 case 441:
-#line 6356 "lex/parser_timeline.cpp"
+#line 6361 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr541;
-		case 108: goto tr554;
+		case 32: goto tr553;
+		case 33: goto tr536;
+		case 48: goto tr554;
 	}
-	goto tr540;
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr555;
+	goto tr534;
 tr554:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st442;
 st442:
 	if ( ++p == pe )
 		goto _test_eof442;
 case 442:
-#line 6370 "lex/parser_timeline.cpp"
+#line 6380 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr555;
-	goto tr540;
-tr600:
-#line 115 "lex/parser_timeline.rl"
+		goto tr556;
+	goto tr534;
+tr557:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
 #line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
-#line 118 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 119 "lex/parser_timeline.rl"
 	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 	goto st443;
-tr555:
-#line 115 "lex/parser_timeline.rl"
+tr556:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
+#line 120 "lex/parser_timeline.rl"
 	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 118 "lex/parser_timeline.rl"
+#line 119 "lex/parser_timeline.rl"
 	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
 	goto st443;
 st443:
 	if ( ++p == pe )
 		goto _test_eof443;
 case 443:
-#line 6400 "lex/parser_timeline.cpp"
+#line 6414 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr555;
-		case 33: goto tr542;
-		case 48: goto tr556;
+		case 32: goto tr557;
+		case 33: goto tr536;
+		case 48: goto tr558;
 	}
 	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr557;
-	goto tr540;
-tr556:
-#line 115 "lex/parser_timeline.rl"
+		goto tr559;
+	goto tr534;
+tr558:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
@@ -6415,63 +6429,28 @@ st444:
 	if ( ++p == pe )
 		goto _test_eof444;
 case 444:
-#line 6419 "lex/parser_timeline.cpp"
+#line 6433 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr558;
-	goto tr540;
-tr605:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-	goto st445;
+		goto tr560;
+	goto tr534;
 tr559:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-	goto st445;
-tr558:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st445;
 st445:
 	if ( ++p == pe )
 		goto _test_eof445;
 case 445:
-#line 6465 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr559;
-		case 33: goto tr542;
-		case 48: goto tr560;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr561;
-	goto tr540;
-tr560:
-#line 115 "lex/parser_timeline.rl"
+#line 6447 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr560;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr559;
+	goto tr534;
+tr555:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
@@ -6480,823 +6459,740 @@ st446:
 	if ( ++p == pe )
 		goto _test_eof446;
 case 446:
-#line 6484 "lex/parser_timeline.cpp"
+#line 6463 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr562;
-	goto tr540;
-tr563:
-#line 115 "lex/parser_timeline.rl"
+		goto tr556;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr555;
+	goto tr534;
+tr551:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-	goto st447;
-tr562:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st447;
 st447:
 	if ( ++p == pe )
 		goto _test_eof447;
 case 447:
-#line 6518 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr563;
-		case 33: goto tr542;
-		case 48: goto tr564;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr565;
-	goto tr540;
-tr564:
-#line 115 "lex/parser_timeline.rl"
+#line 6479 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr552;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr551;
+	goto tr534;
+tr545:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st448;
 st448:
 	if ( ++p == pe )
 		goto _test_eof448;
 case 448:
-#line 6537 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr566;
-	goto tr540;
-tr565:
-#line 115 "lex/parser_timeline.rl"
+#line 6493 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr535;
+		case 111: goto tr561;
+	}
+	goto tr534;
+tr561:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st449;
 st449:
 	if ( ++p == pe )
 		goto _test_eof449;
 case 449:
-#line 6551 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr566;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr565;
-	goto tr540;
-tr561:
-#line 115 "lex/parser_timeline.rl"
+#line 6507 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr535;
+		case 116: goto tr562;
+	}
+	goto tr534;
+tr562:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st450;
 st450:
 	if ( ++p == pe )
 		goto _test_eof450;
 case 450:
-#line 6567 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr562;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr561;
-	goto tr540;
-tr557:
-#line 115 "lex/parser_timeline.rl"
+#line 6521 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr535;
+		case 101: goto tr548;
+	}
+	goto tr534;
+tr546:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st451;
 st451:
 	if ( ++p == pe )
 		goto _test_eof451;
 case 451:
-#line 6583 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr558;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr557;
-	goto tr540;
-tr551:
-#line 115 "lex/parser_timeline.rl"
+#line 6535 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr535;
+		case 103: goto tr563;
+	}
+	goto tr534;
+tr563:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st452;
 st452:
 	if ( ++p == pe )
 		goto _test_eof452;
 case 452:
-#line 6597 "lex/parser_timeline.cpp"
+#line 6549 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr541;
-		case 111: goto tr567;
+		case 32: goto tr535;
+		case 109: goto tr564;
 	}
-	goto tr540;
-tr567:
-#line 115 "lex/parser_timeline.rl"
+	goto tr534;
+tr564:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st453;
 st453:
 	if ( ++p == pe )
 		goto _test_eof453;
 case 453:
-#line 6611 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr541;
-		case 116: goto tr568;
-	}
-	goto tr540;
-tr568:
-#line 115 "lex/parser_timeline.rl"
+#line 6563 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr553;
+	goto tr534;
+tr538:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st454;
 st454:
 	if ( ++p == pe )
 		goto _test_eof454;
 case 454:
-#line 6625 "lex/parser_timeline.cpp"
+#line 6575 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr541;
-		case 101: goto tr554;
+		case 32: goto tr535;
+		case 114: goto tr565;
 	}
-	goto tr540;
-tr552:
-#line 115 "lex/parser_timeline.rl"
+	goto tr534;
+tr565:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st455;
 st455:
 	if ( ++p == pe )
 		goto _test_eof455;
 case 455:
-#line 6639 "lex/parser_timeline.cpp"
+#line 6589 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr541;
-		case 103: goto tr569;
+		case 32: goto tr535;
+		case 101: goto tr566;
 	}
-	goto tr540;
-tr569:
-#line 115 "lex/parser_timeline.rl"
+	goto tr534;
+tr566:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st456;
 st456:
 	if ( ++p == pe )
 		goto _test_eof456;
 case 456:
-#line 6653 "lex/parser_timeline.cpp"
+#line 6603 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr541;
-		case 109: goto tr570;
+		case 32: goto tr535;
+		case 115: goto tr567;
 	}
-	goto tr540;
-tr570:
-#line 115 "lex/parser_timeline.rl"
+	goto tr534;
+tr567:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st457;
 st457:
 	if ( ++p == pe )
 		goto _test_eof457;
 case 457:
-#line 6667 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr559;
-	goto tr540;
-tr544:
-#line 115 "lex/parser_timeline.rl"
+#line 6617 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr535;
+		case 101: goto tr568;
+	}
+	goto tr534;
+tr568:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st458;
 st458:
 	if ( ++p == pe )
 		goto _test_eof458;
 case 458:
-#line 6679 "lex/parser_timeline.cpp"
+#line 6631 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr541;
-		case 114: goto tr571;
+		case 32: goto tr535;
+		case 116: goto tr569;
 	}
-	goto tr540;
-tr571:
-#line 115 "lex/parser_timeline.rl"
+	goto tr534;
+tr569:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st459;
 st459:
 	if ( ++p == pe )
 		goto _test_eof459;
 case 459:
-#line 6693 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr541;
-		case 101: goto tr572;
-	}
-	goto tr540;
-tr572:
-#line 115 "lex/parser_timeline.rl"
+#line 6645 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr570;
+	goto tr534;
+tr605:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+	goto st460;
+tr570:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 	goto st460;
 st460:
 	if ( ++p == pe )
 		goto _test_eof460;
 case 460:
-#line 6707 "lex/parser_timeline.cpp"
+#line 6675 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr541;
-		case 115: goto tr573;
+		case 32: goto tr570;
+		case 33: goto tr536;
+		case 48: goto tr571;
 	}
-	goto tr540;
-tr573:
-#line 115 "lex/parser_timeline.rl"
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr572;
+	goto tr534;
+tr571:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 261 "lex/parser_timeline.rl"
+	{ragel_num.vint = 0;}
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st461;
 st461:
 	if ( ++p == pe )
 		goto _test_eof461;
 case 461:
-#line 6721 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr541;
-		case 101: goto tr574;
-	}
-	goto tr540;
+#line 6696 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr573;
+	goto tr534;
 tr574:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st462;
+tr572:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 261 "lex/parser_timeline.rl"
+	{ragel_num.vint = 0;}
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st462;
 st462:
 	if ( ++p == pe )
 		goto _test_eof462;
 case 462:
-#line 6735 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr541;
-		case 116: goto tr575;
-	}
-	goto tr540;
-tr575:
-#line 115 "lex/parser_timeline.rl"
+#line 6718 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr573;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr574;
+	goto tr534;
+tr539:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st463;
 st463:
 	if ( ++p == pe )
 		goto _test_eof463;
 case 463:
-#line 6749 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr576;
-	goto tr540;
-tr611:
-#line 115 "lex/parser_timeline.rl"
+#line 6732 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr535;
+		case 101: goto tr575;
+	}
+	goto tr534;
+tr575:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-	goto st464;
-tr576:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 	goto st464;
 st464:
 	if ( ++p == pe )
 		goto _test_eof464;
 case 464:
-#line 6779 "lex/parser_timeline.cpp"
+#line 6746 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr576;
-		case 33: goto tr542;
-		case 48: goto tr577;
+		case 32: goto tr535;
+		case 110: goto tr576;
 	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr578;
-	goto tr540;
-tr577:
-#line 115 "lex/parser_timeline.rl"
+	goto tr534;
+tr576:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 255 "lex/parser_timeline.rl"
-	{ragel_num.vint = 0;}
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st465;
 st465:
 	if ( ++p == pe )
 		goto _test_eof465;
 case 465:
-#line 6800 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr579;
-	goto tr540;
-tr580:
-#line 115 "lex/parser_timeline.rl"
+#line 6760 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr535;
+		case 100: goto tr577;
+	}
+	goto tr534;
+tr577:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st466;
-tr578:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 255 "lex/parser_timeline.rl"
-	{ragel_num.vint = 0;}
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st466;
 st466:
 	if ( ++p == pe )
 		goto _test_eof466;
 case 466:
-#line 6822 "lex/parser_timeline.cpp"
+#line 6774 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr579;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr580;
-	goto tr540;
-tr545:
-#line 115 "lex/parser_timeline.rl"
+		goto tr578;
+	goto tr534;
+tr609:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+	goto st467;
+tr578:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 	goto st467;
 st467:
 	if ( ++p == pe )
 		goto _test_eof467;
 case 467:
-#line 6836 "lex/parser_timeline.cpp"
+#line 6804 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr541;
-		case 101: goto tr581;
+		case 32: goto tr578;
+		case 33: goto tr529;
+		case 43: goto tr579;
+		case 45: goto tr579;
+		case 48: goto tr580;
 	}
-	goto tr540;
-tr581:
-#line 115 "lex/parser_timeline.rl"
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr581;
+	goto tr528;
+tr529:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st468;
 st468:
 	if ( ++p == pe )
 		goto _test_eof468;
 case 468:
-#line 6850 "lex/parser_timeline.cpp"
+#line 6823 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr541;
-		case 110: goto tr582;
+		case 32: goto tr533;
+		case 109: goto tr582;
+		case 112: goto tr583;
+		case 115: goto tr584;
 	}
-	goto tr540;
+	goto tr528;
 tr582:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st469;
 st469:
 	if ( ++p == pe )
 		goto _test_eof469;
 case 469:
-#line 6864 "lex/parser_timeline.cpp"
+#line 6839 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr541;
-		case 100: goto tr583;
+		case 32: goto tr533;
+		case 105: goto tr585;
 	}
-	goto tr540;
-tr583:
-#line 115 "lex/parser_timeline.rl"
+	goto tr528;
+tr585:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st470;
 st470:
 	if ( ++p == pe )
 		goto _test_eof470;
 case 470:
-#line 6878 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr584;
-	goto tr540;
-tr615:
-#line 115 "lex/parser_timeline.rl"
+#line 6853 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr533;
+		case 100: goto tr586;
+	}
+	goto tr528;
+tr586:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-	goto st471;
-tr584:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 	goto st471;
 st471:
 	if ( ++p == pe )
 		goto _test_eof471;
 case 471:
-#line 6908 "lex/parser_timeline.cpp"
+#line 6867 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr584;
-		case 33: goto tr535;
-		case 43: goto tr585;
-		case 45: goto tr585;
-		case 48: goto tr586;
+		case 32: goto tr533;
+		case 105: goto tr587;
 	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr587;
-	goto tr534;
-tr535:
-#line 115 "lex/parser_timeline.rl"
+	goto tr528;
+tr587:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st472;
 st472:
 	if ( ++p == pe )
 		goto _test_eof472;
 case 472:
-#line 6927 "lex/parser_timeline.cpp"
+#line 6881 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr539;
-		case 109: goto tr588;
-		case 112: goto tr589;
-		case 115: goto tr590;
+		case 32: goto tr533;
+		case 58: goto tr588;
 	}
-	goto tr534;
+	goto tr528;
 tr588:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st473;
 st473:
 	if ( ++p == pe )
 		goto _test_eof473;
 case 473:
-#line 6943 "lex/parser_timeline.cpp"
+#line 6895 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr539;
-		case 105: goto tr591;
+		case 32: goto tr533;
+		case 99: goto tr589;
+		case 110: goto tr590;
+		case 112: goto tr591;
 	}
-	goto tr534;
-tr591:
-#line 115 "lex/parser_timeline.rl"
+	goto tr528;
+tr589:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st474;
 st474:
 	if ( ++p == pe )
 		goto _test_eof474;
 case 474:
-#line 6957 "lex/parser_timeline.cpp"
+#line 6911 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr539;
-		case 100: goto tr592;
+		case 32: goto tr533;
+		case 116: goto tr592;
 	}
-	goto tr534;
+	goto tr528;
 tr592:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st475;
 st475:
 	if ( ++p == pe )
 		goto _test_eof475;
 case 475:
-#line 6971 "lex/parser_timeline.cpp"
+#line 6925 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr539;
-		case 105: goto tr593;
+		case 32: goto tr533;
+		case 108: goto tr593;
 	}
-	goto tr534;
+	goto tr528;
 tr593:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st476;
 st476:
 	if ( ++p == pe )
 		goto _test_eof476;
 case 476:
-#line 6985 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr539;
-		case 58: goto tr594;
-	}
-	goto tr534;
-tr594:
-#line 115 "lex/parser_timeline.rl"
+#line 6939 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr594;
+	goto tr528;
+tr590:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st477;
 st477:
 	if ( ++p == pe )
 		goto _test_eof477;
 case 477:
-#line 6999 "lex/parser_timeline.cpp"
+#line 6951 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr539;
-		case 99: goto tr595;
-		case 110: goto tr596;
-		case 112: goto tr597;
+		case 32: goto tr533;
+		case 111: goto tr595;
 	}
-	goto tr534;
+	goto tr528;
 tr595:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st478;
 st478:
 	if ( ++p == pe )
 		goto _test_eof478;
 case 478:
-#line 7015 "lex/parser_timeline.cpp"
+#line 6965 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr539;
-		case 116: goto tr598;
+		case 32: goto tr533;
+		case 116: goto tr596;
 	}
-	goto tr534;
-tr598:
-#line 115 "lex/parser_timeline.rl"
+	goto tr528;
+tr596:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st479;
 st479:
 	if ( ++p == pe )
 		goto _test_eof479;
 case 479:
-#line 7029 "lex/parser_timeline.cpp"
+#line 6979 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr539;
-		case 108: goto tr599;
+		case 32: goto tr533;
+		case 101: goto tr593;
 	}
-	goto tr534;
-tr599:
-#line 115 "lex/parser_timeline.rl"
+	goto tr528;
+tr591:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st480;
 st480:
 	if ( ++p == pe )
 		goto _test_eof480;
 case 480:
-#line 7043 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr600;
-	goto tr534;
-tr596:
-#line 115 "lex/parser_timeline.rl"
+#line 6993 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr533;
+		case 103: goto tr597;
+	}
+	goto tr528;
+tr597:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st481;
 st481:
 	if ( ++p == pe )
 		goto _test_eof481;
 case 481:
-#line 7055 "lex/parser_timeline.cpp"
+#line 7007 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr539;
-		case 111: goto tr601;
+		case 32: goto tr533;
+		case 109: goto tr598;
 	}
-	goto tr534;
-tr601:
-#line 115 "lex/parser_timeline.rl"
+	goto tr528;
+tr598:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st482;
 st482:
 	if ( ++p == pe )
 		goto _test_eof482;
 case 482:
-#line 7069 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr539;
-		case 116: goto tr602;
-	}
-	goto tr534;
-tr602:
-#line 115 "lex/parser_timeline.rl"
+#line 7021 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr599;
+	goto tr528;
+tr583:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st483;
 st483:
 	if ( ++p == pe )
 		goto _test_eof483;
 case 483:
-#line 7083 "lex/parser_timeline.cpp"
+#line 7033 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr539;
-		case 101: goto tr599;
+		case 32: goto tr533;
+		case 114: goto tr600;
 	}
-	goto tr534;
-tr597:
-#line 115 "lex/parser_timeline.rl"
+	goto tr528;
+tr600:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st484;
 st484:
 	if ( ++p == pe )
 		goto _test_eof484;
 case 484:
-#line 7097 "lex/parser_timeline.cpp"
+#line 7047 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr539;
-		case 103: goto tr603;
+		case 32: goto tr533;
+		case 101: goto tr601;
 	}
-	goto tr534;
-tr603:
-#line 115 "lex/parser_timeline.rl"
+	goto tr528;
+tr601:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st485;
 st485:
 	if ( ++p == pe )
 		goto _test_eof485;
 case 485:
-#line 7111 "lex/parser_timeline.cpp"
+#line 7061 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr539;
-		case 109: goto tr604;
+		case 32: goto tr533;
+		case 115: goto tr602;
 	}
-	goto tr534;
-tr604:
-#line 115 "lex/parser_timeline.rl"
+	goto tr528;
+tr602:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st486;
 st486:
 	if ( ++p == pe )
 		goto _test_eof486;
 case 486:
-#line 7125 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr605;
-	goto tr534;
-tr589:
-#line 115 "lex/parser_timeline.rl"
+#line 7075 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr533;
+		case 101: goto tr603;
+	}
+	goto tr528;
+tr603:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st487;
 st487:
 	if ( ++p == pe )
 		goto _test_eof487;
 case 487:
-#line 7137 "lex/parser_timeline.cpp"
+#line 7089 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr539;
-		case 114: goto tr606;
+		case 32: goto tr533;
+		case 116: goto tr604;
 	}
-	goto tr534;
-tr606:
-#line 115 "lex/parser_timeline.rl"
+	goto tr528;
+tr604:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st488;
 st488:
 	if ( ++p == pe )
 		goto _test_eof488;
 case 488:
-#line 7151 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr539;
-		case 101: goto tr607;
-	}
-	goto tr534;
-tr607:
-#line 115 "lex/parser_timeline.rl"
+#line 7103 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr605;
+	goto tr528;
+tr584:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st489;
 st489:
 	if ( ++p == pe )
 		goto _test_eof489;
 case 489:
-#line 7165 "lex/parser_timeline.cpp"
+#line 7115 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr539;
-		case 115: goto tr608;
+		case 32: goto tr533;
+		case 101: goto tr606;
 	}
-	goto tr534;
-tr608:
-#line 115 "lex/parser_timeline.rl"
+	goto tr528;
+tr606:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st490;
 st490:
 	if ( ++p == pe )
 		goto _test_eof490;
 case 490:
-#line 7179 "lex/parser_timeline.cpp"
+#line 7129 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr539;
-		case 101: goto tr609;
+		case 32: goto tr533;
+		case 110: goto tr607;
 	}
-	goto tr534;
-tr609:
-#line 115 "lex/parser_timeline.rl"
+	goto tr528;
+tr607:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st491;
 st491:
 	if ( ++p == pe )
 		goto _test_eof491;
 case 491:
-#line 7193 "lex/parser_timeline.cpp"
+#line 7143 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr539;
-		case 116: goto tr610;
+		case 32: goto tr533;
+		case 100: goto tr608;
 	}
-	goto tr534;
-tr610:
-#line 115 "lex/parser_timeline.rl"
+	goto tr528;
+tr608:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st492;
 st492:
 	if ( ++p == pe )
 		goto _test_eof492;
 case 492:
-#line 7207 "lex/parser_timeline.cpp"
+#line 7157 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr611;
-	goto tr534;
-tr590:
-#line 115 "lex/parser_timeline.rl"
+		goto tr609;
+	goto tr528;
+tr579:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 21 "lex/ragel_numeric.rl"
+	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
 	goto st493;
 st493:
 	if ( ++p == pe )
 		goto _test_eof493;
 case 493:
-#line 7219 "lex/parser_timeline.cpp"
+#line 7171 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr539;
-		case 101: goto tr612;
+		case 32: goto tr533;
+		case 48: goto tr580;
 	}
-	goto tr534;
-tr612:
-#line 115 "lex/parser_timeline.rl"
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr581;
+	goto tr528;
+tr580:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st494;
 st494:
 	if ( ++p == pe )
 		goto _test_eof494;
 case 494:
-#line 7233 "lex/parser_timeline.cpp"
+#line 7189 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr539;
-		case 110: goto tr613;
+		case 32: goto tr535;
+		case 46: goto tr610;
 	}
-	goto tr534;
-tr613:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-	goto st495;
-st495:
-	if ( ++p == pe )
-		goto _test_eof495;
-case 495:
-#line 7247 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr539;
-		case 100: goto tr614;
-	}
-	goto tr534;
-tr614:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-	goto st496;
-st496:
-	if ( ++p == pe )
-		goto _test_eof496;
-case 496:
-#line 7261 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr615;
-	goto tr534;
-tr585:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 21 "lex/ragel_numeric.rl"
-	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
-	goto st497;
-st497:
-	if ( ++p == pe )
-		goto _test_eof497;
-case 497:
-#line 7275 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr539;
-		case 48: goto tr586;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr587;
-	goto tr534;
-tr586:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st498;
-st498:
-	if ( ++p == pe )
-		goto _test_eof498;
-case 498:
-#line 7293 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr541;
-		case 46: goto tr616;
-	}
-	goto tr534;
-tr616:
-#line 115 "lex/parser_timeline.rl"
+	goto tr528;
+tr610:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 30 "lex/ragel_numeric.rl"
 	{
@@ -7309,638 +7205,756 @@ tr616:
         ragel_num.ratio.num = 0;
         ragel_num.ratio.den = 1;
     }
-	goto st499;
-st499:
+	goto st495;
+st495:
 	if ( ++p == pe )
-		goto _test_eof499;
-case 499:
-#line 7318 "lex/parser_timeline.cpp"
+		goto _test_eof495;
+case 495:
+#line 7214 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr539;
+		goto tr533;
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr617;
-	goto tr534;
-tr617:
-#line 115 "lex/parser_timeline.rl"
+		goto tr611;
+	goto tr528;
+tr611:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 54 "lex/ragel_numeric.rl"
 	{
         (ragel_num.ratio.num *= 10) += ((*p) - '0');
         ragel_num.ratio.den *= 10;
+    }
+	goto st496;
+st496:
+	if ( ++p == pe )
+		goto _test_eof496;
+case 496:
+#line 7233 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr535;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr611;
+	goto tr528;
+tr581:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st497;
+st497:
+	if ( ++p == pe )
+		goto _test_eof497;
+case 497:
+#line 7249 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr535;
+		case 46: goto tr610;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr581;
+	goto tr528;
+tr530:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 21 "lex/ragel_numeric.rl"
+	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
+	goto st498;
+st498:
+	if ( ++p == pe )
+		goto _test_eof498;
+case 498:
+#line 7267 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr533;
+		case 48: goto tr531;
+	}
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr532;
+	goto tr528;
+tr531:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st499;
+st499:
+	if ( ++p == pe )
+		goto _test_eof499;
+case 499:
+#line 7285 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr484;
+		case 46: goto tr612;
+	}
+	goto tr528;
+tr612:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 50 "lex/ragel_numeric.rl"
+	{
+        ragel_num.ratio.num = 0;
+        ragel_num.ratio.den = 1;
     }
 	goto st500;
 st500:
 	if ( ++p == pe )
 		goto _test_eof500;
 case 500:
-#line 7337 "lex/parser_timeline.cpp"
+#line 7310 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr541;
+		goto tr533;
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr617;
-	goto tr534;
-tr587:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st501;
-st501:
-	if ( ++p == pe )
-		goto _test_eof501;
-case 501:
-#line 7353 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr541;
-		case 46: goto tr616;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr587;
-	goto tr534;
-tr536:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 21 "lex/ragel_numeric.rl"
-	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
-	goto st502;
-st502:
-	if ( ++p == pe )
-		goto _test_eof502;
-case 502:
-#line 7371 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr539;
-		case 48: goto tr537;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr538;
-	goto tr534;
-tr537:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st503;
-st503:
-	if ( ++p == pe )
-		goto _test_eof503;
-case 503:
-#line 7389 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr490;
-		case 46: goto tr618;
-	}
-	goto tr534;
-tr618:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 50 "lex/ragel_numeric.rl"
-	{
-        ragel_num.ratio.num = 0;
-        ragel_num.ratio.den = 1;
-    }
-	goto st504;
-st504:
-	if ( ++p == pe )
-		goto _test_eof504;
-case 504:
-#line 7414 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr539;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr619;
-	goto tr534;
-tr619:
-#line 115 "lex/parser_timeline.rl"
+		goto tr613;
+	goto tr528;
+tr613:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 54 "lex/ragel_numeric.rl"
 	{
         (ragel_num.ratio.num *= 10) += ((*p) - '0');
         ragel_num.ratio.den *= 10;
     }
+	goto st501;
+st501:
+	if ( ++p == pe )
+		goto _test_eof501;
+case 501:
+#line 7329 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr484;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr613;
+	goto tr528;
+tr532:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st502;
+st502:
+	if ( ++p == pe )
+		goto _test_eof502;
+case 502:
+#line 7345 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr484;
+		case 46: goto tr612;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr532;
+	goto tr528;
+tr453:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+	goto st503;
+st503:
+	if ( ++p == pe )
+		goto _test_eof503;
+case 503:
+#line 7361 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr448;
+		case 114: goto tr614;
+	}
+	goto tr449;
+tr614:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+	goto st504;
+st504:
+	if ( ++p == pe )
+		goto _test_eof504;
+case 504:
+#line 7375 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr448;
+		case 101: goto tr615;
+	}
+	goto tr449;
+tr615:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
 	goto st505;
 st505:
 	if ( ++p == pe )
 		goto _test_eof505;
 case 505:
-#line 7433 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr490;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr619;
-	goto tr534;
-tr538:
-#line 115 "lex/parser_timeline.rl"
+#line 7389 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr448;
+		case 115: goto tr616;
+	}
+	goto tr449;
+tr616:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st506;
 st506:
 	if ( ++p == pe )
 		goto _test_eof506;
 case 506:
-#line 7449 "lex/parser_timeline.cpp"
+#line 7403 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr490;
-		case 46: goto tr618;
+		case 32: goto tr448;
+		case 101: goto tr617;
 	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr538;
-	goto tr534;
-tr459:
-#line 115 "lex/parser_timeline.rl"
+	goto tr449;
+tr617:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st507;
 st507:
 	if ( ++p == pe )
 		goto _test_eof507;
 case 507:
-#line 7465 "lex/parser_timeline.cpp"
+#line 7417 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr454;
-		case 114: goto tr620;
+		case 32: goto tr448;
+		case 116: goto tr618;
 	}
-	goto tr455;
-tr620:
-#line 115 "lex/parser_timeline.rl"
+	goto tr449;
+tr618:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st508;
 st508:
 	if ( ++p == pe )
 		goto _test_eof508;
 case 508:
-#line 7479 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr454;
-		case 101: goto tr621;
-	}
-	goto tr455;
-tr621:
-#line 115 "lex/parser_timeline.rl"
+#line 7431 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr619;
+	goto tr449;
+tr619:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
 	goto st509;
 st509:
 	if ( ++p == pe )
 		goto _test_eof509;
 case 509:
-#line 7493 "lex/parser_timeline.cpp"
+#line 7445 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr454;
-		case 115: goto tr622;
+		case 32: goto tr619;
+		case 33: goto tr450;
+		case 48: goto tr620;
 	}
-	goto tr455;
-tr622:
-#line 115 "lex/parser_timeline.rl"
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr621;
+	goto tr449;
+tr620:
+#line 261 "lex/parser_timeline.rl"
+	{ragel_num.vint = 0;}
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st510;
 st510:
 	if ( ++p == pe )
 		goto _test_eof510;
 case 510:
-#line 7507 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr454;
-		case 101: goto tr623;
-	}
-	goto tr455;
+#line 7466 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr622;
+	goto tr449;
 tr623:
-#line 115 "lex/parser_timeline.rl"
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+	goto st511;
+tr621:
+#line 261 "lex/parser_timeline.rl"
+	{ragel_num.vint = 0;}
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st511;
 st511:
 	if ( ++p == pe )
 		goto _test_eof511;
 case 511:
-#line 7521 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr454;
-		case 116: goto tr624;
-	}
-	goto tr455;
-tr624:
-#line 115 "lex/parser_timeline.rl"
+#line 7488 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr622;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr623;
+	goto tr449;
+tr454:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st512;
 st512:
 	if ( ++p == pe )
 		goto _test_eof512;
 case 512:
-#line 7535 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr625;
-	goto tr455;
-tr625:
-#line 115 "lex/parser_timeline.rl"
+#line 7502 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr448;
+		case 101: goto tr624;
+	}
+	goto tr449;
+tr624:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
 	goto st513;
 st513:
 	if ( ++p == pe )
 		goto _test_eof513;
 case 513:
-#line 7549 "lex/parser_timeline.cpp"
+#line 7516 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr625;
-		case 33: goto tr456;
-		case 48: goto tr626;
+		case 32: goto tr448;
+		case 110: goto tr625;
 	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr627;
-	goto tr455;
-tr626:
-#line 255 "lex/parser_timeline.rl"
-	{ragel_num.vint = 0;}
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 115 "lex/parser_timeline.rl"
+	goto tr449;
+tr625:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st514;
 st514:
 	if ( ++p == pe )
 		goto _test_eof514;
 case 514:
-#line 7570 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr628;
-	goto tr455;
-tr629:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-	goto st515;
-tr627:
-#line 255 "lex/parser_timeline.rl"
-	{ragel_num.vint = 0;}
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 115 "lex/parser_timeline.rl"
+#line 7530 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr448;
+		case 100: goto tr626;
+	}
+	goto tr449;
+tr626:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st515;
 st515:
 	if ( ++p == pe )
 		goto _test_eof515;
 case 515:
-#line 7592 "lex/parser_timeline.cpp"
+#line 7544 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr628;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr629;
-	goto tr455;
-tr460:
-#line 115 "lex/parser_timeline.rl"
+		goto tr627;
+	goto tr449;
+tr627:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
 	goto st516;
 st516:
 	if ( ++p == pe )
 		goto _test_eof516;
 case 516:
-#line 7606 "lex/parser_timeline.cpp"
+#line 7558 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr454;
-		case 101: goto tr630;
+		case 32: goto tr627;
+		case 33: goto tr629;
+		case 43: goto tr630;
+		case 45: goto tr630;
+		case 48: goto tr631;
 	}
-	goto tr455;
-tr630:
-#line 115 "lex/parser_timeline.rl"
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr632;
+	goto tr628;
+tr628:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st517;
 st517:
 	if ( ++p == pe )
 		goto _test_eof517;
 case 517:
-#line 7620 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr454;
-		case 110: goto tr631;
-	}
-	goto tr455;
-tr631:
-#line 115 "lex/parser_timeline.rl"
+#line 7577 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr633;
+	goto tr628;
+tr633:
+#line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+	goto st518;
+tr635:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+	goto st518;
+tr661:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+	goto st518;
+tr677:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 261 "lex/parser_timeline.rl"
+	{ fsm.act_preset.idx = ragel_num.vint; }
+#line 123 "lex/parser_timeline.rl"
+	{ tl.addEventAction(fsm.event_id, fsm.act_preset); }
+	goto st518;
+tr688:
+#line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+	goto st518;
+tr781:
+#line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 	goto st518;
 st518:
 	if ( ++p == pe )
 		goto _test_eof518;
 case 518:
-#line 7634 "lex/parser_timeline.cpp"
+#line 7651 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr454;
-		case 100: goto tr632;
+		case 32: goto tr635;
+		case 33: goto tr636;
 	}
-	goto tr455;
-tr632:
-#line 115 "lex/parser_timeline.rl"
+	goto tr634;
+tr634:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st519;
 st519:
 	if ( ++p == pe )
 		goto _test_eof519;
 case 519:
-#line 7648 "lex/parser_timeline.cpp"
+#line 7665 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr633;
-	goto tr455;
-tr633:
-#line 115 "lex/parser_timeline.rl"
+		goto tr635;
+	goto tr634;
+tr636:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
 	goto st520;
 st520:
 	if ( ++p == pe )
 		goto _test_eof520;
 case 520:
-#line 7662 "lex/parser_timeline.cpp"
+#line 7677 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr633;
-		case 33: goto tr635;
-		case 43: goto tr636;
-		case 45: goto tr636;
-		case 48: goto tr637;
+		case 32: goto tr635;
+		case 109: goto tr637;
+		case 111: goto tr638;
+		case 112: goto tr639;
+		case 115: goto tr640;
 	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr638;
 	goto tr634;
-tr634:
-#line 115 "lex/parser_timeline.rl"
+tr637:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st521;
 st521:
 	if ( ++p == pe )
 		goto _test_eof521;
 case 521:
-#line 7681 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr639;
+#line 7694 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr635;
+		case 105: goto tr641;
+	}
 	goto tr634;
-tr639:
-#line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-	goto st522;
 tr641:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-	goto st522;
-tr667:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-	goto st522;
-tr683:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 255 "lex/parser_timeline.rl"
-	{ fsm.act_preset.idx = ragel_num.vint; }
-#line 122 "lex/parser_timeline.rl"
-	{ tl.addEventAction(fsm.event_id, fsm.act_preset); }
-	goto st522;
-tr694:
-#line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-	goto st522;
-tr787:
-#line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 	goto st522;
 st522:
 	if ( ++p == pe )
 		goto _test_eof522;
 case 522:
-#line 7755 "lex/parser_timeline.cpp"
+#line 7708 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr641;
-		case 33: goto tr642;
+		case 32: goto tr635;
+		case 100: goto tr642;
 	}
-	goto tr640;
-tr640:
-#line 115 "lex/parser_timeline.rl"
+	goto tr634;
+tr642:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st523;
 st523:
 	if ( ++p == pe )
 		goto _test_eof523;
 case 523:
-#line 7769 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr641;
-	goto tr640;
-tr642:
-#line 115 "lex/parser_timeline.rl"
+#line 7722 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr635;
+		case 105: goto tr643;
+	}
+	goto tr634;
+tr643:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st524;
 st524:
 	if ( ++p == pe )
 		goto _test_eof524;
 case 524:
-#line 7781 "lex/parser_timeline.cpp"
+#line 7736 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr641;
-		case 109: goto tr643;
-		case 111: goto tr644;
-		case 112: goto tr645;
-		case 115: goto tr646;
+		case 32: goto tr635;
+		case 58: goto tr644;
 	}
-	goto tr640;
-tr643:
-#line 115 "lex/parser_timeline.rl"
+	goto tr634;
+tr644:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st525;
 st525:
 	if ( ++p == pe )
 		goto _test_eof525;
 case 525:
-#line 7798 "lex/parser_timeline.cpp"
+#line 7750 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr641;
-		case 105: goto tr647;
+		case 32: goto tr635;
+		case 99: goto tr645;
+		case 110: goto tr646;
+		case 112: goto tr647;
 	}
-	goto tr640;
-tr647:
-#line 115 "lex/parser_timeline.rl"
+	goto tr634;
+tr645:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st526;
 st526:
 	if ( ++p == pe )
 		goto _test_eof526;
 case 526:
-#line 7812 "lex/parser_timeline.cpp"
+#line 7766 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr641;
-		case 100: goto tr648;
+		case 32: goto tr635;
+		case 116: goto tr648;
 	}
-	goto tr640;
+	goto tr634;
 tr648:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st527;
 st527:
 	if ( ++p == pe )
 		goto _test_eof527;
 case 527:
-#line 7826 "lex/parser_timeline.cpp"
+#line 7780 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr641;
-		case 105: goto tr649;
+		case 32: goto tr635;
+		case 108: goto tr649;
 	}
-	goto tr640;
+	goto tr634;
 tr649:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st528;
 st528:
 	if ( ++p == pe )
 		goto _test_eof528;
 case 528:
-#line 7840 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr641;
-		case 58: goto tr650;
-	}
-	goto tr640;
-tr650:
-#line 115 "lex/parser_timeline.rl"
+#line 7794 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr650;
+	goto tr634;
+tr736:
+#line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+	goto st529;
+tr650:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+	goto st529;
+tr702:
+#line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 	goto st529;
 st529:
 	if ( ++p == pe )
 		goto _test_eof529;
 case 529:
-#line 7854 "lex/parser_timeline.cpp"
+#line 7830 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr641;
-		case 99: goto tr651;
-		case 110: goto tr652;
-		case 112: goto tr653;
+		case 32: goto tr650;
+		case 33: goto tr636;
+		case 48: goto tr651;
 	}
-	goto tr640;
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr652;
+	goto tr634;
 tr651:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st530;
 st530:
 	if ( ++p == pe )
 		goto _test_eof530;
 case 530:
-#line 7870 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr641;
-		case 116: goto tr654;
-	}
-	goto tr640;
-tr654:
-#line 115 "lex/parser_timeline.rl"
+#line 7849 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr653;
+	goto tr634;
+tr741:
+#line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+	goto st531;
+tr654:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+	goto st531;
+tr653:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+	goto st531;
+tr707:
+#line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 	goto st531;
 st531:
 	if ( ++p == pe )
 		goto _test_eof531;
 case 531:
-#line 7884 "lex/parser_timeline.cpp"
+#line 7899 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr641;
-		case 108: goto tr655;
+		case 32: goto tr654;
+		case 33: goto tr636;
+		case 48: goto tr655;
 	}
-	goto tr640;
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr656;
+	goto tr634;
 tr655:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st532;
 st532:
 	if ( ++p == pe )
 		goto _test_eof532;
 case 532:
-#line 7898 "lex/parser_timeline.cpp"
+#line 7918 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr656;
-	goto tr640;
-tr742:
-#line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-#line 115 "lex/parser_timeline.rl"
+		goto tr657;
+	goto tr634;
+tr658:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
-	goto st533;
-tr656:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
+#line 119 "lex/parser_timeline.rl"
 	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 	goto st533;
-tr708:
-#line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
-#line 115 "lex/parser_timeline.rl"
+tr657:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
+#line 119 "lex/parser_timeline.rl"
 	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
 	goto st533;
 st533:
 	if ( ++p == pe )
 		goto _test_eof533;
 case 533:
-#line 7934 "lex/parser_timeline.cpp"
+#line 7948 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr656;
-		case 33: goto tr642;
-		case 48: goto tr657;
+		case 32: goto tr658;
+		case 33: goto tr636;
+		case 48: goto tr659;
 	}
 	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr658;
-	goto tr640;
-tr657:
-#line 115 "lex/parser_timeline.rl"
+		goto tr660;
+	goto tr634;
+tr659:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
@@ -7949,67 +7963,28 @@ st534:
 	if ( ++p == pe )
 		goto _test_eof534;
 case 534:
-#line 7953 "lex/parser_timeline.cpp"
+#line 7967 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr659;
-	goto tr640;
-tr747:
-#line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-	goto st535;
+		goto tr661;
+	goto tr634;
 tr660:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-	goto st535;
-tr659:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-	goto st535;
-tr713:
-#line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st535;
 st535:
 	if ( ++p == pe )
 		goto _test_eof535;
 case 535:
-#line 8003 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr660;
-		case 33: goto tr642;
-		case 48: goto tr661;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr662;
-	goto tr640;
-tr661:
-#line 115 "lex/parser_timeline.rl"
+#line 7981 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr661;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr660;
+	goto tr634;
+tr656:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
@@ -8018,924 +7993,845 @@ st536:
 	if ( ++p == pe )
 		goto _test_eof536;
 case 536:
-#line 8022 "lex/parser_timeline.cpp"
+#line 7997 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr663;
-	goto tr640;
-tr664:
-#line 115 "lex/parser_timeline.rl"
+		goto tr657;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr656;
+	goto tr634;
+tr652:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-	goto st537;
-tr663:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st537;
 st537:
 	if ( ++p == pe )
 		goto _test_eof537;
 case 537:
-#line 8052 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr664;
-		case 33: goto tr642;
-		case 48: goto tr665;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr666;
-	goto tr640;
-tr665:
-#line 115 "lex/parser_timeline.rl"
+#line 8013 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr653;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr652;
+	goto tr634;
+tr646:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st538;
 st538:
 	if ( ++p == pe )
 		goto _test_eof538;
 case 538:
-#line 8071 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr667;
-	goto tr640;
-tr666:
-#line 115 "lex/parser_timeline.rl"
+#line 8027 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr635;
+		case 111: goto tr662;
+	}
+	goto tr634;
+tr662:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st539;
 st539:
 	if ( ++p == pe )
 		goto _test_eof539;
 case 539:
-#line 8085 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr667;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr666;
-	goto tr640;
-tr662:
-#line 115 "lex/parser_timeline.rl"
+#line 8041 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr635;
+		case 116: goto tr663;
+	}
+	goto tr634;
+tr663:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st540;
 st540:
 	if ( ++p == pe )
 		goto _test_eof540;
 case 540:
-#line 8101 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr663;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr662;
-	goto tr640;
-tr658:
-#line 115 "lex/parser_timeline.rl"
+#line 8055 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr635;
+		case 101: goto tr649;
+	}
+	goto tr634;
+tr647:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st541;
 st541:
 	if ( ++p == pe )
 		goto _test_eof541;
 case 541:
-#line 8117 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr659;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr658;
-	goto tr640;
-tr652:
-#line 115 "lex/parser_timeline.rl"
+#line 8069 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr635;
+		case 103: goto tr664;
+	}
+	goto tr634;
+tr664:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st542;
 st542:
 	if ( ++p == pe )
 		goto _test_eof542;
 case 542:
-#line 8131 "lex/parser_timeline.cpp"
+#line 8083 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr641;
-		case 111: goto tr668;
+		case 32: goto tr635;
+		case 109: goto tr665;
 	}
-	goto tr640;
-tr668:
-#line 115 "lex/parser_timeline.rl"
+	goto tr634;
+tr665:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st543;
 st543:
 	if ( ++p == pe )
 		goto _test_eof543;
 case 543:
-#line 8145 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr641;
-		case 116: goto tr669;
-	}
-	goto tr640;
-tr669:
-#line 115 "lex/parser_timeline.rl"
+#line 8097 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr654;
+	goto tr634;
+tr638:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st544;
 st544:
 	if ( ++p == pe )
 		goto _test_eof544;
 case 544:
-#line 8159 "lex/parser_timeline.cpp"
+#line 8109 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr641;
-		case 101: goto tr655;
+		case 32: goto tr635;
+		case 117: goto tr666;
 	}
-	goto tr640;
-tr653:
-#line 115 "lex/parser_timeline.rl"
+	goto tr634;
+tr666:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st545;
 st545:
 	if ( ++p == pe )
 		goto _test_eof545;
 case 545:
-#line 8173 "lex/parser_timeline.cpp"
+#line 8123 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr641;
-		case 103: goto tr670;
+		case 32: goto tr635;
+		case 116: goto tr667;
 	}
-	goto tr640;
-tr670:
-#line 115 "lex/parser_timeline.rl"
+	goto tr634;
+tr667:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st546;
 st546:
 	if ( ++p == pe )
 		goto _test_eof546;
 case 546:
-#line 8187 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr641;
-		case 109: goto tr671;
-	}
-	goto tr640;
-tr671:
-#line 115 "lex/parser_timeline.rl"
+#line 8137 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr668;
+	goto tr634;
+tr639:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st547;
 st547:
 	if ( ++p == pe )
 		goto _test_eof547;
 case 547:
-#line 8201 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr660;
-	goto tr640;
-tr644:
-#line 115 "lex/parser_timeline.rl"
+#line 8149 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr635;
+		case 114: goto tr669;
+	}
+	goto tr634;
+tr669:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st548;
 st548:
 	if ( ++p == pe )
 		goto _test_eof548;
 case 548:
-#line 8213 "lex/parser_timeline.cpp"
+#line 8163 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr641;
-		case 117: goto tr672;
+		case 32: goto tr635;
+		case 101: goto tr670;
 	}
-	goto tr640;
-tr672:
-#line 115 "lex/parser_timeline.rl"
+	goto tr634;
+tr670:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st549;
 st549:
 	if ( ++p == pe )
 		goto _test_eof549;
 case 549:
-#line 8227 "lex/parser_timeline.cpp"
+#line 8177 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr641;
-		case 116: goto tr673;
+		case 32: goto tr635;
+		case 115: goto tr671;
 	}
-	goto tr640;
-tr673:
-#line 115 "lex/parser_timeline.rl"
+	goto tr634;
+tr671:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st550;
 st550:
 	if ( ++p == pe )
 		goto _test_eof550;
 case 550:
-#line 8241 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr674;
-	goto tr640;
-tr645:
-#line 115 "lex/parser_timeline.rl"
+#line 8191 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr635;
+		case 101: goto tr672;
+	}
+	goto tr634;
+tr672:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st551;
 st551:
 	if ( ++p == pe )
 		goto _test_eof551;
 case 551:
-#line 8253 "lex/parser_timeline.cpp"
+#line 8205 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr641;
-		case 114: goto tr675;
+		case 32: goto tr635;
+		case 116: goto tr673;
 	}
-	goto tr640;
-tr675:
-#line 115 "lex/parser_timeline.rl"
+	goto tr634;
+tr673:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st552;
 st552:
 	if ( ++p == pe )
 		goto _test_eof552;
 case 552:
-#line 8267 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr641;
-		case 101: goto tr676;
-	}
-	goto tr640;
-tr676:
-#line 115 "lex/parser_timeline.rl"
+#line 8219 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr674;
+	goto tr634;
+tr750:
+#line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+	goto st553;
+tr674:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+	goto st553;
+tr716:
+#line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 	goto st553;
 st553:
 	if ( ++p == pe )
 		goto _test_eof553;
 case 553:
-#line 8281 "lex/parser_timeline.cpp"
+#line 8255 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr641;
-		case 115: goto tr677;
+		case 32: goto tr674;
+		case 33: goto tr636;
+		case 48: goto tr675;
 	}
-	goto tr640;
-tr677:
-#line 115 "lex/parser_timeline.rl"
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr676;
+	goto tr634;
+tr675:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 261 "lex/parser_timeline.rl"
+	{ragel_num.vint = 0;}
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st554;
 st554:
 	if ( ++p == pe )
 		goto _test_eof554;
 case 554:
-#line 8295 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr641;
-		case 101: goto tr678;
-	}
-	goto tr640;
+#line 8276 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr677;
+	goto tr634;
 tr678:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st555;
+tr676:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 261 "lex/parser_timeline.rl"
+	{ragel_num.vint = 0;}
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st555;
 st555:
 	if ( ++p == pe )
 		goto _test_eof555;
 case 555:
-#line 8309 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr641;
-		case 116: goto tr679;
-	}
-	goto tr640;
-tr679:
-#line 115 "lex/parser_timeline.rl"
+#line 8298 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr677;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr678;
+	goto tr634;
+tr640:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st556;
 st556:
 	if ( ++p == pe )
 		goto _test_eof556;
 case 556:
-#line 8323 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr680;
-	goto tr640;
-tr756:
-#line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-#line 115 "lex/parser_timeline.rl"
+#line 8312 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr635;
+		case 101: goto tr679;
+	}
+	goto tr634;
+tr679:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-	goto st557;
-tr680:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-	goto st557;
-tr722:
-#line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 	goto st557;
 st557:
 	if ( ++p == pe )
 		goto _test_eof557;
 case 557:
-#line 8359 "lex/parser_timeline.cpp"
+#line 8326 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr680;
-		case 33: goto tr642;
-		case 48: goto tr681;
+		case 32: goto tr635;
+		case 110: goto tr680;
 	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr682;
-	goto tr640;
-tr681:
-#line 115 "lex/parser_timeline.rl"
+	goto tr634;
+tr680:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 255 "lex/parser_timeline.rl"
-	{ragel_num.vint = 0;}
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st558;
 st558:
 	if ( ++p == pe )
 		goto _test_eof558;
 case 558:
-#line 8380 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr683;
-	goto tr640;
-tr684:
-#line 115 "lex/parser_timeline.rl"
+#line 8340 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr635;
+		case 100: goto tr681;
+	}
+	goto tr634;
+tr681:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st559;
-tr682:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 255 "lex/parser_timeline.rl"
-	{ragel_num.vint = 0;}
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st559;
 st559:
 	if ( ++p == pe )
 		goto _test_eof559;
 case 559:
-#line 8402 "lex/parser_timeline.cpp"
+#line 8354 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr683;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr684;
-	goto tr640;
-tr646:
-#line 115 "lex/parser_timeline.rl"
+		goto tr682;
+	goto tr634;
+tr754:
+#line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+	goto st560;
+tr682:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+	goto st560;
+tr720:
+#line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 	goto st560;
 st560:
 	if ( ++p == pe )
 		goto _test_eof560;
 case 560:
-#line 8416 "lex/parser_timeline.cpp"
+#line 8390 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr641;
-		case 101: goto tr685;
+		case 32: goto tr682;
+		case 33: goto tr684;
+		case 43: goto tr685;
+		case 45: goto tr685;
+		case 48: goto tr686;
 	}
-	goto tr640;
-tr685:
-#line 115 "lex/parser_timeline.rl"
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr687;
+	goto tr683;
+tr683:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st561;
 st561:
 	if ( ++p == pe )
 		goto _test_eof561;
 case 561:
-#line 8430 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr641;
-		case 110: goto tr686;
-	}
-	goto tr640;
-tr686:
-#line 115 "lex/parser_timeline.rl"
+#line 8409 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr688;
+	goto tr683;
+tr684:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st562;
 st562:
 	if ( ++p == pe )
 		goto _test_eof562;
 case 562:
-#line 8444 "lex/parser_timeline.cpp"
+#line 8421 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr641;
-		case 100: goto tr687;
+		case 32: goto tr688;
+		case 109: goto tr689;
+		case 111: goto tr690;
+		case 112: goto tr691;
+		case 115: goto tr692;
 	}
-	goto tr640;
-tr687:
-#line 115 "lex/parser_timeline.rl"
+	goto tr683;
+tr689:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st563;
 st563:
 	if ( ++p == pe )
 		goto _test_eof563;
 case 563:
-#line 8458 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr688;
-	goto tr640;
-tr760:
-#line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-#line 115 "lex/parser_timeline.rl"
+#line 8438 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr688;
+		case 105: goto tr693;
+	}
+	goto tr683;
+tr693:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-	goto st564;
-tr688:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-	goto st564;
-tr726:
-#line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 	goto st564;
 st564:
 	if ( ++p == pe )
 		goto _test_eof564;
 case 564:
-#line 8494 "lex/parser_timeline.cpp"
+#line 8452 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
 		case 32: goto tr688;
-		case 33: goto tr690;
-		case 43: goto tr691;
-		case 45: goto tr691;
-		case 48: goto tr692;
+		case 100: goto tr694;
 	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr693;
-	goto tr689;
-tr689:
-#line 115 "lex/parser_timeline.rl"
+	goto tr683;
+tr694:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st565;
 st565:
 	if ( ++p == pe )
 		goto _test_eof565;
 case 565:
-#line 8513 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr694;
-	goto tr689;
-tr690:
-#line 115 "lex/parser_timeline.rl"
+#line 8466 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr688;
+		case 105: goto tr695;
+	}
+	goto tr683;
+tr695:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st566;
 st566:
 	if ( ++p == pe )
 		goto _test_eof566;
 case 566:
-#line 8525 "lex/parser_timeline.cpp"
+#line 8480 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr694;
-		case 109: goto tr695;
-		case 111: goto tr696;
-		case 112: goto tr697;
-		case 115: goto tr698;
+		case 32: goto tr688;
+		case 58: goto tr696;
 	}
-	goto tr689;
-tr695:
-#line 115 "lex/parser_timeline.rl"
+	goto tr683;
+tr696:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st567;
 st567:
 	if ( ++p == pe )
 		goto _test_eof567;
 case 567:
-#line 8542 "lex/parser_timeline.cpp"
+#line 8494 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr694;
-		case 105: goto tr699;
+		case 32: goto tr688;
+		case 99: goto tr697;
+		case 110: goto tr698;
+		case 112: goto tr699;
 	}
-	goto tr689;
-tr699:
-#line 115 "lex/parser_timeline.rl"
+	goto tr683;
+tr697:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st568;
 st568:
 	if ( ++p == pe )
 		goto _test_eof568;
 case 568:
-#line 8556 "lex/parser_timeline.cpp"
+#line 8510 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr694;
-		case 100: goto tr700;
+		case 32: goto tr688;
+		case 116: goto tr700;
 	}
-	goto tr689;
+	goto tr683;
 tr700:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st569;
 st569:
 	if ( ++p == pe )
 		goto _test_eof569;
 case 569:
-#line 8570 "lex/parser_timeline.cpp"
+#line 8524 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr694;
-		case 105: goto tr701;
+		case 32: goto tr688;
+		case 108: goto tr701;
 	}
-	goto tr689;
+	goto tr683;
 tr701:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st570;
 st570:
 	if ( ++p == pe )
 		goto _test_eof570;
 case 570:
-#line 8584 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr694;
-		case 58: goto tr702;
-	}
-	goto tr689;
-tr702:
-#line 115 "lex/parser_timeline.rl"
+#line 8538 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr702;
+	goto tr683;
+tr698:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st571;
 st571:
 	if ( ++p == pe )
 		goto _test_eof571;
 case 571:
-#line 8598 "lex/parser_timeline.cpp"
+#line 8550 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr694;
-		case 99: goto tr703;
-		case 110: goto tr704;
-		case 112: goto tr705;
+		case 32: goto tr688;
+		case 111: goto tr703;
 	}
-	goto tr689;
+	goto tr683;
 tr703:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st572;
 st572:
 	if ( ++p == pe )
 		goto _test_eof572;
 case 572:
-#line 8614 "lex/parser_timeline.cpp"
+#line 8564 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr694;
-		case 116: goto tr706;
+		case 32: goto tr688;
+		case 116: goto tr704;
 	}
-	goto tr689;
-tr706:
-#line 115 "lex/parser_timeline.rl"
+	goto tr683;
+tr704:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st573;
 st573:
 	if ( ++p == pe )
 		goto _test_eof573;
 case 573:
-#line 8628 "lex/parser_timeline.cpp"
+#line 8578 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr694;
-		case 108: goto tr707;
+		case 32: goto tr688;
+		case 101: goto tr701;
 	}
-	goto tr689;
-tr707:
-#line 115 "lex/parser_timeline.rl"
+	goto tr683;
+tr699:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st574;
 st574:
 	if ( ++p == pe )
 		goto _test_eof574;
 case 574:
-#line 8642 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr708;
-	goto tr689;
-tr704:
-#line 115 "lex/parser_timeline.rl"
+#line 8592 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr688;
+		case 103: goto tr705;
+	}
+	goto tr683;
+tr705:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st575;
 st575:
 	if ( ++p == pe )
 		goto _test_eof575;
 case 575:
-#line 8654 "lex/parser_timeline.cpp"
+#line 8606 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr694;
-		case 111: goto tr709;
+		case 32: goto tr688;
+		case 109: goto tr706;
 	}
-	goto tr689;
-tr709:
-#line 115 "lex/parser_timeline.rl"
+	goto tr683;
+tr706:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st576;
 st576:
 	if ( ++p == pe )
 		goto _test_eof576;
 case 576:
-#line 8668 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr694;
-		case 116: goto tr710;
-	}
-	goto tr689;
-tr710:
-#line 115 "lex/parser_timeline.rl"
+#line 8620 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr707;
+	goto tr683;
+tr690:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st577;
 st577:
 	if ( ++p == pe )
 		goto _test_eof577;
 case 577:
-#line 8682 "lex/parser_timeline.cpp"
+#line 8632 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr694;
-		case 101: goto tr707;
+		case 32: goto tr688;
+		case 117: goto tr708;
 	}
-	goto tr689;
-tr705:
-#line 115 "lex/parser_timeline.rl"
+	goto tr683;
+tr708:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st578;
 st578:
 	if ( ++p == pe )
 		goto _test_eof578;
 case 578:
-#line 8696 "lex/parser_timeline.cpp"
+#line 8646 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr694;
-		case 103: goto tr711;
+		case 32: goto tr688;
+		case 116: goto tr709;
 	}
-	goto tr689;
-tr711:
-#line 115 "lex/parser_timeline.rl"
+	goto tr683;
+tr709:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st579;
 st579:
 	if ( ++p == pe )
 		goto _test_eof579;
 case 579:
-#line 8710 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr694;
-		case 109: goto tr712;
-	}
-	goto tr689;
-tr712:
-#line 115 "lex/parser_timeline.rl"
+#line 8660 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr710;
+	goto tr683;
+tr691:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st580;
 st580:
 	if ( ++p == pe )
 		goto _test_eof580;
 case 580:
-#line 8724 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr713;
-	goto tr689;
-tr696:
-#line 115 "lex/parser_timeline.rl"
+#line 8672 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr688;
+		case 114: goto tr711;
+	}
+	goto tr683;
+tr711:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st581;
 st581:
 	if ( ++p == pe )
 		goto _test_eof581;
 case 581:
-#line 8736 "lex/parser_timeline.cpp"
+#line 8686 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr694;
-		case 117: goto tr714;
+		case 32: goto tr688;
+		case 101: goto tr712;
 	}
-	goto tr689;
-tr714:
-#line 115 "lex/parser_timeline.rl"
+	goto tr683;
+tr712:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st582;
 st582:
 	if ( ++p == pe )
 		goto _test_eof582;
 case 582:
-#line 8750 "lex/parser_timeline.cpp"
+#line 8700 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr694;
-		case 116: goto tr715;
+		case 32: goto tr688;
+		case 115: goto tr713;
 	}
-	goto tr689;
-tr715:
-#line 115 "lex/parser_timeline.rl"
+	goto tr683;
+tr713:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st583;
 st583:
 	if ( ++p == pe )
 		goto _test_eof583;
 case 583:
-#line 8764 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr716;
-	goto tr689;
-tr697:
-#line 115 "lex/parser_timeline.rl"
+#line 8714 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr688;
+		case 101: goto tr714;
+	}
+	goto tr683;
+tr714:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st584;
 st584:
 	if ( ++p == pe )
 		goto _test_eof584;
 case 584:
-#line 8776 "lex/parser_timeline.cpp"
+#line 8728 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr694;
-		case 114: goto tr717;
+		case 32: goto tr688;
+		case 116: goto tr715;
 	}
-	goto tr689;
-tr717:
-#line 115 "lex/parser_timeline.rl"
+	goto tr683;
+tr715:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st585;
 st585:
 	if ( ++p == pe )
 		goto _test_eof585;
 case 585:
-#line 8790 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr694;
-		case 101: goto tr718;
-	}
-	goto tr689;
-tr718:
-#line 115 "lex/parser_timeline.rl"
+#line 8742 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr716;
+	goto tr683;
+tr692:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st586;
 st586:
 	if ( ++p == pe )
 		goto _test_eof586;
 case 586:
-#line 8804 "lex/parser_timeline.cpp"
+#line 8754 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr694;
-		case 115: goto tr719;
+		case 32: goto tr688;
+		case 101: goto tr717;
 	}
-	goto tr689;
-tr719:
-#line 115 "lex/parser_timeline.rl"
+	goto tr683;
+tr717:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st587;
 st587:
 	if ( ++p == pe )
 		goto _test_eof587;
 case 587:
-#line 8818 "lex/parser_timeline.cpp"
+#line 8768 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr694;
-		case 101: goto tr720;
+		case 32: goto tr688;
+		case 110: goto tr718;
 	}
-	goto tr689;
-tr720:
-#line 115 "lex/parser_timeline.rl"
+	goto tr683;
+tr718:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st588;
 st588:
 	if ( ++p == pe )
 		goto _test_eof588;
 case 588:
-#line 8832 "lex/parser_timeline.cpp"
+#line 8782 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr694;
-		case 116: goto tr721;
+		case 32: goto tr688;
+		case 100: goto tr719;
 	}
-	goto tr689;
-tr721:
-#line 115 "lex/parser_timeline.rl"
+	goto tr683;
+tr719:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st589;
 st589:
 	if ( ++p == pe )
 		goto _test_eof589;
 case 589:
-#line 8846 "lex/parser_timeline.cpp"
+#line 8796 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr722;
-	goto tr689;
-tr698:
-#line 115 "lex/parser_timeline.rl"
+		goto tr720;
+	goto tr683;
+tr685:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 21 "lex/ragel_numeric.rl"
+	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
 	goto st590;
 st590:
 	if ( ++p == pe )
 		goto _test_eof590;
 case 590:
-#line 8858 "lex/parser_timeline.cpp"
+#line 8810 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr694;
-		case 101: goto tr723;
+		case 32: goto tr688;
+		case 48: goto tr686;
 	}
-	goto tr689;
-tr723:
-#line 115 "lex/parser_timeline.rl"
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr687;
+	goto tr683;
+tr686:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st591;
 st591:
 	if ( ++p == pe )
 		goto _test_eof591;
 case 591:
-#line 8872 "lex/parser_timeline.cpp"
+#line 8828 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr694;
-		case 110: goto tr724;
+		case 32: goto tr635;
+		case 46: goto tr721;
 	}
-	goto tr689;
-tr724:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-	goto st592;
-st592:
-	if ( ++p == pe )
-		goto _test_eof592;
-case 592:
-#line 8886 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr694;
-		case 100: goto tr725;
-	}
-	goto tr689;
-tr725:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-	goto st593;
-st593:
-	if ( ++p == pe )
-		goto _test_eof593;
-case 593:
-#line 8900 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr726;
-	goto tr689;
-tr691:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 21 "lex/ragel_numeric.rl"
-	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
-	goto st594;
-st594:
-	if ( ++p == pe )
-		goto _test_eof594;
-case 594:
-#line 8914 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr694;
-		case 48: goto tr692;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr693;
-	goto tr689;
-tr692:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st595;
-st595:
-	if ( ++p == pe )
-		goto _test_eof595;
-case 595:
-#line 8932 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr641;
-		case 46: goto tr727;
-	}
-	goto tr689;
-tr727:
-#line 115 "lex/parser_timeline.rl"
+	goto tr683;
+tr721:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 30 "lex/ragel_numeric.rl"
 	{
@@ -8948,477 +8844,477 @@ tr727:
         ragel_num.ratio.num = 0;
         ragel_num.ratio.den = 1;
     }
-	goto st596;
-st596:
+	goto st592;
+st592:
 	if ( ++p == pe )
-		goto _test_eof596;
-case 596:
-#line 8957 "lex/parser_timeline.cpp"
+		goto _test_eof592;
+case 592:
+#line 8853 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr694;
+		goto tr688;
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr728;
-	goto tr689;
-tr728:
-#line 115 "lex/parser_timeline.rl"
+		goto tr722;
+	goto tr683;
+tr722:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 54 "lex/ragel_numeric.rl"
 	{
         (ragel_num.ratio.num *= 10) += ((*p) - '0');
         ragel_num.ratio.den *= 10;
     }
+	goto st593;
+st593:
+	if ( ++p == pe )
+		goto _test_eof593;
+case 593:
+#line 8872 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr635;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr722;
+	goto tr683;
+tr687:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st594;
+st594:
+	if ( ++p == pe )
+		goto _test_eof594;
+case 594:
+#line 8888 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr635;
+		case 46: goto tr721;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr687;
+	goto tr683;
+tr629:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+	goto st595;
+st595:
+	if ( ++p == pe )
+		goto _test_eof595;
+case 595:
+#line 8904 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr633;
+		case 109: goto tr723;
+		case 111: goto tr724;
+		case 112: goto tr725;
+		case 115: goto tr726;
+	}
+	goto tr628;
+tr723:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+	goto st596;
+st596:
+	if ( ++p == pe )
+		goto _test_eof596;
+case 596:
+#line 8921 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr633;
+		case 105: goto tr727;
+	}
+	goto tr628;
+tr727:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
 	goto st597;
 st597:
 	if ( ++p == pe )
 		goto _test_eof597;
 case 597:
-#line 8976 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr641;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr728;
-	goto tr689;
-tr693:
-#line 115 "lex/parser_timeline.rl"
+#line 8935 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr633;
+		case 100: goto tr728;
+	}
+	goto tr628;
+tr728:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st598;
 st598:
 	if ( ++p == pe )
 		goto _test_eof598;
 case 598:
-#line 8992 "lex/parser_timeline.cpp"
+#line 8949 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr641;
-		case 46: goto tr727;
+		case 32: goto tr633;
+		case 105: goto tr729;
 	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr693;
-	goto tr689;
-tr635:
-#line 115 "lex/parser_timeline.rl"
+	goto tr628;
+tr729:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st599;
 st599:
 	if ( ++p == pe )
 		goto _test_eof599;
 case 599:
-#line 9008 "lex/parser_timeline.cpp"
+#line 8963 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr639;
-		case 109: goto tr729;
-		case 111: goto tr730;
-		case 112: goto tr731;
-		case 115: goto tr732;
+		case 32: goto tr633;
+		case 58: goto tr730;
 	}
-	goto tr634;
-tr729:
-#line 115 "lex/parser_timeline.rl"
+	goto tr628;
+tr730:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st600;
 st600:
 	if ( ++p == pe )
 		goto _test_eof600;
 case 600:
-#line 9025 "lex/parser_timeline.cpp"
+#line 8977 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr639;
-		case 105: goto tr733;
+		case 32: goto tr633;
+		case 99: goto tr731;
+		case 110: goto tr732;
+		case 112: goto tr733;
 	}
-	goto tr634;
-tr733:
-#line 115 "lex/parser_timeline.rl"
+	goto tr628;
+tr731:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st601;
 st601:
 	if ( ++p == pe )
 		goto _test_eof601;
 case 601:
-#line 9039 "lex/parser_timeline.cpp"
+#line 8993 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr639;
-		case 100: goto tr734;
+		case 32: goto tr633;
+		case 116: goto tr734;
 	}
-	goto tr634;
+	goto tr628;
 tr734:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st602;
 st602:
 	if ( ++p == pe )
 		goto _test_eof602;
 case 602:
-#line 9053 "lex/parser_timeline.cpp"
+#line 9007 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr639;
-		case 105: goto tr735;
+		case 32: goto tr633;
+		case 108: goto tr735;
 	}
-	goto tr634;
+	goto tr628;
 tr735:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st603;
 st603:
 	if ( ++p == pe )
 		goto _test_eof603;
 case 603:
-#line 9067 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr639;
-		case 58: goto tr736;
-	}
-	goto tr634;
-tr736:
-#line 115 "lex/parser_timeline.rl"
+#line 9021 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr736;
+	goto tr628;
+tr732:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st604;
 st604:
 	if ( ++p == pe )
 		goto _test_eof604;
 case 604:
-#line 9081 "lex/parser_timeline.cpp"
+#line 9033 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr639;
-		case 99: goto tr737;
-		case 110: goto tr738;
-		case 112: goto tr739;
+		case 32: goto tr633;
+		case 111: goto tr737;
 	}
-	goto tr634;
+	goto tr628;
 tr737:
-#line 115 "lex/parser_timeline.rl"
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st605;
 st605:
 	if ( ++p == pe )
 		goto _test_eof605;
 case 605:
-#line 9097 "lex/parser_timeline.cpp"
+#line 9047 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr639;
-		case 116: goto tr740;
+		case 32: goto tr633;
+		case 116: goto tr738;
 	}
-	goto tr634;
-tr740:
-#line 115 "lex/parser_timeline.rl"
+	goto tr628;
+tr738:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st606;
 st606:
 	if ( ++p == pe )
 		goto _test_eof606;
 case 606:
-#line 9111 "lex/parser_timeline.cpp"
+#line 9061 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr639;
-		case 108: goto tr741;
+		case 32: goto tr633;
+		case 101: goto tr735;
 	}
-	goto tr634;
-tr741:
-#line 115 "lex/parser_timeline.rl"
+	goto tr628;
+tr733:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st607;
 st607:
 	if ( ++p == pe )
 		goto _test_eof607;
 case 607:
-#line 9125 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr742;
-	goto tr634;
-tr738:
-#line 115 "lex/parser_timeline.rl"
+#line 9075 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr633;
+		case 103: goto tr739;
+	}
+	goto tr628;
+tr739:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st608;
 st608:
 	if ( ++p == pe )
 		goto _test_eof608;
 case 608:
-#line 9137 "lex/parser_timeline.cpp"
+#line 9089 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr639;
-		case 111: goto tr743;
+		case 32: goto tr633;
+		case 109: goto tr740;
 	}
-	goto tr634;
-tr743:
-#line 115 "lex/parser_timeline.rl"
+	goto tr628;
+tr740:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st609;
 st609:
 	if ( ++p == pe )
 		goto _test_eof609;
 case 609:
-#line 9151 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr639;
-		case 116: goto tr744;
-	}
-	goto tr634;
-tr744:
-#line 115 "lex/parser_timeline.rl"
+#line 9103 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr741;
+	goto tr628;
+tr724:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st610;
 st610:
 	if ( ++p == pe )
 		goto _test_eof610;
 case 610:
-#line 9165 "lex/parser_timeline.cpp"
+#line 9115 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr639;
-		case 101: goto tr741;
+		case 32: goto tr633;
+		case 117: goto tr742;
 	}
-	goto tr634;
-tr739:
-#line 115 "lex/parser_timeline.rl"
+	goto tr628;
+tr742:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st611;
 st611:
 	if ( ++p == pe )
 		goto _test_eof611;
 case 611:
-#line 9179 "lex/parser_timeline.cpp"
+#line 9129 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr639;
-		case 103: goto tr745;
+		case 32: goto tr633;
+		case 116: goto tr743;
 	}
-	goto tr634;
-tr745:
-#line 115 "lex/parser_timeline.rl"
+	goto tr628;
+tr743:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st612;
 st612:
 	if ( ++p == pe )
 		goto _test_eof612;
 case 612:
-#line 9193 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr639;
-		case 109: goto tr746;
-	}
-	goto tr634;
-tr746:
-#line 115 "lex/parser_timeline.rl"
+#line 9143 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr744;
+	goto tr628;
+tr725:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st613;
 st613:
 	if ( ++p == pe )
 		goto _test_eof613;
 case 613:
-#line 9207 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr747;
-	goto tr634;
-tr730:
-#line 115 "lex/parser_timeline.rl"
+#line 9155 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr633;
+		case 114: goto tr745;
+	}
+	goto tr628;
+tr745:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st614;
 st614:
 	if ( ++p == pe )
 		goto _test_eof614;
 case 614:
-#line 9219 "lex/parser_timeline.cpp"
+#line 9169 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr639;
-		case 117: goto tr748;
+		case 32: goto tr633;
+		case 101: goto tr746;
 	}
-	goto tr634;
-tr748:
-#line 115 "lex/parser_timeline.rl"
+	goto tr628;
+tr746:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st615;
 st615:
 	if ( ++p == pe )
 		goto _test_eof615;
 case 615:
-#line 9233 "lex/parser_timeline.cpp"
+#line 9183 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr639;
-		case 116: goto tr749;
+		case 32: goto tr633;
+		case 115: goto tr747;
 	}
-	goto tr634;
-tr749:
-#line 115 "lex/parser_timeline.rl"
+	goto tr628;
+tr747:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st616;
 st616:
 	if ( ++p == pe )
 		goto _test_eof616;
 case 616:
-#line 9247 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr750;
-	goto tr634;
-tr731:
-#line 115 "lex/parser_timeline.rl"
+#line 9197 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr633;
+		case 101: goto tr748;
+	}
+	goto tr628;
+tr748:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st617;
 st617:
 	if ( ++p == pe )
 		goto _test_eof617;
 case 617:
-#line 9259 "lex/parser_timeline.cpp"
+#line 9211 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr639;
-		case 114: goto tr751;
+		case 32: goto tr633;
+		case 116: goto tr749;
 	}
-	goto tr634;
-tr751:
-#line 115 "lex/parser_timeline.rl"
+	goto tr628;
+tr749:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st618;
 st618:
 	if ( ++p == pe )
 		goto _test_eof618;
 case 618:
-#line 9273 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr639;
-		case 101: goto tr752;
-	}
-	goto tr634;
-tr752:
-#line 115 "lex/parser_timeline.rl"
+#line 9225 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr750;
+	goto tr628;
+tr726:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st619;
 st619:
 	if ( ++p == pe )
 		goto _test_eof619;
 case 619:
-#line 9287 "lex/parser_timeline.cpp"
+#line 9237 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr639;
-		case 115: goto tr753;
+		case 32: goto tr633;
+		case 101: goto tr751;
 	}
-	goto tr634;
-tr753:
-#line 115 "lex/parser_timeline.rl"
+	goto tr628;
+tr751:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st620;
 st620:
 	if ( ++p == pe )
 		goto _test_eof620;
 case 620:
-#line 9301 "lex/parser_timeline.cpp"
+#line 9251 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr639;
-		case 101: goto tr754;
+		case 32: goto tr633;
+		case 110: goto tr752;
 	}
-	goto tr634;
-tr754:
-#line 115 "lex/parser_timeline.rl"
+	goto tr628;
+tr752:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st621;
 st621:
 	if ( ++p == pe )
 		goto _test_eof621;
 case 621:
-#line 9315 "lex/parser_timeline.cpp"
+#line 9265 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr639;
-		case 116: goto tr755;
+		case 32: goto tr633;
+		case 100: goto tr753;
 	}
-	goto tr634;
-tr755:
-#line 115 "lex/parser_timeline.rl"
+	goto tr628;
+tr753:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st622;
 st622:
 	if ( ++p == pe )
 		goto _test_eof622;
 case 622:
-#line 9329 "lex/parser_timeline.cpp"
+#line 9279 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr756;
-	goto tr634;
-tr732:
-#line 115 "lex/parser_timeline.rl"
+		goto tr754;
+	goto tr628;
+tr630:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 21 "lex/ragel_numeric.rl"
+	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
 	goto st623;
 st623:
 	if ( ++p == pe )
 		goto _test_eof623;
 case 623:
-#line 9341 "lex/parser_timeline.cpp"
+#line 9293 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr639;
-		case 101: goto tr757;
+		case 32: goto tr633;
+		case 48: goto tr631;
 	}
-	goto tr634;
-tr757:
-#line 115 "lex/parser_timeline.rl"
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr632;
+	goto tr628;
+tr631:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st624;
 st624:
 	if ( ++p == pe )
 		goto _test_eof624;
 case 624:
-#line 9355 "lex/parser_timeline.cpp"
+#line 9311 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr639;
-		case 110: goto tr758;
+		case 32: goto tr448;
+		case 46: goto tr755;
 	}
-	goto tr634;
-tr758:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-	goto st625;
-st625:
-	if ( ++p == pe )
-		goto _test_eof625;
-case 625:
-#line 9369 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr639;
-		case 100: goto tr759;
-	}
-	goto tr634;
-tr759:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-	goto st626;
-st626:
-	if ( ++p == pe )
-		goto _test_eof626;
-case 626:
-#line 9383 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr760;
-	goto tr634;
-tr636:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 21 "lex/ragel_numeric.rl"
-	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
-	goto st627;
-st627:
-	if ( ++p == pe )
-		goto _test_eof627;
-case 627:
-#line 9397 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr639;
-		case 48: goto tr637;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr638;
-	goto tr634;
-tr637:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st628;
-st628:
-	if ( ++p == pe )
-		goto _test_eof628;
-case 628:
-#line 9415 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr454;
-		case 46: goto tr761;
-	}
-	goto tr634;
-tr761:
-#line 115 "lex/parser_timeline.rl"
+	goto tr628;
+tr755:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 30 "lex/ragel_numeric.rl"
 	{
@@ -9431,332 +9327,332 @@ tr761:
         ragel_num.ratio.num = 0;
         ragel_num.ratio.den = 1;
     }
-	goto st629;
-st629:
+	goto st625;
+st625:
 	if ( ++p == pe )
-		goto _test_eof629;
-case 629:
-#line 9440 "lex/parser_timeline.cpp"
+		goto _test_eof625;
+case 625:
+#line 9336 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr639;
+		goto tr633;
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr762;
-	goto tr634;
-tr762:
-#line 115 "lex/parser_timeline.rl"
+		goto tr756;
+	goto tr628;
+tr756:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 54 "lex/ragel_numeric.rl"
 	{
         (ragel_num.ratio.num *= 10) += ((*p) - '0');
         ragel_num.ratio.den *= 10;
     }
+	goto st626;
+st626:
+	if ( ++p == pe )
+		goto _test_eof626;
+case 626:
+#line 9355 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr448;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr756;
+	goto tr628;
+tr632:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st627;
+st627:
+	if ( ++p == pe )
+		goto _test_eof627;
+case 627:
+#line 9371 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr448;
+		case 46: goto tr755;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr632;
+	goto tr628;
+tr446:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+	goto st628;
+st628:
+	if ( ++p == pe )
+		goto _test_eof628;
+case 628:
+#line 9387 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr414;
+		case 116: goto tr757;
+	}
+	goto tr413;
+tr757:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+	goto st629;
+st629:
+	if ( ++p == pe )
+		goto _test_eof629;
+case 629:
+#line 9401 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr482;
+	goto tr413;
+tr418:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
 	goto st630;
 st630:
 	if ( ++p == pe )
 		goto _test_eof630;
 case 630:
-#line 9459 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr454;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr762;
-	goto tr634;
-tr638:
-#line 115 "lex/parser_timeline.rl"
+#line 9413 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr414;
+		case 114: goto tr758;
+	}
+	goto tr413;
+tr758:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st631;
 st631:
 	if ( ++p == pe )
 		goto _test_eof631;
 case 631:
-#line 9475 "lex/parser_timeline.cpp"
+#line 9427 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr454;
-		case 46: goto tr761;
+		case 32: goto tr414;
+		case 101: goto tr759;
 	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr638;
-	goto tr634;
-tr452:
-#line 115 "lex/parser_timeline.rl"
+	goto tr413;
+tr759:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st632;
 st632:
 	if ( ++p == pe )
 		goto _test_eof632;
 case 632:
-#line 9491 "lex/parser_timeline.cpp"
+#line 9441 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr420;
-		case 116: goto tr763;
+		case 32: goto tr414;
+		case 115: goto tr760;
 	}
-	goto tr419;
-tr763:
-#line 115 "lex/parser_timeline.rl"
+	goto tr413;
+tr760:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st633;
 st633:
 	if ( ++p == pe )
 		goto _test_eof633;
 case 633:
-#line 9505 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr488;
-	goto tr419;
-tr424:
-#line 115 "lex/parser_timeline.rl"
+#line 9455 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr414;
+		case 101: goto tr761;
+	}
+	goto tr413;
+tr761:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st634;
 st634:
 	if ( ++p == pe )
 		goto _test_eof634;
 case 634:
-#line 9517 "lex/parser_timeline.cpp"
+#line 9469 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr420;
-		case 114: goto tr764;
+		case 32: goto tr414;
+		case 116: goto tr762;
 	}
-	goto tr419;
-tr764:
-#line 115 "lex/parser_timeline.rl"
+	goto tr413;
+tr762:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st635;
 st635:
 	if ( ++p == pe )
 		goto _test_eof635;
 case 635:
-#line 9531 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr420;
-		case 101: goto tr765;
-	}
-	goto tr419;
-tr765:
-#line 115 "lex/parser_timeline.rl"
+#line 9483 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr763;
+	goto tr413;
+tr763:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
 	goto st636;
 st636:
 	if ( ++p == pe )
 		goto _test_eof636;
 case 636:
-#line 9545 "lex/parser_timeline.cpp"
+#line 9497 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr420;
-		case 115: goto tr766;
+		case 32: goto tr763;
+		case 33: goto tr415;
+		case 48: goto tr764;
 	}
-	goto tr419;
-tr766:
-#line 115 "lex/parser_timeline.rl"
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr765;
+	goto tr413;
+tr764:
+#line 261 "lex/parser_timeline.rl"
+	{ragel_num.vint = 0;}
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st637;
 st637:
 	if ( ++p == pe )
 		goto _test_eof637;
 case 637:
-#line 9559 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr420;
-		case 101: goto tr767;
-	}
-	goto tr419;
+#line 9518 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr766;
+	goto tr413;
 tr767:
-#line 115 "lex/parser_timeline.rl"
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+	goto st638;
+tr765:
+#line 261 "lex/parser_timeline.rl"
+	{ragel_num.vint = 0;}
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st638;
 st638:
 	if ( ++p == pe )
 		goto _test_eof638;
 case 638:
-#line 9573 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr420;
-		case 116: goto tr768;
-	}
-	goto tr419;
-tr768:
-#line 115 "lex/parser_timeline.rl"
+#line 9540 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr766;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr767;
+	goto tr413;
+tr419:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st639;
 st639:
 	if ( ++p == pe )
 		goto _test_eof639;
 case 639:
-#line 9587 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr769;
-	goto tr419;
-tr769:
-#line 115 "lex/parser_timeline.rl"
+#line 9554 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr414;
+		case 101: goto tr768;
+	}
+	goto tr413;
+tr768:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
 	goto st640;
 st640:
 	if ( ++p == pe )
 		goto _test_eof640;
 case 640:
-#line 9601 "lex/parser_timeline.cpp"
+#line 9568 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr769;
-		case 33: goto tr421;
-		case 48: goto tr770;
+		case 32: goto tr414;
+		case 110: goto tr769;
 	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr771;
-	goto tr419;
-tr770:
-#line 255 "lex/parser_timeline.rl"
-	{ragel_num.vint = 0;}
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 115 "lex/parser_timeline.rl"
+	goto tr413;
+tr769:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st641;
 st641:
 	if ( ++p == pe )
 		goto _test_eof641;
 case 641:
-#line 9622 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr772;
-	goto tr419;
-tr773:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-	goto st642;
-tr771:
-#line 255 "lex/parser_timeline.rl"
-	{ragel_num.vint = 0;}
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-#line 115 "lex/parser_timeline.rl"
+#line 9582 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr414;
+		case 100: goto tr770;
+	}
+	goto tr413;
+tr770:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 	goto st642;
 st642:
 	if ( ++p == pe )
 		goto _test_eof642;
 case 642:
-#line 9644 "lex/parser_timeline.cpp"
+#line 9596 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr772;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr773;
-	goto tr419;
-tr425:
-#line 115 "lex/parser_timeline.rl"
+		goto tr771;
+	goto tr413;
+tr771:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
 	goto st643;
 st643:
 	if ( ++p == pe )
 		goto _test_eof643;
 case 643:
-#line 9658 "lex/parser_timeline.cpp"
+#line 9610 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr420;
-		case 101: goto tr774;
+		case 32: goto tr771;
+		case 33: goto tr629;
+		case 43: goto tr772;
+		case 45: goto tr772;
+		case 48: goto tr773;
 	}
-	goto tr419;
-tr774:
-#line 115 "lex/parser_timeline.rl"
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr774;
+	goto tr628;
+tr772:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 21 "lex/ragel_numeric.rl"
+	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
 	goto st644;
 st644:
 	if ( ++p == pe )
 		goto _test_eof644;
 case 644:
-#line 9672 "lex/parser_timeline.cpp"
+#line 9631 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr420;
-		case 110: goto tr775;
+		case 32: goto tr633;
+		case 48: goto tr773;
 	}
-	goto tr419;
-tr775:
-#line 115 "lex/parser_timeline.rl"
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr774;
+	goto tr628;
+tr773:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st645;
 st645:
 	if ( ++p == pe )
 		goto _test_eof645;
 case 645:
-#line 9686 "lex/parser_timeline.cpp"
+#line 9649 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr420;
-		case 100: goto tr776;
+		case 32: goto tr414;
+		case 46: goto tr775;
 	}
-	goto tr419;
-tr776:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-	goto st646;
-st646:
-	if ( ++p == pe )
-		goto _test_eof646;
-case 646:
-#line 9700 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr777;
-	goto tr419;
-tr777:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-	goto st647;
-st647:
-	if ( ++p == pe )
-		goto _test_eof647;
-case 647:
-#line 9714 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr777;
-		case 33: goto tr635;
-		case 43: goto tr778;
-		case 45: goto tr778;
-		case 48: goto tr779;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr780;
-	goto tr634;
-tr778:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 21 "lex/ragel_numeric.rl"
-	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
-	goto st648;
-st648:
-	if ( ++p == pe )
-		goto _test_eof648;
-case 648:
-#line 9735 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr639;
-		case 48: goto tr779;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr780;
-	goto tr634;
-tr779:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st649;
-st649:
-	if ( ++p == pe )
-		goto _test_eof649;
-case 649:
-#line 9753 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr420;
-		case 46: goto tr781;
-	}
-	goto tr634;
-tr781:
-#line 115 "lex/parser_timeline.rl"
+	goto tr628;
+tr775:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 30 "lex/ragel_numeric.rl"
 	{
@@ -9769,39 +9665,165 @@ tr781:
         ragel_num.ratio.num = 0;
         ragel_num.ratio.den = 1;
     }
-	goto st650;
-st650:
+	goto st646;
+st646:
 	if ( ++p == pe )
-		goto _test_eof650;
-case 650:
-#line 9778 "lex/parser_timeline.cpp"
+		goto _test_eof646;
+case 646:
+#line 9674 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr639;
+		goto tr633;
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr782;
-	goto tr634;
-tr782:
-#line 115 "lex/parser_timeline.rl"
+		goto tr776;
+	goto tr628;
+tr776:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 54 "lex/ragel_numeric.rl"
 	{
         (ragel_num.ratio.num *= 10) += ((*p) - '0');
         ragel_num.ratio.den *= 10;
     }
+	goto st647;
+st647:
+	if ( ++p == pe )
+		goto _test_eof647;
+case 647:
+#line 9693 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr414;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr776;
+	goto tr628;
+tr774:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st648;
+st648:
+	if ( ++p == pe )
+		goto _test_eof648;
+case 648:
+#line 9709 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr414;
+		case 46: goto tr775;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr774;
+	goto tr628;
+st237:
+	if ( ++p == pe )
+		goto _test_eof237;
+case 237:
+	switch( (*p) ) {
+		case 115: goto st238;
+		case 117: goto st239;
+	}
+	goto st0;
+st238:
+	if ( ++p == pe )
+		goto _test_eof238;
+case 238:
+	if ( (*p) == 99 )
+		goto st649;
+	goto st0;
+st649:
+	if ( ++p == pe )
+		goto _test_eof649;
+case 649:
+	if ( (*p) == 32 )
+		goto st358;
+	goto st0;
+st239:
+	if ( ++p == pe )
+		goto _test_eof239;
+case 239:
+	if ( (*p) == 116 )
+		goto st650;
+	goto st0;
+st650:
+	if ( ++p == pe )
+		goto _test_eof650;
+case 650:
+	if ( (*p) == 32 )
+		goto tr778;
+	goto st0;
+st240:
+	if ( ++p == pe )
+		goto _test_eof240;
+case 240:
+	if ( (*p) == 114 )
+		goto st241;
+	goto st0;
+st241:
+	if ( ++p == pe )
+		goto _test_eof241;
+case 241:
+	if ( (*p) == 101 )
+		goto st242;
+	goto st0;
+st242:
+	if ( ++p == pe )
+		goto _test_eof242;
+case 242:
+	if ( (*p) == 115 )
+		goto st243;
+	goto st0;
+st243:
+	if ( ++p == pe )
+		goto _test_eof243;
+case 243:
+	if ( (*p) == 101 )
+		goto st244;
+	goto st0;
+st244:
+	if ( ++p == pe )
+		goto _test_eof244;
+case 244:
+	if ( (*p) == 116 )
+		goto st245;
+	goto st0;
+st245:
+	if ( ++p == pe )
+		goto _test_eof245;
+case 245:
+	if ( (*p) == 32 )
+		goto st246;
+	goto st0;
+st246:
+	if ( ++p == pe )
+		goto _test_eof246;
+case 246:
+	switch( (*p) ) {
+		case 32: goto st246;
+		case 48: goto tr336;
+	}
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr337;
+	goto st0;
+tr336:
+#line 261 "lex/parser_timeline.rl"
+	{ragel_num.vint = 0;}
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st651;
 st651:
 	if ( ++p == pe )
 		goto _test_eof651;
 case 651:
-#line 9797 "lex/parser_timeline.cpp"
+#line 9817 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr420;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr782;
-	goto tr634;
+		goto tr779;
+	goto st0;
 tr780:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st652;
+tr337:
+#line 261 "lex/parser_timeline.rl"
+	{ragel_num.vint = 0;}
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 	goto st652;
@@ -9809,71 +9831,11 @@ st652:
 	if ( ++p == pe )
 		goto _test_eof652;
 case 652:
-#line 9813 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr420;
-		case 46: goto tr781;
-	}
+#line 9835 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr779;
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr780;
-	goto tr634;
-st241:
-	if ( ++p == pe )
-		goto _test_eof241;
-case 241:
-	switch( (*p) ) {
-		case 115: goto st242;
-		case 117: goto st243;
-	}
-	goto st0;
-st242:
-	if ( ++p == pe )
-		goto _test_eof242;
-case 242:
-	if ( (*p) == 99 )
-		goto st653;
-	goto st0;
-st653:
-	if ( ++p == pe )
-		goto _test_eof653;
-case 653:
-	if ( (*p) == 32 )
-		goto st362;
-	goto st0;
-st243:
-	if ( ++p == pe )
-		goto _test_eof243;
-case 243:
-	if ( (*p) == 116 )
-		goto st654;
-	goto st0;
-st654:
-	if ( ++p == pe )
-		goto _test_eof654;
-case 654:
-	if ( (*p) == 32 )
-		goto tr784;
-	goto st0;
-st244:
-	if ( ++p == pe )
-		goto _test_eof244;
-case 244:
-	if ( (*p) == 114 )
-		goto st245;
-	goto st0;
-st245:
-	if ( ++p == pe )
-		goto _test_eof245;
-case 245:
-	if ( (*p) == 101 )
-		goto st246;
-	goto st0;
-st246:
-	if ( ++p == pe )
-		goto _test_eof246;
-case 246:
-	if ( (*p) == 115 )
-		goto st247;
 	goto st0;
 st247:
 	if ( ++p == pe )
@@ -9886,150 +9848,84 @@ st248:
 	if ( ++p == pe )
 		goto _test_eof248;
 case 248:
-	if ( (*p) == 116 )
+	if ( (*p) == 110 )
 		goto st249;
 	goto st0;
 st249:
 	if ( ++p == pe )
 		goto _test_eof249;
 case 249:
-	if ( (*p) == 32 )
+	if ( (*p) == 100 )
 		goto st250;
 	goto st0;
 st250:
 	if ( ++p == pe )
 		goto _test_eof250;
 case 250:
-	switch( (*p) ) {
-		case 32: goto st250;
-		case 48: goto tr342;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr343;
-	goto st0;
-tr342:
-#line 255 "lex/parser_timeline.rl"
-	{ragel_num.vint = 0;}
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st655;
-st655:
-	if ( ++p == pe )
-		goto _test_eof655;
-case 655:
-#line 9921 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr785;
-	goto st0;
-tr786:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st656;
-tr343:
-#line 255 "lex/parser_timeline.rl"
-	{ragel_num.vint = 0;}
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st656;
-st656:
-	if ( ++p == pe )
-		goto _test_eof656;
-case 656:
-#line 9939 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr785;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr786;
+		goto st251;
 	goto st0;
 st251:
 	if ( ++p == pe )
 		goto _test_eof251;
 case 251:
-	if ( (*p) == 101 )
-		goto st252;
-	goto st0;
+	switch( (*p) ) {
+		case 32: goto st251;
+		case 43: goto tr343;
+		case 45: goto tr343;
+		case 48: goto tr344;
+	}
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr345;
+	goto tr342;
+tr342:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+	goto st653;
+st653:
+	if ( ++p == pe )
+		goto _test_eof653;
+case 653:
+#line 9890 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr781;
+	goto tr342;
+tr343:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 21 "lex/ragel_numeric.rl"
+	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
+	goto st654;
+st654:
+	if ( ++p == pe )
+		goto _test_eof654;
+case 654:
+#line 9904 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr781;
+		case 48: goto tr344;
+	}
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr345;
+	goto tr342;
+tr344:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st252;
 st252:
 	if ( ++p == pe )
 		goto _test_eof252;
 case 252:
-	if ( (*p) == 110 )
-		goto st253;
-	goto st0;
-st253:
-	if ( ++p == pe )
-		goto _test_eof253;
-case 253:
-	if ( (*p) == 100 )
-		goto st254;
-	goto st0;
-st254:
-	if ( ++p == pe )
-		goto _test_eof254;
-case 254:
-	if ( (*p) == 32 )
-		goto st255;
-	goto st0;
-st255:
-	if ( ++p == pe )
-		goto _test_eof255;
-case 255:
-	switch( (*p) ) {
-		case 32: goto st255;
-		case 43: goto tr349;
-		case 45: goto tr349;
-		case 48: goto tr350;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr351;
-	goto tr348;
-tr348:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-	goto st657;
-st657:
-	if ( ++p == pe )
-		goto _test_eof657;
-case 657:
-#line 9994 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr787;
-	goto tr348;
-tr349:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 21 "lex/ragel_numeric.rl"
-	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
-	goto st658;
-st658:
-	if ( ++p == pe )
-		goto _test_eof658;
-case 658:
-#line 10008 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr787;
-		case 48: goto tr350;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr351;
-	goto tr348;
-tr350:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st256;
-st256:
-	if ( ++p == pe )
-		goto _test_eof256;
-case 256:
-#line 10026 "lex/parser_timeline.cpp"
+#line 9922 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
 		case 32: goto st0;
-		case 46: goto tr352;
+		case 46: goto tr346;
 	}
-	goto tr348;
-tr352:
-#line 115 "lex/parser_timeline.rl"
+	goto tr342;
+tr346:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 30 "lex/ragel_numeric.rl"
 	{
@@ -10042,418 +9938,418 @@ tr352:
         ragel_num.ratio.num = 0;
         ragel_num.ratio.den = 1;
     }
-	goto st659;
-st659:
+	goto st655;
+st655:
 	if ( ++p == pe )
-		goto _test_eof659;
-case 659:
-#line 10051 "lex/parser_timeline.cpp"
+		goto _test_eof655;
+case 655:
+#line 9947 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr787;
+		goto tr781;
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr353;
-	goto tr348;
-tr353:
-#line 115 "lex/parser_timeline.rl"
+		goto tr347;
+	goto tr342;
+tr347:
+#line 116 "lex/parser_timeline.rl"
 	{ fsm.symbol += *p; }
 #line 54 "lex/ragel_numeric.rl"
 	{
         (ragel_num.ratio.num *= 10) += ((*p) - '0');
         ragel_num.ratio.den *= 10;
     }
-	goto st257;
+	goto st253;
+st253:
+	if ( ++p == pe )
+		goto _test_eof253;
+case 253:
+#line 9966 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto st0;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr347;
+	goto tr342;
+tr345:
+#line 116 "lex/parser_timeline.rl"
+	{ fsm.symbol += *p; }
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st254;
+st254:
+	if ( ++p == pe )
+		goto _test_eof254;
+case 254:
+#line 9982 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto st0;
+		case 46: goto tr346;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr345;
+	goto tr342;
+st255:
+	if ( ++p == pe )
+		goto _test_eof255;
+case 255:
+	if ( (*p) == 97 )
+		goto st256;
+	goto st0;
+st256:
+	if ( ++p == pe )
+		goto _test_eof256;
+case 256:
+	if ( (*p) == 114 )
+		goto st257;
+	goto st0;
 st257:
 	if ( ++p == pe )
 		goto _test_eof257;
 case 257:
-#line 10070 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto st0;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr353;
-	goto tr348;
-tr351:
-#line 115 "lex/parser_timeline.rl"
-	{ fsm.symbol += *p; }
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st258;
+		goto st258;
+	goto st0;
 st258:
 	if ( ++p == pe )
 		goto _test_eof258;
 case 258:
-#line 10086 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto st0;
-		case 46: goto tr352;
+		case 32: goto st258;
+		case 95: goto tr351;
 	}
-	if ( 48 <= (*p) && (*p) <= 57 )
+	if ( (*p) > 90 ) {
+		if ( 97 <= (*p) && (*p) <= 122 )
+			goto tr351;
+	} else if ( (*p) >= 65 )
 		goto tr351;
-	goto tr348;
+	goto st0;
+tr783:
+#line 231 "lex/parser_timeline.rl"
+	{ var_name += *p; }
+	goto st656;
+tr351:
+#line 279 "lex/parser_timeline.rl"
+	{ var_name.clear(); }
+#line 231 "lex/parser_timeline.rl"
+	{ var_name += *p; }
+	goto st656;
+st656:
+	if ( ++p == pe )
+		goto _test_eof656;
+case 656:
+#line 10039 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr782;
+		case 95: goto tr783;
+	}
+	if ( (*p) < 65 ) {
+		if ( 48 <= (*p) && (*p) <= 57 )
+			goto tr783;
+	} else if ( (*p) > 90 ) {
+		if ( 97 <= (*p) && (*p) <= 122 )
+			goto tr783;
+	} else
+		goto tr783;
+	goto st0;
+tr782:
+#line 225 "lex/parser_timeline.rl"
+	{
+        TimeLineVarDef var;
+        var.name = gensym(var_name.c_str());
+        tl.var_defs.push_back(var);
+    }
+	goto st259;
+tr784:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 7 "lex/ragel_units.rl"
+	{ ragel_num.vdouble = ragel_num.vint; }
+#line 280 "lex/parser_timeline.rl"
+	{ tl.var_defs.back().def = ragel_num.getFloat(); }
+	goto st259;
+tr786:
+#line 58 "lex/ragel_numeric.rl"
+	{
+        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+        ragel_type = TYPE_FLOAT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 280 "lex/parser_timeline.rl"
+	{ tl.var_defs.back().def = ragel_num.getFloat(); }
+	goto st259;
+tr787:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 7 "lex/ragel_units.rl"
+	{ ragel_num.vdouble = ragel_num.vint; }
+#line 281 "lex/parser_timeline.rl"
+	{ tl.var_defs.back().preset = ragel_num.getFloat(); }
+	goto st259;
+tr789:
+#line 58 "lex/ragel_numeric.rl"
+	{
+        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
+        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
+        ragel_type = TYPE_FLOAT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 281 "lex/parser_timeline.rl"
+	{ tl.var_defs.back().preset = ragel_num.getFloat(); }
+	goto st259;
 st259:
 	if ( ++p == pe )
 		goto _test_eof259;
 case 259:
-	if ( (*p) == 97 )
-		goto st260;
+#line 10111 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto st259;
+		case 64: goto st260;
+	}
 	goto st0;
 st260:
 	if ( ++p == pe )
 		goto _test_eof260;
 case 260:
-	if ( (*p) == 114 )
-		goto st261;
+	switch( (*p) ) {
+		case 100: goto st261;
+		case 112: goto st271;
+	}
 	goto st0;
 st261:
 	if ( ++p == pe )
 		goto _test_eof261;
 case 261:
-	if ( (*p) == 32 )
+	if ( (*p) == 101 )
 		goto st262;
 	goto st0;
 st262:
 	if ( ++p == pe )
 		goto _test_eof262;
 case 262:
-	switch( (*p) ) {
-		case 32: goto st262;
-		case 95: goto tr357;
-	}
-	if ( (*p) > 90 ) {
-		if ( 97 <= (*p) && (*p) <= 122 )
-			goto tr357;
-	} else if ( (*p) >= 65 )
-		goto tr357;
+	if ( (*p) == 102 )
+		goto st263;
 	goto st0;
-tr789:
-#line 225 "lex/parser_timeline.rl"
-	{ var_name += *p; }
-	goto st660;
-tr357:
-#line 273 "lex/parser_timeline.rl"
-	{ var_name.clear(); }
-#line 225 "lex/parser_timeline.rl"
-	{ var_name += *p; }
-	goto st660;
-st660:
-	if ( ++p == pe )
-		goto _test_eof660;
-case 660:
-#line 10143 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr788;
-		case 95: goto tr789;
-	}
-	if ( (*p) < 65 ) {
-		if ( 48 <= (*p) && (*p) <= 57 )
-			goto tr789;
-	} else if ( (*p) > 90 ) {
-		if ( 97 <= (*p) && (*p) <= 122 )
-			goto tr789;
-	} else
-		goto tr789;
-	goto st0;
-tr788:
-#line 219 "lex/parser_timeline.rl"
-	{
-        TimeLineVarDef var;
-        var.name = gensym(var_name.c_str());
-        tl.var_defs.push_back(var);
-    }
-	goto st263;
-tr790:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 7 "lex/ragel_units.rl"
-	{ ragel_num.vdouble = ragel_num.vint; }
-#line 274 "lex/parser_timeline.rl"
-	{ tl.var_defs.back().def = ragel_num.getFloat(); }
-	goto st263;
-tr792:
-#line 58 "lex/ragel_numeric.rl"
-	{
-        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
-        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
-        ragel_type = TYPE_FLOAT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 274 "lex/parser_timeline.rl"
-	{ tl.var_defs.back().def = ragel_num.getFloat(); }
-	goto st263;
-tr793:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 7 "lex/ragel_units.rl"
-	{ ragel_num.vdouble = ragel_num.vint; }
-#line 275 "lex/parser_timeline.rl"
-	{ tl.var_defs.back().preset = ragel_num.getFloat(); }
-	goto st263;
-tr795:
-#line 58 "lex/ragel_numeric.rl"
-	{
-        const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
-        ragel_num.vdouble = ragel_num.vint + ragel_num.sign * frac;
-        ragel_type = TYPE_FLOAT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 275 "lex/parser_timeline.rl"
-	{ tl.var_defs.back().preset = ragel_num.getFloat(); }
-	goto st263;
 st263:
 	if ( ++p == pe )
 		goto _test_eof263;
 case 263:
-#line 10215 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto st263;
-		case 64: goto st264;
-	}
+	if ( (*p) == 97 )
+		goto st264;
 	goto st0;
 st264:
 	if ( ++p == pe )
 		goto _test_eof264;
 case 264:
-	switch( (*p) ) {
-		case 100: goto st265;
-		case 112: goto st275;
-	}
+	if ( (*p) == 117 )
+		goto st265;
 	goto st0;
 st265:
 	if ( ++p == pe )
 		goto _test_eof265;
 case 265:
-	if ( (*p) == 101 )
+	if ( (*p) == 108 )
 		goto st266;
 	goto st0;
 st266:
 	if ( ++p == pe )
 		goto _test_eof266;
 case 266:
-	if ( (*p) == 102 )
+	if ( (*p) == 116 )
 		goto st267;
 	goto st0;
 st267:
 	if ( ++p == pe )
 		goto _test_eof267;
 case 267:
-	if ( (*p) == 97 )
+	if ( (*p) == 32 )
 		goto st268;
 	goto st0;
 st268:
 	if ( ++p == pe )
 		goto _test_eof268;
 case 268:
-	if ( (*p) == 117 )
-		goto st269;
+	switch( (*p) ) {
+		case 32: goto st268;
+		case 43: goto tr363;
+		case 45: goto tr363;
+		case 48: goto tr364;
+	}
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr365;
 	goto st0;
+tr363:
+#line 21 "lex/ragel_numeric.rl"
+	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
+	goto st269;
 st269:
 	if ( ++p == pe )
 		goto _test_eof269;
 case 269:
-	if ( (*p) == 108 )
-		goto st270;
+#line 10196 "lex/parser_timeline.cpp"
+	if ( (*p) == 48 )
+		goto tr364;
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr365;
 	goto st0;
+tr364:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st657;
+st657:
+	if ( ++p == pe )
+		goto _test_eof657;
+case 657:
+#line 10210 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr784;
+		case 46: goto tr785;
+	}
+	goto st0;
+tr785:
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 50 "lex/ragel_numeric.rl"
+	{
+        ragel_num.ratio.num = 0;
+        ragel_num.ratio.den = 1;
+    }
+	goto st270;
 st270:
 	if ( ++p == pe )
 		goto _test_eof270;
 case 270:
-	if ( (*p) == 116 )
-		goto st271;
+#line 10233 "lex/parser_timeline.cpp"
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr366;
+	goto st0;
+tr366:
+#line 54 "lex/ragel_numeric.rl"
+	{
+        (ragel_num.ratio.num *= 10) += ((*p) - '0');
+        ragel_num.ratio.den *= 10;
+    }
+	goto st658;
+st658:
+	if ( ++p == pe )
+		goto _test_eof658;
+case 658:
+#line 10248 "lex/parser_timeline.cpp"
+	if ( (*p) == 32 )
+		goto tr786;
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr366;
+	goto st0;
+tr365:
+#line 29 "lex/ragel_numeric.rl"
+	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
+	goto st659;
+st659:
+	if ( ++p == pe )
+		goto _test_eof659;
+case 659:
+#line 10262 "lex/parser_timeline.cpp"
+	switch( (*p) ) {
+		case 32: goto tr784;
+		case 46: goto tr785;
+	}
+	if ( 48 <= (*p) && (*p) <= 57 )
+		goto tr365;
 	goto st0;
 st271:
 	if ( ++p == pe )
 		goto _test_eof271;
 case 271:
-	if ( (*p) == 32 )
+	if ( (*p) == 114 )
 		goto st272;
 	goto st0;
 st272:
 	if ( ++p == pe )
 		goto _test_eof272;
 case 272:
-	switch( (*p) ) {
-		case 32: goto st272;
-		case 43: goto tr369;
-		case 45: goto tr369;
-		case 48: goto tr370;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr371;
+	if ( (*p) == 101 )
+		goto st273;
 	goto st0;
-tr369:
-#line 21 "lex/ragel_numeric.rl"
-	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
-	goto st273;
 st273:
 	if ( ++p == pe )
 		goto _test_eof273;
 case 273:
-#line 10300 "lex/parser_timeline.cpp"
-	if ( (*p) == 48 )
-		goto tr370;
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr371;
+	if ( (*p) == 115 )
+		goto st274;
 	goto st0;
-tr370:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st661;
-st661:
-	if ( ++p == pe )
-		goto _test_eof661;
-case 661:
-#line 10314 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr790;
-		case 46: goto tr791;
-	}
-	goto st0;
-tr791:
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 50 "lex/ragel_numeric.rl"
-	{
-        ragel_num.ratio.num = 0;
-        ragel_num.ratio.den = 1;
-    }
-	goto st274;
 st274:
 	if ( ++p == pe )
 		goto _test_eof274;
 case 274:
-#line 10337 "lex/parser_timeline.cpp"
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr372;
-	goto st0;
-tr372:
-#line 54 "lex/ragel_numeric.rl"
-	{
-        (ragel_num.ratio.num *= 10) += ((*p) - '0');
-        ragel_num.ratio.den *= 10;
-    }
-	goto st662;
-st662:
-	if ( ++p == pe )
-		goto _test_eof662;
-case 662:
-#line 10352 "lex/parser_timeline.cpp"
-	if ( (*p) == 32 )
-		goto tr792;
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr372;
-	goto st0;
-tr371:
-#line 29 "lex/ragel_numeric.rl"
-	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st663;
-st663:
-	if ( ++p == pe )
-		goto _test_eof663;
-case 663:
-#line 10366 "lex/parser_timeline.cpp"
-	switch( (*p) ) {
-		case 32: goto tr790;
-		case 46: goto tr791;
-	}
-	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr371;
+	if ( (*p) == 101 )
+		goto st275;
 	goto st0;
 st275:
 	if ( ++p == pe )
 		goto _test_eof275;
 case 275:
-	if ( (*p) == 114 )
+	if ( (*p) == 116 )
 		goto st276;
 	goto st0;
 st276:
 	if ( ++p == pe )
 		goto _test_eof276;
 case 276:
-	if ( (*p) == 101 )
+	if ( (*p) == 32 )
 		goto st277;
 	goto st0;
 st277:
 	if ( ++p == pe )
 		goto _test_eof277;
 case 277:
-	if ( (*p) == 115 )
-		goto st278;
+	switch( (*p) ) {
+		case 32: goto st277;
+		case 43: goto tr373;
+		case 45: goto tr373;
+		case 48: goto tr374;
+	}
+	if ( 49 <= (*p) && (*p) <= 57 )
+		goto tr375;
 	goto st0;
+tr373:
+#line 21 "lex/ragel_numeric.rl"
+	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
+	goto st278;
 st278:
 	if ( ++p == pe )
 		goto _test_eof278;
 case 278:
-	if ( (*p) == 101 )
-		goto st279;
-	goto st0;
-st279:
-	if ( ++p == pe )
-		goto _test_eof279;
-case 279:
-	if ( (*p) == 116 )
-		goto st280;
-	goto st0;
-st280:
-	if ( ++p == pe )
-		goto _test_eof280;
-case 280:
-	if ( (*p) == 32 )
-		goto st281;
-	goto st0;
-st281:
-	if ( ++p == pe )
-		goto _test_eof281;
-case 281:
-	switch( (*p) ) {
-		case 32: goto st281;
-		case 43: goto tr379;
-		case 45: goto tr379;
-		case 48: goto tr380;
-	}
-	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr381;
-	goto st0;
-tr379:
-#line 21 "lex/ragel_numeric.rl"
-	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
-	goto st282;
-st282:
-	if ( ++p == pe )
-		goto _test_eof282;
-case 282:
-#line 10437 "lex/parser_timeline.cpp"
+#line 10333 "lex/parser_timeline.cpp"
 	if ( (*p) == 48 )
-		goto tr380;
+		goto tr374;
 	if ( 49 <= (*p) && (*p) <= 57 )
-		goto tr381;
+		goto tr375;
 	goto st0;
-tr380:
+tr374:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st664;
-st664:
+	goto st660;
+st660:
 	if ( ++p == pe )
-		goto _test_eof664;
-case 664:
-#line 10451 "lex/parser_timeline.cpp"
+		goto _test_eof660;
+case 660:
+#line 10347 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr793;
-		case 46: goto tr794;
+		case 32: goto tr787;
+		case 46: goto tr788;
 	}
 	goto st0;
-tr794:
+tr788:
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -10465,52 +10361,52 @@ tr794:
         ragel_num.ratio.num = 0;
         ragel_num.ratio.den = 1;
     }
-	goto st283;
-st283:
+	goto st279;
+st279:
 	if ( ++p == pe )
-		goto _test_eof283;
-case 283:
-#line 10474 "lex/parser_timeline.cpp"
+		goto _test_eof279;
+case 279:
+#line 10370 "lex/parser_timeline.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr382;
+		goto tr376;
 	goto st0;
-tr382:
+tr376:
 #line 54 "lex/ragel_numeric.rl"
 	{
         (ragel_num.ratio.num *= 10) += ((*p) - '0');
         ragel_num.ratio.den *= 10;
     }
-	goto st665;
-st665:
+	goto st661;
+st661:
 	if ( ++p == pe )
-		goto _test_eof665;
-case 665:
-#line 10489 "lex/parser_timeline.cpp"
+		goto _test_eof661;
+case 661:
+#line 10385 "lex/parser_timeline.cpp"
 	if ( (*p) == 32 )
-		goto tr795;
+		goto tr789;
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr382;
+		goto tr376;
 	goto st0;
-tr381:
+tr375:
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
-	goto st666;
-st666:
+	goto st662;
+st662:
 	if ( ++p == pe )
-		goto _test_eof666;
-case 666:
-#line 10503 "lex/parser_timeline.cpp"
+		goto _test_eof662;
+case 662:
+#line 10399 "lex/parser_timeline.cpp"
 	switch( (*p) ) {
-		case 32: goto tr793;
-		case 46: goto tr794;
+		case 32: goto tr787;
+		case 46: goto tr788;
 	}
 	if ( 48 <= (*p) && (*p) <= 57 )
-		goto tr381;
+		goto tr375;
 	goto st0;
 	}
 	_test_eof2: cs = 2; goto _test_eof; 
 	_test_eof3: cs = 3; goto _test_eof; 
-	_test_eof284: cs = 284; goto _test_eof; 
+	_test_eof280: cs = 280; goto _test_eof; 
 	_test_eof4: cs = 4; goto _test_eof; 
 	_test_eof5: cs = 5; goto _test_eof; 
 	_test_eof6: cs = 6; goto _test_eof; 
@@ -10523,8 +10419,8 @@ case 666:
 	_test_eof13: cs = 13; goto _test_eof; 
 	_test_eof14: cs = 14; goto _test_eof; 
 	_test_eof15: cs = 15; goto _test_eof; 
-	_test_eof285: cs = 285; goto _test_eof; 
-	_test_eof286: cs = 286; goto _test_eof; 
+	_test_eof281: cs = 281; goto _test_eof; 
+	_test_eof282: cs = 282; goto _test_eof; 
 	_test_eof16: cs = 16; goto _test_eof; 
 	_test_eof17: cs = 17; goto _test_eof; 
 	_test_eof18: cs = 18; goto _test_eof; 
@@ -10532,21 +10428,21 @@ case 666:
 	_test_eof20: cs = 20; goto _test_eof; 
 	_test_eof21: cs = 21; goto _test_eof; 
 	_test_eof22: cs = 22; goto _test_eof; 
-	_test_eof287: cs = 287; goto _test_eof; 
-	_test_eof288: cs = 288; goto _test_eof; 
+	_test_eof283: cs = 283; goto _test_eof; 
+	_test_eof284: cs = 284; goto _test_eof; 
 	_test_eof23: cs = 23; goto _test_eof; 
 	_test_eof24: cs = 24; goto _test_eof; 
 	_test_eof25: cs = 25; goto _test_eof; 
 	_test_eof26: cs = 26; goto _test_eof; 
 	_test_eof27: cs = 27; goto _test_eof; 
-	_test_eof289: cs = 289; goto _test_eof; 
-	_test_eof290: cs = 290; goto _test_eof; 
-	_test_eof291: cs = 291; goto _test_eof; 
+	_test_eof285: cs = 285; goto _test_eof; 
+	_test_eof286: cs = 286; goto _test_eof; 
+	_test_eof287: cs = 287; goto _test_eof; 
 	_test_eof28: cs = 28; goto _test_eof; 
-	_test_eof292: cs = 292; goto _test_eof; 
+	_test_eof288: cs = 288; goto _test_eof; 
 	_test_eof29: cs = 29; goto _test_eof; 
 	_test_eof30: cs = 30; goto _test_eof; 
-	_test_eof293: cs = 293; goto _test_eof; 
+	_test_eof289: cs = 289; goto _test_eof; 
 	_test_eof31: cs = 31; goto _test_eof; 
 	_test_eof32: cs = 32; goto _test_eof; 
 	_test_eof33: cs = 33; goto _test_eof; 
@@ -10568,20 +10464,20 @@ case 666:
 	_test_eof49: cs = 49; goto _test_eof; 
 	_test_eof50: cs = 50; goto _test_eof; 
 	_test_eof51: cs = 51; goto _test_eof; 
+	_test_eof290: cs = 290; goto _test_eof; 
 	_test_eof52: cs = 52; goto _test_eof; 
-	_test_eof294: cs = 294; goto _test_eof; 
 	_test_eof53: cs = 53; goto _test_eof; 
+	_test_eof291: cs = 291; goto _test_eof; 
+	_test_eof292: cs = 292; goto _test_eof; 
 	_test_eof54: cs = 54; goto _test_eof; 
+	_test_eof293: cs = 293; goto _test_eof; 
+	_test_eof294: cs = 294; goto _test_eof; 
+	_test_eof55: cs = 55; goto _test_eof; 
 	_test_eof295: cs = 295; goto _test_eof; 
 	_test_eof296: cs = 296; goto _test_eof; 
-	_test_eof55: cs = 55; goto _test_eof; 
-	_test_eof297: cs = 297; goto _test_eof; 
-	_test_eof298: cs = 298; goto _test_eof; 
 	_test_eof56: cs = 56; goto _test_eof; 
-	_test_eof299: cs = 299; goto _test_eof; 
-	_test_eof300: cs = 300; goto _test_eof; 
+	_test_eof297: cs = 297; goto _test_eof; 
 	_test_eof57: cs = 57; goto _test_eof; 
-	_test_eof301: cs = 301; goto _test_eof; 
 	_test_eof58: cs = 58; goto _test_eof; 
 	_test_eof59: cs = 59; goto _test_eof; 
 	_test_eof60: cs = 60; goto _test_eof; 
@@ -10595,11 +10491,11 @@ case 666:
 	_test_eof68: cs = 68; goto _test_eof; 
 	_test_eof69: cs = 69; goto _test_eof; 
 	_test_eof70: cs = 70; goto _test_eof; 
+	_test_eof298: cs = 298; goto _test_eof; 
 	_test_eof71: cs = 71; goto _test_eof; 
-	_test_eof302: cs = 302; goto _test_eof; 
+	_test_eof299: cs = 299; goto _test_eof; 
+	_test_eof300: cs = 300; goto _test_eof; 
 	_test_eof72: cs = 72; goto _test_eof; 
-	_test_eof303: cs = 303; goto _test_eof; 
-	_test_eof304: cs = 304; goto _test_eof; 
 	_test_eof73: cs = 73; goto _test_eof; 
 	_test_eof74: cs = 74; goto _test_eof; 
 	_test_eof75: cs = 75; goto _test_eof; 
@@ -10680,20 +10576,20 @@ case 666:
 	_test_eof150: cs = 150; goto _test_eof; 
 	_test_eof151: cs = 151; goto _test_eof; 
 	_test_eof152: cs = 152; goto _test_eof; 
+	_test_eof301: cs = 301; goto _test_eof; 
 	_test_eof153: cs = 153; goto _test_eof; 
-	_test_eof305: cs = 305; goto _test_eof; 
+	_test_eof302: cs = 302; goto _test_eof; 
+	_test_eof303: cs = 303; goto _test_eof; 
 	_test_eof154: cs = 154; goto _test_eof; 
-	_test_eof306: cs = 306; goto _test_eof; 
-	_test_eof307: cs = 307; goto _test_eof; 
 	_test_eof155: cs = 155; goto _test_eof; 
+	_test_eof304: cs = 304; goto _test_eof; 
 	_test_eof156: cs = 156; goto _test_eof; 
-	_test_eof308: cs = 308; goto _test_eof; 
+	_test_eof305: cs = 305; goto _test_eof; 
+	_test_eof306: cs = 306; goto _test_eof; 
 	_test_eof157: cs = 157; goto _test_eof; 
-	_test_eof309: cs = 309; goto _test_eof; 
-	_test_eof310: cs = 310; goto _test_eof; 
+	_test_eof307: cs = 307; goto _test_eof; 
+	_test_eof308: cs = 308; goto _test_eof; 
 	_test_eof158: cs = 158; goto _test_eof; 
-	_test_eof311: cs = 311; goto _test_eof; 
-	_test_eof312: cs = 312; goto _test_eof; 
 	_test_eof159: cs = 159; goto _test_eof; 
 	_test_eof160: cs = 160; goto _test_eof; 
 	_test_eof161: cs = 161; goto _test_eof; 
@@ -10703,15 +10599,15 @@ case 666:
 	_test_eof165: cs = 165; goto _test_eof; 
 	_test_eof166: cs = 166; goto _test_eof; 
 	_test_eof167: cs = 167; goto _test_eof; 
+	_test_eof309: cs = 309; goto _test_eof; 
 	_test_eof168: cs = 168; goto _test_eof; 
-	_test_eof313: cs = 313; goto _test_eof; 
 	_test_eof169: cs = 169; goto _test_eof; 
 	_test_eof170: cs = 170; goto _test_eof; 
 	_test_eof171: cs = 171; goto _test_eof; 
 	_test_eof172: cs = 172; goto _test_eof; 
 	_test_eof173: cs = 173; goto _test_eof; 
+	_test_eof310: cs = 310; goto _test_eof; 
 	_test_eof174: cs = 174; goto _test_eof; 
-	_test_eof314: cs = 314; goto _test_eof; 
 	_test_eof175: cs = 175; goto _test_eof; 
 	_test_eof176: cs = 176; goto _test_eof; 
 	_test_eof177: cs = 177; goto _test_eof; 
@@ -10729,29 +10625,29 @@ case 666:
 	_test_eof189: cs = 189; goto _test_eof; 
 	_test_eof190: cs = 190; goto _test_eof; 
 	_test_eof191: cs = 191; goto _test_eof; 
-	_test_eof315: cs = 315; goto _test_eof; 
+	_test_eof311: cs = 311; goto _test_eof; 
 	_test_eof192: cs = 192; goto _test_eof; 
+	_test_eof312: cs = 312; goto _test_eof; 
+	_test_eof313: cs = 313; goto _test_eof; 
 	_test_eof193: cs = 193; goto _test_eof; 
-	_test_eof316: cs = 316; goto _test_eof; 
-	_test_eof317: cs = 317; goto _test_eof; 
 	_test_eof194: cs = 194; goto _test_eof; 
-	_test_eof318: cs = 318; goto _test_eof; 
-	_test_eof319: cs = 319; goto _test_eof; 
+	_test_eof314: cs = 314; goto _test_eof; 
 	_test_eof195: cs = 195; goto _test_eof; 
-	_test_eof320: cs = 320; goto _test_eof; 
-	_test_eof321: cs = 321; goto _test_eof; 
 	_test_eof196: cs = 196; goto _test_eof; 
-	_test_eof322: cs = 322; goto _test_eof; 
 	_test_eof197: cs = 197; goto _test_eof; 
+	_test_eof315: cs = 315; goto _test_eof; 
 	_test_eof198: cs = 198; goto _test_eof; 
 	_test_eof199: cs = 199; goto _test_eof; 
-	_test_eof323: cs = 323; goto _test_eof; 
+	_test_eof316: cs = 316; goto _test_eof; 
+	_test_eof317: cs = 317; goto _test_eof; 
 	_test_eof200: cs = 200; goto _test_eof; 
-	_test_eof324: cs = 324; goto _test_eof; 
-	_test_eof325: cs = 325; goto _test_eof; 
+	_test_eof318: cs = 318; goto _test_eof; 
+	_test_eof319: cs = 319; goto _test_eof; 
 	_test_eof201: cs = 201; goto _test_eof; 
+	_test_eof320: cs = 320; goto _test_eof; 
+	_test_eof321: cs = 321; goto _test_eof; 
 	_test_eof202: cs = 202; goto _test_eof; 
-	_test_eof326: cs = 326; goto _test_eof; 
+	_test_eof322: cs = 322; goto _test_eof; 
 	_test_eof203: cs = 203; goto _test_eof; 
 	_test_eof204: cs = 204; goto _test_eof; 
 	_test_eof205: cs = 205; goto _test_eof; 
@@ -10761,11 +10657,11 @@ case 666:
 	_test_eof209: cs = 209; goto _test_eof; 
 	_test_eof210: cs = 210; goto _test_eof; 
 	_test_eof211: cs = 211; goto _test_eof; 
+	_test_eof323: cs = 323; goto _test_eof; 
 	_test_eof212: cs = 212; goto _test_eof; 
 	_test_eof213: cs = 213; goto _test_eof; 
 	_test_eof214: cs = 214; goto _test_eof; 
 	_test_eof215: cs = 215; goto _test_eof; 
-	_test_eof327: cs = 327; goto _test_eof; 
 	_test_eof216: cs = 216; goto _test_eof; 
 	_test_eof217: cs = 217; goto _test_eof; 
 	_test_eof218: cs = 218; goto _test_eof; 
@@ -10775,15 +10671,15 @@ case 666:
 	_test_eof222: cs = 222; goto _test_eof; 
 	_test_eof223: cs = 223; goto _test_eof; 
 	_test_eof224: cs = 224; goto _test_eof; 
+	_test_eof324: cs = 324; goto _test_eof; 
 	_test_eof225: cs = 225; goto _test_eof; 
+	_test_eof325: cs = 325; goto _test_eof; 
+	_test_eof326: cs = 326; goto _test_eof; 
+	_test_eof327: cs = 327; goto _test_eof; 
 	_test_eof226: cs = 226; goto _test_eof; 
 	_test_eof227: cs = 227; goto _test_eof; 
 	_test_eof228: cs = 228; goto _test_eof; 
-	_test_eof328: cs = 328; goto _test_eof; 
 	_test_eof229: cs = 229; goto _test_eof; 
-	_test_eof329: cs = 329; goto _test_eof; 
-	_test_eof330: cs = 330; goto _test_eof; 
-	_test_eof331: cs = 331; goto _test_eof; 
 	_test_eof230: cs = 230; goto _test_eof; 
 	_test_eof231: cs = 231; goto _test_eof; 
 	_test_eof232: cs = 232; goto _test_eof; 
@@ -10791,10 +10687,10 @@ case 666:
 	_test_eof234: cs = 234; goto _test_eof; 
 	_test_eof235: cs = 235; goto _test_eof; 
 	_test_eof236: cs = 236; goto _test_eof; 
-	_test_eof237: cs = 237; goto _test_eof; 
-	_test_eof238: cs = 238; goto _test_eof; 
-	_test_eof239: cs = 239; goto _test_eof; 
-	_test_eof240: cs = 240; goto _test_eof; 
+	_test_eof328: cs = 328; goto _test_eof; 
+	_test_eof329: cs = 329; goto _test_eof; 
+	_test_eof330: cs = 330; goto _test_eof; 
+	_test_eof331: cs = 331; goto _test_eof; 
 	_test_eof332: cs = 332; goto _test_eof; 
 	_test_eof333: cs = 333; goto _test_eof; 
 	_test_eof334: cs = 334; goto _test_eof; 
@@ -11112,40 +11008,40 @@ case 666:
 	_test_eof646: cs = 646; goto _test_eof; 
 	_test_eof647: cs = 647; goto _test_eof; 
 	_test_eof648: cs = 648; goto _test_eof; 
+	_test_eof237: cs = 237; goto _test_eof; 
+	_test_eof238: cs = 238; goto _test_eof; 
 	_test_eof649: cs = 649; goto _test_eof; 
+	_test_eof239: cs = 239; goto _test_eof; 
 	_test_eof650: cs = 650; goto _test_eof; 
-	_test_eof651: cs = 651; goto _test_eof; 
-	_test_eof652: cs = 652; goto _test_eof; 
+	_test_eof240: cs = 240; goto _test_eof; 
 	_test_eof241: cs = 241; goto _test_eof; 
 	_test_eof242: cs = 242; goto _test_eof; 
-	_test_eof653: cs = 653; goto _test_eof; 
 	_test_eof243: cs = 243; goto _test_eof; 
-	_test_eof654: cs = 654; goto _test_eof; 
 	_test_eof244: cs = 244; goto _test_eof; 
 	_test_eof245: cs = 245; goto _test_eof; 
 	_test_eof246: cs = 246; goto _test_eof; 
+	_test_eof651: cs = 651; goto _test_eof; 
+	_test_eof652: cs = 652; goto _test_eof; 
 	_test_eof247: cs = 247; goto _test_eof; 
 	_test_eof248: cs = 248; goto _test_eof; 
 	_test_eof249: cs = 249; goto _test_eof; 
 	_test_eof250: cs = 250; goto _test_eof; 
-	_test_eof655: cs = 655; goto _test_eof; 
-	_test_eof656: cs = 656; goto _test_eof; 
 	_test_eof251: cs = 251; goto _test_eof; 
+	_test_eof653: cs = 653; goto _test_eof; 
+	_test_eof654: cs = 654; goto _test_eof; 
 	_test_eof252: cs = 252; goto _test_eof; 
+	_test_eof655: cs = 655; goto _test_eof; 
 	_test_eof253: cs = 253; goto _test_eof; 
 	_test_eof254: cs = 254; goto _test_eof; 
 	_test_eof255: cs = 255; goto _test_eof; 
-	_test_eof657: cs = 657; goto _test_eof; 
-	_test_eof658: cs = 658; goto _test_eof; 
 	_test_eof256: cs = 256; goto _test_eof; 
-	_test_eof659: cs = 659; goto _test_eof; 
 	_test_eof257: cs = 257; goto _test_eof; 
 	_test_eof258: cs = 258; goto _test_eof; 
+	_test_eof656: cs = 656; goto _test_eof; 
 	_test_eof259: cs = 259; goto _test_eof; 
 	_test_eof260: cs = 260; goto _test_eof; 
 	_test_eof261: cs = 261; goto _test_eof; 
 	_test_eof262: cs = 262; goto _test_eof; 
-	_test_eof660: cs = 660; goto _test_eof; 
 	_test_eof263: cs = 263; goto _test_eof; 
 	_test_eof264: cs = 264; goto _test_eof; 
 	_test_eof265: cs = 265; goto _test_eof; 
@@ -11153,45 +11049,41 @@ case 666:
 	_test_eof267: cs = 267; goto _test_eof; 
 	_test_eof268: cs = 268; goto _test_eof; 
 	_test_eof269: cs = 269; goto _test_eof; 
+	_test_eof657: cs = 657; goto _test_eof; 
 	_test_eof270: cs = 270; goto _test_eof; 
+	_test_eof658: cs = 658; goto _test_eof; 
+	_test_eof659: cs = 659; goto _test_eof; 
 	_test_eof271: cs = 271; goto _test_eof; 
 	_test_eof272: cs = 272; goto _test_eof; 
 	_test_eof273: cs = 273; goto _test_eof; 
-	_test_eof661: cs = 661; goto _test_eof; 
 	_test_eof274: cs = 274; goto _test_eof; 
-	_test_eof662: cs = 662; goto _test_eof; 
-	_test_eof663: cs = 663; goto _test_eof; 
 	_test_eof275: cs = 275; goto _test_eof; 
 	_test_eof276: cs = 276; goto _test_eof; 
 	_test_eof277: cs = 277; goto _test_eof; 
 	_test_eof278: cs = 278; goto _test_eof; 
+	_test_eof660: cs = 660; goto _test_eof; 
 	_test_eof279: cs = 279; goto _test_eof; 
-	_test_eof280: cs = 280; goto _test_eof; 
-	_test_eof281: cs = 281; goto _test_eof; 
-	_test_eof282: cs = 282; goto _test_eof; 
-	_test_eof664: cs = 664; goto _test_eof; 
-	_test_eof283: cs = 283; goto _test_eof; 
-	_test_eof665: cs = 665; goto _test_eof; 
-	_test_eof666: cs = 666; goto _test_eof; 
+	_test_eof661: cs = 661; goto _test_eof; 
+	_test_eof662: cs = 662; goto _test_eof; 
 
 	_test_eof: {}
 	if ( p == eof )
 	{
 	switch ( cs ) {
-	case 305: 
+	case 301: 
+	case 302: 
+	case 303: 
+	case 304: 
 	case 306: 
 	case 307: 
 	case 308: 
-	case 310: 
-	case 311: 
-	case 312: 
 #line 10 "lex/ragel_music.rl"
 	{ ragel_cat = CAT_UNIT; ragel_type = TYPE_BPM; }
 	break;
-	case 328: 
-	case 329: 
-	case 330: 
-	case 331: 
+	case 324: 
+	case 325: 
+	case 326: 
+	case 327: 
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -11199,7 +11091,7 @@ case 666:
         ragel_cat  = CAT_NUMBER;
     }
 	break;
-	case 303: 
+	case 299: 
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -11208,14 +11100,18 @@ case 666:
         ragel_cat  = CAT_NUMBER;
     }
 	break;
-	case 327: 
-#line 117 "lex/parser_timeline.rl"
+	case 323: 
+#line 118 "lex/parser_timeline.rl"
 	{ fsm.onEventIdDone(); tl.addEvent(fsm.event_id); }
 	break;
-	case 654: 
-#line 119 "lex/parser_timeline.rl"
+	case 650: 
+#line 120 "lex/parser_timeline.rl"
 	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
 	break;
+	case 329: 
+	case 330: 
+	case 331: 
+	case 332: 
 	case 333: 
 	case 334: 
 	case 335: 
@@ -11226,11 +11122,11 @@ case 666:
 	case 340: 
 	case 341: 
 	case 342: 
-	case 343: 
 	case 344: 
-	case 345: 
-	case 346: 
 	case 348: 
+	case 349: 
+	case 350: 
+	case 351: 
 	case 352: 
 	case 353: 
 	case 354: 
@@ -11251,85 +11147,85 @@ case 666:
 	case 369: 
 	case 370: 
 	case 371: 
-	case 372: 
 	case 373: 
-	case 374: 
-	case 375: 
 	case 377: 
+	case 378: 
+	case 379: 
+	case 380: 
 	case 381: 
 	case 382: 
 	case 383: 
 	case 384: 
 	case 385: 
-	case 386: 
-	case 387: 
-	case 388: 
-	case 389: 
+	case 503: 
+	case 504: 
+	case 505: 
+	case 506: 
 	case 507: 
 	case 508: 
 	case 509: 
-	case 510: 
-	case 511: 
 	case 512: 
 	case 513: 
+	case 514: 
+	case 515: 
 	case 516: 
-	case 517: 
-	case 518: 
-	case 519: 
-	case 520: 
+	case 624: 
+	case 626: 
+	case 627: 
 	case 628: 
 	case 630: 
 	case 631: 
 	case 632: 
+	case 633: 
 	case 634: 
 	case 635: 
 	case 636: 
-	case 637: 
-	case 638: 
 	case 639: 
 	case 640: 
+	case 641: 
+	case 642: 
 	case 643: 
-	case 644: 
 	case 645: 
-	case 646: 
 	case 647: 
-	case 649: 
-	case 651: 
-	case 652: 
-#line 121 "lex/parser_timeline.rl"
+	case 648: 
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
 	break;
-	case 293: 
-#line 123 "lex/parser_timeline.rl"
-	{ fsm.onEventIdDone(); tl.addEventAt(fsm.event_id, event_time.time); event_time.reset(); }
+	case 289: 
+#line 125 "lex/parser_timeline.rl"
+	{
+        fsm.onEventIdDone();
+        tl.addEventAt(fsm.event_id, event_time.time, event_time.relative);
+        event_time.reset();
+    }
 	break;
-	case 285: 
-#line 134 "lex/parser_timeline.rl"
+	case 281: 
+#line 140 "lex/parser_timeline.rl"
 	{
         auto x = fsm.genAnonEventName();
         tl.addEvent(x);
         fsm.act_out.args = fsm.args;
         tl.addEventAction(x, fsm.act_out);
-        tl.addEventAt(x, event_time.time);
+        tl.addEventAt(x, event_time.time, event_time.relative);
         event_time.reset();
     }
 	break;
-	case 660: 
-#line 219 "lex/parser_timeline.rl"
+	case 656: 
+#line 225 "lex/parser_timeline.rl"
 	{
         TimeLineVarDef var;
         var.name = gensym(var_name.c_str());
         tl.var_defs.push_back(var);
     }
 	break;
-	case 309: 
+	case 305: 
 #line 24 "lex/ragel_music.rl"
 	{bpm.dur_num = 1;}
 #line 10 "lex/ragel_music.rl"
 	{ ragel_cat = CAT_UNIT; ragel_type = TYPE_BPM; }
 	break;
-	case 302: 
-	case 304: 
+	case 298: 
+	case 300: 
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -11339,20 +11235,20 @@ case 666:
 #line 7 "lex/ragel_units.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
 	break;
+	case 343: 
+	case 345: 
+	case 346: 
 	case 347: 
-	case 349: 
-	case 350: 
-	case 351: 
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 121 "lex/parser_timeline.rl"
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
 	break;
-	case 662: 
+	case 658: 
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -11360,10 +11256,10 @@ case 666:
         ragel_type = TYPE_FLOAT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 274 "lex/parser_timeline.rl"
+#line 280 "lex/parser_timeline.rl"
 	{ tl.var_defs.back().def = ragel_num.getFloat(); }
 	break;
-	case 665: 
+	case 661: 
 #line 58 "lex/ragel_numeric.rl"
 	{
         const auto frac = double(ragel_num.ratio.num) / ragel_num.ratio.den;
@@ -11371,14 +11267,46 @@ case 666:
         ragel_type = TYPE_FLOAT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 275 "lex/parser_timeline.rl"
+#line 281 "lex/parser_timeline.rl"
 	{ tl.var_defs.back().preset = ragel_num.getFloat(); }
+	break;
+	case 290: 
+	case 291: 
+#line 17 "lex/ragel_units.rl"
+	{ragel_type = TYPE_HOUR;}
+#line 101 "lex/parser_timeline.rl"
+	{
+        switch(ragel_type) {
+        case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
+        case TYPE_SEC:   fsm.time_unit = ragel_num.getFloat() * 1000; break;
+        case TYPE_MIN:   fsm.time_unit = ragel_num.getFloat() * 60000; break;
+        case TYPE_HOUR:  fsm.time_unit = ragel_num.getFloat() * 3600000; break;
+        default:
+        break;
+        }
+    }
+	break;
+	case 292: 
+	case 293: 
+#line 18 "lex/ragel_units.rl"
+	{ragel_type = TYPE_MIN;}
+#line 101 "lex/parser_timeline.rl"
+	{
+        switch(ragel_type) {
+        case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
+        case TYPE_SEC:   fsm.time_unit = ragel_num.getFloat() * 1000; break;
+        case TYPE_MIN:   fsm.time_unit = ragel_num.getFloat() * 60000; break;
+        case TYPE_HOUR:  fsm.time_unit = ragel_num.getFloat() * 3600000; break;
+        default:
+        break;
+        }
+    }
 	break;
 	case 294: 
 	case 295: 
-#line 17 "lex/ragel_units.rl"
-	{ragel_type = TYPE_HOUR;}
-#line 100 "lex/parser_timeline.rl"
+#line 19 "lex/ragel_units.rl"
+	{ragel_type = TYPE_MSEC;}
+#line 101 "lex/parser_timeline.rl"
 	{
         switch(ragel_type) {
         case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
@@ -11392,41 +11320,9 @@ case 666:
 	break;
 	case 296: 
 	case 297: 
-#line 18 "lex/ragel_units.rl"
-	{ragel_type = TYPE_MIN;}
-#line 100 "lex/parser_timeline.rl"
-	{
-        switch(ragel_type) {
-        case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
-        case TYPE_SEC:   fsm.time_unit = ragel_num.getFloat() * 1000; break;
-        case TYPE_MIN:   fsm.time_unit = ragel_num.getFloat() * 60000; break;
-        case TYPE_HOUR:  fsm.time_unit = ragel_num.getFloat() * 3600000; break;
-        default:
-        break;
-        }
-    }
-	break;
-	case 298: 
-	case 299: 
-#line 19 "lex/ragel_units.rl"
-	{ragel_type = TYPE_MSEC;}
-#line 100 "lex/parser_timeline.rl"
-	{
-        switch(ragel_type) {
-        case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
-        case TYPE_SEC:   fsm.time_unit = ragel_num.getFloat() * 1000; break;
-        case TYPE_MIN:   fsm.time_unit = ragel_num.getFloat() * 60000; break;
-        case TYPE_HOUR:  fsm.time_unit = ragel_num.getFloat() * 3600000; break;
-        default:
-        break;
-        }
-    }
-	break;
-	case 300: 
-	case 301: 
 #line 22 "lex/ragel_units.rl"
 	{ragel_type = TYPE_SEC;}
-#line 100 "lex/parser_timeline.rl"
+#line 101 "lex/parser_timeline.rl"
 	{
         switch(ragel_type) {
         case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
@@ -11438,47 +11334,47 @@ case 666:
         }
     }
 	break;
-	case 313: 
-#line 113 "lex/parser_timeline.rl"
+	case 309: 
+#line 114 "lex/parser_timeline.rl"
 	{ fsm.onTimeInfDone(); }
-#line 329 "lex/parser_timeline.rl"
+#line 336 "lex/parser_timeline.rl"
 	{ tl.duration = fsm.time_unit; }
 	break;
-	case 390: 
-	case 633: 
-#line 119 "lex/parser_timeline.rl"
+	case 386: 
+	case 629: 
+#line 120 "lex/parser_timeline.rl"
 	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 121 "lex/parser_timeline.rl"
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
 	break;
-	case 657: 
-	case 658: 
-	case 659: 
-#line 120 "lex/parser_timeline.rl"
+	case 653: 
+	case 654: 
+	case 655: 
+#line 121 "lex/parser_timeline.rl"
 	{ fsm.onSendTarget(); }
-#line 118 "lex/parser_timeline.rl"
+#line 119 "lex/parser_timeline.rl"
 	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 	break;
-	case 289: 
-	case 291: 
-	case 292: 
-#line 120 "lex/parser_timeline.rl"
+	case 285: 
+	case 287: 
+	case 288: 
+#line 121 "lex/parser_timeline.rl"
 	{ fsm.onSendTarget(); }
-#line 125 "lex/parser_timeline.rl"
+#line 131 "lex/parser_timeline.rl"
 	{
         auto x = fsm.genAnonEventName();
         tl.addEvent(x);
         fsm.act_send.args = fsm.args;
         tl.addEventAction(x, fsm.act_send);
-        tl.addEventAt(x, event_time.time);
+        tl.addEventAt(x, event_time.time, event_time.relative);
         event_time.reset();
     }
 	break;
+	case 372: 
+	case 374: 
+	case 375: 
 	case 376: 
-	case 378: 
-	case 379: 
-	case 380: 
-#line 121 "lex/parser_timeline.rl"
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
 #line 30 "lex/ragel_numeric.rl"
 	{
@@ -11487,6 +11383,10 @@ case 666:
         ragel_cat  = CAT_NUMBER;
     }
 	break;
+	case 518: 
+	case 519: 
+	case 520: 
+	case 521: 
 	case 522: 
 	case 523: 
 	case 524: 
@@ -11497,40 +11397,40 @@ case 666:
 	case 529: 
 	case 530: 
 	case 531: 
-	case 532: 
 	case 533: 
-	case 534: 
-	case 535: 
 	case 537: 
+	case 538: 
+	case 539: 
+	case 540: 
 	case 541: 
 	case 542: 
 	case 543: 
 	case 544: 
 	case 545: 
-	case 546: 
 	case 547: 
 	case 548: 
 	case 549: 
+	case 550: 
 	case 551: 
 	case 552: 
 	case 553: 
-	case 554: 
-	case 555: 
 	case 556: 
 	case 557: 
+	case 558: 
+	case 559: 
 	case 560: 
-	case 561: 
-	case 562: 
-	case 563: 
-	case 564: 
-	case 595: 
-	case 597: 
-	case 598: 
-#line 121 "lex/parser_timeline.rl"
+	case 591: 
+	case 593: 
+	case 594: 
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
+#line 119 "lex/parser_timeline.rl"
 	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 	break;
+	case 387: 
+	case 388: 
+	case 389: 
+	case 390: 
 	case 391: 
 	case 392: 
 	case 393: 
@@ -11541,11 +11441,11 @@ case 666:
 	case 398: 
 	case 399: 
 	case 400: 
-	case 401: 
 	case 402: 
-	case 403: 
-	case 404: 
 	case 406: 
+	case 407: 
+	case 408: 
+	case 409: 
 	case 410: 
 	case 411: 
 	case 412: 
@@ -11556,51 +11456,47 @@ case 666:
 	case 417: 
 	case 418: 
 	case 419: 
-	case 420: 
-	case 421: 
 	case 422: 
 	case 423: 
+	case 424: 
+	case 425: 
 	case 426: 
-	case 427: 
-	case 428: 
-	case 429: 
-	case 430: 
-	case 503: 
-	case 505: 
-	case 506: 
-#line 121 "lex/parser_timeline.rl"
+	case 499: 
+	case 501: 
+	case 502: 
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
+#line 120 "lex/parser_timeline.rl"
 	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
 	break;
-	case 290: 
-#line 121 "lex/parser_timeline.rl"
+	case 286: 
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
-#line 125 "lex/parser_timeline.rl"
+#line 131 "lex/parser_timeline.rl"
 	{
         auto x = fsm.genAnonEventName();
         tl.addEvent(x);
         fsm.act_send.args = fsm.args;
         tl.addEventAction(x, fsm.act_send);
-        tl.addEventAt(x, event_time.time);
+        tl.addEventAt(x, event_time.time, event_time.relative);
         event_time.reset();
     }
 	break;
-	case 286: 
-#line 121 "lex/parser_timeline.rl"
+	case 282: 
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
-#line 134 "lex/parser_timeline.rl"
+#line 140 "lex/parser_timeline.rl"
 	{
         auto x = fsm.genAnonEventName();
         tl.addEvent(x);
         fsm.act_out.args = fsm.args;
         tl.addEventAction(x, fsm.act_out);
-        tl.addEventAt(x, event_time.time);
+        tl.addEventAt(x, event_time.time, event_time.relative);
         event_time.reset();
     }
 	break;
-	case 314: 
-#line 207 "lex/parser_timeline.rl"
+	case 310: 
+#line 213 "lex/parser_timeline.rl"
 	{
         if (bar.inf) {
             tl.duration = std::numeric_limits<t_float>::max();
@@ -11612,11 +11508,11 @@ case 666:
             tl.bars.push_back(b);
         }
     }
-#line 327 "lex/parser_timeline.rl"
+#line 334 "lex/parser_timeline.rl"
 	{ if(!bar.inf) tl.calcBarDuration(); }
 	break;
-	case 661: 
-	case 663: 
+	case 657: 
+	case 659: 
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -11625,11 +11521,11 @@ case 666:
     }
 #line 7 "lex/ragel_units.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
-#line 274 "lex/parser_timeline.rl"
+#line 280 "lex/parser_timeline.rl"
 	{ tl.var_defs.back().def = ragel_num.getFloat(); }
 	break;
-	case 664: 
-	case 666: 
+	case 660: 
+	case 662: 
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
@@ -11638,38 +11534,38 @@ case 666:
     }
 #line 7 "lex/ragel_units.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
-#line 275 "lex/parser_timeline.rl"
+#line 281 "lex/parser_timeline.rl"
 	{ tl.var_defs.back().preset = ragel_num.getFloat(); }
 	break;
-	case 655: 
-	case 656: 
+	case 651: 
+	case 652: 
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 255 "lex/parser_timeline.rl"
+#line 261 "lex/parser_timeline.rl"
 	{ fsm.act_preset.idx = ragel_num.vint; }
-#line 122 "lex/parser_timeline.rl"
+#line 123 "lex/parser_timeline.rl"
 	{ tl.addEventAction(fsm.event_id, fsm.act_preset); }
 	break;
-	case 287: 
-	case 288: 
+	case 283: 
+	case 284: 
 #line 30 "lex/ragel_numeric.rl"
 	{
         ragel_num.vint *= ragel_num.sign;
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 255 "lex/parser_timeline.rl"
+#line 261 "lex/parser_timeline.rl"
 	{ fsm.act_preset.idx = ragel_num.vint; }
-#line 143 "lex/parser_timeline.rl"
+#line 149 "lex/parser_timeline.rl"
 	{
         auto x = fsm.genAnonEventName();
         tl.addEvent(x);
         tl.addEventAction(x, fsm.act_preset);
-        tl.addEventAt(x, event_time.time);
+        tl.addEventAt(x, event_time.time, event_time.relative);
         event_time.reset();
     }
 	break;
@@ -11677,7 +11573,7 @@ case 666:
 	case 316: 
 #line 17 "lex/ragel_units.rl"
 	{ragel_type = TYPE_HOUR;}
-#line 100 "lex/parser_timeline.rl"
+#line 101 "lex/parser_timeline.rl"
 	{
         switch(ragel_type) {
         case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
@@ -11688,14 +11584,14 @@ case 666:
         break;
         }
     }
-#line 329 "lex/parser_timeline.rl"
+#line 336 "lex/parser_timeline.rl"
 	{ tl.duration = fsm.time_unit; }
 	break;
 	case 317: 
 	case 318: 
 #line 18 "lex/ragel_units.rl"
 	{ragel_type = TYPE_MIN;}
-#line 100 "lex/parser_timeline.rl"
+#line 101 "lex/parser_timeline.rl"
 	{
         switch(ragel_type) {
         case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
@@ -11706,14 +11602,14 @@ case 666:
         break;
         }
     }
-#line 329 "lex/parser_timeline.rl"
+#line 336 "lex/parser_timeline.rl"
 	{ tl.duration = fsm.time_unit; }
 	break;
 	case 319: 
 	case 320: 
 #line 19 "lex/ragel_units.rl"
 	{ragel_type = TYPE_MSEC;}
-#line 100 "lex/parser_timeline.rl"
+#line 101 "lex/parser_timeline.rl"
 	{
         switch(ragel_type) {
         case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
@@ -11724,14 +11620,14 @@ case 666:
         break;
         }
     }
-#line 329 "lex/parser_timeline.rl"
+#line 336 "lex/parser_timeline.rl"
 	{ tl.duration = fsm.time_unit; }
 	break;
 	case 321: 
 	case 322: 
 #line 22 "lex/ragel_units.rl"
 	{ragel_type = TYPE_SEC;}
-#line 100 "lex/parser_timeline.rl"
+#line 101 "lex/parser_timeline.rl"
 	{
         switch(ragel_type) {
         case TYPE_MSEC:  fsm.time_unit = ragel_num.getFloat();   break;
@@ -11742,14 +11638,14 @@ case 666:
         break;
         }
     }
-#line 329 "lex/parser_timeline.rl"
+#line 336 "lex/parser_timeline.rl"
 	{ tl.duration = fsm.time_unit; }
 	break;
-	case 323: 
-	case 324: 
-	case 325: 
-	case 326: 
-#line 52 "lex/ragel_units.rl"
+	case 311: 
+	case 312: 
+	case 313: 
+	case 314: 
+#line 53 "lex/ragel_units.rl"
 	{
     ragel_type = TYPE_SMPTE;
     smpte.hour *= smpte.sign;
@@ -11763,20 +11659,24 @@ case 666:
         smpte.hour = 0;
     }
 }
-#line 111 "lex/parser_timeline.rl"
+#line 112 "lex/parser_timeline.rl"
 	{ fsm.onTimeSmpteDone(smpte); }
-#line 329 "lex/parser_timeline.rl"
+#line 336 "lex/parser_timeline.rl"
 	{ tl.duration = fsm.time_unit; }
 	break;
-	case 550: 
-#line 119 "lex/parser_timeline.rl"
+	case 546: 
+#line 120 "lex/parser_timeline.rl"
 	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 121 "lex/parser_timeline.rl"
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
+#line 119 "lex/parser_timeline.rl"
 	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 	break;
-	case 521: 
+	case 517: 
+	case 595: 
+	case 596: 
+	case 597: 
+	case 598: 
 	case 599: 
 	case 600: 
 	case 601: 
@@ -11790,10 +11690,10 @@ case 666:
 	case 609: 
 	case 610: 
 	case 611: 
-	case 612: 
 	case 613: 
 	case 614: 
 	case 615: 
+	case 616: 
 	case 617: 
 	case 618: 
 	case 619: 
@@ -11801,20 +11701,20 @@ case 666:
 	case 621: 
 	case 622: 
 	case 623: 
-	case 624: 
 	case 625: 
-	case 626: 
-	case 627: 
-	case 629: 
-	case 648: 
-	case 650: 
-#line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+	case 644: 
+	case 646: 
 #line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
 	break;
+	case 561: 
+	case 562: 
+	case 563: 
+	case 564: 
 	case 565: 
 	case 566: 
 	case 567: 
@@ -11829,10 +11729,10 @@ case 666:
 	case 576: 
 	case 577: 
 	case 578: 
-	case 579: 
 	case 580: 
 	case 581: 
 	case 582: 
+	case 583: 
 	case 584: 
 	case 585: 
 	case 586: 
@@ -11840,25 +11740,21 @@ case 666:
 	case 588: 
 	case 589: 
 	case 590: 
-	case 591: 
 	case 592: 
-	case 593: 
-	case 594: 
-	case 596: 
-#line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
 #line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
+#line 119 "lex/parser_timeline.rl"
 	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 	break;
+	case 532: 
+	case 534: 
+	case 535: 
 	case 536: 
-	case 538: 
-	case 539: 
-	case 540: 
-#line 121 "lex/parser_timeline.rl"
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
+#line 119 "lex/parser_timeline.rl"
 	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 #line 30 "lex/ragel_numeric.rl"
 	{
@@ -11867,13 +11763,13 @@ case 666:
         ragel_cat  = CAT_NUMBER;
     }
 	break;
+	case 401: 
+	case 403: 
+	case 404: 
 	case 405: 
-	case 407: 
-	case 408: 
-	case 409: 
-#line 121 "lex/parser_timeline.rl"
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
+#line 120 "lex/parser_timeline.rl"
 	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
 #line 30 "lex/ragel_numeric.rl"
 	{
@@ -11882,6 +11778,10 @@ case 666:
         ragel_cat  = CAT_NUMBER;
     }
 	break;
+	case 428: 
+	case 429: 
+	case 430: 
+	case 431: 
 	case 432: 
 	case 433: 
 	case 434: 
@@ -11892,11 +11792,11 @@ case 666:
 	case 439: 
 	case 440: 
 	case 441: 
-	case 442: 
 	case 443: 
-	case 444: 
-	case 445: 
 	case 447: 
+	case 448: 
+	case 449: 
+	case 450: 
 	case 451: 
 	case 452: 
 	case 453: 
@@ -11907,80 +11807,80 @@ case 666:
 	case 458: 
 	case 459: 
 	case 460: 
-	case 461: 
-	case 462: 
 	case 463: 
 	case 464: 
+	case 465: 
+	case 466: 
 	case 467: 
+	case 494: 
+	case 496: 
+	case 497: 
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+	break;
+	case 510: 
+	case 511: 
+	case 637: 
+	case 638: 
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+#line 261 "lex/parser_timeline.rl"
+	{ fsm.act_preset.idx = ragel_num.vint; }
+#line 123 "lex/parser_timeline.rl"
+	{ tl.addEventAction(fsm.event_id, fsm.act_preset); }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+	break;
+	case 612: 
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+	break;
+	case 579: 
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 121 "lex/parser_timeline.rl"
+	{ fsm.onSendTarget(); }
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+	break;
+	case 442: 
+	case 444: 
+	case 445: 
+	case 446: 
+#line 122 "lex/parser_timeline.rl"
+	{ fsm.onArgsDone(); }
+#line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 119 "lex/parser_timeline.rl"
+	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
+#line 30 "lex/ragel_numeric.rl"
+	{
+        ragel_num.vint *= ragel_num.sign;
+        ragel_type = TYPE_INT;
+        ragel_cat  = CAT_NUMBER;
+    }
+	break;
+	case 427: 
 	case 468: 
 	case 469: 
 	case 470: 
 	case 471: 
-	case 498: 
-	case 500: 
-	case 501: 
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-	break;
-	case 514: 
-	case 515: 
-	case 641: 
-	case 642: 
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-#line 255 "lex/parser_timeline.rl"
-	{ fsm.act_preset.idx = ragel_num.vint; }
-#line 122 "lex/parser_timeline.rl"
-	{ tl.addEventAction(fsm.event_id, fsm.act_preset); }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-	break;
-	case 616: 
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-	break;
-	case 583: 
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 120 "lex/parser_timeline.rl"
-	{ fsm.onSendTarget(); }
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-	break;
-	case 446: 
-	case 448: 
-	case 449: 
-	case 450: 
-#line 121 "lex/parser_timeline.rl"
-	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 118 "lex/parser_timeline.rl"
-	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
-#line 30 "lex/ragel_numeric.rl"
-	{
-        ragel_num.vint *= ragel_num.sign;
-        ragel_type = TYPE_INT;
-        ragel_cat  = CAT_NUMBER;
-    }
-	break;
-	case 431: 
 	case 472: 
 	case 473: 
 	case 474: 
@@ -12003,27 +11903,23 @@ case 666:
 	case 491: 
 	case 492: 
 	case 493: 
-	case 494: 
 	case 495: 
-	case 496: 
-	case 497: 
-	case 499: 
-	case 502: 
-	case 504: 
-#line 121 "lex/parser_timeline.rl"
+	case 498: 
+	case 500: 
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
-	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
 #line 120 "lex/parser_timeline.rl"
+	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
+#line 121 "lex/parser_timeline.rl"
 	{ fsm.onSendTarget(); }
-#line 118 "lex/parser_timeline.rl"
+#line 119 "lex/parser_timeline.rl"
 	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 	break;
-	case 558: 
-	case 559: 
-#line 121 "lex/parser_timeline.rl"
+	case 554: 
+	case 555: 
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
-#line 118 "lex/parser_timeline.rl"
+#line 119 "lex/parser_timeline.rl"
 	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 #line 30 "lex/ragel_numeric.rl"
 	{
@@ -12031,16 +11927,16 @@ case 666:
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 255 "lex/parser_timeline.rl"
+#line 261 "lex/parser_timeline.rl"
 	{ fsm.act_preset.idx = ragel_num.vint; }
-#line 122 "lex/parser_timeline.rl"
+#line 123 "lex/parser_timeline.rl"
 	{ tl.addEventAction(fsm.event_id, fsm.act_preset); }
 	break;
-	case 424: 
-	case 425: 
-#line 121 "lex/parser_timeline.rl"
+	case 420: 
+	case 421: 
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
+#line 120 "lex/parser_timeline.rl"
 	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
 #line 30 "lex/ragel_numeric.rl"
 	{
@@ -12048,18 +11944,18 @@ case 666:
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 255 "lex/parser_timeline.rl"
+#line 261 "lex/parser_timeline.rl"
 	{ fsm.act_preset.idx = ragel_num.vint; }
-#line 122 "lex/parser_timeline.rl"
+#line 123 "lex/parser_timeline.rl"
 	{ tl.addEventAction(fsm.event_id, fsm.act_preset); }
 	break;
-	case 465: 
-	case 466: 
-#line 121 "lex/parser_timeline.rl"
+	case 461: 
+	case 462: 
+#line 122 "lex/parser_timeline.rl"
 	{ fsm.onArgsDone(); }
-#line 119 "lex/parser_timeline.rl"
+#line 120 "lex/parser_timeline.rl"
 	{ fsm.act_out.args = fsm.args;  tl.addEventAction(fsm.event_id, fsm.act_out); }
-#line 118 "lex/parser_timeline.rl"
+#line 119 "lex/parser_timeline.rl"
 	{ fsm.act_send.args = fsm.args; tl.addEventAction(fsm.event_id, fsm.act_send); }
 #line 30 "lex/ragel_numeric.rl"
 	{
@@ -12067,21 +11963,21 @@ case 666:
         ragel_type = TYPE_INT;
         ragel_cat  = CAT_NUMBER;
     }
-#line 255 "lex/parser_timeline.rl"
+#line 261 "lex/parser_timeline.rl"
 	{ fsm.act_preset.idx = ragel_num.vint; }
-#line 122 "lex/parser_timeline.rl"
+#line 123 "lex/parser_timeline.rl"
 	{ tl.addEventAction(fsm.event_id, fsm.act_preset); }
 	break;
-#line 12076 "lex/parser_timeline.cpp"
+#line 11972 "lex/parser_timeline.cpp"
 	}
 	}
 
 	_out: {}
 	}
 
-#line 365 "lex/parser_timeline.rl"
+#line 372 "lex/parser_timeline.rl"
 
-    const bool ok = cs >= 284;
+    const bool ok = cs >= 280;
 
     if (ok) {
 

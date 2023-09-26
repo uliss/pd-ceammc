@@ -46,7 +46,8 @@ unit_suffixes =
     )
     ;
 
-unit_float = num_float | (num_int %unit_int_done);
+unit_float  = num_float  | (num_int %unit_int_done);
+unit_ufloat = num_ufloat | (num_uint %unit_int_done);
 unit_with_suffix = unit_float '_'? unit_suffixes?;
 
 action smpte_done {

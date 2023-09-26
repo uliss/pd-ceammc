@@ -37,6 +37,7 @@ struct RagelEventTime {
     t_symbol* rel_event {&s_};
     int bar  {-1};
     int beat {0};
+    bool relative {false};
 
     void reset() { *this = RagelEventTime{}; }
 };
@@ -120,14 +121,19 @@ struct FSM {
     action event_send_target  { fsm.onSendTarget(); }
     action event_args_done    { fsm.onArgsDone(); }
     action event_preset_done  { tl.addEventAction(fsm.event_id, fsm.act_preset); }
-    action event_add_call     { fsm.onEventIdDone(); tl.addEventAt(fsm.event_id, event_time.time); event_time.reset(); }
+
+    action event_add_call     {
+        fsm.onEventIdDone();
+        tl.addEventAt(fsm.event_id, event_time.time, event_time.relative);
+        event_time.reset();
+    }
 
     action event_add_anon_send {
         auto x = fsm.genAnonEventName();
         tl.addEvent(x);
         fsm.act_send.args = fsm.args;
         tl.addEventAction(x, fsm.act_send);
-        tl.addEventAt(x, event_time.time);
+        tl.addEventAt(x, event_time.time, event_time.relative);
         event_time.reset();
     }
 
@@ -136,7 +142,7 @@ struct FSM {
         tl.addEvent(x);
         fsm.act_out.args = fsm.args;
         tl.addEventAction(x, fsm.act_out);
-        tl.addEventAt(x, event_time.time);
+        tl.addEventAt(x, event_time.time, event_time.relative);
         event_time.reset();
     }
 
@@ -144,7 +150,7 @@ struct FSM {
         auto x = fsm.genAnonEventName();
         tl.addEvent(x);
         tl.addEventAction(x, fsm.act_preset);
-        tl.addEventAt(x, event_time.time);
+        tl.addEventAt(x, event_time.time, event_time.relative);
         event_time.reset();
     }
 
@@ -231,7 +237,7 @@ struct FSM {
 
     # time values
     time_suffix = unit_min | unit_msec | unit_sec | unit_hour;
-    time_unit   = (unit_float time_suffix) %time_unit_done;
+    time_unit   = (unit_ufloat time_suffix) %time_unit_done;
     time_smpte  = units_smpte              %time_smpte_done;
     time_inf    = '*'                      %time_inf_done;
     time_value  = time_unit | time_smpte;
@@ -287,7 +293,8 @@ struct FSM {
     event_time_rel_event = '#' event_id  %event_time_rel_event_id
                             (event_time_rel_sign time_unit %event_time_rel_time_done)?;
 
-    event_time           = time_value           %event_time_abs_event_done
+    event_time_rel_last = '+' %{ event_time.relative = true; };
+    event_time           = event_time_rel_last? time_value      %event_time_abs_event_done
                          | event_time_rel_bar   %event_time_rel_bar_done
                          | event_time_rel_event %event_time_rel_event_done
                          ;

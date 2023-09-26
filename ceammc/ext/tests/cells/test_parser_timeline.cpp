@@ -45,7 +45,9 @@ TEST_CASE("parser_timeline", "[ceammc::ceammc_units]")
         REQUIRE(tl.duration == 90000);
         REQUIRE(parse_timelime("duration 0.25m", tl));
         REQUIRE(tl.duration == 15000);
-        REQUIRE(parse_timelime("duration +0.125m", tl));
+        REQUIRE_FALSE(parse_timelime("duration +0.125m", tl));
+        REQUIRE_FALSE(parse_timelime("duration -0.125m", tl));
+        REQUIRE(parse_timelime("duration 0.125m", tl));
         REQUIRE(tl.duration == 7500);
         REQUIRE(parse_timelime("duration 0.5h", tl));
         REQUIRE(tl.duration == 1800000);
@@ -239,9 +241,13 @@ TEST_CASE("parser_timeline", "[ceammc::ceammc_units]")
             REQUIRE(tl.event_defs[1].out.args == LF(1, 2, 3));
 
             REQUIRE(parse_timelime("100ms event !preset 4", tl));
-            tl.dump();
             REQUIRE(tl.event_defs.size() == 3);
             REQUIRE(tl.event_defs[2].preset.idx == 4);
+
+            REQUIRE(parse_timelime("+10ms event !preset 4", tl));
+            tl.dump();
+            REQUIRE(tl.event_defs.size() == 4);
+            REQUIRE(tl.eventByIdx(3).time == 110);
         }
 
         SECTION("bars events")

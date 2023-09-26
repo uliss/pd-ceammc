@@ -186,7 +186,7 @@ namespace parser {
             event_defs.push_back(ev);
         }
 
-        void addEventAt(t_symbol* name, double time)
+        void addEventAt(t_symbol* name, double time, bool relativeToLast)
         {
             if (time < 0)
                 return;
@@ -198,7 +198,14 @@ namespace parser {
             }
 
             TimeLineEvent ev;
-            ev.time = time;
+            if (relativeToLast) {
+                if (events.empty())
+                    ev.time = time;
+                else
+                    ev.time = std::prev(events.end())->time + time;
+            } else
+                ev.time = time;
+
             ev.idx = event_idx;
             events.insert(ev);
         }

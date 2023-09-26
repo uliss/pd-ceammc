@@ -100,8 +100,9 @@
                  num_i $num_ratio_den)
                 %num_ratio_done;
 
-    num_frac = '.' @num_float_frac_init ([0-9]+ $num_float_add_frac);
-    num_float = (num_int num_frac) %num_float_done;
+    num_frac   = '.' @num_float_frac_init ([0-9]+ $num_float_add_frac);
+    num_float  = (num_int num_frac)  %num_float_done;
+    num_ufloat = (num_uint num_frac) %num_float_done;
 
     num_infinity = (num_sign? num_inf) %num_float_inf;
 
