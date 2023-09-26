@@ -80,7 +80,15 @@
     var_name = ([a-zA-Z_] @var_char ([A-Z_a-z0-9] @var_char)*) >{ var_name.clear(); } %var_done;
     var = 'var' sep var_name (sep var_props)?;
 
-    main := duration | var;
+    fn_arg = unit_float | 'a';
+    send_target = [\-a-zA-Z_$] @var_char ([\-a-zA-Z_$0-9] @var_char)*;
+    act_send = ('@send' sep send_target (sep fn_arg)*) %{ tl.fn_init.send_target = gensym(var_name.c_str()); };
+    fn_action = act_send;
+    init_fn = 'init()' (sep fn_action)*;
+    stop_fn = 'stop()' (sep fn_action)*;
+    functions = init_fn | stop_fn;
+
+    main := duration | var | functions;
     write data;
 }%%
 

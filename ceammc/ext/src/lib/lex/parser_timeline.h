@@ -39,10 +39,15 @@ namespace parser {
         double def { 0 };
     };
 
+    struct TimeLineFunction {
+        t_symbol* send_target { &s_ };
+    };
+
     struct TimeLine {
         double duration { 0 };
         std::vector<TimeLineBar> bars;
         std::vector<TimeLineVar> vars;
+        TimeLineFunction fn_init, fn_stop;
 
         TimeLine() { }
 

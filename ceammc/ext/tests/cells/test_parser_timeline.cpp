@@ -88,4 +88,10 @@ TEST_CASE("parser_timeline", "[ceammc::ceammc_units]")
         REQUIRE(tl.vars[1].name == SYM("name2"));
         REQUIRE(tl.vars[1].def == -150.25);
     }
+
+    SECTION("init()")
+    {
+        REQUIRE(parse_timelime("init()", tl));
+        REQUIRE(parse_timelime("init() @send TARGET", tl));
+    }
 }
