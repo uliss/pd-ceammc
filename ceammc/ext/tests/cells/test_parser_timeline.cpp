@@ -29,47 +29,47 @@ TEST_CASE("parser_timeline", "[ceammc::ceammc_units]")
     test::pdPrintToStdError();
     TimeLine tl;
 
-    SECTION("duration")
+    SECTION("tl")
     {
-        REQUIRE(parse_timelime("duration *", tl));
+        REQUIRE(parse_timelime("tl *", tl));
         REQUIRE(tl.duration == std::numeric_limits<t_float>::max());
-        REQUIRE(parse_timelime("duration 100ms", tl));
+        REQUIRE(parse_timelime("tl 100ms", tl));
         REQUIRE(tl.duration == 100);
-        REQUIRE(parse_timelime("duration 100.25ms", tl));
+        REQUIRE(parse_timelime("tl 100.25ms", tl));
         REQUIRE(tl.duration == 100.25);
-        REQUIRE(parse_timelime("duration 100.125msec", tl));
+        REQUIRE(parse_timelime("tl 100.125msec", tl));
         REQUIRE(tl.duration == 100.125);
-        REQUIRE(parse_timelime("duration 100.25s", tl));
+        REQUIRE(parse_timelime("tl 100.25s", tl));
         REQUIRE(tl.duration == 100250);
-        REQUIRE(parse_timelime("duration 1.5min", tl));
+        REQUIRE(parse_timelime("tl 1.5min", tl));
         REQUIRE(tl.duration == 90000);
-        REQUIRE(parse_timelime("duration 0.25m", tl));
+        REQUIRE(parse_timelime("tl 0.25m", tl));
         REQUIRE(tl.duration == 15000);
-        REQUIRE_FALSE(parse_timelime("duration +0.125m", tl));
-        REQUIRE_FALSE(parse_timelime("duration -0.125m", tl));
-        REQUIRE(parse_timelime("duration 0.125m", tl));
+        REQUIRE_FALSE(parse_timelime("tl +0.125m", tl));
+        REQUIRE_FALSE(parse_timelime("tl -0.125m", tl));
+        REQUIRE(parse_timelime("tl 0.125m", tl));
         REQUIRE(tl.duration == 7500);
-        REQUIRE(parse_timelime("duration 0.5h", tl));
+        REQUIRE(parse_timelime("tl 0.5h", tl));
         REQUIRE(tl.duration == 1800000);
-        REQUIRE(parse_timelime("duration 00:01", tl));
+        REQUIRE(parse_timelime("tl 00:01", tl));
         REQUIRE(tl.duration == 1000);
-        REQUIRE(parse_timelime("duration 01:01", tl));
+        REQUIRE(parse_timelime("tl 01:01", tl));
         REQUIRE(tl.duration == 61000);
-        REQUIRE(parse_timelime("duration 01:01:01", tl));
+        REQUIRE(parse_timelime("tl 01:01:01", tl));
         REQUIRE(tl.duration == 3661000);
     }
 
     SECTION("bars")
     {
-        REQUIRE(parse_timelime("duration *|4/4|", tl));
+        REQUIRE(parse_timelime("tl *|4/4|", tl));
         REQUIRE(tl.duration == std::numeric_limits<t_float>::max());
-        REQUIRE(parse_timelime("duration 1*|4/4|", tl));
+        REQUIRE(parse_timelime("tl 1*|4/4|", tl));
         REQUIRE(tl.duration == 4000);
-        REQUIRE(parse_timelime("duration 2*|4/4|", tl));
+        REQUIRE(parse_timelime("tl 2*|4/4|", tl));
         REQUIRE(tl.duration == 8000);
-        REQUIRE(parse_timelime("duration 10*|3/4|", tl));
+        REQUIRE(parse_timelime("tl 10*|3/4|", tl));
         REQUIRE(tl.duration == 30000);
-        REQUIRE(parse_timelime("duration 10*|3/4| 2*|4/4|", tl));
+        REQUIRE(parse_timelime("tl 10*|3/4| 2*|4/4|", tl));
         REQUIRE(tl.duration == 38000);
     }
 
@@ -110,9 +110,9 @@ TEST_CASE("parser_timeline", "[ceammc::ceammc_units]")
 
         SECTION("vars")
         {
-            REQUIRE(parse_timelime("100ms var $var line -60 100 1000ms", tl));
-            REQUIRE(parse_timelime("100ms var $var lineto 100 1000ms", tl));
-            REQUIRE(parse_timelime("#event var $var set -200.5", tl));
+            REQUIRE(parse_timelime("100ms var  $var !line -60 100 1000ms", tl));
+            REQUIRE(parse_timelime("100ms var  $var !lineto 100 1000ms", tl));
+            REQUIRE(parse_timelime("#event var $var !set -200.5", tl));
         }
 
         SECTION("comments")
@@ -126,6 +126,28 @@ TEST_CASE("parser_timeline", "[ceammc::ceammc_units]")
 
     SECTION("data")
     {
+        SECTION("bar bpm")
+        {
+            REQUIRE(parse_timelime("tl 4*|4/4|", tl));
+            REQUIRE(parse_timelime("bpm #0 120bpm", tl));
+            tl.calcBarDuration(false);
+            REQUIRE(tl.duration == 8000);
+
+            REQUIRE(parse_timelime("bpm #2 60bpm", tl));
+
+            REQUIRE(tl.bars.size() == 1);
+            REQUIRE(tl.tempo.size() == 2);
+            REQUIRE(tl.calcNumBars() == 4);
+            REQUIRE(tl.barTempo(0) == music::Tempo(120));
+            REQUIRE(tl.barTempo(1) == music::Tempo(120));
+            REQUIRE(tl.barTempo(2) == music::Tempo(60));
+            REQUIRE(tl.barTempo(3) == music::Tempo(60));
+            REQUIRE(tl.barTempo(4) == music::Tempo(60));
+
+            tl.calcBarDuration(false);
+            REQUIRE(tl.duration == 12000);
+        }
+
         SECTION("event defs")
         {
             REQUIRE(parse_timelime("event NAME", tl));
@@ -206,7 +228,6 @@ TEST_CASE("parser_timeline", "[ceammc::ceammc_units]")
             REQUIRE(tl.eventByIdx(1).idx == 1);
             REQUIRE(tl.eventByIdx(2).time == 1000);
             REQUIRE(tl.eventByIdx(2).idx == 0);
-
             REQUIRE(parse_timelime("#NAME2+100ms event NAME", tl));
             REQUIRE(tl.events.size() == 4);
             REQUIRE(tl.eventByIdx(2).time == 600);
@@ -226,6 +247,31 @@ TEST_CASE("parser_timeline", "[ceammc::ceammc_units]")
             REQUIRE(tl.events.size() == 6);
             REQUIRE(tl.eventByIdx(1).time == 450);
             REQUIRE(tl.eventByIdx(1).idx == 0);
+
+            REQUIRE(parse_timelime("#NAME+1ms event NAME", tl));
+            REQUIRE(tl.events.size() == 11);
+            REQUIRE(tl.eventByIdx(0).time == 100.5);
+            REQUIRE(tl.eventByIdx(0).idx == 0);
+            REQUIRE(tl.eventByIdx(1).time == 101.5);
+            REQUIRE(tl.eventByIdx(1).idx == 0);
+            REQUIRE(tl.eventByIdx(2).time == 450);
+            REQUIRE(tl.eventByIdx(2).idx == 0);
+            REQUIRE(tl.eventByIdx(3).time == 451);
+            REQUIRE(tl.eventByIdx(3).idx == 0);
+            REQUIRE(tl.eventByIdx(4).time == 500);
+            REQUIRE(tl.eventByIdx(4).idx == 1);
+            REQUIRE(tl.eventByIdx(5).time == 600);
+            REQUIRE(tl.eventByIdx(5).idx == 0);
+            REQUIRE(tl.eventByIdx(6).time == 601);
+            REQUIRE(tl.eventByIdx(6).idx == 0);
+            REQUIRE(tl.eventByIdx(7).time == 700);
+            REQUIRE(tl.eventByIdx(7).idx == 0);
+            REQUIRE(tl.eventByIdx(8).time == 701);
+            REQUIRE(tl.eventByIdx(8).idx == 0);
+            REQUIRE(tl.eventByIdx(9).time == 1000);
+            REQUIRE(tl.eventByIdx(9).idx == 0);
+            REQUIRE(tl.eventByIdx(10).time == 1001);
+            REQUIRE(tl.eventByIdx(10).idx == 0);
         }
 
         SECTION("anonymous events")
@@ -253,7 +299,7 @@ TEST_CASE("parser_timeline", "[ceammc::ceammc_units]")
         SECTION("bars events")
         {
             REQUIRE(parse_timelime("event BAR21", tl));
-            REQUIRE(parse_timelime("duration 4*|4/4| 3*|3/8|", tl));
+            REQUIRE(parse_timelime("tl 4*|4/4| 3*|3/8|", tl));
             REQUIRE(tl.duration == 20500);
             REQUIRE(tl.findBarTime(0, 0) == 0);
             REQUIRE(tl.findBarTime(1, 0) == 4000);
@@ -261,6 +307,8 @@ TEST_CASE("parser_timeline", "[ceammc::ceammc_units]")
             REQUIRE(tl.findBarTime(1, 2) == 6000);
             REQUIRE(tl.findBarTime(1, 3) == 7000);
             REQUIRE(tl.findBarTime(1, 4) == 7000);
+            REQUIRE(tl.findBarTime(4, 0) == 16000);
+            REQUIRE(tl.findBarTime(4, 1) == 16500);
 
             REQUIRE(parse_timelime("#0 event BAR21", tl));
             REQUIRE(tl.events.size() == 1);
@@ -296,6 +344,43 @@ TEST_CASE("parser_timeline", "[ceammc::ceammc_units]")
             REQUIRE(tl.events.size() == 7);
             REQUIRE(tl.eventByIdx(4).time == 17450);
             REQUIRE(tl.eventByIdx(4).idx == 0);
+        }
+
+        SECTION("bars events bpm")
+        {
+            REQUIRE(parse_timelime("tl 4*|4/4|", tl));
+            REQUIRE(tl.duration == 16000);
+            REQUIRE(parse_timelime("bpm #0 120bpm", tl));
+            REQUIRE(tl.duration == 8000);
+            REQUIRE(parse_timelime("bpm #2 240bpm", tl));
+            REQUIRE(tl.duration == 6000);
+            REQUIRE(parse_timelime("bpm #3 60bpm", tl));
+            REQUIRE(parse_timelime("event B", tl));
+            REQUIRE(tl.duration == 9000);
+
+            REQUIRE(tl.findBarTime(0, 0) == 0);
+            REQUIRE(tl.findBarTime(0, 1) == 500);
+            REQUIRE(tl.findBarTime(0, 2) == 1000);
+            REQUIRE(tl.findBarTime(0, 3) == 1500);
+            REQUIRE(tl.findBarTime(1, 0) == 2000);
+            REQUIRE(tl.findBarTime(1, 1) == 2500);
+            REQUIRE(tl.findBarTime(1, 2) == 3000);
+            REQUIRE(tl.findBarTime(1, 3) == 3500);
+            REQUIRE(tl.findBarTime(1, 4) == 3500);
+            REQUIRE(tl.findBarTime(2, 0) == 4000);
+            REQUIRE(tl.findBarTime(2, 1) == 4250);
+            REQUIRE(tl.findBarTime(2, 2) == 4500);
+            REQUIRE(tl.findBarTime(2, 3) == 4750);
+            REQUIRE(tl.findBarTime(3, 0) == 5000);
+            REQUIRE(tl.findBarTime(3, 1) == 6000);
+            REQUIRE(tl.findBarTime(3, 2) == 7000);
+            REQUIRE(tl.findBarTime(3, 3) == 8000);
+            REQUIRE(tl.findBarTime(4, 0) == -1);
+
+            REQUIRE(parse_timelime("#3.1 event B", tl));
+            REQUIRE(tl.events.size() == 1);
+            REQUIRE(tl.eventByIdx(0).time ==6000);
+            REQUIRE(tl.eventByIdx(0).idx == 0);
         }
     }
 }
