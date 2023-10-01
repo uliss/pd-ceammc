@@ -128,6 +128,8 @@ namespace music {
          */
         Duration operator/(std::int16_t div) const;
 
+        double operator/(const Duration& dur) const;
+
         /**
          * return duration time in milliseconds according to given tempo
          */
