@@ -92,6 +92,7 @@
   - @div added to seq.nbangs, seq.matrix, seq.bangs, seq.toggles and sequencer for beat division
   - @def added to list.map for replacing missing keys with default values
   - @min, @max added to ui.incdec
+  - @display_only property added to ui.number
 - new init argument functions:
   - hexbeat(HEX) - expand hex to list of 1 and 0
   - ones(N) - list of length N, filled with 1
