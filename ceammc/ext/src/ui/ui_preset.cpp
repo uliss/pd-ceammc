@@ -16,8 +16,6 @@
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 
-static t_symbol* SYM_POPUP;
-
 UIPreset::UIPreset()
     : prop_color_text(rgba_black)
     , prop_color_empty(rgba_grey)
@@ -309,8 +307,6 @@ bool UIPreset::checkIndex(float idx) const
 
 void UIPreset::setup()
 {
-    SYM_POPUP = gensym("main");
-
     UIObjectFactory<UIPreset> obj("ui.preset");
     obj.setDefaultSize(102, 42);
 
