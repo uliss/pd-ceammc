@@ -12,8 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ui_incdec.h"
+#include "ceammc_convert.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
+
+constexpr int MAX_VALUE_DEFAULT = 8192;
+constexpr int MIN_VALUE_DEFAULT = -MAX_VALUE_DEFAULT;
 
 UIIncDec::UIIncDec()
     : prop_color_arrow(rgba_greydark)
@@ -114,14 +118,14 @@ void UIIncDec::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 
 void UIIncDec::m_inc()
 {
-    value_ += prop_step;
+    value_ = clip<t_float>(value_ + prop_step, prop_min, prop_max);
     redrawBGLayer();
     output();
 }
 
 void UIIncDec::m_dec()
 {
-    value_ -= prop_step;
+    value_ = clip<t_float>(value_ - prop_step, prop_min, prop_max);
     redrawBGLayer();
     output();
 }
@@ -149,7 +153,7 @@ t_float UIIncDec::propValue() const
 
 void UIIncDec::propSetValue(t_float f)
 {
-    value_ = f;
+    value_ = clip<t_float>(f, prop_min, prop_max);
     redrawBGLayer();
 }
 
@@ -172,6 +176,9 @@ void UIIncDec::setup()
     obj.addMethod("set", &UIIncDec::propSetValue);
     obj.addMethod("inc", &UIIncDec::m_inc);
     obj.addMethod("dec", &UIIncDec::m_dec);
+
+    obj.addFloatProperty("min", _("Minimum Value"), MIN_VALUE_DEFAULT, &UIIncDec::prop_min, "Bounds");
+    obj.addFloatProperty("max", _("Maximum Value"), MAX_VALUE_DEFAULT, &UIIncDec::prop_max, "Bounds");
 }
 
 void setup_ui_incdec()

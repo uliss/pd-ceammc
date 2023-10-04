@@ -17,6 +17,8 @@
             </also>
         </meta>
         <properties>
+            <property name="@min" type="float" default="-8192">minimum inc value</property>
+            <property name="@max" type="float" default="8192">maximum inc value</property>
             <property name="@step" type="float" default="1" minvalue="0">increment step</property>
             <property name="@value" type="float" default="0">current widget value</property>
             <!-- common -->

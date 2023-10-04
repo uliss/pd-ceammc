@@ -21,6 +21,8 @@ using namespace ceammc;
 class UIIncDec : public UIObject {
     t_rgba prop_color_arrow;
     t_float prop_step;
+    t_float prop_min;
+    t_float prop_max;
 
 private:
     t_float value_;
