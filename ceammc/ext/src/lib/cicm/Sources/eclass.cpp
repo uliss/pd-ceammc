@@ -20,7 +20,7 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wsign-conversion"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #pragma clang diagnostic pop
 
 #include <algorithm>
