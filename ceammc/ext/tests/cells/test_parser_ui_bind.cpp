@@ -21,7 +21,7 @@ using namespace ceammc::parser;
 TEST_CASE("parser_ui_bind", "[ceammc::ceammc_units]")
 {
     test::pdPrintToStdError();
-    UiBindOptions opts;
+    UIBindOptions opts;
 
     SECTION("MIDI")
     {

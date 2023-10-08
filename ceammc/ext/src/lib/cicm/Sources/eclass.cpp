@@ -134,11 +134,6 @@ t_eclass* eclass_new(const char* name, t_typ_method newm, t_typ_method freem, si
     return c;
 }
 
-void eclass_init(t_eclass* c, long flags)
-{
-    eclass_guiinit(c, flags);
-}
-
 void eclass_guiinit(t_eclass* c, long /*flags*/)
 {
     ewidget_init(c);
@@ -521,6 +516,7 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type,
             attr->defvals = nullptr;
             attr->itemslist = nullptr;
             attr->itemssize = 0;
+            attr->bind_opts = nullptr;
 
             size_t new_sz = (c->c_nattr + 1) * sizeof(t_eattr*);
             t_eattr** attrs = (t_eattr**)resizebytes(c->c_attr, new_sz, new_sz);

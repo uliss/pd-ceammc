@@ -21,20 +21,19 @@
 
 #include "ceammc_geom.h"
 #include "ceammc_property_info.h"
+#include "lex/parser_ui_bind.h"
 #ifdef _WINDOWS
 #include <io.h>
-#define _FUNCTION_DEPRECTAED_
 #else
 #include <unistd.h>
-#define _FUNCTION_DEPRECTAED_ __attribute__((deprecated))
 #endif
 
 struct _class;
 #include "m_pd.h"
 
+using ceammc::epath_types;
 using ceammc::t_pt;
 using ceammc::t_rect;
-using ceammc::epath_types;
 
 #include "g_canvas.h"
 extern "C" {
@@ -538,6 +537,7 @@ struct t_eattr {
     t_float minimum; /*!< The minimum value of the attribute. */
     t_float maximum; /*!< The maximum value of the attribute. */
     t_float step; /*!< The increment or decrement step calue of the attribute. */
+    ceammc::UIBindOptions* bind_opts;
     std::int16_t order; /*!< The dummy order of the attribute. */
     eclip_flags clipped; /*!< If the attribute is clipped if it's value or an array of numerical values. */
     bool save; /*!< If the attribute should be saved. */
