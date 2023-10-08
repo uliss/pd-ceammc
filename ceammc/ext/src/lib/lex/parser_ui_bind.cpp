@@ -22,7 +22,7 @@ static const int ui_bind_en_main = 1;
 #line 52 "lex/parser_ui_bind.rl"
 
 
-bool parse_ui_bind(const char* str, UiBindOptions& opts)
+bool parse_ui_bind(const char* str, UIBindOptions& opts)
 {
     int cs = 0;
     const auto len = strlen(str);

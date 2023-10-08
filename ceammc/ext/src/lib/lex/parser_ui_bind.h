@@ -17,46 +17,45 @@
 #include <cstdint>
 
 namespace ceammc {
+
+enum UIBindType : std::uint8_t {
+    UI_BIND_NONE,
+    UI_BIND_MIDI_CC,
+    UI_BIND_MIDI_PGM,
+    UI_BIND_MIDI_NOTE,
+    UI_BIND_KEY_CODE,
+    UI_BIND_KEY_NAME,
+    UI_BIND_OSC
+};
+
+enum UIBindCompare : std::uint8_t {
+    UI_BIND_CMP_NONE,
+    UI_BIND_CMP_EQ,
+    UI_BIND_CMP_LT,
+    UI_BIND_CMP_GT
+};
+
+enum UIBindKeyMode : std::uint8_t {
+    UI_BIND_MODE_NONE = 0,
+    UI_BIND_MODE_CTL = 1,
+    UI_BIND_MODE_ALT = 1 << 1,
+    UI_BIND_MODE_SHIFT = 1 << 2,
+};
+
+struct UIBindOptions {
+    UIBindType type { UI_BIND_NONE };
+    UIBindCompare cmp { UI_BIND_CMP_NONE };
+    std::uint8_t midi_chan { 0 };
+    std::uint8_t midi_param { 0 };
+    std::uint8_t midi_value { 0 };
+    std::uint8_t key_code { 0 };
+    std::uint8_t key_mode { 0 };
+    char key_name[16] { 0 };
+    std::uint8_t name_len { 0 };
+};
+
 namespace parser {
-
-    enum UIBindType : std::uint8_t {
-        UI_BIND_NONE,
-        UI_BIND_MIDI_CC,
-        UI_BIND_MIDI_PGM,
-        UI_BIND_MIDI_NOTE,
-        UI_BIND_KEY_CODE,
-        UI_BIND_KEY_NAME,
-        UI_BIND_OSC
-    };
-
-    enum UIBindCompare : std::uint8_t {
-        UI_BIND_CMP_NONE,
-        UI_BIND_CMP_EQ,
-        UI_BIND_CMP_LT,
-        UI_BIND_CMP_GT
-    };
-
-    enum UIBindKeyMode : std::uint8_t {
-        UI_BIND_MODE_NONE = 0,
-        UI_BIND_MODE_CTL = 1,
-        UI_BIND_MODE_ALT = 1 << 1,
-        UI_BIND_MODE_SHIFT = 1 << 2,
-    };
-
-    struct UiBindOptions {
-        UIBindType type { UI_BIND_NONE };
-        UIBindCompare cmp { UI_BIND_CMP_NONE };
-        std::uint8_t midi_chan { 0 };
-        std::uint8_t midi_param { 0 };
-        std::uint8_t midi_value { 0 };
-        std::uint8_t key_code { 0 };
-        std::uint8_t key_mode { 0 };
-        char key_name[16] { 0 };
-        std::uint8_t name_len { 0 };
-    };
-
-    bool parse_ui_bind(const char* str, UiBindOptions& opts);
-
+    bool parse_ui_bind(const char* str, UIBindOptions& opts);
 }
 }
 

@@ -51,7 +51,7 @@ static inline void add_digit(std::uint8_t& v, char ch) { (v *= 10) += (ch - '0')
     write data;
 }%%
 
-bool parse_ui_bind(const char* str, UiBindOptions& opts)
+bool parse_ui_bind(const char* str, UIBindOptions& opts)
 {
     int cs = 0;
     const auto len = strlen(str);
