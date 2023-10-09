@@ -20,12 +20,11 @@ constexpr int MAX_VALUE_DEFAULT = 8192;
 constexpr int MIN_VALUE_DEFAULT = -MAX_VALUE_DEFAULT;
 
 UIIncDec::UIIncDec()
-    : prop_color_arrow(rgba_greydark)
+    : UIBindObject<2> { { [this]() { m_inc(); }, [this]() { m_dec(); } } }
+    , prop_color_arrow(rgba_greydark)
     , prop_step(1)
     , value_(0)
     , mouse_down_(0)
-    , midi_up_(this, &UIIncDec::onMidiUp)
-    , midi_down_(this, &UIIncDec::onMidiDown)
 {
     createOutlet();
 }
@@ -159,132 +158,6 @@ void UIIncDec::propSetValue(t_float f)
     redrawBGLayer();
 }
 
-AtomList UIIncDec::getBindUp() const
-{
-    return prop_bind_up;
-}
-
-void UIIncDec::setBindUp(const AtomListView& lv)
-{
-    midi_up_.unbind();
-    prop_bind_up.clear();
-    bind_up_.reset();
-
-    for (auto& a : lv) {
-        if (!a.isSymbol())
-            continue;
-
-        auto sym = a.asT<t_symbol*>();
-
-        if (parser::parse_ui_bind(sym->s_name, bind_up_)) {
-            prop_bind_up.append(a);
-
-            switch (bind_up_.type) {
-            case ceammc::UI_BIND_MIDI_CC:
-                midi_up_.bind("#ctlin");
-                break;
-            case ceammc::UI_BIND_MIDI_PGM:
-                midi_up_.bind("#pgmin");
-                break;
-            case ceammc::UI_BIND_MIDI_NOTE:
-                midi_up_.bind("#notein");
-                break;
-            default:
-                break;
-            }
-        }
-    }
-}
-
-AtomList UIIncDec::getBindDown() const
-{
-    return prop_bind_down;
-}
-
-void UIIncDec::setBindDown(const AtomListView& lv)
-{
-    midi_down_.unbind();
-    prop_bind_down.clear();
-    bind_down_.reset();
-
-    for (auto& a : lv) {
-        if (!a.isSymbol())
-            continue;
-
-        auto sym = a.asT<t_symbol*>();
-
-        if (parser::parse_ui_bind(sym->s_name, bind_down_)) {
-            prop_bind_down.append(a);
-
-            switch (bind_down_.type) {
-            case ceammc::UI_BIND_MIDI_CC:
-                midi_down_.bind("#ctlin");
-                break;
-            case ceammc::UI_BIND_MIDI_PGM:
-                midi_down_.bind("#pgmin");
-                break;
-            case ceammc::UI_BIND_MIDI_NOTE:
-                midi_down_.bind("#notein");
-                break;
-            default:
-                break;
-            }
-        }
-    }
-}
-
-void UIIncDec::onMidiUp(const AtomListView& lv)
-{
-    switch (bind_up_.type) {
-    case UI_BIND_MIDI_NOTE:
-    case UI_BIND_MIDI_CC: {
-        auto cc = lv.intAt(0, 0);
-        auto val = lv.intAt(1, 0);
-        auto chan = lv.intAt(2, 0);
-
-        if (bind_up_.checkMidi(chan, cc, val))
-            m_inc();
-
-    } break;
-    case UI_BIND_MIDI_PGM: {
-        auto prog = lv.intAt(0, 0);
-        auto chan = lv.intAt(1, 0);
-
-        if (bind_up_.checkMidi(chan, prog, 0))
-            m_inc();
-
-    } break;
-    default:
-        break;
-    }
-}
-
-void UIIncDec::onMidiDown(const AtomListView& lv)
-{
-    switch (bind_down_.type) {
-    case UI_BIND_MIDI_NOTE:
-    case UI_BIND_MIDI_CC: {
-        auto cc = lv.intAt(0, 0);
-        auto val = lv.intAt(1, 0);
-        auto chan = lv.intAt(2, 0);
-
-        if (bind_down_.checkMidi(chan, cc, val))
-            m_dec();
-
-    } break;
-    case UI_BIND_MIDI_PGM: {
-        auto prog = lv.intAt(0, 0);
-        auto chan = lv.intAt(1, 0);
-
-        if (bind_down_.checkMidi(chan, prog, 0))
-            m_dec();
-
-    } break;
-    default:
-        break;
-    }
-}
-
 void UIIncDec::setup()
 {
     UIObjectFactory<UIIncDec> obj("ui.incdec");
@@ -308,8 +181,8 @@ void UIIncDec::setup()
     obj.addFloatProperty("min", _("Minimum Value"), MIN_VALUE_DEFAULT, &UIIncDec::prop_min, "Bounds");
     obj.addFloatProperty("max", _("Maximum Value"), MAX_VALUE_DEFAULT, &UIIncDec::prop_max, "Bounds");
 
-    obj.addVirtualProperty("bind_up", _("Bind Up"), "", &UIIncDec::getBindUp, &UIIncDec::setBindUp);
-    obj.addVirtualProperty("bind_down", _("Bind Down"), "", &UIIncDec::getBindDown, &UIIncDec::setBindDown);
+    obj.addVirtualProperty("bind_up", _("Bind Up"), "", &UIIncDec::getBind<0>, &UIIncDec::setBind<0>);
+    obj.addVirtualProperty("bind_down", _("Bind Down"), "", &UIIncDec::getBind<1>, &UIIncDec::setBind<1>);
     obj.setPropertyCategory("bind_up", "Main");
     obj.setPropertyCategory("bind_down", "Main");
 }

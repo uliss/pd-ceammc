@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ui_incdec.h"
 #include "test_ui.h"
+#include "ui_incdec.h"
 
 UI_COMPLETE_TEST_SETUP(IncDec)
 
@@ -28,6 +28,8 @@ TEST_CASE("ui.incdec", "[ui.incdec]")
         REQUIRE_UI_LIST_PROPERTY(t, "size", LF(15, 20));
         REQUIRE_UI_FLOAT_PROPERTY(t, "step", 1);
         REQUIRE_UI_FLOAT_PROPERTY(t, "value", 0);
+        REQUIRE_UI_LIST_PROPERTY(t, "bind_up", L());
+        REQUIRE_UI_LIST_PROPERTY(t, "bind_down", L());
     }
 
     SECTION("external")
@@ -142,5 +144,49 @@ TEST_CASE("ui.incdec", "[ui.incdec]")
         REQUIRE_OUTPUT_FLOAT(t, 0, 0);
         REQUIRE_UI_FLOAT_PROPERTY(t, "value", 0);
         t.mouseUp(5, 15);
+    }
+
+    SECTION("midi")
+    {
+        TestExtIncDec t("ui.incdec");
+
+        pd::send_list(gensym("#ctlin"), LF(1, 2, 0));
+        pd::send_list(gensym("#pgmin"), LF(1, 2, 0));
+        pd::send_list(gensym("#notein"), LF(1, 2, 0));
+        REQUIRE_NO_OUTPUT(t);
+
+        REQUIRE(t->setProperty(gensym("bind_up"), LA("cc[2]>63")));
+        REQUIRE_UI_LIST_PROPERTY(t, "bind_up", LA("cc[2]>63"));
+
+        pd::send_list(gensym("#ctlin"), LF(2, 62, 0));
+        REQUIRE_NO_OUTPUT(t);
+        pd::send_list(gensym("#ctlin"), LF(2, 63, 0));
+        REQUIRE_NO_OUTPUT(t);
+        pd::send_list(gensym("#ctlin"), LF(2, 64, 0));
+        REQUIRE_OUTPUT_FLOAT(t, 0, 1);
+        pd::send_list(gensym("#ctlin"), LF(2, 65, 0));
+        REQUIRE_OUTPUT_FLOAT(t, 0, 2);
+
+        REQUIRE(t->setProperty(gensym("bind_up"), LA("cc[2]=100")));
+        REQUIRE_UI_LIST_PROPERTY(t, "bind_up", LA("cc[2]=100"));
+
+        pd::send_list(gensym("#ctlin"), LF(2, 65, 0));
+        REQUIRE_NO_OUTPUT(t);
+
+        pd::send_list(gensym("#ctlin"), LF(2, 100, 0));
+        REQUIRE_OUTPUT_FLOAT(t, 0, 3);
+        pd::send_list(gensym("#ctlin"), LF(2, 100, 1));
+        REQUIRE_OUTPUT_FLOAT(t, 0, 4);
+        pd::send_list(gensym("#ctlin"), LF(2, 100, 2));
+        REQUIRE_OUTPUT_FLOAT(t, 0, 5);
+
+        REQUIRE(t->setProperty(gensym("bind_down"), LA("cc[2]=101")));
+        REQUIRE_UI_LIST_PROPERTY(t, "bind_down", LA("cc[2]=101"));
+        pd::send_list(gensym("#ctlin"), LF(2, 101, 2));
+        REQUIRE_OUTPUT_FLOAT(t, 0, 4);
+        pd::send_list(gensym("#ctlin"), LF(2, 101, 2));
+        REQUIRE_OUTPUT_FLOAT(t, 0, 3);
+        pd::send_list(gensym("#ctlin"), LF(2, 100, 2));
+        REQUIRE_OUTPUT_FLOAT(t, 0, 4);
     }
 }
