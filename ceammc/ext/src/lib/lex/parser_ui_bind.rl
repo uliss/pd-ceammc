@@ -47,7 +47,7 @@ static inline void add_digit(std::uint8_t& v, char ch) { (v *= 10) += (ch - '0')
     keyname = 'keyname' key_mod? '=' name   %{ opts.type = UI_BIND_KEY_NAME; opts.cmp = UI_BIND_CMP_EQ; };
     key = keycode | keyname;
 
-    main := '#' (midi | key);
+    main := (midi | key);
     write data;
 }%%
 
