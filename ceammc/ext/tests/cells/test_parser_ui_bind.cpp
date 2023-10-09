@@ -25,42 +25,42 @@ TEST_CASE("parser_ui_bind", "[ceammc::ceammc_units]")
 
     SECTION("MIDI")
     {
-        REQUIRE(parse_ui_bind("#cc[0]>63", opts));
+        REQUIRE(parse_ui_bind("cc[0]>63", opts));
         REQUIRE(opts.midi_chan == 0);
         REQUIRE(opts.midi_param == 0);
         REQUIRE(opts.midi_value == 63);
         REQUIRE(opts.cmp == UI_BIND_CMP_GT);
         REQUIRE(opts.type == UI_BIND_MIDI_CC);
 
-        REQUIRE(parse_ui_bind("#cc[1]<120", opts));
+        REQUIRE(parse_ui_bind("cc[1]<120", opts));
         REQUIRE(opts.midi_chan == 0);
         REQUIRE(opts.midi_param == 1);
         REQUIRE(opts.midi_value == 120);
         REQUIRE(opts.cmp == UI_BIND_CMP_LT);
         REQUIRE(opts.type == UI_BIND_MIDI_CC);
 
-        REQUIRE(parse_ui_bind("#cc[1:0]<120", opts));
+        REQUIRE(parse_ui_bind("cc[1:0]<120", opts));
         REQUIRE(opts.midi_chan == 0);
         REQUIRE(opts.midi_param == 1);
         REQUIRE(opts.midi_value == 120);
         REQUIRE(opts.cmp == UI_BIND_CMP_LT);
         REQUIRE(opts.type == UI_BIND_MIDI_CC);
 
-        REQUIRE(parse_ui_bind("#cc[20:16]=120", opts));
+        REQUIRE(parse_ui_bind("cc[20:16]=120", opts));
         REQUIRE(opts.midi_chan == 16);
         REQUIRE(opts.midi_param == 20);
         REQUIRE(opts.midi_value == 120);
         REQUIRE(opts.cmp == UI_BIND_CMP_EQ);
         REQUIRE(opts.type == UI_BIND_MIDI_CC);
 
-        REQUIRE(parse_ui_bind("#note[20:12]=14", opts));
+        REQUIRE(parse_ui_bind("note[20:12]=14", opts));
         REQUIRE(opts.midi_chan == 12);
         REQUIRE(opts.midi_param == 20);
         REQUIRE(opts.midi_value == 14);
         REQUIRE(opts.cmp == UI_BIND_CMP_EQ);
         REQUIRE(opts.type == UI_BIND_MIDI_NOTE);
 
-        REQUIRE(parse_ui_bind("#pgm[2:12]", opts));
+        REQUIRE(parse_ui_bind("pgm[2:12]", opts));
         REQUIRE(opts.midi_chan == 12);
         REQUIRE(opts.midi_param == 2);
         REQUIRE(opts.midi_value == 14);
@@ -70,7 +70,7 @@ TEST_CASE("parser_ui_bind", "[ceammc::ceammc_units]")
 
     SECTION("keys")
     {
-        REQUIRE(parse_ui_bind("#key=32", opts));
+        REQUIRE(parse_ui_bind("key=32", opts));
         REQUIRE(opts.midi_chan == 0);
         REQUIRE(opts.midi_param == 0);
         REQUIRE(opts.midi_value == 0);
@@ -79,7 +79,7 @@ TEST_CASE("parser_ui_bind", "[ceammc::ceammc_units]")
         REQUIRE(opts.cmp == UI_BIND_CMP_EQ);
         REQUIRE(opts.type == UI_BIND_KEY_CODE);
 
-        REQUIRE(parse_ui_bind("#key[ctl]=32", opts));
+        REQUIRE(parse_ui_bind("key[ctl]=32", opts));
         REQUIRE(opts.midi_chan == 0);
         REQUIRE(opts.midi_param == 0);
         REQUIRE(opts.midi_value == 0);
@@ -87,7 +87,7 @@ TEST_CASE("parser_ui_bind", "[ceammc::ceammc_units]")
         REQUIRE(opts.cmp == UI_BIND_CMP_EQ);
         REQUIRE(opts.type == UI_BIND_KEY_CODE);
 
-        REQUIRE(parse_ui_bind("#key[ctl+alt]=32", opts));
+        REQUIRE(parse_ui_bind("key[ctl+alt]=32", opts));
         REQUIRE(opts.midi_chan == 0);
         REQUIRE(opts.midi_param == 0);
         REQUIRE(opts.midi_value == 0);
@@ -99,7 +99,7 @@ TEST_CASE("parser_ui_bind", "[ceammc::ceammc_units]")
 
     SECTION("keyname")
     {
-        REQUIRE(parse_ui_bind("#keyname=Space", opts));
+        REQUIRE(parse_ui_bind("keyname=Space", opts));
         REQUIRE(opts.midi_chan == 0);
         REQUIRE(opts.midi_param == 0);
         REQUIRE(opts.midi_value == 0);
