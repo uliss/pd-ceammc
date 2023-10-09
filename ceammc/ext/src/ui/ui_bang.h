@@ -15,11 +15,11 @@
 #define UI_BANG_H
 
 #include "ceammc_clock.h"
-#include "ceammc_ui_object.h"
+#include "ui_bind_object.h"
 
 namespace ceammc {
 
-class UIBang : public UIObject {
+class UIBang : public UIBindObject<1> {
     ClockLambdaFunction clock_;
     bool active_;
 
@@ -39,6 +39,7 @@ public:
 private:
     void activate();
     void deactivate();
+    void bang();
 
 public:
     static void setup();

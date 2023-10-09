@@ -40,7 +40,7 @@ TEST_CASE("ui.bang", "[ui.bang]")
         REQUIRE(t->numOutlets() == 1);
         REQUIRE_UI_LIST_PROPERTY(t, "send", LA("(null)"));
         REQUIRE_UI_LIST_PROPERTY(t, "receive", LA("(null)"));
-
+        REQUIRE_UI_LIST_PROPERTY(t, "bind", L());
         REQUIRE_UI_LIST_PROPERTY(t, "background_color", LX(0.93, 0.93, 0.93, 1));
     }
 
@@ -179,5 +179,26 @@ TEST_CASE("ui.bang", "[ui.bang]")
             TestExtBang t("ui.bang", LA("@label", "label: #0"));
             REQUIRE_UI_LIST_PROPERTY(t, "label", LA("label: #0"));
         }
+    }
+
+    SECTION("bind")
+    {
+        TestExtBang t("ui.bang");
+        pd::send_list(gensym("#ctlin"), LF(10, 100, 0));
+        REQUIRE_NO_OUTPUT(t);
+
+        t->setProperty(gensym("bind"), LA("cc[10]=100"));
+        pd::send_list(gensym("#ctlin"), LF(10, 100, 0));
+        REQUIRE_OUTPUT_BANG(t, 0);
+        pd::send_list(gensym("#ctlin"), LF(10, 101, 0));
+        REQUIRE_NO_OUTPUT(t);
+
+        pd::send_list(gensym("#pgmin"), LF(10, 0));
+        REQUIRE_NO_OUTPUT(t);
+        t->setProperty(gensym("bind"), LA("pgm[10]"));
+        pd::send_list(gensym("#pgmin"), LF(10, 0));
+        REQUIRE_OUTPUT_BANG(t, 0);
+        pd::send_list(gensym("#ctlin"), LF(10, 101, 0));
+        REQUIRE_NO_OUTPUT(t);
     }
 }

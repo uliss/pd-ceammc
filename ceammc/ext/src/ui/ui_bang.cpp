@@ -15,10 +15,13 @@
 #include "ceammc_ui.h"
 #include "ui_bang.tcl.h"
 
+constexpr int FLASH_TIMEOUT = 100;
+
 namespace ceammc {
 
 UIBang::UIBang()
-    : clock_([this]() { if(active_) deactivate(); })
+    : UIBindObject<1>({ [this]() { bang(); } })
+    , clock_([this]() { if(active_) deactivate(); })
     , active_(false)
     , prop_color_active(rgba_blue)
 {
@@ -43,8 +46,7 @@ void UIBang::paint()
 
 void UIBang::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
-    activate();
-    clock_.delay(100);
+    bang();
 }
 
 void UIBang::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
@@ -55,8 +57,7 @@ void UIBang::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 
 void UIBang::onAny(t_symbol* s, const AtomListView&)
 {
-    activate();
-    clock_.delay(100);
+    bang();
 }
 
 void UIBang::activate()
@@ -75,6 +76,12 @@ void UIBang::deactivate()
     redraw();
 }
 
+void UIBang::bang()
+{
+    activate();
+    clock_.delay(FLASH_TIMEOUT);
+}
+
 void UIBang::setup()
 {
     ui_bang_tcl_output();
@@ -87,6 +94,9 @@ void UIBang::setup()
 
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP);
     obj.useAny();
+
+    obj.addVirtualProperty("bind", _("Bind"), "", &UIBang::getBind<0>, &UIBang::setBind<0>);
+    obj.setPropertyCategory("bind", "Main");
 }
 
 }
