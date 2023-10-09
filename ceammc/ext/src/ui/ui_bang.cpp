@@ -95,8 +95,7 @@ void UIBang::setup()
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP);
     obj.useAny();
 
-    obj.addVirtualProperty("bind", _("Bind"), "", &UIBang::getBind<0>, &UIBang::setBind<0>);
-    obj.setPropertyCategory("bind", "Main");
+    obj.addVirtualProperty("bind", _("Bind"), "", &UIBang::getBind<0>, &UIBang::setBind<0>, "Main");
 }
 
 }

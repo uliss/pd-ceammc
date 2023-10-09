@@ -181,10 +181,8 @@ void UIIncDec::setup()
     obj.addFloatProperty("min", _("Minimum Value"), MIN_VALUE_DEFAULT, &UIIncDec::prop_min, "Bounds");
     obj.addFloatProperty("max", _("Maximum Value"), MAX_VALUE_DEFAULT, &UIIncDec::prop_max, "Bounds");
 
-    obj.addVirtualProperty("bind_up", _("Bind Up"), "", &UIIncDec::getBind<0>, &UIIncDec::setBind<0>);
-    obj.addVirtualProperty("bind_down", _("Bind Down"), "", &UIIncDec::getBind<1>, &UIIncDec::setBind<1>);
-    obj.setPropertyCategory("bind_up", "Main");
-    obj.setPropertyCategory("bind_down", "Main");
+    obj.addVirtualProperty("bind_up", _("Bind Up"), "", &UIIncDec::getBind<0>, &UIIncDec::setBind<0>, "Main");
+    obj.addVirtualProperty("bind_down", _("Bind Down"), "", &UIIncDec::getBind<1>, &UIIncDec::setBind<1>, "Main");
 }
 
 void setup_ui_incdec()

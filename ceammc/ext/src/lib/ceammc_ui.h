@@ -579,7 +579,7 @@ public:
      * @param def - default value
      */
     void addVirtualProperty(const char* name, const char* label, const char* def,
-        AtomList (UI::*getter)() const, void (UI::*setter)(const AtomListView&))
+        AtomList (UI::*getter)() const, void (UI::*setter)(const AtomListView&), const char* category = "Misc")
     {
         eclass_new_attr_typed(pd_ui_class, name, "symbol", 1, 0, 0);
         eclass_attr_label(pd_ui_class, name, label);
@@ -587,6 +587,7 @@ public:
         eclass_attr_paint(pd_ui_class, name);
         eclass_attr_default(pd_ui_class, name, def);
         eclass_attr_accessor(pd_ui_class, name, listPropGetter, listPropSetter);
+        eclass_attr_category(pd_ui_class, name, category);
         prop_list_map[gensym(name)] = std::make_pair(getter, setter);
     }
 
