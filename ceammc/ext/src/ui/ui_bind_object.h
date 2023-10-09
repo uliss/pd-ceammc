@@ -51,10 +51,13 @@ protected:
         opts_[IDX].reset();
 
         for (auto& a : lv) {
-            if (!a.isSymbol())
+            if (!a.isSymbol()) {
+                UI_ERR << "symbol expression expected, got: " << a;
                 continue;
+            }
 
             auto sym = a.asT<t_symbol*>();
+            opts_[IDX] = UIBindOptions();
 
             if (parser::parse_ui_bind(sym->s_name, opts_[IDX])) {
                 values_[IDX].append(a);
@@ -70,6 +73,7 @@ protected:
                     midi_proxy_[IDX].bind(UI_BIND_NOTEIN);
                     break;
                 default:
+                    UI_ERR << "unsupported binding";
                     break;
                 }
             }
@@ -78,8 +82,10 @@ protected:
 
     void call(size_t idx, int value)
     {
-        if (callbacks_[idx])
+        if (idx < N && callbacks_[idx])
             callbacks_[idx](value);
+        else
+            UI_ERR << "empty callback";
     }
 
     template <size_t IDX>
@@ -99,6 +105,9 @@ protected:
 public:
     UIBindObject(std::initializer_list<UIBindObjectFn> cb)
     {
+        if (cb.size() != N)
+            UI_ERR << "UIBindObject: invalid init size: " << cb.size();
+
         std::copy(cb.begin(), cb.end(), callbacks_);
         initMidiProxy<N>();
     }

@@ -14,7 +14,6 @@
 #ifndef UI_INCDEC_H
 #define UI_INCDEC_H
 
-#include "ceammc_ui_object.h"
 #include "ui_bind_object.h"
 
 using namespace ceammc;
