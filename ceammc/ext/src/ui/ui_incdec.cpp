@@ -204,6 +204,8 @@ AtomList UIIncDec::getBindDown() const
 void UIIncDec::setBindDown(const AtomListView& lv)
 {
     midi_down_.unbind();
+    prop_bind_down.clear();
+    bind_down_.reset();
 
     for (auto& a : lv) {
         if (!a.isSymbol())
@@ -244,6 +246,14 @@ void UIIncDec::onMidiUp(const AtomListView& lv)
             m_inc();
 
     } break;
+    case UI_BIND_MIDI_PGM: {
+        auto prog = lv.intAt(0, 0);
+        auto chan = lv.intAt(1, 0);
+
+        if (bind_up_.checkMidi(chan, prog, 0))
+            m_inc();
+
+    } break;
     default:
         break;
     }
@@ -259,6 +269,14 @@ void UIIncDec::onMidiDown(const AtomListView& lv)
         auto chan = lv.intAt(2, 0);
 
         if (bind_down_.checkMidi(chan, cc, val))
+            m_dec();
+
+    } break;
+    case UI_BIND_MIDI_PGM: {
+        auto prog = lv.intAt(0, 0);
+        auto chan = lv.intAt(1, 0);
+
+        if (bind_down_.checkMidi(chan, prog, 0))
             m_dec();
 
     } break;
