@@ -43,15 +43,56 @@ enum UIBindKeyMode : std::uint8_t {
 };
 
 struct UIBindOptions {
+    enum { ALL_MIDI_CHANNELS = 0 };
+
     UIBindType type { UI_BIND_NONE };
     UIBindCompare cmp { UI_BIND_CMP_NONE };
-    std::uint8_t midi_chan { 0 };
+    std::uint8_t midi_chan { ALL_MIDI_CHANNELS };
     std::uint8_t midi_param { 0 };
     std::uint8_t midi_value { 0 };
     std::uint8_t key_code { 0 };
     std::uint8_t key_mode { 0 };
     char key_name[16] { 0 };
     std::uint8_t name_len { 0 };
+
+    void reset() { type = UI_BIND_NONE; }
+
+    bool checkMidiValue(int val) const
+    {
+        switch (cmp) {
+        case UI_BIND_CMP_EQ:
+            return val == midi_value;
+        case UI_BIND_CMP_LT:
+            return val < midi_value;
+        case UI_BIND_CMP_GT:
+            return val > midi_value;
+        default:
+            return false;
+        }
+    }
+
+    bool checkMidiChan(int chan) const
+    {
+        if (midi_chan == ALL_MIDI_CHANNELS)
+            return true;
+        else
+            return midi_chan == chan;
+    }
+
+    bool checkMidiParam(int param) const
+    {
+        return midi_param == param;
+    }
+
+    bool checkMidi(int chan, int param, int value) const
+    {
+        if (type == UI_BIND_MIDI_CC || type == UI_BIND_MIDI_NOTE)
+            return checkMidiChan(chan) && checkMidiParam(param) && checkMidiValue(value);
+        else if (type == UI_BIND_MIDI_PGM)
+            return checkMidiChan(chan) && checkMidiParam(param);
+        else
+            return false;
+    }
 };
 
 namespace parser {
