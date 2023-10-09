@@ -14,7 +14,9 @@
 #ifndef UI_INCDEC_H
 #define UI_INCDEC_H
 
+#include "ceammc_proxy.h"
 #include "ceammc_ui_object.h"
+#include "lex/parser_ui_bind.h"
 
 using namespace ceammc;
 
@@ -23,10 +25,22 @@ class UIIncDec : public UIObject {
     t_float prop_step;
     t_float prop_min;
     t_float prop_max;
+    AtomList prop_bind_up;
+    AtomList prop_bind_down;
 
 private:
     t_float value_;
     int mouse_down_;
+    UIBindOptions bind_up_, bind_down_;
+    PdListProxy<UIIncDec> midi_up_, midi_down_;
+
+    AtomList getBindUp() const;
+    void setBindUp(const AtomListView& lv);
+    AtomList getBindDown() const;
+    void setBindDown(const AtomListView& lv);
+
+    void onMidiUp(const AtomListView& lv);
+    void onMidiDown(const AtomListView& lv);
 
 public:
     UIIncDec();
