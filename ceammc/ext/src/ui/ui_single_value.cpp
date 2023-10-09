@@ -1,29 +1,30 @@
 #include "ui_single_value.h"
 #include "ceammc_cicm.h"
-#include "ceammc_proxy.h"
-#include "ceammc_ui_object.h"
-
 #include "ceammc_convert.h"
+#include "ceammc_crc32.h"
 #include "ceammc_log.h"
 #include "ceammc_preset.h"
+#include "ceammc_proxy.h"
+#include "ceammc_ui_object.h"
+#include "fmt/core.h"
 
 #include <numeric>
 #include <random>
 
-
 // see ui_gain.cpp
 static t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
 static t_rgba PICKUP_MIDI_COLOR = hex_to_rgba("#3377FF");
-static t_symbol* SYM_MIN;
-static t_symbol* SYM_MAX;
-static t_symbol* SYM_LINEAR;
-static t_symbol* SYM_LOG;
 
 constexpr int MIDI_CTL_NONE = -1;
 constexpr int MIDI_CTL_MIN = 0;
 constexpr int MIDI_CTL_MAX = 127;
 
 using namespace ceammc;
+
+CEAMMC_DEFINE_SYM_HASH(min)
+CEAMMC_DEFINE_SYM_HASH(max)
+CEAMMC_DEFINE_SYM_HASH(linear)
+CEAMMC_DEFINE_SYM_HASH(log)
 
 static t_symbol* midi_ctl_sym()
 {
@@ -43,7 +44,7 @@ UISingleValue::UISingleValue()
     , prop_midi_ctl(MIDI_CTL_NONE)
     , prop_pickup_midi(0)
     , prop_show_value(0)
-    , prop_scale(SYM_LINEAR)
+    , prop_scale(sym_linear())
     , knob_layer_(asEBox(), gensym("knob_layer"))
 {
     createOutlet();
@@ -61,9 +62,9 @@ void UISingleValue::setKnobPhase(t_float v)
 {
     knob_phase = clip<t_float>(v, 0, 1);
 
-    if (prop_scale == SYM_LINEAR)
+    if (prop_scale == sym_linear())
         prop_value = convert::lin2lin<t_float, 0, 1>(knob_phase, prop_min, prop_max);
-    else if (prop_scale == SYM_LOG) {
+    else if (prop_scale == sym_log()) {
         const bool ok = (prop_min > 0) && (prop_max > prop_min);
         if (!ok) {
             UI_ERR << "invalid min/max bounds: " << prop_min << " " << prop_max << " in logarithm mode";
@@ -101,9 +102,9 @@ void UISingleValue::setValueLin(t_float v)
 
 void UISingleValue::setValue(t_float v)
 {
-    if (prop_scale == SYM_LINEAR) {
+    if (prop_scale == sym_linear()) {
         setValueLin(v);
-    } else if (prop_scale == SYM_LOG) {
+    } else if (prop_scale == sym_log()) {
         bool ok = prop_min > 0 && prop_max > prop_min;
         if (!ok) {
             UI_ERR << "invalid property range: " << prop_min << " " << prop_max
@@ -142,19 +143,22 @@ void UISingleValue::onPropChange(t_symbol* prop_name)
     if (prop_name == gensym("midi_control")) {
         if (prop_midi_ctl != MIDI_CTL_NONE) {
             // info
-            std::ostringstream ss;
-            ss << "binded to MIDI ctl #"
-               << prop_midi_ctl
-               << (prop_midi_chn == 0 ? " on all channels" : " on channel: ");
+            char buf[MAXPDSTRING];
+            auto pbuf = buf;
+            pbuf = fmt::format_to(pbuf, "binded to MIDI ctl #{}", prop_midi_ctl);
 
-            if (prop_midi_chn > 0)
-                ss << prop_midi_chn;
+            if (prop_midi_chn == 0)
+                pbuf = fmt::format_to(pbuf, " on all channels ");
+            else
+                pbuf = fmt::format_to(pbuf, " on channel: {}", prop_midi_chn);
 
-            UI_DBG << ss.str();
+            *pbuf = '\0';
+
+            UI_DBG << buf;
             midi_proxy_.bind(midi_ctl_sym());
         } else
             midi_proxy_.unbind();
-    } else if (prop_name == SYM_MAX || prop_name == SYM_MIN) {
+    } else if (prop_name == sym_max() || prop_name == sym_min()) {
         // put value in valid range
         prop_value = clip_any<float>(prop_value, prop_min, prop_max);
         knob_layer_.invalidate();
@@ -383,9 +387,9 @@ void UISingleValue::redrawKnob()
 
 UISingleValue::ScaleMode UISingleValue::scaleMode() const
 {
-    if (prop_scale == SYM_LINEAR)
+    if (prop_scale == sym_linear())
         return LINEAR;
-    else if (prop_scale == SYM_LOG)
+    else if (prop_scale == sym_log())
         return LOG;
     else
         return LINEAR;
@@ -393,15 +397,4 @@ UISingleValue::ScaleMode UISingleValue::scaleMode() const
 
 void UISingleValue::setup()
 {
-    if (!SYM_MIN)
-        SYM_MIN = gensym("min");
-
-    if (!SYM_MAX)
-        SYM_MAX = gensym("max");
-
-    if (!SYM_LINEAR)
-        SYM_LINEAR = gensym("linear");
-
-    if (!SYM_LOG)
-        SYM_LOG = gensym("log");
 }
