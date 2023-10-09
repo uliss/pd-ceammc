@@ -187,7 +187,7 @@ TEST_CASE("ui.bang", "[ui.bang]")
         pd::send_list(gensym("#ctlin"), LF(10, 100, 0));
         REQUIRE_NO_OUTPUT(t);
 
-        t->setProperty(gensym("bind"), LA("cc[10]=100"));
+        t->setProperty(gensym("bind"), LA("cc[10]==100"));
         pd::send_list(gensym("#ctlin"), LF(10, 100, 0));
         REQUIRE_OUTPUT_BANG(t, 0);
         pd::send_list(gensym("#ctlin"), LF(10, 101, 0));

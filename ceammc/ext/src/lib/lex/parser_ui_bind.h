@@ -32,7 +32,9 @@ enum UIBindCompare : std::uint8_t {
     UI_BIND_CMP_NONE,
     UI_BIND_CMP_EQ,
     UI_BIND_CMP_LT,
-    UI_BIND_CMP_GT
+    UI_BIND_CMP_LE,
+    UI_BIND_CMP_GT,
+    UI_BIND_CMP_GE
 };
 
 enum UIBindKeyMode : std::uint8_t {
@@ -64,8 +66,12 @@ struct UIBindOptions {
             return val == midi_value;
         case UI_BIND_CMP_LT:
             return val < midi_value;
+        case UI_BIND_CMP_LE:
+            return val <= midi_value;
         case UI_BIND_CMP_GT:
             return val > midi_value;
+        case UI_BIND_CMP_GE:
+            return val >= midi_value;
         case UI_BIND_CMP_NONE:
             return true;
         }

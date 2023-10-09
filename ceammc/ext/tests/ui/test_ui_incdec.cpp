@@ -167,8 +167,8 @@ TEST_CASE("ui.incdec", "[ui.incdec]")
         pd::send_list(gensym("#ctlin"), LF(2, 65, 0));
         REQUIRE_OUTPUT_FLOAT(t, 0, 2);
 
-        REQUIRE(t->setProperty(gensym("bind_up"), LA("cc[2]=100")));
-        REQUIRE_UI_LIST_PROPERTY(t, "bind_up", LA("cc[2]=100"));
+        REQUIRE(t->setProperty(gensym("bind_up"), LA("cc[2]==100")));
+        REQUIRE_UI_LIST_PROPERTY(t, "bind_up", LA("cc[2]==100"));
 
         pd::send_list(gensym("#ctlin"), LF(2, 65, 0));
         REQUIRE_NO_OUTPUT(t);
@@ -180,8 +180,8 @@ TEST_CASE("ui.incdec", "[ui.incdec]")
         pd::send_list(gensym("#ctlin"), LF(2, 100, 2));
         REQUIRE_OUTPUT_FLOAT(t, 0, 5);
 
-        REQUIRE(t->setProperty(gensym("bind_down"), LA("cc[2]=101")));
-        REQUIRE_UI_LIST_PROPERTY(t, "bind_down", LA("cc[2]=101"));
+        REQUIRE(t->setProperty(gensym("bind_down"), LA("cc[2]==101")));
+        REQUIRE_UI_LIST_PROPERTY(t, "bind_down", LA("cc[2]==101"));
         pd::send_list(gensym("#ctlin"), LF(2, 101, 2));
         REQUIRE_OUTPUT_FLOAT(t, 0, 4);
         pd::send_list(gensym("#ctlin"), LF(2, 101, 2));

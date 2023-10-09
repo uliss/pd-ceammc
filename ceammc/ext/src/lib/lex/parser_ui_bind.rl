@@ -19,9 +19,12 @@ static inline void add_digit(std::uint8_t& v, char ch) { (v *= 10) += (ch - '0')
     action on_name_char  { opts.key_name[opts.name_len++] = *fpc; opts.key_name[opts.name_len] = 0; }
 
     name = ([a-zA-Z0-9_]{1,8}) >init_name $on_name_char;
-    cmp = '=' %{ opts.cmp = UI_BIND_CMP_EQ; }
-        | '>' %{ opts.cmp = UI_BIND_CMP_GT; }
-        | '<' %{ opts.cmp = UI_BIND_CMP_LT; };
+    cmp = '=='          %{ opts.cmp = UI_BIND_CMP_EQ; }
+        | '>'           %{ opts.cmp = UI_BIND_CMP_GT; }
+        | '>='          %{ opts.cmp = UI_BIND_CMP_GE; }
+        | '<'           %{ opts.cmp = UI_BIND_CMP_LT; }
+        | '<='          %{ opts.cmp = UI_BIND_CMP_LE; }
+        ;
     uint = '0' | ([1-9][0-9]{0,2});
     midi_chan  =  ':'       >{ opts.midi_chan = 0; }
                   uint      $on_midi_chan;

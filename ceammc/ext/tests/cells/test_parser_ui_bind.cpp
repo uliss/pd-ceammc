@@ -40,6 +40,13 @@ TEST_CASE("parser_ui_bind", "[ceammc::ceammc_units]")
         REQUIRE(opts.cmp == UI_BIND_CMP_GT);
         REQUIRE(opts.type == UI_BIND_MIDI_CC);
 
+        REQUIRE(parse_ui_bind("cc[0]>=63", opts));
+        REQUIRE(opts.midi_chan == 0);
+        REQUIRE(opts.midi_param == 0);
+        REQUIRE(opts.midi_value == 63);
+        REQUIRE(opts.cmp == UI_BIND_CMP_GE);
+        REQUIRE(opts.type == UI_BIND_MIDI_CC);
+
         REQUIRE(parse_ui_bind("cc[1]<120", opts));
         REQUIRE(opts.midi_chan == 0);
         REQUIRE(opts.midi_param == 1);
@@ -54,14 +61,21 @@ TEST_CASE("parser_ui_bind", "[ceammc::ceammc_units]")
         REQUIRE(opts.cmp == UI_BIND_CMP_LT);
         REQUIRE(opts.type == UI_BIND_MIDI_CC);
 
-        REQUIRE(parse_ui_bind("cc[20:16]=120", opts));
+        REQUIRE(parse_ui_bind("cc[1:2]<=120", opts));
+        REQUIRE(opts.midi_chan == 2);
+        REQUIRE(opts.midi_param == 1);
+        REQUIRE(opts.midi_value == 120);
+        REQUIRE(opts.cmp == UI_BIND_CMP_LE);
+        REQUIRE(opts.type == UI_BIND_MIDI_CC);
+
+        REQUIRE(parse_ui_bind("cc[20:16]==120", opts));
         REQUIRE(opts.midi_chan == 16);
         REQUIRE(opts.midi_param == 20);
         REQUIRE(opts.midi_value == 120);
         REQUIRE(opts.cmp == UI_BIND_CMP_EQ);
         REQUIRE(opts.type == UI_BIND_MIDI_CC);
 
-        REQUIRE(parse_ui_bind("note[20:12]=14", opts));
+        REQUIRE(parse_ui_bind("note[20:12]==14", opts));
         REQUIRE(opts.midi_chan == 12);
         REQUIRE(opts.midi_param == 20);
         REQUIRE(opts.midi_value == 14);
