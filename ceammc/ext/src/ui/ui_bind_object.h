@@ -27,7 +27,7 @@ constexpr const char* UI_BIND_CTLIN = "#ctlin";
 constexpr const char* UI_BIND_PGMIN = "#pgmin";
 constexpr const char* UI_BIND_NOTEIN = "#notein";
 
-using UIBindObjectFn = std::function<void()>;
+using UIBindObjectFn = std::function<void(int value)>;
 
 template <size_t N = 1>
 class UIBindObject : public UIObject {
@@ -76,10 +76,10 @@ protected:
         }
     }
 
-    void call(size_t idx)
+    void call(size_t idx, int value)
     {
         if (callbacks_[idx])
-            callbacks_[idx]();
+            callbacks_[idx](value);
     }
 
     template <size_t IDX>
@@ -114,7 +114,7 @@ public:
             auto chan = lv.intAt(2, 0);
 
             if (opts_[IDX].checkMidi(chan, cc, val))
-                call(IDX);
+                call(IDX, val);
 
         } break;
         case UI_BIND_MIDI_PGM: {
@@ -122,7 +122,7 @@ public:
             auto chan = lv.intAt(1, 0);
 
             if (opts_[IDX].checkMidi(chan, prog, 0))
-                call(IDX);
+                call(IDX, 1);
 
         } break;
         default:

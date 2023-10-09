@@ -12,8 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "mod_ui.h"
-#include "ui_slider2d.h"
 #include "test_ui.h"
+#include "ui_slider2d.h"
 
 UI_COMPLETE_TEST_SETUP(Slider2D)
 
@@ -267,5 +267,31 @@ TEST_CASE("ui.slider2d", "[ui.slider2d]")
 
         t.mouseDown(30, 70);
         REQUIRE_LIST_WAS_SEND(t, "r1", LX(-0.4, -0.4));
+    }
+
+    SECTION("bind")
+    {
+        SECTION("midi")
+        {
+            SECTION("ctlin")
+            {
+                TestExtSlider2D t("ui.slider2d");
+                pd::send_list(gensym("#ctlin"), LF(10, 127, 0));
+                pd::send_list(gensym("#ctlin"), LF(11, 127, 0));
+                REQUIRE_NO_OUTPUT(t);
+
+                REQUIRE(t->setProperty(gensym("bind_x"), LA("cc[10]")));
+                REQUIRE(t->setProperty(gensym("bind_y"), LA("cc[11]")));
+
+                pd::send_list(gensym("#ctlin"), LF(10, 127, 0));
+                REQUIRE(t->realValue() == LX(1, 0));
+                pd::send_list(gensym("#ctlin"), LF(10, 0, 0));
+                REQUIRE(t->realValue() == LX(-1, 0));
+                pd::send_list(gensym("#ctlin"), LF(11, 0, 0));
+                REQUIRE(t->realValue() == LX(-1, 1));
+                pd::send_list(gensym("#ctlin"), LF(11, 127, 0));
+                REQUIRE(t->realValue() == LX(-1, -1));
+            }
+        }
     }
 }

@@ -20,7 +20,7 @@ constexpr int MAX_VALUE_DEFAULT = 8192;
 constexpr int MIN_VALUE_DEFAULT = -MAX_VALUE_DEFAULT;
 
 UIIncDec::UIIncDec()
-    : UIBindObject<2> { { [this]() { m_inc(); }, [this]() { m_dec(); } } }
+    : UIBindObject<2> { { [this](int v) { m_inc(); }, [this](int v) { m_dec(); } } }
     , prop_color_arrow(rgba_greydark)
     , prop_step(1)
     , value_(0)

@@ -25,6 +25,14 @@ TEST_CASE("parser_ui_bind", "[ceammc::ceammc_units]")
 
     SECTION("MIDI")
     {
+        REQUIRE(parse_ui_bind("cc[0]", opts));
+        REQUIRE(opts.midi_chan == 0);
+        REQUIRE(opts.midi_param == 0);
+        REQUIRE(opts.midi_value == 0);
+        REQUIRE(opts.cmp == UI_BIND_CMP_NONE);
+        REQUIRE(opts.type == UI_BIND_MIDI_CC);
+        REQUIRE(opts.checkMidi(0, 0, 100));
+
         REQUIRE(parse_ui_bind("cc[0]>63", opts));
         REQUIRE(opts.midi_chan == 0);
         REQUIRE(opts.midi_param == 0);

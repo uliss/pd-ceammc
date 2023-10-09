@@ -20,7 +20,7 @@ constexpr int FLASH_TIMEOUT = 100;
 namespace ceammc {
 
 UIBang::UIBang()
-    : UIBindObject<1>({ [this]() { bang(); } })
+    : UIBindObject<1>({ [this](int) { bang(); } })
     , clock_([this]() { if(active_) deactivate(); })
     , active_(false)
     , prop_color_active(rgba_blue)

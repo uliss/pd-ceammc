@@ -66,8 +66,8 @@ struct UIBindOptions {
             return val < midi_value;
         case UI_BIND_CMP_GT:
             return val > midi_value;
-        default:
-            return false;
+        case UI_BIND_CMP_NONE:
+            return true;
         }
     }
 
@@ -86,9 +86,9 @@ struct UIBindOptions {
 
     bool checkMidi(int chan, int param, int value) const
     {
-        if (type == UI_BIND_MIDI_CC || type == UI_BIND_MIDI_NOTE)
+        if (type == UI_BIND_MIDI_CC || type == UI_BIND_MIDI_NOTE) {
             return checkMidiChan(chan) && checkMidiParam(param) && checkMidiValue(value);
-        else if (type == UI_BIND_MIDI_PGM)
+        } else if (type == UI_BIND_MIDI_PGM)
             return checkMidiChan(chan) && checkMidiParam(param);
         else
             return false;
