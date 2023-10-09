@@ -63,6 +63,8 @@ public:
         }
     }
 
+    t_symbol* bindName() const { return bind_name_; }
+
     bool isBinded() const { return bind_name_ != &s_; }
 
     t_object* object() { return &obj_; }
