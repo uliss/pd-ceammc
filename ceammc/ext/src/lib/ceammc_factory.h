@@ -14,6 +14,7 @@
 #ifndef CEAMMC_OBJECTCLASS_H
 #define CEAMMC_OBJECTCLASS_H
 
+#include "ceammc_symbols.h"
 #include "m_pd.h"
 
 #include <cstdint>
@@ -118,9 +119,9 @@ public:
         setFlag(OBJECT_FACTORY_PARSE_POS_PROPS, true);
 
         // add [dump( method to dump to Pd console
-        class_addmethod(c, reinterpret_cast<t_method>(dumpMethodList), SymbolTable::instance().s_dump_fn, A_NULL);
+        class_addmethod(c, reinterpret_cast<t_method>(dumpMethodList), sym::methods::sym_dump(), A_NULL);
         // add [@*?( method to output all properties
-        class_addmethod(c, reinterpret_cast<t_method>(outputAllProperties), SYM_PROPS_ALL_Q(), A_NULL);
+        class_addmethod(c, reinterpret_cast<t_method>(outputAllProperties), sym::props::sym_value_all_get(), A_NULL);
         // direct property get
         ceammc_class_add_propget_fn(c, getProperty);
         // direct property set
@@ -760,7 +761,7 @@ public:
         : ObjectFactory<T>(name, flags)
     {
         class_addmethod(SoundExternalFactory::classPointer(),
-            reinterpret_cast<t_method>(setupDSP), gensym("dsp"), A_NULL);
+            reinterpret_cast<t_method>(setupDSP), sym::methods::sym_dsp(), A_NULL);
 
         // if default inlet is signal
         if (!(flags & OBJECT_FACTORY_NO_DEFAULT_INLET)

@@ -13,6 +13,7 @@
 #include "eclass.h"
 #include "ecommon.h"
 #include "egraphics.h"
+#include "esymbols.h"
 
 #include <cinttypes>
 #include <string>
@@ -62,7 +63,7 @@ void eobj_free(t_eobj* x)
 
 t_pd_err eobj_iscicm(void* x)
 {
-    return zgetfn((t_pd*)x, s_iscicm) != nullptr;
+    return zgetfn((t_pd*)x, ceammc::sym::sym_iscicm()) != nullptr;
 }
 
 t_eproxy* eobj_proxynew(t_eobj* x)
@@ -114,7 +115,7 @@ void eobj_dosave(void* z, t_binbuf* b)
     auto x = static_cast<t_eobj*>(z);
     auto c = eobj_getclass(x);
     if (c && b) {
-        binbuf_addv(b, "ssii", &s__X, s_obj, (t_int)x->o_obj.te_xpix, (t_int)x->o_obj.te_ypix);
+        binbuf_addv(b, "ssii", &s__X, ceammc::sym::sym_obj(), (t_int)x->o_obj.te_xpix, (t_int)x->o_obj.te_ypix);
         auto d = x->o_obj.te_binbuf;
         if (d) {
             binbuf_addbinbuf(b, d);

@@ -101,47 +101,6 @@ using t_dsp_add_method = void (*)(void*, t_object* dsp,
     t_sample** outs, long n_outs,
     long sampleframes, long flags, void* up);
 
-//! The pre-defined ("null") t_symbol*
-extern t_symbol* s_null;
-//! The pre-defined obj t_symbol*
-extern t_symbol* s_obj;
-//! The pre-defined atom t_symbol*
-extern t_symbol* s_atom;
-//! The pre-defined attr_modified t_symbol*
-extern t_symbol* s_attr_modified;
-//! The pre-defined size t_symbol*
-extern t_symbol* s_size;
-//! The pre-defined int t_symbol*
-extern t_symbol* s_int;
-//! The pre-defined long t_symbol*
-extern t_symbol* s_long;
-//! The pre-defined double t_symbol*
-extern t_symbol* s_double;
-//! The pre-defined s_pinned t_symbol*
-extern t_symbol* s_pinned;
-//! The pre-defined s_iscicm t_symbol*
-extern t_symbol* s_iscicm;
-//! The pre-defined attr_size t_symbol*
-extern t_symbol* s_attr_size;
-//! The pre-defined s_color_black_hex t_symbol*
-extern t_symbol* s_color_black_hex;
-
-extern t_symbol* s_prop_label;
-extern t_symbol* s_prop_label_align;
-extern t_symbol* s_prop_label_valign;
-extern t_symbol* s_prop_label_position;
-extern t_symbol* s_prop_label_side;
-extern t_symbol* s_value_label_align_left;
-extern t_symbol* s_value_label_align_center;
-extern t_symbol* s_value_label_align_right;
-extern t_symbol* s_value_label_valign_top;
-extern t_symbol* s_value_label_valign_center;
-extern t_symbol* s_value_label_valign_bottom;
-extern t_symbol* s_value_label_side_left;
-extern t_symbol* s_value_label_side_top;
-extern t_symbol* s_value_label_side_right;
-extern t_symbol* s_value_label_side_bottom;
-
 /** @} */
 
 /*! @addtogroup groupgraphics The Graphics Part

@@ -90,7 +90,7 @@ void UIBang::setup()
     obj.addAlias("ui.b");
 
     obj.setDefaultSize(15, 15);
-    obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIBang::prop_color_active);
+    obj.addProperty(sym::props::name_active_color, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIBang::prop_color_active);
 
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP);
     obj.useAny();

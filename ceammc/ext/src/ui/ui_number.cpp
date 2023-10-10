@@ -355,7 +355,7 @@ void UINumber::setup()
 
     obj.addBoolProperty("display_only", _("Display only"), false, &UINumber::prop_display_only, _("Main"));
 
-    obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UINumber::prop_color_active);
+    obj.addProperty(sym::props::name_active_color, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UINumber::prop_color_active);
     obj.addProperty("text_color", _("Text color"), DEFAULT_TEXT_COLOR, &UINumber::prop_color_text);
 
     obj.addProperty("value", &UINumber::value, &UINumber::setValue);

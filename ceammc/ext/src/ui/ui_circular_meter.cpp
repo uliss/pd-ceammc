@@ -168,7 +168,7 @@ void UICircularMeter::propSetOffset(t_int off)
 
 void UICircularMeter::propSetAngles(const AtomListView& lv)
 {
-    if (lv.empty() || lv == s_null) {
+    if (lv.empty() || lv == sym::str_null) {
         for (int i = 0; i < prop_nchan; i++)
             out_angles_[i] = (360.f * i) / prop_nchan;
 

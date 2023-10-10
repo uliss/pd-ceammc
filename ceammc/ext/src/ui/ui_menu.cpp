@@ -542,8 +542,8 @@ void UIMenu::setup()
     obj.hideLabelInner();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_MOVE | UI_MOUSE_LEAVE);
 
-    obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UIMenu::prop_color_text);
-    obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIMenu::prop_color_active);
+    obj.addProperty(sym::props::name_text_color, _("Text Color"), DEFAULT_TEXT_COLOR, &UIMenu::prop_color_text);
+    obj.addProperty(sym::props::name_active_color, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIMenu::prop_color_active);
     obj.addProperty("max_length", _("Maximum item length"), 100, &UIMenu::prop_max_item_length);
     obj.setPropertyRange("max_length", 10, 1024);
 

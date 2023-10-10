@@ -1,6 +1,7 @@
 #include "ceammc.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_log.h"
+#include "ceammc_symbols.h"
 
 #include <vector>
 
@@ -64,6 +65,6 @@ void setup_prop_join()
         sizeof(t_prop_join), 0, A_GIMME, A_NULL);
     class_addcreator(reinterpret_cast<t_newmethod>(prop_join_new), gensym("prop<-"), A_GIMME, A_NULL);
     class_addanything(prop_join_class, reinterpret_cast<t_method>(prop_join_any));
-    class_addmethod(prop_join_class, reinterpret_cast<t_method>(prop_join_dump), SymbolTable::instance().s_dump_fn, A_NULL);
+    class_addmethod(prop_join_class, reinterpret_cast<t_method>(prop_join_dump), sym::methods::sym_dump(), A_NULL);
     class_sethelpsymbol(prop_join_class, gensym("prop.join"));
 }

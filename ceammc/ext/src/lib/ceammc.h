@@ -71,9 +71,6 @@ public:
     t_symbol* s_is_base_obj_fn;
     t_symbol* s_is_cicm_obj_fn;
     t_symbol* s_is_flext_obj_fn;
-
-    // common functions
-    t_symbol* s_dump_fn;
 };
 
 namespace literals {

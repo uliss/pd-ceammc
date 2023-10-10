@@ -16,11 +16,9 @@
 #include "ceammc_ui.h"
 
 constexpr const char* SYM_ARRAY_NAME = "array";
-constexpr const char* SYM_ATTR_SIZE = "size";
 constexpr const char* SYM_ATTR_WAVE_COLOR = "wave_color";
 constexpr const char* SYM_ATTR_CURSOR_COLOR = "cursor_color";
 constexpr const char* SYM_ATTR_SELECTION_COLOR = "selection_color";
-constexpr const char* SYM_ATTR_BG_COLOR = PROP_BACKGROUND_COLOR;
 constexpr const char* SYM_ATTR_SHOW_LABELS = "show_labels";
 constexpr const char* SYM_CURSOR_SAMPLE = "@cursor_samp";
 constexpr const char* SYM_CURSOR_PHASE = "@cursor_phase";
@@ -183,7 +181,8 @@ void UIArrayView::okSize(t_rect* newrect)
 
 void UIArrayView::onPropChange(t_symbol* prop_name)
 {
-    if (prop_name == gensym(SYM_ATTR_SIZE)) {
+    using namespace sym;
+    if (prop_name == props::sym_name_size()) {
         // width changed
         if (buffer_.size() != width()) {
             buffer_.resize(width());
@@ -198,7 +197,7 @@ void UIArrayView::onPropChange(t_symbol* prop_name)
     } else if (prop_name == gensym(SYM_ATTR_WAVE_COLOR) || prop_name == gensym(SYM_ATTR_SELECTION_COLOR)) {
         wave_layer_.invalidate();
         redraw();
-    } else if (prop_name == gensym(SYM_ATTR_BG_COLOR) || prop_name == gensym(SYM_ATTR_SHOW_LABELS)) {
+    } else if (prop_name == props::sym_name_background_color() || prop_name == gensym(SYM_ATTR_SHOW_LABELS)) {
         bg_layer_.invalidate();
         wave_layer_.invalidate();
         redraw();

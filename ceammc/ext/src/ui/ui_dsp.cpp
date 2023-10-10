@@ -5,6 +5,8 @@
 
 CEAMMC_DEFINE_SYM(pd)
 
+using namespace ceammc::sym::methods;
+
 UIDsp::UIDsp()
     : prop_color_active(rgba_black)
     , state_(false)

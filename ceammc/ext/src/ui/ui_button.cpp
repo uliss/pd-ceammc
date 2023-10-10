@@ -95,7 +95,7 @@ void UIButton::setup()
     obj.useFloat();
 
     obj.setDefaultSize(15, 15);
-    obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIButton::prop_color_active);
+    obj.addProperty(sym::props::name_active_color, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIButton::prop_color_active);
     obj.addFloatProperty("on_value", _("On value"), 1, &UIButton::prop_value_on, _("Main"));
     obj.addFloatProperty("off_value", _("Off value"), 0, &UIButton::prop_value_off, _("Main"));
 

@@ -99,7 +99,7 @@ HoaMapUI::HoaMapUI()
     , sources_(asEBox(), gensym("sources"))
     , groups_(asEBox(), gensym("groups"))
 {
-    f_binding_name = s_null;
+    f_binding_name = sym::sym_null();
     f_manager.reset(new HoaManagerData { { 1. / (double)MIN_ZOOM - 5. }, SubscriberList { this } });
 
     createOutlet();
@@ -644,7 +644,7 @@ void HoaMapUI::m_source(const AtomListView& lv)
                 }
             }
             tmp->setDescription(description);
-        } else if (param == sym_color() && lv.size() >= 5) {
+        } else if (param == sym::sym_color() && lv.size() >= 5) {
             tmp->setColor(lv.floatAt(2, 0), lv.floatAt(3, 0), lv.floatAt(4, 0), lv.floatAt(5, 0));
             causeOutput = 0;
         } else {
@@ -791,7 +791,7 @@ void HoaMapUI::m_group(const AtomListView& lv)
                 }
             }
             tmp->setDescription(description);
-        } else if (param == sym_color() && lv.size() >= 6) {
+        } else if (param == sym::sym_color() && lv.size() >= 6) {
             causeOutput = 0;
             tmp->setColor(lv.floatAt(2, 0), lv.floatAt(3, 0), lv.floatAt(4, 0), lv.floatAt(5, 0));
         } else {
@@ -823,7 +823,7 @@ void HoaMapUI::m_info()
     const auto num_src = f_manager->manager.getNumberOfSources();
 
     { // number
-        AtomArray<3> data { sym_source(), sym_number(), num_src };
+        AtomArray<3> data { sym_source(), sym::sym_number(), num_src };
         listTo(INFO_OUTLET, data.view());
     }
 
@@ -853,7 +853,7 @@ void HoaMapUI::m_info()
     // Groups
     auto num_groups = f_manager->manager.getNumberOfGroups();
     { // number
-        AtomArray<3> data { sym_group(), sym_number(), num_groups };
+        AtomArray<3> data { sym_group(), sym::sym_number(), num_groups };
         listTo(INFO_OUTLET, data.view());
     }
 
@@ -910,7 +910,7 @@ void HoaMapUI::updateAllAndOutput()
 t_symbol* HoaMapUI::makeBindSymbol(t_symbol* sym) const
 {
     auto cnv = canvas_root(canvas());
-    if (!cnv || !sym || sym == &s_ || sym == s_null)
+    if (!cnv || !sym || sym == &s_ || sym == sym::sym_null())
         return nullptr;
 
     char buf[MAXPDSTRING];
@@ -1438,7 +1438,7 @@ void HoaMapUI::m_set_bind(const AtomListView& lv)
             }
         }
 
-        f_binding_name = s_null;
+        f_binding_name = sym::sym_null();
         return;
     }
 
@@ -1457,7 +1457,7 @@ void HoaMapUI::m_set_bind(const AtomListView& lv)
             }
         }
 
-        f_binding_name = s_null;
+        f_binding_name = sym::sym_null();
 
         bind_sym = makeBindSymbol(new_binding_name);
         if (bind_sym) { // bind to new
@@ -1505,7 +1505,6 @@ void HoaMapUI::setup()
     obj.setPropertyAccessor("mapname", &HoaMapUI::m_get_bind, &HoaMapUI::m_set_bind);
 
     obj.addProperty("selection_color", _("Selection Color"), DEFAULT_ACTIVE_COLOR, &HoaMapUI::prop_selection_color);
-
 
     //    eclass_addmethod(c, (method) hoa_map_preset,        "preset",         A_CANT,  0);
     //    eclass_addmethod(c, (method) hoa_map_interpolate,   "interpolate",    A_CANT,  0);

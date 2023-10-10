@@ -219,7 +219,7 @@ void UIScope::setup()
     obj.addMethod("freeze", &UIScope::m_freeze);
     obj.addMethod("scale", &UIScope::m_scale);
 
-    obj.addColorProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIScope::prop_color_active);
+    obj.addColorProperty(sym::props::name_active_color, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIScope::prop_color_active);
     obj.addFloatProperty("max", _("Maximum value"), 1, &UIScope::prop_max, _("Bounds"));
     obj.addFloatProperty("min", _("Minimum value"), -1, &UIScope::prop_min, _("Bounds"));
     obj.addIntProperty("window", _("Window size"), 2048, &UIScope::prop_window, _("Main"));

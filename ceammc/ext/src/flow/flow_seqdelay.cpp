@@ -14,12 +14,11 @@
 #include "flow_seqdelay.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+#include "ceammc_symbols.h"
 #include "fmt/core.h"
 
 #define PROP_TIME "@t"
 #define PROP_BLOCK "@block"
-#define METHOD_DUMP "dump"
-#define METHOD_RESET "reset"
 
 constexpr int INLET_MAIN = 0;
 constexpr int INLET_CTL = 1;
@@ -135,10 +134,10 @@ void FlowSeqDelay::on_proxy_any(int idx, t_symbol* s, const AtomListView& lv)
         case PROP_BLOCK ""_hash:
             setProperty(s, lv);
             break;
-        case METHOD_DUMP ""_hash:
+        case crc32_constexpr(sym::methods::str_dump):
             dump();
             break;
-        case METHOD_RESET ""_hash:
+        case crc32_constexpr(sym::methods::str_reset):
             m_reset(s, lv);
             break;
         case "list"_hash:
@@ -189,5 +188,5 @@ void setup_flow_seqdelay()
 
     obj.setDescription("sequential delay/router for input flow");
     obj.setCategory("flow");
-    obj.setKeywords({"flow", "seq", "delay"});
+    obj.setKeywords({ "flow", "seq", "delay" });
 }

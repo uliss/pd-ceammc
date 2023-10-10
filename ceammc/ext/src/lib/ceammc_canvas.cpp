@@ -14,6 +14,7 @@
 #include "ceammc_canvas.h"
 #include "ceammc_containers.h"
 #include "ceammc_object.h"
+#include "ceammc_symbols.h"
 #include "fmt/core.h"
 
 extern "C" {
@@ -372,7 +373,7 @@ void Canvas::free()
 void Canvas::setupDsp()
 {
     if (canvas_)
-        mess0(&canvas_->gl_obj.te_g.g_pd, gensym("dsp"));
+        mess0(&canvas_->gl_obj.te_g.g_pd, sym::methods::sym_dsp());
 }
 
 void Canvas::setCurrent()

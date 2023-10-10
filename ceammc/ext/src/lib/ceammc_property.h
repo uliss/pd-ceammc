@@ -30,10 +30,6 @@
 
 namespace ceammc {
 
-t_symbol* SYM_DUMP();
-t_symbol* SYM_PROPS_ALL();
-t_symbol* SYM_PROPS_ALL_Q();
-
 using PropertyBoolGetter = std::function<bool()>;
 using PropertyBoolSetter = std::function<bool(bool)>;
 using PropertyFloatGetter = std::function<t_float()>;
