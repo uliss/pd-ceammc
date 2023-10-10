@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef ESYMBOLS_H
-#define ESYMBOLS_H
+#ifndef CEAMMC_UI_SYMBOLS_H
+#define CEAMMC_UI_SYMBOLS_H
 
 #include "ceammc_crc32.h"
 #include "ceammc_symbols.h"
@@ -139,4 +139,4 @@ namespace sym {
 }
 }
 
-#endif // ESYMBOLS_H
+#endif // CEAMMC_UI_SYMBOLS_H

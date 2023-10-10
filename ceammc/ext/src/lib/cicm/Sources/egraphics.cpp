@@ -10,7 +10,7 @@
 
 #include "egraphics.h"
 #include "ceammc_convert.h"
-#include "esymbols.h"
+#include "ceammc_ui_symbols.h"
 
 static const float k = 0.55228474983079356430692996582365594804286956787109f;
 static const char HexDigits[] = "0123456789ABCDEF";

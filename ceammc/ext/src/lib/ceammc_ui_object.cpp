@@ -3,7 +3,7 @@
 #include "ceammc_log.h"
 #include "ceammc_pd.h"
 #include "ceammc_preset.h"
-#include "esymbols.h"
+#include "ceammc_ui_symbols.h"
 #include "fmt/core.h"
 
 #include <algorithm>

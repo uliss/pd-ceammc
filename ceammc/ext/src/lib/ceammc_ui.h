@@ -7,7 +7,7 @@
 #include "ceammc_log.h"
 #include "ceammc_object_info.h"
 #include "ceammc_ui_object.h"
-#include "cicm/Sources/esymbols.h"
+#include "ceammc_ui_symbols.h"
 
 #include <stdexcept>
 #include <string>

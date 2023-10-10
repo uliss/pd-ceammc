@@ -12,10 +12,10 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_crc32.h"
 #include "ceammc_impl.h"
+#include "ceammc_ui_symbols.h"
 #include "ecommon.h"
 #include "egraphics.h"
 #include "eobj.h"
-#include "esymbols.h"
 
 #include "ceammc.h"
 #include "ceammc_dsp.h"

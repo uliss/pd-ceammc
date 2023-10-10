@@ -12,11 +12,11 @@
 #include "ceammc.h"
 #include "ceammc_impl.h"
 #include "ceammc_log.h"
+#include "ceammc_ui_symbols.h"
 #include "ebox.h"
 #include "ecommon.h"
 #include "egraphics.h"
 #include "eobj.h"
-#include "esymbols.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wsign-conversion"

@@ -10,10 +10,10 @@
 
 #include "eobj.h"
 #include "ceammc_platform.h"
+#include "ceammc_ui_symbols.h"
 #include "eclass.h"
 #include "ecommon.h"
 #include "egraphics.h"
-#include "esymbols.h"
 
 #include <cinttypes>
 #include <string>
