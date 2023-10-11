@@ -165,7 +165,7 @@ void UIIncDec::propSetValue(t_float f)
 
 void UIIncDec::increment()
 {
-    value_ = clip<t_float>(value_ - prop_step, prop_min, prop_max);
+    value_ = clip<t_float>(value_ + prop_step, prop_min, prop_max);
     mode_ = MODE_INC;
     output();
     redrawBGLayer();

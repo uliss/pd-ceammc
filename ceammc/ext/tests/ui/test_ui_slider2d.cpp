@@ -288,9 +288,9 @@ TEST_CASE("ui.slider2d", "[ui.slider2d]")
                 pd::send_list(gensym("#ctlin"), LF(10, 0, 0));
                 REQUIRE(t->realValue() == LX(-1, 0));
                 pd::send_list(gensym("#ctlin"), LF(11, 0, 0));
-                REQUIRE(t->realValue() == LX(-1, 1));
-                pd::send_list(gensym("#ctlin"), LF(11, 127, 0));
                 REQUIRE(t->realValue() == LX(-1, -1));
+                pd::send_list(gensym("#ctlin"), LF(11, 127, 0));
+                REQUIRE(t->realValue() == LX(-1, 1));
             }
         }
     }

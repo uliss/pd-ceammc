@@ -119,7 +119,7 @@ struct UIBindOptions {
         if (type != UI_BIND_KEY_NAME)
             return false;
 
-        if (key_mode != UI_BIND_MODE_NONE && key_mode & mode)
+        if (key_mode != UI_BIND_MODE_NONE && !(key_mode & mode))
             return false;
 
         if (name.isSymbol())

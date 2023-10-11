@@ -130,5 +130,15 @@ TEST_CASE("parser_ui_bind", "[ceammc::ceammc_units]")
         REQUIRE(opts.key_name == std::string("Space"));
         REQUIRE(opts.cmp == UI_BIND_CMP_EQ);
         REQUIRE(opts.type == UI_BIND_KEY_NAME);
+
+        REQUIRE(parse_ui_bind("keyname[alt]=Space", opts));
+        REQUIRE(opts.midi_chan == 0);
+        REQUIRE(opts.midi_param == 0);
+        REQUIRE(opts.midi_value == 0);
+        REQUIRE(opts.key_mode == UI_BIND_MODE_ALT);
+        REQUIRE(opts.key_code == 0);
+        REQUIRE(opts.key_name == std::string("Space"));
+        REQUIRE(opts.cmp == UI_BIND_CMP_EQ);
+        REQUIRE(opts.type == UI_BIND_KEY_NAME);
     }
 }
