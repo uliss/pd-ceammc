@@ -14,6 +14,7 @@
 #ifndef UI_INCDEC_H
 #define UI_INCDEC_H
 
+#include "ceammc_clock.h"
 #include "ui_bind_object.h"
 
 using namespace ceammc;
@@ -25,10 +26,11 @@ class UIIncDec : public UIBindObject<2> {
     t_float prop_max;
     AtomList prop_bind_up;
     AtomList prop_bind_down;
+    ClockLambdaFunction redraw_cb_;
 
 private:
     t_float value_;
-    int mouse_down_;
+    int mode_;
 
 public:
     UIIncDec();
@@ -55,6 +57,8 @@ private:
     void output();
     t_float propValue() const;
     void propSetValue(t_float f);
+    void increment();
+    void decrement();
 };
 
 void setup_ui_incdec();

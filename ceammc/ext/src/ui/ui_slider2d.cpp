@@ -31,7 +31,7 @@ UISlider2D::UISlider2D()
             output();
         },
         [this](int v) {
-            y_pos_ = convert::lin2lin<t_float, 0, 127>(v, prop_y_top, prop_y_bottom);
+            y_pos_ = convert::lin2lin<t_float, 0, 127>(v, prop_y_bottom, prop_y_top);
             redrawKnob();
             output();
         },

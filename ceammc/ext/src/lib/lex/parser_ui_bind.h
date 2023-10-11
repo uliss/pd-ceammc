@@ -14,7 +14,10 @@
 #ifndef PARSER_UI_BIND_H
 #define PARSER_UI_BIND_H
 
+#include "ceammc_atom.h"
+
 #include <cstdint>
+#include <cstring>
 
 namespace ceammc {
 
@@ -97,6 +100,35 @@ struct UIBindOptions {
         } else if (type == UI_BIND_MIDI_PGM)
             return checkMidiChan(chan) && checkMidiParam(param);
         else
+            return false;
+    }
+
+    bool checkKeyCode(int key, int mode) const
+    {
+        if (type != UI_BIND_KEY_CODE)
+            return false;
+
+        if (key_mode != UI_BIND_MODE_NONE && key_mode & mode)
+            return false;
+
+        return key_code == key;
+    }
+
+    bool checkKeyName(const Atom& name, int mode) const
+    {
+        if (type != UI_BIND_KEY_NAME)
+            return false;
+
+        if (key_mode != UI_BIND_MODE_NONE && key_mode & mode)
+            return false;
+
+        if (name.isSymbol())
+            return std::strncmp(key_name, name.asSymbol()->s_name, name_len) == 0;
+        else if (name.isInteger()) {
+            char buf[32];
+            sprintf(buf, "%d", name.asInt());
+            return std::strncmp(key_name, buf, name_len) == 0;
+        } else
             return false;
     }
 };

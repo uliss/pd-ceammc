@@ -26,6 +26,7 @@ namespace ceammc {
 constexpr const char* UI_BIND_CTLIN = "#ctlin";
 constexpr const char* UI_BIND_PGMIN = "#pgmin";
 constexpr const char* UI_BIND_NOTEIN = "#notein";
+constexpr const char* UI_BIND_KEY = "#ceammc_keypress";
 
 using UIBindObjectFn = std::function<void(int value)>;
 
@@ -37,7 +38,7 @@ class UIBindObject : public UIObject {
     AtomList values_[N];
     UIBindOptions opts_[N];
     UIBindObjectFn callbacks_[N];
-    ProxyArray midi_proxy_;
+    ProxyArray midi_proxy_, key_proxy_;
 
 protected:
     template <size_t IDX>
@@ -48,6 +49,7 @@ protected:
     {
         values_[IDX].clear();
         midi_proxy_[IDX].unbind();
+        key_proxy_[IDX].unbind();
         opts_[IDX].reset();
 
         for (auto& a : lv) {
@@ -71,6 +73,10 @@ protected:
                     break;
                 case ceammc::UI_BIND_MIDI_NOTE:
                     midi_proxy_[IDX].bind(UI_BIND_NOTEIN);
+                    break;
+                case ceammc::UI_BIND_KEY_CODE: // fall thru
+                case ceammc::UI_BIND_KEY_NAME:
+                    key_proxy_[IDX].bind(UI_BIND_KEY);
                     break;
                 default:
                     UI_ERR << "unsupported binding";
@@ -98,8 +104,36 @@ protected:
     }
 
     template <>
-    void initMidiProxy<0>()
+    void initMidiProxy<0>() { }
+
+    template <size_t IDX>
+    void initKeyProxy()
     {
+        if (IDX > 0)
+            initKeyProxy<IDX - 1>();
+
+        key_proxy_.emplace_back(this, &UIBindObject::onKeyBind<IDX - 1>);
+    }
+
+    template <>
+    void initKeyProxy<0>() { }
+
+    int calcKeyMode(t_symbol* shift, int state) const
+    {
+        int mod = 0;
+        if (strcmp(shift->s_name, "shift") == 0)
+            mod |= UI_BIND_MODE_SHIFT;
+
+        if (state & 0x1)
+            mod |= UI_BIND_MODE_SHIFT;
+
+        if (state & 0x4)
+            mod |= UI_BIND_MODE_CTL;
+
+        if (state & 0x16)
+            mod |= UI_BIND_MODE_ALT;
+
+        return mod;
     }
 
 public:
@@ -110,6 +144,7 @@ public:
 
         std::copy(cb.begin(), cb.end(), callbacks_);
         initMidiProxy<N>();
+        initKeyProxy<N>();
     }
 
     template <size_t IDX>
@@ -131,6 +166,34 @@ public:
             auto chan = lv.intAt(1, 0);
 
             if (opts_[IDX].checkMidi(chan, prog, 0))
+                call(IDX, 1);
+
+        } break;
+        default:
+            break;
+        }
+    }
+
+    template <size_t IDX>
+    void onKeyBind(const AtomListView& lv)
+    {
+        if (isPatchEdited())
+            return;
+
+        switch (opts_[IDX].type) {
+        case UI_BIND_KEY_CODE: {
+            auto mod = calcKeyMode(lv.symbolAt(0, &s_), lv.intAt(1, 0));
+            auto code = lv.intAt(3, 0);
+
+            if (opts_[IDX].checkKeyCode(code, mod))
+                call(IDX, 1);
+
+        } break;
+        case UI_BIND_KEY_NAME: {
+            auto mod = calcKeyMode(lv.symbolAt(0, &s_), lv.intAt(1, 0));
+            auto& name = lv.atomAt(2, &s_);
+
+            if (opts_[IDX].checkKeyName(name, mod))
                 call(IDX, 1);
 
         } break;

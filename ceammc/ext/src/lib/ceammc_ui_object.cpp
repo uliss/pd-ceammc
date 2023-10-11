@@ -158,13 +158,13 @@ t_canvas* UIObjectImpl::canvas() const
 
 bool UIObjectImpl::isPatchLoading() const
 {
-    t_canvas* c = canvas();
+    auto c = canvas();
     return c ? c->gl_loading : false;
 }
 
 bool UIObjectImpl::isPatchEdited() const
 {
-    t_canvas* c = canvas();
+    auto c = canvas();
     return c ? c->gl_edit : false;
 }
 

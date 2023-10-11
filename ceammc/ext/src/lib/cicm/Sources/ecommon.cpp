@@ -32,6 +32,8 @@ void epd_init(void)
 
     sys_gui(cicm_common_bind_tcl);
 
+    sys_vgui("ceammc::ui::bindKeys\n");
+
     done = true;
 }
 

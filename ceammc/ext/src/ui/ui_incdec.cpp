@@ -18,13 +18,24 @@
 
 constexpr int MAX_VALUE_DEFAULT = 8192;
 constexpr int MIN_VALUE_DEFAULT = -MAX_VALUE_DEFAULT;
+constexpr int FLASH_MS = 100;
+
+enum {
+    MODE_NONE = 0,
+    MODE_INC = 1,
+    MODE_DEC = -1
+};
 
 UIIncDec::UIIncDec()
     : UIBindObject<2> { { [this](int v) { m_inc(); }, [this](int v) { m_dec(); } } }
     , prop_color_arrow(rgba_greydark)
     , prop_step(1)
     , value_(0)
-    , mouse_down_(0)
+    , mode_(MODE_NONE)
+    , redraw_cb_([this]() {
+        mode_ = MODE_NONE;
+        redrawBGLayer();
+    })
 {
     createOutlet();
 }
@@ -48,15 +59,15 @@ void UIIncDec::paint()
     // Background
     p.setColor(prop_color_arrow);
 
-    if (mouse_down_ == 1)
+    if (mode_ == MODE_INC)
         p.drawRect(0, 0, r.w, arrow_height);
-    else if (mouse_down_ == -1)
+    else if (mode_ == MODE_DEC)
         p.drawRect(0, arrow_height, r.w, arrow_height);
 
     p.fill();
 
     // Arrow Up //
-    p.setColor(mouse_down_ == 1 ? prop_color_background : prop_color_arrow);
+    p.setColor(mode_ == MODE_INC ? prop_color_background : prop_color_arrow);
 
     const int arrow_p0_x = static_cast<int>(roundf(pd_clip_min(r.w * 0.2f, 2)));
     const int arrow_p1_x = r.w - arrow_p0_x;
@@ -73,7 +84,7 @@ void UIIncDec::paint()
     p.fill();
 
     // Arrow Down //
-    p.setColor(mouse_down_ == -1 ? prop_color_background : prop_color_arrow);
+    p.setColor(mode_ == MODE_DEC ? prop_color_background : prop_color_arrow);
 
     p.moveTo(arrow_p0_x, arrow_height + arrow_p0_y);
     p.drawLineTo(arrow_p1_x, arrow_height + arrow_p1_y);
@@ -101,34 +112,28 @@ void UIIncDec::onFloat(t_float f)
 void UIIncDec::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     if (pt.y < height() / 2) {
-        m_inc();
-        mouse_down_ = 1;
+        increment();
     } else {
-        m_dec();
-        mouse_down_ = -1;
+        decrement();
     }
-
-    redrawBGLayer();
 }
 
 void UIIncDec::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
 {
-    mouse_down_ = 0;
+    mode_ = MODE_NONE;
     redrawBGLayer();
 }
 
 void UIIncDec::m_inc()
 {
-    value_ = clip<t_float>(value_ + prop_step, prop_min, prop_max);
-    redrawBGLayer();
-    output();
+    increment();
+    redraw_cb_.delay(FLASH_MS);
 }
 
 void UIIncDec::m_dec()
 {
-    value_ = clip<t_float>(value_ - prop_step, prop_min, prop_max);
-    redrawBGLayer();
-    output();
+    decrement();
+    redraw_cb_.delay(FLASH_MS);
 }
 
 void UIIncDec::loadPreset(size_t idx)
@@ -155,6 +160,22 @@ t_float UIIncDec::propValue() const
 void UIIncDec::propSetValue(t_float f)
 {
     value_ = clip<t_float>(f, prop_min, prop_max);
+    redrawBGLayer();
+}
+
+void UIIncDec::increment()
+{
+    value_ = clip<t_float>(value_ - prop_step, prop_min, prop_max);
+    mode_ = MODE_INC;
+    output();
+    redrawBGLayer();
+}
+
+void UIIncDec::decrement()
+{
+    value_ = clip<t_float>(value_ - prop_step, prop_min, prop_max);
+    mode_ = MODE_DEC;
+    output();
     redrawBGLayer();
 }
 
