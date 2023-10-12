@@ -28,6 +28,7 @@ include(tcl_autogen)
 add_custom_target(ceammc_lib_tcl SOURCES)
 tcl_autogen_header(tcl/ceammc_tooltips.tcl TARGET ceammc_core SOURCES ceammc_lib_tcl)
 tcl_autogen_header(tcl/ceammc_texteditor.tcl TARGET ceammc_core SOURCES ceammc_lib_tcl)
+tcl_autogen_header(tcl/ceammc_tableeditor.tcl TARGET ceammc_core SOURCES ceammc_lib_tcl)
 target_include_directories(ceammc_core PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/tcl)
 
 set(CEAMMC_LIB_SOURCES
@@ -118,6 +119,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_soxr_resampler.cpp
     ceammc_string.cpp
     ceammc_string_split.cpp
+    ceammc_table_editor.cpp
     ceammc_thread.cpp
     ceammc_timeline.cpp
     ceammc_transport.cpp
