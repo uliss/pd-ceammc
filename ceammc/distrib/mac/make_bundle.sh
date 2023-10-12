@@ -155,6 +155,8 @@ rsync -a "${SRC_DIR}/ceammc/extra/tcltk/base64" ${BUNDLE_FRAMEWORKS}
 rsync -a "${SRC_DIR}/ceammc/extra/tcltk/tooltip" ${BUNDLE_FRAMEWORKS}
 # tklib: ctext
 rsync -a "${SRC_DIR}/ceammc/extra/tcltk/ctext" ${BUNDLE_FRAMEWORKS}
+# tklib: tablelist
+rsync -a "${SRC_DIR}/ceammc/extra/tcltk/tablelist" ${BUNDLE_FRAMEWORKS}
 
 #
 # Info.plist
