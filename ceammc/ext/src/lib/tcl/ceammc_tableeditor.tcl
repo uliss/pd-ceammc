@@ -39,10 +39,14 @@ namespace eval tableeditor {
             bind $tbl <<TablelistCellUpdated>> "ceammc::tableeditor::setdirty $name 1"
 
             # layout
-            set btn [ttk::button $f.btn -text [_ "Close"] -command "ceammc::tableeditor::close $name 1"]
-            pack $btn -side bottom -pady 7p
+            set btn_frame [ttk::frame $f.btn]
+            set add [ttk::button $btn_frame.add -text [_ "Create"] -command "ceammc::tableeditor::create $name"]
+            set cls [ttk::button $btn_frame.cls -text [_ "Close"]  -command "ceammc::tableeditor::close  $name 1"]
             pack $f.scroll -side right -fill y
             pack $tbl -side top -expand yes -fill both
+            pack $btn_frame -side bottom -fill x
+            pack $add -side left  -pady 5p -padx 10p
+            pack $cls -side right -pady 5p -padx 10p
             pack $f -expand yes -fill both
 
             bind $name <$::modifier-Key-s> "ceammc::tableeditor::send $name"
@@ -87,6 +91,20 @@ namespace eval tableeditor {
     proc clear {name} {
         if {[winfo exists $name]} {
             $name.f.tbl delete 0 end
+        }
+    }
+
+    proc create {name} {
+        if {[winfo exists $name]} {
+            set tbl $name.f.tbl
+            set size [$tbl size]
+            if {$size==0} {
+                $tbl insert end {0 ""}
+            } {
+                set idx [$tbl getcells "end,0"]
+                $tbl insert end [expr $idx+1]
+            }
+            setdirty $name 1
         }
     }
 
