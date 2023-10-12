@@ -14,13 +14,44 @@
 #include "ceammc_table_editor.h"
 #include "ceammc_canvas.h"
 #include "ceammc_format.h"
-#include "fmt/core.h"
+#include "fmt/format.h"
 
 extern "C" {
 #include "g_canvas.h"
 }
 
 using namespace ceammc;
+
+namespace ceammc {
+
+const char* format_to(TableColumnAlign a)
+{
+    switch (a) {
+    case TABLE_COL_ALIGN_LEFT:
+        return "left";
+    case TABLE_COL_ALIGN_CENTER:
+        return "center";
+    case TABLE_COL_ALIGN_RIGHT:
+    default:
+        return "right";
+    }
+}
+
+const char* format_to(TableColumnEditor e)
+{
+    switch (e) {
+    case TABLE_COL_EDIT_ENTRY:
+    default:
+        return "ttk::entry";
+    }
+}
+
+std::string format_as(const TableColumnParam& col)
+{
+    return fmt::format("[list {} {} {} {:d} {}]", col.width, col.name, format_to(col.align), !col.readonly, format_to(col.edit));
+}
+
+}
 
 TableObjectImpl::TableObjectImpl(t_object* owner)
     : owner_(owner)
@@ -37,7 +68,8 @@ TableObjectImpl::~TableObjectImpl()
     }
 }
 
-void TableObjectImpl::open(t_canvas* cnv, const TableLineList& data, const EditorTitleString& title, int x, int y, int nchars, int nlines, bool lineNumbers)
+void TableObjectImpl::open(t_canvas* cnv, const TableLineList& data, const EditorTitleString& title, int x, int y,
+    const std::vector<TableColumnParam>& cols)
 {
     if (guiconnect_) {
         sys_vgui("ceammc::tableeditor::show .x%lx\n", xowner());
@@ -48,14 +80,13 @@ void TableObjectImpl::open(t_canvas* cnv, const TableLineList& data, const Edito
         const auto fsz = sys_hostfontsize(ft, z);
         const auto brect = canvas_info_rect(canvas_root(cnv));
 
-        //        const auto w = std::min(800, sys_zoomfontwidth(ft, z, 0) * nchars);
-        const auto w = 400;
-        const auto h = std::min(600, sys_zoomfontheight(fsz, z, 0) * nlines);
+        const auto w = 600;
+        const auto h = 400;
 
         char buf[MAXPDSTRING];
-        auto pbuf = fmt::format_to(buf, "{}x{}+{}+{} {{{}}} {} {:d}",
+        auto pbuf = fmt::format_to(buf, "{}x{}+{}+{} {{{}}} {} [list {}]",
             w, h, brect.x + x, brect.y + y,
-            title.c_str(), fsz, lineNumbers);
+            title.c_str(), fsz, fmt::join(cols, " "));
         *pbuf = '\0';
         sys_vgui("ceammc::tableeditor::open .x%lx %s\n", xowner(), buf);
 

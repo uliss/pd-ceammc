@@ -16,9 +16,57 @@
 
 #include "ceammc_editor_object.h"
 
+#include <cstdint>
+
 namespace ceammc {
 
 using TableLineList = std::vector<AtomList>;
+
+enum TableColumnAlign : std::int8_t {
+    TABLE_COL_ALIGN_LEFT,
+    TABLE_COL_ALIGN_RIGHT,
+    TABLE_COL_ALIGN_CENTER,
+};
+
+enum TableColumnEditor : std::int8_t {
+    TABLE_COL_EDIT_ENTRY,
+    TABLE_COL_EDIT_SPINBOX,
+    TABLE_COL_EDIT_COMBOBOX,
+    TABLE_COL_EDIT_CHECKBOX,
+    TABLE_COL_EDIT_MENU,
+};
+
+struct TableColumnParam {
+    std::string name;
+    int width;
+    bool readonly;
+    TableColumnAlign align { TABLE_COL_ALIGN_LEFT };
+    TableColumnEditor edit { TABLE_COL_EDIT_ENTRY };
+
+    TableColumnParam(const std::string& name_, bool readOnly, int width_ = 0)
+        : name(name_)
+        , readonly(readOnly)
+        , width(width_)
+    {
+    }
+
+    TableColumnParam& setAlign(TableColumnAlign a)
+    {
+        align = a;
+        return *this;
+    }
+
+    TableColumnParam& alignRight()
+    {
+        return setAlign(TABLE_COL_ALIGN_RIGHT);
+    }
+
+    TableColumnParam& setEdit(TableColumnEditor e)
+    {
+        edit = e;
+        return *this;
+    }
+};
 
 class TableObjectImpl {
     t_object* owner_;
@@ -32,16 +80,13 @@ public:
      * create and open table editor TCL window
      * @param cnv - pointer to onwer canvas
      * @param data - editor content
-     * @param nchars - line width in chars
-     * @param nlines - number of lines
-     * @param lineNumbers - show line numbers
-     * @param highlightSyntax - highlight syntax
+     * @param x - x screen coord
+     * @param y - y screen coord
+     * @param cols - column titles
      * @return true on success, false on error
      */
     void open(t_canvas* cnv, const TableLineList& data,
-        const EditorTitleString& title,
-        int x, int y, int nchars, int nlines,
-        bool lineNumbers);
+        const EditorTitleString& title, int x, int y, const std::vector<TableColumnParam>& cols);
 
     /**
      * close TCL editor and stop GUI listening
@@ -70,13 +115,12 @@ public:
 
 private:
     TableObjectImpl impl_;
-    bool line_nums_;
+    std::vector<TableColumnParam> cols_;
 
 public:
     explicit TableObject(const PdArgs& args)
         : T(args)
         , impl_(this->owner())
-        , line_nums_(true)
     {
     }
 
@@ -90,10 +134,7 @@ public:
         impl_.open(this->canvas(),
             this->getTableContentForEditor(),
             this->editorTitle(),
-            x, y,
-            2,
-            10,
-            line_nums_);
+            x, y, cols_);
     }
 
     virtual void tableEditorClear() = 0;
@@ -111,15 +152,8 @@ public:
         this->tableEditorSync();
     }
 
-    /**
-     * If show line numbers in editor
-     */
-    bool lineNumbers() const { return line_nums_; }
-
-    /**
-     * Set on/off line numbering in editor
-     */
-    void setLineNumbers(bool value) { line_nums_ = value; }
+    void setTableColumns(const std::vector<TableColumnParam>& cols) { cols_ = cols; }
+    void addTableColumn(const TableColumnParam& col) { cols_.push_back(col); }
 
 public:
     template <typename Factory>

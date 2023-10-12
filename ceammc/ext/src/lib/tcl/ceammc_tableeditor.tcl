@@ -9,7 +9,7 @@ namespace eval tableeditor {
 
     variable dirty
 
-    proc open {name geometry title font showlinenum} {
+    proc open {name geometry title font cols} {
         variable dirty
         if {[winfo exists $name]} {
             $name.f.tbl delete 0 end
@@ -23,18 +23,19 @@ namespace eval tableeditor {
             set f [ttk::frame $name.f]
             scrollbar $f.scroll -command "$name.f.tbl yview"
             set tbl $f.tbl
-            tablelist::tablelist $tbl \
-                -columns {0 "#"		  right
-                          0 "value"	  right} \
-                -height 0 -width 0 \
+            tablelist::tablelist $tbl -height 0 -width 0 \
                 -yscrollcommand "$name.f.scroll set"
 
             if {[$tbl cget -selectborderwidth] == 0} {
                 $tbl configure -spacing 1
             }
-            $tbl columnconfigure 0
-            $tbl columnconfigure 1 -name lineName -editable yes -editwindow ttk::entry \
-                -width 24
+
+            foreach c $cols {
+                $tbl insertcolumnlist end [lrange $c 0 2]
+                $tbl columnconfigure end -editable  [lindex $c 3]
+                $tbl columnconfigure end -editwindow [lindex $c 4]
+            }
+
             bind $tbl <<TablelistCellUpdated>> "ceammc::tableeditor::setdirty $name 1"
 
             # layout
