@@ -1,5 +1,6 @@
 #include "preset_list.h"
 #include "ceammc_factory.h"
+#include "ceammc_preset.h"
 #include "preset_iface.h"
 
 PresetList::PresetList(const PdArgs& args)
@@ -11,6 +12,9 @@ PresetList::PresetList(const PdArgs& args)
     init_ = new ListProperty("@init", AtomList());
     init_->setArgIndex(1);
     addProperty(init_);
+
+    addTableColumn({ "#", true });
+    addTableColumn({ "list", false, 24 });
 }
 
 void PresetList::initDone()
@@ -35,8 +39,20 @@ void PresetList::storeAt(size_t idx)
     storeList(current_value_, idx);
 }
 
+AtomList PresetList::editorPresetValue(size_t idx) const
+{
+    return PresetStorage::instance().listValueAt(presetPath(), idx);
+}
+
+bool PresetList::setEditorPreset(size_t idx, const AtomListView& lv)
+{
+    return PresetStorage::instance().setListValueAt(presetPath(), idx, lv);
+}
+
 void setup_preset_list()
 {
     PresetIFaceFactory<PresetList> obj("preset.list");
     obj.addAlias("preset.l");
+
+//    PresetList::factoryTableObjectInit(obj);
 }

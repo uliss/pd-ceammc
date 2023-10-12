@@ -41,8 +41,8 @@ namespace eval tableeditor {
             # layout
             set btn [ttk::button $f.btn -text [_ "Close"] -command "ceammc::tableeditor::close $name 1"]
             pack $btn -side bottom -pady 7p
-            pack $tbl -side top -expand yes -fill both
             pack $f.scroll -side right -fill y
+            pack $tbl -side top -expand yes -fill both
             pack $f -expand yes -fill both
 
             bind $name <$::modifier-Key-s> "ceammc::tableeditor::send $name"
