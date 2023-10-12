@@ -68,7 +68,7 @@ TableObjectImpl::~TableObjectImpl()
     }
 }
 
-void TableObjectImpl::open(t_canvas* cnv, const TableLineList& data, const EditorTitleString& title, int x, int y,
+void TableObjectImpl::open(t_canvas* cnv, const TableLineList& data, const EditorTitleString& title, int x, int y, int w, int h,
     const std::vector<TableColumnParam>& cols)
 {
     if (guiconnect_) {
@@ -79,9 +79,6 @@ void TableObjectImpl::open(t_canvas* cnv, const TableLineList& data, const Edito
         const auto ft = canvas_info_font(root);
         const auto fsz = sys_hostfontsize(ft, z);
         const auto brect = canvas_info_rect(canvas_root(cnv));
-
-        const auto w = 600;
-        const auto h = 400;
 
         char buf[MAXPDSTRING];
         auto pbuf = fmt::format_to(buf, "{}x{}+{}+{} {{{}}} {} [list {}]",

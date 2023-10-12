@@ -82,11 +82,13 @@ public:
      * @param data - editor content
      * @param x - x screen coord
      * @param y - y screen coord
+     * @param w - editor window width
+     * @param h - editor window height
      * @param cols - column titles
      * @return true on success, false on error
      */
     void open(t_canvas* cnv, const TableLineList& data,
-        const EditorTitleString& title, int x, int y, const std::vector<TableColumnParam>& cols);
+        const EditorTitleString& title, int x, int y, int w, int h, const std::vector<TableColumnParam>& cols);
 
     /**
      * close TCL editor and stop GUI listening
@@ -116,6 +118,7 @@ public:
 private:
     TableObjectImpl impl_;
     std::vector<TableColumnParam> cols_;
+    int w_ { 400 }, h_ { 300 };
 
 public:
     explicit TableObject(const PdArgs& args)
@@ -134,7 +137,7 @@ public:
         impl_.open(this->canvas(),
             this->getTableContentForEditor(),
             this->editorTitle(),
-            x, y, cols_);
+            x, y, w_, h_, cols_);
     }
 
     virtual void tableEditorClear() = 0;
@@ -154,6 +157,12 @@ public:
 
     void setTableColumns(const std::vector<TableColumnParam>& cols) { cols_ = cols; }
     void addTableColumn(const TableColumnParam& col) { cols_.push_back(col); }
+
+    void setTableEditorSize(int w, int h)
+    {
+        w_ = w;
+        h_ = h;
+    }
 
 public:
     template <typename Factory>
