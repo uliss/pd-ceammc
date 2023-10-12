@@ -141,7 +141,7 @@ public:
     virtual void tableEditorAddLine(t_symbol* sel, const AtomListView& lv) = 0;
     virtual void tableEditorSync() { impl_.sync(this->getTableContentForEditor()); }
     virtual TableLineList getTableContentForEditor() const = 0;
-    virtual EditorTitleString editorTitle() const { return "TABLE"; }
+    virtual EditorTitleString editorTitle() const { return "Table Editor"; }
 
     void m_table_clear(t_symbol* s, const AtomListView& lv) { this->tableEditorClear(); }
     void m_table_close(t_symbol* s, const AtomListView& lv) { impl_.close(); }
