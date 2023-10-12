@@ -22,9 +22,9 @@ public:
     t_symbol* makePath() const;
     t_symbol* makePresetPath() const;
 
-    t_symbol* name();
-    t_symbol* path() { return path_; }
-    t_symbol* presetPath() { return preset_path_; }
+    t_symbol* name() const;
+    t_symbol* path() const { return path_; }
+    t_symbol* presetPath() const { return preset_path_; }
 
     virtual void loadFrom(t_float idx);
     virtual void storeAt(size_t idx);

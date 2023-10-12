@@ -192,7 +192,7 @@ t_symbol* PresetBase::makePresetPath() const
     return gensym(res.c_str());
 }
 
-t_symbol* PresetBase::name()
+t_symbol* PresetBase::name() const
 {
     return name_;
 }
