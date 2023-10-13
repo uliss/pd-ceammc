@@ -19,10 +19,9 @@
 #include <vector>
 
 #include "ceammc_atomlist.h"
-#include "ceammc_format.h"
+#include "ceammc_convert.h"
 #include "ceammc_music_theory_tempo.h"
 #include "ceammc_music_theory_timesig.h"
-#include "fmt/core.h"
 
 namespace ceammc {
 namespace parser {
@@ -45,9 +44,9 @@ namespace parser {
         std::uint16_t count { 1 };
 
         double durationMs(const music::Tempo& t) const { return sig.timeMs(t); }
-        double beatStartMs(const music::Tempo& t, BeatNumber beat) const
+        double beatStartMs(const music::Tempo& t, float beat) const
         {
-            return std::min<BeatNumber>(beat, count - 1) * (t.wholeNoteDurationMs() / sig.subDivision());
+            return std::min<float>(beat, count - 1) * (t.wholeNoteDurationMs() / sig.subDivision());
         }
     };
 
@@ -80,6 +79,7 @@ namespace parser {
     struct TimeLineEvent {
         double time { 0 };
         int idx { -1 };
+        mutable double next_time { 0 };
         bool operator<(const TimeLineEvent& e) const { return time < e.time; };
     };
 
@@ -118,31 +118,7 @@ namespace parser {
             return res;
         }
 
-        void dump()
-        {
-            fmt::println("bpm:");
-            for (auto& t : tempo) {
-                fmt::println(" - {}.{}: {}", t.bar, t.beat, t.tempo.toString());
-            }
-
-            fmt::println("def events:");
-            for (auto& e : event_defs) {
-                if (e.send.target != &s_)
-                    fmt::println(" - {:>12}: !send {} {}", e.name->s_name, e.send.target->s_name, to_string(e.send.args));
-
-                if (!e.out.args.empty())
-                    fmt::println(" - {:>12}: !out {}", e.name->s_name, to_string(e.out.args));
-
-                if (e.preset.idx >= 0)
-                    fmt::println(" - {:>12}: !preset {}", e.name->s_name, e.preset.idx);
-            }
-
-            fmt::println("timeline:");
-            for (auto& e : events) {
-                auto name = event_defs[e.idx].name->s_name;
-                fmt::println(" - {: 10}ms: '{}'[{}]", e.time, name, e.idx);
-            }
-        }
+        void dump();
 
         void clear()
         {
@@ -205,29 +181,7 @@ namespace parser {
             event_defs.push_back(ev);
         }
 
-        void addEventAt(t_symbol* name, double time, bool relativeToLast)
-        {
-            if (time < 0)
-                return;
-
-            auto event_idx = findEventByName(name);
-            if (event_idx < 0) {
-                fmt::println("event '{}' not found", name->s_name);
-                return;
-            }
-
-            TimeLineEvent ev;
-            if (relativeToLast) {
-                if (events.empty())
-                    ev.time = time;
-                else
-                    ev.time = std::prev(events.end())->time + time;
-            } else
-                ev.time = time;
-
-            ev.idx = event_idx;
-            events.insert(ev);
-        }
+        void addEventAt(t_symbol* name, double time, bool relativeToLast);
 
         int findEventByName(t_symbol* name)
         {
@@ -255,36 +209,7 @@ namespace parser {
             return res;
         }
 
-        double findBarTime(int bar, int beat)
-        {
-            if (bars.empty())
-                return -1;
-
-            if (bar < 0) {
-                fmt::println("invalid bar value: {}", bar);
-                return -1;
-            }
-
-            double res = 0;
-            int bar_count = 0;
-            for (auto& b : bars) {
-                for (int i = 0; i < b.count; i++, bar_count++) {
-                    auto t = barTempo(bar_count);
-                    if (bar_count < bar)
-                        res += b.durationMs(t);
-
-                    if (bar_count == bar) {
-                        if (beat < 0 || beat >= b.count)
-                            fmt::println("invalid beat value: {}", beat);
-
-                        res += b.beatStartMs(t, beat);
-                        return res;
-                    }
-                }
-            }
-
-            return -1;
-        }
+        double findBarTime(int bar, int beat, float beatFraq = 0);
 
         const TimeLineEvent& eventByIdx(int i) const
         {
@@ -293,12 +218,13 @@ namespace parser {
             return *it;
         }
 
-        bool setBarBpm(BarNumber bar, const music::Tempo& t)
+        bool setBarBpm(BarNumber bar, BeatNumber beat, const music::Tempo& t, bool accel = false)
         {
             TimeLineTempo x;
             x.tempo = t;
             x.bar = bar;
-            x.beat = 0;
+            x.beat = beat;
+            x.accel = accel;
             tempo.insert(x);
             return true;
         }
@@ -309,11 +235,67 @@ namespace parser {
                 return {};
 
             for (auto it = tempo.rbegin(); it != tempo.rend(); ++it) {
-                if (it->bar <= bar)
-                    return it->tempo;
+                if (it->bar <= bar) {
+                    if (it->accel) {
+                        auto next = std::prev(it);
+                        if (next != tempo.rend()) {
+                            auto dur = barDuration(bar, 1);
+                            auto k = convert::lin2lin<float>(bar, it->bar, next->bar, 0, 1);
+                            return music::Tempo::intepolate(it->tempo, next->tempo, k);
+                        } else {
+                            return it->tempo;
+                        }
+                    } else {
+                        return it->tempo;
+                    }
+                }
             }
 
             return {};
+        }
+
+        void calcNextTimes()
+        {
+            double prev = 0;
+            for (auto it = events.begin(); it != events.end(); ++it) {
+                auto next = std::next(it);
+                if (next == events.end())
+                    it->next_time = 0;
+                else
+                    it->next_time = (next->time - it->time);
+            }
+        }
+
+        music::Duration barDuration(BarNumber bar, size_t len) const
+        {
+            music::Duration res(0, 4);
+            BarNumber bar_count = 0;
+            for (auto& b : bars) {
+                for (BarNumber i = 0; i < b.count && len > 0; i++, bar_count++) {
+                    if (bar_count < bar)
+                        continue;
+
+                    res += b.sig.duration();
+                    len--;
+                }
+            }
+
+            return res;
+        }
+
+        music::Duration tempoSegmentDuration(std::uint16_t idx) const
+        {
+            music::Duration res(0, 4);
+            if (idx >= tempo.size())
+                return res;
+
+            auto it = std::next(tempo.begin(), idx);
+            auto it2 = std::next(it);
+
+            if (it2 == tempo.end())
+                return barDuration(it->bar, std::numeric_limits<int>::max());
+            else
+                return barDuration(it->bar, it2->bar - it->bar);
         }
     };
 

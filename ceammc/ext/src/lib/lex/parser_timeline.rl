@@ -4,6 +4,7 @@
 # include "parser_timeline.h"
 # include "parser_units.h"
 # include "ragel_common.h"
+# include "ceammc_format.h"
 
 # include <cstring>
 # include <limits>
@@ -12,6 +13,8 @@
 using namespace ceammc::music;
 using namespace ceammc::parser;
 using namespace ceammc;
+
+#define tl_println(...) fmt::println(__VA_ARGS__)
 
 namespace {
 
@@ -38,6 +41,8 @@ struct RagelEventTime {
     t_symbol* rel_event {&s_};
     int bar  {-1};
     int beat {0};
+    int beat_fraq {0};
+    int beat_fraq10 {1};
     bool relative {false};
 
     void reset() { *this = RagelEventTime{}; }
@@ -59,7 +64,8 @@ struct FSM {
     TimeLineEventPreset act_preset;
     double event_time {0};
     ceammc::AtomList args;
-    int bpm_bar {0};
+    int bpm_bar  {0};
+    int bpm_beat {0};
 
     void onTimeSmpteDone(const ceammc::parser::fsm::SmpteData& smpte) {
         time_unit = smpte.sec * 1000 + smpte.min * 60000 + smpte.hour * 3600000;
@@ -92,6 +98,93 @@ struct FSM {
         return ::gensym(buf);
     }
 };
+}
+
+namespace ceammc {
+namespace parser {
+
+void TimeLine::dump()
+{
+    tl_println("bpm:");
+    for (auto& t : tempo) {
+        tl_println(" - {}.{}: {}", t.bar, t.beat, t.tempo.toString());
+    }
+
+    tl_println("def events:");
+    for (auto& e : event_defs) {
+        if (e.send.target != &s_)
+            tl_println(" - {:>12}: !send {} {}", e.name->s_name, e.send.target->s_name, to_string(e.send.args));
+
+        if (!e.out.args.empty())
+            tl_println(" - {:>12}: !out {}", e.name->s_name, to_string(e.out.args));
+
+        if (e.preset.idx >= 0)
+            tl_println(" - {:>12}: !preset {}", e.name->s_name, e.preset.idx);
+    }
+
+    tl_println("timeline:");
+    for (auto& e : events) {
+        auto name = event_defs[e.idx].name->s_name;
+        tl_println(" - {: 10}ms: '{}'[{}]", e.time, name, e.idx);
+    }
+}
+
+void TimeLine::addEventAt(t_symbol* name, double time, bool relativeToLast)
+{
+    if (time < 0)
+        return;
+
+    auto event_idx = findEventByName(name);
+    if (event_idx < 0) {
+        tl_println("event '{}' not found", name->s_name);
+        return;
+    }
+
+    TimeLineEvent ev;
+    if (relativeToLast) {
+        if (events.empty())
+            ev.time = time;
+        else
+            ev.time = std::prev(events.end())->time + time;
+    } else
+        ev.time = time;
+
+    ev.idx = event_idx;
+    events.insert(ev);
+}
+
+double TimeLine::findBarTime(int bar, int beat, float beatFraq)
+{
+    if (bars.empty())
+        return -1;
+
+    if (bar < 0) {
+        tl_println("invalid bar value: {}", bar);
+        return -1;
+    }
+
+    double res = 0;
+    int bar_count = 0;
+    for (auto& b : bars) {
+        for (int i = 0; i < b.count; i++, bar_count++) {
+            auto t = barTempo(bar_count);
+            if (bar_count < bar)
+                res += b.durationMs(t);
+
+            if (bar_count == bar) {
+                if (beat < 0 || beat >= b.count)
+                    tl_println("invalid beat value: {}", beat);
+
+                res += b.beatStartMs(t, beat + beatFraq);
+                return res;
+            }
+        }
+    }
+
+    return -1;
+}
+
+}
 }
 
 %%{
@@ -174,16 +267,6 @@ struct FSM {
         fsm.time_unit = 0;
     }
 
-    action event_time_bar_idx  {
-        event_time.bar = ragel_num.vint;
-        ragel_num.vint = 0;
-    }
-
-    action event_time_beat_idx  {
-        event_time.beat = ragel_num.vint;
-        ragel_num.vint = 0;
-    }
-
     action event_time_rel_event_done {
         //fmt::println("#{}{}{}", event_time.rel_event->s_name, event_time.sign > 0 ? '+' : '-', event_time.time);
 
@@ -203,7 +286,7 @@ struct FSM {
     action event_time_rel_bar_done {
         fmt::println("#{}.{}{}{}", event_time.bar, event_time.beat, event_time.sign > 0 ? '+' : '-', event_time.time);
 
-        auto t = tl.findBarTime(event_time.bar, event_time.beat);
+        auto t = tl.findBarTime(event_time.bar, event_time.beat, double(event_time.beat_fraq) / event_time.beat_fraq10);
         event_time.times.clear();
 
         if (t >= 0) {
@@ -291,8 +374,10 @@ struct FSM {
     # timeline event
     event_time_rel_sign  = ('+' | '-') @{ event_time.sign = (*fpc == '+') ? +1 : -1; };
 
-    event_time_rel_bar   = '#' num_uint   %event_time_bar_idx
-                            ('.' num_uint %event_time_beat_idx)?
+    event_bar_num        = num_uint                        %{ event_time.bar = ragel_num.vint; ragel_num.vint = 0; };
+    event_beat_fraq      = '.' num_uint                    ${event_time.beat_fraq10 *= 10;} %{ event_time.beat_fraq = ragel_num.vint; ragel_num.vint = 0; };
+    event_beat_num       = ('.' num_uint event_beat_fraq?) %{ event_time.beat = ragel_num.vint; ragel_num.vint = 0; };
+    event_time_rel_bar   = '#' event_bar_num event_beat_num?
                             (event_time_rel_sign time_unit %event_time_rel_time_done)?;
 
     event_time_rel_event = '#' event_id  %event_time_rel_event_id
@@ -343,9 +428,11 @@ struct FSM {
     duration      = 'tl' WS  (duration_time | bar_defs);
 
     # BPM defs
-    bar_index     = '#' num_uint %{ fsm.bpm_bar = ragel_num.vint; ragel_num.vint = 0; };
+    bar_number    = num_uint %{ fsm.bpm_bar = ragel_num.vint; ragel_num.vint = 0; };
+    bar_beat      = num_uint %{ fsm.bpm_beat = ragel_num.vint; ragel_num.vint = 0; };
+    bar_index     = '#' bar_number ('.' bar_beat)?;
     bpm_def       = 'bpm' WS  bar_index WS  bpm
-                  %{ tl.setBarBpm(fsm.bpm_bar, fromRagel(bpm)); tl.calcBarDuration(bar.inf); };
+                  %{ tl.setBarBpm(fsm.bpm_bar, fsm.bpm_beat, fromRagel(bpm)); tl.calcBarDuration(bar.inf); };
 
     main := comment | duration | bpm_def | var_def | event_def | event | var;
     write data;

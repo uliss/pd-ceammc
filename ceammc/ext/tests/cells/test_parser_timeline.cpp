@@ -103,6 +103,7 @@ TEST_CASE("parser_timeline", "[ceammc::ceammc_units]")
             REQUIRE(parse_timelime("#EVENT2-10s event !send TARGET", tl));
             REQUIRE(parse_timelime("#10.1+10s event !send TARGET", tl));
             REQUIRE(parse_timelime("#10.2-10.5s event !out", tl));
+            REQUIRE(parse_timelime("#10.2.25-10.5s event !out", tl));
             REQUIRE(parse_timelime("event NAME !send T100", tl));
             REQUIRE(parse_timelime("event NAME !send 100T", tl));
             REQUIRE_FALSE(parse_timelime("event NAME !send 100", tl));
@@ -143,9 +144,84 @@ TEST_CASE("parser_timeline", "[ceammc::ceammc_units]")
             REQUIRE(tl.barTempo(2) == music::Tempo(60));
             REQUIRE(tl.barTempo(3) == music::Tempo(60));
             REQUIRE(tl.barTempo(4) == music::Tempo(60));
+            REQUIRE(tl.barDuration(0, 1) == music::Duration(4, 4));
+            REQUIRE(tl.barDuration(0, 2) == music::Duration(8, 4));
+            REQUIRE(tl.barDuration(0, 3) == music::Duration(12, 4));
+            REQUIRE(tl.barDuration(0, 4) == music::Duration(16, 4));
+            REQUIRE(tl.barDuration(1, 1) == music::Duration(4, 4));
+            REQUIRE(tl.barDuration(1, 2) == music::Duration(8, 4));
+            REQUIRE(tl.barDuration(1, 3) == music::Duration(12, 4));
+            REQUIRE(tl.barDuration(3, 1) == music::Duration(4, 4));
+            REQUIRE(tl.barDuration(3, 2) == music::Duration(4, 4));
+            REQUIRE(tl.barDuration(4, 0) == music::Duration(0, 4));
+            REQUIRE(tl.tempoSegmentDuration(0) == music::Duration(8, 4));
+            REQUIRE(tl.tempoSegmentDuration(1) == music::Duration(8, 4));
 
             tl.calcBarDuration(false);
             REQUIRE(tl.duration == 12000);
+        }
+
+        SECTION("bar bpm")
+        {
+            REQUIRE(parse_timelime("tl 2*|2/4| 3*|3/4| 4*|4/4|", tl));
+            REQUIRE(parse_timelime("bpm #0 60bpm", tl));
+            REQUIRE(tl.duration == 29000);
+            REQUIRE(parse_timelime("bpm #2 120bpm", tl));
+            REQUIRE(tl.duration == 16500);
+            REQUIRE(parse_timelime("bpm #5 240bpm", tl));
+            REQUIRE(tl.duration == 12500.0);
+
+            REQUIRE(tl.bars.size() == 3);
+            REQUIRE(tl.tempo.size() == 3);
+            REQUIRE(tl.calcNumBars() == 9);
+            REQUIRE(tl.barTempo(0) == music::Tempo(60));
+            REQUIRE(tl.barTempo(1) == music::Tempo(60));
+            REQUIRE(tl.barTempo(2) == music::Tempo(120));
+            REQUIRE(tl.barTempo(3) == music::Tempo(120));
+            REQUIRE(tl.barTempo(4) == music::Tempo(120));
+            REQUIRE(tl.barTempo(5) == music::Tempo(240));
+            REQUIRE(tl.barTempo(6) == music::Tempo(240));
+            REQUIRE(tl.barTempo(7) == music::Tempo(240));
+            REQUIRE(tl.barTempo(8) == music::Tempo(240));
+            REQUIRE(tl.barDuration(0, 1) == music::Duration(2, 4));
+            REQUIRE(tl.barDuration(0, 2) == music::Duration(4, 4));
+            REQUIRE(tl.barDuration(0, 3) == music::Duration(7, 4));
+            REQUIRE(tl.barDuration(0, 4) == music::Duration(10, 4));
+            REQUIRE(tl.barDuration(0, 5) == music::Duration(13, 4));
+            REQUIRE(tl.barDuration(0, 6) == music::Duration(17, 4));
+            REQUIRE(tl.barDuration(0, 7) == music::Duration(21, 4));
+            REQUIRE(tl.barDuration(0, 8) == music::Duration(25, 4));
+
+            REQUIRE(tl.barDuration(1, 1) == music::Duration(2, 4));
+            REQUIRE(tl.barDuration(1, 2) == music::Duration(5, 4));
+            REQUIRE(tl.barDuration(1, 3) == music::Duration(8, 4));
+            REQUIRE(tl.barDuration(1, 4) == music::Duration(11, 4));
+            REQUIRE(tl.barDuration(1, 5) == music::Duration(15, 4));
+            REQUIRE(tl.barDuration(1, 6) == music::Duration(19, 4));
+            REQUIRE(tl.barDuration(1, 7) == music::Duration(23, 4));
+
+            REQUIRE(tl.tempoSegmentDuration(0) == music::Duration(4, 4));
+            REQUIRE(tl.tempoSegmentDuration(1) == music::Duration(9, 4));
+            REQUIRE(tl.tempoSegmentDuration(2) == music::Duration(16, 4));
+        }
+
+        SECTION("accel")
+        {
+            REQUIRE(parse_timelime("tl 4*|4/4|", tl));
+            tl.calcBarDuration(false);
+            REQUIRE(tl.duration == 16000.0);
+            tl.setBarBpm(0, 0, { 60 }, true);
+            tl.setBarBpm(3, 0, { 120 }, false);
+
+            REQUIRE(tl.tempo.size() == 2);
+            REQUIRE(tl.calcNumBars() == 4);
+            REQUIRE(tl.barTempo(0) == music::Tempo(60));
+            REQUIRE(tl.barTempo(1) == music::Tempo(80));
+            REQUIRE(tl.barTempo(2) == music::Tempo(100));
+            REQUIRE(tl.barTempo(3) == music::Tempo(120));
+
+            tl.calcBarDuration(false);
+            REQUIRE(tl.duration == 11400.0);
         }
 
         SECTION("event defs")
@@ -303,9 +379,13 @@ TEST_CASE("parser_timeline", "[ceammc::ceammc_units]")
             REQUIRE(tl.duration == 20500);
             REQUIRE(tl.findBarTime(0, 0) == 0);
             REQUIRE(tl.findBarTime(1, 0) == 4000);
+            REQUIRE(tl.findBarTime(1, 0, 0.5) == 4500);
             REQUIRE(tl.findBarTime(1, 1) == 5000);
             REQUIRE(tl.findBarTime(1, 2) == 6000);
+            REQUIRE(tl.findBarTime(1, 2, 0.25) == 6250);
+            REQUIRE(tl.findBarTime(1, 2, 0.5) == 6500);
             REQUIRE(tl.findBarTime(1, 3) == 7000);
+            REQUIRE(tl.findBarTime(1, 3, 0.5) == 7000);
             REQUIRE(tl.findBarTime(1, 4) == 7000);
             REQUIRE(tl.findBarTime(4, 0) == 16000);
             REQUIRE(tl.findBarTime(4, 1) == 16500);
@@ -320,9 +400,9 @@ TEST_CASE("parser_timeline", "[ceammc::ceammc_units]")
             REQUIRE(tl.eventByIdx(1).time == 2000);
             REQUIRE(tl.eventByIdx(1).idx == 0);
 
-            REQUIRE(parse_timelime("#1.2 event BAR21", tl));
+            REQUIRE(parse_timelime("#1.2.5 event BAR21", tl));
             REQUIRE(tl.events.size() == 3);
-            REQUIRE(tl.eventByIdx(2).time == 6000);
+            REQUIRE(tl.eventByIdx(2).time == 6500);
             REQUIRE(tl.eventByIdx(2).idx == 0);
 
             REQUIRE(parse_timelime("#4.1 event BAR21", tl));
@@ -379,7 +459,7 @@ TEST_CASE("parser_timeline", "[ceammc::ceammc_units]")
 
             REQUIRE(parse_timelime("#3.1 event B", tl));
             REQUIRE(tl.events.size() == 1);
-            REQUIRE(tl.eventByIdx(0).time ==6000);
+            REQUIRE(tl.eventByIdx(0).time == 6000);
             REQUIRE(tl.eventByIdx(0).idx == 0);
         }
     }
