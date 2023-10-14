@@ -24,6 +24,7 @@
 #include <iostream>
 #include <libgen.h>
 #include <limits.h>
+#include <net/if.h>
 #include <netdb.h>
 #include <pwd.h>
 #include <stdio.h>
@@ -186,7 +187,7 @@ namespace platform {
         return false;
     }
 
-    std::vector<std::string> unix_net_ifaces_ip(NetAddressType type)
+    std::vector<std::string> unix_net_ifaces_ip(NetAddressType type, bool skipLocal)
     {
         std::vector<std::string> res;
         ifaddrs* ifaddr;
@@ -198,6 +199,9 @@ namespace platform {
 
         for (auto ifa = ifaddr; ifa != nullptr; ifa = ifa->ifa_next) {
             if (ifa->ifa_addr == nullptr)
+                continue;
+
+            if (skipLocal && (ifa->ifa_flags & IFF_LOOPBACK))
                 continue;
 
             auto addr = ifa->ifa_addr;

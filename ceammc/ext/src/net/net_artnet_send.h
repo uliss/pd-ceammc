@@ -34,11 +34,12 @@ namespace net {
     };
 
     class NetArtnetSend : public BaseObject {
-        IntProperty* universe_ { 0 };
-        IntProperty* offset_ { 0 };
-        BoolProperty* sync_ { 0 };
-        SymbolProperty* ip_ { 0 };
-        FloatProperty* send_rate_ { 0 };
+        IntProperty* universe_ { nullptr };
+        IntProperty* subnet_ { nullptr };
+        IntProperty* offset_ { nullptr };
+        BoolProperty* sync_ { nullptr };
+        SymbolProperty* ip_ { nullptr };
+        FloatProperty* send_rate_ { nullptr };
         ArtNetCommand packet_;
         SharedArtnetSendWorker worker_;
         ClockLambdaFunction send_cb_;
@@ -51,11 +52,17 @@ namespace net {
         void onBang() override;
         void dump() const final;
 
+        void onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt) final;
+
+        void m_blackout(t_symbol* s, const AtomListView& lv);
         void m_dmx(t_symbol* s, const AtomListView& lv);
         void m_dmx_set(t_symbol* s, const AtomListView& lv);
         void m_dmx_rgb(t_symbol* s, const AtomListView& lv);
         void m_dmx_fill(t_symbol* s, const AtomListView& lv);
         void m_poll(t_symbol* s, const AtomListView& lv);
+
+    private:
+        void initPacket(ArtNetCmdType t);
     };
 
 } // namespace net
