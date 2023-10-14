@@ -295,13 +295,20 @@ namespace net {
 
         subnet_ = new IntProperty("@subnet", 0);
         subnet_->checkClosedRange(0, 15);
+        subnet_->setArgIndex(1);
         addProperty(subnet_);
 
         offset_ = new IntProperty("@offset", 0);
         offset_->checkClosedRange(0, MAX_DMX_CHANNELS - 1);
         addProperty(offset_);
 
-        sync_ = new BoolProperty("@sync", true);
+        sync_ = new BoolProperty("@sync", false);
+        sync_->setSuccessFn([this](Property* p) {
+            if (sync_->value())
+                send_cb_.unset();
+            else
+                send_cb_.delay(0);
+        });
         addProperty(sync_);
 
         ip_ = new SymbolProperty("@ip", &s_, PropValueAccess::INITONLY);
