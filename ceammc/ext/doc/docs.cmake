@@ -294,6 +294,7 @@ set(DOC_FILES
     hoa.2d.space
     hoa.2d.wider~
     hoa.3d.encoder~
+    hoa.3d.decoder~
     hoa.3d.optim~
     hoa.3d.wider~
     hoa.@process

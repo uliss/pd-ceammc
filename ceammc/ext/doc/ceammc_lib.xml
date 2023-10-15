@@ -2139,6 +2139,9 @@
     <entry name="hoa.2d.wider~" descr="a 2d fractional ambisonic order simulator" ref_view="object">
       <xi:include href="hoa.2d.wider~.pddoc" parse="xml"/>
     </entry>
+    <entry name="hoa.3d.decoder~" descr="hoa 3d decoder" ref_view="object">
+      <xi:include href="hoa.3d.decoder~.pddoc" parse="xml"/>
+    </entry>
     <entry name="hoa.3d.encoder~" descr="hoa 3d encoder" ref_view="object">
       <xi:include href="hoa.3d.encoder~.pddoc" parse="xml"/>
     </entry>

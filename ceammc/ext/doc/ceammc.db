@@ -292,6 +292,7 @@ hoa.2d.recomposer~,hoa.recomposer~		?		?
 hoa.2d.rotate~,hoa.rotate~		?		?
 hoa.2d.space,hoa.space		.		.
 hoa.2d.wider~,hoa.wider~		?		?
+hoa.3d.decoder~		?		?
 hoa.3d.encoder~		~~~		?
 hoa.3d.optim~		?		?
 hoa.3d.wider~		?		?

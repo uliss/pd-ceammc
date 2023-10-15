@@ -299,8 +299,6 @@ bool Hoa3dDecoder::propSetOffset(const AtomListView& lv)
         return false;
     }
 
-    return false;
-
     dsp::SuspendGuard guard;
 
     const auto ax = convert::degree2rad(lv.floatAt(0, convert::rad2degree(decoder_->getPlanewavesRotationX())));

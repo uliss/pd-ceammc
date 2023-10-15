@@ -1122,6 +1122,7 @@ hoa.2d.space	planewaves amp control
 hoa.space	planewaves amp control
 hoa.2d.wider~	a 2d fractional ambisonic order simulator
 hoa.wider~	a 2d fractional ambisonic order simulator
+hoa.3d.decoder~	hoa 3d decoder
 hoa.3d.encoder~	hoa 3d encoder
 hoa.3d.optim~	a 3D ambisonic optimization tool
 hoa.3d.wider~	a 3d fractional ambisonic order simulator
