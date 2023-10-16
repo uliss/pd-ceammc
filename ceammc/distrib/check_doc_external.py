@@ -342,7 +342,7 @@ def check_enum(name, prop, doc, ext):
         doc_miss = ext_enum - doc_enum
         if len(doc_miss) > 0:
             cprint(f"\t- missing {doc_miss}", 'yellow')
-            x = " ".join(map(str, sorted(list(doc_miss))))
+            x = " ".join(map(str, sorted(list(ext_enum))))
             cprint(f"\t  add to doc: enum=\"{x}\"", 'white')
 
         doc_invalid = doc_enum - ext_enum

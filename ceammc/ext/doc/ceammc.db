@@ -285,6 +285,7 @@ global.mlist		.		.
 global.set		.		.
 hoa.2d.decoder~,hoa.decoder~		?		?
 hoa.2d.encoder~,hoa.encoder~		~~		?
+hoa.2d.exchanger~,hoa.exchanger~		?		?
 hoa.2d.map~,hoa.map~		?		?
 hoa.2d.optim~,hoa.optim~		?		?
 hoa.2d.projector~,hoa.projector~		?		?

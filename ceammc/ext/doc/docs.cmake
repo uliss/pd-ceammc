@@ -286,6 +286,7 @@ set(DOC_FILES
     global.set
     hoa.2d.decoder~
     hoa.2d.encoder~
+    hoa.2d.exchanger~
     hoa.2d.map~
     hoa.2d.optim~
     hoa.2d.projector~

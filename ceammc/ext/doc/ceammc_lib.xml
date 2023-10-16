@@ -2118,6 +2118,9 @@
     <entry name="hoa.2d.encoder~" descr="hoa 2d encoder" ref_view="object">
       <xi:include href="hoa.2d.encoder~.pddoc" parse="xml"/>
     </entry>
+    <entry name="hoa.2d.exchanger~" descr="renumbers and normalizes the channels" ref_view="object">
+      <xi:include href="hoa.2d.exchanger~.pddoc" parse="xml"/>
+    </entry>
     <entry name="hoa.2d.map~" descr="a 2d ambisonic multisource spatializer" ref_view="object">
       <xi:include href="hoa.2d.map~.pddoc" parse="xml"/>
     </entry>
