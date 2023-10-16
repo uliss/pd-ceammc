@@ -27,21 +27,25 @@
         <arguments>
             <argument name="ORDER" type="int" minvalue="1" maxvalue="10">the order of
             decomposition</argument>
-            <argument name="NUM" type="symbol" enum="ACN fromFurseMalham fromSID toFurseMalham toSID">
-            numbering scheme</argument>
-            <argument name="NORM" type="symbol" enum="SN3D fromMaxN fromN3D toMaxN toN3D">normalization</argument>
+            <argument name="NUM" type="symbol"
+            enum="ACN fromFurseMalham fromSID toFurseMalham toSID">numbering scheme</argument>
+            <argument name="NORM" type="symbol" enum="SN3D fromMaxN fromN3D toMaxN toN3D">
+            normalization</argument>
         </arguments>
         <properties>
             <property name="@order" type="int" minvalue="1" maxvalue="10" default="1"
             access="initonly">the order of decomposition</property>
             <property name="@num" type="symbol" default="ACN"
             enum="ACN fromFurseMalham fromSID toFurseMalham toSID">numbering scheme</property>
-            <property name="@norm" type="symbol" default="SN3D" enum="SN3D fromMaxN fromN3D toMaxN toN3D">
-            normalization</property>
-            <property name="@toB" type="alias">alias to @num toFurseMalham and @norm toMaxN</property>
+            <property name="@norm" type="symbol" default="SN3D"
+            enum="SN3D fromMaxN fromN3D toMaxN toN3D">normalization</property>
+            <property name="@toB" type="alias">alias to @num toFurseMalham and @norm
+            toMaxN</property>
             <property name="@toDaniel" type="alias">alias to @num toSID and @norm toN3D</property>
-            <property name="@fromB" type="alias">alias to @num fromFurseMalham and @norm fromMaxN</property>
-            <property name="@fromDaniel" type="alias">alias to @num fromSID and @norm fromN3D</property>
+            <property name="@fromB" type="alias">alias to @num fromFurseMalham and @norm
+            fromMaxN</property>
+            <property name="@fromDaniel" type="alias">alias to @num fromSID and @norm
+            fromN3D</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">

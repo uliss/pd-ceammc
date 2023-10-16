@@ -29,13 +29,14 @@
             "end" event, but last user event)</par>
         </info>
         <arguments>
-            <argument name="LENGTH" type="float" minvalue="0" units="second">timeline length</argument>
+            <argument name="LENGTH" type="float" minvalue="0" units="second">timeline
+            length</argument>
         </arguments>
         <properties>
             <property name="@is_running" type="bool" access="readonly" default="0">if timeline is
             running</property>
-            <property name="@length" minvalue="0" type="float" access="initonly" default="60" units="second">
-            timeline length</property>
+            <property name="@length" type="float" minvalue="0" access="initonly" default="60"
+            units="second">timeline length</property>
             <property name="@size" type="int" access="readonly" default="1" minvalue="0">number of
             events in timeline</property>
             <property name="@current" type="float" access="readonly" units="millisecond"

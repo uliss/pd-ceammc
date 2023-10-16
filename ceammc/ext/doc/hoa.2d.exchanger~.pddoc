@@ -30,9 +30,10 @@
         <arguments>
             <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of
             decomposition</argument>
-            <argument name="NUM" type="symbol" enum="ACN fromFurseMalham fromSID toFurseMalham toSID">
-            numbering scheme</argument>
-            <argument name="NORM" type="symbol" enum="SN2D fromMaxN toMaxN">normalization</argument>
+            <argument name="NUM" type="symbol"
+            enum="ACN fromFurseMalham fromSID toFurseMalham toSID">numbering scheme</argument>
+            <argument name="NORM" type="symbol" enum="SN2D fromMaxN toMaxN">
+            normalization</argument>
         </arguments>
         <properties>
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
@@ -41,8 +42,10 @@
             enum="ACN fromFurseMalham fromSID toFurseMalham toSID">numbering scheme</property>
             <property name="@norm" type="symbol" default="SN2D" enum="SN2D fromMaxN toMaxN">
             normalization</property>
-            <property name="@toB" type="alias">alias to @num toFurseMalham and @norm toMaxN</property>
-            <property name="@fromB" type="alias">alias to @num fromFurseMalham and @norm fromMaxN</property>
+            <property name="@toB" type="alias">alias to @num toFurseMalham and @norm
+            toMaxN</property>
+            <property name="@fromB" type="alias">alias to @num fromFurseMalham and @norm
+            fromMaxN</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio">
