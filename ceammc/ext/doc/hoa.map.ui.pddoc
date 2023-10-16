@@ -89,10 +89,15 @@
             <!-- clear_all -->
             <method name="clear_all">remove all sources from map</method>
             <!-- group -->
-            <method name="group">do group operations
+            <method name="group">group operations
             <param name="IDX" type="int" required="true">group index</param>
-            <param name="ACTION" type="symbol" enum="set polar pol azimuth elevation cartesian car abscissa ordinate relpolar relradius relazimuth relelevation mute remove description color" required="true">action</param>
-            <param name="DATA" type="list" required="false">preset index</param></method>
+            <param name="ACTION" type="symbol" enum="set polar pol azimuth elevation cartesian car abscissa ordinate height relpolar relradius relazimuth relelevation mute remove description color" required="true">action</param>
+            <param name="ARGS" type="list" required="false">action arguments</param></method>
+            <!-- source -->
+            <method name="source">source operations
+            <param name="IDX" type="int" required="true">source index</param>
+            <param name="ACTION" type="symbol" enum="polar pol azimuth elevation cartesian car abscissa ordinate height mute remove description color" required="true">action</param>
+            <param name="ARGS" type="list" required="false">action arguments</param></method>
         </methods>
         <inlets>
             <inlet>

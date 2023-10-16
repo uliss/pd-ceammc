@@ -579,44 +579,44 @@ void HoaMapUI::m_source(const AtomListView& lv)
         return chk.usage();
 
     auto index = lv.intAt(0, 0);
-    auto param = lv.symbolAt(1, &s_);
+    const auto param = crc32_hash(lv.symbolAt(1, &s_));
 
     int causeOutput = 1;
     if (index > 0) {
         auto tmp = f_manager->manager.newSource(ulong(index));
 
-        if (param == sym_polar() || param == sym_pol()) {
+        if (param == hash_polar || param == hash_pol) {
             if (lv.size() >= 5 && lv[2].isFloat() && lv[3].isFloat() && lv[4].isFloat())
                 tmp->setCoordinatesPolar(lv.floatAt(2, 0), lv.floatAt(3, 0), lv.floatAt(4, 0));
             else if (lv.size() >= 4 && lv[2].isFloat() && lv[3].isFloat())
                 tmp->setCoordinatesPolar(index, lv.floatAt(2, 0), lv.floatAt(3, 0));
-        } else if (param == sym_radius())
+        } else if (param == hash_radius)
             tmp->setRadius(lv.floatAt(2, 0));
-        else if (param == sym_azimuth())
+        else if (param == hash_azimuth)
             tmp->setAzimuth(lv.floatAt(2, 0));
-        else if (param == sym_elevation())
+        else if (param == hash_elevation)
             tmp->setElevation(lv.floatAt(2, 0));
-        else if (param == sym_cartesian() || param == sym_car()) {
+        else if (param == hash_cartesian || param == hash_car) {
             if (lv.size() >= 5 && lv[2].isFloat() && lv[3].isFloat() && lv[4].isFloat())
                 tmp->setCoordinatesCartesian(lv.floatAt(2, 0), lv.floatAt(3, 0), lv.floatAt(4, 0));
             else if (lv.size() >= 4 && lv[2].isFloat() && lv[3].isFloat())
                 tmp->setCoordinatesCartesian(lv.floatAt(2, 0), lv.floatAt(3, 0));
-        } else if (param == sym_abscissa())
+        } else if (param == hash_abscissa)
             tmp->setAbscissa(lv.floatAt(2, 0));
-        else if (param == sym_ordinate())
+        else if (param == hash_ordinate)
             tmp->setOrdinate(lv.floatAt(2, 0));
-        else if (param == sym_height())
+        else if (param == hash_height)
             tmp->setHeight(lv.floatAt(2, 0));
-        else if (param == sym_remove()) {
+        else if (param == hash_remove) {
             f_manager->manager.removeSource(ulong(index));
             AtomArray<3> data;
             data[0] = index;
             data[1] = sym_mute();
             data[2] = 1;
             listTo(0, data.view());
-        } else if (param == sym_mute())
+        } else if (param == hash_mute)
             tmp->setMute(lv.floatAt(2, 0));
-        else if (param == sym_description()) {
+        else if (param == hash_description) {
             causeOutput = 0;
             char description[250];
             char number[250];
@@ -645,7 +645,7 @@ void HoaMapUI::m_source(const AtomListView& lv)
                 }
             }
             tmp->setDescription(description);
-        } else if (param == sym::sym_color() && lv.size() >= 5) {
+        } else if (param == sym::hash_color && lv.size() >= 5) {
             tmp->setColor(lv.floatAt(2, 0), lv.floatAt(3, 0), lv.floatAt(4, 0), lv.floatAt(5, 0));
             causeOutput = 0;
         } else {
@@ -675,7 +675,7 @@ void HoaMapUI::m_group(const AtomListView& lv)
         return chk.usage();
 
     auto index = lv.intAt(0, 0);
-    auto param = lv.symbolAt(1, &s_);
+    const auto param = crc32_hash(lv.symbolAt(1, &s_));
 
     int causeOutput = 1;
     if (index > 0) {
@@ -686,42 +686,42 @@ void HoaMapUI::m_group(const AtomListView& lv)
             newGroupCreated = true;
         }
 
-        if (param == sym_set()) {
+        if (param == hash_set) {
             for (int i = 2; i < lv.size(); i++) {
-                ulong ind = ulong(lv.intAt(i, 0));
+                auto ind = lv.intAt(i, 0);
                 if (ind > 0) {
                     auto* src = f_manager->manager.newSource(ind);
                     tmp->addSource(src);
                 }
             }
-        } else if (param == sym_polar() || param == sym_pol()) {
+        } else if (param == hash_polar || param == hash_pol) {
             if (lv.size() >= 5 && lv[2].isFloat() && lv[3].isFloat() && lv[4].isFloat())
                 tmp->setCoordinatesPolar(lv.floatAt(2, 0), lv.floatAt(3, 0), lv.floatAt(4, 0));
             else if (lv.size() >= 4 && lv[2].isFloat() && lv[3].isFloat())
                 tmp->setCoordinatesPolar(lv.floatAt(2, 0), lv.floatAt(3, 0));
-        } else if (param == sym_azimuth())
+        } else if (param == hash_azimuth)
             tmp->setAzimuth(lv.floatAt(2, 0));
-        else if (param == sym_elevation())
+        else if (param == hash_elevation)
             tmp->setElevation(lv.floatAt(2, 0));
-        else if (param == sym_cartesian() || param == sym_car()) {
+        else if (param == hash_cartesian || param == hash_car) {
             if (lv.size() >= 5 && lv[2].isFloat() && lv[3].isFloat() && lv[4].isFloat())
                 tmp->setCoordinatesCartesian(lv.floatAt(2, 0), lv.floatAt(3, 0), lv.floatAt(4, 0));
             else if (lv.size() >= 4 && lv[2].isFloat() && lv[3].isFloat())
                 tmp->setCoordinatesCartesian(lv.floatAt(2, 0), lv.floatAt(3, 0));
-        } else if (param == sym_abscissa())
+        } else if (param == hash_abscissa)
             tmp->setAbscissa(lv.floatAt(2, 0));
-        else if (param == sym_ordinate())
+        else if (param == hash_ordinate)
             tmp->setOrdinate(lv.floatAt(2, 0));
-        else if (param == sym_height())
+        else if (param == hash_height)
             tmp->setHeight(lv.floatAt(2, 0));
-        else if (param == sym_relpolar()) {
+        else if (param == hash_relpolar) {
             if (lv.size() >= 5 && lv[2].isFloat() && lv[3].isFloat() && lv[4].isFloat())
                 tmp->setRelativeCoordinatesPolar(lv.floatAt(2, 0), lv.floatAt(3, 0), lv.floatAt(4, 0));
             else if (lv.size() >= 4 && lv[2].isFloat() && lv[3].isFloat())
                 tmp->setRelativeCoordinatesPolar(lv.floatAt(2, 0), lv.floatAt(3, 0));
-        } else if (param == sym_relradius()) {
+        } else if (param == hash_relradius) {
             tmp->setRelativeRadius(lv.floatAt(2, 0) + tmp->getRadius());
-        } else if (param == sym_relazimuth()) {
+        } else if (param == hash_relazimuth) {
             if (f_coord_view == sym_xy()) {
                 tmp->setRelativeAzimuth(lv.floatAt(2, 0) + tmp->getAzimuth());
             } else if (f_coord_view == sym_xz()) {
@@ -753,18 +753,18 @@ void HoaMapUI::m_group(const AtomListView& lv)
                     it->second->setHeight(Math<float>::ordinate(source_radius, source_azimuth));
                 }
             }
-        } else if (param == sym_relelevation()) {
+        } else if (param == hash_relelevation) {
             tmp->setRelativeElevation(lv.floatAt(2, 0));
-        } else if (param == sym_mute()) {
+        } else if (param == hash_mute) {
             tmp->setMute(lv.intAt(2, 0));
-        } else if (param == sym_remove()) {
+        } else if (param == hash_remove) {
             f_manager->manager.removeGroup(index);
             AtomArray<3> data;
             data[0] = index;
             data[1] = sym_mute();
             data[2] = 1;
             listTo(0, data.view());
-        } else if (param == sym_description()) {
+        } else if (param == hash_description) {
             causeOutput = 0;
             char description[250];
             char number[250];
@@ -792,7 +792,7 @@ void HoaMapUI::m_group(const AtomListView& lv)
                 }
             }
             tmp->setDescription(description);
-        } else if (param == sym::sym_color() && lv.size() >= 6) {
+        } else if (param == sym::hash_color && lv.size() >= 6) {
             causeOutput = 0;
             tmp->setColor(lv.floatAt(2, 0), lv.floatAt(3, 0), lv.floatAt(4, 0), lv.floatAt(5, 0));
         } else {
