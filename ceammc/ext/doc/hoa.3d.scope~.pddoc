@@ -1,0 +1,112 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="hoa.3d.scope~" type="gui">
+        <title>hoa.3d.scope~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+                <author>Pierre Guillot</author>
+                <author>Eliott Paris</author>
+                <author>Thomas Le Meur</author>
+            </authors>
+            <description>a 3d ambisonic harmonic scope</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category view="link">spat</category>
+            <keywords>hoa scope</keywords>
+            <since>0.9.7</since>
+        </meta>
+        <info>
+            <par>displays the circular harmonics of an ambisonic sound field</par>
+        </info>
+        <arguments>
+            <argument name="ORDER" type="int" minvalue="1">the order of decomposition</argument>
+        </arguments>
+        <properties>
+            <property name="@order" type="int" minvalue="1" maxvalue="63" default="1">the order of
+            decomposition</property>
+            <property name="@view" type="list" default="0 0 0">view rotation</property>
+            <property name="@gain" type="float" default="1" minvalue="0">gain</property>
+            <property name="@refresh" type="int" default="100" minvalue="20" maxvalue="1000"
+            units="millisecond">redraw time</property>
+            <property name="@ph_color" type="list" default="1 0 0 1">positive harmonics
+            color</property>
+            <property name="@nh_color" type="list" default="0 0 1 1">negative harmonics
+            color</property>
+            <!-- common-->
+            <property name="@size" type="list" default="120 120">element size (width, height
+            pair)</property>
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
+            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
+            background color (list of red, green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
+            of red, green, blue values in 0-1 range)</property>
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
+            fontsize</property>
+            <property name="@fontname" type="symbol" default="Helvetica"
+            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
+            slant</property>
+            <!-- label -->
+            <property name="@label" type="symbol" default="(null)">label text</property>
+            <property name="@label_color" type="list" default="0 0 0 1">label color in RGB format
+            within 0-1 range, for example: 0.2 0.4 0.1</property>
+            <property name="@label_inner" type="bool" default="0">label position (1 - inner, 0 -
+            outer).</property>
+            <property name="@label_align" type="symbol" enum="left center right" default="left">
+            label horizontal align</property>
+            <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
+            label vertical align</property>
+            <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
+            label snap side</property>
+            <property name="@label_margins" type="list" default="0 0">label offset in
+            pixels</property>
+        </properties>
+        <methods>
+            <!-- dump -->
+            <method name="dump">dumps all object info to Pd console window.</method>
+            <!-- pos -->
+            <method name="pos">set UI element position 
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
+        </methods>
+        <inlets dynamic="true">
+            <inlet type="audio">
+                <xinfo>first input harmonic</xinfo>
+            </inlet>
+            <inlet type="audio" number="...">
+                <xinfo>... input harmonic</xinfo>
+            </inlet>
+            <inlet type="audio" number="n">
+                <xinfo>n-th input harmonic</xinfo>
+            </inlet>
+        </inlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[osc.square~ 0.15]      [phasor~ 0.15]   [phasor~ 0.15]
+|                       |                |
+[ui.gain~ @size 120 14] [phase->rad~ #a] [phase->rad~ #b]
+|
+[hoa.3d.encoder~ 3 {w=17,i=3,o=16} #z]
+*|*
+[hoa.3d.scope~ 3 {i=16} @size 123 123]
+
+
+
+
+
+
+
+
+[ui.dsp~]
+[X a->z:1]
+[X b->z:2]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

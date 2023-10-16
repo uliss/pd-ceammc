@@ -1108,6 +1108,8 @@ hoa.2d.decoder~	hoa 2d decoder
 hoa.decoder~	hoa 2d decoder
 hoa.2d.encoder~	hoa 2d encoder
 hoa.encoder~	hoa 2d encoder
+hoa.2d.exchanger~	renumbers and normalizes the channels
+hoa.exchanger~	renumbers and normalizes the channels
 hoa.2d.map~	a 2d ambisonic multisource spatializer
 hoa.map~	a 2d ambisonic multisource spatializer
 hoa.2d.optim~	a 2D ambisonic optimization tool
@@ -1126,6 +1128,7 @@ hoa.3d.decoder~	hoa 3d decoder
 hoa.3d.encoder~	hoa 3d encoder
 hoa.3d.exchanger~	renumbers and normalizes the channels
 hoa.3d.optim~	a 3D ambisonic optimization tool
+hoa.3d.scope~	a 3d ambisonic harmonic scope
 hoa.3d.wider~	a 3d fractional ambisonic order simulator
 hoa.@process	process properties manager for hoa.process~
 hoa.in	message inlet for a patcher loaded by hoa.process~

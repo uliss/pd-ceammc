@@ -2154,6 +2154,9 @@
     <entry name="hoa.3d.optim~" descr="a 3D ambisonic optimization tool" ref_view="object">
       <xi:include href="hoa.3d.optim~.pddoc" parse="xml"/>
     </entry>
+    <entry name="hoa.3d.scope~" descr="a 3d ambisonic harmonic scope" ref_view="link">
+      <xi:include href="hoa.3d.scope~.pddoc" parse="xml"/>
+    </entry>
     <entry name="hoa.3d.wider~" descr="a 3d fractional ambisonic order simulator" ref_view="object">
       <xi:include href="hoa.3d.wider~.pddoc" parse="xml"/>
     </entry>
