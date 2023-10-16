@@ -1133,6 +1133,7 @@ hoa.3d.wider~	a 3d fractional ambisonic order simulator
 hoa.@process	process properties manager for hoa.process~
 hoa.in	message inlet for a patcher loaded by hoa.process~
 hoa.in~	signal inlet for a patcher loaded by hoa.process~
+hoa.map.ui	a GUI to spatialize sources on a map
 hoa.out	message outlet for a patcher loaded by hoa.process~
 hoa.out~	signal inlet for a patcher loaded by hoa.process~
 hoa.process~	patcher loader for multichannel processing

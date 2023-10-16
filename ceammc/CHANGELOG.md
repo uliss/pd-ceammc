@@ -49,6 +49,7 @@
   - split~ - multichannel signal splitter
   - synth.metro~ - metronome synth with complex pattern support
   - hoa.3d.scope~ - 3d ambisonic harmonic scope
+  - hoa.map.ui - GUI to spatialize sources on a map
 - new object inlets:
   - dyn.gate~, dyn.gate2~ - second inlet added for setting threshold
   - flt.bpf12~: second and third inlet added for setting freq and q-factor

@@ -303,6 +303,7 @@ set(DOC_FILES
     hoa.@process
     hoa.in
     hoa.in~
+    hoa.map.ui
     hoa.out
     hoa.out~
     hoa.process~

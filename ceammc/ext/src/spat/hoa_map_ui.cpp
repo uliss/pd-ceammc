@@ -51,8 +51,9 @@ CEAMMC_DEFINE_SYM_HASH(xz);
 CEAMMC_DEFINE_SYM_HASH(yz);
 
 constexpr int MIN_SIZE = 20;
-constexpr float MAX_ZOOM = 1.;
+constexpr float MAX_ZOOM = 1;
 constexpr float MIN_ZOOM = 0.01;
+constexpr float DEF_ZOOM = 0.35;
 constexpr size_t SOURCE_OUTLET = 0;
 constexpr size_t GROUP_OUTLET = 1;
 constexpr size_t INFO_OUTLET = 2;
@@ -1498,8 +1499,9 @@ void HoaMapUI::setup()
     obj.addMenuProperty("view", _("Coordinate View"), "xy", &HoaMapUI::f_coord_view, "xy xz yz", _("Main"));
     obj.addMenuProperty("outputmode", _("Output Mode"), "polar", &HoaMapUI::f_output_mode, "polar cartesian", _("Behavior"));
 
-    obj.addFloatProperty("zoom", _("Zoom"), 0.35, &HoaMapUI::prop_zoom, _("Behavior"));
+    obj.addFloatProperty("zoom", _("Zoom"), DEF_ZOOM, &HoaMapUI::prop_zoom, _("Behavior"));
     obj.setPropertyAccessor("zoom", &HoaMapUI::m_get_zoom, &HoaMapUI::m_set_zoom);
+    obj.setPropertyRange("zoom", MIN_ZOOM, MAX_ZOOM);
 
     obj.addSymbolProperty("mapname", _("Map Name"), "(null)", &HoaMapUI::f_binding_name, _("Main"));
     obj.setPropertyAccessor("mapname", &HoaMapUI::m_get_bind, &HoaMapUI::m_set_bind);

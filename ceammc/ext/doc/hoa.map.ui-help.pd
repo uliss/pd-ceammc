@@ -1,0 +1,178 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 483 50 cnv 1 282 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 483 50 a GUI to spatialize sources on a map;
+#X obj 1 1 cnv 5 765 40 empty empty hoa.map.ui 20 20 0 20 -104026
+-4096 0;
+#X obj 665 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+[hoa.map.ui] @url hoa.map.ui-help.pd;
+#X obj 210 80 cnv 1 555 103 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 [hoa.map.ui] allows you to spatialize several sources
+on a plane to control [hoa.2d.map~] or [hoa.3d.map]. You can add and
+remove sources \, change coordinates \, add description and create
+groups.;
+#X obj 215 150 ui.link @background_color 0.98039 0.98039 0.98039
+@title CICM documentation @url hoa/hoa.map-help.pd;
+#X msg 50 211 info;
+#X obj 50 240 hoa.map.ui @size 150 150;
+#X obj 50 413 print SRC;
+#X obj 194 413 print GRP;
+#X obj 338 413 print INF;
+#X obj 20 462 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 467 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 502 @receive;
+#X text 245 502 Get/Set receive source. Type: symbol. Default value:
+(null).;
+#X msg 110 531 @send;
+#X text 245 531 Get/Set send destination. Type: symbol. Default value:
+(null).;
+#X msg 110 573 @zoom;
+#X text 245 573 Get/Set zoom factor. Type: float. Default value: 0.35\.
+Range: 0.01\...1\.;
+#X msg 110 615 @background_color;
+#X text 245 615 Get/Set element background color (list of red \, green
+\, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
+0.93 1\.;
+#X msg 110 672 @border_color;
+#X text 245 672 Get/Set border color (list of red \, green \, blue
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
+#X msg 110 714 @label_color;
+#X text 245 714 Get/Set label color in RGB format within 0-1 range
+\, for example: 0.2 0.4 0.1\. Type: list. Default value: 0 0 0 1\.;
+#X msg 110 756 @selection_color;
+#X text 245 756 Get/Set selection color (list of red \, green \, blue
+values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
+#X msg 110 798 @label;
+#X text 245 798 Get/Set label text. Type: symbol. Default value: (null).;
+#X msg 110 827 @label_align;
+#X text 245 827 Get/Set label horizontal align. Type: symbol. Default
+value: left. Allowed values: left \, center \, right.;
+#X msg 110 869 @label_inner;
+#X text 245 869 Get/Set label position (1 - inner \, 0 - outer). Type:
+bool. Default value: 0\.;
+#X msg 110 911 @label_margins;
+#X text 245 911 Get/Set label offset in pixels. Type: list. Default
+value: 0 0\.;
+#X msg 110 953 @label_side;
+#X text 245 953 Get/Set label snap side. Type: symbol. Default value:
+top. Allowed values: left \, top \, right \, bottom.;
+#X msg 110 995 @label_valign;
+#X text 245 995 Get/Set label vertical align. Type: symbol. Default
+value: top. Allowed values: top \, center \, bottom.;
+#X msg 110 1037 @fontname;
+#X text 245 1037 Get/Set fontname. Type: symbol. Default value: Helvetica.
+Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
+#X msg 110 1079 @fontsize;
+#X text 245 1079 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
+#X msg 110 1121 @fontslant;
+#X text 245 1121 Get/Set font slant. Type: symbol. Default value: roman.
+Allowed values: roman \, italic.;
+#X msg 110 1163 @fontweight;
+#X text 245 1163 Get/Set font weight. Type: symbol. Default value:
+normal. Allowed values: normal \, bold.;
+#X msg 110 1205 @pinned;
+#X text 245 1205 Get/Set pin mode. if 1 - put element to the lowest
+level. Type: bool. Default value: 0\.;
+#X msg 110 1247 @presetname;
+#X text 245 1247 Get/Set preset name for using with [ui.preset]. Type:
+symbol. Default value: (null).;
+#X msg 110 1289 @size;
+#X text 245 1289 Get/Set element size (width \, height pair). Type:
+list. Default value: 225 225\.;
+#X obj 20 1341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1346 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 1381 clear;
+#X text 245 1381 clears specified preset. Arguments are:;
+#X obj 255 1404 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1404 IDX: preset index. Type: int.;
+#X msg 110 1429 clear_all;
+#X text 245 1429 remove all sources from map.;
+#X msg 110 1456 group;
+#X text 245 1456 do group operations. Arguments are:;
+#X obj 255 1479 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1479 IDX: group index. Type: int.;
+#X obj 255 1502 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1502 ACTION: action. Type: symbol. Allowed values: set
+\, polar \, pol \, azimuth \, elevation \, cartesian \, car \, abscissa
+\, ordinate \, relpolar \, relradius \, relazimuth \, relelevation
+\, mute \, remove \, description \, color.;
+#X obj 255 1570 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1570 [DATA]: preset index. Type: list.;
+#X msg 110 1595 info;
+#X text 245 1595 outputs info to 3rd outlet.;
+#X msg 110 1622 interp;
+#X text 245 1622 for this object acts as *load* \, no interpolation
+performed.;
+#X msg 110 1649 load;
+#X text 245 1649 loads specified preset. Arguments are:;
+#X obj 255 1672 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1672 IDX: preset index. Type: int.;
+#X msg 110 1697 pos;
+#X text 245 1697 set UI element position. Arguments are:;
+#X obj 255 1720 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1720 X: top left x-coord. Type: float.;
+#X obj 255 1743 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1743 Y: top right y-coord. Type: float.;
+#X msg 110 1768 set;
+#X text 245 1768 sets toggle state without output.;
+#X msg 110 1795 store;
+#X text 245 1795 stores specified preset. Arguments are:;
+#X obj 255 1818 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1818 IDX: preset index. Type: int.;
+#X msg 110 1843 dump;
+#X text 245 1843 dumps all object info to Pd console window.;
+#X obj 20 1880 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1885 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1886 1\.;
+#X text 150 1886 *bang*;
+#X text 245 1886 output group and source info.;
+#X obj 20 1916 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1921 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1922 1\.;
+#X text 245 1922 source output.;
+#X text 110 1942 2\.;
+#X text 245 1942 group output.;
+#X text 110 1962 3\.;
+#X text 245 1962 info output.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 115 45 ::;
+#X obj 131 48 ui.link @title spat @url ceammc.spat-help.pd;
+#X obj 1 2012 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2015 library: ceammc v0.9.7;
+#N canvas 10 2034 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.9.7;
+#X text 10 54 object:;
+#X text 120 54 hoa.map.ui;
+#X text 10 76 category:;
+#X text 120 76 spat;
+#X text 10 98 since:;
+#X text 120 98 0.9.7;
+#X text 10 120 authors:;
+#X text 120 120 Serge Poltavsky \, Pierre Guillot \, Eliott Paris \,
+Thomas Le Meur;
+#X text 10 142 license:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 keywords:;
+#X text 120 164 hoa \, map;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
+https://github.com/uliss/pure-data;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 2034 pd info;
+#X connect 7 0 8 0;
+#X connect 8 0 9 0;
+#X connect 8 1 10 0;
+#X connect 8 2 11 0;

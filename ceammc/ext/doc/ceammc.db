@@ -302,6 +302,7 @@ hoa.3d.wider~		?		?
 hoa.@process		.		.
 hoa.in		-		.
 hoa.in~		-		~
+hoa.map.ui		.		...
 hoa.out		.		-
 hoa.out~		~		-
 hoa.process~,hoa.2d.process~		?		?

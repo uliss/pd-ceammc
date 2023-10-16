@@ -2169,6 +2169,9 @@
     <entry name="hoa.in~" descr="signal inlet for a patcher loaded by hoa.process~" ref_view="object">
       <xi:include href="hoa.in~.pddoc" parse="xml"/>
     </entry>
+    <entry name="hoa.map.ui" descr="a GUI to spatialize sources on a map" ref_view="object">
+      <xi:include href="hoa.map.ui.pddoc" parse="xml"/>
+    </entry>
     <entry name="hoa.out" descr="message outlet for a patcher loaded by hoa.process~" ref_view="object">
       <xi:include href="hoa.out.pddoc" parse="xml"/>
     </entry>
