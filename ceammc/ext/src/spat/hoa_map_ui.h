@@ -99,6 +99,7 @@ private:
 
     void updateAllAndOutput();
     t_symbol* makeBindSymbol(t_symbol* sym) const;
+    AtomList serializeSource(const hoa::Source& src) const;
 };
 
 }

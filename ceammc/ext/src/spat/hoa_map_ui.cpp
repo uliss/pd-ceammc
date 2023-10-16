@@ -17,7 +17,9 @@
 #include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_crc32.h"
+#include "ceammc_fn_list.h"
 #include "ceammc_preset.h"
+#include "ceammc_signal.h"
 #include "ceammc_ui.h"
 #include "fmt/core.h"
 #include <forward_list>
@@ -130,6 +132,7 @@ void HoaMapUI::paint()
 
 void HoaMapUI::onBang()
 {
+    sendBindedMapUpdate(BMAP_REDRAW | BMAP_NOTIFY);
     output();
 }
 
@@ -920,6 +923,19 @@ t_symbol* HoaMapUI::makeBindSymbol(t_symbol* sym) const
     return gensym(buf);
 }
 
+AtomList HoaMapUI::serializeSource(const hoa::Source& src) const
+{
+    AtomList res;
+    res.reserve(6);
+    res.append(gensym("@src"));
+    res.append(src.getIndex());
+    res.append(src.getRadius());
+    res.append(src.getAzimuth());
+    res.append(src.getElevation());
+    res.append(src.getMute());
+    return res;
+}
+
 void HoaMapUI::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
     f_rect_selection_exist = false;
@@ -1352,26 +1368,138 @@ void HoaMapUI::showPopup(const t_pt& pt, const t_pt& abs_pt)
 
 void HoaMapUI::loadPreset(size_t idx)
 {
+    auto& m = f_manager->manager;
     auto lv = PresetStorage::instance().listValueAt(presetId(), idx);
-    onList(lv);
+
+    auto n = list::foreachProperty(lv, [this, &m](const AtomListView& lv) {
+        if (lv.empty()) {
+            UI_ERR << "invalid preset value: " << lv;
+            return;
+        }
+
+        if (lv[0] == "@src") {
+            auto idx = lv.intAt(1, -1);
+            hoa::Source* src = nullptr;
+            if (idx < 0 || ((src = m.getSource(idx)) == nullptr)) {
+                UI_ERR << fmt::format("invalid source index: {}", idx);
+                return;
+            }
+            auto radius = lv.floatAt(2, 0);
+            auto azimuth = lv.floatAt(3, 0);
+            auto elevation = lv.floatAt(4, 0);
+            auto mute = lv.boolAt(5, 0);
+            src->setRadius(radius);
+            src->setAzimuth(azimuth);
+            src->setElevation(elevation);
+            src->setMute(mute);
+        }
+    });
+
+    if (n > 0) {
+        groups_.invalidate();
+        sources_.invalidate();
+        redraw();
+        output();
+    }
 }
 
 void HoaMapUI::storePreset(size_t idx)
 {
-    //    StaticAtomList<HOA_MAX_PLANEWAVES> lv;
-    //    for (int i = 0; i < prop_nchan; i++)
-    //        lv.push_back(chan_values_[i]);
+    auto& m = f_manager->manager;
+    AtomList res;
+    for (auto it = m.getFirstSource(); it != m.getLastSource(); ++it) {
+        auto src = it->second;
+        if (!src)
+            continue;
 
-    //    PresetStorage::instance().setListValueAt(presetId(), idx, lv.view());
+        res.append(serializeSource(*src));
+    }
+
+    PresetStorage::instance().setListValueAt(presetId(), idx, res.view());
 }
 
 void HoaMapUI::interpPreset(t_float idx)
 {
-    //    StaticAtomList<HOA_MAX_PLANEWAVES> def;
-    //    for (int i = 0; i < prop_nchan; i++)
-    //        def.push_back(chan_values_[i]);
+    auto& m = f_manager->manager;
+    auto lv0 = PresetStorage::instance().listValueAt(presetId(), idx);
+    auto lv1 = PresetStorage::instance().listValueAt(presetId(), idx + 1);
 
-    //    onList(PresetStorage::instance().interListValue(presetId(), idx, def.view()));
+    UI_DBG << lv0;
+    UI_DBG << lv1;
+
+    struct Data {
+        float radius { 0 }, azimuth { 0 }, elevation { 0 };
+        bool mute { false };
+    };
+
+    struct InterpData {
+        Data preset0, preset1;
+    };
+
+    std::map<size_t, InterpData> interp;
+
+    list::foreachProperty(lv0, [this, &interp](const AtomListView& lv) {
+        if (lv.empty()) {
+            UI_ERR << "invalid preset value: " << lv;
+            return;
+        }
+
+        if (lv[0] == "@src") {
+            auto idx = lv.intAt(1, -1);
+            if (idx < 0) {
+                UI_ERR << fmt::format("invalid source index: {}", idx);
+                return;
+            }
+            interp[idx].preset0.radius = lv.floatAt(2, 0);
+            interp[idx].preset0.azimuth = lv.floatAt(3, 0);
+            interp[idx].preset0.elevation = lv.floatAt(4, 0);
+            interp[idx].preset0.mute = lv.boolAt(5, 0);
+        }
+    });
+
+    list::foreachProperty(lv1, [this, &interp](const AtomListView& lv) {
+        if (lv.empty()) {
+            UI_ERR << "invalid preset value: " << lv;
+            return;
+        }
+
+        if (lv[0] == "@src") {
+            auto idx = lv.intAt(1, -1);
+            if (idx < 0) {
+                UI_ERR << fmt::format("invalid source index: {}", idx);
+                return;
+            }
+            interp[idx].preset1.radius = lv.floatAt(2, 0);
+            interp[idx].preset1.azimuth = lv.floatAt(3, 0);
+            interp[idx].preset1.elevation = lv.floatAt(4, 0);
+            interp[idx].preset1.mute = lv.boolAt(5, 0);
+        }
+    });
+
+    int n = 0;
+    double intpart_;
+    auto fp = std::modf(idx, &intpart_);
+    for (auto& kv : interp) {
+        auto src = m.getSource(kv.first);
+        if (!src)
+            continue;
+
+        auto& p0 = kv.second.preset0;
+        auto& p1 = kv.second.preset1;
+
+        src->setRadius(interpolate::linear<float>(p0.radius, p1.radius, fp));
+        src->setAzimuth(interpolate::linear<float>(p0.azimuth, p1.azimuth, fp));
+        src->setElevation(interpolate::linear<float>(p0.elevation, p1.elevation, fp));
+        src->setMute(p0.mute);
+        n++;
+    }
+
+    if (n > 0) {
+        groups_.invalidate();
+        sources_.invalidate();
+        redraw();
+        output();
+    }
 }
 
 void HoaMapUI::m_clear_all(const AtomListView& lv)

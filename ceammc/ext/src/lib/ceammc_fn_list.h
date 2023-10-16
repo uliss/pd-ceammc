@@ -227,6 +227,14 @@ namespace list {
     ViewSlice findProperty(const AtomListView& lv);
 
     /**
+     * Iterate all properties in list
+     * @param lv - source list
+     * @param fn - function to apply to each found property
+     * @note no dynamic memory allocation
+     */
+    int foreachProperty(const AtomListView& lv, std::function<void(const AtomListView&)> fn);
+
+    /**
      * Linear list interpoltation
      * @param l0 - first list
      * @param l1 - second list

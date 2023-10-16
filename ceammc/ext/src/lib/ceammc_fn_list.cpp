@@ -823,5 +823,36 @@ namespace list {
             return {};
         }
     }
+
+    int foreachProperty(const AtomListView& lv, std::function<void(const AtomListView&)> fn)
+    {
+        int found = 0;
+        bool prop_start = false;
+        size_t prop_index = 0;
+
+        for (size_t i = 0; i < lv.size(); i++) {
+            auto& a = lv[i];
+            if (a.isProperty()) {
+                found++;
+
+                if (prop_start) // handle previous property
+                    fn(lv.subView(prop_index, i - prop_index));
+
+                prop_start = true;
+                prop_index = i;
+            }
+
+            // last element
+            if (i + 1 == lv.size()) {
+                if (a.isProperty()) {
+                    fn(lv.subView(i, 1));
+                } else if (prop_start) {
+                    fn(lv.subView(prop_index, i - prop_index + 1));
+                }
+            }
+        }
+
+        return found;
+    }
 }
 }
