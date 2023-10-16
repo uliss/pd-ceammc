@@ -288,6 +288,8 @@ def check_single_arg(ext_name, arg_name, doc, ext):
 
     check_units(ext_name, arg_name, doc, ext)
 
+    check_enum(ext_name, arg_name, doc, ext)
+
 
 def check_args(name, doc, ext):
     doc_args_set = set(doc.keys())
@@ -315,6 +317,37 @@ def check_xlets(name, doc_in, doc_out, ext_in, ext_out):
         cprint(f"[{ext_name}] outlets error: {doc_out} != {ext_out}",
             'magenta')
 
+
+def check_enum(name, prop, doc, ext):
+    doc_enum = doc.get("enum", set())
+    ext_enum = set(ext.get("enum", set()))
+    type_doc = doc.get("type", None)
+    if isinstance(doc_enum, str):
+        doc_enum = set(doc_enum.split(" "))
+        if type_doc == "float":
+            doc_enum = set(map(lambda x: float(x), doc_enum))
+        elif type_doc == "int":
+            doc_enum = set(map(lambda x: int(x), doc_enum))
+        elif type_doc == "atom":
+            def get_atom(x):
+                if isinstance(x, str) and len(x) > 0 and x[0].isdigit():
+                    return float(x)
+                else:
+                    return x
+
+            doc_enum = set(map(lambda x: get_atom(x), doc_enum))
+
+    if doc_enum != ext_enum:
+        cprint(f"[{ext_name}][{prop}] invalid property enum in doc: {doc_enum}, should be: {ext_enum}", 'magenta')
+        doc_miss = ext_enum - doc_enum
+        if len(doc_miss) > 0:
+            cprint(f"\t- missing {doc_miss}", 'yellow')
+            x = " ".join(map(str, sorted(list(doc_miss))))
+            cprint(f"\t  add to doc: enum=\"{x}\"", 'white')
+
+        doc_invalid = doc_enum - ext_enum
+        if len(doc_invalid) > 0:
+            cprint(f"\t- invalid {doc_invalid}", 'yellow')
 
 def check_single_prop(name, prop, doc, ext):
     # access check
@@ -399,35 +432,7 @@ def check_single_prop(name, prop, doc, ext):
 
         # end default check
 
-    # check enums
-    doc_enum = doc.get("enum", set())
-    ext_enum = set(ext.get("enum", set()))
-    if isinstance(doc_enum, str):
-        doc_enum = set(doc_enum.split(" "))
-        if type_doc == "float":
-            doc_enum = set(map(lambda x: float(x), doc_enum))
-        elif type_doc == "int":
-            doc_enum = set(map(lambda x: int(x), doc_enum))
-        elif type_doc == "atom":
-            def get_atom(x):
-                if isinstance(x, str) and len(x) > 0 and x[0].isdigit():
-                    return float(x)
-                else:
-                    return x
-
-            doc_enum = set(map(lambda x: get_atom(x), doc_enum))
-
-    if doc_enum != ext_enum:
-        cprint(f"[{ext_name}][{prop}] invalid property enum in doc: {doc_enum}, should be: {ext_enum}", 'magenta')
-        doc_miss = ext_enum - doc_enum
-        if len(doc_miss) > 0:
-            cprint(f"\t- missing {doc_miss}", 'yellow')
-            x = " ".join(map(str, sorted(list(doc_miss))))
-            cprint(f"\t  add to doc: enum=\"{x}\"", 'white')
-
-        doc_invalid = doc_enum - ext_enum
-        if len(doc_invalid) > 0:
-            cprint(f"\t- invalid {doc_invalid}", 'yellow')
+    check_enum(name, prop, doc, ext)
 
     # check types
     type_doc = doc.get("type", None)

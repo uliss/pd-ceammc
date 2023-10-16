@@ -1,0 +1,79 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="hoa.2d.exchanger~">
+        <title>hoa.2d.exchanger~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+                <author>Pierre Guillot</author>
+                <author>Eliott Paris</author>
+                <author>Thomas Le Meur</author>
+            </authors>
+            <description>renumbers and normalizes the channels</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>spat</category>
+            <keywords>hoa exchanger</keywords>
+            <since>0.9.7</since>
+            <also>
+                <see>hoa.3d.exchanger~</see>
+            </also>
+        </meta>
+        <info>
+            <par>The library default normalization is SN3D and the numbering is ACN (cf tutorials).
+            The exchangers will always convert from or to the standard.</par>
+            <a href="hoa/hoa.2d.exchanger~-help.pd">CICM documentation</a>
+        </info>
+        <arguments>
+            <argument name="ORDER" type="int" minvalue="1" maxvalue="10">the order of
+            decomposition</argument>
+            <argument name="MODE" type="symbol" enum="ambisonic irregular binaural">decoding
+            mode</argument>
+            <argument name="NCH" type="int">number of loud speakers</argument>
+        </arguments>
+        <properties>
+            <property name="@order" type="int" minvalue="1" maxvalue="10" default="1"
+            access="initonly">the order of decomposition</property>
+            <property name="@mode" type="symbol" default="regular"
+            enum="regular binaural">decoding mode</property>
+            <property name="@regular" type="alias">alias for @mode regular</property>
+            <property name="@binaural" type="alias">alias for @mode binaural</property>
+            <property name="@offset" type="list" units="degree" default="0 0 0">rotation of
+            loudspeakers. Only available for @regular and @irregular mode.</property>
+            <property name="@angles" type="list" units="degree" default="0 90 0 340.5288 120 340.5288 240 340.5288">angles of
+            loudspeakers.</property>
+            <property name="@pw_x" type="list" units="radian" minvalue="-1" maxvalue="1"
+            access="readonly" default="0.0 -0.0 -0.8165 0.8165">list of plain wave x-coordinates (abscissas). -1
+            is the left of the soundfield, 0 is the center of the soundfield and 1 is the right of
+            the soundfield.</property>
+            <property name="@pw_y" type="list" units="radian" minvalue="-1" maxvalue="1"
+            access="readonly" default="-0.0 0.9428 -0.4714 -0.4714">list of plain wave y-coordinates (ordinatas). -1
+            is the back of the soundfield, 0 is the center of the soundfield and 1 is the front of
+            the soundfield.</property>
+            <property name="@pw_z" type="list" units="radian" minvalue="-1" maxvalue="1"
+            access="readonly" default="1 -0.3333 -0.3333 -0.3333">list of plain wave z-coordinates (heights). -1 is
+            the bottom of the soundfield, 0 is the center of the soundfield and 1 is the top of the
+            soundfield.</property>
+            <property name="@nharm" type="int" minvalue="1" access="readonly" default="4">number of
+            circular harmonics.</property>
+            <property name="@nch" type="int" minvalue="1" access="initonly" default="0">number
+            of plain waves.</property>
+        </properties>
+        <inlets dynamic="true">
+            <inlet type="audio">
+                <xinfo>first input harmonic</xinfo>
+            </inlet>
+            <inlet type="audio" number="...">
+                <xinfo>... input harmonic</xinfo>
+            </inlet>
+            <inlet type="audio" number="n">
+                <xinfo>n-th input harmonic</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet type="audio">first loudspeaker output</outlet>
+            <outlet type="audio" number="...">... loudspeaker output</outlet>
+            <outlet type="audio" number="n">n-th loudspeaker output</outlet>
+        </outlets>
+    </object>
+</pddoc>
