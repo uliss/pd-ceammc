@@ -25,6 +25,7 @@ HoaProcess::HoaProcess(const PdArgs& args)
     , num_(nullptr)
     , args_(nullptr)
     , clock_(this, &HoaProcess::clockTick)
+    , mode_3d_(std::strchr(args.creationName->s_name, '3'))
 {
     args_ = new ListProperty("@args");
     args_->setInitOnly();
@@ -411,12 +412,12 @@ void HoaProcess::sendAnyToSpread(size_t from, size_t inlet_idx, t_symbol* s, con
 
 bool HoaProcess::loadHarmonics(t_symbol* name, const AtomListView& patch_args)
 {
-    const size_t NINSTANCE = calcNumHarm2d(num_->value());
+    const size_t NINSTANCE = mode_3d_ ? calcNumHarm3d(num_->value()) : calcNumHarm2d(num_->value());
 
     instances_.assign(NINSTANCE, ProcessInstance());
 
     AtomList load_args;
-    load_args.append(Atom(gensym(HOA_STR_2D)));
+    load_args.append(Atom(gensym(mode_3d_ ? HOA_STR_3D : HOA_STR_2D)));
     load_args.append(Atom(gensym(HOA_STR_HARMONICS)));
     load_args.append(Atom(num_->value())); // decomposition order
     load_args.append(Atom()); // harmonic index (0, 1, 1, 2, 2..)
@@ -424,8 +425,8 @@ bool HoaProcess::loadHarmonics(t_symbol* name, const AtomListView& patch_args)
     load_args.append(patch_args);
 
     for (size_t i = 0; i < NINSTANCE; i++) {
-        load_args[3].setFloat(calcHarmDegree2d(i), true);
-        load_args[4].setFloat(calcAzimuthalOrder2d(i), true);
+        load_args[3].setFloat(mode_3d_ ? calcHarmDegree3d(i) : calcHarmDegree2d(i), true);
+        load_args[4].setFloat(mode_3d_ ? calcAzimuthalOrder3d(i) : calcAzimuthalOrder2d(i), true);
 
         if (!instances_[i].init(name, load_args)) {
             instances_.clear();
@@ -442,7 +443,7 @@ bool HoaProcess::loadPlaneWaves(t_symbol* name, const AtomListView& patch_args)
     instances_.assign(NINSTANCE, ProcessInstance());
 
     AtomList load_args;
-    load_args.append(Atom(gensym(HOA_STR_2D)));
+    load_args.append(Atom(gensym(mode_3d_ ? HOA_STR_3D : HOA_STR_2D)));
     load_args.append(Atom(gensym(HOA_STR_PLANEWAVES)));
     load_args.append(Atom(NINSTANCE)); // number of channels
     load_args.append(Atom()); // channel index
@@ -562,7 +563,7 @@ void HoaProcess::m_open(t_symbol* m, const AtomListView& lv)
 
 void HoaProcess::m_dsp_on(t_symbol* m, const AtomListView& lv)
 {
-    static t_symbol* SYM_ALL = gensym("all");
+    auto SYM_ALL = gensym("all");
     auto usage = [this, m]() {
         METHOD_DBG(m) << "usage: \n"
                          "\t all 1|0 - to switch on/off all instances or\n"
@@ -598,6 +599,7 @@ void setup_spat_hoa_process()
 {
     SoundExternalFactory<HoaProcess> obj("hoa.process~");
     obj.addAlias("hoa.2d.process~");
+    obj.addAlias("hoa.3d.process~");
     obj.useClick();
     obj.addMethod("open", &HoaProcess::m_open);
     obj.addMethod("on", &HoaProcess::m_dsp_on);

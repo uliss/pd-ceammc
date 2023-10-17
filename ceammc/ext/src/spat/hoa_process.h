@@ -31,6 +31,7 @@ constexpr const char* HOA_STR_OBJ = "obj";
 constexpr const char* HOA_STR_HARMONICS = "harmonics";
 constexpr const char* HOA_STR_PLANEWAVES = "planewaves";
 constexpr const char* HOA_STR_2D = "2d";
+constexpr const char* HOA_STR_3D = "3d";
 constexpr const char* HOA_STR_DSP = "dsp";
 
 class HoaProcess : public SoundExternal {
@@ -44,6 +45,7 @@ class HoaProcess : public SoundExternal {
     SymbolProperty* patch_;
     IntProperty* num_;
     ListProperty* args_;
+    bool mode_3d_ { false };
 
     // used to send loadbang to instances
     ClockMemberFunction<HoaProcess> clock_;
