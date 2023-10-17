@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "hoa_3d_meter.h"
+#include "args/argcheck2.h"
 #include "ceammc_crc32.h"
 #include "ceammc_dsp.h"
 #include "ceammc_ui.h"
@@ -209,17 +210,17 @@ void Hoa3dMeter::propSetOffset(const AtomListView& lv)
 
     double ax, ay, az;
     if (lv[0].isFloat())
-        ax = lv.floatAt(0, 0) / 360. * HOA_2PI;
+        ax = convert::degree2rad(lv.floatAt(0, 0));
     else
         ax = f_meter->getPlanewavesRotationX();
 
     if (lv.size() > 1 && lv[1].isFloat())
-        ay = lv.floatAt(1, 0) / 360. * HOA_2PI;
+        ay = convert::degree2rad(lv.floatAt(1, 0));
     else
         ay = f_meter->getPlanewavesRotationY();
 
     if (lv.size() > 2 && lv[2].isFloat())
-        az = lv.floatAt(2, 0) / 360. * HOA_2PI;
+        az = convert::degree2rad(lv.floatAt(2, 0));
     else
         az = f_meter->getPlanewavesRotationZ();
 
@@ -237,6 +238,10 @@ void Hoa3dMeter::propSetOffset(const AtomListView& lv)
 
 void Hoa3dMeter::propSetVectors(t_symbol* type)
 {
+    static const args::ArgChecker chk("MODE:s=none|energy|both|velocity");
+    if (!chk.checkSilent(AtomListView(Atom(type))))
+        return chk.usage();
+
     f_vector_type = type;
     vec_layer.invalidate();
     redraw();
@@ -254,10 +259,14 @@ void Hoa3dMeter::propSetRotation(t_int s)
 
 void Hoa3dMeter::propSetView(t_symbol* view)
 {
+    static const args::ArgChecker chk("MODE:s=top|bottom|topnextbottom|toponbottom");
+    if (!chk.checkSilent(AtomListView(Atom(view))))
+        return chk.usage();
+
     if (view != f_view) {
         f_view = view;
         rawLastRect() = rawRect();
-        //        eobj_attr_setvalueof((t_object*)asEObj(), gensym("size"), 0, NULL);
+        eobj_attr_setvalueof(asEObj(), gensym("size"), 0, NULL);
     }
 }
 
@@ -300,52 +309,6 @@ void Hoa3dMeter::m_beatles()
     vec_layer.invalidate();
     redraw();
     resizeInputs(f_meter->getNumberOfPlanewaves());
-}
-
-void Hoa3dMeter::setup()
-{
-    UIObjectFactory<Hoa3dMeter> obj("hoa.3d.meter~", EBOX_IGNORELOCKCLICK | EBOX_GROWLINK);
-    obj.setDefaultSize(225, 225);
-    obj.hideProperty("send");
-    obj.hideProperty("fontname");
-    obj.hideProperty("fontweight");
-    obj.hideProperty("fontslant");
-    obj.hideProperty("fontsize");
-
-    obj.addMethod("beatles", &Hoa3dMeter::m_beatles);
-
-    obj.addIntProperty("channels", _("Channels"), DEF_NCHAN, &Hoa3dMeter::prop_channels, _("Main"));
-    obj.setPropertyAccessor("channels", &Hoa3dMeter::propChannels, &Hoa3dMeter::propSetChannels);
-    obj.setPropertyRange("channels", MIN_NCHAN, MAX_NCHAN);
-
-    obj.addVirtualProperty("angles", _("Angles"),
-        "45 35.2644 135 35.2644 225 35.2644 315 35.2644 45 -35.2644 135 -35.2644 225 -35.2644 315 -35.2644",
-        &Hoa3dMeter::propAngles, &Hoa3dMeter::propSetAngles, _("Main"));
-
-    obj.addVirtualProperty("offset", _("Offset of Channels"),
-        "0 0 0",
-        &Hoa3dMeter::propOffset, &Hoa3dMeter::propSetOffset, _("Main"));
-
-    obj.addBoolProperty("clockwise", _("Clockwise"), false, &Hoa3dMeter::f_clockwise);
-    obj.setPropertyAccessor("clockwise", &Hoa3dMeter::propRotation, &Hoa3dMeter::propSetRotation);
-
-    obj.addMenuProperty("view", _("View of Channels"), "top", &Hoa3dMeter::f_view, "top bottom top-bottom top/bottom");
-    obj.setPropertyAccessor("view", &Hoa3dMeter::propView, &Hoa3dMeter::propSetView);
-
-    obj.addMenuProperty("vectors", _("Vectors"), "energy", &Hoa3dMeter::f_vector_type, "none energy velocity both");
-    obj.setPropertyAccessor("vectors", &Hoa3dMeter::propVectors, &Hoa3dMeter::propSetVectors);
-
-    obj.addIntProperty("interval", _("Refresh time (ms)"), 50, &Hoa3dMeter::f_interval);
-    obj.setPropertyRange("interval", 20, 1000);
-    obj.setPropertyUnits("interval", "msec");
-
-    obj.addColorProperty("coldcolor", _("Cold Signal Color"), "0. 0.6 0. 0.8", &Hoa3dMeter::f_color_cold_signal);
-    obj.addColorProperty("tepidcolor", _("Tepid Signal Color"), "0.6 0.73 0. 0.8", &Hoa3dMeter::f_color_tepid_signal);
-    obj.addColorProperty("warmcolor", _("Warm Signal Color"), "0.85 0.85 0. 0.8", &Hoa3dMeter::f_color_warm_signal);
-    obj.addColorProperty("hotcolor", _("Hot Signal Color"), "1. 0.6 0. 0.8", &Hoa3dMeter::f_color_hot_signal);
-    obj.addColorProperty("overcolor", _("Overload Signal Color"), "1. 0. 0. 0.8", &Hoa3dMeter::f_color_over_signal);
-    obj.addColorProperty("energycolor", _("Energy Vector Color"), "0. 0. 1. 0.8", &Hoa3dMeter::f_color_energy_vector);
-    obj.addColorProperty("velocitycolor", _("Velocity Vector Color"), "1. 0. 0. 0.8", &Hoa3dMeter::f_color_velocity_vector);
 }
 
 const t_rgba& Hoa3dMeter::segmentColor(bool peak, float db) const
@@ -476,7 +439,7 @@ void Hoa3dMeter::drawVectors()
     const auto size = f_center / 32.;
 
     if (f_vector_type == sym_both() || f_vector_type == sym_energy()) {
-        double rad = Math<float>::radius(f_vector_coords[3], f_vector_coords[4], f_vector_coords[5]);
+        auto rad = Math<float>::radius(f_vector_coords[3], f_vector_coords[4], f_vector_coords[5]);
         auto distance = (fabs(rad) * 0.5 + 0.5);
         auto color = rgba_addContrast(f_color_energy_vector, -(1. - distance));
         p.setColor(color);
@@ -506,7 +469,7 @@ void Hoa3dMeter::drawVectors()
     }
 
     if (f_vector_type == sym_both() || f_vector_type == sym_velocity()) {
-        double rad = Math<float>::radius(f_vector_coords[0], f_vector_coords[1], f_vector_coords[2]);
+        auto rad = Math<float>::radius(f_vector_coords[0], f_vector_coords[1], f_vector_coords[2]);
         auto distance = (fabs(rad) * 0.5 + 0.5);
         auto color = rgba_addContrast(f_color_velocity_vector, -(1. - distance));
         p.setColor(color);
@@ -599,6 +562,52 @@ void Hoa3dMeter::drawBackground()
         p.setLineWidth(1);
         p.stroke();
     }
+}
+
+void Hoa3dMeter::setup()
+{
+    UIObjectFactory<Hoa3dMeter> obj("hoa.3d.meter~", EBOX_IGNORELOCKCLICK | EBOX_GROWLINK);
+    obj.setDefaultSize(225, 225);
+    obj.hideProperty("send");
+    obj.hideProperty("fontname");
+    obj.hideProperty("fontweight");
+    obj.hideProperty("fontslant");
+    obj.hideProperty("fontsize");
+
+    //    obj.addMethod("beatles", &Hoa3dMeter::m_beatles);
+
+    obj.addIntProperty("channels", _("Channels"), DEF_NCHAN, &Hoa3dMeter::prop_channels, _("Main"));
+    obj.setPropertyAccessor("channels", &Hoa3dMeter::propChannels, &Hoa3dMeter::propSetChannels);
+    obj.setPropertyRange("channels", MIN_NCHAN, MAX_NCHAN);
+
+    obj.addVirtualProperty("angles", _("Angles"),
+        "45 35.2644 135 35.2644 225 35.2644 315 35.2644 45 -35.2644 135 -35.2644 225 -35.2644 315 -35.2644",
+        &Hoa3dMeter::propAngles, &Hoa3dMeter::propSetAngles, _("Main"));
+
+    obj.addVirtualProperty("offset", _("Offset of Channels"),
+        "0 0 0",
+        &Hoa3dMeter::propOffset, &Hoa3dMeter::propSetOffset, _("Main"));
+
+    obj.addBoolProperty("clockwise", _("Clockwise"), false, &Hoa3dMeter::f_clockwise);
+    obj.setPropertyAccessor("clockwise", &Hoa3dMeter::propRotation, &Hoa3dMeter::propSetRotation);
+
+    obj.addMenuProperty("view", _("View of Channels"), "top", &Hoa3dMeter::f_view, "top bottom topnextbottom toponbottom");
+    obj.setPropertyAccessor("view", &Hoa3dMeter::propView, &Hoa3dMeter::propSetView);
+
+    obj.addMenuProperty("vectors", _("Vectors"), "energy", &Hoa3dMeter::f_vector_type, "none energy velocity both");
+    obj.setPropertyAccessor("vectors", &Hoa3dMeter::propVectors, &Hoa3dMeter::propSetVectors);
+
+    obj.addIntProperty("interval", _("Refresh time (ms)"), 50, &Hoa3dMeter::f_interval);
+    obj.setPropertyRange("interval", 20, 1000);
+    obj.setPropertyUnits("interval", "msec");
+
+    obj.addColorProperty("coldcolor", _("Cold Signal Color"), "0. 0.6 0. 0.8", &Hoa3dMeter::f_color_cold_signal);
+    obj.addColorProperty("tepidcolor", _("Tepid Signal Color"), "0.6 0.73 0. 0.8", &Hoa3dMeter::f_color_tepid_signal);
+    obj.addColorProperty("warmcolor", _("Warm Signal Color"), "0.85 0.85 0. 0.8", &Hoa3dMeter::f_color_warm_signal);
+    obj.addColorProperty("hotcolor", _("Hot Signal Color"), "1. 0.6 0. 0.8", &Hoa3dMeter::f_color_hot_signal);
+    obj.addColorProperty("overcolor", _("Overload Signal Color"), "1. 0. 0. 0.8", &Hoa3dMeter::f_color_over_signal);
+    obj.addColorProperty("energycolor", _("Energy Vector Color"), "0. 0. 1. 0.8", &Hoa3dMeter::f_color_energy_vector);
+    obj.addColorProperty("velocitycolor", _("Velocity Vector Color"), "1. 0. 0. 0.8", &Hoa3dMeter::f_color_velocity_vector);
 }
 
 void setup_spat_hoa_3d_meter()
