@@ -1,4 +1,4 @@
-#N canvas 954 233 1012 764 10;
+#N canvas 575 147 1012 764 10;
 #X obj 305 115 hoa.soundgrain;
 #X obj 154 662 hoa.help.pub;
 #N canvas 237 132 503 391 hoa_grain_env 0;
@@ -44,7 +44,7 @@
 #X text 710 154 or dB+float to control the gain of all;
 #X text 710 164 the harmonics (just a multigain).;
 #X text 29 78 hoa.fx.gain~ controls the gains of the sound field.;
-#X obj 305 140 ui.gain~ @size 178 16 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.gain~.0" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @max 12 @min -60 @output_value 0 @relative 1 @midi_channel 0 @midi_control 0 @midi_pickup 1 @show_range 1;
+#X obj 305 140 ui.gain~ @size 178 16 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "(null)" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @max 12 @min -60 @output_value 0 @relative 1 @midi_channel 0 @midi_control 0 @midi_pickup 0 @show_range 1;
 #X obj 95 246 hoa.scope~ @size 183 183 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @gain 10 @refresh 100 @order 7 @view 0;
 #X obj 571 452 hoa.scope~ @size 189 189 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @gain 10 @refresh 100 @order 7 @view 0;
 #X obj 95 441 ui.dsp~ @size 69 69 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0;
@@ -62,7 +62,7 @@
 #X obj 305 603 hoa.2d.decoder~ 7 regular 16, f 39;
 #X obj 554 298 msg #: @db;
 #X obj 305 165 hoa.process~ 7 hoa.syn.grain~ harmonics "@array" \$0-hoa_grain_array, f 37;
-#X obj 559 113 ui.radio @size 120 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.hrd.0" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @nitems 8 @mode 0;
+#X obj 559 113 ui.radio @size 120 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "(null)" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @nitems 8 @mode 0;
 #X connect 0 0 10 0;
 #X connect 10 0 27 0;
 #X connect 15 0 26 0;
