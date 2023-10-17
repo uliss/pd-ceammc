@@ -718,7 +718,7 @@ void egraphics_matrix_init(t_matrix* x, float xx, float yx, float xy, float yy, 
 
 void egraphics_set_matrix(t_elayer* g, const t_matrix* matrix)
 {
-    egraphics_matrix_init(&g->e_matrix, matrix->xx, matrix->yx, matrix->xy, matrix->yy, matrix->x0, matrix->y0);
+    g->e_matrix = *matrix;
 }
 
 void egraphics_rotate(t_elayer* g, float angle)

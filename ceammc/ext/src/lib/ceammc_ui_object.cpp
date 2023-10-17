@@ -234,6 +234,11 @@ void UIObjectImpl::resize(int w, int h)
     updateSize();
 }
 
+void UIObjectImpl::resizeInputs(size_t n)
+{
+    eobj_resize_inputs(asEObj(), n);
+}
+
 void UIObjectImpl::redrawLayer(UILayer& l)
 {
     invalidateLayer(&l);

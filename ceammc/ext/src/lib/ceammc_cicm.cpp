@@ -1,5 +1,6 @@
 #include "ceammc_cicm.h"
 #include "ceammc_fonts.h"
+#include "ceammc_ui_object.h"
 
 #include <algorithm>
 
@@ -240,6 +241,12 @@ UILayer::UILayer(t_ebox* box, t_symbol* name)
 {
 }
 
+UILayer::UILayer(const UIObjectImpl* obj, const char* name)
+    : parent_(obj->asEBox())
+    , name_(gensym(name))
+{
+}
+
 void UILayer::invalidate()
 {
     ebox_invalidate_layer(parent_, name_);
@@ -309,6 +316,11 @@ void UIPainter::drawCircle(float x, float y, float r)
 void UIPainter::drawPoly(const std::vector<t_pt>& v)
 {
     egraphics_poly(layer_, v);
+}
+
+void UIPainter::drawArcTo(float x, float y, float extent)
+{
+    egraphics_arc_to(layer_, x, y, extent);
 }
 
 void UIPainter::drawLineTo(float x, float y)
@@ -402,6 +414,11 @@ void UIPainter::rotate(float angle)
 void UIPainter::setMatrix(const t_matrix& mtx)
 {
     egraphics_set_matrix(layer_, &mtx);
+}
+
+void UIPainter::setMatrix(float xx, float yx, float xy, float yy, float x0, float y0)
+{
+    egraphics_matrix_init(&layer_->e_matrix, xx, yx, xy, yy, x0, y0);
 }
 
 void UIPainter::preAllocObjects(size_t n)
