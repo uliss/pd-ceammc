@@ -42,7 +42,8 @@
         <inlets>
             <inlet>
                 <xinfo>set or request properties</xinfo>
-                <xinfo on="bang">pass bang message thru</xinfo>
+                <xinfo on="bang">if harmonics mode output list: @order @hdegree @horder,
+                in planewaves: @order @index @index</xinfo>
                 <xinfo on="float">pass float message thru</xinfo>
                 <xinfo on="symbol">pass symbol message thru</xinfo>
                 <xinfo on="list">pass list message thru</xinfo>

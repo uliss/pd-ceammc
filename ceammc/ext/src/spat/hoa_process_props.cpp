@@ -269,8 +269,13 @@ void HoaProcessProps::onBang()
 {
     AtomArray<3> hoa_args;
     hoa_args[0] = args_.order;
-    hoa_args[1] = args_.harm_degree;
-    hoa_args[2] = args_.harm_order;
+    if (args_.mode->s_name[0] == 'h') { // harmonics
+        hoa_args[1] = args_.harm_degree;
+        hoa_args[2] = args_.harm_order;
+    } else {
+        hoa_args[1] = args_.index;
+        hoa_args[2] = args_.index;
+    }
     listTo(0, hoa_args.view());
 }
 
