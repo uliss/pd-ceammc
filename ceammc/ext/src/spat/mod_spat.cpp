@@ -19,6 +19,7 @@ extern void setup_spat_hoa_2d_wider();
 extern void setup_spat_hoa_3d_decoder();
 extern void setup_spat_hoa_3d_encoder();
 extern void setup_spat_hoa_3d_exchanger();
+extern void setup_spat_hoa_3d_map();
 extern void setup_spat_hoa_3d_meter();
 extern void setup_spat_hoa_3d_optim();
 extern void setup_spat_hoa_3d_scope();
@@ -54,6 +55,7 @@ void ceammc_spat_setup()
     setup_spat_hoa_3d_decoder();
     setup_spat_hoa_3d_encoder();
     setup_spat_hoa_3d_exchanger();
+    setup_spat_hoa_3d_map();
     setup_spat_hoa_3d_meter();
     setup_spat_hoa_3d_optim();
     setup_spat_hoa_3d_scope();

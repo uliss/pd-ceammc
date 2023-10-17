@@ -67,6 +67,7 @@ using MultiEncoder3d = hoa::MultiEncoder<hoa::Hoa3d, t_sample>;
 using Optim2d = hoa::Optim<hoa::Hoa2d, t_sample>;
 using Optim3d = hoa::Optim<hoa::Hoa3d, t_sample>;
 using PolarLines2d = hoa::PolarLines<hoa::Hoa2d, t_sample>;
+using PolarLines3d = hoa::PolarLines<hoa::Hoa3d, t_sample>;
 using Rotate2d = hoa::Rotate<hoa::Hoa2d, t_sample>;
 using Scope2d = hoa::Scope<hoa::Hoa2d, t_sample>;
 using Scope3d = hoa::Scope<hoa::Hoa3d, t_sample>;
