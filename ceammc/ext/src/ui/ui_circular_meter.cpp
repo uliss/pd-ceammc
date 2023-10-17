@@ -250,6 +250,7 @@ void UICircularMeter::setup()
 
     UIObjectFactory<UICircularMeter> obj("ui.cmeter~", EBOX_GROWLINK);
     obj.addAlias("ui.cm~");
+    obj.addAlias("hoa.2d.meter~");
     //    obj.useMouseEvents(UI_MOUSE_DBL_CLICK);
 
     obj.hideLabelInner();
