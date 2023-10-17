@@ -184,7 +184,7 @@
 #X obj 286 532 ui.dsp~ @size 30 30 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0;
 #X obj 209 466 ui.number @size 53 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.number.7" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min 0 @max 255 @display_only 0 @digits 0;
 #X msg 629 285 @optim \$2;
-#X obj 395 324 hoa.3d.process~ 2 hoa.fx.optim~ harmonics "@optim" inphase, f 38;
+#X obj 395 324 hoa.3d.process~ 2 hoa.fx.optim~ harmonics "@optim" maxre, f 38;
 #X connect 2 0 11 0;
 #X connect 3 0 30 0;
 #X connect 4 0 33 0;
