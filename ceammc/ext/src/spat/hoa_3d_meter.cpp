@@ -31,7 +31,7 @@ CEAMMC_DEFINE_SYM_HASH(velocity)
 constexpr int MIN_SIZE = 20;
 constexpr int DEF_NCHAN = 4;
 constexpr int MIN_NCHAN = 1;
-constexpr int MAX_NCHAN = HOA_MAX_PLANEWAVES;
+constexpr int MAX_NCHAN = 64;
 constexpr float HOA_CONTRAST_DARKER = 0.2;
 constexpr float HOA_CONTRAST_LIGHTER = 0.2;
 
@@ -235,9 +235,9 @@ void Hoa3dMeter::propSetOffset(const AtomListView& lv)
     redraw();
 }
 
-void Hoa3dMeter::propSetVectors(t_symbol* view)
+void Hoa3dMeter::propSetVectors(t_symbol* type)
 {
-    f_vector_type = view;
+    f_vector_type = type;
     vec_layer.invalidate();
     redraw();
 }

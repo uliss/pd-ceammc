@@ -71,8 +71,8 @@ public:
     AtomList propOffset() const;
     void propSetOffset(const AtomListView& lv);
 
-    t_symbol* propVectors() const { return f_view; }
-    void propSetVectors(t_symbol* view);
+    t_symbol* propVectors() const { return f_vector_type; }
+    void propSetVectors(t_symbol* type);
 
     t_int propRotation() const { return f_clockwise; }
     void propSetRotation(t_int s);
