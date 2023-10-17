@@ -20,6 +20,9 @@
 
 CEAMMC_DEFINE_STR(mute)
 CEAMMC_DEFINE_STR(polar)
+CEAMMC_DEFINE_STR(pol)
+CEAMMC_DEFINE_STR(cartesian)
+CEAMMC_DEFINE_STR(car)
 
 Hoa2dMap::Hoa2dMap(const PdArgs& args)
     : HoaBase<hoa::Hoa2d>(args)
@@ -40,6 +43,10 @@ Hoa2dMap::Hoa2dMap(const PdArgs& args)
         });
 
     addProperty(ramp_);
+
+    mode_ = new SymbolEnumProperty("@mode", { str_pol, str_car });
+    mode_->setArgIndex(2);
+    addProperty(mode_);
 }
 
 void Hoa2dMap::initDone()
@@ -129,10 +136,22 @@ void Hoa2dMap::processIn1In2()
     t_sample** in = inputBlocks();
     t_sample** out = outputBlocks();
 
-    for (size_t i = 0; i < BS; i++) {
-        map_->setRadius(0, in[1][i]);
-        map_->setAzimuth(0, in[2][i]);
-        map_->process(&in[0][i], &out_buf_[NOUTS * i]);
+    const bool polar_mode = (mode_->index() == 0);
+
+    if (polar_mode) {
+        for (size_t i = 0; i < BS; i++) {
+            map_->setRadius(0, in[1][i]);
+            map_->setAzimuth(0, in[2][i]);
+            map_->process(&in[0][i], &out_buf_[NOUTS * i]);
+        }
+    } else {
+        for (size_t i = 0; i < BS; i++) {
+            auto x = in[1][i];
+            auto y = in[2][i];
+            map_->setRadius(0, hoa::Math<float>::radius(x, y));
+            map_->setAzimuth(0, hoa::Math<float>::azimuth(x, y));
+            map_->process(&in[0][i], &out_buf_[NOUTS * i]);
+        }
     }
 
     for (size_t i = 0; i < NOUTS; i++)
@@ -157,6 +176,15 @@ void Hoa2dMap::setPolar(int idx, t_float r, t_float azimuth)
     lines_->setAzimuth(idx - 1, azimuth);
 }
 
+void Hoa2dMap::setCartesian(int idx, t_float x, t_float y)
+{
+    if (!checkSourceIdx(idx))
+        return;
+
+    lines_->setRadius(idx - 1, hoa::Math<float>::radius(x, y));
+    lines_->setAzimuth(idx - 1, hoa::Math<float>::azimuth(x, y));
+}
+
 void Hoa2dMap::setMute(int idx, bool value)
 {
     if (!checkSourceIdx(idx))
@@ -167,12 +195,15 @@ void Hoa2dMap::setMute(int idx, bool value)
 
 void Hoa2dMap::onList(const AtomListView& lv)
 {
-    static const args::ArgChecker is_polar("IDX:i>=1 s=polar RADIUS:f AZIMUTH:f ELEV:f?");
+    static const args::ArgChecker is_polar("IDX:i>=1 s=pol|polar RADIUS:f AZIMUTH:f ELEV:f?");
+    static const args::ArgChecker is_cartes("IDX:i>=1 s=car|cartisian RADIUS:f AZIMUTH:f ELEV:f?");
     static const args::ArgChecker is_mute("IDX:i>=1 s=mute VALUE:b");
 
     if (is_polar.check(lv, 0, 0, false))
         return setPolar(lv[0].asT<int>(), lv[2].asT<t_float>(), lv[3].asT<t_float>());
-    else if (is_mute.check(lv, 0, 0, false)) {
+    else if (is_cartes.check(lv, 0, 0, false)) {
+        return setCartesian(lv[0].asT<int>(), lv[2].asT<t_float>(), lv[3].asT<t_float>());
+    } else if (is_mute.check(lv, 0, 0, false)) {
         return setMute(lv[0].asT<int>(), lv[2].asT<bool>());
     } else {
         OBJ_ERR << "invalid list: " << lv;
@@ -189,6 +220,16 @@ void Hoa2dMap::m_polar(t_symbol* s, const AtomListView& lv)
     }
 
     setPolar(lv[0].asT<int>(), lv[1].asT<t_float>(), lv[2].asT<t_float>());
+}
+
+void Hoa2dMap::m_cartesian(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_INT, ARG_FLOAT, ARG_FLOAT)) {
+        METHOD_ERR(s) << "IDX X Y expected: " << lv;
+        return;
+    }
+
+    setCartesian(lv[0].asT<int>(), lv[1].asT<t_float>(), lv[2].asT<t_float>());
 }
 
 void Hoa2dMap::m_mute(t_symbol* s, const AtomListView& lv)
@@ -229,5 +270,8 @@ void setup_spat_hoa_2d_map()
     obj.addAlias("hoa.map~");
 
     obj.addMethod(str_polar, &Hoa2dMap::m_polar);
+    obj.addMethod(str_pol, &Hoa2dMap::m_polar);
     obj.addMethod(str_mute, &Hoa2dMap::m_mute);
+    obj.addMethod(str_cartesian, &Hoa2dMap::m_cartesian);
+    obj.addMethod(str_car, &Hoa2dMap::m_cartesian);
 }

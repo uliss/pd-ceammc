@@ -14,6 +14,7 @@
 #ifndef HOA_2D_MAP_H
 #define HOA_2D_MAP_H
 
+#include "ceammc_property_enum.h"
 #include "hoa_common.h"
 
 template <size_t N>
@@ -35,6 +36,7 @@ using MapXletInfo = XletInfoN<8>;
 class Hoa2dMap : public HoaBase<hoa::Hoa2d> {
     IntProperty* nins_;
     FloatProperty* ramp_;
+    SymbolEnumProperty* mode_;
 
     std::unique_ptr<MultiEncoder2d> map_;
     std::unique_ptr<PolarLines2d> lines_;
@@ -60,6 +62,7 @@ public:
     void onList(const AtomListView& lv) final;
 
     void m_polar(t_symbol* s, const AtomListView& lv);
+    void m_cartesian(t_symbol* s, const AtomListView& lv);
     void m_mute(t_symbol* s, const AtomListView& lv);
 
     const char* annotateInlet(size_t n) const final;
@@ -81,6 +84,7 @@ private:
 
     bool checkSourceIdx(int idx) const;
     void setPolar(int idx, t_float r, t_float azimuth);
+    void setCartesian(int idx, t_float x, t_float y);
     void setMute(int idx, bool value);
 };
 
