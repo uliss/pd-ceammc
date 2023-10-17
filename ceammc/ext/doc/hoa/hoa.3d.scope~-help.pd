@@ -1,116 +1,93 @@
-#N canvas 408 103 616 551 10;
-#X msg 446 69 \; pd dsp 1;
-#X msg 446 107 \; pd dsp 0;
-#X obj 291 244 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min 1 @max "(null)" @minmax 1 "(null)" @decimal
-0 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
-1;
-#X msg 291 270 order \$1;
-#X obj 381 244 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min 1 @max "(null)" @minmax 1 "(null)" @decimal
-6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0
-1;
-#X msg 381 270 gain \$1;
-#X obj 381 221 c.loadmess 1;
-#X obj 471 244 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min 20 @max 1000 @minmax 20 1000 @decimal 0 @bgcolor
-0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor 0 0 0 1;
-#X msg 471 270 interval \$1;
-#X obj 290 368 c.colorpanel @size 97 14 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @matrix 8 1 @reverse 0 @saturation 1 @hue 0 @lightness
-0.5 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
-#X obj 290 387 c.prepend phcolor;
-#X obj 430 368 c.colorpanel @size 97 14 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @matrix 8 1 @reverse 0 @saturation 1 @hue 0.65
-@lightness 0.5 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1;
-#X text 289 197 order :;
-#X text 289 187 Ambisonic;
-#X text 379 187 Gain :;
-#X text 469 197 interval :;
-#X text 289 337 color :;
-#X text 289 327 Positive;
-#X text 429 337 color :;
-#X text 429 327 Negative;
-#X text 469 187 Refresh;
-#X obj 471 221 c.loadmess 20;
-#X obj 430 387 c.prepend nhcolor;
-#X obj 99 483 hoa.help.pub;
-#X obj 491 501 hoa.connect;
-#X obj 491 481 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144
--1 -1;
-#X obj 20 23 c.patcherinfos;
-#X obj 25 6 loadbang;
-#X obj 5 6 hoa.help.header;
-#X obj 414 6 hoa.help.also;
-#X obj 45 202 hoa.3d.encoder~ 3 ----------------;
-#X obj 291 221 c.loadmess 3;
-#X obj 381 299 s hoascope3d;
-#X obj 145 136 phasor~ -0.3;
-#X obj 145 161 hoa.pi~ 2;
-#X obj 145 107 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
-@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
-#X obj 246 136 hoa.tri~ 0.1 -0.5 0.5;
-#X obj 246 161 hoa.pi~ 1;
-#X obj 246 107 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
-@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
-#X obj 430 439 s hoascope3d;
-#X text 3 57 hoa.3d.scope~ displays the spherical harmonics of an ambisonic
-sound field on a disc. The disc is the cross-section of the ambisonic
-sphere at 0° elevation.;
-#X obj 45 240 hoa.3d.scope~ @size 207 207 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "hoascope3d" @send
-"(null)" @order 3 @view 0 0 0 @gain 1 @interval 20 @bgcolor 0.76 0.76
-0.76 1 @bdcolor 0.7 0.7 0.7 1 @phcolor 1 0 2.38419e-07 1 @nhcolor 0
-0.1 1 1;
-#X obj 45 151 osc~ 0.1;
-#X connect 2 0 3 0;
-#X connect 3 0 32 0;
-#X connect 4 0 5 0;
-#X connect 5 0 32 0;
-#X connect 6 0 4 0;
-#X connect 7 0 8 0;
-#X connect 8 0 32 0;
-#X connect 9 0 10 0;
-#X connect 10 0 39 0;
-#X connect 11 0 22 0;
-#X connect 21 0 7 0;
-#X connect 22 0 39 0;
-#X connect 25 0 24 0;
-#X connect 26 0 28 0;
-#X connect 27 0 26 0;
-#X connect 30 0 41 0;
-#X connect 30 1 41 1;
-#X connect 30 2 41 2;
-#X connect 30 3 41 3;
-#X connect 30 4 41 4;
-#X connect 30 5 41 5;
-#X connect 30 6 41 6;
-#X connect 30 7 41 7;
-#X connect 30 8 41 8;
-#X connect 30 9 41 9;
-#X connect 30 10 41 10;
-#X connect 30 11 41 11;
-#X connect 30 12 41 12;
-#X connect 30 13 41 13;
-#X connect 30 14 41 14;
-#X connect 30 15 41 15;
-#X connect 31 0 2 0;
-#X connect 33 0 34 1;
-#X connect 34 0 30 1;
-#X connect 35 0 33 0;
-#X connect 36 0 37 1;
-#X connect 37 0 30 2;
-#X connect 38 0 36 0;
-#X connect 42 0 30 0;
-#X coords 0 551 1 550 85 60 0;
+#N canvas 408 103 617 585 10;
+#X text 289 211 order :;
+#X text 289 201 Ambisonic;
+#X text 379 201 Gain :;
+#X text 469 211 interval :;
+#X text 289 351 color :;
+#X text 289 341 Positive;
+#X text 429 351 color :;
+#X text 429 341 Negative;
+#X text 469 201 Refresh;
+#X obj 99 497 hoa.help.pub;
+#X obj 5 20 hoa.help.header;
+#X obj 414 20 hoa.help.also;
+#X obj 381 313 s hoascope3d;
+#X obj 145 150 phasor~ -0.3;
+#X obj 430 453 s hoascope3d;
+#X text 3 71 hoa.3d.scope~ displays the spherical harmonics of an ambisonic sound field on a disc. The disc is the cross-section of the ambisonic sphere at 0° elevation.;
+#X obj 45 254 hoa.3d.scope~ @size 208 208 @receive "hoascope3d" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0.1 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @gain 1 @refresh 100 @order 3 @view 0 0 0;
+#X obj 45 165 osc~ 0.1;
+#X obj 45 216 hoa.3d.encoder~ 3, f 34;
+#X obj 291 235 msg.onload 3;
+#X obj 381 235 msg.onload 1;
+#X obj 471 235 msg.onload 20;
+#X obj 291 258 ui.number @size 53 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "(null)" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min 1 @max 6 @display_only 0 @digits 0;
+#X msg 291 284 @order \$1;
+#X obj 381 258 ui.number @size 53 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "(null)" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min 0 @max 10 @display_only 0 @digits 1;
+#X msg 381 284 @gain \$1;
+#X obj 471 258 ui.number @size 53 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.number.0" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min 20 @max 1000 @display_only 0 @digits -1;
+#X msg 471 284 @interval \$1;
+#X obj 290 382 ui.colorpanel @size 97 14 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.colorpanel.0" @matrix 8 1 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @saturation 1 @hue 0 @lightness 0.5 @reverse 0;
+#X obj 290 421 msg @ph_color;
+#X obj 290 401 route @rgb;
+#X obj 430 382 ui.colorpanel @size 97 14 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.colorpanel.1" @matrix 8 1 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @saturation 1 @hue 0.65 @lightness 0.5 @reverse 0;
+#X obj 430 401 route @rgb;
+#X obj 430 421 msg @nh_color;
+#X obj 145 121 ui.number @size 53 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.number.1" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min -3.40282e+38 @max 3 @display_only 0 @digits -1;
+#X obj 145 175 phase->rad~;
+#X obj 246 121 ui.number @size 53 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "(null)" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min 0 @max 4 @display_only 0 @digits -1;
+#X obj 246 185 phase->rad~;
+#X obj 246 162 *~ 0.25;
+#X obj 246 140 lfo.tri~ 0.1;
+#X obj 442 88 ui.dsp~ @size 50 50 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0;
+#N canvas 846 97 700 500 init 0;
+#X obj 68 81 canvas.top;
+#X obj 68 103 prop-> @name;
+#X obj 68 59 msg.onload @name?;
+#X obj 102 126 outlet;
+#X connect 0 0 1 0;
+#X connect 1 1 3 0;
+#X connect 2 0 0 0;
+#X restore 10 27 pd init;
+#X f 5;
+#X connect 13 0 35 0;
+#X connect 17 0 18 0;
+#X connect 18 0 16 0;
+#X connect 18 1 16 1;
+#X connect 18 2 16 2;
+#X connect 18 3 16 3;
+#X connect 18 4 16 4;
+#X connect 18 5 16 5;
+#X connect 18 6 16 6;
+#X connect 18 7 16 7;
+#X connect 18 8 16 8;
+#X connect 18 9 16 9;
+#X connect 18 10 16 10;
+#X connect 18 11 16 11;
+#X connect 18 12 16 12;
+#X connect 18 13 16 13;
+#X connect 18 14 16 14;
+#X connect 18 15 16 15;
+#X connect 19 0 22 0;
+#X connect 20 0 24 0;
+#X connect 21 0 26 0;
+#X connect 22 0 23 0;
+#X connect 23 0 12 0;
+#X connect 24 0 25 0;
+#X connect 25 0 12 0;
+#X connect 26 0 27 0;
+#X connect 27 0 12 0;
+#X connect 28 0 30 0;
+#X connect 29 0 14 0;
+#X connect 30 0 29 0;
+#X connect 31 0 32 0;
+#X connect 32 0 33 0;
+#X connect 33 0 14 0;
+#X connect 34 0 13 0;
+#X connect 35 0 18 1;
+#X connect 36 0 39 0;
+#X connect 37 0 18 2;
+#X connect 38 0 37 0;
+#X connect 39 0 38 0;
+#X connect 41 0 10 0;
+#X coords 0 585 1 584 85 60 0;

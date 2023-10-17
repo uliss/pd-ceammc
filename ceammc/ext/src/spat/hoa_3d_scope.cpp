@@ -244,7 +244,7 @@ void Hoa3dScope::propSetOrder(t_float v)
 
         in_buf_.resize(nharm_ * HOA_DEFAULT_BLOCK_SIZE);
 
-        eobj_resize_inputs(asEObj(), nharm_);
+        resizeInputs(nharm_);
         canvas_update_dsp();
     }
 }
