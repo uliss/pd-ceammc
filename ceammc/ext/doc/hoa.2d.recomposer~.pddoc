@@ -26,14 +26,12 @@
         <info>
             <par>Recomposes a plane wave decomposition into circular harmonics. There's three
             modes, fixe (default), fisheye and free.</par>
-            <par>The hoa.2d.recomposer~ can be controlled either by message or with the help of its
-            dedicated graphical user interface hoa.2d.recomposer.</par>
             <a href="hoa/hoa.2d.recomposer~-help.pd">CICM documentation</a>
         </info>
         <arguments>
             <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of
-            decomposition</argument>
-            <argument name="N" type="int" minvalue="1" maxvalue="63">number of channels</argument>
+            decomposition.</argument>
+            <argument name="N" type="int" minvalue="0" maxvalue="128">number of channels. '0' means auto-calculation.</argument>
             <argument name="MODE" type="symbol" enum="fixe fisheye free">recomposition mode. There
             is three modes: *fixe* - simply recomposes a plane wave decomposition into circular
             harmonics. *fisheye* - allows you to perform an operation similar to the visual
@@ -44,8 +42,8 @@
         <properties>
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
             access="initonly">the order of decomposition</property>
-            <property name="@n" type="int" minvalue="0" maxvalue="63" default="0"
-            access="initonly">number of channels (planewaves)</property>
+            <property name="@n" type="int" minvalue="0" maxvalue="128" default="0"
+            access="initonly">number of channels (planewaves). '0' means auto-calculation.</property>
             <property name="@mode" type="symbol" enum="fixe fisheye free" default="free"
             access="initonly">recomposition mode. There is three modes: *fixe* - simply recomposes
             a plane wave decomposition into circular harmonics. *fisheye* - allows you to perform

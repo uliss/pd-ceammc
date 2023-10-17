@@ -27,12 +27,13 @@ Hoa2dRecomposer::Hoa2dRecomposer(const PdArgs& args)
 {
     plane_waves_ = new IntProperty("@n", 0);
     plane_waves_->setInitOnly();
-    plane_waves_->checkNonNegative();
+    plane_waves_->checkClosedRange(0, HOA_MAX_PLANEWAVES);
     plane_waves_->setArgIndex(1);
     addProperty(plane_waves_);
 
     mode_ = new SymbolEnumProperty("@mode", { sym_free(), sym_fixe(), sym_fisheye() });
     mode_->setInitOnly();
+    mode_->setArgIndex(2);
     addProperty(mode_);
 
     addProperty(new SymbolEnumAlias("@free", mode_, sym_free()));
