@@ -1,243 +1,177 @@
-#N canvas 168 87 1195 625 10;
-#X msg 647 43 \; pd dsp 1;
-#X msg 647 78 \; pd dsp 0;
-#X obj 645 239 c.number~ @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@interval 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1;
-#X obj 487 88 hoa.connect;
-#X obj 487 68 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
-#X obj 632 191 hoa.pi~ 2;
-#X obj 4 21 c.patcherinfos;
-#X obj 4 4 loadbang;
-#X obj 4 4 hoa.help.header;
-#X obj 420 4 hoa.help.also;
-#X text 646 221 azimuth;
-#X text 737 220 elevation;
-#X obj 727 191 hoa.pi~ 1;
-#X obj 737 238 c.number~ @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@interval 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1;
-#X obj 727 166 hoa.tri~ 0.1 -0.5 0.5;
-#X obj 632 166 phasor~ -0.5;
-#X obj 400 561 hoa.help.pub;
-#X obj 31 244 sig~ 1;
-#X obj 316 246 sig~ 1;
-#X text 233 131 radius;
-#X text 78 130 ordinate;
-#X text 12 130 abscissa;
-#X obj 16 154 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
-@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
-#X obj 80 154 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
-@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
-#X obj 236 154 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
-@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
-#X obj 300 154 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
-@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
-#X text 30 227 source 1;
-#X obj 16 189 c.pak 0 0 0, f 22;
-#X obj 31 326 hoa.3d.decoder~ 1 regular 8 --------------------;
-#X obj 31 301 hoa.3d.optim~ 1 inPhase ------------------------;
-#X obj 31 272 hoa.3d.map~ 1 2 --------------------------------;
-#X msg 16 210 1 car \$1 \$2 \$3;
-#X msg 236 210 2 pol \$1 \$2 \$3;
-#X obj 236 189 c.pak 0 0 0, f 22;
-#X obj 31 356 hoa.3d.meter~ @size 291 145.5 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@channels 8 @angles 0 45 90 45 180 45 270 45 0 -45 90 -45 180 -45 270
--45 @offset 0 0 0 @rotation "anti-clockwise" @view "top-bottom" @vectors
-"none" @interval 50 @bgcolor 0.76 0.76 0.76 1 @bdcolor 0.7 0.7 0.7
-1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85
-0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor
-0 0 1 0.8 @velocitycolor 1 0 0 0.8;
-#X obj 145 154 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
-@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
-#X text 143 130 height;
-#X obj 365 154 c.number @size 53 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@presetname "(null)" @min "(null)" @max "(null)" @minmax "(null)" "(null)"
-@decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5 0.5 1 @textcolor
-0 0 0 1;
-#X text 297 131 azimuth;
-#X text 362 131 elevation;
-#X text 441 227 source 1;
-#X obj 442 326 hoa.3d.decoder~ 1 regular 8 --------------------;
-#X obj 442 301 hoa.3d.optim~ 1 inPhase ------------------------;
-#X obj 442 356 hoa.3d.meter~ @size 291 145.5 @fontname "Helvetica"
-@fontweight "normal" @fontslant "roman" @fontsize 11 @receive "(null)"
-@send "(null)" @channels 8 @angles 0 45 90 45 180 45 270 45 0 -45 90
--45 180 -45 270 -45 @offset 0 0 0 @rotation "anti-clockwise" @view
-"top-bottom" @vectors "none" @interval 50 @bgcolor 0.76 0.76 0.76 1
-@bdcolor 0.7 0.7 0.7 1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73
-0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1
-0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor 1 0 0 0.8;
-#X text 557 222 radius;
-#X obj 537 191 +~ 1;
-#X obj 537 166 osc~ 0.3;
-#X obj 552 239 c.number~ @size 48 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@interval 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1;
-#X obj 822 244 sig~ 1;
-#X text 821 227 source 1;
-#X obj 822 326 hoa.3d.decoder~ 1 regular 8 --------------------;
-#X obj 822 301 hoa.3d.optim~ 1 inPhase ------------------------;
-#X obj 822 356 hoa.3d.meter~ @size 291 145.5 @fontname "Helvetica"
-@fontweight "normal" @fontslant "roman" @fontsize 11 @receive "(null)"
-@send "(null)" @channels 8 @angles 0 45 90 45 180 45 270 45 0 -45 90
--45 180 -45 270 -45 @offset 0 0 0 @rotation "anti-clockwise" @view
-"top-bottom" @vectors "none" @interval 50 @bgcolor 0.76 0.76 0.76 1
-@bdcolor 0.7 0.7 0.7 1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73
-0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1
-0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor 1 0 0 0.8;
-#X obj 442 272 hoa.3d.map~ 1 1 polar --------------------------;
-#X obj 822 272 hoa.3d.map~ 1 1 cartesian ----------------------;
-#X obj 440 517 hoa.dac~ 1:8 -----------------------------------;
-#X obj 442 246 hoa.soundrone;
-#X obj 917 187 *~ 2;
-#X obj 1012 187 *~ 2;
-#X obj 917 165 osc~ 0.13;
-#X obj 1012 165 osc~ 0.25;
-#X text 1030 203 ordinate;
-#X text 928 203 abscissa;
-#X obj 927 223 c.number~ @size 48 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@interval 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1;
-#X obj 1023 223 c.number~ @size 48 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@interval 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1;
-#X obj 1107 187 *~ 2;
-#X obj 1118 223 c.number~ @size 48 17 @fontname "Helvetica" @fontweight
-"normal" @fontslant "roman" @fontsize 11 @receive "(null)" @send "(null)"
-@interval 50 @decimal 6 @bgcolor 0.75 0.75 0.75 1 @bdcolor 0.5 0.5
-0.5 1 @textcolor 0 0 0 1;
-#X text 1125 203 height;
-#X text 774 84 With one source \, you can drive it with signals. Set
-the mode polar (or pol or 0) to use polar coordinates (radius \, azimuth
-and elevation) and cartesian (or car or 1) to use cartesian coordinates
-(abscissa \, ordinate and height).;
-#X text 51 525 hoa.map~'s syntax;
-#X text 51 535 for multisource mode :;
-#X text 51 545 index;
-#X text 51 555 coordinate type (polar or cartesian);
-#X text 51 565 coordinate one (radius or abscissa);
-#X text 51 575 coordinate two (azimuth or ordinate);
-#X text 51 585 coordinate three (elevation or height).;
-#X obj 1107 165 osc~ 0.33;
-#X text 9 48 hoa.3d.map~ is an ambisonic encoder that uses fractionnal
-orders and amplitude variation to simulate sources distances. First
-argument is the order \, second argument is the number of sources and
-third argument (facultative) is the coordinates mode (polar or pol
-/ cartesian or car).;
-#X text 314 227 source 2;
-#X connect 4 0 3 0;
-#X connect 5 0 2 0;
-#X connect 5 0 53 2;
-#X connect 6 0 8 0;
-#X connect 7 0 6 0;
-#X connect 12 0 13 0;
-#X connect 12 0 53 3;
-#X connect 14 0 12 1;
-#X connect 15 0 5 1;
-#X connect 17 0 30 0;
-#X connect 18 0 30 1;
-#X connect 22 0 27 0;
-#X connect 23 0 27 1;
-#X connect 24 0 33 0;
-#X connect 25 0 33 1;
-#X connect 27 0 31 0;
-#X connect 28 0 34 0;
-#X connect 28 1 34 1;
-#X connect 28 2 34 2;
-#X connect 28 3 34 3;
-#X connect 28 4 34 4;
-#X connect 28 5 34 5;
-#X connect 28 6 34 6;
-#X connect 28 7 34 7;
-#X connect 29 0 28 0;
-#X connect 29 1 28 1;
-#X connect 29 2 28 2;
-#X connect 29 3 28 3;
-#X connect 30 0 29 0;
-#X connect 30 1 29 1;
-#X connect 30 2 29 2;
-#X connect 30 3 29 3;
-#X connect 31 0 30 0;
+#N canvas 168 87 1193 693 10;
+#X obj 4 8 hoa.help.header;
+#X obj 420 8 hoa.help.also;
+#X text 646 225 azimuth;
+#X text 737 224 elevation;
+#X obj 632 170 phasor~ -0.5;
+#X obj 569 8 hoa.help.pub;
+#X obj 31 248 sig~ 1;
+#X obj 316 250 sig~ 1;
+#X text 233 135 radius;
+#X text 78 134 ordinate;
+#X text 12 134 abscissa;
+#X text 30 231 source 1;
+#X obj 31 276 hoa.3d.map~ 1 2 --------------------------------;
+#X msg 16 214 1 car \$1 \$2 \$3;
+#X msg 236 214 2 pol \$1 \$2 \$3;
+#X obj 31 360 hoa.3d.meter~ @size 292 292 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor 1 0 0 0.8 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @channels 8 @angles 0 45 90 45 180 45 270 45 0 -45 90 -45 180 -45 270 -45 @offset 0 0 0 @clockwise 0 @view "top-bottom" @vectors "none" @interval 50;
+#X text 143 134 height;
+#X text 297 135 azimuth;
+#X text 362 135 elevation;
+#X text 441 231 source 1;
+#X obj 442 360 hoa.3d.meter~ @size 292 292 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor 1 0 0 0.8 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @channels 8 @angles 0 45 90 45 180 45 270 45 0 -45 90 -45 180 -45 270 -45 @offset 0 0 0 @clockwise 0 @view "top-bottom" @vectors "none" @interval 50;
+#X text 557 226 radius;
+#X obj 537 195 +~ 1;
+#X obj 537 170 osc~ 0.3;
+#X obj 822 248 sig~ 1;
+#X text 821 231 source 1;
+#X obj 822 360 hoa.3d.meter~ @size 292 292 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @coldcolor 0 0.6 0 0.8 @tepidcolor 0.6 0.73 0 0.8 @warmcolor 0.85 0.85 0 0.8 @hotcolor 1 0.6 0 0.8 @overcolor 1 0 0 0.8 @energycolor 0 0 1 0.8 @velocitycolor 1 0 0 0.8 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @channels 8 @angles 0 45 90 45 180 45 270 45 0 -45 90 -45 180 -45 270 -45 @offset 0 0 0 @clockwise 0 @view "top-bottom" @vectors "none" @interval 50;
+#X obj 442 276 hoa.3d.map~ 1 1 polar --------------------------;
+#X obj 822 276 hoa.3d.map~ 1 1 cartesian ----------------------;
+#X obj 442 250 hoa.soundrone;
+#X obj 917 191 *~ 2;
+#X obj 1012 191 *~ 2;
+#X obj 917 169 osc~ 0.13;
+#X obj 1012 169 osc~ 0.25;
+#X text 1030 207 ordinate;
+#X text 928 207 abscissa;
+#X obj 1107 191 *~ 2;
+#X text 1125 207 height;
+#X text 774 88 With one source \, you can drive it with signals. Set the mode polar (or pol or 0) to use polar coordinates (radius \, azimuth and elevation) and cartesian (or car or 1) to use cartesian coordinates (abscissa \, ordinate and height).;
+#X text 51 529 hoa.map~'s syntax;
+#X text 51 539 for multisource mode :;
+#X text 51 549 index;
+#X text 51 559 coordinate type (polar or cartesian);
+#X text 51 569 coordinate one (radius or abscissa);
+#X text 51 579 coordinate two (azimuth or ordinate);
+#X text 51 589 coordinate three (elevation or height).;
+#X obj 1107 169 osc~ 0.33;
+#X text 9 52 hoa.3d.map~ is an ambisonic encoder that uses fractionnal orders and amplitude variation to simulate sources distances. First argument is the order \, second argument is the number of sources and third argument (facultative) is the coordinates mode (polar or pol / cartesian or car).;
+#X text 314 231 source 2;
+#X obj 625 67 ui.dsp~ @size 30 30 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0;
+#X obj 927 227 ui.number~ @size 48 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color 0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @precision 6 @interval 50;
+#X obj 1023 227 ui.number~ @size 48 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color 0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @precision 6 @interval 50;
+#X obj 1118 227 ui.number~ @size 48 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color 0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @precision 6 @interval 50;
+#X obj 822 305 hoa.3d.optim~ 1 inphase, f 48;
+#X obj 822 330 hoa.3d.decoder~ 1 regular 8, f 48;
+#X obj 442 305 hoa.3d.optim~ 1 inphase, f 48;
+#X obj 442 330 hoa.3d.decoder~ 1 regular 8, f 48;
+#X obj 440 521 xdac~ 1:8, f 49;
+#X obj 552 243 ui.number~ @size 48 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color 0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @precision 6 @interval 50;
+#X obj 645 243 ui.number~ @size 53 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color 0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @precision 6 @interval 50;
+#X obj 737 242 ui.number~ @size 53 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color 0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @precision 6 @interval 50;
+#N canvas 92 117 270 255 init 0;
+#X obj 75 57 msg.onload @name?;
+#X obj 75 79 canvas.top;
+#X obj 75 101 prop-> @name;
+#X obj 109 126 outlet;
+#X connect 0 0 1 0;
+#X connect 1 0 2 0;
+#X connect 2 1 3 0;
+#X restore 5 18 pd init;
+#X f 6;
+#X obj 16 158 ui.number @size 53 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.number.0" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min -3.40282e+38 @max 3.40282e+38 @display_only 0 @digits -1;
+#X obj 80 158 ui.number @size 53 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.number.1" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min -3.40282e+38 @max 3.40282e+38 @display_only 0 @digits -1;
+#X obj 145 158 ui.number @size 53 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.number.2" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min -3.40282e+38 @max 3.40282e+38 @display_only 0 @digits -1;
+#X obj 236 158 ui.number @size 53 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.number.3" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min -3.40282e+38 @max 3.40282e+38 @display_only 0 @digits -1;
+#X obj 300 158 ui.number @size 53 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.number.4" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min -3.40282e+38 @max 3.40282e+38 @display_only 0 @digits -1;
+#X obj 365 158 ui.number @size 53 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.number.5" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min -3.40282e+38 @max 3.40282e+38 @display_only 0 @digits -1;
+#X obj 16 193 flow.pack' 3, f 22;
+#X obj 236 193 flow.pack' 3, f 22;
+#X obj 727 160 lfo.tri~ 0.1;
+#X obj 727 182 *~ 0.25;
+#X obj 727 205 phase->rad~;
+#X obj 632 195 phase->rad~;
+#X obj 31 330 hoa.3d.decoder~ 1 regular 8, f 48;
+#X obj 31 305 hoa.3d.optim~ 1 inphase, f 48;
+#X connect 4 0 73 0;
+#X connect 6 0 12 0;
+#X connect 7 0 12 1;
+#X connect 12 0 75 0;
+#X connect 12 1 75 1;
+#X connect 12 2 75 2;
+#X connect 12 3 75 3;
+#X connect 13 0 12 0;
+#X connect 14 0 12 0;
+#X connect 22 0 27 1;
+#X connect 22 0 58 0;
+#X connect 23 0 22 0;
+#X connect 24 0 28 0;
+#X connect 27 0 55 0;
+#X connect 27 1 55 1;
+#X connect 27 2 55 2;
+#X connect 27 3 55 3;
+#X connect 28 0 53 0;
+#X connect 28 1 53 1;
+#X connect 28 2 53 2;
+#X connect 28 3 53 3;
+#X connect 29 0 27 0;
+#X connect 30 0 28 1;
+#X connect 30 0 50 0;
+#X connect 31 0 28 2;
+#X connect 31 0 51 0;
 #X connect 32 0 30 0;
-#X connect 33 0 32 0;
-#X connect 35 0 27 2;
-#X connect 37 0 33 2;
-#X connect 41 0 43 0;
-#X connect 41 0 55 0;
-#X connect 41 1 43 1;
-#X connect 41 1 55 1;
-#X connect 41 2 43 2;
-#X connect 41 2 55 2;
-#X connect 41 3 43 3;
-#X connect 41 3 55 3;
-#X connect 41 4 43 4;
-#X connect 41 4 55 4;
-#X connect 41 5 43 5;
-#X connect 41 5 55 5;
-#X connect 41 6 43 6;
-#X connect 41 6 55 6;
-#X connect 41 7 43 7;
-#X connect 41 7 55 7;
-#X connect 42 0 41 0;
-#X connect 42 1 41 1;
-#X connect 42 2 41 2;
-#X connect 42 3 41 3;
-#X connect 45 0 53 1;
-#X connect 45 0 47 0;
-#X connect 46 0 45 0;
-#X connect 48 0 54 0;
-#X connect 50 0 52 0;
-#X connect 50 1 52 1;
-#X connect 50 2 52 2;
-#X connect 50 3 52 3;
-#X connect 50 4 52 4;
-#X connect 50 5 52 5;
-#X connect 50 6 52 6;
-#X connect 50 7 52 7;
-#X connect 51 0 50 0;
-#X connect 51 1 50 1;
-#X connect 51 2 50 2;
-#X connect 51 3 50 3;
-#X connect 53 0 42 0;
-#X connect 53 1 42 1;
-#X connect 53 2 42 2;
-#X connect 53 3 42 3;
-#X connect 54 0 51 0;
-#X connect 54 1 51 1;
-#X connect 54 2 51 2;
-#X connect 54 3 51 3;
-#X connect 56 0 53 0;
-#X connect 57 0 63 0;
-#X connect 57 0 54 1;
-#X connect 58 0 64 0;
-#X connect 58 0 54 2;
-#X connect 59 0 57 0;
-#X connect 60 0 58 0;
-#X connect 65 0 66 0;
-#X connect 65 0 54 3;
-#X connect 76 0 65 0;
-#X coords 0 625 1 624 100 60 0;
+#X connect 33 0 31 0;
+#X connect 36 0 28 3;
+#X connect 36 0 52 0;
+#X connect 46 0 36 0;
+#X connect 53 0 54 0;
+#X connect 53 1 54 1;
+#X connect 53 2 54 2;
+#X connect 53 3 54 3;
+#X connect 54 0 26 0;
+#X connect 54 1 26 1;
+#X connect 54 2 26 2;
+#X connect 54 3 26 3;
+#X connect 54 4 26 4;
+#X connect 54 5 26 5;
+#X connect 54 6 26 6;
+#X connect 54 7 26 7;
+#X connect 55 0 56 0;
+#X connect 55 1 56 1;
+#X connect 55 2 56 2;
+#X connect 55 3 56 3;
+#X connect 56 0 20 0;
+#X connect 56 0 57 0;
+#X connect 56 1 20 1;
+#X connect 56 1 57 1;
+#X connect 56 2 20 2;
+#X connect 56 2 57 2;
+#X connect 56 3 20 3;
+#X connect 56 3 57 3;
+#X connect 56 4 20 4;
+#X connect 56 4 57 4;
+#X connect 56 5 20 5;
+#X connect 56 5 57 5;
+#X connect 56 6 20 6;
+#X connect 56 6 57 6;
+#X connect 56 7 20 7;
+#X connect 56 7 57 7;
+#X connect 61 0 0 0;
+#X connect 62 0 68 0;
+#X connect 63 0 68 1;
+#X connect 64 0 68 2;
+#X connect 65 0 69 0;
+#X connect 66 0 69 1;
+#X connect 67 0 69 2;
+#X connect 68 0 13 0;
+#X connect 69 0 14 0;
+#X connect 70 0 71 0;
+#X connect 71 0 72 0;
+#X connect 72 0 27 3;
+#X connect 72 0 60 0;
+#X connect 73 0 27 2;
+#X connect 73 0 59 0;
+#X connect 74 0 15 0;
+#X connect 74 1 15 1;
+#X connect 74 2 15 2;
+#X connect 74 3 15 3;
+#X connect 74 4 15 4;
+#X connect 74 5 15 5;
+#X connect 74 6 15 6;
+#X connect 74 7 15 7;
+#X connect 75 0 74 0;
+#X connect 75 1 74 1;
+#X connect 75 2 74 2;
+#X connect 75 3 74 3;
+#X coords 0 693 1 692 100 60 0;
