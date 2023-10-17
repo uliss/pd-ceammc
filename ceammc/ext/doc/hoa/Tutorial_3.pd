@@ -120,10 +120,8 @@
 #X obj 767 349 sync;
 #X obj 754 379 sync;
 #X msg 734 624 @view \$1 \$2 \$3;
-#X obj 720 110 print;
 #X connect 2 0 35 0;
 #X connect 3 0 35 1;
-#X connect 3 0 51 0;
 #X connect 10 0 14 0;
 #X connect 11 0 14 1;
 #X connect 14 0 15 0;
