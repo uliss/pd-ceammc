@@ -1,4 +1,4 @@
-#N canvas 729 369 675 681 10;
+#N canvas 729 312 675 681 10;
 #X obj 75 99 hoa.soundgrain;
 #X obj 34 586 hoa.help.pub;
 #X obj 420 8 hoa.help.also;
@@ -11,17 +11,17 @@
 #X obj 7 27 canvas.current;
 #X obj 7 19 prop-> @name;
 #X obj 4 8 hoa.help.header;
-#X obj 75 128 ui.gain~ @size 131 14 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.gain~.1" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value 0 @relative 1 @midi_channel 0 @midi_control -1 @midi_pickup 1 @show_range 1;
+#X obj 75 128 ui.gain~ @size 131 14 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "(null)" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value 0 @relative 1 @midi_channel 0 @midi_control -1 @midi_pickup 0 @show_range 1;
 #X obj 257 124 msg.onload 20;
-#X obj 258 145 ui.number @size 53 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.number.0" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 14 @label "Hz" @label_inner 0 @label_side "right" @label_align "left" @label_valign "top" @label_margins 0 0 @min 0 @max 5000 @digits -1;
+#X obj 258 145 ui.number @size 53 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "(null)" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 14 @label "Hz" @label_inner 0 @label_side "right" @label_align "left" @label_valign "top" @label_margins 0 0 @min 0 @max 5000 @display_only 0 @digits -1;
 #X obj 75 559 xdac~ 1:16, f 31;
 #X obj 75 252 hoa.scope~ @size 189 189 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @gain 10 @refresh 100 @order 7 @view 0;
 #X obj 296 410 ui.dsp~ @size 30 30 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0;
 #X obj 75 527 hoa.2d.decoder~ 7 regular 16, f 31;
-#X obj 390 132 ui.radio @size 225 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.hrd.0" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @nitems 15 @mode 0;
+#X obj 390 132 ui.radio @size 225 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "(null)" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @nitems 15 @mode 0;
 #X msg 390 152 open \$1;
 #X obj 75 169 hoa.process~ 7 hoa.syn.ringmod~ harmonics "@freq" 100, f 31;
-#X obj 390 190 ui.sliders @size 225 53 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.sliders.0" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @slider_color 0.75 0.75 0.75 1 @select_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min 0 @max 400 @count 15 @auto_range_mode "none" @show_range 1 @auto_count 0 @show_lines 1;
+#X obj 390 190 ui.sliders @size 225 53 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "(null)" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @slider_color 0.75 0.75 0.75 1 @select_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min 0 @max 400 @count 15 @auto_range_mode "none" @show_range 1 @auto_count 0 @show_lines 1;
 #X obj 390 265 msg #: @freq;
 #X connect 0 0 12 0;
 #X connect 8 0 9 0;
