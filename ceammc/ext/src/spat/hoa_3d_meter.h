@@ -71,12 +71,14 @@ public:
     AtomList propOffset() const;
     void propSetOffset(const AtomListView& lv);
 
-    void propSetVectors(const AtomListView& lv);
+    t_symbol* propVectors() const { return f_view; }
+    void propSetVectors(t_symbol* view);
 
     t_int propRotation() const { return f_clockwise; }
     void propSetRotation(t_int s);
 
-    void propSetView(const AtomListView& lv);
+    t_symbol* propView() const { return f_view; }
+    void propSetView(t_symbol* view);
 
     void clockTick();
 

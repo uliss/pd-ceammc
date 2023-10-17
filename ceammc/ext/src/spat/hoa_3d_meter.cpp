@@ -235,35 +235,9 @@ void Hoa3dMeter::propSetOffset(const AtomListView& lv)
     redraw();
 }
 
-void Hoa3dMeter::propSetVectors(const AtomListView& lv)
+void Hoa3dMeter::propSetVectors(t_symbol* view)
 {
-    if (lv.empty())
-        return;
-
-    auto& a = lv[0];
-
-    if (a.isSymbol()) {
-        const auto s = a.asSymbol();
-        if (s == sym_energy())
-            f_vector_type = sym_energy();
-        else if (s == sym_velocity())
-            f_vector_type = sym_velocity();
-        else if (s == sym_both())
-            f_vector_type = sym_both();
-        else
-            f_vector_type = sym_none();
-    } else if (a.isInteger()) {
-        const int v = a.asInt();
-        if (v == 1)
-            f_vector_type = sym_energy();
-        else if (v == 2)
-            f_vector_type = sym_velocity();
-        else if (v == 3)
-            f_vector_type = sym_both();
-        else
-            f_vector_type = sym_none();
-    }
-
+    f_vector_type = view;
     vec_layer.invalidate();
     redraw();
 }
@@ -278,38 +252,10 @@ void Hoa3dMeter::propSetRotation(t_int s)
     redraw();
 }
 
-void Hoa3dMeter::propSetView(const AtomListView& lv)
+void Hoa3dMeter::propSetView(t_symbol* view)
 {
-    if (lv.empty())
-        return;
-
-    auto new_view = f_view;
-    auto& a = lv[0];
-
-    if (a.isSymbol()) {
-        const auto s = a.asSymbol();
-        if (s == sym_bottom())
-            new_view = sym_bottom();
-        else if (s == sym_topnextbottom())
-            new_view = sym_topnextbottom();
-        else if (s == sym_toponbottom())
-            new_view = sym_toponbottom();
-        else
-            new_view = sym_top();
-    } else if (a.isInteger()) {
-        const auto v = a.asInt();
-        if (v == 1)
-            new_view = sym_bottom();
-        else if (v == 2)
-            new_view = sym_topnextbottom();
-        else if (v == 3)
-            new_view = sym_toponbottom();
-        else
-            new_view = sym_top();
-    }
-
-    if (new_view != f_view) {
-        f_view = new_view;
+    if (view != f_view) {
+        f_view = view;
         rawLastRect() = rawRect();
         //        eobj_attr_setvalueof((t_object*)asEObj(), gensym("size"), 0, NULL);
     }
@@ -325,8 +271,8 @@ void Hoa3dMeter::clockTick()
         f_vector->processEnergy(f_signals.get(), f_vector_coords + 3);
 
     f_meter->tick(1000.f / (float)f_interval);
-    //    ebox_invalidate_layer((t_ebox*)x, hoa_sym_leds_layer);
-    //    ebox_invalidate_layer((t_ebox*)x, hoa_sym_vector_layer);
+    led_layer.invalidate();
+    vec_layer.invalidate();
     redraw();
 
     if (canvas_dspstate)
@@ -384,13 +330,14 @@ void Hoa3dMeter::setup()
     obj.setPropertyAccessor("clockwise", &Hoa3dMeter::propRotation, &Hoa3dMeter::propSetRotation);
 
     obj.addMenuProperty("view", _("View of Channels"), "top", &Hoa3dMeter::f_view, "top bottom top-bottom top/bottom");
-    obj.setPropertyAccessor("view", nullptr, &Hoa3dMeter::propSetView);
+    obj.setPropertyAccessor("view", &Hoa3dMeter::propView, &Hoa3dMeter::propSetView);
 
     obj.addMenuProperty("vectors", _("Vectors"), "energy", &Hoa3dMeter::f_vector_type, "none energy velocity both");
-    obj.setPropertyAccessor("vectors", nullptr, &Hoa3dMeter::propSetVectors);
+    obj.setPropertyAccessor("vectors", &Hoa3dMeter::propVectors, &Hoa3dMeter::propSetVectors);
 
-    obj.addIntProperty("interval", _("Refresh Interval (in ms)"), 50, &Hoa3dMeter::f_interval);
+    obj.addIntProperty("interval", _("Refresh Interval"), 50, &Hoa3dMeter::f_interval);
     obj.setPropertyRange("interval", 20, 1000);
+    obj.setPropertyUnits("interval", "msec");
 
     obj.addColorProperty("coldcolor", _("Cold Signal Color"), "0. 0.6 0. 0.8", &Hoa3dMeter::f_color_cold_signal);
     obj.addColorProperty("tepidcolor", _("Tepid Signal Color"), "0.6 0.73 0. 0.8", &Hoa3dMeter::f_color_tepid_signal);
