@@ -1,65 +1,31 @@
 #N canvas 395 64 765 498 10;
 #X obj 386 409 hoa.2d.decoder~ 7 regular 16;
 #X obj 386 147 hoa.2d.encoder~ 7, f 28;
-#X obj 6 34 cnv 15 200 20 empty empty hoa.2d.encoder~ 4 10 0 14 -233017
--66577 0;
+#X obj 6 34 cnv 15 200 20 empty empty hoa.2d.encoder~ 4 10 0 14 #e0e0e0 #404040 0;
 #X text 18 196 Y[l \, m](θ) = sin(|m|*θ), f 57;
-#X text 6 167 with the complex exponential e^i that can be expressed
-by, f 59;
+#X text 6 167 with the complex exponential e^i that can be expressed by, f 59;
 #X text 6 182 if m < 0, f 59;
 #X text 6 210 else if m >= 0, f 59;
 #X text 18 224 Y[l \, m](θ) = cos(|m|*θ), f 57;
-#X text 6 238 with l the degree \, m the azimuthal order \, θ the
-azimuth and S the signal to encode.;
-#X text 6 67 hoa.2d.encoder~ generates the signal of the 2N+1 circular
-harmonics of a sound source depending on the order of decomposition
-N and an azimuth θ., f 59;
-#X text 6 116 Each generated signal of the sound field carries the
-source signal weighted by its associated harmonic Y defined by;
+#X text 6 238 with l the degree \, m the azimuthal order \, θ the azimuth and S the signal to encode.;
+#X text 6 67 hoa.2d.encoder~ generates the signal of the 2N+1 circular harmonics of a sound source depending on the order of decomposition N and an azimuth θ., f 59;
+#X text 6 116 Each generated signal of the sound field carries the source signal weighted by its associated harmonic Y defined by;
 #X text 632 115 azimuth θ in radian (-π & π), f 17;
-#X text 6 278 The signal of the circular harmonics are not normalized
-\, they are defined between -1 and 1 \, even for the first omnidirectional
-harmonic Y[0 \, 0]. The harmonics Y[l \, m] are ordered following the
-ACN:;
-#X text 6 331 Y[0 \, Ø] \, Y[1 \, -1] \, Y[1 \, 1] \, Y[2 \, -2] \,
-... \, Y[N \, -N] \, Y[N \, N];
-#X text 391 113 The argument is the order of decomposition N., f 25
-;
-#X text 568 361 Representation of the weighted sum of the circular
-harmonics over a disc. The blue part is the negative contribution \,
-the red part is the positive contribution., f 26;
+#X text 6 278 The signal of the circular harmonics are not normalized \, they are defined between -1 and 1 \, even for the first omnidirectional harmonic Y[0 \, 0]. The harmonics Y[l \, m] are ordered following the ACN:;
+#X text 6 331 Y[0 \, Ø] \, Y[1 \, -1] \, Y[1 \, 1] \, Y[2 \, -2] \, ... \, Y[N \, -N] \, Y[N \, N];
+#X text 391 113 The argument is the order of decomposition N., f 25;
+#X text 568 361 Representation of the weighted sum of the circular harmonics over a disc. The blue part is the negative contribution \, the red part is the positive contribution., f 26;
 #X obj 551 100 phasor~ 0.3;
 #X text 18 153 Y[l \, m](θ) = e^i|m|θ., f 57;
 #X obj 8 414 hoa-help;
-#X obj 311 401 ui.dsp~ @size 52 52 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
-0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica"
-@fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)"
-@label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0;
-#X obj 386 95 ui.gain~ @size 120 15 @receive "(null)" @send "(null)"
-@pinned 0 @presetname "ui.gain~.1" @background_color 0.93 0.93 0.93
-1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75
-1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize
-11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left"
-@label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value
-0 @show_range 1;
+#X obj 311 401 ui.dsp~ @size 52 52 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0;
+#X obj 386 95 ui.gain~ @size 120 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "(null)" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value 0 @relative 1 @midi_channel 0 @midi_control -1 @midi_pickup 1 @show_range 1;
 #X obj 551 124 phase->rad~;
-#X obj 564 149 ui.number~ @size 80 15 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color
-0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname
-"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
-"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0 @decimal 6 @interval 50;
+#X obj 564 149 ui.number~ @size 80 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.3 0.3 0.3 1 @border_color 0 0 0 1 @label_color 0 0 0 1 @text_color 0.9 0.9 0.9 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @precision 6 @interval 50;
 #X obj 8 392 hoa.credits;
 #X obj 386 437 xdac~ 1:16, f 28;
 #X obj 386 71 hoa.soundgrain;
-#X obj 395 186 hoa.scope~ @size 174 174 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
-0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname
-"Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label
-"(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0 @gain 3 @refresh 100 @order 7 @view 0;
+#X obj 395 186 hoa.scope~ @size 174 174 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @gain 3 @refresh 100 @order 7 @view 0;
 #X connect 0 0 24 0;
 #X connect 0 1 24 1;
 #X connect 0 2 24 2;
