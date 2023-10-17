@@ -335,7 +335,7 @@ void Hoa3dMeter::setup()
     obj.addMenuProperty("vectors", _("Vectors"), "energy", &Hoa3dMeter::f_vector_type, "none energy velocity both");
     obj.setPropertyAccessor("vectors", &Hoa3dMeter::propVectors, &Hoa3dMeter::propSetVectors);
 
-    obj.addIntProperty("interval", _("Refresh Interval"), 50, &Hoa3dMeter::f_interval);
+    obj.addIntProperty("interval", _("Refresh time (ms)"), 50, &Hoa3dMeter::f_interval);
     obj.setPropertyRange("interval", 20, 1000);
     obj.setPropertyUnits("interval", "msec");
 
