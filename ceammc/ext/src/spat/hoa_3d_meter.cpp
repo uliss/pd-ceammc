@@ -100,9 +100,9 @@ void Hoa3dMeter::paint()
 
     f_radius = f_center * 0.95;
 
-    drawBackground();
     drawLeds();
     drawVectors();
+    drawBackground();
 }
 
 void Hoa3dMeter::dspProcess(t_sample** ins, long n_ins, t_sample** outs, long n_outs, long sampleframes)
@@ -280,6 +280,7 @@ void Hoa3dMeter::clockTick()
         f_vector->processEnergy(f_signals.get(), f_vector_coords + 3);
 
     f_meter->tick(1000.f / (float)f_interval);
+    bg_layer_.invalidate();
     led_layer.invalidate();
     vec_layer.invalidate();
     redraw();
@@ -331,7 +332,7 @@ const t_rgba& Hoa3dMeter::segmentColor(bool peak, float db) const
 void Hoa3dMeter::drawLeds()
 {
     auto r = rect();
-    UIPainter p = vec_layer.painter(rect());
+    UIPainter p = led_layer.painter(rect());
     if (!p)
         return;
 
@@ -372,10 +373,10 @@ void Hoa3dMeter::drawLeds()
 
             p.setColor(segmentColor(f_meter->getPlanewaveOverLed(i), f_meter->getPlanewaveEnergy(i)));
             p.fillPreserve();
-            p.setLineWidth(1);
+            p.setLineWidth(2);
             p.setColor(white);
             p.strokePreserve();
-            p.setLineWidth(2);
+            p.setLineWidth(1);
             p.setColor(black);
             p.stroke();
         }
@@ -418,10 +419,10 @@ void Hoa3dMeter::drawLeds()
 
                 p.setColor(segmentColor(f_meter->getPlanewaveOverLed(i), f_meter->getPlanewaveEnergy(i)));
                 p.fillPreserve();
-                p.setLineWidth(1);
+                p.setLineWidth(2);
                 p.setColor(white);
                 p.strokePreserve();
-                p.setLineWidth(2);
+                p.setLineWidth(1);
                 p.setColor(black);
                 p.stroke();
             }
