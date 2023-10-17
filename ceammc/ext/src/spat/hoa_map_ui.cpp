@@ -1424,9 +1424,6 @@ void HoaMapUI::interpPreset(t_float idx)
     auto lv0 = PresetStorage::instance().listValueAt(presetId(), idx);
     auto lv1 = PresetStorage::instance().listValueAt(presetId(), idx + 1);
 
-    UI_DBG << lv0;
-    UI_DBG << lv1;
-
     struct Data {
         float radius { 0 }, azimuth { 0 }, elevation { 0 };
         bool mute { false };

@@ -16,10 +16,10 @@
 #include "ceammc_dsp.h"
 #include "ceammc_ui.h"
 
-static const int MIN_SIZE = 20;
-static const int HOA_DISPLAY_NPOINTS = 65;
-static const float HOA_CONTRAST_DARKER = 0.2;
-static const float HOA_CONTRAST_LIGHTER = 0.2;
+constexpr int MIN_SIZE = 20;
+constexpr int HOA_DISPLAY_NPOINTS = 65;
+constexpr float HOA_CONTRAST_DARKER = 0.2;
+constexpr float HOA_CONTRAST_LIGHTER = 0.2;
 
 Hoa2dScope::Hoa2dScope()
     : prop_order_(3)
