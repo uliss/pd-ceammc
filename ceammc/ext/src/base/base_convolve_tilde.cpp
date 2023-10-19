@@ -39,10 +39,16 @@ BaseConvolveTilde::BaseConvolveTilde(const PdArgs& args)
 
     max_size_ = new IntProperty("@maxsize", DEF_IR_SIZE);
     max_size_->checkClosedRange(MIN_IR_SIZE, MAX_IR_SIZE);
+    max_size_->setUnitsSamp();
     addProperty(max_size_);
 
     norm_ = new BoolProperty("@norm", true);
     addProperty(norm_);
+
+    offset_ = new IntProperty("@offset", 0);
+    offset_->checkMinEq(0);
+    offset_->setUnitsSamp();
+    addProperty(offset_);
 }
 
 void BaseConvolveTilde::setupDSP(t_signal** sig)
@@ -60,6 +66,11 @@ void BaseConvolveTilde::setupDSP(t_signal** sig)
     } else {
         OBJ_ERR << "IR data not loaded";
     }
+
+#ifdef USE_FLOAT_BUFFERS
+    in_buf64_.resize(blockSize());
+    out_buf64_.resize(blockSize());
+#endif
 }
 
 void BaseConvolveTilde::processBlock(const t_sample** in, t_sample** out)
@@ -67,7 +78,19 @@ void BaseConvolveTilde::processBlock(const t_sample** in, t_sample** out)
     if (load_state_ != LOAD_OK)
         return;
 
-#if PD_FLOATSIZE == 32
+#ifdef USE_FLOAT_BUFFERS
+    const auto BS = blockSize();
+
+    // copy to input buffer
+    for (size_t i = 0; i < BS; i++)
+        in_buf64_[i] = in[0][i];
+
+    conv_->process(in_buf64_.data(), out_buf64_.data(), blockSize());
+
+    // copy from output buffer
+    for (size_t i = 0; i < BS; i++)
+        out[0][i] = out_buf64_[i];
+#else
     conv_->process(&in[0][0], &out[0][0], blockSize());
 #endif
 }
@@ -225,8 +248,6 @@ void BaseConvolveTilde::normalizeIR()
     auto it = std::max_element(ir_data_.begin(), ir_data_.end(), [](float a, float b) { return std::abs(a) < std::abs(b); });
     if (it == ir_data_.end())
         return;
-
-    OBJ_DBG << fmt::format("max value: {}", *it);
 
     if (*it != 0) {
         auto k = 1.f / *it;

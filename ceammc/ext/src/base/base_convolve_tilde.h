@@ -23,6 +23,10 @@ namespace fftconvolver {
 class FFTConvolver;
 }
 
+#if PD_FLOATSIZE != 32
+#define USE_FLOAT_BUFFERS
+#endif
+
 using ConvImpl = std::unique_ptr<fftconvolver::FFTConvolver>;
 
 class BaseConvolveTilde : public SoundExternal {
@@ -40,9 +44,14 @@ class BaseConvolveTilde : public SoundExternal {
 private:
     ConvImpl conv_;
     IntProperty* max_size_ { nullptr };
+    IntProperty* offset_ { nullptr };
     BoolProperty* norm_ { nullptr };
     std::vector<float> ir_data_;
     LoadState load_state_ { NOT_LOADED };
+
+#ifdef USE_FLOAT_BUFFERS
+    std::vector<float> in_buf64_, out_buf64_;
+#endif
 
 public:
     BaseConvolveTilde(const PdArgs& args);
