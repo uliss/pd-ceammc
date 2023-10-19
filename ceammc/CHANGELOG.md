@@ -52,6 +52,7 @@
   - synth.metro~ - metronome synth with complex pattern support
   - hoa.3d.scope~ - 3d ambisonic harmonic scope
   - hoa.3d.map~ - 3d ambisonic multisource spatializer
+  - hoa.3d.meter~ - 3d ambisonic multisource spatializer
   - hoa.map.ui - GUI to spatialize sources on a map
 - new object inlets:
   - dyn.gate~, dyn.gate2~ - second inlet added for setting threshold

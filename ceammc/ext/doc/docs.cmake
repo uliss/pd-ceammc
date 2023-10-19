@@ -300,6 +300,7 @@ set(DOC_FILES
     hoa.3d.encoder~
     hoa.3d.exchanger~
     hoa.3d.map~
+    hoa.3d.meter~
     hoa.3d.optim~
     hoa.3d.scope~
     hoa.3d.wider~

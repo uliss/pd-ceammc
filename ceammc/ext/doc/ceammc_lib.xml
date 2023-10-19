@@ -2160,6 +2160,9 @@
     <entry name="hoa.3d.map~" descr="a 3d ambisonic multisource spatializer" ref_view="object">
       <xi:include href="hoa.3d.map~.pddoc" parse="xml"/>
     </entry>
+    <entry name="hoa.3d.meter~" descr="a 3d ambisonic multisource spatializer" ref_view="object">
+      <xi:include href="hoa.3d.meter~.pddoc" parse="xml"/>
+    </entry>
     <entry name="hoa.3d.optim~" descr="a 3D ambisonic optimization tool" ref_view="object">
       <xi:include href="hoa.3d.optim~.pddoc" parse="xml"/>
     </entry>

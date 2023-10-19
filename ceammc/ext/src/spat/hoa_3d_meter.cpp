@@ -582,7 +582,7 @@ void Hoa3dMeter::setup()
     obj.setPropertyRange("channels", MIN_NCHAN, MAX_NCHAN);
 
     obj.addVirtualProperty("angles", _("Angles"),
-        "45 35.2644 135 35.2644 225 35.2644 315 35.2644 45 -35.2644 135 -35.2644 225 -35.2644 315 -35.2644",
+        "0 90 0 -19.5 120 -19.5 240 -19.5",
         &Hoa3dMeter::propAngles, &Hoa3dMeter::propSetAngles, _("Main"));
 
     obj.addVirtualProperty("offset", _("Offset of Channels"),
@@ -602,13 +602,13 @@ void Hoa3dMeter::setup()
     obj.setPropertyRange("interval", 20, 1000);
     obj.setPropertyUnits("interval", "msec");
 
-    obj.addColorProperty("coldcolor", _("Cold Signal Color"), "0. 0.6 0. 0.8", &Hoa3dMeter::f_color_cold_signal);
-    obj.addColorProperty("tepidcolor", _("Tepid Signal Color"), "0.6 0.73 0. 0.8", &Hoa3dMeter::f_color_tepid_signal);
-    obj.addColorProperty("warmcolor", _("Warm Signal Color"), "0.85 0.85 0. 0.8", &Hoa3dMeter::f_color_warm_signal);
-    obj.addColorProperty("hotcolor", _("Hot Signal Color"), "1. 0.6 0. 0.8", &Hoa3dMeter::f_color_hot_signal);
-    obj.addColorProperty("overcolor", _("Overload Signal Color"), "1. 0. 0. 0.8", &Hoa3dMeter::f_color_over_signal);
-    obj.addColorProperty("energycolor", _("Energy Vector Color"), "0. 0. 1. 0.8", &Hoa3dMeter::f_color_energy_vector);
-    obj.addColorProperty("velocitycolor", _("Velocity Vector Color"), "1. 0. 0. 0.8", &Hoa3dMeter::f_color_velocity_vector);
+    obj.addColorProperty("cold_color", _("Cold Signal Color"), "0. 0.6 0. 0.8", &Hoa3dMeter::f_color_cold_signal);
+    obj.addColorProperty("tepid_color", _("Tepid Signal Color"), "0.6 0.73 0. 0.8", &Hoa3dMeter::f_color_tepid_signal);
+    obj.addColorProperty("warm_color", _("Warm Signal Color"), "0.85 0.85 0. 0.8", &Hoa3dMeter::f_color_warm_signal);
+    obj.addColorProperty("hot_color", _("Hot Signal Color"), "1. 0.6 0. 0.8", &Hoa3dMeter::f_color_hot_signal);
+    obj.addColorProperty("over_color", _("Overload Signal Color"), "1. 0. 0. 0.8", &Hoa3dMeter::f_color_over_signal);
+    obj.addColorProperty("energy_color", _("Energy Vector Color"), "0. 0. 1. 0.8", &Hoa3dMeter::f_color_energy_vector);
+    obj.addColorProperty("velocity_color", _("Velocity Vector Color"), "1. 0. 0. 0.8", &Hoa3dMeter::f_color_velocity_vector);
 }
 
 void setup_spat_hoa_3d_meter()

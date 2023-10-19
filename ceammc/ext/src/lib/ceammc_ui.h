@@ -600,7 +600,7 @@ public:
     void addVirtualProperty(const char* name, const char* label, const char* def,
         AtomList (UI::*getter)() const, void (UI::*setter)(const AtomListView&), const char* category = "Misc")
     {
-        eclass_new_attr_typed(pd_ui_class, name, "symbol", 1, 0, 0);
+        eclass_new_attr_typed(pd_ui_class, name, "atom", 1, 0, 0);
         eclass_attr_label(pd_ui_class, name, label);
         eclass_attr_save(pd_ui_class, name);
         eclass_attr_paint(pd_ui_class, name);
