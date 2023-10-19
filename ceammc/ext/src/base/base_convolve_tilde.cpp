@@ -22,8 +22,8 @@
 #include "fmt/core.h"
 
 constexpr size_t MIN_IR_SIZE = 0;
-constexpr size_t DEF_IR_SIZE = 48000;
-constexpr size_t MAX_IR_SIZE = 48000 * 5;
+constexpr size_t DEF_IR_SIZE = 50000;
+constexpr size_t MAX_IR_SIZE = 300000;
 constexpr size_t CONV_BLOCKSIZE = 1024;
 
 static_assert(MIN_IR_SIZE <= DEF_IR_SIZE, "");

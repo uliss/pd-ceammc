@@ -128,6 +128,9 @@
     <entry name="chrono.datetime" descr="output current date and time info" ref_view="object">
       <xi:include href="chrono.datetime.pddoc" parse="xml"/>
     </entry>
+    <entry name="convolve~" descr="realtime FFT convolution" ref_view="object">
+      <xi:include href="convolve~.pddoc" parse="xml"/>
+    </entry>
     <entry name="function" descr="named function" ref_view="link">
       <xi:include href="function.pddoc" parse="xml"/>
     </entry>

@@ -52,6 +52,7 @@ set(DOC_FILES
     click~
     color.mix
     color.scale
+    convolve~
     conv.amp2dbfs
     conv.amp2dbfs~
     conv.bar2ms

@@ -50,6 +50,8 @@ ceammc.search	ceammc library search object
 chrono.datetime	output current date and time info
 ceammc/datetime	output current date and time info
 datetime	output current date and time info
+convolve~	realtime FFT convolution
+ceammc/convolve~	realtime FFT convolution
 function	named function
 func	named function
 ceammc/func	named function
