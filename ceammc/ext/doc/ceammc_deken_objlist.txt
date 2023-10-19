@@ -1138,6 +1138,7 @@ hoa.out	message outlet for a patcher loaded by hoa.process~
 hoa.out~	signal inlet for a patcher loaded by hoa.process~
 hoa.process~	patcher loader for multichannel processing
 hoa.2d.process~	patcher loader for multichannel processing
+hoa.3d.process~	patcher loader for multichannel processing
 hoa.scope~	a 2d ambisonic harmonic scope
 hoa.2d.scope~	a 2d ambisonic harmonic scope
 pan.cos~	two channel equal power sine/cosine panner

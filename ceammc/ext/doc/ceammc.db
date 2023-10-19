@@ -305,7 +305,7 @@ hoa.in~		-		~
 hoa.map.ui		.		...
 hoa.out		.		-
 hoa.out~		~		-
-hoa.process~,hoa.2d.process~		?		?
+hoa.process~,hoa.2d.process~,hoa.3d.process~		?		?
 hoa.scope~,hoa.2d.scope~		?		-
 hw.apple_smc		.		.
 hw.apple_sms		.		.
