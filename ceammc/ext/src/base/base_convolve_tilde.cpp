@@ -48,6 +48,7 @@ BaseConvolveTilde::BaseConvolveTilde(const PdArgs& args)
     offset_ = new IntProperty("@offset", 0);
     offset_->checkMinEq(0);
     offset_->setUnitsSamp();
+    offset_->setSuccessFn([this](Property*) { dsp::SuspendGuard guard; });
     addProperty(offset_);
 }
 
@@ -57,12 +58,14 @@ void BaseConvolveTilde::setupDSP(t_signal** sig)
 
     if (load_state_ == LOAD_OK) {
         conv_->reset();
-        bool rc = conv_->init(CONV_BLOCKSIZE, ir_data_.data(), ir_data_.size());
+        const auto offset = std::min<size_t>(offset_->value(), ir_data_.size());
+        const auto size = ir_data_.size() - offset;
+        bool rc = conv_->init(CONV_BLOCKSIZE, ir_data_.data() + offset, size);
         if (!rc) {
             OBJ_ERR << "can't init FFTConvolver";
             load_state_ = NOT_LOADED;
         } else
-            OBJ_DBG << fmt::format("IR data size: {}", ir_data_.size());
+            OBJ_DBG << fmt::format("IR data size: {}, offset: {}", size, offset);
     } else {
         OBJ_ERR << "IR data not loaded";
     }
