@@ -146,6 +146,7 @@ ceammc/clone:
 ceammc/cmul~
 ceammc/color
 ceammc/color->rgba
+ceammc/convolve~
 ceammc/datetime
 ceammc/dbfs->amp
 ceammc/dbfs->amp~
@@ -352,6 +353,7 @@ conv.sec2str
 conv.semi2ratio
 conv.sig2float~
 conv.str2sec
+convolve~
 data.bimap
 data.color
 data.copy
@@ -400,6 +402,7 @@ env->array
 env->vline
 env.adsr~
 env.ar~
+env.asr2~
 env.asr~
 env.concat
 env.follow~
@@ -582,6 +585,7 @@ hoa.2d.decoder~
 hoa.2d.encoder~
 hoa.2d.exchanger~
 hoa.2d.map~
+hoa.2d.meter~
 hoa.2d.optim~
 hoa.2d.process~
 hoa.2d.projector~
@@ -593,7 +597,10 @@ hoa.2d.wider~
 hoa.3d.decoder~
 hoa.3d.encoder~
 hoa.3d.exchanger~
+hoa.3d.map~
+hoa.3d.meter~
 hoa.3d.optim~
+hoa.3d.process~
 hoa.3d.scope~
 hoa.3d.wider~
 hoa.@process
@@ -953,6 +960,7 @@ net.osc.receive
 net.osc.s
 net.osc.send
 net.osc.server
+net.ws.send
 noise.baker
 noise.chua~
 noise.clifford
@@ -1259,6 +1267,7 @@ timeline
 tl.b
 tl.bang
 tl.cue
+tl.events
 tl.t
 tl.timeline
 tl.toggle
