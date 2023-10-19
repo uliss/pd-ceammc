@@ -40,12 +40,12 @@
         array.ltcplay~ array.mean array.minmax array.play~ array.plot
         array.plot~ array.readwrite~ array.resample array.rms array.set
         array.stddev array.stretch array.sum array.sum2 array.tramp~
-        array.variance array.vplay array.window convolve~ plot.geomspace~
-        plot.hist~ plot.linspace~ plot.logspace~ plot.response~
+        array.variance array.vplay array.window plot.geomspace~ plot.hist~
+        plot.linspace~ plot.logspace~ plot.response~
     }}
     {base {
-        ceammc.search chrono.datetime function function.call gain~ gate~
-        logger matrix~ merge~ metro.choice metro.pattern metro.random
+        ceammc.search chrono.datetime convolve~ function function.call gain~
+        gate~ logger matrix~ merge~ metro.choice metro.pattern metro.random
         metro.seq metro.wchoice mix~ nsig~ obj.props radio split~ spring sync
         window xdac~ xfade2~ xfade~ z~
     }}

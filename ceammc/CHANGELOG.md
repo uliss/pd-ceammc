@@ -9,6 +9,7 @@
   - chrono.datetime - get current date/time information
   - color.mix - color mixer
   - color.scale - create color scales (gradients)
+  - convolve~ - real-time convolution added
   - conv.bar2ms - calculate bar and beat duration from tempo BPM and time signature
   - conv.char2morse - single character to morse code converter
   - conv.color2rgba - color converter added from named or hex colors to separate RGBA values
