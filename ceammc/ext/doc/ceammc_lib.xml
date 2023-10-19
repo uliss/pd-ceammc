@@ -537,6 +537,9 @@
     <entry name="env.ar~" descr="Attack/Release envelope generator" ref_view="object">
       <xi:include href="env.ar~.pddoc" parse="xml"/>
     </entry>
+    <entry name="env.asr2~" descr="stereo Attack/Sustain/Release envelope generator" ref_view="object">
+      <xi:include href="env.asr2~.pddoc" parse="xml"/>
+    </entry>
     <entry name="env.asr~" descr="Attack/Sustain/Release envelope generator" ref_view="object">
       <xi:include href="env.asr~.pddoc" parse="xml"/>
     </entry>

@@ -354,6 +354,7 @@ dyn.limit~	mono 1176LN Peak Limiter
 dyn.softclip~	soft signal clip
 env.adsr~	ADSR (Attack, Decay, Sustain, Release) envelope generator
 env.ar~	Attack/Release envelope generator
+env.asr2~	stereo Attack/Sustain/Release envelope generator
 env.asr~	Attack/Sustain/Release envelope generator
 env.concat	Envelope concatenation
 env.follow~	Envelope follower with independent attack and release times

@@ -81,9 +81,9 @@
         dyn.limit~ dyn.softclip~
     }}
     {env {
-        env.adsr~ env.ar~ env.asr~ env.concat env.follow~ env.mix env.smooth~
-        env.tscale env.tshift env.vscale env2array env2vline envelope
-        vline2env
+        env.adsr~ env.ar~ env.asr2~ env.asr~ env.concat env.follow~ env.mix
+        env.smooth~ env.tscale env.tshift env.vscale env2array env2vline
+        envelope vline2env
     }}
     {flow {
         expand_env flow.append flow.change flow.count flow.delay

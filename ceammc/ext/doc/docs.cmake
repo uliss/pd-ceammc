@@ -138,6 +138,7 @@ set(DOC_FILES
     dyn.softclip~
     env.adsr~
     env.ar~
+    env.asr2~
     env.asr~
     env.concat
     env.follow~

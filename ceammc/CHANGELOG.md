@@ -25,6 +25,7 @@
   - dyn.comp_up2~ - upward stereo compressor with channel linking
   - dyn.comp_up~ - upward mono compressor
   - dyn.expand~ - mono dynamic range expander (attenuate levels under the threshold)
+  - env.asr2~ - stereo Attack-Sustain-Release envelope generator
   - flow.prepend - message prepend object
   - flt.speaker~ - low pass and high pass filter effect
   - fx.overdrive~ - overdrive effect
