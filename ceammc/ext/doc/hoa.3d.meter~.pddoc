@@ -9,7 +9,7 @@
                 <author>Eliott Paris</author>
                 <author>Thomas Le Meur</author>
             </authors>
-            <description>a 3d ambisonic multisource spatializer</description>
+            <description>multi spherical meter with sound field descriptor</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>spat</category>
@@ -17,10 +17,8 @@
             <since>0.9.7</since>
         </meta>
         <info>
-            <par>Encodes several sources in the circular harmonics domain with distance
-            compensation and muting system</par>
-            <par>If @nsrc 1: radius, azimuth and elevation are controlled with signal values</par>
-            <par>Note: source indexes are 1-based.</par>
+            <par>displays the peak levels for a spherical array of loudspeakers.
+            It computes and displays the energy and velocity vectors.</par>
             <a href="hoa/hoa.3d.meter~-help.pd">CICM documentation</a>
         </info>
         <arguments/>

@@ -1541,7 +1541,7 @@ hoa.2d.space-help.pd;
 #X obj 30 21023 hoa.3d.map~;
 #X text 200 21023 a 3d ambisonic multisource spatializer;
 #X obj 30 21050 hoa.3d.meter~;
-#X text 200 21050 a 3d ambisonic multisource spatializer;
+#X text 200 21050 multi spherical meter with sound field descriptor;
 #X obj 30 21077 hoa.3d.optim~;
 #X text 200 21077 a 3D ambisonic optimization tool;
 #X obj 30 21107 ui.link @title [hoa.3d.scope~] @url

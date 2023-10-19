@@ -32,7 +32,7 @@ harmonics;
 #X obj 30 478 hoa.3d.map~;
 #X text 200 478 a 3d ambisonic multisource spatializer;
 #X obj 30 505 hoa.3d.meter~;
-#X text 200 505 a 3d ambisonic multisource spatializer;
+#X text 200 505 multi spherical meter with sound field descriptor;
 #X obj 30 532 hoa.3d.optim~;
 #X text 200 532 a 3D ambisonic optimization tool;
 #X obj 30 562 ui.link @title [hoa.3d.scope~] @url

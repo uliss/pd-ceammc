@@ -249,10 +249,10 @@
         hoa.2d.decoder~ hoa.2d.encoder~ hoa.2d.exchanger~ hoa.2d.map~
         hoa.2d.optim~ hoa.2d.projector~ hoa.2d.recomposer~ hoa.2d.rotate~
         hoa.2d.space hoa.2d.wider~ hoa.3d.decoder~ hoa.3d.encoder~
-        hoa.3d.exchanger~ hoa.3d.map~ hoa.3d.optim~ hoa.3d.scope~
-        hoa.3d.wider~ hoa.@process hoa.in hoa.in~ hoa.map.ui hoa.out hoa.out~
-        hoa.process~ hoa.scope~ pan.cos~ pan.linsig~ pan.lin~ pan.spread~
-        pan.sqrt~ spat.pan4~ spat.pan8~ spat.zita6x8~ spat.zita8~
+        hoa.3d.exchanger~ hoa.3d.map~ hoa.3d.meter~ hoa.3d.optim~
+        hoa.3d.scope~ hoa.3d.wider~ hoa.@process hoa.in hoa.in~ hoa.map.ui
+        hoa.out hoa.out~ hoa.process~ hoa.scope~ pan.cos~ pan.linsig~ pan.lin~
+        pan.spread~ pan.sqrt~ spat.pan4~ spat.pan8~ spat.zita6x8~ spat.zita8~
     }}
     {string {
         string string.contains string.ends_with string.equal string.format
