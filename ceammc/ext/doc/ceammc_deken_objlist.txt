@@ -1130,6 +1130,7 @@ hoa.wider~	a 2d fractional ambisonic order simulator
 hoa.3d.decoder~	hoa 3d decoder
 hoa.3d.encoder~	hoa 3d encoder
 hoa.3d.exchanger~	renumbers and normalizes the channels
+hoa.3d.map~	a 3d ambisonic multisource spatializer
 hoa.3d.optim~	a 3D ambisonic optimization tool
 hoa.3d.scope~	a 3d ambisonic harmonic scope
 hoa.3d.wider~	a 3d fractional ambisonic order simulator

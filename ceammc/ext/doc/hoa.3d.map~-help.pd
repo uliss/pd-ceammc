@@ -1,0 +1,160 @@
+#N canvas 0 0 785 555 12;
+#X declare -lib ceammc;
+#X obj 468 50 cnv 1 297 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 468 50 a 3d ambisonic multisource spatializer;
+#X obj 1 1 cnv 5 765 40 empty empty hoa.3d.map~ 20 20 0 20 -104026
+-4096 0;
+#X obj 660 11 hoa.3d.map~;
+#X obj 210 80 cnv 1 555 138 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Encodes several sources in the circular harmonics domain
+with distance compensation and muting system;
+#X text 215 120 If @nsrc 1: radius \, azimuth and elevation are controlled
+with signal values;
+#X text 215 160 Note: source indexes are 1-based.;
+#X obj 215 185 ui.link @background_color 0.98039 0.98039 0.98039
+@title CICM documentation @url hoa/hoa.3d.map~-help.pd;
+#X text 50 246 //control mode;
+#X text 261 246 //signal control mode;
+#X msg 69 275 polar 1 R A E;
+#X obj 50 318 ui.n @label "Source 1";
+#X obj 146 318 ui.n @label "Source 2";
+#X obj 261 318 ui.n @label "Source 1";
+#X obj 357 318 ui.n @label Radius;
+#X obj 453 318 ui.n @label Azimuth;
+#X obj 549 318 ui.n @label Elevation;
+#X obj 50 347 hoa.3d.map~ 2 2;
+#X obj 261 347 hoa.3d.map~ 2 1;
+#X obj 50 376 ui.dsp~;
+#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 430 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+-49933 0;
+#X text 110 465 1\.;
+#X text 150 465 int;
+#X obj 246 466 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 465 ORDER: the order of decomposition. Type: int. Range:
+1\...10;
+#X text 110 485 2\.;
+#X text 150 485 int;
+#X obj 246 486 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 485 NSRC: number of sources. Type: int. Min value: 1;
+#X text 110 505 3\.;
+#X text 150 505 symbol;
+#X obj 246 506 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 505 MODE: coordinates mode. Allowed values: car \, pol.
+. Type: symbol.;
+#X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 555 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 590 @nsrc;
+#X text 245 590 (initonly) Get/Set number of input sources. Type: int.
+Default value: 1\. Min value: 1\.;
+#X msg 110 632 @order;
+#X text 245 632 (initonly) Get/Set the order of decomposition. Type:
+int. Default value: 1\. Range: 1\...10\.;
+#X msg 110 674 @mode;
+#X text 245 674 Get/Set coordinates mode in signal control mode (with
+@nsrc 1) \, polar or cartesian. Type: symbol. Default value: pol. Allowed
+values: car \, pol.;
+#X msg 110 731 @ramp;
+#X text 245 731 Get/Set ramp time. Type: float. Default value: 100\.
+Min value: 0\.;
+#X obj 20 783 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 788 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 823 car;
+#X text 245 823 alias to cartesian method.;
+#X msg 110 850 cartesian;
+#X text 245 850 set source mapping in cartesian coordinates. Arguments
+are:;
+#X obj 255 873 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 873 IDX: source index. 1-based. Type: int. Min value: 1\.;
+#X obj 255 896 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 896 X: x coordinate. Type: float.;
+#X obj 255 919 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 919 Y: y coordinate. Type: float.;
+#X obj 255 942 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 942 Z: z coordinate. Type: float.;
+#X msg 110 967 mute;
+#X text 245 967 mute/unmute specified source. Arguments are:;
+#X obj 255 990 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 990 IDX: source index. 1-based. Type: int. Min value: 1\.;
+#X obj 255 1013 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1013 STATE: mute value. Type: int. Allowed values: 0 \,
+1\.;
+#X msg 110 1038 pol;
+#X text 245 1038 alias to polar method.;
+#X msg 110 1065 polar;
+#X text 245 1065 set source mapping in polar coordinates. Arguments
+are:;
+#X obj 255 1088 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1088 IDX: source index. 1-based. Type: int. Min value:
+1\.;
+#X obj 255 1111 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1111 RAD: radius. Type: float. Range: 0\...1\.;
+#X obj 255 1134 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1134 AZIM: azimuth angle. Type: float. Range: 0\...2π.
+Units: 'rad'.;
+#X obj 255 1172 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1172 ELEV: elevation. Type: float. Range: 0\...2π. Units:
+'rad'.;
+#X obj 20 1207 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1212 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1213 1\.;
+#X text 245 1213 first source input.;
+#X text 150 1233 *list*;
+#X text 245 1233 SRC_IDX polar RADIUS AZIMUTH ELEVATION or SRC_IDX
+mute VALUE.;
+#X text 110 1253 ....;
+#X text 245 1253 ... source input.;
+#X text 110 1273 n.;
+#X text 245 1273 n-th source input.;
+#X obj 20 1303 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1308 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1309 1\.;
+#X text 245 1309 first harmonic output.;
+#X text 110 1329 ....;
+#X text 245 1329 ... harmonic output.;
+#X text 110 1349 n.;
+#X text 245 1349 n-th harmonic output.;
+#X obj 10 48 ui.link @title index @url ../index-help.pd;
+#X text 51 45 ::;
+#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 115 45 ::;
+#X obj 131 48 ui.link @title spat @url ceammc.spat-help.pd;
+#X obj 1 1399 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1402 library: ceammc v0.9.7;
+#N canvas 10 1421 400 290 info 0;
+#X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
+#X text 10 10 library:;
+#X text 120 10 ceammc;
+#X text 10 32 version:;
+#X text 120 32 0.9.7;
+#X text 10 54 object:;
+#X text 120 54 hoa.3d.map~;
+#X text 10 76 category:;
+#X text 120 76 spat;
+#X text 10 98 since:;
+#X text 120 98 0.9.7;
+#X text 10 120 authors:;
+#X text 120 120 Serge Poltavsky \, Pierre Guillot \, Eliott Paris \,
+Thomas Le Meur;
+#X text 10 142 license:;
+#X text 120 142 GPL3 or later;
+#X text 10 164 keywords:;
+#X text 120 164 hoa \, map \, 3d;
+#X text 10 186 website:;
+#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
+https://github.com/uliss/pure-data;
+#X obj 120 208 declare -lib ceammc;
+#X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 120 268 generated by pddoc;
+#X restore 10 1421 pd info;
+#X connect 14 0 19 0;
+#X connect 15 0 19 1;
+#X connect 16 0 19 2;
+#X connect 17 0 19 3;
+#X connect 12 0 18 0;
+#X connect 13 0 18 1;
+#X connect 11 0 18 0;
