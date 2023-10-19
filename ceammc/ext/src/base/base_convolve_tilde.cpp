@@ -130,17 +130,6 @@ void BaseConvolveTilde::m_set(t_symbol* s, const AtomListView& lv)
 void BaseConvolveTilde::dump() const
 {
     SoundExternal::dump();
-
-    Debug dbg(this);
-    dbg << "data:\n";
-    for (size_t i = 0; i < ir_data_.size(); i++) {
-        dbg << fmt::format("{:.3f}", ir_data_[i]);
-
-        if (i % 6 == 5)
-            dbg << std::endl;
-        else
-            dbg << ' ';
-    }
 }
 
 bool BaseConvolveTilde::loadIRFromArray(const char* name)
