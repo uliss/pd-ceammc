@@ -65,6 +65,7 @@ list(APPEND BASE_SOURCES
 # sound
 list(APPEND BASE_SOURCES
     base_click.cpp
+    base_convolve_tilde.cpp
     base_dac.cpp
     base_gate_tilde.cpp
     base_merge_tilde.cpp
@@ -98,6 +99,8 @@ target_include_directories(ceammc_base
         ${CMAKE_BINARY_DIR} # for config.h
 
 )
+
+target_link_libraries(ceammc_base PRIVATE fftconv)
 
 find_package(RubberBand REQUIRED)
 if(RUBBERBAND_FOUND)
