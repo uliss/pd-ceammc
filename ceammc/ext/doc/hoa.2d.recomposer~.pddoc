@@ -31,7 +31,8 @@
         <arguments>
             <argument name="ORDER" type="int" minvalue="1" maxvalue="63">the order of
             decomposition.</argument>
-            <argument name="N" type="int" minvalue="0" maxvalue="128">number of channels. '0' means auto-calculation.</argument>
+            <argument name="N" type="int" minvalue="0" maxvalue="128">number of channels. '0' means
+            auto-calculation.</argument>
             <argument name="MODE" type="symbol" enum="fixe fisheye free">recomposition mode. There
             is three modes: *fixe* - simply recomposes a plane wave decomposition into circular
             harmonics. *fisheye* - allows you to perform an operation similar to the visual
@@ -43,7 +44,8 @@
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1"
             access="initonly">the order of decomposition</property>
             <property name="@n" type="int" minvalue="0" maxvalue="128" default="0"
-            access="initonly">number of channels (planewaves). '0' means auto-calculation.</property>
+            access="initonly">number of channels (planewaves). '0' means
+            auto-calculation.</property>
             <property name="@mode" type="symbol" enum="fixe fisheye free" default="free"
             access="initonly">recomposition mode. There is three modes: *fixe* - simply recomposes
             a plane wave decomposition into circular harmonics. *fisheye* - allows you to perform

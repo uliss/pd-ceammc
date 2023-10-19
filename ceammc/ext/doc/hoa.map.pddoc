@@ -17,9 +17,9 @@
             <since>0.9.7</since>
         </meta>
         <info>
-            <par>[hoa.map] allows you to spatialize several sources on a plane to control [hoa.2d.map~] or [hoa.3d.map].
-            You can add and remove sources, change coordinates, add description and create groups.
-            </par>
+            <par>[hoa.map] allows you to spatialize several sources on a plane to control
+            [hoa.2d.map~] or [hoa.3d.map]. You can add and remove sources, change coordinates, add
+            description and create groups.</par>
             <a href="hoa/hoa.map-help.pd">CICM documentation</a>
         </info>
         <arguments>

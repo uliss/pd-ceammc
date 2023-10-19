@@ -35,8 +35,8 @@
             <property name="@nsrc" type="int" minvalue="1" default="1" access="initonly">number of
             input sources</property>
             <property name="@ramp" type="float" minvalue="0" default="100">ramp time</property>
-            <property name="@mode" type="symbol" enum="car pol" default="pol">coordinates mode in signal control mode (with
-            @nsrc 1), polar or cartesian</property>
+            <property name="@mode" type="symbol" enum="car pol" default="pol">coordinates mode in
+            signal control mode (with @nsrc 1), polar or cartesian</property>
         </properties>
         <methods>
             <!-- mute -->
@@ -52,7 +52,7 @@
             <param name="ELEV" type="float" required="true" minvalue="0" maxvalue="2π"
             units="radian">elevation</param></method>
             <!-- cartesian -->
-            <method name="cartesian">set source mapping in cartesian coordinates
+            <method name="cartesian">set source mapping in cartesian coordinates 
             <param name="IDX" type="int" required="true" minvalue="1">source index. 1-based</param>
             <param name="X" type="float" required="true">x coordinate</param>
             <param name="Y" type="float" required="true">y coordinate</param>
@@ -65,10 +65,11 @@
         <inlets dynamic="true">
             <inlet type="audio">
                 <xinfo>first source input</xinfo>
-                <xinfo on="list">SRC_IDX polar RADIUS AZIMUTH ELEVATION or SRC_IDX mute VALUE</xinfo>
+                <xinfo on="list">SRC_IDX polar RADIUS AZIMUTH ELEVATION or SRC_IDX mute
+                VALUE</xinfo>
             </inlet>
             <inlet type="audio" number="...">
-                 <xinfo>... source input</xinfo>
+                <xinfo>... source input</xinfo>
             </inlet>
             <inlet type="audio" number="n">
                 <xinfo>n-th source input</xinfo>

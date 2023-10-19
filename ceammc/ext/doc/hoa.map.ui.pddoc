@@ -17,9 +17,9 @@
             <since>0.9.7</since>
         </meta>
         <info>
-            <par>[hoa.map.ui] allows you to spatialize several sources on a plane to control [hoa.2d.map~] or [hoa.3d.map].
-            You can add and remove sources, change coordinates, add description and create groups.
-            </par>
+            <par>[hoa.map.ui] allows you to spatialize several sources on a plane to control
+            [hoa.2d.map~] or [hoa.3d.map]. You can add and remove sources, change coordinates, add
+            description and create groups.</par>
             <a href="hoa/hoa.map-help.pd">CICM documentation</a>
         </info>
         <properties>
@@ -61,11 +61,12 @@
             <property name="@label_margins" type="list" default="0 0">label offset in
             pixels</property>
             <!-- main -->
-            <property name="@zoom" type="float" default="0.35" minvalue="0.01" maxvalue="1">zoom factor</property>
+            <property name="@zoom" type="float" default="0.35" minvalue="0.01" maxvalue="1">zoom
+            factor</property>
         </properties>
         <methods>
             <!-- clear -->
-            <method name="clear">clears specified preset
+            <method name="clear">clears specified preset 
             <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- dump -->
             <method name="dump">dumps all object info to Pd console window</method>
@@ -73,30 +74,34 @@
             <method name="interp">for this object acts as *load*, no interpolation
             performed</method>
             <!-- load -->
-            <method name="load">loads specified preset
+            <method name="load">loads specified preset 
             <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- pos -->
-            <method name="pos">set UI element position
+            <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
             <!-- set -->
             <method name="set">sets toggle state without output</method>
             <!-- store -->
-            <method name="store">stores specified preset
+            <method name="store">stores specified preset 
             <param name="IDX" type="int" required="true">preset index</param></method>
             <!-- info -->
             <method name="info">outputs info to 3rd outlet</method>
             <!-- clear_all -->
             <method name="clear_all">remove all sources from map</method>
             <!-- group -->
-            <method name="group">group operations
+            <method name="group">group operations 
             <param name="IDX" type="int" required="true">group index</param>
-            <param name="ACTION" type="symbol" enum="set polar pol azimuth elevation cartesian car abscissa ordinate height relpolar relradius relazimuth relelevation mute remove description color" required="true">action</param>
+            <param name="ACTION" type="symbol"
+            enum="set polar pol azimuth elevation cartesian car abscissa ordinate height relpolar relradius relazimuth relelevation mute remove description color"
+            required="true">action</param>
             <param name="ARGS" type="list" required="false">action arguments</param></method>
             <!-- source -->
-            <method name="source">source operations
+            <method name="source">source operations 
             <param name="IDX" type="int" required="true">source index</param>
-            <param name="ACTION" type="symbol" enum="polar pol azimuth elevation cartesian car abscissa ordinate height mute remove description color" required="true">action</param>
+            <param name="ACTION" type="symbol"
+            enum="polar pol azimuth elevation cartesian car abscissa ordinate height mute remove description color"
+            required="true">action</param>
             <param name="ARGS" type="list" required="false">action arguments</param></method>
         </methods>
         <inlets>
