@@ -1,5 +1,4 @@
-#include "ceammc.h"
-#include "ceammc_atomlist.h"
+#include "ceammc_atomlist_view.h"
 #include "ceammc_log.h"
 #include "ceammc_symbols.h"
 
