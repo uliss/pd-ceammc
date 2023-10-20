@@ -8,7 +8,7 @@
 #X symbolatom 50 118 15 0 0 0 - - -;
 #X msg 50 147 symbol https://github.com/uliss/pure-data/releases;
 #X obj 50 176 qrcode;
-#X obj 424 176 ui.lcd @receive qrcode @size 125 125;
+#X obj 424 176 ui.lcd @receive qrcode @size 125 125 @nosave 1;
 #X msg 107 205 @cols \$1 \, @rows \$1 \, @size 125 125;
 #X obj 50 234 msg set;
 #X obj 50 262 s qrcode;
