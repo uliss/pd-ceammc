@@ -14,7 +14,8 @@
             <since>0.9.5</since>
         </meta>
         <arguments>
-            <argument name="BASE" type="float" units="semitone">base pitch</argument>
+            <argument name="BASE" type="float" units="semitone" minvalue="10" maxvalue="100">base
+            pitch</argument>
         </arguments>
         <properties>
             <property name="@base" type="float" default="60" minvalue="10" maxvalue="100"

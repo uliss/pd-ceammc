@@ -33,6 +33,8 @@
             paths</property>
             <property name="@x" type="int" access="readonly" default="0">window x-pos</property>
             <property name="@y" type="int" access="readonly" default="0">window y-pos</property>
+            <property name="@abs" type="bool" default="1">if false: using toplevel canvas, if true:
+            using abstraction canvas</property>
         </properties>
         <methods>
             <!-- postscript -->

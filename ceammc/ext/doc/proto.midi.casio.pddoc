@@ -40,6 +40,10 @@
             <method name="rev_type">set reverb type 
             <param name="TYPE" type="int" minvalue="1" maxvalue="4" required="true">reverb type.
             For PX160 - 1: room, 2: default (hall), 3: hall2, 4: stadium</param></method>
+            <!-- chorus -->
+            <method name="chorus">set chorus fx level 
+            <param name="VALUE" type="float" required="true" minvalue="0" maxvalue="1">
+            level</param></method>
             <!-- chorus_type -->
             <method name="chorus_type">set chorus type 
             <param name="TYPE" type="int" minvalue="1" maxvalue="4" required="true">chorus type.

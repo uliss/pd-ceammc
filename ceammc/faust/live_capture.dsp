@@ -14,7 +14,7 @@ import("stdfaust.lib");
 ui = library("ceammc_ui.lib");
 
 process	= capture * gain : fi.dcblocker with {
-    env     = en.adsr(a, d, s, r, I);
+    env     = en.asr(a, s, r, I);
     capture = *(env) : (+ : de.delay(TOTAL * ma.SR, (D/div)-1)) ~ *(1.0-env);
 
     TOTAL = 32;
@@ -26,7 +26,6 @@ process	= capture * gain : fi.dcblocker with {
     div = hslider(".div", 1, 1, 8, 1) : int;
     gain = hslider("gain [unit:db]", 0, -60, 12, 0.001) : ba.db2linear : si.smoo;
     a = ui.attack(50);
-    d = ui.decay(0);
     s = ui.sustain(100);
     r = ui.release(50);
 };

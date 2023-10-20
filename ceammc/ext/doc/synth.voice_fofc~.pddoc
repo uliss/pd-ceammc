@@ -28,8 +28,9 @@
             FofSmooth</par>
         </info>
         <arguments>
-            <argument name="VOICE" type="symbol">voice type</argument>
-            <argument name="VOWEL" type="symbol">vowel</argument>
+            <argument name="VOICE" type="symbol" enum="alto bass countertenor soprano tenor">voice
+            type</argument>
+            <argument name="VOWEL" type="symbol" enum="a e i o u">vowel</argument>
         </arguments>
         <properties>
             <property name="@freq" type="float" minvalue="20" maxvalue="20000.0" default="440"
