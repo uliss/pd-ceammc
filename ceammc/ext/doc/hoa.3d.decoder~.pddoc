@@ -28,8 +28,7 @@
         <arguments>
             <argument name="ORDER" type="int" minvalue="1" maxvalue="10">the order of
             decomposition</argument>
-            <argument name="MODE" type="symbol" enum="ambisonic irregular binaural">decoding
-            mode</argument>
+            <argument name="MODE" type="symbol" enum="binaural regular">decoding mode</argument>
             <argument name="NCH" type="int">number of loud speakers</argument>
         </arguments>
         <properties>

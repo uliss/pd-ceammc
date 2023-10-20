@@ -19,9 +19,6 @@
         <info>
             <par>displays the circular harmonics of an ambisonic sound field</par>
         </info>
-        <arguments>
-            <argument name="ORDER" type="int" minvalue="1">the order of decomposition</argument>
-        </arguments>
         <properties>
             <property name="@order" type="int" minvalue="1" maxvalue="63" default="1">the order of
             decomposition</property>

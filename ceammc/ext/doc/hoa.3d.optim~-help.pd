@@ -38,7 +38,7 @@ your ears.;
 #X text 150 791 int;
 #X obj 246 792 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 791 ORDER: the order of decomposition. Type: int. Range:
-1\...15;
+1\...10;
 #X text 110 811 2\.;
 #X text 150 811 symbol;
 #X obj 246 812 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -49,7 +49,7 @@ your ears.;
 -49933 0;
 #X msg 110 896 @order;
 #X text 245 896 (initonly) Get/Set the order of decomposition. Type:
-int. Default value: 1\. Range: 1\...63\.;
+int. Default value: 1\. Range: 1\...10\.;
 #X msg 110 938 @basic;
 #X text 245 938 alias for @mode basic (no optimization).;
 #X msg 110 967 @inphase;

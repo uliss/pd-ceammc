@@ -30,8 +30,8 @@ configuration or for headphones.;
 #X text 110 434 2\.;
 #X text 150 434 symbol;
 #X obj 246 435 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 434 MODE: decoding mode. Allowed values: ambisonic \, irregular
-\, binaural. . Type: symbol.;
+#X text 245 434 MODE: decoding mode. Allowed values: binaural \, regular.
+. Type: symbol.;
 #X text 110 469 3\.;
 #X text 150 469 int;
 #X obj 246 470 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
