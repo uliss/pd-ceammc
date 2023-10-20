@@ -25,7 +25,7 @@ constexpr const char* SYM_INF2 = "infinite";
 constexpr const char* SYM_FIXED = "fixed";
 
 TlTimeLine::TlTimeLine(const PdArgs& args)
-    : BaseObject(args)
+    : TlTimeLineBase(args)
     , tl_(this, 0)
     , cmd_parser_(this)
 {
