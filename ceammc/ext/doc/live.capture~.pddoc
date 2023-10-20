@@ -36,7 +36,7 @@
             <!-- stop -->
             <method name="stop">stop record</method>
             <!-- set record division -->
-            <method name="div">set rec division
+            <method name="div">set rec division 
             <param name="N" type="int" minvalue="1" maxvalue="8">value</param></method>
         </methods>
         <inlets>
