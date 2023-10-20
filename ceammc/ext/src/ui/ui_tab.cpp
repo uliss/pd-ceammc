@@ -635,8 +635,8 @@ void UITab::setup()
     obj.addProperty("selected", &UITab::propSelected);
     obj.setPropertyDefaultValue("selected", "");
 
-    obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UITab::prop_color_text);
-    obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UITab::prop_color_active);
+    obj.addProperty(sym::props::name_text_color, _("Text Color"), DEFAULT_TEXT_COLOR, &UITab::prop_color_text);
+    obj.addProperty(sym::props::name_active_color, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UITab::prop_color_active);
     obj.addProperty("hover_color", _("Hover Color"), "0.5 0.5 0.5 1", &UITab::prop_color_hover);
 
     obj.addMethod("append", &UITab::m_append);

@@ -24,8 +24,8 @@
             <argument name="ARRAY" type="symbol">array name</argument>
             <argument name="BS" type="int" minvalue="64" units="sample">buffer size</argument>
             <argument name="METHOD" type="symbol"
-            enum="default hfc energy complex phase wphase specdiff kl mkl specflux">detection
-            method</argument>
+            enum="centroid complex complexdomain decrease default energy hfc kl kurtosis phase rolloff skewness slope specdiff specflux spread wphase">
+            detection method</argument>
             <argument name="HS" type="int" minvalue="0" units="sample">hop size (by default
             buffer_size/2)</argument>
         </arguments>

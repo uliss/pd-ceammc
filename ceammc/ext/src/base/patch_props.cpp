@@ -14,6 +14,7 @@
 #include "patch_props.h"
 #include "ceammc_canvas.h"
 #include "ceammc_factory.h"
+#include "ceammc_symbols.h"
 #include "datatype_property.h"
 #include "prop_declare.h"
 
@@ -138,7 +139,7 @@ void PatchProps::outputAllProperties()
             res.append(obj->name());
     });
 
-    anyTo(0, SYM_PROPS_ALL(), res);
+    anyTo(0, sym::props::sym_value_all(), res);
 }
 
 void PatchProps::outputProp(const std::string& name, t_float f)

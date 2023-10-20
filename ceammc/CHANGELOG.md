@@ -3,9 +3,9 @@
 ## [Unreleased]
 ### Added:
 - new objects:
+  - array.ltcplay~ - array player, controlled by LTC signal
   - array.readwrite~ - ordered array reader/writer (read first, then write)
   - array.tramp~ - triggered array ramp generator
-  - array.ltcplay~ - array player, controlled by LTC signal
   - chrono.datetime - get current date/time information
   - color.mix - color mixer
   - color.scale - create color scales (gradients)
@@ -17,6 +17,7 @@
   - conv.ms2str - convert time in milliseconds to formatted string or symbol
   - conv.rgb2hex - convert RGB separate values to #RRGGBB symbol
   - conv.semi2ratio (with semi->ratio alias) added
+  - convolve~ - real-time convolution added
   - data.bimap - bidirectional map for scalar types
   - data.color - Color datatype
   - dyn.comp_peak2~ - Peak FeedForward stereo compressor with channel linking
@@ -24,6 +25,7 @@
   - dyn.comp_up2~ - upward stereo compressor with channel linking
   - dyn.comp_up~ - upward mono compressor
   - dyn.expand~ - mono dynamic range expander (attenuate levels under the threshold)
+  - env.asr2~ - stereo Attack-Sustain-Release envelope generator
   - flow.prepend - message prepend object
   - flt.speaker~ - low pass and high pass filter effect
   - fx.overdrive~ - overdrive effect
@@ -32,6 +34,10 @@
   - fx.tremolo~ - tremolo effect from guitarix library
   - gate~ - multichannel signal gate added
   - global.bimap - global scope bimap container
+  - hoa.3d.map~ - 3d ambisonic multisource spatializer
+  - hoa.3d.meter~ - 3d ambisonic multisource spatializer
+  - hoa.3d.scope~ - 3d ambisonic harmonic scope
+  - hoa.map.ui - GUI to spatialize sources on a map
   - local.bimap - canvas local scope bimap container
   - merge~ - parametrized signal merge
   - metro.choice - randomly (uniformly) metronome time interval choice from specified set
@@ -48,6 +54,7 @@
   - route.cycle - advanced cyclic message router
   - split~ - multichannel signal splitter
   - synth.metro~ - metronome synth with complex pattern support
+  - ui.cmeter~ - Multichannel circular peak and rms signal meter
 - new object inlets:
   - dyn.gate~, dyn.gate2~ - second inlet added for setting threshold
   - flt.bpf12~: second and third inlet added for setting freq and q-factor
@@ -63,22 +70,22 @@
   - dyn.comp~ - second outlet added for compression level output
   - list.map - second outlet added for missing keys
 - new object methods:
-  - euclid method added to ui.radio to set euclid pattern when in checklist mode
-  - hexbeat method added to ui.radio to set hexbeat pattern when in checklist mode
-  - rotate method added to ui.radio: rotation to the left in checklist mode
-  - cellsize method added to ui.radio: resize widget by specifying cell size
-  - ssml method added to speech.rhvoice~: support for SSML text markup
-  - read method added to speech.rhvoice~: read text from files
-  - notes_off method added to proto.midi
-  - sound_off method added to proto.midi
-  - panic method added to proto.midi
   - brown, pink, white, blue and velvet methods added to noise.colored~
+  - cellsize method added to ui.radio: resize widget by specifying cell size
   - div added to live.capture~ to subdivide loop length while running
-  - proto.midi.cc - new portament method added
+  - euclid method added to ui.radio to set euclid pattern when in checklist mode
   - hexbeat and skip added to seq.bangs
-  - save to snd.file
-  - speed to synth.glitch~ to set global synth speed
+  - hexbeat method added to ui.radio to set hexbeat pattern when in checklist mode
+  - notes_off method added to proto.midi
+  - panic method added to proto.midi
+  - proto.midi.cc - new portament method added
+  - read method added to speech.rhvoice~: read text from files
   - read, write added to lang.faust~ and ui.faust~
+  - rotate method added to ui.radio: rotation to the left in checklist mode
+  - save to snd.file
+  - sound_off method added to proto.midi
+  - speed to synth.glitch~ to set global synth speed
+  - ssml method added to speech.rhvoice~: support for SSML text markup
 - new object properties:
   - @punct added to rhvoice~, to specify pronounced characters
   - @bypass added to dyn.comp~ and dyn.comp2~
@@ -91,6 +98,9 @@
   - @accel and @curve added to seq.nbangs for accelerated sequences
   - @div added to seq.nbangs, seq.matrix, seq.bangs, seq.toggles and sequencer for beat division
   - @def added to list.map for replacing missing keys with default values
+  - @min, @max added to ui.incdec
+  - @display_only property added to ui.number
+  - @attack, @sustain, @release added to live.capture~
 - new init argument functions:
   - hexbeat(HEX) - expand hex to list of 1 and 0
   - ones(N) - list of length N, filled with 1
@@ -118,6 +128,12 @@
 - proto.midi - second outlet added, it outputs parsed messages
 - ui.faust~ and lang.faust~ now save their source code inside the patch
 - @fname property renamed to @load in ui.faust~ and lang.faust~ and made initonly
+- fx.recho~ max delay time increased to 4000ms
+- in all faust plugin when @active is 0, object output zero signal 
+    (previous behaivor was more complicated: when NINS != NOUTS filled with zeros, otherwise passed thru)
+- tl.timeline: output list changed and fix error in doc, now outputs EVENT_IDX, EVENT_NAME, EVENT_TIME
+- properties removed:
+  - @fade property removed from live.capture~
 
 ### Fixed:
 - proto.midi.cc - sound_off, notes_off crash fixes

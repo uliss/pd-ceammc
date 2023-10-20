@@ -1,0 +1,65 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="convolve~">
+        <title>convolve~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>realtime FFT convolution</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>base</category>
+            <keywords>fft convolution IR impulse response</keywords>
+            <since>0.9.7</since>
+            <aliases>
+                <alias>ceammc/convolve~</alias>
+            </aliases>
+        </meta>
+        <properties>
+            <property name="@offset" type="int" default="0" minvalue="0" units="sample">impulse
+            response (IR) offset</property>
+            <property name="@maxsize" type="int" default="50000" maxvalue="300000" units="sample"
+            minvalue="0">max impulse response size</property>
+            <property name="@norm" type="bool" default="1">normalize impulse response</property>
+        </properties>
+        <methods>
+            <!-- load_file -->
+            <method name="load_file">load IR from specified file (resamples if required from file
+            samplerate to runtime samplerate) 
+            <param name="FILE" type="atom" required="true">file name, relative or
+            absolute</param></method>
+            <!-- load_array -->
+            <method name="load_array">load IR from array 
+            <param name="ARRAY" type="symbol" required="true">array name</param></method>
+            <!-- set -->
+            <method name="set">set IR from list 
+            <param name="LIST" type="float" required="true">IR data</param></method>
+        </methods>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[open %CEAMMC%/guitar1.wav, 1(
+|
+[expand_env]
+|
+[readsf~]  [msg.onload load_file ir/ir_church1_wide.wav]
+|          |
+[convolve~ ]    [ui.dsp~]
+|
+[ui.hgain~]
+|\
+[dac~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -895,7 +895,7 @@ void UIMatrix::updateCellsCoords()
 
 void UIMatrix::onPropChange(t_symbol* prop_name)
 {
-    if (prop_name == s_size)
+    if (prop_name == sym::props::sym_name_size())
         updateCellsCoords();
     else
         UIObject::onPropChange(prop_name);

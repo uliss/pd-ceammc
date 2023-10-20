@@ -20,7 +20,8 @@
             </aliases>
         </meta>
         <info>
-            <par>The graphical user interface that facilitates the control of processing in the plane wave domain.</par>
+            <par>The graphical user interface that facilitates the control of processing in the
+            plane wave domain.</par>
             <a href="hoa/hoa.2d.space-help.pd">CICM documentation</a>
         </info>
         <arguments>
@@ -40,8 +41,10 @@
         <properties>
             <property name="@min" type="float" default="0">minimum amp value</property>
             <property name="@max" type="float" default="1">maximum amp value</property>
-            <property name="@nch" type="int" minvalue="1" maxvalue="128" default="4">number of channels</property>
-            <property name="@sp_color" type="list" default=" 0.27 0.43 0.54 1">space color</property>
+            <property name="@nch" type="int" minvalue="1" maxvalue="128" default="4">number of
+            channels</property>
+            <property name="@sp_color" type="list" default="0.27 0.43 0.54 1">space
+            color</property>
             <property name="@pt_color" type="list" default="0 0 0 1">point color</property>
             <!-- common-->
             <property name="@size" type="list" default="120 120">element size (width, height
@@ -90,13 +93,13 @@
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
             <!-- presets -->
-            <method name="load" category="preset">loads specified preset
+            <method name="load" category="preset">loads specified preset 
             <param name="IDX" type="int" required="true">preset index</param></method>
-            <method name="store" category="preset">stores specified preset
+            <method name="store" category="preset">stores specified preset 
             <param name="IDX" type="int" required="true">preset index</param></method>
-            <method name="clear" category="preset">clears specified preset
+            <method name="clear" category="preset">clears specified preset 
             <param name="IDX" type="int" required="true">preset index</param></method>
-            <method name="interp">interplolates between presets
+            <method name="interp">interplolates between presets 
             <param name="IDX" type="float" required="true">preset fraction index</param></method>
         </methods>
         <inlets>

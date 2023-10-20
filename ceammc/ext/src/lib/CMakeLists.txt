@@ -28,6 +28,7 @@ include(tcl_autogen)
 add_custom_target(ceammc_lib_tcl SOURCES)
 tcl_autogen_header(tcl/ceammc_tooltips.tcl TARGET ceammc_core SOURCES ceammc_lib_tcl)
 tcl_autogen_header(tcl/ceammc_texteditor.tcl TARGET ceammc_core SOURCES ceammc_lib_tcl)
+tcl_autogen_header(tcl/ceammc_tableeditor.tcl TARGET ceammc_core SOURCES ceammc_lib_tcl)
 target_include_directories(ceammc_core PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/tcl)
 
 set(CEAMMC_LIB_SOURCES
@@ -118,6 +119,7 @@ set(CEAMMC_LIB_SOURCES
     ceammc_soxr_resampler.cpp
     ceammc_string.cpp
     ceammc_string_split.cpp
+    ceammc_table_editor.cpp
     ceammc_thread.cpp
     ceammc_timeline.cpp
     ceammc_transport.cpp
@@ -206,6 +208,12 @@ if(RAGEL_FOUND)
     RAGEL_TARGET(ragel_music
         lex/ragel_music.rl lex/ragel_music.cpp
         COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_timeline
+        lex/parser_timeline.rl lex/parser_timeline.cpp
+        COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_ui_bind
+        lex/parser_ui_bind.rl lex/parser_ui_bind.cpp
+        COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(ceammc_editor_unescape
         ceammc_editor_unescape.rl ceammc_editor_unescape.cpp
         COMPILE_FLAGS "-G2 -s")
@@ -237,6 +245,8 @@ target_sources(ceammc_core
         lex/parser_props.cpp
         lex/parser_props_details.cpp
         lex/parser_strings.cpp
+        lex/parser_timeline.cpp
+        lex/parser_ui_bind.cpp
         lex/parser_units.cpp
         lex/ragel_music.cpp
 )

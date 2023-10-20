@@ -267,7 +267,16 @@ bool HoaProcessProps::processAnyProps(t_symbol* sel, const AtomListView& lv)
 
 void HoaProcessProps::onBang()
 {
-    bangTo(0);
+    AtomArray<3> hoa_args;
+    hoa_args[0] = args_.order;
+    if (args_.mode->s_name[0] == 'h') { // harmonics
+        hoa_args[1] = args_.harm_degree;
+        hoa_args[2] = args_.harm_order;
+    } else {
+        hoa_args[1] = args_.index;
+        hoa_args[2] = args_.index;
+    }
+    listTo(0, hoa_args.view());
 }
 
 void HoaProcessProps::onFloat(t_float f)

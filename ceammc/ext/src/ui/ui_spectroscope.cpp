@@ -460,7 +460,7 @@ void UISpectroscope::setup()
     obj.addAlias("ui.ssc~");
     obj.setDefaultSize(150, 100);
 
-    obj.addColorProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UISpectroscope::prop_color_active);
+    obj.addColorProperty(sym::props::name_active_color, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UISpectroscope::prop_color_active);
     obj.addColorProperty("scale_color", _("Scale Color"), "0.6 0.6 0.6 1", &UISpectroscope::prop_color_scale);
     obj.addIntProperty("refresh", _("Refresh time (ms)"), 100, &UISpectroscope::prop_refresh, "Main");
     obj.setPropertyRange("refresh", 20, 1000);

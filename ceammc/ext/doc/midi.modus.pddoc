@@ -14,7 +14,9 @@
             <since>0.9.5</since>
         </meta>
         <arguments>
-            <argument name="ROOT" type="atom">root key</argument>
+            <argument name="ROOT" type="atom"
+            enum="A A# A## Ab Abb B B# B## Bb Bbb C C# C## Cb Cbb D D# D## Db Dbb E E# E## Eb Ebb F F# F## Fb Fbb G G# G## Gb Gbb">
+            root key</argument>
             <argument name="SCALE" type="symbol">modus scale</argument>
         </arguments>
         <properties>

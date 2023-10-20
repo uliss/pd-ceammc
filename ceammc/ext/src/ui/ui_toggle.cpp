@@ -205,7 +205,7 @@ void UIToggle::setup()
 
     obj.addMethod("set", &UIToggle::m_set);
 
-    obj.addProperty("active_color", _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIToggle::prop_color_active);
+    obj.addProperty(sym::props::name_active_color, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIToggle::prop_color_active);
     obj.addProperty("value", &UIToggle::value, &UIToggle::setValue);
     obj.setPropertyDefaultValue("value", "0");
 

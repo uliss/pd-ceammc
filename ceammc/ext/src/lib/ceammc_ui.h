@@ -6,8 +6,8 @@
 #include "ceammc_externals.h"
 #include "ceammc_log.h"
 #include "ceammc_object_info.h"
-#include "ceammc_syms.h"
 #include "ceammc_ui_object.h"
+#include "ceammc_ui_symbols.h"
 
 #include <stdexcept>
 #include <string>
@@ -25,14 +25,6 @@ constexpr const char* DEFAULT_BORDER_COLOR = "0.6 0.6 0.6 1.";
 constexpr const char* DEFAULT_BACKGROUND_COLOR = "0.93 0.93 0.93 1.";
 constexpr const char* DEFAULT_TEXT_COLOR = "0. 0. 0. 1.";
 constexpr const char* DEFAULT_LABEL_COLOR = "0. 0. 0. 1.";
-
-constexpr const char* PROP_ACTIVE_COLOR = "active_color";
-constexpr const char* PROP_BACKGROUND_COLOR = "background_color";
-constexpr const char* PROP_BORDER_COLOR = "border_color";
-constexpr const char* PROP_TEXT_COLOR = "text_color";
-constexpr const char* PROP_LABEL_COLOR = "label_color";
-
-constexpr const char* PROP_PRESET_NAME = "presetname";
 
 //! Gettext extract message helper
 #ifndef _
@@ -196,31 +188,37 @@ public:
     template <typename X = void>
     typename std::enable_if<isDSPObject::value, X>::type setupMethods()
     {
+        using namespace ceammc::sym::methods;
+
         // clang-format off
-        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(dsp),           str_dsp,           A_NULL,  0);
-        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(paint),         str_paint,         A_GIMME, 0);
-        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(notify),        str_notify,        A_GIMME,  0);
-        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(okSize),        str_oksize,        A_GIMME,  0);
-        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(onZoom),        str_onzoom,        A_GIMME,  0);
-        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(setDrawParams), str_getdrawparams, A_NULL, 0);
+        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(dsp),           sym_dsp(),           A_NULL,  0);
+        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(paint),         sym_paint(),         A_GIMME, 0);
+        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(notify),        sym_notify(),        A_GIMME,  0);
+        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(okSize),        sym_oksize(),        A_GIMME,  0);
+        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(onZoom),        sym_onzoom(),        A_GIMME,  0);
+        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(setDrawParams), sym_getdrawparams(), A_NULL, 0);
         // clang-format on
     }
 
     template <typename X = void>
     typename std::enable_if<isControlObject::value, X>::type setupMethods()
     {
+        using namespace ceammc::sym::methods;
+
         // clang-format off
-        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(paint),         str_paint,         A_GIMME, 0);
-        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(notify),        str_notify,        A_GIMME,  0);
-        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(okSize),        str_oksize,        A_GIMME,  0);
-        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(onZoom),        str_onzoom,        A_GIMME,  0);
-        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(setDrawParams), str_getdrawparams, A_NULL, 0);
+        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(paint),         sym_paint(),         A_GIMME, 0);
+        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(notify),        sym_notify(),        A_GIMME,  0);
+        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(okSize),        sym_oksize(),        A_GIMME,  0);
+        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(onZoom),        sym_onzoom(),        A_GIMME,  0);
+        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(setDrawParams), sym_getdrawparams(), A_NULL, 0);
         // clang-format on
     }
 
     static void dsp(UI* z, t_object* dsp,
         short* count, double samplerate, long maxvectorsize, long flags)
     {
+        using namespace ceammc::sym::methods;
+
         z->dspOn(samplerate, maxvectorsize);
         object_method(dsp, sym_dsp_add(), z, UI_METHOD_PTR(dspProcess), 0, NULL);
     }
@@ -235,35 +233,38 @@ public:
 
     void setupAttributes()
     {
-        hideProperty("fontweight");
-        hideProperty("fontslant");
+        using namespace ceammc::sym;
+
+        hideProperty(props::name_fontweight);
+        hideProperty(props::name_fontslant);
 
         // clang-format off
         // background / border color
-        addProperty(PROP_BACKGROUND_COLOR,
+        addProperty(props::name_background_color,
                     _("Background Color"),
                     DEFAULT_BACKGROUND_COLOR,
                     &UI::prop_color_background);
 
-        addProperty(PROP_BORDER_COLOR,
+        addProperty(props::name_border_color,
                     _("Border Color"),
                     DEFAULT_BORDER_COLOR,
                     &UI::prop_color_border);
 
-        addProperty(PROP_LABEL_COLOR,
+        addProperty(props::name_label_color,
                     _("Label Color"),
                     DEFAULT_LABEL_COLOR,
                     &UI::prop_color_label);
 
         // default
-        CLASS_ATTR_DEFAULT              (pd_ui_class, str_size, "45. 15.");
+        CLASS_ATTR_DEFAULT              (pd_ui_class, props::name_size, "45. 15.");
         // clang-format on
     }
 
     void usePresets()
     {
-        // clang-format off
+        using namespace ceammc::sym;
 
+        // clang-format off
         UIObjectFactory::use_presets = true;
 
         eclass_addmethod(pd_ui_class, UI_METHOD_PTR(loadPreset),      "load",          A_GIMME,  0);
@@ -271,18 +272,19 @@ public:
         eclass_addmethod(pd_ui_class, UI_METHOD_PTR(storePreset),     "store",         A_GIMME,  0);
         eclass_addmethod(pd_ui_class, UI_METHOD_PTR(clearPreset),     "clear",         A_GIMME,  0);
 
-        CLASS_ATTR_SYMBOL   (pd_ui_class, PROP_PRESET_NAME, t_ebox, b_objpreset_id);
-        CLASS_ATTR_DEFAULT  (pd_ui_class, PROP_PRESET_NAME,  "(null)");
-        CLASS_ATTR_SAVE     (pd_ui_class, PROP_PRESET_NAME);
-        CLASS_ATTR_CATEGORY (pd_ui_class, PROP_PRESET_NAME, _("Basic"));
-        CLASS_ATTR_LABEL    (pd_ui_class, PROP_PRESET_NAME, _("Preset Name"));
-        CLASS_ATTR_ACCESSORS(pd_ui_class, PROP_PRESET_NAME, nullptr, ebox_set_presetid);
-
+        CLASS_ATTR_SYMBOL   (pd_ui_class, props::name_presetname, t_ebox, b_objpreset_id);
+        CLASS_ATTR_DEFAULT  (pd_ui_class, props::name_presetname,  str_null);
+        CLASS_ATTR_SAVE     (pd_ui_class, props::name_presetname);
+        CLASS_ATTR_CATEGORY (pd_ui_class, props::name_presetname, _("Basic"));
+        CLASS_ATTR_LABEL    (pd_ui_class, props::name_presetname, _("Preset Name"));
+        CLASS_ATTR_ACCESSORS(pd_ui_class, props::name_presetname, nullptr, ebox_set_presetid);
         // clang-format on
     }
 
     void usePopup()
     {
+        using namespace ceammc::sym::methods;
+
         // clang-format off
         eclass_addmethod(pd_ui_class, UI_METHOD_PTR(showPopup),      str_rightclick,    A_GIMME, 0);
         eclass_addmethod(pd_ui_class, UI_METHOD_PTR(processPopup),   str_popup,         A_GIMME, 0);
@@ -329,6 +331,8 @@ public:
 
     void useMouseEvents(int events)
     {
+        using namespace ceammc::sym::methods;
+
         if (events & UI_MOUSE_DOWN)
             eclass_addmethod(pd_ui_class, UI_METHOD_PTR(mouseDown), str_mousedown, A_GIMME, 0);
 
@@ -363,44 +367,53 @@ public:
 
     void useKeys()
     {
+        using namespace ceammc::sym::methods;
+
         eclass_addmethod(pd_ui_class, UI_METHOD_PTR(key), str_key, A_GIMME, 0);
         eclass_addmethod(pd_ui_class, UI_METHOD_PTR(keyFilter), str_keyfilter, A_GIMME, 0);
     }
 
     void useBang()
     {
+        using namespace ceammc::sym;
         eclass_addmethod(pd_ui_class, UI_METHOD_PTR(onBang), str_bang, A_GIMME, 0);
     }
 
     void useFloat()
     {
+        using namespace ceammc::sym;
         eclass_addmethod(pd_ui_class, UI_METHOD_PTR(onFloat), str_float, A_FLOAT, 0);
     }
 
     void useSymbol()
     {
+        using namespace ceammc::sym;
         eclass_addmethod(pd_ui_class, UI_METHOD_PTR(onSymbol), str_symbol, A_SYMBOL, 0);
     }
 
     void useList()
     {
+        using namespace ceammc::sym;
         eclass_addmethod(pd_ui_class, UI_METHOD_PTR(onList), str_list, A_GIMME, 0);
     }
 
     void useAny()
     {
+        using namespace ceammc::sym;
         eclass_addmethod(pd_ui_class, UI_METHOD_PTR(onAny), str_anything, A_GIMME, 0);
     }
 
     void useData()
     {
+        using namespace ceammc::sym;
         eclass_addmethod(pd_ui_class, UI_METHOD_PTR(onData), str_list, A_GIMME, 0);
     }
 
     void useDrawCallbacks()
     {
-        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(create), STR_WIDGET_CREATE, A_CANT, 0);
-        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(erase), STR_WIDGET_ERASE, A_CANT, 0);
+        using namespace ceammc::sym::methods;
+        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(create), str_widget_create, A_CANT, 0);
+        eclass_addmethod(pd_ui_class, UI_METHOD_PTR(erase), str_widget_erase, A_CANT, 0);
     }
 
     void useAnnotations()
@@ -451,7 +464,8 @@ public:
      */
     void addBoolProperty(const char* name, const char* label, bool def, int UI::*m, const char* category = "Misc")
     {
-        eclass_new_attr_typed(pd_ui_class, name, "int", 1, 0, offset(m));
+        using namespace ceammc::sym;
+        eclass_new_attr_typed(pd_ui_class, name, str_int, 1, 0, offset(m));
         eclass_attr_label(pd_ui_class, name, label);
         eclass_attr_save(pd_ui_class, name);
         eclass_attr_paint(pd_ui_class, name);
@@ -470,13 +484,14 @@ public:
      */
     void addFloatProperty(const char* name, const char* label, t_float def, t_float UI::*m, const char* category = "Misc")
     {
+        using namespace ceammc::sym;
         char buf[32];
         snprintf(buf, sizeof(buf) - 1, "%g", def);
 
         if (std::is_same<t_float, float>::value)
-            eclass_new_attr_typed(pd_ui_class, name, "float", 1, 0, offset(m));
+            eclass_new_attr_typed(pd_ui_class, name, str_float, 1, 0, offset(m));
         else if (std::is_same<t_float, double>::value)
-            eclass_new_attr_typed(pd_ui_class, name, "double", 1, 0, offset(m));
+            eclass_new_attr_typed(pd_ui_class, name, str_double, 1, 0, offset(m));
 
         eclass_attr_label(pd_ui_class, name, label);
         eclass_attr_save(pd_ui_class, name);
@@ -489,10 +504,11 @@ public:
     template <size_t N>
     void addFloatArrayProperty(const char* name, const char* label, const char* def, t_float (UI::*m)[N], const char* category = "Misc")
     {
+        using namespace ceammc::sym;
         if (std::is_same<t_float, float>::value)
-            eclass_new_attr_typed(pd_ui_class, name, "float", N, 0, offset(m));
+            eclass_new_attr_typed(pd_ui_class, name, str_float, N, 0, offset(m));
         else if (std::is_same<t_float, double>::value)
-            eclass_new_attr_typed(pd_ui_class, name, "double", N, 0, offset(m));
+            eclass_new_attr_typed(pd_ui_class, name, str_double, N, 0, offset(m));
 
         eclass_attr_label(pd_ui_class, name, label);
         eclass_attr_save(pd_ui_class, name);
@@ -512,10 +528,11 @@ public:
      */
     void addIntProperty(const char* name, const char* label, int def, int UI::*m, const char* category = "Misc")
     {
+        using namespace ceammc::sym;
         char buf[32];
         snprintf(buf, sizeof(buf) - 1, "%d", def);
 
-        eclass_new_attr_typed(pd_ui_class, name, "int", 1, 0, offset(m));
+        eclass_new_attr_typed(pd_ui_class, name, str_int, 1, 0, offset(m));
         eclass_attr_label(pd_ui_class, name, label);
         eclass_attr_save(pd_ui_class, name);
         eclass_attr_paint(pd_ui_class, name);
@@ -544,7 +561,8 @@ public:
         const char* def, t_symbol* UI::*m,
         const char* items, const char* cat = "Misc")
     {
-        eclass_new_attr_typed(pd_ui_class, name, "symbol", 1, 0, offset(m));
+        using namespace ceammc::sym;
+        eclass_new_attr_typed(pd_ui_class, name, str_symbol, 1, 0, offset(m));
         eclass_attr_label(pd_ui_class, name, label);
         eclass_attr_save(pd_ui_class, name);
         eclass_attr_paint(pd_ui_class, name);
@@ -563,7 +581,8 @@ public:
      */
     void addColorProperty(const char* name, const char* label, const char* def, t_rgba UI::*m)
     {
-        eclass_new_attr_typed(pd_ui_class, name, "float", 4, 0, offset(m));
+        using namespace ceammc::sym;
+        eclass_new_attr_typed(pd_ui_class, name, str_float, 4, 0, offset(m));
         eclass_attr_label(pd_ui_class, name, label);
         eclass_attr_save(pd_ui_class, name);
         eclass_attr_paint(pd_ui_class, name);
@@ -579,14 +598,15 @@ public:
      * @param def - default value
      */
     void addVirtualProperty(const char* name, const char* label, const char* def,
-        AtomList (UI::*getter)() const, void (UI::*setter)(const AtomListView&))
+        AtomList (UI::*getter)() const, void (UI::*setter)(const AtomListView&), const char* category = "Misc")
     {
-        eclass_new_attr_typed(pd_ui_class, name, "symbol", 1, 0, 0);
+        eclass_new_attr_typed(pd_ui_class, name, "atom", 1, 0, 0);
         eclass_attr_label(pd_ui_class, name, label);
         eclass_attr_save(pd_ui_class, name);
         eclass_attr_paint(pd_ui_class, name);
         eclass_attr_default(pd_ui_class, name, def);
         eclass_attr_accessor(pd_ui_class, name, listPropGetter, listPropSetter);
+        eclass_attr_category(pd_ui_class, name, category);
         prop_list_map[gensym(name)] = std::make_pair(getter, setter);
     }
 
@@ -615,7 +635,8 @@ public:
         t_int (UI::*getter)() const,
         void (UI::*setter)(t_int))
     {
-        eclass_new_attr_typed(pd_ui_class, name, "int", 1, 0, 0);
+        using namespace ceammc::sym;
+        eclass_new_attr_typed(pd_ui_class, name, str_int, 1, 0, 0);
         hideProperty(name);
         setPropertyAccessor(name, getter, setter);
     }
@@ -630,17 +651,19 @@ public:
         AtomList (UI::*getter)() const,
         void (UI::*setter)(const AtomList&))
     {
-        eclass_new_attr_typed(pd_ui_class, name, "atom", 1, 0, 0);
+        using namespace ceammc::sym;
+        eclass_new_attr_typed(pd_ui_class, name, str_atom, 1, 0, 0);
         hideProperty(name);
         setPropertyAccessor(name, getter, setter);
     }
 
     void addProperty(const char* name, const char* label, int def, int UI::*m, const char* category = "Misc")
     {
+        using namespace ceammc::sym;
         char buf[32];
         snprintf(buf, 30, "%d", def);
 
-        eclass_new_attr_typed(pd_ui_class, name, "int", 1, 0, offset(m));
+        eclass_new_attr_typed(pd_ui_class, name, str_int, 1, 0, offset(m));
         eclass_attr_label(pd_ui_class, name, label);
         eclass_attr_save(pd_ui_class, name);
         eclass_attr_paint(pd_ui_class, name);
@@ -651,7 +674,8 @@ public:
 
     void addProperty(const char* name, const char* label, bool def, int UI::*m, const char* category = "Misc")
     {
-        eclass_new_attr_typed(pd_ui_class, name, "int", 1, 0, offset(m));
+        using namespace ceammc::sym;
+        eclass_new_attr_typed(pd_ui_class, name, str_int, 1, 0, offset(m));
         eclass_attr_label(pd_ui_class, name, label);
         eclass_attr_save(pd_ui_class, name);
         eclass_attr_paint(pd_ui_class, name);
@@ -662,6 +686,7 @@ public:
 
     void addProperty(const char* name, const char* label, const char* def, t_rgba UI::*m)
     {
+        using namespace ceammc::sym;
         eclass_new_attr_typed(pd_ui_class, name, "float", 4, 0, offset(m));
         eclass_attr_label(pd_ui_class, name, label);
         eclass_attr_save(pd_ui_class, name);
@@ -677,6 +702,7 @@ public:
         t_symbol* UI::*m,
         const char* category = "Misc")
     {
+        using namespace ceammc::sym;
         eclass_new_attr_typed(pd_ui_class, name, "symbol", 1, 0, offset(m));
         eclass_attr_label(pd_ui_class, name, label);
         eclass_attr_save(pd_ui_class, name);
@@ -692,6 +718,7 @@ public:
         t_symbol* UI::*m,
         const char* category = "Misc")
     {
+        using namespace ceammc::sym;
         eclass_new_attr_typed(pd_ui_class, name, "symbol", 1, 0, offset(m));
         eclass_attr_label(pd_ui_class, name, label);
         eclass_attr_save(pd_ui_class, name);
@@ -759,10 +786,11 @@ public:
 
     void setDefaultSize(int w, int h)
     {
+        using namespace ceammc::sym;
         char buf[32];
         snprintf(buf, 30, "%d. %d.", w, h);
 
-        CLASS_ATTR_DEFAULT(pd_ui_class, str_size, buf);
+        CLASS_ATTR_DEFAULT(pd_ui_class, props::name_size, buf);
     }
 
     void setPropertyCategory(const char* name, const char* cat_name)
@@ -772,7 +800,8 @@ public:
 
     void addProperty(const char* name, propBoolGet getter, propBoolSet setter = nullptr)
     {
-        eclass_new_attr_typed(pd_ui_class, name, "int", 1, 1, 0);
+        using namespace ceammc::sym;
+        eclass_new_attr_typed(pd_ui_class, name, str_int, 1, 1, 0);
         eclass_attr_style(pd_ui_class, name, str_checkbutton);
         hideProperty(name);
         setPropertyAccessor(name, getter, setter);
@@ -780,21 +809,24 @@ public:
 
     void addProperty(const char* name, propIntGet getter, propIntSet setter = nullptr)
     {
-        eclass_new_attr_typed(pd_ui_class, name, "int", 1, 1, 0);
+        using namespace ceammc::sym;
+        eclass_new_attr_typed(pd_ui_class, name, str_int, 1, 1, 0);
         hideProperty(name);
         setPropertyAccessor(name, getter, setter);
     }
 
     void addProperty(const char* name, propFloatGet getter, propFloatSet setter = nullptr)
     {
-        eclass_new_attr_typed(pd_ui_class, name, "float", 1, 1, 0);
+        using namespace ceammc::sym;
+        eclass_new_attr_typed(pd_ui_class, name, str_float, 1, 1, 0);
         hideProperty(name);
         setPropertyAccessor(name, getter, setter);
     }
 
     void addProperty(const char* name, propSymbolGet getter, propSymbolSet setter = nullptr)
     {
-        eclass_new_attr_typed(pd_ui_class, name, "symbol", 1, 1, 0);
+        using namespace ceammc::sym;
+        eclass_new_attr_typed(pd_ui_class, name, str_symbol, 1, 1, 0);
         eclass_attr_style(pd_ui_class, name, str_entry);
         hideProperty(name);
         setPropertyAccessor(name, getter, setter);
@@ -802,14 +834,16 @@ public:
 
     void addProperty(const char* name, propAtomGet getter, propAtomSet setter = nullptr)
     {
-        eclass_new_attr_typed(pd_ui_class, name, "atom", 1, 1, 0);
+        using namespace ceammc::sym;
+        eclass_new_attr_typed(pd_ui_class, name, str_atom, 1, 1, 0);
         hideProperty(name);
         setPropertyAccessor(name, getter, setter);
     }
 
     void addProperty(const char* name, propListGet getter, propListSet setter = nullptr)
     {
-        eclass_new_attr_typed(pd_ui_class, name, "atom", 1, 0, 0);
+        using namespace ceammc::sym;
+        eclass_new_attr_typed(pd_ui_class, name, str_atom, 1, 0, 0);
         hideProperty(name);
         setPropertyAccessor(name, getter, setter);
     }
@@ -818,7 +852,8 @@ public:
         const char* def, t_symbol* UI::*m,
         const char* items, const char* cat = "Misc")
     {
-        eclass_new_attr_typed(pd_ui_class, name, "symbol", 1, 0, offset(m));
+        using namespace ceammc::sym;
+        eclass_new_attr_typed(pd_ui_class, name, str_symbol, 1, 0, offset(m));
         eclass_attr_label(pd_ui_class, name, label);
         eclass_attr_save(pd_ui_class, name);
         eclass_attr_paint(pd_ui_class, name);
@@ -832,7 +867,8 @@ public:
         const char* def, int UI::*m,
         const char* items, const char* cat = "Misc")
     {
-        eclass_new_attr_typed(pd_ui_class, name, "int", 1, 0, offset(m));
+        using namespace ceammc::sym;
+        eclass_new_attr_typed(pd_ui_class, name, str_int, 1, 0, offset(m));
         eclass_attr_label(pd_ui_class, name, label);
         eclass_attr_save(pd_ui_class, name);
         eclass_attr_paint(pd_ui_class, name);
@@ -1045,10 +1081,11 @@ public:
 
     static void notify(void* x, t_symbol* prop_name, t_symbol* action_name)
     {
+        using namespace ceammc::sym;
         auto* z = static_cast<UI*>(x);
 
-        if (action_name == s_attr_modified) {
-            if (use_presets && prop_name == gensym(PROP_PRESET_NAME))
+        if (action_name == sym_attr_modified()) {
+            if (use_presets && prop_name == props::sym_name_presetname())
                 z->handlePresetNameChange();
 
             z->onPropChange(prop_name);

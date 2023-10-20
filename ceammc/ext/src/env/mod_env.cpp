@@ -12,6 +12,7 @@
 extern void setup_env_adsr_tilde();
 extern void setup_env_ar_tilde();
 extern void setup_env_asr_tilde();
+extern void setup_env_asr2_tilde();
 extern void setup_env_follow_tilde();
 extern void setup_env_smooth_tilde();
 
@@ -20,6 +21,7 @@ void ceammc_env_setup()
     setup_env_adsr_tilde();
     setup_env_ar_tilde();
     setup_env_asr_tilde();
+    setup_env_asr2_tilde();
     setup_env_concat();
     setup_env_follow_tilde();
     setup_env_mix();

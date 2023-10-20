@@ -12,7 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "tl_eventlist.h"
-#include "ceammc_format.h"
 #include "ceammc_log.h"
 
 #include <algorithm>
@@ -23,6 +22,58 @@ using namespace ceammc::tl;
 #define TL_ERR ceammc::LIB_ERR << "[tl] "
 #define TL_DBG ceammc::LIB_DBG << "[tl] "
 
+Event::Event(Event&& ev)
+    : abs_time(ev.abs_time)
+    , next_time(ev.next_time)
+    , rel_time(ev.rel_time)
+    , name(ev.name)
+    , rel_name(ev.rel_name)
+    , data(std::move(ev.data))
+    , num_refs(ev.num_refs)
+    , mode(ev.mode)
+    , type(ev.type)
+{
+}
+
+Event& Event::operator=(Event&& ev)
+{
+    if (&ev == this)
+        return *this;
+
+    abs_time = ev.abs_time;
+    next_time = ev.next_time;
+    rel_time = ev.rel_time;
+    name = ev.name;
+    rel_name = ev.rel_name;
+    data = std::move(ev.data);
+    num_refs = ev.num_refs;
+    mode = ev.mode;
+    type = ev.type;
+    return *this;
+}
+
+Event& Event::operator=(const Event& ev)
+{
+    if (&ev == this)
+        return *this;
+
+    abs_time = ev.abs_time;
+    next_time = ev.next_time;
+    rel_time = ev.rel_time;
+    name = ev.name;
+    rel_name = ev.rel_name;
+    num_refs = ev.num_refs;
+    mode = ev.mode;
+    type = ev.type;
+
+    if (ev.data)
+        data.reset(new EventData(*ev.data));
+    else
+        data.reset();
+
+    return *this;
+}
+
 Event::Event(double absTime, t_symbol* name)
     : abs_time(absTime)
     , next_time(absTime)
@@ -30,14 +81,28 @@ Event::Event(double absTime, t_symbol* name)
     , name(name)
     , rel_name(&s_)
     , num_refs(0)
-    , type(EVENT_ABSOLUTE)
+    , mode(EVENT_ABSOLUTE)
 {
+}
+
+Event::Event(const Event& ev)
+    : abs_time(ev.abs_time)
+    , next_time(ev.next_time)
+    , rel_time(ev.rel_time)
+    , name(ev.name)
+    , rel_name(ev.rel_name)
+    , num_refs(ev.num_refs)
+    , mode(ev.mode)
+    , type(ev.type)
+{
+    if (ev.data)
+        data.reset(new EventData(*ev.data));
 }
 
 Event Event::relEvent(t_symbol* name, double time, t_symbol* target)
 {
     Event res(0, name);
-    res.type = EVENT_RELATIVE;
+    res.mode = EVENT_RELATIVE;
     res.rel_time = time;
     res.rel_name = target;
     return res;
@@ -114,7 +179,7 @@ bool EventList::removeAtPos(long pos)
     }
 
     // fix ref count
-    if (ev.type == EVENT_RELATIVE) {
+    if (ev.mode == EVENT_RELATIVE) {
         auto it = findByName(ev.rel_name);
         if (it != vec_.end())
             it->num_refs--;
@@ -157,7 +222,7 @@ long EventList::addRelEvent(const Event& ev)
         return -1;
     }
 
-    if (it->type != EVENT_ABSOLUTE) {
+    if (it->mode != EVENT_ABSOLUTE) {
         std::cerr << "only asbolute events allowed as target";
         return -1;
     }
@@ -192,7 +257,7 @@ void EventList::calcRelEvents()
 {
     // calc rel times
     for (auto& ev : vec_) {
-        if (ev.type == EVENT_RELATIVE) {
+        if (ev.mode == EVENT_RELATIVE) {
             t_symbol* owner_name = ev.rel_name;
 
             // find owner
@@ -203,7 +268,7 @@ void EventList::calcRelEvents()
                 break;
             }
 
-            if (it->type != EVENT_ABSOLUTE) {
+            if (it->mode != EVENT_ABSOLUTE) {
                 std::cerr << "not absolute event as owner for: " << ev.name << " at " << ev.abs_time;
                 break;
             }
@@ -262,7 +327,7 @@ std::ostream& ceammc::tl::operator<<(std::ostream& os, const Event& ev)
        << "     rel: " << ev.rel_time << "\n"
        << "    name: " << ev.name << "\n"
        << " relname: " << ev.rel_name << "\n"
-       << "    type: " << ev.type << "\n"
+       << "    mode: " << ev.mode << "\n"
        << "   nrefs: " << ev.num_refs << "\n";
 
     return os;

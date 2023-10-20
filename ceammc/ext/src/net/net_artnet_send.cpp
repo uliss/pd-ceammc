@@ -1,6 +1,5 @@
 #include "net_artnet_send.h"
 #include "artnet/artnet.h"
-#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_platform.h"
 #include "fmt/core.h"
@@ -11,6 +10,10 @@
 #include <future>
 
 using namespace ceammc::net;
+
+constexpr const char* DEFAULT_ARTNET_SHORT_NAME = "pd-ArtNet";
+constexpr const char* DEFAULT_ARTNET_FULL_NAME = "PureData ceammc ArtNet node";
+constexpr int DEFAULT_BCAST_LIMIT = 0;
 
 ArtNetCommand::ArtNetCommand()
     : cmd(ARTNET_CMD_NONE)
@@ -49,7 +52,7 @@ using ArtnetPtr = std::unique_ptr<void, int (*)(void*)>;
 
 ArtnetPtr make_artnet(const char* ip)
 {
-    return ArtnetPtr(artnet_new(ip, 1), &artnet_destroy);
+    return ArtnetPtr(artnet_new(ip, 0), &artnet_destroy);
 }
 
 }
@@ -60,49 +63,66 @@ namespace net {
     class ArtnetSendWorker {
         using Pipe = moodycamel::ReaderWriterQueue<ArtNetCommand, 64>;
 
-        ArtnetSendWorker(const char* ip)
+    private:
+        // runs in Pd thread
+        /**
+         * @brief ArtnetSendWorker
+         */
+        explicit ArtnetSendWorker(t_symbol* ip)
             : pipe_(64)
             , quit_(false)
             , node_(nullptr, nullptr)
             , nodes_found_(0)
-            , ip_hash_(crc32_hash(ip))
+            , ip_(ip)
         {
             // treat empty string as nullptr
-            node_ = make_artnet(ip[0] ? ip : nullptr);
+            node_ = make_artnet(ip_->s_name[0] ? ip_->s_name : nullptr);
             if (!node_) {
-                LIB_ERR << fmt::format(ARTNET_PREFIX "can't create artnet node: {}", ip);
-                LIB_POST << fmt::format("available ifaces: {}", fmt::join(platform::net_ifaces_ip(), ", "));
+                LIB_ERR << fmt::format(ARTNET_PREFIX "can't create artnet node '{}': {}", ip_->s_name, artnet_strerror());
+                LIB_POST << fmt::format("available ifaces: {}", fmt::join(platform::net_ifaces_ip(platform::ADDR_IPV4, true), ", "));
                 return;
             }
 
-            artnet_set_short_name(node_.get(), "pd-ArtNet");
-            artnet_set_long_name(node_.get(), "PureData ceammc ArtNet node");
-            artnet_set_node_type(node_.get(), ARTNET_SRV);
+            if (ARTNET_EOK != artnet_set_short_name(node_.get(), DEFAULT_ARTNET_SHORT_NAME)) {
+                LIB_ERR << fmt::format(ARTNET_PREFIX "can't set short name '{}': {}", DEFAULT_ARTNET_SHORT_NAME, artnet_strerror());
+                return;
+            }
+
+            if (ARTNET_EOK != artnet_set_long_name(node_.get(), DEFAULT_ARTNET_FULL_NAME)) {
+                LIB_ERR << fmt::format(ARTNET_PREFIX "can't set long name '{}': {}", DEFAULT_ARTNET_FULL_NAME, artnet_strerror());
+                return;
+            }
+
+            if (ARTNET_EOK != artnet_set_node_type(node_.get(), ARTNET_RAW)) {
+                LIB_ERR << fmt::format(ARTNET_PREFIX "can't set node type: {}", artnet_strerror());
+                return;
+            }
 
             artnet_set_port_type(node_.get(), 0, ARTNET_ENABLE_INPUT, ARTNET_PORT_DMX);
-            artnet_set_port_addr(node_.get(), 0, ARTNET_INPUT_PORT, 0x00);
-            artnet_set_port_type(node_.get(), 1, ARTNET_ENABLE_INPUT, ARTNET_PORT_DMX);
-            artnet_set_port_addr(node_.get(), 1, ARTNET_INPUT_PORT, 0x01);
-            artnet_set_port_type(node_.get(), 2, ARTNET_ENABLE_INPUT, ARTNET_PORT_DMX);
-            artnet_set_port_addr(node_.get(), 2, ARTNET_INPUT_PORT, 0x02);
-            artnet_set_port_type(node_.get(), 3, ARTNET_ENABLE_INPUT, ARTNET_PORT_DMX);
-            artnet_set_port_addr(node_.get(), 3, ARTNET_INPUT_PORT, 0x03);
+            //            artnet_set_port_addr(node_.get(), 0, ARTNET_INPUT_PORT, port);
+            //            artnet_set_port_type(node_.get(), 1, ARTNET_ENABLE_INPUT, ARTNET_PORT_DMX);
+            //            artnet_set_port_addr(node_.get(), 1, ARTNET_INPUT_PORT, in_port_start + 1);
+            //            artnet_set_port_type(node_.get(), 2, ARTNET_ENABLE_OUTPUT, ARTNET_PORT_DMX);
+            //            artnet_set_port_addr(node_.get(), 2, ARTNET_INPUT_PORT, 0x02);
+            //            artnet_set_port_type(node_.get(), 3, ARTNET_ENABLE_OUTPUT, ARTNET_PORT_DMX);
+            //            artnet_set_port_addr(node_.get(), 3, ARTNET_INPUT_PORT, 0x03);
 
-            artnet_set_bcast_limit(node_.get(), 0);
+            if (ARTNET_EOK != artnet_set_bcast_limit(node_.get(), DEFAULT_BCAST_LIMIT)) {
+                LIB_ERR << fmt::format(ARTNET_PREFIX "can't set broadcast limit: {}", DEFAULT_BCAST_LIMIT);
+                return;
+            }
 
-            artnet_set_subnet_addr(node_.get(), 0);
-
-            if (artnet_set_handler(node_.get(), ARTNET_REPLY_HANDLER, pollReplyHandler, this) != 0) {
+            if (ARTNET_EOK != artnet_set_handler(node_.get(), ARTNET_REPLY_HANDLER, pollReplyHandler, this)) {
                 LIB_ERR << fmt::format(ARTNET_PREFIX "can't set reply handler: '{}'", artnet_strerror());
                 return;
             }
 
-            if (artnet_start(node_.get()) != 0) {
+            if (ARTNET_EOK != artnet_start(node_.get())) {
                 LIB_ERR << fmt::format(ARTNET_PREFIX "can't start artnet: '{}'", artnet_strerror());
                 return;
             }
 
-            LIB_DBG << fmt::format(ARTNET_PREFIX "create new Artnet sender: {}", artnet_node_addr(node_.get()));
+            LIB_DBG << fmt::format(ARTNET_PREFIX "create new sender: {}", artnet_node_addr(node_.get()));
 
             future_ = std::async(
                 std::launch::async,
@@ -121,10 +141,7 @@ namespace net {
 
                                 switch (event.cmd) {
                                 case ARTNET_CMD_SEND_DMX: {
-                                    // logger_.debug(fmt::format(ARTNET_PREFIX "send DMX to universe [{}]", event.port));
-
-                                    auto rc = artnet_send_dmx(node_.get(), event.port, event.data.size(), event.data.data());
-                                    if (rc != 0)
+                                    if (ARTNET_EOK != artnet_raw_send_dmx(node_.get(), event.port, event.data.size(), event.data.data()))
                                         logger_.error(fmt::format(ARTNET_PREFIX "send error: '{}'", artnet_strerror()));
 
                                 } break;
@@ -132,7 +149,7 @@ namespace net {
                                     nodes_found_ = 0;
                                     const char* ip = event.data[0] ? reinterpret_cast<const char*>(&event.data.front()) : nullptr;
 
-                                    if (artnet_send_poll(node_.get(), ip, ARTNET_TTM_DEFAULT) != ARTNET_EOK)
+                                    if (ARTNET_EOK != artnet_send_poll(node_.get(), ip, ARTNET_TTM_DEFAULT))
                                         logger_.error(ARTNET_PREFIX "send poll failed");
 
                                 } break;
@@ -187,36 +204,37 @@ namespace net {
         ThreadPdLogger logger_;
         ArtnetPtr node_;
         std::atomic_int nodes_found_;
-        size_t ip_hash_;
+        t_symbol* ip_;
 
         using WeakArtnetSendWorker = std::weak_ptr<ArtnetSendWorker>;
-        static std::vector<WeakArtnetSendWorker> workers_;
+        using WorkerList = std::vector<WeakArtnetSendWorker>;
+        static WorkerList workers_;
 
     public:
         static SharedArtnetSendWorker create(t_symbol* ip)
         {
-            auto ip_hash = crc32_hash(ip->s_name);
-            for (auto& w : workers_) {
-                if (!w.expired()) {
-                    auto ptr = w.lock();
-                    if (ptr && ptr->ip_hash_ == ip_hash)
-                        return w.lock();
-                }
-            }
+            auto it = std::find_if(workers_.begin(), workers_.end(), [ip](const WeakArtnetSendWorker& w) {
+                if (!w.expired())
+                    return w.lock()->ip_ == ip;
+                else
+                    return false;
+            });
+            if (it != workers_.end())
+                return it->lock();
 
-            SharedArtnetSendWorker new_worker(new ArtnetSendWorker(ip->s_name));
-            workers_.emplace_back(new_worker);
+            SharedArtnetSendWorker new_worker(new ArtnetSendWorker(ip));
+            workers_.push_back(new_worker);
             return new_worker;
         }
 
         void dumpNodeConfig(artnet_node_entry ne)
         {
-            logger_.post(fmt::format("--------- {}.{}.{}.{} -------------\n", ne->ip[0], ne->ip[1], ne->ip[2], ne->ip[3]));
+            logger_.post(fmt::format("IP:           {}.{}.{}.{}", ne->ip[0], ne->ip[1], ne->ip[2], ne->ip[3]));
             logger_.post(fmt::format("Short Name:   {}", (const char*)ne->shortname));
             logger_.post(fmt::format("Long Name:    {}", (const char*)ne->longname));
             logger_.post(fmt::format("Node Report:  {}", (const char*)ne->nodereport));
             logger_.post(fmt::format("Subnet:       {:02x}", ne->sub));
-            logger_.post(fmt::format("Numb Ports:   {}", ne->numbports));
+            logger_.post(fmt::format("Num Ports:    {}", ne->numbports));
             logger_.post(fmt::format("Input Addrs:  {:02x}, {:02x}, {:02x}, {:02x}", ne->swin[0], ne->swin[1], ne->swin[2], ne->swin[3]));
             logger_.post(fmt::format("Output Addrs: {:02x}, {:02x}, {:02x}, {:02x}", ne->swout[0], ne->swout[1], ne->swout[2], ne->swout[3]));
         }
@@ -254,8 +272,7 @@ namespace net {
         }
     };
 
-    std::vector<ArtnetSendWorker::WeakArtnetSendWorker> ArtnetSendWorker::workers_;
-
+    ArtnetSendWorker::WorkerList ArtnetSendWorker::workers_;
 }
 }
 
@@ -272,15 +289,26 @@ namespace net {
         createOutlet();
 
         universe_ = new IntProperty("@universe", 0);
-        universe_->checkClosedRange(0, 3);
+        universe_->checkClosedRange(0, 15);
         universe_->setArgIndex(0);
         addProperty(universe_);
+
+        subnet_ = new IntProperty("@subnet", 0);
+        subnet_->checkClosedRange(0, 15);
+        subnet_->setArgIndex(1);
+        addProperty(subnet_);
 
         offset_ = new IntProperty("@offset", 0);
         offset_->checkClosedRange(0, MAX_DMX_CHANNELS - 1);
         addProperty(offset_);
 
-        sync_ = new BoolProperty("@sync", true);
+        sync_ = new BoolProperty("@sync", false);
+        sync_->setSuccessFn([this](Property* p) {
+            if (sync_->value())
+                send_cb_.unset();
+            else
+                send_cb_.delay(0);
+        });
         addProperty(sync_);
 
         ip_ = new SymbolProperty("@ip", &s_, PropValueAccess::INITONLY);
@@ -317,9 +345,23 @@ namespace net {
         }
     }
 
+    void NetArtnetSend::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_floatarg ctrl, t_floatarg alt)
+    {
+        if (alt)
+            m_blackout(&s_, {});
+    }
+
+    void NetArtnetSend::m_blackout(t_symbol* s, const AtomListView& lv)
+    {
+        initPacket(ARTNET_CMD_SEND_DMX);
+        packet_.data.fill(0);
+        needs_update_ = true;
+    }
+
     void NetArtnetSend::m_dmx(t_symbol* s, const AtomListView& lv)
     {
-        packet_.set(ARTNET_CMD_SEND_DMX, universe_->value());
+        initPacket(ARTNET_CMD_SEND_DMX);
+
         auto OFFSET = offset_->value();
         for (size_t i = 0; i < packet_.data.size(); i++) {
             if (i >= OFFSET && i < (lv.size() + OFFSET))
@@ -342,7 +384,7 @@ namespace net {
             return;
         }
 
-        packet_.set(ARTNET_CMD_SEND_DMX, universe_->value());
+        initPacket(ARTNET_CMD_SEND_DMX);
 
         auto val = lv[1].asInt();
         if (packet_.data[idx] != val) {
@@ -360,7 +402,7 @@ namespace net {
         if (!checkArgs(lv, ARG_BYTE))
             return;
 
-        packet_.set(ARTNET_CMD_SEND_DMX, universe_->value());
+        initPacket(ARTNET_CMD_SEND_DMX);
         packet_.data.fill(lv[0].asInt());
 
         needs_update_ = true;
@@ -378,6 +420,17 @@ namespace net {
             worker_->add(cmd);
     }
 
+    void NetArtnetSend::initPacket(ArtNetCmdType t)
+    {
+        switch (t) {
+        case ARTNET_CMD_SEND_DMX:
+            packet_.set(ARTNET_CMD_SEND_DMX, universe_->value() | (subnet_->value() << 4));
+            break;
+        default:
+            break;
+        }
+    }
+
 } // namespace net
 } // namespace ceammc
 
@@ -388,9 +441,12 @@ void setup_net_artnet_send()
     ObjectFactory<net::NetArtnetSend> obj("net.artnet.send");
     obj.addAlias("artnet.send");
 
+    obj.useClick();
+
+    obj.addMethod("blackout", &net::NetArtnetSend::m_poll);
     obj.addMethod("dmx", &net::NetArtnetSend::m_dmx);
-    obj.addMethod("dmx_set", &net::NetArtnetSend::m_dmx_set);
     obj.addMethod("dmx_fill", &net::NetArtnetSend::m_dmx_fill);
+    obj.addMethod("dmx_set", &net::NetArtnetSend::m_dmx_set);
     obj.addMethod("poll", &net::NetArtnetSend::m_poll);
 
 #endif

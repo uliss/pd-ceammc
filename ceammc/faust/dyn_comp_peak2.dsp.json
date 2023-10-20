@@ -22,8 +22,6 @@
 		{ "ceammc_ui.lib/name": "CEAMMC faust default UI elements" },
 		{ "ceammc_ui.lib/version": "0.1.2" },
 		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn dyn_comp_peak2 -scn dyn_comp_peak2_dsp -es 1 -mcd 16 -single -ftz 0" },
-		{ "compressors.lib/FFcompressor_N_chan:author": "Bart Brouns" },
-		{ "compressors.lib/FFcompressor_N_chan:license": "GPLv3" },
 		{ "compressors.lib/name": "Faust Compressor Effect Library" },
 		{ "compressors.lib/peak_compression_gain_N_chan_db:author": "Bart Brouns" },
 		{ "compressors.lib/peak_compression_gain_N_chan_db:license": "GPLv3" },
@@ -102,17 +100,17 @@
 				},
 				{
 					"type": "hbargraph",
-					"label": "level",
-					"shortname": "P5_dyn_comp_peak2_level",
-					"address": "/dyn.comp_peak2/level",
+					"label": "level0",
+					"shortname": "level0",
+					"address": "/dyn.comp_peak2/level0",
 					"min": 0,
 					"max": 1
 				},
 				{
 					"type": "hbargraph",
-					"label": "level",
-					"shortname": "P5_dyn_comp_peak2_level",
-					"address": "/dyn.comp_peak2/level",
+					"label": "level1",
+					"shortname": "level1",
+					"address": "/dyn.comp_peak2/level1",
 					"min": 0,
 					"max": 1
 				},

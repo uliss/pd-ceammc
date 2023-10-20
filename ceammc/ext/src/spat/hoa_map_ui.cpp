@@ -17,7 +17,9 @@
 #include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_crc32.h"
+#include "ceammc_fn_list.h"
 #include "ceammc_preset.h"
+#include "ceammc_signal.h"
 #include "ceammc_ui.h"
 #include "fmt/core.h"
 #include <forward_list>
@@ -51,8 +53,9 @@ CEAMMC_DEFINE_SYM_HASH(xz);
 CEAMMC_DEFINE_SYM_HASH(yz);
 
 constexpr int MIN_SIZE = 20;
-constexpr float MAX_ZOOM = 1.;
+constexpr float MAX_ZOOM = 1;
 constexpr float MIN_ZOOM = 0.01;
+constexpr float DEF_ZOOM = 0.35;
 constexpr size_t SOURCE_OUTLET = 0;
 constexpr size_t GROUP_OUTLET = 1;
 constexpr size_t INFO_OUTLET = 2;
@@ -99,7 +102,7 @@ HoaMapUI::HoaMapUI()
     , sources_(asEBox(), gensym("sources"))
     , groups_(asEBox(), gensym("groups"))
 {
-    f_binding_name = s_null;
+    f_binding_name = sym::sym_null();
     f_manager.reset(new HoaManagerData { { 1. / (double)MIN_ZOOM - 5. }, SubscriberList { this } });
 
     createOutlet();
@@ -129,6 +132,7 @@ void HoaMapUI::paint()
 
 void HoaMapUI::onBang()
 {
+    sendBindedMapUpdate(BMAP_REDRAW | BMAP_NOTIFY);
     output();
 }
 
@@ -578,44 +582,44 @@ void HoaMapUI::m_source(const AtomListView& lv)
         return chk.usage();
 
     auto index = lv.intAt(0, 0);
-    auto param = lv.symbolAt(1, &s_);
+    const auto param = crc32_hash(lv.symbolAt(1, &s_));
 
     int causeOutput = 1;
     if (index > 0) {
         auto tmp = f_manager->manager.newSource(ulong(index));
 
-        if (param == sym_polar() || param == sym_pol()) {
+        if (param == hash_polar || param == hash_pol) {
             if (lv.size() >= 5 && lv[2].isFloat() && lv[3].isFloat() && lv[4].isFloat())
                 tmp->setCoordinatesPolar(lv.floatAt(2, 0), lv.floatAt(3, 0), lv.floatAt(4, 0));
             else if (lv.size() >= 4 && lv[2].isFloat() && lv[3].isFloat())
                 tmp->setCoordinatesPolar(index, lv.floatAt(2, 0), lv.floatAt(3, 0));
-        } else if (param == sym_radius())
+        } else if (param == hash_radius)
             tmp->setRadius(lv.floatAt(2, 0));
-        else if (param == sym_azimuth())
+        else if (param == hash_azimuth)
             tmp->setAzimuth(lv.floatAt(2, 0));
-        else if (param == sym_elevation())
+        else if (param == hash_elevation)
             tmp->setElevation(lv.floatAt(2, 0));
-        else if (param == sym_cartesian() || param == sym_car()) {
+        else if (param == hash_cartesian || param == hash_car) {
             if (lv.size() >= 5 && lv[2].isFloat() && lv[3].isFloat() && lv[4].isFloat())
                 tmp->setCoordinatesCartesian(lv.floatAt(2, 0), lv.floatAt(3, 0), lv.floatAt(4, 0));
             else if (lv.size() >= 4 && lv[2].isFloat() && lv[3].isFloat())
                 tmp->setCoordinatesCartesian(lv.floatAt(2, 0), lv.floatAt(3, 0));
-        } else if (param == sym_abscissa())
+        } else if (param == hash_abscissa)
             tmp->setAbscissa(lv.floatAt(2, 0));
-        else if (param == sym_ordinate())
+        else if (param == hash_ordinate)
             tmp->setOrdinate(lv.floatAt(2, 0));
-        else if (param == sym_height())
+        else if (param == hash_height)
             tmp->setHeight(lv.floatAt(2, 0));
-        else if (param == sym_remove()) {
+        else if (param == hash_remove) {
             f_manager->manager.removeSource(ulong(index));
             AtomArray<3> data;
             data[0] = index;
             data[1] = sym_mute();
             data[2] = 1;
             listTo(0, data.view());
-        } else if (param == sym_mute())
+        } else if (param == hash_mute)
             tmp->setMute(lv.floatAt(2, 0));
-        else if (param == sym_description()) {
+        else if (param == hash_description) {
             causeOutput = 0;
             char description[250];
             char number[250];
@@ -644,7 +648,7 @@ void HoaMapUI::m_source(const AtomListView& lv)
                 }
             }
             tmp->setDescription(description);
-        } else if (param == sym_color() && lv.size() >= 5) {
+        } else if (param == sym::hash_color && lv.size() >= 5) {
             tmp->setColor(lv.floatAt(2, 0), lv.floatAt(3, 0), lv.floatAt(4, 0), lv.floatAt(5, 0));
             causeOutput = 0;
         } else {
@@ -674,7 +678,7 @@ void HoaMapUI::m_group(const AtomListView& lv)
         return chk.usage();
 
     auto index = lv.intAt(0, 0);
-    auto param = lv.symbolAt(1, &s_);
+    const auto param = crc32_hash(lv.symbolAt(1, &s_));
 
     int causeOutput = 1;
     if (index > 0) {
@@ -685,42 +689,42 @@ void HoaMapUI::m_group(const AtomListView& lv)
             newGroupCreated = true;
         }
 
-        if (param == sym_set()) {
+        if (param == hash_set) {
             for (int i = 2; i < lv.size(); i++) {
-                ulong ind = ulong(lv.intAt(i, 0));
+                auto ind = lv.intAt(i, 0);
                 if (ind > 0) {
                     auto* src = f_manager->manager.newSource(ind);
                     tmp->addSource(src);
                 }
             }
-        } else if (param == sym_polar() || param == sym_pol()) {
+        } else if (param == hash_polar || param == hash_pol) {
             if (lv.size() >= 5 && lv[2].isFloat() && lv[3].isFloat() && lv[4].isFloat())
                 tmp->setCoordinatesPolar(lv.floatAt(2, 0), lv.floatAt(3, 0), lv.floatAt(4, 0));
             else if (lv.size() >= 4 && lv[2].isFloat() && lv[3].isFloat())
                 tmp->setCoordinatesPolar(lv.floatAt(2, 0), lv.floatAt(3, 0));
-        } else if (param == sym_azimuth())
+        } else if (param == hash_azimuth)
             tmp->setAzimuth(lv.floatAt(2, 0));
-        else if (param == sym_elevation())
+        else if (param == hash_elevation)
             tmp->setElevation(lv.floatAt(2, 0));
-        else if (param == sym_cartesian() || param == sym_car()) {
+        else if (param == hash_cartesian || param == hash_car) {
             if (lv.size() >= 5 && lv[2].isFloat() && lv[3].isFloat() && lv[4].isFloat())
                 tmp->setCoordinatesCartesian(lv.floatAt(2, 0), lv.floatAt(3, 0), lv.floatAt(4, 0));
             else if (lv.size() >= 4 && lv[2].isFloat() && lv[3].isFloat())
                 tmp->setCoordinatesCartesian(lv.floatAt(2, 0), lv.floatAt(3, 0));
-        } else if (param == sym_abscissa())
+        } else if (param == hash_abscissa)
             tmp->setAbscissa(lv.floatAt(2, 0));
-        else if (param == sym_ordinate())
+        else if (param == hash_ordinate)
             tmp->setOrdinate(lv.floatAt(2, 0));
-        else if (param == sym_height())
+        else if (param == hash_height)
             tmp->setHeight(lv.floatAt(2, 0));
-        else if (param == sym_relpolar()) {
+        else if (param == hash_relpolar) {
             if (lv.size() >= 5 && lv[2].isFloat() && lv[3].isFloat() && lv[4].isFloat())
                 tmp->setRelativeCoordinatesPolar(lv.floatAt(2, 0), lv.floatAt(3, 0), lv.floatAt(4, 0));
             else if (lv.size() >= 4 && lv[2].isFloat() && lv[3].isFloat())
                 tmp->setRelativeCoordinatesPolar(lv.floatAt(2, 0), lv.floatAt(3, 0));
-        } else if (param == sym_relradius()) {
+        } else if (param == hash_relradius) {
             tmp->setRelativeRadius(lv.floatAt(2, 0) + tmp->getRadius());
-        } else if (param == sym_relazimuth()) {
+        } else if (param == hash_relazimuth) {
             if (f_coord_view == sym_xy()) {
                 tmp->setRelativeAzimuth(lv.floatAt(2, 0) + tmp->getAzimuth());
             } else if (f_coord_view == sym_xz()) {
@@ -752,18 +756,18 @@ void HoaMapUI::m_group(const AtomListView& lv)
                     it->second->setHeight(Math<float>::ordinate(source_radius, source_azimuth));
                 }
             }
-        } else if (param == sym_relelevation()) {
+        } else if (param == hash_relelevation) {
             tmp->setRelativeElevation(lv.floatAt(2, 0));
-        } else if (param == sym_mute()) {
+        } else if (param == hash_mute) {
             tmp->setMute(lv.intAt(2, 0));
-        } else if (param == sym_remove()) {
+        } else if (param == hash_remove) {
             f_manager->manager.removeGroup(index);
             AtomArray<3> data;
             data[0] = index;
             data[1] = sym_mute();
             data[2] = 1;
             listTo(0, data.view());
-        } else if (param == sym_description()) {
+        } else if (param == hash_description) {
             causeOutput = 0;
             char description[250];
             char number[250];
@@ -791,7 +795,7 @@ void HoaMapUI::m_group(const AtomListView& lv)
                 }
             }
             tmp->setDescription(description);
-        } else if (param == sym_color() && lv.size() >= 6) {
+        } else if (param == sym::hash_color && lv.size() >= 6) {
             causeOutput = 0;
             tmp->setColor(lv.floatAt(2, 0), lv.floatAt(3, 0), lv.floatAt(4, 0), lv.floatAt(5, 0));
         } else {
@@ -823,7 +827,7 @@ void HoaMapUI::m_info()
     const auto num_src = f_manager->manager.getNumberOfSources();
 
     { // number
-        AtomArray<3> data { sym_source(), sym_number(), num_src };
+        AtomArray<3> data { sym_source(), sym::sym_number(), num_src };
         listTo(INFO_OUTLET, data.view());
     }
 
@@ -853,7 +857,7 @@ void HoaMapUI::m_info()
     // Groups
     auto num_groups = f_manager->manager.getNumberOfGroups();
     { // number
-        AtomArray<3> data { sym_group(), sym_number(), num_groups };
+        AtomArray<3> data { sym_group(), sym::sym_number(), num_groups };
         listTo(INFO_OUTLET, data.view());
     }
 
@@ -910,13 +914,26 @@ void HoaMapUI::updateAllAndOutput()
 t_symbol* HoaMapUI::makeBindSymbol(t_symbol* sym) const
 {
     auto cnv = canvas_root(canvas());
-    if (!cnv || !sym || sym == &s_ || sym == s_null)
+    if (!cnv || !sym || sym == &s_ || sym == sym::sym_null())
         return nullptr;
 
     char buf[MAXPDSTRING];
     auto end = fmt::format_to(buf, "p{}_{}_{}", static_cast<const void*>(cnv), sym->s_name, ODD_BINDING_SUFFIX);
     *end = '\0';
     return gensym(buf);
+}
+
+AtomList HoaMapUI::serializeSource(const hoa::Source& src) const
+{
+    AtomList res;
+    res.reserve(6);
+    res.append(gensym("@src"));
+    res.append(src.getIndex());
+    res.append(src.getRadius());
+    res.append(src.getAzimuth());
+    res.append(src.getElevation());
+    res.append(src.getMute());
+    return res;
 }
 
 void HoaMapUI::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
@@ -1351,26 +1368,135 @@ void HoaMapUI::showPopup(const t_pt& pt, const t_pt& abs_pt)
 
 void HoaMapUI::loadPreset(size_t idx)
 {
+    auto& m = f_manager->manager;
     auto lv = PresetStorage::instance().listValueAt(presetId(), idx);
-    onList(lv);
+
+    auto n = list::foreachProperty(lv, [this, &m](const AtomListView& lv) {
+        if (lv.empty()) {
+            UI_ERR << "invalid preset value: " << lv;
+            return;
+        }
+
+        if (lv[0] == "@src") {
+            auto idx = lv.intAt(1, -1);
+            hoa::Source* src = nullptr;
+            if (idx < 0 || ((src = m.getSource(idx)) == nullptr)) {
+                UI_ERR << fmt::format("invalid source index: {}", idx);
+                return;
+            }
+            auto radius = lv.floatAt(2, 0);
+            auto azimuth = lv.floatAt(3, 0);
+            auto elevation = lv.floatAt(4, 0);
+            auto mute = lv.boolAt(5, 0);
+            src->setRadius(radius);
+            src->setAzimuth(azimuth);
+            src->setElevation(elevation);
+            src->setMute(mute);
+        }
+    });
+
+    if (n > 0) {
+        groups_.invalidate();
+        sources_.invalidate();
+        redraw();
+        output();
+    }
 }
 
 void HoaMapUI::storePreset(size_t idx)
 {
-    //    StaticAtomList<HOA_MAX_PLANEWAVES> lv;
-    //    for (int i = 0; i < prop_nchan; i++)
-    //        lv.push_back(chan_values_[i]);
+    auto& m = f_manager->manager;
+    AtomList res;
+    for (auto it = m.getFirstSource(); it != m.getLastSource(); ++it) {
+        auto src = it->second;
+        if (!src)
+            continue;
 
-    //    PresetStorage::instance().setListValueAt(presetId(), idx, lv.view());
+        res.append(serializeSource(*src));
+    }
+
+    PresetStorage::instance().setListValueAt(presetId(), idx, res.view());
 }
 
 void HoaMapUI::interpPreset(t_float idx)
 {
-    //    StaticAtomList<HOA_MAX_PLANEWAVES> def;
-    //    for (int i = 0; i < prop_nchan; i++)
-    //        def.push_back(chan_values_[i]);
+    auto& m = f_manager->manager;
+    auto lv0 = PresetStorage::instance().listValueAt(presetId(), idx);
+    auto lv1 = PresetStorage::instance().listValueAt(presetId(), idx + 1);
 
-    //    onList(PresetStorage::instance().interListValue(presetId(), idx, def.view()));
+    struct Data {
+        float radius { 0 }, azimuth { 0 }, elevation { 0 };
+        bool mute { false };
+    };
+
+    struct InterpData {
+        Data preset0, preset1;
+    };
+
+    std::map<size_t, InterpData> interp;
+
+    list::foreachProperty(lv0, [this, &interp](const AtomListView& lv) {
+        if (lv.empty()) {
+            UI_ERR << "invalid preset value: " << lv;
+            return;
+        }
+
+        if (lv[0] == "@src") {
+            auto idx = lv.intAt(1, -1);
+            if (idx < 0) {
+                UI_ERR << fmt::format("invalid source index: {}", idx);
+                return;
+            }
+            interp[idx].preset0.radius = lv.floatAt(2, 0);
+            interp[idx].preset0.azimuth = lv.floatAt(3, 0);
+            interp[idx].preset0.elevation = lv.floatAt(4, 0);
+            interp[idx].preset0.mute = lv.boolAt(5, 0);
+        }
+    });
+
+    list::foreachProperty(lv1, [this, &interp](const AtomListView& lv) {
+        if (lv.empty()) {
+            UI_ERR << "invalid preset value: " << lv;
+            return;
+        }
+
+        if (lv[0] == "@src") {
+            auto idx = lv.intAt(1, -1);
+            if (idx < 0) {
+                UI_ERR << fmt::format("invalid source index: {}", idx);
+                return;
+            }
+            interp[idx].preset1.radius = lv.floatAt(2, 0);
+            interp[idx].preset1.azimuth = lv.floatAt(3, 0);
+            interp[idx].preset1.elevation = lv.floatAt(4, 0);
+            interp[idx].preset1.mute = lv.boolAt(5, 0);
+        }
+    });
+
+    int n = 0;
+    double intpart_;
+    auto fp = std::modf(idx, &intpart_);
+    for (auto& kv : interp) {
+        auto src = m.getSource(kv.first);
+        if (!src)
+            continue;
+
+        auto& p0 = kv.second.preset0;
+        auto& p1 = kv.second.preset1;
+
+        src->setRadius(interpolate::linear<float>(p0.radius, p1.radius, fp));
+        src->setAzimuth(interpolate::linear<float>(p0.azimuth, p1.azimuth, fp));
+        src->setElevation(interpolate::linear<float>(p0.elevation, p1.elevation, fp));
+        src->setMute(p0.mute);
+        n++;
+    }
+
+    if (n > 0) {
+        groups_.invalidate();
+        sources_.invalidate();
+        redraw();
+        output();
+    }
 }
 
 void HoaMapUI::m_clear_all(const AtomListView& lv)
@@ -1438,7 +1564,7 @@ void HoaMapUI::m_set_bind(const AtomListView& lv)
             }
         }
 
-        f_binding_name = s_null;
+        f_binding_name = sym::sym_null();
         return;
     }
 
@@ -1457,7 +1583,7 @@ void HoaMapUI::m_set_bind(const AtomListView& lv)
             }
         }
 
-        f_binding_name = s_null;
+        f_binding_name = sym::sym_null();
 
         bind_sym = makeBindSymbol(new_binding_name);
         if (bind_sym) { // bind to new
@@ -1498,14 +1624,14 @@ void HoaMapUI::setup()
     obj.addMenuProperty("view", _("Coordinate View"), "xy", &HoaMapUI::f_coord_view, "xy xz yz", _("Main"));
     obj.addMenuProperty("outputmode", _("Output Mode"), "polar", &HoaMapUI::f_output_mode, "polar cartesian", _("Behavior"));
 
-    obj.addFloatProperty("zoom", _("Zoom"), 0.35, &HoaMapUI::prop_zoom, _("Behavior"));
+    obj.addFloatProperty("zoom", _("Zoom"), DEF_ZOOM, &HoaMapUI::prop_zoom, _("Behavior"));
     obj.setPropertyAccessor("zoom", &HoaMapUI::m_get_zoom, &HoaMapUI::m_set_zoom);
+    obj.setPropertyRange("zoom", MIN_ZOOM, MAX_ZOOM);
 
     obj.addSymbolProperty("mapname", _("Map Name"), "(null)", &HoaMapUI::f_binding_name, _("Main"));
     obj.setPropertyAccessor("mapname", &HoaMapUI::m_get_bind, &HoaMapUI::m_set_bind);
 
     obj.addProperty("selection_color", _("Selection Color"), DEFAULT_ACTIVE_COLOR, &HoaMapUI::prop_selection_color);
-
 
     //    eclass_addmethod(c, (method) hoa_map_preset,        "preset",         A_CANT,  0);
     //    eclass_addmethod(c, (method) hoa_map_interpolate,   "interpolate",    A_CANT,  0);

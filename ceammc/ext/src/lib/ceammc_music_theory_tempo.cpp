@@ -53,6 +53,13 @@ bool Tempo::operator==(const Tempo& t) const
     return t.bpm_ == bpm_;
 }
 
+Tempo Tempo::operator*(double v) const
+{
+    auto res = *this;
+    res.bpm_ *= v;
+    return res;
+}
+
 bool Tempo::strictEqual(const Tempo& t) const
 {
     return dur_.strictEqual(t.dur_);
@@ -154,6 +161,14 @@ double Tempo::wholeNoteDurationMs() const
 void Tempo::setDuration(const Duration& d)
 {
     dur_ = d;
+}
+
+Tempo Tempo::intepolate(const Tempo& t0, const Tempo& t1, double t)
+{
+    float k = t0.dur_ / t1.dur_;
+    float bpm0 = t0.bpm() * k;
+    float bpm1 = t1.bpm();
+    return { convert::lin2lin_clip<float, 0, 1>(t, bpm0, bpm1), t1.dur_ };
 }
 
 std::ostream& ceammc::music::operator<<(std::ostream& os, const Tempo& t)

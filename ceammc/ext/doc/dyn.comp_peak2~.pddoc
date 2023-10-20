@@ -60,8 +60,10 @@
             <property name="@link" type="float" default="1" minvalue="0" maxvalue="1">the amount of
             linkage between the channels: 0 = each channel is independent, 1 = all channels have
             the same amount of gain reduction</property>
-            <property name="@level" type="float" default="0" minvalue="0" maxvalue="1"
-            access="readonly">current level of compression</property>
+            <property name="@level0" type="float" default="0" minvalue="0" maxvalue="1"
+            access="readonly">current level of compression of first channel</property>
+            <property name="@level1" type="float" default="0" minvalue="0" maxvalue="1"
+            access="readonly">current level of compression of second channel</property>
             <property name="@refresh" type="int" default="100" minvalue="0" maxvalue="1000"
             units="millisecond">compression level output time interval. If 0 - no output</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>

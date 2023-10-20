@@ -3,22 +3,10 @@
 #X obj 25 47 canvas.top;
 #X obj 25 25 prop-> @name;
 #X obj 21 22 hoa.help.header;
-#X obj 67 267 ui.gain~ @size 120 15 @receive "(null)" @send "(null)"
-@pinned 0 @presetname "ui.hgain~.0" @mouse_events 0 @background_color
-0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color
-0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman"
-@fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align
-"left" @label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value
-0 @relative 1 @midi_channel 0 @midi_control 0 @midi_pickup 1 @show_range
-1;
+#X obj 67 267 ui.gain~ @size 120 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "(null)" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value 0 @relative 1 @midi_channel 0 @midi_control 0 @midi_pickup 0 @show_range 1;
 #X obj 67 307 dac~;
 #X obj 437 22 hoa.help.also;
-#X obj 579 22 ui.dsp~ @size 42 42 @receive "(null)" @send "(null)"
-@pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6
-0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica"
-@fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)"
-@label_inner 0 @label_side "top" @label_align "left" @label_valign
-"top" @label_margins 0 0;
+#X obj 579 22 ui.dsp~ @size 42 42 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0;
 #X obj 67 145 osc~ 400;
 #X obj 67 245 hoa.process~ 4 hoa.fx.sum~ planewaves;
 #X obj 140 145 osc~ 600;

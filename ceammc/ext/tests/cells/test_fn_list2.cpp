@@ -556,4 +556,65 @@ TEST_CASE("list functions2", "[core]")
             REQUIRE(list::interpolate_lin(LF(2, 3), LF(1, 2, 3), 0.5, AtomList::FOLD) == LF(1.5, 2.5, 2.5));
         }
     }
+
+    SECTION("foreachProperties")
+    {
+        std::vector<AtomList> res;
+        auto fn = [&res](const AtomListView& lv) { res.push_back(lv); };
+        REQUIRE(list::foreachProperty(L(), fn) == 0);
+        REQUIRE(list::foreachProperty(LF(1, 2, 3, 4), fn) == 0);
+
+        REQUIRE(list::foreachProperty(LA("@a"), fn) == 1);
+        REQUIRE(res.size() == 1);
+        REQUIRE(res[0] == LA("@a"));
+        res.clear();
+
+        REQUIRE(list::foreachProperty(LA(1, 2, 3, "@a"), fn) == 1);
+        REQUIRE(res.size() == 1);
+        REQUIRE(res[0] == LA("@a"));
+        res.clear();
+
+        REQUIRE(list::foreachProperty(LA(1, 2, 3, "@a", 1), fn) == 1);
+        REQUIRE(res.size() == 1);
+        REQUIRE(res[0] == LA("@a", 1));
+        res.clear();
+
+        REQUIRE(list::foreachProperty(LA("@a", 2), fn) == 1);
+        REQUIRE(res.size() == 1);
+        REQUIRE(res[0] == LA("@a", 2));
+        res.clear();
+
+        REQUIRE(list::foreachProperty(LA("@a", 2, 3), fn) == 1);
+        REQUIRE(res.size() == 1);
+        REQUIRE(res[0] == LA("@a", 2, 3));
+        res.clear();
+
+        REQUIRE(list::foreachProperty(LA("@a", "@b", "@c"), fn) == 3);
+        REQUIRE(res.size() == 3);
+        REQUIRE(res[0] == LA("@a"));
+        REQUIRE(res[1] == LA("@b"));
+        REQUIRE(res[2] == LA("@c"));
+        res.clear();
+
+        REQUIRE(list::foreachProperty(LA(1, 2, "@a", "@b", "@c"), fn) == 3);
+        REQUIRE(res.size() == 3);
+        REQUIRE(res[0] == LA("@a"));
+        REQUIRE(res[1] == LA("@b"));
+        REQUIRE(res[2] == LA("@c"));
+        res.clear();
+
+        REQUIRE(list::foreachProperty(LA(1, 2, "@a", "@b", "@c", -1, -2), fn) == 3);
+        REQUIRE(res.size() == 3);
+        REQUIRE(res[0] == LA("@a"));
+        REQUIRE(res[1] == LA("@b"));
+        REQUIRE(res[2] == LA("@c", -1, -2));
+        res.clear();
+
+        REQUIRE(list::foreachProperty(LA(1, 2, "@a", "D", "@b", 1, 2, 3, 4, "@c", -1, -2), fn) == 3);
+        REQUIRE(res.size() == 3);
+        REQUIRE(res[0] == LA("@a", "D"));
+        REQUIRE(res[1] == LA("@b", 1, 2, 3, 4));
+        REQUIRE(res[2] == LA("@c", -1, -2));
+        res.clear();
+    }
 }

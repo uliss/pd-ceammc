@@ -108,7 +108,7 @@ void ProcessInstance::dspCalc()
 bool ProcessInstance::init(t_symbol* name, const AtomListView& args)
 {
     pd_this->pd_newest = nullptr;
-    typedmess(&pd_objectmaker, name, (int)args.size(), args.toPdData());
+    pd::message_to(&pd_objectmaker, name, args);
     if (!pd_this->pd_newest) {
         LIB_ERR << fmt::format("can't create subpatch '{}'", name->s_name);
         return false;

@@ -52,6 +52,7 @@ set(DOC_FILES
     click~
     color.mix
     color.scale
+    convolve~
     conv.amp2dbfs
     conv.amp2dbfs~
     conv.bar2ms
@@ -137,6 +138,7 @@ set(DOC_FILES
     dyn.softclip~
     env.adsr~
     env.ar~
+    env.asr2~
     env.asr~
     env.concat
     env.follow~
@@ -286,6 +288,7 @@ set(DOC_FILES
     global.set
     hoa.2d.decoder~
     hoa.2d.encoder~
+    hoa.2d.exchanger~
     hoa.2d.map~
     hoa.2d.optim~
     hoa.2d.projector~
@@ -293,12 +296,18 @@ set(DOC_FILES
     hoa.2d.rotate~
     hoa.2d.space
     hoa.2d.wider~
+    hoa.3d.decoder~
     hoa.3d.encoder~
+    hoa.3d.exchanger~
+    hoa.3d.map~
+    hoa.3d.meter~
     hoa.3d.optim~
+    hoa.3d.scope~
     hoa.3d.wider~
     hoa.@process
     hoa.in
     hoa.in~
+    hoa.map.ui
     hoa.out
     hoa.out~
     hoa.process~
@@ -637,6 +646,7 @@ set(DOC_FILES
     proto.ltc.in~
     proto.ltc.out~
     proto.midi
+    proto.midi.casio
     proto.midi.cc
     proto.midi.sysex
     proto.moppy
@@ -773,6 +783,7 @@ set(DOC_FILES
     ui.button
     ui.canvas
     ui.colorpanel
+    ui.cmeter~
     ui.display
     ui.dsp~
     ui.env

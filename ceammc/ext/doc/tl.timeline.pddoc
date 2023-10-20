@@ -29,16 +29,19 @@
             "end" event, but last user event)</par>
         </info>
         <arguments>
-            <argument name="LENGTH" type="int" units="second">timeline length</argument>
+            <argument name="LENGTH" type="float" minvalue="0" units="second">timeline
+            length</argument>
         </arguments>
         <properties>
             <property name="@is_running" type="bool" access="readonly" default="0">if timeline is
             running</property>
-            <property name="@length" type="float" access="readonly" default="60" units="second">
-            timeline length</property>
+            <property name="@length" type="float" minvalue="0" access="initonly" default="60"
+            units="second">timeline length</property>
             <property name="@size" type="int" access="readonly" default="1" minvalue="0">number of
             events in timeline</property>
             <property name="@current" type="float" access="readonly" units="millisecond"
+            default="0">current time</property>
+            <property name="@current_sec" type="float" access="readonly" units="second"
             default="0">current time</property>
             <property name="@phase" type="float" access="readonly" minvalue="0" maxvalue="1"
             default="0">current phase in [0-1) range</property>
@@ -94,7 +97,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>outputs pair: event index and event name</outlet>
+            <outlet>list: event index, event name, current event time</outlet>
         </outlets>
         <example>
             <pdascii>

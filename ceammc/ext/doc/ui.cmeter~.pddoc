@@ -1,0 +1,106 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="ui.cmeter~" type="gui">
+        <title>ui.cmeter~</title>
+        <meta>
+            <authors>
+                <author>Pierre Guillot</author>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Multichannel circular peak and rms signal meter</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui meter</keywords>
+            <since>0.9.7</since>
+            <aliases>
+                <alias view="link">ui.cm~</alias>
+                <alias view="link">hoa.2d.meter~</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Each cell has 3db range. Full meter range is 39 db.</par>
+            <par>Values &gt;-3db are red, range [-12, -3) db is hot, [-21, -12) db is warm, [-30,
+            -21) is tepid, values &lt; 0 are cold.</par>
+        </info>
+        <properties>
+            <property name="@interval" type="int" units="millisecond" minvalue="20" default="100">
+            refresh interval</property>
+            <property name="@clockwise" type="bool" default="0">clockwise channel
+            numbering</property>
+            <property name="@nch" type="int" default="2" minvalue="1" maxvalue="64">number of
+            channels</property>
+            <property name="@offset" type="int" default="0" minvalue="-63" maxvalue="63">channel
+            numbering offset</property>
+            <property name="@angles" type="list" default="">channel angle positions</property>
+            <property name="@rotation" type="float" default="0" minvalue="-360" maxvalue="360"
+            units="degree">source channels rotation (anticlockwise)</property>
+            <!-- common -->
+            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <property name="@size" type="list" default="120 120">element size (width, height
+            pair)</property>
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
+            <property name="@cold_color" type="list" default="0 0.6 0 1">extra low-level signal
+            color &lt;-31db (list of red, green, blue values in 0-1 range)</property>
+            <property name="@tepid_color" type="list" default="0.6 0.73 0 1">low-level signal color
+            &lt;-21db (list of red, green, blue values in 0-1 range)</property>
+            <property name="@warm_color" type="list" default="0.85 0.85 0 1">normal level signal
+            color &lt;-9db (list of red, green, blue values in 0-1 range)</property>
+            <property name="@hot_color" type="list" default="1 0.6 0 1">loud level signal color
+            &lt;-3db (list of red, green, blue values in 0-1 range)</property>
+            <property name="@over_color" type="list" default="1 0 0 1">extra-loud level signal
+            color &gt;-3db (list of red, green, blue values in 0-1 range)</property>
+            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
+            background color (list of red, green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
+            of red, green, blue values in 0-1 range)</property>
+            <!-- font -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
+            fontsize</property>
+            <property name="@fontname" type="symbol" default="Helvetica"
+            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
+            slant</property>
+        </properties>
+        <methods>
+            <!-- pos -->
+            <method name="pos">set UI element position 
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
+        </methods>
+        <inlets dynamic="true">
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets />
+        <example>
+            <pdascii>
+<![CDATA[
+[nsig~ 5 0 0.06 0.15 0.5 0.9 {o=5}] [T] [ui.n #n1]  [ui.knob #k1]
+*|*                                 |   |
+[ui.cmeter~ {i=5} #z] [ui.dsp~]     |   [@offset $1 #a(
+                                    |
+                                    [@clockwise $1( [@rotation $1 #b(
+                                    |
+                                    | [@angles 0 45 110 202.5 295(
+                                    | |
+                                    [s \$0-cm #x]
+
+
+
+#z @nch 5 @size 193 193 @receive $0-cm @nosave 1
+#n1 @step 0 @min -5 @max 5
+#k1 @min -90 @max 90 @show_value 1
+[X a->x] [X b->x] [X k1->b]
+
+/*...*/
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

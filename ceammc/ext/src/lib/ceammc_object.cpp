@@ -23,6 +23,7 @@
 #include "ceammc_output.h"
 #include "ceammc_platform.h"
 #include "ceammc_property_callback.h"
+#include "ceammc_symbols.h"
 #include "datatype_string.h"
 #include "fmt/format.h"
 #include "lex/parser_strings.h"
@@ -1001,7 +1002,7 @@ void BaseObject::outputAllProperties()
         // dump to console
         OBJ_DBG << res;
     } else
-        outletAny(outlets_.front(), SYM_PROPS_ALL(), res);
+        outletAny(outlets_.front(), sym::props::sym_value_all(), res);
 }
 
 void BaseObject::onBang()

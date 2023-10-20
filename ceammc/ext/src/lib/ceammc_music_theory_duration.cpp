@@ -255,6 +255,13 @@ Duration Duration::operator*(const Duration& dur) const
     return { res.numerator(), res.denominator() };
 }
 
+double Duration::operator/(const Duration& dur) const
+{
+    auto a = dur2ratio(*this);
+    auto b = dur2ratio(dur);
+    return double(a.numerator() * b.denominator()) / (a.denominator() * b.numerator());
+}
+
 std::ostream& ceammc::music::operator<<(std::ostream& os, const Duration& dur)
 {
     os << dur.toString();

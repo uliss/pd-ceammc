@@ -188,7 +188,7 @@ void UILabel::setup()
     obj.setPropertyCategory("fontweight", "Main");
     obj.setPropertyCategory("fontslant", "Main");
 
-    obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UILabel::prop_text_color);
+    obj.addProperty(sym::props::name_text_color, _("Text Color"), DEFAULT_TEXT_COLOR, &UILabel::prop_text_color);
 
     obj.addProperty("margin_top", _("Margin top"), 5, &UILabel::prop_margin_top, "Margins");
     obj.addProperty("margin_left", _("Margin left"), 5, &UILabel::prop_margin_left, "Margins");

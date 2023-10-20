@@ -19,9 +19,9 @@
 #include "hoa_common.h"
 #include "hoa_math_compat.h"
 
-static const int HOA_DISPLAY_NPOINTS = 65;
-static const float HOA_CONTRAST_DARKER = 0.2;
-static const float HOA_CONTRAST_LIGHTER = 0.2;
+constexpr int HOA_DISPLAY_NPOINTS = 65;
+constexpr float HOA_CONTRAST_DARKER = 0.2;
+constexpr float HOA_CONTRAST_LIGHTER = 0.2;
 
 namespace ceammc {
 

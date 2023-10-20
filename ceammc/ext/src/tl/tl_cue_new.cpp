@@ -153,7 +153,7 @@ void TlCue::onZoom(t_float z)
 
 void TlCue::onPropChange(t_symbol* prop_name)
 {
-    if (prop_name == gensym(PROP_BORDER_COLOR))
+    if (prop_name == sym::props::sym_name_border_color())
         updateLineBackground();
 
     return UIObject::onPropChange(prop_name);
@@ -296,8 +296,9 @@ void TlCue::setup()
     obj.internalProperty("size");
     obj.internalProperty("send");
     obj.internalProperty("receive");
+    obj.hideLabelInner();
 
-    obj.setPropertyDefaultValue(PROP_BORDER_COLOR, DEFAULT_ACTIVE_COLOR);
+    obj.setPropertyDefaultValue(sym::props::name_border_color, DEFAULT_ACTIVE_COLOR);
 
     obj.pd_ui_class->c_widget.w_displacefn = tl_cue_displace;
     obj.pd_ui_class->c_widget.w_visfn = tl_cue_wvis;

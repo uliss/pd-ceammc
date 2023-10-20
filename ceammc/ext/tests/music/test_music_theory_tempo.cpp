@@ -126,4 +126,17 @@ TEST_CASE("MusicTheory::Tempo", "[ceammc::music]")
         REQUIRE(zero.toString() == "0|4bpm");
         REQUIRE(zero.wholeNoteDurationMs() == 0);
     }
+
+    SECTION("interp")
+    {
+        REQUIRE(Tempo::intepolate({ 60 }, { 60 }, 0) == Tempo(60));
+        REQUIRE(Tempo::intepolate({ 60 }, { 60 }, 1) == Tempo(60));
+        REQUIRE(Tempo::intepolate({ 60 }, { 120 }, 0) == Tempo(60));
+        REQUIRE(Tempo::intepolate({ 60 }, { 120 }, 1) == Tempo(120));
+        REQUIRE(Tempo::intepolate({ 60 }, { 120 }, 0.5) == Tempo(90));
+        REQUIRE(Tempo(60, 4).wholeNoteDurationMs() == 4000);
+        REQUIRE(Tempo::intepolate(Tempo(60, 4), Tempo(60, 8), 0).wholeNoteDurationMs() == 4000);
+        REQUIRE(Tempo::intepolate(Tempo(60, 4), Tempo(60, 8), 1).wholeNoteDurationMs() == 8000);
+        REQUIRE(Tempo::intepolate(Tempo(60, 4), Tempo(60, 8), 0.5) == Tempo(90));
+    }
 }

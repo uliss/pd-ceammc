@@ -99,8 +99,8 @@ void UINumberTilde::setup()
     obj.setDefaultSize(80, 15);
     obj.hideLabelInner();
 
-    obj.addColorProperty(PROP_TEXT_COLOR, _("Text color"), "0.9 0.9 0.9 1", &UINumberTilde::prop_color_text);
-    obj.addColorProperty(PROP_ACTIVE_COLOR, _("Text color"), DEFAULT_ACTIVE_COLOR, &UINumberTilde::prop_color_active);
+    obj.addColorProperty(sym::props::name_text_color, _("Text color"), "0.9 0.9 0.9 1", &UINumberTilde::prop_color_text);
+    obj.addColorProperty(sym::props::name_active_color, _("Text color"), DEFAULT_ACTIVE_COLOR, &UINumberTilde::prop_color_active);
     obj.addIntProperty("precision", _("Decimal precision"), DEF_PRECISION, &UINumberTilde::prop_max_decimal, _("Main"));
     obj.setPropertyRange("precision", MIN_PRECISION, MAX_PRECISION);
 
@@ -108,8 +108,8 @@ void UINumberTilde::setup()
     obj.setPropertyRange("interval", 20, 1000);
     obj.setPropertyUnits("interval", "msec");
 
-    obj.setPropertyDefaultValue(PROP_BACKGROUND_COLOR, "0.3 0.3 0.3 1");
-    obj.setPropertyDefaultValue(PROP_BORDER_COLOR, DEFAULT_TEXT_COLOR);
+    obj.setPropertyDefaultValue(sym::props::name_background_color, "0.3 0.3 0.3 1");
+    obj.setPropertyDefaultValue(sym::props::name_border_color, DEFAULT_TEXT_COLOR);
     obj.internalProperty("send");
     obj.internalProperty("receive");
 }

@@ -600,8 +600,6 @@ class dyn_comp_peak2 : public dyn_comp_peak2_dsp {
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
 		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn dyn_comp_peak2 -scn dyn_comp_peak2_dsp -es 1 -mcd 16 -single -ftz 0");
-		m->declare("compressors.lib/FFcompressor_N_chan:author", "Bart Brouns");
-		m->declare("compressors.lib/FFcompressor_N_chan:license", "GPLv3");
 		m->declare("compressors.lib/name", "Faust Compressor Effect Library");
 		m->declare("compressors.lib/peak_compression_gain_N_chan_db:author", "Bart Brouns");
 		m->declare("compressors.lib/peak_compression_gain_N_chan_db:license", "GPLv3");
@@ -700,8 +698,8 @@ class dyn_comp_peak2 : public dyn_comp_peak2_dsp {
 		ui_interface->addVerticalSlider("gain", &fVslider0, FAUSTFLOAT(0.0f), FAUSTFLOAT(-18.0f), FAUSTFLOAT(18.0f), FAUSTFLOAT(0.1f));
 		ui_interface->declare(&fHslider2, "unit", "db");
 		ui_interface->addHorizontalSlider("knee", &fHslider2, FAUSTFLOAT(3.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(6.0f), FAUSTFLOAT(0.01f));
-		ui_interface->addHorizontalBargraph("level", &fHbargraph0, FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f));
-		ui_interface->addHorizontalBargraph("level", &fHbargraph1, FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f));
+		ui_interface->addHorizontalBargraph("level0", &fHbargraph0, FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f));
+		ui_interface->addHorizontalBargraph("level1", &fHbargraph1, FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f));
 		ui_interface->addHorizontalSlider("link", &fHslider5, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
 		ui_interface->declare(&fHslider4, "unit", "ms");
 		ui_interface->addHorizontalSlider("release", &fHslider4, FAUSTFLOAT(5e+01f), FAUSTFLOAT(1.0f), FAUSTFLOAT(5e+02f), FAUSTFLOAT(0.1f));

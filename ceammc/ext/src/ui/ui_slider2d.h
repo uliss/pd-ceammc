@@ -14,13 +14,13 @@
 #ifndef UI_SLIDER2D_H
 #define UI_SLIDER2D_H
 
-#include "ceammc_ui_object.h"
+#include "ui_bind_object.h"
 
 #include <cmath>
 
 using namespace ceammc;
 
-class UISlider2D : public UIObject {
+class UISlider2D : public UIBindObject<2> {
     t_float prop_x_left;
     t_float prop_x_right;
     t_float prop_y_top;

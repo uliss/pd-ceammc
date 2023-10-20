@@ -17,7 +17,6 @@
 #include "mix.h"
 #include "msg_after.h"
 #include "msg_sched.h"
-#include "obj_info.h"
 #include "obj_props.h"
 #include "patch_args.h"
 #include "patch_deps.h"
@@ -48,6 +47,7 @@ void setup_base_canvas_dir();
 void setup_base_canvas_name();
 void setup_base_canvas_path();
 void setup_base_clone();
+void setup_base_convolve_tilde();
 void setup_base_expand_env();
 void setup_base_gate_tilde();
 void setup_base_merge_tilde();
@@ -61,10 +61,10 @@ void setup_chrono_datetime();
 void setup_is_data();
 void setup_is_file();
 void setup_load_expr();
-void setup_msg_onload();
 void setup_metro_choice();
 void setup_metro_wchoice();
 void setup_msg_onclose();
+void setup_msg_onload();
 void setup_nsig_tilde();
 void setup_prop_get();
 void setup_prop_get_tilde();
@@ -92,6 +92,7 @@ void ceammc_base_setup()
     setup_base_canvas_name();
     setup_base_canvas_path();
     setup_base_clone();
+    setup_base_convolve_tilde();
     setup_base_dac();
     setup_base_expand_env();
     setup_base_function();
@@ -130,7 +131,6 @@ void ceammc_base_setup()
     setup_msg_onclose();
     setup_msg_sched();
     setup_nsig_tilde();
-    setup_obj_info();
     setup_obj_props();
     setup_patch_args();
     setup_patch_deps();

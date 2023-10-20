@@ -1,8 +1,9 @@
 #include "ceammc.h"
-#include "ceammc_atomlist.h"
+#include "ceammc_atomlist_view.h"
 #include "ceammc_log.h"
 #include "ceammc_object_info.h"
 #include "ceammc_output.h"
+#include "ceammc_symbols.h"
 
 #include <map>
 
@@ -154,7 +155,7 @@ void setup_prop_split()
     ceammc::ObjectInfoStorage::instance().addAlias("@->", prop_split_class, reinterpret_cast<t_newmethod>(prop_split_new));
 
     class_addanything(prop_split_class, reinterpret_cast<t_method>(prop_split_anything));
-    class_addmethod(prop_split_class, reinterpret_cast<t_method>(prop_split_dump), gensym("dump"), A_NULL);
+    class_addmethod(prop_split_class, reinterpret_cast<t_method>(prop_split_dump), sym::methods::sym_dump(), A_NULL);
     class_addmethod(prop_split_class, reinterpret_cast<t_method>(prop_split_annotate), SymbolTable::instance().s_annotate_fn, A_CANT, A_NULL);
     class_sethelpsymbol(prop_split_class, gensym("prop.split"));
 }

@@ -1,0 +1,127 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="hoa.3d.meter~" type="gui">
+        <title>hoa.3d.meter~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+                <author>Pierre Guillot</author>
+                <author>Eliott Paris</author>
+                <author>Thomas Le Meur</author>
+            </authors>
+            <description>multi spherical meter with sound field descriptor</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>spat</category>
+            <keywords>hoa meter 3d</keywords>
+            <since>0.9.7</since>
+        </meta>
+        <info>
+            <par>displays the peak levels for a spherical array of loudspeakers. It computes and
+            displays the energy and velocity vectors.</par>
+            <a href="hoa/hoa.3d.meter~-help.pd">CICM documentation</a>
+        </info>
+        <arguments />
+        <properties>
+            <property name="@channels" type="int" minvalue="1" maxvalue="64" default="4">number of
+            input channels</property>
+            <!-- common-->
+            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <property name="@size" type="list" default="225 225">element size (width, height
+            pair)</property>
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
+            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
+            background color (list of red, green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
+            of red, green, blue values in 0-1 range)</property>
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
+            fontsize</property>
+            <property name="@fontname" type="symbol" default="Helvetica"
+            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
+            slant</property>
+            <!-- colors -->
+            <property name="@over_color" type="list" default="1 0 0 0.8">peak overload
+            color</property>
+            <property name="@hot_color" type="list" default="1 0.6 0 0.8">color for
+            &gt;=-12db.</property>
+            <property name="@warm_color" type="list" default="0.85 0.85 0 0.8">color for
+            &gt;=-21db.</property>
+            <property name="@tepid_color" type="list" default="0.6 0.73 0 0.8">color for
+            &gt;=-30db.</property>
+            <property name="@cold_color" type="list" default="0 0.6 0 0.8">color for
+            &gt;=-39db.</property>
+            <property name="@energy_color" type="list" default="0 0 1 0.8">energy vector
+            color</property>
+            <property name="@velocity_color" type="list" default="1 0 0 0.8">velocity
+            vector</property>
+            <!-- label -->
+            <property name="@label" type="symbol" default="(null)">label text</property>
+            <property name="@label_color" type="list" default="0 0 0 1">label color in RGB format
+            within 0-1 range, for example: 0.2 0.4 0.1</property>
+            <property name="@label_inner" type="bool" default="0">label position (1 - inner, 0 -
+            outer).</property>
+            <property name="@label_align" type="symbol" enum="left center right" default="left">
+            label horizontal align</property>
+            <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
+            label vertical align</property>
+            <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
+            label snap side</property>
+            <property name="@label_margins" type="list" default="0 0">label offset in
+            pixels</property>
+            <!-- main -->
+            <property name="@interval" type="int" units="millisecond" minvalue="20" maxvalue="1000"
+            default="50">refresh interval</property>
+            <property name="@clockwise" type="bool" default="0">clockwise channel numbering
+            mode</property>
+            <property name="@offset" type="list" default="0 0 0">channel numbering offset for each
+            axes</property>
+            <property name="@angles" type="list" default="0 90 0 -19.5 120 -19.5 240 -19.5">channel
+            layout angles</property>
+            <property name="@vectors" type="symbol" default="energy"
+            enum="both energy none velocity">vector display mode</property>
+            <property name="@view" type="symbol" default="top"
+            enum="bottom top topnextbottom toponbottom">view mode</property>
+        </properties>
+        <methods>
+            <!-- pos -->
+            <method name="pos">set UI element position 
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
+        </methods>
+        <inlets dynamic="true">
+            <inlet type="audio">
+                <xinfo>first source input</xinfo>
+                <xinfo on="list">SRC_IDX polar RADIUS AZIMUTH ELEVATION or SRC_IDX mute
+                VALUE</xinfo>
+            </inlet>
+            <inlet type="audio" number="...">
+                <xinfo>... source input</xinfo>
+            </inlet>
+            <inlet type="audio" number="n">
+                <xinfo>n-th source input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet type="audio">first harmonic output</outlet>
+            <outlet type="audio" number="...">... harmonic output</outlet>
+            <outlet type="audio" number="n">n-th harmonic output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[hoa.3d.meter~ @view topnextbottom]
+
+
+
+
+/*hide*/
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

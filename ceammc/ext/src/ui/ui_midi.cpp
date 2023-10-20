@@ -272,8 +272,8 @@ void UIMidi::setup()
     obj.usePopup();
     obj.hideFontProps();
 
-    obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UIMidi::prop_text_color);
-    obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), "0.63 0.88 0 1", &UIMidi::prop_active_color);
+    obj.addProperty(sym::props::name_text_color, _("Text Color"), DEFAULT_TEXT_COLOR, &UIMidi::prop_text_color);
+    obj.addProperty(sym::props::name_active_color, _("Active Color"), "0.63 0.88 0 1", &UIMidi::prop_active_color);
 
     obj.addBoolProperty("hex", _("Show in hex"), false, &UIMidi::prop_hex, _("Main"));
     obj.addBoolProperty("notes", _("Show Note On/Off"), true, &UIMidi::prop_show_note, _("Main"));

@@ -12,8 +12,8 @@
         plot.linspace~ plot.logspace~ plot.response~
     }}
     {base {
-        ceammc.search chrono.datetime function function.call gain~ gate~
-        logger matrix~ merge~ metro.choice metro.pattern metro.random
+        ceammc.search chrono.datetime convolve~ function function.call gain~
+        gate~ logger matrix~ merge~ metro.choice metro.pattern metro.random
         metro.seq metro.wchoice mix~ nsig~ obj.props radio split~ spring sync
         window xdac~ xfade2~ xfade~ z~
     }}
@@ -49,9 +49,9 @@
         dyn.limit~ dyn.softclip~
     }}
     {env {
-        env.adsr~ env.ar~ env.asr~ env.concat env.follow~ env.mix env.smooth~
-        env.tscale env.tshift env.vscale env2array env2vline envelope
-        vline2env
+        env.adsr~ env.ar~ env.asr2~ env.asr~ env.concat env.follow~ env.mix
+        env.smooth~ env.tscale env.tshift env.vscale env2array env2vline
+        envelope vline2env
     }}
     {flow {
         expand_env flow.append flow.change flow.count flow.delay
@@ -195,9 +195,9 @@
     }}
     {proto {
         proto.arturia.minilab proto.feelworld proto.firmata proto.inscore
-        proto.ltc.in~ proto.ltc.out~ proto.midi proto.midi.cc proto.midi.sysex
-        proto.moppy proto.morse proto.mpv proto.sp.alpaca proto.vlc
-        proto.whammy proto.xtouch_ext
+        proto.ltc.in~ proto.ltc.out~ proto.midi proto.midi.casio proto.midi.cc
+        proto.midi.sysex proto.moppy proto.morse proto.mpv proto.sp.alpaca
+        proto.vlc proto.whammy proto.xtouch_ext
     }}
     {random {
         random.atom random.discrete random.float random.gauss random.int
@@ -214,12 +214,13 @@
         snd.file snd.play~
     }}
     {spat {
-        hoa.2d.decoder~ hoa.2d.encoder~ hoa.2d.map~ hoa.2d.optim~
-        hoa.2d.projector~ hoa.2d.recomposer~ hoa.2d.rotate~ hoa.2d.space
-        hoa.2d.wider~ hoa.3d.encoder~ hoa.3d.optim~ hoa.3d.wider~ hoa.@process
-        hoa.in hoa.in~ hoa.out hoa.out~ hoa.process~ hoa.scope~ pan.cos~
-        pan.linsig~ pan.lin~ pan.spread~ pan.sqrt~ spat.pan4~ spat.pan8~
-        spat.zita6x8~ spat.zita8~
+        hoa.2d.decoder~ hoa.2d.encoder~ hoa.2d.exchanger~ hoa.2d.map~
+        hoa.2d.optim~ hoa.2d.projector~ hoa.2d.recomposer~ hoa.2d.rotate~
+        hoa.2d.space hoa.2d.wider~ hoa.3d.decoder~ hoa.3d.encoder~
+        hoa.3d.exchanger~ hoa.3d.map~ hoa.3d.meter~ hoa.3d.optim~
+        hoa.3d.scope~ hoa.3d.wider~ hoa.@process hoa.in hoa.in~ hoa.map.ui
+        hoa.out hoa.out~ hoa.process~ hoa.scope~ pan.cos~ pan.linsig~ pan.lin~
+        pan.spread~ pan.sqrt~ spat.pan4~ spat.pan8~ spat.zita6x8~ spat.zita8~
     }}
     {string {
         string string.contains string.ends_with string.equal string.format
@@ -249,11 +250,12 @@
         tl.bang tl.cue tl.timeline tl.toggle tl.transport
     }}
     {ui {
-        ui.aview ui.bang ui.button ui.canvas ui.colorpanel ui.display ui.dsp~
-        ui.env ui.filter ui.filter~ ui.gain2~ ui.gain~ ui.icon ui.incdec
-        ui.keyboard ui.knob ui.label ui.lcd ui.link ui.matrix ui.menu
-        ui.meter~ ui.midi ui.mouse_filter ui.mouse_route ui.number ui.number~
-        ui.plot~ ui.polar ui.preset ui.radio ui.rslider ui.scope~ ui.slider
-        ui.slider2d ui.sliders ui.spectroscope~ ui.tab ui.toggle
+        ui.aview ui.bang ui.button ui.canvas ui.cmeter~ ui.colorpanel
+        ui.display ui.dsp~ ui.env ui.filter ui.filter~ ui.gain2~ ui.gain~
+        ui.icon ui.incdec ui.keyboard ui.knob ui.label ui.lcd ui.link
+        ui.matrix ui.menu ui.meter~ ui.midi ui.mouse_filter ui.mouse_route
+        ui.number ui.number~ ui.plot~ ui.polar ui.preset ui.radio ui.rslider
+        ui.scope~ ui.slider ui.slider2d ui.sliders ui.spectroscope~ ui.tab
+        ui.toggle
     }}
 }

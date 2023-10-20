@@ -21,20 +21,19 @@
 
 #include "ceammc_geom.h"
 #include "ceammc_property_info.h"
+#include "lex/parser_ui_bind.h"
 #ifdef _WINDOWS
 #include <io.h>
-#define _FUNCTION_DEPRECTAED_
 #else
 #include <unistd.h>
-#define _FUNCTION_DEPRECTAED_ __attribute__((deprecated))
 #endif
 
 struct _class;
 #include "m_pd.h"
 
+using ceammc::epath_types;
 using ceammc::t_pt;
 using ceammc::t_rect;
-using ceammc::epath_types;
 
 #include "g_canvas.h"
 extern "C" {
@@ -101,47 +100,6 @@ using t_dsp_add_method = void (*)(void*, t_object* dsp,
     t_sample** ins, long n_ins,
     t_sample** outs, long n_outs,
     long sampleframes, long flags, void* up);
-
-//! The pre-defined ("null") t_symbol*
-extern t_symbol* s_null;
-//! The pre-defined obj t_symbol*
-extern t_symbol* s_obj;
-//! The pre-defined atom t_symbol*
-extern t_symbol* s_atom;
-//! The pre-defined attr_modified t_symbol*
-extern t_symbol* s_attr_modified;
-//! The pre-defined size t_symbol*
-extern t_symbol* s_size;
-//! The pre-defined int t_symbol*
-extern t_symbol* s_int;
-//! The pre-defined long t_symbol*
-extern t_symbol* s_long;
-//! The pre-defined double t_symbol*
-extern t_symbol* s_double;
-//! The pre-defined s_pinned t_symbol*
-extern t_symbol* s_pinned;
-//! The pre-defined s_iscicm t_symbol*
-extern t_symbol* s_iscicm;
-//! The pre-defined attr_size t_symbol*
-extern t_symbol* s_attr_size;
-//! The pre-defined s_color_black_hex t_symbol*
-extern t_symbol* s_color_black_hex;
-
-extern t_symbol* s_prop_label;
-extern t_symbol* s_prop_label_align;
-extern t_symbol* s_prop_label_valign;
-extern t_symbol* s_prop_label_position;
-extern t_symbol* s_prop_label_side;
-extern t_symbol* s_value_label_align_left;
-extern t_symbol* s_value_label_align_center;
-extern t_symbol* s_value_label_align_right;
-extern t_symbol* s_value_label_valign_top;
-extern t_symbol* s_value_label_valign_center;
-extern t_symbol* s_value_label_valign_bottom;
-extern t_symbol* s_value_label_side_left;
-extern t_symbol* s_value_label_side_top;
-extern t_symbol* s_value_label_side_right;
-extern t_symbol* s_value_label_side_bottom;
 
 /** @} */
 
@@ -538,6 +496,7 @@ struct t_eattr {
     t_float minimum; /*!< The minimum value of the attribute. */
     t_float maximum; /*!< The maximum value of the attribute. */
     t_float step; /*!< The increment or decrement step calue of the attribute. */
+    ceammc::UIBindOptions* bind_opts;
     std::int16_t order; /*!< The dummy order of the attribute. */
     eclip_flags clipped; /*!< If the attribute is clipped if it's value or an array of numerical values. */
     bool save; /*!< If the attribute should be saved. */

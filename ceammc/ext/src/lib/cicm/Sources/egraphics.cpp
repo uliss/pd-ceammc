@@ -9,9 +9,8 @@
  */
 
 #include "egraphics.h"
-
 #include "ceammc_convert.h"
-#include "ceammc_syms.h"
+#include "ceammc_ui_symbols.h"
 
 static const float k = 0.55228474983079356430692996582365594804286956787109f;
 static const char HexDigits[] = "0123456789ABCDEF";
@@ -719,7 +718,7 @@ void egraphics_matrix_init(t_matrix* x, float xx, float yx, float xy, float yy, 
 
 void egraphics_set_matrix(t_elayer* g, const t_matrix* matrix)
 {
-    egraphics_matrix_init(&g->e_matrix, matrix->xx, matrix->yx, matrix->xy, matrix->yy, matrix->x0, matrix->y0);
+    g->e_matrix = *matrix;
 }
 
 void egraphics_rotate(t_elayer* g, float angle)
@@ -870,7 +869,7 @@ void etext_layout_settextcolor(t_etext* textlayout, t_rgba* color)
 
 t_efont* efont_create(t_symbol* family, t_symbol* slant, t_symbol* weight, float size)
 {
-    using namespace ceammc;
+    using namespace ceammc::sym;
 
     auto new_font = (t_efont*)malloc(sizeof(t_efont));
     if (new_font) {

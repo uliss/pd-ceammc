@@ -51,6 +51,8 @@ namespace music {
         bool operator==(const Tempo& t) const;
         bool operator!=(const Tempo& t) const { return !operator==(t); }
 
+        Tempo operator*(double v) const;
+
         bool strictEqual(const Tempo& t) const;
 
         Tempo normalized() const;
@@ -80,6 +82,8 @@ namespace music {
         void setDuration(const Duration& d);
 
         bool isNull() const { return bpm_ == 0; }
+
+        static Tempo intepolate(const Tempo& t0, const Tempo& t1, double t);
     };
 
     std::ostream& operator<<(std::ostream& os, const Tempo& t);

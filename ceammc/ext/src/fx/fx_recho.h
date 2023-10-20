@@ -598,13 +598,13 @@ class fx_recho : public fx_recho_dsp {
 	FAUSTFLOAT fHslider0;
 	float fConst2;
 	float fRec0[2];
-	float ftbl0[96000];
+	float ftbl0[192000];
 	FAUSTFLOAT fHslider1;
 	float fRec2[2];
 	int iRec3[2];
 	float fConst3;
 	FAUSTFLOAT fHslider2;
-	float ftbl1[96000];
+	float ftbl1[192000];
 	float fConst4;
 	float fConst5;
 	float fConst6;
@@ -671,10 +671,10 @@ class fx_recho : public fx_recho_dsp {
 		fConst2 = 1.0f - fConst1;
 		fx_rechoSIG0* sig0 = newfx_rechoSIG0();
 		sig0->instanceInitfx_rechoSIG0(sample_rate);
-		sig0->fillfx_rechoSIG0(96000, ftbl0);
+		sig0->fillfx_rechoSIG0(192000, ftbl0);
 		fConst3 = 0.001f * fConst0;
 		sig0->instanceInitfx_rechoSIG0(sample_rate);
-		sig0->fillfx_rechoSIG0(96000, ftbl1);
+		sig0->fillfx_rechoSIG0(192000, ftbl1);
 		fConst4 = 0.0005f * fConst0;
 		fConst5 = std::exp(0.0f - 0.2f / fConst0);
 		fConst6 = 1.0f - fConst5;
@@ -733,7 +733,7 @@ class fx_recho : public fx_recho_dsp {
 		ui_interface->openVerticalBox("fx.recho");
 		ui_interface->addCheckButton("bypass", &fCheckbox0);
 		ui_interface->declare(&fHslider2, "unit", "ms");
-		ui_interface->addHorizontalSlider("delay", &fHslider2, FAUSTFLOAT(5e+02f), FAUSTFLOAT(0.0f), FAUSTFLOAT(2e+03f), FAUSTFLOAT(0.1f));
+		ui_interface->addHorizontalSlider("delay", &fHslider2, FAUSTFLOAT(5e+02f), FAUSTFLOAT(0.0f), FAUSTFLOAT(4e+03f), FAUSTFLOAT(0.1f));
 		ui_interface->declare(&fHslider0, "style", "knob");
 		ui_interface->addHorizontalSlider("drywet", &fHslider0, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.01f));
 		ui_interface->addHorizontalSlider("feedback", &fHslider1, FAUSTFLOAT(0.3f), FAUSTFLOAT(0.0f), FAUSTFLOAT(0.99f), FAUSTFLOAT(0.001f));
@@ -747,7 +747,7 @@ class fx_recho : public fx_recho_dsp {
 		float fSlow1 = fConst1 * float(fHslider0);
 		float fSlow2 = fConst1 * float(fHslider1);
 		float fSlow3 = float(fHslider2);
-		int iSlow4 = int(std::min<float>(9.6e+04f, fConst3 * fSlow3));
+		int iSlow4 = int(fConst3 * std::min<float>(4e+03f, fSlow3));
 		int iSlow5 = 2 * iSlow4;
 		float fSlow6 = 3.1415927f / float(iSlow4);
 		int iSlow7 = int(fConst4 * fSlow3);

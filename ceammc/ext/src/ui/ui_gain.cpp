@@ -16,7 +16,7 @@
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 
-static const float SCALE_ALPHA_BLEND = 0.7;
+constexpr float SCALE_ALPHA_BLEND = 0.7;
 
 // see ui_single_value.cpp
 static t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
@@ -28,8 +28,7 @@ constexpr int MIDI_CTL_MAX = 127;
 
 static t_symbol* midi_ctl_sym()
 {
-    static t_symbol* sym = gensym("#ctlin");
-    return sym;
+    return gensym("#ctlin");
 }
 
 UIGain::UIGain()
@@ -58,11 +57,15 @@ UIGain::UIGain()
     };
 
     initPopupMenu("gain",
-        { { "+3db", [fn](const t_pt&) { fn(3); } },
+        {
+            { "+3db", [fn](const t_pt&) { fn(3); } },
             { "-3db", [fn](const t_pt&) { fn(-3); } },
             { "-6db", [fn](const t_pt&) { fn(-6); } },
             { "-12db", [fn](const t_pt&) { fn(-12); } },
-            { "-24db", [fn](const t_pt&) { fn(-24); } } });
+            { "-24db", [fn](const t_pt&) { fn(-24); } },
+            { "", {} },
+            { "0db", [this](const t_pt&) { setDbValue(0); output(); } },
+        });
 }
 
 void UIGain::okSize(t_rect* newrect)

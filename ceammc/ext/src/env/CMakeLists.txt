@@ -18,6 +18,7 @@ endmacro()
 ceammc_env_obj_external(adsr)
 ceammc_env_obj_external(ar)
 ceammc_env_obj_external(asr)
+ceammc_env_obj_external(asr2)
 ceammc_env_obj_external(follow)
 ceammc_env_obj_external(smooth)
 

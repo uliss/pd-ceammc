@@ -100,6 +100,7 @@ conv.sec2str,ceammc/sec->str,sec->str		.		.
 conv.semi2ratio,ceammc/semi->ratio,semi->ratio		.		.
 conv.sig2float~,ceammc/sig->float~,sig->float~,ceammc/s->f~,s->f~		~.		.
 conv.str2sec,ceammc/str->sec,str->sec		.		.
+convolve~,ceammc/convolve~		~		~
 data.bimap,ceammc/bimap,bimap		..		..
 data.color,color,ceammc/color		..		.
 data.copy		.		.
@@ -136,6 +137,7 @@ dyn.limit~		~		~
 dyn.softclip~		~		~
 env.adsr~		~		~.
 env.ar~		~		~.
+env.asr2~		~~.		~~.
 env.asr~		~.		~.
 env.concat		..		.
 env.follow~		~		~
@@ -285,6 +287,7 @@ global.mlist		.		.
 global.set		.		.
 hoa.2d.decoder~,hoa.decoder~		?		?
 hoa.2d.encoder~,hoa.encoder~		~~		?
+hoa.2d.exchanger~,hoa.exchanger~		?		?
 hoa.2d.map~,hoa.map~		?		?
 hoa.2d.optim~,hoa.optim~		?		?
 hoa.2d.projector~,hoa.projector~		?		?
@@ -292,15 +295,21 @@ hoa.2d.recomposer~,hoa.recomposer~		?		?
 hoa.2d.rotate~,hoa.rotate~		?		?
 hoa.2d.space,hoa.space		.		.
 hoa.2d.wider~,hoa.wider~		?		?
+hoa.3d.decoder~		?		?
 hoa.3d.encoder~		~~~		?
+hoa.3d.exchanger~		?		?
+hoa.3d.map~		?		?
+hoa.3d.meter~		?		?
 hoa.3d.optim~		?		?
+hoa.3d.scope~		?		-
 hoa.3d.wider~		?		?
 hoa.@process		.		.
 hoa.in		-		.
 hoa.in~		-		~
+hoa.map.ui		.		...
 hoa.out		.		-
 hoa.out~		~		-
-hoa.process~,hoa.2d.process~		?		?
+hoa.process~,hoa.2d.process~,hoa.3d.process~		?		?
 hoa.scope~,hoa.2d.scope~		?		-
 hw.apple_smc		.		.
 hw.apple_sms		.		.
@@ -636,6 +645,7 @@ proto.inscore		.		.
 proto.ltc.in~,ltc.in~		~		..
 proto.ltc.out~,ltc.out~		.		~.
 proto.midi		.		..
+proto.midi.casio		.		.
 proto.midi.cc		.		.
 proto.midi.sysex		.		.
 proto.moppy		.		.
@@ -770,6 +780,7 @@ ui.aview		.		.
 ui.bang,ui.b		.		.
 ui.button,ui.btn		.		.
 ui.canvas,ui.cnv		.		-
+ui.cmeter~,ui.cm~,hoa.2d.meter~		?		-
 ui.colorpanel		.		.
 ui.display,ui.d,ui.dt		.		-
 ui.dsp~		.		-

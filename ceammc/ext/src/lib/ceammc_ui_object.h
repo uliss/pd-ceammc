@@ -96,6 +96,7 @@ public:
 
     void updateSize();
     void resize(int w, int h);
+    void resizeInputs(size_t n);
 
     void onMouseMove(t_object* view, const t_pt& pt, long modifiers);
     void onMouseUp(t_object* view, const t_pt& pt, long modifiers);

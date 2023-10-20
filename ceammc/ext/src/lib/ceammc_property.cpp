@@ -42,23 +42,6 @@
 
 namespace ceammc {
 
-// using singleton to prevent problems with static objects
-// intializations in different modules
-t_symbol* SYM_DUMP()
-{
-    return gensym("dump");
-}
-
-t_symbol* SYM_PROPS_ALL()
-{
-    return gensym("@*");
-}
-
-t_symbol* SYM_PROPS_ALL_Q()
-{
-    return gensym("@*?");
-}
-
 Property::Property(const PropertyInfo& info, PropValueAccess access)
     : info_(info)
     , owner_(nullptr)

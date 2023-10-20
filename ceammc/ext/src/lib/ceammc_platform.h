@@ -161,9 +161,9 @@ namespace platform {
 
     /**
      * Return list of local ifaces ip
-     * @param type - NetAddressType or -1 to return all ip types
+     * @param type - NetAddressType
      */
-    std::vector<std::string> net_ifaces_ip(NetAddressType type = ADDR_IPV4);
+    std::vector<std::string> net_ifaces_ip(NetAddressType type = ADDR_IPV4, bool skipLocal = false);
 
     /**
      * retrive socket address from given socket descriptor

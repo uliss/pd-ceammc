@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure\\ Data 0.53.0_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2023-09-12 02:06+0300\n"
+"POT-Creation-Date: 2023-10-20 14:40+0300\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -95,6 +95,7 @@ msgstr ""
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
 #: ../ceammc/ext/src/spat/hoa_2d_space.cpp
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
 #: ../ceammc/ext/src/spat/hoa_3d_scope.cpp
 #: ../ceammc/ext/src/spat/hoa_map_ui.cpp ../ceammc/ext/src/ui/ui_arrayview.cpp
 #: ../ceammc/ext/src/ui/ui_button.cpp
@@ -170,6 +171,7 @@ msgid "Positive Harmonics Color"
 msgstr ""
 
 #: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
 #: ../ceammc/ext/src/spat/hoa_3d_scope.cpp ../ceammc/ext/src/ui/ui_scope.cpp
 #: ../ceammc/ext/src/ui/ui_spectroscope.cpp
 msgid "Refresh time (ms)"
@@ -180,15 +182,17 @@ msgstr ""
 msgid "View rotation"
 msgstr ""
 
-#: ../ceammc/ext/src/spat/hoa_2d_space.cpp ../ceammc/ext/src/ui/ui_knob.cpp
-#: ../ceammc/ext/src/ui/ui_number.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
-#: ../ceammc/ext/src/ui/ui_slider.cpp ../ceammc/ext/src/ui/ui_sliders.cpp
+#: ../ceammc/ext/src/spat/hoa_2d_space.cpp ../ceammc/ext/src/ui/ui_incdec.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_number.cpp
+#: ../ceammc/ext/src/ui/ui_rslider.cpp ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
 msgid "Maximum Value"
 msgstr ""
 
-#: ../ceammc/ext/src/spat/hoa_2d_space.cpp ../ceammc/ext/src/ui/ui_knob.cpp
-#: ../ceammc/ext/src/ui/ui_number.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
-#: ../ceammc/ext/src/ui/ui_slider.cpp ../ceammc/ext/src/ui/ui_sliders.cpp
+#: ../ceammc/ext/src/spat/hoa_2d_space.cpp ../ceammc/ext/src/ui/ui_incdec.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_number.cpp
+#: ../ceammc/ext/src/ui/ui_rslider.cpp ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
 msgid "Minimum Value"
 msgstr ""
 
@@ -202,6 +206,60 @@ msgstr ""
 
 #: ../ceammc/ext/src/spat/hoa_2d_space.cpp
 msgid "Virtuals Microphones Color"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+#: ../ceammc/ext/src/ui/ui_circular_meter.cpp
+msgid "Angles"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+msgid "Channels"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+#: ../ceammc/ext/src/ui/ui_circular_meter.cpp ../ceammc/ext/src/ui/ui_polar.cpp
+msgid "Clockwise"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+msgid "Cold Signal Color"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+msgid "Energy Vector Color"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+msgid "Hot Signal Color"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+msgid "Offset of Channels"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+msgid "Overload Signal Color"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+msgid "Tepid Signal Color"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+msgid "Vectors"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+msgid "Velocity Vector Color"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+msgid "View of Channels"
+msgstr ""
+
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+msgid "Warm Signal Color"
 msgstr ""
 
 #: ../ceammc/ext/src/spat/hoa_map_ui.cpp
@@ -256,6 +314,10 @@ msgstr ""
 msgid "Remove source"
 msgstr ""
 
+#: ../ceammc/ext/src/spat/hoa_map_ui.cpp ../ceammc/ext/src/ui/ui_arrayview.cpp
+msgid "Selection Color"
+msgstr ""
+
 #: ../ceammc/ext/src/spat/hoa_map_ui.cpp
 msgid "Source menu"
 msgstr ""
@@ -278,10 +340,6 @@ msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
 msgid "Cursor Color"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_arrayview.cpp
-msgid "Selection Color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_arrayview.cpp
@@ -308,6 +366,10 @@ msgstr ""
 msgid "Active Color"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_bang.cpp
+msgid "Bind"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_button.cpp ../ceammc/ext/src/ui/ui_toggle.cpp
 msgid "Off value"
 msgstr ""
@@ -317,15 +379,7 @@ msgid "On value"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_circular_meter.cpp
-msgid "Angles"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_circular_meter.cpp
 msgid "Channel offset"
-msgstr ""
-
-#: ../ceammc/ext/src/ui/ui_circular_meter.cpp ../ceammc/ext/src/ui/ui_polar.cpp
-msgid "Clockwise"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_circular_meter.cpp ../ceammc/ext/src/ui/ui_meter.cpp
@@ -560,6 +614,14 @@ msgid "Arrow Color"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_incdec.cpp
+msgid "Bind Down"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_incdec.cpp
+msgid "Bind Up"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_incdec.cpp
 msgid "Step increment"
 msgstr ""
 
@@ -769,6 +831,10 @@ msgstr ""
 msgid "Digits"
 msgstr ""
 
+#: ../ceammc/ext/src/ui/ui_number.cpp
+msgid "Display only"
+msgstr ""
+
 #: ../ceammc/ext/src/ui/ui_number.cpp ../ceammc/ext/src/ui/ui_number_tilde.cpp
 msgid "Text color"
 msgstr ""
@@ -938,6 +1004,14 @@ msgid "Value position"
 msgstr ""
 
 #: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "Bind X"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "Bind Y"
+msgstr ""
+
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
 msgid "Bottom Y-value"
 msgstr ""
 
@@ -1022,6 +1096,17 @@ msgid "Vertical Orientation"
 msgstr ""
 
 #: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/dialog_array.tcl
+#: ../tcl/pd_menus.tcl
+msgid "Array"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Button"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Button Bar"
 msgstr ""
@@ -1032,24 +1117,54 @@ msgid "Button Bar Settings"
 msgstr ""
 
 #: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/dialog_iemgui.tcl
+#: ../tcl/pd_menus.tcl
+msgid "Canvas"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/pd_menus.tcl
+msgid "Comment"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Display"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Envelope"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Hide in runmode"
 msgstr ""
 
 #: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/pd_menus.tcl
-msgid "Object"
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Horizontal radio"
 msgstr ""
 
 #: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
-msgid "Save settings"
+msgid "Horizontal slider"
 msgstr ""
 
 #: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Show"
+msgid "Keyboard"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Knob"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "List box"
 msgstr ""
 
 #: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
@@ -1064,22 +1179,53 @@ msgstr ""
 
 #: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Symbol box"
-msgstr ""
-
-#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "List box"
+msgid "Number box2"
 msgstr ""
 
 #: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/pd_menus.tcl
-msgid "Comment"
+msgid "Object"
 msgstr ""
 
 #: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Button"
+msgid "Presets"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+#: /Users/serge/work/music/pure-data/ceammc/gui/plugins/completion-plugin/completion-plugin.tcl
+msgid "Save settings"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Scope"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Show"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Slider 2D"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Sliders"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Spectroscope"
+msgstr ""
+
+#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
+#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
+msgid "Symbol box"
 msgstr ""
 
 #: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
@@ -1090,84 +1236,12 @@ msgstr ""
 
 #: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Number box2"
-msgstr ""
-
-#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Horizontal slider"
-msgstr ""
-
-#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Vertial slider"
 msgstr ""
 
 #: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Horizontal radio"
-msgstr ""
-
-#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Vertical radio"
-msgstr ""
-
-#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/dialog_iemgui.tcl
-#: ../tcl/pd_menus.tcl
-msgid "Canvas"
-msgstr ""
-
-#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl ../tcl/dialog_array.tcl
-#: ../tcl/pd_menus.tcl
-msgid "Array"
-msgstr ""
-
-#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Knob"
-msgstr ""
-
-#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Sliders"
-msgstr ""
-
-#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Slider 2D"
-msgstr ""
-
-#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Keyboard"
-msgstr ""
-
-#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Envelope"
-msgstr ""
-
-#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Display"
-msgstr ""
-
-#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Scope"
-msgstr ""
-
-#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Spectroscope"
-msgstr ""
-
-#: ../ceammc/gui/plugins/buttonbar.tmpl.tcl
-#: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
-msgid "Presets"
 msgstr ""
 
 #: ../ceammc/gui/plugins/patch2svg-plugin.tcl

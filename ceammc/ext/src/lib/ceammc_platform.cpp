@@ -363,7 +363,7 @@ namespace platform {
         return NS(current_working_directory());
     }
 
-    std::vector<std::string> net_ifaces_ip(NetAddressType type)
+    std::vector<std::string> net_ifaces_ip(NetAddressType type, bool skipLocal)
     {
         return NS(net_ifaces_ip(type));
     }

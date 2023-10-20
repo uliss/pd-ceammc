@@ -14,7 +14,7 @@
 #X obj 403 50 noise~;
 #X obj 454 50 osc~ 7;
 #X obj 403 72 *~ 0.25;
-#X obj 403 119 ui.gain~ @size 120 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.gain~.0" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value 0 @relative 1 @midi_channel 0 @midi_control -1 @midi_pickup 1 @show_range 1;
+#X obj 403 119 ui.gain~ @size 120 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "(null)" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @max 0 @min -60 @output_value 0 @relative 1 @midi_channel 0 @midi_control -1 @midi_pickup 1 @show_range 1;
 #X obj 10 228 hoa.2d.decoder~ 7 regular 16 @offset 45, f 42;
 #X obj 10 327 hoa.2d.decoder~ 7 irregular 5 @angles 0 30 110 250 330;
 #X obj 403 464 xdac~ 1:2, f 28;

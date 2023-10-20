@@ -3,6 +3,7 @@
 #include "ceammc_log.h"
 #include "ceammc_pd.h"
 #include "ceammc_preset.h"
+#include "ceammc_ui_symbols.h"
 #include "fmt/core.h"
 
 #include <algorithm>
@@ -37,7 +38,7 @@ UIObjectImpl::UIObjectImpl(t_ebox* x)
     : box_(x)
     , name_(&s_)
     , bg_layer_(box_, gensym(BG_LAYER))
-    , old_preset_id_(s_null)
+    , old_preset_id_(sym::sym_null())
     , use_presets_(false)
     , prop_color_background(rgba_white)
     , prop_color_border(rgba_black)
@@ -157,13 +158,13 @@ t_canvas* UIObjectImpl::canvas() const
 
 bool UIObjectImpl::isPatchLoading() const
 {
-    t_canvas* c = canvas();
+    auto c = canvas();
     return c ? c->gl_loading : false;
 }
 
 bool UIObjectImpl::isPatchEdited() const
 {
-    t_canvas* c = canvas();
+    auto c = canvas();
     return c ? c->gl_edit : false;
 }
 
@@ -223,7 +224,7 @@ void UIObjectImpl::redrawBGLayer()
 void UIObjectImpl::updateSize()
 {
     if (box_)
-        ebox_notify(box_, s_size);
+        ebox_notify(box_, sym::methods::sym_size());
 }
 
 void UIObjectImpl::resize(int w, int h)
@@ -231,6 +232,11 @@ void UIObjectImpl::resize(int w, int h)
     box_->b_rect.w = w;
     box_->b_rect.h = h;
     updateSize();
+}
+
+void UIObjectImpl::resizeInputs(size_t n)
+{
+    eobj_resize_inputs(asEObj(), n);
 }
 
 void UIObjectImpl::redrawLayer(UILayer& l)
@@ -495,8 +501,8 @@ void UIObjectImpl::setCursor(t_cursor c)
 
 void UIObjectImpl::presetInit()
 {
-    old_preset_id_ = s_null;
-    if ((!presetId() || presetId() == s_null) && !isPatchLoading()) {
+    old_preset_id_ = sym::sym_null();
+    if ((!presetId() || presetId() == sym::sym_null()) && !isPatchLoading()) {
         t_atom a;
         SETSYMBOL(&a, genPresetName(name_));
         ebox_set_presetid(asEBox(), nullptr, 1, &a);
@@ -523,7 +529,7 @@ void UIObjectImpl::presetInit()
 
 void UIObjectImpl::bindPreset(t_symbol* name)
 {
-    if (!name || name == s_null)
+    if (!name || name == sym::sym_null())
         return;
 
 #ifdef CEAMMC_PRESET_DEBUG
@@ -537,7 +543,7 @@ void UIObjectImpl::bindPreset(t_symbol* name)
 
 void UIObjectImpl::unbindPreset(t_symbol* name)
 {
-    if (!name || name == s_null)
+    if (!name || name == sym::sym_null())
         return;
 
 #ifdef CEAMMC_PRESET_DEBUG
@@ -573,9 +579,9 @@ void UIObjectImpl::rebindPreset(t_symbol* from, t_symbol* to)
 void UIObjectImpl::handlePresetNameChange()
 {
     if (old_preset_id_ != presetId()) {
-        if (old_preset_id_ == s_null)
+        if (old_preset_id_ == sym::sym_null())
             bindPreset(presetId());
-        else if (presetId() == s_null)
+        else if (presetId() == sym::sym_null())
             unbindPreset(old_preset_id_);
         else
             rebindPreset(old_preset_id_, presetId());
@@ -969,7 +975,7 @@ t_symbol* UIObjectImpl::genPresetName(t_symbol* prefix)
         }
     }
 
-    return s_null;
+    return sym::sym_null();
 }
 
 void UIObjectImpl::releasePresetName(t_symbol* s)

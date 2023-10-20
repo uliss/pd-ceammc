@@ -135,7 +135,7 @@ cs = 0;
 tr0:
 #line 8 "lex/ragel_units.rl"
 	{ ragel_type = TYPE_UNKNOWN; ragel_cat = CAT_UNKNOWN; }
-#line 87 "lex/ragel_units.rl"
+#line 88 "lex/ragel_units.rl"
 	{pos_ = POSITION_ABS;}
 	goto st2;
 st2:
@@ -157,33 +157,33 @@ case 2:
 tr2:
 #line 8 "lex/ragel_units.rl"
 	{ ragel_type = TYPE_UNKNOWN; ragel_cat = CAT_UNKNOWN; }
-#line 87 "lex/ragel_units.rl"
+#line 88 "lex/ragel_units.rl"
 	{pos_ = POSITION_ABS;}
 #line 21 "lex/ragel_numeric.rl"
 	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
-#line 78 "lex/ragel_units.rl"
+#line 79 "lex/ragel_units.rl"
 	{smpte.np = 0;}
-#line 73 "lex/ragel_units.rl"
+#line 74 "lex/ragel_units.rl"
 	{smpte.sign = ((*p)=='-')?-1:1;}
 	goto st3;
 tr8:
-#line 81 "lex/ragel_units.rl"
+#line 82 "lex/ragel_units.rl"
 	{pos_ = POSITION_END;}
 #line 21 "lex/ragel_numeric.rl"
 	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
-#line 78 "lex/ragel_units.rl"
+#line 79 "lex/ragel_units.rl"
 	{smpte.np = 0;}
-#line 73 "lex/ragel_units.rl"
+#line 74 "lex/ragel_units.rl"
 	{smpte.sign = ((*p)=='-')?-1:1;}
 	goto st3;
 tr59:
-#line 82 "lex/ragel_units.rl"
+#line 83 "lex/ragel_units.rl"
 	{pos_ = POSITION_CURRENT;}
 #line 21 "lex/ragel_numeric.rl"
 	{ ragel_num.sign = ((*p)=='-') ? -1 : 1; }
-#line 78 "lex/ragel_units.rl"
+#line 79 "lex/ragel_units.rl"
 	{smpte.np = 0;}
-#line 73 "lex/ragel_units.rl"
+#line 74 "lex/ragel_units.rl"
 	{smpte.sign = ((*p)=='-')?-1:1;}
 	goto st3;
 st3:
@@ -200,17 +200,17 @@ case 3:
 		goto tr13;
 	goto st0;
 tr9:
-#line 81 "lex/ragel_units.rl"
+#line 82 "lex/ragel_units.rl"
 	{pos_ = POSITION_END;}
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 #line 42 "lex/ragel_numeric.rl"
 	{ (ragel_num.ratio.num *= 10) += ((*p)-'0'); }
-#line 78 "lex/ragel_units.rl"
+#line 79 "lex/ragel_units.rl"
 	{smpte.np = 0;}
-#line 66 "lex/ragel_units.rl"
+#line 67 "lex/ragel_units.rl"
 	{smpte.hour = 0; smpte.np++;}
-#line 66 "lex/ragel_units.rl"
+#line 67 "lex/ragel_units.rl"
 	{(smpte.hour *= 10) += ((*p) - '0');}
 	goto st49;
 tr12:
@@ -218,23 +218,23 @@ tr12:
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 #line 42 "lex/ragel_numeric.rl"
 	{ (ragel_num.ratio.num *= 10) += ((*p)-'0'); }
-#line 66 "lex/ragel_units.rl"
+#line 67 "lex/ragel_units.rl"
 	{smpte.hour = 0; smpte.np++;}
-#line 66 "lex/ragel_units.rl"
+#line 67 "lex/ragel_units.rl"
 	{(smpte.hour *= 10) += ((*p) - '0');}
 	goto st49;
 tr60:
-#line 82 "lex/ragel_units.rl"
+#line 83 "lex/ragel_units.rl"
 	{pos_ = POSITION_CURRENT;}
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 #line 42 "lex/ragel_numeric.rl"
 	{ (ragel_num.ratio.num *= 10) += ((*p)-'0'); }
-#line 78 "lex/ragel_units.rl"
+#line 79 "lex/ragel_units.rl"
 	{smpte.np = 0;}
-#line 66 "lex/ragel_units.rl"
+#line 67 "lex/ragel_units.rl"
 	{smpte.hour = 0; smpte.np++;}
-#line 66 "lex/ragel_units.rl"
+#line 67 "lex/ragel_units.rl"
 	{(smpte.hour *= 10) += ((*p) - '0');}
 	goto st49;
 st49:
@@ -302,7 +302,7 @@ tr66:
     }
 #line 7 "lex/ragel_units.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
-#line 108 "lex/ragel_numeric.rl"
+#line 110 "lex/ragel_numeric.rl"
 	{ragel_num.vdouble = ragel_num.vint;}
 	goto st51;
 tr81:
@@ -329,7 +329,7 @@ tr67:
     }
 #line 7 "lex/ragel_units.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
-#line 113 "lex/ragel_numeric.rl"
+#line 115 "lex/ragel_numeric.rl"
 	{ragel_num.vdouble = ragel_num.vint;}
 	goto st52;
 tr82:
@@ -438,9 +438,9 @@ tr72:
     }
 #line 7 "lex/ragel_units.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
-#line 108 "lex/ragel_numeric.rl"
+#line 110 "lex/ragel_numeric.rl"
 	{ragel_num.vdouble = ragel_num.vint;}
-#line 113 "lex/ragel_numeric.rl"
+#line 115 "lex/ragel_numeric.rl"
 	{ragel_num.vdouble = ragel_num.vint;}
 	goto st55;
 tr84:
@@ -707,7 +707,7 @@ tr77:
     }
 #line 7 "lex/ragel_units.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
-#line 113 "lex/ragel_numeric.rl"
+#line 115 "lex/ragel_numeric.rl"
 	{ragel_num.vdouble = ragel_num.vint;}
 	goto st16;
 tr89:
@@ -963,7 +963,7 @@ case 79:
 		goto tr45;
 	goto st0;
 tr70:
-#line 66 "lex/ragel_units.rl"
+#line 67 "lex/ragel_units.rl"
 	{(smpte.hour *= 10) += ((*p) - '0');}
 	goto st33;
 st33:
@@ -982,9 +982,9 @@ case 34:
 		goto tr47;
 	goto st0;
 tr47:
-#line 67 "lex/ragel_units.rl"
+#line 68 "lex/ragel_units.rl"
 	{smpte.min = 0; smpte.np++;}
-#line 67 "lex/ragel_units.rl"
+#line 68 "lex/ragel_units.rl"
 	{(smpte.min *= 10) += ((*p) - '0');}
 	goto st35;
 st35:
@@ -996,7 +996,7 @@ case 35:
 		goto tr48;
 	goto st0;
 tr48:
-#line 67 "lex/ragel_units.rl"
+#line 68 "lex/ragel_units.rl"
 	{(smpte.min *= 10) += ((*p) - '0');}
 	goto st80;
 st80:
@@ -1017,9 +1017,9 @@ case 36:
 		goto tr49;
 	goto st0;
 tr49:
-#line 69 "lex/ragel_units.rl"
+#line 70 "lex/ragel_units.rl"
 	{smpte.frame = 0;}
-#line 69 "lex/ragel_units.rl"
+#line 70 "lex/ragel_units.rl"
 	{(smpte.frame *= 10) += ((*p) - '0');}
 	goto st81;
 st81:
@@ -1031,7 +1031,7 @@ case 81:
 		goto tr119;
 	goto st0;
 tr119:
-#line 69 "lex/ragel_units.rl"
+#line 70 "lex/ragel_units.rl"
 	{(smpte.frame *= 10) += ((*p) - '0');}
 	goto st82;
 st82:
@@ -1048,9 +1048,9 @@ case 37:
 		goto tr50;
 	goto st0;
 tr50:
-#line 68 "lex/ragel_units.rl"
+#line 69 "lex/ragel_units.rl"
 	{smpte.sec = 0; smpte.np++;}
-#line 68 "lex/ragel_units.rl"
+#line 69 "lex/ragel_units.rl"
 	{(smpte.sec *= 10) += ((*p) - '0');}
 	goto st38;
 st38:
@@ -1062,7 +1062,7 @@ case 38:
 		goto tr51;
 	goto st0;
 tr51:
-#line 68 "lex/ragel_units.rl"
+#line 69 "lex/ragel_units.rl"
 	{(smpte.sec *= 10) += ((*p) - '0');}
 	goto st83;
 st83:
@@ -1074,17 +1074,17 @@ case 83:
 		goto st36;
 	goto st0;
 tr10:
-#line 81 "lex/ragel_units.rl"
+#line 82 "lex/ragel_units.rl"
 	{pos_ = POSITION_END;}
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 #line 42 "lex/ragel_numeric.rl"
 	{ (ragel_num.ratio.num *= 10) += ((*p)-'0'); }
-#line 78 "lex/ragel_units.rl"
+#line 79 "lex/ragel_units.rl"
 	{smpte.np = 0;}
-#line 66 "lex/ragel_units.rl"
+#line 67 "lex/ragel_units.rl"
 	{smpte.hour = 0; smpte.np++;}
-#line 66 "lex/ragel_units.rl"
+#line 67 "lex/ragel_units.rl"
 	{(smpte.hour *= 10) += ((*p) - '0');}
 	goto st84;
 tr13:
@@ -1092,23 +1092,23 @@ tr13:
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 #line 42 "lex/ragel_numeric.rl"
 	{ (ragel_num.ratio.num *= 10) += ((*p)-'0'); }
-#line 66 "lex/ragel_units.rl"
+#line 67 "lex/ragel_units.rl"
 	{smpte.hour = 0; smpte.np++;}
-#line 66 "lex/ragel_units.rl"
+#line 67 "lex/ragel_units.rl"
 	{(smpte.hour *= 10) += ((*p) - '0');}
 	goto st84;
 tr61:
-#line 82 "lex/ragel_units.rl"
+#line 83 "lex/ragel_units.rl"
 	{pos_ = POSITION_CURRENT;}
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 #line 42 "lex/ragel_numeric.rl"
 	{ (ragel_num.ratio.num *= 10) += ((*p)-'0'); }
-#line 78 "lex/ragel_units.rl"
+#line 79 "lex/ragel_units.rl"
 	{smpte.np = 0;}
-#line 66 "lex/ragel_units.rl"
+#line 67 "lex/ragel_units.rl"
 	{smpte.hour = 0; smpte.np++;}
-#line 66 "lex/ragel_units.rl"
+#line 67 "lex/ragel_units.rl"
 	{(smpte.hour *= 10) += ((*p) - '0');}
 	goto st84;
 st84:
@@ -1140,7 +1140,7 @@ tr120:
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 #line 42 "lex/ragel_numeric.rl"
 	{ (ragel_num.ratio.num *= 10) += ((*p)-'0'); }
-#line 66 "lex/ragel_units.rl"
+#line 67 "lex/ragel_units.rl"
 	{(smpte.hour *= 10) += ((*p) - '0');}
 	goto st85;
 st85:
@@ -1169,7 +1169,7 @@ case 85:
 		goto tr14;
 	goto st0;
 tr11:
-#line 81 "lex/ragel_units.rl"
+#line 82 "lex/ragel_units.rl"
 	{pos_ = POSITION_END;}
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
@@ -1183,7 +1183,7 @@ tr14:
 	{ (ragel_num.ratio.num *= 10) += ((*p)-'0'); }
 	goto st86;
 tr62:
-#line 82 "lex/ragel_units.rl"
+#line 83 "lex/ragel_units.rl"
 	{pos_ = POSITION_CURRENT;}
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
@@ -1217,17 +1217,17 @@ case 86:
 tr3:
 #line 8 "lex/ragel_units.rl"
 	{ ragel_type = TYPE_UNKNOWN; ragel_cat = CAT_UNKNOWN; }
-#line 87 "lex/ragel_units.rl"
+#line 88 "lex/ragel_units.rl"
 	{pos_ = POSITION_ABS;}
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 #line 42 "lex/ragel_numeric.rl"
 	{ (ragel_num.ratio.num *= 10) += ((*p)-'0'); }
-#line 78 "lex/ragel_units.rl"
+#line 79 "lex/ragel_units.rl"
 	{smpte.np = 0;}
-#line 66 "lex/ragel_units.rl"
+#line 67 "lex/ragel_units.rl"
 	{smpte.hour = 0; smpte.np++;}
-#line 66 "lex/ragel_units.rl"
+#line 67 "lex/ragel_units.rl"
 	{(smpte.hour *= 10) += ((*p) - '0');}
 #line 9 "lex/ragel_music.rl"
 	{ bpm.dur_num = 1; bpm.dur_den = 4; }
@@ -1323,9 +1323,9 @@ tr122:
     }
 #line 7 "lex/ragel_units.rl"
 	{ ragel_num.vdouble = ragel_num.vint; }
-#line 108 "lex/ragel_numeric.rl"
+#line 110 "lex/ragel_numeric.rl"
 	{ragel_num.vdouble = ragel_num.vint;}
-#line 113 "lex/ragel_numeric.rl"
+#line 115 "lex/ragel_numeric.rl"
 	{ragel_num.vdouble = ragel_num.vint;}
 	goto st89;
 tr125:
@@ -1483,17 +1483,17 @@ case 94:
 tr4:
 #line 8 "lex/ragel_units.rl"
 	{ ragel_type = TYPE_UNKNOWN; ragel_cat = CAT_UNKNOWN; }
-#line 87 "lex/ragel_units.rl"
+#line 88 "lex/ragel_units.rl"
 	{pos_ = POSITION_ABS;}
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 #line 42 "lex/ragel_numeric.rl"
 	{ (ragel_num.ratio.num *= 10) += ((*p)-'0'); }
-#line 78 "lex/ragel_units.rl"
+#line 79 "lex/ragel_units.rl"
 	{smpte.np = 0;}
-#line 66 "lex/ragel_units.rl"
+#line 67 "lex/ragel_units.rl"
 	{smpte.hour = 0; smpte.np++;}
-#line 66 "lex/ragel_units.rl"
+#line 67 "lex/ragel_units.rl"
 	{(smpte.hour *= 10) += ((*p) - '0');}
 #line 9 "lex/ragel_music.rl"
 	{ bpm.dur_num = 1; bpm.dur_den = 4; }
@@ -1531,7 +1531,7 @@ tr134:
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
 #line 42 "lex/ragel_numeric.rl"
 	{ (ragel_num.ratio.num *= 10) += ((*p)-'0'); }
-#line 66 "lex/ragel_units.rl"
+#line 67 "lex/ragel_units.rl"
 	{(smpte.hour *= 10) += ((*p) - '0');}
 #line 6 "lex/ragel_music.rl"
 	{ (bpm.ival *= 10) += ((*p) - '0'); }
@@ -1566,7 +1566,7 @@ case 96:
 tr5:
 #line 8 "lex/ragel_units.rl"
 	{ ragel_type = TYPE_UNKNOWN; ragel_cat = CAT_UNKNOWN; }
-#line 87 "lex/ragel_units.rl"
+#line 88 "lex/ragel_units.rl"
 	{pos_ = POSITION_ABS;}
 #line 29 "lex/ragel_numeric.rl"
 	{ (ragel_num.vint *= 10) += ((*p)-'0'); }
@@ -1614,7 +1614,7 @@ case 97:
 tr6:
 #line 8 "lex/ragel_units.rl"
 	{ ragel_type = TYPE_UNKNOWN; ragel_cat = CAT_UNKNOWN; }
-#line 87 "lex/ragel_units.rl"
+#line 88 "lex/ragel_units.rl"
 	{pos_ = POSITION_ABS;}
 	goto st44;
 st44:
@@ -1650,7 +1650,7 @@ case 46:
 tr7:
 #line 8 "lex/ragel_units.rl"
 	{ ragel_type = TYPE_UNKNOWN; ragel_cat = CAT_UNKNOWN; }
-#line 87 "lex/ragel_units.rl"
+#line 88 "lex/ragel_units.rl"
 	{pos_ = POSITION_ABS;}
 	goto st47;
 st47:
@@ -1893,7 +1893,7 @@ case 48:
 	case 81: 
 	case 82: 
 	case 83: 
-#line 52 "lex/ragel_units.rl"
+#line 53 "lex/ragel_units.rl"
 	{
     ragel_type = TYPE_SMPTE;
     smpte.hour *= smpte.sign;
@@ -1933,7 +1933,7 @@ case 48:
         ragel_type = TYPE_RATIO;
         ragel_cat  = CAT_NUMBER;
     }
-#line 91 "lex/ragel_units.rl"
+#line 92 "lex/ragel_units.rl"
 	{ragel_type = TYPE_RATIO;}
 #line 9 "lex/ragel_units.rl"
 	{ ragel_cat = CAT_UNIT; }
@@ -1984,7 +1984,7 @@ case 48:
         ragel_type = TYPE_PERCENT;
         ragel_cat = CAT_NUMBER;
     }
-#line 89 "lex/ragel_units.rl"
+#line 90 "lex/ragel_units.rl"
 	{ragel_type = TYPE_PERCENT;}
 #line 9 "lex/ragel_units.rl"
 	{ ragel_cat = CAT_UNIT; }
@@ -1997,7 +1997,7 @@ case 48:
         ragel_type = TYPE_PHASE;
         ragel_cat = CAT_NUMBER;
     }
-#line 90 "lex/ragel_units.rl"
+#line 91 "lex/ragel_units.rl"
 	{ragel_type = TYPE_PHASE;}
 #line 9 "lex/ragel_units.rl"
 	{ ragel_cat = CAT_UNIT; }

@@ -128,6 +128,9 @@
     <entry name="chrono.datetime" descr="output current date and time info" ref_view="object">
       <xi:include href="chrono.datetime.pddoc" parse="xml"/>
     </entry>
+    <entry name="convolve~" descr="realtime FFT convolution" ref_view="object">
+      <xi:include href="convolve~.pddoc" parse="xml"/>
+    </entry>
     <entry name="function" descr="named function" ref_view="link">
       <xi:include href="function.pddoc" parse="xml"/>
     </entry>
@@ -533,6 +536,9 @@
     </entry>
     <entry name="env.ar~" descr="Attack/Release envelope generator" ref_view="object">
       <xi:include href="env.ar~.pddoc" parse="xml"/>
+    </entry>
+    <entry name="env.asr2~" descr="stereo Attack/Sustain/Release envelope generator" ref_view="object">
+      <xi:include href="env.asr2~.pddoc" parse="xml"/>
     </entry>
     <entry name="env.asr~" descr="Attack/Sustain/Release envelope generator" ref_view="object">
       <xi:include href="env.asr~.pddoc" parse="xml"/>
@@ -2015,6 +2021,9 @@
     <entry name="proto.midi" descr="raw midi encoder/parser" ref_view="object">
       <xi:include href="proto.midi.pddoc" parse="xml"/>
     </entry>
+    <entry name="proto.midi.casio" descr="Casio Privia MIDI control" ref_view="object">
+      <xi:include href="proto.midi.casio.pddoc" parse="xml"/>
+    </entry>
     <entry name="proto.midi.cc" descr="raw midi CC encoder/parser" ref_view="object">
       <xi:include href="proto.midi.cc.pddoc" parse="xml"/>
     </entry>
@@ -2118,6 +2127,9 @@
     <entry name="hoa.2d.encoder~" descr="hoa 2d encoder" ref_view="object">
       <xi:include href="hoa.2d.encoder~.pddoc" parse="xml"/>
     </entry>
+    <entry name="hoa.2d.exchanger~" descr="renumbers and normalizes the channels" ref_view="object">
+      <xi:include href="hoa.2d.exchanger~.pddoc" parse="xml"/>
+    </entry>
     <entry name="hoa.2d.map~" descr="a 2d ambisonic multisource spatializer" ref_view="object">
       <xi:include href="hoa.2d.map~.pddoc" parse="xml"/>
     </entry>
@@ -2139,11 +2151,26 @@
     <entry name="hoa.2d.wider~" descr="a 2d fractional ambisonic order simulator" ref_view="object">
       <xi:include href="hoa.2d.wider~.pddoc" parse="xml"/>
     </entry>
+    <entry name="hoa.3d.decoder~" descr="hoa 3d decoder" ref_view="object">
+      <xi:include href="hoa.3d.decoder~.pddoc" parse="xml"/>
+    </entry>
     <entry name="hoa.3d.encoder~" descr="hoa 3d encoder" ref_view="object">
       <xi:include href="hoa.3d.encoder~.pddoc" parse="xml"/>
     </entry>
+    <entry name="hoa.3d.exchanger~" descr="renumbers and normalizes the channels" ref_view="object">
+      <xi:include href="hoa.3d.exchanger~.pddoc" parse="xml"/>
+    </entry>
+    <entry name="hoa.3d.map~" descr="a 3d ambisonic multisource spatializer" ref_view="object">
+      <xi:include href="hoa.3d.map~.pddoc" parse="xml"/>
+    </entry>
+    <entry name="hoa.3d.meter~" descr="multi spherical meter with sound field descriptor" ref_view="object">
+      <xi:include href="hoa.3d.meter~.pddoc" parse="xml"/>
+    </entry>
     <entry name="hoa.3d.optim~" descr="a 3D ambisonic optimization tool" ref_view="object">
       <xi:include href="hoa.3d.optim~.pddoc" parse="xml"/>
+    </entry>
+    <entry name="hoa.3d.scope~" descr="a 3d ambisonic harmonic scope" ref_view="link">
+      <xi:include href="hoa.3d.scope~.pddoc" parse="xml"/>
     </entry>
     <entry name="hoa.3d.wider~" descr="a 3d fractional ambisonic order simulator" ref_view="object">
       <xi:include href="hoa.3d.wider~.pddoc" parse="xml"/>
@@ -2156,6 +2183,9 @@
     </entry>
     <entry name="hoa.in~" descr="signal inlet for a patcher loaded by hoa.process~" ref_view="object">
       <xi:include href="hoa.in~.pddoc" parse="xml"/>
+    </entry>
+    <entry name="hoa.map.ui" descr="a GUI to spatialize sources on a map" ref_view="object">
+      <xi:include href="hoa.map.ui.pddoc" parse="xml"/>
     </entry>
     <entry name="hoa.out" descr="message outlet for a patcher loaded by hoa.process~" ref_view="object">
       <xi:include href="hoa.out.pddoc" parse="xml"/>
@@ -2423,6 +2453,9 @@
     </entry>
     <entry name="ui.canvas" descr="UI canvas for drawing" ref_view="link">
       <xi:include href="ui.canvas.pddoc" parse="xml"/>
+    </entry>
+    <entry name="ui.cmeter~" descr="Multichannel circular peak and rms signal meter" ref_view="link">
+      <xi:include href="ui.cmeter~.pddoc" parse="xml"/>
     </entry>
     <entry name="ui.colorpanel" descr="colorchooser widget" ref_view="link">
       <xi:include href="ui.colorpanel.pddoc" parse="xml"/>

@@ -24,7 +24,19 @@
 #include "ui_slider2d.tcl.h"
 
 UISlider2D::UISlider2D()
-    : prop_x_left(-1)
+    : UIBindObject<2>({
+        [this](int v) {
+            x_pos_ = convert::lin2lin<t_float, 0, 127>(v, prop_x_left, prop_x_right);
+            redrawKnob();
+            output();
+        },
+        [this](int v) {
+            y_pos_ = convert::lin2lin<t_float, 0, 127>(v, prop_y_bottom, prop_y_top);
+            redrawKnob();
+            output();
+        },
+    })
+    , prop_x_left(-1)
     , prop_x_right(1)
     , prop_y_top(1)
     , prop_y_bottom(-1)
@@ -342,6 +354,9 @@ void UISlider2D::setup()
 
     obj.addMethod("set", &UISlider2D::m_set);
     obj.addMethod("move", &UISlider2D::m_move);
+
+    obj.addVirtualProperty("bind_x", _("Bind X"), "", &UISlider2D::getBind<0>, &UISlider2D::setBind<0>, "Main");
+    obj.addVirtualProperty("bind_y", _("Bind Y"), "", &UISlider2D::getBind<1>, &UISlider2D::setBind<1>, "Main");
 }
 
 void UISlider2D::redrawKnob()

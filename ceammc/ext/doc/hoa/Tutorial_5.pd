@@ -1,4 +1,4 @@
-#N canvas 1179 368 976 668 10;
+#N canvas 944 325 976 668 10;
 #X obj 4 4 hoa.tuto.header;
 #X obj 417 4 hoa.help.pub;
 #X obj 144 396 hoa.scope~ @size 225 225 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @ph_color 1 0 0 1 @nh_color 0 0 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @gain 100 @refresh 100 @order 7 @view 0;
@@ -41,8 +41,8 @@
 #X obj 578 132 ui.dsp~ @size 30 30 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0;
 #X obj 363 255 msg.onload 7;
 #X obj 773 281 msg.onload 1;
-#X obj 363 284 ui.number @size 53 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.number.1" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min 0 @max 7 @digits -1;
-#X obj 355 284 ui.incdec @size 15 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.incdec.0" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @arrow_color 0.6 0.6 0.6 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @step 1;
+#X obj 363 284 ui.number @size 53 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "(null)" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @active_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min 0 @max 7 @display_only 0 @digits -1;
+#X obj 355 284 ui.incdec @size 15 17 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "(null)" @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @arrow_color 0.6 0.6 0.6 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min 0 @max 7 @step 1;
 #X obj 356 284 sync;
 #N canvas 121 146 217 214 init 0;
 #X obj 57 47 msg.onload @name?;
@@ -54,7 +54,7 @@
 #X connect 2 1 3 0;
 #X restore 7 5 pd init;
 #X f 6;
-#X obj 773 310 ui.slider @size 120 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "ui.hsl.0" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min 0 @max 1 @mode 0 @scale "linear" @active_scale 0 @midi_channel 0 @midi_control -1 @midi_pickup 1 @show_value 1 @value_pos "center" @value_precision 2;
+#X obj 773 310 ui.slider @size 120 15 @receive "(null)" @send "(null)" @nosave 0 @pinned 0 @presetname "(null)" @mouse_events 0 @background_color 0.93 0.93 0.93 1 @border_color 0.6 0.6 0.6 1 @label_color 0 0 0 1 @knob_color 0 0.75 1 1 @text_color 0 0 0 1 @fontname "Helvetica" @fontweight "normal" @fontslant "roman" @fontsize 11 @label "(null)" @label_inner 0 @label_side "top" @label_align "left" @label_valign "top" @label_margins 0 0 @min 0 @max 1 @mode 0 @scale "linear" @active_scale 0 @midi_channel 0 @midi_control -1 @midi_pickup 1 @show_value 1 @value_pos "center" @value_precision 2;
 #X connect 3 0 9 0;
 #X connect 4 0 5 15;
 #X connect 5 0 2 0;

@@ -50,6 +50,8 @@ ceammc.search	ceammc library search object
 chrono.datetime	output current date and time info
 ceammc/datetime	output current date and time info
 datetime	output current date and time info
+convolve~	realtime FFT convolution
+ceammc/convolve~	realtime FFT convolution
 function	named function
 func	named function
 ceammc/func	named function
@@ -352,6 +354,7 @@ dyn.limit~	mono 1176LN Peak Limiter
 dyn.softclip~	soft signal clip
 env.adsr~	ADSR (Attack, Decay, Sustain, Release) envelope generator
 env.ar~	Attack/Release envelope generator
+env.asr2~	stereo Attack/Sustain/Release envelope generator
 env.asr~	Attack/Sustain/Release envelope generator
 env.concat	Envelope concatenation
 env.follow~	Envelope follower with independent attack and release times
@@ -1065,6 +1068,7 @@ ltc.in~	LTC decoder
 proto.ltc.out~	LTC encoder
 ltc.out~	LTC encoder
 proto.midi	raw midi encoder/parser
+proto.midi.casio	Casio Privia MIDI control
 proto.midi.cc	raw midi CC encoder/parser
 proto.midi.sysex	raw midi SYSex encoder/parser
 proto.moppy	protocol for Musical flOPPY controller
@@ -1108,6 +1112,8 @@ hoa.2d.decoder~	hoa 2d decoder
 hoa.decoder~	hoa 2d decoder
 hoa.2d.encoder~	hoa 2d encoder
 hoa.encoder~	hoa 2d encoder
+hoa.2d.exchanger~	renumbers and normalizes the channels
+hoa.exchanger~	renumbers and normalizes the channels
 hoa.2d.map~	a 2d ambisonic multisource spatializer
 hoa.map~	a 2d ambisonic multisource spatializer
 hoa.2d.optim~	a 2D ambisonic optimization tool
@@ -1122,16 +1128,23 @@ hoa.2d.space	planewaves amp control
 hoa.space	planewaves amp control
 hoa.2d.wider~	a 2d fractional ambisonic order simulator
 hoa.wider~	a 2d fractional ambisonic order simulator
+hoa.3d.decoder~	hoa 3d decoder
 hoa.3d.encoder~	hoa 3d encoder
+hoa.3d.exchanger~	renumbers and normalizes the channels
+hoa.3d.map~	a 3d ambisonic multisource spatializer
+hoa.3d.meter~	multi spherical meter with sound field descriptor
 hoa.3d.optim~	a 3D ambisonic optimization tool
+hoa.3d.scope~	a 3d ambisonic harmonic scope
 hoa.3d.wider~	a 3d fractional ambisonic order simulator
 hoa.@process	process properties manager for hoa.process~
 hoa.in	message inlet for a patcher loaded by hoa.process~
 hoa.in~	signal inlet for a patcher loaded by hoa.process~
+hoa.map.ui	a GUI to spatialize sources on a map
 hoa.out	message outlet for a patcher loaded by hoa.process~
 hoa.out~	signal inlet for a patcher loaded by hoa.process~
 hoa.process~	patcher loader for multichannel processing
 hoa.2d.process~	patcher loader for multichannel processing
+hoa.3d.process~	patcher loader for multichannel processing
 hoa.scope~	a 2d ambisonic harmonic scope
 hoa.2d.scope~	a 2d ambisonic harmonic scope
 pan.cos~	two channel equal power sine/cosine panner
@@ -1257,6 +1270,9 @@ ui.button	button widget
 ui.btn	button widget
 ui.canvas	UI canvas for drawing
 ui.cnv	UI canvas for drawing
+ui.cmeter~	Multichannel circular peak and rms signal meter
+ui.cm~	Multichannel circular peak and rms signal meter
+hoa.2d.meter~	Multichannel circular peak and rms signal meter
 ui.colorpanel	colorchooser widget
 ui.display	Display GUI object
 ui.d	Display GUI object

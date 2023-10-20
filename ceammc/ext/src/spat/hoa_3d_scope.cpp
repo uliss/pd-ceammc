@@ -16,10 +16,10 @@
 #include "ceammc_dsp.h"
 #include "ceammc_ui.h"
 
-static const int MIN_SIZE = 20;
-static const int HOA_DISPLAY_NPOINTS = 65;
-static const float HOA_CONTRAST_DARKER = 0.2;
-static const float HOA_CONTRAST_LIGHTER = 0.2;
+constexpr int MIN_SIZE = 20;
+constexpr int HOA_DISPLAY_NPOINTS = 65;
+constexpr float HOA_CONTRAST_DARKER = 0.2;
+constexpr float HOA_CONTRAST_LIGHTER = 0.2;
 
 constexpr const int HOA_NROWS_1 = 30;
 constexpr const int HOA_NROWS_2 = 20;
@@ -244,7 +244,7 @@ void Hoa3dScope::propSetOrder(t_float v)
 
         in_buf_.resize(nharm_ * HOA_DEFAULT_BLOCK_SIZE);
 
-        eobj_resize_inputs(asEObj(), nharm_);
+        resizeInputs(nharm_);
         canvas_update_dsp();
     }
 }

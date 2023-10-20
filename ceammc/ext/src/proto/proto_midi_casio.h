@@ -33,6 +33,7 @@ public:
     void m_reverb_type(t_symbol* s, const AtomListView& lv);
     void m_reverb_time(t_symbol* s, const AtomListView& lv);
 
+    void m_chorus(t_symbol* s, const AtomListView& lv);
     void m_chorus_type(t_symbol* s, const AtomListView& lv);
     void m_chorus_rate(t_symbol* s, const AtomListView& lv);
     void m_chorus_depth(t_symbol* s, const AtomListView& lv);

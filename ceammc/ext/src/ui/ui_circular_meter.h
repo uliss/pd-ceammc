@@ -42,7 +42,7 @@ private:
     int prop_nchan;
     int prop_offset;
     int prop_clockwise;
-    int prop_rotation;
+    t_float prop_rotation;
     AtomList prop_angles;
 
 private:

@@ -25,18 +25,24 @@ constexpr const char* SYM_INF2 = "infinite";
 constexpr const char* SYM_FIXED = "fixed";
 
 TlTimeLine::TlTimeLine(const PdArgs& args)
-    : BaseObject(args)
-    , tl_(this, parsedPosArgs().floatAt(0, 60) * 1000)
+    : TlTimeLineBase(args)
+    , tl_(this, 0)
     , cmd_parser_(this)
 {
     createOutlet();
 
+    length_ = new FloatProperty("@length", 60);
+    length_->setInitOnly();
+    length_->setUnitsSec();
+    length_->checkMin(0);
+    length_->setArgIndex(0);
+    length_->setSuccessFn([this](Property*) {
+        tl_.setLength(length_->value() * 1000);
+    });
+    addProperty(length_);
+
     createCbBoolProperty("@is_running",
         [this]() -> bool { return tl_.state() == tl::STATE_RUN; });
-
-    createCbFloatProperty("@length",
-        [this]() -> t_float { return tl_.length() / 1000; })
-        ->setUnitsSec();
 
     createCbFloatProperty("@phase",
         [this]() -> t_float { return (tl_.length() == 0) ? 0 : (tl_.currentTime() / tl_.length()); })
@@ -48,6 +54,10 @@ TlTimeLine::TlTimeLine(const PdArgs& args)
     createCbFloatProperty("@current",
         [this]() -> t_float { return tl_.currentTime(); })
         ->setUnitsMs();
+
+    createCbFloatProperty("@current_sec",
+        [this]() -> t_float { return std::round(tl_.currentTime() * 0.001); })
+        ->setUnitsSec();
 
     createCbProperty("@events", &TlTimeLine::propEvents);
 
@@ -84,6 +94,11 @@ TlTimeLine::TlTimeLine(const PdArgs& args)
         OBJ_ERR << "can't set enums";
 }
 
+void TlTimeLine::initDone()
+{
+    length_->callSuccessFn();
+}
+
 void TlTimeLine::dump() const
 {
     OBJ_DBG << "absolute events:";
@@ -102,19 +117,19 @@ void TlTimeLine::onFloat(t_float v)
 
 void TlTimeLine::event(size_t n, const tl::Event& e)
 {
-    AtomArray<2> lst { n, e.abs_time };
+    AtomArray<3> lst { n + 1, e.name, e.abs_time };
     listTo(0, lst.view());
 }
 
 void TlTimeLine::eventStart()
 {
-    AtomArray<2> lst { gensym(SYM_START), 0.f };
+    AtomArray<3> lst { 0., gensym(SYM_START), 0.f };
     listTo(0, lst.view());
 }
 
 void TlTimeLine::eventEnd()
 {
-    AtomArray<2> lst { gensym(SYM_END), tl_.length() };
+    AtomArray<3> lst { tl_.events().size(), gensym(SYM_END), tl_.length() };
     listTo(0, lst.view());
 }
 

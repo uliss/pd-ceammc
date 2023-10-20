@@ -47,6 +47,8 @@ namespace args {
          * @return true on success, false on error
          */
         bool check(const AtomListView& lv, BaseObject* obj, ArgMatchList* matches = nullptr, bool printErr = true) const;
+        bool checkSilent(const AtomListView& lv) const { return check(lv, nullptr, nullptr, false); }
+
         void usage(BaseObject* obj = nullptr, t_symbol* m = nullptr) const;
     };
 

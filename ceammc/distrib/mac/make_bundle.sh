@@ -29,6 +29,7 @@ PD_CEAMMC=$PD_EXTRA/ceammc
 
 PD_FONTS=$PD_CEAMMC/fonts
 PD_IMG=$PD_CEAMMC/img
+PD_IR=$PD_CEAMMC/ir
 PD_LUA=$PD_CEAMMC/lua
 PD_MIDI=$PD_CEAMMC/midi
 PD_MUSIC=$PD_CEAMMC/music
@@ -57,6 +58,7 @@ BUNDLE_COMPLETIONS="${BUNDLE_TCL}/ceammc/custom_completions"
 BUNDLE_FONTS="${DIST_DIR}/${PD_FONTS}"
 BUNDLE_IMAGES="${DIST_DIR}/${PD_IMG}"
 BUNDLE_MUSIC="${DIST_DIR}/${PD_MUSIC}"
+BUNDLE_IR="${DIST_DIR}/${PD_IR}"
 
 # resources paths
 PD_INFO_PLIST="${BUILD_DIR}/dist/Info.plist"
@@ -155,6 +157,8 @@ rsync -a "${SRC_DIR}/ceammc/extra/tcltk/base64" ${BUNDLE_FRAMEWORKS}
 rsync -a "${SRC_DIR}/ceammc/extra/tcltk/tooltip" ${BUNDLE_FRAMEWORKS}
 # tklib: ctext
 rsync -a "${SRC_DIR}/ceammc/extra/tcltk/ctext" ${BUNDLE_FRAMEWORKS}
+# tklib: tablelist
+rsync -a "${SRC_DIR}/ceammc/extra/tcltk/tablelist" ${BUNDLE_FRAMEWORKS}
 
 #
 # Info.plist
@@ -353,6 +357,13 @@ cp $SRC_CEAMMC/ext/doc/music/*.mxml "${BUNDLE_MUSIC}/"
 section "Copying CEAMMC verovio files"
 mkdir -p "${BUNDLE_MUSIC}/verovio"
 cp -R $SRC_CEAMMC/extra/verovio/verovio/data/ "${BUNDLE_MUSIC}/verovio"
+
+section "Copying Impulse Responses"
+mkdir -p "${BUNDLE_IMAGES}"
+for img in $SRC_CEAMMC/ext/doc/ir/*.@(md|wav|txt)
+do
+    copy ${img} "${BUNDLE_IR}"
+done
 
 section "Copying CEAMMC cmake files"
 mkdir -p "${BUNDLE_INCLUDE}"

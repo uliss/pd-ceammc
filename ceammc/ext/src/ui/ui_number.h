@@ -91,6 +91,7 @@ private:
     t_float prop_min;
     t_float prop_max;
     int prop_digits;
+    int prop_display_only;
 };
 
 void setup_ui_number();

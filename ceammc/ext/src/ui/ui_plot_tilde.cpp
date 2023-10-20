@@ -1086,7 +1086,7 @@ void UIPlotTilde::drawInCtrlButtons(UIPainter& p)
 
 void UIPlotTilde::onPropChange(t_symbol* prop_name)
 {
-    if (prop_name == s_size)
+    if (prop_name == sym::props::sym_name_size())
         return;
 
     clock_.delay(0);

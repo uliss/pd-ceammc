@@ -22,6 +22,9 @@
         <info>
             <par>do nothing more than vanilla bang for the moment...</par>
         </info>
+        <mouse>
+            <event type="left-click" editmode="false">outputs bang on mouse down</event>
+        </mouse>
         <properties>
             <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>

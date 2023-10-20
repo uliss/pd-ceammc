@@ -21,6 +21,7 @@
         </meta>
         <info>
             <par>displays the circular harmonics of an ambisonic sound field</par>
+            <a href="hoa/hoa.2d.scope~-help.pd">CICM documentation</a>
         </info>
         <arguments>
             <argument name="ORDER" type="int" minvalue="1">the order of decomposition</argument>

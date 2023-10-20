@@ -19,6 +19,10 @@
                 <see view="link">ui.toggle</see>
             </also>
         </meta>
+        <mouse>
+            <event type="left-click" editmode="false">outputs @on_value on mouse down and
+            @off_value on mouse up</event>
+        </mouse>
         <properties>
             <property name="@on_value" type="float" default="1">on value</property>
             <property name="@off_value" type="float" default="0">off value</property>

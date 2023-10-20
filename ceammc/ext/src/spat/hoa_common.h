@@ -30,8 +30,10 @@
 #pragma clang diagnostic ignored "-Wextra"
 #include "Hoa.hpp"
 // temporal fix: this file not exists in newest Hoa-Library-Light
+#include "Hoa_Meter.hpp"
 #include "Hoa_Scope.hpp"
 #include "Hoa_Tools.hpp"
+#include "Hoa_Vector.hpp"
 #pragma clang diagnostic pop
 
 #include "ceammc_sound_external.h"
@@ -46,6 +48,7 @@ constexpr size_t HOA_MAX_2D_ORDER = 63;
 constexpr size_t HOA_MAX_3D_ORDER = 10;
 constexpr size_t HOA_DEFAULT_ORDER = 1;
 constexpr size_t HOA_DEFAULT_BLOCK_SIZE = 64;
+constexpr size_t HOA_MAXBLKSIZE = 8192;
 
 using Decoder2d = hoa::Decoder<hoa::Hoa2d, t_sample>;
 using Decoder3d = hoa::Decoder<hoa::Hoa3d, t_sample>;
@@ -58,14 +61,17 @@ using Encoder2d = hoa::Encoder<hoa::Hoa2d, t_sample>;
 using Encoder3d = hoa::Encoder<hoa::Hoa3d, t_sample>;
 using Exchanger2d = hoa::Exchanger<hoa::Hoa2d, t_sample>;
 using Exchanger3d = hoa::Exchanger<hoa::Hoa3d, t_sample>;
+using Meter3d = hoa::Meter<hoa::Hoa3d, t_sample>;
 using MultiEncoder2d = hoa::MultiEncoder<hoa::Hoa2d, t_sample>;
 using MultiEncoder3d = hoa::MultiEncoder<hoa::Hoa3d, t_sample>;
 using Optim2d = hoa::Optim<hoa::Hoa2d, t_sample>;
 using Optim3d = hoa::Optim<hoa::Hoa3d, t_sample>;
 using PolarLines2d = hoa::PolarLines<hoa::Hoa2d, t_sample>;
+using PolarLines3d = hoa::PolarLines<hoa::Hoa3d, t_sample>;
 using Rotate2d = hoa::Rotate<hoa::Hoa2d, t_sample>;
 using Scope2d = hoa::Scope<hoa::Hoa2d, t_sample>;
 using Scope3d = hoa::Scope<hoa::Hoa3d, t_sample>;
+using Vector3d = hoa::Vector<hoa::Hoa3d, t_sample>;
 using Wider2d = hoa::Wider<hoa::Hoa2d, t_sample>;
 using Wider3d = hoa::Wider<hoa::Hoa3d, t_sample>;
 

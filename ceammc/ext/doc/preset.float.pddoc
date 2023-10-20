@@ -24,6 +24,9 @@
         <info>
             <par>Named float preset entry. Can store/load up to 256 various float values</par>
         </info>
+        <mouse>
+            <event type="left-click" editmode="false">open preset editor</event>
+        </mouse>
         <arguments>
             <argument name="ID" type="symbol">preset id (should be unique in most use
             cases)</argument>
