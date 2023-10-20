@@ -40,7 +40,7 @@
 #X connect 5 0 4 0;
 #X connect 6 0 4 1;
 #X restore 208 75 pd a_x;
-#N canvas 65 102 450 300 b_x 1;
+#N canvas 65 102 450 300 b_x 0;
 #X obj 149 73 inlet;
 #X obj 149 226 outlet;
 #X obj 149 140 -;
