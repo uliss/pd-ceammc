@@ -17,7 +17,7 @@
             <argument name="SCALE" type="list">color list</argument>
         </arguments>
         <properties>
-            <property name="@scale" type="list">color list</property>
+            <property name="@scale" type="list" default="">color list</property>
             <property name="@mode" type="symbol" default="color" enum="color hex rgb">output mode:
             if 'color' - output as data:color type, if 'hex' - output as hex value, if 'rgb' - RGB
             list</property>
