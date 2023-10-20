@@ -70,22 +70,22 @@
   - dyn.comp~ - second outlet added for compression level output
   - list.map - second outlet added for missing keys
 - new object methods:
-  - euclid method added to ui.radio to set euclid pattern when in checklist mode
-  - hexbeat method added to ui.radio to set hexbeat pattern when in checklist mode
-  - rotate method added to ui.radio: rotation to the left in checklist mode
-  - cellsize method added to ui.radio: resize widget by specifying cell size
-  - ssml method added to speech.rhvoice~: support for SSML text markup
-  - read method added to speech.rhvoice~: read text from files
-  - notes_off method added to proto.midi
-  - sound_off method added to proto.midi
-  - panic method added to proto.midi
   - brown, pink, white, blue and velvet methods added to noise.colored~
+  - cellsize method added to ui.radio: resize widget by specifying cell size
   - div added to live.capture~ to subdivide loop length while running
-  - proto.midi.cc - new portament method added
+  - euclid method added to ui.radio to set euclid pattern when in checklist mode
   - hexbeat and skip added to seq.bangs
-  - save to snd.file
-  - speed to synth.glitch~ to set global synth speed
+  - hexbeat method added to ui.radio to set hexbeat pattern when in checklist mode
+  - notes_off method added to proto.midi
+  - panic method added to proto.midi
+  - proto.midi.cc - new portament method added
+  - read method added to speech.rhvoice~: read text from files
   - read, write added to lang.faust~ and ui.faust~
+  - rotate method added to ui.radio: rotation to the left in checklist mode
+  - save to snd.file
+  - sound_off method added to proto.midi
+  - speed to synth.glitch~ to set global synth speed
+  - ssml method added to speech.rhvoice~: support for SSML text markup
 - new object properties:
   - @punct added to rhvoice~, to specify pronounced characters
   - @bypass added to dyn.comp~ and dyn.comp2~
@@ -100,6 +100,7 @@
   - @def added to list.map for replacing missing keys with default values
   - @min, @max added to ui.incdec
   - @display_only property added to ui.number
+  - @attack, @sustain, @release added to live.capture~
 - new init argument functions:
   - hexbeat(HEX) - expand hex to list of 1 and 0
   - ones(N) - list of length N, filled with 1
@@ -131,6 +132,8 @@
 - in all faust plugin when @active is 0, object output zero signal 
     (previous behaivor was more complicated: when NINS != NOUTS filled with zeros, otherwise passed thru)
 - tl.timeline: output list changed and fix error in doc, now outputs EVENT_IDX, EVENT_NAME, EVENT_TIME
+- properties removed:
+  - @fade property removed from live.capture~
 
 ### Fixed:
 - proto.midi.cc - sound_off, notes_off crash fixes
