@@ -232,7 +232,7 @@ void UICircularMeter::reset()
 {
     raw_peak_.fill(0);
     raw_sum2_.fill(0);
-    out_over_.fill(MIN_DB_VALUE);
+    out_over_.fill(0);
     num_samples_ = 0;
 }
 
