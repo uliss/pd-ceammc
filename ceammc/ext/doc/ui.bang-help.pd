@@ -18,101 +18,106 @@
 -1;
 #X obj 117 230 s b_in;
 #X obj 20 279 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 284 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 284 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 319 @receive;
-#X text 245 319 Get/Set receive source. Type: symbol. Default value:
+#X text 110 319 Left-click;
+#X text 285 319 outputs bang on mouse down.;
+#X obj 20 349 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 354 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 389 @receive;
+#X text 245 389 Get/Set receive source. Type: symbol. Default value:
 (null).;
-#X msg 110 348 @send;
-#X text 245 348 Get/Set send destination. Type: symbol. Default value:
+#X msg 110 418 @send;
+#X text 245 418 Get/Set send destination. Type: symbol. Default value:
 (null).;
-#X msg 110 390 @active_color;
-#X text 245 390 Get/Set element active color (list of red \, green
+#X msg 110 460 @active_color;
+#X text 245 460 Get/Set element active color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 432 @background_color;
-#X text 245 432 Get/Set element background color (list of red \, green
+#X msg 110 502 @background_color;
+#X text 245 502 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 489 @border_color;
-#X text 245 489 Get/Set border color (list of red \, green \, blue
+#X msg 110 559 @border_color;
+#X text 245 559 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 531 @label_color;
-#X text 245 531 Get/Set label color in RGB format within 0-1 range
+#X msg 110 601 @label_color;
+#X text 245 601 Get/Set label color in RGB format within 0-1 range
 \, for example: 0.2 0.4 0.1\. Type: list. Default value: 0 0 0 1\.;
-#X msg 110 573 @label;
-#X text 245 573 Get/Set label text. Type: symbol. Default value: (null).;
-#X msg 110 602 @label_align;
-#X text 245 602 Get/Set label horizontal align. Type: symbol. Default
+#X msg 110 643 @label;
+#X text 245 643 Get/Set label text. Type: symbol. Default value: (null).;
+#X msg 110 672 @label_align;
+#X text 245 672 Get/Set label horizontal align. Type: symbol. Default
 value: left. Allowed values: left \, center \, right.;
-#X msg 110 644 @label_inner;
-#X text 245 644 Get/Set label position (1 - inner \, 0 - outer). Type:
+#X msg 110 714 @label_inner;
+#X text 245 714 Get/Set label position (1 - inner \, 0 - outer). Type:
 bool. Default value: 0\.;
-#X msg 110 686 @label_margins;
-#X text 245 686 Get/Set label offset in pixels. Type: list. Default
+#X msg 110 756 @label_margins;
+#X text 245 756 Get/Set label offset in pixels. Type: list. Default
 value: 0 0\.;
-#X msg 110 728 @label_side;
-#X text 245 728 Get/Set label snap side. Type: symbol. Default value:
+#X msg 110 798 @label_side;
+#X text 245 798 Get/Set label snap side. Type: symbol. Default value:
 top. Allowed values: left \, top \, right \, bottom.;
-#X msg 110 770 @label_valign;
-#X text 245 770 Get/Set label vertical align. Type: symbol. Default
+#X msg 110 840 @label_valign;
+#X text 245 840 Get/Set label vertical align. Type: symbol. Default
 value: top. Allowed values: top \, center \, bottom.;
-#X msg 110 812 @fontname;
-#X text 245 812 Get/Set fontname. Type: symbol. Default value: Helvetica.
+#X msg 110 882 @fontname;
+#X text 245 882 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 854 @fontsize;
-#X text 245 854 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 924 @fontsize;
+#X text 245 924 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...100\.;
-#X msg 110 896 @fontslant;
-#X text 245 896 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 966 @fontslant;
+#X text 245 966 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 938 @fontweight;
-#X text 245 938 Get/Set font weight. Type: symbol. Default value: normal.
-Allowed values: normal \, bold.;
-#X msg 110 980 @pinned;
-#X text 245 980 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1008 @fontweight;
+#X text 245 1008 Get/Set font weight. Type: symbol. Default value:
+normal. Allowed values: normal \, bold.;
+#X msg 110 1050 @pinned;
+#X text 245 1050 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: bool. Default value: 0\.;
-#X msg 110 1022 @size;
-#X text 245 1022 Get/Set element size (width \, height pair). Type:
+#X msg 110 1092 @size;
+#X text 245 1092 Get/Set element size (width \, height pair). Type:
 list. Default value: 15 15\.;
-#X obj 20 1074 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1079 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1144 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1149 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1114 pos;
-#X text 245 1114 set UI element position. Arguments are:;
-#X obj 255 1137 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1137 X: top left x-coord. Type: float.;
-#X obj 255 1160 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1160 Y: top right y-coord. Type: float.;
-#X msg 110 1185 dump;
-#X text 245 1185 dumps all object info to Pd console window.;
-#X obj 20 1222 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1227 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1184 pos;
+#X text 245 1184 set UI element position. Arguments are:;
+#X obj 255 1207 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1207 X: top left x-coord. Type: float.;
+#X obj 255 1230 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1230 Y: top right y-coord. Type: float.;
+#X msg 110 1255 dump;
+#X text 245 1255 dumps all object info to Pd console window.;
+#X obj 20 1292 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1297 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1228 1\.;
-#X text 150 1228 *bang*;
-#X text 245 1228 outputs bang.;
-#X text 150 1248 *float*;
-#X text 245 1248 outputs bang.;
-#X text 150 1268 *symbol*;
-#X text 245 1268 outputs bang.;
-#X text 150 1288 *list*;
-#X text 245 1288 outputs bang.;
-#X obj 20 1318 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1323 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1298 1\.;
+#X text 150 1298 *bang*;
+#X text 245 1298 outputs bang.;
+#X text 150 1318 *float*;
+#X text 245 1318 outputs bang.;
+#X text 150 1338 *symbol*;
+#X text 245 1338 outputs bang.;
+#X text 150 1358 *list*;
+#X text 245 1358 outputs bang.;
+#X obj 20 1388 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1393 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1324 1\.;
-#X text 245 1324 bang output.;
+#X text 110 1394 1\.;
+#X text 245 1394 bang output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 1374 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1377 library: ceammc v0.9.7;
-#X text 598 1389 see also:;
-#X obj 672 1392 ui.link @background_color 0.78431 0.78431 0.78431
+#X obj 1 1444 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1447 library: ceammc v0.9.7;
+#X text 598 1459 see also:;
+#X obj 672 1462 ui.link @background_color 0.78431 0.78431 0.78431
 @title [ui.toggle] @url ui.toggle-help.pd;
-#N canvas 10 1396 400 290 info 0;
+#N canvas 10 1466 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -136,7 +141,7 @@ https://github.com/uliss/pure-data;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1396 pd info;
+#X restore 10 1466 pd info;
 #X connect 7 0 8 0;
 #X connect 8 0 10 0;
 #X connect 9 0 11 0;
