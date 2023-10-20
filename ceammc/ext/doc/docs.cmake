@@ -646,6 +646,7 @@ set(DOC_FILES
     proto.ltc.in~
     proto.ltc.out~
     proto.midi
+    proto.midi.casio
     proto.midi.cc
     proto.midi.sysex
     proto.moppy

@@ -34,13 +34,18 @@ enum : uint8_t {
     SUBID2_GLOBAL_PARAM = 0x5,
     EOX = 0xF7,
     SYSEX = 0xF0,
+    CC_CHORUS_SEND = 93
 };
+
+using Byte = std::uint8_t;
+template <size_t N>
+using MidiArray = std::array<Byte, N>;
 
 class PX160 {
 public:
-    static std::array<uint8_t, 13> setReverbType(int t)
+    static MidiArray<13> setReverbType(int t)
     {
-        std::array<uint8_t, 13> res {
+        MidiArray<13> res {
             SYSEX,
             SYSEX_ID_UNIVERSAL_RT,
             SYSEX_DEVICE_BROADCAST,
@@ -208,6 +213,21 @@ void ProtoMidiCasio::m_reverb_time(t_symbol* s, const AtomListView& lv)
 
     if (model_->value() == gensym(PRIVIA_PX160)) {
         const auto data = PX160::setReverbTime(lv[0].asFloat());
+        output(data);
+    } else
+        METHOD_ERR(s) << "model not supported: " << model_->value();
+}
+
+void ProtoMidiCasio::m_chorus(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_FLOAT)) {
+        METHOD_ERR(s) << "chorus value expected, got: " << lv;
+        return;
+    }
+
+    if (model_->value() == gensym(PRIVIA_PX160)) {
+        Byte v = convert::lin2lin_clip<float, 0, 1>(lv.floatAt(0, 0), 0, 127);
+        MidiArray<3> data { 0xB0, CC_CHORUS_SEND, v };
         output(data);
     } else
         METHOD_ERR(s) << "model not supported: " << model_->value();
@@ -410,7 +430,7 @@ void ProtoMidiCasio::m_instr(t_symbol* s, const AtomListView& lv)
             bankSelect(chan, 0, 0);
             progChange(chan, 0x0B);
             break;
-        case "haprs"_hash:
+        case "harps"_hash:
             bankSelect(chan, 0, 0);
             progChange(chan, 0x06);
             break;
@@ -450,6 +470,7 @@ void setup_proto_midi_casio()
     obj.addMethod("rev_type", &ProtoMidiCasio::m_reverb_type);
     obj.addMethod("rev_time", &ProtoMidiCasio::m_reverb_time);
 
+    obj.addMethod("chorus", &ProtoMidiCasio::m_chorus);
     obj.addMethod("chorus_type", &ProtoMidiCasio::m_chorus_type);
     obj.addMethod("chorus_rate", &ProtoMidiCasio::m_chorus_rate);
     obj.addMethod("chorus_depth", &ProtoMidiCasio::m_chorus_depth);

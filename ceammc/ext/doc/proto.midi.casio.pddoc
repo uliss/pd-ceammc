@@ -15,9 +15,10 @@
         </meta>
         <info>
             <par>Note: only PX160 model supported at this moment</par>
+            <par>Note: on PX160 instrument change done only for incoming midi signals.</par>
         </info>
         <properties>
-            <property name="@model" type="symbol" default="px160">device model</property>
+            <property name="@model" type="symbol" default="px160" enum="px160">device model</property>
         </properties>
         <methods>
             <!-- instr -->
@@ -37,11 +38,30 @@
             <!-- rev_type -->
             <method name="rev_type">set reverb type 
             <param name="TYPE" type="int" minvalue="1" maxvalue="4" required="true">reverb
-            type</param></method>
+            type. For PX160 - 1: room, 2: default (hall), 3: hall2, 4: stadium</param></method>
+            <!-- chorus_type -->
+            <method name="chorus_type">set chorus type
+            <param name="TYPE" type="int" minvalue="1" maxvalue="4" required="true">chorus
+            type. For PX160 - 1: chorus1, 2: chorus2, 3: deep chorus, 4: flanger</param></method>
+            <!-- chorus_send -->
+            <method name="chorus_send">set chorus send level
+            <param name="AMOUNT" type="float" minvalue="0" maxvalue="1" required="true">level</param></method>
+            <!-- chorus_fb -->
+            <method name="chorus_fb">set chorus feedback level
+            <param name="AMOUNT" type="float" minvalue="0" maxvalue="1" required="true">level</param></method>
+            <!-- chorus_send -->
+            <method name="chorus_send">set chorus send level
+            <param name="AMOUNT" type="float" minvalue="0" maxvalue="1" required="true"> level</param></method>
+            <!-- chorus_depth -->
+            <method name="chorus_depth">set chorus depth
+            <param name="DEPTH" type="float" minvalue="0" maxvalue="1" required="true">depth value</param></method>
+            <!-- chorus_rate -->
+            <method name="chorus_rate">set chorus rate
+            <param name="RATE" type="float" minvalue="0" maxvalue="1" required="true">rate value</param></method>
         </methods>
         <inlets>
             <inlet>
-                <xinfo />
+                <xinfo>control messages</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -50,19 +70,55 @@
         <example>
             <pdascii>
 <![CDATA[
+[ui.midi]          /*choose CASIO output device!*/
+
 [ui.tab piano epiano strings bass organ vibr harps @size 310 15]
 |
-|      [ui.hrd 6]
-|      |.
-[sync 2 ]
-|
-[pack f f]
-|
-[msg instr]
-|
+[$2(   [ui.hrd 6]   [T]
+|      |.           |
+[flow.pack' 2]      [metro.wchoice 120 85% 240 15%]
+|                   |
+[msg instr 0]       [random.a 58 56 46 53 41 @nonrep 1]
+|                   |
+[proto.midi.casio]  [makenote 100 90]
+|                   | ^|.
+[midiout]           [noteout #z]
+
+[proto.midi.casio.rev]
+
+[proto.midi.casio.chorus]
+]]>
+            </pdascii>
+            <pdascii id="rev">
+<![CDATA[
+[ui.hrd 5]     [ui.knob]
+|              |
+|              |
+[rev_type $1(  [rev_time $1(
+|              |
+|              |
+|              |
 [proto.midi.casio]
 |
 [midiout]
+]]>
+            </pdascii>
+            <pdascii id="chorus">
+<![CDATA[
+[ui.hrd 5]        [ui.knob]
+|                 |
+|                 |
+[chorus_type $1(  [chorus_depth $1 #a(
+|
+| [ui.hsl @show_value 1]
+| |
+| [chorus $1(
+| |
+[proto.midi.casio  #z]
+|
+[midiout]
+
+[X a->z]
 ]]>
             </pdascii>
         </example>
