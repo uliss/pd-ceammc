@@ -15,7 +15,7 @@
         </meta>
         <arguments>
             <argument name="RATE" type="int"
-            enum="110 300 600 1200 2400 4800 9600, 14400 19200 28800 38400 56000 57600 115200">
+            enum="110 300 600 1200 2400 4800 9600 14400 19200 28800 38400 56000 57600 115200">
             serial baud rate</argument>
             <argument name="PORT" type="symbol">serial device or port name, eg.: COM3 on Windows,
             /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX</argument>

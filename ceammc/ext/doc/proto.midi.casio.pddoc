@@ -18,7 +18,8 @@
             <par>Note: on PX160 instrument change done only for incoming midi signals.</par>
         </info>
         <properties>
-            <property name="@model" type="symbol" default="px160" enum="px160">device model</property>
+            <property name="@model" type="symbol" default="px160" enum="px160">device
+            model</property>
         </properties>
         <methods>
             <!-- instr -->
@@ -37,27 +38,32 @@
             time</param></method>
             <!-- rev_type -->
             <method name="rev_type">set reverb type 
-            <param name="TYPE" type="int" minvalue="1" maxvalue="4" required="true">reverb
-            type. For PX160 - 1: room, 2: default (hall), 3: hall2, 4: stadium</param></method>
+            <param name="TYPE" type="int" minvalue="1" maxvalue="4" required="true">reverb type.
+            For PX160 - 1: room, 2: default (hall), 3: hall2, 4: stadium</param></method>
             <!-- chorus_type -->
-            <method name="chorus_type">set chorus type
-            <param name="TYPE" type="int" minvalue="1" maxvalue="4" required="true">chorus
-            type. For PX160 - 1: chorus1, 2: chorus2, 3: deep chorus, 4: flanger</param></method>
+            <method name="chorus_type">set chorus type 
+            <param name="TYPE" type="int" minvalue="1" maxvalue="4" required="true">chorus type.
+            For PX160 - 1: chorus1, 2: chorus2, 3: deep chorus, 4: flanger</param></method>
             <!-- chorus_send -->
-            <method name="chorus_send">set chorus send level
-            <param name="AMOUNT" type="float" minvalue="0" maxvalue="1" required="true">level</param></method>
+            <method name="chorus_send">set chorus send level 
+            <param name="AMOUNT" type="float" minvalue="0" maxvalue="1" required="true">
+            level</param></method>
             <!-- chorus_fb -->
-            <method name="chorus_fb">set chorus feedback level
-            <param name="AMOUNT" type="float" minvalue="0" maxvalue="1" required="true">level</param></method>
+            <method name="chorus_fb">set chorus feedback level 
+            <param name="AMOUNT" type="float" minvalue="0" maxvalue="1" required="true">
+            level</param></method>
             <!-- chorus_send -->
-            <method name="chorus_send">set chorus send level
-            <param name="AMOUNT" type="float" minvalue="0" maxvalue="1" required="true"> level</param></method>
+            <method name="chorus_send">set chorus send level 
+            <param name="AMOUNT" type="float" minvalue="0" maxvalue="1" required="true">
+            level</param></method>
             <!-- chorus_depth -->
-            <method name="chorus_depth">set chorus depth
-            <param name="DEPTH" type="float" minvalue="0" maxvalue="1" required="true">depth value</param></method>
+            <method name="chorus_depth">set chorus depth 
+            <param name="DEPTH" type="float" minvalue="0" maxvalue="1" required="true">depth
+            value</param></method>
             <!-- chorus_rate -->
-            <method name="chorus_rate">set chorus rate
-            <param name="RATE" type="float" minvalue="0" maxvalue="1" required="true">rate value</param></method>
+            <method name="chorus_rate">set chorus rate 
+            <param name="RATE" type="float" minvalue="0" maxvalue="1" required="true">rate
+            value</param></method>
         </methods>
         <inlets>
             <inlet>

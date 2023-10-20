@@ -319,13 +319,19 @@ def check_xlets(name, doc_in, doc_out, ext_in, ext_out):
 
 
 def check_enum(name, prop, doc, ext):
+    def map_item(x):
+        if isinstance(x, float):
+            return round(x, 2)
+        else:
+            return x
+
     doc_enum = doc.get("enum", set())
-    ext_enum = set(ext.get("enum", set()))
+    ext_enum = set(map(map_item, ext.get("enum", set())))
     type_doc = doc.get("type", None)
     if isinstance(doc_enum, str):
         doc_enum = set(doc_enum.split(" "))
         if type_doc == "float":
-            doc_enum = set(map(lambda x: float(x), doc_enum))
+            doc_enum = set(map(lambda x: round(float(x), 2), doc_enum))
         elif type_doc == "int":
             doc_enum = set(map(lambda x: int(x), doc_enum))
         elif type_doc == "atom":
@@ -342,7 +348,7 @@ def check_enum(name, prop, doc, ext):
         doc_miss = ext_enum - doc_enum
         if len(doc_miss) > 0:
             cprint(f"\t- missing {doc_miss}", 'yellow')
-            x = " ".join(map(str, sorted(list(ext_enum))))
+            x = " ".join(map(str, sorted(map(str, ext_enum))))
             cprint(f"\t  add to doc: enum=\"{x}\"", 'white')
 
         doc_invalid = doc_enum - ext_enum

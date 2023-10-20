@@ -26,12 +26,15 @@
         <properties>
             <property name="@interval" type="int" units="millisecond" minvalue="20" default="100">
             refresh interval</property>
-            <property name="@clockwise" type="bool" default="0">clockwise channel numbering</property>
-            <property name="@nch" type="int" default="2" minvalue="1" maxvalue="64">number of channels</property>
-            <property name="@offset" type="int" default="0" minvalue="-63" maxvalue="63">channel numbering offset</property>
+            <property name="@clockwise" type="bool" default="0">clockwise channel
+            numbering</property>
+            <property name="@nch" type="int" default="2" minvalue="1" maxvalue="64">number of
+            channels</property>
+            <property name="@offset" type="int" default="0" minvalue="-63" maxvalue="63">channel
+            numbering offset</property>
             <property name="@angles" type="list" default="">channel angle positions</property>
-            <property name="@rotation" type="float" default="0" minvalue="-360" maxvalue="360" units="degree">
-            source channels rotation (anticlockwise)</property>
+            <property name="@rotation" type="float" default="0" minvalue="-360" maxvalue="360"
+            units="degree">source channels rotation (anticlockwise)</property>
             <!-- common -->
             <property name="@send" type="symbol" default="(null)">send destination</property>
             <property name="@receive" type="symbol" default="(null)">receive source</property>
@@ -74,7 +77,7 @@
                 <xinfo>input signal</xinfo>
             </inlet>
         </inlets>
-        <outlets/>
+        <outlets />
         <example>
             <pdascii>
 <![CDATA[

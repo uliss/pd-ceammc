@@ -28,7 +28,8 @@
 #X text 110 518 3\.;
 #X text 150 518 atom;
 #X obj 246 519 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 518 BASE: @base property. Type: atom.;
+#X text 245 518 BASE: @base property. Allowed values: 10 \, 2 \, e.
+. Type: atom.;
 #X text 110 538 4\.;
 #X text 150 538 int;
 #X obj 246 539 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
