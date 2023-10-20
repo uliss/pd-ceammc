@@ -97,6 +97,8 @@ UIElement::UIElement(UIElementType t, t_symbol* label)
     , pinfo_(set_prop_symbol_, PropValueType::FLOAT)
 {
     initProperty();
+    if (label->s_name[0] == '.')
+        pinfo_.setVisibility(PropValueVis::INTERNAL);
 }
 
 UIElement::UIElement(UIElementType t, const char* label)
