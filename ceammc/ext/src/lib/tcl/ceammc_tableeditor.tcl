@@ -130,7 +130,7 @@ namespace eval tableeditor {
                     set title [string range $title 1 end]
                 }
                 set answer [tk_messageBox -type yesnocancel -icon question -message [_ "Save changes to \"$title\"?"]]
-                if {$answer == "yes"}    {ceammc::texteditor::send $name}
+                if {$answer == "yes"}    {ceammc::tableeditor::send $name}
                 if {$answer != "cancel"} {pdsend [concat $name .close]}
             } else {
                 pdsend [concat $name .close]
