@@ -212,6 +212,7 @@ install(DIRECTORY hoa DESTINATION ${DOC_INSTALL_PATH})
 install(DIRECTORY faust DESTINATION ${DOC_INSTALL_PATH})
 
 add_subdirectory(img)
+add_subdirectory(ir)
 add_subdirectory(lua)
 add_subdirectory(midi)
 add_subdirectory(music)

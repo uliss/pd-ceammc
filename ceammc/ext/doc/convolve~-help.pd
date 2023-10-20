@@ -9,7 +9,7 @@
 #X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
 #X obj 50 147 expand_env;
 #X obj 50 176 readsf~;
-#X obj 155 176 msg.onload load_file snd/ir_hall.wav;
+#X obj 155 176 msg.onload load_file ir/ir_church1_wide.wav;
 #X obj 50 205 convolve~;
 #X obj 203 205 ui.dsp~;
 #X obj 50 234 ui.hgain~;

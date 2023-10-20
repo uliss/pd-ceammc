@@ -51,7 +51,7 @@
 |
 [expand_env]
 |
-[readsf~]  [msg.onload load_file snd/ir_hall.wav]
+[readsf~]  [msg.onload load_file ir/ir_church1_wide.wav]
 |          |
 [convolve~ ]    [ui.dsp~]
 |
