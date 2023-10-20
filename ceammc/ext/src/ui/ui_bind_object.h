@@ -103,9 +103,6 @@ protected:
         midi_proxy_.emplace_back(this, &UIBindObject<N>::onMidiBind<IDX - 1>);
     }
 
-    template <>
-    void initMidiProxy<0>() { }
-
     template <size_t IDX>
     void initKeyProxy()
     {
@@ -114,9 +111,6 @@ protected:
 
         key_proxy_.emplace_back(this, &UIBindObject<N>::onKeyBind<IDX - 1>);
     }
-
-    template <>
-    void initKeyProxy<0>() { }
 
     int calcKeyMode(t_symbol* shift, int state) const
     {
@@ -202,6 +196,22 @@ public:
         }
     }
 };
+
+template <>
+template <>
+inline void UIBindObject<1>::initMidiProxy<0>() { }
+
+template <>
+template <>
+inline void UIBindObject<2>::initMidiProxy<0>() { }
+
+template <>
+template <>
+inline void UIBindObject<1>::initKeyProxy<0>() { }
+
+template <>
+template <>
+inline void UIBindObject<2>::initKeyProxy<0>() { }
 }
 
 #endif // UI_BIND_OBJECT_H
