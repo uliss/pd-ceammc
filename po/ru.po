@@ -5,8 +5,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Pure Data 0.47.1_ceammc\n"
 "Report-Msgid-Bugs-To: pd-dev@iem.at\n"
-"POT-Creation-Date: 2023-09-12 02:06+0300\n"
-"PO-Revision-Date: 2023-09-12 02:22+0300\n"
+"POT-Creation-Date: 2023-10-20 14:40+0300\n"
+"PO-Revision-Date: 2023-10-20 14:45+0300\n"
 "Last-Translator: Serge Poltavski <serge.poltavski@gmail.com>\n"
 "Language-Team: Russian\n"
 "Language: ru\n"
@@ -19,7 +19,7 @@ msgstr ""
 "X-Language: ru_RU\n"
 "X-Source-Language: C\n"
 "X-Loco-Parser: loco_parse_po\n"
-"X-Generator: Poedit 3.3.2\n"
+"X-Generator: Poedit 3.4\n"
 
 #: ../tcl/dialog_font.tcl
 #, tcl-format
@@ -163,6 +163,7 @@ msgstr "Все файлы"
 msgid "Ambisonic Order"
 msgstr "Порядок Амбисоника"
 
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
 #: ../ceammc/ext/src/ui/ui_circular_meter.cpp
 msgid "Angles"
 msgstr "Углы"
@@ -281,6 +282,26 @@ msgstr "Поведение"
 msgid "Bezier curve"
 msgstr "Кривыми"
 
+#: ../ceammc/ext/src/ui/ui_bang.cpp
+msgid "Bind"
+msgstr "Привязка"
+
+#: ../ceammc/ext/src/ui/ui_incdec.cpp
+msgid "Bind Down"
+msgstr "Привязка вниз"
+
+#: ../ceammc/ext/src/ui/ui_incdec.cpp
+msgid "Bind Up"
+msgstr "Привязка вверх"
+
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "Bind X"
+msgstr "Привязка X"
+
+#: ../ceammc/ext/src/ui/ui_slider2d.cpp
+msgid "Bind Y"
+msgstr "Привязка Y"
+
 #: ../tcl/dialog_audio.tcl
 msgid "Block size:"
 msgstr "Размер блока:"
@@ -360,6 +381,10 @@ msgstr "Свойства Canvas"
 msgid "Channel offset"
 msgstr "Смещение каналов"
 
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+msgid "Channels"
+msgstr "Каналы"
+
 #: ../tcl/dialog_audio.tcl
 msgid "Channels:"
 msgstr "Каналы:"
@@ -401,6 +426,7 @@ msgstr "Очистить меню"
 msgid "Clear all"
 msgstr "Очистить все"
 
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
 #: ../ceammc/ext/src/ui/ui_circular_meter.cpp ../ceammc/ext/src/ui/ui_polar.cpp
 msgid "Clockwise"
 msgstr "По часовой стрелке"
@@ -408,6 +434,10 @@ msgstr "По часовой стрелке"
 #: ../tcl/dialog_find.tcl ../tcl/dialog_font.tcl ../tcl/pd_menus.tcl
 msgid "Close"
 msgstr "Закрыть"
+
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+msgid "Cold Signal Color"
+msgstr "Холодный цвет"
 
 #: ../ceammc/ext/src/ui/ui_circular_meter.cpp ../ceammc/ext/src/ui/ui_meter.cpp
 msgid "Cold signal color"
@@ -437,7 +467,7 @@ msgstr "Выбрать цвет"
 
 #: ../ceammc/ext/src/spat/hoa_map_ui.cpp
 msgid "Coordinate View"
-msgstr ""
+msgstr "Вид координат"
 
 #: ../tcl/dialog_array.tcl ../tcl/pd_menus.tcl
 msgid "Copy"
@@ -593,6 +623,10 @@ msgstr "Объект показа"
 msgid "Display events"
 msgstr "Показывать события"
 
+#: ../ceammc/ext/src/ui/ui_number.cpp
+msgid "Display only"
+msgstr "Только отображение"
+
 #: ../ceammc/ext/src/ui/ui_display.cpp
 msgid "Display type"
 msgstr "Показывать тип сообщения"
@@ -697,6 +731,10 @@ msgstr "Правка..."
 #: ../ceammc/ext/src/ui/ui_preset.cpp
 msgid "Empty Button Color"
 msgstr "Цвет пустой ячейки"
+
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+msgid "Energy Vector Color"
+msgstr "Цвет вектора энергии"
 
 #: ../tcl/pd_deken.tcl
 msgid "Enter an exact library or object name."
@@ -924,6 +962,10 @@ msgstr "Горизонтальный переключатель"
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Horizontal slider"
 msgstr "Горизонтальный ползунок"
+
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+msgid "Hot Signal Color"
+msgstr "Горячий цвет"
 
 #: ../ceammc/ext/src/ui/ui_circular_meter.cpp ../ceammc/ext/src/ui/ui_meter.cpp
 msgid "Hot signal color"
@@ -1212,6 +1254,7 @@ msgstr "MIDI..."
 #: ../ceammc/ext/src/lib/cicm/Sources/eclass.cpp
 #: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
 #: ../ceammc/ext/src/spat/hoa_2d_space.cpp
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
 #: ../ceammc/ext/src/spat/hoa_3d_scope.cpp
 #: ../ceammc/ext/src/spat/hoa_map_ui.cpp ../ceammc/ext/src/ui/ui_arrayview.cpp
 #: ../ceammc/ext/src/ui/ui_button.cpp
@@ -1309,9 +1352,10 @@ msgstr "Файлы текстовых патчей Max (.mxt)"
 msgid "Max:"
 msgstr "Макс:"
 
-#: ../ceammc/ext/src/spat/hoa_2d_space.cpp ../ceammc/ext/src/ui/ui_knob.cpp
-#: ../ceammc/ext/src/ui/ui_number.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
-#: ../ceammc/ext/src/ui/ui_slider.cpp ../ceammc/ext/src/ui/ui_sliders.cpp
+#: ../ceammc/ext/src/spat/hoa_2d_space.cpp ../ceammc/ext/src/ui/ui_incdec.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_number.cpp
+#: ../ceammc/ext/src/ui/ui_rslider.cpp ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
 msgid "Maximum Value"
 msgstr "Максимальное значение"
 
@@ -1357,9 +1401,10 @@ msgstr "Мин:"
 msgid "Minimize"
 msgstr "Свернуть"
 
-#: ../ceammc/ext/src/spat/hoa_2d_space.cpp ../ceammc/ext/src/ui/ui_knob.cpp
-#: ../ceammc/ext/src/ui/ui_number.cpp ../ceammc/ext/src/ui/ui_rslider.cpp
-#: ../ceammc/ext/src/ui/ui_slider.cpp ../ceammc/ext/src/ui/ui_sliders.cpp
+#: ../ceammc/ext/src/spat/hoa_2d_space.cpp ../ceammc/ext/src/ui/ui_incdec.cpp
+#: ../ceammc/ext/src/ui/ui_knob.cpp ../ceammc/ext/src/ui/ui_number.cpp
+#: ../ceammc/ext/src/ui/ui_rslider.cpp ../ceammc/ext/src/ui/ui_slider.cpp
+#: ../ceammc/ext/src/ui/ui_sliders.cpp
 msgid "Minimum Value"
 msgstr "Минимальное значение"
 
@@ -1518,6 +1563,10 @@ msgstr "Объект"
 msgid "Off value"
 msgstr "Выкл. значение"
 
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+msgid "Offset of Channels"
+msgstr "Сдвиг нумерации каналов"
+
 #: ../ceammc/ext/src/ui/ui_button.cpp ../ceammc/ext/src/ui/ui_toggle.cpp
 msgid "On value"
 msgstr "Вкл. значение"
@@ -1585,6 +1634,10 @@ msgstr "Выводить события мыши"
 #: ../ceammc/ext/src/ui/ui_gain.cpp ../ceammc/ext/src/ui/ui_gain2.cpp
 msgid "Output value"
 msgstr "Выводить значение"
+
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+msgid "Overload Signal Color"
+msgstr "Цвет перегрузки"
 
 #: ../ceammc/ext/src/ui/ui_circular_meter.cpp ../ceammc/ext/src/ui/ui_meter.cpp
 msgid "Overload signal color"
@@ -1820,6 +1873,7 @@ msgid "Refresh interval (ms)"
 msgstr "Интервал обновления (мс)"
 
 #: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
 #: ../ceammc/ext/src/spat/hoa_3d_scope.cpp ../ceammc/ext/src/ui/ui_scope.cpp
 #: ../ceammc/ext/src/ui/ui_spectroscope.cpp
 msgid "Refresh time (ms)"
@@ -2020,7 +2074,7 @@ msgstr "Цвет выделения"
 msgid "Select package for installation"
 msgstr "Выберите пакет для установки"
 
-#: ../ceammc/ext/src/ui/ui_arrayview.cpp
+#: ../ceammc/ext/src/spat/hoa_map_ui.cpp ../ceammc/ext/src/ui/ui_arrayview.cpp
 msgid "Selection Color"
 msgstr "Цвет выделения"
 
@@ -2228,6 +2282,10 @@ msgstr "Tcl:"
 #, tcl-format
 msgid "Temporarily moving %1$s into %2$s failed."
 msgstr "Перемещение временных файлов их %1$s в %2$s завершилось ошибкой."
+
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+msgid "Tepid Signal Color"
+msgstr "Умеренный цвет"
 
 #: ../ceammc/ext/src/ui/ui_circular_meter.cpp ../ceammc/ext/src/ui/ui_meter.cpp
 msgid "Tepid signal color"
@@ -2478,6 +2536,14 @@ msgstr "Располагать значение"
 msgid "Value:"
 msgstr "Значение:"
 
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+msgid "Vectors"
+msgstr "Векторы"
+
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+msgid "Velocity Vector Color"
+msgstr "Цвет вектора скорости"
+
 #: ../tcl/dialog_path.tcl
 msgid "Verbose"
 msgstr "Подробный вывод"
@@ -2503,6 +2569,10 @@ msgstr "Вертикальное выравнивание"
 #: ../ceammc/gui/plugins/ceammc_buttonbar-plugin.tcl
 msgid "Vertical radio"
 msgstr "Вертикальный переключатель"
+
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+msgid "View of Channels"
+msgstr "Вид каналов"
 
 #: ../ceammc/ext/src/spat/hoa_2d_scope.cpp
 #: ../ceammc/ext/src/spat/hoa_3d_scope.cpp
@@ -2544,6 +2614,10 @@ msgid "WARNING: unknown graphme flags received in pdtk_canvas_dialog"
 msgstr ""
 "ПРЕДУПРЕЖДЕНИЕ: неподдерживаемый graphme флаг получен в функции "
 "pdtk_canvas_dialog"
+
+#: ../ceammc/ext/src/spat/hoa_3d_meter.cpp
+msgid "Warm Signal Color"
+msgstr "Теплый цвет"
 
 #: ../ceammc/ext/src/ui/ui_circular_meter.cpp ../ceammc/ext/src/ui/ui_meter.cpp
 msgid "Warm signal color"
