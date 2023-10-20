@@ -991,7 +991,6 @@ notch->biquad
 note->guido
 note.pass
 nsig~
-obj.info
 obj.props
 once
 or

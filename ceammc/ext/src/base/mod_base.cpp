@@ -17,7 +17,6 @@
 #include "mix.h"
 #include "msg_after.h"
 #include "msg_sched.h"
-#include "obj_info.h"
 #include "obj_props.h"
 #include "patch_args.h"
 #include "patch_deps.h"
@@ -132,7 +131,6 @@ void ceammc_base_setup()
     setup_msg_onclose();
     setup_msg_sched();
     setup_nsig_tilde();
-    setup_obj_info();
     setup_obj_props();
     setup_patch_args();
     setup_patch_deps();
