@@ -94,13 +94,13 @@ protected:
             UI_ERR << "empty callback";
     }
 
-    template <size_t IDX>
+    template <int IDX>
     void initMidiProxy()
     {
         if (IDX > 0)
-            initMidiProxy<IDX - 1>();
+            UIBindObject<N>::initMidiProxy<IDX - 1>();
 
-        midi_proxy_.emplace_back(this, &UIBindObject::onMidiBind<IDX - 1>);
+        midi_proxy_.emplace_back(this, &UIBindObject<N>::onMidiBind<IDX - 1>);
     }
 
     template <>
@@ -110,9 +110,9 @@ protected:
     void initKeyProxy()
     {
         if (IDX > 0)
-            initKeyProxy<IDX - 1>();
+            UIBindObject<N>::initKeyProxy<IDX - 1>();
 
-        key_proxy_.emplace_back(this, &UIBindObject::onKeyBind<IDX - 1>);
+        key_proxy_.emplace_back(this, &UIBindObject<N>::onKeyBind<IDX - 1>);
     }
 
     template <>
