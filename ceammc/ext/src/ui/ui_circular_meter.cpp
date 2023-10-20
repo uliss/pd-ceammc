@@ -74,7 +74,7 @@ void UICircularMeter::paint()
     sys_vgui("ui::cm::create #%x %s "
              "%d %d "
              "#%6.6x #%6.6x #%6.6x #%6.6x #%6.6x #%6.6x "
-             "%d %d %d %d",
+             "%d %d %d %.1f",
         asEBox(), asEBox()->b_drawing_id->s_name,
         (int)width(), (int)height(),
         rgba_to_hex_int(prop_color_border),
@@ -240,8 +240,7 @@ void UICircularMeter::setInputs(int n)
 {
     dsp::SuspendGuard guard;
     prop_nchan = clip<int, MIN_NCHAN, MAX_NCHAN>(n);
-    eobj_resize_inputs(asEObj(), prop_nchan);
-    canvas_update_dsp();
+    resizeInputs(prop_nchan);
 }
 
 void UICircularMeter::setup()
@@ -255,7 +254,7 @@ void UICircularMeter::setup()
 
     obj.hideLabelInner();
 
-    obj.setDefaultSize(30, 120);
+    obj.setDefaultSize(120, 120);
 
     obj.addColorProperty("cold_color", _("Cold signal color"), "0 0.6 0 1", &UICircularMeter::prop_color_cold);
     obj.addColorProperty("tepid_color", _("Tepid signal color"), "0.6 0.73 0 1", &UICircularMeter::prop_color_tepid);
@@ -276,8 +275,9 @@ void UICircularMeter::setup()
     obj.setPropertyAccessor("offset", &UICircularMeter::propOffset, &UICircularMeter::propSetOffset);
 
     obj.addBoolProperty("clockwise", _("Clockwise"), false, &UICircularMeter::prop_clockwise, _("Main"));
-    obj.addIntProperty("rotation", _("Rotation"), 0, &UICircularMeter::prop_rotation, _("Main"));
+    obj.addFloatProperty("rotation", _("Rotation"), 0, &UICircularMeter::prop_rotation, _("Main"));
     obj.setPropertyUnits("rotation", "deg");
+    obj.setPropertyRange("rotation", -360, 360);
 
     obj.addProperty("angles", &UICircularMeter::propAngles, &UICircularMeter::propSetAngles);
     obj.showProperty("angles");

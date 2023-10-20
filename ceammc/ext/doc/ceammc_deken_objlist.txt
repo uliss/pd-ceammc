@@ -1269,6 +1269,9 @@ ui.button	button widget
 ui.btn	button widget
 ui.canvas	UI canvas for drawing
 ui.cnv	UI canvas for drawing
+ui.cmeter~	Multichannel circular peak and rms signal meter
+ui.cm~	Multichannel circular peak and rms signal meter
+hoa.2d.meter~	Multichannel circular peak and rms signal meter
 ui.colorpanel	colorchooser widget
 ui.display	Display GUI object
 ui.d	Display GUI object

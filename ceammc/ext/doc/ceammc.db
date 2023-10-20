@@ -779,6 +779,7 @@ ui.aview		.		.
 ui.bang,ui.b		.		.
 ui.button,ui.btn		.		.
 ui.canvas,ui.cnv		.		-
+ui.cmeter~,ui.cm~,hoa.2d.meter~		?		-
 ui.colorpanel		.		.
 ui.display,ui.d,ui.dt		.		-
 ui.dsp~		.		-

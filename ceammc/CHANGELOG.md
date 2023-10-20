@@ -3,13 +3,12 @@
 ## [Unreleased]
 ### Added:
 - new objects:
+  - array.ltcplay~ - array player, controlled by LTC signal
   - array.readwrite~ - ordered array reader/writer (read first, then write)
   - array.tramp~ - triggered array ramp generator
-  - array.ltcplay~ - array player, controlled by LTC signal
   - chrono.datetime - get current date/time information
   - color.mix - color mixer
   - color.scale - create color scales (gradients)
-  - convolve~ - real-time convolution added
   - conv.bar2ms - calculate bar and beat duration from tempo BPM and time signature
   - conv.char2morse - single character to morse code converter
   - conv.color2rgba - color converter added from named or hex colors to separate RGBA values
@@ -18,6 +17,7 @@
   - conv.ms2str - convert time in milliseconds to formatted string or symbol
   - conv.rgb2hex - convert RGB separate values to #RRGGBB symbol
   - conv.semi2ratio (with semi->ratio alias) added
+  - convolve~ - real-time convolution added
   - data.bimap - bidirectional map for scalar types
   - data.color - Color datatype
   - dyn.comp_peak2~ - Peak FeedForward stereo compressor with channel linking
@@ -34,6 +34,10 @@
   - fx.tremolo~ - tremolo effect from guitarix library
   - gate~ - multichannel signal gate added
   - global.bimap - global scope bimap container
+  - hoa.3d.map~ - 3d ambisonic multisource spatializer
+  - hoa.3d.meter~ - 3d ambisonic multisource spatializer
+  - hoa.3d.scope~ - 3d ambisonic harmonic scope
+  - hoa.map.ui - GUI to spatialize sources on a map
   - local.bimap - canvas local scope bimap container
   - merge~ - parametrized signal merge
   - metro.choice - randomly (uniformly) metronome time interval choice from specified set
@@ -50,10 +54,7 @@
   - route.cycle - advanced cyclic message router
   - split~ - multichannel signal splitter
   - synth.metro~ - metronome synth with complex pattern support
-  - hoa.3d.scope~ - 3d ambisonic harmonic scope
-  - hoa.3d.map~ - 3d ambisonic multisource spatializer
-  - hoa.3d.meter~ - 3d ambisonic multisource spatializer
-  - hoa.map.ui - GUI to spatialize sources on a map
+  - ui.cmeter~ - Multichannel circular peak and rms signal meter
 - new object inlets:
   - dyn.gate~, dyn.gate2~ - second inlet added for setting threshold
   - flt.bpf12~: second and third inlet added for setting freq and q-factor

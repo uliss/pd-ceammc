@@ -782,6 +782,7 @@ set(DOC_FILES
     ui.button
     ui.canvas
     ui.colorpanel
+    ui.cmeter~
     ui.display
     ui.dsp~
     ui.env
