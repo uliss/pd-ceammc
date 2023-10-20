@@ -2,7 +2,7 @@
 #X text 360 314 Mousewheel and alt to change the zoom.;
 #X text 360 225 To create group \, drag select a set of sources \, when mouse up the group will be created. To remove group \, right-click or click with cmd on group then select "Remove group".;
 #X text 358 276 To mute source or group \, right-click or click with cmd on it and select "Mute" or "Unmute".;
-#N canvas 117 252 1155 640 messages 1;
+#N canvas 117 252 1155 640 messages 0;
 #X text 14 55 Set the zoom;
 #X obj 439 251 send map_mes;
 #X obj 740 151 send map_mes;

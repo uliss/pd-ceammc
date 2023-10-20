@@ -22,6 +22,10 @@
             description and create groups.</par>
             <a href="hoa/hoa.map-help.pd">CICM documentation</a>
         </info>
+        <mouse>
+            <event type="right-click" editmode="false">opens popup menu</event>
+            <event type="drag" editmode="false">move selected source or group</event>
+        </mouse>
         <properties>
             <!-- common-->
             <property name="@presetname" type="symbol" default="(null)">preset name for using with
