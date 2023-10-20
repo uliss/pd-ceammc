@@ -66,8 +66,6 @@ void BaseConvolveTilde::setupDSP(t_signal** sig)
             load_state_ = NOT_LOADED;
         } else
             OBJ_DBG << fmt::format("IR data size: {}, offset: {}", size, offset);
-    } else {
-        OBJ_ERR << "IR data not loaded";
     }
 
 #ifdef USE_FLOAT_BUFFERS
@@ -78,8 +76,12 @@ void BaseConvolveTilde::setupDSP(t_signal** sig)
 
 void BaseConvolveTilde::processBlock(const t_sample** in, t_sample** out)
 {
-    if (load_state_ != LOAD_OK)
+    if (load_state_ != LOAD_OK) {
+        for (size_t i = 0; i < blockSize(); i++)
+            out[0][i] = 0;
+
         return;
+    }
 
 #ifdef USE_FLOAT_BUFFERS
     const auto BS = blockSize();
