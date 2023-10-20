@@ -23,4 +23,5 @@ void setup_global_bimap()
 {
     ObjectFactory<GlobalBiMap> obj("global.bimap");
     GlobalBiMap::factoryEditorObjectInit(obj);
+    DataBiMap::registerMethods(obj);
 }
