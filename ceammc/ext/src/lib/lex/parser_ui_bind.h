@@ -77,6 +77,8 @@ struct UIBindOptions {
             return val >= midi_value;
         case UI_BIND_CMP_NONE:
             return true;
+        default:
+            return false;
         }
     }
 
