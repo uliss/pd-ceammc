@@ -271,8 +271,10 @@ EditorTitleString PresetBase::editorTitle() const
 
 bool PresetBase::setEditorPreset(size_t idx, const AtomListView& lv)
 {
+    return false;
 }
 
 AtomList PresetBase::editorPresetValue(size_t idx) const
 {
+    return {};
 }
