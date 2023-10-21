@@ -67,9 +67,12 @@
             <!-- main -->
             <property name="@zoom" type="float" default="0.35" minvalue="0.01" maxvalue="1">zoom
             factor</property>
-            <property name="@view" type="symbol" default="xy" enum="xy xz yz">coordinate view</property>
-            <property name="@mapname" type="symbol" default="(null)">widget name to link them between</property>
-            <property name="@outputmode" type="symbol" default="polar" enum="polar cartesian">output mode</property>
+            <property name="@view" type="symbol" default="xy" enum="xy xz yz">coordinate
+            view</property>
+            <property name="@mapname" type="symbol" default="(null)">widget name to link them
+            between</property>
+            <property name="@outputmode" type="symbol" default="polar" enum="polar cartesian">
+            output mode</property>
         </properties>
         <methods>
             <!-- clear -->

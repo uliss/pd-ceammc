@@ -66,6 +66,17 @@
             <param name="Y" type="atom" required="true">top-coord in pixel or percents of
             height</param>
             <param name="MUSIC" type="list" required="true">ABC notation</param></method>
+            <!-- arc -->
+            <method name="arc">draw arc 
+            <param name="XC" type="atom" required="true">x-center coord in pixel or percents of
+            width</param>
+            <param name="YC" type="atom" required="true">y-center coord in pixel or percents of
+            height</param>
+            <param name="RC" type="atom" required="true">radius in pixel or percents of
+            width</param>
+            <param name="A0" type="atom" required="true">start angle in degrees or radians</param>
+            <param name="A1" type="atom" required="true">end angle in degrees or
+            radians</param></method>
             <!-- arrow -->
             <method name="arrow">creates arrow shape 
             <param name="X0" type="atom" required="true">x-coord of start point in pixel or
@@ -92,6 +103,10 @@
             <method name="clear">clear image</method>
             <!-- close_path -->
             <method name="close_path">close path and its subpaths</method>
+            <!-- color -->
+            <method name="color">set current color 
+            <param name="DATA" type="list" required="true">RGB, RGBA float list or hex or named
+            color</param></method>
             <!-- crestore -->
             <method name="crestore">restore previously saved context (pen type, width, color,
             matrix etc.)</method>
@@ -122,6 +137,14 @@
             to solid shape</param></method>
             <!-- dump -->
             <method name="dump">dumps all object info to Pd console window.</method>
+            <!-- ellipse -->
+            <method name="ellipse">draw ellipse 
+            <param name="X" type="atom" required="true">left-coord in pixel or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">top-coord in pixel or percents of
+            height</param>
+            <param name="WIDTH" type="atom" required="true">width</param>
+            <param name="HEIGHT" type="atom" required="true">height</param></method>
             <!-- fill -->
             <method name="fill">fill shape with color 
             <param name="COLOR" type="atom" required="true">fill color</param>
@@ -130,18 +153,6 @@
             <!-- font -->
             <method name="font">set current font 
             <param name="FONT" type="symbol" required="true">font family</param>
-            <param name="SIZE" type="float" required="false">font size</param></method>
-            <!-- font -->
-            <method name="font">set current font 
-            <param name="FONT" type="symbol" required="true">font family</param>
-            <param name="STYLE" type="symbol" enum="normal|italic|bold" required="true">font
-            style</param>
-            <param name="SIZE" type="float" required="false">font size</param></method>
-            <!-- font -->
-            <method name="font">set current font 
-            <param name="FONT" type="symbol" required="true">font family</param>
-            <param name="italic" type="symbol" required="true" />
-            <param name="bold" type="symbol" required="true" />
             <param name="SIZE" type="float" required="false">font size</param></method>
             <!-- font_size -->
             <method name="font_size">set current font size 
