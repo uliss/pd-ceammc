@@ -5,9 +5,7 @@ add_subdirectory(extra/corrosion)
 list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/extra/corrosion/cmake")
 
 if(LibSndFile_FOUND)
-    if(${LIBSNDFILE_VERSION} VERSION_LESS "1.30.0")
-        set(CEAMMC_HAVE_LIBSNDFILE_OPUS TRUE)
-    endif()
+    check_symbol_exists(SF_FORMAT_OPUS "sndfile.hh" CEAMMC_HAVE_LIBSNDFILE_OPUS)
 endif()
 
 find_package(LibMagic)
