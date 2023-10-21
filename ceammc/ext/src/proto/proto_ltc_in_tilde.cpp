@@ -61,8 +61,11 @@ void LtcInTilde::processBlock(const t_sample** in, t_sample** out)
     auto BS = blockSize();
 
 #if PD_FLOATSIZE == 32
+    static_assert(std::is_same<t_float, float>::value, "");
     ltc_decoder_write_float(dec, const_cast<float*>(in[0]), BS, off_);
 #elif PD_FLOATSIZE == 64
+    static_assert(std::is_same<t_float, double>::value, "");
+
     float buf[BS];
     std::copy(in[0], in[0] + BS, buf);
     ltc_decoder_write_float(dec, buf, BS, off_);
