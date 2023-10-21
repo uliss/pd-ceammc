@@ -119,9 +119,11 @@ parts:
             - libglib2.0-dev
             - libjack-jackd2-dev
             - libltc-dev
+            - libcairo2-dev
             - libmodplug-dev
             - librubberband-dev
             - libsndfile1-dev
+            - libfreetype-dev
             - libxcb-randr0-dev
             - libxcb-util-dev
             - libxcb1-dev
@@ -146,6 +148,8 @@ parts:
             - libmodplug1
             - librubberband2
             - libsndfile1
+            - libcairo2
+            - libfreetype6
             - libtcl8.6
             - libxcb-randr0
             - libxtables12
