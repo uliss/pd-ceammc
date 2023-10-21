@@ -19,9 +19,9 @@
             </aliases>
         </meta>
         <info>
-            <par>Each cell has 3db range. Full meter range is 39 db.</par>
+            <par>Full meter range is 39 db.</par>
             <par>Values &gt;-3db are red, range [-12, -3) db is hot, [-21, -12) db is warm, [-30,
-            -21) is tepid, values &lt; 0 are cold.</par>
+            -21) is tepid, values &lt;-30 are cold.</par>
         </info>
         <properties>
             <property name="@interval" type="int" units="millisecond" minvalue="20" default="100">
