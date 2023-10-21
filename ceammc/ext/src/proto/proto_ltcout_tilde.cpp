@@ -38,6 +38,15 @@ constexpr t_float PROP_FILTER_MIN_MS = 0;
 constexpr t_float PROP_FILTER_MAX_MS = 500;
 constexpr t_float PROP_FILTER_DEF_MS = 40;
 
+#if LIBLTC_CUR <= 12
+#define ltc_encoder_set_buffersize ltc_encoder_set_bufsize
+
+static double ltc_encoder_get_filter(LTCEncoder *e) {
+    LIB_DBG << fmt::format("using old libltc version: {}, ltc_encoder_get_filter not supported", LIBLTC_VERSION);
+    return 0;
+}
+#endif
+
 namespace {
 
 inline t_sample toSample(ltcsnd_sample_t v)
@@ -328,8 +337,13 @@ void LtcOutTilde::encodeFrame()
 
 void LtcOutTilde::updateBuffer()
 {
+#if LIBLTC_CUR >= 13
     ltcsnd_sample_t* buf = nullptr;
     auto n = ltc_encoder_get_bufferptr(encoder_.get(), &buf, 0);
+#else
+    int n = 0;
+    ltcsnd_sample_t* buf = ltc_encoder_get_bufptr(encoder_.get(), &n, 0);
+#endif
     buf_beg_ = buf;
     buf_end_ = buf + n;
 

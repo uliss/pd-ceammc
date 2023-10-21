@@ -63,7 +63,9 @@ void LtcInTilde::processBlock(const t_sample** in, t_sample** out)
 #if PD_FLOATSIZE == 32
     ltc_decoder_write_float(dec, const_cast<float*>(in[0]), BS, off_);
 #elif PD_FLOATSIZE == 64
-    ltc_decoder_write_double(dec, const_cast<double*>(in[0]), BS, off_);
+    float buf[BS];
+    std::copy(in[0], in[0] + BS, buf);
+    ltc_decoder_write_float(dec, buf, BS, off_);
 #endif
 
     off_ += BS;
