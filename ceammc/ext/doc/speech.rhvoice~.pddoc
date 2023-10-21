@@ -79,7 +79,7 @@
 |            |      |        |
 [speech.rhvoice~             ]
 |          ^|
-|          [B]
+|          [print RHVOICE]
 |
 [ui.gain~ @size 120 16]   [ui.dsp~]
 |\

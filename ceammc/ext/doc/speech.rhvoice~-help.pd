@@ -29,8 +29,7 @@ https://github.com/RHVoice/anna-rus;
 #X msg 328 331 @rate \$1;
 #X listbox 242 360 20 0 0 0 - - -;
 #X obj 50 388 speech.rhvoice~;
-#X obj 155 417 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
--1;
+#X obj 155 417 print RHVOICE;
 #X obj 50 446 ui.gain~ @size 120 16;
 #X obj 299 446 ui.dsp~;
 #X obj 50 475 dac~;
