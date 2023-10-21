@@ -61,7 +61,8 @@
         </inlets>
         <outlets>
             <outlet type="audio">TTS output</outlet>
-            <outlet>bang on done</outlet>
+            <outlet>bang on done, [word 1( on word start, [word 0( on word end, [sentence 1( on
+            sentence start, [sentence 0( on sentence end</outlet>
         </outlets>
         <example>
             <pdascii>
