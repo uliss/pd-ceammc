@@ -23,7 +23,7 @@ namespace ceammc {
 
 class Hoa2dSpace : public UIObject {
     t_rgba prop_space_color, prop_pt_color;
-    float prop_min { 0 }, prop_max { 1 };
+    t_float prop_min { 0 }, prop_max { 1 };
     int prop_nchan { 0 };
     std::array<float, HOA_MAX_PLANEWAVES> chan_values_, chan_refs_, chan_radius_;
 

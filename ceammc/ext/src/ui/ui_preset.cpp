@@ -48,7 +48,7 @@ void UIPreset::paint()
 {
 #ifdef __APPLE__
     const static int FNT_SZ = FONT_SIZE_SMALL;
-#elif _WINDOWS
+#elif __WIN32__
     const static int FNT_SZ = FONT_SIZE_SMALL + 2;
 #else
     const static int FNT_SZ = FONT_SIZE_SMALL + 2;

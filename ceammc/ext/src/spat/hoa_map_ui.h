@@ -43,7 +43,7 @@ class HoaMapUI : public UIObject {
     t_rgba prop_selection_color;
 
     UILayer sources_, groups_, selection_;
-    float prop_zoom;
+    t_float prop_zoom;
 
     bool output_enabled_ { true };
     bool mouse_was_dragging_ { false };
