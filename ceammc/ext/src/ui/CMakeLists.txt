@@ -1,7 +1,3 @@
-if(WIN32)
-    add_definitions("-D_WINDOWS=1")
-endif()
-
 macro(ceammc_ui_external name)
     list(APPEND UI_SOURCES "ui_${name}.cpp")
 endmacro()
