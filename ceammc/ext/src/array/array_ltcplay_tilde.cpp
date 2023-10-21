@@ -23,7 +23,8 @@ static inline void ltc_write_sample(LTCDecoder* dec, const t_sample* in, ltc_off
 #if PD_FLOATSIZE == 32
     ltc_decoder_write_float(dec, const_cast<float*>(in), 1, offset);
 #elif PD_FLOATSIZE == 64
-    ltc_decoder_write_double(dec, const_cast<double*>(in), 1, offset);
+    float v = in[0];
+    ltc_decoder_write_float(dec, &v, 1, offset);
 #endif
 }
 
