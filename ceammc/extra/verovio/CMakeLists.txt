@@ -12,7 +12,5 @@ if(WITH_VEROVIO)
         DESTINATION ${PD_DOC_INSTALL_PATH}/extra/ceammc/music/verovio
         FILES_MATCHING PATTERN "*.xml" PATTERN "*.svg" PATTERN "*.css")
 
-    if(WIN32 OR APPLE)
-        install(TARGETS verovio RUNTIME DESTINATION extra/ceammc)
-    endif()
+    install(TARGETS verovio RUNTIME DESTINATION extra/ceammc)
 endif()
