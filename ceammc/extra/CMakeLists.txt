@@ -114,13 +114,20 @@ if(WITH_SFIZZ)
     endif()
 
     set(SFIZZ_USE_SNDFILE OFF CACHE INTERNAL "")
-
-    FetchContent_Declare(
-        sfizz
-        URL      https://github.com/sfztools/sfizz/releases/download/1.2.0/sfizz-1.2.0.tar.gz
-        URL_HASH MD5=13725a41a811dc81c973f303eaaea86b
-        DOWNLOAD_EXTRACT_TIMESTAMP ON
-    )
+    if (UNIX AND NOT APPLE)
+    	FetchContent_Declare(
+		sfizz
+        	URL      https://github.com/sfztools/sfizz/releases/download/1.2.0/sfizz-1.2.0.tar.gz
+        	URL_HASH MD5=13725a41a811dc81c973f303eaaea86b
+		)
+    else()
+    	FetchContent_Declare(
+        	sfizz
+        	URL      https://github.com/sfztools/sfizz/releases/download/1.2.0/sfizz-1.2.0.tar.gz
+        	URL_HASH MD5=13725a41a811dc81c973f303eaaea86b
+        	DOWNLOAD_EXTRACT_TIMESTAMP ON
+    	)
+    endif()
     FetchContent_GetProperties(sfizz)
     if(NOT sfizz_POPULATED)
         FetchContent_Populate(sfizz)
@@ -133,7 +140,7 @@ if(WITH_SFIZZ)
 endif()
 
 if(WITH_FAUST)
-    if(APPLE)
+    if(APPLE OR UNIX)
         add_subdirectory(faust)
     else()
         cmake_minimum_required(VERSION 3.14)
