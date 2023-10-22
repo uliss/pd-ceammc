@@ -134,7 +134,7 @@ if(WITH_SFIZZ)
         add_subdirectory(${sfizz_SOURCE_DIR} ${sfizz_BINARY_DIR} EXCLUDE_FROM_ALL)
 
         if(WIN32)
-            #install(TARGETS sfizz_shared RUNTIME DESTINATION extra/ceammc)
+            install(TARGETS sfizz_shared RUNTIME DESTINATION extra/ceammc)
         endif()
     endif()
 endif()
@@ -143,59 +143,11 @@ if(WITH_FAUST)
     if(APPLE OR UNIX)
         add_subdirectory(faust)
     else()
-        cmake_minimum_required(VERSION 3.14)
+        find_package(LLVM REQUIRED CONFIG)
+        message(STATUS "Found LLVM ${LLVM_PACKAGE_VERSION}")
+        message(STATUS "Using LLVMConfig.cmake in: ${LLVM_DIR}")
 
-        include(FetchContent)
-        set(FETCHCONTENT_QUIET FALSE)
-        set(INCLUDE_STATIC      ON  CACHE INTERNAL "")
-        set(INCLUDE_EXECUTABLE  OFF CACHE INTERNAL "")
-        set(INCLUDE_DYNAMIC     OFF CACHE INTERNAL "")
-        set(INCLUDE_OSC         OFF CACHE INTERNAL "")
-        set(INCLUDE_HTTP        OFF CACHE INTERNAL "")
-        set(INCLUDE_EMCC        OFF CACHE INTERNAL "")
-        set(INCLUDE_WASM_GLUE   OFF CACHE INTERNAL "")
-        set(INCLUDE_LLVM        OFF CACHE INTERNAL "")
-
-        ## Hardcoded backends for faust
-        set(ASMJS_BACKEND  OFF            CACHE INTERNAL "")
-        set(C_BACKEND      OFF            CACHE INTERNAL "")
-        set(CPP_BACKEND    OFF            CACHE INTERNAL "")
-        set(FIR_BACKEND    OFF            CACHE INTERNAL "")
-        set(INTERP_BACKEND OFF            CACHE INTERNAL "")
-        set(JAVA_BACKEND   OFF            CACHE INTERNAL "")
-        set(JS_BACKEND     OFF            CACHE INTERNAL "")
-        set(LLVM_BACKEND   STATIC DYNAMIC CACHE INTERNAL "")
-        set(OLDCPP_BACKEND OFF            CACHE INTERNAL "")
-        set(RUST_BACKEND   OFF            CACHE INTERNAL "")
-        set(WASM_BACKEND   OFF            CACHE INTERNAL "")
-
-        find_package(Patch REQUIRED)
-
-        FetchContent_Declare(
-            faust
-            URL      https://github.com/grame-cncm/faust/releases/download/2.60.3/faust-2.60.3.tar.gz
-            URL_HASH MD5=d0c436cebafbce0b5affc082bc2f8297
-            PATCH_COMMAND ${Patch_EXECUTABLE} -i "${CMAKE_CURRENT_SOURCE_DIR}/faust/cstdint.patch" -l -N -u --verbose ${PROJECT_BINARY_DIR}/_deps/faust-src/compiler/generator/Text.hh
-            UPDATE_DISCONNECTED 1
-            DOWNLOAD_EXTRACT_TIMESTAMP ON
-        )
-        FetchContent_GetProperties(faust)
-        if(NOT faust_POPULATED)
-            FetchContent_Populate(faust)
-            file(REMOVE ${faust_SOURCE_DIR}/compiler/libcode.cpp)
-            add_subdirectory(${faust_SOURCE_DIR}/build ${faust_BINARY_DIR} EXCLUDE_FROM_ALL)
-            target_compile_options(staticlib PRIVATE -Wno-unused-variable -Wno-cast-function-type -Wno-attributes)
-
-            set(DOC_INSTALL_PATH "${PD_DOC_INSTALL_PATH}/extra/ceammc")
-
-            install(DIRECTORY ${faust_SOURCE_DIR}/libraries/
-                DESTINATION ${DOC_INSTALL_PATH}/faust
-                FILES_MATCHING PATTERN "*.lib"
-                PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
-
-             message(STATUS "############## ${LLVM_LIB_DIR} ############")
-
-        endif()
+        find_package(Faust REQUIRED)
 
         # ceammc binding
         add_library(ceammc_faust STATIC ${PROJECT_SOURCE_DIR}/ceammc/extra/faust/ceammc_llvm.cpp)
@@ -203,10 +155,16 @@ if(WITH_FAUST)
         target_include_directories(ceammc_faust PRIVATE
             ${CMAKE_CURRENT_SOURCE_DIR}/faust/architecture
             ${faust_SOURCE_DIR}/architecture
-            ${PROJECT_SOURCE_DIR}/src)
-        target_link_libraries(ceammc_faust PUBLIC staticlib)
+            ${PROJECT_SOURCE_DIR}/src
+            ${Faust_INCLUDE_DIRS})
+        target_link_libraries(ceammc_faust PUBLIC ${Faust_LIBRARIES})
         target_link_directories(ceammc_faust PUBLIC ${LLVM_LIB_DIR})
 
+        set(DOC_INSTALL_PATH "${PD_DOC_INSTALL_PATH}/extra/ceammc")
+        install(DIRECTORY ${FAUST_DSP_LIBRARY_DIR}
+            DESTINATION ${DOC_INSTALL_PATH}
+            FILES_MATCHING PATTERN "*.lib"
+            PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
 
 
         if(COMMAND llvm_map_components_to_libnames)
@@ -227,9 +185,184 @@ if(WITH_FAUST)
                     target_link_libraries(ceammc_faust PRIVATE ${llvm_libs_x86})
                 endif()
             elseif(WIN32 OR UNIX)
-                llvm_map_components_to_libnames(llvm_libs_x86
-                    x86asmparser x86info x86desc x86codegen)
                 list(APPEND llvm_libs ${llvm_libs_x86})
+                target_link_libraries(ceammc_faust PRIVATE
+                    LLVMWindowsManifest
+                    LLVMXRay
+                    LLVMLibDriver
+                    LLVMDlltoolDriver
+                    LLVMCoverage
+                    LLVMLineEditor
+                    LLVMXCoreDisassembler
+                    LLVMXCoreCodeGen
+                    LLVMXCoreDesc
+                    LLVMXCoreInfo
+                    LLVMX86TargetMCA
+                    LLVMX86Disassembler
+                    LLVMX86AsmParser
+                    LLVMX86CodeGen
+                    LLVMX86Desc
+                    LLVMX86Info
+                    LLVMWebAssemblyDisassembler
+                    LLVMWebAssemblyAsmParser
+                    LLVMWebAssemblyCodeGen
+                    LLVMWebAssemblyDesc
+                    LLVMWebAssemblyUtils
+                    LLVMWebAssemblyInfo
+                    LLVMVEDisassembler
+                    LLVMVEAsmParser
+                    LLVMVECodeGen
+                    LLVMVEDesc
+                    LLVMVEInfo
+                    LLVMSystemZDisassembler
+                    LLVMSystemZAsmParser
+                    LLVMSystemZCodeGen
+                    LLVMSystemZDesc
+                    LLVMSystemZInfo
+                    LLVMSparcDisassembler
+                    LLVMSparcAsmParser
+                    LLVMSparcCodeGen
+                    LLVMSparcDesc
+                    LLVMSparcInfo
+                    LLVMRISCVTargetMCA
+                    LLVMRISCVDisassembler
+                    LLVMRISCVAsmParser
+                    LLVMRISCVCodeGen
+                    LLVMRISCVDesc
+                    LLVMRISCVInfo
+                    LLVMPowerPCDisassembler
+                    LLVMPowerPCAsmParser
+                    LLVMPowerPCCodeGen
+                    LLVMPowerPCDesc
+                    LLVMPowerPCInfo
+                    LLVMNVPTXCodeGen
+                    LLVMNVPTXDesc
+                    LLVMNVPTXInfo
+                    LLVMMSP430Disassembler
+                    LLVMMSP430AsmParser
+                    LLVMMSP430CodeGen
+                    LLVMMSP430Desc
+                    LLVMMSP430Info
+                    LLVMMipsDisassembler
+                    LLVMMipsAsmParser
+                    LLVMMipsCodeGen
+                    LLVMMipsDesc
+                    LLVMMipsInfo
+                    LLVMLoongArchDisassembler
+                    LLVMLoongArchAsmParser
+                    LLVMLoongArchCodeGen
+                    LLVMLoongArchDesc
+                    LLVMLoongArchInfo
+                    LLVMLanaiDisassembler
+                    LLVMLanaiCodeGen
+                    LLVMLanaiAsmParser
+                    LLVMLanaiDesc
+                    LLVMLanaiInfo
+                    LLVMHexagonDisassembler
+                    LLVMHexagonCodeGen
+                    LLVMHexagonAsmParser
+                    LLVMHexagonDesc
+                    LLVMHexagonInfo
+                    LLVMBPFDisassembler
+                    LLVMBPFAsmParser
+                    LLVMBPFCodeGen
+                    LLVMBPFDesc
+                    LLVMBPFInfo
+                    LLVMAVRDisassembler
+                    LLVMAVRAsmParser
+                    LLVMAVRCodeGen
+                    LLVMAVRDesc
+                    LLVMAVRInfo
+                    LLVMARMDisassembler
+                    LLVMARMAsmParser
+                    LLVMARMCodeGen
+                    LLVMARMDesc
+                    LLVMARMUtils
+                    LLVMARMInfo
+                    LLVMAMDGPUTargetMCA
+                    LLVMAMDGPUDisassembler
+                    LLVMAMDGPUAsmParser
+                    LLVMAMDGPUCodeGen
+                    LLVMAMDGPUDesc
+                    LLVMAMDGPUUtils
+                    LLVMAMDGPUInfo
+                    LLVMAArch64Disassembler
+                    LLVMAArch64AsmParser
+                    LLVMAArch64CodeGen
+                    LLVMAArch64Desc
+                    LLVMAArch64Utils
+                    LLVMAArch64Info
+                    LLVMOrcJIT
+                    LLVMWindowsDriver
+                    LLVMMCJIT
+                    LLVMJITLink
+                    LLVMInterpreter
+                    LLVMExecutionEngine
+                    LLVMRuntimeDyld
+                    LLVMOrcTargetProcess
+                    LLVMOrcShared
+                    LLVMDWP
+                    LLVMDebugInfoLogicalView
+                    LLVMDebugInfoGSYM
+                    LLVMOption
+                    LLVMObjectYAML
+                    LLVMObjCopy
+                    LLVMMCA
+                    LLVMMCDisassembler
+                    LLVMLTO
+                    LLVMPasses
+                    LLVMCFGuard
+                    LLVMCoroutines
+                    LLVMipo
+                    LLVMVectorize
+                    LLVMLinker
+                    LLVMInstrumentation
+                    LLVMFrontendOpenMP
+                    LLVMFrontendOpenACC
+                    LLVMFrontendHLSL
+                    LLVMExtensions
+                    LLVMDWARFLinkerParallel
+                    LLVMDWARFLinker
+                    LLVMGlobalISel
+                    LLVMMIRParser
+                    LLVMAsmPrinter
+                    LLVMSelectionDAG
+                    LLVMCodeGen
+                    LLVMObjCARCOpts
+                    LLVMIRPrinter
+                    LLVMInterfaceStub
+                    LLVMFileCheck
+                    LLVMFuzzMutate
+                    LLVMTarget
+                    LLVMScalarOpts
+                    LLVMInstCombine
+                    LLVMAggressiveInstCombine
+                    LLVMTransformUtils
+                    LLVMBitWriter
+                    LLVMAnalysis
+                    LLVMProfileData
+                    LLVMSymbolize
+                    LLVMDebugInfoPDB
+                    LLVMDebugInfoMSF
+                    LLVMDebugInfoDWARF
+                    LLVMObject
+                    LLVMTextAPI
+                    LLVMMCParser
+                    LLVMIRReader
+                    LLVMAsmParser
+                    LLVMMC
+                    LLVMDebugInfoCodeView
+                    LLVMBitReader
+                    LLVMFuzzerCLI
+                    LLVMCore
+                    LLVMRemarks
+                    LLVMBitstreamReader
+                    LLVMBinaryFormat
+                    LLVMTargetParser
+                    LLVMTableGen
+                    LLVMSupport
+                    LLVMDemangle
+                    )
             endif()
         endif()
     endif()

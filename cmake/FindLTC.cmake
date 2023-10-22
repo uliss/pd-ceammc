@@ -53,13 +53,14 @@ else()
            C:/MinGW/msys/1.0/usr/local/include)
 
     find_library(LTC_LIBRARY
-        NAMES "ltc"
+        NAMES "ltc" "ltc-11"
         HINTS ${PKGCONFIG_LTC_LIBDIR} ${PKGCONFIG_LTC_LIBRARY_DIRS}
         PATHS
           ${LIB_INSTALL_DIR}
           /usr/lib
           /usr/local/lib
           /opt/local/lib
+          /opt/local/bin
           /sw/lib
           /usr/local/mingw/i686-w64-mingw32/lib
           C:/MinGW/msys/1.0/usr/lib

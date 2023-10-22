@@ -8,8 +8,10 @@ import shutil
 
 OBJDUMP_BIN = "@OBJDUMP_EXE@"
 MINGW_PREFIX = b"@CEAMMC_MINGW_PREFIX@"
+LOCAL_PREFIX = b"C:/msys64/opt/local"
 DEST_DIR = b"@CMAKE_INSTALL_PREFIX@/@PD_EXE_INSTALL_PATH@"
 DLL_SET = set()
+DLL_DIRS = [MINGW_PREFIX, LOCAL_PREFIX]
 
 
 def find_all_bins():
@@ -35,14 +37,15 @@ def find_bin_dlls(path):
         idx = line.find(b'DLL Name: ')
         if idx > 0:
             dll = line[idx+10:]
-            dll_path = os.path.join(MINGW_PREFIX, b"bin", dll)
-            if dll_path in DLL_SET:
-                continue
+            for prefix in DLL_DIRS:
+                dll_path = os.path.join(prefix, b"bin", dll)
+                if dll_path in DLL_SET:
+                    continue
 
-            if os.path.exists(dll_path):
-                DLL_SET.add(dll_path)
-                print(" + ", dll.decode())
-                find_bin_dlls(dll_path)
+                if os.path.exists(dll_path):
+                    DLL_SET.add(dll_path)
+                    print(" + ", dll.decode())
+                    find_bin_dlls(dll_path)
 
 
 if __name__ == "__main__":
