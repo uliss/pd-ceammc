@@ -335,8 +335,8 @@ tr84:
 
     char buf[NDIGITS10+1];
     buf[rl_pat_cnum] = '\0';
-    for (IndexT i = 0, dig = 1; i < rl_pat_cnum; i++, dig *= 10)
-        buf[rl_pat_cnum - (i+1)] = ('0' + (idx / dig) % 10);
+    for (IndexT i = 0, dig = 1; i < rl_pat_cnum && i < NDIGITS10; i++, dig *= 10)
+        buf[rl_pat_cnum - (i+1)] = char('0' + (idx / dig) % 10);
 
 
     rl_fname.append(buf);
@@ -497,8 +497,8 @@ tr85:
 
     char buf[NDIGITS10+1];
     buf[rl_pat_cnum] = '\0';
-    for (IndexT i = 0, dig = 1; i < rl_pat_cnum; i++, dig *= 10)
-        buf[rl_pat_cnum - (i+1)] = ('0' + (idx / dig) % 10);
+    for (IndexT i = 0, dig = 1; i < rl_pat_cnum && i < NDIGITS10; i++, dig *= 10)
+        buf[rl_pat_cnum - (i+1)] = char('0' + (idx / dig) % 10);
 
 
     rl_fname.append(buf);
@@ -1490,8 +1490,8 @@ case 85:
 
     char buf[NDIGITS10+1];
     buf[rl_pat_cnum] = '\0';
-    for (IndexT i = 0, dig = 1; i < rl_pat_cnum; i++, dig *= 10)
-        buf[rl_pat_cnum - (i+1)] = ('0' + (idx / dig) % 10);
+    for (IndexT i = 0, dig = 1; i < rl_pat_cnum && i < NDIGITS10; i++, dig *= 10)
+        buf[rl_pat_cnum - (i+1)] = char('0' + (idx / dig) % 10);
 
 
     rl_fname.append(buf);
