@@ -104,6 +104,7 @@ parts:
             - -DWITH_JACK=ON
             - -DWITH_EXT_FLEXT=OFF
             - -DENABLE_TESTS=OFF
+            - -DWITH_EXT_FLEXT=OFF
         source: .
         build-packages:
             - alsa-utils
