@@ -7,10 +7,7 @@ if(LibMagic_FOUND AND NOT WIN32) # windows crash
     add_compile_definitions(ceammc_lang PRIVATE WITH_MAGIC)
 endif()
 
-set(FAUST_SEPARATE_EXTERNAL OFF)
-if(APPLE)
-    set(FAUST_SEPARATE_EXTERNAL ON)
-endif()
+option(FAUST_SEPARATE_EXTERNAL "Build separate faust externals" OFF)
 
 if(WITH_FAUST)
     target_compile_definitions(ceammc_lang PRIVATE -DWITH_FAUST)
