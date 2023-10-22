@@ -14,6 +14,7 @@
 #ifndef CEAMMC_OBJECTCLASS_H
 #define CEAMMC_OBJECTCLASS_H
 
+#include "ceammc_symbols.h"
 #include "m_pd.h"
 
 #include <cstdint>
@@ -58,10 +59,13 @@ enum ObjectFactoryFlags : uint32_t {
     OBJECT_FACTORY_PARSE_POS_PROPS = 0x1000, // process positional properties
 };
 
+struct ObjectInitVptr {
+    virtual ~ObjectInitVptr();
+};
+
 template <typename T>
-class ObjectInitT {
+class ObjectInitT : public ObjectInitVptr {
 public:
-    virtual ~ObjectInitT() { }
     virtual void init(T* obj) = 0;
 };
 
@@ -115,9 +119,9 @@ public:
         setFlag(OBJECT_FACTORY_PARSE_POS_PROPS, true);
 
         // add [dump( method to dump to Pd console
-        class_addmethod(c, reinterpret_cast<t_method>(dumpMethodList), SymbolTable::instance().s_dump_fn, A_NULL);
+        class_addmethod(c, reinterpret_cast<t_method>(dumpMethodList), sym::methods::sym_dump(), A_NULL);
         // add [@*?( method to output all properties
-        class_addmethod(c, reinterpret_cast<t_method>(queryPropNames), SYM_PROPS_ALL_Q(), A_NULL);
+        class_addmethod(c, reinterpret_cast<t_method>(outputAllProperties), sym::props::sym_value_all_get(), A_NULL);
         // direct property get
         ceammc_class_add_propget_fn(c, getProperty);
         // direct property set
@@ -395,32 +399,48 @@ public:
             // construct ceammc object
             x->impl = new T(args);
 
-        } catch (std::exception& e) {
-            pd_error(0, "[ceammc] can't create object [%s]: %s", class_name_->s_name, e.what());
+        } catch (const std::exception& e) {
+            pd_error(0, "[ceammc] can't create object [%s]: exception thrown '%s'", class_name_->s_name, e.what());
 
             x->impl = nullptr;
             pd_free(&x->pd_obj.te_g.g_pd);
             return nullptr;
         } catch (...) {
-            pd_error(0, "[ceammc] can't create object [%s]", class_name_->s_name);
+            pd_error(0, "[ceammc] can't create object [%s], unknown exception", class_name_->s_name);
 
             x->impl = nullptr;
             pd_free(&x->pd_obj.te_g.g_pd);
             return nullptr;
         }
 
-        // property parsing
-        x->impl->parseProperties();
+        try {
+            // property parsing
+            x->impl->parseProperties();
 
-        // some properties (callback) knows their current value only after object creation
-        // update this information
-        x->impl->updatePropertyDefaults();
+            // some properties (callback) knows their current value only after object creation
+            // update this information
+            x->impl->updatePropertyDefaults();
 
-        if (initializer_)
-            initializer_->init(x->impl);
+            if (initializer_)
+                initializer_->init(x->impl);
 
-        // call overloaded init
-        x->impl->initDone();
+            // call overloaded init
+            x->impl->initDone();
+        } catch (const std::exception& e) {
+            pd_error(0, "[ceammc] exception while init object [%s]: %s", class_name_->s_name, e.what());
+
+            delete x->impl;
+            x->impl = nullptr;
+            pd_free(&x->pd_obj.te_g.g_pd);
+            return nullptr;
+        } catch (...) {
+            pd_error(0, "[ceammc] unknown exception while init object [%s]", class_name_->s_name);
+
+            delete x->impl;
+            x->impl = nullptr;
+            pd_free(&x->pd_obj.te_g.g_pd);
+            return nullptr;
+        }
 
         return x;
     }
@@ -521,9 +541,9 @@ public:
         x->impl->dump();
     }
 
-    static void queryPropNames(ObjectProxy* x)
+    static void outputAllProperties(ObjectProxy* x)
     {
-        x->impl->queryPropNames();
+        x->impl->outputAllProperties();
     }
 
     static int getProperty(t_object* x, t_symbol* sel, int* argc, t_atom** argv)
@@ -586,19 +606,6 @@ public:
      */
     static t_symbol* className() { return class_name_; }
 
-    /**
-     * convert from Pd object pointer to pointer to ceammc class
-     * @param x - pd object pointer
-     * @return - pointer to ceammc object or nullptr on error
-     */
-    static T* fromObject(t_object* x)
-    {
-        if (!x)
-            return nullptr;
-
-        return reinterpret_cast<ObjectProxy*>(x)->impl;
-    }
-
     static uint32_t flags() { return flags_; }
 
     /**
@@ -607,6 +614,71 @@ public:
     static void setObjectInit(ObjectInitPtr&& ptr)
     {
         initializer_ = std::move(ptr);
+    }
+
+    static void useProxyBang()
+    {
+        InletProxy<T>::init();
+        InletProxy<T>::set_bang_callback(&T::onProxyBang);
+    }
+
+    static void useProxyFloat()
+    {
+        InletProxy<T>::init();
+        InletProxy<T>::set_float_callback(&T::onProxyFloat);
+    }
+
+    static void useProxySymbol()
+    {
+        InletProxy<T>::init();
+        InletProxy<T>::set_symbol_callback(&T::onProxySymbol);
+    }
+
+    static void useProxyList()
+    {
+        InletProxy<T>::init();
+        InletProxy<T>::set_list_callback(&T::onProxyList);
+    }
+
+    static void useProxyAny()
+    {
+        InletProxy<T>::init();
+        InletProxy<T>::set_any_callback(&T::onProxyAny);
+    }
+
+    static void addProxyMethod(t_symbol* m, typename InletProxy<T>::MethodPtr fn)
+    {
+        InletProxy<T>::init();
+        InletProxy<T>::set_method_callback(m, fn);
+    }
+
+    /**
+     * convert from Pd object pointer to pointer to ceammc class
+     * @param x - pd object pointer
+     * @return - pointer to ceammc object or nullptr on error
+     */
+    static T* objectCast(t_object* x)
+    {
+        if (!x || pd_class(&x->te_g.g_pd) != classPointer())
+            return nullptr;
+        else
+            return reinterpret_cast<ObjectProxy*>(&x->te_g.g_pd)->impl;
+    }
+
+    static T* objectCast(t_gobj* x)
+    {
+        if (!x || pd_class(&x->g_pd) != classPointer())
+            return nullptr;
+        else
+            return reinterpret_cast<ObjectProxy*>(&x->g_pd)->impl;
+    }
+
+    static T* objectCast(t_class* x)
+    {
+        if (!x || x != classPointer())
+            return nullptr;
+        else
+            return reinterpret_cast<ObjectProxy*>(x)->impl;
     }
 
 private:
@@ -689,7 +761,7 @@ public:
         : ObjectFactory<T>(name, flags)
     {
         class_addmethod(SoundExternalFactory::classPointer(),
-            reinterpret_cast<t_method>(setupDSP), gensym("dsp"), A_NULL);
+            reinterpret_cast<t_method>(setupDSP), sym::methods::sym_dsp(), A_NULL);
 
         // if default inlet is signal
         if (!(flags & OBJECT_FACTORY_NO_DEFAULT_INLET)

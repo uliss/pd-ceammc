@@ -24,8 +24,8 @@ using namespace ceammc::tl;
 
 static TlBaseObject* toObj(t_object* x)
 {
-    typedef ObjectFactory<TlBaseObject>::ObjectProxy ObjectProxy;
-    ObjectProxy* obj = reinterpret_cast<ObjectProxy*>(x);
+    using Proxy = ObjectFactory<TlBaseObject>::ObjectProxy;
+    auto obj = reinterpret_cast<Proxy*>(x);
     return obj->impl;
 }
 

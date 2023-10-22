@@ -98,4 +98,8 @@ void PlotLinTilde::processBlock(const t_sample** in, t_sample** out)
 void setup_plot_linspace_tilde()
 {
     SoundExternalFactory<PlotLinTilde> obj("plot.linspace~", OBJECT_FACTORY_DEFAULT);
+
+    obj.setDescription("outputs numbers spaced evenly spaced over a specified interval");
+    obj.setCategory("array");
+    obj.setKeywords({"array", "linear", "scale"});
 }

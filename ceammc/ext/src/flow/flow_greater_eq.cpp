@@ -28,4 +28,8 @@ void setup_flow_greater_eq()
 {
     ObjectFactory<FlowGreaterEq> obj("flow.greater_eq");
     obj.addAlias("flow.>=");
+
+    obj.setDescription("numeric stream router");
+    obj.setCategory("flow");
+    obj.setKeywords({"gate", "greater", "equal"});
 }

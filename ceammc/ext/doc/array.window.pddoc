@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="array.window">
         <title>array.window</title>
         <meta>
@@ -27,19 +27,32 @@
             default="hann">window type</property>
         </properties>
         <methods>
+            <!-- blackman -->
+            <method name="blackman">generate blackman window</method>
+            <!-- blackman-harris -->
+            <method name="blackman-harris">generate blackman-harris window</method>
+            <!-- fit -->
+            <method name="fit">fit array y-bounds to 0..1 range</method>
+            <!-- flattop -->
+            <method name="flattop">generate flattop window</method>
+            <!-- gauss -->
+            <method name="gauss">generate gauss window</method>
+            <!-- hamming -->
+            <method name="hamming">generate hamming window</method>
+            <!-- hann -->
+            <method name="hann">generate hann window</method>
+            <!-- nuttall -->
+            <method name="nuttall">generate nuttall window</method>
+            <!-- rect -->
+            <method name="rect">generate rectangular window</method>
+            <!-- resize -->
             <method name="resize">resize specified array to given size 
             <param name="N" type="int" minvalue="0">new size</param></method>
-            <method name="fit">fit array y-bounds to 0..1 range</method>
-            <method name="blackman">generate blackman window</method>
-            <method name="blackman-harris">generate blackman-harris window</method>
-            <method name="flattop">generate flattop window</method>
-            <method name="gauss">generate gauss window</method>
-            <method name="hamming">generate hamming window</method>
-            <method name="hann">generate hann window</method>
-            <method name="nuttall">generate nuttall window</method>
-            <method name="rect">generate rectangular window</method>
+            <!-- sine -->
             <method name="sine">generate sine window</method>
+            <!-- tri -->
             <method name="tri">generate triangular window</method>
+            <!-- welch -->
             <method name="welch">generate welch window</method>
         </methods>
         <inlets>

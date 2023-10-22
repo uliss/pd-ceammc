@@ -44,6 +44,7 @@ namespace ui {
         bool is_toplevel(t_glist* x);
         t_glist* object_get_draw_canvas(t_glist* c);
         void widget_bind_mouse(t_glist* c, t_object* obj, UIFactoryFlags flags);
+        void widget_bind_drag_and_drop(t_glist* c, t_object* obj, UIFactoryFlags flags);
         void widget_create(t_glist* c, t_object* obj, const Point& pos, const Size& sz, int zoom);
         void widget_erase(t_glist* c, t_object* obj);
         void widget_focus(t_glist* c, t_object* obj);
@@ -191,6 +192,7 @@ namespace ui {
             syncDrawCanvas();
             utils::widget_create(drawCanvas(), T::owner(), absPos(), size(), zoom());
             utils::widget_bind_mouse(drawCanvas(), T::owner(), ui_flags_);
+            utils::widget_bind_drag_and_drop(drawCanvas(), T::owner(), ui_flags_);
             onWidgetShow();
         }
 
@@ -243,6 +245,14 @@ namespace ui {
         {
             // LIB_ERR << __FUNCTION__;
             utils::canvas_right(drawCanvas(), T::owner());
+        }
+
+        virtual void onDropFiles(const AtomListView& lv)
+        { /*LIB_ERR << __FUNCTION__;*/
+        }
+
+        virtual void onDropText(const AtomListView& lv)
+        { /*LIB_ERR << __FUNCTION__;*/
         }
 
         void mouseEnter()
@@ -398,6 +408,16 @@ namespace ui {
             } else {
                 onRightClick(pt, abspt, mod);
             }
+        }
+
+        void dragAndDropFiles(const AtomListView& lv)
+        {
+            onDropFiles(lv);
+        }
+
+        void dragAndDropText(const AtomListView& lv)
+        {
+            onDropText(lv);
         }
 
         void openHelp()

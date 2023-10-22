@@ -67,6 +67,36 @@ TEST_CASE("expand_env", "[extension]")
         // do not expand any selector
         WHEN_SEND_ANY_TO(obj, LA("%DOLLARS%", "A", "B"));
         REQUIRE_ANY_AT_OUTLET(0, obj, LA("%DOLLARS%", "A", "B"));
+
+        // expand messages with @
+        WHEN_SEND_ANY_TO(obj, LA("@property", "%DOLLARS%"));
+        REQUIRE_ANY_AT_OUTLET(0, obj, LA("@property", "$$$$"));
+    }
+
+    SECTION("external")
+    {
+        TExt obj("expand_env");
+
+        obj.sendBangTo(0);
+        REQUIRE_BANG_AT_OUTLET(0, obj);
+
+        obj << 1024;
+        REQUIRE_FLOAT_AT_OUTLET(0, obj, 1024);
+
+        obj << "test";
+        REQUIRE_SYMBOL_AT_OUTLET(0, obj, "test");
+
+        obj << "%DOLLARS%";
+        REQUIRE_SYMBOL_AT_OUTLET(0, obj, "$$$$");
+
+        obj << "@like_prop";
+        REQUIRE_SYMBOL_AT_OUTLET(0, obj, "@like_prop");
+
+        obj.sendMessage("@test", LA(1, 2, 3));
+        REQUIRE_ANY_AT_OUTLET(0, obj, LA("@test", 1,2,3));
+
+        obj.sendMessage("@test", LA(1, "%DOLLARS%", 3));
+        REQUIRE_ANY_AT_OUTLET(0, obj, LA("@test", 1,"$$$$",3));
     }
 
     SECTION("expand any")

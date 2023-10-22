@@ -16,7 +16,7 @@
 #X msg 69 298 dump;
 #X msg 194 312 @sf sf2/VintageDreamsWaves-v2.sf2;
 #X obj 50 341 fluid~;
-#X obj 50 370 ui.hgain~;
+#X obj 50 370 ui.hgain2~;
 #X obj 194 370 ui.dsp~;
 #X obj 50 399 dac~;
 #X obj 50 428 fluid~.bend;
@@ -28,7 +28,7 @@
 #X obj 366 456 fluid~.prog;
 #X obj 501 456 fluid~.notesoff;
 #X obj 50 485 fluid~.pedals;
-#X obj 203 485 fluid~.soundsoff;
+#X obj 203 485 fluid~.soundoff;
 #X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 539 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
@@ -39,46 +39,46 @@
 #X obj 20 604 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 609 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 644 @avoices;
-#X text 245 644 (readonly) Get number midi channels. Type: float. Default
-value: 0\.;
-#X msg 110 686 @bufsize;
-#X text 245 686 (readonly) Get internal buffer size. Type: float. Units:
-samp. Default value: 0\.;
-#X msg 110 728 @cpuload;
-#X text 245 728 (readonly) Get current cpu load. Type: float. Default
-value: 0\.;
-#X msg 110 770 @gain;
-#X text 245 770 Get/Set output gain. Type: float. Default value: 0\.
+#X msg 110 644 @gain;
+#X text 245 644 Get/Set output gain. Type: float. Default value: 0\.
 Range: 0\...10\.;
-#X msg 110 812 @n;
-#X text 245 812 (readonly) Get number of active voices. Type: int.
-Default value: 16\.;
-#X msg 110 854 @poly;
-#X text 245 854 Get/Set max number of voices. Type: float. Default
+#X msg 110 686 @poly;
+#X text 245 686 Get/Set max number of voices. Type: float. Default
 value: 0\. Range: 1\...1024\.;
-#X msg 110 896 @reverb_damp;
-#X text 245 896 Get/Set reverberation damp. Type: float. Default value:
+#X msg 110 728 @reverb_damp;
+#X text 245 728 Get/Set reverberation damp. Type: float. Default value:
 0\.;
-#X msg 110 925 @reverb_level;
-#X text 245 925 Get/Set reverberation level. Type: float. Default value:
+#X msg 110 757 @reverb_level;
+#X text 245 757 Get/Set reverberation level. Type: float. Default value:
 0\.;
-#X msg 110 954 @reverb_room;
-#X text 245 954 Get/Set reverberation room size. Type: float. Default
+#X msg 110 786 @reverb_room;
+#X text 245 786 Get/Set reverberation room size. Type: float. Default
 value: 0\.;
-#X msg 110 996 @reverb_width;
-#X text 245 996 Get/Set reverberation spread width. Type: float. Default
+#X msg 110 828 @reverb_width;
+#X text 245 828 Get/Set reverberation spread width. Type: float. Default
 value: 0\.;
-#X msg 110 1038 @sf;
-#X text 245 1038 Get/Set soundfont path \, you can use **default**
-value to load default soundfont. Type: symbol.;
-#X msg 110 1080 @version;
-#X text 245 1080 (readonly) Get FluidSynth version. Type: symbol. Default
-value: 2.0.0\.;
-#X msg 110 1122 @volume;
-#X text 245 1122 Get/Set output volume (same as @gain but in db). Type:
-float. Units: db. Default value: 0\. Range: -60\...10\.;
-#X msg 110 1164 @soundfonts;
+#X msg 110 870 @sf;
+#X text 245 870 Get/Set soundfont path \, you can use **default** value
+to load default soundfont. Type: symbol.;
+#X msg 110 912 @volume;
+#X text 245 912 Get/Set output volume (same as @gain but in db). Type:
+float. Units: 'db'. Default value: 0\. Range: -60\...10\.;
+#X msg 110 954 @avoices?;
+#X text 245 954 (readonly) Get number midi channels. Type: float. Default
+value: 0\.;
+#X msg 110 996 @bufsize?;
+#X text 245 996 (readonly) Get internal buffer size. Type: float. Units:
+'samp'. Default value: 0\.;
+#X msg 110 1038 @cpuload?;
+#X text 245 1038 (readonly) Get current cpu load. Type: float. Default
+value: 0\.;
+#X msg 110 1080 @n?;
+#X text 245 1080 (readonly) Get number of active voices. Type: int.
+Default value: 16\.;
+#X msg 110 1122 @version?;
+#X text 245 1122 (readonly) Get FluidSynth version. Type: symbol. Default
+value: 2.3.2\.;
+#X msg 110 1164 @soundfonts?;
 #X text 245 1164 (readonly) Get list of found soundfonts. Type: list.;
 #X obj 20 1203 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1208 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
@@ -130,7 +130,7 @@ Type: int. Range: -8192\...8191\.;
 all channels. Type: int. Range: 0\...16\.;
 #X obj 255 1794 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1794 RANGE: semitones sensitivity. Type: int. Range: 0\...64\.
-Units: semitone.;
+Units: 'semitone'.;
 #X msg 110 1834 cc;
 #X text 245 1834 control change. Arguments are:;
 #X obj 255 1857 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -248,7 +248,7 @@ all channels. Type: int. Range: 0\...15\.;
 #X obj 255 3213 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 3213 VAL: pedal state. Type: int. Allowed values: 0 \,
 1\.;
-#X msg 110 3238 sounds_off;
+#X msg 110 3238 sound_off;
 #X text 245 3238 immediately stop all notes (skips release phase).
 Arguments are:;
 #X obj 255 3276 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -316,13 +316,13 @@ program). Type: int. Range: 1\...256\.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title misc @url ceammc.misc-help.pd;
 #X obj 1 3990 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 3993 library: ceammc v0.9.6;
+#X text 10 3993 library: ceammc v0.9.7;
 #N canvas 10 4012 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.6;
+#X text 120 32 0.9.7;
 #X text 10 54 object:;
 #X text 120 54 fluid~;
 #X text 10 76 category:;
@@ -336,8 +336,8 @@ program). Type: int. Range: 1\...256\.;
 #X text 10 164 keywords:;
 #X text 120 164 mod \, player \, midi \, soundfont \, fluid;
 #X text 10 186 website:;
-#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
-https://github.com/uliss/pure-data;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
@@ -349,6 +349,6 @@ https://github.com/uliss/pure-data;
 #X connect 11 0 14 0;
 #X connect 13 0 14 0;
 #X connect 14 0 15 0;
-#X connect 14 1 15 0;
+#X connect 14 1 15 1;
 #X connect 15 0 17 0;
-#X connect 15 0 17 1;
+#X connect 15 1 17 1;

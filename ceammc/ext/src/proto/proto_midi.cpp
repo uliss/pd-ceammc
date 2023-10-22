@@ -12,30 +12,34 @@
  * this file belongs to.
  *****************************************************************************/
 #include "proto_midi.h"
+#include "args/argcheck2.h"
 #include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_units.h"
+#include "lex/parser_midi.h"
+#include "midi_names.h"
+#include "proto_midi_cc.h"
 
 #include <tuple>
 
 CEAMMC_DEFINE_SYM_HASH(activesense);
 CEAMMC_DEFINE_SYM_HASH(aftertouch);
-CEAMMC_DEFINE_SYM_HASH(polytouch);
+CEAMMC_DEFINE_SYM_HASH(cc);
 CEAMMC_DEFINE_SYM_HASH(clock);
 CEAMMC_DEFINE_SYM_HASH(continue);
-CEAMMC_DEFINE_SYM_HASH(cc);
 CEAMMC_DEFINE_SYM_HASH(noteoff);
 CEAMMC_DEFINE_SYM_HASH(noteon);
 CEAMMC_DEFINE_SYM_HASH(pitchwheel);
+CEAMMC_DEFINE_SYM_HASH(polytouch);
 CEAMMC_DEFINE_SYM_HASH(program);
-CEAMMC_DEFINE_SYM_HASH(songsel);
 CEAMMC_DEFINE_SYM_HASH(songpos);
+CEAMMC_DEFINE_SYM_HASH(songsel);
 CEAMMC_DEFINE_SYM_HASH(start);
 CEAMMC_DEFINE_SYM_HASH(stop);
-CEAMMC_DEFINE_SYM_HASH(sysreset);
 CEAMMC_DEFINE_SYM_HASH(sysex);
+CEAMMC_DEFINE_SYM_HASH(sysreset);
 CEAMMC_DEFINE_SYM_HASH(tick);
 CEAMMC_DEFINE_SYM_HASH(timecode);
 CEAMMC_DEFINE_SYM_HASH(tunerequest);
@@ -143,6 +147,7 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
     : BaseObject(args)
 {
     createOutlet();
+    createOutlet();
 
     using midi::Byte;
 
@@ -166,10 +171,7 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
         msgTo(sym_polytouch(), msg, 3);
     });
 
-    parser_.setControlChangeFn([this](Byte b, Byte c, Byte v) {
-        Atom msg[3] = { 0x0F & b, c, v };
-        msgTo(sym_cc(), msg, 3);
-    });
+    parser_.setControlChangeFn([this](Byte b, Byte c, Byte v) { msgCC(b, c, v); });
 
     parser_.setProgramChangeFn([this](Byte b, Byte v) {
         Atom msg[2] = { 0x0F & b, v };
@@ -185,11 +187,11 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
     parser_.setSysCommonFn([this](Byte b, Byte d0, Byte d1) {
         switch (b) {
         case midi::MIDI_TUNEREQUEST:
-            return anyTo(0, sym_tunerequest(), AtomListView());
+            return anyTo(1, sym_tunerequest(), AtomListView());
         case midi::MIDI_SONGSELECT:
-            return anyTo(0, sym_songsel(), Atom(0x7F & d0));
+            return anyTo(1, sym_songsel(), Atom(0x7F & d0));
         case midi::MIDI_SONGPOS:
-            return anyTo(0, sym_songpos(), Atom((d1 << 7) | d0));
+            return anyTo(1, sym_songpos(), Atom((d1 << 7) | d0));
         case midi::MIDI_TIMECODE:
             return handleTimecode(d0);
         default:
@@ -201,19 +203,19 @@ ProtoMidi::ProtoMidi(const PdArgs& args)
     parser_.setRealtimeFn([this](Byte msg) {
         switch (msg) {
         case midi::MIDI_TIMECLOCK:
-            return anyTo(0, sym_clock(), AtomListView());
+            return anyTo(1, sym_clock(), AtomListView());
         case midi::MIDI_TIMETICK:
-            return anyTo(0, sym_tick(), AtomListView());
+            return anyTo(1, sym_tick(), AtomListView());
         case midi::MIDI_START:
-            return anyTo(0, sym_start(), AtomListView());
+            return anyTo(1, sym_start(), AtomListView());
         case midi::MIDI_STOP:
-            return anyTo(0, sym_stop(), AtomListView());
+            return anyTo(1, sym_stop(), AtomListView());
         case midi::MIDI_CONTINUE:
-            return anyTo(0, sym_continue(), AtomListView());
+            return anyTo(1, sym_continue(), AtomListView());
         case midi::MIDI_ACTIVE_SENSE:
-            return anyTo(0, sym_activesense(), AtomListView());
+            return anyTo(1, sym_activesense(), AtomListView());
         case midi::MIDI_SYSTEM_RESET:
-            return anyTo(0, sym_sysreset(), AtomListView());
+            return anyTo(1, sym_sysreset(), AtomListView());
         default:
             OBJ_ERR << "unknown realtime message: " << (int)msg;
             break;
@@ -277,6 +279,25 @@ void ProtoMidi::m_programChange(t_symbol* s, const AtomListView& lv)
 
     byteStatus(midi::MIDI_PROGRAMCHANGE, lv[0].asT<int>());
     byteData(lv[1].asT<int>());
+}
+
+void ProtoMidi::m_raw(t_symbol* s, const AtomListView& lv)
+{
+    std::uint8_t b = 0;
+    for (auto& a : lv) {
+        if (a.isSymbol()) {
+            if (!parser::parse_midi_byte_hex(a, b)) {
+                METHOD_ERR(s) << "byte or hex is expected, got: " << a;
+                continue;
+            }
+        } else if (a.isFloat())
+            b = a.asT<t_float>();
+
+        if (b < 0 || b > 0xFF)
+            METHOD_ERR(s) << "invalid byte value: " << b;
+        else
+            floatTo(0, b);
+    }
 }
 
 void ProtoMidi::m_songPosition(t_symbol* s, const AtomListView& lv)
@@ -500,6 +521,37 @@ void ProtoMidi::m_afterTouchPoly(t_symbol* s, const AtomListView& lv)
     byteData(lv[2].asT<int>());
 }
 
+void ProtoMidi::m_allNotesOff(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("CHAN:i[0,15]?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    auto chan = lv.intAt(0, -1);
+
+    if (chan < 0) {
+        for (int i = 0; i < 16; i++)
+            sendBytes3(i, midi::MIDI_CONTROLCHANGE, CC_ALL_NOTES_OFF, 0x7F);
+    } else {
+        sendBytes3(chan, midi::MIDI_CONTROLCHANGE, CC_ALL_NOTES_OFF, 0x7F);
+    }
+}
+
+void ProtoMidi::m_allSoundOff(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("CHAN:i[0,15]?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    auto chan = lv.intAt(0, -1);
+    if (chan < 0) {
+        for (int i = 0; i < 16; i++)
+            sendBytes3(i, midi::MIDI_CONTROLCHANGE, CC_ALL_SOUND_OFF, 0x7F);
+    } else {
+        sendBytes3(chan, midi::MIDI_CONTROLCHANGE, CC_ALL_SOUND_OFF, 0x7F);
+    }
+}
+
 void ProtoMidi::m_cc(t_symbol* s, const AtomListView& lv)
 {
     if (!checkMethodByte3(s, lv)) {
@@ -564,6 +616,13 @@ bool ProtoMidi::checkMethodByte3(t_symbol* m, const AtomListView& lv)
     return true;
 }
 
+void ProtoMidi::sendBytes3(int chan, uint8_t st, uint8_t data1, uint8_t data2)
+{
+    byteStatus(st, chan);
+    byteData(data1);
+    byteData(data2);
+}
+
 void ProtoMidi::handleTimecode(uint8_t data)
 {
     if (mqf_.pushByte(data)) {
@@ -572,20 +631,29 @@ void ProtoMidi::handleTimecode(uint8_t data)
     }
 }
 
+void ProtoMidi::msgCC(uint8_t b, uint8_t c, uint8_t v)
+{
+    Atom msg[3] = { 0x0F & b, c, v };
+    msgTo(sym_cc(), msg, 3);
+}
+
 void setup_proto_midi()
 {
     ObjectFactory<ProtoMidi> obj("proto.midi");
 
     obj.addMethod("note", &ProtoMidi::m_noteOn);
+    obj.addMethod(M_ALL_NOTES_OFF, &ProtoMidi::m_allNotesOff);
+    obj.addMethod(M_ALL_SOUND_OFF, &ProtoMidi::m_allSoundOff);
+    obj.addMethod(M_PANIC, &ProtoMidi::m_allNotesOff);
     obj.addMethod(str_activesense, &ProtoMidi::m_activeSense);
     obj.addMethod(str_aftertouch, &ProtoMidi::m_afterTouchMono);
-    obj.addMethod(str_polytouch, &ProtoMidi::m_afterTouchPoly);
+    obj.addMethod(str_cc, &ProtoMidi::m_cc);
     obj.addMethod(str_clock, &ProtoMidi::m_clock);
     obj.addMethod(str_continue, &ProtoMidi::m_continue);
-    obj.addMethod(str_cc, &ProtoMidi::m_cc);
     obj.addMethod(str_noteoff, &ProtoMidi::m_noteOff);
     obj.addMethod(str_noteon, &ProtoMidi::m_noteOn);
     obj.addMethod(str_pitchwheel, &ProtoMidi::m_pitchWheel);
+    obj.addMethod(str_polytouch, &ProtoMidi::m_afterTouchPoly);
     obj.addMethod(str_program, &ProtoMidi::m_programChange);
     obj.addMethod(str_songpos, &ProtoMidi::m_songPosition);
     obj.addMethod(str_songsel, &ProtoMidi::m_songSelect);
@@ -596,4 +664,6 @@ void setup_proto_midi()
     obj.addMethod(str_tick, &ProtoMidi::m_tick);
     obj.addMethod(str_timecode, &ProtoMidi::m_timecode);
     obj.addMethod(str_tunerequest, &ProtoMidi::m_tuneRequest);
+
+    obj.addMethod("raw", &ProtoMidi::m_raw);
 }

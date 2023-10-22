@@ -17,7 +17,7 @@
 LocalSet::LocalSet(const PdArgs& a)
     : LocalSetBase(a)
 {
-    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
+    createOutlet();
 }
 
 EditorTitleString LocalSet::editorTitle() const
@@ -32,5 +32,9 @@ void setup_local_set()
     ColectionIFaceFactory<LocalSet> obj("local.set");
     obj.processData<DataTypeSet>();
 
-    LocalSet::registerMethods(obj);
+    LocalSet::factoryEditorObjectInit(obj);
+
+    obj.setDescription("local named set object");
+    obj.setCategory("local");
+    obj.setKeywords({"set", "local", "global"});
 }

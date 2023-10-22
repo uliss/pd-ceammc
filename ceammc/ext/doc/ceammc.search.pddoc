@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ceammc.search">
         <title>ceammc.search</title>
         <meta>
@@ -13,16 +13,20 @@
             <keywords>search</keywords>
             <since>0.9.1</since>
         </meta>
-        <methods>
-            <method name="keywords">search in keywords</method>
-            <method name="k">alias to keywords method</method>
-            <method name="objects">search in objects names</method>
-            <method name="o">alias to objects method</method>
-        </methods>
         <properties>
             <property name="@max" type="int" minvalue="1" maxvalue="50" default="10">maximum number
             of result</property>
         </properties>
+        <methods>
+            <!-- k -->
+            <method name="k">alias to keywords method</method>
+            <!-- keywords -->
+            <method name="keywords">search in keywords</method>
+            <!-- o -->
+            <method name="o">alias to objects method</method>
+            <!-- objects -->
+            <method name="objects">search in objects names</method>
+        </methods>
         <inlets>
             <inlet type="control">
                 <xinfo on="symbol">search in descriptions</xinfo>

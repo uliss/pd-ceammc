@@ -16,7 +16,7 @@
 #X obj 69 230 ui.dt;
 #X obj 50 273 msg @v;
 #X obj 146 273 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 50 302 seq @t 120|4_bpm @inf;
+#X obj 50 302 seq @t 120bpm @inf;
 #X obj 50 330 + 72;
 #X obj 50 359 mtof;
 #X obj 50 388 osc~;
@@ -29,29 +29,31 @@
 #X text 110 535 1\.;
 #X text 150 535 symbol;
 #X obj 246 536 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 535 SCALE: scale name. Type: symbol.;
-#X obj 20 565 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 570 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 245 535 SCALE: scale name. Allowed values: aeolian \, ahirbhairav
+\, ajam \, atharKurd \, augmented \, augmented2 \, bartok \, bastanikar
+\, bayati \, bhairav \, chinese \, chromatic \, chromatic24 \, diminished
+\, diminished2 \, dorian \, egyptian \, enigmatic \, farahfaza \, gong
+\, hex_aeolian \, hex_dorian \, hex_major6 \, hex_major7 \, hex_phrygian
+\, hex_sus \, hijaz \, hijaz_desc \, hijaz_kar \, hindu \, hirajoshi
+\, husseini \, huzam \, indian \, ionian \, iraq \, iwato \, jiao \,
+jiharkah \, karjighar \, kijaz_kar_kurd \, kumoi \, kurd \, locrian
+\, lydian \, mahur \, major \, major_harmonic \, major_locrian \, major_melodic
+\, major_neapolitan \, major_pentatonic \, marva \, minor \, minor_harmonic
+\, minor_hungarian \, minor_lydian \, minor_melodic \, minor_melodic_desc
+\, minor_neapolitan \, minor_pentatonic \, minor_romanian \, mixolydian
+\, murassah \, mustar \, nahawand \, nahawand_desc \, nairuz \, nawa_athar
+\, nikriz \, partch_o1 \, partch_o2 \, partch_o3 \, partch_o4 \, partch_o5
+\, partch_o6 \, partch_u1 \, partch_u2 \, partch_u3 \, partch_u4 \,
+partch_u5 \, partch_u6 \, pelog \, phrygian \, prometheus \, purvi
+\, rast \, rast_desc \, ritusen \, saba \, scriabin \, shang \, shawq_afza
+\, sikah \, sikah_desc \, spanish \, super_locrian \, suznak \, todi
+\, ushaq_mashri \, whole \, whole_leading \, yakah \, yakah_desc \,
+yu \, zamzam \, zanjaran \, zhi. . Type: symbol.;
+#X obj 20 866 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 871 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 605 @all;
-#X text 245 605 (readonly) Get list all supported scales. Type: list.
-Default value: aeolian ahirbhairav ajam atharKurd augmented augmented2
-bartok bastanikar bayati bhairav chinese chromatic chromatic24 diminished
-diminished2 dorian egyptian enigmatic farahfaza gong hex_aeolian hex_dorian
-hex_major6 hex_major7 hex_phrygian hex_sus hijaz hijaz_desc hijaz_kar
-hindu hirajoshi husseini huzam indian ionian iraq iwato jiao jiharkah
-karjighar kijaz_kar_kurd kumoi kurd locrian lydian mahur major major_harmonic
-major_locrian major_melodic major_neapolitan major_pentatonic marva
-minor minor_harmonic minor_hungarian minor_lydian minor_melodic minor_melodic_desc
-minor_neapolitan minor_pentatonic minor_romanian mixolydian murassah
-mustar nahawand nahawand_desc nairuz nawa_athar nikriz partch_o1 partch_o2
-partch_o3 partch_o4 partch_o5 partch_o6 partch_u1 partch_u2 partch_u3
-partch_u4 partch_u5 partch_u6 pelog phrygian prometheus purvi rast
-rast_desc ritusen saba scriabin shang shawq_afza sikah sikah_desc spanish
-super_locrian suznak todi ushaq_mashri whole whole_leading yakah yakah_desc
-yu zamzam zanjaran zhi.;
-#X msg 110 903 @scale;
-#X text 245 903 Get/Set scale name. Type: symbol. Default value: major.
+#X msg 110 906 @scale;
+#X text 245 906 Get/Set scale name. Type: symbol. Default value: major.
 Allowed values: aeolian \, ahirbhairav \, ajam \, atharKurd \, augmented
 \, augmented2 \, bartok \, bastanikar \, bayati \, bhairav \, chinese
 \, chromatic \, chromatic24 \, diminished \, diminished2 \, dorian
@@ -72,38 +74,55 @@ rast_desc \, ritusen \, saba \, scriabin \, shang \, shawq_afza \,
 sikah \, sikah_desc \, spanish \, super_locrian \, suznak \, todi \,
 ushaq_mashri \, whole \, whole_leading \, yakah \, yakah_desc \, yu
 \, zamzam \, zanjaran \, zhi.;
-#X obj 20 1256 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1261 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 1249 @all?;
+#X text 245 1249 (readonly) Get list all supported scales. Type: list.
+Default value: aeolian ahirbhairav ajam atharKurd augmented augmented2
+bartok bastanikar bayati bhairav chinese chromatic chromatic24 diminished
+diminished2 dorian egyptian enigmatic farahfaza gong hex_aeolian hex_dorian
+hex_major6 hex_major7 hex_phrygian hex_sus hijaz hijaz_desc hijaz_kar
+hindu hirajoshi husseini huzam indian ionian iraq iwato jiao jiharkah
+karjighar kijaz_kar_kurd kumoi kurd locrian lydian mahur major major_harmonic
+major_locrian major_melodic major_neapolitan major_pentatonic marva
+minor minor_harmonic minor_hungarian minor_lydian minor_melodic minor_melodic_desc
+minor_neapolitan minor_pentatonic minor_romanian mixolydian murassah
+mustar nahawand nahawand_desc nairuz nawa_athar nikriz partch_o1 partch_o2
+partch_o3 partch_o4 partch_o5 partch_o6 partch_u1 partch_u2 partch_u3
+partch_u4 partch_u5 partch_u6 pelog phrygian prometheus purvi rast
+rast_desc ritusen saba scriabin shang shawq_afza sikah sikah_desc spanish
+super_locrian suznak todi ushaq_mashri whole whole_leading yakah yakah_desc
+yu zamzam zanjaran zhi.;
+#X obj 20 1557 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1562 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1296 random;
-#X text 245 1296 choose random degree from current scale and convert
+#X msg 110 1597 random;
+#X text 245 1597 choose random degree from current scale and convert
 it to key.;
-#X obj 20 1346 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1351 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1647 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1652 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1352 1\.;
-#X text 150 1352 *float*;
-#X text 245 1352 input value.;
-#X text 150 1372 *list*;
-#X text 245 1372 input values.;
-#X obj 20 1402 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1407 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1653 1\.;
+#X text 150 1653 *float*;
+#X text 245 1653 input value.;
+#X text 150 1673 *list*;
+#X text 245 1673 input values.;
+#X obj 20 1703 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1708 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1408 1\.;
-#X text 245 1408 float or float list: converted value(s).;
+#X text 110 1709 1\.;
+#X text 245 1709 float or float list: converted value(s).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
-#X obj 1 1458 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1461 library: ceammc v0.9.6;
-#N canvas 10 1480 400 290 info 0;
+#X obj 1 1759 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1762 library: ceammc v0.9.7;
+#N canvas 10 1781 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.6;
+#X text 120 32 0.9.7;
 #X text 10 54 object:;
 #X text 120 54 conv.degree2key;
 #X text 10 76 category:;
@@ -117,12 +136,12 @@ it to key.;
 #X text 10 164 keywords:;
 #X text 120 164 conv \, degree \, key \, modus;
 #X text 10 186 website:;
-#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
-https://github.com/uliss/pure-data;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1480 pd info;
+#X restore 10 1781 pd info;
 #X connect 8 0 9 0;
 #X connect 9 0 11 0;
 #X connect 11 0 12 0;

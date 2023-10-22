@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="prop.get">
         <title>prop.get</title>
         <meta>
@@ -23,7 +23,7 @@
             <par>Get properties from connected object/subpatch/abstraction</par>
         </info>
         <mouse>
-            <event editmode="false" type="left-click">get properties</event>
+            <event type="left-click" editmode="false">get properties</event>
         </mouse>
         <arguments>
             <argument name="PROPS" type="list">property names</argument>

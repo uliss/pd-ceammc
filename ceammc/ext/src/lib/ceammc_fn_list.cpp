@@ -12,6 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_fn_list.h"
+#include "ceammc_convert.h"
+#include "ceammc_signal.h"
+#include "datatype_dict.h"
+#include "lex/parser_hexbeat.h"
 #include "soxr.h"
 
 #include <algorithm>
@@ -681,6 +685,174 @@ namespace list {
             res.second = lv.subView(idx1, len1);
 
         return res;
+    }
+
+    AtomList hexbeat_bin(const char* str)
+    {
+        AtomList res;
+        parser::HexBeatResult bits;
+        auto nbits = parser::parse_hexbeat(str, bits);
+        if (!nbits)
+            return res;
+
+        res.reserve(nbits);
+        for (int i = nbits - 1; i >= 0; i--)
+            res.append(bits[i] ? 1 : 0);
+
+        return res;
+    }
+
+    bool hexbeat_dur(const char* str, AtomList& res, int& shift)
+    {
+        parser::HexBeatResult bits;
+        auto nbits = parser::parse_hexbeat(str, bits);
+        if (!nbits)
+            return false;
+
+        res.clear();
+        bool msb = false;
+        int seq_len = 0;
+        int seq_shift = 0;
+        for (int i = nbits - 1; i >= 0; i--) {
+            auto x = bits[i];
+            if (!x) {
+                seq_len++;
+            } else {
+                if (!msb) {
+                    seq_shift = seq_len;
+                    seq_len = 1;
+                    msb = true;
+                } else {
+                    res.push_back(seq_len);
+                    seq_len = 1;
+                }
+            }
+        }
+
+        if (seq_len > 0)
+            res.push_back(seq_len);
+
+        if (res.size() > 0)
+            *res.last() += seq_shift;
+
+        shift = seq_shift;
+        return true;
+    }
+
+    AtomList lsystem(const AtomListView& state, const DataTypeDict& dict)
+    {
+        AtomList res;
+        res.reserve(state.size() * dict.size());
+        for (auto& a : state) {
+            for (auto& kv : dict) {
+                auto k = kv.first->s_name;
+                if (std::isdigit(k[0])) {
+                    auto num = std::strtol(k, nullptr, 10);
+                    if (a == num)
+                        res.append(kv.second);
+                } else if (a == kv.first)
+                    res.append(kv.second);
+            }
+        }
+
+        return res;
+    }
+
+    AtomList interpolate_lin(const AtomListView& l0, const AtomListView& l1, t_float k, AtomList::NonEqualLengthBehaivor mode)
+    {
+        auto lerp = [](const AtomListView& l0, const AtomListView& l1, t_float k, size_t N) {
+            N = std::min(N, std::min(l0.size(), l1.size()));
+            AtomList res;
+            res.reserve(N);
+            k = clip01(k);
+            for (size_t i = 0; i < N; i++)
+                res.append(ceammc::interpolate::linear<t_float>(l0[i].asFloat(), l1[i].asFloat(), k));
+
+            return res;
+        };
+
+        if (l0.size() == l1.size())
+            return lerp(l0, l1, k, l0.size());
+
+        switch (mode) {
+        case AtomList::MINSIZE: {
+            auto N = std::min(l0.size(), l1.size());
+            return lerp(l0, l1, k, N);
+        }
+        case AtomList::PADZERO: {
+            if (l0.size() < l1.size()) {
+                size_t N = l1.size();
+                return lerp(AtomList(l0).resizePad(N, Atom(0.)), l1, k, N);
+            } else {
+                size_t N = l0.size();
+                return lerp(l0, AtomList(l1).resizePad(N, Atom(0.)), k, N);
+            }
+            break;
+        }
+        case AtomList::CLIP: {
+            if (l0.size() < l1.size()) {
+                size_t N = l1.size();
+                return lerp(AtomList(l0).resizeClip(N), l1, k, N);
+            } else {
+                size_t N = l0.size();
+                return lerp(l0, AtomList(l1).resizeClip(N), k, N);
+            }
+            break;
+        }
+        case AtomList::WRAP: {
+            if (l0.size() < l1.size()) {
+                size_t N = l1.size();
+                return lerp(AtomList(l0).resizeWrap(N), l1, k, N);
+            } else {
+                size_t N = l0.size();
+                return lerp(l0, AtomList(l1).resizeWrap(N), k, N);
+            }
+            break;
+        }
+        case AtomList::FOLD: {
+            if (l0.size() < l1.size()) {
+                size_t N = l1.size();
+                return lerp(AtomList(l0).resizeFold(N), l1, k, N);
+            } else {
+                size_t N = l0.size();
+                return lerp(l0, AtomList(l1).resizeFold(N), k, N);
+            }
+            break;
+        }
+        default:
+            return {};
+        }
+    }
+
+    int foreachProperty(const AtomListView& lv, std::function<void(const AtomListView&)> fn)
+    {
+        int found = 0;
+        bool prop_start = false;
+        size_t prop_index = 0;
+
+        for (size_t i = 0; i < lv.size(); i++) {
+            auto& a = lv[i];
+            if (a.isProperty()) {
+                found++;
+
+                if (prop_start) // handle previous property
+                    fn(lv.subView(prop_index, i - prop_index));
+
+                prop_start = true;
+                prop_index = i;
+            }
+
+            // last element
+            if (i + 1 == lv.size()) {
+                if (a.isProperty()) {
+                    fn(lv.subView(i, 1));
+                } else if (prop_start) {
+                    fn(lv.subView(prop_index, i - prop_index + 1));
+                }
+            }
+        }
+
+        return found;
     }
 }
 }

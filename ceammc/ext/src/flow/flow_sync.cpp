@@ -94,4 +94,8 @@ void setup_flow_sync()
 {
     ObjectFactory<FlowSync> obj("flow.sync");
     obj.addAlias("flow.'");
+
+    obj.setDescription("bus with only hot inlets");
+    obj.setCategory("flow");
+    obj.setKeywords({"flow", "control"});
 }

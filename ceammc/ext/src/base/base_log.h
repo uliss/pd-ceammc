@@ -15,7 +15,6 @@
 #define BASE_LOG_H
 
 #include "ceammc_object.h"
-#include "ceammc_property_enum.h"
 using namespace ceammc;
 
 class BaseLog : public BaseObject {

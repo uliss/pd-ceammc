@@ -34,4 +34,8 @@ void setup_list_shift()
 {
     ObjectFactory<ListShift> obj("list.shift");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("shifts the contents of the list with linear interpolation");
+    obj.setCategory("list");
+    obj.setKeywords({"list"});
 }

@@ -17,7 +17,7 @@
 GlobalDict::GlobalDict(const PdArgs& args)
     : GlobalDictBase(args)
 {
-    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
+    createOutlet();
 }
 
 EditorTitleString GlobalDict::editorTitle() const
@@ -34,5 +34,9 @@ void setup_global_dict()
                        "methods: add, clear, get_key, set_key, remove, set, read, write" },
         { "data: dict" });
 
-    GlobalDict::registerMethods(obj);
+    GlobalDict::factoryEditorObjectInit(obj);
+
+    obj.setDescription("global named dict object");
+    obj.setCategory("global");
+    obj.setKeywords({ "dict", "local", "global" });
 }

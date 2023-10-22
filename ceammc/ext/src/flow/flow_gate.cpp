@@ -79,4 +79,8 @@ void setup_flow_gate()
     obj.addAlias("gate");
 
     obj.setXletsInfo({ "any: input data flow", "int: 1 or 0 to open/close  the gate" }, { "any: output data flow" });
+
+    obj.setDescription("control flow gate. [spigot] analog");
+    obj.setCategory("flow");
+    obj.setKeywords({"gate"});
 }

@@ -31,6 +31,7 @@ TEST_CASE("global.list", "[externals]")
             REQUIRE(t.numInlets() == 1);
             REQUIRE_PROPERTY_FLOAT(t, @size, 0);
             REQUIRE_PROPERTY_FLOAT(t, @empty, 1);
+            REQUIRE_PROPERTY_LIST(t, @id, LA("default"));
         }
 
         SECTION("args")
@@ -41,23 +42,24 @@ TEST_CASE("global.list", "[externals]")
             REQUIRE_PROPERTY_FLOAT(t, @size, 3);
             REQUIRE_PROPERTY_FLOAT(t, @empty, 0);
             REQUIRE_PROPERTY_LIST(t, @value, LF(1, 2, 3));
+            REQUIRE_PROPERTY_LIST(t, @id, LA("g0"));
         }
     }
 
     SECTION("do")
     {
-        TestExtGlobalList t1("global.list", LA("a1"));
+        TExt t1("global.list", LA("a1"));
         REQUIRE(t1.object());
 
-        TestExtGlobalList t2("global.list", LA("a1"));
+        TExt t2("global.list", LA("a1"));
         REQUIRE(t2.object());
 
-        TestExtGlobalList t3("global.list", LA("a2"));
+        TExt t3("global.list", LA("a2"));
         REQUIRE(t2.object());
 
-        REQUIRE_PROPERTY_FLOAT(t1, @.obj_refs, 2);
-        REQUIRE_PROPERTY_FLOAT(t1, @.obj_refs, 2);
-        REQUIRE_PROPERTY_FLOAT(t3, @.obj_refs, 1);
+        REQUIRE(t1->refCount() == 2);
+        REQUIRE(t2->refCount() == 2);
+        REQUIRE(t3->refCount() == 1);
 
         t1 << BANG;
         REQUIRE(t1.outputListAt(0) == L());

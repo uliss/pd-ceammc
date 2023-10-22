@@ -35,7 +35,7 @@ TEST_CASE("IntProperty", "[core]")
         REQUIRE(!p.isSymbol());
         REQUIRE(!p.isList());
         REQUIRE(p.type() == PropValueType::INTEGER);
-        REQUIRE(p.units() == PropValueUnits::NONE);
+        REQUIRE(p.equalUnit(PropValueUnits::NONE));
         REQUIRE(p.access() == PropValueAccess::READWRITE);
         REQUIRE(p.view() == PropValueView::NUMBOX);
         REQUIRE(p.value() == 120);

@@ -16,7 +16,7 @@
 #include "ceammc_format.h"
 #include "ceammc_rtree.h"
 
-RythmTreeToList::RythmTreeToList(const PdArgs& args)
+RhythmTreeToList::RhythmTreeToList(const PdArgs& args)
     : BaseObject(args)
     , dur_(nullptr)
     , rtree_(nullptr)
@@ -28,7 +28,7 @@ RythmTreeToList::RythmTreeToList(const PdArgs& args)
 
     rtree_ = new AtomProperty("@rtree", MListAtom());
     rtree_->setAtomCheckFn([](const Atom& a) -> bool {
-        return a.isDataType(DataTypeMList::dataType);
+        return a.isDataType(DataTypeMList::staticType());
     });
     rtree_->setSuccessFn([this](Property*) { changed_ = true; });
     rtree_->setArgIndex(1);
@@ -37,10 +37,10 @@ RythmTreeToList::RythmTreeToList(const PdArgs& args)
     createOutlet();
 }
 
-void RythmTreeToList::onBang()
+void RhythmTreeToList::onBang()
 {
     if (changed_) {
-        cached_ = rtree::rythm_tree(dur_->value(), rtree_->value().asDataT<DataTypeMList>());
+        cached_ = rtree::rhythm_tree(dur_->value(), rtree_->value().asDataT<DataTypeMList>());
         LIB_LOG << "update cached value: " << cached_;
         changed_ = false;
     }
@@ -48,7 +48,7 @@ void RythmTreeToList::onBang()
     listTo(0, cached_);
 }
 
-void RythmTreeToList::onFloat(t_float f)
+void RhythmTreeToList::onFloat(t_float f)
 {
     if (dur_->setValue(f)) {
         changed_ = true;
@@ -56,7 +56,7 @@ void RythmTreeToList::onFloat(t_float f)
     }
 }
 
-void RythmTreeToList::onAny(t_symbol* s, const AtomListView& args)
+void RhythmTreeToList::onAny(t_symbol* s, const AtomListView& args)
 {
     std::string str(s->s_name);
     str += ' ';
@@ -71,7 +71,7 @@ void RythmTreeToList::onAny(t_symbol* s, const AtomListView& args)
     changed_ = true;
 }
 
-void RythmTreeToList::onDataT(const MListAtom& ml)
+void RhythmTreeToList::onDataT(const MListAtom& ml)
 {
     rtree_->value() = ml;
     changed_ = true;
@@ -79,13 +79,17 @@ void RythmTreeToList::onDataT(const MListAtom& ml)
 
 void setup_rtree_to_list()
 {
-    ObjectFactory<RythmTreeToList> obj("rtree.to_list");
+    ObjectFactory<RhythmTreeToList> obj("rtree.to_list");
     obj.addAlias("rtree->list");
     obj.processData<DataTypeMList>();
 
     obj.setXletsInfo(
         { "bang:  calc and output\n"
           "float: set duration, calc and output\n"
-          "any:   try to set rythm tree, no output" },
-        { "list: list of rythm fractions" });
+          "any:   try to set rhythm tree, no output" },
+        { "list: list of rhythm fractions" });
+
+    obj.setDescription("convert OpenMusic-like rhythm tree to list of fractions");
+    obj.setCategory("data");
+    obj.setKeywords({"rhythm", "rtree", "openmusic", "pattern"});
 }

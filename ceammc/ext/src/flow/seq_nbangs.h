@@ -20,8 +20,11 @@
 using namespace ceammc;
 
 class SeqNBangs : public BaseObject {
-    IntProperty* n_;
-    SeqTimeGrain* interval_;
+    IntProperty* n_ { 0 };
+    SeqTimeGrain* interval_ { 0 };
+    IntProperty* beat_division_ { 0 };
+    FloatProperty* accel_ { 0 };
+    FloatProperty* accel_curve_ { 0 };
     size_t counter_;
     ClockLambdaFunction clock_;
 
@@ -40,6 +43,10 @@ public:
 
     void resetCycleCounter() { }
     void resetSequenceCounter() { counter_ = 0; }
+
+    t_float calcIntervalByDur(t_float dur) const;
+    t_float calcTotalDur() const;
+    t_float calcStepDelay(int n) const;
 };
 
 using SeqNBangsT = SequencerIFace<SeqNBangs>;

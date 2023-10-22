@@ -16,8 +16,6 @@
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 
-static t_symbol* SYM_POPUP;
-
 UIPreset::UIPreset()
     : prop_color_text(rgba_black)
     , prop_color_empty(rgba_grey)
@@ -42,15 +40,15 @@ void UIPreset::init(t_symbol* name, const AtomListView& args, bool usePresets)
 
 void UIPreset::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 15.);
-    newrect->height = pd_clip_min(newrect->height, 15.);
+    newrect->w = pd_clip_min(newrect->w, 15.);
+    newrect->h = pd_clip_min(newrect->h, 15.);
 }
 
 void UIPreset::paint()
 {
 #ifdef __APPLE__
     const static int FNT_SZ = FONT_SIZE_SMALL;
-#elif _WINDOWS
+#elif __WIN32__
     const static int FNT_SZ = FONT_SIZE_SMALL + 2;
 #else
     const static int FNT_SZ = FONT_SIZE_SMALL + 2;
@@ -80,7 +78,7 @@ void UIPreset::paint()
     t_rgba color;
 
     for (int i = 0; i < presets_.size(); i++) {
-        if (btn_y + button_size_ * 0.25 >= r.height)
+        if (btn_y + button_size_ * 0.25 >= r.h)
             break;
 
         if (presets_[i]) {
@@ -107,7 +105,7 @@ void UIPreset::paint()
         p.drawText(*numbers_[i]);
 
         btn_x += button_size_;
-        if (btn_x + button_size_ * 0.25 > r.width) {
+        if (btn_x + button_size_ * 0.25 > r.w) {
             // start next row
             btn_x = button_size_ / 2;
             btn_y += button_size_;
@@ -309,8 +307,6 @@ bool UIPreset::checkIndex(float idx) const
 
 void UIPreset::setup()
 {
-    SYM_POPUP = gensym("main");
-
     UIObjectFactory<UIPreset> obj("ui.preset");
     obj.setDefaultSize(102, 42);
 
@@ -320,7 +316,7 @@ void UIPreset::setup()
     obj.addProperty("text_color", _("Text Color"), "0. 0. 0. 1.", &UIPreset::prop_color_text);
     obj.addProperty("empty_color", _("Empty Button Color"), "0.86 0.86 0.86 1.", &UIPreset::prop_color_empty);
     obj.addProperty("stored_color", _("Stored Button Color"), "0.5 0.5 0.5 1.", &UIPreset::prop_color_stored);
-    obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIPreset::prop_color_active);
+    obj.addProperty(sym::props::name_active_color, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIPreset::prop_color_active);
     obj.addProperty("current", &UIPreset::propCurrent);
 
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_MOVE | UI_MOUSE_LEAVE);

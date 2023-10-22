@@ -12,9 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "array_base.h"
-#include "ceammc_convert.h"
 #include "ceammc_log.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #include "lex/parser_units.h"
 
 #define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()

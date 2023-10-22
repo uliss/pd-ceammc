@@ -161,8 +161,8 @@ void UIDisplay::okSize(t_rect* newrect)
     constexpr auto MIN_WIDTH = 32;
     constexpr auto MIN_HEIGHT = 18;
 
-    newrect->width = pd_clip_min(newrect->width, MIN_WIDTH);
-    newrect->height = pd_clip_min(newrect->height, MIN_HEIGHT);
+    newrect->w = pd_clip_min(newrect->w, MIN_WIDTH);
+    newrect->h = pd_clip_min(newrect->h, MIN_HEIGHT);
 }
 
 void UIDisplay::onBang()
@@ -361,7 +361,7 @@ void UIDisplay::redrawAll()
 
 void UIDisplay::setup()
 {
-    sys_gui(ui_display_tcl);
+    ui_display_tcl_output();
 
     UIObjectFactory<UIDisplay> obj("ui.display");
     obj.addAlias("ui.d");
@@ -375,8 +375,8 @@ void UIDisplay::setup()
     obj.addProperty("display_events", _("Display events"), true, &UIDisplay::prop_display_events, _("Main"));
     obj.addProperty("display_type", _("Display type"), false, &UIDisplay::prop_display_type, _("Main"));
     obj.addProperty("auto_size", _("Auto size"), true, &UIDisplay::prop_auto_size, _("Main"));
-    obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UIDisplay::prop_text_color);
-    obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIDisplay::prop_active_color);
+    obj.addProperty(sym::props::name_text_color, _("Text Color"), DEFAULT_TEXT_COLOR, &UIDisplay::prop_text_color);
+    obj.addProperty(sym::props::name_active_color, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIDisplay::prop_active_color);
     obj.addIntProperty("float_width", _("Float precision"), -1, &UIDisplay::prop_float_precision_, _("Main"));
     obj.setPropertyRange("float_width", -1, 17);
 

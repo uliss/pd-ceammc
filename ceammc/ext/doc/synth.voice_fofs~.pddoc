@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="synth.voice_fofs~">
         <title>synth.voice_fofs~</title>
         <meta>
@@ -24,8 +24,9 @@
             of the synthesized voice to be realistic.</par>
         </info>
         <arguments>
-            <argument name="VOICE" type="symbol">voice type</argument>
-            <argument name="VOWEL" type="symbol">vowel</argument>
+            <argument name="VOICE" type="symbol" enum="alto bass countertenor soprano tenor">voice
+            type</argument>
+            <argument name="VOWEL" type="symbol" enum="a e i o u">vowel</argument>
         </arguments>
         <properties>
             <property name="@freq" type="float" minvalue="20" maxvalue="20000.0" default="440"
@@ -51,6 +52,8 @@
             units="millisecond">vowel smoothing time</property>
             <property name="@fvowel" type="float" default="0" maxvalue="4" minvalue="0">vowel
             index: 0=a, 1=e, 2=i, 3=o, 4=u. Float values can be interpoltaed.</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <inlets>
             <inlet>

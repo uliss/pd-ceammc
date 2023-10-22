@@ -13,15 +13,18 @@ array.convolve	array FFT convolution
 array.copy	copy samples from one array to another
 array.do	iterate and modify array content via side-chain
 array.each	process each array elements via side-chain
-array.fill	fill array with single value or pattern
+array.fill	fill array with single value, pattern or function
 array.grainer~	array granulator
 array.hist	calculates array histogram
+array.ltcplay~	array player controlled by LTC
 array.mean	calculates array arithmetic mean value
 array.minmax	find array min and max element value
 array.play~	array player with variable speed and amplitude
 array.p~	array player with variable speed and amplitude
 array.plot	array data plotter
 array.plot~	plot signal on specified array
+array.readwrite~	array reader/writer
+array.rw~	array reader/writer
 array.resample	array resampler
 array.r	array resampler
 array.rms	calculates root mean square value for array
@@ -32,6 +35,7 @@ array.stddev	calculates standard deviation for array values
 array.stretch	array time-stretch, pitch-shift or rate-change
 array.sum	calculates sum of array elements
 array.sum2	calculates sum of squares of array elements
+array.tramp~	triggered ramp generator for array
 array.variance	calculates variance of array values
 array.vplay	simple array player for using with vline~
 array.window	fill array with window
@@ -43,6 +47,11 @@ plot.linspace~	outputs numbers spaced evenly spaced over a specified interval
 plot.logspace~	outputs numbers spaced evenly on a log scale
 plot.response~	output amp/phase freq response to impulse
 ceammc.search	ceammc library search object
+chrono.datetime	output current date and time info
+ceammc/datetime	output current date and time info
+datetime	output current date and time info
+convolve~	realtime FFT convolution
+ceammc/convolve~	realtime FFT convolution
 function	named function
 func	named function
 ceammc/func	named function
@@ -51,6 +60,8 @@ function.call	call named function
 func.call	call named function
 gain~	multislot signal gain
 ceammc/gain~	multislot signal gain
+gate~	multislot signal gate
+ceammc/gate~	multislot signal gate
 logger	advanced data logger
 ceammc/logger	advanced data logger
 log.error	advanced data logger
@@ -61,9 +72,13 @@ log.stdout	advanced data logger
 log.stderr	advanced data logger
 matrix~	signal routing matrix
 ceammc/matrix~	signal routing matrix
+merge~	parametrized signal merge
+ceammc/merge~	parametrized signal merge
+metro.choice	metro with random choice from timeset
 metro.pattern	metro with rhythmic patterns
 metro.random	metro random bang with specified range
 metro.seq	metro sequencer
+metro.wchoice	metro with weighted random choice from timeset
 mix~	multislot signal mixer
 ceammc/mix~	multislot signal mixer
 nsig~	Mulitchannel converter from control to audio rate
@@ -71,6 +86,8 @@ ceammc/nsig~	Mulitchannel converter from control to audio rate
 obj.props	property extractor
 radio	float index to outlet values as radio switch
 ceammc/radio	float index to outlet values as radio switch
+split~	parametrized signal splitter
+ceammc/split~	parametrized signal splitter
 spring	float value "spring"
 ceammc/spring	float value "spring"
 sync	value synchronization
@@ -107,6 +124,9 @@ amp->dbfs	convert from amplitude to decibel full scale
 conv.amp2dbfs~	convert from amplitude to decibel full scale
 ceammc/amp->dbfs~	convert from amplitude to decibel full scale
 amp->dbfs~	convert from amplitude to decibel full scale
+conv.bar2ms	calculate bar and beat duration
+ceammc/bar->ms	calculate bar and beat duration
+bar->ms	calculate bar and beat duration
 conv.bits2bang	convert list of bits to bang events
 ceammc/bits->bang	convert list of bits to bang events
 bits->bang	convert list of bits to bang events
@@ -134,6 +154,12 @@ car->pol	convert cartesian coords to polar
 conv.cc2amp	convert from MIDI Control Change range
 ceammc/cc->amp	convert from MIDI Control Change range
 cc->amp	convert from MIDI Control Change range
+conv.char2morse	convert character to morse code
+ceammc/char->morse	convert character to morse code
+char->morse	convert character to morse code
+conv.color2rgba	convert named or hex color to separate RGBA values
+ceammc/color->rgba	convert named or hex color to separate RGBA values
+color->rgba	convert named or hex color to separate RGBA values
 conv.dbfs2amp	convert decibel full scale to amplitude
 ceammc/dbfs->amp	convert decibel full scale to amplitude
 dbfs->amp	convert decibel full scale to amplitude
@@ -149,9 +175,15 @@ edge->bang	edge detector for numeric stream
 conv.hex2int	hex symbol to int value
 ceammc/hex->int	hex symbol to int value
 hex->int	hex symbol to int value
+conv.hsl2rgb	convert HSL color values to RGB
+ceammc/hsl->rgb	convert HSL color values to RGB
+hsl->rgb	convert HSL color values to RGB
 conv.int2bits	convert integer to list of bits
 ceammc/int->bits	convert integer to list of bits
 int->bits	convert integer to list of bits
+conv.lab2rgb	convert LAB color values to RGB
+ceammc/lab->rgb	convert LAB color values to RGB
+lab->rgb	convert LAB color values to RGB
 conv.lin2curve	map linear to exponential range with 0 allowed.
 ceammc/lin->curve	map linear to exponential range with 0 allowed.
 lin->curve	map linear to exponential range with 0 allowed.
@@ -187,6 +219,9 @@ ms->samp	convert time in milliseconds to number of samples according to current 
 conv.ms2samp~	convert time in milliseconds to number of samples according to current samplerate
 ceammc/ms->samp~	convert time in milliseconds to number of samples according to current samplerate
 ms->samp~	convert time in milliseconds to number of samples according to current samplerate
+conv.ms2str	converts float time in milliseconds to formated symbol (or string)
+ceammc/ms->str	converts float time in milliseconds to formated symbol (or string)
+ms->str	converts float time in milliseconds to formated symbol (or string)
 conv.note2guido	convert MIDI note to Guido notation
 ceammc/note->guido	convert MIDI note to Guido notation
 note->guido	convert MIDI note to Guido notation
@@ -208,6 +243,9 @@ rad->phase	convert radians value to phase
 conv.rad2phase~	convert radians value to phase
 ceammc/rad->phase~	convert radians value to phase
 rad->phase~	convert radians value to phase
+conv.rgb2hex	convert separate RGB values to hex color
+ceammc/rgb->hex	convert separate RGB values to hex color
+rgb->hex	convert separate RGB values to hex color
 conv.samp2ms	convert samples to time according to samplerate
 ceammc/samp->ms	convert samples to time according to samplerate
 samp->ms	convert samples to time according to samplerate
@@ -226,6 +264,9 @@ sec->samp	convert time in seconds to number of samples according to current samp
 conv.sec2str	converts float time in seconds to formated symbol (or string)
 ceammc/sec->str	converts float time in seconds to formated symbol (or string)
 sec->str	converts float time in seconds to formated symbol (or string)
+conv.semi2ratio	convert interval in semitones to frequency ratio in 12-ET
+ceammc/semi->ratio	convert interval in semitones to frequency ratio in 12-ET
+semi->ratio	convert interval in semitones to frequency ratio in 12-ET
 conv.sig2float~	convert signal to floats
 ceammc/sig->float~	convert signal to floats
 sig->float~	convert signal to floats
@@ -238,6 +279,14 @@ music.dur2time	convert duration list to time
 music.d->t	convert duration list to time
 music.voice2midi	convert voice music list of midi pitches
 music.v->m	convert voice music list of midi pitches
+color.mix	color mixer
+color.scale	create color scales
+data.bimap	bidirectional map container
+ceammc/bimap	bidirectional map container
+bimap	bidirectional map container
+data.color	Color datatype
+color	Color datatype
+ceammc/color	Color datatype
 data.copy	make copy for any data types: MList, Set etc...
 data.dict	dictionary container: store values by key
 ceammc/dict	dictionary container: store values by key
@@ -273,10 +322,12 @@ dict.to_list	converts dictionary to plain list
 ceammc/dict->list	converts dictionary to plain list
 dict->list	converts dictionary to plain list
 dict.values	dictionary values as mlist
+global.bimap	Global visibility bidirectional map container
+local.bimap	local to patch bidirectional map container
 mlist.flatten	flatten nested mlist
-rtree.to_list	convert OpenMusic-like rythm tree to list of fractions
-ceammc/rtree->list	convert OpenMusic-like rythm tree to list of fractions
-rtree->list	convert OpenMusic-like rythm tree to list of fractions
+rtree.to_list	convert OpenMusic-like rhythm tree to list of fractions
+ceammc/rtree->list	convert OpenMusic-like rhythm tree to list of fractions
+rtree->list	convert OpenMusic-like rhythm tree to list of fractions
 set.contains	check if specified element is in set
 set.diff	difference between two sets
 set.equal	checks if two sets are equal (contains same elements)
@@ -285,7 +336,17 @@ set.size	get number of elements in set
 set.symdiff	symmetric difference between two sets
 set.union	output union of given sets
 dyn.comp2~	stereo dynamic range compressor
+dyn.comp_peak2~	stereo peak feed forward compressor with channel linking
+comp.peak2~	stereo peak feed forward compressor with channel linking
+dyn.comp_peak~	mono dynamic range peak feed forward compressor
+comp.peak~	mono dynamic range peak feed forward compressor
+dyn.comp_up2~	stereo upward compressor with channel linking
+comp.up2~	stereo upward compressor with channel linking
+dyn.comp_up~	mono upward compressor
+comp.up~	mono upward compressor
 dyn.comp~	mono dynamic range compressors
+dyn.expand2~	stereo dynamic range expander with channel linking
+dyn.expand~	mono dynamic range expander
 dyn.gate2~	stereo signal gate
 dyn.gate~	mono signal gate
 dyn.limit2~	stereo 1176LN Peak Limiter
@@ -293,6 +354,7 @@ dyn.limit~	mono 1176LN Peak Limiter
 dyn.softclip~	soft signal clip
 env.adsr~	ADSR (Attack, Decay, Sustain, Release) envelope generator
 env.ar~	Attack/Release envelope generator
+env.asr2~	stereo Attack/Sustain/Release envelope generator
 env.asr~	Attack/Sustain/Release envelope generator
 env.concat	Envelope concatenation
 env.follow~	Envelope follower with independent attack and release times
@@ -380,6 +442,7 @@ flow.pass_if	pass values that accepted by predicate object
 ceammc/pass_if	pass values that accepted by predicate object
 pass_if	pass values that accepted by predicate object
 flow.pipe	enhanced version on vanilla pipe object
+flow.prepend	prepend message before received one
 flow.queue	multi-channel control flow sync queue (or FIFO)
 flow.record	flow stream recorder/player
 flow.rec	flow stream recorder/player
@@ -419,6 +482,7 @@ ceammc/replace	Replace atoms in data stream
 route.any	separate any messages from bangs, floats, symbols and lists
 route.bang	separate bang messages from other types
 route.b	separate bang messages from other types
+route.cycle	cyclic message router
 route.float	separate float messages from other types
 route.f	separate float messages from other types
 route.list	separate list messages from other types
@@ -432,6 +496,8 @@ flt.a-weight	convert frequency to A-weight value
 flt.biquad~	second order IIR filter.
 flt.bpf12~	Two pole band-pass butterworth filter
 flt.bpf24~	Four pole band-pass butterworth filter
+flt.bpf36e~	elliptic band-pass filter with -36db rolloff
+flt.bpf72e~	elliptic band-pass filter with -72db rolloff
 flt.c_apf	Allpass filter coefficient calculator for biquad
 ceammc/apf->biquad	Allpass filter coefficient calculator for biquad
 apf->biquad	Allpass filter coefficient calculator for biquad
@@ -476,9 +542,12 @@ flt.notch~	band-rejection filter
 flt.resonbp~	Simple resonant bandpass filter
 flt.resonhp~	Simple resonant highpass filter
 flt.resonlp~	Simple resonant lowpass filter
+flt.speaker~	speaker emulation band-pass filter
 fx.bitdown~	bit downer and downsampler effect
 fx.chorus~	Chorus effect
 fx.dattorro~	dattorro reverb
+fx.delay~	smooth delay with a feedback control
+fx.sdelay~	smooth delay with a feedback control
 fx.distortion1~	distortion #1 from Guitarix effects set
 fx.distortion2~	distortion #2 from Guitarix effects set
 fx.distortion3~	simple distortion #3 from Guitarix effects set
@@ -486,7 +555,8 @@ fx.distortion~	cubic nonlinearity distortion
 fx.drive~	Guitarix drive effect
 fx.drone_box~	mono sympathetic resonance generator
 fx.echo2~	stereo echo effect
-fx.echo~	simple echo effect
+fx.echo~	enhanced echo effect
+fx.secho~	enhanced echo effect
 fx.flanger~	mono flanging effect
 fx.freeverb2~	freeverb2 - stereo version of freeverb
 fx.freeverb~	freeverb - common used open-source reverb
@@ -496,17 +566,19 @@ fx.greyhole~	A complex echo-like effect
 fx.infrev~	port of Infinity VST plugin from airwindows
 fx.jcrev~	Schroeder quad reverberator from 1972
 fx.looper~	One track looper
+fx.overdrive~	overdrive effect
 fx.pitchshift_s~	signal version of fx.pitchshift~
 fx.pitchshift~	simple pitch shifter based on 2 delay lines
 fx.rb_pitchshift~	rubber band pitchshift
 fx.recho~	reversed echo effect
+fx.ringmod~	ring modulator effect
 fx.room~	Gardners room emulation algorithms
 fx.satrev~	Schroeder reverberator from 1971
-fx.sdelay~	smooth delay with a feedback control
-fx.secho~	enchanced echo effect that does not click on delay change
+fx.scramble~	scramble delayed sound fragments
 fx.shimmer~	shimmer reverb effect effect
 fx.stutter~	stutter effect
 fx.tapiir~	multi-tap delay
+fx.tremolo~	tremolo effect from guitarix project
 fx.vocoder~	very simple vocoder where the spectrum of the modulation signal is analyzed using a 32-band filter bank
 fx.wahwah~	digitized CryBaby wah pedal
 fx.zita_rev1~	Zita stereo reverb
@@ -831,6 +903,8 @@ midi.kbd	computer keyboard midi
 midi.key2str	convert key number to SPN name according to tonality
 midi.key->str	convert key number to SPN name according to tonality
 midi.modus	snap/skip midi pitches according modus
+midi.note.pass	midi note pass by expression
+note.pass	midi note pass by expression
 midi.oct	midi octave transpose
 midi.prg2str	convert GM Instrument number to name (string or symbol)
 midi.prg->str	convert GM Instrument number to name (string or symbol)
@@ -847,6 +921,8 @@ fluid~	FluidSynth SoundFont 2 player
 ceammc/fluid~	FluidSynth SoundFont 2 player
 modplug~	MOD file player (using libmodplug)
 ceammc/modplug~	MOD file player (using libmodplug)
+qrcode	QR code generator
+ceammc/qrcode	QR code generator
 risset.gliss	Sheppard/Risset glissando calculator
 sfizz~	SFZ format sample player
 ceammc/sfizz~	SFZ format sample player
@@ -864,10 +940,15 @@ m	message constructor
 ceammc/prepend	message constructor
 prepend	message constructor
 msg.after	send specified message after incoming message
+msg.onclose	send message when patch closes
 msg.onload	send message when patch loads
 ceammc/loadmsg	send message when patch loads
 loadmsg	send message when patch loads
+msg.pack	message pack
 msg.sched	message scheduler
+rhythm.euclid	euclid pattern generator
+rhythm.hexbeat	hexbeat pattern generator
+rhythm.lsystem	L-system pattern generator
 net.artnet.send	ArtNet DMX message sender
 artnet.send	ArtNet DMX message sender
 net.host2ip	returns IP address by DNS name
@@ -914,7 +995,7 @@ osc.square~	Bandlimited square wave oscillator
 osc.tri~	Bandlimited triangle wave oscillator
 canvas.active	checks if canvas window is on top and active
 canvas.current	verbose information about current canvas
-canvas.dir	current canvas directory
+canvas.dir	current canvas directory and nesting level
 canvas.name	current canvas name
 canvas.path	current canvas fullpath
 canvas.top	verbose information about top-level canvas
@@ -978,13 +1059,20 @@ prop->	separate properties from dataflow
 @->	separate properties from dataflow
 ceammc/prop->	separate properties from dataflow
 ceammc/@->	separate properties from dataflow
+proto.arturia.minilab	simple SysEx control for Arturia MiniLab
 proto.feelworld	protocol for FeelWorld LivePro L1 HDMI mixer
 proto.firmata	Firmata Arduino protocol support
 proto.inscore	INScore message creator
+proto.ltc.in~	LTC decoder
+ltc.in~	LTC decoder
+proto.ltc.out~	LTC encoder
+ltc.out~	LTC encoder
 proto.midi	raw midi encoder/parser
+proto.midi.casio	Casio Privia MIDI control
 proto.midi.cc	raw midi CC encoder/parser
 proto.midi.sysex	raw midi SYSex encoder/parser
 proto.moppy	protocol for Musical flOPPY controller
+proto.morse	Morse encoder
 proto.mpv	mpv video player control
 proto.sp.alpaca	protocol parser for Arduino-based CEAMMC footswitch
 proto.vlc	VLC video player control over HTTP
@@ -1007,7 +1095,7 @@ seq.arp	sequence arpeggiator
 seq.bangs	bang sequencer
 seq.b	bang sequencer
 seq.counter	sequencer counter
-seq.life	Conway gamw of life sequencer
+seq.life	Conway game of life sequencer
 seq.matrix	sequencer control for ui.matrix
 seq.nbangs	output specified number of bang with time intervals
 seq.nb	output specified number of bang with time intervals
@@ -1019,10 +1107,13 @@ ceammc/sequencer	basic sequence player
 ceammc/seq	basic sequence player
 seq	basic sequence player
 snd.file	Sound file loader on steroids
+snd.play~	Sound file player on steriods
 hoa.2d.decoder~	hoa 2d decoder
 hoa.decoder~	hoa 2d decoder
 hoa.2d.encoder~	hoa 2d encoder
 hoa.encoder~	hoa 2d encoder
+hoa.2d.exchanger~	renumbers and normalizes the channels
+hoa.exchanger~	renumbers and normalizes the channels
 hoa.2d.map~	a 2d ambisonic multisource spatializer
 hoa.map~	a 2d ambisonic multisource spatializer
 hoa.2d.optim~	a 2D ambisonic optimization tool
@@ -1033,15 +1124,29 @@ hoa.2d.recomposer~	recomposes a 2d plane wave decomposition into circular harmon
 hoa.recomposer~	recomposes a 2d plane wave decomposition into circular harmonics
 hoa.2d.rotate~	a 2D ambisonic sound field rotation
 hoa.rotate~	a 2D ambisonic sound field rotation
+hoa.2d.space	planewaves amp control
+hoa.space	planewaves amp control
 hoa.2d.wider~	a 2d fractional ambisonic order simulator
 hoa.wider~	a 2d fractional ambisonic order simulator
+hoa.3d.decoder~	hoa 3d decoder
+hoa.3d.encoder~	hoa 3d encoder
+hoa.3d.exchanger~	renumbers and normalizes the channels
+hoa.3d.map~	a 3d ambisonic multisource spatializer
+hoa.3d.meter~	multi spherical meter with sound field descriptor
+hoa.3d.optim~	a 3D ambisonic optimization tool
+hoa.3d.scope~	a 3d ambisonic harmonic scope
+hoa.3d.wider~	a 3d fractional ambisonic order simulator
 hoa.@process	process properties manager for hoa.process~
 hoa.in	message inlet for a patcher loaded by hoa.process~
 hoa.in~	signal inlet for a patcher loaded by hoa.process~
+hoa.map.ui	a GUI to spatialize sources on a map
 hoa.out	message outlet for a patcher loaded by hoa.process~
 hoa.out~	signal inlet for a patcher loaded by hoa.process~
 hoa.process~	patcher loader for multichannel processing
+hoa.2d.process~	patcher loader for multichannel processing
+hoa.3d.process~	patcher loader for multichannel processing
 hoa.scope~	a 2d ambisonic harmonic scope
+hoa.2d.scope~	a 2d ambisonic harmonic scope
 pan.cos~	two channel equal power sine/cosine panner
 pan.linsig~	two channel linear panner with signal control
 pan.lin~	two channel linear panner
@@ -1125,6 +1230,7 @@ synth.kick2~	low-kick synth from faust librariest
 synth.kick~	low-kick synth from Guitarix project
 synth.ks~	Karplus-Strong string
 synth.marimba~	simple marimba physical model implementing a single tone bar connected to tube
+synth.metro~	ready to use metronome synth
 synth.piano~	waveguide commuted piano
 synth.rhodey~	STK Fender Rhodes electric piano FM synthesis instrument
 synth.risset_arp~	Jean Claude Risset's harmonic arpeggio effect
@@ -1162,6 +1268,11 @@ ui.bang	A bang... that's all
 ui.b	A bang... that's all
 ui.button	button widget
 ui.btn	button widget
+ui.canvas	UI canvas for drawing
+ui.cnv	UI canvas for drawing
+ui.cmeter~	Multichannel circular peak and rms signal meter
+ui.cm~	Multichannel circular peak and rms signal meter
+hoa.2d.meter~	Multichannel circular peak and rms signal meter
 ui.colorpanel	colorchooser widget
 ui.display	Display GUI object
 ui.d	Display GUI object
@@ -1185,6 +1296,7 @@ ui.vk	keyboard widget
 ui.knob	knob widget
 ui.k	knob widget
 ui.label	simple label widget
+ui.lcd	black and white bitmap display
 ui.link	Hyperlink widget
 ui.matrix	The matrix of toggles has you.
 ui.menu	Dropdown menu

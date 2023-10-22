@@ -12,7 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "catch.hpp"
-#include "ceammc_pd.h"
 #include "function.h"
 #include "function_call.h"
 #include "test_base.h"

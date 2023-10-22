@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="net.http.send">
         <title>net.http.send</title>
         <meta>
@@ -21,11 +21,6 @@
             <argument name="PORT" type="int" minvalue="1" maxvalue="32768">destination
             port</argument>
         </arguments>
-        <methods>
-            <method name="get">send GET request 
-            <param name="PATH" type="symbol" required="true">request path</param>
-            <param name="VALUES" type="list" required="true">list of query pairs</param></method>
-        </methods>
         <properties>
             <property name="@host" type="symbol" default="localhost">destination host</property>
             <property name="@port" type="int" default="80" minvalue="1" maxvalue="32768">
@@ -35,6 +30,12 @@
             <property name="@timeout" type="int" default="1" minvalue="1" maxvalue="10"
             units="second">TCP connection timeout</property>
         </properties>
+        <methods>
+            <!-- get -->
+            <method name="get">send GET request 
+            <param name="PATH" type="symbol" required="true">request path</param>
+            <param name="VALUES" type="list" required="true">list of query pairs</param></method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo>input</xinfo>

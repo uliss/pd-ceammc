@@ -12,6 +12,8 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_array.h"
+#include "ceammc_containers.h"
+#include "ceammc_pd.h"
 #include "m_pd.h"
 
 extern "C" {
@@ -282,39 +284,24 @@ bool Array::set(std::initializer_list<t_sample> l)
 
 bool Array::setYBounds(t_float yBottom, t_float yTop)
 {
-    static t_symbol* SYM_BOUNDS = gensym("bounds");
-
     if (!array_ || !name_->s_thing)
         return false;
 
-    t_atom args[4];
-    SETFLOAT(&args[0], 0);
-    SETFLOAT(&args[1], yTop);
-    SETFLOAT(&args[2], t_float(size_));
-    SETFLOAT(&args[3], yBottom);
-    pd_typedmess(name_->s_thing, SYM_BOUNDS, 4, args);
-    return true;
+    AtomArray<4> args(0.0, yTop, t_float(size_), yBottom);
+    return pd::send_message(name_, gensym("bounds"), args.view());
 }
 
 bool Array::setYTicks(t_float y, t_float step, size_t bigN)
 {
-    static t_symbol* SYM_YTICKS = gensym("yticks");
-
     if (!array_ || !name_->s_thing)
         return false;
 
-    t_atom args[3];
-    SETFLOAT(&args[0], y);
-    SETFLOAT(&args[1], step);
-    SETFLOAT(&args[2], bigN);
-    pd_typedmess(name_->s_thing, SYM_YTICKS, 3, args);
-    return true;
+    AtomArray<3> args(y, step, bigN);
+    return pd::send_message(name_, gensym("yticks"), args.view());
 }
 
-bool Array::setYLabels(const AtomList& labels)
+bool Array::setYLabels(const AtomListView& labels)
 {
-    static t_symbol* SYM_YLABELS = gensym("ylabel");
-
     if (!array_ || !name_->s_thing)
         return false;
 
@@ -326,10 +313,9 @@ bool Array::setYLabels(const AtomList& labels)
     if (gl && gl->gl_pixwidth > 0)
         el_wd = t_float(size()) / gl->gl_pixwidth;
 
-    AtomList args(std::round(-4 * el_wd));
-    args.append(labels);
-    pd_typedmess(name_->s_thing, SYM_YLABELS, args.size(), args.toPdData());
-    return true;
+    SmallAtomList args(std::round(-4 * el_wd));
+    args.insert_back(labels.begin(), labels.end());
+    return pd::send_message(name_, gensym("ylabel"), args.view());
 }
 
 bool Array::setSaveInPatch(bool value)
@@ -343,15 +329,10 @@ bool Array::setSaveInPatch(bool value)
 
 bool Array::normalize(t_float f)
 {
-    static t_symbol* SYM_NORMALIZE = gensym("normalize");
-
     if (!array_ || !name_->s_thing)
         return false;
 
-    t_atom arg;
-    SETFLOAT(&arg, f);
-    pd_typedmess(name_->s_thing, SYM_NORMALIZE, 1, &arg);
-    return true;
+    return pd::send_message(name_, gensym("normalize"), Atom(f));
 }
 
 Array::Exception::Exception(const char* what)

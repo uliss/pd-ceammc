@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="array.copy">
         <title>array.copy</title>
         <meta>
@@ -21,21 +21,25 @@
             overflow</property>
         </properties>
         <methods>
+            <!-- copy -->
             <method name="copy">copy whole array content 
             <param name="SRC" type="symbol" required="true">name of source array</param>
             <param name="DEST" type="symbol" required="true">name of destination
             array</param></method>
+            <!-- copy -->
             <method name="copy">copy array content from specified position till end 
             <param name="SRC" type="symbol" required="true">name of source array</param>
             <param name="FROM" type="int" required="true">source start position</param>
             <param name="DEST" type="symbol" required="true">name of destination
             array</param></method>
+            <!-- copy -->
             <method name="copy">copy array content from specified range 
             <param name="SRC" type="symbol" required="true">name of source array</param>
             <param name="FROM" type="int" required="true">source start range</param>
             <param name="TO" type="int" required="true">source end range</param>
             <param name="DEST" type="symbol" required="true">name of destination
             array</param></method>
+            <!-- copy -->
             <method name="copy">copy array content from specified range and to specified
             destination position 
             <param name="SRC" type="symbol" required="true">name of source array</param>

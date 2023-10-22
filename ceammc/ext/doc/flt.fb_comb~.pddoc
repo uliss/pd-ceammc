@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flt.fb_comb~">
         <title>flt.fb_comb~</title>
         <meta>
@@ -32,8 +32,11 @@
             <property name="@a" type="float" minvalue="-1" maxvalue="1" default="0.75">scaling
             factor of delayed signal sum</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
+            <!-- reset -->
             <method name="reset">reset filter state</method>
         </methods>
         <inlets>

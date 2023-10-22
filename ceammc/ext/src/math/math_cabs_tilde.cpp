@@ -37,4 +37,7 @@ void setup_math_cabs_tilde()
 {
     SoundExternalFactory<MathComplexAbsTilde> obj("math.cabs~");
     obj.addAlias("cabs~");
+
+    obj.setDescription("magnitude of a complex signals");
+    obj.setCategory("math");
 }

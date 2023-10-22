@@ -43,9 +43,12 @@ namespace args {
          * @param lv - argument list
          * @param obj - pointer to parent object (can be nullptr)
          * @param matches - pointer to write matched items
+         * @param printErr - if true, print errors
          * @return true on success, false on error
          */
-        bool check(const AtomListView& lv, BaseObject* obj, ArgMatchList* matches = nullptr) const;
+        bool check(const AtomListView& lv, BaseObject* obj, ArgMatchList* matches = nullptr, bool printErr = true) const;
+        bool checkSilent(const AtomListView& lv) const { return check(lv, nullptr, nullptr, false); }
+
         void usage(BaseObject* obj = nullptr, t_symbol* m = nullptr) const;
     };
 

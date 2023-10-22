@@ -184,4 +184,20 @@ TEST_CASE("Message", "[core]")
             REQUIRE_FALSE(m.atomValue() == Atom(new StrData("abc")));
         }
     }
+
+    SECTION("makeTyped")
+    {
+        REQUIRE(Message::makeTyped({}).isBang());
+        REQUIRE(Message::makeTyped(LA("bang")).isBang());
+        REQUIRE(Message::makeTyped(LA(1)).isFloat());
+        REQUIRE(Message::makeTyped(LA(1)) == 1);
+        REQUIRE(Message::makeTyped(LA("float", -20.5)) == -20.5);
+        REQUIRE(Message::makeTyped(LA("symbol", "ABC")) == SYM("ABC"));
+        REQUIRE(Message::makeTyped(LF(1, 2)) == LF(1, 2));
+        REQUIRE(Message::makeTyped(LF(1, 2, 3)) == LF(1, 2, 3));
+        REQUIRE(Message::makeTyped(LA("list", 1, 2, 3)) == LF(1, 2, 3));
+        REQUIRE(Message::makeTyped(LA("any", 1, 2, 3)) == Message("any", 1, 2, 3));
+        REQUIRE(Message::makeTyped(LA("float", "ABC")) == Message("float", "ABC"));
+        REQUIRE(Message::makeTyped(LA("symbol", 123)) == Message("symbol", 123));
+    }
 }

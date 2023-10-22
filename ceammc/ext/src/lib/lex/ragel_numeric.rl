@@ -91,6 +91,7 @@
     # actions
     num_bin   = (num_bpre (num_b $num_bin_digit)) %num_bin_done;
     num_int   = ((num_sign @num_sign_done)? num_i $num_int_digit) %num_int_done;
+    num_uint  = (num_i $num_int_digit) %num_int_done;
     num_hex   = (num_xpre (num_x $num_hex_digit)) %num_hex_done;
 
     num_ratio = ((num_sign @num_sign_done)?
@@ -99,8 +100,9 @@
                  num_i $num_ratio_den)
                 %num_ratio_done;
 
-    num_frac = '.' @num_float_frac_init ([0-9]+ $num_float_add_frac);
-    num_float = (num_int num_frac) %num_float_done;
+    num_frac   = '.' @num_float_frac_init ([0-9]+ $num_float_add_frac);
+    num_float  = (num_int num_frac)  %num_float_done;
+    num_ufloat = (num_uint num_frac) %num_float_done;
 
     num_infinity = (num_sign? num_inf) %num_float_inf;
 

@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="hoa.2d.space" type="gui">
+        <title>hoa.2d.space</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+                <author>Pierre Guillot</author>
+                <author>Eliott Paris</author>
+                <author>Thomas Le Meur</author>
+            </authors>
+            <description>planewaves amp control</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category view="link">spat</category>
+            <keywords>hoa space ui control circular</keywords>
+            <since>0.9.7</since>
+            <aliases>
+                <alias view="link">hoa.space</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>The graphical user interface that facilitates the control of processing in the
+            plane wave domain.</par>
+            <a href="hoa/hoa.2d.space-help.pd">CICM documentation</a>
+        </info>
+        <arguments>
+            <argument name="N" type="int" minvalue="1">number of planewave channels</argument>
+        </arguments>
+        <mouse>
+            <event type="drag" editmode="false">change the single amp value</event>
+            <event type="drag" editmode="false" keys="Shift">change the all amp values</event>
+            <event type="drag" editmode="false" keys="Alt">rotate all values</event>
+            <event type="right-click" editmode="false">open popup menu</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
+            <event type="drag" editmode="true" keys="Cmd">change the single amp value</event>
+            <event type="right-click" editmode="true" keys="Shift">open object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
+        </mouse>
+        <properties>
+            <property name="@min" type="float" default="0">minimum amp value</property>
+            <property name="@max" type="float" default="1">maximum amp value</property>
+            <property name="@nch" type="int" minvalue="1" maxvalue="128" default="4">number of
+            channels</property>
+            <property name="@sp_color" type="list" default="0.27 0.43 0.54 1">space
+            color</property>
+            <property name="@pt_color" type="list" default="0 0 0 1">point color</property>
+            <!-- common-->
+            <property name="@size" type="list" default="120 120">element size (width, height
+            pair)</property>
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
+            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
+            background color (list of red, green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
+            of red, green, blue values in 0-1 range)</property>
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
+            fontsize</property>
+            <property name="@fontname" type="symbol" default="Helvetica"
+            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
+            slant</property>
+            <!-- common -->
+            <property name="@presetname" type="symbol" category="basic" default="(null)">preset
+            name for using with [ui.preset]</property>
+            <property name="@send" type="symbol" category="basic" default="(null)">send
+            destination</property>
+            <property name="@receive" type="symbol" category="basic" default="(null)">receive
+            source</property>
+            <!-- label -->
+            <property name="@label" type="symbol" default="(null)">label text</property>
+            <property name="@label_color" type="list" default="0 0 0 1">label color in RGB format
+            within 0-1 range, for example: 0.2 0.4 0.1</property>
+            <property name="@label_inner" type="bool" default="0">label position (1 - inner, 0 -
+            outer).</property>
+            <property name="@label_align" type="symbol" enum="left center right" default="left">
+            label horizontal align</property>
+            <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
+            label vertical align</property>
+            <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
+            label snap side</property>
+            <property name="@label_margins" type="list" default="0 0">label offset in
+            pixels</property>
+        </properties>
+        <methods>
+            <!-- dump -->
+            <method name="dump">dumps all object info to Pd console window.</method>
+            <!-- pos -->
+            <method name="pos">set UI element position 
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- presets -->
+            <method name="load" category="preset">loads specified preset 
+            <param name="IDX" type="int" required="true">preset index</param></method>
+            <method name="store" category="preset">stores specified preset 
+            <param name="IDX" type="int" required="true">preset index</param></method>
+            <method name="clear" category="preset">clears specified preset 
+            <param name="IDX" type="int" required="true">preset index</param></method>
+            <method name="interp">interplolates between presets 
+            <param name="IDX" type="float" required="true">preset fraction index</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>list: amp values</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list: amp values</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[hoa.2d.space 8 {0:]
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+[ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

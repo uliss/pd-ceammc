@@ -16,7 +16,7 @@ PatchArgs::PatchArgs(const PdArgs& a)
 
 void PatchArgs::onBang()
 {
-    listTo(0, canvas_info_args(canvas()).view(from_->value()));
+    listTo(0, canvas_info_args(canvas()).subView(from_->value()));
 }
 
 void setup_patch_args()

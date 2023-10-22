@@ -29,6 +29,16 @@ TEST_CASE("flow.append", "[externals]")
             REQUIRE(t.numInlets() == 2);
             REQUIRE(t.numOutlets() == 1);
             REQUIRE_PROPERTY(t, @delay, -1);
+            REQUIRE_PROPERTY_LIST(t, @msg, L());
+        }
+
+        SECTION("args")
+        {
+            TObj t("flow.append", LA(1, 3, "A"));
+            REQUIRE(t.numInlets() == 2);
+            REQUIRE(t.numOutlets() == 1);
+            REQUIRE_PROPERTY(t, @delay, -1);
+            REQUIRE_PROPERTY_LIST(t, @msg, LA(1, 3, "A"));
         }
     }
 

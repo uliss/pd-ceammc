@@ -5,7 +5,6 @@ import signal
 import argparse
 import subprocess
 import os.path
-import time
 from lxml import etree
 from termcolor import cprint
 import json
@@ -19,7 +18,7 @@ STK_RAWWAVES_PATH = "@PROJECT_SOURCE_DIR@/ceammc/extra/stk/stk/rawwaves"
 
 EXT_INFO = BIN_PATH + "ext_info"
 
-SPECIAL_OBJ = {"function": "f"}
+SPECIAL_OBJ = {"function": "f", "hoa.process~": "2 test.patch planewaves"}
 
 EXT_INLETS = []
 EXT_OUTLETS = []
@@ -29,8 +28,26 @@ EXT_PROPS_SET = set()
 EXT_PROPS_DICT = dict()
 EXT_ARGS_DICT = dict()
 
+
 def signal_handler(sig, frame):
     sys.exit(0)
+
+
+def pddoc_float(value: str) -> float:
+    if value == "π":
+        return round(3.1415926, 4)
+    elif value == "2π":
+        return round(3.1415926 * 2, 4)
+    elif value == "inf" or value == "+inf":
+        return 2147483647
+    elif value == "-inf":
+        return -2147483647
+    elif isinstance(value, float):
+        return round(value, 4)
+    elif len(value) > 0:
+        return round(float(value), 4)
+    else:
+        return ""
 
 
 signal.signal(signal.SIGINT, signal_handler)
@@ -163,6 +180,50 @@ def read_doc_outlets(node):
 
     return res
 
+def has_mouse_methods():
+    return ("click" in EXT_METHODS or
+        "mousedown" in EXT_METHODS or
+        "mouseup" in EXT_METHODS or
+        "mousemove" in EXT_METHODS or
+        "mouseenter" in EXT_METHODS or
+        "rightclick" in EXT_METHODS)
+
+
+def check_units(name, tag, doc, ext):
+    if tag[0] == '@':
+        tag = f'[{tag}]'
+    else:
+        tag = f'[arg][{tag}]'
+
+
+    def unit2pddoc(unit: str):
+        MAP = { 'millisecond': 'msec', 'second': 'sec' }
+        if unit in MAP:
+            return MAP[unit]
+        else:
+            return unit
+
+    units_doc = set()
+    doc_unit_str = doc.get("units", None)
+    if doc_unit_str is not None:
+        for x in doc_unit_str.split(" "):
+            units_doc.add(unit2pddoc(x))
+
+    units_ext = set()
+    for x in ext.get("units", ()):
+        units_ext.add(unit2pddoc(x))
+
+    if units_doc != units_ext:
+        cprint(f"[{name}]{tag} units in doc {units_doc} != units in ext {units_ext}", 'red')
+        miss = units_ext - units_doc
+        if len(miss) > 0:
+            cprint(f"[{name}]{tag} missing units: {miss}", 'red')
+
+        invalid = units_doc - units_ext
+        if len(invalid) > 0:
+            cprint(f"[{name}]{tag} invalid units: {invalid}", 'red')
+
+
 def check_aliases(name, doc, ext):
     undoc_aliases = ext - doc
     unknown_aliases = doc - ext
@@ -225,11 +286,9 @@ def check_single_arg(ext_name, arg_name, doc, ext):
     if doc_maxval != ext_maxval:
         cprint(f"[{ext_name}][arg][{arg_name}] invalid argument maxvalue in doc: {doc_maxval}, should be: {ext_maxval}", 'magenta')
 
-    # check units
-    doc_units = doc.get("units", "")
-    ext_units = ext.get("units", "")
-    if doc_units != ext_units:
-        cprint(f"[{ext_name}][arg][{arg_name}] invalid argument units in doc: {doc_units}, should be: {ext_units}", 'magenta')
+    check_units(ext_name, arg_name, doc, ext)
+
+    check_enum(ext_name, arg_name, doc, ext)
 
 
 def check_args(name, doc, ext):
@@ -259,6 +318,43 @@ def check_xlets(name, doc_in, doc_out, ext_in, ext_out):
             'magenta')
 
 
+def check_enum(name, prop, doc, ext):
+    def map_item(x):
+        if isinstance(x, float):
+            return round(x, 2)
+        else:
+            return x
+
+    doc_enum = doc.get("enum", set())
+    ext_enum = set(map(map_item, ext.get("enum", set())))
+    type_doc = doc.get("type", None)
+    if isinstance(doc_enum, str):
+        doc_enum = set(doc_enum.split(" "))
+        if type_doc == "float":
+            doc_enum = set(map(lambda x: round(float(x), 2), doc_enum))
+        elif type_doc == "int":
+            doc_enum = set(map(lambda x: int(x), doc_enum))
+        elif type_doc == "atom":
+            def get_atom(x):
+                if isinstance(x, str) and len(x) > 0 and x[0].isdigit():
+                    return float(x)
+                else:
+                    return x
+
+            doc_enum = set(map(lambda x: get_atom(x), doc_enum))
+
+    if doc_enum != ext_enum:
+        cprint(f"[{ext_name}][{prop}] invalid property enum in doc: {doc_enum}, should be: {ext_enum}", 'magenta')
+        doc_miss = ext_enum - doc_enum
+        if len(doc_miss) > 0:
+            cprint(f"\t- missing {doc_miss}", 'yellow')
+            x = " ".join(map(str, sorted(map(str, ext_enum))))
+            cprint(f"\t  add to doc: enum=\"{x}\"", 'white')
+
+        doc_invalid = doc_enum - ext_enum
+        if len(doc_invalid) > 0:
+            cprint(f"\t- invalid {doc_invalid}", 'yellow')
+
 def check_single_prop(name, prop, doc, ext):
     # access check
     ro_ext = ext.get("access", "")
@@ -266,21 +362,10 @@ def check_single_prop(name, prop, doc, ext):
     if ro_ext != ro_doc:
         cprint(f"[{ext_name}][{prop}] access in doc ({ro_doc}) != access in ext ({ro_ext})", 'red')
 
-    # units checks
-    units_doc = doc.get("units", None)
-    units_ext = ext.get("units", None)
-
-    if units_doc != units_ext:
-        cprint(f"[{ext_name}][{prop}] units in doc ({units_doc}) != units in ext ({units_ext})", 'red')
+    check_units(name, prop, doc, ext)
 
     # check minvalue
-    doc_minval = doc.get("min", "")
-    if doc_minval == "π":
-        doc_minval = round(3.1415926, 4)
-    elif doc_minval == "2π":
-        doc_minval = round(3.1415926 * 2, 4)
-    elif len(doc_minval) > 0:
-        doc_minval = float(doc_minval)
+    doc_minval = pddoc_float(doc.get("min", ""))
 
     ext_minval = ext.get("min", "")
     if isinstance(ext_minval, str) and len(ext_minval) > 0:
@@ -292,13 +377,7 @@ def check_single_prop(name, prop, doc, ext):
         cprint(f"[{ext_name}][{prop}] invalid property minvalue in doc: {doc_minval}, should be: {ext_minval}", 'magenta')
 
     # check maxvalue
-    doc_maxval = doc.get("max", "")
-    if doc_maxval == "π":
-        doc_maxval = round(3.1415926, 4)
-    elif doc_maxval == "2π":
-        doc_maxval = round(3.1415926 * 2, 4)
-    elif len(doc_maxval) > 0:
-        doc_maxval = float(doc_maxval)
+    doc_maxval = pddoc_float(doc.get("max", ""))
 
     ext_maxval = ext.get("max", "")
     if isinstance(ext_maxval, str) and len(ext_maxval) > 0:
@@ -314,25 +393,16 @@ def check_single_prop(name, prop, doc, ext):
 
     if type_ext == "bool" and ro_ext == "initonly": # flag type
         pass
+    elif type_doc == "alias":
+        pass
     else:
         # check default
         doc_def = doc.get("default", None)
         # none
         if doc_def is None:
             pass
-        # float
         elif type_doc == "float":
-            if doc_def == "2π":
-                doc_def = round(3.1415926 * 2, 4)
-            elif doc_def == "π":
-                doc_def = round(3.1415926, 4)
-            elif doc_def == "+inf":
-                doc_def = 2147483647
-            elif doc_def == "-inf":
-                doc_def = -2147483648
-            else:
-                doc_def = round(float(doc_def), 4)
-        # int
+            doc_def = pddoc_float(doc_def)
         elif type_doc == "int":
             doc_def = int(doc_def)
         elif type_doc == "bool":
@@ -342,7 +412,7 @@ def check_single_prop(name, prop, doc, ext):
         if ext_def is None:
             pass
         elif type_ext == "float":
-            ext_def = round(ext_def, 4)
+            ext_def = pddoc_float(ext_def)
         elif type_ext == "int":
             ext_def = round(ext_def, 4)
         elif type_ext == "list":
@@ -368,35 +438,7 @@ def check_single_prop(name, prop, doc, ext):
 
         # end default check
 
-    # check enums
-    doc_enum = doc.get("enum", set())
-    ext_enum = set(ext.get("enum", set()))
-    if isinstance(doc_enum, str):
-        doc_enum = set(doc_enum.split(" "))
-        if type_doc == "float":
-            doc_enum = set(map(lambda x: float(x), doc_enum))
-        elif type_doc == "int":
-            doc_enum = set(map(lambda x: int(x), doc_enum))
-        elif type_doc == "atom":
-            def get_atom(x):
-                if isinstance(x, str) and len(x) > 0 and x[0].isdigit():
-                    return float(x)
-                else:
-                    return x
-
-            doc_enum = set(map(lambda x: get_atom(x), doc_enum))
-
-    if doc_enum != ext_enum:
-        cprint(f"[{ext_name}][{prop}] invalid property enum in doc: {doc_enum}, should be: {ext_enum}", 'magenta')
-        doc_miss = ext_enum - doc_enum
-        if len(doc_miss) > 0:
-            cprint(f"\t- missing {doc_miss}", 'yellow')
-            x = " ".join(map(str, sorted(list(doc_miss))))
-            cprint(f"\t  add to doc: enum=\"{x}\"", 'white')
-
-        doc_invalid = doc_enum - ext_enum
-        if len(doc_invalid) > 0:
-            cprint(f"\t- invalid {doc_invalid}", 'yellow')
+    check_enum(name, prop, doc, ext)
 
     # check types
     type_doc = doc.get("type", None)
@@ -485,7 +527,9 @@ if __name__ == '__main__':
 
     cprint(f"checking [{ext_name}] ...", "blue")
 
-    root = etree.fromstring(xml.encode())
+    doc = etree.parse(pddoc_path)
+    doc.xinclude()
+    root = doc.getroot()
 
     doc_methods_set = set()
     doc_props_set = set()
@@ -494,6 +538,7 @@ if __name__ == '__main__':
     doc_aliases = set()
     doc_inlets = None
     doc_outlets = None
+    doc_mouse = set()
 
     if not read_ext_info(ext_name):
         sys.exit(1)
@@ -516,6 +561,14 @@ if __name__ == '__main__':
                 if z is not None and len(z) > 0:
                     doc_outlets = z
 
+            if x.tag == "mouse":
+                if not has_mouse_methods():
+                    cprint(f"[{ext_name}] unknown mouse events in doc", 'yellow')
+                else:
+                    for event in x:
+                        if "type" in event.attrib:
+                            doc_mouse.add(event.attrib["type"])
+
             if args.args and x.tag == "arguments":
                 for a in x:
                     if a.tag != "argument":
@@ -526,9 +579,9 @@ if __name__ == '__main__':
                     if "units" in a.attrib:
                         doc_args_dict[name]["units"] = a.attrib["units"]
                     if "minvalue" in a.attrib:
-                        doc_args_dict[name]["min"] = float(a.attrib["minvalue"])
+                        doc_args_dict[name]["min"] = pddoc_float(a.attrib["minvalue"])
                     if "maxvalue" in a.attrib:
-                        doc_args_dict[name]["max"] = float(a.attrib["maxvalue"])
+                        doc_args_dict[name]["max"] = pddoc_float(a.attrib["maxvalue"])
                     if "enum" in a.attrib:
                         doc_args_dict[name]["enum"] = a.attrib["enum"]
 
@@ -577,6 +630,9 @@ if __name__ == '__main__':
 
     if args.props:
         check_props(ext_name, doc_props_dict, EXT_PROPS_DICT)
+
+    if "click" in EXT_METHODS and len(doc_mouse) == 0:
+        cprint(f"[{ext_name}] no mouse event documentation", 'magenta')
 
     if False:
         HAVE_PDDOC = -1

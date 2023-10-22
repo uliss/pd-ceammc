@@ -37,4 +37,8 @@ void setup_string_length()
     ObjectFactory<StringLength> obj("string.length");
     obj.processData<DataTypeString>();
     obj.addAlias("str.length");
+
+    obj.setDescription("number of characters in string (unicode supported)");
+    obj.setCategory("string");
+    obj.setKeywords({"string", "length"});
 }

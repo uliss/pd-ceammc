@@ -16,4 +16,8 @@ public:
 void setup_flt_c_highshelf_tilde()
 {
     SoundExternalFactory<FltCHighShelf> obj("flt.c_highshelf~", OBJECT_FACTORY_DEFAULT);
+
+    obj.setDescription("Highshelf filter coefficient calculator for biquad");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "highshelf"});
 }

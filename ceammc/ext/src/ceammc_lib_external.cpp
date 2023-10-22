@@ -37,7 +37,7 @@ inline int int_version(int maj, int min, int fix)
 void ceammc_info_message()
 {
     post("\nCEAMMC library\n"
-         "       Centre for Electroacoustic Music Moscow Conservatory, © 2016-2022\n"
+         "       Centre for Electroacoustic Music Moscow Conservatory, © 2016-2023\n"
          "       authors: Serge Poltavsky and Alex Nadzharov\n"
          "       arch: %d-bit\n"
          "       precision: %s\n"
@@ -45,9 +45,9 @@ void ceammc_info_message()
          "       version: %s\n"
          "       url: %s\n"
 #ifdef PD_INSTANCE
-         "        pd instance: true\n"
+         "       pd instance: true\n"
 #else
-         "        pd instance: false\n"
+         "       pd instance: false\n"
 #endif
          "       license: GPL-3\n"
          "       build date: '%s'\n",
@@ -99,6 +99,20 @@ void ceammc_bang(t_object* x)
     endpost();
 }
 
+void ceammc_keypress(t_object* x, t_symbol* s, int argc, t_atom* argv)
+{
+    auto sym = gensym("#ceammc_keypress");
+    if (sym->s_thing)
+        pd_list(sym->s_thing, s, argc, argv);
+}
+
+void ceammc_keyrelease(t_object* x, t_symbol* s, int argc, t_atom* argv)
+{
+    auto sym = gensym("#ceammc_keyrelease");
+    if (sym->s_thing)
+        pd_list(sym->s_thing, s, argc, argv);
+}
+
 void ceammc_postscript(t_object* x, t_symbol* path)
 {
     post("ceammc_postscript: %s", path->s_name);
@@ -147,6 +161,10 @@ extern "C" CEAMMC_EXTERN void ceammc_setup()
         sizeof(t_object), CLASS_DEFAULT, A_NULL);
 
     class_addbang(ceammc_class, reinterpret_cast<t_method>(ceammc_bang));
+    class_addmethod(ceammc_class,
+        reinterpret_cast<t_method>(ceammc_keypress), gensym("keypress"), A_GIMME, 0);
+    class_addmethod(ceammc_class,
+        reinterpret_cast<t_method>(ceammc_keyrelease), gensym("keyrelease"), A_GIMME, 0);
     class_addmethod(ceammc_class,
         reinterpret_cast<t_method>(ceammc_postscript), gensym("postscript"), A_DEFSYMBOL, 0);
     class_addmethod(ceammc_class,

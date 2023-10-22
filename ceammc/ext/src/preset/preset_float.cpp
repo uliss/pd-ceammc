@@ -1,5 +1,6 @@
 #include "preset_float.h"
 #include "ceammc_factory.h"
+#include "ceammc_preset.h"
 #include "preset_iface.h"
 
 PresetFloat::PresetFloat(const PdArgs& args)
@@ -12,6 +13,9 @@ PresetFloat::PresetFloat(const PdArgs& args)
     init_->setArgIndex(1);
     init_->setInitOnly();
     addProperty(init_);
+
+    addTableColumn({ "#", true });
+    addTableColumn(TableColumnParam { "value", false, 24 }.alignRight());
 }
 
 void PresetFloat::initDone()
@@ -36,8 +40,23 @@ void PresetFloat::storeAt(size_t idx)
     storeFloat(current_value_, idx);
 }
 
+AtomList PresetFloat::editorPresetValue(size_t idx) const
+{
+    return Atom(PresetStorage::instance().floatValueAt(presetPath(), idx, 0));
+}
+
+bool PresetFloat::setEditorPreset(size_t idx, const AtomListView& lv)
+{
+    if (!lv.isFloat())
+        return false;
+
+    return PresetStorage::instance().setFloatValueAt(presetPath(), idx, lv.asFloat());
+}
+
 void setup_preset_float()
 {
     PresetIFaceFactory<PresetFloat> obj("preset.float");
     obj.addAlias("preset.f");
+
+    PresetFloat::factoryTableObjectInit(obj);
 }

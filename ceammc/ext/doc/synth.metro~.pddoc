@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="synth.metro~">
+        <title>synth.metro~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>ready to use metronome synth</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>synth</category>
+            <keywords>metro poly rhythm</keywords>
+            <since>0.9.7</since>
+        </meta>
+        <arguments>
+            <argument name="TEMPO" type="symbol" units="bpm">tempo in beats per minute</argument>
+            <argument name="TSIG" type="symbol">time signature</argument>
+        </arguments>
+        <properties>
+            <property name="@tempo" type="symbol" default="60|4bpm" units="bpm">tempo. If beat
+            division is ommitted, using 1/4</property>
+            <property name="@tsig" type="symbol" default="|4/4|">metronome time signature, can be
+            complex like: |1/4+15/16| etc.</property>
+            <property name="@gain" type="float" default="0" minvalue="-12" maxvalue="12"
+            units="decibel">common synth gain</property>
+            <!-- gains -->
+            <property name="@down.gain" type="float" default="6" minvalue="-12" maxvalue="12"
+            units="decibel">downbeat gain</property>
+            <property name="@on.gain" type="float" default="6" minvalue="-12" maxvalue="12"
+            units="decibel">on-beat gain</property>
+            <property name="@off.gain" type="float" default="6" minvalue="-12" maxvalue="12"
+            units="decibel">off-beat gain</property>
+            <property name="@mark.gain" type="float" default="6" minvalue="-12" maxvalue="12"
+            units="decibel">mark sound gain</property>
+            <!-- freq -->
+            <property name="@down.freq" type="float" default="1500" minvalue="100" maxvalue="5000"
+            units="hertz">downbeat frequency</property>
+            <property name="@on.freq" type="float" default="1000" minvalue="100" maxvalue="5000"
+            units="hertz">on-beat frequency</property>
+            <property name="@off.freq" type="float" default="500" minvalue="100" maxvalue="5000"
+            units="hertz">off-beat frequency</property>
+            <property name="@mark.freq" type="float" default="2000" minvalue="100" maxvalue="5000"
+            units="hertz">mark sound frequency</property>
+            <!-- reson -->
+            <property name="@down.reson" type="float" default="50" minvalue="5" maxvalue="100">
+            downbeat resonance value (Q)</property>
+            <property name="@on.reson" type="float" default="30" minvalue="5" maxvalue="100">
+            on-beat resonance value (Q)</property>
+            <property name="@off.reson" type="float" default="10" minvalue="5" maxvalue="100">
+            off-beat resonance value (Q)</property>
+            <property name="@mark.reson" type="float" default="500" minvalue="5" maxvalue="500">
+            mark sound resonance value (Q)</property>
+            <!-- -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+        </properties>
+        <methods>
+            <!-- down -->
+            <method name="down">manually play downbeat sound</method>
+            <method name="on">manually play onbeat sound</method>
+            <method name="off">manually play offbeat sound</method>
+            <method name="mark">manually play mark sound</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="float">1: start, 0: stop metronome</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="int">1: play downbeat, 2: play on-beat, 3: play off-beat</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set tempo in 1/4 per minute</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">synth output</outlet>
+            <outlet type="control">current beat: 1: downbeat, 2: onbeat, 3: offbeat, 4:
+            mark</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T] [down #a( [on #b( [off #c( [mark #d(
+|
+|   [F]
+|   |
+|   [@tempo $1( [1( [2( [3( [4(     [F]
+|   |           | .  |.  |.  |.     |..
+[synth.metro~ 120|8bpm |5/4+3/16| #z  ]
+|                          ^|
+[ui.hgain~]                [print BEAT]
+|\
+[dac~]
+
+[X a->z] [X b->z] [X c->z] [X d->z]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -29,6 +29,8 @@
 #include "class_method.h"
 #include "class_static_method.h"
 
+#include "ceammc_factory.h"
+
 // helper macro
 #define SINGLE_ARG(...) __VA_ARGS__
 

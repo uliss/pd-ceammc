@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="metro.random">
         <title>metro.random</title>
         <meta>
@@ -21,23 +21,28 @@
             <par>Random distribution: uniform</par>
         </info>
         <arguments>
-            <argument name="MIN" units="millisecond" minvalue="1" type="int">minimal bang
+            <argument name="MIN" type="int" units="millisecond" minvalue="1">minimal bang
             interval</argument>
-            <argument name="MAX" units="millisecond" minvalue="1" type="int">maximum bang
+            <argument name="MAX" type="int" units="millisecond" minvalue="1">maximum bang
             interval</argument>
         </arguments>
         <properties>
-            <property name="@min" units="millisecond" minvalue="1" type="int" default="100">minimal
+            <property name="@min" type="int" units="millisecond" minvalue="1" default="100">minimal
             bang interval</property>
-            <property name="@max" units="millisecond" minvalue="1" type="int" default="200">maximum
+            <property name="@max" type="int" units="millisecond" minvalue="1" default="200">maximum
             bang interval</property>
+            <property name="@seed" type="int" minvalue="0" default="0">generator seed</property>
         </properties>
         <inlets>
             <inlet>
                 <xinfo on="float">starts (on &gt; 0) or stops (on &lt;= 0) metro</xinfo>
             </inlet>
             <inlet>
+                <xinfo on="float">set @min property</xinfo>
                 <xinfo on="list">set random range. min max pair expected.</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set @max property</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -47,6 +52,8 @@
             <pdascii>
 <![CDATA[
 [T]  [ui.rsl @min 50 @max 1000]
+|    |
+|    |
 |    |.
 [metro.random 100 140]
 |

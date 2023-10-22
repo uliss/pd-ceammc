@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="proto.xtouch_ext">
         <title>proto.xtouch_ext</title>
         <meta>
@@ -16,145 +16,6 @@
         <info>
             <par>Behringer XTouch Extender XMidi</par>
         </info>
-        <methods>
-            <method name="lcd">set LCD text 
-            <param name="CHAN" type="int" required="true" minvalue="0">channel index, max value is
-            NUM_SCENES * 8</param>
-            <param name="UPPER" type="atom" required="true">upper display text</param>
-            <param name="LOWER" type="atom" required="true">lower display text</param></method>
-            <method name="lcd0">set upper LCD text 
-            <param name="CHAN" type="int" required="true" minvalue="0">channel index, max value is
-            NUM_SCENES * 8</param>
-            <param name="STR" type="list" required="true">upper display text</param></method>
-            <method name="lcd1">set lower LCD text 
-            <param name="CHAN" type="int" required="true" minvalue="0">channel index, max value is
-            NUM_SCENES * 8</param>
-            <param name="STR" type="list" required="true">lower display text</param></method>
-            <method name="ulcd">set several upper LCD text 
-            <param name="CHAN" type="int" required="true" minvalue="0">channel index, max value is
-            NUM_SCENES * 8</param>
-            <param name="ATOMS" type="list" required="true">upper display texts, each atom per
-            display</param></method>
-            <method name="llcd">set several lower LCD text 
-            <param name="CHAN" type="int" required="true" minvalue="0">channel index, max value is
-            NUM_SCENES * 8</param>
-            <param name="ATOMS" type="list" required="true">lower display texts, each atom per
-            display</param></method>
-            <!-- lcd align -->
-            <method name="lcd_align">set all texts alignment. Note: you should set this before
-            setting upper display text 
-            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
-            value is NUM_SCENES * 8</param>
-            <param name="ALIGN" type="list" required="true">align name. Valid names are: left,
-            right, center, justify and auto</param></method>
-            <method name="lcd_align0">set upper text alignment. Note: you should set this before
-            setting upper display text 
-            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
-            value is NUM_SCENES * 8</param>
-            <param name="ALIGN" type="list" required="true">align name. Valid names are: left,
-            right, center, justify and auto</param></method>
-            <method name="lcd_align1">set lower text alignment. Note: you should set this before
-            setting lower display text 
-            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
-            value is NUM_SCENES * 8</param>
-            <param name="ALIGN" type="list" required="true">align name. Valid names are: left,
-            right, center, justify and auto</param></method>
-            <!-- lcd mode -->
-            <method name="lcd_mode">set lcd background/highlight mode. 
-            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
-            value is NUM_SCENES * 8</param>
-            <param name="MODE" type="list" required="true">mod values. 0: display is inverted, 1:
-            upper is inverted, 2: lower is inverted, 3: none in inverted</param></method>
-            <!-- lcd color -->
-            <method name="lcd_color">set display color 
-            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
-            value is NUM_SCENES * 8</param>
-            <param name="COLOR" type="list" required="true">list of color name or color indexes.
-            Valid color names are: black, red, green, blue, yellow, magenta, cyan, white and
-            random. Valid color indexes are in 0..7 range</param></method>
-            <method name="lcd_enum0">set all upper display text with incremental enumeration 
-            <param name="PREFIX" type="atom">name prefix</param></method>
-            <method name="lcd_enum1">set all lower display text with incremental enumeration 
-            <param name="PREFIX" type="atom">name prefix</param></method>
-            <!-- rec -->
-            <method name="rec">set rec buttons 
-            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
-            value is NUM_SCENES * 8</param>
-            <param name="X" type="list" required="true">button value(s)</param></method>
-            <method name="rec?">get rec button, output to second outlet in format [rec? IDX VALUE( 
-            <param name="CHAN" type="atom" required="true">channel index, max value is NUM_SCENES *
-            8</param></method>
-            <!-- solo -->
-            <method name="solo">set solo buttons 
-            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
-            value is NUM_SCENES * 8</param>
-            <param name="X" type="list" required="true">button value(s)</param></method>
-            <method name="solo?">get solo button, output to second outlet in format [solo? IDX
-            VALUE( 
-            <param name="CHAN" type="atom" required="true">channel index, max value is NUM_SCENES *
-            8</param></method>
-            <!-- mute -->
-            <method name="mute">set mute buttons 
-            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
-            value is NUM_SCENES * 8</param>
-            <param name="X" type="list" required="true">button value(s)</param></method>
-            <method name="mute?">get mute button, output to second outlet in format [mute? IDX
-            VALUE( 
-            <param name="CHAN" type="atom" required="true">channel index, max value is NUM_SCENES *
-            8</param></method>
-            <!-- select -->
-            <method name="select">set select buttons 
-            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
-            value is NUM_SCENES * 8</param>
-            <param name="X" type="list" required="true">button value(s)</param></method>
-            <method name="select?">get select button, output to second outlet in format [select?
-            IDX VALUE( 
-            <param name="CHAN" type="atom" required="true">channel index, max value is NUM_SCENES *
-            8</param></method>
-            <!-- fader -->
-            <method name="fader">set fader value 
-            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
-            value is NUM_SCENES * 8</param>
-            <param name="X" type="list" required="true">fader value(s)</param></method>
-            <method name="fader?">get fader value, output to second outlet in format [fader? IDX
-            VALUE( 
-            <param name="CHAN" type="atom" required="true">channel index, max value is NUM_SCENES *
-            8</param></method>
-            <!-- knob -->
-            <method name="knob">set knob value 
-            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
-            value is NUM_SCENES * 8</param>
-            <param name="X" type="list" required="true">fader value(s)</param></method>
-            <method name="knob?">get knob value, output to second outlet in format [knob? IDX
-            VALUE( 
-            <param name="CHAN" type="atom" required="true">channel index, max value is NUM_SCENES *
-            8</param></method>
-            <!-- modes -->
-            <method name="rec_mode">set rec buttons toggle mode 
-            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
-            value is NUM_SCENES * 8</param>
-            <param name="X" type="list" required="true">values list: -1, 0 or 1</param></method>
-            <method name="solo_mode">set solo buttons toggle mode 
-            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
-            value is NUM_SCENES * 8</param>
-            <param name="X" type="list" required="true">values list: -1, 0 or 1</param></method>
-            <method name="mute_mode">set mute buttons toggle mode 
-            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
-            value is NUM_SCENES * 8</param>
-            <param name="X" type="list" required="true">values list: -1, 0 or 1</param></method>
-            <method name="select_mode">set select buttons toggle mode 
-            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
-            value is NUM_SCENES * 8</param>
-            <param name="X" type="list" required="true">values list: -1, 0 or 1</param></method>
-            <!-- VU -->
-            <method name="vu">set VU meter indicator 
-            <param name="CHAN" type="int" required="true" minvalue="0">channel index, max value is
-            NUM_SCENES * 8</param>
-            <param name="DB" type="float" required="true">level in decibels, in -144..0
-            range</param></method>
-            <method name="reset">reset all knobs, faders and buttons to 0, vu to lowest values. Do
-            not change display texts</method>
-        </methods>
         <arguments>
             <argument name="PROTO" type="symbol" enum="hui mcu xmidi">connection
             protocol</argument>
@@ -166,6 +27,164 @@
             <property name="@proto" type="symbol" default="xmidi" enum="hui mcu xmidi">connection
             protocol</property>
         </properties>
+        <methods>
+            <!-- fader -->
+            <method name="fader">set fader value 
+            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
+            value is NUM_SCENES * 8</param>
+            <param name="X" type="list" required="true">fader value(s)</param></method>
+            <!-- fader? -->
+            <method name="fader?">get fader value, output to second outlet in format [fader? IDX
+            VALUE( 
+            <param name="CHAN" type="atom" required="true">channel index, max value is NUM_SCENES *
+            8</param></method>
+            <!-- knob -->
+            <method name="knob">set knob value 
+            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
+            value is NUM_SCENES * 8</param>
+            <param name="X" type="list" required="true">fader value(s)</param></method>
+            <!-- knob? -->
+            <method name="knob?">get knob value, output to second outlet in format [knob? IDX
+            VALUE( 
+            <param name="CHAN" type="atom" required="true">channel index, max value is NUM_SCENES *
+            8</param></method>
+            <!-- lcd -->
+            <method name="lcd">set LCD text 
+            <param name="CHAN" type="int" required="true" minvalue="0">channel index, max value is
+            NUM_SCENES * 8</param>
+            <param name="UPPER" type="atom" required="true">upper display text</param>
+            <param name="LOWER" type="atom" required="true">lower display text</param></method>
+            <!-- lcd0 -->
+            <method name="lcd0">set upper LCD text 
+            <param name="CHAN" type="int" required="true" minvalue="0">channel index, max value is
+            NUM_SCENES * 8</param>
+            <param name="STR" type="list" required="true">upper display text</param></method>
+            <!-- lcd1 -->
+            <method name="lcd1">set lower LCD text 
+            <param name="CHAN" type="int" required="true" minvalue="0">channel index, max value is
+            NUM_SCENES * 8</param>
+            <param name="STR" type="list" required="true">lower display text</param></method>
+            <!-- lcd_align -->
+            <method name="lcd_align">set all texts alignment. Note: you should set this before
+            setting upper display text 
+            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
+            value is NUM_SCENES * 8</param>
+            <param name="ALIGN" type="list" required="true">align name. Valid names are: left,
+            right, center, justify and auto</param></method>
+            <!-- lcd_align0 -->
+            <method name="lcd_align0">set upper text alignment. Note: you should set this before
+            setting upper display text 
+            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
+            value is NUM_SCENES * 8</param>
+            <param name="ALIGN" type="list" required="true">align name. Valid names are: left,
+            right, center, justify and auto</param></method>
+            <!-- lcd_align1 -->
+            <method name="lcd_align1">set lower text alignment. Note: you should set this before
+            setting lower display text 
+            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
+            value is NUM_SCENES * 8</param>
+            <param name="ALIGN" type="list" required="true">align name. Valid names are: left,
+            right, center, justify and auto</param></method>
+            <!-- lcd_color -->
+            <method name="lcd_color">set display color 
+            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
+            value is NUM_SCENES * 8</param>
+            <param name="COLOR" type="list" required="true">list of color name or color indexes.
+            Valid color names are: black, red, green, blue, yellow, magenta, cyan, white and
+            random. Valid color indexes are in 0..7 range</param></method>
+            <!-- lcd_enum0 -->
+            <method name="lcd_enum0">set all upper display text with incremental enumeration 
+            <param name="PREFIX" type="atom">name prefix</param></method>
+            <!-- lcd_enum1 -->
+            <method name="lcd_enum1">set all lower display text with incremental enumeration 
+            <param name="PREFIX" type="atom">name prefix</param></method>
+            <!-- lcd_mode -->
+            <method name="lcd_mode">set lcd background/highlight mode. 
+            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
+            value is NUM_SCENES * 8</param>
+            <param name="MODE" type="list" required="true">mod values. 0: display is inverted, 1:
+            upper is inverted, 2: lower is inverted, 3: none in inverted</param></method>
+            <!-- llcd -->
+            <method name="llcd">set several lower LCD text 
+            <param name="CHAN" type="int" required="true" minvalue="0">channel index, max value is
+            NUM_SCENES * 8</param>
+            <param name="ATOMS" type="list" required="true">lower display texts, each atom per
+            display</param></method>
+            <!-- mute -->
+            <method name="mute">set mute buttons 
+            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
+            value is NUM_SCENES * 8</param>
+            <param name="X" type="list" required="true">button value(s)</param></method>
+            <!-- mute? -->
+            <method name="mute?">get mute button, output to second outlet in format [mute? IDX
+            VALUE( 
+            <param name="CHAN" type="atom" required="true">channel index, max value is NUM_SCENES *
+            8</param></method>
+            <!-- mute_mode -->
+            <method name="mute_mode">set mute buttons toggle mode 
+            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
+            value is NUM_SCENES * 8</param>
+            <param name="X" type="list" required="true">values list: -1, 0 or 1</param></method>
+            <!-- rec -->
+            <method name="rec">set rec buttons 
+            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
+            value is NUM_SCENES * 8</param>
+            <param name="X" type="list" required="true">button value(s)</param></method>
+            <!-- rec? -->
+            <method name="rec?">get rec button, output to second outlet in format [rec? IDX VALUE( 
+            <param name="CHAN" type="atom" required="true">channel index, max value is NUM_SCENES *
+            8</param></method>
+            <!-- rec_mode -->
+            <method name="rec_mode">set rec buttons toggle mode 
+            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
+            value is NUM_SCENES * 8</param>
+            <param name="X" type="list" required="true">values list: -1, 0 or 1</param></method>
+            <!-- reset -->
+            <method name="reset">reset all knobs, faders and buttons to 0, vu to lowest values. Do
+            not change display texts</method>
+            <!-- select -->
+            <method name="select">set select buttons 
+            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
+            value is NUM_SCENES * 8</param>
+            <param name="X" type="list" required="true">button value(s)</param></method>
+            <!-- select? -->
+            <method name="select?">get select button, output to second outlet in format [select?
+            IDX VALUE( 
+            <param name="CHAN" type="atom" required="true">channel index, max value is NUM_SCENES *
+            8</param></method>
+            <!-- select_mode -->
+            <method name="select_mode">set select buttons toggle mode 
+            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
+            value is NUM_SCENES * 8</param>
+            <param name="X" type="list" required="true">values list: -1, 0 or 1</param></method>
+            <!-- solo -->
+            <method name="solo">set solo buttons 
+            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
+            value is NUM_SCENES * 8</param>
+            <param name="X" type="list" required="true">button value(s)</param></method>
+            <!-- solo? -->
+            <method name="solo?">get solo button, output to second outlet in format [solo? IDX
+            VALUE( 
+            <param name="CHAN" type="atom" required="true">channel index, max value is NUM_SCENES *
+            8</param></method>
+            <!-- solo_mode -->
+            <method name="solo_mode">set solo buttons toggle mode 
+            <param name="CHAN" type="atom" required="true">'all', 'scene' or channel index, max
+            value is NUM_SCENES * 8</param>
+            <param name="X" type="list" required="true">values list: -1, 0 or 1</param></method>
+            <!-- ulcd -->
+            <method name="ulcd">set several upper LCD text 
+            <param name="CHAN" type="int" required="true" minvalue="0">channel index, max value is
+            NUM_SCENES * 8</param>
+            <param name="ATOMS" type="list" required="true">upper display texts, each atom per
+            display</param></method>
+            <!-- vu -->
+            <method name="vu">set VU meter indicator 
+            <param name="CHAN" type="int" required="true" minvalue="0">channel index, max value is
+            NUM_SCENES * 8</param>
+            <param name="DB" type="float" required="true">level in decibels, in -144..0
+            range</param></method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="float">raw midi input</xinfo>

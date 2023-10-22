@@ -1,18 +1,11 @@
 add_library(ceammc_net STATIC mod_net.cpp net_host.cpp)
 
-# liblo
-find_package(liblo)
-if(LIBLO_FOUND)
-    target_sources(ceammc_net
+target_sources(ceammc_net
         PRIVATE
         net_osc_send.cpp
         net_osc_server.cpp
         net_osc_receive.cpp
-        osc_property.cpp
-    )
-    target_include_directories(ceammc_net PUBLIC ${LIBLO_INCLUDE_DIRS})
-    target_link_libraries(ceammc_net PUBLIC ${LIBLO_LIBRARIES})
-endif()
+        osc_property.cpp)
 
 # libartnet
 if(WITH_ARTNET)
@@ -20,6 +13,7 @@ if(WITH_ARTNET)
     target_sources(ceammc_net
         PRIVATE
         net_artnet_send.cpp
+        net_artnet_impl.cpp
     )
     target_include_directories(ceammc_net PUBLIC ${PROJECT_SOURCE_DIR}/ceammc/extra/artnet/libartnet)
     target_link_libraries(ceammc_net PUBLIC artnet)

@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "noise.colored"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn noise_colored -scn noise_colored_dsp -es 1 -mcd 16 -single -ftz 0
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn noise_colored -scn noise_colored_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __noise_colored_H__
@@ -367,92 +367,40 @@ class FAUST_API ScopedNoDenormals {
 #endif
 
 /************************** END noise_colored_dsp.h **************************/
-/************************** BEGIN UI.h *****************************
- FAUST Architecture File
- Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
- ---------------------------------------------------------------------
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 2.1 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU Lesser General Public License for more details.
- 
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- 
- EXCEPTION : As a special exception, you may create a larger work
- that contains this FAUST architecture section and distribute
- that work under terms of your choice, so long as this FAUST
- architecture section is not modified.
- ********************************************************************/
+/************************** BEGIN misc.h *******************************
+FAUST Architecture File
+Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+---------------------------------------------------------------------
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 2.1 of the License, or
+(at your option) any later version.
 
-#ifndef __UI_H__
-#define __UI_H__
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
 
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-#ifndef FAUSTFLOAT
-#define FAUSTFLOAT float
-#endif
+EXCEPTION : As a special exception, you may create a larger work
+that contains this FAUST architecture section and distribute
+that work under terms of your choice, so long as this FAUST
+architecture section is not modified.
+***************************************************************************/
 
-/*******************************************************************************
- * UI : Faust DSP User Interface
- * User Interface as expected by the buildUserInterface() method of a DSP.
- * This abstract class contains only the method that the Faust compiler can
- * generate to describe a DSP user interface.
- ******************************************************************************/
+#ifndef __misc__
+#define __misc__
 
-struct Soundfile;
+#include <algorithm>
+#include <map>
+#include <cstdlib>
+#include <string.h>
+#include <fstream>
+#include <string>
 
-template <typename REAL>
-struct FAUST_API UIReal {
-    
-    UIReal() {}
-    virtual ~UIReal() {}
-    
-    // -- widget's layouts
-    
-    virtual void openTabBox(const char* label) = 0;
-    virtual void openHorizontalBox(const char* label) = 0;
-    virtual void openVerticalBox(const char* label) = 0;
-    virtual void closeBox() = 0;
-    
-    // -- active widgets
-    
-    virtual void addButton(const char* label, REAL* zone) = 0;
-    virtual void addCheckButton(const char* label, REAL* zone) = 0;
-    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    
-    // -- passive widgets
-    
-    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    
-    // -- soundfiles
-    
-    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-    
-    // -- metadata declarations
-    
-    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
-
-    // To be used by LLVM client
-    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
-};
-
-struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
-    UI() {}
-    virtual ~UI() {}
-};
-
-#endif
-/**************************  END  UI.h **************************/
 /************************** BEGIN meta.h *******************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
@@ -491,40 +439,6 @@ struct FAUST_API Meta {
 
 #endif
 /**************************  END  meta.h **************************/
-/************************** BEGIN misc.h *******************************
-FAUST Architecture File
-Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
----------------------------------------------------------------------
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-
-EXCEPTION : As a special exception, you may create a larger work
-that contains this FAUST architecture section and distribute
-that work under terms of your choice, so long as this FAUST
-architecture section is not modified.
-***************************************************************************/
-
-#ifndef __misc__
-#define __misc__
-
-#include <algorithm>
-#include <map>
-#include <cstdlib>
-#include <string.h>
-#include <fstream>
-#include <string>
-
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
@@ -668,20 +582,16 @@ class noise_colored : public noise_colored_dsp {
 	float fConst23;
 	float fConst25;
 	float fConst26;
-	float fConst27;
+	float fConst28;
 	float fConst29;
-	float fConst30;
 	float fConst31;
-	float fConst33;
+	float fConst32;
 	float fConst34;
 	float fConst35;
 	float fConst37;
 	float fConst38;
 	float fConst39;
-	float fConst41;
-	float fConst42;
-	float fConst43;
-	float fConst44;
+	float fConst40;
 	int iRec13[2];
 	float fVec0[2];
 	float fRec12[2];
@@ -689,12 +599,16 @@ class noise_colored : public noise_colored_dsp {
 	float fVec1[2];
 	float fRec10[2];
 	float fVec2[2];
+	float fConst41;
 	float fRec9[2];
 	float fVec3[2];
+	float fConst42;
 	float fRec8[2];
 	float fVec4[2];
+	float fConst43;
 	float fRec7[2];
 	float fVec5[2];
+	float fConst44;
 	float fRec6[2];
 	float fVec6[2];
 	float fConst45;
@@ -720,12 +634,12 @@ class noise_colored : public noise_colored_dsp {
 	void metadata(Meta* m) { 
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.8");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn noise_colored -scn noise_colored_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn noise_colored -scn noise_colored_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("filename", "noise_colored.dsp");
 		m->declare("filters.lib/dcblocker:author", "Julius O. Smith III");
 		m->declare("filters.lib/dcblocker:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/dcblocker:license", "MIT-style STK-4.3 license");
-		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/name", "Faust Filters Library");
 		m->declare("filters.lib/pole:author", "Julius O. Smith III");
 		m->declare("filters.lib/pole:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -796,25 +710,25 @@ class noise_colored : public noise_colored_dsp {
 		fConst23 = std::tan(1451.4973f / fConst0);
 		float fConst24 = 125.663704f * (fConst23 / fConst4);
 		fConst25 = 1.0f / (fConst3 + fConst24);
-		fConst26 = fConst24 - fConst3;
-		fConst27 = std::tan(774.6204f / fConst0);
-		float fConst28 = 125.663704f * (fConst27 / fConst4);
-		fConst29 = 1.0f / (fConst3 + fConst28);
-		fConst30 = fConst28 - fConst3;
-		fConst31 = std::tan(413.39163f / fConst0);
-		float fConst32 = 125.663704f * (fConst31 / fConst4);
-		fConst33 = 1.0f / (fConst3 + fConst32);
-		fConst34 = fConst32 - fConst3;
-		fConst35 = std::tan(220.61469f / fConst0);
+		fConst26 = std::tan(774.6204f / fConst0);
+		float fConst27 = 125.663704f * (fConst26 / fConst4);
+		fConst28 = 1.0f / (fConst3 + fConst27);
+		fConst29 = std::tan(413.39163f / fConst0);
+		float fConst30 = 125.663704f * (fConst29 / fConst4);
+		fConst31 = 1.0f / (fConst3 + fConst30);
+		fConst32 = std::tan(220.61469f / fConst0);
+		float fConst33 = 125.663704f * (fConst32 / fConst4);
+		fConst34 = 1.0f / (fConst3 + fConst33);
+		fConst35 = std::tan(117.73542f / fConst0);
 		float fConst36 = 125.663704f * (fConst35 / fConst4);
 		fConst37 = 1.0f / (fConst3 + fConst36);
 		fConst38 = fConst36 - fConst3;
-		fConst39 = std::tan(117.73542f / fConst0);
-		float fConst40 = 125.663704f * (fConst39 / fConst4);
-		fConst41 = 1.0f / (fConst3 + fConst40);
-		fConst42 = fConst40 - fConst3;
-		fConst43 = 1.0f / (fConst3 + 125.663704f);
-		fConst44 = 125.663704f - fConst3;
+		fConst39 = 1.0f / (fConst3 + 125.663704f);
+		fConst40 = 125.663704f - fConst3;
+		fConst41 = fConst33 - fConst3;
+		fConst42 = fConst30 - fConst3;
+		fConst43 = fConst27 - fConst3;
+		fConst44 = fConst24 - fConst3;
 		fConst45 = fConst21 - fConst3;
 		fConst46 = fConst18 - fConst3;
 		fConst47 = fConst15 - fConst3;
@@ -957,16 +871,16 @@ class noise_colored : public noise_colored_dsp {
 		float fSlow20 = fConst23 * ((fConst3 + fSlow18) / fSlow19);
 		float fSlow21 = fConst8 * fSlow19;
 		float fSlow22 = std::tan(fConst2 * std::pow(1.8738174f, 4.0f - fSlow0));
-		float fSlow23 = fConst27 * ((fConst3 + fSlow21) / fSlow22);
+		float fSlow23 = fConst26 * ((fConst3 + fSlow21) / fSlow22);
 		float fSlow24 = fConst8 * fSlow22;
 		float fSlow25 = std::tan(fConst2 * std::pow(1.8738174f, 3.0f - fSlow0));
-		float fSlow26 = fConst31 * ((fConst3 + fSlow24) / fSlow25);
+		float fSlow26 = fConst29 * ((fConst3 + fSlow24) / fSlow25);
 		float fSlow27 = fConst8 * fSlow25;
 		float fSlow28 = std::tan(fConst2 * std::pow(1.8738174f, 2.0f - fSlow0));
-		float fSlow29 = fConst35 * ((fConst3 + fSlow27) / fSlow28);
+		float fSlow29 = fConst32 * ((fConst3 + fSlow27) / fSlow28);
 		float fSlow30 = fConst8 * fSlow28;
 		float fSlow31 = std::tan(fConst2 * std::pow(1.8738174f, 1.0f - fSlow0));
-		float fSlow32 = fConst39 * ((fConst3 + fSlow30) / fSlow31);
+		float fSlow32 = fConst35 * ((fConst3 + fSlow30) / fSlow31);
 		float fSlow33 = fConst8 * fSlow31;
 		float fSlow34 = std::tan(fConst2 * std::pow(1.8738174f, -1.0f * fSlow0));
 		float fSlow35 = fConst4 * ((fConst3 + fSlow33) / fSlow34);
@@ -976,13 +890,13 @@ class noise_colored : public noise_colored_dsp {
 		float fSlow39 = fSlow33 - fConst3;
 		float fSlow40 = fConst4 / fSlow34;
 		float fSlow41 = fSlow30 - fConst3;
-		float fSlow42 = fConst39 / fSlow31;
+		float fSlow42 = fConst35 / fSlow31;
 		float fSlow43 = fSlow27 - fConst3;
-		float fSlow44 = fConst35 / fSlow28;
+		float fSlow44 = fConst32 / fSlow28;
 		float fSlow45 = fSlow24 - fConst3;
-		float fSlow46 = fConst31 / fSlow25;
+		float fSlow46 = fConst29 / fSlow25;
 		float fSlow47 = fSlow21 - fConst3;
-		float fSlow48 = fConst27 / fSlow22;
+		float fSlow48 = fConst26 / fSlow22;
 		float fSlow49 = fSlow18 - fConst3;
 		float fSlow50 = fConst23 / fSlow19;
 		float fSlow51 = fSlow15 - fConst3;
@@ -1003,17 +917,17 @@ class noise_colored : public noise_colored_dsp {
 			float fTemp0 = float(iRec13[0]);
 			fVec0[0] = fTemp0;
 			fRec12[0] = 0.995f * fRec12[1] + 4.656613e-10f * (fTemp0 - fVec0[1]);
-			fRec11[0] = 0.0f - fConst43 * (fConst44 * fRec11[1] - (fSlow37 * fRec12[0] + fSlow38 * fRec12[1]));
+			fRec11[0] = 0.0f - fConst39 * (fConst40 * fRec11[1] - (fSlow37 * fRec12[0] + fSlow38 * fRec12[1]));
 			fVec1[0] = fSlow40 * fRec11[0];
-			fRec10[0] = 0.0f - fConst41 * (fConst42 * fRec10[1] - (fSlow35 * fRec11[0] + fSlow39 * fVec1[1]));
+			fRec10[0] = 0.0f - fConst37 * (fConst38 * fRec10[1] - (fSlow35 * fRec11[0] + fSlow39 * fVec1[1]));
 			fVec2[0] = fSlow42 * fRec10[0];
-			fRec9[0] = 0.0f - fConst37 * (fConst38 * fRec9[1] - (fSlow32 * fRec10[0] + fSlow41 * fVec2[1]));
+			fRec9[0] = fConst34 * (fSlow32 * fRec10[0] + fSlow41 * fVec2[1] - fConst41 * fRec9[1]);
 			fVec3[0] = fSlow44 * fRec9[0];
-			fRec8[0] = 0.0f - fConst33 * (fConst34 * fRec8[1] - (fSlow29 * fRec9[0] + fSlow43 * fVec3[1]));
+			fRec8[0] = fConst31 * (fSlow29 * fRec9[0] + fSlow43 * fVec3[1] - fConst42 * fRec8[1]);
 			fVec4[0] = fSlow46 * fRec8[0];
-			fRec7[0] = 0.0f - fConst29 * (fConst30 * fRec7[1] - (fSlow26 * fRec8[0] + fSlow45 * fVec4[1]));
+			fRec7[0] = fConst28 * (fSlow26 * fRec8[0] + fSlow45 * fVec4[1] - fConst43 * fRec7[1]);
 			fVec5[0] = fSlow48 * fRec7[0];
-			fRec6[0] = 0.0f - fConst25 * (fConst26 * fRec6[1] - (fSlow23 * fRec7[0] + fSlow47 * fVec5[1]));
+			fRec6[0] = fConst25 * (fSlow23 * fRec7[0] + fSlow47 * fVec5[1] - fConst44 * fRec6[1]);
 			fVec6[0] = fSlow50 * fRec6[0];
 			fRec5[0] = fConst22 * (fSlow20 * fRec6[0] + fSlow49 * fVec6[1] - fConst45 * fRec5[1]);
 			fVec7[0] = fSlow52 * fRec5[0];
@@ -1057,23 +971,12 @@ class noise_colored : public noise_colored_dsp {
 	}
 
 };
-// clang-format on
 #endif
 
-    template <class T>
-    struct _noise_colored_UI : public UI {
-    static std::string name;
-};
-
-template <class T>
-std::string _noise_colored_UI<T>::name(sym(noise_colored));
-
-typedef _noise_colored_UI<noise_colored> noise_colored_UI;
-
-class faust_noise_colored_tilde : public FaustExternal<noise_colored, noise_colored_UI> {
+class faust_noise_colored_tilde : public FaustExternal<noise_colored> {
 public:
     faust_noise_colored_tilde(const ceammc::PdArgs& args)
-        : FaustExternal(args)
+        : FaustExternal(args, sym(noise_colored))
     {
     }
 };

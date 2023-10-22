@@ -16,15 +16,18 @@
 
 #include "ceammc_array.h"
 #include "ceammc_atomlist.h"
+#include "ceammc_geom.h"
 #include "ceammc_pd.h"
 
 #include <functional>
+#include <iosfwd>
 #include <map>
 #include <memory>
 #include <string>
 
 struct _glist;
 struct _text;
+struct _canvasenvironment;
 typedef struct _text t_object;
 
 namespace ceammc {
@@ -77,6 +80,15 @@ bool canvas_info_is_root(const _glist* c);
 const _glist* canvas_root(const _glist* c);
 
 /**
+ * Returns parent canvas for given
+ * @param c - pointer to canvas
+ * @param level - netsted level, 0 for root canvas, >0 for subpatches
+ * @param breakOnAbs - if true: break on abstraction top level
+ * @return NULL on error
+ */
+const _glist* canvas_root(const _glist* c, int& level, bool breakOnAbs);
+
+/**
  * Checks if given canvas is abstraction
  * @param c - pointer to canvas
  */
@@ -88,8 +100,13 @@ bool canvas_info_is_abstraction(const _glist* c);
  */
 bool canvas_info_is_dirty(const _glist* c);
 
+/**
+ * Return canvas zoom or 0 on error
+ */
+int canvas_info_zoom(const _glist* c);
+
 AtomList canvas_info_paths(const _glist* c);
-AtomList canvas_info_args(const _glist* c);
+AtomListView canvas_info_args(const _glist* c);
 
 /**
  * Returns canvas name or empty symbol (not NULL!) on error
@@ -110,24 +127,32 @@ t_symbol* canvas_info_dir(const _glist* c);
  */
 int canvas_info_font(const _glist* c);
 
-struct t_rect {
-    int x, y, w, h;
-    t_rect(int x_, int y_, int w_, int h_)
-        : x(x_)
-        , y(y_)
-        , w(w_)
-        , h(h_)
-    {
-    }
-
-    bool operator==(const t_rect& r) const { return x == r.x && y == r.y && w == r.w && h == r.h; }
-};
+int canvas_info_dollarzero(const _glist* c);
 
 /**
- * Returns canvas rect, for root canvas - windows, for others - GOP
+ * mark/unmark canvas dirty (show changes in canvas window)
+ * @param c - canvas pointer
+ * @param value
+ */
+void canvas_mark_dirty(_glist* c, bool value = true);
+
+bool canvas_set_current(const _glist* c);
+bool canvas_unset_current(const _glist* c);
+_canvasenvironment* canvas_get_env(const _glist* c);
+t_symbol* canvas_expand_dollar(const _glist* c, t_symbol* s, bool check);
+void canvas_send_bang(_glist* c);
+
+/**
+ * Returns canvas rect, for root canvas and abstractions - window rect, for others - GOP
  * @param c - pointer to canvas
  */
 t_rect canvas_info_rect(const _glist* c);
+
+/**
+ * Returns GOP (graph-on-parent) rectangle
+ * @param c - pointer to canvas
+ */
+t_rect canvas_info_gop_rect(const _glist* c);
 
 using CanvasClassPredicate = std::function<bool(const _glist*, const t_object*)>;
 /**
@@ -143,6 +168,18 @@ std::unique_ptr<pd::CanvasTree> canvas_info_tree(const _glist* c, CanvasClassPre
  * @return vector of pointers
  */
 std::vector<t_object*> canvas_find(const _glist* c, CanvasClassPredicate pred);
+
+/**
+ * iterate over all canvas items
+ */
+void canvas_foreach(const _glist* c, std::function<void(t_gobj*, const t_class*)> fn);
+
+/**
+ * find canvas last object
+ */
+t_gobj* canvas_find_last(const _glist* c);
+
+t_class*& canvas_get_class();
 
 class BaseObject;
 typedef std::shared_ptr<Array> ArrayPtr;
@@ -167,8 +204,8 @@ public:
     void addExternal(pd::External& ext);
     std::shared_ptr<pd::External> createObject(const char* name, const AtomList& args);
 
-    void createPdObject(int x, int y, t_symbol* name, const AtomList& args = AtomList());
-    _glist* createAbstraction(int x, int y, t_symbol* name, const AtomList& args = AtomList());
+    void createPdObject(int x, int y, t_symbol* name, const AtomListView& args = {});
+    _glist* createAbstraction(int x, int y, t_symbol* name, const AtomListView& args = {});
 
     void loadBang();
     void show();
@@ -178,9 +215,13 @@ public:
 
     operator bool() { return canvas_ != nullptr; }
 
+    void setCurrent();
+    int dollarZero() const;
+
 public:
     _glist* pd_canvas() { return canvas_; }
     _glist* owner();
+    t_pd* pd();
 
     /**
      * canvas name
@@ -188,12 +229,10 @@ public:
      */
     t_symbol* name();
     void setName(const char* str);
-    std::string parentName() const;
-
-public:
-    static _glist* current();
-    static void setCurrent(_glist* c);
+    const char* parentName() const;
 };
+
+std::ostream& operator<<(std::ostream& os, const Canvas& cnv);
 }
 
 #endif // CEAMMC_CANVAS_H

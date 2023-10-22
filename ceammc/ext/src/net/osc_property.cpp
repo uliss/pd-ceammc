@@ -8,6 +8,8 @@
 namespace ceammc {
 namespace net {
 
+    using namespace ceammc::osc;
+
     static t_symbol* oscProtoToSymbol(OscProto proto)
     {
         switch (proto) {
@@ -65,15 +67,31 @@ namespace net {
         , addr_type_(parser::OSC_ADDR_URL)
     {
         parseUrl(def);
-        setAtomCheckFn([this](const Atom& a) -> bool { return parseUrl(a); });
+        Property::PropAtomCheckFn fn = [this](const Atom& a) -> bool { return parseUrl(a); };
+        setAtomCheckFn(fn);
     }
 
     void OscUrlProperty::registerProps(BaseObject* obj)
     {
-        obj->createCbSymbolProperty("@host", [this]() { return host_; });
-        obj->createCbSymbolProperty("@proto", [this]() { return oscProtoToSymbol(proto_); });
-        obj->createCbSymbolProperty("@path", [this]() { return path_; });
-        obj->createCbIntProperty("@port", [this]() { return port_; });
+        {
+            PropertySymbolGetter fn = [this]() { return host_; };
+            obj->createCbSymbolProperty("@host", fn);
+        }
+
+        {
+            PropertySymbolGetter fn = [this]() { return oscProtoToSymbol(proto_); };
+            obj->createCbSymbolProperty("@proto", fn);
+        }
+
+        {
+            PropertySymbolGetter fn = [this]() { return path_; };
+            obj->createCbSymbolProperty("@path", fn);
+        }
+
+        {
+            PropertyIntGetter fn = [this]() { return port_; };
+            obj->createCbIntProperty("@port", fn);
+        }
     }
 
     bool OscUrlProperty::isUrlAddr() const

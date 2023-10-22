@@ -1,12 +1,11 @@
 #include "proto_vlc.h"
-#include "ceammc_args.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "datatype_dict.h"
 #include "parser_vlc.h"
 
-#include "fmt/format.h"
+#include "fmt/core.h"
 #include "httplib.h"
 
 #define VLC_BROWSE "/requests/browse.json"
@@ -33,8 +32,6 @@ ProtoVlc::ProtoVlc(const PdArgs& args)
 
     pass_ = new AtomProperty("@pass", Atom(&s_));
     addProperty(pass_);
-
-    Dispatcher::instance().subscribe(this, subscriberId());
 }
 
 void ProtoVlc::m_play(t_symbol* s, const AtomListView& lv)
@@ -325,7 +322,7 @@ ProtoVlc::Future ProtoVlc::createTask()
                 }
             }
 
-            Dispatcher::instance().send({ subscriberId(), NOTIFY_UPDATE });
+            Dispatcher::instance().send({ subscriberId(), 0 });
 
         } catch (std::exception& e) {
             logger_.error(fmt::format("http request exception: '{}'", e.what()));

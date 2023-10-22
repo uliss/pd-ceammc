@@ -25,4 +25,8 @@ void setup_conv_sec2bpm()
     obj.addAlias("sec->bpm");
 
     obj.setXletsInfo({ "float: period in seconds" }, { "float: bpm" });
+
+    obj.setDescription("convert period in seconds to frequency in BPM");
+    obj.setCategory("conv");
+    obj.setKeywords({"conv", "time"});
 }

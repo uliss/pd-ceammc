@@ -25,8 +25,8 @@
 
 namespace ceammc {
 
-template <typename In, typename Out>
-class PollThreadTaskObject : public BaseObject, public NotifiedObject {
+template <typename In, typename Out, typename T = BaseObject>
+class PollThreadTaskObject : public DispatchedObject<T> {
 public:
     using Future = std::future<void>;
 
@@ -44,7 +44,7 @@ private:
 
 public:
     PollThreadTaskObject(const PdArgs& args)
-        : BaseObject(args)
+        : DispatchedObject<T>(args)
     {
     }
 
@@ -57,8 +57,6 @@ public:
     {
         quit_ = true;
 
-        Dispatcher::instance().unsubscribe(this);
-
         if (future_.valid()) {
             try {
                 future_.get();
@@ -68,10 +66,8 @@ public:
         }
     }
 
-    inline SubscriberId subscriberId() const { return reinterpret_cast<SubscriberId>(this); }
-
     virtual Future createTask() = 0;
-    virtual void processTask(NotifyEventType event) = 0;
+    virtual void processTask(int event) = 0;
 
     TaskState taskState() const
     {
@@ -115,7 +111,7 @@ public:
         return true;
     }
 
-    bool notify(NotifyEventType event) override
+    bool notify(int event) override
     {
         processTask(event);
         processResultIfReady();
@@ -126,6 +122,11 @@ public:
 
     void setQuit(bool value) { quit_ = value; }
     const std::atomic_bool& quit() const { return quit_; }
+
+    bool isRunning() const
+    {
+        return taskState() == TASK_RUNNING;
+    }
 
     In& inPipe() { return task_in_; }
     const In& inPipe() const { return task_in_; }
@@ -159,7 +160,7 @@ public:
     {
     }
 
-    void processTask(NotifyEventType /*event*/) override
+    void processTask(int /*event*/) override
     {
         Out msg;
         while (this->outPipe().try_dequeue(msg))

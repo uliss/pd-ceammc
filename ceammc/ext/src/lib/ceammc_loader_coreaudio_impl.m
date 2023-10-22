@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
 #include "ceammc_loader_coreaudio_impl.h"
+#include "m_pd.h"
 
 #include <AudioToolbox/AudioToolbox.h>
 #include <CoreFoundation/CoreFoundation.h>
@@ -29,15 +29,16 @@ struct audio_player {
     ExtAudioFileRef file_ref;
     AudioStreamBasicDescription in_asbd;
     AudioStreamBasicDescription out_asbd;
+    struct ceammc_coreaudio_logger logger;
     int is_opened;
 };
 
-static int checkError(OSStatus error, const char* op)
+static int checkError(OSStatus error, const char* op, struct ceammc_coreaudio_logger* log)
 {
     if (error == noErr)
         return 0;
 
-    char errorString[20];
+    char errorString[20] = { 0 };
     *(UInt32*)(errorString + 1) = CFSwapInt32HostToBig(error);
 
     if (isprint(errorString[1])
@@ -50,7 +51,14 @@ static int checkError(OSStatus error, const char* op)
         sprintf(errorString, "%d", (int)error);
     }
 
-    fprintf(stderr, "Error: %s (%s)\n", op, errorString);
+    if (!log || !log->obj || !log->log_err)
+        fprintf(stderr, "[coreaudio] %s (%s)\n", op, errorString);
+    else {
+        char buf[128];
+        snprintf(buf, sizeof(buf) - 1, "[coreaudio] %s (%s)", op, errorString);
+        log->log_err(log->obj, buf);
+    }
+
     return -1;
 }
 
@@ -66,7 +74,7 @@ static void fillOutputASBD(AudioStreamBasicDescription* out, const AudioStreamBa
     out->mBytesPerPacket = out->mFramesPerPacket * out->mBytesPerFrame;
 }
 
-static Boolean getASBD(ExtAudioFileRef file, AudioStreamBasicDescription* asbd)
+static Boolean getASBD(ExtAudioFileRef file, AudioStreamBasicDescription* asbd, struct ceammc_coreaudio_logger* log)
 {
     UInt32 size = sizeof(AudioStreamBasicDescription);
     OSStatus err = ExtAudioFileGetProperty(file, kExtAudioFileProperty_FileDataFormat, &size, asbd);
@@ -74,33 +82,33 @@ static Boolean getASBD(ExtAudioFileRef file, AudioStreamBasicDescription* asbd)
     if (err == noErr)
         return true;
 
-    checkError(err, "error: can't get AudioStreamBasicDescription from file");
+    checkError(err, "error: can't get AudioStreamBasicDescription from file", log);
     return false;
 }
 
-static Boolean getPacketCount(AudioFileID file, UInt64* packetCount)
+static Boolean getPacketCount(AudioFileID file, UInt64* packetCount, struct ceammc_coreaudio_logger* log)
 {
     UInt32 propSize = sizeof(UInt64);
     OSStatus err = AudioFileGetProperty(file, kAudioFilePropertyAudioDataPacketCount, &propSize, packetCount);
     if (err == noErr)
         return true;
 
-    checkError(err, "error: can't get packet count");
+    checkError(err, "error: can't get packet count", log);
     return false;
 }
 
-static Boolean getMaxPacketSize(AudioFileID file, UInt32* maxPacketSize)
+static Boolean getMaxPacketSize(AudioFileID file, UInt32* maxPacketSize, struct ceammc_coreaudio_logger* log)
 {
     UInt32 propSize = sizeof(UInt32);
     OSStatus err = AudioFileGetProperty(file, kAudioFilePropertyMaximumPacketSize, &propSize, maxPacketSize);
     if (err == noErr)
         return true;
 
-    checkError(err, "error: can't get max packet size");
+    checkError(err, "error: can't get max packet size", log);
     return false;
 }
 
-static Boolean getPacketTableInfo(AudioFileID file, AudioFilePacketTableInfo* info)
+static Boolean getPacketTableInfo(AudioFileID file, AudioFilePacketTableInfo* info, struct ceammc_coreaudio_logger* log)
 {
     UInt32 propSize = sizeof(AudioFilePacketTableInfo);
     OSStatus err = AudioFileGetProperty(file, kAudioFilePropertyPacketTableInfo, &propSize, &info);
@@ -108,11 +116,11 @@ static Boolean getPacketTableInfo(AudioFileID file, AudioFilePacketTableInfo* in
     if (err == noErr)
         return true;
 
-    checkError(err, "error: can't get packet table info");
+    checkError(err, "error: can't get packet table info", log);
     return false;
 }
 
-static Boolean getVBRPacketBufferSize(AudioStreamBasicDescription* in_asbd, UInt32* out_bufsize)
+static Boolean getVBRPacketBufferSize(AudioStreamBasicDescription* in_asbd, UInt32* out_bufsize, struct ceammc_coreaudio_logger* log)
 {
     AudioStreamBasicDescription out_asbd;
     fillOutputASBD(&out_asbd, in_asbd);
@@ -120,7 +128,7 @@ static Boolean getVBRPacketBufferSize(AudioStreamBasicDescription* in_asbd, UInt
     AudioConverterRef converter;
     OSStatus err = AudioConverterNew(in_asbd, &out_asbd, &converter);
     if (err != noErr) {
-        checkError(err, "AudioConverterNew");
+        checkError(err, "AudioConverterNew", log);
         return false;
     }
 
@@ -136,7 +144,7 @@ static Boolean getVBRPacketBufferSize(AudioStreamBasicDescription* in_asbd, UInt
             &size, &sizePerPacket);
 
         if (err != noErr) {
-            checkError(err, "error: kAudioConverterPropertyMaximumOutputPacketSize");
+            checkError(err, "error: kAudioConverterPropertyMaximumOutputPacketSize", log);
             return false;
         }
 
@@ -149,7 +157,7 @@ static Boolean getVBRPacketBufferSize(AudioStreamBasicDescription* in_asbd, UInt
     return true;
 }
 
-static Boolean openAudiofile(const char* path, AudioFileID* file)
+static Boolean openAudiofile(const char* path, AudioFileID* file, struct ceammc_coreaudio_logger* log)
 {
     CFStringRef name = CFStringCreateWithCString(kCFAllocatorDefault, path, kCFStringEncodingUTF8);
     CFURLRef url = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, name, kCFURLPOSIXPathStyle, false);
@@ -161,11 +169,11 @@ static Boolean openAudiofile(const char* path, AudioFileID* file)
     if (err == noErr)
         return true;
 
-    checkError(err, "error: AudioFileOpenURL");
+    checkError(err, "error: AudioFileOpenURL", log);
     return false;
 }
 
-static Boolean openConverter(const char* path, ExtAudioFileRef* file)
+static Boolean openConverter(const char* path, ExtAudioFileRef* file, struct ceammc_coreaudio_logger* log)
 {
     CFStringRef name = CFStringCreateWithCString(kCFAllocatorDefault, path, kCFStringEncodingUTF8);
     CFURLRef url = CFURLCreateWithFileSystemPath(kCFAllocatorDefault, name, kCFURLPOSIXPathStyle, false);
@@ -177,11 +185,11 @@ static Boolean openConverter(const char* path, ExtAudioFileRef* file)
     if (err == noErr)
         return true;
 
-    checkError(err, "error: AudioFileOpenURL");
+    checkError(err, "error: AudioFileOpenURL", log);
     return false;
 }
 
-static Boolean setOutputFormat(ExtAudioFileRef file, AudioStreamBasicDescription* format)
+static Boolean setOutputFormat(ExtAudioFileRef file, AudioStreamBasicDescription* format, struct ceammc_coreaudio_logger* log)
 {
     OSStatus err = ExtAudioFileSetProperty(file,
         kExtAudioFileProperty_ClientDataFormat,
@@ -191,20 +199,20 @@ static Boolean setOutputFormat(ExtAudioFileRef file, AudioStreamBasicDescription
     if (err == noErr)
         return true;
 
-    checkError(err, "error: ExtAudioFileSetProperty");
+    checkError(err, "error: ExtAudioFileSetProperty", log);
     return false;
 }
 
-int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info)
+int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info, struct ceammc_coreaudio_logger* log)
 {
     ExtAudioFileRef converter = 0;
-    if (!openConverter(path, &converter)) {
+    if (!openConverter(path, &converter, log)) {
         ExtAudioFileDispose(converter);
         return FILEOPEN_ERR;
     }
 
     AudioStreamBasicDescription asbd = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-    if (!getASBD(converter, &asbd)) {
+    if (!getASBD(converter, &asbd, log)) {
         ExtAudioFileDispose(converter);
         return FILEINFO_ERR;
     }
@@ -216,7 +224,7 @@ int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info)
     UInt32 size = sizeof(totalFrameCount);
     OSStatus err = ExtAudioFileGetProperty(converter, kExtAudioFileProperty_FileLengthFrames, &size, &totalFrameCount);
     if (err != noErr) {
-        checkError(err, "error: kExtAudioFileProperty_FileLengthFrames");
+        checkError(err, "error: kExtAudioFileProperty_FileLengthFrames", log);
         ExtAudioFileDispose(converter);
         return FILEINFO_ERR;
     }
@@ -226,102 +234,13 @@ int ceammc_coreaudio_getinfo(const char* path, audiofile_info_t* info)
     return 0;
 }
 
-int64_t ceammc_coreaudio_load(const char* path, size_t channel, size_t offset, size_t count, t_word* buf, t_float gain, double resample_ratio,
-    size_t max_samples)
-{
-    if (count == 0 || buf == 0)
-        return INVALID_ARGS;
-
-    ExtAudioFileRef converter = 0;
-    if (!openConverter(path, &converter)) {
-        ExtAudioFileDispose(converter);
-        return FILEOPEN_ERR;
-    }
-
-    AudioStreamBasicDescription asbd;
-    if (!getASBD(converter, &asbd)) {
-        ExtAudioFileDispose(converter);
-        return FILEINFO_ERR;
-    }
-
-    if (channel >= asbd.mChannelsPerFrame) {
-        ExtAudioFileDispose(converter);
-        return INVALID_CHAN;
-    }
-
-    AudioStreamBasicDescription audioOutFmt;
-    fillOutputASBD(&audioOutFmt, &asbd);
-
-    if (resample_ratio != 1) {
-        if (resample_ratio < 0.001) {
-            ExtAudioFileDispose(converter);
-            return INVALID_RS_RATIO;
-        }
-
-        audioOutFmt.mSampleRate *= resample_ratio;
-    }
-
-    if (!setOutputFormat(converter, &audioOutFmt)) {
-        ExtAudioFileDispose(converter);
-        return PROPERTY_ERR;
-    }
-
-    UInt32 numSamples = 1024; //How many samples to read in at a time
-    UInt32 sizePerPacket = audioOutFmt.mBytesPerPacket;
-    UInt32 packetsPerBuffer = numSamples;
-    UInt32 outputBufferSize = packetsPerBuffer * sizePerPacket;
-    UInt8* outputBuffer = (UInt8*)malloc(sizeof(UInt8) * outputBufferSize);
-
-    AudioBufferList convertedData;
-
-    convertedData.mNumberBuffers = 1;
-    convertedData.mBuffers[0].mNumberChannels = audioOutFmt.mChannelsPerFrame;
-    convertedData.mBuffers[0].mDataByteSize = outputBufferSize;
-    convertedData.mBuffers[0].mData = outputBuffer;
-
-    UInt32 frameCount = numSamples;
-    size_t frameIdx = 0;
-
-    OSStatus err = ExtAudioFileSeek(converter, offset);
-    if (err != noErr) {
-        checkError(err, "error: ExtAudioFileSeek");
-        ExtAudioFileDispose(converter);
-        return OFFSET_ERR;
-    }
-
-    while (frameCount > 0) {
-        err = ExtAudioFileRead(converter, &frameCount, &convertedData);
-        if (err != noErr) {
-            checkError(err, "error: ExtAudioFileRead");
-            ExtAudioFileDispose(converter);
-            return OFFSET_ERR;
-        }
-
-        if (frameCount > 0) {
-            AudioBuffer audioBuffer = convertedData.mBuffers[0];
-            float* data = (float*)audioBuffer.mData;
-
-            for (UInt32 i = 0; i < frameCount && (frameIdx < count) && (frameIdx < max_samples); i++) {
-                buf[frameIdx].w_float = data[audioOutFmt.mChannelsPerFrame * i + channel] * gain;
-                frameIdx++;
-            }
-        }
-    }
-
-    ExtAudioFileDispose(converter);
-
-    free(outputBuffer);
-
-    return frameIdx;
-}
-
 t_audio_player* ceammc_coreaudio_player_create()
 {
     t_audio_player* p = (t_audio_player*)calloc(1, sizeof(t_audio_player));
     return p;
 }
 
-int ceammc_coreaudio_player_open(t_audio_player* p, const char* path, int sample_rate)
+int ceammc_coreaudio_player_open(t_audio_player* p, const char* path, double sample_rate, const struct ceammc_coreaudio_logger* log)
 {
     if (!p)
         return INVALID_ARGS;
@@ -329,25 +248,30 @@ int ceammc_coreaudio_player_open(t_audio_player* p, const char* path, int sample
     if (p->is_opened)
         ceammc_coreaudio_player_close(p);
 
-    if (!openConverter(path, &p->file_ref)) {
+    if (!openConverter(path, &p->file_ref, &p->logger)) {
         p->is_opened = 0;
         return FILEOPEN_ERR;
     }
 
-    if (!getASBD(p->file_ref, &p->in_asbd)) {
+    if (!getASBD(p->file_ref, &p->in_asbd, &p->logger)) {
         p->is_opened = 0;
         return FILEINFO_ERR;
     }
 
     fillOutputASBD(&p->out_asbd, &p->in_asbd);
-    p->out_asbd.mSampleRate = sample_rate;
 
-    if (!setOutputFormat(p->file_ref, &p->out_asbd)) {
+    if (!setOutputFormat(p->file_ref, &p->out_asbd, &p->logger)) {
         p->is_opened = 0;
         return PROPERTY_ERR;
     }
 
     p->is_opened = 1;
+
+    if (log) {
+        p->logger = *log;
+    } else {
+        p->logger.obj = 0;
+    }
     return 0;
 }
 
@@ -363,13 +287,14 @@ int ceammc_coreaudio_player_seek(t_audio_player* p, int64_t offset)
         return 0;
 
     OSStatus err = ExtAudioFileSeek(p->file_ref, offset);
-    if (err != noErr)
-        return 0;
-    else
+    if (err != noErr) {
+        checkError(err, "error: ExtAudioFileSeek", &p->logger);
         return 1;
+    } else
+        return 0;
 }
 
-int64_t ceammc_coreaudio_player_read(t_audio_player* p, t_sample** dest, size_t count)
+int64_t ceammc_coreaudio_player_read(t_audio_player* p, float* dest, size_t count)
 {
     if (!p)
         return INVALID_ARGS;
@@ -383,32 +308,39 @@ int64_t ceammc_coreaudio_player_read(t_audio_player* p, t_sample** dest, size_t 
     convertedData.mBuffers[0].mDataByteSize = sizeof(buf);
     convertedData.mBuffers[0].mData = (void*)&buf[0];
 
-    UInt32 frameCount = count;
-    size_t frameIdx = 0, k = 0;
-    int64_t off = ceammc_coreaudio_player_tell(p);
+    const UInt32 CHAN_NUM = p->out_asbd.mChannelsPerFrame;
+    UInt32 numFramesLefToRead = count;
+    UInt32 totalFrameCount = 0;
+    size_t outFrameIdx = 0;
 
     do {
-        OSStatus err = ExtAudioFileRead(p->file_ref, &frameCount, &convertedData);
+        OSStatus err = ExtAudioFileRead(p->file_ref, &numFramesLefToRead, &convertedData);
         if (err != noErr)
             return READ_ERR;
 
-        float* data = (float*)convertedData.mBuffers[0].mData;
+        UInt32 doneFrames = numFramesLefToRead;
+        if (doneFrames == 0) // EOF
+            break;
 
-        const UInt32 CHAN_NUM = p->out_asbd.mChannelsPerFrame;
+        totalFrameCount += doneFrames;
 
-        for (UInt32 i = 0; i < frameCount && (frameIdx < count); i++, frameIdx++) {
+        assert(count >= totalFrameCount);
+        numFramesLefToRead = count - totalFrameCount;
+
+        for (UInt32 i = 0; i < doneFrames; i++, outFrameIdx++) {
+            if (outFrameIdx >= count) // done
+                goto end;
+
             for (UInt32 ch = 0; ch < CHAN_NUM; ch++) {
-                t_sample s = data[CHAN_NUM * i + ch];
-                dest[ch][frameIdx] = s;
+                t_sample s = buf[CHAN_NUM * i + ch];
+                dest[outFrameIdx * CHAN_NUM + ch] = s;
             }
         }
 
-        k += frameCount;
+    } while (true);
 
-    } while (frameCount > 0);
-
-    ceammc_coreaudio_player_seek(p, off + count);
-    return count;
+end:
+    return outFrameIdx;
 }
 
 double ceammc_coreaudio_player_samplerate(t_audio_player* p)
@@ -416,18 +348,24 @@ double ceammc_coreaudio_player_samplerate(t_audio_player* p)
     return p ? p->in_asbd.mSampleRate : 0;
 }
 
-int ceammc_coreaudio_player_channel_count(t_audio_player* p)
+int ceammc_coreaudio_player_channels(t_audio_player* p)
 {
     return p ? p->in_asbd.mChannelsPerFrame : 0;
 }
 
-void ceammc_coreaudio_player_close(t_audio_player* p)
+int ceammc_coreaudio_player_close(t_audio_player* p)
 {
     if (!p || !p->is_opened)
-        return;
+        return INVALID_ARGS;
 
-    ExtAudioFileDispose(p->file_ref);
+    OSStatus err = ExtAudioFileDispose(p->file_ref);
     p->is_opened = 0;
+
+    if (err != noErr) {
+        checkError(err, "error: ExtAudioFileDispose", &p->logger);
+        return CLOSE_ERR;
+    } else
+        return 0;
 }
 
 int ceammc_coreaudio_player_is_opened(t_audio_player* p)
@@ -446,7 +384,7 @@ int64_t ceammc_coreaudio_player_tell(t_audio_player* p)
     return err == noErr ? off : 0;
 }
 
-size_t ceammc_coreaudio_player_samples(t_audio_player* p)
+size_t ceammc_coreaudio_player_frames(t_audio_player* p)
 {
     if (!p)
         return 0;
@@ -458,9 +396,75 @@ size_t ceammc_coreaudio_player_samples(t_audio_player* p)
         &size, &totalFrameCount);
 
     if (err != noErr) {
-        checkError(err, "error: kExtAudioFileProperty_FileLengthFrames");
+        checkError(err, "error: kExtAudioFileProperty_FileLengthFrames", &p->logger);
         return 0;
     }
 
     return totalFrameCount;
+}
+
+int64_t ceammc_coreaudio_player_read_array(t_audio_player* p, t_word* dest, size_t count, size_t channel, float gain)
+{
+    if (!p)
+        return INVALID_ARGS;
+
+    if (channel >= p->in_asbd.mChannelsPerFrame)
+        return INVALID_CHAN;
+
+    AudioBufferList convertedData;
+
+    float buf[1024];
+
+    convertedData.mNumberBuffers = 1;
+    convertedData.mBuffers[0].mNumberChannels = p->out_asbd.mChannelsPerFrame;
+    convertedData.mBuffers[0].mDataByteSize = sizeof(buf);
+    convertedData.mBuffers[0].mData = (void*)&buf[0];
+
+    const UInt32 CHAN_NUM = p->out_asbd.mChannelsPerFrame;
+    UInt32 numFramesLefToRead = count;
+    UInt32 totalFrameCount = 0;
+    size_t outFrameIdx = 0;
+
+    do {
+        OSStatus err = ExtAudioFileRead(p->file_ref, &numFramesLefToRead, &convertedData);
+        if (err != noErr)
+            return READ_ERR;
+
+        UInt32 doneFrames = numFramesLefToRead;
+
+        if (doneFrames == 0) // EOF
+            break;
+
+        totalFrameCount += doneFrames;
+
+        assert(count >= totalFrameCount);
+        numFramesLefToRead = count - totalFrameCount;
+
+        for (UInt32 i = 0; i < doneFrames; i++, outFrameIdx++) {
+            if (outFrameIdx >= count) // done
+                goto end;
+
+            dest[outFrameIdx].w_float = buf[i * CHAN_NUM + channel] * gain;
+        }
+
+    } while (true);
+
+end:
+    return outFrameIdx;
+}
+
+int ceammc_coreaudio_player_set_resample_ratio(t_audio_player* p, double ratio)
+{
+    if (!p)
+        return INVALID_ARGS;
+
+    if (ratio < 0.001)
+        return INVALID_RS_RATIO;
+
+    p->out_asbd.mSampleRate = p->in_asbd.mSampleRate * ratio;
+
+    if (!setOutputFormat(p->file_ref, &p->out_asbd, &p->logger))
+        return PROPERTY_ERR;
+
+    return 0;
 }

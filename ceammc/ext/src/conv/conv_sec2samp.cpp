@@ -40,4 +40,8 @@ void setup_conv_sec2samp()
 {
     ObjectFactory<SecondToSample> obj("conv.sec2samp");
     obj.addAlias("sec->samp");
+
+    obj.setDescription("convert time in seconds to number of samples according to current samplerate");
+    obj.setCategory("conv");
+    obj.setKeywords({"conv", "samp", "sec"});
 }

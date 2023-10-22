@@ -17,9 +17,9 @@
 #include "catch.hpp"
 #include "ceammc_log.h"
 #include "test_base.h"
-#include "test_external.h"
 
 #include <sstream>
+#include <thread>
 
 static std::string log_str;
 
@@ -31,6 +31,7 @@ static void print_hook(const char* msg)
 TEST_CASE("ceammc_log", "[ceammc_log]")
 {
     test::pdSetPrintFunction(print_hook);
+    log_str.clear();
 
     SECTION("operator<< t_symbol*")
     {
@@ -44,21 +45,18 @@ TEST_CASE("ceammc_log", "[ceammc_log]")
     {
         LIB_DBG << "a message " << 123 << '-' << gensym("abc");
         REQUIRE(log_str == "verbose(3): [ceammc] a message 123-\"abc\"\n");
-        log_str.clear();
     }
 
     SECTION("Post")
     {
         LIB_POST << "a message " << 123 << '-' << gensym("abc");
         REQUIRE(log_str == "[ceammc] a message 123-\"abc\"\n");
-        log_str.clear();
     }
 
     SECTION("Log")
     {
         LIB_LOG << "test message";
         REQUIRE(log_str == "verbose(4): [ceammc] test message\n");
-        log_str.clear();
     }
 
     SECTION("Error")
@@ -66,7 +64,6 @@ TEST_CASE("ceammc_log", "[ceammc_log]")
         LIB_ERR << "error message";
         REQUIRE(log_str == "error: [ceammc] error message\n"
                            "verbose(4): ... you might be able to track this down from the Find menu.\n");
-        log_str.clear();
     }
 
     SECTION("None")
@@ -116,6 +113,70 @@ TEST_CASE("ceammc_log", "[ceammc_log]")
         std::ostringstream ss;
         ss << v;
         REQUIRE(ss.str() == "[\"A\"]");
+    }
+
+    SECTION("thread")
+    {
+        SECTION("same thread")
+        {
+            SECTION("debug")
+            {
+                ThreadPdLogger log;
+                log.debug("debug");
+                test::pdRunMainLoopMs(10);
+
+                REQUIRE(log_str == "verbose(3): [ceammc] [debug] debug\n");
+            }
+
+            SECTION("post")
+            {
+                ThreadPdLogger log;
+                log.post("post");
+                test::pdRunMainLoopMs(10);
+
+                REQUIRE(log_str == "[ceammc] post\n");
+            }
+
+            SECTION("post")
+            {
+                ThreadPdLogger log;
+                log.verbose("verbose");
+                test::pdRunMainLoopMs(10);
+
+                REQUIRE(log_str == "verbose(4): [ceammc] [verbose] verbose\n");
+            }
+
+            SECTION("error")
+            {
+                ThreadPdLogger log;
+                log.error("error");
+                test::pdRunMainLoopMs(10);
+
+                REQUIRE(log_str == "error: [ceammc] [error] error\n");
+            }
+        }
+
+        SECTION("prefix")
+        {
+            ThreadPdLogger log("prefix");
+            log.post("post");
+            test::pdRunMainLoopMs(10);
+
+            REQUIRE(log_str == "[ceammc] [prefix] post\n");
+        }
+
+        SECTION("other thread")
+        {
+            std::thread th([]() {
+                ThreadPdLogger log;
+                log.error("thread error");
+                test::pdRunMainLoopMs(10);
+            });
+
+            test::pdRunMainLoopMs(10);
+            th.join();
+            REQUIRE(log_str == "error: [ceammc] [error] thread error\n");
+        }
     }
 }
 

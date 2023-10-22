@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="seq.matrix">
         <title>seq.matrix</title>
         <meta>
@@ -10,7 +10,7 @@
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>seq</category>
-            <keywords>seq sequencer bang pattern rythm matrix</keywords>
+            <keywords>seq sequencer bang pattern rhythm matrix</keywords>
             <since>0.9.1</since>
             <also>
                 <see view="link">ui.matrix</see>
@@ -31,10 +31,14 @@
             <property name="@once" type="alias">alias to @r 1, play once</property>
             <property name="@dur" type="float" default="4000" minvalue="0" units="millisecond">
             whole sequence duration. (Recalculates @t property accordingly)</property>
-            <property name="@i" type="int" minvalue="0" access="readonly" default="0">current
-            sequence iteration</property>
-            <property name="@ri" type="int" minvalue="0" access="readonly" default="0">current
-            repeat iteration</property>
+            <property name="@div" type="int" minvalue="1" default="1" maxvalue="64">beat
+            subdivision</property>
+            <property name="@upbeat" type="float" default="0" minvalue="0">wait specified number of
+            beats before sequence start</property>
+            <property name="@i" type="int" access="readonly" default="0">current sequence
+            iteration</property>
+            <property name="@ri" type="int" access="readonly" default="0">current repeat
+            iteration</property>
             <property name="@mode" type="symbol" enum="inc dec tri" default="inc">sequencer mode.
             'inc': from first to last, 'dec': from last to first, 'tri': from first to last, then
             back</property>
@@ -42,10 +46,15 @@
             matrix</property>
         </properties>
         <methods>
-            <method name="start">start sequencer from current position</method>
+            <!-- reset -->
             <method name="reset">reset all counters and stop</method>
+            <!-- rewind -->
             <method name="rewind">reset all counters without stopping</method>
+            <!-- start -->
+            <method name="start">start sequencer from current position</method>
+            <!-- stop -->
             <method name="stop">stop sequencer</method>
+            <!-- tick -->
             <method name="tick">output current sequence element and move to next</method>
         </methods>
         <inlets>
@@ -70,8 +79,8 @@
 |   |         |
 |   |         [@mode $1(
 |   |         |
-[seq.matrix 16 120|16bpm] [loadmsg random]
-|                         |
+[seq.matrix #m]        [loadmsg random]
+|                      |
 [ui.matrix 3 16 @size 320 51]
 |
 |
@@ -97,6 +106,7 @@
 #g0 $1
 #g1 $1
 #g2 $1
+#m 16 120bpm @div 4
 [X a:1->g0]
 [X a:2->e1]
 [X a:3->e2]

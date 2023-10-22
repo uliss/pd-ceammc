@@ -22,10 +22,6 @@
 #include <utility>
 #include <vector>
 
-#include "m_pd.h"
-
-#include "nui/color.h"
-#include "nui/font.h"
 #include "nui/size.h"
 
 namespace ceammc {
@@ -105,8 +101,12 @@ namespace ui {
         }
     };
 
+    struct ModelBaseVPtr {
+        virtual ~ModelBaseVPtr();
+    };
+
     template <typename Data>
-    class ModelBase {
+    class ModelBase : public ModelBaseVPtr {
         std::vector<Observer<Data>*> observers_;
         Data data_;
 
@@ -126,7 +126,7 @@ namespace ui {
         {
         }
 
-        virtual ~ModelBase()
+        ~ModelBase()
         {
             for (auto ob : observers_)
                 ob->invalidate();

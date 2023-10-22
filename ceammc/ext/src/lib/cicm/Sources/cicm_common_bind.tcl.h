@@ -2,7 +2,7 @@
 // clang-format off
 #ifndef cicm_common_bind_tcl_h_
 #define cicm_common_bind_tcl_h_
-const char* cicm_common_bind_tcl = 
+constexpr const char* cicm_common_bind_tcl = 
 "proc ceammc_fix_macos_state {n} { if { $n > 256 } { return [expr $n & 0xFF ] } { return $n } }\n"
 "proc ceammc_fix_win32_alt {n} {\n"
 "    if { $n & 131072 } {\n"

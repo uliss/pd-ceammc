@@ -19,6 +19,11 @@
 
 using namespace ceammc;
 
+static Atom DOLL_SYM(const char* s)
+{
+    return Atom::dollarSymbol(gensym(s));
+}
+
 TEST_CASE("Atom2", "[core]")
 {
     SECTION("data")
@@ -28,7 +33,7 @@ TEST_CASE("Atom2", "[core]")
             Atom a((AbstractData*)nullptr);
             REQUIRE(a.isNone());
             REQUIRE_FALSE(a.isData());
-            REQUIRE_FALSE(a.isDataType(IntData::dataType));
+            REQUIRE_FALSE(a.isDataType(IntData::staticType()));
             REQUIRE_FALSE(a.isA<IntData>());
         }
 
@@ -37,8 +42,8 @@ TEST_CASE("Atom2", "[core]")
             Atom a(new IntData(100));
             REQUIRE(a.isData());
             REQUIRE(a.isA<IntData>());
-            REQUIRE(a.isDataType(IntData::dataType));
-            REQUIRE_FALSE(a.isDataType(StrData::dataType));
+            REQUIRE(a.isDataType(IntData::staticType()));
+            REQUIRE_FALSE(a.isDataType(StrData::staticType()));
 
             REQUIRE_FALSE(a.isNone());
             REQUIRE_FALSE(a.isBool());
@@ -53,7 +58,7 @@ TEST_CASE("Atom2", "[core]")
             REQUIRE(a.asFloat(-10) == -10);
             REQUIRE(a.asSymbol() == &s_);
             REQUIRE(a.asData());
-            REQUIRE(a.asData()->type() == IntData::dataType);
+            REQUIRE(a.asData()->type() == IntData::staticType());
             REQUIRE(a.asData()->toString() == "IntData(100)");
             REQUIRE(a.asData()->toListString() == "IntData(100)");
             REQUIRE(a.asData()->toDictString() == "IntData[value: 100]");
@@ -69,13 +74,13 @@ TEST_CASE("Atom2", "[core]")
         {
             Atom a0(new IntData(200));
             REQUIRE(a0.isData());
-            REQUIRE(a0.isDataType(IntData::dataType));
-            REQUIRE(a0.dataType() == IntData::dataType);
+            REQUIRE(a0.isDataType(IntData::staticType()));
+            REQUIRE(a0.dataType() == IntData::staticType());
 
             Atom a1(a0);
             REQUIRE(a1.isData());
-            REQUIRE(a1.isDataType(IntData::dataType));
-            REQUIRE(a1.dataType() == IntData::dataType);
+            REQUIRE(a1.isDataType(IntData::staticType()));
+            REQUIRE(a1.dataType() == IntData::staticType());
 
             REQUIRE(a0.asData() == a1.asData());
 
@@ -588,5 +593,55 @@ TEST_CASE("Atom2", "[core]")
         REQUIRE(a.isSemicolon());
 
         REQUIRE(a == Atom::semicolon());
+    }
+
+    SECTION("expandDollarArgs")
+    {
+        using Val = Maybe<Atom>;
+        REQUIRE(Atom(1).expandDollarArgs({}) == Val(1));
+        REQUIRE(A("test").expandDollarArgs({}).value() == A("test"));
+        REQUIRE(A("$0").expandDollarArgs({}).value() == A("$0"));
+
+        auto dz = canvas_info_dollarzero(canvas_getcurrent());
+        char buf[32];
+        sprintf(buf, "%d", dz);
+        REQUIRE(Atom::dollar(0).expandDollarArgs(LF(10, 20, 30), false).value() == A(buf));
+        sprintf(buf, "%d-test", dz);
+        REQUIRE(DOLL_SYM("$0-test").expandDollarArgs(LF(10, 20, 30), false).value() == A(buf));
+        sprintf(buf, "%d-test", dz);
+        REQUIRE(DOLL_SYM("$1-$2-$3-$4").expandDollarArgs(LF(10, 20, 30), false).value() == A("10-20-30-$4"));
+        REQUIRE_FALSE(DOLL_SYM("$1-$2-$3-$4").expandDollarArgs(LF(10, 20, 30), true));
+        REQUIRE(DOLL_SYM("$1-$2-$3").expandDollarArgs(LF(10, 20, 30), true).value() == A("10-20-30"));
+
+        sprintf(buf, "%d-$1", dz);
+        REQUIRE(DOLL_SYM("$0-$1").expandDollarArgs(canvas_getcurrent(), false).value() == A(buf));
+        REQUIRE(DOLL_SYM("$0-$1").expandDollarArgs(canvas_getcurrent(), true).isNull());
+        REQUIRE_FALSE(DOLL_SYM("$0-$1").expandDollarArgs(canvas_getcurrent(), true));
+    }
+
+    SECTION("c-string equal")
+    {
+        REQUIRE(A("test") == "test");
+        REQUIRE(A("test") != "Test");
+        REQUIRE_FALSE(A("test") != "test");
+        REQUIRE_FALSE(A("test") == "Test");
+        REQUIRE_FALSE(A(1) == "Test");
+        REQUIRE_FALSE(Atom() == "Test");
+        REQUIRE_FALSE(Atom::comma() == ",");
+        REQUIRE_FALSE(Atom::semicolon() == ";");
+        REQUIRE_FALSE(Atom::dollar(1) == "Test");
+        REQUIRE_FALSE(Atom::dollarSymbol(SYM("test-$0")) == "test-$0");
+    }
+
+    SECTION("t_symbol* equal")
+    {
+        REQUIRE(A("test") == SYM("test"));
+        REQUIRE(A("test") != SYM("Test"));
+        REQUIRE_FALSE(A(1) == SYM("test"));
+        REQUIRE_FALSE(Atom() == SYM("test"));
+        REQUIRE_FALSE(Atom::comma() == SYM("test"));
+        REQUIRE_FALSE(Atom::semicolon() == SYM("test"));
+        REQUIRE_FALSE(Atom::dollar(1) == SYM("test"));
+        REQUIRE_FALSE(Atom::dollarSymbol(SYM("test-$0")) == SYM("test"));
     }
 }

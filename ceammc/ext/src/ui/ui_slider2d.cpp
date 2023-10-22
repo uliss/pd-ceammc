@@ -24,7 +24,19 @@
 #include "ui_slider2d.tcl.h"
 
 UISlider2D::UISlider2D()
-    : prop_x_left(-1)
+    : UIBindObject<2>({
+        [this](int v) {
+            x_pos_ = convert::lin2lin<t_float, 0, 127>(v, prop_x_left, prop_x_right);
+            redrawKnob();
+            output();
+        },
+        [this](int v) {
+            y_pos_ = convert::lin2lin<t_float, 0, 127>(v, prop_y_bottom, prop_y_top);
+            redrawKnob();
+            output();
+        },
+    })
+    , prop_x_left(-1)
     , prop_x_right(1)
     , prop_y_top(1)
     , prop_y_bottom(-1)
@@ -59,16 +71,16 @@ UISlider2D::UISlider2D()
 
 void UISlider2D::okSize(t_rect* newrect)
 {
-    newrect->height = std::max<float>(30, newrect->height);
-    newrect->width = std::max<float>(30, newrect->width);
+    newrect->h = std::max<float>(30, newrect->h);
+    newrect->w = std::max<float>(30, newrect->w);
 }
 
 void UISlider2D::paint()
 {
     const auto r = rect();
 
-    const int x = std::round(convert::lin2lin_clip<float>(x_pos_, prop_x_left, prop_x_right, 0, r.width));
-    const int y = std::round(convert::lin2lin<float>(y_pos_, prop_y_top, prop_y_bottom, 0, r.height));
+    const int x = std::round(convert::lin2lin_clip<float>(x_pos_, prop_x_left, prop_x_right, 0, r.w));
+    const int y = std::round(convert::lin2lin<float>(y_pos_, prop_y_top, prop_y_bottom, 0, r.h));
 
     sys_vgui("ui::slider2d_update %s %lx "
              "%d %d " // x, y
@@ -342,6 +354,9 @@ void UISlider2D::setup()
 
     obj.addMethod("set", &UISlider2D::m_set);
     obj.addMethod("move", &UISlider2D::m_move);
+
+    obj.addVirtualProperty("bind_x", _("Bind X"), "", &UISlider2D::getBind<0>, &UISlider2D::setBind<0>, "Main");
+    obj.addVirtualProperty("bind_y", _("Bind Y"), "", &UISlider2D::getBind<1>, &UISlider2D::setBind<1>, "Main");
 }
 
 void UISlider2D::redrawKnob()
@@ -363,7 +378,6 @@ void UISlider2D::setMouse(t_float x, t_float y)
 
 void setup_ui_slider2d()
 {
-    sys_gui(ui_slider2d_tcl);
-
+    ui_slider2d_tcl_output();
     UISlider2D::setup();
 }

@@ -31,7 +31,7 @@ UINumberTilde::UINumberTilde()
 {
 }
 
-void UINumberTilde::init(t_symbol* name, const AtomListView &args, bool usePresets)
+void UINumberTilde::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIDspObject::init(name, args, usePresets);
     dspSetup(1, 1);
@@ -39,8 +39,8 @@ void UINumberTilde::init(t_symbol* name, const AtomListView &args, bool usePrese
 
 void UINumberTilde::okSize(t_rect* newrect)
 {
-    newrect->height = 15;
-    newrect->width = pd_clip_min(newrect->width, sys_fontwidth(fontSizeZoomed()) * 3 + 8);
+    newrect->h = 15;
+    newrect->w = pd_clip_min(newrect->w, sys_fontwidth(fontSizeZoomed()) * 3 + 8);
 }
 
 void UINumberTilde::paint()
@@ -92,15 +92,15 @@ void UINumberTilde::updateTextValue()
 
 void UINumberTilde::setup()
 {
-    sys_gui(ui_number_tilde_tcl);
+    ui_number_tilde_tcl_output();
 
     UIObjectFactory<UINumberTilde> obj("ui.number~", EBOX_GROWINDI | EBOX_IGNORELOCKCLICK);
     obj.addAlias("ui.n~");
     obj.setDefaultSize(80, 15);
     obj.hideLabelInner();
 
-    obj.addColorProperty(PROP_TEXT_COLOR, _("Text color"), "0.9 0.9 0.9 1", &UINumberTilde::prop_color_text);
-    obj.addColorProperty(PROP_ACTIVE_COLOR, _("Text color"), DEFAULT_ACTIVE_COLOR, &UINumberTilde::prop_color_active);
+    obj.addColorProperty(sym::props::name_text_color, _("Text color"), "0.9 0.9 0.9 1", &UINumberTilde::prop_color_text);
+    obj.addColorProperty(sym::props::name_active_color, _("Text color"), DEFAULT_ACTIVE_COLOR, &UINumberTilde::prop_color_active);
     obj.addIntProperty("precision", _("Decimal precision"), DEF_PRECISION, &UINumberTilde::prop_max_decimal, _("Main"));
     obj.setPropertyRange("precision", MIN_PRECISION, MAX_PRECISION);
 
@@ -108,8 +108,8 @@ void UINumberTilde::setup()
     obj.setPropertyRange("interval", 20, 1000);
     obj.setPropertyUnits("interval", "msec");
 
-    obj.setPropertyDefaultValue(PROP_BACKGROUND_COLOR, "0.3 0.3 0.3 1");
-    obj.setPropertyDefaultValue(PROP_BORDER_COLOR, DEFAULT_TEXT_COLOR);
+    obj.setPropertyDefaultValue(sym::props::name_background_color, "0.3 0.3 0.3 1");
+    obj.setPropertyDefaultValue(sym::props::name_border_color, DEFAULT_TEXT_COLOR);
     obj.internalProperty("send");
     obj.internalProperty("receive");
 }

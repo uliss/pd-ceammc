@@ -76,4 +76,8 @@ void setup_flow_pass()
                        "any:    pass if selector in pass list",
                          "list: set pass list" },
         { "passed messages" });
+
+    obj.setDescription("pass specified values");
+    obj.setCategory("flow");
+    obj.setKeywords({"pass", "functional"});
 }

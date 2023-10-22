@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flt.freqz">
         <title>flt.freqz</title>
         <meta>
@@ -33,6 +33,7 @@
             <property name="@db" type="bool" default="0">output amp response in db scale</property>
         </properties>
         <methods>
+            <!-- biquad -->
             <method name="biquad">set 'b' and 'a' coefficients, no output 
             <param name="b0" type="float" required="true">b0</param>
             <param name="b1" type="float" required="true">b1</param>

@@ -11,10 +11,9 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
 #include "ceammc_factory.h"
 
-extern "C" {
-#include "g_canvas.h"
-#include "m_imp.h"
+ceammc::ObjectInitVptr::~ObjectInitVptr() {
+
+
 }

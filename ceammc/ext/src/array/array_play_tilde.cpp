@@ -460,4 +460,8 @@ void setup_array_play_tilde()
     obj.setXletsInfo(
         { "bang: start playback" },
         { "audio", "current playing time", "bang on finish" });
+
+    obj.setDescription("array player with variable speed and amplitude");
+    obj.setCategory("array");
+    obj.setKeywords({"array", "play"});
 }

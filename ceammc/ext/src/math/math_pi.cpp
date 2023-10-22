@@ -68,4 +68,7 @@ void setup_math_pi()
 
     SoundExternalFactory<MathPiTilde> obj_tilde("math.pi~", OBJECT_FACTORY_DEFAULT | OBJECT_FACTORY_NO_DEFAULT_INLET);
     obj_tilde.addAlias("pi~");
+
+    obj.setDescription("mathematical constant");
+    obj.setCategory("math");
 }

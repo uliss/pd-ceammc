@@ -1,3 +1,4 @@
+#!/usr/bin/env python
 import wave
 import random
 import struct

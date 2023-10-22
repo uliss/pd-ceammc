@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="array.plot">
         <title>array.plot</title>
         <meta>
@@ -25,9 +25,9 @@
         </arguments>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
-            <property name="@ymin" minvalue="-2048" maxvalue="2048" type="float" default="-1">
+            <property name="@ymin" type="float" minvalue="-2048" maxvalue="2048" default="-1">
             minimal y-axis value</property>
-            <property name="@ymax" minvalue="-2048" maxvalue="2048" type="float" default="1">
+            <property name="@ymax" type="float" minvalue="-2048" maxvalue="2048" default="1">
             maximum y-axis value</property>
             <property name="@yauto" type="bool" default="1">calculate y-axis range
             automatically</property>

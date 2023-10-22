@@ -31,4 +31,7 @@ void setup_math_and()
     ObjectFactory<MathAnd> obj("math.and");
     obj.addAlias("and");
     obj.addMethod("reset", &MathAnd::m_reset);
+
+    obj.setDescription("operation AND for multiple arguments");
+    obj.setCategory("math");
 }

@@ -22,9 +22,10 @@ endfunction()
 # liblo
 find_package(liblo)
 if(LIBLO_FOUND)
+    add_net_test(osc)
     add_net_test(osc_receive)
-    add_net_test(osc_server)
     add_net_test(osc_send)
+    add_net_test(osc_server)
 endif()
 
 add_net_test(host)

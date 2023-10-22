@@ -13,5 +13,5 @@
  *****************************************************************************/
 #include "ceammc_stub.h"
 
-AUDIO_OBJECT_STUB(1, 1, 1, 0, "compiled without Faust support");
-OBJECT_STUB_SETUP("ui.faust~", ui0x2efaust_tilde);
+AUDIO_OBJECT_STUB(LangFaustUiTilde, 1, 1, 1, 0, "this is stub object: compiled without Faust support");
+OBJECT_STUB_SETUP(LangFaustUiTilde, ui_faust_non_external, "ui.faust~");

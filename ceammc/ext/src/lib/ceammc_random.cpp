@@ -53,6 +53,12 @@ namespace random {
         return dist(*gen_);
     }
 
+    int32_t RandomGen::gen_uniform_int(int32_t a, int32_t b)
+    {
+        std::uniform_int_distribution<int32_t> dist(a, b);
+        return dist(*gen_);
+    }
+
     SeedProperty::SeedProperty(RandomGen& gen)
         : IntProperty("@seed", 0)
         , gen_(gen)

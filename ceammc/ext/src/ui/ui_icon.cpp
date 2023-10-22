@@ -94,12 +94,12 @@ void UIIcon::onPropChange(t_symbol* prop_name)
 void UIIcon::okSize(t_rect* newrect)
 {
     if (isSpecialIcon()) {
-        newrect->width = SPEC_SIZE;
-        newrect->height = SPEC_SIZE;
+        newrect->w = SPEC_SIZE;
+        newrect->h = SPEC_SIZE;
         return;
     }
 
-    float w = (newrect->width);
+    float w = (newrect->w);
 
     int w0 = roundf(w / 6);
     if (w0 == 3 || w0 == 4 || w0 == 6 || w0 == 8) {
@@ -112,8 +112,8 @@ void UIIcon::okSize(t_rect* newrect)
         prop_size = 18;
     }
 
-    newrect->width = prop_size;
-    newrect->height = prop_size;
+    newrect->w = prop_size;
+    newrect->h = prop_size;
 }
 
 void UIIcon::paint()
@@ -139,7 +139,7 @@ void UIIcon::onBang()
     if (!is_enabled_)
         return;
 
-    if (prop_mode == sym_bang() || prop_mode == sym_toggle()) {
+    if (prop_mode == sym::sym_bang() || prop_mode == sym_toggle()) {
         t_pt pt;
         onMouseDown(0, pt, pt, 0);
     } else {
@@ -152,7 +152,7 @@ void UIIcon::onFloat(t_float f)
     if (!is_enabled_)
         return;
 
-    if (prop_mode == sym_bang()) {
+    if (prop_mode == sym::sym_bang()) {
         onBang();
     } else {
         is_active_ = (f != 0.f);
@@ -328,12 +328,12 @@ void UIIcon::setup()
     obj.useFloat();
     obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP);
 
-    obj.setPropertyDefaultValue(PROP_BACKGROUND_COLOR, "1 1 1 1");
-    obj.setPropertyDefaultValue(PROP_BORDER_COLOR, "1 1 1 1");
+    obj.setPropertyDefaultValue(sym::props::name_background_color, "1 1 1 1");
+    obj.setPropertyDefaultValue(sym::props::name_border_color, "1 1 1 1");
 
     obj.addProperty("icon", _("Icon"), "help", &UIIcon::prop_icon, icons_string, _("Main"));
     obj.addPropertyIntMenu("icon_size", _("Size"), "24", &UIIcon::prop_size, "18 24 36 48", _("Basic"));
-    obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIIcon::prop_color_active);
+    obj.addProperty(sym::props::name_active_color, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIIcon::prop_color_active);
 
     obj.addProperty("mode", _("Mode"), "button", &UIIcon::prop_mode, "toggle button bang", _("Main"));
     obj.addProperty("enabled", &UIIcon::propEnabled, &UIIcon::propSetEnabled);
@@ -346,7 +346,7 @@ void setup_ui_icon()
 {
     init_icon_list();
 
-    sys_gui(ui_icon_tcl);
+    ui_icon_tcl_output();
 
     for (auto& i : icons_list) {
         if (!i.name)

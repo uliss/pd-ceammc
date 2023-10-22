@@ -11,198 +11,56 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
-#include <array>
 #include <cassert>
+#include <thread>
 
 #include "ceammc_containers.h"
+#include "ceammc_crc32.h"
 #include "ceammc_faust.h"
-#include "ceammc_output.h"
+#include "ceammc_format.h"
+#include "ceammc_osc.h"
+#include "ceammc_poll_dispatcher.h"
+#include "ceammc_random.h"
+#include "fmt/core.h"
 
 namespace ceammc {
+
+namespace {
+    class FaustOscVisitor : public boost::static_visitor<> {
+        faust::FaustExternalBase::OscQueue* q_;
+        faust::UIElement* ui_;
+        int sleep_time_;
+
+    public:
+        FaustOscVisitor(faust::FaustExternalBase::OscQueue* q, faust::UIElement* el, int sleep_ms = 1)
+            : q_(q)
+            , ui_(el)
+            , sleep_time_(sleep_ms)
+        {
+        }
+
+        void push(FAUSTFLOAT x) const
+        {
+            int max = 50;
+            while (!q_->push({ ui_, x }) && (max-- > 0))
+                std::this_thread::sleep_for(std::chrono::milliseconds(sleep_time_));
+        }
+
+        void operator()(float f) const { push(f); }
+        void operator()(double d) const { push(d); }
+        void operator()(bool b) const { push(b); }
+        void operator()(int32_t i) const { push(i); }
+        void operator()(int64_t h) const { push(h); }
+
+        void operator()(const std::string& s) const { }
+        void operator()(char c) const { }
+        void operator()(osc::OscMessageSpec spec) { }
+        void operator()(const osc::OscMessageMidi& midi) { }
+        void operator()(const osc::OscMessageBlob& blob) { }
+    };
+}
+
 namespace faust {
-    t_symbol* UIElement::typeSymbol() const
-    {
-        static t_symbol* s_button = gensym("button");
-        static t_symbol* s_checkbox = gensym("checkbox");
-        static t_symbol* s_vslider = gensym("vslider");
-        static t_symbol* s_hslider = gensym("hslider");
-        static t_symbol* s_nentry = gensym("nentry");
-        static t_symbol* s_vbargraph = gensym("vbargraph");
-        static t_symbol* s_hbargraph = gensym("hbargraph");
-
-        switch (type_) {
-        case UI_BUTTON:
-            return s_button;
-        case UI_CHECK_BUTTON:
-            return s_checkbox;
-        case UI_V_SLIDER:
-            return s_vslider;
-        case UI_H_SLIDER:
-            return s_hslider;
-        case UI_NUM_ENTRY:
-            return s_nentry;
-        case UI_V_BARGRAPH:
-            return s_vbargraph;
-        case UI_H_BARGRAPH:
-            return s_hbargraph;
-        default:
-            return 0;
-        }
-    }
-
-    void UIElement::initProperty(const std::string& name)
-    {
-        char buf[MAXPDSTRING];
-        sprintf(buf, "@%s", name.c_str());
-        set_prop_symbol_ = gensym(buf);
-        sprintf(buf, "@%s?", name.c_str());
-        get_prop_symbol_ = gensym(buf);
-
-        // set type and view
-        switch (type_) {
-        case UI_CHECK_BUTTON:
-            pinfo_.setType(PropValueType::BOOLEAN);
-            pinfo_.setView(PropValueView::TOGGLE);
-            pinfo_.setDefault(init_ != 0);
-            break;
-        case UI_V_SLIDER:
-        case UI_H_SLIDER:
-            pinfo_.setType(PropValueType::FLOAT);
-            pinfo_.setView(PropValueView::SLIDER);
-            break;
-        case UI_NUM_ENTRY:
-            pinfo_.setType(PropValueType::FLOAT);
-            pinfo_.setView(PropValueView::NUMBOX);
-            break;
-        default:
-            pinfo_.setType(PropValueType::FLOAT);
-            pinfo_.setView(PropValueView::SLIDER);
-            break;
-        }
-
-        if (type_ != UI_CHECK_BUTTON) {
-            if (!pinfo_.setConstraints(PropValueConstraints::CLOSED_RANGE))
-                LIB_ERR << set_prop_symbol_ << " can't set constraints";
-
-            if (!pinfo_.setRangeFloat(min_, max_))
-                LIB_ERR << set_prop_symbol_ << " can't set range: " << min_ << " - " << max_;
-
-            pinfo_.setDefault(init_);
-            pinfo_.setStep(step_);
-        }
-    }
-
-    void UIElement::outputProperty(t_outlet* out)
-    {
-        if (!out)
-            return;
-
-        ceammc::Atom a;
-
-        if (value_)
-            a.setFloat(*value_, true);
-        else
-            a.setSymbol(gensym("?"), true);
-
-        outletAny(out, set_prop_symbol_, a);
-    }
-
-    void UIElement::outputValue(t_outlet* out)
-    {
-        if (!out || !value_)
-            return;
-
-        Atom a(value());
-        outletAny(out, gensym(path_.c_str()), a);
-    }
-
-    UIElement::UIElement(UIElementType t, const std::string& path, const std::string& label)
-        : type_(t)
-        , path_(path)
-        , label_(label)
-        , init_(0)
-        , min_(0)
-        , max_(1)
-        , step_(0)
-        , value_(0)
-        , set_prop_symbol_(0)
-        , get_prop_symbol_(0)
-        , pinfo_(std::string("@") + label, PropValueType::FLOAT)
-    {
-        initProperty(label);
-    }
-
-    FAUSTFLOAT UIElement::value(FAUSTFLOAT def) const
-    {
-        if (!value_)
-            return std::min(max_, std::max(min_, def));
-
-        return std::min(max_, std::max(min_, *value_));
-    }
-
-    void UIElement::setValue(FAUSTFLOAT v, bool clip)
-    {
-        if (!value_)
-            return;
-
-        if (v < min_) {
-            if (clip)
-                *value_ = min_;
-
-            return;
-        }
-
-        if (v > max_) {
-            if (clip)
-                *value_ = max_;
-
-            return;
-        }
-
-        *value_ = v;
-    }
-
-    bool UIElement::pathcmp(const std::string& path) const
-    {
-        size_t n = path_.size();
-        size_t m = path.size();
-
-        if (n == 0 || m == 0)
-            return false;
-
-        // full path check
-        if (path[0] == '/')
-            return path_ == path;
-
-        if (m < n && path_[n - m - 1] != '/')
-            return path_.compare(n - m - 1, std::string::npos, path) == 0;
-
-        return path_.compare(n - m, std::string::npos, path) == 0;
-    }
-
-    void UIElement::dump(t_outlet* out)
-    {
-        if (!out)
-            return;
-
-        if (!value_)
-            return;
-
-        t_symbol* sel = typeSymbol();
-        if (!sel)
-            return;
-
-        StaticAtomList<6> lst { path_, value(), init_, min_, max_, step_ };
-//        lst.append(atomFrom(path_));
-//        lst.append(Atom(value()));
-//        lst.append(Atom(init_));
-//        lst.append(Atom(min_));
-//        lst.append(Atom(max_));
-//        lst.append(Atom(step_));
-
-        outletAny(out, sel, lst.view());
-    }
 
     bool isGetAllProperties(t_symbol* s)
     {
@@ -227,66 +85,73 @@ namespace faust {
 
     bool isSetProperty(t_symbol* s)
     {
-        size_t len = strlen(s->s_name);
-        if (len < 1)
+        auto N = strlen(s->s_name);
+        if (N < 1)
             return false;
 
         if (s->s_name[0] != '@')
             return false;
 
-        return s->s_name[len - 1] != '?';
+        return s->s_name[N - 1] != '?';
     }
 
-    bool skipOscSegment(const std::string& s)
+    static void append_filtered(const char* str, std::string& out)
     {
-        if (s.empty())
-            return true;
+        out += '/';
 
-        if (s == "0x00")
-            return true;
-
-        return false;
-    }
-
-    bool invalidOscChar(char c) { return isalnum(c) == 0 && c != '_'; }
-
-    std::string escapeOscSegment(const std::string& s)
-    {
-        std::string res;
-        std::remove_copy_if(s.begin(), s.end(), std::back_inserter(res), &invalidOscChar);
-        return res;
-    }
-
-    std::vector<std::string> filterOscSegment(const std::vector<std::string>& osc)
-    {
-        std::vector<std::string> res;
-        res.reserve(osc.size());
-        for (size_t i = 0; i < osc.size(); i++) {
-            if (skipOscSegment(osc[i]))
+        int ch = 0;
+        while ((ch = *str++)) {
+            if (!isalnum(ch) && ch != '_')
                 continue;
 
-            res.push_back(escapeOscSegment(osc[i]));
+            out += ch;
         }
+    }
+
+    std::string makeOscPath(const t_symbol* label, const OscSegmentList& segs, const t_symbol* id)
+    {
+        std::string res;
+
+        if (id != &s_)
+            append_filtered(id->s_name, res);
+
+        for (auto s : segs) {
+            // skip segments
+            if (s == &s_ || strcmp(s->s_name, "0x00") == 0)
+                continue;
+
+            append_filtered(s->s_name, res);
+        }
+
+        append_filtered(label->s_name, res);
+
         return res;
     }
 
-    FaustExternalBase::FaustExternalBase(const PdArgs& args)
+    FaustExternalBase::FaustExternalBase(const PdArgs& args, const char* name)
         : SoundExternal(args)
         , faust_bs_(0)
         , xfade_(0)
         , n_xfade_(0)
-        , active_(true)
+        , ui_(new PdUI(name))
     {
-        createCbBoolProperty(
-            "@active",
-            [this]() -> bool { return active_; },
-            [this](bool b) -> bool { active_ = b; return true; });
+        active_ = new BoolProperty("@active", true);
+        addProperty(active_);
+
+        id_ = new SymbolProperty("@id", &s_, PropValueAccess::INITONLY);
+        addProperty(id_);
+
+        osc_ = new SymbolProperty("@osc", &s_, PropValueAccess::INITONLY);
+        addProperty(osc_);
     }
 
     FaustExternalBase::~FaustExternalBase()
     {
         for (auto& b : faust_buf_)
             delete[] b;
+
+        if (hasOscBinding())
+            Dispatcher::instance().unsubscribe(this);
     }
 
     void FaustExternalBase::bindPositionalArgToProperty(size_t idx, t_symbol* propName)
@@ -310,6 +175,30 @@ namespace faust {
         }
     }
 
+    void FaustExternalBase::bindPositionalArgsToProps(std::initializer_list<const char*> lst)
+    {
+        for (size_t i = 0; i < lst.size(); i++) {
+            auto* p = lst.begin()[i];
+            bindPositionalArgToProperty(i, gensym(p));
+        }
+    }
+
+    void FaustExternalBase::initDone()
+    {
+        SoundExternal::initDone();
+
+        if (properties().size() == 3) { // only @active, @id and @osc
+            id_->setInternal();
+            osc_->setInternal();
+        } else if (hasOscBinding()) {
+            osc_queue_.reset(new OscQueue);
+            Dispatcher::instance().subscribe(this, subscriberId());
+            bindReceive(gensym(OSC_DISPATCHER));
+
+            bindUIElements(ui_->elements(), ui_->oscSegments());
+        }
+    }
+
     void FaustExternalBase::setupDSP(t_signal** sp)
     {
         SoundExternal::setupDSP(sp);
@@ -326,23 +215,17 @@ namespace faust {
 
             faust_bs_ = BS;
         }
+
+        if (clock_ptr_)
+            clock_ptr_->exec();
     }
 
     void FaustExternalBase::processInactive(const t_sample** in, t_sample** out)
     {
-        const size_t N_IN = numInputChannels();
         const size_t N_OUT = numOutputChannels();
         const size_t BS = blockSize();
 
-        if (N_IN == N_OUT) {
-            // in non-active state - just pass thru samples
-            copy_samples(N_IN, BS, in, faust_buf_.data());
-            copy_samples(N_OUT, BS, const_cast<const t_sample**>(faust_buf_.data()), out);
-        } else {
-            // if state is non-active and different inputs and outputs count
-            // fill outs with zero
-            zero_samples(N_OUT, BS, out);
-        }
+        zero_samples(N_OUT, BS, out);
     }
 
     void FaustExternalBase::processXfade(const t_sample** in, t_sample** out)
@@ -350,7 +233,7 @@ namespace faust {
         const size_t N_IN = numInputChannels();
         const size_t N_OUT = numOutputChannels();
 
-        if (active_) {
+        if (isActive()) {
             if (N_IN == N_OUT) {
                 /* xfade inputs -> buf */
                 bufFadeIn(in, out, 1);
@@ -386,6 +269,143 @@ namespace faust {
         return 0.1f;
     }
 
+    void FaustExternalBase::warnDeprectedName(const char* name)
+    {
+        auto cname = pdArgs().creationName->s_name;
+        if (strcmp(cname, name) == 0) {
+            OBJ_DBG << fmt::format("object name [{}] is deprecated and will be removed in future versions, "
+                                   "use [{}] instead",
+                cname, className()->s_name);
+        }
+    }
+
+    bool FaustExternalBase::notify(int code)
+    {
+        if (!osc_queue_)
+            return false;
+
+        QueueElement x;
+        while (osc_queue_->pop(x)) {
+            if (x.ui)
+                x.ui->setValue(x.value, true);
+        }
+
+        return true;
+    }
+
+    void FaustExternalBase::outputMetersTo(size_t outlet)
+    {
+        auto n = meters_.size();
+        if (n == 0)
+            return;
+        else if (n == 1)
+            floatTo(outlet, meters_[0] ? *meters_[0] : 0);
+        else {
+            StaticAtomList<4> data;
+            data.reserve(meters_.size());
+
+            for (auto x : meters_)
+                data.push_back(x ? *x : 0);
+
+            listTo(outlet, data.view());
+        }
+    }
+
+    UIProperty* FaustExternalBase::findUIProperty(t_symbol* name, bool printErr)
+    {
+        auto res = dynamic_cast<UIProperty*>(property(name));
+        if (!res)
+            OBJ_ERR << "property not found: " << name->s_name;
+
+        return res;
+    }
+
+    void FaustExternalBase::initMeters()
+    {
+        if (meters_.size() > 0) {
+            refresh_ = new IntProperty("@refresh", 100);
+            refresh_->checkClosedRange(0, 1000);
+            refresh_->setUnitsMs();
+            addProperty(refresh_);
+            clock_ptr_.reset(new ClockLambdaFunction([this]() {
+                if (clock_fn_) {
+                    clock_fn_(meters_);
+
+                    auto t = refresh_->value();
+                    if (t > 0)
+                        clock_ptr_->delay(t);
+                }
+            }));
+        }
+    }
+
+    void FaustExternalBase::createUIProperty(UIElement* ui)
+    {
+        auto prop = new UIProperty(ui);
+        auto type = prop->uiElement()->type();
+
+        if (type == UI_V_BARGRAPH || type == UI_H_BARGRAPH) {
+            meters_.push_back(prop->uiElement()->valuePtr());
+            prop->setReadOnly();
+        }
+
+        addProperty(prop);
+    }
+
+    void FaustExternalBase::createUIProperties()
+    {
+        const size_t n_ui = ui_->uiCount();
+        for (size_t i = 0; i < n_ui; i++)
+            createUIProperty(ui_->uiAt(i));
+    }
+
+    void FaustExternalBase::bindUIElements(const std::vector<UIElementPtr>& ui, const OscSegmentList& prefix)
+    {
+        for (auto& a : ui)
+            bindUIElement(a.get(), prefix);
+    }
+
+    void FaustExternalBase::bindUIElement(UIElement* ui, const OscSegmentList& prefix)
+    {
+        auto osc_path = makeOscPath(ui->label(), prefix, id_->value());
+        if (osc_path.empty()) {
+            OBJ_ERR << "empty osc path";
+            return;
+        }
+
+        auto osc = osc::OscServerList::instance().findByName(osc_->value());
+        if (!osc.expired()) {
+            osc.lock()->subscribeMethod(osc_path.c_str(), nullptr, subscriberId(),
+                [this, ui](const osc::OscRecvMessage& m) -> bool {
+                    FaustOscVisitor visitor(osc_queue_.get(), ui);
+                    if (m.size() == 1)
+                        m[0].apply_visitor(visitor);
+
+                    return true;
+                });
+
+            OBJ_DBG << fmt::format("[osc] subscribe to path {}:{}", osc_->value()->s_name, osc_path.c_str());
+        }
+    }
+
+    void FaustExternalBase::unbindUIElements()
+    {
+        auto osc = osc::OscServerList::instance().findByName(osc_->value());
+        if (!osc.expired()) {
+            osc.lock()->unsubscribeAll(subscriberId());
+            OBJ_DBG << fmt::format("[osc] unsubscribed from server: '{}'", osc_->value()->s_name);
+        }
+    }
+
+    void FaustExternalBase::m_update_osc_server(t_symbol* name, const AtomListView& lv)
+    {
+        if (!hasOscBinding() || lv != oscServer())
+            return;
+
+        unbindUIElements();
+        bindUIElements(ui_->elements(), ui_->oscSegments());
+    }
+
     void FaustExternalBase::bufFadeIn(const t_sample** in, t_sample** out, float k0)
     {
         const size_t BS = blockSize();
@@ -419,6 +439,7 @@ namespace faust {
     UIProperty::UIProperty(UIElement* el)
         : Property(el->propInfo())
         , el_(el)
+        , enum_data_(el->enumData())
     {
     }
 
@@ -428,8 +449,52 @@ namespace faust {
         return true;
     }
 
+    int UIProperty::findEnumIndex(const char* str) const
+    {
+        auto hash = crc32_hash(str);
+        auto it = std::find_if(enum_data_.begin(), enum_data_.end(), [hash](const UIEnumEntry& e) { return e.hash() == hash; });
+
+        return (it == enum_data_.end()) ? -1 : std::distance(enum_data_.begin(), it);
+    }
+
+    bool UIProperty::setByEnumValue(const AtomListView& lv)
+    {
+        if (!lv.isSymbol())
+            return false;
+
+        auto idx = findEnumIndex(lv[0].asT<t_symbol*>());
+        if (idx < 0)
+            return false;
+
+        setValue(idx, true);
+        return true;
+    }
+
+    std::string UIProperty::usageStringVariants() const
+    {
+        std::string res;
+
+        if (hasEnum()) {
+            for (size_t i = 0; i < enum_data_.size(); i++) {
+                if (i != 0)
+                    res += '|';
+
+                res += enum_data_[i].name();
+            }
+        }
+
+        if (!res.empty())
+            res += '|';
+
+        res += "random";
+
+        return res;
+    }
+
     bool UIProperty::setList(const AtomListView& lv)
     {
+        constexpr const char* MATH_OPS = "+-*/";
+
         if (!emptyCheck(lv))
             return false;
 
@@ -450,18 +515,40 @@ namespace faust {
                 return true;
             } else if (op[0] == '/' && op[1] == '\0') {
                 if (val == 0) {
-                    LIB_ERR << "[@" << name()->s_name << "] division by zero";
+                    LIB_ERR << fmt::format("[{}] division by zero", name()->s_name);
                     return false;
                 } else {
                     setValue(value() / val, true);
                     return true;
                 }
             } else {
-                LIB_ERR << "[" << name()->s_name << "] expected +-*/, got: " << lv[0];
+                LIB_ERR << fmt::format("[{}] expected [{}], got: '{}'", name()->s_name, MATH_OPS, to_string(lv[0]));
                 return false;
             }
+        } else if (lv.size() == 1 && lv[0] == "random") {
+            random::RandomGen gen;
+            if (isFloat()) {
+                setValue(gen.gen_uniform_float(el_->min(), el_->max()), true);
+                return true;
+            } else if (isInt()) {
+                setValue(gen.gen_uniform_int(el_->min(), el_->max()), true);
+                return true;
+            } else if (isBool()) {
+                setValue(gen.gen_uniform_int(0, 1), true);
+                return true;
+            } else {
+                LIB_ERR << fmt::format("[{}] unexpected property type for random: {}", name()->s_name, to_string(info().type()));
+                return false;
+            }
+        } else if (hasEnum() && setByEnumValue(lv)) {
+            return true;
         } else {
-            LIB_ERR << "[" << name()->s_name << "] float value expected, got: " << lv;
+            LIB_ERR << fmt::format("[{}] float/int value, math operation [{}]N, or symbol {}; got: '{}'",
+                name()->s_name,
+                MATH_OPS,
+                usageStringVariants(),
+                to_string(lv));
+
             return false;
         }
     }
@@ -479,55 +566,6 @@ namespace faust {
     void UIProperty::setValue(t_float v, bool clip) const
     {
         el_->setValue(v, clip);
-    }
-
-    void UIElement::setContraints(FAUSTFLOAT init, FAUSTFLOAT min, FAUSTFLOAT max, FAUSTFLOAT step)
-    {
-        assert(min <= init && init <= max);
-
-        init_ = init;
-        min_ = min;
-        max_ = max;
-        step_ = step;
-
-        if (type() != UI_CHECK_BUTTON) {
-            if (!pinfo_.setConstraints(PropValueConstraints::CLOSED_RANGE))
-                LIB_ERR << set_prop_symbol_ << " can't set constraints";
-
-            if (pinfo_.type() == PropValueType::FLOAT && !pinfo_.setRangeFloat(min_, max_))
-                LIB_ERR << set_prop_symbol_ << " can't set range: " << min_ << " - " << max_;
-            else if (pinfo_.type() == PropValueType::INTEGER && !pinfo_.setRangeInt(min_, max_))
-                LIB_ERR << set_prop_symbol_ << " can't set range: " << min_ << " - " << max_;
-
-            if (pinfo_.type() == PropValueType::FLOAT)
-                pinfo_.setDefault(init_);
-            else if (pinfo_.type() == PropValueType::INTEGER)
-                pinfo_.setDefault(static_cast<int>(init_));
-            else if (pinfo_.type() == PropValueType::BOOLEAN)
-                pinfo_.setDefault(static_cast<bool>(init_));
-
-            pinfo_.setStep(step_);
-        }
-    }
-
-    PropValueUnits to_units(const char* u)
-    {
-        static std::pair<const char*, PropValueUnits> umap[] = {
-            { "Hz", PropValueUnits::HZ },
-            { "ms", PropValueUnits::MSEC },
-            { "sec", PropValueUnits::SEC },
-            { "percent", PropValueUnits::PERCENT },
-            { "db", PropValueUnits::DB },
-            { "bpm", PropValueUnits::BPM },
-            { "semitone", PropValueUnits::SEMITONE },
-        };
-
-        for (auto& p : umap) {
-            if (strcmp(u, p.first) == 0)
-                return p.second;
-        }
-
-        return PropValueUnits::NONE;
     }
 
     void copy_samples(size_t n_ch, size_t bs, const t_sample** in, t_sample** out, bool zero_abnormals)
@@ -552,6 +590,5 @@ namespace faust {
             }
         }
     }
-
 }
 }

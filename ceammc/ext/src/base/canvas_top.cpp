@@ -9,17 +9,20 @@ CanvasTop::CanvasTop(const PdArgs& a)
 {
     createOutlet();
 
-    createCbSymbolProperty("@name", [this]() -> t_symbol* { return canvas_info_name(rootCanvas()); });
-    createCbSymbolProperty("@dir", [this]() -> t_symbol* { return canvas_info_dir(rootCanvas()); });
-    createCbIntProperty("@font", [this]() -> int { return canvas_info_font(rootCanvas()); });
-    createCbListProperty("@paths", [this]() -> AtomList { return canvas_info_paths(rootCanvas()); });
-    createCbIntProperty("@x", [this]() -> int { return canvas_info_rect(rootCanvas()).x; });
-    createCbIntProperty("@y", [this]() -> int { return canvas_info_rect(rootCanvas()).y; });
-    createCbIntProperty("@width", [this]() -> int { return canvas_info_rect(rootCanvas()).w; });
-    createCbIntProperty("@height", [this]() -> int { return canvas_info_rect(rootCanvas()).h; });
+    abs_ = new BoolProperty("@abs", true);
+    addProperty(abs_);
+
+    createCbSymbolProperty("@name", [this]() -> t_symbol* { return canvas_info_name(topCanvas()); });
+    createCbSymbolProperty("@dir", [this]() -> t_symbol* { return canvas_info_dir(topCanvas()); });
+    createCbIntProperty("@font", [this]() -> int { return canvas_info_font(topCanvas()); });
+    createCbListProperty("@paths", [this]() -> AtomList { return canvas_info_paths(topCanvas()); });
+    createCbIntProperty("@x", [this]() -> int { return canvas_info_rect(topCanvas()).x; });
+    createCbIntProperty("@y", [this]() -> int { return canvas_info_rect(topCanvas()).y; });
+    createCbIntProperty("@width", [this]() -> int { return canvas_info_rect(topCanvas()).w; });
+    createCbIntProperty("@height", [this]() -> int { return canvas_info_rect(topCanvas()).h; });
 
     createCbListProperty("@size", [this]() -> AtomList {
-        t_rect bb = canvas_info_rect(rootCanvas());
+        t_rect bb = canvas_info_rect(topCanvas());
         return { Atom(bb.w), Atom(bb.h) };
     });
 }
@@ -47,7 +50,7 @@ void CanvasTop::m_postscript(t_symbol* s, const AtomListView& lv)
 
     t_symbol* sname = lv.symbolAt(0, &s_);
     if (sname == &s_) {
-        filename = platform::strip_extension(canvas_info_name(rootCanvas())->s_name);
+        filename = platform::strip_extension(canvas_info_name(topCanvas())->s_name);
         filename += ".ps";
     } else {
         filename = sname->s_name;
@@ -60,7 +63,12 @@ void CanvasTop::m_postscript(t_symbol* s, const AtomListView& lv)
 
     OBJ_DBG << "saving to postscript file: " << filename;
 
-    sys_vgui(".x%lx.c postscript -file {%s}\n", rootCanvas(), filename.c_str());
+    sys_vgui(".x%lx.c postscript -file {%s}\n", topCanvas(), filename.c_str());
+}
+
+const t_canvas* CanvasTop::topCanvas() const
+{
+    return canvas(abs_->value() ? CanvasType::ROOT : CanvasType::TOPLEVEL);
 }
 
 void setup_canvas_top()

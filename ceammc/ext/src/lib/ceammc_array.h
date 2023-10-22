@@ -47,6 +47,8 @@ public:
     t_float& operator*() { return data_->w_float; }
     const t_float& operator*() const { return data_->w_float; }
     t_float& operator[](const size_t n) { return data_[n].w_float; }
+    word* data() { return data_; }
+    const word* data() const { return data_; }
 
     inline ArrayIterator& operator++()
     {
@@ -254,7 +256,7 @@ public:
      * @param labels - list of float values on which show labels
      * @return true on sucess, false on error
      */
-    bool setYLabels(const AtomList& labels);
+    bool setYLabels(const AtomListView& labels);
 
     /**
      * If true - save array contains in patch (convenient for small arrays)

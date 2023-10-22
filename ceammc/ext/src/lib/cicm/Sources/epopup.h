@@ -40,7 +40,7 @@ t_epopup* epopupmenu_create(t_eobj* x, t_symbol* name);
  * \param popup The t_epopup pointer.
  * \param font  The t_efont pointer.
  */
-void epopupmenu_setfont(t_epopup* popup, t_efont* font);
+void epopupmenu_setfont(t_epopup* popup, const t_efont* font);
 
 /*!
  * \fn          void epopupmenu_additem(t_epopup *popup, int itemid, const char *text, char checked, char disabled)
@@ -51,7 +51,7 @@ void epopupmenu_setfont(t_epopup* popup, t_efont* font);
  * \param enabled If the item is marked as enabled or not.
  * \param pos    popup menu position
  */
-void epopupmenu_additem(t_epopup* popup, int itemid, const char* text, bool enabled, const t_pt& pos);
+void epopupmenu_additem(t_epopup* popup, int itemid, const char* text, bool enabled, bool readonly, const t_pt& pos);
 
 /*!
  * \fn          void epopupmenu_addseparator(t_epopup *popup)

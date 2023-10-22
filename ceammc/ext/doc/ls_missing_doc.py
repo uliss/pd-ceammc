@@ -7,12 +7,15 @@ import xml.etree.ElementTree as ET
 logging.addLevelName(logging.WARNING, "\033[1;31m%s\033[1;0m " % logging.getLevelName(logging.WARNING))
 logging.addLevelName(logging.ERROR, "\033[1;41m%s\033[1;0m " % logging.getLevelName(logging.ERROR))
 
-ignored = set(['prepend', '_tcl.version'])
+ignored = set(['_tcl.version', 'test.data', 'test.expect'])
 
 def allExternalsWithAliases():
     res = set()
     with open("../ceammc_objects.txt", "r") as f:
         for l in f.readlines():
+            if l.startswith("piece."):
+                continue
+
             res.add(l.strip())
 
     return res
@@ -48,6 +51,7 @@ def allDocFilesOnDisk():
     res = set()
     for f in files:
         doc_name = os.path.splitext(f)[0]
+
         res.add(doc_name)
 
     return res

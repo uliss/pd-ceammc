@@ -1,0 +1,3 @@
+file(GLOB _MXML_FILES "*.mxml")
+
+install(FILES ${_MXML_FILES} DESTINATION ${CEAMMC_INSTALL_PATH}/music)

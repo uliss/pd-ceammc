@@ -7,6 +7,7 @@
 //
 
 #include "ceammc_log.h"
+#include "ceammc_symbols.h"
 #include "ceammc_timeline.h"
 #include "m_pd.h"
 
@@ -64,18 +65,18 @@ static void tl_transport_info(tl_transport* x, t_symbol* /*s*/, int /*argc*/, t_
 
 static void* tl_transport_new()
 {
-    tl_transport* x = reinterpret_cast<tl_transport*>(pd_new(tl_transport_class));
+    auto x = reinterpret_cast<tl_transport*>(pd_new(tl_transport_class));
     x->cnv = canvas_getcurrent();
     return static_cast<void*>(x);
 }
 
-extern "C" void setup_tl0x2etransport()
+void setup_tl_transport()
 {
     tl_transport_class = class_new(gensym("tl.transport"),
         reinterpret_cast<t_newmethod>(tl_transport_new),
         reinterpret_cast<t_method>(0),
         sizeof(tl_transport), 0, A_NULL);
 
-    class_addmethod(tl_transport_class, reinterpret_cast<t_method>(tl_transport_info), gensym("dump"), A_NULL);
+    class_addmethod(tl_transport_class, reinterpret_cast<t_method>(tl_transport_info), sym::methods::sym_dump(), A_NULL);
     class_addmethod(tl_transport_class, reinterpret_cast<t_method>(tl_transport_cue), gensym("cue"), A_DEFFLOAT, 0);
 }

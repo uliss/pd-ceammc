@@ -12,7 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_property_enum.h"
-#include "fmt/format.h"
 
 #define PROP_ERR() LogPdObject(owner(), LOG_ERROR).stream() << errorPrefix()
 

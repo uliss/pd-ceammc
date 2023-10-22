@@ -11,6 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "ceammc_abstractdata.h"
 #include "ceammc_data.h"
 #include "ceammc_datastorage.h"
 
@@ -30,7 +31,7 @@ public:
 
     DataTypeId type() const noexcept override
     {
-        return dataType;
+        return staticType();
     }
 
     IntData* clone() const override
@@ -46,15 +47,17 @@ public:
         return false;
     }
 
-    std::string toListStringContent() const override { return std::to_string(v_);}
+    std::string toListStringContent() const override { return std::to_string(v_); }
     std::string toDictStringContent() const override { return std::string("value: ") + std::to_string(v_); }
     bool set(const AbstractData* d) noexcept override { return setDataT<IntData>(d); }
 
-
-    static const DataTypeId dataType;
+    static DataTypeId staticType()
+    {
+        static auto id = DataStorage::instance().registerNewType("IntData");
+        return id;
+    }
 };
 
-const DataTypeId IntData::dataType = DataStorage::instance().registerNewType("IntData");
 using IntA = DataAtom<IntData>;
 
 static void init(std::vector<IntA>& vec)

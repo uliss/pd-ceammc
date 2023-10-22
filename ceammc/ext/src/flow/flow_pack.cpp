@@ -150,4 +150,8 @@ void setup_flow_pack()
     obj.noPropsDispatch();
     obj.addOutletInfo("list: packed list\n"
                       "any:  packed message");
+
+    obj.setDescription("flow pack");
+    obj.setCategory("flow");
+    obj.setKeywords({"flow", "pack"});
 }

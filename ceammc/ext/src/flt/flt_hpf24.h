@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "flt.hpf24"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_hpf24 -scn flt_hpf24_dsp -es 1 -mcd 16 -single -ftz 0
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn flt_hpf24 -scn flt_hpf24_dsp -es 1 -mcd 16 -double -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __flt_hpf24_H__
@@ -367,92 +367,40 @@ class FAUST_API ScopedNoDenormals {
 #endif
 
 /************************** END flt_hpf24_dsp.h **************************/
-/************************** BEGIN UI.h *****************************
- FAUST Architecture File
- Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
- ---------------------------------------------------------------------
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 2.1 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU Lesser General Public License for more details.
- 
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- 
- EXCEPTION : As a special exception, you may create a larger work
- that contains this FAUST architecture section and distribute
- that work under terms of your choice, so long as this FAUST
- architecture section is not modified.
- ********************************************************************/
+/************************** BEGIN misc.h *******************************
+FAUST Architecture File
+Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+---------------------------------------------------------------------
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 2.1 of the License, or
+(at your option) any later version.
 
-#ifndef __UI_H__
-#define __UI_H__
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
 
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-#ifndef FAUSTFLOAT
-#define FAUSTFLOAT float
-#endif
+EXCEPTION : As a special exception, you may create a larger work
+that contains this FAUST architecture section and distribute
+that work under terms of your choice, so long as this FAUST
+architecture section is not modified.
+***************************************************************************/
 
-/*******************************************************************************
- * UI : Faust DSP User Interface
- * User Interface as expected by the buildUserInterface() method of a DSP.
- * This abstract class contains only the method that the Faust compiler can
- * generate to describe a DSP user interface.
- ******************************************************************************/
+#ifndef __misc__
+#define __misc__
 
-struct Soundfile;
+#include <algorithm>
+#include <map>
+#include <cstdlib>
+#include <string.h>
+#include <fstream>
+#include <string>
 
-template <typename REAL>
-struct FAUST_API UIReal {
-    
-    UIReal() {}
-    virtual ~UIReal() {}
-    
-    // -- widget's layouts
-    
-    virtual void openTabBox(const char* label) = 0;
-    virtual void openHorizontalBox(const char* label) = 0;
-    virtual void openVerticalBox(const char* label) = 0;
-    virtual void closeBox() = 0;
-    
-    // -- active widgets
-    
-    virtual void addButton(const char* label, REAL* zone) = 0;
-    virtual void addCheckButton(const char* label, REAL* zone) = 0;
-    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    
-    // -- passive widgets
-    
-    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    
-    // -- soundfiles
-    
-    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-    
-    // -- metadata declarations
-    
-    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
-
-    // To be used by LLVM client
-    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
-};
-
-struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
-    UI() {}
-    virtual ~UI() {}
-};
-
-#endif
-/**************************  END  UI.h **************************/
 /************************** BEGIN meta.h *******************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
@@ -491,40 +439,6 @@ struct FAUST_API Meta {
 
 #endif
 /**************************  END  meta.h **************************/
-/************************** BEGIN misc.h *******************************
-FAUST Architecture File
-Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
----------------------------------------------------------------------
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-
-EXCEPTION : As a special exception, you may create a larger work
-that contains this FAUST architecture section and distribute
-that work under terms of your choice, so long as this FAUST
-architecture section is not modified.
-***************************************************************************/
-
-#ifndef __misc__
-#define __misc__
-
-#include <algorithm>
-#include <map>
-#include <cstdlib>
-#include <string.h>
-#include <fstream>
-#include <string>
-
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
@@ -642,7 +556,7 @@ struct flt_hpf24 : public flt_hpf24_dsp {
 #define RESTRICT __restrict__
 #endif
 
-static float flt_hpf24_faustpower2_f(float value) {
+static double flt_hpf24_faustpower2_f(double value) {
 	return value * value;
 }
 
@@ -651,20 +565,20 @@ class flt_hpf24 : public flt_hpf24_dsp {
  private:
 	
 	int fSampleRate;
-	float fConst1;
-	float fConst2;
+	double fConst1;
+	double fConst2;
 	FAUSTFLOAT fVslider0;
-	float fConst3;
-	float fRec0[2];
-	float fRec2[3];
-	float fRec1[3];
+	double fConst3;
+	double fRec0[2];
+	double fRec2[3];
+	double fRec1[3];
 	
  public:
 	
 	void metadata(Meta* m) { 
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_hpf24 -scn flt_hpf24_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn flt_hpf24 -scn flt_hpf24_dsp -es 1 -mcd 16 -double -ftz 0");
 		m->declare("filename", "flt_hpf24.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
 		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -708,25 +622,25 @@ class flt_hpf24 : public flt_hpf24_dsp {
 	
 	virtual void instanceConstants(int sample_rate) {
 		fSampleRate = sample_rate;
-		float fConst0 = std::min<float>(1.92e+05f, std::max<float>(1.0f, float(fSampleRate)));
-		fConst1 = 3.1415927f / fConst0;
-		fConst2 = 44.1f / fConst0;
-		fConst3 = 1.0f - fConst2;
+		double fConst0 = std::min<double>(1.92e+05, std::max<double>(1.0, double(fSampleRate)));
+		fConst1 = 3.141592653589793 / fConst0;
+		fConst2 = 44.1 / fConst0;
+		fConst3 = 1.0 - fConst2;
 	}
 	
 	virtual void instanceResetUserInterface() {
-		fVslider0 = FAUSTFLOAT(1e+04f);
+		fVslider0 = FAUSTFLOAT(1e+04);
 	}
 	
 	virtual void instanceClear() {
 		for (int l0 = 0; l0 < 2; l0 = l0 + 1) {
-			fRec0[l0] = 0.0f;
+			fRec0[l0] = 0.0;
 		}
 		for (int l1 = 0; l1 < 3; l1 = l1 + 1) {
-			fRec2[l1] = 0.0f;
+			fRec2[l1] = 0.0;
 		}
 		for (int l2 = 0; l2 < 3; l2 = l2 + 1) {
-			fRec1[l2] = 0.0f;
+			fRec1[l2] = 0.0;
 		}
 	}
 	
@@ -751,25 +665,25 @@ class flt_hpf24 : public flt_hpf24_dsp {
 	virtual void buildUserInterface(UI* ui_interface) {
 		ui_interface->openVerticalBox("flt.hpf24");
 		ui_interface->declare(&fVslider0, "unit", "Hz");
-		ui_interface->addVerticalSlider("freq", &fVslider0, FAUSTFLOAT(1e+04f), FAUSTFLOAT(2e+01f), FAUSTFLOAT(2e+04f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("freq", &fVslider0, FAUSTFLOAT(1e+04), FAUSTFLOAT(2e+01), FAUSTFLOAT(2e+04), FAUSTFLOAT(0.1));
 		ui_interface->closeBox();
 	}
 	
 	virtual void compute(int count, FAUSTFLOAT** RESTRICT inputs, FAUSTFLOAT** RESTRICT outputs) {
 		FAUSTFLOAT* input0 = inputs[0];
 		FAUSTFLOAT* output0 = outputs[0];
-		float fSlow0 = fConst2 * float(fVslider0);
+		double fSlow0 = fConst2 * double(fVslider0);
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			fRec0[0] = fSlow0 + fConst3 * fRec0[1];
-			float fTemp0 = std::tan(fConst1 * fRec0[0]);
-			float fTemp1 = flt_hpf24_faustpower2_f(fTemp0);
-			float fTemp2 = 0.0f - 2.0f / fTemp1;
-			float fTemp3 = 1.0f / fTemp0;
-			float fTemp4 = 1.0f - 1.0f / fTemp1;
-			float fTemp5 = (fTemp3 + 1.847759f) / fTemp0 + 1.0f;
-			fRec2[0] = float(input0[i0]) - (fRec2[2] * ((fTemp3 + -1.847759f) / fTemp0 + 1.0f) + 2.0f * fRec2[1] * fTemp4) / fTemp5;
-			float fTemp6 = (fTemp3 + 0.76536685f) / fTemp0 + 1.0f;
-			fRec1[0] = (fRec2[1] * fTemp2 + fRec2[0] / fTemp1 + fRec2[2] / fTemp1) / fTemp5 - (fRec1[2] * ((fTemp3 + -0.76536685f) / fTemp0 + 1.0f) + 2.0f * fTemp4 * fRec1[1]) / fTemp6;
+			double fTemp0 = std::tan(fConst1 * fRec0[0]);
+			double fTemp1 = flt_hpf24_faustpower2_f(fTemp0);
+			double fTemp2 = 0.0 - 2.0 / fTemp1;
+			double fTemp3 = 1.0 / fTemp0;
+			double fTemp4 = 1.0 - 1.0 / fTemp1;
+			double fTemp5 = (fTemp3 + 1.8477590650225735) / fTemp0 + 1.0;
+			fRec2[0] = double(input0[i0]) - (fRec2[2] * ((fTemp3 + -1.8477590650225735) / fTemp0 + 1.0) + 2.0 * fRec2[1] * fTemp4) / fTemp5;
+			double fTemp6 = (fTemp3 + 0.7653668647301795) / fTemp0 + 1.0;
+			fRec1[0] = (fRec2[1] * fTemp2 + fRec2[0] / fTemp1 + fRec2[2] / fTemp1) / fTemp5 - (fRec1[2] * ((fTemp3 + -0.7653668647301795) / fTemp0 + 1.0) + 2.0 * fTemp4 * fRec1[1]) / fTemp6;
 			output0[i0] = FAUSTFLOAT((fTemp2 * fRec1[1] + fRec1[0] / fTemp1 + fRec1[2] / fTemp1) / fTemp6);
 			fRec0[1] = fRec0[0];
 			fRec2[2] = fRec2[1];
@@ -780,23 +694,12 @@ class flt_hpf24 : public flt_hpf24_dsp {
 	}
 
 };
-// clang-format on
 #endif
 
-    template <class T>
-    struct _flt_hpf24_UI : public UI {
-    static std::string name;
-};
-
-template <class T>
-std::string _flt_hpf24_UI<T>::name(sym(flt_hpf24));
-
-typedef _flt_hpf24_UI<flt_hpf24> flt_hpf24_UI;
-
-class faust_flt_hpf24_tilde : public FaustExternal<flt_hpf24, flt_hpf24_UI> {
+class faust_flt_hpf24_tilde : public FaustExternal<flt_hpf24> {
 public:
     faust_flt_hpf24_tilde(const ceammc::PdArgs& args)
-        : FaustExternal(args)
+        : FaustExternal(args, sym(flt_hpf24))
     {
     }
 };

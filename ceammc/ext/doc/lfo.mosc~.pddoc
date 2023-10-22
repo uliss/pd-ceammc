@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="lfo.mosc~">
         <title>lfo.mosc~</title>
         <meta>
@@ -38,8 +38,11 @@
             <property name="@wave" type="symbol" default="sin"
             enum="sin saw tri sqr pulse +sin +saw +tri +sqr +pulse">wave type</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
+            <!-- reset -->
             <method name="reset">reset to initial state</method>
         </methods>
         <inlets>

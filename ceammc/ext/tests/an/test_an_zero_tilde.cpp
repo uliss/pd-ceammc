@@ -12,7 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "an_zero_tilde.h"
-#include "ceammc_format.h"
 #include "test_external.h"
 #include "test_sound.h"
 

@@ -93,4 +93,8 @@ void setup_list_prepend()
 {
     ObjectFactory<ListPrepend> obj("list.prepend");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("prepend atom or list before input list");
+    obj.setCategory("list");
+    obj.setKeywords({"list", "prepend"});
 }

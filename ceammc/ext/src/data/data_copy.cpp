@@ -42,4 +42,8 @@ void setup_data_copy()
 {
     ObjectFactory<DataCopy> obj("data.copy");
     obj.processData();
+
+    obj.setDescription("make copy for any data types: MList, Set etc...");
+    obj.setCategory("data");
+    obj.setKeywords({"data", "copy"});
 }

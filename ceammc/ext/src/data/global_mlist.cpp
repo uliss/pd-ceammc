@@ -17,7 +17,7 @@
 GlobalMList::GlobalMList(const PdArgs& args)
     : GlobalMListBase(args)
 {
-    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
+    createOutlet();
 }
 
 EditorTitleString GlobalMList::editorTitle() const
@@ -32,5 +32,9 @@ void setup_global_mlist()
     obj.useDefaultPdFloatFn();
     obj.useDefaultPdSymbolFn();
 
-    GlobalMList::registerMethods(obj);
+    GlobalMList::factoryEditorObjectInit(obj);
+
+    obj.setDescription("global named mlist object");
+    obj.setCategory("global");
+    obj.setKeywords({ "mlist", "local", "global" });
 }

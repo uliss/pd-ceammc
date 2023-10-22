@@ -16,6 +16,7 @@
 #include "ceammc_format.h"
 #include "datatype_string.h"
 #include "fliterender.h"
+#include "fmt/core.h"
 
 extern "C" {
 #include "cst_wave.h"
@@ -25,7 +26,48 @@ extern cst_voice* register_cmu_us_kal16();
 extern cst_voice* register_cmu_us_slt();
 extern cst_voice* register_cmu_us_rms();
 extern cst_voice* register_cmu_us_awb();
-extern void unregister_cmu_us_kal16();
+
+using register_fn = typeof(&register_cmu_us_kal16);
+
+void usenglish_init(cst_voice* v);
+cst_lexicon* cmulex_init(void);
+}
+
+namespace {
+
+void add_voice(cst_voice* v)
+{
+    if (!v)
+        return;
+
+    if (flite_add_voice(v))
+        LIB_DBG << fmt::format("[flite] voice added: {}", v->name);
+    else
+        LIB_ERR << fmt::format("[flite] can't add voice: {}", v->name);
+}
+
+void load_voice(const char* path)
+{
+    auto v = flite_voice_load(path);
+    if (!v) {
+        LIB_ERR << fmt::format("[flite] can't load voice: {}", path);
+        return;
+    }
+
+    add_voice(v);
+}
+
+void register_voice(register_fn fn, const char* name)
+{
+    auto v = fn();
+    if (!v) {
+        LIB_ERR << fmt::format("[flite] can't register voice: {}", name);
+        return;
+    }
+
+    add_voice(v);
+}
+
 }
 
 SpeechFlite::SpeechFlite(const PdArgs& args)
@@ -128,13 +170,16 @@ void SpeechFlite::clockTick()
 
 void setup_misc_speech_flite()
 {
-    ObjectFactory<SpeechFlite> obj("speech.flite");
     flite_init();
 
-    flite_add_voice(register_cmu_us_kal16());
-    flite_add_voice(register_cmu_us_slt());
-    flite_add_voice(register_cmu_us_rms());
-    flite_add_voice(register_cmu_us_awb());
+    register_voice(register_cmu_us_kal16, "kal16");
+    register_voice(register_cmu_us_slt, "slt");
+    register_voice(register_cmu_us_rms, "rms");
+    register_voice(register_cmu_us_awb, "awb");
 
+    flite_add_lang("eng", usenglish_init, cmulex_init);
+    flite_add_lang("usenglish", usenglish_init, cmulex_init);
+
+    ObjectFactory<SpeechFlite> obj("speech.flite");
     obj.processData<DataTypeString>();
 }

@@ -76,4 +76,8 @@ void setup_list_integrator()
 {
     ObjectFactory<ListIntegrator> obj("list.integrator");
     obj.addMethod("clear", &ListIntegrator::m_clear);
+
+    obj.setDescription("returns the sum of the previously stored list and the current one then            stores this sum");
+    obj.setCategory("list");
+    obj.setKeywords({"list", "integrator"});
 }

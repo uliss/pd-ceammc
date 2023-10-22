@@ -23,6 +23,7 @@ TEST_CASE("wrapper_method", "[class-wrapper]")
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
         using DataType = ExternalType::DataType;
+        DataType::staticType();
 
         SECTION("ctor")
         {
@@ -117,6 +118,7 @@ TEST_CASE("wrapper_method", "[class-wrapper]")
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
         using DataType = ExternalType::DataType;
+        DataType::staticType();
 
         SECTION("ctor")
         {
@@ -144,6 +146,7 @@ TEST_CASE("wrapper_method", "[class-wrapper]")
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
         using DataType = ExternalType::DataType;
+        DataType::staticType();
 
         SECTION("ctor")
         {
@@ -198,6 +201,7 @@ TEST_CASE("wrapper_method", "[class-wrapper]")
         using ExternalType = wrapper::ClassMethod<WrapperInt, mtype>;
         using TestType = TestPdExternal<ExternalType>;
         using DataType = ExternalType::DataType;
+        DataType::staticType();
 
         SECTION("ctor")
         {
@@ -621,11 +625,11 @@ TEST_CASE("wrapper_method", "[class-wrapper]")
 
             TestType t3("int.on_bool", LF(-100));
             t3.sendFloat(1);
-            REQUIRE(t3.outputFloatAt(0) == 1);
+            REQUIRE(t3.outputFloatAt(0) == 0);
 
             TestType t4("int.on_bool", LF(0.1));
             t4.sendFloat(1);
-            REQUIRE(t4.outputFloatAt(0) == 1);
+            REQUIRE(t4.outputFloatAt(0) == 0);
         }
 
         SECTION("symbol args")

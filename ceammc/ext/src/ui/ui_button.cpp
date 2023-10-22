@@ -26,8 +26,8 @@ UIButton::UIButton()
 
 void UIButton::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, MIN_SIZE);
-    newrect->height = pd_clip_min(newrect->height, MIN_SIZE);
+    newrect->w = pd_clip_min(newrect->w, MIN_SIZE);
+    newrect->h = pd_clip_min(newrect->h, MIN_SIZE);
 }
 
 void UIButton::paint()
@@ -88,14 +88,14 @@ void UIButton::off()
 
 void UIButton::setup()
 {
-    sys_gui(ui_button_tcl);
+    ui_button_tcl_output();
 
     UIObjectFactory<UIButton> obj("ui.button", EBOX_GROWLINK);
     obj.addAlias("ui.btn");
     obj.useFloat();
 
     obj.setDefaultSize(15, 15);
-    obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIButton::prop_color_active);
+    obj.addProperty(sym::props::name_active_color, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIButton::prop_color_active);
     obj.addFloatProperty("on_value", _("On value"), 1, &UIButton::prop_value_on, _("Main"));
     obj.addFloatProperty("off_value", _("Off value"), 0, &UIButton::prop_value_off, _("Main"));
 

@@ -60,4 +60,8 @@ void setup_route_bang()
 
     obj.setXletsInfo({ "any" }, { "bang", "other messages" });
     obj.noPropsDispatch();
+
+    obj.setDescription("separate bang messages from other types");
+    obj.setCategory("flow");
+    obj.setKeywords({"route", "bang"});
 }

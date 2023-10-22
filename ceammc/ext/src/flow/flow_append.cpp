@@ -16,7 +16,6 @@
 
 FlowAppend::FlowAppend(const PdArgs& args)
     : BaseObject(args)
-    , delay_(nullptr)
     , delay_fn_([this]() { output(); })
     , inlet2_(this)
 {
@@ -25,16 +24,12 @@ FlowAppend::FlowAppend(const PdArgs& args)
     delay_->setUnits(PropValueUnits::MSEC);
     addProperty(delay_);
 
-    inlet_new(owner(), &inlet2_.x_obj, nullptr, nullptr);
+    bindProxyInlet(inlet2_, 1);
     createOutlet();
 
-    auto& pargs = parsedPosArgs();
-    if (pargs.size() >= 1 && pargs[0].isSymbol())
-        msg_.setAny(pargs[0].asT<t_symbol*>(), pargs.view(1));
-    else if (pargs.empty())
-        msg_.setBang();
-    else
-        msg_.setList(pargs);
+    msg_ = new MessageProperty("@msg");
+    msg_->setArgIndex(0);
+    addProperty(msg_);
 }
 
 void FlowAppend::onBang()
@@ -67,9 +62,9 @@ void FlowAppend::onAny(t_symbol* s, const AtomListView& lv)
     append();
 }
 
-void FlowAppend::proxy_any(int /*x*/, t_symbol* s, const AtomListView& v)
+void FlowAppend::onProxyAny(int /*x*/, t_symbol* s, const AtomListView& v)
 {
-    msg_.setAny(s, v);
+    msg_->value().setAny(s, v);
 }
 
 void FlowAppend::append()
@@ -83,10 +78,10 @@ void FlowAppend::append()
 
 void FlowAppend::output()
 {
-    if (msg_.isNone())
+    if (msg_->value().isNone())
         bangTo(0);
     else
-        messageTo(0, msg_);
+        messageTo(0, msg_->value());
 }
 
 void setup_flow_append()
@@ -95,6 +90,9 @@ void setup_flow_append()
     obj.noPropsDispatch();
     obj.setXletsInfo({ "any: input flow", "any: set append message" }, { "any: output" });
 
-    InletProxy<FlowAppend>::init();
-    InletProxy<FlowAppend>::set_any_callback(&FlowAppend::proxy_any);
+    obj.useProxyAny();
+
+    obj.setDescription("append message to flow stream");
+    obj.setCategory("flow");
+    obj.setKeywords({ "flow", "append" });
 }

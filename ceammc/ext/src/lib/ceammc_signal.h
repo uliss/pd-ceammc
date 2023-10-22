@@ -41,6 +41,41 @@ namespace interpolate {
     }
 }
 
+template <typename T>
+class SmoothExpT {
+    T y_, x_;
+
+public:
+    SmoothExpT(T init = 0, T target = 0)
+        : y_(init)
+        , x_(target)
+    {
+        static_assert(std::is_floating_point<T>::value, "not floating point type");
+    }
+
+    T tick(T smooth)
+    {
+        constexpr T EPS = 4 * std::numeric_limits<T>::epsilon();
+        const T delta = std::fabs(x_ - y_);
+        if (delta < EPS || (x_ > 0 && ((1 - std::fabs(y_ / x_)) < 0.0001)))
+            y_ = x_;
+        else // y[n] = (1 - s) * x[n] + s * y[n - 1]
+            y_ = ((1 - smooth) * x_) + (smooth * y_);
+
+        return y_;
+    }
+
+    T operator()(T smooth)
+    {
+        return tick(smooth);
+    }
+
+    T current() const { return y_; }
+    T target() const { return x_; }
+
+    void setTarget(T x) { x_ = x; }
+};
+
 template <class T>
 class SmoothLinT {
     T current_;

@@ -17,8 +17,7 @@
 #include "ceammc_atomlist_view.h"
 #include "ceammc_format.h"
 #include "ceammc_log.h"
-#include "ceammc_string.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 namespace ceammc {
 

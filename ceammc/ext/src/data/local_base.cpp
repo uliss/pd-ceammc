@@ -8,7 +8,7 @@ namespace ceammc {
 PdArgs make_local_id(const PdArgs& a)
 {
     PdArgs res(a);
-    void* cnv = static_cast<void*>(canvas_getcurrent());
+    auto cnv = static_cast<void*>(canvas_getcurrent());
 
     string::MediumString buf;
 

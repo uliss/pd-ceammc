@@ -14,6 +14,9 @@ public:
     void onList(const AtomListView& lv) override;
     void loadFrom(t_float idx) override;
     void storeAt(size_t idx) override;
+
+    AtomList editorPresetValue(size_t idx) const final;
+    bool setEditorPreset(size_t idx, const AtomListView& lv) final;
 };
 
 void setup_preset_list();

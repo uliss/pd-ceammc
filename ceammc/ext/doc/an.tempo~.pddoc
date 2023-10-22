@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="an.tempo~">
         <title>an.tempo~</title>
         <meta>
@@ -19,7 +19,9 @@
         </info>
         <arguments>
             <argument name="BS" type="int" minvalue="64" units="sample">buffer size</argument>
-            <argument name="METHOD" type="symbol" enum="1">onset detection method</argument>
+            <argument name="METHOD" type="symbol"
+            enum="centroid complex complexdomain decrease default energy hfc kl kurtosis phase rolloff skewness slope specdiff specflux spread wphase">
+            onset detection method</argument>
             <argument name="HS" type="int" minvalue="0" units="sample">hop size (by default
             buffer_size/2)</argument>
         </arguments>

@@ -17,4 +17,8 @@ public:
 void setup_flt_highshelf_tilde()
 {
     SoundExternalFactory<FltHighShelf> obj("flt.highshelf~");
+
+    obj.setDescription("gain boost|cut above some frequency");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "highshelf"});
 }

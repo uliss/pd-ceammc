@@ -12,7 +12,6 @@
  * this file belongs to.
  *****************************************************************************/
 #include "catch.hpp"
-#include "ceammc.h"
 #include "ceammc_base64.h"
 
 using namespace ceammc;

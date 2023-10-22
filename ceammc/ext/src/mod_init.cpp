@@ -46,6 +46,7 @@ extern "C" {
 #include "noise/mod_noise.h"
 #include "osc/mod_osc.h"
 #include "path/mod_path.h"
+#include "pieces/mod_pieces.h"
 #include "preset/mod_preset.h"
 #include "proto/mod_proto.h"
 #include "random/mod_random.h"
@@ -193,6 +194,7 @@ void ceammc_init()
     ceammc_music_setup();
     ceammc_net_setup();
     ceammc_noise_setup();
+    ceammc_pieces_setup();
     ceammc_preset_setup();
     ceammc_path_setup();
     ceammc_proto_setup();

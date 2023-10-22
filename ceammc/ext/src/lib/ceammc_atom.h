@@ -15,6 +15,7 @@
 #define CEAMMC_ATOM_H
 
 #include "ceammc_macro.h"
+#include "ceammc_maybe.h"
 
 #include <cassert>
 #include <functional>
@@ -26,6 +27,7 @@ namespace ceammc {
 
 class Atom;
 class AbstractData;
+class AtomListView;
 
 using AtomPredicate = std::function<bool(const Atom&)>;
 using FloatPredicate = std::function<bool(t_float)>;
@@ -48,7 +50,9 @@ public:
         DATA,
         POINTER,
         SEMICOLON,
-        COMMA
+        COMMA,
+        DOLLAR,
+        DOLLAR_SYMBOL
     };
 
     static const char PROP_PREFIX = '@';
@@ -108,6 +112,16 @@ public:
      * Create comma atom
      */
     static Atom comma() noexcept;
+
+    /**
+     * Create dollar atom
+     */
+    static Atom dollar(int n) noexcept;
+
+    /**
+     * Create dollar symbol atom
+     */
+    static Atom dollarSymbol(t_symbol* s) noexcept;
 
     /**
      * Create semicolon atom
@@ -174,7 +188,7 @@ public:
      * template parameterized atom type check
      */
     template <typename T>
-    inline bool isA() const noexcept { return isDataType(T::dataType); }
+    inline bool isA() const noexcept { return isDataType(T::staticType()); }
 
     /**
      * template parameterized atom value as typed value
@@ -233,6 +247,16 @@ public:
      * Set atom to comma
      */
     void setComma() noexcept;
+
+    /**
+     * Set atom to dollar
+     */
+    void setDollar(int n) noexcept;
+
+    /**
+     * Set atom to dollar symbol
+     */
+    void setDollarSymbol(t_symbol* s) noexcept;
 
     /**
      * Set atom to semicolon
@@ -389,6 +413,27 @@ public:
     const t_atom& atom() const noexcept { return *static_cast<const t_atom*>(this); }
 
     /**
+     * return dollar arg index
+     */
+    int dollarIndex() const { return a_w.w_index; }
+
+    /**
+     * expand dollar arguments
+     * @param args - list of dollar arguments
+     * @param checkArgs - if set to true: return None on invalid dollar index,
+     * if false: return atom non-expanded copy on invalid dollar index
+     */
+    Maybe<Atom> expandDollarArgs(const AtomListView& args, bool checkArgs = false) const;
+
+    /**
+     * expand dollar arguments via canvas pointer
+     * @param cnv - pointer to canvas
+     * @param checkArgs - if set to true: return None on invalid dollar index,
+     * if false: return atom non-expanded copy on invalid dollar index
+     */
+    Maybe<Atom> expandDollarArgs(const t_canvas* cnv, bool checkArgs = false) const;
+
+    /**
      * compare operator
      * compare atoms of same type.
      * @note now only floats and symbols
@@ -403,6 +448,10 @@ public:
     bool operator!=(const Atom& a) const noexcept { return !operator==(a); }
     CEAMMC_NO_ASAN bool operator==(t_float f) const noexcept;
     bool operator!=(t_float f) const noexcept { return !operator==(f); }
+    bool operator==(t_symbol* s) const noexcept;
+    bool operator!=(t_symbol* s) const noexcept { return !operator==(s); }
+    bool operator==(const char* s) const noexcept;
+    bool operator!=(const char* s) const noexcept { return !operator==(s); }
 
     /**
      * Operators
@@ -466,7 +515,7 @@ public:
     template <typename T>
     const T* asDataT() const
     {
-        if (!isDataType(T::dataType))
+        if (!isDataType(T::staticType()))
             return nullptr;
 
         return static_cast<const T*>(asData());

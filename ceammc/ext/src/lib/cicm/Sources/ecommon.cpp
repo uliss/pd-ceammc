@@ -13,70 +13,11 @@
 #include "cicm_common_bind.tcl.h"
 #include "egraphics.h"
 
-t_symbol* s_null;
-t_symbol* s_atom;
-t_symbol* s_obj;
-t_symbol* s_attr_modified;
-t_symbol* s_eboxbd;
-t_symbol* s_eboxio;
-t_symbol* s_size;
-t_symbol* s_pinned;
-t_symbol* s_iscicm;
-t_symbol* s_int;
-t_symbol* s_long;
-t_symbol* s_double;
-t_symbol* s_attr_size;
-t_symbol* s_color_black_hex;
-t_symbol* s_prop_label;
-t_symbol* s_prop_label_align;
-t_symbol* s_prop_label_valign;
-t_symbol* s_prop_label_position;
-t_symbol* s_prop_label_side;
-t_symbol* s_value_label_align_left;
-t_symbol* s_value_label_align_center;
-t_symbol* s_value_label_align_right;
-t_symbol* s_value_label_valign_top;
-t_symbol* s_value_label_valign_center;
-t_symbol* s_value_label_valign_bottom;
-t_symbol* s_value_label_side_left;
-t_symbol* s_value_label_side_top;
-t_symbol* s_value_label_side_right;
-t_symbol* s_value_label_side_bottom;
-
 void epd_init(void)
 {
     static bool done = false;
     if (done)
         return;
-
-    s_null = gensym("(null)");
-    s_atom = gensym("atom");
-    s_obj = gensym("obj");
-    s_attr_modified = gensym("attr_modified");
-    s_size = gensym("size");
-    s_int = gensym("int");
-    s_long = gensym("long");
-    s_double = gensym("double");
-    s_pinned = gensym("pinned");
-    s_iscicm = gensym(".is_cicm?");
-    s_attr_size = gensym("@size");
-    s_color_black_hex = gensym("#000000");
-
-    s_prop_label = gensym("@label");
-    s_prop_label_align = gensym("@label_align");
-    s_prop_label_valign = gensym("@label_valign");
-    s_prop_label_position = gensym("@label_inner");
-    s_prop_label_side = gensym("@label_side");
-    s_value_label_align_left = gensym("left");
-    s_value_label_align_center = gensym("center");
-    s_value_label_align_right = gensym("right");
-    s_value_label_valign_top = gensym("top");
-    s_value_label_valign_center = gensym("center");
-    s_value_label_valign_bottom = gensym("bottom");
-    s_value_label_side_left = gensym("left");
-    s_value_label_side_top = gensym("top");
-    s_value_label_side_right = gensym("right");
-    s_value_label_side_bottom = gensym("bottom");
 
     // split long output
     char buf[1024];
@@ -90,6 +31,8 @@ void epd_init(void)
     }
 
     sys_gui(cicm_common_bind_tcl);
+
+    sys_vgui("ceammc::ui::bindKeys\n");
 
     done = true;
 }

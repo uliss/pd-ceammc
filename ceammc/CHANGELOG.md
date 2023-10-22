@@ -1,5 +1,147 @@
 # CEAMMC external library changelog
 
+## [0.9.7]
+### Added:
+- new objects:
+  - array.ltcplay~ - array player, controlled by LTC signal
+  - array.readwrite~ - ordered array reader/writer (read first, then write)
+  - array.tramp~ - triggered array ramp generator
+  - chrono.datetime - get current date/time information
+  - color.mix - color mixer
+  - color.scale - create color scales (gradients)
+  - conv.bar2ms - calculate bar and beat duration from tempo BPM and time signature
+  - conv.char2morse - single character to morse code converter
+  - conv.color2rgba - color converter added from named or hex colors to separate RGBA values
+  - conv.hsl2rgb - convert HSL colors to RGB
+  - conv.lab2rgb - convert LAB colors to RGB
+  - conv.ms2str - convert time in milliseconds to formatted string or symbol
+  - conv.rgb2hex - convert RGB separate values to #RRGGBB symbol
+  - conv.semi2ratio (with semi->ratio alias) added
+  - convolve~ - real-time convolution added
+  - data.bimap - bidirectional map for scalar types
+  - data.color - Color datatype
+  - dyn.comp_peak2~ - Peak FeedForward stereo compressor with channel linking
+  - dyn.comp_peak~  - Peak FeedForward mono compressor
+  - dyn.comp_up2~ - upward stereo compressor with channel linking
+  - dyn.comp_up~ - upward mono compressor
+  - dyn.expand~ - mono dynamic range expander (attenuate levels under the threshold)
+  - env.asr2~ - stereo Attack-Sustain-Release envelope generator
+  - flow.prepend - message prepend object
+  - flt.speaker~ - low pass and high pass filter effect
+  - fx.overdrive~ - overdrive effect
+  - fx.ringmod~ - ring modulation
+  - fx.scramble~ - scramble delayed fragments
+  - fx.tremolo~ - tremolo effect from guitarix library
+  - gate~ - multichannel signal gate added
+  - global.bimap - global scope bimap container
+  - hoa.3d.map~ - 3d ambisonic multisource spatializer
+  - hoa.3d.meter~ - 3d ambisonic multisource spatializer
+  - hoa.3d.scope~ - 3d ambisonic harmonic scope
+  - hoa.map.ui - GUI to spatialize sources on a map
+  - local.bimap - canvas local scope bimap container
+  - merge~ - parametrized signal merge
+  - metro.choice - randomly (uniformly) metronome time interval choice from specified set
+  - metro.wchoice - weighted metronome time interval choice from specified set
+  - msg.onclose - send message on patch closing
+  - msg.pack - construct message with specified number of arguments
+  - proto.ltc.in~ - LTC decoder
+  - proto.ltc.out~ - LTC encoder
+  - proto.morse - morse encoder with specified speed and other settings
+  - qrcode - QR code encoder
+  - rhythm.euclid - euclid pattern generator (using fast bresenham algorithm)
+  - rhythm.hexbeat - hexbeat pattern generator
+  - rhythm.lsystem - L-system pattern generator
+  - route.cycle - advanced cyclic message router
+  - split~ - multichannel signal splitter
+  - synth.metro~ - metronome synth with complex pattern support
+  - ui.cmeter~ - Multichannel circular peak and rms signal meter
+- new object inlets:
+  - dyn.gate~, dyn.gate2~ - second inlet added for setting threshold
+  - flt.bpf12~: second and third inlet added for setting freq and q-factor
+  - flt.bpf24~: second and third inlet added for setting freq and q-factor  
+  - fx.drone_box~ - second inlet added for setting resonance frequency
+  - fx.echo~ - second inlet added for setting delay time
+  - fx.notch~: second (freq) inlet added
+  - fx.wahwah~: second (angle) inlet added
+  - metro.pattern - second inlet added to set pattern
+  - metro.random - third inlet added to set max property
+  - metro.seq - second inlet added to set interval and third inlet to set pattern
+- new object outlets:
+  - dyn.comp~ - second outlet added for compression level output
+  - list.map - second outlet added for missing keys
+- new object methods:
+  - brown, pink, white, blue and velvet methods added to noise.colored~
+  - cellsize method added to ui.radio: resize widget by specifying cell size
+  - div added to live.capture~ to subdivide loop length while running
+  - euclid method added to ui.radio to set euclid pattern when in checklist mode
+  - hexbeat and skip added to seq.bangs
+  - hexbeat method added to ui.radio to set hexbeat pattern when in checklist mode
+  - notes_off method added to proto.midi
+  - panic method added to proto.midi
+  - proto.midi.cc - new portament method added
+  - read method added to speech.rhvoice~: read text from files
+  - read, write added to lang.faust~ and ui.faust~
+  - rotate method added to ui.radio: rotation to the left in checklist mode
+  - save to snd.file
+  - sound_off method added to proto.midi
+  - speed to synth.glitch~ to set global synth speed
+  - ssml method added to speech.rhvoice~: support for SSML text markup
+- new object properties:
+  - @punct added to rhvoice~, to specify pronounced characters
+  - @bypass added to dyn.comp~ and dyn.comp2~
+  - @bypass added to dyn.gate~ and dyn.gate2~
+  - @gain added to live.capture~
+  - @drywet added to soundtouch~
+  - @upbeat added to seq.bangs, seq.toggles, seq.matrix and sequencer - wait specified number of beats before start
+  - @msg added to flow.select to output message instead of bang
+  - @attack, @decay, @sustain, @release added to live.capture~ for controlling loop envelope
+  - @accel and @curve added to seq.nbangs for accelerated sequences
+  - @div added to seq.nbangs, seq.matrix, seq.bangs, seq.toggles and sequencer for beat division
+  - @def added to list.map for replacing missing keys with default values
+  - @min, @max added to ui.incdec
+  - @display_only property added to ui.number
+  - @attack, @sustain, @release added to live.capture~
+- new init argument functions:
+  - hexbeat(HEX) - expand hex to list of 1 and 0
+  - ones(N) - list of length N, filled with 1
+  - rotate(N ...) - list rotation (N>0: to the left)
+  - sort(...) - sort list in ascending order
+  - zeros(N) - list of length N, filled with 0
+- new method arguments:
+  - PHASE argument (3rd) added to \[saw( method in array.fill
+- new aliases:
+  - hoa.2d.process~ alias added to hoa.process~
+  - hoa.2d.scope~ alias added to hoa.scope~
+- feedback compression and filter added to fx.echo~
+
+### Changes:
+- array.risset_rythm~ renamed to array.risset_rhythm~
+- euclid() init function third arg added: rotation to the right
+- fixing ui abtractions: gfx.room~ and gfx.shimmer~
+- noise.lfreq0~ minimal frequency changed from 5Hz to 0.5Hz
+- dyn.comp~, dyn.comp2~, dyn.gate~, dyn.gate2~ - using DBFS scale for threshold (-144...0) instead of (0..100) range
+- proto.midi.cc - renaming MIDI sounds_off to sound_off
+- fx.secho~ is deprecated and will be removed in future releases, use fx.echo~. fx.echo~ delay change now is smoothed by default, but if you need
+    gleetchy effect of delay change, you can set @smooth to 0.
+- fx.sdelay~ renamed to fx.delay~, fx.sdelay~ now is deprecated alias
+- proto.midi.cc - old portamento method renamed to portswitch
+- proto.midi - second outlet added, it outputs parsed messages
+- ui.faust~ and lang.faust~ now save their source code inside the patch
+- @fname property renamed to @load in ui.faust~ and lang.faust~ and made initonly
+- fx.recho~ max delay time increased to 4000ms
+- in all faust plugin when @active is 0, object output zero signal 
+    (previous behaivor was more complicated: when NINS != NOUTS filled with zeros, otherwise passed thru)
+- tl.timeline: output list changed and fix error in doc, now outputs EVENT_IDX, EVENT_NAME, EVENT_TIME
+- properties removed:
+  - @fade property removed from live.capture~
+
+### Fixed:
+- proto.midi.cc - sound_off, notes_off crash fixes
+- expand_env - warning removed while processing @prop requests
+- speech.flite~ - @speed property (now: lesser - slower)
+- ui.tab - 'clear' method renamed to 'erase' preventing name conflict with preset 'clear' method
+- ui.menu - 'clear' method renamed to 'erase' preventing name conflict with preset 'clear' method
+
 ## [0.9.6]
 ### Added:
 - new objects:
@@ -126,6 +268,7 @@
 ### Fixed:
 - system.cursor no normalization in subpatch
 - conv.dbfs2amp~: signal version fix
+- msg.onload: comma sperated message fixed
 
 ### Changes:
 - @i property of seq.counter made writable

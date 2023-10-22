@@ -2,7 +2,7 @@
 	"name": "noise.lfreq",
 	"filename": "noise_lfreq.dsp",
 	"version": "2.53.1",
-	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn noise_lfreq -scn noise_lfreq_dsp -es 1 -mcd 16 -single -ftz 0",
+	"compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn noise_lfreq -scn noise_lfreq_dsp -es 1 -mcd 16 -single -ftz 0",
 	"library_list": ["/usr/local/share/faust/noises.lib","/usr/local/share/faust/signals.lib","/usr/local/share/faust/maths.lib","/usr/local/share/faust/platform.lib","/usr/local/share/faust/basics.lib","/usr/local/share/faust/oscillators.lib","/usr/local/share/faust/filters.lib"],
 	"include_pathnames": ["/usr/local/share/faust","/usr/local/share/faust","/usr/share/faust","/Users/serge/work/music/pure-data/ceammc/faust","/Users/serge/work/music/pure-data/ceammc/faust"],
 	"inputs": 0,
@@ -10,7 +10,7 @@
 	"meta": [ 
 		{ "basics.lib/name": "Faust Basic Element Library" },
 		{ "basics.lib/version": "0.8" },
-		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn noise_lfreq -scn noise_lfreq_dsp -es 1 -mcd 16 -single -ftz 0" },
+		{ "compile_options": "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn noise_lfreq -scn noise_lfreq_dsp -es 1 -mcd 16 -single -ftz 0" },
 		{ "filename": "noise_lfreq.dsp" },
 		{ "filters.lib/lowpass0_highpass1": "MIT-style STK-4.3 license" },
 		{ "filters.lib/lowpass0_highpass1:author": "Julius O. Smith III" },

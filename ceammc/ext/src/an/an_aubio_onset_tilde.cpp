@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include "an_aubio_onset_tilde.h"
 #include "ceammc_factory.h"
-#include "fmt/include/fmt/format.h"
 
 constexpr int DEFAULT_BUFFER_SIZE = 1024;
 constexpr int MIN_BUFFER_SIZE = 64;
@@ -231,4 +230,8 @@ void setup_an_onset_tilde()
     SoundExternalFactory<AubioOnsetTilde> obj("an.onset~");
     obj.addMethod("reset", &AubioOnsetTilde::m_reset);
     obj.setXletsInfo({ "input signal" }, { "bang: if onset detected", "float: latest onset time (ms)" });
+
+    obj.setDescription("onset detector");
+    obj.setCategory("an");
+    obj.setKeywords({"onset"});
 }

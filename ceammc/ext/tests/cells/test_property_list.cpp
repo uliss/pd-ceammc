@@ -58,7 +58,7 @@ TEST_CASE("ListProperty", "[ceammc::properties]")
         REQUIRE(!p.isSymbol());
         REQUIRE(p.isList());
         REQUIRE(p.type() == PropValueType::LIST);
-        REQUIRE(p.units() == PropValueUnits::NONE);
+        REQUIRE(p.equalUnit(PropValueUnits::NONE));
         REQUIRE(p.access() == PropValueAccess::READWRITE);
         REQUIRE(p.view() == PropValueView::ENTRY);
         REQUIRE(p.defaultValue() == LF(-1, -2, -3));
@@ -274,5 +274,15 @@ TEST_CASE("ListProperty", "[ceammc::properties]")
             REQUIRE(p.set(LA(1, 2.6, "a", 3, -2.1)));
             REQUIRE(p.get() == LA(1, 2, "a", 3, -2));
         }
+    }
+
+    SECTION("json")
+    {
+        ListProperty p("@l");
+        p.setDefault(LA(3, 2, "a"));
+
+        std::string json;
+        REQUIRE(p.infoT().getJSON(json));
+        REQUIRE(json == R"({"access":"readwrite","default":[3,2,"a"],"name":"@l","type":"list","view":"entry","visibility":"public"})");
     }
 }

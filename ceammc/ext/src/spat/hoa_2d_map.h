@@ -1,0 +1,93 @@
+/*****************************************************************************
+ * Copyright 2019 Serge Poltavsky. All rights reserved.
+ *
+ * This file may be distributed under the terms of GNU Public License version
+ * 3 (GPL v3) as defined by the Free Software Foundation (FSF). A copy of the
+ * license should have been included with this file, or the project in which
+ * this file belongs to. You may also find the details of GPL v3 at:
+ * http://www.gnu.org/licenses/gpl-3.0.txt
+ *
+ * If you have any questions regarding the use of this file, feel free to
+ * contact the author of this file, or the owner of the project in which
+ * this file belongs to.
+ *****************************************************************************/
+#ifndef HOA_2D_MAP_H
+#define HOA_2D_MAP_H
+
+#include "ceammc_property_enum.h"
+#include "hoa_common.h"
+
+template <size_t N>
+class XletInfoN {
+    char txt_[N];
+
+public:
+    template <class... Args>
+    XletInfoN(const char* fmt, Args... args)
+    {
+        snprintf(txt_, N - 1, fmt, args...);
+    }
+
+    const char* txt() const { return txt_; }
+};
+
+using MapXletInfo = XletInfoN<8>;
+
+class Hoa2dMap : public HoaBase<hoa::Hoa2d> {
+    IntProperty* nins_;
+    FloatProperty* ramp_;
+    SymbolEnumProperty* mode_;
+
+    std::unique_ptr<MultiEncoder2d> map_;
+    std::unique_ptr<PolarLines2d> lines_;
+
+    Buffer in_buf_;
+    Buffer out_buf_;
+
+    std::vector<t_sample> lines_vec_;
+    std::vector<MapXletInfo> in_info_;
+
+public:
+    Hoa2dMap(const PdArgs& args);
+
+    void initDone() final;
+
+    void setupDSP(t_signal** sp) final;
+    void blockSizeChanged(size_t bs) override;
+    void processBlock(const t_sample** in, t_sample** out) final;
+
+    void processMultiSource();
+    void processIn1In2();
+
+    void onList(const AtomListView& lv) final;
+
+    void m_polar(t_symbol* s, const AtomListView& lv);
+    void m_cartesian(t_symbol* s, const AtomListView& lv);
+    void m_mute(t_symbol* s, const AtomListView& lv);
+
+    const char* annotateInlet(size_t n) const final;
+
+private:
+    static t_int* dspPerformMultiSource(t_int* w)
+    {
+        Hoa2dMap* ext = reinterpret_cast<Hoa2dMap*>(w[1]);
+        ext->processMultiSource();
+        return (w + 2);
+    }
+
+    static t_int* dspPerformIn1In2(t_int* w)
+    {
+        Hoa2dMap* ext = reinterpret_cast<Hoa2dMap*>(w[1]);
+        ext->processIn1In2();
+        return (w + 2);
+    }
+
+    bool checkSourceIdx(int idx) const;
+    void setPolar(int idx, t_float r, t_float azimuth);
+    void setCartesian(int idx, t_float x, t_float y);
+    void setMute(int idx, bool value);
+};
+
+void setup_spat_hoa_2d_map();
+
+#endif // HOA_2D_MAP_H

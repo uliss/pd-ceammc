@@ -1,10 +1,14 @@
 #include "ceammc_ui_object.h"
 #include "ceammc_crc32.h"
 #include "ceammc_log.h"
+#include "ceammc_pd.h"
 #include "ceammc_preset.h"
+#include "ceammc_ui_symbols.h"
 #include "fmt/core.h"
 
 #include <algorithm>
+
+extern t_symbol* ceammc_realizeraute(t_canvas* cnv, t_symbol* s);
 
 namespace ceammc {
 
@@ -34,7 +38,7 @@ UIObjectImpl::UIObjectImpl(t_ebox* x)
     : box_(x)
     , name_(&s_)
     , bg_layer_(box_, gensym(BG_LAYER))
-    , old_preset_id_(s_null)
+    , old_preset_id_(sym::sym_null())
     , use_presets_(false)
     , prop_color_background(rgba_white)
     , prop_color_border(rgba_black)
@@ -154,19 +158,24 @@ t_canvas* UIObjectImpl::canvas() const
 
 bool UIObjectImpl::isPatchLoading() const
 {
-    t_canvas* c = canvas();
+    auto c = canvas();
     return c ? c->gl_loading : false;
 }
 
 bool UIObjectImpl::isPatchEdited() const
 {
-    t_canvas* c = canvas();
+    auto c = canvas();
     return c ? c->gl_edit : false;
 }
 
 bool UIObjectImpl::isVisible() const
 {
     return box_ && ebox_isvisible(box_);
+}
+
+t_symbol* UIObjectImpl::externalDir()
+{
+    return pd::object_dir(asPdObject());
 }
 
 void UIObjectImpl::init(t_symbol* name, const AtomListView& args, bool usePresets)
@@ -215,14 +224,19 @@ void UIObjectImpl::redrawBGLayer()
 void UIObjectImpl::updateSize()
 {
     if (box_)
-        ebox_notify(box_, s_size);
+        ebox_notify(box_, sym::methods::sym_size());
 }
 
 void UIObjectImpl::resize(int w, int h)
 {
-    box_->b_rect.width = w;
-    box_->b_rect.height = h;
+    box_->b_rect.w = w;
+    box_->b_rect.h = h;
     updateSize();
+}
+
+void UIObjectImpl::resizeInputs(size_t n)
+{
+    eobj_resize_inputs(asEObj(), n);
 }
 
 void UIObjectImpl::redrawLayer(UILayer& l)
@@ -435,45 +449,35 @@ void UIObjectImpl::anyTo(size_t n, const AtomListView& msg)
 
 void UIObjectImpl::sendBang()
 {
-    t_pd* send = ebox_getsender(box_);
-    if (send)
-        pd_bang(send);
+    pd::bang_to(ebox_getsender(box_));
 }
 
 void UIObjectImpl::send(t_float f)
 {
-    t_pd* send = ebox_getsender(box_);
-    if (send)
-        pd_float(send, f);
+    pd::float_to(ebox_getsender(box_), f);
 }
 
 void UIObjectImpl::send(t_symbol* s)
 {
-    t_pd* send = ebox_getsender(box_);
-    if (send)
-        pd_symbol(send, s);
+    pd::symbol_to(ebox_getsender(box_), s);
 }
 
 void UIObjectImpl::send(const AtomListView& lv)
 {
-    t_pd* send = ebox_getsender(box_);
-    if (send)
-        pd_list(send, &s_list, lv.size(), lv.toPdData());
+    pd::list_to(ebox_getsender(box_), lv);
 }
 
 void UIObjectImpl::send(t_symbol* s, const AtomListView& lv)
 {
-    t_pd* send = ebox_getsender(box_);
-    if (send)
-        pd_typedmess(send, s, lv.size(), lv.toPdData());
+    pd::message_to(ebox_getsender(box_), s, lv);
 }
 
 t_rect UIObjectImpl::rect() const
 {
     auto z = box_->b_zoom;
     auto r = box_->b_rect;
-    r.width *= z;
-    r.height *= z;
+    r.w *= z;
+    r.h *= z;
     return r;
 }
 
@@ -481,9 +485,9 @@ float UIObjectImpl::x() const { return box_->b_rect.x; }
 
 float UIObjectImpl::y() const { return box_->b_rect.y; }
 
-float UIObjectImpl::width() const { return box_->b_rect.width * box_->b_zoom; }
+float UIObjectImpl::width() const { return box_->b_rect.w * box_->b_zoom; }
 
-float UIObjectImpl::height() const { return box_->b_rect.height * box_->b_zoom; }
+float UIObjectImpl::height() const { return box_->b_rect.h * box_->b_zoom; }
 
 float UIObjectImpl::zoom() const
 {
@@ -497,16 +501,25 @@ void UIObjectImpl::setCursor(t_cursor c)
 
 void UIObjectImpl::presetInit()
 {
-    old_preset_id_ = s_null;
-    if ((!presetId() || presetId() == s_null) && !isPatchLoading()) {
-        box_->b_objpreset_id = genPresetName(name_);
+    old_preset_id_ = sym::sym_null();
+    if ((!presetId() || presetId() == sym::sym_null()) && !isPatchLoading()) {
+        t_atom a;
+        SETSYMBOL(&a, genPresetName(name_));
+        ebox_set_presetid(asEBox(), nullptr, 1, &a);
         bindPreset(box_->b_objpreset_id);
     } else if (isPatchEdited() && !isPatchLoading()) {
         auto it = presets_.find(box_->b_objpreset_id);
         if (it != presets_.end() && it->second > 1) {
-            t_symbol* name = genPresetName(name_);
-            rebindPreset(box_->b_objpreset_id, name);
-            box_->b_objpreset_id = name;
+            // save old
+            auto old_preset = box_->b_objpreset_id;
+
+            // set new
+            t_atom a;
+            SETSYMBOL(&a, genPresetName(name_));
+            ebox_set_presetid(asEBox(), nullptr, 1, &a);
+
+            // rebind
+            rebindPreset(old_preset, box_->b_objpreset_id);
         }
     }
 
@@ -516,7 +529,7 @@ void UIObjectImpl::presetInit()
 
 void UIObjectImpl::bindPreset(t_symbol* name)
 {
-    if (!name || name == s_null)
+    if (!name || name == sym::sym_null())
         return;
 
 #ifdef CEAMMC_PRESET_DEBUG
@@ -530,7 +543,7 @@ void UIObjectImpl::bindPreset(t_symbol* name)
 
 void UIObjectImpl::unbindPreset(t_symbol* name)
 {
-    if (!name || name == s_null)
+    if (!name || name == sym::sym_null())
         return;
 
 #ifdef CEAMMC_PRESET_DEBUG
@@ -566,9 +579,9 @@ void UIObjectImpl::rebindPreset(t_symbol* from, t_symbol* to)
 void UIObjectImpl::handlePresetNameChange()
 {
     if (old_preset_id_ != presetId()) {
-        if (old_preset_id_ == s_null)
+        if (old_preset_id_ == sym::sym_null())
             bindPreset(presetId());
-        else if (presetId() == s_null)
+        else if (presetId() == sym::sym_null())
             unbindPreset(old_preset_id_);
         else
             rebindPreset(old_preset_id_, presetId());
@@ -609,7 +622,8 @@ bool UIObjectImpl::getProperty(t_symbol* name, t_float& f) const
 {
     int argc = 0;
     t_atom* argv = 0;
-    eclass_attr_getter(asPdObject(), name, &argc, &argv);
+    if (!eclass_attr_getter(asPdObject(), name, &argc, &argv))
+        return false;
 
     if (argc && argv) {
         if (argc != 1) {
@@ -634,7 +648,8 @@ bool UIObjectImpl::getProperty(t_symbol* name, AtomList& lst) const
 {
     int argc = 0;
     t_atom* argv = 0;
-    eclass_attr_getter(asPdObject(), name, &argc, &argv);
+    if (!eclass_attr_getter(asPdObject(), name, &argc, &argv))
+        return false;
 
     if (argc && argv) {
         lst = AtomList(argc, argv);
@@ -642,7 +657,7 @@ bool UIObjectImpl::getProperty(t_symbol* name, AtomList& lst) const
         return true;
     }
 
-    return false;
+    return true;
 }
 
 bool UIObjectImpl::setProperty(t_symbol* name, const AtomListView& lv)
@@ -743,9 +758,14 @@ static PropertyInfo attr_to_prop(t_ebox* x, t_eattr* a)
             res.setType(PropValueType::FLOAT);
             set_constraints(res, a);
 
-            if (a->defvals)
-                res.setDefault((t_float)strtod(a->defvals->s_name, NULL));
-            else if (a->getter) {
+            if (a->defvals) {
+                if (strcmp(a->defvals->s_name, "3.40282e+38") == 0)
+                    res.setDefault(std::numeric_limits<float>::max());
+                else if (strcmp(a->defvals->s_name, "-3.40282e+38") == 0)
+                    res.setDefault(std::numeric_limits<float>::lowest());
+                else
+                    res.setDefault((t_float)strtod(a->defvals->s_name, NULL));
+            } else if (a->getter) {
                 int argc = 0;
                 t_atom* atoms = nullptr;
                 if (a->getter(x, a, &argc, &atoms)) {
@@ -955,7 +975,7 @@ t_symbol* UIObjectImpl::genPresetName(t_symbol* prefix)
         }
     }
 
-    return s_null;
+    return sym::sym_null();
 }
 
 void UIObjectImpl::releasePresetName(t_symbol* s)

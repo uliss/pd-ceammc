@@ -1,10 +1,23 @@
+include(sound)
+include(config)
+
 add_definitions(-DPD)
+
+# big endian check
+test_big_endian(IS_BIG_ENDIAN)
+if(NOT ${IS_BIG_ENDIAN})
+    add_definitions(-DLITTLE_ENDIAN=0x0001 -DBYTE_ORDER=LITTLE_ENDIAN)
+endif()
 
 if(UNIX)
     add_definitions("-DINSTALL_PREFIX=\"${CMAKE_INSTALL_PREFIX}\"")
 endif()
 
 add_definitions(-include ${PROJECT_BINARY_DIR}/config.h)
+
+if(WITH_PD_INSTANCE)
+    add_definitions(-DPD_INSTANCE)
+endif()
 
 set(M_SRC m_atom.c
     m_binbuf.c
@@ -172,15 +185,6 @@ if(WITH_OSS)
     list(APPEND PD_NEEDED_LIBS ${OSSLIB})
 endif()
 
-# Dummy
-if(WITH_DUMMY_AUDIO)
-    list(APPEND S_SRC s_audio_dummy.c)
-endif()
-
-if(WITH_DUMMY_MIDI)
-    list(APPEND S_SRC s_midi_dummy.c)
-endif()
-
 if(LIBDL_FOUND)
     list(APPEND PLATFORM_LINK_LIBRARIES ${LIBDL_LIBRARIES})
 endif()
@@ -203,6 +207,15 @@ else()
         target_link_libraries(puredata-core PRIVATE "-framework CoreMedia")
         target_link_libraries(puredata-core PRIVATE "-framework CoreFoundation")
     endif()
+endif()
+
+# Dummy
+if(WITH_DUMMY_AUDIO)
+    target_sources(puredata-core PRIVATE s_audio_dummy.c)
+endif()
+
+if(WITH_DUMMY_MIDI)
+    target_sources(puredata-core PRIVATE s_midi_dummy.c)
 endif()
 
 target_link_libraries(puredata-core PUBLIC ${PD_NEEDED_LIBS} ${PLATFORM_LINK_LIBRARIES})

@@ -143,4 +143,8 @@ void setup_plot_hist_tilde()
 {
     SoundExternalFactory<PlotHistTilde> obj("plot.hist~");
     obj.addAlias("hist~");
+
+    obj.setDescription("calculate and output signal histogram");
+    obj.setCategory("array");
+    obj.setKeywords({"array", "histogram"});
 }

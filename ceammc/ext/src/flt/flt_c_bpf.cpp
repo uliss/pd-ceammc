@@ -15,4 +15,8 @@ public:
 void setup_flt_c_bpf_tilde()
 {
     SoundExternalFactory<FltCBpf> obj("flt.c_bpf~", OBJECT_FACTORY_DEFAULT);
+
+    obj.setDescription("BPF coefficient calculator for biquad filter");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "biquad", "bpf"});
 }

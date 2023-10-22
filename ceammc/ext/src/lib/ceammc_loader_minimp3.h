@@ -15,40 +15,72 @@
 #define CEAMMC_LOADER_MINIMP3_H
 
 #include "ceammc_sound.h"
+
 #include <memory>
 
 struct mp3dec_ex_t;
 
 namespace ceammc {
 namespace sound {
+    using Mp3DecoderPtr = std::unique_ptr<mp3dec_ex_t>;
+
     class MiniMp3 : public SoundFile {
-        std::string fname_;
-        std::unique_ptr<mp3dec_ex_t> decoder_;
+        Mp3DecoderPtr decoder_;
 
     public:
-        MiniMp3(const std::string& fname);
+        MiniMp3();
         ~MiniMp3();
 
-        size_t sampleCount() const override;
-        size_t sampleRate() const override;
-        size_t channels() const override;
-        bool isOpened() const override;
-        bool close() override;
+        /**
+         * @brief try to open specified file and detect that the file format is supported
+         * @param fname - path to the file
+         * @return true if format is supported, otherwise false
+         */
+        bool probe(const char* fname) const final;
+        bool open(const char* fname, OpenMode mode, const SoundFileOpenParams& params) final;
 
-        long read(t_word* dest, size_t sz, size_t channel, long offset, size_t max_samples) override;
+        /**
+         * returns number of frames in opened file
+         */
+        size_t frameCount() const final;
+
+        /**
+         * return file samplerate
+         */
+        size_t sampleRate() const final;
+
+        /**
+         * return file number of channels
+         */
+        size_t channels() const final;
+        bool isOpened() const final;
+        bool close() final;
+
+        /**
+         * read one file channel data to specified Pd array
+         * @param dest - pointer to Pd array data
+         * @param sz - Pd array size
+         * @param channel - channel to load
+         * @param offset - reading start point
+         * @return number of read samples
+         */
+        std::int64_t read(t_word* dest, size_t sz, size_t channel, std::int64_t offset) final;
+
+        /**
+         * @brief read audio frames to given buffer
+         * @param fname - input filepath
+         * @param dest - pointer to destination
+         * @param frames - destination buffer size in frames (samples * num_chan)
+         * @param offset - start position to read in frames
+         * @return number of readed frames or -1 on error
+         */
+        std::int64_t readFrames(float* dest, size_t frames, std::int64_t offset) final;
 
     public:
-        static FormatList supportedFormats();
-        long readResampled(t_word* dest, size_t sz, size_t ch, long offset, size_t max_samples);
-
-    public:
-        struct buffer {
-            unsigned char const* start;
-            unsigned long length;
-        };
+        static FormatList supportedReadFormats();
 
     private:
-        buffer buf_;
+        std::int64_t readResampled(t_word* dest, size_t size, size_t ch, std::int64_t offset);
     };
 }
 }

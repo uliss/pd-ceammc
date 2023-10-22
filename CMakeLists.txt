@@ -77,6 +77,7 @@ endif()
 set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -std=gnu99")
 enable_language(CXX C)
 set(CMAKE_CXX_STANDARD 11)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
 list(APPEND CMAKE_MODULE_PATH ${PROJECT_SOURCE_DIR}/cmake)
 
@@ -84,19 +85,14 @@ include(CheckLSBTypes)
 include(build_options)
 include(ceammc/external_version.cmake)
 include(version)
+include(sound)
 include(install_paths)
 find_package(LeapMotion)
 include(PdPlatform)
 include(PdExternal)
 find_package(Gettext)
 #find_package(LibUSB)
-include(config)
-include(sound)
 include(cmake_uninstall)
-
-if(WITH_PD_INSTANCE)
-    add_definitions(-DPD_INSTANCE)
-endif()
 
 if(WITH_CLANG_TIDY)
     find_program(CLANG_TIDY_COMMAND NAMES clang-tidy)
@@ -111,8 +107,11 @@ endif()
 
 # libsndfile backend
 if(WITH_LIBSNDFILE)
-    include(FindLibSndFile REQUIRED)
+    find_package(LibSndFile REQUIRED)
     set(CEAMMC_HAVE_LIBSNDFILE TRUE)
+    if(PKGCONFIG_LIBSNDFILE_VERSION)
+        set(LIBSNDFILE_VERSION ${PKGCONFIG_LIBSNDFILE_VERSION})
+    endif()
 endif()
 
 # FFTW3

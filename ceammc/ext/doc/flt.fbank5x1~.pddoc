@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flt.fbank5x1~">
         <title>flt.fbank5x1~</title>
         <meta>
@@ -45,8 +45,11 @@
             <property name="@f4000" type="float" minvalue="-6" maxvalue="6" default="0"
             units="decibel">fifth filter (highpass) gain at 4000Hz</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
+            <!-- reset -->
             <method name="reset">reset filter state</method>
         </methods>
         <inlets>

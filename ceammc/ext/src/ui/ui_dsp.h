@@ -1,7 +1,6 @@
 #ifndef UI_DSP_H
 #define UI_DSP_H
 
-#include "ceammc_cicm.h"
 #include "ceammc_ui_object.h"
 
 using namespace ceammc;

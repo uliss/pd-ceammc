@@ -1,0 +1,74 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="hoa.3d.exchanger~">
+        <title>hoa.3d.exchanger~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+                <author>Pierre Guillot</author>
+                <author>Eliott Paris</author>
+                <author>Thomas Le Meur</author>
+            </authors>
+            <description>renumbers and normalizes the channels</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>spat</category>
+            <keywords>hoa exchanger</keywords>
+            <since>0.9.7</since>
+            <also>
+                <see>hoa.2d.exchanger~</see>
+            </also>
+        </meta>
+        <info>
+            <par>The library default normalization is SN3D and the numbering is ACN (cf tutorials).
+            The exchangers will always convert from or to the standard.</par>
+            <a href="hoa/hoa.3d.exchanger~-help.pd">CICM documentation</a>
+        </info>
+        <arguments>
+            <argument name="ORDER" type="int" minvalue="1" maxvalue="10">the order of
+            decomposition</argument>
+            <argument name="NUM" type="symbol"
+            enum="ACN fromFurseMalham fromSID toFurseMalham toSID">numbering scheme</argument>
+            <argument name="NORM" type="symbol" enum="SN3D fromMaxN fromN3D toMaxN toN3D">
+            normalization</argument>
+        </arguments>
+        <properties>
+            <property name="@order" type="int" minvalue="1" maxvalue="10" default="1"
+            access="initonly">the order of decomposition</property>
+            <property name="@num" type="symbol" default="ACN"
+            enum="ACN fromFurseMalham fromSID toFurseMalham toSID">numbering scheme</property>
+            <property name="@norm" type="symbol" default="SN3D"
+            enum="SN3D fromMaxN fromN3D toMaxN toN3D">normalization</property>
+            <property name="@toB" type="alias">alias to @num toFurseMalham and @norm
+            toMaxN</property>
+            <property name="@toDaniel" type="alias">alias to @num toSID and @norm toN3D</property>
+            <property name="@fromB" type="alias">alias to @num fromFurseMalham and @norm
+            fromMaxN</property>
+            <property name="@fromDaniel" type="alias">alias to @num fromSID and @norm
+            fromN3D</property>
+        </properties>
+        <inlets dynamic="true">
+            <inlet type="audio">
+                <xinfo>first input harmonic</xinfo>
+            </inlet>
+            <inlet type="audio" number="...">
+                <xinfo>... input harmonic</xinfo>
+            </inlet>
+            <inlet type="audio" number="n">
+                <xinfo>n-th input harmonic</xinfo>
+            </inlet>
+        </inlets>
+        <outlets dynamic="true">
+            <outlet type="audio">first loudspeaker output</outlet>
+            <outlet type="audio" number="...">... loudspeaker output</outlet>
+            <outlet type="audio" number="n">n-th loudspeaker output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[hoa.3d.exchanger~]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

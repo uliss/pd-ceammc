@@ -47,4 +47,8 @@ void setup_conv_str2sec()
     ObjectFactory<StrToSec> obj("conv.str2sec");
     obj.addAlias("str->sec");
     obj.processData<DataTypeString>();
+
+    obj.setDescription("converts formatted time to float value in seconds");
+    obj.setCategory("conv");
+    obj.setKeywords({"conv", "time"});
 }

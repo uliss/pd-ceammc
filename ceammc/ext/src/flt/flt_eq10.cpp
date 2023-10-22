@@ -49,4 +49,8 @@ void setup_flt_eq10_tilde()
 {
     SoundExternalFactory<FltEq10> obj("flt.eq10~");
     obj.addMethod("reset", &FltEq10::m_reset);
+
+    obj.setDescription("graphic 10 band equalizer");
+    obj.setCategory("flt");
+    obj.setKeywords({"graphic", "filter", "equalizer"});
 }

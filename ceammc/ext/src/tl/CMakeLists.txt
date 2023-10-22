@@ -1,5 +1,3 @@
-include_directories(../ui/cicm/Sources)
-
 set(TL_SOURCES
     tl_lexer.l
     tl_parser.y
@@ -7,7 +5,7 @@ set(TL_SOURCES
     tl_parser.cpp
     tl_cmd_driver.cpp
     tl_eventlist.cpp
-    )
+)
 
 macro(ceammc_tl_extension name)
      list(APPEND TL_SOURCES "tl_${name}.cpp")
@@ -16,6 +14,7 @@ endmacro()
 ceammc_tl_extension(bang)
 ceammc_tl_extension(baseobject)
 ceammc_tl_extension(cue_new)
+ceammc_tl_extension(events)
 ceammc_tl_extension(timeline)
 ceammc_tl_extension(toggle)
 ceammc_tl_extension(transport)
@@ -31,7 +30,10 @@ if(BISON_FOUND)
     )
 endif()
 
-target_include_directories(ceammc_tl PRIVATE $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>)
+target_include_directories(ceammc_tl
+    PRIVATE $<TARGET_PROPERTY:reflex,INCLUDE_DIRECTORIES>
+    PRIVATE "${CMAKE_CURRENT_SOURCE_DIR}/../ui/cicm/Sources"
+)
 
 add_custom_target(ceammc_tl_tcl_gen
     COMMAND ${PROJECT_SOURCE_DIR}/ceammc/scripts/filecontent_to_cxx_header.sh tl_cue_fn.tcl

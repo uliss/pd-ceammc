@@ -41,8 +41,12 @@ namespace ui {
     constexpr WinId WIN_NONE = 0;
     using WidgetId = uint64_t;
 
+    struct ViewImplVptr {
+        virtual ~ViewImplVptr();
+    };
+
     template <typename ModelData>
-    class ViewImpl {
+    class ViewImpl : public ViewImplVptr {
         WinId window_;
         WidgetId widget_;
         float scale_ { 1 };
@@ -53,8 +57,6 @@ namespace ui {
             , widget_(0)
         {
         }
-
-        virtual ~ViewImpl() { }
 
     public:
         virtual void create(const RectF& bbox, const ModelData& data) = 0;
@@ -155,8 +157,6 @@ namespace ui {
             , parent_cache_needs_update_(true)
         {
         }
-
-        virtual ~ModelView() { }
 
         uint64_t id() const { return reinterpret_cast<uint64_t>(this); }
         const PointF& pos() const override { return pos_; }

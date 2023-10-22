@@ -1,4 +1,4 @@
-set(ENV_SOURCES datatype_env.cpp
+set(ENV_SOURCES
     env_concat.cpp
     env_env.cpp
     env_mix.cpp
@@ -18,6 +18,7 @@ endmacro()
 ceammc_env_obj_external(adsr)
 ceammc_env_obj_external(ar)
 ceammc_env_obj_external(asr)
+ceammc_env_obj_external(asr2)
 ceammc_env_obj_external(follow)
 ceammc_env_obj_external(smooth)
 

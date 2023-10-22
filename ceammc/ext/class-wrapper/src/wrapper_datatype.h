@@ -27,7 +27,6 @@
 #define WRAPPER_DATATYPE_H
 
 #include "ceammc_abstractdata.h"
-#include "ceammc_data.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_log.h"
 
@@ -87,7 +86,7 @@ public:
     /**
      * Data type
      */
-    DataTypeId type() const noexcept final { return AbstractDataWrapper<T>::dataType; }
+    DataTypeId type() const noexcept final { return staticType(); }
 
     /**
      * Polymorphic convertsion to json string
@@ -105,7 +104,7 @@ public:
      */
     bool setWrapperData(const AbstractData* d) noexcept
     {
-        if (!d || d->type() != AbstractDataWrapper<T>::dataType)
+        if (!d || d->type() != staticType())
             return false;
 
         auto t = static_cast<const AbstractDataWrapper<T>*>(d);
@@ -114,7 +113,24 @@ public:
     }
 
 public:
-    static const DataTypeId dataType;
+    static DataTypeId staticType()
+    {
+        static auto id = ceammc::DataStorage::instance().registerNewType(
+            T::typeName(),
+            [](const AtomListView& lv) -> Atom {
+                T data;
+                auto st = data.setFromPd(lv);
+                std::string err;
+                if (st.error(&err)) {
+                    LIB_ERR << err;
+                    return Atom();
+                } else {
+                    return new AbstractDataWrapper(data);
+                }
+            });
+
+        return id;
+    }
 };
 
 template <typename T>
@@ -170,22 +186,6 @@ AbstractDataWrapper<T>& AbstractDataWrapper<T>::operator=(AbstractDataWrapper&& 
     value_ = std::move(v.value_);
     return (*this);
 }
-
-template <typename T>
-const DataTypeId AbstractDataWrapper<T>::dataType = ceammc::DataStorage::instance().registerNewType(
-    T::typeName(),
-    [](const AtomListView& lv) -> Atom {
-        T data;
-        auto st = data.setFromPd(lv);
-        std::string err;
-        if (st.error(&err)) {
-            LIB_ERR << err;
-            return Atom();
-        } else {
-            return new AbstractDataWrapper(data);
-        }
-    });
-
 }
 
 #endif // WRAPPER_DATATYPE_H

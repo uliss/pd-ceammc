@@ -1,0 +1,591 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="ui.canvas" type="gui">
+        <title>ui.canvas</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>UI canvas for drawing</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui canvas draw</keywords>
+            <since>0.9.7</since>
+            <aliases>
+                <alias view="link">ui.cnv</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>Canvas drawing methods are close to Cairo graphic library</par>
+            <par>Basic drawing workflow is:</par>
+            <par>- create line, shape or text</par>
+            <par>- stroke or fill it with color</par>
+            <par>- update image</par>
+        </info>
+        <properties>
+            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <property name="@size" type="list" default="120 60">element size (width, height
+            pair)</property>
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
+            <property name="@background_color" type="list" default="0.93 0.93 0.93 1">element
+            background color (list of red, green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
+            of red, green, blue values in 0-1 range)</property>
+            <!-- font -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
+            fontsize</property>
+            <property name="@fontname" type="symbol" default="Helvetica"
+            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
+            slant</property>
+            <!-- label -->
+            <property name="@label" type="symbol" default="(null)">label text</property>
+            <property name="@label_color" type="list" default="0 0 0 1">label color in RGB format
+            within 0-1 range, for example: 0.2 0.4 0.1</property>
+            <property name="@label_inner" type="bool" default="0">label position (1 - inner, 0 -
+            outer).</property>
+            <property name="@label_align" type="symbol" enum="left center right" default="left">
+            label horizontal align</property>
+            <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
+            label vertical align</property>
+            <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
+            label snap side</property>
+            <property name="@label_margins" type="list" default="0 0">label offset in
+            pixels</property>
+        </properties>
+        <methods>
+            <!-- abc -->
+            <method name="abc">draw music in ABC notation. 
+            <param name="X" type="atom" required="true">left-coord in pixel or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">top-coord in pixel or percents of
+            height</param>
+            <param name="MUSIC" type="list" required="true">ABC notation</param></method>
+            <!-- arc -->
+            <method name="arc">draw arc 
+            <param name="XC" type="atom" required="true">x-center coord in pixel or percents of
+            width</param>
+            <param name="YC" type="atom" required="true">y-center coord in pixel or percents of
+            height</param>
+            <param name="RC" type="atom" required="true">radius in pixel or percents of
+            width</param>
+            <param name="A0" type="atom" required="true">start angle in degrees or radians</param>
+            <param name="A1" type="atom" required="true">end angle in degrees or
+            radians</param></method>
+            <!-- arrow -->
+            <method name="arrow">creates arrow shape 
+            <param name="X0" type="atom" required="true">x-coord of start point in pixel or
+            percents of width</param>
+            <param name="Y0" type="atom" required="true">y-coord of start point in pixel or
+            percents of height</param>
+            <param name="X1" type="atom" required="true">x-coord of target point in pixel or
+            percents of width</param>
+            <param name="Y1" type="atom" required="true">y-coord of target point in pixel or
+            percents of height</param>
+            <param name="START" type="symbol" required="false" enum="A a V v X x T t O o n">start
+            shape</param>
+            <param name="END" type="symbol" required="false" enum="A a V v X x T t O o n">end
+            shape</param></method>
+            <!-- bg -->
+            <method name="bg">draws background 
+            <param name="COLOR" type="list" required="false">background color</param></method>
+            <!-- circle -->
+            <method name="circle">create circle shape 
+            <param name="X" type="float" required="true">x-coord</param>
+            <param name="Y" type="float" required="true">y-coord</param>
+            <param name="RADIUS" type="float" required="true">radius</param></method>
+            <!-- clear -->
+            <method name="clear">clear image</method>
+            <!-- close_path -->
+            <method name="close_path">close path and its subpaths</method>
+            <!-- color -->
+            <method name="color">set current color 
+            <param name="DATA" type="list" required="true">RGB, RGBA float list or hex or named
+            color</param></method>
+            <!-- crestore -->
+            <method name="crestore">restore previously saved context (pen type, width, color,
+            matrix etc.)</method>
+            <!-- csave -->
+            <method name="csave">save current drawing context (pen type, width, color, matrix
+            etc.)</method>
+            <!-- curve -->
+            <method name="curve">create bezier-curve shape 
+            <param name="X0" type="atom" required="true">x0-coord in pixels or percents of
+            width</param>
+            <param name="Y0" type="atom" required="true">y0-coord in pixels or percents of
+            height</param>
+            <param name="X1" type="atom" required="true">x1-coord in pixels or percents of
+            width</param>
+            <param name="Y1" type="atom" required="true">y1-coord in pixels or percents of
+            height</param>
+            <param name="X2" type="atom" required="true">x2-coord in pixels or percents of
+            width</param>
+            <param name="Y2" type="atom" required="true">y2-coord in pixels or percents of
+            height</param>
+            <param name="X3" type="atom" required="true">x3-coord in pixels or percents of
+            width</param>
+            <param name="Y4" type="atom" required="true">y3-coord in pixels or percents of
+            height</param></method>
+            <!-- dash -->
+            <method name="dash">set line dash pattern 
+            <param name="PATTERN" type="list" required="true">line dash pattern. If empty - reset
+            to solid shape</param></method>
+            <!-- dump -->
+            <method name="dump">dumps all object info to Pd console window.</method>
+            <!-- ellipse -->
+            <method name="ellipse">draw ellipse 
+            <param name="X" type="atom" required="true">left-coord in pixel or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">top-coord in pixel or percents of
+            height</param>
+            <param name="WIDTH" type="atom" required="true">width</param>
+            <param name="HEIGHT" type="atom" required="true">height</param></method>
+            <!-- fill -->
+            <method name="fill">fill shape with color 
+            <param name="COLOR" type="atom" required="true">fill color</param>
+            <param name="PRESERVE" type="atom" required="false" enum="preserve 1">preserve path
+            after fill. You can call stroke method after that</param></method>
+            <!-- font -->
+            <method name="font">set current font 
+            <param name="FONT" type="symbol" required="true">font family</param>
+            <param name="SIZE" type="float" required="false">font size</param></method>
+            <!-- font_size -->
+            <method name="font_size">set current font size 
+            <param name="X" type="float" required="true">font size</param></method>
+            <!-- icon -->
+            <method name="icon">draw named icon. Pass ? as single argument to dump all icons to Pd
+            window. 
+            <param name="X" type="atom" required="true">left-coord in pixel or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">top-coord in pixel or percents of
+            height</param>
+            <param name="SIZE" type="float" required="true">font size</param>
+            <param name="ICON" type="symbol" required="true">icon name. See
+            https://fonts.google.com/icons for full list</param></method>
+            <!-- image -->
+            <method name="image">draws image. Note: only PNG images are supported! 
+            <param name="X" type="atom" required="true">left-coord in pixel or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">top-coord in pixel or percents of
+            height</param>
+            <param name="PATH" type="symbol" required="true">path to image file, full or relative
+            to patch</param>
+            <param name="SCALE" type="float" required="false" minvalue="0">image
+            scale</param></method>
+            <!-- line -->
+            <method name="line">create line shape 
+            <param name="X0" type="atom" required="true">x0-coord in pixels or percents of
+            width</param>
+            <param name="Y0" type="atom" required="true">y0-coord in pixels or percents of
+            height</param>
+            <param name="X1" type="atom" required="true">x1-coord in pixels or percents of
+            width</param>
+            <param name="Y1" type="atom" required="true">y1-coord in pixels or percents of
+            height</param></method>
+            <!-- line_cap -->
+            <method name="line_cap">set line cap 
+            <param name="X" type="symbol" required="true" enum="butt round square">line
+            cap</param></method>
+            <!-- line_to -->
+            <method name="line_to">add line segment to line shape 
+            <param name="X" type="atom" required="true">x-coord in pixels or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord in pixels or percents of
+            height</param></method>
+            <!-- width -->
+            <method name="width">set stroke width 
+            <param name="WIDTH" type="float" required="true">line width</param></method>
+            <!-- move_by -->
+            <method name="move_by">move current drawing point by relative offset 
+            <param name="X" type="atom" required="true">x relative offset in pixels or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y relative offset in pixels or percents of
+            height</param></method>
+            <!-- move_to -->
+            <method name="move_to">move current drawing point to absolute position 
+            <param name="X" type="atom" required="true">x-coord in pixels or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord in pixels or percents of
+            height</param></method>
+            <!-- matrix -->
+            <method name="matrix">set 2D transformation matrix 
+            <param name="XX" type="atom" required="true">xx component of the affine
+            transformation</param>
+            <param name="YX" type="atom" required="true">yx component of the affine
+            transformation</param>
+            <param name="XY" type="atom" required="true">xy component of the affine
+            transformation</param>
+            <param name="YY" type="atom" required="true">yy component of the affine
+            transformation</param>
+            <param name="X0" type="atom" required="true">x component of the affine
+            transformation</param>
+            <param name="Y0" type="atom" required="true">y component of the affine
+            transformation</param></method>
+            <!-- musicxml -->
+            <method name="musicxml">render MusicXML file 
+            <param name="X" type="atom" required="true">x-coord in pixels or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord in pixels or percents of
+            height</param>
+            <param name="FILE" type="symbol" required="true">absolute or relative to patch filepath
+            of MusicXML file</param></method>
+            <!-- new_path -->
+            <method name="new_path">starts new path</method>
+            <!-- new_subpath -->
+            <method name="new_subpath">starts new subpath, means no line connection between last
+            point and new subpath shape</method>
+            <!-- polar -->
+            <method name="polar">creates polar grid 
+            <param name="X" type="atom" required="true">x-coord of center in pixel or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord of center in pixel or percents of
+            height</param>
+            <param name="ADIV" type="int" required="false" minvalue="0">number of divisions of 90
+            degree angle</param>
+            <param name="NC" type="int" required="false" minvalue="0">number of circles</param>
+            <param name="CDIST" type="int" required="false" minvalue="1">circle
+            distance</param></method>
+            <!-- polygon -->
+            <method name="polygon">create polygon shape 
+            <param name="X0" type="atom" required="true">x0-coord in pixel or percents of
+            width</param>
+            <param name="Y0" type="atom" required="true">y0-coord in pixel or percents of
+            height</param>
+            <param name="X..." type="atom" required="true">x...-coord in pixel or percents of
+            width</param>
+            <param name="Y..." type="atom" required="true">y...-coord in pixel or percents of
+            height</param>
+            <param name="XN" type="atom" required="true">xn-coord in pixel or percents of
+            width</param>
+            <param name="YN" type="atom" required="true">yn-coord in pixel or percents of
+            height</param></method>
+            <!-- pos -->
+            <method name="pos">set UI element position 
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- qrcode -->
+            <method name="qrcode">create QR-code shape. 
+            <param name="X" type="atom" required="true">left-coord in pixel or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">top-coord in pixel or percents of
+            height</param>
+            <param name="PIXEL" type="int" required="true" minvalue="1">pixel size</param>
+            <param name="TEXT" type="symbol" required="true">message</param></method>
+            <!-- rect -->
+            <method name="rect">create rectangle shape 
+            <param name="X" type="atom" required="true">x-coord in pixels or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord in pixels or percents of
+            height</param>
+            <param name="W" type="atom" required="true">width in pixels or percents of
+            width</param>
+            <param name="H" type="atom" required="true">height in pixels or percents of
+            height</param></method>
+            <!-- rotate -->
+            <method name="rotate">clock-wise rotatation of draw origin 
+            <param name="X" type="float" required="true" units="degree">rotation
+            angle</param></method>
+            <!-- rpolygon -->
+            <method name="rpolygon">create polygon shape 
+            <param name="X" type="atom" required="true">x-coord of center in pixel or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord of center in pixel or percents of
+            height</param>
+            <param name="N" type="int" required="true">number of vertexes</param>
+            <param name="R" type="float" required="true">polygon radius</param></method>
+            <!-- scale -->
+            <method name="scale">scale current draw matrix 
+            <param name="X" type="float" required="true">x</param>
+            <param name="Y" type="float" required="false">y. If omitted, uses X-value to scale same
+            in both directions</param></method>
+            <!-- star -->
+            <method name="star">create star shape 
+            <param name="X" type="atom" required="true">x-coord of center in pixel or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord of center in pixel or percents of
+            height</param>
+            <param name="N" type="int" required="true">number of vertexes</param>
+            <param name="R" type="float" required="false" minvalue="0">star radius</param>
+            <param name="STEP" type="int" required="false" minvalue="1">connection step. If omitted
+            step is auto-calculated</param></method>
+            <!-- stroke -->
+            <method name="stroke">stroke shape with color 
+            <param name="COLOR" type="atom" required="true">stroke color</param>
+            <param name="PRESERVE" type="atom" required="false" enum="preserve 1">preserve path
+            after stroke</param></method>
+            <!-- text -->
+            <method name="text">set current text shape 
+            <param name="X" type="atom" required="true">x-coord in pixels or percents of
+            width</param>
+            <param name="Y" type="atom" required="true">y-coord in pixels or percents of
+            height</param>
+            <param name="TXT" type="list" required="true">text content</param></method>
+            <!-- translate -->
+            <method name="translate">translate draw origin 
+            <param name="X" type="float" required="true">x offset</param>
+            <param name="Y" type="float" required="true">y offset</param></method>
+            <!-- update -->
+            <method name="update">updates drawed image</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>draw commands</xinfo>
+            </inlet>
+        </inlets>
+        <outlets />
+        <example>
+            <pdascii>
+<![CDATA[
+[clear, matrix #a(             [image #i(
+
+[line #b(                      [qrcode #j(
+
+[circle #c(                    [star #k(
+
+[rect #d(                      [abc #l(
+
+[curve 0 0 30% 50% 70% 50% 100% 0, stroke \#FA0, update #e(
+
+[polygon 20 90 40 70 100 70 90 190, fill lime!-30, update #f(
+
+[csave, #g(
+
+
+[bg gray!+75, update #h(
+
+[ui.canvas @size 300 200 {h:200} #z]
+
+
+
+
+
+
+
+
+
+
+
+[X a->z] [X b->z] [X c->z] [X d->z] [X e->z] [X f->z] [X g->z] [X h->z]
+[X i->z] [X j->z] [X k->z] [X l->z]
+
+[ui.canvas.line]  [ui.canvas.text]   [ui.canvas.music] [ui.canvas.matrix]
+
+[ui.canvas.color] [ui.canvas.arrows] [ui.canvas.image]
+
+#b 30 50 100% 100%, stroke red, update
+#c 0 0 50, fill blue, update
+#d 80% 90% 15% 10%, fill navy, update
+#g translate 50% 50%, rotate 35, font_size 40, text 0 0 CEAM, fill gray, crestore, update
+#i 150 10 img/puredata-ceammc.png 0.13, update
+#j 220 40 3 message, fill black, update
+#k 150 160 5 30, stroke red, update
+#l 0 0 K:E L:1/4 =F4|, update
+]]>
+            </pdascii>
+            <pdascii id="line">
+<![CDATA[
+[clear, line_cap butt, width 10, line 10% 10% 90% 90%, stroke blue, update #a(
+
+
+[clear, line_cap square, width 10, line 10% 10% 90% 90%, stroke blue, update #b(
+
+
+[clear, line_cap round, width 10, line 10% 10% 90% 90%, stroke red, update #c(
+
+
+    [dash #e( [dash 5 5 12 #f(
+
+[clear, width 10, line_cap round, move_to 10% 50%, line_to 90% 50%, line_to 50% 10%, line_to 50% 90%, stroke cyan, update #d(
+
+
+
+[ui.canvas @size 300 200 {h:200} #z]
+
+
+
+
+
+
+
+
+
+
+
+[X a->z] [X b->z] [X c->z] [X d->z] [X e->z] [X f->z]
+]]>
+            </pdascii>
+            <pdascii id="text">
+<![CDATA[
+[clear, matrix, translate 50% 50% #a(
+
+ [rotate 30, font Verdana, font_size 20, text 20 0 CEAM, fill random, update #b(
+
+
+  [matrix, font Verdana bold, font_size 40, width 2, text 50 75 HELLO, fill gray preserve, stroke cyan, update #c(
+
+
+   [clear, font Verdana italic, font_size 50, text 50 75 HELLO, fill black, update #d(
+
+
+    [clear, font Verdana italic bold 60, text 25% 75 HELLO, fill black, update #e(
+
+
+[ui.canvas @size 300 200 {h:200} #z]
+
+
+
+
+
+
+
+
+
+
+
+[X a->z] [X b->z] [X c->z] [X d->z] [X e->z]
+]]>
+            </pdascii>
+            <pdascii id="color">
+<![CDATA[
+[clear, bg \#FFAAFF, update #a( /*RGB*/
+
+[bg \#DDAA33AA, update #b(      /*RGBA*/
+
+[bg \#BEF, update #c(           /*short RGB*/
+
+[bg \#30D5, update #d(          /*short RGBA*/
+
+[bg navy, update #e(            /*named color*/
+
+[bg navy!+50, update #f(        /*lighter named color*/
+
+[bg gray!-50, update #g(        /*darker named color*/
+
+[bg random, update #h(          /*random color*/
+
+[ui.canvas #z]
+
+
+
+
+
+
+
+[X a->z] [X b->z] [X c->z] [X d->z]
+[X e->z] [X f->z] [X g->z] [X h->z]
+]]>
+            </pdascii>
+            <pdascii id="arrows">
+<![CDATA[
+[width 1, arrow 30 30 130 160 A a, stroke red, update #a(
+
+[arrow 60 30 160 160 O o, stroke blue, update #b(
+
+[arrow 90 30 190 160 T t, stroke navy, update #c(
+
+[arrow 120 30 220 160 V v, stroke orange, update #d(
+
+[arrow 150 30 250 160 X x, stroke gray, update #e(
+
+[arrow 180 30 280 160 n n, stroke green, update #f(
+
+
+[ui.canvas @size 300 200 #z]
+
+
+
+
+
+
+
+[X a->z] [X b->z] [X c->z] [X d->z]
+[X e->z] [X f->z]
+]]>
+            </pdascii>
+            <pdascii id="music">
+<![CDATA[
+[clear, musicxml -100 -20 music/simple.mxml 120, update #a(
+
+  [B]
+  |
+  [openpanel]
+  |
+  [clear, musicxml 0 0 $1 50, update(
+  |
+[ui.canvas @size 500 400 #z]
+
+
+
+
+
+
+
+[X a->z]
+]]>
+            </pdascii>
+            <pdascii id="image">
+<![CDATA[
+[clear, image 20 20 img/puredata-ceammc.png 0.5, update #a(
+
+[clear, image -30 -20 img/sample.svg 0.6, update #b(
+
+[clear, image -30 -20 img/bach.jpg, update #c(
+
+[clear, icon 100 150 120 settings, stroke navy, update #d(
+
+  [icon ?(
+  |
+[ui.canvas @size 300 200 #z]
+
+
+
+
+
+
+
+[X a->z] [X b->z] [X c->z] [X d->z]
+
+
+
+
+
+
+[ui.link @title=See_Material_Icons @url=https://fonts.google.com/icons]
+]]>
+            </pdascii>
+            <pdascii id="matrix">
+<![CDATA[
+[loadbang]
+|
+[clear, image 20 20 img/2d_matrix.svg 0.32, update #a(
+
+[ui.canvas @size 380 500 #z]             [#m1(
+
+
+                                          [#m2(
+
+
+                                           [#m3(
+
+
+                                            [#m4(
+
+
+
+[X a->z]                                 [ui.canvas @size 300 200 #y]
+
+#m1 clear, matrix 2 0 0 2 0 0, rect 50 50 100 100, stroke red, update
+#m2 clear, matrix 2 0 0 2 50 70, rect 50 50 100 100, stroke red, update
+#m3 clear, matrix 2.5 0 0 1.5 0 0, rect 50 50 100 100, stroke red, update
+#m4 clear, matrix 2 0.5 0 2 0 0, rect 50 50 100 100, stroke red, update
+[X m1->y] [X m2->y] [X m3->y] [X m4->y]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

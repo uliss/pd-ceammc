@@ -32,4 +32,8 @@ void setup_flt_c_notch()
     obj.addMethod("bw", &FltNotch2Biquad::m_bandwidth);
 
     obj.setXletsInfo({ "float: freq cutoff" }, { "list: biquad coeffs: b0 b1 b2 a1 a2" });
+
+    obj.setDescription("Notch filter coefficient calculator for biquad");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "biquad", "notch", "reject"});
 }

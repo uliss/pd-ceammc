@@ -61,7 +61,7 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("0x1A") == LF(0x1A));
         REQUIRE(parse("0b000101") == LF(5));
         REQUIRE(parse("0b11111111") == LF(0xFF));
-//        REQUIRE(parse("0xffffffffffffffff") == L());
+        //        REQUIRE(parse("0xffffffffffffffff") == L());
         REQUIRE(parse("\"a b c\"") == LA("a b c"));
         REQUIRE(parse(R"("a b `"c")") == LA("a b \"c"));
         // empty quoted
@@ -291,11 +291,11 @@ TEST_CASE("DataStringParser", "[core]")
     SECTION("euclid()")
     {
         REQUIRE(parse("euclid()").empty());
-        REQUIRE(parse("euclid(1)").empty());
         REQUIRE(parse("euclid(A B)").empty());
         REQUIRE(parse("euclid(10 1)").empty());
         REQUIRE(parse("euclid(-1 10)").empty());
         REQUIRE(parse("euclid(1 -2)").empty());
+        REQUIRE(parse("euclid(1)") == LF(1, 0, 0, 0, 0, 0, 0, 0));
         REQUIRE(parse("euclid(0 4)") == LF(0, 0, 0, 0));
         REQUIRE(parse("euclid(1 1)") == LF(1));
         REQUIRE(parse("euclid(2 2)") == LF(1, 1));
@@ -307,6 +307,69 @@ TEST_CASE("DataStringParser", "[core]")
         REQUIRE(parse("euclid(3 4)") == LF(1, 0, 1, 1));
         REQUIRE(parse("euclid(3 5)") == LF(1, 0, 1, 0, 1));
         REQUIRE(parse("euclid(3 8)") == LF(1, 0, 0, 1, 0, 0, 1, 0));
-        //        REQUIRE(parse("euclid(3 7)") == LF(1, 0, 1, 0, 0, 1, 0));
+        REQUIRE(parse("euclid(3 4 0)") == LF(1, 0, 1, 1));
+        REQUIRE(parse("euclid(3 4 1)") == LF(1, 1, 0, 1));
+        REQUIRE(parse("euclid(3 4 2)") == LF(1, 1, 1, 0));
+        REQUIRE(parse("euclid(3 4 -1)") == LF(0, 1, 1, 1));
+    }
+
+    SECTION("hexbeat()")
+    {
+        REQUIRE(parse("hexbeat()").empty());
+        REQUIRE(parse("hexbeat(1)").empty());
+        REQUIRE(parse("hexbeat(F1)") == LF(1, 1, 1, 1, 0, 0, 0, 1));
+        REQUIRE(parse("hexbeat(1F)") == LF(0, 0, 0, 1, 1, 1, 1, 1));
+        REQUIRE(parse("hexbeat(#F2)") == LF(1, 1, 1, 1, 0, 0, 1, 0));
+        REQUIRE(parse("hexbeat(#2)") == LF(0, 0, 1, 0));
+        REQUIRE(parse("hexbeat(0x3)").empty());
+        REQUIRE(parse("hexbeat(\"0x3\")") == LF(0, 0, 1, 1));
+        REQUIRE(parse("hexbeat(\"4\")") == LF(0, 1, 0, 0));
+    }
+
+    SECTION("rotate()")
+    {
+        REQUIRE(parse("rotate()").empty());
+        REQUIRE(parse("rotate(1)").empty());
+        REQUIRE(parse("rotate(0 A)") == LA("A"));
+        REQUIRE(parse("rotate(1 A)") == LA("A"));
+        REQUIRE(parse("rotate(-1 A)") == LA("A"));
+        REQUIRE(parse("rotate(0 A B)") == LA("A", "B"));
+        REQUIRE(parse("rotate(1 A B)") == LA("B", "A"));
+        REQUIRE(parse("rotate(-1 A B)") == LA("B", "A"));
+        REQUIRE(parse("rotate(0 1 2 3)") == LF(1, 2, 3));
+        REQUIRE(parse("rotate(1 1 2 3)") == LF(2, 3, 1));
+        REQUIRE(parse("rotate(2 1 2 3)") == LF(3, 1, 2));
+        REQUIRE(parse("rotate(3 1 2 3)") == LF(1, 2, 3));
+        REQUIRE(parse("rotate(-1 1 2 3)") == LF(3, 1, 2));
+        REQUIRE(parse("rotate(-2 1 2 3)") == LF(2, 3, 1));
+        REQUIRE(parse("rotate(-3 1 2 3)") == LF(1, 2, 3));
+    }
+
+    SECTION("sort()")
+    {
+        REQUIRE(parse("sort()").empty());
+        REQUIRE(parse("sort(1)") == LF(1));
+        REQUIRE(parse("sort(3 2 -1)") == LF(-1, 2, 3));
+        REQUIRE(parse("sort(B A C H)") == LA("A", "B", "C", "H"));
+    }
+
+    SECTION("ones()")
+    {
+        REQUIRE(parse("ones()").empty());
+        REQUIRE(parse("ones(-1)").empty());
+        REQUIRE(parse("ones(0)").empty());
+        REQUIRE(parse("ones(1)") == LF(1));
+        REQUIRE(parse("ones(2)") == LF(1, 1));
+        REQUIRE(parse("ones(3)") == LF(1, 1, 1));
+    }
+
+    SECTION("zeros()")
+    {
+        REQUIRE(parse("zeros()").empty());
+        REQUIRE(parse("zeros(-1)").empty());
+        REQUIRE(parse("zeros(0)").empty());
+        REQUIRE(parse("zeros(1)") == LF(0));
+        REQUIRE(parse("zeros(2)") == LF(0, 0));
+        REQUIRE(parse("zeros(3)") == LF(0, 0, 0));
     }
 }

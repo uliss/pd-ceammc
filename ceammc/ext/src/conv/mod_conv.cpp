@@ -14,17 +14,26 @@ void setup_conv_str2sec();
 
 void setup_conv_cc2amp();
 
+void setup_conv_bar2ms();
 void setup_conv_bpm2hz();
 void setup_conv_bpm2ms();
 void setup_conv_bpm2sec();
 void setup_conv_ms2bpm();
 void setup_conv_ms2samp();
+void setup_conv_ms2str();
 void setup_conv_samp2ms();
 void setup_conv_samp2sec();
 void setup_conv_sec2bpm();
 void setup_conv_sec2samp();
 
+void setup_conv_semi2ratio();
+
 void setup_conv_angles();
+
+void setup_conv_color2rgba();
+void setup_conv_hsl2rgb();
+void setup_conv_lab2rgb();
+void setup_conv_rgb2hex();
 
 void setup_conv_lin2curve();
 void setup_conv_lin2exp();
@@ -39,6 +48,7 @@ void setup_conv_bits2note();
 void setup_conv_bits2pos();
 
 void setup_conv_note2guido();
+void setup_conv_char2morse();
 
 void ceammc_conv_setup()
 {
@@ -50,11 +60,13 @@ void ceammc_conv_setup()
     setup_conv_lin2lin();
     setup_conv_lin2lin_tilde();
 
+    setup_conv_bar2ms();
     setup_conv_bpm2hz();
     setup_conv_bpm2ms();
     setup_conv_bpm2sec();
     setup_conv_ms2bpm();
     setup_conv_ms2samp();
+    setup_conv_ms2str();
     setup_conv_samp2ms();
     setup_conv_samp2sec();
     setup_conv_sec2bpm();
@@ -62,6 +74,11 @@ void ceammc_conv_setup()
 
     setup_conv_amp2dbfs();
     setup_conv_dbfs2amp();
+
+    setup_conv_color2rgba();
+    setup_conv_hsl2rgb();
+    setup_conv_lab2rgb();
+    setup_conv_rgb2hex();
 
     setup_conv_cc2amp();
     setup_conv_pitch2midi();
@@ -77,9 +94,11 @@ void ceammc_conv_setup()
     setup_conv_int2bits();
 
     setup_conv_degree2key();
+    setup_conv_semi2ratio();
 
     setup_conv_sig2float();
     setup_conv_edge2bang();
 
     setup_conv_note2guido();
+    setup_conv_char2morse();
 }

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="synth.sitar~">
         <title>synth.sitar~</title>
         <meta>
@@ -26,13 +26,15 @@
             (&gt;0 - play)</property>
         </properties>
         <methods>
+            <!-- cc -->
+            <method name="cc">control change message 
+            <param name="CTL" type="int" required="true">control number</param>
+            <param name="VAL" type="float" required="true">value</param></method>
+            <!-- note -->
             <method name="note">note on/off message 
             <param name="NOTE" type="float" required="true">midi note</param>
             <param name="VEL" type="float" minvalue="0" maxvalue="127" required="true">
             velocity</param></method>
-            <method name="cc">control change message 
-            <param name="CTL" type="int" required="true">control number</param>
-            <param name="VAL" type="float" required="true">value</param></method>
         </methods>
         <inlets>
             <inlet>

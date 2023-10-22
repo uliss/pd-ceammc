@@ -1,6 +1,7 @@
 #include "preset_base.h"
 #include "ceammc_platform.h"
 #include "ceammc_preset.h"
+#include "fmt/core.h"
 
 extern "C" {
 #include "g_canvas.h"
@@ -9,7 +10,7 @@ extern "C" {
 static const std::string SEPARATOR("/");
 
 PresetBase::PresetBase(const PdArgs& args)
-    : BaseObject(args)
+    : TableObject<BaseObject>(args)
     , global_(0)
     , subpatch_(nullptr)
     , name_(&s_)
@@ -192,7 +193,7 @@ t_symbol* PresetBase::makePresetPath() const
     return gensym(res.c_str());
 }
 
-t_symbol* PresetBase::name()
+t_symbol* PresetBase::name() const
 {
     return name_;
 }
@@ -223,4 +224,57 @@ void PresetBase::m_interp(t_symbol*, const AtomListView& index)
     }
 
     loadFrom(idx);
+}
+
+void PresetBase::tableEditorClear()
+{
+}
+
+TableLineList PresetBase::getTableContentForEditor() const
+{
+    TableLineList res;
+    auto N = PresetStorage::instance().maxPresetCount();
+
+    for (size_t i = 0; (i + 1) < N; i += 1) {
+        if (!PresetStorage::instance().hasValueAt(presetPath(), i))
+            continue;
+
+        AtomList line;
+        line.append(i);
+        line.append(editorPresetValue(i));
+        res.push_back(line);
+    }
+    return res;
+}
+
+void PresetBase::tableEditorAddLine(t_symbol* sel, const AtomListView& lv)
+{
+    if (lv.size() < 1 || !lv[0].isInteger())
+        return;
+
+    int idx = lv.intAt(0, 0);
+    if (idx < 0) {
+        OBJ_ERR << fmt::format("invalid preset index: {}", idx);
+        return;
+    }
+
+    auto args = lv.subView(1);
+
+    if (!setEditorPreset(idx, args))
+        OBJ_ERR << fmt::format("can't set preset [{}]: ", idx) << args;
+}
+
+EditorTitleString PresetBase::editorTitle() const
+{
+    return fmt::format("preset '{}'", name()->s_name).c_str();
+}
+
+bool PresetBase::setEditorPreset(size_t idx, const AtomListView& lv)
+{
+    return false;
+}
+
+AtomList PresetBase::editorPresetValue(size_t idx) const
+{
+    return {};
 }

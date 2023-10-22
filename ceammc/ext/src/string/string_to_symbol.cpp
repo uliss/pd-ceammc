@@ -30,4 +30,8 @@ void setup_string_to_symbol()
     ObjectFactory<StringToSymbol> obj("string2symbol");
     obj.processData<DataTypeString>();
     obj.addAlias("str->sym");
+
+    obj.setDescription("converts string to symbol");
+    obj.setCategory("string");
+    obj.setKeywords({"string", "symbol", "convert"});
 }

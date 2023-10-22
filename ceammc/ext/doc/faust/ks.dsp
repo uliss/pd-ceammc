@@ -1,3 +1,4 @@
+declare name "Karplus Strong";
 import("stdfaust.lib");
 
 maxStringLength = 100;

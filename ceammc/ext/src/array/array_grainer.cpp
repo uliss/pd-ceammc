@@ -568,4 +568,8 @@ void setup_array_grainer()
     obj.addMethod("defer", &ArrayGrainer::m_defer);
     obj.addMethod("reverse", &ArrayGrainer::m_reverse);
     obj.addMethod("permutate", &ArrayGrainer::m_permutate);
+
+    obj.setDescription("array granulator");
+    obj.setCategory("array");
+    obj.setKeywords({"array", "grain", "particle", "granular"});
 }

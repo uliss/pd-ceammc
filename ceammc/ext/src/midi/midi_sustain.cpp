@@ -104,4 +104,8 @@ void setup_midi_sustain()
 
     ObjectFactory<MidiSustain> obj("midi.sustain");
     obj.setXletsInfo({ "list: NOTE VEL", "int: 1 or 0 to turn sustain on/off" }, { "list: NOTE VEL" });
+
+    obj.setDescription("sustain pedal emulation");
+    obj.setCategory("midi");
+    obj.setKeywords({"midi", "sustain"});
 }

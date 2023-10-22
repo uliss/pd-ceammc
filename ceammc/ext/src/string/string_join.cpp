@@ -105,4 +105,8 @@ void setup_string_join()
     obj.addAlias("str.join");
 
     obj.setXletsInfo({ "list or data:MList", "symbol: set join symbol" }, { "data:String: result string" });
+
+    obj.setDescription("joins (concatenates) list to string with separator");
+    obj.setCategory("string");
+    obj.setKeywords({"join"});
 }

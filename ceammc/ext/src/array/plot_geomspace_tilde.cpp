@@ -118,4 +118,8 @@ void PlotGeomSpaceTilde::processBlock(const t_sample** in, t_sample** out)
 void setup_plot_geomspace_tilde()
 {
     SoundExternalFactory<PlotGeomSpaceTilde> obj("plot.geomspace~", OBJECT_FACTORY_DEFAULT);
+
+    obj.setDescription("outputs numbers spaced evenly on a log scale (a geometric progression)");
+    obj.setCategory("array");
+    obj.setKeywords({"array", "geom", "log", "scale"});
 }

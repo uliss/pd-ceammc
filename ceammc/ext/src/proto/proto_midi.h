@@ -55,6 +55,7 @@ private:
 };
 
 class ProtoMidi : public BaseObject {
+protected:
     midi::MidiParser parser_;
     MidiQuaterFrame mqf_;
 
@@ -66,10 +67,12 @@ public:
     void m_activeSense(t_symbol*, const AtomListView&);
     void m_afterTouchMono(t_symbol* s, const AtomListView& lv);
     void m_afterTouchPoly(t_symbol* s, const AtomListView& lv);
+    void m_allNotesOff(t_symbol* s, const AtomListView& lv);
+    void m_allSoundOff(t_symbol* s, const AtomListView& lv);
     void m_cc(t_symbol* s, const AtomListView& lv);
     void m_clock(t_symbol*, const AtomListView&);
     void m_continue(t_symbol*, const AtomListView&);
-    void m_timecode(t_symbol* s, const AtomListView& lv);
+    void m_raw(t_symbol* s, const AtomListView& lv);
     void m_noteOff(t_symbol* s, const AtomListView& lv);
     void m_noteOn(t_symbol* s, const AtomListView& lv);
     void m_pitchWheel(t_symbol* s, const AtomListView& lv);
@@ -78,9 +81,10 @@ public:
     void m_songSelect(t_symbol* s, const AtomListView& lv);
     void m_start(t_symbol*, const AtomListView&);
     void m_stop(t_symbol*, const AtomListView&);
-    void m_sysex(t_symbol*, const AtomListView& lv);
     void m_sysReset(t_symbol*, const AtomListView&);
+    void m_sysex(t_symbol*, const AtomListView& lv);
     void m_tick(t_symbol*, const AtomListView&);
+    void m_timecode(t_symbol* s, const AtomListView& lv);
     void m_tuneRequest(t_symbol*, const AtomListView&);
 
 private:
@@ -89,9 +93,14 @@ private:
 
     void byteStatus(uint8_t st, int chan) { floatTo(0, st | uint8_t(0x0F & chan)); }
     void byteData(uint8_t data) { floatTo(0, 0x7F & data); }
-    void msgTo(t_symbol* s, const Atom* a, size_t n) { anyTo(0, s, AtomListView(a, n)); }
+    void sendBytes3(int chan, uint8_t st, uint8_t data1, uint8_t data2);
 
     void handleTimecode(uint8_t data);
+
+protected:
+    void msgCC(uint8_t b, uint8_t c, uint8_t v);
+    void msgTo(t_symbol* s, const Atom* a, size_t n) { anyTo(1, s, AtomListView(a, n)); }
+    void msgTo(t_symbol* s, const AtomListView& lv) { anyTo(1, s, lv); }
 };
 
 void setup_proto_midi();

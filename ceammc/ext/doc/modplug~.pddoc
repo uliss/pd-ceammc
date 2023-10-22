@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="modplug~">
         <title>modplug~</title>
         <meta>
@@ -17,27 +17,30 @@
             </aliases>
         </meta>
         <properties>
-            <property name="@done" type="symbol">function called with bang when playing is
-            finished</property>
+            <property name="@done" type="symbol" default="">function called with bang when playing
+            is finished</property>
             <property name="@len" type="float" access="readonly" units="millisecond" default="0">
             length of mod file</property>
-            <property name="@name" type="symbol" access="readonly">mod name</property>
+            <property name="@name" type="symbol" default="" access="readonly">mod name</property>
             <property name="@pos" type="float" units="millisecond" default="-1">position in mod
             file</property>
             <property name="@rpos" type="float" minvalue="0" maxvalue="1" default="0">relative
             position in mod file</property>
             <property name="@play" type="bool" default="0">play state</property>
         </properties>
+        <methods>
+            <!-- pause -->
+            <method name="pause">pause playing</method>
+            <!-- play -->
+            <method name="play">play mod file</method>
+            <!-- stop -->
+            <method name="stop">stop playing and move play position to the end of file</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="symbol">load mod file</xinfo>
             </inlet>
         </inlets>
-        <methods>
-            <method name="play">play mod file</method>
-            <method name="pause">pause playing</method>
-            <method name="stop">stop playing and move play position to the end of file</method>
-        </methods>
         <outlets>
             <outlet type="audio">left channel and property output</outlet>
             <outlet type="audio">right channel</outlet>

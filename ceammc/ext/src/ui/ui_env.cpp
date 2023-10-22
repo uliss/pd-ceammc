@@ -1,5 +1,4 @@
 #include "ui_env.h"
-#include "ceammc_datatypes.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 #include "lex/parser_units.h"
@@ -181,7 +180,7 @@ void UIEnv::drawCursor(const t_rect& r)
                 lin2lin(cursor_pos_.y, 0, height(), max_env_value_, 0));
 
             cursor_txt_pos_.setColor(prop_color_border);
-            cursor_txt_pos_.set(buf, r.width / 2, 3, r.width, 20);
+            cursor_txt_pos_.set(buf, r.w / 2, 3, r.w, 20);
             cp.drawText(cursor_txt_pos_);
         }
     }
@@ -383,8 +382,8 @@ void UIEnv::paint()
 
 void UIEnv::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, ENV_MIN_WIDTH);
-    newrect->height = pd_clip_min(newrect->height, ENV_MIN_HEIGHT);
+    newrect->w = pd_clip_min(newrect->w, ENV_MIN_WIDTH);
+    newrect->h = pd_clip_min(newrect->h, ENV_MIN_HEIGHT);
 
     updateNodes();
 }
@@ -845,7 +844,7 @@ void UIEnv::setup()
     obj.useData();
     obj.outputMouseEvents(MouseEventsOutput::DEFAULT_OFF);
 
-    obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIEnv::prop_active_color);
+    obj.addProperty(sym::props::name_active_color, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIEnv::prop_active_color);
     obj.addProperty("line_color", _("Line Color"), DEFAULT_LINE_COLOR, &UIEnv::prop_line_color);
     obj.addFloatProperty(PROP_LENGTH, _("Length (ms)"), 400, &UIEnv::prop_length, _("Main"));
     obj.setPropertyMin(PROP_LENGTH, 10);

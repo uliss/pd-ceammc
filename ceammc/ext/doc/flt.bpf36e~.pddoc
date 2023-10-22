@@ -1,0 +1,99 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="flt.bpf36e~">
+        <title>flt.bpf36e~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>elliptic band-pass filter with -36db rolloff</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flt</category>
+            <keywords>filter elliptic bpf</keywords>
+            <since>0.9.7</since>
+            <also>
+                <see>flt.bpf72e~</see>
+                <see>flt.bpf24~</see>
+            </also>
+        </meta>
+        <info>
+            <par>Band-pass filter passes frequencies within a certain range and rejects frequencies
+            outside that range.</par>
+            <wiki name="Elliptic_filter">Elliptic filter</wiki>
+        </info>
+        <arguments>
+            <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">center
+            frequency</argument>
+            <argument name="Q" type="float" minvalue="0.25" maxvalue="32">quality factory:
+            @freq/BANDWIDTH</argument>
+        </arguments>
+        <properties>
+            <property name="@freq" type="float" units="hertz" default="1000" minvalue="20"
+            maxvalue="20000" access="initonly">cutoff frequency</property>
+            <property name="@q" type="float" minvalue="0.25" maxvalue="32" default="2"
+            access="initonly">quality factor: @freq/BANDWIDTH</property>
+            <!-- common -->
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+        </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset filter state</method>
+        </methods>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">filtered signal</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[bang #a(/*plot response*/
+|
+[click~ #d]
+
+
+
+[flt.bpf36e~ #e]     [flt.bpf12~ #f]
+|
+[plot.response~ #g]  [plot.response~ #h]
+
+
+[ui.plot~ #z]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ui.dsp~]
+[X a->g:1]
+[X a->h:1]
+[X d->f] [X d->e]
+[X f->h]
+[X g->z] [X h->z:1] [X h:2->z:2]
+#b $1
+#c $1
+#g @sr 1
+#h @sr 1
+#z @xlabels 1 @ylabels 1 @ymin 0 @ymax 1 @ymin_ticks 0 @ymaj_ticks 0 @n 2 @size 400 200
+#e 5000
+#f 5000
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="noise.ginger">
         <title>noise.ginger</title>
         <meta>
@@ -29,11 +29,16 @@
         </arguments>
         <properties />
         <methods>
-            <method name="set">set seed, x and y values, updates defaults</method>
-            <method name="x">set x value and update default</method>
-            <method name="y">set y value and update default</method>
-            <method name="seed">set seed value and update default</method>
+            <!-- reset -->
             <method name="reset">reset seed, x and y values to defaults</method>
+            <!-- seed -->
+            <method name="seed">set seed value and update default</method>
+            <!-- set -->
+            <method name="set">set seed, x and y values, updates defaults</method>
+            <!-- x -->
+            <method name="x">set x value and update default</method>
+            <!-- y -->
+            <method name="y">set y value and update default</method>
         </methods>
         <inlets>
             <inlet>

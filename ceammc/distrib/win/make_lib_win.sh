@@ -6,12 +6,15 @@ then
     exit 1
 fi
 
+declare -A dll_set
+
 OUTDIR="$1"
 INSTALL_EXTRA_DIR="@CMAKE_INSTALL_PREFIX@/extra"
 TMP_CEAMMC_DIR="${OUTDIR}/ceammc"
 OUTFILE="@CEAMMC_EXTERNAL_NAME@"
 P7Z_EXE="@7Z_EXE@"
 OBJDUMP=$(which objdump.exe)
+DLL_DIRS=("$MINGW_PREFIX" "/opt/local")
 
 if [ -z $OBJDUMP ]
 then
@@ -27,12 +30,21 @@ section() {
 list_dll () {
     $OBJDUMP -x $1 | grep 'DLL Name' | awk '{print $3}' | while read dll
     do
-        fname="$MINGW_PREFIX/bin/$dll"
-        if [ -e "$fname" ]
-        then
-            echo "$fname"
-            list_dll "$fname"
-        fi
+        for dir in "${DLL_DIRS[@]}"
+        do
+            fname="$dir/bin/$dll"
+            if [ -e "$fname" ]
+            then
+                if [[ -v "dll_set[$fname]" ]]
+                then
+                    continue
+                else
+                    dll_set[$fname]=1
+                    echo "$fname"
+                    list_dll "$fname"
+                fi
+            fi
+        done
     done
 }
 

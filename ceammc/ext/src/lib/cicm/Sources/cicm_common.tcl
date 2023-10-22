@@ -492,6 +492,13 @@ proc bindMouseWheel {bindtag callback} {
     }
 }
 
+proc bindKeys {} {
+    bind all <Shift-KeyPress>   {+pdsend "ceammc keypress   [list shift %s %K %N]"}
+    bind all <KeyPress>         {+pdsend "ceammc keypress   [list none  %s %K %N]"}
+    bind all <Shift-KeyRelease> {+pdsend "ceammc keyrelease [list shift %s %K %N]"}
+    bind all <KeyRelease>       {+pdsend "ceammc keyrelease [list none  %s %K %N]"}
+}
+
 proc spinboxScroll {id delta} {
     if {[string equal [focus] "$id"]} { ttk::spinbox::MouseWheel $id $delta }
     return -code break

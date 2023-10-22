@@ -210,7 +210,7 @@ public:
     const DictMap& innerData() const { return dict_; }
 
 public:
-    static const DataTypeId dataType;
+    static DataTypeId staticType();
 };
 
 std::ostream& operator<<(std::ostream& os, const DataTypeDict& dict);

@@ -40,14 +40,14 @@ extern "C" t_float* get_sys_dacsr();
     typedef TestSoundExternal<T> TestExt##T; \
     using TExt = TestExt##T;
 
-#define PD_TEST_SND_DSP(T)                                       \
-    template <size_t IN, size_t OUT>                             \
-    class T##DSP : public DSP<TestSignal<IN, OUT>, TestExt##T> { \
-    public:                                                      \
-        T##DSP(TestSignal<IN, OUT>& sig, TestExt##T& ext)        \
-            : DSP<TestSignal<IN, OUT>, TestExt##T>(sig, ext)     \
-        {                                                        \
-        }                                                        \
+#define PD_TEST_SND_DSP(T)                                           \
+    template <size_t IN, size_t OUT, size_t BS = 64>                 \
+    class T##DSP : public DSP<TestSignal<IN, OUT, BS>, TestExt##T> { \
+    public:                                                          \
+        T##DSP(TestSignal<IN, OUT, BS>& sig, TestExt##T& ext)        \
+            : DSP<TestSignal<IN, OUT, BS>, TestExt##T>(sig, ext)     \
+        {                                                            \
+        }                                                            \
     };
 
 #define PD_TEST_MOD_INIT(mod, name)               \

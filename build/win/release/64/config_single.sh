@@ -6,6 +6,7 @@ SUBDIR=$(echo $BUILD | tr '[:upper:]' '[:lower:]')
 ARCH=$(echo $MSYSTEM | cut -c6-)
 TYPE="single"
 ROOT="/opt/local/pd/mingw${ARCH}/${SUBDIR}/${TYPE}"
+export PKG_CONFIG_PATH=/opt/local/lib/pkgconfig
 
 cmake -G Ninja \
 	-DCMAKE_BUILD_TYPE=$BUILD \
@@ -16,6 +17,7 @@ cmake -G Ninja \
 	-DWITH_EXT_FFTEASE=OFF \
 	-DWITH_EXT_FLEXT=OFF \
 	-DWITH_SFIZZ=ON \
-	-DWITH_FAUST=ON \
-	-DWITH_RHVOICE=ON \
+	-DWITH_FAUST=OFF \
+	-DWITH_TTS_RHVOICE=ON \
+	-DRHVoice_ROOT=/usr/local \
 	$DIR

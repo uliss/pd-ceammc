@@ -84,4 +84,8 @@ void setup_symbol_to_int()
 {
     ObjectFactory<SymbolToInt> obj("symbol2intlist");
     obj.addAlias("sym->ilist");
+
+    obj.setDescription("converts symbol to list of character codes");
+    obj.setCategory("symbol");
+    obj.setKeywords({"symbol", "compare"});
 }

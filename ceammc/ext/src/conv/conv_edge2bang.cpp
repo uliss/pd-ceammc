@@ -63,4 +63,8 @@ void setup_conv_edge2bang()
 {
     ObjectFactory<ConvEdgeToBang> obj("conv.edge2bang");
     obj.addAlias("edge->bang");
+
+    obj.setDescription("edge detector for numeric stream");
+    obj.setCategory("conv");
+    obj.setKeywords({"conv", "edge", "detector"});
 }

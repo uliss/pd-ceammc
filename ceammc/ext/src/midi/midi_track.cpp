@@ -336,4 +336,8 @@ void setup_midi_track()
     obj.addMethod("play", &MidiTrack::m_play);
     obj.addMethod("stop", &MidiTrack::m_stop);
     obj.addMethod("pause", &MidiTrack::m_pause);
+
+    obj.setDescription("extract track from MidiFile");
+    obj.setCategory("midi");
+    obj.setKeywords({"midi", "track"});
 }

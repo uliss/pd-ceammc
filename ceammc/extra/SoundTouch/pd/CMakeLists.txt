@@ -13,7 +13,7 @@ set(DOC_FILES soundtouch~)
 if(PD_LIB2PD)
     make_pddoc_lib(
         NAME soundtouch
-        VERSION 0.1
+        VERSION 0.2
         HOME "https://www.surina.net/soundtouch/"
         INTERNAL FALSE
         FILES ${DOC_FILES})

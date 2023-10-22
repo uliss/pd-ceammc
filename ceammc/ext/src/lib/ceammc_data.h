@@ -15,7 +15,6 @@
 #define CEAMMC_DATA_H
 
 #include "ceammc_atomlist.h"
-#include "ceammc_log.h"
 
 #include <string>
 

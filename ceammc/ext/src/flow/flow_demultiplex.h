@@ -6,10 +6,12 @@
 using namespace ceammc;
 
 class FlowDemultiplex : public BaseObject {
-    SizeTProperty* index_;
+    SizeTProperty* index_ { nullptr };
+    IntProperty* n_ { nullptr };
 
 public:
     FlowDemultiplex(const PdArgs& a);
+    void initDone() final;
 
     void onBang() override;
     void onFloat(t_float f) override;

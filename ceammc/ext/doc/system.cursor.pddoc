@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="system.cursor">
         <title>system.cursor</title>
         <meta>
@@ -24,6 +24,7 @@
             mode, otherwise to the screen width/height</property>
         </properties>
         <methods>
+            <!-- polltime -->
             <method name="polltime">sets global cursor polling time 
             <param name="T" type="float" units="millisecond" minvalue="10" maxvalue="1000"
             required="true">polling time</param></method>

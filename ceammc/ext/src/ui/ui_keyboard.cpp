@@ -44,8 +44,8 @@ static t_rect black_key_rect(int offset, float black_key_w, float key_h)
 
     ret.x = (offset + (n_number > 4 ? 1 : 0) + 2 * n_octave) * black_key_w + 0.5f * black_key_w - 1;
     ret.y = -1;
-    ret.width = black_key_w;
-    ret.height = key_h * 0.6f;
+    ret.w = black_key_w;
+    ret.h = key_h * 0.6f;
 
     return ret;
 }
@@ -59,8 +59,8 @@ static t_rect white_key_rect(int offset, float black_key_w, float key_h)
 
     ret.x = (offset + (n_number > 4 ? 1 : 0) + 2 * n_octave) * black_key_w - 1;
     ret.y = -1;
-    ret.width = black_key_w * 2;
-    ret.height = key_h + 1;
+    ret.w = black_key_w * 2;
+    ret.h = key_h + 1;
 
     return ret;
 }
@@ -125,11 +125,11 @@ bool UIKeyboard::okSize(t_rect* newrect)
     const float min_length = keyboard_num_white_keys(prop_keys) * MIN_WKEY_WIDTH;
 
     if (prop_vertical) {
-        newrect->width = pd_clip_min(newrect->width, 40.);
-        newrect->height = pd_clip_min(newrect->height, min_length);
+        newrect->w = pd_clip_min(newrect->w, 40.);
+        newrect->h = pd_clip_min(newrect->h, min_length);
     } else {
-        newrect->width = pd_clip_min(newrect->width, min_length);
-        newrect->height = pd_clip_min(newrect->height, 40.);
+        newrect->w = pd_clip_min(newrect->w, min_length);
+        newrect->h = pd_clip_min(newrect->h, 40.);
     }
     return true;
 }
@@ -212,11 +212,11 @@ void UIKeyboard::init(t_symbol* name, const AtomListView& args, bool usePresets)
     const int dim1 = DEFAULT_HEIGHT;
     const int dim2 = keyboard_num_white_keys(prop_keys) * DEFAULT_WKEY_WIDTH;
     if (prop_vertical) {
-        asEBox()->b_rect.width = dim1;
-        asEBox()->b_rect.height = dim2;
+        asEBox()->b_rect.w = dim1;
+        asEBox()->b_rect.h = dim2;
     } else {
-        asEBox()->b_rect.width = dim2;
-        asEBox()->b_rect.height = dim1;
+        asEBox()->b_rect.w = dim2;
+        asEBox()->b_rect.h = dim1;
     }
 
     // check if first argument is not property
@@ -491,7 +491,7 @@ void UIKeyboard::outputCurrentKey()
 
 void UIKeyboard::setup()
 {
-    sys_gui(ui_keyboard_tcl);
+    ui_keyboard_tcl_output();
 
     SYM_VKEYBOARD = gensym("ui.vkeyboard");
     SYM_VKEYBOARD2 = gensym("ui.vk");
@@ -512,7 +512,7 @@ void UIKeyboard::setup()
         | UI_MOUSE_WHEEL | UI_MOUSE_UP);
 
     obj.addProperty("active_color", _("Active Color"), DEFAULT_ACTIVE_COLOR, &UIKeyboard::prop_color_active_);
-    obj.internalProperty(PROP_BACKGROUND_COLOR);
+    obj.internalProperty(sym::props::name_background_color);
 
     obj.addProperty("keys", _("Keys"), 61, &UIKeyboard::prop_keys, _("Main"));
     obj.setDefaultSize(433, DEFAULT_HEIGHT);

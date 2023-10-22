@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="lfo.tri~">
         <title>lfo.tri~</title>
         <meta>
@@ -27,8 +27,11 @@
             value</property>
             <property name="@phase" type="float" minvalue="0" maxvalue="1" default="0">initial
             phase</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
         <methods>
+            <!-- reset -->
             <method name="reset">reset to initial state</method>
         </methods>
         <inlets>

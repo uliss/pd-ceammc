@@ -1,7 +1,7 @@
 /* ------------------------------------------------------------
 name: "flt.fbank5x1"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_filterbank5x1 -scn flt_filterbank5x1_dsp -es 1 -mcd 16 -single -ftz 0
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn flt_filterbank5x1 -scn flt_filterbank5x1_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __flt_filterbank5x1_H__
@@ -367,92 +367,40 @@ class FAUST_API ScopedNoDenormals {
 #endif
 
 /************************** END flt_filterbank5x1_dsp.h **************************/
-/************************** BEGIN UI.h *****************************
- FAUST Architecture File
- Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
- ---------------------------------------------------------------------
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 2.1 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU Lesser General Public License for more details.
- 
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- 
- EXCEPTION : As a special exception, you may create a larger work
- that contains this FAUST architecture section and distribute
- that work under terms of your choice, so long as this FAUST
- architecture section is not modified.
- ********************************************************************/
+/************************** BEGIN misc.h *******************************
+FAUST Architecture File
+Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+---------------------------------------------------------------------
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 2.1 of the License, or
+(at your option) any later version.
 
-#ifndef __UI_H__
-#define __UI_H__
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
 
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-#ifndef FAUSTFLOAT
-#define FAUSTFLOAT float
-#endif
+EXCEPTION : As a special exception, you may create a larger work
+that contains this FAUST architecture section and distribute
+that work under terms of your choice, so long as this FAUST
+architecture section is not modified.
+***************************************************************************/
 
-/*******************************************************************************
- * UI : Faust DSP User Interface
- * User Interface as expected by the buildUserInterface() method of a DSP.
- * This abstract class contains only the method that the Faust compiler can
- * generate to describe a DSP user interface.
- ******************************************************************************/
+#ifndef __misc__
+#define __misc__
 
-struct Soundfile;
+#include <algorithm>
+#include <map>
+#include <cstdlib>
+#include <string.h>
+#include <fstream>
+#include <string>
 
-template <typename REAL>
-struct FAUST_API UIReal {
-    
-    UIReal() {}
-    virtual ~UIReal() {}
-    
-    // -- widget's layouts
-    
-    virtual void openTabBox(const char* label) = 0;
-    virtual void openHorizontalBox(const char* label) = 0;
-    virtual void openVerticalBox(const char* label) = 0;
-    virtual void closeBox() = 0;
-    
-    // -- active widgets
-    
-    virtual void addButton(const char* label, REAL* zone) = 0;
-    virtual void addCheckButton(const char* label, REAL* zone) = 0;
-    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    
-    // -- passive widgets
-    
-    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    
-    // -- soundfiles
-    
-    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-    
-    // -- metadata declarations
-    
-    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
-
-    // To be used by LLVM client
-    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
-};
-
-struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
-    UI() {}
-    virtual ~UI() {}
-};
-
-#endif
-/**************************  END  UI.h **************************/
 /************************** BEGIN meta.h *******************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
@@ -491,40 +439,6 @@ struct FAUST_API Meta {
 
 #endif
 /**************************  END  meta.h **************************/
-/************************** BEGIN misc.h *******************************
-FAUST Architecture File
-Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
----------------------------------------------------------------------
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-
-EXCEPTION : As a special exception, you may create a larger work
-that contains this FAUST architecture section and distribute
-that work under terms of your choice, so long as this FAUST
-architecture section is not modified.
-***************************************************************************/
-
-#ifndef __misc__
-#define __misc__
-
-#include <algorithm>
-#include <map>
-#include <cstdlib>
-#include <string.h>
-#include <fstream>
-#include <string>
-
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
@@ -660,27 +574,27 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 	float fConst8;
 	float fConst11;
 	float fConst13;
-	float fConst16;
-	float fConst18;
+	float fConst14;
+	float fConst17;
+	float fConst19;
 	float fConst20;
-	float fConst21;
+	float fConst22;
 	float fConst23;
-	float fConst24;
+	float fConst25;
+	float fConst26;
 	float fVec0[2];
 	float fRec8[2];
-	float fConst25;
 	float fConst27;
-	float fConst28;
+	float fConst29;
+	float fConst30;
 	float fRec7[3];
 	float fVec1[2];
-	float fConst29;
 	float fRec6[2];
-	float fConst30;
-	float fConst32;
+	float fConst31;
 	float fConst33;
+	float fConst34;
 	float fRec5[3];
 	float fVec2[2];
-	float fConst34;
 	float fRec4[2];
 	float fConst35;
 	float fConst37;
@@ -697,9 +611,9 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 	float fConst43;
 	float fConst44;
 	float fConst45;
+	float fConst46;
 	float fRec11[2];
 	float fRec10[3];
-	float fConst46;
 	FAUSTFLOAT fVslider2;
 	float fRec12[2];
 	float fConst47;
@@ -742,7 +656,7 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 		m->declare("analyzers.lib/version", "0.2");
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.8");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn flt_filterbank5x1 -scn flt_filterbank5x1_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn flt_filterbank5x1 -scn flt_filterbank5x1_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("filename", "flt_filterbank5x1.dsp");
 		m->declare("filters.lib/fir:author", "Julius O. Smith III");
 		m->declare("filters.lib/fir:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -815,27 +729,27 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 		fConst11 = 1.0f / ((fConst10 + 1.0f) / fConst9 + 1.0f);
 		float fConst12 = fConst10 + 1.0f;
 		fConst13 = 1.0f / fConst12;
-		float fConst14 = std::tan(6283.1855f / fConst0);
-		float fConst15 = 1.0f / fConst14;
-		fConst16 = 1.0f / ((fConst15 + 1.0f) / fConst14 + 1.0f);
-		float fConst17 = fConst15 + 1.0f;
-		fConst18 = 1.0f / fConst17;
-		float fConst19 = std::tan(12566.371f / fConst0);
-		fConst20 = 1.0f / fConst19;
-		fConst21 = 1.0f / ((fConst20 + 1.0f) / fConst19 + 1.0f);
-		float fConst22 = fConst20 + 1.0f;
-		fConst23 = 1.0f / fConst22;
-		fConst24 = 1.0f - fConst20;
-		fConst25 = (fConst20 + -1.0f) / fConst19 + 1.0f;
-		float fConst26 = flt_filterbank5x1_faustpower2_f(fConst19);
-		fConst27 = 1.0f / fConst26;
-		fConst28 = 2.0f * (1.0f - fConst27);
-		fConst29 = 1.0f - fConst15;
-		fConst30 = (fConst15 + -1.0f) / fConst14 + 1.0f;
-		float fConst31 = flt_filterbank5x1_faustpower2_f(fConst14);
-		fConst32 = 1.0f / fConst31;
-		fConst33 = 2.0f * (1.0f - fConst32);
-		fConst34 = 1.0f - fConst10;
+		fConst14 = 1.0f - fConst10;
+		float fConst15 = std::tan(6283.1855f / fConst0);
+		float fConst16 = 1.0f / fConst15;
+		fConst17 = 1.0f / ((fConst16 + 1.0f) / fConst15 + 1.0f);
+		float fConst18 = fConst16 + 1.0f;
+		fConst19 = 1.0f / fConst18;
+		fConst20 = 1.0f - fConst16;
+		float fConst21 = std::tan(12566.371f / fConst0);
+		fConst22 = 1.0f / fConst21;
+		fConst23 = 1.0f / ((fConst22 + 1.0f) / fConst21 + 1.0f);
+		float fConst24 = fConst22 + 1.0f;
+		fConst25 = 1.0f / fConst24;
+		fConst26 = 1.0f - fConst22;
+		fConst27 = (fConst22 + -1.0f) / fConst21 + 1.0f;
+		float fConst28 = flt_filterbank5x1_faustpower2_f(fConst21);
+		fConst29 = 1.0f / fConst28;
+		fConst30 = 2.0f * (1.0f - fConst29);
+		fConst31 = (fConst16 + -1.0f) / fConst15 + 1.0f;
+		float fConst32 = flt_filterbank5x1_faustpower2_f(fConst15);
+		fConst33 = 1.0f / fConst32;
+		fConst34 = 2.0f * (1.0f - fConst33);
 		fConst35 = (fConst10 + -1.0f) / fConst9 + 1.0f;
 		float fConst36 = flt_filterbank5x1_faustpower2_f(fConst9);
 		fConst37 = 1.0f / fConst36;
@@ -844,26 +758,26 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 		float fConst40 = flt_filterbank5x1_faustpower2_f(fConst1);
 		fConst41 = 1.0f / fConst40;
 		fConst42 = 2.0f * (1.0f - fConst41);
-		fConst43 = 1.0f / (fConst1 * fConst6);
-		fConst44 = 0.0f - fConst43;
-		fConst45 = fConst8 / fConst6;
-		fConst46 = 0.0f - 2.0f / fConst40;
+		fConst43 = 0.0f - 2.0f / fConst40;
+		fConst44 = 1.0f / (fConst1 * fConst6);
+		fConst45 = 0.0f - fConst44;
+		fConst46 = fConst8 / fConst6;
 		fConst47 = 1.0f / (fConst9 * fConst12);
 		fConst48 = 0.0f - fConst47;
-		fConst49 = fConst34 / fConst12;
+		fConst49 = fConst14 / fConst12;
 		fConst50 = 0.0f - 2.0f / fConst36;
 		fConst51 = 1.0f / (fConst6 / fConst1 + 1.0f);
 		fConst52 = 1.0f - fConst8 / fConst1;
-		fConst53 = 1.0f / (fConst14 * fConst17);
+		fConst53 = 1.0f / (fConst15 * fConst18);
 		fConst54 = 0.0f - fConst53;
-		fConst55 = fConst29 / fConst17;
-		fConst56 = 0.0f - 2.0f / fConst31;
+		fConst55 = fConst20 / fConst18;
+		fConst56 = 0.0f - 2.0f / fConst32;
 		fConst57 = 1.0f / (fConst12 / fConst9 + 1.0f);
-		fConst58 = 1.0f - fConst34 / fConst9;
-		fConst59 = 0.0f - 1.0f / (fConst19 * fConst22);
-		fConst60 = 0.0f - 2.0f / fConst26;
-		fConst61 = 1.0f / (fConst17 / fConst14 + 1.0f);
-		fConst62 = 1.0f - fConst29 / fConst14;
+		fConst58 = 1.0f - fConst14 / fConst9;
+		fConst59 = 0.0f - 1.0f / (fConst21 * fConst24);
+		fConst60 = 0.0f - 2.0f / fConst28;
+		fConst61 = 1.0f / (fConst18 / fConst15 + 1.0f);
+		fConst62 = 1.0f - fConst20 / fConst15;
 	}
 	
 	virtual void instanceResetUserInterface() {
@@ -1019,15 +933,15 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 			fRec0[0] = fSlow0 + fConst5 * fRec0[1];
 			float fTemp0 = float(input0[i0]);
 			fVec0[0] = fTemp0;
-			fRec8[0] = 0.0f - fConst23 * (fConst24 * fRec8[1] - (fTemp0 + fVec0[1]));
-			fRec7[0] = fRec8[0] - fConst21 * (fConst25 * fRec7[2] + fConst28 * fRec7[1]);
+			fRec8[0] = 0.0f - fConst25 * (fConst26 * fRec8[1] - (fTemp0 + fVec0[1]));
+			fRec7[0] = fRec8[0] - fConst23 * (fConst27 * fRec7[2] + fConst30 * fRec7[1]);
 			float fTemp1 = fRec7[2] + fRec7[0] + 2.0f * fRec7[1];
 			fVec1[0] = fTemp1;
-			fRec6[0] = fConst18 * (fConst21 * (fTemp1 + fVec1[1]) - fConst29 * fRec6[1]);
-			fRec5[0] = fRec6[0] - fConst16 * (fConst30 * fRec5[2] + fConst33 * fRec5[1]);
+			fRec6[0] = 0.0f - fConst19 * (fConst20 * fRec6[1] - fConst23 * (fTemp1 + fVec1[1]));
+			fRec5[0] = fRec6[0] - fConst17 * (fConst31 * fRec5[2] + fConst34 * fRec5[1]);
 			float fTemp2 = fRec5[2] + fRec5[0] + 2.0f * fRec5[1];
 			fVec2[0] = fTemp2;
-			fRec4[0] = fConst13 * (fConst16 * (fTemp2 + fVec2[1]) - fConst34 * fRec4[1]);
+			fRec4[0] = 0.0f - fConst13 * (fConst14 * fRec4[1] - fConst17 * (fTemp2 + fVec2[1]));
 			fRec3[0] = fRec4[0] - fConst11 * (fConst35 * fRec3[2] + fConst38 * fRec3[1]);
 			float fTemp3 = fRec3[2] + fRec3[0] + 2.0f * fRec3[1];
 			fVec3[0] = fTemp3;
@@ -1035,31 +949,31 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 			fRec1[0] = fRec2[0] - fConst3 * (fConst39 * fRec1[2] + fConst42 * fRec1[1]);
 			output0[i0] = FAUSTFLOAT(fConst3 * fRec0[0] * (fRec1[2] + fRec1[0] + 2.0f * fRec1[1]));
 			fRec9[0] = fSlow1 + fConst5 * fRec9[1];
-			fRec11[0] = fConst11 * (fConst43 * fTemp3 + fConst44 * fVec3[1]) - fConst45 * fRec11[1];
+			fRec11[0] = fConst11 * (fConst44 * fTemp3 + fConst45 * fVec3[1]) - fConst46 * fRec11[1];
 			fRec10[0] = fRec11[0] - fConst3 * (fConst39 * fRec10[2] + fConst42 * fRec10[1]);
-			output1[i0] = FAUSTFLOAT(fConst3 * fRec9[0] * (fConst41 * fRec10[0] + fConst46 * fRec10[1] + fConst41 * fRec10[2]));
+			output1[i0] = FAUSTFLOAT(fConst3 * fRec9[0] * (fConst43 * fRec10[1] + fConst41 * fRec10[0] + fConst41 * fRec10[2]));
 			fRec12[0] = fSlow2 + fConst5 * fRec12[1];
-			fRec15[0] = fConst16 * (fConst47 * fTemp2 + fConst48 * fVec2[1]) - fConst49 * fRec15[1];
+			fRec15[0] = fConst17 * (fConst47 * fTemp2 + fConst48 * fVec2[1]) - fConst49 * fRec15[1];
 			fRec14[0] = fRec15[0] - fConst11 * (fConst35 * fRec14[2] + fConst38 * fRec14[1]);
 			float fTemp4 = fConst42 * fRec13[1];
 			fRec13[0] = fConst11 * (fConst37 * fRec14[0] + fConst50 * fRec14[1] + fConst37 * fRec14[2]) - fConst51 * (fConst52 * fRec13[2] + fTemp4);
 			output2[i0] = FAUSTFLOAT(fRec12[0] * (fRec13[2] + fConst51 * (fTemp4 + fConst52 * fRec13[0])));
 			fRec16[0] = fSlow3 + fConst5 * fRec16[1];
-			fRec20[0] = fConst21 * (fConst53 * fTemp1 + fConst54 * fVec1[1]) - fConst55 * fRec20[1];
-			fRec19[0] = fRec20[0] - fConst16 * (fConst30 * fRec19[2] + fConst33 * fRec19[1]);
+			fRec20[0] = fConst23 * (fConst53 * fTemp1 + fConst54 * fVec1[1]) - fConst55 * fRec20[1];
+			fRec19[0] = fRec20[0] - fConst17 * (fConst31 * fRec19[2] + fConst34 * fRec19[1]);
 			float fTemp5 = fConst42 * fRec18[1];
-			fRec18[0] = fConst16 * (fConst32 * fRec19[0] + fConst56 * fRec19[1] + fConst32 * fRec19[2]) - fConst51 * (fConst52 * fRec18[2] + fTemp5);
+			fRec18[0] = fConst17 * (fConst33 * fRec19[0] + fConst56 * fRec19[1] + fConst33 * fRec19[2]) - fConst51 * (fConst52 * fRec18[2] + fTemp5);
 			float fTemp6 = fConst38 * fRec17[1];
 			fRec17[0] = fRec18[2] + fConst51 * (fTemp5 + fConst52 * fRec18[0]) - fConst57 * (fConst58 * fRec17[2] + fTemp6);
 			output3[i0] = FAUSTFLOAT(fRec16[0] * (fRec17[2] + fConst57 * (fTemp6 + fConst58 * fRec17[0])));
 			fRec21[0] = fSlow4 + fConst5 * fRec21[1];
-			fRec26[0] = fConst59 * fVec0[1] - fConst23 * (fConst24 * fRec26[1] - fConst20 * fTemp0);
-			fRec25[0] = fRec26[0] - fConst21 * (fConst25 * fRec25[2] + fConst28 * fRec25[1]);
+			fRec26[0] = fConst59 * fVec0[1] - fConst25 * (fConst26 * fRec26[1] - fConst22 * fTemp0);
+			fRec25[0] = fRec26[0] - fConst23 * (fConst27 * fRec25[2] + fConst30 * fRec25[1]);
 			float fTemp7 = fConst42 * fRec24[1];
-			fRec24[0] = fConst21 * (fConst27 * fRec25[0] + fConst60 * fRec25[1] + fConst27 * fRec25[2]) - fConst51 * (fConst52 * fRec24[2] + fTemp7);
+			fRec24[0] = fConst23 * (fConst29 * fRec25[0] + fConst60 * fRec25[1] + fConst29 * fRec25[2]) - fConst51 * (fConst52 * fRec24[2] + fTemp7);
 			float fTemp8 = fConst38 * fRec23[1];
 			fRec23[0] = fRec24[2] + fConst51 * (fTemp7 + fConst52 * fRec24[0]) - fConst57 * (fConst58 * fRec23[2] + fTemp8);
-			float fTemp9 = fConst33 * fRec22[1];
+			float fTemp9 = fConst34 * fRec22[1];
 			fRec22[0] = fRec23[2] + fConst57 * (fTemp8 + fConst58 * fRec23[0]) - fConst61 * (fConst62 * fRec22[2] + fTemp9);
 			output4[i0] = FAUSTFLOAT(fRec21[0] * (fRec22[2] + fConst61 * (fTemp9 + fConst62 * fRec22[0])));
 			fRec0[1] = fRec0[0];
@@ -1111,23 +1025,12 @@ class flt_filterbank5x1 : public flt_filterbank5x1_dsp {
 	}
 
 };
-// clang-format on
 #endif
 
-    template <class T>
-    struct _flt_filterbank5x1_UI : public UI {
-    static std::string name;
-};
-
-template <class T>
-std::string _flt_filterbank5x1_UI<T>::name(sym(flt_filterbank5x1));
-
-typedef _flt_filterbank5x1_UI<flt_filterbank5x1> flt_filterbank5x1_UI;
-
-class faust_flt_filterbank5x1_tilde : public FaustExternal<flt_filterbank5x1, flt_filterbank5x1_UI> {
+class faust_flt_filterbank5x1_tilde : public FaustExternal<flt_filterbank5x1> {
 public:
     faust_flt_filterbank5x1_tilde(const ceammc::PdArgs& args)
-        : FaustExternal(args)
+        : FaustExternal(args, sym(flt_filterbank5x1))
     {
     }
 };

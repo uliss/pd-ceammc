@@ -116,4 +116,8 @@ void setup_array_convolve()
 {
     ObjectFactory<ArrayConvolve> obj("array.convolve");
     obj.setXletsInfo({ "bang: do convolution", "symbol: set IR array name" }, { "bang on done" });
+
+    obj.setDescription("array FFT convolution");
+    obj.setCategory("array");
+    obj.setKeywords({"array", "fft", "convolution"});
 }

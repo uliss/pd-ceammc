@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flow.seqdelay">
         <title>flow.seqdelay</title>
         <meta>
@@ -32,9 +32,6 @@
             <argument name="T" type="list" units="millisecond">List of delay times. See @t
             property.</argument>
         </arguments>
-        <methods>
-            <method name="reset">reset all scheduled delays</method>
-        </methods>
         <properties>
             <property name="@t" type="list" minvalue="0" units="millisecond" default="">delay time
             list</property>
@@ -42,6 +39,10 @@
             incoming messages until scheduled message will output, after that is ready to accept
             the new one.</property>
         </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset all scheduled delays</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo>incoming message</xinfo>

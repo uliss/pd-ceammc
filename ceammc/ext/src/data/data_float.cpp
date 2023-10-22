@@ -26,4 +26,8 @@ void setup_data_float()
     NumericIFaceFactory<DataFloat> obj("data.float");
     obj.addAlias(".float");
     obj.addAlias(".f");
+
+    obj.setDescription("robust float object");
+    obj.setCategory("data");
+    obj.setKeywords({"data", "float"});
 }

@@ -151,8 +151,8 @@ TEST_CASE("flow.demux~", "[externals]")
             REQUIRE(dsp.out(2, i) == Approx(10));
         }
 
-        WHEN_SEND_LIST_TO(0, t, LA(0.5, 0.5, 0.5));
-        REQUIRE_PROPERTY_LIST(t, @value, LA(0.5, 0.5, 0.5));
+        WHEN_SEND_LIST_TO(0, t, LF(0.5, 0.5, 0.5));
+        REQUIRE_PROPERTY_LIST(t, @value, LF(0.5, 0.5, 0.5));
         dsp.processBlock(20);
 
         for (size_t i = 0; i < 64; i++) {
@@ -160,5 +160,14 @@ TEST_CASE("flow.demux~", "[externals]")
             REQUIRE(dsp.out(1, i) == Approx(5));
             REQUIRE(dsp.out(2, i) == Approx(5));
         }
+
+        WHEN_SEND_LIST_TO(0, t, LF(0.75, 0.25));
+        REQUIRE_PROPERTY_LIST(t, @value, LF(0.75, 0.25, 0.5));
+
+        WHEN_SEND_LIST_TO(0, t, LA("a"));
+        REQUIRE_PROPERTY_LIST(t, @value, LF(0, 0.25, 0.5));
+
+        WHEN_SEND_LIST_TO(0, t, LF(0.25, 0.5, 0.75, 1));
+        REQUIRE_PROPERTY_LIST(t, @value, LF(0.25, 0.5, 0.75));
     }
 }

@@ -44,7 +44,7 @@ public:
 public:
     static void init();
 
-    static int dataType;
+    static ceammc::DataTypeId staticType();
     static int constructor_called;
     static int destructor_called;
 };
@@ -71,7 +71,7 @@ public:
     bool operator==(const StrData& d) const noexcept;
 
 public:
-    static int dataType;
+    static ceammc::DataTypeId staticType();
     static int constructor_called;
     static int destructor_called;
 };

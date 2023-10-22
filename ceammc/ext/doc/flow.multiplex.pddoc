@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flow.multiplex">
         <title>flow.multiplex</title>
         <meta>
@@ -26,7 +26,8 @@
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="24">number of multiplexed
             inputs</argument>
-            <argument name="N" type="int" minvalue="0" maxvalue="23">default input index</argument>
+            <argument name="INDEX" type="int" minvalue="0" maxvalue="23">default input
+            index</argument>
         </arguments>
         <properties>
             <property name="@index" type="int" minvalue="0" default="0" maxvalue="23">input

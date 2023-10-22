@@ -1,0 +1,137 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="ui.lcd" type="gui">
+        <title>ui.lcd</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavski</author>
+            </authors>
+            <description>black and white bitmap display</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category view="link">ui</category>
+            <keywords>ui display</keywords>
+            <since>0.9.7</since>
+        </meta>
+        <properties>
+            <property name="@send" type="symbol" default="(null)">send destination</property>
+            <property name="@receive" type="symbol" default="(null)">receive source</property>
+            <property name="@size" type="list" default="64 64">element size (width, height
+            pair)</property>
+            <property name="@pinned" type="bool" default="0">pin mode. if 1 - put element to the
+            lowest level</property>
+            <property name="@background_color" type="list" default="1 1 1 1">element background
+            color (list of red, green, blue values in 0-1 range)</property>
+            <property name="@border_color" type="list" default="0.6 0.6 0.6 1">border color (list
+            of red, green, blue values in 0-1 range)</property>
+            <!-- font -->
+            <property name="@fontsize" type="int" minvalue="4" maxvalue="100" default="11">
+            fontsize</property>
+            <property name="@fontname" type="symbol" default="Helvetica"
+            enum="Courier DejaVu Helvetica Monaco Times">fontname</property>
+            <property name="@fontweight" type="symbol" enum="normal bold" default="normal">font
+            weight</property>
+            <property name="@fontslant" type="symbol" enum="roman italic" default="roman">font
+            slant</property>
+            <!-- label -->
+            <property name="@label" type="symbol" default="(null)">label text</property>
+            <property name="@label_color" type="list" default="0 0 0 1">label color in RGB format
+            within 0-1 range, for example: 0.2 0.4 0.1</property>
+            <property name="@label_inner" type="bool" default="0">label position (1 - inner, 0 -
+            outer).</property>
+            <property name="@label_align" type="symbol" enum="left center right" default="left">
+            label horizontal align</property>
+            <property name="@label_valign" type="symbol" enum="top center bottom" default="top">
+            label vertical align</property>
+            <property name="@label_side" type="symbol" enum="left top right bottom" default="top">
+            label snap side</property>
+            <property name="@label_margins" type="list" default="0 0">label offset in
+            pixels</property>
+            <!-- main -->
+            <property name="@cols" type="int" minvalue="2" maxvalue="128" default="8">number of
+            columns</property>
+            <property name="@rows" type="int" minvalue="2" maxvalue="128" default="8">number of
+            rows</property>
+            <property name="@pixels" type="int" default="64" access="readonly">number of
+            pixels</property>
+        </properties>
+        <methods>
+            <!-- clear -->
+            <method name="clear">clear display</method>
+            <!-- draw left -->
+            <method name="draw left">moves draw cursor left along x-asis ans draw single pixel 
+            <param name="XOFF" type="int" required="false">x-offset. If omitted: 1</param></method>
+            <!-- draw right -->
+            <method name="draw right">moves cursor right along x-asis ans draw single pixel 
+            <param name="XOFF" type="int" required="false">x-offset. If omitted: 1</param></method>
+            <!-- draw up -->
+            <method name="draw up">moves draw cursor up along y-asis ans draw single pixel 
+            <param name="YOFF" type="int" required="false">y-offset. If omitted: 1</param></method>
+            <!-- draw down -->
+            <method name="draw down">moves draw cursor down along y-asis ans draw single pixel 
+            <param name="YOFF" type="int" required="false">y-offset. If omitted: 1</param></method>
+            <!-- draw set -->
+            <method name="draw set">set drawing value 
+            <param name="VALUE" type="bool" required="true">draw pixel value (1: black, 0:
+            white)</param></method>
+            <!-- dump -->
+            <method name="dump">dumps all object info to Pd console window.</method>
+            <!-- invert -->
+            <method name="invert">invert display</method>
+            <!-- pos -->
+            <method name="pos">set UI element position 
+            <param name="X" type="float" required="true">top left x-coord</param>
+            <param name="Y" type="float" required="true">top right y-coord</param></method>
+            <!-- set -->
+            <method name="set">set display content 
+            <param name="PIXELS" type="list" required="true">pixel values</param></method>
+            <!-- set col -->
+            <method name="set col">set column content 
+            <param name="N" type="int" required="true">column index</param>
+            <param name="PIXELS" type="list" required="true">column pixel values</param></method>
+            <!-- set cursor -->
+            <method name="set cursor">set draw cursor point 
+            <param name="X" type="int" required="true">X-position (from left)</param>
+            <param name="Y" type="int" required="true">Y-position (from top)</param></method>
+            <!-- set pixel -->
+            <method name="set pixel">set single pixel 
+            <param name="X" type="int" required="true">X-position (from left)</param>
+            <param name="Y" type="int" required="true">Y-position (from top)</param>
+            <param name="VALUE" type="bool" required="true">pixel value</param></method>
+            <!-- set row -->
+            <method name="set row">set row content 
+            <param name="N" type="int" required="true">row index</param>
+            <param name="PIXELS" type="list" required="true">row pixel values</param></method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>command input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>...</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[S digits=12]
+|
+[qrcode     ]
+|          ^|
+[msg set]  [@cols $1, @rows $1, @size 120 120(
+|          |
+|          |  [invert( [clear(
+|          |  |        |
+[ui.lcd @size 120 120 @nosave 1]
+
+
+
+
+
+
+/* */
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

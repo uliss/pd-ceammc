@@ -19,6 +19,12 @@ if(WIN32)
         message(STATUS "GitHub command line found: ${GITHUB_CLI}")
     endif()
 
+    find_program(OBJDUMP_EXE NAMES "objdump.exe")
+    if(OBJDUMP_EXE)
+        message(STATUS "objdump.exe found at: ${OBJDUMP_EXE}")
+        set(CEAMMC_MINGW_PREFIX $ENV{MINGW_PREFIX})
+    endif()
+
     if(CMAKE_SIZEOF_VOID_P EQUAL 8)
         set(CEAMMC_DISTRIB_ARCH "x86_64")
     elseif(CMAKE_SIZEOF_VOID_P EQUAL 4)
@@ -38,7 +44,7 @@ if(WIN32)
 
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/pd.iss
                    ${PROJECT_BINARY_DIR}/dist/pd.iss)
-    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fix_dll_deps.sh
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/fix_dll_deps.py
                    ${PROJECT_BINARY_DIR} @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/win_fix_pddoc_key_modifiers.sh
                    ${PROJECT_BINARY_DIR}/dist/win_fix_pddoc_key_modifiers.sh @ONLY)
@@ -52,9 +58,11 @@ if(WIN32)
                    ${PROJECT_BINARY_DIR}/dist/build_all.sh @ONLY)
     configure_file(${CMAKE_CURRENT_SOURCE_DIR}/calc_checksums.sh
                    ${PROJECT_BINARY_DIR}/dist/calc_checksums.sh @ONLY)
+    configure_file(${CMAKE_CURRENT_SOURCE_DIR}/install_mingw64_deps.sh
+                   ${PROJECT_BINARY_DIR}/scripts/install_mingw64_deps.sh @ONLY)
 
    add_custom_target(dev_fixdll
-       COMMAND bash -c "${PROJECT_BINARY_DIR}/fix_dll_deps.sh"
+       COMMAND bash -c "${PROJECT_BINARY_DIR}/fix_dll_deps.py"
        USES_TERMINAL)
 
    add_custom_target(dev_fixdoc
@@ -140,11 +148,12 @@ if(WIN32)
 endif()
 
 add_custom_target(ceammc_distrib_win_sources SOURCES
-    fix_dll_deps.sh
-    make_lib_win.sh
-    win_fix_pddoc_key_modifiers.sh
-    install_external.sh
-    remove_external.sh
     build_all.sh
+    fix_dll_deps.py
+    install_external.sh
+    install_mingw64_deps.sh
+    make_lib_win.sh
+    remove_external.sh
+    win_fix_pddoc_key_modifiers.sh
     pd.iss
 )

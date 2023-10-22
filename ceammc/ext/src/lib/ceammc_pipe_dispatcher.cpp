@@ -24,6 +24,9 @@ extern "C" {
 #endif
 
 #ifdef __WIN32__
+#ifndef WIN32_LEAN_AND_MEAN
+#define WIN32_LEAN_AND_MEAN
+#endif
 #include <Windows.h>
 #define pipe _pipe
 #define write _write

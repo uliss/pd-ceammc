@@ -53,11 +53,11 @@ void UITab::init(t_symbol* name, const AtomListView& args, bool usePresets)
 void UITab::okSize(t_rect* newrect)
 {
     if (prop_is_vertical) {
-        newrect->width = pd_clip_min(newrect->width, 8);
-        newrect->height = pd_clip_min(newrect->height, pd_clip_min(items_.size(), 1) * 20);
+        newrect->w = pd_clip_min(newrect->w, 8);
+        newrect->h = pd_clip_min(newrect->h, pd_clip_min(items_.size(), 1) * 20);
     } else {
-        newrect->width = pd_clip_min(newrect->width, pd_clip_min(items_.size(), 1) * 20);
-        newrect->height = pd_clip_min(newrect->height, 8);
+        newrect->w = pd_clip_min(newrect->w, pd_clip_min(items_.size(), 1) * 20);
+        newrect->h = pd_clip_min(newrect->h, 8);
     }
 }
 
@@ -75,52 +75,52 @@ void UITab::paint()
     if (prop_is_vertical) {
 
         // draw cells
-        float cell_h = roundf(r.height / N);
+        float cell_h = roundf(r.h / N);
         for (size_t i = 0; i < N; i++) {
             // draw cell
             if (isSelected(i) || i == item_hover_) {
                 p.setColor(isSelected(i) ? prop_color_active : prop_color_hover);
-                p.drawRect(-1, i * cell_h, r.width + 1, cell_h);
+                p.drawRect(-1, i * cell_h, r.w + 1, cell_h);
                 p.fill();
             }
 
             // draw separator
             if (i > 0) {
                 p.setColor(prop_color_border);
-                p.drawLine(-1, i * cell_h, r.width + 1, i * cell_h);
+                p.drawLine(-1, i * cell_h, r.w + 1, i * cell_h);
             }
 
             // draw label
             Layout& l = layouts_[i];
             std::string& s = labels_[i];
 
-            l->set(s.c_str(), r.width / 2, (i + 0.5) * cell_h, 0, 0);
+            l->set(s.c_str(), r.w / 2, (i + 0.5) * cell_h, 0, 0);
             l->setColor(prop_color_text);
             p.drawText(*l.get());
         }
 
     } else {
         // draw cells
-        float cell_w = roundf(r.width / N);
+        float cell_w = roundf(r.w / N);
         for (size_t i = 0; i < N; i++) {
             // draw cell
             if (isSelected(i) || i == item_hover_) {
                 p.setColor(isSelected(i) ? prop_color_active : prop_color_hover);
-                p.drawRect(i * cell_w, -1, cell_w, r.height + 1);
+                p.drawRect(i * cell_w, -1, cell_w, r.h + 1);
                 p.fill();
             }
 
             // draw separator
             if (i > 0) {
                 p.setColor(prop_color_border);
-                p.drawLine(i * cell_w, -1, i * cell_w, r.height + 1);
+                p.drawLine(i * cell_w, -1, i * cell_w, r.h + 1);
             }
 
             // draw label
             Layout& l = layouts_[i];
             std::string& s = labels_[i];
 
-            l->set(s.c_str(), (i + 0.5) * cell_w, r.height / 2, 0, 0);
+            l->set(s.c_str(), (i + 0.5) * cell_w, r.h / 2, 0, 0);
             l->setColor(prop_color_text);
             p.drawText(*l.get());
         }
@@ -335,7 +335,7 @@ void UITab::m_select(const AtomListView& lv)
     }
 }
 
-void UITab::m_clear()
+void UITab::m_erase()
 {
     item_selected_ = -1;
     items_.clear();
@@ -635,12 +635,12 @@ void UITab::setup()
     obj.addProperty("selected", &UITab::propSelected);
     obj.setPropertyDefaultValue("selected", "");
 
-    obj.addProperty(PROP_TEXT_COLOR, _("Text Color"), DEFAULT_TEXT_COLOR, &UITab::prop_color_text);
-    obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UITab::prop_color_active);
+    obj.addProperty(sym::props::name_text_color, _("Text Color"), DEFAULT_TEXT_COLOR, &UITab::prop_color_text);
+    obj.addProperty(sym::props::name_active_color, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UITab::prop_color_active);
     obj.addProperty("hover_color", _("Hover Color"), "0.5 0.5 0.5 1", &UITab::prop_color_hover);
 
     obj.addMethod("append", &UITab::m_append);
-    obj.addMethod("clear", &UITab::m_clear);
+    obj.addMethod("erase", &UITab::m_erase);
     obj.addMethod("delete", &UITab::m_delete);
     obj.addMethod("insert", &UITab::m_insert);
     obj.addMethod("select", &UITab::m_select);

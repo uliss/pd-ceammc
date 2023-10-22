@@ -1,13 +1,25 @@
 # we need 1.50.0 for boost random uniform distribution
 find_package(Boost 1.50.0 REQUIRED)
 include_directories(${Boost_INCLUDE_DIRS})
+add_subdirectory(extra/corrosion)
+list(APPEND CMAKE_MODULE_PATH "${CMAKE_CURRENT_LIST_DIR}/extra/corrosion/cmake")
+
+if(LibSndFile_FOUND)
+    check_c_source_compiles(
+        "#include <${LIBSNDFILE_INCLUDE_DIRS}/sndfile.h>
+        int main(void) { return SF_FORMAT_OPUS; }"
+        CEAMMC_HAVE_LIBSNDFILE_OPUS)
+endif()
+
+find_package(LibMagic)
+if(LibMagic_FOUND)
+    set(CEAMMC_HAVE_LIBMAGIC TRUE)
+endif()
 
 configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/ceammc_config.h.in
     ${CMAKE_CURRENT_BINARY_DIR}/ceammc_config.h
     @ONLY)
-
-include_directories(${CMAKE_CURRENT_BINARY_DIR})
 
 find_program(PD_DOC2PD pd_doc2pd)
 find_program(PD_MAKELIB pd_makelibrary)
@@ -84,3 +96,9 @@ endif()
 add_custom_target(dev_faust
     COMMAND ${CMAKE_COMMAND} -D ALL_TARGETS="${CEAMMC_FAUST_TARGETS}" -P "${CMAKE_CURRENT_SOURCE_DIR}/scripts/list_faust_targets.cmake")
 
+add_custom_target(dev_graph
+    COMMAND ${CMAKE_COMMAND} --graphviz=${PROJECT_BINARY_DIR}/ceammc_deps.dot ${PROJECT_SOURCE_DIR}
+    COMMAND dot -Tpng ${PROJECT_BINARY_DIR}/ceammc_deps.dot > ${PROJECT_BINARY_DIR}/ceammc_deps.png
+    WORKING_DIRECTORY ${PROJECT_BINARY_DIR}
+    USES_TERMINAL
+)

@@ -227,4 +227,8 @@ void setup_midi_kbd()
     obj.addMethod("custom", &MidiKbd::m_custom);
 
     obj.setXletsInfo({ "", "int: 1/0 - on/off" }, { "list: NOTE VEL" });
+
+    obj.setDescription("computer keyboard midi");
+    obj.setCategory("midi");
+    obj.setKeywords({"midi", "keyboard"});
 }

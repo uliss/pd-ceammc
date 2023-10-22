@@ -23,8 +23,9 @@
 #include <future>
 #include <thread>
 
-#include "ceammc_preset.h"
+#include "ceammc_canvas.h"
 #include "ceammc_datastorage.h"
+#include "ceammc_preset.h"
 #include "test_base.h"
 #include "test_external.h"
 

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="string">
         <title>string</title>
         <meta>
@@ -18,17 +18,20 @@
                 <alias>str</alias>
             </aliases>
         </meta>
-        <methods>
-            <method name="clear">clear string without output</method>
-            <method name="set">set string content without output</method>
-            <method name="append">append values to the end of string</method>
-        </methods>
         <arguments>
             <argument name="VALUE" type="symbol">initial string</argument>
         </arguments>
         <properties>
             <property name="@value" type="list" default="">string value</property>
         </properties>
+        <methods>
+            <!-- append -->
+            <method name="append">append values to the end of string</method>
+            <!-- clear -->
+            <method name="clear">clear string without output</method>
+            <!-- set -->
+            <method name="set">set string content without output</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="bang">outputs string value</xinfo>

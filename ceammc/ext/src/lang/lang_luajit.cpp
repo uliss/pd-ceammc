@@ -14,7 +14,7 @@
 #include "lang_luajit.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
-#include "ceammc_platform.h"
+#include "ceammc_pd.h"
 #include "lua_interp.h"
 
 #include <algorithm>
@@ -61,13 +61,8 @@ LangLuaJit::LangLuaJit(const PdArgs& args)
     nout_->setArgIndex(1);
     addProperty(nout_);
 
-    Dispatcher::instance().subscribe(this, subscriberId());
-
     if (!runTask())
         OBJ_ERR << "can't start LUA event loop";
-
-    setHighlightSyntax(EDITOR_SYNTAX_LUA);
-    setSpecialSymbolEscape(EDITOR_ESC_MODE_LUA);
 }
 
 LangLuaJit::~LangLuaJit()
@@ -203,7 +198,7 @@ LangLuaJit::Future LangLuaJit::createTask()
         });
 }
 
-void LangLuaJit::processTask(NotifyEventType)
+void LangLuaJit::processTask(int)
 {
     lua::LuaCmd msg;
     while (this->outPipe().try_dequeue(msg))
@@ -269,9 +264,7 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
     case LUA_CMD_SEND_BANG: {
         const auto sel = (msg.args.size() < 1) ? LuaString("?") : msg.args[0].getString();
         auto sym = gensym(sel.c_str());
-        if (sym->s_thing)
-            pd_bang(sym->s_thing);
-        else
+        if (!pd::send_bang(sym))
             OBJ_DBG << "send_bang() target not found: " << sym;
     } break;
     case LUA_CMD_SEND_FLOAT: {
@@ -279,9 +272,7 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
         const auto val = (msg.args.size() < 2) ? 0 : msg.args[1].getDouble();
 
         auto sym = gensym(sel.c_str());
-        if (sym->s_thing)
-            pd_float(sym->s_thing, val);
-        else
+        if (!pd::send_float(sym, val))
             OBJ_DBG << "send_float() target not found: " << sym;
     } break;
     case LUA_CMD_SEND_SYMBOL: {
@@ -289,9 +280,7 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
         const auto val = (msg.args.size() < 2) ? "" : msg.args[1].getString();
 
         auto sym = gensym(sel.c_str());
-        if (sym->s_thing)
-            pd_symbol(sym->s_thing, gensym(val.c_str()));
-        else
+        if (!pd::send_symbol(sym, val.c_str()))
             OBJ_DBG << "send_symbol() target not found: " << sym;
     } break;
     case LUA_CMD_SEND_LIST: {
@@ -308,7 +297,7 @@ void LangLuaJit::processMessage(const lua::LuaCmd& msg)
             for (size_t i = 1; i < N; i++)
                 res.append(msg.args[i].applyVisitor<AtomLuaVisitor>());
 
-            pd_list(sym->s_thing, &s_list, res.size(), res.view().toPdData());
+            pd::send_list(sym, res);
         } else
             OBJ_DBG << "send_list() target not found: " << sym;
     } break;
@@ -402,8 +391,8 @@ void LangLuaJit::onRestore(const AtomListView& lv)
 
 void LangLuaJit::saveUser(t_binbuf* b)
 {
-    auto symA = gensym("#A");
-    auto symR = gensym(restoreSymbol);
+    auto symA = gensym(sym_A);
+    auto symR = gensym(sym_restore);
 
     for (auto& l : src_) {
         if (l.empty())
@@ -559,14 +548,15 @@ void setup_lang_luajit()
     LIB_DBG << LUAJIT_VERSION;
 
     Dispatcher::instance();
-    SaveObjectFactory<ObjectFactory, LangLuaJit> obj("lang.lua");
+    ObjectFactory<LangLuaJit> obj("lang.lua");
 
     obj.addMethod("load", &LangLuaJit::m_load);
     obj.addMethod("eval", &LangLuaJit::m_eval);
     obj.addMethod("call", &LangLuaJit::m_call);
     obj.addMethod("quit", &LangLuaJit::m_quit);
 
-    LangLuaJit::registerMethods(obj);
+    LangLuaJit::factoryEditorObjectInit(obj);
+    LangLuaJit::factorySaveObjectInit(obj);
 
     InletProxy<LangLuaJit>::init();
     InletProxy<LangLuaJit>::set_bang_callback(&LangLuaJit::inletBang);

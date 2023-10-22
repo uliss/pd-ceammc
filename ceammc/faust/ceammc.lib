@@ -1,5 +1,5 @@
 declare name "Ceammc PureData misc utils";
-declare version "0.1.2";
+declare version "0.1.4";
 
 ba = library("basics.lib");
 si = library("signals.lib");
@@ -7,6 +7,10 @@ ma = library("maths.lib");
 
 // in puredata 0db = 100db
 db_pd2faust(v) = (v - 100);
+
+// ceammc crossfaded bypass
+bypass_mono(state, fx, x) = ba.selectmulti(128, ((x : fx), (x)), state) : _;
+bypass_stereo(state, fx, x, y) = ba.selectmulti(128, ((x,y : fx), (x,y)), state) : _,_;
 
 // in puredata common time management in milliseconds
 time_pd2faust(msec) = (msec / 1000.0);
@@ -39,7 +43,7 @@ with {
     effect = fx_drywet(_, fx, ui_drywet);
 };
 
-fx_wrap2(bypass, drywet, fx) = _,_ : ba.bypass2(bypass, fx_drywet(si.bus(2), fx, drywet)) : _,_;
+fx_wrap2(bypass, drywet, fx) = _,_ : bypass_stereo(bypass, fx_drywet(si.bus(2), fx, drywet)) : _,_;
 
 // port from guitarix
 // license GPL2+
@@ -66,4 +70,18 @@ with {
                 // values below this threshold are considered zero in the release phase
                 eps = ba.db2linear(-120);
     };
+};
+
+lin2lin(x0, x1, y0, y1, v) = v : (((_ - x0) / (x1 - x0)) * (y1 - y0)) + y0;
+
+
+lin2curve(x0, x1, y0, y1, curve, x) = conv with {
+    conv = ba.if (abs(curve) < 0.001, conv_lin, conv_exp);
+    conv_lin = (x - x0) / (x1 - x0) * (y1 - y0) + y0;
+    conv_exp = b - (a * pow(grow, scaled));
+
+    grow = exp(curve);
+    a = (y1 - y0) / (1.0 - grow);
+    b = y0 + a;
+    scaled = (x - x0) / (x1 - x0);
 };

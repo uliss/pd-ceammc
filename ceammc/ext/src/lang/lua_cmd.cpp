@@ -74,7 +74,7 @@ namespace lua {
         if (!try_enqueue({ LUA_CMD_ERROR, str }))
             return;
 
-        Dispatcher::instance().send({ id, NOTIFY_UPDATE });
+        Dispatcher::instance().send({ id, 0 });
     }
 
     void LuaCommandQueue::pushLog(SubscriberId id, const std::string& str)
@@ -84,7 +84,7 @@ namespace lua {
         if (!try_enqueue({ LUA_CMD_LOG, str }))
             return;
 
-        Dispatcher::instance().send({ id, NOTIFY_UPDATE });
+        Dispatcher::instance().send({ id, 0 });
     }
 }
 }

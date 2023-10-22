@@ -14,6 +14,7 @@
 #ifndef CEAMMC_STRING_H
 #define CEAMMC_STRING_H
 
+#include "ceammc_datatypes.h"
 #include "ceammc_string_types.h"
 
 #include <cstddef>
@@ -63,6 +64,28 @@ namespace string {
 
     bool contains(const char* haystack, const char* needle);
     bool contains(const std::string& haystack, const std::string& needle);
+
+    /**
+     * size-bounded string copying and concatenation
+     * @param dst - pointer to destination
+     * @param src - source pointer
+     * @param dsize - max destination size
+     * @return strlen(src)
+     * @note always NUL terminates
+     * @note if the src and dst strings overlap, the behavior is undefined.
+     */
+    size_t strlcpy(char* dst, const char* src, size_t dsize);
+
+    /**
+     * size-bounded string copying and concatenation
+     * @param dst - pointer to destination
+     * @param src - source pointer
+     * @param dsize - full destination size
+     * @return strlen(src) + MIN(dsize, strlen(initial dst))
+     * @note always NUL terminates
+     * @note if the src and dst strings overlap, the behavior is undefined.
+     */
+    size_t strlcat(char* dst, const char* src, size_t dsize);
 
     /**
      * remove all the occurrences of the string from the input
@@ -349,6 +372,11 @@ namespace string {
      * Output atomlist to given stream with type annotated info
      */
     std::ostream& list_to_stream_typed(const AtomListView& lv, std::ostream& os);
+
+    /**
+     * returns atom type name as string
+     */
+    DataTypeName atom_type_name(const Atom& a);
 }
 }
 

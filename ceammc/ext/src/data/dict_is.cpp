@@ -56,4 +56,8 @@ void setup_is_dict()
 {
     ObjectFactory<IsDict> obj("is_dict");
     obj.processData();
+
+    obj.setDescription("checks if input data has *dict* type");
+    obj.setCategory("predicates");
+    obj.setKeywords({"dictionary"});
 }

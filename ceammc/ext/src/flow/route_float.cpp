@@ -60,4 +60,8 @@ void setup_route_float()
 
     obj.setXletsInfo({ "any" }, { "float", "other messages" });
     obj.noPropsDispatch();
+
+    obj.setDescription("separate float messages from other types");
+    obj.setCategory("flow");
+    obj.setKeywords({"route"});
 }

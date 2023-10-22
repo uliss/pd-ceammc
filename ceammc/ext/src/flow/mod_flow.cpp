@@ -44,6 +44,7 @@ void setup_flow_append();
 void setup_flow_delay();
 void setup_flow_match();
 void setup_flow_pipe();
+void setup_flow_prepend();
 void setup_flow_space();
 
 void setup_seq_arp();
@@ -58,6 +59,7 @@ void setup_seq_life();
 
 void setup_route_any();
 void setup_route_bang();
+void setup_route_cycle();
 void setup_route_float();
 void setup_route_list();
 void setup_route_prop();
@@ -96,6 +98,7 @@ void ceammc_flow_setup()
     setup_flow_pass_float();
     setup_flow_pass_if();
     setup_flow_pipe();
+    setup_flow_prepend();
     setup_flow_queue();
     setup_flow_record();
     setup_flow_reject();
@@ -123,6 +126,7 @@ void ceammc_flow_setup()
 
     setup_route_any();
     setup_route_bang();
+    setup_route_cycle();
     setup_route_float();
     setup_route_list();
     setup_route_prop();

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="proto.firmata">
         <title>proto.firmata</title>
         <meta>
@@ -17,10 +17,7 @@
             <par>Firmata basic protocol support.</par>
         </info>
         <methods>
-            <method name="firmware?">query firmata protocol version. Returns message like:
-            [firmware ARDUINO_FIRMWARE_NAME.ino MAJOR MINOR(</method>
-            <method name="version?">query firmata protocol version. Returns message like: [version
-            MAJOR MINOR(</method>
+            <!-- apin_mapping? -->
             <method name="apin_mapping?">query mapping between analog port number and digital pin.
             Analog messages are numbered 0 to 15, which traditionally refer to the Arduino pins
             labeled A0, A1, A2, etc. However, these pis are actually configured using "normal" pin
@@ -28,8 +25,19 @@
             The analog mapping query provides the information about which pins (as used with
             Firmata's pin mode message) correspond to the analog channels. Return sequence of
             messages like: [apin_mapping A# PIN#(, where # is number</method>
+            <!-- capabilities? -->
             <method name="capabilities?">query pin capabilities. Return sequence of messages like:
             [pin_info PIN# MODE RESOLUTION(, where # is pin number</method>
+            <!-- firmware? -->
+            <method name="firmware?">query firmata protocol version. Returns message like:
+            [firmware ARDUINO_FIRMWARE_NAME.ino MAJOR MINOR(</method>
+            <!-- pin_mode -->
+            <method name="pin_mode">sets pin mode. 
+            <param name="PIN#" type="int" minvalue="0" required="true">pin number</param>
+            <param name="MODE" type="symbol"
+            enum="INPUT OUTPUT ANALOG PWM SERVO SHIFT I2C ONEWIRE STEPPER ENCODER SERIAL PULLUP"
+            required="true">pin mode</param></method>
+            <!-- pin_state? -->
             <method name="pin_state?">query pin state. The pin state is any data written to the pin
             (it is important to note that pin state != pin value). For output modes (digital
             output, PWM, and Servo), the state is any value that has been previously written to the
@@ -37,35 +45,38 @@
             state is the status of the pull-up resistor which is 1 if enabled, 0 if disabled.
             Returns message like [pin_state PIN# MODE state(, where # is pin number 
             <param name="PIN#" type="int" required="true">pin number</param></method>
-            <method name="samp_interval">sets sampling interval - how often analog data and i2c
-            data is reported to the client. The default for the arduino implementation is 19ms.
-            This means that every 19ms analog data will be reported and any i2c devices with read
-            continuous mode will be read. 
-            <param name="TIME" type="int" units="millisecond" required="true" minvalue="10"
-            maxvalue="10000">time</param></method>
-            <method name="pin_mode">sets pin mode. 
-            <param name="PIN#" type="int" minvalue="0" required="true">pin number</param>
-            <param name="MODE" type="symbol"
-            enum="INPUT OUTPUT ANALOG PWM SERVO SHIFT I2C ONEWIRE STEPPER ENCODER SERIAL PULLUP"
-            required="true">pin mode</param></method>
-            <method name="write_dpin">write 1 or 0 to digital pin. Pin mode should be OUTPUT. 
-            <param name="PIN#" type="int" required="true">pin number</param>
-            <param name="VALUE" type="int" enum="0 1" required="true">pin value</param></method>
-            <method name="write_pwm">writes PWM (Pulse Width Modulation) value to specified pin. 
-            <param name="PIN#" type="int" required="true">pin number</param>
-            <param name="VALUE" type="int" minvalue="0" maxvalue="256" required="true">pin
-            value</param></method>
+            <!-- report_apin -->
             <method name="report_apin">turns on/off analog pin (A0-A6) value reporting. 
             <param name="ANALOG_PIN" type="int" required="true">analog pin number</param>
             <param name="VALUE" type="int" enum="0 1" required="true">value. If 1 - activates
             analog reporting, messages like [apin PIN# value( are returned every sampling interval
             (by default 19ms)</param></method>
+            <!-- report_dport -->
             <method name="report_dport">turns on/off digital port value reporting. 
             <param name="PORT#" type="int" required="true">digital port number. Port is a group of
             pins, port 0 refers pins 0-8</param>
             <param name="VALUE" type="int" enum="0 1" required="true">value. If 1 - activates
             digital port reporting, messages like [dport PORT# value( are returned only on pin
             value change</param></method>
+            <!-- samp_interval -->
+            <method name="samp_interval">sets sampling interval - how often analog data and i2c
+            data is reported to the client. The default for the arduino implementation is 19ms.
+            This means that every 19ms analog data will be reported and any i2c devices with read
+            continuous mode will be read. 
+            <param name="TIME" type="int" units="millisecond" required="true" minvalue="10"
+            maxvalue="10000">time</param></method>
+            <!-- version? -->
+            <method name="version?">query firmata protocol version. Returns message like: [version
+            MAJOR MINOR(</method>
+            <!-- write_dpin -->
+            <method name="write_dpin">write 1 or 0 to digital pin. Pin mode should be OUTPUT. 
+            <param name="PIN#" type="int" required="true">pin number</param>
+            <param name="VALUE" type="int" enum="0 1" required="true">pin value</param></method>
+            <!-- write_pwm -->
+            <method name="write_pwm">writes PWM (Pulse Width Modulation) value to specified pin. 
+            <param name="PIN#" type="int" required="true">pin number</param>
+            <param name="VALUE" type="int" minvalue="0" maxvalue="256" required="true">pin
+            value</param></method>
         </methods>
         <inlets>
             <inlet>

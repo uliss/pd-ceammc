@@ -24,6 +24,8 @@ extern "C" {
 #include "s_stuff.h"
 }
 
+extern int sys_verbose;
+
 static void sleep_ms(int ms)
 {
     std::this_thread::sleep_for(std::chrono::milliseconds(ms));
@@ -45,6 +47,7 @@ PD_COMPLETE_TEST_SETUP(NetOscReceive, net, osc_receive)
 
 TEST_CASE("net.osc.receive", "[externals]")
 {
+    sys_verbose = 1;
     pd_test_init();
     setup_net_osc_server();
     setup_net_osc_send();
@@ -174,6 +177,27 @@ TEST_CASE("net.osc.receive", "[externals]")
         t.clearAll();
 
         send.call("send", LA("/x", 10, 20, 30));
+        REQUIRE_OSC_NO_RECV(t);
+    }
+
+    SECTION("update server")
+    {
+        TExt send("net.osc.send", LA("osc.udp://localhost:9013"));
+        poll_ms(POLL_DEFAULT);
+        TExt t("net.osc.receive", "/x", "test:update0");
+        poll_ms(POLL_DEFAULT);
+
+        {
+            TExt s("net.osc.server", "test:update0", "osc.udp://:9013");
+            poll_ms(POLL_DEFAULT);
+
+            send.call("send", LA("/x", "ABC", 1));
+            REQUIRE_OSC_SEND_LIST(t, LA("ABC", 1));
+            t.clearAll();
+            poll_ms(POLL_DEFAULT);
+        }
+
+        send.call("send", LA("/x", "ABC", 1));
         REQUIRE_OSC_NO_RECV(t);
     }
 }

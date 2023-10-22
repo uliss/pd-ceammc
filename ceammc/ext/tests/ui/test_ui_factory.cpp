@@ -16,6 +16,7 @@
 #include "test_ui_base.h"
 
 using namespace ceammc;
+using namespace ceammc::sym;
 
 class TestUI : public UIObject {
 public:
@@ -68,8 +69,8 @@ TEST_CASE("UIObjectFactory", "[ceammc::UIObjectFactory]")
 
         REQUIRE((void*)ui->asEBox() == (void*)ui->asPd());
         REQUIRE((void*)ui->asPd() == (void*)ui->asPdObject());
-        REQUIRE(ui->name() == gensym("obj"));
-        REQUIRE(ui->presetId() == s_null);
+        REQUIRE(ui->name() == sym_obj());
+        REQUIRE(ui->presetId() == sym_null());
 
         TestFactory::free(ui);
     }
@@ -77,7 +78,7 @@ TEST_CASE("UIObjectFactory", "[ceammc::UIObjectFactory]")
     SECTION("*to")
     {
         TestFactory f("obj");
-        TestUI* ui = TestFactory::alloc(gensym("obj"), 0, 0);
+        TestUI* ui = TestFactory::alloc(sym_obj(), 0, 0);
 
         ui->bangTo(0);
         ui->bangTo(1);

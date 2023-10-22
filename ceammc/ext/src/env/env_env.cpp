@@ -449,4 +449,8 @@ void setup_envelope_env()
     obj.addMethod(str_sigmoid, &Envelope::m_sigmoid);
 
     obj.addMethod("clear", &Envelope::m_clear);
+
+    obj.setDescription("Envelope data type");
+    obj.setCategory("env");
+    obj.setKeywords({"envelope"});
 }

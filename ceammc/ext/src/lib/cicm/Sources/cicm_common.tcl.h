@@ -2,7 +2,7 @@
 // clang-format off
 #ifndef cicm_common_tcl_h_
 #define cicm_common_tcl_h_
-const char* cicm_common_tcl = 
+constexpr const char* cicm_common_tcl = 
 "proc eobj_canvas_motion {patcher val} {\n"
 "    set rx [winfo rootx $patcher]\n"
 "    set ry [winfo rooty $patcher]\n"
@@ -395,6 +395,12 @@ const char* cicm_common_tcl =
 "            bind $bindtag <MouseWheel> [append callback { [expr {-(%D)}]} ]\n"
 "        }\n"
 "    }\n"
+"}\n"
+"proc bindKeys {} {\n"
+"    bind all <Shift-KeyPress>   {+pdsend \"ceammc keypress   [list shift %s %K %N]\"}\n"
+"    bind all <KeyPress>         {+pdsend \"ceammc keypress   [list none  %s %K %N]\"}\n"
+"    bind all <Shift-KeyRelease> {+pdsend \"ceammc keyrelease [list shift %s %K %N]\"}\n"
+"    bind all <KeyRelease>       {+pdsend \"ceammc keyrelease [list none  %s %K %N]\"}\n"
 "}\n"
 "proc spinboxScroll {id delta} {\n"
 "    if {[string equal [focus] \"$id\"]} { ttk::spinbox::MouseWheel $id $delta }\n"

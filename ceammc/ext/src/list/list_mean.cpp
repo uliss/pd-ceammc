@@ -32,4 +32,8 @@ void setup_list_mean()
     obj.addAlias("list.average");
 
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("calculates average of list of floats");
+    obj.setCategory("list");
+    obj.setKeywords({"list", "mean"});
 }

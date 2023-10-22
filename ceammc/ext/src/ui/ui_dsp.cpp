@@ -1,9 +1,11 @@
 #include "ui_dsp.h"
+#include "ceammc_pd.h"
 #include "ceammc_ui.h"
 #include "ui_dsp.tcl.h"
 
-static t_symbol* SYM_PD;
-static t_symbol* SYM_DSP;
+CEAMMC_DEFINE_SYM(pd)
+
+using namespace ceammc::sym::methods;
 
 UIDsp::UIDsp()
     : prop_color_active(rgba_black)
@@ -16,13 +18,13 @@ UIDsp::UIDsp()
 void UIDsp::init(t_symbol* name, const AtomListView& args, bool)
 {
     UIObject::init(name, args, false);
-    bindTo(SYM_PD);
+    bindTo(sym_pd());
 }
 
 bool UIDsp::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 30);
-    newrect->height = pd_clip_min(newrect->height, 30);
+    newrect->w = pd_clip_min(newrect->w, 30);
+    newrect->h = pd_clip_min(newrect->h, 30);
     return true;
 }
 
@@ -50,7 +52,7 @@ void UIDsp::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long
 
 void UIDsp::onAny(t_symbol* s, const AtomListView& lst)
 {
-    if (s == SYM_DSP && lst.size() > 0 && lst[0].isFloat()) {
+    if (s == sym_dsp() && lst.size() > 0 && lst[0].isFloat()) {
         state_ = lst[0].asInt(0);
         redrawAll();
     }
@@ -58,18 +60,14 @@ void UIDsp::onAny(t_symbol* s, const AtomListView& lst)
 
 void UIDsp::m_start(const AtomListView&)
 {
-    t_atom av;
-    atom_setfloat(&av, 1);
-    pd_typedmess((t_pd*)SYM_PD->s_thing, SYM_DSP, 1, &av);
+    pd::send_message(sym_pd(), sym_dsp(), Atom(1));
     state_ = true;
     redrawAll();
 }
 
 void UIDsp::m_stop(const AtomListView&)
 {
-    t_atom av;
-    atom_setfloat(&av, 0);
-    pd_typedmess((t_pd*)SYM_PD->s_thing, SYM_DSP, 1, &av);
+    pd::send_message(sym_pd(), sym_dsp(), Atom(0.));
     state_ = false;
     redrawAll();
 }
@@ -92,10 +90,7 @@ void UIDsp::redrawAll()
 
 void UIDsp::setup()
 {
-    sys_gui(ui_dsp_tcl);
-
-    SYM_DSP = gensym("dsp");
-    SYM_PD = gensym("pd");
+    ui_dsp_tcl_output();
 
     UIObjectFactory<UIDsp> obj("ui.dsp~", EBOX_GROWLINK);
     obj.hideLabelInner();

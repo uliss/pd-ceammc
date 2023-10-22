@@ -13,12 +13,11 @@
  *****************************************************************************/
 #include "data_set.h"
 #include "ceammc_factory.h"
+#include "fmt/core.h"
 
 DataSet::DataSet(const PdArgs& a)
     : DataSetBase(a)
 {
-    setSpecialSymbolEscape(EDITOR_ESC_MODE_DATA);
-
     if (set_.looksLikeCtor(a.args))
         set_.setFromDataList(a.args);
     else
@@ -32,5 +31,11 @@ void setup_data_set()
     ColectionIFaceFactory<DataSet> obj("data.set");
     obj.processData<DataTypeSet>();
 
-    DataSet::registerMethods(obj);
+    DataSet::factoryEditorObjectInit(obj);
+
+    obj.setDescription("container that store unique elements");
+    obj.setCategory("data");
+    obj.setKeywords({ "data", "set" });
+
+    LIB_LOG << fmt::format("Set datatype id: {:d}", DataTypeSet::staticType());
 }

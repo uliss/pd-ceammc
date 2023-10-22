@@ -1,5 +1,3 @@
-include_directories(${CMAKE_SOURCE_DIR}/src)
-
 set(PRESET_SOURCES )
 
 macro(ceammc_preset_extension name)
@@ -13,3 +11,6 @@ ceammc_preset_extension(list)
 ceammc_preset_extension(storage)
 
 add_library(ceammc_preset STATIC mod_preset.h mod_preset.cpp ${PRESET_SOURCES})
+target_include_directories(ceammc_preset
+    PRIVATE
+        "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>")

@@ -50,4 +50,8 @@ void setup_conv_cc2amp()
 {
     ObjectFactory<CC2Amp> obj("conv.cc2amp");
     obj.addAlias("cc->amp");
+
+    obj.setDescription("convert from MIDI Control Change range");
+    obj.setCategory("conv");
+    obj.setKeywords({"conv", "cc", "amp"});
 }

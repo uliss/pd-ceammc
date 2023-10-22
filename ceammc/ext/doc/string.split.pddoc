@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="string.split">
         <title>string.split</title>
         <meta>
@@ -30,7 +30,7 @@
             To separate by space - use " " argument</argument>
         </arguments>
         <properties>
-            <property name="@sep" type="symbol">separator</property>
+            <property name="@sep" type="symbol" default="">separator</property>
             <property name="@sym" type="flag" access="initonly">flag to output as list of Pd
             symbols</property>
         </properties>

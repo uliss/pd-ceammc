@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="dyn.gate~">
         <title>dyn.gate~</title>
         <meta>
@@ -17,21 +17,9 @@
                 <see>dyn.gate2~</see>
             </also>
         </meta>
-        <properties>
-            <property name="@threshold" type="float" units="decibel" minvalue="0" maxvalue="100"
-            default="40">dB level threshold above which gate opens</property>
-            <property name="@attack" type="float" units="millisecond" minvalue="0" maxvalue="500"
-            default="0.1">attack time = time constant (ms) for gate to open</property>
-            <property name="@hold" type="float" units="millisecond" minvalue="1" maxvalue="500"
-            default="100">hold time = time (ms) gate stays open after signal level &lt;
-            threshold</property>
-            <property name="@release" type="float" units="millisecond" default="20" minvalue="1"
-            maxvalue="500">release time = time constant (ms) for gate to close</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
-        </properties>
         <arguments>
-            <argument name="THRESHOLD" type="float" units="decibel" minvalue="0" maxvalue="100">dB
-            level threshold above which gate opens (e.g., 40 dB)</argument>
+            <argument name="THRESHOLD" type="float" units="decibel" minvalue="-90" maxvalue="0">dB
+            level threshold above which gate opens</argument>
             <argument name="ATTACK" type="float" units="millisecond" minvalue="0" maxvalue="500">
             attack time = time constant (ms) for gate to open</argument>
             <argument name="HOLD" type="float" units="millisecond" minvalue="1" maxvalue="500">hold
@@ -39,10 +27,32 @@
             <argument name="RELEASE" type="float" units="millisecond" minvalue="1" maxvalue="500">
             release time = time constant (ms) for gate to close</argument>
         </arguments>
+        <properties>
+            <property name="@threshold" type="float" units="decibel" minvalue="-90" maxvalue="0"
+            default="-60">dB level threshold above which gate opens</property>
+            <property name="@attack" type="float" units="millisecond" minvalue="0" maxvalue="500"
+            default="0.1">attack time = time constant (ms) for gate to open</property>
+            <property name="@hold" type="float" units="millisecond" minvalue="1" maxvalue="500"
+            default="100">hold time = time (ms) gate stays open after signal level &lt;
+            threshold</property>
+            <property name="@release" type="float" units="millisecond" default="20" minvalue="1"
+            maxvalue="500">release time = time constant (ms) for gate to close</property>
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+        </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset to initial state</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>
-                <xinfo on="bang">outputs object internal state to rightmost outlet</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set threshold</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -51,19 +61,21 @@
         <example>
             <pdascii>
 <![CDATA[
-[osc~ 440] [F]
-|          |
-|     [dbtorms]
-|     |.
-[*~    ]      [F]
-|             |
-|             [@threshold $1(
-|             |
-[dyn.gate~ 90 ]
+[osc~ 440]     [ui.hsl -60 0 @show_value 1]
+|              |
+|              [dbfs->amp #a]
 |
-[ui.hgain~    ] [ui.dsp~]
+[gain~     #b] [ui.hsl -60 0 @show_value 1]
+|              |
+|              [@threshold $1(
+|              |
+[dyn.gate~  -10]
+|
+[ui.hgain~   ] [ui.dsp~]
 |\
 [dac~]
+
+[X a->b:1]
 ]]>
             </pdascii>
         </example>

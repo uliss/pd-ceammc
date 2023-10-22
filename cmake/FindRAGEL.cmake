@@ -42,7 +42,7 @@
 # /usr/share/cmake/Modules/FindBISON.cmake
 
 # uses some features which are not available in 2.6
-cmake_minimum_required(VERSION 3.1)
+cmake_minimum_required(VERSION 3.5)
 
 find_program(RAGEL_EXECUTABLE NAMES ragel DOC "path to the ragel executable")
 mark_as_advanced(RAGEL_EXECUTABLE)

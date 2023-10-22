@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "flow_list2many.h"
 #include "ceammc_factory.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 constexpr size_t MAX_ARGS = 64;
 
@@ -64,4 +64,8 @@ void setup_flow_list2many()
     obj.addAlias("list->many");
     obj.noArgsAndPropsParse();
     obj.addInletInfo("list: input list");
+
+    obj.setDescription("routes list element with message selectors");
+    obj.setCategory("flow");
+    obj.setKeywords({ "conv", "map", "list" });
 }

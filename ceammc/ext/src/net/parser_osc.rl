@@ -60,6 +60,8 @@
 namespace ceammc {
 namespace parser {
 
+using namespace ceammc::osc;
+
     OscAddress parse_osc_url(const char* str, OscProto& proto, t_symbol*& host, int& port, t_symbol*& unix_path) {
         int cs = 0;
         const char* p = str;

@@ -12,8 +12,8 @@
 #X floatatom 116 164 5 0 0 0 - - -;
 #X obj 20 192 flow.split;
 #X obj 144 192 is_any;
-#X obj 68 221 ui.d @display_type 1;
-#X obj 20 250 ui.d @display_type 1;
+#X obj 68 221 ui.dt;
+#X obj 20 250 ui.dt;
 #X connect 0 0 1 0;
 #X connect 1 0 3 0;
 #X connect 1 1 4 0;

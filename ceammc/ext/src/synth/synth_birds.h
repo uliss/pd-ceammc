@@ -2,7 +2,7 @@
 author: "Pierre Cochard"
 name: "synth.birds"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_birds -scn synth_birds_dsp -es 1 -mcd 16 -single -ftz 0
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn synth_birds -scn synth_birds_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __synth_birds_H__
@@ -368,92 +368,40 @@ class FAUST_API ScopedNoDenormals {
 #endif
 
 /************************** END synth_birds_dsp.h **************************/
-/************************** BEGIN UI.h *****************************
- FAUST Architecture File
- Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
- ---------------------------------------------------------------------
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 2.1 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU Lesser General Public License for more details.
- 
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- 
- EXCEPTION : As a special exception, you may create a larger work
- that contains this FAUST architecture section and distribute
- that work under terms of your choice, so long as this FAUST
- architecture section is not modified.
- ********************************************************************/
+/************************** BEGIN misc.h *******************************
+FAUST Architecture File
+Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+---------------------------------------------------------------------
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 2.1 of the License, or
+(at your option) any later version.
 
-#ifndef __UI_H__
-#define __UI_H__
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
 
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-#ifndef FAUSTFLOAT
-#define FAUSTFLOAT float
-#endif
+EXCEPTION : As a special exception, you may create a larger work
+that contains this FAUST architecture section and distribute
+that work under terms of your choice, so long as this FAUST
+architecture section is not modified.
+***************************************************************************/
 
-/*******************************************************************************
- * UI : Faust DSP User Interface
- * User Interface as expected by the buildUserInterface() method of a DSP.
- * This abstract class contains only the method that the Faust compiler can
- * generate to describe a DSP user interface.
- ******************************************************************************/
+#ifndef __misc__
+#define __misc__
 
-struct Soundfile;
+#include <algorithm>
+#include <map>
+#include <cstdlib>
+#include <string.h>
+#include <fstream>
+#include <string>
 
-template <typename REAL>
-struct FAUST_API UIReal {
-    
-    UIReal() {}
-    virtual ~UIReal() {}
-    
-    // -- widget's layouts
-    
-    virtual void openTabBox(const char* label) = 0;
-    virtual void openHorizontalBox(const char* label) = 0;
-    virtual void openVerticalBox(const char* label) = 0;
-    virtual void closeBox() = 0;
-    
-    // -- active widgets
-    
-    virtual void addButton(const char* label, REAL* zone) = 0;
-    virtual void addCheckButton(const char* label, REAL* zone) = 0;
-    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    
-    // -- passive widgets
-    
-    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    
-    // -- soundfiles
-    
-    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-    
-    // -- metadata declarations
-    
-    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
-
-    // To be used by LLVM client
-    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
-};
-
-struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
-    UI() {}
-    virtual ~UI() {}
-};
-
-#endif
-/**************************  END  UI.h **************************/
 /************************** BEGIN meta.h *******************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
@@ -492,40 +440,6 @@ struct FAUST_API Meta {
 
 #endif
 /**************************  END  meta.h **************************/
-/************************** BEGIN misc.h *******************************
-FAUST Architecture File
-Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
----------------------------------------------------------------------
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-
-EXCEPTION : As a special exception, you may create a larger work
-that contains this FAUST architecture section and distribute
-that work under terms of your choice, so long as this FAUST
-architecture section is not modified.
-***************************************************************************/
-
-#ifndef __misc__
-#define __misc__
-
-#include <algorithm>
-#include <map>
-#include <cstdlib>
-#include <string.h>
-#include <fstream>
-#include <string>
-
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
@@ -812,9 +726,9 @@ class synth_birds : public synth_birds_dsp {
 		m->declare("basics.lib/version", "0.8");
 		m->declare("ceammc_ui.lib/name", "CEAMMC faust default UI elements");
 		m->declare("ceammc_ui.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn synth_birds -scn synth_birds_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn synth_birds -scn synth_birds_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("filename", "synth_birds.dsp");
-		m->declare("filters.lib/lowpass0_highpass1", "MIT-style STK-4.3 license");
+		m->declare("filters.lib/lowpass0_highpass1", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
 		m->declare("filters.lib/lowpass0_highpass1:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:author", "Julius O. Smith III");
 		m->declare("filters.lib/lowpass:copyright", "Copyright (C) 2003-2019 by Julius O. Smith III <jos@ccrma.stanford.edu>");
@@ -1156,7 +1070,7 @@ class synth_birds : public synth_birds_dsp {
 			float fTemp32 = std::max<float>(0.0f, std::min<float>(2047.0f, fConst38 / fTemp25));
 			int iTemp33 = int(fTemp32);
 			float fTemp34 = std::floor(fTemp32);
-			fRec18[0] = 0.999f * fRec18[1] + fConst28 * (fTemp31 - fVec6[(IOTA0 - iTemp33) & 4095] * (fTemp34 + (1.0f - fTemp32)) - (fTemp32 - fTemp34) * fVec6[(IOTA0 - (iTemp33 + 1)) & 4095]);
+			fRec18[0] = 0.999f * fRec18[1] - fConst28 * (fVec6[(IOTA0 - iTemp33) & 4095] * (fTemp34 + (1.0f - fTemp32)) - fTemp31 + (fTemp32 - fTemp34) * fVec6[(IOTA0 - (iTemp33 + 1)) & 4095]);
 			iRec25[0] = ((fTemp3 < (fConst39 * fTemp4)) ? iRec4[0] : iRec25[1]);
 			float fTemp35 = float(iRec25[0]);
 			int iTemp36 = fTemp35 < (fConst40 * fTemp4);
@@ -1193,7 +1107,7 @@ class synth_birds : public synth_birds_dsp {
 			float fTemp62 = fConst64 * fTemp4;
 			int iTemp63 = fTemp39 < fTemp62;
 			fRec27[0] = 0.001f * ((iTemp41) ? ((iTemp45) ? ((iTemp48) ? ((iTemp51) ? ((iTemp53) ? ((iTemp55) ? ((iTemp57) ? ((iTemp59) ? ((iTemp61) ? ((iTemp63) ? ((iRec28[0] < 0) ? 0.0f : ((iTemp63) ? fConst66 * (fTemp39 / fTemp4) : 1.0f)) : ((iTemp61) ? fConst65 * ((0.0f - (fTemp39 - fTemp62)) / fTemp4) + 1.0f : 0.0f)) : ((iTemp59) ? fConst63 * (fTemp42 * (fTemp39 - fTemp60) / fTemp4) : fTemp43)) : ((iTemp57) ? fTemp43 + fConst61 * ((0.0f - 0.001f * fTemp42 * (fTemp39 - fTemp58)) / fTemp4) : 0.0f)) : ((iTemp55) ? fConst59 * ((fTemp39 - fTemp56) / fTemp4) : 0.434f)) : ((iTemp53) ? fConst57 * ((fTemp39 - fTemp54) * (fTemp43 + -0.434f) / fTemp4) + 0.434f : fTemp43)) : ((iTemp51) ? fTemp43 + fConst55 * (fTemp49 * (fTemp39 - fTemp52) / fTemp4) : 1.0f)) : ((iTemp48) ? fConst53 * (fTemp46 * (fTemp39 - fTemp50) / fTemp4) + 1.0f : fTemp43)) : ((iTemp45) ? fTemp43 + fConst51 * ((fTemp39 - fTemp47) * fTemp49 / fTemp4) : 1.0f)) : ((iTemp41) ? fConst49 * ((fTemp39 - fTemp44) * fTemp46 / fTemp4) + 1.0f : fTemp43)) : ((fTemp39 < (fConst46 * fTemp4)) ? fTemp43 + fConst47 * ((0.0f - 0.001f * fTemp42 * (fTemp39 - fTemp40)) / fTemp4) : 0.0f)) + 0.999f * fRec27[1];
-			fRec26[0] = fConst4 * (fRec27[0] + fRec27[1] - fConst25 * fRec26[1]);
+			fRec26[0] = 0.0f - fConst4 * (fConst25 * fRec26[1] - (fRec27[0] + fRec27[1]));
 			float fTemp64 = fRec15[1] + fConst26 * fTemp15 * (fConst27 * fRec18[0] * fTemp24 * (fRec23[0] + 1.0f) + 4.4e+02f) * (fRec26[0] + 1.0f);
 			fRec15[0] = fTemp64 - std::floor(fTemp64);
 			float fTemp65 = 65536.0f * fRec15[0];
@@ -1255,23 +1169,12 @@ class synth_birds : public synth_birds_dsp {
 	}
 
 };
-// clang-format on
 #endif
 
-    template <class T>
-    struct _synth_birds_UI : public UI {
-    static std::string name;
-};
-
-template <class T>
-std::string _synth_birds_UI<T>::name(sym(synth_birds));
-
-typedef _synth_birds_UI<synth_birds> synth_birds_UI;
-
-class faust_synth_birds_tilde : public FaustExternal<synth_birds, synth_birds_UI> {
+class faust_synth_birds_tilde : public FaustExternal<synth_birds> {
 public:
     faust_synth_birds_tilde(const ceammc::PdArgs& args)
-        : FaustExternal(args)
+        : FaustExternal(args, sym(synth_birds))
     {
     }
 };

@@ -151,4 +151,8 @@ void setup_an_zero_tilde()
 {
     SoundExternalFactory<ZeroCrossingTilde> obj("an.zero~");
     obj.setXletsInfo({ "signal: input" }, { "signal: zero crossing count/rate/freq" });
+
+    obj.setDescription("zero crossing count/rate/freq calculator");
+    obj.setCategory("an");
+    obj.setKeywords({"zero", "crossing", "rate", "count", "freq"});
 }

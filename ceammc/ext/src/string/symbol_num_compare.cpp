@@ -68,4 +68,8 @@ int SymbolNumCompare::numPart(t_symbol* s)
 void setup_symbol_num_compare()
 {
     ObjectFactory<SymbolNumCompare> obj("symbol.num_compare");
+
+    obj.setDescription("numeric symbol compare");
+    obj.setCategory("symbol");
+    obj.setKeywords({"symbol", "num_compare", "compare"});
 }

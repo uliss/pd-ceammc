@@ -24,7 +24,7 @@
 #ifndef DATA_IFACE_H
 #define DATA_IFACE_H
 
-#include "ceammc_atomlist.h"
+#include "ceammc_atomlist_view.h"
 #include "ceammc_format.h"
 
 #include <boost/optional.hpp>

@@ -11,8 +11,9 @@
 #include <stdio.h>
 
 #include <windows.h>
-
+#include <winnls.h>
 #include <mmsystem.h>
+#include <mbctype.h>
 
 /* ------------------------- audio -------------------------- */
 
@@ -766,6 +767,25 @@ void mmio_listdevs(void)
 }
 #endif
 
+/* ceammc utf8 MMIO cyrillic fix */
+void mmio_ceammc_fix_utf8(char* buf, int buflen, const char* src)
+{
+    LPWSTR wbuf = 0;
+    UINT codepage = CP_OEMCP;
+
+    if(_getmbcp() == 0) // single byte codepage
+        codepage = GetACP();
+
+    int len = MultiByteToWideChar(codepage, 0, src, -1, wbuf, 0);
+    wbuf = getbytes(len * sizeof(*wbuf));
+    int res = MultiByteToWideChar(codepage, 0, src, -1, wbuf, len);
+    if (res)
+        res = WideCharToMultiByte(CP_UTF8, 0, wbuf, len, buf, buflen, 0, 0);
+
+    freebytes(wbuf, len * sizeof(*wbuf));
+}
+/* end ceammc */
+
 void mmio_getdevs(char *indevlist, int *nindevs,
     char *outdevlist, int *noutdevs, int *canmulti,
         int maxndev, int devdescsize)
@@ -783,7 +803,8 @@ void mmio_getdevs(char *indevlist, int *nindevs,
         WAVEINCAPS wicap;
         wRtn = waveInGetDevCaps(i, (LPWAVEINCAPS) &wicap, sizeof(wicap));
         if (!wRtn)
-            u8_nativetoutf8(utf8device, MAXPDSTRING, wicap.szPname, -1);
+            mmio_ceammc_fix_utf8(utf8device, MAXPDSTRING, wicap.szPname); // ceammc utf8 fix
+
         _snprintf(indevlist + i * devdescsize, devdescsize, "%s",
             (wRtn ? "???" : utf8device));
         indevlist[(i+1) * devdescsize - 1] = 0;
@@ -798,7 +819,8 @@ void mmio_getdevs(char *indevlist, int *nindevs,
         WAVEOUTCAPS wocap;
         wRtn = waveOutGetDevCaps(i, (LPWAVEOUTCAPS) &wocap, sizeof(wocap));
         if (!wRtn)
-            u8_nativetoutf8(utf8device, MAXPDSTRING, wocap.szPname, -1);
+            mmio_ceammc_fix_utf8(utf8device, MAXPDSTRING, wocap.szPname); // ceammc utf8 fix
+
         _snprintf(outdevlist + i * devdescsize,  devdescsize, "%s",
             (wRtn ? "???" : utf8device));
         outdevlist[(i+1) * devdescsize - 1] = 0;

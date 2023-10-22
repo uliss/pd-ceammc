@@ -15,6 +15,7 @@
 #include "ceammc_data.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_datatypes.h"
+#include "ceammc_filesystem.h"
 #include "ceammc_format.h"
 #include "ceammc_json.h"
 #include "ceammc_log.h"
@@ -26,23 +27,7 @@
 #include <fstream>
 #include <random>
 
-namespace {
-using namespace ceammc;
-
 constexpr const char* TYPE_NAME = "Dict";
-
-DataTypeId initType()
-{
-    DataTypeId id = DataStorage::instance().typeByName(TYPE_NAME);
-    if (id == data::DATA_INVALID)
-        id = DataStorage::instance().registerNewType(TYPE_NAME,
-            nullptr,
-            [](const DictAtom& datom) -> Atom { return datom; });
-
-    return id;
-}
-
-}
 
 namespace ceammc {
 
@@ -54,7 +39,10 @@ static t_symbol* atom_to_symbol(const Atom& a)
         return gensym(to_string(a).c_str());
 }
 
-const DataTypeId DataTypeDict::dataType = initType();
+DataTypeId DataTypeDict::staticType()
+{
+    CEAMMC_REGISTER_DATATYPE(TYPE_NAME, {}, [](const DictAtom& datom) -> Atom { return datom; });
+}
 
 DataTypeDict::DataTypeDict() noexcept = default;
 
@@ -98,7 +86,7 @@ DataTypeDict* DataTypeDict::clone() const
 
 DataTypeId DataTypeDict::type() const noexcept
 {
-    return dataType;
+    return staticType();
 }
 
 std::string DataTypeDict::toString() const
@@ -294,23 +282,14 @@ bool DataTypeDict::fromJSON(const std::string& str)
 
 bool DataTypeDict::read(const std::string& path)
 {
-    std::ifstream fs(path);
-    if (!fs) {
-        LIB_ERR << "can not open file: " << path;
+    auto res = fs::readFileContent(path.c_str());
+    RuntimeError err;
+    if (res.matchError(err)) {
+        LIB_ERR << err.what();
         return false;
     }
 
-    std::string str;
-
-    // reserve size for string
-    fs.seekg(0, std::ios::end);
-    str.reserve(fs.tellg());
-    fs.seekg(0, std::ios::beg);
-
-    // read to string
-    str.assign((std::istreambuf_iterator<char>(fs)), std::istreambuf_iterator<char>());
-
-    if (!fromJSON(str)) {
+    if (!fromJSON(res.value())) {
         LIB_ERR << "can not parse JSON file: " << path;
         return false;
     }

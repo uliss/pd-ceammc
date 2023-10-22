@@ -376,15 +376,13 @@ public:
 
     void m_read(t_symbol* s, const AtomListView& path)
     {
-        std::string concat_path = to_string(path);
-        if (concat_path.empty()) {
-            METHOD_ERR(s) << "empty path";
+        if (!T::checkArgs(path, T::ARG_SYMBOL, s))
             return;
-        }
 
-        auto full_path = platform::make_abs_filepath_with_canvas(T::canvas(), concat_path.c_str());
+        auto fname = path.symbolAt(0, &s_);
+        auto full_path = platform::make_abs_filepath_with_canvas(T::canvas(), fname->s_name);
         if (full_path.empty()) {
-            full_path = platform::find_in_std_path(T::canvas(), concat_path.c_str());
+            full_path = platform::find_in_std_path(T::canvas(), fname->s_name);
             if (full_path.empty()) {
                 METHOD_ERR(s) << "invalid path: " << path;
                 return;
@@ -392,12 +390,25 @@ public:
         }
 
         if (!proto_read(full_path)) {
-            METHOD_ERR(s) << "can not read from file: " << full_path;
+            METHOD_ERR(s) << "can't read from file: '" << full_path << '\'';
             return;
         }
     }
 
+    /**
+     * overwrite to read from file
+     * @param path - full filename
+     */
     virtual bool proto_read(const std::string& path) = 0;
+
+public:
+    static constexpr const char* sym_read = "read";
+
+    template <typename Factory>
+    static void factoryReaderObjectInit(Factory& f)
+    {
+        f.addMethod(sym_read, &ReaderIFace<T>::m_read);
+    }
 };
 
 template <typename T>
@@ -410,7 +421,7 @@ public:
 
     void m_write(t_symbol* s, const AtomListView& path)
     {
-        std::string concat_path = to_string(path);
+        auto concat_path = to_string(path.argSubView(0));
         if (concat_path.empty()) {
             METHOD_ERR(s) << "empty path";
             return;
@@ -418,19 +429,35 @@ public:
 
         auto full_path = platform::make_abs_filepath_with_canvas(T::canvas(), concat_path);
         if (full_path.empty()) {
-            METHOD_ERR(s) << "invalid path: " << path;
+            METHOD_ERR(s) << "invalid path: '" << path << '\'';
             return;
         }
 
+        // force flag
+        const auto force = (path.size() > 0 && path.back() == "@force");
+
         // warning
-        if (platform::path_exists(full_path.c_str()))
-            METHOD_DBG(s) << "overwriting file that already exists: " << full_path;
+        if (platform::path_exists(full_path.c_str()) && !force) {
+            METHOD_ERR(s) << "file already exists: '" << full_path << "', use @force to overwrite";
+            return;
+        }
 
         if (!proto_write(full_path))
-            METHOD_ERR(s) << "can not write to JSON: " << full_path;
+            METHOD_ERR(s) << "can't write to file: '" << full_path << '\'';
+        else
+            METHOD_DBG(s) << "written to file: " << full_path;
     }
 
     virtual bool proto_write(const std::string& path) const = 0;
+
+public:
+    static constexpr const char* sym_write = "write";
+
+    template <typename Factory>
+    static void factoryWriterObjectInit(Factory& f)
+    {
+        f.addMethod(sym_write, &WriterIFace<T>::m_write);
+    }
 };
 
 template <typename T>
@@ -439,6 +466,14 @@ public:
     FilesystemIFace(const PdArgs& args)
         : WriterIFace<ReaderIFace<T>>(args)
     {
+    }
+
+public:
+    template <typename Factory>
+    static void factoryFilesystemObjectInit(Factory& f)
+    {
+        FilesystemIFace<T>::factoryReaderObjectInit(f);
+        FilesystemIFace<T>::factoryWriterObjectInit(f);
     }
 };
 
@@ -536,22 +571,30 @@ namespace protocol {
     };
 
     template <template <typename T> class Factory, typename T>
-    class Reader : public Base<Factory, T> {
+    class Reader {
     public:
         Reader(Factory<T>& obj)
-            : Base<Factory, T>(obj)
         {
             obj.addMethod("read", &T::m_read);
         }
     };
 
     template <template <typename T> class Factory, typename T>
-    class Writer : public Base<Factory, T> {
+    class Writer {
     public:
         Writer(Factory<T>& obj)
-            : Base<Factory, T>(obj)
         {
             obj.addMethod("write", &T::m_write);
+        }
+    };
+
+    template <template <typename T> class Factory, typename T>
+    class ReaderWriter {
+    public:
+        ReaderWriter(Factory<T>& obj)
+        {
+            protocol::Reader<Factory, T> r(obj);
+            protocol::Writer<Factory, T> w(obj);
         }
     };
 

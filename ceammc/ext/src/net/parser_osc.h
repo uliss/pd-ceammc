@@ -1,9 +1,7 @@
 #ifndef PARSER_OSC_H
 #define PARSER_OSC_H
 
-#include "m_pd.h"
-
-#include "osc_common.h"
+#include "ceammc_osc.h"
 
 namespace ceammc {
 namespace parser {
@@ -33,7 +31,7 @@ namespace parser {
         OSC_ADDR_UNIX,
     };
 
-    OscAddress parse_osc_url(const char* str, OscProto& proto, t_symbol*& host, int& port, t_symbol*& unix_path);
+    OscAddress parse_osc_url(const char* str, osc::OscProto& proto, t_symbol*& host, int& port, t_symbol*& unix_path);
 
 }
 }

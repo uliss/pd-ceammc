@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="midi.file">
         <title>midi.file</title>
         <meta>
@@ -30,9 +30,12 @@
             quarters</property>
         </properties>
         <methods>
-            <method name="read">read specified midi file. No output</method>
-            <method name="write">write to specified midi file</method>
+            <!-- clear -->
             <method name="clear">removes all midi file content</method>
+            <!-- read -->
+            <method name="read">read specified midi file. No output</method>
+            <!-- write -->
+            <method name="write">write to specified midi file</method>
         </methods>
         <inlets>
             <inlet>

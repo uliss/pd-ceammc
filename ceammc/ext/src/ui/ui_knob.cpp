@@ -49,8 +49,8 @@ void UIKnob::paint()
 
 void UIKnob::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, KNOB_MIN_SIZE);
-    newrect->height = pd_clip_min(newrect->height, KNOB_MIN_SIZE);
+    newrect->w = pd_clip_min(newrect->w, KNOB_MIN_SIZE);
+    newrect->h = pd_clip_min(newrect->h, KNOB_MIN_SIZE);
 }
 
 void UIKnob::onMouseUp(t_object* view, const t_pt& pt, long modifiers)
@@ -141,6 +141,6 @@ void UIKnob::setup()
 
 void setup_ui_knob()
 {
-    sys_gui(ui_knob_tcl);
+    ui_knob_tcl_output();
     ceammc::UIKnob::setup();
 }

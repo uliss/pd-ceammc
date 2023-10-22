@@ -1,11 +1,14 @@
 #include "datatype_midistream.h"
 #include "ceammc_datastorage.h"
 #include "ceammc_datatypes.h"
-#include "ceammc_log.h"
 
 #include "MidiFile.h"
 
-const DataTypeId DataTypeMidiStream::dataType = DataStorage::instance().registerNewType("MidiStream");
+DataTypeId DataTypeMidiStream::staticType()
+{
+    static DataTypeId id = DataStorage::instance().registerNewType("MidiStream");
+    return id;
+}
 
 DataTypeMidiStream::DataTypeMidiStream()
     : midi_file_(new MidiFile())
@@ -92,7 +95,7 @@ DataTypeMidiStream* DataTypeMidiStream::clone() const
 
 DataTypeId DataTypeMidiStream::type() const noexcept
 {
-    return dataType;
+    return staticType();
 }
 
 double DataTypeMidiStream::totalTimeInQuarters() const

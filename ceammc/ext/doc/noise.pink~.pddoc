@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="noise.pink~">
         <title>noise.pink~</title>
         <meta>
@@ -16,9 +16,6 @@
                 <see>noise.white~</see>
             </also>
         </meta>
-        <properties>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
-        </properties>
         <info>
             <par>Pink noise or 1/f noise is a signal or process with a frequency spectrum such that
             the power spectral density (energy or power per frequency interval) is inversely
@@ -28,6 +25,9 @@
             <par>The name arises from the pink appearance of visible light with this power
             spectrum.</par>
         </info>
+        <properties>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+        </properties>
         <outlets>
             <outlet type="audio">output signal</outlet>
         </outlets>

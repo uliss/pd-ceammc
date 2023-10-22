@@ -34,4 +34,8 @@ void setup_list_shuffle()
 {
     ObjectFactory<ListShuffle> obj("list.shuffle");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("randomly rearranges elements in list");
+    obj.setCategory("list");
+    obj.setKeywords({"list", "shuffle", "random"});
 }

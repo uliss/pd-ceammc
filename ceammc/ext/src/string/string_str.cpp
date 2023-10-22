@@ -85,4 +85,8 @@ void setup_string_str()
     obj.addMethod("append", &StringStr::m_append);
     obj.addMethod("set", &StringStr::m_set);
     obj.addMethod("clear", &StringStr::m_clear);
+
+    obj.setDescription("string constructor");
+    obj.setCategory("string");
+    obj.setKeywords({"string", "data"});
 }

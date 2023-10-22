@@ -94,4 +94,8 @@ void ArrayHist::onBang()
 void setup_array_hist()
 {
     ObjectFactory<ArrayHist> obj("array.hist");
+
+    obj.setDescription("calculates array histogram");
+    obj.setCategory("array");
+    obj.setKeywords({"array", "histogram"});
 }

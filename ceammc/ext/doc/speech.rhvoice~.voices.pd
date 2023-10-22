@@ -1,4 +1,4 @@
-#N canvas 0 0 544 299 12;
+#N canvas 0 0 544 357 12;
 #X text 20 48 Pd Documents directory structure for RHVoice;
 #X text 20 77 rhvoice/;
 #X text 58 92 |;

@@ -37,4 +37,8 @@ void ArrayBPM::onBang()
 void setup_array_bpm()
 {
     ObjectFactory<ArrayBPM> obj("array.bpm");
+
+    obj.setDescription("BPM calculator");
+    obj.setCategory("array");
+    obj.setKeywords({"array", "bpm"});
 }

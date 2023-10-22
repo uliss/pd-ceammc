@@ -25,9 +25,9 @@
 #X msg 260 218 @bypass \$1;
 #X obj 12 236 ui.slider @size 125 12 @active_scale 1 @label delay(ms):
 @label_side top @label_align left @fontsize 10 @presetname
-/gui/\$1/fx.recho~/slider1 @min 0 @max 2000;
+/gui/\$1/fx.recho~/slider1 @min 0 @max 4000;
 #X obj 215 236 sync;
-#X obj 145 236 ui.number @size 50 12 @min 0 @max 2000 @digits 0;
+#X obj 145 236 ui.number @size 50 12 @min 0 @max 4000 @digits 0;
 #X msg 260 236 @delay \$1;
 #X obj 12 266 ui.slider @size 125 12 @active_scale 1 @label drywet:
 @label_side top @label_align left @fontsize 10 @presetname

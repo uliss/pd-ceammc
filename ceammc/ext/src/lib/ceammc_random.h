@@ -36,6 +36,7 @@ namespace random {
 
         float gen_uniform_float(float a, float b);
         uint32_t gen_uniform_uint(uint32_t a, uint32_t b);
+        int32_t gen_uniform_int(int32_t a, int32_t b);
     };
 
     class SeedProperty : public IntProperty {

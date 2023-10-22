@@ -16,8 +16,6 @@
 
 #include "aubio_base.h"
 #include "ceammc_clock.h"
-#include "ceammc_property_callback.h"
-#include "ceammc_property_enum.h"
 #include "ceammc_sound_external.h"
 
 using namespace ceammc;

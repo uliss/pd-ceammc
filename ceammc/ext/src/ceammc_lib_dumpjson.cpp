@@ -15,7 +15,6 @@
 #include "ceammc_atomlist.h"
 #include "ceammc_object_info.h"
 #include "ceammc_pd.h"
-#include "datatype_dict.h"
 #include "stk/stk/include/Stk.h"
 #include "json/json.hpp"
 
@@ -158,6 +157,9 @@ extern "C" CEAMMC_EXTERN bool ceammc_dump_json(int argc, char* argv[])
 
             if (jinfo.contains("units"))
                 jobj["args"].back()["units"] = jinfo["units"];
+
+            if (jinfo.contains("enum"))
+                jobj["args"].back()["enum"] = jinfo["enum"];
         }
     }
 

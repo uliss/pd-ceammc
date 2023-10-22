@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="net.osc.server">
         <title>net.osc.server</title>
         <meta>
@@ -26,12 +26,6 @@
             <argument name="URL" type="atom">OSC server url (like udp:12345), see @url
             property</argument>
         </arguments>
-        <methods>
-            <method name="start">start OSC server 
-            <param name="VAL" type="int" enum="0 1">1: start, 0: stop</param></method>
-            <method name="stop">stop OSC server 
-            <param name="VAL" type="int" enum="0 1">1: stop, 0: start</param></method>
-        </methods>
         <properties>
             <property name="@dump" type="bool" default="0">dump incoming messages to Pd
             window</property>
@@ -51,6 +45,14 @@
             <property name="@host" type="symbol" default="" access="readonly">OSC server
             host</property>
         </properties>
+        <methods>
+            <!-- start -->
+            <method name="start">start OSC server 
+            <param name="VAL" type="int" enum="0 1">1: start, 0: stop</param></method>
+            <!-- stop -->
+            <method name="stop">stop OSC server 
+            <param name="VAL" type="int" enum="0 1">1: stop, 0: start</param></method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo>...</xinfo>

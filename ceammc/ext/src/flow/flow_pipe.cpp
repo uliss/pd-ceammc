@@ -119,4 +119,8 @@ void setup_flow_pipe()
     InletProxy<FlowPipe>::set_float_callback(&FlowPipe::proxy_float);
     InletProxy<FlowPipe>::set_method_callback(gensym("reset"), &FlowPipe::proxy_reset);
     InletProxy<FlowPipe>::set_method_callback(gensym("flush"), &FlowPipe::proxy_flush);
+
+    obj.setDescription("enhanced version on vanilla pipe object");
+    obj.setCategory("flow");
+    obj.setKeywords({"flow", "pipe"});
 }

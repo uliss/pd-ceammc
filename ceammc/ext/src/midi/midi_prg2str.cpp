@@ -37,4 +37,8 @@ void setup_midi_prg2str()
 {
     ObjectFactory<Prg2Str> obj("midi.prg2str");
     obj.addAlias("midi.prg->str");
+
+    obj.setDescription("convert GM Instrument number to name (string or symbol)");
+    obj.setCategory("midi");
+    obj.setKeywords({"midi", "convert", "midi"});
 }

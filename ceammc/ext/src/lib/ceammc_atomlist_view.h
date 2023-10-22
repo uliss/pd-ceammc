@@ -44,10 +44,22 @@ public:
 
 public:
     AtomListView() noexcept;
-    AtomListView(const t_atom* a, size_t n) noexcept;
     AtomListView(const Atom* a, size_t n) noexcept;
     AtomListView(const Atom& a) noexcept;
     AtomListView(const AtomList& l) noexcept;
+
+    /**
+     * @note ceammc atom datatypes are not recognized:
+     *   use only for raw pd datatypes
+     */
+    AtomListView(const t_atom* a, size_t n) noexcept;
+
+    /**
+     * @param b - binbuf pointer
+     * @note ceammc atom datatypes are not recognized:
+     *   use only for raw pd datatypes
+     */
+    explicit AtomListView(const t_binbuf* b) noexcept;
 
     void set(t_atom* a, size_t n);
     void set(const Atom& a);
@@ -213,6 +225,14 @@ public:
     t_symbol* symbolAt(size_t pos, t_symbol* def) const;
 
     /**
+     * Returns atom value at specified position or default if not found
+     * @param pos - position
+     * @param def - default value if not found
+     * @return atom value
+     */
+    const Atom& atomAt(size_t pos, const Atom& def) const { return pos >= n_ ? def : at(pos); }
+
+    /**
      * Returns float at specified position that is greater
      *   then specified value or default if index out of range or value not satisfied
      * @param pos - position
@@ -312,6 +332,11 @@ public:
      * Returns subview from specified position and length
      */
     AtomListView subView(size_t from, size_t len) const;
+
+    /**
+     * Returns subview form specified position and before first property element
+     */
+    AtomListView argSubView(size_t from) const;
 
     /**
      * Returns true if contains specified atom, otherwise false
@@ -470,6 +495,45 @@ public:
                 out.push_back(a);
         }
     }
+
+    /**
+     * search given property and return subview with property value
+     * @param name - target property name
+     * @param res - result to store
+     * @return if property was found
+     */
+    bool getProperty(t_symbol* name, AtomListView& res) const;
+
+    enum class InvalidDollarArgPolicy {
+        KEEP_RAW,
+        DEFAULT_ARG,
+        DROP_ARG
+    };
+
+    /**
+     * @brief expandDollars
+     * @param cnv
+     * @param res - result to append atoms (not cleared!)
+     * @param policy - what todo if dollar argument not exists in canvas
+     * @return
+     */
+    bool expandDollarArgs(const t_canvas* cnv,
+        AtomList& res,
+        InvalidDollarArgPolicy policy = InvalidDollarArgPolicy::DEFAULT_ARG,
+        const Atom& def = Atom(0.)) const;
+
+    /**
+     * Convert symbols to Atom primitives:
+     * @example ";" goes to a Atom::SEMICOLON, "," to Atom::COMMA, "$.." to
+     *    Atom::DOLLAR or Atom::DOLLAR_SYMBOL
+     * @param res - result to append atoms (not cleared!)
+     */
+    void restorePrimitives(AtomList& res) const;
+
+    /**
+     * Split view by specified atom
+     */
+    void split(const Atom& sep, const std::function<void(const AtomListView&)>& msg) const;
 
 private:
     inline const t_atom& atom() const { return data_->atom(); }

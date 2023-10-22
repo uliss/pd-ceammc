@@ -5,7 +5,7 @@ license: "BSD"
 name: "fx.tapiir"
 version: "1.0"
 Code generated with Faust 2.53.1 (https://faust.grame.fr)
-Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_tapiir -scn fx_tapiir_dsp -es 1 -mcd 16 -single -ftz 0
+Compilation options: -a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn fx_tapiir -scn fx_tapiir_dsp -es 1 -mcd 16 -single -ftz 0
 ------------------------------------------------------------ */
 
 #ifndef  __fx_tapiir_H__
@@ -371,92 +371,40 @@ class FAUST_API ScopedNoDenormals {
 #endif
 
 /************************** END fx_tapiir_dsp.h **************************/
-/************************** BEGIN UI.h *****************************
- FAUST Architecture File
- Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
- ---------------------------------------------------------------------
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU Lesser General Public License as published by
- the Free Software Foundation; either version 2.1 of the License, or
- (at your option) any later version.
- 
- This program is distributed in the hope that it will be useful,
- but WITHOUT ANY WARRANTY; without even the implied warranty of
- MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
- GNU Lesser General Public License for more details.
- 
- You should have received a copy of the GNU Lesser General Public License
- along with this program; if not, write to the Free Software
- Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
- 
- EXCEPTION : As a special exception, you may create a larger work
- that contains this FAUST architecture section and distribute
- that work under terms of your choice, so long as this FAUST
- architecture section is not modified.
- ********************************************************************/
+/************************** BEGIN misc.h *******************************
+FAUST Architecture File
+Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
+---------------------------------------------------------------------
+This program is free software; you can redistribute it and/or modify
+it under the terms of the GNU Lesser General Public License as published by
+the Free Software Foundation; either version 2.1 of the License, or
+(at your option) any later version.
 
-#ifndef __UI_H__
-#define __UI_H__
+This program is distributed in the hope that it will be useful,
+but WITHOUT ANY WARRANTY; without even the implied warranty of
+MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+GNU Lesser General Public License for more details.
 
+You should have received a copy of the GNU Lesser General Public License
+along with this program; if not, write to the Free Software
+Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
 
-#ifndef FAUSTFLOAT
-#define FAUSTFLOAT float
-#endif
+EXCEPTION : As a special exception, you may create a larger work
+that contains this FAUST architecture section and distribute
+that work under terms of your choice, so long as this FAUST
+architecture section is not modified.
+***************************************************************************/
 
-/*******************************************************************************
- * UI : Faust DSP User Interface
- * User Interface as expected by the buildUserInterface() method of a DSP.
- * This abstract class contains only the method that the Faust compiler can
- * generate to describe a DSP user interface.
- ******************************************************************************/
+#ifndef __misc__
+#define __misc__
 
-struct Soundfile;
+#include <algorithm>
+#include <map>
+#include <cstdlib>
+#include <string.h>
+#include <fstream>
+#include <string>
 
-template <typename REAL>
-struct FAUST_API UIReal {
-    
-    UIReal() {}
-    virtual ~UIReal() {}
-    
-    // -- widget's layouts
-    
-    virtual void openTabBox(const char* label) = 0;
-    virtual void openHorizontalBox(const char* label) = 0;
-    virtual void openVerticalBox(const char* label) = 0;
-    virtual void closeBox() = 0;
-    
-    // -- active widgets
-    
-    virtual void addButton(const char* label, REAL* zone) = 0;
-    virtual void addCheckButton(const char* label, REAL* zone) = 0;
-    virtual void addVerticalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addHorizontalSlider(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    virtual void addNumEntry(const char* label, REAL* zone, REAL init, REAL min, REAL max, REAL step) = 0;
-    
-    // -- passive widgets
-    
-    virtual void addHorizontalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    virtual void addVerticalBargraph(const char* label, REAL* zone, REAL min, REAL max) = 0;
-    
-    // -- soundfiles
-    
-    virtual void addSoundfile(const char* label, const char* filename, Soundfile** sf_zone) = 0;
-    
-    // -- metadata declarations
-    
-    virtual void declare(REAL* /*zone*/, const char* /*key*/, const char* /*val*/) {}
-
-    // To be used by LLVM client
-    virtual int sizeOfFAUSTFLOAT() { return sizeof(FAUSTFLOAT); }
-};
-
-struct FAUST_API UI : public UIReal<FAUSTFLOAT> {
-    UI() {}
-    virtual ~UI() {}
-};
-
-#endif
-/**************************  END  UI.h **************************/
 /************************** BEGIN meta.h *******************************
  FAUST Architecture File
  Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
@@ -495,40 +443,6 @@ struct FAUST_API Meta {
 
 #endif
 /**************************  END  meta.h **************************/
-/************************** BEGIN misc.h *******************************
-FAUST Architecture File
-Copyright (C) 2003-2022 GRAME, Centre National de Creation Musicale
----------------------------------------------------------------------
-This program is free software; you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation; either version 2.1 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
-GNU Lesser General Public License for more details.
-
-You should have received a copy of the GNU Lesser General Public License
-along with this program; if not, write to the Free Software
-Foundation, Inc., 59 Temple Place - Suite 330, Boston, MA 02111-1307, USA.
-
-EXCEPTION : As a special exception, you may create a larger work
-that contains this FAUST architecture section and distribute
-that work under terms of your choice, so long as this FAUST
-architecture section is not modified.
-***************************************************************************/
-
-#ifndef __misc__
-#define __misc__
-
-#include <algorithm>
-#include <map>
-#include <cstdlib>
-#include <string.h>
-#include <fstream>
-#include <string>
-
 
 struct MY_Meta : Meta, std::map<const char*, const char*>
 {
@@ -753,8 +667,8 @@ class fx_tapiir : public fx_tapiir_dsp {
 		m->declare("basics.lib/name", "Faust Basic Element Library");
 		m->declare("basics.lib/version", "0.8");
 		m->declare("ceammc.lib/name", "Ceammc PureData misc utils");
-		m->declare("ceammc.lib/version", "0.1.2");
-		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/ceammc_dsp_ext.cpp -lang cpp -i -cn fx_tapiir -scn fx_tapiir_dsp -es 1 -mcd 16 -single -ftz 0");
+		m->declare("ceammc.lib/version", "0.1.4");
+		m->declare("compile_options", "-a /Users/serge/work/music/pure-data/ceammc/faust/faust_arch_ceammc.cpp -lang cpp -i -cn fx_tapiir -scn fx_tapiir_dsp -es 1 -mcd 16 -single -ftz 0");
 		m->declare("copyright", "(c)GRAME 2006");
 		m->declare("delays.lib/name", "Faust Delay Library");
 		m->declare("delays.lib/version", "0.1");
@@ -845,13 +759,13 @@ class fx_tapiir : public fx_tapiir_dsp {
 		fVslider51 = FAUSTFLOAT(1.0f);
 		fVslider52 = FAUSTFLOAT(0.0f);
 		fVslider53 = FAUSTFLOAT(0.0f);
-		fVslider54 = FAUSTFLOAT(1.0f);
+		fVslider54 = FAUSTFLOAT(0.0f);
 		fVslider55 = FAUSTFLOAT(0.0f);
 		fVslider56 = FAUSTFLOAT(0.0f);
 		fVslider57 = FAUSTFLOAT(0.0f);
 		fVslider58 = FAUSTFLOAT(0.0f);
 		fVslider59 = FAUSTFLOAT(0.0f);
-		fVslider60 = FAUSTFLOAT(0.0f);
+		fVslider60 = FAUSTFLOAT(1.0f);
 		fVslider61 = FAUSTFLOAT(1.0f);
 		fVslider62 = FAUSTFLOAT(0.0f);
 		fVslider63 = FAUSTFLOAT(0.0f);
@@ -934,23 +848,23 @@ class fx_tapiir : public fx_tapiir_dsp {
 		ui_interface->openTabBox("0x00");
 		ui_interface->declare(&fVslider2, "unit", "ms");
 		ui_interface->addVerticalSlider("tap0.delay", &fVslider2, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(5e+03f), FAUSTFLOAT(0.01f));
-		ui_interface->addVerticalSlider("tap0.fb0", &fVslider9, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
-		ui_interface->addVerticalSlider("tap0.fb1", &fVslider8, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
-		ui_interface->addVerticalSlider("tap0.fb2", &fVslider7, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
-		ui_interface->addVerticalSlider("tap0.fb3", &fVslider6, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
-		ui_interface->addVerticalSlider("tap0.fb4", &fVslider5, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
-		ui_interface->addVerticalSlider("tap0.fb5", &fVslider4, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("tap0.fb0", &fVslider4, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("tap0.fb1", &fVslider5, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("tap0.fb2", &fVslider6, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("tap0.fb3", &fVslider7, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("tap0.fb4", &fVslider8, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("tap0.fb5", &fVslider9, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
 		ui_interface->declare(&fVslider3, "unit", "db");
 		ui_interface->addVerticalSlider("tap0.gain", &fVslider3, FAUSTFLOAT(0.0f), FAUSTFLOAT(-6e+01f), FAUSTFLOAT(0.0f), FAUSTFLOAT(0.1f));
 		ui_interface->addVerticalSlider("tap0.in0", &fVslider10, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
 		ui_interface->addVerticalSlider("tap0.in1", &fVslider11, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
 		ui_interface->declare(&fVslider12, "unit", "ms");
 		ui_interface->addVerticalSlider("tap1.delay", &fVslider12, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(5e+03f), FAUSTFLOAT(0.01f));
-		ui_interface->addVerticalSlider("tap1.fb0", &fVslider18, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
-		ui_interface->addVerticalSlider("tap1.fb1", &fVslider17, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("tap1.fb0", &fVslider15, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("tap1.fb1", &fVslider14, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
 		ui_interface->addVerticalSlider("tap1.fb2", &fVslider16, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
-		ui_interface->addVerticalSlider("tap1.fb3", &fVslider15, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
-		ui_interface->addVerticalSlider("tap1.fb4", &fVslider14, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("tap1.fb3", &fVslider17, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("tap1.fb4", &fVslider18, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
 		ui_interface->addVerticalSlider("tap1.fb5", &fVslider19, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
 		ui_interface->declare(&fVslider13, "unit", "db");
 		ui_interface->addVerticalSlider("tap1.gain", &fVslider13, FAUSTFLOAT(0.0f), FAUSTFLOAT(-6e+01f), FAUSTFLOAT(0.0f), FAUSTFLOAT(0.1f));
@@ -982,12 +896,12 @@ class fx_tapiir : public fx_tapiir_dsp {
 		ui_interface->addVerticalSlider("tap3.in1", &fVslider41, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
 		ui_interface->declare(&fVslider42, "unit", "ms");
 		ui_interface->addVerticalSlider("tap4.delay", &fVslider42, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(5e+03f), FAUSTFLOAT(0.01f));
-		ui_interface->addVerticalSlider("tap4.fb0", &fVslider49, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
-		ui_interface->addVerticalSlider("tap4.fb1", &fVslider48, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
-		ui_interface->addVerticalSlider("tap4.fb2", &fVslider47, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
-		ui_interface->addVerticalSlider("tap4.fb3", &fVslider46, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
-		ui_interface->addVerticalSlider("tap4.fb4", &fVslider45, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
-		ui_interface->addVerticalSlider("tap4.fb5", &fVslider44, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("tap4.fb0", &fVslider44, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("tap4.fb1", &fVslider45, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("tap4.fb2", &fVslider46, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("tap4.fb3", &fVslider47, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("tap4.fb4", &fVslider48, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("tap4.fb5", &fVslider49, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
 		ui_interface->declare(&fVslider43, "unit", "db");
 		ui_interface->addVerticalSlider("tap4.gain", &fVslider43, FAUSTFLOAT(0.0f), FAUSTFLOAT(-6e+01f), FAUSTFLOAT(0.0f), FAUSTFLOAT(0.1f));
 		ui_interface->addVerticalSlider("tap4.in0", &fVslider50, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
@@ -995,14 +909,14 @@ class fx_tapiir : public fx_tapiir_dsp {
 		ui_interface->declare(&fVslider52, "unit", "ms");
 		ui_interface->addVerticalSlider("tap5.delay", &fVslider52, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(5e+03f), FAUSTFLOAT(0.01f));
 		ui_interface->addVerticalSlider("tap5.fb0", &fVslider56, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
-		ui_interface->addVerticalSlider("tap5.fb1", &fVslider57, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
-		ui_interface->addVerticalSlider("tap5.fb2", &fVslider58, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
-		ui_interface->addVerticalSlider("tap5.fb3", &fVslider59, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
-		ui_interface->addVerticalSlider("tap5.fb4", &fVslider60, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
-		ui_interface->addVerticalSlider("tap5.fb5", &fVslider55, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("tap5.fb1", &fVslider55, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("tap5.fb2", &fVslider54, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("tap5.fb3", &fVslider57, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("tap5.fb4", &fVslider58, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("tap5.fb5", &fVslider59, FAUSTFLOAT(0.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
 		ui_interface->declare(&fVslider53, "unit", "db");
 		ui_interface->addVerticalSlider("tap5.gain", &fVslider53, FAUSTFLOAT(0.0f), FAUSTFLOAT(-6e+01f), FAUSTFLOAT(0.0f), FAUSTFLOAT(0.1f));
-		ui_interface->addVerticalSlider("tap5.in0", &fVslider54, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
+		ui_interface->addVerticalSlider("tap5.in0", &fVslider60, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
 		ui_interface->addVerticalSlider("tap5.in1", &fVslider61, FAUSTFLOAT(1.0f), FAUSTFLOAT(0.0f), FAUSTFLOAT(1.0f), FAUSTFLOAT(0.1f));
 		ui_interface->closeBox();
 		ui_interface->declare(&fVslider0, "unit", "db");
@@ -1150,10 +1064,10 @@ class fx_tapiir : public fx_tapiir_dsp {
 		for (int i0 = 0; i0 < count; i0 = i0 + 1) {
 			float fTemp0 = float(input0[i0]);
 			float fTemp1 = float(input1[i0]);
-			float fTemp2 = fSlow5 * (fSlow6 * fRec5[1] + fSlow7 * fRec4[1] + fSlow8 * fRec3[1] + fSlow9 * fRec2[1] + fSlow10 * fRec1[1] + fSlow11 * fRec0[1] + fSlow12 * fTemp0 + fSlow13 * fTemp1);
+			float fTemp2 = fSlow5 * (fSlow6 * fRec0[1] + fSlow7 * fRec1[1] + fSlow8 * fRec2[1] + fSlow9 * fRec3[1] + fSlow10 * fRec4[1] + fSlow11 * fRec5[1] + fSlow12 * fTemp0 + fSlow13 * fTemp1);
 			fVec0[IOTA0 & 1048575] = fTemp2;
 			fRec0[0] = fSlow4 * fVec0[(IOTA0 - iSlow15) & 1048575] + fSlow16 * fVec0[(IOTA0 - iSlow17) & 1048575];
-			float fTemp3 = fSlow21 * (fSlow22 * fRec4[1] + fSlow23 * fRec3[1] + fSlow24 * fRec2[1] + fSlow25 * fRec1[1] + fSlow26 * fRec0[1] + fSlow27 * fRec5[1] + fSlow28 * fTemp0 + fSlow29 * fTemp1);
+			float fTemp3 = fSlow21 * (fSlow22 * fRec1[1] + fSlow23 * fRec0[1] + fSlow24 * fRec2[1] + fSlow25 * fRec3[1] + fSlow26 * fRec4[1] + fSlow27 * fRec5[1] + fSlow28 * fTemp0 + fSlow29 * fTemp1);
 			fVec1[IOTA0 & 1048575] = fTemp3;
 			fRec1[0] = fSlow20 * fVec1[(IOTA0 - iSlow31) & 1048575] + fSlow32 * fVec1[(IOTA0 - iSlow33) & 1048575];
 			float fTemp4 = fSlow37 * (fSlow38 * fRec0[1] + fSlow39 * fRec1[1] + fSlow40 * fRec2[1] + fSlow41 * fRec3[1] + fSlow42 * fRec4[1] + fSlow43 * fRec5[1] + fSlow44 * fTemp0 + fSlow45 * fTemp1);
@@ -1162,10 +1076,10 @@ class fx_tapiir : public fx_tapiir_dsp {
 			float fTemp5 = fSlow53 * (fSlow54 * fRec0[1] + fSlow55 * fRec1[1] + fSlow56 * fRec2[1] + fSlow57 * fRec3[1] + fSlow58 * fRec4[1] + fSlow59 * fRec5[1] + fSlow60 * fTemp0 + fSlow61 * fTemp1);
 			fVec3[IOTA0 & 1048575] = fTemp5;
 			fRec3[0] = fSlow52 * fVec3[(IOTA0 - iSlow63) & 1048575] + fSlow64 * fVec3[(IOTA0 - iSlow65) & 1048575];
-			float fTemp6 = fSlow69 * (fSlow70 * fRec5[1] + fSlow71 * fRec4[1] + fSlow72 * fRec3[1] + fSlow73 * fRec2[1] + fSlow74 * fRec1[1] + fSlow75 * fRec0[1] + fSlow76 * fTemp0 + fSlow77 * fTemp1);
+			float fTemp6 = fSlow69 * (fSlow70 * fRec0[1] + fSlow71 * fRec1[1] + fSlow72 * fRec2[1] + fSlow73 * fRec3[1] + fSlow74 * fRec4[1] + fSlow75 * fRec5[1] + fSlow76 * fTemp0 + fSlow77 * fTemp1);
 			fVec4[IOTA0 & 1048575] = fTemp6;
 			fRec4[0] = fSlow68 * fVec4[(IOTA0 - iSlow79) & 1048575] + fSlow80 * fVec4[(IOTA0 - iSlow81) & 1048575];
-			float fTemp7 = fSlow85 * (fSlow86 * fTemp0 + fSlow87 * fRec5[1] + fSlow88 * fRec0[1] + fSlow89 * fRec1[1] + fSlow90 * fRec2[1] + fSlow91 * fRec3[1] + fSlow92 * fRec4[1] + fSlow93 * fTemp1);
+			float fTemp7 = fSlow85 * (fSlow86 * fRec2[1] + fSlow87 * fRec1[1] + fSlow88 * fRec0[1] + fSlow89 * fRec3[1] + fSlow90 * fRec4[1] + fSlow91 * fRec5[1] + fSlow92 * fTemp0 + fSlow93 * fTemp1);
 			fVec5[IOTA0 & 1048575] = fTemp7;
 			fRec5[0] = fSlow84 * fVec5[(IOTA0 - iSlow95) & 1048575] + fSlow96 * fVec5[(IOTA0 - iSlow97) & 1048575];
 			output0[i0] = FAUSTFLOAT(fSlow0 * (fSlow1 * fRec0[0] + fSlow98 * fRec1[0] + fSlow99 * fRec2[0] + fSlow100 * fRec3[0] + fSlow101 * fRec4[0] + fSlow102 * fRec5[0] + fSlow103 * fTemp0 + fSlow104 * fTemp1));
@@ -1181,23 +1095,12 @@ class fx_tapiir : public fx_tapiir_dsp {
 	}
 
 };
-// clang-format on
 #endif
 
-    template <class T>
-    struct _fx_tapiir_UI : public UI {
-    static std::string name;
-};
-
-template <class T>
-std::string _fx_tapiir_UI<T>::name(sym(fx_tapiir));
-
-typedef _fx_tapiir_UI<fx_tapiir> fx_tapiir_UI;
-
-class faust_fx_tapiir_tilde : public FaustExternal<fx_tapiir, fx_tapiir_UI> {
+class faust_fx_tapiir_tilde : public FaustExternal<fx_tapiir> {
 public:
     faust_fx_tapiir_tilde(const ceammc::PdArgs& args)
-        : FaustExternal(args)
+        : FaustExternal(args, sym(fx_tapiir))
     {
     }
 };

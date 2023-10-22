@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.midi" type="gui">
         <title>ui.midi</title>
         <meta>
@@ -15,12 +15,12 @@
             <since>0.9.2</since>
         </meta>
         <mouse>
-            <event editmode="false" type="right-click">open popup menu with MIDI settings
+            <event type="right-click" editmode="false">open popup menu with MIDI settings
             item</event>
-            <event editmode="false" type="right-click" keys="Shift">open object help</event>
-            <event editmode="false" type="left-click" keys="Alt">open properties dialog</event>
-            <event editmode="true" type="right-click" keys="Shift">open object help</event>
-            <event editmode="true" type="right-click" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="false" keys="Shift">open object help</event>
+            <event type="left-click" editmode="false" keys="Alt">open properties dialog</event>
+            <event type="right-click" editmode="true" keys="Shift">open object help</event>
+            <event type="right-click" editmode="true" keys="Alt">open properties dialog</event>
         </mouse>
         <properties>
             <property name="@hex" type="bool" default="0">if show values in hex</property>
@@ -59,7 +59,7 @@
             slant</property>
         </properties>
         <methods>
-            <!-- common-->
+            <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>

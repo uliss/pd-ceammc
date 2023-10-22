@@ -89,7 +89,7 @@ void SystemExec::onList(const AtomListView& lv)
 
 #ifndef __WIN32__
     if (!process_->setPriority(pri))
-        OBJ_ERR << fmt::format("can't set priority {}: {}", pri, process_->error());
+        OBJ_ERR << fmt::format("can't set priority {}: {}", (int)pri, process_->error());
 #endif
 
     should_close_stdin_ = false;

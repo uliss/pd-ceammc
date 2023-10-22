@@ -1,6 +1,5 @@
-#include "ceammc_atomlist.h"
-#include "ceammc_log.h"
 #include "ceammc_object_info.h"
+#include "ceammc_symbols.h"
 
 #include <algorithm>
 #include <cassert>
@@ -145,8 +144,8 @@ void setup_prop_get_tilde()
 
     class_addanything(prop_get_tilde_class, reinterpret_cast<t_method>(prop_get_anything));
 
-    class_addmethod(prop_get_tilde_class, reinterpret_cast<t_method>(prop_setup_dsp), gensym("dsp"), A_CANT, A_NULL);
-    class_addmethod(prop_get_tilde_class, reinterpret_cast<t_method>(prop_get_dump), gensym("dump"), A_NULL);
+    class_addmethod(prop_get_tilde_class, reinterpret_cast<t_method>(prop_setup_dsp), sym::methods::sym_dsp(), A_CANT, A_NULL);
+    class_addmethod(prop_get_tilde_class, reinterpret_cast<t_method>(prop_get_dump), sym::methods::sym_dump(), A_NULL);
 
     class_domainsignalin(prop_get_tilde_class, offsetof(t_prop_tilde, f));
     class_sethelpsymbol(prop_get_tilde_class, gensym("prop.get~"));

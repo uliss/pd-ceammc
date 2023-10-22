@@ -14,6 +14,9 @@
 #include "flow_group.h"
 #include "ceammc_factory.h"
 
+constexpr int MIN_GROUP = 1;
+constexpr int DEF_GROUP = 1;
+
 FlowGroup::FlowGroup(const PdArgs& a)
     : BaseObject(a)
     , group_size_(nullptr)
@@ -21,7 +24,8 @@ FlowGroup::FlowGroup(const PdArgs& a)
     createInlet();
     createOutlet();
 
-    group_size_ = new IntProperty("@by", 1);
+    group_size_ = new IntProperty("@by", DEF_GROUP);
+    group_size_->checkMinEq(MIN_GROUP);
     group_size_->setArgIndex(0);
     addProperty(group_size_);
 
@@ -103,4 +107,8 @@ void setup_flow_group()
                        "clear:  clear without output",
                          "int: set output group size" },
         { "list: groupped input flow" });
+
+    obj.setDescription("group input atoms in list of specified size");
+    obj.setCategory("flow");
+    obj.setKeywords({ "flow", "group" });
 }

@@ -25,6 +25,7 @@ HoaProcess::HoaProcess(const PdArgs& args)
     , num_(nullptr)
     , args_(nullptr)
     , clock_(this, &HoaProcess::clockTick)
+    , mode_3d_(std::strchr(args.creationName->s_name, '3'))
 {
     args_ = new ListProperty("@args");
     args_->setInitOnly();
@@ -50,40 +51,38 @@ HoaProcess::HoaProcess(const PdArgs& args)
 
 void HoaProcess::initDone()
 {
-    try {
-        if (patch_->value() == &s_)
-            throw std::invalid_argument("@patch property required");
+#define LOG_ERR(msg)         \
+    do {                     \
+        if (!args().empty()) \
+            OBJ_ERR << msg;  \
+        else                 \
+            OBJ_LOG << msg;  \
+        return;              \
+    } while (0)
 
-        if (num_->value() < 1) {
-            if (domain_->value() == gensym(HOA_STR_HARMONICS))
-                throw std::invalid_argument("order required");
-            else
-                throw std::invalid_argument("number of planewaves required");
-        }
+    if (patch_->value() == &s_)
+        LOG_ERR("@patch property required");
 
-        if (domain_->value() == gensym(HOA_STR_HARMONICS)) {
-            if (!loadHarmonics(patch_->value(), args_->value().view())) {
-                throw std::runtime_error(fmt::format("can't load the patch {0}.pd", patch_->value()->s_name));
-            }
-        } else {
-            if (!loadPlaneWaves(patch_->value(), args_->value().view())) {
-                throw std::runtime_error(fmt::format("can't load the patch {0}.pd", patch_->value()->s_name));
-            }
-        }
-
-        allocSignals();
-        allocInlets();
-        allocOutlets();
-    } catch (std::exception& e) {
-        if (!args().empty())
-            OBJ_ERR << e.what();
+    if (num_->value() < 1) {
+        if (domain_->value() == gensym(HOA_STR_HARMONICS))
+            LOG_ERR("order required");
         else
-            OBJ_LOG << e.what(); // object without args - used in help
+            LOG_ERR("number of planewaves required");
     }
-    // strange exception handling bug
-#if defined(__APPLE__) && defined(__arm64__)
-    catch(...) { }
-#endif
+
+    if (domain_->value() == gensym(HOA_STR_HARMONICS)) {
+        if (!loadHarmonics(patch_->value(), args_->value().view())) {
+            LOG_ERR(fmt::format("can't load the patch {0}.pd", patch_->value()->s_name));
+        }
+    } else {
+        if (!loadPlaneWaves(patch_->value(), args_->value().view())) {
+            LOG_ERR(fmt::format("can't load the patch {0}.pd", patch_->value()->s_name));
+        }
+    }
+
+    allocSignals();
+    allocInlets();
+    allocOutlets();
 
     // call loadbang in 5 ticks
     clock_.delay(5);
@@ -413,12 +412,12 @@ void HoaProcess::sendAnyToSpread(size_t from, size_t inlet_idx, t_symbol* s, con
 
 bool HoaProcess::loadHarmonics(t_symbol* name, const AtomListView& patch_args)
 {
-    const size_t NINSTANCE = calcNumHarm2d(num_->value());
+    const size_t NINSTANCE = mode_3d_ ? calcNumHarm3d(num_->value()) : calcNumHarm2d(num_->value());
 
     instances_.assign(NINSTANCE, ProcessInstance());
 
     AtomList load_args;
-    load_args.append(Atom(gensym(HOA_STR_2D)));
+    load_args.append(Atom(gensym(mode_3d_ ? HOA_STR_3D : HOA_STR_2D)));
     load_args.append(Atom(gensym(HOA_STR_HARMONICS)));
     load_args.append(Atom(num_->value())); // decomposition order
     load_args.append(Atom()); // harmonic index (0, 1, 1, 2, 2..)
@@ -426,8 +425,8 @@ bool HoaProcess::loadHarmonics(t_symbol* name, const AtomListView& patch_args)
     load_args.append(patch_args);
 
     for (size_t i = 0; i < NINSTANCE; i++) {
-        load_args[3].setFloat(calcHarmDegree2d(i), true);
-        load_args[4].setFloat(calcAzimuthalOrder2d(i), true);
+        load_args[3].setFloat(mode_3d_ ? calcHarmDegree3d(i) : calcHarmDegree2d(i), true);
+        load_args[4].setFloat(mode_3d_ ? calcAzimuthalOrder3d(i) : calcAzimuthalOrder2d(i), true);
 
         if (!instances_[i].init(name, load_args)) {
             instances_.clear();
@@ -444,7 +443,7 @@ bool HoaProcess::loadPlaneWaves(t_symbol* name, const AtomListView& patch_args)
     instances_.assign(NINSTANCE, ProcessInstance());
 
     AtomList load_args;
-    load_args.append(Atom(gensym(HOA_STR_2D)));
+    load_args.append(Atom(gensym(mode_3d_ ? HOA_STR_3D : HOA_STR_2D)));
     load_args.append(Atom(gensym(HOA_STR_PLANEWAVES)));
     load_args.append(Atom(NINSTANCE)); // number of channels
     load_args.append(Atom()); // channel index
@@ -547,17 +546,12 @@ void HoaProcess::onClick(t_floatarg xpos, t_floatarg ypos, t_floatarg shift, t_f
 
 void HoaProcess::m_open(t_symbol* m, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_FLOAT, m))
-        return;
+    auto idx = lv.intAt(0, -1);
 
-    t_float v = lv.floatAt(0, 0);
-    size_t idx = 0;
-
-    if (v < 0) { // open all
+    if (idx < 0) { // open all
         for (auto& in : instances_)
             in.show();
     } else {
-        idx = v;
         if (idx >= instances_.size()) {
             METHOD_ERR(m) << "invalid index: " << idx << ", should be < " << instances_.size();
             return;
@@ -569,7 +563,7 @@ void HoaProcess::m_open(t_symbol* m, const AtomListView& lv)
 
 void HoaProcess::m_dsp_on(t_symbol* m, const AtomListView& lv)
 {
-    static t_symbol* SYM_ALL = gensym("all");
+    auto SYM_ALL = gensym("all");
     auto usage = [this, m]() {
         METHOD_DBG(m) << "usage: \n"
                          "\t all 1|0 - to switch on/off all instances or\n"
@@ -604,6 +598,8 @@ void HoaProcess::m_dsp_on(t_symbol* m, const AtomListView& lv)
 void setup_spat_hoa_process()
 {
     SoundExternalFactory<HoaProcess> obj("hoa.process~");
+    obj.addAlias("hoa.2d.process~");
+    obj.addAlias("hoa.3d.process~");
     obj.useClick();
     obj.addMethod("open", &HoaProcess::m_open);
     obj.addMethod("on", &HoaProcess::m_dsp_on);

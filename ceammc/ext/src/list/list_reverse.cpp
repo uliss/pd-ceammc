@@ -32,4 +32,8 @@ void setup_list_reverse()
 {
     ObjectFactory<ListReverse> obj("list.reverse");
     obj.processData<DataTypeMList>();
+
+    obj.setDescription("reverses the order of the elements in the list");
+    obj.setCategory("list");
+    obj.setKeywords({"list", "reverse"});
 }

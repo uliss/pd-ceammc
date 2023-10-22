@@ -20,9 +20,13 @@
 
 MetroRandom::MetroRandom(const PdArgs& args)
     : BaseObject(args)
-    , clock_(this, &MetroRandom::tick)
+    , clock_([this]() {
+        bangTo(0);
+        clock_.delay(gen());
+    })
     , min_(nullptr)
     , max_(nullptr)
+    , seed_(nullptr)
 {
     min_ = new IntProperty("@min", 100);
     min_->setArgIndex(0);
@@ -36,46 +40,48 @@ MetroRandom::MetroRandom(const PdArgs& args)
     max_->setUnitsMs();
     addProperty(max_);
 
-    createInlet();
+    seed_ = new random::SeedProperty(gen_);
+    addProperty(seed_);
+
+    createInlet(); // set min or min/max
+    createInlet(); // set max
     createOutlet();
 }
 
 void MetroRandom::onFloat(t_float f)
 {
     if (f > 0)
-        tick();
+        clock_.exec();
     else
         clock_.unset();
 }
 
 void MetroRandom::onInlet(size_t n, const AtomListView& lst)
 {
-    if (lst.isFloat())
-        min_->setValue(lst[0].asFloat());
-    else if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
-        min_->setValue(lst[0].asFloat());
-        max_->setValue(lst[1].asFloat());
-    } else {
-        OBJ_ERR << "MIN MAX interval range expected: " << lst;
+    switch (n) {
+    case 1:
+        if (lst.isFloat())
+            min_->setValue(lst[0].asFloat());
+        else if (lst.size() == 2 && lst[0].isFloat() && lst[1].isFloat()) {
+            min_->setValue(lst[0].asFloat());
+            max_->setValue(lst[1].asFloat());
+        } else {
+            OBJ_ERR << "MIN MAX interval range expected: " << lst;
+        }
+        break;
+    case 2:
+        max_->set(lst);
+        break;
     }
 }
 
-void MetroRandom::tick()
+double MetroRandom::gen()
 {
-    clock_.delay(gen());
-    bangTo(0);
-}
-
-double MetroRandom::gen() const
-{
-    static std::mt19937 rnd_gen(time(0));
-
     int a = min_->value();
     int b = max_->value();
 
     auto minmax = std::minmax(a, b);
-    std::uniform_int_distribution<> uid(minmax.first, minmax.second);
-    return uid(rnd_gen);
+    return gen_.gen_uniform_int(minmax.first, minmax.second);
 }
 
 void setup_metro_random()
@@ -88,7 +94,10 @@ void setup_metro_random()
     obj.setCategory("base");
     obj.setSinceVersion(0, 9);
 
-    obj.setXletsInfo({ "float: 1 - start metronome, 0 - stop", "float: f - set @min range\n"
-                                                               "list:  min max - set \\[@min @max\\] range" },
+    obj.setXletsInfo(
+        { "float: 1 - start metronome, 0 - stop",
+            "float: MIN\n"
+            "list:  MIN MAX",
+            "float: MAX" },
         { "bang" });
 }

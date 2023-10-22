@@ -58,24 +58,24 @@ void UIColorPanel::init(t_symbol* name, const AtomListView& args, bool usePreset
 
 void UIColorPanel::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 49);
-    newrect->height = pd_clip_min(newrect->height, 10.);
+    newrect->w = pd_clip_min(newrect->w, 49);
+    newrect->h = pd_clip_min(newrect->h, 10.);
 
-    float ratio = (newrect->width - 1) / matrix_x_;
+    float ratio = (newrect->w - 1) / matrix_x_;
 
     if (ratio - (int)ratio != 0) {
         ratio = roundf(ratio);
-        newrect->width = ratio * matrix_x_ + 1;
+        newrect->w = ratio * matrix_x_ + 1;
     }
 
-    ratio = (newrect->height - 1) / matrix_y_;
+    ratio = (newrect->h - 1) / matrix_y_;
     if (ratio - (int)ratio != 0) {
         ratio = roundf(ratio);
-        newrect->height = ratio * matrix_y_ + 1;
+        newrect->h = ratio * matrix_y_ + 1;
     }
 
-    newrect->width = pd_clip_min(newrect->width, 49);
-    newrect->height = pd_clip_min(newrect->height, 10);
+    newrect->w = pd_clip_min(newrect->w, 49);
+    newrect->h = pd_clip_min(newrect->h, 10);
 }
 
 void UIColorPanel::onPropChange(t_symbol* prop_name)
@@ -98,8 +98,8 @@ void UIColorPanel::drawBackground()
     if (!p)
         return;
 
-    int block_width = r.width / matrix_x_;
-    int block_height = r.height / matrix_y_;
+    int block_width = r.w / matrix_x_;
+    int block_height = r.h / matrix_y_;
 
     for (int incx = 0, i = 0; i < matrix_x_; i++, incx += block_width) {
         for (int incY = 0, j = 0; j < matrix_y_; j++, incY += block_height) {
@@ -121,8 +121,8 @@ void UIColorPanel::drawHover()
         return;
 
     if (hover_x_ >= 0 && hover_y_ >= 0) {
-        int cell_w = r.width / matrix_x_;
-        int cell_h = r.height / matrix_y_;
+        int cell_w = r.w / matrix_x_;
+        int cell_h = r.h / matrix_y_;
 
         p.setColor(colors_[hover_x_][hover_y_]);
         p.drawRect(hover_x_ * cell_w - 3, hover_y_ * cell_h - 3, cell_w + 6, cell_h + 6);
@@ -141,8 +141,8 @@ void UIColorPanel::drawPicked()
         return;
 
     if (picked_x_ >= 0 && picked_y_ >= 0) {
-        int cell_w = r.width / matrix_x_;
-        int cell_h = r.height / matrix_y_;
+        int cell_w = r.w / matrix_x_;
+        int cell_h = r.h / matrix_y_;
         int rw = std::max<int>(cell_w - 2, 1);
         int rh = std::max<int>(cell_h - 2, 1);
 
@@ -160,8 +160,8 @@ void UIColorPanel::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_p
     hover_x_ = -1;
     hover_y_ = -1;
 
-    picked_x_ = clip<int>(pt.x / (r.width / matrix_x_), 0, matrix_x_ - 1);
-    picked_y_ = clip<int>(pt.y / (r.height / matrix_y_), 0, matrix_y_ - 1);
+    picked_x_ = clip<int>(pt.x / (r.w / matrix_x_), 0, matrix_x_ - 1);
+    picked_y_ = clip<int>(pt.y / (r.h / matrix_y_), 0, matrix_y_ - 1);
 
     hover_layer_.invalidate();
     picked_layer_.invalidate();
@@ -181,8 +181,8 @@ void UIColorPanel::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
 void UIColorPanel::onMouseMove(t_object* view, const t_pt& pt, long modifiers)
 {
     const auto r = rect();
-    hover_x_ = clip<int>(pt.x / (r.width / matrix_x_), 0, matrix_x_ - 1);
-    hover_y_ = clip<int>(pt.y / (r.height / matrix_y_), 0, matrix_y_ - 1);
+    hover_x_ = clip<int>(pt.x / (r.w / matrix_x_), 0, matrix_x_ - 1);
+    hover_y_ = clip<int>(pt.y / (r.h / matrix_y_), 0, matrix_y_ - 1);
     hover_layer_.invalidate();
     redraw();
 }
@@ -211,7 +211,7 @@ void UIColorPanel::propSetMatrixSize(const AtomListView& lv)
     colors_.assign(matrix_x_, RgbCol(matrix_y_, t_rgba()));
 
     auto r = rect();
-    resize(r.width, r.height);
+    resize(r.w, r.h);
     computeColors();
 }
 

@@ -47,6 +47,9 @@ public:
     AtomList(AtomList&& l) noexcept;
     AtomList(const Atom& a);
     AtomList(size_t n, t_atom* lst);
+    explicit AtomList(const t_binbuf* b);
+    // prevent call of template constructor on non const pointers
+    explicit AtomList(t_binbuf* b);
     AtomList(const AtomListView& v);
     explicit AtomList(int n, t_atom* lst);
     AtomList(std::initializer_list<t_float> l);
@@ -148,6 +151,14 @@ public:
     const Atom* foldAt(int pos) const;
 
     /**
+     * Returns atom value at specified position or default if not found
+     * @param pos - position
+     * @param def - default value if not found
+     * @return atom value
+     */
+    const Atom& atomAt(size_t pos, const Atom& def) const { return pos >= size() ? def : at(pos); }
+
+    /**
      * Try to get int from specified list position. If no int - return default value
      */
     bool boolAt(size_t pos, bool def) const noexcept;
@@ -173,7 +184,7 @@ public:
      * @param n - new size
      * @param v - pad value
      */
-    void resizePad(size_t n, const Atom& v);
+    AtomList& resizePad(size_t n, const Atom& v);
 
     /**
      * Resize list. If new size is less than current, last values are dropped.
@@ -182,7 +193,7 @@ public:
      * @param v - pad value
      * @note do nothing on empty list
      */
-    void resizeClip(size_t n);
+    AtomList& resizeClip(size_t n);
 
     /**
      * Resize list. If new size is less than current, last values are dropped.
@@ -191,7 +202,7 @@ public:
      * @param v - pad value
      * @note do nothing on empty list
      */
-    void resizeWrap(size_t n);
+    AtomList& resizeWrap(size_t n);
 
     /**
      * Resize list. If new size is less than current, last values are dropped.
@@ -200,7 +211,7 @@ public:
      * @param v - pad value
      * @note do nothing on empty list
      */
-    void resizeFold(size_t n);
+    AtomList& resizeFold(size_t n);
 
     /**
      * Get property value from list
@@ -307,6 +318,18 @@ public:
     bool isAtom() const noexcept { return atoms_.size() == 1; }
     bool isList() const noexcept { return atoms_.size() > 1; }
     bool isData() const noexcept { return atoms_.size() == 1 && atoms_.front().isData(); }
+
+    bool isMsgBang() const noexcept { return atoms_.size() == 1 && atoms_[0] == &s_bang; }
+    bool isMsgFloat() const noexcept { return atoms_.size() == 2 && atoms_[0] == &s_float && atoms_[1].isFloat(); }
+    bool isMsgSymbol() const noexcept { return atoms_.size() == 2 && atoms_[0] == &s_symbol && atoms_[1].isSymbol(); }
+    bool isMsgList() const noexcept { return atoms_.size() > 0 && atoms_[0] == &s_list; }
+    bool isMsgAny() const noexcept;
+
+    bool isLogicList() const noexcept { return isMsgList() || (atoms_.size() > 1 && atoms_[0].isFloat()); }
+
+    t_float asMsgFloat(t_float def = 0) const noexcept;
+    t_symbol* asMsgSymbol(t_symbol* def = &s_) const noexcept;
+    AtomListView asLogicList() const noexcept;
 
     /**
      * Check if list is of specified type
@@ -480,6 +503,21 @@ public:
      * Return list view from specified position till and specified length
      */
     AtomListView view(size_t from, size_t length) const;
+
+    /**
+     * expand dollar arguments via canvas pointer
+     * @param cnv - pointer to canvas
+     * @param def - default value in case of wrong dollar index
+     */
+    AtomList& expandDollarArgs(const t_canvas* cnv, const Atom& def = Atom(0.));
+
+    /**
+     * Convert symbols to Atom primitives:
+     * @example ";" goes to a Atom::SEMICOLON, "," to Atom::COMMA, "$.." to
+     *    Atom::DOLLAR or Atom::DOLLAR_SYMBOL
+     * @return
+     */
+    AtomList restorePrimitives() const;
 
 public:
     static AtomList zeroes(size_t n);

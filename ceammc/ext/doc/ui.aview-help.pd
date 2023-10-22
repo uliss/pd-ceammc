@@ -54,16 +54,16 @@
 #X text 245 916 Get/Set array name. Type: symbol.;
 #X msg 110 945 @cursor_ms;
 #X text 245 945 Get/Set cursor position in milliseconds. Type: float.
-Units: ms. Default value: 0\.;
+Units: 'ms'. Default value: 0\.;
 #X msg 110 987 @cursor_phase;
 #X text 245 987 Get/Set cursor position in 0-1 range. Type: float.
 Default value: 0\. Range: 0\...1\.;
 #X msg 110 1029 @cursor_samp;
 #X text 245 1029 Get/Set cursor position in samples. Type: int. Units:
-samp. Default value: 0\.;
+'samp'. Default value: 0\.;
 #X msg 110 1071 @cursor_sec;
 #X text 245 1071 Get/Set cursor position in seconds. Type: float. Units:
-sec. Default value: 0\.;
+'sec'. Default value: 0\.;
 #X msg 110 1113 @mouse_events;
 #X text 245 1113 Get/Set mouse events output mode. If on outputs @mouse_down
 \, @mouse_up and @mouse_drag events. Type: bool. Default value: 1\.;
@@ -72,74 +72,74 @@ sec. Default value: 0\.;
 (null).;
 #X msg 110 1199 @select_ms;
 #X text 245 1199 Get/Set selection range in milliseconds \, pair of
-values: begin \, end. Type: list. Units: ms.;
+values: begin \, end. Type: list. Units: 'ms'.;
 #X msg 110 1241 @select_phase;
 #X text 245 1241 Get/Set selection range noramlized to 0-1 range \,
 pair of values: begin \, end. Type: list.;
 #X msg 110 1283 @select_samp;
 #X text 245 1283 Get/Set selection range in samples \, pair of values:
-begin \, end. Type: list. Units: samp.;
+begin \, end. Type: list. Units: 'samp'.;
 #X msg 110 1325 @select_sec;
 #X text 245 1325 Get/Set selection range in seconds \, pair of values:
-begin \, end. Type: list. Units: sec.;
+begin \, end. Type: list. Units: 'sec'.;
 #X msg 110 1367 @send;
 #X text 245 1367 Get/Set send destination. Type: symbol. Default value:
 (null).;
 #X msg 110 1409 @show_rms;
 #X text 245 1409 Get/Set show RMS graph. Type: bool. Default value:
 0\.;
-#X msg 110 1438 @size_ms;
-#X text 245 1438 (readonly) Get array size in milliseconds. Type: float.
-Units: ms. Default value: 0\. Min value: 0\.;
-#X msg 110 1480 @size_samp;
-#X text 245 1480 (readonly) Get array size in samples. Type: int. Units:
-samp. Default value: 0\. Min value: 0\.;
-#X msg 110 1522 @size_sec;
-#X text 245 1522 (readonly) Get array size in seconds. Type: float.
-Units: sec. Default value: 0\. Min value: 0\.;
-#X msg 110 1564 @background_color;
-#X text 245 1564 Get/Set element background color (list of red \, green
+#X msg 110 1438 @background_color;
+#X text 245 1438 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
 0.93 1\.;
-#X msg 110 1621 @border_color;
-#X text 245 1621 Get/Set border color (list of red \, green \, blue
+#X msg 110 1495 @border_color;
+#X text 245 1495 Get/Set border color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 1663 @cursor_color;
-#X text 245 1663 Get/Set cursor color (list of red \, green \, blue
+#X msg 110 1537 @cursor_color;
+#X text 245 1537 Get/Set cursor color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 1705 @selection_color;
-#X text 245 1705 Get/Set selection color (list of red \, green \, blue
+#X msg 110 1579 @selection_color;
+#X text 245 1579 Get/Set selection color (list of red \, green \, blue
 values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 1747 @wave_color;
-#X text 245 1747 Get/Set wave color (list of red \, green \, blue values
+#X msg 110 1621 @wave_color;
+#X text 245 1621 Get/Set wave color (list of red \, green \, blue values
 in 0-1 range). Type: list. Default value: 0.3 0.3 0.3 1\.;
-#X msg 110 1789 @label_bottom;
-#X text 245 1789 Get/Set bottom right label if @show_labels is on.
+#X msg 110 1663 @label_bottom;
+#X text 245 1663 Get/Set bottom right label if @show_labels is on.
 Type: symbol.;
-#X msg 110 1831 @label_top;
-#X text 245 1831 Get/Set top right label if @show_labels is on. Type:
+#X msg 110 1705 @label_top;
+#X text 245 1705 Get/Set top right label if @show_labels is on. Type:
 symbol.;
-#X msg 110 1860 @show_labels;
-#X text 245 1860 Get/Set if show corner labels. Type: bool. Default
+#X msg 110 1734 @show_labels;
+#X text 245 1734 Get/Set if show corner labels. Type: bool. Default
 value: 0\.;
-#X msg 110 1889 @fontname;
-#X text 245 1889 Get/Set fontname. Type: symbol. Default value: Helvetica.
+#X msg 110 1763 @fontname;
+#X text 245 1763 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 1931 @fontsize;
-#X text 245 1931 Get/Set fontsize. Type: int. Default value: 11\. Range:
+#X msg 110 1805 @fontsize;
+#X text 245 1805 Get/Set fontsize. Type: int. Default value: 11\. Range:
 4\...100\.;
-#X msg 110 1973 @fontslant;
-#X text 245 1973 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1847 @fontslant;
+#X text 245 1847 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 2015 @fontweight;
-#X text 245 2015 Get/Set font weight. Type: symbol. Default value:
+#X msg 110 1889 @fontweight;
+#X text 245 1889 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 2057 @pinned;
-#X text 245 2057 Get/Set pin mode. if 1 - put element to the lowest
+#X msg 110 1931 @pinned;
+#X text 245 1931 Get/Set pin mode. if 1 - put element to the lowest
 level. Type: bool. Default value: 0\.;
-#X msg 110 2099 @size;
-#X text 245 2099 Get/Set element size (width \, height pair). Type:
+#X msg 110 1973 @size;
+#X text 245 1973 Get/Set element size (width \, height pair). Type:
 list. Default value: 300 100\.;
+#X msg 110 2015 @size_ms?;
+#X text 245 2015 (readonly) Get array size in milliseconds. Type: float.
+Units: 'ms'. Default value: 0\. Min value: 0\.;
+#X msg 110 2057 @size_samp?;
+#X text 245 2057 (readonly) Get array size in samples. Type: int. Units:
+'samp'. Default value: 0\. Min value: 0\.;
+#X msg 110 2099 @size_sec?;
+#X text 245 2099 (readonly) Get array size in seconds. Type: float.
+Units: 'sec'. Default value: 0\. Min value: 0\.;
 #X obj 20 2151 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2156 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -180,13 +180,13 @@ list. Default value: 300 100\.;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
 #X obj 1 2554 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2557 library: ceammc v0.9.6;
+#X text 10 2557 library: ceammc v0.9.7;
 #N canvas 10 2576 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.6;
+#X text 120 32 0.9.7;
 #X text 10 54 object:;
 #X text 120 54 ui.aview;
 #X text 10 76 category:;
@@ -200,8 +200,8 @@ list. Default value: 300 100\.;
 #X text 10 164 keywords:;
 #X text 120 164 ui \, array \, view;
 #X text 10 186 website:;
-#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
-https://github.com/uliss/pure-data;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;

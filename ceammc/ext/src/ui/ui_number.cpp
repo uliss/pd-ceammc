@@ -13,7 +13,6 @@
  *****************************************************************************/
 #include "ui_number.h"
 #include "ceammc_convert.h"
-#include "ceammc_format.h"
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 
@@ -22,11 +21,13 @@
 #include <sstream>
 
 #ifdef __WIN32
-static int font_size_corr(float h) {
+static int font_size_corr(float h)
+{
     return std::floor(0.6 * h);
 }
 #else
-static int font_size_corr(float h) {
+static int font_size_corr(float h)
+{
     return 0.875 * h;
 }
 #endif
@@ -59,12 +60,12 @@ UINumber::UINumber()
 
 void UINumber::okSize(t_rect* newrect)
 {
-    float border_min = std::min<float>(newrect->width, newrect->height);
+    float border_min = std::min<float>(newrect->w, newrect->h);
     border_min = std::max<float>(10, border_min);
-    newrect->height = border_min;
-    newrect->width = pd_clip_min(newrect->width, sys_fontwidth(font_.size()) * 3 + 8);
+    newrect->h = border_min;
+    newrect->w = pd_clip_min(newrect->w, sys_fontwidth(font_.size()) * 3 + 8);
 
-    auto new_val_font_size = font_size_corr(newrect->height);
+    auto new_val_font_size = font_size_corr(newrect->h);
     font_.setSize(new_val_font_size);
 }
 
@@ -89,12 +90,12 @@ void UINumber::drawBackground()
     if (!p)
         return;
 
-    const float width = r.height * 0.4f;
+    const float width = r.h * 0.4f;
     p.setLineWidth(1);
     p.setColor(prop_color_border);
     p.moveTo(0, 0);
-    p.drawLineTo(width, r.height * 0.5f);
-    p.drawLineTo(0, r.height);
+    p.drawLineTo(width, r.h * 0.5f);
+    p.drawLineTo(0, r.h);
     p.stroke();
 }
 
@@ -106,7 +107,7 @@ void UINumber::drawValue()
     if (!p)
         return;
 
-    const float y_off = r.height * 0.5;
+    const float y_off = r.h * 0.5;
     const float x_off = std::max<float>(y_off, 5) + 2;
 
     switch (edit_mode_) {
@@ -156,6 +157,9 @@ void UINumber::setValue(t_float f)
 
 void UINumber::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 {
+    if (prop_display_only)
+        return;
+
     switch (edit_mode_) {
     case MODE_DISPLAY:
         edit_mode_ = MODE_WAIT_INPUT;
@@ -174,6 +178,9 @@ void UINumber::onDblClick(t_object* view, const t_pt& pt, long modifiers)
 
 void UINumber::onKey(int k, long modifiers)
 {
+    if (prop_display_only)
+        return;
+
     constexpr int KEY_UP = 0xFF52;
     constexpr int KEY_DOWN = 0xFF54;
 
@@ -209,6 +216,9 @@ void UINumber::onKey(int k, long modifiers)
 
 void UINumber::onKeyFilter(int k, long modifiers)
 {
+    if (prop_display_only)
+        return;
+
     if (edit_mode_ == MODE_DISPLAY)
         return;
 
@@ -236,12 +246,18 @@ void UINumber::onKeyFilter(int k, long modifiers)
 
 void UINumber::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, long modifiers)
 {
+    if (prop_display_only)
+        return;
+
     drag_start_ypos_ = pt.y;
     drag_start_value_ = value_;
 }
 
 void UINumber::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 {
+    if (prop_display_only)
+        return;
+
     constexpr t_float SMALL_INCR = 0.01;
     constexpr t_float BIG_INCR = 10;
 
@@ -259,6 +275,9 @@ void UINumber::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
 
 void UINumber::onMouseLeave(t_object* view, const t_pt& pt, long modifiers)
 {
+    if (prop_display_only)
+        return;
+
     edit_mode_ = MODE_DISPLAY;
     redrawValue();
 }
@@ -334,7 +353,9 @@ void UINumber::setup()
     obj.setPropertyMax("digits", 9);
     obj.setPropertyCategory("digits", _("Main"));
 
-    obj.addProperty(PROP_ACTIVE_COLOR, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UINumber::prop_color_active);
+    obj.addBoolProperty("display_only", _("Display only"), false, &UINumber::prop_display_only, _("Main"));
+
+    obj.addProperty(sym::props::name_active_color, _("Active Color"), DEFAULT_ACTIVE_COLOR, &UINumber::prop_color_active);
     obj.addProperty("text_color", _("Text color"), DEFAULT_TEXT_COLOR, &UINumber::prop_color_text);
 
     obj.addProperty("value", &UINumber::value, &UINumber::setValue);

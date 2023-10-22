@@ -5,6 +5,8 @@ void setup_flt_apf2biquad();
 void setup_flt_biquad_tilde();
 void setup_flt_bpf12_tilde();
 void setup_flt_bpf24_tilde();
+void setup_flt_bpf36e_tilde();
+void setup_flt_bpf72e_tilde();
 void setup_flt_c_bpf_tilde();
 void setup_flt_c_highshelf_tilde();
 void setup_flt_c_hpf_tilde();
@@ -38,6 +40,7 @@ void setup_flt_pole2biquad();
 void setup_flt_resonbp_tilde();
 void setup_flt_resonhp_tilde();
 void setup_flt_resonlp_tilde();
+void setup_flt_speaker_tilde();
 
 void ceammc_flt_setup()
 {
@@ -46,6 +49,8 @@ void ceammc_flt_setup()
     setup_flt_biquad_tilde();
     setup_flt_bpf12_tilde();
     setup_flt_bpf24_tilde();
+    setup_flt_bpf36e_tilde();
+    setup_flt_bpf72e_tilde();
     setup_flt_c_bpf_tilde();
     setup_flt_c_highshelf_tilde();
     setup_flt_c_hpf_tilde();
@@ -79,4 +84,5 @@ void ceammc_flt_setup()
     setup_flt_resonbp_tilde();
     setup_flt_resonhp_tilde();
     setup_flt_resonlp_tilde();
+    setup_flt_speaker_tilde();
 }

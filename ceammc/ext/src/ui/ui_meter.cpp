@@ -19,9 +19,11 @@
 constexpr t_float MIN_DB_VALUE = -90;
 constexpr int MIN_UI_DB_VALUE = -50;
 
-static t_symbol* SYM_HMETER;
-static t_symbol* SYM_VMETER;
-static t_symbol* SYM_VMETER2;
+namespace {
+t_symbol* sym_hmeter() { return gensym("ui.hm~"); }
+t_symbol* sym_vmeter() { return gensym("ui.vm~"); }
+t_symbol* sym_vmeter2() { return gensym("ui.m~"); }
+}
 
 UIMeter::UIMeter()
     : clock_(this, &UIMeter::clockTick)
@@ -47,23 +49,23 @@ void UIMeter::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIDspObject::init(name, args, usePresets);
 
-    if (name == SYM_HMETER) {
+    if (name == sym_hmeter()) {
         is_horizontal_ = true;
-        std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
+        std::swap(asEBox()->b_rect.w, asEBox()->b_rect.h);
     }
 }
 
 void UIMeter::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 8.);
-    newrect->height = pd_clip_min(newrect->height, 8.);
+    newrect->w = pd_clip_min(newrect->w, 8.);
+    newrect->h = pd_clip_min(newrect->h, 8.);
 
-    is_horizontal_ = newrect->width > newrect->height;
+    is_horizontal_ = newrect->w > newrect->h;
 
     if (is_horizontal_)
-        newrect->width = pd_clip_min(newrect->width, 50.);
+        newrect->w = pd_clip_min(newrect->w, 50.);
     else
-        newrect->height = pd_clip_min(newrect->height, 50.);
+        newrect->h = pd_clip_min(newrect->h, 50.);
 }
 
 void UIMeter::paint()
@@ -199,16 +201,12 @@ void UIMeter::output()
 
 void UIMeter::setup()
 {
-    sys_gui(ui_meter_tcl);
-
-    SYM_HMETER = gensym("ui.hm~");
-    SYM_VMETER = gensym("ui.vm~");
-    SYM_VMETER2 = gensym("ui.m~");
+    ui_meter_tcl_output();
 
     UIObjectFactory<UIMeter> obj("ui.meter~", EBOX_GROWINDI);
-    obj.addAlias(SYM_VMETER->s_name);
-    obj.addAlias(SYM_VMETER2->s_name);
-    obj.addAlias(SYM_HMETER->s_name);
+    obj.addAlias(sym_vmeter()->s_name);
+    obj.addAlias(sym_vmeter2()->s_name);
+    obj.addAlias(sym_hmeter()->s_name);
     obj.useAnnotations();
     obj.useMouseEvents(UI_MOUSE_DBL_CLICK);
 

@@ -39,11 +39,9 @@ static ceammc::Atom newStrData(const ceammc::AtomListView& args)
     }
 }
 
-int IntData::dataType = ceammc::DataStorage::instance().registerNewType("IntData", newIntData);
 int IntData::constructor_called = 0;
 int IntData::destructor_called = 0;
 
-int StrData::dataType = ceammc::DataStorage::instance().registerNewType("StrData", newStrData);
 int StrData::constructor_called = 0;
 int StrData::destructor_called = 0;
 
@@ -108,7 +106,7 @@ std::string IntData::toJsonString() const
     return toListStringContent();
 }
 
-ceammc::DataTypeId IntData::type() const noexcept { return dataType; }
+ceammc::DataTypeId IntData::type() const noexcept { return staticType(); }
 
 IntData* IntData::clone() const { return new IntData(v_); }
 
@@ -129,6 +127,12 @@ public:
 void IntData::init()
 {
     ceammc::ObjectFactory<TestInt> obj("test.int");
+}
+
+ceammc::DataTypeId IntData::staticType()
+{
+    static ceammc::DataTypeId id = ceammc::DataStorage::instance().registerNewType("IntData", newIntData);
+    return id;
 }
 
 bool IntData::operator==(const IntData& d) const noexcept
@@ -160,7 +164,7 @@ bool StrData::isEqual(const ceammc::AbstractData* d) const noexcept
     return v_ == dt->v_;
 }
 
-ceammc::DataTypeId StrData::type() const noexcept { return dataType; }
+ceammc::DataTypeId StrData::type() const noexcept { return staticType(); }
 
 StrData* StrData::clone() const { return new StrData(v_); }
 
@@ -177,6 +181,12 @@ bool StrData::set(const AbstractData* d) noexcept
 bool StrData::operator==(const StrData& d) const noexcept
 {
     return v_ == d.v_;
+}
+
+ceammc::DataTypeId StrData::staticType()
+{
+    static auto id = ceammc::DataStorage::instance().registerNewType("StrData", newStrData);
+    return id;
 }
 
 std::ostream& operator<<(std::ostream& os, const IntData& d)

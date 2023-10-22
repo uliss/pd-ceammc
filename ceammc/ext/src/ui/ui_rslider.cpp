@@ -49,19 +49,19 @@ void UIRSlider::onPropChange(t_symbol* prop_name)
 
 void UIRSlider::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 16);
-    newrect->height = pd_clip_min(newrect->height, 16);
+    newrect->w = pd_clip_min(newrect->w, 16);
+    newrect->h = pd_clip_min(newrect->h, 16);
 
-    is_horizontal_ = (newrect->width > newrect->height);
+    is_horizontal_ = (newrect->w > newrect->h);
 
     if (is_horizontal_) {
-        newrect->width = pd_clip_min(newrect->width, 50);
-        if ((int)newrect->height % 2 == 1)
-            newrect->height++;
+        newrect->w = pd_clip_min(newrect->w, 50);
+        if ((int)newrect->h % 2 == 1)
+            newrect->h++;
     } else {
-        newrect->height = pd_clip_min(newrect->height, 50);
-        if ((int)newrect->width % 2 == 1)
-            newrect->width++;
+        newrect->h = pd_clip_min(newrect->h, 50);
+        if ((int)newrect->w % 2 == 1)
+            newrect->w++;
     }
 }
 
@@ -82,9 +82,9 @@ void UIRSlider::drawBackground()
     p.setLineWidth(2);
 
     if (is_horizontal_)
-        p.drawLine(0, r.height * 0.5, r.width, r.height * 0.5);
+        p.drawLine(0, r.h * 0.5, r.w, r.h * 0.5);
     else
-        p.drawLine(r.width * 0.5, 0, r.width * 0.5, r.height);
+        p.drawLine(r.w * 0.5, 0, r.w * 0.5, r.h);
 }
 
 void UIRSlider::drawKnob()
@@ -106,30 +106,30 @@ void UIRSlider::drawKnob()
     p.setLineWidth(2);
 
     if (is_horizontal_) {
-        float x0 = value_low * r.width;
-        float x1 = value_high * r.width;
+        float x0 = value_low * r.w;
+        float x1 = value_high * r.w;
 
         p.setColor(rect_color);
-        p.drawRect(x0, 0, x1 - x0, r.height);
+        p.drawRect(x0, 0, x1 - x0, r.h);
         p.fill();
 
         p.setColor(line_color);
-        p.drawLine(x0, r.height * 0.5, x1, r.height * 0.5);
+        p.drawLine(x0, r.h * 0.5, x1, r.h * 0.5);
 
         p.setColor(prop_color_knob);
-        p.drawLine(x0, 0, x0, r.height);
-        p.drawLine(x1, 0, x1, r.height);
+        p.drawLine(x0, 0, x0, r.h);
+        p.drawLine(x1, 0, x1, r.h);
     } else {
         p.setColor(rect_color);
-        p.drawRect(0, value_low * r.height, r.width, value_high * r.height - value_low * r.height);
+        p.drawRect(0, value_low * r.h, r.w, value_high * r.h - value_low * r.h);
         p.fill();
 
         p.setColor(line_color);
-        p.drawLine(r.width * 0.5, value_low * r.height, r.width * 0.5, value_high * r.height);
+        p.drawLine(r.w * 0.5, value_low * r.h, r.w * 0.5, value_high * r.h);
 
         p.setColor(prop_color_knob);
-        p.drawLine(0, value_low * r.height, r.width, value_low * r.height);
-        p.drawLine(0, value_high * r.height, r.width, value_high * r.height);
+        p.drawLine(0, value_low * r.h, r.w, value_low * r.h);
+        p.drawLine(0, value_high * r.h, r.w, value_high * r.h);
     }
 }
 
@@ -175,9 +175,9 @@ void UIRSlider::onMouseDown(t_object* view, const t_pt& pt, const t_pt& abs_pt, 
     float value = 0;
 
     if (is_horizontal_)
-        value = convert::lin2lin_clip<float>(pt.x, 0, r.width, prop_min, prop_max);
+        value = convert::lin2lin_clip<float>(pt.x, 0, r.w, prop_min, prop_max);
     else
-        value = convert::lin2lin_clip<float>(pt.y, 0, r.height, prop_min, prop_max);
+        value = convert::lin2lin_clip<float>(pt.y, 0, r.h, prop_min, prop_max);
 
     edit_mode_ = keyMod2EditMode(modifiers, value);
     switch (edit_mode_) {
@@ -217,9 +217,9 @@ void UIRSlider::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
     float value;
 
     if (is_horizontal_)
-        value = convert::lin2lin_clip<float>(pt.x, 0, r.width, prop_min, prop_max);
+        value = convert::lin2lin_clip<float>(pt.x, 0, r.w, prop_min, prop_max);
     else
-        value = convert::lin2lin_clip<float>(pt.y, 0, r.height, prop_min, prop_max);
+        value = convert::lin2lin_clip<float>(pt.y, 0, r.h, prop_min, prop_max);
 
     switch (edit_mode_) {
     case CREATE: {
@@ -239,7 +239,7 @@ void UIRSlider::onMouseDrag(t_object* view, const t_pt& pt, long modifiers)
     } break;
     case MOVE: {
         const float pix_delta = is_horizontal_ ? (pt.x - click_pt_.x) : (pt.y - click_pt_.y);
-        const float val_delta = (pix_delta / r.width) * (prop_max - prop_min);
+        const float val_delta = (pix_delta / r.w) * (prop_max - prop_min);
 
         const float new_low = vlow_ + val_delta;
         const float new_high = vhigh_ + val_delta;

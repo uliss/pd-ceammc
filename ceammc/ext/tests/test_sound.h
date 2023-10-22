@@ -26,10 +26,8 @@ struct FRandGen {
     t_sample operator()(size_t) const { return t_sample(rand() % (t - f) + f); }
 };
 
-template <size_t IN, size_t OUT>
+template <size_t IN, size_t OUT, size_t BS = 64>
 struct TestSignal {
-    static const size_t BS = 64;
-
     t_sample buf_in[IN][BS];
     t_sample buf_out[OUT][BS];
     const t_sample* in_ptr[IN];
@@ -158,6 +156,15 @@ struct TestSignal {
                     ++it;
             }
         }
+    }
+
+    void fillInputSeq(size_t n, std::initializer_list<float> lst)
+    {
+        if (n >= IN)
+            return;
+
+        for (size_t s = 0; s < BS; s++)
+            buf_in[n][s] = *(lst.begin() + (s % lst.size()));
     }
 
     template <class Gen>

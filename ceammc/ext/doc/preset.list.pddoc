@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="preset.list">
         <title>preset.list</title>
         <meta>
@@ -30,9 +30,10 @@
             <argument name="INIT" type="list">preset initial value</argument>
         </arguments>
         <properties>
-            <property name="@path" type="symbol" access="readonly">property OSC-like path that
-            includes id, abstraction name and may be subpatch name separated by slashes.</property>
-            <property name="@id" type="symbol" access="initonly">preset id</property>
+            <property name="@path" type="symbol" access="readonly" default="">property OSC-like
+            path that includes id, abstraction name and may be subpatch name separated by
+            slashes.</property>
+            <property name="@id" type="symbol" access="initonly" default="">preset id</property>
             <property name="@init" type="list" default="">init list value</property>
             <property name="@global" type="flag" default="0" access="initonly">use global path like
             /ID</property>
@@ -40,9 +41,12 @@
             name to path</property>
         </properties>
         <methods>
-            <method name="load">load preset value by specified index and output it</method>
-            <method name="store">stores preset value at specified index</method>
+            <!-- clear -->
             <method name="clear">clear preset at specified index</method>
+            <!-- load -->
+            <method name="load">load preset value by specified index and output it</method>
+            <!-- store -->
+            <method name="store">stores preset value at specified index</method>
         </methods>
         <inlets>
             <inlet>

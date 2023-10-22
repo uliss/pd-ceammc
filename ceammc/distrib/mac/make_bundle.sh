@@ -14,8 +14,6 @@ WISH_APP="@WISH_APP@"
 TK_VERSION="@TK_VERSION@"
 LIB_LEAPMOTION="@LEAPMOTION_LIBRARY@"
 CEAMMC_LIB_VERSION="@CEAMMC_LIB_VERSION@"
-CEAMMC_RELEASE_PATCH="release_@CEAMMC_LIB_VERSION@.pd"
-CEAMMC_RELEASE_QLIST="release_qlist_@CEAMMC_LIB_VERSION@.txt"
 
 # relative dir names
 PD_APP="$(basename $BUNDLE)"
@@ -28,11 +26,16 @@ PD_BIN=$PD_RESOURCES/bin
 PD_TCL=$PD_RESOURCES/tcl
 PD_PO=$PD_RESOURCES/po
 PD_CEAMMC=$PD_EXTRA/ceammc
+
+PD_FONTS=$PD_CEAMMC/fonts
+PD_IMG=$PD_CEAMMC/img
+PD_IR=$PD_CEAMMC/ir
+PD_LUA=$PD_CEAMMC/lua
+PD_MIDI=$PD_CEAMMC/midi
+PD_MUSIC=$PD_CEAMMC/music
+PD_SAMPLES=$PD_CEAMMC/sound
 PD_SF2=$PD_CEAMMC/sf2
 PD_SFZ=$PD_CEAMMC/sfz
-PD_MIDI=$PD_CEAMMC/midi
-PD_LUA=$PD_CEAMMC/lua
-PD_SAMPLES=$PD_CEAMMC/sound
 
 # absolute dir names
 BUNDLE_APP="${DIST_DIR}/${PD_APP}"
@@ -52,6 +55,10 @@ BUNDLE_LUA="${DIST_DIR}/${PD_LUA}"
 BUNDLE_SAMPLES="${DIST_DIR}/${PD_SAMPLES}"
 BUNDLE_INCLUDE="${DIST_DIR}/${PD_INCLUDE}"
 BUNDLE_COMPLETIONS="${BUNDLE_TCL}/ceammc/custom_completions"
+BUNDLE_FONTS="${DIST_DIR}/${PD_FONTS}"
+BUNDLE_IMAGES="${DIST_DIR}/${PD_IMG}"
+BUNDLE_MUSIC="${DIST_DIR}/${PD_MUSIC}"
+BUNDLE_IR="${DIST_DIR}/${PD_IR}"
 
 # resources paths
 PD_INFO_PLIST="${BUILD_DIR}/dist/Info.plist"
@@ -76,7 +83,7 @@ CEAMMC_EXT_BIN_DIR="${BUILD_DIR}/ceammc/ext/src"
 # find all Pd externals in specified directory
 # usage: external_files DIR
 function external_files() {
-    find "$1" -type f | grep -e 'd_fat' -e 'd_amd64' -e 'd_i386' -e 'pd_darwin' -e '\.pd' -e '\.tcl'
+    find "$1" -type f | grep -e '\.d_fat' -e '\.d_amd64' -e '\.d_i386' -e '\.pd_darwin'
 }
 
 function dylib_external_fix() {
@@ -91,7 +98,7 @@ function dylib_external_fix() {
         --dest-dir "${dir}" \
         --install-path @loader_path/ \
         --overwrite-files \
-        --ignore /usr/local/opt/llvm/lib > /dev/null
+        --ignore /usr/local/opt/llvm/lib &>"${BUILD_DIR}/bundle.log"
 }
 
 function copy()
@@ -150,6 +157,8 @@ rsync -a "${SRC_DIR}/ceammc/extra/tcltk/base64" ${BUNDLE_FRAMEWORKS}
 rsync -a "${SRC_DIR}/ceammc/extra/tcltk/tooltip" ${BUNDLE_FRAMEWORKS}
 # tklib: ctext
 rsync -a "${SRC_DIR}/ceammc/extra/tcltk/ctext" ${BUNDLE_FRAMEWORKS}
+# tklib: tablelist
+rsync -a "${SRC_DIR}/ceammc/extra/tcltk/tablelist" ${BUNDLE_FRAMEWORKS}
 
 #
 # Info.plist
@@ -237,15 +246,11 @@ do
     copy ${tcl} "${BUNDLE_TCL}/ceammc"
 done
 
+section "Copying Tk Completion plugin"
 mkdir -p "${BUNDLE_TCL}/completion-plugin"
-for tcl in ${SRC_DIR}/ceammc/gui/plugins/completion-plugin/*.tcl
+for f in ${SRC_DIR}/ceammc/gui/plugins/completion-plugin/*.@(tcl|cfg|pd)
 do
-    copy ${tcl} "${BUNDLE_TCL}/ceammc"
-done
-
-for cfg in ${SRC_DIR}/ceammc/gui/plugins/completion-plugin/*.cfg
-do
-    copy ${cfg} "${BUNDLE_TCL}/ceammc"
+    copy ${f} "${BUNDLE_TCL}/ceammc"
 done
 
 section "Copying Tk Drag-and-Drop plugin"
@@ -295,7 +300,7 @@ do
 done
 
 section "Copying CEAMMC sf2 soundfonts"
-for sf in $SRC_CEAMMC/ext/doc/sf2/*
+for sf in $SRC_CEAMMC/ext/doc/sf2/*.sf2
 do
     copy ${sf} "${BUNDLE_SF2}"
 done
@@ -314,6 +319,20 @@ do
     copy ${samp} "${BUNDLE_SAMPLES}"
 done
 
+section "Copying CEAMMC fonts"
+mkdir -p "${BUNDLE_FONTS}"
+for ft in $SRC_CEAMMC/distrib/fonts/*.ttf
+do
+    copy ${ft} "${BUNDLE_FONTS}"
+done
+
+section "Copying doc images"
+mkdir -p "${BUNDLE_IMAGES}"
+for img in $SRC_CEAMMC/ext/doc/img/*.@(png|svg|jpg)
+do
+    copy ${img} "${BUNDLE_IMAGES}"
+done
+
 section "Copying CEAMMC lua files"
 mkdir -p "${BUNDLE_LUA}"
 for lua in $SRC_CEAMMC/ext/doc/lua/*.@(lua)
@@ -329,6 +348,21 @@ mkdir -p "${BUNDLE_MIDI}"
 for midi in $SRC_CEAMMC/ext/doc/midi/*.@(mid|midi)
 do
     copy ${midi} "${BUNDLE_MIDI}"
+done
+
+section "Copying CEAMMC music files"
+mkdir -p "${BUNDLE_MUSIC}"
+cp $SRC_CEAMMC/ext/doc/music/*.mxml "${BUNDLE_MUSIC}/"
+
+section "Copying CEAMMC verovio files"
+mkdir -p "${BUNDLE_MUSIC}/verovio"
+cp -R $SRC_CEAMMC/extra/verovio/verovio/data/ "${BUNDLE_MUSIC}/verovio"
+
+section "Copying Impulse Responses"
+mkdir -p "${BUNDLE_IMAGES}"
+for img in $SRC_CEAMMC/ext/doc/ir/*.@(md|wav|txt)
+do
+    copy ${img} "${BUNDLE_IR}"
 done
 
 section "Copying CEAMMC cmake files"
@@ -372,7 +406,7 @@ done
 
 section "Copying CEAMMC HOA help files"
 mkdir -p "${BUNDLE_CEAMMC}/hoa"
-for f in $SRC_CEAMMC/ext/doc/hoa/*.@(pd|txt)
+for f in $SRC_CEAMMC/ext/doc/hoa/*.@(pd|txt|svg|wav)
 do
     copy ${f} "${BUNDLE_CEAMMC}/hoa"
     chmod 0444 "${BUNDLE_CEAMMC}/hoa/$(basename $f)"
@@ -383,8 +417,10 @@ rm -f "${BUNDLE_CEAMMC}/index-help.pd"
 rm -f "${BUNDLE_EXTRA}/index-help.pd"
 copy $SRC_DIR/ceammc/ext/doc/index-help.pd "${BUNDLE_EXTRA}"
 chmod 0444 "${BUNDLE_EXTRA}/index-help.pd"
-copy $SRC_DIR/ceammc/distrib/${CEAMMC_RELEASE_PATCH} "${BUNDLE_CEAMMC}"
-copy $SRC_DIR/ceammc/distrib/${CEAMMC_RELEASE_QLIST} "${BUNDLE_CEAMMC}"
+for r in  $SRC_DIR/ceammc/distrib/release_*.@(pd|lua)
+do
+    copy $r "${BUNDLE_CEAMMC}"
+done
 
 section "Copying CEAMMC about file"
 cat $BUILD_DIR/ceammc/ext/doc/about.pd | sed "s/%GIT_BRANCH%/$GIT_BRANCH/g" | \

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="list.equal">
         <title>list.equal</title>
         <meta>
@@ -16,12 +16,13 @@
         <arguments>
             <argument name="PATTERN" type="list">initial value</argument>
         </arguments>
-        <methods>
-            <method name="dump">dumps object state to PD console window</method>
-        </methods>
         <properties>
             <property name="@pattern" type="list" default="">current pattern</property>
         </properties>
+        <methods>
+            <!-- dump -->
+            <method name="dump">dumps object state to PD console window</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="list">First list</xinfo>

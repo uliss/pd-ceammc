@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="proto.midi.casio">
         <title>proto.midi.casio</title>
         <meta>
@@ -15,30 +15,63 @@
         </meta>
         <info>
             <par>Note: only PX160 model supported at this moment</par>
+            <par>Note: on PX160 instrument change done only for incoming midi signals.</par>
         </info>
+        <properties>
+            <property name="@model" type="symbol" default="px160" enum="px160">device
+            model</property>
+        </properties>
         <methods>
+            <!-- instr -->
             <method name="instr">send Note On message 
-            <param type="int" minvalue="0" maxvalue="15" required="false" name="CH">midi
+            <param name="CH" type="int" minvalue="0" maxvalue="15" required="false">midi
             channel</param>
-            <param type="symbol" enum="piano epiano strings bass organ vibr harps" required="true"
-            name="NAME">instrument name</param>
-            <param type="atom" required="true" name="TYPE">instrument type. for 'piano':
+            <param name="NAME" type="symbol" enum="piano epiano strings bass organ vibr harps"
+            required="true">instrument name</param>
+            <param name="TYPE" type="atom" required="true">instrument type. for 'piano':
             concert|modern|classic|mellow|bright|0..4, for 'epiano': 0|1|fm|2|3|60, for 'strings':
             0|1, for 'bass': 0, for 'organ': pipe|jass|elec1|elec2|0..3, for 'vibr' and 'haprs':
             0</param></method>
-            <method name="rev_type">set reverb type 
-            <param type="int" minvalue="1" maxvalue="4" required="true" name="TYPE">reverb
-            type</param></method>
+            <!-- rev_time -->
             <method name="rev_time">set reverb time 
-            <param type="int" minvalue="0" maxvalue="127" required="true" name="AMOUNT">reverb
+            <param name="AMOUNT" type="int" minvalue="0" maxvalue="127" required="true">reverb
             time</param></method>
+            <!-- rev_type -->
+            <method name="rev_type">set reverb type 
+            <param name="TYPE" type="int" minvalue="1" maxvalue="4" required="true">reverb type.
+            For PX160 - 1: room, 2: default (hall), 3: hall2, 4: stadium</param></method>
+            <!-- chorus -->
+            <method name="chorus">set chorus fx level 
+            <param name="VALUE" type="float" required="true" minvalue="0" maxvalue="1">
+            level</param></method>
+            <!-- chorus_type -->
+            <method name="chorus_type">set chorus type 
+            <param name="TYPE" type="int" minvalue="1" maxvalue="4" required="true">chorus type.
+            For PX160 - 1: chorus1, 2: chorus2, 3: deep chorus, 4: flanger</param></method>
+            <!-- chorus_send -->
+            <method name="chorus_send">set chorus send level 
+            <param name="AMOUNT" type="float" minvalue="0" maxvalue="1" required="true">
+            level</param></method>
+            <!-- chorus_fb -->
+            <method name="chorus_fb">set chorus feedback level 
+            <param name="AMOUNT" type="float" minvalue="0" maxvalue="1" required="true">
+            level</param></method>
+            <!-- chorus_send -->
+            <method name="chorus_send">set chorus send level 
+            <param name="AMOUNT" type="float" minvalue="0" maxvalue="1" required="true">
+            level</param></method>
+            <!-- chorus_depth -->
+            <method name="chorus_depth">set chorus depth 
+            <param name="DEPTH" type="float" minvalue="0" maxvalue="1" required="true">depth
+            value</param></method>
+            <!-- chorus_rate -->
+            <method name="chorus_rate">set chorus rate 
+            <param name="RATE" type="float" minvalue="0" maxvalue="1" required="true">rate
+            value</param></method>
         </methods>
-        <properties>
-            <property name="@model" default="px160" type="symbol">device model</property>
-        </properties>
         <inlets>
             <inlet>
-                <xinfo />
+                <xinfo>control messages</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -47,19 +80,55 @@
         <example>
             <pdascii>
 <![CDATA[
+[ui.midi]          /*choose CASIO output device!*/
+
 [ui.tab piano epiano strings bass organ vibr harps @size 310 15]
 |
-|      [ui.hrd 6]
-|      |.
-[sync 2 ]
-|
-[pack f f]
-|
-[msg instr]
-|
+[$2(   [ui.hrd 6]   [T]
+|      |.           |
+[flow.pack' 2]      [metro.wchoice 120 85% 240 15%]
+|                   |
+[msg instr 0]       [random.a 58 56 46 53 41 @nonrep 1]
+|                   |
+[proto.midi.casio]  [makenote 100 90]
+|                   | ^|.
+[midiout]           [noteout #z]
+
+[proto.midi.casio.rev]
+
+[proto.midi.casio.chorus]
+]]>
+            </pdascii>
+            <pdascii id="rev">
+<![CDATA[
+[ui.hrd 5]     [ui.knob]
+|              |
+|              |
+[rev_type $1(  [rev_time $1(
+|              |
+|              |
+|              |
 [proto.midi.casio]
 |
 [midiout]
+]]>
+            </pdascii>
+            <pdascii id="chorus">
+<![CDATA[
+[ui.hrd 5]        [ui.knob]
+|                 |
+|                 |
+[chorus_type $1(  [chorus_depth $1 #a(
+|
+| [ui.hsl @show_value 1]
+| |
+| [chorus $1(
+| |
+[proto.midi.casio  #z]
+|
+[midiout]
+
+[X a->z]
 ]]>
             </pdascii>
         </example>

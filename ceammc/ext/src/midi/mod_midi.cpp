@@ -19,6 +19,8 @@
 #include "midi_velocity_ramp.h"
 #include "midi_vrand.h"
 
+void setup_midi_note_pass();
+
 void ceammc_midi_setup()
 {
     setup_midi_arp();
@@ -31,6 +33,7 @@ void ceammc_midi_setup()
     setup_midi_kbd();
     setup_midi_key2str();
     setup_midi_modus();
+    setup_midi_note_pass();
     setup_midi_octave();
     setup_midi_prg2str();
     setup_midi_split();

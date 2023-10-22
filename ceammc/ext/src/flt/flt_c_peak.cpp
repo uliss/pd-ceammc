@@ -15,4 +15,8 @@ public:
 void setup_flt_c_peak_tilde()
 {
     SoundExternalFactory<FltCPeak> obj("flt.c_peak~", OBJECT_FACTORY_DEFAULT);
+
+    obj.setDescription("Peaking equalizer calculator for biquad");
+    obj.setCategory("flt");
+    obj.setKeywords({"filter", "equalizer"});
 }

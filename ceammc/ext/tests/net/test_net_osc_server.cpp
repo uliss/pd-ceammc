@@ -11,20 +11,19 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ceammc_format.h"
 #include "net_osc_server.h"
-#include "parser_osc.h"
 #include "test_base.h"
 #include "test_external.h"
 
+using namespace ceammc::osc;
 using namespace ceammc::net;
 
 PD_COMPLETE_TEST_SETUP(NetOscServer, net, osc_server)
 
-Atom operator""_a(long double f) { return Atom(f); }
-Atom operator""_a(const char* s, size_t) { return Atom(gensym(s)); }
-std::string operator""_str(const char* s, size_t) { return std::string(s); }
-t_symbol* operator""_sym(const char* s, size_t) { return gensym(s); }
+static inline Atom operator""_a(long double f) { return Atom(f); }
+static inline Atom operator""_a(const char* s, size_t) { return Atom(gensym(s)); }
+static inline std::string operator""_str(const char* s, size_t) { return std::string(s); }
+static inline t_symbol* operator""_sym(const char* s, size_t) { return gensym(s); }
 
 TEST_CASE("net.osc.server", "[externals]")
 {

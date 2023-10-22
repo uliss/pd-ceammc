@@ -1,5 +1,4 @@
-#include "ceammc.h"
-#include <m_pd.h>
+#include "m_pd.h"
 
 struct atom_array {
     atom_array(size_t n)

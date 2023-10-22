@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="conv.lin2lin">
         <title>conv.lin2lin</title>
         <meta>
@@ -22,6 +22,12 @@
                 <alias>l-&gt;l</alias>
             </aliases>
         </meta>
+        <arguments>
+            <argument name="IN_FROM" type="float">begin of input range</argument>
+            <argument name="IN_TO" type="float">end of input range</argument>
+            <argument name="OUT_FROM" type="float">begin of output range</argument>
+            <argument name="OUT_TO" type="float">end of input output</argument>
+        </arguments>
         <properties>
             <property name="@in_from" type="float" default="0">begin of input range</property>
             <property name="@in_to" type="float" default="127">end of input range</property>
@@ -34,12 +40,6 @@
             <property name="@max" type="symbol">alias to @clip max</property>
             <property name="@minmax" type="symbol">alias to @clip minmax</property>
         </properties>
-        <arguments>
-            <argument name="IN_FROM" type="float">begin of input range</argument>
-            <argument name="IN_TO" type="float">end of input range</argument>
-            <argument name="OUT_FROM" type="float">begin of output range</argument>
-            <argument name="OUT_TO" type="float">end of input output</argument>
-        </arguments>
         <inlets>
             <inlet>
                 <xinfo on="float">input float</xinfo>

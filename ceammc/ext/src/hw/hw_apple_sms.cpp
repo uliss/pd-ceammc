@@ -66,6 +66,6 @@ extern "C" void setup_hw_apple_sms()
     ObjectFactory<HwAppleSMS> obj("hw.apple_sms");
 }
 #else
-CONTROL_OBJECT_STUB(1, 1, "not supported on this platform");
-OBJECT_STUB_SETUP("hw.apple_sms", hw_apple_sms);
+CONTROL_OBJECT_STUB(HwAppleSMS_stub, 1, 1, "not supported on this platform");
+OBJECT_STUB_SETUP(HwAppleSMS_stub, hw_apple_sms, "hw.apple_sms");
 #endif

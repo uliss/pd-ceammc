@@ -100,6 +100,7 @@ public:
 
 public:
     static Message makeBang();
+    static Message makeTyped(const AtomListView& lv);
 
 private:
     static Atom wrap_atom(const char* str) { return Atom(gensym(str)); }

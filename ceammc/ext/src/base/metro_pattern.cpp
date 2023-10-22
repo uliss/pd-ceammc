@@ -1,11 +1,5 @@
 #include "metro_pattern.h"
 #include "ceammc_factory.h"
-#include "ceammc_property_callback.h"
-
-static bool validTime(const Atom& a)
-{
-    return a.asFloat() > 0;
-}
 
 MetroPattern::MetroPattern(const PdArgs& args)
     : BaseObject(args)
@@ -14,6 +8,7 @@ MetroPattern::MetroPattern(const PdArgs& args)
     , sync_(nullptr)
     , sync_update_(false)
 {
+    createInlet(); // set pattern
     createOutlet();
     createOutlet();
 
@@ -25,7 +20,7 @@ MetroPattern::MetroPattern(const PdArgs& args)
 
     createCbListProperty(
         "@pattern", [this]() -> AtomList { return pattern_; },
-        [this](const AtomListView& lv) -> bool { return p_set_pattern(lv); })
+        [this](const AtomListView& lv) -> bool { return updatePattern(lv); })
         ->setArgIndex(0);
 }
 
@@ -38,9 +33,16 @@ void MetroPattern::onFloat(t_float on)
         clock_.unset();
 }
 
-bool MetroPattern::p_set_pattern(const AtomListView& lv)
+void MetroPattern::onInlet(size_t n, const AtomListView& lv)
 {
-    if (lv.empty() || (!lv.allOf(validTime))) {
+    auto p = property("@pattern");
+    if (p)
+        p->set(lv);
+}
+
+bool MetroPattern::updatePattern(const AtomListView& lv)
+{
+    if (lv.empty() || (!lv.allOf([](const Atom& a) { return a.asFloat() > 0; }))) {
         OBJ_ERR << "invalid pattern: " << lv;
         return false;
     }
@@ -90,7 +92,7 @@ void MetroPattern::tick()
 
 t_float MetroPattern::currentDelay() const
 {
-    const size_t current = current_->value();
+    const auto current = current_->value();
 
     if (pattern_.empty()) {
         OBJ_ERR << "empty metro pattern";
@@ -101,6 +103,7 @@ t_float MetroPattern::currentDelay() const
 
     if (current >= pattern_.size()) {
         OBJ_ERR << "invalid current index: " << current << " for pattern: " << pattern_;
+        current_->setValue(size_t(0));
         delay = pattern_.at(0);
     } else
         delay = pattern_.at(current);
@@ -136,6 +139,12 @@ void MetroPattern::output(bool on_start)
 void setup_metro_pattern()
 {
     ObjectFactory<MetroPattern> obj("metro.pattern");
+    obj.setXletsInfo(
+        { "float: 1|0 to start or stop metro",
+            "list: set new pattern" },
+        { "bang",
+            "bang: on each cycle\n"
+            "int: current step" });
 
     obj.setDescription("metro with rhythmic patterns");
     obj.addAuthor("Serge Poltavsky");

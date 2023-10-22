@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="fx.dattorro~">
         <title>fx.dattorro~</title>
         <meta>
@@ -25,9 +25,6 @@
             <argument name="DRYWET" type="float" minvalue="0" maxvalue="1">proportion of mix
             between the original (dry) and 'effected' (wet) signals</argument>
         </arguments>
-        <methods>
-            <method name="reset">reset reverb</method>
-        </methods>
         <properties>
             <property name="@decay" type="float" minvalue="0" maxvalue="1" default="0.5">decay
             rate. Infinite decay = 1.0</property>
@@ -43,8 +40,8 @@
             diffusion factor 1</property>
             <property name="@idiff2" type="float" minvalue="0" maxvalue="1" default="0.75">input
             diffusion factor 2</property>
-            <property name="@bypass" type="bool" default="0">if set to 1 - bypass 'effected'
-            signal</property>
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
             <property name="@ddiff1" type="float" minvalue="0" maxvalue="1" default="0.5">decay
             diffusion factor 1</property>
@@ -52,7 +49,13 @@
             diffusion factor 2</property>
             <property name="@bw" type="float" minvalue="0" maxvalue="1" default="0.9995">band-width
             filter (pre filtering)</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset reverb</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>left channel</xinfo>

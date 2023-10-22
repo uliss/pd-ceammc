@@ -71,7 +71,7 @@ public:
     void storePreset(size_t idx);
 
     void m_append(const AtomListView& lv);
-    void m_clear();
+    void m_erase();
     void m_delete(t_float idx);
     void m_set(const AtomListView& lv);
     void m_insert(const AtomListView& lv);

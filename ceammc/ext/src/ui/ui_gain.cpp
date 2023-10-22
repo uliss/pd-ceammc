@@ -16,7 +16,7 @@
 #include "ceammc_preset.h"
 #include "ceammc_ui.h"
 
-static const float SCALE_ALPHA_BLEND = 0.7;
+constexpr float SCALE_ALPHA_BLEND = 0.7;
 
 // see ui_single_value.cpp
 static t_rgba BIND_MIDI_COLOR = hex_to_rgba("#FF3377");
@@ -28,8 +28,7 @@ constexpr int MIDI_CTL_MAX = 127;
 
 static t_symbol* midi_ctl_sym()
 {
-    static t_symbol* sym = gensym("#ctlin");
-    return sym;
+    return gensym("#ctlin");
 }
 
 UIGain::UIGain()
@@ -58,24 +57,28 @@ UIGain::UIGain()
     };
 
     initPopupMenu("gain",
-        { { "+3db", [fn](const t_pt&) { fn(3); } },
+        {
+            { "+3db", [fn](const t_pt&) { fn(3); } },
             { "-3db", [fn](const t_pt&) { fn(-3); } },
             { "-6db", [fn](const t_pt&) { fn(-6); } },
             { "-12db", [fn](const t_pt&) { fn(-12); } },
-            { "-24db", [fn](const t_pt&) { fn(-24); } } });
+            { "-24db", [fn](const t_pt&) { fn(-24); } },
+            { "", {} },
+            { "0db", [this](const t_pt&) { setDbValue(0); output(); } },
+        });
 }
 
 void UIGain::okSize(t_rect* newrect)
 {
-    newrect->width = pd_clip_min(newrect->width, 8.);
-    newrect->height = pd_clip_min(newrect->height, 8.);
+    newrect->w = pd_clip_min(newrect->w, 8.);
+    newrect->h = pd_clip_min(newrect->h, 8.);
 
-    is_horizontal_ = (newrect->width > newrect->height);
+    is_horizontal_ = (newrect->w > newrect->h);
 
     if (is_horizontal_)
-        newrect->width = pd_clip_min(newrect->width, 50.);
+        newrect->w = pd_clip_min(newrect->w, 50.);
     else
-        newrect->height = pd_clip_min(newrect->height, 50.);
+        newrect->h = pd_clip_min(newrect->h, 50.);
 }
 
 void UIGain::paint()
@@ -91,15 +94,15 @@ void UIGain::paint()
     p.setLineWidth(3);
 
     if (is_horizontal_) {
-        float x = r.width * knob_phase_;
+        float x = r.w * knob_phase_;
         // scale
         p.setColor(prop_color_scale);
-        p.drawRect(0, 0, x, r.height);
+        p.drawRect(0, 0, x, r.h);
         p.fill();
 
         // knob
         p.setColor(prop_color_knob);
-        p.drawLine(x, 0, x, r.height);
+        p.drawLine(x, 0, x, r.h);
 
         if (prop_show_range) {
             // level range
@@ -114,15 +117,15 @@ void UIGain::paint()
             p.drawText(txt_min_);
         }
     } else {
-        float y = r.height * (1 - knob_phase_);
+        float y = r.h * (1 - knob_phase_);
         // scale
         p.setColor(prop_color_scale);
-        p.drawRect(0, y, r.width, r.height - y);
+        p.drawRect(0, y, r.w, r.h - y);
         p.fill();
 
         // knob
         p.setColor(prop_color_knob);
-        p.drawLine(0, y, r.width, y);
+        p.drawLine(0, y, r.w, y);
 
         if (prop_show_range) {
             // levels
@@ -142,7 +145,7 @@ void UIGain::paint()
 void UIGain::initHorizontal()
 {
     is_horizontal_ = true;
-    std::swap(asEBox()->b_rect.width, asEBox()->b_rect.height);
+    std::swap(asEBox()->b_rect.w, asEBox()->b_rect.h);
     updateLabels();
 }
 
@@ -541,7 +544,7 @@ void UIGain::setup()
     obj.addBoolProperty("relative", _("Relative mode"), true, &UIGain::prop_relative_mode, _("Main"));
 
     obj.addProperty("midi_channel", _("MIDI channel"), 0, &UIGain::prop_midi_chn, "MIDI");
-    obj.setPropertyRange("midi_channel", 0, 16);
+    obj.setPropertyRange("midi_channel", 0, 255);
     obj.addProperty("midi_control", _("MIDI control"), MIDI_CTL_NONE, &UIGain::prop_midi_ctl, "MIDI");
     obj.setPropertyRange("midi_control", MIDI_CTL_NONE, MIDI_CTL_MAX);
     obj.addProperty("midi_pickup", _("MIDI pickup"), true, &UIGain::prop_pickup_midi, "MIDI");

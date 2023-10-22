@@ -91,14 +91,14 @@ void UILink::setup()
     UIObjectFactory<UILink> obj("ui.link", EBOX_GROWNO, CLASS_NOINLET);
     obj.internalProperty("send");
     obj.internalProperty("receive");
-    obj.internalProperty("size");
+    obj.internalProperty(sym::props::name_size);
     obj.hideLabel();
-    obj.internalProperty(PROP_BACKGROUND_COLOR);
-    obj.internalProperty(PROP_BORDER_COLOR);
-    obj.setPropertySave("@size", false);
+    obj.internalProperty(sym::props::name_background_color);
+    obj.internalProperty(sym::props::name_border_color);
+    obj.setPropertySave(sym::props::name_size, false);
 
     obj.setDefaultSize(120, 15);
-    obj.setPropertyDefaultValue(PROP_BACKGROUND_COLOR, "1.0 1.0 1.0 1.0");
+    obj.setPropertyDefaultValue(sym::props::name_background_color, "1.0 1.0 1.0 1.0");
 
     obj.addSymbolProperty("url", _("URL"), "<no url>", &UILink::prop_url, _("Main"));
     obj.addSymbolProperty("title", _("Title"), "<no title>", &UILink::prop_title, _("Main"));
@@ -112,6 +112,6 @@ void UILink::setup()
 
 void setup_ui_link()
 {
-    sys_gui(ui_link_tcl);
+    ui_link_tcl_output();
     UILink::setup();
 }

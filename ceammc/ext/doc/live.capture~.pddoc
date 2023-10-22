@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="live.capture~">
         <title>live.capture~</title>
         <meta>
@@ -14,17 +14,31 @@
             <keywords>live record</keywords>
             <since>0.1</since>
         </meta>
-        <methods>
-            <method name="record">start record</method>
-            <method name="stop">stop record</method>
-            <method name="reset">reset recorded data</method>
-        </methods>
         <properties>
             <property name="@gate" type="bool" default="0">start/stop recording</property>
-            <property name="@fade" type="float" minvalue="0" maxvalue="200" default="70"
-            units="millisecond">intput crossfade time</property>
+            <property name="@gain" type="float" default="0" minvalue="-60" maxvalue="12"
+            units="decibel">playing gain</property>
+            <property name="@attack" type="float" units="millisecond" minvalue="0"
+            maxvalue="100000" default="50">rec envelope attack time</property>
+            <property name="@sustain" type="float" units="percent" minvalue="0" maxvalue="100"
+            default="100">rec envelope sustain level - percent from trigger signal</property>
+            <property name="@release" type="float" units="millisecond" minvalue="0"
+            maxvalue="100000" default="50">rec envelope release time</property>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
         </properties>
+        <methods>
+            <!-- record -->
+            <method name="record">start record</method>
+            <!-- reset -->
+            <method name="reset">reset recorded data</method>
+            <!-- stop -->
+            <method name="stop">stop record</method>
+            <!-- set record division -->
+            <method name="div">set rec division 
+            <param name="N" type="int" minvalue="1" maxvalue="8">value</param></method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>source signal</xinfo>

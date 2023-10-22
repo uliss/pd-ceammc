@@ -69,4 +69,7 @@ void setup_math_div()
 {
     ObjectFactory<MathDiv> obj("math.div");
     obj.addAlias("math./");
+
+    obj.setDescription("division (on lists too)");
+    obj.setCategory("math");
 }

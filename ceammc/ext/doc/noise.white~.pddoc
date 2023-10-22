@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="noise.white~">
         <title>noise.white~</title>
         <meta>
@@ -16,12 +16,12 @@
                 <see>noise.pink~</see>
             </also>
         </meta>
-        <properties>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
-        </properties>
         <info>
             <par>outputs random numbers between -1 and 1 at signal rate.</par>
         </info>
+        <properties>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+        </properties>
         <outlets>
             <outlet type="audio">output signal</outlet>
         </outlets>

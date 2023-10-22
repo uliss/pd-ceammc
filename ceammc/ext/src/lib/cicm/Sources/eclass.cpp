@@ -12,7 +12,7 @@
 #include "ceammc.h"
 #include "ceammc_impl.h"
 #include "ceammc_log.h"
-#include "ceammc_syms.h"
+#include "ceammc_ui_symbols.h"
 #include "ebox.h"
 #include "ecommon.h"
 #include "egraphics.h"
@@ -20,7 +20,7 @@
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wsign-conversion"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #pragma clang diagnostic pop
 
 #include <algorithm>
@@ -134,18 +134,13 @@ t_eclass* eclass_new(const char* name, t_typ_method newm, t_typ_method freem, si
     return c;
 }
 
-void eclass_init(t_eclass* c, long flags)
-{
-    eclass_guiinit(c, flags);
-}
-
 void eclass_guiinit(t_eclass* c, long /*flags*/)
 {
     ewidget_init(c);
     c->c_box = 1;
 
     // DEFAULT ATTRIBUTES //
-    CLASS_ATTR_FLOAT_ARRAY(c, "size", t_ebox, b_rect.width, 2);
+    CLASS_ATTR_FLOAT_ARRAY(c, "size", t_ebox, b_rect.w, 2);
     CLASS_ATTR_SYMBOL(c, "fontname", t_ebox, b_font.c_family);
     CLASS_ATTR_SYMBOL(c, "fontweight", t_ebox, b_font.c_weight);
     CLASS_ATTR_SYMBOL(c, "fontslant", t_ebox, b_font.c_slant);
@@ -158,6 +153,7 @@ void eclass_guiinit(t_eclass* c, long /*flags*/)
     CLASS_ATTR_SYMBOL(c, "label_align", t_ebox, label_align);
     CLASS_ATTR_SYMBOL(c, "label_valign", t_ebox, label_valign);
     CLASS_ATTR_INT_ARRAY(c, "label_margins", t_ebox, label_margins, 2);
+    CLASS_ATTR_INT(c, "nosave", t_ebox, no_save);
 
     CLASS_ATTR_DEFAULT(c, "size", "100. 100.");
     CLASS_ATTR_FILTER_MIN(c, "size", 4);
@@ -269,12 +265,17 @@ void eclass_guiinit(t_eclass* c, long /*flags*/)
     CLASS_ATTR_LABEL(c, "label_margins", _("Margins"));
     CLASS_ATTR_ACCESSORS(c, "label_margins", NULL, ebox_set_label_margins);
 
+    CLASS_ATTR_DEFAULT(c, "nosave", "0");
+    CLASS_ATTR_SAVE(c, "nosave");
+    eclass_attr_set_visibility(c, "nosave", ceammc::PropValueVis::INTERNAL);
+
     // GUI always need this methods //
     t_class* cc = &c->c_class;
 
-    using namespace ceammc;
+    using namespace ceammc::sym::methods;
+    using namespace ceammc::sym;
     class_addmethod(cc, reinterpret_cast<t_method>(ebox_attr_dump), sym_dump(), A_NULL, 0);
-    class_addmethod(cc, reinterpret_cast<t_method>(ebox_output_all_attrs), gensym(STR_GET_ALL_PROPS), A_NULL, 0);
+    class_addmethod(cc, reinterpret_cast<t_method>(ebox_output_all_attrs), props::sym_value_all_get(), A_NULL, 0);
     class_addmethod(cc, reinterpret_cast<t_method>(ebox_dialog), sym_dialog(), A_GIMME, 0);
 
     class_addmethod(cc, reinterpret_cast<t_method>(ebox_mouse_enter), sym_mouseenter(), A_NULL, 0);
@@ -297,7 +298,7 @@ void eclass_dspinit(t_eclass* c)
     t_class* cls = &c->c_class;
     c->c_dsp = true;
 
-    using namespace ceammc;
+    using namespace ceammc::sym::methods;
     class_addmethod(cls, reinterpret_cast<t_method>(eobj_dsp), sym_dsp(), A_CANT, 0);
     class_addmethod(cls, reinterpret_cast<t_method>(eobj_dsp_add), sym_dsp_add(), A_NULL, 0);
     //    class_addmethod(cc, reinterpret_cast<t_method>(eobj_dsp_add), gensym(SYM_DSP_ADD64), A_NULL, 0);
@@ -326,7 +327,8 @@ static int eclass_attr_iface_setter(t_object* x, t_symbol* prop_name, int argc, 
 
 t_pd_err eclass_register(t_symbol* /*name*/, t_eclass* c)
 {
-    t_class* cc = &c->c_class;
+    using namespace ceammc;
+    auto cc = &c->c_class;
 
     if (c->c_dsp) {
         long diff = 0;
@@ -344,11 +346,11 @@ t_pd_err eclass_register(t_symbol* /*name*/, t_eclass* c)
         class_setpropertiesfn(cc, reinterpret_cast<t_propertiesfn>(ebox_properties));
     }
 
-    class_addmethod(cc, reinterpret_cast<t_method>(is_cicm), s_iscicm, A_CANT, 0);
+    class_addmethod(cc, reinterpret_cast<t_method>(is_cicm), sym::sym_iscicm(), A_CANT, 0);
 
     // props
-    ceammc::ceammc_class_add_propget_fn(cc, eclass_attr_iface_getter);
-    ceammc::ceammc_class_add_propset_fn(cc, eclass_attr_iface_setter);
+    ceammc_class_add_propget_fn(cc, eclass_attr_iface_getter);
+    ceammc_class_add_propset_fn(cc, eclass_attr_iface_setter);
 
     return 0;
 }
@@ -360,6 +362,9 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, const char* name, t_atomtype 
 
 void eclass_addmethod(t_eclass* c, t_typ_method m, t_symbol* sname, t_atomtype type, long /*dummy*/)
 {
+    using namespace ceammc::sym;
+    using namespace ceammc::sym::methods;
+
     auto* cls = &c->c_class;
     using namespace ceammc;
     switch (crc32_hash(sname)) {
@@ -409,10 +414,10 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, t_symbol* sname, t_atomtype t
     case hash_paint:
         c->c_widget.w_paint = reinterpret_cast<t_paint_method>(m);
         break;
-    case crc32_constexpr(STR_WIDGET_CREATE):
+    case hash_widget_create:
         c->c_widget.w_create = reinterpret_cast<t_create_method>(m);
         break;
-    case crc32_constexpr(STR_WIDGET_ERASE):
+    case hash_widget_erase:
         c->c_widget.w_erase = reinterpret_cast<t_erase_method>(m);
         break;
     case hash_notify:
@@ -424,7 +429,7 @@ void eclass_addmethod(t_eclass* c, t_typ_method m, t_symbol* sname, t_atomtype t
     case hash_oksize:
         c->c_widget.w_oksize = reinterpret_cast<t_oksize_method>(m);
         break;
-    case hash_zoom:
+    case hash_onzoom:
         c->c_widget.w_onzoom = reinterpret_cast<t_zoom_method>(m);
         break;
     case hash_save:
@@ -491,7 +496,8 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type,
         }
 
         auto attr = static_cast<t_eattr*>(getbytes(sizeof(t_eattr)));
-        using namespace ceammc;
+        using namespace ceammc::sym::methods;
+        using namespace ceammc::sym;
 
         if (attr) {
             attr->name = name;
@@ -503,7 +509,7 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type,
             attr->order = c->c_nattr + 1;
             attr->save = false;
             attr->paint = false;
-            attr->visibility = PropValueVis::PUBLIC;
+            attr->visibility = ceammc::PropValueVis::PUBLIC;
             attr->offset = offset;
             attr->size = size;
             attr->sizemax = maxsize;
@@ -516,6 +522,7 @@ void eclass_new_attr_typed(t_eclass* c, const char* attrname, const char* type,
             attr->defvals = nullptr;
             attr->itemslist = nullptr;
             attr->itemssize = 0;
+            attr->bind_opts = nullptr;
 
             size_t new_sz = (c->c_nattr + 1) * sizeof(t_eattr*);
             t_eattr** attrs = (t_eattr**)resizebytes(c->c_attr, new_sz, new_sz);
@@ -558,6 +565,9 @@ void eclass_attr_redirect(t_eclass* c, const char* attrname, t_gotfn fn)
 
 void eclass_attr_default(t_eclass* c, const char* attrname, const char* value)
 {
+    if (!attrname || !value)
+        return pd_error(nullptr, "NULL str pointer");
+
     auto* sel = gensym(attrname);
 
     for (size_t i = 0; i < c->c_nattr; i++) {
@@ -572,31 +582,45 @@ void eclass_attr_default(t_eclass* c, const char* attrname, const char* value)
 
 void eclass_attr_category(t_eclass* c, const char* attrname, const char* category)
 {
-    t_symbol* cat = gensym(category);
-    t_symbol* sel = gensym(attrname);
+#undef _
+#define _(msg) msg##_hash
+
+    using namespace ceammc;
+    auto cat = gensym(category);
+    auto sel = gensym(attrname);
 
     for (size_t i = 0; i < c->c_nattr; i++) {
         if (c->c_attr[i]->name == sel) {
             c->c_attr[i]->category = cat;
 
-            if (cat == gensym(_("Basic")))
+            switch (crc32_hash(category)) {
+            case _("Basic"):
                 c->c_attr[i]->order += CAT_BASE;
-            else if (cat == gensym(_("Colors")))
+                break;
+            case _("Colors"):
                 c->c_attr[i]->order += CAT_COLOR;
-            else if (cat == gensym(_("Bounds")))
+                break;
+            case _("Bounds"):
                 c->c_attr[i]->order += CAT_BOUNDS;
-            else if (cat == gensym(_("Label")))
+                break;
+            case _("Label"):
                 c->c_attr[i]->order += CAT_LABEL;
-            else if (cat == gensym(_("Main")))
+                break;
+            case _("Main"):
                 c->c_attr[i]->order += CAT_MAIN;
-            else if (cat == gensym(_("MIDI")))
+                break;
+            case _("MIDI"):
                 c->c_attr[i]->order += CAT_MIDI;
-            else
+                break;
+            default:
                 c->c_attr[i]->order += CAT_MISC;
-
-            return;
+                break;
+            }
         }
     }
+
+#undef _
+#define _(msg) msg
 }
 
 void eclass_attr_order(t_eclass* c, const char* attrname, const char* order)
@@ -629,6 +653,7 @@ void eclass_attr_label(t_eclass* c, const char* attrname, const char* label)
 void eclass_attr_style(t_eclass* c, const char* attrname, const char* style)
 {
     using namespace ceammc;
+    using namespace ceammc::sym;
 
     auto* sel = gensym(attrname);
 
@@ -872,8 +897,10 @@ void eclass_attr_accessor(t_eclass* c, const char* attrname, t_getter_method get
     }
 }
 
-int eclass_attr_getter(t_object* x, t_symbol* s, int* argc, t_atom** argv)
+bool eclass_attr_getter(t_object* x, t_symbol* s, int* argc, t_atom** argv)
 {
+    using namespace ceammc;
+
     t_ebox* z = (t_ebox*)x;
     t_eclass* c = (t_eclass*)z->b_obj.o_obj.te_g.g_pd;
 
@@ -910,45 +937,53 @@ int eclass_attr_getter(t_object* x, t_symbol* s, int* argc, t_atom** argv)
             attr->getter(z, attr, argc, argv);
         } else {
             *argv = (t_atom*)getbytes((size_t)*argc * sizeof(t_atom));
-            t_symbol* type = attr->type;
+            auto type = attr->type;
 
-            if (type == s_int) {
-                for (int j = 0; j < *argc; j++) {
+            using namespace ceammc::sym;
+            switch (crc32_hash(type)) {
+            case hash_int:
+                for (int j = 0; j < *argc; j++)
                     atom_setlong(argv[0] + j, ((int*)point)[j]);
-                }
-            } else if (type == s_long) {
-                for (int j = 0; j < *argc; j++) {
+
+                break;
+            case hash_long:
+                for (int j = 0; j < *argc; j++)
                     atom_setlong(argv[0] + j, ((long*)point)[j]);
-                }
-            } else if (type == &s_float) {
-                for (int j = 0; j < *argc; j++) {
+
+                break;
+            case hash_float:
+                for (int j = 0; j < *argc; j++)
                     atom_setfloat(argv[0] + j, ((float*)point)[j]);
-                }
-            } else if (type == s_double) {
-                for (int j = 0; j < *argc; j++) {
+
+                break;
+            case hash_double:
+                for (int j = 0; j < *argc; j++)
                     atom_setfloat(argv[0] + j, (t_float)(((double*)point)[j]));
-                }
-            } else if (type == &s_symbol) {
+
+                break;
+            case hash_symbol:
                 for (int j = 0; j < *argc; j++) {
                     auto sym = ((t_symbol**)point)[j];
                     if (sym) {
                         atom_setsym(argv[0] + j, gensym(sym->s_name));
                     }
                 }
-            } else if (type == s_atom) {
-                for (int j = 0; j < *argc; j++) {
+                break;
+            case hash_atom:
+                for (int j = 0; j < *argc; j++)
                     argv[0][j] = ((t_atom*)point)[j];
-                }
-            } else {
+
+                break;
+            default:
                 printf("Unknown property get method: %s\n", type->s_name);
-                return 0;
+                return false;
             }
         }
 
-        return 1;
+        return true;
     }
 
-    return 0;
+    return false;
 }
 
 static bool request_property(t_object* x, t_symbol* s, std::vector<t_atom>& res)
@@ -1008,7 +1043,9 @@ void eclass_attr_ceammc_getter(t_object* x, t_symbol* s, int argc, t_atom* argv)
     } else {
         // multiple request
         std::vector<t_atom> res;
-        request_property(x, s, res);
+        if (!request_property(x, s, res))
+            return;
+
         for (int i = 0; i < argc; i++) {
             t_atom* a = &argv[i];
             if (atom_gettype(a) != A_SYMBOL)
@@ -1043,6 +1080,8 @@ static void eclass_attr_ceammc_setter(t_object* x, t_symbol* s, size_t argc, t_a
 
 bool ebox_attr_long_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_eattr_op op)
 {
+    using namespace ceammc::sym;
+
     const auto* xclass = x->b_obj.o_obj.te_g.g_pd;
     const size_t N = (a->sizemax == 0) ? a->size : a->sizemax;
 
@@ -1053,7 +1092,7 @@ bool ebox_attr_long_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_e
     }
 
     const auto type = a->type;
-    if (a->type != s_int && a->type != s_long) {
+    if (a->type != sym_int() && a->type != sym_long()) {
         pd_error(x, "[%s][@%s] not a int property",
             eobj_getclassname(&x->b_obj)->s_name, a->name->s_name);
         return false;
@@ -1061,10 +1100,10 @@ bool ebox_attr_long_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_e
 
     auto* ptr = reinterpret_cast<int8_t*>(x) + a->offset;
     long cur_val = 0;
-    if (type == s_int) {
+    if (type == sym_int()) {
         auto* pval = reinterpret_cast<int*>(ptr);
         cur_val = pval[idx];
-    } else if (type == s_long) {
+    } else if (type == sym_long()) {
         auto* pval = reinterpret_cast<long*>(ptr);
         cur_val = pval[idx];
     } else {
@@ -1110,11 +1149,11 @@ bool ebox_attr_long_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_e
         new_val = a->maximum;
     }
 
-    if (type == s_int) {
+    if (type == sym_int()) {
         auto* pval = reinterpret_cast<int*>(ptr);
         pval[idx] = new_val;
         return true;
-    } else if (type == s_long) {
+    } else if (type == sym_long()) {
         auto* pval = reinterpret_cast<long*>(ptr);
         pval[idx] = new_val;
         return true;
@@ -1125,6 +1164,8 @@ bool ebox_attr_long_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_e
 
 bool ebox_attr_float_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_eattr_op op)
 {
+    using namespace ceammc::sym;
+
     const auto* xclass = x->b_obj.o_obj.te_g.g_pd;
     const size_t N = (a->sizemax == 0) ? a->size : a->sizemax;
 
@@ -1135,7 +1176,7 @@ bool ebox_attr_float_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_
     }
 
     const auto type = a->type;
-    if (a->type != &s_float && a->type != s_double) {
+    if (a->type != &s_float && a->type != sym_double()) {
         pd_error(x, "[%s][@%s] not a float property",
             eobj_getclassname(&x->b_obj)->s_name, a->name->s_name);
         return false;
@@ -1146,7 +1187,7 @@ bool ebox_attr_float_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_
     if (type == &s_float) {
         auto* pval = reinterpret_cast<float*>(ptr);
         cur_val = pval[idx];
-    } else if (type == s_double) {
+    } else if (type == sym_double()) {
         auto* pval = reinterpret_cast<double*>(ptr);
         cur_val = pval[idx];
     } else {
@@ -1196,7 +1237,7 @@ bool ebox_attr_float_setter(t_ebox* x, t_eattr* a, t_float value, size_t idx, t_
         auto* pval = reinterpret_cast<float*>(ptr);
         pval[idx] = new_val;
         return true;
-    } else if (type == s_double) {
+    } else if (type == sym_double()) {
         auto* pval = reinterpret_cast<double*>(ptr);
         pval[idx] = new_val;
         return true;
@@ -1287,10 +1328,12 @@ static bool eclass_attr_setter_op(t_object* x, t_symbol* prop_name, t_eattr_op o
 
 int eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
 {
+    using namespace ceammc::sym;
+
     t_ebox* z = reinterpret_cast<t_ebox*>(x);
     t_eclass* c = reinterpret_cast<t_eclass*>(z->b_obj.o_obj.te_g.g_pd);
 
-    auto is_float_type = [](const t_symbol* t) { return t == &s_float || t == s_double; };
+    auto is_float_type = [](const t_symbol* t) { return t == &s_float || t == sym_double(); };
     auto is_symbol_op = [](const t_atom* a) {
         if (a->a_type != A_SYMBOL)
             return false;
@@ -1379,7 +1422,7 @@ int eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
         } else if (attr->getter == nullptr && attr->setter != nullptr) {
             // setter only (using default set method), getter is default reading
             prop_setter(attr, argc, argv);
-        } else if (type == s_int || type == s_long) {
+        } else if (type == sym_int() || type == sym_long()) {
             t_eattr_op op = EATTR_OP_ASSIGN;
             int arg_offset = 0;
 
@@ -1463,7 +1506,7 @@ int eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
                     pointor[j] = gensym(atom_getsymbol(argv + j)->s_name);
                 }
             }
-        } else if (type == s_atom) {
+        } else if (type == sym_atom()) {
             clip_args(attr, argc, argv);
 
             t_atom* pointor = (t_atom*)point;
@@ -1476,7 +1519,7 @@ int eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
         ebox_notify(z, s);
 
         if (c->c_widget.w_notify != nullptr)
-            c->c_widget.w_notify(z, s, s_attr_modified);
+            c->c_widget.w_notify(z, s, sym_attr_modified());
 
         if (attr->paint) {
             if (c->c_widget.w_oksize != nullptr) {
@@ -1490,7 +1533,7 @@ int eclass_attr_setter(t_object* x, t_symbol* s, int argc, t_atom* argv)
         }
 
         // mark as changed for gui objects
-        if (attr->save && eobj_isbox(&z->b_obj) && ebox_isdrawable(z))
+        if (attr->save && eobj_isbox(&z->b_obj) && ebox_isdrawable(z) && !z->no_save)
             canvas_dirty(eobj_getcanvas(&z->b_obj), 1);
 
         return 1;
@@ -1612,6 +1655,7 @@ static void eclass_properties_dialog(t_eclass* c)
 #endif
 
     using namespace ceammc;
+    using namespace ceammc::sym;
     const char* class_name = c->c_class.c_name->s_name;
 
     // DIALOG WINDOW APPLY //

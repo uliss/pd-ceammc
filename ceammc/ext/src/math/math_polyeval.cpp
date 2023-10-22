@@ -120,4 +120,7 @@ t_float MathPolyEval::eval(t_float v) const
 void setup_math_polyeval()
 {
     ObjectFactory<MathPolyEval> obj("math.polyeval");
+
+    obj.setDescription("evaluates the polynomial described by the coefficients list");
+    obj.setCategory("math");
 }

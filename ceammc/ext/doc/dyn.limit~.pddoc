@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="dyn.limit~">
         <title>dyn.limit~</title>
         <meta>
@@ -18,9 +18,16 @@
                 <see>dyn.comp~</see>
             </also>
         </meta>
+        <info>
+            <a href="https://en.wikipedia.org/wiki/1176_Peak_Limiter">1176 Peak Limiter</a>
+        </info>
         <properties>
             <property name="@active" type="bool" default="1">on/off dsp processing</property>
         </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset to initial state</method>
+        </methods>
         <inlets>
             <inlet type="audio">
                 <xinfo>input signal</xinfo>

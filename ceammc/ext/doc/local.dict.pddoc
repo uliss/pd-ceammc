@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="local.dict">
         <title>local.dict</title>
         <meta>
@@ -25,36 +25,48 @@
             its patch (canvas)</par>
         </info>
         <mouse>
-            <event editmode="false" type="left-click">open data editor</event>
+            <event type="left-click" editmode="false">open data editor</event>
         </mouse>
         <arguments>
             <argument name="ID" type="symbol">object ID</argument>
         </arguments>
         <properties>
-            <property name="@keys" access="readonly" type="list" default="">keys of
+            <property name="@id" type="symbol" access="initonly" default="default">local variable
+            id</property>
+            <property name="@keys" type="list" access="readonly" default="">keys of
             dictionary</property>
-            <property name="@empty" access="readonly" type="bool" default="1">1 if dict is empty,
+            <property name="@empty" type="bool" access="readonly" default="1">1 if dict is empty,
             otherwise 0</property>
-            <property name="@size" access="readonly" minvalue="0" type="int" default="0">number of
+            <property name="@size" type="int" access="readonly" minvalue="0" default="0">number of
             entries in dictionary</property>
         </properties>
         <methods>
+            <!-- [....] -->
+            <method name="[....]" example="true">sets new content without output</method>
+            <!-- add -->
             <method name="add">adds entry to dictionary 
             <param name="KEY" type="atom" required="true">entry key</param>
             <param name="VAL" type="list" required="true">single value or list</param></method>
-            <method name="clear">removes all dict values. No output</method>
+            <!-- choose -->
             <method name="choose">choose random key and output it</method>
+            <!-- clear -->
+            <method name="clear">removes all dict values. No output</method>
+            <!-- get_key -->
             <method name="get_key">get entry from dictionary 
             <param name="KEY" type="atom" required="true">entry key</param></method>
+            <!-- read -->
+            <method name="read">read dict from JSON file 
+            <param name="PATH" type="symbol" required="true">file path</param></method>
+            <!-- remove -->
+            <method name="remove">remove entry from dictionary 
+            <param name="KEY" type="atom" required="true">entry key</param></method>
+            <!-- set -->
+            <method name="set">set dict content without output</method>
+            <!-- set_key -->
             <method name="set_key">change entry in dictionary. If it's not exists, do nothing. 
             <param name="KEY" type="atom" required="true">key</param>
             <param name="VAL" type="list" required="true">single value or list</param></method>
-            <method name="set">set dict content without output</method>
-            <method name="remove">remove entry from dictionary 
-            <param name="KEY" type="atom" required="true">entry key</param></method>
-            <method name="[....]" example="true">sets new content without output</method>
-            <method name="read">read dict from JSON file 
-            <param name="PATH" type="symbol" required="true">file path</param></method>
+            <!-- write -->
             <method name="write">write dict as JSON file 
             <param name="PATH" type="symbol" required="true">file path</param></method>
         </methods>

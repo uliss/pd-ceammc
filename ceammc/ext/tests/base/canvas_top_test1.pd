@@ -1,0 +1,8 @@
+#N canvas 302 338 781 276 12;
+#X obj 47 71 inlet;
+#X obj 47 123 outlet;
+#X obj 47 97 canvas.top @abs 1;
+#X msg 114 70 bang;
+#X connect 0 0 2 0;
+#X connect 2 0 1 0;
+#X connect 3 0 2 0;

@@ -1,5 +1,5 @@
 name: pd-ceammc
-version: "2023.01"
+version: "2023.09"
 license: "GPL-3.0"
 summary: "Pure Data CEAMMC distribution"
 description: |
@@ -102,6 +102,7 @@ parts:
             - -DWITH_ALSA_AUDIO=ON
             - -DWITH_ALSA_MIDI=ON
             - -DWITH_JACK=ON
+            - -DWITH_EXT_FLEXT=OFF
             - -DENABLE_TESTS=OFF
             - -DWITH_EXT_FLEXT=OFF
         source: .
@@ -118,11 +119,12 @@ parts:
             - libfftw3-dev
             - libglib2.0-dev
             - libjack-jackd2-dev
-            - libluajit-5.1-dev
+            - libltc-dev
+            - libcairo2-dev
             - libmodplug-dev
             - librubberband-dev
-            - libsamplerate0-dev
             - libsndfile1-dev
+            - libfreetype-dev
             - libxcb-randr0-dev
             - libxcb-util-dev
             - libxcb1-dev
@@ -131,6 +133,7 @@ parts:
             - make
             - patchelf
             - pkg-config
+            - rustc
             - tcl-dev
             - tcllib
             - tk-dev
@@ -142,12 +145,12 @@ parts:
             - libfftw3-single3
             - libice6
             - libjack-jackd2-0
-            - libluajit-5.1-2
-            - libluajit-5.1-common
+            - libltc11
             - libmodplug1
             - librubberband2
-            - libsamplerate0
             - libsndfile1
+            - libcairo2
+            - libfreetype6
             - libtcl8.6
             - libxcb-randr0
             - libxtables12

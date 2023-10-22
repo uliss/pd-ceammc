@@ -15,12 +15,14 @@ set(DOC_FILES
     array.fill
     array.grainer~
     array.hist
+    array.ltcplay~
     array.mean
     array.minmax
     array.p2s
     array.play~
     array.plot
     array.plot~
+    array.readwrite~
     array.resample
     array.rms
     array.s2p
@@ -29,6 +31,7 @@ set(DOC_FILES
     array.stretch
     array.sum
     array.sum2
+    array.tramp~
     array.variance
     array.vplay
     array.window
@@ -45,9 +48,14 @@ set(DOC_FILES
     chaos.logistic
     chaos.std0
     chaos.std0~
+    chrono.datetime
     click~
+    color.mix
+    color.scale
+    convolve~
     conv.amp2dbfs
     conv.amp2dbfs~
+    conv.bar2ms
     conv.bits2bang
     conv.bits2int
     conv.bits2note
@@ -57,12 +65,16 @@ set(DOC_FILES
     conv.bpm2sec
     conv.car2pol
     conv.cc2amp
+    conv.char2morse
+    conv.color2rgba
     conv.dbfs2amp
     conv.dbfs2amp~
     conv.degree2key
     conv.edge2bang
     conv.hex2int
+    conv.hsl2rgb
     conv.int2bits
+    conv.lab2rgb
     conv.lin2curve
     conv.lin2exp
     conv.lin2lin
@@ -72,6 +84,7 @@ set(DOC_FILES
     conv.ms2bpm
     conv.ms2samp
     conv.ms2samp~
+    conv.ms2str
     conv.note2guido
     conv.phase2rad
     conv.phase2rad~
@@ -79,14 +92,18 @@ set(DOC_FILES
     conv.pol2car
     conv.rad2phase
     conv.rad2phase~
+    conv.rgb2hex
     conv.samp2ms
     conv.samp2ms~
     conv.samp2sec
     conv.sec2bpm
     conv.sec2samp
     conv.sec2str
+    conv.semi2ratio
     conv.sig2float~
     conv.str2sec
+    data.bimap
+    data.color
     data.copy
     data.dict
     data.fifo
@@ -107,7 +124,13 @@ set(DOC_FILES
     dict.to_list
     dict.values
     dyn.comp2~
+    dyn.comp_peak2~
+    dyn.comp_peak~
+    dyn.comp_up2~
+    dyn.comp_up~
     dyn.comp~
+    dyn.expand2~
+    dyn.expand~
     dyn.gate2~
     dyn.gate~
     dyn.limit2~
@@ -115,6 +138,7 @@ set(DOC_FILES
     dyn.softclip~
     env.adsr~
     env.ar~
+    env.asr2~
     env.asr~
     env.concat
     env.follow~
@@ -156,6 +180,7 @@ set(DOC_FILES
     flow.pass
     flow.pass_if
     flow.pipe
+    flow.prepend
     flow.queue
     flow.record
     flow.reject
@@ -175,6 +200,8 @@ set(DOC_FILES
     flt.biquad~
     flt.bpf12~
     flt.bpf24~
+    flt.bpf36e~
+    flt.bpf72e~
     flt.c_apf
     flt.c_bpf~
     flt.c_highshelf~
@@ -209,12 +236,14 @@ set(DOC_FILES
     flt.resonbp~
     flt.resonhp~
     flt.resonlp~
+    flt.speaker~
     fluid~
     function
     function.call
     fx.bitdown~
     fx.chorus~
     fx.dattorro~
+    fx.delay~
     fx.distortion1~
     fx.distortion2~
     fx.distortion3~
@@ -232,21 +261,25 @@ set(DOC_FILES
     fx.infrev~
     fx.jcrev~
     fx.looper~
+    fx.overdrive~
     fx.pitchshift_s~
     fx.pitchshift~
     fx.rb_pitchshift~
     fx.recho~
+    fx.ringmod~
     fx.room~
     fx.satrev~
-    fx.sdelay~
-    fx.secho~
+    fx.scramble~
     fx.shimmer~
     fx.stutter~
     fx.tapiir~
+    fx.tremolo~
     fx.vocoder~
     fx.wahwah~
     fx.zita_rev1~
     gain~
+    gate~
+    global.bimap
     global.dict
     global.float
     global.int
@@ -255,15 +288,26 @@ set(DOC_FILES
     global.set
     hoa.2d.decoder~
     hoa.2d.encoder~
+    hoa.2d.exchanger~
     hoa.2d.map~
     hoa.2d.optim~
     hoa.2d.projector~
     hoa.2d.recomposer~
     hoa.2d.rotate~
+    hoa.2d.space
     hoa.2d.wider~
+    hoa.3d.decoder~
+    hoa.3d.encoder~
+    hoa.3d.exchanger~
+    hoa.3d.map~
+    hoa.3d.meter~
+    hoa.3d.optim~
+    hoa.3d.scope~
+    hoa.3d.wider~
     hoa.@process
     hoa.in
     hoa.in~
+    hoa.map.ui
     hoa.out
     hoa.out~
     hoa.process~
@@ -372,6 +416,7 @@ set(DOC_FILES
     list.zip
     live.capture~
     loadexpr
+    local.bimap
     local.dict
     local.float
     local.int
@@ -478,8 +523,11 @@ set(DOC_FILES
     math.trunc
     math.trunc~
     matrix~
+    merge~
+    metro.choice
     metro.pattern
     metro.random
+    metro.wchoice
     metro.seq
     midi.arp
     midi.cc
@@ -492,6 +540,7 @@ set(DOC_FILES
     midi.kbd
     midi.key2str
     midi.modus
+    midi.note.pass
     midi.oct
     midi.prg2str
     midi.split
@@ -506,7 +555,9 @@ set(DOC_FILES
     modplug~
     msg
     msg.after
+    msg.onclose
     msg.onload
+    msg.pack
     msg.sched
     music.dur2time
     music.voice2midi
@@ -588,18 +639,24 @@ set(DOC_FILES
     prop.random
     prop.set
     prop.split
+    proto.arturia.minilab
     proto.feelworld
     proto.firmata
     proto.inscore
+    proto.ltc.in~
+    proto.ltc.out~
     proto.midi
+    proto.midi.casio
     proto.midi.cc
     proto.midi.sysex
     proto.moppy
+    proto.morse
     proto.mpv
     proto.sp.alpaca
     proto.vlc
     proto.whammy
     proto.xtouch_ext
+    qrcode
     radio
     random.atom
     random.discrete
@@ -610,9 +667,13 @@ set(DOC_FILES
     random.pw_const
     random.pw_lin
     replace
+    rhythm.euclid
+    rhythm.hexbeat
+    rhythm.lsystem
     risset.gliss
     route.any
     route.bang
+    route.cycle
     route.float
     route.list
     route.prop
@@ -638,6 +699,7 @@ set(DOC_FILES
     set.union
     sfizz~
     snd.file
+    snd.play~
     spat.pan4~
     spat.pan8~
     spat.zita6x8~
@@ -645,6 +707,7 @@ set(DOC_FILES
     speech.flite
     speech.flite~
     speech.rhvoice~
+    split~
     spring
     string
     string.contains
@@ -685,6 +748,7 @@ set(DOC_FILES
     synth.kick~
     synth.ks~
     synth.marimba~
+    synth.metro~
     synth.piano~
     synth.rhodey~
     synth.risset_arp~
@@ -717,7 +781,9 @@ set(DOC_FILES
     ui.aview
     ui.bang
     ui.button
+    ui.canvas
     ui.colorpanel
+    ui.cmeter~
     ui.display
     ui.dsp~
     ui.env
@@ -731,6 +797,7 @@ set(DOC_FILES
     ui.keyboard
     ui.knob
     ui.label
+    ui.lcd
     ui.link
     ui.matrix
     ui.menu
@@ -758,6 +825,6 @@ set(DOC_FILES
     xfade2~
     xfade~
     z~
-#    array.risset_rythm~
+#    array.risset_rhythm~
 #    proto.midi.casio
 )

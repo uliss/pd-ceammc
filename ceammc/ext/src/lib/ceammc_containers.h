@@ -15,6 +15,7 @@
 #define CEAMMC_CONTAINERS_H
 
 #include <algorithm>
+#include <array>
 #include <cstdint>
 #include <initializer_list>
 
@@ -24,7 +25,6 @@
 
 #include "ceammc_atom.h"
 #include "ceammc_atomlist_view.h"
-#include "ceammc_output.h"
 
 namespace ceammc {
 
@@ -35,6 +35,11 @@ public:
 
     SmallAtomListN(std::initializer_list<Atom> atoms)
         : boost::container::small_vector<Atom, N>(atoms.begin(), atoms.end())
+    {
+    }
+
+    explicit SmallAtomListN(const AtomListView& lv)
+        : boost::container::small_vector<Atom, N>(lv.begin(), lv.end())
     {
     }
 
@@ -95,6 +100,28 @@ public:
             return {};
         else
             return { this->data(), this->size() };
+    }
+};
+
+template <size_t SIZE>
+class AtomArray : public std::array<Atom, SIZE> {
+public:
+    AtomArray() { this->fill(Atom(0.)); }
+
+    template <typename... Args>
+    explicit AtomArray(Args... args)
+        : std::array<Atom, SIZE>({ atomFrom(args)... })
+    {
+        constexpr auto NARGS = sizeof...(Args);
+        static_assert(NARGS == SIZE, "");
+    }
+
+    AtomListView view() const
+    {
+        if (this->empty())
+            return {};
+        else
+            return { this->data(), SIZE };
     }
 };
 

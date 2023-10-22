@@ -1,5 +1,4 @@
 #include "data_list.h"
-#include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "datatype_mlist.h"
 
@@ -21,5 +20,9 @@ void setup_data_list()
     ListIFaceFactory<DataList> obj("data.list");
     obj.processData<DataTypeMList>();
 
-    DataList::registerMethods(obj);
+    DataList::factoryEditorObjectInit(obj);
+
+    obj.setDescription("list container");
+    obj.setCategory("data");
+    obj.setKeywords({"data", "list"});
 }

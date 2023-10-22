@@ -43,4 +43,9 @@ void setup_conv_sec2str()
 {
     ObjectFactory<SecToStr> obj("conv.sec2str");
     obj.addAlias("sec->str");
+    obj.useDefaultPdListFn();
+
+    obj.setDescription("converts float time in seconds to formated symbol (or string)");
+    obj.setCategory("conv");
+    obj.setKeywords({"conv", "time"});
 }

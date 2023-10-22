@@ -129,6 +129,7 @@ public:
     void drawCircle(float x, float y, float r);
     void drawPoly(const std::vector<t_pt>& v);
 
+    void drawArcTo(float x, float y, float extent);
     void drawLineTo(float x, float y);
     void moveTo(float x, float y);
 
@@ -151,11 +152,14 @@ public:
 
     void rotate(float angle);
     void setMatrix(const t_matrix& mtx);
+    void setMatrix(float xx, float yx, float xy, float yy, float x0, float y0);
     void preAllocObjects(size_t n);
     void preAllocPoints(size_t n);
 
     void optimizeLines(bool v);
 };
+
+class UIObjectImpl;
 
 class UILayer {
     t_ebox* parent_;
@@ -163,6 +167,7 @@ class UILayer {
 
 public:
     UILayer(t_ebox* box, t_symbol* name);
+    UILayer(const UIObjectImpl* obj, const char* name);
     UIPainter painter(const t_rect& r);
     void invalidate();
 };
@@ -203,6 +208,7 @@ class UIPopupMenu {
     t_pt rel_pos_;
     PopupMenuCallbacks menu_items_;
     std::vector<std::string> disabled_items_;
+    t_efont font_;
 
 public:
     UIPopupMenu(t_eobj* x,
@@ -214,6 +220,7 @@ public:
 
     void disable(const std::string& name);
     void disable(const std::vector<std::string>& names);
+    void setFontSize(int sz);
 };
 
 }

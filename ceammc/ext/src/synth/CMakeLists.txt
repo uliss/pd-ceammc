@@ -35,6 +35,7 @@ ceammc_synth_obj(kick)
 ceammc_synth_obj(kick2)
 ceammc_synth_obj(ks)
 ceammc_synth_obj(marimba)
+ceammc_synth_obj(metro)
 ceammc_synth_obj(piano)
 ceammc_synth_obj(risset_arp)
 ceammc_synth_obj(risset_bell)
@@ -48,8 +49,10 @@ ceammc_synth_obj(voice_fofs)
 add_library(ceammc_synth STATIC mod_synth.cpp ${SYNTH_SOURCES} ${SYNTH_STK_SOURCES})
 
 target_link_libraries(ceammc_synth PRIVATE stk glitch-core)
-target_include_directories(ceammc_synth PRIVATE
+target_include_directories(ceammc_synth
+PRIVATE
     ${PROJECT_SOURCE_DIR}/ceammc/extra/stk/stk/include
+    "$<TARGET_PROPERTY:fmt,INCLUDE_DIRECTORIES>"
 )
 
 if(STK_VERSION)

@@ -14,8 +14,6 @@
 #include "net_host.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
-#include "ceammc_fn_list.h"
-#include "ceammc_output.h"
 #include "ceammc_platform.h"
 
 #include <unordered_set>
@@ -61,7 +59,7 @@ namespace {
             }
         }
 
-        Dispatcher::instance().send({ id, NOTIFY_UPDATE });
+        Dispatcher::instance().send({ id, 0 });
     }
 
     bool symToAddress(const char* str, platform::NetAddressType& type)
@@ -84,8 +82,6 @@ NetHost::NetHost(const PdArgs& args)
     : NetHostBase(args)
     , addr_type_(nullptr)
 {
-    Dispatcher::instance().subscribe(this, subscriberId());
-
     createOutlet();
 
     addr_type_ = new SymbolEnumProperty("@type", { str_ipv4, str_ipv6 });
@@ -138,7 +134,7 @@ NetHost::Future NetHost::createTask()
     return std::async(std::launch::async, startNetHostEvent, this, subscriberId());
 }
 
-bool NetHost::notify(NotifyEventType event)
+bool NetHost::notify(int event)
 {
     result_.clear();
 

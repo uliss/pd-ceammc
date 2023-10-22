@@ -16,11 +16,9 @@
 #include "ceammc_ui.h"
 
 constexpr const char* SYM_ARRAY_NAME = "array";
-constexpr const char* SYM_ATTR_SIZE = "size";
 constexpr const char* SYM_ATTR_WAVE_COLOR = "wave_color";
 constexpr const char* SYM_ATTR_CURSOR_COLOR = "cursor_color";
 constexpr const char* SYM_ATTR_SELECTION_COLOR = "selection_color";
-constexpr const char* SYM_ATTR_BG_COLOR = PROP_BACKGROUND_COLOR;
 constexpr const char* SYM_ATTR_SHOW_LABELS = "show_labels";
 constexpr const char* SYM_CURSOR_SAMPLE = "@cursor_samp";
 constexpr const char* SYM_CURSOR_PHASE = "@cursor_phase";
@@ -129,12 +127,12 @@ void UIArrayView::drawLabels()
 
     // top right
     label_top_right_.setColor(prop_color_border);
-    label_top_right_.set(str_label_top_right_.c_str(), r.width - 10, 3, 0, 0);
+    label_top_right_.set(str_label_top_right_.c_str(), r.w - 10, 3, 0, 0);
     p.drawText(label_top_right_);
 
     // bottom right
     label_bottom_right_.setColor(prop_color_border);
-    label_bottom_right_.set(str_label_bottom_right_.c_str(), r.width - 10, r.height - 3, 0, 0);
+    label_bottom_right_.set(str_label_bottom_right_.c_str(), r.w - 10, r.h - 3, 0, 0);
     p.drawText(label_bottom_right_);
 }
 
@@ -149,10 +147,10 @@ void UIArrayView::drawCursor()
     if (!isValidArray(ErrorMessageMode::HIDE))
         return;
 
-    float x = roundf((cursor_sample_pos_ * r.width) / (array_.size() - 1));
+    float x = roundf((cursor_sample_pos_ * r.w) / (array_.size() - 1));
     p.setLineWidth(2);
     p.setColor(prop_color_cursor);
-    p.drawLine(x, 0, x, r.height);
+    p.drawLine(x, 0, x, r.h);
 
     if (prop_show_labels) {
         const double SR = sys_getsr();
@@ -161,7 +159,7 @@ void UIArrayView::drawCursor()
 
         label_bottom_left_.setColor(prop_color_border);
         label_bottom_left_.set(convert::time::sec2str(double(cursor_sample_pos_) / SR, true).c_str(),
-            5, r.height - 3, 0, 0);
+            5, r.h - 3, 0, 0);
         p.drawText(label_bottom_left_);
     }
 }
@@ -177,13 +175,14 @@ void UIArrayView::init(t_symbol* name, const AtomListView& args, bool usePresets
 
 void UIArrayView::okSize(t_rect* newrect)
 {
-    newrect->width = clip<float>(newrect->width, 10, 5000);
-    newrect->height = clip<float>(newrect->height, 10, 1000);
+    newrect->w = clip<float>(newrect->w, 10, 5000);
+    newrect->h = clip<float>(newrect->h, 10, 1000);
 }
 
 void UIArrayView::onPropChange(t_symbol* prop_name)
 {
-    if (prop_name == gensym(SYM_ATTR_SIZE)) {
+    using namespace sym;
+    if (prop_name == props::sym_name_size()) {
         // width changed
         if (buffer_.size() != width()) {
             buffer_.resize(width());
@@ -198,7 +197,7 @@ void UIArrayView::onPropChange(t_symbol* prop_name)
     } else if (prop_name == gensym(SYM_ATTR_WAVE_COLOR) || prop_name == gensym(SYM_ATTR_SELECTION_COLOR)) {
         wave_layer_.invalidate();
         redraw();
-    } else if (prop_name == gensym(SYM_ATTR_BG_COLOR) || prop_name == gensym(SYM_ATTR_SHOW_LABELS)) {
+    } else if (prop_name == props::sym_name_background_color() || prop_name == gensym(SYM_ATTR_SHOW_LABELS)) {
         bg_layer_.invalidate();
         wave_layer_.invalidate();
         redraw();
@@ -603,13 +602,13 @@ void UIArrayView::drawWaveformSegment(UIPainter& p, int pixel_begin, int pixel_e
 
     // draw peak
     p.setColor(color);
-    p.moveTo(idx_begin * z, convert::lin2lin<float>(buffer_[idx_begin].peak_min, 1, -1, 0, r.height));
-    p.drawLineTo(idx_begin * z, convert::lin2lin<float>(buffer_[idx_begin].peak_max, 1, -1, 0, r.height));
+    p.moveTo(idx_begin * z, convert::lin2lin<float>(buffer_[idx_begin].peak_min, 1, -1, 0, r.h));
+    p.drawLineTo(idx_begin * z, convert::lin2lin<float>(buffer_[idx_begin].peak_max, 1, -1, 0, r.h));
 
     // assume: (x < idx_end) && (idx_end <= N) ----> (x < N)
     for (int x = idx_begin + 1; x < idx_end; x++) {
-        p.drawLineTo(x * z, convert::lin2lin<float>(buffer_[x].peak_min, 1, -1, 0, r.height));
-        p.drawLineTo(x * z, convert::lin2lin<float>(buffer_[x].peak_max, 1, -1, 0, r.height));
+        p.drawLineTo(x * z, convert::lin2lin<float>(buffer_[x].peak_min, 1, -1, 0, r.h));
+        p.drawLineTo(x * z, convert::lin2lin<float>(buffer_[x].peak_max, 1, -1, 0, r.h));
     }
 
     p.stroke();
@@ -617,13 +616,13 @@ void UIArrayView::drawWaveformSegment(UIPainter& p, int pixel_begin, int pixel_e
     if (prop_show_rms) {
         // draw rms
         p.setColor(rgba_addContrast(color, 0.23f));
-        p.moveTo(idx_begin * z, convert::lin2lin<float>(buffer_[idx_begin].rms, 1, -1, 0, r.height));
-        p.drawLineTo(idx_begin * z, convert::lin2lin<float>(-buffer_[idx_begin].rms, 1, -1, 0, r.height));
+        p.moveTo(idx_begin * z, convert::lin2lin<float>(buffer_[idx_begin].rms, 1, -1, 0, r.h));
+        p.drawLineTo(idx_begin * z, convert::lin2lin<float>(-buffer_[idx_begin].rms, 1, -1, 0, r.h));
 
         // assume: (x < idx_end) && (idx_end <= N) ----> (x < N)
         for (int x = idx_begin + 1; x < idx_end; x++) {
-            p.drawLineTo(x * z, convert::lin2lin<float>(buffer_[x].rms, 1, -1, 0, r.height));
-            p.drawLineTo(x * z, convert::lin2lin<float>(-buffer_[x].rms, 1, -1, 0, r.height));
+            p.drawLineTo(x * z, convert::lin2lin<float>(buffer_[x].rms, 1, -1, 0, r.h));
+            p.drawLineTo(x * z, convert::lin2lin<float>(-buffer_[x].rms, 1, -1, 0, r.h));
         }
 
         p.stroke();

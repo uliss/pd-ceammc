@@ -96,7 +96,7 @@ namespace lua {
         if (!pipe->try_enqueue({ LUA_CMD_POST, str }))
             return 0;
 
-        if (!Dispatcher::instance().send({ id, NOTIFY_UPDATE }))
+        if (!Dispatcher::instance().send({ id, 0 }))
             return 0;
 
         return 1;
@@ -120,7 +120,7 @@ namespace lua {
         if (!pipe->try_enqueue({ LUA_CMD_ERROR, str }))
             return 0;
 
-        if (!Dispatcher::instance().send({ id, NOTIFY_UPDATE }))
+        if (!Dispatcher::instance().send({ id, 0 }))
             return 0;
 
         return 1;
@@ -224,7 +224,7 @@ namespace lua {
         if (!ctx.pipe->try_enqueue({ LUA_CMD_SEND, args }))
             return 0;
 
-        if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
+        if (!Dispatcher::instance().send({ ctx.id, 0 }))
             return 0;
 
         return 1;
@@ -290,7 +290,7 @@ namespace lua {
         if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_BANG_TO, n)))
             return 0;
 
-        if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
+        if (!Dispatcher::instance().send({ ctx.id, 0 }))
             return 0;
 
         return 1;
@@ -314,7 +314,7 @@ namespace lua {
         if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_FLOAT_TO, LuaAtomList { LuaAtom { n }, LuaAtom { f } })))
             return 0;
 
-        if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
+        if (!Dispatcher::instance().send({ ctx.id, 0 }))
             return 0;
 
         return 1;
@@ -338,7 +338,7 @@ namespace lua {
         if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_SYMBOL_TO, LuaAtomList { LuaAtom { n }, LuaAtom { str } })))
             return 0;
 
-        if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
+        if (!Dispatcher::instance().send({ ctx.id, 0 }))
             return 0;
 
         return 1;
@@ -389,7 +389,7 @@ namespace lua {
         if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_LIST_TO, data)))
             return 0;
 
-        if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
+        if (!Dispatcher::instance().send({ ctx.id, 0 }))
             return 0;
 
         return 1;
@@ -450,7 +450,7 @@ namespace lua {
         if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_ANY_TO, data)))
             return 0;
 
-        if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
+        if (!Dispatcher::instance().send({ ctx.id, 0 }))
             return 0;
 
         return 1;
@@ -474,7 +474,7 @@ namespace lua {
         if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_SEND_BANG, dest)))
             return 0;
 
-        if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
+        if (!Dispatcher::instance().send({ ctx.id, 0 }))
             return 0;
 
         return 1;
@@ -502,7 +502,7 @@ namespace lua {
         if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_SEND_FLOAT, LuaAtomList { dest, val })))
             return 0;
 
-        if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
+        if (!Dispatcher::instance().send({ ctx.id, 0 }))
             return 0;
 
         return 1;
@@ -530,7 +530,7 @@ namespace lua {
         if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_SEND_SYMBOL, LuaAtomList { dest, val })))
             return 0;
 
-        if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
+        if (!Dispatcher::instance().send({ ctx.id, 0 }))
             return 0;
 
         return 1;
@@ -583,7 +583,7 @@ namespace lua {
         if (!ctx.pipe->try_enqueue(LuaCmd(LUA_CMD_SEND_LIST, data)))
             return 0;
 
-        if (!Dispatcher::instance().send({ ctx.id, NOTIFY_UPDATE }))
+        if (!Dispatcher::instance().send({ ctx.id, 0 }))
             return 0;
 
         return 1;

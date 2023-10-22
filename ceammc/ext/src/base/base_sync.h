@@ -18,12 +18,12 @@
 using namespace ceammc;
 
 class BaseSync : public BaseObject {
-    size_t n_;
+    IntProperty* n_ { nullptr };
     bool blocked_;
-    ;
 
 public:
     BaseSync(const PdArgs& args);
+    void initDone() final;
 
     void onInlet(size_t idx, const AtomListView& lv) override;
 };

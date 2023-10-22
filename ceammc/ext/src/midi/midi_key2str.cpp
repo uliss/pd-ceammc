@@ -71,4 +71,8 @@ void setup_midi_key2str()
 {
     ObjectFactory<MidiKey2Str> obj("midi.key2str");
     obj.addAlias("midi.key->str");
+
+    obj.setDescription("convert key number to SPN name according to tonality");
+    obj.setCategory("midi");
+    obj.setKeywords({"midi", "key", "name"});
 }

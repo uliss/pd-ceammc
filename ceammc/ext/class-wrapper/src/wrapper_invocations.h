@@ -25,8 +25,6 @@
 #ifndef WRAPPER_INVOCATIONS_H_
 #define WRAPPER_INVOCATIONS_H_
 
-#include "wrapper_converters.h"
-#include "wrapper_fn_traits.h"
 #include "wrapper_sequence.h"
 
 #include <memory>

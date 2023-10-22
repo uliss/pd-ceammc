@@ -23,15 +23,17 @@ static std::unique_ptr<ArgChecker> onlist_chk;
 MidiSplit::MidiSplit(const PdArgs& args)
     : BaseObject(args)
 {
-    ceammc::parser::SpnFullMatch spn_parser;
+
+//    ceammc::parser::SpnFullMatch spn_parser;
 
     for (auto& a : parsedPosArgs()) {
         t_float pitch = 0;
+        music::Spn spn;
 
         if (a.isFloat())
             pitch = a.asT<t_float>();
-        else if (a.isSymbol() && spn_parser.parse(a))
-            pitch = spn_parser.spn().midi();
+        else if (a.isSymbol() && parser::parse_spn(a, spn))
+            pitch = spn.asMidi();
         else {
             OBJ_ERR << "unknown atom: " << a << "; MIDI pitch or SPN notation expected, skipping";
             continue;
@@ -95,4 +97,8 @@ void setup_midi_split()
 
     ObjectFactory<MidiSplit> obj("midi.split");
     obj.setInletsInfo({ "list: PITCH VEL DUR?" });
+
+    obj.setDescription("midi note splitter");
+    obj.setCategory("midi");
+    obj.setKeywords({"midi", "note", "splitter"});
 }

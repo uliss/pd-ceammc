@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="canvas.top">
         <title>canvas.top</title>
         <meta>
@@ -18,25 +18,28 @@
             <since>0.4</since>
         </meta>
         <properties>
-            <property name="@name" access="readonly" type="symbol" default="test_canvas">canvas
+            <property name="@name" type="symbol" access="readonly" default="test_canvas">canvas
             name</property>
-            <property name="@dir" access="readonly" type="symbol" default="/">canvas
+            <property name="@dir" type="symbol" access="readonly" default="/">canvas
             directory</property>
-            <property name="@size" access="readonly" type="list" default="600 400">window
+            <property name="@size" type="list" access="readonly" default="600 400">window
             size</property>
-            <property name="@width" access="readonly" type="int" default="600">window
+            <property name="@width" type="int" access="readonly" default="600">window
             width</property>
-            <property name="@height" access="readonly" type="int" default="400">window
+            <property name="@height" type="int" access="readonly" default="400">window
             height</property>
-            <property name="@font" access="readonly" type="int" default="10">window font</property>
-            <property name="@paths" access="readonly" type="list" default="">search
+            <property name="@font" type="int" access="readonly" default="10">window font</property>
+            <property name="@paths" type="list" access="readonly" default="">search
             paths</property>
-            <property name="@x" access="readonly" type="int" default="0">window x-pos</property>
-            <property name="@y" access="readonly" type="int" default="0">window y-pos</property>
+            <property name="@x" type="int" access="readonly" default="0">window x-pos</property>
+            <property name="@y" type="int" access="readonly" default="0">window y-pos</property>
+            <property name="@abs" type="bool" default="1">if false: using toplevel canvas, if true:
+            using abstraction canvas</property>
         </properties>
         <methods>
+            <!-- postscript -->
             <method name="postscript">save patch to postscript 
-            <param type="symbol" name="FNAME" required="false">file. If not specified patch name
+            <param name="FNAME" type="symbol" required="false">file. If not specified patch name
             used with .ps extension</param></method>
         </methods>
         <inlets>
@@ -59,11 +62,36 @@
 | |     |   | |     | |
 [canvas.top           ]
 |
-[ui.display @display_type 1]
+[ui.dt]
 
-
-
-
+[canvas.top.abs]
+]]>
+            </pdascii>
+            <pdascii id="abs">
+<![CDATA[
+[bang(                       [bang(
+|                            |
+[canvas.top.abs0]            [canvas.top.abs1]
+|                            |
+[ui.dt]                      [ui.dt]
+]]>
+            </pdascii>
+            <pdascii id="abs0">
+<![CDATA[
+[inlet]
+|
+[canvas.top @abs 0]
+|
+[outlet]
+]]>
+            </pdascii>
+            <pdascii id="abs1">
+<![CDATA[
+[inlet]
+|
+[canvas.top @abs 1]
+|
+[outlet]
 ]]>
             </pdascii>
         </example>

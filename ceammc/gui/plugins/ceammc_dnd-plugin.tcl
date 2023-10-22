@@ -6,6 +6,7 @@
 # META AUTHOR Patrice Colet <colet.patrice@free.fr>
 # META AUTHOR Hans-Christoph Steiner <eighthave@users.sourceforge.net>
 # 2018 - 2021 Modifications by Oliver Stotz and Lucas Cordiviola 
+# 2023 Modifications by Serge Poltavski
  
 ::pdwindow::post "\[dnd-plugin\] version 0.3.1\n"
 ::pdwindow::post "\[dnd-plugin\] Drag and Drop on Pd window or patch canvas\n"
@@ -31,7 +32,7 @@ namespace eval ::text_on_patch {
 
 proc ::dnd_object_create::bind_to_canvas {mytoplevel} {
     ::tkdnd::drop_target register $mytoplevel DND_Files
-    bind $mytoplevel <<DropPosition>> {+::dnd_object_create::setxy %X %Y}
+    bind $mytoplevel <<DropPosition>>   {+::dnd_object_create::setxy %X %Y}
     bind $mytoplevel <<Drop:DND_Files>> {::dnd_object_create::dropped_object_files %W %D}
 }
 
@@ -104,8 +105,14 @@ proc ::dnd_object_create::dropped_object_files {mytoplevel files} {
                 ::pdwindow::debug "dropping $dropobj on $::focused_window\n"
                 ::dnd_object_create::make_object $mytoplevel $dropobj
             }
-
-           # 2018 Modification
+        } elseif {$ext == ".wav"} {
+            set patchname_bsl [::dnd_object_create::correct_spaces $file]
+            ::pdwindow::debug "dropping $patchname_bsl on $::focused_window\n"
+            variable x
+            variable y
+            set posx [expr $x - [winfo rootx $mytoplevel]]
+            set posy [expr $y - [winfo rooty $mytoplevel]]
+            pdsend "$mytoplevel msg $posx $posy $patchname_bsl"
         } else {
             ::dnd_object_create::send_filename $mytoplevel $file $ext $dir $obj
         }
@@ -208,8 +215,8 @@ bind PatchWindow <<Loaded>> {+::text_on_patch::bind_to_dropped_text %W}
 
 proc ::text_on_patch::bind_to_dropped_text {mytoplevel} {
     ::tkdnd::drop_target register $mytoplevel DND_Text
-    bind $mytoplevel <<DropPosition>> {+::text_on_patch::setxy %X %Y}
-    bind $mytoplevel <<Drop:DND_Text>> {::text_on_patch::make_comments %W %D}
+    bind $mytoplevel <<DropPosition>>  {+::text_on_patch::setxy %X %Y}
+    bind $mytoplevel <<Drop:DND_Text>> {::text_on_patch::make_dropped_text %W %D}
     # TODO bind to DropEnter and DropLeave to make window visually show whether it will accept the drop or not
 }
 
@@ -219,16 +226,17 @@ proc ::text_on_patch::setxy {newx newy} {
     return "copy"
 }
 
-proc ::text_on_patch::make_comments {mytoplevel text} {
+proc ::text_on_patch::make_dropped_text {mytoplevel text} {
     variable x
     variable y
     set posx [expr $x - [winfo rootx $mytoplevel]]
     set posy [expr $y - [winfo rooty $mytoplevel]]
-    #pdwindow::error "::text_on_patch::make_comments $mytoplevel text $posx $posy\n"
     foreach line [split [regsub {\\\;} $text {}] "\n"] {
         if {$line ne ""} {
             set line [string map {"," " \\, " ";" " \\; "} $line]
-            pdsend "$mytoplevel text $posx $posy $line"
+            set len [string length $line]
+            set len [expr min(100, $len)]
+            pdsend "$mytoplevel text $posx $posy $line, f $len"
         }
         set posy [expr $posy + 20]
     }

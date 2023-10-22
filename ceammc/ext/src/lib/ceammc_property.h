@@ -30,10 +30,6 @@
 
 namespace ceammc {
 
-t_symbol* SYM_DUMP();
-t_symbol* SYM_PROPS_ALL();
-t_symbol* SYM_PROPS_ALL_Q();
-
 using PropertyBoolGetter = std::function<bool()>;
 using PropertyBoolSetter = std::function<bool(bool)>;
 using PropertyFloatGetter = std::function<t_float()>;
@@ -71,7 +67,7 @@ public:
 
 public:
     Property(const PropertyInfo& info, PropValueAccess access = PropValueAccess::READWRITE);
-    virtual ~Property() = default;
+    virtual ~Property();
 
     /// pure virtual
     virtual AtomList get() const = 0;
@@ -86,11 +82,17 @@ public:
 
     inline PropValueAccess access() const { return info_.access(); }
     inline PropValueType type() const { return info_.type(); }
-    inline PropValueUnits units() const { return info_.units(); }
     inline PropValueView view() const { return info_.view(); }
     inline PropValueVis visibility() const { return info_.visibility(); }
     inline int8_t argIndex() const { return info_.argIndex(); }
     inline bool hasArgIndex() const { return info_.hasArgIndex(); }
+
+    // units
+    inline PropValueUnitsBase units() const { return info_.units(); }
+    inline bool equalUnit(PropValueUnits u) const { return info_.equalUnit(u); }
+    inline bool hasUnit(PropValueUnits u) const { return info_.hasUnit(u); }
+    inline void addUnit(PropValueUnits u) { return info_.addUnit(u); }
+    inline void setUnits(PropValueUnits u) { info_.setUnits(u); }
 
     inline void setReadOnly() { info_.setAccess(PropValueAccess::READONLY); }
     inline void setInitOnly() { info_.setAccess(PropValueAccess::INITONLY); }
@@ -101,7 +103,6 @@ public:
     bool setArgIndexNext(Property* p);
 
     inline void setType(PropValueType t) { info_.setType(t); }
-    inline void setUnits(PropValueUnits u) { info_.setUnits(u); }
     inline void setView(PropValueView v) { info_.setView(v); }
     inline void setVisibility(PropValueVis v) { info_.setVisibility(v); }
 
@@ -149,6 +150,8 @@ public:
     bool setSymbolEnumCheck(std::initializer_list<t_symbol*> l);
     bool setSymbolEnumCheck(std::initializer_list<const char*> l);
     void setCheckErrorMsg(const std::string& str);
+
+    bool callSuccessFn();
 
     virtual bool checkPositive();
     virtual bool checkNegative();
@@ -514,7 +517,7 @@ public:
         static_assert(std::is_base_of<Property, T>::value, "should be base of Property");
 
         setType(prop->type());
-        setUnits(prop->units());
+        setUnits(static_cast<PropValueUnits>(prop->units()));
         setView(prop->view());
         setHidden();
     }
@@ -526,7 +529,11 @@ public:
         if (!lv.empty())
             LIB_ERR << "no arguments required for alias property: " << name();
 
-        return ptr_->setValue(val_);
+        auto res = ptr_->setValue(val_);
+        if (res)
+            ptr_->callSuccessFn();
+
+        return res;
     }
 
     AtomList get() const override { return listFrom(bool(ptr_->value() == val_)); }

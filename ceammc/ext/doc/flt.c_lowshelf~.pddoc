@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="flt.c_lowshelf~">
         <title>flt.c_lowshelf~</title>
         <meta>
@@ -23,19 +23,21 @@
             <par>Calculates coefficients for transfer function: H(z)=(b0 + b1*z⁻¹ + b2*z⁻²)/(1 +
             a1*z⁻¹ + a2*z⁻²)</par>
         </info>
-        <properties>
-            <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="1000"
-            units="hertz">center frequency</property>
-            <property name="@gain" type="float" minvalue="-15" maxvalue="15" default="0"
-            units="decibel">filter gain</property>
-            <property name="@active" type="bool" default="1">on/off dsp processing</property>
-        </properties>
         <arguments>
             <argument name="FREQ" type="float" units="hertz" minvalue="20" maxvalue="20000">cutoff
             frequency</argument>
             <argument name="GAIN" type="float" minvalue="-15" maxvalue="15" units="decibel">filter
             gain</argument>
         </arguments>
+        <properties>
+            <property name="@freq" type="float" minvalue="20" maxvalue="20000" default="1000"
+            units="hertz">center frequency</property>
+            <property name="@gain" type="float" minvalue="-15" maxvalue="15" default="0"
+            units="decibel">filter gain</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+        </properties>
         <inlets>
             <inlet>
                 <xinfo>control input</xinfo>

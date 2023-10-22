@@ -69,18 +69,18 @@ bool is_ceammc_flext(t_object* x)
 
 bool is_ceammc_abstraction(t_object* x)
 {
-    static t_symbol* SYM_PROP_DECL = gensym("prop.declare");
-    static t_symbol* SYM_CANVAS = gensym("canvas");
+    constexpr const char* SYM_PROP_DECL = "prop.declare";
+    constexpr const char* SYM_CANVAS = "canvas";
 
     if (!x)
         return false;
 
-    if (x->te_g.g_pd->c_name != SYM_CANVAS)
+    if (strcmp(x->te_g.g_pd->c_name->s_name, SYM_CANVAS) != 0)
         return false;
 
-    t_canvas* cnv = reinterpret_cast<t_canvas*>(x);
-    for (t_gobj* y = cnv->gl_list; y; y = y->g_next) {
-        if (y->g_pd->c_name == SYM_PROP_DECL)
+    auto cnv = reinterpret_cast<t_canvas*>(x);
+    for (auto y = cnv->gl_list; y; y = y->g_next) {
+        if (strcmp(y->g_pd->c_name->s_name, SYM_PROP_DECL) == 0)
             return true;
     }
 

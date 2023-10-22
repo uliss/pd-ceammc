@@ -1,4 +1,6 @@
 #include "ceammc_cicm.h"
+#include "ceammc_fonts.h"
+#include "ceammc_ui_object.h"
 
 #include <algorithm>
 
@@ -153,21 +155,21 @@ void UITextLayout::setPos(float x, float y)
 void UITextLayout::setWidth(float w)
 {
     w_ = w;
-    text_->c_rect.width = w;
+    text_->c_rect.w = w;
 }
 
 void UITextLayout::setHeight(float h)
 {
     h_ = h;
-    text_->c_rect.height = h;
+    text_->c_rect.h = h;
 }
 
 void UITextLayout::setSize(float w, float h)
 {
     w_ = w;
     h_ = h;
-    text_->c_rect.width = w;
-    text_->c_rect.height = h;
+    text_->c_rect.w = w;
+    text_->c_rect.h = h;
 }
 
 void UITextLayout::setJustify(etextjustify_flags j)
@@ -239,6 +241,12 @@ UILayer::UILayer(t_ebox* box, t_symbol* name)
 {
 }
 
+UILayer::UILayer(const UIObjectImpl* obj, const char* name)
+    : parent_(obj->asEBox())
+    , name_(gensym(name))
+{
+}
+
 void UILayer::invalidate()
 {
     ebox_invalidate_layer(parent_, name_);
@@ -253,7 +261,7 @@ bool contains_point(const t_rect& r, const t_pt& pt)
 {
     const float dx = pt.x - r.x;
     const float dy = pt.y - r.y;
-    return dx >= 0 && dy >= 0 && dx <= r.width && dy <= r.height;
+    return dx >= 0 && dy >= 0 && dx <= r.w && dy <= r.h;
 }
 
 UIPainter::UIPainter(t_ebox* box, t_symbol* name, const t_rect& brect)
@@ -261,7 +269,7 @@ UIPainter::UIPainter(t_ebox* box, t_symbol* name, const t_rect& brect)
     , name_(name)
     , layer_(0)
 {
-    layer_ = ebox_start_layer(parent_, name_, brect.width, brect.height);
+    layer_ = ebox_start_layer(parent_, name_, brect.w, brect.h);
 }
 
 UIPainter::~UIPainter()
@@ -297,7 +305,7 @@ void UIPainter::drawRect(float x, float y, float w, float h)
 
 void UIPainter::drawRect(const t_rect& r)
 {
-    egraphics_rectangle(layer_, r.x, r.y, r.width, r.height);
+    egraphics_rectangle(layer_, r.x, r.y, r.w, r.h);
 }
 
 void UIPainter::drawCircle(float x, float y, float r)
@@ -308,6 +316,11 @@ void UIPainter::drawCircle(float x, float y, float r)
 void UIPainter::drawPoly(const std::vector<t_pt>& v)
 {
     egraphics_poly(layer_, v);
+}
+
+void UIPainter::drawArcTo(float x, float y, float extent)
+{
+    egraphics_arc_to(layer_, x, y, extent);
 }
 
 void UIPainter::drawLineTo(float x, float y)
@@ -347,8 +360,8 @@ void UIPainter::closePath()
 
 void UIPainter::fillLayer(const t_rgba& color)
 {
-    float w = layer_->e_rect.width;
-    float h = layer_->e_rect.height;
+    float w = layer_->e_rect.w;
+    float h = layer_->e_rect.h;
 
     setColor(color);
     drawRect(0, 0, w, h);
@@ -403,6 +416,11 @@ void UIPainter::setMatrix(const t_matrix& mtx)
     egraphics_set_matrix(layer_, &mtx);
 }
 
+void UIPainter::setMatrix(float xx, float yx, float xy, float yy, float x0, float y0)
+{
+    egraphics_matrix_init(&layer_->e_matrix, xx, yx, xy, yy, x0, y0);
+}
+
 void UIPainter::preAllocObjects(size_t n)
 {
     egraphics_preallocate_objects(layer_, n);
@@ -426,19 +444,23 @@ UIPopupMenu::UIPopupMenu(t_eobj* x,
     , abs_pos_(absPos)
     , rel_pos_(relPos)
     , menu_items_(items)
+    , font_ { gensym(fonts::default_menu_font_family()), gensym("normal"), gensym("normal"), fonts::default_menu_font_size(), -1 }
 {
     menu_ = epopupmenu_create(x, gensym(items.name().c_str()));
 }
 
 UIPopupMenu::~UIPopupMenu()
 {
+    if (font_.c_size > 0)
+        epopupmenu_setfont(menu_, &font_);
+
     int cnt = 0;
     for (auto& m : menu_items_.items()) {
         if (std::get<0>(m).empty())
             epopupmenu_addseparator(menu_);
         else {
-            auto it = std::find(disabled_items_.begin(), disabled_items_.end(), std::get<0>(m));
-            epopupmenu_additem(menu_, cnt, std::get<0>(m).c_str(), it == disabled_items_.end(), rel_pos_);
+            bool disable = std::find(disabled_items_.begin(), disabled_items_.end(), std::get<0>(m)) == disabled_items_.end();
+            epopupmenu_additem(menu_, cnt, std::get<0>(m).c_str(), disable || !std::get<1>(m), !std::get<1>(m), rel_pos_);
         }
 
         // counter increment
@@ -458,6 +480,11 @@ void UIPopupMenu::disable(const std::string& name)
 void UIPopupMenu::disable(const std::vector<std::string>& names)
 {
     disabled_items_.insert(disabled_items_.end(), names.begin(), names.end());
+}
+
+void UIPopupMenu::setFontSize(int sz)
+{
+    font_.c_size = sz;
 }
 
 PopupMenuCallbacks::PopupMenuCallbacks(const std::string& name,

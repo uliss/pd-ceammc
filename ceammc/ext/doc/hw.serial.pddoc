@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="hw.serial">
         <title>hw.serial</title>
         <meta>
@@ -15,7 +15,7 @@
         </meta>
         <arguments>
             <argument name="RATE" type="int"
-            enum="110 300 600 1200 2400 4800 9600, 14400 19200 28800 38400 56000 57600 115200">
+            enum="110 115200 1200 128000 14400 19200 2400 256000 300 38400 4800 56000 57600 600 9600">
             serial baud rate</argument>
             <argument name="PORT" type="symbol">serial device or port name, eg.: COM3 on Windows,
             /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX</argument>
@@ -30,8 +30,10 @@
             devices</property>
         </properties>
         <methods>
-            <method name="open">connect to device</method>
+            <!-- close -->
             <method name="close">disconnect from device</method>
+            <!-- open -->
+            <method name="open">connect to device</method>
         </methods>
         <inlets>
             <inlet>

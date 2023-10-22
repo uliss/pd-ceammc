@@ -13,14 +13,13 @@
  *****************************************************************************/
 #include "ceammc_property.h"
 #include "ceammc_containers.h"
-#include "ceammc_crc32.h"
-#include "ceammc_format.h"
 #include "ceammc_log.h"
 #include "lex/parser_props.h"
+#include <memory>
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wsign-conversion"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #pragma clang diagnostic pop
 
 #include <algorithm>
@@ -43,32 +42,14 @@
 
 namespace ceammc {
 
-// using singleton to prevent problems with static objects
-// intializations in different modules
-t_symbol* SYM_DUMP()
-{
-    static t_symbol* s = gensym("dump");
-    return s;
-}
-
-t_symbol* SYM_PROPS_ALL()
-{
-    static t_symbol* s = gensym("@*");
-    return s;
-}
-
-t_symbol* SYM_PROPS_ALL_Q()
-{
-    static t_symbol* s = gensym("@*?");
-    return s;
-}
-
 Property::Property(const PropertyInfo& info, PropValueAccess access)
     : info_(info)
     , owner_(nullptr)
 {
     info_.setAccess(access);
 }
+
+Property::~Property() = default;
 
 bool Property::set(const AtomListView& lv)
 {
@@ -281,7 +262,7 @@ bool Property::setListCheckFn(Property::PropListCheckFn fn, const std::string& e
     return true;
 }
 
-bool Property::setSuccessFn(Property::PropSuccessFn fn)
+bool Property::setSuccessFn(PropSuccessFn fn)
 {
     if (isReadOnly()) {
         PROP_ERR() << "can't set success fn for readonly property";
@@ -511,6 +492,18 @@ bool Property::setSymbolEnumCheck(std::initializer_list<const char*> l)
 void Property::setCheckErrorMsg(const std::string& str)
 {
     err_msg_ = str;
+}
+
+bool Property::callSuccessFn()
+{
+    if (!ok_fn_ptr_)
+        return false;
+
+    if (!*ok_fn_ptr_)
+        return false;
+
+    (*ok_fn_ptr_)(this);
+    return true;
 }
 
 bool Property::checkPositive()

@@ -18,8 +18,12 @@
 
 FunctionCall::FunctionCall(const PdArgs& a)
     : BaseObject(a)
-    , name_(parsedPosArgs().symbolAt(0, &s_))
+    , name_(&s_)
 {
+    auto prop = new PointerProperty<t_symbol*>("@name", &name_, PropValueAccess::READWRITE);
+    prop->setArgIndex(0);
+    addProperty(prop);
+
     createInlet(&name_);
     createOutlet();
 }

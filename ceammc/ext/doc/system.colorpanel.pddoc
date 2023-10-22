@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="system.colorpanel">
         <title>system.colorpanel</title>
         <meta>
@@ -14,8 +14,12 @@
             <keywords>colorpanel</keywords>
             <since>0.1</since>
         </meta>
+        <mouse>
+            <event type="left-click" editmode="false" keys="Shift">open color chooser</event>
+        </mouse>
         <properties>
-            <property name="@mode" type="symbol" enum="float int hex" default="float">output
+            <property name="@color" type="atom">current color</property>
+            <property name="@mode" type="symbol" enum="float int hex data" default="float">output
             mode</property>
             <property name="@f" type="alias">alias for @mode float. Output values as RGB list in
             0-1 range.</property>
@@ -23,11 +27,13 @@
             0-255 range.</property>
             <property name="@h" type="alias">alias for @mode hex. Output value as #RRGGBB
             symbol.</property>
+            <property name="@d" type="alias">alias for @mode data. Output value Color
+            datatype.</property>
             <property name="@float" type="list" default="1 1 1">RGB color value in float range
             (0-1)</property>
             <property name="@int" type="list" default="255 255 255">RGB color value in int range
             (0-255)</property>
-            <property name="@hex" type="symbol" default="#ffffff">color value as #RRGGBB
+            <property name="@hex" type="symbol" default="#FFFFFF">color value as #RRGGBB
             symbol</property>
         </properties>
         <inlets>
@@ -48,11 +54,11 @@
 <![CDATA[
 [bang(                [ui.menu float int hex]
 |                     |
-|  [symbol #FFAA77(   [@mode $2(
+|  [symbol \#FFAA77(  [@mode $2(
 |  |                  |
 [system.colorpanel  @f]
 |
-[ui.display]
+[ui.dt]
 ]]>
             </pdascii>
         </example>

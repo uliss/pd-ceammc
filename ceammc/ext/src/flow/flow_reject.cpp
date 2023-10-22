@@ -85,4 +85,8 @@ void setup_flow_reject()
                        "any:    reject if selector in list",
                          "list: set reject list" },
         { "output" });
+
+    obj.setDescription("reject specified values");
+    obj.setCategory("flow");
+    obj.setKeywords({"reject", "functional"});
 }

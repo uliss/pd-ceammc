@@ -20,9 +20,11 @@
 #include <errno.h>
 #include <fcntl.h>
 #include <fnmatch.h>
+#include <ifaddrs.h>
 #include <iostream>
 #include <libgen.h>
 #include <limits.h>
+#include <net/if.h>
 #include <netdb.h>
 #include <pwd.h>
 #include <stdio.h>
@@ -173,7 +175,7 @@ namespace platform {
         return std::string();
     }
 
-    bool unix_is_file(const char *path)
+    bool unix_is_file(const char* path)
     {
         struct stat statbuf;
         if (::stat(path, &statbuf) != -1) {
@@ -182,6 +184,84 @@ namespace platform {
             else
                 return false;
         }
+        return false;
+    }
+
+    std::vector<std::string> unix_net_ifaces_ip(NetAddressType type, bool skipLocal)
+    {
+        std::vector<std::string> res;
+        ifaddrs* ifaddr;
+
+        if (getifaddrs(&ifaddr) == -1)
+            return res;
+
+        char host[INET6_ADDRSTRLEN];
+
+        for (auto ifa = ifaddr; ifa != nullptr; ifa = ifa->ifa_next) {
+            if (ifa->ifa_addr == nullptr)
+                continue;
+
+            if (skipLocal && (ifa->ifa_flags & IFF_LOOPBACK))
+                continue;
+
+            auto addr = ifa->ifa_addr;
+            auto family = addr->sa_family;
+
+            switch (family) {
+            case AF_INET:
+                if (type != ADDR_IPV4 && type != ADDR_IPANY)
+                    continue;
+
+                if (inet_ntop(family, &((struct sockaddr_in*)addr)->sin_addr, host, INET6_ADDRSTRLEN))
+                    res.push_back(host);
+                break;
+            case AF_INET6:
+                if (type != ADDR_IPV6 && type != ADDR_IPANY)
+                    continue;
+
+                if (inet_ntop(family, &((struct sockaddr_in6*)addr)->sin6_addr, host, INET6_ADDRSTRLEN))
+                    res.push_back(host);
+                break;
+            default:
+                continue;
+            }
+        }
+
+        freeifaddrs(ifaddr);
+
+        return res;
+    }
+
+    bool unix_net_socket_addr(int fd, std::string& res)
+    {
+        struct sockaddr_storage addr = { 0 };
+        socklen_t len = sizeof(addr);
+
+        if (getsockname(fd, (struct sockaddr*)(&addr), &len) < 0) {
+            pd_error(nullptr, "getsockname: %s", strerror(errno));
+            return false;
+        }
+
+        char host[INET6_ADDRSTRLEN];
+
+        switch (addr.ss_family) {
+        case AF_INET:
+            if (inet_ntop(addr.ss_family, &((struct sockaddr_in*)&addr)->sin_addr, host, INET6_ADDRSTRLEN)) {
+                res = host;
+                return true;
+            }
+
+            break;
+        case AF_INET6:
+            if (inet_ntop(addr.ss_family, &((struct sockaddr_in6*)&addr)->sin6_addr, host, INET6_ADDRSTRLEN)) {
+                res = host;
+                return true;
+            }
+            break;
+        default:
+            break;
+        }
+
         return false;
     }
 }

@@ -44,4 +44,7 @@ void MathGCD::onList(const AtomListView& lv)
 void setup_math_gcd()
 {
     ObjectFactory<MathGCD> obj("math.gcd");
+
+    obj.setDescription("calculate greatest common divisor");
+    obj.setCategory("math");
 }

@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="env2vline">
         <title>env2vline</title>
         <meta>
@@ -31,7 +31,7 @@
             outputs envelope (as fixed) on every input data</property>
         </properties>
         <methods>
-            <!-- next point -->
+            <!-- next -->
             <method name="next">output segment until next stop-point or end of envelope is
             reached</method>
             <!-- reset -->

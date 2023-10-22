@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="fx.stutter~">
         <title>fx.stutter~</title>
         <meta>
@@ -27,10 +27,11 @@
             loop fragment in both directions</property>
             <property name="@speed" type="float" minvalue="0.25" maxvalue="4" default="1">loop
             fragment playing speed</property>
+            <property name="@env" type="atom">stutter envelope</property>
         </properties>
         <inlets>
             <inlet type="audio">
-                <xinfo>left channel</xinfo>
+                <xinfo>input signal</xinfo>
             </inlet>
             <inlet type="control">
                 <xinfo on="bang">turn on effect for 3 periods</xinfo>

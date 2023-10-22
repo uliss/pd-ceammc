@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "lua_interp.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #include "lua_func.h"
 #include "lua_stack_guard.h"
 
@@ -283,7 +283,7 @@ end
             case LUA_CMD_NOP: // ignore silently
                 break;
             default:
-                error(fmt::format("unsupported command: {}", cmd.cmd));
+                error(fmt::format("unsupported command: {}", (int)cmd.cmd));
                 break;
             }
         } catch (std::exception& e) {

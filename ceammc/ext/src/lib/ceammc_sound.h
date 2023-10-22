@@ -14,8 +14,11 @@
 #ifndef CEAMMC_SOUND_H
 #define CEAMMC_SOUND_H
 
+#include "ceammc_log.h"
 #include "m_pd.h"
 
+#include <cstdint>
+#include <functional>
 #include <memory>
 #include <string>
 #include <utility>
@@ -23,22 +26,59 @@
 
 namespace ceammc {
 namespace sound {
+
+    using SoundFileLogFunction = std::function<void(LogLevel, const char*)>;
+
+    enum SoundFileFormat : std::uint8_t {
+        FORMAT_UNKNOWN,
+        FORMAT_WAV,
+        FORMAT_AIFF,
+        FORMAT_RAW,
+        FORMAT_FLAC,
+        FORMAT_OGG,
+        FORMAT_OPUS,
+        FORMAT_MP3,
+        FORMAT_TEXT,
+    };
+
+    enum SampleFormat : std::uint8_t {
+        SAMPLE_DEFAULT,
+        SAMPLE_PCM_8,
+        SAMPLE_PCM_16,
+        SAMPLE_PCM_24,
+        SAMPLE_PCM_32,
+        SAMPLE_PCM_FLOAT,
+    };
+
+    struct SoundFileOpenParams {
+        int samplerate { 0 };
+        SoundFileFormat file_format { FORMAT_UNKNOWN };
+        SampleFormat sample_format { SAMPLE_DEFAULT };
+        std::uint8_t num_channels { 0 };
+    };
+
+    const char* to_string(SoundFileFormat f);
+    const char* to_string(SampleFormat f);
+
+    class SoundFile;
+
+    using SoundFilePtr = std::shared_ptr<SoundFile>;
     using FormatDescription = std::pair<std::string, std::string>;
     using FormatList = std::vector<FormatDescription>;
-    class SoundFile;
-    using SoundFilePtr = std::shared_ptr<SoundFile>;
 
     class SoundFile {
-        std::string fname_;
-        t_float gain_ = { 1.f };
-        double resample_ratio_ = { 1 };
+    public:
+        enum OpenMode : std::uint8_t {
+            NONE,
+            READ,
+            WRITE,
+        };
 
     public:
-        SoundFile(const std::string& fname);
+        SoundFile();
         virtual ~SoundFile();
 
-        virtual std::string filename();
-        virtual bool close() = 0;
+        const std::string& filename() const { return fname_; }
 
         t_float gain() const { return gain_; }
         void setGain(t_float g) { gain_ = g; }
@@ -47,53 +87,140 @@ namespace sound {
         void setResampleRatio(double r) { resample_ratio_ = r; }
 
         /**
-         * @brief size in samples
+         * Try to open soundfile for reading
+         * @param fname
+         * @return true if soundformat is supported, false otherwise
          */
-        virtual size_t sampleCount() const = 0;
+        virtual bool probe(const char* fname) const = 0;
 
+        /**
+         * open soundfile
+         * @param fname - full path to the soundfile
+         * @param mode - open mode
+         * @return true on success, false on error
+         */
+        virtual bool open(const char* fname, OpenMode mode, const SoundFileOpenParams& params) = 0;
+
+        /**
+         * check if file was successfully opened
+         */
+        virtual bool isOpened() const = 0;
+
+        /**
+         * close soundfile and free system resources
+         * @return true on success, false on error
+         */
+        virtual bool close() = 0;
+
+        /**
+         * @brief size in frames (each frame == number of channels() samples)
+         */
+        virtual size_t frameCount() const = 0;
+
+        /**
+         * @return soundfile samplerate
+         */
         virtual size_t sampleRate() const = 0;
 
+        /**
+         * @return number of channels
+         */
         virtual size_t channels() const = 0;
 
         /**
-         * @brief read samples to given buffer
+         * @brief read samples to given array
+         * @param fname - input filepath
          * @param dest - pointer to destination
          * @param sz - destination buffer size
          * @param channel - input channel
          * @param offset - start position to read in samples
-         * @param max_samples - max samples to write to array
-         * @return
+         * @return number of readed samples or -1 on error
          */
-        virtual long read(t_word* dest, size_t sz, size_t channel, long offset, size_t max_samples) = 0;
+        virtual std::int64_t read(t_word* dest, size_t sz, size_t channel, std::int64_t offset) = 0;
 
-        virtual bool isOpened() const = 0;
-    };
+        /**
+         * @brief read audio frames to given buffer
+         * @param fname - input filepath
+         * @param dest - pointer to destination
+         * @param sz - destination buffer size in frames (samples * num_chan)
+         * @param offset - start position to read in frames
+         * @return number of readed frames or -1 on error
+         */
+        virtual std::int64_t readFrames(float* dest, size_t sz, std::int64_t offset) = 0;
 
-    typedef SoundFilePtr (*loadFunc)(const std::string& path);
-    typedef FormatList (*formatFunc)();
-    struct LoaderDescr {
-        LoaderDescr(const std::string& n, loadFunc f, formatFunc ff)
-            : name(n)
-            , func(f)
-            , formats(ff)
-        {
-        }
-        std::string name;
-        loadFunc func;
-        formatFunc formats;
-        bool operator==(const LoaderDescr& l);
-    };
+        /**
+         * write arrays content to the soundfile
+         * @param fname - output soundfile path
+         * @param src - pointer to array of sources
+         * @param len - length of arrays
+         * @param opts - write options (output format, samplerate etc.)
+         * @return number of samples written or -1 on error
+         */
+        virtual std::int64_t write(const t_word* const* src, size_t len, std::int64_t offset) { return -1; }
 
-    class SoundFileLoader {
-    public:
-        static bool registerLoader(const LoaderDescr& l);
-        static FormatList supportedFormats();
+        void debug(const char* msg) const;
+        void debug(const std::string& msg) const { debug(msg.c_str()); }
+        void error(const char* msg) const;
+        void error(const std::string& msg) const { error(msg.c_str()); }
+        void log(const char* msg) const;
+        void log(const std::string& msg) const  { log(msg.c_str()); }
+        void post(const char* msg) const;
+        void post(const std::string& msg) const { post(msg.c_str()); }
 
-        static SoundFilePtr open(const std::string& path);
+        void setLogFunction(const SoundFileLogFunction& fn);
+
+        /**
+         * set logging with pd_error etc..
+         * @note single thread only!
+         */
+        void setPdLogger();
 
     private:
-        typedef std::vector<LoaderDescr> LoaderList;
-        static LoaderList& loaders(); // singleton
+        t_float gain_ = { 1.f };
+        double resample_ratio_ = { 1 };
+        OpenMode open_mode_ { NONE };
+        SoundFileLogFunction log_fn_;
+
+    protected:
+        std::string fname_;
+        OpenMode openMode() const { return open_mode_; }
+        void setOpenMode(OpenMode m) { open_mode_ = m; }
+    };
+
+    using createSoundFileFn = SoundFilePtr (*)();
+    using listReadFormatsFn = FormatList (*)();
+    using listWriteFormatsFn = FormatList (*)();
+
+    struct SoundFileBackend {
+        SoundFileBackend(const std::string& n,
+            createSoundFileFn create_fn,
+            listReadFormatsFn ls_read_fmt,
+            listWriteFormatsFn ls_write_fmt)
+            : name(n)
+            , make_sndfile(create_fn)
+            , list_read_formats(ls_read_fmt)
+            , list_write_formats(ls_write_fmt)
+        {
+        }
+        std::string name; // backend name
+        createSoundFileFn make_sndfile;
+        listReadFormatsFn list_read_formats;
+        listWriteFormatsFn list_write_formats;
+        bool operator==(const SoundFileBackend& l);
+    };
+
+    class SoundFileFactory {
+    public:
+        static bool registerBackend(const SoundFileBackend& backend);
+        static FormatList supportedReadFormats();
+        static FormatList supportedWriteFormats();
+
+        static SoundFilePtr openRead(const char* path, const SoundFileOpenParams& params = {});
+        static SoundFilePtr openWrite(const char* path, const SoundFileOpenParams& params);
+
+    private:
+        using BackendList = std::vector<SoundFileBackend>;
+        static BackendList& backends(); // singleton
     };
 }
 }

@@ -64,7 +64,7 @@ public:
     FaustMasterView();
     ~FaustMasterView();
 
-    Size build(const std::vector<faust::UIProperty*>& props, t_symbol* fname);
+    Size build(const std::vector<faust::UIProperty*>& props, t_symbol* name);
 
     void addProperty(faust::UIProperty* p);
 
@@ -106,6 +106,10 @@ public:
     void onWidgetResize(const Size& sz) override;
     void onWidgetSelect(bool state) override;
 
+    // drag&drop
+    void onDropFiles(const AtomListView& lv) final;
+    void onDropText(const AtomListView& lv) final;
+
     void onMouseDown(const Point& pt, const Point& abspt, uint32_t mod) override;
     void onMouseDrag(const Point& pt, uint32_t mod) override;
     void onMouseUp(const Point& pt, uint32_t mod) override;
@@ -118,7 +122,7 @@ protected:
 };
 
 #ifdef _WIN32
-#define FAUST_UI_EXPORT extern "C"  __declspec(dllexport)
+#define FAUST_UI_EXPORT extern "C" __declspec(dllexport)
 #else
 #define FAUST_UI_EXPORT extern "C"
 #endif

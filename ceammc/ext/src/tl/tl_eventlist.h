@@ -14,7 +14,9 @@
 #ifndef TL_EVENTLIST_H
 #define TL_EVENTLIST_H
 
+#include <cstdint>
 #include <iostream>
+#include <memory>
 #include <vector>
 
 #include "m_pd.h"
@@ -22,9 +24,26 @@
 namespace ceammc {
 namespace tl {
 
-    enum EventType {
+    enum EventTimeMode : std::int8_t {
         EVENT_ABSOLUTE = 0,
         EVENT_RELATIVE
+    };
+
+    enum EventType : std::int8_t {
+        EVENT_TYPE_OUT_MSG = 0,
+        EVENT_TYPE_OUT_MOD_START,
+        EVENT_TYPE_OUT_MOD_STOP = 0,
+        EVENT_TYPE_SEND_MSG,
+        EVENT_TYPE_SEND_MOD_START,
+        EVENT_TYPE_SEND_MOD_STOP,
+        EVENT_TYPE_PRESET_SET,
+        EVENT_TYPE_PRESET_INTERP_START,
+        EVENT_TYPE_PRESET_INTERP_STOP,
+    };
+
+    struct EventData {
+        t_symbol* out_target;
+        t_symbol* send_target;
     };
 
     struct Event {
@@ -33,10 +52,16 @@ namespace tl {
         double rel_time;
         t_symbol* name;
         t_symbol* rel_name;
+        std::unique_ptr<EventData> data;
         int num_refs;
+        EventTimeMode mode;
         EventType type;
 
         Event(double absTime, t_symbol* name = &s_);
+        Event(const Event& ev);
+        Event(Event&&);
+        Event& operator=(Event&& ev);
+        Event& operator=(const Event& ev);
 
         bool operator<(const Event& e0) const
         {

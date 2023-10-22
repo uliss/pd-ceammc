@@ -19,19 +19,22 @@
 #include "tl_timelines.h"
 
 using namespace ceammc;
+using TlTimeLineBase = BaseObject;
 
-class TlTimeLine : public BaseObject, tl::TlIFace {
+class TlTimeLine : public TlTimeLineBase, tl::TlIFace {
     tl::TimeLineSingle<TlTimeLine> tl_;
     tl::TlCmdDriver cmd_parser_;
+    FloatProperty* length_ { nullptr };
 
 public:
     TlTimeLine(const PdArgs& args);
+    void initDone() final;
 
     void dump() const override;
 
     void onFloat(t_float v) override;
 
-    void event(size_t n, t_float at);
+    void event(size_t n, const tl::Event& e);
     void eventStart();
     void eventEnd();
 

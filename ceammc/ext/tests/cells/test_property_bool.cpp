@@ -36,7 +36,7 @@ TEST_CASE("BoolProperty", "[core]")
         REQUIRE(!p.isSymbol());
         REQUIRE(!p.isList());
         REQUIRE(p.type() == PropValueType::BOOLEAN);
-        REQUIRE(p.units() == PropValueUnits::NONE);
+        REQUIRE(p.equalUnit(PropValueUnits::NONE));
         REQUIRE(p.access() == PropValueAccess::READWRITE);
         REQUIRE(p.view() == PropValueView::TOGGLE);
         REQUIRE(p.value() == true);

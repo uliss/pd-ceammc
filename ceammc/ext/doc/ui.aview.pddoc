@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-<pddoc version="1.0">
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
     <object name="ui.aview" type="gui">
         <title>ui.aview</title>
         <meta>
@@ -14,14 +14,14 @@
             <since>0.6</since>
         </meta>
         <mouse>
-            <event editmode="false" type="left-click">move view cursor under mouse pointer</event>
-            <event editmode="false" type="left-click" keys="Ctrl">starts range selection</event>
-            <event editmode="false" type="left-click" keys="Alt">edit selection nearest
+            <event type="left-click" editmode="false">move view cursor under mouse pointer</event>
+            <event type="left-click" editmode="false" keys="Ctrl">starts range selection</event>
+            <event type="left-click" editmode="false" keys="Alt">edit selection nearest
             border</event>
-            <event editmode="false" type="left-click" keys="Shift">starts moving selection</event>
-            <event editmode="false" type="drag">move view cursor</event>
-            <event editmode="false" type="drag" keys="Alt">change nearest selection border</event>
-            <event editmode="false" type="drag" keys="Shift">move selection</event>
+            <event type="left-click" editmode="false" keys="Shift">starts moving selection</event>
+            <event type="drag" editmode="false">move view cursor</event>
+            <event type="drag" editmode="false" keys="Alt">change nearest selection border</event>
+            <event type="drag" editmode="false" keys="Shift">move selection</event>
         </mouse>
         <properties>
             <property name="@array" type="symbol" default="">array name</property>
@@ -37,21 +37,21 @@
             <property name="@cursor_ms" type="float" units="millisecond" default="0">cursor
             position in milliseconds</property>
             <!-- selection -->
-            <property name="@select_samp" type="list" units="sample">selection range in samples,
-            pair of values: begin, end</property>
-            <property name="@select_sec" type="list" units="second">selection range in seconds,
-            pair of values: begin, end</property>
-            <property name="@select_ms" type="list" units="millisecond">selection range in
-            milliseconds, pair of values: begin, end</property>
-            <property name="@select_phase" type="list">selection range noramlized to 0-1 range,
-            pair of values: begin, end</property>
+            <property name="@select_samp" type="list" units="sample" default="">selection range in
+            samples, pair of values: begin, end</property>
+            <property name="@select_sec" type="list" units="second" default="">selection range in
+            seconds, pair of values: begin, end</property>
+            <property name="@select_ms" type="list" units="millisecond" default="">selection range
+            in milliseconds, pair of values: begin, end</property>
+            <property name="@select_phase" type="list" default="">selection range noramlized to 0-1
+            range, pair of values: begin, end</property>
             <!-- view -->
             <property name="@show_rms" type="bool" default="0">show RMS graph</property>
             <property name="@show_labels" type="bool" default="0">if show corner labels</property>
-            <property name="@label_top" type="symbol">top right label if @show_labels is
+            <property name="@label_top" type="symbol" default="">top right label if @show_labels is
             on</property>
-            <property name="@label_bottom" type="symbol">bottom right label if @show_labels is
-            on</property>
+            <property name="@label_bottom" type="symbol" default="">bottom right label if
+            @show_labels is on</property>
             <!-- size -->
             <property name="@size_samp" type="int" minvalue="0" access="readonly" units="sample"
             default="0">array size in samples</property>
@@ -86,14 +86,18 @@
             slant</property>
         </properties>
         <methods>
-            <method name="update">redraws view</method>
-            <method name="select">set selection 
-            <param name="BEGIN" type="int" required="true">selection start in samples</param>
-            <param name="END" type="int" required="true">selection end in samples</param></method>
+            <!-- dump -->
+            <method name="dump">dumps all object info to Pd console window.</method>
+            <!-- pos -->
             <method name="pos">set UI element position 
             <param name="X" type="float" required="true">top left x-coord</param>
             <param name="Y" type="float" required="true">top right y-coord</param></method>
-            <method name="dump">dumps all object info to Pd console window.</method>
+            <!-- select -->
+            <method name="select">set selection 
+            <param name="BEGIN" type="int" required="true">selection start in samples</param>
+            <param name="END" type="int" required="true">selection end in samples</param></method>
+            <!-- update -->
+            <method name="update">redraws view</method>
         </methods>
         <inlets>
             <inlet>

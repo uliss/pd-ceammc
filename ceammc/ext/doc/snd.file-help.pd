@@ -46,27 +46,27 @@ into arrays. Various formats are supported. Supports array name patterns.;
 #X obj 20 654 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 659 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 694 @channels;
-#X text 245 694 (readonly) Get list of loaded channels into each array.
+#X msg 110 694 @verbose;
+#X text 245 694 (initonly) Get/Set verbose output to Pd window. Type:
+bool. Default value: 0\.;
+#X msg 110 736 @smpte_fr;
+#X text 245 736 Get/Set SMPTE framerate for SMPTE offset calculations.
+Type: float. Default value: 30\. Range: 1\...99\.;
+#X msg 110 778 @channels?;
+#X text 245 778 (readonly) Get list of loaded channels into each array.
 Type: list.;
-#X msg 110 736 @filename;
-#X text 245 736 (readonly) Get filename. Type: list.;
-#X msg 110 765 @formats;
-#X text 245 765 (readonly) Get list of supported formats. Type: list.
+#X msg 110 820 @filename?;
+#X text 245 820 (readonly) Get filename. Type: list.;
+#X msg 110 849 @formats?;
+#X text 245 849 (readonly) Get list of supported formats. Type: list.
 Default value: AAC AIFF ALAC AU AVR CAF FLAC HTK IFF MACE3:1 MACE6:1
 MAT4 MAT5 MP3 MP4 MPC OGG PAF PVF RAW RF64 SD2 SDS SF VOC W64 WAV WAVEX
 WVE XI.;
-#X msg 110 837 @samples;
-#X text 245 837 (readonly) Get list of number of loaded samples into
+#X msg 110 921 @samples?;
+#X text 245 921 (readonly) Get list of number of loaded samples into
 each array. Type: list.;
-#X msg 110 879 @smpte_fr;
-#X text 245 879 Get/Set SMPTE framerate for SMPTE offset calculations.
-Type: float. Default value: 30\. Range: 1\...99\.;
-#X msg 110 921 @sr;
-#X text 245 921 (readonly) Get source file samplerate. Type: list.;
-#X msg 110 950 @verbose;
-#X text 245 950 (initonly) Get/Set verbose output to Pd window. Type:
-bool. Default value: 0\.;
+#X msg 110 963 @sr?;
+#X text 245 963 (readonly) Get source file samplerate. Type: list.;
 #X obj 20 1002 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1007 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -113,29 +113,77 @@ of file. Deprecated \, use @begin instead. Type: property.;
 #X text 255 1535 [@resample R?]: if R is not specified - resample from
 file samplerate to current Pd samplerate. But you can manually specify
 R as float value or integer fraction - 44100/48000\. Type: property.;
-#X obj 20 1615 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1620 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1605 save;
+#X text 245 1605 Save arrays to specified file. Arguments are:;
+#X obj 255 1628 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1628 ARRAYS: list of arrays. Type: list.;
+#X obj 255 1651 cnv 1 75 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1651 @to FNAME: output filename. Type: symbol.;
+#X obj 255 1674 cnv 1 77 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1674 [@begin X]: specify input array begin position \,
+by default in samples \, but you can use other units: 1s \, 10ms \,
+00:01.12 (smpte). To specify value relative to array end you can use
+$-X syntax. Type: property.;
+#X obj 255 1742 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1742 [@end X]: specify input array end position \, by default
+in samples \, but you can use other units: 1s \, 10ms \, 00:01.12 (smpte).
+To specify value relative to array end you can use $-X syntax. Type:
+property.;
+#X obj 255 1810 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1810 [@gain V]: apply gain to saved arrays \, examples:
++3.1db \, -6db \, 0.5 etc. Type: property.;
+#X obj 255 1848 cnv 1 85 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1848 [@in_sr SR]: array source samplerate \, if ommited
+using patch samplerate. Type: property.;
+#X obj 255 1886 cnv 1 93 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1886 [@out_sr SR]: output samplerate. Type: property.;
+#X obj 255 1909 cnv 1 108 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1909 [@norm[alize]]: normalize output. Type: property.;
+#X obj 255 1932 cnv 1 93 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1932 [@overwrite]: overwrite existing file flag. Type:
+property.;
+#X obj 255 1955 cnv 1 85 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1955 [@samp FMT]: output sample format. Supported values
+are: 0(use default) \, 8 \, 16 \, 24 \, 32 \, f. Type: property.;
+#X obj 255 1993 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1993 [@wav]: WAV output format. Type: property.;
+#X obj 255 2016 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2016 [@mp3]: MP3 output format. Type: property.;
+#X obj 255 2039 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2039 [@ogg]: Ogg/Vorbis output format. Type: property.;
+#X obj 255 2062 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2062 [@opus]: Opus output format. Type: property.;
+#X obj 255 2085 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2085 [@aiff]: AIFF output format. Type: property.;
+#X obj 255 2108 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2108 [@txt]: TXT output format. Type: property.;
+#X obj 255 2131 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2131 [@raw]: RAW output format. Type: property.;
+#X obj 255 2154 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2154 [@flac]: FLAC output format. Type: property.;
+#X obj 20 2189 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2194 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1621 1\.;
-#X text 245 1621 input inlet.;
-#X obj 20 1651 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1656 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 2195 1\.;
+#X text 245 2195 input inlet.;
+#X obj 20 2225 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2230 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1657 1\.;
-#X text 245 1657 number of loaded samples.;
+#X text 110 2231 1\.;
+#X text 245 2231 number of loaded/saved samples or -1 on error.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title snd @url ceammc.snd-help.pd;
-#X obj 1 1707 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1710 library: ceammc v0.9.6;
-#N canvas 10 1729 400 290 info 0;
+#X obj 1 2281 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2284 library: ceammc v0.9.7;
+#N canvas 10 2303 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
 #X text 10 32 version:;
-#X text 120 32 0.9.6;
+#X text 120 32 0.9.7;
 #X text 10 54 object:;
 #X text 120 54 snd.file;
 #X text 10 76 category:;
@@ -149,12 +197,12 @@ R as float value or integer fraction - 44100/48000\. Type: property.;
 #X text 10 164 keywords:;
 #X text 120 164 soundfiler;
 #X text 10 186 website:;
-#X obj 120 189 ui.link @title https://github.com/uliss/pure-data @url
-https://github.com/uliss/pure-data;
+#X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
+https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1729 pd info;
+#X restore 10 2303 pd info;
 #X connect 6 0 7 0;
 #X connect 8 0 10 0;
 #X connect 9 0 10 0;

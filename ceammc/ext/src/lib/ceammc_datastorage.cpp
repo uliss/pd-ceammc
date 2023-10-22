@@ -12,11 +12,9 @@
  * this file belongs to.
  *****************************************************************************/
 #include "ceammc_datastorage.h"
-#include "ceammc_atomlist.h"
 #include "ceammc_datatypes.h"
-#include "ceammc_format.h"
 #include "ceammc_log.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 #include <algorithm>
 

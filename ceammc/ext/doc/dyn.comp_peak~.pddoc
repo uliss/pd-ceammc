@@ -1,0 +1,155 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="dyn.comp_peak~">
+        <title>dyn.comp_peak~</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>mono dynamic range peak feed forward compressor</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>dyn</category>
+            <keywords>compressor</keywords>
+            <since>0.9.7</since>
+            <also>
+                <see>dyn.comp_peak2~</see>
+            </also>
+            <aliases>
+                <alias>comp.peak~</alias>
+            </aliases>
+        </meta>
+        <info>
+            <par>It uses a strength parameter instead of the traditional ratio, in order to be able
+            to function as a hard limiter or overcompressor</par>
+            <a href="https://en.wikipedia.org/wiki/Dynamic_range_compression">Dynamic range
+            compression</a>
+        </info>
+        <arguments>
+            <argument name="STRENGTH" type="float" minvalue="0" maxvalue="2">compression strength
+            (0: no compression, 1: hard limiting, &gt;1: overcompression)</argument>
+            <argument name="THRESHOLD" type="float" minvalue="-60" maxvalue="0" units="decibel">
+            level threshold above which compression kicks in</argument>
+            <argument name="ATTACK" type="float" units="millisecond" minvalue="0.1" maxvalue="100">
+            attack time = time constant when level &amp; compression going up</argument>
+            <argument name="RELEASE" type="float" units="millisecond" minvalue="1" maxvalue="500">
+            release time = time constant coming out of compression</argument>
+        </arguments>
+        <properties>
+            <property name="@strength" type="float" default="0" minvalue="0" maxvalue="2">
+            compression ratio (0: no compression, 1: hard limiting, &gt;1:
+            overcompression)</property>
+            <property name="@threshold" type="float" units="decibel" default="-10" minvalue="-60"
+            maxvalue="0">level threshold above which compression kicks in (100 dB = max
+            level)</property>
+            <property name="@attack" type="float" units="millisecond" default="10" minvalue="0.1"
+            maxvalue="100">time constant when level &amp; compression going up</property>
+            <property name="@release" type="float" units="millisecond" default="50" minvalue="1"
+            maxvalue="500">release time = time constant coming out of compression</property>
+            <property name="@gain" type="float" units="decibel" default="0" minvalue="-18"
+            maxvalue="18">make up gain: applied to the signal after the compression takes
+            place</property>
+            <property name="@knee" type="float" units="decibel" default="3" minvalue="0"
+            maxvalue="24">a gradual increase in gain reduction around the threshold: below
+            thresh-(knee/2) there is no gain reduction, above thresh+(knee/2) there is the same
+            gain reduction as without a knee, and in between there is a gradual increase in gain
+            reduction</property>
+            <property name="@bypass" type="bool" default="0">bypass flag. If true: bypass
+            'effected' signal.</property>
+            <property name="@level" type="float" default="0" minvalue="0" maxvalue="1"
+            access="readonly">current level of compression</property>
+            <property name="@refresh" type="int" default="100" minvalue="0" maxvalue="1000"
+            units="millisecond">compression level output time interval. If 0 - no output</property>
+            <property name="@active" type="bool" default="1">on/off dsp processing</property>
+            <xi:include href="props_osc.xml" />
+            <xi:include href="props_id.xml" />
+        </properties>
+        <methods>
+            <!-- reset -->
+            <method name="reset">reset to initial state</method>
+        </methods>
+        <inlets>
+            <inlet type="audio">
+                <xinfo>input signal</xinfo>
+            </inlet>
+            <inlet>
+                <xinfo on="float">set compression strength</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet type="audio">output compressed signal</outlet>
+            <outlet>float: output current compression level in [0..1]</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[ui.hsl #a]              [ui.dsp~]
+|
+[dbfs->amp]
+|
+[sig~]  [ui.hsl #a]
+|       |
+|       |
+|       [@threshold $1(  [ui.knob @label STRENGTH @show_value 1]
+|       |                |
+|       |                |.
+[dyn.comp_peak~ 0 -60 10 100]
+|                     ^|
+[env~]                [ui.hsl @active_scale 1]
+|
+[- 100]
+|
+[F]
+
+[dyn.comp_peak~.plot]
+
+#a -60 0 @show_value 1
+]]>
+            </pdascii>
+            <pdascii id="plot">
+<![CDATA[
+[B]
+|
+[plot.linspace~ -60 6 1024 #a]  [ui.k #b]  [ui.hsl 0 24 #c]
+|                                          |
+[dbfs->amp~]                               [@knee $1 #d(
+|
+[dyn.comp_peak~ 1 -20 0.1 1     #z]
+|
+[amp->dbfs~]
+|
+[ui.plot~ @ymin -60 @ymax 6 @size 400 350 @xlabels 1 @ylabels 1 @xmin_grid 0 @ymin_ticks 0 @xmin_ticks 0 #x]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#b @show_value 1 @label STRENGTH
+#c @show_value 1
+/*...*/
+[X a:1->x:1]
+[X b->z:1]
+[X d->z]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

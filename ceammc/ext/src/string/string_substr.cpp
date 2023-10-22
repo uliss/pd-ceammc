@@ -54,4 +54,8 @@ void setup_string_substr()
     ObjectFactory<StringSubstr> obj("string.substr");
     obj.processData<DataTypeString>();
     obj.addAlias("str.substr");
+
+    obj.setDescription("extract substring from input string");
+    obj.setCategory("string");
+    obj.setKeywords({"substring"});
 }
