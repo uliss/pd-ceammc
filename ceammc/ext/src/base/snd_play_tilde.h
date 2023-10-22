@@ -24,7 +24,7 @@
 
 using namespace ceammc;
 
-using Queue = boost::lockfree::spsc_queue<t_sample, boost::lockfree::capacity<8192>>;
+using Queue = boost::lockfree::spsc_queue<float, boost::lockfree::capacity<8192>>;
 
 using SndPlayBase = PollThreadTaskObject<int, Queue, SoundExternal>;
 

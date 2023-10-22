@@ -356,7 +356,7 @@ SndPlayBase::Future SndPlayTilde::createTask()
 
         SoxrResamplerOptions sox_opts {
             !use_stretch, // variable rate used without stretching
-            SoxrResamplerFormat::T_SAMPLE_I,
+            SoxrResamplerFormat::FLOAT_I,
             SoxrResamplerFormat::FLOAT_S,
         };
         SoxrResampler resampler(f->sampleRate(), sr, FILE_NCH, SoxrResampler::QUICK, sox_opts);
@@ -383,7 +383,7 @@ SndPlayBase::Future SndPlayTilde::createTask()
                                     while (!quit() && outPipe().write_available() == 0)
                                         SLEEP_SAMPLES(1);
 
-                                    auto x = (c < FILE_NCH) ? rbs_chan_buf[c][i] : 0;
+                                    float x = (c < FILE_NCH) ? rbs_chan_buf[c][i] : 0;
                                     outPipe().push(x);
                                 }
                             }
@@ -405,7 +405,7 @@ SndPlayBase::Future SndPlayTilde::createTask()
                                 SLEEP_SAMPLES(out_ch);
 
                             for (auto c = 0; c < out_ch; c++) {
-                                auto x = (c < FILE_NCH) ? data[c][i] : 0;
+                                float x = (c < FILE_NCH) ? data[c][i] : 0;
                                 outPipe().push(x);
                             }
                         }
