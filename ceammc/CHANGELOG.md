@@ -52,9 +52,11 @@
   - rhythm.hexbeat - hexbeat pattern generator
   - rhythm.lsystem - L-system pattern generator
   - route.cycle - advanced cyclic message router
+  - snd.play~ - advanced sound file player with speed control, time stretch and resampling
   - split~ - multichannel signal splitter
   - synth.metro~ - metronome synth with complex pattern support
   - ui.cmeter~ - Multichannel circular peak and rms signal meter
+  - ui.lcd - bitmap display widget
 - new object inlets:
   - dyn.gate~, dyn.gate2~ - second inlet added for setting threshold
   - flt.bpf12~: second and third inlet added for setting freq and q-factor
