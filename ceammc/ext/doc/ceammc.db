@@ -34,7 +34,7 @@ array.tramp~		.		~.
 array.variance		.		.
 array.vplay		.		..
 array.window		.		.
-canvas.active		.		.
+canvas.active,ceammc/canvas.active		.		.
 canvas.current		.		.
 canvas.dir		.		..
 canvas.name		.		.

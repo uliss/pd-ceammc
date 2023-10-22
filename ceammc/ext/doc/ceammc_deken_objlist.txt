@@ -994,6 +994,7 @@ osc.sin~	Sine wave oscillator
 osc.square~	Bandlimited square wave oscillator
 osc.tri~	Bandlimited triangle wave oscillator
 canvas.active	checks if canvas window is on top and active
+ceammc/canvas.active	checks if canvas window is on top and active
 canvas.current	verbose information about current canvas
 canvas.dir	current canvas directory and nesting level
 canvas.name	current canvas name
