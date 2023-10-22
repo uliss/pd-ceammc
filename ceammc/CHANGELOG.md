@@ -1,6 +1,6 @@
 # CEAMMC external library changelog
 
-## [Unreleased]
+## [0.9.7]
 ### Added:
 - new objects:
   - array.ltcplay~ - array player, controlled by LTC signal
@@ -141,7 +141,6 @@
 - speech.flite~ - @speed property (now: lesser - slower)
 - ui.tab - 'clear' method renamed to 'erase' preventing name conflict with preset 'clear' method
 - ui.menu - 'clear' method renamed to 'erase' preventing name conflict with preset 'clear' method
-
 
 ## [0.9.6]
 ### Added:
