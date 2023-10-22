@@ -15,6 +15,7 @@ cmake -G Ninja \
 	-DCMAKE_INSTALL_PREFIX=`pwd`/dist/pd_ceammc \
 	-DWITH_FLUIDSYNTH=ON \
 	-DARCH=x86_64 \
+	-DWISH_VERSION=8.6.13 \
 	-DLEAPMOTION_ROOT=~/work/src/LeapSDK \
 	-DENABLE_TESTS=ON \
 	-DWITH_TTS_RHVOICE=ON \
