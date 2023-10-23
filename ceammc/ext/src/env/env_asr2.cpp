@@ -8,6 +8,7 @@ using namespace ceammc;
 
 constexpr int ATTACK_DONE = 1;
 constexpr int RELEASE_DONE = 0;
+constexpr int LAST_OUTLET = 2;
 
 class EnvAsrStereo : public EnvAutoplay<faust_env_asr2_tilde> {
     ClockLambdaFunction attack_done_;
@@ -21,8 +22,8 @@ class EnvAsrStereo : public EnvAutoplay<faust_env_asr2_tilde> {
 public:
     EnvAsrStereo(const PdArgs& args)
         : EnvAutoplay<faust_env_asr2_tilde>(args)
-        , attack_done_([this]() { floatTo(1, ATTACK_DONE); })
-        , release_done_([this]() { floatTo(1, RELEASE_DONE); })
+        , attack_done_([this]() { floatTo(LAST_OUTLET, ATTACK_DONE); })
+        , release_done_([this]() { floatTo(LAST_OUTLET, RELEASE_DONE); })
         , prop_attack_(findUIProperty("@attack"))
         , prop_sustain_(findUIProperty("@sustain"))
         , prop_release_(findUIProperty("@release"))
