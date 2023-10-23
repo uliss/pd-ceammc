@@ -12,7 +12,7 @@
             <description>multi spherical meter with sound field descriptor</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
-            <category>spat</category>
+            <category view="link">spat</category>
             <keywords>hoa meter 3d</keywords>
             <since>0.9.7</since>
         </meta>

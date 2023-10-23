@@ -2163,7 +2163,7 @@
     <entry name="hoa.3d.map~" descr="a 3d ambisonic multisource spatializer" ref_view="object">
       <xi:include href="hoa.3d.map~.pddoc" parse="xml"/>
     </entry>
-    <entry name="hoa.3d.meter~" descr="multi spherical meter with sound field descriptor" ref_view="object">
+    <entry name="hoa.3d.meter~" descr="multi spherical meter with sound field descriptor" ref_view="link">
       <xi:include href="hoa.3d.meter~.pddoc" parse="xml"/>
     </entry>
     <entry name="hoa.3d.optim~" descr="a 3D ambisonic optimization tool" ref_view="object">
@@ -2184,7 +2184,7 @@
     <entry name="hoa.in~" descr="signal inlet for a patcher loaded by hoa.process~" ref_view="object">
       <xi:include href="hoa.in~.pddoc" parse="xml"/>
     </entry>
-    <entry name="hoa.map.ui" descr="a GUI to spatialize sources on a map" ref_view="object">
+    <entry name="hoa.map.ui" descr="a GUI to spatialize sources on a map" ref_view="link">
       <xi:include href="hoa.map.ui.pddoc" parse="xml"/>
     </entry>
     <entry name="hoa.out" descr="message outlet for a patcher loaded by hoa.process~" ref_view="object">
