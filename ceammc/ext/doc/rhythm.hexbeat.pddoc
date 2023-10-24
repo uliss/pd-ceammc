@@ -41,7 +41,7 @@
 |   |                           |
 |   |                           [metro.pattern 100] [r hexpat]
 |   |                           |                   |
-[rhythm.hexbeat \#D1]           [list.walk @fold     ]
+[rhythm.hexbeat \#D1]           [list.walk @wrap    ]
 |                               |
 [t l l]                         [sel 1]
 |   ^|                          |

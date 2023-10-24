@@ -12,7 +12,7 @@
 #X obj 357 147 metro.pattern 100;
 #X obj 549 147 r hexpat;
 #X obj 50 176 rhythm.hexbeat \#D1;
-#X obj 357 176 list.walk @fold;
+#X obj 357 176 list.walk @wrap;
 #X obj 50 205 t l l;
 #X obj 357 205 sel 1;
 #X obj 88 234 list.size;

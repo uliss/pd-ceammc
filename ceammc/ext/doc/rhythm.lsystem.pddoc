@@ -42,23 +42,30 @@
         <example>
             <pdascii>
 <![CDATA[
+/*1: bang*/
+/*2: turn metro on*/
+/*3: bang again*/
+
 [B]                                   [T]
 |                                     |
 | [reset(                             [metro.pattern 100] [r lsys]
 | |                                   |                   |
-[rhythm.lsystem #x]                   [list.walk @fold     ]
+[rhythm.lsystem #x]                   [list.walk @wrap    ]
 |                                     |
 [t l l]                               [sel 1]
 |   ^|                                |
-|   [list.size]                       [click~]
+|   [list.size]                       [click~]            [ui.dsp~]
 |   |                                 |
 |   [@nitems $1, @size 150 15(        [flt.resonlp~ 1000 40]
 |   |                                 |
-[ui.hrd* @nosave 1]                   [ui.hgain~]
-|                                     |\
-[s lsys]                              [dac~]
+[ui.hrd* @nosave 1]                   [ui.hgain~ #a]
+|
+|
+|
+[s lsys]                              [dac~ #z]
 
 #x 0 1 @rule [1: 0 1 0: 1]
+[X a->z] [X a->z:1]
 ]]>
             </pdascii>
         </example>
