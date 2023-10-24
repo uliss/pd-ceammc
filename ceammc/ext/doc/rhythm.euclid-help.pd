@@ -16,7 +16,7 @@
 #X obj 50 230 t l l;
 #X obj 88 259 list.size;
 #X msg 88 287 @nitems \$1 \, @size 150 15;
-#X obj 50 316 ui.hrd*;
+#X obj 50 316 ui.hrd* @nosave 1;
 #X obj 20 365 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 370 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
@@ -54,7 +54,7 @@ value: 8\. Range: 1\...8192\.;
 #X text 150 679 *int*;
 #X text 245 679 set number of beats in the sequence.;
 #X text 150 699 *list*;
-#X text 245 699 list of sequence.;
+#X text 245 699 list: NBEATS N OFFSET?.;
 #X text 110 719 2\.;
 #X text 150 719 *int*;
 #X text 245 719 set sequence lenghth.;
