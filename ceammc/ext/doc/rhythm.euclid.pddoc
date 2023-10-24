@@ -34,7 +34,7 @@
             <inlet>
                 <xinfo on="bang">output generated sequence</xinfo>
                 <xinfo on="int">set number of beats in the sequence</xinfo>
-                <xinfo on="list">list: NBEATS N OFFSET?</xinfo>
+                <xinfo on="list">list: BEATS LENGTH OFFSET?</xinfo>
             </inlet>
             <inlet>
                 <xinfo on="int">set sequence lenghth</xinfo>

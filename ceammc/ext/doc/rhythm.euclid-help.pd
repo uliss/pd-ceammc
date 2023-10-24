@@ -54,7 +54,7 @@ value: 8\. Range: 1\...8192\.;
 #X text 150 679 *int*;
 #X text 245 679 set number of beats in the sequence.;
 #X text 150 699 *list*;
-#X text 245 699 list: NBEATS N OFFSET?.;
+#X text 245 699 list: BEATS LENGTH OFFSET?.;
 #X text 110 719 2\.;
 #X text 150 719 *int*;
 #X text 245 719 set sequence lenghth.;
