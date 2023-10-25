@@ -284,7 +284,12 @@ void SndPlayTilde::m_seek(t_symbol* s, const AtomListView& lv)
 
 SndPlayBase::Future SndPlayTilde::createTask()
 {
-    std::string fname = fname_->str();
+    std::string fname = findInStdPaths(fname_->value()->s_name);
+    if (fname.empty()) {
+        OBJ_ERR << fmt::format("can't find file: '{}'", fname_->value()->s_name);
+        return {};
+    }
+
     const int out_ch = n_->value();
     const int sr = samplerate();
     const int bs = blockSize();
