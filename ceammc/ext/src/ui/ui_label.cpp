@@ -196,8 +196,7 @@ void UILabel::setup()
     obj.addProperty("margin_right", _("Margin right"), 5, &UILabel::prop_margin_right, "Margins");
 
     obj.addProperty("align", _("Align"), str_left, &UILabel::prop_align, "left center right", "Main");
-    obj.addVirtualProperty("text", _("Text"), "Label", &UILabel::propGetText, &UILabel::propSetText);
-    obj.setPropertyCategory("text", "Main");
+    obj.addVirtualProperty("text", _("Text"), "Label", &UILabel::propGetText, &UILabel::propSetText, "Main");
 
     obj.useList();
     obj.useAny();
