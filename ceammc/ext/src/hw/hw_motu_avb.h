@@ -2,8 +2,7 @@
 #define HW_MOTU_AVB_H
 
 #include "ceammc_clock.h"
-#include "ceammc_pollthread_object.h"
-#include "ceammc_thread.h"
+#include "ceammc_pollthread_rwq.h"
 #include "datatype_dict.h"
 using namespace ceammc;
 

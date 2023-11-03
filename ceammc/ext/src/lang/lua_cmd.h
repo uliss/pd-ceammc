@@ -14,8 +14,7 @@
 #ifndef LUA_CMD_H
 #define LUA_CMD_H
 
-#include "ceammc_poll_dispatcher.h"
-#include "ceammc_pollthread_object.h"
+#include "ceammc_pollthread_rwq.h"
 
 #include <boost/variant.hpp>
 #include <cstdint>

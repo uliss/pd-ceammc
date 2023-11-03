@@ -1,7 +1,7 @@
 #ifndef NET_HTTP_SEND_H
 #define NET_HTTP_SEND_H
 
-#include "ceammc_pollthread_object.h"
+#include "ceammc_pollthread_rwq.h"
 using namespace ceammc;
 
 struct HttpRequest {

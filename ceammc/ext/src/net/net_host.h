@@ -15,7 +15,7 @@
 #define NET_HOST_H
 
 #include "ceammc_platform.h"
-#include "ceammc_pollthread_object.h"
+#include "ceammc_pollthread_rwq.h"
 #include "ceammc_property_enum.h"
 
 #include <cstdint>
