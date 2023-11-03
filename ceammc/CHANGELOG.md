@@ -1,5 +1,10 @@
 # CEAMMC external library changelog
 
+## [0.9.8]
+### Added:
+- new objects:
+  - route.data (with route.d alias) - separate data from other types
+
 ## [0.9.7]
 ### Added:
 - new objects:

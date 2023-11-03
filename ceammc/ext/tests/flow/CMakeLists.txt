@@ -63,6 +63,7 @@ target_sources(test_ext_flow PRIVATE
     test_route_bang.cpp
     test_route_cycle.cpp
     test_route_float.cpp
+    test_route_data.cpp
     test_route_list.cpp
     test_route_prop.cpp
     test_route_random.cpp
