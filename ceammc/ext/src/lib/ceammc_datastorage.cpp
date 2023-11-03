@@ -33,7 +33,7 @@ DataTypeId DataStorage::registerNewType(const DataTypeName& name,
     constexpr auto FIRST_TYPE_ID = 256;
 
     if (type_list_.empty()) {
-        type_list_.push_back({FIRST_TYPE_ID, name, fromListFn, fromDictFn});
+        type_list_.push_back({ FIRST_TYPE_ID, name, fromListFn, fromDictFn });
         return FIRST_TYPE_ID;
     } else {
         const auto LAST_ID = type_list_.back().type;
@@ -58,7 +58,7 @@ DataTypeId DataStorage::registerNewType(const DataTypeName& name,
         const DataTypeId NEW_ID = LAST_ID + 1;
         LIB_LOG << fmt::format("new data type '{}' is registered with id: {}", name.c_str(), NEW_ID);
 
-        type_list_.push_back({NEW_ID, name, fromListFn, fromDictFn});
+        type_list_.push_back({ NEW_ID, name, fromListFn, fromDictFn });
         return NEW_ID;
     }
 }
@@ -96,6 +96,18 @@ CreateFromDictFn DataStorage::fromDictFunction(const DataTypeName& name) const
 void DataStorage::clearAll()
 {
     type_list_.clear();
+}
+
+void DataStorage::foreachId(std::function<void(DataTypeId)> fn) const
+{
+    for (auto& x : type_list_)
+        fn(x.type);
+}
+
+void DataStorage::foreachName(std::function<void(const DataTypeName&)> fn) const
+{
+    for (auto& x : type_list_)
+        fn(x.name);
 }
 
 DataStorage::DataStorage()

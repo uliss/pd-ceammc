@@ -85,6 +85,9 @@ public:
 
     void clearAll();
 
+    void foreachId(std::function<void(DataTypeId id)> fn) const;
+    void foreachName(std::function<void(const DataTypeName& name)> fn) const;
+
 private:
     TypeList type_list_;
 };
