@@ -1,4 +1,5 @@
 #include "net_http_send.h"
+#include "ceammc_data.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "datatype_string.h"
@@ -38,40 +39,25 @@ NetHttpSend::NetHttpSend(const PdArgs& args)
     addProperty(timeout_);
 }
 
-void NetHttpSend::processMessage(const HttpResult& msg)
+Either<HttpResult> NetHttpSend::processRequest(const HttpRequest& req)
 {
-    atomTo(1, StringAtom(msg.content));
-    floatTo(0, msg.code);
+    logger_.verbose(fmt::format("GET {}:{}@{}:{}{}", req.user, req.pass, req.host, req.port, req.path));
+
+    httplib::Client cli(req.host, req.port);
+    cli.set_basic_auth(req.user.c_str(), req.pass.c_str());
+    cli.set_connection_timeout(req.timeout);
+    cli.set_tcp_nodelay(true);
+    auto res = cli.Get(req.path.c_str());
+    if (res)
+        return HttpResult { res->body, res->status };
+    else
+        return Either<HttpResult>::makeError(fmt::format("http request error: '{}'", to_string(res.error())));
 }
 
-NetHttpSend::Future NetHttpSend::createTask()
+void NetHttpSend::processResult(const HttpResult& res)
 {
-    return std::async(
-        std::launch::async, [this]() {
-            try {
-                HttpRequest msg;
-
-                while (inPipe().try_dequeue(msg)) {
-                    logger_.verbose(fmt::format("GET {}:{}@{}:{}{},", msg.user, msg.pass, msg.host, msg.port, msg.path));
-
-                    httplib::Client cli(msg.host, msg.port);
-                    cli.set_basic_auth(msg.user.c_str(), msg.pass.c_str());
-                    cli.set_connection_timeout(msg.timeout);
-                    cli.set_tcp_nodelay(true);
-                    auto res = cli.Get(msg.path.c_str());
-                    if (res) {
-                        outPipe().enqueue({ res->body, res->status });
-                    } else {
-                        logger_.error(fmt::format("http request error: '{}'", to_string(res.error())));
-                    }
-                }
-
-                Dispatcher::instance().send({ subscriberId(), 0 });
-
-            } catch (std::exception& e) {
-                logger_.error(fmt::format("http request exception: '{}'", e.what()));
-            }
-        });
+    atomTo(1, StringAtom(res.content));
+    floatTo(0, res.code);
 }
 
 std::string NetHttpSend::makePath(t_symbol* path, const AtomListView& lv)
@@ -107,12 +93,12 @@ void NetHttpSend::m_get(t_symbol* s, const AtomListView& lv)
     req.port = port_->value();
     req.timeout = timeout_->value();
 
-    if (!inPipe().try_enqueue(std::move(req))) {
+    if (!addRequest(req)) {
         OBJ_ERR << "can't send command to worker";
         return;
     }
 
-    if (!runTask())
+    if (!isRunning() && !runTask())
         OBJ_ERR << "can't run worker";
 }
 
