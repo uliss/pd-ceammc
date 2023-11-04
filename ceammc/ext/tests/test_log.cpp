@@ -16,7 +16,7 @@
 
 #include "catch.hpp"
 #include "ceammc_log.h"
-#include "test_base.h"
+#include "test_common.h"
 
 #include <sstream>
 #include <thread>
@@ -148,9 +148,12 @@ TEST_CASE("ceammc_log", "[ceammc_log]")
 
             SECTION("error")
             {
-                ThreadPdLogger log;
-                log.error("error");
-                test::pdRunMainLoopMs(10);
+                {
+                    ThreadPdLogger log;
+                    log.error("error");
+                    test::pdRunMainLoopMs(10);
+                }
+                test::pdRunMainLoopMs(100);
 
                 REQUIRE(log_str == "error: [ceammc] [error] error\n");
             }
