@@ -104,6 +104,7 @@ namespace path {
         std::string extension() const;
         std::uintmax_t file_size() const noexcept;
         FileType file_type() const noexcept;
+        std::uint16_t permissions() const noexcept;
 
         DataTypePath lexically_normal() const;
 

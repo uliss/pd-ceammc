@@ -273,6 +273,12 @@ namespace path {
         }
     }
 
+    std::uint16_t DataTypePath::permissions() const noexcept
+    {
+        std::error_code ec;
+        return path_ ? static_cast<std::uint16_t>(fs::status(*path_, ec).permissions()) : 0;
+    }
+
     DataTypePath DataTypePath::lexically_normal() const
     {
         return path_ ? DataTypePath(path_->lexically_normal()) : DataTypePath();
