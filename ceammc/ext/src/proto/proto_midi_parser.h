@@ -15,6 +15,7 @@
 #define PROTO_MIDI_PARSER_H
 
 #include <cstdint>
+#include <cstddef>
 #include <functional>
 #include <initializer_list>
 
