@@ -135,5 +135,5 @@ void setup_system_colorpanel()
     obj.processData<DataTypeColor>();
 
     obj.useClick();
-    SystemColorpanel::initMethods(obj, system_colorpanel_tcl);
+    SystemColorpanel::initTclMethods(obj, system_colorpanel_tcl);
 }

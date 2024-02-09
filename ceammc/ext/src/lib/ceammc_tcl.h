@@ -67,13 +67,18 @@ public:
         pdgui_vmess(proc_name_->s_name, "sA", tcl_bind_->s_name, static_cast<int>(lv.size()), lv.toPdData());
     }
 
+    void tclCallRaw(const char* raw) const
+    {
+        sys_vgui("%s %s %s\n", proc_name_->s_name, tcl_bind_->s_name, raw);
+    }
+
     void tcl_callback(t_symbol* s, const AtomListView& lv)
     {
         this->onTclResponse(s, lv);
     }
 
     template <typename Factory>
-    static void initMethods(Factory& f, const char* tclProc = "")
+    static void initTclMethods(Factory& f, const char* tclProc = "")
     {
         if (tclProc && tclProc[0])
             sys_gui(tclProc);

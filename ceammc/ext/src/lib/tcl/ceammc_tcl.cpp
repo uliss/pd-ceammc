@@ -15,6 +15,7 @@
 #include "ceammc_tableeditor.tcl.h"
 #include "ceammc_texteditor.tcl.h"
 #include "ceammc_tooltips.tcl.h"
+#include "ceammc_patheditor.tcl.h"
 
 namespace ceammc {
 
@@ -22,6 +23,7 @@ void ceammc_tcl_init()
 {
     ceammc_texteditor_tcl_output();
     ceammc_tableeditor_tcl_output();
+    ceammc_patheditor_tcl_output();
 }
 
 void ceammc_tcl_init_tooltips()

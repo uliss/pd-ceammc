@@ -286,7 +286,7 @@ void setup_data_color()
     obj.addMethod("mix", &DataColor::m_mix);
 
     obj.useClick();
-    DataColor::initMethods(obj);
+    DataColor::initTclMethods(obj);
 
     LIB_LOG << fmt::format("Color datatype id: {:d}", DataTypeColor::staticType());
 }

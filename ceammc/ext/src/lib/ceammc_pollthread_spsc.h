@@ -125,6 +125,26 @@ public:
             processResult(res);
         });
     }
+
+    void workerThreadDebug(const std::string& msg)
+    {
+        logger_.debug(msg);
+    }
+
+    void workerThreadError(const std::string& msg)
+    {
+        logger_.error(msg);
+    }
+
+    void workerThreadLog(const std::string& msg)
+    {
+        logger_.verbose(msg);
+    }
+
+    void workerThreadPost(const std::string& msg)
+    {
+        logger_.post(msg);
+    }
 };
 }
 
