@@ -62,6 +62,7 @@
             <method name="on">manually play onbeat sound</method>
             <method name="off">manually play offbeat sound</method>
             <method name="mark">manually play mark sound</method>
+            <method name="reset">reset metro to the beginning</method>
         </methods>
         <inlets>
             <inlet>
