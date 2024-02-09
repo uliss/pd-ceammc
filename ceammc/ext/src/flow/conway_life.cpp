@@ -43,7 +43,8 @@ bool ConwayLife::random(float density)
 
 bool ConwayLife::set(uint16_t rows, uint16_t cols)
 {
-    if (rows * cols > MAXSIZE)
+    auto N = rows * cols;
+    if (N > MAXSIZE || N == 0)
         return false;
 
     rows_ = rows;
