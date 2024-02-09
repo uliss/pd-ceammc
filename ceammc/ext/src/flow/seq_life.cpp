@@ -14,7 +14,7 @@
 #include "seq_life.h"
 #include "ceammc_args.h"
 #include "ceammc_factory.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 static ArgChecker m_cell_check("i i b");
 static ArgChecker m_pos_check("i i");
@@ -27,13 +27,19 @@ SeqLife::SeqLife(const PdArgs& args)
     rows_ = new IntProperty("@rows", 16);
     rows_->checkClosedRange(1, MAX_MTX_SIZE);
     rows_->setArgIndex(0);
-    rows_->setSuccessFn([this](Property*) { out_buffer_.resizePad(numCells(), Atom(0.)); });
+    rows_->setSuccessFn([this](Property*) {
+        life_.set(rows_->value(), life_.cols());
+        out_buffer_.resizePad(numCells(), Atom(0.));
+    });
     addProperty(rows_);
 
     cols_ = new IntProperty("@cols", 16);
     cols_->checkClosedRange(1, MAX_MTX_SIZE);
     cols_->setArgIndex(1);
-    cols_->setSuccessFn([this](Property*) { out_buffer_.resizePad(numCells(), Atom(0.)); });
+    cols_->setSuccessFn([this](Property*) {
+        life_.set(life_.rows(), cols_->value());
+        out_buffer_.resizePad(numCells(), Atom(0.));
+    });
     addProperty(cols_);
 
     createCbIntProperty("@size", [this]() { return numCells(); });
@@ -173,7 +179,7 @@ void SeqLife::output()
     for (size_t r = 0; r < life_.rows(); r++) {
         for (size_t c = 0; c < life_.cols(); c++) {
             const size_t i = r * life_.rows() + c;
-            if (i > out_buffer_.size())
+            if (i >= out_buffer_.size())
                 break;
 
             out_buffer_[i] = life_.at(r, c);
@@ -201,5 +207,5 @@ void setup_seq_life()
 
     obj.setDescription("Conway game of life sequencer");
     obj.setCategory("seq");
-    obj.setKeywords({"seq", "conway", "life", "game"});
+    obj.setKeywords({ "seq", "conway", "life", "game" });
 }
