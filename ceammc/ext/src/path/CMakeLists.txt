@@ -1,6 +1,7 @@
 add_library(ceammc_path STATIC
     mod_path.cpp
     datatype_path.cpp
+    data_path.cpp
     file_size.cpp
 )
 target_include_directories(ceammc_path

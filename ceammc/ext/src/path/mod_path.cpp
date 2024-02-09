@@ -13,8 +13,12 @@ void setup_path_pattern();
 void setup_path_search();
 void setup_path_split();
 
+void setup_data_path();
+
 void ceammc_path_setup()
 {
+    setup_data_path();
+
     setup_file_size();
     setup_path_basename();
     setup_path_dirname();
