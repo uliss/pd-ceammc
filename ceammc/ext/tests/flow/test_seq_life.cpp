@@ -193,4 +193,45 @@ TEST_CASE("seq.life", "[externals]")
         std::cerr << "fig:\n"
                   << l;
     }
+
+    SECTION("class2")
+    {
+        ConwayLife l;
+        REQUIRE_FALSE(l.set(0, 1));
+        REQUIRE(l.numCells() == 256);
+        REQUIRE_FALSE(l.set(1, 0));
+        REQUIRE(l.numCells() == 256);
+        REQUIRE_FALSE(l.set(0, 0));
+        REQUIRE(l.numCells() == 256);
+
+        REQUIRE(l.set(16, 8));
+        REQUIRE(l.numCells() == 128);
+        l.next();
+        for (int i = 0; i < 16; i++) {
+            for (int j = 0; j < 8; j++)
+                REQUIRE(l.at(i, j) == 0);
+        }
+    }
+
+    SECTION("run")
+    {
+        SECTION("default")
+        {
+            TExt t("seq.life");
+            t.sendBang();
+        }
+
+        SECTION("16x8")
+        {
+            TExt t("seq.life", LF(16, 8));
+            t.sendBang();
+            REQUIRE_LIST_AT_OUTLET(0, t, AtomList::zeroes(128));
+
+            t.call("cell", LF(0, 0, 1));
+            auto data = AtomList::zeroes(128);
+            data[0] = 1;
+            t.sendBang();
+            REQUIRE_LIST_AT_OUTLET(0, t, data);
+        }
+    }
 }
