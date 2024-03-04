@@ -4,7 +4,7 @@ use std::os::raw::c_void;
 use std::str::FromStr;
 use std::time::Duration;
 
-use mdns_sd::{ServiceDaemon, ServiceEvent};
+use mdns_sd::{Error, ServiceDaemon, ServiceEvent, ServiceInfo, UnregisterStatus};
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
@@ -78,6 +78,7 @@ impl mdns {
     }
 }
 
+#[derive(Debug)]
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub enum mdns_rc {
@@ -89,6 +90,7 @@ pub enum mdns_rc {
     BrowseFailed,
     InvalidStringPointer,
     SetOptionError,
+    ServiceNotFound,
 }
 
 #[no_mangle]
@@ -190,6 +192,7 @@ pub extern "C" fn ceammc_rs_mdns_strerr(rc: mdns_rc) -> *const c_char {
         mdns_rc::BrowseFailed => "browse error\0",
         mdns_rc::InvalidStringPointer => "invalid string pointer\0",
         mdns_rc::SetOptionError => "set option error\0",
+        mdns_rc::ServiceNotFound => "service not found\0",
     }
     .as_ptr() as *const c_char
 }
@@ -197,7 +200,7 @@ pub extern "C" fn ceammc_rs_mdns_strerr(rc: mdns_rc) -> *const c_char {
 #[no_mangle]
 /// browse mdns services on the network
 /// @param mdns - point to mdns handle
-/// @param service_type - MDNS service type to search, for ex.: '_http._tcp.local.'. 
+/// @param service_type - MDNS service type to search, for ex.: '_http._tcp.local.'.
 ///        If '.local.' suffix if omitted it will be auto-added.
 /// @param timeout - search timeout in seconds
 /// @param cb - callback called each time a new service found
@@ -221,26 +224,13 @@ pub extern "C" fn ceammc_rs_mdns_browse(
 
     let mdns = mdns.data.as_ref().unwrap();
 
-    if service_type.is_null() {
-        return mdns_rc::InvalidServiceType;
-    }
-
-    let service_type = unsafe { CStr::from_ptr(service_type) }.to_str();
+    let service_type = mdns_full_service_name(service_type);
     if service_type.is_err() {
-        return mdns_rc::Utf8Error;
-    }
-
-    let mut service_type = service_type.unwrap().to_owned();
-    if !service_type.ends_with(".local.") {
-        if service_type.ends_with(".local") {
-            service_type += ".";
-        } else {
-            service_type += ".local.";
-        }
+        return service_type.unwrap_err();
     }
 
     // Browse for a service type.
-    let receiver = mdns.browse(&service_type);
+    let receiver = mdns.browse(service_type.unwrap().as_str());
     if receiver.is_err() {
         return mdns_rc::BrowseFailed;
     }
@@ -290,4 +280,132 @@ pub extern "C" fn ceammc_rs_mdns_browse(
     }
 
     mdns_rc::Ok
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_rs_mdns_register(
+    mdns: *mut mdns,
+    service: *const c_char,
+    name: *const c_char,
+    hostname: *const c_char,
+    ip: *const c_char,
+    port: u16,
+) -> mdns_rc {
+    if mdns.is_null() {
+        return mdns_rc::NullService;
+    }
+
+    let mdns = unsafe { &*mdns };
+    if !mdns.data.is_ok() {
+        return mdns_rc::ServiceError;
+    }
+
+    let mdns = mdns.data.as_ref().unwrap();
+
+    if service.is_null() || name.is_null() || hostname.is_null() || ip.is_null() {
+        return mdns_rc::InvalidStringPointer;
+    }
+
+    let name = unsafe { CStr::from_ptr(name) }.to_str();
+    let hostname = unsafe { CStr::from_ptr(hostname) }.to_str();
+    let ip = unsafe { CStr::from_ptr(ip) }.to_str();
+
+    if name.is_err() || hostname.is_err() || ip.is_err() {
+        return mdns_rc::Utf8Error;
+    }
+
+    let service = mdns_full_service_name(service);
+    if service.is_err() {
+        return service.unwrap_err();
+    }
+
+    let service_info = ServiceInfo::new(
+        service.unwrap().as_str(),
+        name.unwrap(),
+        hostname.unwrap(),
+        ip.unwrap(),
+        port,
+        None,
+    );
+
+    if service_info.is_err() {
+        return mdns_rc::SetOptionError;
+    }
+
+    let rc = mdns.register(service_info.unwrap());
+    if rc.is_err() {
+        return mdns_rc::ServiceError;
+    }
+
+    mdns_rc::Ok
+}
+
+fn mdns_full_service_name(name: *const c_char) -> Result<String, mdns_rc> {
+    let name = unsafe { CStr::from_ptr(name) }.to_str();
+    if name.is_err() {
+        return Err(mdns_rc::InvalidStringPointer);
+    }
+
+    let mut name = name.unwrap().to_owned();
+    if !name.ends_with(".local.") {
+        if name.ends_with(".local") {
+            name += ".";
+        } else {
+            name += ".local.";
+        }
+    };
+
+    Ok(name)
+}
+
+#[no_mangle]
+/// unregister MDNS service
+/// @param mdns - mdns service handle
+/// @param service - mdns service name
+/// @param timeout - timeout for unregister
+/// @return mdns_rc::Ok on success and other codes or error
+pub extern "C" fn ceammc_rs_mdns_unregister(
+    mdns: *mut mdns,
+    service: *const c_char,
+    timeout: u64,
+) -> mdns_rc {
+    if mdns.is_null() {
+        return mdns_rc::NullService;
+    }
+
+    let mdns = unsafe { &*mdns };
+    if !mdns.data.is_ok() {
+        return mdns_rc::ServiceError;
+    }
+
+    let mdns = mdns.data.as_ref().unwrap();
+
+    match mdns_full_service_name(service) {
+        Ok(service) => mdns_unregister(mdns, service.as_str(), timeout, true),
+        Err(err) => err,
+    }
+}
+
+fn mdns_unregister(mdns: &ServiceDaemon, fullname: &str, timeout: u64, again: bool) -> mdns_rc {
+    let res = mdns.unregister(fullname);
+    if res.is_err() {
+        if !again {
+            return mdns_rc::ServiceError;
+        }
+
+        return match res.unwrap_err() {
+            Error::Again => mdns_unregister(mdns, fullname, timeout, again),
+            _ => mdns_rc::ServiceError,
+        };
+    }
+
+    let rc = res.unwrap().recv_timeout(Duration::new(timeout, 0));
+
+    match rc {
+        Ok(st) => match st {
+            UnregisterStatus::OK => mdns_rc::Ok,
+            UnregisterStatus::NotFound => mdns_rc::ServiceNotFound,
+        },
+        Err(_) => mdns_rc::ServiceError,
+    }
 }

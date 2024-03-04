@@ -17,6 +17,7 @@ enum class ceammc_rs_mdns_rc {
   BrowseFailed,
   InvalidStringPointer,
   SetOptionError,
+  ServiceNotFound,
 };
 
 struct ceammc_rs_mdns_txt_property {
@@ -81,10 +82,26 @@ ceammc_rs_mdns_rc ceammc_rs_mdns_enable_iface(ceammc_rs_mdns *mdns, const char *
 /// @param mdns - pointer to mdns struct created with ceammc_rs_mdns_create()
 void ceammc_rs_mdns_free(ceammc_rs_mdns *mdns);
 
+ceammc_rs_mdns_rc ceammc_rs_mdns_register(ceammc_rs_mdns *mdns,
+                                          const char *service,
+                                          const char *name,
+                                          const char *hostname,
+                                          const char *ip,
+                                          uint16_t port);
+
 /// converts error code to string
 /// @param rc - pointer to mdns struct created with ceammc_rs_mdns_create()
 /// @return pointer to error string
 const char *ceammc_rs_mdns_strerr(ceammc_rs_mdns_rc rc);
+
+/// unregister MDNS service
+/// @param mdns - mdns service handle
+/// @param service - mdns service name
+/// @param timeout - timeout for unregister
+/// @return mdns_rc::Ok on success and other codes or error
+ceammc_rs_mdns_rc ceammc_rs_mdns_unregister(ceammc_rs_mdns *mdns,
+                                            const char *service,
+                                            uint64_t timeout);
 
 } // extern "C"
 
