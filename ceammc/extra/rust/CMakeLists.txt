@@ -9,4 +9,9 @@ if(Rust_FOUND)
         MANIFEST_PATH rimg/Cargo.toml
         CRATE_TYPES staticlib
     )
+
+    corrosion_import_crate(
+        MANIFEST_PATH core/Cargo.toml
+        CRATE_TYPES staticlib
+    )
 endif()
