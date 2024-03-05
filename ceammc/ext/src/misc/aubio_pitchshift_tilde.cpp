@@ -74,7 +74,7 @@ AubioPitchshiftTilde::AubioPitchshiftTilde(const PdArgs& args)
         p->setArgIndex(0);
         p->setFloatCheck(PropValueConstraints::CLOSED_RANGE, -24, 24);
         p->setUnits(PropValueUnits::SEMITONE);
-    };
+    }
 
     createCbFloatProperty("@latency",
         [this]() -> t_float {
@@ -146,6 +146,7 @@ AubioPitchshiftTilde::AubioPitchshiftTilde(const PdArgs& args)
                 break;
             case hash_soft:
                 options_[DETECTOR] = "DetectorSoft";
+                break;
             default:
                 break;
             }
@@ -165,6 +166,7 @@ AubioPitchshiftTilde::AubioPitchshiftTilde(const PdArgs& args)
                 break;
             case hash_smooth:
                 options_[TRANSIENT] = "TransientsSmooth";
+                break;
             default:
                 break;
             }

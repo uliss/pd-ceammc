@@ -77,14 +77,14 @@ bool Resampler::setRates(float inRate, float outRate)
 
         auto io = soxr_io_spec(SOXR_INT16, SOXR_FLOAT32);
         auto q = soxr_quality_spec(SOXR_QQ, 0);
-        soxr_error_t no_err = 0;
+        soxr_error_t no_err = nullptr;
 
         {
             Lock lock(mtx_);
             soxr_.reset(soxr_create(in_rate_, out_rate_, 1, &no_err, &io, &q, nullptr));
         }
 
-        if (no_err != 0 || !soxr_) {
+        if (no_err != nullptr || !soxr_) {
             std::cerr << fmt::format("{} error: {}\n", __FUNCTION__, soxr_strerror(no_err));
             return false;
         } else
@@ -116,11 +116,11 @@ soxr_error_t Resampler::process(const short* in, size_t ilen, size_t* idone, flo
 SpeechRhvoiceTilde::SpeechRhvoiceTilde(const PdArgs& args)
     : DispatchedObject<SoundExternal>(args)
     , tts_(nullptr, &RHVoice_delete_tts_engine)
+    , dsp_queue_(TtsQueueSize)
+    , txt_queue_(16)
     , quit_(false)
     , stop_(false)
     , punct_(nullptr)
-    , dsp_queue_(TtsQueueSize)
-    , txt_queue_(16)
 {
     createSignalOutlet();
     createOutlet();
@@ -365,7 +365,7 @@ int SpeechRhvoiceTilde::onDsp(const short* data, unsigned int n)
 
         auto no_err = resampler_.process(in_buf, in_left, &in_done, out_buf, BUF_SIZE, &out_done);
 
-        if (no_err != 0) {
+        if (no_err != nullptr) {
             std::cerr << fmt::format("[{}] error: {}\n", __FUNCTION__, soxr_strerror(no_err));
             break;
         }
@@ -486,13 +486,13 @@ void SpeechRhvoiceTilde::initProperties()
     auto nprofiles = RHVoice_get_number_of_voice_profiles(tts_.get());
     auto profiles = RHVoice_get_voice_profiles(tts_.get());
     OBJ_DBG << "number of profiles: " << nprofiles;
-    for (int i = 0; i < nprofiles; i++) {
+    for (unsigned int i = 0; i < nprofiles; i++) {
         OBJ_DBG << "\t-" << profiles[i];
     }
 
     auto nvoices = RHVoice_get_number_of_voices(tts_.get());
     auto voices = RHVoice_get_voices(tts_.get());
-    for (int i = 0; i < nvoices; i++)
+    for (unsigned int i = 0; i < nvoices; i++)
         voices_.append(gensym(voices[i].name));
 
     OBJ_DBG << "voices: " << voices_;
