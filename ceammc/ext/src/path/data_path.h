@@ -77,7 +77,7 @@ public:
     void m_permissions(t_symbol* s, const AtomListView& lv);
 
     void processResult(const DataPathResult& data) final;
-    Either<DataPathResult> processRequest(const DataPathRequest& req) final;
+    void processRequest(const DataPathRequest& req, ResultCallback cb) final;
 
     void onTclResponse(t_symbol* s, const AtomListView& lv) final;
 

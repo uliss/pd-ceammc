@@ -37,7 +37,7 @@ public:
     NetHttpSend(const PdArgs& args);
     void m_get(t_symbol* s, const AtomListView& lv);
 
-    Either<HttpResult> processRequest(const HttpRequest& req) final;
+    void processRequest(const HttpRequest& req, ResultCallback cb) final;
     void processResult(const HttpResult& res) final;
 
 public:

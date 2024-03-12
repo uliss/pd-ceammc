@@ -39,7 +39,7 @@ NetHttpSend::NetHttpSend(const PdArgs& args)
     addProperty(timeout_);
 }
 
-Either<HttpResult> NetHttpSend::processRequest(const HttpRequest& req)
+void NetHttpSend::processRequest(const HttpRequest& req, ResultCallback cb)
 {
     logger_.verbose(fmt::format("GET {}:{}@{}:{}{}", req.user, req.pass, req.host, req.port, req.path));
 
@@ -49,9 +49,9 @@ Either<HttpResult> NetHttpSend::processRequest(const HttpRequest& req)
     cli.set_tcp_nodelay(true);
     auto res = cli.Get(req.path.c_str());
     if (res)
-        return HttpResult { res->body, res->status };
+        cb(HttpResult { res->body, res->status });
     else
-        return Either<HttpResult>::makeError(fmt::format("http request error: '{}'", to_string(res.error())));
+        workerThreadError(fmt::format("http request error: '{}'", to_string(res.error())));
 }
 
 void NetHttpSend::processResult(const HttpResult& res)

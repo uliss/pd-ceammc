@@ -120,21 +120,21 @@ void DataPath::m_permissions(t_symbol* s, const AtomListView& lv)
     appendRequest(DATA_PATH_OP_PERMISSIONS);
 }
 
-Either<DataPathResult> DataPath::processRequest(const DataPathRequest& req)
+void DataPath::processRequest(const DataPathRequest& req, ResultCallback cb)
 {
     switch (req.op_code) {
     case DATA_PATH_OP_EXISTS:
-        return exists(path::DataTypePath(req.path));
+        return cb(exists(path::DataTypePath(req.path)));
     case DATA_PATH_OP_SIZE:
-        return filesize(path::DataTypePath(req.path));
+        return cb(filesize(path::DataTypePath(req.path)));
     case DATA_PATH_OP_TYPE:
-        return filetype(path::DataTypePath(req.path));
+        return cb(filetype(path::DataTypePath(req.path)));
     case DATA_PATH_OP_PERMISSIONS:
-        return permissions(path::DataTypePath(req.path));
+        return cb(permissions(path::DataTypePath(req.path)));
     case DATA_PATH_OP_ALL_INFO:
-        return info(path::DataTypePath(req.path));
+        return cb(info(path::DataTypePath(req.path)));
     default:
-        return Either<DataPathResult>::makeError("unknown opcode");
+        return workerThreadError("unknown opcode");
     }
 }
 

@@ -14,7 +14,6 @@
 #ifndef CEAMMC_POLLTHREAD_SPSC_H
 #define CEAMMC_POLLTHREAD_SPSC_H
 
-#include "ceammc_either.h"
 #include "ceammc_pollthread_object.h"
 
 #include <boost/lockfree/spsc_queue.hpp>
@@ -39,10 +38,18 @@ class FixedSPSCObject
     ThreadNotify worker_notify_;
     ThreadPdLogger logger_;
 
+public:
     using Parent = PollThreadTaskObject<
         spsc::FixedQueue<RequestType, N>,
         spsc::FixedQueue<ResultType, N>,
         Base>;
+
+    using ResultCallback = std::function<void(const ResultType&)>;
+
+    enum class WorkerProcess {
+        CONTINUE,
+        QUIT
+    };
 
 public:
     FixedSPSCObject(const PdArgs& args)
@@ -57,39 +64,62 @@ public:
         this->runTask();
     }
 
+    /**
+     * called on worker thread before task runloop
+     */
+    virtual void onTaskInit() { }
+
+    virtual void runLoopFor(size_t ms) { }
+
+    WorkerProcess waitForOutputAvailable(size_t ms) const
+    {
+        while (!this->outPipe().write_available()) {
+            if (this->quit())
+                return WorkerProcess::QUIT;
+
+            std::this_thread::sleep_for(std::chrono::milliseconds(ms));
+        }
+
+        return this->quit() ? WorkerProcess::QUIT : WorkerProcess::CONTINUE;
+    }
+
+    WorkerProcess processRequests()
+    {
+        while (this->inPipe().read_available() > 0) {
+            this->inPipe().consume_one([this](const RequestType& req) {
+                this->processRequest(req, [this](const ResultType& res) {
+                    if (this->waitForOutputAvailable(SLEEP_MS) == WorkerProcess::QUIT)
+                        return;
+
+                    this->addReply(res);
+                });
+            });
+
+            if (this->quit())
+                return WorkerProcess::QUIT;
+        }
+
+        return this->quit() ? WorkerProcess::QUIT : WorkerProcess::CONTINUE;
+    }
+
     typename FixedSPSCObject::Future createTask() override
     {
         return std::async([this]() {
             try {
+                this->onTaskInit();
 
                 while (!this->quit()) {
-                    while (this->inPipe().read_available() > 0) {
-                        this->inPipe().consume_one([this](const RequestType& req) {
-                            constexpr const auto sleep_ms = std::chrono::milliseconds(SLEEP_MS);
+                    auto rc = this->processRequests();
+                    if (rc == WorkerProcess::QUIT)
+                        break;
 
-                            while (!this->outPipe().write_available() && !this->quit())
-                                std::this_thread::sleep_for(sleep_ms);
-
-                            auto res = this->processRequest(req);
-                            if (res.isError()) {
-                                logger_.error(res.error().what());
-                            } else if (this->outPipe().push(res.value())) {
-                                Dispatcher::instance().send({ this->subscriberId(), 0 });
-                            } else
-                                logger_.error("can't push result");
-                        });
-
-                        if (this->quit())
-                            goto quit_label;
-                    }
+                    this->runLoopFor(SLEEP_MS);
 
                     if (!this->quit())
                         worker_notify_.waitFor(SLEEP_MS);
                 }
-
-            quit_label:;
             } catch (std::exception& e) {
-                logger_.error(e.what());
+                this->workerThreadError(e.what());
             }
         });
     }
@@ -97,25 +127,39 @@ public:
     /**
      * Called only from worker thread
      */
-    virtual Either<ResultType> processRequest(const RequestType& req) = 0;
+    virtual void processRequest(const RequestType& req, ResultCallback cb) { }
 
     /**
-     * Called only in Pd thread
+     * Called only from Pd thread
      */
     virtual void processResult(const ResultType& res) = 0;
 
     /**
-     * Called only in Pd thread
+     * Called only from Pd thread
      */
     bool addRequest(const RequestType& req)
     {
-        if (!this->inPipe().push(req)) {
+        auto rc = this->inPipe().push(req);
+        worker_notify_.notifyOne();
+
+        if (!rc) {
             OBJ_ERR << "request queue is full";
+            return false;
+        } else
+            return true;
+    }
+
+    /**
+     * Called only from worker thread
+     */
+    bool addReply(const ResultType& res)
+    {
+        if (!this->outPipe().push(res)) {
+            OBJ_ERR << "result queue is full";
             return false;
         }
 
-        worker_notify_.notifyOne();
-        return true;
+        return Dispatcher::instance().send({ this->subscriberId(), 0 });
     }
 
     // process notification from Dispatcher
