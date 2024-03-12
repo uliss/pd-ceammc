@@ -308,7 +308,7 @@ mod mqtt {
                         _ => mqtt_rc::ConnectionError,
                     }
                 }
-                x => {
+                _ => {
                     mqtt_rc::ConnectionError
                 }
             };
