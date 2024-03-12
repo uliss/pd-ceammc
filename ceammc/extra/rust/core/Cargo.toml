@@ -8,7 +8,6 @@ crate-type = ["staticlib"]
 
 [dependencies]
 mdns-sd = "0.10.4"
-#image = { version = "0.24.7", features = [ "ico", "gif", "jpeg", "pnm", "bmp", "webp" ], default-features = false }
 
 [build-dependencies]
 cbindgen = "0.24.5"
