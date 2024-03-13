@@ -50,10 +50,10 @@ mod mqtt {
     }
 
     impl mqtt_client {
-        fn new(id: &str, host: &str, port: u16, user: &str, pass: &str) -> Self {
+        fn new(id: &str, host: &str, port: u16, user: &str, pass: &str, keep_alive: u8) -> Self {
             let id = if id.is_empty() { "ceammc_mqtt_pd" } else { id };
             let mut mqttoptions = MqttOptions::new(id, host, port);
-            mqttoptions.set_keep_alive(Duration::from_secs(5));
+            mqttoptions.set_keep_alive(Duration::from_secs(keep_alive.into()));
             if !user.is_empty() && !pass.is_empty() {
                 mqttoptions.set_credentials(user, pass);
             }
@@ -68,6 +68,13 @@ mod mqtt {
 
     #[no_mangle]
     /// create new mqtt client
+    /// @param host - mqtt broker hostname
+    /// @param port - mqtt broker port
+    /// @param id - client id
+    /// @param user - mqtt username (can be NULL)
+    /// @param pass - mqtt password (can be NULL)
+    /// @return pointer to mqtt_client (must be freed by ceammc_rs_mqtt_client_free()) on success
+    ///         or NULL on error
     pub extern "C" fn ceammc_rs_mqtt_client_create(
         host: *const c_char,
         port: u16,
@@ -112,21 +119,25 @@ mod mqtt {
             }
         };
 
-        let cli = mqtt_client::new(id, host.unwrap(), port, user, password);
+        let cli = mqtt_client::new(id, host.unwrap(), port, user, password, 5);
         Box::into_raw(Box::new(cli))
     }
 
     #[no_mangle]
     /// free mqtt client
+    /// @param cli - mqtt client
     pub extern "C" fn ceammc_rs_mqtt_client_free(cli: *mut mqtt_client) {
         if !cli.is_null() {
-            let asy = unsafe { Box::from_raw(cli) };
-            drop(asy);
+            let cli = unsafe { Box::from_raw(cli) };
+            drop(cli);
         }
     }
 
     #[no_mangle]
     /// subscribe to mqtt topic
+    /// @param cli - mqtt client
+    /// @param topic - mqtt topic
+    /// @return ceammc_rs_mqtt_rc::Ok on success
     pub extern "C" fn ceammc_rs_mqtt_client_subscribe(
         cli: *mut mqtt_client,
         topic: *const c_char,
@@ -154,6 +165,9 @@ mod mqtt {
 
     #[no_mangle]
     /// unsubscribe from mqtt topic
+    /// @param cli - mqtt client
+    /// @param topic - mqtt topic
+    /// @return ceammc_rs_mqtt_rc::Ok on success
     pub extern "C" fn ceammc_rs_mqtt_client_unsubscribe(
         cli: *mut mqtt_client,
         topic: *const c_char,
@@ -194,6 +208,7 @@ mod mqtt {
     /// @param qos - Quality of Service flag
     /// @param retain - This flag tells the broker to store the message for a topic
     ///        and ensures any new client subscribing to that topic will receive the stored message.
+    /// @return ceammc_rs_mqtt_rc::Ok on success
     pub extern "C" fn ceammc_rs_mqtt_client_publish(
         cli: *mut mqtt_client,
         topic: *const c_char,
@@ -227,13 +242,14 @@ mod mqtt {
     }
 
     #[no_mangle]
-    /// publish data into mqtt topic
+    /// publish binary data into mqtt topic
     /// @param topic - mqtt topic ('+' single layer wildcard, '#' recursive layer wildcard)
-    /// @param data - mqtt message data
-    /// @param len - mqtt message data length
+    /// @param data - mqtt binary data
+    /// @param len - mqtt binary data length
     /// @param qos - Quality of Service flag
     /// @param retain - This flag tells the broker to store the message for a topic
-    ///        and ensures any new client subscribing to that topic will receive the stored message.
+    ///        and ensures any new client subscribing to that topic will receive the stored message
+    /// @return ceammc_rs_mqtt_rc::Ok on success
     pub extern "C" fn ceammc_rs_mqtt_client_publish_data(
         cli: *mut mqtt_client,
         topic: *const c_char,
@@ -281,6 +297,7 @@ mod mqtt {
     /// @param cb_ping - ping callback (user data)
     /// @param cb_pub - publish callback (user data, topic, message data, message size)
     /// @param cb_conn - connection callback (user_data, result code)
+    /// @return ceammc_rs_mqtt_rc::Ok on success
     pub extern "C" fn ceammc_rs_mqtt_runloop(
         cli: *mut mqtt_client,
         time_ms: u16,

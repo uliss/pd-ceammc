@@ -38,6 +38,13 @@ enum class ceammc_rs_mqtt_rc {
 extern "C" {
 
 /// create new mqtt client
+/// @param host - mqtt broker hostname
+/// @param port - mqtt broker port
+/// @param id - client id
+/// @param user - mqtt username (can be NULL)
+/// @param pass - mqtt password (can be NULL)
+/// @return pointer to mqtt_client (must be freed by ceammc_rs_mqtt_client_free()) on success
+///         or NULL on error
 ceammc_rs_mqtt_client *ceammc_rs_mqtt_client_create(const char *host,
                                                     uint16_t port,
                                                     const char *id,
@@ -45,6 +52,7 @@ ceammc_rs_mqtt_client *ceammc_rs_mqtt_client_create(const char *host,
                                                     const char *password);
 
 /// free mqtt client
+/// @param cli - mqtt client
 void ceammc_rs_mqtt_client_free(ceammc_rs_mqtt_client *cli);
 
 /// publish text message into mqtt topic
@@ -53,19 +61,21 @@ void ceammc_rs_mqtt_client_free(ceammc_rs_mqtt_client *cli);
 /// @param qos - Quality of Service flag
 /// @param retain - This flag tells the broker to store the message for a topic
 ///        and ensures any new client subscribing to that topic will receive the stored message.
+/// @return ceammc_rs_mqtt_rc::Ok on success
 ceammc_rs_mqtt_rc ceammc_rs_mqtt_client_publish(ceammc_rs_mqtt_client *cli,
                                                 const char *topic,
                                                 const char *msg,
                                                 ceammc_rs_mqtt_qos qos,
                                                 bool retain);
 
-/// publish data into mqtt topic
+/// publish binary data into mqtt topic
 /// @param topic - mqtt topic ('+' single layer wildcard, '#' recursive layer wildcard)
-/// @param data - mqtt message data
-/// @param len - mqtt message data length
+/// @param data - mqtt binary data
+/// @param len - mqtt binary data length
 /// @param qos - Quality of Service flag
 /// @param retain - This flag tells the broker to store the message for a topic
-///        and ensures any new client subscribing to that topic will receive the stored message.
+///        and ensures any new client subscribing to that topic will receive the stored message
+/// @return ceammc_rs_mqtt_rc::Ok on success
 ceammc_rs_mqtt_rc ceammc_rs_mqtt_client_publish_data(ceammc_rs_mqtt_client *cli,
                                                      const char *topic,
                                                      const uint8_t *data,
@@ -74,9 +84,15 @@ ceammc_rs_mqtt_rc ceammc_rs_mqtt_client_publish_data(ceammc_rs_mqtt_client *cli,
                                                      bool retain);
 
 /// subscribe to mqtt topic
+/// @param cli - mqtt client
+/// @param topic - mqtt topic
+/// @return ceammc_rs_mqtt_rc::Ok on success
 ceammc_rs_mqtt_rc ceammc_rs_mqtt_client_subscribe(ceammc_rs_mqtt_client *cli, const char *topic);
 
 /// unsubscribe from mqtt topic
+/// @param cli - mqtt client
+/// @param topic - mqtt topic
+/// @return ceammc_rs_mqtt_rc::Ok on success
 ceammc_rs_mqtt_rc ceammc_rs_mqtt_client_unsubscribe(ceammc_rs_mqtt_client *cli, const char *topic);
 
 /// iterate mqtt events
@@ -86,6 +102,7 @@ ceammc_rs_mqtt_rc ceammc_rs_mqtt_client_unsubscribe(ceammc_rs_mqtt_client *cli, 
 /// @param cb_ping - ping callback (user data)
 /// @param cb_pub - publish callback (user data, topic, message data, message size)
 /// @param cb_conn - connection callback (user_data, result code)
+/// @return ceammc_rs_mqtt_rc::Ok on success
 ceammc_rs_mqtt_rc ceammc_rs_mqtt_runloop(ceammc_rs_mqtt_client *cli,
                                          uint16_t time_ms,
                                          void *cb_data,
