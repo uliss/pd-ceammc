@@ -7,7 +7,10 @@ edition = "2021"
 crate-type = ["staticlib"]
 
 [dependencies]
-rumqttc = "0.24.0"
+rumqttc = { version = "0.24.0", features = ["use-rustls", "use-native-tls"] }
+rustls = "0.23.2"
+rustls-native-certs = "0.7.0"
+tokio-rustls = "0.25.0"
 
 [build-dependencies]
 cbindgen = "0.24.5"

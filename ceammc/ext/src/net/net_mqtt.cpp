@@ -127,12 +127,17 @@ public:
         }
     }
 
-    bool connect(const char* id, const char* host, int port = 1883)
+    bool connect(const char* id,
+        const char* host,
+        const char* user = nullptr,
+        const char* password = nullptr,
+        int port = 1883,
+        bool use_tls = false)
     {
         if (cli_)
             disconnect();
 
-        cli_ = ceammc_rs_mqtt_client_create(host, port, id, nullptr, nullptr);
+        cli_ = ceammc_rs_mqtt_client_create(host, port, id, user, password, use_tls);
         return cli_ != nullptr;
     }
 
@@ -324,7 +329,7 @@ void NetMqtt::processRequest(const MqttRequest& req, ResultCallback cb)
         auto id = clientId();
         auto host = hostname();
         auto port = port_->value();
-        if (!cli_->connect(id, host, port))
+        if (!cli_->connect(id, host, user_->value()->s_name, pass_->value()->s_name, port))
             workerThreadError(fmt::format("can't connect to '{}:{}' with ID: '{}'",
                 host, port, id));
 
