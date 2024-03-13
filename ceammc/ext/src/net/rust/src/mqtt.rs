@@ -1,7 +1,11 @@
 mod mqtt {
 
-    use rumqttc::{Client, Connection, MqttOptions, QoS};
+    use rumqttc::{
+        Client, ConnectReturnCode, Connection, ConnectionError, Event, MqttOptions, Packet, QoS,
+        RecvTimeoutError,
+    };
     use std::ffi::{CStr, CString};
+    use std::io::ErrorKind;
     use std::os::raw::{c_char, c_void};
     use std::slice;
     use std::time::Duration;
@@ -175,7 +179,7 @@ mod mqtt {
         }
     }
 
-    fn qos2qos(qos: mqtt_qos) -> rumqttc::QoS {
+    fn qos2qos(qos: mqtt_qos) -> QoS {
         match qos {
             mqtt_qos::AtLeastOnce => QoS::AtLeastOnce,
             mqtt_qos::AtMostOnce => QoS::AtMostOnce,
@@ -258,6 +262,8 @@ mod mqtt {
         }
         let data = unsafe { slice::from_raw_parts(data, len).to_vec() };
 
+        // cli.mqtt.try_publish_with_properties(topic, qos, retain, payload, properties)
+
         match cli
             .mqtt
             .try_publish(topic.unwrap(), qos2qos(qos), retain, data)
@@ -292,62 +298,56 @@ mod mqtt {
         let rc = cli.conn.recv_timeout(Duration::from_millis(time_ms.into()));
         if rc.is_err() {
             return match rc.unwrap_err() {
-                rumqttc::RecvTimeoutError::Disconnected => mqtt_rc::Disconnected,
-                rumqttc::RecvTimeoutError::Timeout => mqtt_rc::Ok,
+                RecvTimeoutError::Disconnected => mqtt_rc::Disconnected,
+                RecvTimeoutError::Timeout => mqtt_rc::Ok,
             };
         }
         let rc = rc.unwrap();
         if rc.is_err() {
             return match rc.unwrap_err() {
-                rumqttc::ConnectionError::NetworkTimeout => mqtt_rc::NetworkTimeout,
-                rumqttc::ConnectionError::FlushTimeout => mqtt_rc::FlushTimeout,
-                rumqttc::ConnectionError::Io(err) => {
-                    match err.kind() {
-                        std::io::ErrorKind::ConnectionRefused => mqtt_rc::ConnectionRefused,
-                        std::io::ErrorKind::ConnectionReset => mqtt_rc::ConnectionReset,
-                        _ => mqtt_rc::ConnectionError,
-                    }
-                }
-                _ => {
-                    mqtt_rc::ConnectionError
-                }
+                ConnectionError::NetworkTimeout => mqtt_rc::NetworkTimeout,
+                ConnectionError::FlushTimeout => mqtt_rc::FlushTimeout,
+                ConnectionError::Io(err) => match err.kind() {
+                    ErrorKind::ConnectionRefused => mqtt_rc::ConnectionRefused,
+                    ErrorKind::ConnectionReset => mqtt_rc::ConnectionReset,
+                    _ => mqtt_rc::ConnectionError,
+                },
+                _ => mqtt_rc::ConnectionError,
             };
         }
 
         match rc.unwrap() {
-            rumqttc::Event::Incoming(pack) => {
+            Event::Incoming(pack) => {
                 let _ = match pack {
-                    rumqttc::Packet::PingResp => {
+                    Packet::PingResp => {
                         if let Some(f) = cb_ping {
                             f(cb_data);
                         }
                     }
-                    rumqttc::Packet::Publish(p) => {
+                    Packet::Publish(p) => {
                         if let Some(f) = cb_pub {
                             let topic = CString::new(p.topic).unwrap();
                             let data = p.payload;
                             f(cb_data, topic.as_ptr(), data.as_ptr(), data.len());
                         }
                     }
-                    rumqttc::Packet::ConnAck(conn) => {
+                    Packet::ConnAck(conn) => {
                         if let Some(f) = cb_conn {
                             f(
                                 cb_data,
                                 match conn.code {
-                                    rumqttc::ConnectReturnCode::RefusedProtocolVersion => {
+                                    ConnectReturnCode::RefusedProtocolVersion => {
                                         mqtt_rc::RefusedProtocolVersion
                                     }
-                                    rumqttc::ConnectReturnCode::BadClientId => mqtt_rc::BadClientId,
-                                    rumqttc::ConnectReturnCode::ServiceUnavailable => {
+                                    ConnectReturnCode::BadClientId => mqtt_rc::BadClientId,
+                                    ConnectReturnCode::ServiceUnavailable => {
                                         mqtt_rc::ServiceUnavailable
                                     }
-                                    rumqttc::ConnectReturnCode::BadUserNamePassword => {
+                                    ConnectReturnCode::BadUserNamePassword => {
                                         mqtt_rc::BadUserNamePassword
                                     }
-                                    rumqttc::ConnectReturnCode::NotAuthorized => {
-                                        mqtt_rc::NotAuthorized
-                                    }
-                                    rumqttc::ConnectReturnCode::Success => mqtt_rc::Ok,
+                                    ConnectReturnCode::NotAuthorized => mqtt_rc::NotAuthorized,
+                                    ConnectReturnCode::Success => mqtt_rc::Ok,
                                 },
                             );
                         }
@@ -356,7 +356,7 @@ mod mqtt {
                 };
                 true
             }
-            rumqttc::Event::Outgoing(ev) => {
+            Event::Outgoing(ev) => {
                 println!("out event: {:?}", ev);
                 true
             }
