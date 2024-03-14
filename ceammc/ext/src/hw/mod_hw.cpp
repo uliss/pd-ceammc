@@ -3,6 +3,7 @@
 #include "hw_apple_sms.h"
 #include "hw_arduino.h"
 #include "hw_display.h"
+#include "hw_gamepad.h"
 #include "hw_kbd_light.h"
 #include "hw_serial.h"
 
@@ -25,6 +26,7 @@ void ceammc_hw_setup()
     setup_hw_apple_sms();
     setup_hw_cpu_temp();
     setup_hw_display();
+    setup_hw_gamepad();
     setup_hw_keyboard_light();
     setup_hw_motu_avb();
 
