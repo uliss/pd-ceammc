@@ -9,5 +9,5 @@ crate-type = ["staticlib"]
 [dependencies]
 mdns-sd = "0.10.4"
 
-[build-dependencies]
+[target.'cfg(unix)'.build-dependencies]
 cbindgen = "0.24.5"
