@@ -11,6 +11,11 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#ifndef WITH_GAMEPAD
+#include "ceammc_stub.h"
+CONTROL_OBJECT_STUB(HwGamepad, 1, 3, "compiled without gamepad support");
+OBJECT_STUB_SETUP(HwGamepad, hw_gamepad, "hw.gamepad");
+#else 
 #include "hw_gamepad.h"
 #include "ceammc_containers.h"
 #include "ceammc_crc32.h"
@@ -295,3 +300,4 @@ void setup_hw_gamepad()
     obj.addMethod("devices", &HwGamepad::m_devices);
     obj.setXletsInfo({ "control inlet" }, { "button: list ID BTN STATE VAL", "axis: list ID AXIS VAL", "info: connected, dis" });
 }
+#endif
