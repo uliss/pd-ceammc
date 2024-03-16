@@ -269,7 +269,7 @@ mod gamepad {
             .gilrs
             .next_event_blocking(Some(Duration::from_millis(100)))
         {
-            println!("{:?}", event);
+            // println!("{:?}", event);
             let ev = hw_gamepad_event::new(event.id.into(), event.event);
             cb.map(|f| f(user_data, &ev));
         }
@@ -284,10 +284,12 @@ mod gamepad {
             extern "C" fn(
                 user_data: *mut c_void,
                 name: *const c_char,
+                os_name: *const c_char,
                 id: usize,
                 vid: u16,
                 pid: u16,
                 is_connected: bool,
+                has_ff: bool,
                 power: &hw_gamepad_powerinfo,
             ),
         >,
@@ -302,15 +304,16 @@ mod gamepad {
         cb.map(|cb| {
             for (_id, gamepad) in gp.gilrs.gamepads() {
                 let name = CString::new(gamepad.name()).unwrap_or_default();
+                let os_name = CString::new(gamepad.os_name()).unwrap_or_default();
                 let id = gamepad.id().into();
                 let vid = gamepad.vendor_id().unwrap_or(0);
                 let pid = gamepad.product_id().unwrap_or(0);
                 let conn = gamepad.is_connected();
                 let power = hw_gamepad_powerinfo::new(gamepad.power_info());
 
-                cb(user_data, name.as_ptr(), id, vid, pid, conn, &power);
+                cb(user_data, name.as_ptr(), os_name.as_ptr(), id, vid, pid, conn, gamepad.is_ff_supported(), &power);
 
-                println!("{} is {:?}", gamepad.name(), gamepad.power_info());
+                // println!("{:?}", gamepad);
             }
         });
 

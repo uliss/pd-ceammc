@@ -87,10 +87,12 @@ void ceammc_rs_hw_gamepad_free(ceammc_rs_hw_gamepad *gp);
 ceammc_rs_hw_gamepad_rc ceammc_rs_hw_gamepad_list(ceammc_rs_hw_gamepad *gp,
                                                   void (*cb)(void *user_data,
                                                              const char *name,
+                                                             const char *os_name,
                                                              size_t id,
                                                              uint16_t vid,
                                                              uint16_t pid,
                                                              bool is_connected,
+                                                             bool has_ff,
                                                              const ceammc_rs_hw_gamepad_powerinfo *power),
                                                   void *user_data);
 

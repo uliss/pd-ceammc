@@ -20,6 +20,7 @@ OBJECT_STUB_SETUP(HwGamepad, hw_gamepad, "hw.gamepad");
 #include "ceammc_containers.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+#include "datatype_dict.h"
 #include "fmt/core.h"
 #include "hw_rust.h"
 
@@ -63,6 +64,11 @@ CEAMMC_DEFINE_SYM(y)
 
 CEAMMC_DEFINE_SYM(button)
 CEAMMC_DEFINE_SYM(axis)
+
+CEAMMC_DEFINE_SYM(charged)
+CEAMMC_DEFINE_SYM(charging)
+CEAMMC_DEFINE_SYM(discharging)
+CEAMMC_DEFINE_SYM(wired)
 
 static void err_cb(void* data, const char* err)
 {
@@ -147,6 +153,24 @@ static t_symbol* axis2sym(std::uint8_t axis)
     }
 }
 
+static t_symbol* power2sym(std::uint8_t power)
+{
+    using p = ceammc_rs_hw_gamepad_powerstate;
+
+    switch (static_cast<ceammc_rs_hw_gamepad_powerstate>(power)) {
+    case p::Charged:
+        return sym_charged();
+    case p::Charging:
+        return sym_charging();
+    case p::Discharging:
+        return sym_discharging();
+    case p::Wired:
+        return sym_wired();
+    default:
+        return sym_unknown();
+    }
+}
+
 constexpr int OUT_BUTTON = 0;
 constexpr int OUT_AXIS = 1;
 constexpr int OUT_INFO = 2;
@@ -179,8 +203,14 @@ void HwGamepad::processRequest(const HwGamepadRequest& req, ResultCallback cb)
     if (req.type() == typeid(HwGamepadRequestDevices)) {
         auto rc = ceammc_rs_hw_gamepad_list(
             gp_.get(),
-            [](void* data, const char* name, std::size_t id, //
-                std::uint16_t vid, std::uint16_t pid, bool is_connected, //
+            [](void* data,
+                const char* name,
+                const char* os_name,
+                std::size_t id,
+                std::uint16_t vid,
+                std::uint16_t pid,
+                bool is_connected,
+                bool has_ff,
                 const ceammc_rs_hw_gamepad_powerinfo* pwinfo) {
                 auto cb = static_cast<ResultCallback*>(data);
                 if (!cb || !*cb)
@@ -190,8 +220,12 @@ void HwGamepad::processRequest(const HwGamepadRequest& req, ResultCallback cb)
                 dev.vid = vid;
                 dev.pid = pid;
                 dev.name = name;
-                dev.is_connected = is_connected;
+                dev.os_name = os_name;
                 dev.id = id;
+                dev.power_state = static_cast<std::uint8_t>(pwinfo->state);
+                dev.power_data = pwinfo->data;
+                dev.connected = is_connected;
+                dev.force_feedback = has_ff;
                 (*cb)(dev);
             },
             &cb);
@@ -208,35 +242,75 @@ void HwGamepad::processResult(const HwGamepadReply& res)
     auto& type = res.type();
     if (type == typeid(HwGamepadReplyDevice)) {
         auto& dev = boost::get<HwGamepadReplyDevice>(res);
-        AtomArray<5> data { dev.id, dev.vid, dev.pid, gensym(dev.name.c_str()), dev.is_connected };
-        anyTo(OUT_INFO, sym_device(), data.view());
+        DictAtom info;
+        info->insert("id", dev.id);
+        info->insert("vendor", dev.vid);
+        info->insert("product", dev.pid);
+        info->insert("name", gensym(dev.name.c_str()));
+        info->insert("os_name", gensym(dev.os_name.c_str()));
+        info->insert("power", power2sym(dev.power_state));
+        info->insert("power_value", dev.power_data);
+        info->insert("connected", dev.connected);
+        info->insert("force_feedback", dev.force_feedback);
+
+        anyTo(OUT_INFO, sym_device(), info);
     } else if (type == typeid(HwGamepadButtonPressed)) {
         auto& ev = boost::get<HwGamepadButtonPressed>(res);
-        AtomArray<4> data { ev.id, btn2sym(ev.btn), sym_pressed(), 1 };
+        AtomArray<4> data {
+            ev.id,
+            btn2sym(ev.btn),
+            sym_pressed(),
+            1,
+        };
         listTo(OUT_BUTTON, data.view());
     } else if (type == typeid(HwGamepadButtonReleased)) {
         auto& ev = boost::get<HwGamepadButtonReleased>(res);
-        AtomArray<4> data { ev.id, btn2sym(ev.btn), sym_released(), 0. };
+        AtomArray<4> data {
+            ev.id,
+            btn2sym(ev.btn),
+            sym_released(),
+            0.,
+        };
         listTo(OUT_BUTTON, data.view());
     } else if (type == typeid(HwGamepadButtonRepeated)) {
         auto& ev = boost::get<HwGamepadButtonRepeated>(res);
-        AtomArray<4> data { ev.id, btn2sym(ev.btn), sym_repeated(), 0. };
+        AtomArray<4> data {
+            ev.id,
+            btn2sym(ev.btn),
+            sym_repeated(),
+            0.,
+        };
         listTo(OUT_BUTTON, data.view());
     } else if (type == typeid(HwGamepadButtonChanged)) {
         auto& ev = boost::get<HwGamepadButtonChanged>(res);
-        AtomArray<4> data { ev.id, btn2sym(ev.btn), sym_changed(), ev.val };
+        AtomArray<4> data {
+            ev.id,
+            btn2sym(ev.btn),
+            sym_changed(),
+            ev.val,
+        };
         listTo(OUT_BUTTON, data.view());
     } else if (type == typeid(HwGamepadConnected)) {
         auto& ev = boost::get<HwGamepadConnected>(res);
-        AtomArray<2> data { ev.id, 1 };
+        AtomArray<2> data {
+            ev.id,
+            1,
+        };
         anyTo(OUT_INFO, sym_connected(), data.view());
     } else if (type == typeid(HwGamepadDisconnected)) {
         auto& ev = boost::get<HwGamepadDisconnected>(res);
-        AtomArray<2> data { ev.id, 0. };
+        AtomArray<2> data {
+            ev.id,
+            0.,
+        };
         anyTo(OUT_INFO, sym_connected(), data.view());
     } else if (type == typeid(HwGamepadAxisChanged)) {
         auto& ev = boost::get<HwGamepadAxisChanged>(res);
-        AtomArray<3> data { ev.id, axis2sym(ev.axis), ev.val };
+        AtomArray<3> data {
+            ev.id,
+            axis2sym(ev.axis),
+            ev.val,
+        };
         listTo(OUT_AXIS, data.view());
     } else {
         OBJ_ERR << "unknown typeid: " << type.name();
@@ -298,6 +372,13 @@ void setup_hw_gamepad()
 {
     ObjectFactory<HwGamepad> obj("hw.gamepad");
     obj.addMethod("devices", &HwGamepad::m_devices);
-    obj.setXletsInfo({ "control inlet" }, { "button: list ID BTN STATE VAL", "axis: list ID AXIS VAL", "info: connected, dis" });
+    obj.setXletsInfo(
+        { "control inlet" },
+        {
+            "button: list ID BTN STATE VAL",
+            "axis: list ID AXIS VAL",
+            "any: connected ID STATE\n"
+            "any: device INFO",
+        });
 }
 #endif

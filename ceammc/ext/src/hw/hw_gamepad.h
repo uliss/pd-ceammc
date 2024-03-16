@@ -21,10 +21,11 @@ using namespace ceammc;
 
 struct HwGamepadRequestDevices { };
 struct HwGamepadReplyDevice {
-    std::string name;
+    std::string name, os_name;
     std::size_t id;
     std::uint16_t vid { 0 }, pid { 0 };
-    bool is_connected { false };
+    std::uint8_t power_state { 0 }, power_data { 0 };
+    bool connected { false }, force_feedback { false };
 };
 struct HwGamepadButtonPressed {
     std::size_t id;
