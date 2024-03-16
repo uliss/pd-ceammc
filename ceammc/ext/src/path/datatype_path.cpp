@@ -44,7 +44,7 @@ namespace path {
             return "fifo";
         case FILE_TYPE_SOCKET:
             return "socket";
-        case FILE_TYPE_UNKNOWN:
+        case FILE_TYPE_IS_UNKNOWN:
             return "?";
         default:
             return "";
