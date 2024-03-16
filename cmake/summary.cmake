@@ -73,6 +73,7 @@ message(STATUS "       libusb:         ${LIBUSB_1_FOUND}")
 message(STATUS "       libartnet:      ${WITH_ARTNET}")
 message(STATUS "       libltc:         ${WITH_LTC} (WITH_LTC=${WITH_LTC})")
 message(STATUS "       verovio:        ${WITH_VEROVIO} (WITH_VEROVIO=${WITH_VEROVIO})")
+message(STATUS "       gamepad:        ${WITH_GAMEPAD} (WITH_GAMEPAD=${WITH_GAMEPAD})")
 
 message(STATUS "  3rd party externals:")
 message(STATUS "       lyonpotpourri:  ${WITH_EXT_LYONPOTPOURRI} (WITH_EXT_LYONPOTPOURRI=${WITH_EXT_LYONPOTPOURRI})")
