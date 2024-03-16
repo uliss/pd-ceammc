@@ -266,10 +266,8 @@ namespace path {
             return FILE_TYPE_FIFO;
         case fs::file_type::socket:
             return FILE_TYPE_SOCKET;
-        case fs::file_type::unknown:
-            return FILE_TYPE_UNKNOWN;
         default:
-            return FILE_TYPE_UNKNOWN;
+            return FILE_TYPE_IS_UNKNOWN;
         }
     }
 

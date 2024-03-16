@@ -41,7 +41,7 @@ namespace path {
         FILE_TYPE_CHARACTER,
         FILE_TYPE_FIFO,
         FILE_TYPE_SOCKET,
-        FILE_TYPE_UNKNOWN,
+        FILE_TYPE_IS_UNKNOWN, // avoid name collision on Win32 with FILE_TYPE_UNKNOWN
     };
 
     const char* to_string(FileType t);
