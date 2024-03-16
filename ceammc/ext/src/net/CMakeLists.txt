@@ -1,11 +1,26 @@
 add_library(ceammc_net STATIC mod_net.cpp net_host.cpp)
 
 target_sources(ceammc_net
-        PRIVATE
+    PRIVATE
         net_osc_send.cpp
         net_osc_server.cpp
         net_osc_receive.cpp
+        net_zeroconf.cpp
         osc_property.cpp)
+
+find_package(Rust)
+if(Rust_FOUND)
+    corrosion_import_crate(
+        MANIFEST_PATH rust/Cargo.toml
+        CRATE_TYPES staticlib
+    )
+    target_sources(ceammc_net PRIVATE net_mqtt.cpp)
+    target_include_directories(ceammc_net PRIVATE rust)
+    target_link_libraries(ceammc_net PRIVATE net_rust)
+    target_link_directories(ceammc_net PRIVATE rust/target/release)
+else()
+    target_sources(ceammc_net PRIVATE net_mqtt_stub.cpp)
+endif()
 
 # libartnet
 if(WITH_ARTNET)
@@ -40,7 +55,11 @@ target_include_directories(ceammc_net
 
 # http
 target_sources(ceammc_net PRIVATE net_http_send.cpp)
-target_link_libraries(ceammc_net PRIVATE http_lib)
+target_include_directories(ceammc_net
+    PRIVATE
+        ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/core
+    )
+target_link_libraries(ceammc_net PRIVATE core_rust http_lib)
 
 
 
