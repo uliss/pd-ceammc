@@ -17,6 +17,7 @@
 #include "ceammc_pollthread_object.h"
 
 #include <boost/lockfree/spsc_queue.hpp>
+#include <thread>
 
 namespace ceammc {
 
