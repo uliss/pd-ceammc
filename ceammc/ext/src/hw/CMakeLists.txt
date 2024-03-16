@@ -57,12 +57,17 @@ target_link_libraries(ceammc_hw
 )
 
 # gamepad
-target_sources(ceammc_hw PRIVATE hw_gamepad.cpp)
-target_include_directories(ceammc_hw
-    PRIVATE
-        ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/hw
-)
-target_link_libraries(ceammc_hw PRIVATE hw_rust)
+if(WITH_GAMEPAD)
+    target_sources(ceammc_hw PRIVATE hw_gamepad.cpp)
+    target_include_directories(ceammc_hw
+        PRIVATE
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/hw
+    )
+    target_link_libraries(ceammc_hw PRIVATE hw_rust)
+    target_compile_definitions(ceammc_hw PRIVATE WITH_GAMEPAD)
+else()
+    target_sources(ceammc_hw PRIVATE hw_gamepad.cpp)
+endif()
 
 #if(WITH_EXPERIMENTAL)
 #    add_definitions(-DWITH_LIBUSB_01)
