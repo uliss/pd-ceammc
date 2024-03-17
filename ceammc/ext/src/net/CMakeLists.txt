@@ -53,11 +53,15 @@ target_include_directories(ceammc_net
 
 # http
 target_sources(ceammc_net PRIVATE net_http_send.cpp)
-target_include_directories(ceammc_net
-    PRIVATE
-        ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/core
+target_link_libraries(ceammc_net PRIVATE http_lib)
+
+if(WITH_ZEROCONF)
+    target_link_libraries(ceammc_net PRIVATE core_rust)
+    target_include_directories(ceammc_net
+        PRIVATE
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/core
     )
-target_link_libraries(ceammc_net PRIVATE core_rust http_lib)
+endif()
 
 
 
