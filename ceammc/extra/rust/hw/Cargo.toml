@@ -11,5 +11,5 @@ crate-type = ["staticlib"]
 [dependencies]
 gilrs = "0.10.5"
 
-[target.'cfg(unix)'.build-dependencies]
-cbindgen = "0.24.5"
+[build-dependencies]
+cbindgen = "0.22.0"
