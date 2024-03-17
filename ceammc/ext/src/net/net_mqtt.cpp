@@ -114,19 +114,20 @@ MqttRequest::MqttRequest()
 
 class MqttClient {
     ceammc_rs_mqtt_client* cli_ { nullptr };
+    std::mutex mtx_;
 
 public:
     MqttClient() = default;
 
     ~MqttClient()
     {
-        if (cli_)
-            ceammc_rs_mqtt_client_free(cli_);
+        disconnect();
     }
 
     void disconnect()
     {
         if (cli_) {
+            std::lock_guard<std::mutex> lock(mtx_);
             ceammc_rs_mqtt_client_free(cli_);
             cli_ = nullptr;
         }
@@ -141,6 +142,7 @@ public:
         if (cli_)
             disconnect();
 
+        std::lock_guard<std::mutex> lock(mtx_);
         cli_ = ceammc_rs_mqtt_client_create(host, port, id, user, password);
         return cli_ != nullptr;
     }
@@ -150,6 +152,7 @@ public:
         if (!cli_)
             return ceammc_rs_mqtt_rc::InvalidClient;
 
+        std::lock_guard<std::mutex> lock(mtx_);
         return ceammc_rs_mqtt_client_subscribe(cli_, topic);
     }
 
@@ -158,6 +161,7 @@ public:
         if (!cli_)
             return ceammc_rs_mqtt_rc::InvalidClient;
 
+        std::lock_guard<std::mutex> lock(mtx_);
         return ceammc_rs_mqtt_client_unsubscribe(cli_, topic);
     }
 
@@ -166,6 +170,7 @@ public:
         if (!cli_)
             return ceammc_rs_mqtt_rc::InvalidClient;
 
+        std::lock_guard<std::mutex> lock(mtx_);
         return ceammc_rs_mqtt_client_publish(cli_, topic, message, qos, retain);
     }
 
@@ -174,6 +179,7 @@ public:
         if (!cli_)
             return ceammc_rs_mqtt_rc::InvalidClient;
 
+        std::lock_guard<std::mutex> lock(mtx_);
         return ceammc_rs_mqtt_client_publish_data(cli_, topic, data.data(), data.size(), qos, retain);
     }
 
@@ -182,6 +188,7 @@ public:
         if (!cli_)
             return ceammc_rs_mqtt_rc::InvalidClient;
 
+        std::lock_guard<std::mutex> lock(mtx_);
         return ceammc_rs_mqtt_runloop(
             cli_, ms, user,
             [](void* user) {
@@ -210,6 +217,7 @@ NetMqtt::NetMqtt(const PdArgs& args)
     id_count_++;
 
     host_ = new SymbolProperty("@host", gensym("localhost"));
+    host_->setArgIndex(0);
     addProperty(host_);
 
     user_ = new SymbolProperty("@user", &s_);
@@ -220,6 +228,7 @@ NetMqtt::NetMqtt(const PdArgs& args)
 
     port_ = new IntProperty("@port", 1883);
     port_->checkClosedRange(1, std::numeric_limits<std::uint16_t>::max());
+    port_->setArgIndex(1);
     addProperty(port_);
 
     mode_ = new SymbolEnumProperty("@mode", { str_fudi, str_data, str_sym, str_json, str_bytes });
