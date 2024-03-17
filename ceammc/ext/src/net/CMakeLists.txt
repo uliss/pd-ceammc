@@ -17,7 +17,7 @@ if(WITH_MQTT)
     target_link_libraries(ceammc_net PRIVATE net_rust)
     target_compile_definitions(ceammc_net PRIVATE WITH_MQTT)
 else()
-    target_sources(ceammc_net PRIVATE net_mqtt_stub.cpp)
+    target_sources(ceammc_net PRIVATE net_mqtt.cpp)
 endif()
 
 # libartnet
