@@ -19,4 +19,9 @@ if(Rust_FOUND)
         MANIFEST_PATH hw/Cargo.toml
         CRATE_TYPES staticlib
     )
+
+    corrosion_import_crate(
+        MANIFEST_PATH net/Cargo.toml
+        CRATE_TYPES staticlib
+    )
 endif()
