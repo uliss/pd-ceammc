@@ -126,8 +126,9 @@ public:
 
     void disconnect()
     {
+        std::lock_guard<std::mutex> lock(mtx_);
+
         if (cli_) {
-            std::lock_guard<std::mutex> lock(mtx_);
             ceammc_rs_mqtt_client_free(cli_);
             cli_ = nullptr;
         }
@@ -139,56 +140,64 @@ public:
         const char* password = nullptr,
         int port = 1883)
     {
-        if (cli_)
-            disconnect();
-
         std::lock_guard<std::mutex> lock(mtx_);
+
+        if (cli_) {
+            ceammc_rs_mqtt_client_free(cli_);
+            cli_ = nullptr;
+        }
+
         cli_ = ceammc_rs_mqtt_client_create(host, port, id, user, password);
         return cli_ != nullptr;
     }
 
     ceammc_rs_mqtt_rc subscribe(const char* topic)
     {
+        std::lock_guard<std::mutex> lock(mtx_);
+
         if (!cli_)
             return ceammc_rs_mqtt_rc::InvalidClient;
 
-        std::lock_guard<std::mutex> lock(mtx_);
         return ceammc_rs_mqtt_client_subscribe(cli_, topic);
     }
 
     ceammc_rs_mqtt_rc unsubscribe(const char* topic)
     {
+        std::lock_guard<std::mutex> lock(mtx_);
+
         if (!cli_)
             return ceammc_rs_mqtt_rc::InvalidClient;
 
-        std::lock_guard<std::mutex> lock(mtx_);
         return ceammc_rs_mqtt_client_unsubscribe(cli_, topic);
     }
 
     ceammc_rs_mqtt_rc publish(const char* topic, const char* message, ceammc_rs_mqtt_qos qos, bool retain)
     {
+        std::lock_guard<std::mutex> lock(mtx_);
+
         if (!cli_)
             return ceammc_rs_mqtt_rc::InvalidClient;
 
-        std::lock_guard<std::mutex> lock(mtx_);
         return ceammc_rs_mqtt_client_publish(cli_, topic, message, qos, retain);
     }
 
     ceammc_rs_mqtt_rc publish(const char* topic, const MqttData& data, ceammc_rs_mqtt_qos qos, bool retain)
     {
+        std::lock_guard<std::mutex> lock(mtx_);
+
         if (!cli_)
             return ceammc_rs_mqtt_rc::InvalidClient;
 
-        std::lock_guard<std::mutex> lock(mtx_);
         return ceammc_rs_mqtt_client_publish_data(cli_, topic, data.data(), data.size(), qos, retain);
     }
 
     ceammc_rs_mqtt_rc run_loop_for(std::uint16_t ms, void* user)
     {
+        std::lock_guard<std::mutex> lock(mtx_);
+
         if (!cli_)
             return ceammc_rs_mqtt_rc::InvalidClient;
 
-        std::lock_guard<std::mutex> lock(mtx_);
         return ceammc_rs_mqtt_runloop(
             cli_, ms, user,
             [](void* user) {
