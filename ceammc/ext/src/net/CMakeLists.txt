@@ -8,18 +8,16 @@ target_sources(ceammc_net
         net_zeroconf.cpp
         osc_property.cpp)
 
-find_package(Rust)
-if(Rust_FOUND)
-    corrosion_import_crate(
-        MANIFEST_PATH rust/Cargo.toml
-        CRATE_TYPES staticlib
-    )
+if(WITH_MQTT)
     target_sources(ceammc_net PRIVATE net_mqtt.cpp)
-    target_include_directories(ceammc_net PRIVATE rust)
+    target_include_directories(ceammc_net PRIVATE
+        PRIVATE
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
+    )
     target_link_libraries(ceammc_net PRIVATE net_rust)
-    target_link_directories(ceammc_net PRIVATE rust/target/release)
+    target_compile_definitions(ceammc_net PRIVATE WITH_MQTT)
 else()
-    target_sources(ceammc_net PRIVATE net_mqtt_stub.cpp)
+    target_sources(ceammc_net PRIVATE net_mqtt.cpp)
 endif()
 
 # libartnet
@@ -55,11 +53,15 @@ target_include_directories(ceammc_net
 
 # http
 target_sources(ceammc_net PRIVATE net_http_send.cpp)
-target_include_directories(ceammc_net
-    PRIVATE
-        ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/core
+target_link_libraries(ceammc_net PRIVATE http_lib)
+
+if(WITH_ZEROCONF)
+    target_link_libraries(ceammc_net PRIVATE core_rust)
+    target_include_directories(ceammc_net
+        PRIVATE
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/core
     )
-target_link_libraries(ceammc_net PRIVATE core_rust http_lib)
+endif()
 
 
 
