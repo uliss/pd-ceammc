@@ -136,13 +136,12 @@ public:
         const char* host,
         const char* user = nullptr,
         const char* password = nullptr,
-        int port = 1883,
-        bool use_tls = false)
+        int port = 1883)
     {
         if (cli_)
             disconnect();
 
-        cli_ = ceammc_rs_mqtt_client_create(host, port, id, user, password, use_tls);
+        cli_ = ceammc_rs_mqtt_client_create(host, port, id, user, password);
         return cli_ != nullptr;
     }
 

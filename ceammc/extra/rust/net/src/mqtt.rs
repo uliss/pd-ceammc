@@ -2,14 +2,13 @@ mod mqtt {
 
     use rumqttc::{
         Client, ConnectReturnCode, Connection, ConnectionError, Event, MqttOptions, Packet, QoS,
-        RecvTimeoutError, Transport,
+        RecvTimeoutError,
     };
     use std::ffi::{CStr, CString};
     use std::io::ErrorKind;
     use std::os::raw::{c_char, c_void};
     use std::slice;
     use std::time::Duration;
-    use tokio_rustls::rustls::ClientConfig;
 
     #[allow(dead_code)]
     #[allow(non_camel_case_types)]
@@ -57,7 +56,6 @@ mod mqtt {
             port: u16,
             user: &str,
             pass: &str,
-            use_tls: bool,
             keep_alive: u8,
         ) -> Self {
             let id = if id.is_empty() { "ceammc_mqtt_pd" } else { id };
@@ -66,21 +64,6 @@ mod mqtt {
             if !user.is_empty() && !pass.is_empty() {
                 mqttoptions.set_credentials(user, pass);
                 println!("connect with {user}:{pass}");
-            }
-
-            if use_tls {
-                // Use rustls-native-certs to load root certificates from the operating system.
-                let mut root_cert_store = tokio_rustls::rustls::RootCertStore::empty();
-                root_cert_store.add_parsable_certificates(
-                    rustls_native_certs::load_native_certs()
-                        .expect("could not load platform certs"),
-                );
-
-                let client_config = ClientConfig::builder()
-                    .with_root_certificates(root_cert_store)
-                    .with_no_client_auth();
-
-                mqttoptions.set_transport(Transport::tls_with_config(client_config.into()));
             }
 
             let (cli, conn) = Client::new(mqttoptions, 10);
@@ -106,7 +89,6 @@ mod mqtt {
         id: *const c_char,
         user: *const c_char,
         password: *const c_char,
-        use_tls: bool,
     ) -> *mut mqtt_client {
         if host.is_null() {
             return std::ptr::null_mut();
@@ -145,7 +127,7 @@ mod mqtt {
             }
         };
 
-        let cli = mqtt_client::new(id, host.unwrap(), port, user, password, use_tls, 5);
+        let cli = mqtt_client::new(id, host.unwrap(), port, user, password, 5);
         Box::into_raw(Box::new(cli))
     }
 

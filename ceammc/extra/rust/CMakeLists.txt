@@ -15,13 +15,19 @@ if(Rust_FOUND)
         CRATE_TYPES staticlib
     )
 
-    corrosion_import_crate(
-        MANIFEST_PATH hw/Cargo.toml
-        CRATE_TYPES staticlib
-    )
+    if(WITH_GAMEPAD)
+        corrosion_import_crate(
+            MANIFEST_PATH hw/Cargo.toml
+            CRATE_TYPES staticlib
+        )
+    endif()
 
-    corrosion_import_crate(
-        MANIFEST_PATH net/Cargo.toml
-        CRATE_TYPES staticlib
-    )
+    if(WITH_MQTT)
+        if(WIN32)
+            corrosion_import_crate(MANIFEST_PATH net/Cargo.toml CRATE_TYPES cdylib)
+            install(FILES ${CMAKE_CURRENT_BINARY_DIR}/net_rust.dll DESTINATION bin)
+        else()
+            corrosion_import_crate(MANIFEST_PATH net/Cargo.toml CRATE_TYPES staticlib)
+        endif()
+    endif()
 endif()

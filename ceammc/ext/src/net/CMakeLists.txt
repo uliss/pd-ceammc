@@ -56,6 +56,7 @@ target_sources(ceammc_net PRIVATE net_http_send.cpp)
 target_link_libraries(ceammc_net PRIVATE http_lib)
 
 if(WITH_ZEROCONF)
+    target_compile_definitions(ceammc_net PRIVATE WITH_ZEROCONF)
     target_link_libraries(ceammc_net PRIVATE core_rust)
     target_include_directories(ceammc_net
         PRIVATE

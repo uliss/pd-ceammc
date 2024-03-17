@@ -49,8 +49,7 @@ ceammc_rs_mqtt_client *ceammc_rs_mqtt_client_create(const char *host,
                                                     uint16_t port,
                                                     const char *id,
                                                     const char *user,
-                                                    const char *password,
-                                                    bool use_tls);
+                                                    const char *password);
 
 /// free mqtt client
 /// @param cli - mqtt client
