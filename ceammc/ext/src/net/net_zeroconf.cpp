@@ -11,7 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef WITH_ZEROFONF
+#ifndef WITH_ZEROCONF
 #include "ceammc_stub.h"
 CONTROL_OBJECT_STUB(NetZeroconf, 1, 1, "compiled without zeroconf support");
 OBJECT_STUB_SETUP(NetZeroconf, net_zeroconf, "net.zeroconf");

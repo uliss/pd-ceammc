@@ -10,10 +10,14 @@ if(Rust_FOUND)
         CRATE_TYPES staticlib
     )
 
-    corrosion_import_crate(
-        MANIFEST_PATH core/Cargo.toml
-        CRATE_TYPES staticlib
-    )
+    if(WITH_ZEROCONF)
+        if(WIN32)
+            corrosion_import_crate(MANIFEST_PATH core/Cargo.toml CRATE_TYPES cdylib)
+            install(FILES ${CMAKE_CURRENT_BINARY_DIR}/core_rust.dll DESTINATION bin)
+        else()
+            corrosion_import_crate(MANIFEST_PATH core/Cargo.toml CRATE_TYPES staticlib)
+        endif()
+    endif()
 
     if(WITH_GAMEPAD)
         if(WIN32)
