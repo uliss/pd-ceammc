@@ -8,6 +8,7 @@ mod mqtt {
     use std::io::ErrorKind;
     use std::os::raw::{c_char, c_void};
     use std::slice;
+    use std::sync::Mutex;
     use std::time::Duration;
 
     #[allow(dead_code)]
@@ -45,19 +46,11 @@ mod mqtt {
 
     #[allow(non_camel_case_types)]
     pub struct mqtt_client {
-        mqtt: Client,
-        conn: Connection,
+        mqtt: Mutex<(Client, Connection)>,
     }
 
     impl mqtt_client {
-        fn new(
-            id: &str,
-            host: &str,
-            port: u16,
-            user: &str,
-            pass: &str,
-            keep_alive: u8,
-        ) -> Self {
+        fn new(id: &str, host: &str, port: u16, user: &str, pass: &str, keep_alive: u8) -> Self {
             let id = if id.is_empty() { "ceammc_mqtt_pd" } else { id };
             let mut mqttoptions = MqttOptions::new(id, host, port);
             mqttoptions.set_keep_alive(Duration::from_secs(keep_alive.into()));
@@ -66,11 +59,8 @@ mod mqtt {
                 println!("connect with {user}:{pass}");
             }
 
-            let (cli, conn) = Client::new(mqttoptions, 10);
-            mqtt_client {
-                mqtt: cli,
-                conn: conn,
-            }
+            let mqtt = Mutex::new(Client::new(mqttoptions, 10));
+            mqtt_client { mqtt }
         }
     }
 
@@ -137,7 +127,7 @@ mod mqtt {
     pub extern "C" fn ceammc_rs_mqtt_client_free(cli: *mut mqtt_client) {
         if !cli.is_null() {
             let cli = unsafe { Box::from_raw(cli) };
-            drop(cli);
+            // drop(cli);
         }
     }
 
@@ -165,8 +155,11 @@ mod mqtt {
             return mqtt_rc::InvalidString;
         }
 
-        match cli.mqtt.try_subscribe(topic.unwrap(), QoS::AtMostOnce) {
-            Ok(_) => mqtt_rc::Ok,
+        match cli.mqtt.lock() {
+            Ok(mut mqtt) => match mqtt.0.try_subscribe(topic.unwrap(), QoS::AtMostOnce) {
+                Ok(_) => mqtt_rc::Ok,
+                Err(_) => mqtt_rc::ClientError,
+            },
             Err(_) => mqtt_rc::ClientError,
         }
     }
@@ -195,8 +188,11 @@ mod mqtt {
             return mqtt_rc::InvalidString;
         }
 
-        match cli.mqtt.try_unsubscribe(topic.unwrap()) {
-            Ok(_) => mqtt_rc::Ok,
+        match cli.mqtt.lock() {
+            Ok(mut mqtt) => match mqtt.0.try_unsubscribe(topic.unwrap()) {
+                Ok(_) => mqtt_rc::Ok,
+                Err(_) => mqtt_rc::ClientError,
+            },
             Err(_) => mqtt_rc::ClientError,
         }
     }
@@ -240,11 +236,16 @@ mod mqtt {
             return mqtt_rc::InvalidString;
         }
 
-        match cli
-            .mqtt
-            .try_publish(topic.unwrap(), qos2qos(qos), retain, msg.unwrap())
-        {
-            Ok(_) => mqtt_rc::Ok,
+        match cli.mqtt.lock() {
+            Ok(mut mqtt) => {
+                match mqtt
+                    .0
+                    .try_publish(topic.unwrap(), qos2qos(qos), retain, msg.unwrap())
+                {
+                    Ok(_) => mqtt_rc::Ok,
+                    Err(_) => mqtt_rc::ClientError,
+                }
+            }
             Err(_) => mqtt_rc::ClientError,
         }
     }
@@ -287,12 +288,16 @@ mod mqtt {
         let data = unsafe { slice::from_raw_parts(data, len).to_vec() };
 
         // cli.mqtt.try_publish_with_properties(topic, qos, retain, payload, properties)
-
-        match cli
-            .mqtt
-            .try_publish(topic.unwrap(), qos2qos(qos), retain, data)
-        {
-            Ok(_) => mqtt_rc::Ok,
+        match cli.mqtt.lock() {
+            Ok(mut mqtt) => {
+                match mqtt
+                    .0
+                    .try_publish(topic.unwrap(), qos2qos(qos), retain, data)
+                {
+                    Ok(_) => mqtt_rc::Ok,
+                    Err(_) => mqtt_rc::ClientError,
+                }
+            }
             Err(_) => mqtt_rc::ClientError,
         }
     }
@@ -320,73 +325,80 @@ mod mqtt {
 
         let cli = unsafe { &mut *cli };
 
-        let rc = cli.conn.recv_timeout(Duration::from_millis(time_ms.into()));
-        if rc.is_err() {
-            return match rc.unwrap_err() {
-                RecvTimeoutError::Disconnected => mqtt_rc::Disconnected,
-                RecvTimeoutError::Timeout => mqtt_rc::Ok,
-            };
-        }
-        let rc = rc.unwrap();
-        if rc.is_err() {
-            return match rc.unwrap_err() {
-                ConnectionError::NetworkTimeout => mqtt_rc::NetworkTimeout,
-                ConnectionError::FlushTimeout => mqtt_rc::FlushTimeout,
-                ConnectionError::Io(err) => match err.kind() {
-                    ErrorKind::ConnectionRefused => mqtt_rc::ConnectionRefused,
-                    ErrorKind::ConnectionReset => mqtt_rc::ConnectionReset,
-                    _ => mqtt_rc::ConnectionError,
-                },
-                _ => mqtt_rc::ConnectionError,
-            };
-        }
+        match cli.mqtt.lock() {
+            Ok(mut mqtt) => {
+                let rc = mqtt.1.recv_timeout(Duration::from_millis(time_ms.into()));
+                if rc.is_err() {
+                    return match rc.unwrap_err() {
+                        RecvTimeoutError::Disconnected => mqtt_rc::Disconnected,
+                        RecvTimeoutError::Timeout => mqtt_rc::Ok,
+                    };
+                }
+                let rc = rc.unwrap();
+                if rc.is_err() {
+                    return match rc.unwrap_err() {
+                        ConnectionError::NetworkTimeout => mqtt_rc::NetworkTimeout,
+                        ConnectionError::FlushTimeout => mqtt_rc::FlushTimeout,
+                        ConnectionError::Io(err) => match err.kind() {
+                            ErrorKind::ConnectionRefused => mqtt_rc::ConnectionRefused,
+                            ErrorKind::ConnectionReset => mqtt_rc::ConnectionReset,
+                            _ => mqtt_rc::ConnectionError,
+                        },
+                        _ => mqtt_rc::ConnectionError,
+                    };
+                }
 
-        match rc.unwrap() {
-            Event::Incoming(pack) => {
-                let _ = match pack {
-                    Packet::PingResp => {
-                        if let Some(f) = cb_ping {
-                            f(cb_data);
-                        }
+                match rc.unwrap() {
+                    Event::Incoming(pack) => {
+                        let _ = match pack {
+                            Packet::PingResp => {
+                                if let Some(f) = cb_ping {
+                                    f(cb_data);
+                                }
+                            }
+                            Packet::Publish(p) => {
+                                if let Some(f) = cb_pub {
+                                    let topic = CString::new(p.topic).unwrap();
+                                    let data = p.payload;
+                                    f(cb_data, topic.as_ptr(), data.as_ptr(), data.len());
+                                }
+                            }
+                            Packet::ConnAck(conn) => {
+                                if let Some(f) = cb_conn {
+                                    f(
+                                        cb_data,
+                                        match conn.code {
+                                            ConnectReturnCode::RefusedProtocolVersion => {
+                                                mqtt_rc::RefusedProtocolVersion
+                                            }
+                                            ConnectReturnCode::BadClientId => mqtt_rc::BadClientId,
+                                            ConnectReturnCode::ServiceUnavailable => {
+                                                mqtt_rc::ServiceUnavailable
+                                            }
+                                            ConnectReturnCode::BadUserNamePassword => {
+                                                mqtt_rc::BadUserNamePassword
+                                            }
+                                            ConnectReturnCode::NotAuthorized => {
+                                                mqtt_rc::NotAuthorized
+                                            }
+                                            ConnectReturnCode::Success => mqtt_rc::Ok,
+                                        },
+                                    );
+                                }
+                            }
+                            _ => println!("in event: {:?}", pack),
+                        };
+                        true
                     }
-                    Packet::Publish(p) => {
-                        if let Some(f) = cb_pub {
-                            let topic = CString::new(p.topic).unwrap();
-                            let data = p.payload;
-                            f(cb_data, topic.as_ptr(), data.as_ptr(), data.len());
-                        }
+                    Event::Outgoing(ev) => {
+                        println!("out event: {:?}", ev);
+                        true
                     }
-                    Packet::ConnAck(conn) => {
-                        if let Some(f) = cb_conn {
-                            f(
-                                cb_data,
-                                match conn.code {
-                                    ConnectReturnCode::RefusedProtocolVersion => {
-                                        mqtt_rc::RefusedProtocolVersion
-                                    }
-                                    ConnectReturnCode::BadClientId => mqtt_rc::BadClientId,
-                                    ConnectReturnCode::ServiceUnavailable => {
-                                        mqtt_rc::ServiceUnavailable
-                                    }
-                                    ConnectReturnCode::BadUserNamePassword => {
-                                        mqtt_rc::BadUserNamePassword
-                                    }
-                                    ConnectReturnCode::NotAuthorized => mqtt_rc::NotAuthorized,
-                                    ConnectReturnCode::Success => mqtt_rc::Ok,
-                                },
-                            );
-                        }
-                    }
-                    _ => println!("in event: {:?}", pack),
                 };
-                true
-            }
-            Event::Outgoing(ev) => {
-                println!("out event: {:?}", ev);
-                true
-            }
-        };
 
-        mqtt_rc::Ok
+                mqtt_rc::Ok
+            }
+            Err(_) => mqtt_rc::ClientError,
+        }
     }
 }
