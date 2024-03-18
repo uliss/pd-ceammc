@@ -36,16 +36,16 @@ CEAMMC_DEFINE_HASH(bytes)
 CEAMMC_DEFINE_SYM(publish)
 CEAMMC_DEFINE_SYM(ping)
 
-static ceammc_rs_mqtt_qos qos2qos(int v)
+static ceammc_mqtt_qos qos2qos(int v)
 {
     switch (v) {
     case 1:
-        return ceammc_rs_mqtt_qos::AtLeastOnce;
+        return ceammc_mqtt_qos::AtLeastOnce;
     case 2:
-        return ceammc_rs_mqtt_qos::ExactlyOnce;
+        return ceammc_mqtt_qos::ExactlyOnce;
     case 0:
     default:
-        return ceammc_rs_mqtt_qos::AtMostOnce;
+        return ceammc_mqtt_qos::AtMostOnce;
     }
 }
 
@@ -113,7 +113,7 @@ MqttRequest::MqttRequest()
 }
 
 class MqttClient {
-    ceammc_rs_mqtt_client* cli_ { nullptr };
+    ceammc_mqtt_client* cli_ { nullptr };
     std::mutex mtx_;
 
 public:
@@ -129,7 +129,7 @@ public:
         std::lock_guard<std::mutex> lock(mtx_);
 
         if (cli_) {
-            ceammc_rs_mqtt_client_free(cli_);
+            ceammc_mqtt_client_free(cli_);
             cli_ = nullptr;
         }
     }
@@ -143,62 +143,62 @@ public:
         std::lock_guard<std::mutex> lock(mtx_);
 
         if (cli_) {
-            ceammc_rs_mqtt_client_free(cli_);
+            ceammc_mqtt_client_free(cli_);
             cli_ = nullptr;
         }
 
-        cli_ = ceammc_rs_mqtt_client_create(host, port, id, user, password);
+        cli_ = ceammc_mqtt_client_create(host, port, id, user, password);
         return cli_ != nullptr;
     }
 
-    ceammc_rs_mqtt_rc subscribe(const char* topic)
+    ceammc_mqtt_rc subscribe(const char* topic)
     {
         std::lock_guard<std::mutex> lock(mtx_);
 
         if (!cli_)
-            return ceammc_rs_mqtt_rc::InvalidClient;
+            return ceammc_mqtt_rc::InvalidClient;
 
-        return ceammc_rs_mqtt_client_subscribe(cli_, topic);
+        return ceammc_mqtt_client_subscribe(cli_, topic);
     }
 
-    ceammc_rs_mqtt_rc unsubscribe(const char* topic)
+    ceammc_mqtt_rc unsubscribe(const char* topic)
     {
         std::lock_guard<std::mutex> lock(mtx_);
 
         if (!cli_)
-            return ceammc_rs_mqtt_rc::InvalidClient;
+            return ceammc_mqtt_rc::InvalidClient;
 
-        return ceammc_rs_mqtt_client_unsubscribe(cli_, topic);
+        return ceammc_mqtt_client_unsubscribe(cli_, topic);
     }
 
-    ceammc_rs_mqtt_rc publish(const char* topic, const char* message, ceammc_rs_mqtt_qos qos, bool retain)
+    ceammc_mqtt_rc publish(const char* topic, const char* message, ceammc_mqtt_qos qos, bool retain)
     {
         std::lock_guard<std::mutex> lock(mtx_);
 
         if (!cli_)
-            return ceammc_rs_mqtt_rc::InvalidClient;
+            return ceammc_mqtt_rc::InvalidClient;
 
-        return ceammc_rs_mqtt_client_publish(cli_, topic, message, qos, retain);
+        return ceammc_mqtt_client_publish(cli_, topic, message, qos, retain);
     }
 
-    ceammc_rs_mqtt_rc publish(const char* topic, const MqttData& data, ceammc_rs_mqtt_qos qos, bool retain)
+    ceammc_mqtt_rc publish(const char* topic, const MqttData& data, ceammc_mqtt_qos qos, bool retain)
     {
         std::lock_guard<std::mutex> lock(mtx_);
 
         if (!cli_)
-            return ceammc_rs_mqtt_rc::InvalidClient;
+            return ceammc_mqtt_rc::InvalidClient;
 
-        return ceammc_rs_mqtt_client_publish_data(cli_, topic, data.data(), data.size(), qos, retain);
+        return ceammc_mqtt_client_publish_data(cli_, topic, data.data(), data.size(), qos, retain);
     }
 
-    ceammc_rs_mqtt_rc run_loop_for(std::uint16_t ms, void* user)
+    ceammc_mqtt_rc run_loop_for(std::uint16_t ms, void* user)
     {
         std::lock_guard<std::mutex> lock(mtx_);
 
         if (!cli_)
-            return ceammc_rs_mqtt_rc::InvalidClient;
+            return ceammc_mqtt_rc::InvalidClient;
 
-        return ceammc_rs_mqtt_runloop(
+        return ceammc_mqtt_runloop(
             cli_, ms, user,
             [](void* user) {
                 auto obj = static_cast<NetMqtt*>(user);
@@ -208,7 +208,7 @@ public:
                 auto obj = static_cast<NetMqtt*>(user);
                 obj->onWorkerPub(topic, data, len);
             },
-            [](void* user, ceammc_rs_mqtt_rc rc) {
+            [](void* user, ceammc_mqtt_rc rc) {
                 auto obj = static_cast<NetMqtt*>(user);
                 obj->onWorkerConn(static_cast<int>(rc));
             });
@@ -360,11 +360,11 @@ void NetMqtt::processRequest(const MqttRequest& req, ResultCallback cb)
         cli_->disconnect();
     } break;
     case MqttRequest::SUBSCRIBE: {
-        if (cli_->subscribe(req.topic->s_name) != ceammc_rs_mqtt_rc::Ok)
+        if (cli_->subscribe(req.topic->s_name) != ceammc_mqtt_rc::Ok)
             workerThreadError(fmt::format("can't subscribe to topic '{}'", req.topic->s_name));
     } break;
     case MqttRequest::UNSUBSCRIBE: {
-        if (cli_->unsubscribe(req.topic->s_name) != ceammc_rs_mqtt_rc::Ok)
+        if (cli_->unsubscribe(req.topic->s_name) != ceammc_mqtt_rc::Ok)
             workerThreadError(fmt::format("can't unsubscribe from topic '{}'", req.topic->s_name));
     } break;
     case MqttRequest::PUBLISH: {
@@ -372,13 +372,13 @@ void NetMqtt::processRequest(const MqttRequest& req, ResultCallback cb)
 
         if (req.msg.type() == typeid(std::string)) {
             auto& str = boost::get<std::string>(req.msg);
-            if (cli_->publish(req.topic->s_name, str.c_str(), qos, retain_->value()) != ceammc_rs_mqtt_rc::Ok)
+            if (cli_->publish(req.topic->s_name, str.c_str(), qos, retain_->value()) != ceammc_mqtt_rc::Ok)
                 workerThreadError(fmt::format("can't publish '{}' to topic '{}'", str, req.topic->s_name));
             else
                 workerThreadDebug(fmt::format("publish '{}' to topic '{}'", str, req.topic->s_name));
         } else if (req.msg.type() == typeid(MqttData)) {
             auto& data = boost::get<MqttData>(req.msg);
-            if (cli_->publish(req.topic->s_name, data, qos, retain_->value()) != ceammc_rs_mqtt_rc::Ok)
+            if (cli_->publish(req.topic->s_name, data, qos, retain_->value()) != ceammc_mqtt_rc::Ok)
                 workerThreadError(fmt::format("can't publish data to topic '{}'", req.topic->s_name));
             else
                 workerThreadDebug(fmt::format("publish data to topic '{}'", req.topic->s_name));
@@ -464,37 +464,37 @@ void NetMqtt::runLoopFor(size_t ms)
     if (cli_) {
         auto rc = cli_->run_loop_for(ms, this);
         switch (rc) {
-        case ceammc_rs_mqtt_rc::RefusedProtocolVersion:
+        case ceammc_mqtt_rc::RefusedProtocolVersion:
             break;
-        case ceammc_rs_mqtt_rc::BadClientId:
+        case ceammc_mqtt_rc::BadClientId:
             break;
-        case ceammc_rs_mqtt_rc::ServiceUnavailable:
+        case ceammc_mqtt_rc::ServiceUnavailable:
             break;
-        case ceammc_rs_mqtt_rc::BadUserNamePassword:
+        case ceammc_mqtt_rc::BadUserNamePassword:
             break;
-        case ceammc_rs_mqtt_rc::NotAuthorized:
+        case ceammc_mqtt_rc::NotAuthorized:
             break;
-        case ceammc_rs_mqtt_rc::InvalidString:
+        case ceammc_mqtt_rc::InvalidString:
             break;
-        case ceammc_rs_mqtt_rc::InvalidClient:
+        case ceammc_mqtt_rc::InvalidClient:
             break;
-        case ceammc_rs_mqtt_rc::ClientError:
+        case ceammc_mqtt_rc::ClientError:
             break;
-        case ceammc_rs_mqtt_rc::Disconnected:
+        case ceammc_mqtt_rc::Disconnected:
             workerThreadError("disconnected");
             break;
-        case ceammc_rs_mqtt_rc::NetworkTimeout:
+        case ceammc_mqtt_rc::NetworkTimeout:
             workerThreadError("connection timeout");
             break;
-        case ceammc_rs_mqtt_rc::FlushTimeout:
+        case ceammc_mqtt_rc::FlushTimeout:
             break;
-        case ceammc_rs_mqtt_rc::ConnectionRefused:
+        case ceammc_mqtt_rc::ConnectionRefused:
             workerThreadError("connection refused");
             break;
-        case ceammc_rs_mqtt_rc::ConnectionReset:
+        case ceammc_mqtt_rc::ConnectionReset:
             workerThreadError("connection reset");
             break;
-        case ceammc_rs_mqtt_rc::ConnectionError:
+        case ceammc_mqtt_rc::ConnectionError:
             workerThreadError("connection error");
             break;
         default:
@@ -546,12 +546,12 @@ void NetMqtt::onWorkerPub(const char* topic, const std::uint8_t* data, size_t le
 void NetMqtt::onWorkerConn(int rc)
 {
 #define CASE(v, msg)                                 \
-    case ceammc_rs_mqtt_rc::v:                       \
+    case ceammc_mqtt_rc::v:                       \
         workerThreadError("connection error: " msg); \
         break;
 
-    switch (static_cast<ceammc_rs_mqtt_rc>(rc)) {
-    case ceammc_rs_mqtt_rc::Ok:
+    switch (static_cast<ceammc_mqtt_rc>(rc)) {
+    case ceammc_mqtt_rc::Ok:
         workerThreadDebug("connected");
         break;
         CASE(BadClientId, "bad client id");

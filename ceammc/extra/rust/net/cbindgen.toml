@@ -24,7 +24,7 @@ using_namespaces = []
 sys_includes = ["stdint.h", "stddef.h"]
 includes = []
 no_includes = true
-after_includes = "struct ceammc_rs_mqtt_client;\nstruct ceammc_rs_ws_client;\nstruct ceammc_rs_ws_server;"
+after_includes = "struct ceammc_mqtt_client;\nstruct ceammc_ws_client;\nstruct ceammc_ws_server;"
 
 
 
@@ -59,7 +59,7 @@ usize_is_size_t = true
 [export]
 include = []
 exclude = []
-prefix = "ceammc_rs_"
+prefix = "ceammc_"
 item_types = ["enums", "structs", "functions"]
 renaming_overrides_prefixing = false
 

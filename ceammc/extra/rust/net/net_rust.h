@@ -5,11 +5,11 @@
 
 #include <stdint.h>
 #include <stddef.h>
-struct ceammc_rs_mqtt_client;
-struct ceammc_rs_ws_client;
-struct ceammc_rs_ws_server;
+struct ceammc_mqtt_client;
+struct ceammc_ws_client;
+struct ceammc_ws_server;
 
-enum class ceammc_rs_mqtt_qos {
+enum class ceammc_mqtt_qos {
   /// may lose messages
   AtMostOnce = 0,
   /// guarantees the message delivery but potentially exists duplicate messages
@@ -18,7 +18,7 @@ enum class ceammc_rs_mqtt_qos {
   ExactlyOnce = 2,
 };
 
-enum class ceammc_rs_mqtt_rc {
+enum class ceammc_mqtt_rc {
   Ok = 0,
   RefusedProtocolVersion,
   BadClientId,
@@ -36,7 +36,7 @@ enum class ceammc_rs_mqtt_rc {
   ConnectionError,
 };
 
-enum class ceammc_rs_ws_rc {
+enum class ceammc_ws_rc {
   Ok = 0,
   InvalidClient,
   InvalidServer,
@@ -51,14 +51,34 @@ enum class ceammc_rs_ws_rc {
   SocketDeferClose,
 };
 
-struct ceammc_rs_ws_callback_text {
+struct ceammc_ws_callback_text {
   void *user;
   void (*cb)(void *user, const char *msg);
 };
 
-struct ceammc_rs_ws_callback_data {
+struct ceammc_ws_callback_data {
   void *user;
   void (*cb)(void *user, const uint8_t *data, size_t len);
+};
+
+struct ceammc_ws_conn_info {
+  const char *addr;
+  size_t id;
+};
+
+struct ceammc_ws_srv_on_text {
+  void *user;
+  void (*cb)(void *user, const char *msg, const ceammc_ws_conn_info *info);
+};
+
+struct ceammc_ws_srv_on_data {
+  void *user;
+  void (*cb)(void *user, const uint8_t *msg, size_t len, const ceammc_ws_conn_info *info);
+};
+
+struct ceammc_ws_srv_on_cli {
+  void *user;
+  void (*cb)(void *user, const ceammc_ws_conn_info *info);
 };
 
 
@@ -70,17 +90,17 @@ extern "C" {
 /// @param id - client id
 /// @param user - mqtt username (can be NULL)
 /// @param pass - mqtt password (can be NULL)
-/// @return pointer to mqtt_client (must be freed by ceammc_rs_mqtt_client_free()) on success
+/// @return pointer to mqtt_client (must be freed by ceammc_mqtt_client_free()) on success
 ///         or NULL on error
-ceammc_rs_mqtt_client *ceammc_rs_mqtt_client_create(const char *host,
-                                                    uint16_t port,
-                                                    const char *id,
-                                                    const char *user,
-                                                    const char *password);
+ceammc_mqtt_client *ceammc_mqtt_client_create(const char *host,
+                                              uint16_t port,
+                                              const char *id,
+                                              const char *user,
+                                              const char *password);
 
 /// free mqtt client
 /// @param cli - mqtt client
-void ceammc_rs_mqtt_client_free(ceammc_rs_mqtt_client *cli);
+void ceammc_mqtt_client_free(ceammc_mqtt_client *cli);
 
 /// publish text message into mqtt topic
 /// @param topic - mqtt topic ('+' single layer wildcard, '#' recursive layer wildcard)
@@ -88,12 +108,12 @@ void ceammc_rs_mqtt_client_free(ceammc_rs_mqtt_client *cli);
 /// @param qos - Quality of Service flag
 /// @param retain - This flag tells the broker to store the message for a topic
 ///        and ensures any new client subscribing to that topic will receive the stored message.
-/// @return ceammc_rs_mqtt_rc::Ok on success
-ceammc_rs_mqtt_rc ceammc_rs_mqtt_client_publish(ceammc_rs_mqtt_client *cli,
-                                                const char *topic,
-                                                const char *msg,
-                                                ceammc_rs_mqtt_qos qos,
-                                                bool retain);
+/// @return ceammc_mqtt_rc::Ok on success
+ceammc_mqtt_rc ceammc_mqtt_client_publish(ceammc_mqtt_client *cli,
+                                          const char *topic,
+                                          const char *msg,
+                                          ceammc_mqtt_qos qos,
+                                          bool retain);
 
 /// publish binary data into mqtt topic
 /// @param topic - mqtt topic ('+' single layer wildcard, '#' recursive layer wildcard)
@@ -102,25 +122,25 @@ ceammc_rs_mqtt_rc ceammc_rs_mqtt_client_publish(ceammc_rs_mqtt_client *cli,
 /// @param qos - Quality of Service flag
 /// @param retain - This flag tells the broker to store the message for a topic
 ///        and ensures any new client subscribing to that topic will receive the stored message
-/// @return ceammc_rs_mqtt_rc::Ok on success
-ceammc_rs_mqtt_rc ceammc_rs_mqtt_client_publish_data(ceammc_rs_mqtt_client *cli,
-                                                     const char *topic,
-                                                     const uint8_t *data,
-                                                     size_t len,
-                                                     ceammc_rs_mqtt_qos qos,
-                                                     bool retain);
+/// @return ceammc_mqtt_rc::Ok on success
+ceammc_mqtt_rc ceammc_mqtt_client_publish_data(ceammc_mqtt_client *cli,
+                                               const char *topic,
+                                               const uint8_t *data,
+                                               size_t len,
+                                               ceammc_mqtt_qos qos,
+                                               bool retain);
 
 /// subscribe to mqtt topic
 /// @param cli - mqtt client
 /// @param topic - mqtt topic
-/// @return ceammc_rs_mqtt_rc::Ok on success
-ceammc_rs_mqtt_rc ceammc_rs_mqtt_client_subscribe(ceammc_rs_mqtt_client *cli, const char *topic);
+/// @return ceammc_mqtt_rc::Ok on success
+ceammc_mqtt_rc ceammc_mqtt_client_subscribe(ceammc_mqtt_client *cli, const char *topic);
 
 /// unsubscribe from mqtt topic
 /// @param cli - mqtt client
 /// @param topic - mqtt topic
-/// @return ceammc_rs_mqtt_rc::Ok on success
-ceammc_rs_mqtt_rc ceammc_rs_mqtt_client_unsubscribe(ceammc_rs_mqtt_client *cli, const char *topic);
+/// @return ceammc_mqtt_rc::Ok on success
+ceammc_mqtt_rc ceammc_mqtt_client_unsubscribe(ceammc_mqtt_client *cli, const char *topic);
 
 /// iterate mqtt events
 /// @param cli - mqtt client pointer
@@ -129,30 +149,30 @@ ceammc_rs_mqtt_rc ceammc_rs_mqtt_client_unsubscribe(ceammc_rs_mqtt_client *cli, 
 /// @param cb_ping - ping callback (user data)
 /// @param cb_pub - publish callback (user data, topic, message data, message size)
 /// @param cb_conn - connection callback (user_data, result code)
-/// @return ceammc_rs_mqtt_rc::Ok on success
-ceammc_rs_mqtt_rc ceammc_rs_mqtt_runloop(ceammc_rs_mqtt_client *cli,
-                                         uint16_t time_ms,
-                                         void *cb_data,
-                                         void (*cb_ping)(void*),
-                                         void (*cb_pub)(void*, const char*, const uint8_t*, size_t),
-                                         void (*cb_conn)(void*, ceammc_rs_mqtt_rc code));
+/// @return ceammc_mqtt_rc::Ok on success
+ceammc_mqtt_rc ceammc_mqtt_runloop(ceammc_mqtt_client *cli,
+                                   uint16_t time_ms,
+                                   void *cb_data,
+                                   void (*cb_ping)(void*),
+                                   void (*cb_pub)(void*, const char*, const uint8_t*, size_t),
+                                   void (*cb_conn)(void*, ceammc_mqtt_rc code));
 
-ceammc_rs_ws_rc ceammc_rs_ws_client_close(ceammc_rs_ws_client *cli);
+ceammc_ws_rc ceammc_ws_client_close(ceammc_ws_client *cli);
 
-ceammc_rs_ws_client *ceammc_rs_ws_client_create(const char *url,
-                                                ceammc_rs_ws_callback_text on_err,
-                                                ceammc_rs_ws_callback_text on_text,
-                                                ceammc_rs_ws_callback_data on_bin,
-                                                ceammc_rs_ws_callback_data on_ping,
-                                                ceammc_rs_ws_callback_data on_pong);
+ceammc_ws_client *ceammc_ws_client_create(const char *url,
+                                          ceammc_ws_callback_text on_err,
+                                          ceammc_ws_callback_text on_text,
+                                          ceammc_ws_callback_data on_bin,
+                                          ceammc_ws_callback_data on_ping,
+                                          ceammc_ws_callback_data on_pong);
 
-void ceammc_rs_ws_client_free(ceammc_rs_ws_client *cli);
+void ceammc_ws_client_free(ceammc_ws_client *cli);
 
-ceammc_rs_ws_rc ceammc_rs_ws_client_read(ceammc_rs_ws_client *cli);
+ceammc_ws_rc ceammc_ws_client_read(ceammc_ws_client *cli);
 
-ceammc_rs_ws_rc ceammc_rs_ws_client_send_ping(ceammc_rs_ws_client *cli, bool flush);
+ceammc_ws_rc ceammc_ws_client_send_ping(ceammc_ws_client *cli, bool flush);
 
-ceammc_rs_ws_rc ceammc_rs_ws_client_send_pong(ceammc_rs_ws_client *cli, bool flush);
+ceammc_ws_rc ceammc_ws_client_send_pong(ceammc_ws_client *cli, bool flush);
 
 /// sends text message to WebSocket server
 /// @param cli - pointer to ws client
@@ -160,16 +180,21 @@ ceammc_rs_ws_rc ceammc_rs_ws_client_send_pong(ceammc_rs_ws_client *cli, bool flu
 /// @param flush - if true ensures all messages
 ///        previously passed to write and automatic queued pong responses are written & flushed into the underlying stream.
 /// @return ws_rc::Ok, ws_rc::InvalidClient, ws_rc::InvalidMessage, ws_rc::CloseError, ws_rc::SendError,
-ceammc_rs_ws_rc ceammc_rs_ws_client_send_text(ceammc_rs_ws_client *cli,
-                                              const char *msg,
-                                              bool flush);
+ceammc_ws_rc ceammc_ws_client_send_text(ceammc_ws_client *cli,
+                                        const char *msg,
+                                        bool flush);
 
-ceammc_rs_ws_server *ceammc_rs_ws_server_create(const char *addr,
-                                                ceammc_rs_ws_callback_text on_err);
+ceammc_ws_server *ceammc_ws_server_create(const char *addr,
+                                          ceammc_ws_srv_on_text on_err,
+                                          ceammc_ws_srv_on_text on_txt,
+                                          ceammc_ws_srv_on_data on_bin,
+                                          ceammc_ws_srv_on_data on_ping,
+                                          ceammc_ws_srv_on_cli on_conn,
+                                          ceammc_ws_srv_on_cli on_disc);
 
-void ceammc_rs_ws_server_free(ceammc_rs_ws_server *srv);
+void ceammc_ws_server_free(ceammc_ws_server *srv);
 
-ceammc_rs_ws_rc ceammc_rs_ws_server_runloop(ceammc_rs_ws_server *srv);
+ceammc_ws_rc ceammc_ws_server_runloop(ceammc_ws_server *srv);
 
 } // extern "C"
 

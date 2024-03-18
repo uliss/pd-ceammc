@@ -26,7 +26,7 @@ using MutexLock = std::lock_guard<std::mutex>;
 
 struct WsClientImpl {
     std::mutex mtx_;
-    ceammc_rs_ws_client* cli_ { nullptr };
+    ceammc_ws_client* cli_ { nullptr };
     std::function<void(const char*msg)> cb_err, cb_text;
     std::function<void(const std::uint8_t*data, size_t len)> cb_ping, cb_pong, cb_bin;
 
@@ -78,11 +78,11 @@ struct WsClientImpl {
     {
         MutexLock lock(mtx_);
         if (cli_) {
-            ceammc_rs_ws_client_free(cli_);
+            ceammc_ws_client_free(cli_);
             cli_ = nullptr;
         }
 
-        cli_ = ceammc_rs_ws_client_create(url,
+        cli_ = ceammc_ws_client_create(url,
             { this, on_error },
             { this, on_text },
             { this, on_binary },
@@ -94,7 +94,7 @@ struct WsClientImpl {
     {
         MutexLock lock(mtx_);
         if (cli_) {
-            ceammc_rs_ws_client_free(cli_);
+            ceammc_ws_client_free(cli_);
             cli_ = nullptr;
         }
     }
@@ -103,21 +103,21 @@ struct WsClientImpl {
     {
         MutexLock lock(mtx_);
         if (cli_)
-            ceammc_rs_ws_client_send_text(cli_, msg, flush);
+            ceammc_ws_client_send_text(cli_, msg, flush);
     }
 
     void send_ping(bool flush = true)
     {
         MutexLock lock(mtx_);
         if (cli_)
-            ceammc_rs_ws_client_send_ping(cli_, flush);
+            ceammc_ws_client_send_ping(cli_, flush);
     }
 
     void close()
     {
         MutexLock lock(mtx_);
         if (cli_)
-            ceammc_rs_ws_client_close(cli_);
+            ceammc_ws_client_close(cli_);
     }
 
     bool read(WsCliReply& rep)
@@ -126,8 +126,8 @@ struct WsClientImpl {
         if (!cli_)
             return false;
 
-        auto rc = ceammc_rs_ws_client_read(cli_);
-        return rc == ceammc_rs_ws_rc::Ok;
+        auto rc = ceammc_ws_client_read(cli_);
+        return rc == ceammc_ws_rc::Ok;
     }
 };
 

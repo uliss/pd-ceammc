@@ -71,9 +71,9 @@ mod mqtt {
     /// @param id - client id
     /// @param user - mqtt username (can be NULL)
     /// @param pass - mqtt password (can be NULL)
-    /// @return pointer to mqtt_client (must be freed by ceammc_rs_mqtt_client_free()) on success
+    /// @return pointer to mqtt_client (must be freed by ceammc_mqtt_client_free()) on success
     ///         or NULL on error
-    pub extern "C" fn ceammc_rs_mqtt_client_create(
+    pub extern "C" fn ceammc_mqtt_client_create(
         host: *const c_char,
         port: u16,
         id: *const c_char,
@@ -124,7 +124,7 @@ mod mqtt {
     #[no_mangle]
     /// free mqtt client
     /// @param cli - mqtt client
-    pub extern "C" fn ceammc_rs_mqtt_client_free(cli: *mut mqtt_client) {
+    pub extern "C" fn ceammc_mqtt_client_free(cli: *mut mqtt_client) {
         if !cli.is_null() {
             let _ = unsafe { Box::from_raw(cli) };
             // drop(cli);
@@ -135,8 +135,8 @@ mod mqtt {
     /// subscribe to mqtt topic
     /// @param cli - mqtt client
     /// @param topic - mqtt topic
-    /// @return ceammc_rs_mqtt_rc::Ok on success
-    pub extern "C" fn ceammc_rs_mqtt_client_subscribe(
+    /// @return ceammc_mqtt_rc::Ok on success
+    pub extern "C" fn ceammc_mqtt_client_subscribe(
         cli: *mut mqtt_client,
         topic: *const c_char,
     ) -> mqtt_rc {
@@ -168,8 +168,8 @@ mod mqtt {
     /// unsubscribe from mqtt topic
     /// @param cli - mqtt client
     /// @param topic - mqtt topic
-    /// @return ceammc_rs_mqtt_rc::Ok on success
-    pub extern "C" fn ceammc_rs_mqtt_client_unsubscribe(
+    /// @return ceammc_mqtt_rc::Ok on success
+    pub extern "C" fn ceammc_mqtt_client_unsubscribe(
         cli: *mut mqtt_client,
         topic: *const c_char,
     ) -> mqtt_rc {
@@ -212,8 +212,8 @@ mod mqtt {
     /// @param qos - Quality of Service flag
     /// @param retain - This flag tells the broker to store the message for a topic
     ///        and ensures any new client subscribing to that topic will receive the stored message.
-    /// @return ceammc_rs_mqtt_rc::Ok on success
-    pub extern "C" fn ceammc_rs_mqtt_client_publish(
+    /// @return ceammc_mqtt_rc::Ok on success
+    pub extern "C" fn ceammc_mqtt_client_publish(
         cli: *mut mqtt_client,
         topic: *const c_char,
         msg: *const c_char,
@@ -258,8 +258,8 @@ mod mqtt {
     /// @param qos - Quality of Service flag
     /// @param retain - This flag tells the broker to store the message for a topic
     ///        and ensures any new client subscribing to that topic will receive the stored message
-    /// @return ceammc_rs_mqtt_rc::Ok on success
-    pub extern "C" fn ceammc_rs_mqtt_client_publish_data(
+    /// @return ceammc_mqtt_rc::Ok on success
+    pub extern "C" fn ceammc_mqtt_client_publish_data(
         cli: *mut mqtt_client,
         topic: *const c_char,
         data: *const u8,
@@ -310,8 +310,8 @@ mod mqtt {
     /// @param cb_ping - ping callback (user data)
     /// @param cb_pub - publish callback (user data, topic, message data, message size)
     /// @param cb_conn - connection callback (user_data, result code)
-    /// @return ceammc_rs_mqtt_rc::Ok on success
-    pub extern "C" fn ceammc_rs_mqtt_runloop(
+    /// @return ceammc_mqtt_rc::Ok on success
+    pub extern "C" fn ceammc_mqtt_runloop(
         cli: *mut mqtt_client,
         time_ms: u16,
         cb_data: *mut c_void,

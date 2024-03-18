@@ -21,10 +21,27 @@ using namespace ceammc;
 struct WsSrvListen {
     std::string addr;
 };
-struct WsSrvReply { };
+struct WsSrvReplyText {
+    std::string msg;
+    std::string from;
+    std::size_t id;
+};
+struct WsSrvReplyBinary {
+    std::vector<std::uint8_t> data;
+    std::string from;
+    std::size_t id;
+};
+struct WsSrvReplyConn {
+    std::string from;
+    std::size_t id;
+};
+struct WsSrvReplyClose {
+    std::string from;
+    std::size_t id;
+};
 
 using WsSrvRequest = boost::variant<WsSrvListen>;
-// using WsCliReply = boost::variant<WsCliReplyText, WsCliReplyBinary, WsCliPong>;
+using WsSrvReply = boost::variant<WsSrvReplyText, WsSrvReplyBinary, WsSrvReplyConn, WsSrvReplyClose>;
 
 using BaseWsServer = FixedSPSCObject<WsSrvRequest, WsSrvReply>;
 
@@ -43,9 +60,12 @@ public:
     void runLoopFor(size_t ms) final;
 
     //    void m_connect(t_symbol* s, const AtomListView& lv);
-    //    void m_close(t_symbol* s, const AtomListView& lv);
+//    void m_close(t_symbol* s, const AtomListView& lv);
     //    void m_send(t_symbol* s, const AtomListView& lv);
     void m_listen(t_symbol* s, const AtomListView& lv);
+
+private:
+    void outputInfo(const std::string& from, size_t id);
 };
 
 void setup_net_ws_server();

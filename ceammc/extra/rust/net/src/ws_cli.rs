@@ -56,21 +56,15 @@ pub mod ws_cli {
         }
 
         fn bin(&self, data: &Vec<u8>) {
-            self.on_bin.cb.map(|f| {
-                f(self.on_bin.user, data.as_ptr(), data.len());
-            });
+            self.on_bin.exec(data);
         }
 
         fn ping(&self, data: &Vec<u8>) {
-            self.on_ping.cb.map(|f| {
-                f(self.on_ping.user, data.as_ptr(), data.len());
-            });
+            self.on_ping.exec(data);
         }
 
         fn pong(&self, data: &Vec<u8>) {
-            self.on_pong.cb.map(|f| {
-                f(self.on_pong.user, data.as_ptr(), data.len());
-            });
+            self.on_pong.exec(data);
         }
     }
 
@@ -90,6 +84,14 @@ pub mod ws_cli {
         cb: Option<extern "C" fn(user: *mut c_void, data: *const u8, len: usize)>,
     }
 
+    impl ws_callback_data {
+        pub fn exec(&self, data: &Vec<u8>) {
+            self.cb.map(|f| {
+                f(self.user, data.as_ptr(), data.len());
+            });
+        }
+    }
+
     impl ws_callback_text {
         pub fn exec(&self, msg: &str) {
             self.cb.map(|f| {
@@ -102,7 +104,7 @@ pub mod ws_cli {
     }
 
     #[no_mangle]
-    pub extern "C" fn ceammc_rs_ws_client_create(
+    pub extern "C" fn ceammc_ws_client_create(
         url: *const c_char,
         on_err: ws_callback_text,
         on_text: ws_callback_text,
@@ -146,7 +148,7 @@ pub mod ws_cli {
     }
 
     #[no_mangle]
-    pub extern "C" fn ceammc_rs_ws_client_free(cli: *mut ws_client) {
+    pub extern "C" fn ceammc_ws_client_free(cli: *mut ws_client) {
         if !cli.is_null() {
             let _ = unsafe { Box::from_raw(cli) };
         }
@@ -182,7 +184,7 @@ pub mod ws_cli {
     /// @param flush - if true ensures all messages
     ///        previously passed to write and automatic queued pong responses are written & flushed into the underlying stream.
     /// @return ws_rc::Ok, ws_rc::InvalidClient, ws_rc::InvalidMessage, ws_rc::CloseError, ws_rc::SendError,
-    pub extern "C" fn ceammc_rs_ws_client_send_text(
+    pub extern "C" fn ceammc_ws_client_send_text(
         cli: *mut ws_client,
         msg: *const c_char,
         flush: bool,
@@ -203,7 +205,7 @@ pub mod ws_cli {
     }
 
     #[no_mangle]
-    pub extern "C" fn ceammc_rs_ws_client_send_ping(cli: *mut ws_client, flush: bool) -> ws_rc {
+    pub extern "C" fn ceammc_ws_client_send_ping(cli: *mut ws_client, flush: bool) -> ws_rc {
         if cli.is_null() {
             return ws_rc::InvalidClient;
         }
@@ -213,7 +215,7 @@ pub mod ws_cli {
     }
 
     #[no_mangle]
-    pub extern "C" fn ceammc_rs_ws_client_send_pong(cli: *mut ws_client, flush: bool) -> ws_rc {
+    pub extern "C" fn ceammc_ws_client_send_pong(cli: *mut ws_client, flush: bool) -> ws_rc {
         if cli.is_null() {
             return ws_rc::InvalidClient;
         }
@@ -223,7 +225,7 @@ pub mod ws_cli {
     }
 
     #[no_mangle]
-    pub extern "C" fn ceammc_rs_ws_client_read(cli: *mut ws_client) -> ws_rc {
+    pub extern "C" fn ceammc_ws_client_read(cli: *mut ws_client) -> ws_rc {
         if !cli.is_null() {
             return ws_rc::InvalidClient;
         }
@@ -289,7 +291,7 @@ pub mod ws_cli {
     }
 
     #[no_mangle]
-    pub extern "C" fn ceammc_rs_ws_client_close(cli: *mut ws_client) -> ws_rc {
+    pub extern "C" fn ceammc_ws_client_close(cli: *mut ws_client) -> ws_rc {
         if cli.is_null() {
             return ws_rc::InvalidClient;
         }
