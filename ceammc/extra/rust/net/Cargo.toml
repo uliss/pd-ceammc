@@ -8,6 +8,8 @@ crate-type = ["cdylib", "staticlib"]
 
 [dependencies]
 rumqttc = { version = "0.22.0"}
+tungstenite = "0.21.0"
+url = "2.5.0"
 
 [build-dependencies]
 cbindgen = "0.22.0"

@@ -126,7 +126,7 @@ mod mqtt {
     /// @param cli - mqtt client
     pub extern "C" fn ceammc_rs_mqtt_client_free(cli: *mut mqtt_client) {
         if !cli.is_null() {
-            let cli = unsafe { Box::from_raw(cli) };
+            let _ = unsafe { Box::from_raw(cli) };
             // drop(cli);
         }
     }

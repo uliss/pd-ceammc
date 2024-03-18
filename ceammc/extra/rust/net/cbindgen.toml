@@ -24,7 +24,7 @@ using_namespaces = []
 sys_includes = ["stdint.h", "stddef.h"]
 includes = []
 no_includes = true
-after_includes = "struct ceammc_rs_mqtt_client;"
+after_includes = "struct ceammc_rs_mqtt_client;\nstruct ceammc_rs_ws_client;"
 
 
 

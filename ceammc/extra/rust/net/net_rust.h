@@ -6,6 +6,7 @@
 #include <stdint.h>
 #include <stddef.h>
 struct ceammc_rs_mqtt_client;
+struct ceammc_rs_ws_client;
 
 enum class ceammc_rs_mqtt_qos {
   /// may lose messages
@@ -32,6 +33,26 @@ enum class ceammc_rs_mqtt_rc {
   ConnectionRefused,
   ConnectionReset,
   ConnectionError,
+};
+
+enum class ceammc_rs_ws_rc {
+  Ok = 0,
+  InvalidClient,
+  InvalidMessage,
+  SendError,
+  NoData,
+  CloseError,
+  ConnectionClosed,
+};
+
+struct ceammc_rs_ws_callback_text {
+  void *user;
+  void (*cb)(void *user, const char *msg);
+};
+
+struct ceammc_rs_ws_callback_data {
+  void *user;
+  void (*cb)(void *user, const uint8_t *data, size_t len);
 };
 
 
@@ -109,6 +130,33 @@ ceammc_rs_mqtt_rc ceammc_rs_mqtt_runloop(ceammc_rs_mqtt_client *cli,
                                          void (*cb_ping)(void*),
                                          void (*cb_pub)(void*, const char*, const uint8_t*, size_t),
                                          void (*cb_conn)(void*, ceammc_rs_mqtt_rc code));
+
+ceammc_rs_ws_rc ceammc_rs_ws_client_close(ceammc_rs_ws_client *cli);
+
+ceammc_rs_ws_client *ceammc_rs_ws_client_create(const char *url,
+                                                ceammc_rs_ws_callback_text on_err,
+                                                ceammc_rs_ws_callback_text on_text,
+                                                ceammc_rs_ws_callback_data on_bin,
+                                                ceammc_rs_ws_callback_data on_ping,
+                                                ceammc_rs_ws_callback_data on_pong);
+
+void ceammc_rs_ws_client_free(ceammc_rs_ws_client *cli);
+
+ceammc_rs_ws_rc ceammc_rs_ws_client_read(ceammc_rs_ws_client *cli);
+
+ceammc_rs_ws_rc ceammc_rs_ws_client_send_ping(ceammc_rs_ws_client *cli, bool flush);
+
+ceammc_rs_ws_rc ceammc_rs_ws_client_send_pong(ceammc_rs_ws_client *cli, bool flush);
+
+/// sends text message to WebSocket server
+/// @param cli - pointer to ws client
+/// @param msg - text message
+/// @param flush - if true ensures all messages
+///        previously passed to write and automatic queued pong responses are written & flushed into the underlying stream.
+/// @return ws_rc::Ok, ws_rc::InvalidClient, ws_rc::InvalidMessage, ws_rc::CloseError, ws_rc::SendError,
+ceammc_rs_ws_rc ceammc_rs_ws_client_send_text(ceammc_rs_ws_client *cli,
+                                              const char *msg,
+                                              bool flush);
 
 } // extern "C"
 
