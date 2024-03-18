@@ -2,6 +2,8 @@
     "cSpell.words": [
         "mqttbytes",
         "mqttoptions",
-        "rumqttc"
+        "nonblocking",
+        "rumqttc",
+        "tungstenite"
     ]
 }

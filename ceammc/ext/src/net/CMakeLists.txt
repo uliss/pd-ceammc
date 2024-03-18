@@ -65,7 +65,7 @@ if(WITH_ZEROCONF)
 endif()
 
 # websocket
-target_sources(ceammc_net PRIVATE net_ws_client.cpp)
+target_sources(ceammc_net PRIVATE net_ws_client.cpp net_ws_server.cpp)
 if(WITH_WEBSOCKET)
     target_compile_definitions(ceammc_net PRIVATE WITH_WEBSOCKET)
     target_link_libraries(ceammc_net PRIVATE net_rust)

@@ -1,4 +1,4 @@
-mod ws_cli {
+pub mod ws_cli {
     use std::{
         ffi::{CStr, CString},
         net::TcpStream,
@@ -7,17 +7,22 @@ mod ws_cli {
     use tungstenite::{connect, stream::MaybeTlsStream, Error, Message, WebSocket};
     use url::Url;
 
-    #[derive(Debug)]
+    #[derive(Debug, PartialEq)]
     #[allow(non_camel_case_types)]
     #[repr(C)]
     pub enum ws_rc {
         Ok = 0,
         InvalidClient,
+        InvalidServer,
         InvalidMessage,
         SendError,
         NoData,
         CloseError,
         ConnectionClosed,
+        NonBlockingError,
+        SocketAcceptError,
+        SocketReadError,
+        SocketDeferClose,
     }
 
     #[allow(non_camel_case_types)]
@@ -73,8 +78,8 @@ mod ws_cli {
     #[allow(non_camel_case_types)]
     #[repr(C)]
     pub struct ws_callback_text {
-        user: *mut c_void,
-        cb: Option<extern "C" fn(user: *mut c_void, msg: *const c_char)>,
+        pub user: *mut c_void,
+        pub cb: Option<extern "C" fn(user: *mut c_void, msg: *const c_char)>,
     }
 
     #[derive(Debug)]
@@ -86,7 +91,7 @@ mod ws_cli {
     }
 
     impl ws_callback_text {
-        fn exec(&self, msg: &str) {
+        pub fn exec(&self, msg: &str) {
             self.cb.map(|f| {
                 let msg = CString::new(msg);
                 msg.map(|str| {
@@ -147,11 +152,7 @@ mod ws_cli {
         }
     }
 
-    fn send_message(
-        cli: &mut ws_client,
-        msg: Message,
-        flush: bool,
-    ) -> ws_rc {
+    fn send_message(cli: &mut ws_client, msg: Message, flush: bool) -> ws_rc {
         // can't read message after close call
         if !cli.ws.can_write() {
             return cli.err(ws_rc::CloseError, "can't write to stream");
@@ -196,20 +197,13 @@ mod ws_cli {
         }
         let msg = unsafe { CStr::from_ptr(msg) }.to_str();
         match msg {
-            Ok(str) => send_message(
-                cli,
-                Message::Text(str.to_string()),
-                flush
-            ),
+            Ok(str) => send_message(cli, Message::Text(str.to_string()), flush),
             Err(_) => cli.err(ws_rc::InvalidMessage, "invalid message"),
         }
     }
 
     #[no_mangle]
-    pub extern "C" fn ceammc_rs_ws_client_send_ping(
-        cli: *mut ws_client,
-        flush: bool,
-    ) -> ws_rc {
+    pub extern "C" fn ceammc_rs_ws_client_send_ping(cli: *mut ws_client, flush: bool) -> ws_rc {
         if cli.is_null() {
             return ws_rc::InvalidClient;
         }
@@ -219,10 +213,7 @@ mod ws_cli {
     }
 
     #[no_mangle]
-    pub extern "C" fn ceammc_rs_ws_client_send_pong(
-        cli: *mut ws_client,
-        flush: bool
-    ) -> ws_rc {
+    pub extern "C" fn ceammc_rs_ws_client_send_pong(cli: *mut ws_client, flush: bool) -> ws_rc {
         if cli.is_null() {
             return ws_rc::InvalidClient;
         }
@@ -273,12 +264,8 @@ mod ws_cli {
                     return match err {
                         Error::ConnectionClosed => ws_rc::ConnectionClosed,
                         Error::AlreadyClosed => cli.err(ws_rc::NoData, "already closed"),
-                        Error::Io(e) => {
-                            cli.err(ws_rc::NoData, format!("IO error: {e}").as_str())
-                        }
-                        Error::Tls(e) => {
-                            cli.err(ws_rc::NoData, format!("TLS error: {e}").as_str())
-                        }
+                        Error::Io(e) => cli.err(ws_rc::NoData, format!("IO error: {e}").as_str()),
+                        Error::Tls(e) => cli.err(ws_rc::NoData, format!("TLS error: {e}").as_str()),
                         Error::Capacity(e) => {
                             cli.err(ws_rc::NoData, format!("capacity error: {e}").as_str())
                         }
@@ -290,9 +277,7 @@ mod ws_cli {
                         }
                         Error::Utf8 => cli.err(ws_rc::NoData, "Utf8 error"),
                         Error::AttackAttempt => cli.err(ws_rc::NoData, "attack attempt error"),
-                        Error::Url(e) => {
-                            cli.err(ws_rc::NoData, format!("url error: {e}").as_str())
-                        }
+                        Error::Url(e) => cli.err(ws_rc::NoData, format!("url error: {e}").as_str()),
                         Error::HttpFormat(e) => {
                             cli.err(ws_rc::NoData, format!("http format error: {e}").as_str())
                         }
@@ -304,9 +289,7 @@ mod ws_cli {
     }
 
     #[no_mangle]
-    pub extern "C" fn ceammc_rs_ws_client_close(
-        cli: *mut ws_client
-    ) -> ws_rc {
+    pub extern "C" fn ceammc_rs_ws_client_close(cli: *mut ws_client) -> ws_rc {
         if cli.is_null() {
             return ws_rc::InvalidClient;
         }

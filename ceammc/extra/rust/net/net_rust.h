@@ -7,6 +7,7 @@
 #include <stddef.h>
 struct ceammc_rs_mqtt_client;
 struct ceammc_rs_ws_client;
+struct ceammc_rs_ws_server;
 
 enum class ceammc_rs_mqtt_qos {
   /// may lose messages
@@ -38,11 +39,16 @@ enum class ceammc_rs_mqtt_rc {
 enum class ceammc_rs_ws_rc {
   Ok = 0,
   InvalidClient,
+  InvalidServer,
   InvalidMessage,
   SendError,
   NoData,
   CloseError,
   ConnectionClosed,
+  NonBlockingError,
+  SocketAcceptError,
+  SocketReadError,
+  SocketDeferClose,
 };
 
 struct ceammc_rs_ws_callback_text {
@@ -157,6 +163,13 @@ ceammc_rs_ws_rc ceammc_rs_ws_client_send_pong(ceammc_rs_ws_client *cli, bool flu
 ceammc_rs_ws_rc ceammc_rs_ws_client_send_text(ceammc_rs_ws_client *cli,
                                               const char *msg,
                                               bool flush);
+
+ceammc_rs_ws_server *ceammc_rs_ws_server_create(const char *addr,
+                                                ceammc_rs_ws_callback_text on_err);
+
+void ceammc_rs_ws_server_free(ceammc_rs_ws_server *srv);
+
+ceammc_rs_ws_rc ceammc_rs_ws_server_runloop(ceammc_rs_ws_server *srv);
 
 } // extern "C"
 
