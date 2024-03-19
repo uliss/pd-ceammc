@@ -35,6 +35,7 @@ CEAMMC_DEFINE_HASH(json)
 CEAMMC_DEFINE_SYM(binary)
 CEAMMC_DEFINE_SYM(closed)
 CEAMMC_DEFINE_SYM(connected)
+CEAMMC_DEFINE_SYM(latency)
 CEAMMC_DEFINE_SYM(ping)
 CEAMMC_DEFINE_SYM(pong)
 CEAMMC_DEFINE_SYM(text)
@@ -226,6 +227,11 @@ void NetWsClient::processResult(const Reply& res)
     } else if (res.type() == typeid(MessagePong)) {
         auto& p = boost::get<MessagePong>(res);
         anyTo(0, sym_pong(), fromBinary(p.data));
+
+        if (latency_state_ == LATENCY_START) {
+            outputLatency();
+            latency_state_ = LATENCY_NONE;
+        }
     } else if (res.type() == typeid(MessagePing)) {
         auto& p = boost::get<MessagePing>(res);
         anyTo(0, sym_ping(), fromBinary(p.data));
@@ -308,6 +314,13 @@ void NetWsClient::processTextReply(const ws::cli_reply::MessageText& txt)
     }
 }
 
+void NetWsClient::outputLatency()
+{
+    auto now = std::chrono::steady_clock::now();
+    auto us = std::chrono::duration_cast<std::chrono::milliseconds>(now - latency_measure_begin_).count();
+    anyTo(0, sym_latency(), us);
+}
+
 void NetWsClient::m_send_binary(t_symbol* s, const AtomListView& lv)
 {
     addRequest(SendBinary { toBinary(lv), true });
@@ -336,6 +349,16 @@ void NetWsClient::m_ping(t_symbol* s, const AtomListView& lv)
 void NetWsClient::m_flush(t_symbol* s, const AtomListView& lv)
 {
     addRequest(Flush {});
+}
+
+void NetWsClient::m_latency(t_symbol* s, const AtomListView& lv)
+{
+    if (latency_state_ != LATENCY_NONE)
+        return;
+
+    latency_state_ = LATENCY_START;
+    latency_measure_begin_ = std::chrono::steady_clock::now();
+    addRequest(Ping {});
 }
 
 ws::Bytes NetWsClient::toBinary(const AtomListView& lv)
@@ -374,6 +397,7 @@ void setup_net_ws_client()
     obj.addMethod("close", &NetWsClient::m_close);
     obj.addMethod("connect", &NetWsClient::m_connect);
     obj.addMethod("flush", &NetWsClient::m_flush);
+    obj.addMethod("latency", &NetWsClient::m_latency);
     obj.addMethod("ping", &NetWsClient::m_ping);
     obj.addMethod("send", &NetWsClient::m_send_text);
     obj.addMethod("send_binary", &NetWsClient::m_send_binary);

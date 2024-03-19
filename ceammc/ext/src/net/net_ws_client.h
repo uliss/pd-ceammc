@@ -17,6 +17,7 @@
 #include "ceammc_pollthread_spsc.h"
 #include "ceammc_property_enum.h"
 #include <boost/variant.hpp>
+#include <chrono>
 using namespace ceammc;
 
 namespace ceammc {
@@ -78,6 +79,14 @@ class NetWsClient : public BaseWsClient {
     std::unique_ptr<WsClientImpl> cli_; // should be accessed only in worker thread
     SymbolEnumProperty* mode_ { nullptr };
 
+    enum LatencyState : uint8_t {
+        LATENCY_NONE,
+        LATENCY_START
+    };
+
+    LatencyState latency_state_ { LATENCY_NONE };
+    std::chrono::steady_clock::time_point latency_measure_begin_;
+
 public:
     NetWsClient(const PdArgs& args);
     ~NetWsClient();
@@ -90,6 +99,7 @@ public:
     void m_close(t_symbol* s, const AtomListView& lv);
     void m_connect(t_symbol* s, const AtomListView& lv);
     void m_flush(t_symbol* s, const AtomListView& lv);
+    void m_latency(t_symbol* s, const AtomListView& lv);
     void m_ping(t_symbol* s, const AtomListView& lv);
     void m_send_binary(t_symbol* s, const AtomListView& lv);
     void m_send_json(t_symbol* s, const AtomListView& lv);
@@ -100,6 +110,7 @@ public:
 
 private:
     void processTextReply(const ws::cli_reply::MessageText& txt);
+    void outputLatency();
 
 private:
     static ws::Bytes toBinary(const AtomListView& lv);
