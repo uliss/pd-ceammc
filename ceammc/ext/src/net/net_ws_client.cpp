@@ -11,18 +11,30 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "net_ws_client.h"
-#include "ceammc_json.h"
-#include "fmt/core.h"
+#include "datatype_json.h"
 #ifndef WITH_WEBSOCKET
 #include "ceammc_stub.h"
 CONTROL_OBJECT_STUB(NetWsClient, 1, 1, "compiled without WebSocket support");
 OBJECT_STUB_SETUP(NetWsClient, net_ws_client, "net.ws.client");
 #else
 
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "ceammc_json.h"
 #include "net_rust.h"
+#include "net_ws_client.h"
+
+#include "fmt/core.h"
+
+CEAMMC_DEFINE_HASH(fudi)
+CEAMMC_DEFINE_HASH(data)
+CEAMMC_DEFINE_HASH(sym)
+CEAMMC_DEFINE_HASH(json)
+
+CEAMMC_DEFINE_SYM(binary)
+CEAMMC_DEFINE_SYM(pong)
+CEAMMC_DEFINE_SYM(text)
 
 using namespace ceammc::ws::cli_reply;
 using namespace ceammc::ws::cli_req;
@@ -138,7 +150,7 @@ struct WsClientImpl {
         if (!cli_)
             return false;
 
-        auto rc = ceammc_ws_client_read(cli_);
+        auto rc = ceammc_ws_client_read(cli_, ceammc_ws_trim::BOTH);
         return rc == ceammc_ws_rc::Ok;
     }
 
@@ -164,11 +176,12 @@ NetWsClient::NetWsClient(const PdArgs& args)
     };
     cli_->cb_ping = [this](const std::uint8_t* data, size_t len) { workerThreadError("ping"); };
     cli_->cb_pong = [this](const std::uint8_t* data, size_t len) { addReply(MessagePong {}); };
+
+    mode_ = new SymbolEnumProperty("@mode", { str_fudi, str_data, str_sym, str_json });
+    addProperty(mode_);
 }
 
-NetWsClient::~NetWsClient()
-{
-}
+NetWsClient::~NetWsClient() = default; // for std::unique_ptr
 
 void NetWsClient::processRequest(const Request& req, ResultCallback cb)
 {
@@ -195,11 +208,10 @@ void NetWsClient::processRequest(const Request& req, ResultCallback cb)
 void NetWsClient::processResult(const Reply& res)
 {
     if (res.type() == typeid(MessageText)) {
-        auto& txt = boost::get<MessageText>(res);
-        anyTo(0, gensym("text"), AtomList::parseString(txt.msg.c_str()));
+        processTextReply(boost::get<MessageText>(res));
     } else if (res.type() == typeid(MessagePong)) {
         auto& p = boost::get<MessagePong>(res);
-        anyTo(0, gensym("pong"), AtomListView());
+        anyTo(0, sym_pong(), AtomListView());
     } else if (res.type() == typeid(MessageBinary)) {
         auto& bin = boost::get<MessageBinary>(res);
         AtomList lst;
@@ -207,7 +219,7 @@ void NetWsClient::processResult(const Reply& res)
         for (auto x : bin.data)
             lst.append(x);
 
-        anyTo(0, gensym("bin"), lst);
+        anyTo(0, sym_binary(), lst);
     } else {
         OBJ_ERR << "unknown reply type: " << res.type().name();
     }
@@ -239,6 +251,45 @@ void NetWsClient::m_send_text(t_symbol* s, const AtomListView& lv)
 void NetWsClient::m_write_text(t_symbol* s, const AtomListView& lv)
 {
     addRequest(SendText { to_string(lv), false });
+}
+
+void NetWsClient::processTextReply(const ws::cli_reply::MessageText& txt)
+{
+    try {
+        switch (crc32_hash(mode_->value())) {
+        case hash_fudi: {
+            anyTo(0, sym_text(), AtomList::parseString(txt.msg.c_str()));
+        } break;
+        case hash_sym: {
+            anyTo(0, sym_text(), gensym(txt.msg.c_str()));
+        } break;
+        case hash_json: {
+            auto j = nlohmann::json::parse(txt.msg);
+            if (j.is_array()) {
+                AtomList lst;
+                from_json(j, lst);
+                anyTo(0, sym_text(), lst);
+            } else {
+                Atom obj;
+                from_json(j, obj);
+                anyTo(0, sym_text(), obj);
+            }
+
+        } break;
+        case hash_data: {
+            auto res = parseDataString(txt.msg.c_str());
+            if (res) {
+                anyTo(0, sym_text(), res.result());
+            } else {
+                OBJ_ERR << "can't parse data: " << txt.msg;
+            }
+        } break;
+        default:
+            break;
+        }
+    } catch (std::exception& e) {
+        OBJ_ERR << "text reply error: " << e.what();
+    }
 }
 
 void NetWsClient::m_send_binary(t_symbol* s, const AtomListView& lv)

@@ -15,6 +15,7 @@
 #define NET_WS_CLIENT_H
 
 #include "ceammc_pollthread_spsc.h"
+#include "ceammc_property_enum.h"
 #include <boost/variant.hpp>
 using namespace ceammc;
 
@@ -64,6 +65,7 @@ class WsClientImpl;
 
 class NetWsClient : public BaseWsClient {
     std::unique_ptr<WsClientImpl> cli_;
+    SymbolEnumProperty* mode_ { nullptr };
 
 public:
     NetWsClient(const PdArgs& args);
@@ -84,6 +86,9 @@ public:
     void m_write_binary(t_symbol* s, const AtomListView& lv);
     void m_write_json(t_symbol* s, const AtomListView& lv);
     void m_write_text(t_symbol* s, const AtomListView& lv);
+
+private:
+    void processTextReply(const ws::cli_reply::MessageText& txt);
 
 private:
     static ws::Bytes makeBinary(const AtomListView& lv);

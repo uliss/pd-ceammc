@@ -59,6 +59,13 @@ enum class ceammc_ws_rc {
   RunloopExit,
 };
 
+enum class ceammc_ws_trim {
+  NO,
+  START,
+  END,
+  BOTH,
+};
+
 struct ceammc_ws_callback_text {
   void *user;
   void (*cb)(void *user, const char *msg);
@@ -187,8 +194,11 @@ ceammc_ws_rc ceammc_ws_client_flush(ceammc_ws_client *cli);
 void ceammc_ws_client_free(ceammc_ws_client *cli);
 
 /// read and process all available messages from WebSocket server
+/// @param cli - pointer to websocket client
+/// @param trim - text message trim mode
 /// @return ws_rc::Ok, ws_rc::InvalidClient, ws_rc::InvalidMessage, ws_rc::CloseError, ws_rc::SendError,
-ceammc_ws_rc ceammc_ws_client_read(ceammc_ws_client *cli);
+ceammc_ws_rc ceammc_ws_client_read(ceammc_ws_client *cli,
+                                   ceammc_ws_trim trim);
 
 /// sends binary message to WebSocket server
 /// @param cli - pointer to ws client
