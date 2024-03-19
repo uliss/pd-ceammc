@@ -237,11 +237,11 @@ pub mod ws_cli {
         }
         let cli = unsafe { &mut *cli };
 
-        if data.is_null()|| len == 0 {
+        if data.is_null() || len == 0 {
             return cli.err(ws_rc::InvalidData, "invalid data");
         }
 
-        let data = unsafe { std::slice::from_raw_parts(data, len)}.to_vec();
+        let data = unsafe { std::slice::from_raw_parts(data, len) }.to_vec();
 
         send_message(cli, Message::Binary(data), flush)
     }
@@ -270,10 +270,21 @@ pub mod ws_cli {
         send_message(cli, Message::Pong(vec![1, 2, 3]), flush)
     }
 
+    #[allow(non_camel_case_types)]
+    #[repr(C)]
+    pub enum ws_trim {
+        NO,    // no trim
+        START, // remove leading whitespaces, newlines etc.
+        END,  // remove trailing whitespaces, newlines etc.
+        BOTH, // remove leading and trailing whitespaces, newlines etc.
+    }
+
     /// read and process all available messages from WebSocket server
+    /// @param cli - pointer to websocket client
+    /// @param trim - text message trim mode
     /// @return ws_rc::Ok, ws_rc::InvalidClient, ws_rc::InvalidMessage, ws_rc::CloseError, ws_rc::SendError,
     #[no_mangle]
-    pub extern "C" fn ceammc_ws_client_read(cli: *mut ws_client) -> ws_rc {
+    pub extern "C" fn ceammc_ws_client_read(cli: *mut ws_client, trim: ws_trim) -> ws_rc {
         if cli.is_null() {
             return ws_rc::InvalidClient;
         }
@@ -288,8 +299,15 @@ pub mod ws_cli {
             match cli.ws.read() {
                 Ok(msg) => match msg {
                     Message::Text(txt) => {
+                        let txt = match trim {
+                            ws_trim::NO => txt.as_str(),
+                            ws_trim::START => txt.trim_start(),
+                            ws_trim::END => txt.trim_end(),
+                            ws_trim::BOTH => txt.trim(),
+                        };
+
                         println!("message: {}", txt);
-                        cli.text(txt.as_str());
+                        cli.text(txt);
                     }
                     Message::Pong(data) => {
                         println!("pong: {:?}", data);
