@@ -111,6 +111,15 @@ pub mod ws_cli {
         }
     }
 
+    /// create websocket client
+    /// @param url - string in format: ws://HOST:PORT?/path?
+    /// @param on_err - callback for error messages
+    /// @param on_text - callback for incoming text messages
+    /// @param on_bin - callback for incoming binary messages
+    /// @param on_ping - callback for incoming ping messages
+    /// @param on_pong - callback for incoming pong messages
+    /// @param on_close - callback on connection close
+    /// @return pointer to client or NULL
     #[no_mangle]
     pub extern "C" fn ceammc_ws_client_create(
         url: *const c_char,

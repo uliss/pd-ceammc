@@ -177,6 +177,15 @@ ceammc_mqtt_rc ceammc_mqtt_runloop(ceammc_mqtt_client *cli,
 /// @return ceammc_ws_rc::Ok, ceammc_ws_rc::InvalidClient, ceammc_ws_rc::CloseError,
 ceammc_ws_rc ceammc_ws_client_close(ceammc_ws_client *cli);
 
+/// create websocket client
+/// @param url - string in format: ws://HOST:PORT?/path?
+/// @param on_err - callback for error messages
+/// @param on_text - callback for incoming text messages
+/// @param on_bin - callback for incoming binary messages
+/// @param on_ping - callback for incoming ping messages
+/// @param on_pong - callback for incoming pong messages
+/// @param on_close - callback on connection close
+/// @return pointer to client or NULL
 ceammc_ws_client *ceammc_ws_client_create(const char *url,
                                           ceammc_ws_callback_text on_err,
                                           ceammc_ws_callback_text on_text,
