@@ -18,27 +18,47 @@
 #include <boost/variant.hpp>
 using namespace ceammc;
 
-struct WsCliConnect {
-    std::string url;
-};
-struct WsCliClose { };
-struct WsCliPing { };
-struct WsCliPong { };
-struct WsCliSendMsg {
-    std::string msg;
-};
+namespace ceammc {
+namespace ws {
+    using Bytes = std::vector<std::uint8_t>;
 
-struct WsCliReplyText {
-    std::string msg;
-};
-struct WsCliReplyBinary {
-    std::vector<std::uint8_t> data;
-};
+    namespace cli_req {
+        struct Connect {
+            std::string url;
+        };
+        struct Close { };
+        struct Ping { };
+        struct Pong { };
+        struct Flush { };
+        struct SendText {
+            std::string msg;
+            bool flush;
+        };
+        struct SendBinary {
+            Bytes data;
+            bool flush;
+        };
 
-using WsCliRequest = boost::variant<WsCliSendMsg, WsCliConnect, WsCliClose, WsCliPing>;
-using WsCliReply = boost::variant<WsCliReplyText, WsCliReplyBinary, WsCliPong>;
+        using Request = boost::variant<SendText, SendBinary, Connect, Close, Ping, Pong, Flush>;
+    }
 
-using BaseWsClient = FixedSPSCObject<WsCliRequest, WsCliReply>;
+    namespace cli_reply {
+        struct MessageText {
+            std::string msg;
+        };
+        struct MessageBinary {
+            Bytes data;
+        };
+        struct MessagePong { };
+        struct MessagePing { };
+        struct MessageClose { };
+
+        using Reply = boost::variant<MessageText, MessageBinary, MessagePing, MessagePong, MessageClose>;
+    }
+}
+}
+
+using BaseWsClient = FixedSPSCObject<ws::cli_req::Request, ws::cli_reply::Reply>;
 
 class WsClientImpl;
 
@@ -49,15 +69,17 @@ public:
     NetWsClient(const PdArgs& args);
     ~NetWsClient();
 
-    void processRequest(const WsCliRequest& req, ResultCallback cb) override;
-    void processResult(const WsCliReply& res) override;
+    void processRequest(const ws::cli_req::Request& req, ResultCallback cb) override;
+    void processResult(const ws::cli_reply::Reply& res) override;
 
     void runLoopFor(size_t ms) final;
 
     void m_connect(t_symbol* s, const AtomListView& lv);
     void m_close(t_symbol* s, const AtomListView& lv);
-    void m_send(t_symbol* s, const AtomListView& lv);
+    void m_send_text(t_symbol* s, const AtomListView& lv);
+    void m_send_binary(t_symbol* s, const AtomListView& lv);
     void m_ping(t_symbol* s, const AtomListView& lv);
+    void m_flush(t_symbol* s, const AtomListView& lv);
 };
 
 void setup_net_ws_client();

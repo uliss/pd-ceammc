@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "net_ws_client.h"
+#include "fmt/core.h"
 #ifndef WITH_WEBSOCKET
 #include "ceammc_stub.h"
 CONTROL_OBJECT_STUB(NetWsClient, 1, 1, "compiled without WebSocket support");
@@ -21,6 +22,9 @@ OBJECT_STUB_SETUP(NetWsClient, net_ws_client, "net.ws.client");
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "net_rust.h"
+
+using namespace ceammc::ws::cli_reply;
+using namespace ceammc::ws::cli_req;
 
 using MutexLock = std::lock_guard<std::mutex>;
 
@@ -99,11 +103,18 @@ struct WsClientImpl {
         }
     }
 
-    void send_text(const char* msg, bool flush = true)
+    void send_text(const SendText& txt)
     {
         MutexLock lock(mtx_);
         if (cli_)
-            ceammc_ws_client_send_text(cli_, msg, flush);
+            ceammc_ws_client_send_text(cli_, txt.msg.c_str(), txt.flush);
+    }
+
+    void send_binary(const SendBinary& msg)
+    {
+        MutexLock lock(mtx_);
+        if (cli_)
+            ceammc_ws_client_send_binary(cli_, msg.data.data(), msg.data.size(), msg.flush);
     }
 
     void send_ping(bool flush = true)
@@ -129,6 +140,13 @@ struct WsClientImpl {
         auto rc = ceammc_ws_client_read(cli_);
         return rc == ceammc_ws_rc::Ok;
     }
+
+    void flush()
+    {
+        MutexLock lock(mtx_);
+        if (cli_)
+            ceammc_ws_client_flush(cli_);
+    }
 };
 
 NetWsClient::NetWsClient(const PdArgs& args)
@@ -138,47 +156,49 @@ NetWsClient::NetWsClient(const PdArgs& args)
 
     cli_.reset(new WsClientImpl);
     cli_->cb_err = [this](const char* msg) { workerThreadError(msg); };
-    cli_->cb_text = [this](const char* msg) { addReply(WsCliReplyText { msg }); };
+    cli_->cb_text = [this](const char* msg) { addReply(MessageText { msg }); };
     cli_->cb_bin = [this](const std::uint8_t* data, size_t len) {
-        std::vector<std::uint8_t> v(data, data + len);
-        addReply(WsCliReplyBinary { std::move(v) });
+        ws::Bytes v(data, data + len);
+        addReply(MessageBinary { std::move(v) });
     };
     cli_->cb_ping = [this](const std::uint8_t* data, size_t len) { workerThreadError("ping"); };
-    cli_->cb_pong = [this](const std::uint8_t* data, size_t len) { addReply(WsCliPong {}); };
+    cli_->cb_pong = [this](const std::uint8_t* data, size_t len) { addReply(MessagePong {}); };
 }
 
 NetWsClient::~NetWsClient()
 {
 }
 
-void NetWsClient::processRequest(const WsCliRequest& req, ResultCallback cb)
+void NetWsClient::processRequest(const Request& req, ResultCallback cb)
 {
     if (!cli_)
         return;
 
-    if (req.type() == typeid(WsCliConnect)) {
-        cli_->connect(boost::get<WsCliConnect>(req).url.c_str());
-    } else if (req.type() == typeid(WsCliSendMsg)) {
-        cli_->send_text(boost::get<WsCliSendMsg>(req).msg.c_str());
-    } else if (req.type() == typeid(WsCliClose)) {
+    if (req.type() == typeid(Connect)) {
+        cli_->connect(boost::get<Connect>(req).url.c_str());
+    } else if (req.type() == typeid(SendText)) {
+        cli_->send_text(boost::get<SendText>(req));
+    } else if (req.type() == typeid(SendBinary)) {
+        cli_->send_binary(boost::get<SendBinary>(req));
+    } else if (req.type() == typeid(Close)) {
         cli_->close();
-    } else if (req.type() == typeid(WsCliPing)) {
+    } else if (req.type() == typeid(Ping)) {
         cli_->send_ping();
     } else {
-        workerThreadError("unknown request");
+        workerThreadError(fmt::format("unknown request: {}", req.type().name()));
     }
 }
 
-void NetWsClient::processResult(const WsCliReply& res)
+void NetWsClient::processResult(const Reply& res)
 {
-    if (res.type() == typeid(WsCliReplyText)) {
-        auto& txt = boost::get<WsCliReplyText>(res);
+    if (res.type() == typeid(MessageText)) {
+        auto& txt = boost::get<MessageText>(res);
         anyTo(0, gensym("text"), AtomList::parseString(txt.msg.c_str()));
-    } else if (res.type() == typeid(WsCliPong)) {
-        auto& p = boost::get<WsCliPong>(res);
+    } else if (res.type() == typeid(MessagePong)) {
+        auto& p = boost::get<MessagePong>(res);
         anyTo(0, gensym("pong"), AtomListView());
-    } else if (res.type() == typeid(WsCliReplyBinary)) {
-        auto& bin = boost::get<WsCliReplyBinary>(res);
+    } else if (res.type() == typeid(MessageBinary)) {
+        auto& bin = boost::get<MessageBinary>(res);
         AtomList lst;
         lst.reserve(bin.data.size());
         for (auto x : bin.data)
@@ -200,31 +220,48 @@ void NetWsClient::runLoopFor(size_t ms)
 
 void NetWsClient::m_connect(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(WsCliConnect { to_string(lv) });
+    addRequest(Connect { to_string(lv) });
 }
 
 void NetWsClient::m_close(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(WsCliClose {});
+    addRequest(Close {});
 }
 
-void NetWsClient::m_send(t_symbol* s, const AtomListView& lv)
+void NetWsClient::m_send_text(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(WsCliSendMsg { to_string(lv) });
+    addRequest(SendText { to_string(lv), true });
+}
+
+void NetWsClient::m_send_binary(t_symbol* s, const AtomListView& lv)
+{
+    ws::Bytes data;
+    data.reserve(lv.size());
+    for (auto& a : lv)
+        data.push_back(a.asInt());
+
+    addRequest(SendBinary { data, true });
 }
 
 void NetWsClient::m_ping(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(WsCliPing {});
+    addRequest(Ping {});
+}
+
+void NetWsClient::m_flush(t_symbol* s, const AtomListView& lv)
+{
+    addRequest(Flush {});
 }
 
 void setup_net_ws_client()
 {
     ObjectFactory<NetWsClient> obj("net.ws.client");
-    obj.addMethod("connect", &NetWsClient::m_connect);
-    obj.addMethod("send", &NetWsClient::m_send);
     obj.addMethod("close", &NetWsClient::m_close);
+    obj.addMethod("connect", &NetWsClient::m_connect);
+    obj.addMethod("flush", &NetWsClient::m_flush);
     obj.addMethod("ping", &NetWsClient::m_ping);
+    obj.addMethod("send_text", &NetWsClient::m_send_text);
+    obj.addMethod("send_binary", &NetWsClient::m_send_binary);
 }
 
 #endif

@@ -47,6 +47,7 @@ enum class ceammc_ws_rc {
   InvalidClient,
   InvalidServer,
   InvalidMessage,
+  InvalidData,
   SendError,
   NoData,
   CloseError,
@@ -164,6 +165,9 @@ ceammc_mqtt_rc ceammc_mqtt_runloop(ceammc_mqtt_client *cli,
                                    void (*cb_pub)(void*, const char*, const uint8_t*, size_t),
                                    void (*cb_conn)(void*, ceammc_mqtt_rc code));
 
+/// close client connection
+/// @param cli - pointer to websocket client
+/// @return ceammc_ws_rc::Ok, ceammc_ws_rc::InvalidClient, ceammc_ws_rc::CloseError,
 ceammc_ws_rc ceammc_ws_client_close(ceammc_ws_client *cli);
 
 ceammc_ws_client *ceammc_ws_client_create(const char *url,
@@ -173,11 +177,37 @@ ceammc_ws_client *ceammc_ws_client_create(const char *url,
                                           ceammc_ws_callback_data on_ping,
                                           ceammc_ws_callback_data on_pong);
 
+/// flush client connection
+/// @param cli - pointer to websocket client
+/// @return ceammc_ws_rc::Ok, ceammc_ws_rc::InvalidClient, ceammc_ws_rc::SendError,
+ceammc_ws_rc ceammc_ws_client_flush(ceammc_ws_client *cli);
+
+/// free websocket client
+/// @param cli - pointer to websocket client
 void ceammc_ws_client_free(ceammc_ws_client *cli);
 
+/// read and process all available messages from WebSocket server
+/// @return ws_rc::Ok, ws_rc::InvalidClient, ws_rc::InvalidMessage, ws_rc::CloseError, ws_rc::SendError,
 ceammc_ws_rc ceammc_ws_client_read(ceammc_ws_client *cli);
 
-ceammc_ws_rc ceammc_ws_client_send_ping(ceammc_ws_client *cli, bool flush);
+/// sends binary message to WebSocket server
+/// @param cli - pointer to ws client
+/// @param data - data pointer
+/// @param len - data length
+/// @param flush - if true ensures all messages
+///        previously passed to write and automatic queued pong responses are written & flushed into the underlying stream.
+/// @return ws_rc::Ok, ws_rc::InvalidClient, ws_rc::InvalidMessage, ws_rc::CloseError, ws_rc::SendError,
+ceammc_ws_rc ceammc_ws_client_send_binary(ceammc_ws_client *cli,
+                                          const uint8_t *data,
+                                          size_t len,
+                                          bool flush);
+
+/// sends ping to WebSocket server
+/// @param flush - if true ensures all messages
+///        previously passed to write and automatic queued pong responses are written & flushed into the underlying stream.
+/// @return ws_rc::Ok, ws_rc::InvalidClient, ws_rc::InvalidMessage, ws_rc::CloseError, ws_rc::SendError,
+ceammc_ws_rc ceammc_ws_client_send_ping(ceammc_ws_client *cli,
+                                        bool flush);
 
 ceammc_ws_rc ceammc_ws_client_send_pong(ceammc_ws_client *cli, bool flush);
 

@@ -15,6 +15,7 @@ pub mod ws_cli {
         InvalidClient,
         InvalidServer,
         InvalidMessage,
+        InvalidData,
         SendError,
         NoData,
         CloseError,
@@ -129,7 +130,9 @@ pub mod ws_cli {
                             MaybeTlsStream::Plain(sock) => {
                                 println!("response: {:?}", resp.headers());
                                 let _ = sock.set_nonblocking(true).map_err(|err| {
-                                    on_err.exec(format!("can't set socket to non-blocking: {err}").as_str())
+                                    on_err.exec(
+                                        format!("can't set socket to non-blocking: {err}").as_str(),
+                                    )
                                 });
                             }
                             _ => {}
@@ -161,6 +164,8 @@ pub mod ws_cli {
         }
     }
 
+    /// free websocket client
+    /// @param cli - pointer to websocket client
     #[no_mangle]
     pub extern "C" fn ceammc_ws_client_free(cli: *mut ws_client) {
         if !cli.is_null() {
@@ -171,23 +176,19 @@ pub mod ws_cli {
     fn send_message(cli: &mut ws_client, msg: Message, flush: bool) -> ws_rc {
         // can't read message after close call
         if !cli.ws.can_write() {
-            return cli.err(ws_rc::CloseError, "can't write to stream");
+            return cli.err(ws_rc::CloseError, "connection closed");
         }
 
-        match cli.ws.send(msg) {
-            Ok(_) => {
-                if flush {
-                    match cli.ws.flush() {
-                        Ok(_) => ws_rc::Ok,
-                        Err(err) => {
-                            cli.err(ws_rc::SendError, format!("flush error: {err}").as_str())
-                        }
-                    }
-                } else {
-                    ws_rc::Ok
-                }
+        if flush {
+            match cli.ws.send(msg) {
+                Err(err) => cli.err(ws_rc::SendError, format!("send error: {err}").as_str()),
+                _ => ws_rc::Ok,
             }
-            Err(err) => cli.err(ws_rc::SendError, format!("send error: {err}").as_str()),
+        } else {
+            match cli.ws.write(msg) {
+                Err(err) => cli.err(ws_rc::SendError, format!("write error: {err}").as_str()),
+                _ => ws_rc::Ok,
+            }
         }
     }
 
@@ -219,6 +220,38 @@ pub mod ws_cli {
     }
 
     #[no_mangle]
+    /// sends binary message to WebSocket server
+    /// @param cli - pointer to ws client
+    /// @param data - data pointer
+    /// @param len - data length
+    /// @param flush - if true ensures all messages
+    ///        previously passed to write and automatic queued pong responses are written & flushed into the underlying stream.
+    /// @return ws_rc::Ok, ws_rc::InvalidClient, ws_rc::InvalidMessage, ws_rc::CloseError, ws_rc::SendError,
+    pub extern "C" fn ceammc_ws_client_send_binary(
+        cli: *mut ws_client,
+        data: *const u8,
+        len: usize,
+        flush: bool,
+    ) -> ws_rc {
+        if cli.is_null() {
+            return ws_rc::InvalidClient;
+        }
+        let cli = unsafe { &mut *cli };
+
+        if data.is_null()|| len == 0 {
+            return cli.err(ws_rc::InvalidData, "invalid data");
+        }
+
+        let data = unsafe { std::slice::from_raw_parts(data, len)}.to_vec();
+
+        send_message(cli, Message::Binary(data), flush)
+    }
+
+    /// sends ping to WebSocket server
+    /// @param flush - if true ensures all messages
+    ///        previously passed to write and automatic queued pong responses are written & flushed into the underlying stream.
+    /// @return ws_rc::Ok, ws_rc::InvalidClient, ws_rc::InvalidMessage, ws_rc::CloseError, ws_rc::SendError,
+    #[no_mangle]
     pub extern "C" fn ceammc_ws_client_send_ping(cli: *mut ws_client, flush: bool) -> ws_rc {
         if cli.is_null() {
             return ws_rc::InvalidClient;
@@ -238,6 +271,8 @@ pub mod ws_cli {
         send_message(cli, Message::Pong(vec![1, 2, 3]), flush)
     }
 
+    /// read and process all available messages from WebSocket server
+    /// @return ws_rc::Ok, ws_rc::InvalidClient, ws_rc::InvalidMessage, ws_rc::CloseError, ws_rc::SendError,
     #[no_mangle]
     pub extern "C" fn ceammc_ws_client_read(cli: *mut ws_client) -> ws_rc {
         if cli.is_null() {
@@ -278,7 +313,7 @@ pub mod ws_cli {
                         Error::ConnectionClosed => ws_rc::ConnectionClosed,
                         Error::AlreadyClosed => cli.err(ws_rc::NoData, "already closed"),
                         Error::Io(e) => {
-                            //
+                            // handle non-blocking read
                             match e.kind() {
                                 std::io::ErrorKind::WouldBlock => ws_rc::RunloopExit,
                                 _ => cli.err(ws_rc::NoData, format!("IO error: {e}").as_str()),
@@ -307,6 +342,9 @@ pub mod ws_cli {
         }
     }
 
+    /// close client connection
+    /// @param cli - pointer to websocket client
+    /// @return ceammc_ws_rc::Ok, ceammc_ws_rc::InvalidClient, ceammc_ws_rc::CloseError,
     #[no_mangle]
     pub extern "C" fn ceammc_ws_client_close(cli: *mut ws_client) -> ws_rc {
         if cli.is_null() {
@@ -316,7 +354,23 @@ pub mod ws_cli {
 
         match cli.ws.close(None) {
             Ok(_) => ws_rc::Ok,
-            Err(err) => cli.err(ws_rc::CloseError, format!("error: {err}").as_str()),
+            Err(err) => cli.err(ws_rc::CloseError, format!("close error: {err}").as_str()),
+        }
+    }
+
+    /// flush client connection
+    /// @param cli - pointer to websocket client
+    /// @return ceammc_ws_rc::Ok, ceammc_ws_rc::InvalidClient, ceammc_ws_rc::SendError,
+    #[no_mangle]
+    pub extern "C" fn ceammc_ws_client_flush(cli: *mut ws_client) -> ws_rc {
+        if cli.is_null() {
+            return ws_rc::InvalidClient;
+        }
+        let cli = unsafe { &mut *cli };
+
+        match cli.ws.flush() {
+            Ok(_) => ws_rc::Ok,
+            Err(err) => cli.err(ws_rc::SendError, format!("flush error: {err}").as_str()),
         }
     }
 }
