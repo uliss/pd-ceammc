@@ -74,17 +74,20 @@ public:
 
     void runLoopFor(size_t ms) final;
 
-    void m_connect(t_symbol* s, const AtomListView& lv);
     void m_close(t_symbol* s, const AtomListView& lv);
-    void m_send_text(t_symbol* s, const AtomListView& lv);
-    void m_send_binary(t_symbol* s, const AtomListView& lv);
-    void m_write_text(t_symbol* s, const AtomListView& lv);
-    void m_write_binary(t_symbol* s, const AtomListView& lv);
-    void m_ping(t_symbol* s, const AtomListView& lv);
+    void m_connect(t_symbol* s, const AtomListView& lv);
     void m_flush(t_symbol* s, const AtomListView& lv);
+    void m_ping(t_symbol* s, const AtomListView& lv);
+    void m_send_binary(t_symbol* s, const AtomListView& lv);
+    void m_send_json(t_symbol* s, const AtomListView& lv);
+    void m_send_text(t_symbol* s, const AtomListView& lv);
+    void m_write_binary(t_symbol* s, const AtomListView& lv);
+    void m_write_json(t_symbol* s, const AtomListView& lv);
+    void m_write_text(t_symbol* s, const AtomListView& lv);
 
 private:
     static ws::Bytes makeBinary(const AtomListView& lv);
+    static std::string makeJson(const AtomListView& lv);
 };
 
 void setup_net_ws_client();

@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "net_ws_client.h"
+#include "ceammc_json.h"
 #include "fmt/core.h"
 #ifndef WITH_WEBSOCKET
 #include "ceammc_stub.h"
@@ -245,9 +246,19 @@ void NetWsClient::m_send_binary(t_symbol* s, const AtomListView& lv)
     addRequest(SendBinary { makeBinary(lv), true });
 }
 
+void NetWsClient::m_send_json(t_symbol* s, const AtomListView& lv)
+{
+    addRequest(SendText { makeJson(lv), true });
+}
+
 void NetWsClient::m_write_binary(t_symbol* s, const AtomListView& lv)
 {
     addRequest(SendBinary { makeBinary(lv), false });
+}
+
+void NetWsClient::m_write_json(t_symbol* s, const AtomListView& lv)
+{
+    addRequest(SendText { makeJson(lv), false });
 }
 
 void NetWsClient::m_ping(t_symbol* s, const AtomListView& lv)
@@ -270,6 +281,16 @@ ws::Bytes NetWsClient::makeBinary(const AtomListView& lv)
     return data;
 }
 
+std::string NetWsClient::makeJson(const AtomListView& lv)
+{
+    try {
+        return json::to_json_string(lv);
+    } catch (std::exception& e) {
+        LIB_ERR << __FUNCTION__ << " error: " << e.what();
+        return {};
+    }
+}
+
 void setup_net_ws_client()
 {
     ObjectFactory<NetWsClient> obj("net.ws.client");
@@ -279,8 +300,10 @@ void setup_net_ws_client()
     obj.addMethod("ping", &NetWsClient::m_ping);
     obj.addMethod("send", &NetWsClient::m_send_text);
     obj.addMethod("send_binary", &NetWsClient::m_send_binary);
+    obj.addMethod("send_json", &NetWsClient::m_send_json);
     obj.addMethod("write", &NetWsClient::m_write_text);
     obj.addMethod("write_binary", &NetWsClient::m_write_binary);
+    obj.addMethod("write_json", &NetWsClient::m_write_json);
 }
 
 #endif

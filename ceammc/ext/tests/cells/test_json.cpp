@@ -55,6 +55,11 @@ TEST_CASE("json", "[core]")
         REQUIRE(to_json_string(LA("a", 2.5, 3)) == "[\"a\",2.5,3]");
     }
 
+    SECTION("list")
+    {
+        REQUIRE(to_json_string(parseDataString("[a: 1 2 3 b: a b c]").result()) == "{\"a\":[1,2,3],\"b\":[\"a\",\"b\",\"c\"]}");
+    }
+
     SECTION("String")
     {
         REQUIRE(to_json_string(SA("")) == "\"\"");

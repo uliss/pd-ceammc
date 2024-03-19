@@ -14,6 +14,7 @@
 #include "ceammc.h"
 #include "ceammc_atomlist.h"
 #include "ceammc_format.h"
+#include "ceammc_json.h"
 #include "ceammc_pd.h"
 #include "stk/stk/include/Stk.h"
 
@@ -79,14 +80,14 @@ static void printInfo(std::ostream& os, const PropertyInfo& pi)
         os << "    \"default\": " << pi.defaultInt() << ",\n";
         break;
     case PropValueType::LIST:
-        os << "    \"default\": " << to_json_string(pi.defaultList()) << ",\n";
+        os << "    \"default\": " << json::to_json_string(pi.defaultList()) << ",\n";
         break;
     case PropValueType::SYMBOL:
-        os << "    \"default\": " << to_json_string(pi.defaultSymbol(&s_)) << ",\n";
+        os << "    \"default\": " << json::to_json_string(pi.defaultSymbol(&s_)) << ",\n";
         break;
     case PropValueType::ATOM:
         if (!pi.defaultAtom().isNone())
-            os << "    \"default\": " << to_json_string(pi.defaultAtom()) << ",\n";
+            os << "    \"default\": " << json::to_json_string(pi.defaultAtom()) << ",\n";
         break;
     }
 

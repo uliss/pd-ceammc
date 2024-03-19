@@ -11,6 +11,7 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#include "ceammc_json.h"
 #ifndef WITH_MQTT
 #include "ceammc_stub.h"
 CONTROL_OBJECT_STUB(NetMqtt, 1, 1, "compiled without mqtt support");
@@ -311,18 +312,18 @@ void NetMqtt::m_publish(t_symbol* s, const AtomListView& lv)
         std::string msg;
 
         if (payload.isAtom() && !payload.isData())
-            msg = fmt::format("[{}]", to_json_string(payload[0]));
+            msg = json::to_json_string(payload[0]);
         else if (payload.isData())
             msg = payload[0].asData()->toJsonString();
         else
-            msg = to_json_string(payload);
+            msg = json::to_json_string(payload);
 
         addRequest(MqttRequest::publish(topic, std::move(msg)));
     } break;
     case hash_data: {
         auto res = parseDataList(payload);
         if (res) {
-            auto msg = to_json_string(res.result());
+            auto msg = json::to_json_string(res.result());
             addRequest(MqttRequest::publish(topic, std::move(msg)));
         } else {
             METHOD_ERR(s) << "can't parse data: " << lv;
@@ -546,7 +547,7 @@ void NetMqtt::onWorkerPub(const char* topic, const std::uint8_t* data, size_t le
 void NetMqtt::onWorkerConn(int rc)
 {
 #define CASE(v, msg)                                 \
-    case ceammc_mqtt_rc::v:                       \
+    case ceammc_mqtt_rc::v:                          \
         workerThreadError("connection error: " msg); \
         break;
 

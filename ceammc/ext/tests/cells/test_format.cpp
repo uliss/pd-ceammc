@@ -79,17 +79,6 @@ TEST_CASE("format", "[ceammc::format]")
         REQUIRE(quote("abc", '\'') == std::string("'abc'"));
     }
 
-    SECTION("to_json_string")
-    {
-        REQUIRE(to_json_string(Atom(123)) == "123");
-        REQUIRE(to_json_string(Atom(0.5)) == "0.5");
-        REQUIRE(to_json_string(Atom(SYM("a b c"))) == "\"a b c\"");
-        REQUIRE(to_json_string(Atom(SYM(R"("TEST")"))) == R"("\"TEST\"")");
-        REQUIRE(to_json_string(LF(1, 2, 3)) == R"([1, 2, 3])");
-        REQUIRE(to_json_string(LA("A", 2, "a b c")) == R"(["A", 2, "a b c"])");
-        REQUIRE(to_json_string(LA("\"A\"", 2, "a b c")) == R"(["\"A\"", 2, "a b c"])");
-    }
-
     SECTION("parse_quoted")
     {
         SECTION("atom")
