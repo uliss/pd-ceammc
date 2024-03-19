@@ -11,29 +11,34 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "ceammc_containers.h"
-#include "fmt/core.h"
 #ifndef WITH_WEBSOCKET
 #include "ceammc_stub.h"
 CONTROL_OBJECT_STUB(NetWsServer, 1, 1, "compiled without WebSocket support");
 OBJECT_STUB_SETUP(NetWsServer, net_ws_server, "net.ws.server");
 #else
 
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "net_rust.h"
 #include "net_ws_server.h"
 
+#include "fmt/core.h"
+
+#include <thread>
+
 using MutexLock = std::lock_guard<std::mutex>;
-using Bytes = std::vector<std::uint8_t>;
+using namespace ceammc::ws;
+using namespace ceammc::ws::srv_req;
+using namespace ceammc::ws::srv_reply;
 
 struct WsServerImpl {
     std::mutex mtx_;
     ceammc_ws_server* srv_ { nullptr };
     std::function<void(const char*, const ceammc_ws_conn_info&)> cb_err;
     std::function<void(const char*, const ceammc_ws_conn_info&)> cb_text;
-    std::function<void(const Bytes&, const ceammc_ws_conn_info&)> cb_bin, cb_ping;
-    std::function<void(const ceammc_ws_conn_info&)> cb_conn, cb_disc;
+    std::function<void(const ws::Bytes&, const ceammc_ws_conn_info&)> cb_bin, cb_ping, cb_pong;
+    std::function<void(const ceammc_ws_conn_info&)> cb_conn, cb_close;
 
     ~WsServerImpl()
     {
@@ -142,8 +147,8 @@ struct WsServerImpl {
             return;
 
         auto this_ = static_cast<WsServerImpl*>(user);
-        if (this_ && this_->cb_disc)
-            this_->cb_disc(*info);
+        if (this_ && this_->cb_close)
+            this_->cb_close(*info);
     }
 };
 
@@ -156,19 +161,19 @@ NetWsServer::NetWsServer(const PdArgs& args)
     srv_.reset(new WsServerImpl);
     srv_->cb_err = [this](const char* msg, const ceammc_ws_conn_info& info) { workerThreadError(msg); };
     srv_->cb_text = [this](const char* msg, const ceammc_ws_conn_info& info) {
-        addReply(WsSrvReplyText { msg, info.addr, info.id });
+        addReply(MessageText { msg, info.addr, info.id });
     };
     srv_->cb_bin = [this](const Bytes& data, const ceammc_ws_conn_info& info) {
-        addReply(WsSrvReplyBinary { data, info.addr, info.id });
+        addReply(MessageBinary { data, info.addr, info.id });
     };
     srv_->cb_ping = [this](const Bytes& data, const ceammc_ws_conn_info& info) {
         workerThreadDebug(fmt::format("ping from {} ({})", info.addr, info.id).c_str());
     };
     srv_->cb_conn = [this](const ceammc_ws_conn_info& info) {
-        addReply(WsSrvReplyConn { info.addr, info.id });
+        addReply(ClientConnected { info.addr, info.id });
     };
-    srv_->cb_disc = [this](const ceammc_ws_conn_info& info) {
-        addReply(WsSrvReplyClose { info.addr, info.id });
+    srv_->cb_close = [this](const ceammc_ws_conn_info& info) {
+        addReply(ClientClosed { info.addr, info.id });
     };
 }
 
@@ -176,39 +181,40 @@ NetWsServer::~NetWsServer()
 {
 }
 
-void NetWsServer::processRequest(const WsSrvRequest& req, ResultCallback cb)
+void NetWsServer::processRequest(const ws::Request& req, ResultCallback cb)
 {
     if (!srv_)
         return;
 
-    if (req.type() == typeid(WsSrvListen)) {
-        auto& x = boost::get<WsSrvListen>(req);
+    if (req.type() == typeid(Listen)) {
+        auto& x = boost::get<Listen>(req);
         srv_->listen(x.addr.c_str());
-    } else if (req.type() == typeid(WsSrvClose)) {
+    } else if (req.type() == typeid(Close)) {
         srv_->close();
-    } else if (req.type() == typeid(WsSrvSendText)) {
-        auto& txt = boost::get<WsSrvSendText>(req);
+    } else if (req.type() == typeid(SendText)) {
+        auto& txt = boost::get<SendText>(req);
         srv_->send_text(txt.msg);
     } else {
+        OBJ_ERR << "unknown request type: " << req.type().name();
     }
 }
 
-void NetWsServer::processResult(const WsSrvReply& res)
+void NetWsServer::processResult(const ws::Reply& res)
 {
-    if (res.type() == typeid(WsSrvReplyText)) {
-        auto& txt = boost::get<WsSrvReplyText>(res);
+    if (res.type() == typeid(MessageText)) {
+        auto& txt = boost::get<MessageText>(res);
         outputInfo(txt.from, txt.id);
         anyTo(0, gensym("text"), AtomList::parseString(txt.msg.c_str()));
-    } else if (res.type() == typeid(WsSrvReplyConn)) {
-        auto& conn = boost::get<WsSrvReplyConn>(res);
+    } else if (res.type() == typeid(ClientConnected)) {
+        auto& conn = boost::get<ClientConnected>(res);
         outputInfo(conn.from, conn.id);
         anyTo(0, gensym("connect"), AtomListView {});
-    } else if (res.type() == typeid(WsSrvReplyClose)) {
-        auto& conn = boost::get<WsSrvReplyClose>(res);
+    } else if (res.type() == typeid(ClientClosed)) {
+        auto& conn = boost::get<ClientClosed>(res);
         outputInfo(conn.from, conn.id);
         anyTo(0, gensym("close"), AtomListView {});
-    } else if (res.type() == typeid(WsSrvReplyBinary)) {
-        auto& bin = boost::get<WsSrvReplyBinary>(res);
+    } else if (res.type() == typeid(MessageBinary)) {
+        auto& bin = boost::get<MessageBinary>(res);
         outputInfo(bin.from, bin.id);
 
         AtomList bytes;
@@ -226,23 +232,21 @@ void NetWsServer::runLoopFor(size_t ms)
 {
     if (srv_)
         srv_->runloop_for();
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }
 
 void NetWsServer::m_close(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(WsSrvClose {});
+    addRequest(Close {});
 }
 
 void NetWsServer::m_send(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(WsSrvSendText { to_string(lv) });
+    addRequest(SendText { to_string(lv) });
 }
 
 void NetWsServer::m_listen(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(WsSrvListen { to_string(lv) });
+    addRequest(Listen { to_string(lv) });
 }
 
 void NetWsServer::outputInfo(const std::string& from, size_t id)

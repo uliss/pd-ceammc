@@ -16,40 +16,72 @@
 
 #include "ceammc_pollthread_spsc.h"
 #include <boost/variant.hpp>
+#include <cstdint>
+#include <vector>
+
 using namespace ceammc;
 
-struct WsSrvListen {
-    std::string addr;
-};
-struct WsSrvSendText {
-    std::string msg;
-};
-struct WsSrvClose {
-};
+namespace ceammc {
+namespace ws {
+    using Bytes = std::vector<std::uint8_t>;
+    namespace srv_req {
+        struct Listen {
+            std::string addr;
+        };
+        struct Close { };
+        struct SendText {
+            std::string msg;
+        };
+        struct SendBinary {
+            Bytes data;
+        };
+        struct SendPing {
+            Bytes data;
+        };
+    }
 
-struct WsSrvReplyText {
-    std::string msg;
-    std::string from;
-    std::size_t id;
-};
-struct WsSrvReplyBinary {
-    std::vector<std::uint8_t> data;
-    std::string from;
-    std::size_t id;
-};
-struct WsSrvReplyConn {
-    std::string from;
-    std::size_t id;
-};
-struct WsSrvReplyClose {
-    std::string from;
-    std::size_t id;
-};
+    namespace srv_reply {
+        struct MessageText {
+            std::string msg;
+            std::string from;
+            std::size_t id;
+        };
+        struct MessageBinary {
+            Bytes data;
+            std::string from;
+            std::size_t id;
+        };
+        struct MessagePong {
+            Bytes data;
+            std::string from;
+            std::size_t id;
+        };
+        struct ClientConnected {
+            std::string from;
+            std::size_t id;
+        };
+        struct ClientClosed {
+            std::string from;
+            std::size_t id;
+        };
+    }
 
-using WsSrvRequest = boost::variant<WsSrvListen, WsSrvSendText, WsSrvClose>;
-using WsSrvReply = boost::variant<WsSrvReplyText, WsSrvReplyBinary, WsSrvReplyConn, WsSrvReplyClose>;
+    using Request = boost::variant<
+        srv_req::Listen,
+        srv_req::SendText,
+        srv_req::SendBinary,
+        srv_req::SendPing,
+        srv_req::Close>;
+    using Reply = boost::variant<
+        srv_reply::MessageText,
+        srv_reply::MessageBinary,
+        srv_reply::MessagePong,
+        srv_reply::ClientConnected,
+        srv_reply::ClientClosed>;
+}
+}
 
-using BaseWsServer = FixedSPSCObject<WsSrvRequest, WsSrvReply>;
+using BaseWsServer = FixedSPSCObject<ws::Request, ws::Reply, BaseObject, 16, 20>;
 
 class WsServerImpl;
 
@@ -60,12 +92,11 @@ public:
     NetWsServer(const PdArgs& args);
     ~NetWsServer();
 
-    void processRequest(const WsSrvRequest& req, ResultCallback cb) override;
-    void processResult(const WsSrvReply& res) override;
+    void processRequest(const ws::Request& req, ResultCallback cb) override;
+    void processResult(const ws::Reply& res) override;
 
     void runLoopFor(size_t ms) final;
 
-    //    void m_connect(t_symbol* s, const AtomListView& lv);
     void m_close(t_symbol* s, const AtomListView& lv);
     void m_send(t_symbol* s, const AtomListView& lv);
     void m_listen(t_symbol* s, const AtomListView& lv);
