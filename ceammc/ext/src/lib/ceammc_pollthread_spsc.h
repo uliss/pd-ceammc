@@ -65,6 +65,15 @@ public:
         this->runTask();
     }
 
+    void dump() const override
+    {
+        Parent::dump();
+        OBJ_POST << "worker thread spsc in queue max capacity: " << N;
+        OBJ_POST << "worker thread spsc in queue write available: " << this->inPipe().write_available();
+        OBJ_POST << "worker thread spsc out queue max capacity: " << N;
+        OBJ_POST << "worker thread spsc out queue read available: " << this->outPipe().read_available();
+    }
+
     /**
      * called on worker thread before task runloop
      */
