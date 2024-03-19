@@ -1,11 +1,10 @@
 pub mod ws_cli {
-    use rumqttc::tokio_rustls::rustls::internal::msgs::message::PlainMessage;
     use std::{
         ffi::{CStr, CString},
         net::TcpStream,
         os::raw::{c_char, c_void},
     };
-    use tungstenite::{client, connect, stream::MaybeTlsStream, Error, Message, WebSocket};
+    use tungstenite::{connect, stream::MaybeTlsStream, Error, Message, WebSocket};
     use url::Url;
 
     #[derive(Debug, PartialEq)]
@@ -124,10 +123,11 @@ pub mod ws_cli {
         match url {
             Ok(url) => match Url::parse(url) {
                 Ok(url) => match connect(url) {
-                    Ok((ws, _)) => {
+                    Ok((ws, resp)) => {
                         // let sock =
                         match ws.get_ref() {
                             MaybeTlsStream::Plain(sock) => {
+                                println!("response: {:?}", resp.headers());
                                 let _ = sock.set_nonblocking(true).map_err(|err| {
                                     on_err.exec(format!("can't set socket to non-blocking: {err}").as_str())
                                 });
@@ -247,7 +247,7 @@ pub mod ws_cli {
 
         // can't read message after close call
         if !cli.ws.can_read() {
-            return cli.err(ws_rc::CloseError, "can't read from stream");
+            return ws_rc::CloseError;
         }
 
         loop {
