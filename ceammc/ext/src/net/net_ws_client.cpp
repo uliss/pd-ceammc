@@ -182,6 +182,8 @@ void NetWsClient::processRequest(const Request& req, ResultCallback cb)
         cli_->send_binary(boost::get<SendBinary>(req));
     } else if (req.type() == typeid(Close)) {
         cli_->close();
+    } else if (req.type() == typeid(Flush)) {
+        cli_->flush();
     } else if (req.type() == typeid(Ping)) {
         cli_->send_ping();
     } else {
@@ -233,14 +235,19 @@ void NetWsClient::m_send_text(t_symbol* s, const AtomListView& lv)
     addRequest(SendText { to_string(lv), true });
 }
 
+void NetWsClient::m_write_text(t_symbol* s, const AtomListView& lv)
+{
+    addRequest(SendText { to_string(lv), false });
+}
+
 void NetWsClient::m_send_binary(t_symbol* s, const AtomListView& lv)
 {
-    ws::Bytes data;
-    data.reserve(lv.size());
-    for (auto& a : lv)
-        data.push_back(a.asInt());
+    addRequest(SendBinary { makeBinary(lv), true });
+}
 
-    addRequest(SendBinary { data, true });
+void NetWsClient::m_write_binary(t_symbol* s, const AtomListView& lv)
+{
+    addRequest(SendBinary { makeBinary(lv), false });
 }
 
 void NetWsClient::m_ping(t_symbol* s, const AtomListView& lv)
@@ -253,6 +260,16 @@ void NetWsClient::m_flush(t_symbol* s, const AtomListView& lv)
     addRequest(Flush {});
 }
 
+ws::Bytes NetWsClient::makeBinary(const AtomListView& lv)
+{
+    ws::Bytes data;
+    data.reserve(lv.size());
+    for (auto& a : lv)
+        data.push_back(a.asInt());
+
+    return data;
+}
+
 void setup_net_ws_client()
 {
     ObjectFactory<NetWsClient> obj("net.ws.client");
@@ -260,8 +277,10 @@ void setup_net_ws_client()
     obj.addMethod("connect", &NetWsClient::m_connect);
     obj.addMethod("flush", &NetWsClient::m_flush);
     obj.addMethod("ping", &NetWsClient::m_ping);
-    obj.addMethod("send_text", &NetWsClient::m_send_text);
+    obj.addMethod("send", &NetWsClient::m_send_text);
     obj.addMethod("send_binary", &NetWsClient::m_send_binary);
+    obj.addMethod("write", &NetWsClient::m_write_text);
+    obj.addMethod("write_binary", &NetWsClient::m_write_binary);
 }
 
 #endif

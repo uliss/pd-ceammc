@@ -125,10 +125,9 @@ pub mod ws_cli {
             Ok(url) => match Url::parse(url) {
                 Ok(url) => match connect(url) {
                     Ok((ws, resp)) => {
-                        // let sock =
                         match ws.get_ref() {
                             MaybeTlsStream::Plain(sock) => {
-                                println!("response: {:?}", resp.headers());
+                                // println!("response: {:?}", resp);
                                 let _ = sock.set_nonblocking(true).map_err(|err| {
                                     on_err.exec(
                                         format!("can't set socket to non-blocking: {err}").as_str(),
