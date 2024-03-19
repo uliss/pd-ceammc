@@ -35,6 +35,7 @@ pub mod ws_cli {
         on_bin: ws_callback_data,
         on_ping: ws_callback_data,
         on_pong: ws_callback_data,
+        on_close: ws_callback_data,
     }
 
     impl ws_client {
@@ -67,6 +68,11 @@ pub mod ws_cli {
 
         fn pong(&self, data: &Vec<u8>) {
             self.on_pong.exec(data);
+        }
+
+        fn close(&self) -> ws_rc {
+            self.on_close.exec(&vec![]);
+            ws_rc::ConnectionClosed
         }
     }
 
@@ -113,6 +119,7 @@ pub mod ws_cli {
         on_bin: ws_callback_data,
         on_ping: ws_callback_data,
         on_pong: ws_callback_data,
+        on_close: ws_callback_data,
     ) -> *mut ws_client {
         if url.is_null() {
             on_err.exec("null url pointer");
@@ -144,6 +151,7 @@ pub mod ws_cli {
                             on_ping,
                             on_pong,
                             on_text,
+                            on_close,
                         }));
                     }
                     Err(err) => {
@@ -324,13 +332,11 @@ pub mod ws_cli {
                         println!("binary: {:?}", data);
                         cli.bin(&data);
                     }
-                    _ => {
-                        println!("{:?}", msg);
-                    }
+                    _ => (),
                 },
                 Err(err) => {
                     return match err {
-                        Error::ConnectionClosed => ws_rc::ConnectionClosed,
+                        Error::ConnectionClosed => cli.close(),
                         Error::AlreadyClosed => cli.err(ws_rc::NoData, "already closed"),
                         Error::Io(e) => {
                             // handle non-blocking read

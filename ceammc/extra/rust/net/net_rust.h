@@ -182,7 +182,8 @@ ceammc_ws_client *ceammc_ws_client_create(const char *url,
                                           ceammc_ws_callback_text on_text,
                                           ceammc_ws_callback_data on_bin,
                                           ceammc_ws_callback_data on_ping,
-                                          ceammc_ws_callback_data on_pong);
+                                          ceammc_ws_callback_data on_pong,
+                                          ceammc_ws_callback_data on_close);
 
 /// flush client connection
 /// @param cli - pointer to websocket client

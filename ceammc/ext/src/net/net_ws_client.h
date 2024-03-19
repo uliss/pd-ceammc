@@ -60,7 +60,9 @@ namespace ws {
         struct MessagePing {
             Bytes data;
         };
-        struct MessageClose { };
+        struct MessageClose {
+            Bytes data;
+        };
         struct Connected { };
 
         using Reply = boost::variant<MessageText, MessageBinary, MessagePing, MessagePong, MessageClose, Connected>;

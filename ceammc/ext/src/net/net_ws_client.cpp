@@ -11,7 +11,6 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "datatype_json.h"
 #ifndef WITH_WEBSOCKET
 #include "ceammc_stub.h"
 CONTROL_OBJECT_STUB(NetWsClient, 1, 1, "compiled without WebSocket support");
@@ -22,6 +21,7 @@ OBJECT_STUB_SETUP(NetWsClient, net_ws_client, "net.ws.client");
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_json.h"
+#include "datatype_json.h"
 #include "net_rust.h"
 #include "net_ws_client.h"
 
@@ -33,6 +33,7 @@ CEAMMC_DEFINE_HASH(sym)
 CEAMMC_DEFINE_HASH(json)
 
 CEAMMC_DEFINE_SYM(binary)
+CEAMMC_DEFINE_SYM(closed)
 CEAMMC_DEFINE_SYM(connected)
 CEAMMC_DEFINE_SYM(ping)
 CEAMMC_DEFINE_SYM(pong)
@@ -47,7 +48,7 @@ struct WsClientImpl {
     std::mutex mtx_;
     ceammc_ws_client* cli_ { nullptr };
     std::function<void(const char*)> cb_err, cb_text;
-    std::function<void(const ws::Bytes&)> cb_ping, cb_pong, cb_bin;
+    std::function<void(const ws::Bytes&)> cb_ping, cb_pong, cb_bin, cb_close;
 
     static void on_error(void* user, const char* msg)
     {
@@ -84,6 +85,13 @@ struct WsClientImpl {
             this_->cb_bin(ws::Bytes(data, data + len));
     }
 
+    static void on_close(void* user, const std::uint8_t* data, size_t len)
+    {
+        auto this_ = static_cast<WsClientImpl*>(user);
+        if (this_ && this_->cb_close)
+            this_->cb_close(ws::Bytes(data, data + len));
+    }
+
     WsClientImpl()
     {
     }
@@ -107,7 +115,8 @@ struct WsClientImpl {
             { this, on_text },
             { this, on_binary },
             { this, on_ping },
-            { this, on_pong });
+            { this, on_pong },
+            { this, on_close });
 
         return cli_ != nullptr;
     }
@@ -179,6 +188,7 @@ NetWsClient::NetWsClient(const PdArgs& args)
     cli_->cb_bin = [this](const ws::Bytes& data) { addReply(MessageBinary { data }); };
     cli_->cb_ping = [this](const ws::Bytes& data) { addReply(MessagePing { data }); };
     cli_->cb_pong = [this](const ws::Bytes& data) { addReply(MessagePong { data }); };
+    cli_->cb_close = [this](const ws::Bytes& data) { addReply(MessageClose { data }); };
 
     mode_ = new SymbolEnumProperty("@mode", { str_fudi, str_data, str_sym, str_json });
     addProperty(mode_);
@@ -224,6 +234,8 @@ void NetWsClient::processResult(const Reply& res)
         anyTo(0, sym_binary(), fromBinary(bin.data));
     } else if (res.type() == typeid(Connected)) {
         anyTo(0, sym_connected(), AtomListView {});
+    } else if (res.type() == typeid(MessageClose)) {
+        anyTo(0, sym_closed(), AtomListView {});
     } else {
         OBJ_ERR << "unknown reply type: " << res.type().name();
     }
