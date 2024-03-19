@@ -59,6 +59,24 @@ struct WsServerImpl {
             { this, on_disc });
     }
 
+    void close()
+    {
+        MutexLock lock(mtx_);
+        if (!srv_)
+            return;
+
+        ceammc_ws_server_close(srv_);
+    }
+
+    void send_text(const std::string& msg)
+    {
+        MutexLock lock(mtx_);
+        if (!srv_)
+            return;
+
+        ceammc_ws_server_send_text(srv_, msg.c_str(), ceammc_ws_client_target::ALL);
+    }
+
     void runloop_for()
     {
         MutexLock lock(mtx_);
@@ -166,6 +184,12 @@ void NetWsServer::processRequest(const WsSrvRequest& req, ResultCallback cb)
     if (req.type() == typeid(WsSrvListen)) {
         auto& x = boost::get<WsSrvListen>(req);
         srv_->listen(x.addr.c_str());
+    } else if (req.type() == typeid(WsSrvClose)) {
+        srv_->close();
+    } else if (req.type() == typeid(WsSrvSendText)) {
+        auto& txt = boost::get<WsSrvSendText>(req);
+        srv_->send_text(txt.msg);
+    } else {
     }
 }
 
@@ -206,6 +230,16 @@ void NetWsServer::runLoopFor(size_t ms)
     std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }
 
+void NetWsServer::m_close(t_symbol* s, const AtomListView& lv)
+{
+    addRequest(WsSrvClose {});
+}
+
+void NetWsServer::m_send(t_symbol* s, const AtomListView& lv)
+{
+    addRequest(WsSrvSendText { to_string(lv) });
+}
+
 void NetWsServer::m_listen(t_symbol* s, const AtomListView& lv)
 {
     addRequest(WsSrvListen { to_string(lv) });
@@ -221,5 +255,7 @@ void setup_net_ws_server()
 {
     ObjectFactory<NetWsServer> obj("net.ws.server");
     obj.addMethod("listen", &NetWsServer::m_listen);
+    obj.addMethod("send", &NetWsServer::m_send);
+    obj.addMethod("close", &NetWsServer::m_close);
 }
 #endif

@@ -5,8 +5,9 @@ mod ws_srv {
         ffi::{CStr, CString},
         net::{TcpListener, TcpStream},
         os::raw::{c_char, c_void},
+        sync::atomic::{AtomicUsize, Ordering},
     };
-    use tungstenite::{accept, WebSocket};
+    use tungstenite::{accept, Message, WebSocket};
 
     #[allow(non_camel_case_types)]
     #[repr(C)]
@@ -16,6 +17,16 @@ mod ws_srv {
     }
 
     const CSTR_EMPTY: &'static CStr = unsafe { CStr::from_bytes_with_nul_unchecked(b"\0") };
+
+    #[derive(Debug)]
+    struct Token(usize);
+    impl Token {
+        fn new() -> Self {
+            static COUNTER: AtomicUsize = AtomicUsize::new(1);
+            let inner = COUNTER.fetch_add(1, Ordering::Relaxed);
+            Token(inner)
+        }
+    }
 
     impl Default for ws_conn_info {
         fn default() -> Self {
@@ -124,7 +135,7 @@ mod ws_srv {
             self.clients.push(client_info {
                 ws: sock,
                 addr,
-                id: self.clients.len(),
+                id: Token::new().0,
             });
         }
     }
@@ -194,9 +205,9 @@ mod ws_srv {
         on_ping: &ws_srv_on_data,
         on_disc: &ws_srv_on_cli,
     ) -> ws_rc {
+        use tungstenite::Error;
         match cli.ws.read() {
             Ok(msg) => {
-                use tungstenite::Message;
                 match msg {
                     Message::Text(txt) => {
                         println!("txt: {txt}");
@@ -223,15 +234,16 @@ mod ws_srv {
                 ws_rc::Ok
             }
             Err(err) => match err {
-                tungstenite::Error::ConnectionClosed => ws_rc::SocketDeferClose,
-                tungstenite::Error::Io(err) => {
+                Error::ConnectionClosed => ws_rc::SocketDeferClose,
+                Error::AlreadyClosed => ws_rc::SocketDeferClose,
+                Error::Io(err) => {
                     use std::io::ErrorKind::WouldBlock;
 
                     if err.kind() != WouldBlock {
                         on_err.exec(format!("socket read error: {err}").as_str(), &cli.info());
                         ws_rc::SocketReadError
                     } else {
-                        ws_rc::Ok
+                        ws_rc::RunloopExit
                     }
                 }
                 _ => {
@@ -257,8 +269,9 @@ mod ws_srv {
                 match accept(stream) {
                     Ok(ws) => {
                         srv.add_client(ws, addr);
+                        println!("client id: {}", &srv.clients.last().unwrap().id);
                         srv.on_conn.exec(&srv.clients.last().unwrap().info());
-                    },
+                    }
                     Err(err) => {
                         return srv.err(
                             ws_rc::SocketAcceptError,
@@ -283,28 +296,97 @@ mod ws_srv {
 
         let mut remove_clients: Vec<usize> = vec![];
 
-        for ws in srv.clients.iter_mut().enumerate() {
+        for cli in srv.clients.iter_mut() {
             loop {
                 match socket_read(
-                    ws.1,
+                    cli,
                     &srv.on_err,
                     &srv.on_txt,
                     &srv.on_bin,
                     &srv.on_ping,
                     &srv.on_disc,
                 ) {
-                    ws_rc::Ok => {}
-                    _ => {
-                        remove_clients.push(ws.0);
+                    ws_rc::SocketDeferClose => {
+                        println!("remove client: {}", cli.id);
+                        remove_clients.push(cli.id);
                         break;
                     }
+                    ws_rc::Ok => continue,
+                    // ws_rc::RunloopExit => break,
+                    _ => break,
                 };
             }
         }
 
         for id in remove_clients.iter() {
-            srv.clients.retain(|ci|{ ci.id != *id });
+            srv.clients.retain(|ci| ci.id != *id);
         }
+
+        ws_rc::Ok
+    }
+
+    #[allow(non_camel_case_types)]
+    #[repr(C)]
+    pub enum ws_client_target {
+        ALL,
+        FIRST,
+        LAST,
+    }
+
+    #[no_mangle]
+    pub extern "C" fn ceammc_ws_server_send_text(
+        srv: *mut ws_server,
+        msg: *const c_char,
+        target: ws_client_target,
+    ) -> ws_rc {
+        if srv.is_null() {
+            return ws_rc::InvalidServer;
+        }
+
+        let srv = unsafe { &mut *srv };
+
+        if msg.is_null() {
+            return ws_rc::InvalidMessage;
+        }
+
+        let msg = unsafe { CStr::from_ptr(msg) }.to_str();
+        match msg {
+            Ok(str) => match target {
+                ws_client_target::ALL => {
+                    for ci in srv.clients.iter_mut() {
+                        println!("send all: {str}");
+                        let _ = ci.ws.send(Message::Text(str.to_string())).map_err(|err| {
+                            println!("send error: {err}");
+                        });
+                    }
+
+                    ws_rc::Ok
+                }
+                ws_client_target::FIRST => {
+                    srv.clients.get_mut(0).map(|x| {
+                        let _ = x.ws.send(Message::Text(str.to_string()));
+                    });
+                    ws_rc::Ok
+                }
+                ws_client_target::LAST => {
+                    srv.clients.last_mut().map(|x| {
+                        let _ = x.ws.send(Message::Text(str.to_string()));
+                    });
+                    ws_rc::Ok
+                }
+            },
+            Err(_) => ws_rc::InvalidMessage,
+        }
+    }
+
+    #[no_mangle]
+    pub extern "C" fn ceammc_ws_server_close(srv: *mut ws_server) -> ws_rc {
+        if srv.is_null() {
+            return ws_rc::InvalidServer;
+        }
+
+        let srv = unsafe { &mut *srv };
+        srv.clients.clear();
 
         ws_rc::Ok
     }

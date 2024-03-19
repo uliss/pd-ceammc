@@ -21,6 +21,12 @@ using namespace ceammc;
 struct WsSrvListen {
     std::string addr;
 };
+struct WsSrvSendText {
+    std::string msg;
+};
+struct WsSrvClose {
+};
+
 struct WsSrvReplyText {
     std::string msg;
     std::string from;
@@ -40,7 +46,7 @@ struct WsSrvReplyClose {
     std::size_t id;
 };
 
-using WsSrvRequest = boost::variant<WsSrvListen>;
+using WsSrvRequest = boost::variant<WsSrvListen, WsSrvSendText, WsSrvClose>;
 using WsSrvReply = boost::variant<WsSrvReplyText, WsSrvReplyBinary, WsSrvReplyConn, WsSrvReplyClose>;
 
 using BaseWsServer = FixedSPSCObject<WsSrvRequest, WsSrvReply>;
@@ -60,8 +66,8 @@ public:
     void runLoopFor(size_t ms) final;
 
     //    void m_connect(t_symbol* s, const AtomListView& lv);
-//    void m_close(t_symbol* s, const AtomListView& lv);
-    //    void m_send(t_symbol* s, const AtomListView& lv);
+    void m_close(t_symbol* s, const AtomListView& lv);
+    void m_send(t_symbol* s, const AtomListView& lv);
     void m_listen(t_symbol* s, const AtomListView& lv);
 
 private:
