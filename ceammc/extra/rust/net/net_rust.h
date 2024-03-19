@@ -36,6 +36,12 @@ enum class ceammc_mqtt_rc {
   ConnectionError,
 };
 
+enum class ceammc_ws_client_target {
+  ALL,
+  FIRST,
+  LAST,
+};
+
 enum class ceammc_ws_rc {
   Ok = 0,
   InvalidClient,
@@ -49,6 +55,7 @@ enum class ceammc_ws_rc {
   SocketAcceptError,
   SocketReadError,
   SocketDeferClose,
+  RunloopExit,
 };
 
 struct ceammc_ws_callback_text {
@@ -184,6 +191,8 @@ ceammc_ws_rc ceammc_ws_client_send_text(ceammc_ws_client *cli,
                                         const char *msg,
                                         bool flush);
 
+ceammc_ws_rc ceammc_ws_server_close(ceammc_ws_server *srv);
+
 ceammc_ws_server *ceammc_ws_server_create(const char *addr,
                                           ceammc_ws_srv_on_text on_err,
                                           ceammc_ws_srv_on_text on_txt,
@@ -195,6 +204,10 @@ ceammc_ws_server *ceammc_ws_server_create(const char *addr,
 void ceammc_ws_server_free(ceammc_ws_server *srv);
 
 ceammc_ws_rc ceammc_ws_server_runloop(ceammc_ws_server *srv);
+
+ceammc_ws_rc ceammc_ws_server_send_text(ceammc_ws_server *srv,
+                                        const char *msg,
+                                        ceammc_ws_client_target target);
 
 } // extern "C"
 

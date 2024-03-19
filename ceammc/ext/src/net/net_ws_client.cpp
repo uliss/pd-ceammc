@@ -120,7 +120,7 @@ struct WsClientImpl {
             ceammc_ws_client_close(cli_);
     }
 
-    bool read(WsCliReply& rep)
+    bool read()
     {
         MutexLock lock(mtx_);
         if (!cli_)
@@ -192,10 +192,9 @@ void NetWsClient::processResult(const WsCliReply& res)
 
 void NetWsClient::runLoopFor(size_t ms)
 {
-    WsCliReply rep;
-    if (cli_ && cli_->read(rep)) {
-        addReply(rep);
-    }
+//    WsCliReply rep;
+    if (cli_)
+        cli_->read();
 
     std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }

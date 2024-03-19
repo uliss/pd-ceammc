@@ -1,10 +1,11 @@
 pub mod ws_cli {
+    use rumqttc::tokio_rustls::rustls::internal::msgs::message::PlainMessage;
     use std::{
         ffi::{CStr, CString},
         net::TcpStream,
         os::raw::{c_char, c_void},
     };
-    use tungstenite::{connect, stream::MaybeTlsStream, Error, Message, WebSocket};
+    use tungstenite::{client, connect, stream::MaybeTlsStream, Error, Message, WebSocket};
     use url::Url;
 
     #[derive(Debug, PartialEq)]
@@ -23,6 +24,7 @@ pub mod ws_cli {
         SocketAcceptError,
         SocketReadError,
         SocketDeferClose,
+        RunloopExit,
     }
 
     #[allow(non_camel_case_types)]
@@ -131,7 +133,7 @@ pub mod ws_cli {
                         on_text,
                     })),
                     Err(err) => {
-                        on_err.exec(format!("connection error: {err}").as_str());
+                        on_err.exec(format!("websocket connection error: {err}").as_str());
                         std::ptr::null_mut()
                     }
                 },
@@ -226,7 +228,7 @@ pub mod ws_cli {
 
     #[no_mangle]
     pub extern "C" fn ceammc_ws_client_read(cli: *mut ws_client) -> ws_rc {
-        if !cli.is_null() {
+        if cli.is_null() {
             return ws_rc::InvalidClient;
         }
         let cli = unsafe { &mut *cli };
