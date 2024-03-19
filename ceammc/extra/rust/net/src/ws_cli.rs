@@ -124,10 +124,10 @@ pub mod ws_cli {
         match url {
             Ok(url) => match Url::parse(url) {
                 Ok(url) => match connect(url) {
-                    Ok((ws, resp)) => {
+                    Ok((ws, _resp)) => {
                         match ws.get_ref() {
                             MaybeTlsStream::Plain(sock) => {
-                                // println!("response: {:?}", resp);
+                                // println!("response: {:?}", _resp);
                                 let _ = sock.set_nonblocking(true).map_err(|err| {
                                     on_err.exec(
                                         format!("can't set socket to non-blocking: {err}").as_str(),
@@ -247,27 +247,28 @@ pub mod ws_cli {
     }
 
     /// sends ping to WebSocket server
-    /// @param flush - if true ensures all messages
-    ///        previously passed to write and automatic queued pong responses are written & flushed into the underlying stream.
+    /// @param cli - pointer to websocket client
+    /// @param data - pointer to ping data (can be NULL)
+    /// @param len - data length
     /// @return ws_rc::Ok, ws_rc::InvalidClient, ws_rc::InvalidMessage, ws_rc::CloseError, ws_rc::SendError,
     #[no_mangle]
-    pub extern "C" fn ceammc_ws_client_send_ping(cli: *mut ws_client, flush: bool) -> ws_rc {
+    pub extern "C" fn ceammc_ws_client_send_ping(
+        cli: *mut ws_client,
+        data: *const u8,
+        len: usize,
+    ) -> ws_rc {
         if cli.is_null() {
             return ws_rc::InvalidClient;
         }
         let cli = unsafe { &mut *cli };
 
-        send_message(cli, Message::Ping(vec![1, 2, 3]), flush)
-    }
+        let data = if data.is_null() || len == 0 {
+            vec![]
+        } else {
+            unsafe { std::slice::from_raw_parts(data, len) }.to_vec()
+        };
 
-    #[no_mangle]
-    pub extern "C" fn ceammc_ws_client_send_pong(cli: *mut ws_client, flush: bool) -> ws_rc {
-        if cli.is_null() {
-            return ws_rc::InvalidClient;
-        }
-        let cli = unsafe { &mut *cli };
-
-        send_message(cli, Message::Pong(vec![1, 2, 3]), flush)
+        send_message(cli, Message::Ping(data), true)
     }
 
     #[allow(non_camel_case_types)]
@@ -275,8 +276,8 @@ pub mod ws_cli {
     pub enum ws_trim {
         NO,    // no trim
         START, // remove leading whitespaces, newlines etc.
-        END,  // remove trailing whitespaces, newlines etc.
-        BOTH, // remove leading and trailing whitespaces, newlines etc.
+        END,   // remove trailing whitespaces, newlines etc.
+        BOTH,  // remove leading and trailing whitespaces, newlines etc.
     }
 
     /// read and process all available messages from WebSocket server
@@ -316,6 +317,8 @@ pub mod ws_cli {
                     Message::Ping(data) => {
                         println!("ping: {:?}", data);
                         cli.ping(&data);
+                        // pong reply
+                        let _ = cli.ws.send(Message::Pong(data));
                     }
                     Message::Binary(data) => {
                         println!("binary: {:?}", data);

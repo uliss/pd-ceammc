@@ -33,6 +33,7 @@ CEAMMC_DEFINE_HASH(sym)
 CEAMMC_DEFINE_HASH(json)
 
 CEAMMC_DEFINE_SYM(binary)
+CEAMMC_DEFINE_SYM(ping)
 CEAMMC_DEFINE_SYM(pong)
 CEAMMC_DEFINE_SYM(text)
 
@@ -44,8 +45,8 @@ using MutexLock = std::lock_guard<std::mutex>;
 struct WsClientImpl {
     std::mutex mtx_;
     ceammc_ws_client* cli_ { nullptr };
-    std::function<void(const char*msg)> cb_err, cb_text;
-    std::function<void(const std::uint8_t*data, size_t len)> cb_ping, cb_pong, cb_bin;
+    std::function<void(const char*)> cb_err, cb_text;
+    std::function<void(const ws::Bytes&)> cb_ping, cb_pong, cb_bin;
 
     static void on_error(void* user, const char* msg)
     {
@@ -65,21 +66,21 @@ struct WsClientImpl {
     {
         auto this_ = static_cast<WsClientImpl*>(user);
         if (this_ && this_->cb_ping)
-            this_->cb_ping(data, len);
+            this_->cb_ping(ws::Bytes(data, data + len));
     }
 
     static void on_pong(void* user, const std::uint8_t* data, size_t len)
     {
         auto this_ = static_cast<WsClientImpl*>(user);
         if (this_ && this_->cb_pong)
-            this_->cb_pong(data, len);
+            this_->cb_pong(ws::Bytes(data, data + len));
     }
 
     static void on_binary(void* user, const std::uint8_t* data, size_t len)
     {
         auto this_ = static_cast<WsClientImpl*>(user);
         if (this_ && this_->cb_bin)
-            this_->cb_bin(data, len);
+            this_->cb_bin(ws::Bytes(data, data + len));
     }
 
     WsClientImpl()
@@ -130,11 +131,11 @@ struct WsClientImpl {
             ceammc_ws_client_send_binary(cli_, msg.data.data(), msg.data.size(), msg.flush);
     }
 
-    void send_ping(bool flush = true)
+    void send_ping(const Ping& ping)
     {
         MutexLock lock(mtx_);
         if (cli_)
-            ceammc_ws_client_send_ping(cli_, flush);
+            ceammc_ws_client_send_ping(cli_, ping.data.data(), ping.data.size());
     }
 
     void close()
@@ -170,12 +171,9 @@ NetWsClient::NetWsClient(const PdArgs& args)
     cli_.reset(new WsClientImpl);
     cli_->cb_err = [this](const char* msg) { workerThreadError(msg); };
     cli_->cb_text = [this](const char* msg) { addReply(MessageText { msg }); };
-    cli_->cb_bin = [this](const std::uint8_t* data, size_t len) {
-        ws::Bytes v(data, data + len);
-        addReply(MessageBinary { std::move(v) });
-    };
-    cli_->cb_ping = [this](const std::uint8_t* data, size_t len) { workerThreadError("ping"); };
-    cli_->cb_pong = [this](const std::uint8_t* data, size_t len) { addReply(MessagePong {}); };
+    cli_->cb_bin = [this](const ws::Bytes& data) { addReply(MessageBinary { data }); };
+    cli_->cb_ping = [this](const ws::Bytes& data) { addReply(MessagePing { data }); };
+    cli_->cb_pong = [this](const ws::Bytes& data) { addReply(MessagePong { data }); };
 
     mode_ = new SymbolEnumProperty("@mode", { str_fudi, str_data, str_sym, str_json });
     addProperty(mode_);
@@ -199,7 +197,7 @@ void NetWsClient::processRequest(const Request& req, ResultCallback cb)
     } else if (req.type() == typeid(Flush)) {
         cli_->flush();
     } else if (req.type() == typeid(Ping)) {
-        cli_->send_ping();
+        cli_->send_ping(boost::get<Ping>(req));
     } else {
         workerThreadError(fmt::format("unknown request: {}", req.type().name()));
     }
@@ -211,15 +209,13 @@ void NetWsClient::processResult(const Reply& res)
         processTextReply(boost::get<MessageText>(res));
     } else if (res.type() == typeid(MessagePong)) {
         auto& p = boost::get<MessagePong>(res);
-        anyTo(0, sym_pong(), AtomListView());
+        anyTo(0, sym_pong(), fromBinary(p.data));
+    } else if (res.type() == typeid(MessagePing)) {
+        auto& p = boost::get<MessagePing>(res);
+        anyTo(0, sym_ping(), fromBinary(p.data));
     } else if (res.type() == typeid(MessageBinary)) {
         auto& bin = boost::get<MessageBinary>(res);
-        AtomList lst;
-        lst.reserve(bin.data.size());
-        for (auto x : bin.data)
-            lst.append(x);
-
-        anyTo(0, sym_binary(), lst);
+        anyTo(0, sym_binary(), fromBinary(bin.data));
     } else {
         OBJ_ERR << "unknown reply type: " << res.type().name();
     }
@@ -294,7 +290,7 @@ void NetWsClient::processTextReply(const ws::cli_reply::MessageText& txt)
 
 void NetWsClient::m_send_binary(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(SendBinary { makeBinary(lv), true });
+    addRequest(SendBinary { toBinary(lv), true });
 }
 
 void NetWsClient::m_send_json(t_symbol* s, const AtomListView& lv)
@@ -304,7 +300,7 @@ void NetWsClient::m_send_json(t_symbol* s, const AtomListView& lv)
 
 void NetWsClient::m_write_binary(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(SendBinary { makeBinary(lv), false });
+    addRequest(SendBinary { toBinary(lv), false });
 }
 
 void NetWsClient::m_write_json(t_symbol* s, const AtomListView& lv)
@@ -314,7 +310,7 @@ void NetWsClient::m_write_json(t_symbol* s, const AtomListView& lv)
 
 void NetWsClient::m_ping(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(Ping {});
+    addRequest(Ping { toBinary(lv) });
 }
 
 void NetWsClient::m_flush(t_symbol* s, const AtomListView& lv)
@@ -322,7 +318,7 @@ void NetWsClient::m_flush(t_symbol* s, const AtomListView& lv)
     addRequest(Flush {});
 }
 
-ws::Bytes NetWsClient::makeBinary(const AtomListView& lv)
+ws::Bytes NetWsClient::toBinary(const AtomListView& lv)
 {
     ws::Bytes data;
     data.reserve(lv.size());
@@ -330,6 +326,16 @@ ws::Bytes NetWsClient::makeBinary(const AtomListView& lv)
         data.push_back(a.asInt());
 
     return data;
+}
+
+AtomList NetWsClient::fromBinary(const ws::Bytes& data)
+{
+    AtomList lst;
+    lst.reserve(data.size());
+    for (auto x : data)
+        lst.append(x);
+
+    return lst;
 }
 
 std::string NetWsClient::makeJson(const AtomListView& lv)

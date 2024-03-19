@@ -5,6 +5,7 @@
         "mqttoptions",
         "nonblocking",
         "rumqttc",
-        "tungstenite"
+        "tungstenite",
+        "whitespaces"
     ]
 }

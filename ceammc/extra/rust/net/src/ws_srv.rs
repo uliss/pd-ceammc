@@ -220,7 +220,7 @@ mod ws_srv {
                     Message::Ping(data) => {
                         println!("ping: {:?}", data);
                         on_ping.exec(&data, &cli.info());
-                        let _ = cli.ws.send(Message::Ping(data));
+                        let _ = cli.ws.send(Message::Pong(data));
                     }
                     // Message::Pong(_) => todo!(),
                     Message::Close(_) => {

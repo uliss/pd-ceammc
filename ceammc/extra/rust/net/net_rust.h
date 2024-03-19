@@ -213,13 +213,13 @@ ceammc_ws_rc ceammc_ws_client_send_binary(ceammc_ws_client *cli,
                                           bool flush);
 
 /// sends ping to WebSocket server
-/// @param flush - if true ensures all messages
-///        previously passed to write and automatic queued pong responses are written & flushed into the underlying stream.
+/// @param cli - pointer to websocket client
+/// @param data - pointer to ping data (can be NULL)
+/// @param len - data length
 /// @return ws_rc::Ok, ws_rc::InvalidClient, ws_rc::InvalidMessage, ws_rc::CloseError, ws_rc::SendError,
 ceammc_ws_rc ceammc_ws_client_send_ping(ceammc_ws_client *cli,
-                                        bool flush);
-
-ceammc_ws_rc ceammc_ws_client_send_pong(ceammc_ws_client *cli, bool flush);
+                                        const uint8_t *data,
+                                        size_t len);
 
 /// sends text message to WebSocket server
 /// @param cli - pointer to ws client

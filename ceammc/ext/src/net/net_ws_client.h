@@ -28,8 +28,12 @@ namespace ws {
             std::string url;
         };
         struct Close { };
-        struct Ping { };
-        struct Pong { };
+        struct Ping {
+            Bytes data;
+        };
+        struct Pong {
+            Bytes data;
+        };
         struct Flush { };
         struct SendText {
             std::string msg;
@@ -40,7 +44,7 @@ namespace ws {
             bool flush;
         };
 
-        using Request = boost::variant<SendText, SendBinary, Connect, Close, Ping, Pong, Flush>;
+        using Request = boost::variant<SendText, SendBinary, Connect, Close, Ping, Flush>;
     }
 
     namespace cli_reply {
@@ -50,8 +54,12 @@ namespace ws {
         struct MessageBinary {
             Bytes data;
         };
-        struct MessagePong { };
-        struct MessagePing { };
+        struct MessagePong {
+            Bytes data;
+        };
+        struct MessagePing {
+            Bytes data;
+        };
         struct MessageClose { };
 
         using Reply = boost::variant<MessageText, MessageBinary, MessagePing, MessagePong, MessageClose>;
@@ -91,7 +99,8 @@ private:
     void processTextReply(const ws::cli_reply::MessageText& txt);
 
 private:
-    static ws::Bytes makeBinary(const AtomListView& lv);
+    static ws::Bytes toBinary(const AtomListView& lv);
+    static AtomList fromBinary(const ws::Bytes& data);
     static std::string makeJson(const AtomListView& lv);
 };
 
