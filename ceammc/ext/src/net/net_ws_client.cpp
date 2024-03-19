@@ -33,6 +33,7 @@ CEAMMC_DEFINE_HASH(sym)
 CEAMMC_DEFINE_HASH(json)
 
 CEAMMC_DEFINE_SYM(binary)
+CEAMMC_DEFINE_SYM(connected)
 CEAMMC_DEFINE_SYM(ping)
 CEAMMC_DEFINE_SYM(pong)
 CEAMMC_DEFINE_SYM(text)
@@ -92,7 +93,8 @@ struct WsClientImpl {
         disconnect();
     }
 
-    void connect(const char* url)
+    // this is blocking function at this moment
+    bool connect(const char* url)
     {
         MutexLock lock(mtx_);
         if (cli_) {
@@ -106,6 +108,8 @@ struct WsClientImpl {
             { this, on_binary },
             { this, on_ping },
             { this, on_pong });
+
+        return cli_ != nullptr;
     }
 
     void disconnect()
@@ -145,6 +149,7 @@ struct WsClientImpl {
             ceammc_ws_client_close(cli_);
     }
 
+    // non-blocking
     bool read()
     {
         MutexLock lock(mtx_);
@@ -187,7 +192,8 @@ void NetWsClient::processRequest(const Request& req, ResultCallback cb)
         return;
 
     if (req.type() == typeid(Connect)) {
-        cli_->connect(boost::get<Connect>(req).url.c_str());
+        if (cli_->connect(boost::get<Connect>(req).url.c_str()))
+            addReply(Connected {});
     } else if (req.type() == typeid(SendText)) {
         cli_->send_text(boost::get<SendText>(req));
     } else if (req.type() == typeid(SendBinary)) {
@@ -216,6 +222,8 @@ void NetWsClient::processResult(const Reply& res)
     } else if (res.type() == typeid(MessageBinary)) {
         auto& bin = boost::get<MessageBinary>(res);
         anyTo(0, sym_binary(), fromBinary(bin.data));
+    } else if (res.type() == typeid(Connected)) {
+        anyTo(0, sym_connected(), AtomListView {});
     } else {
         OBJ_ERR << "unknown reply type: " << res.type().name();
     }

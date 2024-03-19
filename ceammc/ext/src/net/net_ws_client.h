@@ -61,18 +61,19 @@ namespace ws {
             Bytes data;
         };
         struct MessageClose { };
+        struct Connected { };
 
-        using Reply = boost::variant<MessageText, MessageBinary, MessagePing, MessagePong, MessageClose>;
+        using Reply = boost::variant<MessageText, MessageBinary, MessagePing, MessagePong, MessageClose, Connected>;
     }
 }
 }
 
-using BaseWsClient = FixedSPSCObject<ws::cli_req::Request, ws::cli_reply::Reply>;
+using BaseWsClient = FixedSPSCObject<ws::cli_req::Request, ws::cli_reply::Reply, BaseObject, 32, 20>;
 
 class WsClientImpl;
 
 class NetWsClient : public BaseWsClient {
-    std::unique_ptr<WsClientImpl> cli_;
+    std::unique_ptr<WsClientImpl> cli_; // should be accessed only in worker thread
     SymbolEnumProperty* mode_ { nullptr };
 
 public:

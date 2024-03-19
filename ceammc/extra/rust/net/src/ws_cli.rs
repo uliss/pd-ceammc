@@ -372,6 +372,11 @@ pub mod ws_cli {
         }
         let cli = unsafe { &mut *cli };
 
+        // can't write message after close call
+        if !cli.ws.can_write() {
+            return cli.err(ws_rc::CloseError, "connection already closed");
+        }
+
         match cli.ws.close(None) {
             Ok(_) => ws_rc::Ok,
             Err(err) => cli.err(ws_rc::CloseError, format!("close error: {err}").as_str()),
@@ -387,6 +392,11 @@ pub mod ws_cli {
             return ws_rc::InvalidClient;
         }
         let cli = unsafe { &mut *cli };
+
+        // can't write message after close call
+        if !cli.ws.can_write() {
+            return cli.err(ws_rc::CloseError, "connection closed");
+        }
 
         match cli.ws.flush() {
             Ok(_) => ws_rc::Ok,
