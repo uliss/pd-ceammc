@@ -118,40 +118,6 @@ static std::string quote_json(const std::string& str)
     return res;
 }
 
-std::string to_json_string(const Atom& a)
-{
-    if (a.isInteger())
-        return fmt::format("{}", a.asInt());
-    else if (a.isFloat())
-        return fmt::format("{}", a.asFloat());
-    else if (a.isSymbol()) {
-        return quote_json(a.asSymbol()->s_name);
-    } else if (a.isData())
-        return quote_json(a.asData()->toString());
-    else if (a.isNone())
-        return "null";
-    else {
-        std::cerr << "ATOM: " << a << std::endl;
-        return "?????????";
-    }
-}
-
-std::string to_json_string(const AtomListView& lv)
-{
-    std::string res;
-    res.push_back('[');
-
-    for (size_t i = 0; i < lv.size(); i++) {
-        if (i > 0)
-            res += ", ";
-
-        res += to_json_string(lv[i]);
-    }
-
-    res.push_back(']');
-    return res;
-}
-
 std::string parse_quoted(const Atom& a)
 {
     using namespace string;
