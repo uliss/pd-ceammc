@@ -251,8 +251,6 @@ void NetWsClient::runLoopFor(size_t ms)
 {
     if (cli_)
         cli_->read();
-
-    std::this_thread::sleep_for(std::chrono::milliseconds(ms));
 }
 
 void NetWsClient::m_connect(t_symbol* s, const AtomListView& lv)
