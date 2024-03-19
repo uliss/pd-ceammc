@@ -192,7 +192,6 @@ void NetWsClient::processResult(const WsCliReply& res)
 
 void NetWsClient::runLoopFor(size_t ms)
 {
-//    WsCliReply rep;
     if (cli_)
         cli_->read();
 

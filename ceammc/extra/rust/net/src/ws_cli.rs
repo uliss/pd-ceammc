@@ -124,14 +124,26 @@ pub mod ws_cli {
         match url {
             Ok(url) => match Url::parse(url) {
                 Ok(url) => match connect(url) {
-                    Ok((socket, _)) => Box::into_raw(Box::new(ws_client {
-                        ws: socket,
-                        on_err,
-                        on_bin,
-                        on_ping,
-                        on_pong,
-                        on_text,
-                    })),
+                    Ok((ws, _)) => {
+                        // let sock =
+                        match ws.get_ref() {
+                            MaybeTlsStream::Plain(sock) => {
+                                let _ = sock.set_nonblocking(true).map_err(|err| {
+                                    on_err.exec(format!("can't set socket to non-blocking: {err}").as_str())
+                                });
+                            }
+                            _ => {}
+                        }
+
+                        return Box::into_raw(Box::new(ws_client {
+                            ws,
+                            on_err,
+                            on_bin,
+                            on_ping,
+                            on_pong,
+                            on_text,
+                        }));
+                    }
                     Err(err) => {
                         on_err.exec(format!("websocket connection error: {err}").as_str());
                         std::ptr::null_mut()
@@ -240,35 +252,38 @@ pub mod ws_cli {
 
         loop {
             match cli.ws.read() {
-                Ok(msg) => {
-                    match msg {
-                        Message::Text(txt) => {
-                            println!("message: {}", txt);
-                            cli.text(txt.as_str());
-                        }
-                        Message::Pong(data) => {
-                            println!("pong: {:?}", data);
-                            cli.pong(&data);
-                        }
-                        Message::Ping(data) => {
-                            println!("ping: {:?}", data);
-                            cli.ping(&data);
-                        }
-                        Message::Binary(data) => {
-                            println!("binary: {:?}", data);
-                            cli.bin(&data);
-                        }
-                        _ => {
-                            println!("{:?}", msg);
-                        }
-                    };
-                    // ws_rc::Ok
-                }
+                Ok(msg) => match msg {
+                    Message::Text(txt) => {
+                        println!("message: {}", txt);
+                        cli.text(txt.as_str());
+                    }
+                    Message::Pong(data) => {
+                        println!("pong: {:?}", data);
+                        cli.pong(&data);
+                    }
+                    Message::Ping(data) => {
+                        println!("ping: {:?}", data);
+                        cli.ping(&data);
+                    }
+                    Message::Binary(data) => {
+                        println!("binary: {:?}", data);
+                        cli.bin(&data);
+                    }
+                    _ => {
+                        println!("{:?}", msg);
+                    }
+                },
                 Err(err) => {
                     return match err {
                         Error::ConnectionClosed => ws_rc::ConnectionClosed,
                         Error::AlreadyClosed => cli.err(ws_rc::NoData, "already closed"),
-                        Error::Io(e) => cli.err(ws_rc::NoData, format!("IO error: {e}").as_str()),
+                        Error::Io(e) => {
+                            //
+                            match e.kind() {
+                                std::io::ErrorKind::WouldBlock => ws_rc::RunloopExit,
+                                _ => cli.err(ws_rc::NoData, format!("IO error: {e}").as_str()),
+                            }
+                        }
                         Error::Tls(e) => cli.err(ws_rc::NoData, format!("TLS error: {e}").as_str()),
                         Error::Capacity(e) => {
                             cli.err(ws_rc::NoData, format!("capacity error: {e}").as_str())
@@ -286,7 +301,7 @@ pub mod ws_cli {
                             cli.err(ws_rc::NoData, format!("http format error: {e}").as_str())
                         }
                         _ => cli.err(ws_rc::NoData, format!("error: {err}").as_str()),
-                    }
+                    };
                 }
             }
         }
