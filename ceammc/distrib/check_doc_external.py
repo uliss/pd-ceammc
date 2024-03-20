@@ -593,10 +593,11 @@ if __name__ == '__main__':
                         if m.tag != "method" or m.get("example", False) or m.get("internal", False):
                             continue
                         # for method name with arguments, like: method PARAM1
-                        mname = m.attrib["name"].split(' ')[0]
+                        margs = m.attrib["name"].split(' ')
+                        mname = margs[0]
                         if mname not in doc_methods_set:
                             doc_methods_set.add(mname)
-                        else:
+                        elif len(margs) == 1:
                             cprint(f"[{ext_name}] duplicated method entry: {mname}", 'red')
 
             if x.tag == "properties":
