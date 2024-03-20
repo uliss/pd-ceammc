@@ -568,6 +568,7 @@ set(DOC_FILES
     net.osc.send
     net.osc.server
     net.ws.client
+    net.ws.server
     noise.baker
     noise.chua~
     noise.clifford

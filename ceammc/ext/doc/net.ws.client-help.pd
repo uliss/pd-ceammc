@@ -6,7 +6,7 @@
 -4096 0;
 #X obj 646 11 net.ws.client;
 #X text 50 118 you can start testing websocket server with command:
-'websocat -s 9000 -t -v';
+'websocat -s 8000 -t -v';
 #X msg 50 162 connect ws://localhost:8000;
 #X msg 69 190 close;
 #X msg 194 190 write MSG1;
@@ -115,7 +115,7 @@ call [flush( method for sending. Arguments are:;
 #X text 10 142 license:;
 #X text 120 142 GPL3 or later;
 #X text 10 164 keywords:;
-#X text 120 164 osc \, net \, send;
+#X text 120 164 websocket \, net \, client;
 #X text 10 186 website:;
 #X obj 120 189 ui.link @title https://github.com/uliss/pd-ceammc @url
 https://github.com/uliss/pd-ceammc;

@@ -962,6 +962,7 @@ net.osc.s	OSC message sender
 net.osc.server	OSC server control
 net.osc	OSC server control
 net.ws.client	Websocket client
+net.ws.server	Websocket server
 noise.baker	Part of a-chaos library
 noise.clifford	clifford attractor
 noise.collatz	collatz conjecture output

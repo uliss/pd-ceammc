@@ -10,7 +10,7 @@
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>net</category>
-            <keywords>osc net send</keywords>
+            <keywords>websocket net client</keywords>
             <since>0.9.8</since>
             <also>
                 <see>net.ws.server</see>
@@ -65,7 +65,7 @@
         <example>
             <pdascii>
 <![CDATA[
-/*you can start testing websocket server with command: 'websocat -s 9000 -t -v'*/
+/*you can start testing websocket server with command: 'websocat -s 8000 -t -v'*/
 
 
 [connect ws://localhost:8000(
