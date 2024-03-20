@@ -103,7 +103,7 @@ void ServerImpl::listen(const Listen& msg)
 void ServerImpl::process(const srv_req::Stop&)
 {
     MutexLock lock(mtx_);
-    if (srv_) {
+    if (check_running()) {
         ceammc_ws_server_free(srv_);
         srv_ = nullptr;
     }
@@ -112,55 +112,49 @@ void ServerImpl::process(const srv_req::Stop&)
 void ServerImpl::process(const CloseClients& msg)
 {
     MutexLock lock(mtx_);
-    if (!srv_)
-        return;
 
-    ceammc_ws_server_close_clients(srv_, msg.to);
+    if (check_running())
+        ceammc_ws_server_close_clients(srv_, msg.to);
 }
 
 void ServerImpl::process(const SendText& txt)
 {
     MutexLock lock(mtx_);
-    if (!srv_)
-        return;
 
-    ceammc_ws_server_send_text(srv_, txt.msg.c_str(), txt.to);
+    if (check_running())
+        ceammc_ws_server_send_text(srv_, txt.msg.c_str(), txt.to);
 }
 
 void ServerImpl::process(const SendBinary& bin)
 {
     MutexLock lock(mtx_);
-    if (!srv_)
-        return;
 
-    ceammc_ws_server_send_binary(srv_, bin.data.data(), bin.data.size(), bin.to);
+    if (check_running())
+        ceammc_ws_server_send_binary(srv_, bin.data.data(), bin.data.size(), bin.to);
 }
 
 void ServerImpl::process(const SendPing& ping)
 {
     MutexLock lock(mtx_);
-    if (!srv_)
-        return;
 
-    ceammc_ws_server_send_ping(srv_, ping.data.data(), ping.data.size(), ping.to);
+    if (check_running())
+        ceammc_ws_server_send_ping(srv_, ping.data.data(), ping.data.size(), ping.to);
 }
 
 void ServerImpl::process(const DumpClients&)
 {
     MutexLock lock(mtx_);
-    if (!srv_)
-        return;
 
-    ceammc_ws_server_connected_clients(srv_, this, on_client_dump);
+    if (check_running())
+        ceammc_ws_server_connected_clients(srv_, this, on_client_dump);
 }
 
 void ServerImpl::process(const AbortClients& cli)
 {
     MutexLock lock(mtx_);
-    if (!srv_)
-        return;
 
-    ceammc_ws_server_shutdown_clients(srv_, cli.to);
+    if (check_running())
+        ceammc_ws_server_shutdown_clients(srv_, cli.to);
 }
 
 void ServerImpl::process_events()
@@ -246,6 +240,17 @@ void ServerImpl::on_client_dump(void* user, const ceammc_ws_conn_info* info, siz
 
         this_->cb_dump_clients(ids);
     }
+}
+
+bool ws::ServerImpl::check_running()
+{
+    if (!srv_) {
+        if (cb_err)
+            cb_err("server is not running", { "", 0 });
+
+        return false;
+    } else
+        return true;
 }
 
 NetWsServer::NetWsServer(const PdArgs& args)

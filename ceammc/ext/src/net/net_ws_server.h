@@ -130,6 +130,9 @@ namespace ws {
         static void on_conn(void* user, const ceammc_ws_conn_info* info);
         static void on_disc(void* user, const ceammc_ws_conn_info* info);
         static void on_client_dump(void* user, const ceammc_ws_conn_info* info, size_t len);
+
+    private:
+        bool check_running();
     };
 }
 }
