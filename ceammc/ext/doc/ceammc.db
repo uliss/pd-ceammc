@@ -566,6 +566,7 @@ net.http.send,http.send		.		..
 net.osc.receive,net.osc.r		..		.
 net.osc.send,net.osc.s		.		.
 net.osc.server,net.osc		.		.
+net.ws.client		.		.
 noise.baker		.		.
 noise.chua~		.		~~
 noise.clifford		.		..
