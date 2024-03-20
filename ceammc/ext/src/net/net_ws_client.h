@@ -16,6 +16,7 @@
 
 #include "ceammc_pollthread_spsc.h"
 #include "ceammc_property_enum.h"
+#include "net_rust.h"
 
 #include <boost/variant.hpp>
 #include <chrono>
@@ -26,17 +27,6 @@ namespace ws {
     using Bytes = std::vector<std::uint8_t>;
 
     namespace cli_req {
-        struct Connect {
-            std::string url;
-        };
-        struct Close { };
-        struct Ping {
-            Bytes data;
-        };
-        struct Pong {
-            Bytes data;
-        };
-        struct Flush { };
         struct SendText {
             std::string msg;
             bool flush;
@@ -45,9 +35,52 @@ namespace ws {
             Bytes data;
             bool flush;
         };
+        struct SendPing {
+            Bytes data;
+        };
 
-        using Request = boost::variant<SendText, SendBinary, Connect, Close, Ping, Flush>;
+        struct Connect {
+            std::string url;
+        };
+        struct Close { };
+        struct Flush { };
+
+        using Request = boost::variant<SendText,
+            SendBinary,
+            SendPing,
+            Connect,
+            Close,
+            Flush>;
     }
+
+    struct ClientImpl {
+        std::mutex mtx_;
+        ceammc_ws_client* cli_ { nullptr };
+        std::function<void(const char*)> cb_err, cb_text;
+        std::function<void(const ws::Bytes&)> cb_ping, cb_pong, cb_bin, cb_close;
+
+        static void on_error(void* user, const char* msg);
+        static void on_text(void* user, const char* msg);
+        static void on_ping(void* user, const std::uint8_t* data, size_t len);
+        static void on_pong(void* user, const std::uint8_t* data, size_t len);
+        static void on_binary(void* user, const std::uint8_t* data, size_t len);
+        static void on_close(void* user, const std::uint8_t* data, size_t len);
+
+        ~ClientImpl();
+
+        // this is blocking function at this moment
+        bool connect(const cli_req::Connect& c);
+        void disconnect();
+
+        void process(const cli_req::SendText& txt);
+        void process(const cli_req::SendBinary& msg);
+        void process(const cli_req::SendPing& ping);
+        void process(const cli_req::Close&);
+        void process(const cli_req::Flush&);
+
+        // non-blocking
+        bool process_events();
+    };
 
     namespace cli_reply {
         struct MessageText {
@@ -79,10 +112,8 @@ namespace ws {
 
 using BaseWsClient = FixedSPSCObject<ws::cli_req::Request, ws::cli_reply::Reply, BaseObject, 32, 20>;
 
-class WsClientImpl;
-
 class NetWsClient : public BaseWsClient {
-    std::unique_ptr<WsClientImpl> cli_; // should be accessed only in worker thread
+    std::unique_ptr<ws::ClientImpl> cli_; // should be accessed only in worker thread
     SymbolEnumProperty* mode_ { nullptr };
 
     enum LatencyState : uint8_t {
@@ -95,7 +126,6 @@ class NetWsClient : public BaseWsClient {
 
 public:
     NetWsClient(const PdArgs& args);
-    ~NetWsClient();
 
     void processRequest(const ws::cli_req::Request& req, ResultCallback cb) override;
     void processResult(const ws::cli_reply::Reply& res) override;
@@ -125,7 +155,17 @@ private:
     void outputLatency();
 
     template <class T>
-    bool process_result(const ws::cli_reply::Reply& res)
+    bool process_request(const ws::cli_req::Request& req)
+    {
+        if (req.type() == typeid(T)) {
+            this->cli_->process(boost::get<T>(req));
+            return true;
+        } else
+            return false;
+    }
+
+    template <class T>
+    bool process_reply(const ws::cli_reply::Reply& res)
     {
         if (res.type() == typeid(T)) {
             this->processReply(boost::get<T>(res));
