@@ -63,28 +63,28 @@ void ClientImpl::on_ping(void* user, const std::uint8_t* data, size_t len)
 {
     auto this_ = static_cast<ClientImpl*>(user);
     if (this_ && this_->cb_ping)
-        this_->cb_ping(ws::Bytes(data, data + len));
+        this_->cb_ping(Bytes(data, data + len));
 }
 
 void ClientImpl::on_pong(void* user, const std::uint8_t* data, size_t len)
 {
     auto this_ = static_cast<ClientImpl*>(user);
     if (this_ && this_->cb_pong)
-        this_->cb_pong(ws::Bytes(data, data + len));
+        this_->cb_pong(Bytes(data, data + len));
 }
 
 void ClientImpl::on_binary(void* user, const std::uint8_t* data, size_t len)
 {
     auto this_ = static_cast<ClientImpl*>(user);
     if (this_ && this_->cb_bin)
-        this_->cb_bin(ws::Bytes(data, data + len));
+        this_->cb_bin(Bytes(data, data + len));
 }
 
 void ClientImpl::on_close(void* user, const std::uint8_t* data, size_t len)
 {
     auto this_ = static_cast<ClientImpl*>(user);
     if (this_ && this_->cb_close)
-        this_->cb_close(ws::Bytes(data, data + len));
+        this_->cb_close(Bytes(data, data + len));
 }
 
 ClientImpl::~ClientImpl()
@@ -239,7 +239,7 @@ void NetWsClient::m_write_text(t_symbol* s, const AtomListView& lv)
     addRequest(SendText { to_string(lv), false });
 }
 
-void NetWsClient::processReply(const ws::cli_reply::MessageText& m)
+void NetWsClient::processReply(const MessageText& m)
 {
     try {
         switch (crc32_hash(mode_->value())) {
@@ -278,17 +278,17 @@ void NetWsClient::processReply(const ws::cli_reply::MessageText& m)
     }
 }
 
-void NetWsClient::processReply(const ws::cli_reply::MessageBinary& m)
+void NetWsClient::processReply(const MessageBinary& m)
 {
     anyTo(0, sym_binary(), fromBinary(m.data));
 }
 
-void NetWsClient::processReply(const ws::cli_reply::MessagePing& m)
+void NetWsClient::processReply(const MessagePing& m)
 {
     anyTo(0, sym_ping(), fromBinary(m.data));
 }
 
-void NetWsClient::processReply(const ws::cli_reply::MessagePong& m)
+void NetWsClient::processReply(const MessagePong& m)
 {
     anyTo(0, sym_pong(), fromBinary(m.data));
 
@@ -298,12 +298,12 @@ void NetWsClient::processReply(const ws::cli_reply::MessagePong& m)
     }
 }
 
-void NetWsClient::processReply(const ws::cli_reply::MessageClose& m)
+void NetWsClient::processReply(const MessageClose& m)
 {
     anyTo(0, sym_closed(), AtomListView {});
 }
 
-void NetWsClient::processReply(const ws::cli_reply::Connected& m)
+void NetWsClient::processReply(const Connected& m)
 {
     anyTo(0, sym_connected(), AtomListView {});
 }
@@ -355,9 +355,9 @@ void NetWsClient::m_latency(t_symbol* s, const AtomListView& lv)
     addRequest(SendPing {});
 }
 
-ws::Bytes NetWsClient::toBinary(const AtomListView& lv)
+Bytes NetWsClient::toBinary(const AtomListView& lv)
 {
-    ws::Bytes data;
+    Bytes data;
     data.reserve(lv.size());
     for (auto& a : lv)
         data.push_back(a.asInt());
@@ -365,7 +365,7 @@ ws::Bytes NetWsClient::toBinary(const AtomListView& lv)
     return data;
 }
 
-AtomList NetWsClient::fromBinary(const ws::Bytes& data)
+AtomList NetWsClient::fromBinary(const Bytes& data)
 {
     AtomList lst;
     lst.reserve(data.size());
