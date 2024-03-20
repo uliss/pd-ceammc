@@ -275,7 +275,7 @@ NetWsServer::NetWsServer(const PdArgs& args)
         addReply(MessageBinary { data, info.addr, info.id });
     };
     srv_->cb_ping = [this](const Bytes& data, const ceammc_ws_conn_info& info) {
-        workerThreadDebug(fmt::format("ping from {} ({})", info.addr, info.id).c_str());
+        addReply(MessagePing { data, info.addr, info.id });
     };
     srv_->cb_conn = [this](const ceammc_ws_conn_info& info) {
         addReply(ClientConnected { info.addr, info.id });
@@ -314,7 +314,7 @@ void NetWsServer::processResult(const Reply& res)
 {
     if (process_reply<MessageText>(res)) {
     } else if (process_reply<MessageBinary>(res)) {
-    } else if (process_reply<MessagePong>(res)) {
+    } else if (process_reply<MessagePing>(res)) {
     } else if (process_reply<ClientConnected>(res)) {
     } else if (process_reply<ClientClosed>(res)) {
     } else if (process_reply<ConnectedClients>(res)) {
@@ -505,10 +505,10 @@ void NetWsServer::processReply(const ws::srv_reply::MessageBinary& bin)
     anyTo(0, sym_binary(), fromBinary(bin.data));
 }
 
-void NetWsServer::processReply(const ws::srv_reply::MessagePong& pong)
+void NetWsServer::processReply(const ws::srv_reply::MessagePing& m)
 {
-    outputInfo(pong.from, pong.id);
-    anyTo(0, sym_binary(), fromBinary(pong.data));
+    outputInfo(m.from, m.id);
+    anyTo(0, sym_ping(), fromBinary(m.data));
 }
 
 void NetWsServer::processReply(const ws::srv_reply::ClientConnected& conn)
@@ -613,5 +613,7 @@ void setup_net_ws_server()
     obj.addMethod("send_binary", &NetWsServer::m_send_binary);
     obj.addMethod("send_json", &NetWsServer::m_send_json);
     obj.addMethod("shutdown", &NetWsServer::m_shutdown);
+
+    obj.setXletsInfo({ "input" }, { "client messages", "client info" });
 }
 #endif

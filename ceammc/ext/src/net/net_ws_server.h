@@ -76,7 +76,7 @@ namespace ws {
             std::string from;
             std::size_t id;
         };
-        struct MessagePong {
+        struct MessagePing {
             Bytes data;
             std::string from;
             std::size_t id;
@@ -96,7 +96,7 @@ namespace ws {
         using Reply = boost::variant<
             MessageText,
             MessageBinary,
-            MessagePong,
+            MessagePing,
             ClientConnected,
             ClientClosed,
             ConnectedClients>;
@@ -177,7 +177,7 @@ private:
     void outputInfo(const std::string& from, size_t id);
     void processReply(const ws::srv_reply::MessageText& m);
     void processReply(const ws::srv_reply::MessageBinary& bin);
-    void processReply(const ws::srv_reply::MessagePong& pong);
+    void processReply(const ws::srv_reply::MessagePing& m);
     void processReply(const ws::srv_reply::ClientConnected& conn);
     void processReply(const ws::srv_reply::ClientClosed& closed);
     void processReply(const ws::srv_reply::ConnectedClients& cli);
