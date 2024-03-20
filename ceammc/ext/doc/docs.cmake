@@ -317,6 +317,7 @@ set(DOC_FILES
     hw.arduino
     hw.cpu_temp
     hw.display
+    hw.gamepad
     hw.kbd_light
     hw.motu.avb
     hw.serial

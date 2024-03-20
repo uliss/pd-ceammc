@@ -351,18 +351,10 @@ void HwGamepad::processResult(const Reply& res)
         listTo(OUT_BUTTON, data.view());
     } else if (type == typeid(Connected)) {
         auto& ev = boost::get<Connected>(res);
-        AtomArray<2> data {
-            ev.id,
-            1,
-        };
-        anyTo(OUT_INFO, sym_connected(), data.view());
+        anyTo(OUT_INFO, sym_connected(), ev.id);
     } else if (type == typeid(Disconnected)) {
         auto& ev = boost::get<Disconnected>(res);
-        AtomArray<2> data {
-            ev.id,
-            0.,
-        };
-        anyTo(OUT_INFO, sym_connected(), data.view());
+        anyTo(OUT_INFO, sym_disconnected(), ev.id);
     } else if (type == typeid(AxisChanged)) {
         auto& ev = boost::get<AxisChanged>(res);
         AtomArray<3> data {
