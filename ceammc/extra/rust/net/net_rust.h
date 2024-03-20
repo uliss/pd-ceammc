@@ -36,10 +36,12 @@ enum class ceammc_mqtt_rc {
   ConnectionError,
 };
 
-enum class ceammc_ws_client_target {
+enum class ceammc_ws_client_selector {
   ALL,
   FIRST,
   LAST,
+  ID,
+  EXCEPT,
 };
 
 enum class ceammc_ws_rc {
@@ -48,6 +50,7 @@ enum class ceammc_ws_rc {
   InvalidServer,
   InvalidMessage,
   InvalidData,
+  InvalidClientId,
   SendError,
   NoData,
   CloseError,
@@ -74,6 +77,11 @@ struct ceammc_ws_callback_text {
 struct ceammc_ws_callback_data {
   void *user;
   void (*cb)(void *user, const uint8_t *data, size_t len);
+};
+
+struct ceammc_ws_client_target {
+  ceammc_ws_client_selector sel;
+  size_t id;
 };
 
 struct ceammc_ws_conn_info {
@@ -241,7 +249,11 @@ ceammc_ws_rc ceammc_ws_client_send_text(ceammc_ws_client *cli,
                                         const char *msg,
                                         bool flush);
 
-ceammc_ws_rc ceammc_ws_server_close(ceammc_ws_server *srv);
+/// close websocket server client connections
+/// @param srv - pointer to websocket server
+/// @param target - specify target clients
+/// @return ceammc_ws_rc
+ceammc_ws_rc ceammc_ws_server_close(ceammc_ws_server *srv, ceammc_ws_client_target target);
 
 ceammc_ws_server *ceammc_ws_server_create(const char *addr,
                                           ceammc_ws_srv_on_text on_err,
@@ -251,10 +263,41 @@ ceammc_ws_server *ceammc_ws_server_create(const char *addr,
                                           ceammc_ws_srv_on_cli on_conn,
                                           ceammc_ws_srv_on_cli on_disc);
 
+/// free websocket server
+/// @param src - pointer to server
 void ceammc_ws_server_free(ceammc_ws_server *srv);
 
+/// read server event (non-blocking) and execute callbacks
+/// @param srv - pointer to websocket server
 ceammc_ws_rc ceammc_ws_server_runloop(ceammc_ws_server *srv);
 
+/// send binary message to connected clients
+/// @param srv - pointer to websocket server
+/// @param data - pointer to data
+/// @param len - data length
+/// @param target - specify target clients
+/// @return ceammc_ws_rc
+ceammc_ws_rc ceammc_ws_server_send_binary(ceammc_ws_server *srv,
+                                          const uint8_t *data,
+                                          size_t len,
+                                          ceammc_ws_client_target target);
+
+/// send ping message to connected clients
+/// @param srv - pointer to websocket server
+/// @param data - pointer to data
+/// @param len - data length
+/// @param target - specify target clients
+/// @return ceammc_ws_rc
+ceammc_ws_rc ceammc_ws_server_send_ping(ceammc_ws_server *srv,
+                                        const uint8_t *data,
+                                        size_t len,
+                                        ceammc_ws_client_target target);
+
+/// send text message to connected clients
+/// @param srv - pointer to websocket server
+/// @param msg - text message
+/// @param target - specify target clients
+/// @return ceammc_ws_rc
 ceammc_ws_rc ceammc_ws_server_send_text(ceammc_ws_server *srv,
                                         const char *msg,
                                         ceammc_ws_client_target target);

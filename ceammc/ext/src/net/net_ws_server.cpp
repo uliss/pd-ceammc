@@ -18,8 +18,10 @@ OBJECT_STUB_SETUP(NetWsServer, net_ws_server, "net.ws.server");
 #else
 
 #include "ceammc_containers.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+#include "ceammc_json.h"
 #include "net_rust.h"
 #include "net_ws_server.h"
 
@@ -31,6 +33,42 @@ using MutexLock = std::lock_guard<std::mutex>;
 using namespace ceammc::ws;
 using namespace ceammc::ws::srv_req;
 using namespace ceammc::ws::srv_reply;
+
+CEAMMC_DEFINE_SYM(binary)
+CEAMMC_DEFINE_SYM(closed)
+CEAMMC_DEFINE_SYM(connected)
+CEAMMC_DEFINE_SYM(latency)
+CEAMMC_DEFINE_SYM(ping)
+CEAMMC_DEFINE_SYM(pong)
+CEAMMC_DEFINE_SYM(text)
+
+static inline ceammc_ws_client_target make_target(const AtomListView& lv, AtomListView& args)
+{
+    auto sel = lv.symbolAt(0, &s_)->s_name;
+    size_t id = lv.intAt(1, 0);
+
+    switch (sel[0]) {
+    case 'f':
+        args = lv.subView(1);
+        return ceammc_ws_client_target { ceammc_ws_client_selector::FIRST, 0 };
+    case 'l':
+        args = lv.subView(1);
+        return ceammc_ws_client_target { ceammc_ws_client_selector::LAST, 0 };
+    case 'i':
+    case '=':
+        args = lv.subView(2);
+        return ceammc_ws_client_target { ceammc_ws_client_selector::ID, id };
+    case 'e':
+    case '!':
+        args = lv.subView(2);
+        return ceammc_ws_client_target { ceammc_ws_client_selector::EXCEPT, id };
+    case 'a':
+    case '*':
+    default:
+        args = lv.subView(1);
+        return ceammc_ws_client_target { ceammc_ws_client_selector::ALL, 0 };
+    }
+}
 
 struct WsServerImpl {
     std::mutex mtx_;
@@ -47,7 +85,7 @@ struct WsServerImpl {
             ceammc_ws_server_free(srv_);
     }
 
-    void listen(const char* addr)
+    void listen(const Listen& msg)
     {
         MutexLock lock(mtx_);
         if (srv_) {
@@ -55,7 +93,7 @@ struct WsServerImpl {
             srv_ = nullptr;
         }
 
-        srv_ = ceammc_ws_server_create(addr,
+        srv_ = ceammc_ws_server_create(msg.addr.c_str(),
             { this, on_error },
             { this, on_text },
             { this, on_bin },
@@ -64,22 +102,40 @@ struct WsServerImpl {
             { this, on_disc });
     }
 
-    void close()
+    void close(const Close& msg)
     {
         MutexLock lock(mtx_);
         if (!srv_)
             return;
 
-        ceammc_ws_server_close(srv_);
+        ceammc_ws_server_close(srv_, msg.to);
     }
 
-    void send_text(const std::string& msg)
+    void send(const SendText& txt)
     {
         MutexLock lock(mtx_);
         if (!srv_)
             return;
 
-        ceammc_ws_server_send_text(srv_, msg.c_str(), ceammc_ws_client_target::ALL);
+        ceammc_ws_server_send_text(srv_, txt.msg.c_str(), txt.to);
+    }
+
+    void send(const SendBinary& bin)
+    {
+        MutexLock lock(mtx_);
+        if (!srv_)
+            return;
+
+        ceammc_ws_server_send_binary(srv_, bin.data.data(), bin.data.size(), bin.to);
+    }
+
+    void send(const SendPing& ping)
+    {
+        MutexLock lock(mtx_);
+        if (!srv_)
+            return;
+
+        ceammc_ws_server_send_ping(srv_, ping.data.data(), ping.data.size(), ping.to);
     }
 
     void runloop_for()
@@ -187,13 +243,15 @@ void NetWsServer::processRequest(const ws::Request& req, ResultCallback cb)
         return;
 
     if (req.type() == typeid(Listen)) {
-        auto& x = boost::get<Listen>(req);
-        srv_->listen(x.addr.c_str());
+        srv_->listen(boost::get<Listen>(req));
     } else if (req.type() == typeid(Close)) {
-        srv_->close();
+        srv_->close(boost::get<Close>(req));
     } else if (req.type() == typeid(SendText)) {
-        auto& txt = boost::get<SendText>(req);
-        srv_->send_text(txt.msg);
+        srv_->send(boost::get<SendText>(req));
+    } else if (req.type() == typeid(SendBinary)) {
+        srv_->send(boost::get<SendBinary>(req));
+    } else if (req.type() == typeid(SendPing)) {
+        srv_->send(boost::get<SendPing>(req));
     } else {
         OBJ_ERR << "unknown request type: " << req.type().name();
     }
@@ -201,28 +259,11 @@ void NetWsServer::processRequest(const ws::Request& req, ResultCallback cb)
 
 void NetWsServer::processResult(const ws::Reply& res)
 {
-    if (res.type() == typeid(MessageText)) {
-        auto& txt = boost::get<MessageText>(res);
-        outputInfo(txt.from, txt.id);
-        anyTo(0, gensym("text"), AtomList::parseString(txt.msg.c_str()));
-    } else if (res.type() == typeid(ClientConnected)) {
-        auto& conn = boost::get<ClientConnected>(res);
-        outputInfo(conn.from, conn.id);
-        anyTo(0, gensym("connect"), AtomListView {});
-    } else if (res.type() == typeid(ClientClosed)) {
-        auto& conn = boost::get<ClientClosed>(res);
-        outputInfo(conn.from, conn.id);
-        anyTo(0, gensym("close"), AtomListView {});
-    } else if (res.type() == typeid(MessageBinary)) {
-        auto& bin = boost::get<MessageBinary>(res);
-        outputInfo(bin.from, bin.id);
-
-        AtomList bytes;
-        bytes.reserve(bin.data.size());
-        for (auto x : bin.data)
-            bytes.append(x);
-
-        anyTo(0, gensym("binary"), bytes);
+    if (process_result<MessageText>(res)) {
+    } else if (process_result<MessageBinary>(res)) {
+    } else if (process_result<MessagePong>(res)) {
+    } else if (process_result<ClientConnected>(res)) {
+    } else if (process_result<ClientClosed>(res)) {
     } else {
         OBJ_ERR << "unknown result type: " << res.type().name();
     }
@@ -236,17 +277,87 @@ void NetWsServer::runLoopFor(size_t ms)
 
 void NetWsServer::m_close(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(Close {});
+    if (!checkClientSelector(s, lv, REQ_ARGS_EQ_0))
+        return;
+
+    AtomListView args;
+    auto t = make_target(lv, args);
+    addRequest(Close { t });
+}
+
+void NetWsServer::m_ping(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkClientSelector(s, lv, REQ_ARGS_GE_0))
+        return;
+
+    AtomListView args;
+    auto target = make_target(lv, args);
+    addRequest(SendPing { toBinary(args), target });
 }
 
 void NetWsServer::m_send(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(SendText { to_string(lv) });
+    if (!checkClientSelector(s, lv, REQ_ARGS_GE_1))
+        return;
+
+    AtomListView args;
+    auto target = make_target(lv, args);
+    addRequest(SendText { to_string(args), target });
+}
+
+void NetWsServer::m_send_binary(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkClientSelector(s, lv, REQ_ARGS_GE_1))
+        return;
+
+    AtomListView args;
+    auto target = make_target(lv, args);
+    addRequest(SendBinary { toBinary(args), target });
+}
+
+void NetWsServer::m_send_json(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkClientSelector(s, lv, REQ_ARGS_GE_1))
+        return;
+
+    AtomListView args;
+    auto target = make_target(lv, args);
+    addRequest(SendText { toJson(args), target });
 }
 
 void NetWsServer::m_listen(t_symbol* s, const AtomListView& lv)
 {
     addRequest(Listen { to_string(lv) });
+}
+
+AtomList NetWsServer::fromBinary(const ws::Bytes& data)
+{
+    AtomList bytes;
+    bytes.reserve(data.size());
+    for (auto x : data)
+        bytes.append(x);
+
+    return bytes;
+}
+
+ws::Bytes NetWsServer::toBinary(const AtomListView& lv)
+{
+    ws::Bytes data;
+    data.reserve(lv.size());
+    for (auto& a : lv)
+        data.push_back(a.asInt());
+
+    return data;
+}
+
+std::string NetWsServer::toJson(const AtomListView& lv)
+{
+    try {
+        return json::to_json_string(lv);
+    } catch (std::exception& e) {
+        LIB_ERR << __FUNCTION__ << " error: " << e.what();
+        return {};
+    }
 }
 
 void NetWsServer::outputInfo(const std::string& from, size_t id)
@@ -255,11 +366,118 @@ void NetWsServer::outputInfo(const std::string& from, size_t id)
     listTo(1, lst.view());
 }
 
+void NetWsServer::processReply(const ws::srv_reply::MessageText& txt)
+{
+    outputInfo(txt.from, txt.id);
+    anyTo(0, sym_text(), AtomList::parseString(txt.msg.c_str()));
+}
+
+void NetWsServer::processReply(const ws::srv_reply::MessageBinary& bin)
+{
+    outputInfo(bin.from, bin.id);
+    anyTo(0, sym_binary(), fromBinary(bin.data));
+}
+
+void NetWsServer::processReply(const ws::srv_reply::MessagePong& pong)
+{
+    outputInfo(pong.from, pong.id);
+    anyTo(0, sym_binary(), fromBinary(pong.data));
+}
+
+void NetWsServer::processReply(const ws::srv_reply::ClientConnected& conn)
+{
+    outputInfo(conn.from, conn.id);
+    anyTo(0, sym_connected(), AtomListView {});
+}
+
+void NetWsServer::processReply(const ws::srv_reply::ClientClosed& closed)
+{
+    outputInfo(closed.from, closed.id);
+    anyTo(0, sym_closed(), AtomListView {});
+}
+
+static inline bool streq(const char* s1, const char* s2)
+{
+    return std::strcmp(s1, s2) == 0;
+}
+
+bool NetWsServer::checkClientSelector(t_symbol* s, const AtomListView& lv, RequestArgs req)
+{
+    if (lv.empty() || !lv[0].isSymbol()) {
+        METHOD_ERR(s) << fmt::format("usage: {} SEL(*|all|id|==|first|last|except|!=) ID? ARGS*", s->s_name);
+        return false;
+    }
+
+    auto check_args = [](const AtomListView& lv, RequestArgs req) {
+        switch (req) {
+        case REQ_ARGS_EQ_0:
+            return lv.size() == 0;
+        case REQ_ARGS_GE_0:
+            return lv.size() >= 0;
+        case REQ_ARGS_GE_1:
+            return lv.size() >= 1;
+        default:
+            return false;
+        }
+    };
+
+    auto args_str = [](RequestArgs req) {
+        switch (req) {
+        case REQ_ARGS_GE_0:
+            return "ARGS*";
+        case REQ_ARGS_GE_1:
+            return "ARGS+";
+        case REQ_ARGS_EQ_0:
+        default:
+            return "";
+        }
+    };
+
+    auto cli_sel = lv[0].asSymbol()->s_name;
+
+    if (streq(cli_sel, "all") || streq(cli_sel, "*")) {
+        if (!check_args(lv.subView(1), req)) {
+            METHOD_ERR(s) << fmt::format("usage: {} {}", cli_sel, args_str(req));
+            return false;
+        }
+    } else if (streq(cli_sel, "first")) {
+        if (!check_args(lv.subView(1), req)) {
+            METHOD_ERR(s) << fmt::format("usage: {} {}", cli_sel, args_str(req));
+            return false;
+        }
+    } else if (streq(cli_sel, "last")) {
+        if (!check_args(lv.subView(1), req)) {
+            METHOD_ERR(s) << fmt::format("usage: {} {}", cli_sel, args_str(req));
+            return false;
+        }
+    } else if (streq(cli_sel, "id") || streq(cli_sel, "==")) {
+        if (!check_args(lv.subView(2), req)) {
+            METHOD_ERR(s) << fmt::format("usage: {} ID {}", cli_sel, args_str(req));
+            return false;
+        }
+    } else if (streq(cli_sel, "except") || streq(cli_sel, "!=")) {
+        if (!check_args(lv.subView(2), req)) {
+            METHOD_ERR(s) << fmt::format("usage: {} ID {}", cli_sel, args_str(req));
+            return false;
+        }
+    } else {
+        METHOD_ERR(s) << fmt::format("invalid client selector '{}', "
+                                     "expected values are: *|all|id|==|first|last|except|!=",
+            cli_sel);
+        return false;
+    }
+
+    return true;
+}
+
 void setup_net_ws_server()
 {
     ObjectFactory<NetWsServer> obj("net.ws.server");
-    obj.addMethod("listen", &NetWsServer::m_listen);
-    obj.addMethod("send", &NetWsServer::m_send);
     obj.addMethod("close", &NetWsServer::m_close);
+    obj.addMethod("listen", &NetWsServer::m_listen);
+    obj.addMethod("ping", &NetWsServer::m_ping);
+    obj.addMethod("send", &NetWsServer::m_send);
+    obj.addMethod("send_binary", &NetWsServer::m_send_binary);
+    obj.addMethod("send_json", &NetWsServer::m_send_json);
 }
 #endif

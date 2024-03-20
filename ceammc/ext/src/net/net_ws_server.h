@@ -15,6 +15,8 @@
 #define NET_WS_SERVER_H
 
 #include "ceammc_pollthread_spsc.h"
+#include "net_rust.h"
+
 #include <boost/variant.hpp>
 #include <cstdint>
 #include <vector>
@@ -28,15 +30,20 @@ namespace ws {
         struct Listen {
             std::string addr;
         };
-        struct Close { };
+        struct Close {
+            ceammc_ws_client_target to;
+        };
         struct SendText {
             std::string msg;
+            ceammc_ws_client_target to;
         };
         struct SendBinary {
             Bytes data;
+            ceammc_ws_client_target to;
         };
         struct SendPing {
             Bytes data;
+            ceammc_ws_client_target to;
         };
     }
 
@@ -88,6 +95,12 @@ class WsServerImpl;
 class NetWsServer : public BaseWsServer {
     std::unique_ptr<WsServerImpl> srv_;
 
+    enum RequestArgs {
+        REQ_ARGS_EQ_0, // equal to zero
+        REQ_ARGS_GE_0, // >= 0
+        REQ_ARGS_GE_1, // >= 1
+    };
+
 public:
     NetWsServer(const PdArgs& args);
     ~NetWsServer();
@@ -97,12 +110,37 @@ public:
 
     void runLoopFor(size_t ms) final;
 
-    void m_close(t_symbol* s, const AtomListView& lv);
-    void m_send(t_symbol* s, const AtomListView& lv);
     void m_listen(t_symbol* s, const AtomListView& lv);
+
+    void m_close(t_symbol* s, const AtomListView& lv);
+    void m_ping(t_symbol* s, const AtomListView& lv);
+    void m_send(t_symbol* s, const AtomListView& lv);
+    void m_send_binary(t_symbol* s, const AtomListView& lv);
+    void m_send_json(t_symbol* s, const AtomListView& lv);
+
+private:
+    static AtomList fromBinary(const ws::Bytes& data);
+    static ws::Bytes toBinary(const AtomListView& lv);
+    static std::string toJson(const AtomListView& lv);
 
 private:
     void outputInfo(const std::string& from, size_t id);
+    void processReply(const ws::srv_reply::MessageText& txt);
+    void processReply(const ws::srv_reply::MessageBinary& bin);
+    void processReply(const ws::srv_reply::MessagePong& pong);
+    void processReply(const ws::srv_reply::ClientConnected& conn);
+    void processReply(const ws::srv_reply::ClientClosed& closed);
+    bool checkClientSelector(t_symbol* s, const AtomListView& lv, RequestArgs req);
+
+    template <class T>
+    bool process_result(const ws::Reply& res)
+    {
+        if (res.type() == typeid(T)) {
+            this->processReply(boost::get<T>(res));
+            return true;
+        } else
+            return false;
+    }
 };
 
 void setup_net_ws_server();

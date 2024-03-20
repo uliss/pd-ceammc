@@ -16,6 +16,7 @@ pub mod ws_cli {
         InvalidServer,
         InvalidMessage,
         InvalidData,
+        InvalidClientId,
         SendError,
         NoData,
         CloseError,

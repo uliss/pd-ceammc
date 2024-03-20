@@ -7,7 +7,7 @@ mod ws_srv {
         os::raw::{c_char, c_void},
         sync::atomic::{AtomicUsize, Ordering},
     };
-    use tungstenite::{accept, Message, WebSocket};
+    use tungstenite::{accept_hdr, Message, WebSocket};
 
     #[allow(non_camel_case_types)]
     #[repr(C)]
@@ -45,7 +45,7 @@ mod ws_srv {
     struct client_info {
         ws: WebSocket<TcpStream>,
         pub addr: CString,
-        id: usize,
+        pub id: usize,
     }
 
     impl client_info {
@@ -130,13 +130,15 @@ mod ws_srv {
             rc
         }
 
-        fn add_client(&mut self, sock: WebSocket<TcpStream>, addr: String) {
+        fn add_client(&mut self, ws: WebSocket<TcpStream>, addr: String) -> ws_conn_info {
             let addr = CString::new(addr).unwrap();
-            self.clients.push(client_info {
-                ws: sock,
+            let ci = client_info {
+                ws,
                 addr,
                 id: Token::new().0,
-            });
+            };
+            self.clients.push(ci);
+            self.clients.last().unwrap().info()
         }
     }
 
@@ -190,6 +192,8 @@ mod ws_srv {
         }
     }
 
+    /// free websocket server
+    /// @param src - pointer to server
     #[no_mangle]
     pub extern "C" fn ceammc_ws_server_free(srv: *mut ws_server) {
         if !srv.is_null() {
@@ -254,6 +258,8 @@ mod ws_srv {
         }
     }
 
+    /// read server event (non-blocking) and execute callbacks
+    /// @param srv - pointer to websocket server
     #[no_mangle]
     pub extern "C" fn ceammc_ws_server_runloop(srv: *mut ws_server) -> ws_rc {
         if srv.is_null() {
@@ -262,15 +268,26 @@ mod ws_srv {
 
         let srv = unsafe { &mut *srv };
 
+        use tungstenite::handshake::server::{Request, Response};
+        let callback = |req: &Request, response: Response| {
+            println!("The request's path is: {}", req.uri().path());
+            println!("The request's headers are:");
+            for (ref header, _value) in req.headers() {
+                println!("* {}: {:?}", header, _value);
+            }
+
+            Ok(response)
+        };
+
         match srv.sock.accept() {
             Ok((stream, addr)) => {
                 let addr = addr.to_string();
                 println!("new client: {stream:?} {addr}");
-                match accept(stream) {
+                match accept_hdr(stream, callback) {
                     Ok(ws) => {
-                        srv.add_client(ws, addr);
-                        println!("client id: {}", &srv.clients.last().unwrap().id);
-                        srv.on_conn.exec(&srv.clients.last().unwrap().info());
+                        let cli = srv.add_client(ws, addr);
+                        println!("client id: {}", cli.id);
+                        srv.on_conn.exec(&cli);
                     }
                     Err(err) => {
                         return srv.err(
@@ -326,13 +343,115 @@ mod ws_srv {
     }
 
     #[allow(non_camel_case_types)]
+    #[allow(dead_code)]
     #[repr(C)]
-    pub enum ws_client_target {
-        ALL,
-        FIRST,
-        LAST,
+    pub enum ws_client_selector {
+        ALL,    // send to all connected clients
+        FIRST,  // send to first connected client
+        LAST,   // send to last connected client
+        ID,     // send to client with specified id
+        EXCEPT, // send to all clients except specified one
     }
 
+    #[allow(non_camel_case_types)]
+    #[repr(C)]
+    pub struct ws_client_target {
+        sel: ws_client_selector, // client selector
+        id: usize,               // client id
+    }
+
+    fn send_message(srv: &mut ws_server, msg: Message, target: ws_client_target) -> ws_rc {
+        match target.sel {
+            ws_client_selector::ALL => {
+                let mut has_errors = false;
+                for ci in srv.clients.iter_mut() {
+                    println!("send to *: [{}]", ci.id);
+                    let _ = ci.ws.send(msg.clone()).map_err(|err| {
+                        srv.on_err.exec(
+                            format!("[{}] send error: {err}", ci.id).as_str(),
+                            &ci.info(),
+                        );
+                        has_errors = true;
+                    });
+                }
+                return if has_errors {
+                    ws_rc::SendError
+                } else {
+                    ws_rc::Ok
+                };
+            }
+            ws_client_selector::FIRST => match srv.clients.first_mut() {
+                Some(ci) => {
+                    println!("send to first: [{}]", ci.id);
+                    match ci.ws.send(msg) {
+                        Err(err) => {
+                            srv.on_err.exec(
+                                format!("[{}] send error: {err}", ci.id).as_str(),
+                                &ci.info(),
+                            );
+                            ws_rc::SendError
+                        }
+                        _ => ws_rc::Ok,
+                    }
+                }
+                _ => ws_rc::InvalidClientId,
+            },
+            ws_client_selector::LAST => match srv.clients.last_mut() {
+                Some(ci) => {
+                    println!("send to last: [{}]", ci.id);
+                    match ci.ws.send(msg) {
+                        Err(err) => {
+                            srv.on_err.exec(
+                                format!("[{}] send error: {err}", ci.id).as_str(),
+                                &ci.info(),
+                            );
+                            ws_rc::SendError
+                        }
+                        _ => ws_rc::Ok,
+                    }
+                }
+                _ => ws_rc::InvalidClientId,
+            },
+            ws_client_selector::ID => {
+                for ci in srv.clients.iter_mut() {
+                    if ci.id == target.id {
+                        println!("send to id == [{}]", ci.id);
+                        if let Err(err) = ci.ws.send(msg) {
+                            srv.on_err.exec(
+                                format!("[{}] send error: {err}", ci.id).as_str(),
+                                &ci.info(),
+                            );
+                            return ws_rc::SendError;
+                        }
+                        break;
+                    }
+                }
+                ws_rc::Ok
+            }
+            ws_client_selector::EXCEPT => {
+                for ci in srv.clients.iter_mut() {
+                    if ci.id != target.id {
+                        println!("send to id != [{}]", ci.id);
+                        if let Err(err) = ci.ws.send(msg.clone()) {
+                            srv.on_err.exec(
+                                format!("[{}] send error: {err}", ci.id).as_str(),
+                                &ci.info(),
+                            );
+                            return ws_rc::SendError;
+                        }
+                        break;
+                    }
+                }
+                ws_rc::Ok
+            }
+        }
+    }
+
+    /// send text message to connected clients
+    /// @param srv - pointer to websocket server
+    /// @param msg - text message
+    /// @param target - specify target clients
+    /// @return ceammc_ws_rc
     #[no_mangle]
     pub extern "C" fn ceammc_ws_server_send_text(
         srv: *mut ws_server,
@@ -351,42 +470,101 @@ mod ws_srv {
 
         let msg = unsafe { CStr::from_ptr(msg) }.to_str();
         match msg {
-            Ok(str) => match target {
-                ws_client_target::ALL => {
-                    for ci in srv.clients.iter_mut() {
-                        println!("send all: {str}");
-                        let _ = ci.ws.send(Message::Text(str.to_string())).map_err(|err| {
-                            println!("send error: {err}");
-                        });
-                    }
-
-                    ws_rc::Ok
-                }
-                ws_client_target::FIRST => {
-                    srv.clients.get_mut(0).map(|x| {
-                        let _ = x.ws.send(Message::Text(str.to_string()));
-                    });
-                    ws_rc::Ok
-                }
-                ws_client_target::LAST => {
-                    srv.clients.last_mut().map(|x| {
-                        let _ = x.ws.send(Message::Text(str.to_string()));
-                    });
-                    ws_rc::Ok
-                }
-            },
+            Ok(msg) => send_message(srv, Message::text(msg), target),
             Err(_) => ws_rc::InvalidMessage,
         }
     }
 
+    /// send binary message to connected clients
+    /// @param srv - pointer to websocket server
+    /// @param data - pointer to data
+    /// @param len - data length
+    /// @param target - specify target clients
+    /// @return ceammc_ws_rc
     #[no_mangle]
-    pub extern "C" fn ceammc_ws_server_close(srv: *mut ws_server) -> ws_rc {
+    pub extern "C" fn ceammc_ws_server_send_binary(
+        srv: *mut ws_server,
+        data: *const u8,
+        len: usize,
+        target: ws_client_target,
+    ) -> ws_rc {
         if srv.is_null() {
             return ws_rc::InvalidServer;
         }
 
         let srv = unsafe { &mut *srv };
-        srv.clients.clear();
+
+        let msg = if data.is_null() || len == 0 {
+            Message::Binary(vec![])
+        } else {
+            Message::Binary(unsafe { std::slice::from_raw_parts(data, len) }.to_vec())
+        };
+
+        send_message(srv, msg, target)
+    }
+
+    /// send ping message to connected clients
+    /// @param srv - pointer to websocket server
+    /// @param data - pointer to data
+    /// @param len - data length
+    /// @param target - specify target clients
+    /// @return ceammc_ws_rc
+    #[no_mangle]
+    pub extern "C" fn ceammc_ws_server_send_ping(
+        srv: *mut ws_server,
+        data: *const u8,
+        len: usize,
+        target: ws_client_target,
+    ) -> ws_rc {
+        if srv.is_null() {
+            return ws_rc::InvalidServer;
+        }
+
+        let srv = unsafe { &mut *srv };
+
+        let msg = if data.is_null() || len == 0 {
+            Message::Ping(vec![])
+        } else {
+            Message::Ping(unsafe { std::slice::from_raw_parts(data, len) }.to_vec())
+        };
+
+        send_message(srv, msg, target)
+    }
+
+    /// close websocket server client connections
+    /// @param srv - pointer to websocket server
+    /// @param target - specify target clients
+    /// @return ceammc_ws_rc
+    #[no_mangle]
+    pub extern "C" fn ceammc_ws_server_close(
+        srv: *mut ws_server,
+        target: ws_client_target,
+    ) -> ws_rc {
+        if srv.is_null() {
+            return ws_rc::InvalidServer;
+        }
+
+        let srv = unsafe { &mut *srv };
+
+        match target.sel {
+            ws_client_selector::ALL => {
+                srv.clients.clear();
+            }
+            ws_client_selector::FIRST => {
+                if srv.clients.len() > 0 {
+                    srv.clients.remove(0);
+                }
+            }
+            ws_client_selector::LAST => {
+                srv.clients.pop();
+            }
+            ws_client_selector::ID => {
+                srv.clients.retain(|x| x.id != target.id);
+            }
+            ws_client_selector::EXCEPT => {
+                srv.clients.retain(|x| x.id == target.id);
+            }
+        }
 
         ws_rc::Ok
     }
