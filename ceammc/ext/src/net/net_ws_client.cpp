@@ -17,6 +17,7 @@ CONTROL_OBJECT_STUB(NetWsClient, 1, 1, "compiled without WebSocket support");
 OBJECT_STUB_SETUP(NetWsClient, net_ws_client, "net.ws.client");
 #else
 
+#include "args/argcheck2.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
@@ -218,6 +219,10 @@ void NetWsClient::processEvents()
 
 void NetWsClient::m_connect(t_symbol* s, const AtomListView& lv)
 {
+    static const args::ArgChecker chk("URL:s");
+    if (!chk.check(lv, this))
+        return;
+
     addRequest(Connect { to_string(lv) });
 }
 
