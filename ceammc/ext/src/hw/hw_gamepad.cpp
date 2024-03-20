@@ -251,6 +251,9 @@ HwGamepad::HwGamepad(const PdArgs& args)
     gp_->cb_event = [this](const ceammc_hw_gamepad_event& ev) {
         using event = ceammc_hw_gamepad_event_type;
 
+        if (waitForOutputAvailable() == WorkerProcess::QUIT)
+            return;
+
         switch (ev.event) {
         case event::ButtonPressed:
             addReply(ButtonPressed { ev.id, ev.button });
@@ -376,7 +379,7 @@ void HwGamepad::processResult(const Reply& res)
 void HwGamepad::processEvents()
 {
     if (gp_)
-        gp_->processEvents(100);
+        gp_->processEvents(POLL_TIME_MS);
 }
 
 void HwGamepad::m_devices(t_symbol* s, const AtomListView& lv)

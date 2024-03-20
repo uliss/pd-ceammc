@@ -52,6 +52,8 @@ public:
         QUIT
     };
 
+    static const size_t POLL_TIME_MS = SLEEP_MS;
+
 public:
     FixedSPSCObject(const PdArgs& args)
         : Parent(args)
@@ -81,9 +83,9 @@ public:
 
     virtual void processEvents() { }
 
-    WorkerProcess waitForOutputAvailable(size_t ms) const
+    WorkerProcess waitForOutputAvailable(size_t ms = SLEEP_MS) const
     {
-        while (!this->outPipe().write_available()) {
+        while (this->outPipe().write_available() == 0) {
             if (this->quit())
                 return WorkerProcess::QUIT;
 
@@ -198,6 +200,12 @@ public:
     void workerThreadPost(const std::string& msg)
     {
         logger_.post(msg);
+    }
+
+    // call only from worker thread
+    size_t writeAvailable() const
+    {
+        return this->outPipe().write_available();
     }
 };
 }

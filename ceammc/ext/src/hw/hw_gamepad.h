@@ -95,7 +95,7 @@ namespace gp {
 }
 }
 
-using HwGamepadBase = FixedSPSCObject<gp::req::Request, gp::reply::Reply, BaseObject, 16, 20>;
+using HwGamepadBase = FixedSPSCObject<gp::req::Request, gp::reply::Reply, BaseObject, 32, 20>;
 
 class HwGamepad : public HwGamepadBase {
     std::unique_ptr<gp::GamepadImpl> gp_;

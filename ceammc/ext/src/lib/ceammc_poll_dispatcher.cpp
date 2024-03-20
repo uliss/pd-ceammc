@@ -20,8 +20,10 @@
 #define MSG_PREFIX "[dispatch] "
 
 #if 0
+constexpr bool NOTIFY_SUBSCRIBER_NOT_FOUND = true;
 #define DISPATCHER_DEBUG(msg) std::cerr << MSG_PREFIX << msg << std::endl;
 #else
+constexpr bool NOTIFY_SUBSCRIBER_NOT_FOUND = false;
 #define DISPATCHER_DEBUG(msg)
 #endif
 
@@ -70,7 +72,9 @@ void Dispatcher::pollFn(void* x, int fd)
     if (!dp->impl_->recv(msg, fd))
         return;
 
-    if (!dp->notify(msg.id, msg.event))
+    auto rc = dp->notify(msg.id, msg.event);
+
+    if (!rc && NOTIFY_SUBSCRIBER_NOT_FOUND)
         LIB_ERR << MSG_PREFIX "subscriber not found #" << msg.id;
 }
 
