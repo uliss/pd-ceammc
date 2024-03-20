@@ -317,7 +317,7 @@ void HwGamepad::processResult(const HwGamepadReply& res)
     }
 }
 
-void HwGamepad::runLoopFor(size_t ms)
+void HwGamepad::processEvents()
 {
     if (!gp_)
         return;

@@ -87,8 +87,7 @@ public:
 
     void processRequest(const MqttRequest& req, ResultCallback cb) override;
     void processResult(const MqttReply& res) override;
-
-    void runLoopFor(size_t ms) final;
+    void processEvents() final;
 
 private:
     const char* clientId() const;

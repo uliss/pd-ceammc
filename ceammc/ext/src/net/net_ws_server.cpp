@@ -314,7 +314,7 @@ void NetWsServer::processResult(const Reply& res)
     }
 }
 
-void NetWsServer::runLoopFor(size_t ms)
+void NetWsServer::processEvents()
 {
     if (srv_)
         srv_->process_events();

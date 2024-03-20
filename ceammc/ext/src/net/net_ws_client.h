@@ -129,8 +129,7 @@ public:
 
     void processRequest(const ws::cli_req::Request& req, ResultCallback cb) override;
     void processResult(const ws::cli_reply::Reply& res) override;
-
-    void runLoopFor(size_t ms) final;
+    void processEvents() final;
 
     void m_close(t_symbol* s, const AtomListView& lv);
     void m_connect(t_symbol* s, const AtomListView& lv);

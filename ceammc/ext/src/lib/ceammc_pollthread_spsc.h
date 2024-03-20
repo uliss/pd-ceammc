@@ -79,7 +79,7 @@ public:
      */
     virtual void onTaskInit() { }
 
-    virtual void runLoopFor(size_t ms) { }
+    virtual void processEvents() { }
 
     WorkerProcess waitForOutputAvailable(size_t ms) const
     {
@@ -123,7 +123,7 @@ public:
                     if (rc == WorkerProcess::QUIT)
                         break;
 
-                    this->runLoopFor(SLEEP_MS);
+                    this->processEvents();
 
                     if (!this->quit())
                         worker_notify_.waitFor(SLEEP_MS);

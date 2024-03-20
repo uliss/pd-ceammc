@@ -81,7 +81,7 @@ public:
 
     void processRequest(const HwGamepadRequest& req, ResultCallback cb) final;
     void processResult(const HwGamepadReply& res) final;
-    void runLoopFor(size_t ms) final;
+    void processEvents() final;
 
     void onError(const char* msg);
 

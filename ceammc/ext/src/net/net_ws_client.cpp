@@ -210,7 +210,7 @@ void NetWsClient::processResult(const Reply& res)
     }
 }
 
-void NetWsClient::runLoopFor(size_t ms)
+void NetWsClient::processEvents()
 {
     if (cli_)
         cli_->process_events();

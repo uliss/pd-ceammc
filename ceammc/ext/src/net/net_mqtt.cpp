@@ -192,7 +192,7 @@ public:
         return ceammc_mqtt_client_publish_data(cli_, topic, data.data(), data.size(), qos, retain);
     }
 
-    ceammc_mqtt_rc run_loop_for(std::uint16_t ms, void* user)
+    ceammc_mqtt_rc process_events(void* user)
     {
         std::lock_guard<std::mutex> lock(mtx_);
 
@@ -200,7 +200,7 @@ public:
             return ceammc_mqtt_rc::InvalidClient;
 
         return ceammc_mqtt_runloop(
-            cli_, ms, user,
+            cli_, 100, user,
             [](void* user) {
                 auto obj = static_cast<NetMqtt*>(user);
                 obj->addReply(MqttReplyPing {});
@@ -460,10 +460,10 @@ void NetMqtt::processResult(const MqttReply& res)
     }
 }
 
-void NetMqtt::runLoopFor(size_t ms)
+void NetMqtt::processEvents()
 {
     if (cli_) {
-        auto rc = cli_->run_loop_for(ms, this);
+        auto rc = cli_->process_events(this);
         switch (rc) {
         case ceammc_mqtt_rc::RefusedProtocolVersion:
             break;
