@@ -211,12 +211,12 @@ ceammc_ws_rc ceammc_ws_client_flush(ceammc_ws_client *cli);
 /// @param cli - pointer to websocket client
 void ceammc_ws_client_free(ceammc_ws_client *cli);
 
-/// read and process all available messages from WebSocket server
+/// process all available messages from WebSocket server
 /// @param cli - pointer to websocket client
 /// @param trim - text message trim mode
 /// @return ws_rc::Ok, ws_rc::InvalidClient, ws_rc::InvalidMessage, ws_rc::CloseError, ws_rc::SendError,
-ceammc_ws_rc ceammc_ws_client_read(ceammc_ws_client *cli,
-                                   ceammc_ws_trim trim);
+ceammc_ws_rc ceammc_ws_client_process_events(ceammc_ws_client *cli,
+                                             ceammc_ws_trim trim);
 
 /// sends binary message to WebSocket server
 /// @param cli - pointer to ws client
@@ -275,9 +275,9 @@ ceammc_ws_server *ceammc_ws_server_create(const char *addr,
 /// @param src - pointer to server
 void ceammc_ws_server_free(ceammc_ws_server *srv);
 
-/// read server event (non-blocking) and execute callbacks
+/// process server events (non-blocking) and execute callbacks
 /// @param srv - pointer to websocket server
-ceammc_ws_rc ceammc_ws_server_runloop(ceammc_ws_server *srv);
+ceammc_ws_rc ceammc_ws_server_process_events(ceammc_ws_server *srv);
 
 /// send binary message to connected clients
 /// @param srv - pointer to websocket server

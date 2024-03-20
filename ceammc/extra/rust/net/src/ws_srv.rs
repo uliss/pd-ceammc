@@ -258,10 +258,10 @@ mod ws_srv {
         }
     }
 
-    /// read server event (non-blocking) and execute callbacks
+    /// process server events (non-blocking) and execute callbacks
     /// @param srv - pointer to websocket server
     #[no_mangle]
-    pub extern "C" fn ceammc_ws_server_runloop(srv: *mut ws_server) -> ws_rc {
+    pub extern "C" fn ceammc_ws_server_process_events(srv: *mut ws_server) -> ws_rc {
         if srv.is_null() {
             return ws_rc::InvalidServer;
         }

@@ -155,14 +155,11 @@ void ClientImpl::process(const Flush&)
         ceammc_ws_client_flush(cli_);
 }
 
-bool ClientImpl::process_events()
+void ClientImpl::process_events()
 {
     MutexLock lock(mtx_);
-    if (!cli_)
-        return false;
-
-    auto rc = ceammc_ws_client_read(cli_, ceammc_ws_trim::BOTH);
-    return rc == ceammc_ws_rc::Ok;
+    if (cli_)
+        ceammc_ws_client_process_events(cli_, ceammc_ws_trim::BOTH);
 }
 
 NetWsClient::NetWsClient(const PdArgs& args)

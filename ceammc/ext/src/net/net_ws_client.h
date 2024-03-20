@@ -79,7 +79,7 @@ namespace ws {
         void process(const cli_req::Flush&);
 
         // non-blocking
-        bool process_events();
+        void process_events();
     };
 
     namespace cli_reply {

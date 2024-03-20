@@ -298,12 +298,12 @@ pub mod ws_cli {
         BOTH,  // remove leading and trailing whitespaces, newlines etc.
     }
 
-    /// read and process all available messages from WebSocket server
+    /// process all available messages from WebSocket server
     /// @param cli - pointer to websocket client
     /// @param trim - text message trim mode
     /// @return ws_rc::Ok, ws_rc::InvalidClient, ws_rc::InvalidMessage, ws_rc::CloseError, ws_rc::SendError,
     #[no_mangle]
-    pub extern "C" fn ceammc_ws_client_read(cli: *mut ws_client, trim: ws_trim) -> ws_rc {
+    pub extern "C" fn ceammc_ws_client_process_events(cli: *mut ws_client, trim: ws_trim) -> ws_rc {
         if cli.is_null() {
             return ws_rc::InvalidClient;
         }

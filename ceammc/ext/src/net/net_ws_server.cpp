@@ -163,7 +163,7 @@ void ServerImpl::process_events()
     if (!srv_)
         return;
 
-    ceammc_ws_server_runloop(srv_);
+    ceammc_ws_server_process_events(srv_);
 }
 
 void ServerImpl::on_error(void* user, const char* msg, const ceammc_ws_conn_info* info)
