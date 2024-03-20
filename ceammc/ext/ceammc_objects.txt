@@ -135,6 +135,7 @@ ceammc/bpm->hz
 ceammc/bpm->ms
 ceammc/bpm->sec
 ceammc/cabs~
+ceammc/canvas.active
 ceammc/car->pol
 ceammc/carg~
 ceammc/cc->amp
@@ -363,6 +364,7 @@ data.float
 data.int
 data.list
 data.mlist
+data.path
 data.set
 data.set2list
 datetime
@@ -629,6 +631,7 @@ hw.apple_sms
 hw.arduino
 hw.cpu_temp
 hw.display
+hw.gamepad
 hw.kbd_light
 hw.motu.avb
 hw.serial
@@ -954,13 +957,16 @@ net.artnet.send
 net.host->ip
 net.host2ip
 net.http.send
+net.mqtt
 net.osc
 net.osc.r
 net.osc.receive
 net.osc.s
 net.osc.send
 net.osc.server
-net.ws.send
+net.ws.client
+net.ws.server
+net.zeroconf
 noise.baker
 noise.chua~
 noise.clifford
@@ -1119,6 +1125,8 @@ route.any
 route.b
 route.bang
 route.cycle
+route.d
+route.data
 route.f
 route.float
 route.l
