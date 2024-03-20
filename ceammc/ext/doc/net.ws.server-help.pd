@@ -8,7 +8,7 @@
 #X text 50 118 you can start testing websocket client with command:
 'websocat ws://127.0.0.1:8000';
 #X msg 50 162 listen 8000;
-#X msg 184 162 stop;
+#X msg 203 162 stop;
 #X msg 414 162 send CLI;
 #X msg 549 162 send_binary 1 2 3;
 #X msg 69 190 ping all;

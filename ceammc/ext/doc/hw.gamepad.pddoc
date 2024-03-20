@@ -14,21 +14,10 @@
             <since>0.9.8</since>
         </meta>
         <info>
-            <par>button names: south, east, north, west, ltrig,
-            ltrig2, rtrig, rtrig2, select, start, mode, lthumb,
-            rthumb, up, down, left, right, unknown.</par>
-            <par>button events:
-            pressed,
-            released,
-            repeated,
-            changed</par>
-            <par>axis names:
-            lstickx,
-            lsticky,
-            rstickx,
-            rsticky,
-            leftz,
-            rightz</par>
+            <par>button names: south, east, north, west, ltrig, ltrig2, rtrig, rtrig2, select,
+            start, mode, lthumb, rthumb, up, down, left, right, unknown.</par>
+            <par>button events: pressed, released, repeated, changed</par>
+            <par>axis names: lstickx, lsticky, rstickx, rsticky, leftz, rightz</par>
         </info>
         <methods>
             <!-- devices -->
@@ -42,8 +31,8 @@
         <outlets>
             <outlet>button output: list GAMEPAD_ID BUTTON_NAME BUTTON_EVENT VALUE</outlet>
             <outlet>axis output: list GAMEPAD_ID AXIS_NAME VALUE</outlet>
-            <outlet>[device DICT( - connected device information, [connected ID( - when device connected,
-            [disconnected ID( - when device disconnected</outlet>
+            <outlet>[device DICT( - connected device information, [connected ID( - when device
+            connected, [disconnected ID( - when device disconnected</outlet>
         </outlets>
         <example>
             <pdascii>

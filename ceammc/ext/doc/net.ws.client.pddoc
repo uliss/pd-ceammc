@@ -17,29 +17,34 @@
             </also>
         </meta>
         <properties>
-            <property name="@mode" type="symbol" default="fudi" enum="data fudi json sym">
-            parsing mode for incoming messages. If 'fudi' - interpret incoming websocket data as Pd messages,
-            if 'sym' - always interpret as symbols, 'data' - parse ceammc data, 'json' - convert json values
-            to ceammc data.</property>
+            <property name="@mode" type="symbol" default="fudi" enum="data fudi json sym">parsing
+            mode for incoming messages. If 'fudi' - interpret incoming websocket data as Pd
+            messages, if 'sym' - always interpret as symbols, 'data' - parse ceammc data, 'json' -
+            convert json values to ceammc data.</property>
         </properties>
         <methods>
             <!-- send -->
-            <method name="send">send as text message
+            <method name="send">send as text message 
             <param name="ARGS" type="list" required="false">arguments</param></method>
             <!-- send_binary -->
-            <method name="send_binary">send as binary bytes
-            <param name="ARGS" type="list" required="false">list of integers in [0..255] range</param></method>
+            <method name="send_binary">send as binary bytes 
+            <param name="ARGS" type="list" required="false">list of integers in [0..255]
+            range</param></method>
             <!-- send_json -->
-            <method name="send_json">send as encoded json
+            <method name="send_json">send as encoded json 
             <param name="ARGS" type="list" required="false">arguments</param></method>
             <!-- write -->
-            <method name="write">write as text message to output buffer. You have to call [flush( method for sending.
+            <method name="write">write as text message to output buffer. You have to call [flush(
+            method for sending. 
             <param name="ARGS" type="list" required="false">arguments</param></method>
             <!-- write_binary -->
-            <method name="write_binary">write as binary bytes to output buffer. You have to call [flush( method for sending.
-            <param name="ARGS" type="list" required="false">list of integers in [0..255] range</param></method>
+            <method name="write_binary">write as binary bytes to output buffer. You have to call
+            [flush( method for sending. 
+            <param name="ARGS" type="list" required="false">list of integers in [0..255]
+            range</param></method>
             <!-- write_json -->
-            <method name="write_json">write as encoded json to output buffer. You have to call [flush( method for sending.
+            <method name="write_json">write as encoded json to output buffer. You have to call
+            [flush( method for sending. 
             <param name="ARGS" type="list" required="false">arguments</param></method>
             <!-- latency -->
             <method name="latency">measure rountrip latency. Outputs: latency TIME_MSEC</method>
@@ -48,11 +53,13 @@
             <!-- close -->
             <method name="close">gracefully close connection (with websocket handshake)</method>
             <!-- ping -->
-            <method name="ping">send ping message to server (on server answer outputs: pong DATA)
-            <param name="DATA" type="list" required="false">list of integers in [0..255] range</param></method>
+            <method name="ping">send ping message to server (on server answer outputs: pong DATA) 
+            <param name="DATA" type="list" required="false">list of integers in [0..255]
+            range</param></method>
             <!-- connect -->
-            <method name="connect">connect to websocket server
-            <param name="URL" type="symbol" required="true">url - ws://HOST:PORT/, for ex.: ws://127.0.0.1:9000/path</param></method>
+            <method name="connect">connect to websocket server 
+            <param name="URL" type="symbol" required="true">url - ws://HOST:PORT/, for ex.:
+            ws://127.0.0.1:9000/path</param></method>
         </methods>
         <inlets>
             <inlet>
