@@ -113,8 +113,8 @@ namespace ws {
 
         ~ServerImpl();
 
-        void listen(const srv_req::Listen& msg);
-        void process(const srv_req::Stop&);
+        bool listen(const srv_req::Listen& msg);
+        bool stop();
         void process(const srv_req::CloseClients& msg);
         void process(const srv_req::SendText& txt);
         void process(const srv_req::SendBinary& bin);

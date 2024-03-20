@@ -85,7 +85,7 @@ ServerImpl::~ServerImpl()
         ceammc_ws_server_free(srv_);
 }
 
-void ServerImpl::listen(const Listen& msg)
+bool ServerImpl::listen(const Listen& msg)
 {
     MutexLock lock(mtx_);
     if (srv_) {
@@ -93,10 +93,7 @@ void ServerImpl::listen(const Listen& msg)
         srv_ = nullptr;
     }
 
-    auto addr = msg.addr.empty()
-        ? fmt::format("0.0.0.0:{}", msg.port)
-        : fmt::format("{}:{}", msg.addr, msg.port);
-
+    auto addr = fmt::format("{}:{}", msg.addr, msg.port);
     srv_ = ceammc_ws_server_create(addr.c_str(),
         { this, on_error },
         { this, on_text },
@@ -104,15 +101,19 @@ void ServerImpl::listen(const Listen& msg)
         { this, on_ping },
         { this, on_conn },
         { this, on_disc });
+
+    return srv_;
 }
 
-void ServerImpl::process(const srv_req::Stop&)
+bool ServerImpl::stop()
 {
     MutexLock lock(mtx_);
     if (check_running()) {
         ceammc_ws_server_free(srv_);
         srv_ = nullptr;
-    }
+        return true;
+    } else
+        return false;
 }
 
 void ServerImpl::process(const CloseClients& msg)
@@ -297,8 +298,13 @@ void NetWsServer::processRequest(const Request& req, ResultCallback cb)
         return;
 
     if (req.type() == typeid(Listen)) {
-        srv_->listen(boost::get<Listen>(req));
-    } else if (process_request<Stop>(req)) {
+        auto& x = boost::get<Listen>(req);
+        if (srv_->listen(x))
+            workerThreadDebug(fmt::format("websocket server started: {}:{}", x.addr, x.port));
+
+    } else if (req.type() == typeid(Stop)) {
+        if (srv_->stop())
+            workerThreadDebug("websocket server stopped");
     } else if (process_request<SendText>(req)) {
     } else if (process_request<SendBinary>(req)) {
     } else if (process_request<SendPing>(req)) {
@@ -397,7 +403,7 @@ void NetWsServer::m_listen(t_symbol* s, const AtomListView& lv)
         return;
 
     auto port = lv.intAt(0, 0);
-    auto addr = lv.symbolAt(1, &s_)->s_name;
+    auto addr = lv.symbolAt(1, gensym("0.0.0.0"))->s_name;
 
     if (port <= 0)
         addRequest(Stop {});
