@@ -37,6 +37,8 @@ CEAMMC_DEFINE_HASH(bytes)
 CEAMMC_DEFINE_SYM(publish)
 CEAMMC_DEFINE_SYM(ping)
 
+using MutexLock = std::lock_guard<std::mutex>;
+
 static ceammc_mqtt_qos qos2qos(int v)
 {
     switch (v) {
@@ -127,7 +129,7 @@ public:
 
     void disconnect()
     {
-        std::lock_guard<std::mutex> lock(mtx_);
+        MutexLock lock(mtx_);
 
         if (cli_) {
             ceammc_mqtt_client_free(cli_);
@@ -141,7 +143,7 @@ public:
         const char* password = nullptr,
         int port = 1883)
     {
-        std::lock_guard<std::mutex> lock(mtx_);
+        MutexLock lock(mtx_);
 
         if (cli_) {
             ceammc_mqtt_client_free(cli_);
@@ -154,7 +156,7 @@ public:
 
     ceammc_mqtt_rc subscribe(const char* topic)
     {
-        std::lock_guard<std::mutex> lock(mtx_);
+        MutexLock lock(mtx_);
 
         if (!cli_)
             return ceammc_mqtt_rc::InvalidClient;
@@ -164,7 +166,7 @@ public:
 
     ceammc_mqtt_rc unsubscribe(const char* topic)
     {
-        std::lock_guard<std::mutex> lock(mtx_);
+        MutexLock lock(mtx_);
 
         if (!cli_)
             return ceammc_mqtt_rc::InvalidClient;
@@ -174,7 +176,7 @@ public:
 
     ceammc_mqtt_rc publish(const char* topic, const char* message, ceammc_mqtt_qos qos, bool retain)
     {
-        std::lock_guard<std::mutex> lock(mtx_);
+        MutexLock lock(mtx_);
 
         if (!cli_)
             return ceammc_mqtt_rc::InvalidClient;
@@ -184,7 +186,7 @@ public:
 
     ceammc_mqtt_rc publish(const char* topic, const MqttData& data, ceammc_mqtt_qos qos, bool retain)
     {
-        std::lock_guard<std::mutex> lock(mtx_);
+        MutexLock lock(mtx_);
 
         if (!cli_)
             return ceammc_mqtt_rc::InvalidClient;
@@ -194,12 +196,12 @@ public:
 
     ceammc_mqtt_rc process_events(void* user)
     {
-        std::lock_guard<std::mutex> lock(mtx_);
+        MutexLock lock(mtx_);
 
         if (!cli_)
             return ceammc_mqtt_rc::InvalidClient;
 
-        return ceammc_mqtt_runloop(
+        return ceammc_mqtt_process_events(
             cli_, 100, user,
             [](void* user) {
                 auto obj = static_cast<NetMqtt*>(user);

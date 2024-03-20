@@ -166,6 +166,7 @@ ceammc_mqtt_rc ceammc_mqtt_client_subscribe(ceammc_mqtt_client *cli, const char 
 ceammc_mqtt_rc ceammc_mqtt_client_unsubscribe(ceammc_mqtt_client *cli, const char *topic);
 
 /// iterate mqtt events
+/// @note - this is blocking call
 /// @param cli - mqtt client pointer
 /// @param time_ms - time to blocking wait in milliseconds
 /// @param cb_data - pointer to user data for callbacks
@@ -173,12 +174,12 @@ ceammc_mqtt_rc ceammc_mqtt_client_unsubscribe(ceammc_mqtt_client *cli, const cha
 /// @param cb_pub - publish callback (user data, topic, message data, message size)
 /// @param cb_conn - connection callback (user_data, result code)
 /// @return ceammc_mqtt_rc::Ok on success
-ceammc_mqtt_rc ceammc_mqtt_runloop(ceammc_mqtt_client *cli,
-                                   uint16_t time_ms,
-                                   void *cb_data,
-                                   void (*cb_ping)(void*),
-                                   void (*cb_pub)(void*, const char*, const uint8_t*, size_t),
-                                   void (*cb_conn)(void*, ceammc_mqtt_rc code));
+ceammc_mqtt_rc ceammc_mqtt_process_events(ceammc_mqtt_client *cli,
+                                          uint16_t time_ms,
+                                          void *cb_data,
+                                          void (*cb_ping)(void*),
+                                          void (*cb_pub)(void*, const char*, const uint8_t*, size_t),
+                                          void (*cb_conn)(void*, ceammc_mqtt_rc code));
 
 /// close client connection
 /// @param cli - pointer to websocket client

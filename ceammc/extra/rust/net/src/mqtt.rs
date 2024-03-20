@@ -304,6 +304,7 @@ mod mqtt {
 
     #[no_mangle]
     /// iterate mqtt events
+    /// @note - this is blocking call
     /// @param cli - mqtt client pointer
     /// @param time_ms - time to blocking wait in milliseconds
     /// @param cb_data - pointer to user data for callbacks
@@ -311,7 +312,7 @@ mod mqtt {
     /// @param cb_pub - publish callback (user data, topic, message data, message size)
     /// @param cb_conn - connection callback (user_data, result code)
     /// @return ceammc_mqtt_rc::Ok on success
-    pub extern "C" fn ceammc_mqtt_runloop(
+    pub extern "C" fn ceammc_mqtt_process_events(
         cli: *mut mqtt_client,
         time_ms: u16,
         cb_data: *mut c_void,
