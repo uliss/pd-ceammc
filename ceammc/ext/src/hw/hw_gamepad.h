@@ -14,76 +14,98 @@
 #ifndef HW_GAMEPAD_H
 #define HW_GAMEPAD_H
 
+#include <boost/variant.hpp>
+#include <functional>
 #include <memory>
 
 #include "ceammc_pollthread_spsc.h"
+#include "hw_rust.h"
 using namespace ceammc;
 
-struct HwGamepadRequestDevices { };
-struct HwGamepadReplyDevice {
-    std::string name, os_name;
-    std::size_t id;
-    std::uint16_t vid { 0 }, pid { 0 };
-    std::uint8_t power_state { 0 }, power_data { 0 };
-    bool connected { false }, force_feedback { false };
-};
-struct HwGamepadButtonPressed {
-    std::size_t id;
-    std::uint8_t btn;
-};
-struct HwGamepadButtonReleased {
-    std::size_t id;
-    std::uint8_t btn;
-};
-struct HwGamepadButtonRepeated {
-    std::size_t id;
-    std::uint8_t btn;
-};
-struct HwGamepadButtonChanged {
-    std::size_t id;
-    float val;
-    std::uint8_t btn;
-};
-struct HwGamepadAxisChanged {
-    std::size_t id;
-    float val;
-    std::uint8_t axis;
-};
-struct HwGamepadConnected {
-    std::size_t id;
-};
-struct HwGamepadDisconnected {
-    std::size_t id;
-};
+namespace ceammc {
+namespace gp {
+    namespace req {
+        struct ListDevices { };
+        using Request = boost::variant<ListDevices>;
+    }
+    namespace reply {
+        struct Device {
+            std::string name, os_name;
+            std::size_t id;
+            std::uint16_t vid { 0 }, pid { 0 };
+            ceammc_hw_gamepad_powerinfo power { ceammc_hw_gamepad_powerstate::Unknown, 0 };
+            bool connected { false }, force_feedback { false };
+        };
+        struct ButtonPressed {
+            std::size_t id;
+            ceammc_hw_gamepad_btn btn;
+        };
+        struct ButtonReleased {
+            std::size_t id;
+            ceammc_hw_gamepad_btn btn;
+        };
+        struct ButtonRepeated {
+            std::size_t id;
+            ceammc_hw_gamepad_btn btn;
+        };
+        struct ButtonChanged {
+            std::size_t id;
+            float val;
+            ceammc_hw_gamepad_btn btn;
+        };
+        struct AxisChanged {
+            std::size_t id;
+            float val;
+            ceammc_hw_gamepad_event_axis axis;
+        };
+        struct Connected {
+            std::size_t id;
+        };
+        struct Disconnected {
+            std::size_t id;
+        };
 
-using HwGamepadRequest = boost::variant<HwGamepadRequestDevices>;
-using HwGamepadReply = boost::variant<HwGamepadReplyDevice,
-    HwGamepadConnected,
-    HwGamepadDisconnected,
-    HwGamepadButtonPressed,
-    HwGamepadButtonReleased,
-    HwGamepadButtonRepeated,
-    HwGamepadButtonChanged,
-    HwGamepadAxisChanged>;
+        using Reply = boost::variant<Device,
+            Connected,
+            Disconnected,
+            ButtonPressed,
+            ButtonReleased,
+            ButtonRepeated,
+            ButtonChanged,
+            AxisChanged>;
+    }
 
-using HwGamepadBase = FixedSPSCObject<HwGamepadRequest, HwGamepadReply, BaseObject, 16, 20>;
+    struct GamepadImpl {
+        std::mutex mtx_;
+        ceammc_hw_gamepad* gp_ { nullptr };
+        std::function<void(const char*)> cb_err;
+        std::function<void(const ceammc_hw_gamepad_event&)> cb_event;
+        std::function<void(const reply::Device&)> cb_devlist;
 
-struct ceammc_rs_hw_gamepad;
+        GamepadImpl();
+        ~GamepadImpl();
+
+        void process(const req::ListDevices& ev);
+        void processEvents(std::uint16_t ms);
+
+        static void on_error(void* user, const char* msg);
+        static void on_event(void* user, const ceammc_hw_gamepad_event* ev);
+        static void on_devlist(void* user, const ceammc_gamepad_dev_info* info);
+    };
+}
+}
+
+using HwGamepadBase = FixedSPSCObject<gp::req::Request, gp::reply::Reply, BaseObject, 16, 20>;
 
 class HwGamepad : public HwGamepadBase {
-    std::unique_ptr<ceammc_rs_hw_gamepad, void (*)(ceammc_rs_hw_gamepad*)> gp_;
+    std::unique_ptr<gp::GamepadImpl> gp_;
 
 public:
     HwGamepad(const PdArgs& args);
-    ~HwGamepad();
 
-    void initDone() final;
-
-    void processRequest(const HwGamepadRequest& req, ResultCallback cb) final;
-    void processResult(const HwGamepadReply& res) final;
+    void processRequest(const gp::req::Request& req, ResultCallback cb) final;
+    void processResult(const gp::reply::Reply& res) final;
     void processEvents() final;
-
-    void onError(const char* msg);
 
     void m_devices(t_symbol* s, const AtomListView& lv);
 };

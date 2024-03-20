@@ -5,9 +5,9 @@
 
 #include <cstdint>
 #include <cstddef>
-struct ceammc_rs_hw_gamepad;
+struct ceammc_hw_gamepad;
 
-enum class ceammc_rs_hw_gamepad_btn {
+enum class ceammc_hw_gamepad_btn {
   South,
   East,
   North,
@@ -30,7 +30,7 @@ enum class ceammc_rs_hw_gamepad_btn {
   Unknown,
 };
 
-enum class ceammc_rs_hw_gamepad_event_axis {
+enum class ceammc_hw_gamepad_event_axis {
   LeftStickX,
   LeftStickY,
   LeftZ,
@@ -42,7 +42,7 @@ enum class ceammc_rs_hw_gamepad_event_axis {
   Unknown,
 };
 
-enum class ceammc_rs_hw_gamepad_event_type {
+enum class ceammc_hw_gamepad_event_type {
   ButtonPressed,
   ButtonRepeated,
   ButtonReleased,
@@ -53,7 +53,7 @@ enum class ceammc_rs_hw_gamepad_event_type {
   Dropped,
 };
 
-enum class ceammc_rs_hw_gamepad_powerstate {
+enum class ceammc_hw_gamepad_powerstate {
   Unknown = 0,
   Wired,
   Discharging,
@@ -61,38 +61,85 @@ enum class ceammc_rs_hw_gamepad_powerstate {
   Charged,
 };
 
-enum class ceammc_rs_hw_gamepad_rc {
+enum class ceammc_hw_gamepad_rc {
   Ok = 0,
   InvalidHandle,
 };
 
-struct ceammc_rs_hw_gamepad_powerinfo {
-  uint8_t data;
-  ceammc_rs_hw_gamepad_powerstate state;
+struct ceammc_gamepad_err_cb {
+  /// pointer to user data
+  void *user;
+  void (*cb)(void*, const char*);
 };
 
-struct ceammc_rs_hw_gamepad_event {
+struct ceammc_hw_gamepad_event {
+  /// gamepad id
   size_t id;
-  ceammc_rs_hw_gamepad_btn button;
-  ceammc_rs_hw_gamepad_event_type event;
-  ceammc_rs_hw_gamepad_event_axis axis;
+  ceammc_hw_gamepad_btn button;
+  ceammc_hw_gamepad_event_type event;
+  ceammc_hw_gamepad_event_axis axis;
   float value;
+};
+
+struct ceammc_gamepad_event_cb {
+  /// pointer to user data
+  void *user;
+  void (*cb)(void *user, const ceammc_hw_gamepad_event *event);
+};
+
+struct ceammc_hw_gamepad_powerinfo {
+  ceammc_hw_gamepad_powerstate state;
+  uint8_t data;
+};
+
+struct ceammc_gamepad_dev_info {
+  /// gamepad name
+  const char *name;
+  /// gamepad os_name
+  const char *os_name;
+  /// gamepad id
+  size_t id;
+  /// gamepad power info
+  ceammc_hw_gamepad_powerinfo power;
+  /// gamepad vendor id
+  uint16_t vid;
+  /// gamepad product id
+  uint16_t pid;
+  /// gamepad is connected
+  bool is_connected;
+  /// gamepad has force feedback capability
+  bool has_ff;
+};
+
+struct ceammc_gamepad_listdev_cb {
+  void *user;
+  void (*cb)(void *user, const ceammc_gamepad_dev_info *info);
 };
 
 
 extern "C" {
 
-void ceammc_rs_hw_gamepad_free(ceammc_rs_hw_gamepad *gp);
+/// free gamepad
+void ceammc_hw_gamepad_free(ceammc_hw_gamepad *gp);
 
-ceammc_rs_hw_gamepad_rc ceammc_rs_hw_gamepad_list(ceammc_rs_hw_gamepad *gp,
-                                                  void (*cb)(void *user_data, const char *name, const char *os_name, size_t id, uint16_t vid, uint16_t pid, bool is_connected, bool has_ff, const ceammc_rs_hw_gamepad_powerinfo *power),
-                                                  void *user_data);
+/// list connected gamepad devices
+/// @param gp - gamepad pointer
+ceammc_hw_gamepad_rc ceammc_hw_gamepad_list(ceammc_hw_gamepad *gp);
 
-ceammc_rs_hw_gamepad *ceammc_rs_hw_gamepad_new(void *user_data, void (*err_cb)(void*, const char*));
+/// create new gamepad
+/// @param err_cb - error callback
+/// @param event_cb - gamepad event callback
+/// @param on_devinfo - gamepad list connected devices callback
+/// @return pointer to new gamepad or NULL on error
+ceammc_hw_gamepad *ceammc_hw_gamepad_new(ceammc_gamepad_err_cb on_err,
+                                         ceammc_gamepad_event_cb on_event,
+                                         ceammc_gamepad_listdev_cb on_devinfo);
 
-ceammc_rs_hw_gamepad_rc ceammc_rs_hw_gamepad_runloop(ceammc_rs_hw_gamepad *gp,
-                                                     void (*cb)(void *user_data, const ceammc_rs_hw_gamepad_event *event),
-                                                     void *user_data);
+/// process gamepad events (blocking read)
+/// @param gp - gamepad pointer
+/// @param time_ms - event read timeout in milliseconds
+/// @return ceammc_hw_gamepad_rc
+ceammc_hw_gamepad_rc ceammc_hw_gamepad_process_events(ceammc_hw_gamepad *gp, uint64_t time_ms);
 
 } // extern "C"
 
