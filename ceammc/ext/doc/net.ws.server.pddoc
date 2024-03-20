@@ -69,6 +69,8 @@
             <param name="ADDR" type="symbol" required="false">listening address. If not specified - using 0.0.0.0 (all network interfaces)</param></method>
             <!-- clients -->
             <method name="clients">output connected clients as list CLIENT_ID CLIENT_ADDR... etc.</method>
+            <!-- stop -->
+            <method name="stop">stops server, equal to [listen 0( message</method>
             <!-- shutdown -->
             <method name="shutdown">abort connection with specified client(s)
             <param name="TARGET" type="symbol" required="true" enum="* all first last id == != except">client selector.
@@ -97,7 +99,7 @@
 /*you can start testing websocket client with command: 'websocat ws://127.0.0.1:8000'*/
 
 
-[listen 8000( [listen 0 #a(           [send CLI #i( [send_binary 1 2 3 #j(
+[listen 8000( [stop #a(               [send CLI #i( [send_binary 1 2 3 #j(
 |
 | [ping all #b( [close * #e(          [connect ws://127.0.0.1:8000 #f(
 |

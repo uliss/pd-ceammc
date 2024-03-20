@@ -158,6 +158,7 @@ public:
     void processEvents() final;
 
     void m_listen(t_symbol* s, const AtomListView& lv);
+    void m_stop(t_symbol* s, const AtomListView& lv);
 
     void m_clients(t_symbol* s, const AtomListView& lv);
     void m_close(t_symbol* s, const AtomListView& lv);

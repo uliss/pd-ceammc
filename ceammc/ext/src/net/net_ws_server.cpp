@@ -405,6 +405,11 @@ void NetWsServer::m_listen(t_symbol* s, const AtomListView& lv)
         addRequest(Listen { addr, static_cast<std::uint16_t>(port) });
 }
 
+void NetWsServer::m_stop(t_symbol* s, const AtomListView& lv)
+{
+    addRequest(Stop {});
+}
+
 void NetWsServer::m_clients(t_symbol* s, const AtomListView& lv)
 {
     addRequest(DumpClients {});
@@ -610,6 +615,7 @@ void setup_net_ws_server()
     obj.addMethod("listen", &NetWsServer::m_listen);
     obj.addMethod("ping", &NetWsServer::m_ping);
     obj.addMethod("send", &NetWsServer::m_send);
+    obj.addMethod("stop", &NetWsServer::m_stop);
     obj.addMethod("send_binary", &NetWsServer::m_send_binary);
     obj.addMethod("send_json", &NetWsServer::m_send_json);
     obj.addMethod("shutdown", &NetWsServer::m_shutdown);
