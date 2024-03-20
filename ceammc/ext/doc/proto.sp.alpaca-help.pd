@@ -44,83 +44,76 @@
 #X obj 255 589 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 589 [XOFF]: horizontal character offset. Type: int. Range:
 0\...7\.;
-#X msg 110 629 char;
-#X text 245 629 draw char at specified position. Arguments are:;
-#X obj 255 652 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 652 CH: char symbol or int value from 0 to 9\. Type: atom.;
-#X obj 255 675 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 675 [XOFF]: horizontal character offset. Type: int. Range:
-0\...7\.;
-#X msg 110 715 clear;
-#X text 245 715 clear LED display.;
-#X msg 110 742 col;
-#X text 245 742 draw column pixels. Arguments are:;
-#X obj 255 765 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 765 N: column index. Type: int. Range: 0\...7\.;
-#X obj 255 788 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 788 BITS: list of 0 and 1\. Type: list.;
-#X msg 110 813 fill;
-#X text 245 813 fill LED display.;
-#X msg 110 840 invert;
-#X text 245 840 invert LED display.;
-#X msg 110 867 mode;
-#X text 245 867 set device jack mode. Arguments are:;
-#X obj 255 890 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 890 IDX: left (0) or right (1) device side. Type: int.
+#X msg 110 629 clear;
+#X text 245 629 clear LED display.;
+#X msg 110 656 col;
+#X text 245 656 draw column pixels. Arguments are:;
+#X obj 255 679 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 679 N: column index. Type: int. Range: 0\...7\.;
+#X obj 255 702 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 702 BITS: list of 0 and 1\. Type: list.;
+#X msg 110 727 fill;
+#X text 245 727 fill LED display.;
+#X msg 110 754 invert;
+#X text 245 754 invert LED display.;
+#X msg 110 781 mode;
+#X text 245 781 set device jack mode. Arguments are:;
+#X obj 255 804 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 804 IDX: left (0) or right (1) device side. Type: int.
 Allowed values: 0 \, 1\.;
-#X obj 255 928 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 928 MODE: output mode: none - no output \, digital1 - send
+#X obj 255 842 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 842 MODE: output mode: none - no output \, digital1 - send
 only first button press \, digital2 - send only second button press
 \, digital - send both buttons press \, analog - send analog value
 (from pedal) \, analog_row - send raw analog values (pair). Type: symbol.
 Allowed values: digital1 \, digital2 \, digital \, analog \, analog_raw
 \, none.;
-#X msg 110 1028 pixel;
-#X text 245 1028 draw/clear pixel on display matrix (6x8). Arguments
+#X msg 110 942 pixel;
+#X text 245 942 draw/clear pixel on display matrix (6x8). Arguments
 are:;
-#X obj 255 1051 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1051 X: x-pixel coordinate. Type: int. Range: 0\...7\.;
-#X obj 255 1074 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1074 Y: y-pixel coordinate. Type: int. Range: 0\...5\.;
-#X obj 255 1097 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1097 ON/OFF: draw (1) or clear (0). Type: int. Allowed
+#X obj 255 965 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 965 X: x-pixel coordinate. Type: int. Range: 0\...7\.;
+#X obj 255 988 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 988 Y: y-pixel coordinate. Type: int. Range: 0\...5\.;
+#X obj 255 1011 cnv 1 52 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1011 ON/OFF: draw (1) or clear (0). Type: int. Allowed
 values: 0 \, 1\.;
-#X msg 110 1137 row;
-#X text 245 1137 draw row pixels. Arguments are:;
-#X obj 255 1160 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1160 N: row index. Type: int. Range: 0\...5\.;
-#X obj 255 1183 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1183 BITS: list of 0 and 1\. Type: list.;
-#X msg 110 1208 str;
-#X text 245 1208 draw string. Arguments are:;
-#X obj 255 1231 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1231 STR: string or int value from -9 to 99\. Type: atom.;
-#X msg 110 1256 sync;
-#X text 245 1256 force device to send it's button and mode state.;
-#X msg 110 1283 version?;
-#X text 245 1283 outputs device protocol version as message: [version
+#X msg 110 1051 row;
+#X text 245 1051 draw row pixels. Arguments are:;
+#X obj 255 1074 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1074 N: row index. Type: int. Range: 0\...5\.;
+#X obj 255 1097 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1097 BITS: list of 0 and 1\. Type: list.;
+#X msg 110 1122 str;
+#X text 245 1122 draw string. Arguments are:;
+#X obj 255 1145 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1145 STR: string or int value from -9 to 99\. Type: atom.;
+#X msg 110 1170 sync;
+#X text 245 1170 force device to send it's button and mode state.;
+#X msg 110 1197 version?;
+#X text 245 1197 outputs device protocol version as message: [version
 N].;
-#X msg 110 1310 dump;
-#X text 245 1310 dumps all object info to Pd console window.;
-#X obj 20 1347 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1352 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1224 dump;
+#X text 245 1224 dumps all object info to Pd console window.;
+#X obj 20 1261 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1266 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1353 1\.;
-#X text 150 1353 *float*;
-#X text 245 1353 input byte value from arduino.;
-#X obj 20 1383 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1388 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1267 1\.;
+#X text 150 1267 *float*;
+#X text 245 1267 input byte value from arduino.;
+#X obj 20 1297 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1302 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1389 1\.;
-#X text 245 1389 output parsed messages from device.;
+#X text 110 1303 1\.;
+#X text 245 1303 output parsed messages from device.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 1439 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1442 library: ceammc v0.9.7;
-#N canvas 10 1461 400 290 info 0;
+#X obj 1 1353 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1356 library: ceammc v0.9.7;
+#N canvas 10 1375 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -144,7 +137,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1461 pd info;
+#X restore 10 1375 pd info;
 #X connect 4 0 11 0;
 #X connect 8 0 12 0;
 #X connect 9 0 13 0;
