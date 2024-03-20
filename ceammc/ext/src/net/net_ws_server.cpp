@@ -23,6 +23,7 @@ OBJECT_STUB_SETUP(NetWsServer, net_ws_server, "net.ws.server");
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_json.h"
+#include "datatype_json.h"
 #include "net_rust.h"
 #include "net_ws_server.h"
 
@@ -34,6 +35,11 @@ using MutexLock = std::lock_guard<std::mutex>;
 using namespace ceammc::ws;
 using namespace ceammc::ws::srv_req;
 using namespace ceammc::ws::srv_reply;
+
+CEAMMC_DEFINE_HASH(fudi)
+CEAMMC_DEFINE_HASH(data)
+CEAMMC_DEFINE_HASH(sym)
+CEAMMC_DEFINE_HASH(json)
 
 CEAMMC_DEFINE_SYM(binary)
 CEAMMC_DEFINE_SYM(closed)
@@ -280,6 +286,9 @@ NetWsServer::NetWsServer(const PdArgs& args)
     srv_->cb_dump_clients = [this](const IdList& ids) {
         addReply(ConnectedClients { ids });
     };
+
+    mode_ = new SymbolEnumProperty("@mode", { str_fudi, str_data, str_sym, str_json });
+    addProperty(mode_);
 }
 
 void NetWsServer::processRequest(const Request& req, ResultCallback cb)
@@ -445,14 +454,49 @@ std::string NetWsServer::toJson(const AtomListView& lv)
 
 void NetWsServer::outputInfo(const std::string& from, size_t id)
 {
-    AtomArray<2> lst { gensym(from.c_str()), id };
+    AtomArray<2> lst { id, gensym(from.c_str()) };
     listTo(1, lst.view());
 }
 
-void NetWsServer::processReply(const ws::srv_reply::MessageText& txt)
+void NetWsServer::processReply(const ws::srv_reply::MessageText& m)
 {
-    outputInfo(txt.from, txt.id);
-    anyTo(0, sym_text(), AtomList::parseString(txt.msg.c_str()));
+    outputInfo(m.from, m.id);
+
+    try {
+        switch (crc32_hash(mode_->value())) {
+        case hash_fudi: {
+            anyTo(0, sym_text(), AtomList::parseString(m.msg.c_str()));
+        } break;
+        case hash_sym: {
+            anyTo(0, sym_text(), gensym(m.msg.c_str()));
+        } break;
+        case hash_json: {
+            auto j = nlohmann::json::parse(m.msg);
+            if (j.is_array()) {
+                AtomList lst;
+                from_json(j, lst);
+                anyTo(0, sym_text(), lst);
+            } else {
+                Atom obj;
+                from_json(j, obj);
+                anyTo(0, sym_text(), obj);
+            }
+
+        } break;
+        case hash_data: {
+            auto res = parseDataString(m.msg.c_str());
+            if (res) {
+                anyTo(0, sym_text(), res.result());
+            } else {
+                OBJ_ERR << "can't parse data: " << m.msg;
+            }
+        } break;
+        default:
+            break;
+        }
+    } catch (std::exception& e) {
+        OBJ_ERR << "text reply error: " << e.what();
+    }
 }
 
 void NetWsServer::processReply(const ws::srv_reply::MessageBinary& bin)

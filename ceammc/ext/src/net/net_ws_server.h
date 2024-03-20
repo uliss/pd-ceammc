@@ -15,6 +15,7 @@
 #define NET_WS_SERVER_H
 
 #include "ceammc_pollthread_spsc.h"
+#include "ceammc_property_enum.h"
 #include "net_rust.h"
 
 #include <boost/variant.hpp>
@@ -141,6 +142,7 @@ using BaseWsServer = FixedSPSCObject<ws::srv_req::Request, ws::srv_reply::Reply,
 
 class NetWsServer : public BaseWsServer {
     std::unique_ptr<ws::ServerImpl> srv_;
+    SymbolEnumProperty* mode_ { nullptr };
 
     enum RequestArgs {
         REQ_ARGS_EQ_0, // equal to zero
@@ -173,7 +175,7 @@ private:
 
 private:
     void outputInfo(const std::string& from, size_t id);
-    void processReply(const ws::srv_reply::MessageText& txt);
+    void processReply(const ws::srv_reply::MessageText& m);
     void processReply(const ws::srv_reply::MessageBinary& bin);
     void processReply(const ws::srv_reply::MessagePong& pong);
     void processReply(const ws::srv_reply::ClientConnected& conn);
