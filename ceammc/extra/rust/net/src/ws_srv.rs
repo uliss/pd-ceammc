@@ -226,7 +226,7 @@ mod ws_srv {
                         on_ping.exec(&data, &cli.info());
                         let _ = cli.ws.send(Message::Pong(data));
                     }
-                    // Message::Pong(_) => todo!(),
+                    Message::Pong(_) => {}
                     Message::Close(_) => {
                         println!("close");
                         on_disc.exec(&cli.info());
@@ -338,6 +338,9 @@ mod ws_srv {
         for id in remove_clients.iter() {
             srv.clients.retain(|ci| ci.id != *id);
         }
+
+        srv.clients
+            .retain(|ci| ci.ws.can_write() || ci.ws.can_read());
 
         ws_rc::Ok
     }
@@ -531,12 +534,30 @@ mod ws_srv {
         send_message(srv, msg, target)
     }
 
-    /// close websocket server client connections
+    /// close websocket server client connections by sending them close handshake
     /// @param srv - pointer to websocket server
     /// @param target - specify target clients
     /// @return ceammc_ws_rc
     #[no_mangle]
-    pub extern "C" fn ceammc_ws_server_close(
+    pub extern "C" fn ceammc_ws_server_close_clients(
+        srv: *mut ws_server,
+        target: ws_client_target,
+    ) -> ws_rc {
+        if srv.is_null() {
+            return ws_rc::InvalidServer;
+        }
+
+        let srv = unsafe { &mut *srv };
+
+        return send_message(srv, Message::Close(None), target);
+    }
+
+    /// abort all client connections without handshake
+    /// @param srv - pointer to websocket server
+    /// @param target - specify target clients
+    /// @return ceammc_ws_rc
+    #[no_mangle]
+    pub extern "C" fn ceammc_ws_server_shutdown_clients(
         srv: *mut ws_server,
         target: ws_client_target,
     ) -> ws_rc {
@@ -565,6 +586,40 @@ mod ws_srv {
                 srv.clients.retain(|x| x.id == target.id);
             }
         }
+
+        ws_rc::Ok
+    }
+
+    /// request connected client id
+    /// @param srv - pointer to server
+    /// @param cb - request callback
+    /// @return ceammc_ws_rc
+    #[no_mangle]
+    pub extern "C" fn ceammc_ws_server_connected_clients(
+        srv: *mut ws_server,
+        user: *mut c_void,
+        cb: Option<
+            extern "C" fn(user: *mut c_void, msg: *const ws_conn_info, len: usize),
+        >,
+    ) -> ws_rc {
+        if srv.is_null() {
+            return ws_rc::InvalidServer;
+        }
+
+        let srv = unsafe { &mut *srv };
+
+        let data: Vec<ws_conn_info> = srv
+            .clients
+            .iter()
+            .map(|x| ws_conn_info {
+                addr: x.addr.as_ptr(),
+                id: x.id,
+            })
+            .collect();
+
+        cb.map(|f| {
+            f(user, data.as_ptr(), data.len());
+        });
 
         ws_rc::Ok
     }

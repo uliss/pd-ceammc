@@ -37,6 +37,7 @@ using namespace ceammc::ws::srv_reply;
 CEAMMC_DEFINE_SYM(binary)
 CEAMMC_DEFINE_SYM(closed)
 CEAMMC_DEFINE_SYM(connected)
+CEAMMC_DEFINE_SYM(id)
 CEAMMC_DEFINE_SYM(latency)
 CEAMMC_DEFINE_SYM(ping)
 CEAMMC_DEFINE_SYM(pong)
@@ -70,143 +71,168 @@ static inline ceammc_ws_client_target make_target(const AtomListView& lv, AtomLi
     }
 }
 
-struct WsServerImpl {
-    std::mutex mtx_;
-    ceammc_ws_server* srv_ { nullptr };
-    std::function<void(const char*, const ceammc_ws_conn_info&)> cb_err;
-    std::function<void(const char*, const ceammc_ws_conn_info&)> cb_text;
-    std::function<void(const ws::Bytes&, const ceammc_ws_conn_info&)> cb_bin, cb_ping, cb_pong;
-    std::function<void(const ceammc_ws_conn_info&)> cb_conn, cb_close;
+ServerImpl::~ServerImpl()
+{
+    MutexLock lock(mtx_);
+    if (srv_)
+        ceammc_ws_server_free(srv_);
+}
 
-    ~WsServerImpl()
-    {
-        MutexLock lock(mtx_);
-        if (srv_)
-            ceammc_ws_server_free(srv_);
+void ServerImpl::listen(const Listen& msg)
+{
+    MutexLock lock(mtx_);
+    if (srv_) {
+        ceammc_ws_server_free(srv_);
+        srv_ = nullptr;
     }
 
-    void listen(const Listen& msg)
-    {
-        MutexLock lock(mtx_);
-        if (srv_) {
-            ceammc_ws_server_free(srv_);
-            srv_ = nullptr;
-        }
+    srv_ = ceammc_ws_server_create(msg.addr.c_str(),
+        { this, on_error },
+        { this, on_text },
+        { this, on_bin },
+        { this, on_ping },
+        { this, on_conn },
+        { this, on_disc });
+}
 
-        srv_ = ceammc_ws_server_create(msg.addr.c_str(),
-            { this, on_error },
-            { this, on_text },
-            { this, on_bin },
-            { this, on_ping },
-            { this, on_conn },
-            { this, on_disc });
+void ServerImpl::process(const CloseClients& msg)
+{
+    MutexLock lock(mtx_);
+    if (!srv_)
+        return;
+
+    ceammc_ws_server_close_clients(srv_, msg.to);
+}
+
+void ServerImpl::process(const SendText& txt)
+{
+    MutexLock lock(mtx_);
+    if (!srv_)
+        return;
+
+    ceammc_ws_server_send_text(srv_, txt.msg.c_str(), txt.to);
+}
+
+void ServerImpl::process(const SendBinary& bin)
+{
+    MutexLock lock(mtx_);
+    if (!srv_)
+        return;
+
+    ceammc_ws_server_send_binary(srv_, bin.data.data(), bin.data.size(), bin.to);
+}
+
+void ServerImpl::process(const SendPing& ping)
+{
+    MutexLock lock(mtx_);
+    if (!srv_)
+        return;
+
+    ceammc_ws_server_send_ping(srv_, ping.data.data(), ping.data.size(), ping.to);
+}
+
+void ServerImpl::process(const DumpClients&)
+{
+    MutexLock lock(mtx_);
+    if (!srv_)
+        return;
+
+    ceammc_ws_server_connected_clients(srv_, this, on_client_dump);
+}
+
+void ServerImpl::process(const AbortClients& cli)
+{
+    MutexLock lock(mtx_);
+    if (!srv_)
+        return;
+
+    ceammc_ws_server_shutdown_clients(srv_, cli.to);
+}
+
+void ServerImpl::process_events()
+{
+    MutexLock lock(mtx_);
+    if (!srv_)
+        return;
+
+    ceammc_ws_server_runloop(srv_);
+}
+
+void ServerImpl::on_error(void* user, const char* msg, const ceammc_ws_conn_info* info)
+{
+    if (!user)
+        return;
+
+    auto this_ = static_cast<ServerImpl*>(user);
+    if (this_ && this_->cb_err)
+        this_->cb_err(msg, *info);
+}
+
+void ServerImpl::on_text(void* user, const char* msg, const ceammc_ws_conn_info* info)
+{
+    if (!user)
+        return;
+
+    auto this_ = static_cast<ServerImpl*>(user);
+    if (this_ && this_->cb_text)
+        this_->cb_text(msg, *info);
+}
+
+void ServerImpl::on_bin(void* user, const std::uint8_t* data, size_t len, const ceammc_ws_conn_info* info)
+{
+    if (!user)
+        return;
+
+    auto this_ = static_cast<ServerImpl*>(user);
+    if (this_ && this_->cb_bin)
+        this_->cb_bin(Bytes(data, data + len), *info);
+}
+
+void ServerImpl::on_ping(void* user, const std::uint8_t* data, size_t len, const ceammc_ws_conn_info* info)
+{
+    if (!user)
+        return;
+
+    auto this_ = static_cast<ServerImpl*>(user);
+    if (this_ && this_->cb_ping)
+        this_->cb_ping(Bytes(data, data + len), *info);
+}
+
+void ServerImpl::on_conn(void* user, const ceammc_ws_conn_info* info)
+{
+    if (!user)
+        return;
+
+    auto this_ = static_cast<ServerImpl*>(user);
+    if (this_ && this_->cb_conn)
+        this_->cb_conn(*info);
+}
+
+void ServerImpl::on_disc(void* user, const ceammc_ws_conn_info* info)
+{
+    if (!user)
+        return;
+
+    auto this_ = static_cast<ServerImpl*>(user);
+    if (this_ && this_->cb_close)
+        this_->cb_close(*info);
+}
+
+void ServerImpl::on_client_dump(void* user, const ceammc_ws_conn_info* info, size_t len)
+{
+    if (!user)
+        return;
+
+    auto this_ = static_cast<ServerImpl*>(user);
+    if (this_ && this_->cb_dump_clients) {
+        IdList ids;
+        ids.reserve(len);
+        for (size_t i = 0; i < len; i++)
+            ids.push_back({ info[i].id, info[i].addr });
+
+        this_->cb_dump_clients(ids);
     }
-
-    void close(const Close& msg)
-    {
-        MutexLock lock(mtx_);
-        if (!srv_)
-            return;
-
-        ceammc_ws_server_close(srv_, msg.to);
-    }
-
-    void send(const SendText& txt)
-    {
-        MutexLock lock(mtx_);
-        if (!srv_)
-            return;
-
-        ceammc_ws_server_send_text(srv_, txt.msg.c_str(), txt.to);
-    }
-
-    void send(const SendBinary& bin)
-    {
-        MutexLock lock(mtx_);
-        if (!srv_)
-            return;
-
-        ceammc_ws_server_send_binary(srv_, bin.data.data(), bin.data.size(), bin.to);
-    }
-
-    void send(const SendPing& ping)
-    {
-        MutexLock lock(mtx_);
-        if (!srv_)
-            return;
-
-        ceammc_ws_server_send_ping(srv_, ping.data.data(), ping.data.size(), ping.to);
-    }
-
-    void runloop_for()
-    {
-        MutexLock lock(mtx_);
-        if (!srv_)
-            return;
-
-        ceammc_ws_server_runloop(srv_);
-    }
-
-    static void on_error(void* user, const char* msg, const ceammc_ws_conn_info* info)
-    {
-        if (!user)
-            return;
-
-        auto this_ = static_cast<WsServerImpl*>(user);
-        if (this_ && this_->cb_err)
-            this_->cb_err(msg, *info);
-    }
-
-    static void on_text(void* user, const char* msg, const ceammc_ws_conn_info* info)
-    {
-        if (!user)
-            return;
-
-        auto this_ = static_cast<WsServerImpl*>(user);
-        if (this_ && this_->cb_text)
-            this_->cb_text(msg, *info);
-    }
-
-    static void on_bin(void* user, const std::uint8_t* data, size_t len, const ceammc_ws_conn_info* info)
-    {
-        if (!user)
-            return;
-
-        auto this_ = static_cast<WsServerImpl*>(user);
-        if (this_ && this_->cb_bin)
-            this_->cb_bin(Bytes(data, data + len), *info);
-    }
-
-    static void on_ping(void* user, const std::uint8_t* data, size_t len, const ceammc_ws_conn_info* info)
-    {
-        if (!user)
-            return;
-
-        auto this_ = static_cast<WsServerImpl*>(user);
-        if (this_ && this_->cb_ping)
-            this_->cb_ping(Bytes(data, data + len), *info);
-    }
-
-    static void on_conn(void* user, const ceammc_ws_conn_info* info)
-    {
-        if (!user)
-            return;
-
-        auto this_ = static_cast<WsServerImpl*>(user);
-        if (this_ && this_->cb_conn)
-            this_->cb_conn(*info);
-    }
-
-    static void on_disc(void* user, const ceammc_ws_conn_info* info)
-    {
-        if (!user)
-            return;
-
-        auto this_ = static_cast<WsServerImpl*>(user);
-        if (this_ && this_->cb_close)
-            this_->cb_close(*info);
-    }
-};
+}
 
 NetWsServer::NetWsServer(const PdArgs& args)
     : BaseWsServer(args)
@@ -214,7 +240,8 @@ NetWsServer::NetWsServer(const PdArgs& args)
     createOutlet();
     createOutlet();
 
-    srv_.reset(new WsServerImpl);
+    srv_.reset(new ServerImpl);
+    // called from worker thread
     srv_->cb_err = [this](const char* msg, const ceammc_ws_conn_info& info) { workerThreadError(msg); };
     srv_->cb_text = [this](const char* msg, const ceammc_ws_conn_info& info) {
         addReply(MessageText { msg, info.addr, info.id });
@@ -231,6 +258,9 @@ NetWsServer::NetWsServer(const PdArgs& args)
     srv_->cb_close = [this](const ceammc_ws_conn_info& info) {
         addReply(ClientClosed { info.addr, info.id });
     };
+    srv_->cb_dump_clients = [this](const IdList& ids) {
+        addReply(ConnectedClients { ids });
+    };
 }
 
 NetWsServer::~NetWsServer()
@@ -244,14 +274,12 @@ void NetWsServer::processRequest(const ws::Request& req, ResultCallback cb)
 
     if (req.type() == typeid(Listen)) {
         srv_->listen(boost::get<Listen>(req));
-    } else if (req.type() == typeid(Close)) {
-        srv_->close(boost::get<Close>(req));
-    } else if (req.type() == typeid(SendText)) {
-        srv_->send(boost::get<SendText>(req));
-    } else if (req.type() == typeid(SendBinary)) {
-        srv_->send(boost::get<SendBinary>(req));
-    } else if (req.type() == typeid(SendPing)) {
-        srv_->send(boost::get<SendPing>(req));
+    } else if (process_request<SendText>(req)) {
+    } else if (process_request<SendBinary>(req)) {
+    } else if (process_request<SendPing>(req)) {
+    } else if (process_request<DumpClients>(req)) {
+    } else if (process_request<AbortClients>(req)) {
+    } else if (process_request<CloseClients>(req)) {
     } else {
         OBJ_ERR << "unknown request type: " << req.type().name();
     }
@@ -264,6 +292,7 @@ void NetWsServer::processResult(const ws::Reply& res)
     } else if (process_result<MessagePong>(res)) {
     } else if (process_result<ClientConnected>(res)) {
     } else if (process_result<ClientClosed>(res)) {
+    } else if (process_result<ConnectedClients>(res)) {
     } else {
         OBJ_ERR << "unknown result type: " << res.type().name();
     }
@@ -272,7 +301,7 @@ void NetWsServer::processResult(const ws::Reply& res)
 void NetWsServer::runLoopFor(size_t ms)
 {
     if (srv_)
-        srv_->runloop_for();
+        srv_->process_events();
 }
 
 void NetWsServer::m_close(t_symbol* s, const AtomListView& lv)
@@ -282,7 +311,7 @@ void NetWsServer::m_close(t_symbol* s, const AtomListView& lv)
 
     AtomListView args;
     auto t = make_target(lv, args);
-    addRequest(Close { t });
+    addRequest(CloseClients { t });
 }
 
 void NetWsServer::m_ping(t_symbol* s, const AtomListView& lv)
@@ -325,9 +354,24 @@ void NetWsServer::m_send_json(t_symbol* s, const AtomListView& lv)
     addRequest(SendText { toJson(args), target });
 }
 
+void NetWsServer::m_shutdown(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkClientSelector(s, lv, REQ_ARGS_EQ_0))
+        return;
+
+    AtomListView args;
+    auto target = make_target(lv, args);
+    addRequest(AbortClients { target });
+}
+
 void NetWsServer::m_listen(t_symbol* s, const AtomListView& lv)
 {
     addRequest(Listen { to_string(lv) });
+}
+
+void NetWsServer::m_clients(t_symbol* s, const AtomListView& lv)
+{
+    addRequest(DumpClients {});
 }
 
 AtomList NetWsServer::fromBinary(const ws::Bytes& data)
@@ -336,6 +380,18 @@ AtomList NetWsServer::fromBinary(const ws::Bytes& data)
     bytes.reserve(data.size());
     for (auto x : data)
         bytes.append(x);
+
+    return bytes;
+}
+
+AtomList NetWsServer::fromBinary(const ws::IdList& data)
+{
+    AtomList bytes;
+    bytes.reserve(data.size() * 2);
+    for (auto& x : data) {
+        bytes.append(x.first);
+        bytes.append(gensym(x.second.c_str()));
+    }
 
     return bytes;
 }
@@ -394,6 +450,11 @@ void NetWsServer::processReply(const ws::srv_reply::ClientClosed& closed)
 {
     outputInfo(closed.from, closed.id);
     anyTo(0, sym_closed(), AtomListView {});
+}
+
+void NetWsServer::processReply(const ws::srv_reply::ConnectedClients& cli)
+{
+    anyTo(0, sym_id(), fromBinary(cli.ids));
 }
 
 static inline bool streq(const char* s1, const char* s2)
@@ -473,11 +534,13 @@ bool NetWsServer::checkClientSelector(t_symbol* s, const AtomListView& lv, Reque
 void setup_net_ws_server()
 {
     ObjectFactory<NetWsServer> obj("net.ws.server");
+    obj.addMethod("clients", &NetWsServer::m_clients);
     obj.addMethod("close", &NetWsServer::m_close);
     obj.addMethod("listen", &NetWsServer::m_listen);
     obj.addMethod("ping", &NetWsServer::m_ping);
     obj.addMethod("send", &NetWsServer::m_send);
     obj.addMethod("send_binary", &NetWsServer::m_send_binary);
     obj.addMethod("send_json", &NetWsServer::m_send_json);
+    obj.addMethod("shutdown", &NetWsServer::m_shutdown);
 }
 #endif

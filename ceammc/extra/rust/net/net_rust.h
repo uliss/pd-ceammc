@@ -249,11 +249,19 @@ ceammc_ws_rc ceammc_ws_client_send_text(ceammc_ws_client *cli,
                                         const char *msg,
                                         bool flush);
 
-/// close websocket server client connections
+/// close websocket server client connections by sending them close handshake
 /// @param srv - pointer to websocket server
 /// @param target - specify target clients
 /// @return ceammc_ws_rc
-ceammc_ws_rc ceammc_ws_server_close(ceammc_ws_server *srv, ceammc_ws_client_target target);
+ceammc_ws_rc ceammc_ws_server_close_clients(ceammc_ws_server *srv, ceammc_ws_client_target target);
+
+/// request connected client id
+/// @param srv - pointer to server
+/// @param cb - request callback
+/// @return ceammc_ws_rc
+ceammc_ws_rc ceammc_ws_server_connected_clients(ceammc_ws_server *srv,
+                                                void *user,
+                                                void (*cb)(void *user, const ceammc_ws_conn_info *msg, size_t len));
 
 ceammc_ws_server *ceammc_ws_server_create(const char *addr,
                                           ceammc_ws_srv_on_text on_err,
@@ -301,6 +309,13 @@ ceammc_ws_rc ceammc_ws_server_send_ping(ceammc_ws_server *srv,
 ceammc_ws_rc ceammc_ws_server_send_text(ceammc_ws_server *srv,
                                         const char *msg,
                                         ceammc_ws_client_target target);
+
+/// abort all client connections without handshake
+/// @param srv - pointer to websocket server
+/// @param target - specify target clients
+/// @return ceammc_ws_rc
+ceammc_ws_rc ceammc_ws_server_shutdown_clients(ceammc_ws_server *srv,
+                                               ceammc_ws_client_target target);
 
 } // extern "C"
 
