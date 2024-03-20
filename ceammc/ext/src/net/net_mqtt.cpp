@@ -204,23 +204,23 @@ public:
         return ceammc_mqtt_process_events(
             cli_, 100, user,
             [](void* user) {
-                auto obj = static_cast<NetMqtt*>(user);
+                auto obj = static_cast<NetMqttClient*>(user);
                 obj->addReply(MqttReplyPing {});
             },
             [](void* user, const char* topic, const uint8_t* data, size_t len) {
-                auto obj = static_cast<NetMqtt*>(user);
+                auto obj = static_cast<NetMqttClient*>(user);
                 obj->onWorkerPub(topic, data, len);
             },
             [](void* user, ceammc_mqtt_rc rc) {
-                auto obj = static_cast<NetMqtt*>(user);
+                auto obj = static_cast<NetMqttClient*>(user);
                 obj->onWorkerConn(static_cast<int>(rc));
             });
     }
 };
 
-int NetMqtt::id_count_ = 0;
+int NetMqttClient::id_count_ = 0;
 
-NetMqtt::NetMqtt(const PdArgs& args)
+NetMqttClient::NetMqttClient(const PdArgs& args)
     : BaseMqtt(args)
 {
     id_ = new SymbolProperty("@id", &s_);
@@ -257,21 +257,21 @@ NetMqtt::NetMqtt(const PdArgs& args)
     createOutlet();
 }
 
-NetMqtt::~NetMqtt()
+NetMqttClient::~NetMqttClient()
 {
 }
 
-void NetMqtt::m_connect(t_symbol* s, const AtomListView& lv)
+void NetMqttClient::m_connect(t_symbol* s, const AtomListView& lv)
 {
     addRequest(MqttRequest::connect());
 }
 
-void NetMqtt::m_disconnect(t_symbol* s, const AtomListView& lv)
+void NetMqttClient::m_disconnect(t_symbol* s, const AtomListView& lv)
 {
     addRequest(MqttRequest::disconnect());
 }
 
-void NetMqtt::m_subscribe(t_symbol* s, const AtomListView& lv)
+void NetMqttClient::m_subscribe(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("TOPIC:s ON:b?");
 
@@ -285,7 +285,7 @@ void NetMqtt::m_subscribe(t_symbol* s, const AtomListView& lv)
         addRequest(MqttRequest::unsubscribe(topic));
 }
 
-void NetMqtt::m_unsubscribe(t_symbol* s, const AtomListView& lv)
+void NetMqttClient::m_unsubscribe(t_symbol* s, const AtomListView& lv)
 {
     if (!checkArgs(lv, ARG_SYMBOL, s))
         return;
@@ -294,7 +294,7 @@ void NetMqtt::m_unsubscribe(t_symbol* s, const AtomListView& lv)
     addRequest(MqttRequest::unsubscribe(topic));
 }
 
-void NetMqtt::m_publish(t_symbol* s, const AtomListView& lv)
+void NetMqttClient::m_publish(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("TOPIC:s MSG:a+");
 
@@ -342,7 +342,7 @@ void NetMqtt::m_publish(t_symbol* s, const AtomListView& lv)
     }
 }
 
-void NetMqtt::processRequest(const MqttRequest& req, ResultCallback cb)
+void NetMqttClient::processRequest(const MqttRequest& req, ResultCallback cb)
 {
     if (!cli_) {
         workerThreadError("can't create client");
@@ -393,7 +393,7 @@ void NetMqtt::processRequest(const MqttRequest& req, ResultCallback cb)
     }
 }
 
-void NetMqtt::processResult(const MqttReply& res)
+void NetMqttClient::processResult(const MqttReply& res)
 {
     if (res.type() == typeid(MqttReplyPing)) {
         anyTo(0, sym_ping(), AtomListView {});
@@ -462,7 +462,7 @@ void NetMqtt::processResult(const MqttReply& res)
     }
 }
 
-void NetMqtt::processEvents()
+void NetMqttClient::processEvents()
 {
     if (cli_) {
         auto rc = cli_->process_events(this);
@@ -506,17 +506,17 @@ void NetMqtt::processEvents()
     }
 }
 
-const char* NetMqtt::clientId() const
+const char* NetMqttClient::clientId() const
 {
     return ((id_->value() == &s_) ? gensym(fmt::format("pd_mqtt_{}", id_count_).c_str()) : id_->value())->s_name;
 }
 
-const char* NetMqtt::hostname() const
+const char* NetMqttClient::hostname() const
 {
     return (host_->value() == &s_) ? "localhost" : host_->value()->s_name;
 }
 
-void NetMqtt::onWorkerPub(const char* topic, const std::uint8_t* data, size_t len)
+void NetMqttClient::onWorkerPub(const char* topic, const std::uint8_t* data, size_t len)
 {
     switch (crc32_hash(mode_->value())) {
     case hash_json: {
@@ -546,7 +546,7 @@ void NetMqtt::onWorkerPub(const char* topic, const std::uint8_t* data, size_t le
     }
 }
 
-void NetMqtt::onWorkerConn(int rc)
+void NetMqttClient::onWorkerConn(int rc)
 {
 #define CASE(v, msg)                                 \
     case ceammc_mqtt_rc::v:                          \
@@ -574,11 +574,11 @@ void NetMqtt::onWorkerConn(int rc)
 
 void setup_net_mqtt_client()
 {
-    ObjectFactory<NetMqtt> obj("net.mqtt");
-    obj.addMethod("connect", &NetMqtt::m_connect);
-    obj.addMethod("disconnect", &NetMqtt::m_disconnect);
-    obj.addMethod("subscribe", &NetMqtt::m_subscribe);
-    obj.addMethod("unsubscribe", &NetMqtt::m_unsubscribe);
-    obj.addMethod("publish", &NetMqtt::m_publish);
+    ObjectFactory<NetMqttClient> obj("net.mqtt.client");
+    obj.addMethod("connect", &NetMqttClient::m_connect);
+    obj.addMethod("disconnect", &NetMqttClient::m_disconnect);
+    obj.addMethod("subscribe", &NetMqttClient::m_subscribe);
+    obj.addMethod("unsubscribe", &NetMqttClient::m_unsubscribe);
+    obj.addMethod("publish", &NetMqttClient::m_publish);
 }
 #endif

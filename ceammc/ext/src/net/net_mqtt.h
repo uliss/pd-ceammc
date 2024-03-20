@@ -64,7 +64,7 @@ class MqttClient;
 
 using BaseMqtt = FixedSPSCObject<MqttRequest, MqttReply>;
 
-class NetMqtt : public BaseMqtt {
+class NetMqttClient : public BaseMqtt {
     SymbolProperty* id_ { nullptr };
     SymbolProperty* host_ { nullptr };
     SymbolProperty* user_ { nullptr };
@@ -76,8 +76,8 @@ class NetMqtt : public BaseMqtt {
     std::unique_ptr<MqttClient> cli_;
 
 public:
-    NetMqtt(const PdArgs& args);
-    ~NetMqtt();
+    NetMqttClient(const PdArgs& args);
+    ~NetMqttClient();
 
     void m_connect(t_symbol* s, const AtomListView& lv);
     void m_disconnect(t_symbol* s, const AtomListView& lv);
