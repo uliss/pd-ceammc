@@ -30,7 +30,9 @@ namespace ws {
     namespace srv_req {
         struct Listen {
             std::string addr;
+            std::uint16_t port;
         };
+        struct Stop { };
         struct CloseClients {
             ceammc_ws_client_target to;
         };
@@ -53,6 +55,7 @@ namespace ws {
 
         using Request = boost::variant<
             Listen,
+            Stop,
             SendText,
             SendBinary,
             SendPing,
@@ -110,6 +113,7 @@ namespace ws {
         ~ServerImpl();
 
         void listen(const srv_req::Listen& msg);
+        void process(const srv_req::Stop&);
         void process(const srv_req::CloseClients& msg);
         void process(const srv_req::SendText& txt);
         void process(const srv_req::SendBinary& bin);

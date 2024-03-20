@@ -17,6 +17,7 @@ CONTROL_OBJECT_STUB(NetWsServer, 1, 1, "compiled without WebSocket support");
 OBJECT_STUB_SETUP(NetWsServer, net_ws_server, "net.ws.server");
 #else
 
+#include "args/argcheck2.h"
 #include "ceammc_containers.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
@@ -86,13 +87,26 @@ void ServerImpl::listen(const Listen& msg)
         srv_ = nullptr;
     }
 
-    srv_ = ceammc_ws_server_create(msg.addr.c_str(),
+    auto addr = msg.addr.empty()
+        ? fmt::format("0.0.0.0:{}", msg.port)
+        : fmt::format("{}:{}", msg.addr, msg.port);
+
+    srv_ = ceammc_ws_server_create(addr.c_str(),
         { this, on_error },
         { this, on_text },
         { this, on_bin },
         { this, on_ping },
         { this, on_conn },
         { this, on_disc });
+}
+
+void ServerImpl::process(const srv_req::Stop&)
+{
+    MutexLock lock(mtx_);
+    if (srv_) {
+        ceammc_ws_server_free(srv_);
+        srv_ = nullptr;
+    }
 }
 
 void ServerImpl::process(const CloseClients& msg)
@@ -270,6 +284,7 @@ void NetWsServer::processRequest(const Request& req, ResultCallback cb)
 
     if (req.type() == typeid(Listen)) {
         srv_->listen(boost::get<Listen>(req));
+    } else if (process_request<Stop>(req)) {
     } else if (process_request<SendText>(req)) {
     } else if (process_request<SendBinary>(req)) {
     } else if (process_request<SendPing>(req)) {
@@ -362,7 +377,18 @@ void NetWsServer::m_shutdown(t_symbol* s, const AtomListView& lv)
 
 void NetWsServer::m_listen(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(Listen { to_string(lv) });
+    static const args::ArgChecker chk("PORT:i ADDR:s?");
+
+    if (!chk.check(lv, this))
+        return;
+
+    auto port = lv.intAt(0, 0);
+    auto addr = lv.symbolAt(1, &s_)->s_name;
+
+    if (port <= 0)
+        addRequest(Stop {});
+    else
+        addRequest(Listen { addr, static_cast<std::uint16_t>(port) });
 }
 
 void NetWsServer::m_clients(t_symbol* s, const AtomListView& lv)
