@@ -297,7 +297,7 @@ void NetWsServer::processRequest(const Request& req, ResultCallback cb)
     } else if (process_request<AbortClients>(req)) {
     } else if (process_request<CloseClients>(req)) {
     } else {
-        OBJ_ERR << "unknown request type: " << req.type().name();
+        workerThreadError(fmt::format("unknown request: {}", req.type().name()));
     }
 }
 
