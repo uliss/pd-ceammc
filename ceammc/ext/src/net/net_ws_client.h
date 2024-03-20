@@ -16,6 +16,7 @@
 
 #include "ceammc_pollthread_spsc.h"
 #include "ceammc_property_enum.h"
+
 #include <boost/variant.hpp>
 #include <chrono>
 using namespace ceammc;
@@ -66,7 +67,12 @@ namespace ws {
         };
         struct Connected { };
 
-        using Reply = boost::variant<MessageText, MessageBinary, MessagePing, MessagePong, MessageClose, Connected>;
+        using Reply = boost::variant<MessageText,
+            MessageBinary,
+            MessagePing,
+            MessagePong,
+            MessageClose,
+            Connected>;
     }
 }
 }
@@ -109,8 +115,24 @@ public:
     void m_write_text(t_symbol* s, const AtomListView& lv);
 
 private:
-    void processTextReply(const ws::cli_reply::MessageText& txt);
+    void processReply(const ws::cli_reply::MessageText& m);
+    void processReply(const ws::cli_reply::MessageBinary& m);
+    void processReply(const ws::cli_reply::MessagePing& m);
+    void processReply(const ws::cli_reply::MessagePong& m);
+    void processReply(const ws::cli_reply::MessageClose& m);
+    void processReply(const ws::cli_reply::Connected& m);
+
     void outputLatency();
+
+    template <class T>
+    bool process_result(const ws::cli_reply::Reply& res)
+    {
+        if (res.type() == typeid(T)) {
+            this->processReply(boost::get<T>(res));
+            return true;
+        } else
+            return false;
+    }
 
 private:
     static ws::Bytes toBinary(const AtomListView& lv);

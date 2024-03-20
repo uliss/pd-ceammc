@@ -342,7 +342,13 @@ pub mod ws_cli {
                         println!("binary: {:?}", data);
                         cli.bin(&data);
                     }
-                    _ => (),
+                    Message::Close(_) => {
+                        println!("close client handshake");
+                        cli.close();
+                    }
+                    _ => {
+                        println!("msg: {msg}")
+                    }
                 },
                 Err(err) => {
                     return match err {

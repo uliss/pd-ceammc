@@ -222,26 +222,12 @@ void NetWsClient::processRequest(const Request& req, ResultCallback cb)
 
 void NetWsClient::processResult(const Reply& res)
 {
-    if (res.type() == typeid(MessageText)) {
-        processTextReply(boost::get<MessageText>(res));
-    } else if (res.type() == typeid(MessagePong)) {
-        auto& p = boost::get<MessagePong>(res);
-        anyTo(0, sym_pong(), fromBinary(p.data));
-
-        if (latency_state_ == LATENCY_START) {
-            outputLatency();
-            latency_state_ = LATENCY_NONE;
-        }
-    } else if (res.type() == typeid(MessagePing)) {
-        auto& p = boost::get<MessagePing>(res);
-        anyTo(0, sym_ping(), fromBinary(p.data));
-    } else if (res.type() == typeid(MessageBinary)) {
-        auto& bin = boost::get<MessageBinary>(res);
-        anyTo(0, sym_binary(), fromBinary(bin.data));
-    } else if (res.type() == typeid(Connected)) {
-        anyTo(0, sym_connected(), AtomListView {});
-    } else if (res.type() == typeid(MessageClose)) {
-        anyTo(0, sym_closed(), AtomListView {});
+    if (process_result<MessageText>(res)) {
+    } else if (process_result<MessageBinary>(res)) {
+    } else if (process_result<MessagePing>(res)) {
+    } else if (process_result<MessagePong>(res)) {
+    } else if (process_result<MessageClose>(res)) {
+    } else if (process_result<Connected>(res)) {
     } else {
         OBJ_ERR << "unknown reply type: " << res.type().name();
     }
@@ -273,18 +259,18 @@ void NetWsClient::m_write_text(t_symbol* s, const AtomListView& lv)
     addRequest(SendText { to_string(lv), false });
 }
 
-void NetWsClient::processTextReply(const ws::cli_reply::MessageText& txt)
+void NetWsClient::processReply(const ws::cli_reply::MessageText& m)
 {
     try {
         switch (crc32_hash(mode_->value())) {
         case hash_fudi: {
-            anyTo(0, sym_text(), AtomList::parseString(txt.msg.c_str()));
+            anyTo(0, sym_text(), AtomList::parseString(m.msg.c_str()));
         } break;
         case hash_sym: {
-            anyTo(0, sym_text(), gensym(txt.msg.c_str()));
+            anyTo(0, sym_text(), gensym(m.msg.c_str()));
         } break;
         case hash_json: {
-            auto j = nlohmann::json::parse(txt.msg);
+            auto j = nlohmann::json::parse(m.msg);
             if (j.is_array()) {
                 AtomList lst;
                 from_json(j, lst);
@@ -297,11 +283,11 @@ void NetWsClient::processTextReply(const ws::cli_reply::MessageText& txt)
 
         } break;
         case hash_data: {
-            auto res = parseDataString(txt.msg.c_str());
+            auto res = parseDataString(m.msg.c_str());
             if (res) {
                 anyTo(0, sym_text(), res.result());
             } else {
-                OBJ_ERR << "can't parse data: " << txt.msg;
+                OBJ_ERR << "can't parse data: " << m.msg;
             }
         } break;
         default:
@@ -310,6 +296,36 @@ void NetWsClient::processTextReply(const ws::cli_reply::MessageText& txt)
     } catch (std::exception& e) {
         OBJ_ERR << "text reply error: " << e.what();
     }
+}
+
+void NetWsClient::processReply(const ws::cli_reply::MessageBinary& m)
+{
+    anyTo(0, sym_binary(), fromBinary(m.data));
+}
+
+void NetWsClient::processReply(const ws::cli_reply::MessagePing& m)
+{
+    anyTo(0, sym_ping(), fromBinary(m.data));
+}
+
+void NetWsClient::processReply(const ws::cli_reply::MessagePong& m)
+{
+    anyTo(0, sym_pong(), fromBinary(m.data));
+
+    if (latency_state_ == LATENCY_START) {
+        outputLatency();
+        latency_state_ = LATENCY_NONE;
+    }
+}
+
+void NetWsClient::processReply(const ws::cli_reply::MessageClose& m)
+{
+    anyTo(0, sym_closed(), AtomListView {});
+}
+
+void NetWsClient::processReply(const ws::cli_reply::Connected& m)
+{
+    anyTo(0, sym_connected(), AtomListView {});
 }
 
 void NetWsClient::outputLatency()
