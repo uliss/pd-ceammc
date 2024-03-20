@@ -50,6 +50,15 @@ namespace ws {
             Bytes data;
             ceammc_ws_client_target to;
         };
+
+        using Request = boost::variant<
+            Listen,
+            SendText,
+            SendBinary,
+            SendPing,
+            CloseClients,
+            DumpClients,
+            AbortClients>;
     }
 
     namespace srv_reply {
@@ -79,23 +88,15 @@ namespace ws {
         struct ConnectedClients {
             IdList ids;
         };
-    }
 
-    using Request = boost::variant<
-        srv_req::Listen,
-        srv_req::SendText,
-        srv_req::SendBinary,
-        srv_req::SendPing,
-        srv_req::CloseClients,
-        srv_req::DumpClients,
-        srv_req::AbortClients>;
-    using Reply = boost::variant<
-        srv_reply::MessageText,
-        srv_reply::MessageBinary,
-        srv_reply::MessagePong,
-        srv_reply::ClientConnected,
-        srv_reply::ClientClosed,
-        srv_reply::ConnectedClients>;
+        using Reply = boost::variant<
+            MessageText,
+            MessageBinary,
+            MessagePong,
+            ClientConnected,
+            ClientClosed,
+            ConnectedClients>;
+    }
 
     struct ServerImpl {
         std::mutex mtx_;
@@ -129,7 +130,7 @@ namespace ws {
 }
 }
 
-using BaseWsServer = FixedSPSCObject<ws::Request, ws::Reply, BaseObject, 16, 20>;
+using BaseWsServer = FixedSPSCObject<ws::srv_req::Request, ws::srv_reply::Reply, BaseObject, 16, 20>;
 
 class NetWsServer : public BaseWsServer {
     std::unique_ptr<ws::ServerImpl> srv_;
@@ -142,10 +143,9 @@ class NetWsServer : public BaseWsServer {
 
 public:
     NetWsServer(const PdArgs& args);
-    ~NetWsServer();
 
-    void processRequest(const ws::Request& req, ResultCallback cb) override;
-    void processResult(const ws::Reply& res) override;
+    void processRequest(const ws::srv_req::Request& req, ResultCallback cb) override;
+    void processResult(const ws::srv_reply::Reply& res) override;
 
     void runLoopFor(size_t ms) final;
 
@@ -176,7 +176,7 @@ private:
     bool checkClientSelector(t_symbol* s, const AtomListView& lv, RequestArgs req);
 
     template <class T>
-    bool process_result(const ws::Reply& res)
+    bool process_reply(const ws::srv_reply::Reply& res)
     {
         if (res.type() == typeid(T)) {
             this->processReply(boost::get<T>(res));
@@ -186,7 +186,7 @@ private:
     }
 
     template <class T>
-    bool process_request(const ws::Request& req)
+    bool process_request(const ws::srv_req::Request& req)
     {
         if (req.type() == typeid(T)) {
             this->srv_->process(boost::get<T>(req));

@@ -263,11 +263,7 @@ NetWsServer::NetWsServer(const PdArgs& args)
     };
 }
 
-NetWsServer::~NetWsServer()
-{
-}
-
-void NetWsServer::processRequest(const ws::Request& req, ResultCallback cb)
+void NetWsServer::processRequest(const Request& req, ResultCallback cb)
 {
     if (!srv_)
         return;
@@ -285,14 +281,14 @@ void NetWsServer::processRequest(const ws::Request& req, ResultCallback cb)
     }
 }
 
-void NetWsServer::processResult(const ws::Reply& res)
+void NetWsServer::processResult(const Reply& res)
 {
-    if (process_result<MessageText>(res)) {
-    } else if (process_result<MessageBinary>(res)) {
-    } else if (process_result<MessagePong>(res)) {
-    } else if (process_result<ClientConnected>(res)) {
-    } else if (process_result<ClientClosed>(res)) {
-    } else if (process_result<ConnectedClients>(res)) {
+    if (process_reply<MessageText>(res)) {
+    } else if (process_reply<MessageBinary>(res)) {
+    } else if (process_reply<MessagePong>(res)) {
+    } else if (process_reply<ClientConnected>(res)) {
+    } else if (process_reply<ClientClosed>(res)) {
+    } else if (process_reply<ConnectedClients>(res)) {
     } else {
         OBJ_ERR << "unknown result type: " << res.type().name();
     }
