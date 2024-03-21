@@ -7,6 +7,7 @@ edition = "2021"
 crate-type = ["cdylib", "staticlib"]
 
 [dependencies]
+bytes = "1.5.0"
 rumqttc = { version = "0.22.0"}
 tungstenite = "0.21.0"
 url = "2.5.0"

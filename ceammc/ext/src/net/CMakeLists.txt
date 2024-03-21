@@ -9,7 +9,7 @@ target_sources(ceammc_net
         osc_property.cpp)
 
 if(WITH_MQTT)
-    target_sources(ceammc_net PRIVATE net_mqtt.cpp)
+    target_sources(ceammc_net PRIVATE net_mqtt_client.cpp)
     target_include_directories(ceammc_net PRIVATE
         PRIVATE
             ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
