@@ -84,6 +84,7 @@ message(STATUS "       lyonpotpourri:  ${WITH_EXT_LYONPOTPOURRI} (WITH_EXT_LYONP
 message(STATUS "       FFTease:        ${WITH_EXT_FFTEASE} (WITH_EXT_FFTEASE=${WITH_EXT_FFTEASE})")
 message(STATUS "       [autotune~]:    ${WITH_EXT_AUTOTUNE} (WITH_EXT_AUTOTUNE=${WITH_EXT_AUTOTUNE})")
 message(STATUS "       flext:          ${WITH_EXT_FLEXT} (WITH_EXT_FLEXT=${WITH_EXT_FLEXT})")
+message(STATUS "       flext:vasp      ${WITH_FLEXT_VASP} (WITH_FLEXT_VASP=${WITH_FLEXT_VASP})")
 message(STATUS "===========================================")
 message(STATUS "Build info:")
 message(STATUS "===========================================")
