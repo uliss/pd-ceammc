@@ -123,7 +123,7 @@
         global.set
     }}
     {hw {
-        hw.apple_smc hw.apple_sms hw.arduino hw.cpu_temp hw.display
+        hw.apple_smc hw.apple_sms hw.arduino hw.cpu_temp hw.display hw.gamepad
         hw.kbd_light hw.motu.avb hw.serial
     }}
     {lang {
@@ -191,8 +191,9 @@
         rhythm.euclid rhythm.hexbeat rhythm.lsystem
     }}
     {net {
-        net.artnet.send net.host2ip net.http.send net.osc.receive net.osc.send
-        net.osc.server
+        net.artnet.send net.host2ip net.http.send net.mqtt.client
+        net.osc.receive net.osc.send net.osc.server net.ws.client
+        net.ws.server
     }}
     {noise {
         noise.baker noise.clifford noise.collatz noise.colored~ noise.crackle~
