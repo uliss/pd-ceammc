@@ -27,8 +27,7 @@ namespace mqtt {
 
     namespace req {
         struct Connect {
-            std::string id, host, user, pass;
-            std::uint16_t port;
+            std::string id, url;
         };
         struct Disconnect { };
         struct Subscribe {
@@ -110,10 +109,6 @@ using BaseMqttClient = FixedSPSCObject<mqtt::Request, mqtt::Reply>;
 
 class NetMqttClient : public BaseMqttClient {
     SymbolProperty* id_ { nullptr };
-    SymbolProperty* host_ { nullptr };
-    SymbolProperty* user_ { nullptr };
-    SymbolProperty* pass_ { nullptr };
-    IntProperty* port_ { nullptr };
     IntEnumProperty* qos_ { nullptr };
     BoolProperty* retain_ { nullptr };
     SymbolEnumProperty* mode_ { nullptr };
@@ -124,7 +119,7 @@ public:
     NetMqttClient(const PdArgs& args);
 
     void m_connect(t_symbol* s, const AtomListView& lv);
-    void m_disconnect(t_symbol* s, const AtomListView& lv);
+    void m_close(t_symbol* s, const AtomListView& lv);
     void m_subscribe(t_symbol* s, const AtomListView& lv);
     void m_unsubscribe(t_symbol* s, const AtomListView& lv);
     void m_publish(t_symbol* s, const AtomListView& lv);

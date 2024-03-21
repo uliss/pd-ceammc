@@ -93,87 +93,63 @@ mod mqtt {
     }
 
     impl mqtt_client {
-        fn new(
-            id: &str,
-            host: &str,
-            port: u16,
-            user: &str,
-            pass: &str,
-            keep_alive: u8,
-            cb: mqtt_cb,
-        ) -> Self {
-            let id = if id.is_empty() { "ceammc_mqtt_pd" } else { id };
-            let mut mqttoptions = MqttOptions::new(id, host, port);
-            mqttoptions.set_keep_alive(Duration::from_secs(keep_alive.into()));
-            if !user.is_empty() && !pass.is_empty() {
-                mqttoptions.set_credentials(user, pass);
-                println!("connect with {user}:{pass}");
-            }
-
-            let mqtt = Mutex::new(Client::new(mqttoptions, 10));
+        fn new(opts: MqttOptions, cb: mqtt_cb) -> Self {
+            let mqtt = Mutex::new(Client::new(opts, 10));
             mqtt_client { mqtt, cb }
         }
     }
 
     #[no_mangle]
     /// create new mqtt client
-    /// @param host - mqtt broker hostname
-    /// @param port - mqtt broker port
+    /// @param url - mqtt broker url in format mqtt://host:port
     /// @param id - client id (can be NULL)
-    /// @param user - mqtt username (can be NULL)
-    /// @param pass - mqtt password (can be NULL)
     /// @param cb - callbacks
     /// @return pointer to mqtt_client (must be freed by ceammc_mqtt_client_free()) on success
     ///         or NULL on error
     pub extern "C" fn ceammc_mqtt_client_create(
-        host: *const c_char,
-        port: u16,
+        url: *const c_char,
         id: *const c_char,
-        user: *const c_char,
-        password: *const c_char,
         cb: mqtt_cb,
     ) -> *mut mqtt_client {
-        if host.is_null() {
-            cb.err("invalid host string");
+        if url.is_null() {
+            cb.err("invalid URL string");
             return std::ptr::null_mut();
         }
-        let host = unsafe { CStr::from_ptr(host) }.to_str();
-        if host.is_err() {
-            cb.err("invalid host string");
+        let url = unsafe { CStr::from_ptr(url) }.to_str();
+        if url.is_err() {
+            cb.err("invalid URL string");
             return std::ptr::null_mut();
         }
 
         let id = if !id.is_null() {
             match unsafe { CStr::from_ptr(id) }.to_str() {
                 Ok(s) => s,
-                Err(_) => "",
+                Err(_) => "ceammc_mqtt_pd",
             }
         } else {
-            ""
+            "ceammc_mqtt_pd"
         };
 
-        let port = if port == 0 { 1883 } else { port };
-
-        let user = if user.is_null() {
-            ""
-        } else {
-            match unsafe { CStr::from_ptr(user) }.to_str() {
-                Ok(s) => s,
-                Err(_) => "",
+        let url = url.unwrap().to_owned() + "?client_id=" + id;
+        match MqttOptions::parse_url(url) {
+            Err(err) => {
+                cb.err(format!("url error: {err}").as_str());
+                return std::ptr::null_mut();
             }
-        };
+            Ok(mut opts) => {
+                if opts.broker_address().0.is_empty() {
+                    cb.err("empty hostname");
+                    return std::ptr::null_mut();
+                }
 
-        let password = if password.is_null() {
-            ""
-        } else {
-            match unsafe { CStr::from_ptr(password) }.to_str() {
-                Ok(s) => s,
-                Err(_) => "",
+                opts.set_keep_alive(Duration::from_secs(5));
+                // println!("connect with options {opts:?}");
+        
+                let cli = mqtt_client::new(opts, cb);
+                Box::into_raw(Box::new(cli))
             }
-        };
-
-        let cli = mqtt_client::new(id, host.unwrap(), port, user, password, 5, cb);
-        Box::into_raw(Box::new(cli))
+        }
+        
     }
 
     #[no_mangle]

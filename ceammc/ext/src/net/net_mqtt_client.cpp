@@ -54,7 +54,8 @@ static ceammc_mqtt_qos qos2qos(int v)
 
 ClientImpl::~ClientImpl()
 {
-    disconnect();
+    if (cli_) // to prevent error message
+        disconnect();
 }
 
 bool ClientImpl::connect(const req::Connect& m)
@@ -66,11 +67,8 @@ bool ClientImpl::connect(const req::Connect& m)
     }
 
     cli_ = ceammc_mqtt_client_create(
-        m.host.c_str(),
-        m.port,
+        m.url.c_str(),
         m.id.c_str(),
-        m.user.c_str(),
-        m.pass.c_str(),
         {
             {
                 this,
@@ -101,7 +99,7 @@ bool ClientImpl::connect(const req::Connect& m)
         });
 
     if (!cli_)
-        error(fmt::format("can't connect to '{}:{}' with ID: '{}'", m.host, m.port, m.id));
+        error(fmt::format("can't connect to '{}' with ID: '{}'", m.url, m.id));
 
     return cli_ != nullptr;
 }
@@ -114,6 +112,7 @@ bool ClientImpl::disconnect()
         cli_ = nullptr;
         return true;
     } else {
+        error("not connected");
         return false;
     }
 }
@@ -164,7 +163,15 @@ void ClientImpl::process_events()
     if (!cli_)
         return;
 
-    ceammc_mqtt_process_events(cli_, 100);
+    switch (ceammc_mqtt_process_events(cli_, 100)) {
+    case ceammc_mqtt_rc::Disconnected:
+    case ceammc_mqtt_rc::ConnectionError:
+        ceammc_mqtt_client_free(cli_);
+        cli_ = nullptr;
+        break;
+    default:
+        break;
+    }
 }
 
 bool ClientImpl::check_connected() const
@@ -179,7 +186,7 @@ bool ClientImpl::check_connected() const
 void mqtt::ClientImpl::error(const char* msg) const
 {
     if (cb_err)
-        cb_err("not connected");
+        cb_err(msg);
 }
 
 int NetMqttClient::id_count_ = 0;
@@ -189,21 +196,6 @@ NetMqttClient::NetMqttClient(const PdArgs& args)
 {
     id_ = new SymbolProperty("@id", gensym(fmt::format("pd_mqtt_client_{}", id_count_++).c_str()));
     addProperty(id_);
-
-    host_ = new SymbolProperty("@host", gensym("0.0.0.0"));
-    host_->setArgIndex(0);
-    addProperty(host_);
-
-    user_ = new SymbolProperty("@user", &s_);
-    addProperty(user_);
-
-    pass_ = new SymbolProperty("@pass", &s_);
-    addProperty(pass_);
-
-    port_ = new IntProperty("@port", 1883);
-    port_->checkClosedRange(1, std::numeric_limits<std::uint16_t>::max());
-    port_->setArgIndex(1);
-    addProperty(port_);
 
     mode_ = new SymbolEnumProperty("@mode", { str_fudi, str_data, str_sym, str_json, str_bytes });
     addProperty(mode_);
@@ -245,16 +237,17 @@ NetMqttClient::NetMqttClient(const PdArgs& args)
 
 void NetMqttClient::m_connect(t_symbol* s, const AtomListView& lv)
 {
+    static const args::ArgChecker chk("URL:s");
+    if (!chk.check(lv, this))
+        return;
+
     addRequest(Connect {
         id_->str(),
-        host_->str(),
-        user_->str(),
-        pass_->str(),
-        (std::uint16_t)port_->value(),
+        lv.asSymbol()->s_name,
     });
 }
 
-void NetMqttClient::m_disconnect(t_symbol* s, const AtomListView& lv)
+void NetMqttClient::m_close(t_symbol* s, const AtomListView& lv)
 {
     addRequest(Disconnect {});
 }
@@ -431,8 +424,9 @@ void NetMqttClient::processReply(const mqtt::reply::ReplyBytes& m)
 void setup_net_mqtt_client()
 {
     ObjectFactory<NetMqttClient> obj("net.mqtt.client");
+    obj.addAlias("mqtt.client");
     obj.addMethod("connect", &NetMqttClient::m_connect);
-    obj.addMethod("disconnect", &NetMqttClient::m_disconnect);
+    obj.addMethod("close", &NetMqttClient::m_close);
     obj.addMethod("subscribe", &NetMqttClient::m_subscribe);
     obj.addMethod("unsubscribe", &NetMqttClient::m_unsubscribe);
     obj.addMethod("publish", &NetMqttClient::m_publish);

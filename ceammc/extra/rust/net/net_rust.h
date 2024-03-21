@@ -121,20 +121,12 @@ struct ceammc_ws_srv_on_cli {
 extern "C" {
 
 /// create new mqtt client
-/// @param host - mqtt broker hostname
-/// @param port - mqtt broker port
+/// @param url - mqtt broker url in format mqtt://host:port
 /// @param id - client id (can be NULL)
-/// @param user - mqtt username (can be NULL)
-/// @param pass - mqtt password (can be NULL)
 /// @param cb - callbacks
 /// @return pointer to mqtt_client (must be freed by ceammc_mqtt_client_free()) on success
 ///         or NULL on error
-ceammc_mqtt_client *ceammc_mqtt_client_create(const char *host,
-                                              uint16_t port,
-                                              const char *id,
-                                              const char *user,
-                                              const char *password,
-                                              ceammc_mqtt_cb cb);
+ceammc_mqtt_client *ceammc_mqtt_client_create(const char *url, const char *id, ceammc_mqtt_cb cb);
 
 /// free mqtt client
 /// @param cli - mqtt client
