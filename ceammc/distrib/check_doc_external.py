@@ -232,6 +232,13 @@ def check_aliases(name, doc, ext):
         cprint(f"[{ext_name}] undocumented aliases: {undoc_aliases}",
             'magenta')
 
+        # helper text
+        cprint("<aliases>", 'white')
+        for a in undoc_aliases:
+            cprint(f"    <alias>{a}</alias>", 'white')
+
+        cprint("</aliases>", 'white')
+
     if len(unknown_aliases) > 0:
         cprint(f"[{ext_name}] unknown aliases: {unknown_aliases}",
             'yellow')
@@ -475,6 +482,8 @@ def check_props(name, doc, ext):
 
     if len(undoc_props):
         cprint(f"[{ext_name}] undocumented properties: {undoc_props}", 'magenta')
+        for p in undoc_props:
+            cprint(f'<property name="{p}" type="" default=""></property>', 'white')
 
     if len(unknown_props):
         cprint(f"[{ext_name}] unknown properties in doc: {unknown_props}", 'yellow')
