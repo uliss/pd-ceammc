@@ -956,6 +956,8 @@ net.host2ip	returns IP address by DNS name
 net.host->ip	returns IP address by DNS name
 net.http.send	HTTP request sender
 http.send	HTTP request sender
+net.mqtt.client	MQTT client
+mqtt.client	MQTT client
 net.osc.receive	OSC message listener
 net.osc.r	OSC message listener
 net.osc.send	OSC message sender

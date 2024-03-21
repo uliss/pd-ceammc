@@ -565,6 +565,7 @@ set(DOC_FILES
     net.artnet.send
     net.host2ip
     net.http.send
+    net.mqtt.client
     net.osc.receive
     net.osc.send
     net.osc.server

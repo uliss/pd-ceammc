@@ -564,6 +564,7 @@ music.voice2midi,music.v->m		.		.
 net.artnet.send,artnet.send		.		.
 net.host2ip,net.host->ip		.		.
 net.http.send,http.send		.		..
+net.mqtt.client,mqtt.client		.		..
 net.osc.receive,net.osc.r		..		.
 net.osc.send,net.osc.s		.		.
 net.osc.server,net.osc		.		.
