@@ -5,10 +5,9 @@
 
 #include <cstdint>
 #include <cstddef>
-struct ceammc_rs_mdns;
-struct ceammc_rs_mdns_service_info;
+struct ceammc_mdns;
 
-enum class ceammc_rs_mdns_rc {
+enum class ceammc_mdns_rc {
   Ok,
   /// when NULL service pointer given
   NullService,
@@ -19,14 +18,45 @@ enum class ceammc_rs_mdns_rc {
   ServiceNotFound,
 };
 
-struct ceammc_rs_mdns_err_cb {
+struct ceammc_mdns_cb_err {
   void *user;
   void (*cb)(void *user, const char *msg);
 };
 
-struct ceammc_rs_mdns_srv_cb {
+struct ceammc_mdns_cb_srv {
   void *user;
   void (*cb)(void *user, const char *ty, const char *fullname, bool found);
+};
+
+struct ceammc_mdns_txt_prop {
+  const char *key;
+  const char *value;
+};
+
+struct ceammc_mdns_service_info {
+  /// service type, for ex.: _osc._udp.local.
+  const char *stype;
+  const char *fullname;
+  const char *hostname;
+  /// service port
+  uint16_t port;
+  uint32_t host_ttl;
+  uint32_t other_ttl;
+  uint16_t priority;
+  uint16_t weight;
+  /// pointer to array of ip addresses
+  const char *const *ip;
+  /// number of service ip addresses
+  size_t ip_len;
+  /// pointer to array of txt properties
+  const ceammc_mdns_txt_prop *txt;
+  /// number of txt properties
+  size_t txt_len;
+};
+
+struct ceammc_mdns_cb_resolv {
+  void *user;
+  void (*cb)(void *user, const ceammc_mdns_service_info *info);
 };
 
 
@@ -36,7 +66,9 @@ extern "C" {
 /// @param on_err - error callback
 /// @param on_srv - on service found/remove
 /// @return pointer to MDNS service or NULL on error
-ceammc_rs_mdns *ceammc_rs_mdns_create(ceammc_rs_mdns_err_cb on_err, ceammc_rs_mdns_srv_cb on_srv);
+ceammc_mdns *ceammc_mdns_create(ceammc_mdns_cb_err on_err,
+                                ceammc_mdns_cb_srv on_srv,
+                                ceammc_mdns_cb_resolv on_resolv);
 
 /// enable/disable network interfaces to search for mdns services
 /// @param mdns - pointer to mdns struct
@@ -49,49 +81,42 @@ ceammc_rs_mdns *ceammc_rs_mdns_create(ceammc_rs_mdns_err_cb on_err, ceammc_rs_md
 ///
 /// @note '!' can't be added to disable interface, for ex.: '!ipv6'
 /// @return mdns_rc::Ok on success or other codes on error
-ceammc_rs_mdns_rc ceammc_rs_mdns_enable_iface(ceammc_rs_mdns *mdns, const char *name);
+ceammc_mdns_rc ceammc_mdns_enable_iface(ceammc_mdns *mdns, const char *name);
 
 /// free mdns handler
-/// @param mdns - pointer to mdns struct created with ceammc_rs_mdns_create()
-void ceammc_rs_mdns_free(ceammc_rs_mdns *mdns);
+/// @param mdns - pointer to mdns struct created with ceammc_mdns_create()
+void ceammc_mdns_free(ceammc_mdns *mdns);
 
 /// unsubscribe from mdns service
 /// @param mdns - pointer to mdns
 /// @return mdns_rc
-ceammc_rs_mdns_rc ceammc_rs_mdns_process_events(ceammc_rs_mdns *mdns, uint64_t timeout_ms);
+ceammc_mdns_rc ceammc_mdns_process_events(ceammc_mdns *mdns, uint64_t timeout_ms);
 
-ceammc_rs_mdns_rc ceammc_rs_mdns_register(ceammc_rs_mdns *mdns,
-                                          const char *service,
-                                          const char *name,
-                                          const char *hostname,
-                                          const char *ip,
-                                          uint16_t port);
-
-/// converts error code to string
-/// @param rc - pointer to mdns struct created with ceammc_rs_mdns_create()
-/// @return pointer to error string
-const char *ceammc_rs_mdns_strerr(ceammc_rs_mdns_rc rc);
+/// register mdns service
+/// @param mdns - mdns service pointer
+/// @param info - service info pointer
+/// @return mdns_rc
+ceammc_mdns_rc ceammc_mdns_register(ceammc_mdns *mdns, const ceammc_mdns_service_info *info);
 
 /// subscribe to mdns service events
 /// @param mdns - pointer to mdns
 /// @param service: mdns service name
 /// @return mdns_rc
-ceammc_rs_mdns_rc ceammc_rs_mdns_subscribe(ceammc_rs_mdns *mdns, const char *service);
+/// @note can block up to 10ms in case of eagain
+ceammc_mdns_rc ceammc_mdns_subscribe(ceammc_mdns *mdns, const char *service);
 
 /// unregister MDNS service
 /// @param mdns - mdns service handle
 /// @param service - mdns service name
-/// @param timeout - timeout for unregister
+/// @param timeout_ms - timeout for unregister in milliseconds
 /// @return mdns_rc::Ok on success and other codes or error
-ceammc_rs_mdns_rc ceammc_rs_mdns_unregister(ceammc_rs_mdns *mdns,
-                                            const char *service,
-                                            uint64_t timeout);
+ceammc_mdns_rc ceammc_mdns_unregister(ceammc_mdns *mdns, const char *service, uint64_t timeout_ms);
 
 /// unsubscribe from mdns service
 /// @param mdns - pointer to mdns
 /// @param service name
 /// @return mdns_rc
-ceammc_rs_mdns_rc ceammc_rs_mdns_unsubscribe(ceammc_rs_mdns *mdns, const char *service);
+ceammc_mdns_rc ceammc_mdns_unsubscribe(ceammc_mdns *mdns, const char *service);
 
 } // extern "C"
 

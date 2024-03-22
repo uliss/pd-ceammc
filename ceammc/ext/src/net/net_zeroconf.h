@@ -17,6 +17,7 @@
 #include <boost/variant.hpp>
 #include <functional>
 #include <mutex>
+#include <unordered_map>
 
 #include "ceammc_pollthread_spsc.h"
 #include "pd_rs.h"
@@ -24,6 +25,28 @@ using namespace ceammc;
 
 namespace ceammc {
 namespace mdns {
+    using TxtPropertyEntry = std::pair<std::string, std::string>;
+    using TxtPropertyList = std::vector<TxtPropertyEntry>;
+    using IpList = std::vector<std::string>;
+
+    struct MdnsServiceInfo {
+        std::string ty_domain; // <service>.<domain>
+        /// See RFC6763 section 7.1 about "Subtypes":
+        /// <https://datatracker.ietf.org/doc/html/rfc6763#section-7.1>
+        std::string sub_domain; // <subservice>._sub.<service>.<domain>
+        std::string fullname; // <instance>.<service>.<domain>
+        std::string server; // fully qualified name for service host
+        IpList addresses;
+        TxtPropertyList props;
+        std::uint32_t host_ttl { 0 }; // used for SRV and Address records
+        std::uint32_t other_ttl { 0 }; // used for PTR and TXT records
+        std::uint16_t port { 0 };
+        std::uint16_t priority { 0 };
+        std::uint16_t weight { 0 };
+
+        MdnsServiceInfo(const ceammc_mdns_service_info& info);
+    };
+
     namespace req {
         struct Subscribe {
             std::string type;
@@ -33,8 +56,17 @@ namespace mdns {
         };
         struct EnableIface { };
         struct DisableIface { };
-        struct RegisterService { };
-        struct UnregisterService { };
+
+        struct RegisterService {
+            std::string type;
+            std::string name;
+            std::string hostname;
+            TxtPropertyList props;
+            std::uint16_t port;
+        };
+        struct UnregisterService {
+            std::string type;
+        };
     }
 
     namespace reply {
@@ -47,7 +79,7 @@ namespace mdns {
             std::string name;
         };
         struct ServiceResolved {
-            std::string type;
+            MdnsServiceInfo info;
         };
     }
 
@@ -66,9 +98,10 @@ namespace mdns {
 
     struct NetZeroconfImpl {
         std::mutex mtx_;
-        ceammc_rs_mdns* mdns_ { nullptr };
+        ceammc_mdns* mdns_ { nullptr };
         std::function<void(const char* msg)> cb_err;
         std::function<void(const char* type, const char* fullname, bool found)> cb_service;
+        std::function<void(const MdnsServiceInfo& info)> cb_resolv;
 
         NetZeroconfImpl();
         ~NetZeroconfImpl();
@@ -76,6 +109,8 @@ namespace mdns {
         void stop();
         void subscribe(const char* service);
         void unsubscribe(const char* service);
+        void process(const req::RegisterService& m);
+        void process(const req::UnregisterService& m);
         // blocking call
         void process_events();
     };
@@ -92,6 +127,7 @@ class NetZeroconf : public BaseZeroconf {
 public:
     NetZeroconf(const PdArgs& args);
 
+    void m_active(t_symbol* s, const AtomListView&);
     void m_subscribe(t_symbol* s, const AtomListView& lv);
     void m_unsubscribe(t_symbol* s, const AtomListView& lv);
 
@@ -102,6 +138,7 @@ public:
 private:
     void processReply(const mdns::reply::ServiceAdded& r);
     void processReply(const mdns::reply::ServiceRemoved& r);
+    void processReply(const mdns::reply::ServiceResolved& r);
 
     template <class T>
     bool processReplyT(const mdns::Reply& r)

@@ -100,10 +100,7 @@ public:
         while (this->inPipe().read_available() > 0) {
             this->inPipe().consume_one([this](const RequestType& req) {
                 this->processRequest(req, [this](const ResultType& res) {
-                    if (this->waitForOutputAvailable(SLEEP_MS) == WorkerProcess::QUIT)
-                        return;
-
-                    this->addReply(res);
+                    this->addReply(res, true);
                 });
             });
 
@@ -164,8 +161,11 @@ public:
     /**
      * Called only from worker thread
      */
-    bool addReply(const ResultType& res)
+    bool addReply(const ResultType& res, bool wait = true)
     {
+        if (wait && this->waitForOutputAvailable(SLEEP_MS) == WorkerProcess::QUIT)
+            return false;
+
         if (!this->outPipe().push(res)) {
             OBJ_ERR << "result queue is full";
             return false;
