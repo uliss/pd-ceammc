@@ -10,60 +10,33 @@ struct ceammc_rs_mdns_service_info;
 
 enum class ceammc_rs_mdns_rc {
   Ok,
+  /// when NULL service pointer given
   NullService,
   ServiceError,
-  InvalidServiceType,
-  Utf8Error,
+  InvalidString,
   BrowseFailed,
-  InvalidStringPointer,
   SetOptionError,
   ServiceNotFound,
 };
 
-struct ceammc_rs_mdns_txt_property {
-  const char *key;
-  const char *value;
+struct ceammc_rs_mdns_err_cb {
+  void *user;
+  void (*cb)(void *user, const char *msg);
 };
 
-struct ceammc_rs_mdns_service_info {
-  /// service port
-  uint16_t port;
-  /// service name
-  const char *fullname;
-  /// service hostname
-  const char *hostname;
-  /// service type, for ex.: _osc._udp.local.
-  const char *rtype;
-  /// number of service ip addresses
-  size_t ip_count;
-  /// pointer to array of ip addresses
-  const char *const *ip;
-  /// number of txt properties
-  size_t txt_prop_count;
-  /// pointer to array of txt properties
-  const ceammc_rs_mdns_txt_property *txt_props;
+struct ceammc_rs_mdns_srv_cb {
+  void *user;
+  void (*cb)(void *user, const char *ty, const char *fullname, bool found);
 };
 
 
 extern "C" {
 
-/// browse mdns services on the network
-/// @param mdns - point to mdns handle
-/// @param service_type - MDNS service type to search, for ex.: '_http._tcp.local.'.
-///        If '.local.' suffix if omitted it will be auto-added.
-/// @param timeout - search timeout in seconds
-/// @param cb - callback called each time a new service found
-/// @param user_data - pointer to user data
-/// @return mdns_rc::Ok on success and other codes on error
-ceammc_rs_mdns_rc ceammc_rs_mdns_browse(ceammc_rs_mdns *mdns,
-                                        const char *service_type,
-                                        uint64_t timeout,
-                                        void (*cb)(void*, const ceammc_rs_mdns_service_info*),
-                                        void *user_data);
-
 /// create new MDNS service handler
+/// @param on_err - error callback
+/// @param on_srv - on service found/remove
 /// @return pointer to MDNS service or NULL on error
-ceammc_rs_mdns *ceammc_rs_mdns_create();
+ceammc_rs_mdns *ceammc_rs_mdns_create(ceammc_rs_mdns_err_cb on_err, ceammc_rs_mdns_srv_cb on_srv);
 
 /// enable/disable network interfaces to search for mdns services
 /// @param mdns - pointer to mdns struct
@@ -82,6 +55,11 @@ ceammc_rs_mdns_rc ceammc_rs_mdns_enable_iface(ceammc_rs_mdns *mdns, const char *
 /// @param mdns - pointer to mdns struct created with ceammc_rs_mdns_create()
 void ceammc_rs_mdns_free(ceammc_rs_mdns *mdns);
 
+/// unsubscribe from mdns service
+/// @param mdns - pointer to mdns
+/// @return mdns_rc
+ceammc_rs_mdns_rc ceammc_rs_mdns_process_events(ceammc_rs_mdns *mdns, uint64_t timeout_ms);
+
 ceammc_rs_mdns_rc ceammc_rs_mdns_register(ceammc_rs_mdns *mdns,
                                           const char *service,
                                           const char *name,
@@ -94,6 +72,12 @@ ceammc_rs_mdns_rc ceammc_rs_mdns_register(ceammc_rs_mdns *mdns,
 /// @return pointer to error string
 const char *ceammc_rs_mdns_strerr(ceammc_rs_mdns_rc rc);
 
+/// subscribe to mdns service events
+/// @param mdns - pointer to mdns
+/// @param service: mdns service name
+/// @return mdns_rc
+ceammc_rs_mdns_rc ceammc_rs_mdns_subscribe(ceammc_rs_mdns *mdns, const char *service);
+
 /// unregister MDNS service
 /// @param mdns - mdns service handle
 /// @param service - mdns service name
@@ -102,6 +86,12 @@ const char *ceammc_rs_mdns_strerr(ceammc_rs_mdns_rc rc);
 ceammc_rs_mdns_rc ceammc_rs_mdns_unregister(ceammc_rs_mdns *mdns,
                                             const char *service,
                                             uint64_t timeout);
+
+/// unsubscribe from mdns service
+/// @param mdns - pointer to mdns
+/// @param service name
+/// @return mdns_rc
+ceammc_rs_mdns_rc ceammc_rs_mdns_unsubscribe(ceammc_rs_mdns *mdns, const char *service);
 
 } // extern "C"
 

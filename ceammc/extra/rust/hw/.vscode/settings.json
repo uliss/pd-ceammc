@@ -4,6 +4,7 @@
         "gamepad",
         "gilrs",
         "powerinfo",
-        "powerstate"
+        "powerstate",
+        "sysinfo"
     ]
 }

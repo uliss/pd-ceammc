@@ -17,12 +17,84 @@ CONTROL_OBJECT_STUB(NetZeroconf, 1, 1, "compiled without zeroconf support");
 OBJECT_STUB_SETUP(NetZeroconf, net_zeroconf, "net.zeroconf");
 #else
 
-#include "net_zeroconf.h"
+#include "args/argcheck2.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
-
-#include "datatype_dict.h"
-#include "fmt/core.h"
+#include "net_zeroconf.h"
 #include "pd_rs.h"
+
+using namespace ceammc::mdns;
+using namespace ceammc::mdns::req;
+using namespace ceammc::mdns::reply;
+
+using MutexLock = std::lock_guard<std::mutex>;
+
+NetZeroconfImpl::NetZeroconfImpl()
+{
+    start();
+}
+
+NetZeroconfImpl::~NetZeroconfImpl()
+{
+    stop();
+}
+
+void NetZeroconfImpl::start()
+{
+    MutexLock lock(mtx_);
+    if (!mdns_) {
+        mdns_ = ceammc_rs_mdns_create(
+            {
+                this,
+                [](void* user, const char* msg) {
+                    auto this_ = static_cast<NetZeroconfImpl*>(user);
+                    if (this_ && this_->cb_err)
+                        this_->cb_err(msg);
+                },
+            },
+            {
+                this,
+                [](void* user, const char* type, const char* fullname, bool found) {
+                    auto this_ = static_cast<NetZeroconfImpl*>(user);
+                    if (this_ && this_->cb_service)
+                        this_->cb_service(type, fullname, found);
+                },
+            });
+    }
+}
+
+void NetZeroconfImpl::stop()
+{
+    MutexLock lock(mtx_);
+    if (mdns_) {
+        ceammc_rs_mdns_free(mdns_);
+        mdns_ = nullptr;
+    }
+}
+
+void NetZeroconfImpl::subscribe(const char* service)
+{
+    MutexLock lock(mtx_);
+    if (mdns_) {
+        ceammc_rs_mdns_subscribe(mdns_, service);
+    }
+}
+
+void NetZeroconfImpl::unsubscribe(const char* service)
+{
+    MutexLock lock(mtx_);
+    if (mdns_) {
+        ceammc_rs_mdns_unsubscribe(mdns_, service);
+    }
+}
+
+void NetZeroconfImpl::process_events()
+{
+    MutexLock lock(mtx_);
+    if (mdns_) {
+        ceammc_rs_mdns_process_events(mdns_, 100);
+    }
+}
 
 NetZeroconf::NetZeroconf(const PdArgs& args)
     : BaseZeroconf(args)
@@ -35,99 +107,85 @@ NetZeroconf::NetZeroconf(const PdArgs& args)
     ifaces_ = new ListProperty("@ifaces");
     addProperty(ifaces_);
 
+    mdns_.reset(new NetZeroconfImpl);
+    mdns_->cb_err = [this](const char* msg) { workerThreadError(msg); };
+    mdns_->cb_service = [this](const char* type, const char* fullname, bool found) {
+        if (found)
+            addReply(ServiceAdded { type, fullname });
+        else
+            addReply(ServiceRemoved { type, fullname });
+    };
+
     createOutlet();
 }
 
-void NetZeroconf::onSymbol(t_symbol* s)
+void NetZeroconf::m_subscribe(t_symbol* s, const AtomListView& lv)
 {
-    std::vector<t_symbol*> ifaces;
-    for (auto& s : ifaces_->value()) {
-        if (s.isSymbol())
-            ifaces.push_back(s.asT<t_symbol*>());
-    }
+    static const args::ArgChecker chk("SERVICE:s ON:b?");
+    auto type = lv.symbolAt(0, &s_)->s_name;
+    auto on = lv.boolAt(1, true);
 
-    addRequest({ s->s_name, ifaces, static_cast<uint16_t>(timeout_->value()) });
+    if (on)
+        addRequest(req::Subscribe { type });
+    else
+        addRequest(req::Unsubscribe { type });
 }
 
-static void mdns_callback(void* user_data, const ceammc_rs_mdns_service_info* info)
+void NetZeroconf::m_unsubscribe(t_symbol* s, const AtomListView& lv)
 {
-    auto cb = static_cast<std::function<void(const MDNSReply&)>*>(user_data);
-    if (!cb || !*cb)
+    static const args::ArgChecker chk("SERVICE:s");
+    auto type = lv.symbolAt(0, &s_)->s_name;
+
+    addRequest(req::Unsubscribe { type });
+}
+
+void NetZeroconf::processRequest(const Request& req, ResultCallback fn)
+{
+    if (!mdns_)
         return;
 
-    MDNSReply rep;
-    rep.port = info->port;
-    rep.name = info->fullname;
-    rep.hostname = info->hostname;
-    rep.type = info->rtype;
-    for (size_t i = 0; i < info->ip_count; i++)
-        rep.ip.push_back(info->ip[i]);
-
-    for (size_t i = 0; i < info->txt_prop_count; i++)
-        rep.txt_props.emplace_back(info->txt_props[i].key, info->txt_props[i].value);
-
-    (*cb)(rep);
+    auto& type = req.type();
+    if (type == typeid(Subscribe)) {
+        mdns_->subscribe(boost::get<Subscribe>(req).type.c_str());
+    } else if (type == typeid(Unsubscribe)) {
+        mdns_->unsubscribe(boost::get<Unsubscribe>(req).type.c_str());
+    }
 }
 
-void NetZeroconf::processRequest(const MDNSRequest& req, ResultCallback fn)
+void NetZeroconf::processResult(const Reply& r)
 {
-    auto srv = ceammc_rs_mdns_create();
-    if (!srv) {
-        workerThreadError("can't start MDNS service");
+    if (processReplyT<ServiceAdded>(r)) {
+    } else if (processReplyT<ServiceRemoved>(r)) {
+    } else {
+        OBJ_ERR << "unknown reply type: " << r.type().name();
+    }
+}
+
+void NetZeroconf::processEvents()
+{
+    if (!mdns_)
         return;
-    }
 
-    for (auto& iface : req.ifaces) {
-        auto rc = ceammc_rs_mdns_enable_iface(srv, iface->s_name);
-        if (rc != ceammc_rs_mdns_rc::Ok)
-            workerThreadDebug(fmt::format("can't enable iface: '{}'", iface->s_name));
-
-        workerThreadDebug(fmt::format("enable iface: '{}'", iface->s_name));
-    }
-
-    auto rc = ceammc_rs_mdns_browse(srv, req.service.c_str(), req.timeout, &mdns_callback, &fn);
-    if (rc != ceammc_rs_mdns_rc::Ok)
-        workerThreadError(ceammc_rs_mdns_strerr(rc));
-
-    ceammc_rs_mdns_free(srv);
+    mdns_->process_events();
 }
 
-void NetZeroconf::processResult(const MDNSReply& res)
+void NetZeroconf::processReply(const mdns::reply::ServiceAdded& r)
 {
-    auto sym_host = gensym("hostname");
-    auto sym_type = gensym("type");
-    auto sym_name = gensym("name");
-    auto sym_port = gensym("port");
-    auto sym_ip = gensym("ip");
-    auto sym_txt = gensym("txt");
+    AtomArray<2> data { gensym(r.type.c_str()), gensym(r.name.c_str()) };
+    anyTo(0, gensym("add"), data.view());
+}
 
-    AtomList ip;
-
-    DictAtom dict;
-    dict->insert(sym_host, gensym(res.hostname.c_str()));
-    dict->insert(sym_name, gensym(res.name.c_str()));
-    dict->insert(sym_type, gensym(res.type.c_str()));
-    dict->insert(sym_port, Atom(static_cast<int>(res.port)));
-
-    // ip
-    ip.clear();
-    for (auto& b : res.ip) {
-        ip.append(gensym(b.c_str()));
-    }
-    dict->insert(sym_ip, ip);
-
-    // txt
-    DictAtom txt;
-    for (auto& kv : res.txt_props) {
-        txt->insert(gensym(kv.first.c_str()), gensym(kv.second.c_str()));
-    }
-    dict->insert(sym_txt, txt);
-    atomTo(0, dict);
+void NetZeroconf::processReply(const mdns::reply::ServiceRemoved& r)
+{
+    AtomArray<2> data { gensym(r.type.c_str()), gensym(r.name.c_str()) };
+    anyTo(0, gensym("remove"), data.view());
 }
 
 void setup_net_zeroconf()
 {
     ObjectFactory<NetZeroconf> obj("net.zeroconf");
+    obj.addMethod("subscribe", &NetZeroconf::m_subscribe);
+    obj.addMethod("unsubscribe", &NetZeroconf::m_unsubscribe);
 }
 
 #endif
