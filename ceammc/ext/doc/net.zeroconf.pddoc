@@ -1,0 +1,55 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="net.zeroconf">
+        <title>net.zeroconf</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Zeroconf browsing</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>net</category>
+            <keywords>net zeroconf bonjour avahi mdns service discovery</keywords>
+            <since>0.9.8</since>
+        </meta>
+        <arguments>
+            <argument name="TYPE" type="symbol" enum="ipv4 ipv6">result IP type</argument>
+        </arguments>
+        <properties>
+            <property name="@type" type="symbol" enum="ipv4 ipv6" default="ipv4">result IP
+            type</property>
+            <property name="@ipv4" type="alias">shortcut for @type ipv4</property>
+            <property name="@ipv6" type="alias">shortcut for @type ipv6</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">DNS name</xinfo>
+                <xinfo on="any">DNS name</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list of resolved IP's</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[subscribe _http._tcp #a(
+
+[subscribe _printer._tcp #b(
+
+[subscribe _osc._udp #c(
+
+
+
+
+[net.zeroconf #x]
+|
+[print]
+
+[X a->x] [X b->x] [X c->x]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

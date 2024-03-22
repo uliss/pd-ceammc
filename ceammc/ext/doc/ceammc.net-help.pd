@@ -20,6 +20,8 @@
 #X text 200 305 Websocket client;
 #X obj 30 332 net.ws.server;
 #X text 200 332 Websocket server;
+#X obj 30 359 net.zeroconf;
+#X text 200 359 Zeroconf browsing;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::net 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

@@ -571,6 +571,7 @@ set(DOC_FILES
     net.osc.server
     net.ws.client
     net.ws.server
+    net.zeroconf
     noise.baker
     noise.chua~
     noise.clifford
