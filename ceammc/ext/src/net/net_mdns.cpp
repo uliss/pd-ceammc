@@ -187,13 +187,8 @@ void MdnsImpl::process_events()
 NetMdns::NetMdns(const PdArgs& args)
     : BaseMdns(args)
 {
-    timeout_ = new IntProperty("@t", 3);
-    timeout_->checkClosedRange(1, 10);
-    timeout_->setUnitsSec();
-    addProperty(timeout_);
-
-    ifaces_ = new ListProperty("@ifaces");
-    addProperty(ifaces_);
+    fullname_ = new BoolProperty("@fullname", true);
+    addProperty(fullname_);
 
     mdns_.reset(new MdnsImpl);
     mdns_->cb_err = [this](const char* msg) { workerThreadError(msg); };
@@ -316,17 +311,25 @@ void NetMdns::processReply(const mdns::reply::ServiceAdded& r)
     static const std::string ALL_SERVICES = "_services._dns-sd._udp.local.";
 
     if (r.type == ALL_SERVICES) {
-        anyTo(0, sym_service(), gensym(r.name.c_str()));
+        AtomArray<2> data { sym_add(), gensym(r.name.c_str()) };
+        anyTo(0, sym_service(), data.view());
     } else {
-        AtomArray<2> data { gensym(r.type.c_str()), gensym(r.name.c_str()) };
+        AtomArray<2> data { gensym(r.type.c_str()), instanceName(r.name) };
         anyTo(0, sym_add(), data.view());
     }
 }
 
 void NetMdns::processReply(const mdns::reply::ServiceRemoved& r)
 {
-    AtomArray<2> data { gensym(r.type.c_str()), gensym(r.name.c_str()) };
-    anyTo(0, sym_remove(), data.view());
+    static const std::string ALL_SERVICES = "_services._dns-sd._udp.local.";
+
+    if (r.type == ALL_SERVICES) {
+        AtomArray<2> data { sym_remove(), gensym(r.name.c_str()) };
+        anyTo(0, sym_service(), data.view());
+    } else {
+        AtomArray<2> data { gensym(r.type.c_str()), instanceName(r.name) };
+        anyTo(0, sym_remove(), data.view());
+    }
 }
 
 void NetMdns::processReply(const mdns::reply::ServiceResolved& r)
@@ -336,8 +339,7 @@ void NetMdns::processReply(const mdns::reply::ServiceResolved& r)
     res.reserve(10);
 
     res.append(gensym(r.info.service.c_str()));
-    auto instance_name = string::mdns_instance_name_from_service(r.info.fullname.c_str());
-    res.append(gensym(instance_name.c_str()));
+    res.append(instanceName(r.info.fullname));
     res.append(gensym(r.info.hostname.c_str()));
     res.append(Atom(r.info.port));
 
@@ -363,6 +365,16 @@ void NetMdns::processReply(const mdns::reply::ServiceResolved& r)
     }
 
     anyTo(0, sym_resolve(), res);
+}
+
+t_symbol* NetMdns::instanceName(const std::string& name) const
+{
+    return gensym(
+        (fullname_->value()
+                ? name
+                : string::mdns_instance_name_from_service(name.c_str()) //
+            )
+            .c_str());
 }
 
 void setup_net_mdns()

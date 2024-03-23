@@ -414,7 +414,7 @@ bool maybe_ceammc_quoted_string(const AtomListView& lv)
 
     service = '_' [a-zA-Z0-9_\-]+;
     service_list = service ('.' service)*;
-    host = ((any - [.:?/@#!&])+) ${ host += fc; };
+    host = ((any - '.')+) ${ host += fc; };
     local = '.local' '.'?;
 
     main := host '.' service_list* local?

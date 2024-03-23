@@ -121,9 +121,8 @@ namespace mdns {
 using BaseMdns = FixedSPSCObject<mdns::Request, mdns::Reply>;
 
 class NetMdns : public BaseMdns {
-    IntProperty* timeout_ { nullptr };
-    ListProperty* ifaces_ { nullptr };
     std::unique_ptr<mdns::MdnsImpl> mdns_;
+    BoolProperty* fullname_;
 
 public:
     NetMdns(const PdArgs& args);
@@ -151,6 +150,8 @@ private:
         } else
             return false;
     }
+
+    t_symbol* instanceName(const std::string& name) const;
 };
 
 void setup_net_mdns();

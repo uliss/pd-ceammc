@@ -737,12 +737,7 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(mdns_instance_name_from_service("123._UDP") == std::string("123"));
         REQUIRE(mdns_instance_name_from_service("123._http.") == std::string(""));
         REQUIRE(mdns_instance_name_from_service("emoji ❤._http.local.") == std::string("emoji ❤"));
-        REQUIRE(mdns_instance_name_from_service("invalid@._http.local.") == std::string());
-        REQUIRE(mdns_instance_name_from_service("invalid#._http.local.") == std::string());
-        REQUIRE(mdns_instance_name_from_service("invalid/._http.local.") == std::string());
-        REQUIRE(mdns_instance_name_from_service("invalid!._http.local.") == std::string());
-        REQUIRE(mdns_instance_name_from_service("invalid&._http.local.") == std::string());
-        REQUIRE(mdns_instance_name_from_service("invalid:._http.local.") == std::string());
+        REQUIRE(mdns_instance_name_from_service("valid:._http.local.") == std::string("valid:"));
         REQUIRE(mdns_instance_name_from_service("i.nvalid._http.local.") == std::string());
         REQUIRE(mdns_instance_name_from_service("._http.local.") == std::string(""));
         REQUIRE(mdns_instance_name_from_service("google.com") == "");

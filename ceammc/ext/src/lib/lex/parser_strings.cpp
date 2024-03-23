@@ -1011,16 +1011,7 @@ std::string mdns_instance_name_from_service(const char* str) noexcept
 	switch ( cs )
 	{
 case 1:
-	switch( (*p) ) {
-		case 33: goto st0;
-		case 35: goto st0;
-		case 38: goto st0;
-		case 58: goto st0;
-	}
-	if ( (*p) > 47 ) {
-		if ( 63 <= (*p) && (*p) <= 64 )
-			goto st0;
-	} else if ( (*p) >= 46 )
+	if ( (*p) == 46 )
 		goto st0;
 	goto tr0;
 tr0:
@@ -1030,21 +1021,10 @@ tr0:
 st2:
 	p += 1;
 case 2:
-#line 1034 "lex/parser_strings.cpp"
-	switch( (*p) ) {
-		case 33: goto st0;
-		case 35: goto st0;
-		case 38: goto st0;
-		case 46: goto st3;
-		case 47: goto st0;
-		case 58: goto st0;
-	}
-	if ( 63 <= (*p) && (*p) <= 64 )
-		goto st0;
+#line 1025 "lex/parser_strings.cpp"
+	if ( (*p) == 46 )
+		goto st3;
 	goto tr0;
-st0:
-cs = 0;
-	goto _out;
 st3:
 	p += 1;
 case 3:
@@ -1054,6 +1034,9 @@ case 3:
 		case 95: goto st11;
 	}
 	goto st0;
+st0:
+cs = 0;
+	goto _out;
 tr3:
 #line 421 "lex/parser_strings.rl"
 	{ {p++; cs = 14; goto _out;} }
@@ -1061,7 +1044,7 @@ tr3:
 st14:
 	p += 1;
 case 14:
-#line 1065 "lex/parser_strings.cpp"
+#line 1048 "lex/parser_strings.cpp"
 	goto st0;
 st4:
 	p += 1;

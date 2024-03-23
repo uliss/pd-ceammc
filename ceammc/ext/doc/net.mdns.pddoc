@@ -19,29 +19,32 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>add SERVICE NAME</outlet>
+            <outlet>add SERVICE NAME, remove SERVICE NAME, service add|remove SERVICE, resolve </outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-[subscribe _http._tcp #a(
+[subscribe _http._tcp #a(     [subscribe \#all #h(
 
-[subscribe _printer._tcp #b(
+  [unsubscribe \#http #b(     [unsubscribe \#all #i(
 
 [subscribe _osc._udp #c(
 
-   [unsubscribe \#osc #d(             [register \#osc CEAM 9000 @prop 1 2 3 #f(
+  [unsubscribe \#osc #d(           [register \#osc CEAM 9000 @prop 1 2 3 #f(
 
-      [unsubscribe \#http #e(         [unregister \#osc CEAM #g(
+      [unsubscribe \#http #e(        [unregister \#osc CEAM #g(
 
-
-[net.mdns #x]                         [net.mdns #y]
+      [T]                          [net.mdns #y]
+      |
+      [@fullname $1(
+      |
+[net.mdns #x]
 |
 [print]
 
 
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x]
-[X f->y] [X g->y]
+[X f->y] [X g->y] [X h->x] [X i->x]
 ]]>
             </pdascii>
         </example>
