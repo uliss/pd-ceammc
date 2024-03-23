@@ -5,7 +5,6 @@ target_sources(ceammc_net
         net_osc_send.cpp
         net_osc_server.cpp
         net_osc_receive.cpp
-        net_zeroconf.cpp
         osc_property.cpp)
 
 if(WITH_MQTT)
@@ -55,6 +54,8 @@ target_include_directories(ceammc_net
 target_sources(ceammc_net PRIVATE net_http_send.cpp)
 target_link_libraries(ceammc_net PRIVATE http_lib)
 
+# MDNS
+target_sources(ceammc_net PRIVATE net_mdns.cpp)
 if(WITH_ZEROCONF)
     target_compile_definitions(ceammc_net PRIVATE WITH_ZEROCONF)
     target_link_libraries(ceammc_net PRIVATE core_rust)

@@ -11,8 +11,8 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#ifndef NET_ZEROCONF_H
-#define NET_ZEROCONF_H
+#ifndef NET_MDNS_H
+#define NET_MDNS_H
 
 #include <boost/variant.hpp>
 #include <functional>
@@ -97,15 +97,15 @@ namespace mdns {
         reply::ServiceRemoved,
         reply::ServiceResolved>;
 
-    struct NetZeroconfImpl {
+    struct MdnsImpl {
         std::mutex mtx_;
         ceammc_mdns* mdns_ { nullptr };
         std::function<void(const char* msg)> cb_err;
         std::function<void(const char* type, const char* fullname, bool found)> cb_service;
         std::function<void(const MdnsServiceInfo& info)> cb_resolv;
 
-        NetZeroconfImpl();
-        ~NetZeroconfImpl();
+        MdnsImpl();
+        ~MdnsImpl();
         void start();
         void stop();
         void subscribe(const std::string& service);
@@ -118,15 +118,15 @@ namespace mdns {
 }
 }
 
-using BaseZeroconf = FixedSPSCObject<mdns::Request, mdns::Reply>;
+using BaseMdns = FixedSPSCObject<mdns::Request, mdns::Reply>;
 
-class NetZeroconf : public BaseZeroconf {
+class NetMdns : public BaseMdns {
     IntProperty* timeout_ { nullptr };
     ListProperty* ifaces_ { nullptr };
-    std::unique_ptr<mdns::NetZeroconfImpl> mdns_;
+    std::unique_ptr<mdns::MdnsImpl> mdns_;
 
 public:
-    NetZeroconf(const PdArgs& args);
+    NetMdns(const PdArgs& args);
 
     void m_subscribe(t_symbol* s, const AtomListView& lv);
     void m_unsubscribe(t_symbol* s, const AtomListView& lv);
@@ -153,6 +153,6 @@ private:
     }
 };
 
-void setup_net_zeroconf();
+void setup_net_mdns();
 
-#endif // NET_ZEROCONF_H
+#endif // NET_MDNS_H

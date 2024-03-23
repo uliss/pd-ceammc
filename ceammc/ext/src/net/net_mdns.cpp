@@ -13,8 +13,8 @@
  *****************************************************************************/
 #ifndef WITH_ZEROCONF
 #include "ceammc_stub.h"
-CONTROL_OBJECT_STUB(NetZeroconf, 1, 1, "compiled without zeroconf support");
-OBJECT_STUB_SETUP(NetZeroconf, net_zeroconf, "net.zeroconf");
+CONTROL_OBJECT_STUB(NetMdns, 1, 1, "compiled without MDNS support");
+OBJECT_STUB_SETUP(NetMdns, net_mdns, "net.mdns");
 #else
 
 #include "args/argcheck2.h"
@@ -24,7 +24,7 @@ OBJECT_STUB_SETUP(NetZeroconf, net_zeroconf, "net.zeroconf");
 #include "ceammc_fn_list.h"
 #include "ceammc_format.h"
 #include "datatype_dict.h"
-#include "net_zeroconf.h"
+#include "net_mdns.h"
 #include "pd_rs.h"
 
 #include "fmt/core.h"
@@ -78,17 +78,17 @@ mdns::MdnsServiceInfo::MdnsServiceInfo(const ceammc_mdns_service_info& info)
         props.push_back({ info.txt[i].key, info.txt[i].value });
 }
 
-NetZeroconfImpl::NetZeroconfImpl()
+MdnsImpl::MdnsImpl()
 {
     start();
 }
 
-NetZeroconfImpl::~NetZeroconfImpl()
+MdnsImpl::~MdnsImpl()
 {
     stop();
 }
 
-void NetZeroconfImpl::start()
+void MdnsImpl::start()
 {
     MutexLock lock(mtx_);
     if (!mdns_) {
@@ -96,7 +96,7 @@ void NetZeroconfImpl::start()
             {
                 this,
                 [](void* user, const char* msg) {
-                    auto this_ = static_cast<NetZeroconfImpl*>(user);
+                    auto this_ = static_cast<MdnsImpl*>(user);
                     if (this_ && this_->cb_err)
                         this_->cb_err(msg);
                 },
@@ -104,7 +104,7 @@ void NetZeroconfImpl::start()
             {
                 this,
                 [](void* user, const char* type, const char* fullname, bool found) {
-                    auto this_ = static_cast<NetZeroconfImpl*>(user);
+                    auto this_ = static_cast<MdnsImpl*>(user);
                     if (this_ && this_->cb_service)
                         this_->cb_service(type, fullname, found);
                 },
@@ -112,7 +112,7 @@ void NetZeroconfImpl::start()
             {
                 this,
                 [](void* user, const ceammc_mdns_service_info* info) {
-                    auto this_ = static_cast<NetZeroconfImpl*>(user);
+                    auto this_ = static_cast<MdnsImpl*>(user);
                     if (this_ && this_->cb_resolv) {
                         MdnsServiceInfo si(*info);
                         this_->cb_resolv(si);
@@ -122,7 +122,7 @@ void NetZeroconfImpl::start()
     }
 }
 
-void NetZeroconfImpl::stop()
+void MdnsImpl::stop()
 {
     MutexLock lock(mtx_);
     if (mdns_) {
@@ -131,21 +131,21 @@ void NetZeroconfImpl::stop()
     }
 }
 
-void NetZeroconfImpl::subscribe(const std::string& service)
+void MdnsImpl::subscribe(const std::string& service)
 {
     MutexLock lock(mtx_);
     if (mdns_)
         ceammc_mdns_subscribe(mdns_, try_service_alias(service).c_str());
 }
 
-void NetZeroconfImpl::unsubscribe(const std::string& service)
+void MdnsImpl::unsubscribe(const std::string& service)
 {
     MutexLock lock(mtx_);
     if (mdns_)
         ceammc_mdns_unsubscribe(mdns_, try_service_alias(service).c_str());
 }
 
-void mdns::NetZeroconfImpl::process(const req::RegisterService& m)
+void mdns::MdnsImpl::process(const req::RegisterService& m)
 {
     MutexLock lock(mtx_);
     if (mdns_) {
@@ -169,14 +169,14 @@ void mdns::NetZeroconfImpl::process(const req::RegisterService& m)
     }
 }
 
-void mdns::NetZeroconfImpl::process(const req::UnregisterService& m)
+void mdns::MdnsImpl::process(const req::UnregisterService& m)
 {
     MutexLock lock(mtx_);
     if (mdns_)
         ceammc_mdns_unregister(mdns_, m.name.c_str(), try_service_alias(m.service).c_str(), 10);
 }
 
-void NetZeroconfImpl::process_events()
+void MdnsImpl::process_events()
 {
     MutexLock lock(mtx_);
     if (mdns_) {
@@ -184,8 +184,8 @@ void NetZeroconfImpl::process_events()
     }
 }
 
-NetZeroconf::NetZeroconf(const PdArgs& args)
-    : BaseZeroconf(args)
+NetMdns::NetMdns(const PdArgs& args)
+    : BaseMdns(args)
 {
     timeout_ = new IntProperty("@t", 3);
     timeout_->checkClosedRange(1, 10);
@@ -195,7 +195,7 @@ NetZeroconf::NetZeroconf(const PdArgs& args)
     ifaces_ = new ListProperty("@ifaces");
     addProperty(ifaces_);
 
-    mdns_.reset(new NetZeroconfImpl);
+    mdns_.reset(new MdnsImpl);
     mdns_->cb_err = [this](const char* msg) { workerThreadError(msg); };
     mdns_->cb_service = [this](const char* type, const char* fullname, bool found) {
         if (found)
@@ -208,7 +208,7 @@ NetZeroconf::NetZeroconf(const PdArgs& args)
     createOutlet();
 }
 
-void NetZeroconf::m_subscribe(t_symbol* s, const AtomListView& lv)
+void NetMdns::m_subscribe(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("SERVICE:s ON:b?");
     auto type = lv.symbolAt(0, &s_)->s_name;
@@ -220,7 +220,7 @@ void NetZeroconf::m_subscribe(t_symbol* s, const AtomListView& lv)
         addRequest(req::Unsubscribe { type });
 }
 
-void NetZeroconf::m_unsubscribe(t_symbol* s, const AtomListView& lv)
+void NetMdns::m_unsubscribe(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("SERVICE:s");
     auto type = lv.symbolAt(0, &s_)->s_name;
@@ -228,7 +228,7 @@ void NetZeroconf::m_unsubscribe(t_symbol* s, const AtomListView& lv)
     addRequest(req::Unsubscribe { type });
 }
 
-void NetZeroconf::m_register(t_symbol* s, const AtomListView& lv)
+void NetMdns::m_register(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("SERVICE:s NAME:s PORT:i PROPS:a*");
     if (!chk.check(lv, this))
@@ -262,7 +262,7 @@ void NetZeroconf::m_register(t_symbol* s, const AtomListView& lv)
     addRequest(RegisterService { name, service, host, props, port });
 }
 
-void NetZeroconf::m_unregister(t_symbol* s, const AtomListView& lv)
+void NetMdns::m_unregister(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("SERVICE:s NAME:s");
     if (!chk.check(lv, this))
@@ -274,7 +274,7 @@ void NetZeroconf::m_unregister(t_symbol* s, const AtomListView& lv)
     addRequest({ req::UnregisterService { name, service } });
 }
 
-void NetZeroconf::processRequest(const Request& req, ResultCallback fn)
+void NetMdns::processRequest(const Request& req, ResultCallback fn)
 {
     if (!mdns_)
         return;
@@ -293,7 +293,7 @@ void NetZeroconf::processRequest(const Request& req, ResultCallback fn)
     }
 }
 
-void NetZeroconf::processResult(const Reply& r)
+void NetMdns::processResult(const Reply& r)
 {
     if (processReplyT<ServiceAdded>(r)) {
     } else if (processReplyT<ServiceRemoved>(r)) {
@@ -303,7 +303,7 @@ void NetZeroconf::processResult(const Reply& r)
     }
 }
 
-void NetZeroconf::processEvents()
+void NetMdns::processEvents()
 {
     if (!mdns_)
         return;
@@ -311,7 +311,7 @@ void NetZeroconf::processEvents()
     mdns_->process_events();
 }
 
-void NetZeroconf::processReply(const mdns::reply::ServiceAdded& r)
+void NetMdns::processReply(const mdns::reply::ServiceAdded& r)
 {
     static const std::string ALL_SERVICES = "_services._dns-sd._udp.local.";
 
@@ -323,13 +323,13 @@ void NetZeroconf::processReply(const mdns::reply::ServiceAdded& r)
     }
 }
 
-void NetZeroconf::processReply(const mdns::reply::ServiceRemoved& r)
+void NetMdns::processReply(const mdns::reply::ServiceRemoved& r)
 {
     AtomArray<2> data { gensym(r.type.c_str()), gensym(r.name.c_str()) };
     anyTo(0, sym_remove(), data.view());
 }
 
-void NetZeroconf::processReply(const mdns::reply::ServiceResolved& r)
+void NetMdns::processReply(const mdns::reply::ServiceResolved& r)
 {
     auto& si = r.info;
 
@@ -359,13 +359,13 @@ void NetZeroconf::processReply(const mdns::reply::ServiceResolved& r)
     anyTo(0, sym_resolve(), data.view());
 }
 
-void setup_net_zeroconf()
+void setup_net_mdns()
 {
-    ObjectFactory<NetZeroconf> obj("net.zeroconf");
-    obj.addMethod("subscribe", &NetZeroconf::m_subscribe);
-    obj.addMethod("unsubscribe", &NetZeroconf::m_unsubscribe);
-    obj.addMethod("register", &NetZeroconf::m_register);
-    obj.addMethod("unregister", &NetZeroconf::m_unregister);
+    ObjectFactory<NetMdns> obj("net.mdns");
+    obj.addMethod("subscribe", &NetMdns::m_subscribe);
+    obj.addMethod("unsubscribe", &NetMdns::m_unsubscribe);
+    obj.addMethod("register", &NetMdns::m_register);
+    obj.addMethod("unregister", &NetMdns::m_unregister);
 }
 
 #endif
