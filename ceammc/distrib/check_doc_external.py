@@ -257,6 +257,13 @@ def check_methods(name, doc, ext):
         cprint(f"[{ext_name}] undocumented methods: {undoc_methods_set}",
             'magenta')
 
+        # helper text
+        cprint("<methods>", 'white')
+        for m in undoc_methods_set:
+            cprint(f'    <method name="{m}">method</method>', 'white')
+
+        cprint("</methods>", 'white')
+
     if len(unknown_methods):
         cprint(f"[{ext_name}] unknown methods in doc: {unknown_methods}",
             'yellow')
