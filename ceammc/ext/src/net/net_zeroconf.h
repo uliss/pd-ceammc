@@ -54,8 +54,6 @@ namespace mdns {
         struct Unsubscribe {
             std::string type;
         };
-        struct RefreshActive {
-        };
         struct EnableIface { };
         struct DisableIface { };
 
@@ -89,7 +87,6 @@ namespace mdns {
     using Request = boost::variant<
         req::Subscribe,
         req::Unsubscribe,
-        req::RefreshActive,
         req::EnableIface,
         req::DisableIface,
         req::RegisterService,
@@ -111,11 +108,10 @@ namespace mdns {
         ~NetZeroconfImpl();
         void start();
         void stop();
-        void subscribe(const char* service);
-        void unsubscribe(const char* service);
+        void subscribe(const std::string& service);
+        void unsubscribe(const std::string& service);
         void process(const req::RegisterService& m);
         void process(const req::UnregisterService& m);
-        void process(const req::RefreshActive& m);
         // blocking call
         void process_events();
     };
@@ -132,7 +128,6 @@ class NetZeroconf : public BaseZeroconf {
 public:
     NetZeroconf(const PdArgs& args);
 
-    void m_active(t_symbol* s, const AtomListView&);
     void m_subscribe(t_symbol* s, const AtomListView& lv);
     void m_unsubscribe(t_symbol* s, const AtomListView& lv);
     void m_register(t_symbol* s, const AtomListView& lv);

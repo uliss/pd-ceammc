@@ -468,29 +468,6 @@ pub extern "C" fn ceammc_mdns_unsubscribe(mdns: *mut mdns, service: *const c_cha
 }
 
 #[no_mangle]
-/// subscribe to active services
-/// @param mdns - pointer to mdns
-/// @return mdns_rc
-pub extern "C" fn ceammc_mdns_query_all(mdns: *mut mdns) -> mdns_rc {
-    if mdns.is_null() {
-        return mdns_rc::NullService;
-    }
-
-    let mdns = unsafe { &mut *mdns };
-    if !mdns.is_ok() {
-        mdns.err("service error");
-        return mdns_rc::ServiceError;
-    }
-
-    let all_srv = "_services._dns-sd._udp.local.";
-    if mdns.services.iter().find(|(x, _)| *x == all_srv).is_some() {
-        do_stop_browse(mdns, all_srv.to_string(), true);
-    }
-
-    return do_browse(mdns, all_srv.to_string(), true);
-}
-
-#[no_mangle]
 /// unsubscribe from mdns service
 /// @param mdns - pointer to mdns
 /// @return mdns_rc

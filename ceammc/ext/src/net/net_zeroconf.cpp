@@ -40,6 +40,27 @@ CEAMMC_DEFINE_SYM(remove)
 CEAMMC_DEFINE_SYM(resolve)
 CEAMMC_DEFINE_SYM(service)
 
+static const std::string& try_service_alias(const std::string& str)
+{
+    static std::unordered_map<std::string, std::string> map {
+        { "#all", "_services._dns-sd._udp" },
+        { "#osc", "_osc._udp" },
+        { "#http", "_http._tcp" },
+        { "#daap", "_daap._tcp" },
+        { "#ftp", "_ftp._tcp" },
+        { "#printer", "_printer._tcp" },
+        { "#scanner", "_scanner._tcp" },
+        { "#sftp", "_sftp-ssh._tcp" },
+        { "#smb", "_smb._tcp" },
+        { "#ssh", "_ssh._tcp" },
+        { "#telnet", "_telnet._tcp" },
+        { "#ipp", "_ipp._tcp" }
+    };
+
+    auto it = map.find(str);
+    return it == map.cend() ? str : it->second;
+}
+
 mdns::MdnsServiceInfo::MdnsServiceInfo(const ceammc_mdns_service_info& info)
     : service { info.stype }
     , fullname { info.fullname }
@@ -110,20 +131,18 @@ void NetZeroconfImpl::stop()
     }
 }
 
-void NetZeroconfImpl::subscribe(const char* service)
+void NetZeroconfImpl::subscribe(const std::string& service)
 {
     MutexLock lock(mtx_);
-    if (mdns_) {
-        ceammc_mdns_subscribe(mdns_, service);
-    }
+    if (mdns_)
+        ceammc_mdns_subscribe(mdns_, try_service_alias(service).c_str());
 }
 
-void NetZeroconfImpl::unsubscribe(const char* service)
+void NetZeroconfImpl::unsubscribe(const std::string& service)
 {
     MutexLock lock(mtx_);
-    if (mdns_) {
-        ceammc_mdns_unsubscribe(mdns_, service);
-    }
+    if (mdns_)
+        ceammc_mdns_unsubscribe(mdns_, try_service_alias(service).c_str());
 }
 
 void mdns::NetZeroconfImpl::process(const req::RegisterService& m)
@@ -137,7 +156,7 @@ void mdns::NetZeroconfImpl::process(const req::RegisterService& m)
             txt.push_back({ kv.first.c_str(), kv.second.c_str() });
 
         ceammc_mdns_service_info_register info {
-            m.service.c_str(),
+            try_service_alias(m.service).c_str(),
             m.name.c_str(),
             m.host.c_str(),
             m.port,
@@ -154,14 +173,7 @@ void mdns::NetZeroconfImpl::process(const req::UnregisterService& m)
 {
     MutexLock lock(mtx_);
     if (mdns_)
-        ceammc_mdns_unregister(mdns_, m.name.c_str(), m.service.c_str(), 10);
-}
-
-void NetZeroconfImpl::process(const req::RefreshActive& m)
-{
-    MutexLock lock(mtx_);
-    if (mdns_)
-        ceammc_mdns_query_all(mdns_);
+        ceammc_mdns_unregister(mdns_, m.name.c_str(), try_service_alias(m.service).c_str(), 10);
 }
 
 void NetZeroconfImpl::process_events()
@@ -194,11 +206,6 @@ NetZeroconf::NetZeroconf(const PdArgs& args)
     mdns_->cb_resolv = [this](const MdnsServiceInfo& info) { addReply({ ServiceResolved { info } }); };
 
     createOutlet();
-}
-
-void NetZeroconf::m_active(t_symbol* s, const AtomListView& lv)
-{
-    addRequest(req::RefreshActive {});
 }
 
 void NetZeroconf::m_subscribe(t_symbol* s, const AtomListView& lv)
@@ -281,8 +288,6 @@ void NetZeroconf::processRequest(const Request& req, ResultCallback fn)
         mdns_->process(boost::get<RegisterService>(req));
     } else if (type == typeid(UnregisterService)) {
         mdns_->process(boost::get<UnregisterService>(req));
-    } else if (type == typeid(RefreshActive)) {
-        mdns_->process(boost::get<RefreshActive>(req));
     } else {
         workerThreadError(fmt::format("unknown request type: {}", type.name()));
     }
@@ -357,7 +362,6 @@ void NetZeroconf::processReply(const mdns::reply::ServiceResolved& r)
 void setup_net_zeroconf()
 {
     ObjectFactory<NetZeroconf> obj("net.zeroconf");
-    obj.addMethod("active", &NetZeroconf::m_active);
     obj.addMethod("subscribe", &NetZeroconf::m_subscribe);
     obj.addMethod("unsubscribe", &NetZeroconf::m_unsubscribe);
     obj.addMethod("register", &NetZeroconf::m_register);
