@@ -616,5 +616,21 @@ TEST_CASE("list functions2", "[core]")
         REQUIRE(res[1] == LA("@b", 1, 2, 3, 4));
         REQUIRE(res[2] == LA("@c", -1, -2));
         res.clear();
+
+        using sv = std::vector<std::string>;
+        sv keys;
+        REQUIRE(list::foreachProperty(LA(1, 2, "@a", "D", "@b", 1, 2, 3, 4, "@c", -1, -2),
+                    [&keys, &res](t_symbol* k, const AtomListView& v) {
+                        keys.push_back(k->s_name);
+                        res.push_back(v);
+                    })
+            == 3);
+        REQUIRE(keys.size() == 3);
+        REQUIRE(res.size() == 3);
+        REQUIRE(keys == sv { "@a", "@b", "@c" });
+        REQUIRE(res[0] == LA("D"));
+        REQUIRE(res[1] == LF(1, 2, 3, 4));
+        REQUIRE(res[2] == LF(-1, -2));
+        res.clear();
     }
 }

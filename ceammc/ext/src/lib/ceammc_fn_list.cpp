@@ -854,5 +854,16 @@ namespace list {
 
         return found;
     }
+
+    int foreachProperty(const AtomListView& lv, std::function<void(t_symbol*, const AtomListView&)> fn)
+    {
+        return foreachProperty(lv, [&fn](const AtomListView& lv) {
+            if (lv.empty() || !lv[0].isSymbol())
+                return;
+
+            fn(lv[0].asT<t_symbol*>(), lv.subView(1));
+        });
+    }
+
 }
 }
