@@ -59,6 +59,37 @@ struct ceammc_mdns_cb_resolv {
   void (*cb)(void *user, const ceammc_mdns_service_info *info);
 };
 
+/// `ty_domain` is the service type and the domain label, for example
+/// "_my-service._udp.local.".
+///
+/// `my_name` is the instance name, without the service type suffix.
+///
+/// `host_name` is the "host" in the context of DNS. It is used as the "name"
+/// in the address records (i.e. TYPE_A and TYPE_AAAA records). It means that
+/// for the same hostname in the same local network, the service resolves in
+/// the same addresses. Be sure to check it if you see unexpected addresses resolved.
+struct ceammc_mdns_service_info_register {
+  /// service type, for example "_my-service._udp", or "_my-service._udp.local.".
+  const char *service;
+  /// the instance name, without the service type suffix, for example "My Service v1.1"
+  const char *name;
+  /// is the "host" in the context of DNS. It is used as the "name"
+  /// in the address records (i.e. TYPE_A and TYPE_AAAA records). It means that
+  /// for the same hostname in the same local network, the service resolves in
+  /// the same addresses. Be sure to check it if you see unexpected addresses resolved.
+  const char *host;
+  /// service port
+  uint16_t port;
+  /// pointer to array of ip addresses
+  const char *const *ip;
+  /// number of service ip addresses
+  size_t ip_len;
+  /// pointer to array of txt properties
+  const ceammc_mdns_txt_prop *txt;
+  /// number of txt properties
+  size_t txt_len;
+};
+
 
 extern "C" {
 
@@ -101,7 +132,8 @@ ceammc_mdns_rc ceammc_mdns_query_all(ceammc_mdns *mdns);
 /// @param mdns - mdns service pointer
 /// @param info - service info pointer
 /// @return mdns_rc
-ceammc_mdns_rc ceammc_mdns_register(ceammc_mdns *mdns, const ceammc_mdns_service_info *info);
+ceammc_mdns_rc ceammc_mdns_register(ceammc_mdns *mdns,
+                                    const ceammc_mdns_service_info_register *info);
 
 /// subscribe to mdns service events
 /// @param mdns - pointer to mdns
@@ -112,11 +144,15 @@ ceammc_mdns_rc ceammc_mdns_subscribe(ceammc_mdns *mdns, const char *service);
 
 /// unregister MDNS service
 /// @note can block timeout_ms on eagain socket error
-/// @param mdns - mdns service handle
-/// @param service - mdns service name
+/// @param mdns - mdns handle
+/// @param name - instance name
+/// @param service - mdns service type
 /// @param timeout_ms - timeout for unregister in milliseconds
 /// @return mdns_rc::Ok on success and other codes or error
-ceammc_mdns_rc ceammc_mdns_unregister(ceammc_mdns *mdns, const char *service, uint64_t timeout_ms);
+ceammc_mdns_rc ceammc_mdns_unregister(ceammc_mdns *mdns,
+                                      const char *name,
+                                      const char *service,
+                                      uint64_t timeout_ms);
 
 /// unsubscribe from mdns service
 /// @param mdns - pointer to mdns

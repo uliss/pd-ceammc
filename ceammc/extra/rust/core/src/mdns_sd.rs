@@ -1,6 +1,5 @@
 use core::slice;
-use std::collections::{hash_map, HashMap};
-use std::error;
+use std::collections::HashMap;
 use std::ffi::{CStr, CString};
 use std::net::IpAddr;
 use std::os::raw::c_char;
@@ -30,6 +29,39 @@ pub struct mdns_service_info {
     other_ttl: u32, // used for PTR and TXT records
     priority: u16,
     weight: u16,
+    /// pointer to array of ip addresses
+    ip: *const *const c_char,
+    /// number of service ip addresses
+    ip_len: usize,
+    /// pointer to array of txt properties
+    txt: *const mdns_txt_prop,
+    /// number of txt properties
+    txt_len: usize,
+}
+
+/// `ty_domain` is the service type and the domain label, for example
+/// "_my-service._udp.local.".
+///
+/// `my_name` is the instance name, without the service type suffix.
+///
+/// `host_name` is the "host" in the context of DNS. It is used as the "name"
+/// in the address records (i.e. TYPE_A and TYPE_AAAA records). It means that
+/// for the same hostname in the same local network, the service resolves in
+/// the same addresses. Be sure to check it if you see unexpected addresses resolved.
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub struct mdns_service_info_register {
+    /// service type, for example "_my-service._udp", or "_my-service._udp.local.".
+    service: *const c_char,
+    /// the instance name, without the service type suffix, for example "My Service v1.1"
+    name: *const c_char,
+    /// is the "host" in the context of DNS. It is used as the "name"
+    /// in the address records (i.e. TYPE_A and TYPE_AAAA records). It means that
+    /// for the same hostname in the same local network, the service resolves in
+    /// the same addresses. Be sure to check it if you see unexpected addresses resolved.
+    host: *const c_char,
+    /// service port
+    port: u16,
     /// pointer to array of ip addresses
     ip: *const *const c_char,
     /// number of service ip addresses
@@ -87,6 +119,7 @@ pub struct mdns {
     on_srv: mdns_cb_srv,
     on_resolv: mdns_cb_resolv,
     services: Vec<(String, Receiver<ServiceEvent>)>,
+    register_list: HashMap<String, ServiceInfo>,
     // cache: HashMap<String, ServiceInfo>,
 }
 
@@ -104,7 +137,32 @@ impl mdns {
             on_srv,
             on_resolv,
             services: vec![],
+            register_list: HashMap::new(),
         }
+    }
+
+    fn add_register(&mut self, name: &String, srv: ServiceInfo) -> bool {
+        println!("service is registered: {name}");
+        self.register_list.insert(name.clone(), srv).is_some()
+    }
+
+    fn del_register(&mut self, name: &String) -> bool {
+        if self.register_list.remove(name).is_some() {
+            println!("service is unregistered: {name}");
+            true
+        } else {
+            println!("service is not found: {name}");
+            false
+        }
+    }
+
+    fn unregister_all(&mut self) {
+        for (name, _) in self.register_list.iter() {
+            mdns_do_unregister(self, name, 10, true);
+            println!("service is unregistered: {name}");
+        }
+
+        self.register_list.clear();
     }
 
     fn is_ok(&self) -> bool {
@@ -209,7 +267,7 @@ impl mdns {
     }
 }
 
-#[derive(Debug)]
+#[derive(PartialEq, Debug)]
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub enum mdns_rc {
@@ -321,7 +379,9 @@ pub extern "C" fn ceammc_mdns_enable_iface(mdns: *mut mdns, name: *const c_char)
 /// @param mdns - pointer to mdns struct created with ceammc_mdns_create()
 pub extern "C" fn ceammc_mdns_free(mdns: *mut mdns) {
     if !mdns.is_null() {
-        drop(unsafe { Box::from_raw(mdns) })
+        let mut mdns = unsafe { Box::from_raw(mdns) };
+        mdns.unregister_all();
+        drop(mdns)
     }
 }
 
@@ -369,7 +429,7 @@ pub extern "C" fn ceammc_mdns_subscribe(mdns: *mut mdns, service: *const c_char)
         return mdns_rc::ServiceError;
     }
 
-    let service = mdns_full_service_name(service);
+    let service = local_service_name(service);
     match service {
         Ok(service) => do_browse(mdns, service, true),
         Err(rc) => {
@@ -425,7 +485,7 @@ pub extern "C" fn ceammc_mdns_unsubscribe(mdns: *mut mdns, service: *const c_cha
         return mdns_rc::ServiceError;
     }
 
-    let service = mdns_full_service_name(service);
+    let service = local_service_name(service);
     match service {
         Ok(service) => do_stop_browse(mdns, service, true),
         Err(rc) => {
@@ -484,12 +544,15 @@ pub extern "C" fn ceammc_mdns_process_events(mdns: *mut mdns, timeout_ms: u64) -
 /// @param info - service info pointer
 /// @return mdns_rc
 #[no_mangle]
-pub extern "C" fn ceammc_mdns_register(mdns: *mut mdns, info: *const mdns_service_info) -> mdns_rc {
+pub extern "C" fn ceammc_mdns_register(
+    mdns: *mut mdns,
+    info: *const mdns_service_info_register,
+) -> mdns_rc {
     if mdns.is_null() {
         return mdns_rc::NullService;
     }
 
-    let mdns = unsafe { &*mdns };
+    let mdns = unsafe { &mut *mdns };
     if !mdns.is_ok() {
         return mdns_rc::ServiceError;
     }
@@ -500,14 +563,19 @@ pub extern "C" fn ceammc_mdns_register(mdns: *mut mdns, info: *const mdns_servic
     }
     let info = unsafe { &*info };
 
-    let service = mdns_full_service_name(info.stype);
-    let fullname = to_str(info.fullname);
-    let hostname = to_str(info.hostname);
+    let service = local_service_name(info.service);
+    let name: Result<String, mdns_rc> = to_str(info.name);
+    let host = to_str(info.host);
 
-    if [&service, &fullname, &hostname].iter().any(|x| x.is_err()) {
+    let strs = [&service, &name, &host];
+    if strs.iter().any(|x| x.is_err()) {
         mdns.err("invalid string");
         return mdns_rc::InvalidString;
     }
+    let [service, name, host] = strs.map(|x| x.as_ref().unwrap());
+
+    // full service name: EXAMPLE._http._tcp.local
+    let fullname = format!("{name}.{service}");
 
     let ips: String = if info.ip_len == 0 || info.ip.is_null() {
         String::default()
@@ -542,17 +610,21 @@ pub extern "C" fn ceammc_mdns_register(mdns: *mut mdns, info: *const mdns_servic
     let srv = mdns.as_ref();
 
     return match ServiceInfo::new(
-        service.unwrap().as_str(),
-        fullname.unwrap().as_str(),
-        hostname.unwrap().as_str(),
+        service.as_str(),
+        name.as_str(),
+        add_local_domain_suffix(host).as_str(),
         ips,
         info.port,
         props,
     ) {
         Ok(info) => {
             let info = info.enable_addr_auto();
-            match srv.register(info) {
-                Ok(_) => mdns_rc::Ok,
+            println!("service: {info:?}");
+            match srv.register(info.clone()) {
+                Ok(_) => {
+                    mdns.add_register(&fullname, info);
+                    mdns_rc::Ok
+                }
                 Err(err) => {
                     mdns.err(&err.to_string());
                     mdns_rc::ServiceError
@@ -566,37 +638,44 @@ pub extern "C" fn ceammc_mdns_register(mdns: *mut mdns, info: *const mdns_servic
     };
 }
 
-fn mdns_full_service_name(name: *const c_char) -> Result<String, mdns_rc> {
-    let name = unsafe { CStr::from_ptr(name) }.to_str();
-    if name.is_err() {
-        return Err(mdns_rc::InvalidString);
+fn add_local_domain_suffix(hostname: &String) -> String {
+    if hostname.ends_with(".local.") {
+        hostname.into()
+    } else if hostname.ends_with(".local") {
+        String::from(hostname) + "."
+    } else if hostname.ends_with(".") {
+        String::from(hostname) + "local."
+    } else {
+        String::from(hostname) + ".local."
     }
+}
 
-    let mut name = name.unwrap().to_owned();
-    if !name.ends_with(".local.") {
-        if name.ends_with(".local") {
-            name += ".";
-        } else {
-            if name.ends_with(".") {
-                name += "local.";
-            } else {
-                name += ".local.";
-            }
-        }
-    };
+fn local_service_name(name: *const c_char) -> Result<String, mdns_rc> {
+    match unsafe { CStr::from_ptr(name) }.to_str() {
+        Ok(str) => Ok(add_local_domain_suffix(&str.to_owned())),
+        Err(_) => Err(mdns_rc::InvalidString),
+    }
+}
 
-    Ok(name)
+/// make full service name
+/// @example EXAMPLE + _http._tcp. => EXAMPLE._http._tcp.local.
+fn make_fullname(name: *const c_char, service: *const c_char) -> Result<String, mdns_rc> {
+    let host = to_str(name)?;
+    let service = local_service_name(service)?;
+    Ok(format!("{host}.{service}"))
 }
 
 #[no_mangle]
 /// unregister MDNS service
 /// @note can block timeout_ms on eagain socket error
-/// @param mdns - mdns service handle
-/// @param service - mdns service name
+/// @param mdns - mdns handle
+/// @param name - instance name
+/// @param service - mdns service type
 /// @param timeout_ms - timeout for unregister in milliseconds
 /// @return mdns_rc::Ok on success and other codes or error
 pub extern "C" fn ceammc_mdns_unregister(
     mdns: *mut mdns,
+    name: *const c_char,
     service: *const c_char,
     timeout_ms: u64,
 ) -> mdns_rc {
@@ -604,26 +683,27 @@ pub extern "C" fn ceammc_mdns_unregister(
         return mdns_rc::NullService;
     }
 
-    let mdns = unsafe { &*mdns };
+    let mdns = unsafe { &mut *mdns };
     if !mdns.is_ok() {
         return mdns_rc::ServiceError;
     }
 
-    match mdns_full_service_name(service) {
-        Ok(service) => mdns_do_unregister(mdns, service.as_str(), timeout_ms, true),
+    match make_fullname(name, service) {
+        Ok(fullname) => {
+            let rc = mdns_do_unregister(mdns, fullname.as_str(), timeout_ms, true);
+            if rc == mdns_rc::Ok {
+                mdns.del_register(&fullname.to_owned());
+            }
+            rc
+        }
         Err(err) => {
             mdns.err(format!("{err:?}").as_str());
             err
-        },
+        }
     }
 }
 
-fn mdns_do_unregister(
-    mdns: &mdns,
-    fullname: &str,
-    timeout_ms: u64,
-    again: bool,
-) -> mdns_rc {
+fn mdns_do_unregister(mdns: &mdns, fullname: &str, timeout_ms: u64, again: bool) -> mdns_rc {
     let srv = mdns.as_ref();
     let res = srv.unregister(fullname);
     if res.is_err() {
@@ -636,7 +716,7 @@ fn mdns_do_unregister(
             x => {
                 mdns.err(format!("unregister error: {x}").as_str());
                 mdns_rc::ServiceError
-            },
+            }
         };
     }
 
@@ -648,7 +728,7 @@ fn mdns_do_unregister(
             UnregisterStatus::NotFound => {
                 mdns.err(format!("service not found: {fullname}").as_str());
                 mdns_rc::ServiceNotFound
-            },
+            }
         },
         Err(x) => {
             mdns.err(x.to_string().as_str());

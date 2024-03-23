@@ -60,14 +60,15 @@ namespace mdns {
         struct DisableIface { };
 
         struct RegisterService {
-            std::string type;
-            std::string name;
-            std::string hostname;
+            std::string name; // displayed instance name: My_TEST_SERVER
+            std::string service; // service name: _osc._udp
+            std::string host; // my_test_server.local.
             TxtPropertyList props;
             std::uint16_t port;
         };
         struct UnregisterService {
-            std::string type;
+            std::string name; // displayed instance name: My_TEST_SERVER
+            std::string service; // service name: _osc._udp
         };
     }
 

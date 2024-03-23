@@ -21,6 +21,8 @@ OBJECT_STUB_SETUP(NetZeroconf, net_zeroconf, "net.zeroconf");
 #include "ceammc_containers.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+#include "ceammc_fn_list.h"
+#include "ceammc_format.h"
 #include "datatype_dict.h"
 #include "net_zeroconf.h"
 #include "pd_rs.h"
@@ -134,15 +136,11 @@ void mdns::NetZeroconfImpl::process(const req::RegisterService& m)
         for (auto& kv : m.props)
             txt.push_back({ kv.first.c_str(), kv.second.c_str() });
 
-        ceammc_mdns_service_info info {
-            m.type.c_str(),
+        ceammc_mdns_service_info_register info {
+            m.service.c_str(),
             m.name.c_str(),
-            m.hostname.c_str(),
+            m.host.c_str(),
             m.port,
-            0,
-            0,
-            0,
-            0,
             nullptr, 0,
             txt.data(),
             txt.size()
@@ -156,7 +154,7 @@ void mdns::NetZeroconfImpl::process(const req::UnregisterService& m)
 {
     MutexLock lock(mtx_);
     if (mdns_)
-        ceammc_mdns_unregister(mdns_, m.type.c_str(), 10);
+        ceammc_mdns_unregister(mdns_, m.name.c_str(), m.service.c_str(), 10);
 }
 
 void NetZeroconfImpl::process(const req::RefreshActive& m)
@@ -225,14 +223,48 @@ void NetZeroconf::m_unsubscribe(t_symbol* s, const AtomListView& lv)
 
 void NetZeroconf::m_register(t_symbol* s, const AtomListView& lv)
 {
+    static const args::ArgChecker chk("SERVICE:s NAME:s PORT:i PROPS:a*");
+    if (!chk.check(lv, this))
+        return;
+
+    auto service = lv.symbolAt(0, &s_)->s_name;
+    auto host = lv.symbolAt(1, &s_)->s_name;
+    std::string name = host;
+    std::uint16_t port = lv.intAt(2, 0);
+
+    TxtPropertyList props;
+    list::foreachProperty(lv, [this, &name, &props](t_symbol* k, const AtomListView& v) {
+        switch (crc32_hash(k)) {
+        case "@host"_hash:
+            name = to_string(v);
+            break;
+        case "@ip"_hash:
+            break;
+        case "@ipv4"_hash:
+            break;
+        case "@ipv6"_hash:
+            break;
+        case "@local"_hash:
+            break;
+        default:
+            props.push_back({ std::string(k->s_name + 1), to_string(v) });
+            break;
+        }
+    });
+
+    addRequest(RegisterService { name, service, host, props, port });
 }
 
 void NetZeroconf::m_unregister(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_SYMBOL, s))
+    static const args::ArgChecker chk("SERVICE:s NAME:s");
+    if (!chk.check(lv, this))
         return;
 
-    addRequest({ req::UnregisterService { lv.symbolAt(0, &s_)->s_name } });
+    auto service = lv.symbolAt(0, &s_)->s_name;
+    auto name = lv.symbolAt(1, &s_)->s_name;
+
+    addRequest({ req::UnregisterService { name, service } });
 }
 
 void NetZeroconf::processRequest(const Request& req, ResultCallback fn)
