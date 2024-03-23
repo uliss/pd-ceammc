@@ -128,13 +128,13 @@ namespace string {
     bool maybe_ceammc_quoted_string(const AtomListView& lv);
 
     /**
-     * parse domain name form full mdns service name
+     * extract instance form full mdns service name
      * @param service - service fullname
      * @return domain name or empty string on error
      * @example test._http_._tcp -> 'test'
      * @example test._http_._tcp.local -> 'test'
      */
-    std::string mdns_hostname_from_service(const char* service) noexcept;
+    std::string mdns_instance_name_from_service(const char* service) noexcept;
 }
 }
 

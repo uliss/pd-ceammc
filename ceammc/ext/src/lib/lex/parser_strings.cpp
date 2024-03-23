@@ -987,7 +987,7 @@ static const int mdns_hostname_en_main = 1;
 #line 423 "lex/parser_strings.rl"
 
 
-std::string mdns_hostname_from_service(const char* str) noexcept
+std::string mdns_instance_name_from_service(const char* str) noexcept
 {
     if (str == nullptr)
         return {};
@@ -1011,20 +1011,18 @@ std::string mdns_hostname_from_service(const char* str) noexcept
 	switch ( cs )
 	{
 case 1:
-	if ( (*p) == 45 )
-		goto tr0;
-	if ( (*p) < 65 ) {
-		if ( 48 <= (*p) && (*p) <= 57 )
-			goto tr0;
-	} else if ( (*p) > 90 ) {
-		if ( 97 <= (*p) && (*p) <= 122 )
-			goto tr0;
-	} else
-		goto tr0;
-	goto st0;
-st0:
-cs = 0;
-	goto _out;
+	switch( (*p) ) {
+		case 33: goto st0;
+		case 35: goto st0;
+		case 38: goto st0;
+		case 58: goto st0;
+	}
+	if ( (*p) > 47 ) {
+		if ( 63 <= (*p) && (*p) <= 64 )
+			goto st0;
+	} else if ( (*p) >= 46 )
+		goto st0;
+	goto tr0;
 tr0:
 #line 417 "lex/parser_strings.rl"
 	{ host += (*p); }
@@ -1032,21 +1030,21 @@ tr0:
 st2:
 	p += 1;
 case 2:
-#line 1036 "lex/parser_strings.cpp"
+#line 1034 "lex/parser_strings.cpp"
 	switch( (*p) ) {
-		case 45: goto tr0;
+		case 33: goto st0;
+		case 35: goto st0;
+		case 38: goto st0;
 		case 46: goto st3;
-		case 95: goto tr0;
+		case 47: goto st0;
+		case 58: goto st0;
 	}
-	if ( (*p) < 65 ) {
-		if ( 48 <= (*p) && (*p) <= 57 )
-			goto tr0;
-	} else if ( (*p) > 90 ) {
-		if ( 97 <= (*p) && (*p) <= 122 )
-			goto tr0;
-	} else
-		goto tr0;
-	goto st0;
+	if ( 63 <= (*p) && (*p) <= 64 )
+		goto st0;
+	goto tr0;
+st0:
+cs = 0;
+	goto _out;
 st3:
 	p += 1;
 case 3:
@@ -1063,7 +1061,7 @@ tr3:
 st14:
 	p += 1;
 case 14:
-#line 1067 "lex/parser_strings.cpp"
+#line 1065 "lex/parser_strings.cpp"
 	goto st0;
 st4:
 	p += 1;

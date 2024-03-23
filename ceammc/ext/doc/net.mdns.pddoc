@@ -19,7 +19,7 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list of resolved IP's</outlet>
+            <outlet>add SERVICE NAME</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -30,21 +30,18 @@
 
 [subscribe _osc._udp #c(
 
+   [unsubscribe \#osc #d(             [register \#osc CEAM 9000 @prop 1 2 3 #f(
 
-    [active(
-    |
-[net.zeroconf #x]
+      [unsubscribe \#http #e(         [unregister \#osc CEAM #g(
+
+
+[net.mdns #x]                         [net.mdns #y]
 |
-[route add remove resolve service]
-|
-[L]                   [ui.dt #m]
+[print]
 
-    [L #k]
 
-         [L #l]
-
-[X a->x] [X b->x] [X c->x]
-[X x:1->k] [X x:2->l] [X x:3->m]
+[X a->x] [X b->x] [X c->x] [X d->x] [X e->x]
+[X f->y] [X g->y]
 ]]>
             </pdascii>
         </example>

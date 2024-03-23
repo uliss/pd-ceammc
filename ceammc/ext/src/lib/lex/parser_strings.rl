@@ -414,7 +414,7 @@ bool maybe_ceammc_quoted_string(const AtomListView& lv)
 
     service = '_' [a-zA-Z0-9_\-]+;
     service_list = service ('.' service)*;
-    host = ([a-zA-Z0-9\-][a-zA-Z0-9_\-]*) ${ host += fc; };
+    host = ((any - [.:?/@#!&])+) ${ host += fc; };
     local = '.local' '.'?;
 
     main := host '.' service_list* local?
@@ -422,7 +422,7 @@ bool maybe_ceammc_quoted_string(const AtomListView& lv)
     write data;
 }%%
 
-std::string mdns_hostname_from_service(const char* str) noexcept
+std::string mdns_instance_name_from_service(const char* str) noexcept
 {
     if (str == nullptr)
         return {};

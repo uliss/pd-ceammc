@@ -23,7 +23,7 @@ OBJECT_STUB_SETUP(NetMdns, net_mdns, "net.mdns");
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 #include "ceammc_format.h"
-#include "datatype_dict.h"
+#include "lex/parser_strings.h"
 #include "net_mdns.h"
 #include "pd_rs.h"
 
@@ -332,31 +332,37 @@ void NetMdns::processReply(const mdns::reply::ServiceRemoved& r)
 void NetMdns::processReply(const mdns::reply::ServiceResolved& r)
 {
     auto& si = r.info;
+    AtomList res;
+    res.reserve(10);
 
-    DictAtom dict;
-    dict->insert("port", si.port);
-    dict->insert("host", gensym(si.hostname.c_str()));
-    dict->insert("name", gensym(si.fullname.c_str()));
-    dict->insert("service", gensym(si.service.c_str()));
-    if (si.addresses.size() > 0)
-        dict->insert("ip", gensym(si.addresses[0].c_str()));
+    res.append(gensym(r.info.service.c_str()));
+    auto instance_name = string::mdns_instance_name_from_service(r.info.fullname.c_str());
+    res.append(gensym(instance_name.c_str()));
+    res.append(gensym(r.info.hostname.c_str()));
+    res.append(Atom(r.info.port));
 
-    AtomList ips;
-    for (auto& i : si.addresses)
-        ips.append(gensym(i.c_str()));
+    auto ip_count = si.addresses.size();
+    if (ip_count > 0) {
+        res.append(gensym(si.addresses.front().c_str()));
 
-    dict->insert("ip_list", ips);
-
-    if (si.props.size() > 0) {
-        DictAtom props;
-        for (auto& p : si.props) {
-            props->insert(p.first.c_str(), gensym(p.second.c_str()));
+        if (ip_count > 1) {
+            res.append(gensym("@ip"));
+            for (auto& i : si.addresses)
+                res.append(gensym(i.c_str()));
         }
-        dict->insert("txt", props);
+    } else {
+        res.append(gensym("?.?.?.?"));
     }
 
-    AtomArray<2> data { gensym(r.info.service.c_str()), dict };
-    anyTo(0, sym_resolve(), data.view());
+    for (auto& kv : si.props) {
+        char key[64];
+        *fmt::format_to(key, "@{}", kv.first) = '\0';
+
+        res.append(gensym(key));
+        res.append(AtomList::parseString(kv.second.c_str()));
+    }
+
+    anyTo(0, sym_resolve(), res);
 }
 
 void setup_net_mdns()
