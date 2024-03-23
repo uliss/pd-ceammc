@@ -299,34 +299,6 @@ pub extern "C" fn ceammc_mdns_create(
     }
 }
 
-fn name_to_iface(name: &str) -> mdns_sd::IfKind {
-    let ifn = match name {
-        "all" => mdns_sd::IfKind::All,
-        "*" => mdns_sd::IfKind::All,
-        "ipv4" => mdns_sd::IfKind::IPv4,
-        "ipv6" => mdns_sd::IfKind::IPv6,
-        _ => match IpAddr::from_str(name) {
-            Ok(addr) => mdns_sd::IfKind::Addr(addr),
-            _ => mdns_sd::IfKind::Name(name.to_string()),
-        },
-    };
-    ifn
-}
-
-fn to_str(msg: *const c_char) -> Result<String, mdns_rc> {
-    if msg.is_null() {
-        Err(mdns_rc::InvalidString)
-    } else {
-        match unsafe { CStr::from_ptr(msg) }.to_str() {
-            Ok(str) => match String::from_str(str) {
-                Ok(str) => Ok(str),
-                Err(_err) => Err(mdns_rc::InvalidString),
-            },
-            Err(_err) => Err(mdns_rc::InvalidString),
-        }
-    }
-}
-
 #[no_mangle]
 /// enable/disable network interfaces to search for mdns services
 /// @param mdns - pointer to mdns struct
@@ -350,7 +322,7 @@ pub extern "C" fn ceammc_mdns_enable_iface(mdns: *mut mdns, name: *const c_char)
         return mdns_rc::ServiceError;
     }
 
-    let ifname = to_str(name);
+    let ifname = util::to_str(name);
     if let Err(rc) = ifname {
         mdns.err("invalid interface name");
         return rc;
@@ -360,13 +332,13 @@ pub extern "C" fn ceammc_mdns_enable_iface(mdns: *mut mdns, name: *const c_char)
     let srv = mdns.as_ref();
 
     if ifname.starts_with("!") {
-        let ifn = name_to_iface(&ifname[1..]);
+        let ifn = util::name_to_iface(&ifname[1..]);
         match srv.disable_interface(ifn) {
             Ok(_) => mdns_rc::Ok,
             _ => mdns_rc::SetOptionError,
         }
     } else {
-        let ifn = name_to_iface(ifname.as_str());
+        let ifn = util::name_to_iface(ifname.as_str());
         match srv.enable_interface(ifn) {
             Ok(_) => mdns_rc::Ok,
             _ => mdns_rc::SetOptionError,
@@ -429,7 +401,7 @@ pub extern "C" fn ceammc_mdns_subscribe(mdns: *mut mdns, service: *const c_char)
         return mdns_rc::ServiceError;
     }
 
-    let service = local_service_name(service);
+    let service = util::local_service_name(service);
     match service {
         Ok(service) => do_browse(mdns, service, true),
         Err(rc) => {
@@ -485,7 +457,7 @@ pub extern "C" fn ceammc_mdns_unsubscribe(mdns: *mut mdns, service: *const c_cha
         return mdns_rc::ServiceError;
     }
 
-    let service = local_service_name(service);
+    let service = util::local_service_name(service);
     match service {
         Ok(service) => do_stop_browse(mdns, service, true),
         Err(rc) => {
@@ -563,9 +535,9 @@ pub extern "C" fn ceammc_mdns_register(
     }
     let info = unsafe { &*info };
 
-    let service = local_service_name(info.service);
-    let name: Result<String, mdns_rc> = to_str(info.name);
-    let host = to_str(info.host);
+    let service = util::local_service_name(info.service);
+    let name: Result<String, mdns_rc> = util::to_str(info.name);
+    let host = util::to_str(info.host);
 
     let strs = [&service, &name, &host];
     if strs.iter().any(|x| x.is_err()) {
@@ -598,8 +570,8 @@ pub extern "C" fn ceammc_mdns_register(
     } else {
         let mut txt: HashMap<String, String> = HashMap::new();
         for p in unsafe { slice::from_raw_parts(info.txt, info.txt_len) } {
-            let k = to_str(p.key);
-            let v = to_str(p.value);
+            let k = util::to_str(p.key);
+            let v = util::to_str(p.value);
             if [&k, &v].iter().all(|s| s.is_ok()) {
                 txt.insert(k.unwrap(), v.unwrap());
             }
@@ -612,7 +584,7 @@ pub extern "C" fn ceammc_mdns_register(
     return match ServiceInfo::new(
         service.as_str(),
         name.as_str(),
-        add_local_domain_suffix(host).as_str(),
+        util::add_local_domain_suffix(host).as_str(),
         ips,
         info.port,
         props,
@@ -638,33 +610,6 @@ pub extern "C" fn ceammc_mdns_register(
     };
 }
 
-fn add_local_domain_suffix(hostname: &String) -> String {
-    if hostname.ends_with(".local.") {
-        hostname.into()
-    } else if hostname.ends_with(".local") {
-        String::from(hostname) + "."
-    } else if hostname.ends_with(".") {
-        String::from(hostname) + "local."
-    } else {
-        String::from(hostname) + ".local."
-    }
-}
-
-fn local_service_name(name: *const c_char) -> Result<String, mdns_rc> {
-    match unsafe { CStr::from_ptr(name) }.to_str() {
-        Ok(str) => Ok(add_local_domain_suffix(&str.to_owned())),
-        Err(_) => Err(mdns_rc::InvalidString),
-    }
-}
-
-/// make full service name
-/// @example EXAMPLE + _http._tcp. => EXAMPLE._http._tcp.local.
-fn make_fullname(name: *const c_char, service: *const c_char) -> Result<String, mdns_rc> {
-    let host = to_str(name)?;
-    let service = local_service_name(service)?;
-    Ok(format!("{host}.{service}"))
-}
-
 #[no_mangle]
 /// unregister MDNS service
 /// @note can block timeout_ms on eagain socket error
@@ -688,7 +633,7 @@ pub extern "C" fn ceammc_mdns_unregister(
         return mdns_rc::ServiceError;
     }
 
-    match make_fullname(name, service) {
+    match util::make_fullname(name, service) {
         Ok(fullname) => {
             let rc = mdns_do_unregister(mdns, fullname.as_str(), timeout_ms, true);
             if rc == mdns_rc::Ok {
@@ -734,5 +679,64 @@ fn mdns_do_unregister(mdns: &mdns, fullname: &str, timeout_ms: u64, again: bool)
             mdns.err(x.to_string().as_str());
             mdns_rc::ServiceError
         }
+    }
+}
+
+mod util {
+    use super::*;
+
+    pub  fn name_to_iface(name: &str) -> mdns_sd::IfKind {
+        let ifn = match name {
+            "all" => mdns_sd::IfKind::All,
+            "*" => mdns_sd::IfKind::All,
+            "ipv4" => mdns_sd::IfKind::IPv4,
+            "ipv6" => mdns_sd::IfKind::IPv6,
+            _ => match IpAddr::from_str(name) {
+                Ok(addr) => mdns_sd::IfKind::Addr(addr),
+                _ => mdns_sd::IfKind::Name(name.to_string()),
+            },
+        };
+        ifn
+    }
+    
+    pub fn to_str(msg: *const c_char) -> Result<String, mdns_rc> {
+        if msg.is_null() {
+            Err(mdns_rc::InvalidString)
+        } else {
+            match unsafe { CStr::from_ptr(msg) }.to_str() {
+                Ok(str) => match String::from_str(str) {
+                    Ok(str) => Ok(str),
+                    Err(_err) => Err(mdns_rc::InvalidString),
+                },
+                Err(_err) => Err(mdns_rc::InvalidString),
+            }
+        }
+    }
+
+    pub fn add_local_domain_suffix(hostname: &String) -> String {
+        if hostname.ends_with(".local.") {
+            hostname.into()
+        } else if hostname.ends_with(".local") {
+            String::from(hostname) + "."
+        } else if hostname.ends_with(".") {
+            String::from(hostname) + "local."
+        } else {
+            String::from(hostname) + ".local."
+        }
+    }
+
+    pub fn local_service_name(name: *const c_char) -> Result<String, mdns_rc> {
+        match unsafe { CStr::from_ptr(name) }.to_str() {
+            Ok(str) => Ok(add_local_domain_suffix(&str.to_owned())),
+            Err(_) => Err(mdns_rc::InvalidString),
+        }
+    }
+
+    /// make full service name
+    /// @example EXAMPLE + _http._tcp. => EXAMPLE._http._tcp.local.
+    pub fn make_fullname(name: *const c_char, service: *const c_char) -> Result<String, mdns_rc> {
+        let host = to_str(name)?;
+        let service = local_service_name(service)?;
+        Ok(format!("{host}.{service}"))
     }
 }

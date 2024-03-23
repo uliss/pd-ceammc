@@ -228,15 +228,15 @@ void NetZeroconf::m_register(t_symbol* s, const AtomListView& lv)
         return;
 
     auto service = lv.symbolAt(0, &s_)->s_name;
-    auto host = lv.symbolAt(1, &s_)->s_name;
-    std::string name = host;
+    auto name = lv.symbolAt(1, &s_)->s_name;
+    std::string host = name;
     std::uint16_t port = lv.intAt(2, 0);
 
     TxtPropertyList props;
-    list::foreachProperty(lv, [this, &name, &props](t_symbol* k, const AtomListView& v) {
+    list::foreachProperty(lv, [this, &host, &props](t_symbol* k, const AtomListView& v) {
         switch (crc32_hash(k)) {
         case "@host"_hash:
-            name = to_string(v);
+            host = to_string(v);
             break;
         case "@ip"_hash:
             break;
