@@ -685,7 +685,7 @@ fn mdns_do_unregister(mdns: &mdns, fullname: &str, timeout_ms: u64, again: bool)
 mod util {
     use super::*;
 
-    pub  fn name_to_iface(name: &str) -> mdns_sd::IfKind {
+    pub fn name_to_iface(name: &str) -> mdns_sd::IfKind {
         let ifn = match name {
             "all" => mdns_sd::IfKind::All,
             "*" => mdns_sd::IfKind::All,
@@ -698,7 +698,7 @@ mod util {
         };
         ifn
     }
-    
+
     pub fn to_str(msg: *const c_char) -> Result<String, mdns_rc> {
         if msg.is_null() {
             Err(mdns_rc::InvalidString)
@@ -736,7 +736,7 @@ mod util {
     /// @example EXAMPLE + _http._tcp. => EXAMPLE._http._tcp.local.
     pub fn make_fullname(name: *const c_char, service: *const c_char) -> Result<String, mdns_rc> {
         let host = to_str(name)?;
-        let service = local_service_name(service)?;
+        let service = &local_service_name(service)?;
         Ok(format!("{host}.{service}"))
     }
 }
