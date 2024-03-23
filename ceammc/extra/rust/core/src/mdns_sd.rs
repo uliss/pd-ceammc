@@ -237,7 +237,7 @@ impl mdns {
                     }),
             );
 
-            println!("{:?}", ip_ptr);
+            // println!("{:?}", ip_ptr);
 
             let props_vec = Vec::from_iter(
                 info.get_properties()

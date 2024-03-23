@@ -5,39 +5,100 @@
 #X obj 1 1 cnv 5 765 40 empty empty net.mdns 20 20 0 20 -104026 -4096
 0;
 #X obj 683 11 net.mdns;
-#X msg 50 118 subscribe _http._tcp;
-#X msg 338 118 subscribe #all;
-#X msg 69 147 unsubscribe #http;
-#X msg 338 147 unsubscribe #all;
-#X msg 50 176 subscribe _osc._udp;
-#X msg 69 205 unsubscribe #osc;
-#X msg 386 205 register #osc CEAM 9000 @prop 1 2 3;
-#X msg 107 234 unsubscribe #http;
-#X msg 405 234 unregister #osc CEAM;
-#X obj 107 262 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 386 262 net.mdns;
-#X msg 107 291 @fullname \$1;
-#X obj 50 320 net.mdns;
-#X obj 50 349 print;
-#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 403 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 110 404 1\.;
-#X text 245 404 input.;
-#X obj 20 434 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 439 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 210 80 cnv 1 555 200 empty empty empty 17 7 0 10 -257983 -1 0;
+#X text 215 80 Service '.local.' domain suffix is optional and can
+be omitted.;
+#X text 215 120 There are service aliases: #osc - instead of '_osc._udp.local'
+\, #http - '_http._tcp.local' \, #all - to subscribe to all available
+services on the network.;
+#X text 215 175 Note: on close object will automatically unregister
+any previously registered services.;
+#X text 215 215 Note: the #all service is the special case - it will
+output all available network service names with format [service SERVICE(;
+#X msg 50 308 subscribe _http._tcp;
+#X msg 338 308 subscribe #all;
+#X msg 69 337 unsubscribe #http;
+#X msg 338 337 unsubscribe #all;
+#X msg 50 366 subscribe _osc._udp;
+#X msg 69 395 unsubscribe #osc;
+#X msg 386 395 register #osc CEAM 9000 @prop 1 2 3;
+#X msg 107 424 unsubscribe #http;
+#X msg 405 424 unregister #osc CEAM;
+#X obj 107 452 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 386 452 net.mdns;
+#X msg 107 481 @fullname \$1;
+#X obj 50 510 net.mdns;
+#X obj 50 539 print;
+#X obj 20 588 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 593 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X text 110 440 1\.;
-#X text 245 440 add SERVICE NAME \, remove SERVICE NAME \, service
-add|remove SERVICE \, resolve.;
+#X msg 110 628 @fullname;
+#X text 245 628 Get/Set if true: output full instance name (with service
+and domain suffix) \, for ex.: 'THE_SERVICE._xx.local.' format. Type:
+bool. Default value: 1\.;
+#X msg 110 685 @ip;
+#X text 245 685 Get/Set restrict addresses by type. Type: symbol. Default
+value: v4\. Allowed values: v4 \, v6 \, any.;
+#X obj 20 737 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 742 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+-49933 0;
+#X msg 110 777 register;
+#X text 245 777 register MDNS service instance. Instance will be available
+with DNS name NAME.local. Arguments are:;
+#X obj 255 815 cnv 1 59 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 815 SERVICE: service name \, for example: _osc._tcp \,
+or alias: #osc. Type: symbol.;
+#X obj 255 853 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 853 NAME: instance name \, for example: MY_SUPER_SERVER.
+Type: symbol.;
+#X obj 255 891 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 891 PORT: instance port. Type: int. Min value: 0\.;
+#X obj 255 914 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 914 [PROPS]: list of text props (TXT record) \, for example:
+@prop1 FOO @prop2 BOO will have TXT records prop1=FOO prop2=BAR. Type:
+list.;
+#X msg 110 969 subscribe;
+#X text 245 969 subscribe to service events: add \, remove and resolve.
+Arguments are:;
+#X obj 255 1007 cnv 1 59 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1007 SERVICE: service name \, for example: _osc._tcp \,
+or alias: #osc or #all. Type: symbol.;
+#X obj 255 1045 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1045 [ON=true]: if true: subscribe \, false: unsubscribe.
+Type: bool.;
+#X msg 110 1085 unregister;
+#X text 245 1085 manually unregister service instance. Arguments are:;
+#X obj 255 1108 cnv 1 59 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1108 SERVICE: service name \, for example: _osc._tcp \,
+or alias: #osc. Type: symbol.;
+#X obj 255 1146 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1146 NAME: instance name \, for example: MY_SUPER_SERVER.
+Type: symbol.;
+#X msg 110 1186 unsubscribe;
+#X text 245 1186 unsubscribe from specified service events. Arguments
+are:;
+#X obj 255 1209 cnv 1 59 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1209 SERVICE: service name \, for example: _osc._tcp \,
+or alias: #osc or #all. Type: symbol.;
+#X obj 20 1259 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1264 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1265 1\.;
+#X text 245 1265 input.;
+#X obj 20 1295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1300 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 1301 1\.;
+#X text 245 1301 add SERVICE NAME \, remove SERVICE NAME \, service
+add|remove SERVICE \, resolve SERVICE NAME HOST PORT IP PROPERTIES.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 115 45 ::;
 #X obj 131 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 508 library: ceammc v0.9.7;
-#N canvas 10 527 400 290 info 0;
+#X obj 1 1366 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1369 library: ceammc v0.9.7;
+#N canvas 10 1388 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -62,16 +123,16 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 527 pd info;
-#X connect 13 0 15 0;
-#X connect 15 0 16 0;
-#X connect 16 0 17 0;
-#X connect 4 0 16 0;
-#X connect 6 0 16 0;
-#X connect 8 0 16 0;
-#X connect 9 0 16 0;
-#X connect 11 0 16 0;
-#X connect 10 0 14 0;
-#X connect 12 0 14 0;
-#X connect 5 0 16 0;
-#X connect 7 0 16 0;
+#X restore 10 1388 pd info;
+#X connect 18 0 20 0;
+#X connect 20 0 21 0;
+#X connect 21 0 22 0;
+#X connect 9 0 21 0;
+#X connect 11 0 21 0;
+#X connect 13 0 21 0;
+#X connect 14 0 21 0;
+#X connect 16 0 21 0;
+#X connect 15 0 19 0;
+#X connect 17 0 19 0;
+#X connect 10 0 21 0;
+#X connect 12 0 21 0;
