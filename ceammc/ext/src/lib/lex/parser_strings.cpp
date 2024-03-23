@@ -975,5 +975,194 @@ bool maybe_ceammc_quoted_string(const AtomListView& lv)
     return false;
 }
 
+
+#line 980 "lex/parser_strings.cpp"
+static const int mdns_hostname_start = 1;
+static const int mdns_hostname_first_final = 14;
+static const int mdns_hostname_error = 0;
+
+static const int mdns_hostname_en_main = 1;
+
+
+#line 423 "lex/parser_strings.rl"
+
+
+std::string mdns_hostname_from_service(const char* str) noexcept
+{
+    if (str == nullptr)
+        return {};
+    else if(str[0] == '\0')
+        return {};
+
+    int cs = 0;
+    const char* p = str;
+    std::string host;
+
+    
+#line 1003 "lex/parser_strings.cpp"
+	{
+	cs = mdns_hostname_start;
+	}
+
+#line 437 "lex/parser_strings.rl"
+    
+#line 1010 "lex/parser_strings.cpp"
+	{
+	switch ( cs )
+	{
+case 1:
+	if ( (*p) == 45 )
+		goto tr0;
+	if ( (*p) < 65 ) {
+		if ( 48 <= (*p) && (*p) <= 57 )
+			goto tr0;
+	} else if ( (*p) > 90 ) {
+		if ( 97 <= (*p) && (*p) <= 122 )
+			goto tr0;
+	} else
+		goto tr0;
+	goto st0;
+st0:
+cs = 0;
+	goto _out;
+tr0:
+#line 417 "lex/parser_strings.rl"
+	{ host += (*p); }
+	goto st2;
+st2:
+	p += 1;
+case 2:
+#line 1036 "lex/parser_strings.cpp"
+	switch( (*p) ) {
+		case 45: goto tr0;
+		case 46: goto st3;
+		case 95: goto tr0;
+	}
+	if ( (*p) < 65 ) {
+		if ( 48 <= (*p) && (*p) <= 57 )
+			goto tr0;
+	} else if ( (*p) > 90 ) {
+		if ( 97 <= (*p) && (*p) <= 122 )
+			goto tr0;
+	} else
+		goto tr0;
+	goto st0;
+st3:
+	p += 1;
+case 3:
+	switch( (*p) ) {
+		case 0: goto tr3;
+		case 46: goto st4;
+		case 95: goto st11;
+	}
+	goto st0;
+tr3:
+#line 421 "lex/parser_strings.rl"
+	{ {p++; cs = 14; goto _out;} }
+	goto st14;
+st14:
+	p += 1;
+case 14:
+#line 1067 "lex/parser_strings.cpp"
+	goto st0;
+st4:
+	p += 1;
+case 4:
+	if ( (*p) == 108 )
+		goto st5;
+	goto st0;
+st5:
+	p += 1;
+case 5:
+	if ( (*p) == 111 )
+		goto st6;
+	goto st0;
+st6:
+	p += 1;
+case 6:
+	if ( (*p) == 99 )
+		goto st7;
+	goto st0;
+st7:
+	p += 1;
+case 7:
+	if ( (*p) == 97 )
+		goto st8;
+	goto st0;
+st8:
+	p += 1;
+case 8:
+	if ( (*p) == 108 )
+		goto st9;
+	goto st0;
+st9:
+	p += 1;
+case 9:
+	switch( (*p) ) {
+		case 0: goto tr3;
+		case 46: goto st10;
+	}
+	goto st0;
+st10:
+	p += 1;
+case 10:
+	if ( (*p) == 0 )
+		goto tr3;
+	goto st0;
+st11:
+	p += 1;
+case 11:
+	switch( (*p) ) {
+		case 45: goto st12;
+		case 95: goto st12;
+	}
+	if ( (*p) < 65 ) {
+		if ( 48 <= (*p) && (*p) <= 57 )
+			goto st12;
+	} else if ( (*p) > 90 ) {
+		if ( 97 <= (*p) && (*p) <= 122 )
+			goto st12;
+	} else
+		goto st12;
+	goto st0;
+st12:
+	p += 1;
+case 12:
+	switch( (*p) ) {
+		case 0: goto tr3;
+		case 45: goto st12;
+		case 46: goto st13;
+		case 95: goto st12;
+	}
+	if ( (*p) < 65 ) {
+		if ( 48 <= (*p) && (*p) <= 57 )
+			goto st12;
+	} else if ( (*p) > 90 ) {
+		if ( 97 <= (*p) && (*p) <= 122 )
+			goto st12;
+	} else
+		goto st12;
+	goto st0;
+st13:
+	p += 1;
+case 13:
+	switch( (*p) ) {
+		case 95: goto st11;
+		case 108: goto st5;
+	}
+	goto st0;
+	}
+
+	_out: {}
+	}
+
+#line 438 "lex/parser_strings.rl"
+
+    if (cs >= 14)
+        return host;
+    else
+        return {};
+}
+
 }
 }
