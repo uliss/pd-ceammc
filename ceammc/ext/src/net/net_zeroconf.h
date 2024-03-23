@@ -30,12 +30,12 @@ namespace mdns {
     using IpList = std::vector<std::string>;
 
     struct MdnsServiceInfo {
-        std::string ty_domain; // <service>.<domain>
+        std::string service; // <service>.<domain>
         /// See RFC6763 section 7.1 about "Subtypes":
         /// <https://datatracker.ietf.org/doc/html/rfc6763#section-7.1>
         std::string sub_domain; // <subservice>._sub.<service>.<domain>
         std::string fullname; // <instance>.<service>.<domain>
-        std::string server; // fully qualified name for service host
+        std::string hostname; // fully qualified name for service host
         IpList addresses;
         TxtPropertyList props;
         std::uint32_t host_ttl { 0 }; // used for SRV and Address records
@@ -53,6 +53,8 @@ namespace mdns {
         };
         struct Unsubscribe {
             std::string type;
+        };
+        struct RefreshActive {
         };
         struct EnableIface { };
         struct DisableIface { };
@@ -86,6 +88,7 @@ namespace mdns {
     using Request = boost::variant<
         req::Subscribe,
         req::Unsubscribe,
+        req::RefreshActive,
         req::EnableIface,
         req::DisableIface,
         req::RegisterService,
@@ -111,6 +114,7 @@ namespace mdns {
         void unsubscribe(const char* service);
         void process(const req::RegisterService& m);
         void process(const req::UnregisterService& m);
+        void process(const req::RefreshActive& m);
         // blocking call
         void process_events();
     };
@@ -130,6 +134,8 @@ public:
     void m_active(t_symbol* s, const AtomListView&);
     void m_subscribe(t_symbol* s, const AtomListView& lv);
     void m_unsubscribe(t_symbol* s, const AtomListView& lv);
+    void m_register(t_symbol* s, const AtomListView& lv);
+    void m_unregister(t_symbol* s, const AtomListView& lv);
 
     void processRequest(const mdns::Request& req, ResultCallback fn) final;
     void processResult(const mdns::Reply& r) final;

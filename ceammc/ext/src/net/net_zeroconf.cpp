@@ -21,7 +21,6 @@ OBJECT_STUB_SETUP(NetZeroconf, net_zeroconf, "net.zeroconf");
 #include "ceammc_containers.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
-#include "ceammc_format.h"
 #include "datatype_dict.h"
 #include "net_zeroconf.h"
 #include "pd_rs.h"
@@ -34,28 +33,26 @@ using namespace ceammc::mdns::reply;
 
 using MutexLock = std::lock_guard<std::mutex>;
 
-static const std::string ALL_SERVICES = "_services._dns-sd._udp.local.";
-
 CEAMMC_DEFINE_SYM(add)
 CEAMMC_DEFINE_SYM(remove)
 CEAMMC_DEFINE_SYM(resolve)
 CEAMMC_DEFINE_SYM(service)
 
 mdns::MdnsServiceInfo::MdnsServiceInfo(const ceammc_mdns_service_info& info)
-    : ty_domain { info.fullname } // <service>.<domain>
-//    /// See RFC6763 section 7.1 about "Subtypes":
-//    /// <https://datatracker.ietf.org/doc/html/rfc6763#section-7.1>
-//    std::string sub_domain; // <subservice>._sub.<service>.<domain>
-// std::string fullname; // <instance>.<service>.<domain>
-// std::string server; // fully qualified name for service host
-// IpList addresses;
-// TxtPropertyList props;
-// std::uint32_t host_ttl { 0 }; // used for SRV and Address records
-// std::uint32_t other_ttl { 0 }; // used for PTR and TXT records
-// std::uint16_t port { 0 };
-// std::uint16_t priority { 0 };
-// std::uint16_t weight { 0 };
+    : service { info.stype }
+    , fullname { info.fullname }
+    , hostname { info.hostname }
+    , host_ttl { info.host_ttl }
+    , other_ttl { info.other_ttl }
+    , port { info.port }
+    , priority { info.priority }
+    , weight { info.weight }
 {
+    for (size_t i = 0; i < info.ip_len; i++)
+        addresses.push_back(info.ip[i]);
+
+    for (size_t i = 0; i < info.txt_len; i++)
+        props.push_back({ info.txt[i].key, info.txt[i].value });
 }
 
 NetZeroconfImpl::NetZeroconfImpl()
@@ -158,9 +155,15 @@ void mdns::NetZeroconfImpl::process(const req::RegisterService& m)
 void mdns::NetZeroconfImpl::process(const req::UnregisterService& m)
 {
     MutexLock lock(mtx_);
-    if (mdns_) {
-        ceammc_mdns_unregister(mdns_, m.type.c_str(), 0);
-    }
+    if (mdns_)
+        ceammc_mdns_unregister(mdns_, m.type.c_str(), 10);
+}
+
+void NetZeroconfImpl::process(const req::RefreshActive& m)
+{
+    MutexLock lock(mtx_);
+    if (mdns_)
+        ceammc_mdns_query_all(mdns_);
 }
 
 void NetZeroconfImpl::process_events()
@@ -190,16 +193,14 @@ NetZeroconf::NetZeroconf(const PdArgs& args)
         else
             addReply(ServiceRemoved { type, fullname });
     };
+    mdns_->cb_resolv = [this](const MdnsServiceInfo& info) { addReply({ ServiceResolved { info } }); };
 
     createOutlet();
 }
 
 void NetZeroconf::m_active(t_symbol* s, const AtomListView& lv)
 {
-    if (lv.boolAt(0, true))
-        addRequest(req::Subscribe { ALL_SERVICES });
-    else
-        addRequest(req::Unsubscribe { ALL_SERVICES });
+    addRequest(req::RefreshActive {});
 }
 
 void NetZeroconf::m_subscribe(t_symbol* s, const AtomListView& lv)
@@ -222,6 +223,18 @@ void NetZeroconf::m_unsubscribe(t_symbol* s, const AtomListView& lv)
     addRequest(req::Unsubscribe { type });
 }
 
+void NetZeroconf::m_register(t_symbol* s, const AtomListView& lv)
+{
+}
+
+void NetZeroconf::m_unregister(t_symbol* s, const AtomListView& lv)
+{
+    if (!checkArgs(lv, ARG_SYMBOL, s))
+        return;
+
+    addRequest({ req::UnregisterService { lv.symbolAt(0, &s_)->s_name } });
+}
+
 void NetZeroconf::processRequest(const Request& req, ResultCallback fn)
 {
     if (!mdns_)
@@ -236,6 +249,8 @@ void NetZeroconf::processRequest(const Request& req, ResultCallback fn)
         mdns_->process(boost::get<RegisterService>(req));
     } else if (type == typeid(UnregisterService)) {
         mdns_->process(boost::get<UnregisterService>(req));
+    } else if (type == typeid(RefreshActive)) {
+        mdns_->process(boost::get<RefreshActive>(req));
     } else {
         workerThreadError(fmt::format("unknown request type: {}", type.name()));
     }
@@ -261,6 +276,8 @@ void NetZeroconf::processEvents()
 
 void NetZeroconf::processReply(const mdns::reply::ServiceAdded& r)
 {
+    static const std::string ALL_SERVICES = "_services._dns-sd._udp.local.";
+
     if (r.type == ALL_SERVICES) {
         anyTo(0, sym_service(), gensym(r.name.c_str()));
     } else {
@@ -277,8 +294,32 @@ void NetZeroconf::processReply(const mdns::reply::ServiceRemoved& r)
 
 void NetZeroconf::processReply(const mdns::reply::ServiceResolved& r)
 {
-    DictAtom info;
-    anyTo(0, sym_resolve(), info);
+    auto& si = r.info;
+
+    DictAtom dict;
+    dict->insert("port", si.port);
+    dict->insert("host", gensym(si.hostname.c_str()));
+    dict->insert("name", gensym(si.fullname.c_str()));
+    dict->insert("service", gensym(si.service.c_str()));
+    if (si.addresses.size() > 0)
+        dict->insert("ip", gensym(si.addresses[0].c_str()));
+
+    AtomList ips;
+    for (auto& i : si.addresses)
+        ips.append(gensym(i.c_str()));
+
+    dict->insert("ip_list", ips);
+
+    if (si.props.size() > 0) {
+        DictAtom props;
+        for (auto& p : si.props) {
+            props->insert(p.first.c_str(), gensym(p.second.c_str()));
+        }
+        dict->insert("txt", props);
+    }
+
+    AtomArray<2> data { gensym(r.info.service.c_str()), dict };
+    anyTo(0, sym_resolve(), data.view());
 }
 
 void setup_net_zeroconf()
@@ -287,6 +328,8 @@ void setup_net_zeroconf()
     obj.addMethod("active", &NetZeroconf::m_active);
     obj.addMethod("subscribe", &NetZeroconf::m_subscribe);
     obj.addMethod("unsubscribe", &NetZeroconf::m_unsubscribe);
+    obj.addMethod("register", &NetZeroconf::m_register);
+    obj.addMethod("unregister", &NetZeroconf::m_unregister);
 }
 
 #endif
