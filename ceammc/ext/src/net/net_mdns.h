@@ -20,14 +20,20 @@
 #include <unordered_map>
 
 #include "ceammc_pollthread_spsc.h"
+#include "ceammc_property_enum.h"
 #include "pd_rs.h"
 using namespace ceammc;
 
 namespace ceammc {
 namespace mdns {
+    struct IpAddr {
+        std::string addr;
+        bool is_ipv4;
+    };
+
     using TxtPropertyEntry = std::pair<std::string, std::string>;
     using TxtPropertyList = std::vector<TxtPropertyEntry>;
-    using IpList = std::vector<std::string>;
+    using IpList = std::vector<IpAddr>;
 
     struct MdnsServiceInfo {
         std::string service; // <service>.<domain>
@@ -123,6 +129,7 @@ using BaseMdns = FixedSPSCObject<mdns::Request, mdns::Reply>;
 class NetMdns : public BaseMdns {
     std::unique_ptr<mdns::MdnsImpl> mdns_;
     BoolProperty* fullname_;
+    SymbolEnumProperty* ip_;
 
 public:
     NetMdns(const PdArgs& args);
@@ -152,6 +159,8 @@ private:
     }
 
     t_symbol* instanceName(const std::string& name) const;
+
+    mdns::IpList filterIpAddr(const mdns::IpList& ips) const;
 };
 
 void setup_net_mdns();

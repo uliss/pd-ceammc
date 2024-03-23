@@ -16,6 +16,14 @@ pub struct mdns_txt_prop {
     value: *const c_char,
 }
 
+#[derive(Debug)]
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub struct mdns_ip_addr {
+    addr: *const c_char,
+    is_ipv4: bool,
+}
+
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub struct mdns_service_info {
@@ -30,7 +38,7 @@ pub struct mdns_service_info {
     priority: u16,
     weight: u16,
     /// pointer to array of ip addresses
-    ip: *const *const c_char,
+    ip: *const mdns_ip_addr,
     /// number of service ip addresses
     ip_len: usize,
     /// pointer to array of txt properties
@@ -209,20 +217,44 @@ impl mdns {
             let hostname = CString::new(info.get_hostname()).unwrap_or_default();
             let fullname = CString::new(info.get_fullname()).unwrap_or_default();
             let stype = CString::new(info.get_type()).unwrap_or_default();
-            let ip_str = &Vec::from_iter(
-                info.get_addresses()
-                    .into_iter()
-                    .map(|x| CString::new(x.to_string()).unwrap_or_default()),
-            );
-            let ip_ptr = &Vec::from_iter(ip_str.iter().map(|str| str.as_ptr()));
-            let props_vec = Vec::from_iter(info.get_properties().iter().map(|p| {
+
+            let ip_str = Vec::from_iter(info.get_addresses().into_iter().map(|x| {
                 (
-                    CString::new(p.key()).unwrap_or_default(),
-                    CString::new(p.val_str()).unwrap_or_default(),
+                    CString::new(x.to_string()).unwrap_or_default(),
+                    match x {
+                        IpAddr::V4(_) => true,
+                        IpAddr::V6(_) => false,
+                    },
                 )
             }));
 
-            let props_ptr = Vec::from_iter(props_vec.iter().map(|(k, v)| mdns_txt_prop::new(k, v)));
+            let ip_ptr = &Vec::from_iter(
+                ip_str
+                    .iter() //
+                    .map(|(addr, ipv4)| mdns_ip_addr {
+                        addr: addr.as_ptr(),
+                        is_ipv4: *ipv4,
+                    }),
+            );
+
+            println!("{:?}", ip_ptr);
+
+            let props_vec = Vec::from_iter(
+                info.get_properties()
+                    .iter() //
+                    .map(|p| {
+                        (
+                            CString::new(p.key()).unwrap_or_default(),
+                            CString::new(p.val_str()).unwrap_or_default(),
+                        )
+                    }),
+            );
+
+            let props_ptr = Vec::from_iter(
+                props_vec
+                    .iter() //
+                    .map(|(k, v)| mdns_txt_prop::new(k, v)),
+            );
 
             let info = mdns_service_info {
                 stype: stype.as_ptr(),

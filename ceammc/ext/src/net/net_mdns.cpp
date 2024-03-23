@@ -40,6 +40,10 @@ CEAMMC_DEFINE_SYM(remove)
 CEAMMC_DEFINE_SYM(resolve)
 CEAMMC_DEFINE_SYM(service)
 
+CEAMMC_DEFINE_HASH(any)
+CEAMMC_DEFINE_HASH(v4)
+CEAMMC_DEFINE_HASH(v6)
+
 static const std::string& try_service_alias(const std::string& str)
 {
     static std::unordered_map<std::string, std::string> map {
@@ -72,7 +76,7 @@ mdns::MdnsServiceInfo::MdnsServiceInfo(const ceammc_mdns_service_info& info)
     , weight { info.weight }
 {
     for (size_t i = 0; i < info.ip_len; i++)
-        addresses.push_back(info.ip[i]);
+        addresses.emplace_back(IpAddr { info.ip[i].addr, info.ip[i].is_ipv4 });
 
     for (size_t i = 0; i < info.txt_len; i++)
         props.push_back({ info.txt[i].key, info.txt[i].value });
@@ -189,6 +193,9 @@ NetMdns::NetMdns(const PdArgs& args)
 {
     fullname_ = new BoolProperty("@fullname", true);
     addProperty(fullname_);
+
+    ip_ = new SymbolEnumProperty("@ip", { str_v4, str_v6, str_any });
+    addProperty(ip_);
 
     mdns_.reset(new MdnsImpl);
     mdns_->cb_err = [this](const char* msg) { workerThreadError(msg); };
@@ -343,14 +350,14 @@ void NetMdns::processReply(const mdns::reply::ServiceResolved& r)
     res.append(gensym(r.info.hostname.c_str()));
     res.append(Atom(r.info.port));
 
-    auto ip_count = si.addresses.size();
-    if (ip_count > 0) {
-        res.append(gensym(si.addresses.front().c_str()));
+    auto ip = filterIpAddr(si.addresses);
+    if (ip.size() > 0) {
+        res.append(gensym(ip.front().addr.c_str()));
 
-        if (ip_count > 1) {
+        if (ip.size() > 1) {
             res.append(gensym("@ip"));
-            for (auto& i : si.addresses)
-                res.append(gensym(i.c_str()));
+            for (auto& i : ip)
+                res.append(gensym(i.addr.c_str()));
         }
     } else {
         res.append(gensym("?.?.?.?"));
@@ -375,6 +382,26 @@ t_symbol* NetMdns::instanceName(const std::string& name) const
                 : string::mdns_instance_name_from_service(name.c_str()) //
             )
             .c_str());
+}
+
+IpList NetMdns::filterIpAddr(const mdns::IpList& ips) const
+{
+    IpList res;
+    auto hash = crc32_hash(ip_->value());
+
+    std::copy_if(ips.begin(), ips.end(), std::back_inserter(res), [this, hash](const IpAddr& ip) {
+        switch (hash) {
+        case hash_v4:
+            return ip.is_ipv4;
+        case hash_v6:
+            return !ip.is_ipv4;
+        case hash_any:
+        default:
+            return true;
+        }
+    });
+
+    return res;
 }
 
 void setup_net_mdns()

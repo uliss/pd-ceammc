@@ -28,6 +28,11 @@ struct ceammc_mdns_cb_srv {
   void (*cb)(void *user, const char *ty, const char *fullname, bool found);
 };
 
+struct ceammc_mdns_ip_addr {
+  const char *addr;
+  bool is_ipv4;
+};
+
 struct ceammc_mdns_txt_prop {
   const char *key;
   const char *value;
@@ -45,7 +50,7 @@ struct ceammc_mdns_service_info {
   uint16_t priority;
   uint16_t weight;
   /// pointer to array of ip addresses
-  const char *const *ip;
+  const ceammc_mdns_ip_addr *ip;
   /// number of service ip addresses
   size_t ip_len;
   /// pointer to array of txt properties
