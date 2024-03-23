@@ -720,4 +720,25 @@ TEST_CASE("ceammc_string", "[PureData]")
         REQUIRE(string::strlcat(buf, "12345", sizeof(buf)) == 8);
         REQUIRE(buf == std::string("ABC"));
     }
+
+    SECTION("mdns_hostname_from_service")
+    {
+        REQUIRE(mdns_hostname_from_service("test._osc._udp") == std::string("test"));
+        REQUIRE(mdns_hostname_from_service("TEST._osc._udp") == std::string("TEST"));
+        REQUIRE(mdns_hostname_from_service("MYHOST123._osc._http.local") == std::string("MYHOST123"));
+        REQUIRE(mdns_hostname_from_service("test-host._http.local.") == std::string("test-host"));
+        REQUIRE(mdns_hostname_from_service("123._http.local.") == std::string("123"));
+        REQUIRE(mdns_hostname_from_service("123._http.local") == std::string("123"));
+        REQUIRE(mdns_hostname_from_service("123._a._b._c._d._e._f") == std::string("123"));
+        REQUIRE(mdns_hostname_from_service("123._udp") == std::string("123"));
+        REQUIRE(mdns_hostname_from_service("123._udp_udp") == std::string("123"));
+        REQUIRE(mdns_hostname_from_service("123._udp-udp") == std::string("123"));
+        REQUIRE(mdns_hostname_from_service("123.abc._udp") == std::string(""));
+        REQUIRE(mdns_hostname_from_service("123._UDP") == std::string("123"));
+        REQUIRE(mdns_hostname_from_service("123._http.") == std::string(""));
+        REQUIRE(mdns_hostname_from_service("_non_valid._http.local.") == std::string(""));
+        REQUIRE(mdns_hostname_from_service("._http.local.") == std::string(""));
+        REQUIRE(mdns_hostname_from_service("google.com") == "");
+        REQUIRE(mdns_hostname_from_service("TEST._osc.home") == "");
+    }
 }
