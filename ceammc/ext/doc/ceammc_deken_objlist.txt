@@ -956,6 +956,7 @@ net.host2ip	returns IP address by DNS name
 net.host->ip	returns IP address by DNS name
 net.http.send	HTTP request sender
 http.send	HTTP request sender
+net.mdns	MDNS service discovery
 net.mqtt.client	MQTT client
 mqtt.client	MQTT client
 net.osc.receive	OSC message listener
@@ -966,7 +967,6 @@ net.osc.server	OSC server control
 net.osc	OSC server control
 net.ws.client	Websocket client
 net.ws.server	Websocket server
-net.zeroconf	Zeroconf browsing
 noise.baker	Part of a-chaos library
 noise.clifford	clifford attractor
 noise.collatz	collatz conjecture output

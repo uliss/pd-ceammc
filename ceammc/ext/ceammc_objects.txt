@@ -634,6 +634,7 @@ hw.display
 hw.gamepad
 hw.kbd_light
 hw.motu.avb
+hw.printer
 hw.serial
 int->bits
 is_any
@@ -958,6 +959,7 @@ net.artnet.send
 net.host->ip
 net.host2ip
 net.http.send
+net.mdns
 net.mqtt.client
 net.osc
 net.osc.r
@@ -967,7 +969,6 @@ net.osc.send
 net.osc.server
 net.ws.client
 net.ws.server
-net.zeroconf
 noise.baker
 noise.chua~
 noise.clifford

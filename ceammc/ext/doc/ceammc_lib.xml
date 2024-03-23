@@ -1744,6 +1744,9 @@
     <entry name="net.http.send" descr="HTTP request sender" ref_view="object">
       <xi:include href="net.http.send.pddoc" parse="xml"/>
     </entry>
+    <entry name="net.mdns" descr="MDNS service discovery" ref_view="object">
+      <xi:include href="net.mdns.pddoc" parse="xml"/>
+    </entry>
     <entry name="net.mqtt.client" descr="MQTT client" ref_view="object">
       <xi:include href="net.mqtt.client.pddoc" parse="xml"/>
     </entry>
@@ -1761,9 +1764,6 @@
     </entry>
     <entry name="net.ws.server" descr="Websocket server" ref_view="object">
       <xi:include href="net.ws.server.pddoc" parse="xml"/>
-    </entry>
-    <entry name="net.zeroconf" descr="Zeroconf browsing" ref_view="object">
-      <xi:include href="net.zeroconf.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="noise">

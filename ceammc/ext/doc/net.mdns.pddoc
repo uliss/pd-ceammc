@@ -1,31 +1,21 @@
 <?xml version='1.0' encoding='utf-8'?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
-    <object name="net.zeroconf">
-        <title>net.zeroconf</title>
+    <object name="net.mdns">
+        <title>net.mdns</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Zeroconf browsing</description>
+            <description>MDNS service discovery</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>net</category>
             <keywords>net zeroconf bonjour avahi mdns service discovery</keywords>
             <since>0.9.8</since>
         </meta>
-        <arguments>
-            <argument name="TYPE" type="symbol" enum="ipv4 ipv6">result IP type</argument>
-        </arguments>
-        <properties>
-            <property name="@type" type="symbol" enum="ipv4 ipv6" default="ipv4">result IP
-            type</property>
-            <property name="@ipv4" type="alias">shortcut for @type ipv4</property>
-            <property name="@ipv6" type="alias">shortcut for @type ipv6</property>
-        </properties>
         <inlets>
             <inlet>
-                <xinfo on="symbol">DNS name</xinfo>
-                <xinfo on="any">DNS name</xinfo>
+                <xinfo>input</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -41,13 +31,20 @@
 [subscribe _osc._udp #c(
 
 
-
-
+    [active(
+    |
 [net.zeroconf #x]
 |
-[print]
+[route add remove resolve service]
+|
+[L]                   [ui.dt #m]
+
+    [L #k]
+
+         [L #l]
 
 [X a->x] [X b->x] [X c->x]
+[X x:1->k] [X x:2->l] [X x:3->m]
 ]]>
             </pdascii>
         </example>

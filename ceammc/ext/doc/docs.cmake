@@ -565,13 +565,13 @@ set(DOC_FILES
     net.artnet.send
     net.host2ip
     net.http.send
+    net.mdns
     net.mqtt.client
     net.osc.receive
     net.osc.send
     net.osc.server
     net.ws.client
     net.ws.server
-    net.zeroconf
     noise.baker
     noise.chua~
     noise.clifford
