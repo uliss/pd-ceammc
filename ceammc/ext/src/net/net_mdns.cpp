@@ -180,6 +180,13 @@ void mdns::MdnsImpl::process(const req::UnregisterService& m)
         ceammc_mdns_unregister(mdns_, m.name.c_str(), try_service_alias(m.service).c_str(), 10);
 }
 
+void MdnsImpl::process(const req::EnableIface& m)
+{
+    MutexLock lock(mtx_);
+    if (mdns_)
+        ceammc_mdns_enable_iface(mdns_, m.name.c_str());
+}
+
 void MdnsImpl::process_events()
 {
     MutexLock lock(mtx_);
@@ -207,6 +214,15 @@ NetMdns::NetMdns(const PdArgs& args)
     mdns_->cb_resolv = [this](const MdnsServiceInfo& info) { addReply({ ServiceResolved { info } }); };
 
     createOutlet();
+}
+
+void NetMdns::m_interface(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("IFACE:s");
+    if (!chk.check(lv, this))
+        return;
+
+    addRequest(req::EnableIface { lv.asSymbol()->s_name });
 }
 
 void NetMdns::m_subscribe(t_symbol* s, const AtomListView& lv)
@@ -300,6 +316,8 @@ void NetMdns::processRequest(const Request& req, ResultCallback fn)
         mdns_->process(boost::get<RegisterService>(req));
     } else if (type == typeid(UnregisterService)) {
         mdns_->process(boost::get<UnregisterService>(req));
+    } else if (type == typeid(EnableIface)) {
+        mdns_->process(boost::get<EnableIface>(req));
     } else {
         workerThreadError(fmt::format("unknown request type: {}", type.name()));
     }
@@ -417,10 +435,11 @@ IpList NetMdns::filterIpAddr(const mdns::IpList& ips) const
 void setup_net_mdns()
 {
     ObjectFactory<NetMdns> obj("net.mdns");
-    obj.addMethod("subscribe", &NetMdns::m_subscribe);
-    obj.addMethod("unsubscribe", &NetMdns::m_unsubscribe);
+    obj.addMethod("iface", &NetMdns::m_interface);
     obj.addMethod("register", &NetMdns::m_register);
+    obj.addMethod("subscribe", &NetMdns::m_subscribe);
     obj.addMethod("unregister", &NetMdns::m_unregister);
+    obj.addMethod("unsubscribe", &NetMdns::m_unsubscribe);
 }
 
 #endif

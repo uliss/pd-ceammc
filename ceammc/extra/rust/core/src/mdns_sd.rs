@@ -370,17 +370,25 @@ pub extern "C" fn ceammc_mdns_enable_iface(mdns: *mut mdns, name: *const c_char)
 
     let srv = mdns.as_ref();
 
-    if ifname.starts_with("!") {
+    if ifname.starts_with("!") { 
         let ifn = util::name_to_iface(&ifname[1..]);
+        println!("disable {ifn:?}");
         match srv.disable_interface(ifn) {
             Ok(_) => mdns_rc::Ok,
-            _ => mdns_rc::SetOptionError,
+            Err(err) => {
+                mdns.err(&err.to_string());
+                mdns_rc::SetOptionError
+            }
         }
     } else {
         let ifn = util::name_to_iface(ifname.as_str());
+        println!("enable {ifn:?}");
         match srv.enable_interface(ifn) {
             Ok(_) => mdns_rc::Ok,
-            _ => mdns_rc::SetOptionError,
+            Err(err) => {
+                mdns.err(&err.to_string());
+                mdns_rc::SetOptionError
+            }
         }
     }
 }

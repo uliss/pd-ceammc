@@ -60,8 +60,9 @@ namespace mdns {
         struct Unsubscribe {
             std::string type;
         };
-        struct EnableIface { };
-        struct DisableIface { };
+        struct EnableIface {
+            std::string name;
+        };
 
         struct RegisterService {
             std::string name; // displayed instance name: My_TEST_SERVER
@@ -95,7 +96,6 @@ namespace mdns {
         req::Subscribe,
         req::Unsubscribe,
         req::EnableIface,
-        req::DisableIface,
         req::RegisterService,
         req::UnregisterService>;
 
@@ -119,6 +119,7 @@ namespace mdns {
         void unsubscribe(const std::string& service);
         void process(const req::RegisterService& m);
         void process(const req::UnregisterService& m);
+        void process(const req::EnableIface& m);
         // blocking call
         void process_events();
     };
@@ -135,10 +136,11 @@ class NetMdns : public BaseMdns {
 public:
     NetMdns(const PdArgs& args);
 
-    void m_subscribe(t_symbol* s, const AtomListView& lv);
-    void m_unsubscribe(t_symbol* s, const AtomListView& lv);
+    void m_interface(t_symbol* s, const AtomListView& lv);
     void m_register(t_symbol* s, const AtomListView& lv);
+    void m_subscribe(t_symbol* s, const AtomListView& lv);
     void m_unregister(t_symbol* s, const AtomListView& lv);
+    void m_unsubscribe(t_symbol* s, const AtomListView& lv);
 
     void processRequest(const mdns::Request& req, ResultCallback fn) final;
     void processResult(const mdns::Reply& r) final;
