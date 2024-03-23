@@ -92,6 +92,11 @@ void ceammc_mdns_free(ceammc_mdns *mdns);
 /// @return mdns_rc
 ceammc_mdns_rc ceammc_mdns_process_events(ceammc_mdns *mdns, uint64_t timeout_ms);
 
+/// subscribe to active services
+/// @param mdns - pointer to mdns
+/// @return mdns_rc
+ceammc_mdns_rc ceammc_mdns_query_all(ceammc_mdns *mdns);
+
 /// register mdns service
 /// @param mdns - mdns service pointer
 /// @param info - service info pointer

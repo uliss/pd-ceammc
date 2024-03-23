@@ -87,6 +87,7 @@ pub struct mdns {
     on_srv: mdns_cb_srv,
     on_resolv: mdns_cb_resolv,
     services: Vec<(String, Receiver<ServiceEvent>)>,
+    // cache: HashMap<String, ServiceInfo>,
 }
 
 impl mdns {
@@ -333,7 +334,8 @@ fn do_browse(mdns: &mut mdns, sty: String, first_time: bool) -> mdns_rc {
         Err(err) => {
             if first_time {
                 match err {
-                    Error::Again => { // first time sleep and try again
+                    Error::Again => {
+                        // first time sleep and try again
                         std::thread::sleep(Duration::from_millis(10));
                         // recursive call
                         do_browse(mdns, sty, false)
@@ -386,7 +388,8 @@ fn do_stop_browse(mdns: &mut mdns, sty: String, first_time: bool) -> mdns_rc {
         Err(err) => {
             if first_time {
                 match err {
-                    Error::Again => { // first time sleep and try again
+                    Error::Again => {
+                        // first time sleep and try again
                         std::thread::sleep(Duration::from_millis(10));
                         // recursive call
                         do_stop_browse(mdns, sty, false)
@@ -397,7 +400,8 @@ fn do_stop_browse(mdns: &mut mdns, sty: String, first_time: bool) -> mdns_rc {
                         mdns_rc::ServiceError
                     }
                 }
-            } else { // second time error
+            } else {
+                // second time error
                 mdns.remove_service(&sty);
                 mdns_rc::ServiceError
             }
@@ -423,20 +427,35 @@ pub extern "C" fn ceammc_mdns_unsubscribe(mdns: *mut mdns, service: *const c_cha
 
     let service = mdns_full_service_name(service);
     match service {
+        Ok(service) => do_stop_browse(mdns, service, true),
         Err(rc) => {
             mdns.err("invalid service name");
             return rc;
         }
-        Ok(service) => {
-            if let Err(err) = mdns.as_ref().stop_browse(service.as_str()) {
-                mdns.err(format!("unsubscribe error: {err}").as_str());
-                return mdns_rc::ServiceError;
-            } else {
-                mdns.remove_service(&service);
-                mdns_rc::Ok
-            }
-        }
     }
+}
+
+#[no_mangle]
+/// subscribe to active services
+/// @param mdns - pointer to mdns
+/// @return mdns_rc
+pub extern "C" fn ceammc_mdns_query_all(mdns: *mut mdns) -> mdns_rc {
+    if mdns.is_null() {
+        return mdns_rc::NullService;
+    }
+
+    let mdns = unsafe { &mut *mdns };
+    if !mdns.is_ok() {
+        mdns.err("service error");
+        return mdns_rc::ServiceError;
+    }
+
+    let all_srv = "_services._dns-sd._udp.local.";
+    if mdns.services.iter().find(|(x, _)| *x == all_srv).is_some() {
+        do_stop_browse(mdns, all_srv.to_string(), true);
+    }
+
+    return do_browse(mdns, all_srv.to_string(), true);
 }
 
 #[no_mangle]
@@ -491,10 +510,7 @@ pub extern "C" fn ceammc_mdns_register(mdns: *mut mdns, info: *const mdns_servic
     }
 
     let ips: String = if info.ip_len == 0 || info.ip.is_null() {
-        match local_ip_address::local_ip() {
-            Ok(ip) => ip.to_string(),
-            Err(_err) => String::new(),
-        }
+        String::default()
     } else {
         let mut ips = String::new();
         for ip in unsafe { slice::from_raw_parts(info.ip, info.ip_len) } {
@@ -533,13 +549,16 @@ pub extern "C" fn ceammc_mdns_register(mdns: *mut mdns, info: *const mdns_servic
         info.port,
         props,
     ) {
-        Ok(info) => match srv.register(info) {
-            Ok(_) => mdns_rc::Ok,
-            Err(err) => {
-                mdns.err(&err.to_string());
-                mdns_rc::ServiceError
+        Ok(info) => {
+            let info = info.enable_addr_auto();
+            match srv.register(info) {
+                Ok(_) => mdns_rc::Ok,
+                Err(err) => {
+                    mdns.err(&err.to_string());
+                    mdns_rc::ServiceError
+                }
             }
-        },
+        }
         Err(err) => {
             mdns.err(&err.to_string());
             mdns_rc::ServiceError
