@@ -7,6 +7,12 @@
 #include <cstddef>
 struct ceammc_mdns;
 
+enum class ceammc_mdns_iface {
+  ANY,
+  V4,
+  V6,
+};
+
 enum class ceammc_mdns_rc {
   Ok,
   /// when NULL service pointer given
@@ -85,14 +91,12 @@ struct ceammc_mdns_service_info_register {
   const char *host;
   /// service port
   uint16_t port;
-  /// pointer to array of ip addresses
-  const char *const *ip;
-  /// number of service ip addresses
-  size_t ip_len;
   /// pointer to array of txt properties
   const ceammc_mdns_txt_prop *txt;
   /// number of txt properties
   size_t txt_len;
+  /// network interface to listen
+  ceammc_mdns_iface iface;
 };
 
 

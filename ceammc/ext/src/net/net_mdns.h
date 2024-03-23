@@ -69,6 +69,7 @@ namespace mdns {
             std::string host; // my_test_server.local.
             TxtPropertyList props;
             std::uint16_t port;
+            ceammc_mdns_iface iface;
         };
         struct UnregisterService {
             std::string name; // displayed instance name: My_TEST_SERVER

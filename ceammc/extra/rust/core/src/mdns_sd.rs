@@ -7,6 +7,7 @@ use std::os::raw::c_void;
 use std::str::FromStr;
 use std::time::{Duration, Instant};
 
+use local_ip_address::{local_ip, local_ipv6};
 use mdns_sd::{Error, Receiver, ServiceDaemon, ServiceEvent, ServiceInfo, UnregisterStatus};
 
 #[allow(non_camel_case_types)]
@@ -70,14 +71,12 @@ pub struct mdns_service_info_register {
     host: *const c_char,
     /// service port
     port: u16,
-    /// pointer to array of ip addresses
-    ip: *const *const c_char,
-    /// number of service ip addresses
-    ip_len: usize,
     /// pointer to array of txt properties
     txt: *const mdns_txt_prop,
     /// number of txt properties
     txt_len: usize,
+    /// network interface to listen
+    iface: mdns_iface,
 }
 
 impl mdns_txt_prop {
@@ -118,6 +117,14 @@ impl mdns_cb_err {
 pub struct mdns_cb_resolv {
     user: *mut c_void,
     cb: Option<extern "C" fn(user: *mut c_void, info: &mdns_service_info)>,
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub enum mdns_iface {
+    ANY,
+    V4,
+    V6,
 }
 
 #[allow(non_camel_case_types)]
@@ -558,20 +565,15 @@ pub extern "C" fn ceammc_mdns_register(
     // full service name: EXAMPLE._http._tcp.local
     let fullname = format!("{name}.{service}");
 
-    let ips: String = if info.ip_len == 0 || info.ip.is_null() {
-        String::default()
-    } else {
-        let mut ips = String::new();
-        for ip in unsafe { slice::from_raw_parts(info.ip, info.ip_len) } {
-            let ip = unsafe { CStr::from_ptr(*ip) }.to_str().unwrap_or_default();
-            ips.push_str(ip);
-            ips.push(',');
+    let mut auto_addr_type = false;
+    // ip
+    let ips = match info.iface {
+        mdns_iface::ANY => {
+            auto_addr_type = true;
+            String::default()
         }
-        if ips.ends_with(',') {
-            ips.pop();
-        }
-
-        ips
+        mdns_iface::V4 => local_ip().map(|x| x.to_string()).unwrap_or_default(),
+        mdns_iface::V6 => local_ipv6().map(|x| x.to_string()).unwrap_or_default(),
     };
 
     let props = if info.txt.is_null() || info.txt_len == 0 {
@@ -598,8 +600,10 @@ pub extern "C" fn ceammc_mdns_register(
         info.port,
         props,
     ) {
-        Ok(info) => {
-            let info = info.enable_addr_auto();
+        Ok(mut info) => {
+            if auto_addr_type {
+                info = info.enable_addr_auto();
+            }
             println!("service: {info:?}");
             match srv.register(info.clone()) {
                 Ok(_) => {

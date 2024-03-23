@@ -164,9 +164,9 @@ void mdns::MdnsImpl::process(const req::RegisterService& m)
             m.name.c_str(),
             m.host.c_str(),
             m.port,
-            nullptr, 0,
             txt.data(),
-            txt.size()
+            txt.size(),
+            m.iface
         };
 
         ceammc_mdns_register(mdns_, &info);
@@ -183,9 +183,8 @@ void mdns::MdnsImpl::process(const req::UnregisterService& m)
 void MdnsImpl::process_events()
 {
     MutexLock lock(mtx_);
-    if (mdns_) {
+    if (mdns_)
         ceammc_mdns_process_events(mdns_, 100);
-    }
 }
 
 NetMdns::NetMdns(const PdArgs& args)
@@ -241,19 +240,30 @@ void NetMdns::m_register(t_symbol* s, const AtomListView& lv)
     std::string host = name;
     std::uint16_t port = lv.intAt(2, 0);
 
+    ceammc_mdns_iface if_type = ceammc_mdns_iface::ANY;
+    switch (crc32_hash(ip_->value())) {
+    case hash_v4:
+        if_type = ceammc_mdns_iface::V4;
+        break;
+    case hash_v6:
+        if_type = ceammc_mdns_iface::V6;
+        break;
+    default:
+        if_type = ceammc_mdns_iface::ANY;
+        break;
+    }
+
     TxtPropertyList props;
-    list::foreachProperty(lv, [this, &host, &props](t_symbol* k, const AtomListView& v) {
+    list::foreachProperty(lv, [this, &host, &props, &if_type](t_symbol* k, const AtomListView& v) {
         switch (crc32_hash(k)) {
         case "@host"_hash:
             host = to_string(v);
             break;
-        case "@ip"_hash:
-            break;
         case "@ipv4"_hash:
+            if_type = ceammc_mdns_iface::V4;
             break;
         case "@ipv6"_hash:
-            break;
-        case "@local"_hash:
+            if_type = ceammc_mdns_iface::V6;
             break;
         default:
             props.push_back({ std::string(k->s_name + 1), to_string(v) });
@@ -261,7 +271,7 @@ void NetMdns::m_register(t_symbol* s, const AtomListView& lv)
         }
     });
 
-    addRequest(RegisterService { name, service, host, props, port });
+    addRequest(RegisterService { name, service, host, props, port, if_type });
 }
 
 void NetMdns::m_unregister(t_symbol* s, const AtomListView& lv)
