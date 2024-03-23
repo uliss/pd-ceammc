@@ -590,6 +590,7 @@ fn mdns_full_service_name(name: *const c_char) -> Result<String, mdns_rc> {
 
 #[no_mangle]
 /// unregister MDNS service
+/// @note can block timeout_ms on eagain socket error
 /// @param mdns - mdns service handle
 /// @param service - mdns service name
 /// @param timeout_ms - timeout for unregister in milliseconds
@@ -608,21 +609,23 @@ pub extern "C" fn ceammc_mdns_unregister(
         return mdns_rc::ServiceError;
     }
 
-    let mdns = mdns.as_ref();
-
     match mdns_full_service_name(service) {
         Ok(service) => mdns_do_unregister(mdns, service.as_str(), timeout_ms, true),
-        Err(err) => err,
+        Err(err) => {
+            mdns.err(format!("{err:?}").as_str());
+            err
+        },
     }
 }
 
 fn mdns_do_unregister(
-    mdns: &ServiceDaemon,
+    mdns: &mdns,
     fullname: &str,
     timeout_ms: u64,
     again: bool,
 ) -> mdns_rc {
-    let res = mdns.unregister(fullname);
+    let srv = mdns.as_ref();
+    let res = srv.unregister(fullname);
     if res.is_err() {
         if !again {
             return mdns_rc::ServiceError;
@@ -630,7 +633,10 @@ fn mdns_do_unregister(
 
         return match res.unwrap_err() {
             Error::Again => mdns_do_unregister(mdns, fullname, timeout_ms, again),
-            _ => mdns_rc::ServiceError,
+            x => {
+                mdns.err(format!("unregister error: {x}").as_str());
+                mdns_rc::ServiceError
+            },
         };
     }
 
@@ -639,8 +645,14 @@ fn mdns_do_unregister(
     match rc {
         Ok(st) => match st {
             UnregisterStatus::OK => mdns_rc::Ok,
-            UnregisterStatus::NotFound => mdns_rc::ServiceNotFound,
+            UnregisterStatus::NotFound => {
+                mdns.err(format!("service not found: {fullname}").as_str());
+                mdns_rc::ServiceNotFound
+            },
         },
-        Err(_) => mdns_rc::ServiceError,
+        Err(x) => {
+            mdns.err(x.to_string().as_str());
+            mdns_rc::ServiceError
+        }
     }
 }

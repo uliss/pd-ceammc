@@ -111,6 +111,7 @@ ceammc_mdns_rc ceammc_mdns_register(ceammc_mdns *mdns, const ceammc_mdns_service
 ceammc_mdns_rc ceammc_mdns_subscribe(ceammc_mdns *mdns, const char *service);
 
 /// unregister MDNS service
+/// @note can block timeout_ms on eagain socket error
 /// @param mdns - mdns service handle
 /// @param service - mdns service name
 /// @param timeout_ms - timeout for unregister in milliseconds
