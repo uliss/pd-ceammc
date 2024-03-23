@@ -99,6 +99,15 @@ struct ceammc_mdns_service_info_register {
   ceammc_mdns_iface iface;
 };
 
+struct ceammc_net_ifaces {
+  ceammc_Vec<ceammc_NetworkInterface> ifa;
+};
+
+struct ceammc_net_err_cb {
+  void *user;
+  void (*cb)(void *user, const char *msg);
+};
+
 
 extern "C" {
 
@@ -163,6 +172,16 @@ ceammc_mdns_rc ceammc_mdns_unregister(ceammc_mdns *mdns,
 /// @param service name
 /// @return mdns_rc
 ceammc_mdns_rc ceammc_mdns_unsubscribe(ceammc_mdns *mdns, const char *service);
+
+/// free network interface list
+/// @param ifl - pointer to list
+void ceammc_net_free_interfaces(ceammc_net_ifaces *ifl);
+
+/// return pointer to network interface list
+/// you should free it with ceammc_net_free_interfaces
+/// @param err_cb - pointer to error callbacks (can be NULL)
+/// @return pointer to interface list or NULL on error
+ceammc_net_ifaces *ceammc_net_list_interfaces(const ceammc_net_err_cb *err_cb);
 
 } // extern "C"
 

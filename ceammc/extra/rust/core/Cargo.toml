@@ -9,6 +9,7 @@ crate-type = ["staticlib", "cdylib"]
 [dependencies]
 mdns-sd = "0.10.4"
 local-ip-address = "0.6.1"
+network-interface = "1.1.1"
 
 [build-dependencies]
 cbindgen = "0.22.0"
