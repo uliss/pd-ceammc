@@ -34,12 +34,9 @@ fn to_str(s: *mut c_char) -> String {
  * Returns a string value of an key on cups options (If the key was not found return a empty string)
  */
 fn read_options(dest: &cups_dest_s, info: &mut PrinterInfo) {
-    // let mut value = "".to_string();
+    let opts = unsafe { std::slice::from_raw_parts(dest.options, dest.num_options as usize) };
 
-    for i in 1..dest.num_options {
-        let option = unsafe { dest.options.offset(i as isize) };
-        let option = unsafe { &*option };
-
+    for option in opts { 
         let name = to_str(option.name);
 
         match name.as_str() {
@@ -70,41 +67,37 @@ fn read_options(dest: &cups_dest_s, info: &mut PrinterInfo) {
 pub fn get_printers() -> PrinterList {
     let mut printers = vec![];
 
-    let mut dests: *mut cups_dest_t = unsafe { mem::zeroed() };
-    let num_printers = unsafe { cupsGetDests(&mut dests as *mut _) };
+    let mut cups_dests: *mut cups_dest_t = unsafe { mem::zeroed() };
+    let num_dests = unsafe { cupsGetDests(&mut cups_dests as *mut _) };
+    let dests = unsafe { std::slice::from_raw_parts(cups_dests, num_dests as usize) };
 
-    if num_printers > 0 {
-        for i in 0..num_printers {
-            println!("n:{i}");
-            let pi = unsafe { &*dests.offset(i as isize) };
-
+        for dest in dests {
             // skip null names
-            if pi.name.is_null() {
+            if dest.name.is_null() {
                 continue;
             }
 
             let mut info = PrinterInfo::default();
-            read_options(pi, &mut info);
+            read_options(dest, &mut info);
             if info.is_shared {
                 continue;
             }
 
-            info.system_name = to_cstr(pi.name);
+            info.system_name = to_cstr(dest.name);
             printers.push(info);
         }
-    }
 
-    unsafe { cupsFreeDests(num_printers, dests) };
+    unsafe { cupsFreeDests(num_dests, cups_dests) };
 
     printers
 }
 
 pub fn get_default_printer() -> Option<PrinterInfo> {
     let mut dests: *mut cups_dest_t = unsafe { mem::zeroed() };
-    let num_printers = unsafe { cupsGetDests(&mut dests as *mut _) };
+    let num_dests = unsafe { cupsGetDests(&mut dests as *mut _) };
 
     // Get the default printer.
-    let dest = unsafe { cupsGetDest(ptr::null(), ptr::null(), num_printers, dests) };
+    let dest = unsafe { cupsGetDest(ptr::null(), ptr::null(), num_dests, dests) };
 
     let res = if dest.is_null() {
         None
@@ -125,8 +118,8 @@ pub fn get_default_printer() -> Option<PrinterInfo> {
             return Some(info)
         }
     };
-    
-    unsafe { cupsFreeDests(num_printers, dests) };
+
+    unsafe { cupsFreeDests(num_dests, dests) };
 
     res
 }
