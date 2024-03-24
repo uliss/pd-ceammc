@@ -513,7 +513,7 @@ void setup_net_mdns()
     ObjectFactory<NetMdns> obj("net.mdns");
     obj.addMethod("ifaces", &NetMdns::m_ifaces);
     obj.addMethod("register", &NetMdns::m_register);
-    obj.addMethod("set_iface", &NetMdns::m_set_iface);
+    //    obj.addMethod("set_iface", &NetMdns::m_set_iface); seems not working
     obj.addMethod("subscribe", &NetMdns::m_subscribe);
     obj.addMethod("unregister", &NetMdns::m_unregister);
     obj.addMethod("unsubscribe", &NetMdns::m_unsubscribe);

@@ -40,6 +40,9 @@
             <method name="unsubscribe">unsubscribe from specified service events
             <param name="SERVICE" type="symbol" required="true">service name, for example: _osc._tcp, or alias: #osc or #all</param>
             </method>
+            <method name="ifaces">output available network interfaces and their info
+            </method>
+<!--            <method name="set_iface">method</method>            -->
         </methods>
         <properties>
             <property name="@ip" type="symbol" default="v4" enum="v4 v6 any">restrict addresses by type</property>
@@ -87,11 +90,10 @@
 |
 [net.mdns]
 |
-[route iface]
-|
-[unpack s a]
-|
-[print IFACE]
+[msg.unpack 3 #x]/*Dict output*/
+^|
+[print IFACE]    [print INFO #y]
+[X x:2->y]
 ]]>
             </pdascii>
         </example>
