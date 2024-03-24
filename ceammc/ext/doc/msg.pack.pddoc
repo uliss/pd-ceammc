@@ -45,9 +45,11 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]           [F]
-|             |.
-[msg.pack 2 the @message]
+[F]           [F]   [T]
+|             |     |
+|             |     [prop.set @sync]
+|             |.    |.
+[msg.pack 2 the @msg ]
 |
 [ui.dt]
 ]]>
