@@ -5,6 +5,10 @@
 - new objects:
   - route.data (with route.d alias) - separate data from other types
   - msg.unpack - unpack message to selector and arguments
+  - net.mdns - MDNS (Bonjour, Zeroconf) service discovery object
+  - net.ws.client - WebSocket client
+  - net.ws.server - WebSocket client 
+  - net.mqtt.client - MQTT client 
 
 ## [0.9.7]
 ### Added:
