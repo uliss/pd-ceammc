@@ -21,7 +21,7 @@
 
 #include "ceammc_pollthread_spsc.h"
 #include "ceammc_property_enum.h"
-#include "pd_rs.h"
+#include "core_rust_cxx.hpp"
 using namespace ceammc;
 
 namespace ceammc {
@@ -63,6 +63,7 @@ namespace mdns {
         struct EnableIface {
             std::string name;
         };
+        struct ListIfaces { };
 
         struct RegisterService {
             std::string name; // displayed instance name: My_TEST_SERVER
@@ -96,13 +97,15 @@ namespace mdns {
         req::Subscribe,
         req::Unsubscribe,
         req::EnableIface,
+        req::ListIfaces,
         req::RegisterService,
         req::UnregisterService>;
 
     using Reply = boost::variant<
         reply::ServiceAdded,
         reply::ServiceRemoved,
-        reply::ServiceResolved>;
+        reply::ServiceResolved,
+        net::Iface>;
 
     struct MdnsImpl {
         std::mutex mtx_;
@@ -110,6 +113,7 @@ namespace mdns {
         std::function<void(const char* msg)> cb_err;
         std::function<void(const char* type, const char* fullname, bool found)> cb_service;
         std::function<void(const MdnsServiceInfo& info)> cb_resolv;
+        std::function<void(const net::Iface& iface)> cb_iface;
 
         MdnsImpl();
         ~MdnsImpl();
@@ -120,6 +124,7 @@ namespace mdns {
         void process(const req::RegisterService& m);
         void process(const req::UnregisterService& m);
         void process(const req::EnableIface& m);
+        void process(const req::ListIfaces& m);
         // blocking call
         void process_events();
     };
@@ -136,7 +141,8 @@ class NetMdns : public BaseMdns {
 public:
     NetMdns(const PdArgs& args);
 
-    void m_interface(t_symbol* s, const AtomListView& lv);
+    void m_ifaces(t_symbol* s, const AtomListView& lv);
+    void m_set_iface(t_symbol* s, const AtomListView& lv);
     void m_register(t_symbol* s, const AtomListView& lv);
     void m_subscribe(t_symbol* s, const AtomListView& lv);
     void m_unregister(t_symbol* s, const AtomListView& lv);
@@ -150,6 +156,7 @@ private:
     void processReply(const mdns::reply::ServiceAdded& r);
     void processReply(const mdns::reply::ServiceRemoved& r);
     void processReply(const mdns::reply::ServiceResolved& r);
+    void processReply(const net::Iface& iface);
 
     template <class T>
     bool processReplyT(const mdns::Reply& r)

@@ -23,9 +23,9 @@ OBJECT_STUB_SETUP(NetMdns, net_mdns, "net.mdns");
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 #include "ceammc_format.h"
+#include "datatype_dict.h"
 #include "lex/parser_strings.h"
 #include "net_mdns.h"
-#include "pd_rs.h"
 
 #include "fmt/core.h"
 
@@ -187,6 +187,28 @@ void MdnsImpl::process(const req::EnableIface& m)
         ceammc_mdns_enable_iface(mdns_, m.name.c_str());
 }
 
+void MdnsImpl::process(const ListIfaces& /*m*/)
+{
+    auto ifl = ceammc_net_list_interfaces(
+        { this,
+            [](void* user, const char* msg) {
+                auto this_ = static_cast<MdnsImpl*>(user);
+                if (this_ && this_->cb_err)
+                    this_->cb_err(msg);
+            } });
+
+    if (ifl) {
+        ceammc_net_foreach_interfaces(ifl, this, [](void* user, const ceammc_net_iface* iface) {
+            auto this_ = static_cast<MdnsImpl*>(user);
+            if (this_ && this_->cb_err) {
+                auto& fn = this_->cb_err;
+                this_->cb_iface(net::Iface(*iface));
+            }
+        });
+        ceammc_net_free_interfaces(ifl);
+    }
+}
+
 void MdnsImpl::process_events()
 {
     MutexLock lock(mtx_);
@@ -212,11 +234,17 @@ NetMdns::NetMdns(const PdArgs& args)
             addReply(ServiceRemoved { type, fullname });
     };
     mdns_->cb_resolv = [this](const MdnsServiceInfo& info) { addReply({ ServiceResolved { info } }); };
+    mdns_->cb_iface = [this](const net::Iface& iface) { addReply(iface); };
 
     createOutlet();
 }
 
-void NetMdns::m_interface(t_symbol* s, const AtomListView& lv)
+void NetMdns::m_ifaces(t_symbol* s, const AtomListView&)
+{
+    addRequest(req::ListIfaces {});
+}
+
+void NetMdns::m_set_iface(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("IFACE:s");
     if (!chk.check(lv, this))
@@ -318,6 +346,8 @@ void NetMdns::processRequest(const Request& req, ResultCallback fn)
         mdns_->process(boost::get<UnregisterService>(req));
     } else if (type == typeid(EnableIface)) {
         mdns_->process(boost::get<EnableIface>(req));
+    } else if (type == typeid(ListIfaces)) {
+        mdns_->process(boost::get<ListIfaces>(req));
     } else {
         workerThreadError(fmt::format("unknown request type: {}", type.name()));
     }
@@ -328,6 +358,7 @@ void NetMdns::processResult(const Reply& r)
     if (processReplyT<ServiceAdded>(r)) {
     } else if (processReplyT<ServiceRemoved>(r)) {
     } else if (processReplyT<ServiceResolved>(r)) {
+    } else if (processReplyT<net::Iface>(r)) {
     } else {
         OBJ_ERR << "unknown reply type: " << r.type().name();
     }
@@ -402,6 +433,51 @@ void NetMdns::processReply(const mdns::reply::ServiceResolved& r)
     anyTo(0, sym_resolve(), res);
 }
 
+void NetMdns::processReply(const net::Iface& iface)
+{
+    DictAtom info;
+    info->insert("name", gensym(iface.name.c_str()));
+    info->insert("mac", gensym(iface.mac.c_str()));
+    info->insert("index", iface.index);
+    info->insert("ip", AtomList {});
+
+    DictAtom ip;
+    net::IfaceAddrVisitor v {
+        [this, &ip](const net::IfaceAddrV4& v4) {
+            ip->insert("ip", gensym(v4.ip.str.c_str()));
+
+            ip->insert("is_loopback", v4.ip.bits.is_loopback);
+            ip->insert("is_multicast", v4.ip.bits.is_multicast);
+
+            if (v4.bcast)
+                ip->insert("broadcast", gensym(v4.bcast->str.c_str()));
+
+            if (v4.mask)
+                ip->insert("mask", gensym(v4.mask->str.c_str()));
+        },
+        [this, &ip](const net::IfaceAddrV6& v6) {
+            ip->insert("ip", gensym(v6.ip.str.c_str()));
+
+            ip->insert("is_loopback", v6.ip.bits.is_loopback);
+            ip->insert("is_multicast", v6.ip.bits.is_multicast);
+
+            if (v6.bcast)
+                ip->insert("broadcast", gensym(v6.bcast->str.c_str()));
+
+            if (v6.mask)
+                ip->insert("mask", gensym(v6.mask->str.c_str()));
+        }
+    };
+
+    for (auto& a : iface.addrs) {
+        a.apply_visitor(v);
+        info->at("ip").append(ip->clone());
+    }
+
+    AtomArray<2> pair { gensym(iface.name.c_str()), info };
+    anyTo(0, gensym("iface"), pair.view());
+}
+
 t_symbol* NetMdns::instanceName(const std::string& name) const
 {
     return gensym(
@@ -435,8 +511,9 @@ IpList NetMdns::filterIpAddr(const mdns::IpList& ips) const
 void setup_net_mdns()
 {
     ObjectFactory<NetMdns> obj("net.mdns");
-    obj.addMethod("iface", &NetMdns::m_interface);
+    obj.addMethod("ifaces", &NetMdns::m_ifaces);
     obj.addMethod("register", &NetMdns::m_register);
+    obj.addMethod("set_iface", &NetMdns::m_set_iface);
     obj.addMethod("subscribe", &NetMdns::m_subscribe);
     obj.addMethod("unregister", &NetMdns::m_unregister);
     obj.addMethod("unsubscribe", &NetMdns::m_unsubscribe);
