@@ -1,0 +1,69 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="route.data">
+        <title>route.data</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>separate any messages from bangs, floats, symbols and lists</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>route any</keywords>
+            <since>0.9.6</since>
+            <also>
+                <see>route.float</see>
+                <see>route.list</see>
+                <see>route.random</see>
+                <see>route.any</see>
+            </also>
+            <aliases>
+                <alias>route.d</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="TYPE" type="symbol">routed data type name (optional)</argument>
+        </arguments>
+        <properties>
+            <property name="@type" type="symbol" default="" access="initonly">routed data type name</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="data">data to *first* outlet</xinfo>
+                <xinfo on="any">any to second outlet</xinfo>
+                <xinfo on="bang">bang to second outlet</xinfo>
+                <xinfo on="float">float to second outlet</xinfo>
+                <xinfo on="list">list to second outlet</xinfo>
+                <xinfo on="symbol">symbol to second outlet</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>data output</outlet>
+            <outlet>other messages</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[B]
+|
+[data.dict \[a: 1\] #a]
+
+ [bang #b( [L #e]
+
+  [1 #c(
+
+   [S #d]
+
+[route.data  #z]
+|       ^|
+[ui.dt]  |
+         |
+         [ui.dt]
+
+[X a->z] [X b->z] [X c->z] [X d->z] [X e->z]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

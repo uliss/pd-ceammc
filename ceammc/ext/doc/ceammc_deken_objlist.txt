@@ -483,6 +483,8 @@ route.any	separate any messages from bangs, floats, symbols and lists
 route.bang	separate bang messages from other types
 route.b	separate bang messages from other types
 route.cycle	cyclic message router
+route.data	separate any messages from bangs, floats, symbols and lists
+route.d	separate any messages from bangs, floats, symbols and lists
 route.float	separate float messages from other types
 route.f	separate float messages from other types
 route.list	separate list messages from other types

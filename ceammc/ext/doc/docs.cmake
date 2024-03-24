@@ -680,6 +680,7 @@ set(DOC_FILES
     route.any
     route.bang
     route.cycle
+    route.data
     route.float
     route.list
     route.prop
