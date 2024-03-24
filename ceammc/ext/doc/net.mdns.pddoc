@@ -67,7 +67,7 @@
 
       [unsubscribe \#http #e(        [unregister \#osc CEAM #g(
 
-      [T]  [iface lo0 #j(          [net.mdns #y]
+      [T]                          [net.mdns #y]
       |
       [@fullname $1(
       |
@@ -75,9 +75,23 @@
 |
 [print]
 
+[net.mdns.ifaces]
 
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x]
-[X f->y] [X g->y] [X h->x] [X i->x] [X j->x]
+[X f->y] [X g->y] [X h->x] [X i->x]
+]]>
+            </pdascii>
+            <pdascii id="ifaces">
+<![CDATA[
+[ifaces(
+|
+[net.mdns]
+|
+[route iface]
+|
+[unpack s a]
+|
+[print IFACE]
 ]]>
             </pdascii>
         </example>
