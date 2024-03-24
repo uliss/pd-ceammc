@@ -26,7 +26,8 @@
             <argument name="TYPE" type="symbol">routed data type name (optional)</argument>
         </arguments>
         <properties>
-            <property name="@type" type="symbol" default="" access="initonly">routed data type name</property>
+            <property name="@type" type="symbol" default="" access="initonly">routed data type
+            name</property>
         </properties>
         <inlets>
             <inlet>

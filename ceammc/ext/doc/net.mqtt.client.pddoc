@@ -17,8 +17,8 @@
             </aliases>
         </meta>
         <properties>
-            <property name="@mode" type="symbol" default="fudi" enum="data fudi json sym bytes">parsing
-            mode for incoming/outcoming messages. If 'fudi' - interpret data as Pd
+            <property name="@mode" type="symbol" default="fudi" enum="data fudi json sym bytes">
+            parsing mode for incoming/outcoming messages. If 'fudi' - interpret data as Pd
             messages, if 'sym' - always interpret as symbols, 'data' - parse ceammc data, 'json' -
             convert json values to ceammc data.</property>
             <property name="@id" type="symbol" default="pd_mqtt_client_0">client id</property>
@@ -27,21 +27,22 @@
         </properties>
         <methods>
             <!-- publish -->
-            <method name="publish">publish message to topic
+            <method name="publish">publish message to topic 
             <param name="TOPIC" type="symbol" required="true">topic</param>
             <param name="ARGS" type="list" required="false">content</param></method>
             <!-- subscribe -->
-            <method name="subscribe">subscribe to topic
+            <method name="subscribe">subscribe to topic 
             <param name="TOPIC" type="symbol" required="true">topic</param></method>
             <!-- unsubscribe -->
-            <method name="unsubscribe">unsubscribe from topic
+            <method name="unsubscribe">unsubscribe from topic 
             <param name="TOPIC" type="symbol" required="true">topic</param></method>
             <!-- close -->
             <method name="close">close MQTT connection</method>
             <!-- connect -->
             <method name="connect">connect to websocket server 
             <param name="URL" type="symbol" required="true">mqtt server url, for ex.:
-            mqtt://127.0.0.1:9000, tcp://user:pass@127.0.0.1:9000, ssl://user:pass@127.0.0.1 etc.</param></method>
+            mqtt://127.0.0.1:9000, tcp://user:pass@127.0.0.1:9000, ssl://user:pass@127.0.0.1
+            etc.</param></method>
         </methods>
         <inlets>
             <inlet>

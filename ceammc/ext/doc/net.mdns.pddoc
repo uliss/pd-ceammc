@@ -15,39 +15,45 @@
         </meta>
         <info>
             <par>Service '.local.' domain suffix is optional and can be omitted.</par>
-            <par>There are service aliases: #osc - instead of '_osc._udp.local',
-            #http - '_http._tcp.local', #all - to subscribe to all available services on the network.</par>
-            <par>Note: on close object will automatically unregister any previously registered services.</par>
-            <par>Note: the #all service is the special case - it will output all available network service names
-            with format [service SERVICE(</par>
+            <par>There are service aliases: #osc - instead of '_osc._udp.local', #http -
+            '_http._tcp.local', #all - to subscribe to all available services on the network.</par>
+            <par>Note: on close object will automatically unregister any previously registered
+            services.</par>
+            <par>Note: the #all service is the special case - it will output all available network
+            service names with format [service SERVICE(</par>
         </info>
         <methods>
-            <method name="register">register MDNS service instance. Instance will be available with DNS name NAME.local
-            <param name="SERVICE" type="symbol" required="true">service name, for example: _osc._tcp, or alias: #osc</param>
-            <param name="NAME" type="symbol" required="true">instance name, for example: MY_SUPER_SERVER</param>
+            <method name="register">register MDNS service instance. Instance will be available with
+            DNS name NAME.local 
+            <param name="SERVICE" type="symbol" required="true">service name, for example:
+            _osc._tcp, or alias: #osc</param>
+            <param name="NAME" type="symbol" required="true">instance name, for example:
+            MY_SUPER_SERVER</param>
             <param name="PORT" type="int" minvalue="0" required="true">instance port</param>
-            <param name="PROPS" type="list" required="false">list of text props (TXT record), for example: @prop1 FOO @prop2 BOO
-            will have TXT records prop1=FOO prop2=BAR</param>
-            </method>
-            <method name="unregister">manually unregister service instance.
-            <param name="SERVICE" type="symbol" required="true">service name, for example: _osc._tcp, or alias: #osc</param>
-            <param name="NAME" type="symbol" required="true">instance name, for example: MY_SUPER_SERVER</param>
-            </method>
-            <method name="subscribe">subscribe to service events: add, remove and resolve
-            <param name="SERVICE" type="symbol" required="true">service name, for example: _osc._tcp, or alias: #osc or #all</param>
-            <param name="ON" type="bool" required="false" default="true">if true: subscribe, false: unsubscribe</param>
-            </method>
-            <method name="unsubscribe">unsubscribe from specified service events
-            <param name="SERVICE" type="symbol" required="true">service name, for example: _osc._tcp, or alias: #osc or #all</param>
-            </method>
-            <method name="ifaces">output available network interfaces and their info
-            </method>
-<!--            <method name="set_iface">method</method>            -->
+            <param name="PROPS" type="list" required="false">list of text props (TXT record), for
+            example: @prop1 FOO @prop2 BOO will have TXT records prop1=FOO
+            prop2=BAR</param></method>
+            <method name="unregister">manually unregister service instance. 
+            <param name="SERVICE" type="symbol" required="true">service name, for example:
+            _osc._tcp, or alias: #osc</param>
+            <param name="NAME" type="symbol" required="true">instance name, for example:
+            MY_SUPER_SERVER</param></method>
+            <method name="subscribe">subscribe to service events: add, remove and resolve 
+            <param name="SERVICE" type="symbol" required="true">service name, for example:
+            _osc._tcp, or alias: #osc or #all</param>
+            <param name="ON" type="bool" required="false" default="true">if true: subscribe, false:
+            unsubscribe</param></method>
+            <method name="unsubscribe">unsubscribe from specified service events 
+            <param name="SERVICE" type="symbol" required="true">service name, for example:
+            _osc._tcp, or alias: #osc or #all</param></method>
+            <method name="ifaces">output available network interfaces and their info</method>
+            <!--            <method name="set_iface">method</method>            -->
         </methods>
         <properties>
-            <property name="@ip" type="symbol" default="v4" enum="v4 v6 any">restrict addresses by type</property>
-            <property name="@fullname" type="bool" default="1">if true: output full instance name (with service and domain suffix), for ex.:
-            'THE_SERVICE._xx.local.' format</property>
+            <property name="@ip" type="symbol" default="v4" enum="v4 v6 any">restrict addresses by
+            type</property>
+            <property name="@fullname" type="bool" default="1">if true: output full instance name
+            (with service and domain suffix), for ex.: 'THE_SERVICE._xx.local.' format</property>
         </properties>
         <inlets>
             <inlet>
@@ -55,7 +61,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>add SERVICE NAME, remove SERVICE NAME, service add|remove SERVICE, resolve SERVICE NAME HOST PORT IP PROPERTIES</outlet>
+            <outlet>add SERVICE NAME, remove SERVICE NAME, service add|remove SERVICE, resolve
+            SERVICE NAME HOST PORT IP PROPERTIES</outlet>
         </outlets>
         <example>
             <pdascii>
