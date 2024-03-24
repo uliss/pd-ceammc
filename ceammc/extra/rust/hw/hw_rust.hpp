@@ -76,8 +76,6 @@ enum class ceammc_hw_printer_state {
 /// gamepad opaque type
 struct ceammc_hw_gamepad;
 
-struct ceammc_hw_sysinfo_system;
-
 struct ceammc_gamepad_err_cb {
   /// pointer to user data
   void *user;
@@ -139,27 +137,6 @@ struct ceammc_hw_printer_info {
   ceammc_hw_printer_state state;
 };
 
-struct ceammc_hw_sysinfo_cpu {
-  const char *name;
-  const char *brand;
-  uint64_t freq;
-};
-
-struct ceammc_hw_sysinfo_data {
-  const char *name;
-  const char *host;
-  const char *kernel_version;
-  const char *os_version;
-  const char *long_os_version;
-  const char *distribution_id;
-  const char *cpu_arch;
-  uint64_t total_memory;
-  uint64_t used_memory;
-  uint64_t uptime;
-  const ceammc_hw_sysinfo_cpu *cpu;
-  size_t cpu_num;
-};
-
 
 extern "C" {
 
@@ -185,19 +162,10 @@ ceammc_hw_gamepad *ceammc_hw_gamepad_new(ceammc_gamepad_err_cb on_err,
 /// @return ceammc_hw_gamepad_rc
 ceammc_hw_gamepad_rc ceammc_hw_gamepad_process_events(ceammc_hw_gamepad *gp, uint64_t time_ms);
 
-int ceammc_hw_get_printers(void *user, void (*cb)(void *user, const ceammc_hw_printer_info *info));
+size_t ceammc_hw_get_printers(void *user,
+                              void (*cb)(void *user, const ceammc_hw_printer_info *info));
 
 bool ceammc_hw_print_file(const char *printer_name, const char *path);
-
-void ceammc_hw_sysinfo_system_free(ceammc_hw_sysinfo_system *sys);
-
-bool ceammc_hw_sysinfo_system_info(ceammc_hw_sysinfo_system *sys,
-                                   void *user,
-                                   void (*cb)(void *user, const ceammc_hw_sysinfo_data *d));
-
-ceammc_hw_sysinfo_system *ceammc_hw_sysinfo_system_new();
-
-bool ceammc_hw_sysinfo_system_refresh(ceammc_hw_sysinfo_system *sys);
 
 } // extern "C"
 

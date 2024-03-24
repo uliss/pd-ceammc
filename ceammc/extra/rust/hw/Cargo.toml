@@ -9,6 +9,7 @@ crate-type = ["staticlib", "cdylib"]
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]
+cups-sys = "0.1.4"
 gilrs = "0.10.5"
 
 [build-dependencies]

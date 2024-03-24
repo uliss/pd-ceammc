@@ -69,6 +69,19 @@ else()
     target_sources(ceammc_hw PRIVATE hw_gamepad.cpp)
 endif()
 
+# printer
+if(WITH_PRINTER)
+    target_sources(ceammc_hw PRIVATE hw_printer.cpp)
+    target_include_directories(ceammc_hw
+        PRIVATE
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/hw
+    )
+    target_link_libraries(ceammc_hw PRIVATE hw_rust)
+    target_compile_definitions(ceammc_hw PRIVATE WITH_PRINTER)
+else()
+    target_sources(ceammc_hw PRIVATE hw_printer.cpp)
+endif()
+
 #if(WITH_EXPERIMENTAL)
 #    add_definitions(-DWITH_LIBUSB_01)
 #    set(HW_SOURCES udmx_handle.cpp)

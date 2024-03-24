@@ -1,10 +1,14 @@
 {
     "cSpell.words": [
+        "dests",
         "etype",
         "gamepad",
         "gilrs",
         "powerinfo",
         "powerstate",
         "sysinfo"
+    ],
+    "rust-analyzer.linkedProjects": [
+        "./Cargo.toml"
     ]
 }
