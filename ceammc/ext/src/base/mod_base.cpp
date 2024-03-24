@@ -53,6 +53,7 @@ void setup_base_gate_tilde();
 void setup_base_merge_tilde();
 void setup_base_msg();
 void setup_base_msg_pack();
+void setup_base_msg_unpack();
 void setup_base_replace();
 void setup_base_split_tilde();
 void setup_base_sync();
@@ -103,6 +104,7 @@ void ceammc_base_setup()
     setup_base_mix();
     setup_base_msg();
     setup_base_msg_pack();
+    setup_base_msg_unpack();
     setup_base_prop();
     setup_base_radio();
     setup_base_replace();

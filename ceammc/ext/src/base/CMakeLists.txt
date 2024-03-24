@@ -26,6 +26,7 @@ set(BASE_SOURCES
     msg_onload.cpp
     msg_pack.cpp
     msg_sched.cpp
+    msg_unpack.cpp
     obj_props.cpp
     patch_args.cpp
     patch_deps.cpp
