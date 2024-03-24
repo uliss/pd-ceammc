@@ -4,6 +4,7 @@
 ### Added:
 - new objects:
   - route.data (with route.d alias) - separate data from other types
+  - msg.unpack - unpack message to selector and arguments
 
 ## [0.9.7]
 ### Added:

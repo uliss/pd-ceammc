@@ -24,12 +24,12 @@
 #X text 110 409 1\.;
 #X text 150 409 int;
 #X obj 246 410 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 409 N: number of inputs. Type: int. Range: 1\...32;
+#X text 245 409 N: number of outputs. Type: int. Range: 1\...32;
 #X obj 20 439 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 444 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 479 @n;
-#X text 245 479 (initonly) Get/Set number of outlets. Type: int. Default
+#X text 245 479 (initonly) Get/Set number of outputs. Type: int. Default
 value: 1\. Range: 1\...32\.;
 #X obj 20 531 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 536 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
