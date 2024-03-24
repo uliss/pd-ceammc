@@ -45,7 +45,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[B]
+[B]                       [route.data.datatype]
 |
 [data.dict \[a: 1\] #a]
 
@@ -62,6 +62,26 @@
          [ui.dt]
 
 [X a->z] [X b->z] [X c->z] [X d->z] [X e->z]
+]]>
+            </pdascii>
+            <pdascii id="datatype">
+<![CDATA[
+[B]
+|
+[data.dict \[a: 1\] #a]
+
+  [B]
+  |
+  [data.mlist (1 2 3) #b]
+
+
+[route.data MList #z]
+|       ^|
+[ui.dt]  |
+         |
+         [ui.dt]
+
+[X a->z] [X b->z]
 ]]>
             </pdascii>
         </example>
