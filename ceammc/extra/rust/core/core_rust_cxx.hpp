@@ -14,47 +14,47 @@ namespace net {
         IP_V6 = 16, // do not change values!
     };
 
+    template <size_t>
+    struct BitFields {};
+
+    template <>
+    struct BitFields<IP_V4> {
+        bool is_broadcast : 1;
+        bool is_docum : 1;
+        bool is_link_local : 1;
+        bool is_loopback : 1;
+        bool is_multicast : 1;
+        bool is_private : 1;
+        bool is_unspec : 1;
+        BitFields(const ceammc_net_addr4* addr)
+        {
+            is_broadcast = ceammc_net_addr4_is_bcast(addr);
+            is_docum = ceammc_net_addr4_is_doc(addr);
+            is_link_local = ceammc_net_addr4_is_link(addr);
+            is_loopback = ceammc_net_addr4_is_loop(addr);
+            is_multicast = ceammc_net_addr4_is_mcast(addr);
+            is_private = ceammc_net_addr4_is_priv(addr);
+            is_unspec = ceammc_net_addr4_is_unspec(addr);
+        }
+    };
+
+    template <>
+    struct BitFields<IP_V6> {
+        bool is_multicast : 1;
+        bool is_loopback : 1;
+        bool is_unspec : 1;
+        BitFields(const ceammc_net_addr6* addr)
+        {
+            is_multicast = ceammc_net_addr6_is_mcast(addr);
+            is_loopback = ceammc_net_addr6_is_loop(addr);
+            is_unspec = ceammc_net_addr6_is_unspec(addr);
+        }
+    };
+
     template <IpAddrType V>
     struct IpAddrT {
         std::string str;
         std::uint8_t octets[V];
-
-        template <size_t>
-        struct BitFields {
-        };
-        template <>
-        struct BitFields<IP_V4> {
-            bool is_broadcast : 1;
-            bool is_docum : 1;
-            bool is_link_local : 1;
-            bool is_loopback : 1;
-            bool is_multicast : 1;
-            bool is_private : 1;
-            bool is_unspec : 1;
-            BitFields(const ceammc_net_addr4* addr)
-            {
-                is_broadcast = ceammc_net_addr4_is_bcast(addr);
-                is_docum = ceammc_net_addr4_is_doc(addr);
-                is_link_local = ceammc_net_addr4_is_link(addr);
-                is_loopback = ceammc_net_addr4_is_loop(addr);
-                is_multicast = ceammc_net_addr4_is_mcast(addr);
-                is_private = ceammc_net_addr4_is_priv(addr);
-                is_unspec = ceammc_net_addr4_is_unspec(addr);
-            }
-        };
-        template <>
-        struct BitFields<IP_V6> {
-            bool is_multicast : 1;
-            bool is_loopback : 1;
-            bool is_unspec : 1;
-            BitFields(const ceammc_net_addr6* addr)
-            {
-                is_multicast = ceammc_net_addr6_is_mcast(addr);
-                is_loopback = ceammc_net_addr6_is_loop(addr);
-                is_unspec = ceammc_net_addr6_is_unspec(addr);
-            }
-        };
-
         BitFields<V> bits;
 
     public:
