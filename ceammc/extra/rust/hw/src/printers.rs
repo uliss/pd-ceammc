@@ -30,6 +30,21 @@ pub struct hw_printer_info {
     state: hw_printer_state,
 }
 
+impl hw_printer_info {
+    fn new(p: &PrinterInfo) -> Self {
+        hw_printer_info {
+            name: p.name.as_ptr(),
+            system_name: p.system_name.as_ptr(),
+            driver_name: p.driver_name.as_ptr(),
+            uri: p.uri.as_ptr(),
+            location: p.location.as_ptr(),
+            is_default: p.is_default,
+            is_shared: p.is_shared,
+            state: p.state,
+        }
+    }
+}
+
 #[derive(Default, Debug)]
 pub struct PrinterInfo {
     pub name: CString,
@@ -44,30 +59,44 @@ pub struct PrinterInfo {
 
 pub type PrinterList = Vec<PrinterInfo>;
 
-#[no_mangle]
-pub extern "C" fn ceammc_hw_get_printers(
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub struct hw_printer_info_cb {
     user: *mut c_void,
     cb: Option<extern "C" fn(user: *mut c_void, info: &hw_printer_info)>,
-) -> usize {
-    cb.map_or(0, |f| {
-        #[cfg(target_os = "macos")]
-        let printers = printers_cups::get_printers();
+}
 
-        for p in printers.iter().map(|p| hw_printer_info {
-            name: p.name.as_ptr(),
-            system_name: p.system_name.as_ptr(),
-            driver_name: p.driver_name.as_ptr(),
-            uri: p.uri.as_ptr(),
-            location: p.location.as_ptr(),
-            is_default: p.is_default,
-            is_shared: p.is_shared,
-            state: p.state,
-        }) {
-            f(user, &p);
+impl hw_printer_info_cb {
+    fn exec(&self, info: &hw_printer_info) {
+        self.cb.map(|f| f(self.user, info));
+    }
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_get_printers(info_cb: hw_printer_info_cb) -> usize {
+    #[cfg(target_os = "macos")]
+    let printers = printers_cups::get_printers();
+
+    for p in printers.iter().map(|p| hw_printer_info::new(&p)) {
+        info_cb.exec(&p);
+    }
+
+    printers.len()
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_hw_printer_default(info_cb: hw_printer_info_cb) -> bool {
+    #[cfg(target_os = "macos")]
+    let def_print = printers_cups::get_default_printer();
+
+    match def_print {
+        Some(info) => {
+            info_cb.exec(&hw_printer_info::new(&info));
+
+            true
         }
-
-        printers.len()
-    })
+        None => false,
+    }
 }
 
 #[cfg(target_os = "macos")]

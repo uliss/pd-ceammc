@@ -6,6 +6,7 @@ use std::ffi::c_char;
 use std::ffi::CStr;
 use std::ffi::CString;
 use std::mem;
+use std::ptr;
 
 fn is_true(s: *const c_char) -> bool {
     unsafe { CStr::from_ptr(s) }.to_string_lossy() == "true"
@@ -96,4 +97,36 @@ pub fn get_printers() -> PrinterList {
     unsafe { cupsFreeDests(num_printers, dests) };
 
     printers
+}
+
+pub fn get_default_printer() -> Option<PrinterInfo> {
+    let mut dests: *mut cups_dest_t = unsafe { mem::zeroed() };
+    let num_printers = unsafe { cupsGetDests(&mut dests as *mut _) };
+
+    // Get the default printer.
+    let dest = unsafe { cupsGetDest(ptr::null(), ptr::null(), num_printers, dests) };
+
+    let res = if dest.is_null() {
+        None
+    } else {
+        let dest = unsafe { &*dest };
+
+        // skip null names
+        if dest.name.is_null() {
+            return None
+        } else {
+            let mut info = PrinterInfo::default();
+            read_options(dest, &mut info);
+            if info.is_shared {
+                return None;
+            }
+
+            info.system_name = to_cstr(dest.name);
+            return Some(info)
+        }
+    };
+    
+    unsafe { cupsFreeDests(num_printers, dests) };
+
+    res
 }

@@ -38,23 +38,23 @@ void HwPrinter::processRequest(const Request& req, ResultCallback cb)
     if (t == typeid(ListPrinters)) {
         PrinterList info;
         int rc = ceammc_hw_get_printers(
-            &info,
-            [](void* user, const ceammc_hw_printer_info* info) {
-                auto data = static_cast<PrinterList*>(user);
-                if (!data || !info)
-                    return;
+            { &info,
+                [](void* user, const ceammc_hw_printer_info* info) {
+                    auto data = static_cast<PrinterList*>(user);
+                    if (!data || !info)
+                        return;
 
-                PrinterInfo pi;
-                pi.name = info->name;
-                pi.system_name = info->system_name;
-                pi.driver_name = info->driver_name;
-                pi.uri = info->uri;
-                pi.location = info->location;
-                pi.is_default = info->is_default;
-                pi.is_shared = info->is_shared;
-                pi.state = info->state;
-                data->push_back(pi);
-            });
+                    PrinterInfo pi;
+                    pi.name = info->name;
+                    pi.system_name = info->system_name;
+                    pi.driver_name = info->driver_name;
+                    pi.uri = info->uri;
+                    pi.location = info->location;
+                    pi.is_default = info->is_default;
+                    pi.is_shared = info->is_shared;
+                    pi.state = info->state;
+                    data->push_back(pi);
+                } });
 
         if (rc >= 0)
             workerThreadDebug(fmt::format("{} printers found", rc));

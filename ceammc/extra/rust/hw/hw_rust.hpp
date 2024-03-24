@@ -137,6 +137,11 @@ struct ceammc_hw_printer_info {
   ceammc_hw_printer_state state;
 };
 
+struct ceammc_hw_printer_info_cb {
+  void *user;
+  void (*cb)(void *user, const ceammc_hw_printer_info *info);
+};
+
 
 extern "C" {
 
@@ -162,10 +167,11 @@ ceammc_hw_gamepad *ceammc_hw_gamepad_new(ceammc_gamepad_err_cb on_err,
 /// @return ceammc_hw_gamepad_rc
 ceammc_hw_gamepad_rc ceammc_hw_gamepad_process_events(ceammc_hw_gamepad *gp, uint64_t time_ms);
 
-size_t ceammc_hw_get_printers(void *user,
-                              void (*cb)(void *user, const ceammc_hw_printer_info *info));
+size_t ceammc_hw_get_printers(ceammc_hw_printer_info_cb info_cb);
 
 bool ceammc_hw_print_file(const char *printer_name, const char *path);
+
+bool ceammc_hw_printer_default(ceammc_hw_printer_info_cb info_cb);
 
 } // extern "C"
 
