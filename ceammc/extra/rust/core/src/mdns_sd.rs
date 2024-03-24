@@ -135,7 +135,7 @@ pub struct mdns {
     on_resolv: mdns_cb_resolv,
     services: Vec<(String, Receiver<ServiceEvent>)>,
     register_list: HashMap<String, ServiceInfo>,
-    // cache: HashMap<String, ServiceInfo>,
+    host_cache: HashMap<String, ServiceInfo>,
 }
 
 impl mdns {
@@ -153,15 +153,19 @@ impl mdns {
             on_resolv,
             services: vec![],
             register_list: HashMap::new(),
+            host_cache: HashMap::new(),
         }
     }
 
     fn add_register(&mut self, name: &String, srv: ServiceInfo) -> bool {
         println!("service is registered: {name}");
+        self.host_cache.insert(name.clone(), srv.clone());
         self.register_list.insert(name.clone(), srv).is_some()
     }
 
     fn del_register(&mut self, name: &String) -> bool {
+        self.register_list.remove(name);
+
         if self.register_list.remove(name).is_some() {
             println!("service is unregistered: {name}");
             true
@@ -219,7 +223,7 @@ impl mdns {
         self._service(ty, name, false)
     }
 
-    fn service_resolved(&self, info: ServiceInfo) {
+    fn service_resolved(&self, info: &ServiceInfo) {
         self.on_resolv.cb.map(|f| {
             let hostname = CString::new(info.get_hostname()).unwrap_or_default();
             let fullname = CString::new(info.get_fullname()).unwrap_or_default();
@@ -243,8 +247,6 @@ impl mdns {
                         is_ipv4: *ipv4,
                     }),
             );
-
-            // println!("{:?}", ip_ptr);
 
             let props_vec = Vec::from_iter(
                 info.get_properties()
@@ -290,9 +292,12 @@ impl mdns {
                         self.service_added(srv_type, fullname)
                     }
                     ServiceEvent::ServiceResolved(info) => {
-                        self.service_resolved(info);
+                        self.service_resolved(&info);
+                        self.host_cache
+                            .insert(info.get_fullname().to_string(), info);
                     }
                     ServiceEvent::ServiceRemoved(srv_type, fullname) => {
+                        self.host_cache.remove(&fullname);
                         self.service_removed(srv_type, fullname)
                     }
                     // ServiceEvent::SearchStarted(info) => todo!(),
@@ -370,7 +375,7 @@ pub extern "C" fn ceammc_mdns_enable_iface(mdns: *mut mdns, name: *const c_char)
 
     let srv = mdns.as_ref();
 
-    if ifname.starts_with("!") { 
+    if ifname.starts_with("!") {
         let ifn = util::name_to_iface(&ifname[1..]);
         println!("disable {ifn:?}");
         match srv.disable_interface(ifn) {
@@ -700,6 +705,51 @@ fn mdns_do_unregister(mdns: &mdns, fullname: &str, timeout_ms: u64, again: bool)
             mdns.err(x.to_string().as_str());
             mdns_rc::ServiceError
         }
+    }
+}
+
+#[no_mangle]
+/// unregister MDNS service
+/// @note can block timeout_ms on eagain socket error
+/// @param mdns - mdns handle
+/// @param name - instance name
+/// @param service - mdns service type
+/// @param timeout_ms - timeout for unregister in milliseconds
+/// @return mdns_rc::Ok on success and other codes or error
+pub extern "C" fn ceammc_mdns_resolve(
+    mdns: *mut mdns,
+    name: *const c_char,
+    service: *const c_char,
+) -> bool {
+    if mdns.is_null() {
+        return false;
+    }
+
+    let mdns = unsafe { &*mdns };
+    if !mdns.is_ok() {
+        return false;
+    }
+
+    match util::make_fullname(name, service) {
+        Ok(fullname) => {
+            //
+            println!("find '{fullname}'");
+            match mdns.host_cache.get(&fullname) {
+                Some(info) => {
+                    println!("found: {info:?}");
+                    mdns.service_resolved(info);
+                    true
+                }
+                None => {
+                    println!("{fullname}");
+                    println!("OSC_CEAM._osc._udp.local.");
+                    println!("{fullname} == {}", fullname == "OSC_CEAM._osc._udp.local.");
+                    println!("key not found: {fullname} in:\n\n {:?}\n\n", mdns.host_cache);
+                    false
+                }
+            }
+        }
+        Err(_err) => false,
     }
 }
 

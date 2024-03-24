@@ -200,6 +200,17 @@ ceammc_mdns_rc ceammc_mdns_register(ceammc_mdns *mdns,
                                     const ceammc_mdns_service_info_register *info);
 
 /**
+ * unregister MDNS service
+ * @note can block timeout_ms on eagain socket error
+ * @param mdns - mdns handle
+ * @param name - instance name
+ * @param service - mdns service type
+ * @param timeout_ms - timeout for unregister in milliseconds
+ * @return mdns_rc::Ok on success and other codes or error
+ */
+bool ceammc_mdns_resolve(ceammc_mdns *mdns, const char *name, const char *service);
+
+/**
  * subscribe to mdns service events
  * @param mdns - pointer to mdns
  * @param service: mdns service name

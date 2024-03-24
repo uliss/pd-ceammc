@@ -77,6 +77,10 @@ namespace mdns {
             std::string name; // displayed instance name: My_TEST_SERVER
             std::string service; // service name: _osc._udp
         };
+        struct ResolveService {
+            std::string name; // displayed instance name: My_TEST_SERVER
+            std::string service; // service name: _osc._udp
+        };
     }
 
     namespace reply {
@@ -99,7 +103,8 @@ namespace mdns {
         req::EnableIface,
         req::ListIfaces,
         req::RegisterService,
-        req::UnregisterService>;
+        req::UnregisterService,
+        req::ResolveService>;
 
     using Reply = boost::variant<
         reply::ServiceAdded,
@@ -125,6 +130,7 @@ namespace mdns {
         void process(const req::UnregisterService& m);
         void process(const req::EnableIface& m);
         void process(const req::ListIfaces& m);
+        void process(const req::ResolveService& m);
         // blocking call
         void process_events();
     };
@@ -142,8 +148,9 @@ public:
     NetMdns(const PdArgs& args);
 
     void m_ifaces(t_symbol* s, const AtomListView& lv);
-    void m_set_iface(t_symbol* s, const AtomListView& lv);
     void m_register(t_symbol* s, const AtomListView& lv);
+    void m_resolve(t_symbol* s, const AtomListView& lv);
+    void m_set_iface(t_symbol* s, const AtomListView& lv);
     void m_subscribe(t_symbol* s, const AtomListView& lv);
     void m_unregister(t_symbol* s, const AtomListView& lv);
     void m_unsubscribe(t_symbol* s, const AtomListView& lv);
