@@ -7,6 +7,6 @@ fn main() {
 
     cbindgen::generate(crate_dir)
         .expect("Unable to generate bindings")
-        .write_to_file("hw_rust.h");
+        .write_to_file("hw_rust.hpp");
 }
     

@@ -187,6 +187,7 @@ mod gamepad {
     }
 
     #[allow(non_camel_case_types)]
+    /// gamepad opaque type
     pub struct hw_gamepad {
         gilrs: Gilrs,
         on_event: gamepad_event_cb,

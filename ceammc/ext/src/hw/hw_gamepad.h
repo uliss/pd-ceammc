@@ -19,7 +19,7 @@
 #include <memory>
 
 #include "ceammc_pollthread_spsc.h"
-#include "hw_rust.h"
+#include "hw_rust.hpp"
 using namespace ceammc;
 
 namespace ceammc {

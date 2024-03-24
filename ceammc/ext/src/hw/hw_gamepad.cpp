@@ -21,7 +21,6 @@ OBJECT_STUB_SETUP(HwGamepad, hw_gamepad, "hw.gamepad");
 #include "ceammc_factory.h"
 #include "datatype_dict.h"
 #include "hw_gamepad.h"
-#include "hw_rust.h"
 
 #include "fmt/core.h"
 
