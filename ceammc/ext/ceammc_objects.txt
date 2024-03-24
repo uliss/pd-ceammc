@@ -949,6 +949,7 @@ msg.onclose
 msg.onload
 msg.pack
 msg.sched
+msg.unpack
 music.d->t
 music.dur2time
 music.v->m

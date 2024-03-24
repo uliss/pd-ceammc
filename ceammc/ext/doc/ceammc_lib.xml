@@ -1722,6 +1722,9 @@
     <entry name="msg.sched" descr="message scheduler" ref_view="object">
       <xi:include href="msg.sched.pddoc" parse="xml"/>
     </entry>
+    <entry name="msg.unpack" descr="message unpack" ref_view="object">
+      <xi:include href="msg.unpack.pddoc" parse="xml"/>
+    </entry>
   </category>
   <category name="music">
     <entry name="rhythm.euclid" descr="euclid pattern generator" ref_view="object">

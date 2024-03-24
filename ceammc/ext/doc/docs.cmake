@@ -560,6 +560,7 @@ set(DOC_FILES
     msg.onload
     msg.pack
     msg.sched
+    msg.unpack
     music.dur2time
     music.voice2midi
     net.artnet.send

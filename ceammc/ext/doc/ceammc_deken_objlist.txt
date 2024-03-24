@@ -947,6 +947,7 @@ ceammc/loadmsg	send message when patch loads
 loadmsg	send message when patch loads
 msg.pack	message pack
 msg.sched	message scheduler
+msg.unpack	message unpack
 rhythm.euclid	euclid pattern generator
 rhythm.hexbeat	hexbeat pattern generator
 rhythm.lsystem	L-system pattern generator

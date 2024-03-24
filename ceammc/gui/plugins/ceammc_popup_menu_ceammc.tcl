@@ -154,12 +154,13 @@
     }}
     {msg {
         loadexpr msg msg.after msg.onclose msg.onload msg.pack msg.sched
+        msg.unpack
     }}
     {music {
         rhythm.euclid rhythm.hexbeat rhythm.lsystem
     }}
     {net {
-        net.artnet.send net.host2ip net.http.send net.mqtt.client
+        net.artnet.send net.host2ip net.http.send net.mdns net.mqtt.client
         net.osc.receive net.osc.send net.osc.server net.ws.client
         net.ws.server
     }}

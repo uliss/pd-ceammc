@@ -14,6 +14,7 @@
             <since>0.9.7</since>
             <also>
                 <see>msg</see>
+                <see>msg.unpack</see>
             </also>
         </meta>
         <arguments>
