@@ -709,13 +709,12 @@ fn mdns_do_unregister(mdns: &mdns, fullname: &str, timeout_ms: u64, again: bool)
 }
 
 #[no_mangle]
-/// unregister MDNS service
-/// @note can block timeout_ms on eagain socket error
+/// search fir MDNS service in the internal cache
 /// @param mdns - mdns handle
 /// @param name - instance name
 /// @param service - mdns service type
-/// @param timeout_ms - timeout for unregister in milliseconds
-/// @return mdns_rc::Ok on success and other codes or error
+/// @return true if service was found, false otherwise
+/// you can get resolve information via mdns callbacks
 pub extern "C" fn ceammc_mdns_resolve(
     mdns: *mut mdns,
     name: *const c_char,
