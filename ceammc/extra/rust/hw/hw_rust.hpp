@@ -181,6 +181,9 @@ ceammc_hw_gamepad *ceammc_hw_gamepad_new(ceammc_gamepad_err_cb on_err,
 /// @return ceammc_hw_gamepad_rc
 ceammc_hw_gamepad_rc ceammc_hw_gamepad_process_events(ceammc_hw_gamepad *gp, uint64_t time_ms);
 
+/// get printers info via specified callback
+/// @param info_cb - called on every found printer
+/// @return number of printers found
 size_t ceammc_hw_get_printers(ceammc_hw_printer_info_cb info_cb);
 
 int32_t ceammc_hw_print_file(const char *printer,

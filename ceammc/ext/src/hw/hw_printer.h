@@ -17,20 +17,17 @@
 #include <boost/variant.hpp>
 
 #include "ceammc_pollthread_spsc.h"
-#include "hw_print_struct.h"
-//#include "hw_rust.hpp"
+#include "hw_rust_print.hpp"
 
 namespace ceammc {
 namespace printer {
-
-    using PrinterList = std::vector<PrinterInfo>;
 
     namespace req {
         struct ListPrinters { };
         struct PrintFile {
             std::string printer_name;
             std::string file_path;
-            PrintOptions opts;
+            ceammc_hw_print_options opts;
         };
     }
 
@@ -38,7 +35,7 @@ namespace printer {
     }
 
     using Request = boost::variant<req::ListPrinters, req::PrintFile>;
-    using Reply = boost::variant<PrinterList>;
+    using Reply = boost::variant<PrinterInfo>;
 }
 }
 

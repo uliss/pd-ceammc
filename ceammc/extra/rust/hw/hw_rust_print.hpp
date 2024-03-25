@@ -14,18 +14,12 @@
 #ifndef HW_PRINT_STRUCT_H
 #define HW_PRINT_STRUCT_H
 
-#include <boost/variant.hpp>
 #include <string>
 #include <vector>
 
-namespace ceammc {
+#include "hw_rust.hpp"
 
-enum class PrinterState {
-    Unknown,
-    Ready,
-    Paused,
-    Printing
-};
+namespace ceammc {
 
 enum class PrintingStatus {
     Ok,
@@ -33,27 +27,22 @@ enum class PrintingStatus {
     JobError,
 };
 
-using JobStatus = std::pair<PrintingStatus, int>;
-
-struct PrintOptions {
-    bool landscape;
-};
-
-using PrinterOptionAttr = boost::variant<boost::blank, std::string, bool, int>;
-
-struct PrinterOption {
-    std::string name;
-    PrinterOptionAttr ready;
-    PrinterOptionAttr def;
-    std::vector<PrinterOptionAttr> supported;
-};
-
 class PrinterInfo {
 public:
     std::string name, system_name, location, driver, uri;
     bool is_default, is_shared;
-    PrinterState state;
-    std::vector<PrinterOption> options;
+    ceammc_hw_printer_state state;
+
+    PrinterInfo(const ceammc_hw_printer_info* info) {
+        name = info->name;
+        system_name = info->system_name;
+        driver = info->driver_name;
+        location = info->location;
+        uri = info->uri;
+        state = info->state;
+        is_default = info->is_default;
+        is_shared = info->is_shared;
+    }
 };
 
 }

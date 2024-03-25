@@ -2,10 +2,10 @@ use crate::printers::hw_printer_state;
 use crate::printers::PrinterInfo;
 use crate::printers::PrinterList;
 use cups_sys::*;
-use std::ffi::c_char;
 use std::ffi::CStr;
 use std::ffi::CString;
 use std::mem;
+use std::os::raw::c_char;
 use std::ptr;
 use std::ptr::null_mut;
 
@@ -67,9 +67,9 @@ fn cups_read_options(dest: &cups_dest_s, info: &mut PrinterInfo) {
 
 pub fn get_printers() -> PrinterList {
     let mut printers = vec![];
-
     let mut cups_dests: *mut cups_dest_t = null_mut();
     let num_dests = unsafe { cupsGetDests(&mut cups_dests as *mut _) };
+
     let dests = unsafe { std::slice::from_raw_parts_mut(cups_dests, num_dests as usize) };
 
     for dest in dests {

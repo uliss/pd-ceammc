@@ -73,10 +73,17 @@ impl hw_printer_info_cb {
     }
 }
 
+/// get printers info via specified callback
+/// @param info_cb - called on every found printer
+/// @return number of printers found
 #[no_mangle]
 pub extern "C" fn ceammc_hw_get_printers(info_cb: hw_printer_info_cb) -> usize {
+    let printers: Vec<PrinterInfo>;
+
     #[cfg(target_os = "macos")]
-    let printers = printers_cups::get_printers();
+    {
+        printers = printers_cups::get_printers();
+    }
 
     for p in printers.iter().map(|p| hw_printer_info::new(&p)) {
         info_cb.exec(&p);

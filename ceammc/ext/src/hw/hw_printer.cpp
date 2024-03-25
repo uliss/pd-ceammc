@@ -17,9 +17,6 @@ CONTROL_OBJECT_STUB(HwPrinter, 1, 3, "compiled without printer support");
 OBJECT_STUB_SETUP(HwPrinter, hw_printer, "hw.printer");
 #else
 
-#include "hw_print_struct.h"
-#include "hw_rust.hpp"
-
 #include "args/argcheck2.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
@@ -41,28 +38,24 @@ void HwPrinter::processRequest(const Request& req, ResultCallback cb)
 {
     auto& t = req.type();
     if (t == typeid(ListPrinters)) {
-        PrinterList lst;
 
-////        ceammc_hw_
+        auto n = ceammc_hw_get_printers({
+            this,
+            [](void* user, const ceammc_hw_printer_info* info) {
+                auto this_ = static_cast<HwPrinter*>(user);
+                if (this_)
+                    this_->addReply(PrinterInfo(info));
+            } //
+        });
 
-//        IMPL_NS::get_printers([this, &lst](const ceammc::PrinterInfo& info) {
-//            lst.push_back(info);
-//        });
-
-//        workerThreadDebug(fmt::format("{} printers found", lst.size()));
-
-//        addReply(lst);
-
+        workerThreadDebug(fmt::format("{} printers found", n));
     } else if (t == typeid(PrintFile)) {
         auto& job = boost::get<PrintFile>(req);
-
-        ceammc_hw_print_options opts;
-        opts.landscape = job.opts.landscape;
 
         auto job_id = ceammc_hw_print_file(
             job.printer_name.c_str(),
             job.file_path.c_str(),
-            &opts,
+            &job.opts,
             {
                 this,
                 [](void* user, const char* msg) {
@@ -83,22 +76,19 @@ void HwPrinter::processRequest(const Request& req, ResultCallback cb)
 void HwPrinter::processResult(const printer::Reply& res)
 {
     auto& t = res.type();
-    if (t == typeid(PrinterList)) {
-        AtomList lst;
+    if (t == typeid(PrinterInfo)) {
+        auto& info = boost::get<PrinterInfo>(res);
 
-        for (auto& p : boost::get<PrinterList>(res)) {
-            DictAtom di;
-            di->insert("name", gensym(p.name.c_str()));
-            di->insert("system_name", gensym(p.system_name.c_str()));
-            di->insert("driver_name", gensym(p.driver.c_str()));
-            di->insert("uri", gensym(p.uri.c_str()));
-            di->insert("location", gensym(p.location.c_str()));
-            di->insert("is_default", p.is_default);
-            di->insert("is_shared", p.is_shared);
-            lst.append(di);
-        }
+        DictAtom di;
+        di->insert("name", gensym(info.name.c_str()));
+        di->insert("system_name", gensym(info.system_name.c_str()));
+        di->insert("driver_name", gensym(info.driver.c_str()));
+        di->insert("uri", gensym(info.uri.c_str()));
+        di->insert("location", gensym(info.location.c_str()));
+        di->insert("is_default", info.is_default);
+        di->insert("is_shared", info.is_shared);
 
-        listTo(0, lst);
+        atomTo(0, di);
     }
 }
 
@@ -115,7 +105,7 @@ void HwPrinter::m_print(t_symbol* s, const AtomListView& lv)
 
     auto fname = lv.symbolAt(0, &s_)->s_name;
     auto pname = lv.symbolAt(1, &s_)->s_name;
-    PrintOptions opts;
+    ceammc_hw_print_options opts;
 
     list::foreachProperty(lv.subView(1), [&opts](const t_symbol* k, const AtomListView& lv) {
         switch (crc32_hash(k)) {
