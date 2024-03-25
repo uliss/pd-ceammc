@@ -204,6 +204,10 @@ TEST_CASE("args2", "[core]")
         REQUIRE(args::check_args("s+", LA("A", "B", "C")));
         REQUIRE(args::check_args("s s*", LA("A")));
         REQUIRE(args::check_args("s s*", LA("A", "B")));
+        REQUIRE(args::check_args("s s*", LA("A", "B", "C")));
+        REQUIRE(args::check_args("s s*", LA("A", "B", "C", "D")));
+        REQUIRE(args::check_args("s s*", LA("A", "@B")));
+        REQUIRE(args::check_args("s s*", LA("A", "@B", "C")));
         REQUIRE(args::check_args("s s+", LA("A", "test")));
         REQUIRE(args::check_args("A:s B?:s*", LA("A", "B", "C")));
     }
@@ -333,5 +337,15 @@ TEST_CASE("args2", "[core]")
         REQUIRE_MATCH("i{2,3} i? s*", LA(1, 2, 3, "A"), 3, LF(1, 2, 3), L(), LA("A"));
         REQUIRE_MATCH("i{2,3} i? s*", LA(1, 2, 3, "A", "B"), 3, LF(1, 2, 3), L(), LA("A", "B"));
         REQUIRE_MATCH("i a*", LA(1, "A", "B"), 2, LF(1), LA("A", "B"));
+    }
+
+    SECTION("ArgCheck")
+    {
+        using namespace args;
+        REQUIRE(ArgChecker("FILE:s OPTS:s*").check(LA("FILE"), nullptr));
+        REQUIRE(ArgChecker("FILE:s OPTS:s*").check(LA("FILE", "ARGS"), nullptr));
+        REQUIRE(ArgChecker("FILE:s OPTS:s*").check(LA("FILE", "A1", "A2"), nullptr));
+        REQUIRE(ArgChecker("FILE:s OPTS:s*").check(LA("FILE", "@param", "A2"), nullptr));
+        REQUIRE(!ArgChecker("FILE:s OPTS:s*").check(LA("FILE", "@param", 10), nullptr));
     }
 }
