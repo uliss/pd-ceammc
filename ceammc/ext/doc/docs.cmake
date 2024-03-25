@@ -320,6 +320,7 @@ set(DOC_FILES
     hw.gamepad
     hw.kbd_light
     hw.motu.avb
+    hw.printer
     hw.serial
     is_any
     is_bang

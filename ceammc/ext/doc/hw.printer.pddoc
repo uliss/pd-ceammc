@@ -1,0 +1,43 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="hw.printer">
+        <title>hw.printer</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Basic printing support</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>hw</category>
+            <keywords>display brightness</keywords>
+            <since>0.9.8</since>
+        </meta>
+        <info>
+            <par>Supports only text, PDF and images files</par>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo>input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>dict: printer info output</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[devices(  [B]
+|          |
+|          [openpanel] /*using default printer*/
+|          |
+|          [print $1 @landscape 0(
+|          |
+[hw.printer]
+|
+[print]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
