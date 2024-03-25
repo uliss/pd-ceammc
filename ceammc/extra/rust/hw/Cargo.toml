@@ -10,9 +10,13 @@ crate-type = ["staticlib", "cdylib"]
 
 [dependencies]
 c_str_macro = "1.0.3"
-cups-sys = "0.1.4"
 gilrs = "0.10.5"
+
+#[cfg(target_os = "windows")]
 winprint = {version = "0.1.0", default-features = false, features=[]}
+
+#[cfg(target_os = "macos")]
+cups-sys = "0.1.4"
 
 [build-dependencies]
 cbindgen = "0.22.0"
