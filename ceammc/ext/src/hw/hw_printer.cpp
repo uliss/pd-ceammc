@@ -18,25 +18,12 @@ OBJECT_STUB_SETUP(HwPrinter, hw_printer, "hw.printer");
 #else
 
 #include "hw_print_struct.h"
-#ifdef WITH_CUPS
-#include "hw_print_cups.h"
-#define IMPL_NS ceammc::cups
-#else
-#define IMPL_NS ceammc::none
-#endif
-
-namespace ceammc {
-namespace none {
-    void get_printers(std::function<void(const PrinterInfo&)> fn) { }
-    JobStatus print_file(const std::string& path,
-        const std::string& printer_name, const std::string& job_title, const PrintOptions& opts) { }
-}
-}
+#include "hw_rust.hpp"
 
 #include "args/argcheck2.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
-#include "ceammc_platform.h"
 #include "datatype_dict.h"
 #include "fmt/core.h"
 #include "hw_printer.h"
@@ -56,23 +43,39 @@ void HwPrinter::processRequest(const Request& req, ResultCallback cb)
     if (t == typeid(ListPrinters)) {
         PrinterList lst;
 
-        IMPL_NS::get_printers([this, &lst](const ceammc::PrinterInfo& info) {
-            lst.push_back(info);
-        });
+////        ceammc_hw_
 
-        workerThreadDebug(fmt::format("{} printers found", lst.size()));
+//        IMPL_NS::get_printers([this, &lst](const ceammc::PrinterInfo& info) {
+//            lst.push_back(info);
+//        });
 
-        addReply(lst);
+//        workerThreadDebug(fmt::format("{} printers found", lst.size()));
+
+//        addReply(lst);
 
     } else if (t == typeid(PrintFile)) {
         auto& job = boost::get<PrintFile>(req);
-        auto title = fmt::format("PureData print '{}'", platform::basename(job.file_path.c_str()));
 
-        auto id = IMPL_NS::print_file(job.file_path, job.printer_name, title, job.opts);
-        if (id.first != PrintingStatus::Ok) {
+        ceammc_hw_print_options opts;
+        opts.landscape = job.opts.landscape;
+
+        auto job_id = ceammc_hw_print_file(
+            job.printer_name.c_str(),
+            job.file_path.c_str(),
+            &opts,
+            {
+                this,
+                [](void* user, const char* msg) {
+                    auto this_ = static_cast<HwPrinter*>(user);
+                    if (this_)
+                        this_->workerThreadError(msg);
+                } //
+            });
+
+        if (job_id == ceammc_JOB_ERROR) {
             workerThreadError("printing failed");
         } else {
-            workerThreadDebug(fmt::format("print job: {}", id.second));
+            workerThreadDebug(fmt::format("print job: {}", job_id));
         }
     }
 }
@@ -135,10 +138,6 @@ void HwPrinter::m_print(t_symbol* s, const AtomListView& lv)
 
 void setup_hw_printer()
 {
-#ifdef WITH_CUPS
-    LIB_DBG << fmt::format("CUPS version: {}", CUPS_VERSION);
-#endif
-
     ObjectFactory<HwPrinter> obj("hw.printer");
     obj.addMethod("devices", &HwPrinter::m_devices);
     obj.addMethod("print", &HwPrinter::m_print);

@@ -4,6 +4,7 @@ use std::{
     os::raw::c_void,
 };
 
+use crate::hw_error_cb;
 use crate::printers_cups;
 
 #[allow(non_camel_case_types)]
@@ -99,30 +100,42 @@ pub extern "C" fn ceammc_hw_printer_default(info_cb: hw_printer_info_cb) -> bool
     }
 }
 
-#[cfg(target_os = "macos")]
+pub const JOB_ERROR: i32 = -1;
+
+#[derive(Debug, Default, Clone)]
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub struct hw_print_options {
+    pub landscape: bool,
+}
+
 #[no_mangle]
-pub extern "C" fn ceammc_hw_print_file(printer_name: *const c_char, path: *const c_char) -> bool {
-    let job_title = CString::new("PureData print job").unwrap_or_default();
-    // let path = CString::new("/Users/serge/Documents/Pd/ceam/beil.txt").unwrap_or_default();
-    let job_id: i32 = unsafe {
-        cupsPrintFile(
-            cupsGetDefault(),
-            // File to print.
-            path,
-            // Name of the print job.
-            job_title.as_ptr(),
-            0,
-            std::ptr::null_mut(),
-        )
+pub extern "C" fn ceammc_hw_print_file(
+    printer: *const c_char,
+    path: *const c_char,
+    opts: *const hw_print_options,
+    on_err: hw_error_cb,
+) -> i32 {
+    // get printer name
+    let printer = if printer.is_null() {
+        unsafe { CStr::from_ptr(printer).to_owned() }
+    } else {
+        let def = unsafe { cupsGetDefault() };
+        if def.is_null() {
+            on_err.exec(format!("can't get default printer").as_str());
+            return JOB_ERROR;
+        } else {
+            unsafe { CStr::from_ptr(def).to_owned() }
+        }
     };
 
-    if job_id == 0 {
-        println!("error: {}", unsafe { cupsLastError() });
-        let err = unsafe { cupsLastErrorString() };
-        let err = unsafe { CStr::from_ptr(err) }.to_str().unwrap_or_default();
-        println!("strerror: {err}");
-    }
+    let path = unsafe { CStr::from_ptr(path).to_str().unwrap_or_default() };
+    let opts = if opts.is_null() {
+        hw_print_options::default()
+    } else {
+        unsafe { &*opts }.clone()
+    };
 
-    println!("job id: {job_id}");
-    true
+    #[cfg(target_os = "macos")]
+    printers_cups::print_file(&printer, path, &opts, on_err)
 }

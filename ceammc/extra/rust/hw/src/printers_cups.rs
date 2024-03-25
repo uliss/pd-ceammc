@@ -7,6 +7,7 @@ use std::ffi::CStr;
 use std::ffi::CString;
 use std::mem;
 use std::ptr;
+use std::ptr::null_mut;
 
 fn is_true(s: *const c_char) -> bool {
     unsafe { CStr::from_ptr(s) }.to_string_lossy() == "true"
@@ -33,10 +34,10 @@ fn to_str(s: *mut c_char) -> String {
 /**
  * Returns a string value of an key on cups options (If the key was not found return a empty string)
  */
-fn read_options(dest: &cups_dest_s, info: &mut PrinterInfo) {
+fn cups_read_options(dest: &cups_dest_s, info: &mut PrinterInfo) {
     let opts = unsafe { std::slice::from_raw_parts(dest.options, dest.num_options as usize) };
 
-    for option in opts { 
+    for option in opts {
         let name = to_str(option.name);
 
         match name.as_str() {
@@ -58,7 +59,7 @@ fn read_options(dest: &cups_dest_s, info: &mut PrinterInfo) {
                 }
             }
             _ => {
-                println!("unknown option: {name}");
+                // println!("unknown option: {name}");
             }
         }
     }
@@ -67,25 +68,25 @@ fn read_options(dest: &cups_dest_s, info: &mut PrinterInfo) {
 pub fn get_printers() -> PrinterList {
     let mut printers = vec![];
 
-    let mut cups_dests: *mut cups_dest_t = unsafe { mem::zeroed() };
+    let mut cups_dests: *mut cups_dest_t = null_mut();
     let num_dests = unsafe { cupsGetDests(&mut cups_dests as *mut _) };
-    let dests = unsafe { std::slice::from_raw_parts(cups_dests, num_dests as usize) };
+    let dests = unsafe { std::slice::from_raw_parts_mut(cups_dests, num_dests as usize) };
 
-        for dest in dests {
-            // skip null names
-            if dest.name.is_null() {
-                continue;
-            }
-
-            let mut info = PrinterInfo::default();
-            read_options(dest, &mut info);
-            if info.is_shared {
-                continue;
-            }
-
-            info.system_name = to_cstr(dest.name);
-            printers.push(info);
+    for dest in dests {
+        // skip null names
+        if dest.name.is_null() {
+            continue;
         }
+
+        let mut info = PrinterInfo::default();
+        cups_read_options(dest, &mut info);
+        if info.is_shared {
+            continue;
+        }
+        info.system_name = to_cstr(dest.name);
+        info.is_default = dest.is_default != 0;
+        printers.push(info);
+    }
 
     unsafe { cupsFreeDests(num_dests, cups_dests) };
 
@@ -106,20 +107,95 @@ pub fn get_default_printer() -> Option<PrinterInfo> {
 
         // skip null names
         if dest.name.is_null() {
-            return None
+            return None;
         } else {
             let mut info = PrinterInfo::default();
-            read_options(dest, &mut info);
+            cups_read_options(dest, &mut info);
             if info.is_shared {
                 return None;
             }
 
             info.system_name = to_cstr(dest.name);
-            return Some(info)
+            return Some(info);
         }
     };
 
     unsafe { cupsFreeDests(num_dests, dests) };
 
     res
+}
+
+use crate::hw_error_cb;
+use crate::printers::hw_print_options;
+use std::path::Path;
+
+pub fn print_file(
+    printer: &CString,
+    path: &str,
+    opts: &hw_print_options,
+    on_err: hw_error_cb,
+) -> i32 {
+    // check path
+    let path = Path::new(path);
+    if !path.exists() {
+        on_err.exec(format!("file not found: {path:?}").as_str());
+        return crate::printers::JOB_ERROR;
+    }
+
+    let basename = path
+        .file_name()
+        .unwrap_or_default()
+        .to_str()
+        .unwrap_or_default();
+    let path = CString::new(path.to_str().unwrap_or_default()).unwrap_or_default();
+
+    let job_title = CString::new(format!("PureData print job: '{basename}'")).unwrap_or_default();
+
+    let mut options: *mut cups_option_t = null_mut();
+    let mut num_opts: i32 = 0;
+    if opts.landscape {
+        println!("landscape = true");
+        unsafe {
+            num_opts = cupsAddOption(
+                CUPS_ORIENTATION.as_ptr() as *const c_char,
+                CUPS_ORIENTATION_LANDSCAPE.as_ptr() as *const c_char,
+                num_opts,
+                &mut options as *mut _,
+            )
+        }
+    }
+
+    let job_id: i32 = unsafe {
+        cupsPrintFile2(
+            null_mut(),
+            printer.as_ptr(),
+            path.as_ptr(),
+            job_title.as_ptr(),
+            num_opts,
+            options,
+        )
+    };
+
+    if !options.is_null() {
+        unsafe {
+            cupsFreeOptions(num_opts, options);
+        }
+    }
+
+    if job_id == 0 {
+        let err = unsafe { cupsLastErrorString() };
+        on_err.exec_raw(err);
+    }
+
+    job_id
+}
+
+#[cfg(test)]
+mod tests {
+    // use super::*;
+
+    // #[test]
+    // fn empty() {
+
+    // }
 }
