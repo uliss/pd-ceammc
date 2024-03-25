@@ -17,11 +17,21 @@ CONTROL_OBJECT_STUB(HwPrinter, 1, 3, "compiled without printer support");
 OBJECT_STUB_SETUP(HwPrinter, hw_printer, "hw.printer");
 #else
 
+#include "hw_print_struct.h"
 #ifdef WITH_CUPS
 #include "hw_print_cups.h"
 #define IMPL_NS ceammc::cups
 #else
+#define IMPL_NS ceammc::none
 #endif
+
+namespace ceammc {
+namespace none {
+    void get_printers(std::function<void(const PrinterInfo&)> fn) { }
+    JobStatus print_file(const std::string& path,
+        const std::string& printer_name, const std::string& job_title, const PrintOptions& opts) { }
+}
+}
 
 #include "args/argcheck2.h"
 #include "ceammc_factory.h"
