@@ -13,10 +13,14 @@
  *****************************************************************************/
 #include "dict_to_list.h"
 #include "ceammc_factory.h"
+#include "datatype_dict.h"
 
 DictToList::DictToList(const PdArgs& args)
     : DictBase(args)
 {
+    props_ = new FlagProperty("@props");
+    addProperty(props_);
+
     createOutlet();
 }
 
@@ -26,11 +30,21 @@ void DictToList::onDataT(const DictAtom& dict)
     res.reserve(dict->size() * 2);
 
     for (auto& kv : *dict) {
-        res.append(kv.first);
+        res.append(makeKey(kv.first));
         res.append(kv.second);
     }
 
     listTo(0, res);
+}
+
+t_symbol* DictToList::makeKey(t_symbol* k) const
+{
+    if (props_->value()) {
+        std::string key("@");
+        key += k->s_name;
+        return gensym(key.c_str());
+    } else
+        return k;
 }
 
 void setup_dict_to_list()
@@ -41,5 +55,5 @@ void setup_dict_to_list()
 
     obj.setDescription("converts dictionary to plain list");
     obj.setCategory("data");
-    obj.setKeywords({"dictionary"});
+    obj.setKeywords({ "dictionary" });
 }

@@ -9,6 +9,8 @@
   - net.ws.client - WebSocket client
   - net.ws.server - WebSocket client 
   - net.mqtt.client - MQTT client 
+- new properties:
+  - dict->list @props flag added to output as list of properties
 
 ## [0.9.7]
 ### Added:

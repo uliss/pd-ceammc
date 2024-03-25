@@ -10,18 +10,29 @@
 #X msg 50 118 [a: b c: d e f] \, bang;
 #X obj 50 147 data.dict;
 #X obj 50 176 dict->list;
-#X obj 50 205 ui.d;
-#X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 259 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
-0;
-#X text 110 260 1\.;
-#X text 150 260 *data:dict*;
-#X text 245 260 input.;
-#X obj 20 290 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 295 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 232 176 dict->list @props;
+#X obj 232 205 list trim;
+#X obj 347 205 ui.dt;
+#X obj 232 234 @-> @a @c;
+#X obj 50 262 ui.d;
+#X obj 251 262 ui.dt;
+#X obj 338 262 ui.dt;
+#X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 316 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X text 110 296 1\.;
-#X text 245 296 list output.;
+#X msg 110 351 @props;
+#X text 245 351 output as list of properties: @key1 vals.. @key2 vals2\...;
+#X obj 20 390 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 395 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+0;
+#X text 110 396 1\.;
+#X text 150 396 *data:dict*;
+#X text 245 396 input.;
+#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 431 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+-49933 0;
+#X text 110 432 1\.;
+#X text 245 432 list output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
@@ -58,4 +69,10 @@ https://github.com/uliss/pd-ceammc;
 #X restore 10 527 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
-#X connect 8 0 9 0;
+#X connect 9 0 10 0;
+#X connect 9 0 11 0;
+#X connect 10 0 12 0;
+#X connect 8 0 13 0;
+#X connect 12 1 14 0;
+#X connect 12 2 15 0;
+#X connect 7 0 9 0;
