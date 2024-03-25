@@ -36,3 +36,6 @@ impl hw_error_cb {
 
 #[cfg(target_os = "macos")]
 pub mod printers_cups;
+
+#[cfg(target_os = "windows")]
+pub mod printers_win;

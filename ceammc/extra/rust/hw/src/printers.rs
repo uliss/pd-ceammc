@@ -85,6 +85,11 @@ pub extern "C" fn ceammc_hw_get_printers(info_cb: hw_printer_info_cb) -> usize {
         printers = printers_cups::get_printers();
     }
 
+    #[cfg(target_os = "windows")]
+    {
+        printers = printers_win::get_printers();
+    }
+
     for p in printers.iter().map(|p| hw_printer_info::new(&p)) {
         info_cb.exec(&p);
     }
