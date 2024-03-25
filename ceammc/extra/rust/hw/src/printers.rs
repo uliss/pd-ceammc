@@ -1,4 +1,3 @@
-use cups_sys::*;
 use std::{
     ffi::{c_char, CStr, CString},
     os::raw::c_void,
@@ -128,19 +127,6 @@ pub extern "C" fn ceammc_hw_print_file(
     opts: *const hw_print_options,
     on_err: hw_error_cb,
 ) -> i32 {
-    // get printer name
-    let printer = if printer.is_null() {
-        unsafe { CStr::from_ptr(printer).to_owned() }
-    } else {
-        let def = unsafe { cupsGetDefault() };
-        if def.is_null() {
-            on_err.exec(format!("can't get default printer").as_str());
-            return JOB_ERROR;
-        } else {
-            unsafe { CStr::from_ptr(def).to_owned() }
-        }
-    };
-
     let path = unsafe { CStr::from_ptr(path).to_str().unwrap_or_default() };
     let opts = if opts.is_null() {
         hw_print_options::default()
@@ -149,5 +135,5 @@ pub extern "C" fn ceammc_hw_print_file(
     };
 
     #[cfg(target_os = "macos")]
-    printers_cups::print_file(&printer, path, &opts, on_err)
+    printers_cups::print_file(printer, path, &opts, on_err)
 }
