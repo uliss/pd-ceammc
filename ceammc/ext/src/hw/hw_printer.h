@@ -17,21 +17,11 @@
 #include <boost/variant.hpp>
 
 #include "ceammc_pollthread_spsc.h"
-#include "hw_rust.hpp"
+#include "hw_print_struct.h"
+//#include "hw_rust.hpp"
 
 namespace ceammc {
 namespace printer {
-
-    struct PrinterInfo {
-        std::string name;
-        std::string system_name;
-        std::string driver_name;
-        std::string uri;
-        std::string location;
-        bool is_default;
-        bool is_shared;
-        ceammc_hw_printer_state state;
-    };
 
     using PrinterList = std::vector<PrinterInfo>;
 
@@ -39,7 +29,8 @@ namespace printer {
         struct ListPrinters { };
         struct PrintFile {
             std::string printer_name;
-            std::string path;
+            std::string file_path;
+            PrintOptions opts;
         };
     }
 

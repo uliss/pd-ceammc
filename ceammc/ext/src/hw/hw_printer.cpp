@@ -11,14 +11,22 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-
 #ifndef WITH_PRINTER
 #include "ceammc_stub.h"
 CONTROL_OBJECT_STUB(HwPrinter, 1, 3, "compiled without printer support");
 OBJECT_STUB_SETUP(HwPrinter, hw_printer, "hw.printer");
 #else
 
+#ifdef WITH_CUPS
+#include "hw_print_cups.h"
+#define IMPL_NS ceammc::cups
+#else
+#endif
+
+#include "args/argcheck2.h"
 #include "ceammc_factory.h"
+#include "ceammc_fn_list.h"
+#include "ceammc_platform.h"
 #include "datatype_dict.h"
 #include "fmt/core.h"
 #include "hw_printer.h"
@@ -36,34 +44,26 @@ void HwPrinter::processRequest(const Request& req, ResultCallback cb)
 {
     auto& t = req.type();
     if (t == typeid(ListPrinters)) {
-        PrinterList info;
-        int rc = ceammc_hw_get_printers(
-            { &info,
-                [](void* user, const ceammc_hw_printer_info* info) {
-                    auto data = static_cast<PrinterList*>(user);
-                    if (!data || !info)
-                        return;
+        PrinterList lst;
 
-                    PrinterInfo pi;
-                    pi.name = info->name;
-                    pi.system_name = info->system_name;
-                    pi.driver_name = info->driver_name;
-                    pi.uri = info->uri;
-                    pi.location = info->location;
-                    pi.is_default = info->is_default;
-                    pi.is_shared = info->is_shared;
-                    pi.state = info->state;
-                    data->push_back(pi);
-                } });
+        IMPL_NS::get_printers([this, &lst](const ceammc::PrinterInfo& info) {
+            lst.push_back(info);
+        });
 
-        if (rc >= 0)
-            workerThreadDebug(fmt::format("{} printers found", rc));
+        workerThreadDebug(fmt::format("{} printers found", lst.size()));
 
-        cb(info);
+        addReply(lst);
+
     } else if (t == typeid(PrintFile)) {
         auto& job = boost::get<PrintFile>(req);
-        if (!ceammc_hw_print_file(job.printer_name.c_str(), job.path.c_str()))
+        auto title = fmt::format("PureData print '{}'", platform::basename(job.file_path.c_str()));
+
+        auto id = IMPL_NS::print_file(job.file_path, job.printer_name, title, job.opts);
+        if (id.first != PrintingStatus::Ok) {
             workerThreadError("printing failed");
+        } else {
+            workerThreadDebug(fmt::format("print job: {}", id.second));
+        }
     }
 }
 
@@ -77,7 +77,7 @@ void HwPrinter::processResult(const printer::Reply& res)
             DictAtom di;
             di->insert("name", gensym(p.name.c_str()));
             di->insert("system_name", gensym(p.system_name.c_str()));
-            di->insert("driver_name", gensym(p.driver_name.c_str()));
+            di->insert("driver_name", gensym(p.driver.c_str()));
             di->insert("uri", gensym(p.uri.c_str()));
             di->insert("location", gensym(p.location.c_str()));
             di->insert("is_default", p.is_default);
@@ -96,22 +96,39 @@ void HwPrinter::m_devices(t_symbol* s, const AtomListView& lv)
 
 void HwPrinter::m_print(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_SYMBOL, ARG_SYMBOL, s))
-        return;
+    static const args::ArgChecker chk("FILE:s OPTS:a*");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
-    auto pname = lv.symbolAt(0, &s_)->s_name;
-    auto fname = lv.symbolAt(1, &s_)->s_name;
+    auto fname = lv.symbolAt(0, &s_)->s_name;
+    auto pname = lv.symbolAt(1, &s_)->s_name;
+    PrintOptions opts;
+
+    list::foreachProperty(lv.subView(1), [&opts](const t_symbol* k, const AtomListView& lv) {
+        switch (crc32_hash(k)) {
+        case "@landscape"_hash:
+            opts.landscape = lv.asBool(true);
+            break;
+        default:
+            break;
+        }
+    });
+
     auto path = findInStdPaths(fname);
     if (path.empty()) {
         OBJ_ERR << fmt::format("file not found: '{}'", fname);
         return;
     }
 
-    addRequest(PrintFile { pname, path });
+    addRequest(PrintFile { pname, path, opts });
 }
 
 void setup_hw_printer()
 {
+#ifdef WITH_CUPS
+    LIB_DBG << fmt::format("CUPS version: {}", CUPS_VERSION);
+#endif
+
     ObjectFactory<HwPrinter> obj("hw.printer");
     obj.addMethod("devices", &HwPrinter::m_devices);
     obj.addMethod("print", &HwPrinter::m_print);
