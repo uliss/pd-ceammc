@@ -6,9 +6,11 @@
         "gilrs",
         "powerinfo",
         "powerstate",
-        "sysinfo"
+        "sysinfo",
+        "winprint"
     ],
     "rust-analyzer.linkedProjects": [
         "./Cargo.toml"
-    ]
+    ],
+    "rust-analyzer.showUnlinkedFileNotification": false
 }

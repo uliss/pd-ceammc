@@ -13,7 +13,7 @@
  *****************************************************************************/
 #ifndef WITH_PRINTER
 #include "ceammc_stub.h"
-CONTROL_OBJECT_STUB(HwPrinter, 1, 3, "compiled without printer support");
+CONTROL_OBJECT_STUB(HwPrinter, 1, 1, "compiled without printer support");
 OBJECT_STUB_SETUP(HwPrinter, hw_printer, "hw.printer");
 #else
 

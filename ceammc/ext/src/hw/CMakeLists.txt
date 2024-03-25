@@ -72,18 +72,27 @@ endif()
 # printer
 if(WITH_PRINTER)
     find_package(cups)
+    target_compile_definitions(ceammc_hw PRIVATE WITH_PRINTER)
+    
     if(UNIX)
         if(CUPS_FOUND)
-            target_compile_definitions(ceammc_hw PRIVATE WITH_CUPS WITH_PRINTER)
+            target_compile_definitions(ceammc_hw PRIVATE WITH_CUPS)
 
+            target_sources(ceammc_hw PRIVATE hw_printer.cpp)
+            target_include_directories(ceammc_hw
+                PRIVATE
+                    ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/hw
+                    ${CUPS_INCLUDE_DIRS}
+            )
+            target_link_libraries(ceammc_hw PRIVATE hw_rust ${CUPS_LIBRARIES})
+        endif()
+    else()
         target_sources(ceammc_hw PRIVATE hw_printer.cpp)
         target_include_directories(ceammc_hw
             PRIVATE
                 ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/hw
                 ${CUPS_INCLUDE_DIRS}
         )
-        target_link_libraries(ceammc_hw PRIVATE hw_rust ${CUPS_LIBRARIES})
-        endif()
     endif()
 else()
     target_sources(ceammc_hw PRIVATE hw_printer.cpp)

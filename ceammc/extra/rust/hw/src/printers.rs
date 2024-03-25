@@ -4,7 +4,6 @@ use std::{
 };
 
 use crate::hw_error_cb;
-use crate::printers_cups;
 
 #[allow(non_camel_case_types)]
 #[derive(Clone, Copy, Default, Debug)]
@@ -81,12 +80,12 @@ pub extern "C" fn ceammc_hw_get_printers(info_cb: hw_printer_info_cb) -> usize {
 
     #[cfg(target_os = "macos")]
     {
-        printers = printers_cups::get_printers();
+        printers = crate::printers_cups::get_printers();
     }
 
     #[cfg(target_os = "windows")]
     {
-        printers = printers_win::get_printers();
+        printers = crate::printers_win::get_printers();
     }
 
     for p in printers.iter().map(|p| hw_printer_info::new(&p)) {
@@ -98,8 +97,12 @@ pub extern "C" fn ceammc_hw_get_printers(info_cb: hw_printer_info_cb) -> usize {
 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_printer_default(info_cb: hw_printer_info_cb) -> bool {
+    let mut def_print: Option<PrinterInfo> = None;
+
     #[cfg(target_os = "macos")]
-    let def_print = printers_cups::get_default_printer();
+    {
+        def_print = crate::printers_cups::get_default_printer();
+    }
 
     match def_print {
         Some(info) => {
@@ -135,5 +138,12 @@ pub extern "C" fn ceammc_hw_print_file(
     };
 
     #[cfg(target_os = "macos")]
-    printers_cups::print_file(printer, path, &opts, on_err)
+    {
+        crate::printers_cups::print_file(printer, path, &opts, on_err)
+    }
+
+    #[cfg(target_os = "windows")]
+    {
+        crate::printers_win::print_file(printer, path, &opts, on_err)
+    }
 }
