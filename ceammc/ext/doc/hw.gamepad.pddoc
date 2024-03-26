@@ -39,20 +39,28 @@
 <![CDATA[
 [devices(
 |
-|
-|
 [hw.gamepad #x {w=20}]
 
-                   [ui.dt #b @pinned 1]
-
-           [ui.dt #a]
-
-[ui.dt #d] [print AXIS #f]
+     [print AXIS #f]  [ui.dt #b @pinned 1]
 
 [print BUTTON #c]
 
+[route 0 #n]
+|
+[route lsticky lstickx rsticky rstickx #m]
+|
+[flow.pack' 2 #k] [flow.pack' 2 #l]
+|                 |
+[cartesian $1 $2( [cartesian $1 $2(
+|                 |
+[ui.polar #y]     [ui.polar #z]
 
+
+
+
+/* ... */
 [X x:1->a] [X x:2->b] [X x:0->c] [X x:0->d] [X x:1->f]
+[X x:1->n] [X m:1->k:1] [X m:2->l:0] [X m:3->l:1]
 ]]>
             </pdascii>
         </example>
