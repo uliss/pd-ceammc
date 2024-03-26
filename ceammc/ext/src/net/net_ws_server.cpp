@@ -24,7 +24,6 @@ OBJECT_STUB_SETUP(NetWsServer, net_ws_server, "net.ws.server");
 #include "ceammc_format.h"
 #include "ceammc_json.h"
 #include "datatype_json.h"
-#include "net_rust.h"
 #include "net_ws_server.h"
 
 #include "fmt/core.h"

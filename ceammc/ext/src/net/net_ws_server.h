@@ -16,7 +16,7 @@
 
 #include "ceammc_pollthread_spsc.h"
 #include "ceammc_property_enum.h"
-#include "net_rust.h"
+#include "net_rust.hpp"
 
 #include <boost/variant.hpp>
 #include <cstdint>

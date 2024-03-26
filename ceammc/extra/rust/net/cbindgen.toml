@@ -21,10 +21,10 @@ include_version = false
 # namespace = "ceammc"
 # namespaces = ["ceammc"]
 using_namespaces = []
-sys_includes = ["stdint.h", "stddef.h"]
+sys_includes = ["cstdint", "cstddef"]
 includes = []
 no_includes = true
-after_includes = "struct ceammc_mqtt_client;\nstruct ceammc_ws_client;\nstruct ceammc_ws_server;"
+after_includes = ""
 
 
 
@@ -33,7 +33,7 @@ after_includes = "struct ceammc_mqtt_client;\nstruct ceammc_ws_client;\nstruct c
 
 braces = "SameLine"
 line_length = 100
-tab_width = 2
+tab_width = 4
 documentation = true
 documentation_style = "auto"
 documentation_length = "full"
@@ -60,7 +60,7 @@ usize_is_size_t = true
 include = []
 exclude = []
 prefix = "ceammc_"
-item_types = ["enums", "structs", "functions"]
+item_types = ["enums", "structs", "functions", "typedefs", "opaque"]
 renaming_overrides_prefixing = false
 
 

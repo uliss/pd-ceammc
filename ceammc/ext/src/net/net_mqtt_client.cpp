@@ -17,7 +17,6 @@ CONTROL_OBJECT_STUB(NetMqtt, 1, 1, "compiled without mqtt support");
 OBJECT_STUB_SETUP(NetMqtt, net_mqtt_client, "net.mqtt");
 #else
 #include "args/argcheck2.h"
-#include "ceammc_containers.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"

@@ -8,6 +8,6 @@ fn main() {
     #[cfg(target_os="macos")]
     cbindgen::generate(_crate_dir)
         .expect("Unable to generate bindings")
-        .write_to_file("net_rust.h");
+        .write_to_file("net_rust.hpp");
 }
     
