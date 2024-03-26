@@ -124,7 +124,7 @@
     }}
     {hw {
         hw.apple_smc hw.apple_sms hw.arduino hw.cpu_temp hw.display hw.gamepad
-        hw.kbd_light hw.motu.avb hw.serial
+        hw.kbd_light hw.motu.avb hw.printer hw.serial
     }}
     {lang {
         lang.faust~ lang.lua ui.faust~
