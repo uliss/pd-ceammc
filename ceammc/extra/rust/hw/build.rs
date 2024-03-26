@@ -17,6 +17,8 @@ fn main() {
 
     #[cfg(target_os = "windows")]
     {
+        const PDFIUM_DLL: &str = "pdfium.dll";
+
         let out_dir = env::var_os("OUT_DIR").unwrap();
         // let out_dir = PathBuf::new(out_dir.to_str().unwrap());
         let mut dir = PathBuf::new();
@@ -28,7 +30,7 @@ fn main() {
         let wdir = WalkDir::new(dir.to_str().unwrap());
         for f in wdir.into_iter().filter_map(|e| e.ok()) {
             let fname = f.file_name().to_string_lossy();
-            if fname == "pdfium.dll" {
+            if fname == PDFIUM_DLL {
                 pdfium_dll = f.path().to_string_lossy().into_owned();
                 println!("PDFIUM DLL: {pdfium_dll}");
                 break;
@@ -38,7 +40,7 @@ fn main() {
         dir.pop();
         dir.pop();
         dir.pop();
-        dir.push("pdfium.dll");
+        dir.push(PDFIUM_DLL);
         
         match std::fs::copy(pdfium_dll, dir) {
             Err(err) => println!("Error {err}"),
