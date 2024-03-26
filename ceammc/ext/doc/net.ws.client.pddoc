@@ -33,6 +33,13 @@
             <!-- send_json -->
             <method name="send_json">send as encoded json 
             <param name="ARGS" type="list" required="false">arguments</param></method>
+            <!-- send_array -->
+            <method name="send_array">send as Pd array content as json array 
+            <param name="ARR" type="symbol" required="true">array name</param>
+            <param name="START" type="int" required="false" minvalue="0" units="sample"
+            default="0">array start index</param>
+            <param name="LENGTH" type="int" required="false" minvalue="0" units="sample">read
+            length. If not specified - read until array end.</param></method>
             <!-- write -->
             <method name="write">write as text message to output buffer. You have to call [flush(
             method for sending. 
