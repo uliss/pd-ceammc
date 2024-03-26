@@ -63,6 +63,14 @@ void HwPrinter::processRequest(const Request& req, ResultCallback cb)
                     if (this_)
                         this_->workerThreadError(msg);
                 } //
+            },
+            {
+                this,
+                [](void* user, const char* msg) {
+                    auto this_ = static_cast<HwPrinter*>(user);
+                    if (this_)
+                        this_->workerThreadDebug(msg);
+                } //
             });
 
         if (job_id == ceammc_JOB_ERROR) {
@@ -105,6 +113,8 @@ void HwPrinter::m_print(t_symbol* s, const AtomListView& lv)
 
     auto fname = lv.symbolAt(0, &s_)->s_name;
     auto pname = lv.symbolAt(1, &s_)->s_name;
+    if (pname[0] == '@') // check for properties
+        pname = "";
     ceammc_hw_print_options opts;
 
     list::foreachProperty(lv.subView(1), [&opts](const t_symbol* k, const AtomListView& lv) {

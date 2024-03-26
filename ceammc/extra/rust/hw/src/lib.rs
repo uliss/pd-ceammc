@@ -18,14 +18,14 @@ pub struct hw_error_cb {
 }
 
 impl hw_error_cb {
-    fn exec(&self, msg: &str) {
+    pub fn exec(&self, msg: &str) {
         self.cb.map(|f| {
             let msg = CString::new(msg).unwrap_or_default();
             f(self.user, msg.as_ptr());
         });
     }
 
-    fn exec_raw(&self, msg: *const c_char) {
+    pub fn exec_raw(&self, msg: *const c_char) {
         self.cb.map(|f| {
             if !msg.is_null() {
                 f(self.user, msg);

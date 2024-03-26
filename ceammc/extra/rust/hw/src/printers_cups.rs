@@ -134,6 +134,7 @@ pub fn print_file(
     path: &str,
     opts: &hw_print_options,
     on_err: hw_error_cb,
+    _on_debug: hw_error_cb,
 ) -> i32 {
     // get printer name
     let printer = if printer.is_null() {

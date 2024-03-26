@@ -97,14 +97,19 @@ pub extern "C" fn ceammc_hw_get_printers(info_cb: hw_printer_info_cb) -> usize {
 
 #[no_mangle]
 pub extern "C" fn ceammc_hw_printer_default(info_cb: hw_printer_info_cb) -> bool {
-    let mut def_print: Option<PrinterInfo> = None;
+    let mut _def_print: Option<PrinterInfo> = None;
 
     #[cfg(target_os = "macos")]
     {
-        def_print = crate::printers_cups::get_default_printer();
+        _def_print = crate::printers_cups::get_default_printer();
     }
 
-    match def_print {
+    #[cfg(target_os = "windows")]
+    {
+        _def_print = crate::printers_win::get_default_printer();
+    }
+
+    match _def_print {
         Some(info) => {
             info_cb.exec(&hw_printer_info::new(&info));
 
@@ -129,6 +134,7 @@ pub extern "C" fn ceammc_hw_print_file(
     path: *const c_char,
     opts: *const hw_print_options,
     on_err: hw_error_cb,
+    on_debug: hw_error_cb,
 ) -> i32 {
     let path = unsafe { CStr::from_ptr(path).to_str().unwrap_or_default() };
     let opts = if opts.is_null() {
@@ -139,11 +145,11 @@ pub extern "C" fn ceammc_hw_print_file(
 
     #[cfg(target_os = "macos")]
     {
-        crate::printers_cups::print_file(printer, path, &opts, on_err)
+        crate::printers_cups::print_file(printer, path, &opts, on_err, on_debug)
     }
 
     #[cfg(target_os = "windows")]
     {
-        crate::printers_win::print_file(printer, path, &opts, on_err)
+        crate::printers_win::print_file(printer, path, &opts, on_err, on_debug)
     }
 }

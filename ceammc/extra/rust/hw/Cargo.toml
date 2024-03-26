@@ -13,7 +13,7 @@ c_str_macro = "1.0.3"
 gilrs = "0.10.5"
 
 [target.'cfg(windows)'.dependencies]
-winprint = {version = "0.1.0", default-features = false, features=[]}
+winprint = {version = "0.1.0"}
 printers = {version = "2.0.0", default-features = false, features=[]}
 
 [target.'cfg(macos)'.dependencies]
@@ -21,3 +21,4 @@ cups-sys = "0.1.4"
 
 [build-dependencies]
 cbindgen = "0.22.0"
+walkdir = "2.5.0"

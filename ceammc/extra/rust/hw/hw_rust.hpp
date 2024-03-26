@@ -189,7 +189,8 @@ size_t ceammc_hw_get_printers(ceammc_hw_printer_info_cb info_cb);
 int32_t ceammc_hw_print_file(const char *printer,
                              const char *path,
                              const ceammc_hw_print_options *opts,
-                             ceammc_hw_error_cb on_err);
+                             ceammc_hw_error_cb on_err,
+                             ceammc_hw_error_cb on_debug);
 
 bool ceammc_hw_printer_default(ceammc_hw_printer_info_cb info_cb);
 
