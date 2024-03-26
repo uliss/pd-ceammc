@@ -9,6 +9,9 @@
   - net.ws.client - WebSocket client
   - net.ws.server - WebSocket client 
   - net.mqtt.client - MQTT client 
+  - hw.gamepad - gamepad support
+  - hw.printer - simple printing support (only PDF files)
+  - route.data - data router
 - new properties:
   - dict->list @props flag added to output as list of properties
 
