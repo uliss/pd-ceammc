@@ -1,7 +1,10 @@
 extern crate cbindgen;
 
 use std::env;
+
+#[cfg(target_os = "windows")] 
 use std::path::PathBuf;
+#[cfg(target_os = "windows")] 
 use walkdir::WalkDir;
 
 fn main() {
