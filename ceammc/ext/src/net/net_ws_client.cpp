@@ -18,6 +18,7 @@ OBJECT_STUB_SETUP(NetWsClient, net_ws_client, "net.ws.client");
 #else
 
 #include "args/argcheck2.h"
+#include "ceammc_array.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
@@ -342,6 +343,43 @@ void NetWsClient::m_ping(t_symbol* s, const AtomListView& lv)
     addRequest(SendPing { toBinary(lv) });
 }
 
+void NetWsClient::m_send_array(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("ARRAY:s START:i>=0? LEN:i>=0?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    auto sym_array = lv.symbolAt(0, &s_);
+    auto array = sym_array->s_name;
+    auto start = lv.intAt(1, 0);
+    auto len = lv.intAt(2, -1);
+
+    Array arr(sym_array);
+    if (!arr.isValid()) {
+        METHOD_ERR(s) << fmt::format("array not found: '{}'", array);
+        return;
+    }
+
+    if (start >= arr.size()) {
+        METHOD_ERR(s) << fmt::format("invalid array position: {} (should be <{})", start, arr.size());
+        return;
+    }
+
+    try {
+        auto j = nlohmann::json::array();
+        size_t N = arr.size();
+        if (len > 0)
+            auto N = std::min<size_t>(arr.size(), start + len);
+
+        for (int i = start; i < N; i++)
+            j += arr[i];
+
+        addRequest(SendText { j.dump(), true });
+    } catch (std::exception& e) {
+        METHOD_ERR(s) << fmt::format("error: {}", e.what());
+    }
+}
+
 void NetWsClient::m_flush(t_symbol* s, const AtomListView& lv)
 {
     addRequest(Flush {});
@@ -396,6 +434,7 @@ void setup_net_ws_client()
     obj.addMethod("latency", &NetWsClient::m_latency);
     obj.addMethod("ping", &NetWsClient::m_ping);
     obj.addMethod("send", &NetWsClient::m_send_text);
+    obj.addMethod("send_array", &NetWsClient::m_send_array);
     obj.addMethod("send_binary", &NetWsClient::m_send_binary);
     obj.addMethod("send_json", &NetWsClient::m_send_json);
     obj.addMethod("write", &NetWsClient::m_write_text);

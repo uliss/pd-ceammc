@@ -136,6 +136,7 @@ public:
     void m_flush(t_symbol* s, const AtomListView& lv);
     void m_latency(t_symbol* s, const AtomListView& lv);
     void m_ping(t_symbol* s, const AtomListView& lv);
+    void m_send_array(t_symbol* s, const AtomListView& lv);
     void m_send_binary(t_symbol* s, const AtomListView& lv);
     void m_send_json(t_symbol* s, const AtomListView& lv);
     void m_send_text(t_symbol* s, const AtomListView& lv);
