@@ -16,7 +16,7 @@ gilrs = "0.10.5"
 winprint = {version = "0.1.0"}
 printers = {version = "2.0.0", default-features = false, features=[]}
 
-[target.'cfg(target_os="macos")'.dependencies]
+[target.'cfg(target_family="unix")'.dependencies]
 cups-sys = "0.1.4"
 
 [build-dependencies]

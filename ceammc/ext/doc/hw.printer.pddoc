@@ -14,7 +14,8 @@
             <since>0.9.8</since>
         </meta>
         <info>
-            <par>Supports only text, PDF and images files</par>
+            <par>MacOs: supports only text, PDF and images files.</par>
+            <par>Windows: supports only PDF files.</par>
         </info>
         <inlets>
             <inlet>

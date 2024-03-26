@@ -34,7 +34,7 @@ impl hw_error_cb {
     }
 }
 
-#[cfg(target_os = "macos")]
+#[cfg(target_family = "unix")]
 pub mod printers_cups;
 
 #[cfg(target_os = "windows")]

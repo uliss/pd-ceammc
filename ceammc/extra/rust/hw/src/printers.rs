@@ -78,7 +78,7 @@ impl hw_printer_info_cb {
 pub extern "C" fn ceammc_hw_get_printers(info_cb: hw_printer_info_cb) -> usize {
     let printers: Vec<PrinterInfo>;
 
-    #[cfg(target_os = "macos")]
+    #[cfg(target_family = "unix")]
     {
         printers = crate::printers_cups::get_printers();
     }
@@ -99,7 +99,7 @@ pub extern "C" fn ceammc_hw_get_printers(info_cb: hw_printer_info_cb) -> usize {
 pub extern "C" fn ceammc_hw_printer_default(info_cb: hw_printer_info_cb) -> bool {
     let mut _def_print: Option<PrinterInfo> = None;
 
-    #[cfg(target_os = "macos")]
+    #[cfg(target_family = "unix")]
     {
         _def_print = crate::printers_cups::get_default_printer();
     }
@@ -143,7 +143,7 @@ pub extern "C" fn ceammc_hw_print_file(
         unsafe { &*opts }.clone()
     };
 
-    #[cfg(target_os = "macos")]
+    #[cfg(target_family = "unix")]
     {
         crate::printers_cups::print_file(printer, path, &opts, on_err, on_debug)
     }
