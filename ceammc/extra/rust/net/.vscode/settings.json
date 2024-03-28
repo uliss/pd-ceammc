@@ -1,11 +1,14 @@
 {
     "cSpell.words": [
+        "cstring",
         "defi",
         "mqttbytes",
         "mqttoptions",
         "nonblocking",
+        "reqwest",
         "rumqttc",
         "tungstenite",
         "whitespaces"
-    ]
+    ],
+    "rust-analyzer.showUnlinkedFileNotification": false
 }
