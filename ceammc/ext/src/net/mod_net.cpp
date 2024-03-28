@@ -2,6 +2,7 @@
 #include "net_host.h"
 
 extern void setup_net_artnet_send();
+extern void setup_net_http_client();
 extern void setup_net_http_send();
 extern void setup_net_mdns();
 extern void setup_net_mqtt_client();
@@ -15,6 +16,7 @@ void ceammc_net_setup()
 {
     setup_net_artnet_send();
     setup_net_host();
+    setup_net_http_client();
     setup_net_http_send();
     setup_net_mdns();
     setup_net_mqtt_client();

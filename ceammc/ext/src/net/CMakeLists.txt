@@ -51,7 +51,7 @@ target_include_directories(ceammc_net
 )
 
 # http
-target_sources(ceammc_net PRIVATE net_http_send.cpp)
+target_sources(ceammc_net PRIVATE net_http_send.cpp net_http_client.cpp)
 target_link_libraries(ceammc_net PRIVATE http_lib)
 
 # MDNS
