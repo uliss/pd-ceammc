@@ -2,7 +2,6 @@ use std::{
     ffi::{CStr, CString},
     os::raw::{c_char, c_void},
     ptr::null_mut,
-    sync::mpsc::Receiver,
     time::Duration,
 };
 
@@ -14,8 +13,14 @@ struct Channel<A> {
 }
 
 #[derive(Debug)]
-enum HttpRequest {
+enum HttpRequestMethod {
     Get(String),
+}
+
+#[derive(Debug)]
+struct HttpRequest {
+    method: HttpRequestMethod,
+    css_selector: String,
 }
 
 #[derive(Debug, Default)]
@@ -149,6 +154,7 @@ pub extern "C" fn ceammc_http_client_free(cli: *mut http_client) {
 pub extern "C" fn ceammc_http_client_get(
     cli: Option<&mut http_client>,
     url: *const c_char,
+    css_sel: Option<&c_char>,
 ) -> bool {
     if cli.is_none() {
         eprintln!("NULL client");
@@ -162,7 +168,40 @@ pub extern "C" fn ceammc_http_client_get(
     }
 
     let url = unsafe { CStr::from_ptr(url) }.to_str().unwrap_or_default();
-    return cli.send_request(HttpRequest::Get(url.to_owned()));
+    let mut req = HttpRequest {
+        method: HttpRequestMethod::Get(url.to_owned()),
+        css_selector: String::default(),
+    };
+
+    if let Some(css) = css_sel {
+        req.css_selector = unsafe { CStr::from_ptr(css) }
+            .to_str()
+            .unwrap_or_default()
+            .to_owned();
+    }
+
+    return cli.send_request(req);
+}
+
+fn apply_selector(css: String, body: String) -> Result<Vec<String>, String> {
+    if !css.is_empty() {
+        let sel = scraper::Selector::parse(css.as_str());
+        match sel {
+            Ok(sel) => {
+                println!("CSS selector: {css}");
+                let html = scraper::Html::parse_document(body.as_str());
+
+                let v: Vec<_> = html.select(&sel).map(|x| x.html()).collect();
+
+                return Ok(v);
+            }
+            Err(err) => {
+                return Err(format!("invalid CSS selector: '{css}' ({err})"));
+            }
+        };
+    } else {
+        return Ok(vec![body]);
+    }
 }
 
 #[no_mangle]
@@ -192,7 +231,6 @@ pub extern "C" fn ceammc_http_client_runloop(cli: Option<&mut http_client>) -> b
             if let Err(err) = out.send(Err(err.to_string())).await {
                 println!(" <- send: error: {err}");
             }
-            ()
         }
 
         println!("starting worker thread...");
@@ -202,17 +240,31 @@ pub extern "C" fn ceammc_http_client_runloop(cli: Option<&mut http_client>) -> b
                 let out_tx = res_tx.clone();
 
                 tokio::spawn(async move {
-                    match x {
-                        HttpRequest::Get(url) => match reqwest::get(url).await {
+                    match x.method {
+                        HttpRequestMethod::Get(url) => match reqwest::get(url).await {
                             Ok(resp) => {
                                 let status = resp.status().as_u16();
                                 match resp.text().await {
                                     Ok(body) => {
-                                        write_ok(
-                                            &out_tx,
-                                            HttpReply::Get(HttpResponse { status, body }),
-                                        )
-                                        .await
+                                        let css = x.css_selector;
+                                        match apply_selector(css, body) {
+                                            Ok(v) => {
+                                                for txt in v {
+                                                    write_ok(
+                                                        &out_tx,
+                                                        HttpReply::Get(HttpResponse {
+                                                            status,
+                                                            body: txt,
+                                                        }),
+                                                    )
+                                                    .await
+                                                }
+
+                                            }
+                                            Err(err) => {
+                                                write_err(&out_tx, err.to_string()).await;
+                                            }
+                                        }
                                     }
                                     Err(err) => write_err(&out_tx, err.to_string()).await,
                                 }
@@ -238,7 +290,7 @@ pub extern "C" fn ceammc_http_client_runloop(cli: Option<&mut http_client>) -> b
             loop {
                 match res_rx.recv().await {
                     Some(res) => {
-                        println!(" <- new result: {:?}", res);
+                        // println!(" <- new result: {:?}", res);
                         let _ = sync_tx.send(res);
                     }
                     None => break,
@@ -256,7 +308,7 @@ pub extern "C" fn ceammc_http_client_runloop(cli: Option<&mut http_client>) -> b
                             break 'worker_in;
                         }
                     }
-                    Err(err) => {
+                    Err(_e) => {
                         // try after sleep
                         break 'worker_in;
                     }
@@ -276,7 +328,7 @@ pub extern "C" fn ceammc_http_client_runloop(cli: Option<&mut http_client>) -> b
                             cli.on_err(err.as_str());
                         }
                     },
-                    Err(_) => {
+                    Err(_e) => {
                         // try after sleep
                         break 'worker_out;
                     }

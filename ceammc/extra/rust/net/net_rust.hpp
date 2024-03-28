@@ -143,7 +143,7 @@ extern "C" {
 
 void ceammc_http_client_free(ceammc_http_client *cli);
 
-bool ceammc_http_client_get(ceammc_http_client *cli, const char *url);
+bool ceammc_http_client_get(ceammc_http_client *cli, const char *url, const char *css_sel);
 
 [[nodiscard]]
 ceammc_http_client *ceammc_http_client_new(ceammc_http_client_err_cb cb_err,
