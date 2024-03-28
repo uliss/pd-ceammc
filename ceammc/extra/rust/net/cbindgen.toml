@@ -77,7 +77,7 @@ renaming_overrides_prefixing = false
 
 [fn]
 rename_args = "None"
-# must_use = "MUST_USE_FUNC"
+must_use = "[[nodiscard]]"
 # no_return = "NO_RETURN"
 # prefix = "ceammc_rs_"
 # postfix = "END_FUNC"

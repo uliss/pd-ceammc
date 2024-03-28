@@ -72,6 +72,16 @@ struct ceammc_http_client_err_cb {
     void (*cb)(void *user, const char *msg);
 };
 
+struct ceammc_http_client_result_cb {
+    void *user;
+    void (*cb)(void *user, uint16_t status, const char *body);
+};
+
+struct ceammc_http_client_quit_cb {
+    void *user;
+    bool (*cb)(void *user);
+};
+
 struct ceammc_mqtt_err_cb {
     void *user;
     void (*cb)(void *user, const char *msg);
@@ -133,9 +143,14 @@ extern "C" {
 
 void ceammc_http_client_free(ceammc_http_client *cli);
 
-void ceammc_http_client_get(ceammc_http_client *cli);
+bool ceammc_http_client_get(ceammc_http_client *cli, const char *url);
 
-ceammc_http_client *ceammc_http_client_new(ceammc_http_client_err_cb on_err);
+[[nodiscard]]
+ceammc_http_client *ceammc_http_client_new(ceammc_http_client_err_cb cb_err,
+                                           ceammc_http_client_result_cb cb_result,
+                                           ceammc_http_client_quit_cb cb_quit);
+
+bool ceammc_http_client_runloop(ceammc_http_client *cli);
 
 /// create new mqtt client
 /// @param url - mqtt broker url in format mqtt://host:port

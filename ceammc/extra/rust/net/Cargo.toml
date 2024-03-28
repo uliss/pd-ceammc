@@ -11,6 +11,8 @@ bytes = "1.5.0"
 rumqttc = { version = "0.22.0", features = ["url"] }
 tungstenite = "0.21.0"
 url = "2.5.0"
+tokio = { version = "1.36", features = ["rt", "rt-multi-thread", "signal", "sync"] }
+reqwest = "0.12.2"
 
 [build-dependencies]
 cbindgen = "0.22.0"
