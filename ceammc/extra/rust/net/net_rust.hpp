@@ -67,7 +67,7 @@ struct ceammc_ws_client;
 
 struct ceammc_ws_server;
 
-struct ceammc_http_client_err_cb {
+struct ceammc_callback_msg {
     void *user;
     void (*cb)(void *user, const char *msg);
 };
@@ -77,9 +77,9 @@ struct ceammc_http_client_result_cb {
     void (*cb)(void *user, uint16_t status, const char *body);
 };
 
-struct ceammc_http_client_quit_cb {
-    void *user;
-    bool (*cb)(void *user);
+struct ceammc_callback_notify {
+    size_t id;
+    void (*cb)(size_t id);
 };
 
 struct ceammc_mqtt_err_cb {
@@ -146,11 +146,14 @@ void ceammc_http_client_free(ceammc_http_client *cli);
 bool ceammc_http_client_get(ceammc_http_client *cli, const char *url, const char *css_sel);
 
 [[nodiscard]]
-ceammc_http_client *ceammc_http_client_new(ceammc_http_client_err_cb cb_err,
-                                           ceammc_http_client_result_cb cb_result,
-                                           ceammc_http_client_quit_cb cb_quit);
+ceammc_http_client *ceammc_http_client_new(ceammc_callback_msg cb_err,
+                                           ceammc_callback_msg cb_post,
+                                           ceammc_callback_msg cb_debug,
+                                           ceammc_callback_msg cb_log,
+                                           ceammc_http_client_result_cb cb_reply,
+                                           ceammc_callback_notify cb_notify);
 
-bool ceammc_http_client_runloop(ceammc_http_client *cli);
+bool ceammc_http_client_process(ceammc_http_client *cli);
 
 /// create new mqtt client
 /// @param url - mqtt broker url in format mqtt://host:port
