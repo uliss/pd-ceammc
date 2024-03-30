@@ -2,15 +2,10 @@ use std::{
     ffi::{CStr, CString},
     os::raw::{c_char, c_void},
     ptr::null_mut,
-    time::Duration,
 };
 
-use tokio::runtime::Runtime;
-
-struct Channel<A> {
-    rx: std::sync::mpsc::Receiver<A>,
-    tx: std::sync::mpsc::Sender<A>,
-}
+use crate::service::Service;
+use crate::service::{callback_msg, callback_notify, Error, ServiceCallback};
 
 #[derive(Debug)]
 enum HttpRequestMethod {
@@ -24,82 +19,19 @@ struct HttpRequest {
 }
 
 #[derive(Debug, Default)]
-struct HttpResponse {
+pub struct HttpResponse {
     body: String,
     status: u16,
 }
 
 #[derive(Debug)]
-enum HttpReply {
+pub enum HttpReply {
     Get(HttpResponse),
 }
 
 #[allow(non_camel_case_types)]
 pub struct http_client {
-    rt: tokio::runtime::Runtime,
-    cb_err: http_client_err_cb,
-    cb_result: http_client_result_cb,
-    cb_quit: http_client_quit_cb,
-    to_worker: Channel<HttpRequest>,
-}
-
-impl http_client {
-    fn on_err(&self, msg: &str) {
-        self.cb_err.exec(msg);
-    }
-
-    fn on_result(&self, status: u16, msg: &str) {
-        self.cb_result.exec(status, msg);
-    }
-
-    fn should_quit(&self) -> bool {
-        self.cb_quit.check()
-    }
-
-    fn send_request(&self, req: HttpRequest) -> bool {
-        match self.to_worker.tx.send(req) {
-            Ok(_) => true,
-            Err(err) => {
-                self.on_err(err.to_string().as_str());
-                false
-            }
-        }
-    }
-
-    fn add_reply(&self, rep: HttpReply) {
-        match rep {
-            HttpReply::Get(resp) => {
-                self.on_result(resp.status, resp.body.as_str());
-            }
-        }
-    }
-}
-
-#[repr(C)]
-#[allow(non_camel_case_types)]
-pub struct http_client_err_cb {
-    user: *mut c_void,
-    cb: Option<extern "C" fn(user: *mut c_void, msg: *const c_char)>,
-}
-
-impl http_client_err_cb {
-    fn exec(&self, msg: &str) {
-        let msg = CString::new(msg).unwrap_or_default();
-        self.cb.map(|cb| cb(self.user, msg.as_ptr()));
-    }
-}
-
-#[allow(non_camel_case_types)]
-#[repr(C)]
-pub struct http_client_quit_cb {
-    user: *mut c_void,
-    cb: Option<extern "C" fn(user: *mut c_void) -> bool>,
-}
-
-impl http_client_quit_cb {
-    fn check(&self) -> bool {
-        self.cb.map_or(false, |f| f(self.user))
-    }
+    service: Service<HttpRequest, HttpReply>,
 }
 
 #[allow(non_camel_case_types)]
@@ -109,36 +41,73 @@ pub struct http_client_result_cb {
     cb: Option<extern "C" fn(user: *mut c_void, status: u16, body: *const c_char)>,
 }
 
-impl http_client_result_cb {
-    fn exec(&self, status: u16, msg: &str) {
-        let msg = CString::new(msg).unwrap_or_default();
-        self.cb.map(|cb| cb(self.user, status, msg.as_ptr()));
+impl ServiceCallback<HttpReply> for http_client_result_cb {
+    fn exec(&self, data: &HttpReply) {
+        match data {
+            HttpReply::Get(resp) => {
+                let msg = CString::new(resp.body.clone()).unwrap_or_default();
+                self.cb.map(|cb| cb(self.user, resp.status, msg.as_ptr()));
+            }
+        }
+    }
+}
+
+async fn http_request(req: HttpRequest) -> Result<Vec<HttpReply>, Error> {
+    match req.method {
+        HttpRequestMethod::Get(url) => match reqwest::get(url).await {
+            Ok(resp) => {
+                let status = resp.status().as_u16();
+                match resp.text().await {
+                    Ok(body) => {
+                        let css = req.css_selector;
+                        match apply_selector(css, body) {
+                            Ok(v) => Ok(v
+                                .iter()
+                                .map(|txt| {
+                                    HttpReply::Get(HttpResponse {
+                                        status,
+                                        body: txt.clone(),
+                                    })
+                                })
+                                .collect()),
+                            Err(err) => Err(Error::Error(err)),
+                        }
+                    }
+                    Err(err) => Err(Error::Error(err.to_string())),
+                }
+            }
+            Err(err) => Err(Error::Error(err.to_string())),
+        },
     }
 }
 
 #[must_use]
 #[no_mangle]
 pub extern "C" fn ceammc_http_client_new(
-    cb_err: http_client_err_cb,
-    cb_result: http_client_result_cb,
-    cb_quit: http_client_quit_cb,
+    cb_err: callback_msg,
+    cb_post: callback_msg,
+    cb_debug: callback_msg,
+    cb_log: callback_msg,
+    cb_reply: http_client_result_cb,
+    cb_notify: callback_notify,
 ) -> *mut http_client {
-    let rt = Runtime::new();
-    match rt {
-        Ok(rt) => {
-            let (tx, rx) = std::sync::mpsc::channel::<HttpRequest>();
+    let service = Service::<HttpRequest, HttpReply>::new_async_many(
+        //
+        cb_err.clone(),
+        cb_post,
+        cb_debug,
+        cb_log,
+        Box::new(cb_reply),
+        cb_notify,
+        http_request,
+        16,
+    );
 
-            return Box::into_raw(Box::new(http_client {
-                rt,
-                cb_err,
-                cb_result,
-                cb_quit,
-                to_worker: Channel { rx, tx },
-            }));
-        }
-        Err(err) => {
-            cb_err.exec(format!("runtime creation error: {err}").as_str());
-            return null_mut();
+    match service {
+        Some(service) => Box::into_raw(Box::new(http_client { service })),
+        None => {
+            cb_err.exec("http client creation error");
+            null_mut()
         }
     }
 }
@@ -153,7 +122,7 @@ pub extern "C" fn ceammc_http_client_free(cli: *mut http_client) {
 #[no_mangle]
 pub extern "C" fn ceammc_http_client_get(
     cli: Option<&mut http_client>,
-    url: *const c_char,
+    url: Option<&c_char>,
     css_sel: Option<&c_char>,
 ) -> bool {
     if cli.is_none() {
@@ -162,12 +131,14 @@ pub extern "C" fn ceammc_http_client_get(
     }
 
     let cli = cli.unwrap();
-    if url.is_null() {
-        cli.on_err("null url string");
+    if url.is_none() {
+        cli.service.on_error("null url string");
         return false;
     }
 
-    let url = unsafe { CStr::from_ptr(url) }.to_str().unwrap_or_default();
+    let url = unsafe { CStr::from_ptr(url.unwrap()) }
+        .to_str()
+        .unwrap_or_default();
     let mut req = HttpRequest {
         method: HttpRequestMethod::Get(url.to_owned()),
         css_selector: String::default(),
@@ -180,7 +151,21 @@ pub extern "C" fn ceammc_http_client_get(
             .to_owned();
     }
 
-    return cli.send_request(req);
+    cli.service.send_request(req)
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_http_client_process(
+    cli: Option<&mut http_client>,
+) -> bool {
+    if cli.is_none() {
+        eprintln!("NULL client");
+        return false;
+    }
+
+    let cli = cli.unwrap();
+    cli.service.process_results();
+    true
 }
 
 fn apply_selector(css: String, body: String) -> Result<Vec<String>, String> {
@@ -202,162 +187,6 @@ fn apply_selector(css: String, body: String) -> Result<Vec<String>, String> {
     } else {
         return Ok(vec![body]);
     }
-}
-
-#[no_mangle]
-pub extern "C" fn ceammc_http_client_runloop(cli: Option<&mut http_client>) -> bool {
-    if cli.is_none() {
-        eprintln!("NULL client");
-        return false;
-    }
-
-    let cli = cli.unwrap();
-
-    type ReplyChanMsg = Result<HttpReply, String>;
-    type ReplyChannel = tokio::sync::mpsc::Sender<ReplyChanMsg>;
-
-    let res: Result<(), String> = cli.rt.block_on(async {
-        let (wtx, mut wrx) = tokio::sync::mpsc::channel::<HttpRequest>(16);
-        let (res_tx, mut res_rx) = tokio::sync::mpsc::channel::<ReplyChanMsg>(16);
-
-        async fn write_ok(out: &ReplyChannel, reply: HttpReply) {
-            if let Err(err) = out.send(Ok(reply)).await {
-                println!(" <- send: error: {err}");
-            }
-            ()
-        }
-
-        async fn write_err(out: &ReplyChannel, err: String) {
-            if let Err(err) = out.send(Err(err.to_string())).await {
-                println!(" <- send: error: {err}");
-            }
-        }
-
-        println!("starting worker thread...");
-        let worker = tokio::spawn(async move {
-            println!(" -> worker is started");
-            while let Some(x) = wrx.recv().await {
-                let out_tx = res_tx.clone();
-
-                tokio::spawn(async move {
-                    match x.method {
-                        HttpRequestMethod::Get(url) => match reqwest::get(url).await {
-                            Ok(resp) => {
-                                let status = resp.status().as_u16();
-                                match resp.text().await {
-                                    Ok(body) => {
-                                        let css = x.css_selector;
-                                        match apply_selector(css, body) {
-                                            Ok(v) => {
-                                                for txt in v {
-                                                    write_ok(
-                                                        &out_tx,
-                                                        HttpReply::Get(HttpResponse {
-                                                            status,
-                                                            body: txt,
-                                                        }),
-                                                    )
-                                                    .await
-                                                }
-
-                                            }
-                                            Err(err) => {
-                                                write_err(&out_tx, err.to_string()).await;
-                                            }
-                                        }
-                                    }
-                                    Err(err) => write_err(&out_tx, err.to_string()).await,
-                                }
-
-                                Ok(())
-                            }
-                            Err(err) => {
-                                write_err(&out_tx, err.to_string()).await;
-                                Ok::<(), reqwest::Error>(())
-                            }
-                        },
-                    }
-                });
-            }
-        });
-
-        let (sync_tx, sync_rx) = std::sync::mpsc::channel::<Result<HttpReply, String>>();
-
-        println!("starting result thread...");
-        // read and combine results
-        let result = tokio::spawn(async move {
-            println!(" <- result thread is started");
-            loop {
-                match res_rx.recv().await {
-                    Some(res) => {
-                        // println!(" <- new result: {:?}", res);
-                        let _ = sync_tx.send(res);
-                    }
-                    None => break,
-                }
-            }
-        });
-
-        println!("starting main loop");
-        'main: loop {
-            // process all available worker requests
-            'worker_in: loop {
-                match cli.to_worker.rx.try_recv() {
-                    Ok(req) => {
-                        if wtx.send(req).await.is_err() {
-                            break 'worker_in;
-                        }
-                    }
-                    Err(_e) => {
-                        // try after sleep
-                        break 'worker_in;
-                    }
-                }
-
-                if cli.should_quit() {
-                    break 'main;
-                }
-            }
-
-            // process all available results
-            'worker_out: loop {
-                match sync_rx.try_recv() {
-                    Ok(reply) => match reply {
-                        Ok(reply) => cli.add_reply(reply),
-                        Err(err) => {
-                            cli.on_err(err.as_str());
-                        }
-                    },
-                    Err(_e) => {
-                        // try after sleep
-                        break 'worker_out;
-                    }
-                }
-
-                if cli.should_quit() {
-                    break 'main;
-                }
-            }
-
-            tokio::time::sleep(Duration::from_millis(100)).await;
-
-            if cli.should_quit() {
-                break 'main;
-            }
-        }
-
-        worker.abort();
-        result.abort();
-
-        Ok(())
-    });
-
-    if let Err(e) = res {
-        cli.on_err(format!("error: {e}").as_str());
-        return false;
-    }
-
-    true
 }
 
 #[cfg(test)]
