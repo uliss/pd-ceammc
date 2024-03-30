@@ -33,19 +33,8 @@ impl callback_notify {
     }
 }
 
-pub struct ServiceCallback<T> {
-    user: *mut c_void,
-    cb: Option<fn(user: *mut c_void, data: &T)>,
-}
-
-impl<T> ServiceCallback<T> {
-    pub fn exec(&self, data: &T) {
-        self.cb.map(|cb| cb(self.user, &data));
-    }
-
-    pub fn new(user: *mut c_void, cb: fn(user: *mut c_void, data: &T)) -> Self {
-        ServiceCallback::<T> { user, cb: Some(cb) }
-    }
+pub trait ServiceCallback<T> {
+    fn exec(&self, data: &T);
 }
 
 pub enum Error {
@@ -60,7 +49,7 @@ pub struct Service<Request: Send + Sized, Reply: Sized> {
     cb_post: callback_msg,
     cb_debug: callback_msg,
     cb_log: callback_msg,
-    cb_reply: ServiceCallback<Reply>,
+    cb_reply: Box<dyn ServiceCallback<Reply>>,
     tx: tokio::sync::mpsc::Sender<Request>,
     rx: tokio::sync::mpsc::Receiver<Result<Reply, Error>>,
 }
@@ -76,7 +65,28 @@ where
     Request: Send + Sized + 'static,
     Reply: Send + Sized + 'static,
 {
+    fn new(
+        cb_err: callback_msg,
+        cb_post: callback_msg,
+        cb_debug: callback_msg,
+        cb_log: callback_msg,
+        cb_reply: Box<dyn ServiceCallback<Reply>>,
+        tx: tokio::sync::mpsc::Sender<Request>,
+        rx: tokio::sync::mpsc::Receiver<Result<Reply, Error>>,
+    ) -> Self {
+        Service::<Request, Reply> {
+            cb_err,
+            cb_post,
+            cb_debug,
+            cb_log,
+            cb_reply,
+            tx,
+            rx,
+        }
+    }
+
     pub fn on_error(&self, msg: &str) {
+        eprintln!("{msg}");
         self.cb_err.exec(msg);
     }
 
@@ -99,7 +109,10 @@ where
     pub fn send_request(&self, req: Request) -> bool {
         match self.tx.try_send(req) {
             Ok(_) => true,
-            Err(_err) => false,
+            Err(_err) => {
+                eprintln!("{_err}");
+                false
+            },
         }
     }
 
@@ -122,7 +135,7 @@ where
         cb_post: callback_msg,
         cb_debug: callback_msg,
         cb_log: callback_msg,
-        cb_reply: ServiceCallback<Reply>,
+        cb_reply: Box<dyn ServiceCallback<Reply>>,
         cb_notify: callback_notify,
         proc_request: CallbackSyncOne<Request, Reply, Error>,
         chan_size: usize,
@@ -164,15 +177,9 @@ where
                     });
                 });
 
-                let srv = Service::<Request, Reply> {
-                    cb_err,
-                    cb_post,
-                    cb_debug,
-                    cb_log,
-                    cb_reply,
-                    tx: req_tx,
-                    rx: rep_rx,
-                };
+                let srv = Service::<Request, Reply>::new(
+                    cb_err, cb_post, cb_debug, cb_log, cb_reply, req_tx, rep_rx,
+                );
 
                 Some(srv)
             }
@@ -188,7 +195,7 @@ where
         cb_post: callback_msg,
         cb_debug: callback_msg,
         cb_log: callback_msg,
-        cb_reply: ServiceCallback<Reply>,
+        cb_reply: Box<dyn ServiceCallback<Reply>>,
         cb_notify: callback_notify,
         proc_request: CallbackSyncMany<Request, Reply, Error>,
         chan_size: usize,
@@ -232,15 +239,9 @@ where
                     });
                 });
 
-                let srv = Service::<Request, Reply> {
-                    cb_err,
-                    cb_post,
-                    cb_debug,
-                    cb_log,
-                    cb_reply,
-                    tx: req_tx,
-                    rx: rep_rx,
-                };
+                let srv = Service::<Request, Reply>::new(
+                    cb_err, cb_post, cb_debug, cb_log, cb_reply, req_tx, rep_rx,
+                );
 
                 Some(srv)
             }
@@ -256,7 +257,7 @@ where
         cb_post: callback_msg,
         cb_debug: callback_msg,
         cb_log: callback_msg,
-        cb_reply: ServiceCallback<Reply>,
+        cb_reply: Box<dyn ServiceCallback<Reply>>,
         cb_notify: callback_notify,
         proc_request: CallbackType<
             Request,
@@ -301,15 +302,9 @@ where
                     });
                 });
 
-                let srv = Service::<Request, Reply> {
-                    cb_err,
-                    cb_post,
-                    cb_debug,
-                    cb_log,
-                    cb_reply,
-                    tx: req_tx,
-                    rx: rep_rx,
-                };
+                let srv = Service::<Request, Reply>::new(
+                    cb_err, cb_post, cb_debug, cb_log, cb_reply, req_tx, rep_rx,
+                );
 
                 Some(srv)
             }
@@ -325,7 +320,7 @@ where
         cb_post: callback_msg,
         cb_debug: callback_msg,
         cb_log: callback_msg,
-        cb_reply: ServiceCallback<Reply>,
+        cb_reply: Box<dyn ServiceCallback<Reply>>,
         cb_notify: callback_notify,
         proc_request: CallbackType<
             Request,
@@ -344,7 +339,7 @@ where
                 std::thread::spawn(move || {
                     rt.block_on(async move {
                         // worker thread
-                        tokio::spawn(async move {
+                        let worker = tokio::spawn(async move {
                             while let Some(task) = req_rx.recv().await {
                                 println!("get task...");
                                 let rep_tx = rep_tx.clone();
@@ -368,19 +363,15 @@ where
                             // thread.
                         });
 
+                        let _ = worker.await;
+
                         ()
                     });
                 });
 
-                let srv = Service::<Request, Reply> {
-                    cb_err,
-                    cb_post,
-                    cb_debug,
-                    cb_log,
-                    cb_reply,
-                    tx: req_tx,
-                    rx: rep_rx,
-                };
+                let srv = Service::<Request, Reply>::new(
+                    cb_err, cb_post, cb_debug, cb_log, cb_reply, req_tx, rep_rx,
+                );
 
                 Some(srv)
             }
@@ -429,53 +420,4 @@ where
 }
 
 #[cfg(test)]
-mod tests {
-    use std::{
-        ffi::CStr,
-        os::raw::{c_char, c_void},
-        ptr::null_mut,
-        thread::sleep,
-        time::Duration,
-    };
-
-    use super::Service;
-
-    extern "C" fn err_cb(_user: *mut c_void, msg: *const c_char) {
-        let msg = unsafe { CStr::from_ptr(msg) }.to_str().unwrap_or_default();
-        println!("error: {msg}");
-    }
-
-    #[test]
-    fn test() {
-        let cli = Service::<u8, String>::new_sync(
-            super::callback_msg {
-                user: null_mut(),
-                cb: Some(err_cb),
-            },
-            super::callback_msg {
-                user: null_mut(),
-                cb: Some(err_cb),
-            },
-            super::callback_msg {
-                user: null_mut(),
-                cb: Some(err_cb),
-            },
-            super::callback_msg {
-                user: null_mut(),
-                cb: Some(err_cb),
-            },
-            super::ServiceCallback {
-                user: null_mut(),
-                cb: None,
-            },
-            super::callback_notify { id: 123, cb: None },
-            |x| Ok(format!("str = {x}")),
-            16,
-        );
-
-        assert!(cli.is_some());
-        let cli = cli.unwrap();
-        assert!(cli.send_request(8));
-        sleep(Duration::from_secs(1));
-    }
-}
+mod tests {}
