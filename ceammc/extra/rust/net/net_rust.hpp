@@ -7,6 +7,12 @@
 #include <cstddef>
 
 
+enum class ceammc_http_client_select_type {
+    Html,
+    InnerHtml,
+    Text,
+};
+
 enum class ceammc_mqtt_qos {
     /// may lose messages
     AtMostOnce = 0,
@@ -148,7 +154,10 @@ extern "C" {
 
 void ceammc_http_client_free(ceammc_http_client *cli);
 
-bool ceammc_http_client_get(ceammc_http_client *cli, const char *url, const char *css_sel);
+bool ceammc_http_client_get(ceammc_http_client *cli,
+                            const char *url,
+                            const char *css_sel,
+                            ceammc_http_client_select_type sel_type);
 
 [[nodiscard]]
 ceammc_http_client *ceammc_http_client_new(ceammc_callback_msg cb_err,

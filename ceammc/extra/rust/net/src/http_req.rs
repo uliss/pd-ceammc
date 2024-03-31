@@ -12,10 +12,36 @@ enum HttpRequestMethod {
     Get(String),
 }
 
+#[allow(non_camel_case_types)]
+#[repr(C)]
+#[derive(Debug)]
+pub enum http_client_select_type {
+    Html,
+    InnerHtml,
+    Text,
+}
+
+#[derive(Debug)]
+struct CssSelector {
+    name: String,
+    content: http_client_select_type,
+}
+
+impl CssSelector {
+    fn new(cstr: *const c_char, content: http_client_select_type) -> Self {
+        let name = unsafe { CStr::from_ptr(cstr) }
+            .to_str()
+            .unwrap_or_default()
+            .to_owned();
+
+        CssSelector { name, content }
+    }
+}
+
 #[derive(Debug)]
 struct HttpRequest {
     method: HttpRequestMethod,
-    css_selector: String,
+    css_selector: Option<CssSelector>,
 }
 
 #[derive(Debug, Default)]
@@ -139,6 +165,7 @@ pub extern "C" fn ceammc_http_client_get(
     cli: Option<&mut http_client>,
     url: Option<&c_char>,
     css_sel: Option<&c_char>,
+    sel_type: http_client_select_type,
 ) -> bool {
     if cli.is_none() {
         eprintln!("NULL client");
@@ -156,14 +183,11 @@ pub extern "C" fn ceammc_http_client_get(
         .unwrap_or_default();
     let mut req = HttpRequest {
         method: HttpRequestMethod::Get(url.to_owned()),
-        css_selector: String::default(),
+        css_selector: None,
     };
 
     if let Some(css) = css_sel {
-        req.css_selector = unsafe { CStr::from_ptr(css) }
-            .to_str()
-            .unwrap_or_default()
-            .to_owned();
+        req.css_selector = Some(CssSelector::new(css, sel_type));
     }
 
     cli.service.send_request(req)
@@ -181,24 +205,35 @@ pub extern "C" fn ceammc_http_client_process(cli: Option<&mut http_client>) -> b
     true
 }
 
-fn apply_selector(css: String, body: String) -> Result<Vec<String>, String> {
-    if !css.is_empty() {
-        let sel = scraper::Selector::parse(css.as_str());
-        match sel {
-            Ok(sel) => {
-                println!("CSS selector: {css}");
-                let html = scraper::Html::parse_document(body.as_str());
+fn apply_selector(css: Option<CssSelector>, body: String) -> Result<Vec<String>, String> {
+    match css {
+        Some(css) => {
+            let sel = scraper::Selector::parse(css.name.as_str());
+            match sel {
+                Ok(sel) => {
+                    eprintln!("CSS selector: {css:?}");
+                    let html = scraper::Html::parse_document(body.as_str());
 
-                let v: Vec<_> = html.select(&sel).map(|x| x.html()).collect();
+                    let v: Vec<_> = html
+                        .select(&sel)
+                        .map(|x| match css.content {
+                            http_client_select_type::Text => x.text().collect(),
+                            http_client_select_type::Html => x.html(),
+                            http_client_select_type::InnerHtml => x.inner_html(),
+                        })
+                        .map(|x| x.trim().to_owned())
+                        .collect();
 
-                return Ok(v);
-            }
-            Err(err) => {
-                return Err(format!("invalid CSS selector: '{css}' ({err})"));
-            }
-        };
-    } else {
-        return Ok(vec![body]);
+                    return Ok(v);
+                }
+                Err(err) => {
+                    return Err(format!("invalid CSS selector: '{}' ({err})", css.name));
+                }
+            };
+        }
+        None => {
+            return Ok(vec![body.trim().to_string()]);
+        }
     }
 }
 
