@@ -72,9 +72,14 @@ struct ceammc_callback_msg {
     void (*cb)(void *user, const char *msg);
 };
 
+struct ceammc_http_client_result {
+    const char *body;
+    uint16_t status;
+};
+
 struct ceammc_http_client_result_cb {
     void *user;
-    void (*cb)(void *user, uint16_t status, const char *body);
+    void (*cb)(void *user, const ceammc_http_client_result*);
 };
 
 struct ceammc_callback_notify {

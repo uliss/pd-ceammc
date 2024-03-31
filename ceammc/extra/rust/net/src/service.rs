@@ -6,7 +6,7 @@ use std::{
 
 #[repr(C)]
 #[allow(non_camel_case_types)]
-#[derive(Clone)]
+#[derive(Clone,Copy)]
 pub struct callback_msg {
     user: *mut c_void,
     cb: Option<extern "C" fn(user: *mut c_void, msg: *const c_char)>,

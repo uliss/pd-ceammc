@@ -36,9 +36,16 @@ pub struct http_client {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
+pub struct http_client_result {
+    body: *const c_char,
+    status: u16,
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
 pub struct http_client_result_cb {
     user: *mut c_void,
-    cb: Option<extern "C" fn(user: *mut c_void, status: u16, body: *const c_char)>,
+    cb: Option<extern "C" fn(user: *mut c_void, &http_client_result)>,
 }
 
 impl ServiceCallback<HttpReply> for http_client_result_cb {
@@ -46,7 +53,15 @@ impl ServiceCallback<HttpReply> for http_client_result_cb {
         match data {
             HttpReply::Get(resp) => {
                 let msg = CString::new(resp.body.clone()).unwrap_or_default();
-                self.cb.map(|cb| cb(self.user, resp.status, msg.as_ptr()));
+                self.cb.map(|cb| {
+                    cb(
+                        self.user,
+                        &http_client_result {
+                            body: msg.as_ptr(),
+                            status: resp.status,
+                        },
+                    )
+                });
             }
         }
     }
@@ -93,7 +108,7 @@ pub extern "C" fn ceammc_http_client_new(
 ) -> *mut http_client {
     let service = Service::<HttpRequest, HttpReply>::new_async_many(
         //
-        cb_err.clone(),
+        cb_err,
         cb_post,
         cb_debug,
         cb_log,
@@ -155,9 +170,7 @@ pub extern "C" fn ceammc_http_client_get(
 }
 
 #[no_mangle]
-pub extern "C" fn ceammc_http_client_process(
-    cli: Option<&mut http_client>,
-) -> bool {
+pub extern "C" fn ceammc_http_client_process(cli: Option<&mut http_client>) -> bool {
     if cli.is_none() {
         eprintln!("NULL client");
         return false;
