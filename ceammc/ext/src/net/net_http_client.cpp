@@ -4,9 +4,7 @@
 #include "ceammc_data.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
-#include "ceammc_format.h"
 #include "datatype_string.h"
-#include "fmt/core.h"
 
 NetHttpClient::NetHttpClient(const PdArgs& args)
     : NetHttpClientBase(args)
@@ -25,6 +23,23 @@ NetHttpClient::NetHttpClient(const PdArgs& args)
 
     createOutlet();
     createOutlet();
+}
+
+void NetHttpClient::m_download(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("URL:s FILE:s? @PARAMS:s*");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    auto url = lv.symbolAt(0, &s_)->s_name;
+    auto file = lv.symbolAt(1, &s_)->s_name;
+    auto dir = canvasDir(CanvasType::PARENT)->s_name;
+
+    std::vector<ceammc_http_client_param> params;
+    processParams(lv.subView(1), params);
+
+    if (!ceammc_http_client_download(srv_.handle(), url, file, dir, params.data(), params.size()))
+        OBJ_ERR << "can't make request";
 }
 
 void NetHttpClient::m_get(t_symbol* s, const AtomListView& lv)
@@ -145,6 +160,21 @@ void NetHttpClient::processParams(const AtomListView& lv, std::vector<ceammc_htt
 
             params.push_back({ k->s_name, v->s_name, ceammc_http_client_param_type::Header });
         } break;
+        case "@auth"_hash: {
+            auto name = lv.symbolAt(0, &s_);
+            auto pass = lv.symbolAt(1, &s_);
+            if (name == &s_) {
+                OBJ_ERR << "invalid username: " << lv.atomAt(0, &s_);
+                return;
+            }
+
+            if (pass == &s_) {
+                OBJ_ERR << "invalid password: " << lv.atomAt(1, &s_);
+                return;
+            }
+
+            params.push_back({ name->s_name, pass->s_name, ceammc_http_client_param_type::BasicAuth });
+        } break;
         case "@css"_hash: {
             auto css = lv.symbolAt(0, &s_);
             auto output = lv.symbolAt(1, &s_);
@@ -180,6 +210,7 @@ void setup_net_http_client()
     obj.addMethod("get", &NetHttpClient::m_get);
     obj.addMethod("post", &NetHttpClient::m_post);
     obj.addMethod("upload", &NetHttpClient::m_upload);
+    obj.addMethod("download", &NetHttpClient::m_download);
 
     obj.setXletsInfo({ "get, post, upload, select" }, { "int: status code", "data:string: response body" });
 }

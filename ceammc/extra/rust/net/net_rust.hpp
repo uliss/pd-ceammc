@@ -13,6 +13,7 @@ enum class ceammc_http_client_param_type {
     MultiPart,
     Selector,
     Mime,
+    BasicAuth,
 };
 
 enum class ceammc_mqtt_qos {
@@ -159,6 +160,13 @@ struct ceammc_ws_srv_on_cli {
 
 
 extern "C" {
+
+bool ceammc_http_client_download(ceammc_http_client *cli,
+                                 const char *url,
+                                 const char *file,
+                                 const char *dir,
+                                 const ceammc_http_client_param *params,
+                                 size_t params_len);
 
 void ceammc_http_client_free(ceammc_http_client *cli);
 

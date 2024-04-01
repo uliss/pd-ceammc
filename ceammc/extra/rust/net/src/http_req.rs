@@ -1,14 +1,18 @@
 use core::slice;
 use std::{
     collections::HashMap,
-    ffi::{CStr, CString},
+    ffi::{CStr, CString, OsStr, OsString},
     os::raw::{c_char, c_void},
-    ptr::null_mut,
+    path::Path,
+    ptr::{null, null_mut},
     time::Duration,
 };
 
 use reqwest::{RequestBuilder, Response};
-use tokio::fs::File;
+use tokio::{
+    fs::{metadata, File},
+    io::AsyncWriteExt,
+};
 use tokio_util::codec::{BytesCodec, FramedRead};
 
 use crate::service::Service;
@@ -47,6 +51,7 @@ fn parse_client_options(
                 http_client_param_type::Header => HttpClientParam::Header(name, value),
                 http_client_param_type::Form => HttpClientParam::Form(name, value),
                 http_client_param_type::MultiPart => HttpClientParam::MultiPart(name, value),
+                http_client_param_type::BasicAuth => HttpClientParam::BasicAuth(name, value),
                 http_client_param_type::Selector => {
                     selector = Some(CssSelector {
                         name,
@@ -82,10 +87,18 @@ struct UploadRequest {
 }
 
 #[derive(Debug)]
+struct DownloadRequest {
+    url: String,
+    filename: String,
+    base_dir: String,
+}
+
+#[derive(Debug)]
 enum HttpRequestMethod {
     Get(String),
     Post(String),
     UploadFile(UploadRequest),
+    Download(DownloadRequest),
 }
 
 #[allow(non_camel_case_types)]
@@ -113,6 +126,7 @@ pub struct HttpResponse {
 #[derive(Debug)]
 pub enum HttpReply {
     Get(HttpResponse),
+    Ok(u16),
 }
 
 #[allow(non_camel_case_types)]
@@ -147,6 +161,7 @@ pub enum http_client_param_type {
     MultiPart,
     Selector,
     Mime,
+    BasicAuth,
 }
 
 #[derive(Debug)]
@@ -154,6 +169,7 @@ enum HttpClientParam {
     Header(String, String),
     Form(String, String),
     MultiPart(String, String),
+    BasicAuth(String, String),
 }
 
 #[derive(Debug)]
@@ -201,6 +217,17 @@ impl ServiceCallback<HttpReply> for http_client_result_cb {
                     )
                 });
             }
+            HttpReply::Ok(status) => {
+                self.cb.map(|cb| {
+                    cb(
+                        self.user,
+                        &http_client_result {
+                            body: null(),
+                            status: *status,
+                        },
+                    )
+                });
+            }
         }
     }
 }
@@ -239,6 +266,9 @@ fn process_params(
             }
             HttpClientParam::Form(k, v) => {
                 form_params.insert(k, v);
+            }
+            HttpClientParam::BasicAuth(username, password) => {
+                cli = cli.basic_auth(username, Some(password));
             }
             HttpClientParam::MultiPart(k, v) => {
                 if multipart_form.is_none() {
@@ -282,6 +312,84 @@ async fn http_request(req: HttpRequest) -> Result<Vec<HttpReply>, Error> {
 
             match client.send().await {
                 Ok(resp) => http_response(resp, req.selector).await,
+                Err(err) => Err(Error::Error(err.to_string())),
+            }
+        }
+        HttpRequestMethod::Download(dreq) => {
+            let mut client = reqwest::Client::new().get(dreq.url);
+            client = process_params(client, req.params, req.timeout);
+
+            match client.send().await {
+                Ok(mut response) => {
+                    let dir = Path::new(&dreq.base_dir);
+                    let fname = if dreq.filename.is_empty() {
+                        const DEFAULT_NAME: &str = "tmp.bin";
+                        // auto detect
+                        Path::new(
+                            response
+                                .url()
+                                .path_segments()
+                                .and_then(|segments| segments.last())
+                                .and_then(|name| if name.is_empty() { None } else { Some(name) })
+                                .unwrap_or(
+                                    Path::new(
+                                        response
+                                            .headers()
+                                            .get("Content-Disposition")
+                                            .and_then(|x| Some(x.to_str().unwrap_or(DEFAULT_NAME)))
+                                            .unwrap_or(DEFAULT_NAME),
+                                    )
+                                    .file_name()
+                                    .unwrap_or_else(|| &OsStr::new(DEFAULT_NAME))
+                                    .to_str()
+                                    .unwrap_or(DEFAULT_NAME),
+                                ),
+                        )
+                    } else {
+                        Path::new(&dreq.filename)
+                    };
+
+                    let full_name = if fname.is_relative() {
+                        if !dir.exists() {
+                            return Err(Error::Error(format!(
+                                "base directory not exists: {dir:?}"
+                            )));
+                        }
+
+                        dir.join(&fname)
+                            .as_path()
+                            .to_str()
+                            .unwrap_or_default()
+                            .to_owned()
+                    } else {
+                        fname.to_str().unwrap_or_default().to_owned()
+                    };
+
+                    let status = response.status();
+                    let nbytes = response.content_length();
+
+                    match File::create(&full_name).await {
+                        Ok(mut file) => {
+                            let mut total: u64 = 0;
+                            while let Ok(chunk) = response.chunk().await {
+                                if let Some(bytes) = chunk {
+                                    if let Err(err) = file.write_all(&bytes).await {
+                                        return Err(Error::Error(err.to_string()));
+                                    }
+
+                                    total += bytes.len() as u64;
+                                    let perc = (100 * total) / nbytes.unwrap();
+                                    // eprintln!("download: {perc}% to {full_name}");
+                                }
+                            }
+
+                            let _ = file.flush().await;
+
+                            Ok(vec![HttpReply::Ok(status.into())])
+                        }
+                        Err(err) => Err(Error::Error(err.to_string())),
+                    }
+                }
                 Err(err) => Err(Error::Error(err.to_string())),
             }
         }
@@ -486,6 +594,51 @@ pub extern "C" fn ceammc_http_client_upload(
 }
 
 #[no_mangle]
+pub extern "C" fn ceammc_http_client_download(
+    cli: Option<&mut http_client>,
+    url: Option<&c_char>,
+    file: Option<&c_char>,
+    dir: Option<&c_char>,
+    params: Option<&http_client_param>,
+    params_len: usize,
+) -> bool {
+    if cli.is_none() {
+        eprintln!("NULL client");
+        return false;
+    }
+
+    let cli = cli.unwrap();
+    if url.is_none() {
+        cli.service.on_error("null url string");
+        return false;
+    }
+    let url = unsafe { CStr::from_ptr(url.unwrap()) }
+        .to_str()
+        .unwrap_or_default()
+        .to_owned();
+
+    let file = cli.cstr2string(file, "file").unwrap_or_default().to_owned();
+    let base_dir = cli.cstr2string(dir, "dir").unwrap_or_default().to_owned();
+
+    let (params, selector, _) = parse_client_options(params, params_len);
+
+    let req = HttpRequest {
+        method: HttpRequestMethod::Download(DownloadRequest {
+            url,
+            filename: file,
+            base_dir,
+        }),
+        params,
+        selector,
+        timeout: None,
+    };
+
+    eprintln!("download: {req:?}");
+
+    cli.service.send_request(req)
+}
+
+#[no_mangle]
 pub extern "C" fn ceammc_http_client_process(cli: Option<&mut http_client>) -> bool {
     if cli.is_none() {
         eprintln!("NULL client");
@@ -542,5 +695,19 @@ mod tests {
 
             println!("result: {res:?}");
         });
+    }
+
+    #[test]
+    fn test_to_file_path() {
+        let url = url::Url::parse("file:///file").unwrap();
+        assert_eq!(url.path(), "/file");
+        assert_eq!(url.path_segments().unwrap().last().unwrap(), "file");
+
+        let url = url::Url::parse("http://host/path").unwrap();
+        assert_eq!(url.path(), "/path");
+        assert_eq!(url.path_segments().unwrap().last().unwrap(), "path");
+
+        let url = url::Url::parse("http://host/path/file.bin?key=value#4").unwrap();
+        assert_eq!(url.path_segments().unwrap().last().unwrap(), "file.bin");
     }
 }
