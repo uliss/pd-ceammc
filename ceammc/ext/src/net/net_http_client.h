@@ -15,6 +15,7 @@ public:
     NetHttpClient(const PdArgs& args);
 
     void m_get(t_symbol* s, const AtomListView& lv);
+    void m_post(t_symbol* s, const AtomListView& lv);
     void m_select(t_symbol* s, const AtomListView& lv);
 
     bool notify(int code) final;

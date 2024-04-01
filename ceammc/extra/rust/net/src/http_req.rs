@@ -4,18 +4,73 @@ use std::{
     ptr::null_mut,
 };
 
+use reqwest::Response;
+
 use crate::service::Service;
 use crate::service::{callback_msg, callback_notify, Error, ServiceCallback};
 
 #[derive(Debug)]
+struct PostRequest {
+    url: String,
+    data: Vec<(String, String)>,
+}
+
+impl PostRequest {
+    fn new(url: &str, data: *const *const c_char, len: usize) -> Self {
+        let mut kv: Vec<(String, String)> = vec![];
+        if !data.is_null() {
+            let atoms = unsafe { std::slice::from_raw_parts(data, len) };
+            let mut key: Option<String> = None;
+            let mut value = String::default();
+            for a in atoms {
+                let a = *a;
+                if a.is_null() {
+                    continue;
+                } else {
+                    let a = unsafe { CStr::from_ptr(a) }
+                        .to_str()
+                        .unwrap_or_default()
+                        .to_owned();
+                    if a.starts_with('@') {
+                        if let Some(key) = key {
+                            kv.push((key[1..].to_owned(), value.clone()));
+                            value.clear();
+                        }
+                        key = Some(a);
+                    } else {
+                        if value.is_empty() {
+                            value = a;
+                        } else {
+                            value.push(' ');
+                            value.push_str(a.as_str());
+                        }
+                    }
+                }
+            }
+
+            if let Some(key) = key {
+                kv.push((key[1..].to_owned(), value.clone()));
+            }
+        }
+
+        return PostRequest {
+            url: url.to_owned(),
+            data: kv,
+        };
+    }
+}
+
+#[derive(Debug)]
 enum HttpRequestMethod {
     Get(String),
+    Post(PostRequest),
 }
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
 #[derive(Debug)]
 pub enum http_client_select_type {
+    None,
     Html,
     InnerHtml,
     Text,
@@ -93,32 +148,43 @@ impl ServiceCallback<HttpReply> for http_client_result_cb {
     }
 }
 
+async fn http_response(resp: Response, css: Option<CssSelector>) -> Result<Vec<HttpReply>, Error> {
+    let status = resp.status().as_u16();
+    match resp.text().await {
+        Ok(body) => match apply_selector(css, body) {
+            Ok(v) => Ok(v
+                .iter()
+                .map(|txt| {
+                    HttpReply::Get(HttpResponse {
+                        status,
+                        body: txt.clone(),
+                    })
+                })
+                .collect()),
+            Err(err) => Err(Error::Error(err)),
+        },
+        Err(err) => Err(Error::Error(err.to_string())),
+    }
+}
+
 async fn http_request(req: HttpRequest) -> Result<Vec<HttpReply>, Error> {
     match req.method {
         HttpRequestMethod::Get(url) => match reqwest::get(url).await {
-            Ok(resp) => {
-                let status = resp.status().as_u16();
-                match resp.text().await {
-                    Ok(body) => {
-                        let css = req.css_selector;
-                        match apply_selector(css, body) {
-                            Ok(v) => Ok(v
-                                .iter()
-                                .map(|txt| {
-                                    HttpReply::Get(HttpResponse {
-                                        status,
-                                        body: txt.clone(),
-                                    })
-                                })
-                                .collect()),
-                            Err(err) => Err(Error::Error(err)),
-                        }
-                    }
-                    Err(err) => Err(Error::Error(err.to_string())),
-                }
-            }
+            Ok(resp) => http_response(resp, req.css_selector).await,
             Err(err) => Err(Error::Error(err.to_string())),
         },
+        HttpRequestMethod::Post(post) => {
+            let client = reqwest::Client::new();
+            let mut form = reqwest::multipart::Form::new();
+            for (k, v) in post.data.iter() {
+                form = form.text(k.clone(), v.clone());
+            }
+
+            match client.post(post.url).multipart(form).send().await {
+                Ok(resp) => http_response(resp, req.css_selector).await,
+                Err(err) => Err(Error::Error(err.to_string())),
+            }
+        }
     }
 }
 
@@ -194,6 +260,43 @@ pub extern "C" fn ceammc_http_client_get(
 }
 
 #[no_mangle]
+pub extern "C" fn ceammc_http_client_post(
+    cli: Option<&mut http_client>,
+    url: Option<&c_char>,
+    css_sel: Option<&c_char>,
+    sel_type: http_client_select_type,
+    data: *const *const c_char,
+    data_len: usize,
+) -> bool {
+    if cli.is_none() {
+        eprintln!("NULL client");
+        return false;
+    }
+
+    let cli = cli.unwrap();
+    if url.is_none() {
+        cli.service.on_error("null url string");
+        return false;
+    }
+
+    let url = unsafe { CStr::from_ptr(url.unwrap()) }
+        .to_str()
+        .unwrap_or_default();
+    let mut req = HttpRequest {
+        method: HttpRequestMethod::Post(PostRequest::new(url, data, data_len)),
+        css_selector: None,
+    };
+
+    if let Some(css) = css_sel {
+        req.css_selector = Some(CssSelector::new(css, sel_type));
+    }
+
+    eprintln!("post: {req:?}");
+
+    cli.service.send_request(req)
+}
+
+#[no_mangle]
 pub extern "C" fn ceammc_http_client_process(cli: Option<&mut http_client>) -> bool {
     if cli.is_none() {
         eprintln!("NULL client");
@@ -217,6 +320,7 @@ fn apply_selector(css: Option<CssSelector>, body: String) -> Result<Vec<String>,
                     let v: Vec<_> = html
                         .select(&sel)
                         .map(|x| match css.content {
+                            http_client_select_type::None => String::default(),
                             http_client_select_type::Text => x.text().collect(),
                             http_client_select_type::Html => x.html(),
                             http_client_select_type::InnerHtml => x.inner_html(),

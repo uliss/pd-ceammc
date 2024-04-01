@@ -3,6 +3,7 @@
 #include "ceammc_crc32.h"
 #include "ceammc_data.h"
 #include "ceammc_factory.h"
+#include "ceammc_format.h"
 #include "datatype_string.h"
 
 NetHttpClient::NetHttpClient(const PdArgs& args)
@@ -32,6 +33,26 @@ void NetHttpClient::m_get(t_symbol* s, const AtomListView& lv)
     auto url = lv.symbolAt(0, gensym("/"))->s_name;
 
     if (!ceammc_http_client_get(srv_.handle(), url, nullptr, ceammc_http_client_select_type::Html))
+        OBJ_ERR << "can't make request";
+}
+
+void NetHttpClient::m_post(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("URL:s KV:s*");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    std::vector<const char*> params;
+    for (auto& a : lv.subView(1))
+        params.push_back(a.asSymbol()->s_name);
+
+    auto url = lv.symbolAt(0, gensym("/"))->s_name;
+
+    if (!ceammc_http_client_post(srv_.handle(),
+            url,
+            nullptr,
+            ceammc_http_client_select_type::None,
+            params.data(), params.size()))
         OBJ_ERR << "can't make request";
 }
 
@@ -74,6 +95,7 @@ void setup_net_http_client()
     ObjectFactory<NetHttpClient> obj("net.http.client");
     obj.addAlias("http.client");
     obj.addMethod("get", &NetHttpClient::m_get);
+    obj.addMethod("post", &NetHttpClient::m_post);
     obj.addMethod("select", &NetHttpClient::m_select);
 
     obj.setXletsInfo({ "get" }, { "int: status code", "data:string: response body" });

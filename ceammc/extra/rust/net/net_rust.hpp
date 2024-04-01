@@ -8,6 +8,7 @@
 
 
 enum class ceammc_http_client_select_type {
+    None,
     Html,
     InnerHtml,
     Text,
@@ -166,6 +167,13 @@ ceammc_http_client *ceammc_http_client_new(ceammc_callback_msg cb_err,
                                            ceammc_callback_msg cb_log,
                                            ceammc_http_client_result_cb cb_reply,
                                            ceammc_callback_notify cb_notify);
+
+bool ceammc_http_client_post(ceammc_http_client *cli,
+                             const char *url,
+                             const char *css_sel,
+                             ceammc_http_client_select_type sel_type,
+                             const char *const *data,
+                             size_t data_len);
 
 bool ceammc_http_client_process(ceammc_http_client *cli);
 
