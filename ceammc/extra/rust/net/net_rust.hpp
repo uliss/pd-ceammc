@@ -7,11 +7,12 @@
 #include <cstddef>
 
 
-enum class ceammc_http_client_select_type {
-    None,
-    Html,
-    InnerHtml,
-    Text,
+enum class ceammc_http_client_param_type {
+    Header,
+    Form,
+    MultiPart,
+    Selector,
+    Mime,
 };
 
 enum class ceammc_mqtt_qos {
@@ -73,6 +74,12 @@ struct ceammc_mqtt_client;
 struct ceammc_ws_client;
 
 struct ceammc_ws_server;
+
+struct ceammc_http_client_param {
+    const char *name;
+    const char *value;
+    ceammc_http_client_param_type param_type;
+};
 
 struct ceammc_callback_msg {
     void *user;
@@ -157,8 +164,8 @@ void ceammc_http_client_free(ceammc_http_client *cli);
 
 bool ceammc_http_client_get(ceammc_http_client *cli,
                             const char *url,
-                            const char *css_sel,
-                            ceammc_http_client_select_type sel_type);
+                            const ceammc_http_client_param *param,
+                            size_t param_len);
 
 [[nodiscard]]
 ceammc_http_client *ceammc_http_client_new(ceammc_callback_msg cb_err,
@@ -170,12 +177,17 @@ ceammc_http_client *ceammc_http_client_new(ceammc_callback_msg cb_err,
 
 bool ceammc_http_client_post(ceammc_http_client *cli,
                              const char *url,
-                             const char *css_sel,
-                             ceammc_http_client_select_type sel_type,
-                             const char *const *data,
-                             size_t data_len);
+                             const ceammc_http_client_param *param,
+                             size_t param_len);
 
 bool ceammc_http_client_process(ceammc_http_client *cli);
+
+bool ceammc_http_client_upload(ceammc_http_client *cli,
+                               const char *url,
+                               const char *file,
+                               const char *file_key,
+                               const ceammc_http_client_param *params,
+                               size_t params_len);
 
 /// create new mqtt client
 /// @param url - mqtt broker url in format mqtt://host:port

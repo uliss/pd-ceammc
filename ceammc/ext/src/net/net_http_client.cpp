@@ -3,8 +3,10 @@
 #include "ceammc_crc32.h"
 #include "ceammc_data.h"
 #include "ceammc_factory.h"
+#include "ceammc_fn_list.h"
 #include "ceammc_format.h"
 #include "datatype_string.h"
+#include "fmt/core.h"
 
 NetHttpClient::NetHttpClient(const PdArgs& args)
     : NetHttpClientBase(args)
@@ -27,61 +29,56 @@ NetHttpClient::NetHttpClient(const PdArgs& args)
 
 void NetHttpClient::m_get(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_SYMBOL))
-        return;
+    static const args::ArgChecker chk("URL:s @PARAMS:s*");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
-    auto url = lv.symbolAt(0, gensym("/"))->s_name;
+    auto url = lv.symbolAt(0, &s_)->s_name;
 
-    if (!ceammc_http_client_get(srv_.handle(), url, nullptr, ceammc_http_client_select_type::Html))
+    std::vector<ceammc_http_client_param> params;
+    processParams(lv.subView(1), params);
+
+    if (!ceammc_http_client_get(srv_.handle(), url, params.data(), params.size()))
         OBJ_ERR << "can't make request";
 }
 
 void NetHttpClient::m_post(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("URL:s KV:s*");
+    static const args::ArgChecker chk("URL:s @PARAMS:s*");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    std::vector<const char*> params;
-    for (auto& a : lv.subView(1))
-        params.push_back(a.asSymbol()->s_name);
+    auto url = lv.symbolAt(0, &s_)->s_name;
 
-    auto url = lv.symbolAt(0, gensym("/"))->s_name;
+    std::vector<ceammc_http_client_param> params;
+    processParams(lv.subView(1), params);
 
     if (!ceammc_http_client_post(srv_.handle(),
             url,
-            nullptr,
-            ceammc_http_client_select_type::None,
-            params.data(), params.size()))
+            params.data(),
+            params.size()))
         OBJ_ERR << "can't make request";
 }
 
-void NetHttpClient::m_select(t_symbol* s, const AtomListView& lv)
+void NetHttpClient::m_upload(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("CSS:s URL:s TYPE:s=@text|@html|@inner?");
+    static const args::ArgChecker chk("URL:s FILE:s FILE_KEY:s @PARAMS:s*");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
-    auto css = lv.symbolAt(0, &s_)->s_name;
-    auto url = lv.symbolAt(1, &s_)->s_name;
-    auto stype = lv.symbolAt(2, gensym("@html"));
-    auto sel_type = ceammc_http_client_select_type::Html;
+    auto url = lv.symbolAt(0, &s_)->s_name;
+    auto file = lv.symbolAt(1, &s_)->s_name;
+    auto file_key = lv.symbolAt(2, &s_)->s_name;
 
-    switch (crc32_hash(stype)) {
-    case "@text"_hash:
-        sel_type = ceammc_http_client_select_type::Text;
-        break;
-    case "@inner"_hash:
-        sel_type = ceammc_http_client_select_type::InnerHtml;
-        break;
-    case "@html"_hash:
-    default:
-        sel_type = ceammc_http_client_select_type::Html;
-        break;
-    }
+    std::vector<ceammc_http_client_param> params;
+    processParams(lv.subView(3), params);
 
-    if (!ceammc_http_client_get(srv_.handle(), url, css, sel_type))
-        OBJ_ERR << "can't make request";
+    if (!ceammc_http_client_upload(srv_.handle(),
+            url,
+            file,
+            file_key,
+            params.data(), params.size()))
+        OBJ_ERR << "error while making upload file POST request";
 }
 
 bool NetHttpClient::notify(int code)
@@ -90,13 +87,99 @@ bool NetHttpClient::notify(int code)
     return true;
 }
 
+void NetHttpClient::processParams(const AtomListView& lv, std::vector<ceammc_http_client_param>& params)
+{
+    list::foreachProperty(lv, [&params, this](t_symbol* key, const AtomListView& lv) {
+        switch (crc32_hash(key)) {
+        case "@form"_hash: {
+            auto k = lv.symbolAt(0, &s_);
+            auto v = lv.symbolAt(1, &s_);
+            if (k == &s_) {
+                OBJ_ERR << "invalid form key: " << lv.atomAt(0, &s_);
+                return;
+            }
+
+            if (v == &s_) {
+                OBJ_ERR << "invalid form key value: " << lv.atomAt(1, &s_);
+                return;
+            }
+
+            params.push_back({ k->s_name, v->s_name, ceammc_http_client_param_type::Form });
+        } break;
+        case "@mime"_hash: {
+            auto mime = lv.symbolAt(0, &s_);
+            if (mime == &s_) {
+                OBJ_ERR << "invalid mime type: " << lv.atomAt(0, &s_);
+                return;
+            }
+
+            params.push_back({ mime->s_name, "", ceammc_http_client_param_type::Mime });
+        } break;
+        case "@multipart"_hash: {
+            auto k = lv.symbolAt(0, &s_);
+            auto v = lv.symbolAt(1, &s_);
+            if (k == &s_) {
+                OBJ_ERR << "invalid multipart form key: " << lv.atomAt(0, &s_);
+                return;
+            }
+
+            if (v == &s_) {
+                OBJ_ERR << "invalid multipart form key value: " << lv.atomAt(1, &s_);
+                return;
+            }
+
+            params.push_back({ k->s_name, v->s_name, ceammc_http_client_param_type::MultiPart });
+        } break;
+        case "@header"_hash: {
+            auto k = lv.symbolAt(0, &s_);
+            auto v = lv.symbolAt(1, &s_);
+            if (k == &s_) {
+                OBJ_ERR << "invalid header key: " << lv.atomAt(0, &s_);
+                return;
+            }
+
+            if (v == &s_) {
+                OBJ_ERR << "invalid header value: " << lv.atomAt(1, &s_);
+                return;
+            }
+
+            params.push_back({ k->s_name, v->s_name, ceammc_http_client_param_type::Header });
+        } break;
+        case "@css"_hash: {
+            auto css = lv.symbolAt(0, &s_);
+            auto output = lv.symbolAt(1, &s_);
+            if (css == &s_) {
+                OBJ_ERR << "invalid CSS selector name: " << lv.atomAt(0, &s_);
+                return;
+            }
+
+            switch (crc32_hash(output)) {
+            case "inner"_hash:
+            case "html"_hash:
+            case "text"_hash:
+            case "none"_hash:
+                break;
+            default:
+                OBJ_ERR << "invalid output value: " << lv.atomAt(1, &s_) << ", expected: html|inner|text|none";
+                return;
+            }
+
+            params.push_back({ css->s_name, output->s_name, ceammc_http_client_param_type::Selector });
+        } break;
+        default:
+            break;
+        }
+    });
+}
+
 void setup_net_http_client()
 {
     ObjectFactory<NetHttpClient> obj("net.http.client");
     obj.addAlias("http.client");
+
     obj.addMethod("get", &NetHttpClient::m_get);
     obj.addMethod("post", &NetHttpClient::m_post);
-    obj.addMethod("select", &NetHttpClient::m_select);
+    obj.addMethod("upload", &NetHttpClient::m_upload);
 
-    obj.setXletsInfo({ "get" }, { "int: status code", "data:string: response body" });
+    obj.setXletsInfo({ "get, post, upload, select" }, { "int: status code", "data:string: response body" });
 }

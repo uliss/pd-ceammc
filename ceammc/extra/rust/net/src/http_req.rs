@@ -1,69 +1,91 @@
+use core::slice;
 use std::{
+    collections::HashMap,
     ffi::{CStr, CString},
     os::raw::{c_char, c_void},
     ptr::null_mut,
+    time::Duration,
 };
 
-use reqwest::Response;
+use reqwest::{RequestBuilder, Response};
+use tokio::fs::File;
+use tokio_util::codec::{BytesCodec, FramedRead};
 
 use crate::service::Service;
 use crate::service::{callback_msg, callback_notify, Error, ServiceCallback};
 
-#[derive(Debug)]
-struct PostRequest {
-    url: String,
-    data: Vec<(String, String)>,
+fn parse_client_options(
+    params: Option<&http_client_param>,
+    len: usize,
+) -> (Vec<HttpClientParam>, Option<CssSelector>, Option<String>) {
+    let mut result: Vec<HttpClientParam> = vec![];
+    let mut selector = None;
+    let mut mime = None;
+
+    if let Some(params) = params {
+        let params = unsafe { slice::from_raw_parts(params, len) };
+        for p in params {
+            let name = if p.name.is_null() {
+                String::default()
+            } else {
+                unsafe { CStr::from_ptr(p.name) }
+                    .to_str()
+                    .unwrap_or_default()
+                    .to_owned()
+            };
+
+            let value = if p.value.is_null() {
+                String::default()
+            } else {
+                unsafe { CStr::from_ptr(p.value) }
+                    .to_str()
+                    .unwrap_or_default()
+                    .to_owned()
+            };
+
+            let param = match p.param_type {
+                http_client_param_type::Header => HttpClientParam::Header(name, value),
+                http_client_param_type::Form => HttpClientParam::Form(name, value),
+                http_client_param_type::MultiPart => HttpClientParam::MultiPart(name, value),
+                http_client_param_type::Selector => {
+                    selector = Some(CssSelector {
+                        name,
+                        content: match value.as_str() {
+                            "inner" => http_client_select_type::InnerHtml,
+                            "text" => http_client_select_type::Text,
+                            "html" => http_client_select_type::Html,
+                            "none" => http_client_select_type::None,
+                            _ => http_client_select_type::Html,
+                        },
+                    });
+                    continue;
+                }
+                http_client_param_type::Mime => {
+                    mime = Some(name);
+                    continue;
+                }
+            };
+
+            result.push(param);
+        }
+    }
+
+    (result, selector, mime)
 }
 
-impl PostRequest {
-    fn new(url: &str, data: *const *const c_char, len: usize) -> Self {
-        let mut kv: Vec<(String, String)> = vec![];
-        if !data.is_null() {
-            let atoms = unsafe { std::slice::from_raw_parts(data, len) };
-            let mut key: Option<String> = None;
-            let mut value = String::default();
-            for a in atoms {
-                let a = *a;
-                if a.is_null() {
-                    continue;
-                } else {
-                    let a = unsafe { CStr::from_ptr(a) }
-                        .to_str()
-                        .unwrap_or_default()
-                        .to_owned();
-                    if a.starts_with('@') {
-                        if let Some(key) = key {
-                            kv.push((key[1..].to_owned(), value.clone()));
-                            value.clear();
-                        }
-                        key = Some(a);
-                    } else {
-                        if value.is_empty() {
-                            value = a;
-                        } else {
-                            value.push(' ');
-                            value.push_str(a.as_str());
-                        }
-                    }
-                }
-            }
-
-            if let Some(key) = key {
-                kv.push((key[1..].to_owned(), value.clone()));
-            }
-        }
-
-        return PostRequest {
-            url: url.to_owned(),
-            data: kv,
-        };
-    }
+#[derive(Debug)]
+struct UploadRequest {
+    url: String,
+    file: String,
+    file_key: String,
+    mime: Option<String>,
 }
 
 #[derive(Debug)]
 enum HttpRequestMethod {
     Get(String),
-    Post(PostRequest),
+    Post(String),
+    UploadFile(UploadRequest),
 }
 
 #[allow(non_camel_case_types)]
@@ -82,23 +104,6 @@ struct CssSelector {
     content: http_client_select_type,
 }
 
-impl CssSelector {
-    fn new(cstr: *const c_char, content: http_client_select_type) -> Self {
-        let name = unsafe { CStr::from_ptr(cstr) }
-            .to_str()
-            .unwrap_or_default()
-            .to_owned();
-
-        CssSelector { name, content }
-    }
-}
-
-#[derive(Debug)]
-struct HttpRequest {
-    method: HttpRequestMethod,
-    css_selector: Option<CssSelector>,
-}
-
 #[derive(Debug, Default)]
 pub struct HttpResponse {
     body: String,
@@ -113,6 +118,58 @@ pub enum HttpReply {
 #[allow(non_camel_case_types)]
 pub struct http_client {
     service: Service<HttpRequest, HttpReply>,
+}
+
+impl http_client {
+    fn cstr2string(&self, cstr: Option<&c_char>, name: &str) -> Option<&str> {
+        if cstr.is_none() {
+            self.service
+                .on_error(format!("{name}: null string pointer").as_str());
+            return None;
+        }
+
+        match unsafe { CStr::from_ptr(cstr.unwrap()) }.to_str() {
+            Ok(s) => Some(s),
+            Err(err) => {
+                self.service.on_error(format!("{name}: {err}").as_str());
+                return None;
+            }
+        }
+    }
+}
+
+#[derive(Debug)]
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub enum http_client_param_type {
+    Header,
+    Form,
+    MultiPart,
+    Selector,
+    Mime,
+}
+
+#[derive(Debug)]
+enum HttpClientParam {
+    Header(String, String),
+    Form(String, String),
+    MultiPart(String, String),
+}
+
+#[derive(Debug)]
+struct HttpRequest {
+    method: HttpRequestMethod,
+    params: Vec<HttpClientParam>,
+    timeout: Option<u16>,
+    selector: Option<CssSelector>,
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub struct http_client_param {
+    name: *const c_char,
+    value: *const c_char,
+    param_type: http_client_param_type,
 }
 
 #[allow(non_camel_case_types)]
@@ -167,21 +224,102 @@ async fn http_response(resp: Response, css: Option<CssSelector>) -> Result<Vec<H
     }
 }
 
+fn process_params(
+    mut cli: RequestBuilder,
+    params: Vec<HttpClientParam>,
+    timeout: Option<u16>,
+) -> RequestBuilder {
+    let mut form_params = HashMap::new();
+    let mut multipart_form = None;
+
+    for p in params {
+        match p {
+            HttpClientParam::Header(k, v) => {
+                cli = cli.header(k, v);
+            }
+            HttpClientParam::Form(k, v) => {
+                form_params.insert(k, v);
+            }
+            HttpClientParam::MultiPart(k, v) => {
+                if multipart_form.is_none() {
+                    multipart_form = Some(reqwest::multipart::Form::new());
+                }
+
+                multipart_form = multipart_form.map(|f| f.text(k, v));
+            }
+        }
+    }
+
+    if !form_params.is_empty() {
+        cli = cli.form(&form_params);
+    }
+
+    if let Some(mp) = multipart_form {
+        cli = cli.multipart(mp);
+    }
+
+    if let Some(ms) = timeout {
+        cli = cli.timeout(Duration::from_millis(ms as u64));
+    }
+
+    cli
+}
+
 async fn http_request(req: HttpRequest) -> Result<Vec<HttpReply>, Error> {
     match req.method {
-        HttpRequestMethod::Get(url) => match reqwest::get(url).await {
-            Ok(resp) => http_response(resp, req.css_selector).await,
-            Err(err) => Err(Error::Error(err.to_string())),
-        },
-        HttpRequestMethod::Post(post) => {
-            let client = reqwest::Client::new();
-            let mut form = reqwest::multipart::Form::new();
-            for (k, v) in post.data.iter() {
-                form = form.text(k.clone(), v.clone());
-            }
+        HttpRequestMethod::Get(url) => {
+            let mut client = reqwest::Client::new().get(url);
+            client = process_params(client, req.params, req.timeout);
 
-            match client.post(post.url).multipart(form).send().await {
-                Ok(resp) => http_response(resp, req.css_selector).await,
+            match client.send().await {
+                Ok(resp) => http_response(resp, req.selector).await,
+                Err(err) => Err(Error::Error(err.to_string())),
+            }
+        }
+        HttpRequestMethod::Post(url) => {
+            let mut client = reqwest::Client::new().post(url);
+            client = process_params(client, req.params, req.timeout);
+
+            match client.send().await {
+                Ok(resp) => http_response(resp, req.selector).await,
+                Err(err) => Err(Error::Error(err.to_string())),
+            }
+        }
+        HttpRequestMethod::UploadFile(upload) => {
+            let filename = std::path::Path::new(upload.file.clone().as_str())
+                .file_name()
+                .unwrap_or_default()
+                .to_str()
+                .unwrap_or_default()
+                .to_owned();
+
+            let mime = upload.mime.unwrap_or("text/plain".to_owned());
+            match File::open(upload.file).await {
+                Ok(file) => {
+                    // read file body stream
+                    let stream = FramedRead::new(file, BytesCodec::new());
+                    let file_body = reqwest::Body::wrap_stream(stream);
+
+                    // make form part of file
+                    match reqwest::multipart::Part::stream(file_body)
+                        .file_name(filename)
+                        .mime_str(mime.as_str())
+                    {
+                        Ok(part) => {
+                            let mut client = reqwest::Client::new().post(upload.url);
+                            client = process_params(client, req.params, req.timeout);
+                            // create the multipart form
+                            let form = reqwest::multipart::Form::new().part(upload.file_key, part);
+
+                            //send request
+                            match client.multipart(form).send().await {
+                                Ok(resp) => http_response(resp, req.selector).await,
+                                Err(err) => Err(Error::Error(err.to_string())),
+                            }
+                        }
+                        Err(err) => Err(Error::Error(err.to_string())),
+                    }
+                }
                 Err(err) => Err(Error::Error(err.to_string())),
             }
         }
@@ -230,8 +368,8 @@ pub extern "C" fn ceammc_http_client_free(cli: *mut http_client) {
 pub extern "C" fn ceammc_http_client_get(
     cli: Option<&mut http_client>,
     url: Option<&c_char>,
-    css_sel: Option<&c_char>,
-    sel_type: http_client_select_type,
+    param: Option<&http_client_param>,
+    param_len: usize,
 ) -> bool {
     if cli.is_none() {
         eprintln!("NULL client");
@@ -247,14 +385,17 @@ pub extern "C" fn ceammc_http_client_get(
     let url = unsafe { CStr::from_ptr(url.unwrap()) }
         .to_str()
         .unwrap_or_default();
-    let mut req = HttpRequest {
+
+    let (params, selector, _) = parse_client_options(param, param_len);
+
+    let req = HttpRequest {
         method: HttpRequestMethod::Get(url.to_owned()),
-        css_selector: None,
+        params,
+        timeout: None,
+        selector,
     };
 
-    if let Some(css) = css_sel {
-        req.css_selector = Some(CssSelector::new(css, sel_type));
-    }
+    eprintln!("{req:?}");
 
     cli.service.send_request(req)
 }
@@ -263,10 +404,8 @@ pub extern "C" fn ceammc_http_client_get(
 pub extern "C" fn ceammc_http_client_post(
     cli: Option<&mut http_client>,
     url: Option<&c_char>,
-    css_sel: Option<&c_char>,
-    sel_type: http_client_select_type,
-    data: *const *const c_char,
-    data_len: usize,
+    param: Option<&http_client_param>,
+    param_len: usize,
 ) -> bool {
     if cli.is_none() {
         eprintln!("NULL client");
@@ -282,16 +421,66 @@ pub extern "C" fn ceammc_http_client_post(
     let url = unsafe { CStr::from_ptr(url.unwrap()) }
         .to_str()
         .unwrap_or_default();
-    let mut req = HttpRequest {
-        method: HttpRequestMethod::Post(PostRequest::new(url, data, data_len)),
-        css_selector: None,
+
+    let (params, selector, _) = parse_client_options(param, param_len);
+
+    let req = HttpRequest {
+        method: HttpRequestMethod::Post(url.to_owned()),
+        params,
+        timeout: None,
+        selector,
     };
 
-    if let Some(css) = css_sel {
-        req.css_selector = Some(CssSelector::new(css, sel_type));
+    eprintln!("post: {req:?}");
+
+    cli.service.send_request(req)
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_http_client_upload(
+    cli: Option<&mut http_client>,
+    url: Option<&c_char>,
+    file: Option<&c_char>,
+    file_key: Option<&c_char>,
+    params: Option<&http_client_param>,
+    params_len: usize,
+) -> bool {
+    if cli.is_none() {
+        eprintln!("NULL client");
+        return false;
     }
 
-    eprintln!("post: {req:?}");
+    let cli = cli.unwrap();
+    if url.is_none() {
+        cli.service.on_error("null url string");
+        return false;
+    }
+    let url = unsafe { CStr::from_ptr(url.unwrap()) }
+        .to_str()
+        .unwrap_or_default();
+
+    let file = cli.cstr2string(file, "file");
+    let file_key = cli.cstr2string(file_key, "file_key");
+
+    if file.is_none() || file_key.is_none() {
+        return false;
+    }
+
+    let (params, selector, mime) = parse_client_options(params, params_len);
+
+    let req = HttpRequest {
+        method: HttpRequestMethod::UploadFile(UploadRequest {
+            url: url.to_owned(),
+            file_key: file_key.unwrap().to_owned(),
+            file: file.unwrap().to_owned(),
+            mime,
+        }),
+        params,
+        selector,
+        timeout: None,
+    };
+
+    eprintln!("upload: {req:?}");
 
     cli.service.send_request(req)
 }
