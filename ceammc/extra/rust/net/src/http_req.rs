@@ -412,11 +412,11 @@ async fn http_request(
                                         bytes_send += bytes.len() as u64;
                                         let perc = (100 * bytes_send) / total;
                                         // eprintln!("done: {perc}%");
-                                        if perc >= 100 {
-                                            break;
-                                        }
                                         HttpService::write_progress(&tx, perc as u8, cb).await;
                                     }
+
+                                } else {
+                                    break;
                                 }
                             }
 

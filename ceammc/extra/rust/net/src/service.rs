@@ -43,7 +43,9 @@ pub struct callback_progress {
 
 impl callback_progress {
     pub fn exec(&self, val: u8) {
-        self.cb.map(|cb| cb(self.user, val));
+        self.cb.map(|cb| {
+            cb(self.user, val)
+        });
     }
 }
 
@@ -397,8 +399,7 @@ where
                                 println!("get task...");
                                 let rep_tx = rep_tx.clone();
                                 tokio::spawn(async move {
-                                    match proc_request(task, rep_tx.clone(), cb_notify).await
-                                    {
+                                    match proc_request(task, rep_tx.clone(), cb_notify).await {
                                         Ok(reply) => {
                                             for x in reply {
                                                 Self::write_ok(&rep_tx, x, cb_notify).await;

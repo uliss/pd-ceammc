@@ -16,7 +16,9 @@ NetHttpClient::NetHttpClient(const PdArgs& args)
 {
     srv_.setErrorCallback([this](const char* msg) { OBJ_ERR << msg; });
     srv_.setDebugCallback([this](const char* msg) { OBJ_DBG << msg; });
-    srv_.setProgressCallback([this](int percent) { OBJ_DBG << percent; });
+    srv_.setProgressCallback([this](int percent) {
+        anyTo(1, gensym("progress"), Atom(percent));
+    });
     srv_.setResultCallback([this](const ceammc_http_client_result& res) {
         if (res.data && *res.data)
             atomTo(1, StringAtom(res.data));
