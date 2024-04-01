@@ -13,16 +13,19 @@ namespace net {
             ceammc_callback_msg,
             ceammc_callback_msg,
             ceammc_callback_msg,
+            ceammc_callback_progress,
             ceammc_http_client_result_cb,
             ceammc_callback_notify);
 
         using service_handle_free_fn = void(T*);
         using service_handle_proc_fn = bool(T*);
+        using service_handle_progress_fn = void(std::uint8_t);
 
     private:
         T* handle_;
         std::function<void(T*)> cb_free_;
         std::function<bool(T*)> cb_proc_;
+        std::function<void(int)> cb_progress_;
         std::function<void(const char*msg)> cb_err_, cb_post_, cb_debug_, cb_log_;
         std::function<void(const Result&)> cb_res_;
 
@@ -40,6 +43,7 @@ namespace net {
                 { this, onPost },
                 { this, onDebug },
                 { this, onLog },
+                { this, onProgress },
                 { this, onResult },
                 cb_notify);
         }
@@ -78,6 +82,11 @@ namespace net {
             cb_log_ = cb;
         }
 
+        void setProgressCallback(std::function<void(int)> cb)
+        {
+            cb_progress_ = cb;
+        }
+
         void setResultCallback(std::function<void(const Result&)> cb)
         {
             cb_res_ = cb;
@@ -112,6 +121,13 @@ namespace net {
             auto this_ = static_cast<NetService*>(user);
             if (this_ && this_->cb_log_)
                 this_->cb_log_(msg);
+        }
+
+        static void onProgress(void* user, std::uint8_t percent)
+        {
+            auto this_ = static_cast<NetService*>(user);
+            if (this_ && this_->cb_progress_)
+                this_->cb_progress_(percent);
         }
 
         static void onResult(void* user, const Result* res)

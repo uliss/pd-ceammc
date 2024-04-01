@@ -6,7 +6,7 @@ use std::{
 
 #[repr(C)]
 #[allow(non_camel_case_types)]
-#[derive(Clone,Copy)]
+#[derive(Clone, Copy)]
 pub struct callback_msg {
     user: *mut c_void,
     cb: Option<extern "C" fn(user: *mut c_void, msg: *const c_char)>,
@@ -33,6 +33,20 @@ impl callback_notify {
     }
 }
 
+#[repr(C)]
+#[allow(non_camel_case_types)]
+#[derive(Clone, Copy)]
+pub struct callback_progress {
+    user: *mut c_void,
+    cb: Option<extern "C" fn(user: *mut c_void, msg: u8)>,
+}
+
+impl callback_progress {
+    pub fn exec(&self, val: u8) {
+        self.cb.map(|cb| cb(self.user, val));
+    }
+}
+
 pub trait ServiceCallback<T> {
     fn exec(&self, data: &T);
 }
@@ -42,6 +56,7 @@ pub enum Error {
     Post(String),
     Debug(String),
     Log(String),
+    Progress(u8),
 }
 
 pub struct Service<Request: Send + Sized, Reply: Sized> {
@@ -49,6 +64,7 @@ pub struct Service<Request: Send + Sized, Reply: Sized> {
     cb_post: callback_msg,
     cb_debug: callback_msg,
     cb_log: callback_msg,
+    cb_progress: callback_progress,
     cb_reply: Box<dyn ServiceCallback<Reply>>,
     tx: tokio::sync::mpsc::Sender<Request>,
     rx: tokio::sync::mpsc::Receiver<Result<Reply, Error>>,
@@ -57,7 +73,8 @@ pub struct Service<Request: Send + Sized, Reply: Sized> {
 pub type CallbackSyncOne<From, To, E> = fn(req: From) -> Result<To, E>;
 pub type CallbackSyncMany<From, To, E> = fn(req: From) -> Result<Vec<To>, E>;
 
-pub type CallbackType<From, To> = fn(From) -> To;
+pub type CallbackType<From, CallbackProgress, CallbackNotify, To> =
+    fn(From, CallbackProgress, CallbackNotify) -> To;
 // pub type CallbackAsyncOne<From, To, E> = fn(req: From) -> impl Future<Output = Result<Vec<To>, E>>;
 
 impl<Request, Reply> Service<Request, Reply>
@@ -70,6 +87,7 @@ where
         cb_post: callback_msg,
         cb_debug: callback_msg,
         cb_log: callback_msg,
+        cb_progress: callback_progress,
         cb_reply: Box<dyn ServiceCallback<Reply>>,
         tx: tokio::sync::mpsc::Sender<Request>,
         rx: tokio::sync::mpsc::Receiver<Result<Reply, Error>>,
@@ -79,6 +97,7 @@ where
             cb_post,
             cb_debug,
             cb_log,
+            cb_progress,
             cb_reply,
             tx,
             rx,
@@ -102,6 +121,10 @@ where
         self.cb_log.exec(msg);
     }
 
+    pub fn on_progress(&self, val: u8) {
+        self.cb_progress.exec(val);
+    }
+
     fn on_reply(&self, reply: &Reply) {
         self.cb_reply.exec(reply);
     }
@@ -112,7 +135,7 @@ where
             Err(_err) => {
                 eprintln!("{_err}");
                 false
-            },
+            }
         }
     }
 
@@ -125,6 +148,7 @@ where
                     Error::Post(msg) => self.on_post(msg.as_str()),
                     Error::Debug(msg) => self.on_debug(msg.as_str()),
                     Error::Log(msg) => self.on_log(msg.as_str()),
+                    Error::Progress(val) => self.on_progress(val),
                 },
             }
         }
@@ -135,6 +159,7 @@ where
         cb_post: callback_msg,
         cb_debug: callback_msg,
         cb_log: callback_msg,
+        cb_progress: callback_progress,
         cb_reply: Box<dyn ServiceCallback<Reply>>,
         cb_notify: callback_notify,
         proc_request: CallbackSyncOne<Request, Reply, Error>,
@@ -155,13 +180,13 @@ where
                             while let Some(task) = req_rx.recv().await {
                                 println!("get task...");
                                 let rep_tx = rep_tx.clone();
-                                tokio::spawn(async move {
+                                tokio::task::spawn_blocking(move || {
                                     match proc_request(task) {
                                         Ok(reply) => {
-                                            Self::write_ok(&rep_tx, reply, cb_notify).await;
+                                            Self::sync_write_ok(&rep_tx, reply, cb_notify);
                                         }
                                         Err(err) => {
-                                            Self::write_error(&rep_tx, err, cb_notify).await;
+                                            Self::sync_write_error(&rep_tx, err, cb_notify);
                                         }
                                     };
                                 });
@@ -178,7 +203,14 @@ where
                 });
 
                 let srv = Service::<Request, Reply>::new(
-                    cb_err, cb_post, cb_debug, cb_log, cb_reply, req_tx, rep_rx,
+                    cb_err,
+                    cb_post,
+                    cb_debug,
+                    cb_log,
+                    cb_progress,
+                    cb_reply,
+                    req_tx,
+                    rep_rx,
                 );
 
                 Some(srv)
@@ -195,6 +227,7 @@ where
         cb_post: callback_msg,
         cb_debug: callback_msg,
         cb_log: callback_msg,
+        cb_progress: callback_progress,
         cb_reply: Box<dyn ServiceCallback<Reply>>,
         cb_notify: callback_notify,
         proc_request: CallbackSyncMany<Request, Reply, Error>,
@@ -240,7 +273,14 @@ where
                 });
 
                 let srv = Service::<Request, Reply>::new(
-                    cb_err, cb_post, cb_debug, cb_log, cb_reply, req_tx, rep_rx,
+                    cb_err,
+                    cb_post,
+                    cb_debug,
+                    cb_log,
+                    cb_progress,
+                    cb_reply,
+                    req_tx,
+                    rep_rx,
                 );
 
                 Some(srv)
@@ -257,10 +297,13 @@ where
         cb_post: callback_msg,
         cb_debug: callback_msg,
         cb_log: callback_msg,
+        cb_progress: callback_progress,
         cb_reply: Box<dyn ServiceCallback<Reply>>,
         cb_notify: callback_notify,
         proc_request: CallbackType<
             Request,
+            tokio::sync::mpsc::Sender<Result<Reply, Error>>,
+            callback_notify,
             impl std::future::Future<Output = Result<Reply, Error>> + std::marker::Send + 'static,
         >,
         chan_size: usize,
@@ -281,7 +324,7 @@ where
                                 println!("get task...");
                                 let rep_tx = rep_tx.clone();
                                 tokio::spawn(async move {
-                                    match proc_request(task).await {
+                                    match proc_request(task, rep_tx.clone(), cb_notify).await {
                                         Ok(reply) => {
                                             Self::write_ok(&rep_tx, reply, cb_notify).await;
                                         }
@@ -303,7 +346,14 @@ where
                 });
 
                 let srv = Service::<Request, Reply>::new(
-                    cb_err, cb_post, cb_debug, cb_log, cb_reply, req_tx, rep_rx,
+                    cb_err,
+                    cb_post,
+                    cb_debug,
+                    cb_log,
+                    cb_progress,
+                    cb_reply,
+                    req_tx,
+                    rep_rx,
                 );
 
                 Some(srv)
@@ -320,10 +370,13 @@ where
         cb_post: callback_msg,
         cb_debug: callback_msg,
         cb_log: callback_msg,
+        cb_progress: callback_progress,
         cb_reply: Box<dyn ServiceCallback<Reply>>,
         cb_notify: callback_notify,
         proc_request: CallbackType<
             Request,
+            tokio::sync::mpsc::Sender<Result<Reply, Error>>,
+            callback_notify,
             impl std::future::Future<Output = Result<Vec<Reply>, Error>> + std::marker::Send + 'static,
         >,
         chan_size: usize,
@@ -344,7 +397,8 @@ where
                                 println!("get task...");
                                 let rep_tx = rep_tx.clone();
                                 tokio::spawn(async move {
-                                    match proc_request(task).await {
+                                    match proc_request(task, rep_tx.clone(), cb_notify).await
+                                    {
                                         Ok(reply) => {
                                             for x in reply {
                                                 Self::write_ok(&rep_tx, x, cb_notify).await;
@@ -370,7 +424,14 @@ where
                 });
 
                 let srv = Service::<Request, Reply>::new(
-                    cb_err, cb_post, cb_debug, cb_log, cb_reply, req_tx, rep_rx,
+                    cb_err,
+                    cb_post,
+                    cb_debug,
+                    cb_log,
+                    cb_progress,
+                    cb_reply,
+                    req_tx,
+                    rep_rx,
                 );
 
                 Some(srv)
@@ -388,6 +449,30 @@ where
         reply_cb: callback_notify,
     ) {
         if let Err(err) = out.send(Ok(reply)).await {
+            println!(" <- send: error: {err}");
+        } else {
+            reply_cb.exec();
+        }
+    }
+
+    pub fn sync_write_ok(
+        out: &tokio::sync::mpsc::Sender<Result<Reply, Error>>,
+        reply: Reply,
+        reply_cb: callback_notify,
+    ) {
+        if let Err(err) = out.blocking_send(Ok(reply)) {
+            println!(" <- send: error: {err}");
+        } else {
+            reply_cb.exec();
+        }
+    }
+
+    pub fn sync_write_error(
+        out: &tokio::sync::mpsc::Sender<Result<Reply, Error>>,
+        msg: Error,
+        reply_cb: callback_notify,
+    ) {
+        if let Err(err) = out.blocking_send(Err(msg)) {
             println!(" <- send: error: {err}");
         } else {
             reply_cb.exec();
@@ -412,6 +497,18 @@ where
         reply_cb: callback_notify,
     ) {
         if let Err(err) = out.send(Err(Error::Debug(msg))).await {
+            println!(" <- send: error: {err}");
+        } else {
+            reply_cb.exec();
+        }
+    }
+
+    pub async fn write_progress(
+        out: &tokio::sync::mpsc::Sender<Result<Reply, Error>>,
+        value: u8,
+        reply_cb: callback_notify,
+    ) {
+        if let Err(err) = out.send(Err(Error::Progress(value))).await {
             println!(" <- send: error: {err}");
         } else {
             reply_cb.exec();

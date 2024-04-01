@@ -1,22 +1,22 @@
 use core::slice;
 use std::{
     collections::HashMap,
-    ffi::{CStr, CString, OsStr, OsString},
+    ffi::{CStr, CString, OsStr},
     os::raw::{c_char, c_void},
     path::Path,
-    ptr::{null, null_mut},
+    ptr::null_mut,
     time::Duration,
 };
 
 use reqwest::{RequestBuilder, Response};
-use tokio::{
-    fs::{metadata, File},
-    io::AsyncWriteExt,
-};
+use tokio::{fs::File, io::AsyncWriteExt};
 use tokio_util::codec::{BytesCodec, FramedRead};
 
 use crate::service::Service;
-use crate::service::{callback_msg, callback_notify, Error, ServiceCallback};
+use crate::service::{callback_msg, callback_notify, callback_progress, Error, ServiceCallback};
+
+type HttpSenderTx = tokio::sync::mpsc::Sender<Result<HttpReply, Error>>;
+type HttpService = Service<HttpRequest, HttpReply>;
 
 fn parse_client_options(
     params: Option<&http_client_param>,
@@ -105,9 +105,13 @@ enum HttpRequestMethod {
 #[repr(C)]
 #[derive(Debug)]
 pub enum http_client_select_type {
+    /// returns empty string
     None,
+    /// returns html content of selected element (trimmed)
     Html,
+    /// returns inner html content of selected element (trimmed)
     InnerHtml,
+    /// returns trimmed text of selected element
     Text,
 }
 
@@ -131,7 +135,7 @@ pub enum HttpReply {
 
 #[allow(non_camel_case_types)]
 pub struct http_client {
-    service: Service<HttpRequest, HttpReply>,
+    service: HttpService,
 }
 
 impl http_client {
@@ -156,11 +160,17 @@ impl http_client {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub enum http_client_param_type {
+    /// header key/value
     Header,
+    /// form key/value
     Form,
+    /// multipart key/value
     MultiPart,
+    /// CSS selector/output type
     Selector,
+    /// mime type (for uploading)
     Mime,
+    /// username/password
     BasicAuth,
 }
 
@@ -183,22 +193,29 @@ struct HttpRequest {
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub struct http_client_param {
+    /// param name or key
     name: *const c_char,
+    /// param value
     value: *const c_char,
+    /// parameter type
     param_type: http_client_param_type,
 }
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub struct http_client_result {
-    body: *const c_char,
+    /// reply text (can be NULL!)
+    data: *const c_char,
+    /// HTTP status
     status: u16,
 }
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub struct http_client_result_cb {
+    /// user data pointer (can be NULL)
     user: *mut c_void,
+    /// callback function (can be NULL)
     cb: Option<extern "C" fn(user: *mut c_void, &http_client_result)>,
 }
 
@@ -211,7 +228,7 @@ impl ServiceCallback<HttpReply> for http_client_result_cb {
                     cb(
                         self.user,
                         &http_client_result {
-                            body: msg.as_ptr(),
+                            data: msg.as_ptr(),
                             status: resp.status,
                         },
                     )
@@ -222,7 +239,7 @@ impl ServiceCallback<HttpReply> for http_client_result_cb {
                     cb(
                         self.user,
                         &http_client_result {
-                            body: null(),
+                            data: CStr::from_bytes_with_nul(b"\0").unwrap().as_ptr(),
                             status: *status,
                         },
                     )
@@ -295,7 +312,11 @@ fn process_params(
     cli
 }
 
-async fn http_request(req: HttpRequest) -> Result<Vec<HttpReply>, Error> {
+async fn http_request(
+    req: HttpRequest,
+    tx: HttpSenderTx,
+    cb: callback_notify,
+) -> Result<Vec<HttpReply>, Error> {
     match req.method {
         HttpRequestMethod::Get(url) => {
             let mut client = reqwest::Client::new().get(url);
@@ -321,6 +342,14 @@ async fn http_request(req: HttpRequest) -> Result<Vec<HttpReply>, Error> {
 
             match client.send().await {
                 Ok(mut response) => {
+                    if !response.status().is_success() {
+                        return Err(Error::Error(format!(
+                            "{}: {}",
+                            response.status(),
+                            response.url()
+                        )));
+                    }
+
                     let dir = Path::new(&dreq.base_dir);
                     let fname = if dreq.filename.is_empty() {
                         const DEFAULT_NAME: &str = "tmp.bin";
@@ -370,22 +399,38 @@ async fn http_request(req: HttpRequest) -> Result<Vec<HttpReply>, Error> {
 
                     match File::create(&full_name).await {
                         Ok(mut file) => {
-                            let mut total: u64 = 0;
+                            let total: u64 = nbytes.unwrap_or(0);
+                            let mut bytes_send: u64 = 0;
+
                             while let Ok(chunk) = response.chunk().await {
                                 if let Some(bytes) = chunk {
                                     if let Err(err) = file.write_all(&bytes).await {
                                         return Err(Error::Error(err.to_string()));
                                     }
 
-                                    total += bytes.len() as u64;
-                                    let perc = (100 * total) / nbytes.unwrap();
-                                    // eprintln!("download: {perc}% to {full_name}");
+                                    if total > 0 {
+                                        bytes_send += bytes.len() as u64;
+                                        let perc = (100 * bytes_send) / total;
+                                        // eprintln!("done: {perc}%");
+                                        if perc >= 100 {
+                                            break;
+                                        }
+                                        HttpService::write_progress(&tx, perc as u8, cb).await;
+                                    }
                                 }
                             }
 
-                            let _ = file.flush().await;
-
-                            Ok(vec![HttpReply::Ok(status.into())])
+                            if let Err(err) = file.flush().await {
+                                Err(Error::Error(err.to_string()))
+                            } else {
+                                HttpService::write_debug(
+                                    &tx,
+                                    format!("file downloaded to '{full_name}'"),
+                                    cb,
+                                )
+                                .await;
+                                Ok(vec![HttpReply::Ok(status.into())])
+                            }
                         }
                         Err(err) => Err(Error::Error(err.to_string())),
                     }
@@ -436,20 +481,31 @@ async fn http_request(req: HttpRequest) -> Result<Vec<HttpReply>, Error> {
 
 #[must_use]
 #[no_mangle]
+/// create new http client
+/// @param cb_err - called in the main thread on error message
+/// @param cb_post - called in the main thread on post message
+/// @param cb_debug - called in the main thread on debug message
+/// @param cb_log - called in the main thread on log message
+/// @param cb_progress - called in the main thread on progress message
+/// @param cb_reply - called in the main thread on result reply message
+/// @param cb_notify - called in the worker thread (!) to notify main thread
+/// @return pointer to new client or NULL on error
 pub extern "C" fn ceammc_http_client_new(
     cb_err: callback_msg,
     cb_post: callback_msg,
     cb_debug: callback_msg,
     cb_log: callback_msg,
+    cb_progress: callback_progress,
     cb_reply: http_client_result_cb,
     cb_notify: callback_notify,
 ) -> *mut http_client {
-    let service = Service::<HttpRequest, HttpReply>::new_async_many(
+    let service = HttpService::new_async_many(
         //
         cb_err,
         cb_post,
         cb_debug,
         cb_log,
+        cb_progress,
         Box::new(cb_reply),
         cb_notify,
         http_request,
@@ -465,6 +521,8 @@ pub extern "C" fn ceammc_http_client_new(
     }
 }
 
+/// free http client
+/// @param cli - pointer to http client (can be NULL)
 #[no_mangle]
 pub extern "C" fn ceammc_http_client_free(cli: *mut http_client) {
     if !cli.is_null() {
@@ -472,6 +530,12 @@ pub extern "C" fn ceammc_http_client_free(cli: *mut http_client) {
     }
 }
 
+/// do http get request
+/// @param cli - http client pointer
+/// @param url - requested URL
+/// @param param - pointer to array of request parameters (can be NULL)
+/// @param param_len - array size of request parameters
+/// @return true on success, false on error
 #[no_mangle]
 pub extern "C" fn ceammc_http_client_get(
     cli: Option<&mut http_client>,
@@ -508,6 +572,12 @@ pub extern "C" fn ceammc_http_client_get(
     cli.service.send_request(req)
 }
 
+/// do http post request
+/// @param cli - http client pointer
+/// @param url - requested URL
+/// @param param - pointer to array of request parameters (can be NULL)
+/// @param param_len - array size of request parameters
+/// @return true on success, false on error
 #[no_mangle]
 pub extern "C" fn ceammc_http_client_post(
     cli: Option<&mut http_client>,
@@ -544,6 +614,14 @@ pub extern "C" fn ceammc_http_client_post(
     cli.service.send_request(req)
 }
 
+/// upload file with POST request
+/// @param cli - http client pointer
+/// @param url - requested URL
+/// @param file - filename
+/// @param file_key - file part name in multipart data
+/// @param param - pointer to array of request parameters (can be NULL)
+/// @param param_len - array size of request parameters
+/// @return true on success, false on error
 #[no_mangle]
 pub extern "C" fn ceammc_http_client_upload(
     cli: Option<&mut http_client>,
@@ -593,6 +671,14 @@ pub extern "C" fn ceammc_http_client_upload(
     cli.service.send_request(req)
 }
 
+/// download file with GET request
+/// @param cli - http client pointer
+/// @param url - requested URL
+/// @param file - output filename (if NULL - try to auto detect)
+/// @param dir - base directory to save if filename is not absolute
+/// @param param - pointer to array of request parameters (can be NULL)
+/// @param param_len - array size of request parameters
+/// @return true on success, false on error
 #[no_mangle]
 pub extern "C" fn ceammc_http_client_download(
     cli: Option<&mut http_client>,
@@ -638,6 +724,9 @@ pub extern "C" fn ceammc_http_client_download(
     cli.service.send_request(req)
 }
 
+/// process all results that are ready
+/// @param cli - http client pointer
+/// @return true on success, false on error
 #[no_mangle]
 pub extern "C" fn ceammc_http_client_process(cli: Option<&mut http_client>) -> bool {
     if cli.is_none() {

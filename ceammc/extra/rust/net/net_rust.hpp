@@ -8,11 +8,17 @@
 
 
 enum class ceammc_http_client_param_type {
+    /// header key/value
     Header,
+    /// form key/value
     Form,
+    /// multipart key/value
     MultiPart,
+    /// CSS selector/output type
     Selector,
+    /// mime type (for uploading)
     Mime,
+    /// username/password
     BasicAuth,
 };
 
@@ -77,8 +83,11 @@ struct ceammc_ws_client;
 struct ceammc_ws_server;
 
 struct ceammc_http_client_param {
+    /// param name or key
     const char *name;
+    /// param value
     const char *value;
+    /// parameter type
     ceammc_http_client_param_type param_type;
 };
 
@@ -87,13 +96,22 @@ struct ceammc_callback_msg {
     void (*cb)(void *user, const char *msg);
 };
 
+struct ceammc_callback_progress {
+    void *user;
+    void (*cb)(void *user, uint8_t msg);
+};
+
 struct ceammc_http_client_result {
-    const char *body;
+    /// reply text (can be NULL!)
+    const char *data;
+    /// HTTP status
     uint16_t status;
 };
 
 struct ceammc_http_client_result_cb {
+    /// user data pointer (can be NULL)
     void *user;
+    /// callback function (can be NULL)
     void (*cb)(void *user, const ceammc_http_client_result*);
 };
 
@@ -161,6 +179,14 @@ struct ceammc_ws_srv_on_cli {
 
 extern "C" {
 
+/// download file with GET request
+/// @param cli - http client pointer
+/// @param url - requested URL
+/// @param file - output filename (if NULL - try to auto detect)
+/// @param dir - base directory to save if filename is not absolute
+/// @param param - pointer to array of request parameters (can be NULL)
+/// @param param_len - array size of request parameters
+/// @return true on success, false on error
 bool ceammc_http_client_download(ceammc_http_client *cli,
                                  const char *url,
                                  const char *file,
@@ -168,28 +194,63 @@ bool ceammc_http_client_download(ceammc_http_client *cli,
                                  const ceammc_http_client_param *params,
                                  size_t params_len);
 
+/// free http client
+/// @param cli - pointer to http client (can be NULL)
 void ceammc_http_client_free(ceammc_http_client *cli);
 
+/// do http get request
+/// @param cli - http client pointer
+/// @param url - requested URL
+/// @param param - pointer to array of request parameters (can be NULL)
+/// @param param_len - array size of request parameters
+/// @return true on success, false on error
 bool ceammc_http_client_get(ceammc_http_client *cli,
                             const char *url,
                             const ceammc_http_client_param *param,
                             size_t param_len);
 
+/// create new http client
+/// @param cb_err - called in the main thread on error message
+/// @param cb_post - called in the main thread on post message
+/// @param cb_debug - called in the main thread on debug message
+/// @param cb_log - called in the main thread on log message
+/// @param cb_progress - called in the main thread on progress message
+/// @param cb_reply - called in the main thread on result reply message
+/// @param cb_notify - called in the worker thread (!) to notify main thread
+/// @return pointer to new client or NULL on error
 [[nodiscard]]
 ceammc_http_client *ceammc_http_client_new(ceammc_callback_msg cb_err,
                                            ceammc_callback_msg cb_post,
                                            ceammc_callback_msg cb_debug,
                                            ceammc_callback_msg cb_log,
+                                           ceammc_callback_progress cb_progress,
                                            ceammc_http_client_result_cb cb_reply,
                                            ceammc_callback_notify cb_notify);
 
+/// do http post request
+/// @param cli - http client pointer
+/// @param url - requested URL
+/// @param param - pointer to array of request parameters (can be NULL)
+/// @param param_len - array size of request parameters
+/// @return true on success, false on error
 bool ceammc_http_client_post(ceammc_http_client *cli,
                              const char *url,
                              const ceammc_http_client_param *param,
                              size_t param_len);
 
+/// process all results that are ready
+/// @param cli - http client pointer
+/// @return true on success, false on error
 bool ceammc_http_client_process(ceammc_http_client *cli);
 
+/// upload file with POST request
+/// @param cli - http client pointer
+/// @param url - requested URL
+/// @param file - filename
+/// @param file_key - file part name in multipart data
+/// @param param - pointer to array of request parameters (can be NULL)
+/// @param param_len - array size of request parameters
+/// @return true on success, false on error
 bool ceammc_http_client_upload(ceammc_http_client *cli,
                                const char *url,
                                const char *file,
