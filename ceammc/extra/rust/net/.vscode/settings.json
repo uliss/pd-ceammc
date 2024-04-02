@@ -5,6 +5,7 @@
         "mqttbytes",
         "mqttoptions",
         "nonblocking",
+        "oneshot",
         "reqwest",
         "rumqttc",
         "tungstenite",
