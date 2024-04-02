@@ -420,7 +420,6 @@ async fn http_request(
                                         // eprintln!("done: {perc}%");
                                         HttpService::write_progress(&tx, perc as u8, cb).await;
                                     }
-
                                 } else {
                                     break;
                                 }
@@ -516,7 +515,7 @@ pub extern "C" fn ceammc_http_client_new(
         Box::new(cb_reply),
         cb_notify,
         http_request,
-        16
+        16,
     );
 
     match service {

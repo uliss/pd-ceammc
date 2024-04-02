@@ -8,6 +8,7 @@
         "oneshot",
         "reqwest",
         "rumqttc",
+        "Tele",
         "tungstenite",
         "whitespaces"
     ],

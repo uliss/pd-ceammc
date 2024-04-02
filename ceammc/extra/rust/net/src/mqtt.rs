@@ -339,7 +339,7 @@ pub extern "C" fn ceammc_mqtt_client_new(
 
                     return Box::into_raw(Box::new(mqtt_client {
                         service: srv,
-                        quit_tx, 
+                        quit_tx,
                     }));
                 }
                 Err(err) => {
