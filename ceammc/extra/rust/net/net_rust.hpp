@@ -32,13 +32,12 @@ enum class ceammc_mqtt_qos {
 };
 
 enum class ceammc_mqtt_rc {
-    Ok = 0,
-    InvalidString,
-    InvalidData,
-    InvalidClient,
-    ClientError,
-    Disconnected,
-    ConnectionError,
+    Success = 0,
+    RefusedProtocolVersion,
+    BadClientId,
+    ServiceUnavailable,
+    BadUserNamePassword,
+    NotAuthorized,
 };
 
 enum class ceammc_ws_client_selector {
@@ -91,6 +90,10 @@ struct ceammc_http_client_param {
     ceammc_http_client_param_type param_type;
 };
 
+struct ceammc_http_client_init {
+    const void *_dummy;
+};
+
 struct ceammc_callback_msg {
     void *user;
     void (*cb)(void *user, const char *msg);
@@ -120,25 +123,20 @@ struct ceammc_callback_notify {
     void (*cb)(size_t id);
 };
 
-struct ceammc_mqtt_err_cb {
-    void *user;
-    void (*cb)(void *user, const char *msg);
+struct ceammc_mqtt_client_init {
+    const char *url;
+    const char *id;
 };
 
-struct ceammc_mqtt_ping_cb {
+struct ceammc_mqtt_client_result_cb {
+    /// user data pointer (can be NULL)
     void *user;
-    void (*cb)(void *user);
-};
-
-struct ceammc_mqtt_pub_cb {
-    void *user;
-    void (*cb)(void *user, const char *topic, const uint8_t *data, size_t len);
-};
-
-struct ceammc_mqtt_cb {
-    ceammc_mqtt_err_cb on_err;
-    ceammc_mqtt_ping_cb on_ping;
-    ceammc_mqtt_pub_cb on_pub;
+    /// ping callback function (can be NULL)
+    void (*ping_cb)(void *user);
+    /// connected callback function (can be NULL)
+    void (*conn_cb)(void *user, ceammc_mqtt_rc code);
+    /// publish callback function (can be NULL)
+    void (*pub_cb)(void *user, const char *topic, const uint8_t *data, size_t data_len, ceammc_mqtt_qos qos, bool retain, uint16_t pkid);
 };
 
 struct ceammc_ws_callback_text {
@@ -219,7 +217,8 @@ bool ceammc_http_client_get(ceammc_http_client *cli,
 /// @param cb_notify - called in the worker thread (!) to notify main thread
 /// @return pointer to new client or NULL on error
 [[nodiscard]]
-ceammc_http_client *ceammc_http_client_new(ceammc_callback_msg cb_err,
+ceammc_http_client *ceammc_http_client_new(ceammc_http_client_init _params,
+                                           ceammc_callback_msg cb_err,
                                            ceammc_callback_msg cb_post,
                                            ceammc_callback_msg cb_debug,
                                            ceammc_callback_msg cb_log,
@@ -258,17 +257,29 @@ bool ceammc_http_client_upload(ceammc_http_client *cli,
                                const ceammc_http_client_param *params,
                                size_t params_len);
 
+/// free mqtt client
+/// @param cli - mqtt client (can be NULL)
+void ceammc_mqtt_client_free(ceammc_mqtt_client *cli);
+
 /// create new mqtt client
 /// @param url - mqtt broker url in format mqtt://host:port
 /// @param id - client id (can be NULL)
 /// @param cb - callbacks
 /// @return pointer to mqtt_client (must be freed by ceammc_mqtt_client_free()) on success
 ///         or NULL on error
-ceammc_mqtt_client *ceammc_mqtt_client_create(const char *url, const char *id, ceammc_mqtt_cb cb);
+ceammc_mqtt_client *ceammc_mqtt_client_new(ceammc_mqtt_client_init params,
+                                           ceammc_callback_msg cb_err,
+                                           ceammc_callback_msg cb_post,
+                                           ceammc_callback_msg cb_debug,
+                                           ceammc_callback_msg cb_log,
+                                           ceammc_callback_progress _cb_progress,
+                                           ceammc_mqtt_client_result_cb cb_reply,
+                                           ceammc_callback_notify cb_notify);
 
-/// free mqtt client
-/// @param cli - mqtt client
-void ceammc_mqtt_client_free(ceammc_mqtt_client *cli);
+/// iterate mqtt events
+/// @param cli - mqtt client pointer
+/// @return true on success
+bool ceammc_mqtt_client_process(ceammc_mqtt_client *cli);
 
 /// publish text message into mqtt topic
 /// @param topic - mqtt topic ('+' single layer wildcard, '#' recursive layer wildcard)
@@ -276,12 +287,12 @@ void ceammc_mqtt_client_free(ceammc_mqtt_client *cli);
 /// @param qos - Quality of Service flag
 /// @param retain - This flag tells the broker to store the message for a topic
 ///        and ensures any new client subscribing to that topic will receive the stored message.
-/// @return ceammc_mqtt_rc::Ok on success
-ceammc_mqtt_rc ceammc_mqtt_client_publish(ceammc_mqtt_client *cli,
-                                          const char *topic,
-                                          const char *msg,
-                                          ceammc_mqtt_qos qos,
-                                          bool retain);
+/// @return true on success
+bool ceammc_mqtt_client_publish(ceammc_mqtt_client *cli,
+                                const char *topic,
+                                const char *msg,
+                                ceammc_mqtt_qos qos,
+                                bool retain);
 
 /// publish binary data into mqtt topic
 /// @param topic - mqtt topic ('+' single layer wildcard, '#' recursive layer wildcard)
@@ -290,32 +301,25 @@ ceammc_mqtt_rc ceammc_mqtt_client_publish(ceammc_mqtt_client *cli,
 /// @param qos - Quality of Service flag
 /// @param retain - This flag tells the broker to store the message for a topic
 ///        and ensures any new client subscribing to that topic will receive the stored message
-/// @return ceammc_mqtt_rc::Ok on success
-ceammc_mqtt_rc ceammc_mqtt_client_publish_data(ceammc_mqtt_client *cli,
-                                               const char *topic,
-                                               const uint8_t *data,
-                                               size_t len,
-                                               ceammc_mqtt_qos qos,
-                                               bool retain);
+/// @return true on success
+bool ceammc_mqtt_client_publish_data(ceammc_mqtt_client *cli,
+                                     const char *topic,
+                                     const uint8_t *data,
+                                     size_t len,
+                                     ceammc_mqtt_qos qos,
+                                     bool retain);
 
 /// subscribe to mqtt topic
 /// @param cli - mqtt client
 /// @param topic - mqtt topic
-/// @return ceammc_mqtt_rc::Ok on success
-ceammc_mqtt_rc ceammc_mqtt_client_subscribe(ceammc_mqtt_client *cli, const char *topic);
+/// @return true on success
+bool ceammc_mqtt_client_subscribe(ceammc_mqtt_client *cli, const char *topic, ceammc_mqtt_qos qos);
 
 /// unsubscribe from mqtt topic
 /// @param cli - mqtt client
 /// @param topic - mqtt topic
-/// @return ceammc_mqtt_rc::Ok on success
-ceammc_mqtt_rc ceammc_mqtt_client_unsubscribe(ceammc_mqtt_client *cli, const char *topic);
-
-/// iterate mqtt events
-/// @note - this is blocking call
-/// @param cli - mqtt client pointer
-/// @param time_ms - time to blocking wait in milliseconds
-/// @return ceammc_mqtt_rc::Ok on success
-ceammc_mqtt_rc ceammc_mqtt_process_events(ceammc_mqtt_client *cli, uint16_t time_ms);
+/// @return true on success
+bool ceammc_mqtt_client_unsubscribe(ceammc_mqtt_client *cli, const char *topic);
 
 /// close client connection
 /// @param cli - pointer to websocket client

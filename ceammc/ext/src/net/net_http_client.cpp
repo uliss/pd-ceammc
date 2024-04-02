@@ -9,21 +9,27 @@
 NetHttpClient::NetHttpClient(const PdArgs& args)
     : NetHttpClientBase(args)
     , srv_(
+          ceammc_http_client_init {},
           ceammc_http_client_new,
           ceammc_http_client_free,
           ceammc_http_client_process,
+          ceammc_http_client_result_cb {
+              this,
+              [](void* user, const ceammc_http_client_result* res) {
+                  auto this_ = static_cast<NetHttpClient*>(user);
+                  if (this_ && res) {
+                      if (res->data && *res->data)
+                          this_->atomTo(1, StringAtom(res->data));
+
+                      this_->floatTo(0, res->status);
+                  }
+              } },
           ceammc_callback_notify { reinterpret_cast<size_t>(this), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } })
 {
     srv_.setErrorCallback([this](const char* msg) { OBJ_ERR << msg; });
     srv_.setDebugCallback([this](const char* msg) { OBJ_DBG << msg; });
     srv_.setProgressCallback([this](int percent) {
         anyTo(1, gensym("progress"), Atom(percent));
-    });
-    srv_.setResultCallback([this](const ceammc_http_client_result& res) {
-        if (res.data && *res.data)
-            atomTo(1, StringAtom(res.data));
-
-        floatTo(0, res.status);
     });
 
     createOutlet();

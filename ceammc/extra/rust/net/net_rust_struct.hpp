@@ -6,15 +6,17 @@
 namespace ceammc {
 namespace net {
 
-    template <typename T, typename Result>
+    template <typename T, typename InitParams, typename ResultCallback>
     class NetService {
     public:
-        using service_handle_new_fn = T*(ceammc_callback_msg,
+        using service_handle_new_fn = T*(
+            InitParams,
+            ceammc_callback_msg,
             ceammc_callback_msg,
             ceammc_callback_msg,
             ceammc_callback_msg,
             ceammc_callback_progress,
-            ceammc_http_client_result_cb,
+            ResultCallback,
             ceammc_callback_notify);
 
         using service_handle_free_fn = void(T*);
@@ -27,24 +29,27 @@ namespace net {
         std::function<bool(T*)> cb_proc_;
         std::function<void(int)> cb_progress_;
         std::function<void(const char*msg)> cb_err_, cb_post_, cb_debug_, cb_log_;
-        std::function<void(const Result&)> cb_res_;
 
     public:
-        NetService(service_handle_new_fn cb_new,
+        NetService(const InitParams& init_params,
+            service_handle_new_fn cb_new,
             service_handle_free_fn cb_free,
             service_handle_proc_fn cb_proc,
+            ResultCallback cb_result,
             ceammc_callback_notify cb_notify //
             )
             : handle_(nullptr)
             , cb_free_(cb_free)
             , cb_proc_(cb_proc)
         {
-            handle_ = cb_new({ this, onError },
+            handle_ = cb_new( //
+                init_params,
+                { this, onError },
                 { this, onPost },
                 { this, onDebug },
                 { this, onLog },
                 { this, onProgress },
-                { this, onResult },
+                cb_result,
                 cb_notify);
         }
 
@@ -87,11 +92,6 @@ namespace net {
             cb_progress_ = cb;
         }
 
-        void setResultCallback(std::function<void(const Result&)> cb)
-        {
-            cb_res_ = cb;
-        }
-
     public:
         static void onError(void* user, const char* msg)
         {
@@ -128,13 +128,6 @@ namespace net {
             auto this_ = static_cast<NetService*>(user);
             if (this_ && this_->cb_progress_)
                 this_->cb_progress_(percent);
-        }
-
-        static void onResult(void* user, const Result* res)
-        {
-            auto this_ = static_cast<NetService*>(user);
-            if (this_ && this_->cb_res_ && res)
-                this_->cb_res_(*res);
         }
     };
 

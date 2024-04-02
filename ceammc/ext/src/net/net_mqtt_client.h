@@ -16,10 +16,10 @@
 
 #include "ceammc_pollthread_spsc.h"
 #include "ceammc_property_enum.h"
-#include "net_rust.hpp"
+#include "net_rust_struct.hpp"
 using namespace ceammc;
 
-#include <boost/variant.hpp>
+//#include <boost/variant.hpp>
 
 namespace ceammc {
 namespace mqtt {
@@ -105,7 +105,8 @@ namespace mqtt {
 }
 }
 
-using BaseMqttClient = FixedSPSCObject<mqtt::Request, mqtt::Reply>;
+using BaseMqttClient = DispatchedObject<BaseObject>;
+using MqttClient = net::NetService<ceammc_mqtt_client, ceammc_mqtt_client_init, ceammc_mqtt_client_result_cb>;
 
 class NetMqttClient : public BaseMqttClient {
     SymbolProperty* id_ { nullptr };
@@ -113,7 +114,7 @@ class NetMqttClient : public BaseMqttClient {
     BoolProperty* retain_ { nullptr };
     SymbolEnumProperty* mode_ { nullptr };
 
-    std::unique_ptr<mqtt::ClientImpl> cli_;
+    std::unique_ptr<MqttClient> cli_;
 
 public:
     NetMqttClient(const PdArgs& args);
@@ -124,34 +125,36 @@ public:
     void m_unsubscribe(t_symbol* s, const AtomListView& lv);
     void m_publish(t_symbol* s, const AtomListView& lv);
 
-    void processRequest(const mqtt::Request& req, ResultCallback cb) override;
-    void processResult(const mqtt::Reply& res) override;
-    void processEvents() final;
+    bool notify(int code) final;
+
+    //    void processRequest(const mqtt::Request& req, ResultCallback cb) override;
+    //    void processResult(const mqtt::Reply& res) override;
+    //    void processEvents() final;
 
 private:
-    void processReply(const mqtt::reply::ReplyPing& m);
-    void processReply(const mqtt::reply::ReplyText& m);
-    void processReply(const mqtt::reply::ReplyBytes& m);
+    //    void processReply(const mqtt::reply::ReplyPing& m);
+    //    void processReply(const mqtt::reply::ReplyText& m);
+        void processReply(const char* topic, const uint8_t* data, size_t data_len, ceammc_mqtt_qos qos, bool retain, uint16_t pkid);
 
-    template <class T>
-    bool process_reply(const mqtt::Reply& res)
-    {
-        if (res.type() == typeid(T)) {
-            this->processReply(boost::get<T>(res));
-            return true;
-        } else
-            return false;
-    }
+    //    template <class T>
+    //    bool process_reply(const mqtt::Reply& res)
+    //    {
+    //        if (res.type() == typeid(T)) {
+    //            this->processReply(boost::get<T>(res));
+    //            return true;
+    //        } else
+    //            return false;
+    //    }
 
-    template <class T>
-    bool process_request(const mqtt::Request& req)
-    {
-        if (req.type() == typeid(T)) {
-            this->cli_->process(boost::get<T>(req));
-            return true;
-        } else
-            return false;
-    }
+    //    template <class T>
+    //    bool process_request(const mqtt::Request& req)
+    //    {
+    //        if (req.type() == typeid(T)) {
+    //            this->cli_->process(boost::get<T>(req));
+    //            return true;
+    //        } else
+    //            return false;
+    //    }
 
 private:
     static int id_count_;

@@ -9,7 +9,7 @@ using namespace ceammc;
 using NetHttpClientBase = DispatchedObject<BaseObject>;
 
 class NetHttpClient : public NetHttpClientBase {
-    net::NetService<ceammc_http_client, ceammc_http_client_result> srv_;
+    net::NetService<ceammc_http_client, ceammc_http_client_init, ceammc_http_client_result_cb> srv_;
 
 public:
     NetHttpClient(const PdArgs& args);

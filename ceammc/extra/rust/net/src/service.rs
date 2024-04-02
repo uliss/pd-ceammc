@@ -1,6 +1,7 @@
 use std::{
     ffi::CString,
     os::raw::{c_char, c_void},
+    ptr::null_mut,
     usize,
 };
 
@@ -43,9 +44,16 @@ pub struct callback_progress {
 
 impl callback_progress {
     pub fn exec(&self, val: u8) {
-        self.cb.map(|cb| {
-            cb(self.user, val)
-        });
+        self.cb.map(|cb| cb(self.user, val));
+    }
+}
+
+impl Default for callback_progress {
+    fn default() -> Self {
+        callback_progress {
+            user: null_mut(),
+            cb: None,
+        }
     }
 }
 
@@ -77,6 +85,9 @@ pub type CallbackSyncMany<From, To, E> = fn(req: From) -> Result<Vec<To>, E>;
 
 pub type CallbackType<From, CallbackProgress, CallbackNotify, To> =
     fn(From, CallbackProgress, CallbackNotify) -> To;
+
+pub type CallbackTypeInst<Inst, From, CallbackProgress, CallbackNotify, To> =
+    fn(Inst, From, CallbackProgress, CallbackNotify) -> To;
 // pub type CallbackAsyncOne<From, To, E> = fn(req: From) -> impl Future<Output = Result<Vec<To>, E>>;
 
 impl<Request, Reply> Service<Request, Reply>
@@ -84,7 +95,7 @@ where
     Request: Send + Sized + 'static,
     Reply: Send + Sized + 'static,
 {
-    fn new(
+    pub fn new(
         cb_err: callback_msg,
         cb_post: callback_msg,
         cb_debug: callback_msg,
@@ -318,6 +329,17 @@ where
                 let (rep_tx, rep_rx) =
                     tokio::sync::mpsc::channel::<Result<Reply, Error>>(chan_size);
 
+                let srv = Service::<Request, Reply>::new(
+                    cb_err,
+                    cb_post,
+                    cb_debug,
+                    cb_log,
+                    cb_progress,
+                    cb_reply,
+                    req_tx,
+                    rep_rx,
+                );
+
                 std::thread::spawn(move || {
                     rt.block_on(async move {
                         // worker thread
@@ -346,17 +368,6 @@ where
                         ()
                     });
                 });
-
-                let srv = Service::<Request, Reply>::new(
-                    cb_err,
-                    cb_post,
-                    cb_debug,
-                    cb_log,
-                    cb_progress,
-                    cb_reply,
-                    req_tx,
-                    rep_rx,
-                );
 
                 Some(srv)
             }
@@ -391,6 +402,17 @@ where
                 let (rep_tx, rep_rx) =
                     tokio::sync::mpsc::channel::<Result<Reply, Error>>(chan_size);
 
+                let srv = Service::<Request, Reply>::new(
+                    cb_err,
+                    cb_post,
+                    cb_debug,
+                    cb_log,
+                    cb_progress,
+                    cb_reply,
+                    req_tx,
+                    rep_rx,
+                );
+
                 std::thread::spawn(move || {
                     rt.block_on(async move {
                         // worker thread
@@ -423,17 +445,6 @@ where
                         ()
                     });
                 });
-
-                let srv = Service::<Request, Reply>::new(
-                    cb_err,
-                    cb_post,
-                    cb_debug,
-                    cb_log,
-                    cb_progress,
-                    cb_reply,
-                    req_tx,
-                    rep_rx,
-                );
 
                 Some(srv)
             }

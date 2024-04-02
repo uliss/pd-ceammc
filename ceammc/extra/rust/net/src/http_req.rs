@@ -138,6 +138,12 @@ pub struct http_client {
     service: HttpService,
 }
 
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub struct http_client_init {
+    _dummy: *const c_void,
+}
+
 impl http_client {
     fn cstr2string(&self, cstr: Option<&c_char>, name: &str) -> Option<&str> {
         if cstr.is_none() {
@@ -491,6 +497,7 @@ async fn http_request(
 /// @param cb_notify - called in the worker thread (!) to notify main thread
 /// @return pointer to new client or NULL on error
 pub extern "C" fn ceammc_http_client_new(
+    _params: http_client_init,
     cb_err: callback_msg,
     cb_post: callback_msg,
     cb_debug: callback_msg,
@@ -509,7 +516,7 @@ pub extern "C" fn ceammc_http_client_new(
         Box::new(cb_reply),
         cb_notify,
         http_request,
-        16,
+        16
     );
 
     match service {
