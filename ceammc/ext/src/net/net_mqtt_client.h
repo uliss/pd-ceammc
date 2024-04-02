@@ -14,96 +14,11 @@
 #ifndef NET_MQTT_CLIENT_H
 #define NET_MQTT_CLIENT_H
 
-#include "ceammc_pollthread_spsc.h"
+#include "ceammc_object.h"
+#include "ceammc_poll_dispatcher.h"
 #include "ceammc_property_enum.h"
 #include "net_rust_struct.hpp"
 using namespace ceammc;
-
-//#include <boost/variant.hpp>
-
-namespace ceammc {
-namespace mqtt {
-    using Data = std::vector<std::uint8_t>;
-
-    namespace req {
-        struct Connect {
-            std::string id, url;
-        };
-        struct Disconnect { };
-        struct Subscribe {
-            t_symbol* topic;
-        };
-        struct Unsubscribe {
-            t_symbol* topic;
-        };
-        struct PublishText {
-            t_symbol* topic;
-            std::string msg;
-            ceammc_mqtt_qos qos;
-            bool retain;
-        };
-        struct PublishBytes {
-            t_symbol* topic;
-            Data data;
-            ceammc_mqtt_qos qos;
-            bool retain;
-        };
-    }
-
-    namespace reply {
-        struct ReplyPing { };
-        struct ReplyBytes {
-            std::string topic;
-            Data data;
-        };
-        struct ReplyText {
-            std::string topic;
-            std::string text;
-        };
-
-    }
-
-    using Reply = boost::variant<
-        reply::ReplyPing,
-        reply::ReplyText,
-        reply::ReplyBytes>;
-
-    using Request = boost::variant<
-        req::Connect,
-        req::Disconnect,
-        req::Subscribe,
-        req::Unsubscribe,
-        req::PublishText,
-        req::PublishBytes>;
-
-    class ClientImpl {
-        ceammc_mqtt_client* cli_ { nullptr };
-        std::mutex mtx_;
-
-    public:
-        std::function<void(const char* msg)> cb_err;
-        std::function<void()> cb_ping;
-        std::function<void(const char* topic, const Data& data)> cb_pub;
-
-    public:
-        ~ClientImpl();
-
-        bool connect(const req::Connect& m);
-        bool disconnect();
-
-        void process(const req::Subscribe& m);
-        void process(const req::Unsubscribe& m);
-        void process(const req::PublishText& m);
-        void process(const req::PublishBytes& m);
-
-        void process_events();
-
-        bool check_connected() const;
-        void error(const char* msg) const;
-        inline void error(const std::string& msg) const { error(msg.c_str()); };
-    };
-}
-}
 
 using BaseMqttClient = DispatchedObject<BaseObject>;
 using MqttClient = net::NetService<ceammc_mqtt_client, ceammc_mqtt_client_init, ceammc_mqtt_client_result_cb>;
@@ -127,34 +42,8 @@ public:
 
     bool notify(int code) final;
 
-    //    void processRequest(const mqtt::Request& req, ResultCallback cb) override;
-    //    void processResult(const mqtt::Reply& res) override;
-    //    void processEvents() final;
-
 private:
-    //    void processReply(const mqtt::reply::ReplyPing& m);
-    //    void processReply(const mqtt::reply::ReplyText& m);
-        void processReply(const char* topic, const uint8_t* data, size_t data_len, ceammc_mqtt_qos qos, bool retain, uint16_t pkid);
-
-    //    template <class T>
-    //    bool process_reply(const mqtt::Reply& res)
-    //    {
-    //        if (res.type() == typeid(T)) {
-    //            this->processReply(boost::get<T>(res));
-    //            return true;
-    //        } else
-    //            return false;
-    //    }
-
-    //    template <class T>
-    //    bool process_request(const mqtt::Request& req)
-    //    {
-    //        if (req.type() == typeid(T)) {
-    //            this->cli_->process(boost::get<T>(req));
-    //            return true;
-    //        } else
-    //            return false;
-    //    }
+    void processReply(const char* topic, const uint8_t* data, size_t data_len, ceammc_mqtt_qos qos, bool retain, uint16_t pkid);
 
 private:
     static int id_count_;

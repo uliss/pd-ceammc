@@ -13,7 +13,7 @@
  *****************************************************************************/
 #ifndef WITH_MQTT
 #include "ceammc_stub.h"
-CONTROL_OBJECT_STUB(NetMqtt, 1, 1, "compiled without mqtt support");
+CONTROL_OBJECT_STUB(NetMqtt, 1, 2, "compiled without mqtt support");
 OBJECT_STUB_SETUP(NetMqtt, net_mqtt_client, "net.mqtt");
 #else
 #include "args/argcheck2.h"
@@ -33,162 +33,6 @@ CEAMMC_DEFINE_HASH(sym)
 CEAMMC_DEFINE_HASH(json)
 CEAMMC_DEFINE_HASH(bytes)
 
-using MutexLock = std::lock_guard<std::mutex>;
-using namespace ceammc::mqtt;
-using namespace ceammc::mqtt::reply;
-using namespace ceammc::mqtt::req;
-
-static ceammc_mqtt_qos qos2qos(int v)
-{
-    switch (v) {
-    case 1:
-        return ceammc_mqtt_qos::AtLeastOnce;
-    case 2:
-        return ceammc_mqtt_qos::ExactlyOnce;
-    case 0:
-    default:
-        return ceammc_mqtt_qos::AtMostOnce;
-    }
-}
-
-/*ClientImpl::~ClientImpl()
-{
-    if (cli_) // to prevent error message
-        disconnect();
-}
-
-bool ClientImpl::connect(const req::Connect& m)
-{
-    MutexLock lock(mtx_);
-    if (cli_) {
-        ceammc_mqtt_client_free(cli_);
-        cli_ = nullptr;
-    }
-
-    cli_ = ceammc_mqtt_client_create(
-        m.url.c_str(),
-        m.id.c_str(),
-        {
-            {
-                this,
-                [](void* user, const char* msg) {
-                    auto this_ = static_cast<ClientImpl*>(user);
-                    if (!this_)
-                        return;
-
-//                    this_->error(msg);
-//                },
-//            },
-//            {
-//                this,
-//                [](void* user) {
-//                    auto this_ = static_cast<ClientImpl*>(user);
-//                    if (this_ && this_->cb_ping)
-//                        this_->cb_ping();
-//                },
-//            },
-//            {
-//                this,
-//                [](void* user, const char* topic, const std::uint8_t* data, size_t len) {
-//                    auto this_ = static_cast<ClientImpl*>(user);
-//                    if (this_ && this_->cb_pub)
-//                        this_->cb_pub(topic, Data(data, data + len));
-//                },
-//            },
-//        });
-
-//    if (!cli_)
-//        error(fmt::format("can't connect to '{}' with ID: '{}'", m.url, m.id));
-
-//    return cli_ != nullptr;
-//}
-*/
-
-// bool ClientImpl::disconnect()
-//{
-//     MutexLock lock(mtx_);
-//     if (cli_) {
-//         ceammc_mqtt_client_free(cli_);
-//         cli_ = nullptr;
-//         return true;
-//     } else {
-//         error("not connected");
-//         return false;
-//     }
-// }
-
-// void ClientImpl::process(const req::Subscribe& m)
-//{
-//     MutexLock lock(mtx_);
-//     if (!check_connected())
-//         return;
-
-//    if (ceammc_mqtt_client_subscribe(cli_, m.topic->s_name) != ceammc_mqtt_rc::Ok)
-//        error(fmt::format("can't subscribe to topic '{}'", m.topic->s_name));
-//}
-
-// void ClientImpl::process(const req::Unsubscribe& m)
-//{
-//     MutexLock lock(mtx_);
-//     if (!check_connected())
-//         return;
-
-//    if (ceammc_mqtt_client_unsubscribe(cli_, m.topic->s_name) != ceammc_mqtt_rc::Ok)
-//        error(fmt::format("can't unsubscribe from topic '{}'", m.topic->s_name));
-//}
-
-// void ClientImpl::process(const req::PublishText& m)
-//{
-//     MutexLock lock(mtx_);
-//     if (!check_connected())
-//         return;
-
-//    if (ceammc_mqtt_client_publish(cli_, m.topic->s_name, m.msg.c_str(), m.qos, m.retain) != ceammc_mqtt_rc::Ok)
-//        error(fmt::format("can't publish to topic '{}'", m.topic->s_name));
-//}
-
-// void ClientImpl::process(const req::PublishBytes& m)
-//{
-//     MutexLock lock(mtx_);
-//     if (!check_connected())
-//         return;
-
-//    if (ceammc_mqtt_client_publish_data(cli_, m.topic->s_name, m.data.data(), m.data.size(), m.qos, m.retain) != ceammc_mqtt_rc::Ok)
-//        error(fmt::format("can't publish to topic '{}'", m.topic->s_name));
-//}
-
-// void ClientImpl::process_events()
-//{
-//     MutexLock lock(mtx_);
-//     if (!cli_)
-//         return;
-
-//    switch (ceammc_mqtt_process_events(cli_, 100)) {
-//    case ceammc_mqtt_rc::Disconnected:
-//    case ceammc_mqtt_rc::ConnectionError:
-//        ceammc_mqtt_client_free(cli_);
-//        cli_ = nullptr;
-//        break;
-//    default:
-//        break;
-//    }
-//}
-
-// bool ClientImpl::check_connected() const
-//{
-//     if (!cli_) {
-//         error("not connected");
-//         return false;
-//     } else
-//         return true;
-// }
-
-// void mqtt::ClientImpl::error(const char* msg) const
-//{
-//     if (cb_err)
-//         cb_err(msg);
-// }
-
 int NetMqttClient::id_count_ = 0;
 
 NetMqttClient::NetMqttClient(const PdArgs& args)
@@ -205,31 +49,6 @@ NetMqttClient::NetMqttClient(const PdArgs& args)
 
     retain_ = new BoolProperty("@retain", false);
     addProperty(retain_);
-
-    //    cli_.reset(new ClientImpl);
-    //    cli_->cb_err = [this](const char* msg) { workerThreadError(msg); };
-    //    cli_->cb_ping = [this]() { addReply(ReplyPing {}); };
-    //    cli_->cb_pub = [this](const char* topic, const Data& data) {
-    //        switch (crc32_hash(mode_->value())) {
-    //        case hash_json: {
-    //            try {
-    //                ReplyText txt;
-    //                txt.topic = topic;
-    //                std::string msg(reinterpret_cast<const char*>(data.data()), data.size());
-    //                addReply(ReplyText { topic, nlohmann::json::parse(msg).dump() });
-    //            } catch (std::exception& e) {
-    //                workerThreadError("json parse error");
-    //            }
-    //        } break;
-    //        case hash_bytes: {
-    //            addReply(ReplyBytes { topic, data });
-    //        } break;
-    //        case hash_sym:
-    //        default: {
-    //            addReply(ReplyText { topic, { reinterpret_cast<const char*>(data.data()), data.size() } });
-    //        } break;
-    //        };
-    //    };
 
     createOutlet();
     createOutlet();
@@ -297,11 +116,6 @@ void NetMqttClient::m_connect(t_symbol* s, const AtomListView& lv)
         ceammc_callback_notify { reinterpret_cast<size_t>(this), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } })
         //
     );
-
-    //    addRequest(Connect {
-    //        id_->str(),
-    //        lv.asSymbol()->s_name,
-    //    });
 }
 
 void NetMqttClient::m_close(t_symbol* s, const AtomListView& lv)
@@ -382,7 +196,7 @@ void NetMqttClient::m_publish(t_symbol* s, const AtomListView& lv)
         }
     } break;
     case hash_bytes: {
-        Data data;
+        std::vector<std::uint8_t> data;
         data.reserve(payload.size());
         for (auto& a : payload)
             data.push_back(a.asInt(0));
@@ -457,105 +271,6 @@ void NetMqttClient::processReply(const char* topic, const uint8_t* data, size_t 
         break;
     }
 }
-
-// void NetMqttClient::processRequest(const Request& req, ResultCallback cb)
-//{
-//     if (!cli_) {
-//         workerThreadError("can't create client");
-//         return;
-//     }
-
-//    auto& type = req.type();
-
-//    if (type == typeid(Connect)) {
-//        if (cli_->connect(boost::get<Connect>(req)))
-//            workerThreadDebug("mqtt client connected");
-//    } else if (type == typeid(Disconnect)) {
-//        if (cli_->disconnect())
-//            workerThreadDebug("mqtt client disconnected");
-//    } else if (process_request<Subscribe>(req)) {
-//    } else if (process_request<Unsubscribe>(req)) {
-//    } else if (process_request<PublishText>(req)) {
-//    } else if (process_request<PublishBytes>(req)) {
-//    } else {
-//        workerThreadError(fmt::format("unknown request type: {}", type.name()));
-//    }
-//}
-
-// void NetMqttClient::processResult(const Reply& res)
-//{
-//     if (process_reply<ReplyPing>(res)) {
-//     } else if (process_reply<ReplyText>(res)) {
-//     } else if (process_reply<ReplyBytes>(res)) {
-//     } else {
-//         OBJ_ERR << "unknown reply type: " << res.type().name();
-//     }
-// }
-
-// void NetMqttClient::processEvents()
-//{
-//     if (cli_)
-//         cli_->process_events();
-// }
-
-// void NetMqttClient::processReply(const mqtt::reply::ReplyPing& m)
-//{
-//     bangTo(1);
-// }
-
-// void NetMqttClient::processReply(const mqtt::reply::ReplyText& m)
-//{
-//     auto sym_topic = gensym(m.topic.c_str());
-
-//    switch (crc32_hash(mode_->value())) {
-//    case hash_fudi: {
-//        anyTo(0, sym_topic, AtomList::parseString(m.text.c_str()));
-//    } break;
-//    case hash_json: {
-//        try {
-//            auto j = nlohmann::json::parse(m.text);
-
-//            using js = nlohmann::json::value_t;
-//            switch (j.type()) {
-//            case js::array: {
-//                AtomList lst;
-//                from_json(j, lst);
-//                anyTo(0, sym_topic, lst);
-//            } break;
-//            default: {
-//                Atom a;
-//                from_json(j, a);
-//                anyTo(0, sym_topic, a);
-//            } break;
-//            }
-//        } catch (std::exception& e) {
-//            OBJ_ERR << e.what();
-//        }
-//    } break;
-//    case hash_data: {
-//        auto res = parseDataString(m.text.c_str());
-//        if (res) {
-//            anyTo(0, sym_topic, res.result());
-//        } else {
-//            OBJ_ERR << "parse data error: " << res.err();
-//        }
-//    } break;
-//    case hash_sym:
-//    default: {
-//        anyTo(0, sym_topic, Atom(gensym(m.text.c_str())));
-//    }
-//    }
-//}
-
-// void NetMqttClient::processReply(const mqtt::reply::ReplyBytes& m)
-//{
-//     AtomList data;
-//     data.reserve(m.data.size());
-//     for (auto x : m.data)
-//         data.push_back(static_cast<int>(x));
-
-//    anyTo(0, gensym(m.topic.c_str()), data);
-//}
 
 void setup_net_mqtt_client()
 {
