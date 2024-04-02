@@ -598,9 +598,7 @@ mod ws_srv {
     pub extern "C" fn ceammc_ws_server_connected_clients(
         srv: *mut ws_server,
         user: *mut c_void,
-        cb: Option<
-            extern "C" fn(user: *mut c_void, msg: *const ws_conn_info, len: usize),
-        >,
+        cb: Option<extern "C" fn(user: *mut c_void, msg: *const ws_conn_info, len: usize)>,
     ) -> ws_rc {
         if srv.is_null() {
             return ws_rc::InvalidServer;
