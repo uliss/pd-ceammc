@@ -152,6 +152,16 @@ where
         }
     }
 
+    pub fn blocking_send(&self, req: Request) -> bool {
+        match self.tx.blocking_send(req) {
+            Ok(_) => true,
+            Err(_err) => {
+                eprintln!("{_err}");
+                false
+            }
+        }
+    }
+
     pub fn process_results(&mut self) {
         while let Ok(x) = self.rx.try_recv() {
             match x {
