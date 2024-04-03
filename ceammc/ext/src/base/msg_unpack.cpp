@@ -52,7 +52,7 @@ void MsgUnpack::onSymbol(t_symbol* s)
     if (checkOutlet(1))
         symbolTo(1, s);
 
-    symbolTo(0, &s_float);
+    symbolTo(0, &s_symbol);
 }
 
 void MsgUnpack::onList(const AtomListView& lv)
@@ -69,21 +69,11 @@ void MsgUnpack::onAny(t_symbol* s, const AtomListView& lv)
 
 void MsgUnpack::outputOther(const AtomListView& lv)
 {
-    const size_t NOUT = n_->value() - 1;
-    const size_t NARG = lv.size();
+    const size_t NOUT = n_->value();
+    const auto MAX_OUT = std::min<size_t>(NOUT - 1, lv.size());
 
-    if (NARG <= NOUT) {
-        for (size_t i = 0; i < NARG; i++)
-            atomTo(i + 1, lv[i]);
-    } else { // nout < narg
-        if (NOUT > 1) {
-            for (size_t i = 0; i < (NOUT - 1); i++)
-                atomTo(i + 1, lv[i]);
-
-            // output last
-            listTo(NOUT, lv.subView(NOUT - 1));
-        }
-    }
+    for (size_t i = MAX_OUT; i > 0; i--)
+        atomTo(i, lv[i - 1]);
 }
 
 void setup_base_msg_unpack()
