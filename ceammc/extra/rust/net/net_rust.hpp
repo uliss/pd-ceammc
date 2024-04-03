@@ -142,6 +142,7 @@ struct ceammc_mqtt_client_result_cb {
 };
 
 struct ceammc_telegram_bot_init {
+    /// telegram bot TOKEN
     const char *token;
 };
 
@@ -339,6 +340,7 @@ bool ceammc_mqtt_client_subscribe(ceammc_mqtt_client *cli, const char *topic, ce
 bool ceammc_mqtt_client_unsubscribe(ceammc_mqtt_client *cli, const char *topic);
 
 /// free telegram bot
+/// @param cli - pointer to telegram bot
 void ceammc_telegram_bot_free(ceammc_telegram_bot_client *cli);
 
 /// logout telegram bot
@@ -346,6 +348,15 @@ void ceammc_telegram_bot_free(ceammc_telegram_bot_client *cli);
 bool ceammc_telegram_bot_logout(ceammc_telegram_bot_client *cli);
 
 /// create new telegram bot
+/// @param params - telegram init settings
+/// @param cb_err - callback called on error
+/// @param cb_post - callback called on post
+/// @param cb_debug - callback called on debug
+/// @param cb_log - callback called on log
+/// @param _cb_progress - not used
+/// @param cb_reply - reply callback
+/// @param cb_notify - callback called to notify that it's time to check results
+/// @return pointer to telegram bot handle or NULL on error
 ceammc_telegram_bot_client *ceammc_telegram_bot_new(ceammc_telegram_bot_init params,
                                                     ceammc_callback_msg cb_err,
                                                     ceammc_callback_msg cb_post,
@@ -355,12 +366,16 @@ ceammc_telegram_bot_client *ceammc_telegram_bot_new(ceammc_telegram_bot_init par
                                                     ceammc_telegram_bot_result_cb cb_reply,
                                                     ceammc_callback_notify cb_notify);
 
-/// process telegram results
+/// process telegram events
 /// @param cli - pointer to telegram bot
 bool ceammc_telegram_bot_process(ceammc_telegram_bot_client *cli);
 
 /// send text message from telegram bot
 /// @param cli - pointer to telegram bot
+/// @param chat_id - target chat id
+/// @param msg_id - reply message id
+/// @param text - message text
+/// @return true on success
 bool ceammc_telegram_bot_send_message(ceammc_telegram_bot_client *cli,
                                       int64_t chat_id,
                                       int32_t msg_id,

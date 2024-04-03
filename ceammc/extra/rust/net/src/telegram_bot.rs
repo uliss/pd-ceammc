@@ -13,6 +13,7 @@ use std::{
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub struct telegram_bot_init {
+    /// telegram bot TOKEN
     token: *const c_char,
 }
 
@@ -82,6 +83,15 @@ impl ServiceCallback<TeleReply> for telegram_bot_result_cb {
 
 #[no_mangle]
 /// create new telegram bot
+/// @param params - telegram init settings
+/// @param cb_err - callback called on error
+/// @param cb_post - callback called on post
+/// @param cb_debug - callback called on debug
+/// @param cb_log - callback called on log
+/// @param _cb_progress - not used
+/// @param cb_reply - reply callback
+/// @param cb_notify - callback called to notify that it's time to check results
+/// @return pointer to telegram bot handle or NULL on error
 pub extern "C" fn ceammc_telegram_bot_new(
     params: telegram_bot_init,
     cb_err: callback_msg,
@@ -300,6 +310,7 @@ pub extern "C" fn ceammc_telegram_bot_new(
 
 #[no_mangle]
 /// free telegram bot
+/// @param cli - pointer to telegram bot
 pub extern "C" fn ceammc_telegram_bot_free(cli: *mut telegram_bot_client) {
     if !cli.is_null() {
         drop(unsafe { Box::from_raw(cli) });
@@ -307,7 +318,7 @@ pub extern "C" fn ceammc_telegram_bot_free(cli: *mut telegram_bot_client) {
 }
 
 #[no_mangle]
-/// process telegram results
+/// process telegram events
 /// @param cli - pointer to telegram bot
 pub extern "C" fn ceammc_telegram_bot_process(cli: *mut telegram_bot_client) -> bool {
     if cli.is_null() {
@@ -332,6 +343,10 @@ pub extern "C" fn ceammc_telegram_bot_logout(cli: *mut telegram_bot_client) -> b
 #[no_mangle]
 /// send text message from telegram bot
 /// @param cli - pointer to telegram bot
+/// @param chat_id - target chat id
+/// @param msg_id - reply message id
+/// @param text - message text
+/// @return true on success
 pub extern "C" fn ceammc_telegram_bot_send_message(
     cli: *mut telegram_bot_client,
     chat_id: i64,
