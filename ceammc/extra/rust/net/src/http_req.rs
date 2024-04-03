@@ -8,6 +8,7 @@ use std::{
     time::Duration,
 };
 
+use regex::Regex;
 use reqwest::{RequestBuilder, Response};
 use tokio::{fs::File, io::AsyncWriteExt};
 use tokio_util::codec::{BytesCodec, FramedRead};
@@ -18,13 +19,8 @@ use crate::service::{callback_msg, callback_notify, callback_progress, Error, Se
 type HttpSenderTx = tokio::sync::mpsc::Sender<Result<HttpReply, Error>>;
 type HttpService = Service<HttpRequest, HttpReply>;
 
-fn parse_client_options(
-    params: Option<&http_client_param>,
-    len: usize,
-) -> (Vec<HttpClientParam>, Option<CssSelector>, Option<String>) {
-    let mut result: Vec<HttpClientParam> = vec![];
-    let mut selector = None;
-    let mut mime = None;
+fn parse_client_options(params: Option<&http_client_param>, len: usize) -> HttpClientParams {
+    let mut result = HttpClientParams::new();
 
     if let Some(params) = params {
         let params = unsafe { slice::from_raw_parts(params, len) };
@@ -52,8 +48,12 @@ fn parse_client_options(
                 http_client_param_type::Form => HttpClientParam::Form(name, value),
                 http_client_param_type::MultiPart => HttpClientParam::MultiPart(name, value),
                 http_client_param_type::BasicAuth => HttpClientParam::BasicAuth(name, value),
+                http_client_param_type::StripWhiteSpaces => {
+                    result.strip_ws = true;
+                    continue;
+                }
                 http_client_param_type::Selector => {
-                    selector = Some(CssSelector {
+                    result.selector = Some(CssSelector {
                         name,
                         content: match value.as_str() {
                             "inner" => http_client_select_type::InnerHtml,
@@ -66,16 +66,16 @@ fn parse_client_options(
                     continue;
                 }
                 http_client_param_type::Mime => {
-                    mime = Some(name);
+                    result.mime = Some(name);
                     continue;
                 }
             };
 
-            result.push(param);
+            result.params.push(param);
         }
     }
 
-    (result, selector, mime)
+    result
 }
 
 #[derive(Debug)]
@@ -83,7 +83,6 @@ struct UploadRequest {
     url: String,
     file: String,
     file_key: String,
-    mime: Option<String>,
 }
 
 #[derive(Debug)]
@@ -178,6 +177,8 @@ pub enum http_client_param_type {
     Mime,
     /// username/password
     BasicAuth,
+    /// strip whitespaces
+    StripWhiteSpaces,
 }
 
 #[derive(Debug)]
@@ -188,12 +189,31 @@ enum HttpClientParam {
     BasicAuth(String, String),
 }
 
+#[derive(Debug, Default)]
+struct HttpClientParams {
+    params: Vec<HttpClientParam>,
+    selector: Option<CssSelector>,
+    timeout: Option<u16>,
+    mime: Option<String>,
+    strip_ws: bool,
+}
+
+impl HttpClientParams {
+    fn new() -> Self {
+        HttpClientParams {
+            params: vec![],
+            selector: None,
+            timeout: None,
+            mime: None,
+            strip_ws: false,
+        }
+    }
+}
+
 #[derive(Debug)]
 struct HttpRequest {
     method: HttpRequestMethod,
-    params: Vec<HttpClientParam>,
-    timeout: Option<u16>,
-    selector: Option<CssSelector>,
+    params: HttpClientParams,
 }
 
 #[allow(non_camel_case_types)]
@@ -255,34 +275,36 @@ impl ServiceCallback<HttpReply> for http_client_result_cb {
     }
 }
 
-async fn http_response(resp: Response, css: Option<CssSelector>) -> Result<Vec<HttpReply>, Error> {
+async fn http_response(resp: Response, params: &HttpClientParams) -> Result<Vec<HttpReply>, Error> {
     let status = resp.status().as_u16();
     match resp.text().await {
-        Ok(body) => match apply_selector(css, body) {
-            Ok(v) => Ok(v
-                .iter()
-                .map(|txt| {
-                    HttpReply::Get(HttpResponse {
-                        status,
-                        body: txt.clone(),
+        Ok(mut body) => {
+            if params.strip_ws {
+                let re_ws = Regex::new(r"[[:space:]]+").unwrap();
+                body = re_ws.replace_all(&body, " ").to_string();
+            }
+            match apply_selector(&params.selector, &body) {
+                Ok(v) => Ok(v
+                    .iter()
+                    .map(|txt| {
+                        HttpReply::Get(HttpResponse {
+                            status,
+                            body: txt.clone(),
+                        })
                     })
-                })
-                .collect()),
-            Err(err) => Err(Error::Error(err)),
-        },
+                    .collect()),
+                Err(err) => Err(Error::Error(err)),
+            }
+        }
         Err(err) => Err(Error::Error(err.to_string())),
     }
 }
 
-fn process_params(
-    mut cli: RequestBuilder,
-    params: Vec<HttpClientParam>,
-    timeout: Option<u16>,
-) -> RequestBuilder {
+fn process_params(mut cli: RequestBuilder, params: &HttpClientParams) -> RequestBuilder {
     let mut form_params = HashMap::new();
     let mut multipart_form = None;
 
-    for p in params {
+    for p in &params.params {
         match p {
             HttpClientParam::Header(k, v) => {
                 cli = cli.header(k, v);
@@ -298,7 +320,7 @@ fn process_params(
                     multipart_form = Some(reqwest::multipart::Form::new());
                 }
 
-                multipart_form = multipart_form.map(|f| f.text(k, v));
+                multipart_form = multipart_form.map(|f| f.text(k.clone(), v.clone()));
             }
         }
     }
@@ -311,7 +333,7 @@ fn process_params(
         cli = cli.multipart(mp);
     }
 
-    if let Some(ms) = timeout {
+    if let Some(ms) = params.timeout {
         cli = cli.timeout(Duration::from_millis(ms as u64));
     }
 
@@ -326,25 +348,25 @@ async fn http_request(
     match req.method {
         HttpRequestMethod::Get(url) => {
             let mut client = reqwest::Client::new().get(url);
-            client = process_params(client, req.params, req.timeout);
+            client = process_params(client, &req.params);
 
             match client.send().await {
-                Ok(resp) => http_response(resp, req.selector).await,
+                Ok(resp) => http_response(resp, &req.params).await,
                 Err(err) => Err(Error::Error(err.to_string())),
             }
         }
         HttpRequestMethod::Post(url) => {
             let mut client = reqwest::Client::new().post(url);
-            client = process_params(client, req.params, req.timeout);
+            client = process_params(client, &req.params);
 
             match client.send().await {
-                Ok(resp) => http_response(resp, req.selector).await,
+                Ok(resp) => http_response(resp, &req.params).await,
                 Err(err) => Err(Error::Error(err.to_string())),
             }
         }
         HttpRequestMethod::Download(dreq) => {
             let mut client = reqwest::Client::new().get(dreq.url);
-            client = process_params(client, req.params, req.timeout);
+            client = process_params(client, &req.params);
 
             match client.send().await {
                 Ok(mut response) => {
@@ -451,13 +473,13 @@ async fn http_request(
                 .unwrap_or_default()
                 .to_owned();
 
-            let mime = upload.mime.unwrap_or("text/plain".to_owned());
             match File::open(upload.file).await {
                 Ok(file) => {
                     // read file body stream
                     let stream = FramedRead::new(file, BytesCodec::new());
                     let file_body = reqwest::Body::wrap_stream(stream);
 
+                    let mime = req.params.mime.clone().unwrap_or("text/plain".to_owned());
                     // make form part of file
                     match reqwest::multipart::Part::stream(file_body)
                         .file_name(filename)
@@ -465,13 +487,13 @@ async fn http_request(
                     {
                         Ok(part) => {
                             let mut client = reqwest::Client::new().post(upload.url);
-                            client = process_params(client, req.params, req.timeout);
+                            client = process_params(client, &req.params);
                             // create the multipart form
                             let form = reqwest::multipart::Form::new().part(upload.file_key, part);
 
                             //send request
                             match client.multipart(form).send().await {
-                                Ok(resp) => http_response(resp, req.selector).await,
+                                Ok(resp) => http_response(resp, &req.params).await,
                                 Err(err) => Err(Error::Error(err.to_string())),
                             }
                         }
@@ -564,13 +586,11 @@ pub extern "C" fn ceammc_http_client_get(
         .to_str()
         .unwrap_or_default();
 
-    let (params, selector, _) = parse_client_options(param, param_len);
+    let params = parse_client_options(param, param_len);
 
     let req = HttpRequest {
         method: HttpRequestMethod::Get(url.to_owned()),
         params,
-        timeout: None,
-        selector,
     };
 
     eprintln!("{req:?}");
@@ -606,13 +626,11 @@ pub extern "C" fn ceammc_http_client_post(
         .to_str()
         .unwrap_or_default();
 
-    let (params, selector, _) = parse_client_options(param, param_len);
+    let params = parse_client_options(param, param_len);
 
     let req = HttpRequest {
         method: HttpRequestMethod::Post(url.to_owned()),
         params,
-        timeout: None,
-        selector,
     };
 
     eprintln!("post: {req:?}");
@@ -658,18 +676,15 @@ pub extern "C" fn ceammc_http_client_upload(
         return false;
     }
 
-    let (params, selector, mime) = parse_client_options(params, params_len);
+    let params = parse_client_options(params, params_len);
 
     let req = HttpRequest {
         method: HttpRequestMethod::UploadFile(UploadRequest {
             url: url.to_owned(),
             file_key: file_key.unwrap().to_owned(),
             file: file.unwrap().to_owned(),
-            mime,
         }),
         params,
-        selector,
-        timeout: None,
     };
 
     eprintln!("upload: {req:?}");
@@ -712,7 +727,7 @@ pub extern "C" fn ceammc_http_client_download(
     let file = cli.cstr2string(file, "file").unwrap_or_default().to_owned();
     let base_dir = cli.cstr2string(dir, "dir").unwrap_or_default().to_owned();
 
-    let (params, selector, _) = parse_client_options(params, params_len);
+    let params = parse_client_options(params, params_len);
 
     let req = HttpRequest {
         method: HttpRequestMethod::Download(DownloadRequest {
@@ -721,8 +736,6 @@ pub extern "C" fn ceammc_http_client_download(
             base_dir,
         }),
         params,
-        selector,
-        timeout: None,
     };
 
     eprintln!("download: {req:?}");
@@ -745,7 +758,7 @@ pub extern "C" fn ceammc_http_client_process(cli: Option<&mut http_client>) -> b
     true
 }
 
-fn apply_selector(css: Option<CssSelector>, body: String) -> Result<Vec<String>, String> {
+fn apply_selector(css: &Option<CssSelector>, body: &String) -> Result<Vec<String>, String> {
     match css {
         Some(css) => {
             let sel = scraper::Selector::parse(css.name.as_str());

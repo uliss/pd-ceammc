@@ -20,6 +20,8 @@ enum class ceammc_http_client_param_type {
     Mime,
     /// username/password
     BasicAuth,
+    /// strip whitespaces
+    StripWhiteSpaces,
 };
 
 enum class ceammc_mqtt_qos {

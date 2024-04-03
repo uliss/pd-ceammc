@@ -221,6 +221,9 @@ bool NetHttpClient::processParams(const AtomListView& lv, std::vector<ceammc_htt
 
             params.push_back({ css->s_name, output->s_name, ceammc_http_client_param_type::Selector });
         } break;
+        case "@strip_ws"_hash: {
+            params.push_back({ "", "", ceammc_http_client_param_type::StripWhiteSpaces });
+        } break;
         default:
             break;
         }

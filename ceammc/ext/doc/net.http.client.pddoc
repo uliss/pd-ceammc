@@ -28,6 +28,7 @@
             where OUTPUT_TYPE is one of: 'html', 'inner', 'text', 'none'. 'html' - returns selected elenent HTML content,
             'inner' - returns inner HTML content, without element surrounding tags, 'text' returns element text without tags,
             'none' - returns empty string</param>
+            <param name="@strip_ws" type="symbol" required="false">replace multiple whitespaces/newlines/tabs with single space</param>
             </method>
         </methods>
         <inlets>
@@ -42,14 +43,9 @@
         <example>
             <pdascii>
 <![CDATA[
-[get https://puredata.info/ @css h2 text(
+[get http://puredata.info/ @css title text @strip_ws(
 |
 | [get https://github.com/uliss/pd-ceammc/releases @css a.Link--primary.Link html #a(
-|
-|
-|
-| [get http://google.com #b(
-|
 |
 |
 |

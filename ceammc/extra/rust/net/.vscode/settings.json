@@ -6,6 +6,7 @@
         "mqttoptions",
         "nonblocking",
         "oneshot",
+        "perc",
         "reqwest",
         "rumqttc",
         "Tele",
