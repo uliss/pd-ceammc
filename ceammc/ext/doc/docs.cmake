@@ -566,6 +566,7 @@ set(DOC_FILES
     music.voice2midi
     net.artnet.send
     net.host2ip
+    net.http.client
     net.http.send
     net.mdns
     net.mqtt.client

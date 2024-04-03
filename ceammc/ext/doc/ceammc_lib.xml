@@ -1750,6 +1750,9 @@
     <entry name="net.host2ip" descr="returns IP address by DNS name" ref_view="object">
       <xi:include href="net.host2ip.pddoc" parse="xml"/>
     </entry>
+    <entry name="net.http.client" descr="HTTP client" ref_view="object">
+      <xi:include href="net.http.client.pddoc" parse="xml"/>
+    </entry>
     <entry name="net.http.send" descr="HTTP request sender" ref_view="object">
       <xi:include href="net.http.send.pddoc" parse="xml"/>
     </entry>
