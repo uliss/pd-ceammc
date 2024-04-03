@@ -77,6 +77,8 @@ struct ceammc_http_client;
 
 struct ceammc_mqtt_client;
 
+struct ceammc_telegram_bot_client;
+
 struct ceammc_ws_client;
 
 struct ceammc_ws_server;
@@ -137,6 +139,21 @@ struct ceammc_mqtt_client_result_cb {
     void (*conn_cb)(void *user, ceammc_mqtt_rc code);
     /// publish callback function (can be NULL)
     void (*pub_cb)(void *user, const char *topic, const uint8_t *data, size_t data_len, ceammc_mqtt_qos qos, bool retain, uint16_t pkid);
+};
+
+struct ceammc_telegram_bot_init {
+    const char *token;
+};
+
+struct ceammc_telegram_bot_result_cb {
+    /// user data pointer (can be NULL)
+    void *user;
+    /// connection callback function (can be NULL)
+    void (*whoami_cb)(void *user, uint64_t user_id, const char *username);
+    /// text callback function (can be NULL)
+    void (*text_cb)(void *user, int64_t chat_id, int32_t msg_id, const char *text);
+    /// location callback function (can be NULL)
+    void (*loc_cb)(void *user, int64_t chat_id, double latitude, double longitude);
 };
 
 struct ceammc_ws_callback_text {
@@ -320,6 +337,38 @@ bool ceammc_mqtt_client_subscribe(ceammc_mqtt_client *cli, const char *topic, ce
 /// @param topic - mqtt topic
 /// @return true on success
 bool ceammc_mqtt_client_unsubscribe(ceammc_mqtt_client *cli, const char *topic);
+
+/// free telegram bot
+void ceammc_telegram_bot_free(ceammc_telegram_bot_client *cli);
+
+/// logout telegram bot
+/// @param cli - pointer to telegram bot
+bool ceammc_telegram_bot_logout(ceammc_telegram_bot_client *cli);
+
+/// create new telegram bot
+ceammc_telegram_bot_client *ceammc_telegram_bot_new(ceammc_telegram_bot_init params,
+                                                    ceammc_callback_msg cb_err,
+                                                    ceammc_callback_msg cb_post,
+                                                    ceammc_callback_msg cb_debug,
+                                                    ceammc_callback_msg cb_log,
+                                                    ceammc_callback_progress _cb_progress,
+                                                    ceammc_telegram_bot_result_cb cb_reply,
+                                                    ceammc_callback_notify cb_notify);
+
+/// process telegram results
+/// @param cli - pointer to telegram bot
+bool ceammc_telegram_bot_process(ceammc_telegram_bot_client *cli);
+
+/// send text message from telegram bot
+/// @param cli - pointer to telegram bot
+bool ceammc_telegram_bot_send_message(ceammc_telegram_bot_client *cli,
+                                      int64_t chat_id,
+                                      int32_t msg_id,
+                                      const char *text);
+
+/// send text message from telegram bot
+/// @param cli - pointer to telegram bot
+bool ceammc_telegram_bot_whoami(ceammc_telegram_bot_client *cli);
 
 /// close client connection
 /// @param cli - pointer to websocket client
