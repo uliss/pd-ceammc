@@ -19,6 +19,18 @@ else()
     target_sources(ceammc_net PRIVATE net_mqtt.cpp)
 endif()
 
+if(WITH_TELEGRAM)
+    target_sources(ceammc_net PRIVATE net_telegram_bot.cpp)
+    target_include_directories(ceammc_net PRIVATE
+        PRIVATE
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
+    )
+    target_link_libraries(ceammc_net PRIVATE net_rust)
+    target_compile_definitions(ceammc_net PRIVATE WITH_TELEGRAM)
+else()
+    target_sources(ceammc_net PRIVATE net_telegram_bot.cpp)
+endif()
+
 # libartnet
 if(WITH_ARTNET)
     target_compile_definitions(ceammc_net PRIVATE WITH_ARTNET)
