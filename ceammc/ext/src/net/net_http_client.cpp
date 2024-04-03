@@ -62,7 +62,8 @@ void NetHttpClient::m_get(t_symbol* s, const AtomListView& lv)
     auto url = lv.symbolAt(0, &s_)->s_name;
 
     std::vector<ceammc_http_client_param> params;
-    processParams(lv.subView(1), params);
+    if (!processParams(lv.subView(1), params))
+        return;
 
     if (!ceammc_http_client_get(srv_.handle(), url, params.data(), params.size()))
         OBJ_ERR << "can't make request";
@@ -113,20 +114,24 @@ bool NetHttpClient::notify(int code)
     return true;
 }
 
-void NetHttpClient::processParams(const AtomListView& lv, std::vector<ceammc_http_client_param>& params)
+bool NetHttpClient::processParams(const AtomListView& lv, std::vector<ceammc_http_client_param>& params) const
 {
-    list::foreachProperty(lv, [&params, this](t_symbol* key, const AtomListView& lv) {
+    bool no_err = true;
+
+    list::foreachProperty(lv, [&params, &no_err, this](t_symbol* key, const AtomListView& lv) {
         switch (crc32_hash(key)) {
         case "@form"_hash: {
             auto k = lv.symbolAt(0, &s_);
             auto v = lv.symbolAt(1, &s_);
             if (k == &s_) {
                 OBJ_ERR << "invalid form key: " << lv.atomAt(0, &s_);
+                no_err = false;
                 return;
             }
 
             if (v == &s_) {
                 OBJ_ERR << "invalid form key value: " << lv.atomAt(1, &s_);
+                no_err = false;
                 return;
             }
 
@@ -136,6 +141,7 @@ void NetHttpClient::processParams(const AtomListView& lv, std::vector<ceammc_htt
             auto mime = lv.symbolAt(0, &s_);
             if (mime == &s_) {
                 OBJ_ERR << "invalid mime type: " << lv.atomAt(0, &s_);
+                no_err = false;
                 return;
             }
 
@@ -146,11 +152,13 @@ void NetHttpClient::processParams(const AtomListView& lv, std::vector<ceammc_htt
             auto v = lv.symbolAt(1, &s_);
             if (k == &s_) {
                 OBJ_ERR << "invalid multipart form key: " << lv.atomAt(0, &s_);
+                no_err = false;
                 return;
             }
 
             if (v == &s_) {
                 OBJ_ERR << "invalid multipart form key value: " << lv.atomAt(1, &s_);
+                no_err = false;
                 return;
             }
 
@@ -161,11 +169,13 @@ void NetHttpClient::processParams(const AtomListView& lv, std::vector<ceammc_htt
             auto v = lv.symbolAt(1, &s_);
             if (k == &s_) {
                 OBJ_ERR << "invalid header key: " << lv.atomAt(0, &s_);
+                no_err = false;
                 return;
             }
 
             if (v == &s_) {
                 OBJ_ERR << "invalid header value: " << lv.atomAt(1, &s_);
+                no_err = false;
                 return;
             }
 
@@ -176,11 +186,13 @@ void NetHttpClient::processParams(const AtomListView& lv, std::vector<ceammc_htt
             auto pass = lv.symbolAt(1, &s_);
             if (name == &s_) {
                 OBJ_ERR << "invalid username: " << lv.atomAt(0, &s_);
+                no_err = false;
                 return;
             }
 
             if (pass == &s_) {
                 OBJ_ERR << "invalid password: " << lv.atomAt(1, &s_);
+                no_err = false;
                 return;
             }
 
@@ -191,6 +203,7 @@ void NetHttpClient::processParams(const AtomListView& lv, std::vector<ceammc_htt
             auto output = lv.symbolAt(1, &s_);
             if (css == &s_) {
                 OBJ_ERR << "invalid CSS selector name: " << lv.atomAt(0, &s_);
+                no_err = false;
                 return;
             }
 
@@ -202,6 +215,7 @@ void NetHttpClient::processParams(const AtomListView& lv, std::vector<ceammc_htt
                 break;
             default:
                 OBJ_ERR << "invalid output value: " << lv.atomAt(1, &s_) << ", expected: html|inner|text|none";
+                no_err = false;
                 return;
             }
 
@@ -211,6 +225,8 @@ void NetHttpClient::processParams(const AtomListView& lv, std::vector<ceammc_htt
             break;
         }
     });
+
+    return no_err;
 }
 
 void setup_net_http_client()

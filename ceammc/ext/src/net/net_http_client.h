@@ -22,7 +22,7 @@ public:
     bool notify(int code) final;
 
 private:
-    void processParams(const AtomListView& lv, std::vector<ceammc_http_client_param>& params);
+    bool processParams(const AtomListView& lv, std::vector<ceammc_http_client_param>& params) const;
 };
 
 void setup_net_http_client();
