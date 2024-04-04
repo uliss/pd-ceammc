@@ -59,6 +59,7 @@ fn parse_client_options(params: Option<&http_client_param>, len: usize) -> HttpC
                             "inner" => http_client_select_type::InnerHtml,
                             "text" => http_client_select_type::Text,
                             "html" => http_client_select_type::Html,
+                            "href" => http_client_select_type::Href,
                             "none" => http_client_select_type::None,
                             _ => http_client_select_type::Html,
                         },
@@ -112,6 +113,8 @@ pub enum http_client_select_type {
     InnerHtml,
     /// returns trimmed text of selected element
     Text,
+    /// returns href attribute of selected element
+    Href,
 }
 
 #[derive(Debug)]
@@ -773,6 +776,7 @@ fn apply_selector(css: &Option<CssSelector>, body: &String) -> Result<Vec<String
                             http_client_select_type::None => String::default(),
                             http_client_select_type::Text => x.text().collect(),
                             http_client_select_type::Html => x.html(),
+                            http_client_select_type::Href => x.attr("href").unwrap_or_default().to_owned(),
                             http_client_select_type::InnerHtml => x.inner_html(),
                         })
                         .map(|x| x.trim().to_owned())

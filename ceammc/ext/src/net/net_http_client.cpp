@@ -211,6 +211,7 @@ bool NetHttpClient::processParams(const AtomListView& lv, std::vector<ceammc_htt
             case "inner"_hash:
             case "html"_hash:
             case "text"_hash:
+            case "href"_hash:
             case "none"_hash:
                 break;
             default:

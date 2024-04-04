@@ -25,8 +25,9 @@
             For application/x-www-form-urlencoded MIME type.</param>
             <param name="@auth" type="list" required="false">basic auth username/password: @auth user pass</param>
             <param name="@css" type="list" required="false">apply CSS selector to the request body: @css SEL OUTPUT_TYPE,
-            where OUTPUT_TYPE is one of: 'html', 'inner', 'text', 'none'. 'html' - returns selected elenent HTML content,
+            where OUTPUT_TYPE is one of: 'html', 'inner', 'text', 'href', 'none'. 'html' - returns selected elenent HTML content,
             'inner' - returns inner HTML content, without element surrounding tags, 'text' returns element text without tags,
+            'href' - return href attribute of selected element,
             'none' - returns empty string</param>
             <param name="@strip_ws" type="symbol" required="false">replace multiple whitespaces/newlines/tabs with single space</param>
             </method>
@@ -45,7 +46,7 @@
 <![CDATA[
 [get http://puredata.info/ @css title text @strip_ws(
 |
-| [get https://github.com/uliss/pd-ceammc/releases @css a.Link--primary.Link html #a(
+| [get https://github.com/uliss/pd-ceammc/releases @css a\[href$=".dmg"\] href #a(
 |
 |
 |
