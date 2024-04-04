@@ -63,8 +63,17 @@ target_include_directories(ceammc_net
 )
 
 # http
-target_sources(ceammc_net PRIVATE net_http_send.cpp net_http_client.cpp)
-target_link_libraries(ceammc_net PRIVATE http_lib)
+if(WITH_HTTP)
+    target_compile_definitions(ceammc_net PRIVATE WITH_HTTP)
+    target_sources(ceammc_net PRIVATE net_http_send.cpp net_http_client.cpp)
+    target_link_libraries(ceammc_net PRIVATE http_lib net_rust)
+    target_include_directories(ceammc_net
+        PRIVATE
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
+        )
+else()
+    target_sources(ceammc_net PRIVATE net_http_send.cpp net_http_client.cpp)
+endif()
 
 # MDNS
 target_sources(ceammc_net PRIVATE net_mdns.cpp)

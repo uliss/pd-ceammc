@@ -68,6 +68,7 @@ message(STATUS "       artnet:         ${WITH_ARTNET} (WITH_ARTNET=${WITH_ARTNET
 message(STATUS "       fftw3:          ${WITH_FFTW} (WITH_FFTW=${WITH_FFTW})")
 message(STATUS "       flite:          ${WITH_TTS_FLITE} (WITH_TTS_FLITE=${WITH_TTS_FLITE})")
 message(STATUS "       gamepad:        ${WITH_GAMEPAD} (WITH_GAMEPAD=${WITH_GAMEPAD})")
+message(STATUS "       http:           ${WITH_HTTP} (WITH_HTTP=${WITH_HTTP})")
 message(STATUS "       libsamplerate:  ${WITH_LIBSAMPLERATE} (WITH_LIBSAMPLERATE=${WITH_LIBSAMPLERATE})")
 message(STATUS "       libsndfile:     ${LIBSNDFILE_FOUND}")
 message(STATUS "       libusb:         ${LIBUSB_1_FOUND}")

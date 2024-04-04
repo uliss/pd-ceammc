@@ -1,3 +1,9 @@
+#ifndef WITH_HTTP
+#include "ceammc_stub.h"
+CONTROL_OBJECT_STUB(NetHttpClient, 1, 2, "compiled without http support");
+OBJECT_STUB_SETUP(NetHttpClient, net_http_client, "net.http.client", "http.client");
+#else
+
 #include "net_http_client.h"
 #include "args/argcheck2.h"
 #include "ceammc_crc32.h"
@@ -245,3 +251,5 @@ void setup_net_http_client()
 
     obj.setXletsInfo({ "get, post, upload, select" }, { "int: status code", "data:string: response body" });
 }
+
+#endif

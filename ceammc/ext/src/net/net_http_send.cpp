@@ -1,3 +1,9 @@
+#ifndef WITH_HTTP
+#include "ceammc_stub.h"
+CONTROL_OBJECT_STUB(NetHttpSend, 1, 2, "compiled without http support");
+OBJECT_STUB_SETUP(NetHttpSend, net_http_send, "net.http.send", "http.send");
+#else
+
 #include "net_http_send.h"
 #include "ceammc_data.h"
 #include "ceammc_factory.h"
@@ -104,11 +110,14 @@ void NetHttpSend::m_get(t_symbol* s, const AtomListView& lv)
 
 void setup_net_http_send()
 {
-    LIB_DBG << "httplib-cpp version: " << CPPHTTPLIB_VERSION;
+    // LIB_DBG << "httplib-cpp version: " << CPPHTTPLIB_VERSION;
 
     ObjectFactory<NetHttpSend> obj("net.http.send");
     obj.addAlias("http.send");
     obj.addMethod("get", &NetHttpSend::m_get);
+    obj.setDeprecated();
+    obj.setUseInstead("net.http.client");
 
     obj.setXletsInfo({ "get" }, { "int: status code", "data:string: respone body" });
 }
+#endif
