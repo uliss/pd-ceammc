@@ -31,15 +31,13 @@ public:
     void m_connect(t_symbol* s, const AtomListView& lv);
     void m_send_text(t_symbol* s, const AtomListView& lv);
     void m_whoami(t_symbol* s, const AtomListView& lv);
-    //    void m_subscribe(t_symbol* s, const AtomListView& lv);
-    //    void m_unsubscribe(t_symbol* s, const AtomListView& lv);
-    //    void m_publish(t_symbol* s, const AtomListView& lv);
 
     bool notify(int code) final;
 
 private:
     void processText(const char* msg, int32_t msg_id, int64_t chat_id);
     void processLocation(int64_t chat_id, double latitude, double longitude);
+    void processSticker(int64_t chat_id, const char* file_id, const char* emoji);
 };
 
 void setup_net_telegram_bot();

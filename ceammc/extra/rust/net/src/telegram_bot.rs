@@ -28,6 +28,7 @@ pub enum TeleReply {
     Whoami(User),
     Text(i64, i32, String),
     Location(i64, Location),
+    Sticker(i64, String, String),
     Audio,
     Photo,
 }
@@ -57,6 +58,8 @@ pub struct telegram_bot_result_cb {
     loc_cb: Option<
         extern "C" fn(user: *mut c_void, chat_id: i64, latitude: c_double, longitude: c_double),
     >,
+    /// sticker callback function (can be NULL)
+    sti_cb: Option<extern "C" fn(user: *mut c_void, chat_id: i64, file_id: *const c_char, emoji: *const c_char)>,
 }
 
 impl ServiceCallback<TeleReply> for telegram_bot_result_cb {
@@ -76,6 +79,13 @@ impl ServiceCallback<TeleReply> for telegram_bot_result_cb {
             TeleReply::Location(chat_id, location) => {
                 self.loc_cb
                     .map(|f| f(self.user, *chat_id, location.latitude, location.longitude));
+            }
+            TeleReply::Sticker(chat_id, file_id, emoji) => {
+                let file_id = CString::new(file_id.clone()).unwrap_or_default();
+                let emoji = CString::new(emoji.clone()).unwrap_or_default();
+
+                self.sti_cb
+                    .map(|f| f(self.user, *chat_id, file_id.as_ptr(), emoji.as_ptr()));
             }
         }
     }
@@ -205,9 +215,30 @@ pub extern "C" fn ceammc_telegram_bot_new(
                         TeleReply::Text(msg.chat.id, msg.message_id, text.clone()),
                     )
                     .await;
-                } else if let Some(location) = &msg.location {
+                }
+
+                if let Some(location) = &msg.location {
                     eprintln!("location {location:?} from #{:X}", msg.chat.id);
-                    send_reply(&cb_notify, &rep_tx, TeleReply::Location(msg.chat.id, **location)).await;
+                    send_reply(
+                        &cb_notify,
+                        &rep_tx,
+                        TeleReply::Location(msg.chat.id, **location),
+                    )
+                    .await;
+                }
+
+                if let Some(sticker) = &msg.sticker {
+                    eprintln!("sticker {sticker:?} from #{:X}", msg.chat.id);
+                    send_reply(
+                        &cb_notify,
+                        &rep_tx,
+                        TeleReply::Sticker(
+                            msg.chat.id,
+                            sticker.file_id.clone(),
+                            sticker.emoji.clone().unwrap_or_default(),
+                        ),
+                    )
+                    .await;
                 }
             }
             // UpdateContent::EditedMessage(_) => todo!(),
@@ -253,16 +284,6 @@ pub extern "C" fn ceammc_telegram_bot_new(
                                     return ();
                                 }
                             },
-                            // val = api.get_me() => {
-                            //     match val {
-                            //         Ok(response) => {
-                            //             send_reply(&cb_notify, &rep_tx, TeleReply::Connected(response.result)).await;
-                            //         }
-                            //         Err(err) => {
-                            //             send_error(&cb_notify, &rep_tx, format!("connection error: {err}")).await;
-                            //         }
-                            //     }
-                            // },
                             // process telegram events
                             val = api.get_updates(&update_params) => {
                                 match val {

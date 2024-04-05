@@ -21,8 +21,15 @@ OBJECT_STUB_SETUP(NetTelegramBot, net_telegram_bot, "net.telegram.bot");
 
 #include "args/argcheck2.h"
 #include "ceammc_containers.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
+
+CEAMMC_DEFINE_SYM(text)
+CEAMMC_DEFINE_SYM(location)
+CEAMMC_DEFINE_SYM(sticker)
+
+// CEAMMC_DEFINE_SYM(text)
 
 NetTelegramBot::NetTelegramBot(const PdArgs& args)
     : BaseTelegramBot(args)
@@ -62,6 +69,11 @@ void NetTelegramBot::m_connect(t_symbol* s, const AtomListView& lv)
                 auto this_ = static_cast<NetTelegramBot*>(user);
                 if (this_)
                     this_->processLocation(chat_id, latitude, longitude);
+            },
+            [](void* user, std::int64_t chat_id, const char* file_id, const char* emoji) {
+                auto this_ = static_cast<NetTelegramBot*>(user);
+                if (this_)
+                    this_->processSticker(chat_id, file_id, emoji);
             } },
         ceammc_callback_notify { reinterpret_cast<size_t>(this), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } })
         //
@@ -116,7 +128,7 @@ void NetTelegramBot::processText(const char* msg, int32_t msg_id, int64_t chat_i
     } else {
         AtomList res { sym_chat_id };
         res.append(AtomList::parseString(msg));
-        anyTo(0, gensym("text"), res);
+        anyTo(0, sym_text(), res);
     }
 }
 
@@ -124,7 +136,12 @@ void NetTelegramBot::processLocation(int64_t chat_id, double latitude, double lo
 {
     auto sym_chat_id = gensym(fmt::format("#{:X}", chat_id).c_str());
     AtomArray<3> data { sym_chat_id, latitude, longitude };
-    anyTo(0, gensym("location"), data.view());
+    anyTo(0, sym_location(), data.view());
+}
+
+void NetTelegramBot::processSticker(int64_t chat_id, const char* /*file_id*/, const char* emoji)
+{
+    anyTo(0, sym_sticker(), gensym(emoji));
 }
 
 void setup_net_telegram_bot()

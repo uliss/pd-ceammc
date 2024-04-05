@@ -157,6 +157,8 @@ struct ceammc_telegram_bot_result_cb {
     void (*text_cb)(void *user, int64_t chat_id, int32_t msg_id, const char *text);
     /// location callback function (can be NULL)
     void (*loc_cb)(void *user, int64_t chat_id, double latitude, double longitude);
+    /// sticker callback function (can be NULL)
+    void (*sti_cb)(void *user, int64_t chat_id, const char *file_id, const char *emoji);
 };
 
 struct ceammc_ws_callback_text {
