@@ -29,6 +29,8 @@ public:
     NetTelegramBot(const PdArgs& args);
 
     void m_connect(t_symbol* s, const AtomListView& lv);
+    void m_get_file(t_symbol* s, const AtomListView& lv);
+    void m_send_audio(t_symbol* s, const AtomListView& lv);
     void m_send_text(t_symbol* s, const AtomListView& lv);
     void m_whoami(t_symbol* s, const AtomListView& lv);
 
@@ -38,6 +40,12 @@ private:
     void processText(const char* msg, int32_t msg_id, int64_t chat_id);
     void processLocation(int64_t chat_id, double latitude, double longitude);
     void processSticker(int64_t chat_id, const char* file_id, const char* emoji);
+    void processVoice(std::int64_t chat_id,
+        const char* file_id,
+        const char* file_unique_id,
+        const char* mime,
+        std::uint32_t duration,
+        std::uint64_t file_size);
 };
 
 void setup_net_telegram_bot();

@@ -1,5 +1,5 @@
 use frankenstein::{
-    AsyncApi, AsyncTelegramApi, GetUpdatesParams, Location, SendMessageParams, UpdateContent, User,
+    AsyncApi, AsyncTelegramApi, GetFileParams, GetUpdatesParams, Location, SendAudioParams, SendMessageParams, UpdateContent, User, Voice
 };
 
 use crate::service::*;
@@ -19,6 +19,8 @@ pub struct telegram_bot_init {
 
 enum TeleRequest {
     SendText(i64, i32, String),
+    SendAudio(i64, String),
+    GetFile(String),
     Whoami,
     Logout,
     Quit,
@@ -29,6 +31,7 @@ pub enum TeleReply {
     Text(i64, i32, String),
     Location(i64, Location),
     Sticker(i64, String, String),
+    Voice(i64, Voice),
     Audio,
     Photo,
 }
@@ -59,7 +62,26 @@ pub struct telegram_bot_result_cb {
         extern "C" fn(user: *mut c_void, chat_id: i64, latitude: c_double, longitude: c_double),
     >,
     /// sticker callback function (can be NULL)
-    sti_cb: Option<extern "C" fn(user: *mut c_void, chat_id: i64, file_id: *const c_char, emoji: *const c_char)>,
+    sti_cb: Option<
+        extern "C" fn(
+            user: *mut c_void,
+            chat_id: i64,
+            file_id: *const c_char,
+            emoji: *const c_char,
+        ),
+    >,
+    /// voice callback function (can be NULL)
+    voice_cb: Option<
+        extern "C" fn(
+            user: *mut c_void,
+            chat_id: i64,
+            file_id: *const c_char,
+            file_unique_id: *const c_char,
+            mime: *const c_char,
+            file_duration: u32,
+            file_size: u64,
+        ),
+    >,
 }
 
 impl ServiceCallback<TeleReply> for telegram_bot_result_cb {
@@ -86,6 +108,24 @@ impl ServiceCallback<TeleReply> for telegram_bot_result_cb {
 
                 self.sti_cb
                     .map(|f| f(self.user, *chat_id, file_id.as_ptr(), emoji.as_ptr()));
+            }
+            TeleReply::Voice(chat_id, voice) => {
+                let file_id = CString::new(voice.file_id.clone()).unwrap_or_default();
+                let file_unique_id = CString::new(voice.file_unique_id.clone()).unwrap_or_default();
+                let mime_type =
+                    CString::new(voice.mime_type.clone().unwrap_or_default()).unwrap_or_default();
+
+                self.voice_cb.map(|f| {
+                    f(
+                        self.user,
+                        *chat_id,
+                        file_id.as_ptr(),
+                        file_unique_id.as_ptr(),
+                        mime_type.as_ptr(),
+                        voice.duration,
+                        voice.file_size.unwrap_or_default(),
+                    )
+                });
             }
         }
     }
@@ -174,6 +214,55 @@ pub extern "C" fn ceammc_telegram_bot_new(
                         }
                         true
                     }
+                    TeleRequest::GetFile(file_id) => {
+                        let params = GetFileParams::builder().file_id(file_id).build();
+
+                        match api.get_file(&params).await {
+                            Ok(m) => {
+                                if m.ok {
+                                    eprintln!(
+                                        "{} {:?} {:?} {} ",
+                                        m.result.file_id,
+                                        m.result.file_path,
+                                        m.result.file_size,
+                                        m.result.file_unique_id
+                                    );
+
+                                    // writing to a custom file
+                                    // with open("custom/file.doc", 'wb') as f:
+                                        // context.bot.get_file(update.message.document).download(out=f)
+                                } else {
+                                    send_error(&cb_notify, &rep_tx, format!("can't get file"))
+                                        .await;
+                                }
+                            }
+                            Err(err) => {
+                                send_error(&cb_notify, &rep_tx, format!("get file error: {err}"))
+                                    .await;
+                            }
+                        }
+                        true
+                    }
+                    TeleRequest::SendAudio(chat_id, file_path) => {
+                        let file = std::path::PathBuf::from(file_path);
+                        let params = SendAudioParams::builder().chat_id(chat_id).audio(file).build();
+
+                        match api.send_audio(&params).await {
+                            Ok(m) => {
+                                if m.ok {
+                                   
+                                } else {
+                                    send_error(&cb_notify, &rep_tx, format!("can't send audio"))
+                                        .await;
+                                }
+                            }
+                            Err(err) => {
+                                send_error(&cb_notify, &rep_tx, format!("send audio error: {err}"))
+                                    .await;
+                            }
+                        }
+                        true
+                    }
                     TeleRequest::Whoami => {
                         match api.get_me().await {
                             Ok(user) => {
@@ -237,6 +326,16 @@ pub extern "C" fn ceammc_telegram_bot_new(
                             sticker.file_id.clone(),
                             sticker.emoji.clone().unwrap_or_default(),
                         ),
+                    )
+                    .await;
+                }
+
+                if let Some(voice) = &msg.voice {
+                    eprintln!("voice {voice:?} from #{:X}", msg.chat.id);
+                    send_reply(
+                        &cb_notify,
+                        &rep_tx,
+                        TeleReply::Voice(msg.chat.id, *voice.clone()),
                     )
                     .await;
                 }
@@ -404,3 +503,53 @@ pub extern "C" fn ceammc_telegram_bot_whoami(cli: *mut telegram_bot_client) -> b
 
     return cli.cli.send_request(TeleRequest::Whoami);
 }
+
+#[no_mangle]
+/// get file from telegram bot
+/// @param cli - pointer to telegram bot
+pub extern "C" fn ceammc_telegram_bot_getfile(
+    cli: *mut telegram_bot_client,
+    file_id: *const c_char,
+) -> bool {
+    if cli.is_null() {
+        return false;
+    }
+    let cli = unsafe { &*cli };
+
+    if file_id.is_null() {
+        cli.cli.on_error("NULL file id");
+        return false;
+    }
+    let file_id = unsafe { CStr::from_ptr(file_id) }
+        .to_str()
+        .unwrap_or_default()
+        .to_owned();
+
+    return cli.cli.send_request(TeleRequest::GetFile(file_id));
+}
+
+#[no_mangle]
+/// send audio from telegram bot
+/// @param cli - pointer to telegram bot
+pub extern "C" fn ceammc_telegram_bot_send_audio(
+    cli: *mut telegram_bot_client,
+    chat_id: i64,
+    file: *const c_char,
+) -> bool {
+    if cli.is_null() {
+        return false;
+    }
+    let cli = unsafe { &*cli };
+
+    if file.is_null() {
+        cli.cli.on_error("NULL file");
+        return false;
+    }
+    let file = unsafe { CStr::from_ptr(file) }
+        .to_str()
+        .unwrap_or_default()
+        .to_owned();
+
+    return cli.cli.send_request(TeleRequest::SendAudio(chat_id, file));
+}
+

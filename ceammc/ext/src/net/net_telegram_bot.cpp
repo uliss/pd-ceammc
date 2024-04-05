@@ -74,6 +74,18 @@ void NetTelegramBot::m_connect(t_symbol* s, const AtomListView& lv)
                 auto this_ = static_cast<NetTelegramBot*>(user);
                 if (this_)
                     this_->processSticker(chat_id, file_id, emoji);
+            },
+            [](void* user,
+                std::int64_t chat_id,
+                const char* file_id,
+                const char* file_unique_id,
+                const char* mime,
+                std::uint32_t duration,
+                std::uint64_t file_size) //
+            {
+                auto this_ = static_cast<NetTelegramBot*>(user);
+                if (this_)
+                    this_->processVoice(chat_id, file_id, file_unique_id, mime, duration, file_size);
             } },
         ceammc_callback_notify { reinterpret_cast<size_t>(this), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } })
         //
@@ -81,6 +93,41 @@ void NetTelegramBot::m_connect(t_symbol* s, const AtomListView& lv)
 
     cli_->setErrorCallback([this](const char* msg) { OBJ_ERR << msg; });
     cli_->setDebugCallback([this](const char* msg) { OBJ_DBG << msg; });
+}
+
+void NetTelegramBot::m_get_file(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("FILE_ID:s");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    if (!cli_) {
+        METHOD_ERR(s) << "not connected";
+        return;
+    }
+
+    ceammc_telegram_bot_getfile(cli_->handle(), lv.symbolAt(0, &s_)->s_name);
+}
+
+void NetTelegramBot::m_send_audio(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("CHAT_ID:s FILE:s");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    if (!cli_) {
+        METHOD_ERR(s) << "not connected";
+        return;
+    }
+
+    auto schat_id = lv.symbolAt(0, &s_)->s_name;
+    if (schat_id[0] != '#') {
+        METHOD_ERR(s) << fmt::format("chat_id expected to start with #, got: '{}'", schat_id);
+        return;
+    }
+    auto chat_id = std::stoull(schat_id + 1, nullptr, 16);
+
+    ceammc_telegram_bot_send_audio(cli_->handle(), chat_id, lv.symbolAt(1, &s_)->s_name);
 }
 
 void NetTelegramBot::m_send_text(t_symbol* s, const AtomListView& lv)
@@ -101,8 +148,7 @@ void NetTelegramBot::m_send_text(t_symbol* s, const AtomListView& lv)
     }
     auto chat_id = std::stoull(schat_id + 1, nullptr, 16);
 
-    if (cli_)
-        ceammc_telegram_bot_send_message(cli_->handle(), chat_id, -1, to_string(lv.subView(1)).c_str());
+    ceammc_telegram_bot_send_message(cli_->handle(), chat_id, -1, to_string(lv.subView(1)).c_str());
 }
 
 void NetTelegramBot::m_whoami(t_symbol* s, const AtomListView& lv)
@@ -144,10 +190,23 @@ void NetTelegramBot::processSticker(int64_t chat_id, const char* /*file_id*/, co
     anyTo(0, sym_sticker(), gensym(emoji));
 }
 
+void NetTelegramBot::processVoice(std::int64_t chat_id,
+    const char* file_id,
+    const char* file_unique_id,
+    const char* mime,
+    std::uint32_t duration,
+    std::uint64_t file_size)
+{
+    OBJ_DBG << fmt::format("chat: {}, file_id: {}, unique_id: {}, mime: {}, duration: {}, file_size: {}",
+        chat_id, file_id, file_unique_id, mime, duration, file_size);
+}
+
 void setup_net_telegram_bot()
 {
     ObjectFactory<NetTelegramBot> obj("net.telegram.bot");
     obj.addMethod("connect", &NetTelegramBot::m_connect);
+    obj.addMethod("get_file", &NetTelegramBot::m_get_file);
+    obj.addMethod("send_audio", &NetTelegramBot::m_send_audio);
     obj.addMethod("send_text", &NetTelegramBot::m_send_text);
     obj.addMethod("whoami", &NetTelegramBot::m_whoami);
 }

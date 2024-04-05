@@ -159,6 +159,8 @@ struct ceammc_telegram_bot_result_cb {
     void (*loc_cb)(void *user, int64_t chat_id, double latitude, double longitude);
     /// sticker callback function (can be NULL)
     void (*sti_cb)(void *user, int64_t chat_id, const char *file_id, const char *emoji);
+    /// voice callback function (can be NULL)
+    void (*voice_cb)(void *user, int64_t chat_id, const char *file_id, const char *file_unique_id, const char *mime, uint32_t file_duration, uint64_t file_size);
 };
 
 struct ceammc_ws_callback_text {
@@ -347,6 +349,10 @@ bool ceammc_mqtt_client_unsubscribe(ceammc_mqtt_client *cli, const char *topic);
 /// @param cli - pointer to telegram bot
 void ceammc_telegram_bot_free(ceammc_telegram_bot_client *cli);
 
+/// get file from telegram bot
+/// @param cli - pointer to telegram bot
+bool ceammc_telegram_bot_getfile(ceammc_telegram_bot_client *cli, const char *file_id);
+
 /// logout telegram bot
 /// @param cli - pointer to telegram bot
 bool ceammc_telegram_bot_logout(ceammc_telegram_bot_client *cli);
@@ -373,6 +379,12 @@ ceammc_telegram_bot_client *ceammc_telegram_bot_new(ceammc_telegram_bot_init par
 /// process telegram events
 /// @param cli - pointer to telegram bot
 bool ceammc_telegram_bot_process(ceammc_telegram_bot_client *cli);
+
+/// send audio from telegram bot
+/// @param cli - pointer to telegram bot
+bool ceammc_telegram_bot_send_audio(ceammc_telegram_bot_client *cli,
+                                    int64_t chat_id,
+                                    const char *file);
 
 /// send text message from telegram bot
 /// @param cli - pointer to telegram bot
