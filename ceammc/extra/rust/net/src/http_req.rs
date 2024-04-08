@@ -776,7 +776,9 @@ fn apply_selector(css: &Option<CssSelector>, body: &String) -> Result<Vec<String
                             http_client_select_type::None => String::default(),
                             http_client_select_type::Text => x.text().collect(),
                             http_client_select_type::Html => x.html(),
-                            http_client_select_type::Href => x.attr("href").unwrap_or_default().to_owned(),
+                            http_client_select_type::Href => {
+                                x.attr("href").unwrap_or_default().to_owned()
+                            }
                             http_client_select_type::InnerHtml => x.inner_html(),
                         })
                         .map(|x| x.trim().to_owned())
