@@ -32,6 +32,7 @@ public:
     void m_get_file(t_symbol* s, const AtomListView& lv);
     void m_send_audio(t_symbol* s, const AtomListView& lv);
     void m_send_text(t_symbol* s, const AtomListView& lv);
+    void m_send_voice(t_symbol* s, const AtomListView& lv);
     void m_whoami(t_symbol* s, const AtomListView& lv);
 
     bool notify(int code) final;
@@ -46,6 +47,14 @@ private:
         const char* mime,
         std::uint32_t duration,
         std::uint64_t file_size);
+    void processAudio(std::int64_t chat_id,
+        const char* file_id,
+        const char* file_unique_id,
+        const char* mime,
+        const char* filename,
+        std::uint32_t duration,
+        std::uint64_t file_size,
+        const char* title);
 };
 
 void setup_net_telegram_bot();

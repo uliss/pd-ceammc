@@ -1,12 +1,16 @@
 use frankenstein::{
-    AsyncApi, AsyncTelegramApi, GetFileParams, GetUpdatesParams, Location, SendAudioParams, SendMessageParams, UpdateContent, User, Voice
+    AsyncApi, AsyncTelegramApi, Audio, GetFileParams, GetUpdatesParams, Location, SendAudioParams,
+    SendMessageParams, SendVoiceParams, UpdateContent, User, Voice,
 };
+use tokio::io::AsyncWriteExt;
+use url::Url;
 
 use crate::service::*;
 
 use std::{
     ffi::{CStr, CString},
     os::raw::{c_char, c_double, c_void},
+    path::Path,
     ptr::null_mut,
 };
 
@@ -20,7 +24,8 @@ pub struct telegram_bot_init {
 enum TeleRequest {
     SendText(i64, i32, String),
     SendAudio(i64, String),
-    GetFile(String),
+    SendVoice(i64, String),
+    GetFile(String, String),
     Whoami,
     Logout,
     Quit,
@@ -32,13 +37,15 @@ pub enum TeleReply {
     Location(i64, Location),
     Sticker(i64, String, String),
     Voice(i64, Voice),
-    Audio,
+    Audio(i64, Audio),
     Photo,
 }
 
+type TeleService = Service<TeleRequest, TeleReply>;
+
 #[allow(non_camel_case_types)]
 pub struct telegram_bot_client {
-    cli: Service<TeleRequest, TeleReply>,
+    cli: TeleService,
 }
 
 impl Drop for telegram_bot_client {
@@ -82,6 +89,20 @@ pub struct telegram_bot_result_cb {
             file_size: u64,
         ),
     >,
+    /// voice callback function (can be NULL)
+    audio_cb: Option<
+        extern "C" fn(
+            user: *mut c_void,
+            chat_id: i64,
+            file_id: *const c_char,
+            file_unique_id: *const c_char,
+            mime: *const c_char,
+            file_name: *const c_char,
+            file_duration: u32,
+            file_size: u64,
+            title: *const c_char,
+        ),
+    >,
 }
 
 impl ServiceCallback<TeleReply> for telegram_bot_result_cb {
@@ -92,7 +113,6 @@ impl ServiceCallback<TeleReply> for telegram_bot_result_cb {
                 self.text_cb
                     .map(|f| f(self.user, *chat_id, *msg_id, txt.as_ptr()));
             }
-            TeleReply::Audio => todo!(),
             TeleReply::Photo => todo!(),
             TeleReply::Whoami(user) => {
                 let name = CString::new(user.first_name.clone()).unwrap_or_default();
@@ -127,7 +147,66 @@ impl ServiceCallback<TeleReply> for telegram_bot_result_cb {
                     )
                 });
             }
+            TeleReply::Audio(chat_id, audio) => {
+                let file_id = CString::new(audio.file_id.clone()).unwrap_or_default();
+                let file_unique_id = CString::new(audio.file_unique_id.clone()).unwrap_or_default();
+                let file_name =
+                    CString::new(audio.file_name.clone().unwrap_or_default()).unwrap_or_default();
+                let title =
+                    CString::new(audio.title.clone().unwrap_or_default()).unwrap_or_default();
+                let mime_type =
+                    CString::new(audio.mime_type.clone().unwrap_or_default()).unwrap_or_default();
+
+                self.audio_cb.map(|f| {
+                    f(
+                        self.user,
+                        *chat_id,
+                        file_id.as_ptr(),
+                        file_unique_id.as_ptr(),
+                        mime_type.as_ptr(),
+                        file_name.as_ptr(),
+                        audio.duration,
+                        audio.file_size.unwrap_or_default(),
+                        title.as_ptr(),
+                    )
+                });
+            }
         }
+    }
+}
+
+#[must_use]
+fn make_file_url(api_url: &str, file: &str) -> Option<String> {
+    Url::parse(api_url).ok().and_then(|mut api_url| {
+        let api_path = api_url.path_segments()?.next()?.to_owned();
+
+        api_url
+            .path_segments_mut()
+            .ok()?
+            .pop()
+            .push("file")
+            .push(api_path.as_str())
+            .push(file);
+
+        Some(api_url.as_str().to_owned())
+    })
+}
+
+#[must_use]
+fn make_file_full_path(base_dir: &str, path: &str) -> Option<String> {
+    let base_dir = Path::new(base_dir);
+    let fname = Path::new(path);
+    let filename = fname.file_name()?.to_str()?;
+    if fname.is_absolute() {
+        Some(filename.to_owned())
+    } else {
+        Some(
+            base_dir
+                .join(&fname.file_name().unwrap())
+                .as_path()
+                .to_str()?
+                .to_owned(),
+        )
     }
 }
 
@@ -176,6 +255,18 @@ pub extern "C" fn ceammc_telegram_bot_new(
         }
     }
 
+    async fn send_debug(
+        cb: &callback_notify,
+        rep_tx: &tokio::sync::mpsc::Sender<Result<TeleReply, Error>>,
+        msg: String,
+    ) {
+        if let Err(err) = rep_tx.send(Err(crate::service::Error::Debug(msg))).await {
+            eprintln!("debug error: {err}");
+        } else {
+            cb.exec();
+        }
+    }
+
     async fn send_reply(
         cb: &callback_notify,
         rep_tx: &tokio::sync::mpsc::Sender<Result<TeleReply, Error>>,
@@ -214,23 +305,121 @@ pub extern "C" fn ceammc_telegram_bot_new(
                         }
                         true
                     }
-                    TeleRequest::GetFile(file_id) => {
+                    TeleRequest::GetFile(file_id, base_dir) => {
                         let params = GetFileParams::builder().file_id(file_id).build();
 
                         match api.get_file(&params).await {
                             Ok(m) => {
                                 if m.ok {
-                                    eprintln!(
-                                        "{} {:?} {:?} {} ",
-                                        m.result.file_id,
-                                        m.result.file_path,
-                                        m.result.file_size,
-                                        m.result.file_unique_id
-                                    );
+                                    if let Some(path) = m.result.file_path {
+                                        let file_url = make_file_url(&api.api_url, path.as_str());
+                                        let req = api
+                                            .client
+                                            .get(file_url.unwrap_or_default())
+                                            .send()
+                                            .await;
+
+                                        match req {
+                                            Ok(mut response) => {
+                                                if !response.status().is_success() {
+                                                    send_error(
+                                                        &cb_notify,
+                                                        &rep_tx,
+                                                        format!(
+                                                            "{}: {}",
+                                                            response.status(),
+                                                            response.url()
+                                                        ),
+                                                    )
+                                                    .await;
+                                                    return true;
+                                                }
+
+                                                let full_name = make_file_full_path(
+                                                    &base_dir.as_str(),
+                                                    path.as_str(),
+                                                )
+                                                .unwrap_or_default();
+
+                                                eprintln!("full_name: {full_name}");
+
+                                                match tokio::fs::File::create(&full_name).await {
+                                                    Ok(mut file) => {
+                                                        let total = m.result.file_size.unwrap_or(0);
+                                                        let mut bytes_send: u64 = 0;
+
+                                                        while let Ok(chunk) = response.chunk().await
+                                                        {
+                                                            if let Some(bytes) = chunk {
+                                                                if let Err(err) =
+                                                                    file.write_all(&bytes).await
+                                                                {
+                                                                    send_error(&cb_notify, &rep_tx, format!("can't write to file: {err}")).await;
+                                                                    return true;
+                                                                }
+
+                                                                if total > 0 {
+                                                                    bytes_send +=
+                                                                        bytes.len() as u64;
+                                                                    let perc =
+                                                                        (100 * bytes_send) / total;
+                                                                    eprintln!("done: {perc}%");
+                                                                    TeleService::write_progress(
+                                                                        &rep_tx, perc as u8,
+                                                                        cb_notify,
+                                                                    )
+                                                                    .await;
+                                                                }
+                                                            } else {
+                                                                break;
+                                                            }
+                                                        }
+
+                                                        if let Err(err) = file.flush().await {
+                                                            send_error(
+                                                                &cb_notify,
+                                                                &rep_tx,
+                                                                format!("file flush error: {err}"),
+                                                            )
+                                                            .await;
+                                                            return true;
+                                                        } else {
+                                                            send_debug(&cb_notify, &rep_tx, format!("file downloaded to '{full_name}'")).await;
+                                                            return true;
+                                                        }
+                                                    }
+                                                    Err(err) => {
+                                                        send_error(
+                                                            &cb_notify,
+                                                            &rep_tx,
+                                                            format!("file create error: {err}"),
+                                                        )
+                                                        .await;
+                                                        return true;
+                                                    }
+                                                }
+                                            }
+                                            Err(err) => {
+                                                send_error(
+                                                    &cb_notify,
+                                                    &rep_tx,
+                                                    format!("get file error: {err}"),
+                                                )
+                                                .await;
+                                            }
+                                        }
+                                    } else {
+                                        send_error(
+                                            &cb_notify,
+                                            &rep_tx,
+                                            format!("can't get file path"),
+                                        )
+                                        .await;
+                                    }
 
                                     // writing to a custom file
                                     // with open("custom/file.doc", 'wb') as f:
-                                        // context.bot.get_file(update.message.document).download(out=f)
+                                    // context.bot.get_file(update.message.document).download(out=f)
                                 } else {
                                     send_error(&cb_notify, &rep_tx, format!("can't get file"))
                                         .await;
@@ -245,12 +434,14 @@ pub extern "C" fn ceammc_telegram_bot_new(
                     }
                     TeleRequest::SendAudio(chat_id, file_path) => {
                         let file = std::path::PathBuf::from(file_path);
-                        let params = SendAudioParams::builder().chat_id(chat_id).audio(file).build();
+                        let params = SendAudioParams::builder()
+                            .chat_id(chat_id)
+                            .audio(file)
+                            .build();
 
                         match api.send_audio(&params).await {
                             Ok(m) => {
                                 if m.ok {
-                                   
                                 } else {
                                     send_error(&cb_notify, &rep_tx, format!("can't send audio"))
                                         .await;
@@ -258,6 +449,28 @@ pub extern "C" fn ceammc_telegram_bot_new(
                             }
                             Err(err) => {
                                 send_error(&cb_notify, &rep_tx, format!("send audio error: {err}"))
+                                    .await;
+                            }
+                        }
+                        true
+                    }
+                    TeleRequest::SendVoice(chat_id, file_path) => {
+                        let file = std::path::PathBuf::from(file_path);
+                        let params = SendVoiceParams::builder()
+                            .chat_id(chat_id)
+                            .voice(file)
+                            .build();
+
+                        match api.send_voice(&params).await {
+                            Ok(m) => {
+                                if m.ok {
+                                } else {
+                                    send_error(&cb_notify, &rep_tx, format!("can't send voice"))
+                                        .await;
+                                }
+                            }
+                            Err(err) => {
+                                send_error(&cb_notify, &rep_tx, format!("send voice error: {err}"))
                                     .await;
                             }
                         }
@@ -336,6 +549,16 @@ pub extern "C" fn ceammc_telegram_bot_new(
                         &cb_notify,
                         &rep_tx,
                         TeleReply::Voice(msg.chat.id, *voice.clone()),
+                    )
+                    .await;
+                }
+
+                if let Some(audio) = &msg.audio {
+                    eprintln!("audio {audio:?} from #{:X}", msg.chat.id);
+                    send_reply(
+                        &cb_notify,
+                        &rep_tx,
+                        TeleReply::Audio(msg.chat.id, *audio.clone()),
                     )
                     .await;
                 }
@@ -507,9 +730,10 @@ pub extern "C" fn ceammc_telegram_bot_whoami(cli: *mut telegram_bot_client) -> b
 #[no_mangle]
 /// get file from telegram bot
 /// @param cli - pointer to telegram bot
-pub extern "C" fn ceammc_telegram_bot_getfile(
+pub extern "C" fn ceammc_telegram_bot_get_file(
     cli: *mut telegram_bot_client,
     file_id: *const c_char,
+    base_dir: *const c_char,
 ) -> bool {
     if cli.is_null() {
         return false;
@@ -525,12 +749,25 @@ pub extern "C" fn ceammc_telegram_bot_getfile(
         .unwrap_or_default()
         .to_owned();
 
-    return cli.cli.send_request(TeleRequest::GetFile(file_id));
+    if base_dir.is_null() {
+        cli.cli.on_error("NULL base_dir");
+        return false;
+    }
+    let base_dir = unsafe { CStr::from_ptr(base_dir) }
+        .to_str()
+        .unwrap_or_default()
+        .to_owned();
+
+    return cli
+        .cli
+        .send_request(TeleRequest::GetFile(file_id, base_dir));
 }
 
 #[no_mangle]
 /// send audio from telegram bot
 /// @param cli - pointer to telegram bot
+/// @param chat_id - target chat id
+/// @param file - full path to the file
 pub extern "C" fn ceammc_telegram_bot_send_audio(
     cli: *mut telegram_bot_client,
     chat_id: i64,
@@ -553,3 +790,29 @@ pub extern "C" fn ceammc_telegram_bot_send_audio(
     return cli.cli.send_request(TeleRequest::SendAudio(chat_id, file));
 }
 
+#[no_mangle]
+/// send voice from telegram bot
+/// @param cli - pointer to telegram bot
+/// @param chat_id - target chat id
+/// @param file - full path to the file
+pub extern "C" fn ceammc_telegram_bot_send_voice(
+    cli: *mut telegram_bot_client,
+    chat_id: i64,
+    file: *const c_char,
+) -> bool {
+    if cli.is_null() {
+        return false;
+    }
+    let cli = unsafe { &*cli };
+
+    if file.is_null() {
+        cli.cli.on_error("NULL file");
+        return false;
+    }
+    let file = unsafe { CStr::from_ptr(file) }
+        .to_str()
+        .unwrap_or_default()
+        .to_owned();
+
+    return cli.cli.send_request(TeleRequest::SendVoice(chat_id, file));
+}

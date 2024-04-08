@@ -161,6 +161,8 @@ struct ceammc_telegram_bot_result_cb {
     void (*sti_cb)(void *user, int64_t chat_id, const char *file_id, const char *emoji);
     /// voice callback function (can be NULL)
     void (*voice_cb)(void *user, int64_t chat_id, const char *file_id, const char *file_unique_id, const char *mime, uint32_t file_duration, uint64_t file_size);
+    /// voice callback function (can be NULL)
+    void (*audio_cb)(void *user, int64_t chat_id, const char *file_id, const char *file_unique_id, const char *mime, const char *file_name, uint32_t file_duration, uint64_t file_size, const char *title);
 };
 
 struct ceammc_ws_callback_text {
@@ -351,7 +353,9 @@ void ceammc_telegram_bot_free(ceammc_telegram_bot_client *cli);
 
 /// get file from telegram bot
 /// @param cli - pointer to telegram bot
-bool ceammc_telegram_bot_getfile(ceammc_telegram_bot_client *cli, const char *file_id);
+bool ceammc_telegram_bot_get_file(ceammc_telegram_bot_client *cli,
+                                  const char *file_id,
+                                  const char *base_dir);
 
 /// logout telegram bot
 /// @param cli - pointer to telegram bot
@@ -382,6 +386,8 @@ bool ceammc_telegram_bot_process(ceammc_telegram_bot_client *cli);
 
 /// send audio from telegram bot
 /// @param cli - pointer to telegram bot
+/// @param chat_id - target chat id
+/// @param file - full path to the file
 bool ceammc_telegram_bot_send_audio(ceammc_telegram_bot_client *cli,
                                     int64_t chat_id,
                                     const char *file);
@@ -396,6 +402,14 @@ bool ceammc_telegram_bot_send_message(ceammc_telegram_bot_client *cli,
                                       int64_t chat_id,
                                       int32_t msg_id,
                                       const char *text);
+
+/// send voice from telegram bot
+/// @param cli - pointer to telegram bot
+/// @param chat_id - target chat id
+/// @param file - full path to the file
+bool ceammc_telegram_bot_send_voice(ceammc_telegram_bot_client *cli,
+                                    int64_t chat_id,
+                                    const char *file);
 
 /// send text message from telegram bot
 /// @param cli - pointer to telegram bot
