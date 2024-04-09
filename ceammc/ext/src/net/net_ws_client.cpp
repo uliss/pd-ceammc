@@ -41,181 +41,21 @@ CEAMMC_DEFINE_SYM(ping)
 CEAMMC_DEFINE_SYM(pong)
 CEAMMC_DEFINE_SYM(text)
 
-using namespace ceammc::ws::cli_reply;
-using namespace ceammc::ws::cli_req;
-using namespace ceammc::ws;
-
-using MutexLock = std::lock_guard<std::mutex>;
-
-void ClientImpl::on_error(void* user, const char* msg)
-{
-    auto this_ = static_cast<ClientImpl*>(user);
-    if (this_ && this_->cb_err)
-        this_->cb_err(msg);
-}
-
-void ClientImpl::on_text(void* user, const char* msg)
-{
-    auto this_ = static_cast<ClientImpl*>(user);
-    if (this_ && this_->cb_text)
-        this_->cb_text(msg);
-}
-
-void ClientImpl::on_ping(void* user, const std::uint8_t* data, size_t len)
-{
-    auto this_ = static_cast<ClientImpl*>(user);
-    if (this_ && this_->cb_ping)
-        this_->cb_ping(Bytes(data, data + len));
-}
-
-void ClientImpl::on_pong(void* user, const std::uint8_t* data, size_t len)
-{
-    auto this_ = static_cast<ClientImpl*>(user);
-    if (this_ && this_->cb_pong)
-        this_->cb_pong(Bytes(data, data + len));
-}
-
-void ClientImpl::on_binary(void* user, const std::uint8_t* data, size_t len)
-{
-    auto this_ = static_cast<ClientImpl*>(user);
-    if (this_ && this_->cb_bin)
-        this_->cb_bin(Bytes(data, data + len));
-}
-
-void ClientImpl::on_close(void* user, const std::uint8_t* data, size_t len)
-{
-    auto this_ = static_cast<ClientImpl*>(user);
-    if (this_ && this_->cb_close)
-        this_->cb_close(Bytes(data, data + len));
-}
-
-ClientImpl::~ClientImpl()
-{
-    disconnect();
-}
-
-bool ClientImpl::connect(const Connect& ct)
-{
-    MutexLock lock(mtx_);
-    if (cli_) {
-        ceammc_ws_client_free(cli_);
-        cli_ = nullptr;
-    }
-
-    cli_ = ceammc_ws_client_create(ct.url.c_str(),
-        { this, on_error },
-        { this, on_text },
-        { this, on_binary },
-        { this, on_ping },
-        { this, on_pong },
-        { this, on_close });
-
-    return cli_ != nullptr;
-}
-
-void ClientImpl::disconnect()
-{
-    MutexLock lock(mtx_);
-    if (cli_) {
-        ceammc_ws_client_free(cli_);
-        cli_ = nullptr;
-    }
-}
-
-void ClientImpl::process(const SendText& txt)
-{
-    MutexLock lock(mtx_);
-    if (cli_)
-        ceammc_ws_client_send_text(cli_, txt.msg.c_str(), txt.flush);
-}
-
-void ClientImpl::process(const SendBinary& msg)
-{
-    MutexLock lock(mtx_);
-    if (cli_)
-        ceammc_ws_client_send_binary(cli_, msg.data.data(), msg.data.size(), msg.flush);
-}
-
-void ClientImpl::process(const SendPing& ping)
-{
-    MutexLock lock(mtx_);
-    if (cli_)
-        ceammc_ws_client_send_ping(cli_, ping.data.data(), ping.data.size());
-}
-
-void ClientImpl::process(const Close&)
-{
-    MutexLock lock(mtx_);
-    if (cli_)
-        ceammc_ws_client_close(cli_);
-}
-
-void ClientImpl::process(const Flush&)
-{
-    MutexLock lock(mtx_);
-    if (cli_)
-        ceammc_ws_client_flush(cli_);
-}
-
-void ClientImpl::process_events()
-{
-    MutexLock lock(mtx_);
-    if (cli_)
-        ceammc_ws_client_process_events(cli_, ceammc_ws_trim::BOTH);
-}
-
 NetWsClient::NetWsClient(const PdArgs& args)
     : BaseWsClient(args)
 {
     createOutlet();
 
-    cli_.reset(new ClientImpl);
-    cli_->cb_err = [this](const char* msg) { workerThreadError(msg); };
-    cli_->cb_text = [this](const char* msg) { addReply(MessageText { msg }); };
-    cli_->cb_bin = [this](const Bytes& data) { addReply(MessageBinary { data }); };
-    cli_->cb_ping = [this](const Bytes& data) { addReply(MessagePing { data }); };
-    cli_->cb_pong = [this](const Bytes& data) { addReply(MessagePong { data }); };
-    cli_->cb_close = [this](const Bytes& data) { addReply(MessageClose { data }); };
-
     mode_ = new SymbolEnumProperty("@mode", { str_fudi, str_data, str_sym, str_json });
     addProperty(mode_);
 }
 
-void NetWsClient::processRequest(const Request& req, ResultCallback cb)
-{
-    if (!cli_)
-        return;
-
-    if (req.type() == typeid(Connect)) {
-        if (cli_->connect(boost::get<Connect>(req)))
-            addReply(Connected {});
-    } else if (process_request<SendText>(req)) {
-    } else if (process_request<SendBinary>(req)) {
-    } else if (process_request<SendPing>(req)) {
-    } else if (process_request<Close>(req)) {
-    } else if (process_request<Flush>(req)) {
-    } else {
-        workerThreadError(fmt::format("unknown request: {}", req.type().name()));
-    }
-}
-
-void NetWsClient::processResult(const Reply& res)
-{
-    if (process_reply<MessageText>(res)) {
-    } else if (process_reply<MessageBinary>(res)) {
-    } else if (process_reply<MessagePing>(res)) {
-    } else if (process_reply<MessagePong>(res)) {
-    } else if (process_reply<MessageClose>(res)) {
-    } else if (process_reply<Connected>(res)) {
-    } else {
-        OBJ_ERR << "unknown reply type: " << res.type().name();
-    }
-}
-
-void NetWsClient::processEvents()
+bool NetWsClient::notify(int code)
 {
     if (cli_)
-        cli_->process_events();
+        cli_->processResults();
+
+    return true;
 }
 
 void NetWsClient::m_connect(t_symbol* s, const AtomListView& lv)
@@ -224,36 +64,99 @@ void NetWsClient::m_connect(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return;
 
-    addRequest(Connect { to_string(lv) });
+    cli_.reset(new WsClientImpl(
+        { lv.symbolAt(0, &s_)->s_name },
+        ceammc_ws_client_new,
+        ceammc_ws_client_free,
+        ceammc_ws_client_process_events,
+        ceammc_ws_client_result_cb {
+            this,
+            [](void* user, const char* txt) {
+                auto this_ = static_cast<NetWsClient*>(user);
+                if (this_)
+                    this_->processText(txt);
+            },
+            [](void* user, const std::uint8_t* data, size_t data_len) {
+                auto this_ = static_cast<NetWsClient*>(user);
+                if (this_)
+                    this_->processBinary(data, data_len);
+            },
+            [](void* user, const std::uint8_t* data, size_t data_len) {
+                auto this_ = static_cast<NetWsClient*>(user);
+                if (this_)
+                    this_->processPing(data, data_len);
+            },
+            [](void* user, const std::uint8_t* data, size_t data_len) {
+                auto this_ = static_cast<NetWsClient*>(user);
+                if (this_)
+                    this_->processPong(data, data_len);
+            },
+            [](void* user) {
+                auto this_ = static_cast<NetWsClient*>(user);
+                if (this_)
+                    this_->processClose();
+            },
+            [](void* user) {
+                auto this_ = static_cast<NetWsClient*>(user);
+                if (this_)
+                    this_->processConnect();
+            },
+        },
+        ceammc_callback_notify { reinterpret_cast<size_t>(this), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }));
+
+    cli_->setErrorCallback([this](const char* msg) { OBJ_ERR << msg; });
+    cli_->setDebugCallback([this](const char* msg) { OBJ_DBG << msg; });
 }
 
 void NetWsClient::m_close(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(Close {});
+    if (!cli_) {
+        METHOD_ERR(s) << "not connected";
+        return;
+    }
+
+    ceammc_ws_client_close(cli_->handle());
 }
 
 void NetWsClient::m_send_text(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(SendText { to_string(lv), true });
+    if (!cli_) {
+        METHOD_ERR(s) << "not connected";
+        return;
+    }
+
+    ceammc_ws_client_send_text(cli_->handle(), to_string(lv).c_str(), true);
 }
 
 void NetWsClient::m_write_text(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(SendText { to_string(lv), false });
+    if (!cli_) {
+        METHOD_ERR(s) << "not connected";
+        return;
+    }
+
+    ceammc_ws_client_send_text(cli_->handle(), to_string(lv).c_str(), false);
 }
 
-void NetWsClient::processReply(const MessageText& m)
+void NetWsClient::outputLatency()
+{
+    auto now = std::chrono::steady_clock::now();
+    auto us = std::chrono::duration_cast<std::chrono::milliseconds>(now - latency_measure_begin_).count();
+    anyTo(0, sym_latency(), us);
+}
+
+void NetWsClient::processText(const char* txt)
 {
     try {
         switch (crc32_hash(mode_->value())) {
         case hash_fudi: {
-            anyTo(0, sym_text(), AtomList::parseString(m.msg.c_str()));
+            anyTo(0, sym_text(), AtomList::parseString(txt));
         } break;
         case hash_sym: {
-            anyTo(0, sym_text(), gensym(m.msg.c_str()));
+            anyTo(0, sym_text(), gensym(txt));
         } break;
         case hash_json: {
-            auto j = nlohmann::json::parse(m.msg);
+            auto j = nlohmann::json::parse(txt);
             if (j.is_array()) {
                 AtomList lst;
                 from_json(j, lst);
@@ -266,11 +169,11 @@ void NetWsClient::processReply(const MessageText& m)
 
         } break;
         case hash_data: {
-            auto res = parseDataString(m.msg.c_str());
+            auto res = parseDataString(txt);
             if (res) {
                 anyTo(0, sym_text(), res.result());
             } else {
-                OBJ_ERR << "can't parse data: " << m.msg;
+                OBJ_ERR << "can't parse data: " << txt;
             }
         } break;
         default:
@@ -281,19 +184,44 @@ void NetWsClient::processReply(const MessageText& m)
     }
 }
 
-void NetWsClient::processReply(const MessageBinary& m)
+void NetWsClient::processBinary(const std::uint8_t* data, size_t data_len)
 {
-    anyTo(0, sym_binary(), fromBinary(m.data));
+    AtomList res;
+    res.reserve(data_len);
+    for (size_t i = 0; i < data_len; i++)
+        res.append(Atom(data[i]));
+
+    anyTo(0, sym_binary(), res);
 }
 
-void NetWsClient::processReply(const MessagePing& m)
+void NetWsClient::processClose()
 {
-    anyTo(0, sym_ping(), fromBinary(m.data));
+    anyTo(0, sym_closed(), AtomListView {});
 }
 
-void NetWsClient::processReply(const MessagePong& m)
+void NetWsClient::processConnect()
 {
-    anyTo(0, sym_pong(), fromBinary(m.data));
+    anyTo(0, sym_connected(), AtomListView {});
+}
+
+void NetWsClient::processPing(const std::uint8_t* data, size_t data_len)
+{
+    AtomList res;
+    res.reserve(data_len);
+    for (size_t i = 0; i < data_len; i++)
+        res.append(Atom(data[i]));
+
+    anyTo(0, sym_ping(), res);
+}
+
+void NetWsClient::processPong(const std::uint8_t* data, size_t data_len)
+{
+    AtomList res;
+    res.reserve(data_len);
+    for (size_t i = 0; i < data_len; i++)
+        res.append(Atom(data[i]));
+
+    anyTo(0, sym_pong(), res);
 
     if (latency_state_ == LATENCY_START) {
         outputLatency();
@@ -301,46 +229,73 @@ void NetWsClient::processReply(const MessagePong& m)
     }
 }
 
-void NetWsClient::processReply(const MessageClose& m)
-{
-    anyTo(0, sym_closed(), AtomListView {});
-}
-
-void NetWsClient::processReply(const Connected& m)
-{
-    anyTo(0, sym_connected(), AtomListView {});
-}
-
-void NetWsClient::outputLatency()
-{
-    auto now = std::chrono::steady_clock::now();
-    auto us = std::chrono::duration_cast<std::chrono::milliseconds>(now - latency_measure_begin_).count();
-    anyTo(0, sym_latency(), us);
-}
-
 void NetWsClient::m_send_binary(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(SendBinary { toBinary(lv), true });
+    if (!cli_) {
+        METHOD_ERR(s) << "not connected";
+        return;
+    }
+
+    std::vector<std::uint8_t> data;
+    data.reserve(lv.size());
+    for (auto& a : lv)
+        data.push_back(a.asInt());
+
+    ceammc_ws_client_send_binary(cli_->handle(), data.data(), data.size(), true);
 }
 
 void NetWsClient::m_send_json(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(SendText { makeJson(lv), true });
+    if (!cli_) {
+        METHOD_ERR(s) << "not connected";
+        return;
+    }
+
+    auto json = makeJson(lv);
+    if (!json.empty())
+        ceammc_ws_client_send_text(cli_->handle(), json.c_str(), true);
 }
 
 void NetWsClient::m_write_binary(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(SendBinary { toBinary(lv), false });
+    if (!cli_) {
+        METHOD_ERR(s) << "not connected";
+        return;
+    }
+
+    std::vector<std::uint8_t> data;
+    data.reserve(lv.size());
+    for (auto& a : lv)
+        data.push_back(a.asInt());
+
+    ceammc_ws_client_send_binary(cli_->handle(), data.data(), data.size(), false);
 }
 
 void NetWsClient::m_write_json(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(SendText { makeJson(lv), false });
+    if (!cli_) {
+        METHOD_ERR(s) << "not connected";
+        return;
+    }
+
+    auto json = makeJson(lv);
+    if (!json.empty())
+        ceammc_ws_client_send_text(cli_->handle(), json.c_str(), false);
 }
 
 void NetWsClient::m_ping(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(SendPing { toBinary(lv) });
+    if (!cli_) {
+        METHOD_ERR(s) << "not connected";
+        return;
+    }
+
+    std::vector<std::uint8_t> data;
+    data.reserve(lv.size());
+    for (auto& a : lv)
+        data.push_back(a.asInt());
+
+    ceammc_ws_client_send_ping(cli_->handle(), data.data(), data.size());
 }
 
 void NetWsClient::m_send_array(t_symbol* s, const AtomListView& lv)
@@ -348,6 +303,11 @@ void NetWsClient::m_send_array(t_symbol* s, const AtomListView& lv)
     static const args::ArgChecker chk("ARRAY:s START:i>=0? LEN:i>=0?");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
+
+    if (!cli_) {
+        METHOD_ERR(s) << "not connected";
+        return;
+    }
 
     auto sym_array = lv.symbolAt(0, &s_);
     auto array = sym_array->s_name;
@@ -367,14 +327,13 @@ void NetWsClient::m_send_array(t_symbol* s, const AtomListView& lv)
 
     try {
         auto j = nlohmann::json::array();
-        size_t N = arr.size();
-        if (len > 0)
-            auto N = std::min<size_t>(arr.size(), start + len);
+        auto N = (len > 0) ? std::min<size_t>(arr.size(), start + len)
+                           : arr.size();
 
         for (int i = start; i < N; i++)
             j += arr[i];
 
-        addRequest(SendText { j.dump(), true });
+        ceammc_ws_client_send_text(cli_->handle(), j.dump().c_str(), true);
     } catch (std::exception& e) {
         METHOD_ERR(s) << fmt::format("error: {}", e.what());
     }
@@ -382,7 +341,12 @@ void NetWsClient::m_send_array(t_symbol* s, const AtomListView& lv)
 
 void NetWsClient::m_flush(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(Flush {});
+    if (!cli_) {
+        METHOD_ERR(s) << "not connected";
+        return;
+    }
+
+    ceammc_ws_client_flush(cli_->handle());
 }
 
 void NetWsClient::m_latency(t_symbol* s, const AtomListView& lv)
@@ -392,27 +356,7 @@ void NetWsClient::m_latency(t_symbol* s, const AtomListView& lv)
 
     latency_state_ = LATENCY_START;
     latency_measure_begin_ = std::chrono::steady_clock::now();
-    addRequest(SendPing {});
-}
-
-Bytes NetWsClient::toBinary(const AtomListView& lv)
-{
-    Bytes data;
-    data.reserve(lv.size());
-    for (auto& a : lv)
-        data.push_back(a.asInt());
-
-    return data;
-}
-
-AtomList NetWsClient::fromBinary(const Bytes& data)
-{
-    AtomList lst;
-    lst.reserve(data.size());
-    for (auto x : data)
-        lst.append(x);
-
-    return lst;
+    m_ping(s, lv);
 }
 
 std::string NetWsClient::makeJson(const AtomListView& lv)

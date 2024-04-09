@@ -18,6 +18,8 @@ scraper = "0.19.0"
 frankenstein = { version = "0.30.5", features = ["async-http-client"] }  
 regex = { version = "1.10.4", default-features = false }
 lazy_static = { version = "1.4.0", default-features = false }
+tokio-tungstenite = { version ="0.21.0", features = ["native-tls"] }
+futures-util = "0.3.30"
 
 [build-dependencies]
 cbindgen = "0.22.0"

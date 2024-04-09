@@ -14,106 +14,19 @@
 #ifndef NET_WS_CLIENT_H
 #define NET_WS_CLIENT_H
 
-#include "ceammc_pollthread_spsc.h"
+#include "ceammc_object.h"
+#include "ceammc_poll_dispatcher.h"
 #include "ceammc_property_enum.h"
-#include "net_rust.hpp"
+#include "net_rust_struct.hpp"
 
-#include <boost/variant.hpp>
 #include <chrono>
 using namespace ceammc;
 
-namespace ceammc {
-namespace ws {
-    using Bytes = std::vector<std::uint8_t>;
-
-    namespace cli_req {
-        struct SendText {
-            std::string msg;
-            bool flush;
-        };
-        struct SendBinary {
-            Bytes data;
-            bool flush;
-        };
-        struct SendPing {
-            Bytes data;
-        };
-
-        struct Connect {
-            std::string url;
-        };
-        struct Close { };
-        struct Flush { };
-
-        using Request = boost::variant<SendText,
-            SendBinary,
-            SendPing,
-            Connect,
-            Close,
-            Flush>;
-    }
-
-    struct ClientImpl {
-        std::mutex mtx_;
-        ceammc_ws_client* cli_ { nullptr };
-        std::function<void(const char*)> cb_err, cb_text;
-        std::function<void(const ws::Bytes&)> cb_ping, cb_pong, cb_bin, cb_close;
-
-        static void on_error(void* user, const char* msg);
-        static void on_text(void* user, const char* msg);
-        static void on_ping(void* user, const std::uint8_t* data, size_t len);
-        static void on_pong(void* user, const std::uint8_t* data, size_t len);
-        static void on_binary(void* user, const std::uint8_t* data, size_t len);
-        static void on_close(void* user, const std::uint8_t* data, size_t len);
-
-        ~ClientImpl();
-
-        // this is blocking function at this moment
-        bool connect(const cli_req::Connect& c);
-        void disconnect();
-
-        void process(const cli_req::SendText& txt);
-        void process(const cli_req::SendBinary& msg);
-        void process(const cli_req::SendPing& ping);
-        void process(const cli_req::Close&);
-        void process(const cli_req::Flush&);
-
-        // non-blocking
-        void process_events();
-    };
-
-    namespace cli_reply {
-        struct MessageText {
-            std::string msg;
-        };
-        struct MessageBinary {
-            Bytes data;
-        };
-        struct MessagePong {
-            Bytes data;
-        };
-        struct MessagePing {
-            Bytes data;
-        };
-        struct MessageClose {
-            Bytes data;
-        };
-        struct Connected { };
-
-        using Reply = boost::variant<MessageText,
-            MessageBinary,
-            MessagePing,
-            MessagePong,
-            MessageClose,
-            Connected>;
-    }
-}
-}
-
-using BaseWsClient = FixedSPSCObject<ws::cli_req::Request, ws::cli_reply::Reply, BaseObject, 32, 20>;
+using BaseWsClient = DispatchedObject<BaseObject>;
+using WsClientImpl = net::NetService<ceammc_ws_client, ceammc_ws_client_init, ceammc_ws_client_result_cb>;
 
 class NetWsClient : public BaseWsClient {
-    std::unique_ptr<ws::ClientImpl> cli_; // should be accessed only in worker thread
+    std::unique_ptr<WsClientImpl> cli_; // should be accessed only in worker thread
     SymbolEnumProperty* mode_ { nullptr };
 
     enum LatencyState : uint8_t {
@@ -127,9 +40,7 @@ class NetWsClient : public BaseWsClient {
 public:
     NetWsClient(const PdArgs& args);
 
-    void processRequest(const ws::cli_req::Request& req, ResultCallback cb) override;
-    void processResult(const ws::cli_reply::Reply& res) override;
-    void processEvents() final;
+    bool notify(int code) final;
 
     void m_close(t_symbol* s, const AtomListView& lv);
     void m_connect(t_symbol* s, const AtomListView& lv);
@@ -145,38 +56,15 @@ public:
     void m_write_text(t_symbol* s, const AtomListView& lv);
 
 private:
-    void processReply(const ws::cli_reply::MessageText& m);
-    void processReply(const ws::cli_reply::MessageBinary& m);
-    void processReply(const ws::cli_reply::MessagePing& m);
-    void processReply(const ws::cli_reply::MessagePong& m);
-    void processReply(const ws::cli_reply::MessageClose& m);
-    void processReply(const ws::cli_reply::Connected& m);
-
     void outputLatency();
-
-    template <class T>
-    bool process_request(const ws::cli_req::Request& req)
-    {
-        if (req.type() == typeid(T)) {
-            this->cli_->process(boost::get<T>(req));
-            return true;
-        } else
-            return false;
-    }
-
-    template <class T>
-    bool process_reply(const ws::cli_reply::Reply& res)
-    {
-        if (res.type() == typeid(T)) {
-            this->processReply(boost::get<T>(res));
-            return true;
-        } else
-            return false;
-    }
+    void processBinary(const std::uint8_t* data, size_t data_len);
+    void processClose();
+    void processConnect();
+    void processPing(const std::uint8_t* data, size_t data_len);
+    void processPong(const std::uint8_t* data, size_t data_len);
+    void processText(const char* txt);
 
 private:
-    static ws::Bytes toBinary(const AtomListView& lv);
-    static AtomList fromBinary(const ws::Bytes& data);
     static std::string makeJson(const AtomListView& lv);
 };
 

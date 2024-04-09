@@ -68,13 +68,6 @@ enum class ceammc_ws_rc {
     RunloopExit,
 };
 
-enum class ceammc_ws_trim {
-    NO,
-    START,
-    END,
-    BOTH,
-};
-
 struct ceammc_http_client;
 
 struct ceammc_mqtt_client;
@@ -165,14 +158,25 @@ struct ceammc_telegram_bot_result_cb {
     void (*audio_cb)(void *user, int64_t chat_id, const char *file_id, const char *file_unique_id, const char *mime, const char *file_name, uint32_t file_duration, uint64_t file_size, const char *title);
 };
 
-struct ceammc_ws_callback_text {
-    void *user;
-    void (*cb)(void *user, const char *msg);
+struct ceammc_ws_client_init {
+    const char *url;
 };
 
-struct ceammc_ws_callback_data {
+struct ceammc_ws_client_result_cb {
+    /// user data pointer (can be NULL)
     void *user;
-    void (*cb)(void *user, const uint8_t *data, size_t len);
+    /// text data callback function (can be NULL)
+    void (*cb_text)(void *user, const char *txt);
+    /// binary data callback function (can be NULL)
+    void (*cb_binary)(void *user, const uint8_t *data, size_t data_len);
+    /// ping callback function (can be NULL)
+    void (*cb_ping)(void *user, const uint8_t *data, size_t data_len);
+    /// pong callback function (can be NULL)
+    void (*cb_pong)(void *user, const uint8_t *data, size_t data_len);
+    /// close callback function (can be NULL)
+    void (*cb_close)(void *user);
+    /// connection callback function (can be NULL)
+    void (*cb_connected)(void *user);
 };
 
 struct ceammc_ws_client_target {
@@ -417,8 +421,17 @@ bool ceammc_telegram_bot_whoami(ceammc_telegram_bot_client *cli);
 
 /// close client connection
 /// @param cli - pointer to websocket client
-/// @return ceammc_ws_rc::Ok, ceammc_ws_rc::InvalidClient, ceammc_ws_rc::CloseError,
-ceammc_ws_rc ceammc_ws_client_close(ceammc_ws_client *cli);
+/// @return true on success, false on error
+bool ceammc_ws_client_close(ceammc_ws_client *cli);
+
+/// flush client connection
+/// @param cli - pointer to websocket client
+/// @return true on success, false on error
+bool ceammc_ws_client_flush(ceammc_ws_client *cli);
+
+/// free websocket client
+/// @param cli - pointer to websocket client
+void ceammc_ws_client_free(ceammc_ws_client *cli);
 
 /// create websocket client
 /// @param url - string in format: ws://HOST:PORT?/path?
@@ -429,29 +442,19 @@ ceammc_ws_rc ceammc_ws_client_close(ceammc_ws_client *cli);
 /// @param on_pong - callback for incoming pong messages
 /// @param on_close - callback on connection close
 /// @return pointer to client or NULL
-ceammc_ws_client *ceammc_ws_client_create(const char *url,
-                                          ceammc_ws_callback_text on_err,
-                                          ceammc_ws_callback_text on_text,
-                                          ceammc_ws_callback_data on_bin,
-                                          ceammc_ws_callback_data on_ping,
-                                          ceammc_ws_callback_data on_pong,
-                                          ceammc_ws_callback_data on_close);
-
-/// flush client connection
-/// @param cli - pointer to websocket client
-/// @return ceammc_ws_rc::Ok, ceammc_ws_rc::InvalidClient, ceammc_ws_rc::SendError,
-ceammc_ws_rc ceammc_ws_client_flush(ceammc_ws_client *cli);
-
-/// free websocket client
-/// @param cli - pointer to websocket client
-void ceammc_ws_client_free(ceammc_ws_client *cli);
+ceammc_ws_client *ceammc_ws_client_new(ceammc_ws_client_init params,
+                                       ceammc_callback_msg cb_err,
+                                       ceammc_callback_msg cb_post,
+                                       ceammc_callback_msg cb_debug,
+                                       ceammc_callback_msg cb_log,
+                                       ceammc_callback_progress _cb_progress,
+                                       ceammc_ws_client_result_cb cb_reply,
+                                       ceammc_callback_notify cb_notify);
 
 /// process all available messages from WebSocket server
 /// @param cli - pointer to websocket client
-/// @param trim - text message trim mode
-/// @return ws_rc::Ok, ws_rc::InvalidClient, ws_rc::InvalidMessage, ws_rc::CloseError, ws_rc::SendError,
-ceammc_ws_rc ceammc_ws_client_process_events(ceammc_ws_client *cli,
-                                             ceammc_ws_trim trim);
+/// @return true on success, false on error
+bool ceammc_ws_client_process_events(ceammc_ws_client *cli);
 
 /// sends binary message to WebSocket server
 /// @param cli - pointer to ws client
@@ -459,30 +462,28 @@ ceammc_ws_rc ceammc_ws_client_process_events(ceammc_ws_client *cli,
 /// @param len - data length
 /// @param flush - if true ensures all messages
 ///        previously passed to write and automatic queued pong responses are written & flushed into the underlying stream.
-/// @return ws_rc::Ok, ws_rc::InvalidClient, ws_rc::InvalidMessage, ws_rc::CloseError, ws_rc::SendError,
-ceammc_ws_rc ceammc_ws_client_send_binary(ceammc_ws_client *cli,
-                                          const uint8_t *data,
-                                          size_t len,
-                                          bool flush);
+/// @return true on success, false on error
+bool ceammc_ws_client_send_binary(ceammc_ws_client *cli,
+                                  const uint8_t *data,
+                                  size_t len,
+                                  bool flush);
 
 /// sends ping to WebSocket server
 /// @param cli - pointer to websocket client
 /// @param data - pointer to ping data (can be NULL)
 /// @param len - data length
-/// @return ws_rc::Ok, ws_rc::InvalidClient, ws_rc::InvalidMessage, ws_rc::CloseError, ws_rc::SendError,
-ceammc_ws_rc ceammc_ws_client_send_ping(ceammc_ws_client *cli,
-                                        const uint8_t *data,
-                                        size_t len);
+/// @return true on success, false on error
+bool ceammc_ws_client_send_ping(ceammc_ws_client *cli, const uint8_t *data, size_t len);
 
 /// sends text message to WebSocket server
 /// @param cli - pointer to ws client
 /// @param msg - text message
 /// @param flush - if true ensures all messages
 ///        previously passed to write and automatic queued pong responses are written & flushed into the underlying stream.
-/// @return ws_rc::Ok, ws_rc::InvalidClient, ws_rc::InvalidMessage, ws_rc::CloseError, ws_rc::SendError,
-ceammc_ws_rc ceammc_ws_client_send_text(ceammc_ws_client *cli,
-                                        const char *msg,
-                                        bool flush);
+/// @return true on success, false on error
+bool ceammc_ws_client_send_text(ceammc_ws_client *cli,
+                                const char *msg,
+                                bool flush);
 
 /// close websocket server client connections by sending them close handshake
 /// @param srv - pointer to websocket server

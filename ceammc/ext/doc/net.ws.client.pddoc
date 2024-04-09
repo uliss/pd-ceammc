@@ -82,7 +82,7 @@
 /*you can start testing websocket server with command: 'websocat -s 8000 -t -v'*/
 
 
-[connect ws://localhost:8000(
+[connect ws://localhost:8000(         [array WS-CLI size=50 w=150 h=100 yr=0..100]
 |
 | [close #b(   [write MSG1 #e(
 |
@@ -92,7 +92,8 @@
 |
 | [send MESSAGE( [send_json 1 2 A #h(
 | |
-| |
+| | [send_array WS-CLI #i(
+| | |
 [net.ws.client #x]
 |
 [t a a #z]
