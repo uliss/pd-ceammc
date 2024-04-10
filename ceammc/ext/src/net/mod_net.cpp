@@ -1,4 +1,5 @@
 #include "mod_net.h"
+#include "net_rust.hpp"
 #include "net_host.h"
 
 extern void setup_net_artnet_send();
@@ -15,6 +16,8 @@ extern void setup_net_ws_server();
 
 void ceammc_net_setup()
 {
+    ceammc_init_rust_logging();
+
     setup_net_artnet_send();
     setup_net_host();
     setup_net_http_client();

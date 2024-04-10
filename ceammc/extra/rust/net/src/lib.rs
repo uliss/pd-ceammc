@@ -8,6 +8,6 @@ pub mod ws_srv;
 use env_logger;
 
 #[no_mangle]
-pub extern "C" fn ceammc_net_init_logging() {
-    env_logger::init();
+pub extern "C" fn ceammc_init_rust_logging() {
+    env_logger::builder().format_timestamp(None).init();
 }

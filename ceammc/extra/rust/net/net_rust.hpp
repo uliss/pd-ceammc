@@ -287,6 +287,8 @@ bool ceammc_http_client_upload(ceammc_http_client *cli,
                                const ceammc_http_client_param *params,
                                size_t params_len);
 
+void ceammc_init_rust_logging();
+
 /// free mqtt client
 /// @param cli - mqtt client (can be NULL)
 void ceammc_mqtt_client_free(ceammc_mqtt_client *cli);
@@ -350,8 +352,6 @@ bool ceammc_mqtt_client_subscribe(ceammc_mqtt_client *cli, const char *topic, ce
 /// @param topic - mqtt topic
 /// @return true on success
 bool ceammc_mqtt_client_unsubscribe(ceammc_mqtt_client *cli, const char *topic);
-
-void ceammc_net_init_logging();
 
 /// free telegram bot
 /// @param cli - pointer to telegram bot

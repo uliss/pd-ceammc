@@ -21,6 +21,7 @@ pub struct telegram_bot_init {
     token: *const c_char,
 }
 
+#[derive(Debug)]
 enum TeleRequest {
     SendText(i64, i32, String),
     SendAudio(i64, String),
@@ -31,6 +32,7 @@ enum TeleRequest {
     Quit,
 }
 
+#[derive(Debug)]
 pub enum TeleReply {
     Whoami(User),
     Text(i64, i32, String),

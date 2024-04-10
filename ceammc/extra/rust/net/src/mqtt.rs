@@ -98,6 +98,7 @@ impl ServiceCallback<MqttReply> for mqtt_client_result_cb {
     }
 }
 
+#[derive(Debug)]
 struct PublishRequest {
     topic: String,
     msg: String,
@@ -105,6 +106,7 @@ struct PublishRequest {
     retain: bool,
 }
 
+#[derive(Debug)]
 struct PublishDataRequest {
     topic: String,
     data: Bytes,
@@ -112,6 +114,7 @@ struct PublishDataRequest {
     retain: bool,
 }
 
+#[derive(Debug)]
 enum MqttRequest {
     Subscribe(String, QoS),
     Unsubscribe(String),
@@ -119,6 +122,7 @@ enum MqttRequest {
     PublishData(PublishDataRequest),
 }
 
+#[derive(Debug)]
 enum MqttReply {
     Connected(rumqttc::ConnAck),
     Publish(rumqttc::Publish),

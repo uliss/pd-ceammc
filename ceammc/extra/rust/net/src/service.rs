@@ -5,6 +5,8 @@ use std::{
     usize,
 };
 
+use log::{debug, error, info};
+
 #[repr(C)]
 #[allow(non_camel_case_types)]
 #[derive(Clone, Copy)]
@@ -92,8 +94,8 @@ pub type CallbackTypeInst<Inst, From, CallbackProgress, CallbackNotify, To> =
 
 impl<Request, Reply> Service<Request, Reply>
 where
-    Request: Send + Sized + 'static,
-    Reply: Send + Sized + 'static,
+    Request: Send + Sized + 'static + core::fmt::Debug,
+    Reply: Send + Sized + 'static + core::fmt::Debug,
 {
     pub fn new(
         cb_err: callback_msg,
@@ -118,15 +120,17 @@ where
     }
 
     pub fn on_error(&self, msg: &str) {
-        eprintln!("{msg}");
+        error!("[service] {msg}");
         self.cb_err.exec(msg);
     }
 
     pub fn on_post(&self, msg: &str) {
+        info!("[service] {msg}");
         self.cb_post.exec(msg);
     }
 
     pub fn on_debug(&self, msg: &str) {
+        debug!("[service] {msg}");
         self.cb_debug.exec(msg);
     }
 
@@ -143,20 +147,22 @@ where
     }
 
     pub fn send_request(&self, req: Request) -> bool {
+        debug!("[service] send_request {req:?}");
         match self.tx.try_send(req) {
             Ok(_) => true,
             Err(_err) => {
-                eprintln!("{_err}");
+                error!("[service] send_request error: {_err}");
                 false
             }
         }
     }
 
     pub fn blocking_send(&self, req: Request) -> bool {
+        debug!("[service] blocking_send {req:?}");
         match self.tx.blocking_send(req) {
             Ok(_) => true,
             Err(_err) => {
-                eprintln!("{_err}");
+                error!("[service] send_request error: {_err}");
                 false
             }
         }
@@ -201,7 +207,6 @@ where
                         // worker thread
                         tokio::spawn(async move {
                             while let Some(task) = req_rx.recv().await {
-                                println!("get task...");
                                 let rep_tx = rep_tx.clone();
                                 tokio::task::spawn_blocking(move || {
                                     match proc_request(task) {
@@ -269,7 +274,6 @@ where
                         // worker thread
                         tokio::spawn(async move {
                             while let Some(task) = req_rx.recv().await {
-                                println!("get task...");
                                 let rep_tx = rep_tx.clone();
                                 tokio::spawn(async move {
                                     match proc_request(task) {
@@ -355,7 +359,6 @@ where
                         // worker thread
                         tokio::spawn(async move {
                             while let Some(task) = req_rx.recv().await {
-                                println!("get task...");
                                 let rep_tx = rep_tx.clone();
                                 tokio::spawn(async move {
                                     match proc_request(task, rep_tx.clone(), cb_notify).await {
@@ -428,7 +431,6 @@ where
                         // worker thread
                         let worker = tokio::spawn(async move {
                             while let Some(task) = req_rx.recv().await {
-                                println!("get task...");
                                 let rep_tx = rep_tx.clone();
                                 tokio::spawn(async move {
                                     match proc_request(task, rep_tx.clone(), cb_notify).await {
@@ -471,7 +473,7 @@ where
         reply_cb: callback_notify,
     ) {
         if let Err(err) = out.send(Ok(reply)).await {
-            println!(" <- send: error: {err}");
+            error!(" <- send: error: {err}");
         } else {
             reply_cb.exec();
         }
@@ -483,7 +485,7 @@ where
         reply_cb: callback_notify,
     ) {
         if let Err(err) = out.blocking_send(Ok(reply)) {
-            println!(" <- send: error: {err}");
+            error!(" <- send: error: {err}");
         } else {
             reply_cb.exec();
         }
@@ -495,7 +497,7 @@ where
         reply_cb: callback_notify,
     ) {
         if let Err(err) = out.blocking_send(Err(msg)) {
-            println!(" <- send: error: {err}");
+            error!(" <- send: error: {err}");
         } else {
             reply_cb.exec();
         }
@@ -507,7 +509,7 @@ where
         reply_cb: callback_notify,
     ) {
         if let Err(err) = out.send(Err(msg)).await {
-            println!(" <- send: error: {err}");
+            error!(" <- send: error: {err}");
         } else {
             reply_cb.exec();
         }
@@ -519,7 +521,7 @@ where
         reply_cb: callback_notify,
     ) {
         if let Err(err) = out.send(Err(Error::Debug(msg))).await {
-            println!(" <- send: error: {err}");
+            error!(" <- send: error: {err}");
         } else {
             reply_cb.exec();
         }
@@ -531,7 +533,7 @@ where
         cb_notify: callback_notify,
     ) {
         if let Err(err) = out.send(Err(Error::Progress(value))).await {
-            println!(" <- send: error: {err}");
+            error!(" <- send: error: {err}");
         } else {
             cb_notify.exec();
         }
