@@ -30,6 +30,7 @@
             'href' - return href attribute of selected element,
             'none' - returns empty string</param>
             <param name="@strip_ws" type="symbol" required="false">replace multiple whitespaces/newlines/tabs with single space</param>
+            <param name="@json" type="symbol" required="false">parse result as Json and output it as data:Dict()</param>
             </method>
         </methods>
         <inlets>
@@ -50,6 +51,8 @@
 |
 |
 |
+|   [get http://ip.jsontest.com/ @json(
+|   |
 [net.http.client #z]
 |            ^|
 [F]          [print]

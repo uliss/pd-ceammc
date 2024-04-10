@@ -22,6 +22,14 @@ enum class ceammc_http_client_param_type {
     BasicAuth,
     /// strip whitespaces
     StripWhiteSpaces,
+    /// JSON response parse
+    JsonParse,
+};
+
+enum class ceammc_http_content_type {
+    None,
+    Html,
+    Json,
 };
 
 enum class ceammc_mqtt_qos {
@@ -104,6 +112,8 @@ struct ceammc_callback_progress {
 struct ceammc_http_client_result {
     /// reply text (can be NULL!)
     const char *data;
+    /// requested output content type
+    ceammc_http_content_type content_type;
     /// HTTP status
     uint16_t status;
 };
@@ -239,6 +249,7 @@ bool ceammc_http_client_get(ceammc_http_client *cli,
                             size_t param_len);
 
 /// create new http client
+/// @param _params - unused
 /// @param cb_err - called in the main thread on error message
 /// @param cb_post - called in the main thread on post message
 /// @param cb_debug - called in the main thread on debug message

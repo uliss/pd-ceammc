@@ -4,13 +4,15 @@ CONTROL_OBJECT_STUB(NetHttpClient, 1, 2, "compiled without http support");
 OBJECT_STUB_SETUP(NetHttpClient, net_http_client, "net.http.client", "http.client");
 #else
 
-#include "net_http_client.h"
 #include "args/argcheck2.h"
 #include "ceammc_crc32.h"
 #include "ceammc_data.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
+#include "datatype_json.h"
 #include "datatype_string.h"
+#include "net_http_client.h"
+#include "json/json.hpp"
 
 NetHttpClient::NetHttpClient(const PdArgs& args)
     : NetHttpClientBase(args)
@@ -23,12 +25,8 @@ NetHttpClient::NetHttpClient(const PdArgs& args)
               this,
               [](void* user, const ceammc_http_client_result* res) {
                   auto this_ = static_cast<NetHttpClient*>(user);
-                  if (this_ && res) {
-                      if (res->data && *res->data)
-                          this_->atomTo(1, StringAtom(res->data));
-
-                      this_->floatTo(0, res->status);
-                  }
+                  if (this_ && res)
+                      this_->processReply(*res);
               } },
           ceammc_callback_notify { reinterpret_cast<size_t>(this), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } })
 {
@@ -153,6 +151,9 @@ bool NetHttpClient::processParams(const AtomListView& lv, std::vector<ceammc_htt
 
             params.push_back({ mime->s_name, "", ceammc_http_client_param_type::Mime });
         } break;
+        case "@json"_hash: {
+            params.push_back({ "", "", ceammc_http_client_param_type::JsonParse });
+        } break;
         case "@multipart"_hash: {
             auto k = lv.symbolAt(0, &s_);
             auto v = lv.symbolAt(1, &s_);
@@ -237,6 +238,45 @@ bool NetHttpClient::processParams(const AtomListView& lv, std::vector<ceammc_htt
     });
 
     return no_err;
+}
+
+void NetHttpClient::processReply(const ceammc_http_client_result& res)
+{
+    if (res.data) {
+        switch (res.content_type) {
+        case ceammc_http_content_type::Html:
+            atomTo(1, StringAtom(res.data));
+            break;
+        case ceammc_http_content_type::Json: {
+            try {
+                auto j = nlohmann::json::parse(res.data);
+
+                using js = nlohmann::json::value_t;
+                switch (j.type()) {
+                case js::array: {
+                    AtomList lst;
+                    from_json(j, lst);
+                    listTo(1, lst);
+                } break;
+                default: {
+                    Atom a;
+                    from_json(j, a);
+                    atomTo(1, a);
+                } break;
+                }
+            } catch (std::exception& e) {
+                OBJ_ERR << e.what();
+            }
+
+            break;
+        case ceammc_http_content_type::None:
+        default:
+            break;
+        }
+        }
+
+        floatTo(0, res.status);
+    }
 }
 
 void setup_net_http_client()

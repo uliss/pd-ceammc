@@ -23,6 +23,7 @@ public:
 
 private:
     bool processParams(const AtomListView& lv, std::vector<ceammc_http_client_param>& params) const;
+    void processReply(const ceammc_http_client_result& res);
 };
 
 void setup_net_http_client();

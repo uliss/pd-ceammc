@@ -52,6 +52,10 @@ fn parse_client_options(params: Option<&http_client_param>, len: usize) -> HttpC
                     result.strip_ws = true;
                     continue;
                 }
+                http_client_param_type::JsonParse => {
+                    result.parse_json = true;
+                    continue;
+                }
                 http_client_param_type::Selector => {
                     result.selector = Some(CssSelector {
                         name,
@@ -129,9 +133,18 @@ pub struct HttpResponse {
     status: u16,
 }
 
-#[derive(Debug,Clone)]
+#[derive(Debug, Clone, Copy)]
+#[repr(C)]
+#[allow(non_camel_case_types)]
+pub enum http_content_type {
+    None,
+    Html,
+    Json,
+}
+
+#[derive(Debug, Clone)]
 pub enum HttpReply {
-    Get(HttpResponse),
+    Body(HttpResponse, http_content_type),
     Ok(u16),
 }
 
@@ -182,6 +195,8 @@ pub enum http_client_param_type {
     BasicAuth,
     /// strip whitespaces
     StripWhiteSpaces,
+    /// JSON response parse
+    JsonParse,
 }
 
 #[derive(Debug)]
@@ -199,6 +214,7 @@ struct HttpClientParams {
     timeout: Option<u16>,
     mime: Option<String>,
     strip_ws: bool,
+    parse_json: bool,
 }
 
 impl HttpClientParams {
@@ -209,6 +225,7 @@ impl HttpClientParams {
             timeout: None,
             mime: None,
             strip_ws: false,
+            parse_json: false,
         }
     }
 }
@@ -235,6 +252,8 @@ pub struct http_client_param {
 pub struct http_client_result {
     /// reply text (can be NULL!)
     data: *const c_char,
+    /// requested output content type
+    content_type: http_content_type,
     /// HTTP status
     status: u16,
 }
@@ -251,13 +270,14 @@ pub struct http_client_result_cb {
 impl ServiceCallback<HttpReply> for http_client_result_cb {
     fn exec(&self, data: &HttpReply) {
         match data {
-            HttpReply::Get(resp) => {
+            HttpReply::Body(resp, content_type) => {
                 let msg = CString::new(resp.body.clone()).unwrap_or_default();
                 self.cb.map(|cb| {
                     cb(
                         self.user,
                         &http_client_result {
                             data: msg.as_ptr(),
+                            content_type: *content_type,
                             status: resp.status,
                         },
                     )
@@ -269,6 +289,7 @@ impl ServiceCallback<HttpReply> for http_client_result_cb {
                         self.user,
                         &http_client_result {
                             data: CStr::from_bytes_with_nul(b"\0").unwrap().as_ptr(),
+                            content_type: http_content_type::None,
                             status: *status,
                         },
                     )
@@ -290,10 +311,17 @@ async fn http_response(resp: Response, params: &HttpClientParams) -> Result<Vec<
                 Ok(v) => Ok(v
                     .iter()
                     .map(|txt| {
-                        HttpReply::Get(HttpResponse {
-                            status,
-                            body: txt.clone(),
-                        })
+                        HttpReply::Body(
+                            HttpResponse {
+                                status,
+                                body: txt.clone(),
+                            },
+                            if params.parse_json {
+                                http_content_type::Json
+                            } else {
+                                http_content_type::Html
+                            },
+                        )
                     })
                     .collect()),
                 Err(err) => Err(Error::Error(err)),
@@ -512,6 +540,7 @@ async fn http_request(
 #[must_use]
 #[no_mangle]
 /// create new http client
+/// @param _params - unused
 /// @param cb_err - called in the main thread on error message
 /// @param cb_post - called in the main thread on post message
 /// @param cb_debug - called in the main thread on debug message
