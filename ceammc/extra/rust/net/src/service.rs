@@ -63,6 +63,7 @@ pub trait ServiceCallback<T> {
     fn exec(&self, data: &T);
 }
 
+#[derive(Debug)]
 pub enum Error {
     Error(String),
     Post(String),
@@ -151,6 +152,7 @@ where
         match self.tx.try_send(req) {
             Ok(_) => true,
             Err(_err) => {
+                self.on_error(format!("send_request error: {_err}").as_str());
                 error!("send_request error: {_err}");
                 false
             }
@@ -262,60 +264,67 @@ where
     pub async fn write_ok(
         out: &tokio::sync::mpsc::Sender<Result<Reply, Error>>,
         reply: Reply,
-        reply_cb: callback_notify,
+        cb_notify: callback_notify,
     ) {
         if let Err(err) = out.send(Ok(reply)).await {
             error!(" <- send: error: {err}");
         } else {
-            reply_cb.exec();
+            cb_notify.exec();
         }
     }
 
     pub fn sync_write_ok(
         out: &tokio::sync::mpsc::Sender<Result<Reply, Error>>,
         reply: Reply,
-        reply_cb: callback_notify,
+        cb_notify: callback_notify,
     ) {
         if let Err(err) = out.blocking_send(Ok(reply)) {
             error!(" <- send: error: {err}");
         } else {
-            reply_cb.exec();
+            cb_notify.exec();
         }
     }
 
     pub fn sync_write_error(
         out: &tokio::sync::mpsc::Sender<Result<Reply, Error>>,
         msg: Error,
-        reply_cb: callback_notify,
+        cb_notify: callback_notify,
     ) {
         if let Err(err) = out.blocking_send(Err(msg)) {
             error!(" <- send: error: {err}");
         } else {
-            reply_cb.exec();
+            cb_notify.exec();
         }
     }
 
     pub async fn write_error(
         out: &tokio::sync::mpsc::Sender<Result<Reply, Error>>,
         msg: Error,
-        reply_cb: callback_notify,
+        cb_notify: callback_notify,
     ) {
+        match &msg {
+            Error::Error(err) => error!("{err}"),
+            Error::Post(post) => info!("{post}"),
+            Error::Debug(dbg) => debug!("{dbg}"),
+            x => debug!("{x:?}"),
+        }
+        
         if let Err(err) = out.send(Err(msg)).await {
             error!(" <- send: error: {err}");
         } else {
-            reply_cb.exec();
+            cb_notify.exec();
         }
     }
 
     pub async fn write_debug(
         out: &tokio::sync::mpsc::Sender<Result<Reply, Error>>,
         msg: String,
-        reply_cb: callback_notify,
+        cb_notify: callback_notify,
     ) {
         if let Err(err) = out.send(Err(Error::Debug(msg))).await {
             error!(" <- send: error: {err}");
         } else {
-            reply_cb.exec();
+            cb_notify.exec();
         }
     }
 
