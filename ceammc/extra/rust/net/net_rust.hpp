@@ -351,6 +351,8 @@ bool ceammc_mqtt_client_subscribe(ceammc_mqtt_client *cli, const char *topic, ce
 /// @return true on success
 bool ceammc_mqtt_client_unsubscribe(ceammc_mqtt_client *cli, const char *topic);
 
+void ceammc_net_init_logging();
+
 /// free telegram bot
 /// @param cli - pointer to telegram bot
 void ceammc_telegram_bot_free(ceammc_telegram_bot_client *cli);

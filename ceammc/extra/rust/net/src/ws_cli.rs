@@ -6,6 +6,7 @@ use tokio::net::TcpStream;
 use tokio_tungstenite::{connect_async, MaybeTlsStream, WebSocketStream};
 use tungstenite::{error::ProtocolError, protocol::{frame::coding::CloseCode, CloseFrame}, Message};
 use url::Url;
+use log::{warn, debug};
 
 use crate::service::{callback_msg, callback_notify, callback_progress, Service, ServiceCallback};
 
@@ -34,6 +35,7 @@ pub struct ws_client_result_cb {
     cb_connected: Option<extern "C" fn(user: *mut c_void, state: bool)>,
 }
 
+#[derive(Debug)]
 enum WsRequest {
     SendMessage(Message, bool),
     Close,
@@ -41,6 +43,7 @@ enum WsRequest {
     Quit,
 }
 
+#[derive(Debug)]
 enum WsReply {
     Message(Message),
     Connected,
@@ -105,8 +108,9 @@ async fn reply_error(
     rep_tx: &tokio::sync::mpsc::Sender<Result<WsReply, crate::service::Error>>,
     msg: String,
 ) {
+    debug!("error: {msg}");
     if let Err(err) = rep_tx.send(Err(crate::service::Error::Error(msg))).await {
-        eprintln!("send error: {err}");
+        warn!("send error: {err}");
     } else {
         cb.exec();
     }
@@ -118,7 +122,7 @@ async fn reply_send(
     msg: WsReply,
 ) {
     if let Err(err) = rep_tx.send(Ok(msg)).await {
-        eprintln!("send error: {err}");
+        warn!("send error: {err}");
     } else {
         cb.exec();
     }
@@ -181,6 +185,7 @@ async fn process_incoming(
     match res {
         Ok(msg) => match msg {
             Message::Ping(data) => {
+                debug!("pong {data:?}");
                 if let Err(err) = ws.send(Message::Pong(data.clone())).await {
                     let _ = reply_error(&cb_notify, &rep_tx, err.to_string());
                 } else {
@@ -196,7 +201,10 @@ async fn process_incoming(
         },
         Err(err) => {
             match err {
-                tungstenite::Error::ConnectionClosed => {}
+                tungstenite::Error::ConnectionClosed => { 
+                    debug!("closed");
+                    reply_send(&cb_notify, &rep_tx, WsReply::Disconnected).await;
+                }
                 tungstenite::Error::Protocol(ProtocolError::ResetWithoutClosingHandshake) => {
                     reply_error(&cb_notify, &rep_tx, err.to_string()).await;
                     reply_send(&cb_notify, &rep_tx, WsReply::Disconnected).await;
@@ -241,6 +249,8 @@ pub extern "C" fn ceammc_ws_client_new(
 
     match rt {
         Ok(rt) => {
+            debug!("[websocket client] creating tokio runtime ...");
+
             let (req_tx, mut req_rx) = tokio::sync::mpsc::channel::<WsRequest>(32);
             let (rep_tx, rep_rx) =
                 tokio::sync::mpsc::channel::<Result<WsReply, crate::service::Error>>(32);
@@ -248,22 +258,33 @@ pub extern "C" fn ceammc_ws_client_new(
             match url {
                 Ok(url) => match Url::parse(url) {
                     Ok(url) => {
-                        let _x = std::thread::spawn(move || {
+                        std::thread::spawn(move || {
+                            debug!("[websocket client] starting worker thread ...");
                             rt.block_on(async move {
                                 match connect_async(url).await {
                                     Ok((mut wss, _response)) => {
+                                        debug!("[websocket client] connected to server ...");
                                         reply_send(&cb_notify, &rep_tx, WsReply::Connected).await;
+                                        debug!("[websocket client] starting runloop ...");
                                         loop {
                                             tokio::select! {
                                                 // process requests
                                                 var = req_rx.recv() => {
+                                                    debug!("[websocket client] new request: {var:?}");
                                                     if process_request(var, &mut wss, &cb_notify, &rep_tx).await == ProcessMode::Break { 
+                                                        debug!("[websocket client] exit runloop ...");
                                                         return (); 
                                                     }
                                                 },
-                                                var = wss.next() => match var {
-                                                    Some(x) => process_incoming(x, &mut wss, &cb_notify, &rep_tx).await,
-                                                    None => return (),
+                                                var = wss.next() => {
+                                                    debug!("[websocket client] message from server: {var:?}");
+                                                    match var {
+                                                        Some(x) => process_incoming(x, &mut wss, &cb_notify, &rep_tx).await,
+                                                        None => {
+                                                            debug!("[websocket client] exit runloop ...");
+                                                            return ();
+                                                        }
+                                                    }
                                                 }
                                             }
                                         }
@@ -272,7 +293,8 @@ pub extern "C" fn ceammc_ws_client_new(
                                         reply_error(&cb_notify, &rep_tx, err.to_string()).await;
                                     }
                                 }
-                            })
+                            });
+                            debug!("[websocket client] exit worker thread ...");
                         });
 
                         let cli = WsClientService::new(

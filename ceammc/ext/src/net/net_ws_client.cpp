@@ -382,6 +382,8 @@ std::string NetWsClient::makeJson(const AtomListView& lv)
 
 void setup_net_ws_client()
 {
+    // ceammc_net_init_logging();
+
     ObjectFactory<NetWsClient> obj("net.ws.client");
     obj.addMethod("close", &NetWsClient::m_close);
     obj.addMethod("connect", &NetWsClient::m_connect);
