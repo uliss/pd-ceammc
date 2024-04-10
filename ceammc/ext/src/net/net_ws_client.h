@@ -60,6 +60,7 @@ private:
     void processBinary(const std::uint8_t* data, size_t data_len);
     void processClose();
     void processConnect();
+    void processDisconnect();
     void processPing(const std::uint8_t* data, size_t data_len);
     void processPong(const std::uint8_t* data, size_t data_len);
     void processText(const char* txt);

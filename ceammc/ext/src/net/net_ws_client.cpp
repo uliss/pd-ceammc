@@ -36,6 +36,7 @@ CEAMMC_DEFINE_HASH(json)
 CEAMMC_DEFINE_SYM(binary)
 CEAMMC_DEFINE_SYM(closed)
 CEAMMC_DEFINE_SYM(connected)
+CEAMMC_DEFINE_SYM(disconnected)
 CEAMMC_DEFINE_SYM(latency)
 CEAMMC_DEFINE_SYM(ping)
 CEAMMC_DEFINE_SYM(pong)
@@ -96,10 +97,14 @@ void NetWsClient::m_connect(t_symbol* s, const AtomListView& lv)
                 if (this_)
                     this_->processClose();
             },
-            [](void* user) {
+            [](void* user, bool state) {
                 auto this_ = static_cast<NetWsClient*>(user);
-                if (this_)
-                    this_->processConnect();
+                if (this_) {
+                    if (state)
+                        this_->processConnect();
+                    else
+                        this_->processDisconnect();
+                }
             },
         },
         ceammc_callback_notify { reinterpret_cast<size_t>(this), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }));
@@ -202,6 +207,12 @@ void NetWsClient::processClose()
 void NetWsClient::processConnect()
 {
     anyTo(0, sym_connected(), AtomListView {});
+}
+
+void NetWsClient::processDisconnect()
+{
+    cli_.reset();
+    anyTo(0, sym_disconnected(), AtomListView {});
 }
 
 void NetWsClient::processPing(const std::uint8_t* data, size_t data_len)

@@ -175,8 +175,8 @@ struct ceammc_ws_client_result_cb {
     void (*cb_pong)(void *user, const uint8_t *data, size_t data_len);
     /// close callback function (can be NULL)
     void (*cb_close)(void *user);
-    /// connection callback function (can be NULL)
-    void (*cb_connected)(void *user);
+    /// connected/disconnected callback function (can be NULL)
+    void (*cb_connected)(void *user, bool state);
 };
 
 struct ceammc_ws_client_target {

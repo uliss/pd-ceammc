@@ -1,12 +1,10 @@
 use futures_util::{SinkExt, StreamExt};
 use std::{
-    ffi::{CStr, CString},
-    os::raw::{c_char, c_void},
-    ptr::null_mut,
+    borrow::Cow, ffi::{CStr, CString}, os::raw::{c_char, c_void}, ptr::null_mut
 };
 use tokio::net::TcpStream;
 use tokio_tungstenite::{connect_async, MaybeTlsStream, WebSocketStream};
-use tungstenite::Message;
+use tungstenite::{error::ProtocolError, protocol::{frame::coding::CloseCode, CloseFrame}, Message};
 use url::Url;
 
 use crate::service::{callback_msg, callback_notify, callback_progress, Service, ServiceCallback};
@@ -32,8 +30,8 @@ pub struct ws_client_result_cb {
     cb_pong: Option<extern "C" fn(user: *mut c_void, data: *const u8, data_len: usize)>,
     /// close callback function (can be NULL)
     cb_close: Option<extern "C" fn(user: *mut c_void)>,
-    /// connection callback function (can be NULL)
-    cb_connected: Option<extern "C" fn(user: *mut c_void)>,
+    /// connected/disconnected callback function (can be NULL)
+    cb_connected: Option<extern "C" fn(user: *mut c_void, state: bool)>,
 }
 
 enum WsRequest {
@@ -46,6 +44,7 @@ enum WsRequest {
 enum WsReply {
     Message(Message),
     Connected,
+    Disconnected,
 }
 
 type WsClientService = Service<WsRequest, WsReply>;
@@ -89,7 +88,12 @@ impl ServiceCallback<WsReply> for ws_client_result_cb {
             },
             WsReply::Connected => {
                 self.cb_connected.map(|f| {
-                    f(self.user);
+                    f(self.user, true);
+                });
+            },
+            WsReply::Disconnected => {
+                self.cb_connected.map(|f| {
+                    f(self.user, false);
                 });
             }
         }
@@ -149,7 +153,7 @@ async fn process_request(
                 ProcessMode::Continue
             }
             WsRequest::Close => {
-                if let Err(err) = ws.close(None).await {
+                if let Err(err) = ws.close(Some(CloseFrame{ code: CloseCode::Normal, reason: Cow::Borrowed("bye") })).await {
                     let _ = reply_error(cb_notify, rep_tx, err.to_string());
                     return ProcessMode::Break;
                 }
@@ -184,7 +188,7 @@ async fn process_incoming(
                 }
             }
             Message::Close(_x) => {
-                println!("closing...")
+                reply_send(&cb_notify, &rep_tx, WsReply::Disconnected).await;
             }
             msg => {
                 reply_send(&cb_notify, &rep_tx, WsReply::Message(msg)).await;
@@ -193,6 +197,10 @@ async fn process_incoming(
         Err(err) => {
             match err {
                 tungstenite::Error::ConnectionClosed => {}
+                tungstenite::Error::Protocol(ProtocolError::ResetWithoutClosingHandshake) => {
+                    reply_error(&cb_notify, &rep_tx, err.to_string()).await;
+                    reply_send(&cb_notify, &rep_tx, WsReply::Disconnected).await;
+                },
                 _ => {
                     reply_error(&cb_notify, &rep_tx, err.to_string()).await;
                 }
