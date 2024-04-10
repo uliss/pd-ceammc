@@ -7,7 +7,12 @@ pub mod ws_srv;
 
 use env_logger;
 
+use std::sync::Once;
+static LOG_INIT: Once = Once::new();
+
 #[no_mangle]
 pub extern "C" fn ceammc_init_rust_logging() {
-    env_logger::builder().format_timestamp(None).init();
+    LOG_INIT.call_once(|| {
+        env_logger::builder().format_timestamp(None).init();
+    });
 }

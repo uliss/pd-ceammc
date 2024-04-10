@@ -249,7 +249,7 @@ pub extern "C" fn ceammc_ws_client_new(
 
     match rt {
         Ok(rt) => {
-            debug!("[websocket client] creating tokio runtime ...");
+            debug!("creating tokio runtime ...");
 
             let (req_tx, mut req_rx) = tokio::sync::mpsc::channel::<WsRequest>(32);
             let (rep_tx, rep_rx) =
@@ -259,29 +259,29 @@ pub extern "C" fn ceammc_ws_client_new(
                 Ok(url) => match Url::parse(url) {
                     Ok(url) => {
                         std::thread::spawn(move || {
-                            debug!("[websocket client] starting worker thread ...");
+                            debug!("starting worker thread ...");
                             rt.block_on(async move {
                                 match connect_async(url).await {
                                     Ok((mut wss, _response)) => {
-                                        debug!("[websocket client] connected to server ...");
+                                        debug!("connected to server ...");
                                         reply_send(&cb_notify, &rep_tx, WsReply::Connected).await;
-                                        debug!("[websocket client] starting runloop ...");
+                                        debug!("starting runloop ...");
                                         loop {
                                             tokio::select! {
                                                 // process requests
                                                 var = req_rx.recv() => {
-                                                    debug!("[websocket client] new request: {var:?}");
+                                                    debug!("new request: {var:?}");
                                                     if process_request(var, &mut wss, &cb_notify, &rep_tx).await == ProcessMode::Break { 
-                                                        debug!("[websocket client] exit runloop ...");
+                                                        debug!("exit runloop ...");
                                                         return (); 
                                                     }
                                                 },
                                                 var = wss.next() => {
-                                                    debug!("[websocket client] message from server: {var:?}");
+                                                    debug!("message from server: {var:?}");
                                                     match var {
                                                         Some(x) => process_incoming(x, &mut wss, &cb_notify, &rep_tx).await,
                                                         None => {
-                                                            debug!("[websocket client] exit runloop ...");
+                                                            debug!("exit runloop ...");
                                                             return ();
                                                         }
                                                     }
@@ -294,7 +294,7 @@ pub extern "C" fn ceammc_ws_client_new(
                                     }
                                 }
                             });
-                            debug!("[websocket client] exit worker thread ...");
+                            debug!("exit worker thread ...");
                         });
 
                         let cli = WsClientService::new(

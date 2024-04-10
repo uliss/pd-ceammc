@@ -120,17 +120,17 @@ where
     }
 
     pub fn on_error(&self, msg: &str) {
-        error!("[service] {msg}");
+        error!("{msg}");
         self.cb_err.exec(msg);
     }
 
     pub fn on_post(&self, msg: &str) {
-        info!("[service] {msg}");
+        info!("{msg}");
         self.cb_post.exec(msg);
     }
 
     pub fn on_debug(&self, msg: &str) {
-        debug!("[service] {msg}");
+        debug!("{msg}");
         self.cb_debug.exec(msg);
     }
 
@@ -147,22 +147,22 @@ where
     }
 
     pub fn send_request(&self, req: Request) -> bool {
-        debug!("[service] send_request {req:?}");
+        debug!("send_request {req:?}");
         match self.tx.try_send(req) {
             Ok(_) => true,
             Err(_err) => {
-                error!("[service] send_request error: {_err}");
+                error!("send_request error: {_err}");
                 false
             }
         }
     }
 
     pub fn blocking_send(&self, req: Request) -> bool {
-        debug!("[service] blocking_send {req:?}");
+        debug!("blocking_send {req:?}");
         match self.tx.blocking_send(req) {
             Ok(_) => true,
             Err(_err) => {
-                error!("[service] send_request error: {_err}");
+                error!("send_request error: {_err}");
                 false
             }
         }
