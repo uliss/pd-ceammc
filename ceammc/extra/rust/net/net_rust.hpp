@@ -159,6 +159,7 @@ struct ceammc_telegram_bot_result_cb {
 };
 
 struct ceammc_ws_client_init {
+    /// websocket url in format: ws://HOST:PORT/PATH?
     const char *url;
 };
 
@@ -421,12 +422,12 @@ bool ceammc_telegram_bot_send_voice(ceammc_telegram_bot_client *cli,
 /// @param cli - pointer to telegram bot
 bool ceammc_telegram_bot_whoami(ceammc_telegram_bot_client *cli);
 
-/// close client connection
+/// close websocket client connection
 /// @param cli - pointer to websocket client
 /// @return true on success, false on error
 bool ceammc_ws_client_close(ceammc_ws_client *cli);
 
-/// flush client connection
+/// flush websocket client connection
 /// @param cli - pointer to websocket client
 /// @return true on success, false on error
 bool ceammc_ws_client_flush(ceammc_ws_client *cli);
@@ -436,14 +437,15 @@ bool ceammc_ws_client_flush(ceammc_ws_client *cli);
 void ceammc_ws_client_free(ceammc_ws_client *cli);
 
 /// create websocket client
-/// @param url - string in format: ws://HOST:PORT?/path?
-/// @param on_err - callback for error messages
-/// @param on_text - callback for incoming text messages
-/// @param on_bin - callback for incoming binary messages
-/// @param on_ping - callback for incoming ping messages
-/// @param on_pong - callback for incoming pong messages
-/// @param on_close - callback on connection close
-/// @return pointer to client or NULL
+/// @param params - connection params
+/// @param cb_err - callback for error messages
+/// @param cb_post - callback for post messages
+/// @param cb_debug - callback for debug messages
+/// @param cb_log - callback for log messages
+/// @param _cb_progress - unused
+/// @param cb_reply - reply callbacks
+/// @param cb_notify - notification callback
+/// @return pointer to websocket client or NULL on error
 ceammc_ws_client *ceammc_ws_client_new(ceammc_ws_client_init params,
                                        ceammc_callback_msg cb_err,
                                        ceammc_callback_msg cb_post,
@@ -453,7 +455,7 @@ ceammc_ws_client *ceammc_ws_client_new(ceammc_ws_client_init params,
                                        ceammc_ws_client_result_cb cb_reply,
                                        ceammc_callback_notify cb_notify);
 
-/// process all available messages from WebSocket server
+/// process all available results from websocket
 /// @param cli - pointer to websocket client
 /// @return true on success, false on error
 bool ceammc_ws_client_process_events(ceammc_ws_client *cli);
@@ -470,7 +472,7 @@ bool ceammc_ws_client_send_binary(ceammc_ws_client *cli,
                                   size_t len,
                                   bool flush);
 
-/// sends ping to WebSocket server
+/// sends ping to websocket server
 /// @param cli - pointer to websocket client
 /// @param data - pointer to ping data (can be NULL)
 /// @param len - data length

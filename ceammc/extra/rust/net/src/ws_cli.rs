@@ -13,6 +13,7 @@ use crate::service::{callback_msg, callback_notify, callback_progress, Service, 
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub struct ws_client_init {
+    /// websocket url in format: ws://HOST:PORT/PATH?
     url: *const c_char,
 }
 
@@ -219,14 +220,15 @@ async fn process_incoming(
 }
 
 /// create websocket client
-/// @param url - string in format: ws://HOST:PORT?/path?
-/// @param on_err - callback for error messages
-/// @param on_text - callback for incoming text messages
-/// @param on_bin - callback for incoming binary messages
-/// @param on_ping - callback for incoming ping messages
-/// @param on_pong - callback for incoming pong messages
-/// @param on_close - callback on connection close
-/// @return pointer to client or NULL
+/// @param params - connection params
+/// @param cb_err - callback for error messages
+/// @param cb_post - callback for post messages
+/// @param cb_debug - callback for debug messages
+/// @param cb_log - callback for log messages
+/// @param _cb_progress - unused
+/// @param cb_reply - reply callbacks
+/// @param cb_notify - notification callback
+/// @return pointer to websocket client or NULL on error
 #[no_mangle]
 pub extern "C" fn ceammc_ws_client_new(
     params: ws_client_init,
@@ -397,7 +399,7 @@ pub extern "C" fn ceammc_ws_client_send_binary(
         .send_request(WsRequest::SendMessage(Message::Binary(data), flush))
 }
 
-/// sends ping to WebSocket server
+/// sends ping to websocket server
 /// @param cli - pointer to websocket client
 /// @param data - pointer to ping data (can be NULL)
 /// @param len - data length
@@ -423,16 +425,7 @@ pub extern "C" fn ceammc_ws_client_send_ping(
         .send_request(WsRequest::SendMessage(Message::Ping(data), true))
 }
 
-#[allow(non_camel_case_types)]
-#[repr(C)]
-pub enum ws_trim {
-    NO,    // no trim
-    START, // remove leading whitespaces, newlines etc.
-    END,   // remove trailing whitespaces, newlines etc.
-    BOTH,  // remove leading and trailing whitespaces, newlines etc.
-}
-
-/// process all available messages from WebSocket server
+/// process all available results from websocket
 /// @param cli - pointer to websocket client
 /// @return true on success, false on error
 #[no_mangle]
@@ -446,7 +439,7 @@ pub extern "C" fn ceammc_ws_client_process_events(cli: *mut ws_client) -> bool {
     true
 }
 
-/// close client connection
+/// close websocket client connection
 /// @param cli - pointer to websocket client
 /// @return true on success, false on error
 #[no_mangle]
@@ -459,7 +452,7 @@ pub extern "C" fn ceammc_ws_client_close(cli: *mut ws_client) -> bool {
     cli.cli.send_request(WsRequest::Close)
 }
 
-/// flush client connection
+/// flush websocket client connection
 /// @param cli - pointer to websocket client
 /// @return true on success, false on error
 #[no_mangle]
