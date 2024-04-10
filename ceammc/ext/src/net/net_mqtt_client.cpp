@@ -116,6 +116,8 @@ void NetMqttClient::m_connect(t_symbol* s, const AtomListView& lv)
         ceammc_callback_notify { reinterpret_cast<size_t>(this), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } })
         //
     );
+    cli_->setErrorCallback([this](const char* msg) { OBJ_ERR << msg; });
+    cli_->setDebugCallback([this](const char* msg) { OBJ_DBG << msg; });
 }
 
 void NetMqttClient::m_close(t_symbol* s, const AtomListView& lv)

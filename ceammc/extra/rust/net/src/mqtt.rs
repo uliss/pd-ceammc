@@ -1,5 +1,6 @@
 use bytes::Bytes;
-use rumqttc::{ConnectionError, Event, MqttOptions, Packet, QoS};
+use log::{debug, error};
+use rumqttc::{AsyncClient, ConnectionError, Event, MqttOptions, Packet, QoS};
 use std::ffi::{CStr, CString};
 use std::os::raw::{c_char, c_void};
 use std::ptr::null_mut;
@@ -120,6 +121,7 @@ enum MqttRequest {
     Unsubscribe(String),
     Publish(PublishRequest),
     PublishData(PublishDataRequest),
+    Quit,
 }
 
 #[derive(Debug)]
@@ -134,7 +136,6 @@ type MqttService = Service<MqttRequest, MqttReply>;
 #[allow(non_camel_case_types)]
 pub struct mqtt_client {
     service: MqttService,
-    quit_tx: tokio::sync::mpsc::Sender<bool>,
 }
 
 #[allow(non_camel_case_types)]
@@ -148,7 +149,7 @@ async fn match_event(
     event: Result<Event, ConnectionError>,
     rep_tx: &tokio::sync::mpsc::Sender<Result<MqttReply, Error>>,
     cb_notify: callback_notify,
-) -> bool {
+) -> ProcessMode {
     match event {
         Ok(ev) => {
             match ev {
@@ -157,19 +158,19 @@ async fn match_event(
                         // Packet::Connect(x) => todo!(),
                         Packet::ConnAck(x) => {
                             if let Err(err) = rep_tx.send(Ok(MqttReply::Connected(x))).await {
-                                eprintln!("<- ConnAck: send error: {err:?}");
+                                error!("<- ConnAck: send error: {err:?}");
                             }
                             cb_notify.exec();
                         }
                         Packet::Publish(x) => {
                             if let Err(err) = rep_tx.send(Ok(MqttReply::Publish(x))).await {
-                                eprintln!("<- Publish send error: {err:?}");
+                                error!("<- Publish send error: {err:?}");
                             }
                             cb_notify.exec();
                         }
                         Packet::PingResp => {
                             if let Err(err) = rep_tx.send(Ok(MqttReply::Ping)).await {
-                                eprintln!("<- PingResp send error: {err:?}");
+                                error!("<- PingResp send error: {err:?}");
                             }
                             cb_notify.exec();
                         }
@@ -184,14 +185,71 @@ async fn match_event(
                 .send(Err(Error::Error(format!("connection error: {err:?}"))))
                 .await
             {
-                eprintln!("### send error: {err}");
+                error!("### send error: {err}");
             }
             cb_notify.exec();
-            return false;
+            return ProcessMode::Break;
         }
     }
 
-    true
+    ProcessMode::Continue
+}
+
+#[derive(PartialEq)]
+enum ProcessMode {
+    Continue,
+    Break,
+}
+
+async fn process_requests(
+    cli: &AsyncClient,
+    reqwest: Option<MqttRequest>,
+    rep_tx: &tokio::sync::mpsc::Sender<Result<MqttReply, crate::service::Error>>,
+    cb_notify: &callback_notify,
+) -> ProcessMode {
+    match reqwest {
+        Some(reqwest) => {
+            match reqwest {
+                MqttRequest::Subscribe(topic, qos) => {
+                    if let Err(err) = cli.subscribe(topic, qos).await {
+                        let _ = rep_tx.send(Err(Error::Error(format!("{err:?}")))).await;
+                        cb_notify.exec();
+                        return ProcessMode::Break;
+                    }
+                }
+                MqttRequest::Unsubscribe(topic) => {
+                    if let Err(err) = cli.unsubscribe(topic).await {
+                        let _ = rep_tx.send(Err(Error::Error(format!("{err:?}")))).await;
+                        cb_notify.exec();
+                        return ProcessMode::Break;
+                    }
+                }
+                MqttRequest::Publish(msg) => {
+                    if let Err(err) = cli.publish(msg.topic, msg.qos, msg.retain, msg.msg).await {
+                        let _ = rep_tx.send(Err(Error::Error(format!("{err:?}")))).await;
+                        cb_notify.exec();
+                        return ProcessMode::Break;
+                    }
+                }
+                MqttRequest::Quit => {
+                    return ProcessMode::Break;
+                }
+                MqttRequest::PublishData(data) => {
+                    if let Err(err) = cli
+                        .publish(data.topic, data.qos, data.retain, data.data)
+                        .await
+                    {
+                        let _ = rep_tx.send(Err(Error::Error(format!("{err:?}")))).await;
+                        cb_notify.exec();
+                        return ProcessMode::Break;
+                    }
+                }
+            }
+
+            ProcessMode::Continue
+        }
+        None => ProcessMode::Break,
+    }
 }
 
 #[no_mangle]
@@ -251,82 +309,33 @@ pub extern "C" fn ceammc_mqtt_client_new(
 
             match rt {
                 Ok(rt) => {
+                    debug!("create tokio runtime ...");
+
                     let (req_tx, mut req_rx) = tokio::sync::mpsc::channel::<MqttRequest>(32);
                     let (rep_tx, rep_rx) =
                         tokio::sync::mpsc::channel::<Result<MqttReply, Error>>(32);
 
-                    let (quit_tx, mut quit_rx) = tokio::sync::mpsc::channel::<bool>(1);
-
+                    debug!("starting worker thread ...");
                     std::thread::spawn(move || {
                         rt.block_on(async move {
-                            let w_tx = rep_tx.clone();
-
-                            // worker thread
-                            tokio::task::spawn(async move {
-                                while let Some(task) = req_rx.recv().await {
-                                    match task {
-                                        MqttRequest::Subscribe(topic, qos) => {
-                                            if let Err(err) = cli.subscribe(topic, qos).await {
-                                                let _ = w_tx
-                                                    .send(Err(Error::Error(format!("{err:?}"))))
-                                                    .await;
-                                                cb_notify.exec();
-                                            }
-                                        }
-                                        MqttRequest::Unsubscribe(topic) => {
-                                            if let Err(err) = cli.unsubscribe(topic).await {
-                                                let _ = w_tx
-                                                    .send(Err(Error::Error(format!("{err:?}"))))
-                                                    .await;
-                                                cb_notify.exec();
-                                            }
-                                        }
-                                        MqttRequest::Publish(msg) => {
-                                            if let Err(err) = cli
-                                                .publish(msg.topic, msg.qos, msg.retain, msg.msg)
-                                                .await
-                                            {
-                                                let _ = w_tx
-                                                    .send(Err(Error::Error(format!("{err:?}"))))
-                                                    .await;
-                                                cb_notify.exec();
-                                            }
-                                        }
-                                        MqttRequest::PublishData(data) => {
-                                            if let Err(err) = cli
-                                                .publish(
-                                                    data.topic,
-                                                    data.qos,
-                                                    data.retain,
-                                                    data.data,
-                                                )
-                                                .await
-                                            {
-                                                let _ = w_tx
-                                                    .send(Err(Error::Error(format!("{err:?}"))))
-                                                    .await;
-                                                cb_notify.exec();
-                                            }
-                                        }
-                                    }
-                                }
-
-                                // Once all senders have gone out of scope,
-                                // the `.recv()` call returns None and it will
-                                // exit from the while loop and shut down the
-                                // thread.
-                            });
+                            debug!("starting runloop ...");
 
                             loop {
                                 tokio::select! {
-                                    _val = quit_rx.recv() => {
-                                        return ();
+                                    req = req_rx.recv() => {
+                                        if process_requests(&cli, req, &rep_tx, &cb_notify).await == ProcessMode::Break {
+                                            break;
+                                        }
                                     },
                                     ev = event_loop.poll() => {
-                                       let _ = match_event(ev, &rep_tx, cb_notify).await;
+                                        if match_event(ev, &rep_tx, cb_notify).await == ProcessMode::Break {
+                                            break;
+                                        }
                                     }
                                 }
                             }
+
+                            debug!("exit runloop ...");
                         });
                     });
 
@@ -341,10 +350,7 @@ pub extern "C" fn ceammc_mqtt_client_new(
                         rep_rx,
                     );
 
-                    return Box::into_raw(Box::new(mqtt_client {
-                        service: srv,
-                        quit_tx,
-                    }));
+                    return Box::into_raw(Box::new(mqtt_client { service: srv }));
                 }
                 Err(err) => {
                     cb_err.exec(format!("tokio runtime creation error: {err}").as_str());
@@ -361,7 +367,7 @@ pub extern "C" fn ceammc_mqtt_client_new(
 pub extern "C" fn ceammc_mqtt_client_free(cli: *mut mqtt_client) {
     if !cli.is_null() {
         let cli = unsafe { Box::from_raw(cli) };
-        let _ = cli.quit_tx.blocking_send(true);
+        let _ = cli.service.blocking_send(MqttRequest::Quit);
     }
 }
 
