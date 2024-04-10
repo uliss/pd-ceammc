@@ -1,4 +1,7 @@
 use core::slice;
+use log::{debug, error};
+use regex::Regex;
+use reqwest::{RequestBuilder, Response};
 use std::{
     collections::HashMap,
     ffi::{CStr, CString, OsStr},
@@ -7,9 +10,6 @@ use std::{
     ptr::null_mut,
     time::Duration,
 };
-
-use regex::Regex;
-use reqwest::{RequestBuilder, Response};
 use tokio::{fs::File, io::AsyncWriteExt};
 use tokio_util::codec::{BytesCodec, FramedRead};
 
@@ -123,13 +123,13 @@ struct CssSelector {
     content: http_client_select_type,
 }
 
-#[derive(Debug, Default)]
+#[derive(Debug, Default, Clone)]
 pub struct HttpResponse {
     body: String,
     status: u16,
 }
 
-#[derive(Debug)]
+#[derive(Debug,Clone)]
 pub enum HttpReply {
     Get(HttpResponse),
     Ok(u16),
@@ -345,7 +345,7 @@ fn process_params(mut cli: RequestBuilder, params: &HttpClientParams) -> Request
 
 async fn http_request(
     req: HttpRequest,
-    tx: HttpSenderTx,
+    tx: &HttpSenderTx,
     cb: callback_notify,
 ) -> Result<Vec<HttpReply>, Error> {
     match req.method {
@@ -442,7 +442,7 @@ async fn http_request(
                                     if total > 0 {
                                         bytes_send += bytes.len() as u64;
                                         let perc = (100 * bytes_send) / total;
-                                        // eprintln!("done: {perc}%");
+                                        debug!("done: {perc}%");
                                         HttpService::write_progress(&tx, perc as u8, cb).await;
                                     }
                                 } else {
@@ -530,23 +530,65 @@ pub extern "C" fn ceammc_http_client_new(
     cb_reply: http_client_result_cb,
     cb_notify: callback_notify,
 ) -> *mut http_client {
-    let service = HttpService::new_async_many(
-        //
-        cb_err,
-        cb_post,
-        cb_debug,
-        cb_log,
-        cb_progress,
-        Box::new(cb_reply),
-        cb_notify,
-        http_request,
-        16,
-    );
+    let rt = tokio::runtime::Runtime::new();
 
-    match service {
-        Some(service) => Box::into_raw(Box::new(http_client { service })),
-        None => {
-            cb_err.exec("http client creation error");
+    match rt {
+        Ok(rt) => {
+            debug!("creating tokio runtime ...");
+
+            let (req_tx, mut req_rx) = tokio::sync::mpsc::channel::<HttpRequest>(32);
+            let (rep_tx, rep_rx) =
+                tokio::sync::mpsc::channel::<Result<HttpReply, crate::service::Error>>(32);
+
+            std::thread::spawn(move || {
+                debug!("starting worker thread ...");
+                rt.block_on(async move {
+                    debug!("starting runloop ...");
+                    loop {
+                        tokio::select! {
+                            // process requests
+                            request = req_rx.recv() => {
+                                debug!("new request: {request:?}");
+                                match request {
+                                    Some(request) => {
+                                        match http_request(request, &rep_tx, cb_notify).await {
+                                            Ok(reply) => {
+                                                for rep in reply {
+                                                    HttpService::write_ok(&rep_tx, rep, cb_notify).await;
+                                                }
+                                            },
+                                            Err(err) => {
+                                                HttpService::write_error(&rep_tx, err, cb_notify).await;
+                                            },
+                                        }
+                                    }
+                                    None => {
+                                        debug!("break runloop");
+                                        break;
+                                    },
+                                }
+                            },
+                        }
+                    }
+                });
+                debug!("exit worker thread ...");
+            });
+
+            let cli = HttpService::new(
+                cb_err,
+                cb_post,
+                cb_debug,
+                cb_log,
+                cb_progress,
+                Box::new(cb_reply),
+                req_tx,
+                rep_rx,
+            );
+
+            return Box::into_raw(Box::new(http_client { service: cli }));
+        }
+        Err(err) => {
+            cb_err.exec(err.to_string().as_str());
             null_mut()
         }
     }
@@ -575,7 +617,7 @@ pub extern "C" fn ceammc_http_client_get(
     param_len: usize,
 ) -> bool {
     if cli.is_none() {
-        eprintln!("NULL client");
+        error!("NULL client");
         return false;
     }
 
@@ -596,8 +638,6 @@ pub extern "C" fn ceammc_http_client_get(
         params,
     };
 
-    eprintln!("{req:?}");
-
     cli.service.send_request(req)
 }
 
@@ -615,7 +655,7 @@ pub extern "C" fn ceammc_http_client_post(
     param_len: usize,
 ) -> bool {
     if cli.is_none() {
-        eprintln!("NULL client");
+        error!("NULL client");
         return false;
     }
 
@@ -635,8 +675,6 @@ pub extern "C" fn ceammc_http_client_post(
         method: HttpRequestMethod::Post(url.to_owned()),
         params,
     };
-
-    eprintln!("post: {req:?}");
 
     cli.service.send_request(req)
 }
@@ -659,7 +697,7 @@ pub extern "C" fn ceammc_http_client_upload(
     params_len: usize,
 ) -> bool {
     if cli.is_none() {
-        eprintln!("NULL client");
+        error!("NULL client");
         return false;
     }
 
@@ -690,8 +728,6 @@ pub extern "C" fn ceammc_http_client_upload(
         params,
     };
 
-    eprintln!("upload: {req:?}");
-
     cli.service.send_request(req)
 }
 
@@ -713,7 +749,7 @@ pub extern "C" fn ceammc_http_client_download(
     params_len: usize,
 ) -> bool {
     if cli.is_none() {
-        eprintln!("NULL client");
+        error!("NULL client");
         return false;
     }
 
@@ -741,8 +777,6 @@ pub extern "C" fn ceammc_http_client_download(
         params,
     };
 
-    eprintln!("download: {req:?}");
-
     cli.service.send_request(req)
 }
 
@@ -752,7 +786,7 @@ pub extern "C" fn ceammc_http_client_download(
 #[no_mangle]
 pub extern "C" fn ceammc_http_client_process(cli: Option<&mut http_client>) -> bool {
     if cli.is_none() {
-        eprintln!("NULL client");
+        error!("NULL client");
         return false;
     }
 
@@ -767,7 +801,7 @@ fn apply_selector(css: &Option<CssSelector>, body: &String) -> Result<Vec<String
             let sel = scraper::Selector::parse(css.name.as_str());
             match sel {
                 Ok(sel) => {
-                    eprintln!("CSS selector: {css:?}");
+                    debug!("CSS selector: {css:?}");
                     let html = scraper::Html::parse_document(body.as_str());
 
                     let v: Vec<_> = html
