@@ -75,6 +75,19 @@ else()
     target_sources(ceammc_net PRIVATE net_http_send.cpp net_http_client.cpp)
 endif()
 
+# freesound
+if(WITH_FREESOUND)
+    target_compile_definitions(ceammc_net PRIVATE WITH_FREESOUND)
+    target_sources(ceammc_net PRIVATE net_freesound.cpp)
+    target_link_libraries(ceammc_net PRIVATE net_rust)
+    target_include_directories(ceammc_net
+        PRIVATE
+            ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
+        )
+else()
+    target_sources(ceammc_net PRIVATE net_freesound.cpp)
+endif()
+
 # MDNS
 target_sources(ceammc_net PRIVATE net_mdns.cpp)
 if(WITH_ZEROCONF)

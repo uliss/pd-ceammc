@@ -3,6 +3,7 @@
 #include "net_host.h"
 
 extern void setup_net_artnet_send();
+extern void setup_net_freesound();
 extern void setup_net_http_client();
 extern void setup_net_http_send();
 extern void setup_net_mdns();
@@ -19,6 +20,7 @@ void ceammc_net_setup()
     ceammc_init_rust_logging();
 
     setup_net_artnet_send();
+    setup_net_freesound();
     setup_net_host();
     setup_net_http_client();
     setup_net_http_send();

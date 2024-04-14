@@ -76,6 +76,8 @@ enum class ceammc_ws_rc {
     RunloopExit,
 };
 
+struct ceammc_freesound_client;
+
 struct ceammc_http_client;
 
 struct ceammc_mqtt_client;
@@ -85,6 +87,46 @@ struct ceammc_telegram_bot_client;
 struct ceammc_ws_client;
 
 struct ceammc_ws_server;
+
+struct ceammc_freesound_init {
+    const char *token;
+};
+
+struct ceammc_callback_msg {
+    void *user;
+    void (*cb)(void *user, const char *msg);
+};
+
+struct ceammc_callback_progress {
+    void *user;
+    void (*cb)(void *user, uint8_t msg);
+};
+
+struct ceammc_freesound_result_cb {
+    void *user;
+    void (*cb_oauth_url)(void *user, const char *url);
+    void (*cb_oauth_access)(void *user, const char *token, uint64_t expires);
+    void (*cb_info_me)(void *user, uint64_t id, const char *username, const char *email, const char *homepage, const char *url, const char *sounds, const char *packs);
+};
+
+struct ceammc_callback_notify {
+    size_t id;
+    void (*cb)(size_t id);
+};
+
+struct ceammc_freesound_search_params {
+    const char *query;
+    const char *filter;
+    const char *sort;
+    const char *const *fields;
+    size_t num_fields;
+    const char *const *descriptors;
+    size_t num_descriptors;
+    int16_t page;
+    int8_t page_size;
+    bool normalized;
+    bool group_by_pack;
+};
 
 struct ceammc_http_client_param {
     /// param name or key
@@ -97,16 +139,6 @@ struct ceammc_http_client_param {
 
 struct ceammc_http_client_init {
     const void *_dummy;
-};
-
-struct ceammc_callback_msg {
-    void *user;
-    void (*cb)(void *user, const char *msg);
-};
-
-struct ceammc_callback_progress {
-    void *user;
-    void (*cb)(void *user, uint8_t msg);
 };
 
 struct ceammc_http_client_result {
@@ -123,11 +155,6 @@ struct ceammc_http_client_result_cb {
     void *user;
     /// callback function (can be NULL)
     void (*cb)(void *user, const ceammc_http_client_result*);
-};
-
-struct ceammc_callback_notify {
-    size_t id;
-    void (*cb)(size_t id);
 };
 
 struct ceammc_mqtt_client_init {
@@ -217,6 +244,49 @@ struct ceammc_ws_srv_on_cli {
 
 
 extern "C" {
+
+/// free freesound client
+/// @param fs - pointer to freesound client (can be NULL)
+void ceammc_freesound_free(ceammc_freesound_client *fs);
+
+bool ceammc_freesound_me(const ceammc_freesound_client *cli, const char *access);
+
+/// create new freesound client
+/// @param params - connection params
+/// @param cb_err - called in the main thread on error message
+/// @param cb_post - called in the main thread on post message
+/// @param cb_debug - called in the main thread on debug message
+/// @param cb_log - called in the main thread on log message
+/// @param cb_progress - called in the main thread on progress message
+/// @param cb_reply - called in the main thread on result reply message
+/// @param cb_notify - called in the worker thread (!) to notify main thread
+/// @return pointer to new client or NULL on error
+[[nodiscard]]
+ceammc_freesound_client *ceammc_freesound_new(ceammc_freesound_init params,
+                                              ceammc_callback_msg cb_err,
+                                              ceammc_callback_msg cb_post,
+                                              ceammc_callback_msg cb_debug,
+                                              ceammc_callback_msg cb_log,
+                                              ceammc_callback_progress cb_progress,
+                                              ceammc_freesound_result_cb cb_reply,
+                                              ceammc_callback_notify cb_notify);
+
+bool ceammc_freesound_oauth_get_access(const ceammc_freesound_client *cli,
+                                       const char *id,
+                                       const char *secret,
+                                       const char *auth_code);
+
+bool ceammc_freesound_oauth_get_code(const ceammc_freesound_client *cli,
+                                     const char *id,
+                                     const char *secret);
+
+/// process all results that are ready
+/// @param cli - freesound client pointer
+/// @return true on success, false on error
+bool ceammc_freesound_process(ceammc_freesound_client *cli);
+
+bool ceammc_freesound_search(const ceammc_freesound_client *cli,
+                             ceammc_freesound_search_params params);
 
 /// download file with GET request
 /// @param cli - http client pointer

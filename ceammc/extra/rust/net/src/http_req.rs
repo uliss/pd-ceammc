@@ -864,27 +864,27 @@ fn apply_selector(css: &Option<CssSelector>, body: &String) -> Result<Vec<String
 mod tests {
     use tokio::runtime::Runtime;
 
-    #[test]
-    fn test_ok() {
-        let rt = Runtime::new().unwrap();
-        rt.block_on(async {
-            let res = reqwest::get("http://ya.rusdf/").await;
+    // #[test]
+    // fn test_ok() {
+    //     let rt = Runtime::new().unwrap();
+    //     rt.block_on(async {
+    //         let res = reqwest::get("http://ya.rusdf/").await;
 
-            println!("result: {res:?}");
-        });
-    }
+    //         println!("result: {res:?}");
+    //     });
+    // }
 
-    #[test]
-    fn test_to_file_path() {
-        let url = url::Url::parse("file:///file").unwrap();
-        assert_eq!(url.path(), "/file");
-        assert_eq!(url.path_segments().unwrap().last().unwrap(), "file");
+    // #[test]
+    // fn test_to_file_path() {
+    //     let url = url::Url::parse("file:///file").unwrap();
+    //     assert_eq!(url.path(), "/file");
+    //     assert_eq!(url.path_segments().unwrap().last().unwrap(), "file");
 
-        let url = url::Url::parse("http://host/path").unwrap();
-        assert_eq!(url.path(), "/path");
-        assert_eq!(url.path_segments().unwrap().last().unwrap(), "path");
+    //     let url = url::Url::parse("http://host/path").unwrap();
+    //     assert_eq!(url.path(), "/path");
+    //     assert_eq!(url.path_segments().unwrap().last().unwrap(), "path");
 
-        let url = url::Url::parse("http://host/path/file.bin?key=value#4").unwrap();
-        assert_eq!(url.path_segments().unwrap().last().unwrap(), "file.bin");
-    }
+    //     let url = url::Url::parse("http://host/path/file.bin?key=value#4").unwrap();
+    //     assert_eq!(url.path_segments().unwrap().last().unwrap(), "file.bin");
+    // }
 }

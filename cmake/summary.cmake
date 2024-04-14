@@ -66,6 +66,7 @@ message(STATUS "       RHVoice:        ${WITH_TTS_RHVOICE} (WITH_TTS_RHVOICE=${W
 message(STATUS "       Sfizz:          ${WITH_SFIZZ} (WITH_SFIZZ=${WITH_SFIZZ})")
 message(STATUS "       artnet:         ${WITH_ARTNET} (WITH_ARTNET=${WITH_ARTNET})")
 message(STATUS "       fftw3:          ${WITH_FFTW} (WITH_FFTW=${WITH_FFTW})")
+message(STATUS "       freesound:      ${WITH_FREESOUND} (WITH_FREESOUND=${WITH_FREESOUND})")
 message(STATUS "       flite:          ${WITH_TTS_FLITE} (WITH_TTS_FLITE=${WITH_TTS_FLITE})")
 message(STATUS "       gamepad:        ${WITH_GAMEPAD} (WITH_GAMEPAD=${WITH_GAMEPAD})")
 message(STATUS "       http:           ${WITH_HTTP} (WITH_HTTP=${WITH_HTTP})")
