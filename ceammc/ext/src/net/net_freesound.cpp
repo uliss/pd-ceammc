@@ -87,6 +87,19 @@ bool NetFreesound::notify(int code)
     return true;
 }
 
+void NetFreesound::m_download(t_symbol *s, const AtomListView &lv)
+{
+    if (!cli_ || !checkOAuth(s))
+        return;
+
+    static const args::ArgChecker chk("ID:i @PARAMS:a*");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    auto id = lv.intAt(0, 0);
+    ceammc_freesound_download_file(cli_->handle(), id, AccessToken::instance().token.c_str(), canvasDir(CanvasType::TOPLEVEL)->s_name);
+}
+
 void NetFreesound::m_me(t_symbol* s, const AtomListView& lv)
 {
     if (!cli_ || !checkOAuth(s))
@@ -169,10 +182,10 @@ void NetFreesound::m_oauth2(t_symbol* s, const AtomListView& lv)
         else if (action == "store")
             ceammc_freesound_oauth_store_access_token(cli_->handle(),
                 AccessToken::instance().token.c_str(),
-                this->canvasDir(CanvasType::TOPLEVEL)->s_name,
+                canvasDir(CanvasType::TOPLEVEL)->s_name,
                 true);
         else if (action == "load")
-            ceammc_freesound_oauth_load_access_token(cli_->handle(), this->canvasDir(CanvasType::TOPLEVEL)->s_name);
+            ceammc_freesound_oauth_load_access_token(cli_->handle(), canvasDir(CanvasType::TOPLEVEL)->s_name);
     }
 }
 
@@ -230,6 +243,7 @@ void setup_net_freesound()
 {
     ObjectFactory<NetFreesound> obj("net.freesound");
 
+    obj.addMethod("download", &NetFreesound::m_download);
     obj.addMethod("me", &NetFreesound::m_me);
     obj.addMethod("search", &NetFreesound::m_search);
     obj.addMethod("oauth2", &NetFreesound::m_oauth2);

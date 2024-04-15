@@ -39,9 +39,10 @@ public:
     void initDone() final;
     bool notify(int code) final;
 
+    void m_download(t_symbol* s, const AtomListView& lv);
     void m_me(t_symbol* s, const AtomListView& lv);
-    void m_search(t_symbol* s, const AtomListView& lv);
     void m_oauth2(t_symbol* s, const AtomListView& lv);
+    void m_search(t_symbol* s, const AtomListView& lv);
 
 private:
     void processReplyOAuth2(const char* url);

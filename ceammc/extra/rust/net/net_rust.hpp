@@ -270,6 +270,11 @@ struct ceammc_ws_srv_on_cli {
 
 extern "C" {
 
+bool ceammc_freesound_download_file(const ceammc_freesound_client *cli,
+                                    uint64_t id,
+                                    const char *auth_token,
+                                    const char *base_dir);
+
 /// free freesound client
 /// @param fs - pointer to freesound client (can be NULL)
 void ceammc_freesound_free(ceammc_freesound_client *fs);

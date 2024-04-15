@@ -1,18 +1,19 @@
 use std::{
-    ffi::{CStr, CString},
+    ffi::{CStr, CString, OsStr},
     os::raw::{c_char, c_void},
-    path::PathBuf,
+    path::{Path, PathBuf},
     ptr::null_mut,
     slice,
 };
 
 use log::{debug, error};
 use oauth2::TokenResponse;
+use tokio::{fs::File, io::AsyncWriteExt};
 use url::Url;
 
-use crate::service::{
+use crate::{service::{
     callback_msg, callback_notify, callback_progress, Error, Service, ServiceCallback,
-};
+}, utils};
 
 const ACCESS_TOKEN_FNAME: &str = ".freesound.key";
 
@@ -91,6 +92,7 @@ pub enum FreeSoundRequest {
     Me(String),
     StoreAccessToken(String, Option<String>, bool),
     LoadAccessToken(Option<String>),
+    Download(u64, String, Option<String>),
 }
 
 #[derive(Debug)]
@@ -565,7 +567,7 @@ async fn process_request(
                         .request_async(oauth2::reqwest::async_http_client)
                         .await
                         .map(|res| Access {
-                            token: CString::new(res.access_token().secret().clone())
+                            token: CString::new(res.access_token().secret().trim())
                                 .unwrap_or_default(),
                             expires: res.expires_in().unwrap_or_default().as_secs(),
                         })
@@ -639,6 +641,81 @@ async fn process_request(
                 *cb_notify,
             )
             .await)
+        }
+        FreeSoundRequest::Download(id, access, base_dir) => {
+            let mut path = PathBuf::from(
+                &base_dir
+                    .or(homedir::get_my_home()
+                        .map_err(|e| e.to_string())?
+                        .map(|x| x.to_str().unwrap_or_default().to_owned()))
+                    .ok_or("can't get home directory")?,
+            );
+
+            let cli = reqwest::ClientBuilder::new()
+                .build()
+                .map_err(|e| e.to_string())?;
+            let url = format!("https://freesound.org/apiv2/sounds/{id}/download/");
+
+            let mut response = cli
+                .get(url)
+                .header("Authorization", format!("Bearer {access}"))
+                .send()
+                .await
+                .map_err(|e| e.to_string())?;
+
+            if !response.status().is_success() {
+                return Err(format!("{}: {}", response.status(), response.url()));
+            }
+
+            let fname = PathBuf::from(
+                response
+                    .headers()
+                    .get(reqwest::header::CONTENT_DISPOSITION)
+                    .and_then(|x| Some(x.to_str().map_err(|e| e.to_string()).ok()?))
+                    .and_then(|x| utils::parse_content_disposition_filename(x))
+                    .ok_or("can't determine filename from content disposition")?,
+            )
+            .file_name()
+            .and_then(|x| x.to_str())
+            .ok_or("can't determine filename")?
+            .to_string();
+
+            path.push(fname);
+
+            FreeSoundService::write_debug(&tx, format!("file: {path:?}"), *cb_notify).await;
+
+            match File::create(&path).await {
+                Ok(mut file) => {
+                    let nbytes = response.content_length();
+                    let total: u64 = nbytes.unwrap_or(0);
+                    let mut bytes_send: u64 = 0;
+
+                    while let Ok(chunk) = response.chunk().await {
+                        if let Some(bytes) = chunk {
+                            file.write_all(&bytes).await.map_err(|e| e.to_string())?;
+
+                            if total > 0 {
+                                bytes_send += bytes.len() as u64;
+                                let perc = (100 * bytes_send) / total;
+                                debug!("done: {perc}%");
+                                FreeSoundService::write_progress(&tx, perc as u8, *cb_notify).await;
+                            }
+                        } else {
+                            break;
+                        }
+                    }
+
+                    file.flush().await.map_err(|e| e.to_string())?;
+
+                    Ok(FreeSoundService::write_debug(
+                        &tx,
+                        format!("file downloaded to '{}'", path.to_string_lossy()),
+                        *cb_notify,
+                    )
+                    .await)
+                }
+                Err(err) => Err(err.to_string()),
+            }
         }
     }
 }
@@ -953,6 +1030,42 @@ pub extern "C" fn ceammc_freesound_oauth_load_access_token(
 
     cli.service
         .send_request(FreeSoundRequest::LoadAccessToken(base_dir))
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_freesound_download_file(
+    cli: Option<&freesound_client>,
+    id: u64,
+    auth_token: *const c_char,
+    base_dir: *const c_char,
+) -> bool {
+    if cli.is_none() {
+        error!("NULL client");
+        return false;
+    }
+
+    let cli = cli.unwrap();
+
+    if auth_token.is_null() {
+        cli.service.on_error("NULL auth_token");
+        return false;
+    }
+    let auth_token = unsafe { CStr::from_ptr(auth_token) }
+        .to_string_lossy()
+        .to_string();
+
+    let base_dir = if base_dir.is_null() {
+        None
+    } else {
+        Some(
+            unsafe { CStr::from_ptr(base_dir) }
+                .to_string_lossy()
+                .to_string(),
+        )
+    };
+
+    cli.service
+        .send_request(FreeSoundRequest::Download(id, auth_token, base_dir))
 }
 
 #[cfg(test)]

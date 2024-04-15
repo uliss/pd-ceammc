@@ -5,6 +5,7 @@ pub mod telegram_bot;
 pub mod ws_cli;
 pub mod ws_srv;
 pub mod freesound;
+pub mod utils;
 
 use env_logger;
 
