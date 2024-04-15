@@ -1,5 +1,3 @@
-use log::debug;
-
 const CONTENT_DISPOSITION_TXT: &str = "Content-Disposition:";
 const CONTENT_DISPOSITION_LEN: usize = CONTENT_DISPOSITION_TXT.len();
 const FILENAME_TXT: &str = "filename=";

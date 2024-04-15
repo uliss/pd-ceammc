@@ -1,7 +1,7 @@
 use std::{
-    ffi::{CStr, CString, OsStr},
+    ffi::{CStr, CString},
     os::raw::{c_char, c_void},
-    path::{Path, PathBuf},
+    path::PathBuf,
     ptr::null_mut,
     slice,
 };
@@ -11,9 +11,10 @@ use oauth2::TokenResponse;
 use tokio::{fs::File, io::AsyncWriteExt};
 use url::Url;
 
-use crate::{service::{
-    callback_msg, callback_notify, callback_progress, Error, Service, ServiceCallback,
-}, utils};
+use crate::{
+    service::{callback_msg, callback_notify, callback_progress, Error, Service, ServiceCallback},
+    utils,
+};
 
 const ACCESS_TOKEN_FNAME: &str = ".freesound.key";
 
@@ -698,7 +699,11 @@ async fn process_request(
                                 bytes_send += bytes.len() as u64;
                                 let perc = (100 * bytes_send) / total;
                                 debug!("done: {perc}%");
-                                FreeSoundService::write_progress(&tx, perc as u8, *cb_notify).await;
+                                if !FreeSoundService::write_progress(&tx, perc as u8, *cb_notify)
+                                    .await
+                                {
+                                    break;
+                                }
                             }
                         } else {
                             break;

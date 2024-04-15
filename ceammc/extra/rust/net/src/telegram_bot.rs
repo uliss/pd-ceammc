@@ -366,11 +366,14 @@ pub extern "C" fn ceammc_telegram_bot_new(
                                                                     let perc =
                                                                         (100 * bytes_send) / total;
                                                                     eprintln!("done: {perc}%");
-                                                                    TeleService::write_progress(
+                                                                    if !TeleService::write_progress(
                                                                         &rep_tx, perc as u8,
                                                                         cb_notify,
                                                                     )
-                                                                    .await;
+                                                                    .await
+                                                                    {
+                                                                        break;
+                                                                    }
                                                                 }
                                                             } else {
                                                                 break;

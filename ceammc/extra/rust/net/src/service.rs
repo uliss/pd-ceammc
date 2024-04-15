@@ -252,15 +252,18 @@ where
         }
     }
 
+    #[must_use]
     pub async fn write_progress(
         out: &tokio::sync::mpsc::Sender<Result<Reply, Error>>,
         value: u8,
         cb_notify: callback_notify,
-    ) {
+    ) -> bool {
         if let Err(err) = out.send(Err(Error::Progress(value))).await {
             error!(" <- send: error: {err}");
+            false
         } else {
             cb_notify.exec();
+            true
         }
     }
 }

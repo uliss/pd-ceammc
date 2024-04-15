@@ -6,14 +6,14 @@ use std::{
     collections::HashMap,
     ffi::{CStr, CString, OsStr},
     os::raw::{c_char, c_void},
-    path::Path,
+    path::{Path, PathBuf},
     ptr::null_mut,
     time::Duration,
 };
 use tokio::{fs::File, io::AsyncWriteExt};
 use tokio_util::codec::{BytesCodec, FramedRead};
 
-use crate::service::Service;
+use crate::{service::Service, utils::parse_content_disposition_filename};
 use crate::service::{callback_msg, callback_notify, callback_progress, Error, ServiceCallback};
 
 type HttpSenderTx = tokio::sync::mpsc::Sender<Result<HttpReply, Error>>;
@@ -413,28 +413,28 @@ async fn http_request(
                     let fname = if dreq.filename.is_empty() {
                         const DEFAULT_NAME: &str = "tmp.bin";
                         // auto detect
-                        Path::new(
+                        PathBuf::from(
                             response
                                 .url()
                                 .path_segments()
                                 .and_then(|segments| segments.last())
                                 .and_then(|name| if name.is_empty() { None } else { Some(name) })
                                 .unwrap_or(
-                                    Path::new(
+                                    PathBuf::from(
                                         response
                                             .headers()
                                             .get("Content-Disposition")
-                                            .and_then(|x| Some(x.to_str().unwrap_or(DEFAULT_NAME)))
-                                            .unwrap_or(DEFAULT_NAME),
+                                            .and_then(|x| x.to_str().ok())
+                                            .and_then(|x| parse_content_disposition_filename(x))
+                                            .unwrap(),
                                     )
                                     .file_name()
-                                    .unwrap_or_else(|| &OsStr::new(DEFAULT_NAME))
-                                    .to_str()
+                                    .and_then(|x| x.to_str())
                                     .unwrap_or(DEFAULT_NAME),
                                 ),
                         )
                     } else {
-                        Path::new(&dreq.filename)
+                        PathBuf::from(&dreq.filename)
                     };
 
                     let full_name = if fname.is_relative() {
@@ -471,7 +471,9 @@ async fn http_request(
                                         bytes_send += bytes.len() as u64;
                                         let perc = (100 * bytes_send) / total;
                                         debug!("done: {perc}%");
-                                        HttpService::write_progress(&tx, perc as u8, cb).await;
+                                        if !HttpService::write_progress(&tx, perc as u8, cb).await {
+                                            break;
+                                        }
                                     }
                                 } else {
                                     break;
@@ -862,7 +864,6 @@ fn apply_selector(css: &Option<CssSelector>, body: &String) -> Result<Vec<String
 
 #[cfg(test)]
 mod tests {
-    use tokio::runtime::Runtime;
 
     // #[test]
     // fn test_ok() {
