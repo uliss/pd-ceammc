@@ -102,11 +102,36 @@ struct ceammc_callback_progress {
     void (*cb)(void *user, uint8_t msg);
 };
 
+struct ceammc_freesound_search_result {
+    /// The sound’s unique identifier.
+    uint64_t id;
+    /// The URI for this sound on the Freesound website.
+    const char *url;
+    /// The name user gave to the sound.
+    const char *name;
+    /// The license under which the sound is available to you.
+    const char *license;
+    /// The type of sound (wav, aif, aiff, mp3, m4a or flac).
+    const char *file_type;
+    /// The number of channels.
+    uint8_t channels;
+    /// The size of the file in bytes.
+    uint64_t file_size;
+    /// The bit depth of the sound.
+    uint8_t bit_depth;
+    ///  The duration of the sound in seconds.
+    float duration;
+    /// The sample_rate of the sound.
+    float sample_rate;
+};
+
 struct ceammc_freesound_result_cb {
     void *user;
     void (*cb_oauth_url)(void *user, const char *url);
     void (*cb_oauth_access)(void *user, const char *token, uint64_t expires);
     void (*cb_info_me)(void *user, uint64_t id, const char *username, const char *email, const char *homepage, const char *url, const char *sounds, const char *packs);
+    void (*cb_search_info)(void *user, uint64_t count, const char *prev, const char *next);
+    void (*cb_search_result)(void *user, size_t i, const ceammc_freesound_search_result *res);
 };
 
 struct ceammc_callback_notify {
@@ -286,6 +311,7 @@ bool ceammc_freesound_oauth_get_code(const ceammc_freesound_client *cli,
 bool ceammc_freesound_process(ceammc_freesound_client *cli);
 
 bool ceammc_freesound_search(const ceammc_freesound_client *cli,
+                             const char *access,
                              ceammc_freesound_search_params params);
 
 /// download file with GET request

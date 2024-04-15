@@ -90,20 +90,150 @@ pub enum FreeSoundRequest {
 
 #[derive(Debug)]
 struct Access {
-    token: String,
+    token: CString,
+    _refresh: CString,
     expires: u64,
-    refresh: String,
 }
 
 #[derive(Debug)]
 struct InfoMe {
     id: u64,
-    username: String,
-    email: String,
-    home_page: String,
-    url: String,
-    sounds: String,
-    packs: String,
+    username: CString,
+    email: CString,
+    home_page: CString,
+    url: CString,
+    sounds: CString,
+    packs: CString,
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub struct freesound_search_result {
+    /// The sound’s unique identifier.
+    id: u64,
+    /// The URI for this sound on the Freesound website.
+    url: *const c_char,
+    /// The name user gave to the sound.
+    name: *const c_char,
+    /// The license under which the sound is available to you.
+    license: *const c_char,
+    /// The type of sound (wav, aif, aiff, mp3, m4a or flac).
+    file_type: *const c_char,
+    /// The number of channels.
+    channels: u8,
+    /// The size of the file in bytes.
+    file_size: u64,
+    /// The bit depth of the sound.
+    bit_depth: u8,
+    ///  The duration of the sound in seconds.
+    duration: f32,
+    /// The sample_rate of the sound.
+    sample_rate: f32,
+}
+
+#[derive(Debug)]
+struct SearchResult {
+    // The sound’s unique identifier.
+    id: u64,
+    // The URI for this sound on the Freesound website.
+    url: CString,
+    // The name user gave to the sound.
+    name: CString,
+    // The license under which the sound is available to you.
+    license: CString,
+    // The type of sound (wav, aif, aiff, mp3, m4a or flac).
+    file_type: CString,
+    // The number of channels.
+    channels: u8,
+    // The size of the file in bytes.
+    file_size: u64,
+    // The bit rate of the sound in kbps.
+    // bitrate: f32,
+    // The bit depth of the sound.
+    bit_depth: u8,
+    //  The duration of the sound in seconds.
+    duration: f32,
+    // The sample_rate of the sound.
+    sample_rate: f32,
+    // The URI for retrieving the original sound.
+    // download: CString,
+    // description: String,
+    // tags 	array[strings] 	An array of tags the user gave to the sound.
+    // description 	string 	The description the user gave to the sound.
+    // geotag 	string 	Latitude and longitude of the geotag separated by spaces (e.g. “41.0082325664 28.9731252193”, only for sounds that have been geotagged).
+    // created 	string 	The date when the sound was uploaded (e.g. “2014-04-16T20:07:11.145”).
+    // username 	string 	The username of the uploader of the sound.
+    // pack 	URI 	If the sound is part of a pack, this URI points to that pack’s API resource.
+    // bookmark 	URI 	The URI for bookmarking the sound.
+    // previews 	object 	Dictionary containing the URIs for mp3 and ogg versions of the sound. The dictionary includes the fields preview-hq-mp3 and preview-lq-mp3 (for ~128kbps quality and ~64kbps quality mp3 respectively), and preview-hq-ogg and preview-lq-ogg (for ~192kbps quality and ~80kbps quality ogg respectively).
+    // images 	object 	Dictionary including the URIs for spectrogram and waveform visualizations of the sound. The dictionary includes the fields waveform_l and waveform_m (for large and medium waveform images respectively), and spectral_l and spectral_m (for large and medium spectrogram images respectively).
+    // num_downloads 	number 	The number of times the sound was downloaded.
+    // avg_rating 	number 	The average rating of the sound.
+    // num_ratings 	number 	The number of times the sound was rated.
+    // rate 	URI 	The URI for rating the sound.
+    // comments 	URI 	The URI of a paginated list of the comments of the sound.
+    // num_comments 	number 	The number of comments.
+    // comment 	URI 	The URI to comment the sound.
+    // similar_sounds 	URI 	URI pointing to the similarity resource (to get a list of similar sounds).
+    // analysis 	object 	Dictionary containing requested descriptors information according to the descriptors request parameter (see below). This field will be null if no descriptors were specified (or invalid descriptor names specified) or if the analysis data for the sound is not available.
+    // analysis_stats 	URI 	URI pointing to the complete analysis results of the sound (see Analysis Descriptor Documentation).
+    // analysis_frames 	URI 	The URI for retrieving a JSON file with analysis information for each frame of the sound (see Analysis Descriptor Documentation).
+    // ac_analysis 	object 	Dictionary containing the results of the AudioCommons analysis for the given sound.
+}
+
+impl SearchResult {
+    fn from(value: &serde_json::Value) -> Result<Self, String> {
+        Ok(SearchResult {
+            id: json_get_u64(value, "id")?,
+            url: json_get_cstring(value, "url").unwrap_or_default(),
+            name: json_get_cstring(value, "name").unwrap_or_default(),
+            license: json_get_cstring(value, "license").unwrap_or_default(),
+            file_type: json_get_cstring(value, "type").unwrap_or_default(),
+            channels: value
+                .get("channels")
+                .and_then(|x| x.as_u64())
+                .unwrap_or_default() as u8,
+            file_size: value
+                .get("file_size")
+                .and_then(|x| x.as_u64())
+                .unwrap_or_default(),
+            bit_depth: value
+                .get("bit_depth")
+                .and_then(|x| x.as_u64())
+                .unwrap_or_default() as u8,
+            duration: value
+                .get("duration")
+                .and_then(|x| x.as_f64())
+                .unwrap_or_default() as f32,
+            sample_rate: value
+                .get("sample_rate")
+                .and_then(|x| x.as_f64())
+                .unwrap_or_default() as f32,
+        })
+    }
+
+    fn into(&self) -> freesound_search_result {
+        freesound_search_result {
+            id: self.id,
+            url: self.url.as_ptr(),
+            name: self.name.as_ptr(),
+            license: self.license.as_ptr(),
+            file_type: self.file_type.as_ptr(),
+            channels: self.channels,
+            file_size: self.file_size,
+            bit_depth: self.bit_depth,
+            duration: self.duration,
+            sample_rate: self.sample_rate,
+        }
+    }
+}
+
+#[derive(Debug)]
+struct SearchResults {
+    count: u64,
+    next: Option<String>,
+    prev: Option<String>,
+    results: Vec<SearchResult>,
 }
 
 #[derive(Debug)]
@@ -111,6 +241,7 @@ enum FreeSoundReply {
     OAuth2Url(String),
     OAuthAccess(Access),
     Info(InfoMe),
+    SearchResults(SearchResults),
 }
 
 type FreeSoundTx = tokio::sync::mpsc::Sender<Result<FreeSoundReply, Error>>;
@@ -145,6 +276,11 @@ pub struct freesound_result_cb {
             packs: *const c_char,
         ),
     >,
+    cb_search_info: Option<
+        extern "C" fn(user: *mut c_void, count: u64, prev: *const c_char, next: *const c_char),
+    >,
+    cb_search_result:
+        Option<extern "C" fn(user: *mut c_void, i: usize, res: &freesound_search_result)>,
 }
 
 impl ServiceCallback<FreeSoundReply> for freesound_result_cb {
@@ -164,23 +300,33 @@ impl ServiceCallback<FreeSoundReply> for freesound_result_cb {
             }
             FreeSoundReply::Info(info) => {
                 self.cb_info_me.map(|f| {
-                    let username = CString::new(info.username.clone()).unwrap_or_default();
-                    let email = CString::new(info.email.clone()).unwrap_or_default();
-                    let homepage = CString::new(info.home_page.clone()).unwrap_or_default();
-                    let url = CString::new(info.url.clone()).unwrap_or_default();
-                    let sounds = CString::new(info.sounds.clone()).unwrap_or_default();
-                    let packs = CString::new(info.packs.clone()).unwrap_or_default();
-
                     f(
                         self.user,
                         info.id,
-                        username.as_ptr(),
-                        email.as_ptr(),
-                        homepage.as_ptr(),
-                        url.as_ptr(),
-                        sounds.as_ptr(),
-                        packs.as_ptr(),
+                        info.username.as_ptr(),
+                        info.email.as_ptr(),
+                        info.home_page.as_ptr(),
+                        info.url.as_ptr(),
+                        info.sounds.as_ptr(),
+                        info.packs.as_ptr(),
                     );
+                });
+            }
+            FreeSoundReply::SearchResults(res) => {
+                self.cb_search_info.map(|f| {
+                    let prev =
+                        CString::new(res.prev.clone().unwrap_or_default()).unwrap_or_default();
+                    let next =
+                        CString::new(res.next.clone().unwrap_or_default()).unwrap_or_default();
+
+                    f(self.user, res.count, prev.as_ptr(), next.as_ptr());
+
+                    self.cb_search_result.map(|f| {
+                        for (i, res) in res.results.iter().enumerate() {
+                            debug!("result: {res:?}");
+                            f(self.user, i, &res.into());
+                        }
+                    });
                 });
             }
         }
@@ -286,6 +432,18 @@ fn make_oauth_client(id: &String, secret: &String) -> Result<oauth2::basic::Basi
     Ok(BasicClient::new(id, secret, auth_url, Some(token_url)).set_redirect_uri(redirect_url))
 }
 
+fn json_get_cstring(value: &serde_json::Value, k: &str) -> Result<CString, String> {
+    Ok(CString::new(
+        value
+            .get(k)
+            .ok_or(format!("{k} not found"))?
+            .as_str()
+            .ok_or(format!("{k}: not a string"))?
+            .to_owned(),
+    )
+    .unwrap_or_default())
+}
+
 fn json_get_string(value: &serde_json::Value, k: &str) -> Result<String, String> {
     Ok(value
         .get(k)
@@ -314,12 +472,12 @@ async fn process_request(req: FreeSoundRequest, tx: &FreeSoundTx, cb_notify: &ca
                         let get_info = || {
                             Ok(InfoMe {
                                 id: json_get_u64(&json, "unique_id")?,
-                                username: json_get_string(&json, "username")?,
-                                email: json_get_string(&json, "email")?,
-                                home_page: json_get_string(&json, "home_page")?,
-                                url: json_get_string(&json, "url")?,
-                                sounds: json_get_string(&json, "sounds")?,
-                                packs: json_get_string(&json, "packs")?,
+                                username: json_get_cstring(&json, "username")?,
+                                email: json_get_cstring(&json, "email")?,
+                                home_page: json_get_cstring(&json, "home_page")?,
+                                url: json_get_cstring(&json, "url")?,
+                                sounds: json_get_cstring(&json, "sounds")?,
+                                packs: json_get_cstring(&json, "packs")?,
                             })
                         };
 
@@ -355,7 +513,50 @@ async fn process_request(req: FreeSoundRequest, tx: &FreeSoundTx, cb_notify: &ca
         }
         FreeSoundRequest::Search(params, access_token) => {
             match freesound_get("/apiv2/search/text/", access_token.as_str(), Some(params)).await {
-                Ok(res) => debug!("{res}"),
+                Ok(res) => match serde_json::from_str::<serde_json::Value>(res.as_str()) {
+                    Ok(json) => {
+                        let count = json.get("count").and_then(|x| x.as_u64()).unwrap_or(0);
+                        let prev = json
+                            .get("previous")
+                            .and_then(|x| x.as_str())
+                            .map(|x| x.to_owned());
+                        let next = json
+                            .get("next")
+                            .and_then(|x| x.as_str())
+                            .map(|x| x.to_owned());
+
+                        let mut res = SearchResults {
+                            count,
+                            next,
+                            prev,
+                            results: vec![],
+                        };
+
+                        if let Some(results) = json.get("results").and_then(|x| x.as_array()) {
+                            for value in results.iter().filter(|x| x.is_object()) {
+                                debug!("{value}");
+                                if let Ok(x) = SearchResult::from(value) {
+                                    res.results.push(x);
+                                }
+                            }
+                        }
+
+                        FreeSoundService::write_ok(
+                            &tx,
+                            FreeSoundReply::SearchResults(res),
+                            *cb_notify,
+                        )
+                        .await;
+                    }
+                    Err(err) => {
+                        FreeSoundService::write_error(
+                            &tx,
+                            Error::Error(err.to_string()),
+                            *cb_notify,
+                        )
+                        .await;
+                    }
+                },
                 Err(err) => {
                     FreeSoundService::write_error(&tx, Error::Error(err), *cb_notify).await;
                 }
@@ -401,11 +602,12 @@ async fn process_request(req: FreeSoundRequest, tx: &FreeSoundTx, cb_notify: &ca
                         .request_async(oauth2::reqwest::async_http_client)
                         .await
                         .map(|res| Access {
-                            token: res.access_token().secret().clone(),
-                            refresh: res
+                            token: CString::new(res.access_token().secret().clone())
+                                .unwrap_or_default(),
+                            _refresh: res
                                 .refresh_token()
                                 .clone()
-                                .map(|t| t.secret().clone())
+                                .map(|t| CString::new(t.secret().clone()).unwrap_or_default())
                                 .unwrap_or_default(),
                             expires: res.expires_in().unwrap_or_default().as_secs(),
                         }) {
@@ -581,6 +783,7 @@ pub extern "C" fn ceammc_freesound_me(
 #[no_mangle]
 pub extern "C" fn ceammc_freesound_search(
     cli: Option<&freesound_client>,
+    access: *const c_char,
     params: freesound_search_params,
 ) -> bool {
     if cli.is_none() {
@@ -589,10 +792,22 @@ pub extern "C" fn ceammc_freesound_search(
     }
 
     let cli = cli.unwrap();
-    cli.service.send_request(FreeSoundRequest::Search(
-        SearchParams::from(params),
-        "".to_owned(),
-    ))
+
+    if access.is_null() {
+        cli.service.on_error("NULL access token");
+        return false;
+    }
+    let access = unsafe { CStr::from_ptr(access) }
+        .to_str()
+        .unwrap_or_default()
+        .to_owned();
+    if access.is_empty() {
+        cli.service.on_error("empty access token");
+        return false;
+    }
+
+    cli.service
+        .send_request(FreeSoundRequest::Search(SearchParams::from(params), access))
 }
 
 #[no_mangle]

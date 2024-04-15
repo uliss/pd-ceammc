@@ -5,6 +5,7 @@ OBJECT_STUB_SETUP(NetFreesound, net_freesound, "net.freesound");
 #else
 
 #include "args/argcheck2.h"
+#include "ceammc_containers.h"
 #include "ceammc_crc32.h"
 #include "ceammc_data.h"
 #include "ceammc_factory.h"
@@ -57,7 +58,18 @@ void NetFreesound::initDone()
                 auto this_ = static_cast<NetFreesound*>(user);
                 if (this_)
                     this_->processReplyInfoMe(id, username, email, homepage, url, sounds, packs);
-            } //
+            },
+            [](void* user, uint64_t count, const char* next, const char* prev) {
+                auto this_ = static_cast<NetFreesound*>(user);
+                if (this_)
+                    this_->processReplySearchInfo(count, prev, next);
+            },
+            [](void* user, size_t i, const ceammc_freesound_search_result* res) {
+                auto this_ = static_cast<NetFreesound*>(user);
+                if (this_ && res)
+                    this_->processReplySearch(i, *res);
+            },
+            //
         },
         ceammc_callback_notify { reinterpret_cast<size_t>(this), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } } });
 
@@ -78,20 +90,15 @@ bool NetFreesound::notify(int code)
 
 void NetFreesound::m_me(t_symbol* s, const AtomListView& lv)
 {
-    if (cli_) {
-        if (access_.token.empty()) {
-            METHOD_ERR(s) << "not logged with OAuth2. "
-                             "Use oauth2 auth to get authorization code in browser(valid 24 hours) and then: oauth2 code CODE";
-            return;
-        }
+    if (!cli_ || !checkOAuth(s))
+        return;
 
-        ceammc_freesound_me(cli_->handle(), access_.token.c_str());
-    }
+    ceammc_freesound_me(cli_->handle(), access_.token.c_str());
 }
 
 void NetFreesound::m_search(t_symbol* s, const AtomListView& lv)
 {
-    if (!cli_)
+    if (!cli_ || !checkOAuth(s))
         return;
 
     static const args::ArgChecker chk("QUERY:s @PARAMS:a*");
@@ -140,7 +147,7 @@ void NetFreesound::m_search(t_symbol* s, const AtomListView& lv)
         }
     });
 
-    ceammc_freesound_search(cli_->handle(), params);
+    ceammc_freesound_search(cli_->handle(), access_.token.c_str(), params);
 }
 
 void NetFreesound::m_oauth2(t_symbol* s, const AtomListView& lv)
@@ -187,6 +194,28 @@ void NetFreesound::processReplyInfoMe(uint64_t id, const char* username, const c
     data->insert("packs", gensym(packs));
 
     anyTo(0, gensym("me"), data);
+}
+
+void NetFreesound::processReplySearchInfo(uint64_t id, const char* prev, const char* next)
+{
+    AtomArray<4> data { gensym("info"), id, gensym(prev), gensym(next) };
+    anyTo(0, gensym("search"), data.view());
+}
+
+void NetFreesound::processReplySearch(uint64_t i, const ceammc_freesound_search_result& res)
+{
+    AtomArray<6> data { gensym("result"), i, res.id, gensym(res.name), res.channels, gensym(res.file_type) };
+    anyTo(0, gensym("search"), data.view());
+}
+
+bool NetFreesound::checkOAuth(t_symbol* s) const
+{
+    if (access_.token.empty()) {
+        METHOD_ERR(s) << "not logged with OAuth2. "
+                         "Use oauth2 auth to get authorization code in browser(valid 24 hours) and then: oauth2 code CODE";
+        return false;
+    } else
+        return true;
 }
 
 void setup_net_freesound()

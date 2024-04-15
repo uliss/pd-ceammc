@@ -22,7 +22,6 @@ using namespace ceammc;
 using NetFreesoundBase = DispatchedObject<BaseObject>;
 using NetFreesoundImpl = net::NetService<ceammc_freesound_client, ceammc_freesound_init, ceammc_freesound_result_cb>;
 
-
 struct OAuthAccess {
     std::string token;
     std::uint64_t expires;
@@ -50,6 +49,10 @@ private:
     void processReplyOAuth2(const char* url);
     void processReplyAccess(const char* access_token, std::uint64_t expires);
     void processReplyInfoMe(uint64_t id, const char* username, const char* email, const char* homepage, const char* url, const char* sounds, const char* packs);
+    void processReplySearchInfo(uint64_t id, const char* prev, const char* next);
+    void processReplySearch(uint64_t i, const ceammc_freesound_search_result& res);
+
+    bool checkOAuth(t_symbol* s) const;
 };
 
 void setup_net_freesound();
