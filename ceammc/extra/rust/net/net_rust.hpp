@@ -130,7 +130,7 @@ struct ceammc_freesound_result_cb {
     void (*cb_oauth_url)(void *user, const char *url);
     void (*cb_oauth_access)(void *user, const char *token, uint64_t expires);
     void (*cb_info_me)(void *user, uint64_t id, const char *username, const char *email, const char *homepage, const char *url, const char *sounds, const char *packs);
-    void (*cb_search_info)(void *user, uint64_t count, const char *prev, const char *next);
+    void (*cb_search_info)(void *user, uint64_t count, uint32_t prev, uint32_t next);
     void (*cb_search_result)(void *user, size_t i, const ceammc_freesound_search_result *res);
 };
 
@@ -304,6 +304,14 @@ bool ceammc_freesound_oauth_get_access(const ceammc_freesound_client *cli,
 bool ceammc_freesound_oauth_get_code(const ceammc_freesound_client *cli,
                                      const char *id,
                                      const char *secret);
+
+bool ceammc_freesound_oauth_load_access_token(const ceammc_freesound_client *cli,
+                                              const char *base_dir);
+
+bool ceammc_freesound_oauth_store_access_token(const ceammc_freesound_client *cli,
+                                               const char *auth_token,
+                                               const char *base_dir,
+                                               bool overwrite);
 
 /// process all results that are ready
 /// @param cli - freesound client pointer

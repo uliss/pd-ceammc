@@ -10,11 +10,10 @@ OBJECT_STUB_SETUP(NetFreesound, net_freesound, "net.freesound");
 #include "ceammc_data.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
-#include "datatype_json.h"
-#include "datatype_string.h"
-#include "fmt/core.h"
+#include "datatype_dict.h"
 #include "net_freesound.h"
-#include "json/json.hpp"
+
+using AccessToken = SingletonMeyers<OAuthAccess>;
 
 NetFreesound::NetFreesound(const PdArgs& args)
     : NetFreesoundBase(args)
@@ -59,7 +58,7 @@ void NetFreesound::initDone()
                 if (this_)
                     this_->processReplyInfoMe(id, username, email, homepage, url, sounds, packs);
             },
-            [](void* user, uint64_t count, const char* next, const char* prev) {
+            [](void* user, uint64_t count, std::uint32_t prev, std::uint32_t next) {
                 auto this_ = static_cast<NetFreesound*>(user);
                 if (this_)
                     this_->processReplySearchInfo(count, prev, next);
@@ -93,7 +92,7 @@ void NetFreesound::m_me(t_symbol* s, const AtomListView& lv)
     if (!cli_ || !checkOAuth(s))
         return;
 
-    ceammc_freesound_me(cli_->handle(), access_.token.c_str());
+    ceammc_freesound_me(cli_->handle(), AccessToken::instance().token.c_str());
 }
 
 void NetFreesound::m_search(t_symbol* s, const AtomListView& lv)
@@ -147,24 +146,33 @@ void NetFreesound::m_search(t_symbol* s, const AtomListView& lv)
         }
     });
 
-    ceammc_freesound_search(cli_->handle(), access_.token.c_str(), params);
+    ceammc_freesound_search(cli_->handle(), AccessToken::instance().token.c_str(), params);
 }
 
 void NetFreesound::m_oauth2(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("s=auth|code CODE:s?");
+    static const args::ArgChecker chk("s=auth|code|load|store CODE:s?");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
     if (cli_) {
-        if (lv[0] == "auth")
+        auto action = lv[0];
+
+        if (action == "auth")
             ceammc_freesound_oauth_get_code(cli_->handle(), oauth_id_->value()->s_name, oauth_secret_->value()->s_name);
-        else if (lv[0] == "code")
+        else if (action == "code")
             ceammc_freesound_oauth_get_access(
                 cli_->handle(),
                 oauth_id_->value()->s_name,
                 oauth_secret_->value()->s_name,
                 lv.symbolAt(1, &s_)->s_name);
+        else if (action == "store")
+            ceammc_freesound_oauth_store_access_token(cli_->handle(),
+                AccessToken::instance().token.c_str(),
+                this->canvasDir(CanvasType::TOPLEVEL)->s_name,
+                true);
+        else if (action == "load")
+            ceammc_freesound_oauth_load_access_token(cli_->handle(), this->canvasDir(CanvasType::TOPLEVEL)->s_name);
     }
 }
 
@@ -176,8 +184,8 @@ void NetFreesound::processReplyOAuth2(const char* url)
 
 void NetFreesound::processReplyAccess(const char* access_token, std::uint64_t expires)
 {
-    access_.token = access_token;
-    access_.expires = expires;
+    AccessToken::instance().token = access_token;
+    AccessToken::instance().expires = expires;
     OBJ_DBG << "OAuth2 success";
 }
 
@@ -196,9 +204,9 @@ void NetFreesound::processReplyInfoMe(uint64_t id, const char* username, const c
     anyTo(0, gensym("me"), data);
 }
 
-void NetFreesound::processReplySearchInfo(uint64_t id, const char* prev, const char* next)
+void NetFreesound::processReplySearchInfo(uint64_t id, std::uint32_t prev, std::uint32_t next)
 {
-    AtomArray<4> data { gensym("info"), id, gensym(prev), gensym(next) };
+    AtomArray<4> data { gensym("info"), id, prev, next };
     anyTo(0, gensym("search"), data.view());
 }
 
@@ -210,7 +218,7 @@ void NetFreesound::processReplySearch(uint64_t i, const ceammc_freesound_search_
 
 bool NetFreesound::checkOAuth(t_symbol* s) const
 {
-    if (access_.token.empty()) {
+    if (AccessToken::instance().token.empty()) {
         METHOD_ERR(s) << "not logged with OAuth2. "
                          "Use oauth2 auth to get authorization code in browser(valid 24 hours) and then: oauth2 code CODE";
         return false;

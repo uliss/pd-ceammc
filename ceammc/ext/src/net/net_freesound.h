@@ -32,7 +32,6 @@ class NetFreesound : public NetFreesoundBase {
     SymbolProperty* token_;
     SymbolProperty* oauth_id_;
     SymbolProperty* oauth_secret_;
-    OAuthAccess access_;
 
 public:
     NetFreesound(const PdArgs& args);
@@ -45,11 +44,10 @@ public:
     void m_oauth2(t_symbol* s, const AtomListView& lv);
 
 private:
-    //    bool processParams(const AtomListView& lv, std::vector<ceammc_http_client_param>& params) const;
     void processReplyOAuth2(const char* url);
     void processReplyAccess(const char* access_token, std::uint64_t expires);
     void processReplyInfoMe(uint64_t id, const char* username, const char* email, const char* homepage, const char* url, const char* sounds, const char* packs);
-    void processReplySearchInfo(uint64_t id, const char* prev, const char* next);
+    void processReplySearchInfo(uint64_t id, std::uint32_t prev, std::uint32_t next);
     void processReplySearch(uint64_t i, const ceammc_freesound_search_result& res);
 
     bool checkOAuth(t_symbol* s) const;
