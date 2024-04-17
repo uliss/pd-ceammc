@@ -147,5 +147,13 @@ mod tests {
             parse_content_disposition_filename("attachment; filename=\"filename=\""),
             Some("filename=".to_owned())
         );
+        assert_eq!(
+            parse_content_disposition_filename("attachment; filename="),
+            None,
+        );
+        assert_eq!(
+            parse_content_disposition_filename("attachment;"),
+            None,
+        );
     }
 }
