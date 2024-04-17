@@ -4,7 +4,7 @@ use regex::Regex;
 use reqwest::{RequestBuilder, Response};
 use std::{
     collections::HashMap,
-    ffi::{CStr, CString, OsStr},
+    ffi::{CStr, CString},
     os::raw::{c_char, c_void},
     path::{Path, PathBuf},
     ptr::null_mut,
