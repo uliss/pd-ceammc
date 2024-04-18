@@ -153,6 +153,13 @@ public:
     bool open(const char* name);
 
     /**
+     * Set new array data
+     * @param data
+     * @param len
+     */
+    bool setData(t_word* data, size_t len);
+
+    /**
      * Sets *use_in_dsp* array flag:
      *  if array will be resized, setupDSP procedure will be called, otherwise not
      * @return true on success. false on error
