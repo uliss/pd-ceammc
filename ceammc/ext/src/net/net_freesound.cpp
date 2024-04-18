@@ -5,12 +5,14 @@ OBJECT_STUB_SETUP(NetFreesound, net_freesound, "net.freesound");
 #else
 
 #include "args/argcheck2.h"
+#include "ceammc_array.h"
 #include "ceammc_containers.h"
 #include "ceammc_crc32.h"
 #include "ceammc_data.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
 #include "datatype_dict.h"
+#include "fmt/core.h"
 #include "net_freesound.h"
 
 using AccessToken = SingletonMeyers<OAuthAccess>;
@@ -68,6 +70,21 @@ void NetFreesound::initDone()
                 if (this_ && res)
                     this_->processReplySearch(i, *res);
             },
+            [](void* user, const char* filename, const char* array) {
+                auto this_ = static_cast<NetFreesound*>(user);
+                if (this_ && filename) {
+                    this_->processReplyDownload(filename);
+                }
+            },
+            [](void* user, const ceammc_t_pd_rust_word* data, size_t len, const char* array) {
+                static_assert(sizeof(t_word) == sizeof(ceammc_t_pd_rust_word), "");
+                static_assert(offsetof(t_word, w_float) == offsetof(ceammc_t_pd_rust_word, w_float), "");
+
+                auto this_ = static_cast<NetFreesound*>(user);
+                if (this_ && data && array) {
+                    this_->processReplyLoad(array, data, len);
+                }
+            },
             //
         },
         ceammc_callback_notify { reinterpret_cast<size_t>(this), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } } });
@@ -87,7 +104,7 @@ bool NetFreesound::notify(int code)
     return true;
 }
 
-void NetFreesound::m_download(t_symbol *s, const AtomListView &lv)
+void NetFreesound::m_download(t_symbol* s, const AtomListView& lv)
 {
     if (!cli_ || !checkOAuth(s))
         return;
@@ -98,6 +115,31 @@ void NetFreesound::m_download(t_symbol *s, const AtomListView &lv)
 
     auto id = lv.intAt(0, 0);
     ceammc_freesound_download_file(cli_->handle(), id, AccessToken::instance().token.c_str(), canvasDir(CanvasType::TOPLEVEL)->s_name);
+}
+
+void NetFreesound::m_load(t_symbol* s, const AtomListView& lv)
+{
+    if (!cli_ || !checkOAuth(s))
+        return;
+
+    static const args::ArgChecker chk("ID:i ARRAY:s @PARAMS:a*");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    auto id = lv.intAt(0, 0);
+    auto arr = lv.symbolAt(1, &s_)->s_name;
+    ceammc_freesound_load_array(
+        cli_->handle(),
+        id,
+        0,
+        AccessToken::instance().token.c_str(),
+        arr,
+        [](size_t n) -> ceammc_t_pd_rust_word* {
+            return static_cast<ceammc_t_pd_rust_word*>(getbytes(n * sizeof(t_word)));
+        },
+        [](ceammc_t_pd_rust_word* data, size_t n) {
+            freebytes(data, n);
+        });
 }
 
 void NetFreesound::m_me(t_symbol* s, const AtomListView& lv)
@@ -229,6 +271,33 @@ void NetFreesound::processReplySearch(uint64_t i, const ceammc_freesound_search_
     anyTo(0, gensym("search"), data.view());
 }
 
+void NetFreesound::processReplyDownload(const char* filename)
+{
+    OBJ_DBG << "file downloaded to: " << filename;
+}
+
+void NetFreesound::processReplyLoad(const char* arrayname, const ceammc_t_pd_rust_word* data, size_t len)
+{
+    Array array(arrayname);
+    if (!array.isValid()) {
+        // this is important!
+        // need to free allocated array
+        freebytes(const_cast<ceammc_t_pd_rust_word*>(data), len);
+        OBJ_ERR << fmt::format("array is not valid: {}", arrayname);
+        return;
+    }
+
+    auto x = static_cast<t_word*>(static_cast<void*>(const_cast<ceammc_t_pd_rust_word*>(data)));
+    if (!array.setData(x, len)) {
+        freebytes(const_cast<ceammc_t_pd_rust_word*>(data), len);
+        OBJ_ERR << fmt::format("can't set array data: {}", arrayname);
+        return;
+    }
+
+    array.redraw();
+    OBJ_DBG << fmt::format("array updated: set new data of length {}", len);
+}
+
 bool NetFreesound::checkOAuth(t_symbol* s) const
 {
     if (AccessToken::instance().token.empty()) {
@@ -244,6 +313,7 @@ void setup_net_freesound()
     ObjectFactory<NetFreesound> obj("net.freesound");
 
     obj.addMethod("download", &NetFreesound::m_download);
+    obj.addMethod("load", &NetFreesound::m_load);
     obj.addMethod("me", &NetFreesound::m_me);
     obj.addMethod("search", &NetFreesound::m_search);
     obj.addMethod("oauth2", &NetFreesound::m_oauth2);

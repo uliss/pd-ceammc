@@ -40,6 +40,7 @@ public:
     bool notify(int code) final;
 
     void m_download(t_symbol* s, const AtomListView& lv);
+    void m_load(t_symbol* s, const AtomListView& lv);
     void m_me(t_symbol* s, const AtomListView& lv);
     void m_oauth2(t_symbol* s, const AtomListView& lv);
     void m_search(t_symbol* s, const AtomListView& lv);
@@ -50,6 +51,8 @@ private:
     void processReplyInfoMe(uint64_t id, const char* username, const char* email, const char* homepage, const char* url, const char* sounds, const char* packs);
     void processReplySearchInfo(uint64_t id, std::uint32_t prev, std::uint32_t next);
     void processReplySearch(uint64_t i, const ceammc_freesound_search_result& res);
+    void processReplyDownload(const char* filename);
+    void processReplyLoad(const char* arrayname, const ceammc_t_pd_rust_word* data, size_t len);
 
     bool checkOAuth(t_symbol* s) const;
 };
