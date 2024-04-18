@@ -550,4 +550,37 @@ TEST_CASE("AtomListView", "core")
         REQUIRE_SPLIT(LF(1, 2, 3), A(3), LF(1, 2), L());
         REQUIRE_SPLIT(LA(1, Atom::comma(), 3), Atom::comma(), LF(1), LF(3));
     }
+
+    SECTION("compare operators")
+    {
+        REQUIRE_FALSE(L().view() < 0);
+        REQUIRE_FALSE(L().view() <= 0);
+        REQUIRE_FALSE(L().view() > 0);
+        REQUIRE_FALSE(L().view() >= 0);
+
+        REQUIRE_FALSE(LF(0).view() < 0);
+        REQUIRE(LF(0).view() <= 0);
+        REQUIRE_FALSE(LF(0).view() > 0);
+        REQUIRE(LF(0).view() >= 0);
+
+        REQUIRE_FALSE(LF(0.5).view() < 0.5);
+        REQUIRE(LF(0.5).view() <= 0.5);
+        REQUIRE_FALSE(LF(0.5).view() > 0.5);
+        REQUIRE(LF(0.5).view() >= 0.5);
+
+        REQUIRE_FALSE(LA("A").view() < 0);
+        REQUIRE_FALSE(LA("B").view() <= 0);
+        REQUIRE_FALSE(LA("C").view() > 0);
+        REQUIRE_FALSE(LA("D").view() >= 0);
+
+        REQUIRE_FALSE(LA("A", "A").view() < 0);
+        REQUIRE_FALSE(LA("B", "B").view() <= 0);
+        REQUIRE_FALSE(LA("C", "C").view() > 0);
+        REQUIRE_FALSE(LA("D", "D").view() >= 0);
+
+        REQUIRE_FALSE(LF(1, 2).view() < 0);
+        REQUIRE_FALSE(LF(1, 2).view() <= 0);
+        REQUIRE_FALSE(LF(1, 2).view() > 0);
+        REQUIRE_FALSE(LF(1, 2).view() >= 0);
+    }
 }

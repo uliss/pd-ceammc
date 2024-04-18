@@ -98,6 +98,12 @@ public:
     template <typename T>
     bool isA() const { return n_ == 1 && data_ && data_->isA<T>(); }
 
+    // value checks
+    bool operator<(t_float f) const noexcept { return data_ && n_ == 1 && data_[0] < f; }
+    bool operator<=(t_float f) const noexcept { return data_ && n_ == 1 && data_[0] <= f; }
+    bool operator>(t_float f) const noexcept { return data_ && n_ == 1 && data_[0] > f; }
+    bool operator>=(t_float f) const noexcept { return data_ && n_ == 1 && data_[0] >= f; }
+
     /// value access
     /**
      * @brief returns pointer to element at specified relative position
