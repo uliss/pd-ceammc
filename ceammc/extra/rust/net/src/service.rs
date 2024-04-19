@@ -189,11 +189,13 @@ where
         out: &tokio::sync::mpsc::Sender<Result<Reply, Error>>,
         reply: Reply,
         cb_notify: callback_notify,
-    ) {
+    ) -> bool {
         if let Err(err) = out.send(Ok(reply)).await {
             error!(" <- send: error: {err}");
+            false
         } else {
             cb_notify.exec();
+            true
         }
     }
 

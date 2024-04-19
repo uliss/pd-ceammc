@@ -88,6 +88,12 @@ struct ceammc_ws_client;
 
 struct ceammc_ws_server;
 
+union ceammc_t_pd_rust_word {
+    float w_float;
+    double w_double;
+    int w_index;
+};
+
 struct ceammc_freesound_init {
     const char *token;
 };
@@ -132,6 +138,8 @@ struct ceammc_freesound_result_cb {
     void (*cb_info_me)(void *user, uint64_t id, const char *username, const char *email, const char *homepage, const char *url, const char *sounds, const char *packs);
     void (*cb_search_info)(void *user, uint64_t count, uint32_t prev, uint32_t next);
     void (*cb_search_result)(void *user, size_t i, const ceammc_freesound_search_result *res);
+    void (*cb_download)(void *user, const char *filename, const char *array);
+    void (*cb_load)(void *user, const ceammc_t_pd_rust_word *data, size_t size, const char *array);
 };
 
 struct ceammc_callback_notify {
@@ -278,6 +286,14 @@ bool ceammc_freesound_download_file(const ceammc_freesound_client *cli,
 /// free freesound client
 /// @param fs - pointer to freesound client (can be NULL)
 void ceammc_freesound_free(ceammc_freesound_client *fs);
+
+bool ceammc_freesound_load_array(const ceammc_freesound_client *cli,
+                                 uint64_t id,
+                                 size_t channel,
+                                 const char *auth_token,
+                                 const char *array,
+                                 ceammc_t_pd_rust_word *(*alloc)(size_t size),
+                                 void (*free)(ceammc_t_pd_rust_word *data, size_t size));
 
 bool ceammc_freesound_me(const ceammc_freesound_client *cli, const char *access);
 

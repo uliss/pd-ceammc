@@ -126,12 +126,33 @@ void NetFreesound::m_load(t_symbol* s, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
+    bool norm = false;
+    size_t channel = 0;
+    list::foreachProperty(lv, [&norm, &channel, this](t_symbol* s, const AtomListView& lv) {
+        switch (crc32_hash(s)) {
+        case "@norm"_hash:
+        case "@normalize"_hash:
+            norm = true;
+            break;
+        case "@ch"_hash:
+        case "@chan"_hash:
+        case "@channel"_hash: {
+            if (lv.isIntGreaterEqual(0)) {
+                channel = lv.asInt();
+            } else {
+                OBJ_ERR << "invalid channel index: " << lv << ", using 0";
+                return;
+            }
+        } break;
+        }
+    });
+
     auto id = lv.intAt(0, 0);
     auto arr = lv.symbolAt(1, &s_)->s_name;
     ceammc_freesound_load_array(
         cli_->handle(),
         id,
-        0,
+        channel,
         AccessToken::instance().token.c_str(),
         arr,
         [](size_t n) -> ceammc_t_pd_rust_word* {

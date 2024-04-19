@@ -1,15 +1,41 @@
 use std::{
     ffi::{CStr, CString},
+    fmt::Debug,
     os::raw::{c_char, c_void},
-    path::PathBuf,
-    ptr::null_mut,
+    path::{Path, PathBuf},
+    ptr::{null_mut, slice_from_raw_parts_mut},
     slice,
 };
 
 use log::{debug, error};
 use oauth2::TokenResponse;
+use reqwest::Response;
+use symphonia::core::{
+    audio::{AudioBufferRef, Signal},
+    codecs::{DecoderOptions, CODEC_TYPE_NULL},
+    conv::IntoSample,
+    formats::FormatOptions,
+    io::MediaSourceStream,
+    meta::MetadataOptions,
+    probe::Hint,
+};
+use tempfile::NamedTempFile;
 use tokio::{fs::File, io::AsyncWriteExt};
 use url::Url;
+
+#[repr(C)]
+#[derive(Copy, Clone)]
+pub union t_pd_rust_word {
+    pub w_float: f32,
+    pub w_double: f64,
+    pub w_index: ::std::os::raw::c_int,
+}
+
+impl Debug for t_pd_rust_word {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        write!(f, "t_pd_rust_word union")
+    }
+}
 
 use crate::{
     service::{callback_msg, callback_notify, callback_progress, Error, Service, ServiceCallback},
@@ -86,7 +112,17 @@ impl From<freesound_search_params> for SearchParams {
 }
 
 #[derive(Debug)]
-pub enum FreeSoundRequest {
+struct LoadToArray {
+    id: u64,
+    channel: usize,
+    access: String,
+    array: String,
+    alloc: Option<extern "C" fn(size: usize) -> *mut t_pd_rust_word>,
+    free: Option<extern "C" fn(data: *mut t_pd_rust_word, size: usize)>,
+}
+
+#[derive(Debug)]
+enum FreeSoundRequest {
     Search(SearchParams, String),
     OAuthGetCode(String, String),
     OAuthGetAccess(String, String, String),
@@ -94,6 +130,7 @@ pub enum FreeSoundRequest {
     StoreAccessToken(String, Option<String>, bool),
     LoadAccessToken(Option<String>),
     Download(u64, String, Option<String>),
+    LoadToArray(LoadToArray),
 }
 
 #[derive(Debug)]
@@ -249,6 +286,8 @@ enum FreeSoundReply {
     OAuthAccess(Access),
     Info(InfoMe),
     SearchResults(SearchResults),
+    Downloaded(CString, Option<CString>),
+    LoadToArray(&'static mut [t_pd_rust_word], usize, CString),
 }
 
 type FreeSoundTx = tokio::sync::mpsc::Sender<Result<FreeSoundReply, Error>>;
@@ -286,6 +325,16 @@ pub struct freesound_result_cb {
     cb_search_info: Option<extern "C" fn(user: *mut c_void, count: u64, prev: u32, next: u32)>,
     cb_search_result:
         Option<extern "C" fn(user: *mut c_void, i: usize, res: &freesound_search_result)>,
+    cb_download:
+        Option<extern "C" fn(user: *mut c_void, filename: *const c_char, array: *const c_char)>,
+    cb_load: Option<
+        extern "C" fn(
+            user: *mut c_void,
+            data: *const t_pd_rust_word,
+            size: usize,
+            array: *const c_char,
+        ),
+    >,
 }
 
 impl ServiceCallback<FreeSoundReply> for freesound_result_cb {
@@ -327,6 +376,20 @@ impl ServiceCallback<FreeSoundReply> for freesound_result_cb {
                             f(self.user, i, &res.into());
                         }
                     });
+                });
+            }
+            FreeSoundReply::Downloaded(path, array) => {
+                self.cb_download.map(|f| {
+                    f(
+                        self.user,
+                        path.as_ptr(),
+                        array.clone().map(|x| x.as_ptr()).unwrap_or(null_mut()),
+                    );
+                });
+            }
+            FreeSoundReply::LoadToArray(data, size, array) => {
+                self.cb_load.map(|f| {
+                    f(self.user, data.as_ptr(), *size, array.as_ptr());
                 });
             }
         }
@@ -453,6 +516,261 @@ fn json_get_u64(value: &serde_json::Value, k: &str) -> Result<u64, String> {
         .to_owned())
 }
 
+async fn download_response(id: u64, access: &String) -> Result<Response, String> {
+    let cli = reqwest::ClientBuilder::new()
+        .build()
+        .map_err(|e| e.to_string())?;
+    let url = format!("https://freesound.org/apiv2/sounds/{id}/download/");
+
+    let response = cli
+        .get(url)
+        .header("Authorization", format!("Bearer {access}"))
+        .send()
+        .await
+        .map_err(|e| e.to_string())?;
+
+    if !response.status().is_success() {
+        return Err(format!("{}: {}", response.status(), response.url()));
+    }
+
+    Ok(response)
+}
+
+fn make_download_path(response: &Response, base_dir: Option<String>) -> Result<PathBuf, String> {
+    let mut path = PathBuf::from(
+        base_dir
+            .or(homedir::get_my_home()
+                .map_err(|e| e.to_string())?
+                .map(|x| x.to_str().unwrap_or_default().to_owned()))
+            .ok_or("can't get home directory")?,
+    );
+
+    let fname = PathBuf::from(
+        response
+            .headers()
+            .get(reqwest::header::CONTENT_DISPOSITION)
+            .and_then(|x| Some(x.to_str().map_err(|e| e.to_string()).ok()?))
+            .and_then(|x| utils::parse_content_disposition_filename(x))
+            .ok_or("can't determine filename from content disposition")?,
+    )
+    .file_name()
+    .and_then(|x| x.to_str())
+    .ok_or("can't determine filename")?
+    .to_string();
+
+    path.push(fname);
+    Ok(path)
+}
+
+fn decode_file(path: &Path, channel: usize) -> Result<Vec<f32>, String> {
+    let file = std::fs::File::open(&path).map_err(|e| e.to_string())?;
+
+    // Create the media source stream.
+    let mss = MediaSourceStream::new(Box::new(file), Default::default());
+
+    // Create a probe hint using the file's extension. [Optional]
+    let mut hint = Hint::new();
+    if let Some(ext) = path.extension() {
+        hint.with_extension(ext.to_string_lossy().to_string().as_str());
+    }
+
+    // Use the default options for metadata and format readers.
+    let meta_opts: MetadataOptions = Default::default();
+    let fmt_opts: FormatOptions = Default::default();
+
+    // Probe the media source.
+    let mut info = symphonia::default::get_probe()
+        .format(&hint, mss, &fmt_opts, &meta_opts)
+        .map_err(|e| e.to_string())?;
+
+    eprintln!("{:?}", info.format.tracks());
+    let track = info
+        .format
+        .tracks()
+        .iter()
+        .find(|t| t.codec_params.codec != CODEC_TYPE_NULL)
+        .ok_or_else(|| format!("no supported codec found for {path:?}"))?;
+
+    if let Some(ch) = track.codec_params.channels {
+        if channel >= ch.count() {
+            return Err(format!("invalid requested channel: {}", channel));
+        }
+    }
+
+    // Use the default options for the decoder.
+    let dec_opts: DecoderOptions = Default::default();
+
+    // Create a decoder for the track.
+    let mut decoder = symphonia::default::get_codecs()
+        .make(&track.codec_params, &dec_opts)
+        .map_err(|e| e.to_string())?;
+
+    // Store the track identifier, it will be used to filter packets.
+    let track_id = track.id;
+
+    let mut data: Vec<f32> = vec![];
+
+    // The decode loop.
+    loop {
+        // Get the next packet from the media format.
+        let packet = match info.format.next_packet() {
+            Ok(packet) => packet,
+            Err(err) => match err {
+                Error::IoError(err) => {
+                    if err.kind() == std::io::ErrorKind::UnexpectedEof {
+                        break;
+                    } else {
+                        return Err(format!("some error: {err}"));
+                    }
+                }
+                Error::DecodeError(_) => continue,
+                err => {
+                    // An unrecoverable error occured, halt decoding.
+                    return Err(format!("some error: {err}"));
+                }
+            },
+        };
+
+        // If the packet does not belong to the selected track, skip over it.
+        if packet.track_id() != track_id {
+            continue;
+        }
+
+        use symphonia::core::errors::Error;
+
+        // Decode the packet into audio samples.
+        match decoder.decode(&packet) {
+            Ok(decoded) => {
+                if channel >= decoded.spec().channels.count() {
+                    return Err(format!("invalid requested channel: {}", channel));
+                }
+
+                match decoded {
+                    AudioBufferRef::F32(buf) => {
+                        buf.as_ref()
+                            .chan(channel)
+                            .iter()
+                            .for_each(|s| data.push(*s));
+                    }
+                    AudioBufferRef::F64(buf) => {
+                        buf.as_ref()
+                            .chan(channel)
+                            .iter()
+                            .for_each(|s| data.push(IntoSample::<f32>::into_sample(*s)));
+                    }
+                    AudioBufferRef::U8(buf) => {
+                        buf.as_ref()
+                            .chan(channel)
+                            .iter()
+                            .for_each(|s| data.push(IntoSample::<f32>::into_sample(*s)));
+                    }
+                    AudioBufferRef::U16(buf) => {
+                        buf.as_ref()
+                            .chan(channel)
+                            .iter()
+                            .for_each(|s| data.push(IntoSample::<f32>::into_sample(*s)));
+                    }
+                    AudioBufferRef::U24(buf) => {
+                        buf.as_ref()
+                            .chan(channel)
+                            .iter()
+                            .for_each(|s| data.push(IntoSample::<f32>::into_sample(*s)));
+                    }
+                    AudioBufferRef::U32(buf) => {
+                        buf.as_ref()
+                            .chan(channel)
+                            .iter()
+                            .for_each(|s| data.push(IntoSample::<f32>::into_sample(*s)));
+                    }
+                    AudioBufferRef::S8(buf) => {
+                        buf.as_ref()
+                            .chan(channel)
+                            .iter()
+                            .for_each(|s| data.push(IntoSample::<f32>::into_sample(*s)));
+                    }
+                    AudioBufferRef::S16(buf) => {
+                        buf.as_ref()
+                            .chan(channel)
+                            .iter()
+                            .for_each(|s| data.push(IntoSample::<f32>::into_sample(*s)));
+                    }
+                    AudioBufferRef::S24(buf) => {
+                        buf.as_ref()
+                            .chan(channel)
+                            .iter()
+                            .for_each(|s| data.push(IntoSample::<f32>::into_sample(*s)));
+                    }
+                    AudioBufferRef::S32(buf) => {
+                        buf.as_ref()
+                            .chan(channel)
+                            .iter()
+                            .for_each(|s| data.push(IntoSample::<f32>::into_sample(*s)));
+                    }
+                }
+            }
+            // Consume the decoded audio samples (see below).
+            Err(Error::IoError(err)) => {
+                if err.kind() == std::io::ErrorKind::UnexpectedEof {
+                    break;
+                } else {
+                    return Err(format!("io error: {err}"));
+                }
+            }
+            Err(Error::DecodeError(_)) => {
+                // The packet failed to decode due to invalid data, skip the packet.
+                continue;
+            }
+            Err(err) => {
+                return Err(format!("error: {err}"));
+            }
+        }
+    }
+
+    if data.is_empty() {
+        return Err(format!("empty result"));
+    }
+
+    Ok(data)
+}
+
+async fn download_file(
+    response: &mut Response,
+    path: &Path,
+    tx: &FreeSoundTx,
+    cb_notify: &callback_notify,
+) -> Result<(), String> {
+    FreeSoundService::write_debug(&tx, format!("file: {path:?}"), *cb_notify).await;
+
+    match File::create(&path).await {
+        Ok(mut file) => {
+            let nbytes = response.content_length();
+            let total: u64 = nbytes.unwrap_or(0);
+            let mut bytes_send: u64 = 0;
+
+            while let Ok(chunk) = response.chunk().await {
+                if let Some(bytes) = chunk {
+                    file.write_all(&bytes).await.map_err(|e| e.to_string())?;
+
+                    if total > 0 {
+                        bytes_send += bytes.len() as u64;
+                        let perc = (100 * bytes_send) / total;
+                        debug!("done: {perc}%");
+                        if !FreeSoundService::write_progress(&tx, perc as u8, *cb_notify).await {
+                            break;
+                        }
+                    }
+                } else {
+                    break;
+                }
+            }
+
+            file.flush().await.map_err(|e| e.to_string())?;
+            Ok(())
+        }
+        Err(err) => Err(err.to_string()),
+    }
+}
+
 async fn process_request(
     req: FreeSoundRequest,
     tx: &FreeSoundTx,
@@ -479,7 +797,8 @@ async fn process_request(
                     })
                 })?;
 
-            Ok(FreeSoundService::write_ok(&tx, FreeSoundReply::Info(info), *cb_notify).await)
+            FreeSoundService::write_ok(&tx, FreeSoundReply::Info(info), *cb_notify).await;
+            Ok(())
         }
         FreeSoundRequest::Search(params, access_token) => {
             let info = freesound_get("/apiv2/search/text/", access_token.as_str(), Some(params))
@@ -535,10 +854,8 @@ async fn process_request(
                     Ok(res)
                 })?;
 
-            Ok(
-                FreeSoundService::write_ok(&tx, FreeSoundReply::SearchResults(info), *cb_notify)
-                    .await,
-            )
+            FreeSoundService::write_ok(&tx, FreeSoundReply::SearchResults(info), *cb_notify).await;
+            Ok(())
         }
         FreeSoundRequest::OAuthGetCode(id, secret) => {
             let url = make_oauth_client(&id, &secret)
@@ -556,7 +873,8 @@ async fn process_request(
                 })?
                 .to_string();
 
-            Ok(FreeSoundService::write_ok(&tx, FreeSoundReply::OAuth2Url(url), *cb_notify).await)
+            FreeSoundService::write_ok(&tx, FreeSoundReply::OAuth2Url(url), *cb_notify).await;
+            Ok(())
         }
         FreeSoundRequest::OAuthGetAccess(id, secret, code) => {
             use oauth2::AuthorizationCode;
@@ -574,12 +892,9 @@ async fn process_request(
                         })
                         .map_err(|err| err.to_string())?;
 
-                    Ok(FreeSoundService::write_ok(
-                        &tx,
-                        FreeSoundReply::OAuthAccess(acc),
-                        *cb_notify,
-                    )
-                    .await)
+                    FreeSoundService::write_ok(&tx, FreeSoundReply::OAuthAccess(acc), *cb_notify)
+                        .await;
+                    Ok(())
                 }
                 Err(err) => Err(err),
             }
@@ -644,83 +959,64 @@ async fn process_request(
             .await)
         }
         FreeSoundRequest::Download(id, access, base_dir) => {
-            let mut path = PathBuf::from(
-                &base_dir
-                    .or(homedir::get_my_home()
-                        .map_err(|e| e.to_string())?
-                        .map(|x| x.to_str().unwrap_or_default().to_owned()))
-                    .ok_or("can't get home directory")?,
-            );
+            let mut response = download_response(id, &access).await?;
+            let path = make_download_path(&response, base_dir)?;
+            download_file(&mut response, &path, tx, cb_notify).await?;
 
-            let cli = reqwest::ClientBuilder::new()
-                .build()
-                .map_err(|e| e.to_string())?;
-            let url = format!("https://freesound.org/apiv2/sounds/{id}/download/");
-
-            let mut response = cli
-                .get(url)
-                .header("Authorization", format!("Bearer {access}"))
-                .send()
-                .await
-                .map_err(|e| e.to_string())?;
-
-            if !response.status().is_success() {
-                return Err(format!("{}: {}", response.status(), response.url()));
-            }
-
-            let fname = PathBuf::from(
-                response
-                    .headers()
-                    .get(reqwest::header::CONTENT_DISPOSITION)
-                    .and_then(|x| Some(x.to_str().map_err(|e| e.to_string()).ok()?))
-                    .and_then(|x| utils::parse_content_disposition_filename(x))
-                    .ok_or("can't determine filename from content disposition")?,
+            FreeSoundService::write_ok(
+                &tx,
+                FreeSoundReply::Downloaded(
+                    CString::new(path.to_string_lossy().to_string()).unwrap_or_default(),
+                    None,
+                ),
+                *cb_notify,
             )
-            .file_name()
-            .and_then(|x| x.to_str())
-            .ok_or("can't determine filename")?
-            .to_string();
+            .await;
+            Ok(())
+        }
+        FreeSoundRequest::LoadToArray(load) => {
+            let mut response = download_response(load.id, &load.access).await?;
 
-            path.push(fname);
+            let path = NamedTempFile::new()
+                .map_err(|e| e.to_string())?
+                .path()
+                .to_path_buf();
 
-            FreeSoundService::write_debug(&tx, format!("file: {path:?}"), *cb_notify).await;
+            download_file(&mut response, &path, tx, cb_notify).await?;
 
-            match File::create(&path).await {
-                Ok(mut file) => {
-                    let nbytes = response.content_length();
-                    let total: u64 = nbytes.unwrap_or(0);
-                    let mut bytes_send: u64 = 0;
+            let data = decode_file(&path, load.channel)?;
+            debug!("loaded {} samples", data.len());
 
-                    while let Ok(chunk) = response.chunk().await {
-                        if let Some(bytes) = chunk {
-                            file.write_all(&bytes).await.map_err(|e| e.to_string())?;
-
-                            if total > 0 {
-                                bytes_send += bytes.len() as u64;
-                                let perc = (100 * bytes_send) / total;
-                                debug!("done: {perc}%");
-                                if !FreeSoundService::write_progress(&tx, perc as u8, *cb_notify)
-                                    .await
-                                {
-                                    break;
-                                }
-                            }
-                        } else {
-                            break;
-                        }
-                    }
-
-                    file.flush().await.map_err(|e| e.to_string())?;
-
-                    Ok(FreeSoundService::write_debug(
-                        &tx,
-                        format!("file downloaded to '{}'", path.to_string_lossy()),
-                        *cb_notify,
-                    )
-                    .await)
-                }
-                Err(err) => Err(err.to_string()),
+            let alloc = load
+                .alloc
+                .ok_or_else(|| "NULL alloc fn pointer".to_owned())?;
+            let free = load.free.ok_or_else(|| "NULL free fn pointer".to_owned())?;
+            let pd_data = alloc(data.len());
+            if pd_data.is_null() {
+                return Err(format!("can't allocate memory: {}", data.len()));
             }
+
+            let slice = unsafe { &mut *slice_from_raw_parts_mut(pd_data, data.len()) };
+            // copy data to allocated memory
+            for (src, dest) in data.iter().zip(slice.into_iter()) {
+                dest.w_float = *src;
+            }
+
+            if !FreeSoundService::write_ok(
+                &tx,
+                FreeSoundReply::LoadToArray(
+                    slice,
+                    slice.len(),
+                    CString::new(load.array).unwrap_or_default(),
+                ),
+                *cb_notify,
+            )
+            .await
+            {
+                free(pd_data, data.len());
+            }
+
+            Ok(())
         }
     }
 }
@@ -1071,6 +1367,50 @@ pub extern "C" fn ceammc_freesound_download_file(
 
     cli.service
         .send_request(FreeSoundRequest::Download(id, auth_token, base_dir))
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_freesound_load_array(
+    cli: Option<&freesound_client>,
+    id: u64,
+    channel: usize,
+    auth_token: *const c_char,
+    array: *const c_char,
+    alloc: Option<extern "C" fn(size: usize) -> *mut t_pd_rust_word>,
+    free: Option<extern "C" fn(data: *mut t_pd_rust_word, size: usize)>,
+) -> bool {
+    if cli.is_none() {
+        error!("NULL client");
+        return false;
+    }
+
+    let cli = cli.unwrap();
+
+    if auth_token.is_null() {
+        cli.service.on_error("NULL auth_token");
+        return false;
+    }
+    let auth_token = unsafe { CStr::from_ptr(auth_token) }
+        .to_string_lossy()
+        .to_string();
+
+    if array.is_null() {
+        cli.service.on_error("NULL array name");
+        return false;
+    }
+    let array = unsafe { CStr::from_ptr(array) }
+        .to_string_lossy()
+        .to_string();
+
+    cli.service
+        .send_request(FreeSoundRequest::LoadToArray(LoadToArray {
+            id,
+            channel,
+            access: auth_token,
+            array,
+            alloc,
+            free,
+        }))
 }
 
 #[cfg(test)]

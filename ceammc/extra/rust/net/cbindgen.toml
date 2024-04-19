@@ -60,7 +60,7 @@ usize_is_size_t = true
 include = []
 exclude = []
 prefix = "ceammc_"
-item_types = ["enums", "structs", "functions", "typedefs", "opaque"]
+item_types = ["enums", "structs", "functions", "typedefs", "opaque", "unions"]
 renaming_overrides_prefixing = false
 
 
