@@ -290,6 +290,7 @@ void ceammc_freesound_free(ceammc_freesound_client *fs);
 bool ceammc_freesound_load_array(const ceammc_freesound_client *cli,
                                  uint64_t id,
                                  size_t channel,
+                                 bool normalize,
                                  const char *auth_token,
                                  const char *array,
                                  ceammc_t_pd_rust_word *(*alloc)(size_t size),

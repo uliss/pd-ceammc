@@ -115,6 +115,7 @@ impl From<freesound_search_params> for SearchParams {
 struct LoadToArray {
     id: u64,
     channel: usize,
+    normalize: bool,
     access: String,
     array: String,
     alloc: Option<extern "C" fn(size: usize) -> *mut t_pd_rust_word>,
@@ -562,7 +563,7 @@ fn make_download_path(response: &Response, base_dir: Option<String>) -> Result<P
     Ok(path)
 }
 
-fn decode_file(path: &Path, channel: usize) -> Result<Vec<f32>, String> {
+fn decode_file(path: &Path, channel: usize, normalize: bool) -> Result<Vec<f32>, String> {
     let file = std::fs::File::open(&path).map_err(|e| e.to_string())?;
 
     // Create the media source stream.
@@ -728,6 +729,15 @@ fn decode_file(path: &Path, channel: usize) -> Result<Vec<f32>, String> {
 
     if data.is_empty() {
         return Err(format!("empty result"));
+    }
+
+    if normalize {
+        let max = *data.iter().max_by(|a, b| a.total_cmp(b)).unwrap();
+        if max > 0.0 {
+            for x in data.iter_mut() {
+                *x /= max;
+            }
+        }
     }
 
     Ok(data)
@@ -984,7 +994,7 @@ async fn process_request(
 
             download_file(&mut response, &path, tx, cb_notify).await?;
 
-            let data = decode_file(&path, load.channel)?;
+            let data = decode_file(&path, load.channel, load.normalize)?;
             debug!("loaded {} samples", data.len());
 
             let alloc = load
@@ -1374,6 +1384,7 @@ pub extern "C" fn ceammc_freesound_load_array(
     cli: Option<&freesound_client>,
     id: u64,
     channel: usize,
+    normalize: bool,
     auth_token: *const c_char,
     array: *const c_char,
     alloc: Option<extern "C" fn(size: usize) -> *mut t_pd_rust_word>,
@@ -1406,6 +1417,7 @@ pub extern "C" fn ceammc_freesound_load_array(
         .send_request(FreeSoundRequest::LoadToArray(LoadToArray {
             id,
             channel,
+            normalize,
             access: auth_token,
             array,
             alloc,

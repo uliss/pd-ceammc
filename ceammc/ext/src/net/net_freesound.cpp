@@ -153,6 +153,7 @@ void NetFreesound::m_load(t_symbol* s, const AtomListView& lv)
         cli_->handle(),
         id,
         channel,
+        norm,
         AccessToken::instance().token.c_str(),
         arr,
         [](size_t n) -> ceammc_t_pd_rust_word* {
