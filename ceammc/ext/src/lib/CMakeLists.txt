@@ -35,20 +35,6 @@ target_include_directories(ceammc_core PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/tcl)
 set(CEAMMC_LIB_SOURCES
     ceammc.h
     ceammc_abstractdata.cpp
-    ceammc_args.cpp
-    args/argcheck.lexer.cpp
-    args/argcheck.parser.cpp
-    args/arg_checker_node.cpp
-    args/arg_checker_single.cpp
-    args/arg_group.cpp
-    args/arg_group_and.cpp
-    args/arg_group_or.cpp
-    args/arg_is_atom.cpp
-    args/arg_is_bool.cpp
-    args/arg_is_data.cpp
-    args/arg_is_float.cpp
-    args/arg_is_int.cpp
-    args/arg_is_symbol.cpp
     args/argcheck2.cpp
     tcl/ceammc_tcl.cpp
     ceammc_array.cpp
@@ -266,12 +252,6 @@ endif()
 target_sources(ceammc_core PRIVATE ceammc_osc.cpp)
 
 if(BISON_FOUND AND FLEX_FOUND)
-    add_custom_target(ceammc_argcheck_gen
-        COMMAND $<TARGET_FILE:reflex-bin> argcheck.l
-        COMMAND ${BISON_EXECUTABLE} argcheck.yy
-        SOURCES args/argcheck.l args/argcheck.yy
-        WORKING_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/args)
-
     add_custom_target(ceammc_arrayloader_gen
         COMMAND $<TARGET_FILE:reflex-bin> array_loader.l
         COMMAND ${BISON_EXECUTABLE} array_loader.y

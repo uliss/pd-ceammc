@@ -14,7 +14,6 @@
 #ifndef DICT_IFACE_H
 #define DICT_IFACE_H
 
-#include "ceammc_args.h"
 #include "ceammc_data.h"
 #include "ceammc_object.h"
 #include "data_protocol.h"
