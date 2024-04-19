@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "midi_octave.h"
-#include "ceammc_args.h"
+#include "args/argcheck2.h"
 #include "ceammc_convert.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
@@ -20,7 +20,7 @@
 #include <memory>
 #include <random>
 
-static std::unique_ptr<ArgChecker> onlist_chk;
+static std::unique_ptr<args::ArgChecker> onlist_chk;
 static std::mt19937 oct_gen;
 
 CEAMMC_DEFINE_STR(transpose);
@@ -104,10 +104,8 @@ void MidiOctave::onFloat(t_float note)
 
 void MidiOctave::onList(const AtomListView& lv)
 {
-    if (!onlist_chk->check(lv)) {
-        OBJ_ERR << "NOTE VEL [DUR] expected, got: " << lv;
-        return;
-    }
+    if (!onlist_chk->check(lv, this))
+        return onlist_chk->usage(this);
 
     const size_t N = lv.size();
     assert(N == 2 || N == 3);
@@ -143,7 +141,7 @@ t_float MidiOctave::octave(t_float note) const
 
 void setup_midi_octave()
 {
-    onlist_chk.reset(new ArgChecker("f0..127 f0..127 f?"));
+    onlist_chk.reset(new args::ArgChecker("NOTE:f[0,127] VEL:f[0,127] DUR:f?"));
 
     ObjectFactory<MidiOctave> obj("midi.oct");
     obj.setXletsInfo({ "float: note\n"
@@ -154,5 +152,5 @@ void setup_midi_octave()
 
     obj.setDescription("midi octave transpose");
     obj.setCategory("midi");
-    obj.setKeywords({"midi", "octave", "transpose"});
+    obj.setKeywords({ "midi", "octave", "transpose" });
 }
