@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "fluid.h"
-#include "ceammc_args.h"
+#include "args/argcheck2.h"
 #include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
@@ -742,27 +742,15 @@ void Fluid::m_tune_semi(t_symbol* s, const AtomListView& lv)
     callFluidChannelFn(s, ch.chan, fn, ch.value, TUNE_CENTS_VALUE_NAME, lv);
 }
 
-struct StreamGuard {
-    ArgChecker& check;
-    StreamGuard(ArgChecker& chk)
-        : check(chk)
-    {
-    }
-    ~StreamGuard() { check.setOut(std::cerr); }
-};
-
 void Fluid::m_tune_octave(t_symbol* s, const AtomListView& lv)
 {
-    static ArgChecker chk("i i f f f f f f f f f f f f");
+    static const args::ArgChecker chk("BANK:i PROG:i f f f f f f f f f f f f");
 
     if (!synth_)
         return;
 
-    Error err(this);
-    chk.setOut(err);
-    StreamGuard g(chk);
-    if (!chk.check(lv))
-        return;
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
     int tune_bank = lv[0].asInt();
     int tune_prog = lv[1].asInt();
