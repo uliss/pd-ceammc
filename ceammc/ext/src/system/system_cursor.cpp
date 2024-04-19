@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "system_cursor.h"
-#include "ceammc_args.h"
+#include "args/argcheck2.h"
 #include "ceammc_canvas.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
@@ -163,13 +163,10 @@ void SystemCursor::m_wheel(t_symbol* s, const AtomListView& lv)
 
 void SystemCursor::m_polltime(t_symbol* s, const AtomListView& lv)
 {
-    static ArgChecker chk("f10..1000");
+    static const args::ArgChecker chk("TIME:f[10,1000]");
 
-    Error err;
-    chk.setOut(err);
-
-    if (!chk.check(lv))
-        return;
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
     const int t = lv[0].asFloat();
     OBJ_DBG << "setting polltime to " << t;

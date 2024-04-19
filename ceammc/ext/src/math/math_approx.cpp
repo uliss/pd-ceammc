@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "math_approx.h"
+#include "args/argcheck2.h"
 #include "ceammc_factory.h"
 
 #include <cmath>
@@ -43,10 +44,10 @@ void MathApprox::onFloat(t_float f)
 
 void MathApprox::onList(const AtomListView& lv)
 {
-    static ArgChecker arg_cheker("f f f?");
+    static const args::ArgChecker chk("VAL0:f VAL1:f EPSILON:f?");
 
-    if (!arg_cheker.check(lv))
-        return;
+    if (!chk.check(lv, this))
+        return chk.usage(this);
 
     if (lv.size() == 3) {
         value_->set(lv.subView(1, 1));

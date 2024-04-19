@@ -12,12 +12,12 @@
  * this file belongs to.
  *****************************************************************************/
 #include "system_exec.h"
-#include "ceammc_args.h"
+#include "args/argcheck2.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_string.h"
 #include "datatype_string.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 #include "process.hpp"
 #include "sys_process.h"
 
@@ -109,12 +109,10 @@ void SystemExec::m_stop(t_symbol* s, const AtomListView& l)
 
 void SystemExec::m_terminate(t_symbol* s, const AtomListView& l)
 {
-    static ArgChecker chk("b?");
+    static const args::ArgChecker chk("FORCE:b?");
 
-    if (!chk.check(l)) {
-        OBJ_ERR << fmt::format("usage: {} [<FORCE>]", s->s_name);
-        return;
-    }
+    if (!chk.check(l, this))
+        return chk.usage(this, s);
 
     if (!process_) {
         METHOD_ERR(s) << "no active process";
