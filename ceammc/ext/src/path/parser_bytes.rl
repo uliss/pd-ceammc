@@ -43,7 +43,7 @@ std::pair<int, size_t> parse_bytes(const AtomListView& lv, std::vector<char>& ou
     for (size_t i = 0; i < lv.size(); i++) {
         auto& a = lv[i];
         if (a.isInteger()) {
-            auto val = a.asT<int>();
+            auto val = a.asT<t_int>();
             if (val >= 0 && val < 255) {
                 out.push_back(static_cast<char>(val));
             } else {

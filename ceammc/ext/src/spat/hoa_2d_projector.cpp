@@ -26,7 +26,7 @@ Hoa2dProjector::Hoa2dProjector(const PdArgs& args)
 
 void Hoa2dProjector::initDone()
 {
-    const int MIN_PW_COUNT = 2 * order() + 1;
+    const t_int MIN_PW_COUNT = 2 * order() + 1;
     const auto N = plane_waves_->value();
 
     if (N == 0) { // auto calc

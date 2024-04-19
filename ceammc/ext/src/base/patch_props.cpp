@@ -65,7 +65,7 @@ void PatchProps::onAny(t_symbol* s, const AtomListView& l)
             if (pprop->getFloat(f))
                 outputProp(name, f);
         } else if (pprop->isInt()) {
-            int i;
+            t_int i;
             if (pprop->getInt(i))
                 outputProp(name, i);
         } else if (pprop->isBool()) {

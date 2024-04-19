@@ -31,10 +31,10 @@ CEAMMC_DEFINE_SYM_HASH(bool);
 CEAMMC_DEFINE_SYM_HASH(int);
 CEAMMC_DEFINE_SYM_HASH(enum);
 
-constexpr t_float FMIN = std::numeric_limits<t_float>::lowest();
-constexpr t_float FMAX = std::numeric_limits<t_float>::max();
-constexpr int IMIN = std::numeric_limits<int>::min();
-constexpr int IMAX = std::numeric_limits<int>::max();
+constexpr auto FMIN = std::numeric_limits<t_float>::lowest();
+constexpr auto FMAX = std::numeric_limits<t_float>::max();
+constexpr auto IMIN = std::numeric_limits<t_int>::min();
+constexpr auto IMAX = std::numeric_limits<t_int>::max();
 
 class CanvasEditCallback {
     std::unordered_map<t_canvas*, t_glistkeyfn> map_;

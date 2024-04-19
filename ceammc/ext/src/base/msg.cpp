@@ -65,7 +65,7 @@ void Msg::output()
     if (data_.empty())
         return;
 
-    if (data_.first()->isSymbol())
+    if (data_.atoms().front().isSymbol())
         anyTo(0, data_);
     else
         listTo(0, data_);

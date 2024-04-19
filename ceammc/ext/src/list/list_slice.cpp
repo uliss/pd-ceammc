@@ -27,7 +27,8 @@ ListSlice::ListSlice(const PdArgs& a)
     from_->setArgIndex(0);
     to_ = new IntProperty("@to", -1);
     to_->setArgIndexNext(from_);
-    step_ = new SizeTProperty("@step", 1);
+    step_ = new IntProperty("@step", 1);
+    step_->checkMinEq(0);
     step_->setArgIndexNext(to_);
 
     addProperty(from_);

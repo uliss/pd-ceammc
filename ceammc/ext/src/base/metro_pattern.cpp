@@ -12,7 +12,8 @@ MetroPattern::MetroPattern(const PdArgs& args)
     createOutlet();
     createOutlet();
 
-    current_ = new SizeTProperty("@current", 0);
+    current_ = new IntProperty("@current", 0);
+    current_->checkMinEq(0);
     addProperty(current_);
 
     sync_ = new BoolProperty("@sync", false);
@@ -103,7 +104,7 @@ t_float MetroPattern::currentDelay() const
 
     if (current >= pattern_.size()) {
         OBJ_ERR << "invalid current index: " << current << " for pattern: " << pattern_;
-        current_->setValue(size_t(0));
+        current_->setValue(t_int(0));
         delay = pattern_.at(0);
     } else
         delay = pattern_.at(current);
@@ -122,7 +123,7 @@ bool MetroPattern::next()
     if (pattern_.empty())
         return false;
 
-    current_->setValue((current_->value() + 1) % pattern_.size());
+    current_->setValue(t_int((current_->value() + 1) % pattern_.size()));
     return true;
 }
 

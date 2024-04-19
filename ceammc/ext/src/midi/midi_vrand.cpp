@@ -70,7 +70,8 @@ MidiVRrand::MidiVRrand(const PdArgs& args)
     addProperty(new SymbolEnumAlias("@add", mode_, sym_add()));
     addProperty(new SymbolEnumAlias("@sub", mode_, sym_sub()));
 
-    seed_ = new SizeTProperty("@seed", 0);
+    seed_ = new IntProperty("@seed", 0);
+    seed_->checkMinEq(0);
     seed_->setSuccessFn([this](Property*) {
         const auto sd = seed_->value();
         gen_.seed(sd ? sd : time(nullptr));

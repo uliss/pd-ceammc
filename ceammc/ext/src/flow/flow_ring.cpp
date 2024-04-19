@@ -84,7 +84,7 @@ void FlowRing::proxy_get(const AtomListView& lv)
         return;
     }
 
-    auto idx = lv.asT<int>();
+    auto idx = lv.asT<t_int>();
     if (idx < 0 || idx >= line_.size()) {
         OBJ_ERR << "invalid index: " << idx;
         return;

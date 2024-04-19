@@ -331,7 +331,7 @@ bool DataTypeColor::parseFromList(const AtomListView& lv, DataTypeColor& res)
     } else if (lv.isA<DataTypeColor>()) {
         std::memcpy(res.data_, lv.asD<DataTypeColor>()->data_, sizeof(data_));
         return true;
-    } else if (lv.allOf(isFloat)) {
+    } else if (lv.allOf(AtomPredicate(isFloat))) {
         res.data_[0] = clip01<float>(lv.floatAt(0, 0));
         res.data_[1] = clip01<float>(lv.floatAt(1, 0));
         res.data_[2] = clip01<float>(lv.floatAt(2, 0));

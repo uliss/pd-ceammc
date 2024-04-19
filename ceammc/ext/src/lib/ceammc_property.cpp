@@ -104,7 +104,7 @@ bool Property::getDefault(t_float& f) const
     return info_.getDefault(f);
 }
 
-bool Property::getDefault(int& i) const
+bool Property::getDefault(t_int& i) const
 {
     return info_.getDefault(i);
 }
@@ -194,7 +194,7 @@ bool Property::setIntCheckFn(Property::PropIntCheckFn fn, const std::string& err
         std::get<1>(*check_fn_ptr_) = fn;
 
     if (fn) {
-        int def;
+        t_int def;
         if (getDefault(def)) {
             if (!fn(def))
                 PROP_ERR() << "default value is not in checked range: " << def;
@@ -367,7 +367,7 @@ bool Property::setFloatCheck(PropValueConstraints type, t_float a, t_float b)
     }
 }
 
-bool Property::setIntCheck(PropValueConstraints type, int a, int b)
+bool Property::setIntCheck(PropValueConstraints type, t_int a, t_int b)
 {
     if (!isInt()) {
         PROP_ERR() << "attempt to set int check function for non-int type";
@@ -377,14 +377,14 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
     switch (type) {
     case PropValueConstraints::NON_ZERO:
         setIntCheckFn(
-            [](int i) { return i != 0; },
+            [](t_int i) { return i != 0; },
             "non-zero value expected");
 
         info().setConstraints(type);
         return true;
     case PropValueConstraints::GREATER_EQUAL:
         setIntCheckFn(
-            [a](int i) { return i >= a; },
+            [a](t_int i) { return i >= a; },
             fmt::format("value >= {} expected", a));
 
         info().setConstraints(type);
@@ -392,7 +392,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
         return true;
     case PropValueConstraints::GREATER_THEN:
         setIntCheckFn(
-            [a](int i) { return i > a; },
+            [a](t_int i) { return i > a; },
             fmt::format("value > {} expected", a));
 
         info().setConstraints(type);
@@ -400,7 +400,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
         return true;
     case PropValueConstraints::LESS_EQUAL:
         setIntCheckFn(
-            [a](int i) { return i <= a; },
+            [a](t_int i) { return i <= a; },
             fmt::format("value <= {} expected", a));
 
         info().setConstraints(type);
@@ -408,7 +408,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
         return true;
     case PropValueConstraints::LESS_THEN:
         setIntCheckFn(
-            [a](int i) { return i < a; },
+            [a](t_int i) { return i < a; },
             fmt::format("value < {} expected", a));
 
         info().setConstraints(type);
@@ -416,7 +416,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
         return true;
     case PropValueConstraints::CLOSED_RANGE:
         setIntCheckFn(
-            [a, b](int i) { return a <= i && i <= b; },
+            [a, b](t_int i) { return a <= i && i <= b; },
             fmt::format("expected value in [{0} ... {1}] range", a, b));
 
         info().setConstraints(type);
@@ -424,7 +424,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
         return true;
     case PropValueConstraints::OPEN_RANGE:
         setIntCheckFn(
-            [a, b](int i) { return a < i && i < b; },
+            [a, b](t_int i) { return a < i && i < b; },
             fmt::format("expected value in ({0} ... {1}) range", a, b));
 
         info().setConstraints(type);
@@ -432,7 +432,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
         return true;
     case PropValueConstraints::OPEN_CLOSED_RANGE:
         setIntCheckFn(
-            [a, b](int i) { return a < i && i <= b; },
+            [a, b](t_int i) { return a < i && i <= b; },
             fmt::format("expected value in ({0} ... {1}] range", a, b));
 
         info().setConstraints(type);
@@ -440,7 +440,7 @@ bool Property::setIntCheck(PropValueConstraints type, int a, int b)
         return true;
     case PropValueConstraints::CLOSED_OPEN_RANGE:
         setIntCheckFn(
-            [a, b](int i) { return a <= i && i < b; },
+            [a, b](t_int i) { return a <= i && i < b; },
             fmt::format("expected value in [{0} ... {1}) range", a, b));
 
         info().setConstraints(type);
@@ -534,7 +534,7 @@ bool Property::getFloat(t_float&) const
     return false;
 }
 
-bool Property::getInt(int&) const
+bool Property::getInt(t_int&) const
 {
     return false;
 }
@@ -564,7 +564,7 @@ bool Property::setFloat(t_float)
     return false;
 }
 
-bool Property::setInt(int)
+bool Property::setInt(t_int)
 {
     return false;
 }
@@ -630,7 +630,7 @@ bool Property::checkFloat(t_float v) const
     return true;
 }
 
-bool Property::checkInt(int v) const
+bool Property::checkInt(t_int v) const
 {
     if (check_fn_ptr_) {
         auto fn = std::get<1>(*check_fn_ptr_);
@@ -791,7 +791,7 @@ bool AtomProperty::setFloat(t_float f)
     return setValue(Atom(f));
 }
 
-bool AtomProperty::setInt(int i)
+bool AtomProperty::setInt(t_int i)
 {
     return setValue(Atom(i));
 }
@@ -1066,7 +1066,7 @@ bool FloatProperty::setFloat(t_float v)
     return setValue(v);
 }
 
-bool FloatProperty::setInt(int v)
+bool FloatProperty::setInt(t_int v)
 {
     return setValue(v);
 }
@@ -1165,7 +1165,7 @@ bool BoolProperty::defaultValue() const
     return info().defaultBool();
 }
 
-IntProperty::IntProperty(const std::string& name, int init, PropValueAccess access)
+IntProperty::IntProperty(const std::string& name, t_int init, PropValueAccess access)
     : Property(PropertyInfo(name, PropValueType::INTEGER), access)
     , v_(init)
 {
@@ -1179,8 +1179,8 @@ bool IntProperty::setList(const AtomListView& lv)
 
     using namespace parser;
 
-    int res = 0;
-    auto rc = numeric_prop_calc<int>(value(), info(), lv, res);
+    t_int res = 0;
+    auto rc = numeric_prop_calc<t_int>(value(), info(), lv, res);
     switch (rc) {
     case PropParseRes::OK:
         return setValue(res);
@@ -1202,18 +1202,18 @@ bool IntProperty::setList(const AtomListView& lv)
     return false;
 }
 
-bool IntProperty::setInt(int v)
+bool IntProperty::setInt(t_int v)
 {
     return setValue(v);
 }
 
-bool IntProperty::getInt(int& v) const
+bool IntProperty::getInt(t_int& v) const
 {
     v = value();
     return true;
 }
 
-bool IntProperty::setValue(int v)
+bool IntProperty::setValue(t_int v)
 {
     if (!checkInt(v))
         return false;
@@ -1229,7 +1229,7 @@ AtomList IntProperty::get() const
 
 bool IntProperty::setValue(t_float f)
 {
-    int i = static_cast<int>(std::round(f));
+    auto i = static_cast<t_int>(std::round(f));
     auto d = std::ceil(f) - f;
 
     if (!std::equal_to<t_float>()(d, 0)) { // just warning
@@ -1249,116 +1249,9 @@ bool IntProperty::setValue(const Atom& a)
     return setValue(a.asFloat());
 }
 
-int IntProperty::defaultValue() const
+t_int IntProperty::defaultValue() const
 {
     return info().defaultInt(v_);
-}
-
-SizeTProperty::SizeTProperty(const std::string& n, size_t init, PropValueAccess access)
-    : Property(PropertyInfo(n, PropValueType::INTEGER), access)
-    , v_(init)
-{
-    if (!info().setConstraints(PropValueConstraints::GREATER_EQUAL)) {
-        PROP_ERR() << "can't set constraints";
-        return;
-    }
-
-    if (!info().setMinInt(0)) {
-        PROP_ERR() << "can't set min constraints";
-        return;
-    }
-
-    info().setDefault(int(init));
-}
-
-bool SizeTProperty::setList(const AtomListView& lv)
-{
-    if (!emptyCheck(lv))
-        return false;
-
-    if (lv.size() == 1)
-        return setValue(lv[0]);
-    else if (lv.size() == 2 && lv[0].isSymbol() && lv[1].isFloat()) {
-        const auto val = lv[1].asT<int>();
-        const auto op = lv[0].asT<t_symbol*>()->s_name;
-        if (is_op(op, '+'))
-            return setValue(value() + val);
-        else if (is_op(op, '-'))
-            return setValue(value() - val);
-        else if (is_op(op, '*'))
-            return setValue(value() * val);
-        else if (is_op(op, '/')) {
-            if (val == 0) {
-                PROP_ERR() << "division by zero";
-                return false;
-            } else
-                return setValue(value() / val);
-        } else {
-            PROP_ERR() << "expected +-*/, got: " << lv[0];
-            return false;
-        }
-    } else {
-        PROP_ERR() << "unsigned value expected, got " << lv;
-        return false;
-    }
-}
-
-bool SizeTProperty::getInt(int& v) const
-{
-    v = static_cast<int>(v_);
-    return true;
-}
-
-bool SizeTProperty::setValue(size_t v)
-{
-    if (!checkInt(static_cast<int>(v)))
-        return false;
-
-    v_ = v;
-    return true;
-}
-
-AtomList SizeTProperty::get() const
-{
-    return { t_float(v_) };
-}
-
-bool SizeTProperty::setValue(t_float f)
-{
-    if (f < 0) {
-        PROP_ERR() << "unsigned value expected, got: " << f;
-        return false;
-    }
-
-    auto diff = std::ceil(f) - f;
-    if (!std::equal_to<t_float>()(diff, 0))
-        LIB_DBG << "rounding value to " << std::round(f);
-
-    return setValue(static_cast<size_t>(std::round(f)));
-}
-
-bool SizeTProperty::setValue(const Atom& a)
-{
-    if (!a.isFloat()) {
-        PROP_ERR() << "unsigned value expected, got: " << a;
-        return false;
-    }
-
-    return setValue(a.asFloat());
-}
-
-size_t SizeTProperty::defaultValue() const
-{
-    int v = info().defaultInt(0);
-    if (v < 0)
-        return 0;
-
-    return static_cast<size_t>(v);
-}
-
-bool SizeTProperty::checkPositive()
-{
-    return setIntCheck(PropValueConstraints::GREATER_THEN, 0);
 }
 
 FlagProperty::FlagProperty(const std::string& name)
@@ -1382,7 +1275,7 @@ bool FlagProperty::getBool(bool& b) const
     return true;
 }
 
-bool FlagProperty::getInt(int& v) const
+bool FlagProperty::getInt(t_int& v) const
 {
     v = value() ? 1 : 0;
     return true;

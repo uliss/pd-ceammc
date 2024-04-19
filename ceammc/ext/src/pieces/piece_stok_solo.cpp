@@ -280,7 +280,7 @@ public:
 
         int cycle = -1;
         if (lv.isInteger()) {
-            cycle = lv.asT<int>();
+            cycle = lv.asT<t_int>();
             if (cycle < CYCLE_MIN || cycle > CYCLE_MAX) {
                 usage(s);
                 return;

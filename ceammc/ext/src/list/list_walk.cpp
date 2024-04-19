@@ -1,5 +1,7 @@
 #include "list_walk.h"
 #include "ceammc_crc32.h"
+#include "ceammc_factory.h"
+#include "ceammc_fn_list.h"
 #include "ceammc_property_enum.h"
 
 #include <cstdlib>
@@ -25,7 +27,7 @@ ListWalk::ListWalk(const PdArgs& a)
     createOutlet();
 
     addProperty(new PointerProperty<bool>("@direction", &forward_, PropValueAccess::READWRITE));
-    addProperty(new PointerProperty<int>("@length", &length_, PropValueAccess::READWRITE));
+    addProperty(new PointerProperty<t_int>("@length", &length_, PropValueAccess::READWRITE));
 
     walk_mode_ = new SymbolEnumProperty("@mode", { sym_single(), sym_wrap(), sym_clip(), sym_fold() });
     addProperty(walk_mode_);
@@ -73,8 +75,8 @@ void ListWalk::onList(const AtomListView& lv)
 }
 
 void ListWalk::m_current(t_symbol*, const AtomListView&) { current(); }
-void ListWalk::m_next(t_symbol*, const AtomListView& lv) { next(lv.toT<int>(1)); }
-void ListWalk::m_prev(t_symbol*, const AtomListView& lv) { prev(lv.toT<int>(1)); }
+void ListWalk::m_next(t_symbol*, const AtomListView& lv) { next(lv.toT<t_int>(1)); }
+void ListWalk::m_prev(t_symbol*, const AtomListView& lv) { prev(lv.toT<t_int>(1)); }
 
 void ListWalk::m_reset(t_symbol*, const AtomListView&)
 {
@@ -95,11 +97,11 @@ AtomList ListWalk::p_index() const
 
 void ListWalk::p_set_index(const AtomListView& lv)
 {
-    int idx = atomlistToValue<int>(lv, 0);
+    auto idx = atomlistToValue<t_int>(lv, 0);
     if (idx < 0)
         idx += lst_->value().size();
 
-    current_pos_ = std::max(0, std::min<int>(idx, lst_->value().size() - 1));
+    current_pos_ = std::max<t_int>(0, std::min<t_int>(idx, lst_->value().size() - 1));
 }
 
 void ListWalk::next(int step)

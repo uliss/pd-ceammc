@@ -42,7 +42,7 @@ bool SymbolEnumProperty::setList(const AtomListView& lv)
     if (lv.isSymbol())
         return setValue(lv[0].asT<t_symbol*>());
     else if (lv.isInteger()) {
-        return setIndex(lv[0].asT<int>());
+        return setIndex(lv[0].asT<t_int>());
     } else {
         PROP_ERR() << "symbol or enum index expected, got: " << lv;
         return false;

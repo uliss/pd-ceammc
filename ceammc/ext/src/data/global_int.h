@@ -19,7 +19,7 @@
 
 using namespace ceammc;
 
-typedef int GlobalIntType;
+typedef t_int GlobalIntType;
 using GlobalIntBase = NumericIFace<GlobalBase<GlobalIntType>, GlobalIntType>;
 
 class GlobalInt : public GlobalIntBase {

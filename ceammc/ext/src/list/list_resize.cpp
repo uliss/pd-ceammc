@@ -54,7 +54,8 @@ void ListResize::onList(const AtomListView& lv)
 void ListResize::initProperties()
 {
     constexpr size_t DEFAULT_SIZE = 0;
-    size_ = new SizeTProperty("@size", DEFAULT_SIZE);
+    size_ = new IntProperty("@size", DEFAULT_SIZE);
+    size_->checkMinEq(0);
     size_->setArgIndex(0);
     addProperty(size_);
 

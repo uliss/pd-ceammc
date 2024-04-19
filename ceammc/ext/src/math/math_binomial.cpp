@@ -59,8 +59,8 @@ void MathBinomial::onList(const AtomListView& lv)
         return;
     }
 
-    const unsigned n = lv[0].asT<int>();
-    const unsigned k = lv[1].asT<int>();
+    const unsigned n = lv[0].asT<t_int>();
+    const unsigned k = lv[1].asT<t_int>();
 
     using namespace boost::math;
 

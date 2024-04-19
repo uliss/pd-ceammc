@@ -20,7 +20,7 @@ using namespace ceammc;
 
 class ListXSearch : public BaseObject {
     AtomList lst_;
-    SizeTProperty* start_;
+    IntProperty* start_;
     IntProperty* end_;
 
 public:

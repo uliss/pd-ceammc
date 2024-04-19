@@ -25,7 +25,7 @@ public:
 
 private:
     IntProperty* counter_;
-    int default_value_;
+    t_int default_value_;
     Inlet proxy_;
 
 public:

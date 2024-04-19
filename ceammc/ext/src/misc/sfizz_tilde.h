@@ -99,7 +99,7 @@ private:
     ChanValue<T> channelValue(const AtomListView& lv) const
     {
         if (lv.size() == 2 && lv[0].isFloat() && lv[1].isFloat())
-            return { lv[1].asT<T>(), lv[0].asT<int>() - 1, true };
+            return { lv[1].asT<T>(), static_cast<int>(lv[0].asT<t_int>() - 1), true };
         else if (lv.size() == 1 && lv[0].isFloat())
             return { lv[0].asT<T>(), -1, true };
         else

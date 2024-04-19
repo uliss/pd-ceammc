@@ -44,7 +44,7 @@ ZeroCrossingTilde::ZeroCrossingTilde(const PdArgs& args)
         },
         [this](const AtomListView&) -> bool {
             mode_->setValue(sym_count());
-            buffer_size_->setValue(1);
+            buffer_size_->setValue(t_int(1));
             return true; } //
         )
         ->setInitOnly();

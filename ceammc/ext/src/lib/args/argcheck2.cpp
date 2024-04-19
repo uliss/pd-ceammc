@@ -400,7 +400,7 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x, bool pErr) {
         }
     break;
     case CHECK_BYTE:
-        if (!a.isInteger() || a.asT<int>() < 0 || a.asT<int>() > 255) {
+        if (!a.isInteger() || a.asT<t_int>() < 0 || a.asT<t_int>() > 255) {
             if (pErr)
                 pdError(x, fmt::format("invalid {} value at [{}]: '{}'", c.argName(), i, atom_to_string(a)));
             return false;
@@ -435,7 +435,7 @@ bool checkAtom(const Check& c, const Atom& a, int i, const void* x, bool pErr) {
                 pdError(x, fmt::format("invalid {} value at [{}]: '{}'", c.argName(), i, atom_to_string(a)));
             return false;
         } else {
-            const int64_t val = a.asT<int>();
+            const int64_t val = a.asT<t_int>();
             const int64_t arg = (c.values.size() >= 1 && boost::get<int64_t>(&c.values[0]))
                 ? *boost::get<int64_t>(&c.values[0])
                 : -999999999;

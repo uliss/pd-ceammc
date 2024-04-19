@@ -96,7 +96,7 @@ TEST_CASE("BoolProperty", "[core]")
     {
         bool b = false;
         t_float f;
-        int i;
+        t_int i;
         t_symbol* s;
         Atom a;
         AtomList l;
@@ -126,7 +126,7 @@ TEST_CASE("BoolProperty", "[core]")
         REQUIRE(p.value() == false);
 
         REQUIRE_FALSE(p.setT(t_float(1)));
-        REQUIRE_FALSE(p.setT(100));
+        REQUIRE_FALSE(p.setT(t_int(100)));
         REQUIRE_FALSE(p.setT(SYM("a")));
         REQUIRE_FALSE(p.setT(A(123)));
 

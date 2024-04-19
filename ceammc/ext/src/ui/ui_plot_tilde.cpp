@@ -1174,7 +1174,7 @@ void UIPlotTilde::onInlet(const AtomListView& args)
             return;
         }
 
-        auto N = args[0].toT<int>(0);
+        auto N = args[0].toT<t_int>(0);
         if (N > NMAX) {
             running_ = false;
             UI_ERR << "requested plot size is too big: " << N << ", max size is " << NMAX;

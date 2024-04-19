@@ -353,7 +353,7 @@ public:
     void m_at(t_symbol* s, const AtomListView& lv)
     {
         const auto N = static_cast<int>(proto_size());
-        const bool ok = lv.isFloat() && lv[0].isInteger() && (lv[0].asT<int>() >= (-N) && lv[0].asT<int>() < N);
+        const bool ok = lv.isFloat() && lv[0].isInteger() && (lv[0].asT<t_int>() >= (-N) && lv[0].asT<t_int>() < N);
 
         if (!ok) {
             METHOD_ERR(s) << "abs/relative index expected in [-" << N << "..+" << N << ") range";
@@ -361,7 +361,7 @@ public:
         }
 
         Atom a;
-        if (proto_at(lv[0].asT<int>(), a))
+        if (proto_at(lv[0].asT<t_int>(), a))
             this->atomTo(0, a);
     }
 };

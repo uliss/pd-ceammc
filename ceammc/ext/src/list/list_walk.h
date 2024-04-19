@@ -14,8 +14,6 @@
 #ifndef LIST_WALK_H
 #define LIST_WALK_H
 
-#include "ceammc_factory.h"
-#include "ceammc_fn_list.h"
 #include "ceammc_object.h"
 #include "ceammc_property_enum.h"
 
@@ -25,7 +23,7 @@ class ListWalk : public BaseObject {
     ListProperty* lst_;
     SymbolEnumProperty* walk_mode_;
     int current_pos_;
-    int length_;
+    t_int length_;
     bool forward_;
     bool single_done_;
 

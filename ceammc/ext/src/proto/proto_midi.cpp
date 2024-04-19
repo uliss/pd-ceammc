@@ -265,9 +265,9 @@ void ProtoMidi::m_noteOn(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    byteStatus(midi::MIDI_NOTEON, lv[0].asT<int>());
-    byteData(lv[1].asT<int>());
-    byteData(lv[2].asT<int>());
+    byteStatus(midi::MIDI_NOTEON, lv[0].asT<t_int>());
+    byteData(lv[1].asT<t_int>());
+    byteData(lv[2].asT<t_int>());
 }
 
 void ProtoMidi::m_programChange(t_symbol* s, const AtomListView& lv)
@@ -277,8 +277,8 @@ void ProtoMidi::m_programChange(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    byteStatus(midi::MIDI_PROGRAMCHANGE, lv[0].asT<int>());
-    byteData(lv[1].asT<int>());
+    byteStatus(midi::MIDI_PROGRAMCHANGE, lv[0].asT<t_int>());
+    byteData(lv[1].asT<t_int>());
 }
 
 void ProtoMidi::m_raw(t_symbol* s, const AtomListView& lv)
@@ -371,7 +371,7 @@ void ProtoMidi::m_sysex(t_symbol*, const AtomListView& lv)
     floatTo(0, midi::MIDI_SYSEX);
     for (auto& a : lv) {
         if (a.isFloat()) {
-            auto b = 0x7F & int(a.asT<int>());
+            auto b = 0x7F & int(a.asT<t_int>());
             floatTo(0, b);
         }
     }
@@ -404,7 +404,7 @@ void ProtoMidi::m_pitchWheel(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    byteStatus(midi::MIDI_PITCHBEND, lv[0].asT<int>());
+    byteStatus(midi::MIDI_PITCHBEND, lv[0].asT<t_int>());
     auto bb = floatToBit14(lv[1].asInt());
     byteData(std::get<0>(bb));
     byteData(std::get<1>(bb));
@@ -493,9 +493,9 @@ void ProtoMidi::m_noteOff(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    byteStatus(midi::MIDI_NOTEOFF, lv[0].asT<int>());
-    byteData(lv[1].asT<int>());
-    byteData(lv[2].asT<int>());
+    byteStatus(midi::MIDI_NOTEOFF, lv[0].asT<t_int>());
+    byteData(lv[1].asT<t_int>());
+    byteData(lv[2].asT<t_int>());
 }
 
 void ProtoMidi::m_afterTouchMono(t_symbol* s, const AtomListView& lv)
@@ -505,8 +505,8 @@ void ProtoMidi::m_afterTouchMono(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    byteStatus(midi::MIDI_AFTERTOUCH, lv[0].asT<int>());
-    byteData(lv[1].asT<int>());
+    byteStatus(midi::MIDI_AFTERTOUCH, lv[0].asT<t_int>());
+    byteData(lv[1].asT<t_int>());
 }
 
 void ProtoMidi::m_afterTouchPoly(t_symbol* s, const AtomListView& lv)
@@ -516,9 +516,9 @@ void ProtoMidi::m_afterTouchPoly(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    byteStatus(midi::MIDI_POLYAFTERTOUCH, lv[0].asT<int>());
-    byteData(lv[1].asT<int>());
-    byteData(lv[2].asT<int>());
+    byteStatus(midi::MIDI_POLYAFTERTOUCH, lv[0].asT<t_int>());
+    byteData(lv[1].asT<t_int>());
+    byteData(lv[2].asT<t_int>());
 }
 
 void ProtoMidi::m_allNotesOff(t_symbol* s, const AtomListView& lv)
@@ -559,9 +559,9 @@ void ProtoMidi::m_cc(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    byteStatus(midi::MIDI_CONTROLCHANGE, lv[0].asT<int>());
-    byteData(lv[1].asT<int>());
-    byteData(lv[2].asT<int>());
+    byteStatus(midi::MIDI_CONTROLCHANGE, lv[0].asT<t_int>());
+    byteData(lv[1].asT<t_int>());
+    byteData(lv[2].asT<t_int>());
 }
 
 bool ProtoMidi::checkMethodByte2(t_symbol* m, const AtomListView& lv, int from, int to)

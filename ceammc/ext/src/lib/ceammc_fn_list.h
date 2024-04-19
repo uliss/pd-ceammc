@@ -187,6 +187,18 @@ namespace list {
     }
 
     template <>
+    bool canConvertToType<long>(const AtomListView& lv)
+    {
+        return lv.isFloat();
+    }
+
+    template <>
+    bool canConvertToType<long long>(const AtomListView& lv)
+    {
+        return lv.isFloat();
+    }
+
+    template <>
     bool canConvertToType<size_t>(const AtomListView& lv)
     {
         if (!lv.isFloat())

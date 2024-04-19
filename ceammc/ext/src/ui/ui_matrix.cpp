@@ -825,7 +825,7 @@ void UIMatrix::loadPreset(size_t idx)
 
     const u16 NT = std::min<u16>(lv.size(), N);
     for (u16 i = 0; i < NT; i++) {
-        u16 word = lv[i].asT<int>();
+        u16 word = lv[i].asT<t_int>();
         u16 ri = i / nw;
         u16 wi = i % nw;
 

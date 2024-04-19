@@ -733,7 +733,7 @@ namespace list {
             res.push_back(seq_len);
 
         if (res.size() > 0)
-            *res.last() += seq_shift;
+            res.atoms().back() += seq_shift;
 
         shift = seq_shift;
         return true;

@@ -15,7 +15,7 @@
 #include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 #include <cassert>
 #include <cmath>
@@ -92,7 +92,7 @@ void ArrayPlot::onInlet(size_t n, const AtomListView& l)
             return;
         }
 
-        auto N = l[0].toT<int>(0);
+        auto N = l[0].toT<t_int>(0);
         if (N < 0) {
             OBJ_ERR << "invalid plot size: " << N;
             return;

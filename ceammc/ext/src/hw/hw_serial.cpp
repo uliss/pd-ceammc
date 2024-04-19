@@ -271,7 +271,7 @@ void SerialPort::m_open(t_symbol* s, const AtomListView& l)
 
     // using numeric index
     if (l.isFloat()) {
-        int idx = l.toT<int>(0);
+        int idx = l.toT<t_int>(0);
         auto ports = serial::list_ports();
         if (idx >= 0 || idx < ports.size()) {
             port_->setValue(gensym(ports[idx].port.c_str()));

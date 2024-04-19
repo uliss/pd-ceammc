@@ -311,12 +311,12 @@ void ProtoMidiCasio::m_instr(t_symbol* s, const AtomListView& lv)
         uint32_t id = 0;
 
         if (lv.size() == 3 && lv[0].isInteger() && lv[1].isSymbol()) { // CHAN INSTR BANK
-            chan = lv[0].asT<int>();
+            chan = lv[0].asT<t_int>();
             instr = lv[1].asSymbol();
-            id = lv[2].isFloat() ? lv[2].asT<int>() : crc32_hash(lv[2].asT<t_symbol*>()->s_name);
+            id = lv[2].isFloat() ? lv[2].asT<t_int>() : crc32_hash(lv[2].asT<t_symbol*>()->s_name);
         } else if (lv.size() == 2 && lv[0].isSymbol()) { // INSTR BANK
             instr = lv[0].asSymbol();
-            id = lv[1].isFloat() ? lv[1].asT<int>() : crc32_hash(lv[1].asT<t_symbol*>()->s_name);
+            id = lv[1].isFloat() ? lv[1].asT<t_int>() : crc32_hash(lv[1].asT<t_symbol*>()->s_name);
         } else {
             METHOD_ERR(s) << "CHAN[0..15]? CATEGORY NAME expected, got: " << lv;
             return;

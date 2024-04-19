@@ -39,7 +39,7 @@ void ProtoVlc::m_play(t_symbol* s, const AtomListView& lv)
     VlcCommand cmd;
     cmd.code = VLC_CMD_PLAY;
     if (lv.size() == 1 && lv[0].isInteger())
-        cmd.data = lv[0].asT<int>();
+        cmd.data = static_cast<int>(lv[0].asT<t_int>());
 
     sendCommand(s, cmd);
 }
@@ -129,7 +129,7 @@ void ProtoVlc::m_volume(t_symbol* s, const AtomListView& lv)
     };
 
     if (lv.isInteger()) {
-        auto x = lv[0].asT<int>();
+        auto x = lv[0].asT<t_int>();
         if (x >= 0) { // absolute volume
             cmd.data = fmt::format("{}", conv(x));
         } else // relative negative
@@ -163,7 +163,7 @@ void ProtoVlc::m_delete(t_symbol* s, const AtomListView& lv)
 
     VlcCommand cmd;
     cmd.code = VLC_CMD_DELETE;
-    cmd.data = lv[0].asInt();
+    cmd.data = static_cast<int>(lv[0].asInt());
 
     sendCommand(s, cmd);
 }

@@ -32,7 +32,7 @@ ListApprox operator+(const ListApprox& l0, const ListApprox& l1)
 
 bool operator==(const ListApprox& la, const AtomList& al)
 {
-    if (!al.allOf(isFloat))
+    if (!al.view().allOf(isFloat))
         return false;
 
     if (la.lst_.size() != al.size())

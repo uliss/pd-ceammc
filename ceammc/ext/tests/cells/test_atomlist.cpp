@@ -34,10 +34,8 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         AtomList l;
         REQUIRE(l.empty());
         REQUIRE(l.size() == 0);
-        REQUIRE(l.min() == 0);
-        REQUIRE(l.max() == 0);
-        REQUIRE(l.first() == 0);
-        REQUIRE(l.last() == 0);
+        REQUIRE(l.view().min() == 0);
+        REQUIRE(l.view().max() == 0);
         REQUIRE(l.relativeAt(0) == 0);
         REQUIRE(l.relativeAt(1) == 0);
         REQUIRE(l.relativeAt(-1) == 0);
@@ -67,25 +65,25 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
     {
         AtomList l;
         l.sort();
-        REQUIRE(l.max() == 0);
-        REQUIRE(l.min() == 0);
+        REQUIRE(l.view().max() == 0);
+        REQUIRE(l.view().min() == 0);
 
         l = LA("a", 2, -3, "b", "a");
         l.sort();
         REQUIRE(l == LA(-3, 2, "a", "a", "b"));
 
-        REQUIRE(l.max() != 0);
-        REQUIRE(l.max()->asSymbol() == SYM("b"));
-        REQUIRE(l.min() != 0);
-        REQUIRE(l.min()->asFloat() == -3.0f);
+        REQUIRE(l.view().max() != 0);
+        REQUIRE(l.view().max()->asSymbol() == SYM("b"));
+        REQUIRE(l.view().min() != 0);
+        REQUIRE(l.view().min()->asFloat() == -3.0f);
 
         const AtomList c1 = l;
-        REQUIRE(c1.max() != 0);
-        REQUIRE(c1.max()->asSymbol() == SYM("b"));
-        REQUIRE(c1.min() != 0);
-        REQUIRE(c1.min()->asFloat() == -3.0f);
-        REQUIRE(c1.first()->asFloat() == -3.0f);
-        REQUIRE(c1.last()->asSymbol() == SYM("b"));
+        REQUIRE(c1.view().max() != 0);
+        REQUIRE(c1.view().max()->asSymbol() == SYM("b"));
+        REQUIRE(c1.view().min() != 0);
+        REQUIRE(c1.view().min()->asFloat() == -3.0f);
+        REQUIRE(c1.view().front() == -3.0f);
+        REQUIRE(c1.view().back() == SYM("b"));
 
         REQUIRE(c1.relativeAt(0)->asFloat() == -3.0f);
         REQUIRE(c1.relativeAt(-1)->asSymbol() == SYM("b"));
@@ -170,14 +168,14 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
 
     SECTION("count")
     {
-        REQUIRE(L().count(1.0) == 0);
-        REQUIRE(L().count(isFloat) == 0);
+        REQUIRE(L().view().count(1.0) == 0);
+        REQUIRE(L().view().count(isFloat) == 0);
 
-        REQUIRE(LF(1, 2, 3).count(-1) == 0);
-        REQUIRE(LF(1, 2, 2, 3, 3, 3).count(1) == 1);
-        REQUIRE(LF(1, 2, 2, 3, 3, 3).count(2) == 2);
-        REQUIRE(LF(1, 2, 2, 3, 3, 3).count(3) == 3);
-        REQUIRE(LF(1, 1, 1, 1).count(1) == 4);
+        REQUIRE(LF(1, 2, 3).view().count(-1) == 0);
+        REQUIRE(LF(1, 2, 2, 3, 3, 3).view().count(1) == 1);
+        REQUIRE(LF(1, 2, 2, 3, 3, 3).view().count(2) == 2);
+        REQUIRE(LF(1, 2, 2, 3, 3, 3).view().count(3) == 3);
+        REQUIRE(LF(1, 1, 1, 1).view().count(1) == 4);
 
         Atom d100(new IntData(100));
         Atom d200(new IntData(200));
@@ -186,53 +184,24 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         Atom d_abc(new StrData("ABC"));
         Atom d_abcd(new StrData("ABCD"));
 
-        REQUIRE(LA(d100, d200).count(d100) == 1);
-        REQUIRE(LA(d100_new, d200).count(d100) == 1);
-        REQUIRE(LA(d100_new, d100).count(d200) == 0);
-        REQUIRE(LA(d100_new, d100).count(d_abc) == 0);
+        REQUIRE(LA(d100, d200).view().count(d100) == 1);
+        REQUIRE(LA(d100_new, d200).view().count(d100) == 1);
+        REQUIRE(LA(d100_new, d100).view().count(d200) == 0);
+        REQUIRE(LA(d100_new, d100).view().count(d_abc) == 0);
 
-        REQUIRE(LA(d100, d100).count(d100) == 2);
-        REQUIRE(LA(d_abc, d_abcd).count(d_abc) == 1);
+        REQUIRE(LA(d100, d100).view().count(d100) == 2);
+        REQUIRE(LA(d_abc, d_abcd).view().count(d_abc) == 1);
     }
 
     SECTION("fill")
     {
         AtomList l({ 1, 2, 3 });
         l.fill(4.f);
-        REQUIRE(l.count(4.f) == 3);
+        REQUIRE(l.view().count(4.f) == 3);
 
         AtomList l2;
         l2.fill(1.1, 10);
         REQUIRE(l2.size() == 10);
-    }
-
-    SECTION("allOf")
-    {
-        AtomList l;
-        REQUIRE_FALSE(l.allOf(isFloat));
-        l.fill(1.f, 10);
-        REQUIRE(l.allOf(isFloat));
-        REQUIRE_FALSE(l.allOf(isSymbol));
-    }
-
-    SECTION("anyOf")
-    {
-        AtomList l;
-        REQUIRE_FALSE(l.anyOf(isFloat));
-        l.fill(1.f, 10);
-        REQUIRE(l.anyOf(isFloat));
-        REQUIRE_FALSE(l.anyOf(isSymbol));
-        l.append(gensym("test"));
-        REQUIRE(l.anyOf(isSymbol));
-    }
-
-    SECTION("noneOf")
-    {
-        AtomList l;
-        REQUIRE(l.noneOf(isFloat));
-        l.fill(1.f, 10);
-        REQUIRE_FALSE(l.noneOf(isFloat));
-        REQUIRE(l.noneOf(isSymbol));
     }
 
     SECTION("shuffle")
@@ -638,52 +607,6 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
         REQUIRE(l1.empty());
     }
 
-    SECTION("property")
-    {
-        AtomList l;
-        REQUIRE_FALSE(l.property(SYM("@test"), (Atom*)0));
-        REQUIRE_FALSE(l.hasProperty("@test"));
-
-        Atom p1;
-        REQUIRE_FALSE(l.property(SYM("@test"), &p1));
-
-        l.append(1.f);
-        l.append(2.f);
-        l.append(gensym("a"));
-        l.append(gensym("@test"));
-        REQUIRE_FALSE(l.property(SYM("@test"), &p1));
-        REQUIRE(l.hasProperty("@test"));
-        l.append(3.f);
-        REQUIRE(l.property(SYM("@test"), &p1));
-        REQUIRE(l.hasProperty("@test"));
-        REQUIRE(p1.asFloat() == 3.f);
-
-        l.append(gensym("@test2"));
-        REQUIRE(l.hasProperty("@test2"));
-        l.append(4.f);
-
-        Atom p2;
-        REQUIRE(l.property(SYM("@test2"), &p2));
-        REQUIRE(p2.asFloat() == 4.f);
-
-        p1 = p2; // reset
-        REQUIRE(l.property(SYM("@test"), &p1));
-        REQUIRE(p1.asFloat() == 3.f);
-
-        l.clear();
-        l.append(gensym("@a"));
-        l.append(gensym("@b"));
-        l.append(gensym("@c"));
-
-        p1 = Atom();
-        REQUIRE_FALSE(l.property(SYM("@a"), &p1));
-        REQUIRE(p1.isNone());
-        REQUIRE_FALSE(l.property(SYM("@b"), &p1));
-        REQUIRE(p1.isNone());
-        REQUIRE_FALSE(l.property(SYM("@c"), &p1));
-        REQUIRE(p1.isNone());
-    }
-
     SECTION("test values")
     {
         AtomList l({ 1.f, 2.f, 3.f });
@@ -710,33 +633,6 @@ TEST_CASE("AtomList", "[ceammc::AtomList]")
 
         REQUIRE(AtomList::ones(0) == L());
         REQUIRE(AtomList::zeroes(0) == L());
-    }
-
-    SECTION("test all properties")
-    {
-        AtomList l;
-        l.append(1.f);
-        l.append(gensym("v"));
-        l.append(gensym("@a"));
-        l.append(gensym("@b"));
-        l.append(1.111f);
-        l.append(gensym("@c"));
-        l.append(1.56f);
-        l.append(2.f);
-        l.append(gensym("v"));
-
-        std::deque<AtomList> props = l.properties();
-        REQUIRE(props.size() == 3);
-        REQUIRE(props[0].size() == 1);
-        REQUIRE(props[0][0].asSymbol() == gensym("@a"));
-        REQUIRE(props[1].size() == 2);
-        REQUIRE(props[1][0].asSymbol() == gensym("@b"));
-        REQUIRE(props[1][1].asFloat() == 1.111f);
-        REQUIRE(props[2].size() == 4);
-        REQUIRE(props[2][0].asSymbol() == gensym("@c"));
-        REQUIRE(props[2][1].asFloat() == 1.56f);
-        REQUIRE(props[2][2].asFloat() == 2.f);
-        REQUIRE(props[2][3].asSymbol() == gensym("v"));
     }
 
     SECTION("test slice")

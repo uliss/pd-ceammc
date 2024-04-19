@@ -54,7 +54,7 @@ void MidiSustain::onList(const AtomListView& lv)
         return;
     }
 
-    const auto note = lv[0].asT<int>();
+    const auto note = lv[0].asT<t_int>();
     const auto vel = lv[1].asT<t_float>();
 
     if (on_->value()) {

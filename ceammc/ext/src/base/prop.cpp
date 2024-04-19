@@ -63,7 +63,7 @@ void BaseProp::onBang()
         if (prop->getFloat(f))
             floatTo(0, f);
     } else if (prop->isInt()) {
-        int i = 0;
+        t_int i = 0;
         if (prop->getInt(i))
             floatTo(0, i);
     } else if (prop->isBool()) {

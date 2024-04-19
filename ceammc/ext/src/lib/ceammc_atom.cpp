@@ -263,7 +263,7 @@ bool Atom::isData() const noexcept
         && (REF_PTR != nullptr);
 }
 
-int Atom::refCount() const noexcept
+uint32_t Atom::refCount() const noexcept
 {
     if (a_type == TYPE_DATA) {
         auto ref = reinterpret_cast<t_ref*>(REF_PTR);
@@ -693,6 +693,57 @@ bool Atom::operator<(const Atom& b) const noexcept
         }
     } else
         return t < b.type();
+}
+
+bool Atom::isFinite() const noexcept
+{
+    return isFloat() && std::isfinite(a_w.w_float);
+}
+
+bool Atom::isInf() const noexcept
+{
+    return isFloat() && std::isinf(a_w.w_float);
+}
+
+bool Atom::isNan() const noexcept
+{
+    return isFloat() && std::isnan(a_w.w_float);
+}
+
+bool Atom::isFloatInClosedInterval(t_float min, t_float max) const noexcept
+{
+    if (!isFloat())
+        return false;
+
+    // [min, max]
+    return a_w.w_float >= min && a_w.w_float <= max;
+}
+
+bool Atom::isFloatInOpenInterval(t_float min, t_float max) const noexcept
+{
+    if (!isFloat())
+        return false;
+
+    // (min, max)
+    return a_w.w_float > min && a_w.w_float < max;
+}
+
+bool Atom::isFloatInLeftOpenInterval(t_float min, t_float max) const noexcept
+{
+    if (!isFloat())
+        return false;
+
+    // (min, max]
+    return a_w.w_float > min && a_w.w_float <= max;
+}
+
+bool Atom::isFloatInRightOpenInterval(t_float min, t_float max) const noexcept
+{
+    if (!isFloat())
+        return false;
+
+    // [min, max)
+    return a_w.w_float >= min && a_w.w_float < max;
 }
 
 Atom& Atom::operator+=(t_float v) noexcept

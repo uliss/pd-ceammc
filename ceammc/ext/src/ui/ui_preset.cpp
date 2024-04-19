@@ -217,7 +217,7 @@ t_int UIPreset::propCurrent() const
 void UIPreset::indexAdd(const AtomListView& lv)
 {
     if (lv.isFloat()) {
-        int idx = lv.asT<int>();
+        int idx = lv.asT<t_int>();
         if (!checkIndex(idx))
             return;
 
@@ -232,7 +232,7 @@ void UIPreset::indexAdd(const AtomListView& lv)
 void UIPreset::indexRemove(const AtomListView& lv)
 {
     if (lv.isFloat()) {
-        int idx = lv.asT<int>();
+        int idx = lv.asT<t_int>();
         if (!checkIndex(idx))
             return;
 

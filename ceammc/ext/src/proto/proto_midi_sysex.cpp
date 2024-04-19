@@ -308,7 +308,7 @@ void ProtoMidiSysex::m_mtune_coarse(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    output_mtune_coarse(lv[0].asT<int>());
+    output_mtune_coarse(lv[0].asT<t_int>());
 }
 
 void ProtoMidiSysex::m_mtune(t_symbol* s, const AtomListView& lv)

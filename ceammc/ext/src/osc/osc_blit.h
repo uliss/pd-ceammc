@@ -29,7 +29,7 @@ class OscBlit : public SoundExternal {
 
 private:
     BlipPtr osc_;
-    SizeTProperty* nharm_;
+    IntProperty* nharm_;
 
 public:
     OscBlit(const PdArgs& args);

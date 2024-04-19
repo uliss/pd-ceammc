@@ -166,7 +166,7 @@ private:
 /**
  * @brief int enum property
  */
-using IntEnumProperty = EnumProperty<int>;
+using IntEnumProperty = EnumProperty<t_int>;
 
 /**
  * @brief symbol property only with allowed values

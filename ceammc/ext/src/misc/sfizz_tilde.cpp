@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "sfizz_tilde.h"
-#include "ceammc_args.h"
+#include "args/argcheck2.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_property_callback.h"
@@ -294,7 +294,7 @@ void SfizzTilde::m_midi(t_symbol* s, const AtomListView& lv)
 {
     for (auto& byte : lv) {
         if (byte.isFloat()) {
-            auto res = midi_parser_.push(byte.asT<int>());
+            auto res = midi_parser_.push(byte.asT<t_int>());
             if (res.err != midi::MidiParser::NO_ERROR)
                 METHOD_ERR(s) << res.errStr();
         }
@@ -378,13 +378,13 @@ void SfizzTilde::m_set_bend_sens(t_symbol* s, const AtomListView& lv)
 
 void SfizzTilde::m_pan(t_symbol* s, const AtomListView& lv)
 {
-    const auto ch = channelValue<int>(lv);
+    const auto ch = channelValue<t_int>(lv);
     if (!ch.ok) {
         METHOD_ERR(s) << "(CHANNEL:i)? PAN:f[0..+0x3fff] expected, got: " << lv;
         return;
     }
 
-    if (!checkChanValue<int>(s, PAN_VALUE_NAME, ch, 0, 0x3fff))
+    if (!checkChanValue<t_int>(s, PAN_VALUE_NAME, ch, 0, 0x3fff))
         return;
 
     setPan(ch.value);
@@ -406,13 +406,13 @@ void SfizzTilde::m_pan_float(t_symbol* s, const AtomListView& lv)
 
 void SfizzTilde::m_pan_int(t_symbol* s, const AtomListView& lv)
 {
-    const auto ch = channelValue<int>(lv);
+    const auto ch = channelValue<t_int>(lv);
     if (!ch.ok) {
         METHOD_ERR(s) << "(CHANNEL:i)? PAN:f[-8192..+8191] expected, got: " << lv;
         return;
     }
 
-    if (!checkChanValue<int>(s, PAN_VALUE_NAME, ch, -0x2000, 0x1fff))
+    if (!checkChanValue<t_int>(s, PAN_VALUE_NAME, ch, -0x2000, 0x1fff))
         return;
 
     setPan(pan_to_sfizz<-0x2000, 0, 0x1fff>(ch.value));
@@ -530,12 +530,10 @@ void SfizzTilde::m_polytouch(t_symbol* s, const AtomListView& lv)
 
 void SfizzTilde::m_tune_octave(t_symbol* s, const AtomListView& lv)
 {
-    static ArgChecker chk("i i f f f f f f f f f f f f");
+    static const args::ArgChecker chk("BANK:i PRESET:i f f f f f f f f f f f f");
 
-    Error err(this);
-    chk.setOut(err);
-    if (!chk.check(lv))
-        return;
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
     std::array<t_float, 12> devs;
     for (size_t i = 0; i < 12 && (i + 2) < lv.size(); i++)

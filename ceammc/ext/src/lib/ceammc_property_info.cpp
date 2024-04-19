@@ -39,10 +39,10 @@ inline PropValueUnits int2unit(PropValueUnitsBase i)
 
 namespace ceammc {
 
-constexpr t_float FLOAT_INF_MIN = std::numeric_limits<t_float>::lowest();
-constexpr t_float FLOAT_INF_MAX = std::numeric_limits<t_float>::max();
-constexpr int INT_INF_MIN = std::numeric_limits<int>::lowest();
-constexpr int INT_INF_MAX = std::numeric_limits<int>::max();
+constexpr auto FLOAT_INF_MIN = std::numeric_limits<t_float>::lowest();
+constexpr auto FLOAT_INF_MAX = std::numeric_limits<t_float>::max();
+constexpr auto INT_INF_MIN = std::numeric_limits<t_int>::lowest();
+constexpr auto INT_INF_MAX = std::numeric_limits<t_int>::max();
 constexpr size_t UNITS_MAX = std::numeric_limits<PropValueUnitsBase>::digits;
 
 const char* to_str(PropValueType t)
@@ -307,7 +307,7 @@ PropertyInfo& PropertyInfo::operator=(PropertyInfo&& info)
     return *this;
 }
 
-bool PropertyInfo::enumContains(int v) const
+bool PropertyInfo::enumContains(t_int v) const
 {
     if (!enum_)
         return false;
@@ -337,17 +337,34 @@ void PropertyInfo::setDefault(bool v)
         default_ = v;
 }
 
+void PropertyInfo::setDefault(long long v)
+{
+    if (isInt())
+        default_ = static_cast<t_int>(v);
+    else if (isFloat())
+        setDefault(static_cast<t_float>(v));
+}
+
 void PropertyInfo::setDefault(int v)
 {
     if (isInt())
-        default_ = v;
+        default_ = static_cast<t_int>(v);
+    else if (isFloat())
+        setDefault(static_cast<t_float>(v));
+}
+
+void PropertyInfo::setDefault(long v)
+{
+    if (isInt())
+        default_ = static_cast<t_int>(v);
     else if (isFloat())
         setDefault(static_cast<t_float>(v));
 }
 
 void PropertyInfo::setDefault(size_t v)
 {
-    setDefault(int(v));
+    static_assert(sizeof(t_int) == sizeof(long), "");
+    setDefault(t_int(v));
 }
 
 void PropertyInfo::setDefault(float v)
@@ -430,7 +447,7 @@ bool PropertyInfo::setMaxFloat(t_float v)
     return true;
 }
 
-bool PropertyInfo::setMinInt(int new_min)
+bool PropertyInfo::setMinInt(t_int new_min)
 {
     if (!isInt()) {
         PROP_LOG() << "not int property: setMinInt failed";
@@ -450,7 +467,7 @@ bool PropertyInfo::setMinInt(int new_min)
     return true;
 }
 
-bool PropertyInfo::setMaxInt(int new_max)
+bool PropertyInfo::setMaxInt(t_int new_max)
 {
     if (!isInt()) {
         PROP_LOG() << "not int property: setMaxInt failed";
@@ -470,7 +487,7 @@ bool PropertyInfo::setMaxInt(int new_max)
     return true;
 }
 
-bool PropertyInfo::setRangeInt(int min, int max)
+bool PropertyInfo::setRangeInt(t_int min, t_int max)
 {
     if (!isInt()) {
         PROP_LOG() << "not int property: setRangeInt failed";
@@ -708,7 +725,7 @@ bool PropertyInfo::setView(PropValueView v)
     }
 }
 
-bool PropertyInfo::addEnum(int v)
+bool PropertyInfo::addEnum(t_int v)
 {
     if (!hasEnumLimit()) {
         PROP_LOG() << "no enum constraints";
@@ -756,7 +773,7 @@ bool PropertyInfo::addEnum(const Atom& a)
     }
 }
 
-bool PropertyInfo::addEnums(std::initializer_list<int> i_list)
+bool PropertyInfo::addEnums(std::initializer_list<t_int> i_list)
 {
     if (!hasEnumLimit()) {
         PROP_LOG() << "no enum constraints";
@@ -1017,10 +1034,10 @@ bool PropertyInfo::defaultBool(bool def) const
         return def;
 }
 
-int PropertyInfo::defaultInt(int def) const
+t_int PropertyInfo::defaultInt(t_int def) const
 {
-    int res;
-    if (getT<int>(default_, res))
+    t_int res;
+    if (getT<t_int>(default_, res))
         return res;
     else
         return def;

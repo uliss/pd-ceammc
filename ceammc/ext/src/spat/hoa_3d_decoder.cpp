@@ -88,11 +88,11 @@ void Hoa3dDecoder::initChannelNum()
     switch (crc32_hash(mode_->value())) {
     case hash_binaural:
         // num of plane waves ignored in binaural mode
-        num_chan_->setValue(2);
+        num_chan_->setValue(t_int(2));
         break;
     case hash_regular: {
-        const int MIN_PW_COUNT = 1;
-        const int DEFAULT = (order() + 1) * (order() + 1);
+        const t_int MIN_PW_COUNT = 1;
+        const t_int DEFAULT = (order() + 1) * (order() + 1);
 
         // property was not specified, set default
         if (num_chan_->value() == 0)

@@ -20,7 +20,7 @@
 using namespace ceammc;
 
 class ListResize : public BaseObject {
-    SizeTProperty* size_;
+    IntProperty* size_;
     SymbolEnumProperty* method_;
     Atom pad_;
 

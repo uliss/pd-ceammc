@@ -34,8 +34,8 @@ using PropertyBoolGetter = std::function<bool()>;
 using PropertyBoolSetter = std::function<bool(bool)>;
 using PropertyFloatGetter = std::function<t_float()>;
 using PropertyFloatSetter = std::function<bool(t_float)>;
-using PropertyIntGetter = std::function<int()>;
-using PropertyIntSetter = std::function<bool(int)>;
+using PropertyIntGetter = std::function<t_int()>;
+using PropertyIntSetter = std::function<bool(t_int)>;
 using PropertySymbolGetter = std::function<t_symbol*()>;
 using PropertySymbolSetter = std::function<bool(t_symbol*)>;
 using PropertyAtomGetter = std::function<Atom()>;
@@ -49,7 +49,7 @@ using PropertyListSetter = std::function<bool(const AtomListView&)>;
 class Property {
 public:
     using PropFloatCheckFn = std::function<bool(t_float)>;
-    using PropIntCheckFn = std::function<bool(int)>;
+    using PropIntCheckFn = std::function<bool(t_int)>;
     using PropSymbolCheckFn = std::function<bool(t_symbol*)>;
     using PropAtomCheckFn = std::function<bool(const Atom&)>;
     using PropListCheckFn = std::function<bool(const AtomListView&)>;
@@ -108,7 +108,7 @@ public:
 
     bool getDefault(bool& b) const;
     bool getDefault(t_float& f) const;
-    bool getDefault(int& i) const;
+    bool getDefault(t_int& i) const;
     bool getDefault(t_symbol*& s) const;
     bool getDefault(Atom& a) const;
     bool getDefault(AtomList& l) const;
@@ -146,7 +146,7 @@ public:
     bool setSuccessFn(PropSuccessFn fn);
 
     bool setFloatCheck(PropValueConstraints type, t_float a = 0, t_float b = 0);
-    bool setIntCheck(PropValueConstraints type, int a = 0, int b = 0);
+    bool setIntCheck(PropValueConstraints type, t_int a = 0, t_int b = 0);
     bool setSymbolEnumCheck(std::initializer_list<t_symbol*> l);
     bool setSymbolEnumCheck(std::initializer_list<const char*> l);
     void setCheckErrorMsg(const std::string& str);
@@ -159,7 +159,7 @@ public:
 
     virtual bool getBool(bool&) const;
     virtual bool getFloat(t_float&) const;
-    virtual bool getInt(int&) const;
+    virtual bool getInt(t_int&) const;
     virtual bool getSymbol(t_symbol*&) const;
     virtual bool getAtom(Atom&) const;
     virtual bool getList(AtomList&) const;
@@ -170,14 +170,14 @@ public:
 
     virtual bool setBool(bool);
     virtual bool setFloat(t_float);
-    virtual bool setInt(int);
+    virtual bool setInt(t_int);
     virtual bool setSymbol(t_symbol*);
     virtual bool setAtom(const Atom&);
 
     // generic set
     inline bool setT(bool b) { return setBool(b); }
     inline bool setT(t_float f) { return setFloat(f); }
-    inline bool setT(int i) { return setInt(i); }
+    inline bool setT(t_int i) { return setInt(i); }
     inline bool setT(t_symbol* s) { return setSymbol(s); }
     inline bool setT(const Atom& a) { return setAtom(a); }
     inline bool setT(const AtomListView& lv) { return setList(lv); }
@@ -198,7 +198,7 @@ protected:
     PropertyInfo& info() { return info_; }
     bool checkAtom(const Atom& a) const;
     bool checkFloat(t_float v) const;
-    bool checkInt(int v) const;
+    bool checkInt(t_int v) const;
     bool checkList(const AtomListView& lv) const;
     bool checkSymbol(t_symbol* s) const;
     bool emptyCheck(const AtomListView& v) const;
@@ -227,7 +227,7 @@ inline bool Property::checkValueT<bool>(const bool&) { return true; }
 template <>
 inline bool Property::checkValueT<t_float>(const t_float& v) { return checkFloat(v); }
 template <>
-inline bool Property::checkValueT<int>(const int& v) { return checkInt(v); }
+inline bool Property::checkValueT<t_int>(const t_int& v) { return checkInt(v); }
 template <>
 inline bool Property::checkValueT<t_symbol*>(t_symbol* const& s) { return checkSymbol(s); }
 template <>
@@ -240,7 +240,7 @@ inline bool Property::getT(bool& b) const { return getBool(b); }
 template <>
 inline bool Property::getT(t_float& f) const { return getFloat(f); }
 template <>
-inline bool Property::getT(int& i) const { return getInt(i); }
+inline bool Property::getT(t_int& i) const { return getInt(i); }
 template <>
 inline bool Property::getT(t_symbol*& s) const { return getSymbol(s); }
 template <>
@@ -263,7 +263,7 @@ public:
 
     bool setBool(bool b) override;
     bool setFloat(t_float f) override;
-    bool setInt(int i) override;
+    bool setInt(t_int i) override;
     bool setSymbol(t_symbol* s) override;
     bool setAtom(const Atom& a) override;
 
@@ -288,7 +288,7 @@ public:
     AtomList get() const override;
     bool setList(const AtomListView& lv) override;
     bool setFloat(t_float v) override;
-    bool setInt(int v) override;
+    bool setInt(t_int v) override;
     bool getFloat(t_float& v) const override;
 
     inline t_float value() const { return v_; }
@@ -316,28 +316,28 @@ public:
  * @brief integer property
  */
 class IntProperty : public Property {
-    int v_;
+    t_int v_;
 
 public:
-    IntProperty(const std::string& name, int init = 0, PropValueAccess access = PropValueAccess::READWRITE);
+    IntProperty(const std::string& name, t_int init = 0, PropValueAccess access = PropValueAccess::READWRITE);
 
     AtomList get() const override;
     bool setList(const AtomListView& lv) override;
-    bool setInt(int v) override;
-    bool getInt(int& v) const override;
+    bool setInt(t_int v) override;
+    bool getInt(t_int& v) const override;
 
-    inline int value() const { return v_; }
-    bool setValue(int v);
+    inline t_int value() const { return v_; }
+    bool setValue(t_int v);
     bool setValue(t_float f);
     bool setValue(const Atom& a);
-    int defaultValue() const;
+    t_int defaultValue() const;
 
-    bool checkMin(int v) { return setIntCheck(PropValueConstraints::GREATER_THEN, v); }
-    bool checkMinEq(int v) { return setIntCheck(PropValueConstraints::GREATER_EQUAL, v); }
-    bool checkMax(int v) { return setIntCheck(PropValueConstraints::LESS_THEN, v); }
-    bool checkMaxEq(int v) { return setIntCheck(PropValueConstraints::LESS_EQUAL, v); }
-    bool checkClosedRange(int a, int b) { return setIntCheck(PropValueConstraints::CLOSED_RANGE, a, b); }
-    bool checkOpenedRange(int a, int b) { return setIntCheck(PropValueConstraints::OPEN_RANGE, a, b); }
+    bool checkMin(t_int v) { return setIntCheck(PropValueConstraints::GREATER_THEN, v); }
+    bool checkMinEq(t_int v) { return setIntCheck(PropValueConstraints::GREATER_EQUAL, v); }
+    bool checkMax(t_int v) { return setIntCheck(PropValueConstraints::LESS_THEN, v); }
+    bool checkMaxEq(t_int v) { return setIntCheck(PropValueConstraints::LESS_EQUAL, v); }
+    bool checkClosedRange(t_int a, t_int b) { return setIntCheck(PropValueConstraints::CLOSED_RANGE, a, b); }
+    bool checkOpenedRange(t_int a, t_int b) { return setIntCheck(PropValueConstraints::OPEN_RANGE, a, b); }
     bool checkNonZero() { return setIntCheck(PropValueConstraints::NON_ZERO); }
 
     bool checkPositive() final { return checkMin(0); }
@@ -345,33 +345,7 @@ public:
     bool checkNonNegative() final { return checkMinEq(0); }
 
 public:
-    using value_type = int;
-};
-
-/**
- * @brief unsigned integer property
- */
-class SizeTProperty : public Property {
-    size_t v_;
-
-public:
-    SizeTProperty(const std::string& name, size_t init = 0, PropValueAccess access = PropValueAccess::READWRITE);
-
-    AtomList get() const override;
-    bool setList(const AtomListView& lv) override;
-    bool getInt(int&) const override;
-
-    inline size_t value() const { return v_; }
-    bool setValue(size_t v);
-    bool setValue(t_float f);
-    bool setValue(const Atom& a);
-    size_t defaultValue() const;
-
-    bool checkPositive() final;
-    bool checkNonNegative() final { return true; }
-
-public:
-    using value_type = size_t;
+    using value_type = t_int;
 };
 
 /**
@@ -487,7 +461,7 @@ public:
 
     AtomList get() const override;
     bool getBool(bool& b) const override;
-    bool getInt(int& v) const override;
+    bool getInt(t_int& v) const override;
     bool setList(const AtomListView&) override;
 
     inline bool value() const { return v_; }
@@ -607,14 +581,14 @@ public:
 
     bool setBool(bool b) override { return setBoolT(b); }
     bool setFloat(t_float f) override { return setFloatT(f); }
-    bool setInt(int i) override { return setIntT(i); }
+    bool setInt(t_int i) override { return setIntT(i); }
     bool setSymbol(t_symbol* s) override { return setSymbolT(s); }
     bool setAtom(const Atom& a) override { return setAtomT(a); }
 
 private:
     bool setBoolT(bool) { return false; }
     bool setFloatT(t_float) { return false; }
-    bool setIntT(int) { return false; }
+    bool setIntT(t_int) { return false; }
     bool setSymbolT(t_symbol*) { return false; }
     bool setAtomT(const Atom&) { return false; }
 
@@ -627,7 +601,7 @@ inline bool PointerProperty<bool>::setBoolT(bool b) { return setValue(b); }
 template <>
 inline bool PointerProperty<t_float>::setFloatT(t_float f) { return setValue(f); }
 template <>
-inline bool PointerProperty<int>::setIntT(int i) { return setValue(i); }
+inline bool PointerProperty<t_int>::setIntT(t_int i) { return setValue(i); }
 template <>
 inline bool PointerProperty<t_symbol*>::setSymbolT(t_symbol* s) { return setValue(s); }
 template <>

@@ -41,7 +41,8 @@ ListXSearch::ListXSearch(const PdArgs& args)
         })
         ->setArgIndex(0);
 
-    start_ = new SizeTProperty("@start", 0);
+    start_ = new IntProperty("@start", 0);
+    start_->checkMinEq(0);
     addProperty(start_);
     end_ = new IntProperty("@end", -1);
     addProperty(end_);

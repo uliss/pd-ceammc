@@ -128,7 +128,7 @@ struct UIBindOptions {
             return std::strncmp(key_name, name.asSymbol()->s_name, name_len) == 0;
         else if (name.isInteger()) {
             char buf[32];
-            sprintf(buf, "%d", name.asInt());
+            sprintf(buf, "%d", static_cast<int>(name.asInt()));
             return std::strncmp(key_name, buf, name_len) == 0;
         } else
             return false;

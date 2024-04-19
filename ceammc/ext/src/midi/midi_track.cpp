@@ -67,7 +67,7 @@ void MidiTrack::onDataT(const MidiStreamAtom& stream)
         mf.joinTracks();
 
         midi_track_.setEventList(mf.trackAt(0));
-        tempo_->setValue(mf.getTicksPerQuarterNote());
+        tempo_->setValue(t_int(mf.getTicksPerQuarterNote()));
 
     } else {
         const int trackN = track_idx_->value();
@@ -78,7 +78,7 @@ void MidiTrack::onDataT(const MidiStreamAtom& stream)
         }
 
         midi_track_.setEventList(mf->trackAt(trackN));
-        tempo_->setValue(mf->getTicksPerQuarterNote());
+        tempo_->setValue(t_int(mf->getTicksPerQuarterNote()));
     }
 
     current_event_idx_ = 0;

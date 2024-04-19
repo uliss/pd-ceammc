@@ -129,7 +129,7 @@ void PropGet::processAbstractionProps(t_glist* dest, const std::vector<t_symbol*
                 pp->getBool(b);
                 boolTo(IDX, b);
             } else if (pp->isInt()) {
-                int ii = 0;
+                t_int ii = 0;
                 pp->getInt(ii);
                 floatTo(IDX, ii);
             } else if (pp->isFloat()) {

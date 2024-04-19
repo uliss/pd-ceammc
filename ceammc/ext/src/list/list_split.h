@@ -6,7 +6,7 @@
 
 using namespace ceammc;
 class ListSplit : public BaseObject {
-    SizeTProperty* index_;
+    IntProperty* index_;
 
 public:
     ListSplit(const PdArgs& args);

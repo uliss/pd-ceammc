@@ -304,8 +304,8 @@ TEST_CASE("list functions2", "[core]")
     {
         auto src = LA("A", "C", "true", 0.0, 1, 1.5, 2);
 
-        std::vector<int> int_res_expected { 0, 1, 2 };
-        REQUIRE(list::extractByType<int>(src) == int_res_expected);
+        std::vector<t_int> int_res_expected { 0, 1, 2 };
+        REQUIRE(list::extractByType<t_int>(src) == int_res_expected);
 
         std::vector<t_float> float_res_expected { 0, 1, 1.5, 2 };
         REQUIRE(list::extractByType<t_float>(src) == float_res_expected);

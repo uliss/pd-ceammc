@@ -15,7 +15,7 @@
 #include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 #include <cmath>
 #include <cstdint>
@@ -86,7 +86,7 @@ void ArrayPlotTilde::onInlet(size_t n, const AtomListView& l)
             return;
         }
 
-        auto N = l[0].toT<int>(0);
+        auto N = l[0].toT<t_int>(0);
         if (N > NMAX) {
             running_ = false;
             OBJ_ERR << fmt::format("requested plot size is too big: {}, max size is {}", N, NMAX);

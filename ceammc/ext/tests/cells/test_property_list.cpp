@@ -87,7 +87,7 @@ TEST_CASE("ListProperty", "[ceammc::properties]")
         REQUIRE(p.setAtomCheckFn(nullptr));
         REQUIRE(p.setSymbolCheckFn(nullptr));
 
-        p.setListCheckFn([](const AtomList& l) { return l.size() == 2 && l.allOf(isFloat); });
+        p.setListCheckFn([](const AtomList& l) { return l.size() == 2 && l.view().allOf(isFloat); });
         REQUIRE_FALSE(p.set(L()));
         REQUIRE_FALSE(p.set(LA(1)));
         REQUIRE_FALSE(p.set(LA("A")));
@@ -119,7 +119,7 @@ TEST_CASE("ListProperty", "[ceammc::properties]")
 
         bool b = false;
         t_float f;
-        int i;
+        t_int i;
         t_symbol* s;
         Atom a;
         AtomList l;
@@ -151,7 +151,7 @@ TEST_CASE("ListProperty", "[ceammc::properties]")
 
         REQUIRE_FALSE(p.setT(false));
         REQUIRE_FALSE(p.setT(t_float(1)));
-        REQUIRE_FALSE(p.setT(100));
+        REQUIRE_FALSE(p.setT(t_int(100)));
         REQUIRE_FALSE(p.setT(SYM("a")));
         REQUIRE_FALSE(p.setT(A(123)));
 

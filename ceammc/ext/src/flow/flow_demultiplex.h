@@ -6,7 +6,7 @@
 using namespace ceammc;
 
 class FlowDemultiplex : public BaseObject {
-    SizeTProperty* index_ { nullptr };
+    IntProperty* index_ { nullptr };
     IntProperty* n_ { nullptr };
 
 public:

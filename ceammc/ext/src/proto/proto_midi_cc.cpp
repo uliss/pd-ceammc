@@ -83,7 +83,7 @@ void ProtoMidiCC::m_bend_sens(t_symbol* s, const AtomListView& lv)
     t_float sens = 0;
 
     if (checkArgs(lv, ARG_INT, ARG_FLOAT)) {
-        chan = lv[0].asT<int>();
+        chan = lv[0].asT<t_int>();
         sens = lv[1].asT<t_float>();
     } else if (checkArgs(lv, ARG_FLOAT)) {
         sens = lv[0].asT<t_float>();
@@ -121,12 +121,12 @@ void ProtoMidiCC::m_tune_select(t_symbol* s, const AtomListView& lv)
     int prog = 0;
 
     if (checkArgs(lv, ARG_INT, ARG_INT, ARG_INT)) {
-        chan = lv[0].asT<int>();
-        bank = lv[1].asT<int>();
-        prog = lv[2].asT<int>();
+        chan = lv[0].asT<t_int>();
+        bank = lv[1].asT<t_int>();
+        prog = lv[2].asT<t_int>();
     } else if (checkArgs(lv, ARG_INT, ARG_INT)) {
-        bank = lv[0].asT<int>();
-        prog = lv[1].asT<int>();
+        bank = lv[0].asT<t_int>();
+        prog = lv[1].asT<t_int>();
     } else {
         METHOD_ERR(s) << "CHAN[0..15]? TUNE_BANK[0..127] TUNE_PROG[0..127] expected, got: " << lv;
         return;
@@ -755,7 +755,7 @@ ProtoMidiCC::Data2 ProtoMidiCC::getCCBool(t_symbol* s, const AtomListView& lv) c
         res.chan = 0;
         res.value = lv[0].asT<bool>() ? 0x7F : 0;
     } else if (lv.size() == 2 && lv[0].isInteger() && lv[1].isInteger()) {
-        res.chan = lv[0].asT<int>();
+        res.chan = lv[0].asT<t_int>();
         res.value = lv[1].asT<bool>() ? 0x7F : 0;
     } else {
         METHOD_ERR(s) << "expected CHAN[0..15]? VALUE(0|1), got: " << lv;
@@ -774,10 +774,10 @@ bool ProtoMidiCC::getCCByte(t_symbol* s, const AtomListView& lv, Data2& res) con
 {
     if (lv.size() == 1 && lv[0].isInteger()) {
         res.chan = 0;
-        res.value = lv[0].asT<int>();
+        res.value = lv[0].asT<t_int>();
     } else if (lv.size() == 2 && lv[0].isInteger() && lv[1].isInteger()) {
-        res.chan = lv[0].asT<int>();
-        res.value = lv[1].asT<int>();
+        res.chan = lv[0].asT<t_int>();
+        res.value = lv[1].asT<t_int>();
     } else {
         METHOD_ERR(s) << "expected CHAN[0..15]? VALUE[0..127], got: " << lv;
         return false;
@@ -802,10 +802,10 @@ ProtoMidiCC::Data2 ProtoMidiCC::getCCInt14(t_symbol* s, const AtomListView& lv) 
 
     if (lv.size() == 1 && lv[0].isInteger()) {
         res.chan = 0;
-        res.value = lv[0].asT<int>();
+        res.value = lv[0].asT<t_int>();
     } else if (lv.size() == 2 && lv[0].isInteger() && lv[1].isInteger()) {
-        res.chan = lv[0].asT<int>();
-        res.value = lv[1].asT<int>();
+        res.chan = lv[0].asT<t_int>();
+        res.value = lv[1].asT<t_int>();
     } else {
         METHOD_ERR(s) << "expected CHAN[0..15]? VALUE[0..16384], got: " << lv;
         return res;
@@ -834,7 +834,7 @@ ProtoMidiCC::FData ProtoMidiCC::getCCValue(t_symbol* s, const AtomListView& lv) 
         res.chan = 0;
         value = lv[0].asT<t_float>();
     } else if (lv.size() == 2 && lv[0].isInteger() && lv[1].isFloat()) {
-        res.chan = lv[0].asT<int>();
+        res.chan = lv[0].asT<t_int>();
         value = lv[1].asT<t_float>();
     } else {
         METHOD_ERR(s) << "expected CHAN[0..15]? VALUE, got: " << lv;
@@ -860,7 +860,7 @@ ProtoMidiCC::Data2 ProtoMidiCC::getCCFloat(t_symbol* s, const AtomListView& lv, 
         res.chan = 0;
         value = lv[0].asT<t_float>();
     } else if (lv.size() == 2 && lv[0].isInteger() && lv[1].isFloat()) {
-        res.chan = lv[0].asT<int>();
+        res.chan = lv[0].asT<t_int>();
         value = lv[1].asT<t_float>();
     } else {
         METHOD_ERR(s) << "expected CHAN[0..15]? VALUE[0..1], got: " << lv;

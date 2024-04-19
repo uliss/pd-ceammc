@@ -105,7 +105,7 @@ void ObjProps::onBang()
                 if (p.getDefault(f))
                     prop_info->insert(KEY_DEF, f);
             } else if (p.isInt()) {
-                int i;
+                t_int i;
                 if (p.getDefault(i))
                     prop_info->insert(KEY_DEF, Atom(i));
             } else if (p.isSymbol()) {

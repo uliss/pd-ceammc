@@ -101,7 +101,7 @@ BaseDac::BaseDac(const PdArgs& args)
             return res;
         },
         [this](const AtomListView& lv) -> bool {
-            const bool ok = lv.allOf([](const Atom& a) -> bool { return a.isInteger() && a.asT<int>() > 0; });
+            const bool ok = lv.allOf([](const Atom& a) -> bool { return a.isInteger() && a.asT<t_int>() > 0; });
             if (!ok) {
                 OBJ_ERR << "list of positive integer channel numbers is expected, got: " << lv;
                 return false;
@@ -109,7 +109,7 @@ BaseDac::BaseDac(const PdArgs& args)
 
             const auto N = std::min(lv.size(), vec_.size());
             for (size_t i = 0; i < N; i++)
-                vec_[i] = lv[i].asT<int>();
+                vec_[i] = lv[i].asT<t_int>();
 
             updateDsp();
 
@@ -174,7 +174,7 @@ void BaseDac::m_rotate(t_symbol* s, const AtomListView& lv)
     if (!checkArgs(lv, ARG_INT, s))
         return;
 
-    const auto n = size_t(int(vec_.size()) + lv[0].asT<int>()) % vec_.size();
+    const auto n = size_t(int(vec_.size()) + lv[0].asT<t_int>()) % vec_.size();
     std::rotate(vec_.begin(), vec_.begin() + n, vec_.end());
     std::rotate(vec_str_.begin(), vec_str_.begin() + n, vec_str_.end());
     updateDsp();

@@ -83,7 +83,7 @@ void NetOscSend::m_send_i32(t_symbol* s, const AtomListView& lv)
 
     SendOscTask task;
     initTask(task, lv[0].asT<t_symbol*>()->s_name);
-    task.addInt32(lv[1].asT<int>());
+    task.addInt32(lv[1].asT<t_int>());
 
     if (!worker_->add(task))
         LIB_ERR << "[osc_send] can't add task";

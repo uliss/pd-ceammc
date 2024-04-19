@@ -24,8 +24,8 @@
 
 constexpr auto min_fdefault = std::numeric_limits<t_float>::lowest();
 constexpr auto max_fdefault = std::numeric_limits<t_float>::max();
-constexpr auto min_idefault = std::numeric_limits<int>::lowest();
-constexpr auto max_idefault = std::numeric_limits<int>::max();
+constexpr auto min_idefault = std::numeric_limits<t_int>::lowest();
+constexpr auto max_idefault = std::numeric_limits<t_int>::max();
 
 #define CHECK_DECLTYPE(cons, member) static_assert(std::is_same<std::remove_const<decltype(cons)>::type, decltype(member)>::value, "");
 
@@ -91,7 +91,7 @@ void DataTypeProperty::setTypeFloat(t_float def)
     value_ = default_;
 }
 
-void DataTypeProperty::setTypeInt(int def)
+void DataTypeProperty::setTypeInt(t_int def)
 {
     type_ = PropValueType::INTEGER;
     default_ = def;
@@ -139,12 +139,12 @@ bool DataTypeProperty::setFloat(t_float f)
     return true;
 }
 
-bool DataTypeProperty::setInt(int v)
+bool DataTypeProperty::setInt(t_int v)
 {
     if (type_ != PropValueType::INTEGER)
         return false;
 
-    value_ = clip<int>(v, lmin_, lmax_);
+    value_ = clip<t_int>(v, lmin_, lmax_);
     updateAll();
     return true;
 }
@@ -204,12 +204,12 @@ bool DataTypeProperty::setFromPdArgs(const AtomListView& lv)
     } else if (isInt()) {
         using namespace parser;
 
-        int res = false;
-        int prev = false;
+        t_int res = false;
+        t_int prev = false;
         if (!getInt(prev))
             return false;
 
-        auto rc = numeric_prop_calc<int>(prev, info(), lv, res);
+        auto rc = numeric_prop_calc<t_int>(prev, info(), lv, res);
         switch (rc) {
         case PropParseRes::OK:
             return setInt(res);
@@ -275,12 +275,12 @@ bool DataTypeProperty::getFloat(t_float& out) const
     return true;
 }
 
-bool DataTypeProperty::getInt(int& out) const
+bool DataTypeProperty::getInt(t_int& out) const
 {
     if (type_ != PropValueType::INTEGER)
         return false;
 
-    out = boost::get<int>(value_);
+    out = boost::get<t_int>(value_);
     return true;
 }
 
@@ -323,7 +323,7 @@ bool DataTypeProperty::setFloatRange(t_float min, t_float max)
     return true;
 }
 
-bool DataTypeProperty::setIntRange(int min, int max)
+bool DataTypeProperty::setIntRange(t_int min, t_int max)
 {
     if (type_ != PropValueType::INTEGER)
         return false;
@@ -331,7 +331,7 @@ bool DataTypeProperty::setIntRange(int min, int max)
     auto p = std::minmax(min, max);
     lmin_ = p.first;
     lmax_ = p.second;
-    default_ = clip<int>(boost::get<int>(default_), lmin_, lmax_);
+    default_ = clip<t_int>(boost::get<t_int>(default_), lmin_, lmax_);
     return true;
 }
 
@@ -349,7 +349,7 @@ bool DataTypeProperty::setEnumValues(const AtomListView& lv)
 std::string DataTypeProperty::propertyStrValue() const
 {
     bool vbool = false;
-    int vint = 0;
+    t_int vint = 0;
     t_float vfloat = 0;
     t_symbol* vsym = &s_;
     AtomList vlist;
@@ -465,7 +465,7 @@ PropertyInfo DataTypeProperty::info() const
                 res.setConstraints(PropValueConstraints::NONE);
         }
 
-        res.setDefault(boost::get<int>(default_));
+        res.setDefault(boost::get<t_int>(default_));
     } else if (isBool()) {
         res.setDefault(boost::get<bool>(default_) ? 1 : 0);
     } else if (isSymbol()) {

@@ -18,7 +18,6 @@
 #include "ceammc_atomlist_view.h"
 
 #include <boost/iterator/filter_iterator.hpp>
-#include <deque>
 #include <functional>
 #include <initializer_list>
 #include <string>
@@ -166,7 +165,7 @@ public:
     /**
      * Try to get int from specified list position. If no int - return default value
      */
-    int intAt(size_t pos, int def) const noexcept;
+    t_int intAt(size_t pos, t_int def) const noexcept;
 
     /**
      * Try to get float from specified list position. If no float - return default value
@@ -212,34 +211,6 @@ public:
      * @note do nothing on empty list
      */
     AtomList& resizeFold(size_t n);
-
-    /**
-     * Get property value from list
-     * @param name - property name with (starts with '@')
-     * @param dest - output destination
-     * @return true if property was found and it has value
-     */
-    bool property(t_symbol* name, Atom* dest) const noexcept;
-
-    /**
-     * Get property value from list
-     * @param name - property name with (starts with '@')
-     * @param dest - output destination
-     * @return true if property was found and it has value
-     */
-    bool property(t_symbol* name, AtomList* dest) const;
-
-    /**
-     * Returns all properties and their values from list
-     */
-    std::deque<AtomList> properties() const;
-
-    /**
-     * Checks if property exists in list
-     * @return true in property found
-     */
-    bool hasProperty(t_symbol* name) const noexcept;
-    bool hasProperty(const char* name) const noexcept { return hasProperty(gensym(name)); }
 
     /**
      * Returns sublist from specified position
@@ -293,20 +264,6 @@ public:
     void fill(const Atom& a, size_t sz);
 
     /**
-     * Returns pointer to first element or NULL if list is empty
-     * @see last()
-     */
-    Atom* first();
-    const Atom* first() const;
-
-    /**
-     * Returns pointer to last element or NULL if list is empty
-     * @see first()
-     */
-    Atom* last();
-    const Atom* last() const;
-
-    /**
      * types
      */
     bool isBang() const noexcept { return empty(); }
@@ -353,26 +310,6 @@ public:
     void reverse();
 
     /**
-     * Returns pointer to minimal element in list or nullptr if empty
-     */
-    const Atom* min() const;
-
-    /**
-     * Returns pointer to minimal element in list or nullptr if empty
-     */
-    Atom* min();
-
-    /**
-     * Returns pointer to greatest element in list or nullptr if empty
-     */
-    const Atom* max() const;
-
-    /**
-     * Returns pointer to greatest element in list or nullptr if empty
-     */
-    Atom* max();
-
-    /**
      * Get min and max elements from list
      * @param min - min destination
      * @param max - max destination
@@ -415,31 +352,6 @@ public:
      * @return -1, if not found
      */
     long findPos(AtomPredicate pred) const noexcept;
-
-    /**
-     * Returns number of elements that compare equal to a
-     */
-    size_t count(const Atom& a) const noexcept;
-
-    /**
-     * Returns number of elements for that predicate pred returns true
-     */
-    CEAMMC_NO_ASAN size_t count(AtomPredicate pred) const noexcept;
-
-    /**
-     * Checks if predicate pred returns true for all list elements
-     */
-    CEAMMC_NO_ASAN bool allOf(AtomPredicate pred) const noexcept;
-
-    /**
-     * Checks if predicate pred returns true at least for one list element
-     */
-    CEAMMC_NO_ASAN bool anyOf(AtomPredicate pred) const noexcept;
-
-    /**
-     * Checks if predicate pred returns false for all list elements
-     */
-    bool noneOf(AtomPredicate pred) const noexcept;
 
     /**
      * Convert atomlist to parametrised type
@@ -580,6 +492,9 @@ public:
 
     friend class AtomListView;
 
+    Container& atoms() { return atoms_; }
+    const Container& atoms() const { return atoms_; }
+
 private:
     Container atoms_;
 };
@@ -662,6 +577,24 @@ int atomlistToValue(const AtomList& l, const int& def)
         return def;
 
     return static_cast<int>(l[0].asFloat(def));
+}
+
+template <>
+long atomlistToValue(const AtomList& l, const long& def)
+{
+    if (l.empty())
+        return def;
+
+    return static_cast<long>(l[0].asFloat(def));
+}
+
+template <>
+long long atomlistToValue(const AtomList& l, const long long& def)
+{
+    if (l.empty())
+        return def;
+
+    return static_cast<long long>(l[0].asFloat(def));
 }
 
 template <>

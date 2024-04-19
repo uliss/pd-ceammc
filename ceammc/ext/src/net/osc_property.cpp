@@ -39,7 +39,7 @@ namespace net {
         } else if (url.isInteger()) {
             constexpr int MIN_PORT = 1024;
             constexpr int MAX_PORT = std::numeric_limits<std::int16_t>::max();
-            const int port = url.asT<int>();
+            const int port = url.asT<t_int>();
             if (port <= MIN_PORT || port > MAX_PORT) {
                 LIB_ERR << fmt::format("[{}] invalid port value: {}, expected to be in {}..{} range", name()->s_name, port, MIN_PORT, MAX_PORT);
                 return false;

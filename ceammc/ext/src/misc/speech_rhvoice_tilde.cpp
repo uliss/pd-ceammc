@@ -187,7 +187,7 @@ void SpeechRhvoiceTilde::onList(const AtomListView& lv)
     try {
         for (auto& a : lv) {
             if (a.isInteger()) {
-                fmt::format_to(std::back_inserter(str), "{} ", a.asT<int>());
+                fmt::format_to(std::back_inserter(str), "{} ", a.asT<t_int>());
             } else if (a.isFloat()) {
                 fmt::format_to(std::back_inserter(str), "{} ", a.asT<t_float>());
             } else if (a.isSymbol()) {

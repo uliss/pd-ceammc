@@ -32,7 +32,7 @@ namespace ceammc {
 
 class DataTypeDict;
 
-using PropertyValue = boost::variant<boost::blank, bool, int, t_float, t_symbol*, Atom, AtomList>;
+using PropertyValue = boost::variant<boost::blank, bool, t_int, t_float, t_symbol*, Atom, AtomList>;
 
 // on order change/adding new type
 // change also in to_string(PropValueType)
@@ -136,13 +136,13 @@ class PropertyInfo {
         {
         }
 
-        NumericUnion(int i_)
+        NumericUnion(t_int i_)
             : i(i_)
         {
         }
 
         t_float f;
-        int i;
+        t_int i;
     };
 
 private:
@@ -213,7 +213,7 @@ public:
     bool setUnits(PropValueUnits u);
     void addUnit(PropValueUnits u);
     void resetUnits() { units_ = 0; }
-    void unitsIterate(const std::function<void (const char *)> &fn) const;
+    void unitsIterate(const std::function<void(const char*)>& fn) const;
     void unitsIterate(const std::function<void(PropValueUnits)>& fn) const;
 
     /// ui hints
@@ -242,11 +242,11 @@ public:
     void clearRangeFloat();
 
     // int range
-    int minInt() const { return min_.i; }
-    int maxInt() const { return max_.i; }
-    bool setMinInt(int new_min) CEAMMC_WARN_UNUSED;
-    bool setMaxInt(int new_max) CEAMMC_WARN_UNUSED;
-    bool setRangeInt(int min, int max) CEAMMC_WARN_UNUSED;
+    t_int minInt() const { return min_.i; }
+    t_int maxInt() const { return max_.i; }
+    bool setMinInt(t_int new_min) CEAMMC_WARN_UNUSED;
+    bool setMaxInt(t_int new_max) CEAMMC_WARN_UNUSED;
+    bool setRangeInt(t_int min, t_int max) CEAMMC_WARN_UNUSED;
     void clearMinInt();
     void clearMaxInt();
     void clearRangeInt();
@@ -261,16 +261,16 @@ public:
 
     // enum
     bool enumContains(t_float v) const;
-    bool enumContains(int v) const;
+    bool enumContains(t_int v) const;
     bool enumContains(t_symbol* s) const;
     const AtomList& enumValues() const;
     size_t enumCount() const;
     Atom enumAt(size_t idx) const;
-    bool addEnum(int v) CEAMMC_WARN_UNUSED;
+    bool addEnum(t_int v) CEAMMC_WARN_UNUSED;
     bool addEnum(const char* s) CEAMMC_WARN_UNUSED;
     bool addEnum(t_symbol* s) CEAMMC_WARN_UNUSED;
     bool addEnum(const Atom& a) CEAMMC_WARN_UNUSED;
-    bool addEnums(std::initializer_list<int> i_list) CEAMMC_WARN_UNUSED;
+    bool addEnums(std::initializer_list<t_int> i_list) CEAMMC_WARN_UNUSED;
     bool addEnums(std::initializer_list<t_symbol*> args) CEAMMC_WARN_UNUSED;
     bool addEnums(std::initializer_list<const char*> c_list) CEAMMC_WARN_UNUSED;
     bool addEnums(std::initializer_list<Atom> a_list) CEAMMC_WARN_UNUSED;
@@ -284,6 +284,8 @@ public:
 
     void setDefault(bool v);
     void setDefault(int v);
+    void setDefault(long v);
+    void setDefault(long long v);
     void setDefault(size_t v);
     void setDefault(float v);
     void setDefault(double v);
@@ -302,7 +304,7 @@ public:
 
     bool noDefault() const;
     bool defaultBool(bool def = false) const;
-    int defaultInt(int def = 0) const;
+    t_int defaultInt(t_int def = 0) const;
     t_float defaultFloat(t_float def = 0) const;
     t_symbol* defaultSymbol(t_symbol* def = &s_) const;
     Atom defaultAtom(const Atom& def = Atom()) const;
@@ -327,17 +329,17 @@ public:
 };
 
 template <>
-inline bool PropertyInfo::setMinT<int>(int v) { return setMinInt(v); }
+inline bool PropertyInfo::setMinT<t_int>(t_int v) { return setMinInt(v); }
 template <>
 inline bool PropertyInfo::setMinT<t_float>(t_float v) { return setMinFloat(v); }
 
 template <>
-inline bool PropertyInfo::setMaxT<int>(int v) { return setMaxInt(v); }
+inline bool PropertyInfo::setMaxT<t_int>(t_int v) { return setMaxInt(v); }
 template <>
 inline bool PropertyInfo::setMaxT<t_float>(t_float v) { return setMaxFloat(v); }
 
 template <>
-inline bool PropertyInfo::setRangeT<int>(int min, int max) { return setRangeInt(min, max); }
+inline bool PropertyInfo::setRangeT<t_int>(t_int min, t_int max) { return setRangeInt(min, max); }
 template <>
 inline bool PropertyInfo::setRangeT<t_float>(t_float min, t_float max) { return setRangeFloat(min, max); }
 
@@ -345,6 +347,10 @@ template <>
 inline PropValueType PropertyInfo::toType<bool>() { return PropValueType::BOOLEAN; }
 template <>
 inline PropValueType PropertyInfo::toType<int>() { return PropValueType::INTEGER; }
+template <>
+inline PropValueType PropertyInfo::toType<long>() { return PropValueType::INTEGER; }
+template <>
+inline PropValueType PropertyInfo::toType<long long>() { return PropValueType::INTEGER; }
 template <>
 inline PropValueType PropertyInfo::toType<size_t>() { return PropValueType::INTEGER; }
 template <>
@@ -363,7 +369,7 @@ inline bool PropertyInfo::isA<bool>() const { return isBool(); }
 template <>
 inline bool PropertyInfo::isA<t_float>() const { return isFloat(); }
 template <>
-inline bool PropertyInfo::isA<int>() const { return isInt(); }
+inline bool PropertyInfo::isA<t_int>() const { return isInt(); }
 template <>
 inline bool PropertyInfo::isA<t_symbol*>() const { return isSymbol(); }
 template <>

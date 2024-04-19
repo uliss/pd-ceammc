@@ -311,7 +311,7 @@ public:
 
     /**
      * Try to get atom value as float in the specified closed interval
-     * @param @min - upper bound
+     * @param @min - lower bound
      * @param @max - upper bound
      * @param def - default value if atom is not a float
      * @return atom float value clipped into [min, max] range on success or default value on error
@@ -320,7 +320,7 @@ public:
 
     /**
      * Try to get atom value as float in the specified open interval (min, max)
-     * @param @min - upper bound
+     * @param @min - lower bound
      * @param @max - upper bound
      * @param def - default value if atom is not a float or not in range (min, max)
      * @return atom float value on success or default value on error
@@ -329,7 +329,7 @@ public:
 
     /**
      * Try to get atom value as float in the specified left-open interval
-     * @param @min - upper bound
+     * @param @min - lower bound
      * @param @max - upper bound
      * @param def - default value if atom is not a float or not in range (min, max]
      * @return atom float value clipped into (min, max] range on success or default value on error
@@ -338,7 +338,7 @@ public:
 
     /**
      * Try to get atom value as float in the specified right open interval
-     * @param @min - upper bound
+     * @param @min - lower bound
      * @param @max - upper bound
      * @param def - default value if atom is not a float or not in range [min, max)
      * @return atom float value clipped into [min, max) range on success or default value on error
@@ -350,7 +350,7 @@ public:
      * @param def - default value if atom is not float
      * @return atom float value rounded to int on success, or default value on error
      */
-    int asInt(int def = 0) const noexcept { return isFloat() ? static_cast<int>(a_w.w_float) : def; }
+    t_int asInt(t_int def = 0) const noexcept { return isFloat() ? static_cast<t_int>(a_w.w_float) : def; }
 
     /**
      * Try to get atom value as int the is greater then specified minimal value
@@ -386,7 +386,7 @@ public:
 
     /**
      * Try to get atom value as int in the specified range
-     * @param @min - upper bound
+     * @param @min - lower bound
      * @param @max - upper bound
      * @param def - default value if atom is not a float
      * @return atom int value clipped into [min, max] range on success or default value on error
@@ -405,17 +405,17 @@ public:
      * @param def = default value if atom is not symbol
      * @return atom symbol value ot default on error
      */
-    t_symbol* asSymbol(t_symbol* def = &s_) const noexcept { return isSymbol() ? a_w.w_symbol : def; }
+    inline t_symbol* asSymbol(t_symbol* def = &s_) const noexcept { return isSymbol() ? a_w.w_symbol : def; }
 
     /**
      * reference to underlying PureData type
      */
-    const t_atom& atom() const noexcept { return *static_cast<const t_atom*>(this); }
+    inline const t_atom& atom() const noexcept { return *static_cast<const t_atom*>(this); }
 
     /**
      * return dollar arg index
      */
-    int dollarIndex() const { return a_w.w_index; }
+    inline int dollarIndex() const { return a_w.w_index; }
 
     /**
      * expand dollar arguments
@@ -434,24 +434,122 @@ public:
     Maybe<Atom> expandDollarArgs(const t_canvas* cnv, bool checkArgs = false) const;
 
     /**
-     * compare operator
+     * compare operators
      * compare atoms of same type.
      * @note now only floats and symbols
      */
     CEAMMC_NO_ASAN bool operator<(const Atom& a) const noexcept;
-    CEAMMC_NO_ASAN bool operator<(t_float f) const noexcept { return isFloat() && a_w.w_float < f; }
-    CEAMMC_NO_ASAN bool operator<=(t_float f) const noexcept { return isFloat() && a_w.w_float <= f; }
-    CEAMMC_NO_ASAN bool operator>(t_float f) const noexcept { return isFloat() && a_w.w_float > f; }
-    CEAMMC_NO_ASAN bool operator>=(t_float f) const noexcept { return isFloat() && a_w.w_float >= f; }
+    CEAMMC_NO_ASAN inline bool operator<(t_float f) const noexcept { return isFloat() && a_w.w_float < f; }
+    CEAMMC_NO_ASAN inline bool operator<=(t_float f) const noexcept { return isFloat() && a_w.w_float <= f; }
+    CEAMMC_NO_ASAN inline bool operator>(t_float f) const noexcept { return isFloat() && a_w.w_float > f; }
+    CEAMMC_NO_ASAN inline bool operator>=(t_float f) const noexcept { return isFloat() && a_w.w_float >= f; }
+
+    /**
+     * Checks if atom is float and NaN
+     */
+    bool isNan() const noexcept;
+
+    /**
+     * Checks if atom is float and Infinite
+     */
+    bool isInf() const noexcept;
+
+    /**
+     * Checks if atom is float and not NaN or Inf
+     */
+    bool isFinite() const noexcept;
+
+    /**
+     * Checks if atom is float and greater then specified value
+     * @param @min - lower bound
+     */
+    inline bool isFloatGreaterThen(t_float min) const noexcept { return this->operator>(min); }
+
+    /**
+     * Checks if atom is float and greater or equal then specified value
+     * @param @min - lower bound
+     */
+    inline bool isFloatGreaterEqual(t_float min) const noexcept { return this->operator>=(min); }
+
+    /**
+     * Checks if atom is float and less then specified value
+     * @param @max - upper bound
+     */
+    inline bool isFloatLessThen(t_float max) const noexcept { return this->operator<(max); }
+
+    /**
+     * Checks if atom is float and less or equal then specified value
+     * @param @max - upper bound
+     */
+    inline bool isFloatLessEqual(t_float max) const noexcept { return this->operator<=(max); }
+
+    /**
+     * Checks if atom is float and is in the specified closed interval [min, max]
+     * @param @min - lower bound
+     * @param @max - upper bound
+     */
+    bool isFloatInClosedInterval(t_float min, t_float max) const noexcept;
+
+    /**
+     * Checks if atom is float and is in the specified open interval (min, max)
+     * @param @min - lower bound
+     * @param @max - upper bound
+     */
+    bool isFloatInOpenInterval(t_float min, t_float max) const noexcept;
+
+    /**
+     * Checks if atom is float and is in the specified left open interval (min, max]
+     * @param @min - lower bound
+     * @param @max - upper bound
+     */
+    bool isFloatInLeftOpenInterval(t_float min, t_float max) const noexcept;
+
+    /**
+     * Checks if atom is float and is in the specified right open interval [min, max)
+     * @param @min - lower bound
+     * @param @max - upper bound
+     */
+    bool isFloatInRightOpenInterval(t_float min, t_float max) const noexcept;
+
+    /**
+     * Checks if atom is integer and greater then specified value
+     * @param @min - lower bound
+     */
+    inline bool isIntGreaterThen(t_int min) const noexcept { return isInteger() && a_w.w_float > min; }
+
+    /**
+     * Checks if atom is integer and greater or equal then specified value
+     * @param @min - lower bound
+     */
+    inline bool isIntGreaterEqual(t_int min) const noexcept { return isInteger() && a_w.w_float >= min; }
+
+    /**
+     * Checks if atom is integer and less then specified value
+     * @param @max - upper bound
+     */
+    inline bool isIntLessThen(t_int max) const noexcept { return isInteger() && a_w.w_float < max; }
+
+    /**
+     * Checks if atom is integer and less or equal then specified value
+     * @param @max - upper bound
+     */
+    inline bool isIntLessEqual(t_int max) const noexcept { return isInteger() && a_w.w_float <= max; }
+
+    /**
+     * Checks if atom is integer and is in the specified closed interval [min, max]
+     * @param @min - lower bound
+     * @param @max - upper bound
+     */
+    inline bool isIntInClosedInterval(t_int min, t_int max) const noexcept { return isInteger() && a_w.w_float >= min && a_w.w_float <= max; }
 
     CEAMMC_NO_ASAN bool operator==(const Atom& a) const noexcept;
-    bool operator!=(const Atom& a) const noexcept { return !operator==(a); }
+    bool inline operator!=(const Atom& a) const noexcept { return !operator==(a); }
     CEAMMC_NO_ASAN bool operator==(t_float f) const noexcept;
-    bool operator!=(t_float f) const noexcept { return !operator==(f); }
+    bool inline operator!=(t_float f) const noexcept { return !operator==(f); }
     bool operator==(t_symbol* s) const noexcept;
-    bool operator!=(t_symbol* s) const noexcept { return !operator==(s); }
+    bool inline operator!=(t_symbol* s) const noexcept { return !operator==(s); }
     bool operator==(const char* s) const noexcept;
-    bool operator!=(const char* s) const noexcept { return !operator==(s); }
+    bool inline operator!=(const char* s) const noexcept { return !operator==(s); }
 
     /**
      * Operators
@@ -476,7 +574,7 @@ public:
     /**
      * Apply symbol function to atom
      * @param fn - function
-     * @return treu on success, false if atom is not symbol
+     * @return true on success, false if atom is not symbol
      */
     inline bool applySymbol(const SymbolMapFunction& fn);
 
@@ -530,7 +628,7 @@ public:
     /**
      * Return number of data references or 0 if not a dataatom
      */
-    int refCount() const noexcept;
+    uint32_t refCount() const noexcept;
 
     /**
      * Remove quotes from quoted atoms
@@ -784,7 +882,7 @@ inline bool Atom::isA<bool>() const noexcept { return isBool(); }
 template <>
 inline bool Atom::isA<t_float>() const noexcept { return isFloat(); }
 template <>
-inline bool Atom::isA<int>() const noexcept { return isInteger(); }
+inline bool Atom::isA<t_int>() const noexcept { return isInteger(); }
 template <>
 inline bool Atom::isA<size_t>() const noexcept { return isInteger() && a_w.w_float >= 0; }
 template <>
@@ -795,7 +893,7 @@ inline bool Atom::isA<Atom>() const noexcept { return true; }
 template <>
 inline bool Atom::asT<bool>() const { return asBool(); }
 template <>
-inline int Atom::asT<int>() const { return static_cast<int>(a_w.w_float); }
+inline t_int Atom::asT<t_int>() const { return static_cast<t_int>(a_w.w_float); }
 template <>
 inline t_float Atom::asT<t_float>() const { return a_w.w_float; }
 template <>
