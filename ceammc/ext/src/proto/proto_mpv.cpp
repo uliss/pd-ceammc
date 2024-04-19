@@ -12,11 +12,10 @@
  * this file belongs to.
  *****************************************************************************/
 #include "proto_mpv.h"
-#include "ceammc_args.h"
+#include "args/argcheck2.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "datatype_dict.h"
-#include "datatype_string.h"
 
 #include <cstdio>
 #include <stdexcept>
@@ -113,11 +112,9 @@ void ProtoMpv::m_next(t_symbol* s, const AtomListView& lv)
 
 void ProtoMpv::m_seek(t_symbol* s, const AtomListView& lv)
 {
-    static ArgChecker args("i (s='abs'|s='rel'|s='percent'|s='%')?");
-    if (!args.check(lv)) {
-        METHOD_ERR(s) << "SECONDS [abs|rel|percent|%] expected, got: " << lv;
-        return;
-    }
+    static const args::ArgChecker chk("SEC:i OFFSET:s=abs|rel|perc?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
     constexpr const char* s_seek = R"({ "command": ["seek", %d, "%s"] })";
 
@@ -139,11 +136,9 @@ void ProtoMpv::m_seek(t_symbol* s, const AtomListView& lv)
 
 void ProtoMpv::m_text(t_symbol* s, const AtomListView& lv)
 {
-    static ArgChecker args("i a+");
-    if (!args.check(lv)) {
-        METHOD_ERR(s) << "usage: DURATION_MS text...";
-        return;
-    }
+    static const args::ArgChecker chk("TIME_MS:i TEXT:a+");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
     constexpr const char* s_stop = R"({ "command": ["show-text", "%s", %d] })";
 
@@ -162,11 +157,9 @@ void ProtoMpv::m_fullscreen(t_symbol* s, const AtomListView& lv)
 
 void ProtoMpv::m_playlist(t_symbol* s, const AtomListView& lv)
 {
-    static ArgChecker args("s (s='replace'|s='append')?");
-    if (!args.check(lv)) {
-        METHOD_ERR(s) << "usage: PATH [replace|append]";
-        return;
-    }
+    static const args::ArgChecker chk("PATH:s MODE:s=replace|append?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
     constexpr const char* str = R"({ "command": ["loadlist", "%s", "%s"] })";
 
