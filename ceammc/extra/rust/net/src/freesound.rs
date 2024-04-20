@@ -1,9 +1,10 @@
 use std::{
+    collections::HashMap,
     ffi::{CStr, CString},
     fmt::Debug,
     os::raw::{c_char, c_void},
     path::{Path, PathBuf},
-    ptr::{null_mut, slice_from_raw_parts_mut},
+    ptr::{null, null_mut, slice_from_raw_parts_mut},
     slice,
 };
 
@@ -105,7 +106,21 @@ impl From<freesound_search_params> for SearchParams {
                 }
                 fields
             },
-            descriptors: vec![],
+            descriptors: {
+                let mut descriptors = vec![];
+                if !params.descriptors.is_null() {
+                    for f in
+                        unsafe { slice::from_raw_parts(params.descriptors, params.num_descriptors) }
+                    {
+                        if f.is_null() {
+                            continue;
+                        }
+                        descriptors
+                            .push(unsafe { CStr::from_ptr(*f) }.to_string_lossy().to_string());
+                    }
+                }
+                descriptors
+            },
             normalized: params.normalized,
         }
     }
@@ -143,12 +158,32 @@ struct Access {
 #[derive(Debug)]
 struct InfoMe {
     id: u64,
-    username: CString,
-    email: CString,
-    home_page: CString,
-    url: CString,
-    sounds: CString,
-    packs: CString,
+    str_props: HashMap<CString, CString>,
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub struct freesound_info_me {
+    /// The sound’s unique identifier.
+    id: u64,
+    /// str props
+    str_props: *const freesound_prop_str,
+    /// number of str props
+    str_props_len: usize,
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub struct freesound_prop_f64 {
+    name: *const c_char,
+    value: f64,
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub struct freesound_prop_str {
+    name: *const c_char,
+    value: *const c_char,
 }
 
 #[allow(non_camel_case_types)]
@@ -156,120 +191,90 @@ struct InfoMe {
 pub struct freesound_search_result {
     /// The sound’s unique identifier.
     id: u64,
-    /// The URI for this sound on the Freesound website.
-    url: *const c_char,
-    /// The name user gave to the sound.
-    name: *const c_char,
-    /// The license under which the sound is available to you.
-    license: *const c_char,
-    /// The type of sound (wav, aif, aiff, mp3, m4a or flac).
-    file_type: *const c_char,
-    /// The number of channels.
-    channels: u8,
-    /// The size of the file in bytes.
-    file_size: u64,
-    /// The bit depth of the sound.
-    bit_depth: u8,
-    ///  The duration of the sound in seconds.
-    duration: f32,
-    /// The sample_rate of the sound.
-    sample_rate: f32,
+    /// tags list (can be NULL)
+    tags: *const *const c_char,
+    /// tag list length
+    tags_len: usize,
+    /// numeric props
+    num_props: *const freesound_prop_f64,
+    /// number of numeric props
+    num_props_len: usize,
+    /// str props
+    str_props: *const freesound_prop_str,
+    /// number of str props
+    str_props_len: usize,
 }
 
 #[derive(Debug)]
 struct SearchResult {
     // The sound’s unique identifier.
     id: u64,
-    // The URI for this sound on the Freesound website.
-    url: CString,
-    // The name user gave to the sound.
-    name: CString,
-    // The license under which the sound is available to you.
-    license: CString,
-    // The type of sound (wav, aif, aiff, mp3, m4a or flac).
-    file_type: CString,
-    // The number of channels.
-    channels: u8,
-    // The size of the file in bytes.
-    file_size: u64,
-    // The bit rate of the sound in kbps.
-    // bitrate: f32,
-    // The bit depth of the sound.
-    bit_depth: u8,
-    //  The duration of the sound in seconds.
-    duration: f32,
-    // The sample_rate of the sound.
-    sample_rate: f32,
-    // The URI for retrieving the original sound.
-    // download: CString,
-    // description: String,
-    // tags 	array[strings] 	An array of tags the user gave to the sound.
-    // description 	string 	The description the user gave to the sound.
-    // geotag 	string 	Latitude and longitude of the geotag separated by spaces (e.g. “41.0082325664 28.9731252193”, only for sounds that have been geotagged).
-    // created 	string 	The date when the sound was uploaded (e.g. “2014-04-16T20:07:11.145”).
-    // username 	string 	The username of the uploader of the sound.
-    // pack 	URI 	If the sound is part of a pack, this URI points to that pack’s API resource.
-    // bookmark 	URI 	The URI for bookmarking the sound.
-    // previews 	object 	Dictionary containing the URIs for mp3 and ogg versions of the sound. The dictionary includes the fields preview-hq-mp3 and preview-lq-mp3 (for ~128kbps quality and ~64kbps quality mp3 respectively), and preview-hq-ogg and preview-lq-ogg (for ~192kbps quality and ~80kbps quality ogg respectively).
-    // images 	object 	Dictionary including the URIs for spectrogram and waveform visualizations of the sound. The dictionary includes the fields waveform_l and waveform_m (for large and medium waveform images respectively), and spectral_l and spectral_m (for large and medium spectrogram images respectively).
-    // num_downloads 	number 	The number of times the sound was downloaded.
-    // avg_rating 	number 	The average rating of the sound.
-    // num_ratings 	number 	The number of times the sound was rated.
-    // rate 	URI 	The URI for rating the sound.
-    // comments 	URI 	The URI of a paginated list of the comments of the sound.
-    // num_comments 	number 	The number of comments.
-    // comment 	URI 	The URI to comment the sound.
-    // similar_sounds 	URI 	URI pointing to the similarity resource (to get a list of similar sounds).
-    // analysis 	object 	Dictionary containing requested descriptors information according to the descriptors request parameter (see below). This field will be null if no descriptors were specified (or invalid descriptor names specified) or if the analysis data for the sound is not available.
-    // analysis_stats 	URI 	URI pointing to the complete analysis results of the sound (see Analysis Descriptor Documentation).
-    // analysis_frames 	URI 	The URI for retrieving a JSON file with analysis information for each frame of the sound (see Analysis Descriptor Documentation).
-    // ac_analysis 	object 	Dictionary containing the results of the AudioCommons analysis for the given sound.
+    str_map: HashMap<CString, CString>,
+    num_map: HashMap<CString, f64>,
+    obj_map: HashMap<CString, HashMap<CString, f64>>,
+    tags: Vec<CString>,
 }
 
 impl SearchResult {
     fn from(value: &serde_json::Value) -> Result<Self, String> {
-        Ok(SearchResult {
+        let mut res = SearchResult {
             id: json_get_u64(value, "id")?,
-            url: json_get_cstring(value, "url").unwrap_or_default(),
-            name: json_get_cstring(value, "name").unwrap_or_default(),
-            license: json_get_cstring(value, "license").unwrap_or_default(),
-            file_type: json_get_cstring(value, "type").unwrap_or_default(),
-            channels: value
-                .get("channels")
-                .and_then(|x| x.as_u64())
-                .unwrap_or_default() as u8,
-            file_size: value
-                .get("file_size")
-                .and_then(|x| x.as_u64())
-                .unwrap_or_default(),
-            bit_depth: value
-                .get("bit_depth")
-                .and_then(|x| x.as_u64())
-                .unwrap_or_default() as u8,
-            duration: value
-                .get("duration")
-                .and_then(|x| x.as_f64())
-                .unwrap_or_default() as f32,
-            sample_rate: value
-                .get("sample_rate")
-                .and_then(|x| x.as_f64())
-                .unwrap_or_default() as f32,
-        })
-    }
+            str_map: HashMap::new(),
+            num_map: HashMap::new(),
+            obj_map: HashMap::new(),
+            tags: vec![],
+        };
 
-    fn into(&self) -> freesound_search_result {
-        freesound_search_result {
-            id: self.id,
-            url: self.url.as_ptr(),
-            name: self.name.as_ptr(),
-            license: self.license.as_ptr(),
-            file_type: self.file_type.as_ptr(),
-            channels: self.channels,
-            file_size: self.file_size,
-            bit_depth: self.bit_depth,
-            duration: self.duration,
-            sample_rate: self.sample_rate,
+        for k in ["filesize", "bitdepth", "bitrate", "duration", "samplerate"] {
+            if let Some((k, v)) = json_get_f64(value, k) {
+                res.num_map.insert(k, v);
+            }
         }
+
+        for k in [
+            "name",
+            "description",
+            "license",
+            "type",
+            "geotag",
+            "pack",
+            "similar_sounds",
+            "analysis_stats",
+            "analysis_frames",
+        ] {
+            if let Some((k, v)) = json_get_cstr(value, k) {
+                res.str_map.insert(k, v);
+            }
+        }
+
+        for k in ["analysis", "ac_analysis"] {
+            value.get(k).map(|x| {
+                x.as_object().map(|x| {
+                    let mut data = HashMap::new();
+                    for (k, v) in x {
+                        v.as_f64().map(|f| {
+                            data.insert(CString::new(k.clone()).unwrap_or_default(), f);
+                        });
+                    }
+                    res.obj_map
+                        .insert(CString::new(k).unwrap_or_default(), data);
+                })
+            });
+        }
+
+        res.tags = value
+            .get("tags")
+            .and_then(|x| x.as_array())
+            .unwrap_or(&Vec::new())
+            .iter()
+            .map(|x| {
+                x.as_str()
+                    .map(|x| CString::new(x).unwrap_or_default())
+                    .unwrap_or_default()
+            })
+            .collect::<Vec<CString>>();
+
+        Ok(res)
     }
 }
 
@@ -311,18 +316,7 @@ pub struct freesound_result_cb {
     user: *mut c_void,
     cb_oauth_url: Option<extern "C" fn(user: *mut c_void, url: *const c_char)>,
     cb_oauth_access: Option<extern "C" fn(user: *mut c_void, token: *const c_char, expires: u64)>,
-    cb_info_me: Option<
-        extern "C" fn(
-            user: *mut c_void,
-            id: u64,
-            username: *const c_char,
-            email: *const c_char,
-            homepage: *const c_char,
-            url: *const c_char,
-            sounds: *const c_char,
-            packs: *const c_char,
-        ),
-    >,
+    cb_info_me: Option<extern "C" fn(user: *mut c_void, data: &freesound_info_me)>,
     cb_search_info: Option<extern "C" fn(user: *mut c_void, count: u64, prev: u32, next: u32)>,
     cb_search_result:
         Option<extern "C" fn(user: *mut c_void, i: usize, res: &freesound_search_result)>,
@@ -355,16 +349,22 @@ impl ServiceCallback<FreeSoundReply> for freesound_result_cb {
             }
             FreeSoundReply::Info(info) => {
                 self.cb_info_me.map(|f| {
-                    f(
-                        self.user,
-                        info.id,
-                        info.username.as_ptr(),
-                        info.email.as_ptr(),
-                        info.home_page.as_ptr(),
-                        info.url.as_ptr(),
-                        info.sounds.as_ptr(),
-                        info.packs.as_ptr(),
-                    );
+                    let str_props = info
+                        .str_props
+                        .iter()
+                        .map(|(k, v)| freesound_prop_str {
+                            name: k.as_ptr(),
+                            value: v.as_ptr(),
+                        })
+                        .collect::<Vec<freesound_prop_str>>();
+
+                    let data = freesound_info_me {
+                        id: info.id,
+                        str_props: str_props.as_ptr(),
+                        str_props_len: str_props.len(),
+                    };
+
+                    f(self.user, &data);
                 });
             }
             FreeSoundReply::SearchResults(res) => {
@@ -374,7 +374,42 @@ impl ServiceCallback<FreeSoundReply> for freesound_result_cb {
                     self.cb_search_result.map(|f| {
                         for (i, res) in res.results.iter().enumerate() {
                             debug!("result: {res:?}");
-                            f(self.user, i, &res.into());
+
+                            let ctags = res
+                                .tags
+                                .iter()
+                                .map(|x| x.as_ptr())
+                                .collect::<Vec<*const c_char>>();
+
+                            let num_props = res
+                                .num_map
+                                .iter()
+                                .map(|(k, v)| freesound_prop_f64 {
+                                    name: k.as_ptr(),
+                                    value: *v,
+                                })
+                                .collect::<Vec<freesound_prop_f64>>();
+
+                            let str_props = res
+                                .str_map
+                                .iter()
+                                .map(|(k, v)| freesound_prop_str {
+                                    name: k.as_ptr(),
+                                    value: v.as_ptr(),
+                                })
+                                .collect::<Vec<freesound_prop_str>>();
+
+                            let res = freesound_search_result {
+                                id: res.id,
+                                tags: ctags.as_ptr(),
+                                tags_len: ctags.len(),
+                                num_props: num_props.as_ptr(),
+                                num_props_len: num_props.len(),
+                                str_props: str_props.as_ptr(),
+                                str_props_len: str_props.len(),
+                            };
+
+                            f(self.user, i, &res);
                         }
                     });
                 });
@@ -430,18 +465,40 @@ async fn freesound_get(
                 .finish();
         }
 
-        if let Some(page_size) = params.page_size {
-            url.query_pairs_mut()
-                .append_pair("page_size", format!("{page_size}").as_str())
-                .finish();
-        }
-
+        // fields are comma separated: fields=name,score,avg_rating,license,
         if params.fields.len() > 0 {
+            let mut fields = params.fields.clone();
+            if !fields.contains(&"id".to_owned()) {
+                // id field is required!
+                fields.push("id".to_owned());
+            }
+
             url.query_pairs_mut()
                 .append_pair(
                     "fields",
+                    fields
+                        .iter()
+                        .map(|s| s.as_str())
+                        .collect::<Vec<&str>>()
+                        .join(",")
+                        .as_str(),
+                )
+                .finish();
+        }
+
+        if params.group_by_pack {
+            url.query_pairs_mut()
+                .append_pair("group_by_pack", "1")
+                .finish();
+        }
+
+        // sound content-based descriptors are comma separated: descriptors=lowlevel.spectral_centroid,lowlevel.barkbands.mean
+        if params.descriptors.len() > 0 {
+            url.query_pairs_mut()
+                .append_pair(
+                    "descriptors",
                     params
-                        .fields
+                        .descriptors
                         .iter()
                         .map(|s| s.as_str())
                         .collect::<Vec<&str>>()
@@ -496,25 +553,23 @@ fn make_oauth_client(id: &String, secret: &String) -> Result<oauth2::basic::Basi
     Ok(BasicClient::new(id, secret, auth_url, Some(token_url)).set_redirect_uri(redirect_url))
 }
 
-fn json_get_cstring(value: &serde_json::Value, k: &str) -> Result<CString, String> {
-    Ok(CString::new(
-        value
-            .get(k)
-            .ok_or(format!("{k} not found"))?
-            .as_str()
-            .ok_or(format!("{k}: not a string"))?
-            .to_owned(),
-    )
-    .unwrap_or_default())
-}
-
 fn json_get_u64(value: &serde_json::Value, k: &str) -> Result<u64, String> {
     Ok(value
         .get(k)
         .ok_or(format!("{k} not found"))?
         .as_u64()
-        .ok_or(format!("{k}: not a string"))?
-        .to_owned())
+        .ok_or(format!("{k}: not a u64"))?)
+}
+
+fn json_get_f64(value: &serde_json::Value, k: &str) -> Option<(CString, f64)> {
+    Some((CString::new(k).unwrap_or_default(), value.get(k)?.as_f64()?))
+}
+
+fn json_get_cstr(value: &serde_json::Value, k: &str) -> Option<(CString, CString)> {
+    Some((
+        CString::new(k).ok()?,
+        CString::new(value.get(k)?.as_str()?).ok()?,
+    ))
 }
 
 async fn download_response(id: u64, access: &String) -> Result<Response, String> {
@@ -732,7 +787,7 @@ fn decode_file(path: &Path, channel: usize, normalize: bool) -> Result<Vec<f32>,
     }
 
     if normalize {
-        let max = *data.iter().max_by(|a, b| a.total_cmp(b)).unwrap();
+        let max = (*data.iter().max_by(|a, b| a.total_cmp(b)).unwrap()).abs();
         if max > 0.0 {
             for x in data.iter_mut() {
                 *x /= max;
@@ -796,15 +851,23 @@ async fn process_request(
                 })
                 .and_then(|json| {
                     debug!("{json}");
-                    Ok(InfoMe {
+                    let mut info = InfoMe {
                         id: json_get_u64(&json, "unique_id")?,
-                        username: json_get_cstring(&json, "username")?,
-                        email: json_get_cstring(&json, "email")?,
-                        home_page: json_get_cstring(&json, "home_page")?,
-                        url: json_get_cstring(&json, "url")?,
-                        sounds: json_get_cstring(&json, "sounds")?,
-                        packs: json_get_cstring(&json, "packs")?,
-                    })
+                        str_props: HashMap::new(),
+                    };
+
+                    for k in ["username", "email", "home_page", "url", "sounds", "packs"] {
+                        json.get(k).map(|x| {
+                            x.as_str().map(|v| {
+                                info.str_props.insert(
+                                    CString::new(k).unwrap_or_default(),
+                                    CString::new(v).unwrap_or_default(),
+                                );
+                            })
+                        });
+                    }
+
+                    Ok(info)
                 })?;
 
             FreeSoundService::write_ok(&tx, FreeSoundReply::Info(info), *cb_notify).await;

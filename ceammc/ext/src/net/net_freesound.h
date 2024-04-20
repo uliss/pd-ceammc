@@ -48,7 +48,7 @@ public:
 private:
     void processReplyOAuth2(const char* url);
     void processReplyAccess(const char* access_token, std::uint64_t expires);
-    void processReplyInfoMe(uint64_t id, const char* username, const char* email, const char* homepage, const char* url, const char* sounds, const char* packs);
+    void processReplyInfoMe(const ceammc_freesound_info_me& info);
     void processReplySearchInfo(uint64_t id, std::uint32_t prev, std::uint32_t next);
     void processReplySearch(uint64_t i, const ceammc_freesound_search_result& res);
     void processReplyDownload(const char* filename);

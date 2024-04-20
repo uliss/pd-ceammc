@@ -55,10 +55,10 @@ void NetFreesound::initDone()
                 if (this_ && access_token)
                     this_->processReplyAccess(access_token, expires);
             },
-            [](void* user, uint64_t id, const char* username, const char* email, const char* homepage, const char* url, const char* sounds, const char* packs) {
+            [](void* user, const ceammc_freesound_info_me* info) {
                 auto this_ = static_cast<NetFreesound*>(user);
-                if (this_)
-                    this_->processReplyInfoMe(id, username, email, homepage, url, sounds, packs);
+                if (this_ && info)
+                    this_->processReplyInfoMe(*info);
             },
             [](void* user, uint64_t count, std::uint32_t prev, std::uint32_t next) {
                 auto this_ = static_cast<NetFreesound*>(user);
@@ -182,16 +182,16 @@ void NetFreesound::m_search(t_symbol* s, const AtomListView& lv)
         return chk.usage(this, s);
 
     auto query = lv.symbolAt(0, &s_)->s_name;
-    std::vector<const char*> fields;
+    std::vector<const char*> fields, descriptors;
 
     ceammc_freesound_search_params params {
         query,
         "",
         "",
-        fields.data(), fields.size(), nullptr, 0, 1, 32, false, false
+        fields.data(), fields.size(), descriptors.data(), descriptors.size(), 1, 32, false, false
     };
 
-    list::foreachProperty(lv.subView(1), [&params, &fields](t_symbol* k, const AtomListView& args) {
+    list::foreachProperty(lv.subView(1), [&params, &fields, &descriptors](t_symbol* k, const AtomListView& args) {
         switch (crc32_hash(k)) {
         case "@p"_hash:
             params.page = std::max<int>(1, args.intAt(0, 1));
@@ -215,6 +215,20 @@ void NetFreesound::m_search(t_symbol* s, const AtomListView& lv)
                     fields.push_back(sym->s_name);
                     params.fields = fields.data(); // important!
                     params.num_fields++;
+                }
+            }
+            break;
+        case "@desc"_hash:
+        case "@descriptors"_hash:
+            for (auto& a : args) {
+                if (!a.isSymbol())
+                    continue;
+
+                auto sym = a.asSymbol();
+                if (sym != &s_) {
+                    descriptors.push_back(sym->s_name);
+                    params.descriptors = descriptors.data(); // important!
+                    params.num_descriptors++;
                 }
             }
             break;
@@ -266,17 +280,15 @@ void NetFreesound::processReplyAccess(const char* access_token, std::uint64_t ex
     OBJ_DBG << "OAuth2 success";
 }
 
-void NetFreesound::processReplyInfoMe(uint64_t id, const char* username, const char* email, const char* homepage, const char* url, const char* sounds, const char* packs)
+void NetFreesound::processReplyInfoMe(const ceammc_freesound_info_me& info)
 {
     DictAtom data;
 
-    data->insert("id", id);
-    data->insert("username", gensym(username));
-    data->insert("email", gensym(email));
-    data->insert("homepage", gensym(homepage));
-    data->insert("url", gensym(url));
-    data->insert("sounds", gensym(sounds));
-    data->insert("packs", gensym(packs));
+    data->insert("id", info.id);
+    for (size_t i = 0; i < info.str_props_len; i++) {
+        auto& prop = info.str_props[i];
+        data->insert(prop.name, gensym(prop.value));
+    }
 
     anyTo(0, gensym("me"), data);
 }
@@ -289,8 +301,30 @@ void NetFreesound::processReplySearchInfo(uint64_t id, std::uint32_t prev, std::
 
 void NetFreesound::processReplySearch(uint64_t i, const ceammc_freesound_search_result& res)
 {
-    AtomArray<6> data { gensym("result"), i, res.id, gensym(res.name), res.channels, gensym(res.file_type) };
-    anyTo(0, gensym("search"), data.view());
+    DictAtom da;
+    da->insert("id", res.id);
+
+    for (size_t i = 0; res.str_props && i < res.str_props_len; i++) {
+        auto& prop = res.str_props[i];
+        da->insert(prop.name, gensym(prop.value));
+    }
+
+    for (size_t i = 0; res.num_props && i < res.num_props_len; i++) {
+        auto& prop = res.num_props[i];
+        da->insert(prop.name, prop.value);
+    }
+
+    AtomList tags;
+    for (size_t i = 0; res.tags && i < res.tags_len; i++) {
+        auto tag = res.tags[i];
+        if (tag)
+            tags.append(gensym(tag));
+    }
+
+    if (tags.size() > 0)
+        da->insert("tags", tags);
+
+    anyTo(0, gensym("search"), da);
 }
 
 void NetFreesound::processReplyDownload(const char* filename)

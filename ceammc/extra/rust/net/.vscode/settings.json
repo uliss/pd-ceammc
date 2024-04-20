@@ -1,8 +1,12 @@
 {
     "cSpell.words": [
+        "bitdepth",
         "cstring",
+        "ctags",
         "defi",
+        "filesize",
         "freesound",
+        "geotag",
         "mqttbytes",
         "mqttoptions",
         "nonblocking",
@@ -10,6 +14,7 @@
         "perc",
         "reqwest",
         "rumqttc",
+        "samplerate",
         "Tele",
         "tungstenite",
         "whitespaces"
