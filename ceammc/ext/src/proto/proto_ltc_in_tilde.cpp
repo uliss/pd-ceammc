@@ -36,7 +36,8 @@ LtcInTilde::LtcInTilde(const PdArgs& args)
             [this]() -> t_float { return clip<t_float, -60, 0>(data_.volume); });
         p->setUnitsDb();
         p->infoT().setConstraints(PropValueConstraints::CLOSED_RANGE);
-        (void)p->infoT().setRangeFloat(-60, 0);
+        if (!p->infoT().setRangeFloat(-60, 0)) 
+            LIB_ERR << __FUNCTION__ << ": can't set property range";
     }
 
     use_date_ = new BoolProperty("@use_date", true);
