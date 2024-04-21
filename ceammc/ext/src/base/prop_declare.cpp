@@ -140,18 +140,18 @@ void PropDeclare::parseProperties()
             return;
         }
     } else if (isInt()) {
-        pprop_->setTypeInt(atomlistToValue<int>(default_->value(), 0));
+        pprop_->setTypeInt(atomlistToValue<t_int>(default_->value(), 0));
 
         auto fmin = min_->value();
         auto fmax = max_->value();
 
-        long lmin = 0;
+        t_int lmin = 0;
         if (fmin == FMIN)
             lmin = IMIN;
         else
             lmin = fmin;
 
-        long lmax = 0;
+        t_int lmax = 0;
         if (fmax == FMAX)
             lmax = IMAX;
         else

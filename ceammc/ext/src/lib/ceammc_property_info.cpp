@@ -363,7 +363,6 @@ void PropertyInfo::setDefault(long v)
 
 void PropertyInfo::setDefault(size_t v)
 {
-    static_assert(sizeof(t_int) == sizeof(long), "");
     setDefault(t_int(v));
 }
 

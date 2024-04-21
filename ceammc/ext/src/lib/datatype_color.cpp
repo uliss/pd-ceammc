@@ -278,7 +278,11 @@ t_symbol* DataTypeColor::hex() const
 
 StaticAtomList<3> DataTypeColor::asRgb8List() const
 {
-    return { red8(), green8(), blue8() };
+    return { 
+        static_cast<t_float>(red8()), 
+        static_cast<t_float>(green8()), 
+        static_cast<t_float>(blue8())
+    };
 }
 
 StaticAtomList<3> DataTypeColor::asRgbFList() const
