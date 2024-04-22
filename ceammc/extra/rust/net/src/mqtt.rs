@@ -56,7 +56,7 @@ pub struct mqtt_client_result_cb {
 }
 
 impl ServiceCallback<MqttReply> for mqtt_client_result_cb {
-    fn exec(&self, data: &MqttReply) {
+    fn exec(&self, data: &mut MqttReply) {
         match data {
             MqttReply::Connected(x) => {
                 use rumqttc::ConnectReturnCode::*;

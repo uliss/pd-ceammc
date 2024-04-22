@@ -108,7 +108,7 @@ pub struct telegram_bot_result_cb {
 }
 
 impl ServiceCallback<TeleReply> for telegram_bot_result_cb {
-    fn exec(&self, reply: &TeleReply) {
+    fn exec(&self, reply: &mut TeleReply) {
         match reply {
             TeleReply::Text(chat_id, msg_id, txt) => {
                 let txt = CString::new(txt.clone()).unwrap_or_default();

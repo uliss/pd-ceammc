@@ -60,7 +60,7 @@ impl Default for callback_progress {
 }
 
 pub trait ServiceCallback<T> {
-    fn exec(&self, data: &T);
+    fn exec(&self, data: &mut T);
 }
 
 #[derive(Debug)]
@@ -143,7 +143,7 @@ where
         self.cb_progress.exec(val);
     }
 
-    fn on_reply(&self, reply: &Reply) {
+    fn on_reply(&self, reply: &mut Reply) {
         self.cb_reply.exec(reply);
     }
 
@@ -173,7 +173,7 @@ where
     pub fn process_results(&mut self) {
         while let Ok(x) = self.rx.try_recv() {
             match x {
-                Ok(x) => self.on_reply(&x),
+                Ok(mut x) => self.on_reply(&mut x),
                 Err(err) => match err {
                     Error::Error(msg) => self.on_error(msg.as_str()),
                     Error::Post(msg) => self.on_post(msg.as_str()),

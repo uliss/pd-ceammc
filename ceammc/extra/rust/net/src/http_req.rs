@@ -268,7 +268,7 @@ pub struct http_client_result_cb {
 }
 
 impl ServiceCallback<HttpReply> for http_client_result_cb {
-    fn exec(&self, data: &HttpReply) {
+    fn exec(&self, data: &mut HttpReply) {
         match data {
             HttpReply::Body(resp, content_type) => {
                 let msg = CString::new(resp.body.clone()).unwrap_or_default();

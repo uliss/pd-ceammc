@@ -90,13 +90,13 @@ void NetFreesound::initDone()
                     this_->processReplyDownload(filename);
                 }
             },
-            [](void* user, const ceammc_t_pd_rust_word* data, size_t len, const char* array) {
+            [](void* user, ceammc_freesound_array_data* data, size_t size) {
                 static_assert(sizeof(t_word) == sizeof(ceammc_t_pd_rust_word), "");
                 static_assert(offsetof(t_word, w_float) == offsetof(ceammc_t_pd_rust_word, w_float), "");
 
                 auto this_ = static_cast<NetFreesound*>(user);
-                if (this_ && data && array) {
-                    this_->processReplyLoad(array, data, len);
+                if (this_ && data) {
+                    this_->processReplyLoad(data, size);
                 }
             },
             //
@@ -136,44 +136,46 @@ void NetFreesound::m_load(t_symbol* s, const AtomListView& lv)
     if (!cli_ || !checkOAuth(s))
         return;
 
-    static const args::ArgChecker chk("ID:i ARRAY:s @PARAMS:a*");
+    static const args::ArgChecker chk("ID:i>=0 @PARAMS:a*");
+    static const args::ArgChecker chk_array("ARRAY:s CHAN:i>=0?");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
     bool norm = false;
-    size_t channel = 0;
-    list::foreachProperty(lv, [&norm, &channel, this](t_symbol* s, const AtomListView& lv) {
+    std::vector<ceammc_freesound_array> arrays;
+    list::foreachProperty(lv.properties(), [&norm, &arrays, this](t_symbol* s, const AtomListView& lv) {
         switch (crc32_hash(s)) {
+        case "@arr"_hash:
+        case "@array"_hash:
+            if (!chk_array.check(lv, this))
+                chk_array.usage(this);
+
+            arrays.push_back({ lv.symbolAt(0, &s_)->s_name, static_cast<size_t>(lv.intGreaterEqualAt(1, 0, 0)) });
+            break;
         case "@norm"_hash:
         case "@normalize"_hash:
             norm = true;
             break;
-        case "@ch"_hash:
-        case "@chan"_hash:
-        case "@channel"_hash: {
-            if (lv.isIntGreaterEqual(0)) {
-                channel = lv.asInt();
-            } else {
-                OBJ_ERR << "invalid channel index: " << lv << ", using 0";
-                return;
-            }
-        } break;
+        default:
+            break;
         }
     });
 
-    auto id = lv.intAt(0, 0);
-    auto arr = lv.symbolAt(1, &s_)->s_name;
-    ceammc_freesound_load_array(
+    auto file_id = lv.intAt(0, 0);
+
+    ceammc_freesound_load_to_arrays(
         cli_->handle(),
-        id,
-        channel,
+        file_id,
+        arrays.data(),
+        arrays.size(),
         norm,
         AccessToken::instance().token.c_str(),
-        arr,
         [](size_t n) -> ceammc_t_pd_rust_word* {
+            std::cerr << fmt::format("-> alloc {} elements", n) << std::endl;
             return static_cast<ceammc_t_pd_rust_word*>(getbytes(n * sizeof(t_word)));
         },
         [](ceammc_t_pd_rust_word* data, size_t n) {
+            std::cerr << fmt::format("-> free {} elements", n) << std::endl;
             freebytes(data, n);
         });
 }
@@ -371,35 +373,39 @@ void NetFreesound::processReplyDownload(const char* filename)
     anyTo(0, gensym("downloaded"), gensym(filename));
 }
 
-void NetFreesound::processReplyLoad(const char* arrayname, const ceammc_t_pd_rust_word* data, size_t len)
+void NetFreesound::processReplyLoad(ceammc_freesound_array_data* data, size_t len)
 {
-    Array array(arrayname);
-    if (!array.isValid()) {
-        // this is important!
-        // need to free allocated array
-        freebytes(const_cast<ceammc_t_pd_rust_word*>(data), len);
-        OBJ_ERR << fmt::format("array is not valid: {}", arrayname);
-        return;
+    for (size_t i = 0; i < len; i++) {
+        auto& x = data[i];
+        OBJ_DBG << fmt::format("array loaded: '{}' [{}]", x.array.name, x.array.channel);
+
+        auto aname = gensym(x.array.name);
+        Array array(aname);
+        if (!array.isValid()) {
+            OBJ_ERR << fmt::format("array not found: '{}'", x.array.name);
+            return;
+        }
+
+        auto arr_data = static_cast<t_word*>(static_cast<void*>(const_cast<ceammc_t_pd_rust_word*>(x.data)));
+        if (!array.setData(arr_data, x.size)) {
+            OBJ_ERR << fmt::format("can't set array data: {}", x.array.name);
+            return;
+        }
+
+        // take ownership
+        x.owner = false;
+        array.redraw();
+        OBJ_DBG << fmt::format("array '{}': set new data [{}]", x.array.name, x.size);
     }
 
-    auto x = static_cast<t_word*>(static_cast<void*>(const_cast<ceammc_t_pd_rust_word*>(data)));
-    if (!array.setData(x, len)) {
-        freebytes(const_cast<ceammc_t_pd_rust_word*>(data), len);
-        OBJ_ERR << fmt::format("can't set array data: {}", arrayname);
-        return;
-    }
-
-    array.redraw();
-    OBJ_DBG << fmt::format("array updated: set new data of length {}", len);
-
-    anyTo(0, gensym("loaded"), gensym("arrayname"));
+    anyTo(0, gensym("loaded"), AtomListView {});
 }
 
 bool NetFreesound::checkOAuth(t_symbol* s) const
 {
     if (AccessToken::instance().token.empty()) {
         METHOD_ERR(s) << "not logged with OAuth. "
-                         "Use oauth auth to get authorization code in browser(valid 24 hours) and then: oauth code CODE";
+                         "Use oauth auth to get authorization code in browser (valid 24 hours) and then: oauth code CODE";
         return false;
     } else
         return true;
@@ -409,11 +415,11 @@ void setup_net_freesound()
 {
     ObjectFactory<NetFreesound> obj("net.freesound");
 
+    obj.addMethod("access", &NetFreesound::m_access);
     obj.addMethod("download", &NetFreesound::m_download);
     obj.addMethod("load", &NetFreesound::m_load);
     obj.addMethod("me", &NetFreesound::m_me);
     obj.addMethod("search", &NetFreesound::m_search);
-    obj.addMethod("access", &NetFreesound::m_access);
 }
 
 #endif

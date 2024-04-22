@@ -53,7 +53,7 @@ private:
     void processReplySearchInfo(uint64_t id, std::uint32_t prev, std::uint32_t next);
     void processReplySearch(uint64_t i, const ceammc_freesound_search_result& res);
     void processReplyDownload(const char* filename);
-    void processReplyLoad(const char* arrayname, const ceammc_t_pd_rust_word* data, size_t len);
+    void processReplyLoad(ceammc_freesound_array_data* data, size_t len);
 
     bool checkOAuth(t_symbol* s) const;
 };

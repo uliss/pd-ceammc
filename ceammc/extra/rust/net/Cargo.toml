@@ -29,6 +29,7 @@ homedir = "0.2.1"
 nom = "7.1.3"
 tempfile = "3.10.1"
 symphonia = "0.5.4"
+derivative = "2.2.0"
 
 [build-dependencies]
 cbindgen = "0.22.0"

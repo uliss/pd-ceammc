@@ -8,21 +8,34 @@ use std::{
     slice,
 };
 
-use log::{debug, error};
+use crate::{
+    service::{callback_msg, callback_notify, callback_progress, Error, Service, ServiceCallback},
+    utils,
+};
+use derivative::Derivative;
+use log::{debug, error, info};
 use oauth2::TokenResponse;
 use reqwest::Response;
 use symphonia::core::{
-    audio::{AudioBufferRef, Signal},
+    audio::{AudioBuffer, AudioBufferRef, Signal},
     codecs::{DecoderOptions, CODEC_TYPE_NULL},
-    conv::IntoSample,
+    conv::{FromSample, IntoSample},
     formats::FormatOptions,
     io::MediaSourceStream,
     meta::MetadataOptions,
     probe::Hint,
+    sample::Sample,
 };
 use tempfile::NamedTempFile;
 use tokio::{fs::File, io::AsyncWriteExt};
 use url::Url;
+
+#[allow(non_camel_case_types)]
+pub type freesound_alloc_fn = extern "C" fn(size: usize) -> *mut t_pd_rust_word;
+#[allow(non_camel_case_types)]
+pub type freesound_free_fn = extern "C" fn(data: *mut t_pd_rust_word, size: usize);
+
+const ACCESS_TOKEN_FNAME: &str = ".freesound.key";
 
 #[repr(C)]
 #[derive(Copy, Clone)]
@@ -37,13 +50,6 @@ impl Debug for t_pd_rust_word {
         write!(f, "t_pd_rust_word union")
     }
 }
-
-use crate::{
-    service::{callback_msg, callback_notify, callback_progress, Error, Service, ServiceCallback},
-    utils,
-};
-
-const ACCESS_TOKEN_FNAME: &str = ".freesound.key";
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
@@ -127,14 +133,20 @@ impl From<freesound_search_params> for SearchParams {
 }
 
 #[derive(Debug)]
+struct ArraysParam {
+    name: String,
+    channel: usize,
+}
+
+#[derive(Debug)]
 struct LoadToArray {
     id: u64,
-    channel: usize,
+    arrays: Vec<ArraysParam>,
     normalize: bool,
     access: String,
-    array: String,
-    alloc: Option<extern "C" fn(size: usize) -> *mut t_pd_rust_word>,
-    free: Option<extern "C" fn(data: *mut t_pd_rust_word, size: usize)>,
+    alloc: freesound_alloc_fn,
+    free: freesound_free_fn,
+    float_type: FloatType,
 }
 
 #[derive(Debug)]
@@ -300,6 +312,167 @@ struct SearchResults {
     results: Vec<SearchResult>,
 }
 
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub struct freesound_array_data {
+    array: freesound_array,
+    data: *mut t_pd_rust_word,
+    size: usize,
+    alloc: freesound_alloc_fn,
+    free: freesound_free_fn,
+    owner: bool,
+}
+
+impl freesound_array_data {
+    fn from(arr: &mut ArrayData) -> Self {
+        freesound_array_data {
+            array: freesound_array {
+                name: arr.name.as_ptr(),
+                channel: arr.channel,
+            },
+            data: arr.data.as_mut_ptr(),
+            size: arr.size,
+            owner: arr.retain_owner(),
+            alloc: arr.alloc,
+            free: arr.free,
+        }
+    }
+}
+
+impl Drop for freesound_array_data {
+    fn drop(&mut self) {
+        if self.owner {
+            info!(
+                "free freesound_array_data: '{}' [{}]",
+                unsafe { CStr::from_ptr(self.array.name) }.to_string_lossy(),
+                self.array.channel
+            );
+            (self.free)(self.data, self.size);
+        }
+    }
+}
+
+#[derive(Debug, Clone, Copy)]
+enum FloatType {
+    Double,
+    Float,
+}
+
+#[derive(Derivative)]
+#[derivative(Debug)]
+struct ArrayData {
+    name: CString,
+    channel: usize,
+    #[derivative(Debug="ignore")]
+    data: &'static mut [t_pd_rust_word],
+    size: usize,
+    alloc: freesound_alloc_fn,
+    free: freesound_free_fn,
+    owner: bool,
+    float_type: FloatType,
+}
+
+impl ArrayData {
+    fn alloc(
+        name: CString,
+        channel: usize,
+        capacity: usize,
+        alloc: freesound_alloc_fn,
+        free: freesound_free_fn,
+        float_type: FloatType,
+    ) -> Option<Self> {
+        let data = alloc(capacity);
+        if data.is_null() {
+            None
+        } else {
+            let data = unsafe { &mut *slice_from_raw_parts_mut(data, capacity) };
+
+            Some(ArrayData {
+                data,
+                size: 0,
+                alloc,
+                free,
+                name,
+                channel,
+                owner: true,
+                float_type,
+            })
+        }
+    }
+
+    fn is_empty(&self) -> bool {
+        return self.size == 0;
+    }
+
+    fn push(&mut self, x: f32) {
+        if self.size < self.data.len() {
+            match self.float_type {
+                FloatType::Double => self.data[self.size].w_double = x as f64,
+                FloatType::Float => self.data[self.size].w_float = x,
+            }
+            self.size += 1;
+        }
+    }
+
+    fn normalize(&mut self) {
+        match self.float_type {
+            FloatType::Double => {
+                let max = unsafe {
+                    (*self
+                        .data
+                        .iter()
+                        .max_by(|a, b| a.w_double.total_cmp(&b.w_double))
+                        .unwrap())
+                    .w_double
+                }
+                .abs();
+
+                if max > 0.0 {
+                    for x in self.data.iter_mut() {
+                        unsafe { x.w_double /= max };
+                    }
+                }
+            }
+            FloatType::Float => {
+                let max = unsafe {
+                    (*self
+                        .data
+                        .iter()
+                        .max_by(|a, b| a.w_float.total_cmp(&b.w_float))
+                        .unwrap())
+                    .w_float
+                }
+                .abs();
+
+                if max > 0.0 {
+                    for x in self.data.iter_mut() {
+                        unsafe { x.w_float /= max };
+                    }
+                }
+            }
+        }
+    }
+
+    #[must_use]
+    fn retain_owner(&mut self) -> bool {
+        if self.owner {
+            self.owner = false;
+            true
+        } else {
+            false
+        }
+    }
+}
+
+impl Drop for ArrayData {
+    fn drop(&mut self) {
+        if self.owner {
+            info!("free ArrayData");
+            (self.free)(self.data.as_mut_ptr(), self.size);
+        }
+    }
+}
+
 #[derive(Debug)]
 enum FreeSoundReply {
     OAuth2Url(CString),
@@ -308,7 +481,7 @@ enum FreeSoundReply {
     Info(InfoMe),
     SearchResults(SearchResults),
     Downloaded(CString, Option<CString>),
-    LoadToArray(&'static mut [t_pd_rust_word], usize, CString),
+    LoadToArray(Vec<ArrayData>),
 }
 
 type FreeSoundTx = tokio::sync::mpsc::Sender<Result<FreeSoundReply, Error>>;
@@ -338,6 +511,13 @@ impl freesound_init {
 }
 
 #[allow(non_camel_case_types)]
+#[repr(C)]
+pub struct freesound_array {
+    name: *const c_char,
+    channel: usize,
+}
+
+#[allow(non_camel_case_types)]
 pub struct freesound_client {
     service: FreeSoundService,
 }
@@ -356,18 +536,11 @@ pub struct freesound_result_cb {
         Option<extern "C" fn(user: *mut c_void, i: usize, res: &freesound_search_result)>,
     cb_download:
         Option<extern "C" fn(user: *mut c_void, filename: *const c_char, array: *const c_char)>,
-    cb_load: Option<
-        extern "C" fn(
-            user: *mut c_void,
-            data: *const t_pd_rust_word,
-            size: usize,
-            array: *const c_char,
-        ),
-    >,
+    cb_load: Option<extern "C" fn(user: *mut c_void, data: *mut freesound_array_data, size: usize)>,
 }
 
 impl ServiceCallback<FreeSoundReply> for freesound_result_cb {
-    fn exec(&self, data: &FreeSoundReply) {
+    fn exec(&self, data: &mut FreeSoundReply) {
         match data {
             FreeSoundReply::OAuth2Url(url) => {
                 self.cb_oauth_url.map(|f| {
@@ -477,9 +650,13 @@ impl ServiceCallback<FreeSoundReply> for freesound_result_cb {
                     );
                 });
             }
-            FreeSoundReply::LoadToArray(data, size, array) => {
+            FreeSoundReply::LoadToArray(data) => {
                 self.cb_load.map(|f| {
-                    f(self.user, data.as_ptr(), *size, array.as_ptr());
+                    let mut data = data
+                        .iter_mut()
+                        .map(|x| freesound_array_data::from(x))
+                        .collect::<Vec<_>>();
+                    f(self.user, data.as_mut_ptr(), data.len());
                 });
             }
             FreeSoundReply::OAuthSecrets(id, secret) => {
@@ -677,7 +854,27 @@ fn make_download_path(response: &Response, base_dir: Option<String>) -> Result<P
     Ok(path)
 }
 
-fn decode_file(path: &Path, channel: usize, normalize: bool) -> Result<Vec<f32>, String> {
+fn read_buffer<T: Sample>(buf: &AudioBuffer<T>, channels: &Vec<usize>, data: &mut Vec<ArrayData>)
+where
+    f32: FromSample<T>,
+{
+    assert!(channels.len() == data.len());
+
+    for (i, ch) in channels.iter().enumerate() {
+        buf.chan(*ch).iter().for_each(|s| {
+            if i < data.len() {
+                data[i].push(IntoSample::<f32>::into_sample(*s))
+            }
+        });
+    }
+}
+
+fn decode_file(params: LoadToArray, path: &Path) -> Result<Vec<ArrayData>, String> {
+    let channels = params.arrays.iter().map(|x| x.channel).collect::<Vec<_>>();
+    if channels.is_empty() {
+        return Err(format!("no channels requested"));
+    }
+
     let file = std::fs::File::open(&path).map_err(|e| e.to_string())?;
 
     // Create the media source stream.
@@ -706,11 +903,29 @@ fn decode_file(path: &Path, channel: usize, normalize: bool) -> Result<Vec<f32>,
         .find(|t| t.codec_params.codec != CODEC_TYPE_NULL)
         .ok_or_else(|| format!("no supported codec found for {path:?}"))?;
 
-    if let Some(ch) = track.codec_params.channels {
-        if channel >= ch.count() {
-            return Err(format!("invalid requested channel: {}", channel));
-        }
-    }
+    let num_chan = track
+        .codec_params
+        .channels
+        .ok_or_else(|| "can't get number of channels".to_owned())?
+        .count();
+
+    let channels: Vec<usize> = channels
+        .iter()
+        .filter(|ch| {
+            if **ch >= num_chan {
+                error!("invalid requested channel: {}", ch);
+                return false;
+            } else {
+                return true;
+            }
+        })
+        .cloned()
+        .collect();
+
+    let num_frames = track
+        .codec_params
+        .n_frames
+        .ok_or_else(|| "can't get number of frames".to_owned())? as usize;
 
     // Use the default options for the decoder.
     let dec_opts: DecoderOptions = Default::default();
@@ -723,7 +938,24 @@ fn decode_file(path: &Path, channel: usize, normalize: bool) -> Result<Vec<f32>,
     // Store the track identifier, it will be used to filter packets.
     let track_id = track.id;
 
-    let mut data: Vec<f32> = vec![];
+    assert!(channels.len() <= params.arrays.len());
+
+    let mut data = vec![];
+    for i in 0..channels.len() {
+        data.push(
+            ArrayData::alloc(
+                CString::new(params.arrays[i].name.clone()).unwrap_or_default(),
+                channels[i],
+                num_frames,
+                params.alloc,
+                params.free,
+                params.float_type,
+            )
+            .ok_or_else(|| format!("can't allocate {num_frames} bytes"))?,
+        );
+    }
+
+    assert!(channels.len() == data.len());
 
     // The decode loop.
     loop {
@@ -740,7 +972,7 @@ fn decode_file(path: &Path, channel: usize, normalize: bool) -> Result<Vec<f32>,
                 }
                 Error::DecodeError(_) => continue,
                 err => {
-                    // An unrecoverable error occured, halt decoding.
+                    // An unrecoverable error occurred, halt decoding.
                     return Err(format!("some error: {err}"));
                 }
             },
@@ -755,74 +987,38 @@ fn decode_file(path: &Path, channel: usize, normalize: bool) -> Result<Vec<f32>,
 
         // Decode the packet into audio samples.
         match decoder.decode(&packet) {
-            Ok(decoded) => {
-                if channel >= decoded.spec().channels.count() {
-                    return Err(format!("invalid requested channel: {}", channel));
+            Ok(decoded) => match decoded {
+                AudioBufferRef::F32(buf) => {
+                    read_buffer::<f32>(buf.as_ref(), &channels, &mut data);
                 }
-
-                match decoded {
-                    AudioBufferRef::F32(buf) => {
-                        buf.as_ref()
-                            .chan(channel)
-                            .iter()
-                            .for_each(|s| data.push(*s));
-                    }
-                    AudioBufferRef::F64(buf) => {
-                        buf.as_ref()
-                            .chan(channel)
-                            .iter()
-                            .for_each(|s| data.push(IntoSample::<f32>::into_sample(*s)));
-                    }
-                    AudioBufferRef::U8(buf) => {
-                        buf.as_ref()
-                            .chan(channel)
-                            .iter()
-                            .for_each(|s| data.push(IntoSample::<f32>::into_sample(*s)));
-                    }
-                    AudioBufferRef::U16(buf) => {
-                        buf.as_ref()
-                            .chan(channel)
-                            .iter()
-                            .for_each(|s| data.push(IntoSample::<f32>::into_sample(*s)));
-                    }
-                    AudioBufferRef::U24(buf) => {
-                        buf.as_ref()
-                            .chan(channel)
-                            .iter()
-                            .for_each(|s| data.push(IntoSample::<f32>::into_sample(*s)));
-                    }
-                    AudioBufferRef::U32(buf) => {
-                        buf.as_ref()
-                            .chan(channel)
-                            .iter()
-                            .for_each(|s| data.push(IntoSample::<f32>::into_sample(*s)));
-                    }
-                    AudioBufferRef::S8(buf) => {
-                        buf.as_ref()
-                            .chan(channel)
-                            .iter()
-                            .for_each(|s| data.push(IntoSample::<f32>::into_sample(*s)));
-                    }
-                    AudioBufferRef::S16(buf) => {
-                        buf.as_ref()
-                            .chan(channel)
-                            .iter()
-                            .for_each(|s| data.push(IntoSample::<f32>::into_sample(*s)));
-                    }
-                    AudioBufferRef::S24(buf) => {
-                        buf.as_ref()
-                            .chan(channel)
-                            .iter()
-                            .for_each(|s| data.push(IntoSample::<f32>::into_sample(*s)));
-                    }
-                    AudioBufferRef::S32(buf) => {
-                        buf.as_ref()
-                            .chan(channel)
-                            .iter()
-                            .for_each(|s| data.push(IntoSample::<f32>::into_sample(*s)));
-                    }
+                AudioBufferRef::F64(buf) => {
+                    read_buffer::<f64>(buf.as_ref(), &channels, &mut data);
                 }
-            }
+                AudioBufferRef::U8(buf) => {
+                    read_buffer::<u8>(buf.as_ref(), &channels, &mut data);
+                }
+                AudioBufferRef::U16(buf) => {
+                    read_buffer::<u16>(buf.as_ref(), &channels, &mut data);
+                }
+                AudioBufferRef::U24(buf) => {
+                    read_buffer::<symphonia::core::sample::u24>(buf.as_ref(), &channels, &mut data);
+                }
+                AudioBufferRef::U32(buf) => {
+                    read_buffer::<u32>(buf.as_ref(), &channels, &mut data);
+                }
+                AudioBufferRef::S8(buf) => {
+                    read_buffer::<i8>(buf.as_ref(), &channels, &mut data);
+                }
+                AudioBufferRef::S16(buf) => {
+                    read_buffer::<i16>(buf.as_ref(), &channels, &mut data);
+                }
+                AudioBufferRef::S24(buf) => {
+                    read_buffer::<symphonia::core::sample::i24>(buf.as_ref(), &channels, &mut data);
+                }
+                AudioBufferRef::S32(buf) => {
+                    read_buffer::<i32>(buf.as_ref(), &channels, &mut data);
+                }
+            },
             // Consume the decoded audio samples (see below).
             Err(Error::IoError(err)) => {
                 if err.kind() == std::io::ErrorKind::UnexpectedEof {
@@ -841,17 +1037,12 @@ fn decode_file(path: &Path, channel: usize, normalize: bool) -> Result<Vec<f32>,
         }
     }
 
-    if data.is_empty() {
+    if data.is_empty() || data[0].is_empty() {
         return Err(format!("empty result"));
     }
 
-    if normalize {
-        let max = (*data.iter().max_by(|a, b| a.total_cmp(b)).unwrap()).abs();
-        if max > 0.0 {
-            for x in data.iter_mut() {
-                *x /= max;
-            }
-        }
+    if params.normalize {
+        data.iter_mut().for_each(|x| x.normalize());
     }
 
     Ok(data)
@@ -1115,8 +1306,8 @@ async fn process_request(
             .await;
             Ok(ProcessAction::Continue)
         }
-        FreeSoundRequest::LoadToArray(load) => {
-            let mut response = download_response(load.id, &load.access).await?;
+        FreeSoundRequest::LoadToArray(params) => {
+            let mut response = download_response(params.id, &params.access).await?;
 
             let path = NamedTempFile::new()
                 .map_err(|e| e.to_string())?
@@ -1125,37 +1316,10 @@ async fn process_request(
 
             download_file(&mut response, &path, tx, cb_notify).await?;
 
-            let data = decode_file(&path, load.channel, load.normalize)?;
-            debug!("loaded {} samples", data.len());
+            let data = decode_file(params, &path)?;
+            debug!("loaded {data:?} channels");
 
-            let alloc = load
-                .alloc
-                .ok_or_else(|| "NULL alloc fn pointer".to_owned())?;
-            let free = load.free.ok_or_else(|| "NULL free fn pointer".to_owned())?;
-            let pd_data = alloc(data.len());
-            if pd_data.is_null() {
-                return Err(format!("can't allocate memory: {}", data.len()));
-            }
-
-            let slice = unsafe { &mut *slice_from_raw_parts_mut(pd_data, data.len()) };
-            // copy data to allocated memory
-            for (src, dest) in data.iter().zip(slice.into_iter()) {
-                dest.w_float = *src;
-            }
-
-            if !FreeSoundService::write_ok(
-                &tx,
-                FreeSoundReply::LoadToArray(
-                    slice,
-                    slice.len(),
-                    CString::new(load.array).unwrap_or_default(),
-                ),
-                *cb_notify,
-            )
-            .await
-            {
-                free(pd_data, data.len());
-            }
+            FreeSoundService::write_ok(&tx, FreeSoundReply::LoadToArray(data), *cb_notify).await;
 
             Ok(ProcessAction::Continue)
         }
@@ -1541,16 +1705,19 @@ pub extern "C" fn ceammc_freesound_download_file(
         .send_request(FreeSoundRequest::Download(id, auth_token, base_dir))
 }
 
+///
+/// @param alloc - non NULL alloc fn pointer
+/// @param free - non NULL free fn pointer
 #[no_mangle]
-pub extern "C" fn ceammc_freesound_load_array(
+pub extern "C" fn ceammc_freesound_load_to_arrays(
     cli: Option<&freesound_client>,
     id: u64,
-    channel: usize,
+    arrays: *const freesound_array,
+    num_arrays: usize,
     normalize: bool,
     auth_token: *const c_char,
-    array: *const c_char,
-    alloc: Option<extern "C" fn(size: usize) -> *mut t_pd_rust_word>,
-    free: Option<extern "C" fn(data: *mut t_pd_rust_word, size: usize)>,
+    alloc: freesound_alloc_fn,
+    free: freesound_free_fn,
 ) -> bool {
     if cli.is_none() {
         error!("NULL client");
@@ -1567,23 +1734,34 @@ pub extern "C" fn ceammc_freesound_load_array(
         .to_string_lossy()
         .to_string();
 
-    if array.is_null() {
-        cli.service.on_error("NULL array name");
+    if arrays.is_null() {
+        cli.service.on_error("NULL arrays");
         return false;
     }
-    let array = unsafe { CStr::from_ptr(array) }
-        .to_string_lossy()
-        .to_string();
+    let arrays = unsafe { slice::from_raw_parts(arrays, num_arrays) };
+    if arrays.is_empty() {
+        cli.service.on_error("empty arrays");
+        return false;
+    }
+    let mut vec_arrays = Vec::with_capacity(arrays.len());
+    for arr in arrays {
+        vec_arrays.push(ArraysParam {
+            name: unsafe { CStr::from_ptr(arr.name) }
+                .to_string_lossy()
+                .to_string(),
+            channel: arr.channel,
+        });
+    }
 
     cli.service
         .send_request(FreeSoundRequest::LoadToArray(LoadToArray {
             id,
-            channel,
+            arrays: vec_arrays,
             normalize,
             access: auth_token,
-            array,
             alloc,
             free,
+            float_type: FloatType::Float,
         }))
 }
 
