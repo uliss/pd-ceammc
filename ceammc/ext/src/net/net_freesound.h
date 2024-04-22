@@ -29,7 +29,7 @@ struct OAuthAccess {
 
 class NetFreesound : public NetFreesoundBase {
     std::unique_ptr<NetFreesoundImpl> cli_;
-    SymbolProperty* token_;
+    SymbolProperty* oauth_file_;
     SymbolProperty* oauth_id_;
     SymbolProperty* oauth_secret_;
 
@@ -42,11 +42,12 @@ public:
     void m_download(t_symbol* s, const AtomListView& lv);
     void m_load(t_symbol* s, const AtomListView& lv);
     void m_me(t_symbol* s, const AtomListView& lv);
-    void m_oauth2(t_symbol* s, const AtomListView& lv);
+    void m_access(t_symbol* s, const AtomListView& lv);
     void m_search(t_symbol* s, const AtomListView& lv);
 
 private:
-    void processReplyOAuth2(const char* url);
+    void processReplyOAuth(const char* url);
+    void processReplyOAuthFile(const char* id, const char* secret);
     void processReplyAccess(const char* access_token, std::uint64_t expires);
     void processReplyInfoMe(const ceammc_freesound_info_me& info);
     void processReplySearchInfo(uint64_t id, std::uint32_t prev, std::uint32_t next);

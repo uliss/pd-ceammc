@@ -4,7 +4,7 @@ use std::{
     fmt::Debug,
     os::raw::{c_char, c_void},
     path::{Path, PathBuf},
-    ptr::{null, null_mut, slice_from_raw_parts_mut},
+    ptr::{null_mut, slice_from_raw_parts_mut},
     slice,
 };
 
@@ -142,11 +142,13 @@ enum FreeSoundRequest {
     Search(SearchParams, String),
     OAuthGetCode(String, String),
     OAuthGetAccess(String, String, String),
+    OAuthReadSecretFile(String),
     Me(String),
     StoreAccessToken(String, Option<String>, bool),
     LoadAccessToken(Option<String>),
     Download(u64, String, Option<String>),
     LoadToArray(LoadToArray),
+    Quit,
 }
 
 #[derive(Debug)]
@@ -188,6 +190,14 @@ pub struct freesound_prop_str {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
+pub struct freesound_prop_obj {
+    name: *const c_char,
+    data: *const freesound_prop_f64,
+    len: usize,
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
 pub struct freesound_search_result {
     /// The sound’s unique identifier.
     id: u64,
@@ -203,6 +213,10 @@ pub struct freesound_search_result {
     str_props: *const freesound_prop_str,
     /// number of str props
     str_props_len: usize,
+    /// obj props
+    obj_props: *const freesound_prop_obj,
+    /// number of obj props
+    obj_props_len: usize,
 }
 
 #[derive(Debug)]
@@ -288,8 +302,9 @@ struct SearchResults {
 
 #[derive(Debug)]
 enum FreeSoundReply {
-    OAuth2Url(String),
+    OAuth2Url(CString),
     OAuthAccess(Access),
+    OAuthSecrets(CString, CString),
     Info(InfoMe),
     SearchResults(SearchResults),
     Downloaded(CString, Option<CString>),
@@ -302,7 +317,24 @@ type FreeSoundService = Service<FreeSoundRequest, FreeSoundReply>;
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub struct freesound_init {
-    token: *const c_char,
+    /// can be NULL
+    secret_file: *const c_char,
+}
+
+impl freesound_init {
+    fn secret_file(&self) -> Option<String> {
+        if self.secret_file.is_null() {
+            None
+        } else {
+            let path = unsafe { CStr::from_ptr(self.secret_file) }.to_string_lossy();
+
+            if path.is_empty() {
+                None
+            } else {
+                Some(path.to_string())
+            }
+        }
+    }
 }
 
 #[allow(non_camel_case_types)]
@@ -316,6 +348,8 @@ pub struct freesound_result_cb {
     user: *mut c_void,
     cb_oauth_url: Option<extern "C" fn(user: *mut c_void, url: *const c_char)>,
     cb_oauth_access: Option<extern "C" fn(user: *mut c_void, token: *const c_char, expires: u64)>,
+    cb_oauth_file:
+        Option<extern "C" fn(user: *mut c_void, id: *const c_char, secret: *const c_char)>,
     cb_info_me: Option<extern "C" fn(user: *mut c_void, data: &freesound_info_me)>,
     cb_search_info: Option<extern "C" fn(user: *mut c_void, count: u64, prev: u32, next: u32)>,
     cb_search_result:
@@ -337,14 +371,12 @@ impl ServiceCallback<FreeSoundReply> for freesound_result_cb {
         match data {
             FreeSoundReply::OAuth2Url(url) => {
                 self.cb_oauth_url.map(|f| {
-                    let url = CString::new(url.clone()).unwrap_or_default();
                     f(self.user, url.as_ptr());
                 });
             }
             FreeSoundReply::OAuthAccess(acc) => {
                 self.cb_oauth_access.map(|f| {
-                    let token = CString::new(acc.token.clone()).unwrap_or_default();
-                    f(self.user, token.as_ptr(), acc.expires);
+                    f(self.user, acc.token.as_ptr(), acc.expires);
                 });
             }
             FreeSoundReply::Info(info) => {
@@ -399,6 +431,26 @@ impl ServiceCallback<FreeSoundReply> for freesound_result_cb {
                                 })
                                 .collect::<Vec<freesound_prop_str>>();
 
+                            let obj_props = res
+                                .obj_map
+                                .iter()
+                                .map(|(k, v)| {
+                                    let objs = v
+                                        .iter()
+                                        .map(|(p, f)| freesound_prop_f64 {
+                                            name: p.as_ptr(),
+                                            value: *f,
+                                        })
+                                        .collect::<Vec<freesound_prop_f64>>();
+
+                                    freesound_prop_obj {
+                                        name: k.as_ptr(),
+                                        data: objs.as_ptr(),
+                                        len: objs.len(),
+                                    }
+                                })
+                                .collect::<Vec<freesound_prop_obj>>();
+
                             let res = freesound_search_result {
                                 id: res.id,
                                 tags: ctags.as_ptr(),
@@ -407,6 +459,8 @@ impl ServiceCallback<FreeSoundReply> for freesound_result_cb {
                                 num_props_len: num_props.len(),
                                 str_props: str_props.as_ptr(),
                                 str_props_len: str_props.len(),
+                                obj_props: obj_props.as_ptr(),
+                                obj_props_len: obj_props.len(),
                             };
 
                             f(self.user, i, &res);
@@ -426,6 +480,11 @@ impl ServiceCallback<FreeSoundReply> for freesound_result_cb {
             FreeSoundReply::LoadToArray(data, size, array) => {
                 self.cb_load.map(|f| {
                     f(self.user, data.as_ptr(), *size, array.as_ptr());
+                });
+            }
+            FreeSoundReply::OAuthSecrets(id, secret) => {
+                self.cb_oauth_file.map(|f| {
+                    f(self.user, id.as_ptr(), secret.as_ptr());
                 });
             }
         }
@@ -836,11 +895,17 @@ async fn download_file(
     }
 }
 
+#[derive(PartialEq)]
+enum ProcessAction {
+    Continue,
+    Break,
+}
+
 async fn process_request(
     req: FreeSoundRequest,
     tx: &FreeSoundTx,
     cb_notify: &callback_notify,
-) -> Result<(), String> {
+) -> Result<ProcessAction, String> {
     match req {
         FreeSoundRequest::Me(access_token) => {
             let info = freesound_get("/apiv2/me/", access_token.as_str(), None)
@@ -871,7 +936,7 @@ async fn process_request(
                 })?;
 
             FreeSoundService::write_ok(&tx, FreeSoundReply::Info(info), *cb_notify).await;
-            Ok(())
+            Ok(ProcessAction::Continue)
         }
         FreeSoundRequest::Search(params, access_token) => {
             let info = freesound_get("/apiv2/search/text/", access_token.as_str(), Some(params))
@@ -928,7 +993,7 @@ async fn process_request(
                 })?;
 
             FreeSoundService::write_ok(&tx, FreeSoundReply::SearchResults(info), *cb_notify).await;
-            Ok(())
+            Ok(ProcessAction::Continue)
         }
         FreeSoundRequest::OAuthGetCode(id, secret) => {
             let url = make_oauth_client(&id, &secret)
@@ -946,8 +1011,9 @@ async fn process_request(
                 })?
                 .to_string();
 
+            let url = CString::new(url).unwrap_or_default();
             FreeSoundService::write_ok(&tx, FreeSoundReply::OAuth2Url(url), *cb_notify).await;
-            Ok(())
+            Ok(ProcessAction::Continue)
         }
         FreeSoundRequest::OAuthGetAccess(id, secret, code) => {
             use oauth2::AuthorizationCode;
@@ -967,7 +1033,7 @@ async fn process_request(
 
                     FreeSoundService::write_ok(&tx, FreeSoundReply::OAuthAccess(acc), *cb_notify)
                         .await;
-                    Ok(())
+                    Ok(ProcessAction::Continue)
                 }
                 Err(err) => Err(err),
             }
@@ -992,12 +1058,13 @@ async fn process_request(
             tokio::fs::write(path.as_path(), key)
                 .await
                 .map_err(|e| e.to_string())?;
-            Ok(FreeSoundService::write_debug(
+            FreeSoundService::write_debug(
                 &tx,
                 format!("access token saved to: {}", path.to_string_lossy()),
                 *cb_notify,
             )
-            .await)
+            .await;
+            Ok(ProcessAction::Continue)
         }
         FreeSoundRequest::LoadAccessToken(base_dir) => {
             let mut path = PathBuf::from(
@@ -1024,12 +1091,13 @@ async fn process_request(
             )
             .await;
 
-            Ok(FreeSoundService::write_debug(
+            FreeSoundService::write_debug(
                 &tx,
                 format!("access token loaded from: {}", path.to_string_lossy()),
                 *cb_notify,
             )
-            .await)
+            .await;
+            Ok(ProcessAction::Continue)
         }
         FreeSoundRequest::Download(id, access, base_dir) => {
             let mut response = download_response(id, &access).await?;
@@ -1045,7 +1113,7 @@ async fn process_request(
                 *cb_notify,
             )
             .await;
-            Ok(())
+            Ok(ProcessAction::Continue)
         }
         FreeSoundRequest::LoadToArray(load) => {
             let mut response = download_response(load.id, &load.access).await?;
@@ -1089,8 +1157,46 @@ async fn process_request(
                 free(pd_data, data.len());
             }
 
-            Ok(())
+            Ok(ProcessAction::Continue)
         }
+        FreeSoundRequest::OAuthReadSecretFile(secret_file) => {
+            debug!("OAuthReadSecretFile: {secret_file}");
+
+            let data = tokio::fs::read_to_string(secret_file)
+                .await
+                .map_err(|e| e.to_string())?;
+            let lines: Vec<String> = data
+                .split('\n')
+                .filter(|ln| {
+                    let ln = ln.trim();
+                    !(ln.is_empty() || ln.starts_with('#'))
+                })
+                .map(|ln| ln.to_owned())
+                .collect();
+
+            debug!("{lines:?}");
+
+            if lines.len() < 2 {
+                return Err(format!("OAuth ID and OAuth secret expected"));
+            } else {
+                let id = CString::new(lines[0].trim()).unwrap_or_default();
+                let secret = CString::new(lines[1].trim()).unwrap_or_default();
+
+                if id.is_empty() || secret.is_empty() {
+                    return Err(format!("empty OAuth ID or secret"));
+                }
+
+                FreeSoundService::write_ok(
+                    &tx,
+                    FreeSoundReply::OAuthSecrets(id, secret),
+                    *cb_notify,
+                )
+                .await;
+
+                return Ok(ProcessAction::Continue);
+            }
+        }
+        FreeSoundRequest::Quit => Ok(ProcessAction::Break),
     }
 }
 
@@ -1116,20 +1222,6 @@ pub extern "C" fn ceammc_freesound_new(
     cb_reply: freesound_result_cb,
     cb_notify: callback_notify,
 ) -> *mut freesound_client {
-    if params.token.is_null() {
-        cb_err.exec("NULL API token");
-        return null_mut();
-    }
-    let token = unsafe { CStr::from_ptr(params.token) }
-        .to_str()
-        .unwrap_or_default()
-        .to_owned();
-
-    if token.is_empty() {
-        cb_err.exec("empty API token");
-        return null_mut();
-    }
-
     let rt = tokio::runtime::Runtime::new();
 
     match rt {
@@ -1144,6 +1236,7 @@ pub extern "C" fn ceammc_freesound_new(
                 debug!("starting worker thread ...");
                 rt.block_on(async move {
                     debug!("starting runloop ...");
+
                     loop {
                         tokio::select! {
                             // process requests
@@ -1151,8 +1244,9 @@ pub extern "C" fn ceammc_freesound_new(
                                 debug!("new request: {request:?}");
                                 match request {
                                     Some(request) => {
-                                        if let Err(err) = process_request(request, &rep_tx, &cb_notify).await {
-                                            FreeSoundService::write_error(&rep_tx, Error::Error(err), cb_notify).await;
+                                        match process_request(request, &rep_tx, &cb_notify).await {
+                                            Ok(action) => if action == ProcessAction::Break { break; },
+                                            Err(err) => FreeSoundService::write_error(&rep_tx, Error::Error(err), cb_notify).await
                                         }
                                     }
                                     None => {
@@ -1178,6 +1272,10 @@ pub extern "C" fn ceammc_freesound_new(
                 rep_rx,
             );
 
+            if let Some(file) = params.secret_file() {
+                cli.send_request(FreeSoundRequest::OAuthReadSecretFile(file));
+            }
+
             return Box::into_raw(Box::new(freesound_client { service: cli }));
         }
         Err(err) => {
@@ -1192,7 +1290,8 @@ pub extern "C" fn ceammc_freesound_new(
 #[no_mangle]
 pub extern "C" fn ceammc_freesound_free(fs: *mut freesound_client) {
     if !fs.is_null() {
-        drop(unsafe { Box::from_raw(fs) });
+        let cli = unsafe { Box::from_raw(fs) };
+        cli.service.send_request(FreeSoundRequest::Quit);
     }
 }
 

@@ -95,7 +95,8 @@ union ceammc_t_pd_rust_word {
 };
 
 struct ceammc_freesound_init {
-    const char *token;
+    /// can be NULL
+    const char *secret_file;
 };
 
 struct ceammc_callback_msg {
@@ -127,6 +128,12 @@ struct ceammc_freesound_prop_f64 {
     double value;
 };
 
+struct ceammc_freesound_prop_obj {
+    const char *name;
+    const ceammc_freesound_prop_f64 *data;
+    size_t len;
+};
+
 struct ceammc_freesound_search_result {
     /// The sound’s unique identifier.
     uint64_t id;
@@ -142,12 +149,17 @@ struct ceammc_freesound_search_result {
     const ceammc_freesound_prop_str *str_props;
     /// number of str props
     size_t str_props_len;
+    /// obj props
+    const ceammc_freesound_prop_obj *obj_props;
+    /// number of obj props
+    size_t obj_props_len;
 };
 
 struct ceammc_freesound_result_cb {
     void *user;
     void (*cb_oauth_url)(void *user, const char *url);
     void (*cb_oauth_access)(void *user, const char *token, uint64_t expires);
+    void (*cb_oauth_file)(void *user, const char *id, const char *secret);
     void (*cb_info_me)(void *user, const ceammc_freesound_info_me *data);
     void (*cb_search_info)(void *user, uint64_t count, uint32_t prev, uint32_t next);
     void (*cb_search_result)(void *user, size_t i, const ceammc_freesound_search_result *res);

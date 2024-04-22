@@ -16,6 +16,7 @@
         "rumqttc",
         "samplerate",
         "Tele",
+        "tempfile",
         "tungstenite",
         "whitespaces"
     ],

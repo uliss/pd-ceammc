@@ -23,9 +23,9 @@ NetFreesound::NetFreesound(const PdArgs& args)
     createOutlet();
     createOutlet();
 
-    token_ = new SymbolProperty("@token", &s_);
-    token_->setInitOnly();
-    addProperty(token_);
+    oauth_file_ = new SymbolProperty("@oauth_file", &s_);
+    oauth_file_->setInitOnly();
+    addProperty(oauth_file_);
 
     oauth_id_ = new SymbolProperty("@oauth_id", &s_);
     oauth_id_->setInitOnly();
@@ -38,8 +38,17 @@ NetFreesound::NetFreesound(const PdArgs& args)
 
 void NetFreesound::initDone()
 {
+    std::string secret_path;
+    if (oauth_file_->value() != &s_) {
+        auto res = findInStdPaths(oauth_file_->value()->s_name);
+        if (res.empty())
+            OBJ_ERR << fmt::format("OAuth secret file not found: '{}'", oauth_file_->value()->s_name);
+        else
+            secret_path = res;
+    }
+
     cli_.reset(new NetFreesoundImpl {
-        ceammc_freesound_init { token_->value()->s_name },
+        { secret_path.c_str() },
         ceammc_freesound_new,
         ceammc_freesound_free,
         ceammc_freesound_process,
@@ -48,12 +57,17 @@ void NetFreesound::initDone()
             [](void* user, const char* url) {
                 auto this_ = static_cast<NetFreesound*>(user);
                 if (this_ && url)
-                    this_->processReplyOAuth2(url);
+                    this_->processReplyOAuth(url);
             },
             [](void* user, const char* access_token, std::uint64_t expires) {
                 auto this_ = static_cast<NetFreesound*>(user);
                 if (this_ && access_token)
                     this_->processReplyAccess(access_token, expires);
+            },
+            [](void* user, const char* id, const char* secret) {
+                auto this_ = static_cast<NetFreesound*>(user);
+                if (this_ && id && secret)
+                    this_->processReplyOAuthFile(id, secret);
             },
             [](void* user, const ceammc_freesound_info_me* info) {
                 auto this_ = static_cast<NetFreesound*>(user);
@@ -240,7 +254,7 @@ void NetFreesound::m_search(t_symbol* s, const AtomListView& lv)
     ceammc_freesound_search(cli_->handle(), AccessToken::instance().token.c_str(), params);
 }
 
-void NetFreesound::m_oauth2(t_symbol* s, const AtomListView& lv)
+void NetFreesound::m_access(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("s=auth|code|load|store CODE:s?");
     if (!chk.check(lv, this))
@@ -267,17 +281,24 @@ void NetFreesound::m_oauth2(t_symbol* s, const AtomListView& lv)
     }
 }
 
-void NetFreesound::processReplyOAuth2(const char* url)
+void NetFreesound::processReplyOAuth(const char* url)
 {
-    OBJ_DBG << "oauth2 url: " << url;
+    OBJ_DBG << "oauth url: " << url;
     pdgui_vmess("::pd_menucommands::menu_openfile", "s", url);
+}
+
+void NetFreesound::processReplyOAuthFile(const char* id, const char* secret)
+{
+    oauth_id_->setValue(gensym(id));
+    oauth_secret_->setValue(gensym(secret));
+    OBJ_DBG << "OAuth id/secret loaded from file: " << oauth_file_->value()->s_name;
 }
 
 void NetFreesound::processReplyAccess(const char* access_token, std::uint64_t expires)
 {
     AccessToken::instance().token = access_token;
     AccessToken::instance().expires = expires;
-    OBJ_DBG << "OAuth2 success";
+    OBJ_DBG << "oauth success";
 }
 
 void NetFreesound::processReplyInfoMe(const ceammc_freesound_info_me& info)
@@ -304,16 +325,32 @@ void NetFreesound::processReplySearch(uint64_t i, const ceammc_freesound_search_
     DictAtom da;
     da->insert("id", res.id);
 
+    // str props
     for (size_t i = 0; res.str_props && i < res.str_props_len; i++) {
         auto& prop = res.str_props[i];
         da->insert(prop.name, gensym(prop.value));
     }
 
+    // num props
     for (size_t i = 0; res.num_props && i < res.num_props_len; i++) {
         auto& prop = res.num_props[i];
         da->insert(prop.name, prop.value);
     }
 
+    // obj props
+    for (size_t i = 0; res.obj_props && i < res.obj_props_len; i++) {
+        auto& prop = res.obj_props[i];
+
+        DictAtom objs;
+        for (size_t j = 0; j < prop.len; j++) {
+            auto& obj = prop.data[j];
+            objs->insert(obj.name, obj.value);
+        }
+        if (prop.len > 0)
+            da->insert(prop.name, objs);
+    }
+
+    // tags
     AtomList tags;
     for (size_t i = 0; res.tags && i < res.tags_len; i++) {
         auto tag = res.tags[i];
@@ -324,12 +361,14 @@ void NetFreesound::processReplySearch(uint64_t i, const ceammc_freesound_search_
     if (tags.size() > 0)
         da->insert("tags", tags);
 
+    // output
     anyTo(0, gensym("search"), da);
 }
 
 void NetFreesound::processReplyDownload(const char* filename)
 {
     OBJ_DBG << "file downloaded to: " << filename;
+    anyTo(0, gensym("downloaded"), gensym(filename));
 }
 
 void NetFreesound::processReplyLoad(const char* arrayname, const ceammc_t_pd_rust_word* data, size_t len)
@@ -352,13 +391,15 @@ void NetFreesound::processReplyLoad(const char* arrayname, const ceammc_t_pd_rus
 
     array.redraw();
     OBJ_DBG << fmt::format("array updated: set new data of length {}", len);
+
+    anyTo(0, gensym("loaded"), gensym("arrayname"));
 }
 
 bool NetFreesound::checkOAuth(t_symbol* s) const
 {
     if (AccessToken::instance().token.empty()) {
-        METHOD_ERR(s) << "not logged with OAuth2. "
-                         "Use oauth2 auth to get authorization code in browser(valid 24 hours) and then: oauth2 code CODE";
+        METHOD_ERR(s) << "not logged with OAuth. "
+                         "Use oauth auth to get authorization code in browser(valid 24 hours) and then: oauth code CODE";
         return false;
     } else
         return true;
@@ -372,7 +413,7 @@ void setup_net_freesound()
     obj.addMethod("load", &NetFreesound::m_load);
     obj.addMethod("me", &NetFreesound::m_me);
     obj.addMethod("search", &NetFreesound::m_search);
-    obj.addMethod("oauth2", &NetFreesound::m_oauth2);
+    obj.addMethod("access", &NetFreesound::m_access);
 }
 
 #endif
