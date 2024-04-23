@@ -106,6 +106,10 @@ using ceammc_freesound_free_fn = void(*)(ceammc_t_pd_rust_word *data, size_t siz
 struct ceammc_freesound_init {
     /// can be NULL
     const char *secret_file;
+    /// non NULL
+    ceammc_freesound_alloc_fn alloc;
+    /// non NULL
+    ceammc_freesound_free_fn free;
 };
 
 struct ceammc_callback_msg {
@@ -343,17 +347,13 @@ void ceammc_freesound_free(ceammc_freesound_client *fs);
 /// @param num_arrays - number or array params
 /// @param normalize - if perform array normalization
 /// @param access - temp access token (non NULL)
-/// @param alloc - alloc fn pointer (non NULL!)
-/// @param free - free fn pointer (non NULL!)
 /// @return true on success, false on error
 bool ceammc_freesound_load_to_arrays(const ceammc_freesound_client *cli,
                                      uint64_t file_id,
                                      const ceammc_freesound_array *arrays,
                                      size_t num_arrays,
                                      bool normalize,
-                                     const char *access,
-                                     ceammc_freesound_alloc_fn alloc,
-                                     ceammc_freesound_free_fn free);
+                                     const char *access);
 
 /// get freesound user information
 /// @param cli - freesound client pointer (non NULL)

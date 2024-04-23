@@ -492,6 +492,10 @@ type FreeSoundService = Service<FreeSoundRequest, FreeSoundReply>;
 pub struct freesound_init {
     /// can be NULL
     secret_file: *const c_char,
+    /// non NULL
+    alloc: freesound_alloc_fn,
+    /// non NULL
+    free: freesound_free_fn,
 }
 
 impl freesound_init {
@@ -520,6 +524,8 @@ pub struct freesound_array {
 #[allow(non_camel_case_types)]
 pub struct freesound_client {
     service: FreeSoundService,
+    alloc: freesound_alloc_fn,
+    free: freesound_free_fn,
 }
 
 #[allow(non_camel_case_types)]
@@ -1440,7 +1446,11 @@ pub extern "C" fn ceammc_freesound_new(
                 cli.send_request(FreeSoundRequest::OAuthReadSecretFile(file));
             }
 
-            return Box::into_raw(Box::new(freesound_client { service: cli }));
+            return Box::into_raw(Box::new(freesound_client {
+                service: cli,
+                alloc: params.alloc,
+                free: params.free,
+            }));
         }
         Err(err) => {
             cb_err.exec(err.to_string().as_str());
@@ -1748,8 +1758,6 @@ pub extern "C" fn ceammc_freesound_download_file(
 /// @param num_arrays - number or array params
 /// @param normalize - if perform array normalization
 /// @param access - temp access token (non NULL)
-/// @param alloc - alloc fn pointer (non NULL!)
-/// @param free - free fn pointer (non NULL!)
 /// @return true on success, false on error
 #[no_mangle]
 pub extern "C" fn ceammc_freesound_load_to_arrays(
@@ -1759,8 +1767,6 @@ pub extern "C" fn ceammc_freesound_load_to_arrays(
     num_arrays: usize,
     normalize: bool,
     access: *const c_char,
-    alloc: freesound_alloc_fn,
-    free: freesound_free_fn,
 ) -> bool {
     if cli.is_none() {
         error!("NULL client");
@@ -1802,8 +1808,8 @@ pub extern "C" fn ceammc_freesound_load_to_arrays(
             arrays: vec_arrays,
             normalize,
             access,
-            alloc,
-            free,
+            alloc: cli.alloc,
+            free: cli.free,
             float_type: FloatType::Float,
         }))
 }

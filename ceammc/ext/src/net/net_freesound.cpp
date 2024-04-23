@@ -48,7 +48,16 @@ void NetFreesound::initDone()
     }
 
     cli_.reset(new NetFreesoundImpl {
-        { secret_path.c_str() },
+        {
+            secret_path.c_str(),
+            [](size_t n) -> ceammc_t_pd_rust_word* {
+                // std::cerr << fmt::format("-> alloc {} elements", n) << std::endl;
+                return static_cast<ceammc_t_pd_rust_word*>(getbytes(n * sizeof(t_word))); },
+            [](ceammc_t_pd_rust_word* data, size_t n) {
+                // std::cerr << fmt::format("-> free {} elements", n) << std::endl;
+                freebytes(data, n);
+            } //
+        },
         ceammc_freesound_new,
         ceammc_freesound_free,
         ceammc_freesound_process,
@@ -169,15 +178,7 @@ void NetFreesound::m_load(t_symbol* s, const AtomListView& lv)
         arrays.data(),
         arrays.size(),
         norm,
-        AccessToken::instance().token.c_str(),
-        [](size_t n) -> ceammc_t_pd_rust_word* {
-            std::cerr << fmt::format("-> alloc {} elements", n) << std::endl;
-            return static_cast<ceammc_t_pd_rust_word*>(getbytes(n * sizeof(t_word)));
-        },
-        [](ceammc_t_pd_rust_word* data, size_t n) {
-            std::cerr << fmt::format("-> free {} elements", n) << std::endl;
-            freebytes(data, n);
-        });
+        AccessToken::instance().token.c_str());
 }
 
 void NetFreesound::m_me(t_symbol* s, const AtomListView& lv)
