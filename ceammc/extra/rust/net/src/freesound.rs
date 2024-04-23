@@ -414,19 +414,33 @@ impl ArrayData {
         }
     }
 
-    fn normalize(&mut self) {
+    fn abs_max(&self) -> f32 {
+        match self.float_type {
+            FloatType::Double => unsafe {
+                (*self
+                    .data
+                    .iter()
+                    .max_by(|a, b| a.w_double.abs().total_cmp(&b.w_double.abs()))
+                    .unwrap())
+                .w_double
+            }
+            .abs() as f32,
+            FloatType::Float => unsafe {
+                (*self
+                    .data
+                    .iter()
+                    .max_by(|a, b| a.w_float.abs().total_cmp(&b.w_float.abs()))
+                    .unwrap())
+                .w_float
+            }
+            .abs(),
+        }
+    }
+
+    fn normalize(&mut self, max: f32) {
         match self.float_type {
             FloatType::Double => {
-                let max = unsafe {
-                    (*self
-                        .data
-                        .iter()
-                        .max_by(|a, b| a.w_double.total_cmp(&b.w_double))
-                        .unwrap())
-                    .w_double
-                }
-                .abs();
-
+                let max = max as f64;
                 if max > 0.0 {
                     for x in self.data.iter_mut() {
                         unsafe { x.w_double /= max };
@@ -434,16 +448,6 @@ impl ArrayData {
                 }
             }
             FloatType::Float => {
-                let max = unsafe {
-                    (*self
-                        .data
-                        .iter()
-                        .max_by(|a, b| a.w_float.total_cmp(&b.w_float))
-                        .unwrap())
-                    .w_float
-                }
-                .abs();
-
                 if max > 0.0 {
                     for x in self.data.iter_mut() {
                         unsafe { x.w_float /= max };
@@ -1048,7 +1052,13 @@ fn decode_file(params: LoadToArray, path: &Path) -> Result<Vec<ArrayData>, Strin
     }
 
     if params.normalize {
-        data.iter_mut().for_each(|x| x.normalize());
+        let max = data
+            .iter()
+            .map(|x| x.abs_max())
+            .reduce(f32::max)
+            .ok_or_else(|| format!("normalization error"))?;
+
+        data.iter_mut().for_each(|x| x.normalize(max));
     }
 
     Ok(data)
