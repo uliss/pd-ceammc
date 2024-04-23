@@ -321,27 +321,44 @@ struct ceammc_ws_srv_on_cli {
 
 extern "C" {
 
+/// download freesound file to local directory
+/// @param cli - freesound client pointer (non NULL)
+/// @param file_id - freesound file id
+/// @param access - access token
+/// @param base_dir - base directory for saving
+/// @return true on success, false on error
 bool ceammc_freesound_download_file(const ceammc_freesound_client *cli,
-                                    uint64_t id,
-                                    const char *auth_token,
+                                    uint64_t file_id,
+                                    const char *access,
                                     const char *base_dir);
 
-/// free freesound client
-/// @param fs - pointer to freesound client (can be NULL)
+/// free freesound client and stop worker thread
+/// @param fs - pointer to freesound client (non NULL)
 void ceammc_freesound_free(ceammc_freesound_client *fs);
 
-///
-/// @param alloc - non NULL alloc fn pointer
-/// @param free - non NULL free fn pointer
+/// load freesound file to specified arrays
+/// @param cli - freesound client pointer (non NULL)
+/// @param file_id - sound file id
+/// @param arrays - pointer to array load params (non NULL)
+/// @param num_arrays - number or array params
+/// @param normalize - if perform array normalization
+/// @param access - temp access token (non NULL)
+/// @param alloc - alloc fn pointer (non NULL!)
+/// @param free - free fn pointer (non NULL!)
+/// @return true on success, false on error
 bool ceammc_freesound_load_to_arrays(const ceammc_freesound_client *cli,
-                                     uint64_t id,
+                                     uint64_t file_id,
                                      const ceammc_freesound_array *arrays,
                                      size_t num_arrays,
                                      bool normalize,
-                                     const char *auth_token,
+                                     const char *access,
                                      ceammc_freesound_alloc_fn alloc,
                                      ceammc_freesound_free_fn free);
 
+/// get freesound user information
+/// @param cli - freesound client pointer (non NULL)
+/// @param access - tmp access token (non NULL)
+/// @return true on success, false on error
 bool ceammc_freesound_me(const ceammc_freesound_client *cli, const char *access);
 
 /// create new freesound client
@@ -364,28 +381,54 @@ ceammc_freesound_client *ceammc_freesound_new(ceammc_freesound_init params,
                                               ceammc_freesound_result_cb cb_reply,
                                               ceammc_callback_notify cb_notify);
 
+/// request for OAuth temp access token (valid for 24 hours)
+/// @param cli - freesound client pointer (non NULL)
+/// @param id - OAuth2 id (non NULL)
+/// @param secret - OAuth2 secret (non NULL)
+/// @param auth_code - auth code from freesound http app page (non NULL)
+/// @return true on success, false on error
 bool ceammc_freesound_oauth_get_access(const ceammc_freesound_client *cli,
                                        const char *id,
                                        const char *secret,
                                        const char *auth_code);
 
+/// request for freesound URL to get access code
+/// @param cli - freesound client pointer (non NULL)
+/// @param id - OAuth2 id (non NULL)
+/// @param secret - OAuth2 secret (non NULL)
+/// @return true on success, false on error
 bool ceammc_freesound_oauth_get_code(const ceammc_freesound_client *cli,
                                      const char *id,
                                      const char *secret);
 
+/// async load temp access token from file
+/// @param cli - freesound client pointer (non NULL)
+/// @param base_dir - base directory (nullable)
+/// @return true on success, false on error
 bool ceammc_freesound_oauth_load_access_token(const ceammc_freesound_client *cli,
                                               const char *base_dir);
 
+/// async store temp access token to the file
+/// @param cli - freesound client (non NULL)
+/// @param access - temp access token (non NULL)
+/// @param base_dir - base directory for saving token (nullable)
+/// @param overwrite - should overwrite existing token
+/// @return true on success, false on error
 bool ceammc_freesound_oauth_store_access_token(const ceammc_freesound_client *cli,
-                                               const char *auth_token,
+                                               const char *access,
                                                const char *base_dir,
                                                bool overwrite);
 
 /// process all results that are ready
-/// @param cli - freesound client pointer
+/// @param cli - freesound client pointer (non NULL)
 /// @return true on success, false on error
 bool ceammc_freesound_process(ceammc_freesound_client *cli);
 
+/// freesound search
+/// @param cli - freesound client pointer (non NULL)
+/// @param access - tmp access token (non NULL)
+/// @param params - search params
+/// @return true on success, false on error
 bool ceammc_freesound_search(const ceammc_freesound_client *cli,
                              const char *access,
                              ceammc_freesound_search_params params);

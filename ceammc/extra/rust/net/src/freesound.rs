@@ -140,7 +140,7 @@ struct ArraysParam {
 
 #[derive(Debug)]
 struct LoadToArray {
-    id: u64,
+    file_id: u64,
     arrays: Vec<ArraysParam>,
     normalize: bool,
     access: String,
@@ -363,7 +363,7 @@ enum FloatType {
 struct ArrayData {
     name: CString,
     channel: usize,
-    #[derivative(Debug="ignore")]
+    #[derivative(Debug = "ignore")]
     data: &'static mut [t_pd_rust_word],
     size: usize,
     alloc: freesound_alloc_fn,
@@ -1307,7 +1307,7 @@ async fn process_request(
             Ok(ProcessAction::Continue)
         }
         FreeSoundRequest::LoadToArray(params) => {
-            let mut response = download_response(params.id, &params.access).await?;
+            let mut response = download_response(params.file_id, &params.access).await?;
 
             let path = NamedTempFile::new()
                 .map_err(|e| e.to_string())?
@@ -1449,8 +1449,8 @@ pub extern "C" fn ceammc_freesound_new(
     }
 }
 
-/// free freesound client
-/// @param fs - pointer to freesound client (can be NULL)
+/// free freesound client and stop worker thread
+/// @param fs - pointer to freesound client (non NULL)
 #[no_mangle]
 pub extern "C" fn ceammc_freesound_free(fs: *mut freesound_client) {
     if !fs.is_null() {
@@ -1460,7 +1460,7 @@ pub extern "C" fn ceammc_freesound_free(fs: *mut freesound_client) {
 }
 
 /// process all results that are ready
-/// @param cli - freesound client pointer
+/// @param cli - freesound client pointer (non NULL)
 /// @return true on success, false on error
 #[no_mangle]
 pub extern "C" fn ceammc_freesound_process(cli: Option<&mut freesound_client>) -> bool {
@@ -1474,6 +1474,10 @@ pub extern "C" fn ceammc_freesound_process(cli: Option<&mut freesound_client>) -
     true
 }
 
+/// get freesound user information
+/// @param cli - freesound client pointer (non NULL)
+/// @param access - tmp access token (non NULL)
+/// @return true on success, false on error
 #[no_mangle]
 pub extern "C" fn ceammc_freesound_me(
     cli: Option<&freesound_client>,
@@ -1502,6 +1506,11 @@ pub extern "C" fn ceammc_freesound_me(
     cli.service.send_request(FreeSoundRequest::Me(access))
 }
 
+/// freesound search
+/// @param cli - freesound client pointer (non NULL)
+/// @param access - tmp access token (non NULL)
+/// @param params - search params
+/// @return true on success, false on error
 #[no_mangle]
 pub extern "C" fn ceammc_freesound_search(
     cli: Option<&freesound_client>,
@@ -1532,6 +1541,11 @@ pub extern "C" fn ceammc_freesound_search(
         .send_request(FreeSoundRequest::Search(SearchParams::from(params), access))
 }
 
+/// request for freesound URL to get access code
+/// @param cli - freesound client pointer (non NULL)
+/// @param id - OAuth2 id (non NULL)
+/// @param secret - OAuth2 secret (non NULL)
+/// @return true on success, false on error
 #[no_mangle]
 pub extern "C" fn ceammc_freesound_oauth_get_code(
     cli: Option<&freesound_client>,
@@ -1566,6 +1580,12 @@ pub extern "C" fn ceammc_freesound_oauth_get_code(
         .send_request(FreeSoundRequest::OAuthGetCode(id, secret))
 }
 
+/// request for OAuth temp access token (valid for 24 hours)
+/// @param cli - freesound client pointer (non NULL)
+/// @param id - OAuth2 id (non NULL)
+/// @param secret - OAuth2 secret (non NULL)
+/// @param auth_code - auth code from freesound http app page (non NULL)
+/// @return true on success, false on error
 #[no_mangle]
 pub extern "C" fn ceammc_freesound_oauth_get_access(
     cli: Option<&freesound_client>,
@@ -1606,10 +1626,16 @@ pub extern "C" fn ceammc_freesound_oauth_get_access(
         .send_request(FreeSoundRequest::OAuthGetAccess(id, secret, auth_code))
 }
 
+/// async store temp access token to the file
+/// @param cli - freesound client (non NULL)
+/// @param access - temp access token (non NULL)
+/// @param base_dir - base directory for saving token (nullable)
+/// @param overwrite - should overwrite existing token
+/// @return true on success, false on error
 #[no_mangle]
 pub extern "C" fn ceammc_freesound_oauth_store_access_token(
     cli: Option<&freesound_client>,
-    auth_token: *const c_char,
+    access: *const c_char,
     base_dir: *const c_char,
     overwrite: bool,
 ) -> bool {
@@ -1620,11 +1646,11 @@ pub extern "C" fn ceammc_freesound_oauth_store_access_token(
 
     let cli = cli.unwrap();
 
-    if auth_token.is_null() {
-        cli.service.on_error("NULL auth_token");
+    if access.is_null() {
+        cli.service.on_error("NULL access token");
         return false;
     }
-    let auth_token = unsafe { CStr::from_ptr(auth_token) }
+    let access = unsafe { CStr::from_ptr(access) }
         .to_string_lossy()
         .to_string();
 
@@ -1639,10 +1665,14 @@ pub extern "C" fn ceammc_freesound_oauth_store_access_token(
     };
 
     cli.service.send_request(FreeSoundRequest::StoreAccessToken(
-        auth_token, base_dir, overwrite,
+        access, base_dir, overwrite,
     ))
 }
 
+/// async load temp access token from file
+/// @param cli - freesound client pointer (non NULL)
+/// @param base_dir - base directory (nullable)
+/// @return true on success, false on error
 #[no_mangle]
 pub extern "C" fn ceammc_freesound_oauth_load_access_token(
     cli: Option<&freesound_client>,
@@ -1669,11 +1699,17 @@ pub extern "C" fn ceammc_freesound_oauth_load_access_token(
         .send_request(FreeSoundRequest::LoadAccessToken(base_dir))
 }
 
+/// download freesound file to local directory
+/// @param cli - freesound client pointer (non NULL)
+/// @param file_id - freesound file id
+/// @param access - access token
+/// @param base_dir - base directory for saving
+/// @return true on success, false on error
 #[no_mangle]
 pub extern "C" fn ceammc_freesound_download_file(
     cli: Option<&freesound_client>,
-    id: u64,
-    auth_token: *const c_char,
+    file_id: u64,
+    access: *const c_char,
     base_dir: *const c_char,
 ) -> bool {
     if cli.is_none() {
@@ -1683,11 +1719,11 @@ pub extern "C" fn ceammc_freesound_download_file(
 
     let cli = cli.unwrap();
 
-    if auth_token.is_null() {
-        cli.service.on_error("NULL auth_token");
+    if access.is_null() {
+        cli.service.on_error("NULL access token");
         return false;
     }
-    let auth_token = unsafe { CStr::from_ptr(auth_token) }
+    let access = unsafe { CStr::from_ptr(access) }
         .to_string_lossy()
         .to_string();
 
@@ -1702,20 +1738,27 @@ pub extern "C" fn ceammc_freesound_download_file(
     };
 
     cli.service
-        .send_request(FreeSoundRequest::Download(id, auth_token, base_dir))
+        .send_request(FreeSoundRequest::Download(file_id, access, base_dir))
 }
 
-///
-/// @param alloc - non NULL alloc fn pointer
-/// @param free - non NULL free fn pointer
+/// load freesound file to specified arrays
+/// @param cli - freesound client pointer (non NULL)
+/// @param file_id - sound file id
+/// @param arrays - pointer to array load params (non NULL)
+/// @param num_arrays - number or array params
+/// @param normalize - if perform array normalization
+/// @param access - temp access token (non NULL)
+/// @param alloc - alloc fn pointer (non NULL!)
+/// @param free - free fn pointer (non NULL!)
+/// @return true on success, false on error
 #[no_mangle]
 pub extern "C" fn ceammc_freesound_load_to_arrays(
     cli: Option<&freesound_client>,
-    id: u64,
+    file_id: u64,
     arrays: *const freesound_array,
     num_arrays: usize,
     normalize: bool,
-    auth_token: *const c_char,
+    access: *const c_char,
     alloc: freesound_alloc_fn,
     free: freesound_free_fn,
 ) -> bool {
@@ -1726,11 +1769,11 @@ pub extern "C" fn ceammc_freesound_load_to_arrays(
 
     let cli = cli.unwrap();
 
-    if auth_token.is_null() {
-        cli.service.on_error("NULL auth_token");
+    if access.is_null() {
+        cli.service.on_error("NULL access token");
         return false;
     }
-    let auth_token = unsafe { CStr::from_ptr(auth_token) }
+    let access = unsafe { CStr::from_ptr(access) }
         .to_string_lossy()
         .to_string();
 
@@ -1755,10 +1798,10 @@ pub extern "C" fn ceammc_freesound_load_to_arrays(
 
     cli.service
         .send_request(FreeSoundRequest::LoadToArray(LoadToArray {
-            id,
+            file_id,
             arrays: vec_arrays,
             normalize,
-            access: auth_token,
+            access,
             alloc,
             free,
             float_type: FloatType::Float,
