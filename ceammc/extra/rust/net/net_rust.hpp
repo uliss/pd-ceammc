@@ -178,7 +178,7 @@ struct ceammc_freesound_result_cb {
     void (*cb_info_me)(void *user, const ceammc_freesound_info_me *data);
     void (*cb_search_info)(void *user, uint64_t count, uint32_t prev, uint32_t next);
     void (*cb_search_result)(void *user, size_t i, const ceammc_freesound_search_result *res);
-    void (*cb_download)(void *user, const char *filename, const char *array);
+    void (*cb_download)(void *user, const char *filename);
     void (*cb_load)(void *user, ceammc_freesound_array_data *data, size_t size);
 };
 

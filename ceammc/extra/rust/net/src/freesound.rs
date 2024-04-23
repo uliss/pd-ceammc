@@ -483,7 +483,7 @@ enum FreeSoundReply {
     OAuthSecrets(CString, CString),
     Info(InfoMe),
     SearchResults(SearchResults),
-    Downloaded(CString, Option<CString>),
+    Downloaded(CString),
     LoadToArray(Vec<ArrayData>),
 }
 
@@ -543,8 +543,7 @@ pub struct freesound_result_cb {
     cb_search_info: Option<extern "C" fn(user: *mut c_void, count: u64, prev: u32, next: u32)>,
     cb_search_result:
         Option<extern "C" fn(user: *mut c_void, i: usize, res: &freesound_search_result)>,
-    cb_download:
-        Option<extern "C" fn(user: *mut c_void, filename: *const c_char, array: *const c_char)>,
+    cb_download: Option<extern "C" fn(user: *mut c_void, filename: *const c_char)>,
     cb_load: Option<extern "C" fn(user: *mut c_void, data: *mut freesound_array_data, size: usize)>,
 }
 
@@ -650,13 +649,9 @@ impl ServiceCallback<FreeSoundReply> for freesound_result_cb {
                     });
                 });
             }
-            FreeSoundReply::Downloaded(path, array) => {
+            FreeSoundReply::Downloaded(path) => {
                 self.cb_download.map(|f| {
-                    f(
-                        self.user,
-                        path.as_ptr(),
-                        array.clone().map(|x| x.as_ptr()).unwrap_or(null_mut()),
-                    );
+                    f(self.user, path.as_ptr());
                 });
             }
             FreeSoundReply::LoadToArray(data) => {
@@ -1314,7 +1309,6 @@ async fn process_request(
                 &tx,
                 FreeSoundReply::Downloaded(
                     CString::new(path.to_string_lossy().to_string()).unwrap_or_default(),
-                    None,
                 ),
                 *cb_notify,
             )

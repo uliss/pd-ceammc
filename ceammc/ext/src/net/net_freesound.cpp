@@ -93,7 +93,7 @@ void NetFreesound::initDone()
                 if (this_ && res)
                     this_->processReplySearch(i, *res);
             },
-            [](void* user, const char* filename, const char* array) {
+            [](void* user, const char* filename) {
                 auto this_ = static_cast<NetFreesound*>(user);
                 if (this_ && filename) {
                     this_->processReplyDownload(filename);
@@ -115,6 +115,13 @@ void NetFreesound::initDone()
     cli_->setErrorCallback([this](const char* msg) { OBJ_ERR << msg; });
     cli_->setDebugCallback([this](const char* msg) { OBJ_DBG << msg; });
     cli_->setProgressCallback([this](int percent) {
+        if (percent == 0)
+            startpost("%s", ".");
+        else if (percent == 100)
+            endpost();
+        else
+            poststring(".");
+
         anyTo(1, gensym("progress"), Atom(percent));
     });
 }
