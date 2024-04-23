@@ -46,14 +46,14 @@ public:
     void m_search(t_symbol* s, const AtomListView& lv);
 
 private:
+    void processReplyAccess(const char* access_token, std::uint64_t expires);
+    void processReplyDownload(const char* filename);
+    void processReplyInfoMe(const ceammc_freesound_info_me& info);
+    void processReplyLoad(ceammc_freesound_array_data* data, size_t len);
     void processReplyOAuth(const char* url);
     void processReplyOAuthFile(const char* id, const char* secret);
-    void processReplyAccess(const char* access_token, std::uint64_t expires);
-    void processReplyInfoMe(const ceammc_freesound_info_me& info);
-    void processReplySearchInfo(uint64_t id, std::uint32_t prev, std::uint32_t next);
     void processReplySearch(uint64_t i, const ceammc_freesound_search_result& res);
-    void processReplyDownload(const char* filename);
-    void processReplyLoad(ceammc_freesound_array_data* data, size_t len);
+    void processReplySearchInfo(uint64_t id, std::uint32_t prev, std::uint32_t next);
 
     bool checkOAuth(t_symbol* s) const;
 };
