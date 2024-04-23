@@ -185,7 +185,8 @@ void NetFreesound::m_load(t_symbol* s, const AtomListView& lv)
         arrays.data(),
         arrays.size(),
         norm,
-        AccessToken::instance().token.c_str());
+        AccessToken::instance().token.c_str(),
+        std::is_same<double, t_float>::value);
 }
 
 void NetFreesound::m_me(t_symbol* s, const AtomListView& lv)
@@ -349,15 +350,21 @@ void NetFreesound::processReplySearch(uint64_t i, const ceammc_freesound_search_
 
     // obj props
     for (size_t i = 0; res.obj_props && i < res.obj_props_len; i++) {
-        auto& prop = res.obj_props[i];
+        auto& level1 = res.obj_props[i];
 
         DictAtom objs;
-        for (size_t j = 0; j < prop.len; j++) {
-            auto& obj = prop.data[j];
-            objs->insert(obj.name, obj.value);
+        for (size_t j = 0; j < level1.len; j++) {
+            auto& level2 = level1.data[j];
+
+            AtomList data;
+            for (size_t k = 0; k < level2.size; k++) {
+                data.append(level2.data[k]);
+            }
+
+            objs->insert(level2.name, data);
         }
-        if (prop.len > 0)
-            da->insert(prop.name, objs);
+        if (level1.len > 0)
+            da->insert(level1.name, objs);
     }
 
     // tags

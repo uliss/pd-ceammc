@@ -4,7 +4,7 @@ use std::{
     fmt::Debug,
     os::raw::{c_char, c_void},
     path::{Path, PathBuf},
-    ptr::{null_mut, slice_from_raw_parts_mut},
+    ptr::{null_mut, slice_from_raw_parts, slice_from_raw_parts_mut},
     slice,
 };
 
@@ -110,6 +110,14 @@ impl From<freesound_search_params> for SearchParams {
                         fields.push(unsafe { CStr::from_ptr(*f) }.to_string_lossy().to_string());
                     }
                 }
+
+                if params.num_descriptors > 0 {
+                    let k = "analysis".to_owned();
+                    if !fields.contains(&k) {
+                        fields.push(k);
+                    }
+                }
+
                 fields
             },
             descriptors: {
@@ -195,6 +203,29 @@ pub struct freesound_prop_f64 {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
+pub struct freesound_prop_array_f64 {
+    name: *const c_char,
+    data: *const f64,
+    size: usize,
+}
+
+impl Debug for freesound_prop_array_f64 {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("freesound_prop_array_f64")
+            .field(
+                "name",
+                &unsafe { CStr::from_ptr(self.name) }.to_string_lossy(),
+            )
+            .field("data", &unsafe {
+                &*slice_from_raw_parts(self.data, self.size)
+            })
+            .field("size", &self.size)
+            .finish()
+    }
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
 pub struct freesound_prop_str {
     name: *const c_char,
     value: *const c_char,
@@ -204,8 +235,23 @@ pub struct freesound_prop_str {
 #[repr(C)]
 pub struct freesound_prop_obj {
     name: *const c_char,
-    data: *const freesound_prop_f64,
+    data: *const freesound_prop_array_f64,
     len: usize,
+}
+
+impl Debug for freesound_prop_obj {
+    fn fmt(&self, f: &mut std::fmt::Formatter<'_>) -> std::fmt::Result {
+        f.debug_struct("freesound_prop_obj")
+            .field(
+                "name",
+                &unsafe { CStr::from_ptr(self.name) }.to_string_lossy(),
+            )
+            .field("data", &unsafe {
+                &*slice_from_raw_parts(self.data, self.len)
+            })
+            .field("len", &self.len)
+            .finish()
+    }
 }
 
 #[allow(non_camel_case_types)]
@@ -237,7 +283,7 @@ struct SearchResult {
     id: u64,
     str_map: HashMap<CString, CString>,
     num_map: HashMap<CString, f64>,
-    obj_map: HashMap<CString, HashMap<CString, f64>>,
+    obj_map: HashMap<CString, HashMap<CString, Vec<f64>>>,
     tags: Vec<CString>,
 }
 
@@ -275,11 +321,31 @@ impl SearchResult {
 
         for k in ["analysis", "ac_analysis"] {
             value.get(k).map(|x| {
-                x.as_object().map(|x| {
+                x.as_object().map(|level1| {
                     let mut data = HashMap::new();
-                    for (k, v) in x {
-                        v.as_f64().map(|f| {
-                            data.insert(CString::new(k.clone()).unwrap_or_default(), f);
+                    for (k, v) in level1 {
+                        v.as_object().map(|level2| {
+                            for (kk, vv) in level2 {
+                                let key = CString::new(format!("{k}.{kk}")).unwrap_or_default();
+
+                                match vv {
+                                    serde_json::Value::Number(x) => {
+                                        x.as_f64().map(|f| {
+                                            data.insert(key, vec![f]);
+                                        });
+                                    }
+                                    serde_json::Value::Array(arr) => {
+                                        let floats = arr
+                                            .iter()
+                                            .filter(|x| x.is_f64())
+                                            .map(|x| x.as_f64().unwrap_or_default())
+                                            .collect::<Vec<_>>();
+
+                                        data.insert(key, floats);
+                                    }
+                                    _ => {}
+                                }
+                            }
                         });
                     }
                     res.obj_map
@@ -317,7 +383,6 @@ pub struct freesound_array_data {
     array: freesound_array,
     data: *mut t_pd_rust_word,
     size: usize,
-    alloc: freesound_alloc_fn,
     free: freesound_free_fn,
     owner: bool,
 }
@@ -332,7 +397,6 @@ impl freesound_array_data {
             data: arr.data.as_mut_ptr(),
             size: arr.size,
             owner: arr.retain_owner(),
-            alloc: arr.alloc,
             free: arr.free,
         }
     }
@@ -588,11 +652,7 @@ impl ServiceCallback<FreeSoundReply> for freesound_result_cb {
                         for (i, res) in res.results.iter().enumerate() {
                             debug!("result: {res:?}");
 
-                            let ctags = res
-                                .tags
-                                .iter()
-                                .map(|x| x.as_ptr())
-                                .collect::<Vec<*const c_char>>();
+                            let ctags = res.tags.iter().map(|x| x.as_ptr()).collect::<Vec<_>>();
 
                             let num_props = res
                                 .num_map
@@ -601,7 +661,7 @@ impl ServiceCallback<FreeSoundReply> for freesound_result_cb {
                                     name: k.as_ptr(),
                                     value: *v,
                                 })
-                                .collect::<Vec<freesound_prop_f64>>();
+                                .collect::<Vec<_>>();
 
                             let str_props = res
                                 .str_map
@@ -610,27 +670,36 @@ impl ServiceCallback<FreeSoundReply> for freesound_result_cb {
                                     name: k.as_ptr(),
                                     value: v.as_ptr(),
                                 })
-                                .collect::<Vec<freesound_prop_str>>();
+                                .collect::<Vec<_>>();
 
                             let obj_props = res
                                 .obj_map
                                 .iter()
-                                .map(|(k, v)| {
-                                    let objs = v
-                                        .iter()
-                                        .map(|(p, f)| freesound_prop_f64 {
-                                            name: p.as_ptr(),
-                                            value: *f,
+                                .map(|(_, v)| {
+                                    v.iter()
+                                        .map(|(p, data)| {
+                                            freesound_prop_array_f64 {
+                                                name: p.as_ptr(),
+                                                data: data.as_ptr(),
+                                                size: data.len(),
+                                            }
                                         })
-                                        .collect::<Vec<freesound_prop_f64>>();
+                                        .collect::<Vec<_>>()
+                                })
+                                .collect::<Vec<_>>();
 
+                            let obj_props2 = res
+                                .obj_map
+                                .iter()
+                                .zip(&obj_props)
+                                .map(|((k, _), data)| {
                                     freesound_prop_obj {
                                         name: k.as_ptr(),
-                                        data: objs.as_ptr(),
-                                        len: objs.len(),
+                                        data: data.as_ptr(),
+                                        len: data.len(),
                                     }
                                 })
-                                .collect::<Vec<freesound_prop_obj>>();
+                                .collect::<Vec<_>>();
 
                             let res = freesound_search_result {
                                 id: res.id,
@@ -640,8 +709,8 @@ impl ServiceCallback<FreeSoundReply> for freesound_result_cb {
                                 num_props_len: num_props.len(),
                                 str_props: str_props.as_ptr(),
                                 str_props_len: str_props.len(),
-                                obj_props: obj_props.as_ptr(),
-                                obj_props_len: obj_props.len(),
+                                obj_props: obj_props2.as_ptr(),
+                                obj_props_len: obj_props2.len(),
                             };
 
                             f(self.user, i, &res);
@@ -1183,7 +1252,7 @@ async fn process_request(
 
                     json.get("results").and_then(|x| x.as_array()).map(|x| {
                         for value in x.iter().filter(|x| x.is_object()) {
-                            debug!("{value}");
+                            debug!("value: {value}");
                             if let Ok(x) = SearchResult::from(value) {
                                 res.results.push(x);
                             }
@@ -1347,7 +1416,7 @@ async fn process_request(
                 .map(|ln| ln.to_owned())
                 .collect();
 
-            debug!("{lines:?}");
+            // debug!("{lines:?}");
 
             if lines.len() < 2 {
                 return Err(format!("OAuth ID and OAuth secret expected"));
@@ -1761,6 +1830,7 @@ pub extern "C" fn ceammc_freesound_download_file(
 /// @param num_arrays - number or array params
 /// @param normalize - if perform array normalization
 /// @param access - temp access token (non NULL)
+/// @param double - double precision used
 /// @return true on success, false on error
 #[no_mangle]
 pub extern "C" fn ceammc_freesound_load_to_arrays(
@@ -1770,6 +1840,7 @@ pub extern "C" fn ceammc_freesound_load_to_arrays(
     num_arrays: usize,
     normalize: bool,
     access: *const c_char,
+    double: bool,
 ) -> bool {
     if cli.is_none() {
         error!("NULL client");
@@ -1813,7 +1884,11 @@ pub extern "C" fn ceammc_freesound_load_to_arrays(
             access,
             alloc: cli.alloc,
             free: cli.free,
-            float_type: FloatType::Float,
+            float_type: if double {
+                FloatType::Double
+            } else {
+                FloatType::Float
+            },
         }))
 }
 

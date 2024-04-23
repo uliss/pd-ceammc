@@ -143,9 +143,15 @@ struct ceammc_freesound_prop_f64 {
     double value;
 };
 
+struct ceammc_freesound_prop_array_f64 {
+    const char *name;
+    const double *data;
+    size_t size;
+};
+
 struct ceammc_freesound_prop_obj {
     const char *name;
-    const ceammc_freesound_prop_f64 *data;
+    const ceammc_freesound_prop_array_f64 *data;
     size_t len;
 };
 
@@ -366,13 +372,15 @@ void ceammc_freesound_free(ceammc_freesound_client *fs);
 /// @param num_arrays - number or array params
 /// @param normalize - if perform array normalization
 /// @param access - temp access token (non NULL)
+/// @param double - double precision used
 /// @return true on success, false on error
 bool ceammc_freesound_load_to_arrays(const ceammc_freesound_client *cli,
                                      uint64_t file_id,
                                      const ceammc_freesound_array *arrays,
                                      size_t num_arrays,
                                      bool normalize,
-                                     const char *access);
+                                     const char *access,
+                                     bool double_);
 
 /// get freesound user information
 /// @param cli - freesound client pointer (non NULL)
