@@ -230,6 +230,9 @@ void NetFreesound::m_search(t_symbol* s, const AtomListView& lv)
         case "@group_by_pack"_hash:
             params.group_by_pack = true;
             break;
+        case "@sort"_hash:
+            params.sort = args.symbolAt(0, &s_)->s_name;
+            break;
         case "@fields"_hash:
             for (auto& a : args) {
                 if (!a.isSymbol())

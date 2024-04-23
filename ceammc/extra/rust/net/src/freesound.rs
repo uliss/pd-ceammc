@@ -84,11 +84,12 @@ impl From<freesound_search_params> for SearchParams {
     fn from(params: freesound_search_params) -> Self {
         SearchParams {
             query: unsafe { CStr::from_ptr(params.query) }
-                .to_str()
-                .unwrap_or_default()
-                .to_owned(),
+                .to_string_lossy()
+                .to_string(),
             filter: String::new(),
-            sort: String::new(),
+            sort: unsafe { CStr::from_ptr(params.sort) }
+                .to_string_lossy()
+                .to_string(),
             group_by_pack: params.group_by_pack,
             page: if params.page > 0 {
                 Some(params.page as u16)
@@ -677,12 +678,10 @@ impl ServiceCallback<FreeSoundReply> for freesound_result_cb {
                                 .iter()
                                 .map(|(_, v)| {
                                     v.iter()
-                                        .map(|(p, data)| {
-                                            freesound_prop_array_f64 {
-                                                name: p.as_ptr(),
-                                                data: data.as_ptr(),
-                                                size: data.len(),
-                                            }
+                                        .map(|(p, data)| freesound_prop_array_f64 {
+                                            name: p.as_ptr(),
+                                            data: data.as_ptr(),
+                                            size: data.len(),
                                         })
                                         .collect::<Vec<_>>()
                                 })
@@ -692,12 +691,10 @@ impl ServiceCallback<FreeSoundReply> for freesound_result_cb {
                                 .obj_map
                                 .iter()
                                 .zip(&obj_props)
-                                .map(|((k, _), data)| {
-                                    freesound_prop_obj {
-                                        name: k.as_ptr(),
-                                        data: data.as_ptr(),
-                                        len: data.len(),
-                                    }
+                                .map(|((k, _), data)| freesound_prop_obj {
+                                    name: k.as_ptr(),
+                                    data: data.as_ptr(),
+                                    len: data.len(),
                                 })
                                 .collect::<Vec<_>>();
 
@@ -741,6 +738,18 @@ impl ServiceCallback<FreeSoundReply> for freesound_result_cb {
     }
 }
 
+const SORT_VALUES: [&str; 9] = [
+    "score",
+    "duration_desc",
+    "duration_asc",
+    "created_desc",
+    "created_asc",
+    "downloads_desc",
+    "downloads_asc",
+    "rating_desc",
+    "rating_asc",
+];
+
 async fn freesound_get(
     path: &str,
     access_token: &str,
@@ -760,6 +769,24 @@ async fn freesound_get(
             url.query_pairs_mut()
                 .append_pair("normalized", params.query.as_str())
                 .finish();
+        }
+
+        if !params.sort.is_empty() {
+            if !SORT_VALUES.contains(&params.sort.as_str()) {
+                return Err(format!(
+                    "invalid sort value: '{}', expected values are: {}.",
+                    params.sort,
+                    SORT_VALUES
+                        .iter()
+                        .map(|x| format!("'{}'", x.to_owned()))
+                        .collect::<Vec<_>>()
+                        .join(", ")
+                ));
+            } else {
+                url.query_pairs_mut()
+                .append_pair("sort", params.sort.as_str())
+                .finish();
+            }
         }
 
         if let Some(page) = params.page {
