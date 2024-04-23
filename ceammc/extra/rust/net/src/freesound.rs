@@ -313,7 +313,6 @@ struct SearchResults {
 }
 
 #[allow(non_camel_case_types)]
-#[repr(C)]
 pub struct freesound_array_data {
     array: freesound_array,
     data: *mut t_pd_rust_word,
@@ -1822,6 +1821,60 @@ pub extern "C" fn ceammc_freesound_load_to_arrays(
             free: cli.free,
             float_type: FloatType::Float,
         }))
+}
+
+/// retain loaded data (caller should free itself)
+/// @param data - pointer to array data (non NULL!)
+#[no_mangle]
+pub extern "C" fn ceammc_freesound_array_data_retain(data: &mut freesound_array_data) {
+    data.owner = false;
+}
+
+/// get data size
+/// @param data - pointer to array data (non NULL!)
+#[no_mangle]
+pub extern "C" fn ceammc_freesound_array_data_size(data: &mut freesound_array_data) -> usize {
+    data.size
+}
+
+/// get data size
+/// @param data - pointer to array data (non NULL!)
+#[no_mangle]
+pub extern "C" fn ceammc_freesound_array_data_ptr(
+    data: &mut freesound_array_data,
+) -> *mut t_pd_rust_word {
+    data.data
+}
+
+/// get data array name
+/// @param array - pointer to array data (non NULL!)
+#[no_mangle]
+pub extern "C" fn ceammc_freesound_array_data_name(
+    data: &mut freesound_array_data,
+) -> *const c_char {
+    data.array.name
+}
+
+/// get data array channel
+/// @param array - pointer to array data (non NULL!)
+#[no_mangle]
+pub extern "C" fn ceammc_freesound_array_data_channel(data: &mut freesound_array_data) -> usize {
+    data.array.channel
+}
+
+/// get array data
+/// @param array - pointer to array data (non NULL!)
+#[no_mangle]
+pub extern "C" fn ceammc_freesound_array_data_at(
+    idx: usize,
+    data: *mut freesound_array_data,
+    len: usize,
+) -> *mut freesound_array_data {
+    if idx < len {
+        unsafe { data.offset(idx as isize) }
+    } else {
+        null_mut()
+    }
 }
 
 #[cfg(test)]

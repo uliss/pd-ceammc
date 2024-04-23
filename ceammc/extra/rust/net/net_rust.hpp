@@ -76,6 +76,8 @@ enum class ceammc_ws_rc {
     RunloopExit,
 };
 
+struct ceammc_freesound_array_data;
+
 struct ceammc_freesound_client;
 
 struct ceammc_http_client;
@@ -88,15 +90,15 @@ struct ceammc_ws_client;
 
 struct ceammc_ws_server;
 
-struct ceammc_freesound_array {
-    const char *name;
-    size_t channel;
-};
-
 union ceammc_t_pd_rust_word {
     float w_float;
     double w_double;
     int w_index;
+};
+
+struct ceammc_freesound_array {
+    const char *name;
+    size_t channel;
 };
 
 using ceammc_freesound_alloc_fn = ceammc_t_pd_rust_word*(*)(size_t size);
@@ -166,15 +168,6 @@ struct ceammc_freesound_search_result {
     const ceammc_freesound_prop_obj *obj_props;
     /// number of obj props
     size_t obj_props_len;
-};
-
-struct ceammc_freesound_array_data {
-    ceammc_freesound_array array;
-    ceammc_t_pd_rust_word *data;
-    size_t size;
-    ceammc_freesound_alloc_fn alloc;
-    ceammc_freesound_free_fn free;
-    bool owner;
 };
 
 struct ceammc_freesound_result_cb {
@@ -324,6 +317,32 @@ struct ceammc_ws_srv_on_cli {
 
 
 extern "C" {
+
+/// get array data
+/// @param array - pointer to array data (non NULL!)
+ceammc_freesound_array_data *ceammc_freesound_array_data_at(size_t idx,
+                                                            ceammc_freesound_array_data *data,
+                                                            size_t len);
+
+/// get data array channel
+/// @param array - pointer to array data (non NULL!)
+size_t ceammc_freesound_array_data_channel(ceammc_freesound_array_data *data);
+
+/// get data array name
+/// @param array - pointer to array data (non NULL!)
+const char *ceammc_freesound_array_data_name(ceammc_freesound_array_data *data);
+
+/// get data size
+/// @param data - pointer to array data (non NULL!)
+ceammc_t_pd_rust_word *ceammc_freesound_array_data_ptr(ceammc_freesound_array_data *data);
+
+/// retain loaded data (caller should free itself)
+/// @param data - pointer to array data (non NULL!)
+void ceammc_freesound_array_data_retain(ceammc_freesound_array_data *data);
+
+/// get data size
+/// @param data - pointer to array data (non NULL!)
+size_t ceammc_freesound_array_data_size(ceammc_freesound_array_data *data);
 
 /// download freesound file to local directory
 /// @param cli - freesound client pointer (non NULL)

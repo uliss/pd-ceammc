@@ -377,26 +377,32 @@ void NetFreesound::processReplyDownload(const char* filename)
 void NetFreesound::processReplyLoad(ceammc_freesound_array_data* data, size_t len)
 {
     for (size_t i = 0; i < len; i++) {
-        auto& x = data[i];
-        OBJ_DBG << fmt::format("array loaded: '{}' [{}]", x.array.name, x.array.channel);
+        auto arr = ceammc_freesound_array_data_at(i, data, len);
+        auto array_name = ceammc_freesound_array_data_name(arr);
+        auto array_size = ceammc_freesound_array_data_size(arr);
+        auto array_chan = ceammc_freesound_array_data_channel(arr);
+        auto arr_data = static_cast<t_word*>(
+            static_cast<void*>(
+                const_cast<ceammc_t_pd_rust_word*>(ceammc_freesound_array_data_ptr(arr))));
 
-        auto aname = gensym(x.array.name);
+        OBJ_DBG << fmt::format("array loaded: '{}' [channel: {}]", array_name, array_chan);
+
+        auto aname = gensym(array_name);
         Array array(aname);
         if (!array.isValid()) {
-            OBJ_ERR << fmt::format("array not found: '{}'", x.array.name);
+            OBJ_ERR << fmt::format("array not found: '{}'", array_name);
             return;
         }
 
-        auto arr_data = static_cast<t_word*>(static_cast<void*>(const_cast<ceammc_t_pd_rust_word*>(x.data)));
-        if (!array.setData(arr_data, x.size)) {
-            OBJ_ERR << fmt::format("can't set array data: {}", x.array.name);
+        if (!array.setData(arr_data, array_size)) {
+            OBJ_ERR << fmt::format("can't set array data: {}", array_name);
             return;
         }
 
         // take ownership
-        x.owner = false;
+        ceammc_freesound_array_data_retain(arr);
         array.redraw();
-        OBJ_DBG << fmt::format("array '{}': set new data [{}]", x.array.name, x.size);
+        OBJ_DBG << fmt::format("array '{}': set new data [{}]", array_name, array_size);
     }
 
     anyTo(0, gensym("loaded"), AtomListView {});
