@@ -193,10 +193,16 @@ struct ceammc_callback_notify {
     void (*cb)(size_t id);
 };
 
+struct ceammc_freesound_search_filter {
+    const char *field;
+    const char *value;
+};
+
 struct ceammc_freesound_search_params {
     const char *query;
-    const char *filter;
     const char *sort;
+    const ceammc_freesound_search_filter *filters;
+    size_t num_filters;
     const char *const *fields;
     size_t num_fields;
     const char *const *descriptors;

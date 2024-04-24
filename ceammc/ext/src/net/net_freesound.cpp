@@ -11,6 +11,7 @@ OBJECT_STUB_SETUP(NetFreesound, net_freesound, "net.freesound");
 #include "ceammc_data.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"
+#include "ceammc_format.h"
 #include "datatype_dict.h"
 #include "fmt/core.h"
 #include "net_freesound.h"
@@ -203,20 +204,23 @@ void NetFreesound::m_search(t_symbol* s, const AtomListView& lv)
         return;
 
     static const args::ArgChecker chk("QUERY:s @PARAMS:a*");
+    static const args::ArgChecker chk_filters("FIELD:s VALUES:a+");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
     auto query = lv.symbolAt(0, &s_)->s_name;
     std::vector<const char*> fields, descriptors;
+    std::vector<ceammc_freesound_search_filter> filters;
 
     ceammc_freesound_search_params params {
         query,
         "",
-        "",
+        filters.data(),
+        filters.size(),
         fields.data(), fields.size(), descriptors.data(), descriptors.size(), 1, 32, false, false
     };
 
-    list::foreachProperty(lv.subView(1), [&params, &fields, &descriptors](t_symbol* k, const AtomListView& args) {
+    list::foreachProperty(lv.subView(1), [&params, &fields, &filters, &descriptors, this](t_symbol* k, const AtomListView& args) {
         switch (crc32_hash(k)) {
         case "@p"_hash:
             params.page = std::max<int>(1, args.intAt(0, 1));
@@ -233,6 +237,18 @@ void NetFreesound::m_search(t_symbol* s, const AtomListView& lv)
         case "@sort"_hash:
             params.sort = args.symbolAt(0, &s_)->s_name;
             break;
+        case "@filter"_hash: {
+            if (!chk_filters.check(args, this))
+                return chk_filters.usage(this);
+
+            filters.push_back({
+                args.symbolAt(0, &s_)->s_name,
+                gensym(to_string(args.subView(1)).c_str())->s_name,
+            });
+
+            params.filters = filters.data();
+            params.num_filters = filters.size();
+        } break;
         case "@fields"_hash:
             for (auto& a : args) {
                 if (!a.isSymbol())
@@ -402,8 +418,6 @@ void NetFreesound::processReplyLoad(ceammc_freesound_array_data* data, size_t le
             static_cast<void*>(
                 const_cast<ceammc_t_pd_rust_word*>(ceammc_freesound_array_data_ptr(arr))));
 
-        OBJ_DBG << fmt::format("array loaded: '{}' [channel: {}]", array_name, array_chan);
-
         auto aname = gensym(array_name);
         Array array(aname);
         if (!array.isValid()) {
@@ -419,7 +433,7 @@ void NetFreesound::processReplyLoad(ceammc_freesound_array_data* data, size_t le
         // take ownership
         ceammc_freesound_array_data_retain(arr);
         array.redraw();
-        OBJ_DBG << fmt::format("array '{}': set new data [{}]", array_name, array_size);
+        OBJ_DBG << fmt::format("loaded {} samples into '{}' from channel [{}]", array_size, array_name, array_chan);
     }
 
     anyTo(0, gensym("loaded"), AtomListView {});

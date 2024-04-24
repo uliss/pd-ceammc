@@ -13,6 +13,7 @@ use crate::{
     utils,
 };
 use derivative::Derivative;
+use itertools::Itertools;
 use log::{debug, error, info};
 use oauth2::TokenResponse;
 use reqwest::Response;
@@ -53,10 +54,18 @@ impl Debug for t_pd_rust_word {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
+pub struct freesound_search_filter {
+    field: *const c_char,
+    value: *const c_char,
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
 pub struct freesound_search_params {
     query: *const c_char,
-    filter: *const c_char,
     sort: *const c_char,
+    filters: *const freesound_search_filter,
+    num_filters: usize,
     fields: *const *const c_char,
     num_fields: usize,
     descriptors: *const *const c_char,
@@ -82,11 +91,29 @@ pub struct SearchParams {
 
 impl From<freesound_search_params> for SearchParams {
     fn from(params: freesound_search_params) -> Self {
+        let filters = unsafe { slice::from_raw_parts(params.filters, params.num_filters) }
+            .iter()
+            .map(|x| {
+                let field = unsafe { CStr::from_ptr(x.field) }
+                    .to_string_lossy()
+                    .to_string();
+                let mut value = unsafe { CStr::from_ptr(x.value) }
+                    .to_string_lossy()
+                    .to_string();
+                // quote value with spaces
+                if value.contains(" ") && !(value.starts_with('(') || value.starts_with('[')) {
+                    value.insert(0, '"');
+                    value.push('"');
+                }
+                // value = value.replace("+", "%2B");
+                format!("{field}:{value}")
+            }).join(" ");
+
         SearchParams {
             query: unsafe { CStr::from_ptr(params.query) }
                 .to_string_lossy()
                 .to_string(),
-            filter: String::new(),
+            filter: filters,
             sort: unsafe { CStr::from_ptr(params.sort) }
                 .to_string_lossy()
                 .to_string(),
@@ -771,6 +798,12 @@ async fn freesound_get(
                 .finish();
         }
 
+        if !params.filter.is_empty() {
+            url.query_pairs_mut()
+                .append_pair("filter", params.filter.as_str())
+                .finish();
+        }
+
         if !params.sort.is_empty() {
             if !SORT_VALUES.contains(&params.sort.as_str()) {
                 return Err(format!(
@@ -784,8 +817,8 @@ async fn freesound_get(
                 ));
             } else {
                 url.query_pairs_mut()
-                .append_pair("sort", params.sort.as_str())
-                .finish();
+                    .append_pair("sort", params.sort.as_str())
+                    .finish();
             }
         }
 
