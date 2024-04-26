@@ -17,15 +17,14 @@ use itertools::Itertools;
 use log::{debug, error, info};
 use oauth2::TokenResponse;
 use reqwest::Response;
+use rubato::{FftFixedIn, Resampler};
 use symphonia::core::{
-    audio::{AudioBuffer, AudioBufferRef, Signal},
+    audio::Signal,
     codecs::{DecoderOptions, CODEC_TYPE_NULL},
-    conv::{FromSample, IntoSample},
     formats::FormatOptions,
     io::MediaSourceStream,
     meta::MetadataOptions,
     probe::Hint,
-    sample::Sample,
 };
 use tempfile::NamedTempFile;
 use tokio::{fs::File, io::AsyncWriteExt};
@@ -107,7 +106,8 @@ impl From<freesound_search_params> for SearchParams {
                 }
                 // value = value.replace("+", "%2B");
                 format!("{field}:{value}")
-            }).join(" ");
+            })
+            .join(" ");
 
         SearchParams {
             query: unsafe { CStr::from_ptr(params.query) }
@@ -183,6 +183,7 @@ struct LoadToArray {
     alloc: freesound_alloc_fn,
     free: freesound_free_fn,
     float_type: FloatType,
+    samplerate: u32,
 }
 
 #[derive(Debug)]
@@ -491,10 +492,6 @@ impl ArrayData {
         }
     }
 
-    fn is_empty(&self) -> bool {
-        return self.size == 0;
-    }
-
     fn push(&mut self, x: f32) {
         if self.size < self.data.len() {
             match self.float_type {
@@ -502,29 +499,6 @@ impl ArrayData {
                 FloatType::Float => self.data[self.size].w_float = x,
             }
             self.size += 1;
-        }
-    }
-
-    fn abs_max(&self) -> f32 {
-        match self.float_type {
-            FloatType::Double => unsafe {
-                (*self
-                    .data
-                    .iter()
-                    .max_by(|a, b| a.w_double.abs().total_cmp(&b.w_double.abs()))
-                    .unwrap())
-                .w_double
-            }
-            .abs() as f32,
-            FloatType::Float => unsafe {
-                (*self
-                    .data
-                    .iter()
-                    .max_by(|a, b| a.w_float.abs().total_cmp(&b.w_float.abs()))
-                    .unwrap())
-                .w_float
-            }
-            .abs(),
         }
     }
 
@@ -987,21 +961,6 @@ fn make_download_path(response: &Response, base_dir: Option<String>) -> Result<P
     Ok(path)
 }
 
-fn read_buffer<T: Sample>(buf: &AudioBuffer<T>, channels: &Vec<usize>, data: &mut Vec<ArrayData>)
-where
-    f32: FromSample<T>,
-{
-    assert!(channels.len() == data.len());
-
-    for (i, ch) in channels.iter().enumerate() {
-        buf.chan(*ch).iter().for_each(|s| {
-            if i < data.len() {
-                data[i].push(IntoSample::<f32>::into_sample(*s))
-            }
-        });
-    }
-}
-
 fn decode_file(params: LoadToArray, path: &Path) -> Result<Vec<ArrayData>, String> {
     let channels = params.arrays.iter().map(|x| x.channel).collect::<Vec<_>>();
     if channels.is_empty() {
@@ -1024,17 +983,19 @@ fn decode_file(params: LoadToArray, path: &Path) -> Result<Vec<ArrayData>, Strin
     let fmt_opts: FormatOptions = Default::default();
 
     // Probe the media source.
-    let mut info = symphonia::default::get_probe()
+    let info = symphonia::default::get_probe()
         .format(&hint, mss, &fmt_opts, &meta_opts)
         .map_err(|e| e.to_string())?;
 
-    eprintln!("{:?}", info.format.tracks());
-    let track = info
-        .format
+    let mut format = info.format;
+
+    eprintln!("{:?}", format.tracks());
+    let track = format
         .tracks()
         .iter()
         .find(|t| t.codec_params.codec != CODEC_TYPE_NULL)
-        .ok_or_else(|| format!("no supported codec found for {path:?}"))?;
+        .ok_or_else(|| format!("no supported codec found for {path:?}"))?
+        .clone();
 
     let num_chan = track
         .codec_params
@@ -1060,6 +1021,11 @@ fn decode_file(params: LoadToArray, path: &Path) -> Result<Vec<ArrayData>, Strin
         .n_frames
         .ok_or_else(|| "can't get number of frames".to_owned())? as usize;
 
+    let src_samplerate = track
+        .codec_params
+        .sample_rate
+        .ok_or_else(|| "can't get source samplerate".to_owned())?;
+
     // Use the default options for the decoder.
     let dec_opts: DecoderOptions = Default::default();
 
@@ -1068,33 +1034,51 @@ fn decode_file(params: LoadToArray, path: &Path) -> Result<Vec<ArrayData>, Strin
         .make(&track.codec_params, &dec_opts)
         .map_err(|e| e.to_string())?;
 
-    // Store the track identifier, it will be used to filter packets.
-    let track_id = track.id;
-
     assert!(channels.len() <= params.arrays.len());
 
+    let mut buf = None;
     let mut data = vec![];
-    for i in 0..channels.len() {
-        data.push(
-            ArrayData::alloc(
-                CString::new(params.arrays[i].name.clone()).unwrap_or_default(),
-                channels[i],
-                num_frames,
-                params.alloc,
-                params.free,
-                params.float_type,
-            )
-            .ok_or_else(|| format!("can't allocate {num_frames} bytes"))?,
-        );
-    }
+    data.resize(channels.len(), Vec::<f32>::with_capacity(num_frames));
 
-    assert!(channels.len() == data.len());
-
-    // The decode loop.
+    // The decode loop
     loop {
-        // Get the next packet from the media format.
-        let packet = match info.format.next_packet() {
-            Ok(packet) => packet,
+        use symphonia::core::errors::Error;
+
+        match format.next_packet() {
+            Ok(packet) => {
+                // If the packet does not belong to the selected track, skip over it.
+                if packet.track_id() != track.id {
+                    continue;
+                }
+
+                match decoder.decode(&packet) {
+                    Ok(decoded) => {
+                        if buf.is_none() {
+                            buf = Some(decoded.make_equivalent::<f32>());
+                        }
+
+                        decoded.convert(buf.as_mut().unwrap());
+                    }
+                    Err(Error::IoError(err)) => {
+                        if err.kind() == std::io::ErrorKind::UnexpectedEof {
+                            break;
+                        } else {
+                            return Err(format!("io error: {err}"));
+                        }
+                    }
+                    Err(Error::DecodeError(_)) => {
+                        // The packet failed to decode due to invalid data, skip the packet.
+                        continue;
+                    }
+                    Err(err) => return Err(format!("error: {err}")),
+                }
+
+                for c in channels.iter() {
+                    for s in buf.as_ref().unwrap().chan(*c) {
+                        data[*c].push(*s);
+                    }
+                }
+            }
             Err(err) => match err {
                 Error::IoError(err) => {
                     if err.kind() == std::io::ErrorKind::UnexpectedEof {
@@ -1109,64 +1093,6 @@ fn decode_file(params: LoadToArray, path: &Path) -> Result<Vec<ArrayData>, Strin
                     return Err(format!("some error: {err}"));
                 }
             },
-        };
-
-        // If the packet does not belong to the selected track, skip over it.
-        if packet.track_id() != track_id {
-            continue;
-        }
-
-        use symphonia::core::errors::Error;
-
-        // Decode the packet into audio samples.
-        match decoder.decode(&packet) {
-            Ok(decoded) => match decoded {
-                AudioBufferRef::F32(buf) => {
-                    read_buffer::<f32>(buf.as_ref(), &channels, &mut data);
-                }
-                AudioBufferRef::F64(buf) => {
-                    read_buffer::<f64>(buf.as_ref(), &channels, &mut data);
-                }
-                AudioBufferRef::U8(buf) => {
-                    read_buffer::<u8>(buf.as_ref(), &channels, &mut data);
-                }
-                AudioBufferRef::U16(buf) => {
-                    read_buffer::<u16>(buf.as_ref(), &channels, &mut data);
-                }
-                AudioBufferRef::U24(buf) => {
-                    read_buffer::<symphonia::core::sample::u24>(buf.as_ref(), &channels, &mut data);
-                }
-                AudioBufferRef::U32(buf) => {
-                    read_buffer::<u32>(buf.as_ref(), &channels, &mut data);
-                }
-                AudioBufferRef::S8(buf) => {
-                    read_buffer::<i8>(buf.as_ref(), &channels, &mut data);
-                }
-                AudioBufferRef::S16(buf) => {
-                    read_buffer::<i16>(buf.as_ref(), &channels, &mut data);
-                }
-                AudioBufferRef::S24(buf) => {
-                    read_buffer::<symphonia::core::sample::i24>(buf.as_ref(), &channels, &mut data);
-                }
-                AudioBufferRef::S32(buf) => {
-                    read_buffer::<i32>(buf.as_ref(), &channels, &mut data);
-                }
-            },
-            // Consume the decoded audio samples (see below).
-            Err(Error::IoError(err)) => {
-                if err.kind() == std::io::ErrorKind::UnexpectedEof {
-                    break;
-                } else {
-                    return Err(format!("io error: {err}"));
-                }
-            }
-            Err(Error::DecodeError(_)) => {
-                // The packet failed to decode due to invalid data, skip the packet.
-                continue;
-            }
-            Err(err) => {
-                return Err(format!("error: {err}"));
-            }
         }
     }
 
@@ -1174,17 +1100,48 @@ fn decode_file(params: LoadToArray, path: &Path) -> Result<Vec<ArrayData>, Strin
         return Err(format!("empty result"));
     }
 
-    if params.normalize {
-        let max = data
-            .iter()
-            .map(|x| x.abs_max())
-            .reduce(f32::max)
-            .ok_or_else(|| format!("normalization error"))?;
+    if src_samplerate != params.samplerate {
+        debug!("resample from {} -> {} ", src_samplerate, params.samplerate);
+        let mut resampler = FftFixedIn::<f32>::new(
+            src_samplerate as usize,
+            params.samplerate as usize,
+            data[0].len(),
+            256,
+            data.len(),
+        )
+        .map_err(|e| e.to_string())?;
 
-        data.iter_mut().for_each(|x| x.normalize(max));
+        data = resampler.process(&data, None).map_err(|e| e.to_string())?;
     }
 
-    Ok(data)
+    let mut max_sample = 0.0;
+    let mut pd_data = vec![];
+    for i in 0..data.len() {
+        let mut pd_array = ArrayData::alloc(
+            CString::new(params.arrays[i].name.clone()).unwrap_or_default(),
+            channels[i],
+            num_frames,
+            params.alloc,
+            params.free,
+            params.float_type,
+        )
+        .ok_or_else(|| format!("can't allocate {num_frames} bytes"))?;
+
+        for x in data[i].iter() {
+            pd_array.push(*x);
+            if x.abs() > max_sample {
+                max_sample = x.abs();
+            }
+        }
+
+        pd_data.push(pd_array);
+    }
+
+    if params.normalize && max_sample > 0.0 {
+        pd_data.iter_mut().for_each(|x| x.normalize(max_sample));
+    }
+
+    Ok(pd_data)
 }
 
 async fn download_file(
@@ -1900,6 +1857,7 @@ pub extern "C" fn ceammc_freesound_load_to_arrays(
     num_arrays: usize,
     normalize: bool,
     access: *const c_char,
+    samplerate: u32,
     double: bool,
 ) -> bool {
     if cli.is_none() {
@@ -1949,6 +1907,7 @@ pub extern "C" fn ceammc_freesound_load_to_arrays(
             } else {
                 FloatType::Float
             },
+            samplerate,
         }))
 }
 

@@ -386,6 +386,7 @@ bool ceammc_freesound_load_to_arrays(const ceammc_freesound_client *cli,
                                      size_t num_arrays,
                                      bool normalize,
                                      const char *access,
+                                     uint32_t samplerate,
                                      bool double_);
 
 /// get freesound user information

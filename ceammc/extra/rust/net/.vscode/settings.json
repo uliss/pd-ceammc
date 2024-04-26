@@ -13,6 +13,7 @@
         "oneshot",
         "perc",
         "reqwest",
+        "resampler",
         "rumqttc",
         "samplerate",
         "Tele",

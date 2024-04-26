@@ -187,6 +187,7 @@ void NetFreesound::m_load(t_symbol* s, const AtomListView& lv)
         arrays.size(),
         norm,
         AccessToken::instance().token.c_str(),
+        static_cast<float>(sys_getsr()),
         std::is_same<double, t_float>::value);
 }
 

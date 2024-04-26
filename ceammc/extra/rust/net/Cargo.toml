@@ -31,6 +31,7 @@ tempfile = "3.10.1"
 symphonia = { version = "0.5.4", features = ["mp3", "aiff"] }
 derivative = "2.2.0"
 itertools = "0.12.1"
+rubato = "0.15.0"
 
 [build-dependencies]
 cbindgen = "0.22.0"
