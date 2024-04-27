@@ -204,6 +204,9 @@ if(RAGEL_FOUND)
     RAGEL_TARGET(ceammc_editor_unescape
         ceammc_editor_unescape.rl ceammc_editor_unescape.cpp
         COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_dict_expr
+        lex/parser_dict_expr.rl lex/parser_dict_expr.cpp
+        COMPILE_FLAGS "-G2 -s")
 endif()
 
 add_custom_target(lemon_data_parser
@@ -224,6 +227,7 @@ target_sources(ceammc_core
         lex/parser_array_saver.cpp
         lex/parser_clone.cpp
         lex/parser_color.cpp
+        lex/parser_dict_expr.cpp
         lex/parser_faust.cpp
         lex/parser_hexbeat.cpp
         lex/parser_midi.cpp
