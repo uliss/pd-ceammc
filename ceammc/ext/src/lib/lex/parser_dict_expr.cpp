@@ -107,10 +107,13 @@ case 12:
 		case 91: goto st2;
 		case 95: goto tr21;
 	}
-	if ( (*p) > 90 ) {
+	if ( (*p) < 65 ) {
+		if ( 48 <= (*p) && (*p) <= 57 )
+			goto tr21;
+	} else if ( (*p) > 90 ) {
 		if ( 97 <= (*p) && (*p) <= 122 )
 			goto tr21;
-	} else if ( (*p) >= 65 )
+	} else
 		goto tr21;
 	goto st0;
 tr21:
@@ -123,7 +126,7 @@ st13:
 	if ( ++p == pe )
 		goto _test_eof13;
 case 13:
-#line 127 "lex/parser_dict_expr.cpp"
+#line 130 "lex/parser_dict_expr.cpp"
 	switch( (*p) ) {
 		case 46: goto tr23;
 		case 95: goto st13;
@@ -159,7 +162,7 @@ st3:
 	if ( ++p == pe )
 		goto _test_eof3;
 case 3:
-#line 163 "lex/parser_dict_expr.cpp"
+#line 166 "lex/parser_dict_expr.cpp"
 	switch( (*p) ) {
 		case 34: goto st0;
 		case 91: goto st0;
@@ -176,7 +179,7 @@ st4:
 	if ( ++p == pe )
 		goto _test_eof4;
 case 4:
-#line 180 "lex/parser_dict_expr.cpp"
+#line 183 "lex/parser_dict_expr.cpp"
 	switch( (*p) ) {
 		case 34: goto tr9;
 		case 91: goto st0;
@@ -201,7 +204,7 @@ st5:
 	if ( ++p == pe )
 		goto _test_eof5;
 case 5:
-#line 205 "lex/parser_dict_expr.cpp"
+#line 208 "lex/parser_dict_expr.cpp"
 	if ( (*p) == 93 )
 		goto st14;
 	goto st0;
@@ -273,7 +276,7 @@ st14:
 	if ( ++p == pe )
 		goto _test_eof14;
 case 14:
-#line 277 "lex/parser_dict_expr.cpp"
+#line 280 "lex/parser_dict_expr.cpp"
 	if ( (*p) == 46 )
 		goto tr25;
 	goto st0;
@@ -287,7 +290,7 @@ st6:
 	if ( ++p == pe )
 		goto _test_eof6;
 case 6:
-#line 291 "lex/parser_dict_expr.cpp"
+#line 294 "lex/parser_dict_expr.cpp"
 	if ( (*p) == 48 )
 		goto tr11;
 	if ( 49 <= (*p) && (*p) <= 57 )
@@ -307,7 +310,7 @@ st7:
 	if ( ++p == pe )
 		goto _test_eof7;
 case 7:
-#line 311 "lex/parser_dict_expr.cpp"
+#line 314 "lex/parser_dict_expr.cpp"
 	switch( (*p) ) {
 		case 58: goto tr13;
 		case 93: goto tr14;
@@ -331,7 +334,7 @@ st8:
 	if ( ++p == pe )
 		goto _test_eof8;
 case 8:
-#line 335 "lex/parser_dict_expr.cpp"
+#line 338 "lex/parser_dict_expr.cpp"
 	switch( (*p) ) {
 		case 48: goto tr15;
 		case 93: goto tr17;
@@ -349,7 +352,7 @@ st9:
 	if ( ++p == pe )
 		goto _test_eof9;
 case 9:
-#line 353 "lex/parser_dict_expr.cpp"
+#line 356 "lex/parser_dict_expr.cpp"
 	if ( (*p) == 93 )
 		goto tr18;
 	goto st0;
@@ -367,7 +370,7 @@ st10:
 	if ( ++p == pe )
 		goto _test_eof10;
 case 10:
-#line 371 "lex/parser_dict_expr.cpp"
+#line 374 "lex/parser_dict_expr.cpp"
 	if ( (*p) == 93 )
 		goto tr18;
 	if ( 48 <= (*p) && (*p) <= 57 )
@@ -387,7 +390,7 @@ st11:
 	if ( ++p == pe )
 		goto _test_eof11;
 case 11:
-#line 391 "lex/parser_dict_expr.cpp"
+#line 394 "lex/parser_dict_expr.cpp"
 	switch( (*p) ) {
 		case 58: goto tr13;
 		case 93: goto tr14;
@@ -456,7 +459,7 @@ case 11:
                 }
              }
 	break;
-#line 460 "lex/parser_dict_expr.cpp"
+#line 463 "lex/parser_dict_expr.cpp"
 	}
 	}
 

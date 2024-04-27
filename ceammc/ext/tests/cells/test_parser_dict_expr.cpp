@@ -34,25 +34,19 @@ TEST_CASE("parser_dict_expr", "[parsers]")
         REQUIRE_FALSE(parser::parse_dict_expr(".[100:-200]"));
         REQUIRE_FALSE(parser::parse_dict_expr(".[1:2.5]"));
         REQUIRE(parser::parse_dict_expr(".test_key"));
+        REQUIRE(parser::parse_dict_expr(".KEY"));
+        REQUIRE(parser::parse_dict_expr(".KEY123"));
+        REQUIRE(parser::parse_dict_expr(".123KEY"));
         REQUIRE(parser::parse_dict_expr(".[\"any keys ?!@#$%^&*\"]"));
         REQUIRE_FALSE(parser::parse_dict_expr(".['key']"));
         REQUIRE(parser::parse_dict_expr(".a.b.c"));
         REQUIRE(parser::parse_dict_expr("...c"));
     }
 
-    SECTION("matches")
+    SECTION("match array")
     {
         std::vector<parser::DictExprMatcher> m;
-        REQUIRE(parser::parse_dict_expr(".", &m));
-        REQUIRE(m.size() == 1);
-        REQUIRE(m[0].matchAny());
-        REQUIRE(m[0].key_name.empty());
-        REQUIRE(m[0].arraySlice(0).first == 0);
-        REQUIRE(m[0].arraySlice(0).second == 0);
-        REQUIRE(m[0].arraySlice(100).first == 0);
-        REQUIRE(m[0].arraySlice(100).second == 100);
 
-        m.clear();
         REQUIRE(parser::parse_dict_expr(".[0]", &m));
         REQUIRE(m.size() == 1);
         REQUIRE(m[0].matchList());
@@ -271,5 +265,41 @@ TEST_CASE("parser_dict_expr", "[parsers]")
         REQUIRE(m[0].arraySlice(4).second == 2);
         REQUIRE(m[0].arraySlice(5).first == 3);
         REQUIRE(m[0].arraySlice(5).second == 2);
+    }
+
+    SECTION("match node")
+    {
+        std::vector<parser::DictExprMatcher> m;
+
+        REQUIRE(parser::parse_dict_expr(".", &m));
+        REQUIRE(m.size() == 1);
+        REQUIRE(m[0].matchAny());
+        REQUIRE(m[0].key_name.empty());
+        REQUIRE(m[0].arraySlice(0).first == 0);
+        REQUIRE(m[0].arraySlice(0).second == 0);
+        REQUIRE(m[0].arraySlice(100).first == 0);
+        REQUIRE(m[0].arraySlice(100).second == 100);
+
+        m.clear();
+        REQUIRE(parser::parse_dict_expr(".node", &m));
+        REQUIRE(m.size() == 1);
+        REQUIRE(m[0].matchDict());
+        REQUIRE(m[0].key_name == "node");
+
+        m.clear();
+        REQUIRE(parser::parse_dict_expr(".[\"node:\"]", &m));
+        REQUIRE(m.size() == 1);
+        REQUIRE(m[0].matchDict());
+        REQUIRE(m[0].key_name == "node:");
+
+        m.clear();
+        REQUIRE(parser::parse_dict_expr(".a..b", &m));
+        REQUIRE(m.size() == 3);
+        REQUIRE(m[0].matchDict());
+        REQUIRE(m[0].key_name == "a");
+        REQUIRE(m[1].matchAny());
+        REQUIRE(m[1].key_name == "");
+        REQUIRE(m[2].matchDict());
+        REQUIRE(m[2].key_name == "b");
     }
 }

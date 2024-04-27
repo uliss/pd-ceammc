@@ -50,7 +50,7 @@ namespace parser {
     obj_expr = arr_expr | key_expr;
 
     match_any = '.' %any_start;
-    match_key = '.' %any_start ([a-zA-Z_] [a-zA-Z_0-9]*)
+    match_key = '.' %any_start ([a-zA-Z_0-9]+)
                     >key_start
                     %key_end
                     ;
