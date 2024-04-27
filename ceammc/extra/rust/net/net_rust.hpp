@@ -138,42 +138,10 @@ struct ceammc_freesound_info_me {
     size_t str_props_len;
 };
 
-struct ceammc_freesound_prop_f64 {
-    const char *name;
-    double value;
-};
-
-struct ceammc_freesound_prop_array_f64 {
-    const char *name;
-    const double *data;
-    size_t size;
-};
-
-struct ceammc_freesound_prop_obj {
-    const char *name;
-    const ceammc_freesound_prop_array_f64 *data;
-    size_t len;
-};
-
 struct ceammc_freesound_search_result {
-    /// The sound’s unique identifier.
-    uint64_t id;
-    /// tags list (can be NULL)
-    const char *const *tags;
-    /// tag list length
-    size_t tags_len;
-    /// numeric props
-    const ceammc_freesound_prop_f64 *num_props;
-    /// number of numeric props
-    size_t num_props_len;
-    /// str props
-    const ceammc_freesound_prop_str *str_props;
-    /// number of str props
-    size_t str_props_len;
-    /// obj props
-    const ceammc_freesound_prop_obj *obj_props;
-    /// number of obj props
-    size_t obj_props_len;
+    uint32_t prev;
+    uint32_t next;
+    size_t count;
 };
 
 struct ceammc_freesound_result_cb {
@@ -182,8 +150,16 @@ struct ceammc_freesound_result_cb {
     void (*cb_oauth_access)(void *user, const char *token, uint64_t expires);
     void (*cb_oauth_file)(void *user, const char *id, const char *secret);
     void (*cb_info_me)(void *user, const ceammc_freesound_info_me *data);
-    void (*cb_search_info)(void *user, uint64_t count, uint32_t prev, uint32_t next);
-    void (*cb_search_result)(void *user, size_t i, const ceammc_freesound_search_result *res);
+    /// should return pointer to alloc dict, that will passed to other functions below
+    void *(*cb_search_results_begin)(void *user, const ceammc_freesound_search_result *data);
+    /// should return pointer to alloc data, that will passed to other functions below
+    void *(*cb_search_result_create)(uint64_t id);
+    void (*cb_search_tag)(void *data, const char *tag);
+    void (*cb_search_num)(void *data, const char *key, double value);
+    void (*cb_search_str)(void *data, const char *key, const char *value);
+    void (*cb_search_obj)(void *dict, const char *key1, const char *key2, const double *values, size_t num_values);
+    void (*cb_search_result_append)(void *dict, void *data);
+    void (*cb_search_results_done)(void *user, void *dict);
     void (*cb_download)(void *user, const char *filename);
     void (*cb_load)(void *user, ceammc_freesound_array_data *data, size_t size);
 };

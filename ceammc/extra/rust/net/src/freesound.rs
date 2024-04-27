@@ -283,29 +283,6 @@ impl Debug for freesound_prop_obj {
     }
 }
 
-#[allow(non_camel_case_types)]
-#[repr(C)]
-pub struct freesound_search_result {
-    /// The sound’s unique identifier.
-    id: u64,
-    /// tags list (can be NULL)
-    tags: *const *const c_char,
-    /// tag list length
-    tags_len: usize,
-    /// numeric props
-    num_props: *const freesound_prop_f64,
-    /// number of numeric props
-    num_props_len: usize,
-    /// str props
-    str_props: *const freesound_prop_str,
-    /// number of str props
-    str_props_len: usize,
-    /// obj props
-    obj_props: *const freesound_prop_obj,
-    /// number of obj props
-    obj_props_len: usize,
-}
-
 #[derive(Debug)]
 struct SearchResult {
     // The sound’s unique identifier.
@@ -599,6 +576,14 @@ pub struct freesound_client {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
+pub struct freesound_search_result {
+    prev: u32,
+    next: u32,
+    count: usize,
+}
+
+#[allow(non_camel_case_types)]
+#[repr(C)]
 pub struct freesound_result_cb {
     user: *mut c_void,
     cb_oauth_url: Option<extern "C" fn(user: *mut c_void, url: *const c_char)>,
@@ -606,9 +591,25 @@ pub struct freesound_result_cb {
     cb_oauth_file:
         Option<extern "C" fn(user: *mut c_void, id: *const c_char, secret: *const c_char)>,
     cb_info_me: Option<extern "C" fn(user: *mut c_void, data: &freesound_info_me)>,
-    cb_search_info: Option<extern "C" fn(user: *mut c_void, count: u64, prev: u32, next: u32)>,
-    cb_search_result:
-        Option<extern "C" fn(user: *mut c_void, i: usize, res: &freesound_search_result)>,
+
+    /// should return pointer to alloc dict, that will passed to other functions below
+    cb_search_results_begin:
+        extern "C" fn(user: *mut c_void, data: &freesound_search_result) -> *mut c_void,
+    /// should return pointer to alloc data, that will passed to other functions below
+    cb_search_result_create: extern "C" fn(id: u64) -> *mut c_void,
+    cb_search_tag: extern "C" fn(data: *mut c_void, tag: *const c_char),
+    cb_search_num: extern "C" fn(data: *mut c_void, key: *const c_char, value: f64),
+    cb_search_str: extern "C" fn(data: *mut c_void, key: *const c_char, value: *const c_char),
+    cb_search_obj: extern "C" fn(
+        dict: *mut c_void,
+        key1: *const c_char,
+        key2: *const c_char,
+        values: *const f64,
+        num_values: usize,
+    ),
+    cb_search_result_append: extern "C" fn(dict: *mut c_void, data: *mut c_void),
+    cb_search_results_done: extern "C" fn(user: *mut c_void, dict: *mut c_void),
+
     cb_download: Option<extern "C" fn(user: *mut c_void, filename: *const c_char)>,
     cb_load: Option<extern "C" fn(user: *mut c_void, data: *mut freesound_array_data, size: usize)>,
 }
@@ -646,75 +647,60 @@ impl ServiceCallback<FreeSoundReply> for freesound_result_cb {
                     f(self.user, &data);
                 });
             }
-            FreeSoundReply::SearchResults(res) => {
-                self.cb_search_info.map(|f| {
-                    f(self.user, res.count, res.prev, res.next);
+            FreeSoundReply::SearchResults(result) => {
+                let dict = (self.cb_search_results_begin)(
+                    self.user,
+                    &freesound_search_result {
+                        prev: result.prev,
+                        next: result.next,
+                        count: result.count as usize,
+                    },
+                );
 
-                    self.cb_search_result.map(|f| {
-                        for (i, res) in res.results.iter().enumerate() {
-                            debug!("result: {res:?}");
+                if dict.is_null() {
+                    return;
+                }
 
-                            let ctags = res.tags.iter().map(|x| x.as_ptr()).collect::<Vec<_>>();
+                for res in result.results.iter() {
+                    debug!("result: {res:?}");
 
-                            let num_props = res
-                                .num_map
-                                .iter()
-                                .map(|(k, v)| freesound_prop_f64 {
-                                    name: k.as_ptr(),
-                                    value: *v,
-                                })
-                                .collect::<Vec<_>>();
+                    let res_data = (self.cb_search_result_create)(res.id);
+                    if res_data.is_null() {
+                        break;
+                    }
 
-                            let str_props = res
-                                .str_map
-                                .iter()
-                                .map(|(k, v)| freesound_prop_str {
-                                    name: k.as_ptr(),
-                                    value: v.as_ptr(),
-                                })
-                                .collect::<Vec<_>>();
+                    // iterate tags pointers
+                    res.tags
+                        .iter()
+                        .for_each(|x| (self.cb_search_tag)(res_data, x.as_ptr()));
 
-                            let obj_props = res
-                                .obj_map
-                                .iter()
-                                .map(|(_, v)| {
-                                    v.iter()
-                                        .map(|(p, data)| freesound_prop_array_f64 {
-                                            name: p.as_ptr(),
-                                            data: data.as_ptr(),
-                                            size: data.len(),
-                                        })
-                                        .collect::<Vec<_>>()
-                                })
-                                .collect::<Vec<_>>();
-
-                            let obj_props2 = res
-                                .obj_map
-                                .iter()
-                                .zip(&obj_props)
-                                .map(|((k, _), data)| freesound_prop_obj {
-                                    name: k.as_ptr(),
-                                    data: data.as_ptr(),
-                                    len: data.len(),
-                                })
-                                .collect::<Vec<_>>();
-
-                            let res = freesound_search_result {
-                                id: res.id,
-                                tags: ctags.as_ptr(),
-                                tags_len: ctags.len(),
-                                num_props: num_props.as_ptr(),
-                                num_props_len: num_props.len(),
-                                str_props: str_props.as_ptr(),
-                                str_props_len: str_props.len(),
-                                obj_props: obj_props2.as_ptr(),
-                                obj_props_len: obj_props2.len(),
-                            };
-
-                            f(self.user, i, &res);
-                        }
+                    // iterate numeric properties
+                    res.num_map.iter().for_each(|(k, v)| {
+                        (self.cb_search_num)(res_data, k.as_ptr(), *v);
                     });
-                });
+
+                    // iterate string properties
+                    res.str_map.iter().for_each(|(k, v)| {
+                        (self.cb_search_str)(res_data, k.as_ptr(), v.as_ptr());
+                    });
+
+                    // iterate object properties
+                    res.obj_map.iter().for_each(|(k1, v)| {
+                        v.iter().for_each(|(k2, v)| {
+                            (self.cb_search_obj)(
+                                res_data,
+                                k1.as_ptr(),
+                                k2.as_ptr(),
+                                v.as_ptr(),
+                                v.len(),
+                            );
+                        });
+                    });
+
+                    (self.cb_search_result_append)(dict, res_data);
+                }
+
+                (self.cb_search_results_done)(self.user, dict);
             }
             FreeSoundReply::Downloaded(path) => {
                 self.cb_download.map(|f| {

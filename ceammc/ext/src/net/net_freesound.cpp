@@ -84,16 +84,106 @@ void NetFreesound::initDone()
                 if (this_ && info)
                     this_->processReplyInfoMe(*info);
             },
-            [](void* user, uint64_t count, std::uint32_t prev, std::uint32_t next) {
+            [](void* user, const ceammc_freesound_search_result* res) -> void* {
                 auto this_ = static_cast<NetFreesound*>(user);
-                if (this_)
-                    this_->processReplySearchInfo(count, prev, next);
+                if (!this_ || !res)
+                    return nullptr;
+
+                return new DictAtom({ //
+                    DataTypeDict::DictEntry { "prev", res->prev },
+                    DataTypeDict::DictEntry { "next", res->next },
+                    DataTypeDict::DictEntry { "count", res->count } });
             },
-            [](void* user, size_t i, const ceammc_freesound_search_result* res) {
-                auto this_ = static_cast<NetFreesound*>(user);
-                if (this_ && res)
-                    this_->processReplySearch(i, *res);
+            [](uint64_t id) -> void* {
+                return new DataTypeDict({ DataTypeDict::DictEntry { "id", id } });
             },
+            [](void* data, const char* tag) {
+                if (!data)
+                    return;
+
+                auto dict = static_cast<DataTypeDict*>(data);
+
+                auto key_tags = gensym("tags");
+                if (dict->contains(key_tags)) {
+                    dict->at(key_tags).append(gensym(tag));
+                } else {
+                    dict->insert(key_tags, gensym(tag));
+                }
+            },
+            [](void* data, const char* key, double value) {
+                if (!data)
+                    return;
+
+                auto dict = static_cast<DataTypeDict*>(data);
+
+                auto sym_key = gensym(key);
+                if (dict->contains(sym_key)) {
+                    dict->at(sym_key).append(t_float(value));
+                } else {
+                    dict->insert(sym_key, t_float(value));
+                }
+            },
+            [](void* data, const char* key, const char* value) {
+                if (!data)
+                    return;
+
+                auto dict = static_cast<DataTypeDict*>(data);
+
+                auto sym_key = gensym(key);
+                if (dict->contains(sym_key)) {
+                    dict->at(sym_key).append(gensym(value));
+                } else {
+                    dict->insert(sym_key, gensym(value));
+                }
+            },
+            [](void* data, const char* key1, const char* key2, const double* floats, size_t num_floats) {
+                if (!data)
+                    return;
+
+                auto dict = static_cast<DataTypeDict*>(data);
+
+                auto sym_key = gensym(fmt::format("{}.{}", key1, key2).c_str());
+                if (dict->contains(sym_key)) {
+                    auto& ref = dict->at(sym_key);
+                    ref.reserve(num_floats);
+                    for (size_t i = 0; i < num_floats; i++)
+                        ref.append(floats[i]);
+                } else {
+                    AtomList value;
+                    value.reserve(num_floats);
+                    for (size_t i = 0; i < num_floats; i++)
+                        value.append(floats[i]);
+
+                    dict->insert(sym_key, value);
+                }
+            },
+            [](void* data0, void* data1) {
+                if (!data0 || !data1)
+                    return;
+
+                auto dict0 = static_cast<DictAtom*>(data0);
+                auto dict1 = static_cast<DataTypeDict*>(data1);
+
+                auto key_res = gensym("results");
+                if ((*dict0)->contains(key_res)) {
+                    (*dict0)->at(key_res).append(DictAtom(std::move(*dict1)));
+                } else {
+                    (*dict0)->insert(key_res, DictAtom(std::move(*dict1)));
+                }
+
+                delete dict1;
+            },
+            [](void* data0, void* data1) {
+                if (!data0 || !data1)
+                    return;
+
+                auto this_ = static_cast<NetFreesound*>(data0);
+                auto dict = static_cast<DictAtom*>(data1);
+
+                this_->atomTo(0, *dict);
+                delete dict;
+            },
+
             [](void* user, const char* filename) {
                 auto this_ = static_cast<NetFreesound*>(user);
                 if (this_ && filename) {
@@ -343,63 +433,6 @@ void NetFreesound::processReplyInfoMe(const ceammc_freesound_info_me& info)
     }
 
     anyTo(0, gensym("me"), data);
-}
-
-void NetFreesound::processReplySearchInfo(uint64_t id, std::uint32_t prev, std::uint32_t next)
-{
-    AtomArray<4> data { gensym("info"), id, prev, next };
-    anyTo(0, gensym("search"), data.view());
-}
-
-void NetFreesound::processReplySearch(uint64_t i, const ceammc_freesound_search_result& res)
-{
-    DictAtom da;
-    da->insert("id", res.id);
-
-    // str props
-    for (size_t i = 0; res.str_props && i < res.str_props_len; i++) {
-        auto& prop = res.str_props[i];
-        da->insert(prop.name, gensym(prop.value));
-    }
-
-    // num props
-    for (size_t i = 0; res.num_props && i < res.num_props_len; i++) {
-        auto& prop = res.num_props[i];
-        da->insert(prop.name, prop.value);
-    }
-
-    // obj props
-    for (size_t i = 0; res.obj_props && i < res.obj_props_len; i++) {
-        auto& level1 = res.obj_props[i];
-
-        DictAtom objs;
-        for (size_t j = 0; j < level1.len; j++) {
-            auto& level2 = level1.data[j];
-
-            AtomList data;
-            for (size_t k = 0; k < level2.size; k++) {
-                data.append(level2.data[k]);
-            }
-
-            objs->insert(level2.name, data);
-        }
-        if (level1.len > 0)
-            da->insert(level1.name, objs);
-    }
-
-    // tags
-    AtomList tags;
-    for (size_t i = 0; res.tags && i < res.tags_len; i++) {
-        auto tag = res.tags[i];
-        if (tag)
-            tags.append(gensym(tag));
-    }
-
-    if (tags.size() > 0)
-        da->insert("tags", tags);
-
-    // output
-    anyTo(0, gensym("search"), da);
 }
 
 void NetFreesound::processReplyDownload(const char* filename)
