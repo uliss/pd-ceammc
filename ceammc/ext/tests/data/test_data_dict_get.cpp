@@ -28,13 +28,13 @@ static std::vector<Message> msort(const std::vector<Message>& m)
                     return m1.atomValue() < m2.atomValue();
                 } else if (m1.isList()) {
                     auto& l1 = m1.listValue();
-                    auto& l2 = m1.listValue();
+                    auto& l2 = m2.listValue();
                     for (size_t i = 0; i < std::min<size_t>(l1.size(), l2.size()); i++) {
                         if (l1[i] < l2[i])
                             return true;
                     }
 
-                    return false;
+                    return l1.size() > l2.size();
                 } else {
                     if (m1.isData())
                         return m1.atomValue().dataType() < m2.atomValue().dataType();
