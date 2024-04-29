@@ -82,7 +82,7 @@ namespace parser {
     write data;
 }%%
 
-bool parse_dict_expr(const char* expr, DictExprMatchList* matches)
+bool parse_dict_match_expr(const char* expr, DictExprMatchList* matches)
 {
     int cs = 0;
     const char* p = expr;

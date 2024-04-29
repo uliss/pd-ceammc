@@ -72,7 +72,7 @@ namespace parser {
 
     using DictExprMatchList = std::vector<DictExprMatcher>;
 
-    bool parse_dict_expr(const char* expr, DictExprMatchList* matches = nullptr);
+    bool parse_dict_match_expr(const char* expr, DictExprMatchList* matches = nullptr);
 
 }
 }

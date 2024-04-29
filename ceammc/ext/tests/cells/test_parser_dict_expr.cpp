@@ -23,33 +23,33 @@ TEST_CASE("parser_dict_expr", "[parsers]")
 
     SECTION("syntax")
     {
-        REQUIRE(parser::parse_dict_expr("/*"));
-        REQUIRE(parser::parse_dict_expr("/0"));
-        REQUIRE(parser::parse_dict_expr("/1"));
-        REQUIRE(parser::parse_dict_expr("/+1"));
-        REQUIRE(parser::parse_dict_expr("/-2"));
-        REQUIRE(parser::parse_dict_expr("/100:"));
-        REQUIRE_FALSE(parser::parse_dict_expr("/1.5"));
-        REQUIRE(parser::parse_dict_expr("/100:200"));
-        REQUIRE_FALSE(parser::parse_dict_expr("/100:+200"));
-        REQUIRE_FALSE(parser::parse_dict_expr("/100:-200"));
-        REQUIRE_FALSE(parser::parse_dict_expr("/1:2.5"));
-        REQUIRE(parser::parse_dict_expr("/test_key"));
-        REQUIRE(parser::parse_dict_expr("/KEY"));
-        REQUIRE(parser::parse_dict_expr("/KEY/0"));
-        REQUIRE(parser::parse_dict_expr("/KEY123"));
-        REQUIRE_FALSE(parser::parse_dict_expr("/123KEY"));
-        REQUIRE(parser::parse_dict_expr("/\"any keys ?!@#$%^&*\""));
-        REQUIRE_FALSE(parser::parse_dict_expr("/'key'"));
-        REQUIRE(parser::parse_dict_expr("/a/b/c"));
-        REQUIRE(parser::parse_dict_expr("/*/*/c"));
+        REQUIRE(parser::parse_dict_match_expr("/*"));
+        REQUIRE(parser::parse_dict_match_expr("/0"));
+        REQUIRE(parser::parse_dict_match_expr("/1"));
+        REQUIRE(parser::parse_dict_match_expr("/+1"));
+        REQUIRE(parser::parse_dict_match_expr("/-2"));
+        REQUIRE(parser::parse_dict_match_expr("/100:"));
+        REQUIRE_FALSE(parser::parse_dict_match_expr("/1.5"));
+        REQUIRE(parser::parse_dict_match_expr("/100:200"));
+        REQUIRE_FALSE(parser::parse_dict_match_expr("/100:+200"));
+        REQUIRE_FALSE(parser::parse_dict_match_expr("/100:-200"));
+        REQUIRE_FALSE(parser::parse_dict_match_expr("/1:2.5"));
+        REQUIRE(parser::parse_dict_match_expr("/test_key"));
+        REQUIRE(parser::parse_dict_match_expr("/KEY"));
+        REQUIRE(parser::parse_dict_match_expr("/KEY/0"));
+        REQUIRE(parser::parse_dict_match_expr("/KEY123"));
+        REQUIRE_FALSE(parser::parse_dict_match_expr("/123KEY"));
+        REQUIRE(parser::parse_dict_match_expr("/\"any keys ?!@#$%^&*\""));
+        REQUIRE_FALSE(parser::parse_dict_match_expr("/'key'"));
+        REQUIRE(parser::parse_dict_match_expr("/a/b/c"));
+        REQUIRE(parser::parse_dict_match_expr("/*/*/c"));
     }
 
     SECTION("match array")
     {
         std::vector<parser::DictExprMatcher> m;
 
-        REQUIRE(parser::parse_dict_expr("/0", &m));
+        REQUIRE(parser::parse_dict_match_expr("/0", &m));
         REQUIRE(m.size() == 1);
         REQUIRE(m[0].matchList());
         REQUIRE(m[0].key_name == &s_);
@@ -61,7 +61,7 @@ TEST_CASE("parser_dict_expr", "[parsers]")
         REQUIRE(m[0].arraySlice(2).second == 1);
 
         m.clear();
-        REQUIRE(parser::parse_dict_expr("/0:", &m));
+        REQUIRE(parser::parse_dict_match_expr("/0:", &m));
         REQUIRE(m.size() == 1);
         REQUIRE(m[0].matchList());
         REQUIRE(m[0].key_name == &s_);
@@ -73,7 +73,7 @@ TEST_CASE("parser_dict_expr", "[parsers]")
         REQUIRE(m[0].arraySlice(2).second == 2);
 
         m.clear();
-        REQUIRE(parser::parse_dict_expr("/0:0", &m));
+        REQUIRE(parser::parse_dict_match_expr("/0:0", &m));
         REQUIRE(m.size() == 1);
         REQUIRE(m[0].matchList());
         REQUIRE(m[0].key_name == &s_);
@@ -85,7 +85,7 @@ TEST_CASE("parser_dict_expr", "[parsers]")
         REQUIRE(m[0].arraySlice(2).second == 0);
 
         m.clear();
-        REQUIRE(parser::parse_dict_expr("/0:1000", &m));
+        REQUIRE(parser::parse_dict_match_expr("/0:1000", &m));
         REQUIRE(m.size() == 1);
         REQUIRE(m[0].matchList());
         REQUIRE(m[0].key_name == &s_);
@@ -97,7 +97,7 @@ TEST_CASE("parser_dict_expr", "[parsers]")
         REQUIRE(m[0].arraySlice(2).second == 2);
 
         m.clear();
-        REQUIRE(parser::parse_dict_expr("/1", &m));
+        REQUIRE(parser::parse_dict_match_expr("/1", &m));
         REQUIRE(m.size() == 1);
         REQUIRE(m[0].matchList());
         REQUIRE(m[0].key_name == &s_);
@@ -111,7 +111,7 @@ TEST_CASE("parser_dict_expr", "[parsers]")
         REQUIRE(m[0].arraySlice(3).second == 1);
 
         m.clear();
-        REQUIRE(parser::parse_dict_expr("/1:", &m));
+        REQUIRE(parser::parse_dict_match_expr("/1:", &m));
         REQUIRE(m.size() == 1);
         REQUIRE(m[0].matchList());
         REQUIRE(m[0].key_name == &s_);
@@ -125,7 +125,7 @@ TEST_CASE("parser_dict_expr", "[parsers]")
         REQUIRE(m[0].arraySlice(3).second == 2);
 
         m.clear();
-        REQUIRE(parser::parse_dict_expr("/1:3", &m));
+        REQUIRE(parser::parse_dict_match_expr("/1:3", &m));
         REQUIRE(m.size() == 1);
         REQUIRE(m[0].matchList());
         REQUIRE(m[0].key_name == &s_);
@@ -143,7 +143,7 @@ TEST_CASE("parser_dict_expr", "[parsers]")
         REQUIRE(m[0].arraySlice(5).second == 3);
 
         m.clear();
-        REQUIRE(parser::parse_dict_expr("/-1", &m));
+        REQUIRE(parser::parse_dict_match_expr("/-1", &m));
         REQUIRE(m.size() == 1);
         REQUIRE(m[0].matchList());
         REQUIRE(m[0].key_name == &s_);
@@ -161,7 +161,7 @@ TEST_CASE("parser_dict_expr", "[parsers]")
         REQUIRE(m[0].arraySlice(5).second == 1);
 
         m.clear();
-        REQUIRE(parser::parse_dict_expr("/-2", &m));
+        REQUIRE(parser::parse_dict_match_expr("/-2", &m));
         REQUIRE(m.size() == 1);
         REQUIRE(m[0].matchList());
         REQUIRE(m[0].key_name == &s_);
@@ -179,7 +179,7 @@ TEST_CASE("parser_dict_expr", "[parsers]")
         REQUIRE(m[0].arraySlice(5).second == 1);
 
         m.clear();
-        REQUIRE(parser::parse_dict_expr("/-2:", &m));
+        REQUIRE(parser::parse_dict_match_expr("/-2:", &m));
         REQUIRE(m.size() == 1);
         REQUIRE(m[0].matchList());
         REQUIRE(m[0].key_name == &s_);
@@ -197,7 +197,7 @@ TEST_CASE("parser_dict_expr", "[parsers]")
         REQUIRE(m[0].arraySlice(5).second == 2);
 
         m.clear();
-        REQUIRE(parser::parse_dict_expr("/-2:0", &m));
+        REQUIRE(parser::parse_dict_match_expr("/-2:0", &m));
         REQUIRE(m.size() == 1);
         REQUIRE(m[0].matchList());
         REQUIRE(m[0].key_name == &s_);
@@ -215,7 +215,7 @@ TEST_CASE("parser_dict_expr", "[parsers]")
         REQUIRE(m[0].arraySlice(5).second == 0);
 
         m.clear();
-        REQUIRE(parser::parse_dict_expr("/-2:1", &m));
+        REQUIRE(parser::parse_dict_match_expr("/-2:1", &m));
         REQUIRE(m.size() == 1);
         REQUIRE(m[0].matchList());
         REQUIRE(m[0].key_name == &s_);
@@ -233,7 +233,7 @@ TEST_CASE("parser_dict_expr", "[parsers]")
         REQUIRE(m[0].arraySlice(5).second == 1);
 
         m.clear();
-        REQUIRE(parser::parse_dict_expr("/-2:2", &m));
+        REQUIRE(parser::parse_dict_match_expr("/-2:2", &m));
         REQUIRE(m.size() == 1);
         REQUIRE(m[0].matchList());
         REQUIRE(m[0].key_name == &s_);
@@ -251,7 +251,7 @@ TEST_CASE("parser_dict_expr", "[parsers]")
         REQUIRE(m[0].arraySlice(5).second == 2);
 
         m.clear();
-        REQUIRE(parser::parse_dict_expr("/-2:3", &m));
+        REQUIRE(parser::parse_dict_match_expr("/-2:3", &m));
         REQUIRE(m.size() == 1);
         REQUIRE(m[0].matchList());
         REQUIRE(m[0].key_name == &s_);
@@ -273,7 +273,7 @@ TEST_CASE("parser_dict_expr", "[parsers]")
     {
         std::vector<parser::DictExprMatcher> m;
 
-        REQUIRE(parser::parse_dict_expr("/*", &m));
+        REQUIRE(parser::parse_dict_match_expr("/*", &m));
         REQUIRE(m.size() == 1);
         REQUIRE(m[0].matchAny());
         REQUIRE(m[0].key_name == &s_);
@@ -283,19 +283,19 @@ TEST_CASE("parser_dict_expr", "[parsers]")
         REQUIRE(m[0].arraySlice(100).second == 100);
 
         m.clear();
-        REQUIRE(parser::parse_dict_expr("/node", &m));
+        REQUIRE(parser::parse_dict_match_expr("/node", &m));
         REQUIRE(m.size() == 1);
         REQUIRE(m[0].matchDict());
         REQUIRE(m[0].key_name == S("node"));
 
         m.clear();
-        REQUIRE(parser::parse_dict_expr("/\"node:\"", &m));
+        REQUIRE(parser::parse_dict_match_expr("/\"node:\"", &m));
         REQUIRE(m.size() == 1);
         REQUIRE(m[0].matchDict());
         REQUIRE(m[0].key_name == S("node:"));
 
         m.clear();
-        REQUIRE(parser::parse_dict_expr("/a/*/b", &m));
+        REQUIRE(parser::parse_dict_match_expr("/a/*/b", &m));
         REQUIRE(m.size() == 3);
         REQUIRE(m[0].matchDict());
         REQUIRE(m[0].key_name == S("a"));
@@ -305,7 +305,7 @@ TEST_CASE("parser_dict_expr", "[parsers]")
         REQUIRE(m[2].key_name == S("b"));
 
         m.clear();
-        REQUIRE(parser::parse_dict_expr("/a/2", &m));
+        REQUIRE(parser::parse_dict_match_expr("/a/2", &m));
         REQUIRE(m.size() == 2);
         REQUIRE(m[0].matchDict());
         REQUIRE(m[1].matchList());

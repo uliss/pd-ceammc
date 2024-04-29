@@ -57,7 +57,7 @@ void DictGet::initDone()
 
         if (key[0] == '/') {
             parser::DictExprMatchList m;
-            if (parser::parse_dict_expr(key, &m)) {
+            if (parser::parse_dict_match_expr(key, &m)) {
                 key_data_.push_back({ &s_, m });
                 createOutlet();
             } else {
@@ -114,7 +114,7 @@ void DictGet::findMatches(const AtomListView& lv, const parser::DictExprMatcher*
                 }
             } break;
             case parser::DictExprMatchType::LIST: {
-                OBJ_ERR << fmt::format("can't index dict with index: {}", m->array_slice_begin);
+                OBJ_ERR << fmt::format("can't index dict with index: '{}'", m->array_slice_begin);
             } break;
             default:
                 break;
@@ -144,7 +144,7 @@ void DictGet::findMatches(const AtomListView& lv, const parser::DictExprMatcher*
             }
             break;
         default:
-            OBJ_ERR << fmt::format("can't index list with key: {}", m->key_name->s_name);
+            OBJ_ERR << fmt::format("can't index list with key: '{}'", m->key_name->s_name);
             break;
         }
     }

@@ -22,7 +22,7 @@ static const int dict_expr_en_main = 1;
 #line 83 "lex/parser_dict_expr.rl"
 
 
-bool parse_dict_expr(const char* expr, DictExprMatchList* matches)
+bool parse_dict_match_expr(const char* expr, DictExprMatchList* matches)
 {
     int cs = 0;
     const char* p = expr;
