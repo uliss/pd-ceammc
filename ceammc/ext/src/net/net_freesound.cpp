@@ -16,6 +16,12 @@ OBJECT_STUB_SETUP(NetFreesound, net_freesound, "net.freesound");
 #include "fmt/core.h"
 #include "net_freesound.h"
 
+CEAMMC_DEFINE_SYM(downloaded)
+CEAMMC_DEFINE_SYM(loaded)
+CEAMMC_DEFINE_SYM(progress)
+CEAMMC_DEFINE_SYM(results)
+CEAMMC_DEFINE_SYM(user)
+
 using AccessToken = SingletonMeyers<OAuthAccess>;
 
 NetFreesound::NetFreesound(const PdArgs& args)
@@ -51,11 +57,10 @@ void NetFreesound::initDone()
     cli_.reset(new NetFreesoundImpl {
         {
             secret_path.c_str(),
-            [](size_t n) -> ceammc_t_pd_rust_word* {
-                // std::cerr << fmt::format("-> alloc {} elements", n) << std::endl;
-                return static_cast<ceammc_t_pd_rust_word*>(getbytes(n * sizeof(t_word))); },
+            [](size_t n) -> ceammc_t_pd_rust_word* { //
+                return static_cast<ceammc_t_pd_rust_word*>(getbytes(n * sizeof(t_word)));
+            },
             [](ceammc_t_pd_rust_word* data, size_t n) {
-                // std::cerr << fmt::format("-> free {} elements", n) << std::endl;
                 freebytes(data, n);
             } //
         },
@@ -180,7 +185,7 @@ void NetFreesound::initDone()
                 auto this_ = static_cast<NetFreesound*>(data0);
                 auto dict = static_cast<DictAtom*>(data1);
 
-                this_->atomTo(0, *dict);
+                this_->anyTo(0, sym_results(), *dict);
                 delete dict;
             },
 
@@ -213,7 +218,7 @@ void NetFreesound::initDone()
         else
             poststring(".");
 
-        anyTo(1, gensym("progress"), Atom(percent));
+        anyTo(0, sym_progress(), Atom(percent));
     });
 }
 
@@ -432,13 +437,13 @@ void NetFreesound::processReplyInfoMe(const ceammc_freesound_info_me& info)
         data->insert(prop.name, gensym(prop.value));
     }
 
-    anyTo(0, gensym("me"), data);
+    anyTo(0, sym_user(), data);
 }
 
 void NetFreesound::processReplyDownload(const char* filename)
 {
     OBJ_DBG << "file downloaded to: " << filename;
-    anyTo(0, gensym("downloaded"), gensym(filename));
+    anyTo(0, sym_downloaded(), gensym(filename));
 }
 
 void NetFreesound::processReplyLoad(ceammc_freesound_array_data* data, size_t len)
@@ -470,7 +475,7 @@ void NetFreesound::processReplyLoad(ceammc_freesound_array_data* data, size_t le
         OBJ_DBG << fmt::format("loaded {} samples into '{}' from channel [{}]", array_size, array_name, array_chan);
     }
 
-    anyTo(0, gensym("loaded"), AtomListView {});
+    anyTo(0, sym_loaded(), AtomListView {});
 }
 
 bool NetFreesound::checkOAuth(t_symbol* s) const
