@@ -28,7 +28,6 @@ NetFreesound::NetFreesound(const PdArgs& args)
     : NetFreesoundBase(args)
 {
     createOutlet();
-    createOutlet();
 
     oauth_file_ = new SymbolProperty("@oauth_file", &s_);
     oauth_file_->setInitOnly();
@@ -235,7 +234,7 @@ void NetFreesound::m_download(t_symbol* s, const AtomListView& lv)
     if (!cli_ || !checkOAuth(s))
         return;
 
-    static const args::ArgChecker chk("ID:i @PARAMS:a*");
+    static const args::ArgChecker chk("ID:i");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 

@@ -14,20 +14,49 @@
             <since>0.9.8</since>
         </meta>
         <properties>
-            <property name="@oauth_id" type="symbol" default="" access="initonly">Freesound OAuth2 ID</property>
-            <property name="@oauth_secret" type="symbol" default="" access="initonly">Freesound OAuth2 secret</property>
-            <property name="@oauth_file" type="symbol" default="" access="initonly">path to file with OAuth2 ID/secret, one per line</property>
+            <property name="@oauth_id" type="symbol" default="" access="initonly">Freesound OAuth2
+            ID</property>
+            <property name="@oauth_secret" type="symbol" default="" access="initonly">Freesound
+            OAuth2 secret</property>
+            <property name="@oauth_file" type="symbol" default="" access="initonly">path to file
+            with OAuth2 ID/secret, one per line</property>
         </properties>
+        <info>
+        <par>1) create Freesound API credentials at:</par>
+        <a href="https://freesound.org/apiv2/apply">https://freesound.org/apiv2/apply</a>
+        <par>2) save this id/secret pair into file if using @oauth_file property or set @oauth_id/@oauth_secret properties explicitly.</par>
+        <par>3) [access auth( get temporal application code from Freesound website (valid for ~24 hours)</par>
+        <par>4) [access code CODE( exchange this application code to internal secret access token</par>
+        </info>
         <methods>
-            <method name="access auth">get temp authorization code (valid ~24 hours) from Freesound page: should open in web browser.</method>
-            <method name="access code">enter temp authorization code from Freesound site. Note: you can use the that code only single time!
-            <param name="CODE" type="symbol" required="true">auth code</param></method>
-            <method name="access store">store temp authorization code into the special file in the current patch directory</method>
-            <method name="access load">load temp authorization code from the special file from the current patch directory</method>
+            <method name="access auth">get application authorization code (valid ~24 hours) from
+            Freesound page: should open in web browser.</method>
+            <method name="access code">exchange application authorization code to temp *access*
+            token that will be used for every request. Note: you can do it only once, otherwise you
+            need to get another application authorization code from Freesite site. 
+            <param name="CODE" type="symbol" required="true">application auth code. Copy it from
+            from Freesound webpage!</param></method>
+            <method name="access store">store temp *access* token (not OAuth id/secret!) into the
+            special file in the current patch directory</method>
+            <method name="access load">load temp *access* token (not OAuth id/secret!) from the
+            special file from the current patch directory</method>
             <method name="me">get and output user information</method>
             <method name="search">perform search</method>
-            <method name="load">load Freesound file into Pd arrays</method>
-            <method name="download">download Freesound file</method>
+            <method name="load">load Freesound file into Pd arrays 
+            <param name="ID" type="int" required="true">Freesound soundfile ID (get it from search
+            result, for examples)</param>
+            <param name="@array" type="symbol" required="true">array name</param>
+            <param name="@norm" type="bool" required="false">normalize sound</param></method>
+            <method name="download">download Freesound file 
+            <param name="ID" type="int" required="true">Freesound soundfile ID (get it from search
+            result, for examples)</param>
+            <param name="@p" type="int" required="false" minvalue="1">search page number</param>
+            <param name="@n" type="int" required="false" minvalue="1">number of results</param>
+            <param name="@fields" type="symbol" required="false">requested fields</param>
+            <param name="@sort" type="symbol" required="false">sort methods: "score",
+            "duration_desc", "duration_asc", "created_desc", "created_asc", "downloads_desc",
+            "downloads_asc", "rating_desc", "rating_asc"</param>
+            <param name="@filter" type="symbol" required="false">filter expression</param></method>
         </methods>
         <inlets>
             <inlet>
@@ -35,20 +64,18 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list of resolved IP's</outlet>
-            <outlet>message: progress PERC</outlet>
+            <outlet>messages: [user DICT( - user info, [progress VALUE( - download process
+            information, [loaded( - when finished loading, [downloaded( - when file download is
+            finished, [results DICT( - search result.</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
-/*WARNING: first you should create Freesound OAuth id/secret keys!*/
-
-
 [search puredata @n 5 @fields id name @filter type mp3 #a(
 
-  [access auth #b(
-
-
+  [access auth #b( [L]
+                   |
+                   [access code $1 #c(
 
 [net.freesound #z]
 |
@@ -58,7 +85,7 @@
 |
 [print ID]
 
-[X a->z] [X b->z]
+[X a->z] [X b->z] [X c->z]
 ]]>
             </pdascii>
         </example>
