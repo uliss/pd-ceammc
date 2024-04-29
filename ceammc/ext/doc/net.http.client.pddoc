@@ -20,18 +20,22 @@
             <!-- get -->
             <method name="get">send GET request 
             <param name="URL" type="symbol" required="true">request URL</param>
-            <param name="@header" type="list" required="false">additional http header: @header name value</param>
+            <param name="@header" type="list" required="false">additional http header: @header name
+            value</param>
             <param name="@form" type="list" required="false">form key-value pair: @form key value.
             For application/x-www-form-urlencoded MIME type.</param>
-            <param name="@auth" type="list" required="false">basic auth username/password: @auth user pass</param>
-            <param name="@css" type="list" required="false">apply CSS selector to the request body: @css SEL OUTPUT_TYPE,
-            where OUTPUT_TYPE is one of: 'html', 'inner', 'text', 'href', 'none'. 'html' - returns selected elenent HTML content,
-            'inner' - returns inner HTML content, without element surrounding tags, 'text' returns element text without tags,
-            'href' - return href attribute of selected element,
-            'none' - returns empty string</param>
-            <param name="@strip_ws" type="symbol" required="false">replace multiple whitespaces/newlines/tabs with single space</param>
-            <param name="@json" type="symbol" required="false">parse result as Json and output it as data:Dict()</param>
-            </method>
+            <param name="@auth" type="list" required="false">basic auth username/password: @auth
+            user pass</param>
+            <param name="@css" type="list" required="false">apply CSS selector to the request body:
+            @css SEL OUTPUT_TYPE, where OUTPUT_TYPE is one of: 'html', 'inner', 'text', 'href',
+            'none'. 'html' - returns selected elenent HTML content, 'inner' - returns inner HTML
+            content, without element surrounding tags, 'text' returns element text without tags,
+            'href' - return href attribute of selected element, 'none' - returns empty
+            string</param>
+            <param name="@strip_ws" type="symbol" required="false">replace multiple
+            whitespaces/newlines/tabs with single space</param>
+            <param name="@json" type="symbol" required="false">parse result as Json and output it
+            as data:Dict()</param></method>
         </methods>
         <inlets>
             <inlet>

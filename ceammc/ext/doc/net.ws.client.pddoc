@@ -74,7 +74,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>output messages: latency, ping, text, binary, closed, connected, disconnected</outlet>
+            <outlet>output messages: latency, ping, text, binary, closed, connected,
+            disconnected</outlet>
         </outlets>
         <example>
             <pdascii>
