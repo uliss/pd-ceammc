@@ -956,6 +956,7 @@ rhythm.hexbeat	hexbeat pattern generator
 rhythm.lsystem	L-system pattern generator
 net.artnet.send	ArtNet DMX message sender
 artnet.send	ArtNet DMX message sender
+net.freesound	Freesound API v2 client
 net.host2ip	returns IP address by DNS name
 net.host->ip	returns IP address by DNS name
 net.http.client	HTTP client

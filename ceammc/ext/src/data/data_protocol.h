@@ -421,7 +421,7 @@ public:
 
     void m_write(t_symbol* s, const AtomListView& path)
     {
-        auto concat_path = to_string(path.argSubView(0));
+        auto concat_path = to_string(path.arguments(0));
         if (concat_path.empty()) {
             METHOD_ERR(s) << "empty path";
             return;

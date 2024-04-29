@@ -14,13 +14,20 @@
 #ifndef DICT_GET_H
 #define DICT_GET_H
 
-#include "datatype_dict.h"
 #include "dict_base.h"
+#include "lex/parser_dict_expr.h"
 
 using namespace ceammc;
 
+struct DictGetKeyData {
+    t_symbol* key_;
+    parser::DictExprMatchList match_;
+    bool isMatch() const;
+};
+
 class DictGet : public DictBase {
-    std::vector<t_symbol*> keys_;
+    std::vector<DictGetKeyData> key_data_;
+    ListProperty* keys_;
     AtomProperty* default_;
 
 public:
@@ -28,6 +35,9 @@ public:
     void initDone() final;
 
     void onDataT(const DictAtom& dict);
+
+private:
+    void findMatches(const AtomListView &lst, const parser::DictExprMatcher* m, size_t level, size_t outlet);
 };
 
 void setup_dict_get();

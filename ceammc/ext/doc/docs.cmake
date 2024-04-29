@@ -565,6 +565,7 @@ set(DOC_FILES
     music.dur2time
     music.voice2midi
     net.artnet.send
+    net.freesound
     net.host2ip
     net.http.client
     net.http.send

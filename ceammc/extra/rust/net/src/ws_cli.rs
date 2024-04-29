@@ -59,7 +59,7 @@ pub struct ws_client {
 }
 
 impl ServiceCallback<WsReply> for ws_client_result_cb {
-    fn exec(&self, data: &WsReply) {
+    fn exec(&self, data: &mut WsReply) {
         match data {
             WsReply::Message(msg) => match msg {
                 Message::Text(txt) => {

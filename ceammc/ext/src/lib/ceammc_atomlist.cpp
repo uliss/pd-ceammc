@@ -430,19 +430,22 @@ void AtomList::fill(const Atom& a, size_t sz)
     atoms_ = Container(sz, a);
 }
 
-void AtomList::sort()
+AtomList& AtomList::sort()
 {
     std::sort(atoms_.begin(), atoms_.end());
+    return *this;
 }
 
-void AtomList::shuffle()
+AtomList& AtomList::shuffle()
 {
     std::random_shuffle(atoms_.begin(), atoms_.end());
+    return *this;
 }
 
-void AtomList::reverse()
+AtomList& AtomList::reverse()
 {
     std::reverse(atoms_.begin(), atoms_.end());
+    return *this;
 }
 
 bool AtomList::contains(const Atom& a) const noexcept

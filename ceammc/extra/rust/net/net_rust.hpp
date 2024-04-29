@@ -76,6 +76,8 @@ enum class ceammc_ws_rc {
     RunloopExit,
 };
 
+struct ceammc_freesound_array_data;
+
 struct ceammc_freesound_client;
 
 struct ceammc_http_client;
@@ -94,8 +96,22 @@ union ceammc_t_pd_rust_word {
     int w_index;
 };
 
+struct ceammc_freesound_array {
+    const char *name;
+    size_t channel;
+};
+
+using ceammc_freesound_alloc_fn = ceammc_t_pd_rust_word*(*)(size_t size);
+
+using ceammc_freesound_free_fn = void(*)(ceammc_t_pd_rust_word *data, size_t size);
+
 struct ceammc_freesound_init {
-    const char *token;
+    /// can be NULL
+    const char *secret_file;
+    /// non NULL
+    ceammc_freesound_alloc_fn alloc;
+    /// non NULL
+    ceammc_freesound_free_fn free;
 };
 
 struct ceammc_callback_msg {
@@ -122,37 +138,30 @@ struct ceammc_freesound_info_me {
     size_t str_props_len;
 };
 
-struct ceammc_freesound_prop_f64 {
-    const char *name;
-    double value;
-};
-
 struct ceammc_freesound_search_result {
-    /// The sound’s unique identifier.
-    uint64_t id;
-    /// tags list (can be NULL)
-    const char *const *tags;
-    /// tag list length
-    size_t tags_len;
-    /// numeric props
-    const ceammc_freesound_prop_f64 *num_props;
-    /// number of numeric props
-    size_t num_props_len;
-    /// str props
-    const ceammc_freesound_prop_str *str_props;
-    /// number of str props
-    size_t str_props_len;
+    uint32_t prev;
+    uint32_t next;
+    size_t count;
 };
 
 struct ceammc_freesound_result_cb {
     void *user;
     void (*cb_oauth_url)(void *user, const char *url);
     void (*cb_oauth_access)(void *user, const char *token, uint64_t expires);
+    void (*cb_oauth_file)(void *user, const char *id, const char *secret);
     void (*cb_info_me)(void *user, const ceammc_freesound_info_me *data);
-    void (*cb_search_info)(void *user, uint64_t count, uint32_t prev, uint32_t next);
-    void (*cb_search_result)(void *user, size_t i, const ceammc_freesound_search_result *res);
-    void (*cb_download)(void *user, const char *filename, const char *array);
-    void (*cb_load)(void *user, const ceammc_t_pd_rust_word *data, size_t size, const char *array);
+    /// should return pointer to alloc dict, that will passed to other functions below
+    void *(*cb_search_results_begin)(void *user, const ceammc_freesound_search_result *data);
+    /// should return pointer to alloc data, that will passed to other functions below
+    void *(*cb_search_result_create)(uint64_t id);
+    void (*cb_search_tag)(void *data, const char *tag);
+    void (*cb_search_num)(void *data, const char *key, double value);
+    void (*cb_search_str)(void *data, const char *key, const char *value);
+    void (*cb_search_obj)(void *dict, const char *key1, const char *key2, const double *values, size_t num_values);
+    void (*cb_search_result_append)(void *dict, void *data);
+    void (*cb_search_results_done)(void *user, void *dict);
+    void (*cb_download)(void *user, const char *filename);
+    void (*cb_load)(void *user, ceammc_freesound_array_data *data, size_t size);
 };
 
 struct ceammc_callback_notify {
@@ -160,10 +169,16 @@ struct ceammc_callback_notify {
     void (*cb)(size_t id);
 };
 
+struct ceammc_freesound_search_filter {
+    const char *field;
+    const char *value;
+};
+
 struct ceammc_freesound_search_params {
     const char *query;
-    const char *filter;
     const char *sort;
+    const ceammc_freesound_search_filter *filters;
+    size_t num_filters;
     const char *const *fields;
     size_t num_fields;
     const char *const *descriptors;
@@ -291,24 +306,69 @@ struct ceammc_ws_srv_on_cli {
 
 extern "C" {
 
+/// get array data
+/// @param array - pointer to array data (non NULL!)
+ceammc_freesound_array_data *ceammc_freesound_array_data_at(size_t idx,
+                                                            ceammc_freesound_array_data *data,
+                                                            size_t len);
+
+/// get data array channel
+/// @param array - pointer to array data (non NULL!)
+size_t ceammc_freesound_array_data_channel(ceammc_freesound_array_data *data);
+
+/// get data array name
+/// @param array - pointer to array data (non NULL!)
+const char *ceammc_freesound_array_data_name(ceammc_freesound_array_data *data);
+
+/// get data size
+/// @param data - pointer to array data (non NULL!)
+ceammc_t_pd_rust_word *ceammc_freesound_array_data_ptr(ceammc_freesound_array_data *data);
+
+/// retain loaded data (caller should free itself)
+/// @param data - pointer to array data (non NULL!)
+void ceammc_freesound_array_data_retain(ceammc_freesound_array_data *data);
+
+/// get data size
+/// @param data - pointer to array data (non NULL!)
+size_t ceammc_freesound_array_data_size(ceammc_freesound_array_data *data);
+
+/// download freesound file to local directory
+/// @param cli - freesound client pointer (non NULL)
+/// @param file_id - freesound file id
+/// @param access - access token
+/// @param base_dir - base directory for saving
+/// @return true on success, false on error
 bool ceammc_freesound_download_file(const ceammc_freesound_client *cli,
-                                    uint64_t id,
-                                    const char *auth_token,
+                                    uint64_t file_id,
+                                    const char *access,
                                     const char *base_dir);
 
-/// free freesound client
-/// @param fs - pointer to freesound client (can be NULL)
+/// free freesound client and stop worker thread
+/// @param fs - pointer to freesound client (non NULL)
 void ceammc_freesound_free(ceammc_freesound_client *fs);
 
-bool ceammc_freesound_load_array(const ceammc_freesound_client *cli,
-                                 uint64_t id,
-                                 size_t channel,
-                                 bool normalize,
-                                 const char *auth_token,
-                                 const char *array,
-                                 ceammc_t_pd_rust_word *(*alloc)(size_t size),
-                                 void (*free)(ceammc_t_pd_rust_word *data, size_t size));
+/// load freesound file to specified arrays
+/// @param cli - freesound client pointer (non NULL)
+/// @param file_id - sound file id
+/// @param arrays - pointer to array load params (non NULL)
+/// @param num_arrays - number or array params
+/// @param normalize - if perform array normalization
+/// @param access - temp access token (non NULL)
+/// @param double - double precision used
+/// @return true on success, false on error
+bool ceammc_freesound_load_to_arrays(const ceammc_freesound_client *cli,
+                                     uint64_t file_id,
+                                     const ceammc_freesound_array *arrays,
+                                     size_t num_arrays,
+                                     bool normalize,
+                                     const char *access,
+                                     uint32_t samplerate,
+                                     bool double_);
 
+/// get freesound user information
+/// @param cli - freesound client pointer (non NULL)
+/// @param access - tmp access token (non NULL)
+/// @return true on success, false on error
 bool ceammc_freesound_me(const ceammc_freesound_client *cli, const char *access);
 
 /// create new freesound client
@@ -331,28 +391,54 @@ ceammc_freesound_client *ceammc_freesound_new(ceammc_freesound_init params,
                                               ceammc_freesound_result_cb cb_reply,
                                               ceammc_callback_notify cb_notify);
 
+/// request for OAuth temp access token (valid for 24 hours)
+/// @param cli - freesound client pointer (non NULL)
+/// @param id - OAuth2 id (non NULL)
+/// @param secret - OAuth2 secret (non NULL)
+/// @param auth_code - auth code from freesound http app page (non NULL)
+/// @return true on success, false on error
 bool ceammc_freesound_oauth_get_access(const ceammc_freesound_client *cli,
                                        const char *id,
                                        const char *secret,
                                        const char *auth_code);
 
+/// request for freesound URL to get access code
+/// @param cli - freesound client pointer (non NULL)
+/// @param id - OAuth2 id (non NULL)
+/// @param secret - OAuth2 secret (non NULL)
+/// @return true on success, false on error
 bool ceammc_freesound_oauth_get_code(const ceammc_freesound_client *cli,
                                      const char *id,
                                      const char *secret);
 
+/// async load temp access token from file
+/// @param cli - freesound client pointer (non NULL)
+/// @param base_dir - base directory (nullable)
+/// @return true on success, false on error
 bool ceammc_freesound_oauth_load_access_token(const ceammc_freesound_client *cli,
                                               const char *base_dir);
 
+/// async store temp access token to the file
+/// @param cli - freesound client (non NULL)
+/// @param access - temp access token (non NULL)
+/// @param base_dir - base directory for saving token (nullable)
+/// @param overwrite - should overwrite existing token
+/// @return true on success, false on error
 bool ceammc_freesound_oauth_store_access_token(const ceammc_freesound_client *cli,
-                                               const char *auth_token,
+                                               const char *access,
                                                const char *base_dir,
                                                bool overwrite);
 
 /// process all results that are ready
-/// @param cli - freesound client pointer
+/// @param cli - freesound client pointer (non NULL)
 /// @return true on success, false on error
 bool ceammc_freesound_process(ceammc_freesound_client *cli);
 
+/// freesound search
+/// @param cli - freesound client pointer (non NULL)
+/// @param access - tmp access token (non NULL)
+/// @param params - search params
+/// @return true on success, false on error
 bool ceammc_freesound_search(const ceammc_freesound_client *cli,
                              const char *access,
                              ceammc_freesound_search_params params);

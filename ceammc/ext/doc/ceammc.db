@@ -564,6 +564,7 @@ msg.unpack		.		?
 music.dur2time,music.d->t		.		.
 music.voice2midi,music.v->m		.		.
 net.artnet.send,artnet.send		.		.
+net.freesound		.		.
 net.host2ip,net.host->ip		.		.
 net.http.client,http.client		.		..
 net.http.send,http.send		.		..

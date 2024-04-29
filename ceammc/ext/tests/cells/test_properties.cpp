@@ -149,7 +149,7 @@ TEST_CASE("Properties", "[ceammc::properties]")
 
             REQUIRE(p.setT(t_float(10.5)));
             REQUIRE(p.value() == A(10.5));
-            REQUIRE(p.setT(1000l));
+            REQUIRE(p.setT(t_int(1000)));
             REQUIRE(p.value() == A(1000));
             REQUIRE(p.setT(SYM("123")));
             REQUIRE(p.value() == S("123"));

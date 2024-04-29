@@ -48,7 +48,7 @@ TEST_CASE("IntProperty", "[core]")
         REQUIRE(p.set(LF(2)));
         REQUIRE(p.value() == 2);
 
-        p.setValue(3l);
+        p.setValue(t_int(3));
         REQUIRE(p.value() == 3);
 
         REQUIRE(p.set(LF(20.1)));
@@ -62,7 +62,7 @@ TEST_CASE("IntProperty", "[core]")
 
         REQUIRE(p.setInt(100));
         REQUIRE(p.value() == 100);
-        REQUIRE(p.setT(50l));
+        REQUIRE(p.setT(t_int(50)));
         REQUIRE(p.value() == 50);
     }
 
@@ -126,7 +126,7 @@ TEST_CASE("IntProperty", "[core]")
         REQUIRE_FALSE(p.setT(A(123)));
 
         REQUIRE(p.value() == 120);
-        REQUIRE(p.setT(100l));
+        REQUIRE(p.setT(t_int(100)));
         REQUIRE(p.value() == 100);
 
         REQUIRE_FALSE(p.setBool(true));

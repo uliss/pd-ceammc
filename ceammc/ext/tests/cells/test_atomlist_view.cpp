@@ -465,20 +465,32 @@ TEST_CASE("AtomListView", "core")
 
     SECTION("argSubView")
     {
-        REQUIRE(AtomListView(LA(1, 2, 3, 4)).argSubView(0) == LF(1, 2, 3, 4));
-        REQUIRE(AtomListView(LA(1, 2, 3, 4)).argSubView(1) == LF(2, 3, 4));
-        REQUIRE(AtomListView(LA(1, 2, 3, 4)).argSubView(2) == LF(3, 4));
-        REQUIRE(AtomListView(LA(1, 2, 3, 4)).argSubView(3) == LF(4));
-        REQUIRE(AtomListView(LA(1, 2, 3, 4)).argSubView(4) == L());
+        REQUIRE(AtomListView(LA(1, 2, 3, 4)).arguments(0) == LF(1, 2, 3, 4));
+        REQUIRE(AtomListView(LA(1, 2, 3, 4)).arguments(1) == LF(2, 3, 4));
+        REQUIRE(AtomListView(LA(1, 2, 3, 4)).arguments(2) == LF(3, 4));
+        REQUIRE(AtomListView(LA(1, 2, 3, 4)).arguments(3) == LF(4));
+        REQUIRE(AtomListView(LA(1, 2, 3, 4)).arguments(4) == L());
 
-        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).argSubView(0) == LF(1, 2));
-        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).argSubView(1) == LF(2));
-        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).argSubView(2) == L());
-        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).argSubView(3) == L());
-        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).argSubView(4) == L());
+        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).arguments(0) == LF(1, 2));
+        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).arguments(1) == LF(2));
+        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).arguments(2) == L());
+        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).arguments(3) == L());
+        REQUIRE(AtomListView(LA(1, 2, "@a", 4)).arguments(4) == L());
 
-        REQUIRE(AtomListView(LA("@a", 4)).argSubView(0) == L());
-        REQUIRE(AtomListView(LA("@a", 4)).argSubView(1) == L());
+        REQUIRE(AtomListView(LA("@a", 4)).arguments(0) == L());
+        REQUIRE(AtomListView(LA("@a", 4)).arguments(1) == L());
+    }
+
+    SECTION("propSubView")
+    {
+        REQUIRE(AtomListView(L()).properties() == L());
+        REQUIRE(AtomListView(LF(1)).properties() == L());
+        REQUIRE(AtomListView(LA("a")).properties() == L());
+        REQUIRE(AtomListView(LA("@a")).properties() == LA("@a"));
+        REQUIRE(AtomListView(LA("@a", 1)).properties() == LA("@a", 1));
+        REQUIRE(AtomListView(LA("@a", 1, "@b")).properties() == LA("@a", 1, "@b"));
+        REQUIRE(AtomListView(LA(1, "@a", 1, "@b")).properties() == LA("@a", 1, "@b"));
+        REQUIRE(AtomListView(LA(1, 2, 3, 4, 5, "@a", 1, "@b")).properties() == LA("@a", 1, "@b"));
     }
 
     SECTION("expandDollarArgs")

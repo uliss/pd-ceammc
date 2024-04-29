@@ -296,18 +296,21 @@ public:
 
     /**
      * Sorts list values in ascending order
+     * @return self-reference
      */
-    void sort();
+    AtomList& sort();
 
     /**
      * Randomly reorder list elements
+     * @return self-reference
      */
-    void shuffle();
+    AtomList& shuffle();
 
     /**
      * Put list elements in back-order
+     * @return self-reference
      */
-    void reverse();
+    AtomList& reverse();
 
     /**
      * Get min and max elements from list
