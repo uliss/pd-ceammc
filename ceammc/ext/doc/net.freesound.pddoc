@@ -84,7 +84,7 @@
 |
 [route results progress #x]
 |
-[dict.get /*/id name]
+[dict.get /*/*/id /*/*/name]
 |
 |         [ui.hsl 0 100 #e]
 |

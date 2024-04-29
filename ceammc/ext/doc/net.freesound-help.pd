@@ -22,7 +22,7 @@ to internal secret access token;
 #X msg 232 359 access code \$1;
 #X obj 50 388 net.freesound;
 #X obj 50 417 route results progress;
-#X obj 50 445 dict.get /*/id name;
+#X obj 50 445 dict.get /*/*/id /*/*/name;
 #X obj 146 474 ui.hsl 0 100;
 #X obj 50 503 print ID;
 #X obj 232 503 print OTHER;
