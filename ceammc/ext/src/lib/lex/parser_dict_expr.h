@@ -25,7 +25,7 @@
 namespace ceammc {
 namespace parser {
 
-    enum class DictExprMatchType {
+    enum class DictExprMatchType : std::int8_t {
         NONE,
         ANY,
         DICT,
@@ -40,6 +40,7 @@ namespace parser {
         int64_t array_slice_begin { 0 };
         int64_t array_slice_length { ARRAY_SLICE_LENGTH_END };
         DictExprMatchType type { DictExprMatchType::NONE };
+        bool no_error { false };
 
         bool matchNone() const { return type == DictExprMatchType::NONE; }
         bool matchAny() const { return type == DictExprMatchType::ANY; }

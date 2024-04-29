@@ -43,6 +43,12 @@ TEST_CASE("parser_dict_expr", "[parsers]")
         REQUIRE_FALSE(parser::parse_dict_match_expr("/'key'"));
         REQUIRE(parser::parse_dict_match_expr("/a/b/c"));
         REQUIRE(parser::parse_dict_match_expr("/*/*/c"));
+
+        REQUIRE(parser::parse_dict_match_expr("/a?"));
+        REQUIRE(parser::parse_dict_match_expr("/0?"));
+        REQUIRE(parser::parse_dict_match_expr("/0:?"));
+        REQUIRE(parser::parse_dict_match_expr("/0:123?"));
+        REQUIRE_FALSE(parser::parse_dict_match_expr("/*?"));
     }
 
     SECTION("match array")
@@ -311,5 +317,28 @@ TEST_CASE("parser_dict_expr", "[parsers]")
         REQUIRE(m[1].matchList());
         REQUIRE(m[1].array_slice_begin == 2);
         REQUIRE(m[1].array_slice_length == 1);
+    }
+
+    SECTION("match no_error")
+    {
+        std::vector<parser::DictExprMatcher> m;
+        REQUIRE(parser::parse_dict_match_expr("/a?", &m));
+        REQUIRE(m.size() == 1);
+        REQUIRE(m[0].no_error);
+
+        m.clear();
+        REQUIRE(parser::parse_dict_match_expr("/a", &m));
+        REQUIRE(m.size() == 1);
+        REQUIRE_FALSE(m[0].no_error);
+
+        m.clear();
+        REQUIRE(parser::parse_dict_match_expr("/0?", &m));
+        REQUIRE(m.size() == 1);
+        REQUIRE(m[0].no_error);
+
+        m.clear();
+        REQUIRE(parser::parse_dict_match_expr("/0", &m));
+        REQUIRE(m.size() == 1);
+        REQUIRE_FALSE(m[0].no_error);
     }
 }

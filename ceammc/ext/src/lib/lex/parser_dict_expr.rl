@@ -64,17 +64,23 @@ namespace parser {
         }
     }
 
+    action no_err {
+        match.no_error = true;
+    }
+
     obj_expr = '"' ([^"\[\]()]+) >key_start %key_end '"';
     arr_expr = (num_int %arr_begin %{ match.array_slice_length = 1; }
              | (num_int %arr_begin ':' %arr_len_end)
              | (num_int %arr_begin ':' %arr_len_end num_uint %arr_len)) %arr_end;
 
-    match_array  = ('/' %any_start arr_expr);
-    match_object = ('/' %any_start obj_expr);
+    no_err_expr  = '?' %no_err;
+    match_array  = ('/' %any_start arr_expr no_err_expr?);
+    match_object = ('/' %any_start obj_expr no_err_expr?);
     match_any    = '/*' %any_start;
     match_key    = '/' %any_start ([a-zA-Z_] [a-zA-Z_0-9]*)
                     >key_start
-                    %key_end;
+                    %key_end
+                    no_err_expr?;
 
     match = match_any | match_key | match_array | match_object;
 
