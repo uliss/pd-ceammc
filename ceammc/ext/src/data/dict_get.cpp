@@ -114,7 +114,8 @@ void DictGet::findMatches(const AtomListView& lv, const parser::DictExprMatcher*
                 }
             } break;
             case parser::DictExprMatchType::LIST: {
-                OBJ_ERR << fmt::format("can't index dict with index: '{}'", m->array_slice_begin);
+                if (!m->no_error)
+                    OBJ_ERR << fmt::format("can't index dict with index: '{}'", m->array_slice_begin);
             } break;
             default:
                 break;
@@ -144,7 +145,8 @@ void DictGet::findMatches(const AtomListView& lv, const parser::DictExprMatcher*
             }
             break;
         default:
-            OBJ_ERR << fmt::format("can't index list with key: '{}'", m->key_name->s_name);
+            if (!m->no_error)
+                OBJ_ERR << fmt::format("can't index list with key: '{}'", m->key_name->s_name);
             break;
         }
     }
