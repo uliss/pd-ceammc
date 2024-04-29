@@ -1747,6 +1747,9 @@
     <entry name="net.artnet.send" descr="ArtNet DMX message sender" ref_view="object">
       <xi:include href="net.artnet.send.pddoc" parse="xml"/>
     </entry>
+    <entry name="net.freesound" descr="Freesound API v2 client" ref_view="object">
+      <xi:include href="net.freesound.pddoc" parse="xml"/>
+    </entry>
     <entry name="net.host2ip" descr="returns IP address by DNS name" ref_view="object">
       <xi:include href="net.host2ip.pddoc" parse="xml"/>
     </entry>

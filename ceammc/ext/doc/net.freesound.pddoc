@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="net.freesound">
+        <title>net.freesound</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>Freesound API v2 client</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>net</category>
+            <keywords>net freesound</keywords>
+            <since>0.9.8</since>
+        </meta>
+        <properties>
+            <property name="@oauth_id" type="symbol" default="" access="initonly">Freesound OAuth2 ID</property>
+            <property name="@oauth_secret" type="symbol" default="" access="initonly">Freesound OAuth2 secret</property>
+            <property name="@oauth_file" type="symbol" default="" access="initonly">path to file with OAuth2 ID/secret, one per line</property>
+        </properties>
+        <methods>
+            <method name="access">method</method>
+            <method name="me">get user information</method>
+            <method name="search">perform search</method>
+            <method name="load">load Freesound file into Pd arrays</method>
+            <method name="download">download Freesound file</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">DNS name</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list of resolved IP's</outlet>
+            <outlet>message: progress PERC</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[search puredata @n 5 @fields id name @filter type mp3 #a(
+
+
+
+
+
+[net.freesound #z]
+|
+[route results progress ]
+|                      ^|
+[dict.get /*/id name]  [ui.hsl 0 100]
+|
+[print ID]
+
+[X a->z]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>
