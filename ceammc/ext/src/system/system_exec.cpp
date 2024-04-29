@@ -119,7 +119,7 @@ void SystemExec::m_terminate(t_symbol* s, const AtomListView& l)
         return;
     }
 
-    if (l.toT<bool>(false)) {
+    if (l.boolAt(0, false)) {
         process_->sendSignal(sys::Process::KILL);
     } else
         process_->sendSignal(sys::Process::TERMINATE);
