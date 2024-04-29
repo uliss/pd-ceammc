@@ -22,11 +22,14 @@
             with OAuth2 ID/secret, one per line</property>
         </properties>
         <info>
-        <par>1) create Freesound API credentials at:</par>
-        <a href="https://freesound.org/apiv2/apply">https://freesound.org/apiv2/apply</a>
-        <par>2) save this id/secret pair into file if using @oauth_file property or set @oauth_id/@oauth_secret properties explicitly.</par>
-        <par>3) [access auth( get temporal application code from Freesound website (valid for ~24 hours)</par>
-        <par>4) [access code CODE( exchange this application code to internal secret access token</par>
+            <par>1) create Freesound API credentials at:</par>
+            <a href="https://freesound.org/apiv2/apply">https://freesound.org/apiv2/apply</a>
+            <par>2) save this id/secret pair into file if using @oauth_file property or set
+            @oauth_id/@oauth_secret properties explicitly.</par>
+            <par>3) [access auth( get temporal application code from Freesound website (valid for
+            ~24 hours)</par>
+            <par>4) [access code CODE( exchange this application code to internal secret access
+            token</par>
         </info>
         <methods>
             <method name="access auth">get application authorization code (valid ~24 hours) from
@@ -79,13 +82,15 @@
 
 [net.freesound #z]
 |
-[route results progress ]
-|                      ^|
-[dict.get /*/id name]  [ui.hsl 0 100]
+[route results progress #x]
 |
-[print ID]
+[dict.get /*/id name]
+|
+|         [ui.hsl 0 100 #e]
+|
+[print ID]         [print OTHER #d]
 
-[X a->z] [X b->z] [X c->z]
+[X a->z] [X b->z] [X c->z] [X x:2->d] [X x:1->e]
 ]]>
             </pdascii>
         </example>
