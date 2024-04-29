@@ -87,6 +87,14 @@ TEST_CASE("DataTypeDict", "[core]")
             keys.sort();
             REQUIRE(keys == LA("0", "1"));
         }
+
+        SECTION("[a: b: c: d:]")
+        {
+            DataTypeDict d("[a: b: c: d:]");
+            REQUIRE(d.size() == 4);
+            REQUIRE(d.innerData().size() == 4);
+            REQUIRE(d.keys().sort() == LA("a", "b", "c", "d"));
+        }
     }
 
     SECTION("kv")

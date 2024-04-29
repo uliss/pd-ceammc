@@ -12,36 +12,26 @@
  * this file belongs to.
  *****************************************************************************/
 #include "dict_get.h"
-#include "ceammc_containers.h"
 #include "ceammc_factory.h"
+#include "datatype_dict.h"
+#include "datatype_mlist.h"
+#include "fmt/core.h"
 
-static const size_t MAX_KEYS = 32;
+bool DictGetKeyData::isMatch() const
+{
+    return key_ == &s_ && match_.size() > 0;
+}
+
+constexpr size_t MAX_KEYS = 32;
 
 DictGet::DictGet(const PdArgs& args)
     : DictBase(args)
     , default_(nullptr)
 {
-    auto p = createCbListProperty(
-        "@keys",
-        [this]() -> AtomList {
-            AtomList res;
-            res.reserve(keys_.size());
-            for (auto k : keys_)
-                res.append(k);
-
-            return res;
-        },
-        [this](const AtomListView& lv) -> bool {
-            for (auto it = atom_filter_it_begin(lv, isSymbol); it != atom_filter_it_end(lv); ++it)
-                keys_.push_back(it->asSymbol());
-
-            return true;
-        });
-
-    p->setInitOnly();
-    p->setArgIndex(0);
-
-    p->setListCheckFn([this](const AtomListView& lv) {
+    keys_ = new ListProperty("@keys");
+    keys_->setInitOnly();
+    keys_->setArgIndex(0);
+    keys_->setListCheckFn([this](const AtomListView& lv) {
         if (!lv.anyOf(isSymbol)) {
             OBJ_ERR << "only symbols are allowed as key, got: " << lv;
             return false;
@@ -54,6 +44,7 @@ DictGet::DictGet(const PdArgs& args)
 
         return true;
     });
+    addProperty(keys_);
 
     default_ = new AtomProperty("@default", Atom());
     addProperty(default_);
@@ -61,22 +52,101 @@ DictGet::DictGet(const PdArgs& args)
 
 void DictGet::initDone()
 {
-    for (size_t i = 0; i < keys_.size(); i++)
-        createOutlet();
+    for (auto& a : keys_->value()) {
+        auto key = a.asSymbol()->s_name;
+
+        if (key[0] == '/') {
+            parser::DictExprMatchList m;
+            if (parser::parse_dict_expr(key, &m)) {
+                key_data_.push_back({ &s_, m });
+                createOutlet();
+            } else {
+                OBJ_ERR << fmt::format("can't parse dict expr path: {}", key);
+                continue;
+            }
+        } else {
+            key_data_.push_back({ a.asSymbol(), {} });
+            createOutlet();
+        }
+    }
 }
 
 void DictGet::onDataT(const DictAtom& dict)
 {
-    long n = keys_.size();
+    long n = key_data_.size();
 
     // back order
     while (n-- > 0) {
-        if (dict->contains(keys_[n]))
-            listTo(n, dict->at(keys_[n]));
-        else if (!default_->value().isNone())
-            atomTo(n, default_->value());
-        else
-            ; // no output
+        auto& k = key_data_[n];
+        if (!k.isMatch()) {
+            if (dict->contains(k.key_))
+                listTo(n, dict->at(k.key_));
+            else if (!default_->value().isNone())
+                atomTo(n, default_->value());
+            else
+                ; // no output
+        } else {
+            findMatches(dict, k.match_.data(), k.match_.size(), n);
+        }
+    }
+}
+
+void DictGet::findMatches(const AtomListView& lv, const parser::DictExprMatcher* m, size_t level, size_t outlet)
+{
+    if (!m || !level)
+        return;
+
+    if (lv.isA<DataTypeDict>()) {
+        for (auto& kv : *lv.asD<DataTypeDict>()) {
+            switch (m->type) {
+            case parser::DictExprMatchType::ANY: {
+                if (level == 1) // last level
+                    listTo(outlet, kv.second);
+                else
+                    findMatches(kv.second, m + 1, level - 1, outlet);
+            } break;
+            case parser::DictExprMatchType::DICT: {
+                if (m->key_name == kv.first) {
+                    if (level == 1)
+                        listTo(outlet, kv.second);
+                    else
+                        findMatches(kv.second, m + 1, level - 1, outlet);
+                }
+            } break;
+            case parser::DictExprMatchType::LIST: {
+                OBJ_ERR << fmt::format("can't index dict with index: {}", m->array_slice_begin);
+            } break;
+            default:
+                break;
+            }
+        }
+    } else if (lv.isA<DataTypeMList>()) {
+        findMatches(lv.asD<DataTypeMList>()->data().view(), m, level, outlet);
+    } else {
+        switch (m->type) {
+        case parser::DictExprMatchType::LIST: {
+            auto pos = m->arraySlice(lv.size());
+
+            if (pos.second > 0) {
+                if (level == 1)
+                    listTo(outlet, lv.subView(pos.first, pos.second));
+                else
+                    findMatches(lv.subView(pos.first, pos.second), m + 1, level - 1, outlet);
+            }
+        } break;
+        case parser::DictExprMatchType::ANY:
+            if (level == 1) {
+                for (auto& a : lv)
+                    atomTo(outlet, a);
+            } else {
+                for (auto& a : lv)
+                    findMatches(a, m + 1, level - 1, outlet);
+            }
+            break;
+        default:
+            OBJ_ERR << fmt::format("can't index list with key: {}", m->key_name->s_name);
+            break;
+        }
     }
 }
 
@@ -87,5 +157,5 @@ void setup_dict_get()
 
     obj.setDescription("output dict values");
     obj.setCategory("data");
-    obj.setKeywords({"get", "dictionary"});
+    obj.setKeywords({ "get", "dictionary" });
 }

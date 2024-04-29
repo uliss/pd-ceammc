@@ -14,6 +14,8 @@
 #ifndef PARSER_DICT_EXPR_H
 #define PARSER_DICT_EXPR_H
 
+#include "m_pd.h"
+
 #include <algorithm>
 #include <cstdint>
 #include <string>
@@ -34,7 +36,7 @@ namespace parser {
     constexpr int64_t ARRAY_SLICE_LENGTH_END = -2;
 
     struct DictExprMatcher {
-        std::string key_name;
+        t_symbol* key_name { &s_ };
         int64_t array_slice_begin { 0 };
         int64_t array_slice_length { ARRAY_SLICE_LENGTH_END };
         DictExprMatchType type { DictExprMatchType::NONE };
@@ -56,6 +58,9 @@ namespace parser {
                 ? std::max<std::int64_t>(0, static_cast<std::int64_t>(size) + array_slice_begin)
                 : array_slice_begin;
 
+            if (from >= size)
+                return { 0, 0 };
+
             const auto length = (array_slice_length == ARRAY_SLICE_LENGTH_END) //
                 ? std::max<std::int64_t>(0, static_cast<std::int64_t>(size) - from)
                 : std::max<std::int64_t>(0,
@@ -65,7 +70,9 @@ namespace parser {
         }
     };
 
-    bool parse_dict_expr(const char* expr, std::vector<DictExprMatcher>* matches = nullptr);
+    using DictExprMatchList = std::vector<DictExprMatcher>;
+
+    bool parse_dict_expr(const char* expr, DictExprMatchList* matches = nullptr);
 
 }
 }
