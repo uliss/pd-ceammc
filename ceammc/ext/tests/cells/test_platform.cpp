@@ -373,9 +373,7 @@ TEST_CASE("ceammc::platform", "[ceammc::lib]")
         REQUIRE(platform::file_mime_type(TEST_DATA_DIR) == "inode/directory");
         REQUIRE(platform::file_mime_type(TEST_DATA_DIR "/llvm_cov_gen.sh") == "text/x-shellscript");
 
-#ifdef __linux__
-        REQUIRE(platform::file_mime_type(TEST_DATA_DIR "/gen_test_wav.py") == "text/x-python");
-#elif __apple__
+#if defined(__linux__) || defined(__apple__)
         REQUIRE(platform::file_mime_type(TEST_DATA_DIR "/gen_test_wav.py") == "text/x-script.python");
 #endif
         REQUIRE(platform::file_mime_type(TEST_DATA_DIR "/snd_mono_44k.ogg") == "audio/ogg");

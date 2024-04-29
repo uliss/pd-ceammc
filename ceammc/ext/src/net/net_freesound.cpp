@@ -93,7 +93,7 @@ void NetFreesound::initDone()
                 if (!this_ || !res)
                     return nullptr;
 
-                return new DictAtom({ //
+                return new DictAtom(DataTypeDict { //
                     DataTypeDict::DictEntry { "prev", res->prev },
                     DataTypeDict::DictEntry { "next", res->next },
                     DataTypeDict::DictEntry { "count", res->count } });
