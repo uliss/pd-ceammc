@@ -17,6 +17,9 @@
                 <see>flow.route</see>
             </also>
         </meta>
+        <info>
+            <par>You can use path-like expression, to get nested keys: /x/y/foo.</par>
+        </info>
         <arguments>
             <argument name="KEYS" type="list">keys</argument>
         </arguments>
@@ -34,7 +37,7 @@
         <outlets dynamic="true">
             <outlet number="1">first key output</outlet>
             <outlet number="...">... key output</outlet>
-            <outlet number="n">nth key output</outlet>
+            <outlet number="n">n-th key output</outlet>
         </outlets>
         <example>
             <pdascii>
@@ -45,11 +48,46 @@
 |
 [data.dict]
 |
-[dict.get "@prop" "1" a "?"]
+[dict.get "@prop" "1" a /*]
 |     ^|    ^^|   ^^^|
 |      |      |      |
 |      |      |      |
 [S]    [F]    [S]    [ui.display]
+
+
+[dict.get.paths]
+]]>
+            </pdascii>
+            <pdascii id="paths">
+<![CDATA[
+[\[users: [name: Alice age: 23 levels: 1 2 3 4] [name: Bob age: 25 levels: 1 2 3]], bang(
+|
+|
+|
+[data.dict]
+|
+[dict.get /users/*/name /users/*/age /users/*/levels/2:3 #z]
+|
+[print NAMES #a]
+
+            [print AGE #b]
+
+                        [print LEVELS #c]
+
+[X z:0->a] [X z:1->b] [X z:2->c]
+
+/*path segment can be:*/
+
+    /* * - match to all dict keys or all list elements*/
+
+    /* key - match to the dict key*/
+
+    /* POS - match to the element in the list at specified position*/
+
+    /* POS: - match to the elements in the list from specified position until the end of the list*/
+
+
+    /* POS:LENGTH - match to the number of elements in the list from specified position*/
 ]]>
             </pdascii>
         </example>

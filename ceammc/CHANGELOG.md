@@ -14,6 +14,8 @@
   - route.data - data router
 - new properties:
   - dict->list @props flag added to output as list of properties
+- misc:
+  - dict.get - path-like expression added to get keys: /*/USER/1:3/foo
 
 ## [0.9.7]
 ### Added:
