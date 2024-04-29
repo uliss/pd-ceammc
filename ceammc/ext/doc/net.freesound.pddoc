@@ -19,15 +19,19 @@
             <property name="@oauth_file" type="symbol" default="" access="initonly">path to file with OAuth2 ID/secret, one per line</property>
         </properties>
         <methods>
-            <method name="access">method</method>
-            <method name="me">get user information</method>
+            <method name="access auth">get temp authorization code (valid ~24 hours) from Freesound page: should open in web browser.</method>
+            <method name="access code">enter temp authorization code from Freesound site. Note: you can use the that code only single time!
+            <param name="CODE" type="symbol" required="true">auth code</param></method>
+            <method name="access store">store temp authorization code into the special file in the current patch directory</method>
+            <method name="access load">load temp authorization code from the special file from the current patch directory</method>
+            <method name="me">get and output user information</method>
             <method name="search">perform search</method>
             <method name="load">load Freesound file into Pd arrays</method>
             <method name="download">download Freesound file</method>
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="symbol">DNS name</xinfo>
+                <xinfo>input</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -37,9 +41,12 @@
         <example>
             <pdascii>
 <![CDATA[
+/*WARNING: first you should create Freesound OAuth id/secret keys!*/
+
+
 [search puredata @n 5 @fields id name @filter type mp3 #a(
 
-
+  [access auth #b(
 
 
 
@@ -51,7 +58,7 @@
 |
 [print ID]
 
-[X a->z]
+[X a->z] [X b->z]
 ]]>
             </pdascii>
         </example>

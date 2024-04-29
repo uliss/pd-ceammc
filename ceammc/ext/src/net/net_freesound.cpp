@@ -482,7 +482,8 @@ bool NetFreesound::checkOAuth(t_symbol* s) const
 {
     if (AccessToken::instance().token.empty()) {
         METHOD_ERR(s) << "not logged with OAuth. "
-                         "Use oauth auth to get authorization code in browser (valid 24 hours) and then: oauth code CODE";
+                         "Use [access auth( to get authorization code in browser (valid 24 hours)"
+                         " and then: [access code CODE(";
         return false;
     } else
         return true;
