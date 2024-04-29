@@ -160,6 +160,8 @@ void ceammc_init()
 
     if (!ceammc::pd::addPdPrintDataSupport())
         pd_error(nullptr, "can't add datatype printing support to vanilla [print] object");
+    else
+        logpost(nullptr, PD_DEBUG, "[ceammc] added datatype printing support for vanilla [print] object");
 
     // setup env variables
     setup_env_doc_path();
