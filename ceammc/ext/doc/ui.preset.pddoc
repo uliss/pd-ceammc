@@ -111,7 +111,7 @@
 
 [F]
 |
-[load $1(                 [ui.hsl @min 0 @max 2]
+[load $1(                 [ui.hsl @min 0 @max 2 @show_value 1]
 |                         |
 | [clear 1(   [clearall(  [interp $1 #a(
 | |           |

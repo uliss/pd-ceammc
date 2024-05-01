@@ -20,7 +20,7 @@ gray;
 #X obj 50 325 ui.rslider @presetname P-rslider;
 #X floatatom 50 354 5 0 0 0 - - -;
 #X msg 50 382 load \$1;
-#X obj 299 382 ui.hsl @min 0 @max 2;
+#X obj 299 382 ui.hsl @min 0 @max 2 @show_value 1;
 #X msg 69 411 clear 1;
 #X msg 184 411 clearall;
 #X msg 299 411 interp \$1;
