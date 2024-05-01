@@ -807,15 +807,42 @@ async fn freesound_get(
 
         if !params.sort.is_empty() {
             if !SORT_VALUES.contains(&params.sort.as_str()) {
-                return Err(format!(
-                    "invalid sort value: '{}', expected values are: {}.",
-                    params.sort,
-                    SORT_VALUES
-                        .iter()
-                        .map(|x| format!("'{}'", x.to_owned()))
-                        .collect::<Vec<_>>()
-                        .join(", ")
-                ));
+                let mut matcher = Matcher::new(Config::DEFAULT);
+                let matches = Atom::new(
+                    params.sort.as_str(),
+                    CaseMatching::Respect,
+                    Normalization::Never,
+                    AtomKind::Fuzzy,
+                    false,
+                )
+                .match_list(FIELD_VALUES, &mut matcher);
+
+                match matches.len() {
+                    0 => {
+                        return Err(format!(
+                            "invalid sort value: '{}', expected values are: {}.",
+                            params.sort,
+                            SORT_VALUES
+                                .iter()
+                                .map(|x| format!("'{}'", x.to_owned()))
+                                .collect::<Vec<_>>()
+                                .join(", ")
+                        ))
+                    }
+                    1 => {
+                        return Err(format!(
+                            "invalid sort value: '{}', maybe you mean: '{}'?",
+                            params.sort, matches[0].0
+                        ));
+                    }
+                    2.. => {
+                        return Err(format!(
+                            "invalid sort value: '{}', maybe you mean one of: [{}]?",
+                            params.sort,
+                            matches.iter().map(|x| format!("'{}'", x.0)).join(", ")
+                        ));
+                    }
+                }
             } else {
                 url.query_pairs_mut()
                     .append_pair("sort", params.sort.as_str())
