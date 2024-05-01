@@ -35,7 +35,7 @@ target_include_directories(ceammc_core PRIVATE ${CMAKE_CURRENT_BINARY_DIR}/tcl)
 set(CEAMMC_LIB_SOURCES
     ceammc.h
     ceammc_abstractdata.cpp
-    args/argcheck2.cpp
+    args/argcheck.cpp
     tcl/ceammc_tcl.cpp
     ceammc_array.cpp
     ceammc_atom.cpp
@@ -184,7 +184,7 @@ if(RAGEL_FOUND)
         lex/lemon_data_string_parser.rl lex/lemon_data_string_parser.cpp
         COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(parser_argcheck
-        args/argcheck2.rl args/argcheck2.cpp
+        args/argcheck.rl args/argcheck.cpp
         COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(parser_array_saver
         lex/parser_array_saver.rl lex/parser_array_saver.cpp
@@ -244,7 +244,7 @@ target_sources(ceammc_core
 
 # ragel files
 file(GLOB RAGEL_SOURCES lex/*.rl)
-add_custom_target(lex_ragel_sources SOURCES ${RAGEL_SOURCES} args/argcheck2.rl)
+add_custom_target(lex_ragel_sources SOURCES ${RAGEL_SOURCES} args/argcheck.rl)
 
 # liblo
 find_package(liblo)

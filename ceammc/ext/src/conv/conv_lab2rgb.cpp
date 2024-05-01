@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "conv_lab2rgb.h"
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_crc32.h"

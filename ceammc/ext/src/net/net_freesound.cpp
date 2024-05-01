@@ -4,7 +4,7 @@ CONTROL_OBJECT_STUB(NetFreesound, 1, 1, "compiled without Freesound support");
 OBJECT_STUB_SETUP(NetFreesound, net_freesound, "net.freesound");
 #else
 
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_array.h"
 #include "ceammc_containers.h"
 #include "ceammc_crc32.h"

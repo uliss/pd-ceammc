@@ -83,7 +83,7 @@ add_cell_test(property_timesig)
 
 add_cell_test(resampler)
 
-add_cell_test(args2)
+add_cell_test(args)
 add_cell_test(base64)
 add_cell_test(convert)
 add_cell_test(dsp)

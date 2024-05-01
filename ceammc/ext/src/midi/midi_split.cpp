@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "midi_split.h"
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_factory.h"
 #include "lex/parser_music.h"
 

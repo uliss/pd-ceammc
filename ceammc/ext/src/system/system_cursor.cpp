@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "system_cursor.h"
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_canvas.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"

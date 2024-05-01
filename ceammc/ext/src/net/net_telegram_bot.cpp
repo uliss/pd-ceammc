@@ -19,7 +19,7 @@ OBJECT_STUB_SETUP(NetTelegramBot, net_telegram_bot, "net.telegram.bot");
 #else
 #include "net_telegram_bot.h"
 
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_containers.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"

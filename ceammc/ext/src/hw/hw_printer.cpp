@@ -17,7 +17,7 @@ CONTROL_OBJECT_STUB(HwPrinter, 1, 1, "compiled without printer support");
 OBJECT_STUB_SETUP(HwPrinter, hw_printer, "hw.printer");
 #else
 
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_fn_list.h"

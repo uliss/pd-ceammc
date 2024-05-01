@@ -12,6 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "conv_note2guido.h"
+#include "ceammc_args.h"
 #include "ceammc_containers.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
@@ -49,10 +50,9 @@ void ConvNote2Guido::onList(const AtomListView& lv)
 
 void ConvNote2Guido::m_note(t_symbol* s, const AtomListView& lv)
 {
-    if (!checkArgs(lv, ARG_FLOAT, ARG_FLOAT)) {
-        OBJ_ERR << "expected: PITCH DURATION, git: " << lv;
-        return;
-    }
+    static const args::ArgChecker chk("PITCH:f DURATION:f");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
 
     auto p = lv[0].asT<t_float>();
     auto d = lv[1].asT<t_float>();
@@ -108,5 +108,5 @@ void setup_conv_note2guido()
 
     obj.setDescription("convert MIDI note to Guido notation");
     obj.setCategory("conv");
-    obj.setKeywords({"conv", "guido", "midi"});
+    obj.setKeywords({ "conv", "guido", "midi" });
 }

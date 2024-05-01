@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "data_color.h"
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_factory.h"
 #include "fmt/core.h"
 

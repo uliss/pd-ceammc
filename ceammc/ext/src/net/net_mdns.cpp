@@ -17,7 +17,7 @@ CONTROL_OBJECT_STUB(NetMdns, 1, 1, "compiled without MDNS support");
 OBJECT_STUB_SETUP(NetMdns, net_mdns, "net.mdns");
 #else
 
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_containers.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"

@@ -1,5 +1,5 @@
 #include "fx_wahwah.h"
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_faust_factory.h"
 
 using namespace ceammc;

@@ -14,27 +14,6 @@
 #ifndef CEAMMC_ARGS_H
 #define CEAMMC_ARGS_H
 
-#include "args/arg_group_and.h"
-
-#include <iostream>
-
-namespace ceammc {
-
-class ArgChecker {
-    std::string format_;
-    ArgGroupAnd checker_;
-    std::ostream* os_;
-
-public:
-    ArgChecker(const std::string& format);
-    bool check(const AtomListView& v) const;
-
-    void setOut(std::ostream& os) { os_ = &os; }
-
-private:
-    bool parse(const std::string& format);
-    std::ostream& out() const { return *os_; }
-};
-}
+#include "args/argcheck.h"
 
 #endif // CEAMMC_ARGS_H

@@ -1,5 +1,5 @@
 #include "hw_motu_avb.h"
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 

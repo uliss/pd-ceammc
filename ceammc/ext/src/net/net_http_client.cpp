@@ -4,7 +4,7 @@ CONTROL_OBJECT_STUB(NetHttpClient, 1, 2, "compiled without http support");
 OBJECT_STUB_SETUP(NetHttpClient, net_http_client, "net.http.client", "http.client");
 #else
 
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_crc32.h"
 #include "ceammc_data.h"
 #include "ceammc_factory.h"

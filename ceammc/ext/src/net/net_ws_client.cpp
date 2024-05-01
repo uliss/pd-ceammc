@@ -17,7 +17,7 @@ CONTROL_OBJECT_STUB(NetWsClient, 1, 1, "compiled without WebSocket support");
 OBJECT_STUB_SETUP(NetWsClient, net_ws_client, "net.ws.client");
 #else
 
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_array.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"

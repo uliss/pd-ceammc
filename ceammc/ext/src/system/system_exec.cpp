@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "system_exec.h"
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "ceammc_string.h"

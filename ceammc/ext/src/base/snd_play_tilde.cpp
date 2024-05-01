@@ -14,7 +14,7 @@
 #include <cassert>
 #include <thread>
 
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_convert.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"

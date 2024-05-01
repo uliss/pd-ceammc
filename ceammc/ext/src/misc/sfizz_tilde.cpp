@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "sfizz_tilde.h"
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_convert.h"
 #include "ceammc_factory.h"
 #include "ceammc_property_callback.h"

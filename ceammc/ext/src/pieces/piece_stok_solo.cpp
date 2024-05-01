@@ -12,7 +12,7 @@
  * this file belongs to.
  *****************************************************************************/
 #include "piece_stok_solo.h"
-#include "args/argcheck2.h"
+#include "args/argcheck.h"
 #include "ceammc_clock.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
