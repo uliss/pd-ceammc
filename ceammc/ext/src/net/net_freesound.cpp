@@ -263,6 +263,12 @@ EditorLineList NetFreesound::getContentForEditor() const
     return EditorLineList { id, secret };
 }
 
+void NetFreesound::editorSync()
+{
+    NetFreesoundBase::editorSync();
+    OBJ_DBG << "id/secret updated";
+}
+
 void NetFreesound::m_download(t_symbol* s, const AtomListView& lv)
 {
     if (!cli_ || !checkOAuth(s))

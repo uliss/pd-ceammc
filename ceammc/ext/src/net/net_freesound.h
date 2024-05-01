@@ -44,11 +44,12 @@ public:
     void editorAddLine(t_symbol* sel, const AtomListView& lv);
     EditorLineList getContentForEditor() const final;
     EditorTitleString editorTitle() const { return "Freesound ID/SECRET"; }
+    void editorSync() final;
 
+    void m_access(t_symbol* s, const AtomListView& lv);
     void m_download(t_symbol* s, const AtomListView& lv);
     void m_load(t_symbol* s, const AtomListView& lv);
     void m_me(t_symbol* s, const AtomListView& lv);
-    void m_access(t_symbol* s, const AtomListView& lv);
     void m_search(t_symbol* s, const AtomListView& lv);
 
 private:
