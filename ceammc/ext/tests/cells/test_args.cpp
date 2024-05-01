@@ -190,6 +190,12 @@ TEST_CASE("args2", "[core]")
         REQUIRE(args::check_args("s", LA("ABC")));
 
         REQUIRE(args::check_args("s=A", LA("A")));
+        REQUIRE(args::check_args("s=\"A\"", LA("A")));
+        REQUIRE(args::check_args("s='A'", LA("A")));
+        REQUIRE(args::check_args("s='A:'", LA("A:")));
+        REQUIRE(args::check_args("s='A||'", LA("A||")));
+        REQUIRE(args::check_args("s=\"any!12 3|||\"", LA("any!12 3|||")));
+        REQUIRE(args::check_args("s='ABCDEFGHJKLOMNP'", LA("ABCDEFGHJKLOMN")));
         REQUIRE_FALSE(args::check_args("s=A", LA("AB")));
         REQUIRE(args::check_args("s=A|B#|@c", LA("A")));
         REQUIRE(args::check_args("s=A|B#|@c", LA("B#")));

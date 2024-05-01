@@ -277,7 +277,22 @@ action append_opt_real {
 action append_opt_sym {
     try {
         ArgString str{ {}, 0 };
-        str.first.assign(rl_sym_start, fpc - rl_sym_start);
+        auto LEN = fpc - rl_sym_start;
+        // check for quoted symbol
+        if ((fc == '"' || fc == '\'' || (fc == '\0' && (fpc[-1] == '"' || fpc[-1] == '\''))) && LEN > 0)
+            LEN--;
+
+        if (LEN >= str.first.capacity()) {
+            LIB_ERR << fmt::format(
+                "[devel] ArgChecker max symbol length exceeded for '{}'"
+                ", max length is: {}, using trimmed symbol: '{}'",
+                std::string(rl_sym_start, LEN),
+                str.first.capacity(),
+                std::string(rl_sym_start, std::min<size_t>(LEN, str.first.capacity())));
+        }
+
+        str.first.assign(rl_sym_start, std::min<size_t>(LEN, str.first.capacity()));
+
         str.second = crc32_hash(str.first.data());
         rl_chk.values.push_back(str);
     } catch(std::exception& e) {
@@ -348,7 +363,10 @@ int_check = (cmp_op num_int %append_opt_int)
           | cmp_range_int
           ;
 
-sym_opt = [a-zA-Z_\-0-9@#:]+ >{ rl_sym_start = fpc; };
+sym_opt_simple  = [a-zA-Z_\-0-9@#:]+     >{ rl_sym_start = fpc; };
+sym_opt_dquoted = '"' [^"]+ >{ rl_sym_start = fpc; } '"';
+sym_opt_squoted = "'" [^']+ >{ rl_sym_start = fpc; } "'";
+sym_opt = sym_opt_simple | sym_opt_squoted | sym_opt_dquoted;
 
 #####################
 # symbol equal: =SYM|SYM...
