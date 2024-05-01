@@ -15,9 +15,14 @@ use crate::{
 use derivative::Derivative;
 use itertools::Itertools;
 use log::{debug, error, info};
+use nucleo_matcher::{
+    pattern::{Atom, AtomKind, CaseMatching, Normalization},
+    Config, Matcher,
+};
 use oauth2::TokenResponse;
 use reqwest::Response;
 use rubato::{FftFixedIn, Resampler};
+use rumqttc::matches;
 use symphonia::core::{
     audio::Signal,
     codecs::{DecoderOptions, CODEC_TYPE_NULL},
@@ -737,6 +742,42 @@ const SORT_VALUES: [&str; 9] = [
     "rating_asc",
 ];
 
+const FIELD_VALUES: [&str; 33] = [
+    "id",
+    "url",
+    "name",
+    "tags",
+    "description",
+    "geotag",
+    "created",
+    "license",
+    "type",
+    "channels",
+    "filesize",
+    "bitrate",
+    "bitdepth",
+    "duration",
+    "samplerate",
+    "username",
+    "pack",
+    "download",
+    "bookmark",
+    "previews",
+    "images",
+    "num_downloads",
+    "avg_rating",
+    "num_ratings",
+    "rate",
+    "comments",
+    "num_comments",
+    "comment",
+    "similar_sounds",
+    "analysis",
+    "analysis_stats",
+    "analysis_frames",
+    "ac_analysis",
+];
+
 async fn freesound_get(
     path: &str,
     access_token: &str,
@@ -800,6 +841,35 @@ async fn freesound_get(
             if !fields.contains(&"id".to_owned()) {
                 // id field is required!
                 fields.push("id".to_owned());
+            }
+
+            // check field names
+            for f in params.fields.iter() {
+                if !FIELD_VALUES.contains(&f.as_str()) {
+                    let mut matcher = Matcher::new(Config::DEFAULT);
+                    let matches = Atom::new(
+                        f.as_str(),
+                        CaseMatching::Respect,
+                        Normalization::Never,
+                        AtomKind::Fuzzy,
+                        false,
+                    )
+                    .match_list(FIELD_VALUES, &mut matcher);
+
+                    if matches.is_empty() {
+                        return Err(format!("invalid search request field: '{f}'"));
+                    } else if matches.len() == 1 {
+                        return Err(format!(
+                            "invalid search request field: '{f}', maybe you mean '{}'",
+                            matches[0].0
+                        ));
+                    } else {
+                        return Err(format!(
+                            "invalid search request field: '{f}', maybe you mean one of: {}",
+                            matches.iter().map(|x| format!("'{}'", x.0)).join(", ")
+                        ));
+                    }
+                }
             }
 
             url.query_pairs_mut()
