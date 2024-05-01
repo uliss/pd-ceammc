@@ -14,12 +14,13 @@
 #ifndef NET_FREESOUND_H
 #define NET_FREESOUND_H
 
+#include "ceammc_editor_object.h"
 #include "ceammc_object.h"
 #include "ceammc_poll_dispatcher.h"
 #include "net_rust_struct.hpp"
 using namespace ceammc;
 
-using NetFreesoundBase = DispatchedObject<BaseObject>;
+using NetFreesoundBase = EditorObject<DispatchedObject<BaseObject>, EditorSyntax::NONE>;
 using NetFreesoundImpl = net::NetService<ceammc_freesound_client, ceammc_freesound_init, ceammc_freesound_result_cb>;
 
 struct OAuthAccess {
@@ -38,6 +39,11 @@ public:
 
     void initDone() final;
     bool notify(int code) final;
+
+    void editorClear() final;
+    void editorAddLine(t_symbol* sel, const AtomListView& lv);
+    EditorLineList getContentForEditor() const final;
+    EditorTitleString editorTitle() const { return "Freesound ID/SECRET"; }
 
     void m_download(t_symbol* s, const AtomListView& lv);
     void m_load(t_symbol* s, const AtomListView& lv);
