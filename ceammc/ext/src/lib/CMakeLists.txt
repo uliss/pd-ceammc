@@ -195,6 +195,9 @@ if(RAGEL_FOUND)
     RAGEL_TARGET(ragel_music
         lex/ragel_music.rl lex/ragel_music.cpp
         COMPILE_FLAGS "-G2 -s")
+    RAGEL_TARGET(parser_guido
+        lex/parser_guido.rl lex/parser_guido.cpp
+        COMPILE_FLAGS "-G2 -s")
     RAGEL_TARGET(parser_timeline
         lex/parser_timeline.rl lex/parser_timeline.cpp
         COMPILE_FLAGS "-G2 -s")
@@ -229,6 +232,7 @@ target_sources(ceammc_core
         lex/parser_color.cpp
         lex/parser_dict_expr.cpp
         lex/parser_faust.cpp
+        lex/parser_guido.cpp
         lex/parser_hexbeat.cpp
         lex/parser_midi.cpp
         lex/parser_music.cpp
