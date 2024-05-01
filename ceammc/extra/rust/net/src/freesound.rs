@@ -860,12 +860,12 @@ async fn freesound_get(
                         return Err(format!("invalid search request field: '{f}'"));
                     } else if matches.len() == 1 {
                         return Err(format!(
-                            "invalid search request field: '{f}', maybe you mean '{}'",
+                            "invalid search request field: '{f}', maybe you mean '{}'?",
                             matches[0].0
                         ));
                     } else {
                         return Err(format!(
-                            "invalid search request field: '{f}', maybe you mean one of: {}",
+                            "invalid search request field: '{f}', maybe you mean one of: {}?",
                             matches.iter().map(|x| format!("'{}'", x.0)).join(", ")
                         ));
                     }
