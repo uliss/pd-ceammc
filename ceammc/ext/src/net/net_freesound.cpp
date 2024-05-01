@@ -229,6 +229,40 @@ bool NetFreesound::notify(int code)
     return true;
 }
 
+void NetFreesound::editorClear()
+{
+    oauth_id_->setValue(&s_);
+    oauth_secret_->setValue(&s_);
+}
+
+void NetFreesound::editorAddLine(t_symbol* sel, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("KEY:s='id:'|'secret:' VALUE:s");
+    if (!chk.check(lv, this))
+        return chk.usage(this);
+
+    if (lv[0] == "id:")
+        oauth_id_->setValue(lv.symbolAt(1, &s_));
+
+    if (lv[0] == "secret:")
+        oauth_secret_->setValue(lv.symbolAt(1, &s_));
+}
+
+EditorLineList NetFreesound::getContentForEditor() const
+{
+    EditorLineList res;
+    res.reserve(2);
+
+    auto id = EditorStringPool::pool().allocate();
+    id->append("id: ");
+    id->append(oauth_id_->value()->s_name);
+    auto secret = EditorStringPool::pool().allocate();
+    secret->append("secret: ");
+    secret->append(oauth_secret_->value()->s_name);
+
+    return EditorLineList { id, secret };
+}
+
 void NetFreesound::m_download(t_symbol* s, const AtomListView& lv)
 {
     if (!cli_ || !checkOAuth(s))
@@ -497,6 +531,8 @@ void setup_net_freesound()
     obj.addMethod("load", &NetFreesound::m_load);
     obj.addMethod("me", &NetFreesound::m_me);
     obj.addMethod("search", &NetFreesound::m_search);
+
+    NetFreesound::factoryEditorObjectInit(obj);
 }
 
 #endif
