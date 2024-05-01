@@ -19,7 +19,7 @@ static const int guido_note_parser_en_main = 1;
 #line 39 "lex/parser_guido.rl"
 
 
-bool parse_guido_note(const char* str, ceammc::music::PitchClass& pc, int& octave)
+bool parse_guido_note(const char* str, ceammc::music::PitchClass& pc, int& octave, music::Duration& d)
 {
     if (str == 0) {
         return false;
@@ -28,18 +28,21 @@ bool parse_guido_note(const char* str, ceammc::music::PitchClass& pc, int& octav
     int cs = 0;
     const char* p = str;
 
+    auto pitch = music::PitchClass::C;
     auto alt = ceammc::music::Alteration::NATURAL;
+    int oct = octave;
     int oct_sign = 1;
+    auto dur = d;
 
     
-#line 36 "lex/parser_guido.cpp"
+#line 39 "lex/parser_guido.cpp"
 	{
 	cs = guido_note_parser_start;
 	}
 
-#line 54 "lex/parser_guido.rl"
+#line 57 "lex/parser_guido.rl"
     
-#line 43 "lex/parser_guido.cpp"
+#line 46 "lex/parser_guido.cpp"
 	{
 	switch ( cs )
 	{
@@ -66,120 +69,120 @@ cs = 0;
 	goto _out;
 tr26:
 #line 13 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::A; }
+	{ pitch = music::PitchClass::A; }
 #line 30 "lex/parser_guido.rl"
-	{ octave = oct_sign * ((*p) - '0'); }
+	{ oct = oct_sign * ((*p) - '0'); }
 	goto st2;
 tr30:
 #line 30 "lex/parser_guido.rl"
-	{ octave = oct_sign * ((*p) - '0'); }
+	{ oct = oct_sign * ((*p) - '0'); }
 	goto st2;
 tr38:
 #line 13 "lex/parser_guido.rl"
 	{ ++alt; }
 #line 30 "lex/parser_guido.rl"
-	{ octave = oct_sign * ((*p) - '0'); }
+	{ oct = oct_sign * ((*p) - '0'); }
 	goto st2;
 tr44:
 #line 14 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 #line 30 "lex/parser_guido.rl"
-	{ octave = oct_sign * ((*p) - '0'); }
+	{ oct = oct_sign * ((*p) - '0'); }
 	goto st2;
 tr54:
 #line 15 "lex/parser_guido.rl"
 	{ ++alt; }
 #line 30 "lex/parser_guido.rl"
-	{ octave = oct_sign * ((*p) - '0'); }
+	{ oct = oct_sign * ((*p) - '0'); }
 	goto st2;
 tr63:
 #line 16 "lex/parser_guido.rl"
 	{ ++alt; }
 #line 30 "lex/parser_guido.rl"
-	{ octave = oct_sign * ((*p) - '0'); }
+	{ oct = oct_sign * ((*p) - '0'); }
 	goto st2;
 tr69:
 #line 21 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::C; }
+	{ pitch = music::PitchClass::C; }
 #line 30 "lex/parser_guido.rl"
-	{ octave = oct_sign * ((*p) - '0'); }
+	{ oct = oct_sign * ((*p) - '0'); }
 	goto st2;
 tr75:
 #line 17 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::E; }
+	{ pitch = music::PitchClass::E; }
 #line 30 "lex/parser_guido.rl"
-	{ octave = oct_sign * ((*p) - '0'); }
+	{ oct = oct_sign * ((*p) - '0'); }
 	goto st2;
 tr83:
 #line 24 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::F; }
+	{ pitch = music::PitchClass::F; }
 #line 30 "lex/parser_guido.rl"
-	{ octave = oct_sign * ((*p) - '0'); }
+	{ oct = oct_sign * ((*p) - '0'); }
 	goto st2;
 tr90:
 #line 18 "lex/parser_guido.rl"
 	{ ++alt; }
 #line 30 "lex/parser_guido.rl"
-	{ octave = oct_sign * ((*p) - '0'); }
+	{ oct = oct_sign * ((*p) - '0'); }
 	goto st2;
 tr96:
 #line 19 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::G; }
+	{ pitch = music::PitchClass::G; }
 #line 30 "lex/parser_guido.rl"
-	{ octave = oct_sign * ((*p) - '0'); }
+	{ oct = oct_sign * ((*p) - '0'); }
 	goto st2;
 tr104:
 #line 19 "lex/parser_guido.rl"
 	{ ++alt; }
 #line 30 "lex/parser_guido.rl"
-	{ octave = oct_sign * ((*p) - '0'); }
+	{ oct = oct_sign * ((*p) - '0'); }
 	goto st2;
 tr110:
 #line 20 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 #line 30 "lex/parser_guido.rl"
-	{ octave = oct_sign * ((*p) - '0'); }
+	{ oct = oct_sign * ((*p) - '0'); }
 	goto st2;
 tr117:
 #line 26 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::A; }
+	{ pitch = music::PitchClass::A; }
 #line 30 "lex/parser_guido.rl"
-	{ octave = oct_sign * ((*p) - '0'); }
+	{ oct = oct_sign * ((*p) - '0'); }
 	goto st2;
 tr124:
 #line 23 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::E; }
+	{ pitch = music::PitchClass::E; }
 #line 30 "lex/parser_guido.rl"
-	{ octave = oct_sign * ((*p) - '0'); }
+	{ oct = oct_sign * ((*p) - '0'); }
 	goto st2;
 tr131:
 #line 22 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::D; }
+	{ pitch = music::PitchClass::D; }
 #line 30 "lex/parser_guido.rl"
-	{ octave = oct_sign * ((*p) - '0'); }
+	{ oct = oct_sign * ((*p) - '0'); }
 	goto st2;
 tr139:
 #line 27 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 #line 30 "lex/parser_guido.rl"
-	{ octave = oct_sign * ((*p) - '0'); }
+	{ oct = oct_sign * ((*p) - '0'); }
 	goto st2;
 tr146:
 #line 25 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::G; }
+	{ pitch = music::PitchClass::G; }
 #line 30 "lex/parser_guido.rl"
-	{ octave = oct_sign * ((*p) - '0'); }
+	{ oct = oct_sign * ((*p) - '0'); }
 	goto st2;
 tr153:
 #line 28 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 #line 30 "lex/parser_guido.rl"
-	{ octave = oct_sign * ((*p) - '0'); }
+	{ oct = oct_sign * ((*p) - '0'); }
 	goto st2;
 st2:
 	p += 1;
 case 2:
-#line 183 "lex/parser_guido.cpp"
+#line 186 "lex/parser_guido.cpp"
 	switch( (*p) ) {
 		case 0: goto tr15;
 		case 47: goto st3;
@@ -191,7 +194,7 @@ tr15:
 	goto st44;
 tr21:
 #line 13 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::A; }
+	{ pitch = music::PitchClass::A; }
 #line 37 "lex/parser_guido.rl"
 	{ {p++; cs = 44; goto _out;} }
 	goto st44;
@@ -203,7 +206,7 @@ tr33:
 	goto st44;
 tr39:
 #line 14 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 #line 37 "lex/parser_guido.rl"
 	{ {p++; cs = 44; goto _out;} }
 	goto st44;
@@ -221,19 +224,19 @@ tr58:
 	goto st44;
 tr64:
 #line 21 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::C; }
+	{ pitch = music::PitchClass::C; }
 #line 37 "lex/parser_guido.rl"
 	{ {p++; cs = 44; goto _out;} }
 	goto st44;
 tr70:
 #line 17 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::E; }
+	{ pitch = music::PitchClass::E; }
 #line 37 "lex/parser_guido.rl"
 	{ {p++; cs = 44; goto _out;} }
 	goto st44;
 tr78:
 #line 24 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::F; }
+	{ pitch = music::PitchClass::F; }
 #line 37 "lex/parser_guido.rl"
 	{ {p++; cs = 44; goto _out;} }
 	goto st44;
@@ -245,7 +248,7 @@ tr85:
 	goto st44;
 tr91:
 #line 19 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::G; }
+	{ pitch = music::PitchClass::G; }
 #line 37 "lex/parser_guido.rl"
 	{ {p++; cs = 44; goto _out;} }
 	goto st44;
@@ -257,54 +260,54 @@ tr99:
 	goto st44;
 tr105:
 #line 20 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 #line 37 "lex/parser_guido.rl"
 	{ {p++; cs = 44; goto _out;} }
 	goto st44;
 tr112:
 #line 26 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::A; }
+	{ pitch = music::PitchClass::A; }
 #line 37 "lex/parser_guido.rl"
 	{ {p++; cs = 44; goto _out;} }
 	goto st44;
 tr119:
 #line 23 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::E; }
+	{ pitch = music::PitchClass::E; }
 #line 37 "lex/parser_guido.rl"
 	{ {p++; cs = 44; goto _out;} }
 	goto st44;
 tr126:
 #line 22 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::D; }
+	{ pitch = music::PitchClass::D; }
 #line 37 "lex/parser_guido.rl"
 	{ {p++; cs = 44; goto _out;} }
 	goto st44;
 tr134:
 #line 27 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 #line 37 "lex/parser_guido.rl"
 	{ {p++; cs = 44; goto _out;} }
 	goto st44;
 tr141:
 #line 25 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::G; }
+	{ pitch = music::PitchClass::G; }
 #line 37 "lex/parser_guido.rl"
 	{ {p++; cs = 44; goto _out;} }
 	goto st44;
 tr148:
 #line 28 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 #line 37 "lex/parser_guido.rl"
 	{ {p++; cs = 44; goto _out;} }
 	goto st44;
 st44:
 	p += 1;
 case 44:
-#line 304 "lex/parser_guido.cpp"
+#line 307 "lex/parser_guido.cpp"
 	goto st0;
 tr25:
 #line 13 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::A; }
+	{ pitch = music::PitchClass::A; }
 	goto st3;
 tr37:
 #line 13 "lex/parser_guido.rl"
@@ -312,7 +315,7 @@ tr37:
 	goto st3;
 tr43:
 #line 14 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 	goto st3;
 tr53:
 #line 15 "lex/parser_guido.rl"
@@ -324,15 +327,15 @@ tr62:
 	goto st3;
 tr68:
 #line 21 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::C; }
+	{ pitch = music::PitchClass::C; }
 	goto st3;
 tr74:
 #line 17 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::E; }
+	{ pitch = music::PitchClass::E; }
 	goto st3;
 tr82:
 #line 24 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::F; }
+	{ pitch = music::PitchClass::F; }
 	goto st3;
 tr89:
 #line 18 "lex/parser_guido.rl"
@@ -340,7 +343,7 @@ tr89:
 	goto st3;
 tr95:
 #line 19 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::G; }
+	{ pitch = music::PitchClass::G; }
 	goto st3;
 tr103:
 #line 19 "lex/parser_guido.rl"
@@ -348,36 +351,36 @@ tr103:
 	goto st3;
 tr109:
 #line 20 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 	goto st3;
 tr116:
 #line 26 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::A; }
+	{ pitch = music::PitchClass::A; }
 	goto st3;
 tr123:
 #line 23 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::E; }
+	{ pitch = music::PitchClass::E; }
 	goto st3;
 tr130:
 #line 22 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::D; }
+	{ pitch = music::PitchClass::D; }
 	goto st3;
 tr138:
 #line 27 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 	goto st3;
 tr145:
 #line 25 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::G; }
+	{ pitch = music::PitchClass::G; }
 	goto st3;
 tr152:
 #line 28 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 	goto st3;
 st3:
 	p += 1;
 case 3:
-#line 381 "lex/parser_guido.cpp"
+#line 384 "lex/parser_guido.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto st4;
 	goto st0;
@@ -427,7 +430,7 @@ case 8:
 	goto st0;
 tr22:
 #line 13 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::A; }
+	{ pitch = music::PitchClass::A; }
 #line 11 "lex/parser_guido.rl"
 	{ ++alt; }
 	goto st9;
@@ -443,7 +446,7 @@ tr34:
 	goto st9;
 tr40:
 #line 14 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 #line 11 "lex/parser_guido.rl"
 	{ ++alt; }
 	goto st9;
@@ -461,19 +464,19 @@ tr59:
 	goto st9;
 tr65:
 #line 21 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::C; }
+	{ pitch = music::PitchClass::C; }
 #line 11 "lex/parser_guido.rl"
 	{ ++alt; }
 	goto st9;
 tr71:
 #line 17 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::E; }
+	{ pitch = music::PitchClass::E; }
 #line 11 "lex/parser_guido.rl"
 	{ ++alt; }
 	goto st9;
 tr79:
 #line 24 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::F; }
+	{ pitch = music::PitchClass::F; }
 #line 11 "lex/parser_guido.rl"
 	{ ++alt; }
 	goto st9;
@@ -485,7 +488,7 @@ tr86:
 	goto st9;
 tr92:
 #line 19 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::G; }
+	{ pitch = music::PitchClass::G; }
 #line 11 "lex/parser_guido.rl"
 	{ ++alt; }
 	goto st9;
@@ -497,50 +500,50 @@ tr100:
 	goto st9;
 tr106:
 #line 20 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 #line 11 "lex/parser_guido.rl"
 	{ ++alt; }
 	goto st9;
 tr113:
 #line 26 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::A; }
+	{ pitch = music::PitchClass::A; }
 #line 11 "lex/parser_guido.rl"
 	{ ++alt; }
 	goto st9;
 tr120:
 #line 23 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::E; }
+	{ pitch = music::PitchClass::E; }
 #line 11 "lex/parser_guido.rl"
 	{ ++alt; }
 	goto st9;
 tr127:
 #line 22 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::D; }
+	{ pitch = music::PitchClass::D; }
 #line 11 "lex/parser_guido.rl"
 	{ ++alt; }
 	goto st9;
 tr135:
 #line 27 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 #line 11 "lex/parser_guido.rl"
 	{ ++alt; }
 	goto st9;
 tr142:
 #line 25 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::G; }
+	{ pitch = music::PitchClass::G; }
 #line 11 "lex/parser_guido.rl"
 	{ ++alt; }
 	goto st9;
 tr149:
 #line 28 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 #line 11 "lex/parser_guido.rl"
 	{ ++alt; }
 	goto st9;
 st9:
 	p += 1;
 case 9:
-#line 544 "lex/parser_guido.cpp"
+#line 547 "lex/parser_guido.cpp"
 	switch( (*p) ) {
 		case 0: goto tr15;
 		case 35: goto tr28;
@@ -561,7 +564,7 @@ tr31:
 st10:
 	p += 1;
 case 10:
-#line 565 "lex/parser_guido.cpp"
+#line 568 "lex/parser_guido.cpp"
 	switch( (*p) ) {
 		case 0: goto tr15;
 		case 45: goto tr29;
@@ -572,7 +575,7 @@ case 10:
 	goto st0;
 tr24:
 #line 13 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::A; }
+	{ pitch = music::PitchClass::A; }
 #line 30 "lex/parser_guido.rl"
 	{ oct_sign = -1; }
 	goto st11;
@@ -588,7 +591,7 @@ tr36:
 	goto st11;
 tr42:
 #line 14 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 #line 30 "lex/parser_guido.rl"
 	{ oct_sign = -1; }
 	goto st11;
@@ -606,19 +609,19 @@ tr61:
 	goto st11;
 tr67:
 #line 21 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::C; }
+	{ pitch = music::PitchClass::C; }
 #line 30 "lex/parser_guido.rl"
 	{ oct_sign = -1; }
 	goto st11;
 tr73:
 #line 17 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::E; }
+	{ pitch = music::PitchClass::E; }
 #line 30 "lex/parser_guido.rl"
 	{ oct_sign = -1; }
 	goto st11;
 tr81:
 #line 24 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::F; }
+	{ pitch = music::PitchClass::F; }
 #line 30 "lex/parser_guido.rl"
 	{ oct_sign = -1; }
 	goto st11;
@@ -630,7 +633,7 @@ tr88:
 	goto st11;
 tr94:
 #line 19 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::G; }
+	{ pitch = music::PitchClass::G; }
 #line 30 "lex/parser_guido.rl"
 	{ oct_sign = -1; }
 	goto st11;
@@ -642,56 +645,56 @@ tr102:
 	goto st11;
 tr108:
 #line 20 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 #line 30 "lex/parser_guido.rl"
 	{ oct_sign = -1; }
 	goto st11;
 tr115:
 #line 26 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::A; }
+	{ pitch = music::PitchClass::A; }
 #line 30 "lex/parser_guido.rl"
 	{ oct_sign = -1; }
 	goto st11;
 tr122:
 #line 23 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::E; }
+	{ pitch = music::PitchClass::E; }
 #line 30 "lex/parser_guido.rl"
 	{ oct_sign = -1; }
 	goto st11;
 tr129:
 #line 22 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::D; }
+	{ pitch = music::PitchClass::D; }
 #line 30 "lex/parser_guido.rl"
 	{ oct_sign = -1; }
 	goto st11;
 tr137:
 #line 27 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 #line 30 "lex/parser_guido.rl"
 	{ oct_sign = -1; }
 	goto st11;
 tr144:
 #line 25 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::G; }
+	{ pitch = music::PitchClass::G; }
 #line 30 "lex/parser_guido.rl"
 	{ oct_sign = -1; }
 	goto st11;
 tr151:
 #line 28 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 #line 30 "lex/parser_guido.rl"
 	{ oct_sign = -1; }
 	goto st11;
 st11:
 	p += 1;
 case 11:
-#line 689 "lex/parser_guido.cpp"
+#line 692 "lex/parser_guido.cpp"
 	if ( 48 <= (*p) && (*p) <= 57 )
 		goto tr30;
 	goto st0;
 tr23:
 #line 13 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::A; }
+	{ pitch = music::PitchClass::A; }
 #line 12 "lex/parser_guido.rl"
 	{ --alt; }
 	goto st12;
@@ -707,7 +710,7 @@ tr35:
 	goto st12;
 tr41:
 #line 14 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 #line 12 "lex/parser_guido.rl"
 	{ --alt; }
 	goto st12;
@@ -725,19 +728,19 @@ tr60:
 	goto st12;
 tr66:
 #line 21 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::C; }
+	{ pitch = music::PitchClass::C; }
 #line 12 "lex/parser_guido.rl"
 	{ --alt; }
 	goto st12;
 tr72:
 #line 17 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::E; }
+	{ pitch = music::PitchClass::E; }
 #line 12 "lex/parser_guido.rl"
 	{ --alt; }
 	goto st12;
 tr80:
 #line 24 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::F; }
+	{ pitch = music::PitchClass::F; }
 #line 12 "lex/parser_guido.rl"
 	{ --alt; }
 	goto st12;
@@ -749,7 +752,7 @@ tr87:
 	goto st12;
 tr93:
 #line 19 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::G; }
+	{ pitch = music::PitchClass::G; }
 #line 12 "lex/parser_guido.rl"
 	{ --alt; }
 	goto st12;
@@ -761,50 +764,50 @@ tr101:
 	goto st12;
 tr107:
 #line 20 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 #line 12 "lex/parser_guido.rl"
 	{ --alt; }
 	goto st12;
 tr114:
 #line 26 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::A; }
+	{ pitch = music::PitchClass::A; }
 #line 12 "lex/parser_guido.rl"
 	{ --alt; }
 	goto st12;
 tr121:
 #line 23 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::E; }
+	{ pitch = music::PitchClass::E; }
 #line 12 "lex/parser_guido.rl"
 	{ --alt; }
 	goto st12;
 tr128:
 #line 22 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::D; }
+	{ pitch = music::PitchClass::D; }
 #line 12 "lex/parser_guido.rl"
 	{ --alt; }
 	goto st12;
 tr136:
 #line 27 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 #line 12 "lex/parser_guido.rl"
 	{ --alt; }
 	goto st12;
 tr143:
 #line 25 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::G; }
+	{ pitch = music::PitchClass::G; }
 #line 12 "lex/parser_guido.rl"
 	{ --alt; }
 	goto st12;
 tr150:
 #line 28 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::B; }
+	{ pitch = music::PitchClass::B; }
 #line 12 "lex/parser_guido.rl"
 	{ --alt; }
 	goto st12;
 st12:
 	p += 1;
 case 12:
-#line 808 "lex/parser_guido.cpp"
+#line 811 "lex/parser_guido.cpp"
 	switch( (*p) ) {
 		case 0: goto tr15;
 		case 38: goto tr31;
@@ -816,12 +819,12 @@ case 12:
 	goto st0;
 tr27:
 #line 13 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::A; }
+	{ pitch = music::PitchClass::A; }
 	goto st13;
 st13:
 	p += 1;
 case 13:
-#line 825 "lex/parser_guido.cpp"
+#line 828 "lex/parser_guido.cpp"
 	if ( (*p) == 115 )
 		goto st14;
 	goto st0;
@@ -853,12 +856,12 @@ case 15:
 	goto st0;
 tr4:
 #line 15 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::C; }
+	{ pitch = music::PitchClass::C; }
 	goto st16;
 st16:
 	p += 1;
 case 16:
-#line 862 "lex/parser_guido.cpp"
+#line 865 "lex/parser_guido.cpp"
 	switch( (*p) ) {
 		case 0: goto tr15;
 		case 35: goto tr45;
@@ -891,12 +894,12 @@ case 18:
 	goto st0;
 tr5:
 #line 16 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::D; }
+	{ pitch = music::PitchClass::D; }
 	goto st19;
 st19:
 	p += 1;
 case 19:
-#line 900 "lex/parser_guido.cpp"
+#line 903 "lex/parser_guido.cpp"
 	switch( (*p) ) {
 		case 0: goto tr15;
 		case 35: goto tr45;
@@ -956,12 +959,12 @@ case 23:
 	goto st0;
 tr7:
 #line 18 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::F; }
+	{ pitch = music::PitchClass::F; }
 	goto st24;
 st24:
 	p += 1;
 case 24:
-#line 965 "lex/parser_guido.cpp"
+#line 968 "lex/parser_guido.cpp"
 	switch( (*p) ) {
 		case 0: goto tr15;
 		case 35: goto tr45;
@@ -1022,12 +1025,12 @@ case 28:
 	goto st0;
 tr97:
 #line 19 "lex/parser_guido.rl"
-	{ pc = music::PitchClass::G; }
+	{ pitch = music::PitchClass::G; }
 	goto st29;
 st29:
 	p += 1;
 case 29:
-#line 1031 "lex/parser_guido.cpp"
+#line 1034 "lex/parser_guido.cpp"
 	if ( (*p) == 115 )
 		goto st30;
 	goto st0;
@@ -1178,12 +1181,15 @@ case 43:
 	_out: {}
 	}
 
-#line 55 "lex/parser_guido.rl"
+#line 58 "lex/parser_guido.rl"
 
     const auto ok = cs >= 44;
 
     if (ok) {
-        pc.setAlteration(alt);
+        pitch.setAlteration(alt);
+        pc = pitch;
+        octave = oct;
+        d = dur;
         return true;
     } else {
         return false;

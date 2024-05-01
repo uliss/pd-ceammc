@@ -14,11 +14,12 @@
 #ifndef PARSER_GUIDO_H
 #define PARSER_GUIDO_H
 
+#include "ceammc_music_theory_duration.h"
 #include "ceammc_music_theory_pitch_class.h"
 
 namespace ceammc {
 namespace parser {
-    bool parse_guido_note(const char* str, ceammc::music::PitchClass& pc, int& octave);
+    bool parse_guido_note(const char* str, music::PitchClass& pc, int& octave, music::Duration& d);
 }
 }
 
