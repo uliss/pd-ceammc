@@ -25,12 +25,15 @@
             <par>1) create Freesound API credentials at:</par>
             <a href="https://freesound.org/apiv2/apply">https://freesound.org/apiv2/apply</a>
             <par>2) save this id/secret pair into file if using @oauth_file property or set
-            @oauth_id/@oauth_secret properties explicitly.</par>
+            @oauth_id/@oauth_secret properties explicitly or enter it with editor</par>
             <par>3) [access auth( get temporal application code from Freesound website (valid for
             ~24 hours)</par>
             <par>4) [access code CODE( exchange this application code to internal secret access
             token</par>
         </info>
+        <mouse>
+            <event type="left-click" editmode="false">open id/secret editor</event>
+        </mouse>
         <methods>
             <method name="access auth">get application authorization code (valid ~24 hours) from
             Freesound page: should open in web browser.</method>
@@ -59,7 +62,8 @@
             <param name="@sort" type="symbol" required="false">sort methods: "score",
             "duration_desc", "duration_asc", "created_desc", "created_asc", "downloads_desc",
             "downloads_asc", "rating_desc", "rating_asc"</param>
-            <param name="@filter" type="symbol" required="false">filter expression</param></method>
+            <param name="@filter" type="symbol" required="false">filter expression, for example: @filter type mp3.
+            See https://freesound.org/docs/api/resources_apiv2.html</param></method>
         </methods>
         <inlets>
             <inlet>
@@ -80,7 +84,11 @@
                    |
   [me(             [access code $1 #c(
   |
+  |
+  |
 [net.freesound #z]
+|
+|
 |
 [route results progress #x]
 |
