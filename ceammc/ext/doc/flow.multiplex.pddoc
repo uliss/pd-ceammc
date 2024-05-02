@@ -19,10 +19,6 @@
                 <see>flow.demultiplex</see>
             </also>
         </meta>
-        <info>
-            <par>Warning: in v0.9 extra inlet added to select input</par>
-            <par>Set @index property only via [prop.set]</par>
-        </info>
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="24">number of multiplexed
             inputs</argument>
@@ -31,7 +27,7 @@
         </arguments>
         <properties>
             <property name="@index" type="int" minvalue="0" default="0" maxvalue="23">input
-            index</property>
+            index, can be set only with [prop.set] object or via rightmost inlet</property>
         </properties>
         <inlets dynamic="true">
             <inlet>
@@ -50,17 +46,19 @@
         <example>
             <pdascii>
 <![CDATA[
-[hradio]             [flow.multiplex.bang]
+[ui.hrd #a]          [flow.multiplex.bang]
 |
 [prop.set @index]    [flow.multiplex.list]
 |
 |                    [flow.multiplex.any]
 |
-| [F]  [F]  [F]  [F]  /*select*/
+| [F]  [F]  [F]  [ui.hrd #a]
 | |    |.   |..  |...
 [flow.multiplex 3   ]
 |
 [F]
+
+#a @nitems 4 @label select
 ]]>
             </pdascii>
             <pdascii id="bang">
