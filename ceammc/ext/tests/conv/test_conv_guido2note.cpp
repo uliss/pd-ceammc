@@ -95,6 +95,7 @@ TEST_CASE("conv.guido2note", "[externals]")
         REQUIRE(parse_guido_note("d&&", pc, oct, dur));
         REQUIRE(pc == music::PitchClass::Dff);
 
+        // octaves
         REQUIRE_FALSE(parse_guido_note("c-10", pc, oct, dur));
         REQUIRE_FALSE(parse_guido_note("c10", pc, oct, dur));
         REQUIRE(parse_guido_note("c-5", pc, oct, dur));
@@ -121,5 +122,25 @@ TEST_CASE("conv.guido2note", "[externals]")
         REQUIRE(oct == 4);
         REQUIRE(parse_guido_note("c5", pc, oct, dur));
         REQUIRE(oct == 5);
+
+        // duration
+        REQUIRE(parse_guido_note("c*1/2", pc, oct, dur));
+        REQUIRE(dur == music::Duration(1, 2));
+        REQUIRE(parse_guido_note("c*3/4", pc, oct, dur));
+        REQUIRE(dur == music::Duration(3, 4));
+        REQUIRE(parse_guido_note("c*12/16", pc, oct, dur));
+        REQUIRE(dur == music::Duration(12, 16));
+        REQUIRE(parse_guido_note("c*1/4.", pc, oct, dur));
+        REQUIRE(dur == music::Duration(1, 4, 1));
+        REQUIRE(parse_guido_note("c*1/4..", pc, oct, dur));
+        REQUIRE(dur == music::Duration(1, 4, 2));
+        REQUIRE(parse_guido_note("c*1/4...", pc, oct, dur));
+        REQUIRE(dur == music::Duration(1, 4, 3));
+        REQUIRE(parse_guido_note("c*4..", pc, oct, dur));
+        REQUIRE(dur == music::Duration(4, 1, 2));
+        REQUIRE(parse_guido_note("c/8", pc, oct, dur));
+        REQUIRE(dur == music::Duration(1, 8, 0));
+        REQUIRE(parse_guido_note("c/128..", pc, oct, dur));
+        REQUIRE(dur == music::Duration(1, 128, 2));
     }
 }
