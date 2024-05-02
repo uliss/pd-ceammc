@@ -16,13 +16,13 @@ to float data type.;
 #X obj 20 266 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 271 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 272 1.;
+#X text 110 272 1\.;
 #X text 150 272 *bang*;
 #X text 245 272 outputs memory size.;
 #X obj 20 302 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 307 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 308 1.;
+#X text 110 308 1\.;
 #X text 245 308 physical memory (RAM) size in bytes.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

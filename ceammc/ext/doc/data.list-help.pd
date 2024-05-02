@@ -24,7 +24,7 @@
 #X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 359 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 394 1.;
+#X text 110 394 1\.;
 #X text 150 394 list;
 #X obj 246 395 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 394 VALUE: initial list values. Type: list.;
@@ -34,11 +34,11 @@
 #X msg 110 464 @value;
 #X text 245 464 Get/Set current value. Type: list.;
 #X msg 110 494 @empty?;
-#X text 245 494 (readonly) Get 1 if list is empty \, otherwise 0. Type:
-bool. Default value: 1.;
+#X text 245 494 (readonly) Get 1 if list is empty \, otherwise 0\.
+Type: bool. Default value: 1\.;
 #X msg 110 536 @size?;
 #X text 245 536 (readonly) Get number of elements in list. Type: int.
-Default value: 0. Min value: 0.;
+Default value: 0\. Min value: 0\.;
 #X obj 20 588 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 593 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -95,7 +95,7 @@ are:;
 #X obj 20 1264 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1269 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1270 1.;
+#X text 110 1270 1\.;
 #X text 150 1270 *bang*;
 #X text 245 1270 output list content.;
 #X text 150 1290 *float*;
@@ -107,13 +107,13 @@ indexes are supported.;
 #X text 245 1345 set new list content and output.;
 #X text 150 1365 *data:mlist*;
 #X text 245 1365 same as list.;
-#X text 110 1385 2.;
+#X text 110 1385 2\.;
 #X text 150 1385 *list*;
 #X text 245 1385 sets new list without output.;
 #X obj 20 1415 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1420 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1421 1.;
+#X text 110 1421 1\.;
 #X text 245 1421 output list or list elements.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

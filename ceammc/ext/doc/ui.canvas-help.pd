@@ -46,13 +46,13 @@
 #X msg 110 895 @background_color;
 #X text 245 895 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1.;
+0.93 1\.;
 #X msg 110 952 @border_color;
 #X text 245 952 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 994 @label_color;
 #X text 245 994 Get/Set label color in RGB format within 0-1 range
-\, for example: 0.2 0.4 0.1. Type: list. Default value: 0 0 0 1.;
+\, for example: 0.2 0.4 0.1\. Type: list. Default value: 0 0 0 1\.;
 #X msg 110 1036 @label;
 #X text 245 1036 Get/Set label text. Type: symbol. Default value: (null).;
 #X msg 110 1066 @label_align;
@@ -60,10 +60,10 @@ values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
 value: left. Allowed values: left \, center \, right.;
 #X msg 110 1108 @label_inner;
 #X text 245 1108 Get/Set label position (1 - inner \, 0 - outer). Type:
-bool. Default value: 0.;
+bool. Default value: 0\.;
 #X msg 110 1150 @label_margins;
 #X text 245 1150 Get/Set label offset in pixels. Type: list. Default
-value: 0 0.;
+value: 0 0\.;
 #X msg 110 1192 @label_side;
 #X text 245 1192 Get/Set label snap side. Type: symbol. Default value:
 top. Allowed values: left \, top \, right \, bottom.;
@@ -74,8 +74,8 @@ value: top. Allowed values: top \, center \, bottom.;
 #X text 245 1276 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1318 @fontsize;
-#X text 245 1318 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 1318 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 1360 @fontslant;
 #X text 245 1360 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -84,10 +84,10 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 1444 @pinned;
 #X text 245 1444 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1486 @size;
 #X text 245 1486 Get/Set element size (width \, height pair). Type:
-list. Default value: 120 60.;
+list. Default value: 120 60\.;
 #X obj 20 1538 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1543 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -211,7 +211,7 @@ atom.;
 #X text 255 2818 COLOR: fill color. Type: atom.;
 #X obj 255 2841 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 2841 [PRESERVE]: preserve path after fill. You can call
-stroke method after that. Type: atom. Allowed values: preserve \, 1.;
+stroke method after that. Type: atom. Allowed values: preserve \, 1\.;
 #X msg 110 2881 font;
 #X text 245 2881 set current font. Arguments are:;
 #X obj 255 2904 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -249,7 +249,7 @@ atom.;
 #X text 255 3231 PATH: path to image file \, full or relative to patch.
 Type: symbol.;
 #X obj 255 3269 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 3269 [SCALE]: image scale. Type: float. Min value: 0.;
+#X text 255 3269 [SCALE]: image scale. Type: float. Min value: 0\.;
 #X msg 110 3294 line;
 #X text 245 3294 create line shape. Arguments are:;
 #X obj 255 3317 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -338,11 +338,11 @@ Type: atom.;
 Type: atom.;
 #X obj 255 4171 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 4171 [ADIV]: number of divisions of 90 degree angle. Type:
-int. Min value: 0.;
+int. Min value: 0\.;
 #X obj 255 4209 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4209 [NC]: number of circles. Type: int. Min value: 0.;
+#X text 255 4209 [NC]: number of circles. Type: int. Min value: 0\.;
 #X obj 255 4232 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4232 [CDIST]: circle distance. Type: int. Min value: 1.;
+#X text 255 4232 [CDIST]: circle distance. Type: int. Min value: 1\.;
 #X msg 110 4257 polygon;
 #X text 245 4257 create polygon shape. Arguments are:;
 #X obj 255 4280 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -378,7 +378,7 @@ atom.;
 #X text 255 4537 Y: top-coord in pixel or percents of height. Type:
 atom.;
 #X obj 255 4560 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 4560 PIXEL: pixel size. Type: int. Min value: 1.;
+#X text 255 4560 PIXEL: pixel size. Type: int. Min value: 1\.;
 #X obj 255 4583 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 4583 TEXT: message. Type: symbol.;
 #X msg 110 4608 rect;
@@ -426,17 +426,17 @@ Type: atom.;
 #X obj 255 5105 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 5105 N: number of vertexes. Type: int.;
 #X obj 255 5128 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 5128 [R]: star radius. Type: float. Min value: 0.;
+#X text 255 5128 [R]: star radius. Type: float. Min value: 0\.;
 #X obj 255 5151 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 5151 [STEP]: connection step. If omitted step is auto-calculated.
-Type: int. Min value: 1.;
+Type: int. Min value: 1\.;
 #X msg 110 5191 stroke;
 #X text 245 5191 stroke shape with color. Arguments are:;
 #X obj 255 5214 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 5214 COLOR: stroke color. Type: atom.;
 #X obj 255 5237 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 5237 [PRESERVE]: preserve path after stroke. Type: atom.
-Allowed values: preserve \, 1.;
+Allowed values: preserve \, 1\.;
 #X msg 110 5277 text;
 #X text 245 5277 set current text shape. Arguments are:;
 #X obj 255 5300 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -463,7 +463,7 @@ atom.;
 #X obj 20 5556 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 5561 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 5562 1.;
+#X text 110 5562 1\.;
 #X text 245 5562 draw commands.;
 #X obj 20 5592 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 5597 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144

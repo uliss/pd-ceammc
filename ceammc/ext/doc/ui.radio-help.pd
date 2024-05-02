@@ -55,22 +55,22 @@ mode.;
 #X obj 20 520 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 525 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 560 1.;
+#X text 110 560 1\.;
 #X text 150 560 float;
 #X obj 246 561 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 560 NCELLS: number of cells. Type: float. Range: 2...128;
+#X text 245 560 NCELLS: number of cells. Type: float. Range: 2\...128;
 #X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 595 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 630 @mode;
 #X text 245 630 Get/Set check list mode. If true acts as checklist.
-Type: bool. Default value: 0.;
+Type: bool. Default value: 0\.;
 #X msg 110 672 @mouse_events;
 #X text 245 672 Get/Set mouse events output mode. If on outputs @mouse_down
-and @mouse_drag events. Type: bool. Default value: 0.;
+and @mouse_drag events. Type: bool. Default value: 0\.;
 #X msg 110 714 @nitems;
 #X text 245 714 Get/Set number of items. Type: int. Default value:
-8. Range: 2...128.;
+8\. Range: 2\...128\.;
 #X msg 110 756 @receive;
 #X text 245 756 Get/Set receive source. Type: symbol. Default value:
 (null).;
@@ -81,20 +81,20 @@ and @mouse_drag events. Type: bool. Default value: 0.;
 #X text 245 828 Get/Set widget value (float or list). Type: list.;
 #X msg 110 858 @active_color;
 #X text 245 858 Get/Set active color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0 0.75 1 1.;
+values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 900 @background_color;
 #X text 245 900 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1.;
+0.93 1\.;
 #X msg 110 957 @border_color;
 #X text 245 957 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 999 @fontname;
 #X text 245 999 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1041 @fontsize;
-#X text 245 1041 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 1041 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 1083 @fontslant;
 #X text 245 1083 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -103,13 +103,13 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 1167 @pinned;
 #X text 245 1167 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1209 @presetname;
 #X text 245 1209 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
 #X msg 110 1251 @size;
 #X text 245 1251 Get/Set element size (width \, height pair). Type:
-list. Default value: 120 15.;
+list. Default value: 120 15\.;
 #X obj 20 1303 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1308 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -182,7 +182,7 @@ only).;
 #X obj 20 2106 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2111 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2112 1.;
+#X text 110 2112 1\.;
 #X text 150 2112 *bang*;
 #X text 245 2112 outputs current radio state.;
 #X text 150 2132 *float*;
@@ -192,7 +192,7 @@ only).;
 #X obj 20 2182 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2187 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2188 1.;
+#X text 110 2188 1\.;
 #X text 245 2188 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

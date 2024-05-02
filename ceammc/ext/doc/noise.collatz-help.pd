@@ -40,13 +40,13 @@ Type: int.;
 #X obj 20 678 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 683 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 684 1.;
+#X text 110 684 1\.;
 #X text 150 684 *bang*;
 #X text 245 684 output value.;
 #X obj 20 714 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 719 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 720 1.;
+#X text 110 720 1\.;
 #X text 245 720 main outlet.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

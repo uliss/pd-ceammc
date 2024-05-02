@@ -15,19 +15,19 @@ progression);
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 404 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 439 1.;
+#X text 110 439 1\.;
 #X text 150 439 float;
 #X obj 246 440 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 439 START: @start property. Type: float. Min value: 0;
-#X text 110 459 2.;
+#X text 110 459 2\.;
 #X text 150 459 float;
 #X obj 246 460 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 459 STOP: @stop property. Type: float. Min value: 0;
-#X text 110 479 3.;
+#X text 110 479 3\.;
 #X text 150 479 int;
 #X obj 246 480 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 479 N: @n property. Type: int. Range: 4...1024;
-#X text 110 499 4.;
+#X text 245 479 N: @n property. Type: int. Range: 4\...1024;
+#X text 110 499 4\.;
 #X text 150 499 atom;
 #X obj 246 500 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 499 BASE: x-axis scale base. Allowed values: 10 \, 2 \,
@@ -36,32 +36,32 @@ e. Type: atom.;
 #X obj 20 549 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 584 @10;
-#X text 245 584 Get/Set alias to @base 10. Type: atom.;
+#X text 245 584 Get/Set alias to @base 10\. Type: atom.;
 #X msg 110 614 @2;
-#X text 245 614 Get/Set alias to @base 2. Type: atom.;
+#X text 245 614 Get/Set alias to @base 2\. Type: atom.;
 #X msg 110 644 @base;
 #X text 245 644 Get/Set x-axis scale base. Type: atom. Default value:
-10. Allowed values: 10 \, 2 \, e.;
+10\. Allowed values: 10 \, 2 \, e.;
 #X msg 110 686 @e;
 #X text 245 686 Get/Set alias to @base e. Type: atom.;
 #X msg 110 716 @endpoint;
 #X text 245 716 Get/Set include @stop to interval. Type: bool. Default
-value: 1.;
+value: 1\.;
 #X msg 110 758 @n;
 #X text 245 758 Get/Set number of points. Type: int. Default value:
-100. Range: 4...1024.;
+100\. Range: 4\...1024\.;
 #X msg 110 800 @start;
 #X text 245 800 Get/Set the starting value of the sequence. Type: float.
-Default value: 0.1. Min value: 0.;
+Default value: 0.1\. Min value: 0\.;
 #X msg 110 842 @stop;
 #X text 245 842 Get/Set the final value of the sequence \, unless @endpoint
 is false. In that case \, @n + 1 values are spaced over the interval
 in log-space \, of which all but the last (a sequence of length @n)
-are returned. Type: float. Default value: 100. Min value: 0.;
+are returned. Type: float. Default value: 100\. Min value: 0\.;
 #X obj 20 939 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 944 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 945 1.;
+#X text 110 945 1\.;
 #X text 150 945 *bang*;
 #X text 245 945 starts output.;
 #X text 150 965 *float*;
@@ -70,9 +70,9 @@ valuue.;
 #X obj 20 995 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1000 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1001 1.;
+#X text 110 1001 1\.;
 #X text 245 1001 signal output.;
-#X text 110 1021 2.;
+#X text 110 1021 2\.;
 #X text 245 1021 output to [array.plot~] or [ui.plot~].;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

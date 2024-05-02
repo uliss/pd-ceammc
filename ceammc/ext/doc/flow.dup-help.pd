@@ -19,7 +19,7 @@
 #X obj 20 309 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 314 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 349 1.;
+#X text 110 349 1\.;
 #X text 150 349 int;
 #X obj 246 350 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 349 N: number of repeats. Type: int. Min value: 0;
@@ -28,19 +28,19 @@
 -49933 0;
 #X msg 110 419 @n;
 #X text 245 419 Get/Set number of repeats. Type: int. Default value:
-2. Min value: 0.;
+2\. Min value: 0\.;
 #X obj 20 471 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 476 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 477 1.;
+#X text 110 477 1\.;
 #X text 245 477 incoming message.;
-#X text 110 497 2.;
+#X text 110 497 2\.;
 #X text 150 497 *int*;
-#X text 245 497 set number of repeats. Min value: 0.;
+#X text 245 497 set number of repeats. Min value: 0\.;
 #X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 532 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 533 1.;
+#X text 110 533 1\.;
 #X text 245 533 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

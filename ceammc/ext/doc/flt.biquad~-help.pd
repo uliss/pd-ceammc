@@ -29,7 +29,7 @@ https://en.wikipedia.org/wiki/Digital_biquad_filter;
 -49933 0;
 #X msg 110 629 @active;
 #X text 245 629 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X obj 20 669 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 674 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -38,22 +38,22 @@ https://en.wikipedia.org/wiki/Digital_biquad_filter;
 #X obj 20 747 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 752 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 753 1.;
+#X text 110 753 1\.;
 #X text 245 753 input signal.;
-#X text 110 773 2.;
-#X text 245 773 b0.;
-#X text 110 793 3.;
-#X text 245 793 b1.;
-#X text 110 813 4.;
-#X text 245 813 b2.;
-#X text 110 833 5.;
-#X text 245 833 a1.;
-#X text 110 853 6.;
-#X text 245 853 a2.;
+#X text 110 773 2\.;
+#X text 245 773 b0\.;
+#X text 110 793 3\.;
+#X text 245 793 b1\.;
+#X text 110 813 4\.;
+#X text 245 813 b2\.;
+#X text 110 833 5\.;
+#X text 245 833 a1\.;
+#X text 110 853 6\.;
+#X text 245 853 a2\.;
 #X obj 20 883 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 888 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 889 1.;
+#X text 110 889 1\.;
 #X text 245 889 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

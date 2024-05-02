@@ -30,7 +30,7 @@ are cold.;
 -49933 0;
 #X msg 110 514 @interval;
 #X text 245 514 Get/Set refresh interval. Type: int. Units: 'ms'. Default
-value: 50. Min value: 20.;
+value: 50\. Min value: 20\.;
 #X msg 110 556 @receive;
 #X text 245 556 Get/Set receive source. Type: symbol. Default value:
 (null).;
@@ -40,36 +40,36 @@ value: 50. Min value: 20.;
 #X msg 110 628 @background_color;
 #X text 245 628 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1.;
+0.93 1\.;
 #X msg 110 685 @border_color;
 #X text 245 685 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 727 @cold_color;
 #X text 245 727 Get/Set extra low-level signal color <-31db (list of
 red \, green \, blue values in 0-1 range). Type: list. Default value:
-0 0.6 0 1.;
+0 0.6 0 1\.;
 #X msg 110 784 @hot_color;
 #X text 245 784 Get/Set loud level signal color <-3db (list of red
 \, green \, blue values in 0-1 range). Type: list. Default value: 1
-0.6 0 1.;
+0.6 0 1\.;
 #X msg 110 841 @over_color;
 #X text 245 841 Get/Set extra-loud level signal color >-3db (list of
 red \, green \, blue values in 0-1 range). Type: list. Default value:
-1 0 0 1.;
+1 0 0 1\.;
 #X msg 110 898 @tepid_color;
 #X text 245 898 Get/Set low-level signal color <-21db (list of red
 \, green \, blue values in 0-1 range). Type: list. Default value: 0.6
-0.73 0 1.;
+0.73 0 1\.;
 #X msg 110 955 @warm_color;
 #X text 245 955 Get/Set normal level signal color <-9db (list of red
 \, green \, blue values in 0-1 range). Type: list. Default value: 0.85
-0.85 0 1.;
+0.85 0 1\.;
 #X msg 110 1012 @fontname;
 #X text 245 1012 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1054 @fontsize;
-#X text 245 1054 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 1054 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 1096 @fontslant;
 #X text 245 1096 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -78,10 +78,10 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 1180 @pinned;
 #X text 245 1180 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1222 @size;
 #X text 245 1222 Get/Set element size (width \, height pair). Type:
-list. Default value: 15 120.;
+list. Default value: 15 120\.;
 #X obj 20 1274 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1279 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -94,12 +94,12 @@ list. Default value: 15 120.;
 #X obj 20 1395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1400 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1401 1.;
+#X text 110 1401 1\.;
 #X text 245 1401 input signal.;
 #X obj 20 1431 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1436 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1437 1.;
+#X text 110 1437 1\.;
 #X text 245 1437 output pair of values: rms and peak in decibels (dbfs).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

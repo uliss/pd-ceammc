@@ -47,7 +47,7 @@ last user event);
 #X obj 20 603 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 608 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 643 1.;
+#X text 110 643 1\.;
 #X text 150 643 float;
 #X obj 246 644 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 643 LENGTH(sec): timeline length. Type: float. Min value:
@@ -57,9 +57,9 @@ last user event);
 -49933 0;
 #X msg 110 713 @length;
 #X text 245 713 (initonly) Get/Set timeline length. Type: float. Units:
-'sec'. Default value: 60. Min value: 0.;
+'sec'. Default value: 60\. Min value: 0\.;
 #X msg 110 755 @loop;
-#X text 245 755 Get/Set loop mode. Type: bool. Default value: 0.;
+#X text 245 755 Get/Set loop mode. Type: bool. Default value: 0\.;
 #X msg 110 785 @mode;
 #X text 245 785 Get/Set timeline mode. If timeline is fixed \, when
 reached \, it outputs *end* event and stops after that. Infinite timeline
@@ -67,22 +67,22 @@ never stops by itself. Fixed timeline can have @loop property for repeats.
 Type: symbol. Default value: fixed. Allowed values: fixed \, inf.;
 #X msg 110 872 @current?;
 #X text 245 872 (readonly) Get current time. Type: float. Units: 'ms'.
-Default value: 0.;
+Default value: 0\.;
 #X msg 110 914 @current_sec?;
 #X text 245 914 (readonly) Get current time. Type: float. Units: 'sec'.
-Default value: 0.;
+Default value: 0\.;
 #X msg 110 956 @events?;
 #X text 245 956 (readonly) Get list of event names in chronological
 order. Type: list. Default value: end.;
 #X msg 110 998 @is_running?;
 #X text 245 998 (readonly) Get if timeline is running. Type: bool.
-Default value: 0.;
+Default value: 0\.;
 #X msg 110 1040 @phase?;
 #X text 245 1040 (readonly) Get current phase in [0-1) range. Type:
-float. Default value: 0. Range: 0...1.;
+float. Default value: 0\. Range: 0\...1\.;
 #X msg 110 1082 @size?;
 #X text 245 1082 (readonly) Get number of events in timeline. Type:
-int. Default value: 1. Min value: 0.;
+int. Default value: 1\. Min value: 0\.;
 #X obj 20 1134 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1139 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -132,14 +132,14 @@ Type: list.;
 #X obj 20 1738 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1743 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1744 1.;
+#X text 110 1744 1\.;
 #X text 150 1744 *float*;
 #X text 245 1744 control inlet. Non-zero value starts timeline \, zero
 - stops.;
 #X obj 20 1774 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1779 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1780 1.;
+#X text 110 1780 1\.;
 #X text 245 1780 list: event index \, event name \, current event time.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

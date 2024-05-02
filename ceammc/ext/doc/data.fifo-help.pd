@@ -32,7 +32,7 @@ first value in queue.;
 #X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 414 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 449 1.;
+#X text 110 449 1\.;
 #X text 150 449 int;
 #X obj 246 450 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 449 SIZE: if specified \, creates fixed-size queue. Value
@@ -41,17 +41,17 @@ first value in queue.;
 #X obj 20 499 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 534 @size;
-#X text 245 534 Get/Set size of queue. Type: int. Default value: 32.
-Range: 1...1024.;
+#X text 245 534 Get/Set size of queue. Type: int. Default value: 32\.
+Range: 1\...1024\.;
 #X msg 110 576 @empty?;
 #X text 245 576 (readonly) Get if queue is empty. Type: bool. Default
-value: 1.;
+value: 1\.;
 #X msg 110 618 @filled?;
 #X text 245 618 (readonly) Get current number of elements in queue.
-Type: int. Default value: 0. Min value: 0.;
+Type: int. Default value: 0\. Min value: 0\.;
 #X msg 110 660 @free?;
 #X text 245 660 (readonly) Get number of elements you can add to queue
-until it full. Type: int. Default value: 32. Min value: 0.;
+until it full. Type: int. Default value: 32\. Min value: 0\.;
 #X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 717 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -65,17 +65,17 @@ until it full. Type: int. Default value: 32. Min value: 0.;
 #X text 245 836 Arguments are:;
 #X obj 255 859 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 859 [anonym]: changes queue size. All previous values (if
-any) are silently removed. Type: int. Min value: 0.;
+any) are silently removed. Type: int. Min value: 0\.;
 #X obj 20 909 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 914 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 915 1.;
+#X text 110 915 1\.;
 #X text 150 915 *bang*;
 #X text 245 915 same as *flush* message.;
 #X obj 20 945 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 950 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 951 1.;
+#X text 110 951 1\.;
 #X text 245 951 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

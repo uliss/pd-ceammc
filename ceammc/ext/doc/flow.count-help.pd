@@ -15,7 +15,7 @@
 #X obj 20 266 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 271 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 306 1.;
+#X text 110 306 1\.;
 #X text 150 306 int;
 #X obj 246 307 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 306 VALUE: counter init value. Type: int. Min value: 0;
@@ -25,14 +25,14 @@
 #X msg 110 376 @value;
 #X text 245 376 Get/Set current counter state. Can be set via message
 to second(!) inlet or [prop.set] object. Type: int. Default value:
-0. Min value: 0.;
+0\. Min value: 0\.;
 #X obj 20 443 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 448 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 449 1.;
+#X text 110 449 1\.;
 #X text 150 449 *any*;
 #X text 245 449 input messages.;
-#X text 110 469 2.;
+#X text 110 469 2\.;
 #X text 150 469 *bang*;
 #X text 245 469 reset counter to init value (no output).;
 #X text 150 489 *int*;
@@ -44,7 +44,7 @@ to second(!) inlet or [prop.set] object. Type: int. Default value:
 #X obj 20 599 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 604 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 605 1.;
+#X text 110 605 1\.;
 #X text 245 605 outputs event number.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

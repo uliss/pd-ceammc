@@ -35,10 +35,10 @@ https://en.wikipedia.org/wiki/All-pass_filter;
 #X obj 20 544 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 549 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 584 1.;
+#X text 110 584 1\.;
 #X text 150 584 float;
 #X obj 246 585 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 584 FREQ(Hz): center frequency. Type: float. Range: 0...22050;
+#X text 245 584 FREQ(Hz): center frequency. Type: float. Range: 0\...22050;
 #X obj 20 614 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 619 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -46,10 +46,10 @@ https://en.wikipedia.org/wiki/All-pass_filter;
 #X text 245 654 use angular frequency.;
 #X msg 110 684 @freq;
 #X text 245 684 Get/Set center frequency. Type: float. Units: 'Hz'.
-Default value: 0. Range: 0...22050.;
+Default value: 0\. Range: 0\...22050\.;
 #X msg 110 726 @q;
 #X text 245 726 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
-Default value: 0.7071. Range: 0.01...100.;
+Default value: 0.7071\. Range: 0.01\...100\.;
 #X obj 20 778 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 783 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -60,14 +60,14 @@ Default value: 0.7071. Range: 0.01...100.;
 #X obj 20 876 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 881 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 882 1.;
+#X text 110 882 1\.;
 #X text 150 882 *float*;
 #X text 245 882 filter frequency.;
 #X obj 20 912 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 917 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 918 1.;
-#X text 245 918 list: b0 b1 b2 a1 a2.;
+#X text 110 918 1\.;
+#X text 245 918 list: b0 b1 b2 a1 a2\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

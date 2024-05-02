@@ -21,28 +21,28 @@
 #X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 242 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 277 1.;
+#X text 110 277 1\.;
 #X text 150 277 float;
 #X obj 246 278 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 277 F: second number. Type: float.;
 #X obj 20 307 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 312 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 313 1.;
+#X text 110 313 1\.;
 #X text 150 313 *float*;
 #X text 245 313 set first number \, calculate and output result.;
 #X text 150 333 *list*;
 #X text 245 333 pair: set first and second numbers \, calculate and
 output result.;
-#X text 110 368 2.;
+#X text 110 368 2\.;
 #X text 150 368 *float*;
 #X text 245 368 change second number \, calculate and output result.;
 #X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 403 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 404 1.;
+#X text 110 404 1\.;
 #X text 245 404 result output: 1 if first number is greater then second
-\, otherwise 0.;
+\, otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

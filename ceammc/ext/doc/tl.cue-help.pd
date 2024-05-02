@@ -26,16 +26,16 @@
 #X msg 110 295 @background_color;
 #X text 245 295 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1.;
+0.93 1\.;
 #X msg 110 352 @border_color;
 #X text 245 352 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0 0.75 1 1.;
+values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 394 @fontname;
 #X text 245 394 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 436 @fontsize;
-#X text 245 436 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 436 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 478 @fontslant;
 #X text 245 478 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -44,7 +44,7 @@ Allowed values: roman \, italic.;
 Allowed values: normal \, bold.;
 #X msg 110 562 @pinned;
 #X text 245 562 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X obj 20 614 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 619 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;

@@ -20,22 +20,22 @@
 #X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 242 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 277 1.;
+#X text 110 277 1\.;
 #X text 150 277 int;
 #X obj 246 278 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 277 LENGTH: buffer length. Type: int. Range: 1...24;
+#X text 245 277 LENGTH: buffer length. Type: int. Range: 1\...24;
 #X obj 20 307 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 312 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 347 @length;
 #X text 245 347 (initonly) Get/Set buffer length. Type: int. Default
-value: 2. Range: 1...24.;
+value: 2\. Range: 1\...24\.;
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 404 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 405 1.;
+#X text 110 405 1\.;
 #X text 245 405 input.;
-#X text 110 425 2.;
+#X text 110 425 2\.;
 #X text 150 425 *bang*;
 #X text 245 425 output all buffer values.;
 #X text 245 445 get IDX: output buffer value at specified index.;
@@ -44,7 +44,7 @@ output).;
 #X obj 20 495 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 500 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 501 1.;
+#X text 110 501 1\.;
 #X text 245 501 first output.;
 #X text 110 521 ....;
 #X text 245 521 ... output.;

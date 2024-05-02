@@ -23,15 +23,15 @@
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 352 1.;
+#X text 110 352 1\.;
 #X text 150 352 int;
 #X obj 246 353 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 352 FROM: @from property. Type: int.;
-#X text 110 372 2.;
+#X text 110 372 2\.;
 #X text 150 372 int;
 #X obj 246 373 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 372 TO: @to property. Type: int.;
-#X text 110 392 3.;
+#X text 110 392 3\.;
 #X text 150 392 int;
 #X obj 246 393 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 392 STEP: @step property. Type: int. Min value: 0;
@@ -40,23 +40,23 @@
 -49933 0;
 #X msg 110 462 @from;
 #X text 245 462 Get/Set start slice position. You can use negative
-index to address elements from the end. Type: int. Default value: 0.;
+index to address elements from the end. Type: int. Default value: 0\.;
 #X msg 110 504 @step;
-#X text 245 504 Get/Set slice step. Type: int. Default value: 1. Min
-value: 0.;
+#X text 245 504 Get/Set slice step. Type: int. Default value: 1\. Min
+value: 0\.;
 #X msg 110 546 @to;
 #X text 245 546 Get/Set end slice position. You can use negative index
-to address elements from the end. Type: int. Default value: -1.;
+to address elements from the end. Type: int. Default value: -1\.;
 #X obj 20 598 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 603 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 604 1.;
+#X text 110 604 1\.;
 #X text 150 604 *list*;
 #X text 245 604 input list.;
 #X obj 20 634 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 639 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 640 1.;
+#X text 110 640 1\.;
 #X text 245 640 output sublist.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

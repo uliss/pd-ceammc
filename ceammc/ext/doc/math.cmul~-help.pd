@@ -25,20 +25,20 @@
 #X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 329 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 330 1.;
-#X text 245 330 real part of input signal1.;
-#X text 110 350 2.;
-#X text 245 350 imag part of input signal1.;
-#X text 110 370 3.;
-#X text 245 370 real part of input signal2.;
-#X text 110 390 4.;
-#X text 245 390 imag part of input signal2.;
+#X text 110 330 1\.;
+#X text 245 330 real part of input signal1\.;
+#X text 110 350 2\.;
+#X text 245 350 imag part of input signal1\.;
+#X text 110 370 3\.;
+#X text 245 370 real part of input signal2\.;
+#X text 110 390 4\.;
+#X text 245 390 imag part of input signal2\.;
 #X obj 20 420 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 425 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 426 1.;
+#X text 110 426 1\.;
 #X text 245 426 real part of result.;
-#X text 110 446 2.;
+#X text 110 446 2\.;
 #X text 245 446 imag part of result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

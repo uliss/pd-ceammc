@@ -17,16 +17,16 @@
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 352 1.;
+#X text 110 352 1\.;
 #X text 150 352 float;
 #X obj 246 353 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 352 FREQ(Hz): starting frequency for the shelf. Type: float.
-Range: 20...20000;
-#X text 110 387 2.;
+Range: 20\...20000;
+#X text 110 387 2\.;
 #X text 150 387 float;
 #X obj 246 388 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 387 GAIN(db): amount of boost or cut apply to the signal.
-Type: float. Range: -15...15;
+Type: float. Range: -15\...15;
 #X obj 20 432 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 437 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -39,22 +39,22 @@ empty bind to /flt_highshelf/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 559 @active;
 #X text 245 559 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 589 @freq;
 #X text 245 589 Get/Set starting frequency for the shelf. Type: float.
-Units: 'Hz'. Default value: 10000. Range: 20...20000.;
+Units: 'Hz'. Default value: 10000\. Range: 20\...20000\.;
 #X msg 110 631 @gain;
 #X text 245 631 Get/Set amount of boost or cut apply to the signal.
-Type: float. Units: 'db'. Default value: 0. Range: -15...15.;
+Type: float. Units: 'db'. Default value: 0\. Range: -15\...15\.;
 #X obj 20 683 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 688 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 689 1.;
+#X text 110 689 1\.;
 #X text 245 689 input signal.;
 #X obj 20 719 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 724 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 725 1.;
+#X text 110 725 1\.;
 #X text 245 725 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

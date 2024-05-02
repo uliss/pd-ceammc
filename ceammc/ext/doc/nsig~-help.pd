@@ -18,11 +18,11 @@
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 352 1.;
+#X text 110 352 1\.;
 #X text 150 352 int;
 #X obj 246 353 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 352 N: number of inputs/outputs. Type: int. Range: 1...12;
-#X text 110 372 2.;
+#X text 245 352 N: number of inputs/outputs. Type: int. Range: 1\...12;
+#X text 110 372 2\.;
 #X text 150 372 list;
 #X obj 246 373 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 372 VALUES: init values. Type: list.;
@@ -31,13 +31,13 @@
 -49933 0;
 #X msg 110 442 @n;
 #X text 245 442 (initonly) Get/Set number of inputs/outputs. Type:
-int. Default value: 1. Range: 1...12.;
+int. Default value: 1\. Range: 1\...12\.;
 #X msg 110 484 @values;
-#X text 245 484 Get/Set current output values. Default: 0. Type: list.;
+#X text 245 484 Get/Set current output values. Default: 0\. Type: list.;
 #X obj 20 524 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 529 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 530 1.;
+#X text 110 530 1\.;
 #X text 150 530 *float*;
 #X text 245 530 set first output value.;
 #X text 150 550 *list*;
@@ -51,7 +51,7 @@ int. Default value: 1. Range: 1...12.;
 #X obj 20 620 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 625 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 626 1.;
+#X text 110 626 1\.;
 #X text 245 626 first value output.;
 #X text 110 646 ....;
 #X text 245 646 ... value output.;

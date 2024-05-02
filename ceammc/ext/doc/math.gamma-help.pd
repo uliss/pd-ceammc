@@ -28,7 +28,7 @@
 #X obj 20 405 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 410 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 411 1.;
+#X text 110 411 1\.;
 #X text 150 411 *float*;
 #X text 245 411 input value.;
 #X text 150 431 *list*;
@@ -36,7 +36,7 @@
 #X obj 20 461 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 466 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 467 1.;
+#X text 110 467 1\.;
 #X text 245 467 result value or list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

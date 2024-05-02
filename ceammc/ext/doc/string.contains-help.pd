@@ -16,7 +16,7 @@
 #X obj 20 266 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 271 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 306 1.;
+#X text 110 306 1\.;
 #X text 150 306 symbol;
 #X obj 246 307 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 306 SUBJ: searched substring. Type: symbol.;
@@ -28,16 +28,16 @@
 #X obj 20 416 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 421 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 422 1.;
+#X text 110 422 1\.;
 #X text 245 422 input string or symbol.;
-#X text 110 442 2.;
+#X text 110 442 2\.;
 #X text 245 442 search substring (string or symbol).;
 #X obj 20 472 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 477 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 478 1.;
+#X text 110 478 1\.;
 #X text 245 478 output 1 if input string contains specified substring
-\, otherwise 0.;
+\, otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

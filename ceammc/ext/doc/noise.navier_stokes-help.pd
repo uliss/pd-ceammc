@@ -18,8 +18,8 @@ fluid on a torus:;
 #X text 215 285 Where <reyn> is the Reynolds number \, and exibits
 an interesting variety of different behaviors for different ranges
 of <reyn>. For the critical values of <reyn> \, the most interesting
-feature is the stochastic behavior observed when R1 < <reyn> < R2.
-With 28.73 < R1 > 29.0 and R2 ± = 33.43.;
+feature is the stochastic behavior observed when R1 < <reyn> < R2\.
+With 28.73 < R1 > 29.0 and R2 ± = 33.43\.;
 #X obj 50 408 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 437 metro 50;
 #X obj 69 480 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
@@ -44,27 +44,27 @@ With 28.73 < R1 > 29.0 and R2 ± = 33.43.;
 #X obj 20 732 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 737 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 772 1.;
+#X text 110 772 1\.;
 #X text 150 772 float;
 #X obj 246 773 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 772 A: a value (optional). Type: float.;
-#X text 110 792 2.;
+#X text 110 792 2\.;
 #X text 150 792 float;
 #X obj 246 793 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 792 B: b value (optional). Type: float.;
-#X text 110 812 3.;
+#X text 110 812 3\.;
 #X text 150 812 float;
 #X obj 246 813 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 812 C: c value (optional). Type: float.;
-#X text 110 832 4.;
+#X text 110 832 4\.;
 #X text 150 832 float;
 #X obj 246 833 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 832 D: d value (optional). Type: float.;
-#X text 110 852 5.;
+#X text 110 852 5\.;
 #X text 150 852 float;
 #X obj 246 853 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 852 R: r value (optional). Type: float.;
-#X text 110 872 6.;
+#X text 110 872 6\.;
 #X text 150 872 float;
 #X obj 246 873 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 872 DT: dt value (optional). Type: float.;
@@ -109,21 +109,21 @@ Type: int.;
 #X obj 20 1379 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1384 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1385 1.;
+#X text 110 1385 1\.;
 #X text 150 1385 *bang*;
 #X text 245 1385 output value.;
 #X obj 20 1415 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1420 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1421 1.;
+#X text 110 1421 1\.;
 #X text 245 1421 a outlet.;
-#X text 110 1441 2.;
+#X text 110 1441 2\.;
 #X text 245 1441 b outlet.;
-#X text 110 1461 3.;
+#X text 110 1461 3\.;
 #X text 245 1461 c outlet.;
-#X text 110 1481 4.;
+#X text 110 1481 4\.;
 #X text 245 1481 d outlet.;
-#X text 110 1501 5.;
+#X text 110 1501 5\.;
 #X text 245 1501 e outlet.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

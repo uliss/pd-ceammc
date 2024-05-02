@@ -18,11 +18,11 @@
 #X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 231 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 266 1.;
+#X text 110 266 1\.;
 #X text 150 266 int;
 #X obj 246 267 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 266 N: number of inputs/outputs. Type: int. Range: 1...64;
-#X text 110 286 2.;
+#X text 245 266 N: number of inputs/outputs. Type: int. Range: 1\...64;
+#X text 110 286 2\.;
 #X text 150 286 bool;
 #X obj 246 287 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 286 INIT: initial open/close state for all slots. Type:
@@ -35,20 +35,20 @@ bool.;
 all slots are open. Type: bool. Default value: true.;
 #X msg 110 398 @n;
 #X text 245 398 (initonly) Get/Set number of [in|out]puts. Type: int.
-Default value: 1. Range: 1...64.;
+Default value: 1\. Range: 1\...64\.;
 #X msg 110 440 @smooth;
 #X text 245 440 Get/Set gain change smooth time. Type: float. Units:
-'ms'. Default value: 50. Range: 0...1000.;
+'ms'. Default value: 50\. Range: 0\...1000\.;
 #X obj 20 492 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 497 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 498 1.;
+#X text 110 498 1\.;
 #X text 245 498 input signal.;
 #X text 110 518 ....;
 #X text 245 518 ... input signal.;
 #X text 110 538 n.;
 #X text 245 538 n-th input signal.;
-#X text 110 558 n+1.;
+#X text 110 558 n+1\.;
 #X text 150 558 *bool*;
 #X text 245 558 on/off all channels.;
 #X text 150 578 *list*;
@@ -56,7 +56,7 @@ Default value: 1. Range: 1...64.;
 #X obj 20 608 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 613 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 614 1.;
+#X text 110 614 1\.;
 #X text 245 614 first output signal.;
 #X text 110 634 ....;
 #X text 245 634 ... output signal.;

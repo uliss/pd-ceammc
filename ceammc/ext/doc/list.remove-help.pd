@@ -15,7 +15,7 @@
 #X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 289 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 324 1.;
+#X text 110 324 1\.;
 #X text 150 324 list;
 #X obj 246 325 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 324 INDEXES: list of indexes to remove. Negative indexes
@@ -28,18 +28,18 @@ are also supported. Type: list.;
 #X obj 20 449 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 454 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 455 1.;
+#X text 110 455 1\.;
 #X text 150 455 *list*;
 #X text 245 455 input list.;
 #X text 150 475 *data:mlist*;
 #X text 245 475 input mlist.;
-#X text 110 495 2.;
+#X text 110 495 2\.;
 #X text 150 495 *list*;
 #X text 245 495 set remove indexes.;
 #X obj 20 525 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 530 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 531 1.;
+#X text 110 531 1\.;
 #X text 245 531 output list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -279,7 +279,7 @@ information.;
 #X obj 20 3910 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 3915 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 3950 1.;
+#X text 110 3950 1\.;
 #X text 150 3950 symbol;
 #X obj 246 3951 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 3950 NAME: icon name from list. Type: symbol.;
@@ -288,7 +288,7 @@ information.;
 -49933 0;
 #X msg 110 4020 @enabled;
 #X text 245 4020 Get/Set enabled property. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 4050 @icon;
 #X text 245 4050 Get/Set icon name. Type: symbol. Default value: help.
 Allowed values: add \, add_circle \, add_circle_outline \, add_to_queue
@@ -314,8 +314,8 @@ notifications \, open_with \, pause \, pause_circle_filled \, pause_circle_outli
 \, undo \, videocam \, visibility \, visibility_off \, volume_down
 \, volume_mute \, volume_off \, volume_up \, zoom_in \, zoom_out.;
 #X msg 110 4439 @icon_size;
-#X text 245 4439 Get/Set icons size. Type: int. Default value: 24.
-Allowed values: 18 \, 24 \, 36 \, 48.;
+#X text 245 4439 Get/Set icons size. Type: int. Default value: 24\.
+Allowed values: 18 \, 24 \, 36 \, 48\.;
 #X msg 110 4481 @mode;
 #X text 245 4481 Get/Set output mode. In bang mode - outputs bang on
 mouse down. In button mode outputs 1 on mouse down and 0 on mouse up.
@@ -330,19 +330,19 @@ Type: symbol. Default value: button. Allowed values: toggle \, button
 (null).;
 #X msg 110 4640 @active_color;
 #X text 245 4640 Get/Set active color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0 0.75 1 1.;
+values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 4682 @background_color;
 #X text 245 4682 Get/Set element background color (list of red \, green
-\, blue values in 0-1 range). Type: list. Default value: 1 1 1 1.;
+\, blue values in 0-1 range). Type: list. Default value: 1 1 1 1\.;
 #X msg 110 4724 @border_color;
 #X text 245 4724 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 1 1 1 1.;
+values in 0-1 range). Type: list. Default value: 1 1 1 1\.;
 #X msg 110 4766 @fontname;
 #X text 245 4766 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Helvetica \, Monaco \, Courier \, Times \, DejaVu.;
 #X msg 110 4808 @fontsize;
-#X text 245 4808 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 4808 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 4850 @fontslant;
 #X text 245 4850 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -351,7 +351,7 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 4934 @pinned;
 #X text 245 4934 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 4976 @presetname;
 #X text 245 4976 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
@@ -384,12 +384,12 @@ performed.;
 #X obj 20 5349 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 5354 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 5355 1.;
+#X text 110 5355 1\.;
 #X text 245 5355 (hidden inlet!) see @mode property.;
 #X obj 20 5385 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 5390 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 5391 1.;
+#X text 110 5391 1\.;
 #X text 245 5391 (hidden outlet!) see @mode property.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

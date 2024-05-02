@@ -16,17 +16,17 @@ the standard.;
 #X obj 20 247 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 252 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 287 1.;
+#X text 110 287 1\.;
 #X text 150 287 int;
 #X obj 246 288 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 287 ORDER: the order of decomposition. Type: int. Range:
-1...63;
-#X text 110 307 2.;
+1\...63;
+#X text 110 307 2\.;
 #X text 150 307 symbol;
 #X obj 246 308 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 307 NUM: numbering scheme. Allowed values: ACN \, fromFurseMalham
 \, fromSID \, toFurseMalham \, toSID. Type: symbol.;
-#X text 110 342 3.;
+#X text 110 342 3\.;
 #X text 150 342 symbol;
 #X obj 246 343 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 342 NORM: normalization. Allowed values: SN2D \, fromMaxN
@@ -36,7 +36,7 @@ the standard.;
 -49933 0;
 #X msg 110 427 @order;
 #X text 245 427 (initonly) Get/Set the order of decomposition. Type:
-int. Default value: 1. Range: 1...63.;
+int. Default value: 1\. Range: 1\...63\.;
 #X msg 110 469 @fromB;
 #X text 245 469 alias to @num fromFurseMalham and @norm fromMaxN.;
 #X msg 110 499 @norm;
@@ -51,7 +51,7 @@ ACN. Allowed values: ACN \, fromFurseMalham \, fromSID \, toFurseMalham
 #X obj 20 638 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 643 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 644 1.;
+#X text 110 644 1\.;
 #X text 245 644 first input harmonic.;
 #X text 110 664 ....;
 #X text 245 664 ... input harmonic.;
@@ -60,7 +60,7 @@ ACN. Allowed values: ACN \, fromFurseMalham \, fromSID \, toFurseMalham
 #X obj 20 714 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 719 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 720 1.;
+#X text 110 720 1\.;
 #X text 245 720 first loudspeaker output.;
 #X text 110 740 ....;
 #X text 245 740 ... loudspeaker output.;

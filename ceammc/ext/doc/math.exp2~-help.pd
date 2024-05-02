@@ -9,8 +9,8 @@
 #X text 215 80 The exp2() function computes 2**x \, the base-2 exponential
 of x.;
 #X text 215 120 Special values:;
-#X text 215 145 exp2(+-0) return 1.;
-#X text 215 170 exp2(-infinity) return +0.;
+#X text 215 145 exp2(+-0) return 1\.;
+#X text 215 170 exp2(-infinity) return +0\.;
 #X text 215 195 exp2(+infinity) return +infinity.;
 #X obj 50 258 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -22,13 +22,13 @@ of x.;
 #X obj 20 611 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 616 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 617 1.;
+#X text 110 617 1\.;
 #X text 150 617 *float*;
 #X text 245 617 input signal.;
 #X obj 20 647 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 652 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 653 1.;
+#X text 110 653 1\.;
 #X text 245 653 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

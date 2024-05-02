@@ -19,7 +19,7 @@ rotates right.;
 #X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 329 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 364 1.;
+#X text 110 364 1\.;
 #X text 150 364 int;
 #X obj 246 365 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 364 STEP: rotate step. Negative step changes rotation direction.
@@ -29,22 +29,22 @@ Type: int.;
 -49933 0;
 #X msg 110 449 @step;
 #X text 245 449 Get/Set rotate step. Negative value change rotation
-direction to opposite. Type: int. Default value: 1.;
+direction to opposite. Type: int. Default value: 1\.;
 #X obj 20 501 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 506 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 507 1.;
+#X text 110 507 1\.;
 #X text 150 507 *list*;
 #X text 245 507 input list.;
 #X text 150 527 *data*;
 #X text 245 527 input mlist.;
-#X text 110 547 2.;
+#X text 110 547 2\.;
 #X text 150 547 *int*;
 #X text 245 547 rotation step.;
 #X obj 20 577 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 582 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 583 1.;
+#X text 110 583 1\.;
 #X text 245 583 rotated list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

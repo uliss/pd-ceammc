@@ -21,7 +21,7 @@
 #X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 289 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 324 1.;
+#X text 110 324 1\.;
 #X text 150 324 symbol;
 #X obj 246 325 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 324 ARRAY: array name. Type: symbol.;
@@ -33,13 +33,13 @@
 #X obj 20 434 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 439 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 440 1.;
+#X text 110 440 1\.;
 #X text 150 440 *bang*;
 #X text 245 440 calculates and outputs the sum.;
 #X obj 20 470 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 475 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 476 1.;
+#X text 110 476 1\.;
 #X text 245 476 sum of array values.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

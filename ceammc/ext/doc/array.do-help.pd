@@ -22,7 +22,7 @@
 #X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 346 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 381 1.;
+#X text 110 381 1\.;
 #X text 150 381 symbol;
 #X obj 246 382 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 381 ARRAY: array name. Type: symbol.;
@@ -33,24 +33,24 @@
 #X text 245 451 Get/Set array name. Type: symbol.;
 #X msg 110 481 @redraw;
 #X text 245 481 Get/Set redraw after array change. Type: bool. Default
-value: 1.;
+value: 1\.;
 #X obj 20 533 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 538 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 539 1.;
+#X text 110 539 1\.;
 #X text 150 539 *bang*;
 #X text 245 539 starts iteration.;
 #X text 150 559 *symbol*;
 #X text 245 559 set array name.;
-#X text 110 579 2.;
+#X text 110 579 2\.;
 #X text 150 579 *float*;
 #X text 245 579 sample value from side-chain.;
 #X obj 20 609 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 614 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 615 1.;
+#X text 110 615 1\.;
 #X text 245 615 bang on finish.;
-#X text 110 635 2.;
+#X text 110 635 2\.;
 #X text 245 635 for each array sample outputs list: SAMPLE_VALUE \,
 SAMPLE_POS \, TOTAL_SAMPLES.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

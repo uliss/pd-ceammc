@@ -21,7 +21,7 @@
 #X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 461 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 496 1.;
+#X text 110 496 1\.;
 #X text 150 496 list;
 #X obj 246 497 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 496 DEV: if symbol - set named temperament deviations \,
@@ -33,20 +33,20 @@ deviation in cents per pitch. Type: list.;
 -49933 0;
 #X msg 110 626 @base;
 #X text 245 626 Get/Set base pitch (C: 0 \, A: 9 \, etc..). Type: int.
-Default value: 9. Range: 0...11.;
+Default value: 9\. Range: 0\...11\.;
 #X msg 110 668 @dev;
 #X text 245 668 Get/Set list of deviations in cents. Type: list. Default
-value: 0 0 0 0 0 0 0 0 0 0 0 0.;
+value: 0 0 0 0 0 0 0 0 0 0 0 0\.;
 #X obj 20 720 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 725 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 726 1.;
+#X text 110 726 1\.;
 #X text 150 726 *list*;
 #X text 245 726 NOTE VELOCITY pair expected.;
 #X obj 20 756 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 761 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 762 1.;
+#X text 110 762 1\.;
 #X text 245 762 note velocity pair.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

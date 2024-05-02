@@ -57,20 +57,20 @@ note).;
 #X obj 20 738 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 743 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 778 1.;
+#X text 110 778 1\.;
 #X text 150 778 int;
 #X obj 246 779 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 778 NKEYS: number of keys. Type: int. Range: 5...88;
-#X text 110 798 2.;
+#X text 245 778 NKEYS: number of keys. Type: int. Range: 5\...88;
+#X text 110 798 2\.;
 #X text 150 798 int;
 #X obj 246 799 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 798 SHIFT: pitch of starting key. Type: int. Range: 6...88;
+#X text 245 798 SHIFT: pitch of starting key. Type: int. Range: 6\...88;
 #X obj 20 828 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 833 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 868 @keys;
-#X text 245 868 Get/Set number of keys. Type: int. Default value: 61.
-Range: 5...88.;
+#X text 245 868 Get/Set number of keys. Type: int. Default value: 61\.
+Range: 5\...88\.;
 #X msg 110 910 @receive;
 #X text 245 910 Get/Set receive source. Type: symbol. Default value:
 (null).;
@@ -79,19 +79,19 @@ Range: 5...88.;
 (null).;
 #X msg 110 982 @shift;
 #X text 245 982 Get/Set MIDI pitch of starting key. Type: int. Default
-value: 36. Range: 6...88.;
+value: 36\. Range: 6\...88\.;
 #X msg 110 1024 @active_color;
 #X text 245 1024 Get/Set active color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0 0.75 1 1.;
+values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 1066 @border_color;
 #X text 245 1066 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 1108 @fontname;
 #X text 245 1108 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1150 @fontsize;
-#X text 245 1150 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 1150 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 1192 @fontslant;
 #X text 245 1192 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -100,10 +100,10 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 1276 @pinned;
 #X text 245 1276 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1318 @size;
 #X text 245 1318 Get/Set element size (width \, height pair). Type:
-list. Default value: 433 60.;
+list. Default value: 433 60\.;
 #X obj 20 1370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1375 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -118,12 +118,12 @@ list. Default value: 433 60.;
 #X obj 20 1519 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1524 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1525 1.;
+#X text 110 1525 1\.;
 #X text 245 1525 control inlet.;
 #X obj 20 1555 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1560 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1561 1.;
+#X text 110 1561 1\.;
 #X text 245 1561 list from two elements: MIDI pitch \, MIDI velocity.
 Velocity depends from key press position.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

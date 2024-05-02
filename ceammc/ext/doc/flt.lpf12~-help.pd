@@ -28,10 +28,10 @@ https://en.wikipedia.org/wiki/Butterworth_filter;
 #X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 610 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 645 1.;
+#X text 110 645 1\.;
 #X text 150 645 float;
 #X obj 246 646 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 645 FREQ(Hz): cutoff frequency. Type: float. Range: 20...20000;
+#X text 245 645 FREQ(Hz): cutoff frequency. Type: float. Range: 20\...20000;
 #X obj 20 675 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 680 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -44,10 +44,10 @@ bind to /flt_lpf12/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 802 @active;
 #X text 245 802 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 832 @freq;
 #X text 245 832 Get/Set cutoff frequency. Type: float. Units: 'Hz'.
-Default value: 1000. Range: 20...20000.;
+Default value: 1000\. Range: 20\...20000\.;
 #X obj 20 884 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 889 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -56,15 +56,15 @@ Default value: 1000. Range: 20...20000.;
 #X obj 20 962 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 967 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 968 1.;
+#X text 110 968 1\.;
 #X text 245 968 input signal.;
-#X text 110 988 2.;
+#X text 110 988 2\.;
 #X text 150 988 *float*;
 #X text 245 988 set frequency.;
 #X obj 20 1018 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1023 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1024 1.;
+#X text 110 1024 1\.;
 #X text 245 1024 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

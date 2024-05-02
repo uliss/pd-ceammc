@@ -24,17 +24,17 @@ hotplug and reconnects to it.;
 #X obj 20 436 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 441 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 476 1.;
+#X text 110 476 1\.;
 #X text 150 476 symbol;
 #X obj 246 477 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 476 PORT: serial port name \, eg.: COM3 on Windows \, /dev/ttyACM0
 on Linux and /dev/cu.usbmodem411 on MacOSX. Type: symbol.;
-#X text 110 511 2.;
+#X text 110 511 2\.;
 #X text 150 511 int;
 #X obj 246 512 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 511 RATE: serial baud rate. Allowed values: 110 \, 115200
 \, 1200 \, 128000 \, 14400 \, 19200 \, 2400 \, 256000 \, 300 \, 38400
-\, 4800 \, 56000 \, 57600 \, 600 \, 9600. Type: int.;
+\, 4800 \, 56000 \, 57600 \, 600 \, 9600\. Type: int.;
 #X obj 20 571 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 576 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -44,7 +44,7 @@ COM3 on Windows \, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on
 MacOSX. If specified on creation tries to connect to this device only.
 Type: symbol.;
 #X msg 110 683 @reconnect;
-#X text 245 683 enables hot-pluggin. Default value: 0.;
+#X text 245 683 enables hot-pluggin. Default value: 0\.;
 #X msg 110 713 @on_connect;
 #X text 245 713 Get/Set function called every time on connect. Type:
 symbol.;
@@ -52,14 +52,14 @@ symbol.;
 #X text 245 743 Get/Set USB device product id. If vendor and product
 ids are specified at creation \, tries to connect to devices only with
 such properties. Note: product id is specified in decimal mode \, not
-in hex. Type: int. Default value: 0.;
+in hex. Type: int. Default value: 0\.;
 #X msg 110 815 @rate;
 #X text 245 815 Get/Set serial baud rate. Standard value supported
 by most serial ports: 110 \, 300 \, 600 \, 1200 \, 2400 \, 4800 \,
-9600 \, 14400 \, 19200 \, 28800 \, 38400 \, 56000 \, 57600 \, 115200.
-Type: int. Default value: 57600. Allowed values: 57600 \, 110 \, 300
+9600 \, 14400 \, 19200 \, 28800 \, 38400 \, 56000 \, 57600 \, 115200\.
+Type: int. Default value: 57600\. Allowed values: 57600 \, 110 \, 300
 \, 600 \, 1200 \, 2400 \, 4800 \, 9600 \, 14400 \, 19200 \, 38400 \,
-56000 \, 115200 \, 128000 \, 256000.;
+56000 \, 115200 \, 128000 \, 256000\.;
 #X msg 110 918 @serial;
 #X text 245 918 Get/Set USB device serial number. If specified at creation
 \, tries to connect to devices only with such serial number. Type:
@@ -68,10 +68,10 @@ symbol.;
 #X text 245 975 Get/Set USB device vendor id. If specified at creation
 \, tries to connect to devices only with such vendor. Note: vendor
 id is specified in decimal mode \, not in hex. Type: int. Default value:
-0.;
+0\.;
 #X msg 110 1047 @connected?;
 #X text 245 1047 (readonly) Get state of connection to device. Type:
-bool. Default value: 0.;
+bool. Default value: 0\.;
 #X msg 110 1089 @devices?;
 #X text 245 1089 (readonly) Get list of found Arduino devices. Type:
 list.;
@@ -85,7 +85,7 @@ list.;
 #X obj 20 1235 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1240 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1241 1.;
+#X text 110 1241 1\.;
 #X text 150 1241 *float*;
 #X text 245 1241 sends float value in byte range [0-255] to arduino
 device.;
@@ -95,7 +95,7 @@ device.;
 #X obj 20 1291 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1296 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1297 1.;
+#X text 110 1297 1\.;
 #X text 245 1297 outputs received byte from arduino.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

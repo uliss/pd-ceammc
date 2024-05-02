@@ -48,10 +48,10 @@ into arrays. Various formats are supported. Supports array name patterns.;
 -49933 0;
 #X msg 110 695 @verbose;
 #X text 245 695 (initonly) Get/Set verbose output to Pd window. Type:
-bool. Default value: 0.;
+bool. Default value: 0\.;
 #X msg 110 737 @smpte_fr;
 #X text 245 737 Get/Set SMPTE framerate for SMPTE offset calculations.
-Type: float. Default value: 30. Range: 1...99.;
+Type: float. Default value: 30\. Range: 1\...99\.;
 #X msg 110 779 @channels?;
 #X text 245 779 (readonly) Get list of loaded channels into each array.
 Type: list.;
@@ -78,7 +78,7 @@ of loaded samples after load. Arguments are:;
 #X obj 255 1106 cnv 1 106 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1106 to ARRAY_NAME: destination array names or pattern.
 Array patterns specified in square braces: array_[1-4] means - array_1
-\, array_2 \, array_3 \, array_4. array_[left|right] means array_left
+\, array_2 \, array_3 \, array_4\. array_[left|right] means array_left
 and array_right. Type: symbol.;
 #X obj 255 1174 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1174 [@resize]: resize array to fit loaded samples. Type:
@@ -112,7 +112,7 @@ of file. Deprecated \, use @begin instead. Type: property.;
 #X obj 255 1538 cnv 1 109 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1538 [@resample R?]: if R is not specified - resample from
 file samplerate to current Pd samplerate. But you can manually specify
-R as float value or integer fraction - 44100/48000. Type: property.;
+R as float value or integer fraction - 44100/48000\. Type: property.;
 #X msg 110 1608 save;
 #X text 245 1608 Save arrays to specified file. Arguments are:;
 #X obj 255 1631 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -164,12 +164,12 @@ are: 0(use default) \, 8 \, 16 \, 24 \, 32 \, f. Type: property.;
 #X obj 20 2192 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2197 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2198 1.;
+#X text 110 2198 1\.;
 #X text 245 2198 input inlet.;
 #X obj 20 2228 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2233 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2234 1.;
+#X text 110 2234 1\.;
 #X text 245 2234 number of loaded/saved samples or -1 on error.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

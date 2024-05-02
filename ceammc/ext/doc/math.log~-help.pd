@@ -8,7 +8,7 @@
 #X obj 210 80 cnv 1 555 110 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Outputs the value of the natural logarithm;
 #X text 215 105 Special values:;
-#X text 215 130 log(1) return +0.;
+#X text 215 130 log(1) return +0\.;
 #X text 215 155 log(+infinity) return +infinity.;
 #X obj 50 218 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
@@ -20,12 +20,12 @@
 #X obj 20 571 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 576 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 577 1.;
+#X text 110 577 1\.;
 #X text 245 577 input signal.;
 #X obj 20 607 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 612 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 613 1.;
+#X text 110 613 1\.;
 #X text 245 613 result signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

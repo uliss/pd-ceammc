@@ -49,11 +49,11 @@
 #X obj 20 625 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 630 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 665 1.;
+#X text 110 665 1\.;
 #X text 150 665 float;
 #X obj 246 666 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 665 min: min value. Type: float.;
-#X text 110 685 2.;
+#X text 110 685 2\.;
 #X text 150 685 float;
 #X obj 246 686 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 685 max: max value. Type: float.;
@@ -62,19 +62,19 @@
 -49933 0;
 #X msg 110 755 @active_scale;
 #X text 245 755 Get/Set if should draw active scale. Type: bool. Default
-value: 0.;
+value: 0\.;
 #X msg 110 797 @max;
 #X text 245 797 Get/Set maximum slider value. Type: float. Default
-value: 1.;
+value: 1\.;
 #X msg 110 827 @min;
 #X text 245 827 Get/Set minimum slider value. Type: float. Default
-value: 0.;
+value: 0\.;
 #X msg 110 857 @mode;
 #X text 245 857 Get/Set relative mode. Do not jump on click to value.
-Type: bool. Default value: 0.;
+Type: bool. Default value: 0\.;
 #X msg 110 899 @mouse_events;
 #X text 245 899 Get/Set mouse events output mode. If on outputs @mouse_down
-\, @mouse_up and @mouse_drag events. Type: bool. Default value: 0.;
+\, @mouse_up and @mouse_drag events. Type: bool. Default value: 0\.;
 #X msg 110 956 @receive;
 #X text 245 956 Get/Set receive source. Type: symbol. Default value:
 (null).;
@@ -86,43 +86,43 @@ Default value: linear. Allowed values: linear \, log.;
 (null).;
 #X msg 110 1070 @show_value;
 #X text 245 1070 Get/Set show value (in horizontal mode only). Type:
-bool. Default value: 0.;
+bool. Default value: 0\.;
 #X msg 110 1112 @value;
 #X text 245 1112 Get/Set current value. Type: float. Default value:
-0.;
+0\.;
 #X msg 110 1142 @value_pos;
 #X text 245 1142 Get/Set value position. Type: symbol. Default value:
 center. Allowed values: left \, center \, right.;
 #X msg 110 1184 @value_precision;
 #X text 245 1184 Get/Set number of digits shown after decimal point.
-Type: int. Default value: 2. Range: 0...7.;
+Type: int. Default value: 2\. Range: 0\...7\.;
 #X msg 110 1226 @midi_channel;
 #X text 245 1226 Get/Set binded MIDI channel. 0 means listen to all
-channels. Type: int. Default value: 0. Range: 0...16.;
+channels. Type: int. Default value: 0\. Range: 0\...16\.;
 #X msg 110 1268 @midi_control;
 #X text 245 1268 Get/Set binded MIDI controller number. -1 means not
-binded to any controller. Type: int. Default value: -1. Range: -1...127.;
+binded to any controller. Type: int. Default value: -1\. Range: -1\...127\.;
 #X msg 110 1325 @midi_pickup;
 #X text 245 1325 Get/Set pickup current value. If slider is binded
 to value \, first time you should pass over this value to make binding.
 It prevents from sudden value change on first control change. Type:
-bool. Default value: 1.;
+bool. Default value: 1\.;
 #X msg 110 1397 @background_color;
 #X text 245 1397 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1.;
+0.93 1\.;
 #X msg 110 1454 @border_color;
 #X text 245 1454 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 1496 @knob_color;
 #X text 245 1496 Get/Set knob color (list of red \, green \, blue values
-in 0-1 range). Type: list. Default value: 0 0.75 1 1.;
+in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 1538 @label_color;
 #X text 245 1538 Get/Set label color in RGB format within 0-1 range
-\, for example: 0.2 0.4 0.1. Type: list. Default value: 0 0 0 1.;
+\, for example: 0.2 0.4 0.1\. Type: list. Default value: 0 0 0 1\.;
 #X msg 110 1580 @text_color;
 #X text 245 1580 Get/Set value text color (list of red \, green \,
-blue values in 0-1 range). Type: list. Default value: 0 0 0 1.;
+blue values in 0-1 range). Type: list. Default value: 0 0 0 1\.;
 #X msg 110 1622 @label;
 #X text 245 1622 Get/Set label text. Type: symbol. Default value: (null).;
 #X msg 110 1652 @label_align;
@@ -130,10 +130,10 @@ blue values in 0-1 range). Type: list. Default value: 0 0 0 1.;
 value: left. Allowed values: left \, center \, right.;
 #X msg 110 1694 @label_inner;
 #X text 245 1694 Get/Set label position (1 - inner \, 0 - outer). Type:
-bool. Default value: 0.;
+bool. Default value: 0\.;
 #X msg 110 1736 @label_margins;
 #X text 245 1736 Get/Set label offset in pixels. Type: list. Default
-value: 0 0.;
+value: 0 0\.;
 #X msg 110 1778 @label_side;
 #X text 245 1778 Get/Set label snap side. Type: symbol. Default value:
 top. Allowed values: left \, top \, right \, bottom.;
@@ -144,8 +144,8 @@ value: top. Allowed values: top \, center \, bottom.;
 #X text 245 1862 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1904 @fontsize;
-#X text 245 1904 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 1904 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 1946 @fontslant;
 #X text 245 1946 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -154,13 +154,13 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 2030 @pinned;
 #X text 245 2030 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 2072 @presetname;
 #X text 245 2072 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
 #X msg 110 2114 @size;
 #X text 245 2114 Get/Set element size (width \, height pair). Type:
-list. Default value: 15 120.;
+list. Default value: 15 120\.;
 #X obj 20 2166 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2171 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -216,7 +216,7 @@ are:;
 #X obj 20 2803 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2808 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2809 1.;
+#X text 110 2809 1\.;
 #X text 150 2809 *bang*;
 #X text 245 2809 outputs current slider state.;
 #X text 150 2829 *float*;
@@ -224,7 +224,7 @@ are:;
 #X obj 20 2859 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2864 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2865 1.;
+#X text 110 2865 1\.;
 #X text 245 2865 output value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

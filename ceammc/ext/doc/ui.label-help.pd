@@ -30,16 +30,16 @@ word wrap;
 Allowed values: left \, center \, right.;
 #X msg 110 535 @margin_bottom;
 #X text 245 535 Get/Set text bottom margin. Type: int. Default value:
-5.;
+5\.;
 #X msg 110 565 @margin_left;
 #X text 245 565 Get/Set text left margin. Type: int. Default value:
-5.;
+5\.;
 #X msg 110 595 @margin_right;
 #X text 245 595 Get/Set text right margin. Type: int. Default value:
-5.;
+5\.;
 #X msg 110 625 @margin_top;
 #X text 245 625 Get/Set text top margin. Type: int. Default value:
-5.;
+5\.;
 #X msg 110 655 @receive;
 #X text 245 655 Get/Set receive source. Type: symbol. Default value:
 (null).;
@@ -47,16 +47,16 @@ Allowed values: left \, center \, right.;
 #X text 245 685 Get/Set label text. Type: symbol. Default value: Label.;
 #X msg 110 715 @background_color;
 #X text 245 715 Get/Set element background color (list of red \, green
-\, blue values in 0-1 range). Type: list. Default value: 1 1 1 1.;
+\, blue values in 0-1 range). Type: list. Default value: 1 1 1 1\.;
 #X msg 110 757 @text_color;
 #X text 245 757 Get/Set text color (list of red \, green \, blue values
-in 0-1 range). Type: list. Default value: 0 0 0 1.;
+in 0-1 range). Type: list. Default value: 0 0 0 1\.;
 #X msg 110 799 @fontname;
 #X text 245 799 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 841 @fontsize;
-#X text 245 841 Get/Set fontsize. Type: int. Default value: 32. Range:
-4...100.;
+#X text 245 841 Get/Set fontsize. Type: int. Default value: 32\. Range:
+4\...100\.;
 #X msg 110 883 @fontslant;
 #X text 245 883 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -65,10 +65,10 @@ Allowed values: roman \, italic.;
 Allowed values: normal \, bold.;
 #X msg 110 967 @pinned;
 #X text 245 967 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 1.;
+level. Type: bool. Default value: 1\.;
 #X msg 110 1009 @size;
 #X text 245 1009 Get/Set element size (width \, height pair). Type:
-list. Default value: 300 47.;
+list. Default value: 300 47\.;
 #X obj 20 1061 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1066 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;

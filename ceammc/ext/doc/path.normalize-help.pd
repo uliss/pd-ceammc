@@ -16,7 +16,7 @@ the filesystem at all;
 #X obj 20 281 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 286 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 287 1.;
+#X text 110 287 1\.;
 #X text 150 287 *symbol*;
 #X text 245 287 file path.;
 #X text 150 307 *data:string*;
@@ -24,7 +24,7 @@ the filesystem at all;
 #X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 342 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 343 1.;
+#X text 110 343 1\.;
 #X text 245 343 symbol or data:string: normalized path.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

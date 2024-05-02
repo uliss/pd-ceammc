@@ -42,7 +42,7 @@ of processing in the plane wave domain.;
 #X obj 20 621 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 626 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 661 1.;
+#X text 110 661 1\.;
 #X text 150 661 int;
 #X obj 246 662 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 661 N: number of planewave channels. Type: int. Min value:
@@ -52,29 +52,29 @@ of processing in the plane wave domain.;
 -49933 0;
 #X msg 110 731 @max;
 #X text 245 731 Get/Set maximum amp value. Type: float. Default value:
-1.;
+1\.;
 #X msg 110 761 @min;
 #X text 245 761 Get/Set minimum amp value. Type: float. Default value:
-0.;
+0\.;
 #X msg 110 791 @nch;
 #X text 245 791 Get/Set number of channels. Type: int. Default value:
-4. Range: 1...128.;
+4\. Range: 1\...128\.;
 #X msg 110 833 @background_color;
 #X text 245 833 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1.;
+0.93 1\.;
 #X msg 110 890 @border_color;
 #X text 245 890 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 932 @label_color;
 #X text 245 932 Get/Set label color in RGB format within 0-1 range
-\, for example: 0.2 0.4 0.1. Type: list. Default value: 0 0 0 1.;
+\, for example: 0.2 0.4 0.1\. Type: list. Default value: 0 0 0 1\.;
 #X msg 110 974 @pt_color;
 #X text 245 974 Get/Set point color. Type: list. Default value: 0 0
-0 1.;
+0 1\.;
 #X msg 110 1004 @sp_color;
 #X text 245 1004 Get/Set space color. Type: list. Default value: 0.27
-0.43 0.54 1.;
+0.43 0.54 1\.;
 #X msg 110 1046 @label;
 #X text 245 1046 Get/Set label text. Type: symbol. Default value: (null).;
 #X msg 110 1076 @label_align;
@@ -82,10 +82,10 @@ values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
 value: left. Allowed values: left \, center \, right.;
 #X msg 110 1118 @label_inner;
 #X text 245 1118 Get/Set label position (1 - inner \, 0 - outer). Type:
-bool. Default value: 0.;
+bool. Default value: 0\.;
 #X msg 110 1160 @label_margins;
 #X text 245 1160 Get/Set label offset in pixels. Type: list. Default
-value: 0 0.;
+value: 0 0\.;
 #X msg 110 1202 @label_side;
 #X text 245 1202 Get/Set label snap side. Type: symbol. Default value:
 top. Allowed values: left \, top \, right \, bottom.;
@@ -96,8 +96,8 @@ value: top. Allowed values: top \, center \, bottom.;
 #X text 245 1286 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1328 @fontsize;
-#X text 245 1328 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 1328 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 1370 @fontslant;
 #X text 245 1370 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -106,7 +106,7 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 1454 @pinned;
 #X text 245 1454 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1496 @presetname;
 #X text 245 1496 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
@@ -118,7 +118,7 @@ symbol. Default value: (null).;
 (null).;
 #X msg 110 1610 @size;
 #X text 245 1610 Get/Set element size (width \, height pair). Type:
-list. Default value: 120 120.;
+list. Default value: 120 120\.;
 #X obj 20 1662 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1667 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -149,12 +149,12 @@ list. Default value: 120 120.;
 #X obj 20 2003 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2008 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2009 1.;
+#X text 110 2009 1\.;
 #X text 245 2009 list: amp values.;
 #X obj 20 2039 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2044 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2045 1.;
+#X text 110 2045 1\.;
 #X text 245 2045 list: amp values.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

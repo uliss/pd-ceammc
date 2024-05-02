@@ -9,8 +9,8 @@
 #X text 215 80 Searches file by name in user specified or PureData
 system paths.;
 #X text 215 120 Outputs first found file.;
-#X text 215 145 Search order: 1. user defined paths (@path property)
-\, 2. current patch directory \, 3. PureData system path \, 4. home
+#X text 215 145 Search order: 1\. user defined paths (@path property)
+\, 2\. current patch directory \, 3\. PureData system path \, 4\. home
 directory.;
 #X text 215 200 Absolute paths processed before relative.;
 #X text 215 225 Home directory can be specified with '~' symbol.;
@@ -29,7 +29,7 @@ directory.;
 #X obj 20 551 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 556 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 591 1.;
+#X text 110 591 1\.;
 #X text 150 591 list;
 #X obj 246 592 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 591 PATHS: list of paths \, can be quoted to handle whitespace.
@@ -39,13 +39,13 @@ Type: list.;
 -49933 0;
 #X msg 110 676 @async;
 #X text 245 676 Get/Set perform async search in separate thread. Type:
-bool. Default value: 1.;
+bool. Default value: 1\.;
 #X msg 110 718 @depth;
 #X text 245 718 Get/Set search recursion depth (-1: infinite). Type:
-int. Default value: 0. Min value: -1.;
+int. Default value: 0\. Min value: -1\.;
 #X msg 110 760 @home;
 #X text 245 760 Get/Set search in home directory. Type: bool. Default
-value: 1.;
+value: 1\.;
 #X msg 110 802 @nohome;
 #X text 245 802 alias to @home 0 \, do not search in home directory.;
 #X msg 110 832 @nostd;
@@ -54,9 +54,9 @@ value: 1.;
 #X text 245 862 Get/Set user defined search paths. Type: list.;
 #X msg 110 892 @std;
 #X text 245 892 Get/Set search in PureData standard directory. Type:
-bool. Default value: 1.;
+bool. Default value: 1\.;
 #X msg 110 934 @sync;
-#X text 245 934 alias to @async 0.;
+#X text 245 934 alias to @async 0\.;
 #X obj 20 974 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 979 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -65,7 +65,7 @@ bool. Default value: 1.;
 #X obj 20 1052 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1057 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1058 1.;
+#X text 110 1058 1\.;
 #X text 150 1058 *symbol*;
 #X text 245 1058 filename.;
 #X text 150 1078 *data:string*;
@@ -73,9 +73,9 @@ bool. Default value: 1.;
 #X obj 20 1108 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1113 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1114 1.;
+#X text 110 1114 1\.;
 #X text 245 1114 symbol: full filename.;
-#X text 110 1134 2.;
+#X text 110 1134 2\.;
 #X text 245 1134 bang: if not found.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

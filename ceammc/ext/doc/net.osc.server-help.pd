@@ -18,12 +18,12 @@
 #X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 346 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 381 1.;
+#X text 110 381 1\.;
 #X text 150 381 symbol;
 #X obj 246 382 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 381 NAME: OSC server name (for using with other objects).
 Type: symbol.;
-#X text 110 416 2.;
+#X text 110 416 2\.;
 #X text 150 416 atom;
 #X obj 246 417 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 416 URL: OSC server url (like udp:12345) \, see @url property.
@@ -37,13 +37,13 @@ value: default.;
 #X msg 110 543 @url;
 #X text 245 543 (initonly) Get/Set OSC server url in form: PROTO:PORT
 (udp:12345) or just PORT \, or osc.PROTO://:PORT (for ex. osc.tcp://:9001).
-Type: atom. Default value: udp:9000.;
+Type: atom. Default value: udp:9000\.;
 #X msg 110 600 @auto_start;
 #X text 245 600 Get/Set automatically start on creation. Type: bool.
-Default value: 1.;
+Default value: 1\.;
 #X msg 110 642 @dump;
 #X text 245 642 Get/Set dump incoming messages to Pd window. Type:
-bool. Default value: 0.;
+bool. Default value: 0\.;
 #X msg 110 684 @host?;
 #X text 245 684 (readonly) Get OSC server host. Type: symbol.;
 #X msg 110 714 @path?;
@@ -51,7 +51,7 @@ bool. Default value: 0.;
 symbol.;
 #X msg 110 744 @port?;
 #X text 245 744 (readonly) Get OSC server port. Type: int. Default
-value: 9000.;
+value: 9000\.;
 #X msg 110 786 @proto?;
 #X text 245 786 (readonly) Get OSC server proto (udp or tcp). Type:
 symbol. Default value: udp.;
@@ -62,21 +62,21 @@ symbol. Default value: udp.;
 #X text 245 878 start OSC server. Arguments are:;
 #X obj 255 901 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 901 [VAL]: 1: start \, 0: stop. Type: int. Allowed values:
-0 \, 1.;
+0 \, 1\.;
 #X msg 110 926 stop;
 #X text 245 926 stop OSC server. Arguments are:;
 #X obj 255 949 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 949 [VAL]: 1: stop \, 0: start. Type: int. Allowed values:
-0 \, 1.;
+0 \, 1\.;
 #X obj 20 984 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 989 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 990 1.;
+#X text 110 990 1\.;
 #X text 245 990 ...;
 #X obj 20 1020 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1025 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1026 1.;
+#X text 110 1026 1\.;
 #X text 245 1026 ...;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

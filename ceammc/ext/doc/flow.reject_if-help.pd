@@ -18,18 +18,18 @@
 #X obj 20 288 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 293 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 294 1.;
+#X text 110 294 1\.;
 #X text 245 294 input value.;
-#X text 110 314 2.;
+#X text 110 314 2\.;
 #X text 150 314 *int*;
 #X text 245 314 value from predicate (0 or 1). If *1* reject value
 \, if *0* - pass.;
 #X obj 20 359 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 364 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 365 1.;
+#X text 110 365 1\.;
 #X text 245 365 passed values.;
-#X text 110 385 2.;
+#X text 110 385 2\.;
 #X text 245 385 output value to predicate.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

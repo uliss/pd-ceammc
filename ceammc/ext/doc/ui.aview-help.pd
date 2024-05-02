@@ -54,19 +54,19 @@
 #X text 245 917 Get/Set array name. Type: symbol.;
 #X msg 110 947 @cursor_ms;
 #X text 245 947 Get/Set cursor position in milliseconds. Type: float.
-Units: 'ms'. Default value: 0.;
+Units: 'ms'. Default value: 0\.;
 #X msg 110 989 @cursor_phase;
 #X text 245 989 Get/Set cursor position in 0-1 range. Type: float.
-Default value: 0. Range: 0...1.;
+Default value: 0\. Range: 0\...1\.;
 #X msg 110 1031 @cursor_samp;
 #X text 245 1031 Get/Set cursor position in samples. Type: int. Units:
-'samp'. Default value: 0.;
+'samp'. Default value: 0\.;
 #X msg 110 1073 @cursor_sec;
 #X text 245 1073 Get/Set cursor position in seconds. Type: float. Units:
-'sec'. Default value: 0.;
+'sec'. Default value: 0\.;
 #X msg 110 1115 @mouse_events;
 #X text 245 1115 Get/Set mouse events output mode. If on outputs @mouse_down
-\, @mouse_up and @mouse_drag events. Type: bool. Default value: 1.;
+\, @mouse_up and @mouse_drag events. Type: bool. Default value: 1\.;
 #X msg 110 1172 @receive;
 #X text 245 1172 Get/Set receive source. Type: symbol. Default value:
 (null).;
@@ -87,23 +87,23 @@ begin \, end. Type: list. Units: 'sec'.;
 (null).;
 #X msg 110 1412 @show_rms;
 #X text 245 1412 Get/Set show RMS graph. Type: bool. Default value:
-0.;
+0\.;
 #X msg 110 1442 @background_color;
 #X text 245 1442 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1.;
+0.93 1\.;
 #X msg 110 1499 @border_color;
 #X text 245 1499 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 1541 @cursor_color;
 #X text 245 1541 Get/Set cursor color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0 0.75 1 1.;
+values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 1583 @selection_color;
 #X text 245 1583 Get/Set selection color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0 0.75 1 1.;
+values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 1625 @wave_color;
 #X text 245 1625 Get/Set wave color (list of red \, green \, blue values
-in 0-1 range). Type: list. Default value: 0.3 0.3 0.3 1.;
+in 0-1 range). Type: list. Default value: 0.3 0.3 0.3 1\.;
 #X msg 110 1667 @label_bottom;
 #X text 245 1667 Get/Set bottom right label if @show_labels is on.
 Type: symbol.;
@@ -112,13 +112,13 @@ Type: symbol.;
 symbol.;
 #X msg 110 1739 @show_labels;
 #X text 245 1739 Get/Set if show corner labels. Type: bool. Default
-value: 0.;
+value: 0\.;
 #X msg 110 1769 @fontname;
 #X text 245 1769 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1811 @fontsize;
-#X text 245 1811 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 1811 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 1853 @fontslant;
 #X text 245 1853 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -127,19 +127,19 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 1937 @pinned;
 #X text 245 1937 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1979 @size;
 #X text 245 1979 Get/Set element size (width \, height pair). Type:
-list. Default value: 300 100.;
+list. Default value: 300 100\.;
 #X msg 110 2021 @size_ms?;
 #X text 245 2021 (readonly) Get array size in milliseconds. Type: float.
-Units: 'ms'. Default value: 0. Min value: 0.;
+Units: 'ms'. Default value: 0\. Min value: 0\.;
 #X msg 110 2063 @size_samp?;
 #X text 245 2063 (readonly) Get array size in samples. Type: int. Units:
-'samp'. Default value: 0. Min value: 0.;
+'samp'. Default value: 0\. Min value: 0\.;
 #X msg 110 2105 @size_sec?;
 #X text 245 2105 (readonly) Get array size in seconds. Type: float.
-Units: 'sec'. Default value: 0. Min value: 0.;
+Units: 'sec'. Default value: 0\. Min value: 0\.;
 #X obj 20 2157 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2162 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -162,7 +162,7 @@ Units: 'sec'. Default value: 0. Min value: 0.;
 #X obj 20 2405 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2410 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2411 1.;
+#X text 110 2411 1\.;
 #X text 150 2411 *bang*;
 #X text 245 2411 output current cursor positions: @cursor_samp \, @cursor_phase
 \, @cursor_ms \, @cursor_sec and selection (if selected): @select_samp
@@ -172,7 +172,7 @@ Units: 'sec'. Default value: 0. Min value: 0.;
 #X obj 20 2506 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2511 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2512 1.;
+#X text 110 2512 1\.;
 #X text 245 2512 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

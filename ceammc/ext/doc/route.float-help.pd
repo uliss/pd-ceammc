@@ -26,11 +26,11 @@ messages (including property requests) are passed thru;
 #X msg 110 392 @strict;
 #X text 245 392 Get/Set strict mode. By default list with single float
 treated as float. Set to true to disable this behavior. Type: bool.
-Default value: 0.;
+Default value: 0\.;
 #X obj 20 459 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 464 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 465 1.;
+#X text 110 465 1\.;
 #X text 150 465 *float*;
 #X text 245 465 float to *first* outlet.;
 #X text 150 485 *bang*;
@@ -44,9 +44,9 @@ Default value: 0.;
 #X obj 20 575 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 580 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 581 1.;
+#X text 110 581 1\.;
 #X text 245 581 float output.;
-#X text 110 601 2.;
+#X text 110 601 2\.;
 #X text 245 601 other messages.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

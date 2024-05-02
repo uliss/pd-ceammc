@@ -23,7 +23,7 @@ name and available only within its patch (canvas).;
 #X obj 20 365 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 370 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 405 1.;
+#X text 110 405 1\.;
 #X text 150 405 symbol;
 #X obj 246 406 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 405 ID: object ID. Type: symbol.;
@@ -34,11 +34,11 @@ name and available only within its patch (canvas).;
 #X text 245 475 (initonly) Get/Set local variable id. Type: symbol.
 Default value: default.;
 #X msg 110 517 @empty?;
-#X text 245 517 (readonly) Get 1 if list is empty \, otherwise 0. Type:
-bool. Default value: 1.;
+#X text 245 517 (readonly) Get 1 if list is empty \, otherwise 0\.
+Type: bool. Default value: 1\.;
 #X msg 110 559 @size?;
 #X text 245 559 (readonly) Get number of elements in list. Type: int.
-Default value: 0. Min value: 0.;
+Default value: 0\. Min value: 0\.;
 #X obj 20 611 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 616 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -97,7 +97,7 @@ are:;
 #X obj 20 1315 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1320 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1321 1.;
+#X text 110 1321 1\.;
 #X text 150 1321 *bang*;
 #X text 245 1321 output list content.;
 #X text 150 1341 *data:mlist*;
@@ -111,7 +111,7 @@ are:;
 #X obj 20 1431 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1436 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1437 1.;
+#X text 110 1437 1\.;
 #X text 245 1437 mlist output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -32,11 +32,11 @@ https://en.wikipedia.org/wiki/Comb_filter;
 #X obj 20 662 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 667 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 702 1.;
+#X text 110 702 1\.;
 #X text 150 702 float;
 #X obj 246 703 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 702 A: scaling factor of delayed signal. Type: float. Range:
--1...1;
+-1\...1;
 #X obj 20 747 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 752 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -49,10 +49,10 @@ empty bind to /flt_ff_comb/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 874 @a;
 #X text 245 874 Get/Set scaling factor of delayed signal. Type: float.
-Default value: 1. Range: -1...1.;
+Default value: 1\. Range: -1\...1\.;
 #X msg 110 916 @active;
 #X text 245 916 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X obj 20 956 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 961 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -61,14 +61,14 @@ Default value: 1. Range: -1...1.;
 #X obj 20 1034 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1039 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1040 1.;
+#X text 110 1040 1\.;
 #X text 245 1040 input signal.;
-#X text 110 1060 2.;
+#X text 110 1060 2\.;
 #X text 245 1060 filter notch frequency.;
 #X obj 20 1090 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1095 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1096 1.;
+#X text 110 1096 1\.;
 #X text 245 1096 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

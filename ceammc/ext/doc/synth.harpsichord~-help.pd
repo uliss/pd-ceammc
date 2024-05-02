@@ -25,41 +25,41 @@ bind all properties to /ID/synth_harpsichord/PROP_NAME osc address
 symbol.;
 #X msg 110 555 @active;
 #X text 245 555 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 585 @freq;
 #X text 245 585 Get/Set frequency. Type: float. Units: 'Hz'. Default
-value: 130.8128.;
+value: 130.8128\.;
 #X msg 110 627 @gate;
 #X text 245 627 Get/Set play trigger - 1: on \, 0: off. Type: float.
-Default value: 0. Range: 0...1.;
+Default value: 0\. Range: 0\...1\.;
 #X msg 110 669 @modfreq;
 #X text 245 669 Get/Set frequency of the sine wave for the modulation
 of theta (works if @modetype=3). Type: float. Units: 'Hz'. Default
-value: 220. Range: 20...1000.;
+value: 220\. Range: 20\...1000\.;
 #X msg 110 726 @modtype;
 #X text 245 726 Get/Set modulation type. 0=theta is modulated by the
 incoming signal. 1=theta is modulated by the averaged incoming signal.
 2=theta is modulated by the squared incoming signal. 3=theta is modulated
 by a sine wave of frequency @modfreq. 4=theta is modulated by a sine
-wave of frequency @freq. Type: int. Default value: 0. Range: 0...4.;
+wave of frequency @freq. Type: int. Default value: 0\. Range: 0\...4\.;
 #X msg 110 829 @nonlin;
 #X text 245 829 Get/Set nonlinearity factor. Type: float. Default value:
-0. Range: 0...1.;
+0\. Range: 0\...1\.;
 #X msg 110 871 @pan;
-#X text 245 871 Get/Set pan angle. Type: float. Default value: 0.6.
-Range: 0...1.;
+#X text 245 871 Get/Set pan angle. Type: float. Default value: 0.6\.
+Range: 0\...1\.;
 #X msg 110 913 @pitch;
-#X text 245 913 Get/Set midi pitch. Type: float. Default value: 48.
-Range: 12...96.;
+#X text 245 913 Get/Set midi pitch. Type: float. Default value: 48\.
+Range: 12\...96\.;
 #X msg 110 955 @reverb_gain;
-#X text 245 955 Get/Set reverb gain. Type: float. Default value: 0.137.
-Range: 0...1.;
+#X text 245 955 Get/Set reverb gain. Type: float. Default value: 0.137\.
+Range: 0\...1\.;
 #X msg 110 997 @room_size;
 #X text 245 997 Get/Set reverb room size. Type: float. Default value:
-0.36. Range: 0.005...1.;
+0.36\. Range: 0.005\...1\.;
 #X msg 110 1039 @width;
 #X text 245 1039 Get/Set spatialization width. Type: float. Default
-value: 0.5. Range: 0...1.;
+value: 0.5\. Range: 0\...1\.;
 #X obj 20 1091 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1096 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -68,21 +68,21 @@ value: 0.5. Range: 0...1.;
 #X obj 255 1154 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1154 NOTE: midi note. Type: float.;
 #X obj 255 1177 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1177 VEL: velocity. Type: float. Range: 0...127.;
+#X text 255 1177 VEL: velocity. Type: float. Range: 0\...127\.;
 #X msg 110 1202 reset;
 #X text 245 1202 reset synth.;
 #X obj 20 1240 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1245 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1246 1.;
+#X text 110 1246 1\.;
 #X text 150 1246 *list*;
 #X text 245 1246 NOTE VEL.;
 #X obj 20 1276 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1281 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1282 1.;
+#X text 110 1282 1\.;
 #X text 245 1282 left output.;
-#X text 110 1302 2.;
+#X text 110 1302 2\.;
 #X text 245 1302 right output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

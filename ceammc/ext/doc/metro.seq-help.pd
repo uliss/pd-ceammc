@@ -22,44 +22,44 @@
 #X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 429 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 464 1.;
+#X text 110 464 1\.;
 #X text 150 464 float;
 #X obj 246 465 cnv 1 100 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 464 INTERVAL(ms): metro tempo in ms. Type: float. Min value:
 0;
-#X text 110 484 2.;
+#X text 110 484 2\.;
 #X text 150 484 list;
 #X obj 246 485 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 484 PATTERN: list of 1 and 0. Where 1 means output bang
+#X text 245 484 PATTERN: list of 1 and 0\. Where 1 means output bang
 on this beat. Type: list.;
 #X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 534 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 569 @current;
 #X text 245 569 Get/Set current pattern index. Type: int. Default value:
-0. Min value: 0.;
+0\. Min value: 0\.;
 #X msg 110 611 @interval;
 #X text 245 611 Get/Set interval between beats. Type: float. Units:
-'ms'. Default value: 0. Min value: 0.;
+'ms'. Default value: 0\. Min value: 0\.;
 #X msg 110 653 @pattern;
-#X text 245 653 Get/Set list of 1 and 0. Where 1 means output bang
+#X text 245 653 Get/Set list of 1 and 0\. Where 1 means output bang
 on this beat. Type: list.;
 #X obj 20 705 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 710 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 711 1.;
+#X text 110 711 1\.;
 #X text 150 711 *float*;
 #X text 245 711 starts (on 1) or stops (on 0) metro.;
-#X text 110 731 2.;
+#X text 110 731 2\.;
 #X text 150 731 *float*;
 #X text 245 731 set new step interval.;
-#X text 110 751 3.;
+#X text 110 751 3\.;
 #X text 150 751 *list*;
 #X text 245 751 set new pattern.;
 #X obj 20 781 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 786 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 787 1.;
+#X text 110 787 1\.;
 #X text 245 787 outputs *bang*.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

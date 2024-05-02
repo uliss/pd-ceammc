@@ -30,7 +30,7 @@
 #X obj 20 361 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 366 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 401 1.;
+#X text 110 401 1\.;
 #X text 150 401 symbol;
 #X obj 246 402 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 401 HOST: hostname on that VLC player is running on. Type:
@@ -45,7 +45,7 @@ Type: symbol. Default value: localhost.;
 #X text 245 528 Get/Set VLC http password. Type: atom.;
 #X msg 110 558 @port;
 #X text 245 558 Get/Set hostname on that VLC player is running on.
-Type: int. Default value: 8080. Range: 1...32768.;
+Type: int. Default value: 8080\. Range: 1\...32768\.;
 #X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 615 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -74,7 +74,7 @@ Type: symbol.;
 #X text 245 921 pause/resume playback. Arguments are:;
 #X obj 255 944 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 944 [VAL]: 1 or omitted: pause \, 0: resume. Type: int.
-Allowed values: 0 \, 1.;
+Allowed values: 0 \, 1\.;
 #X msg 110 984 play;
 #X text 245 984 start playback.;
 #X msg 110 1012 playlist;
@@ -99,14 +99,14 @@ outlet.;
 #X obj 20 1260 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1265 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1266 1.;
+#X text 110 1266 1\.;
 #X text 245 1266 commands.;
 #X obj 20 1296 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1301 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1302 1.;
+#X text 110 1302 1\.;
 #X text 245 1302 int: 1 on success \, 0 on error.;
-#X text 110 1322 2.;
+#X text 110 1322 2\.;
 #X text 245 1322 dict: response data.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

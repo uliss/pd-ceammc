@@ -21,14 +21,14 @@
 #X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 355 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 390 1.;
+#X text 110 390 1\.;
 #X text 150 390 list;
 #X obj 246 391 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 390 PROPS: property names. Type: list.;
 #X obj 20 420 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 425 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 426 1.;
+#X text 110 426 1\.;
 #X text 150 426 *bang*;
 #X text 245 426 output specified properites to corresponding outlets.;
 #X text 150 446 *any*;
@@ -36,13 +36,13 @@
 #X obj 20 476 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 481 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 482 1.;
+#X text 110 482 1\.;
 #X text 245 482 connected to destination object.;
-#X text 110 502 2.;
+#X text 110 502 2\.;
 #X text 245 502 output of first requested property.;
 #X text 110 522 ....;
 #X text 245 522 output of ... requested property.;
-#X text 110 542 n+1.;
+#X text 110 542 n+1\.;
 #X text 245 542 output of n-th requested property.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

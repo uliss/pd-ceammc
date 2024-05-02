@@ -23,7 +23,7 @@
 #X obj 20 407 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 412 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 447 1.;
+#X text 110 447 1\.;
 #X text 150 447 symbol;
 #X obj 246 448 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 447 ID: bimap ID. Type: symbol.;
@@ -38,14 +38,14 @@ Default value: default.;
 LEFT_KEY2 RIGHT_KEY2 etc. Type: list.;
 #X msg 110 601 @empty?;
 #X text 245 601 (readonly) Get true if empty. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 631 @keys_left?;
 #X text 245 631 (readonly) Get list of left map keys. Type: list.;
 #X msg 110 661 @keys_right?;
 #X text 245 661 (readonly) Get list of right map keys. Type: list.;
 #X msg 110 691 @size?;
 #X text 245 691 (readonly) Get number of left-right pairs in map. Type:
-int. Default value: 0.;
+int. Default value: 0\.;
 #X obj 20 743 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 748 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -77,14 +77,14 @@ Type: symbol.;
 #X obj 20 1081 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1086 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1087 1.;
+#X text 110 1087 1\.;
 #X text 150 1087 *atom*;
 #X text 245 1087 try to find left key in the map and output the right
 value on success.;
 #X text 150 1122 *list*;
 #X text 245 1122 try to find each left key of the list in the map and
 output the result list of right values.;
-#X text 110 1157 2.;
+#X text 110 1157 2\.;
 #X text 150 1157 *atom*;
 #X text 245 1157 try to find right key in the map and output the left
 value on success.;
@@ -94,9 +94,9 @@ and output the result list of left values.;
 #X obj 20 1237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1242 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1243 1.;
+#X text 110 1243 1\.;
 #X text 245 1243 atom or list: right value output.;
-#X text 110 1263 2.;
+#X text 110 1263 2\.;
 #X text 245 1263 atom or list: left value output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

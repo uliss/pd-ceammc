@@ -22,15 +22,15 @@
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 352 1.;
+#X text 110 352 1\.;
 #X text 150 352 int;
 #X obj 246 353 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 352 FROM: start value. Type: int.;
-#X text 110 372 2.;
+#X text 110 372 2\.;
 #X text 150 372 int;
 #X obj 246 373 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 372 TO: end value. Type: int.;
-#X text 110 392 3.;
+#X text 110 392 3\.;
 #X text 150 392 int;
 #X obj 246 393 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 392 R: number of repeats. Type: int. Min value: -1;
@@ -41,10 +41,10 @@
 #X text 245 462 alias to @mode fold.;
 #X msg 110 492 @from;
 #X text 245 492 Get/Set start value. Setting this property resets @i
-to 0. Type: int. Default value: 0.;
+to 0\. Type: int. Default value: 0\.;
 #X msg 110 534 @i;
 #X text 245 534 Get/Set current iteration. Type: int. Default value:
-0.;
+0\.;
 #X msg 110 564 @inf;
 #X text 245 564 alias to @r -1 \, repeats infinitely.;
 #X msg 110 594 @mode;
@@ -54,18 +54,18 @@ value: wrap. Allowed values: wrap \, fold.;
 #X text 245 636 alias to @r 1 \, play once.;
 #X msg 110 666 @r;
 #X text 245 666 Get/Set number of repeats. If -1: repeat infinitely.
-Type: int. Default value: -1. Min value: -1.;
+Type: int. Default value: -1\. Min value: -1\.;
 #X msg 110 708 @to;
 #X text 245 708 Get/Set end value (inclusive). Type: int. Default value:
-0.;
+0\.;
 #X msg 110 738 @wrap;
 #X text 245 738 alias to @mode wrap.;
 #X msg 110 768 @ri?;
 #X text 245 768 (readonly) Get current repeat iteration. Type: int.
-Default value: 0.;
+Default value: 0\.;
 #X msg 110 810 @value?;
 #X text 245 810 (readonly) Get current value. Type: int. Default value:
-0.;
+0\.;
 #X obj 20 850 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 855 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -75,22 +75,22 @@ Default value: 0.;
 #X text 245 918 decrement counter then output.;
 #X msg 110 946 reset;
 #X text 245 946 reset counter to start value and repeat counter to
-0.;
+0\.;
 #X obj 20 984 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 989 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 990 1.;
+#X text 110 990 1\.;
 #X text 150 990 *bang*;
 #X text 245 990 output current value then increment counter.;
-#X text 110 1010 2.;
+#X text 110 1010 2\.;
 #X text 150 1010 *bang*;
 #X text 245 1010 reset counter to start value.;
 #X obj 20 1040 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1045 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1046 1.;
+#X text 110 1046 1\.;
 #X text 245 1046 int: counter value.;
-#X text 110 1066 2.;
+#X text 110 1066 2\.;
 #X text 245 1066 int: repeat counter \, done: when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

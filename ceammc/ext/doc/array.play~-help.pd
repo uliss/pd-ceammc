@@ -31,11 +31,11 @@
 #X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 461 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 496 1.;
+#X text 110 496 1\.;
 #X text 150 496 symbol;
 #X obj 246 497 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 496 ARRAY: array name. Type: symbol.;
-#X text 110 516 2.;
+#X text 110 516 2\.;
 #X text 150 516 float;
 #X obj 246 517 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 516 SPEED: play speed. Type: float.;
@@ -44,111 +44,112 @@
 -49933 0;
 #X msg 110 586 @amp;
 #X text 245 586 Get/Set playback amplitude. Type: float. Default value:
-1. Min value: 0.;
+1\. Min value: 0\.;
 #X msg 110 628 @array;
 #X text 245 628 Get/Set array name. Type: symbol.;
 #X msg 110 658 @begin;
 #X text 245 658 Get/Set playback start position. Negative value means
 position relative to the end of the array. Type: float. Units: 'samp'.
-Default value: 0.;
+Default value: 0\.;
 #X msg 110 715 @cfmt;
 #X text 245 715 Get/Set clock output format. Type: symbol. Default
 value: sec. Allowed values: sec \, ms \, samp \, phase.;
 #X msg 110 757 @clock;
 #X text 245 757 Get/Set clock output period. Zero means: no clock output
-(by default). Type: float. Units: 'sec'. Default value: 0. Range: 0...20.;
+(by default). Type: float. Units: 'sec'. Default value: 0\. Range:
+0\...20\.;
 #X msg 110 814 @cursor_ms;
 #X text 245 814 Get/Set current play position. Type: float. Units:
-'ms'. Default value: 0.;
+'ms'. Default value: 0\.;
 #X msg 110 856 @cursor_phase;
 #X text 245 856 Get/Set current play position. Type: float. Default
-value: 0.;
-#X msg 110 886 @cursor_samp;
-#X text 245 886 Get/Set current play position. Type: float. Units:
-'samp'. Default value: 0.;
-#X msg 110 928 @cursor_sec;
-#X text 245 928 Get/Set current play position. Type: float. Units:
-'sec'. Default value: 0.;
-#X msg 110 970 @end;
-#X text 245 970 Get/Set playback end position. Negative value means
+value: 0\.;
+#X msg 110 898 @cursor_samp;
+#X text 245 898 Get/Set current play position. Type: float. Units:
+'samp'. Default value: 0\.;
+#X msg 110 940 @cursor_sec;
+#X text 245 940 Get/Set current play position. Type: float. Units:
+'sec'. Default value: 0\.;
+#X msg 110 982 @end;
+#X text 245 982 Get/Set playback end position. Negative value means
 position relative to the end of the array. Type: float. Units: 'samp'.
-Default value: -1.;
-#X msg 110 1027 @interp;
-#X text 245 1027 Get/Set interpolation type. 0: no interpolation 1:
-linear \, 3: cubic. Type: int. Default value: 1. Allowed values: 0
-\, 1 \, 3.;
-#X msg 110 1069 @loop;
-#X text 245 1069 Get/Set samplewise loop playing mode. Type: bool.
-Default value: 0.;
-#X msg 110 1111 @select_ms;
-#X text 245 1111 Get/Set selection range. Type: list. Units: 'ms'.
-Default value: 0 0.;
-#X msg 110 1153 @select_phase;
-#X text 245 1153 Get/Set selection range in [0 \, 1] range. Type: list.
-Default value: 0 0.;
-#X msg 110 1195 @select_samp;
-#X text 245 1195 Get/Set selection range. Type: list. Units: 'samp'.
-Default value: 0 0.;
-#X msg 110 1237 @select_sec;
-#X text 245 1237 Get/Set selection range. Type: list. Units: 'sec'.
-Default value: 0 0.;
-#X msg 110 1279 @speed;
-#X text 245 1279 Get/Set playback speed. Negative value means reversed
-playback. Type: float. Default value: 1.;
-#X msg 110 1321 @state?;
-#X text 245 1321 (readonly) Get playing state. 0: stopped \, 1: playing
-\, 2: paused. Type: int. Default value: 0.;
-#X obj 20 1373 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1378 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+Default value: -1\.;
+#X msg 110 1039 @interp;
+#X text 245 1039 Get/Set interpolation type. 0: no interpolation 1:
+linear \, 3: cubic. Type: int. Default value: 1\. Allowed values: 0
+\, 1 \, 3\.;
+#X msg 110 1096 @loop;
+#X text 245 1096 Get/Set samplewise loop playing mode. Type: bool.
+Default value: 0\.;
+#X msg 110 1138 @select_ms;
+#X text 245 1138 Get/Set selection range. Type: list. Units: 'ms'.
+Default value: 0 0\.;
+#X msg 110 1180 @select_phase;
+#X text 245 1180 Get/Set selection range in [0 \, 1] range. Type: list.
+Default value: 0 0\.;
+#X msg 110 1222 @select_samp;
+#X text 245 1222 Get/Set selection range. Type: list. Units: 'samp'.
+Default value: 0 0\.;
+#X msg 110 1264 @select_sec;
+#X text 245 1264 Get/Set selection range. Type: list. Units: 'sec'.
+Default value: 0 0\.;
+#X msg 110 1306 @speed;
+#X text 245 1306 Get/Set playback speed. Negative value means reversed
+playback. Type: float. Default value: 1\.;
+#X msg 110 1348 @state?;
+#X text 245 1348 (readonly) Get playing state. 0: stopped \, 1: playing
+\, 2: paused. Type: int. Default value: 0\.;
+#X obj 20 1400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1405 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1413 pause;
-#X text 245 1413 pause/resume playback. Arguments are:;
-#X obj 255 1436 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1436 [anonym=1]: if true: pause \, else resume playing.
-Type: int. Allowed values: 0 \, 1.;
-#X msg 110 1476 play;
-#X text 245 1476 start playback from current play position.;
-#X msg 110 1504 range;
-#X text 245 1504 set @begin and @end property. Arguments are:;
-#X obj 255 1527 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1527 BEGIN: begin position. If float value given: interpret
-as phase in [0..1] range. Otherwise unit value expected. Examples:
+#X msg 110 1440 pause;
+#X text 245 1440 pause/resume playback. Arguments are:;
+#X obj 255 1463 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1463 [anonym=1]: if true: pause \, else resume playing.
+Type: int. Allowed values: 0 \, 1\.;
+#X msg 110 1503 play;
+#X text 245 1503 start playback from current play position.;
+#X msg 110 1531 range;
+#X text 245 1531 set @begin and @end property. Arguments are:;
+#X obj 255 1554 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1554 BEGIN: begin position. If float value given: interpret
+as phase in [0\..1] range. Otherwise unit value expected. Examples:
 10ms \, 5% \, 4sec \, 20samp etc. Type: atom.;
-#X obj 255 1580 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1580 END: end position. Value type same as for first argument.
+#X obj 255 1607 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1607 END: end position. Value type same as for first argument.
 Type: atom.;
-#X msg 110 1620 stop;
-#X text 245 1620 stop playback and reset play position.;
-#X obj 20 1658 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1663 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1647 stop;
+#X text 245 1647 stop playback and reset play position.;
+#X obj 20 1685 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1690 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1664 1.;
-#X text 150 1664 *bang*;
-#X text 245 1664 resets play position and starts playback.;
-#X text 150 1684 *float*;
-#X text 245 1684 starts playback from the specified sample. Negative
+#X text 110 1691 1\.;
+#X text 150 1691 *bang*;
+#X text 245 1691 resets play position and starts playback.;
+#X text 150 1711 *float*;
+#X text 245 1711 starts playback from the specified sample. Negative
 offsets are also supported: -10 means play last 10 samples of array
 till the end.;
-#X obj 20 1744 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1749 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1771 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1776 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1750 1.;
-#X text 245 1750 played signal.;
-#X text 110 1770 2.;
-#X text 245 1770 output current playing position according to @cfmt
+#X text 110 1777 1\.;
+#X text 245 1777 played signal.;
+#X text 110 1797 2\.;
+#X text 245 1797 output current playing position according to @cfmt
 property. By default output seconds.;
-#X text 110 1805 3.;
-#X text 245 1805 output bang when finished.;
+#X text 110 1832 3\.;
+#X text 245 1832 output bang when finished.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 1855 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1858 library: ceammc v0.9.7;
-#X text 606 1870 see also:;
-#X obj 681 1870 tabplay~;
-#N canvas 10 1877 400 290 info 0;
+#X obj 1 1882 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1885 library: ceammc v0.9.7;
+#X text 606 1897 see also:;
+#X obj 681 1897 tabplay~;
+#N canvas 10 1904 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -172,7 +173,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1877 pd info;
+#X restore 10 1904 pd info;
 #X connect 5 0 7 0;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;

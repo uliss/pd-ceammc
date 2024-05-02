@@ -19,11 +19,11 @@
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 352 1.;
+#X text 110 352 1\.;
 #X text 150 352 float;
 #X obj 246 353 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 352 FREQ(Hz): frequency. Type: float.;
-#X text 110 372 2.;
+#X text 110 372 2\.;
 #X text 150 372 bool;
 #X obj 246 373 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 372 INVERT: wave inversion. Type: bool.;
@@ -39,16 +39,16 @@ bind to /lfo_saw/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 529 @active;
 #X text 245 529 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 559 @invert;
 #X text 245 559 Get/Set wave inversion. Type: bool. Default value:
-0.;
+0\.;
 #X msg 110 589 @pause;
 #X text 245 589 Get/Set pause oscillator at current value. Type: bool.
-Default value: 0.;
+Default value: 0\.;
 #X msg 110 631 @phase;
 #X text 245 631 Get/Set initial phase. Type: float. Default value:
-0. Range: 0...1.;
+0\. Range: 0\...1\.;
 #X obj 20 683 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 688 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -57,15 +57,15 @@ Default value: 0.;
 #X obj 20 761 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 766 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 767 1.;
+#X text 110 767 1\.;
 #X text 245 767 frequency in Hz (can be zero or negative).;
-#X text 110 787 2.;
+#X text 110 787 2\.;
 #X text 150 787 *bang*;
 #X text 245 787 reset phase.;
 #X obj 20 817 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 822 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 823 1.;
+#X text 110 823 1\.;
 #X text 245 823 saw wave in [-1 \, +1] range.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

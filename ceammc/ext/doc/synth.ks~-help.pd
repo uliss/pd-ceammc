@@ -39,34 +39,34 @@ bind to /synth_ks/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 583 @active;
 #X text 245 583 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 613 @cutoff;
 #X text 245 613 Get/Set cutoff coefficent (for low pass filter). Type:
-float. Default value: 1. Range: 0.1...1.;
+float. Default value: 1\. Range: 0.1\...1\.;
 #X msg 110 655 @freq;
 #X text 245 655 Get/Set frequency. Type: float. Units: 'Hz'. Default
-value: 130.8128.;
+value: 130.8128\.;
 #X msg 110 697 @gain;
-#X text 245 697 Get/Set pluck gain. Type: float. Default value: 1.
-Range: 0...1.;
+#X text 245 697 Get/Set pluck gain. Type: float. Default value: 1\.
+Range: 0\...1\.;
 #X msg 110 739 @gate;
 #X text 245 739 Get/Set play trigger - 1: on \, 0: off. Type: float.
-Default value: 0. Range: 0...1.;
+Default value: 0\. Range: 0\...1\.;
 #X msg 110 781 @mode;
 #X text 245 781 Get/Set excitation mode: 0 - impulse \, 1 - pluck \,
-2 - strike. Type: int. Default value: 1. Range: 0...2.;
+2 - strike. Type: int. Default value: 1\. Range: 0\...2\.;
 #X msg 110 823 @mute;
 #X text 245 823 Get/Set mute coefficient (0 for no mute and 1 for instant
-mute). Type: float. Default value: 0. Range: 0...1.;
+mute). Type: float. Default value: 0\. Range: 0\...1\.;
 #X msg 110 865 @pitch;
-#X text 245 865 Get/Set midi pitch. Type: float. Default value: 48.
-Range: 36...84.;
+#X text 245 865 Get/Set midi pitch. Type: float. Default value: 48\.
+Range: 36\...84\.;
 #X msg 110 907 @pos;
 #X text 245 907 Get/Set pluck position (1 is on the bridge). Type:
-float. Default value: 0.7. Range: 0...1.;
+float. Default value: 0.7\. Range: 0\...1\.;
 #X msg 110 949 @sharp;
 #X text 245 949 Get/Set pluck sharpness. Type: float. Default value:
-0.25. Range: 0.01...1.;
+0.25\. Range: 0.01\...1\.;
 #X obj 20 1001 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1006 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -75,17 +75,17 @@ float. Default value: 0.7. Range: 0...1.;
 #X obj 255 1064 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1064 NOTE: midi note. Type: float.;
 #X obj 255 1087 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1087 VEL: velocity. Type: float. Range: 0...127.;
+#X text 255 1087 VEL: velocity. Type: float. Range: 0\...127\.;
 #X obj 20 1122 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1127 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1128 1.;
+#X text 110 1128 1\.;
 #X text 150 1128 *list*;
 #X text 245 1128 NOTE VEL.;
 #X obj 20 1158 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1163 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1164 1.;
+#X text 110 1164 1\.;
 #X text 245 1164 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

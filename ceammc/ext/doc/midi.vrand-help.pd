@@ -20,11 +20,11 @@
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 375 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 410 1.;
+#X text 110 410 1\.;
 #X text 150 410 float;
 #X obj 246 411 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 410 MIN: min random range. Type: float.;
-#X text 110 430 2.;
+#X text 110 430 2\.;
 #X text 150 430 float;
 #X obj 246 431 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 430 MAX: max random range. Type: float.;
@@ -46,10 +46,10 @@ uniform. Allowed values: uniform \, gauss \, linup \, lindown \, cmin
 \, cmax \, cmean.;
 #X msg 110 708 @max;
 #X text 245 708 Get/Set max random range. Type: float. Default value:
-127.;
+127\.;
 #X msg 110 738 @min;
 #X text 245 738 Get/Set min random range. Type: float. Default value:
-0.;
+0\.;
 #X msg 110 768 @mode;
 #X text 245 768 Get/Set assign mode. If *assign* - replace origin velocity
 with random new one (default) \, if *add* - adds random value to origin
@@ -57,14 +57,14 @@ velocity \, if *sub* - subtract random value from origin velocity.
 Type: symbol. Default value: assign. Allowed values: assign \, add
 \, sub.;
 #X msg 110 855 @seed;
-#X text 245 855 Get/Set random seed. Type: int. Default value: 0. Min
-value: 0.;
+#X text 245 855 Get/Set random seed. Type: int. Default value: 0\.
+Min value: 0\.;
 #X msg 110 897 @sub;
 #X text 245 897 alias to @mode sub.;
 #X obj 20 937 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 942 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 943 1.;
+#X text 110 943 1\.;
 #X text 150 943 *float*;
 #X text 245 943 note value.;
 #X text 150 963 *list*;
@@ -72,7 +72,7 @@ value: 0.;
 #X obj 20 993 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 998 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 999 1.;
+#X text 110 999 1\.;
 #X text 245 999 outputs NOTE VELOCITY [DUR] list with randomized VELOCITY
 value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

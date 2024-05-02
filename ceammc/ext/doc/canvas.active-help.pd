@@ -17,18 +17,18 @@
 -49933 0;
 #X msg 110 324 @abs;
 #X text 245 324 Get/Set use canvas for abstractions. Type: bool. Default
-value: 0.;
+value: 0\.;
 #X obj 20 376 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 381 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 382 1.;
+#X text 110 382 1\.;
 #X text 150 382 *bang*;
 #X text 245 382 output canvas active state.;
 #X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 417 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 418 1.;
-#X text 245 418 int: 1 or 0.;
+#X text 110 418 1\.;
+#X text 245 418 int: 1 or 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

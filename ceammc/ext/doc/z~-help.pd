@@ -17,28 +17,28 @@
 #X obj 20 543 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 548 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 583 1.;
+#X text 110 583 1\.;
 #X text 150 583 int;
 #X obj 246 584 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 583 Z(samp): delay length. Type: int. Range: 0...512;
+#X text 245 583 Z(samp): delay length. Type: int. Range: 0\...512;
 #X obj 20 613 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 618 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 653 @z;
 #X text 245 653 Get/Set delay length. Type: int. Units: 'samp'. Default
-value: 1. Range: 0...512.;
+value: 1\. Range: 0\...512\.;
 #X obj 20 705 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 710 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 711 1.;
+#X text 110 711 1\.;
 #X text 245 711 input signal.;
-#X text 110 731 2.;
+#X text 110 731 2\.;
 #X text 150 731 *int*;
 #X text 245 731 set delay length.;
 #X obj 20 761 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 766 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 767 1.;
+#X text 110 767 1\.;
 #X text 245 767 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

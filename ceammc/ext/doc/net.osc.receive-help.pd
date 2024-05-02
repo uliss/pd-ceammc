@@ -20,15 +20,15 @@
 #X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 303 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 338 1.;
+#X text 110 338 1\.;
 #X text 150 338 symbol;
 #X obj 246 339 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 338 PATH: OSC path to listen. Type: symbol.;
-#X text 110 358 2.;
+#X text 110 358 2\.;
 #X text 150 358 symbol;
 #X obj 246 359 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 358 SERVER: OSC server name. Type: symbol.;
-#X text 110 378 3.;
+#X text 110 378 3\.;
 #X text 150 378 symbol;
 #X obj 246 379 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 378 TYPES: expected OSC type string. Type: symbol.;
@@ -49,15 +49,15 @@ value: none.;
 #X obj 20 632 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 637 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 638 1.;
+#X text 110 638 1\.;
 #X text 245 638 message input.;
-#X text 110 658 2.;
+#X text 110 658 2\.;
 #X text 150 658 *symbol*;
 #X text 245 658 set OSC listen path.;
 #X obj 20 688 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 693 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 694 1.;
+#X text 110 694 1\.;
 #X text 245 694 OSC output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

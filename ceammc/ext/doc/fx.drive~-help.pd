@@ -17,10 +17,10 @@
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 375 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 410 1.;
+#X text 110 410 1\.;
 #X text 150 410 float;
 #X obj 246 411 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 410 DRIVE: drive coefficient. Type: float. Range: 1...10;
+#X text 245 410 DRIVE: drive coefficient. Type: float. Range: 1\...10;
 #X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 445 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -33,13 +33,13 @@ bind to /fx_drive/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 567 @active;
 #X text 245 567 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 597 @bypass;
 #X text 245 597 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0.;
+Type: bool. Default value: 0\.;
 #X msg 110 639 @drive;
 #X text 245 639 Get/Set drive coefficient. Type: float. Default value:
-1. Range: 1...10.;
+1\. Range: 1\...10\.;
 #X obj 20 691 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 696 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -48,12 +48,12 @@ Type: bool. Default value: 0.;
 #X obj 20 769 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 774 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 775 1.;
+#X text 110 775 1\.;
 #X text 245 775 input signal.;
 #X obj 20 805 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 810 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 811 1.;
+#X text 110 811 1\.;
 #X text 245 811 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

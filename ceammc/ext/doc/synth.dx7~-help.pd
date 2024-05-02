@@ -24,13 +24,13 @@ bind to /synth_dx7/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 454 @freq;
 #X text 245 454 Get/Set maximum speed of whistles. Type: float. Units:
-'Hz'. Default value: 130.8128. Range: 0...480.;
+'Hz'. Default value: 130.8128\. Range: 0\...480\.;
 #X msg 110 496 @gate;
 #X text 245 496 Get/Set synth gate (>0 - play). Type: float. Default
-value: 0. Range: 0...1.;
+value: 0\. Range: 0\...1\.;
 #X msg 110 538 @pitch;
-#X text 245 538 Get/Set midi pitch. Type: float. Default value: 48.
-Range: 24...84.;
+#X text 245 538 Get/Set midi pitch. Type: float. Default value: 48\.
+Range: 24\...84\.;
 #X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 595 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -39,17 +39,17 @@ Range: 24...84.;
 #X obj 255 653 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 653 NOTE: midi note. Type: float.;
 #X obj 255 676 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 676 VEL: velocity. Type: float. Range: 0...127.;
+#X text 255 676 VEL: velocity. Type: float. Range: 0\...127\.;
 #X obj 20 711 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 716 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 717 1.;
+#X text 110 717 1\.;
 #X text 150 717 *list*;
 #X text 245 717 NOTE VEL.;
 #X obj 20 747 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 752 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 753 1.;
+#X text 110 753 1\.;
 #X text 245 753 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

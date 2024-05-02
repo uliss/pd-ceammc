@@ -25,27 +25,27 @@
 -49933 0;
 #X msg 110 511 @auto;
 #X text 245 511 Get/Set autostart record on first input atom. Type:
-bool. Default value: 0.;
+bool. Default value: 0\.;
 #X msg 110 553 @max;
 #X text 245 553 Get/Set max number of events \, if 0: no max size check.
 If @auto is set - starts playback when max size reached. Type: int.
-Default value: 256. Range: 0...65536.;
+Default value: 256\. Range: 0\...65536\.;
 #X msg 110 610 @r;
 #X text 245 610 Get/Set number of repeats in play mode. If -1: repeat
-infinitely. Type: int. Default value: 1. Min value: -1.;
+infinitely. Type: int. Default value: 1\. Min value: -1\.;
 #X msg 110 652 @speed;
-#X text 245 652 Get/Set play speed. Type: float. Default value: 1.
-Range: 0.0156...64.;
+#X text 245 652 Get/Set play speed. Type: float. Default value: 1\.
+Range: 0.0156\...64\.;
 #X msg 110 694 @sync;
 #X text 245 694 Get/Set use external bang pulse to sync recorded events
-with. Type: bool. Default value: 0.;
+with. Type: bool. Default value: 0\.;
 #X obj 20 746 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 751 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 752 1.;
+#X text 110 752 1\.;
 #X text 150 752 *any*;
 #X text 245 752 input message.;
-#X text 110 772 2.;
+#X text 110 772 2\.;
 #X text 150 772 *bang*;
 #X text 245 772 sync tick (when @sync 1).;
 #X text 245 792 [rec (1|0)?( - start (stop) flow record.;
@@ -59,7 +59,7 @@ after specified length).;
 #X obj 20 957 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 962 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 963 1.;
+#X text 110 963 1\.;
 #X text 245 963 output message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

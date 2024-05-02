@@ -62,18 +62,18 @@
 #X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 591 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 626 1.;
+#X text 110 626 1\.;
 #X text 150 626 symbol;
 #X obj 246 627 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 626 NAME: message selector. Type: symbol.;
-#X text 110 646 2.;
+#X text 110 646 2\.;
 #X text 150 646 any;
 #X obj 246 647 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 646 X: message content. Type: any.;
 #X obj 20 676 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 681 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 682 1.;
+#X text 110 682 1\.;
 #X text 150 682 *any*;
 #X text 245 682 appends all atoms to message content and outputs it.;
 #X text 150 702 *list*;
@@ -82,7 +82,7 @@
 #X text 245 722 appends float to message content and outputs it.;
 #X text 150 742 *symbol*;
 #X text 245 742 appends symbol to message content and outputs it.;
-#X text 110 762 2.;
+#X text 110 762 2\.;
 #X text 150 762 *symbol*;
 #X text 245 762 change message selector.;
 #X text 150 782 *list*;
@@ -90,7 +90,7 @@
 #X obj 20 812 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 817 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 818 1.;
+#X text 110 818 1\.;
 #X text 245 818 message output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

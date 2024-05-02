@@ -52,19 +52,19 @@ exceeds the input range \, by default clip is applied.;
 #X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 357 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 392 1.;
+#X text 110 392 1\.;
 #X text 150 392 float;
 #X obj 246 393 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 392 IN_FROM: begin of input range. Type: float.;
-#X text 110 412 2.;
+#X text 110 412 2\.;
 #X text 150 412 float;
 #X obj 246 413 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 412 IN_TO: end of input range. Type: float.;
-#X text 110 432 3.;
+#X text 110 432 3\.;
 #X text 150 432 float;
 #X obj 246 433 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 432 OUT_FROM: begin of output range. Type: float.;
-#X text 110 452 4.;
+#X text 110 452 4\.;
 #X text 150 452 float;
 #X obj 246 453 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 452 OUT_TO: end of input output. Type: float.;
@@ -77,10 +77,10 @@ exceeds the input range \, by default clip is applied.;
 Allowed values: noclip \, min \, max \, minmax.;
 #X msg 110 579 @in_from;
 #X text 245 579 Get/Set begin of input range. Type: float. Default
-value: 0.;
+value: 0\.;
 #X msg 110 609 @in_to;
 #X text 245 609 Get/Set end of input range. Type: float. Default value:
-127.;
+127\.;
 #X msg 110 639 @max;
 #X text 245 639 Get/Set alias to @clip max. Type: symbol.;
 #X msg 110 669 @min;
@@ -91,14 +91,14 @@ value: 0.;
 #X text 245 729 Get/Set alias to @clip noclip. Type: symbol.;
 #X msg 110 759 @out_from;
 #X text 245 759 Get/Set begin of output range. Type: float. Default
-value: 0.01.;
+value: 0.01\.;
 #X msg 110 801 @out_to;
 #X text 245 801 Get/Set end of output range. Type: float. Default value:
-1.;
+1\.;
 #X obj 20 841 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 846 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 847 1.;
+#X text 110 847 1\.;
 #X text 150 847 *float*;
 #X text 245 847 input value.;
 #X text 150 867 *list*;
@@ -106,7 +106,7 @@ value: 0.01.;
 #X obj 20 897 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 902 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 903 1.;
+#X text 110 903 1\.;
 #X text 245 903 converted value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

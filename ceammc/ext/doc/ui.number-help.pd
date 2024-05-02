@@ -11,10 +11,10 @@
 #X obj 210 80 cnv 1 555 120 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Display mode: keys '-'(Down) and '+'(Up) increment value.
 Mouse drag changes value. Default step is 1/pixel. Holding SHIFT divide
-step by 100. Holding CTRL multiply by 10.;
+step by 100\. Holding CTRL multiply by 10\.;
 #X text 215 135 Input mode: Double click to enter new value. Accepted
-keys: -.0123456789. Press ENTER or TAB key to finish. ESCAPE undo input
-\, BACKSPACE removes last character.;
+keys: -.0123456789\. Press ENTER or TAB key to finish. ESCAPE undo
+input \, BACKSPACE removes last character.;
 #X obj 50 228 hslider 128 15 0.0 127.0 0 0 empty empty empty 17 7 0 10
 -262144 -1 -1 0 0;
 #X msg 69 257 + 50;
@@ -33,11 +33,11 @@ keys: -.0123456789. Press ENTER or TAB key to finish. ESCAPE undo input
 -49933 0;
 #X msg 110 487 @digits;
 #X text 245 487 Get/Set number of digits. If -1 - no fixed digits used.
-Type: int. Default value: -1. Range: -1...9.;
+Type: int. Default value: -1\. Range: -1\...9\.;
 #X msg 110 529 @display_only;
 #X text 245 529 Get/Set interaction mode. If true: react only to received
 Pd messages \, but do not react to mouse/keyboard events. If false:
-react to all supported events. Type: bool. Default value: 0.;
+react to all supported events. Type: bool. Default value: 0\.;
 #X msg 110 601 @max;
 #X text 245 601 Get/Set maximum value. Type: float. Default value:
 +inf.;
@@ -51,26 +51,26 @@ react to all supported events. Type: bool. Default value: 0.;
 #X text 245 691 Get/Set send destination. Type: symbol. Default value:
 (null).;
 #X msg 110 733 @value;
-#X text 245 733 Get/Set widget value. Type: float. Default value: 0.;
+#X text 245 733 Get/Set widget value. Type: float. Default value: 0\.;
 #X msg 110 763 @active_color;
 #X text 245 763 Get/Set active color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0 0.75 1 1.;
+values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 805 @background_color;
 #X text 245 805 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1.;
+0.93 1\.;
 #X msg 110 862 @border_color;
 #X text 245 862 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 904 @text_color;
 #X text 245 904 Get/Set text color (list of red \, green \, blue values
-in 0-1 range). Type: list. Default value: 0 0 0 1.;
+in 0-1 range). Type: list. Default value: 0 0 0 1\.;
 #X msg 110 946 @fontname;
 #X text 245 946 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 988 @fontsize;
-#X text 245 988 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 988 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 1030 @fontslant;
 #X text 245 1030 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -79,13 +79,13 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 1114 @pinned;
 #X text 245 1114 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1156 @presetname;
 #X text 245 1156 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
 #X msg 110 1198 @size;
 #X text 245 1198 Get/Set element size (width \, height pair). Type:
-list. Default value: 53 15.;
+list. Default value: 53 15\.;
 #X obj 20 1250 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1255 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -139,7 +139,7 @@ are:;
 #X obj 20 1859 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1864 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1865 1.;
+#X text 110 1865 1\.;
 #X text 150 1865 *bang*;
 #X text 245 1865 outputs current value.;
 #X text 150 1885 *float*;
@@ -149,7 +149,7 @@ are:;
 #X obj 20 1935 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1940 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1941 1.;
+#X text 110 1941 1\.;
 #X text 245 1941 number value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

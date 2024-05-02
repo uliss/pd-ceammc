@@ -17,44 +17,44 @@
 #X obj 20 238 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 273 @down;
-#X text 245 273 alias to @mouse_down 1 property. Default value: 0.;
+#X text 245 273 alias to @mouse_down 1 property. Default value: 0\.;
 #X msg 110 303 @drag;
-#X text 245 303 alias to @mouse_drag 1 property. Default value: 0.;
+#X text 245 303 alias to @mouse_drag 1 property. Default value: 0\.;
 #X msg 110 333 @enter;
-#X text 245 333 alias to @mouse_enter 1 property. Default value: 0.;
+#X text 245 333 alias to @mouse_enter 1 property. Default value: 0\.;
 #X msg 110 363 @leave;
-#X text 245 363 alias to @mouse_leave 1 property. Default value: 0.;
+#X text 245 363 alias to @mouse_leave 1 property. Default value: 0\.;
 #X msg 110 393 @mouse_down;
 #X text 245 393 Get/Set passing a @mouse_down events. Type: bool. Default
-value: 0.;
+value: 0\.;
 #X msg 110 435 @mouse_drag;
 #X text 245 435 Get/Set passing a @mouse_drag events. Type: bool. Default
-value: 0.;
+value: 0\.;
 #X msg 110 477 @mouse_enter;
 #X text 245 477 Get/Set passing a @mouse_enter events. Type: bool.
-Default value: 0.;
+Default value: 0\.;
 #X msg 110 519 @mouse_leave;
 #X text 245 519 Get/Set passing a @mouse_leave events. Type: bool.
-Default value: 0.;
+Default value: 0\.;
 #X msg 110 561 @mouse_move;
 #X text 245 561 Get/Set passing a @mouse_move events. Type: bool. Default
-value: 0.;
+value: 0\.;
 #X msg 110 603 @mouse_up;
 #X text 245 603 Get/Set passing a @mouse_up events. Type: bool. Default
-value: 0.;
+value: 0\.;
 #X msg 110 645 @move;
-#X text 245 645 alias to @mouse_move 1 property. Default value: 0.;
+#X text 245 645 alias to @mouse_move 1 property. Default value: 0\.;
 #X msg 110 675 @up;
-#X text 245 675 alias to @mouse_up 1 property. Default value: 0.;
+#X text 245 675 alias to @mouse_up 1 property. Default value: 0\.;
 #X obj 20 715 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 720 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 721 1.;
+#X text 110 721 1\.;
 #X text 245 721 input messages from ui object.;
 #X obj 20 751 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 756 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 757 1.;
+#X text 110 757 1\.;
 #X text 245 757 first mouse event type match output.;
 #X text 110 777 ....;
 #X text 245 777 ... mouse event type match output.;

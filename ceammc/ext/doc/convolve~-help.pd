@@ -19,13 +19,13 @@
 -49933 0;
 #X msg 110 352 @maxsize;
 #X text 245 352 Get/Set max impulse response size. Type: int. Units:
-'samp'. Default value: 50000. Range: 0...300000.;
+'samp'. Default value: 50000\. Range: 0\...300000\.;
 #X msg 110 394 @norm;
 #X text 245 394 Get/Set normalize impulse response. Type: bool. Default
-value: 1.;
+value: 1\.;
 #X msg 110 436 @offset;
 #X text 245 436 Get/Set impulse response (IR) offset. Type: int. Units:
-'samp'. Default value: 0. Min value: 0.;
+'samp'. Default value: 0\. Min value: 0\.;
 #X obj 20 488 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 493 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -45,12 +45,12 @@ from file samplerate to runtime samplerate). Arguments are:;
 #X obj 20 697 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 702 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 703 1.;
+#X text 110 703 1\.;
 #X text 245 703 input signal.;
 #X obj 20 733 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 738 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 739 1.;
+#X text 110 739 1\.;
 #X text 245 739 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

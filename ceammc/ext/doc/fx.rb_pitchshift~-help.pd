@@ -20,11 +20,11 @@
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 375 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 410 1.;
+#X text 110 410 1\.;
 #X text 150 410 float;
 #X obj 246 411 cnv 1 155 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 410 TRANSPOSE(semitone): transposition in semitones. Type:
-float. Range: -24...24;
+float. Range: -24\...24;
 #X obj 20 455 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 460 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -43,7 +43,7 @@ of the unshifted signal. This permits shifting the note frequency without
 so substantially affecting the perceived pitch profile of the voice
 or instrument. 'False' apply no special formant processing. The spectral
 envelope will be pitch shifted as normal. Type: bool. Default value:
-0.;
+0\.;
 #X msg 110 761 @phase;
 #X text 245 761 Get/Set control the adjustment of component frequency
 phases from one analysis window to the next during non-transient segments.
@@ -52,7 +52,7 @@ neighbours. This usually results in a slightly softer \, phasier sound.
 'True' adjust phases when stretching in such a way as to try to retain
 the continuity of phase relationships between adjacent frequency bins
 whose phases are behaving in similar ways. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 909 @quality;
 #X text 245 909 Get/Set method used for pitch shifting. 'speed' may
 sound less clear than 'quality' \, especially for large pitch shifts.
@@ -61,17 +61,18 @@ frequency shift. 'consistency' gives greatest consistency when used
 to create small variations in pitch around the 1.0-ratio level. Unlike
 the previous two options \, this avoids discontinuities when moving
 across the 1.0 pitch scale in real-time. It also consumes more CPU
-than the others in the case where the pitch scale is exactly 1.0. Type:
-symbol. Default value: speed. Allowed values: speed \, quality \, consistency.;
+than the others in the case where the pitch scale is exactly 1.0\.
+Type: symbol. Default value: speed. Allowed values: speed \, quality
+\, consistency.;
 #X msg 110 1087 @scale;
 #X text 245 1087 Get/Set transposition as ratio. Type: float. Default
-value: 1. Range: 0.25...4.;
+value: 1\. Range: 0.25\...4\.;
 #X msg 110 1129 @smooth;
 #X text 245 1129 Get/Set control the use of window-presum FFT and time-domain
 smoothing. If true result in a softer sound with some audible artifacts
 around sharp transients \, but it may be appropriate for longer stretches
 of some instruments and can mix well with @window short. Type: bool.
-Default value: 0.;
+Default value: 0\.;
 #X msg 110 1216 @trans;
 #X text 245 1216 Get/Set control the component frequency phase-reset
 mechanism that may be used at transient points to provide clarity and
@@ -92,7 +93,7 @@ settings. Type: symbol. Default value: crisp. Allowed values: crisp
 \, mixed \, smooth.;
 #X msg 110 1515 @transpose;
 #X text 245 1515 Get/Set transposition in semitones. Type: float. Units:
-'semitone'. Default value: 0. Range: -24...24.;
+'semitone'. Default value: 0\. Range: -24\...24\.;
 #X msg 110 1557 @window;
 #X text 245 1557 Get/Set the window size. 'standard' is expected to
 produce better results than the other window options in most situations.
@@ -102,18 +103,18 @@ at the expense of clarity and timing. Type: symbol. Default value:
 standard. Allowed values: standard \, short \, long.;
 #X msg 110 1675 @latency?;
 #X text 245 1675 (readonly) Get object latency. Type: float. Units:
-'samp'. Default value: 1024.;
+'samp'. Default value: 1024\.;
 #X obj 20 1727 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1732 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1733 1.;
+#X text 110 1733 1\.;
 #X text 245 1733 input signal.;
-#X text 110 1753 2.;
+#X text 110 1753 2\.;
 #X text 245 1753 pitch shift in semitones.;
 #X obj 20 1783 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1788 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1789 1.;
+#X text 110 1789 1\.;
 #X text 245 1789 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

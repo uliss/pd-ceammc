@@ -18,41 +18,41 @@
 #X obj 20 342 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 377 @hue;
-#X text 245 377 Get/Set first hue. Type: float. Default value: 0. Range:
-0...1.;
+#X text 245 377 Get/Set first hue. Type: float. Default value: 0\.
+Range: 0\...1\.;
 #X msg 110 419 @index;
 #X text 245 419 Get/Set color position in panel. Type: list.;
 #X msg 110 449 @lightness;
 #X text 245 449 Get/Set first lightness. Type: float. Default value:
-1. Range: 0...1.;
+1\. Range: 0\...1\.;
 #X msg 110 491 @matrix;
 #X text 245 491 Get/Set matrix size. Type: list. Default value: 24
-13.;
+13\.;
 #X msg 110 521 @receive;
 #X text 245 521 Get/Set receive source. Type: symbol. Default value:
 (null).;
 #X msg 110 551 @reverse;
 #X text 245 551 Get/Set matrix reversed. Type: bool. Default value:
-0.;
+0\.;
 #X msg 110 581 @saturation;
-#X text 245 581 Get/Set saturation. Type: float. Default value: 1.
-Range: 0...1.;
+#X text 245 581 Get/Set saturation. Type: float. Default value: 1\.
+Range: 0\...1\.;
 #X msg 110 623 @send;
 #X text 245 623 Get/Set send destination. Type: symbol. Default value:
 (null).;
 #X msg 110 665 @background_color;
 #X text 245 665 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1.;
+0.93 1\.;
 #X msg 110 722 @border_color;
 #X text 245 722 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 764 @fontname;
 #X text 245 764 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 806 @fontsize;
-#X text 245 806 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 806 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 848 @fontslant;
 #X text 245 848 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -61,13 +61,13 @@ Allowed values: roman \, italic.;
 Allowed values: normal \, bold.;
 #X msg 110 932 @pinned;
 #X text 245 932 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 974 @presetname;
 #X text 245 974 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
 #X msg 110 1016 @size;
 #X text 245 1016 Get/Set element size (width \, height pair). Type:
-list. Default value: 181 105.;
+list. Default value: 181 105\.;
 #X msg 110 1058 @hex?;
 #X text 245 1058 (readonly) Get HEX value in format #RRGGBB. Type:
 symbol.;
@@ -76,7 +76,7 @@ symbol.;
 list.;
 #X msg 110 1118 @pd?;
 #X text 245 1118 (readonly) Get pd color value. Type: int. Default
-value: 0.;
+value: 0\.;
 #X msg 110 1148 @rgb?;
 #X text 245 1148 (readonly) Get RGB value triplet on 0-1 range. Type:
 list.;
@@ -113,13 +113,13 @@ performed.;
 #X obj 20 1552 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1557 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1558 1.;
+#X text 110 1558 1\.;
 #X text 150 1558 *bang*;
 #X text 245 1558 outputs current widget value.;
 #X obj 20 1588 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1593 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1594 1.;
+#X text 110 1594 1\.;
 #X text 245 1594 output values: @pd COLOR \, @rgb in range [0-1] \,
 @hsl in range [0-1] \, @hex.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

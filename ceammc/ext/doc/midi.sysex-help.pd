@@ -15,12 +15,12 @@
 #X obj 20 275 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 280 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 281 1.;
+#X text 110 281 1\.;
 #X text 245 281 control input.;
 #X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 316 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 317 1.;
+#X text 110 317 1\.;
 #X text 245 317 list of sysex bytes.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

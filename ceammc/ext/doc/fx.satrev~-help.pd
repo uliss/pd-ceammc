@@ -22,10 +22,10 @@
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 404 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 439 1.;
+#X text 110 439 1\.;
 #X text 150 439 float;
 #X obj 246 440 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 439 DRYWET: drywet mix. Type: float. Range: 0...1;
+#X text 245 439 DRYWET: drywet mix. Type: float. Range: 0\...1;
 #X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 474 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -38,14 +38,14 @@ bind to /fx_satrev/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 596 @active;
 #X text 245 596 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 626 @bypass;
 #X text 245 626 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0.;
+Type: bool. Default value: 0\.;
 #X msg 110 668 @drywet;
 #X text 245 668 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 0.25. Range: 0...1.;
+Default value: 0.25\. Range: 0\...1\.;
 #X obj 20 735 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 740 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -54,17 +54,17 @@ Default value: 0.25. Range: 0...1.;
 #X obj 20 813 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 818 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 819 1.;
+#X text 110 819 1\.;
 #X text 245 819 input signal.;
-#X text 110 839 2.;
+#X text 110 839 2\.;
 #X text 150 839 *float*;
 #X text 245 839 set drywet.;
 #X obj 20 869 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 874 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 875 1.;
+#X text 110 875 1\.;
 #X text 245 875 left output signal.;
-#X text 110 895 2.;
+#X text 110 895 2\.;
 #X text 245 895 right output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

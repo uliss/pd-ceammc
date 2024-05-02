@@ -31,7 +31,7 @@
 #X text 245 352 Get/Set list of tab names. Type: list.;
 #X msg 110 382 @orientation;
 #X text 245 382 Get/Set tab orientation. 1 is vertical \, 0 is horizontal.
-Type: bool. Default value: 0.;
+Type: bool. Default value: 0\.;
 #X msg 110 424 @receive;
 #X text 245 424 Get/Set receive source. Type: symbol. Default value:
 (null).;
@@ -40,29 +40,29 @@ Type: bool. Default value: 0.;
 (null).;
 #X msg 110 496 @toggle;
 #X text 245 496 Get/Set toggle mode. In toggle moe multiple selection
-is possible. Type: bool. Default value: 0.;
+is possible. Type: bool. Default value: 0\.;
 #X msg 110 538 @active_color;
 #X text 245 538 Get/Set active color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0 0.75 1 1.;
+values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 580 @background_color;
 #X text 245 580 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1.;
+0.93 1\.;
 #X msg 110 637 @border_color;
 #X text 245 637 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 679 @hover_color;
 #X text 245 679 Get/Set hover color (list of red \, green \, blue values
-in 0-1 range). Type: list. Default value: 0.5 0.5 0.5 1.;
+in 0-1 range). Type: list. Default value: 0.5 0.5 0.5 1\.;
 #X msg 110 721 @text_color;
 #X text 245 721 Get/Set text color (list of red \, green \, blue values
-in 0-1 range). Type: list. Default value: 0 0 0 1.;
+in 0-1 range). Type: list. Default value: 0 0 0 1\.;
 #X msg 110 763 @fontname;
 #X text 245 763 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 805 @fontsize;
-#X text 245 805 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 805 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 847 @fontslant;
 #X text 245 847 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -71,19 +71,19 @@ Allowed values: roman \, italic.;
 Allowed values: normal \, bold.;
 #X msg 110 931 @pinned;
 #X text 245 931 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 973 @presetname;
 #X text 245 973 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
 #X msg 110 1015 @size;
 #X text 245 1015 Get/Set element size (width \, height pair). Type:
-list. Default value: 100 15.;
+list. Default value: 100 15\.;
 #X msg 110 1057 @count?;
 #X text 245 1057 (readonly) Get number of tabs. Type: int. Default
-value: 0.;
+value: 0\.;
 #X msg 110 1087 @current?;
 #X text 245 1087 (readonly) Get current selected index (in switch mode).
-Type: int. Default value: 0.;
+Type: int. Default value: 0\.;
 #X msg 110 1129 @selected?;
 #X text 245 1129 (readonly) Get list of selected items (in toggle mode).
 Type: list.;
@@ -101,7 +101,7 @@ Type: list.;
 #X msg 110 1317 delete;
 #X text 245 1317 removes item from tab. Arguments are:;
 #X obj 255 1340 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1340 IDX: removed item index. Type: int. Min value: 0.;
+#X text 255 1340 IDX: removed item index. Type: int. Min value: 0\.;
 #X msg 110 1365 erase;
 #X text 245 1365 clears all tab menu.;
 #X msg 110 1393 flip;
@@ -110,7 +110,7 @@ Type: list.;
 #X text 245 1421 inserts new tab item before specified position. Arguments
 are:;
 #X obj 255 1459 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1459 IDX: item position. Type: int. Min value: 0.;
+#X text 255 1459 IDX: item position. Type: int. Min value: 0\.;
 #X obj 255 1482 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1482 ATOM: item name. Type: atom.;
 #X msg 110 1507 interp;
@@ -138,15 +138,15 @@ to random item (excluding the current one).;
 #X msg 110 1786 select;
 #X text 245 1786 selects specified item in tab. Arguments are:;
 #X obj 255 1809 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1809 IDX: item index. Type: int. Min value: 0.;
+#X text 255 1809 IDX: item index. Type: int. Min value: 0\.;
 #X msg 110 1834 set;
 #X text 245 1834 silently sets tab state. Arguments are:;
 #X obj 255 1857 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1857 IDX: item index. Type: int. Min value: 0.;
+#X text 255 1857 IDX: item index. Type: int. Min value: 0\.;
 #X msg 110 1882 set_item;
 #X text 245 1882 renames tab item. Arguments are:;
 #X obj 255 1905 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1905 IDX: item index. Type: int. Min value: 0.;
+#X text 255 1905 IDX: item index. Type: int. Min value: 0\.;
 #X obj 255 1928 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1928 ATOMS: item name. Type: list.;
 #X msg 110 1953 store;
@@ -162,7 +162,7 @@ only) \, output newly selected item.;
 #X obj 20 2091 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2096 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2097 1.;
+#X text 110 2097 1\.;
 #X text 150 2097 *bang*;
 #X text 245 2097 in single mode outputs tab state as list: INDEX TAB_NAME.
 In toggle mode outputs current state like: @selected 0 1 0 1 0 etc.
@@ -176,7 +176,7 @@ TAB_NAME.;
 #X obj 20 2212 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2217 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2218 1.;
+#X text 110 2218 1\.;
 #X text 245 2218 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -17,29 +17,29 @@
 #X msg 110 323 mbal:f;
 #X text 245 323 set device master balance. Arguments are:;
 #X obj 255 346 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 346 PAN: balance. Type: float. Range: -1...1.;
+#X text 255 346 PAN: balance. Type: float. Range: -1\...1\.;
 #X msg 110 371 mtune;
 #X text 245 371 set device master tuning in float semitones (combination
 of coarse and fine tune). Arguments are:;
 #X obj 255 409 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 409 V: tuning. Type: float. Range: -64...63. Units: 'semitone'.;
+#X text 255 409 V: tuning. Type: float. Range: -64\...63\. Units: 'semitone'.;
 #X msg 110 434 mtune.;
 #X text 245 434 set device master fine tuning in cents. Arguments are:;
 #X obj 255 457 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 457 V: tuning. Type: int. Range: -100...100. Units: 'cent'.;
+#X text 255 457 V: tuning. Type: int. Range: -100\...100\. Units: 'cent'.;
 #X msg 110 482 mtune~;
 #X text 245 482 set device master coarse tuning in semitones. Arguments
 are:;
 #X obj 255 505 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 505 V: tuning. Type: int. Range: -64...63. Units: 'semitone'.;
+#X text 255 505 V: tuning. Type: int. Range: -64\...63\. Units: 'semitone'.;
 #X msg 110 530 mvolume;
 #X text 245 530 set device master volume. Arguments are:;
 #X obj 255 553 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 553 LEVEL: volume level. Type: float. Range: 0...1.;
+#X text 255 553 LEVEL: volume level. Type: float. Range: 0\...1\.;
 #X obj 20 588 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 593 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 594 1.;
+#X text 110 594 1\.;
 #X text 150 594 *float*;
 #X text 245 594 raw midi input bytes.;
 #X text 150 614 *list*;
@@ -47,7 +47,7 @@ are:;
 #X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 649 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 650 1.;
+#X text 110 650 1\.;
 #X text 245 650 float: raw midi output or parsed messages with selector
 (output format is the same as for corresponding methods).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

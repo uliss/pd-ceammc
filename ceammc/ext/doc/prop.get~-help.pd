@@ -27,15 +27,15 @@ Non property values are passed untouched.;
 #X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 357 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 358 1.;
+#X text 110 358 1\.;
 #X text 150 358 *any*;
 #X text 245 358 input values and sound.;
 #X obj 20 388 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 393 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 394 1.;
+#X text 110 394 1\.;
 #X text 245 394 passed values and sound.;
-#X text 110 414 2.;
+#X text 110 414 2\.;
 #X text 245 414 first matched property output.;
 #X text 110 434 ....;
 #X text 245 434 others matched property output.;

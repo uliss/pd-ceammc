@@ -29,29 +29,29 @@ empty bind to /live_capture/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 439 @active;
 #X text 245 439 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 469 @attack;
 #X text 245 469 Get/Set rec envelope attack time. Type: float. Units:
-'ms'. Default value: 50. Range: 0...100000.;
+'ms'. Default value: 50\. Range: 0\...100000\.;
 #X msg 110 511 @gain;
 #X text 245 511 Get/Set playing gain. Type: float. Units: 'db'. Default
-value: 0. Range: -60...12.;
+value: 0\. Range: -60\...12\.;
 #X msg 110 553 @gate;
 #X text 245 553 Get/Set start/stop recording. Type: bool. Default value:
-0.;
+0\.;
 #X msg 110 583 @release;
 #X text 245 583 Get/Set rec envelope release time. Type: float. Units:
-'ms'. Default value: 50. Range: 0...100000.;
+'ms'. Default value: 50\. Range: 0\...100000\.;
 #X msg 110 625 @sustain;
 #X text 245 625 Get/Set rec envelope sustain level - percent from trigger
-signal. Type: float. Units: '%'. Default value: 100. Range: 0...100.;
+signal. Type: float. Units: '%'. Default value: 100\. Range: 0\...100\.;
 #X obj 20 692 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 697 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 732 div;
 #X text 245 732 set rec division. Arguments are:;
 #X obj 255 755 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 755 [N]: value. Type: int. Range: 1...8.;
+#X text 255 755 [N]: value. Type: int. Range: 1\...8\.;
 #X msg 110 780 record;
 #X text 245 780 start record.;
 #X msg 110 808 reset;
@@ -61,15 +61,15 @@ signal. Type: float. Units: '%'. Default value: 100. Range: 0...100.;
 #X obj 20 874 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 879 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 880 1.;
+#X text 110 880 1\.;
 #X text 245 880 source signal.;
-#X text 110 900 2.;
+#X text 110 900 2\.;
 #X text 150 900 *float*;
 #X text 245 900 1/0 toggle signal.;
 #X obj 20 930 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 935 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 936 1.;
+#X text 110 936 1\.;
 #X text 245 936 recorded signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

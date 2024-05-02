@@ -20,16 +20,16 @@ etc.).;
 #X obj 20 269 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 274 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 309 1.;
+#X text 110 309 1\.;
 #X text 150 309 int;
 #X obj 246 310 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 309 N: number of inputs. Type: int. Range: 2...20;
+#X text 245 309 N: number of inputs. Type: int. Range: 2\...20;
 #X obj 20 339 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 344 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 379 @n;
 #X text 245 379 (initonly) Get/Set number of inputs. Type: int. Default
-value: 2. Range: 2...20.;
+value: 2\. Range: 2\...20\.;
 #X msg 110 421 @clip;
 #X text 245 421 alias for "@oversize clip" property. Pad shortest list
 with last element to conform longest list.;
@@ -46,7 +46,7 @@ symbol. Default value: min. Allowed values: min \, pad \, clip \, wrap
 to minimal common size.;
 #X msg 110 619 @pad;
 #X text 245 619 Get/Set pad value for pad method of resizing. Type:
-atom. Default value: 0.;
+atom. Default value: 0\.;
 #X msg 110 661 @wrap;
 #X text 245 661 alias for "@oversize wrap" property. Pad shortest list
 with repeated values from the beginning.;
@@ -56,13 +56,13 @@ Type: list.;
 #X obj 20 755 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 760 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 761 1.;
+#X text 110 761 1\.;
 #X text 150 761 *list*;
 #X text 245 761 input list.;
 #X obj 20 791 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 796 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 797 1.;
+#X text 110 797 1\.;
 #X text 245 797 interleaved list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

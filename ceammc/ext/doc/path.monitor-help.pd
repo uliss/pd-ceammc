@@ -14,7 +14,7 @@
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 352 1.;
+#X text 110 352 1\.;
 #X text 150 352 symbol;
 #X obj 246 353 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 352 PATH: directory to monitor filesystem events. Type:
@@ -28,12 +28,12 @@ symbol.;
 #X obj 20 462 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 467 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 468 1.;
+#X text 110 468 1\.;
 #X text 245 468 ...;
 #X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 503 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 504 1.;
+#X text 110 504 1\.;
 #X text 245 504 messages: [create fname( \, [update fname( \, [move
 fname( \, [remove fname(.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

@@ -21,7 +21,7 @@
 #X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 360 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 361 1.;
+#X text 110 361 1\.;
 #X text 150 361 *symbol*;
 #X text 245 361 outputs directory portion of pathname.;
 #X text 150 381 *data:string*;
@@ -29,7 +29,7 @@
 #X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 416 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 417 1.;
+#X text 110 417 1\.;
 #X text 245 417 directory name.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

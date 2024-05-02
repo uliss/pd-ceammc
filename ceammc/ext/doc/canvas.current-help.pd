@@ -23,7 +23,7 @@
 -49933 0;
 #X msg 110 352 @abstraction?;
 #X text 245 352 (readonly) Get 1 if canvas is abstraction. Type: bool.
-Default value: 1.;
+Default value: 1\.;
 #X msg 110 394 @args?;
 #X text 245 394 (readonly) Get canvas creation arguments. Type: list.;
 #X msg 110 424 @dir?;
@@ -31,7 +31,7 @@ Default value: 1.;
 or abstraction). Type: symbol. Default value: /.;
 #X msg 110 466 @height?;
 #X text 245 466 (readonly) Get canvas height (window or GOP). Type:
-int. Default value: 400.;
+int. Default value: 400\.;
 #X msg 110 508 @name?;
 #X text 245 508 (readonly) Get canvas name. Type: symbol. Default value:
 test_canvas.;
@@ -39,34 +39,34 @@ test_canvas.;
 #X text 245 550 (readonly) Get canvas search paths. Type: list.;
 #X msg 110 580 @root?;
 #X text 245 580 (readonly) Get 1 if canvas is top-level (window). Type:
-bool. Default value: 1.;
+bool. Default value: 1\.;
 #X msg 110 622 @width?;
 #X text 245 622 (readonly) Get canvas width (window or GOP). Type:
-int. Default value: 600.;
+int. Default value: 600\.;
 #X msg 110 664 @x?;
 #X text 245 664 (readonly) Get canvas x-pos (window or GOP). Type:
-int. Default value: 0.;
+int. Default value: 0\.;
 #X msg 110 706 @y?;
 #X text 245 706 (readonly) Get canvas y-pos (window or GOP). Type:
-int. Default value: 0.;
+int. Default value: 0\.;
 #X msg 110 748 @font?;
 #X text 245 748 (readonly) Get canvas font size. Type: int. Default
-value: 10.;
+value: 10\.;
 #X msg 110 790 @size?;
 #X text 245 790 (readonly) Get canvas dimensions. If root canvas (window)
 return window size \, if subpatch return Graph on Parent size. Type:
-list. Default value: 600 400.;
+list. Default value: 600 400\.;
 #X obj 20 857 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 862 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 863 1.;
+#X text 110 863 1\.;
 #X text 245 863 property request.;
 #X text 150 883 *bang*;
 #X text 245 883 output dict with all properties.;
 #X obj 20 913 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 918 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 919 1.;
+#X text 110 919 1\.;
 #X text 245 919 dict or property output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

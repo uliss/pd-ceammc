@@ -24,7 +24,7 @@
 #X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 260 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 295 1.;
+#X text 110 295 1\.;
 #X text 150 295 list;
 #X obj 246 296 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 295 PREFIX: log message prefix. Type: list.;
@@ -33,15 +33,15 @@
 -49933 0;
 #X msg 110 365 @active;
 #X text 245 365 Get/Set enabled/disabled logging state. Type: bool.
-Default value: 1.;
+Default value: 1\.;
 #X msg 110 407 @prefix;
 #X text 245 407 Get/Set log message prefix. Type: list.;
 #X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 452 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 453 1.;
+#X text 110 453 1\.;
 #X text 245 453 log input.;
-#X text 110 473 2.;
+#X text 110 473 2\.;
 #X text 150 473 *float*;
 #X text 245 473 1: enable logging \, 0: disable logging.;
 #X obj 20 503 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;

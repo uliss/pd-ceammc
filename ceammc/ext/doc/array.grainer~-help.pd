@@ -9,9 +9,9 @@
 #X text 215 80 Grain properties:;
 #X text 215 105 @at - grain position in source array (in samples);
 #X text 215 130 @l - grain length (in samples);
-#X text 215 155 @amp - grain amplitude in 0..256 range;
-#X text 215 180 @s - grain speed in -10..10 range;
-#X text 215 205 @p - grain pan in 0..1 range;
+#X text 215 155 @amp - grain amplitude in 0\..256 range;
+#X text 215 180 @s - grain speed in -10\..10 range;
+#X text 215 205 @p - grain pan in 0\..1 range;
 #X text 215 230 @w - grain window: rect \, tri or hann;
 #X text 215 255 @tb - time before grain start (in samples);
 #X text 215 280 @ta - time after grain done (in samples);
@@ -35,7 +35,7 @@
 #X obj 20 803 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 808 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 843 1.;
+#X text 110 843 1\.;
 #X text 150 843 symbol;
 #X obj 246 844 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 843 ARRAY: array name. Type: symbol.;
@@ -46,8 +46,8 @@
 #X text 245 913 Get/Set array name. Type: symbol.;
 #X msg 110 943 @prob;
 #X text 245 943 Get/Set grain start probability in internal or external
-sync mode. ('int' or 'ext'). Type: float. Default value: 1. Range:
-0...1.;
+sync mode. ('int' or 'ext'). Type: float. Default value: 1\. Range:
+0\...1\.;
 #X msg 110 1000 @sync;
 #X text 245 1000 Get/Set grain sync mode. If 'none': start grains right
 after they are finished \, if 'int': start grains after specified interval
@@ -55,7 +55,7 @@ after they are finished \, if 'int': start grains after specified interval
 int \, ext.;
 #X msg 110 1072 @tsync;
 #X text 245 1072 Get/Set grain sync interval. Type: float. Units: 'ms'.
-Default value: 50. Min value: 1.;
+Default value: 50\. Min value: 1\.;
 #X obj 20 1124 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1129 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -68,7 +68,7 @@ Default value: 50. Min value: 1.;
 #X msg 110 1257 append;
 #X text 245 1257 append several grains. Arguments are:;
 #X obj 255 1280 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1280 N: number of grains. Type: int. Min value: 1.;
+#X text 255 1280 N: number of grains. Type: int. Min value: 1\.;
 #X obj 255 1303 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1303 PROPS: grain properties. Type: list.;
 #X msg 110 1328 clear;
@@ -82,7 +82,7 @@ Default value: 50. Min value: 1.;
 are:;
 #X obj 255 1444 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1444 [N]: number of finished grains to wait before calling.
-If not specified \, treat as 1. Type: int. Range: 1...255.;
+If not specified \, treat as 1\. Type: int. Range: 1\...255\.;
 #X obj 255 1482 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1482 METHOD: method name. Type: symbol.;
 #X obj 255 1505 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -91,7 +91,7 @@ If not specified \, treat as 1. Type: int. Range: 1...255.;
 #X text 245 1530 fill with grains (remove all existing grains before).
 Arguments are:;
 #X obj 255 1568 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1568 N: number of grains. Type: int. Min value: 1.;
+#X text 255 1568 N: number of grains. Type: int. Min value: 1\.;
 #X obj 255 1591 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1591 PROPS: grain properties. Type: list.;
 #X msg 110 1616 grain;
@@ -118,13 +118,13 @@ grain with corresponding #id \, if symbol: pause grains with matched
 tag. Type: atom.;
 #X obj 255 1879 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1879 [STATE]: on/off value. Type: int. Allowed values:
-0 \, 1.;
+0 \, 1\.;
 #X msg 110 1904 permutate;
 #X text 245 1904 permutate grain positions (@ta and @tb) values. Arguments
 are:;
 #X obj 255 1942 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1942 [N]: number of permutations. If N>0 results N-th next
-permutation \, N<0 - N-th previous permutation. Type: int. Range: -16...16.;
+permutation \, N<0 - N-th previous permutation. Type: int. Range: -16\...16\.;
 #X obj 255 1995 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1995 [TAG]: if '*' or omitted: reverse positions of all
 grains \, if '.': reverse positions of finished grains only \, otherwise
@@ -155,7 +155,7 @@ corresponding tag. Type: symbol.;
 #X text 245 2307 slice specified duration to specified number of grains
 and add them. Arguments are:;
 #X obj 255 2345 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2345 N: desired number of grains. Type: int. Range: 1...64.;
+#X text 255 2345 N: desired number of grains. Type: int. Range: 1\...64\.;
 #X obj 255 2368 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 2368 [DUR]: duration to slice. Positive time value expected
 \, for example: 100ms \, 1.02s \, 400samp etc. Float value treat as
@@ -178,16 +178,16 @@ tag. Type: symbol.;
 #X obj 20 2632 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2637 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2638 1.;
+#X text 110 2638 1\.;
 #X text 245 2638 control inlet.;
 #X text 150 2658 *bang*;
 #X text 245 2658 if @sync = 'ext': starts finished grains playback.;
 #X obj 20 2688 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2693 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2694 1.;
+#X text 110 2694 1\.;
 #X text 245 2694 left output.;
-#X text 110 2714 2.;
+#X text 110 2714 2\.;
 #X text 245 2714 right output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

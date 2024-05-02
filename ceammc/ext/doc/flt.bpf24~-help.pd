@@ -32,15 +32,15 @@ https://en.wikipedia.org/wiki/Butterworth_filter;
 #X obj 20 704 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 709 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 744 1.;
+#X text 110 744 1\.;
 #X text 150 744 float;
 #X obj 246 745 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 744 FREQ(Hz): center frequency. Type: float. Range: 20...20000;
-#X text 110 764 2.;
+#X text 245 744 FREQ(Hz): center frequency. Type: float. Range: 20\...20000;
+#X text 110 764 2\.;
 #X text 150 764 float;
 #X obj 246 765 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 764 Q: quality factory: @freq/BANDWIDTH. Type: float. Range:
-0.01...100;
+0.01\...100;
 #X obj 20 809 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 814 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -53,13 +53,13 @@ bind to /flt_bpf24/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 936 @active;
 #X text 245 936 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 966 @freq;
 #X text 245 966 Get/Set cutoff frequency. Type: float. Units: 'Hz'.
-Default value: 1000. Range: 20...20000.;
+Default value: 1000\. Range: 20\...20000\.;
 #X msg 110 1008 @q;
 #X text 245 1008 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
-Default value: 2. Range: 0.01...100.;
+Default value: 2\. Range: 0.01\...100\.;
 #X obj 20 1060 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1065 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -68,16 +68,16 @@ Default value: 2. Range: 0.01...100.;
 #X obj 20 1138 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1143 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1144 1.;
+#X text 110 1144 1\.;
 #X text 245 1144 input signal.;
-#X text 110 1164 2.;
+#X text 110 1164 2\.;
 #X text 245 1164 set frequency.;
-#X text 110 1184 3.;
+#X text 110 1184 3\.;
 #X text 245 1184 set Q-factor.;
 #X obj 20 1214 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1219 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1220 1.;
+#X text 110 1220 1\.;
 #X text 245 1220 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

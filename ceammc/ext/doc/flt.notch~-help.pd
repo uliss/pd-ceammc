@@ -21,15 +21,15 @@ opposite of a band-pass filter.;
 #X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 430 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 465 1.;
+#X text 110 465 1\.;
 #X text 150 465 float;
 #X obj 246 466 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 465 FREQ(Hz): center frequency. Type: float. Range: 20...20000;
-#X text 110 485 2.;
+#X text 245 465 FREQ(Hz): center frequency. Type: float. Range: 20\...20000;
+#X text 110 485 2\.;
 #X text 150 485 float;
 #X obj 246 486 cnv 1 79 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 485 WIDTH(Hz): band width (approximate). Type: float. Range:
-1...10000;
+1\...10000;
 #X obj 20 530 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 535 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -42,25 +42,25 @@ bind to /flt_notch/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 657 @active;
 #X text 245 657 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 687 @freq;
 #X text 245 687 Get/Set center frequency. Type: float. Units: 'Hz'.
-Default value: 1000. Range: 20...20000.;
+Default value: 1000\. Range: 20\...20000\.;
 #X msg 110 729 @width;
 #X text 245 729 Get/Set band width (approximate). Type: float. Units:
-'Hz'. Default value: 50. Range: 1...10000.;
+'Hz'. Default value: 50\. Range: 1\...10000\.;
 #X obj 20 781 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 786 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 787 1.;
+#X text 110 787 1\.;
 #X text 245 787 input signal.;
-#X text 110 807 2.;
+#X text 110 807 2\.;
 #X text 150 807 *float*;
 #X text 245 807 set frequency.;
 #X obj 20 837 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 842 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 843 1.;
+#X text 110 843 1\.;
 #X text 245 843 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

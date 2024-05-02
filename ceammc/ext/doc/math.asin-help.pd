@@ -9,16 +9,16 @@
 #X text 215 80 The asin() function computes the principal value of
 the arc sine of input value. The result is in the range [-pi/2 \, +pi/2].;
 #X text 215 135 Special values:;
-#X text 215 160 asin(+-0) returns +-0.;
+#X text 215 160 asin(+-0) returns +-0\.;
 #X text 215 185 asin(x) returns a NAN and raises the "invalid" floating-point
-exception for |x| > 1.;
+exception for |x| > 1\.;
 #X floatatom 50 263 5 0 0 0 - - -;
 #X obj 50 292 math.asin;
 #X floatatom 50 321 5 0 0 0 - - -;
 #X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 358 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 359 1.;
+#X text 110 359 1\.;
 #X text 150 359 *float*;
 #X text 245 359 input value.;
 #X text 150 379 *list*;
@@ -26,7 +26,7 @@ exception for |x| > 1.;
 #X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 414 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 415 1.;
+#X text 110 415 1\.;
 #X text 245 415 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

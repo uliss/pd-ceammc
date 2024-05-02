@@ -38,20 +38,20 @@
 (null).;
 #X msg 110 494 @active_color;
 #X text 245 494 Get/Set element active color (list of red \, green
-\, blue values in 0-1 range). Type: list. Default value: 0 0.75 1 1.;
+\, blue values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 536 @background_color;
 #X text 245 536 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1.;
+0.93 1\.;
 #X msg 110 593 @border_color;
 #X text 245 593 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 635 @fontname;
 #X text 245 635 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 677 @fontsize;
-#X text 245 677 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 677 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 719 @fontslant;
 #X text 245 719 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -60,10 +60,10 @@ Allowed values: roman \, italic.;
 Allowed values: normal \, bold.;
 #X msg 110 803 @pinned;
 #X text 245 803 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 845 @size;
 #X text 245 845 Get/Set element size (width \, height pair). Type:
-list. Default value: 30 30.;
+list. Default value: 30 30\.;
 #X obj 20 897 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 902 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -82,7 +82,7 @@ list. Default value: 30 30.;
 #X obj 20 1102 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1107 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1108 1.;
+#X text 110 1108 1\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

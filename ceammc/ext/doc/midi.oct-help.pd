@@ -22,10 +22,10 @@
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 375 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 410 1.;
+#X text 110 410 1\.;
 #X text 150 410 int;
 #X obj 246 411 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 410 OCT: octave transposition. Type: int. Range: -11...11;
+#X text 245 410 OCT: octave transposition. Type: int. Range: -11\...11;
 #X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 445 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -34,7 +34,7 @@
 Allowed values: transpose \, set.;
 #X msg 110 522 @oct;
 #X text 245 522 Get/Set octave transposition. Type: int. Default value:
-0. Range: -11...11.;
+0\. Range: -11\...11\.;
 #X msg 110 564 @random;
 #X text 245 564 Get/Set random octave range. Arguments are: MIN MAX.
 Type: list.;
@@ -45,18 +45,18 @@ Type: list.;
 #X obj 20 676 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 681 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 682 1.;
+#X text 110 682 1\.;
 #X text 150 682 *float*;
 #X text 245 682 note value.;
 #X text 150 702 *list*;
 #X text 245 702 NOTE VELOCITY [DUR] list.;
-#X text 110 722 2.;
+#X text 110 722 2\.;
 #X text 150 722 *float*;
 #X text 245 722 set @oct value.;
 #X obj 20 752 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 757 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 758 1.;
+#X text 110 758 1\.;
 #X text 245 758 transposed NOTE VELOCITY [DUR] list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

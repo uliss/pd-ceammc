@@ -15,54 +15,54 @@
 #X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 242 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 277 1.;
+#X text 110 277 1\.;
 #X text 150 277 float;
 #X obj 246 278 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 277 VALUE: target value. Type: float.;
-#X text 110 297 2.;
+#X text 110 297 2\.;
 #X text 150 297 float;
 #X obj 246 298 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 297 TIME(ms): time to reach the target value. Type: float.
-Range: 50...5000;
+Range: 50\...5000;
 #X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 347 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 382 @accel;
 #X text 245 382 Get/Set acceleration factor \, 0: means linear motion
 (no acceleration) \, >0: begin fast \, then slow down \, <0: begin
-slow \, then speed up. Type: float. Default value: 0. Range: -5...5.;
+slow \, then speed up. Type: float. Default value: 0\. Range: -5\...5\.;
 #X msg 110 454 @mouse_down;
 #X text 245 454 Get/Set internal state. Type: bool. Default value:
-0.;
+0\.;
 #X msg 110 484 @mouse_drag;
 #X text 245 484 Get/Set internal state. Type: bool. Default value:
-0.;
+0\.;
 #X msg 110 514 @mouse_move;
 #X text 245 514 Get/Set internal state. Type: bool. Default value:
-0.;
+0\.;
 #X msg 110 544 @mouse_up;
 #X text 245 544 Get/Set internal state. Type: bool. Default value:
-0.;
+0\.;
 #X msg 110 574 @time;
 #X text 245 574 Get/Set time to reach target value. Type: float. Units:
-'ms'. Default value: 500. Range: 50...5000.;
+'ms'. Default value: 500\. Range: 50\...5000\.;
 #X msg 110 616 @value;
-#X text 245 616 Get/Set target value. Type: float. Default value: 0.;
+#X text 245 616 Get/Set target value. Type: float. Default value: 0\.;
 #X obj 20 656 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 661 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 662 1.;
+#X text 110 662 1\.;
 #X text 150 662 *float*;
 #X text 245 662 set current value.;
-#X text 110 682 2.;
+#X text 110 682 2\.;
 #X text 150 682 *float*;
 #X text 245 682 set @value.;
 #X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 717 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 718 1.;
+#X text 110 718 1\.;
 #X text 245 718 float: value.;
-#X text 110 738 2.;
+#X text 110 738 2\.;
 #X text 245 738 bang: when target value is reached.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

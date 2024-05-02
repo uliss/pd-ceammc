@@ -23,20 +23,20 @@ https://github.com/Sammy1Am/Moppy2;
 -49933 0;
 #X msg 110 434 @device;
 #X text 245 434 Get/Set moppy device ID. Type: int. Default value:
-1. Range: 1...255.;
+1\. Range: 1\...255\.;
 #X msg 110 476 @floppy;
 #X text 245 476 Get/Set floppy ID on moppy device. Type: int. Default
-value: 1. Range: 1...16.;
+value: 1\. Range: 1\...16\.;
 #X msg 110 518 @v;
 #X text 245 518 Get/Set MOPPY protocol version. Type: int. Default
-value: 2. Allowed values: 2 \, 1.;
+value: 2\. Allowed values: 2 \, 1\.;
 #X obj 20 570 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 575 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 610 bend:f;
 #X text 245 610 note pitchbend. Arguments are:;
 #X obj 255 633 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 633 VAL: pitch bend. Type: float. Range: -1...1.;
+#X text 255 633 VAL: pitch bend. Type: float. Range: -1\...1\.;
 #X msg 110 658 freq;
 #X text 245 658 set floppy frequency. Note: moppy.v1 version only.
 Arguments are:;
@@ -53,17 +53,17 @@ Type: int.;
 #X text 255 810 [CHAN]: optional floppy id (overrides @floppy property).
 Type: int.;
 #X obj 255 848 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 848 NOTE: MIDI note. Type: int. Range: 24...72.;
+#X text 255 848 NOTE: MIDI note. Type: int. Range: 24\...72\.;
 #X msg 110 873 noteon;
 #X text 245 873 play note. Arguments are:;
 #X obj 255 896 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 896 [CHAN]: optional floppy id (overrides @floppy property).
 Type: int.;
 #X obj 255 934 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 934 NOTE: MIDI note. Type: int. Range: 24...72.;
+#X text 255 934 NOTE: MIDI note. Type: int. Range: 24\...72\.;
 #X obj 255 957 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 957 VEL: note velocity (if 0 - turns note off \, otherwise
-ignored). Type: int. Range: 0...127.;
+ignored). Type: int. Range: 0\...127\.;
 #X msg 110 997 period;
 #X text 245 997 directly set floppy drive period. Note: moppy.v1 version
 only. Arguments are:;
@@ -81,12 +81,12 @@ Type: int.;
 #X obj 20 1184 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1189 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1190 1.;
+#X text 110 1190 1\.;
 #X text 245 1190 commands.;
 #X obj 20 1220 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1225 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1226 1.;
+#X text 110 1226 1\.;
 #X text 245 1226 list: output to moppy.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

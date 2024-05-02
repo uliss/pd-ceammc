@@ -10,9 +10,9 @@
 #X text 215 80 Basic syntax:;
 #X text 215 105 - pitch: C \, D \, E \, F \, G \, A \, B;
 #X text 215 130 - alteration: # \, ## \, b or bb;
-#X text 215 155 - octave: -1..9 or ^ \, _;
+#X text 215 155 - octave: -1\..9 or ^ \, _;
 #X text 215 180 - deviation in cents: (+-NUMc);
-#X text 215 205 - duration: |8 \, |4. or |3/8;
+#X text 215 205 - duration: |8 \, |4\. or |3/8;
 #X msg 50 268 list C|4 D R Eb F# G(-25c) A|8;
 #X obj 50 326 music.v->m;
 #X obj 50 355 ui.dt;
@@ -24,12 +24,12 @@
 #X obj 20 462 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 467 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 468 1.;
+#X text 110 468 1\.;
 #X text 245 468 note list.;
 #X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 503 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 504 1.;
+#X text 110 504 1\.;
 #X text 245 504 MIDI values.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

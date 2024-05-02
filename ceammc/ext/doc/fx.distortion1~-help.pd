@@ -30,75 +30,75 @@ if empty bind to /fx_distortion1/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 540 @active;
 #X text 245 540 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 570 @drive;
 #X text 245 570 Get/Set distortion amount. Type: float. Default value:
-0.64. Range: 0...1.;
+0.64\. Range: 0\...1\.;
 #X msg 110 612 @flt_on_off;
 #X text 245 612 Get/Set filter processing. Type: bool. Default value:
-0.;
+0\.;
 #X msg 110 642 @gain;
 #X text 245 642 Get/Set total effect gain. Type: float. Units: 'db'.
-Default value: 2. Range: -10...10.;
+Default value: 2\. Range: -10\...10\.;
 #X msg 110 684 @high_drive;
 #X text 245 684 Get/Set distortion amount on high frequencies. Type:
-float. Default value: 1. Range: 0...1.;
+float. Default value: 1\. Range: 0\...1\.;
 #X msg 110 726 @high_gain;
 #X text 245 726 Get/Set gain on high frequencies. Type: float. Units:
-'db'. Default value: 10. Range: -10...20.;
+'db'. Default value: 10\. Range: -10\...20\.;
 #X msg 110 768 @hp_freq;
 #X text 245 768 Get/Set high pass frequency. Type: float. Units: 'Hz'.
-Default value: 130. Range: 20...7040.;
+Default value: 130\. Range: 20\...7040\.;
 #X msg 110 810 @level;
-#X text 245 810 Get/Set effect level. Type: float. Default value: 0.01.
-Range: 0...0.5.;
+#X text 245 810 Get/Set effect level. Type: float. Default value: 0.01\.
+Range: 0\...0.5\.;
 #X msg 110 852 @low_drive;
 #X text 245 852 Get/Set distortion amount on low frequencies. Type:
-float. Default value: 1. Range: 0...1.;
+float. Default value: 1\. Range: 0\...1\.;
 #X msg 110 894 @low_gain;
 #X text 245 894 Get/Set gain on low frequencies. Type: float. Units:
-'db'. Default value: 10. Range: -10...20.;
+'db'. Default value: 10\. Range: -10\...20\.;
 #X msg 110 936 @lp_freq;
 #X text 245 936 Get/Set low pass frequency. Type: float. Units: 'Hz'.
-Default value: 5000. Range: 20...12000.;
+Default value: 5000\. Range: 20\...12000\.;
 #X msg 110 978 @middle_h_drive;
 #X text 245 978 Get/Set distortion amount on middle high frequencies.
-Type: float. Default value: 1. Range: 0...1.;
+Type: float. Default value: 1\. Range: 0\...1\.;
 #X msg 110 1020 @middle_h_gain;
 #X text 245 1020 Get/Set gain on middle high frequencies. Type: float.
-Units: 'db'. Default value: 10. Range: -10...20.;
+Units: 'db'. Default value: 10\. Range: -10\...20\.;
 #X msg 110 1062 @middle_l_drive;
 #X text 245 1062 Get/Set distortion amount on middle low frequencies.
-Type: float. Default value: 1. Range: 0...1.;
+Type: float. Default value: 1\. Range: 0\...1\.;
 #X msg 110 1104 @middle_l_gain;
 #X text 245 1104 Get/Set gain on middle low frequencies. Type: float.
-Units: 'db'. Default value: 10. Range: -10...20.;
+Units: 'db'. Default value: 10\. Range: -10\...20\.;
 #X msg 110 1146 @res_on_off;
-#X text 245 1146 Get/Set resonator. Type: bool. Default value: 0.;
+#X text 245 1146 Get/Set resonator. Type: bool. Default value: 0\.;
 #X msg 110 1176 @sp_high_freq;
 #X text 245 1176 Get/Set speaker emulation high frequency. Type: float.
-Units: 'Hz'. Default value: 5000. Range: 1000...12000.;
+Units: 'Hz'. Default value: 5000\. Range: 1000\...12000\.;
 #X msg 110 1218 @sp_low_freq;
 #X text 245 1218 Get/Set speaker emulation low frequency. Type: float.
-Units: 'Hz'. Default value: 130. Range: 20...1000.;
+Units: 'Hz'. Default value: 130\. Range: 20\...1000\.;
 #X msg 110 1260 @sp_on_off;
 #X text 245 1260 Get/Set speaker emulation turn on/off. Type: bool.
-Default value: 0.;
+Default value: 0\.;
 #X msg 110 1302 @split_high_freq;
 #X text 245 1302 Get/Set high split frequency. Type: float. Units:
-'Hz'. Default value: 1250. Range: 1250...12000.;
+'Hz'. Default value: 1250\. Range: 1250\...12000\.;
 #X msg 110 1344 @split_low_freq;
 #X text 245 1344 Get/Set low split frequency. Type: float. Units: 'Hz'.
-Default value: 250. Range: 20...600.;
+Default value: 250\. Range: 20\...600\.;
 #X msg 110 1386 @split_middle_freq;
 #X text 245 1386 Get/Set middle split frequency. Type: float. Units:
-'Hz'. Default value: 650. Range: 600...1250.;
+'Hz'. Default value: 650\. Range: 600\...1250\.;
 #X msg 110 1428 @trigger;
 #X text 245 1428 Get/Set resonator trigger. Type: float. Default value:
-0.12. Range: 0...1.;
+0.12\. Range: 0\...1\.;
 #X msg 110 1470 @vibrato;
 #X text 245 1470 Get/Set resonator vibration. Type: float. Default
-value: 1. Range: 0...1.;
+value: 1\. Range: 0\...1\.;
 #X obj 20 1522 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1527 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -107,12 +107,12 @@ value: 1. Range: 0...1.;
 #X obj 20 1600 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1605 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1606 1.;
+#X text 110 1606 1\.;
 #X text 245 1606 input signal.;
 #X obj 20 1636 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1641 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1642 1.;
+#X text 110 1642 1\.;
 #X text 245 1642 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

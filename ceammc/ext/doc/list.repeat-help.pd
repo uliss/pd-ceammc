@@ -19,20 +19,20 @@
 #X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 289 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 324 1.;
+#X text 110 324 1\.;
 #X text 150 324 int;
 #X obj 246 325 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 324 N: repeat times. Type: int. Range: 0...10000;
+#X text 245 324 N: repeat times. Type: int. Range: 0\...10000;
 #X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 359 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 394 @n;
-#X text 245 394 Get/Set repeat times. Type: int. Default value: 1.
-Range: 0...10000.;
+#X text 245 394 Get/Set repeat times. Type: int. Default value: 1\.
+Range: 0\...10000\.;
 #X obj 20 446 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 451 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 452 1.;
+#X text 110 452 1\.;
 #X text 150 452 *float*;
 #X text 245 452 input float. Example: input 10 outputs list - 10 x
 n times.;
@@ -47,13 +47,13 @@ x n times.;
 #X text 150 562 *data:mlist*;
 #X text 245 562 same as list. Example: (1 2 3) results mlist (1 2 3
 1 2 3 ...).;
-#X text 110 597 2.;
+#X text 110 597 2\.;
 #X text 150 597 *int*;
-#X text 245 597 repeat count. Range: 0...10000.;
+#X text 245 597 repeat count. Range: 0\...10000\.;
 #X obj 20 627 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 632 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 633 1.;
+#X text 110 633 1\.;
 #X text 245 633 output list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

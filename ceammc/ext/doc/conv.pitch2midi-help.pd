@@ -28,7 +28,7 @@ C4 is middle C (MIDI: 60). The rest symbol is R (-1 output);
 #X obj 20 511 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 516 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 517 1.;
+#X text 110 517 1\.;
 #X text 150 517 *symbol*;
 #X text 245 517 Scientific Pitch Notation value.;
 #X text 150 537 *list*;
@@ -40,7 +40,7 @@ C4 is middle C (MIDI: 60). The rest symbol is R (-1 output);
 #X obj 20 607 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 612 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 613 1.;
+#X text 110 613 1\.;
 #X text 245 613 MIDI note number or -1 on Rest.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

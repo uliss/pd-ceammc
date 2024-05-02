@@ -27,24 +27,24 @@
 #X msg 110 432 channel;
 #X text 245 432 set device MIDI channel. Arguments are:;
 #X obj 255 455 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 455 CH: MIDI channel. Type: int. Range: 0...15.;
+#X text 255 455 CH: MIDI channel. Type: int. Range: 0\...15\.;
 #X msg 110 480 knob;
 #X text 245 480 set knob value. Arguments are:;
 #X obj 255 503 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 503 N: knob index. Type: int. Range: 0...17.;
+#X text 255 503 N: knob index. Type: int. Range: 0\...17\.;
 #X obj 255 526 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 526 VAL: knob value. Type: float. Range: 0...1.;
+#X text 255 526 VAL: knob value. Type: float. Range: 0\...1\.;
 #X msg 110 551 knob?;
 #X text 245 551 request knob value. Arguments are:;
 #X obj 255 574 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 574 N: knob index. Type: int. Range: 0...17.;
+#X text 255 574 N: knob index. Type: int. Range: 0\...17\.;
 #X msg 110 599 knobs?;
 #X text 245 599 request all knob values.;
 #X msg 110 627 pad_color;
 #X text 245 627 set pad color. Arguments are:;
 #X obj 255 650 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 650 [N]: pad index. If not specified set color to all pads.
-Type: int. Range: 0...15.;
+Type: int. Range: 0\...15\.;
 #X obj 255 688 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 688 COLOR: color. Type: atom. Allowed values: 0 \, 1 \,
 2 \, 3 \, 4 \, 5 \, 6 \, 7 \, black \, red \, green \, yellow \, blue
@@ -52,14 +52,14 @@ Type: int. Range: 0...15.;
 #X obj 20 738 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 743 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 744 1.;
+#X text 110 744 1\.;
 #X text 245 744 commands.;
 #X obj 20 774 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 779 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 780 1.;
+#X text 110 780 1\.;
 #X text 245 780 MIDI bytes.;
-#X text 110 800 2.;
+#X text 110 800 2\.;
 #X text 245 800 parsed MIDI commands: noteon \, noteoff \, cc \, program
 etc...;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

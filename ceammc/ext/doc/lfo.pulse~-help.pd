@@ -17,14 +17,14 @@
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 352 1.;
+#X text 110 352 1\.;
 #X text 150 352 float;
 #X obj 246 353 cnv 1 100 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 352 INITFREQ(Hz): initial frequency. Type: float.;
-#X text 110 372 2.;
+#X text 110 372 2\.;
 #X text 150 372 float;
 #X obj 246 373 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 372 DUTY: duty cycle. Type: float. Range: 0...1;
+#X text 245 372 DUTY: duty cycle. Type: float. Range: 0\...1;
 #X obj 20 402 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 407 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -34,22 +34,22 @@ bind all properties to /ID/lfo_pulse/PROP_NAME osc address \, if empty
 bind to /lfo_pulse/PROP_NAME. Type: symbol.;
 #X msg 110 499 @initfreq;
 #X text 245 499 (initonly) Get/Set initial frequency. Type: float.
-Units: 'Hz'. Default value: 0.;
+Units: 'Hz'. Default value: 0\.;
 #X msg 110 541 @osc;
 #X text 245 541 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
 #X msg 110 571 @active;
 #X text 245 571 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 601 @duty;
-#X text 245 601 Get/Set duty cycle. Type: float. Default value: 0.5.
-Range: 0...1.;
+#X text 245 601 Get/Set duty cycle. Type: float. Default value: 0.5\.
+Range: 0\...1\.;
 #X msg 110 643 @pause;
 #X text 245 643 Get/Set pause oscillator at current value. Type: bool.
-Default value: 0.;
+Default value: 0\.;
 #X msg 110 685 @phase;
 #X text 245 685 Get/Set initial phase. Type: float. Default value:
-0. Range: 0...1.;
+0\. Range: 0\...1\.;
 #X obj 20 737 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 742 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -58,15 +58,15 @@ Default value: 0.;
 #X obj 20 815 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 820 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 821 1.;
+#X text 110 821 1\.;
 #X text 245 821 frequency in Hz.;
-#X text 110 841 2.;
+#X text 110 841 2\.;
 #X text 150 841 *bang*;
 #X text 245 841 reset phase.;
 #X obj 20 871 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 876 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 877 1.;
+#X text 110 877 1\.;
 #X text 245 877 pulsetrain wave in [-1 \, +1] range.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

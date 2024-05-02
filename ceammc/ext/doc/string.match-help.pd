@@ -13,7 +13,7 @@ of { \, )) instead of } \, .. instead of comma \, `: instead of semicolon;
 #X text 215 150 If you need spaces: you should quote the string \,
 also note that in quoted string ` symbol should be escaped like ``.;
 #X text 215 190 For example \, all digits: `d+ \, two or three chars:
-[a-z]((2..3)) etc.;
+[a-z]((2\..3)) etc.;
 #X msg 50 268 test.mp3;
 #X msg 155 268 test.mp4;
 #X msg 261 268 FILE.mp2;
@@ -27,7 +27,7 @@ also note that in quoted string ` symbol should be escaped like ``.;
 #X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 424 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 459 1.;
+#X text 110 459 1\.;
 #X text 150 459 list;
 #X obj 246 460 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 459 RE: regular expression. Type: list.;
@@ -39,15 +39,15 @@ also note that in quoted string ` symbol should be escaped like ``.;
 #X obj 20 569 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 574 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 575 1.;
+#X text 110 575 1\.;
 #X text 245 575 input string or symbol.;
-#X text 110 595 2.;
+#X text 110 595 2\.;
 #X text 245 595 change regular expression.;
 #X obj 20 625 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 630 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 631 1.;
-#X text 245 631 output 1 on successfull match \, otherwise 0.;
+#X text 110 631 1\.;
+#X text 245 631 output 1 on successfull match \, otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

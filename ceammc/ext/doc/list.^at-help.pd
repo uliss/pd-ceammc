@@ -12,7 +12,7 @@
 #X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 231 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 266 1.;
+#X text 110 266 1\.;
 #X text 150 266 list;
 #X obj 246 267 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 266 VALUE: list contents. Type: list.;
@@ -44,18 +44,18 @@ elements are returned. Other indexes are wrapped by modulo division.;
 #X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 678 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 679 1.;
+#X text 110 679 1\.;
 #X text 150 679 *int*;
 #X text 245 679 element index.;
 #X text 150 699 *list*;
 #X text 245 699 list of indexes.;
-#X text 110 719 2.;
+#X text 110 719 2\.;
 #X text 150 719 *list*;
 #X text 245 719 set list content.;
 #X obj 20 749 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 754 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 755 1.;
+#X text 110 755 1\.;
 #X text 245 755 element(s) at the input index position(s).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -35,58 +35,58 @@ are cold.;
 #X text 245 515 Get/Set channel angle positions. Type: list.;
 #X msg 110 545 @clockwise;
 #X text 245 545 Get/Set clockwise channel numbering. Type: bool. Default
-value: 0.;
+value: 0\.;
 #X msg 110 587 @interval;
 #X text 245 587 Get/Set refresh interval. Type: int. Units: 'ms'. Default
-value: 100. Min value: 20.;
+value: 100\. Min value: 20\.;
 #X msg 110 629 @nch;
 #X text 245 629 Get/Set number of channels. Type: int. Default value:
-2. Range: 1...64.;
+2\. Range: 1\...64\.;
 #X msg 110 671 @offset;
 #X text 245 671 Get/Set channel numbering offset. Type: int. Default
-value: 0. Range: -63...63.;
+value: 0\. Range: -63\...63\.;
 #X msg 110 713 @receive;
 #X text 245 713 Get/Set receive source. Type: symbol. Default value:
 (null).;
 #X msg 110 743 @rotation;
 #X text 245 743 Get/Set source channels rotation (anticlockwise). Type:
-float. Units: 'deg'. Default value: 0. Range: -360...360.;
+float. Units: 'deg'. Default value: 0\. Range: -360\...360\.;
 #X msg 110 785 @send;
 #X text 245 785 Get/Set send destination. Type: symbol. Default value:
 (null).;
 #X msg 110 827 @background_color;
 #X text 245 827 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1.;
+0.93 1\.;
 #X msg 110 884 @border_color;
 #X text 245 884 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 926 @cold_color;
 #X text 245 926 Get/Set extra low-level signal color <-31db (list of
 red \, green \, blue values in 0-1 range). Type: list. Default value:
-0 0.6 0 1.;
+0 0.6 0 1\.;
 #X msg 110 983 @hot_color;
 #X text 245 983 Get/Set loud level signal color <-3db (list of red
 \, green \, blue values in 0-1 range). Type: list. Default value: 1
-0.6 0 1.;
+0.6 0 1\.;
 #X msg 110 1040 @over_color;
 #X text 245 1040 Get/Set extra-loud level signal color >-3db (list
 of red \, green \, blue values in 0-1 range). Type: list. Default value:
-1 0 0 1.;
+1 0 0 1\.;
 #X msg 110 1097 @tepid_color;
 #X text 245 1097 Get/Set low-level signal color <-21db (list of red
 \, green \, blue values in 0-1 range). Type: list. Default value: 0.6
-0.73 0 1.;
+0.73 0 1\.;
 #X msg 110 1154 @warm_color;
 #X text 245 1154 Get/Set normal level signal color <-9db (list of red
 \, green \, blue values in 0-1 range). Type: list. Default value: 0.85
-0.85 0 1.;
+0.85 0 1\.;
 #X msg 110 1211 @fontname;
 #X text 245 1211 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1253 @fontsize;
-#X text 245 1253 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 1253 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 1295 @fontslant;
 #X text 245 1295 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -95,10 +95,10 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 1379 @pinned;
 #X text 245 1379 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1421 @size;
 #X text 245 1421 Get/Set element size (width \, height pair). Type:
-list. Default value: 120 120.;
+list. Default value: 120 120\.;
 #X obj 20 1473 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1478 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -111,7 +111,7 @@ list. Default value: 120 120.;
 #X obj 20 1594 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1599 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1600 1.;
+#X text 110 1600 1\.;
 #X text 245 1600 input signal.;
 #X obj 20 1630 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1635 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144

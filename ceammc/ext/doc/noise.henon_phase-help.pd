@@ -31,19 +31,19 @@
 #X obj 20 553 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 558 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 593 1.;
+#X text 110 593 1\.;
 #X text 150 593 float;
 #X obj 246 594 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 593 A: a value (optional). Type: float.;
-#X text 110 613 2.;
+#X text 110 613 2\.;
 #X text 150 613 float;
 #X obj 246 614 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 613 B: b value (optional). Type: float.;
-#X text 110 633 3.;
+#X text 110 633 3\.;
 #X text 150 633 float;
 #X obj 246 634 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 633 X: x value (optional). Type: float.;
-#X text 110 653 4.;
+#X text 110 653 4\.;
 #X text 150 653 float;
 #X obj 246 654 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 653 Y: y value (optional). Type: float.;
@@ -84,15 +84,15 @@ Type: int.;
 #X obj 20 1112 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1117 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1118 1.;
+#X text 110 1118 1\.;
 #X text 150 1118 *bang*;
 #X text 245 1118 output value.;
 #X obj 20 1148 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1153 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1154 1.;
+#X text 110 1154 1\.;
 #X text 245 1154 x outlet.;
-#X text 110 1174 2.;
+#X text 110 1174 2\.;
 #X text 245 1174 y outlet.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

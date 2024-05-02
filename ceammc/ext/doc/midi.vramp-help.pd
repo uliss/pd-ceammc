@@ -16,15 +16,15 @@
 #X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 389 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 424 1.;
+#X text 110 424 1\.;
 #X text 150 424 int;
 #X obj 246 425 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 424 FROM: start value. Type: int. Range: 0...127;
-#X text 110 444 2.;
+#X text 245 424 FROM: start value. Type: int. Range: 0\...127;
+#X text 110 444 2\.;
 #X text 150 444 int;
 #X obj 246 445 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 444 TO: end value. Type: int. Range: 0...127;
-#X text 110 464 3.;
+#X text 245 444 TO: end value. Type: int. Range: 0\...127;
+#X text 110 464 3\.;
 #X text 150 464 int;
 #X obj 246 465 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 464 N: number of steps. Type: int. Min value: 0;
@@ -33,16 +33,16 @@
 -49933 0;
 #X msg 110 534 @auto;
 #X text 245 534 Get/Set auto reset mode. If true: reset to @start value
-after ramp is finished. Type: bool. Default value: 0.;
+after ramp is finished. Type: bool. Default value: 0\.;
 #X msg 110 576 @from;
-#X text 245 576 Get/Set start value. Type: int. Default value: 127.
-Range: 0...127.;
+#X text 245 576 Get/Set start value. Type: int. Default value: 127\.
+Range: 0\...127\.;
 #X msg 110 618 @n;
 #X text 245 618 Get/Set number of steps. Type: int. Default value:
-0. Min value: 0.;
+0\. Min value: 0\.;
 #X msg 110 660 @to;
-#X text 245 660 Get/Set end value. Type: int. Default value: 127. Range:
-0...127.;
+#X text 245 660 Get/Set end value. Type: int. Default value: 127\.
+Range: 0\...127\.;
 #X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 717 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -51,7 +51,7 @@ Range: 0...127.;
 #X obj 20 790 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 795 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 796 1.;
+#X text 110 796 1\.;
 #X text 150 796 *float*;
 #X text 245 796 if VALUE >0 \, treat as (VALUE 127) list \, otherwise
 as (-VALUE \, 0).;
@@ -60,9 +60,9 @@ as (-VALUE \, 0).;
 #X obj 20 861 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 866 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 867 1.;
+#X text 110 867 1\.;
 #X text 245 867 outputs NOTE VELOCITY pair.;
-#X text 110 887 2.;
+#X text 110 887 2\.;
 #X text 245 887 bang when destination value is reached.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

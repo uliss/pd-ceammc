@@ -24,11 +24,11 @@
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 352 1.;
+#X text 110 352 1\.;
 #X text 150 352 symbol;
 #X obj 246 353 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 352 TEMPO(bpm): tempo in beats per minute. Type: symbol.;
-#X text 110 372 2.;
+#X text 110 372 2\.;
 #X text 150 372 symbol;
 #X obj 246 373 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 372 TSIG: time signature. Type: symbol.;
@@ -44,49 +44,49 @@ empty bind to /synth_metro/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 529 @active;
 #X text 245 529 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 559 @down.freq;
 #X text 245 559 Get/Set downbeat frequency. Type: float. Units: 'Hz'.
-Default value: 1500. Range: 100...5000.;
+Default value: 1500\. Range: 100\...5000\.;
 #X msg 110 601 @down.gain;
 #X text 245 601 Get/Set downbeat gain. Type: float. Units: 'db'. Default
-value: 6. Range: -12...12.;
+value: 6\. Range: -12\...12\.;
 #X msg 110 643 @down.reson;
 #X text 245 643 Get/Set downbeat resonance value (Q). Type: float.
-Default value: 50. Range: 5...100.;
+Default value: 50\. Range: 5\...100\.;
 #X msg 110 685 @gain;
 #X text 245 685 Get/Set common synth gain. Type: float. Units: 'db'.
-Default value: 0. Range: -12...12.;
+Default value: 0\. Range: -12\...12\.;
 #X msg 110 727 @mark.freq;
 #X text 245 727 Get/Set mark sound frequency. Type: float. Units: 'Hz'.
-Default value: 2000. Range: 100...5000.;
+Default value: 2000\. Range: 100\...5000\.;
 #X msg 110 769 @mark.gain;
 #X text 245 769 Get/Set mark sound gain. Type: float. Units: 'db'.
-Default value: 6. Range: -12...12.;
+Default value: 6\. Range: -12\...12\.;
 #X msg 110 811 @mark.reson;
 #X text 245 811 Get/Set mark sound resonance value (Q). Type: float.
-Default value: 500. Range: 5...500.;
+Default value: 500\. Range: 5\...500\.;
 #X msg 110 853 @off.freq;
 #X text 245 853 Get/Set off-beat frequency. Type: float. Units: 'Hz'.
-Default value: 500. Range: 100...5000.;
+Default value: 500\. Range: 100\...5000\.;
 #X msg 110 895 @off.gain;
 #X text 245 895 Get/Set off-beat gain. Type: float. Units: 'db'. Default
-value: 6. Range: -12...12.;
+value: 6\. Range: -12\...12\.;
 #X msg 110 937 @off.reson;
 #X text 245 937 Get/Set off-beat resonance value (Q). Type: float.
-Default value: 10. Range: 5...100.;
+Default value: 10\. Range: 5\...100\.;
 #X msg 110 979 @on.freq;
 #X text 245 979 Get/Set on-beat frequency. Type: float. Units: 'Hz'.
-Default value: 1000. Range: 100...5000.;
+Default value: 1000\. Range: 100\...5000\.;
 #X msg 110 1021 @on.gain;
 #X text 245 1021 Get/Set on-beat gain. Type: float. Units: 'db'. Default
-value: 6. Range: -12...12.;
+value: 6\. Range: -12\...12\.;
 #X msg 110 1063 @on.reson;
 #X text 245 1063 Get/Set on-beat resonance value (Q). Type: float.
-Default value: 30. Range: 5...100.;
+Default value: 30\. Range: 5\...100\.;
 #X msg 110 1105 @tempo;
 #X text 245 1105 Get/Set tempo. If beat division is ommitted \, using
-1/4. Type: symbol. Units: 'bpm'. Default value: 60|4bpm.;
+1/4\. Type: symbol. Units: 'bpm'. Default value: 60|4bpm.;
 #X msg 110 1147 @tsig;
 #X text 245 1147 Get/Set metronome time signature \, can be complex
 like: |1/4+15/16| etc. Type: symbol. Default value: |4/4|.;
@@ -106,21 +106,21 @@ like: |1/4+15/16| etc. Type: symbol. Default value: |4/4|.;
 #X obj 20 1389 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1394 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1395 1.;
+#X text 110 1395 1\.;
 #X text 150 1395 *float*;
 #X text 245 1395 1: start \, 0: stop metronome.;
-#X text 110 1415 2.;
+#X text 110 1415 2\.;
 #X text 150 1415 *int*;
 #X text 245 1415 1: play downbeat \, 2: play on-beat \, 3: play off-beat.;
-#X text 110 1435 3.;
+#X text 110 1435 3\.;
 #X text 150 1435 *float*;
 #X text 245 1435 set tempo in 1/4 per minute.;
 #X obj 20 1465 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1470 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1471 1.;
+#X text 110 1471 1\.;
 #X text 245 1471 synth output.;
-#X text 110 1491 2.;
+#X text 110 1491 2\.;
 #X text 245 1491 current beat: 1: downbeat \, 2: onbeat \, 3: offbeat
 \, 4: mark.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

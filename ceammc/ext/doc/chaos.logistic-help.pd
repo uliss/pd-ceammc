@@ -66,11 +66,11 @@ leave the interval [0 \, 1] and diverge.;
 #X obj 20 1108 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1113 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1148 1.;
+#X text 110 1148 1\.;
 #X text 150 1148 float;
 #X obj 246 1149 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 1148 INIT: x init value (default 0.777). Type: float.;
-#X text 110 1168 2.;
+#X text 110 1168 2\.;
 #X text 150 1168 float;
 #X obj 246 1169 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 1168 LAMBDA: lambda value (default 3.9). Type: float.;
@@ -84,7 +84,7 @@ leave the interval [0 \, 1] and diverge.;
 #X obj 255 1289 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1289 BOOL: output mode. If 1: outputs new generated value
 after lambda or seed method call \, if 0 - change values without output.
-Default is 0. Type: int.;
+Default is 0\. Type: int.;
 #X msg 110 1344 reset;
 #X text 245 1344 set to initial state.;
 #X msg 110 1372 seed;
@@ -94,7 +94,7 @@ Default is 0. Type: int.;
 #X obj 20 1438 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1443 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1444 1.;
+#X text 110 1444 1\.;
 #X text 150 1444 *bang*;
 #X text 245 1444 generate and output new value.;
 #X text 150 1464 *float*;
@@ -102,7 +102,7 @@ Default is 0. Type: int.;
 #X obj 20 1494 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1499 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1500 1.;
+#X text 110 1500 1\.;
 #X text 245 1500 new generated x-value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

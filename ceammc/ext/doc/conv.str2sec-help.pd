@@ -20,11 +20,11 @@
 -49933 0;
 #X msg 110 334 @on_err;
 #X text 245 334 Get/Set value returned when unrecognized symbol given.
-Type: float. Default value: -1.;
+Type: float. Default value: -1\.;
 #X obj 20 386 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 391 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 392 1.;
+#X text 110 392 1\.;
 #X text 150 392 *symbol*;
 #X text 245 392 Time in format: "HH:MM::SS[.XXX]".;
 #X text 150 412 *data*;
@@ -34,7 +34,7 @@ Type: float. Default value: -1.;
 #X obj 20 462 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 467 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 468 1.;
+#X text 110 468 1\.;
 #X text 245 468 time in seconds.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

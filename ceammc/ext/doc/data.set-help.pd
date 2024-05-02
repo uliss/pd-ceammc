@@ -19,7 +19,7 @@
 #X obj 20 325 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 330 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 365 1.;
+#X text 110 365 1\.;
 #X text 150 365 any;
 #X obj 246 366 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 365 X: set elements. Type: any.;
@@ -27,11 +27,11 @@
 #X obj 20 400 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 435 @empty?;
-#X text 245 435 (readonly) Get 1 if list is empty \, otherwise 0. Type:
-bool. Default value: 1.;
+#X text 245 435 (readonly) Get 1 if list is empty \, otherwise 0\.
+Type: bool. Default value: 1\.;
 #X msg 110 477 @size?;
 #X text 245 477 (readonly) Get number of elements in list. Type: int.
-Default value: 0. Min value: 0.;
+Default value: 0\. Min value: 0\.;
 #X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 534 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -54,7 +54,7 @@ Default value: 0. Min value: 0.;
 #X obj 20 779 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 784 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 785 1.;
+#X text 110 785 1\.;
 #X text 150 785 *bang*;
 #X text 245 785 output set content.;
 #X text 150 805 *float*;
@@ -68,7 +68,7 @@ Default value: 0. Min value: 0.;
 #X obj 20 895 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 900 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 901 1.;
+#X text 110 901 1\.;
 #X text 245 901 set output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

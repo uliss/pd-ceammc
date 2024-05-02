@@ -24,10 +24,10 @@
 -49933 0;
 #X msg 110 568 @bs;
 #X text 245 568 (initonly) Get/Set buffer size. Type: int. Units: 'samp'.
-Default value: 1024. Range: 1...65536.;
+Default value: 1024\. Range: 1\...65536\.;
 #X msg 110 610 @clock;
-#X text 245 610 (initonly) Get/Set alias for @mode count @bs 1. Output
-impulse at each zero crossing. Type: list. Default value: 0.;
+#X text 245 610 (initonly) Get/Set alias for @mode count @bs 1\. Output
+impulse at each zero crossing. Type: list. Default value: 0\.;
 #X msg 110 652 @mode;
 #X text 245 652 Get/Set calculation mode: if 'count' - output number
 of zero crossing occurred in a period of current block size \, if 'rate'
@@ -37,12 +37,12 @@ Default value: count. Allowed values: count \, rate \, freq.;
 #X obj 20 765 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 770 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 771 1.;
+#X text 110 771 1\.;
 #X text 245 771 input signal.;
 #X obj 20 801 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 806 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 807 1.;
+#X text 110 807 1\.;
 #X text 245 807 output zero crossing count/freq/rate.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

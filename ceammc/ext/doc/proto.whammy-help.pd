@@ -15,12 +15,12 @@
 #X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 260 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 295 1.;
+#X text 110 295 1\.;
 #X text 150 295 symbol;
 #X obj 246 296 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 295 MODE: pedal mode (should correspond to hardware switch
 on pedal). Allowed values: chords \, classic. Type: symbol.;
-#X text 110 330 2.;
+#X text 110 330 2\.;
 #X text 150 330 bool;
 #X obj 246 331 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 330 ACTIVE: pedal initial state. Type: bool.;
@@ -28,10 +28,10 @@ on pedal). Allowed values: chords \, classic. Type: symbol.;
 #X obj 20 365 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 400 @active;
-#X text 245 400 Get/Set pedal state. Type: bool. Default value: 1.;
+#X text 245 400 Get/Set pedal state. Type: bool. Default value: 1\.;
 #X msg 110 430 @chan;
 #X text 245 430 Get/Set output Midi channel. Type: int. Default value:
-0. Range: 0...15.;
+0\. Range: 0\...15\.;
 #X msg 110 472 @chords;
 #X text 245 472 alias for @mode chords.;
 #X msg 110 502 @classic;
@@ -41,8 +41,8 @@ on pedal). Allowed values: chords \, classic. Type: symbol.;
 on pedal). Type: symbol. Default value: classic. Allowed values: chords
 \, classic.;
 #X msg 110 589 @seed;
-#X text 245 589 Get/Set random seed. Type: int. Default value: 0. Min
-value: 0.;
+#X text 245 589 Get/Set random seed. Type: int. Default value: 0\.
+Min value: 0\.;
 #X obj 20 641 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 646 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -64,26 +64,26 @@ If not specified - select random mode from all categories. Type: symbol.
 Allowed values: whammy \, harm \, detune.;
 #X obj 255 899 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 899 [STATE]: pedal state (on/off). Type: int. Allowed values:
-0 \, 1.;
+0 \, 1\.;
 #X msg 110 939 reset;
 #X text 245 939 turn off pedal and select default preset.;
 #X msg 110 967 set IDX;
 #X text 245 967 set preset by index. Arguments are:;
 #X obj 255 990 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 990 IDX: preset index. Type: int. Range: 0...20.;
+#X text 255 990 IDX: preset index. Type: int. Range: 0\...20\.;
 #X obj 255 1013 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1013 [STATE]: pedal state (on/off). Type: int. Allowed
-values: 0 \, 1.;
+values: 0 \, 1\.;
 #X msg 110 1053 set NAME;
 #X text 245 1053 set preset by name. Arguments are:;
 #X obj 255 1076 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1076 NAME: preset name. Type: symbol. Range: 0...20. Allowed
-values: +2oct \, +1oct \, +5th \, +4th \, -2nd \, -4th \, -5th \, -1oct
-\, -2oct \, bomb \, deep \, shallow \, +2+3 \, +3b+3 \, +3+4 \, +4+5
-\, +5+6 \, +5+7 \, -4-3 \, -5-4 \, -8+8.;
+#X text 255 1076 NAME: preset name. Type: symbol. Range: 0\...20\.
+Allowed values: +2oct \, +1oct \, +5th \, +4th \, -2nd \, -4th \, -5th
+\, -1oct \, -2oct \, bomb \, deep \, shallow \, +2+3 \, +3b+3 \, +3+4
+\, +4+5 \, +5+6 \, +5+7 \, -4-3 \, -5-4 \, -8+8\.;
 #X obj 255 1144 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1144 [STATE]: pedal state (on/off). Type: int. Allowed
-values: 0 \, 1.;
+values: 0 \, 1\.;
 #X msg 110 1184 set UP DOWN;
 #X text 245 1184 set preset by transpose range. Arguments are:;
 #X obj 255 1207 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -92,19 +92,19 @@ values: 0 \, 1.;
 #X text 255 1230 DOWN: down range. Type: int.;
 #X obj 255 1253 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1253 [STATE]: pedal state (on/off). Type: int. Allowed
-values: 0 \, 1.;
+values: 0 \, 1\.;
 #X msg 110 1293 toggle;
 #X text 245 1293 toggle pedal on/off.;
 #X obj 20 1331 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1336 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1337 1.;
+#X text 110 1337 1\.;
 #X text 150 1337 *int*;
 #X text 245 1337 1: turn on \, 0: turn off pedal.;
 #X obj 20 1367 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1372 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1373 1.;
+#X text 110 1373 1\.;
 #X text 245 1373 float stream: raw midi output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -20,11 +20,11 @@ or first and second arguments.;
 #X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 357 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 392 1.;
+#X text 110 392 1\.;
 #X text 150 392 atom;
 #X obj 246 393 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 392 FROM: replace subject. Type: atom.;
-#X text 110 412 2.;
+#X text 110 412 2\.;
 #X text 150 412 atom;
 #X obj 246 413 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 412 TO: replace value. Type: atom.;
@@ -39,16 +39,16 @@ None.;
 #X obj 20 552 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 557 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 558 1.;
+#X text 110 558 1\.;
 #X text 245 558 input data stream.;
-#X text 110 578 2.;
+#X text 110 578 2\.;
 #X text 245 578 @from property inlet.;
-#X text 110 598 3.;
+#X text 110 598 3\.;
 #X text 245 598 @to property inlet.;
 #X obj 20 628 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 633 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 634 1.;
+#X text 110 634 1\.;
 #X text 245 634 output data stream.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

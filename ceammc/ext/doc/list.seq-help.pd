@@ -16,15 +16,15 @@
 #X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 289 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 324 1.;
+#X text 110 324 1\.;
 #X text 150 324 float;
 #X obj 246 325 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 324 FROM: start value. Type: float.;
-#X text 110 344 2.;
+#X text 110 344 2\.;
 #X text 150 344 float;
 #X obj 246 345 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 344 TO: end value. Type: float.;
-#X text 110 364 3.;
+#X text 110 364 3\.;
 #X text 150 364 float;
 #X obj 246 365 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 364 STEP: sequence step. Type: float.;
@@ -32,18 +32,18 @@
 #X obj 20 399 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 434 @closed;
-#X text 245 434 generate closed range sequence. Default value: 0.;
+#X text 245 434 generate closed range sequence. Default value: 0\.;
 #X msg 110 464 @from;
-#X text 245 464 Get/Set start value. Type: float. Default value: 0.;
+#X text 245 464 Get/Set start value. Type: float. Default value: 0\.;
 #X msg 110 494 @step;
 #X text 245 494 Get/Set sequence step (always positive). Type: float.
-Default value: 1.;
+Default value: 1\.;
 #X msg 110 536 @to;
-#X text 245 536 Get/Set end value. Type: float. Default value: 1.;
+#X text 245 536 Get/Set end value. Type: float. Default value: 1\.;
 #X obj 20 576 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 581 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 582 1.;
+#X text 110 582 1\.;
 #X text 150 582 *bang*;
 #X text 245 582 outputs generated list.;
 #X text 150 602 *float*;
@@ -56,7 +56,7 @@ Default value: 1.;
 #X obj 20 697 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 702 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 703 1.;
+#X text 110 703 1\.;
 #X text 245 703 generated sequence.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

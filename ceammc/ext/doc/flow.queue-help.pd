@@ -21,27 +21,27 @@
 #X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 433 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 468 1.;
+#X text 110 468 1\.;
 #X text 150 468 int;
 #X obj 246 469 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 468 MAX_SIZE: max queue size. Type: int. Range: 1...1024;
-#X text 110 488 2.;
+#X text 245 468 MAX_SIZE: max queue size. Type: int. Range: 1\...1024;
+#X text 110 488 2\.;
 #X text 150 488 int;
 #X obj 246 489 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 488 N: number of lines. Type: int. Range: 1...32;
+#X text 245 488 N: number of lines. Type: int. Range: 1\...32;
 #X obj 20 518 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 523 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 558 @auto_pop;
 #X text 245 558 Get/Set auto pop mode. If true automatically pops oldest
-elements when queue is full. Type: bool. Default value: 0.;
+elements when queue is full. Type: bool. Default value: 0\.;
 #X msg 110 600 @max_size;
-#X text 245 600 Get/Set max queue size. Type: int. Default value: 32.
-Range: 1...1024.;
+#X text 245 600 Get/Set max queue size. Type: int. Default value: 32\.
+Range: 1\...1024\.;
 #X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 657 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 658 1.;
+#X text 110 658 1\.;
 #X text 150 658 *any*;
 #X text 245 658 1st queue input messages.;
 #X text 110 678 ....;
@@ -50,7 +50,7 @@ Range: 1...1024.;
 #X text 110 698 n.;
 #X text 150 698 *any*;
 #X text 245 698 n-th queue input messages.;
-#X text 110 718 n+1.;
+#X text 110 718 n+1\.;
 #X text 150 718 *any*;
 #X text 245 718 clear: remove all elements from all queues \, output:
 output all element from all queues \, flush: output and clear all element
@@ -59,7 +59,7 @@ all queues.;
 #X obj 20 793 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 798 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 799 1.;
+#X text 110 799 1\.;
 #X text 245 799 1st queue output.;
 #X text 110 819 ....;
 #X text 245 819 ... queue output.;

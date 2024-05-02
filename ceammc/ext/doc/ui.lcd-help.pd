@@ -18,25 +18,25 @@
 -49933 0;
 #X msg 110 406 @cols;
 #X text 245 406 Get/Set number of columns. Type: int. Default value:
-8. Range: 2...128.;
+8\. Range: 2\...128\.;
 #X msg 110 448 @receive;
 #X text 245 448 Get/Set receive source. Type: symbol. Default value:
 (null).;
 #X msg 110 478 @rows;
-#X text 245 478 Get/Set number of rows. Type: int. Default value: 8.
-Range: 2...128.;
+#X text 245 478 Get/Set number of rows. Type: int. Default value: 8\.
+Range: 2\...128\.;
 #X msg 110 520 @send;
 #X text 245 520 Get/Set send destination. Type: symbol. Default value:
 (null).;
 #X msg 110 562 @background_color;
 #X text 245 562 Get/Set element background color (list of red \, green
-\, blue values in 0-1 range). Type: list. Default value: 1 1 1 1.;
+\, blue values in 0-1 range). Type: list. Default value: 1 1 1 1\.;
 #X msg 110 604 @border_color;
 #X text 245 604 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 646 @label_color;
 #X text 245 646 Get/Set label color in RGB format within 0-1 range
-\, for example: 0.2 0.4 0.1. Type: list. Default value: 0 0 0 1.;
+\, for example: 0.2 0.4 0.1\. Type: list. Default value: 0 0 0 1\.;
 #X msg 110 688 @label;
 #X text 245 688 Get/Set label text. Type: symbol. Default value: (null).;
 #X msg 110 718 @label_align;
@@ -44,10 +44,10 @@ values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
 value: left. Allowed values: left \, center \, right.;
 #X msg 110 760 @label_inner;
 #X text 245 760 Get/Set label position (1 - inner \, 0 - outer). Type:
-bool. Default value: 0.;
+bool. Default value: 0\.;
 #X msg 110 802 @label_margins;
 #X text 245 802 Get/Set label offset in pixels. Type: list. Default
-value: 0 0.;
+value: 0 0\.;
 #X msg 110 844 @label_side;
 #X text 245 844 Get/Set label snap side. Type: symbol. Default value:
 top. Allowed values: left \, top \, right \, bottom.;
@@ -58,8 +58,8 @@ value: top. Allowed values: top \, center \, bottom.;
 #X text 245 928 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 970 @fontsize;
-#X text 245 970 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 970 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 1012 @fontslant;
 #X text 245 1012 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -68,13 +68,13 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 1096 @pinned;
 #X text 245 1096 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1138 @size;
 #X text 245 1138 Get/Set element size (width \, height pair). Type:
-list. Default value: 64 64.;
+list. Default value: 64 64\.;
 #X msg 110 1180 @pixels?;
 #X text 245 1180 (readonly) Get number of pixels. Type: int. Default
-value: 64.;
+value: 64\.;
 #X obj 20 1232 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1237 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -84,17 +84,17 @@ value: 64.;
 #X text 245 1300 moves draw cursor down along y-asis ans draw single
 pixel. Arguments are:;
 #X obj 255 1338 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1338 [YOFF]: y-offset. If omitted: 1. Type: int.;
+#X text 255 1338 [YOFF]: y-offset. If omitted: 1\. Type: int.;
 #X msg 110 1363 draw left;
 #X text 245 1363 moves draw cursor left along x-asis ans draw single
 pixel. Arguments are:;
 #X obj 255 1401 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1401 [XOFF]: x-offset. If omitted: 1. Type: int.;
+#X text 255 1401 [XOFF]: x-offset. If omitted: 1\. Type: int.;
 #X msg 110 1426 draw right;
 #X text 245 1426 moves cursor right along x-asis ans draw single pixel.
 Arguments are:;
 #X obj 255 1464 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1464 [XOFF]: x-offset. If omitted: 1. Type: int.;
+#X text 255 1464 [XOFF]: x-offset. If omitted: 1\. Type: int.;
 #X msg 110 1489 draw set;
 #X text 245 1489 set drawing value. Arguments are:;
 #X obj 255 1512 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -104,7 +104,7 @@ bool.;
 #X text 245 1537 moves draw cursor up along y-asis ans draw single
 pixel. Arguments are:;
 #X obj 255 1575 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1575 [YOFF]: y-offset. If omitted: 1. Type: int.;
+#X text 255 1575 [YOFF]: y-offset. If omitted: 1\. Type: int.;
 #X msg 110 1600 invert;
 #X text 245 1600 invert display.;
 #X msg 110 1628 pos;
@@ -148,12 +148,12 @@ pixel. Arguments are:;
 #X obj 20 2092 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2097 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2098 1.;
+#X text 110 2098 1\.;
 #X text 245 2098 command input.;
 #X obj 20 2128 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2133 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2134 1.;
+#X text 110 2134 1\.;
 #X text 245 2134 ...;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

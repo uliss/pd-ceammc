@@ -9,7 +9,7 @@
 #X obj 686 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.knob] @url ui.knob-help.pd;
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Simple knob widget with default range 0-1.;
+#X text 215 80 Simple knob widget with default range 0-1\.;
 #X obj 50 143 hslider 128 15 0.0 10.0 0 0 empty empty empty 17 7 0 10
 -262144 -1 -1 0 0;
 #X floatatom 50 187 5 0 0 0 - - -;
@@ -53,11 +53,11 @@
 #X obj 20 604 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 609 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 644 1.;
+#X text 110 644 1\.;
 #X text 150 644 float;
 #X obj 246 645 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 644 MIN: min value. Type: float.;
-#X text 110 664 2.;
+#X text 110 664 2\.;
 #X text 150 664 float;
 #X obj 246 665 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 664 MAX: max value. Type: float.;
@@ -66,54 +66,54 @@
 -49933 0;
 #X msg 110 734 @active_scale;
 #X text 245 734 Get/Set if should draw active scale. Type: bool. Default
-value: 0.;
+value: 0\.;
 #X msg 110 776 @max;
 #X text 245 776 Get/Set maximum knob value. Type: float. Default value:
-1.;
+1\.;
 #X msg 110 806 @min;
 #X text 245 806 Get/Set minimum knob value. Type: float. Default value:
-0.;
+0\.;
 #X msg 110 836 @mouse_events;
 #X text 245 836 Get/Set mouse events output mode. If on outputs @mouse_down
-\, @mouse_up and @mouse_drag events. Type: bool. Default value: 0.;
+\, @mouse_up and @mouse_drag events. Type: bool. Default value: 0\.;
 #X msg 110 893 @scale;
 #X text 245 893 Get/Set scale mode. Linear or logarithmic. Type: symbol.
 Default value: linear. Allowed values: linear \, log.;
 #X msg 110 935 @show_range;
 #X text 245 935 Get/Set show knob range. Type: bool. Default value:
-0.;
+0\.;
 #X msg 110 965 @show_value;
-#X text 245 965 Get/Set show value. Type: bool. Default value: 0.;
+#X text 245 965 Get/Set show value. Type: bool. Default value: 0\.;
 #X msg 110 995 @value;
 #X text 245 995 Get/Set current value. Type: float. Default value:
-0.;
+0\.;
 #X msg 110 1025 @midi_channel;
 #X text 245 1025 Get/Set binded MIDI channel. 0 means listen to all
-channels. Type: int. Default value: 0. Range: 0...16.;
+channels. Type: int. Default value: 0\. Range: 0\...16\.;
 #X msg 110 1067 @midi_control;
 #X text 245 1067 Get/Set binded MIDI controller number. -1 means not
-binded to any controller. Type: int. Default value: -1. Range: -1...127.;
+binded to any controller. Type: int. Default value: -1\. Range: -1\...127\.;
 #X msg 110 1124 @midi_pickup;
 #X text 245 1124 Get/Set pickup current value. If slider is binded
 to value \, first time you should pass over this value to make binding.
 It prevents from sudden value change on first control change. Type:
-bool. Default value: 1.;
+bool. Default value: 1\.;
 #X msg 110 1196 @background_color;
 #X text 245 1196 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1.;
+0.93 1\.;
 #X msg 110 1253 @border_color;
 #X text 245 1253 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 1295 @knob_color;
 #X text 245 1295 Get/Set knob color (list of red \, green \, blue values
-in 0-1 range). Type: list. Default value: 0 0.75 1 1.;
+in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 1337 @label_color;
 #X text 245 1337 Get/Set label color in RGB format within 0-1 range
-\, for example: 0.2 0.4 0.1. Type: list. Default value: 0 0 0 1.;
+\, for example: 0.2 0.4 0.1\. Type: list. Default value: 0 0 0 1\.;
 #X msg 110 1379 @scale_color;
 #X text 245 1379 Get/Set scale color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 1421 @label;
 #X text 245 1421 Get/Set label text. Type: symbol. Default value: (null).;
 #X msg 110 1451 @label_align;
@@ -121,10 +121,10 @@ values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
 value: left. Allowed values: left \, center \, right.;
 #X msg 110 1493 @label_inner;
 #X text 245 1493 Get/Set label position (1 - inner \, 0 - outer). Type:
-bool. Default value: 0.;
+bool. Default value: 0\.;
 #X msg 110 1535 @label_margins;
 #X text 245 1535 Get/Set label offset in pixels. Type: list. Default
-value: 0 0.;
+value: 0 0\.;
 #X msg 110 1577 @label_side;
 #X text 245 1577 Get/Set label snap side. Type: symbol. Default value:
 top. Allowed values: left \, top \, right \, bottom.;
@@ -135,8 +135,8 @@ value: top. Allowed values: top \, center \, bottom.;
 #X text 245 1661 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1703 @fontsize;
-#X text 245 1703 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 1703 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 1745 @fontslant;
 #X text 245 1745 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -145,7 +145,7 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 1829 @pinned;
 #X text 245 1829 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1871 @presetname;
 #X text 245 1871 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
@@ -157,7 +157,7 @@ symbol. Default value: (null).;
 (null).;
 #X msg 110 1985 @size;
 #X text 245 1985 Get/Set element size (width \, height pair). Type:
-list. Default value: 40 40.;
+list. Default value: 40 40\.;
 #X obj 20 2037 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2042 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -215,7 +215,7 @@ are:;
 #X obj 20 2702 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2707 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2708 1.;
+#X text 110 2708 1\.;
 #X text 150 2708 *bang*;
 #X text 245 2708 outputs knob value.;
 #X text 150 2728 *float*;
@@ -223,7 +223,7 @@ are:;
 #X obj 20 2758 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2763 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2764 1.;
+#X text 110 2764 1\.;
 #X text 245 2764 knob output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

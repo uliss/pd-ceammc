@@ -26,12 +26,12 @@ time;
 #X obj 20 510 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 515 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 550 1.;
+#X text 110 550 1\.;
 #X text 150 550 float;
 #X obj 246 551 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 550 DELAY(ms): time space between messages. Type: float.
 Min value: 1;
-#X text 110 585 2.;
+#X text 110 585 2\.;
 #X text 150 585 int;
 #X obj 246 586 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 585 DONE: time space = N*space after last outputted message.
@@ -41,20 +41,20 @@ Type: int. Min value: 0;
 -49933 0;
 #X msg 110 670 @delay;
 #X text 245 670 Get/Set time-space between messages. Type: float. Units:
-'ms'. Default value: 1. Min value: 1.;
+'ms'. Default value: 1\. Min value: 1\.;
 #X msg 110 712 @dev;
 #X text 245 712 Get/Set random deviation. Type: float. Default value:
-0. Range: 0...1.;
+0\. Range: 0\...1\.;
 #X msg 110 754 @done;
 #X text 245 754 Get/Set time space (=@done*@delay) after last outputted
 message. After that delay output bang to second outlet. Type: int.
-Default value: 1. Min value: 0.;
+Default value: 1\. Min value: 0\.;
 #X obj 20 821 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 826 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 827 1.;
+#X text 110 827 1\.;
 #X text 245 827 messages.;
-#X text 110 847 2.;
+#X text 110 847 2\.;
 #X text 150 847 *float*;
 #X text 245 847 set space interval (ms).;
 #X text 245 867 reset: cancel all scheduled outputs and clear message
@@ -64,9 +64,9 @@ queue.;
 #X obj 20 937 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 942 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 943 1.;
+#X text 110 943 1\.;
 #X text 245 943 output.;
-#X text 110 963 2.;
+#X text 110 963 2\.;
 #X text 245 963 bang on finish (after @delay*@done ms after last outputted
 message).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

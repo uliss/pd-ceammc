@@ -24,10 +24,10 @@
 #X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 461 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 496 1.;
+#X text 110 496 1\.;
 #X text 150 496 float;
 #X obj 246 497 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 496 DRYWET: drywet mix. Type: float. Range: 0...1;
+#X text 245 496 DRYWET: drywet mix. Type: float. Range: 0\...1;
 #X obj 20 526 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 531 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -40,14 +40,14 @@ bind to /fx_jcrev/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 653 @active;
 #X text 245 653 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 683 @bypass;
 #X text 245 683 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0.;
+Type: bool. Default value: 0\.;
 #X msg 110 725 @drywet;
 #X text 245 725 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 0.4. Range: 0...1.;
+Default value: 0.4\. Range: 0\...1\.;
 #X obj 20 792 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 797 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -56,21 +56,21 @@ Default value: 0.4. Range: 0...1.;
 #X obj 20 870 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 875 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 876 1.;
+#X text 110 876 1\.;
 #X text 245 876 input signal.;
-#X text 110 896 2.;
+#X text 110 896 2\.;
 #X text 150 896 *float*;
 #X text 245 896 set drywet.;
 #X obj 20 926 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 931 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 932 1.;
+#X text 110 932 1\.;
 #X text 245 932 first output signal.;
-#X text 110 952 2.;
+#X text 110 952 2\.;
 #X text 245 952 second output signal.;
-#X text 110 972 3.;
+#X text 110 972 3\.;
 #X text 245 972 third output signal.;
-#X text 110 992 4.;
+#X text 110 992 4\.;
 #X text 245 992 fourth output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

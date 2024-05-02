@@ -22,17 +22,17 @@ configuration or for headphones.;
 #X obj 20 376 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 381 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 416 1.;
+#X text 110 416 1\.;
 #X text 150 416 int;
 #X obj 246 417 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 416 ORDER: the order of decomposition. Type: int. Range:
-1...10;
-#X text 110 436 2.;
+1\...10;
+#X text 110 436 2\.;
 #X text 150 436 symbol;
 #X obj 246 437 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 436 MODE: decoding mode. Allowed values: binaural \, regular.
 Type: symbol.;
-#X text 110 471 3.;
+#X text 110 471 3\.;
 #X text 150 471 int;
 #X obj 246 472 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 471 NCH: number of loud speakers. Type: int.;
@@ -41,13 +41,13 @@ Type: symbol.;
 -49933 0;
 #X msg 110 541 @nch;
 #X text 245 541 (initonly) Get/Set number of plain waves. Type: int.
-Default value: 0. Min value: 1.;
+Default value: 0\. Min value: 1\.;
 #X msg 110 583 @order;
 #X text 245 583 (initonly) Get/Set the order of decomposition. Type:
-int. Default value: 1. Range: 1...10.;
+int. Default value: 1\. Range: 1\...10\.;
 #X msg 110 625 @angles;
 #X text 245 625 Get/Set angles of loudspeakers. Type: list. Units:
-'deg'. Default value: 0 90 0 340.5288 120 340.5288 240 340.5288.;
+'deg'. Default value: 0 90 0 340.5288 120 340.5288 240 340.5288\.;
 #X msg 110 667 @binaural;
 #X text 245 667 alias for @mode binaural.;
 #X msg 110 697 @mode;
@@ -56,31 +56,31 @@ regular. Allowed values: regular \, binaural.;
 #X msg 110 739 @offset;
 #X text 245 739 Get/Set rotation of loudspeakers. Only available for
 @regular and @irregular mode. Type: list. Units: 'deg'. Default value:
-0 0 0.;
+0 0 0\.;
 #X msg 110 796 @regular;
 #X text 245 796 alias for @mode regular.;
 #X msg 110 826 @nharm?;
 #X text 245 826 (readonly) Get number of circular harmonics. Type:
-int. Default value: 4. Min value: 1.;
+int. Default value: 4\. Min value: 1\.;
 #X msg 110 868 @pw_x?;
 #X text 245 868 (readonly) Get list of plain wave x-coordinates (abscissas).
 -1 is the left of the soundfield \, 0 is the center of the soundfield
 and 1 is the right of the soundfield. Type: list. Units: 'rad'. Default
-value: 0.0 -0.0 -0.8165 0.8165. Range: -1...1.;
+value: 0.0 -0.0 -0.8165 0.8165\. Range: -1\...1\.;
 #X msg 110 955 @pw_y?;
 #X text 245 955 (readonly) Get list of plain wave y-coordinates (ordinatas).
 -1 is the back of the soundfield \, 0 is the center of the soundfield
 and 1 is the front of the soundfield. Type: list. Units: 'rad'. Default
-value: -0.0 0.9428 -0.4714 -0.4714. Range: -1...1.;
+value: -0.0 0.9428 -0.4714 -0.4714\. Range: -1\...1\.;
 #X msg 110 1042 @pw_z?;
 #X text 245 1042 (readonly) Get list of plain wave z-coordinates (heights).
 -1 is the bottom of the soundfield \, 0 is the center of the soundfield
 and 1 is the top of the soundfield. Type: list. Units: 'rad'. Default
-value: 1 -0.3333 -0.3333 -0.3333. Range: -1...1.;
+value: 1 -0.3333 -0.3333 -0.3333\. Range: -1\...1\.;
 #X obj 20 1139 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1144 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1145 1.;
+#X text 110 1145 1\.;
 #X text 245 1145 first input harmonic.;
 #X text 110 1165 ....;
 #X text 245 1165 ... input harmonic.;
@@ -89,7 +89,7 @@ value: 1 -0.3333 -0.3333 -0.3333. Range: -1...1.;
 #X obj 20 1215 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1220 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1221 1.;
+#X text 110 1221 1\.;
 #X text 245 1221 first loudspeaker output.;
 #X text 110 1241 ....;
 #X text 245 1241 ... loudspeaker output.;

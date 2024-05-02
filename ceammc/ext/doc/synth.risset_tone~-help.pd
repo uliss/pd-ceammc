@@ -18,15 +18,15 @@
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 375 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 410 1.;
+#X text 110 410 1\.;
 #X text 150 410 float;
 #X obj 246 411 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 410 CENTROID: main frequency (MIDI pitch). Type: float.
-Range: 20...120;
-#X text 110 445 2.;
+Range: 20\...120;
+#X text 110 445 2\.;
 #X text 150 445 float;
 #X obj 246 446 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 445 RATE: glissanso speed. Type: float. Range: -2...2;
+#X text 245 445 RATE: glissanso speed. Type: float. Range: -2\...2;
 #X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 480 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -39,16 +39,16 @@ bind all properties to /ID/synth_risset_tone/PROP_NAME osc address
 symbol.;
 #X msg 110 602 @active;
 #X text 245 602 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 632 @centroid;
 #X text 245 632 Get/Set main frequency. Units: MIDI note. Type: float.
-Default value: 60. Range: 20...120.;
+Default value: 60\. Range: 20\...120\.;
 #X msg 110 674 @range;
 #X text 245 674 Get/Set glissando range in MIDI note units. Type: float.
-Default value: 120. Range: 1...120.;
+Default value: 120\. Range: 1\...120\.;
 #X msg 110 716 @rate;
 #X text 245 716 Get/Set glissanso speed. Type: float. Default value:
-0.01. Range: -2...2.;
+0.01\. Range: -2\...2\.;
 #X obj 20 768 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 773 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -57,13 +57,13 @@ Default value: 120. Range: 1...120.;
 #X obj 20 846 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 851 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 852 1.;
+#X text 110 852 1\.;
 #X text 150 852 *bang*;
 #X text 245 852 reset to start position.;
 #X obj 20 882 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 887 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 888 1.;
+#X text 110 888 1\.;
 #X text 245 888 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

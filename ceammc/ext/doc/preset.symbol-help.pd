@@ -23,12 +23,12 @@ various symbol values;
 #X obj 20 365 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 370 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 405 1.;
+#X text 110 405 1\.;
 #X text 150 405 symbol;
 #X obj 246 406 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 405 ID: preset id (should be unique in most use cases).
 Type: symbol.;
-#X text 110 440 2.;
+#X text 110 440 2\.;
 #X text 150 440 symbol;
 #X obj 246 441 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 440 INIT: preset initial value. Type: symbol.;
@@ -36,13 +36,13 @@ Type: symbol.;
 #X obj 20 475 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 510 @global;
-#X text 245 510 use global path like /ID. Default value: 0.;
+#X text 245 510 use global path like /ID. Default value: 0\.;
 #X msg 110 540 @id;
 #X text 245 540 (initonly) Get/Set preset id. Type: symbol.;
 #X msg 110 570 @init;
 #X text 245 570 (initonly) Get/Set init symbol value. Type: symbol.;
 #X msg 110 600 @subpatch;
-#X text 245 600 include subpatch name to path. Default value: 0.;
+#X text 245 600 include subpatch name to path. Default value: 0\.;
 #X msg 110 630 @path?;
 #X text 245 630 (readonly) Get property OSC-like path that includes
 id \, abstraction name and may be subpatch name separated by slashes.
@@ -61,13 +61,13 @@ Type: symbol.;
 #X obj 20 859 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 864 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 865 1.;
+#X text 110 865 1\.;
 #X text 150 865 *symbol*;
 #X text 245 865 set preset value without output.;
 #X obj 20 895 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 900 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 901 1.;
+#X text 110 901 1\.;
 #X text 245 901 preset symbol value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

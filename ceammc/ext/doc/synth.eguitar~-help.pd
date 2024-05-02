@@ -33,25 +33,25 @@ empty bind to /synth_eguitar/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 583 @active;
 #X text 245 583 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 613 @freq;
 #X text 245 613 Get/Set frequency. Type: float. Units: 'Hz'. Default
-value: 130.8128.;
+value: 130.8128\.;
 #X msg 110 655 @gain;
-#X text 245 655 Get/Set pluck gain. Type: float. Default value: 1.
-Range: 0...1.;
+#X text 245 655 Get/Set pluck gain. Type: float. Default value: 1\.
+Range: 0\...1\.;
 #X msg 110 697 @gate;
 #X text 245 697 Get/Set play trigger - 1: on \, 0: off. Type: float.
-Default value: 0. Range: 0...1.;
+Default value: 0\. Range: 0\...1\.;
 #X msg 110 739 @mute;
 #X text 245 739 Get/Set mute coefficient (0 for no mute and 1 for instant
-mute). Type: float. Default value: 0. Range: 0...1.;
+mute). Type: float. Default value: 0\. Range: 0\...1\.;
 #X msg 110 781 @pitch;
-#X text 245 781 Get/Set midi pitch. Type: float. Default value: 48.
-Range: 36...84.;
+#X text 245 781 Get/Set midi pitch. Type: float. Default value: 48\.
+Range: 36\...84\.;
 #X msg 110 823 @pos;
 #X text 245 823 Get/Set pluck position (1 is on the bridge). Type:
-float. Default value: 0.5. Range: 0...1.;
+float. Default value: 0.5\. Range: 0\...1\.;
 #X obj 20 875 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 880 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -60,17 +60,17 @@ float. Default value: 0.5. Range: 0...1.;
 #X obj 255 938 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 938 NOTE: midi note. Type: float.;
 #X obj 255 961 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 961 VEL: velocity. Type: float. Range: 0...127.;
+#X text 255 961 VEL: velocity. Type: float. Range: 0\...127\.;
 #X obj 20 996 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1001 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1002 1.;
+#X text 110 1002 1\.;
 #X text 150 1002 *list*;
 #X text 245 1002 NOTE VEL.;
 #X obj 20 1032 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1037 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1038 1.;
+#X text 110 1038 1\.;
 #X text 245 1038;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

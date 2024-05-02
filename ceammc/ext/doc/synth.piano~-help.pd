@@ -25,40 +25,40 @@ empty bind to /synth_piano/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 555 @active;
 #X text 245 555 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 585 @brightness;
-#X text 245 585 Get/Set brightness. Type: float. Default value: 0.
-Range: 0...1.;
+#X text 245 585 Get/Set brightness. Type: float. Default value: 0\.
+Range: 0\...1\.;
 #X msg 110 627 @detuning;
 #X text 245 627 Get/Set detuning factor. Type: float. Default value:
-0.1. Range: 0...1.;
+0.1\. Range: 0\...1\.;
 #X msg 110 669 @freq;
 #X text 245 669 Get/Set frequency. Type: float. Units: 'Hz'. Default
-value: 130.8128.;
+value: 130.8128\.;
 #X msg 110 711 @gate;
 #X text 245 711 Get/Set play trigger - 1: on \, 0: off. Type: float.
-Default value: 0. Range: 0...1.;
+Default value: 0\. Range: 0\...1\.;
 #X msg 110 753 @hammer_hardness;
 #X text 245 753 Get/Set hammer hardness. Type: float. Default value:
-0.1. Range: 0...1.;
+0.1\. Range: 0\...1\.;
 #X msg 110 795 @pan;
-#X text 245 795 Get/Set pan angle. Type: float. Default value: 0.6.
-Range: 0...1.;
+#X text 245 795 Get/Set pan angle. Type: float. Default value: 0.6\.
+Range: 0\...1\.;
 #X msg 110 837 @pitch;
-#X text 245 837 Get/Set midi pitch. Type: float. Default value: 48.
-Range: 21...108.;
+#X text 245 837 Get/Set midi pitch. Type: float. Default value: 48\.
+Range: 21\...108\.;
 #X msg 110 879 @reverb_gain;
-#X text 245 879 Get/Set reverb gain. Type: float. Default value: 0.137.
-Range: 0...1.;
+#X text 245 879 Get/Set reverb gain. Type: float. Default value: 0.137\.
+Range: 0\...1\.;
 #X msg 110 921 @room_size;
 #X text 245 921 Get/Set reverb room size. Type: float. Default value:
-0.36. Range: 0.005...1.;
+0.36\. Range: 0.005\...1\.;
 #X msg 110 963 @stiffness;
 #X text 245 963 Get/Set stiffness factor. Type: float. Default value:
-0.28. Range: 0...1.;
+0.28\. Range: 0\...1\.;
 #X msg 110 1005 @width;
 #X text 245 1005 Get/Set spatialization width. Type: float. Default
-value: 0.5. Range: 0...1.;
+value: 0.5\. Range: 0\...1\.;
 #X obj 20 1057 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1062 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -67,21 +67,21 @@ value: 0.5. Range: 0...1.;
 #X obj 255 1120 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1120 NOTE: midi note. Type: float.;
 #X obj 255 1143 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1143 VEL: velocity. Type: float. Range: 0...127.;
+#X text 255 1143 VEL: velocity. Type: float. Range: 0\...127\.;
 #X msg 110 1168 reset;
 #X text 245 1168 reset synth.;
 #X obj 20 1206 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1211 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1212 1.;
+#X text 110 1212 1\.;
 #X text 150 1212 *list*;
 #X text 245 1212 NOTE VEL.;
 #X obj 20 1242 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1247 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1248 1.;
+#X text 110 1248 1\.;
 #X text 245 1248 left output.;
-#X text 110 1268 2.;
+#X text 110 1268 2\.;
 #X text 245 1268 right output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

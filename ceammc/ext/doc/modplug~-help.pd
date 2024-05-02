@@ -29,16 +29,16 @@
 #X text 245 381 Get/Set function called with bang when playing is finished.
 Type: symbol.;
 #X msg 110 423 @play;
-#X text 245 423 Get/Set play state. Type: bool. Default value: 0.;
+#X text 245 423 Get/Set play state. Type: bool. Default value: 0\.;
 #X msg 110 453 @pos;
 #X text 245 453 Get/Set position in mod file. Type: float. Units: 'ms'.
-Default value: -1.;
+Default value: -1\.;
 #X msg 110 495 @rpos;
 #X text 245 495 Get/Set relative position in mod file. Type: float.
-Default value: 0. Range: 0...1.;
+Default value: 0\. Range: 0\...1\.;
 #X msg 110 537 @len?;
 #X text 245 537 (readonly) Get length of mod file. Type: float. Units:
-'ms'. Default value: 0.;
+'ms'. Default value: 0\.;
 #X msg 110 579 @name?;
 #X text 245 579 (readonly) Get mod name. Type: symbol.;
 #X obj 20 619 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -53,15 +53,15 @@ Default value: 0. Range: 0...1.;
 #X obj 20 753 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 758 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 759 1.;
+#X text 110 759 1\.;
 #X text 150 759 *symbol*;
 #X text 245 759 load mod file.;
 #X obj 20 789 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 794 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 795 1.;
+#X text 110 795 1\.;
 #X text 245 795 left channel and property output.;
-#X text 110 815 2.;
+#X text 110 815 2\.;
 #X text 245 815 right channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

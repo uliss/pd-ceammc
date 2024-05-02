@@ -23,22 +23,22 @@
 #X obj 20 323 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 328 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 363 1.;
+#X text 110 363 1\.;
 #X text 150 363 int;
 #X obj 246 364 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 363 N: number of arguments. Type: int. Range: 3...16;
+#X text 245 363 N: number of arguments. Type: int. Range: 3\...16;
 #X obj 20 393 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 398 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 433 @n;
 #X text 245 433 (initonly) Get/Set number of arguments. Type: int.
-Default value: 3. Range: 3...16.;
+Default value: 3\. Range: 3\...16\.;
 #X msg 110 475 @sync;
 #X text 245 475 if specified - all inlets are 'hot'. Default value:
-0.;
+0\.;
 #X msg 110 505 @state?;
 #X text 245 505 (readonly) Get internal logic state as list of 1 and
-0. Type: list.;
+0\. Type: list.;
 #X obj 20 557 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 562 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -47,19 +47,19 @@ Default value: 3. Range: 3...16.;
 #X obj 20 635 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 640 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 641 1.;
+#X text 110 641 1\.;
 #X text 150 641 *float*;
-#X text 245 641 1 or 0.;
+#X text 245 641 1 or 0\.;
 #X text 110 661 ....;
 #X text 150 661 *float*;
-#X text 245 661 1 or 0.;
+#X text 245 661 1 or 0\.;
 #X text 110 681 n.;
 #X text 150 681 *float*;
-#X text 245 681 1 or 0.;
+#X text 245 681 1 or 0\.;
 #X obj 20 711 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 716 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 717 1.;
+#X text 110 717 1\.;
 #X text 245 717 1 - if all input values are true (1) \, 0 - otherwise.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

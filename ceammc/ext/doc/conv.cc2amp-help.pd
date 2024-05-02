@@ -8,7 +8,7 @@
 #X obj 584 11 cc->amp;
 #X obj 660 11 conv.cc2amp;
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 By default converts from [0..127] to [0..1];
+#X text 215 80 By default converts from [0\..127] to [0\..1];
 #X floatatom 50 143 5 0 127 0 - - -;
 #X obj 88 172 ctlin 0;
 #X floatatom 203 172 5 0 127 0 - - -;
@@ -19,11 +19,11 @@
 #X obj 20 262 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 267 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 302 1.;
+#X text 110 302 1\.;
 #X text 150 302 float;
 #X obj 246 303 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 302 FROM: start value of output range. Type: float.;
-#X text 110 322 2.;
+#X text 110 322 2\.;
 #X text 150 322 float;
 #X obj 246 323 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 322 TO: end value of output range. Type: float.;
@@ -32,20 +32,20 @@
 -49933 0;
 #X msg 110 392 @from;
 #X text 245 392 Get/Set start value of output range. Type: float. Default
-value: 0.;
+value: 0\.;
 #X msg 110 434 @to;
 #X text 245 434 Get/Set end value of output range. Type: float. Default
-value: 1.;
+value: 1\.;
 #X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 491 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 492 1.;
+#X text 110 492 1\.;
 #X text 150 492 *float*;
-#X text 245 492 value in MIDI CC range [0..127].;
+#X text 245 492 value in MIDI CC range [0\..127].;
 #X obj 20 522 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 527 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 528 1.;
+#X text 110 528 1\.;
 #X text 245 528 converted value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

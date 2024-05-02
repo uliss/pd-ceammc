@@ -25,32 +25,32 @@
 #X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 519 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 554 1.;
+#X text 110 554 1\.;
 #X text 150 554 int;
 #X obj 246 555 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 554 N: number of input channels. Type: int. Range: 2...16;
+#X text 245 554 N: number of input channels. Type: int. Range: 2\...16;
 #X obj 20 584 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 589 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 624 @n;
 #X text 245 624 (initonly) Get/Set number of input channels. Type:
-int. Default value: 2. Range: 2...16.;
+int. Default value: 2\. Range: 2\...16\.;
 #X msg 110 666 @center;
 #X text 245 666 Get/Set shift the centre of the distribution. Type:
-float. Default value: 0. Range: -0.5...0.5.;
+float. Default value: 0\. Range: -0.5\...0.5\.;
 #X msg 110 708 @compensate;
 #X text 245 708 Get/Set compensate output level: divide amplitude to
-number of input channels. Type: bool. Default value: 0.;
+number of input channels. Type: bool. Default value: 0\.;
 #X msg 110 750 @spread;
 #X text 245 750 Get/Set for @spread = 0 \, all channels are in the
 centre \, for 1 \, they have maximum distribution. Type: float. Default
-value: 1. Range: 0...1.;
+value: 1\. Range: 0\...1\.;
 #X msg 110 807 @coeffs?;
 #X text 245 807 (readonly) Get list of gain pairs. Type: list.;
 #X obj 20 847 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 852 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 853 1.;
+#X text 110 853 1\.;
 #X text 245 853 input signal.;
 #X text 110 873 ....;
 #X text 245 873 input signal.;
@@ -59,9 +59,9 @@ value: 1. Range: 0...1.;
 #X obj 20 923 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 928 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 929 1.;
+#X text 110 929 1\.;
 #X text 245 929 left output channel.;
-#X text 110 949 2.;
+#X text 110 949 2\.;
 #X text 245 949 right output channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

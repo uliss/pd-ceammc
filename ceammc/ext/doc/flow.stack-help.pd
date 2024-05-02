@@ -18,7 +18,7 @@
 #X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 289 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 324 1.;
+#X text 110 324 1\.;
 #X text 150 324 int;
 #X obj 246 325 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 324 MAX_SIZE: max stack size. Type: int. Min value: 1;
@@ -27,7 +27,7 @@
 -49933 0;
 #X msg 110 394 @max_size;
 #X text 245 394 Get/Set maximum stack grow size. Type: int. Default
-value: 100. Min value: 1.;
+value: 100\. Min value: 1\.;
 #X msg 110 436 @on_empty;
 #X text 245 436 Get/Set message send to destination address when stack
 becomes empty. First list element is address to send \, other additional
@@ -38,16 +38,16 @@ becomes full. First list element is address to send \, other additional
 elements treated as message or bang if not specified. Type: list.;
 #X msg 110 580 @empty?;
 #X text 245 580 (readonly) Get if stack is empty. Type: bool. Default
-value: 1.;
+value: 1\.;
 #X msg 110 622 @size?;
 #X text 245 622 (readonly) Get current number of elements in stack.
-Type: int. Default value: 0.;
+Type: int. Default value: 0\.;
 #X obj 20 674 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 679 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 680 1.;
+#X text 110 680 1\.;
 #X text 245 680 input: push to stack.;
-#X text 110 700 2.;
+#X text 110 700 2\.;
 #X text 150 700 *bang*;
 #X text 245 700 output and remove top element.;
 #X text 245 720 top: output top element.;
@@ -57,7 +57,7 @@ Type: int. Default value: 0.;
 #X obj 20 810 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 815 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 816 1.;
+#X text 110 816 1\.;
 #X text 245 816 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

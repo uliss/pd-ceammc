@@ -9,8 +9,8 @@
 #X text 215 80 The tanh() function computes the hyperbolic tangent
 of x.;
 #X text 215 105 Special values:;
-#X text 215 130 tanh(+-0) returns +-0.;
-#X text 215 155 tanh(+-infinity) returns +-1.;
+#X text 215 130 tanh(+-0) returns +-0\.;
+#X text 215 155 tanh(+-infinity) returns +-1\.;
 #X msg 50 218 bang;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array TANH 100 float 1;
@@ -25,7 +25,7 @@ of x.;
 #X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 360 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 361 1.;
+#X text 110 361 1\.;
 #X text 150 361 *float*;
 #X text 245 361 input value.;
 #X text 150 381 *list*;
@@ -33,7 +33,7 @@ of x.;
 #X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 416 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 417 1.;
+#X text 110 417 1\.;
 #X text 245 417 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

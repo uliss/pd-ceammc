@@ -19,20 +19,20 @@ or cut near some frequency). Also called a "parametric equalizer" section.;
 #X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 389 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 424 1.;
+#X text 110 424 1\.;
 #X text 150 424 float;
 #X obj 246 425 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 424 FREQ(Hz): peak frequency. Type: float. Range: 20...20000;
-#X text 110 444 2.;
+#X text 245 424 FREQ(Hz): peak frequency. Type: float. Range: 20\...20000;
+#X text 110 444 2\.;
 #X text 150 444 float;
 #X obj 246 445 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 444 GAIN(db): level at fx (boost if >0 or cut if <0). Type:
-float. Range: -15...15;
-#X text 110 479 3.;
+float. Range: -15\...15;
+#X text 110 479 3\.;
 #X text 150 479 float;
 #X obj 246 480 cnv 1 108 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 479 BANDWIDTH(Hz): bandwidth of peak. Type: float. Range:
-1...5000;
+1\...5000;
 #X obj 20 524 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 529 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -45,25 +45,25 @@ empty bind to /flt_eq_peak/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 651 @active;
 #X text 245 651 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 681 @bandwidth;
 #X text 245 681 Get/Set bandwidth of peak. Type: float. Units: 'Hz'.
-Default value: 100. Range: 1...5000.;
+Default value: 100\. Range: 1\...5000\.;
 #X msg 110 723 @freq;
 #X text 245 723 Get/Set peak frequency. Type: float. Units: 'Hz'. Default
-value: 1000. Range: 20...20000.;
+value: 1000\. Range: 20\...20000\.;
 #X msg 110 765 @gain;
 #X text 245 765 Get/Set level at fx (boost if >0 or cut if <0). Type:
-float. Units: 'db'. Default value: 0. Range: -15...15.;
+float. Units: 'db'. Default value: 0\. Range: -15\...15\.;
 #X obj 20 817 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 822 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 823 1.;
+#X text 110 823 1\.;
 #X text 245 823 input signal.;
 #X obj 20 853 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 858 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 859 1.;
+#X text 110 859 1\.;
 #X text 245 859 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

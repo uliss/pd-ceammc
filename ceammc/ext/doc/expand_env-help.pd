@@ -32,11 +32,11 @@ doc directory \, %CEAMMC% - path to ceammc library directory;
 -49933 0;
 #X msg 110 591 @any;
 #X text 245 591 if specified - also do substitution in message selector.
-Default value: 0.;
+Default value: 0\.;
 #X obj 20 643 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 648 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 649 1.;
+#X text 110 649 1\.;
 #X text 150 649 *bang*;
 #X text 245 649 passed.;
 #X text 150 669 *float*;
@@ -51,7 +51,7 @@ Default value: 0.;
 #X obj 20 774 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 779 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 780 1.;
+#X text 110 780 1\.;
 #X text 245 780 output data stream.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

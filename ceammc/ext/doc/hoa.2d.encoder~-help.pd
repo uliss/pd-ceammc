@@ -22,28 +22,28 @@ of a given order and a position on a circle given in radians (θ).;
 #X obj 20 506 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 511 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 546 1.;
+#X text 110 546 1\.;
 #X text 150 546 int;
 #X obj 246 547 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 546 ORDER: the order of decomposition. Type: int. Range:
-1...63;
+1\...63;
 #X obj 20 576 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 581 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 616 @order;
 #X text 245 616 (initonly) Get/Set the order of decomposition. Type:
-int. Default value: 1. Range: 1...63.;
+int. Default value: 1\. Range: 1\...63\.;
 #X obj 20 668 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 673 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 674 1.;
+#X text 110 674 1\.;
 #X text 245 674 input signal.;
-#X text 110 694 2.;
+#X text 110 694 2\.;
 #X text 245 694 position on a circle in radians.;
 #X obj 20 724 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 729 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 730 1.;
+#X text 110 730 1\.;
 #X text 245 730 first circular harmonics output.;
 #X text 110 750 ....;
 #X text 245 750 ... circular harmonics output.;

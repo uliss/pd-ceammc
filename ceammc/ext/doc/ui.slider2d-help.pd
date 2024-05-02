@@ -36,7 +36,7 @@
 -49933 0;
 #X msg 110 571 @mouse_events;
 #X text 245 571 Get/Set mouse events output mode. If on outputs @mouse_down
-\, @mouse_up and @mouse_drag events. Type: bool. Default value: 0.;
+\, @mouse_up and @mouse_drag events. Type: bool. Default value: 0\.;
 #X msg 110 628 @receive;
 #X text 245 628 Get/Set receive source. Type: symbol. Default value:
 (null).;
@@ -44,37 +44,37 @@
 #X text 245 658 Get/Set send destination. Type: symbol. Default value:
 (null).;
 #X msg 110 700 @show_grid;
-#X text 245 700 Get/Set if show grid. Type: bool. Default value: 0.;
+#X text 245 700 Get/Set if show grid. Type: bool. Default value: 0\.;
 #X msg 110 730 @show_range;
 #X text 245 730 Get/Set if show slider range. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 760 @x_left;
 #X text 245 760 Get/Set leftmost x-value. Type: float. Default value:
--1.;
+-1\.;
 #X msg 110 790 @x_right;
 #X text 245 790 Get/Set rightmost x-value. Type: float. Default value:
-1.;
+1\.;
 #X msg 110 820 @x_value;
 #X text 245 820 Get/Set slider x-value. Type: float. Default value:
-0.;
+0\.;
 #X msg 110 850 @y_bottom;
 #X text 245 850 Get/Set bottom y-value. Type: float. Default value:
--1.;
+-1\.;
 #X msg 110 880 @y_top;
-#X text 245 880 Get/Set top y-value. Type: float. Default value: 1.;
+#X text 245 880 Get/Set top y-value. Type: float. Default value: 1\.;
 #X msg 110 910 @y_value;
 #X text 245 910 Get/Set slider y-value. Type: float. Default value:
-0.;
+0\.;
 #X msg 110 940 @background_color;
 #X text 245 940 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1.;
+0.93 1\.;
 #X msg 110 997 @border_color;
 #X text 245 997 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 1039 @label_color;
 #X text 245 1039 Get/Set label color in RGB format within 0-1 range
-\, for example: 0.2 0.4 0.1. Type: list. Default value: 0 0 0 1.;
+\, for example: 0.2 0.4 0.1\. Type: list. Default value: 0 0 0 1\.;
 #X msg 110 1081 @label;
 #X text 245 1081 Get/Set label text. Type: symbol. Default value: (null).;
 #X msg 110 1111 @label_align;
@@ -82,10 +82,10 @@ values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
 value: left. Allowed values: left \, center \, right.;
 #X msg 110 1153 @label_inner;
 #X text 245 1153 Get/Set label position (1 - inner \, 0 - outer). Type:
-bool. Default value: 0.;
+bool. Default value: 0\.;
 #X msg 110 1195 @label_margins;
 #X text 245 1195 Get/Set label offset in pixels. Type: list. Default
-value: 0 0.;
+value: 0 0\.;
 #X msg 110 1237 @label_side;
 #X text 245 1237 Get/Set label snap side. Type: symbol. Default value:
 top. Allowed values: left \, top \, right \, bottom.;
@@ -96,8 +96,8 @@ value: top. Allowed values: top \, center \, bottom.;
 #X text 245 1321 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1363 @fontsize;
-#X text 245 1363 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 1363 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 1405 @fontslant;
 #X text 245 1405 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -106,19 +106,19 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 1489 @pinned;
 #X text 245 1489 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1531 @presetname;
 #X text 245 1531 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
 #X msg 110 1573 @size;
 #X text 245 1573 Get/Set element size (width \, height pair). Type:
-list. Default value: 100 100.;
+list. Default value: 100 100\.;
 #X msg 110 1615 @x_range?;
 #X text 245 1615 (readonly) Get abs x-value range. Type: float. Default
-value: 2.;
+value: 2\.;
 #X msg 110 1657 @y_range?;
 #X text 245 1657 (readonly) Get abs y-value range. Type: float. Default
-value: 2.;
+value: 2\.;
 #X obj 20 1709 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1714 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -161,7 +161,7 @@ value: 2.;
 #X obj 20 2192 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2197 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2198 1.;
+#X text 110 2198 1\.;
 #X text 150 2198 *bang*;
 #X text 245 2198 outputs slider position.;
 #X text 150 2218 *list*;
@@ -169,7 +169,7 @@ value: 2.;
 #X obj 20 2248 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2253 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2254 1.;
+#X text 110 2254 1\.;
 #X text 245 2254 list output of two values: X and Y.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

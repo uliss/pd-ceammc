@@ -22,11 +22,11 @@
 #X obj 20 334 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 339 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 374 1.;
+#X text 110 374 1\.;
 #X text 150 374 symbol;
 #X obj 246 375 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 374 BPM(bpm): init tempo BPM value. Type: symbol.;
-#X text 110 394 2.;
+#X text 110 394 2\.;
 #X text 150 394 symbol;
 #X obj 246 395 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 394 TSIG: init time signature value. Type: symbol.;
@@ -42,7 +42,7 @@ value: |4/4|.;
 #X obj 20 558 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 563 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 564 1.;
+#X text 110 564 1\.;
 #X text 150 564 *bang*;
 #X text 245 564 output bar and beat duration.;
 #X text 150 584 *float*;
@@ -51,15 +51,15 @@ value: |4/4|.;
 #X text 245 604 set tempo BPM (like "120|8bpm") and output.;
 #X text 150 624 *list*;
 #X text 245 624 set tempo BPM and time signature \, then output.;
-#X text 110 644 2.;
+#X text 110 644 2\.;
 #X text 150 644 *symbol*;
 #X text 245 644 set time signature.;
 #X obj 20 674 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 679 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 680 1.;
+#X text 110 680 1\.;
 #X text 245 680 bar period in milliseconds.;
-#X text 110 700 2.;
+#X text 110 700 2\.;
 #X text 245 700 beat period in milliseconds.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

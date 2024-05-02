@@ -20,7 +20,7 @@ object;
 #X obj 20 295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 300 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 335 1.;
+#X text 110 335 1\.;
 #X text 150 335 int;
 #X obj 246 336 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 335 EXTRA: shortcut for @extra property. Type: int. Min
@@ -31,11 +31,11 @@ value: 0;
 #X msg 110 405 @extra;
 #X text 245 405 Get/Set extra inlet. Extra inlet are added to the "normal"
 instance inlet and can be used to send signal to all instances. Type:
-int. Default value: 0. Min value: 0.;
+int. Default value: 0\. Min value: 0\.;
 #X obj 20 472 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 477 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 478 1.;
+#X text 110 478 1\.;
 #X text 245 478 output signal from a hoa.process~ object's inlet.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

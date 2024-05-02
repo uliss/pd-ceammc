@@ -14,14 +14,14 @@
 #X obj 20 269 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 274 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 309 1.;
+#X text 110 309 1\.;
 #X text 150 309 symbol;
 #X obj 246 310 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 309 HOST: destination host. Type: symbol.;
-#X text 110 329 2.;
+#X text 110 329 2\.;
 #X text 150 329 int;
 #X obj 246 330 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 329 PORT: destination port. Type: int. Range: 1...32768;
+#X text 245 329 PORT: destination port. Type: int. Range: 1\...32768;
 #X obj 20 359 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 364 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -32,10 +32,10 @@ localhost.;
 #X text 245 441 Get/Set Basic Auth password. Type: atom.;
 #X msg 110 471 @port;
 #X text 245 471 Get/Set destination port. Type: int. Default value:
-80. Range: 1...32768.;
+80\. Range: 1\...32768\.;
 #X msg 110 513 @timeout;
 #X text 245 513 Get/Set TCP connection timeout. Type: int. Units: 'sec'.
-Default value: 1. Range: 1...10.;
+Default value: 1\. Range: 1\...10\.;
 #X msg 110 555 @user;
 #X text 245 555 Get/Set Basic Auth user name. Type: symbol.;
 #X obj 20 595 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -50,14 +50,14 @@ Default value: 1. Range: 1...10.;
 #X obj 20 716 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 721 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 722 1.;
+#X text 110 722 1\.;
 #X text 245 722 input.;
 #X obj 20 752 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 757 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 758 1.;
+#X text 110 758 1\.;
 #X text 245 758 int: HTTP status code.;
-#X text 110 778 2.;
+#X text 110 778 2\.;
 #X text 245 778 data:String: HTTP body.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

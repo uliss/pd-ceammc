@@ -22,26 +22,26 @@ as 1 \, but print error to console.;
 #X obj 20 292 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 297 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 332 1.;
+#X text 110 332 1\.;
 #X text 150 332 int;
 #X obj 246 333 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 332 V: second value. Allowed values: 0 \, 1. Type: int.;
+#X text 245 332 V: second value. Allowed values: 0 \, 1\. Type: int.;
 #X obj 20 362 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 367 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 368 1.;
+#X text 110 368 1\.;
 #X text 150 368 *float*;
 #X text 245 368 set first value \, calculate and output result.;
 #X text 150 388 *list*;
 #X text 245 388 pair: set first and second values \, calculate and
 output result.;
-#X text 110 423 2.;
+#X text 110 423 2\.;
 #X text 150 423 *float*;
 #X text 245 423 change second value \, calculate and output result.;
 #X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 458 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 459 1.;
+#X text 110 459 1\.;
 #X text 245 459 output 1 or 0 \, according logical XOR operation.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

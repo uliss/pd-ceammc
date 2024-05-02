@@ -30,13 +30,13 @@
 #X obj 20 511 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 516 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 517 1.;
+#X text 110 517 1\.;
 #X text 150 517 *data*;
 #X text 245 517 input data.;
 #X obj 20 547 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 552 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 553 1.;
+#X text 110 553 1\.;
 #X text 245 553 data copy.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

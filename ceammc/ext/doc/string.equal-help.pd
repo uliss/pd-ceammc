@@ -15,7 +15,7 @@
 #X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 242 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 277 1.;
+#X text 110 277 1\.;
 #X text 150 277 symbol;
 #X obj 246 278 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 277 SUBJ: second string initial value. Type: symbol.;
@@ -27,12 +27,12 @@
 #X obj 20 387 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 392 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 393 1.;
+#X text 110 393 1\.;
 #X text 150 393 *data:string*;
 #X text 245 393 do compare.;
 #X text 150 413 *symbol*;
 #X text 245 413 do compare.;
-#X text 110 433 2.;
+#X text 110 433 2\.;
 #X text 150 433 *data:string*;
 #X text 245 433 set compare subject.;
 #X text 150 453 *symbol*;
@@ -40,8 +40,8 @@
 #X obj 20 483 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 488 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 489 1.;
-#X text 245 489 outputs 1 if strings are equal \, otherwise 0.;
+#X text 110 489 1\.;
+#X text 245 489 outputs 1 if strings are equal \, otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

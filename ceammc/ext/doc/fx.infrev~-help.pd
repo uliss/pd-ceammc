@@ -29,34 +29,34 @@ and layer sounds forever.;
 #X obj 20 405 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 410 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 445 1.;
+#X text 110 445 1\.;
 #X text 150 445 float;
 #X obj 246 446 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 445 SIZE: room size. Type: float. Range: 0...1;
-#X text 110 465 2.;
+#X text 245 445 SIZE: room size. Type: float. Range: 0\...1;
+#X text 110 465 2\.;
 #X text 150 465 float;
 #X obj 246 466 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 465 DRYWET: proportion of mix between the original (dry)
-and 'effected' (wet) signals. Type: float. Range: 0...1;
+and 'effected' (wet) signals. Type: float. Range: 0\...1;
 #X obj 20 510 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 515 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 550 @bypass;
 #X text 245 550 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0.;
+Type: bool. Default value: 0\.;
 #X msg 110 592 @damp;
 #X text 245 592 Get/Set damping of the lowpass comb filter. Type: float.
-Default value: 0. Range: 0...1.;
+Default value: 0\. Range: 0\...1\.;
 #X msg 110 634 @drywet;
 #X text 245 634 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 1. Range: 0...1.;
+Default value: 1\. Range: 0\...1\.;
 #X msg 110 691 @filter;
 #X text 245 691 Get/Set filter coefficient. Type: float. Default value:
-1. Range: 0...1.;
+1\. Range: 0\...1\.;
 #X msg 110 733 @size;
-#X text 245 733 Get/Set room size. Type: float. Default value: 0.5.
-Range: 0...1.;
+#X text 245 733 Get/Set room size. Type: float. Default value: 0.5\.
+Range: 0\...1\.;
 #X obj 20 785 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 790 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -65,16 +65,16 @@ Range: 0...1.;
 #X obj 20 863 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 868 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 869 1.;
+#X text 110 869 1\.;
 #X text 245 869 input Left signal.;
-#X text 110 889 2.;
+#X text 110 889 2\.;
 #X text 245 889 input Right signal.;
 #X obj 20 919 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 924 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 925 1.;
+#X text 110 925 1\.;
 #X text 245 925 output Left signal.;
-#X text 110 945 2.;
+#X text 110 945 2\.;
 #X text 245 945 output Right signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

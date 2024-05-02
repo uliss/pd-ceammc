@@ -42,19 +42,19 @@
 #X obj 20 510 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 515 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 550 1.;
+#X text 110 550 1\.;
 #X text 150 550 symbol;
 #X obj 246 551 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 550 ARRAY: array name. Type: symbol.;
-#X text 110 570 2.;
+#X text 110 570 2\.;
 #X text 150 570 int;
 #X obj 246 571 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 570 BINS: number of bins. Type: int. Range: 2...1000;
-#X text 110 590 3.;
+#X text 245 570 BINS: number of bins. Type: int. Range: 2\...1000;
+#X text 110 590 3\.;
 #X text 150 590 float;
 #X obj 246 591 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 590 MIN: minimal value. Type: float.;
-#X text 110 610 4.;
+#X text 110 610 4\.;
 #X text 150 610 float;
 #X obj 246 611 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 610 MAX: maximum value. Type: float.;
@@ -64,24 +64,24 @@
 #X msg 110 680 @array;
 #X text 245 680 Get/Set array name. Type: symbol.;
 #X msg 110 710 @bins;
-#X text 245 710 Get/Set number of bins. Type: int. Default value: 100.
-Range: 2...1000.;
+#X text 245 710 Get/Set number of bins. Type: int. Default value: 100\.
+Range: 2\...1000\.;
 #X msg 110 752 @max;
 #X text 245 752 Get/Set maximum value. Type: float. Default value:
-1.;
+1\.;
 #X msg 110 782 @min;
 #X text 245 782 Get/Set minimal value. Type: float. Default value:
--1.;
+-1\.;
 #X obj 20 822 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 827 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 828 1.;
+#X text 110 828 1\.;
 #X text 150 828 *bang*;
 #X text 245 828 calculates and outputs histogram.;
 #X obj 20 858 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 863 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 864 1.;
+#X text 110 864 1\.;
 #X text 245 864 list of histogram value (length=@bins).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -39,7 +39,7 @@ value: float. Allowed values: float \, symbol \, any.;
 #X obj 20 615 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 620 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 621 1.;
+#X text 110 621 1\.;
 #X text 150 621 *list*;
 #X text 245 621 input list.;
 #X text 150 641 *data:mlist*;
@@ -51,7 +51,7 @@ value: float. Allowed values: float \, symbol \, any.;
 #X obj 20 711 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 716 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 717 1.;
+#X text 110 717 1\.;
 #X text 245 717 largest element.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

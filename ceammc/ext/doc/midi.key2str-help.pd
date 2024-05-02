@@ -15,7 +15,7 @@
 #X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 260 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 295 1.;
+#X text 110 295 1\.;
 #X text 150 295 list;
 #X obj 246 296 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 295 TONALITY: initial tomality. Type: list.;
@@ -24,20 +24,20 @@
 -49933 0;
 #X msg 110 365 @symbol;
 #X text 245 365 output as symbol instead of string by default. Default
-value: 0.;
+value: 0\.;
 #X msg 110 407 @tonality;
 #X text 245 407 Get/Set current tonality. Type: list. Default value:
 C major.;
 #X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 452 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 453 1.;
+#X text 110 453 1\.;
 #X text 150 453 *float*;
 #X text 245 453 standart MIDI key number [0-127].;
 #X obj 20 483 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 488 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 489 1.;
+#X text 110 489 1\.;
 #X text 245 489 output key name.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

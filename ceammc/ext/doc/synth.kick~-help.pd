@@ -28,23 +28,23 @@ bind to /synth_kick/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 439 @active;
 #X text 245 439 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 469 @attack;
 #X text 245 469 Get/Set attack time. Type: float. Units: 'ms'. Default
-value: 10. Range: 1...50.;
+value: 10\. Range: 1\...50\.;
 #X msg 110 511 @envwait;
 #X text 245 511 Get/Set ignore new notes until previous note is not
-finished release time. Type: bool. Default value: 0.;
+finished release time. Type: bool. Default value: 0\.;
 #X msg 110 553 @freq;
 #X text 245 553 Get/Set start frequency. Type: float. Units: 'Hz'.
-Default value: 50. Range: 10...5000.;
+Default value: 50\. Range: 10\...5000\.;
 #X msg 110 595 @gate;
 #X text 245 595 Get/Set play trigger >0: on \, 0: off. To set output
 gain to 0.5 you can 0.5 as trigger value. Type: float. Default value:
-0. Range: 0...1.;
+0\. Range: 0\...1\.;
 #X msg 110 652 @release;
 #X text 245 652 Get/Set release time. Type: float. Units: 'ms'. Default
-value: 1000. Range: 10...8000.;
+value: 1000\. Range: 10\...8000\.;
 #X obj 20 704 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 709 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -53,19 +53,19 @@ value: 1000. Range: 10...8000.;
 #X obj 20 782 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 787 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 788 1.;
+#X text 110 788 1\.;
 #X text 150 788 *bang*;
 #X text 245 788 play with default duration and full gain.;
 #X text 150 808 *float*;
 #X text 245 808 play with default duration and specified gain.;
 #X text 150 828 *list*;
-#X text 245 828 GAIN(0..1) DUR(ms) pair expected.;
+#X text 245 828 GAIN(0\..1) DUR(ms) pair expected.;
 #X obj 20 858 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 863 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 864 1.;
+#X text 110 864 1\.;
 #X text 245 864 synth output.;
-#X text 110 884 2.;
+#X text 110 884 2\.;
 #X text 245 884 bang after release finished.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

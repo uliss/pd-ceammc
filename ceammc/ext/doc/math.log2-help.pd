@@ -7,9 +7,9 @@
 #X obj 674 11 math.log2;
 #X obj 210 80 cnv 1 555 125 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 The log2() function computes the value of the logarithm
-of argument x to base 2.;
+of argument x to base 2\.;
 #X text 215 120 Special values:;
-#X text 215 145 log2(1) return +0.;
+#X text 215 145 log2(1) return +0\.;
 #X text 215 170 log2(+infinity) return +infinity.;
 #X msg 50 233 bang;
 #N canvas 0 22 450 300 (subpatch) 0;
@@ -25,7 +25,7 @@ of argument x to base 2.;
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 375 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 376 1.;
+#X text 110 376 1\.;
 #X text 150 376 *float*;
 #X text 245 376 input value.;
 #X text 150 396 *list*;
@@ -33,7 +33,7 @@ of argument x to base 2.;
 #X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 431 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 432 1.;
+#X text 110 432 1\.;
 #X text 245 432 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

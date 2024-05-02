@@ -23,15 +23,15 @@
 #X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 418 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 453 1.;
+#X text 110 453 1\.;
 #X text 150 453 float;
 #X obj 246 454 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 453 DRIVE: distortion amount. Type: float. Range: 0...1;
-#X text 110 473 2.;
+#X text 245 453 DRIVE: distortion amount. Type: float. Range: 0\...1;
+#X text 110 473 2\.;
 #X text 150 473 float;
 #X obj 246 474 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 473 OFFSET: constant added before nonlinearity to give
-even harmonics. Type: float. Range: 0...0.5;
+even harmonics. Type: float. Range: 0\...0.5;
 #X obj 20 518 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 523 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -44,20 +44,20 @@ empty bind to /fx_distortion/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 645 @active;
 #X text 245 645 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 675 @bypass;
 #X text 245 675 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0.;
+Type: bool. Default value: 0\.;
 #X msg 110 717 @drive;
 #X text 245 717 Get/Set distortion amount. Type: float. Default value:
-0.5. Range: 0...1.;
+0.5\. Range: 0\...1\.;
 #X msg 110 759 @drywet;
 #X text 245 759 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 1. Range: 0...1.;
+Default value: 1\. Range: 0\...1\.;
 #X msg 110 816 @offset;
 #X text 245 816 Get/Set constant added before nonlinearity to give
-even harmonics. Type: float. Default value: 0. Range: 0...0.5.;
+even harmonics. Type: float. Default value: 0\. Range: 0\...0.5\.;
 #X obj 20 868 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 873 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -66,12 +66,12 @@ even harmonics. Type: float. Default value: 0. Range: 0...0.5.;
 #X obj 20 946 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 951 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 952 1.;
+#X text 110 952 1\.;
 #X text 245 952 input signal.;
 #X obj 20 982 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 987 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 988 1.;
+#X text 110 988 1\.;
 #X text 245 988 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

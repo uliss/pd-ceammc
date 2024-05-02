@@ -20,11 +20,11 @@
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 375 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 410 1.;
+#X text 110 410 1\.;
 #X text 150 410 int;
 #X obj 246 411 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 410 SEED: init random seed. Type: int.;
-#X text 110 430 2.;
+#X text 110 430 2\.;
 #X text 150 430 list;
 #X obj 246 431 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 430 PROPS: properties names. Type: list.;
@@ -32,11 +32,11 @@
 #X obj 20 465 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 500 @seed;
-#X text 245 500 Get/Set random seed. Type: int. Default value: 0.;
+#X text 245 500 Get/Set random seed. Type: int. Default value: 0\.;
 #X obj 20 540 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 545 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 546 1.;
+#X text 110 546 1\.;
 #X text 245 546 first specified property.;
 #X text 110 566 ....;
 #X text 245 566 ... specified property.;
@@ -45,9 +45,9 @@
 #X obj 20 616 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 621 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 622 1.;
+#X text 110 622 1\.;
 #X text 245 622 connect to target object.;
-#X text 110 642 2.;
+#X text 110 642 2\.;
 #X text 245 642 atom: new random value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

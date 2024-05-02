@@ -35,7 +35,7 @@ https://beltoforion.de/en/muparser/features.php#idDef1;
 #X obj 20 622 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 627 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 662 1.;
+#X text 110 662 1\.;
 #X text 150 662 list;
 #X obj 246 663 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 662 EXPR: init expression. Type: list.;
@@ -47,16 +47,16 @@ https://beltoforion.de/en/muparser/features.php#idDef1;
 #X obj 20 772 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 777 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 778 1.;
+#X text 110 778 1\.;
 #X text 150 778 *list*;
 #X text 245 778 NOTE VELOCITY [DUR] list.;
-#X text 110 798 2.;
+#X text 110 798 2\.;
 #X text 150 798 *list*;
 #X text 245 798 set new expression.;
 #X obj 20 828 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 833 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 834 1.;
+#X text 110 834 1\.;
 #X text 245 834 passed NOTE VELOCITY [DUR] list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

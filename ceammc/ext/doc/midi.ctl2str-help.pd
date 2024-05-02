@@ -19,17 +19,17 @@
 -49933 0;
 #X msg 110 295 @symbol;
 #X text 245 295 output as symbol instead of string by default. Default
-value: 0.;
+value: 0\.;
 #X obj 20 347 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 352 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 353 1.;
+#X text 110 353 1\.;
 #X text 150 353 *float*;
 #X text 245 353 Standart MIDI controller number [0-127].;
 #X obj 20 383 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 388 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 389 1.;
+#X text 110 389 1\.;
 #X text 245 389 output Standart MIDI controller name (string or symbol).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

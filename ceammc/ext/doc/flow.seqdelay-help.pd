@@ -33,7 +33,7 @@ inlet or with [prop.set] object;
 #X obj 20 606 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 611 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 646 1.;
+#X text 110 646 1\.;
 #X text 150 646 list;
 #X obj 246 647 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 646 T(ms): List of delay times. See @t property. Type:
@@ -44,10 +44,10 @@ list.;
 #X msg 110 716 @block;
 #X text 245 716 Get/Set blocking mode. If true \, discards incoming
 messages until scheduled message will output \, after that is ready
-to accept the new one. Type: bool. Default value: 0.;
+to accept the new one. Type: bool. Default value: 0\.;
 #X msg 110 773 @t;
 #X text 245 773 Get/Set delay time list. Type: list. Units: 'ms'. Min
-value: 0.;
+value: 0\.;
 #X obj 20 825 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 830 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -56,9 +56,9 @@ value: 0.;
 #X obj 20 903 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 908 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 909 1.;
+#X text 110 909 1\.;
 #X text 245 909 incoming message.;
-#X text 110 929 2.;
+#X text 110 929 2\.;
 #X text 150 929 *list*;
 #X text 245 929 set delay times.;
 #X text 150 949 *any*;
@@ -68,7 +68,7 @@ info to Pd window.;
 #X obj 20 1009 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1014 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1015 1.;
+#X text 110 1015 1\.;
 #X text 245 1015 first delayed output.;
 #X text 110 1035 ....;
 #X text 245 1035 ...-th delayed output.;

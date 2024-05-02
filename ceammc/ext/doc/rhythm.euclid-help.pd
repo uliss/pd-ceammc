@@ -20,16 +20,16 @@
 #X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 371 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 406 1.;
+#X text 110 406 1\.;
 #X text 150 406 int;
 #X obj 246 407 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 406 BEATS: number of beats inside the sequence. Type: int.
-Range: 0...8192;
-#X text 110 441 2.;
+Range: 0\...8192;
+#X text 110 441 2\.;
 #X text 150 441 int;
 #X obj 246 442 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 441 N: the whole sequence length. Type: int. Range: 1...8192;
-#X text 110 461 3.;
+#X text 245 441 N: the whole sequence length. Type: int. Range: 1\...8192;
+#X text 110 461 3\.;
 #X text 150 461 int;
 #X obj 246 462 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 461 OFFSET: sequence offset. Type: int.;
@@ -38,33 +38,33 @@ Range: 0...8192;
 -49933 0;
 #X msg 110 531 @beats;
 #X text 245 531 Get/Set number of beats inside the sequence. Type:
-int. Default value: 3. Range: 0...8192.;
+int. Default value: 3\. Range: 0\...8192\.;
 #X msg 110 573 @n;
 #X text 245 573 Get/Set the whole sequence length. Type: int. Default
-value: 8. Range: 1...8192.;
+value: 8\. Range: 1\...8192\.;
 #X msg 110 615 @offset;
 #X text 245 615 Get/Set sequence offset. Type: int. Default value:
-0.;
+0\.;
 #X obj 20 655 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 660 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 661 1.;
+#X text 110 661 1\.;
 #X text 150 661 *bang*;
 #X text 245 661 output generated sequence.;
 #X text 150 681 *int*;
 #X text 245 681 set number of beats in the sequence.;
 #X text 150 701 *list*;
 #X text 245 701 list: BEATS LENGTH OFFSET?.;
-#X text 110 721 2.;
+#X text 110 721 2\.;
 #X text 150 721 *int*;
 #X text 245 721 set sequence lenghth.;
-#X text 110 741 3.;
+#X text 110 741 3\.;
 #X text 150 741 *int*;
 #X text 245 741 set sequence offset.;
 #X obj 20 771 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 776 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 777 1.;
+#X text 110 777 1\.;
 #X text 245 777 converted value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

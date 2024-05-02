@@ -30,7 +30,7 @@
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 404 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 439 1.;
+#X text 110 439 1\.;
 #X text 150 439 list;
 #X obj 246 440 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 439 V: sequence elements. Type: list.;
@@ -39,37 +39,37 @@
 -49933 0;
 #X msg 110 509 @div;
 #X text 245 509 Get/Set beat subdivision. Type: int. Default value:
-1. Range: 1...64.;
+1\. Range: 1\...64\.;
 #X msg 110 551 @dur;
 #X text 245 551 Get/Set whole sequence duration. Changing this property
 also changes @t interval between bangs. Type: float. Default value:
-0. Min value: 0.;
+0\. Min value: 0\.;
 #X msg 110 608 @inf;
-#X text 245 608 alias to @r -1.;
+#X text 245 608 alias to @r -1\.;
 #X msg 110 638 @mode;
 #X text 245 638 Get/Set sequencer mode. 'inc': from first to last \,
 'dec': from last to first \, 'tri': from first to last \, then back.
 Type: symbol. Default value: inc. Allowed values: inc \, dec \, tri.;
 #X msg 110 710 @once;
-#X text 245 710 alias to @r 1.;
+#X text 245 710 alias to @r 1\.;
 #X msg 110 740 @r;
 #X text 245 740 Get/Set number of whole sequence repeats. If -1: output
-infinitly. Type: int. Default value: 1. Min value: -1.;
+infinitly. Type: int. Default value: 1\. Min value: -1\.;
 #X msg 110 782 @t;
 #X text 245 782 Get/Set time interval between bangs. You could also
 use units values like 100ms or 120bpm. Type: float. Units: 'ms'. Default
-value: 20. Range: 1...20000.;
+value: 20\. Range: 1\...20000\.;
 #X msg 110 839 @upbeat;
 #X text 245 839 Get/Set wait specified number of beats before sequence
-start. Type: float. Default value: 0. Min value: 0.;
+start. Type: float. Default value: 0\. Min value: 0\.;
 #X msg 110 881 @v;
 #X text 245 881 Get/Set sequence elements. Type: list.;
 #X msg 110 911 @i?;
 #X text 245 911 (readonly) Get current sequence iteration. Type: int.
-Default value: 0.;
+Default value: 0\.;
 #X msg 110 953 @ri?;
 #X text 245 953 (readonly) Get current repeat iteration. Type: int.
-Default value: 0.;
+Default value: 0\.;
 #X obj 20 1005 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1010 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -81,7 +81,7 @@ Default value: 0.;
 #X text 245 1101 start/stop. Arguments are:;
 #X obj 255 1124 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1124 [on=1]: if true - starts sequencer \, otherwise stops.
-Type: int. Allowed values: 0 \, 1.;
+Type: int. Allowed values: 0 \, 1\.;
 #X msg 110 1164 stop;
 #X text 245 1164 stop output.;
 #X msg 110 1192 tick;
@@ -89,21 +89,21 @@ Type: int. Allowed values: 0 \, 1.;
 #X obj 20 1230 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1235 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1236 1.;
+#X text 110 1236 1\.;
 #X text 150 1236 *bang*;
 #X text 245 1236 reset all counters and start.;
 #X text 150 1256 *float*;
 #X text 245 1256 reset al counter and start (on 1) or stop(on 0).;
-#X text 110 1276 2.;
+#X text 110 1276 2\.;
 #X text 150 1276 *list*;
 #X text 245 1276 set sequence.;
 #X obj 20 1306 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1311 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1312 1.;
+#X text 110 1312 1\.;
 #X text 245 1312 sequence element output \, in case of Mlist args -
 outputs play lists.;
-#X text 110 1347 2.;
+#X text 110 1347 2\.;
 #X text 245 1347 [i IDX N( - sequence iteration \, [ri IDX N( - repeat
 iteration or [done( when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

@@ -25,16 +25,16 @@ value on inlet it immediately outputs it.;
 #X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 387 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 388 1.;
+#X text 110 388 1\.;
 #X text 245 388 data stream.;
-#X text 110 408 2.;
+#X text 110 408 2\.;
 #X text 245 408 property value.;
 #X text 110 428 ....;
 #X text 245 428 property value.;
 #X obj 20 458 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 463 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 464 1.;
+#X text 110 464 1\.;
 #X text 245 464 output values.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

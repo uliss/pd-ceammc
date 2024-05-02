@@ -31,7 +31,7 @@
 #X obj 20 525 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 530 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 565 1.;
+#X text 110 565 1\.;
 #X text 150 565 list;
 #X obj 246 566 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 565 ARGS: flow match expressions. Type: list.;
@@ -42,16 +42,16 @@
 #X text 245 635 Get/Set value output mode. If false (by default) acts
 like vanilla select: output bang on match or full unmatched message
 to last outlet. If true always outputs full matched message to corresponding
-outlet. Type: bool. Default value: 0.;
+outlet. Type: bool. Default value: 0\.;
 #X msg 110 722 @msg;
 #X text 245 722 Get/Set output this message on match \, instead of
 bang. Type: list.;
 #X msg 110 764 @v;
-#X text 245 764 alias to @keep_value 1.;
+#X text 245 764 alias to @keep_value 1\.;
 #X obj 20 804 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 809 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 810 1.;
+#X text 110 810 1\.;
 #X text 150 810 *float*;
 #X text 245 810 check float for matches.;
 #X text 150 830 *symbol*;
@@ -63,13 +63,13 @@ bang. Type: list.;
 #X obj 20 900 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 905 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 906 1.;
+#X text 110 906 1\.;
 #X text 245 906 first matched output: bang or full message.;
 #X text 110 926 ....;
 #X text 245 926 ... matched output: bang or full message.;
 #X text 110 946 n.;
 #X text 245 946 nth matched output: bang or full message.;
-#X text 110 966 n+1.;
+#X text 110 966 n+1\.;
 #X text 245 966 unmatched message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

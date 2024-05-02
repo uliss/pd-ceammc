@@ -54,7 +54,8 @@ Type: symbol.;
 #X text 245 795 send ping message to server (on server answer outputs:
 pong DATA). Arguments are:;
 #X obj 255 833 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 833 [DATA]: list of integers in [0..255] range. Type: list.;
+#X text 255 833 [DATA]: list of integers in [0\..255] range. Type:
+list.;
 #X msg 110 858 send;
 #X text 245 858 send as text message. Arguments are:;
 #X obj 255 881 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -65,14 +66,14 @@ pong DATA). Arguments are:;
 #X text 255 929 ARR: array name. Type: symbol.;
 #X obj 255 952 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 952 [START=0]: array start index. Type: int. Min value:
-0. Units: 'samp'.;
+0\. Units: 'samp'.;
 #X obj 255 990 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 990 [LENGTH]: read length. If not specified - read until
-array end. Type: int. Min value: 0. Units: 'samp'.;
+array end. Type: int. Min value: 0\. Units: 'samp'.;
 #X msg 110 1030 send_binary;
 #X text 245 1030 send as binary bytes. Arguments are:;
 #X obj 255 1053 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1053 [ARGS]: list of integers in [0..255] range. Type:
+#X text 255 1053 [ARGS]: list of integers in [0\..255] range. Type:
 list.;
 #X msg 110 1078 send_json;
 #X text 245 1078 send as encoded json. Arguments are:;
@@ -87,7 +88,7 @@ call [flush( method for sending. Arguments are:;
 #X text 245 1189 write as binary bytes to output buffer. You have to
 call [flush( method for sending. Arguments are:;
 #X obj 255 1227 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1227 [ARGS]: list of integers in [0..255] range. Type:
+#X text 255 1227 [ARGS]: list of integers in [0\..255] range. Type:
 list.;
 #X msg 110 1252 write_json;
 #X text 245 1252 write as encoded json to output buffer. You have to
@@ -97,12 +98,12 @@ call [flush( method for sending. Arguments are:;
 #X obj 20 1325 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1330 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1331 1.;
+#X text 110 1331 1\.;
 #X text 245 1331 message input.;
 #X obj 20 1361 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1366 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1367 1.;
+#X text 110 1367 1\.;
 #X text 245 1367 output messages: latency \, ping \, text \, binary
 \, closed \, connected \, disconnected.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

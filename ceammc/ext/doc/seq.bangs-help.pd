@@ -25,7 +25,7 @@
 #X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 360 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 395 1.;
+#X text 110 395 1\.;
 #X text 150 395 list;
 #X obj 246 396 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 395 P: sequencer pattern in beat duration units. Type:
@@ -35,11 +35,11 @@ list.;
 -49933 0;
 #X msg 110 465 @div;
 #X text 245 465 Get/Set beat subdivision. Type: int. Default value:
-1. Range: 1...64.;
+1\. Range: 1\...64\.;
 #X msg 110 507 @dur;
 #X text 245 507 Get/Set whole sequence duration. (Recalculates @t property
-accordingly). Type: float. Units: 'ms'. Default value: 0. Min value:
-0.;
+accordingly). Type: float. Units: 'ms'. Default value: 0\. Min value:
+0\.;
 #X msg 110 564 @inf;
 #X text 245 564 alias to @r -1 \, repeats infinitely.;
 #X msg 110 594 @mode;
@@ -53,20 +53,20 @@ Type: symbol. Default value: inc. Allowed values: inc \, dec \, tri.;
 list.;
 #X msg 110 726 @r;
 #X text 245 726 Get/Set number of whole sequence repeats. If -1: repeat
-infinitely. Type: int. Default value: 1. Min value: -1.;
+infinitely. Type: int. Default value: 1\. Min value: -1\.;
 #X msg 110 768 @t;
 #X text 245 768 Get/Set time between beats. Unit values like 100ms
 or 240bpm also can be used. Type: float. Units: 'ms'. Default value:
-100. Range: 1...20000.;
+100\. Range: 1\...20000\.;
 #X msg 110 825 @upbeat;
 #X text 245 825 Get/Set wait specified number of beats before sequence
-start. Type: float. Default value: 0. Min value: 0.;
+start. Type: float. Default value: 0\. Min value: 0\.;
 #X msg 110 867 @i?;
 #X text 245 867 (readonly) Get current sequence iteration. Type: int.
-Default value: 0.;
+Default value: 0\.;
 #X msg 110 909 @ri?;
 #X text 245 909 (readonly) Get current repeat iteration. Type: int.
-Default value: 0.;
+Default value: 0\.;
 #X obj 20 961 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 966 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -91,18 +91,18 @@ Default value: 0.;
 #X obj 20 1247 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1252 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1253 1.;
+#X text 110 1253 1\.;
 #X text 150 1253 *bang*;
 #X text 245 1253 reset all counters and start sequencer.;
-#X text 110 1273 2.;
+#X text 110 1273 2\.;
 #X text 150 1273 *list*;
 #X text 245 1273 set new pattern value.;
 #X obj 20 1303 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1308 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1309 1.;
+#X text 110 1309 1\.;
 #X text 245 1309 bang.;
-#X text 110 1329 2.;
+#X text 110 1329 2\.;
 #X text 245 1329 [i IDX N( - sequence iteration \, [ri IDX N( - repeat
 iteration \, [ed MS( - event duration or [done( when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

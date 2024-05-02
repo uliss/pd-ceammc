@@ -23,33 +23,33 @@
 #X obj 20 410 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 415 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 450 1.;
+#X text 110 450 1\.;
 #X text 150 450 int;
 #X obj 246 451 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 450 N: number of inputs/outputs. Type: int. Range: 1...16;
+#X text 245 450 N: number of inputs/outputs. Type: int. Range: 1\...16;
 #X obj 20 480 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 485 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 520 @db;
 #X text 245 520 Get/Set gain decibel (dbfs) values. Type: list. Default
-value: -144. Min value: -144.;
+value: -144\. Min value: -144\.;
 #X msg 110 562 @smooth_time;
 #X text 245 562 Get/Set gain change smooth time. Type: float. Units:
-'ms'. Default value: 20. Min value: 1.;
+'ms'. Default value: 20\. Min value: 1\.;
 #X msg 110 604 @value;
 #X text 245 604 Get/Set gain amplitude values. Type: list. Default
-value: 0. Min value: 0.;
+value: 0\. Min value: 0\.;
 #X obj 20 656 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 661 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 696 set;
 #X text 245 696 set gain amplitude for all inputs. Arguments are:;
 #X obj 255 719 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 719 V: new gain value. Type: float. Min value: 0.;
+#X text 255 719 V: new gain value. Type: float. Min value: 0\.;
 #X msg 110 744 set_db;
 #X text 245 744 set gain in db for all inputs. Arguments are:;
 #X obj 255 767 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 767 V: new gain value. Type: float. Min value: -144.;
+#X text 255 767 V: new gain value. Type: float. Min value: -144\.;
 #X msg 110 792 +;
 #X text 245 792 increase gain amplitude. Arguments are:;
 #X obj 255 815 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -77,7 +77,7 @@ value: 0. Min value: 0.;
 #X obj 20 1090 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1095 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1096 1.;
+#X text 110 1096 1\.;
 #X text 245 1096 input signal.;
 #X text 110 1116 ....;
 #X text 245 1116 input signal.;
@@ -87,7 +87,7 @@ value: 0. Min value: 0.;
 #X obj 20 1166 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1171 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1172 1.;
+#X text 110 1172 1\.;
 #X text 245 1172 output signal.;
 #X text 110 1192 ....;
 #X text 245 1192 output signal.;

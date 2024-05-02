@@ -25,14 +25,14 @@
 -49933 0;
 #X msg 110 496 @index;
 #X text 245 496 Get/Set current menu item index. Type: int. Default
-value: -1.;
+value: -1\.;
 #X msg 110 538 @items;
 #X text 245 538 Get/Set list of menu items. Type: list.;
 #X msg 110 568 @max_length;
 #X text 245 568 Get/Set maximum displayed item character length. Type:
-int. Default value: 100. Range: 10...1024.;
+int. Default value: 100\. Range: 10\...1024\.;
 #X msg 110 610 @open;
-#X text 245 610 Get/Set opened state. Type: bool. Default value: 0.;
+#X text 245 610 Get/Set opened state. Type: bool. Default value: 0\.;
 #X msg 110 640 @receive;
 #X text 245 640 Get/Set receive source. Type: symbol. Default value:
 (null).;
@@ -43,23 +43,23 @@ int. Default value: 100. Range: 10...1024.;
 #X text 245 712 Get/Set current menu item value. Type: atom.;
 #X msg 110 742 @active_color;
 #X text 245 742 Get/Set active color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0 0.75 1 1.;
+values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 784 @background_color;
 #X text 245 784 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1.;
+0.93 1\.;
 #X msg 110 841 @border_color;
 #X text 245 841 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 883 @text_color;
 #X text 245 883 Get/Set text color (list of red \, green \, blue values
-in 0-1 range). Type: list. Default value: 0 0 0 1.;
+in 0-1 range). Type: list. Default value: 0 0 0 1\.;
 #X msg 110 925 @fontname;
 #X text 245 925 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 967 @fontsize;
-#X text 245 967 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 967 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 1009 @fontslant;
 #X text 245 1009 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -68,16 +68,16 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 1093 @pinned;
 #X text 245 1093 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1135 @presetname;
 #X text 245 1135 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
 #X msg 110 1177 @size;
 #X text 245 1177 Get/Set element size (width \, height pair). Type:
-list. Default value: 100 16.;
+list. Default value: 100 16\.;
 #X msg 110 1219 @count?;
 #X text 245 1219 (readonly) Get number of menu items. Type: int. Default
-value: 0.;
+value: 0\.;
 #X msg 110 1261 @title?;
 #X text 245 1261 (readonly) Get current element text. Type: symbol.;
 #X obj 20 1301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -94,7 +94,7 @@ value: 0.;
 #X msg 110 1437 delete;
 #X text 245 1437 removes item from menu. Arguments are:;
 #X obj 255 1460 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1460 IDX: removed item index. Type: int. Min value: 0.;
+#X text 255 1460 IDX: removed item index. Type: int. Min value: 0\.;
 #X msg 110 1485 erase;
 #X text 245 1485 clears all items menu.;
 #X msg 110 1513 file_glob;
@@ -110,7 +110,7 @@ long filenames see @max_length property. Type: symbol.;
 #X text 245 1629 inserts new menu item before specified position. Arguments
 are:;
 #X obj 255 1667 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1667 IDX: item position. Type: int. Min value: 0.;
+#X text 255 1667 IDX: item position. Type: int. Min value: 0\.;
 #X obj 255 1690 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1690 ATOM: item name. Type: atom.;
 #X msg 110 1715 interp;
@@ -129,11 +129,11 @@ performed.;
 #X msg 110 1874 set;
 #X text 245 1874 silently sets menu state. Arguments are:;
 #X obj 255 1897 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1897 IDX: item index. Type: int. Min value: 0.;
+#X text 255 1897 IDX: item index. Type: int. Min value: 0\.;
 #X msg 110 1922 set_item;
 #X text 245 1922 renames menu item. Arguments are:;
 #X obj 255 1945 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1945 IDX: item index. Type: int. Min value: 0.;
+#X text 255 1945 IDX: item index. Type: int. Min value: 0\.;
 #X obj 255 1968 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1968 ATOM: item name. Type: list.;
 #X msg 110 1993 store;
@@ -143,7 +143,7 @@ performed.;
 #X obj 20 2051 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2056 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2057 1.;
+#X text 110 2057 1\.;
 #X text 150 2057 *bang*;
 #X text 245 2057 outputs current menu state as list: INDEX ITEM_NAME.;
 #X text 150 2077 *float*;
@@ -154,7 +154,7 @@ ITEM_NAME.;
 #X obj 20 2127 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2132 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2133 1.;
+#X text 110 2133 1\.;
 #X text 245 2133 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

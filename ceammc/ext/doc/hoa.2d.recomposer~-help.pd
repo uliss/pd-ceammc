@@ -26,17 +26,17 @@ harmonics. There's three modes \, fixe (default) \, fisheye and free.;
 #X obj 20 665 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 670 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 705 1.;
+#X text 110 705 1\.;
 #X text 150 705 int;
 #X obj 246 706 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 705 ORDER: the order of decomposition. Type: int. Range:
-1...63;
-#X text 110 725 2.;
+1\...63;
+#X text 110 725 2\.;
 #X text 150 725 int;
 #X obj 246 726 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 725 N: number of channels. '0' means auto-calculation.
-Type: int. Range: 0...128;
-#X text 110 760 3.;
+Type: int. Range: 0\...128;
+#X text 110 760 3\.;
 #X text 150 760 symbol;
 #X obj 246 761 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 760 MODE: recomposition mode. There is three modes: *fixe*
@@ -65,13 +65,13 @@ and the widening value for each channels. Type: symbol. Default value:
 free. Allowed values: fixe \, fisheye \, free.;
 #X msg 110 1159 @n;
 #X text 245 1159 (initonly) Get/Set number of channels (planewaves).
-'0' means auto-calculation. Type: int. Default value: 0. Range: 0...128.;
+'0' means auto-calculation. Type: int. Default value: 0\. Range: 0\...128\.;
 #X msg 110 1216 @order;
 #X text 245 1216 (initonly) Get/Set the order of decomposition. Type:
-int. Default value: 1. Range: 1...63.;
+int. Default value: 1\. Range: 1\...63\.;
 #X msg 110 1258 @ramp;
-#X text 245 1258 Get/Set ramp time. Type: float. Default value: 100.
-Min value: 0.;
+#X text 245 1258 Get/Set ramp time. Type: float. Default value: 100\.
+Min value: 0\.;
 #X obj 20 1310 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1315 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -82,14 +82,14 @@ Min value: 0.;
 #X text 255 1388 VALS: list of angles. Type: list. Units: 'rad'.;
 #X msg 110 1413 wide;
 #X text 245 1413 set the widening value of channels. Widening value
-is clipped between 0. (omnidirectional) and 1. (directional). Arguments
+is clipped between 0\. (omnidirectional) and 1\. (directional). Arguments
 are:;
 #X obj 255 1466 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1466 VALS: list of values per channel. Type: list.;
 #X obj 20 1501 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1506 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1507 1.;
+#X text 110 1507 1\.;
 #X text 245 1507 input harmonic.;
 #X text 110 1527 ....;
 #X text 245 1527 input harmonic.;
@@ -99,7 +99,7 @@ factor [0-1] in last inlet.;
 #X obj 20 1592 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1597 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1598 1.;
+#X text 110 1598 1\.;
 #X text 245 1598 first planewave output.;
 #X text 110 1618 ....;
 #X text 245 1618 ... planewave output.;

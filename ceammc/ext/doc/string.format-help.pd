@@ -16,7 +16,7 @@
 #X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 285 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 320 1.;
+#X text 110 320 1\.;
 #X text 150 320 list;
 #X obj 246 321 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 320 FORMAT: format string. Type: list.;
@@ -26,13 +26,13 @@
 #X msg 110 390 @int;
 #X text 245 390 flag for integer mode. If specified all floats are
 converted to integers. This usefull for hex and octal formatting. Default
-value: 0.;
+value: 0\.;
 #X msg 110 447 @format;
 #X text 245 447 Get/Set format string. Type: list.;
 #X obj 20 487 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 492 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 493 1.;
+#X text 110 493 1\.;
 #X text 150 493 *float*;
 #X text 245 493 float format argument.;
 #X text 150 513 *symbol*;
@@ -42,7 +42,7 @@ value: 0.;
 #X obj 20 563 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 568 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 569 1.;
+#X text 110 569 1\.;
 #X text 245 569 output string.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

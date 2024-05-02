@@ -18,7 +18,7 @@
 #X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 342 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 377 1.;
+#X text 110 377 1\.;
 #X text 150 377 list;
 #X obj 246 378 cnv 1 94 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 377 TIMESET(ms): timeset (>0). Type: list.;
@@ -26,23 +26,23 @@
 #X obj 20 412 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 447 @seed;
-#X text 245 447 Get/Set generator seed. Type: int. Default value: 0.
-Min value: 0.;
+#X text 245 447 Get/Set generator seed. Type: int. Default value: 0\.
+Min value: 0\.;
 #X msg 110 489 @timeset;
 #X text 245 489 Get/Set timeset (>0). Type: list. Units: 'ms'.;
 #X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 534 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 535 1.;
+#X text 110 535 1\.;
 #X text 150 535 *float*;
 #X text 245 535 starts (on >0) or stops (on <=0) metro.;
-#X text 110 555 2.;
+#X text 110 555 2\.;
 #X text 150 555 *list*;
 #X text 245 555 set timeset.;
 #X obj 20 585 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 590 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 591 1.;
+#X text 110 591 1\.;
 #X text 245 591 outputs *bang*.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

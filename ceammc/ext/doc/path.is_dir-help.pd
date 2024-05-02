@@ -12,7 +12,7 @@
 #X obj 20 208 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 213 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 214 1.;
+#X text 110 214 1\.;
 #X text 150 214 *symbol*;
 #X text 245 214 output 1 if given path is found and is directory \,
 otherwise false.;
@@ -21,9 +21,9 @@ otherwise false.;
 #X obj 20 279 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 284 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 285 1.;
-#X text 245 285 1 or 0.;
-#X text 110 305 2.;
+#X text 110 285 1\.;
+#X text 245 285 1 or 0\.;
+#X text 110 305 2\.;
 #X text 245 305 output path if it's directory.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

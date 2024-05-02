@@ -60,7 +60,7 @@
 #X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 389 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 424 1.;
+#X text 110 424 1\.;
 #X text 150 424 symbol;
 #X obj 246 425 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 424 ARRAY: array name. Type: symbol.;
@@ -80,18 +80,18 @@ raw.;
 #X text 245 626 alias to @mode raw property.;
 #X msg 110 656 @redraw;
 #X text 245 656 Get/Set redraw after array change. Type: bool. Default
-value: 1.;
+value: 1\.;
 #X msg 110 698 @resize;
 #X text 245 698 alias to @mode resize property.;
 #X obj 20 738 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 743 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 744 1.;
+#X text 110 744 1\.;
 #X text 245 744 *envelope* data.;
 #X obj 20 774 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 779 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 780 1.;
+#X text 110 780 1\.;
 #X text 245 780 output number of samples in destination array. If array
 was resized - output this new size.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

@@ -50,19 +50,19 @@ and [ui.mouse_filter];
 -49933 0;
 #X msg 110 654 @high;
 #X text 245 654 Get/Set max (right) selection value. Type: float. Default
-value: 0.6.;
+value: 0.6\.;
 #X msg 110 696 @low;
 #X text 245 696 Get/Set low (left) selection value. Type: float. Default
-value: 0.4.;
+value: 0.4\.;
 #X msg 110 738 @max;
 #X text 245 738 Get/Set maximum allowed slider value. Type: float.
-Default value: 1.;
+Default value: 1\.;
 #X msg 110 780 @min;
 #X text 245 780 Get/Set minimum allowed slider value. Type: float.
-Default value: 0.;
+Default value: 0\.;
 #X msg 110 822 @mouse_events;
 #X text 245 822 Get/Set mouse events output mode. If on outputs @mouse_down
-\, @mouse_up and @mouse_drag events. Type: bool. Default value: 0.;
+\, @mouse_up and @mouse_drag events. Type: bool. Default value: 0\.;
 #X msg 110 879 @receive;
 #X text 245 879 Get/Set receive source. Type: symbol. Default value:
 (null).;
@@ -74,16 +74,16 @@ Default value: 0.;
 #X msg 110 981 @background_color;
 #X text 245 981 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1.;
+0.93 1\.;
 #X msg 110 1038 @border_color;
 #X text 245 1038 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 1080 @knob_color;
 #X text 245 1080 Get/Set knob color (list of red \, green \, blue values
-in 0-1 range). Type: list. Default value: 0 0.75 1 1.;
+in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 1122 @label_color;
 #X text 245 1122 Get/Set label color in RGB format within 0-1 range
-\, for example: 0.2 0.4 0.1. Type: list. Default value: 0 0 0 1.;
+\, for example: 0.2 0.4 0.1\. Type: list. Default value: 0 0 0 1\.;
 #X msg 110 1164 @label;
 #X text 245 1164 Get/Set label text. Type: symbol. Default value: (null).;
 #X msg 110 1194 @label_align;
@@ -91,10 +91,10 @@ in 0-1 range). Type: list. Default value: 0 0.75 1 1.;
 value: left. Allowed values: left \, center \, right.;
 #X msg 110 1236 @label_inner;
 #X text 245 1236 Get/Set label position (1 - inner \, 0 - outer). Type:
-bool. Default value: 0.;
+bool. Default value: 0\.;
 #X msg 110 1278 @label_margins;
 #X text 245 1278 Get/Set label offset in pixels. Type: list. Default
-value: 0 0.;
+value: 0 0\.;
 #X msg 110 1320 @label_side;
 #X text 245 1320 Get/Set label snap side. Type: symbol. Default value:
 top. Allowed values: left \, top \, right \, bottom.;
@@ -105,8 +105,8 @@ value: top. Allowed values: top \, center \, bottom.;
 #X text 245 1404 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1446 @fontsize;
-#X text 245 1446 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 1446 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 1488 @fontslant;
 #X text 245 1488 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -115,16 +115,16 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 1572 @pinned;
 #X text 245 1572 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1614 @presetname;
 #X text 245 1614 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
 #X msg 110 1656 @size;
 #X text 245 1656 Get/Set element size (width \, height pair). Type:
-list. Default value: 120 15.;
+list. Default value: 120 15\.;
 #X msg 110 1698 @range?;
 #X text 245 1698 (readonly) Get selected slider value. Type: float.
-Default value: 0.2. Min value: 0.;
+Default value: 0.2\. Min value: 0\.;
 #X obj 20 1750 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1755 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -157,7 +157,7 @@ Default value: 0.2. Min value: 0.;
 #X obj 20 2111 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2116 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2117 1.;
+#X text 110 2117 1\.;
 #X text 150 2117 *bang*;
 #X text 245 2117 outputs current slider state.;
 #X text 150 2137 *list*;
@@ -165,7 +165,7 @@ Default value: 0.2. Min value: 0.;
 #X obj 20 2167 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2172 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2173 1.;
+#X text 110 2173 1\.;
 #X text 245 2173 output slider range as pair of values.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

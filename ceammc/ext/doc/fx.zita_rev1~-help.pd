@@ -38,21 +38,21 @@
 #X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 591 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 626 1.;
+#X text 110 626 1\.;
 #X text 150 626 float;
 #X obj 246 627 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 626 DECAY_LOW(sec): time (in seconds) to decay 60dB in
-low-frequency band. Type: float. Range: 1...60;
-#X text 110 661 2.;
+low-frequency band. Type: float. Range: 1\...60;
+#X text 110 661 2\.;
 #X text 150 661 float;
 #X obj 246 662 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 661 DECAY_MID(sec): time (in seconds) to decay 60dB in
-mid-frequency band. Type: float. Range: 1...60;
-#X text 110 696 3.;
+mid-frequency band. Type: float. Range: 1\...60;
+#X text 110 696 3\.;
 #X text 150 696 float;
 #X obj 246 697 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 696 DRYWET: ratio between source signal (dry) and processed
-signal (wet). Type: float. Range: 0...1;
+signal (wet). Type: float. Range: 0\...1;
 #X obj 20 741 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 746 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -65,43 +65,43 @@ empty bind to /fx_zita_rev1/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 868 @active;
 #X text 245 868 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 898 @bypass;
 #X text 245 898 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0.;
+Type: bool. Default value: 0\.;
 #X msg 110 940 @damp_hf;
 #X text 245 940 Get/Set Frequency (Hz) at which the high-frequency
-T60 is half the middle-band's T60. Type: float. Units: 'Hz'. Default
-value: 6000. Range: 1500...47040.;
+T60 is half the middle-band's T60\. Type: float. Units: 'Hz'. Default
+value: 6000\. Range: 1500\...47040\.;
 #X msg 110 997 @decay_low;
 #X text 245 997 Get/Set time (in seconds) to decay 60dB in low-frequency
-band. Type: float. Units: 'sec'. Default value: 3. Range: 1...60.;
+band. Type: float. Units: 'sec'. Default value: 3\. Range: 1\...60\.;
 #X msg 110 1054 @decay_mid;
 #X text 245 1054 Get/Set time (in seconds) to decay 60dB in mid-frequency
-band. Type: float. Units: 'sec'. Default value: 2. Range: 1...60.;
+band. Type: float. Units: 'sec'. Default value: 2\. Range: 1\...60\.;
 #X msg 110 1111 @drywet;
 #X text 245 1111 Get/Set Ratio between source signal (dry) and processed
-signal (wet). Type: float. Default value: 1. Range: 0...1.;
+signal (wet). Type: float. Default value: 1\. Range: 0\...1\.;
 #X msg 110 1153 @fr_ldecay;
 #X text 245 1153 Get/Set time (in seconds) to decay 60dB in low-frequency
-band. Type: float. Units: 'sec'. Default value: 40. Range: 0...60.;
+band. Type: float. Units: 'sec'. Default value: 40\. Range: 0\...60\.;
 #X msg 110 1210 @fr_mdecay;
 #X text 245 1210 Get/Set time (in seconds) to decay 60dB in mid-frequency
-band. Type: float. Units: 'sec'. Default value: 40. Range: 0...60.;
+band. Type: float. Units: 'sec'. Default value: 40\. Range: 0\...60\.;
 #X msg 110 1267 @fr_time;
 #X text 245 1267 Get/Set length of freeze tail. Type: float. Units:
-'ms'. Default value: 100. Range: 0...1000.;
+'ms'. Default value: 100\. Range: 0\...1000\.;
 #X msg 110 1309 @freeze;
 #X text 245 1309 Get/Set freeze reverberation tail. Type: bool. Default
-value: 0.;
+value: 0\.;
 #X msg 110 1351 @freq_low;
 #X text 245 1351 Get/Set Crossover frequency (Hz) separating low and
-middle frequencies. Type: float. Units: 'Hz'. Default value: 200. Range:
-50...1000.;
+middle frequencies. Type: float. Units: 'Hz'. Default value: 200\.
+Range: 50\...1000\.;
 #X msg 110 1408 @predelay;
 #X text 245 1408 Get/Set a delay operating on the 'wet' signal. Large
 values will provide the impression of a larger room. Type: float. Units:
-'ms'. Default value: 40. Range: 0...100.;
+'ms'. Default value: 40\. Range: 0\...100\.;
 #X obj 20 1475 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1480 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -110,16 +110,16 @@ values will provide the impression of a larger room. Type: float. Units:
 #X obj 20 1553 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1558 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1559 1.;
+#X text 110 1559 1\.;
 #X text 245 1559 left channel.;
-#X text 110 1579 2.;
+#X text 110 1579 2\.;
 #X text 245 1579 right channel.;
 #X obj 20 1609 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1614 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1615 1.;
+#X text 110 1615 1\.;
 #X text 245 1615 output left.;
-#X text 110 1635 2.;
+#X text 110 1635 2\.;
 #X text 245 1635 output right.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

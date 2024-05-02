@@ -19,22 +19,22 @@
 #X obj 20 319 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 324 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 325 1.;
+#X text 110 325 1\.;
 #X text 150 325 *list*;
 #X text 245 325 Input list.;
 #X text 150 345 *data*;
 #X text 245 345 Input mlist.;
-#X text 110 365 2.;
+#X text 110 365 2\.;
 #X text 150 365 *float*;
 #X text 245 365 input value from predicate. "1" means accepted. "0"
-means reject. Range: 0...1.;
+means reject. Range: 0\...1\.;
 #X obj 20 410 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 415 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 416 1.;
+#X text 110 416 1\.;
 #X text 245 416 1 - if predicate object returns true for all the elements
 or list is empty or 0 otherwise.;
-#X text 110 451 2.;
+#X text 110 451 2\.;
 #X text 245 451 atom to predicate.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

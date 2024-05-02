@@ -14,24 +14,24 @@
 #X obj 20 208 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 213 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 248 1.;
+#X text 110 248 1\.;
 #X text 150 248 int;
 #X obj 246 249 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 248 OPENED: set init state. Allowed values: 0 \, 1. Type:
+#X text 245 248 OPENED: set init state. Allowed values: 0 \, 1\. Type:
 int.;
 #X obj 20 278 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 283 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 284 1.;
+#X text 110 284 1\.;
 #X text 150 284 *any*;
 #X text 245 284 input flow.;
-#X text 110 304 2.;
+#X text 110 304 2\.;
 #X text 150 304 *bang*;
 #X text 245 304 reset to opened state.;
 #X obj 20 334 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 339 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 340 1.;
+#X text 110 340 1\.;
 #X text 245 340 output flow.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

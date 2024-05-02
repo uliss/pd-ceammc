@@ -20,7 +20,7 @@ suppression. 2nd order interpolation.;
 #X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 357 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 392 1.;
+#X text 110 392 1\.;
 #X text 150 392 float;
 #X obj 246 393 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 392 FREQ(Hz): frequency. Type: float.;
@@ -29,20 +29,20 @@ suppression. 2nd order interpolation.;
 -49933 0;
 #X msg 110 462 @active;
 #X text 245 462 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X obj 20 502 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 507 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 508 1.;
+#X text 110 508 1\.;
 #X text 150 508 *float*;
 #X text 245 508 frequency in Hz.;
-#X text 110 528 2.;
+#X text 110 528 2\.;
 #X text 150 528 *bang*;
 #X text 245 528 reset phase.;
 #X obj 20 558 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 563 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 564 1.;
+#X text 110 564 1\.;
 #X text 245 564 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

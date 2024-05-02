@@ -23,7 +23,7 @@
 #X obj 20 468 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 473 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 508 1.;
+#X text 110 508 1\.;
 #X text 150 508 float;
 #X obj 246 509 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 508 FREQ(Hz): main frequency. Type: float. Min value: 0;
@@ -32,28 +32,28 @@
 -49933 0;
 #X msg 110 578 @adsr;
 #X text 245 578 Get/Set ADSR 2 & 4 Target. Type: int. Default value:
-0. Range: 0...127.;
+0\. Range: 0\...127\.;
 #X msg 110 620 @freq;
 #X text 245 620 Get/Set frequency. Type: float. Units: 'Hz'. Default
-value: 220. Range: 0...10000.;
+value: 220\. Range: 0\...10000\.;
 #X msg 110 662 @gate;
 #X text 245 662 Get/Set play trigger - 1: on \, 0: off. Type: float.
-Default value: 0. Range: 0...1.;
+Default value: 0\. Range: 0\...1\.;
 #X msg 110 704 @lfo_depth;
-#X text 245 704 Get/Set LFO delth. Type: int. Default value: 0. Range:
-0...127.;
+#X text 245 704 Get/Set LFO delth. Type: int. Default value: 0\. Range:
+0\...127\.;
 #X msg 110 746 @lfo_speed;
 #X text 245 746 Get/Set LFO speed in Hz. Type: int. Default value:
-0. Range: 0...127.;
+0\. Range: 0\...127\.;
 #X msg 110 788 @mod;
 #X text 245 788 Get/Set modulator index one. Type: int. Default value:
-0. Range: 0...127.;
+0\. Range: 0\...127\.;
 #X msg 110 830 @pitch;
-#X text 245 830 Get/Set midi pitch. Type: float. Default value: 57.
-Range: 36...84.;
+#X text 245 830 Get/Set midi pitch. Type: float. Default value: 57\.
+Range: 36\...84\.;
 #X msg 110 872 @xfade;
 #X text 245 872 Get/Set crossfade of outputs. Type: int. Default value:
-0. Range: 0...127.;
+0\. Range: 0\...127\.;
 #X obj 20 924 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 929 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -68,17 +68,17 @@ Range: 36...84.;
 #X obj 255 1058 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1058 NOTE: midi note. Type: float.;
 #X obj 255 1081 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1081 VEL: velocity. Type: float. Range: 0...127.;
+#X text 255 1081 VEL: velocity. Type: float. Range: 0\...127\.;
 #X obj 20 1116 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1121 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1122 1.;
+#X text 110 1122 1\.;
 #X text 150 1122 *list*;
 #X text 245 1122 NOTE VEL.;
 #X obj 20 1152 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1157 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1158 1.;
+#X text 110 1158 1\.;
 #X text 245 1158 synth output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

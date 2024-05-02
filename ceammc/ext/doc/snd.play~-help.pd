@@ -34,11 +34,11 @@
 #X obj 20 583 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 588 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 623 1.;
+#X text 110 623 1\.;
 #X text 150 623 int;
 #X obj 246 624 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 623 N: number of output channels. Type: int. Range: 1...32;
-#X text 110 643 2.;
+#X text 245 623 N: number of output channels. Type: int. Range: 1\...32;
+#X text 110 643 2\.;
 #X text 150 643 symbol;
 #X obj 246 644 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 643 NAME: absolute or relative to patch soundfile name.
@@ -48,31 +48,31 @@ Type: symbol.;
 -49933 0;
 #X msg 110 728 @n;
 #X text 245 728 (initonly) Get/Set number of output channels. Type:
-int. Default value: 2. Range: 1...32.;
+int. Default value: 2\. Range: 1\...32\.;
 #X msg 110 770 @begin;
 #X text 245 770 Get/Set start playing position. Type: atom. Units:
-'samp' \, 'sec' \, 'ms' \, 'smpte'. Default value: 0.;
+'samp' \, 'sec' \, 'ms' \, 'smpte'. Default value: 0\.;
 #X msg 110 812 @end;
 #X text 245 812 Get/Set end playing position. Type: atom. Units: 'samp'
-\, 'sec' \, 'ms' \, 'smpte'. Default value: -1.;
+\, 'sec' \, 'ms' \, 'smpte'. Default value: -1\.;
 #X msg 110 854 @loop;
 #X text 245 854 Get/Set play in the loop. Type: bool. Default value:
-0.;
+0\.;
 #X msg 110 884 @name;
 #X text 245 884 Get/Set absolute or relative to patch soundfile name.
 Type: symbol.;
 #X msg 110 926 @pitch;
 #X text 245 926 Get/Set pitch-shift correction. Used only if @stretch
-mode enabled. Type: float. Default value: 1. Range: 0.25...4.;
+mode enabled. Type: float. Default value: 1\. Range: 0.25\...4\.;
 #X msg 110 968 @speed;
 #X text 245 968 Get/Set playing speed. If @stretch mode is disabled
 (default): changes playing speed (also with pitch change respectively)
 in realtime. If @stretch mode is enabled: can only change speed (without
 pitch change) only on the next playing cycle. Type: float. Default
-value: 1. Range: 0.25...4.;
+value: 1\. Range: 0.25\...4\.;
 #X msg 110 1071 @stretch;
 #X text 245 1071 Get/Set stretch mode. If true: use timestretch and
-pitch-shifting. Type: bool. Default value: 0.;
+pitch-shifting. Type: bool. Default value: 0\.;
 #X msg 110 1113 @sync;
 #X text 245 1113 Get/Set sync mode. 'now': immidiately starts playing
 (abort previous) after receving start message. 'defer': wait until
@@ -124,19 +124,19 @@ the beginning. Type: atom.;
 #X obj 20 1743 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1748 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1749 1.;
+#X text 110 1749 1\.;
 #X text 150 1749 *float*;
 #X text 245 1749 1: start playing \, 0: stop.;
 #X obj 20 1779 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1784 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1785 1.;
+#X text 110 1785 1\.;
 #X text 245 1785 first output channel.;
 #X text 110 1805 ....;
 #X text 245 1805 ... output channel.;
 #X text 110 1825 n.;
 #X text 245 1825 n-th output channel.;
-#X text 110 1845 n+1.;
+#X text 110 1845 n+1\.;
 #X text 245 1845 control output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

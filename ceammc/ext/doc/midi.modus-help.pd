@@ -15,14 +15,14 @@
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 375 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 410 1.;
+#X text 110 410 1\.;
 #X text 150 410 atom;
 #X obj 246 411 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 410 ROOT: root key. Allowed values: A \, A# \, A## \, Ab
 \, Abb \, B \, B# \, B## \, Bb \, Bbb \, C \, C# \, C## \, Cb \, Cbb
 \, D \, D# \, D## \, Db \, Dbb \, E \, E# \, E## \, Eb \, Ebb \, F
 \, F# \, F## \, Fb \, Fbb \, G \, G# \, G## \, Gb \, Gbb. Type: atom.;
-#X text 110 475 2.;
+#X text 110 475 2\.;
 #X text 150 475 symbol;
 #X obj 246 476 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 475 SCALE: modus scale. Type: symbol.;
@@ -59,11 +59,11 @@ suznak \, hijaz_kar \, saba \, kijaz_kar_kurd \, husseini \, huzam
 \, sikah \, partch_o2 \, nahawand_desc \, minor_hungarian \, iwato
 \, chromatic \, aeolian \, enigmatic \, hindu \, phrygian \, zanjaran
 \, karjighar \, spanish \, purvi \, minor_neapolitan \, bhairav \,
-hijaz_desc \, todi \, hex_major7.;
+hijaz_desc \, todi \, hex_major7\.;
 #X obj 20 1013 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1018 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1019 1.;
+#X text 110 1019 1\.;
 #X text 150 1019 *float*;
 #X text 245 1019 note value.;
 #X text 150 1039 *list*;
@@ -71,9 +71,9 @@ hijaz_desc \, todi \, hex_major7.;
 #X obj 20 1069 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1074 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1075 1.;
+#X text 110 1075 1\.;
 #X text 245 1075 accepted note or NOTE VELOCITY [DUR] list.;
-#X text 110 1095 2.;
+#X text 110 1095 2\.;
 #X text 245 1095 discarded message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

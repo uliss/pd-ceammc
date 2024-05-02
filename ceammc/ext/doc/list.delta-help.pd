@@ -59,13 +59,13 @@ with repeated values from the beginning.;
 #X obj 20 851 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 856 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 857 1.;
+#X text 110 857 1\.;
 #X text 150 857 *list*;
 #X text 245 857 Input float list.;
 #X obj 20 887 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 892 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 893 1.;
+#X text 110 893 1\.;
 #X text 245 893 delta list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

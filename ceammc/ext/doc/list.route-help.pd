@@ -39,7 +39,7 @@ to last outlet if no match;
 #X obj 20 539 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 544 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 579 1.;
+#X text 110 579 1\.;
 #X text 150 579 list;
 #X obj 246 580 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 579 ARGS: list of matched atoms. Type: list.;
@@ -50,17 +50,17 @@ to last outlet if no match;
 #X text 245 649 (initonly) Get/Set matching atoms. Type: list.;
 #X msg 110 679 @as_any;
 #X text 245 679 trim list or symbol selector on output. Default value:
-0.;
+0\.;
 #X msg 110 709 @trim;
 #X text 245 709 cut first element from list \, transform float or symbol
-to bang. Default value: 0.;
+to bang. Default value: 0\.;
 #X msg 110 751 @simplify;
 #X text 245 751 Get/Set one element list simplification - transform
-them to floats or symbols. Type: bool. Default value: 1.;
+them to floats or symbols. Type: bool. Default value: 1\.;
 #X obj 20 803 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 808 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 809 1.;
+#X text 110 809 1\.;
 #X text 150 809 *list*;
 #X text 245 809 input list.;
 #X text 150 829 *data:mlist*;
@@ -68,9 +68,9 @@ them to floats or symbols. Type: bool. Default value: 1.;
 #X obj 20 859 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 864 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 865 0.;
+#X text 110 865 0\.;
 #X text 245 865 first match.;
-#X text 110 885 1.;
+#X text 110 885 1\.;
 #X text 245 885 second match.;
 #X text 110 905 ....;
 #X text 245 905 nth match.;

@@ -24,18 +24,18 @@
 #X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 360 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 395 1.;
+#X text 110 395 1\.;
 #X text 150 395 symbol;
 #X obj 246 396 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 395 ARRAY: array name. Type: symbol.;
-#X text 110 415 2.;
+#X text 110 415 2\.;
 #X text 150 415 float;
 #X obj 246 416 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 415 YMIN: minimal y-axis value. Type: float. Range: -1024...1024;
-#X text 110 435 3.;
+#X text 245 415 YMIN: minimal y-axis value. Type: float. Range: -1024\...1024;
+#X text 110 435 3\.;
 #X text 150 435 float;
 #X obj 246 436 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 435 YMAX: maximum y-axis value. Type: float. Range: -1024...1024;
+#X text 245 435 YMAX: maximum y-axis value. Type: float. Range: -1024\...1024;
 #X obj 20 465 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 470 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -43,19 +43,19 @@
 #X text 245 505 Get/Set array name. Type: symbol.;
 #X msg 110 535 @yauto;
 #X text 245 535 Get/Set calculate y-axis range automatically. Type:
-bool. Default value: 0.;
+bool. Default value: 0\.;
 #X msg 110 577 @ymax;
 #X text 245 577 Get/Set minimal y-axis value. Type: float. Default
-value: 1. Range: -1024...1024.;
+value: 1\. Range: -1024\...1024\.;
 #X msg 110 619 @ymin;
 #X text 245 619 Get/Set minimal y-axis value. Type: float. Default
-value: -1. Range: -1024...1024.;
+value: -1\. Range: -1024\...1024\.;
 #X obj 20 671 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 676 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 677 1.;
+#X text 110 677 1\.;
 #X text 245 677 input signal.;
-#X text 110 697 2.;
+#X text 110 697 2\.;
 #X text 150 697 *bang*;
 #X text 245 697 plot all samples fitted to specified array.;
 #X text 150 717 *float*;

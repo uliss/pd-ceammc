@@ -25,14 +25,14 @@
 #X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 503 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 538 1.;
+#X text 110 538 1\.;
 #X text 150 538 int;
 #X obj 246 539 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 538 UNIVERSE: ArtNet universe. Type: int. Range: 0...15;
-#X text 110 558 2.;
+#X text 245 538 UNIVERSE: ArtNet universe. Type: int. Range: 0\...15;
+#X text 110 558 2\.;
 #X text 150 558 int;
 #X obj 246 559 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 558 SUBNET: ArtNet subnet. Type: int. Range: 0...15;
+#X text 245 558 SUBNET: ArtNet subnet. Type: int. Range: 0\...15;
 #X obj 20 588 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 593 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -41,20 +41,20 @@
 - use first available interface. Type: symbol.;
 #X msg 110 670 @offset;
 #X text 245 670 Get/Set DMX channel offset. Type: int. Default value:
-0. Range: 0...511.;
+0\. Range: 0\...511\.;
 #X msg 110 712 @rate;
 #X text 245 712 Get/Set send framerate. Type: float. Units: 'Hz'. Default
-value: 44. Range: 1...100.;
+value: 44\. Range: 1\...100\.;
 #X msg 110 754 @subnet;
-#X text 245 754 Get/Set ArtNet subnet. Type: int. Default value: 0.
-Range: 0...15.;
+#X text 245 754 Get/Set ArtNet subnet. Type: int. Default value: 0\.
+Range: 0\...15\.;
 #X msg 110 796 @sync;
 #X text 245 796 Get/Set send mode. If true: send frame only when bang
 is received \, otherwise send frames with @rate speed with internal
-clock. Type: bool. Default value: 0.;
+clock. Type: bool. Default value: 0\.;
 #X msg 110 853 @universe;
 #X text 245 853 Get/Set ArtNet universe. Type: int. Default value:
-0. Range: 0...15.;
+0\. Range: 0\...15\.;
 #X obj 20 905 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 910 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -68,26 +68,26 @@ channel etc. Type: list.;
 #X msg 110 1036 dmx_fill;
 #X text 245 1036 set all DMX channels to given value. Arguments are:;
 #X obj 255 1059 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1059 VAL: DMX value. Type: int. Range: 0...255.;
+#X text 255 1059 VAL: DMX value. Type: int. Range: 0\...255\.;
 #X msg 110 1084 dmx_set;
 #X text 245 1084 set DMX channel value. Arguments are:;
 #X obj 255 1107 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1107 CHAN: DMX channel. Type: int. Range: 0...512.;
+#X text 255 1107 CHAN: DMX channel. Type: int. Range: 0\...512\.;
 #X obj 255 1130 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1130 VAL: DMX value. Type: int. Range: 0...255.;
+#X text 255 1130 VAL: DMX value. Type: int. Range: 0\...255\.;
 #X msg 110 1155 poll;
 #X text 245 1155 send poll request \, dump response to Pd window.;
 #X obj 20 1193 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1198 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1199 1.;
+#X text 110 1199 1\.;
 #X text 245 1199 input.;
 #X text 150 1219 *bang*;
 #X text 245 1219 send packet.;
 #X obj 20 1249 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1254 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1255 1.;
+#X text 110 1255 1\.;
 #X text 245 1255 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

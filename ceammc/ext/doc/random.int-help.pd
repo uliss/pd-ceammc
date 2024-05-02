@@ -25,7 +25,7 @@ https://en.wikipedia.org/wiki/Mersenne_Twister;
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 404 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 439 1.;
+#X text 110 439 1\.;
 #X text 150 439 list;
 #X obj 246 440 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 439 ARG: @min=ARG[0] \, @max=ARG[1] \, in case of signle
@@ -35,13 +35,13 @@ arg: @min=0 \, @max=ARG[0]. Type: list.;
 -49933 0;
 #X msg 110 524 @max;
 #X text 245 524 Get/Set random range upper bound. Type: int. Default
-value: 255.;
+value: 255\.;
 #X msg 110 566 @min;
 #X text 245 566 Get/Set random range lower bound. Type: int. Default
-value: 0.;
+value: 0\.;
 #X msg 110 608 @seed;
-#X text 245 608 Get/Set generator seed. Type: int. Default value: 0.
-Min value: 0.;
+#X text 245 608 Get/Set generator seed. Type: int. Default value: 0\.
+Min value: 0\.;
 #X obj 20 660 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 665 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -49,23 +49,23 @@ Min value: 0.;
 #X text 245 700 generate list of random integers with specified length.
 Arguments are:;
 #X obj 255 738 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 738 N: list length. Type: int. Min value: 1.;
+#X text 255 738 N: list length. Type: int. Min value: 1\.;
 #X obj 20 773 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 778 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 779 1.;
+#X text 110 779 1\.;
 #X text 150 779 *bang*;
 #X text 245 779 generate new number.;
-#X text 110 799 2.;
+#X text 110 799 2\.;
 #X text 150 799 *int*;
 #X text 245 799 set @min property.;
-#X text 110 819 3.;
+#X text 110 819 3\.;
 #X text 150 819 *int*;
 #X text 245 819 set @max property.;
 #X obj 20 849 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 854 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 855 1.;
+#X text 110 855 1\.;
 #X text 245 855 int or list: generated value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -32,7 +32,7 @@ element and when move to next - use [1( message \, Otherwise - use
 #X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 503 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 538 1.;
+#X text 110 538 1\.;
 #X text 150 538 list;
 #X obj 246 539 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 538 VALUE: initial list. Type: list.;
@@ -44,16 +44,16 @@ element and when move to next - use [1( message \, Otherwise - use
 - min/max value repeats perpetually.;
 #X msg 110 650 @direction;
 #X text 245 650 Get/Set walking direction. "1" - forwards \, "0" -
-backwards. Type: bool. Default value: 1.;
+backwards. Type: bool. Default value: 1\.;
 #X msg 110 692 @fold;
 #X text 245 692 fold pass mode. List values are repeated in a loop
 with folding.;
 #X msg 110 734 @index;
 #X text 245 734 Get/Set current position. Type: list. Default value:
-0. Min value: 0.;
+0\. Min value: 0\.;
 #X msg 110 776 @length;
 #X text 245 776 Get/Set output list length. Type: int. Default value:
-1. Min value: 1.;
+1\. Min value: 1\.;
 #X msg 110 818 @loop;
 #X text 245 818 @wrap alias.;
 #X msg 110 848 @mode;
@@ -69,7 +69,7 @@ information. Type: symbol. Default value: single. Allowed values: single
 #X text 245 977 wrap pass mode. List values are repeated in a loop.;
 #X msg 110 1007 @size?;
 #X text 245 1007 (readonly) Get current list size. Type: int. Default
-value: 0. Min value: 0.;
+value: 0\. Min value: 0\.;
 #X obj 20 1059 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1064 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -86,13 +86,13 @@ step and outputs it. Type: int.;
 #X text 255 1213 [STEP=1]: moves to previous element with optional
 given step and outputs it. Type: int.;
 #X msg 110 1253 reset;
-#X text 245 1253 sets current position to 0.;
+#X text 245 1253 sets current position to 0\.;
 #X msg 110 1281 dump;
 #X text 245 1281 dump internal object state to Pd console window.;
 #X obj 20 1319 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1324 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1325 1.;
+#X text 110 1325 1\.;
 #X text 150 1325 *bang*;
 #X text 245 1325 outputs current element and moves to next.;
 #X text 150 1345 *float*;
@@ -102,9 +102,9 @@ given step and outputs it. Type: int.;
 #X obj 20 1395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1400 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1401 1.;
+#X text 110 1401 1\.;
 #X text 245 1401 list element.;
-#X text 110 1421 2.;
+#X text 110 1421 2\.;
 #X text 245 1421 bang: when last element reached.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -30,20 +30,20 @@ element) or 1 (leave element).;
 #X obj 20 468 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 473 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 474 1.;
+#X text 110 474 1\.;
 #X text 150 474 *list*;
 #X text 245 474 input list.;
 #X text 150 494 *data:mlist*;
 #X text 245 494 input mlist.;
-#X text 110 514 2.;
+#X text 110 514 2\.;
 #X text 150 514 *float*;
 #X text 245 514 value from predicate.;
 #X obj 20 544 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 549 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 550 1.;
+#X text 110 550 1\.;
 #X text 245 550 output list with accepted elements.;
-#X text 110 570 2.;
+#X text 110 570 2\.;
 #X text 245 570 atom to predicate.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

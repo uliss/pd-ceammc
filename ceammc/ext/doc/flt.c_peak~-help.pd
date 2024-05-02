@@ -21,18 +21,18 @@
 #X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 429 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 464 1.;
+#X text 110 464 1\.;
 #X text 150 464 float;
 #X obj 246 465 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 464 FREQ(Hz): center frequency. Type: float. Range: 20...20000;
-#X text 110 484 2.;
+#X text 245 464 FREQ(Hz): center frequency. Type: float. Range: 20\...20000;
+#X text 110 484 2\.;
 #X text 150 484 float;
 #X obj 246 485 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 484 GAIN(db): filter gain. Type: float. Range: -15...+15;
-#X text 110 504 3.;
+#X text 245 484 GAIN(db): filter gain. Type: float. Range: -15\...+15;
+#X text 110 504 3\.;
 #X text 150 504 float;
 #X obj 246 505 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 504 Q: quality factory. Type: float. Range: 0.01...100;
+#X text 245 504 Q: quality factory. Type: float. Range: 0.01\...100;
 #X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 539 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -45,34 +45,34 @@ bind to /flt_c_peak/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 661 @active;
 #X text 245 661 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 691 @freq;
 #X text 245 691 Get/Set center frequency. Type: float. Units: 'Hz'.
-Default value: 1000. Range: 20...20000.;
+Default value: 1000\. Range: 20\...20000\.;
 #X msg 110 733 @gain;
 #X text 245 733 Get/Set filter gain. Type: float. Units: 'db'. Default
-value: 0. Range: -15...15.;
+value: 0\. Range: -15\...15\.;
 #X msg 110 775 @q;
 #X text 245 775 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
-Default value: 1. Range: 0.01...100.;
+Default value: 1\. Range: 0.01\...100\.;
 #X obj 20 827 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 832 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 833 1.;
+#X text 110 833 1\.;
 #X text 245 833 control signal.;
 #X obj 20 863 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 868 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 869 1.;
-#X text 245 869 b0.;
-#X text 110 889 2.;
-#X text 245 889 b1.;
-#X text 110 909 3.;
-#X text 245 909 b2.;
-#X text 110 929 4.;
-#X text 245 929 a1.;
-#X text 110 949 5.;
-#X text 245 949 a2.;
+#X text 110 869 1\.;
+#X text 245 869 b0\.;
+#X text 110 889 2\.;
+#X text 245 889 b1\.;
+#X text 110 909 3\.;
+#X text 245 909 b2\.;
+#X text 110 929 4\.;
+#X text 245 929 a1\.;
+#X text 110 949 5\.;
+#X text 245 949 a2\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

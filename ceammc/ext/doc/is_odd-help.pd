@@ -11,7 +11,7 @@
 #X obj 20 208 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 213 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 214 1.;
+#X text 110 214 1\.;
 #X text 150 214 *int*;
 #X text 245 214 outputs '1' if number is not a multiple of two \, otherwise
 outputs '0'.;
@@ -21,9 +21,9 @@ is performed.;
 #X obj 20 294 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 299 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 300 1.;
-#X text 245 300 0 or 1.;
-#X text 110 320 2.;
+#X text 110 300 1\.;
+#X text 245 300 0 or 1\.;
+#X text 110 320 2\.;
 #X text 245 320 passed odd numbers.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -37,7 +37,7 @@ are returned. Other indexes are wrapped by modulo division.;
 #X obj 20 588 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 593 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 628 1.;
+#X text 110 628 1\.;
 #X text 150 628 list;
 #X obj 246 629 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 628 INDEX: single or multiple elements position. Type:
@@ -56,7 +56,7 @@ element. If index greater or equal list size - return last element.;
 elements are returned. [LIST_SIZE \, 2*LIST_SIZE) - returned in negative
 order etc.;
 #X msg 110 854 @index;
-#X text 245 854 Get/Set indexes. Type: list. Default value: 0.;
+#X text 245 854 Get/Set indexes. Type: list. Default value: 0\.;
 #X msg 110 884 @method;
 #X text 245 884 Get/Set methods of processing of negative/invalid indexes.
 Type: symbol. Default value: rel. Allowed values: rel \, clip \, fold
@@ -70,18 +70,18 @@ elements are returned. Other indexes are wrapped by modulo division.;
 #X obj 20 1050 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1055 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1056 1.;
+#X text 110 1056 1\.;
 #X text 150 1056 *list*;
 #X text 245 1056 input list.;
 #X text 150 1076 *data:mlist*;
 #X text 245 1076 input mlist.;
-#X text 110 1096 2.;
+#X text 110 1096 2\.;
 #X text 150 1096 *list*;
 #X text 245 1096 positions.;
 #X obj 20 1126 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1131 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1132 1.;
+#X text 110 1132 1\.;
 #X text 245 1132 element(s) at the given index position(s). If element
 not found at specified position and @default property is set \, output
 that default value.;

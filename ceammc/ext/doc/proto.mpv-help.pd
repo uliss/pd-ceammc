@@ -32,7 +32,7 @@
 #X obj 20 505 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 510 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 545 1.;
+#X text 110 545 1\.;
 #X text 150 545 symbol;
 #X obj 246 546 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 545 IPC: path to IPC local socket. Type: symbol.;
@@ -48,7 +48,7 @@
 #X text 245 695 set MPV fullscreen mode. Arguments are:;
 #X obj 255 718 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 718 [ON]: 1: switch to fullscreen mode \, 0: switch to
-window mode. Type: int. Allowed values: 0 \, 1.;
+window mode. Type: int. Allowed values: 0 \, 1\.;
 #X msg 110 758 load;
 #X text 245 758 load file. Arguments are:;
 #X obj 255 781 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -58,12 +58,12 @@ window mode. Type: int. Allowed values: 0 \, 1.;
 #X obj 255 829 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 829 [FORCE]: 0: if the last file on the playlist is currently
 played \, do nothing. 1: terminate playback if there are no more files
-on the playlist. Type: int. Allowed values: 0 \, 1.;
+on the playlist. Type: int. Allowed values: 0 \, 1\.;
 #X msg 110 884 pause;
 #X text 245 884 resume/stop playing. Arguments are:;
 #X obj 255 907 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 907 [PAUSE]: 1: stop playing \, 0: resume playing. Type:
-int. Allowed values: 0 \, 1.;
+int. Allowed values: 0 \, 1\.;
 #X msg 110 947 play;
 #X text 245 947 start play current file.;
 #X msg 110 975 playlist;
@@ -81,7 +81,7 @@ are:;
 #X obj 255 1114 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1114 [FORCE]: 0: if the first file on the playlist is currently
 played \, do nothing. 1: terminate playback if the first file is being
-played. Type: int. Allowed values: 0 \, 1.;
+played. Type: int. Allowed values: 0 \, 1\.;
 #X msg 110 1169 quit;
 #X text 245 1169 exit the player.;
 #X msg 110 1197 seek;
@@ -99,7 +99,7 @@ values: rel \, abs \, perc.;
 can be stopped without terminating the player. Arguments are:;
 #X obj 255 1373 cnv 1 93 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1373 [KEEP_PLIST]: if 1 - do not clear the playlist. Type:
-int. Allowed values: 0 \, 1.;
+int. Allowed values: 0 \, 1\.;
 #X msg 110 1413 text;
 #X text 245 1413 show OSD (on screen dispaly) text. Arguments are:;
 #X obj 255 1436 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -109,12 +109,12 @@ int. Allowed values: 0 \, 1.;
 #X obj 20 1494 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1499 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1500 1.;
+#X text 110 1500 1\.;
 #X text 245 1500 commands.;
 #X obj 20 1530 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1535 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1536 1.;
+#X text 110 1536 1\.;
 #X text 245 1536 mpv output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

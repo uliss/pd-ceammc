@@ -21,12 +21,12 @@ custom one;
 #X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 429 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 464 1.;
+#X text 110 464 1\.;
 #X text 150 464 symbol;
 #X obj 246 465 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 464 LAYOUT: layout name. Allowed values: qwerty \, names
 \, custom. Type: symbol.;
-#X text 110 499 2.;
+#X text 110 499 2\.;
 #X text 150 499 bool;
 #X obj 246 500 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 499 ON: init on/off state. Type: bool.;
@@ -40,13 +40,13 @@ Default value: [].;
 #X text 245 611 Get/Set current layout. Type: symbol. Default value:
 qwerty. Allowed values: qwerty \, names \, custom.;
 #X msg 110 653 @octave;
-#X text 245 653 Get/Set output octave. Type: int. Default value: 4.
-Range: 0...8.;
+#X text 245 653 Get/Set output octave. Type: int. Default value: 4\.
+Range: 0\...8\.;
 #X msg 110 695 @on;
-#X text 245 695 Turn on/off state. Type: bool. Default value: 1.;
+#X text 245 695 Turn on/off state. Type: bool. Default value: 1\.;
 #X msg 110 725 @vel;
 #X text 245 725 Get/Set output velocity. Type: float. Default value:
-100. Range: 0...127.;
+100\. Range: 0\...127\.;
 #X obj 20 777 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 782 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -57,15 +57,15 @@ Range: 0...8.;
 #X obj 20 875 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 880 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 881 1.;
+#X text 110 881 1\.;
 #X text 245 881 control input.;
-#X text 110 901 2.;
+#X text 110 901 2\.;
 #X text 150 901 *int*;
 #X text 245 901 1 or 0: turn on/off.;
 #X obj 20 931 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 936 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 937 1.;
+#X text 110 937 1\.;
 #X text 245 937 MIDI output: NOTE VEL.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

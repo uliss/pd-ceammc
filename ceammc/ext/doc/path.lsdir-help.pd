@@ -18,7 +18,7 @@
 #X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 260 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 295 1.;
+#X text 110 295 1\.;
 #X text 150 295 list;
 #X obj 246 296 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 295 PATH: init directory value. Type: list.;
@@ -33,19 +33,19 @@ Type: symbol.;
 #X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 452 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 453 1.;
+#X text 110 453 1\.;
 #X text 150 453 *bang*;
 #X text 245 453 output directory content.;
 #X text 150 473 *symbol*;
 #X text 245 473 set directory path (symbol or string) and output it
 content. If not absolute path is given list current patch directory.;
-#X text 110 508 2.;
+#X text 110 508 2\.;
 #X text 150 508 *symbol*;
 #X text 245 508 set @match property.;
 #X obj 20 538 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 543 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 544 1.;
+#X text 110 544 1\.;
 #X text 245 544 list of strings.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -15,11 +15,11 @@
 #X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 418 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 453 1.;
+#X text 110 453 1\.;
 #X text 150 453 float;
 #X obj 246 454 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 453 FREQ(Hz): noise generation freq. Type: float. Range:
-5...22050;
+5\...22050;
 #X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 503 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -32,20 +32,20 @@ empty bind to /noise_lfreq/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 625 @active;
 #X text 245 625 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 655 @freq;
 #X text 245 655 Get/Set noise generation freq. Type: float. Units:
-'Hz'. Default value: 1000. Range: 5...22050.;
+'Hz'. Default value: 1000\. Range: 5\...22050\.;
 #X obj 20 707 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 712 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 713 1.;
+#X text 110 713 1\.;
 #X text 150 713 *float*;
 #X text 245 713 set average frequency.;
 #X obj 20 743 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 748 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 749 1.;
+#X text 110 749 1\.;
 #X text 245 749 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -14,7 +14,7 @@
 #X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 289 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 324 1.;
+#X text 110 324 1\.;
 #X text 150 324 list;
 #X obj 246 325 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 324 ARGS: list of passed value. Type: list.;
@@ -26,7 +26,7 @@
 #X obj 20 434 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 439 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 440 1.;
+#X text 110 440 1\.;
 #X text 150 440 *float*;
 #X text 245 440 input float.;
 #X text 150 460 *symbol*;
@@ -35,13 +35,13 @@
 #X text 245 480 input list.;
 #X text 150 500 *data:mlist*;
 #X text 245 500 input mlist.;
-#X text 110 520 2.;
+#X text 110 520 2\.;
 #X text 150 520 *list*;
 #X text 245 520 set passed values.;
 #X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 555 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 556 1.;
+#X text 110 556 1\.;
 #X text 245 556 output list with passed elements.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

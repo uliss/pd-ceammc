@@ -22,25 +22,25 @@
 #X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 285 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 320 1.;
+#X text 110 320 1\.;
 #X text 150 320 int;
 #X obj 246 321 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 320 INPUTS: number of matrix inputs (columns). Type: int.
-Range: 2...16;
-#X text 110 355 2.;
+Range: 2\...16;
+#X text 110 355 2\.;
 #X text 150 355 int;
 #X obj 246 356 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 355 OUTPUTS: number of matrix outputs (rows). Type: int.
-Range: 2...16;
+Range: 2\...16;
 #X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 405 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 440 @inputs;
 #X text 245 440 (initonly) Get/Set number of matrix inputs. Type: int.
-Default value: 2. Range: 2...16.;
+Default value: 2\. Range: 2\...16\.;
 #X msg 110 482 @outputs;
 #X text 245 482 (initonly) Get/Set number of matrix outputs. Type:
-int. Default value: 2. Range: 2...16.;
+int. Default value: 2\. Range: 2\...16\.;
 #X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 539 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -48,13 +48,13 @@ int. Default value: 2. Range: 2...16.;
 #X text 245 574 on/off matrix cell. Note argument order: row \, cols.
 Arguments are:;
 #X obj 255 612 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 612 ROW: row (output) index. Type: int. Range: 0...15.;
+#X text 255 612 ROW: row (output) index. Type: int. Range: 0\...15\.;
 #X obj 255 635 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 635 COL: column (input) index. Type: int. Range: 0...15.;
+#X text 255 635 COL: column (input) index. Type: int. Range: 0\...15\.;
 #X obj 20 670 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 675 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 676 1.;
+#X text 110 676 1\.;
 #X text 245 676 first input signal.;
 #X text 110 696 ....;
 #X text 245 696 ... input signal.;
@@ -63,7 +63,7 @@ Arguments are:;
 #X obj 20 746 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 751 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 752 1.;
+#X text 110 752 1\.;
 #X text 245 752 first output signal.;
 #X text 110 772 ....;
 #X text 245 772 ... output signal.;

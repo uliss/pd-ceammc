@@ -38,12 +38,12 @@ a1/16 g1/16 f/4;
 #X obj 20 595 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 600 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 635 1.;
+#X text 110 635 1\.;
 #X text 150 635 atom;
 #X obj 246 636 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 635 TEMPO(bpm): current tempo \, if float - treat as quarter-per-minute
 \, if symbol - bpm format expected \, for example: 120bpm \, 60|1/8_bpm
-\, 90|4._bpm etc. Type: atom.;
+\, 90|4\._bpm etc. Type: atom.;
 #X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 700 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -53,15 +53,15 @@ value: 60|4bpm.;
 #X obj 20 787 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 792 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 793 1.;
+#X text 110 793 1\.;
 #X text 150 793 *symbol*;
 #X text 245 793 Guido note.;
 #X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 828 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 829 1.;
+#X text 110 829 1\.;
 #X text 245 829 int: MIDI pitch.;
-#X text 110 849 2.;
+#X text 110 849 2\.;
 #X text 245 849 float: note duration in milliseconds.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

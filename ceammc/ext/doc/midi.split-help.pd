@@ -16,7 +16,7 @@
 #X obj 20 380 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 385 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 420 1.;
+#X text 110 420 1\.;
 #X text 150 420 list;
 #X obj 246 421 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 420 NOTES: list of note values (split points). Type: list.;
@@ -29,20 +29,20 @@ order. Type: list.;
 #X obj 20 542 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 547 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 548 1.;
+#X text 110 548 1\.;
 #X text 150 548 *list*;
 #X text 245 548 NOTE VELOCITY [DUR] list.;
 #X obj 20 578 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 583 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 584 1.;
+#X text 110 584 1\.;
 #X text 245 584 midi pitches that are less than first split point.;
 #X text 110 604 ....;
 #X text 245 604 ...;
 #X text 110 624 n.;
 #X text 245 624 midi pitches that are greater or equal than N-th split
-point and less then N+1.;
-#X text 110 659 n+1.;
+point and less then N+1\.;
+#X text 110 659 n+1\.;
 #X text 245 659 notes that are greater or equal last split point.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

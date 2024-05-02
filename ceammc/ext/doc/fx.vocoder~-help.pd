@@ -26,16 +26,16 @@ bind to /fx_vocoder/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 468 @active;
 #X text 245 468 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 498 @attack;
 #X text 245 498 Get/Set attack time. Type: float. Units: 'ms'. Default
-value: 5. Range: 0.1...100.;
+value: 5\. Range: 0.1\...100\.;
 #X msg 110 540 @bwratio;
 #X text 245 540 Get/Set coefficient to adjust the bandwidth of each
-band. Type: float. Default value: 0.5. Range: 0.1...2.;
+band. Type: float. Default value: 0.5\. Range: 0.1\...2\.;
 #X msg 110 582 @release;
 #X text 245 582 Get/Set release time. Type: float. Units: 'ms'. Default
-value: 5. Range: 0.1...100.;
+value: 5\. Range: 0.1\...100\.;
 #X obj 20 634 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 639 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -44,14 +44,14 @@ value: 5. Range: 0.1...100.;
 #X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 717 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 718 1.;
+#X text 110 718 1\.;
 #X text 245 718 modulation signal.;
-#X text 110 738 2.;
+#X text 110 738 2\.;
 #X text 245 738 excitation/carrier signal.;
 #X obj 20 768 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 773 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 774 1.;
+#X text 110 774 1\.;
 #X text 245 774;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

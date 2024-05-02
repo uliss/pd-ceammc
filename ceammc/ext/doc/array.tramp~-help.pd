@@ -23,11 +23,11 @@
 #X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 447 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 482 1.;
+#X text 110 482 1\.;
 #X text 150 482 symbol;
 #X obj 246 483 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 482 ARRAY: array name. Type: symbol.;
-#X text 110 502 2.;
+#X text 110 502 2\.;
 #X text 150 502 float;
 #X obj 246 503 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 502 SPEED: playing speed. Type: float.;
@@ -38,26 +38,26 @@
 #X text 245 572 Get/Set array name. Type: symbol.;
 #X msg 110 602 @from;
 #X text 245 602 Get/Set normalized to [0-1] range ramp start. Type:
-float. Default value: 0. Range: 0...1.;
+float. Default value: 0\. Range: 0\...1\.;
 #X msg 110 644 @range;
-#X text 245 644 Get/Set ramp range. Type: list. Default value: 0 1.;
+#X text 245 644 Get/Set ramp range. Type: list. Default value: 0 1\.;
 #X msg 110 674 @speed;
-#X text 245 674 Get/Set ramp speed. Type: float. Default value: 1.;
+#X text 245 674 Get/Set ramp speed. Type: float. Default value: 1\.;
 #X msg 110 704 @to;
 #X text 245 704 Get/Set normalized to [0-1] range ramp end. Type: float.
-Default value: 1. Range: 0...1.;
+Default value: 1\. Range: 0\...1\.;
 #X obj 20 756 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 761 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 762 1.;
+#X text 110 762 1\.;
 #X text 150 762 *bang*;
 #X text 245 762 start ramp for array.;
 #X obj 20 792 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 797 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 798 1.;
+#X text 110 798 1\.;
 #X text 245 798 ramp signal.;
-#X text 110 818 2.;
+#X text 110 818 2\.;
 #X text 245 818 bang on done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

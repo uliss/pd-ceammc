@@ -36,10 +36,10 @@ output all available network service names with format [service SERVICE(;
 #X msg 110 658 @fullname;
 #X text 245 658 Get/Set if true: output full instance name (with service
 and domain suffix) \, for ex.: 'THE_SERVICE._xx.local.' format. Type:
-bool. Default value: 1.;
+bool. Default value: 1\.;
 #X msg 110 715 @ip;
 #X text 245 715 Get/Set restrict addresses by type. Type: symbol. Default
-value: v4. Allowed values: v4 \, v6 \, any.;
+value: v4\. Allowed values: v4 \, v6 \, any.;
 #X obj 20 767 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 772 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -55,7 +55,7 @@ or alias: #osc. Type: symbol.;
 #X text 255 911 NAME: instance name \, for example: MY_SUPER_SERVER.
 Type: symbol.;
 #X obj 255 949 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 949 PORT: instance port. Type: int. Min value: 0.;
+#X text 255 949 PORT: instance port. Type: int. Min value: 0\.;
 #X obj 255 972 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 972 [PROPS]: list of text props (TXT record) \, for example:
 @prop1 FOO @prop2 BOO will have TXT records prop1=FOO prop2=BAR. Type:
@@ -96,12 +96,12 @@ or alias: #osc or #all. Type: symbol.;
 #X obj 20 1433 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1438 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1439 1.;
+#X text 110 1439 1\.;
 #X text 245 1439 input.;
 #X obj 20 1469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1474 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1475 1.;
+#X text 110 1475 1\.;
 #X text 245 1475 add SERVICE NAME \, remove SERVICE NAME \, service
 add|remove SERVICE \, resolve SERVICE NAME HOST PORT IP PROPERTIES.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

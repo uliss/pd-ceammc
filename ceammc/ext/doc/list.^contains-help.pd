@@ -34,7 +34,7 @@
 #X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 465 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 500 1.;
+#X text 110 500 1\.;
 #X text 150 500 list;
 #X obj 246 501 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 500 VALUE: list contents. Type: list.;
@@ -46,7 +46,7 @@
 #X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 615 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 616 1.;
+#X text 110 616 1\.;
 #X text 150 616 *float*;
 #X text 245 616 checks if given float is found the list.;
 #X text 150 636 *symbol*;
@@ -57,14 +57,14 @@
 #X text 245 676 as list.;
 #X text 150 696 *data*;
 #X text 245 696 checks if given data is found the list.;
-#X text 110 716 2.;
+#X text 110 716 2\.;
 #X text 150 716 *list*;
 #X text 245 716 set haystack list.;
 #X obj 20 746 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 751 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 752 1.;
-#X text 245 752 1 on success \, otherwise 0.;
+#X text 110 752 1\.;
+#X text 245 752 1 on success \, otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

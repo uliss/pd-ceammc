@@ -19,16 +19,16 @@
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 352 1.;
+#X text 110 352 1\.;
 #X text 150 352 float;
 #X obj 246 353 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 352 T(ms): stutter period. Type: float. Range: 1...1000;
+#X text 245 352 T(ms): stutter period. Type: float. Range: 1\...1000;
 #X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 387 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 422 @maxsize;
 #X text 245 422 (initonly) Get/Set max stutter period. Type: float.
-Units: 'ms'. Default value: 1000. Range: 1...10000.;
+Units: 'ms'. Default value: 1000\. Range: 1\...10000\.;
 #X msg 110 464 @env;
 #X text 245 464 Get/Set stutter envelope. Type: atom.;
 #X msg 110 494 @mode;
@@ -38,16 +38,16 @@ fragment in both directions. Type: symbol. Default value: fwd. Allowed
 values: fwd \, back \, tri.;
 #X msg 110 566 @speed;
 #X text 245 566 Get/Set loop fragment playing speed. Type: float. Default
-value: 1. Range: 0.25...4.;
+value: 1\. Range: 0.25\...4\.;
 #X msg 110 608 @t;
 #X text 245 608 Get/Set stutter period. Type: float. Units: 'ms'. Default
-value: 50. Range: 1...1000.;
+value: 50\. Range: 1\...1000\.;
 #X obj 20 660 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 665 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 666 1.;
+#X text 110 666 1\.;
 #X text 245 666 input signal.;
-#X text 110 686 2.;
+#X text 110 686 2\.;
 #X text 150 686 *bang*;
 #X text 245 686 turn on effect for 3 periods.;
 #X text 150 706 *float*;
@@ -55,7 +55,7 @@ value: 50. Range: 1...1000.;
 #X obj 20 736 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 741 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 742 1.;
+#X text 110 742 1\.;
 #X text 245 742 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

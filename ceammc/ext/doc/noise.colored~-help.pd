@@ -21,12 +21,12 @@ for different values of alpha.;
 #X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 503 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 538 1.;
+#X text 110 538 1\.;
 #X text 150 538 float;
 #X obj 246 539 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 538 ALPHA: slope of roll-off \, between -1 and 1. -1 corresponds
+#X text 245 538 ALPHA: slope of roll-off \, between -1 and 1\. -1 corresponds
 to brown/red noise \, -1/2 pink noise \, 0 white noise \, 1/2 blue
-noise \, and 1 violet/azure noise. Type: float. Range: -1...1;
+noise \, and 1 violet/azure noise. Type: float. Range: -1\...1;
 #X obj 20 598 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 603 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -39,12 +39,12 @@ empty bind to /noise_colored/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 725 @active;
 #X text 245 725 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 755 @alpha;
-#X text 245 755 Get/Set slope of roll-off \, between -1 and 1. -1 corresponds
-to brown/red noise \, -1/2 pink noise \, 0 white noise \, 1/2 blue
-noise \, and 1 violet/azure noise. Type: float. Default value: 0. Range:
--1...1.;
+#X text 245 755 Get/Set slope of roll-off \, between -1 and 1\. -1
+corresponds to brown/red noise \, -1/2 pink noise \, 0 white noise
+\, 1/2 blue noise \, and 1 violet/azure noise. Type: float. Default
+value: 0\. Range: -1\...1\.;
 #X obj 20 837 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 842 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -61,13 +61,13 @@ noise \, and 1 violet/azure noise. Type: float. Default value: 0. Range:
 #X obj 20 1027 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1032 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1033 1.;
+#X text 110 1033 1\.;
 #X text 150 1033 *float*;
 #X text 245 1033 set roll-off frequency.;
 #X obj 20 1063 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1068 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1069 1.;
+#X text 110 1069 1\.;
 #X text 245 1069 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

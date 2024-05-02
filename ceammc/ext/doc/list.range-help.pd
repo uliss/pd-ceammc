@@ -32,7 +32,7 @@ value: float. Allowed values: float \, symbol \, any.;
 #X obj 20 606 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 611 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 612 1.;
+#X text 110 612 1\.;
 #X text 150 612 *list*;
 #X text 245 612 input list.;
 #X text 150 632 *data:mlist*;
@@ -40,7 +40,7 @@ value: float. Allowed values: float \, symbol \, any.;
 #X obj 20 662 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 667 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 668 1.;
+#X text 110 668 1\.;
 #X text 245 668 list of two elements: first is a smallest value \,
 second - largest.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

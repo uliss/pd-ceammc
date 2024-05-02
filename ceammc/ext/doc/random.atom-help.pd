@@ -32,7 +32,7 @@ is not uniform or weighted.;
 #X obj 20 574 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 579 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 614 1.;
+#X text 110 614 1\.;
 #X text 150 614 list;
 #X obj 246 615 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 614 VALUE: list of atoms. Type: list.;
@@ -41,10 +41,10 @@ is not uniform or weighted.;
 -49933 0;
 #X msg 110 684 @nonrep;
 #X text 245 684 Get/Set generate non-repeated adjacent values (note:
-distribution will changed!). Type: bool. Default value: 0.;
+distribution will changed!). Type: bool. Default value: 0\.;
 #X msg 110 726 @seed;
-#X text 245 726 Get/Set generator seed. Type: int. Default value: 0.
-Min value: 0.;
+#X text 245 726 Get/Set generator seed. Type: int. Default value: 0\.
+Min value: 0\.;
 #X msg 110 768 @value;
 #X text 245 768 Get/Set list of atoms. Type: list.;
 #X msg 110 798 @w;
@@ -52,17 +52,17 @@ Min value: 0.;
 #X obj 20 838 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 843 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 844 1.;
+#X text 110 844 1\.;
 #X text 150 844 *bang*;
 #X text 245 844 output random atom.;
-#X text 110 864 2.;
+#X text 110 864 2\.;
 #X text 150 864 *list*;
 #X text 245 864 set list of elements to choose from. Note: clear all
 weights.;
 #X obj 20 894 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 899 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 900 1.;
+#X text 110 900 1\.;
 #X text 245 900 random atom value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

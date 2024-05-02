@@ -26,7 +26,7 @@
 #X obj 20 496 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 501 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 536 1.;
+#X text 110 536 1\.;
 #X text 150 536 symbol;
 #X obj 246 537 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 536 SCALE: scale name. Allowed values: aeolian \, ahirbhairav
@@ -100,7 +100,7 @@ it to key.;
 #X obj 20 1651 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1656 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1657 1.;
+#X text 110 1657 1\.;
 #X text 150 1657 *float*;
 #X text 245 1657 input value.;
 #X text 150 1677 *list*;
@@ -108,7 +108,7 @@ it to key.;
 #X obj 20 1707 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1712 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1713 1.;
+#X text 110 1713 1\.;
 #X text 245 1713 float or float list: converted value(s).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

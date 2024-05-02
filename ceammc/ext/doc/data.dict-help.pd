@@ -33,13 +33,13 @@ are supported: [a: [A:1 B:2]]).;
 #X obj 20 456 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 491 @empty?;
-#X text 245 491 (readonly) Get 1 if dict is empty \, otherwise 0. Type:
-bool. Default value: 1.;
+#X text 245 491 (readonly) Get 1 if dict is empty \, otherwise 0\.
+Type: bool. Default value: 1\.;
 #X msg 110 533 @keys?;
 #X text 245 533 (readonly) Get keys of dictionary. Type: list.;
 #X msg 110 563 @size?;
 #X text 245 563 (readonly) Get number of entries in dictionary. Type:
-int. Default value: 0. Min value: 0.;
+int. Default value: 0\. Min value: 0\.;
 #X obj 20 615 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 620 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -83,18 +83,18 @@ nothing. Arguments are:;
 #X obj 20 1126 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1131 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1132 1.;
+#X text 110 1132 1\.;
 #X text 150 1132 *bang*;
 #X text 245 1132 output current dictionary value.;
 #X text 150 1152 *list*;
 #X text 245 1152 set dict from list. Key-value pairs are expected.
-[1 2 3 4( becames dict with keys: 1 and 3 \, values: 2 and 4. No output.;
+[1 2 3 4( becames dict with keys: 1 and 3 \, values: 2 and 4\. No output.;
 #X text 150 1187 *data:dict*;
 #X text 245 1187 set and output new dict.;
 #X obj 20 1217 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1222 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1223 1.;
+#X text 110 1223 1\.;
 #X text 245 1223 output dictionary.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

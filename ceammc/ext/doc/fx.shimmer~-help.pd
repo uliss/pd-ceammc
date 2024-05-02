@@ -20,16 +20,16 @@
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 404 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 439 1.;
+#X text 110 439 1\.;
 #X text 150 439 float;
 #X obj 246 440 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 439 DECAY_LOW(sec): time to decay 60dB in low-frequency
-band. Type: float. Range: 1...8;
-#X text 110 474 2.;
+band. Type: float. Range: 1\...8;
+#X text 110 474 2\.;
 #X text 150 474 float;
 #X obj 246 475 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 474 DECAY_MID(sec): time to decay 60dB in mid-frequency
-band. Type: float. Range: 1...8;
+band. Type: float. Range: 1\...8;
 #X obj 20 519 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 524 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -42,77 +42,77 @@ bind to /fx_shimmer/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 646 @active;
 #X text 245 646 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 676 @bypass;
 #X text 245 676 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0.;
+Type: bool. Default value: 0\.;
 #X msg 110 718 @control;
 #X text 245 718 Get/Set envelope follower to pitch shifter influence
-coefficient. Type: float. Default value: 0.5. Range: 0...1.;
-#X msg 110 760 @damp_hf;
-#X text 245 760 Get/Set Frequency (Hz) at which the high-frequency
-T60 is half the middle-band's T60. Type: float. Units: 'Hz'. Default
-value: 6000. Range: 1500...47040.;
-#X msg 110 817 @decay_low;
-#X text 245 817 Get/Set time (in seconds) to decay 60dB in low-frequency
-band. Type: float. Units: 'sec'. Default value: 3. Range: 1...8.;
-#X msg 110 874 @decay_mid;
-#X text 245 874 Get/Set time (in seconds) to decay 60dB in mid-frequency
-band. Type: float. Units: 'sec'. Default value: 2. Range: 1...8.;
-#X msg 110 931 @depth;
-#X text 245 931 Get/Set pitchshift modulation amplitude. Type: float.
-Default value: 0. Range: 0...1.;
-#X msg 110 973 @drywet;
-#X text 245 973 Get/Set proportion of mix between the original (dry)
+coefficient. Type: float. Default value: 0.5\. Range: 0\...1\.;
+#X msg 110 775 @damp_hf;
+#X text 245 775 Get/Set Frequency (Hz) at which the high-frequency
+T60 is half the middle-band's T60\. Type: float. Units: 'Hz'. Default
+value: 6000\. Range: 1500\...47040\.;
+#X msg 110 832 @decay_low;
+#X text 245 832 Get/Set time (in seconds) to decay 60dB in low-frequency
+band. Type: float. Units: 'sec'. Default value: 3\. Range: 1\...8\.;
+#X msg 110 889 @decay_mid;
+#X text 245 889 Get/Set time (in seconds) to decay 60dB in mid-frequency
+band. Type: float. Units: 'sec'. Default value: 2\. Range: 1\...8\.;
+#X msg 110 946 @depth;
+#X text 245 946 Get/Set pitchshift modulation amplitude. Type: float.
+Default value: 0\. Range: 0\...1\.;
+#X msg 110 988 @drywet;
+#X text 245 988 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 0.5. Range: 0...1.;
-#X msg 110 1030 @envelope;
-#X text 245 1030 Get/Set amplitude-envelope time-constant going down.
-Type: float. Units: 'sec'. Default value: 1. Range: 0.1...3.;
-#X msg 110 1072 @freq_low;
-#X text 245 1072 Get/Set Crossover frequency (Hz) separating low and
-middle frequencies. Type: float. Units: 'Hz'. Default value: 200. Range:
-50...1000.;
-#X msg 110 1129 @mode;
-#X text 245 1129 Get/Set correlation between pitchshift. Type: int.
-Default value: 0. Range: -3...3.;
-#X msg 110 1171 @ps_drywet;
-#X text 245 1171 Get/Set proportion of mix between original and pitchshift
-signal in shimmer feedback. Type: float. Default value: 0.5. Range:
-0...1.;
-#X msg 110 1228 @shift;
-#X text 245 1228 Get/Set frequency shifting. Type: float. Units: 'semitone'.
-Default value: 12. Range: -12...12.;
-#X msg 110 1270 @speed;
-#X text 245 1270 Get/Set pitchshift modulation frequency. Type: float.
-Units: 'Hz'. Default value: 0.1. Range: 0.1...10.;
-#X obj 20 1322 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1327 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+Default value: 0.5\. Range: 0\...1\.;
+#X msg 110 1045 @envelope;
+#X text 245 1045 Get/Set amplitude-envelope time-constant going down.
+Type: float. Units: 'sec'. Default value: 1\. Range: 0.1\...3\.;
+#X msg 110 1087 @freq_low;
+#X text 245 1087 Get/Set Crossover frequency (Hz) separating low and
+middle frequencies. Type: float. Units: 'Hz'. Default value: 200\.
+Range: 50\...1000\.;
+#X msg 110 1144 @mode;
+#X text 245 1144 Get/Set correlation between pitchshift. Type: int.
+Default value: 0\. Range: -3\...3\.;
+#X msg 110 1186 @ps_drywet;
+#X text 245 1186 Get/Set proportion of mix between original and pitchshift
+signal in shimmer feedback. Type: float. Default value: 0.5\. Range:
+0\...1\.;
+#X msg 110 1243 @shift;
+#X text 245 1243 Get/Set frequency shifting. Type: float. Units: 'semitone'.
+Default value: 12\. Range: -12\...12\.;
+#X msg 110 1285 @speed;
+#X text 245 1285 Get/Set pitchshift modulation frequency. Type: float.
+Units: 'Hz'. Default value: 0.1\. Range: 0.1\...10\.;
+#X obj 20 1337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1342 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1362 reset;
-#X text 245 1362 reset to initial state.;
-#X obj 20 1400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1405 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1377 reset;
+#X text 245 1377 reset to initial state.;
+#X obj 20 1415 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1420 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1406 1.;
-#X text 245 1406 input signal.;
-#X text 110 1426 2.;
-#X text 245 1426 input signal.;
-#X obj 20 1456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1461 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1421 1\.;
+#X text 245 1421 input signal.;
+#X text 110 1441 2\.;
+#X text 245 1441 input signal.;
+#X obj 20 1471 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1476 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1462 1.;
-#X text 245 1462 output signal.;
-#X text 110 1482 2.;
-#X text 245 1482 output signal.;
+#X text 110 1477 1\.;
+#X text 245 1477 output signal.;
+#X text 110 1497 2\.;
+#X text 245 1497 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1532 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1535 library: ceammc v0.9.7;
-#N canvas 10 1554 400 290 info 0;
+#X obj 1 1547 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1550 library: ceammc v0.9.7;
+#N canvas 10 1569 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -136,7 +136,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1554 pd info;
+#X restore 10 1569 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

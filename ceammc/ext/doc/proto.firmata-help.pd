@@ -49,7 +49,7 @@ like: [pin_info PIN# MODE RESOLUTION( \, where # is pin number.;
 #X msg 110 834 pin_mode;
 #X text 245 834 sets pin mode. Arguments are:;
 #X obj 255 857 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 857 PIN#: pin number. Type: int. Min value: 0.;
+#X text 255 857 PIN#: pin number. Type: int. Min value: 0\.;
 #X obj 255 880 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 880 MODE: pin mode. Type: symbol. Allowed values: INPUT
 \, OUTPUT \, ANALOG \, PWM \, SERVO \, SHIFT \, I2C \, ONEWIRE \, STEPPER
@@ -73,24 +73,25 @@ are:;
 #X obj 255 1165 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1165 VALUE: value. If 1 - activates analog reporting \,
 messages like [apin PIN# value( are returned every sampling interval
-(by default 19ms). Type: int. Allowed values: 0 \, 1.;
+(by default 19ms). Type: int. Allowed values: 0 \, 1\.;
 #X msg 110 1220 report_dport;
 #X text 245 1220 turns on/off digital port value reporting. Arguments
 are:;
 #X obj 255 1243 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1243 PORT#: digital port number. Port is a group of pins
-\, port 0 refers pins 0-8. Type: int.;
+\, port 0 refers pins 0-8\. Type: int.;
 #X obj 255 1281 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1281 VALUE: value. If 1 - activates digital port reporting
 \, messages like [dport PORT# value( are returned only on pin value
-change. Type: int. Allowed values: 0 \, 1.;
+change. Type: int. Allowed values: 0 \, 1\.;
 #X msg 110 1336 samp_interval;
 #X text 245 1336 sets sampling interval - how often analog data and
 i2c data is reported to the client. The default for the arduino implementation
 is 19ms. This means that every 19ms analog data will be reported and
 any i2c devices with read continuous mode will be read. Arguments are:;
 #X obj 255 1419 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1419 TIME: time. Type: int. Range: 10...10000. Units: 'ms'.;
+#X text 255 1419 TIME: time. Type: int. Range: 10\...10000\. Units:
+'ms'.;
 #X msg 110 1444 version?;
 #X text 245 1444 query firmata protocol version. Returns message like:
 [version MAJOR MINOR(.;
@@ -101,24 +102,24 @@ Arguments are:;
 #X text 255 1522 PIN#: pin number. Type: int.;
 #X obj 255 1545 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1545 VALUE: pin value. Type: int. Allowed values: 0 \,
-1.;
+1\.;
 #X msg 110 1570 write_pwm;
 #X text 245 1570 writes PWM (Pulse Width Modulation) value to specified
 pin. Arguments are:;
 #X obj 255 1608 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1608 PIN#: pin number. Type: int.;
 #X obj 255 1631 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1631 VALUE: pin value. Type: int. Range: 0...256.;
+#X text 255 1631 VALUE: pin value. Type: int. Range: 0\...256\.;
 #X obj 20 1666 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1671 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1672 1.;
+#X text 110 1672 1\.;
 #X text 150 1672 *float*;
 #X text 245 1672 raw input of bytes from Arduino serial connection.;
 #X obj 20 1702 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1707 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1708 1.;
+#X text 110 1708 1\.;
 #X text 245 1708 raw byte output to Arduino serial connection and tagged
 parsed output from Arduino.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

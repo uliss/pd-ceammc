@@ -11,7 +11,7 @@
 #X text 215 105 - by denominator: 1 (whole) \, 2_. (dotted half) \,
 8 (eight) etc.;
 #X text 215 145 or;
-#X text 215 170 - by ratio: 3/4 (three quaters) \, 1/8.(one dotted
+#X text 215 170 - by ratio: 3/4 (three quaters) \, 1/8\.(one dotted
 eight) \, 3/8 (three eights) etc.;
 #X msg 50 248 list 2_. 4 8 8 16 16 16 1/16 3/2;
 #X obj 98 277 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
@@ -26,16 +26,16 @@ eight) \, 3/8 (three eights) etc.;
 value: 60|4bpm.;
 #X msg 110 496 @seq;
 #X text 245 496 Get/Set sequential durations. Type: bool. Default value:
-1.;
+1\.;
 #X obj 20 536 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 541 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 542 1.;
+#X text 110 542 1\.;
 #X text 245 542 duration list.;
 #X obj 20 572 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 577 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 578 1.;
+#X text 110 578 1\.;
 #X text 245 578 converted value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -28,7 +28,7 @@ message into console;
 #X obj 20 377 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 382 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 417 1.;
+#X text 110 417 1\.;
 #X text 150 417 float;
 #X obj 246 418 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 417 DIV: divisor. Type: float.;
@@ -36,23 +36,23 @@ message into console;
 #X obj 20 452 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 487 @int;
-#X text 245 487 operate on integers only. Default value: 0.;
+#X text 245 487 operate on integers only. Default value: 0\.;
 #X obj 20 527 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 532 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 533 1.;
+#X text 110 533 1\.;
 #X text 150 533 *float*;
 #X text 245 533 set divident \, calculate and output result.;
 #X text 150 553 *list*;
 #X text 245 553 pair: set divident and divisor \, calculate and output
 result.;
-#X text 110 573 2.;
+#X text 110 573 2\.;
 #X text 150 573 *float*;
 #X text 245 573 change divisor \, calculate and output result.;
 #X obj 20 603 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 608 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 609 1.;
+#X text 110 609 1\.;
 #X text 245 609 division result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

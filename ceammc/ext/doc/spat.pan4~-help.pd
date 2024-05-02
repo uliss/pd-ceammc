@@ -22,15 +22,15 @@
 #X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 461 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 496 1.;
+#X text 110 496 1\.;
 #X text 150 496 float;
 #X obj 246 497 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 496 RADIUS: panning radius. Type: float. Range: 0...1;
-#X text 110 516 2.;
+#X text 245 496 RADIUS: panning radius. Type: float. Range: 0\...1;
+#X text 110 516 2\.;
 #X text 150 516 float;
 #X obj 246 517 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 516 ANGLE(rad): circle panning position in radians. Type:
-float. Range: 0...2π;
+float. Range: 0\...2π;
 #X obj 20 561 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 566 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -43,30 +43,30 @@ bind to /spat_pan4/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 688 @active;
 #X text 245 688 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 718 @angle;
 #X text 245 718 Get/Set panning position in radians. Type: float. Units:
-'rad'. Default value: 0. Range: 0...2π.;
+'rad'. Default value: 0\. Range: 0\...2π.;
 #X msg 110 760 @radius;
 #X text 245 760 Get/Set distance from circle center. Type: float. Default
-value: 1. Range: 0...1.;
+value: 1\. Range: 0\...1\.;
 #X obj 20 812 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 817 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 818 1.;
+#X text 110 818 1\.;
 #X text 245 818 input signal.;
 #X text 150 838 *list*;
 #X text 245 838 set radius and angle.;
 #X obj 20 868 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 873 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 874 1.;
+#X text 110 874 1\.;
 #X text 245 874 1st output channel.;
-#X text 110 894 2.;
+#X text 110 894 2\.;
 #X text 245 894 2nd output channel.;
-#X text 110 914 3.;
+#X text 110 914 3\.;
 #X text 245 914 3rd output channel.;
-#X text 110 934 4.;
+#X text 110 934 4\.;
 #X text 245 934 4th output channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

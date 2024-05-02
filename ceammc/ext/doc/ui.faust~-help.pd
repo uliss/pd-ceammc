@@ -32,7 +32,7 @@ https://faust.grame.fr/ @url https://faust.grame.fr/;
 #X obj 20 538 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 543 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 578 1.;
+#X text 110 578 1\.;
 #X text 150 578 symbol;
 #X obj 246 579 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 578 LOAD: initial file to load after object creation. Type:
@@ -45,14 +45,14 @@ symbol.;
 creation. Type: symbol.;
 #X msg 110 705 @active;
 #X text 245 705 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 735 @include;
 #X text 245 735 Get/Set list of faust include directories. Type: list.;
 #X msg 110 765 @style;
-#X text 245 765 Get/Set view style. Type: int. Default value: 0.;
+#X text 245 765 Get/Set view style. Type: int. Default value: 0\.;
 #X msg 110 795 @size;
 #X text 245 795 Get/Set object size. Type: list. Default value: 10
-10.;
+10\.;
 #X obj 20 835 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 840 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -82,18 +82,18 @@ Type: symbol.;
 #X obj 20 1146 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1151 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1152 1.;
+#X text 110 1152 1\.;
 #X text 245 1152 control input.;
-#X text 110 1172 2.;
+#X text 110 1172 2\.;
 #X text 245 1172 first faust input.;
 #X text 110 1192 ....;
 #X text 245 1192 ... faust input.;
-#X text 110 1212 n+1.;
+#X text 110 1212 n+1\.;
 #X text 245 1212 n-th faust input.;
 #X obj 20 1242 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1247 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1248 1.;
+#X text 110 1248 1\.;
 #X text 245 1248 first faust output.;
 #X text 110 1268 ....;
 #X text 245 1268 ... faust output.;

@@ -21,50 +21,50 @@
 #X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 389 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 424 1.;
+#X text 110 424 1\.;
 #X text 150 424 int;
 #X obj 246 425 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 424 N: number of inputs. Type: int. Range: 2...16;
+#X text 245 424 N: number of inputs. Type: int. Range: 2\...16;
 #X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 459 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 494 @db;
 #X text 245 494 Get/Set amplitude values in decibels. Type: list. Units:
-'db'. Default value: -144 -144. Min value: -144.;
+'db'. Default value: -144 -144\. Min value: -144\.;
 #X msg 110 536 @mute;
-#X text 245 536 Get/Set mute channel list \, allowed values: 0 \, 1.
-Type: list. Default value: 0 0.;
+#X text 245 536 Get/Set mute channel list \, allowed values: 0 \, 1\.
+Type: list. Default value: 0 0\.;
 #X msg 110 578 @solo;
-#X text 245 578 Get/Set solo channel list \, allowed values: 0 \, 1.
-Type: list. Default value: 0 0.;
+#X text 245 578 Get/Set solo channel list \, allowed values: 0 \, 1\.
+Type: list. Default value: 0 0\.;
 #X msg 110 620 @value;
 #X text 245 620 Get/Set linear amplitude values. Type: list. Default
-value: 0 0. Min value: 0.;
+value: 0 0\. Min value: 0\.;
 #X msg 110 662 @xfade_time;
 #X text 245 662 Get/Set smooth time. Type: float. Units: 'ms'. Default
-value: 20. Min value: 1.;
+value: 20\. Min value: 1\.;
 #X obj 20 714 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 719 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 754 mute;
 #X text 245 754 mute specified channel. Arguments are:;
 #X obj 255 777 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 777 CH: channel index (from 0). Type: int. Min value: 0.;
+#X text 255 777 CH: channel index (from 0). Type: int. Min value: 0\.;
 #X obj 255 800 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 800 VAL: 1 - mute \, 0 - unmute. Type: int. Allowed values:
-0 \, 1.;
+0 \, 1\.;
 #X msg 110 825 solo;
 #X text 245 825 solo (mute all others that not solo) specified channel.
 Arguments are:;
 #X obj 255 863 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 863 CH: channel index (from 0). Type: int. Min value: 0.;
+#X text 255 863 CH: channel index (from 0). Type: int. Min value: 0\.;
 #X obj 255 886 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 886 [VAL]: 1 - enable solo \, 0 - disable solo. Type: int.
-Allowed values: 0 \, 1.;
+Allowed values: 0 \, 1\.;
 #X obj 20 936 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 941 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 942 1.;
+#X text 110 942 1\.;
 #X text 245 942 input signal.;
 #X text 110 962 ....;
 #X text 245 962 input signal.;
@@ -74,7 +74,7 @@ Allowed values: 0 \, 1.;
 #X obj 20 1012 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1017 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1018 1.;
+#X text 110 1018 1\.;
 #X text 245 1018 output mixed signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

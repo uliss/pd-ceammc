@@ -34,10 +34,10 @@
 -49933 0;
 #X msg 110 453 @off_value;
 #X text 245 453 Get/Set output off value. Type: float. Default value:
-0.;
+0\.;
 #X msg 110 483 @on_value;
 #X text 245 483 Get/Set output on value. Type: float. Default value:
-1.;
+1\.;
 #X msg 110 513 @receive;
 #X text 245 513 Get/Set receive source. Type: symbol. Default value:
 (null).;
@@ -46,29 +46,29 @@
 (null).;
 #X msg 110 585 @value;
 #X text 245 585 Get/Set widget logical value. Type: float. Default
-value: 0. Allowed values: 0 \, 1.;
+value: 0\. Allowed values: 0 \, 1\.;
 #X msg 110 627 @midi_channel;
 #X text 245 627 Get/Set binded MIDI channel. 0 means listen to all
-channels. Type: int. Default value: 0. Range: 0...16.;
+channels. Type: int. Default value: 0\. Range: 0\...16\.;
 #X msg 110 669 @midi_control;
 #X text 245 669 Get/Set binded MIDI controller number. -1 means not
-binded to any controller. Type: int. Default value: -1. Range: -1...127.;
+binded to any controller. Type: int. Default value: -1\. Range: -1\...127\.;
 #X msg 110 726 @active_color;
 #X text 245 726 Get/Set active color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0 0.75 1 1.;
+values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 768 @background_color;
 #X text 245 768 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1.;
+0.93 1\.;
 #X msg 110 825 @border_color;
 #X text 245 825 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 867 @fontname;
 #X text 245 867 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 909 @fontsize;
-#X text 245 909 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 909 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 951 @fontslant;
 #X text 245 951 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -77,13 +77,13 @@ Allowed values: roman \, italic.;
 Allowed values: normal \, bold.;
 #X msg 110 1035 @pinned;
 #X text 245 1035 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1077 @presetname;
 #X text 245 1077 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
 #X msg 110 1119 @size;
 #X text 245 1119 Get/Set element size (width \, height pair). Type:
-list. Default value: 15 15.;
+list. Default value: 15 15\.;
 #X obj 20 1171 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1176 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -115,7 +115,7 @@ performed.;
 #X obj 20 1520 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1525 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1526 1.;
+#X text 110 1526 1\.;
 #X text 150 1526 *bang*;
 #X text 245 1526 change toggle state.;
 #X text 150 1546 *float*;
@@ -124,7 +124,7 @@ performed.;
 #X obj 20 1606 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1611 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1612 1.;
+#X text 110 1612 1\.;
 #X text 245 1612 outputs @on_value or @off_value (by default 0 or 1).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

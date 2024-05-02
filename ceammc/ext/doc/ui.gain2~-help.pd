@@ -56,61 +56,61 @@ follows mouse pointer.;
 -49933 0;
 #X msg 110 677 @amp;
 #X text 245 677 Get/Set gain as amplitude ratio. Type: float. Default
-value: 0.;
+value: 0\.;
 #X msg 110 719 @db;
 #X text 245 719 Get/Set gain in dbfs scale. Type: float. Units: 'db'.
-Default value: -60.;
+Default value: -60\.;
 #X msg 110 761 @max;
 #X text 245 761 Get/Set maximum gain value. Type: int. Units: 'db'.
-Default value: 0. Range: -12...12.;
+Default value: 0\. Range: -12\...12\.;
 #X msg 110 803 @min;
 #X text 245 803 Get/Set minimal gain value. Type: int. Units: 'db'.
-Default value: -60. Range: -90...-15.;
+Default value: -60\. Range: -90\...-15\.;
 #X msg 110 845 @mouse_events;
 #X text 245 845 Get/Set mouse events output mode. If on outputs @mouse_down
-\, @mouse_up and @mouse_drag events. Type: bool. Default value: 0.;
+\, @mouse_up and @mouse_drag events. Type: bool. Default value: 0\.;
 #X msg 110 902 @output_value;
 #X text 245 902 Get/Set flag to output @db property after each knob
-move. Type: bool. Default value: 0.;
+move. Type: bool. Default value: 0\.;
 #X msg 110 944 @receive;
 #X text 245 944 Get/Set receive source. Type: symbol. Default value:
 (null).;
 #X msg 110 974 @relative;
 #X text 245 974 Get/Set relative input mode. When set do not jump to
-value on click. Type: bool. Default value: 1.;
+value on click. Type: bool. Default value: 1\.;
 #X msg 110 1016 @send;
 #X text 245 1016 Get/Set send destination. Type: symbol. Default value:
 (null).;
 #X msg 110 1058 @show_range;
 #X text 245 1058 Get/Set if show slider range. Type: bool. Default
-value: 1.;
+value: 1\.;
 #X msg 110 1088 @midi_channel;
 #X text 245 1088 Get/Set binded MIDI channel. 0 means listen to all
-channels. Type: int. Default value: 0. Range: 0...16.;
+channels. Type: int. Default value: 0\. Range: 0\...16\.;
 #X msg 110 1130 @midi_control;
 #X text 245 1130 Get/Set binded MIDI controller number. -1 means not
-binded to any controller. Type: int. Default value: -1. Range: -1...127.;
+binded to any controller. Type: int. Default value: -1\. Range: -1\...127\.;
 #X msg 110 1187 @midi_pickup;
 #X text 245 1187 Get/Set pickup current value. If slider is binded
 to value \, first time you should pass over this value to make binding.
 It prevents from sudden value change on first control change. Type:
-bool. Default value: 1.;
+bool. Default value: 1\.;
 #X msg 110 1259 @background_color;
 #X text 245 1259 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1.;
+0.93 1\.;
 #X msg 110 1316 @border_color;
 #X text 245 1316 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 1358 @knob_color;
 #X text 245 1358 Get/Set knob color (list of red \, green \, blue values
-in 0-1 range). Type: list. Default value: 0 0.75 1 1.;
+in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 1400 @fontname;
 #X text 245 1400 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1442 @fontsize;
-#X text 245 1442 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 1442 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 1484 @fontslant;
 #X text 245 1484 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -119,13 +119,13 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 1568 @pinned;
 #X text 245 1568 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1610 @presetname;
 #X text 245 1610 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
 #X msg 110 1652 @size;
 #X text 245 1652 Get/Set element size (width \, height pair). Type:
-list. Default value: 15 120.;
+list. Default value: 15 120\.;
 #X obj 20 1704 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1709 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -164,18 +164,18 @@ list. Default value: 15 120.;
 #X obj 20 2157 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2162 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2163 1.;
+#X text 110 2163 1\.;
 #X text 245 2163 left input signal.;
 #X text 150 2183 *bang*;
 #X text 245 2183 output current gain @db property.;
-#X text 110 2203 2.;
+#X text 110 2203 2\.;
 #X text 245 2203 right input signal.;
 #X obj 20 2233 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2238 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2239 1.;
+#X text 110 2239 1\.;
 #X text 245 2239 left output signal.;
-#X text 110 2259 2.;
+#X text 110 2259 2\.;
 #X text 245 2259 right output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

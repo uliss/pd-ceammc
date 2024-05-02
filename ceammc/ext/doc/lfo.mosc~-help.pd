@@ -20,11 +20,11 @@
 #X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 400 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 435 1.;
+#X text 110 435 1\.;
 #X text 150 435 float;
 #X obj 246 436 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 435 FREQ(Hz): frequency. Type: float.;
-#X text 110 455 2.;
+#X text 110 455 2\.;
 #X text 150 455 symbol;
 #X obj 246 456 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 455 WAVE: wave type. Allowed values: sin \, saw \, tri
@@ -41,16 +41,16 @@ bind to /lfo_mosc/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 627 @active;
 #X text 245 627 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 657 @duty;
 #X text 245 657 Get/Set duty cycle for pulse waveform. Type: float.
-Default value: 0.5. Range: 0...1.;
+Default value: 0.5\. Range: 0\...1\.;
 #X msg 110 699 @pause;
 #X text 245 699 Get/Set pause oscillator at current value. Type: bool.
-Default value: 0.;
+Default value: 0\.;
 #X msg 110 741 @phase;
 #X text 245 741 Get/Set initial phase. Type: float. Default value:
-0. Range: 0...1.;
+0\. Range: 0\...1\.;
 #X msg 110 783 @wave;
 #X text 245 783 Get/Set wave type. Type: symbol. Default value: sin.
 Allowed values: sin \, saw \, tri \, sqr \, pulse \, +sin \, +saw \,
@@ -58,7 +58,7 @@ Allowed values: sin \, saw \, tri \, sqr \, pulse \, +sin \, +saw \,
 #X msg 110 840 @windex;
 #X text 245 840 Get/Set waveform index (counting from 0): sin \, saw
 \, tri \, sqr \, pulse \, +sin \, +saw \, +tri \, +sqr \, +pulse. Type:
-int. Default value: 0. Range: 0...9.;
+int. Default value: 0\. Range: 0\...9\.;
 #X obj 20 907 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 912 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -67,9 +67,9 @@ int. Default value: 0. Range: 0...9.;
 #X obj 20 985 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 990 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 991 1.;
+#X text 110 991 1\.;
 #X text 245 991 frequency in Hz.;
-#X text 110 1011 2.;
+#X text 110 1011 2\.;
 #X text 150 1011 *bang*;
 #X text 245 1011 reset phase.;
 #X text 150 1031 *int*;
@@ -77,7 +77,7 @@ int. Default value: 0. Range: 0...9.;
 #X obj 20 1061 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1066 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1067 1.;
+#X text 110 1067 1\.;
 #X text 245 1067 oscillator output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

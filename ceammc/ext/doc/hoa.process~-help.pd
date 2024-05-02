@@ -59,21 +59,21 @@ id>=2;
 #X obj 20 1250 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1255 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1290 1.;
+#X text 110 1290 1\.;
 #X text 150 1290 int;
 #X obj 246 1291 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 1290 N: the order of decomposition. Type: int. Min value:
 0;
-#X text 110 1310 2.;
+#X text 110 1310 2\.;
 #X text 150 1310 symbol;
 #X obj 246 1311 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 1310 PATCH: patch name. Type: symbol.;
-#X text 110 1330 3.;
+#X text 110 1330 3\.;
 #X text 150 1330 symbol;
 #X obj 246 1331 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 1330 DOMAIN: process domain: harmonics or planewaves. Allowed
 values: harmonics \, planewaves. Type: symbol.;
-#X text 110 1365 4.;
+#X text 110 1365 4\.;
 #X text 150 1365 list;
 #X obj 246 1366 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 1365 ARGS: instance arguments. Type: list.;
@@ -89,7 +89,7 @@ Type: symbol. Default value: harmonics. Allowed values: harmonics \,
 planewaves.;
 #X msg 110 1522 @n;
 #X text 245 1522 (initonly) Get/Set the order of decomposition/number
-of planewaves. Type: int. Default value: 0. Range: 0...63.;
+of planewaves. Type: int. Default value: 0\. Range: 0\...63\.;
 #X msg 110 1564 @patch;
 #X text 245 1564 (initonly) Get/Set patch name. Type: symbol.;
 #X obj 20 1604 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -108,7 +108,7 @@ instance.;
 #X obj 20 1785 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1790 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1791 1.;
+#X text 110 1791 1\.;
 #X text 245 1791 first input harmonic/planewave.;
 #X text 110 1811 ....;
 #X text 245 1811 ... input harmonic/planewave.;
@@ -117,7 +117,7 @@ instance.;
 #X obj 20 1861 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1866 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1867 1.;
+#X text 110 1867 1\.;
 #X text 245 1867 first harmonic/planewave output.;
 #X text 110 1887 ....;
 #X text 245 1887 ... harmonic/planewave output.;

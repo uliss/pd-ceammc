@@ -22,32 +22,32 @@ in a logarithmic way to have linear changes.;
 #X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 555 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 590 1.;
+#X text 110 590 1\.;
 #X text 150 590 int;
 #X obj 246 591 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 590 ORDER: the order of decomposition. Type: int. Range:
-1...63;
+1\...63;
 #X obj 20 620 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 625 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 660 @order;
 #X text 245 660 (initonly) Get/Set the order of decomposition. Type:
-int. Default value: 1. Range: 1...63.;
+int. Default value: 1\. Range: 1\...63\.;
 #X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 717 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 718 1.;
+#X text 110 718 1\.;
 #X text 245 718 first input signal.;
 #X text 110 738 ....;
 #X text 245 738 ... input signal.;
 #X text 110 758 n.;
 #X text 245 758 n-th input signal.;
-#X text 110 778 n+1.;
+#X text 110 778 n+1\.;
 #X text 245 778 widening signal in [0-1] range.;
 #X obj 20 808 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 813 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 814 1.;
+#X text 110 814 1\.;
 #X text 245 814 first circular harmonics output.;
 #X text 110 834 ....;
 #X text 245 834 ... circular harmonics output.;

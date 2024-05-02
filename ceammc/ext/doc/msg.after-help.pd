@@ -19,26 +19,26 @@ is not send \, the delayed message is resetted;
 #X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 357 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 392 1.;
+#X text 110 392 1\.;
 #X text 150 392 float;
 #X obj 246 393 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 392 DELAY(ms): message delay. Type: float. Min value: 0;
-#X text 110 412 2.;
+#X text 110 412 2\.;
 #X text 150 412 list;
 #X obj 246 413 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 412 MSG: message arguments. Type: list.;
 #X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 447 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 448 1.;
+#X text 110 448 1\.;
 #X text 245 448 any input message.;
-#X text 110 468 2.;
+#X text 110 468 2\.;
 #X text 150 468 *float*;
 #X text 245 468 change message delay.;
 #X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 503 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 504 1.;
+#X text 110 504 1\.;
 #X text 245 504 message output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

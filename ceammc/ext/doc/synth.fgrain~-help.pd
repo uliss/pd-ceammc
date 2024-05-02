@@ -33,21 +33,21 @@
 are supported. Type: symbol.;
 #X msg 110 538 @gdelay;
 #X text 245 538 Get/Set delay parameter that causes grain calculations
-to pause between grains. Type: int. Units: 'ms'. Default value: 0.
-Min value: 0.;
+to pause between grains. Type: int. Units: 'ms'. Default value: 0\.
+Min value: 0\.;
 #X msg 110 595 @gdur;
 #X text 245 595 Get/Set grain duration. Type: int. Units: 'ms'. Default
-value: 30. Min value: 1.;
+value: 30\. Min value: 1\.;
 #X msg 110 637 @goffset;
 #X text 245 637 Get/Set offset parameter that controls grain pointer
 jumps between enveloped grain segments. Type: int. Units: 'ms'. Default
-value: 0. Min value: 0.;
+value: 0\. Min value: 0\.;
 #X msg 110 694 @gramp;
 #X text 245 694 Get/Set grain ramp. For values of @gramp greater than
 zero \, a linear envelope will be applied to each grain. If @gramp
 = 100 \, the resultant grain "window" is triangular while @gramp =
 50 produces a trapezoidal window. Type: int. Units: '%'. Default value:
-50. Range: 1...100.;
+50\. Range: 1\...100\.;
 #X msg 110 781 @random;
 #X text 245 781 Get/Set factor used when setting individual grain parameters.
 This random factor is applied when all grain state durations are calculated.
@@ -55,16 +55,16 @@ If set to 0.0 \, no randomness occurs. When @random=0.5 \, a grain
 segment of length duration will be randomly augmented by up to +-duration
 seconds (i.e. \, a 30 millisecond length will be augmented by an extra
 length of up to +15 or -15 milliseconds). Type: float. Default value:
-0.1. Range: 0...0.97.;
+0.1\. Range: 0\...0.97\.;
 #X msg 110 914 @stretch;
 #X text 245 914 Get/Set stretch factor used for grain playback (1 -
 1000). Granular synthesis allows for time-stetching without affecting
 the original pitch of a sound. A stretch factor of 4 will produce a
 resulting sound of length 4 times the orignal sound. The default parameter
-of 1 produces no stretching. Type: int. Default value: 1. Range: 1...1000.;
+of 1 produces no stretching. Type: int. Default value: 1\. Range: 1\...1000\.;
 #X msg 110 1017 @voices;
 #X text 245 1017 Get/Set number of simultaneous grain "voices" to use.
-Type: int. Default value: 1. Range: 0...200.;
+Type: int. Default value: 1\. Range: 0\...200\.;
 #X obj 20 1069 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1074 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -79,12 +79,12 @@ the file start.;
 #X obj 20 1222 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1227 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1228 1.;
+#X text 110 1228 1\.;
 #X text 245 1228 control inlet.;
 #X obj 20 1258 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1263 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1264 1.;
+#X text 110 1264 1\.;
 #X text 245 1264;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

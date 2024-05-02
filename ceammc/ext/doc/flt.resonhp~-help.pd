@@ -22,14 +22,14 @@
 #X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 490 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 525 1.;
+#X text 110 525 1\.;
 #X text 150 525 float;
 #X obj 246 526 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 525 FREQ(Hz): center frequency. Type: float. Range: 20...20000;
-#X text 110 545 2.;
+#X text 245 525 FREQ(Hz): center frequency. Type: float. Range: 20\...20000;
+#X text 110 545 2\.;
 #X text 150 545 float;
 #X obj 246 546 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 545 Q: Quality factor. Type: float. Range: 0.1...100;
+#X text 245 545 Q: Quality factor. Type: float. Range: 0.1\...100;
 #X obj 20 575 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 580 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -42,28 +42,28 @@ empty bind to /flt_resonhp/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 702 @active;
 #X text 245 702 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 732 @freq;
 #X text 245 732 Get/Set center frequency. Type: float. Units: 'Hz'.
-Default value: 100. Range: 20...20000.;
+Default value: 100\. Range: 20\...20000\.;
 #X msg 110 774 @q;
 #X text 245 774 Get/Set Quality factor. Type: float. Default value:
-20. Range: 0.1...100.;
+20\. Range: 0.1\...100\.;
 #X obj 20 826 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 831 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 832 1.;
+#X text 110 832 1\.;
 #X text 245 832 input signal.;
-#X text 110 852 2.;
+#X text 110 852 2\.;
 #X text 150 852 *float*;
 #X text 245 852 set frequency.;
-#X text 110 872 3.;
+#X text 110 872 3\.;
 #X text 150 872 *float*;
 #X text 245 872 set Q-factor.;
 #X obj 20 902 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 907 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 908 1.;
+#X text 110 908 1\.;
 #X text 245 908 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

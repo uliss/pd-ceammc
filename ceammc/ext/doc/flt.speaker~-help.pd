@@ -7,7 +7,7 @@
 #X obj 652 11 flt.speaker~;
 #X obj 210 80 cnv 1 555 115 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Low-frequency speaker model = +12 dB/octave slope breaking
-to flat near @f1.;
+to flat near @f1\.;
 #X text 215 120 Implemented using two dc blockers in series.;
 #X text 215 145 High-frequency model = -24 dB/octave slope implemented
 using a fourth-order Butterworth lowpass.;
@@ -24,74 +24,74 @@ using a fourth-order Butterworth lowpass.;
 #X obj 20 619 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 624 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 659 1.;
+#X text 110 659 1\.;
 #X text 150 659 float;
 #X obj 246 660 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 659 F1(Hz): lower band frequency. Type: float. Range: 20...1000;
-#X text 110 679 2.;
+#X text 245 659 F1(Hz): lower band frequency. Type: float. Range: 20\...1000;
+#X text 110 679 2\.;
 #X text 150 679 float;
 #X obj 246 680 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 679 F2(Hz): high band frequency. Type: float. Range: 1000...20000;
-#X obj 20 709 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 714 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X text 245 679 F2(Hz): high band frequency. Type: float. Range: 1000\...20000;
+#X obj 20 724 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 729 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 749 @id;
-#X text 245 749 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 764 @id;
+#X text 245 764 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/flt_speaker/PROP_NAME osc address \, if
 empty bind to /flt_speaker/PROP_NAME. Type: symbol.;
-#X msg 110 806 @osc;
-#X text 245 806 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 821 @osc;
+#X text 245 821 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 836 @active;
-#X text 245 836 Turn on/off dsp processing. Type: bool. Default value:
-1.;
-#X msg 110 866 @bypass;
-#X text 245 866 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0.;
-#X msg 110 908 @drywet;
-#X text 245 908 Get/Set proportion of mix between the original (dry)
+#X msg 110 851 @active;
+#X text 245 851 Turn on/off dsp processing. Type: bool. Default value:
+1\.;
+#X msg 110 881 @bypass;
+#X text 245 881 Get/Set bypass flag. If true: bypass 'effected' signal.
+Type: bool. Default value: 0\.;
+#X msg 110 923 @drywet;
+#X text 245 923 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 1. Range: 0...1.;
-#X msg 110 965 @f1;
-#X text 245 965 Get/Set lower band frequency. Type: float. Units: 'Hz'.
-Default value: 130. Range: 20...1000.;
-#X msg 110 1007 @f2;
-#X text 245 1007 Get/Set high band frequency. Type: float. Units: 'Hz'.
-Default value: 5000. Range: 1000...20000.;
-#X msg 110 1049 @gain;
-#X text 245 1049 Get/Set filter gain. Type: float. Units: 'db'. Default
-value: 0. Range: -30...30.;
-#X obj 20 1101 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1106 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+Default value: 1\. Range: 0\...1\.;
+#X msg 110 980 @f1;
+#X text 245 980 Get/Set lower band frequency. Type: float. Units: 'Hz'.
+Default value: 130\. Range: 20\...1000\.;
+#X msg 110 1022 @f2;
+#X text 245 1022 Get/Set high band frequency. Type: float. Units: 'Hz'.
+Default value: 5000\. Range: 1000\...20000\.;
+#X msg 110 1064 @gain;
+#X text 245 1064 Get/Set filter gain. Type: float. Units: 'db'. Default
+value: 0\. Range: -30\...30\.;
+#X obj 20 1116 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1121 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1141 reset;
-#X text 245 1141 reset filter state.;
-#X obj 20 1179 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1184 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1156 reset;
+#X text 245 1156 reset filter state.;
+#X obj 20 1194 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1199 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1185 1.;
-#X text 245 1185 input signal.;
-#X text 110 1205 2.;
-#X text 150 1205 *float*;
-#X text 245 1205 set @f1 property.;
-#X text 110 1225 3.;
-#X text 150 1225 *float*;
-#X text 245 1225 set @f2 property.;
-#X obj 20 1255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1260 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1200 1\.;
+#X text 245 1200 input signal.;
+#X text 110 1220 2\.;
+#X text 150 1220 *float*;
+#X text 245 1220 set @f1 property.;
+#X text 110 1240 3\.;
+#X text 150 1240 *float*;
+#X text 245 1240 set @f2 property.;
+#X obj 20 1270 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1275 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1261 1.;
-#X text 245 1261 filtered signal.;
+#X text 110 1276 1\.;
+#X text 245 1276 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
 #X text 116 45 ::;
 #X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 1311 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1314 library: ceammc v0.9.7;
-#X text 591 1326 see also:;
-#X obj 666 1326 flt.bpf24~;
-#N canvas 10 1333 400 290 info 0;
+#X obj 1 1326 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1329 library: ceammc v0.9.7;
+#X text 591 1341 see also:;
+#X obj 666 1341 flt.bpf24~;
+#N canvas 10 1348 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -115,7 +115,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1333 pd info;
+#X restore 10 1348 pd info;
 #X connect 8 0 11 0;
 #X connect 9 0 12 0;
 #X connect 11 0 13 0;

@@ -22,16 +22,16 @@ first and second signals \, [1-2) between second and third etc.;
 #X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 386 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 421 1.;
+#X text 110 421 1\.;
 #X text 150 421 int;
 #X obj 246 422 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 421 N: number of signal inputs (multiplied 2). Type: int.
-Range: 1...8;
-#X text 110 456 2.;
+Range: 1\...8;
+#X text 110 456 2\.;
 #X text 150 456 float;
 #X obj 246 457 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 456 X: crossfade init value. Valid value in [0..N-1] range.
-See @x property. Type: float. Range: 0...1;
+#X text 245 456 X: crossfade init value. Valid value in [0\..N-1] range.
+See @x property. Type: float. Range: 0\...1;
 #X obj 20 501 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 506 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -41,37 +41,37 @@ See @x property. Type: float. Range: 0...1;
 #X text 245 571 alias to @type pow.;
 #X msg 110 601 @smooth;
 #X text 245 601 Get/Set signal change smooth time. Type: float. Units:
-'ms'. Default value: 20. Min value: 1.;
+'ms'. Default value: 20\. Min value: 1\.;
 #X msg 110 643 @type;
 #X text 245 643 Get/Set fade curve type: linear or power. Type: symbol.
 Default value: pow. Allowed values: lin \, pow.;
 #X msg 110 685 @x;
-#X text 245 685 Get/Set crossfade property. Valid value in [0..N-1]
-range. Type: float. Default value: 0. Range: 0...1.;
+#X text 245 685 Get/Set crossfade property. Valid value in [0\..N-1]
+range. Type: float. Default value: 0\. Range: 0\...1\.;
 #X obj 20 737 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 742 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 743 1.;
+#X text 110 743 1\.;
 #X text 245 743 left input signal.;
-#X text 110 763 2.;
+#X text 110 763 2\.;
 #X text 245 763 right input signal.;
 #X text 110 783 ....;
 #X text 245 783 left input signal.;
 #X text 110 803 ....;
 #X text 245 803 right input signal.;
-#X text 110 823 n-1.;
+#X text 110 823 n-1\.;
 #X text 245 823 left input signal.;
 #X text 110 843 n.;
 #X text 245 843 right input signal.;
-#X text 110 863 n+1.;
+#X text 110 863 n+1\.;
 #X text 150 863 *float*;
 #X text 245 863 set crossfade value.;
 #X obj 20 893 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 898 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 899 1.;
+#X text 110 899 1\.;
 #X text 245 899 left output signal.;
-#X text 110 919 2.;
+#X text 110 919 2\.;
 #X text 245 919 right output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

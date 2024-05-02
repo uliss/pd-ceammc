@@ -17,7 +17,7 @@
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 375 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 410 1.;
+#X text 110 410 1\.;
 #X text 150 410 symbol;
 #X obj 246 411 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 410 WITH: symbol to compare. Type: symbol.;
@@ -29,19 +29,19 @@
 #X obj 20 520 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 525 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 526 1.;
+#X text 110 526 1\.;
 #X text 150 526 *symbol*;
 #X text 245 526 first compare symbol. Unicode strings also supported.;
 #X text 150 546 *list*;
 #X text 245 546 compare first and second list elements.;
-#X text 110 566 2.;
+#X text 110 566 2\.;
 #X text 150 566 *symbol*;
 #X text 245 566 second compare symbol. Unicode strings also supported.;
 #X obj 20 596 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 601 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 602 1.;
-#X text 245 602 1 if first symbol less then second \, otherwise 0.;
+#X text 110 602 1\.;
+#X text 245 602 1 if first symbol less then second \, otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

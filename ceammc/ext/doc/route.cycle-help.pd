@@ -27,15 +27,15 @@ all messages (including property requests) are passed thru;
 #X obj 20 554 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 559 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 594 1.;
+#X text 110 594 1\.;
 #X text 150 594 int;
 #X obj 246 595 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 594 N: number of outlets. Type: int. Range: 1...64;
-#X text 110 614 2.;
+#X text 245 594 N: number of outlets. Type: int. Range: 1\...64;
+#X text 110 614 2\.;
 #X text 150 614 int;
 #X obj 246 615 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 614 OFFSET: start position. Type: int. Range: -64...64;
-#X text 110 634 3.;
+#X text 245 614 OFFSET: start position. Type: int. Range: -64\...64;
+#X text 110 634 3\.;
 #X text 150 634 int;
 #X obj 246 635 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 634 STEP: cycle step. Type: int.;
@@ -44,19 +44,19 @@ all messages (including property requests) are passed thru;
 -49933 0;
 #X msg 110 704 @n;
 #X text 245 704 (initonly) Get/Set number of outlets. Type: int. Default
-value: 2. Range: 1...64.;
+value: 2\. Range: 1\...64\.;
 #X msg 110 746 @index;
 #X text 245 746 Get/Set current outlet index. Type: int. Default value:
-0.;
+0\.;
 #X msg 110 776 @offset;
 #X text 245 776 Get/Set init cycle offset. Type: int. Default value:
-0. Range: -64...64.;
+0\. Range: -64\...64\.;
 #X msg 110 818 @step;
-#X text 245 818 Get/Set cycle step. Type: int. Default value: 1.;
+#X text 245 818 Get/Set cycle step. Type: int. Default value: 1\.;
 #X obj 20 858 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 863 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 864 1.;
+#X text 110 864 1\.;
 #X text 150 864 *any*;
 #X text 245 864 any to current outlet \, then move to next.;
 #X text 150 884 *bang*;
@@ -67,13 +67,13 @@ value: 2. Range: 1...64.;
 #X text 245 924 list to to current outlet \, then move to next.;
 #X text 150 944 *symbol*;
 #X text 245 944 symbol to current outlet \, then move to next.;
-#X text 110 964 2.;
+#X text 110 964 2\.;
 #X text 150 964 *bang*;
 #X text 245 964 reset to initial outlet index.;
 #X obj 20 994 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 999 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1000 1.;
+#X text 110 1000 1\.;
 #X text 245 1000 first output.;
 #X text 110 1020 ....;
 #X text 245 1020 ... output.;

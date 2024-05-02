@@ -21,7 +21,7 @@
 #X obj 20 348 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 353 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 388 1.;
+#X text 110 388 1\.;
 #X text 150 388 list;
 #X obj 246 389 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 388 VALUE: list contents. Type: list.;
@@ -30,16 +30,16 @@
 -49933 0;
 #X msg 110 458 @end;
 #X text 245 458 Get/Set search end index position (-1 means end of
-list). Type: int. Default value: -1. Min value: -1.;
+list). Type: int. Default value: -1\. Min value: -1\.;
 #X msg 110 500 @start;
 #X text 245 500 Get/Set search start index position. Type: int. Default
-value: 0. Min value: 0.;
+value: 0\. Min value: 0\.;
 #X msg 110 542 @value;
 #X text 245 542 Get/Set list contents. Type: list.;
 #X obj 20 582 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 587 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 588 1.;
+#X text 110 588 1\.;
 #X text 150 588 *float*;
 #X text 245 588 output float index in searched list.;
 #X text 150 608 *symbol*;
@@ -48,14 +48,14 @@ value: 0. Min value: 0.;
 #X text 245 628 output position of given list in searched list.;
 #X text 150 648 *data*;
 #X text 245 648 output data index in searched list.;
-#X text 110 668 2.;
+#X text 110 668 2\.;
 #X text 150 668 *list*;
 #X text 245 668 set searched list.;
 #X obj 20 698 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 703 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 704 1.;
-#X text 245 704 1 on success \, otherwise 0.;
+#X text 110 704 1\.;
+#X text 245 704 1 on success \, otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

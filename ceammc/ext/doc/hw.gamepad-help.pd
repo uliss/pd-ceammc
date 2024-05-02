@@ -34,17 +34,17 @@ rthumb \, up \, down \, left \, right \, unknown.;
 #X obj 20 651 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 656 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 657 1.;
+#X text 110 657 1\.;
 #X text 245 657 input.;
 #X obj 20 687 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 692 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 693 1.;
+#X text 110 693 1\.;
 #X text 245 693 button output: list GAMEPAD_ID BUTTON_NAME BUTTON_EVENT
 VALUE.;
-#X text 110 728 2.;
+#X text 110 728 2\.;
 #X text 245 728 axis output: list GAMEPAD_ID AXIS_NAME VALUE.;
-#X text 110 748 3.;
+#X text 110 748 3\.;
 #X text 245 748 [device DICT( - connected device information \, [connected
 ID( - when device connected \, [disconnected ID( - when device disconnected.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

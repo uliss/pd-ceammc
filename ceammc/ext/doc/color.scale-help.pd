@@ -15,7 +15,7 @@
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 352 1.;
+#X text 110 352 1\.;
 #X text 150 352 list;
 #X obj 246 353 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 352 SCALE: color list. Type: list.;
@@ -40,13 +40,13 @@ symbol. Default value: color. Allowed values: color \, hex \, rgb.;
 #X obj 20 666 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 671 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 672 1.;
+#X text 110 672 1\.;
 #X text 150 672 *float*;
-#X text 245 672 calculate color scale hue and output. Range: 0...1.;
+#X text 245 672 calculate color scale hue and output. Range: 0\...1\.;
 #X obj 20 702 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 707 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 708 1.;
+#X text 110 708 1\.;
 #X text 245 708 data:color output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -14,7 +14,7 @@
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 375 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 410 1.;
+#X text 110 410 1\.;
 #X text 150 410 list;
 #X obj 246 411 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 410 DICT: mapping dictionary \, see @dict property. Type:
@@ -32,7 +32,7 @@ value: [].;
 #X obj 20 589 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 594 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 595 1.;
+#X text 110 595 1\.;
 #X text 150 595 *float*;
 #X text 245 595 input float \, no output if not in dict.;
 #X text 150 615 *symbol*;
@@ -41,15 +41,15 @@ value: [].;
 #X text 245 635 input list \, output always at least empty list.;
 #X text 150 655 *data:mlist*;
 #X text 245 655 input list \, output always at least empty list.;
-#X text 110 675 2.;
+#X text 110 675 2\.;
 #X text 150 675 *data:dict*;
 #X text 245 675 set mapping dictionary.;
 #X obj 20 705 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 710 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 711 1.;
+#X text 110 711 1\.;
 #X text 245 711 list or data:mlist mapped list.;
-#X text 110 731 2.;
+#X text 110 731 2\.;
 #X text 245 731 atom: missing keys.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

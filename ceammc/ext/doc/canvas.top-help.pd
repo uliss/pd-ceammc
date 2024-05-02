@@ -21,13 +21,13 @@
 -49933 0;
 #X msg 110 352 @abs;
 #X text 245 352 Get/Set if false: using toplevel canvas \, if true:
-using abstraction canvas. Type: bool. Default value: 1.;
+using abstraction canvas. Type: bool. Default value: 1\.;
 #X msg 110 394 @dir?;
 #X text 245 394 (readonly) Get canvas directory. Type: symbol. Default
 value: /.;
 #X msg 110 436 @height?;
 #X text 245 436 (readonly) Get window height. Type: int. Default value:
-400.;
+400\.;
 #X msg 110 466 @name?;
 #X text 245 466 (readonly) Get canvas name. Type: symbol. Default value:
 test_canvas.;
@@ -35,19 +35,19 @@ test_canvas.;
 #X text 245 508 (readonly) Get search paths. Type: list.;
 #X msg 110 538 @width?;
 #X text 245 538 (readonly) Get window width. Type: int. Default value:
-600.;
+600\.;
 #X msg 110 568 @x?;
 #X text 245 568 (readonly) Get window x-pos. Type: int. Default value:
-0.;
+0\.;
 #X msg 110 598 @y?;
 #X text 245 598 (readonly) Get window y-pos. Type: int. Default value:
-0.;
+0\.;
 #X msg 110 628 @font?;
 #X text 245 628 (readonly) Get window font. Type: int. Default value:
-10.;
+10\.;
 #X msg 110 658 @size?;
 #X text 245 658 (readonly) Get window size. Type: list. Default value:
-600 400.;
+600 400\.;
 #X obj 20 710 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 715 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -59,14 +59,14 @@ test_canvas.;
 #X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 828 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 829 1.;
+#X text 110 829 1\.;
 #X text 245 829 property request.;
 #X text 150 849 *bang*;
 #X text 245 849 output as dict.;
 #X obj 20 879 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 884 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 885 1.;
+#X text 110 885 1\.;
 #X text 245 885 dict/property output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

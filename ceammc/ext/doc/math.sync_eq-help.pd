@@ -26,7 +26,7 @@
 #X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 342 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 377 1.;
+#X text 110 377 1\.;
 #X text 150 377 float;
 #X obj 246 378 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 377 F: second number. Type: float.;
@@ -35,25 +35,25 @@
 -49933 0;
 #X msg 110 447 @epsilon;
 #X text 245 447 Get/Set compare epsilon. If not zero calculates expession:
--epsilon < abs(A-B) < +epsilon. Type: float. Default value: 0. Min
-value: 0.;
+-epsilon < abs(A-B) < +epsilon. Type: float. Default value: 0\. Min
+value: 0\.;
 #X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 519 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 520 1.;
+#X text 110 520 1\.;
 #X text 150 520 *float*;
 #X text 245 520 set first number \, calculate and output result.;
 #X text 150 540 *list*;
 #X text 245 540 pair: set first and second numbers \, calculate and
 output result.;
-#X text 110 575 2.;
+#X text 110 575 2\.;
 #X text 150 575 *float*;
 #X text 245 575 change second number \, calculate and output result.;
 #X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 610 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 611 1.;
-#X text 245 611 result output: 1 if numbers are equal otherwise 0.;
+#X text 110 611 1\.;
+#X text 245 611 result output: 1 if numbers are equal otherwise 0\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

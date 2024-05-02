@@ -49,22 +49,22 @@
 #X obj 20 563 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 568 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 603 1.;
+#X text 110 603 1\.;
 #X text 150 603 symbol;
 #X obj 246 604 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 603 ARRAY: array name. Type: symbol.;
-#X text 110 623 2.;
+#X text 110 623 2\.;
 #X text 150 623 int;
 #X obj 246 624 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 623 BS(samp): buffer size. Type: int. Min value: 64;
-#X text 110 643 3.;
+#X text 110 643 3\.;
 #X text 150 643 symbol;
 #X obj 246 644 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 643 METHOD: detection method. Allowed values: centroid
 \, complex \, complexdomain \, decrease \, default \, energy \, hfc
 \, kl \, kurtosis \, phase \, rolloff \, skewness \, slope \, specdiff
 \, specflux \, spread \, wphase. Type: symbol.;
-#X text 110 708 4.;
+#X text 110 708 4\.;
 #X text 150 708 int;
 #X obj 246 709 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 708 HS(samp): hop size (by default buffer_size/2). Type:
@@ -74,22 +74,22 @@ int. Min value: 0;
 -49933 0;
 #X msg 110 793 @bs;
 #X text 245 793 (initonly) Get/Set buffer size. Type: int. Units: 'samp'.
-Default value: 1024. Min value: 64.;
+Default value: 1024\. Min value: 64\.;
 #X msg 110 835 @array;
 #X text 245 835 Get/Set name of analyzed array. Type: symbol.;
 #X msg 110 865 @awhitening;
 #X text 245 865 Get/Set adaptive whitening. Type: bool. Default value:
-0.;
+0\.;
 #X msg 110 895 @complex;
 #X text 245 895 alias to @method complex. Complex Domain Method onset
 detection function.;
 #X msg 110 937 @compression;
 #X text 245 937 Get/Set lambda logarithmic compression factor \, 0
-to disable. Type: float. Default value: 1. Min value: 0.;
+to disable. Type: float. Default value: 1\. Min value: 0\.;
 #X msg 110 979 @delay;
 #X text 245 979 Get/Set constant system delay to take back from detection
-time. Type: float. Units: 'ms'. Default value: 49.9093. Min value:
-0.;
+time. Type: float. Units: 'ms'. Default value: 49.9093\. Min value:
+0\.;
 #X msg 110 1036 @energy;
 #X text 245 1036 alias to @method energy. Energy based onset detection
 function.;
@@ -97,8 +97,8 @@ function.;
 #X text 245 1078 alias to @method hfc. High Frequency Content onset
 detection.;
 #X msg 110 1108 @hs;
-#X text 245 1108 Get/Set hop size. 0 means @bs/2. Type: int. Units:
-'samp'. Default value: 0. Min value: 0.;
+#X text 245 1108 Get/Set hop size. 0 means @bs/2\. Type: int. Units:
+'samp'. Default value: 0\. Min value: 0\.;
 #X msg 110 1150 @kl;
 #X text 245 1150 alias to @method kl. Kullback-Liebler onset detection
 function.;
@@ -116,7 +116,7 @@ detection function.;
 function.;
 #X msg 110 1348 @silence;
 #X text 245 1348 Get/Set onset detection silence threshold. Type: float.
-Units: 'db'. Default value: -70. Range: -80...0.;
+Units: 'db'. Default value: -70\. Range: -80\...0\.;
 #X msg 110 1390 @specdiff;
 #X text 245 1390 alias to @method specdiff. Spectral difference method
 onset detection function.;
@@ -124,23 +124,23 @@ onset detection function.;
 #X text 245 1432 alias to @method specflux. Spectral Flux.;
 #X msg 110 1462 @speedlim;
 #X text 245 1462 Get/Set minimum interval between two consecutive onsets.
-Type: float. Units: 'ms'. Default value: 50. Min value: 1.;
+Type: float. Units: 'ms'. Default value: 50\. Min value: 1\.;
 #X msg 110 1504 @threshold;
 #X text 245 1504 Get/Set peak picking threshold. Type: float. Default
-value: 0.058.;
+value: 0.058\.;
 #X msg 110 1546 @wphase;
 #X text 245 1546 alias to @method phase. Weighted Phase Deviation onset
 detection function.;
 #X obj 20 1598 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1603 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1604 1.;
+#X text 110 1604 1\.;
 #X text 150 1604 *bang*;
 #X text 245 1604 analyze array.;
 #X obj 20 1634 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1639 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1640 1.;
+#X text 110 1640 1\.;
 #X text 245 1640 output list of detected onsets.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

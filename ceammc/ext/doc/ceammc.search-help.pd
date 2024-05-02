@@ -17,7 +17,7 @@
 -49933 0;
 #X msg 110 295 @max;
 #X text 245 295 Get/Set maximum number of result. Type: int. Default
-value: 10. Range: 1...50.;
+value: 10\. Range: 1\...50\.;
 #X obj 20 347 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 352 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -32,13 +32,13 @@ value: 10. Range: 1...50.;
 #X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 514 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 515 1.;
+#X text 110 515 1\.;
 #X text 150 515 *symbol*;
 #X text 245 515 search in descriptions.;
 #X obj 20 545 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 550 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 551 1.;
+#X text 110 551 1\.;
 #X text 245 551 list of matched object names.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

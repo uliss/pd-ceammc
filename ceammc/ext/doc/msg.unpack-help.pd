@@ -21,29 +21,29 @@
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 375 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 410 1.;
+#X text 110 410 1\.;
 #X text 150 410 int;
 #X obj 246 411 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 410 N: number of outputs. Type: int. Range: 1...32;
+#X text 245 410 N: number of outputs. Type: int. Range: 1\...32;
 #X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 445 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 480 @n;
 #X text 245 480 (initonly) Get/Set number of outputs. Type: int. Default
-value: 1. Range: 1...32.;
+value: 1\. Range: 1\...32\.;
 #X obj 20 532 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 537 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 538 1.;
+#X text 110 538 1\.;
 #X text 245 538 any messages.;
 #X obj 20 568 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 573 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 574 1.;
+#X text 110 574 1\.;
 #X text 245 574 symbol: message selector.;
 #X text 110 594 ....;
 #X text 245 594 atom: message args.;
-#X text 110 614 n+1.;
+#X text 110 614 n+1\.;
 #X text 245 614 list: last message args.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

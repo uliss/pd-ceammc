@@ -25,11 +25,11 @@ light with this power spectrum.;
 -49933 0;
 #X msg 110 545 @active;
 #X text 245 545 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X obj 20 585 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 590 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 591 1.;
+#X text 110 591 1\.;
 #X text 245 591 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

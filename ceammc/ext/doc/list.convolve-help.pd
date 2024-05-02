@@ -16,7 +16,7 @@ not use the FFT to compute the convolution;
 #X obj 20 295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 300 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 335 1.;
+#X text 110 335 1\.;
 #X text 150 335 list;
 #X obj 246 336 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 335 B: second argument values. Type: list.;
@@ -46,16 +46,16 @@ valid \, same \, full.;
 #X obj 20 728 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 733 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 734 1.;
+#X text 110 734 1\.;
 #X text 150 734 *list*;
 #X text 245 734 calculate convolution and output.;
-#X text 110 754 2.;
+#X text 110 754 2\.;
 #X text 150 754 *list*;
 #X text 245 754 set second argument (@b property).;
 #X obj 20 784 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 789 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 790 1.;
+#X text 110 790 1\.;
 #X text 245 790 list: output result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

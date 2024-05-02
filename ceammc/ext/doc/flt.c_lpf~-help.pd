@@ -23,14 +23,14 @@
 #X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 429 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 464 1.;
+#X text 110 464 1\.;
 #X text 150 464 float;
 #X obj 246 465 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 464 FREQ(Hz): center frequency. Type: float. Range: 20...20000;
-#X text 110 484 2.;
+#X text 245 464 FREQ(Hz): center frequency. Type: float. Range: 20\...20000;
+#X text 110 484 2\.;
 #X text 150 484 float;
 #X obj 246 485 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 484 Q: quality factory. Type: float. Range: 0.01...100;
+#X text 245 484 Q: quality factory. Type: float. Range: 0.01\...100;
 #X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 519 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -43,31 +43,31 @@ bind to /flt_c_lpf/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 641 @active;
 #X text 245 641 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 671 @freq;
 #X text 245 671 Get/Set center frequency. Type: float. Units: 'Hz'.
-Default value: 1000. Range: 20...20000.;
+Default value: 1000\. Range: 20\...20000\.;
 #X msg 110 713 @q;
 #X text 245 713 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
-Default value: 1. Range: 0.01...100.;
+Default value: 1\. Range: 0.01\...100\.;
 #X obj 20 765 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 770 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 771 1.;
+#X text 110 771 1\.;
 #X text 245 771 control signal.;
 #X obj 20 801 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 806 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 807 1.;
-#X text 245 807 b0.;
-#X text 110 827 2.;
-#X text 245 827 b1.;
-#X text 110 847 3.;
-#X text 245 847 b2.;
-#X text 110 867 4.;
-#X text 245 867 a1.;
-#X text 110 887 5.;
-#X text 245 887 a2.;
+#X text 110 807 1\.;
+#X text 245 807 b0\.;
+#X text 110 827 2\.;
+#X text 245 827 b1\.;
+#X text 110 847 3\.;
+#X text 245 847 b2\.;
+#X text 110 867 4\.;
+#X text 245 867 a1\.;
+#X text 110 887 5\.;
+#X text 245 887 a2\.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

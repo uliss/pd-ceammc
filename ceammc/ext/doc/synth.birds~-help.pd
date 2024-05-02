@@ -13,16 +13,16 @@
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 375 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 410 1.;
+#X text 110 410 1\.;
 #X text 150 410 float;
 #X obj 246 411 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 410 SPEED: maximum speed of whistles if @auto enabled.
-Type: float. Range: 120...480;
-#X text 110 445 2.;
+Type: float. Range: 120\...480;
+#X text 110 445 2\.;
 #X text 150 445 float;
 #X obj 246 446 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 445 PROBABILITY(%): whistles probability if @auto enabled.
-Type: float. Range: 25...100;
+Type: float. Range: 25\...100;
 #X obj 20 490 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 495 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -35,31 +35,31 @@ empty bind to /synth_birds/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 617 @active;
 #X text 245 617 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 647 @auto;
 #X text 245 647 Get/Set auto playing mode. Type: bool. Default value:
-0.;
+0\.;
 #X msg 110 677 @gate;
 #X text 245 677 Get/Set play trigger. Starts playing on release. Type:
-bool. Default value: 0.;
+bool. Default value: 0\.;
 #X msg 110 719 @probability;
 #X text 245 719 Get/Set whistles probability if @auto enabled. Type:
-float. Units: '%'. Default value: 50. Range: 25...100.;
+float. Units: '%'. Default value: 50\. Range: 25\...100\.;
 #X msg 110 761 @speed;
 #X text 245 761 Get/Set maximum speed of whistles if @auto enabled.
-Type: float. Default value: 240. Range: 120...480.;
+Type: float. Default value: 240\. Range: 120\...480\.;
 #X obj 20 813 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 818 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 819 1.;
+#X text 110 819 1\.;
 #X text 150 819 *bang*;
 #X text 245 819 play.;
 #X obj 20 849 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 854 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 855 1.;
+#X text 110 855 1\.;
 #X text 245 855 synth left channel.;
-#X text 110 875 2.;
+#X text 110 875 2\.;
 #X text 245 875 synth right channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

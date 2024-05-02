@@ -17,10 +17,10 @@
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 352 1.;
+#X text 110 352 1\.;
 #X text 150 352 list;
 #X obj 246 353 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 352 INIT: TIME and WEIGHT list in format: T0 W1... Weight
+#X text 245 352 INIT: TIME and WEIGHT list in format: T0 W1\... Weight
 values can be floats or percent. Type: list.;
 #X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 402 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
@@ -29,8 +29,8 @@ values can be floats or percent. Type: list.;
 #X text 245 437 (initonly) Get/Set intermixed list of time and weights
 values. Type: list.;
 #X msg 110 479 @seed;
-#X text 245 479 Get/Set generator seed. Type: int. Default value: 0.
-Min value: 0.;
+#X text 245 479 Get/Set generator seed. Type: int. Default value: 0\.
+Min value: 0\.;
 #X msg 110 521 @t;
 #X text 245 521 Get/Set timeset (>0). Type: list. Units: 'ms'.;
 #X msg 110 551 @w;
@@ -38,23 +38,23 @@ Min value: 0.;
 list.;
 #X msg 110 581 @calc_w?;
 #X text 245 581 (readonly) Get normalized list of probabilities. Type:
-list. Default value: 1.;
+list. Default value: 1\.;
 #X obj 20 633 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 638 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 639 1.;
+#X text 110 639 1\.;
 #X text 150 639 *float*;
 #X text 245 639 starts (on >0) or stops (on <=0) metro.;
-#X text 110 659 2.;
+#X text 110 659 2\.;
 #X text 150 659 *list*;
 #X text 245 659 set timeset.;
-#X text 110 679 3.;
+#X text 110 679 3\.;
 #X text 150 679 *list*;
 #X text 245 679 set weights.;
 #X obj 20 709 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 714 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 715 1.;
+#X text 110 715 1\.;
 #X text 245 715 outputs *bang*.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

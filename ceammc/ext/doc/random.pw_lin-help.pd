@@ -32,19 +32,19 @@ initialized with current time.;
 #X obj 20 491 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 496 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 531 1.;
+#X text 110 531 1\.;
 #X text 150 531 list;
 #X obj 246 532 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 531 V: interleaved interval boundaries and boundary propabilities.
-Note: number of arguments should be even and >=4. Boundaries should
+Note: number of arguments should be even and >=4\. Boundaries should
 be in strictly increasing order and weights should be non-negative.
 Type: list.;
 #X obj 20 606 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 611 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 646 @seed;
-#X text 245 646 Get/Set generator seed. Type: int. Default value: 0.
-Min value: 0.;
+#X text 245 646 Get/Set generator seed. Type: int. Default value: 0\.
+Min value: 0\.;
 #X msg 110 688 @v;
 #X text 245 688 Get/Set interleaved interval boundaries and boundary
 propabilities. For example: values 0 0 0.5 0 1 0 produce triangle distribution.
@@ -56,7 +56,7 @@ Type: list.;
 #X obj 20 815 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 820 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 821 1.;
+#X text 110 821 1\.;
 #X text 150 821 *bang*;
 #X text 245 821 generates random number.;
 #X text 150 841 *list*;
@@ -64,7 +64,7 @@ Type: list.;
 #X obj 20 871 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 876 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 877 1.;
+#X text 110 877 1\.;
 #X text 245 877 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

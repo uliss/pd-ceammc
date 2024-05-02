@@ -20,36 +20,36 @@
 #X obj 20 294 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 299 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 334 1.;
+#X text 110 334 1\.;
 #X text 150 334 int;
 #X obj 246 335 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 334 N: number of multiplexed inputs. Type: int. Range:
-2...24;
-#X text 110 354 2.;
+2\...24;
+#X text 110 354 2\.;
 #X text 150 354 int;
 #X obj 246 355 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 354 INDEX: default input index. Type: int. Range: 0...23;
+#X text 245 354 INDEX: default input index. Type: int. Range: 0\...23;
 #X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 389 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 424 @index;
 #X text 245 424 Get/Set input index \, can be set only with [prop.set]
-object or via rightmost inlet. Type: int. Default value: 0. Range:
-0...23.;
+object or via rightmost inlet. Type: int. Default value: 0\. Range:
+0\...23\.;
 #X obj 20 491 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 496 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 497 1.;
+#X text 110 497 1\.;
 #X text 245 497 multiplexer first inlet.;
 #X text 110 517 n.;
 #X text 245 517 multiplexer N-th inlet.;
-#X text 110 537 n+1.;
+#X text 110 537 n+1\.;
 #X text 150 537 *int*;
 #X text 245 537 set input index.;
 #X obj 20 567 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 572 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 573 1.;
+#X text 110 573 1\.;
 #X text 245 573 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

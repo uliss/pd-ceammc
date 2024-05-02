@@ -26,29 +26,29 @@ a of a digital filter \, compute its frequency response: H(eʲʷ) = B(eʲʷ)/A(e
 -49933 0;
 #X msg 110 710 @a;
 #X text 245 710 Get/Set denominator (poles) coefficients. 'a0' always
-implicitly set to 1 \, property value set a1...an coefficients. Type:
+implicitly set to 1 \, property value set a1\...an coefficients. Type:
 list.;
 #X msg 110 767 @b;
 #X text 245 767 Get/Set numerator (zeros) coefficients. Type: list.
-Default value: 1.;
+Default value: 1\.;
 #X msg 110 809 @db;
 #X text 245 809 Get/Set output amp response in db scale. Type: bool.
-Default value: 0.;
+Default value: 0\.;
 #X msg 110 851 @sr;
 #X text 245 851 Get/Set normalize using current samplerate. Type: bool.
-Default value: 0.;
+Default value: 0\.;
 #X obj 20 903 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 908 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 909 1.;
+#X text 110 909 1\.;
 #X text 245 909 input frequency in radians [0 \, π] or in hertz [0
 sr/2] if @sr property is true.;
 #X obj 20 954 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 959 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 960 1.;
+#X text 110 960 1\.;
 #X text 245 960 amplitude frequency response signal.;
-#X text 110 980 2.;
+#X text 110 980 2\.;
 #X text 245 980 phase frequency response signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

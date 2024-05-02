@@ -17,15 +17,15 @@
 #X obj 20 240 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 245 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 280 1.;
+#X text 110 280 1\.;
 #X text 150 280 int;
 #X obj 246 281 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 280 N: number of inputs. Type: int. Range: 1...255;
-#X text 110 300 2.;
+#X text 245 280 N: number of inputs. Type: int. Range: 1\...255;
+#X text 110 300 2\.;
 #X text 150 300 list;
 #X obj 246 301 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 300 INIT: default values for all inlets. If not enough
-default values given it sets to 0. Type: list.;
+default values given it sets to 0\. Type: list.;
 #X obj 20 345 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 350 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -33,11 +33,11 @@ default values given it sets to 0. Type: list.;
 #X text 245 385 (initonly) Get/Set default init values. Type: list.;
 #X msg 110 415 @n;
 #X text 245 415 (initonly) Get/Set number of inlets. Type: int. Default
-value: 1. Range: 1...255.;
+value: 1\. Range: 1\...255\.;
 #X obj 20 467 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 472 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 473 1.;
+#X text 110 473 1\.;
 #X text 150 473 *bang*;
 #X text 245 473 output current value.;
 #X text 150 493 *float*;
@@ -65,7 +65,7 @@ value: 1. Range: 1...255.;
 #X obj 20 703 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 708 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 709 1.;
+#X text 110 709 1\.;
 #X text 245 709 packed list or message (if message input).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

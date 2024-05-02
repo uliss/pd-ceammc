@@ -17,7 +17,7 @@
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 352 1.;
+#X text 110 352 1\.;
 #X text 150 352 int;
 #X obj 246 353 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 352 SIZE: desired list size. Type: int. Min value: 0;
@@ -34,25 +34,25 @@ then current. Type: symbol. Default value: pad. Allowed values: pad
 \, clip \, wrap \, fold.;
 #X msg 110 539 @pad;
 #X text 245 539 Get/Set pad value for pad method of resizing. Type:
-atom. Default value: 0.;
+atom. Default value: 0\.;
 #X msg 110 581 @wrap;
 #X text 245 581 alias for @method wrap.;
 #X msg 110 611 @size;
 #X text 245 611 Get/Set output list size. Type: int. Default value:
-0. Min value: 0.;
+0\. Min value: 0\.;
 #X obj 20 663 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 668 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 669 1.;
+#X text 110 669 1\.;
 #X text 150 669 *list*;
 #X text 245 669 input list.;
-#X text 110 689 2.;
+#X text 110 689 2\.;
 #X text 150 689 *int*;
 #X text 245 689 set desired list size.;
 #X obj 20 719 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 724 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 725 1.;
+#X text 110 725 1\.;
 #X text 245 725 resized list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

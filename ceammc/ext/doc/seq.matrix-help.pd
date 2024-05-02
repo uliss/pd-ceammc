@@ -27,25 +27,25 @@
 #X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 519 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 554 1.;
+#X text 110 554 1\.;
 #X text 150 554 int;
 #X obj 246 555 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 554 N: number of steps. Type: int. Min value: 0;
-#X text 110 574 2.;
+#X text 110 574 2\.;
 #X text 150 574 float;
 #X obj 246 575 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 574 T(ms): time interval between steps or bpm. Type: float.
-Range: 1...20000;
+Range: 1\...20000;
 #X obj 20 619 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 624 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 659 @div;
 #X text 245 659 Get/Set beat subdivision. Type: int. Default value:
-1. Range: 1...64.;
+1\. Range: 1\...64\.;
 #X msg 110 701 @dur;
 #X text 245 701 Get/Set whole sequence duration. (Recalculates @t property
-accordingly). Type: float. Units: 'ms'. Default value: 4000. Min value:
-0.;
+accordingly). Type: float. Units: 'ms'. Default value: 4000\. Min value:
+0\.;
 #X msg 110 758 @inf;
 #X text 245 758 alias to @r -1 \, repeats infinitely.;
 #X msg 110 788 @mode;
@@ -54,25 +54,25 @@ accordingly). Type: float. Units: 'ms'. Default value: 4000. Min value:
 Type: symbol. Default value: inc. Allowed values: inc \, dec \, tri.;
 #X msg 110 860 @n;
 #X text 245 860 Get/Set number of cols in matrix. Type: int. Default
-value: 16. Min value: 0.;
+value: 16\. Min value: 0\.;
 #X msg 110 902 @once;
 #X text 245 902 alias to @r 1 \, play once.;
 #X msg 110 932 @r;
 #X text 245 932 Get/Set number of whole sequence repeats. If -1: repeat
-infinitely. Type: int. Default value: -1. Min value: -1.;
+infinitely. Type: int. Default value: -1\. Min value: -1\.;
 #X msg 110 974 @t;
 #X text 245 974 Get/Set time between beats. Unit values like 100ms
 or 240bpm also can be used. Type: float. Units: 'ms'. Default value:
-250. Range: 1...20000.;
+250\. Range: 1\...20000\.;
 #X msg 110 1031 @upbeat;
 #X text 245 1031 Get/Set wait specified number of beats before sequence
-start. Type: float. Default value: 0. Min value: 0.;
+start. Type: float. Default value: 0\. Min value: 0\.;
 #X msg 110 1073 @i?;
 #X text 245 1073 (readonly) Get current sequence iteration. Type: int.
-Default value: 0.;
+Default value: 0\.;
 #X msg 110 1115 @ri?;
 #X text 245 1115 (readonly) Get current repeat iteration. Type: int.
-Default value: 0.;
+Default value: 0\.;
 #X obj 20 1167 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1172 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -89,12 +89,12 @@ Default value: 0.;
 #X obj 20 1357 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1362 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1363 1.;
+#X text 110 1363 1\.;
 #X text 150 1363 *bang*;
 #X text 245 1363 reset all counters and start sequencer.;
 #X text 150 1383 *float*;
 #X text 245 1383 if 1 reset then start \, if 0 - stop.;
-#X text 110 1403 2.;
+#X text 110 1403 2\.;
 #X text 150 1403 *bang*;
 #X text 245 1403 reset.;
 #X text 150 1423 *float*;
@@ -102,9 +102,9 @@ Default value: 0.;
 #X obj 20 1453 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1458 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1459 1.;
+#X text 110 1459 1\.;
 #X text 245 1459 output for ui.matrix.;
-#X text 110 1479 2.;
+#X text 110 1479 2\.;
 #X text 245 1479 [i IDX N( - sequence iteration \, [ri IDX N( - repeat
 iteration or [done( when done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

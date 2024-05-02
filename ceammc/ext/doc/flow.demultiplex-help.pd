@@ -19,32 +19,32 @@ objects;
 #X obj 20 291 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 296 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 331 1.;
+#X text 110 331 1\.;
 #X text 150 331 int;
 #X obj 246 332 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 331 N: number of outlets. Type: int. Range: 2...24;
+#X text 245 331 N: number of outlets. Type: int. Range: 2\...24;
 #X obj 20 361 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 366 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 401 @n;
 #X text 245 401 (initonly) Get/Set number of outlets. Type: int. Default
-value: 2. Range: 2...24.;
+value: 2\. Range: 2\...24\.;
 #X msg 110 443 @index;
 #X text 245 443 Get/Set current demultiplexer output index. Type: int.
-Default value: 0. Min value: 0.;
+Default value: 0\. Min value: 0\.;
 #X obj 20 495 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 500 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 501 1.;
+#X text 110 501 1\.;
 #X text 150 501 *any*;
 #X text 245 501 input flow inlet.;
-#X text 110 521 2.;
+#X text 110 521 2\.;
 #X text 150 521 *int*;
 #X text 245 521 output selector.;
 #X obj 20 551 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 556 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 557 1.;
+#X text 110 557 1\.;
 #X text 245 557 demultiplexer first output.;
 #X text 110 577 n.;
 #X text 245 577 demultiplexer N-th output.;

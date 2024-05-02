@@ -25,12 +25,12 @@ float values;
 #X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 413 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 448 1.;
+#X text 110 448 1\.;
 #X text 150 448 symbol;
 #X obj 246 449 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 448 ID: preset id (should be unique in most use cases).
 Type: symbol.;
-#X text 110 483 2.;
+#X text 110 483 2\.;
 #X text 150 483 float;
 #X obj 246 484 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 483 INIT: preset initial value. Type: float.;
@@ -38,14 +38,14 @@ Type: symbol.;
 #X obj 20 518 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 553 @global;
-#X text 245 553 use global path like /ID. Default value: 0.;
+#X text 245 553 use global path like /ID. Default value: 0\.;
 #X msg 110 583 @id;
 #X text 245 583 (initonly) Get/Set preset id. Type: symbol.;
 #X msg 110 613 @init;
 #X text 245 613 (initonly) Get/Set init float value. Type: float. Default
-value: 0.;
+value: 0\.;
 #X msg 110 655 @subpatch;
-#X text 245 655 include subpatch name to path. Default value: 0.;
+#X text 245 655 include subpatch name to path. Default value: 0\.;
 #X msg 110 685 @path?;
 #X text 245 685 (readonly) Get property OSC-like path that includes
 id \, abstraction name and may be subpatch name separated by slashes.
@@ -64,13 +64,13 @@ Type: symbol.;
 #X obj 20 914 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 919 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 920 1.;
+#X text 110 920 1\.;
 #X text 150 920 *float*;
 #X text 245 920 set preset value without output.;
 #X obj 20 950 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 955 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 956 1.;
+#X text 110 956 1\.;
 #X text 245 956 preset float value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

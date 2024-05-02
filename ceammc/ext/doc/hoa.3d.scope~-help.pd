@@ -22,33 +22,33 @@ field;
 #X obj 20 414 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 449 @gain;
-#X text 245 449 Get/Set gain. Type: float. Default value: 1. Min value:
-0.;
+#X text 245 449 Get/Set gain. Type: float. Default value: 1\. Min value:
+0\.;
 #X msg 110 479 @order;
 #X text 245 479 Get/Set the order of decomposition. Type: int. Default
-value: 1. Range: 1...63.;
+value: 1\. Range: 1\...63\.;
 #X msg 110 521 @refresh;
 #X text 245 521 Get/Set redraw time. Type: int. Units: 'ms'. Default
-value: 100. Range: 20...1000.;
+value: 100\. Range: 20\...1000\.;
 #X msg 110 563 @view;
 #X text 245 563 Get/Set view rotation. Type: list. Default value: 0
-0 0.;
+0 0\.;
 #X msg 110 593 @background_color;
 #X text 245 593 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1.;
+0.93 1\.;
 #X msg 110 650 @border_color;
 #X text 245 650 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 692 @label_color;
 #X text 245 692 Get/Set label color in RGB format within 0-1 range
-\, for example: 0.2 0.4 0.1. Type: list. Default value: 0 0 0 1.;
+\, for example: 0.2 0.4 0.1\. Type: list. Default value: 0 0 0 1\.;
 #X msg 110 734 @nh_color;
 #X text 245 734 Get/Set negative harmonics color. Type: list. Default
-value: 0 0 1 1.;
+value: 0 0 1 1\.;
 #X msg 110 776 @ph_color;
 #X text 245 776 Get/Set positive harmonics color. Type: list. Default
-value: 1 0 0 1.;
+value: 1 0 0 1\.;
 #X msg 110 818 @label;
 #X text 245 818 Get/Set label text. Type: symbol. Default value: (null).;
 #X msg 110 848 @label_align;
@@ -56,10 +56,10 @@ value: 1 0 0 1.;
 value: left. Allowed values: left \, center \, right.;
 #X msg 110 890 @label_inner;
 #X text 245 890 Get/Set label position (1 - inner \, 0 - outer). Type:
-bool. Default value: 0.;
+bool. Default value: 0\.;
 #X msg 110 932 @label_margins;
 #X text 245 932 Get/Set label offset in pixels. Type: list. Default
-value: 0 0.;
+value: 0 0\.;
 #X msg 110 974 @label_side;
 #X text 245 974 Get/Set label snap side. Type: symbol. Default value:
 top. Allowed values: left \, top \, right \, bottom.;
@@ -70,8 +70,8 @@ value: top. Allowed values: top \, center \, bottom.;
 #X text 245 1058 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1100 @fontsize;
-#X text 245 1100 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 1100 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 1142 @fontslant;
 #X text 245 1142 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -80,10 +80,10 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 1226 @pinned;
 #X text 245 1226 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1268 @size;
 #X text 245 1268 Get/Set element size (width \, height pair). Type:
-list. Default value: 120 120.;
+list. Default value: 120 120\.;
 #X obj 20 1320 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1325 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -98,7 +98,7 @@ list. Default value: 120 120.;
 #X obj 20 1469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1474 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1475 1.;
+#X text 110 1475 1\.;
 #X text 245 1475 first input harmonic.;
 #X text 110 1495 ....;
 #X text 245 1495 ... input harmonic.;

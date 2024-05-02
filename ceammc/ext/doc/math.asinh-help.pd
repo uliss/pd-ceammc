@@ -9,7 +9,7 @@
 #X text 215 80 The asinh() function computes the inverse hyperbolic
 sine of the real argument;
 #X text 215 120 Special values:;
-#X text 215 145 asinh(+-0) returns +-0.;
+#X text 215 145 asinh(+-0) returns +-0\.;
 #X text 215 170 asinh(+-infinity) returns +-infinity.;
 #X floatatom 50 233 5 0 0 0 - - -;
 #X obj 50 262 math.asinh;
@@ -17,7 +17,7 @@ sine of the real argument;
 #X obj 20 323 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 328 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 329 1.;
+#X text 110 329 1\.;
 #X text 150 329 *float*;
 #X text 245 329 input value.;
 #X text 150 349 *list*;
@@ -25,7 +25,7 @@ sine of the real argument;
 #X obj 20 379 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 384 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 385 1.;
+#X text 110 385 1\.;
 #X text 245 385 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

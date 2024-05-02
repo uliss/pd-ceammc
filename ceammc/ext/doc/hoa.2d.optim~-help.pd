@@ -35,12 +35,12 @@ your ears.;
 #X obj 20 753 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 758 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 793 1.;
+#X text 110 793 1\.;
 #X text 150 793 int;
 #X obj 246 794 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 793 ORDER: the order of decomposition. Type: int. Range:
-1...63;
-#X text 110 813 2.;
+1\...63;
+#X text 110 813 2\.;
 #X text 150 813 symbol;
 #X obj 246 814 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 813 MODE: optimization mode. Allowed values: basic \, maxre
@@ -50,7 +50,7 @@ your ears.;
 -49933 0;
 #X msg 110 898 @order;
 #X text 245 898 (initonly) Get/Set the order of decomposition. Type:
-int. Default value: 1. Range: 1...63.;
+int. Default value: 1\. Range: 1\...63\.;
 #X msg 110 940 @basic;
 #X text 245 940 alias for @mode basic (no optimization).;
 #X msg 110 970 @inphase;
@@ -63,7 +63,7 @@ basic. Allowed values: basic \, maxre \, inphase.;
 #X obj 20 1082 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1087 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1088 1.;
+#X text 110 1088 1\.;
 #X text 245 1088 first input harmonic.;
 #X text 110 1108 ....;
 #X text 245 1108 ... input harmonic.;
@@ -72,7 +72,7 @@ basic. Allowed values: basic \, maxre \, inphase.;
 #X obj 20 1158 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1163 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1164 1.;
+#X text 110 1164 1\.;
 #X text 245 1164 first harmonic output.;
 #X text 110 1184 ....;
 #X text 245 1184 ... harmonic output.;

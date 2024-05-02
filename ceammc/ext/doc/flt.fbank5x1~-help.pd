@@ -25,31 +25,31 @@ an "allpass-complementary filter bank";
 #X obj 20 620 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 625 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 660 1.;
+#X text 110 660 1\.;
 #X text 150 660 float;
 #X obj 246 661 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 660 F250(db): @f250 property init value. Type: float. Range:
--6...6;
-#X text 110 695 2.;
+-6\...6;
+#X text 110 695 2\.;
 #X text 150 695 float;
 #X obj 246 696 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 695 F500(db): @f500 property init value. Type: float. Range:
--6...6;
-#X text 110 730 3.;
+-6\...6;
+#X text 110 730 3\.;
 #X text 150 730 float;
 #X obj 246 731 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 730 F1000(db): @f1000 property init value. Type: float.
-Range: -6...6;
-#X text 110 765 4.;
+Range: -6\...6;
+#X text 110 765 4\.;
 #X text 150 765 float;
 #X obj 246 766 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 765 F2000(db): @f2000 property init value. Type: float.
-Range: -6...6;
-#X text 110 800 5.;
+Range: -6\...6;
+#X text 110 800 5\.;
 #X text 150 800 float;
 #X obj 246 801 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 800 F4000(db): @f4000 property init value. Type: float.
-Range: -6...6;
+Range: -6\...6;
 #X obj 20 845 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 850 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -62,22 +62,22 @@ empty bind to /flt_fbank5x1/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 972 @active;
 #X text 245 972 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 1002 @f1000;
 #X text 245 1002 Get/Set third filter (bandpass) gain at 1000Hz. Type:
-float. Units: 'db'. Default value: 0. Range: -6...6.;
+float. Units: 'db'. Default value: 0\. Range: -6\...6\.;
 #X msg 110 1044 @f2000;
 #X text 245 1044 Get/Set fourth filter (bandpass) gain at 2000Hz. Type:
-float. Units: 'db'. Default value: 0. Range: -6...6.;
+float. Units: 'db'. Default value: 0\. Range: -6\...6\.;
 #X msg 110 1086 @f250;
 #X text 245 1086 Get/Set first filter (lowpass) gain at 250Hz. Type:
-float. Units: 'db'. Default value: 0. Range: -6...6.;
+float. Units: 'db'. Default value: 0\. Range: -6\...6\.;
 #X msg 110 1128 @f4000;
 #X text 245 1128 Get/Set fifth filter (highpass) gain at 4000Hz. Type:
-float. Units: 'db'. Default value: 0. Range: -6...6.;
+float. Units: 'db'. Default value: 0\. Range: -6\...6\.;
 #X msg 110 1170 @f500;
 #X text 245 1170 Get/Set second filter (bandpass) gain at 500Hz. Type:
-float. Units: 'db'. Default value: 0. Range: -6...6.;
+float. Units: 'db'. Default value: 0\. Range: -6\...6\.;
 #X obj 20 1222 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1227 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -86,22 +86,22 @@ float. Units: 'db'. Default value: 0. Range: -6...6.;
 #X obj 20 1300 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1305 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1306 1.;
+#X text 110 1306 1\.;
 #X text 245 1306 input signal.;
 #X text 150 1326 *list*;
 #X text 245 1326 5 element list of db gains.;
 #X obj 20 1356 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1361 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1362 1.;
+#X text 110 1362 1\.;
 #X text 245 1362 lpf: 250Hz.;
-#X text 110 1382 2.;
+#X text 110 1382 2\.;
 #X text 245 1382 bpf: 500Hz.;
-#X text 110 1402 3.;
+#X text 110 1402 3\.;
 #X text 245 1402 bpf: 1000Hz.;
-#X text 110 1422 4.;
+#X text 110 1422 4\.;
 #X text 245 1422 bpf: 2000Hz.;
-#X text 110 1442 5.;
+#X text 110 1442 5\.;
 #X text 245 1442 hpf: 4000Hz.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -21,10 +21,10 @@
 #X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 389 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 424 1.;
+#X text 110 424 1\.;
 #X text 150 424 float;
 #X obj 246 425 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 424 DRYWET: dry/wet ratio. Type: float. Range: 0...1;
+#X text 245 424 DRYWET: dry/wet ratio. Type: float. Range: 0\...1;
 #X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 459 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -37,27 +37,27 @@ bind to /fx_ringmod/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 581 @active;
 #X text 245 581 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 611 @bypass;
 #X text 245 611 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0.;
+Type: bool. Default value: 0\.;
 #X msg 110 653 @drive;
 #X text 245 653 Get/Set overdrive effect after modulator. Type: float.
-Default value: 1. Range: 1...10.;
+Default value: 1\. Range: 1\...10\.;
 #X msg 110 695 @drywet;
 #X text 245 695 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 0.5. Range: 0...1.;
+Default value: 0.5\. Range: 0\...1\.;
 #X msg 110 752 @freq;
 #X text 245 752 Get/Set internal modulator frequency. Type: float.
-Units: 'Hz'. Default value: 150. Range: 0.5...22050.;
+Units: 'Hz'. Default value: 150\. Range: 0.5\...22050\.;
 #X msg 110 794 @offset;
 #X text 245 794 Get/Set modulator offset. Type: float. Default value:
-0. Range: 0...1.;
+0\. Range: 0\...1\.;
 #X msg 110 836 @src;
 #X text 245 836 Get/Set modulator source. 0: modulator from second
 inlet \, 1: internal sinusoid oscilallator \, 2: internal low freq
-noise. Type: int. Default value: 0. Range: 0...2.;
+noise. Type: int. Default value: 0\. Range: 0\...2\.;
 #X obj 20 903 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 908 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -66,14 +66,14 @@ noise. Type: int. Default value: 0. Range: 0...2.;
 #X obj 20 981 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 986 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 987 1.;
+#X text 110 987 1\.;
 #X text 245 987 carrier.;
-#X text 110 1007 2.;
+#X text 110 1007 2\.;
 #X text 245 1007 modulator.;
 #X obj 20 1037 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1042 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1043 1.;
+#X text 110 1043 1\.;
 #X text 245 1043 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

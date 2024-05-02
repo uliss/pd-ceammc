@@ -21,14 +21,14 @@
 #X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 346 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 381 1.;
+#X text 110 381 1\.;
 #X text 150 381 float;
 #X obj 246 382 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 381 FREQ(Hz): tremolo frequency. Type: float. Range: 0.1...50;
-#X text 110 401 2.;
+#X text 245 381 FREQ(Hz): tremolo frequency. Type: float. Range: 0.1\...50;
+#X text 110 401 2\.;
 #X text 150 401 float;
 #X obj 246 402 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 401 DEPTH: effect depth. Type: float. Range: 0...1;
+#X text 245 401 DEPTH: effect depth. Type: float. Range: 0\...1;
 #X obj 20 431 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 436 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -41,23 +41,23 @@ bind to /fx_tremolo/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 558 @active;
 #X text 245 558 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 588 @bypass;
 #X text 245 588 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0.;
+Type: bool. Default value: 0\.;
 #X msg 110 630 @depth;
-#X text 245 630 Get/Set effect depth. Type: float. Default value: 1.
-Range: 0...1.;
+#X text 245 630 Get/Set effect depth. Type: float. Default value: 1\.
+Range: 0\...1\.;
 #X msg 110 672 @drywet;
 #X text 245 672 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 0.75. Range: 0...1.;
+Default value: 0.75\. Range: 0\...1\.;
 #X msg 110 729 @freq;
 #X text 245 729 Get/Set tremolo frequency. Type: float. Units: 'Hz'.
-Default value: 5. Range: 0.1...50.;
+Default value: 5\. Range: 0.1\...50\.;
 #X msg 110 771 @src;
 #X text 245 771 Get/Set modulation source: 0 (triangle) \, 1 (sin)
-or 2 (square). Type: int. Default value: 0. Range: 0...2.;
+or 2 (square). Type: int. Default value: 0\. Range: 0\...2\.;
 #X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 828 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -66,15 +66,15 @@ or 2 (square). Type: int. Default value: 0. Range: 0...2.;
 #X obj 20 901 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 906 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 907 1.;
+#X text 110 907 1\.;
 #X text 245 907 input signal.;
-#X text 110 927 2.;
+#X text 110 927 2\.;
 #X text 150 927 *float*;
 #X text 245 927 set frequency (Hz).;
 #X obj 20 957 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 962 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 963 1.;
+#X text 110 963 1\.;
 #X text 245 963 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

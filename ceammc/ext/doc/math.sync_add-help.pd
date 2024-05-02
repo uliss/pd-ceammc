@@ -21,7 +21,7 @@
 #X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 242 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 277 1.;
+#X text 110 277 1\.;
 #X text 150 277 float;
 #X obj 246 278 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 277 F: second addend. Type: float.;
@@ -29,23 +29,23 @@
 #X obj 20 312 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 347 @int;
-#X text 245 347 operate on integers only. Default value: 0.;
+#X text 245 347 operate on integers only. Default value: 0\.;
 #X obj 20 387 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 392 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 393 1.;
+#X text 110 393 1\.;
 #X text 150 393 *float*;
 #X text 245 393 set first addend \, calculate and output result.;
 #X text 150 413 *list*;
 #X text 245 413 pair: set first and second addends \, calculate and
 output result.;
-#X text 110 448 2.;
+#X text 110 448 2\.;
 #X text 150 448 *float*;
 #X text 245 448 change second addend \, calculate and output result.;
 #X obj 20 478 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 483 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 484 1.;
+#X text 110 484 1\.;
 #X text 245 484 result output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

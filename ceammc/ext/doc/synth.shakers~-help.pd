@@ -36,7 +36,7 @@ This class implements simulations of breaking sticks \, crunchy snow
 -49933 0;
 #X msg 110 682 @gate;
 #X text 245 682 Get/Set synth gate (>0 - play). Type: float. Default
-value: 0. Range: 0...1.;
+value: 0\. Range: 0\...1\.;
 #X msg 110 724 @type;
 #X text 245 724 Get/Set instrument type. Type: atom. Default value:
 maraca. Allowed values: maraca \, cabasa \, sekere \, tambourine \,
@@ -61,12 +61,12 @@ dime_mug quarter_mug franc_mug peso_mug guiro wrench water_drops tuned_bamboo_ch
 #X obj 20 1061 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1066 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1067 1.;
+#X text 110 1067 1\.;
 #X text 245 1067 control inlet.;
 #X obj 20 1097 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1102 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1103 1.;
+#X text 110 1103 1\.;
 #X text 245 1103;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

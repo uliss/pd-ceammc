@@ -44,21 +44,21 @@ Allowed values: polar \, cartesian.;
 #X text 245 750 Get/Set coordinate view. Type: symbol. Default value:
 xy. Allowed values: xy \, xz \, yz.;
 #X msg 110 792 @zoom;
-#X text 245 792 Get/Set zoom factor. Type: float. Default value: 0.35.
-Range: 0.01...1.;
+#X text 245 792 Get/Set zoom factor. Type: float. Default value: 0.35\.
+Range: 0.01\...1\.;
 #X msg 110 834 @background_color;
 #X text 245 834 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1.;
+0.93 1\.;
 #X msg 110 891 @border_color;
 #X text 245 891 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 933 @label_color;
 #X text 245 933 Get/Set label color in RGB format within 0-1 range
-\, for example: 0.2 0.4 0.1. Type: list. Default value: 0 0 0 1.;
+\, for example: 0.2 0.4 0.1\. Type: list. Default value: 0 0 0 1\.;
 #X msg 110 975 @selection_color;
 #X text 245 975 Get/Set selection color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0 0.75 1 1.;
+values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 1017 @label;
 #X text 245 1017 Get/Set label text. Type: symbol. Default value: (null).;
 #X msg 110 1047 @label_align;
@@ -66,10 +66,10 @@ values in 0-1 range). Type: list. Default value: 0 0.75 1 1.;
 value: left. Allowed values: left \, center \, right.;
 #X msg 110 1089 @label_inner;
 #X text 245 1089 Get/Set label position (1 - inner \, 0 - outer). Type:
-bool. Default value: 0.;
+bool. Default value: 0\.;
 #X msg 110 1131 @label_margins;
 #X text 245 1131 Get/Set label offset in pixels. Type: list. Default
-value: 0 0.;
+value: 0 0\.;
 #X msg 110 1173 @label_side;
 #X text 245 1173 Get/Set label snap side. Type: symbol. Default value:
 top. Allowed values: left \, top \, right \, bottom.;
@@ -80,8 +80,8 @@ value: top. Allowed values: top \, center \, bottom.;
 #X text 245 1257 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1299 @fontsize;
-#X text 245 1299 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 1299 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 1341 @fontslant;
 #X text 245 1341 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -90,13 +90,13 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 1425 @pinned;
 #X text 245 1425 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1467 @presetname;
 #X text 245 1467 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
 #X msg 110 1509 @size;
 #X text 245 1509 Get/Set element size (width \, height pair). Type:
-list. Default value: 225 225.;
+list. Default value: 225 225\.;
 #X obj 20 1561 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1566 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -153,17 +153,17 @@ performed.;
 #X obj 20 2229 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2234 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2235 1.;
+#X text 110 2235 1\.;
 #X text 150 2235 *bang*;
 #X text 245 2235 output group and source info.;
 #X obj 20 2265 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2270 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2271 1.;
+#X text 110 2271 1\.;
 #X text 245 2271 source output.;
-#X text 110 2291 2.;
+#X text 110 2291 2\.;
 #X text 245 2291 group output.;
-#X text 110 2311 3.;
+#X text 110 2311 3\.;
 #X text 245 2311 info output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

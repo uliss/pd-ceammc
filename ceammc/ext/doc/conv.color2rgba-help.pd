@@ -44,7 +44,7 @@ Allowed values: int \, float.;
 #X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 539 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 540 1.;
+#X text 110 540 1\.;
 #X text 150 540 *symbol*;
 #X text 245 540 color name or hex value in full (#RRGGBB or #RRGGBBAA)
 or short (#RGB or #RGBA) format.;
@@ -55,14 +55,14 @@ or short (#RGB or #RGBA) format.;
 #X obj 20 625 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 630 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 631 1.;
+#X text 110 631 1\.;
 #X text 245 631 list if @pack flag specified or int[0-255] or float[0-1]:
 red channel value.;
-#X text 110 666 2.;
+#X text 110 666 2\.;
 #X text 245 666 int[0-255] or float[0-1]: green channel value.;
-#X text 110 686 3.;
+#X text 110 686 3\.;
 #X text 245 686 int[0-255] or float[0-1]: blue channel value.;
-#X text 110 706 4.;
+#X text 110 706 4\.;
 #X text 245 706 int[0-255] or float[0-1]: alpha channel value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

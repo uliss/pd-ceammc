@@ -30,16 +30,16 @@ empty bind to /fx_granulator/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 468 @active;
 #X text 245 468 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 498 @delay;
 #X text 245 498 Get/Set grain total area length. Type: float. Units:
-'sec'. Default value: 10. Range: 0.5...10.;
+'sec'. Default value: 10\. Range: 0.5\...10\.;
 #X msg 110 540 @density;
 #X text 245 540 Get/Set number of grains. Type: int. Default value:
-10. Range: 1...64.;
+10\. Range: 1\...64\.;
 #X msg 110 582 @length;
 #X text 245 582 Get/Set grain length. Type: float. Units: 'ms'. Default
-value: 100. Range: 10...500.;
+value: 100\. Range: 10\...500\.;
 #X obj 20 634 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 639 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -48,14 +48,14 @@ value: 100. Range: 10...500.;
 #X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 717 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 718 1.;
+#X text 110 718 1\.;
 #X text 245 718 left channel.;
 #X obj 20 748 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 753 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 754 1.;
+#X text 110 754 1\.;
 #X text 245 754 output.;
-#X text 110 774 2.;
+#X text 110 774 2\.;
 #X text 245 774 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

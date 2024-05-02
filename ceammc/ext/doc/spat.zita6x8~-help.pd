@@ -35,103 +35,103 @@ empty bind to /spat_zita6x8/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 526 @a0;
 #X text 245 526 Get/Set 1st source panning position. Type: float. Default
-value: 0. Range: 0...1.;
+value: 0\. Range: 0\...1\.;
 #X msg 110 568 @a1;
 #X text 245 568 Get/Set 2nd source panning position. Type: float. Default
-value: 0. Range: 0...1.;
+value: 0\. Range: 0\...1\.;
 #X msg 110 610 @a2;
 #X text 245 610 Get/Set 3rd source panning position. Type: float. Default
-value: 0. Range: 0...1.;
+value: 0\. Range: 0\...1\.;
 #X msg 110 652 @a3;
 #X text 245 652 Get/Set 4th source panning position. Type: float. Default
-value: 0. Range: 0...1.;
+value: 0\. Range: 0\...1\.;
 #X msg 110 694 @a4;
 #X text 245 694 Get/Set 5th source panning position. Type: float. Default
-value: 0. Range: 0...1.;
+value: 0\. Range: 0\...1\.;
 #X msg 110 736 @a5;
 #X text 245 736 Get/Set 6th source panning position. Type: float. Default
-value: 0. Range: 0...1.;
+value: 0\. Range: 0\...1\.;
 #X msg 110 778 @active;
 #X text 245 778 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 808 @dry0;
 #X text 245 808 Get/Set 1st source direct sound level. Type: float.
-Units: 'db'. Default value: -3. Range: -60...0.;
+Units: 'db'. Default value: -3\. Range: -60\...0\.;
 #X msg 110 850 @dry1;
 #X text 245 850 Get/Set 2nd source direct sound level. Type: float.
-Units: 'db'. Default value: -3. Range: -60...0.;
+Units: 'db'. Default value: -3\. Range: -60\...0\.;
 #X msg 110 892 @dry2;
 #X text 245 892 Get/Set 3rd source direct sound level. Type: float.
-Units: 'db'. Default value: -3. Range: -60...0.;
+Units: 'db'. Default value: -3\. Range: -60\...0\.;
 #X msg 110 934 @dry3;
 #X text 245 934 Get/Set 4th source direct sound level. Type: float.
-Units: 'db'. Default value: -3. Range: -60...0.;
+Units: 'db'. Default value: -3\. Range: -60\...0\.;
 #X msg 110 976 @dry4;
 #X text 245 976 Get/Set 5th source direct sound level. Type: float.
-Units: 'db'. Default value: -3. Range: -60...0.;
+Units: 'db'. Default value: -3\. Range: -60\...0\.;
 #X msg 110 1018 @dry5;
 #X text 245 1018 Get/Set 6th source direct sound level. Type: float.
-Units: 'db'. Default value: -3. Range: -60...0.;
+Units: 'db'. Default value: -3\. Range: -60\...0\.;
 #X msg 110 1060 @r0;
 #X text 245 1060 Get/Set 1st source distance from circle center. Type:
-float. Default value: 1. Range: 0...1.;
+float. Default value: 1\. Range: 0\...1\.;
 #X msg 110 1102 @r1;
 #X text 245 1102 Get/Set 2nd source distance from circle center. Type:
-float. Default value: 1. Range: 0...1.;
+float. Default value: 1\. Range: 0\...1\.;
 #X msg 110 1144 @r2;
 #X text 245 1144 Get/Set 3rd source distance from circle center. Type:
-float. Default value: 1. Range: 0...1.;
+float. Default value: 1\. Range: 0\...1\.;
 #X msg 110 1186 @r3;
 #X text 245 1186 Get/Set 4th source distance from circle center. Type:
-float. Default value: 1. Range: 0...1.;
+float. Default value: 1\. Range: 0\...1\.;
 #X msg 110 1228 @r4;
 #X text 245 1228 Get/Set 5th source distance from circle center. Type:
-float. Default value: 1. Range: 0...1.;
+float. Default value: 1\. Range: 0\...1\.;
 #X msg 110 1270 @r5;
 #X text 245 1270 Get/Set 6th source distance from circle center. Type:
-float. Default value: 1. Range: 0...1.;
+float. Default value: 1\. Range: 0\...1\.;
 #X msg 110 1312 @t0;
 #X text 245 1312 Get/Set 1st source reverb time (in seconds) to decay
 60dB in low and mid-frequency band. Type: float. Units: 'sec'. Default
-value: 2. Range: 0...90.;
+value: 2\. Range: 0\...90\.;
 #X msg 110 1369 @t1;
 #X text 245 1369 Get/Set 2nd source reverb time (in seconds) to decay
 60dB in low and mid-frequency band. Type: float. Units: 'sec'. Default
-value: 2. Range: 0...90.;
+value: 2\. Range: 0\...90\.;
 #X msg 110 1426 @t2;
 #X text 245 1426 Get/Set 3rd source reverb time (in seconds) to decay
 60dB in low and mid-frequency band. Type: float. Units: 'sec'. Default
-value: 2. Range: 0...90.;
+value: 2\. Range: 0\...90\.;
 #X msg 110 1483 @t3;
 #X text 245 1483 Get/Set 4th source reverb time (in seconds) to decay
 60dB in low and mid-frequency band. Type: float. Units: 'sec'. Default
-value: 2. Range: 0...90.;
+value: 2\. Range: 0\...90\.;
 #X msg 110 1540 @t4;
 #X text 245 1540 Get/Set 5th source reverb time (in seconds) to decay
 60dB in low and mid-frequency band. Type: float. Units: 'sec'. Default
-value: 2. Range: 0...90.;
+value: 2\. Range: 0\...90\.;
 #X msg 110 1597 @t5;
 #X text 245 1597 Get/Set 6th source reverb time (in seconds) to decay
 60dB in low and mid-frequency band. Type: float. Units: 'sec'. Default
-value: 2. Range: 0...90.;
+value: 2\. Range: 0\...90\.;
 #X msg 110 1654 @wet0;
 #X text 245 1654 Get/Set 1st source reverb sound level. Type: float.
-Units: 'db'. Default value: -8. Range: -60...0.;
+Units: 'db'. Default value: -8\. Range: -60\...0\.;
 #X msg 110 1696 @wet1;
 #X text 245 1696 Get/Set 2nd source reverb sound level. Type: float.
-Units: 'db'. Default value: -8. Range: -60...0.;
+Units: 'db'. Default value: -8\. Range: -60\...0\.;
 #X msg 110 1738 @wet2;
 #X text 245 1738 Get/Set 3rd source reverb sound level. Type: float.
-Units: 'db'. Default value: -8. Range: -60...0.;
+Units: 'db'. Default value: -8\. Range: -60\...0\.;
 #X msg 110 1780 @wet3;
 #X text 245 1780 Get/Set 4th source reverb sound level. Type: float.
-Units: 'db'. Default value: -8. Range: -60...0.;
+Units: 'db'. Default value: -8\. Range: -60\...0\.;
 #X msg 110 1822 @wet4;
 #X text 245 1822 Get/Set 5th source reverb sound level. Type: float.
-Units: 'db'. Default value: -8. Range: -60...0.;
+Units: 'db'. Default value: -8\. Range: -60\...0\.;
 #X msg 110 1864 @wet5;
 #X text 245 1864 Get/Set 6th source reverb sound level. Type: float.
-Units: 'db'. Default value: -8. Range: -60...0.;
+Units: 'db'. Default value: -8\. Range: -60\...0\.;
 #X obj 20 1916 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1921 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -140,36 +140,36 @@ Units: 'db'. Default value: -8. Range: -60...0.;
 #X obj 20 1994 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1999 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2000 1.;
+#X text 110 2000 1\.;
 #X text 245 2000 1st source input.;
-#X text 110 2020 2.;
+#X text 110 2020 2\.;
 #X text 245 2020 2nd source input.;
-#X text 110 2040 3.;
+#X text 110 2040 3\.;
 #X text 245 2040 3rd source input.;
-#X text 110 2060 4.;
+#X text 110 2060 4\.;
 #X text 245 2060 4th source input.;
-#X text 110 2080 5.;
+#X text 110 2080 5\.;
 #X text 245 2080 5th source input.;
-#X text 110 2100 6.;
+#X text 110 2100 6\.;
 #X text 245 2100 6th source input.;
 #X obj 20 2130 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 2135 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2136 1.;
+#X text 110 2136 1\.;
 #X text 245 2136 1st output.;
-#X text 110 2156 2.;
+#X text 110 2156 2\.;
 #X text 245 2156 2dn output.;
-#X text 110 2176 3.;
+#X text 110 2176 3\.;
 #X text 245 2176 3rd output.;
-#X text 110 2196 4.;
+#X text 110 2196 4\.;
 #X text 245 2196 4th output.;
-#X text 110 2216 5.;
+#X text 110 2216 5\.;
 #X text 245 2216 5th output.;
-#X text 110 2236 6.;
+#X text 110 2236 6\.;
 #X text 245 2236 6th output.;
-#X text 110 2256 7.;
+#X text 110 2256 7\.;
 #X text 245 2256 7th output.;
-#X text 110 2276 8.;
+#X text 110 2276 8\.;
 #X text 245 2276 8th output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

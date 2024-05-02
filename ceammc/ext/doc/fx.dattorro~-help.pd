@@ -30,16 +30,16 @@ https://ccrma.stanford.edu/~dattorro/EffectDesignPart1.pdf;
 #X obj 20 492 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 497 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 532 1.;
+#X text 110 532 1\.;
 #X text 150 532 float;
 #X obj 246 533 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 532 DECAY: decay rate \, infinite decay = 1.0. Type: float.
-Range: 0...1;
-#X text 110 567 2.;
+#X text 245 532 DECAY: decay rate \, infinite decay = 1.0\. Type: float.
+Range: 0\...1;
+#X text 110 567 2\.;
 #X text 150 567 float;
 #X obj 246 568 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 567 DRYWET: proportion of mix between the original (dry)
-and 'effected' (wet) signals. Type: float. Range: 0...1;
+and 'effected' (wet) signals. Type: float. Range: 0\...1;
 #X obj 20 612 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 617 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -52,39 +52,39 @@ empty bind to /fx_dattorro/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 739 @active;
 #X text 245 739 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 769 @bw;
 #X text 245 769 Get/Set band-width filter (pre filtering). Type: float.
-Default value: 0.9995. Range: 0...1.;
+Default value: 0.9995\. Range: 0\...1\.;
 #X msg 110 811 @bypass;
 #X text 245 811 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0.;
+Type: bool. Default value: 0\.;
 #X msg 110 853 @damp;
-#X text 245 853 Get/Set high-frequency damping. No damping = 0.0. Type:
-float. Default value: 0.0005. Range: 0...1.;
+#X text 245 853 Get/Set high-frequency damping. No damping = 0.0\.
+Type: float. Default value: 0.0005\. Range: 0\...1\.;
 #X msg 110 895 @ddiff1;
-#X text 245 895 Get/Set decay diffusion factor 1. Type: float. Default
-value: 0.5. Range: 0...1.;
+#X text 245 895 Get/Set decay diffusion factor 1\. Type: float. Default
+value: 0.5\. Range: 0\...1\.;
 #X msg 110 937 @ddiff2;
-#X text 245 937 Get/Set decay diffusion factor 2. Type: float. Default
-value: 0.7. Range: 0...1.;
+#X text 245 937 Get/Set decay diffusion factor 2\. Type: float. Default
+value: 0.7\. Range: 0\...1\.;
 #X msg 110 979 @decay;
-#X text 245 979 Get/Set decay rate. Infinite decay = 1.0. Type: float.
-Default value: 0.5. Range: 0...1.;
+#X text 245 979 Get/Set decay rate. Infinite decay = 1.0\. Type: float.
+Default value: 0.5\. Range: 0\...1\.;
 #X msg 110 1021 @drywet;
 #X text 245 1021 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 0.33. Range: 0...1.;
+Default value: 0.33\. Range: 0\...1\.;
 #X msg 110 1078 @idiff1;
-#X text 245 1078 Get/Set input diffusion factor 1. Type: float. Default
-value: 0.625. Range: 0...1.;
+#X text 245 1078 Get/Set input diffusion factor 1\. Type: float. Default
+value: 0.625\. Range: 0\...1\.;
 #X msg 110 1120 @idiff2;
-#X text 245 1120 Get/Set input diffusion factor 2. Type: float. Default
-value: 0.75. Range: 0...1.;
+#X text 245 1120 Get/Set input diffusion factor 2\. Type: float. Default
+value: 0.75\. Range: 0\...1\.;
 #X msg 110 1162 @predelay;
 #X text 245 1162 Get/Set a delay operating on the 'wet' signal. Large
 values will provide the impression of a larger room. Type: float. Units:
-'ms'. Default value: 40. Range: 0...100.;
+'ms'. Default value: 40\. Range: 0\...100\.;
 #X obj 20 1229 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1234 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -93,16 +93,16 @@ values will provide the impression of a larger room. Type: float. Units:
 #X obj 20 1307 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1312 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1313 1.;
+#X text 110 1313 1\.;
 #X text 245 1313 left channel.;
-#X text 110 1333 2.;
+#X text 110 1333 2\.;
 #X text 245 1333 right channel.;
 #X obj 20 1363 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1368 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1369 1.;
+#X text 110 1369 1\.;
 #X text 245 1369 output left.;
-#X text 110 1389 2.;
+#X text 110 1389 2\.;
 #X text 245 1389 output right.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

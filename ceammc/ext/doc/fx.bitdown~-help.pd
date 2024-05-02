@@ -19,15 +19,15 @@
 #X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 346 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 381 1.;
+#X text 110 381 1\.;
 #X text 150 381 int;
 #X obj 246 382 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 381 BITS: number of bits. Type: int. Range: 1...16;
-#X text 110 401 2.;
+#X text 245 381 BITS: number of bits. Type: int. Range: 1\...16;
+#X text 110 401 2\.;
 #X text 150 401 int;
 #X obj 246 402 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 401 DOWNSAMP(samp): number of samples to skip. Type: int.
-Range: 1...200;
+Range: 1\...200;
 #X obj 20 446 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 451 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -40,16 +40,16 @@ bind to /fx_bitdown/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 573 @active;
 #X text 245 573 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 603 @bits;
-#X text 245 603 Get/Set output bits. Type: int. Default value: 16.
-Range: 1...16.;
+#X text 245 603 Get/Set output bits. Type: int. Default value: 16\.
+Range: 1\...16\.;
 #X msg 110 645 @bypass;
 #X text 245 645 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0.;
+Type: bool. Default value: 0\.;
 #X msg 110 687 @downsamp;
 #X text 245 687 Get/Set number samples to skip. Type: int. Units: 'samp'.
-Default value: 1. Range: 1...200.;
+Default value: 1\. Range: 1\...200\.;
 #X obj 20 739 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 744 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -58,12 +58,12 @@ Default value: 1. Range: 1...200.;
 #X obj 20 817 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 822 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 823 1.;
+#X text 110 823 1\.;
 #X text 245 823 left channel.;
 #X obj 20 853 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 858 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 859 1.;
+#X text 110 859 1\.;
 #X text 245 859 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -13,7 +13,7 @@ it via external object;
 #X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 231 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 266 1.;
+#X text 110 266 1\.;
 #X text 150 266 list;
 #X obj 246 267 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 266 INDEXES: apply index(es) (starting from 0). Negative
@@ -27,21 +27,21 @@ last element. Type: list.;
 #X obj 20 406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 411 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 412 1.;
+#X text 110 412 1\.;
 #X text 150 412 *list*;
 #X text 245 412 Input list. If no element found by specified index
 - list passed without changes.;
-#X text 110 447 2.;
+#X text 110 447 2\.;
 #X text 150 447 *list*;
 #X text 245 447 set apply index(es).;
-#X text 110 467 3.;
+#X text 110 467 3\.;
 #X text 245 467 return value from applied object.;
 #X obj 20 497 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 502 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 503 1.;
+#X text 110 503 1\.;
 #X text 245 503 new modified list.;
-#X text 110 523 2.;
+#X text 110 523 2\.;
 #X text 245 523 element at given index. Should be passed to applied
 object.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

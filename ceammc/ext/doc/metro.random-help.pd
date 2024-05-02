@@ -18,12 +18,12 @@
 #X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 371 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 406 1.;
+#X text 110 406 1\.;
 #X text 150 406 int;
 #X obj 246 407 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 406 MIN(ms): minimal bang interval. Type: int. Min value:
 1;
-#X text 110 426 2.;
+#X text 110 426 2\.;
 #X text 150 426 int;
 #X obj 246 427 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 426 MAX(ms): maximum bang interval. Type: int. Min value:
@@ -33,31 +33,31 @@
 -49933 0;
 #X msg 110 496 @max;
 #X text 245 496 Get/Set maximum bang interval. Type: int. Units: 'ms'.
-Default value: 200. Min value: 1.;
+Default value: 200\. Min value: 1\.;
 #X msg 110 538 @min;
 #X text 245 538 Get/Set minimal bang interval. Type: int. Units: 'ms'.
-Default value: 100. Min value: 1.;
+Default value: 100\. Min value: 1\.;
 #X msg 110 580 @seed;
-#X text 245 580 Get/Set generator seed. Type: int. Default value: 0.
-Min value: 0.;
+#X text 245 580 Get/Set generator seed. Type: int. Default value: 0\.
+Min value: 0\.;
 #X obj 20 632 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 637 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 638 1.;
+#X text 110 638 1\.;
 #X text 150 638 *float*;
 #X text 245 638 starts (on > 0) or stops (on <= 0) metro.;
-#X text 110 658 2.;
+#X text 110 658 2\.;
 #X text 150 658 *float*;
 #X text 245 658 set @min property.;
 #X text 150 678 *list*;
 #X text 245 678 set random range. min max pair expected.;
-#X text 110 698 3.;
+#X text 110 698 3\.;
 #X text 150 698 *float*;
 #X text 245 698 set @max property.;
 #X obj 20 728 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 733 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 734 1.;
+#X text 110 734 1\.;
 #X text 245 734 outputs *bang*.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

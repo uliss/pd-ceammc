@@ -27,12 +27,12 @@ to other cue section;
 #X obj 20 375 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 380 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 381 1.;
+#X text 110 381 1\.;
 #X text 245 381 control inlet.;
 #X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 416 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 417 1.;
+#X text 110 417 1\.;
 #X text 245 417 1 on cue enter \, 0 on cue out.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

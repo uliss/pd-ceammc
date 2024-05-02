@@ -41,7 +41,7 @@
 #X obj 20 636 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 641 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 676 1.;
+#X text 110 676 1\.;
 #X text 150 676 list;
 #X obj 246 677 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 676 EXPR: expression. Type: list.;
@@ -53,17 +53,17 @@
 #X obj 20 786 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 791 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 792 1.;
+#X text 110 792 1\.;
 #X text 150 792 *float*;
 #X text 245 792 input value (referenced as $f0 or $f in expression).;
 #X text 150 812 *list*;
 #X text 245 812 input values (referenced as $f0 ... $f9 in expression).;
-#X text 110 832 2.;
+#X text 110 832 2\.;
 #X text 245 832 change expression.;
 #X obj 20 862 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 867 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 868 1.;
+#X text 110 868 1\.;
 #X text 245 868 calculated expression.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

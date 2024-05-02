@@ -26,7 +26,7 @@
 0-1 range.;
 #X msg 110 437 @float;
 #X text 245 437 Get/Set RGB color value in float range (0-1). Type:
-list. Default value: 1 1 1.;
+list. Default value: 1 1 1\.;
 #X msg 110 479 @h;
 #X text 245 479 alias for @mode hex. Output value as #RRGGBB symbol.;
 #X msg 110 509 @hex;
@@ -37,7 +37,7 @@ Default value: #FFFFFF.;
 range.;
 #X msg 110 593 @int;
 #X text 245 593 Get/Set RGB color value in int range (0-255). Type:
-list. Default value: 255 255 255.;
+list. Default value: 255 255 255\.;
 #X msg 110 635 @mode;
 #X text 245 635 Get/Set output mode. Type: symbol. Default value: float.
 Allowed values: float \, int \, hex \, data.;
@@ -46,7 +46,7 @@ Allowed values: float \, int \, hex \, data.;
 #X obj 20 717 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 722 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 723 1.;
+#X text 110 723 1\.;
 #X text 150 723 *bang*;
 #X text 245 723 opens colorpanel.;
 #X text 150 743 *symbol*;
@@ -58,7 +58,7 @@ expected in float (0-1) or int (0-255) range \, depending from @mode.;
 #X obj 20 838 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 843 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 844 1.;
+#X text 110 844 1\.;
 #X text 245 844 messages: hex color symbol in format #RRGGBB or RGB
 color triplet in float (0-1) or int (0-255) range depending from @mode.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;

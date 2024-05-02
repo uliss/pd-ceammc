@@ -15,16 +15,16 @@
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 352 1.;
+#X text 110 352 1\.;
 #X text 150 352 float;
 #X obj 246 353 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 352 FREQ1(Hz): left channel scramble frequency. Type: float.
-Range: 0.25...50;
-#X text 110 387 2.;
+Range: 0.25\...50;
+#X text 110 387 2\.;
 #X text 150 387 float;
 #X obj 246 388 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 387 FREQ2(Hz): right channel scramble frequency. Type:
-float. Range: 0.25...50;
+float. Range: 0.25\...50;
 #X obj 20 432 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 437 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -37,29 +37,29 @@ empty bind to /fx_scramble/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 559 @active;
 #X text 245 559 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 589 @bypass;
 #X text 245 589 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0.;
+Type: bool. Default value: 0\.;
 #X msg 110 631 @dev;
 #X text 245 631 Get/Set scramble freq deviation. Type: float. Default
-value: 0.25. Range: 0...1.;
+value: 0.25\. Range: 0\...1\.;
 #X msg 110 673 @drywet;
 #X text 245 673 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 0.5. Range: 0...1.;
+Default value: 0.5\. Range: 0\...1\.;
 #X msg 110 730 @feedback;
 #X text 245 730 Get/Set feedback coefficient. Type: float. Default
-value: 0.25. Range: 0...0.99.;
+value: 0.25\. Range: 0\...0.99\.;
 #X msg 110 772 @freq1;
 #X text 245 772 Get/Set left channel scramble frequency. Type: float.
-Units: 'Hz'. Default value: 7. Range: 0.25...50.;
+Units: 'Hz'. Default value: 7\. Range: 0.25\...50\.;
 #X msg 110 814 @freq2;
 #X text 245 814 Get/Set right channel scramble frequency. Type: float.
-Units: 'Hz'. Default value: 5. Range: 0.25...50.;
+Units: 'Hz'. Default value: 5\. Range: 0.25\...50\.;
 #X msg 110 856 @range;
 #X text 245 856 Get/Set scramble delay amount. Type: float. Default
-value: 0.5. Range: 0...1.;
+value: 0.5\. Range: 0\...1\.;
 #X obj 20 908 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 913 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -68,14 +68,14 @@ value: 0.5. Range: 0...1.;
 #X obj 20 986 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 991 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 992 1.;
+#X text 110 992 1\.;
 #X text 245 992 input signal.;
 #X obj 20 1022 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1027 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1028 1.;
+#X text 110 1028 1\.;
 #X text 245 1028 left output signal.;
-#X text 110 1048 2.;
+#X text 110 1048 2\.;
 #X text 245 1048 right output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

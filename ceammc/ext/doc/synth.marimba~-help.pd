@@ -35,28 +35,28 @@ empty bind to /synth_marimba/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 612 @active;
 #X text 245 612 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 642 @cutoff;
 #X text 245 642 Get/Set cuttoff frequency of the strike generator.
-Type: float. Default value: 7000. Range: 1000...10000.;
+Type: float. Default value: 7000\. Range: 1000\...10000\.;
 #X msg 110 684 @freq;
 #X text 245 684 Get/Set frequency. Type: float. Units: 'Hz'. Default
-value: 130.8128.;
+value: 130.8128\.;
 #X msg 110 726 @gain;
-#X text 245 726 Get/Set strike gain. Type: float. Default value: 1.
-Range: 0...1.;
+#X text 245 726 Get/Set strike gain. Type: float. Default value: 1\.
+Range: 0\...1\.;
 #X msg 110 768 @gate;
 #X text 245 768 Get/Set play trigger - 1: on \, 0: off. Type: float.
-Default value: 0. Range: 0...1.;
+Default value: 0\. Range: 0\...1\.;
 #X msg 110 810 @pitch;
-#X text 245 810 Get/Set midi pitch. Type: float. Default value: 48.
-Range: 36...84.;
+#X text 245 810 Get/Set midi pitch. Type: float. Default value: 48\.
+Range: 36\...84\.;
 #X msg 110 852 @pos;
 #X text 245 852 Get/Set excitation position. Type: float. Default value:
-0. Range: 0...4.;
+0\. Range: 0\...4\.;
 #X msg 110 894 @sharp;
 #X text 245 894 Get/Set sharpness of the strike. Type: float. Default
-value: 0.25. Range: 0.01...1.;
+value: 0.25\. Range: 0.01\...1\.;
 #X obj 20 946 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 951 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -65,16 +65,16 @@ value: 0.25. Range: 0.01...1.;
 #X obj 255 1009 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1009 NOTE: midi note. Type: float.;
 #X obj 255 1032 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1032 VEL: velocity. Type: float. Range: 0...127.;
+#X text 255 1032 VEL: velocity. Type: float. Range: 0\...127\.;
 #X obj 20 1067 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1072 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1073 1.;
+#X text 110 1073 1\.;
 #X text 245 1073 input signal.;
 #X obj 20 1103 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1108 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1109 1.;
+#X text 110 1109 1\.;
 #X text 245 1109;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

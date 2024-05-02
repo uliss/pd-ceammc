@@ -34,18 +34,18 @@ https://en.wikipedia.org/wiki/Gingerbreadman_map;
 #X obj 20 556 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 561 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 596 1.;
+#X text 110 596 1\.;
 #X text 150 596 float;
 #X obj 246 597 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 596 SEED: seed value \, default 0.82. Type: float.;
-#X text 110 616 2.;
+#X text 245 596 SEED: seed value \, default 0.82\. Type: float.;
+#X text 110 616 2\.;
 #X text 150 616 float;
 #X obj 246 617 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 616 X: initial x value \, default 0.7. Type: float.;
-#X text 110 636 3.;
+#X text 245 616 X: initial x value \, default 0.7\. Type: float.;
+#X text 110 636 3\.;
 #X text 150 636 float;
 #X obj 246 637 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 636 Y: initial y value \, default 1.2. Type: float.;
+#X text 245 636 Y: initial y value \, default 1.2\. Type: float.;
 #X obj 20 666 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 671 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -65,15 +65,15 @@ https://en.wikipedia.org/wiki/Gingerbreadman_map;
 #X obj 20 916 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 921 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 922 1.;
+#X text 110 922 1\.;
 #X text 150 922 *bang*;
 #X text 245 922 outputs current x/y values and generates new one.;
 #X obj 20 952 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 957 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 958 1.;
+#X text 110 958 1\.;
 #X text 245 958 outputs x-value.;
-#X text 110 978 2.;
+#X text 110 978 2\.;
 #X text 245 978 outputs y-value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

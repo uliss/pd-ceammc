@@ -9,7 +9,7 @@
 #X text 215 80 The acos() function computes the principle value of
 the arc cosine of input value. The result is in the range [0 \, pi].;
 #X text 215 120 Special values:;
-#X text 215 145 acos(1) returns +0.;
+#X text 215 145 acos(1) returns +0\.;
 #X text 215 170 acos(x) returns a NAN.;
 #X floatatom 50 233 5 0 0 0 - - -;
 #X msg 117 233 1 2 d b;
@@ -18,7 +18,7 @@ the arc cosine of input value. The result is in the range [0 \, pi].;
 #X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 346 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 347 1.;
+#X text 110 347 1\.;
 #X text 150 347 *float*;
 #X text 245 347 input value.;
 #X text 150 367 *list*;
@@ -26,7 +26,7 @@ the arc cosine of input value. The result is in the range [0 \, pi].;
 #X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 402 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 403 1.;
+#X text 110 403 1\.;
 #X text 245 403 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

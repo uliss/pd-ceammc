@@ -25,21 +25,21 @@ https://en.wikipedia.org/wiki/Elliptic_filter;
 #X obj 20 607 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 612 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 647 1.;
+#X text 110 647 1\.;
 #X text 150 647 float;
 #X obj 246 648 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 647 FREQ(Hz): center frequency. Type: float. Range: 20...20000;
-#X text 110 667 2.;
+#X text 245 647 FREQ(Hz): center frequency. Type: float. Range: 20\...20000;
+#X text 110 667 2\.;
 #X text 150 667 float;
 #X obj 246 668 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 667 Q: quality factory: @freq/BANDWIDTH. Type: float. Range:
-0.25...32;
+0.25\...32;
 #X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 717 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 752 @freq;
 #X text 245 752 (initonly) Get/Set cutoff frequency. Type: float. Units:
-'Hz'. Default value: 1000. Range: 20...20000.;
+'Hz'. Default value: 1000\. Range: 20\...20000\.;
 #X msg 110 794 @id;
 #X text 245 794 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/flt_bpf36e/PROP_NAME osc address \, if empty
@@ -49,10 +49,10 @@ bind to /flt_bpf36e/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 881 @q;
 #X text 245 881 (initonly) Get/Set quality factor: @freq/BANDWIDTH.
-Type: float. Default value: 2. Range: 0.25...32.;
+Type: float. Default value: 2\. Range: 0.25\...32\.;
 #X msg 110 923 @active;
 #X text 245 923 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X obj 20 963 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 968 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -61,12 +61,12 @@ Type: float. Default value: 2. Range: 0.25...32.;
 #X obj 20 1041 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1046 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1047 1.;
+#X text 110 1047 1\.;
 #X text 245 1047 input signal.;
 #X obj 20 1077 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1082 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1083 1.;
+#X text 110 1083 1\.;
 #X text 245 1083 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

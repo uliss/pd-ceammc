@@ -19,7 +19,7 @@ a length of key/value pair. First element of the pair becames a key
 #X obj 20 310 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 315 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 350 1.;
+#X text 110 350 1\.;
 #X text 150 350 int;
 #X obj 246 351 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 350 STEP: key/value length in input list. Type: int. Min
@@ -29,16 +29,16 @@ value: 2;
 -49933 0;
 #X msg 110 420 @step;
 #X text 245 420 Get/Set key/value length in input list. Type: int.
-Default value: 2. Min value: 2.;
+Default value: 2\. Min value: 2\.;
 #X obj 20 472 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 477 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 478 1.;
+#X text 110 478 1\.;
 #X text 245 478 input.;
 #X obj 20 508 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 513 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 514 1.;
+#X text 110 514 1\.;
 #X text 245 514 dict output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

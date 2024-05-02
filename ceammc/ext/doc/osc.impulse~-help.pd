@@ -13,7 +13,7 @@
 #X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 289 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 324 1.;
+#X text 110 324 1\.;
 #X text 150 324 float;
 #X obj 246 325 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 324 freq(Hz): frequency. Type: float. Min value: 20;
@@ -22,20 +22,20 @@
 -49933 0;
 #X msg 110 394 @active;
 #X text 245 394 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X obj 20 434 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 439 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 440 1.;
+#X text 110 440 1\.;
 #X text 150 440 *float*;
-#X text 245 440 frequency in Hz. Min value: 20.;
-#X text 110 460 2.;
+#X text 245 440 frequency in Hz. Min value: 20\.;
+#X text 110 460 2\.;
 #X text 150 460 *bang*;
 #X text 245 460 reset phase.;
 #X obj 20 490 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 495 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 496 1.;
+#X text 110 496 1\.;
 #X text 245 496 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

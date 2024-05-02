@@ -7,9 +7,10 @@
 #X obj 638 11 list.normalize;
 #X obj 210 80 cnv 1 555 100 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 There are two modes of normalization:;
-#X text 215 105 1. by sum - multiply all elements to such number to
+#X text 215 105 1\. by sum - multiply all elements to such number to
 get total sum = 1.0;
-#X text 215 145 2. by value range - maps all values to range 0..1 lineary;
+#X text 215 145 2\. by value range - maps all values to range 0\..1
+lineary;
 #X msg 50 208 1 2 3 4;
 #X msg 78 237 1 2 a b c d;
 #X msg 213 237 @range;
@@ -31,7 +32,7 @@ sum. Allowed values: sum \, range.;
 #X obj 20 579 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 584 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 585 1.;
+#X text 110 585 1\.;
 #X text 150 585 *list*;
 #X text 245 585 input list of floats. Non float values are rejected.;
 #X text 150 605 *data:mlist*;
@@ -39,7 +40,7 @@ sum. Allowed values: sum \, range.;
 #X obj 20 635 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 640 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 641 1.;
+#X text 110 641 1\.;
 #X text 245 641 output list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

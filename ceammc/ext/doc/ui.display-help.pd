@@ -45,45 +45,45 @@
 -49933 0;
 #X msg 110 570 @auto_size;
 #X text 245 570 Get/Set flag if automatically resize contents to feet
-incoming message. Type: bool. Default value: 1.;
+incoming message. Type: bool. Default value: 1\.;
 #X msg 110 612 @display_events;
 #X text 245 612 Get/Set flag for blinking on incoming messages. Type:
-bool. Default value: 1.;
+bool. Default value: 1\.;
 #X msg 110 654 @display_type;
 #X text 245 654 Get/Set flag for displaying incoming message type.
-Type: bool. Default value: 0.;
+Type: bool. Default value: 0\.;
 #X msg 110 696 @float_width;
 #X text 245 696 Get/Set number of digits after floating point. If -1:
 skip trailing zeroes \, if 0 - output as integers. Type: int. Default
-value: -1. Range: -1...17.;
+value: -1\. Range: -1\...17\.;
 #X msg 110 753 @hex;
 #X text 245 753 Get/Set output integers in hex format. Type: bool.
-Default value: 0.;
+Default value: 0\.;
 #X msg 110 795 @hex_width;
 #X text 245 795 Get/Set hex output format width. Type: int. Default
-value: 2. Range: 0...16.;
+value: 2\. Range: 0\...16\.;
 #X msg 110 837 @receive;
 #X text 245 837 Get/Set receive source. Type: symbol. Default value:
 (null).;
 #X msg 110 867 @active_color;
 #X text 245 867 Get/Set element active color (list of red \, green
-\, blue values in 0-1 range). Type: list. Default value: 0 0.75 1 1.;
+\, blue values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
 #X msg 110 909 @background_color;
 #X text 245 909 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1.;
+0.93 1\.;
 #X msg 110 966 @border_color;
 #X text 245 966 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
 #X msg 110 1008 @text_color;
 #X text 245 1008 Get/Set text color (list of red \, green \, blue values
-in 0-1 range). Type: list. Default value: 0 0 0 1.;
+in 0-1 range). Type: list. Default value: 0 0 0 1\.;
 #X msg 110 1050 @fontname;
 #X text 245 1050 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
 #X msg 110 1092 @fontsize;
-#X text 245 1092 Get/Set fontsize. Type: int. Default value: 11. Range:
-4...100.;
+#X text 245 1092 Get/Set fontsize. Type: int. Default value: 11\. Range:
+4\...100\.;
 #X msg 110 1134 @fontslant;
 #X text 245 1134 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
@@ -92,10 +92,10 @@ Allowed values: roman \, italic.;
 normal. Allowed values: normal \, bold.;
 #X msg 110 1218 @pinned;
 #X text 245 1218 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0.;
+level. Type: bool. Default value: 0\.;
 #X msg 110 1260 @size;
 #X text 245 1260 Get/Set element size (width \, height pair). Type:
-list. Default value: 80 18.;
+list. Default value: 80 18\.;
 #X obj 20 1312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1317 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -108,7 +108,7 @@ list. Default value: 80 18.;
 #X obj 20 1433 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1438 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1439 1.;
+#X text 110 1439 1\.;
 #X text 245 1439 accepts any messages and displays it.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

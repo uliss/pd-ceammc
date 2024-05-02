@@ -9,18 +9,18 @@
 #X text 215 80 The atanh() function computes the inverse hyperbolic
 tangent of the real argument input value.;
 #X text 215 120 Special values:;
-#X text 215 145 atanh(+-0) returns +-0.;
+#X text 215 145 atanh(+-0) returns +-0\.;
 #X text 215 170 atanh(+-1) returns +-infinity and raises the "divide-by-zero"
 floating- point exception.;
 #X text 215 210 atanh(x) returns a NaN and raises the "invalid" floating-point
-exception for |x| > 1.;
+exception for |x| > 1\.;
 #X floatatom 50 288 5 0 0 0 - - -;
 #X obj 50 317 math.atanh;
 #X floatatom 50 346 5 0 0 0 - - -;
 #X obj 20 378 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 383 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 384 1.;
+#X text 110 384 1\.;
 #X text 150 384 *float*;
 #X text 245 384 input value.;
 #X text 150 404 *list*;
@@ -28,7 +28,7 @@ exception for |x| > 1.;
 #X obj 20 434 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 439 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 440 1.;
+#X text 110 440 1\.;
 #X text 245 440 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

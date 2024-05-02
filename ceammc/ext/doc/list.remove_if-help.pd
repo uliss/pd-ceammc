@@ -23,20 +23,20 @@ element) or 1 (remove).;
 #X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 329 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 330 1.;
+#X text 110 330 1\.;
 #X text 150 330 *list*;
 #X text 245 330 input list.;
 #X text 150 350 *data:mlist*;
 #X text 245 350 input mlist.;
-#X text 110 370 2.;
+#X text 110 370 2\.;
 #X text 150 370 *float*;
 #X text 245 370 value from predicate.;
 #X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 405 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 406 1.;
+#X text 110 406 1\.;
 #X text 245 406 output list (or mlist) with some removed elements.;
-#X text 110 426 2.;
+#X text 110 426 2\.;
 #X text 245 426 atom to predicate.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -27,7 +27,7 @@ not exists);
 #X obj 20 599 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 604 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 639 1.;
+#X text 110 639 1\.;
 #X text 150 639 symbol;
 #X obj 246 640 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 639 PATTERN: filename generation pattern. Type: symbol.;
@@ -39,7 +39,7 @@ not exists);
 #X obj 20 749 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 754 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 755 1.;
+#X text 110 755 1\.;
 #X text 150 755 *bang*;
 #X text 245 755 output generated filename pattern.;
 #X text 150 775 *symbol*;
@@ -47,7 +47,7 @@ not exists);
 #X obj 20 805 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 810 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 811 1.;
+#X text 110 811 1\.;
 #X text 245 811 symbol: filename.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

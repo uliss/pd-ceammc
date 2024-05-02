@@ -24,7 +24,7 @@ name and available only within its patch (canvas);
 #X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 399 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 434 1.;
+#X text 110 434 1\.;
 #X text 150 434 symbol;
 #X obj 246 435 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 434 ID: object ID. Type: symbol.;
@@ -35,13 +35,13 @@ name and available only within its patch (canvas);
 #X text 245 504 (initonly) Get/Set local variable id. Type: symbol.
 Default value: default.;
 #X msg 110 546 @empty?;
-#X text 245 546 (readonly) Get 1 if dict is empty \, otherwise 0. Type:
-bool. Default value: 1.;
+#X text 245 546 (readonly) Get 1 if dict is empty \, otherwise 0\.
+Type: bool. Default value: 1\.;
 #X msg 110 588 @keys?;
 #X text 245 588 (readonly) Get keys of dictionary. Type: list.;
 #X msg 110 618 @size?;
 #X text 245 618 (readonly) Get number of entries in dictionary. Type:
-int. Default value: 0. Min value: 0.;
+int. Default value: 0\. Min value: 0\.;
 #X obj 20 670 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 675 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -85,18 +85,18 @@ do nothing. Arguments are:;
 #X obj 20 1181 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1186 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1187 1.;
+#X text 110 1187 1\.;
 #X text 150 1187 *bang*;
 #X text 245 1187 output current dictionary value.;
 #X text 150 1207 *list*;
 #X text 245 1207 set dict from list. Key-value pairs are expected.
-[1 2 3 4( becames dict with keys: 1 and 3 \, values: 2 and 4. No output.;
+[1 2 3 4( becames dict with keys: 1 and 3 \, values: 2 and 4\. No output.;
 #X text 150 1242 *data:dict*;
 #X text 245 1242 set and output new dict.;
 #X obj 20 1272 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1277 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1278 1.;
+#X text 110 1278 1\.;
 #X text 245 1278 dict output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

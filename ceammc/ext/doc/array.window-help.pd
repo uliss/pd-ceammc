@@ -25,7 +25,7 @@
 #X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 386 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 421 1.;
+#X text 110 421 1\.;
 #X text 150 421 symbol;
 #X obj 246 422 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 421 ARRAY: array name. Type: symbol.;
@@ -36,7 +36,7 @@
 #X text 245 491 Get/Set array name. Type: symbol.;
 #X msg 110 521 @redraw;
 #X text 245 521 Get/Set redraw after array change. Type: bool. Default
-value: 1.;
+value: 1\.;
 #X msg 110 563 @type;
 #X text 245 563 Get/Set window type. Type: symbol. Default value: hann.
 Allowed values: tri \, welch \, hann \, sine \, rect \, hamming \,
@@ -49,7 +49,7 @@ blackman \, nuttall \, blackman-harris \, flattop \, gauss.;
 #X msg 110 698 blackman-harris;
 #X text 245 698 generate blackman-harris window.;
 #X msg 110 726 fit;
-#X text 245 726 fit array y-bounds to 0..1 range.;
+#X text 245 726 fit array y-bounds to 0\..1 range.;
 #X msg 110 754 flattop;
 #X text 245 754 generate flattop window.;
 #X msg 110 782 gauss;
@@ -65,7 +65,7 @@ blackman \, nuttall \, blackman-harris \, flattop \, gauss.;
 #X msg 110 922 resize;
 #X text 245 922 resize specified array to given size. Arguments are:;
 #X obj 255 945 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 945 [N]: new size. Type: int. Min value: 0.;
+#X text 255 945 [N]: new size. Type: int. Min value: 0\.;
 #X msg 110 970 sine;
 #X text 245 970 generate sine window.;
 #X msg 110 998 tri;
@@ -75,13 +75,13 @@ blackman \, nuttall \, blackman-harris \, flattop \, gauss.;
 #X obj 20 1064 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1069 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1070 1.;
+#X text 110 1070 1\.;
 #X text 150 1070 *bang*;
 #X text 245 1070 fill array with window.;
 #X obj 20 1100 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1105 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1106 1.;
+#X text 110 1106 1\.;
 #X text 245 1106 bang on finish.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

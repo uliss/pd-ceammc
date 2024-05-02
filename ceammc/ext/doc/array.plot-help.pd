@@ -20,18 +20,18 @@
 #X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 342 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 377 1.;
+#X text 110 377 1\.;
 #X text 150 377 symbol;
 #X obj 246 378 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 377 ARRAY: array name. Type: symbol.;
-#X text 110 397 2.;
+#X text 110 397 2\.;
 #X text 150 397 float;
 #X obj 246 398 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 397 YMIN: minimal y-axis value. Type: float. Range: -2048...2048;
-#X text 110 417 3.;
+#X text 245 397 YMIN: minimal y-axis value. Type: float. Range: -2048\...2048;
+#X text 110 417 3\.;
 #X text 150 417 float;
 #X obj 246 418 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 417 YMAX: maximum y-axis value. Type: float. Range: -2048...2048;
+#X text 245 417 YMAX: maximum y-axis value. Type: float. Range: -2048\...2048;
 #X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 452 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -42,22 +42,22 @@
 Default value: +inf.;
 #X msg 110 559 @yauto;
 #X text 245 559 Get/Set calculate y-axis range automatically. Type:
-bool. Default value: 1.;
+bool. Default value: 1\.;
 #X msg 110 601 @ymax;
 #X text 245 601 Get/Set maximum y-axis value. Type: float. Default
-value: 1. Range: -2048...2048.;
+value: 1\. Range: -2048\...2048\.;
 #X msg 110 643 @ymin;
 #X text 245 643 Get/Set minimal y-axis value. Type: float. Default
-value: -1. Range: -2048...2048.;
+value: -1\. Range: -2048\...2048\.;
 #X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 700 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 701 1.;
+#X text 110 701 1\.;
 #X text 150 701 *float*;
 #X text 245 701 single input sample.;
 #X text 150 721 *list*;
 #X text 245 721 resizes array to list size and plot all list values.;
-#X text 110 741 2.;
+#X text 110 741 2\.;
 #X text 150 741 *bang*;
 #X text 245 741 plot all samples fitted to specified array.;
 #X text 150 761 *float*;
@@ -65,7 +65,7 @@ value: -1. Range: -2048...2048.;
 #X obj 20 791 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 796 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 797 1.;
+#X text 110 797 1\.;
 #X text 245 797 bang on done.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -26,29 +26,29 @@
 #X msg 110 395 @filter;
 #X text 245 395 Get/Set output signal filtering. LTC should have a
 rise time of 40us+/-10 us. If you want a perfect square wave \, set
-to 0. Type: float. Default value: 0. Range: 0...500.;
+to 0\. Type: float. Default value: 0\. Range: 0\...500\.;
 #X msg 110 452 @fps;
 #X text 245 452 Get/Set frames per second rate. Supported values are:
-24 \, 25 \, 29.97 \, 30. Type: float. Default value: 25.;
+24 \, 25 \, 29.97 \, 30\. Type: float. Default value: 25\.;
 #X msg 110 494 @on;
-#X text 245 494 Get/Set encoder state. Type: bool. Default value: 0.;
+#X text 245 494 Get/Set encoder state. Type: bool. Default value: 0\.;
 #X msg 110 524 @speed;
 #X text 245 524 Get/Set playing speed. Type: float. Default value:
-1.;
+1\.;
 #X msg 110 554 @volume;
 #X text 245 554 Get/Set output signal level. Type: float. Units: 'db'.
-Default value: -3. Range: -42...0.;
+Default value: -3\. Range: -42\...0\.;
 #X obj 20 606 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 611 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 646 date;
 #X text 245 646 set current date. Arguments are:;
 #X obj 255 669 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 669 YEAR: year. Type: int. Range: 0...3000.;
+#X text 255 669 YEAR: year. Type: int. Range: 0\...3000\.;
 #X obj 255 692 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 692 MONTH: month. Type: int. Range: 1...12.;
+#X text 255 692 MONTH: month. Type: int. Range: 1\...12\.;
 #X obj 255 715 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 715 DAY: day. Type: int. Range: 1...31.;
+#X text 255 715 DAY: day. Type: int. Range: 1\...31\.;
 #X obj 255 738 cnv 1 78 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 738 [TIMEZONE]: timezone in +HHMM format. Type: symbol.;
 #X msg 110 763 seek;
@@ -61,17 +61,17 @@ atom.;
 #X msg 110 856 time;
 #X text 245 856 set current time. Arguments are:;
 #X obj 255 879 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 879 HOUR: hour. Type: int. Range: 0...23.;
+#X text 255 879 HOUR: hour. Type: int. Range: 0\...23\.;
 #X obj 255 902 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 902 MIN: minute. Type: int. Range: 0...59.;
+#X text 255 902 MIN: minute. Type: int. Range: 0\...59\.;
 #X obj 255 925 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 925 SEC: second. Type: int. Range: 0...59.;
+#X text 255 925 SEC: second. Type: int. Range: 0\...59\.;
 #X obj 255 948 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 948 [FRAME]: frame number. Type: int. Range: 0...30.;
+#X text 255 948 [FRAME]: frame number. Type: int. Range: 0\...30\.;
 #X obj 20 983 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 988 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 989 1.;
+#X text 110 989 1\.;
 #X text 150 989 *bang*;
 #X text 245 989 output current time to second outlet.;
 #X text 150 1009 *bool*;
@@ -79,9 +79,9 @@ atom.;
 #X obj 20 1039 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1044 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1045 1.;
+#X text 110 1045 1\.;
 #X text 245 1045 LTC signal.;
-#X text 110 1065 2.;
+#X text 110 1065 2\.;
 #X text 245 1065 list: HOUR MINUTE SECOND FRAME.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

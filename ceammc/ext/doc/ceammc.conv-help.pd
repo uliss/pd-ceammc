@@ -3,9 +3,9 @@
 #X text 62 50 ::;
 #X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
 #X obj 30 117 array.p2s;
-#X text 200 117 convert array phase [0..1] to sample position;
+#X text 200 117 convert array phase [0\..1] to sample position;
 #X obj 30 145 array.s2p;
-#X text 200 145 convert sample position to phase range [0..1];
+#X text 200 145 convert sample position to phase range [0\..1];
 #X obj 30 173 conv.amp2dbfs;
 #X text 200 173 convert from amplitude to decibel full scale;
 #X obj 30 201 conv.amp2dbfs~;

@@ -32,37 +32,37 @@ bind to /flt_eq10/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 623 @active;
 #X text 245 623 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 653 @f1000;
 #X text 245 653 Get/Set gain at 1000Hz. Type: float. Units: 'db'. Default
-value: 0. Range: -70...10.;
+value: 0\. Range: -70\...10\.;
 #X msg 110 695 @f125;
 #X text 245 695 Get/Set gain at 125Hz. Type: float. Units: 'db'. Default
-value: 0. Range: -70...10.;
+value: 0\. Range: -70\...10\.;
 #X msg 110 737 @f16000;
 #X text 245 737 Get/Set gain at 16000Hz. Type: float. Units: 'db'.
-Default value: 0. Range: -70...10.;
+Default value: 0\. Range: -70\...10\.;
 #X msg 110 779 @f2000;
 #X text 245 779 Get/Set gain at 2000Hz. Type: float. Units: 'db'. Default
-value: 0. Range: -70...10.;
+value: 0\. Range: -70\...10\.;
 #X msg 110 821 @f250;
 #X text 245 821 Get/Set gain at 250Hz. Type: float. Units: 'db'. Default
-value: 0. Range: -70...10.;
+value: 0\. Range: -70\...10\.;
 #X msg 110 863 @f31;
 #X text 245 863 Get/Set gain at 31.25Hz. Type: float. Units: 'db'.
-Default value: 0. Range: -70...10.;
+Default value: 0\. Range: -70\...10\.;
 #X msg 110 905 @f4000;
 #X text 245 905 Get/Set gain at 4000Hz. Type: float. Units: 'db'. Default
-value: 0. Range: -70...10.;
+value: 0\. Range: -70\...10\.;
 #X msg 110 947 @f500;
 #X text 245 947 Get/Set gain at 500Hz. Type: float. Units: 'db'. Default
-value: 0. Range: -70...10.;
+value: 0\. Range: -70\...10\.;
 #X msg 110 989 @f62;
 #X text 245 989 Get/Set gain at 62.5Hz. Type: float. Units: 'db'. Default
-value: 0. Range: -70...10.;
+value: 0\. Range: -70\...10\.;
 #X msg 110 1031 @f8000;
 #X text 245 1031 Get/Set gain at 8000Hz. Type: float. Units: 'db'.
-Default value: 0. Range: -70...10.;
+Default value: 0\. Range: -70\...10\.;
 #X obj 20 1083 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1088 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -71,14 +71,14 @@ Default value: 0. Range: -70...10.;
 #X obj 20 1161 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1166 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1167 1.;
+#X text 110 1167 1\.;
 #X text 245 1167 input signal.;
 #X text 150 1187 *list*;
 #X text 245 1187 sets equalizer coefficients.;
 #X obj 20 1217 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1222 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1223 1.;
+#X text 110 1223 1\.;
 #X text 245 1223 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

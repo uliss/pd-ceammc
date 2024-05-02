@@ -42,11 +42,11 @@ initialized with current time.;
 #X obj 20 650 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 655 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 690 1.;
+#X text 110 690 1\.;
 #X text 150 690 float;
 #X obj 246 691 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 690 MU: the mean. Type: float.;
-#X text 110 710 2.;
+#X text 110 710 2\.;
 #X text 150 710 float;
 #X obj 246 711 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 710 SIGMA: the standard deviation. Type: float. Min value:
@@ -55,23 +55,23 @@ initialized with current time.;
 #X obj 20 745 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 780 @mu;
-#X text 245 780 Get/Set the mean. Type: float. Default value: 0.;
+#X text 245 780 Get/Set the mean. Type: float. Default value: 0\.;
 #X msg 110 810 @seed;
-#X text 245 810 Get/Set generator seed. Type: int. Default value: 0.
-Min value: 0.;
+#X text 245 810 Get/Set generator seed. Type: int. Default value: 0\.
+Min value: 0\.;
 #X msg 110 852 @sigma;
 #X text 245 852 Get/Set the standard deviation. Type: float. Default
-value: 0. Min value: 0.;
+value: 0\. Min value: 0\.;
 #X obj 20 904 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 909 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 910 1.;
+#X text 110 910 1\.;
 #X text 150 910 *bang*;
 #X text 245 910 generates random number.;
 #X obj 20 940 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 945 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 946 1.;
+#X text 110 946 1\.;
 #X text 245 946 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

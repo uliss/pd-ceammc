@@ -28,16 +28,16 @@ with signal values;
 #X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 432 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 467 1.;
+#X text 110 467 1\.;
 #X text 150 467 int;
 #X obj 246 468 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 467 ORDER: the order of decomposition. Type: int. Range:
-1...10;
-#X text 110 487 2.;
+1\...10;
+#X text 110 487 2\.;
 #X text 150 487 int;
 #X obj 246 488 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 487 NSRC: number of sources. Type: int. Min value: 1;
-#X text 110 507 3.;
+#X text 110 507 3\.;
 #X text 150 507 symbol;
 #X obj 246 508 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 507 MODE: coordinates mode. Allowed values: car \, pol.
@@ -47,17 +47,17 @@ Type: symbol.;
 -49933 0;
 #X msg 110 592 @nsrc;
 #X text 245 592 (initonly) Get/Set number of input sources. Type: int.
-Default value: 1. Min value: 1.;
+Default value: 1\. Min value: 1\.;
 #X msg 110 634 @order;
 #X text 245 634 (initonly) Get/Set the order of decomposition. Type:
-int. Default value: 1. Range: 1...10.;
+int. Default value: 1\. Range: 1\...10\.;
 #X msg 110 676 @mode;
 #X text 245 676 Get/Set coordinates mode in signal control mode (with
 @nsrc 1) \, polar or cartesian. Type: symbol. Default value: pol. Allowed
 values: car \, pol.;
 #X msg 110 733 @ramp;
-#X text 245 733 Get/Set ramp time. Type: float. Default value: 100.
-Min value: 0.;
+#X text 245 733 Get/Set ramp time. Type: float. Default value: 100\.
+Min value: 0\.;
 #X obj 20 785 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 790 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -67,7 +67,7 @@ Min value: 0.;
 #X text 245 853 set source mapping in cartesian coordinates. Arguments
 are:;
 #X obj 255 876 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 876 IDX: source index. 1-based. Type: int. Min value: 1.;
+#X text 255 876 IDX: source index. 1-based. Type: int. Min value: 1\.;
 #X obj 255 899 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 899 X: x coordinate. Type: float.;
 #X obj 255 922 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -77,10 +77,10 @@ are:;
 #X msg 110 970 mute;
 #X text 245 970 mute/unmute specified source. Arguments are:;
 #X obj 255 993 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 993 IDX: source index. 1-based. Type: int. Min value: 1.;
+#X text 255 993 IDX: source index. 1-based. Type: int. Min value: 1\.;
 #X obj 255 1016 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1016 STATE: mute value. Type: int. Allowed values: 0 \,
-1.;
+1\.;
 #X msg 110 1041 pol;
 #X text 245 1041 alias to polar method.;
 #X msg 110 1069 polar;
@@ -88,19 +88,19 @@ are:;
 are:;
 #X obj 255 1092 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1092 IDX: source index. 1-based. Type: int. Min value:
-1.;
+1\.;
 #X obj 255 1115 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1115 RAD: radius. Type: float. Range: 0...1.;
+#X text 255 1115 RAD: radius. Type: float. Range: 0\...1\.;
 #X obj 255 1138 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1138 AZIM: azimuth angle. Type: float. Range: 0...2π. Units:
-'rad'.;
+#X text 255 1138 AZIM: azimuth angle. Type: float. Range: 0\...2π.
+Units: 'rad'.;
 #X obj 255 1176 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1176 ELEV: elevation. Type: float. Range: 0...2π. Units:
+#X text 255 1176 ELEV: elevation. Type: float. Range: 0\...2π. Units:
 'rad'.;
 #X obj 20 1211 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1216 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1217 1.;
+#X text 110 1217 1\.;
 #X text 245 1217 first source input.;
 #X text 150 1237 *list*;
 #X text 245 1237 SRC_IDX polar RADIUS AZIMUTH ELEVATION or SRC_IDX
@@ -112,7 +112,7 @@ mute VALUE.;
 #X obj 20 1307 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1312 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1313 1.;
+#X text 110 1313 1\.;
 #X text 245 1313 first harmonic output.;
 #X text 110 1333 ....;
 #X text 245 1333 ... harmonic output.;

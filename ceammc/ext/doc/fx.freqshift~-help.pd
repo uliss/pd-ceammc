@@ -19,7 +19,7 @@
 -49933 0;
 #X msg 110 381 @active;
 #X text 245 381 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X obj 20 421 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 426 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -28,16 +28,16 @@
 #X obj 20 499 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 504 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 505 1.;
+#X text 110 505 1\.;
 #X text 245 505 input signal.;
-#X text 110 525 2.;
-#X text 245 525 frequency shift in Hertz. Range: -10000...10000.;
+#X text 110 525 2\.;
+#X text 245 525 frequency shift in Hertz. Range: -10000\...10000\.;
 #X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 560 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 561 1.;
+#X text 110 561 1\.;
 #X text 245 561 output signal (freq + shift).;
-#X text 110 581 2.;
+#X text 110 581 2\.;
 #X text 245 581 output signal (freq - shift).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

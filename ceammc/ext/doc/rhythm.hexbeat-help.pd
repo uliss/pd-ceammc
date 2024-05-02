@@ -27,7 +27,7 @@
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 404 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 439 1.;
+#X text 110 439 1\.;
 #X text 150 439 symbol;
 #X obj 246 440 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 439 HEX: init pattern value. Type: symbol.;
@@ -41,20 +41,20 @@
 #X obj 20 579 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 584 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 585 1.;
+#X text 110 585 1\.;
 #X text 150 585 *bang*;
 #X text 245 585 output last pattern.;
 #X text 150 605 *symbol*;
 #X text 245 605 set new pattern and output.;
 #X text 150 625 *list*;
 #X text 245 625 output enumerated patterns for each list argument.;
-#X text 110 645 2.;
+#X text 110 645 2\.;
 #X text 150 645 *symbol*;
 #X text 245 645 set new pattern.;
 #X obj 20 675 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 680 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 681 1.;
+#X text 110 681 1\.;
 #X text 245 681 list output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -44,16 +44,16 @@ values;
 #X obj 20 1017 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1022 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1057 1.;
+#X text 110 1057 1\.;
 #X text 150 1057 int;
 #X obj 246 1058 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 1057 ORDER: the order of decomposition. Type: int. Range:
-1...63;
-#X text 110 1077 2.;
+1\...63;
+#X text 110 1077 2\.;
 #X text 150 1077 int;
 #X obj 246 1078 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 1077 NSRC: number of sources. Type: int. Min value: 1;
-#X text 110 1097 3.;
+#X text 110 1097 3\.;
 #X text 150 1097 symbol;
 #X obj 246 1098 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 1097 MODE: mode in signal control mode (with nsrc=1). Allowed
@@ -63,18 +63,18 @@ values: pol \, car. Type: symbol.;
 -49933 0;
 #X msg 110 1182 @nsrc;
 #X text 245 1182 (initonly) Get/Set number of input sources. Type:
-int. Default value: 1. Min value: 1.;
+int. Default value: 1\. Min value: 1\.;
 #X msg 110 1224 @order;
 #X text 245 1224 (initonly) Get/Set the order of decomposition. Type:
-int. Default value: 1. Range: 1...63.;
+int. Default value: 1\. Range: 1\...63\.;
 #X msg 110 1266 @mode;
 #X text 245 1266 Get/Set signal control mode (with nsrc=1). If 'pol':
 second and third signal inlets are treated as radius and angle values
 \, if 'car': as X and Y coordinates. Type: symbol. Default value: pol.
 Allowed values: pol \, car.;
 #X msg 110 1338 @ramp;
-#X text 245 1338 Get/Set ramp time. Type: float. Default value: 100.
-Min value: 0.;
+#X text 245 1338 Get/Set ramp time. Type: float. Default value: 100\.
+Min value: 0\.;
 #X obj 20 1390 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1395 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -85,7 +85,7 @@ Min value: 0.;
 are:;
 #X obj 255 1481 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1481 IDX: source index. 1-based. Type: int. Min value:
-1.;
+1\.;
 #X obj 255 1504 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1504 X: x-coord. Type: float.;
 #X obj 255 1527 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -94,10 +94,10 @@ are:;
 #X text 245 1552 mute/unmute specified source. Arguments are:;
 #X obj 255 1575 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1575 IDX: source index. 1-based. Type: int. Min value:
-1.;
+1\.;
 #X obj 255 1598 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1598 STATE: mute value. Type: int. Allowed values: 0 \,
-1.;
+1\.;
 #X msg 110 1623 pol;
 #X text 245 1623 alias to 'polar' method.;
 #X msg 110 1651 polar;
@@ -105,16 +105,16 @@ are:;
 are:;
 #X obj 255 1674 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1674 IDX: source index. 1-based. Type: int. Min value:
-1.;
+1\.;
 #X obj 255 1697 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1697 RAD: radius. Type: float. Range: 0...1.;
+#X text 255 1697 RAD: radius. Type: float. Range: 0\...1\.;
 #X obj 255 1720 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1720 ANG: rotation angle. Type: float. Range: 0...2π. Units:
-'rad'.;
+#X text 255 1720 ANG: rotation angle. Type: float. Range: 0\...2π.
+Units: 'rad'.;
 #X obj 20 1770 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1775 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1776 1.;
+#X text 110 1776 1\.;
 #X text 245 1776 first source input.;
 #X text 150 1796 *list*;
 #X text 245 1796 SRC_IDX polar RADIUS AZIMUTH or SRC_IDX mute VALUE.;
@@ -125,7 +125,7 @@ are:;
 #X obj 20 1866 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1871 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1872 1.;
+#X text 110 1872 1\.;
 #X text 245 1872 first harmonic output.;
 #X text 110 1892 ....;
 #X text 245 1892 ... harmonic output.;

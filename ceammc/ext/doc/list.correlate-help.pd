@@ -18,7 +18,7 @@ not use the FFT to compute the convolution;
 #X obj 20 421 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 426 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 461 1.;
+#X text 110 461 1\.;
 #X text 150 461 list;
 #X obj 246 462 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 461 B: second argument values. Type: list.;
@@ -48,16 +48,16 @@ values: valid \, same \, full.;
 #X obj 20 854 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 859 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 860 1.;
+#X text 110 860 1\.;
 #X text 150 860 *list*;
 #X text 245 860 calculate cross-correlation and output.;
-#X text 110 880 2.;
+#X text 110 880 2\.;
 #X text 150 880 *list*;
 #X text 245 880 set second argument (@b property).;
 #X obj 20 910 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 915 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 916 1.;
+#X text 110 916 1\.;
 #X text 245 916 list: output result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

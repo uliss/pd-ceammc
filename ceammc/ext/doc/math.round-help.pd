@@ -12,7 +12,7 @@
 to x rounding half-way cases away from zero \, regardless of the current
 rounding direction.;
 #X text 215 135 Special values:;
-#X text 215 160 round(+-0) returns +-0.;
+#X text 215 160 round(+-0) returns +-0\.;
 #X text 215 185 round(+-infinity) returns +-infinity.;
 #X floatatom 50 248 5 0 0 0 - - -;
 #X msg 98 248 2.3 3.8 5.5 -2.3 -3.8 -5.5;
@@ -21,7 +21,7 @@ rounding direction.;
 #X obj 20 356 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 361 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 362 1.;
+#X text 110 362 1\.;
 #X text 150 362 *float*;
 #X text 245 362 input value.;
 #X text 150 382 *list*;
@@ -29,7 +29,7 @@ rounding direction.;
 #X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 417 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 418 1.;
+#X text 110 418 1\.;
 #X text 245 418 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

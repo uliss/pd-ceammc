@@ -11,13 +11,13 @@
 #X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 231 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 266 1.;
+#X text 110 266 1\.;
 #X text 150 266 int;
 #X obj 246 267 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 266 RATE: serial baud rate. Allowed values: 110 \, 115200
 \, 1200 \, 128000 \, 14400 \, 19200 \, 2400 \, 256000 \, 300 \, 38400
-\, 4800 \, 56000 \, 57600 \, 600 \, 9600. Type: int.;
-#X text 110 316 2.;
+\, 4800 \, 56000 \, 57600 \, 600 \, 9600\. Type: int.;
+#X text 110 316 2\.;
 #X text 150 316 symbol;
 #X obj 246 317 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 316 PORT: serial device or port name \, eg.: COM3 on Windows
@@ -30,9 +30,9 @@
 \, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX. Type: symbol.;
 #X msg 110 473 @rate;
 #X text 245 473 Get/Set serial baud rate. Type: int. Default value:
-57600. Allowed values: 110 \, 300 \, 600 \, 1200 \, 2400 \, 4800 \,
+57600\. Allowed values: 110 \, 300 \, 600 \, 1200 \, 2400 \, 4800 \,
 9600 \, 14400 \, 19200 \, 38400 \, 56000 \, 57600 \, 115200 \, 128000
-\, 256000.;
+\, 256000\.;
 #X msg 110 530 @devices?;
 #X text 245 530 (readonly) Get list of found serial devices. Type:
 list.;
@@ -46,7 +46,7 @@ list.;
 #X obj 20 676 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 681 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 682 1.;
+#X text 110 682 1\.;
 #X text 150 682 *float*;
 #X text 245 682 sends float value in byte range [0-255] to serial port.;
 #X text 150 702 *list*;
@@ -55,7 +55,7 @@ port.;
 #X obj 20 732 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 737 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 738 1.;
+#X text 110 738 1\.;
 #X text 245 738 outputs received byte from serial port.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

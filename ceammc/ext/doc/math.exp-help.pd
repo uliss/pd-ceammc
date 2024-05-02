@@ -12,8 +12,8 @@ of x.;
 - 1.0 will suffer from catastrophic cancellation and the result will
 have little or no precision.;
 #X text 215 175 Special values:;
-#X text 215 200 exp(+-0) return 1.;
-#X text 215 225 exp(-infinity) return +0.;
+#X text 215 200 exp(+-0) return 1\.;
+#X text 215 225 exp(-infinity) return +0\.;
 #X text 215 250 exp(+infinity) return +infinity.;
 #X text 215 275 For all these functions \, a range error occurs if
 the magnitude of x is too large.;
@@ -23,7 +23,7 @@ the magnitude of x is too large.;
 #X obj 20 443 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 448 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 449 1.;
+#X text 110 449 1\.;
 #X text 150 449 *float*;
 #X text 245 449 input value.;
 #X text 150 469 *list*;
@@ -31,7 +31,7 @@ the magnitude of x is too large.;
 #X obj 20 499 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 504 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 505 1.;
+#X text 110 505 1\.;
 #X text 245 505 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

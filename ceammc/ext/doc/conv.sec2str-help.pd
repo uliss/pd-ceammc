@@ -23,20 +23,20 @@ string);
 #X obj 20 271 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 306 @ms;
-#X text 245 306 output milliseconds. Default value: 0.;
+#X text 245 306 output milliseconds. Default value: 0\.;
 #X msg 110 336 @symbol;
 #X text 245 336 if specified - output formatted time as symbol \, otherwise
-as string. Default value: 0.;
+as string. Default value: 0\.;
 #X obj 20 388 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 393 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 394 1.;
+#X text 110 394 1\.;
 #X text 150 394 *float*;
 #X text 245 394 converts float value in seconds to formatted symbol.;
 #X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 429 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 430 1.;
+#X text 110 430 1\.;
 #X text 245 430 time in format "HH:MM::SS" or "HH:MM:SS.XXX".;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

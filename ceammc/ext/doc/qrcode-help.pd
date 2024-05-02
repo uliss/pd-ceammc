@@ -15,7 +15,7 @@
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 352 1.;
+#X text 110 352 1\.;
 #X text 150 352 symbol;
 #X obj 246 353 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 352 VALUE: initial string value. Type: symbol.;
@@ -38,7 +38,7 @@ low. Allowed values: low \, medium \, quartile \, high.;
 #X obj 20 624 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 629 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 630 1.;
+#X text 110 630 1\.;
 #X text 150 630 *bang*;
 #X text 245 630 output encoded data.;
 #X text 150 650 *symbol*;
@@ -46,9 +46,9 @@ low. Allowed values: low \, medium \, quartile \, high.;
 #X obj 20 680 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 685 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 686 1.;
-#X text 245 686 list of 1 and 0.;
-#X text 110 706 2.;
+#X text 110 686 1\.;
+#X text 245 686 list of 1 and 0\.;
+#X text 110 706 2\.;
 #X text 245 706 int: qr code size.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

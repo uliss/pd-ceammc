@@ -20,23 +20,23 @@
 #X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 242 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 277 1.;
+#X text 110 277 1\.;
 #X text 150 277 symbol;
 #X obj 246 278 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 277 NAME: function name \, should be unique. Type: symbol.;
 #X obj 20 307 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 312 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 313 1.;
+#X text 110 313 1\.;
 #X text 245 313 input value.;
-#X text 110 333 2.;
+#X text 110 333 2\.;
 #X text 245 333 value from side-chain.;
 #X obj 20 363 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 368 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 369 1.;
+#X text 110 369 1\.;
 #X text 245 369 result value.;
-#X text 110 389 2.;
+#X text 110 389 2\.;
 #X text 245 389 value to side-chain.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

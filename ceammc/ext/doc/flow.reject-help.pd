@@ -15,7 +15,7 @@
 #X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 242 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 277 1.;
+#X text 110 277 1\.;
 #X text 150 277 list;
 #X obj 246 278 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 277 VALUES: list of atoms to reject. Type: list.;
@@ -27,7 +27,7 @@
 #X obj 20 387 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 392 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 393 1.;
+#X text 110 393 1\.;
 #X text 150 393 *bang*;
 #X text 245 393 pass.;
 #X text 150 413 *float*;
@@ -38,13 +38,13 @@
 #X text 245 453 reject if first atom is in reject list.;
 #X text 150 473 *any*;
 #X text 245 473 reject if message selector is in reject list.;
-#X text 110 493 2.;
+#X text 110 493 2\.;
 #X text 150 493 *list*;
 #X text 245 493 set reject list.;
 #X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 528 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 529 1.;
+#X text 110 529 1\.;
 #X text 245 529 passed values.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

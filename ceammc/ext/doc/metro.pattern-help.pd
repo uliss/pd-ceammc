@@ -20,7 +20,7 @@
 #X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 346 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 381 1.;
+#X text 110 381 1\.;
 #X text 150 381 list;
 #X obj 246 382 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 381 PATTERN: list of time intervals (in ms). Type: list.;
@@ -29,28 +29,28 @@
 -49933 0;
 #X msg 110 451 @current;
 #X text 245 451 Get/Set current pattern index. Type: int. Default value:
-0. Min value: 0.;
+0\. Min value: 0\.;
 #X msg 110 493 @pattern;
 #X text 245 493 Get/Set time intervals (in ms) performed in a loop.
 Type: list.;
 #X msg 110 535 @sync;
 #X text 245 535 Get/Set sync mode - change pattern after full cycle.
-Type: bool. Default value: 0.;
+Type: bool. Default value: 0\.;
 #X obj 20 587 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 592 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 593 1.;
+#X text 110 593 1\.;
 #X text 150 593 *float*;
 #X text 245 593 starts (on 1) or stops (on 0) metro.;
-#X text 110 613 2.;
+#X text 110 613 2\.;
 #X text 150 613 *list*;
 #X text 245 613 set new pattern.;
 #X obj 20 643 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 648 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 649 1.;
+#X text 110 649 1\.;
 #X text 245 649 outputs *bang*.;
-#X text 110 669 2.;
+#X text 110 669 2\.;
 #X text 245 669 outputs current pattern index and bang on each cycle.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

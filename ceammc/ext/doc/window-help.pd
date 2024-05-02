@@ -44,13 +44,13 @@
 #X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 360 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 395 1.;
+#X text 110 395 1\.;
 #X text 150 395 symbol;
 #X obj 246 396 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 395 TYPE: window name: blackman \, blackman-harris \, flattop
 \, gauss \, hamming \, hann \, nuttall \, rect \, sine \, tri \, welch.
 Type: symbol.;
-#X text 110 430 2.;
+#X text 110 430 2\.;
 #X text 150 430 int;
 #X obj 246 431 cnv 1 85 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 430 SIZE(samp): window size. Type: int. Min value: 16;
@@ -62,7 +62,7 @@ Type: symbol.;
 symbol. Default value: hann.;
 #X msg 110 542 @size;
 #X text 245 542 Get/Set window size. Type: int. Units: 'samp'. Default
-value: 512. Min value: 16.;
+value: 512\. Min value: 16\.;
 #X obj 20 594 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 599 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -91,19 +91,19 @@ value: 512. Min value: 16.;
 #X obj 20 952 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 957 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 958 1.;
+#X text 110 958 1\.;
 #X text 150 958 *bang*;
 #X text 245 958 output all window values as list.;
 #X text 150 978 *float*;
-#X text 245 978 window index position: from 0 to SIZE-1. Output 0 if
-invalid index given.;
+#X text 245 978 window index position: from 0 to SIZE-1\. Output 0
+if invalid index given.;
 #X text 150 1013 *list*;
 #X text 245 1013 pair INDEX SIZE expected. Sets windows size to SIZE.
 Output window value at given index.;
 #X obj 20 1058 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1063 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1064 1.;
+#X text 110 1064 1\.;
 #X text 245 1064 sample number.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

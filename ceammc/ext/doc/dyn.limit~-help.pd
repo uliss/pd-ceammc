@@ -22,7 +22,7 @@ https://en.wikipedia.org/wiki/1176_Peak_Limiter;
 -49933 0;
 #X msg 110 387 @active;
 #X text 245 387 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 432 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -31,12 +31,12 @@ https://en.wikipedia.org/wiki/1176_Peak_Limiter;
 #X obj 20 505 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 510 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 511 1.;
+#X text 110 511 1\.;
 #X text 245 511 input signal.;
 #X obj 20 541 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 546 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 547 1.;
+#X text 110 547 1\.;
 #X text 245 547 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

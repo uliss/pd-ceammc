@@ -29,15 +29,15 @@ Schroeder-Moorer filtered-feedback comb-filters for each audio channel
 #X obj 20 513 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 518 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 553 1.;
+#X text 110 553 1\.;
 #X text 150 553 float;
 #X obj 246 554 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 553 ROOM: room size. Type: float. Range: 0...1;
-#X text 110 573 2.;
+#X text 245 553 ROOM: room size. Type: float. Range: 0\...1;
+#X text 110 573 2\.;
 #X text 150 573 float;
 #X obj 246 574 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 573 DRYWET: proportion of mix between the original (dry)
-and 'effected' (wet) signals. Type: float. Range: 0...1;
+and 'effected' (wet) signals. Type: float. Range: 0\...1;
 #X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 623 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
@@ -50,35 +50,35 @@ empty bind to /fx_freeverb2/PROP_NAME. Type: symbol.;
 symbol.;
 #X msg 110 745 @active;
 #X text 245 745 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 775 @bypass;
 #X text 245 775 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0.;
+Type: bool. Default value: 0\.;
 #X msg 110 817 @damp;
 #X text 245 817 Get/Set damping of the lowpass comb filter. Type: float.
-Default value: 0.5. Range: 0...1.;
+Default value: 0.5\. Range: 0\...1\.;
 #X msg 110 859 @drywet;
 #X text 245 859 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 0.33. Range: 0...1.;
+Default value: 0.33\. Range: 0\...1\.;
 #X msg 110 916 @fr_damp;
 #X text 245 916 Get/Set freeze room damp. Type: float. Default value:
-0.0001. Range: 0...1.;
+0.0001\. Range: 0\...1\.;
 #X msg 110 958 @fr_room;
 #X text 245 958 Get/Set freeze room size. Type: float. Default value:
-0.999. Range: 0...1.;
+0.999\. Range: 0\...1\.;
 #X msg 110 1000 @fr_time;
 #X text 245 1000 Get/Set length of freeze tail. Type: float. Units:
-'ms'. Default value: 100. Range: 0...1000.;
+'ms'. Default value: 100\. Range: 0\...1000\.;
 #X msg 110 1042 @freeze;
 #X text 245 1042 Get/Set freeze reverberation tail. Type: bool. Default
-value: 0.;
+value: 0\.;
 #X msg 110 1084 @room;
-#X text 245 1084 Get/Set room size. Type: float. Default value: 0.5.
-Range: 0...1.;
+#X text 245 1084 Get/Set room size. Type: float. Default value: 0.5\.
+Range: 0\...1\.;
 #X msg 110 1126 @spread;
 #X text 245 1126 Get/Set spatial spread between 0 and 1 with 1 for
-maximum spread. Type: float. Default value: 0.5. Range: 0...1.;
+maximum spread. Type: float. Default value: 0.5\. Range: 0\...1\.;
 #X obj 20 1178 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1183 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -87,16 +87,16 @@ maximum spread. Type: float. Default value: 0.5. Range: 0...1.;
 #X obj 20 1256 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1261 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1262 1.;
+#X text 110 1262 1\.;
 #X text 245 1262 left channel.;
-#X text 110 1282 2.;
+#X text 110 1282 2\.;
 #X text 245 1282 right channel.;
 #X obj 20 1312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1317 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1318 1.;
+#X text 110 1318 1\.;
 #X text 245 1318 output left.;
-#X text 110 1338 2.;
+#X text 110 1338 2\.;
 #X text 245 1338 output right.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

@@ -28,7 +28,7 @@
 #X obj 20 476 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 511 @id;
-#X text 245 511 Get/Set client id. Type: symbol. Default value: pd_mqtt_client_0.;
+#X text 245 511 Get/Set client id. Type: symbol. Default value: pd_mqtt_client_0\.;
 #X msg 110 553 @mode;
 #X text 245 553 Get/Set parsing mode for incoming/outcoming messages.
 If 'fudi' - interpret data as Pd messages \, if 'sym' - always interpret
@@ -37,7 +37,7 @@ to ceammc data. Type: symbol. Default value: fudi. Allowed values:
 data \, fudi \, json \, sym \, bytes.;
 #X msg 110 640 @qos;
 #X text 245 640 Get/Set quality of service. Type: int. Default value:
-0. Allowed values: 0 \, 1 \, 2.;
+0\. Allowed values: 0 \, 1 \, 2\.;
 #X msg 110 682 @retain;
 #X text 245 682 Get/Set retain flag. Type: bool. Default value: false.;
 #X obj 20 722 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
@@ -68,14 +68,14 @@ Type: symbol.;
 #X obj 20 1045 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1050 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1051 1.;
+#X text 110 1051 1\.;
 #X text 245 1051 message input.;
 #X obj 20 1081 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1086 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1087 1.;
+#X text 110 1087 1\.;
 #X text 245 1087 output messages: topic data.;
-#X text 110 1107 2.;
+#X text 110 1107 2\.;
 #X text 245 1107 bang: on ping message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

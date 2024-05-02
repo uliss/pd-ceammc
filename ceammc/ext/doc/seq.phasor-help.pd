@@ -6,7 +6,7 @@
 -4096 0;
 #X obj 667 11 seq.phasor;
 #X obj 210 80 cnv 1 555 90 empty empty empty 17 7 0 10 -257983 -1 0;
-#X text 215 80 Outputs saw signal in [0..1] or [0..1) range.;
+#X text 215 80 Outputs saw signal in [0\..1] or [0\..1) range.;
 #X text 215 105 Note: control rate in PureData depends on block size
 and samplerate. Do not rely on strict timing for this object \, especially
 at high frequencies!;
@@ -28,27 +28,27 @@ at high frequencies!;
 #X obj 20 435 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 440 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 475 1.;
+#X text 110 475 1\.;
 #X text 150 475 float;
 #X obj 246 476 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 475 FREQ(Hz): frequency. Type: float. Range: 0...100;
+#X text 245 475 FREQ(Hz): frequency. Type: float. Range: 0\...100;
 #X obj 20 505 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 510 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 545 @freq;
 #X text 245 545 Get/Set frequency. Type: float. Units: 'Hz'. Default
-value: 0. Range: 0...100.;
+value: 0\. Range: 0\...100\.;
 #X msg 110 587 @invert;
 #X text 245 587 Get/Set saw inversion mode. If true \, outputs descreasing
-waveform. Type: bool. Default value: 0.;
+waveform. Type: bool. Default value: 0\.;
 #X msg 110 629 @on;
-#X text 245 629 Turn on/off state. Type: bool. Default value: 0.;
+#X text 245 629 Turn on/off state. Type: bool. Default value: 0\.;
 #X msg 110 659 @open;
-#X text 245 659 Get/Set output in open [0..1) range \, otherwise output
-range is [0..1]. Type: bool. Default value: 0.;
+#X text 245 659 Get/Set output in open [0\..1) range \, otherwise output
+range is [0\..1]. Type: bool. Default value: 0\.;
 #X msg 110 701 @steps;
 #X text 245 701 Get/Set numbers of steps. Type: int. Default value:
-128. Min value: 3.;
+128\. Min value: 3\.;
 #X obj 20 753 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 758 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -69,18 +69,18 @@ range is [0..1]. Type: bool. Default value: 0.;
 #X obj 20 991 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 996 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 997 1.;
+#X text 110 997 1\.;
 #X text 150 997 *float*;
 #X text 245 997 1: starts output \, 0: stop.;
-#X text 110 1017 2.;
+#X text 110 1017 2\.;
 #X text 150 1017 *any*;
-#X text 245 1017 reset phase to 0.;
+#X text 245 1017 reset phase to 0\.;
 #X obj 20 1047 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1052 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1053 1.;
-#X text 245 1053 float value in 0..1 range.;
-#X text 110 1073 2.;
+#X text 110 1053 1\.;
+#X text 245 1053 float value in 0\..1 range.;
+#X text 110 1073 2\.;
 #X text 245 1073 bang after full cycle.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

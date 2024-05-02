@@ -20,23 +20,23 @@
 #X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 360 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 395 1.;
+#X text 110 395 1\.;
 #X text 150 395 int;
 #X obj 246 396 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 395 N: number of input stereo-pairs. Type: int. Range:
-2...8;
+2\...8;
 #X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 430 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 465 @value;
 #X text 245 465 Get/Set gain coefficients per each input. Type: list.
-Default value: 1 0.;
+Default value: 1 0\.;
 #X obj 20 517 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 522 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 523 1.;
+#X text 110 523 1\.;
 #X text 245 523 first left input signal.;
-#X text 110 543 2.;
+#X text 110 543 2\.;
 #X text 245 543 first right input signal.;
 #X text 110 563 ....;
 #X text 245 563 ... left input signal.;
@@ -46,14 +46,14 @@ Default value: 1 0.;
 #X text 245 603 last left input signal.;
 #X text 110 623 n.;
 #X text 245 623 last right input signal.;
-#X text 110 643 n+1.;
+#X text 110 643 n+1\.;
 #X text 245 643 multiplexer control.;
 #X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 678 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 679 1.;
+#X text 110 679 1\.;
 #X text 245 679 left output.;
-#X text 110 699 2.;
+#X text 110 699 2\.;
 #X text 245 699 right output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

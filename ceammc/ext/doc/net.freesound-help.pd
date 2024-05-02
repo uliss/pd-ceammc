@@ -69,9 +69,9 @@ the special file in the current patch directory.;
 #X text 255 1125 ID: Freesound soundfile ID (get it from search result
 \, for examples). Type: int.;
 #X obj 255 1163 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1163 [@p]: search page number. Type: int. Min value: 1.;
+#X text 255 1163 [@p]: search page number. Type: int. Min value: 1\.;
 #X obj 255 1186 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1186 [@n]: number of results. Type: int. Min value: 1.;
+#X text 255 1186 [@n]: number of results. Type: int. Min value: 1\.;
 #X obj 255 1209 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1209 [@fields]: requested fields. Type: symbol.;
 #X obj 255 1232 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -80,7 +80,7 @@ the special file in the current patch directory.;
 \, "downloads_asc" \, "rating_desc" \, "rating_asc". Type: symbol.;
 #X obj 255 1300 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1300 [@filter]: filter expression \, for example: @filter
-type mp3. See https://freesound.org/docs/api/resources_apiv2.html.
+type mp3\. See https://freesound.org/docs/api/resources_apiv2\.html.
 Type: symbol.;
 #X msg 110 1355 load;
 #X text 245 1355 load Freesound file into Pd arrays. Arguments are:;
@@ -98,12 +98,12 @@ Type: symbol.;
 #X obj 20 1530 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1535 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1536 1.;
+#X text 110 1536 1\.;
 #X text 245 1536 input.;
 #X obj 20 1566 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1571 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1572 1.;
+#X text 110 1572 1\.;
 #X text 245 1572 messages: [user DICT( - user info \, [progress VALUE(
 - download process information \, [loaded( - when finished loading
 \, [downloaded( - when file download is finished \, [results DICT(

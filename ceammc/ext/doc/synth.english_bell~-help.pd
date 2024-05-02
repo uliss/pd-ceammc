@@ -33,31 +33,31 @@ bind all properties to /ID/synth_english_bell/PROP_NAME osc address
 symbol.;
 #X msg 110 862 @active;
 #X text 245 862 Turn on/off dsp processing. Type: bool. Default value:
-1.;
+1\.;
 #X msg 110 892 @cutoff;
 #X text 245 892 Get/Set strike cutoff frequency. Type: float. Units:
-'Hz'. Default value: 6500. Range: 20...20000.;
+'Hz'. Default value: 6500\. Range: 20\...20000\.;
 #X msg 110 934 @decay_ratio;
-#X text 245 934 Get/Set decay ratio. Type: float. Default value: 1.
-Range: 0...1.;
+#X text 245 934 Get/Set decay ratio. Type: float. Default value: 1\.
+Range: 0\...1\.;
 #X msg 110 976 @decay_slope;
-#X text 245 976 Get/Set decay slope. Type: float. Default value: 2.5.
-Range: 0...10.;
+#X text 245 976 Get/Set decay slope. Type: float. Default value: 2.5\.
+Range: 0\...10\.;
 #X msg 110 1018 @gain;
-#X text 245 1018 Get/Set strike gain. Type: float. Default value: 1.
-Range: 0...1.;
+#X text 245 1018 Get/Set strike gain. Type: float. Default value: 1\.
+Range: 0\...1\.;
 #X msg 110 1060 @gate;
 #X text 245 1060 Get/Set play trigger - 1: on \, 0: off. Type: float.
-Default value: 0. Range: 0...1.;
+Default value: 0\. Range: 0\...1\.;
 #X msg 110 1102 @pos;
 #X text 245 1102 Get/Set strike position (0 is on the bottom). Type:
-int. Default value: 0. Range: 0...6.;
+int. Default value: 0\. Range: 0\...6\.;
 #X msg 110 1144 @sharp;
 #X text 245 1144 Get/Set strike sharpness. Type: float. Default value:
-0.5. Range: 0.01...5.;
+0.5\. Range: 0.01\...5\.;
 #X msg 110 1186 @t60;
 #X text 245 1186 Get/Set time to decay to -60db level. Type: float.
-Units: 'sec'. Default value: 20. Range: 0.1...30.;
+Units: 'sec'. Default value: 20\. Range: 0.1\...30\.;
 #X obj 20 1238 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1243 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
@@ -66,13 +66,13 @@ Units: 'sec'. Default value: 20. Range: 0.1...30.;
 #X obj 20 1316 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1321 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1322 1.;
+#X text 110 1322 1\.;
 #X text 150 1322 *bang*;
 #X text 245 1322 play.;
 #X obj 20 1352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 1357 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1358 1.;
+#X text 110 1358 1\.;
 #X text 245 1358 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

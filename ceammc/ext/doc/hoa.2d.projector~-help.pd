@@ -27,28 +27,28 @@ waves domain.;
 #X obj 20 520 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 525 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 560 1.;
+#X text 110 560 1\.;
 #X text 150 560 int;
 #X obj 246 561 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 560 ORDER: the order of decomposition. Type: int. Range:
-1...63;
-#X text 110 580 2.;
+1\...63;
+#X text 110 580 2\.;
 #X text 150 580 int;
 #X obj 246 581 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 580 N: number of channels. Type: int. Range: 1...63;
+#X text 245 580 N: number of channels. Type: int. Range: 1\...63;
 #X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 615 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
 #X msg 110 650 @n;
 #X text 245 650 (initonly) Get/Set number of channels (planewaves).
-Type: int. Default value: 0. Range: 0...63.;
+Type: int. Default value: 0\. Range: 0\...63\.;
 #X msg 110 692 @order;
 #X text 245 692 (initonly) Get/Set the order of decomposition. Type:
-int. Default value: 1. Range: 1...63.;
+int. Default value: 1\. Range: 1\...63\.;
 #X obj 20 744 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 749 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 750 1.;
+#X text 110 750 1\.;
 #X text 245 750 input harmonic.;
 #X text 110 770 ....;
 #X text 245 770 ... input harmonic.;
@@ -57,7 +57,7 @@ int. Default value: 1. Range: 1...63.;
 #X obj 20 820 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 825 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 826 1.;
+#X text 110 826 1\.;
 #X text 245 826 first plane wave output.;
 #X text 110 846 ....;
 #X text 245 846 ... plane wave output.;
