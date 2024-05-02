@@ -19,7 +19,7 @@
 
 namespace ceammc {
 
-class BpmProperty : public SymbolProperty {
+class BpmProperty : public AtomProperty {
     music::Tempo tempo_;
     mutable bool dirty_ { false };
 

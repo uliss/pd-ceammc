@@ -13,7 +13,7 @@
  *****************************************************************************/
 #include "ceammc_property_bpm.h"
 #include "datatype_dict.h"
-#include "test_property.h"
+#include "test_common.h"
 
 TEST_CASE("BpmProperty", "[core]")
 {
@@ -33,11 +33,11 @@ TEST_CASE("BpmProperty", "[core]")
         REQUIRE(p.name() == SYM("@bpm"));
         REQUIRE(!p.isFloat());
         REQUIRE(!p.isBool());
-        REQUIRE(!p.isAtom());
+        REQUIRE(p.isAtom());
         REQUIRE(!p.isInt());
-        REQUIRE(p.isSymbol());
+        REQUIRE(!p.isSymbol());
         REQUIRE(!p.isList());
-        REQUIRE(p.type() == PropValueType::SYMBOL);
+        REQUIRE(p.type() == PropValueType::ATOM);
         REQUIRE(p.equalUnit(PropValueUnits::BPM));
         REQUIRE(p.hasUnit(PropValueUnits::BPM));
         REQUIRE(p.access() == PropValueAccess::READWRITE);
@@ -47,9 +47,10 @@ TEST_CASE("BpmProperty", "[core]")
         REQUIRE(p.beatDivision() == 4);
 
         Atom bpm;
-        REQUIRE_FALSE(p.getAtom(bpm));
+        REQUIRE(p.getAtom(bpm));
+        REQUIRE(bpm == SYM("120|4bpm"));
 
-        t_symbol* sym_bpm = &s_;
+        auto sym_bpm = &s_;
         REQUIRE(p.getSymbol(sym_bpm));
         REQUIRE(sym_bpm == SYM("120|4bpm"));
 
@@ -174,7 +175,7 @@ TEST_CASE("BpmProperty", "[core]")
     {
         std::string json;
         REQUIRE(p.infoT().getJSON(json));
-        REQUIRE(json == R"({"access":"readwrite","default":"120|4bpm","name":"@bpm","type":"symbol","units":["bpm"],"view":"entry","visibility":"public"})");
+        REQUIRE(json == R"({"access":"readwrite","default":"120|4bpm","name":"@bpm","type":"atom","units":["bpm"],"view":"entry","visibility":"public"})");
     }
 
     SECTION("dict")

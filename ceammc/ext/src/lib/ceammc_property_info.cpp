@@ -26,7 +26,7 @@
 
 namespace {
 using namespace ceammc;
-inline PropValueUnitsBase unit2int(PropValueUnits u)
+inline PropValueUnitsBase unit_base_cast(PropValueUnits u)
 {
     return static_cast<PropValueUnitsBase>(u);
 }
@@ -223,7 +223,7 @@ PropertyInfo::PropertyInfo(t_symbol* name, PropValueType type, PropValueAccess a
     , step_(0)
     , arg_index_(-1)
     , type_(type)
-    , units_(unit2int(PropValueUnits::NONE))
+    , units_(unit_base_cast(PropValueUnits::NONE))
     , view_(defaultView(type))
     , access_(access)
     , vis_(PropValueVis::PUBLIC)
@@ -919,7 +919,7 @@ void PropertyInfo::setType(PropValueType t)
 {
     type_ = t;
     constraints_ = PropValueConstraints::NONE;
-    units_ = unit2int(PropValueUnits::NONE);
+    units_ = unit_base_cast(PropValueUnits::NONE);
     view_ = defaultView(t);
 
     if (isInt())
@@ -931,10 +931,10 @@ void PropertyInfo::setType(PropValueType t)
 bool PropertyInfo::setUnits(PropValueUnits u)
 {
     if (isInt() || isFloat() || isList() || u == PropValueUnits::NONE) {
-        units_ = unit2int(u);
+        units_ = unit_base_cast(u);
         return true;
-    } else if (isSymbol() && u == PropValueUnits::BPM) {
-        units_ = unit2int(u);
+    } else if (isVariant() && u == PropValueUnits::BPM) {
+        units_ = unit_base_cast(u);
         return true;
     } else {
         PROP_LOG() << "invalid type " << to_string(type()) << " for setting units: " << to_string(u);
@@ -1016,12 +1016,12 @@ void PropertyInfo::unitsIterate(const std::function<void(PropValueUnits)>& fn) c
 
 bool PropertyInfo::hasUnit(PropValueUnits u) const
 {
-    return units_ & unit2int(u);
+    return units_ & unit_base_cast(u);
 }
 
 bool PropertyInfo::equalUnit(PropValueUnits u) const
 {
-    return units_ == unit2int(u);
+    return units_ == unit_base_cast(u);
 }
 
 bool PropertyInfo::defaultBool(bool def) const
@@ -1099,7 +1099,7 @@ bool PropertyInfo::validate() const
             PROP_LOG() << "should not have value constraints";
         }
 
-        if (units_ != unit2int(PropValueUnits::NONE)) {
+        if (units_ != unit_base_cast(PropValueUnits::NONE)) {
             ok = false;
             PROP_LOG() << "should not have units";
         }
@@ -1159,7 +1159,7 @@ bool PropertyInfo::getDict(DataTypeDict& res) const
     if (constraints() != PropValueConstraints::NONE)
         res.insert("constraints", to_symbol(constraints()));
 
-    if (units() != unit2int(PropValueUnits::NONE)) {
+    if (units() != unit_base_cast(PropValueUnits::NONE)) {
         AtomList en;
         unitsIterate([&en](const char* name) { en.push_back(gensym(name)); });
         res.insert("units", en);
@@ -1213,7 +1213,7 @@ bool PropertyInfo::getJSON(std::string& str) const
     if (constraints() != PropValueConstraints::NONE)
         obj["constraints"] = to_str(constraints());
 
-    if (units() != unit2int(PropValueUnits::NONE)) {
+    if (units() != unit_base_cast(PropValueUnits::NONE)) {
         auto u = nlohmann::json::array();
         unitsIterate([&u](const char* name) { u.push_back(name); });
 

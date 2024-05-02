@@ -21,7 +21,7 @@ constexpr const char* USAGE_STR = "example values: 120|8bpm, 96|5/8bpm, 60 4, 14
 namespace ceammc {
 
 BpmProperty::BpmProperty(const std::string& name, const music::Tempo& tempo, PropValueAccess access)
-    : SymbolProperty(name, gensym(tempo.toString().c_str()), access)
+    : AtomProperty(name, gensym(tempo.toString().c_str()), access)
     , tempo_(tempo)
     , dirty_(false)
 {
@@ -70,7 +70,7 @@ bool BpmProperty::setSymbol(t_symbol* s)
         return false;
     }
 
-    SymbolProperty::setSymbol(s);
+    AtomProperty::setSymbol(s);
     dirty_ = false;
     return true;
 }
@@ -78,7 +78,12 @@ bool BpmProperty::setSymbol(t_symbol* s)
 bool BpmProperty::getSymbol(t_symbol*& s) const
 {
     sync();
-    return SymbolProperty::getSymbol(s);
+
+    if (value().isSymbol()) {
+        s = value().asSymbol();
+        return true;
+    } else
+        return false;
 }
 
 AtomList BpmProperty::get() const
@@ -112,7 +117,7 @@ bool BpmProperty::setBeatDivision(int beatDiv)
 void BpmProperty::sync() const
 {
     if (dirty_) {
-        auto cthis = const_cast<SymbolProperty*>(static_cast<const SymbolProperty*>(this));
+        auto cthis = const_cast<AtomProperty*>(static_cast<const AtomProperty*>(this));
         cthis->setValue(gensym(tempo_.toString().c_str()));
         dirty_ = false;
     }
