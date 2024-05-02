@@ -1,9 +1,9 @@
-#N canvas 0 0 351 299 12;
+#N canvas 0 0 351 300 12;
 #X obj 20 48 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 20 77 prop.random @wave;
 #X obj 39 106 sig~ 50;
-#X symbolatom 164 106 5 0 0 0 - - -;
+#X symbolatom 164.0 106.39999999999999 5 0 0 0 - - -;
 #X obj 20 135 lfo.mosc~;
 #X obj 164 135 ui.dsp~;
 #X obj 20 164 ui.hgain~;

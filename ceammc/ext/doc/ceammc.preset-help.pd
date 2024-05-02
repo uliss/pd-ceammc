@@ -1,15 +1,15 @@
 #N canvas 0 0 760 555 12;
 #X obj 20 53 ui.link @title index @url ../index-help.pd;
 #X text 62 50 ::;
-#X obj 79 53 ui.link @title ceammc @url ceammc-help.pd;
-#X obj 30 116 preset.float;
-#X text 200 116 load/store float preset;
-#X obj 30 143 preset.list;
-#X text 200 143 load/store symbol preset;
-#X obj 30 170 preset.storage;
-#X text 200 170 preset storage control;
-#X obj 30 197 preset.symbol;
-#X text 200 197 load/store symbol preset;
+#X obj 80 53 ui.link @title ceammc @url ceammc-help.pd;
+#X obj 30 117 preset.float;
+#X text 200 117 load/store float preset;
+#X obj 30 145 preset.list;
+#X text 200 145 load/store symbol preset;
+#X obj 30 173 preset.storage;
+#X text 200 173 preset storage control;
+#X obj 30 201 preset.symbol;
+#X text 200 201 load/store symbol preset;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::preset 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

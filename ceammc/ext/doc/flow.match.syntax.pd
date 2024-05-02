@@ -1,4 +1,4 @@
-#N canvas 0 0 721 887 12;
+#N canvas 0 0 722 887 12;
 #X text 20 48 **general**;
 #X text 20 77 ` - escape symbol (instead of \\);
 #X text 20 92 (( - open curly braces (not allowed character in Pd);

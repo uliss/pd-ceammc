@@ -18,69 +18,69 @@
 #X obj 50 291 ui.gain~ @size 120 14;
 #X obj 290 291 ui.dsp~;
 #X obj 50 320 dac~;
-#X obj 20 369 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 374 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 409 1\.;
-#X text 150 409 float;
-#X obj 246 410 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 409 FREQ(Hz): frequency. Type: float.;
-#X text 110 429 2\.;
-#X text 150 429 bool;
-#X obj 246 430 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 429 INVERT: invert saw. Type: bool.;
-#X obj 20 459 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 464 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 410 1.;
+#X text 150 410 float;
+#X obj 246 411 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 410 FREQ(Hz): frequency. Type: float.;
+#X text 110 430 2.;
+#X text 150 430 bool;
+#X obj 246 431 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 430 INVERT: invert saw. Type: bool.;
+#X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 465 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 499 @id;
-#X text 245 499 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 500 @id;
+#X text 245 500 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/lfo_+saw/PROP_NAME osc address \, if empty
 bind to /lfo_+saw/PROP_NAME. Type: symbol.;
-#X msg 110 556 @osc;
-#X text 245 556 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 557 @osc;
+#X text 245 557 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 585 @active;
-#X text 245 585 Turn on/off dsp processing. Type: bool. Default value:
-1\.;
-#X msg 110 614 @invert;
-#X text 245 614 Get/Set wave inversion. Type: bool. Default value:
-0\.;
-#X msg 110 643 @pause;
-#X text 245 643 Get/Set pause oscillator at current value. Type: bool.
-Default value: 0\.;
-#X msg 110 685 @phase;
-#X text 245 685 Get/Set initial phase. Type: float. Default value:
-0\. Range: 0\...1\.;
-#X obj 20 737 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 742 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 587 @active;
+#X text 245 587 Turn on/off dsp processing. Type: bool. Default value:
+1.;
+#X msg 110 617 @invert;
+#X text 245 617 Get/Set wave inversion. Type: bool. Default value:
+0.;
+#X msg 110 647 @pause;
+#X text 245 647 Get/Set pause oscillator at current value. Type: bool.
+Default value: 0.;
+#X msg 110 689 @phase;
+#X text 245 689 Get/Set initial phase. Type: float. Default value:
+0. Range: 0...1.;
+#X obj 20 741 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 746 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 777 reset;
-#X text 245 777 reset to initial state.;
-#X obj 20 814 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 819 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 781 reset;
+#X text 245 781 reset to initial state.;
+#X obj 20 819 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 824 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 820 1\.;
-#X text 245 820 frequency in Hz (can be negative and zero).;
-#X text 110 840 2\.;
-#X text 150 840 *bang*;
-#X text 245 840 reset phase to initial value (@phase).;
-#X obj 20 870 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 875 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 825 1.;
+#X text 245 825 frequency in Hz (can be negative and zero).;
+#X text 110 845 2.;
+#X text 150 845 *bang*;
+#X text 245 845 reset phase to initial value (@phase).;
+#X obj 20 875 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 880 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 876 1\.;
-#X text 245 876 sawtooth wave in [0-1) range.;
+#X text 110 881 1.;
+#X text 245 881 sawtooth wave in [0-1) range.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title lfo @url ceammc.lfo-help.pd;
-#X obj 1 926 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 929 library: ceammc v0.9.7;
-#X text 404 941 see also:;
-#X obj 478 941 lfo.saw~;
-#X obj 551 941 lfo.+square~;
-#X obj 653 941 lfo.impulse~;
-#N canvas 10 948 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title lfo @url ceammc.lfo-help.pd;
+#X obj 1 931 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 934 library: ceammc v0.9.7;
+#X text 400 946 see also:;
+#X obj 475 946 lfo.saw~;
+#X obj 549 946 lfo.+square~;
+#X obj 652 946 lfo.impulse~;
+#N canvas 10 953 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -104,7 +104,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 948 pd info;
+#X restore 10 953 pd info;
 #X connect 5 0 7 0;
 #X connect 6 0 8 0;
 #X connect 4 0 10 0;

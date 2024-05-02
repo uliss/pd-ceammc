@@ -1,8 +1,8 @@
-#N canvas 0 0 527 299 12;
+#N canvas 0 0 492 300 12;
 #X obj 20 48 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 20 77 prop.random @freq;
-#X floatatom 154 106 5 0 0 0 - - -;
+#X floatatom 154.4 106.39999999999999 5 0 0 0 - - -;
 #X obj 20 135 prop.random.abs;
 #X obj 20 164 ui.hgain~;
 #X obj 20 192 dac~;

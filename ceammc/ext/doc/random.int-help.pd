@@ -1,12 +1,12 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 369 50 cnv 1 396 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 369 50 uniform random integer generator in specified range;
+#X obj 368 50 cnv 1 397 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 368 50 uniform random integer generator in specified range;
 #X obj 1 1 cnv 5 765 40 empty empty random.int 20 20 0 20 -104026
 -4096 0;
-#X obj 587 11 random.i;
+#X obj 586 11 random.i;
 #X obj 669 11 random.int;
-#X obj 210 80 cnv 1 555 153 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 154 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Generates pseudo-random number in specified closed interval.;
 #X text 215 105 Use @seed property to get reproducible sequences. If
 @seed property was not explicitly set or specified \, uses generator
@@ -16,68 +16,68 @@ Nishimura \, 1998;
 #X obj 215 200 ui.link @background_color 0.98039 0.98039 0.98039
 @title wiki: Mersenne Twister @url
 https://en.wikipedia.org/wiki/Mersenne_Twister;
-#X obj 50 261 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 262 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 88 261 @seed 0;
-#X msg 184 261 gen 5;
-#X obj 50 319 random.int -10 10;
-#X obj 50 348 ui.dt;
-#X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 402 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X msg 88 262 @seed 0;
+#X msg 184 262 gen 5;
+#X obj 50 320 random.int -10 10;
+#X obj 50 349 ui.dt;
+#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 437 1\.;
-#X text 150 437 list;
-#X obj 246 438 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 437 ARG: @min=ARG[0] \, @max=ARG[1] \, in case of signle
+#X text 110 439 1.;
+#X text 150 439 list;
+#X obj 246 440 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 439 ARG: @min=ARG[0] \, @max=ARG[1] \, in case of signle
 arg: @min=0 \, @max=ARG[0]. Type: list.;
-#X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 487 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 484 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 489 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 522 @max;
-#X text 245 522 Get/Set random range upper bound. Type: int. Default
-value: 255\.;
-#X msg 110 564 @min;
-#X text 245 564 Get/Set random range lower bound. Type: int. Default
-value: 0\.;
-#X msg 110 606 @seed;
-#X text 245 606 Get/Set generator seed. Type: int. Default value: 0\.
-Min value: 0\.;
-#X obj 20 658 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 663 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 524 @max;
+#X text 245 524 Get/Set random range upper bound. Type: int. Default
+value: 255.;
+#X msg 110 566 @min;
+#X text 245 566 Get/Set random range lower bound. Type: int. Default
+value: 0.;
+#X msg 110 608 @seed;
+#X text 245 608 Get/Set generator seed. Type: int. Default value: 0.
+Min value: 0.;
+#X obj 20 660 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 665 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 698 gen;
-#X text 245 698 generate list of random integers with specified length.
+#X msg 110 700 gen;
+#X text 245 700 generate list of random integers with specified length.
 Arguments are:;
-#X obj 255 736 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 736 N: list length. Type: int. Min value: 1\.;
-#X obj 20 771 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 776 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 255 738 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 738 N: list length. Type: int. Min value: 1.;
+#X obj 20 773 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 778 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 777 1\.;
-#X text 150 777 *bang*;
-#X text 245 777 generate new number.;
-#X text 110 797 2\.;
-#X text 150 797 *int*;
-#X text 245 797 set @min property.;
-#X text 110 817 3\.;
-#X text 150 817 *int*;
-#X text 245 817 set @max property.;
-#X obj 20 847 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 852 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 779 1.;
+#X text 150 779 *bang*;
+#X text 245 779 generate new number.;
+#X text 110 799 2.;
+#X text 150 799 *int*;
+#X text 245 799 set @min property.;
+#X text 110 819 3.;
+#X text 150 819 *int*;
+#X text 245 819 set @max property.;
+#X obj 20 849 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 854 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 853 1\.;
-#X text 245 853 int or list: generated value.;
+#X text 110 855 1.;
+#X text 245 855 int or list: generated value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title random @url ceammc.random-help.pd;
-#X obj 1 903 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 906 library: ceammc v0.9.7;
-#X text 481 918 see also:;
-#X obj 555 918 random.float;
-#X obj 655 918 random.gauss;
-#N canvas 10 925 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title random @url ceammc.random-help.pd;
+#X obj 1 905 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 908 library: ceammc v0.9.7;
+#X text 478 920 see also:;
+#X obj 553 920 random.float;
+#X obj 654 920 random.gauss;
+#N canvas 10 927 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -101,7 +101,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 925 pd info;
+#X restore 10 927 pd info;
 #X connect 10 0 13 0;
 #X connect 11 0 13 0;
 #X connect 12 0 13 0;

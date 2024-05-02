@@ -1,10 +1,10 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 438 50 cnv 1 327 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 438 50 local to patch bidirectional map container;
+#X obj 437 50 cnv 1 328 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 437 50 local to patch bidirectional map container;
 #X obj 1 1 cnv 5 765 40 empty empty local.bimap 20 20 0 20 -104026
 -4096 0;
-#X obj 661 11 local.bimap;
+#X obj 660 11 local.bimap;
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 NOTE: all object inlets are 'hot';
 #X obj 50 143 loadmsg 1 2 3 4 5 6;
@@ -19,100 +19,100 @@
 #X obj 50 230 local.bimap LBM;
 #X obj 261 230 ui.dt;
 #X obj 386 230 ui.dt;
-#X obj 20 279 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 284 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 285 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
 -49933 0;
-#X text 110 319 Left-click;
-#X text 285 319 open data editor.;
-#X obj 20 349 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 354 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X text 110 320 Left-click;
+#X text 285 320 open data editor.;
+#X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 355 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 389 1\.;
-#X text 150 389 symbol;
-#X obj 246 390 cnv 1 23 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 389 ID: bimap ID. Type: symbol.;
-#X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 424 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 390 1.;
+#X text 150 390 symbol;
+#X obj 246 391 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 390 ID: bimap ID. Type: symbol.;
+#X obj 20 420 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 425 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 459 @id;
-#X text 245 459 (initonly) Get/Set local variable id. Type: symbol.
+#X msg 110 460 @id;
+#X text 245 460 (initonly) Get/Set local variable id. Type: symbol.
 Default value: default.;
-#X msg 110 501 @value;
-#X text 245 501 Get/Set value \, list of pairs: LEFT_KEY1 RIGHT_KEY1
+#X msg 110 502 @value;
+#X text 245 502 Get/Set value \, list of pairs: LEFT_KEY1 RIGHT_KEY1
 LEFT_KEY2 RIGHT_KEY2 etc. Type: list.;
-#X msg 110 543 @empty?;
-#X text 245 543 (readonly) Get true if empty. Type: bool. Default value:
-1\.;
-#X msg 110 572 @keys_left?;
-#X text 245 572 (readonly) Get list of left map keys. Type: list.;
-#X msg 110 601 @keys_right?;
-#X text 245 601 (readonly) Get list of right map keys. Type: list.;
-#X msg 110 630 @size?;
-#X text 245 630 (readonly) Get number of left-right pairs in map. Type:
-int. Default value: 0\.;
-#X obj 20 682 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 687 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 544 @empty?;
+#X text 245 544 (readonly) Get true if empty. Type: bool. Default value:
+1.;
+#X msg 110 574 @keys_left?;
+#X text 245 574 (readonly) Get list of left map keys. Type: list.;
+#X msg 110 604 @keys_right?;
+#X text 245 604 (readonly) Get list of right map keys. Type: list.;
+#X msg 110 634 @size?;
+#X text 245 634 (readonly) Get number of left-right pairs in map. Type:
+int. Default value: 0.;
+#X obj 20 686 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 691 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 722 clear;
-#X text 245 722 clear bidirectional map content.;
-#X msg 110 749 insert;
-#X text 245 749 insert new left-right map entry. Arguments are:;
-#X obj 255 772 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 772 PAIR: list: LEFT_KEY RIGHT_KEY. Type: list.;
-#X msg 110 797 read;
-#X text 245 797 read bimap from JSON file. Array of array pairs expected.
+#X msg 110 726 clear;
+#X text 245 726 clear bidirectional map content.;
+#X msg 110 754 insert;
+#X text 245 754 insert new left-right map entry. Arguments are:;
+#X obj 255 777 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 777 PAIR: list: LEFT_KEY RIGHT_KEY. Type: list.;
+#X msg 110 802 read;
+#X text 245 802 read bimap from JSON file. Array of array pairs expected.
 Arguments are:;
-#X obj 255 835 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 835 FNAME: path to file \, absolute or relative. Type:
+#X obj 255 840 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 840 FNAME: path to file \, absolute or relative. Type:
 symbol.;
-#X msg 110 860 set;
-#X text 245 860 set bidirectional map content. Arguments are:;
-#X obj 255 883 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 883 DATA: new value list. Type: list.;
-#X msg 110 908 write;
-#X text 245 908 write to JSON file \, to overwrite existing file use
+#X msg 110 865 set;
+#X text 245 865 set bidirectional map content. Arguments are:;
+#X obj 255 888 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 888 DATA: new value list. Type: list.;
+#X msg 110 913 write;
+#X text 245 913 write to JSON file \, to overwrite existing file use
 @force flag. Arguments are:;
-#X obj 255 946 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 946 FNAME: path to file \, absolute or relative. Type:
+#X obj 255 951 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 951 FNAME: path to file \, absolute or relative. Type:
 symbol.;
-#X obj 255 969 cnv 1 62 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 969 [@force]: force flag to overwrite existing files. Type:
+#X obj 255 974 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 974 [@force]: force flag to overwrite existing files. Type:
 symbol.;
-#X obj 20 1019 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1024 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1024 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1029 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1025 1\.;
-#X text 150 1025 *atom*;
-#X text 245 1025 try to find left key in the map and output the right
+#X text 110 1030 1.;
+#X text 150 1030 *atom*;
+#X text 245 1030 try to find left key in the map and output the right
 value on success.;
-#X text 150 1060 *list*;
-#X text 245 1060 try to find each left key of the list in the map and
+#X text 150 1065 *list*;
+#X text 245 1065 try to find each left key of the list in the map and
 output the result list of right values.;
-#X text 110 1095 2\.;
-#X text 150 1095 *atom*;
-#X text 245 1095 try to find right key in the map and output the left
+#X text 110 1100 2.;
+#X text 150 1100 *atom*;
+#X text 245 1100 try to find right key in the map and output the left
 value on success.;
-#X text 150 1130 *list*;
-#X text 245 1130 try to find each right key of the list in the map
+#X text 150 1135 *list*;
+#X text 245 1135 try to find each right key of the list in the map
 and output the result list of left values.;
-#X obj 20 1175 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1180 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1180 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1185 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1181 1\.;
-#X text 245 1181 atom or list: right value output.;
-#X text 110 1201 2\.;
-#X text 245 1201 atom or list: left value output.;
+#X text 110 1186 1.;
+#X text 245 1186 atom or list: right value output.;
+#X text 110 1206 2.;
+#X text 245 1206 atom or list: left value output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
-#X obj 1 1251 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1254 library: ceammc v0.9.7;
-#X text 491 1266 see also:;
-#X obj 565 1266 data.bimap;
-#X obj 653 1266 global.bimap;
-#N canvas 10 1273 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
+#X obj 1 1256 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1259 library: ceammc v0.9.7;
+#X text 489 1271 see also:;
+#X obj 564 1271 data.bimap;
+#X obj 652 1271 global.bimap;
+#N canvas 10 1278 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -136,7 +136,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1273 pd info;
+#X restore 10 1278 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 12 0;
 #X connect 8 0 13 0;

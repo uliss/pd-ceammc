@@ -1,10 +1,10 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 514 50 cnv 1 251 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 514 50 GMEM SPAT: 4-outputs spatializer;
+#X obj 513 50 cnv 1 252 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 513 50 GMEM SPAT: 4-outputs spatializer;
 #X obj 1 1 cnv 5 765 40 empty empty spat.pan4~ 20 20 0 20 -104026
 -4096 0;
-#X obj 493 11 ceammc/pan4~;
+#X obj 492 11 ceammc/pan4~;
 #X obj 605 11 pan4~;
 #X obj 667 11 spat.pan4~;
 #X obj 50 118 osc~ 1000;
@@ -19,65 +19,65 @@
 #X obj 203 277 ui.m~;
 #X obj 280 277 ui.m~;
 #X obj 50 406 ui.dsp~;
-#X obj 20 455 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 460 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 461 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 495 1\.;
-#X text 150 495 float;
-#X obj 246 496 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 495 RADIUS: panning radius. Type: float. Range: 0\...1;
-#X text 110 515 2\.;
-#X text 150 515 float;
-#X obj 246 516 cnv 1 85 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 515 ANGLE(rad): circle panning position in radians. Type:
-float. Range: 0\...2π;
-#X obj 20 560 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 565 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 496 1.;
+#X text 150 496 float;
+#X obj 246 497 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 496 RADIUS: panning radius. Type: float. Range: 0...1;
+#X text 110 516 2.;
+#X text 150 516 float;
+#X obj 246 517 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 516 ANGLE(rad): circle panning position in radians. Type:
+float. Range: 0...2π;
+#X obj 20 561 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 566 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 600 @id;
-#X text 245 600 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 601 @id;
+#X text 245 601 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/spat_pan4/PROP_NAME osc address \, if empty
 bind to /spat_pan4/PROP_NAME. Type: symbol.;
-#X msg 110 657 @osc;
-#X text 245 657 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 658 @osc;
+#X text 245 658 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 686 @active;
-#X text 245 686 Turn on/off dsp processing. Type: bool. Default value:
-1\.;
-#X msg 110 715 @angle;
-#X text 245 715 Get/Set panning position in radians. Type: float. Units:
-'rad'. Default value: 0\. Range: 0\...2π.;
-#X msg 110 757 @radius;
-#X text 245 757 Get/Set distance from circle center. Type: float. Default
-value: 1\. Range: 0\...1\.;
-#X obj 20 809 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 814 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 688 @active;
+#X text 245 688 Turn on/off dsp processing. Type: bool. Default value:
+1.;
+#X msg 110 718 @angle;
+#X text 245 718 Get/Set panning position in radians. Type: float. Units:
+'rad'. Default value: 0. Range: 0...2π.;
+#X msg 110 760 @radius;
+#X text 245 760 Get/Set distance from circle center. Type: float. Default
+value: 1. Range: 0...1.;
+#X obj 20 812 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 817 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 815 1\.;
-#X text 245 815 input signal.;
-#X text 150 835 *list*;
-#X text 245 835 set radius and angle.;
-#X obj 20 865 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 870 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 818 1.;
+#X text 245 818 input signal.;
+#X text 150 838 *list*;
+#X text 245 838 set radius and angle.;
+#X obj 20 868 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 873 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 871 1\.;
-#X text 245 871 1st output channel.;
-#X text 110 891 2\.;
-#X text 245 891 2nd output channel.;
-#X text 110 911 3\.;
-#X text 245 911 3rd output channel.;
-#X text 110 931 4\.;
-#X text 245 931 4th output channel.;
+#X text 110 874 1.;
+#X text 245 874 1st output channel.;
+#X text 110 894 2.;
+#X text 245 894 2nd output channel.;
+#X text 110 914 3.;
+#X text 245 914 3rd output channel.;
+#X text 110 934 4.;
+#X text 245 934 4th output channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 981 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 984 library: ceammc v0.9.7;
-#X text 629 996 see also:;
-#X obj 703 996 pan8~;
-#N canvas 10 1003 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
+#X obj 1 984 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 987 library: ceammc v0.9.7;
+#X text 628 999 see also:;
+#X obj 703 999 pan8~;
+#N canvas 10 1006 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -101,7 +101,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1003 pd info;
+#X restore 10 1006 pd info;
 #X connect 7 0 9 0;
 #X connect 9 0 10 0;
 #X connect 8 0 11 0;

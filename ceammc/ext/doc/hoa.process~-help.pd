@@ -4,10 +4,10 @@
 #X text 438 50 patcher loader for multichannel processing;
 #X obj 1 1 cnv 5 765 40 empty empty hoa.process~ 20 20 0 20 -104026
 -4096 0;
-#X obj 385 11 hoa.2d.process~;
-#X obj 519 11 hoa.3d.process~;
-#X obj 653 11 hoa.process~;
-#X obj 210 80 cnv 1 555 358 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 382 11 hoa.2d.process~;
+#X obj 517 11 hoa.3d.process~;
+#X obj 652 11 hoa.process~;
+#X obj 210 80 cnv 1 555 359 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 hoa.process~ helps the modularization of patches for
 ambisonic or plane waves processing.;
 #X text 215 120 hoa.process~ is a kind of poly~ object particulary
@@ -25,114 +25,114 @@ id>=2;
 #X text 215 380 #2-4 send to instances with id in [2 \, 4] range;
 #X obj 215 405 ui.link @background_color 0.98039 0.98039 0.98039
 @title CICM documentation @url hoa/hoa.2d.process~-help.pd;
-#X obj 50 466 hoa/hoa.soundrone;
-#X obj 280 466 phasor~ 0.15;
-#X obj 443 466 ui.sliders @count 11 @min -60 @max 0 @size 200 55;
-#X obj 50 495 ui.gain~ @size 120 14;
-#X obj 280 495 phase->rad~;
-#X obj 50 524 hoa.encoder~ 5, f 33;
-#X obj 443 524 msg \#: @db;
-#X text 597 524 spread;
-#X obj 50 553 hoa.process~ 11 hoa/hoa.fx.gain~ planewaves, f 35;
-#X obj 88 610 hoa.scope~ 5 @gain 4 @size 164 164;
-#X obj 50 783 hoa.recomposer~ 5 11, f 35;
-#X obj 50 812 hoa.decoder~ 5 binaural @crop 32, f 35;
-#X obj 50 841 dac~, f 35;
-#X text 50 869 multiple [osc~];
-#X obj 414 869 hoa.process~.dsp;
-#X msg 50 898 60 90 2.1;
-#X msg 165 898 50 120 4.1;
-#X obj 50 927 list.seq;
-#X obj 50 956 list.each;
-#X obj 184 956 mtof;
-#X obj 50 985 msg \#:;
-#X obj 50 1014 hoa.process~ 11 hoa/hoa.syn.osc~ planewaves, f 45;
-#X obj 50 1042 pan.spread~ 11, f 45;
-#X obj 50 1071 ui.hgain2~ @size 15 318;
-#X obj 50 1100 dac~, f 45;
-#X obj 50 1129 ui.dsp~;
-#X obj 20 1178 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1183 cnv 5 115 26 empty empty mouse_events: 4 10 0 14
+#X obj 50 467 hoa/hoa.soundrone;
+#X obj 280 467 phasor~ 0.15;
+#X obj 443 467 ui.sliders @count 11 @min -60 @max 0 @size 200 55;
+#X obj 50 496 ui.gain~ @size 120 14;
+#X obj 280 496 phase->rad~;
+#X obj 50 525 hoa.encoder~ 5, f 33;
+#X obj 443 525 msg \#: @db;
+#X text 597 525 spread;
+#X obj 50 554 hoa.process~ 11 hoa/hoa.fx.gain~ planewaves, f 35;
+#X obj 88 611 hoa.scope~ 5 @gain 4 @size 164 164;
+#X obj 50 784 hoa.recomposer~ 5 11, f 35;
+#X obj 50 813 hoa.decoder~ 5 binaural @crop 32, f 35;
+#X obj 50 842 dac~, f 35;
+#X text 50 870 multiple [osc~];
+#X obj 414 870 hoa.process~.dsp;
+#X msg 50 899 60 90 2.1;
+#X msg 165 899 50 120 4.1;
+#X obj 50 928 list.seq;
+#X obj 50 957 list.each;
+#X obj 184 957 mtof;
+#X obj 50 986 msg \#:;
+#X obj 50 1015 hoa.process~ 11 hoa/hoa.syn.osc~ planewaves, f 45;
+#X obj 50 1043 pan.spread~ 11, f 45;
+#X obj 50 1072 ui.hgain2~ @size 15 318;
+#X obj 50 1101 dac~, f 45;
+#X obj 50 1130 ui.dsp~;
+#X obj 20 1180 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1185 cnv 5 115 25 empty empty mouse_events: 4 10 0 14
 -262144 -49933 0;
-#X text 110 1218 Left-click;
-#X text 285 1218 open process patch window.;
-#X obj 20 1248 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1253 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X text 110 1220 Left-click;
+#X text 285 1220 open process patch window.;
+#X obj 20 1250 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1255 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1288 1\.;
-#X text 150 1288 int;
-#X obj 246 1289 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 1288 N: the order of decomposition. Type: int. Min value:
+#X text 110 1290 1.;
+#X text 150 1290 int;
+#X obj 246 1291 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 1290 N: the order of decomposition. Type: int. Min value:
 0;
-#X text 110 1308 2\.;
-#X text 150 1308 symbol;
-#X obj 246 1309 cnv 1 46 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 1308 PATCH: patch name. Type: symbol.;
-#X text 110 1328 3\.;
-#X text 150 1328 symbol;
-#X obj 246 1329 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 1328 DOMAIN: process domain: harmonics or planewaves. Allowed
-values: harmonics \, planewaves. . Type: symbol.;
-#X text 110 1363 4\.;
-#X text 150 1363 list;
-#X obj 246 1364 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 1363 ARGS: instance arguments. Type: list.;
-#X obj 20 1393 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1398 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 1310 2.;
+#X text 150 1310 symbol;
+#X obj 246 1311 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 1310 PATCH: patch name. Type: symbol.;
+#X text 110 1330 3.;
+#X text 150 1330 symbol;
+#X obj 246 1331 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 1330 DOMAIN: process domain: harmonics or planewaves. Allowed
+values: harmonics \, planewaves. Type: symbol.;
+#X text 110 1365 4.;
+#X text 150 1365 list;
+#X obj 246 1366 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 1365 ARGS: instance arguments. Type: list.;
+#X obj 20 1395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1400 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1433 @args;
-#X text 245 1433 (initonly) Get/Set arguments passed to instances.
+#X msg 110 1435 @args;
+#X text 245 1435 (initonly) Get/Set arguments passed to instances.
 Type: list.;
-#X msg 110 1462 @domain;
-#X text 245 1462 (initonly) Get/Set process domain: harmonics or planewaves.
+#X msg 110 1465 @domain;
+#X text 245 1465 (initonly) Get/Set process domain: harmonics or planewaves.
 Type: symbol. Default value: harmonics. Allowed values: harmonics \,
 planewaves.;
-#X msg 110 1519 @n;
-#X text 245 1519 (initonly) Get/Set the order of decomposition/number
-of planewaves. Type: int. Default value: 0\. Range: 0\...63\.;
-#X msg 110 1561 @patch;
-#X text 245 1561 (initonly) Get/Set patch name. Type: symbol.;
-#X obj 20 1600 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1605 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 1522 @n;
+#X text 245 1522 (initonly) Get/Set the order of decomposition/number
+of planewaves. Type: int. Default value: 0. Range: 0...63.;
+#X msg 110 1564 @patch;
+#X text 245 1564 (initonly) Get/Set patch name. Type: symbol.;
+#X obj 20 1604 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1609 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1640 on;
-#X text 245 1640 switch on/off DSP instance processing. Usage: on all
+#X msg 110 1644 on;
+#X text 245 1644 switch on/off DSP instance processing. Usage: on all
 0|1 - turn on/off all instances \, on IDX 0|1 - turn on/off specified
 instance.;
-#X msg 110 1695 open;
-#X text 245 1695 open Pd window for specified instance. Arguments are:;
-#X obj 255 1718 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1718 IDX: instance index. Type: int.;
-#X msg 110 1743 dump;
-#X text 245 1743 dumps all object info to Pd console window.;
-#X obj 20 1780 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1785 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1699 open;
+#X text 245 1699 open Pd window for specified instance. Arguments are:;
+#X obj 255 1722 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1722 IDX: instance index. Type: int.;
+#X msg 110 1747 dump;
+#X text 245 1747 dumps all object info to Pd console window.;
+#X obj 20 1785 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1790 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1786 1\.;
-#X text 245 1786 first input harmonic/planewave.;
-#X text 110 1806 ....;
-#X text 245 1806 ... input harmonic/planewave.;
-#X text 110 1826 n.;
-#X text 245 1826 n-th input harmonic/planewave.;
-#X obj 20 1856 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1861 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1791 1.;
+#X text 245 1791 first input harmonic/planewave.;
+#X text 110 1811 ....;
+#X text 245 1811 ... input harmonic/planewave.;
+#X text 110 1831 n.;
+#X text 245 1831 n-th input harmonic/planewave.;
+#X obj 20 1861 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1866 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1862 1\.;
-#X text 245 1862 first harmonic/planewave output.;
-#X text 110 1882 ....;
-#X text 245 1882 ... harmonic/planewave output.;
-#X text 110 1902 n.;
-#X text 245 1902 n-th harmonic/planewave output.;
+#X text 110 1867 1.;
+#X text 245 1867 first harmonic/planewave output.;
+#X text 110 1887 ....;
+#X text 245 1887 ... harmonic/planewave output.;
+#X text 110 1907 n.;
+#X text 245 1907 n-th harmonic/planewave output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1952 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1955 library: ceammc v0.9.7;
-#X text 557 1967 see also:;
-#X obj 631 1967 hoa.2d.decoder~;
-#N canvas 10 1974 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
+#X obj 1 1957 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1960 library: ceammc v0.9.7;
+#X text 555 1972 see also:;
+#X obj 630 1972 hoa.2d.decoder~;
+#N canvas 10 1979 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -157,7 +157,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1974 pd info;
+#X restore 10 1979 pd info;
 #X connect 18 0 21 0;
 #X connect 19 0 22 0;
 #X connect 21 0 23 0;

@@ -17,83 +17,83 @@
 #X obj 50 291 fluid~ sf2/VintageDreamsWaves-v2.sf2;
 #X obj 50 320 ui.hgain2~;
 #X obj 50 349 dac~;
-#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 403 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 438 1\.;
-#X text 150 438 list;
-#X obj 246 439 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 438 CHORD: list of pitches to arpeggiate. Type: list.;
-#X obj 20 468 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 473 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 439 1.;
+#X text 150 439 list;
+#X obj 246 440 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 439 CHORD: list of pitches to arpeggiate. Type: list.;
+#X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 474 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 508 @chord;
-#X text 245 508 Get/Set list of pitches to arpeggiate. Type: list.;
-#X obj 20 547 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 552 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 509 @chord;
+#X text 245 509 Get/Set list of pitches to arpeggiate. Type: list.;
+#X obj 20 549 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 554 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 587 asr;
-#X text 245 587 set arpeggiate mode and run. Arguments are:;
-#X obj 255 610 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 610 STEP: step duration. Type: float. Min value: 0\. Units:
+#X msg 110 589 asr;
+#X text 245 589 set arpeggiate mode and run. Arguments are:;
+#X obj 255 612 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 612 STEP: step duration. Type: float. Min value: 0. Units:
 'ms'.;
-#X obj 255 633 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 633 ON_MODE: on mode. Type: symbol. Allowed values: all
+#X obj 255 635 cnv 1 60 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 635 ON_MODE: on mode. Type: symbol. Allowed values: all
 \, first \, last.;
-#X obj 255 671 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 671 HOLD: number of steps to hold value. Type: int. Min
-value: 1\.;
-#X obj 255 709 cnv 1 67 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 709 OFF_MODE: off mode. Type: symbol. Allowed values: all
+#X obj 255 673 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 673 HOLD: number of steps to hold value. Type: int. Min
+value: 1.;
+#X obj 255 696 cnv 1 68 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 696 OFF_MODE: off mode. Type: symbol. Allowed values: all
 \, first \, last.;
-#X msg 110 749 off;
-#X text 245 749 turn off active notes. Arguments are:;
-#X obj 255 772 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 772 [MODE]: if =first turn off first active note in chord
+#X msg 110 736 off;
+#X text 245 736 turn off active notes. Arguments are:;
+#X obj 255 759 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 759 [MODE]: if =first turn off first active note in chord
 list \, if =last turn off last inactive note in chord list \, if =all
 turn off all active notes. Type: symbol. Allowed values: first \, last
 \, all \, random.;
-#X obj 255 840 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 840 [NUM=1]: number of notes to turn on. Type: int. Min
-value: 1\.;
-#X msg 110 880 on;
-#X text 245 880 turn on inactive notes. Arguments are:;
-#X obj 255 903 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 903 [MODE]: if =first play first inactive note in chord
+#X obj 255 827 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 827 [NUM=1]: number of notes to turn on. Type: int. Min
+value: 1.;
+#X msg 110 852 on;
+#X text 245 852 turn on inactive notes. Arguments are:;
+#X obj 255 875 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 875 [MODE]: if =first play first inactive note in chord
 list \, if =last play last inactive note in chord list \, if =all play
 all inactive notes. Type: symbol. Allowed values: first \, last \,
 all \, random.;
-#X obj 255 971 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 971 [VEL=127]: note velocity. Type: float. Range: 1\...127\.;
-#X obj 255 994 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 994 [NUM=1]: number of notes to turn on. Type: int. Min
-value: 1\.;
-#X msg 110 1034 reset;
-#X text 245 1034 reset all notes to off without output.;
-#X obj 20 1071 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1076 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 255 943 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 943 [VEL=127]: note velocity. Type: float. Range: 1...127.;
+#X obj 255 966 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 966 [NUM=1]: number of notes to turn on. Type: int. Min
+value: 1.;
+#X msg 110 991 reset;
+#X text 245 991 reset all notes to off without output.;
+#X obj 20 1029 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1034 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1077 1\.;
-#X text 150 1077 *bang*;
-#X text 245 1077 play one note in sequence (same as [on( message).;
-#X obj 20 1107 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1112 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1035 1.;
+#X text 150 1035 *bang*;
+#X text 245 1035 play one note in sequence (same as [on( message).;
+#X obj 20 1065 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1070 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1113 1\.;
-#X text 245 1113 list: pitch vel.;
-#X text 110 1133 2\.;
-#X text 245 1133 float: number of active notes.;
+#X text 110 1071 1.;
+#X text 245 1071 list: pitch vel.;
+#X text 110 1091 2.;
+#X text 245 1091 float: number of active notes.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title seq @url ceammc.seq-help.pd;
-#X obj 1 1183 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1186 library: ceammc v0.9.7;
-#X text 579 1198 see also:;
-#X obj 653 1198 seq.b;
-#X obj 704 1198 seq.t;
-#N canvas 10 1205 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title seq @url ceammc.seq-help.pd;
+#X obj 1 1141 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1144 library: ceammc v0.9.7;
+#X text 577 1156 see also:;
+#X obj 652 1156 seq.b;
+#X obj 704 1156 seq.t;
+#N canvas 10 1163 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -117,7 +117,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1205 pd info;
+#X restore 10 1163 pd info;
 #X connect 4 0 10 0;
 #X connect 6 0 10 0;
 #X connect 7 0 10 0;

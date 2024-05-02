@@ -4,35 +4,35 @@
 #X text 414 50 two channel linear panner with signal control;
 #X obj 1 1 cnv 5 765 40 empty empty pan.linsig~ 20 20 0 20 -104026
 -4096 0;
-#X obj 660 11 pan.linsig~;
+#X obj 659 11 pan.linsig~;
 #X obj 50 118 osc.pulse~ 100;
 #X obj 50 147 ui.gain~ @size 120 14;
 #X obj 290 147 ui.dsp~;
 #X obj 146 176 osc~ 1;
 #X obj 50 205 pan.linsig~;
 #X obj 50 234 dac~;
-#X obj 20 283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 288 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 289 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 289 1\.;
-#X text 245 289 input signal.;
-#X text 110 309 2\.;
-#X text 245 309 pan position. Range: -1\...1\.;
-#X obj 20 339 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 344 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 290 1.;
+#X text 245 290 input signal.;
+#X text 110 310 2.;
+#X text 245 310 pan position. Range: -1...1.;
+#X obj 20 340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 345 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 345 1\.;
-#X text 245 345 left output channel.;
-#X text 110 365 2\.;
-#X text 245 365 right output channel.;
+#X text 110 346 1.;
+#X text 245 346 left output channel.;
+#X text 110 366 2.;
+#X text 245 366 right output channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title spat @url ceammc.spat-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 526 520 see also:;
+#X text 525 520 see also:;
 #X obj 600 520 pan.sqrt~;
 #X obj 681 520 pan.cos~;
 #N canvas 10 527 400 290 info 0;

@@ -1,4 +1,4 @@
-#N canvas 0 0 842 414 12;
+#N canvas 0 0 842 415 12;
 #X text 20 48 play MIDI keyboard with default Sine tone sample;
 #X text 135 77 save and activate tuning at bank:1 \, preset:1;
 #X obj 20 106 midiin;

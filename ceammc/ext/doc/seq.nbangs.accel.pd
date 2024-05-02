@@ -1,4 +1,4 @@
-#N canvas 0 0 414 328 12;
+#N canvas 0 0 415 329 12;
 #X msg 20 48 17;
 #X obj 68 48 ui.k 0.25 4 @show_value 1;
 #X obj 183 48 ui.k -8 8 @show_value 1;

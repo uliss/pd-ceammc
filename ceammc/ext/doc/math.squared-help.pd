@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 667 50 cnv 1 98 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 667 50 value square;
+#X obj 666 50 cnv 1 99 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 666 50 value square;
 #X obj 1 1 cnv 5 765 40 empty empty math.squared 20 20 0 20 -104026
 -4096 0;
 #X obj 445 11 math.^2;
@@ -12,24 +12,24 @@
 #X msg 98 118 -2 -1 0 1 2;
 #X obj 50 147 math.squared;
 #X obj 50 176 ui.dt;
-#X obj 20 225 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 230 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 231 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 231 1\.;
-#X text 150 231 *float*;
-#X text 245 231 input value.;
-#X text 150 251 *list*;
-#X text 245 251 list of numbers.;
-#X obj 20 281 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 286 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 232 1.;
+#X text 150 232 *float*;
+#X text 245 232 input value.;
+#X text 150 252 *list*;
+#X text 245 252 list of numbers.;
+#X obj 20 282 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 287 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 287 1\.;
-#X text 245 287 result.;
+#X text 110 288 1.;
+#X text 245 288 result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
 #N canvas 10 527 400 290 info 0;

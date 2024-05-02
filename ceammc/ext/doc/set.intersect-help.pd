@@ -1,10 +1,10 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 507 50 cnv 1 258 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 507 50 output intersection of given sets;
+#X obj 506 50 cnv 1 259 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 506 50 output intersection of given sets;
 #X obj 1 1 cnv 5 765 40 empty empty set.intersect 20 20 0 20 -104026
 -4096 0;
-#X obj 647 11 set.intersect;
+#X obj 646 11 set.intersect;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 trigger b b;
@@ -12,34 +12,34 @@
 #X obj 242 176 data.set 3 4 5 6;
 #X obj 50 205 set.intersect;
 #X obj 50 234 ui.dt;
-#X obj 20 283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 288 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 289 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 323 1\.;
-#X text 150 323 any;
-#X obj 246 324 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 323 ARGS: right set elements. Type: any.;
-#X obj 20 353 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 358 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 324 1.;
+#X text 150 324 any;
+#X obj 246 325 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 324 ARGS: right set elements. Type: any.;
+#X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 359 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 359 1\.;
-#X text 245 359 first set or list (converted to set) \, other values
+#X text 110 360 1.;
+#X text 245 360 first set or list (converted to set) \, other values
 are ignored.;
-#X text 110 394 2\.;
-#X text 245 394 second set or list (converted to set).;
-#X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 429 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 395 2.;
+#X text 245 395 second set or list (converted to set).;
+#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 430 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 430 1\.;
-#X text 245 430 output intersection of given sets.;
+#X text 110 431 1.;
+#X text 245 431 output intersection of given sets.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title data @url ceammc.data-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title data @url ceammc.data-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 528 520 see also:;
+#X text 527 520 see also:;
 #X obj 602 520 data.set;
 #X obj 675 520 set.union;
 #N canvas 10 527 400 290 info 0;

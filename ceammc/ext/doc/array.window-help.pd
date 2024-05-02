@@ -10,7 +10,7 @@
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 1 100 0 100 100 1;
+#X coords 0 1 100 0 71 18 1;
 #X restore 50 118 graph;
 #X msg 50 234 tri;
 #X msg 136 234 welch;
@@ -22,77 +22,77 @@
 #X obj 50 320 array.window AW1 @type tri;
 #X obj 50 349 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 20 396 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 401 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 386 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 436 1\.;
-#X text 150 436 symbol;
-#X obj 246 437 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 436 ARRAY: array name. Type: symbol.;
-#X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 471 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 421 1.;
+#X text 150 421 symbol;
+#X obj 246 422 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 421 ARRAY: array name. Type: symbol.;
+#X obj 20 451 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 456 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 506 @array;
-#X text 245 506 Get/Set array name. Type: symbol.;
-#X msg 110 535 @redraw;
-#X text 245 535 Get/Set redraw after array change. Type: bool. Default
-value: 1\.;
-#X msg 110 577 @type;
-#X text 245 577 Get/Set window type. Type: symbol. Default value: hann.
+#X msg 110 491 @array;
+#X text 245 491 Get/Set array name. Type: symbol.;
+#X msg 110 521 @redraw;
+#X text 245 521 Get/Set redraw after array change. Type: bool. Default
+value: 1.;
+#X msg 110 563 @type;
+#X text 245 563 Get/Set window type. Type: symbol. Default value: hann.
 Allowed values: tri \, welch \, hann \, sine \, rect \, hamming \,
 blackman \, nuttall \, blackman-harris \, flattop \, gauss.;
-#X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 649 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 630 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 635 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 684 blackman;
-#X text 245 684 generate blackman window.;
-#X msg 110 711 blackman-harris;
-#X text 245 711 generate blackman-harris window.;
-#X msg 110 738 fit;
-#X text 245 738 fit array y-bounds to 0\..1 range.;
-#X msg 110 765 flattop;
-#X text 245 765 generate flattop window.;
-#X msg 110 792 gauss;
-#X text 245 792 generate gauss window.;
-#X msg 110 819 hamming;
-#X text 245 819 generate hamming window.;
-#X msg 110 846 hann;
-#X text 245 846 generate hann window.;
-#X msg 110 873 nuttall;
-#X text 245 873 generate nuttall window.;
-#X msg 110 900 rect;
-#X text 245 900 generate rectangular window.;
-#X msg 110 927 resize;
-#X text 245 927 resize specified array to given size. Arguments are:;
-#X obj 255 950 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 950 [N]: new size. Type: int. Min value: 0\.;
-#X msg 110 975 sine;
-#X text 245 975 generate sine window.;
-#X msg 110 1002 tri;
-#X text 245 1002 generate triangular window.;
-#X msg 110 1029 welch;
-#X text 245 1029 generate welch window.;
-#X obj 20 1066 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1071 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 670 blackman;
+#X text 245 670 generate blackman window.;
+#X msg 110 698 blackman-harris;
+#X text 245 698 generate blackman-harris window.;
+#X msg 110 726 fit;
+#X text 245 726 fit array y-bounds to 0..1 range.;
+#X msg 110 754 flattop;
+#X text 245 754 generate flattop window.;
+#X msg 110 782 gauss;
+#X text 245 782 generate gauss window.;
+#X msg 110 810 hamming;
+#X text 245 810 generate hamming window.;
+#X msg 110 838 hann;
+#X text 245 838 generate hann window.;
+#X msg 110 866 nuttall;
+#X text 245 866 generate nuttall window.;
+#X msg 110 894 rect;
+#X text 245 894 generate rectangular window.;
+#X msg 110 922 resize;
+#X text 245 922 resize specified array to given size. Arguments are:;
+#X obj 255 945 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 945 [N]: new size. Type: int. Min value: 0.;
+#X msg 110 970 sine;
+#X text 245 970 generate sine window.;
+#X msg 110 998 tri;
+#X text 245 998 generate triangular window.;
+#X msg 110 1026 welch;
+#X text 245 1026 generate welch window.;
+#X obj 20 1064 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1069 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1072 1\.;
-#X text 150 1072 *bang*;
-#X text 245 1072 fill array with window.;
-#X obj 20 1102 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1107 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1070 1.;
+#X text 150 1070 *bang*;
+#X text 245 1070 fill array with window.;
+#X obj 20 1100 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1105 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1108 1\.;
-#X text 245 1108 bang on finish.;
+#X text 110 1106 1.;
+#X text 245 1106 bang on finish.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title array @url ceammc.array-help.pd;
-#X obj 1 1158 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1161 library: ceammc v0.9.7;
-#X text 621 1173 see also:;
-#X obj 695 1173 window;
-#N canvas 10 1180 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title array @url ceammc.array-help.pd;
+#X obj 1 1156 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1159 library: ceammc v0.9.7;
+#X text 619 1171 see also:;
+#X obj 694 1171 window;
+#N canvas 10 1178 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -116,7 +116,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1180 pd info;
+#X restore 10 1178 pd info;
 #X connect 5 0 12 0;
 #X connect 9 0 12 0;
 #X connect 6 0 12 0;

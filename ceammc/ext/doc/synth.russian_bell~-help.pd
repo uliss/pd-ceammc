@@ -21,67 +21,67 @@ from the bottom to the top of the bell;
 #X obj 50 382 gsynth.russian_bell~;
 #X obj 50 656 ui.gain~ @size 120 16;
 #X obj 50 685 dac~;
-#X obj 20 734 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 739 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 735 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 740 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 774 @id;
-#X text 245 774 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 775 @id;
+#X text 245 775 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/synth_russian_bell/PROP_NAME osc address
 \, if empty bind to /synth_russian_bell/PROP_NAME. Type: symbol.;
-#X msg 110 831 @osc;
-#X text 245 831 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 832 @osc;
+#X text 245 832 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 860 @active;
-#X text 245 860 Turn on/off dsp processing. Type: bool. Default value:
-1\.;
-#X msg 110 889 @cutoff;
-#X text 245 889 Get/Set strike cutoff frequency. Type: float. Units:
-'Hz'. Default value: 4000\. Range: 20\...20000\.;
-#X msg 110 931 @decay_ratio;
-#X text 245 931 Get/Set decay ratio. Type: float. Default value: 1\.
-Range: 0\...1\.;
-#X msg 110 973 @decay_slope;
-#X text 245 973 Get/Set decay slope. Type: float. Default value: 3\.
-Range: 0\...10\.;
-#X msg 110 1015 @gain;
-#X text 245 1015 Get/Set strike gain. Type: float. Default value: 1\.
-Range: 0\...1\.;
-#X msg 110 1057 @gate;
-#X text 245 1057 Get/Set play trigger - 1: on \, 0: off. Type: float.
-Default value: 0\. Range: 0\...1\.;
-#X msg 110 1099 @pos;
-#X text 245 1099 Get/Set strike position (0 is on the bottom). Type:
-int. Default value: 0\. Range: 0\...6\.;
-#X msg 110 1141 @sharp;
-#X text 245 1141 Get/Set strike sharpness. Type: float. Default value:
-0.25\. Range: 0.01\...5\.;
-#X msg 110 1183 @t60;
-#X text 245 1183 Get/Set time to decay to -60db level. Type: float.
-Units: 'sec'. Default value: 20\. Range: 0.1\...30\.;
-#X obj 20 1235 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1240 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 862 @active;
+#X text 245 862 Turn on/off dsp processing. Type: bool. Default value:
+1.;
+#X msg 110 892 @cutoff;
+#X text 245 892 Get/Set strike cutoff frequency. Type: float. Units:
+'Hz'. Default value: 4000. Range: 20...20000.;
+#X msg 110 934 @decay_ratio;
+#X text 245 934 Get/Set decay ratio. Type: float. Default value: 1.
+Range: 0...1.;
+#X msg 110 976 @decay_slope;
+#X text 245 976 Get/Set decay slope. Type: float. Default value: 3.
+Range: 0...10.;
+#X msg 110 1018 @gain;
+#X text 245 1018 Get/Set strike gain. Type: float. Default value: 1.
+Range: 0...1.;
+#X msg 110 1060 @gate;
+#X text 245 1060 Get/Set play trigger - 1: on \, 0: off. Type: float.
+Default value: 0. Range: 0...1.;
+#X msg 110 1102 @pos;
+#X text 245 1102 Get/Set strike position (0 is on the bottom). Type:
+int. Default value: 0. Range: 0...6.;
+#X msg 110 1144 @sharp;
+#X text 245 1144 Get/Set strike sharpness. Type: float. Default value:
+0.25. Range: 0.01...5.;
+#X msg 110 1186 @t60;
+#X text 245 1186 Get/Set time to decay to -60db level. Type: float.
+Units: 'sec'. Default value: 20. Range: 0.1...30.;
+#X obj 20 1238 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1243 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1275 reset;
-#X text 245 1275 reset synth.;
-#X obj 20 1312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1317 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1278 reset;
+#X text 245 1278 reset synth.;
+#X obj 20 1316 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1321 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1318 1\.;
-#X text 150 1318 *bang*;
-#X text 245 1318 play.;
-#X obj 20 1348 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1353 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1322 1.;
+#X text 150 1322 *bang*;
+#X text 245 1322 play.;
+#X obj 20 1352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1357 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1354 1\.;
-#X text 245 1354 output signal.;
+#X text 110 1358 1.;
+#X text 245 1358 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1404 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1407 library: ceammc v0.9.7;
-#N canvas 10 1426 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
+#X obj 1 1408 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1411 library: ceammc v0.9.7;
+#N canvas 10 1430 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -105,7 +105,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1426 pd info;
+#X restore 10 1430 pd info;
 #X connect 8 0 10 0;
 #X connect 10 0 11 0;
 #X connect 11 0 12 0;

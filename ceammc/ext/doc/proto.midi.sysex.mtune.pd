@@ -1,4 +1,4 @@
-#N canvas 0 0 827 241 12;
+#N canvas 0 0 828 242 12;
 #X text 20 48 coarse tuning;
 #X text 250 48 fine tuning;
 #X text 471 48 float tuning;
@@ -6,9 +6,9 @@
 #X obj 250 77 ui.midi;
 #X obj 471 77 ui.midi;
 #X obj 20 106 midiin;
-#X floatatom 116 106 5 0 0 0 - - -;
+#X floatatom 116.0 106.39999999999999 5 0 0 0 - - -;
 #X obj 250 106 midiin;
-#X floatatom 346 106 5 0 0 0 - - -;
+#X floatatom 346.4 106.39999999999999 5 0 0 0 - - -;
 #X obj 471 106 midiin;
 #X obj 567 106 ui.hsl -12 12 @show_value 1;
 #X msg 116 135 mtune~ \$1;

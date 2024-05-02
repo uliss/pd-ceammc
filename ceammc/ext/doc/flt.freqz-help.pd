@@ -15,7 +15,7 @@ a of a digital filter \, compute its frequency response: H(eʲʷ) = B(eʲʷ)/A(e
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 1 100 -1 360 90 1;
+#X coords 0 1 100 -1 86 18 1;
 #X restore 318 188 graph;
 #X obj 50 217 lpf->biquad;
 #X obj 78 246 print;
@@ -28,75 +28,75 @@ a of a digital filter \, compute its frequency response: H(eʲʷ) = B(eʲʷ)/A(e
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 1 100 -1 360 90 1;
+#X coords 0 1 100 -1 79 18 1;
 #X restore 318 304 graph;
 #X obj 50 332 flt.freqz 128;
 #X obj 98 361 array.plot PHFZ;
 #X obj 50 390 array.plot AMPFZ;
-#X obj 20 439 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 444 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 445 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 479 1\.;
-#X text 150 479 int;
-#X obj 246 480 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 479 N: number of points. Type: int. Range: 4\...1024;
-#X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 514 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 480 1.;
+#X text 150 480 int;
+#X obj 246 481 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 480 N: number of points. Type: int. Range: 4...1024;
+#X obj 20 510 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 515 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 549 @a;
-#X text 245 549 Get/Set denominator (poles) coefficients. 'a0' always
-implicitly set to 1 \, property value set a1\...an coefficients. Type:
+#X msg 110 550 @a;
+#X text 245 550 Get/Set denominator (poles) coefficients. 'a0' always
+implicitly set to 1 \, property value set a1...an coefficients. Type:
 list.;
-#X msg 110 606 @b;
-#X text 245 606 Get/Set numerator (zeros) coefficients. Type: list.
-Default value: 1\.;
-#X msg 110 648 @db;
-#X text 245 648 Get/Set output amp response in db scale. Type: bool.
-Default value: 0\.;
-#X msg 110 690 @n;
-#X text 245 690 Get/Set number of points. Type: int. Default value:
-256\. Range: 4\...1024\.;
-#X obj 20 742 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 747 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 607 @b;
+#X text 245 607 Get/Set numerator (zeros) coefficients. Type: list.
+Default value: 1.;
+#X msg 110 649 @db;
+#X text 245 649 Get/Set output amp response in db scale. Type: bool.
+Default value: 0.;
+#X msg 110 691 @n;
+#X text 245 691 Get/Set number of points. Type: int. Default value:
+256. Range: 4...1024.;
+#X obj 20 743 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 748 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 782 biquad;
-#X text 245 782 set 'b' and 'a' coefficients \, no output. Arguments
+#X msg 110 783 biquad;
+#X text 245 783 set 'b' and 'a' coefficients \, no output. Arguments
 are:;
-#X obj 255 805 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 805 b0: b0\. Type: float.;
-#X obj 255 828 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 828 b1: b1\. Type: float.;
-#X obj 255 851 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 851 b2: b2\. Type: float.;
-#X obj 255 874 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 874 a1: a1\. Type: float.;
-#X obj 255 897 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 897 a2: a2\. Type: float.;
-#X obj 20 932 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 937 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 255 806 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 806 b0: b0. Type: float.;
+#X obj 255 829 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 829 b1: b1. Type: float.;
+#X obj 255 852 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 852 b2: b2. Type: float.;
+#X obj 255 875 cnv 1 22 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 875 a1: a1. Type: float.;
+#X obj 255 898 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 898 a2: a2. Type: float.;
+#X obj 20 933 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 938 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 938 1\.;
-#X text 150 938 *bang*;
-#X text 245 938 calculate and output frequency responses.;
-#X obj 20 968 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 973 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 939 1.;
+#X text 150 939 *bang*;
+#X text 245 939 calculate and output frequency responses.;
+#X obj 20 969 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 974 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 974 1\.;
-#X text 245 974 list: amplitude response data.;
-#X text 110 994 2\.;
-#X text 245 994 list: phase response data.;
-#X text 110 1014 3\.;
-#X text 245 1014 int: number of points.;
+#X text 110 975 1.;
+#X text 245 975 list: amplitude response data.;
+#X text 110 995 2.;
+#X text 245 995 list: phase response data.;
+#X text 110 1015 3.;
+#X text 245 1015 int: number of points.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 1064 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1067 library: ceammc v0.9.7;
-#X text 593 1079 see also:;
-#X obj 667 1079 flt.freqz~;
-#N canvas 10 1086 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
+#X obj 1 1065 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1068 library: ceammc v0.9.7;
+#X text 591 1080 see also:;
+#X obj 666 1080 flt.freqz~;
+#N canvas 10 1087 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -121,7 +121,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1086 pd info;
+#X restore 10 1087 pd info;
 #X connect 6 0 8 0;
 #X connect 8 0 9 0;
 #X connect 8 0 10 0;

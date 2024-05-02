@@ -4,7 +4,7 @@
 #X text 522 50 convert character to morse code;
 #X obj 1 1 cnv 5 765 40 empty empty conv.char2morse 20 20 0 20 -104026
 -4096 0;
-#X obj 371 11 ceammc/char->morse;
+#X obj 370 11 ceammc/char->morse;
 #X obj 526 11 char->morse;
 #X obj 631 11 conv.char2morse;
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
@@ -14,32 +14,32 @@
 #X msg 174 172 @sym \$1;
 #X obj 50 201 conv.char2morse;
 #X obj 50 230 ui.dt;
-#X obj 20 279 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 284 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 285 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 319 @sym;
-#X text 245 319 Get/Set symbol output mode. If on - output as list
-of dots and dashes \, otherwise as 0 and 1\. Type: bool. Default value:
-0\.;
-#X obj 20 386 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 391 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 320 @sym;
+#X text 245 320 Get/Set symbol output mode. If on - output as list
+of dots and dashes \, otherwise as 0 and 1. Type: bool. Default value:
+0.;
+#X obj 20 387 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 392 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 392 1\.;
-#X text 150 392 *symbol*;
-#X text 245 392 single characted.;
-#X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 427 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 393 1.;
+#X text 150 393 *symbol*;
+#X text 245 393 single characted.;
+#X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 428 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 428 1\.;
-#X text 245 428 list of 0 and 1 (or dots and dashes).;
+#X text 110 429 1.;
+#X text 245 429 list of 0 and 1 (or dots and dashes).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 586 520 see also:;
+#X text 585 520 see also:;
 #X obj 660 520 proto.morse;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

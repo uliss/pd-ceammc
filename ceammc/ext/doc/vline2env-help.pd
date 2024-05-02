@@ -4,9 +4,9 @@
 #X text 529 50 Converts vline messages to env;
 #X obj 1 1 cnv 5 765 40 empty empty vline2env 20 20 0 20 -104026 -4096
 0;
-#X obj 287 11 ceammc/vline2env;
-#X obj 428 11 ceammc/vline->env;
-#X obj 576 11 vline->env;
+#X obj 285 11 ceammc/vline2env;
+#X obj 426 11 ceammc/vline->env;
+#X obj 575 11 vline->env;
 #X obj 674 11 vline2env;
 #X msg 50 118 0 \, 1 200;
 #X msg 165 118 1 100 50;
@@ -14,29 +14,29 @@
 #X msg 290 147 0 \, 1 300 \, 0 500 500;
 #X obj 50 205 vline2env;
 #X obj 50 234 ui.env;
-#X obj 20 283 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 288 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 289 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 289 1\.;
-#X text 150 289 *bang*;
-#X text 245 289 output current envelope.;
-#X text 150 309 *list*;
-#X text 245 309 vline message.;
-#X obj 20 339 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 344 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 290 1.;
+#X text 150 290 *bang*;
+#X text 245 290 output current envelope.;
+#X text 150 310 *list*;
+#X text 245 310 vline message.;
+#X obj 20 340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 345 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 345 1\.;
-#X text 245 345 envelope output.;
+#X text 110 346 1.;
+#X text 245 346 envelope output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title env @url ceammc.env-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title env @url ceammc.env-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 505 520 see also:;
-#X obj 579 520 env->vline;
-#X obj 667 520 env->array;
+#X text 503 520 see also:;
+#X obj 578 520 env->vline;
+#X obj 666 520 env->array;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

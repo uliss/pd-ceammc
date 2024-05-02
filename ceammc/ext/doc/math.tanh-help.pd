@@ -4,48 +4,48 @@
 #X text 553 50 hyperbolic tangent function;
 #X obj 1 1 cnv 5 765 40 empty empty math.tanh 20 20 0 20 -104026 -4096
 0;
-#X obj 675 11 math.tanh;
+#X obj 674 11 math.tanh;
 #X obj 210 80 cnv 1 555 110 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 The tanh() function computes the hyperbolic tangent
 of x.;
 #X text 215 105 Special values:;
-#X text 215 130 tanh(+-0) returns +-0\.;
-#X text 215 155 tanh(+-infinity) returns +-1\.;
+#X text 215 130 tanh(+-0) returns +-0.;
+#X text 215 155 tanh(+-infinity) returns +-1.;
 #X msg 50 218 bang;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array TANH 100 float 1;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 1 100 -1 320 140 1;
+#X coords 0 1 100 -1 78 18 1;
 #X restore 280 218 graph;
 #X obj 50 247 list.seq -5 5 0.1;
 #X obj 50 276 math.tanh;
 #X obj 50 305 list->array TANH;
-#X obj 20 390 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 395 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 360 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 396 1\.;
-#X text 150 396 *float*;
-#X text 245 396 input value.;
-#X text 150 416 *list*;
-#X text 245 416 apply to all numeric values.;
-#X obj 20 446 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 451 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 361 1.;
+#X text 150 361 *float*;
+#X text 245 361 input value.;
+#X text 150 381 *list*;
+#X text 245 381 apply to all numeric values.;
+#X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 416 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 452 1\.;
-#X text 245 452 result value.;
+#X text 110 417 1.;
+#X text 245 417 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 441 520 see also:;
-#X obj 515 520 math.acos;
-#X obj 595 520 math.asin;
-#X obj 675 520 math.atan;
+#X text 437 520 see also:;
+#X obj 512 520 math.acos;
+#X obj 593 520 math.asin;
+#X obj 674 520 math.atan;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

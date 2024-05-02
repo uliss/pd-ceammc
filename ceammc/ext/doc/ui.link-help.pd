@@ -4,7 +4,7 @@
 #X text 637 50 Hyperlink widget;
 #X obj 1 1 cnv 5 765 40 empty empty ui.link 20 20 0 20 -104026 -4096
 0;
-#X obj 687 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+#X obj 686 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.link] @url ui.link-help.pd;
 #X obj 210 80 cnv 1 555 80 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Link allows to open external URLs \, not only Pd patches
@@ -15,65 +15,65 @@ and Pd external directories;
 #X obj 50 217 ui.link @title VU-help @url vu-help.pd;
 #X text 50 246 [ui.link @url http://puredata.info @title puredata.info];
 #X obj 50 275 ui.link @title puredata.info @url http://puredata.info;
-#X obj 20 332 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 337 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 325 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 330 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 372 1\.;
-#X text 150 372 symbol;
-#X obj 246 373 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 372 URL: @url property value. Type: symbol.;
-#X text 110 392 2\.;
-#X text 150 392 list;
-#X obj 246 393 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 392 TITLE: @title property value. Type: list.;
-#X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 427 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 365 1.;
+#X text 150 365 symbol;
+#X obj 246 366 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 365 URL: @url property value. Type: symbol.;
+#X text 110 385 2.;
+#X text 150 385 list;
+#X obj 246 386 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 385 TITLE: @title property value. Type: list.;
+#X obj 20 415 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 420 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 462 @title;
-#X text 245 462 Get/Set link title. Type: symbol. Default value: <no
+#X msg 110 455 @title;
+#X text 245 455 Get/Set link title. Type: symbol. Default value: <no
 title>.;
-#X msg 110 491 @url;
-#X text 245 491 Get/Set destination url. Type: symbol. Default value:
+#X msg 110 485 @url;
+#X text 245 485 Get/Set destination url. Type: symbol. Default value:
 <no url>.;
-#X msg 110 533 @hover_color;
-#X text 245 533 Get/Set color when mouse pointer is over element (list
+#X msg 110 527 @hover_color;
+#X text 245 527 Get/Set color when mouse pointer is over element (list
 of red \, green \, blue values in 0-1 range). Type: list. Default value:
-1 0 0.5 1\.;
-#X msg 110 590 @link_color;
-#X text 245 590 Get/Set link color (list of red \, green \, blue values
-in 0-1 range). Type: list. Default value: 0 0.625 0.75 1\.;
-#X msg 110 632 @fontname;
-#X text 245 632 Get/Set fontname. Type: symbol. Default value: Helvetica.
+1 0 0.5 1.;
+#X msg 110 584 @link_color;
+#X text 245 584 Get/Set link color (list of red \, green \, blue values
+in 0-1 range). Type: list. Default value: 0 0.625 0.75 1.;
+#X msg 110 626 @fontname;
+#X text 245 626 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 674 @fontsize;
-#X text 245 674 Get/Set fontsize. Type: int. Default value: 11\. Range:
-4\...100\.;
-#X msg 110 716 @fontslant;
-#X text 245 716 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 668 @fontsize;
+#X text 245 668 Get/Set fontsize. Type: int. Default value: 11. Range:
+4...100.;
+#X msg 110 710 @fontslant;
+#X text 245 710 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 758 @fontweight;
-#X text 245 758 Get/Set font weight. Type: symbol. Default value: normal.
+#X msg 110 752 @fontweight;
+#X text 245 752 Get/Set font weight. Type: symbol. Default value: normal.
 Allowed values: normal \, bold.;
-#X msg 110 800 @pinned;
-#X text 245 800 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0\.;
-#X obj 20 852 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 857 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 794 @pinned;
+#X text 245 794 Get/Set pin mode. if 1 - put element to the lowest
+level. Type: bool. Default value: 0.;
+#X obj 20 846 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 851 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 892 pos;
-#X text 245 892 set UI element position. Arguments are:;
-#X obj 255 915 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 915 X: top left x-coord. Type: float.;
-#X obj 255 938 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 938 Y: top right y-coord. Type: float.;
+#X msg 110 886 pos;
+#X text 245 886 set UI element position. Arguments are:;
+#X obj 255 909 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 909 X: top left x-coord. Type: float.;
+#X obj 255 932 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 932 Y: top right y-coord. Type: float.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 993 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 996 library: ceammc v0.9.7;
-#N canvas 10 1015 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
+#X obj 1 987 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 990 library: ceammc v0.9.7;
+#N canvas 10 1009 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -97,4 +97,4 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1015 pd info;
+#X restore 10 1009 pd info;

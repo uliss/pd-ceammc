@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 538 50 cnv 1 227 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 538 50 cubic nonlinearity distortion;
+#X obj 537 50 cnv 1 228 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 537 50 cubic nonlinearity distortion;
 #X obj 1 1 cnv 5 765 40 empty empty fx.distortion~ 20 20 0 20 -104026
 -4096 0;
 #X obj 638 11 fx.distortion~;
@@ -20,67 +20,67 @@
 #X obj 50 334 ui.gain~ @size 120 16;
 #X obj 376 334 ui.dsp~;
 #X obj 50 363 dac~;
-#X obj 20 412 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 417 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 418 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 452 1\.;
-#X text 150 452 float;
-#X obj 246 453 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 452 DRIVE: distortion amount. Type: float. Range: 0\...1;
-#X text 110 472 2\.;
-#X text 150 472 float;
-#X obj 246 473 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 472 OFFSET: constant added before nonlinearity to give
-even harmonics. Type: float. Range: 0\...0.5;
-#X obj 20 517 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 522 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 453 1.;
+#X text 150 453 float;
+#X obj 246 454 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 453 DRIVE: distortion amount. Type: float. Range: 0...1;
+#X text 110 473 2.;
+#X text 150 473 float;
+#X obj 246 474 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 473 OFFSET: constant added before nonlinearity to give
+even harmonics. Type: float. Range: 0...0.5;
+#X obj 20 518 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 523 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 557 @id;
-#X text 245 557 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 558 @id;
+#X text 245 558 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_distortion/PROP_NAME osc address \, if
 empty bind to /fx_distortion/PROP_NAME. Type: symbol.;
-#X msg 110 614 @osc;
-#X text 245 614 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 615 @osc;
+#X text 245 615 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 643 @active;
-#X text 245 643 Turn on/off dsp processing. Type: bool. Default value:
-1\.;
-#X msg 110 672 @bypass;
-#X text 245 672 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0\.;
-#X msg 110 714 @drive;
-#X text 245 714 Get/Set distortion amount. Type: float. Default value:
-0.5\. Range: 0\...1\.;
-#X msg 110 756 @drywet;
-#X text 245 756 Get/Set proportion of mix between the original (dry)
+#X msg 110 645 @active;
+#X text 245 645 Turn on/off dsp processing. Type: bool. Default value:
+1.;
+#X msg 110 675 @bypass;
+#X text 245 675 Get/Set bypass flag. If true: bypass 'effected' signal.
+Type: bool. Default value: 0.;
+#X msg 110 717 @drive;
+#X text 245 717 Get/Set distortion amount. Type: float. Default value:
+0.5. Range: 0...1.;
+#X msg 110 759 @drywet;
+#X text 245 759 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 1\. Range: 0\...1\.;
-#X msg 110 813 @offset;
-#X text 245 813 Get/Set constant added before nonlinearity to give
-even harmonics. Type: float. Default value: 0\. Range: 0\...0.5\.;
-#X obj 20 865 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 870 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+Default value: 1. Range: 0...1.;
+#X msg 110 816 @offset;
+#X text 245 816 Get/Set constant added before nonlinearity to give
+even harmonics. Type: float. Default value: 0. Range: 0...0.5.;
+#X obj 20 868 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 873 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 905 reset;
-#X text 245 905 reset object.;
-#X obj 20 942 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 947 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 908 reset;
+#X text 245 908 reset object.;
+#X obj 20 946 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 951 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 948 1\.;
-#X text 245 948 input signal.;
-#X obj 20 978 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 983 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 952 1.;
+#X text 245 952 input signal.;
+#X obj 20 982 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 987 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 984 1\.;
-#X text 245 984 output signal.;
+#X text 110 988 1.;
+#X text 245 988 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1034 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1037 library: ceammc v0.9.7;
-#N canvas 10 1056 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
+#X obj 1 1038 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1041 library: ceammc v0.9.7;
+#N canvas 10 1060 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -104,7 +104,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1056 pd info;
+#X restore 10 1060 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 7 0 11 0;

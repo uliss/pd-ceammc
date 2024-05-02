@@ -5,7 +5,7 @@
 #X obj 1 1 cnv 5 765 40 empty empty hoa.3d.optim~ 20 20 0 20 -104026
 -4096 0;
 #X obj 645 11 hoa.3d.optim~;
-#X obj 210 80 cnv 1 555 248 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 249 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Weights the circular harmonics signals depending on
 the ambisonic optimization. It can be "basic" for no optimization \,
 "maxre" or "inphase".;
@@ -19,74 +19,74 @@ all the circle.;
 your ears.;
 #X obj 215 295 ui.link @background_color 0.98039 0.98039 0.98039
 @title CICM documentation @url hoa/hoa.3d.optim~-help.pd;
-#X obj 50 356 hoa/hoa.soundrone;
-#X obj 280 356 phasor~ 0.15;
-#X obj 50 385 ui.gain~ @size 120 14;
-#X obj 280 385 phase->rad~;
-#X obj 414 385 ui.menu basic maxre inphase;
-#X obj 50 414 hoa.3d.encoder~ 3, f 30;
-#X msg 414 414 @mode \$2;
-#X obj 50 443 hoa.3d.optim~ 3 inphase, f 30;
-#X obj 88 472 hoa.3d.scope~ 3 @gain 4 @size 164 164;
-#X obj 50 644 hoa.3d.decoder~ 3 regular 16, f 30;
-#X obj 50 673 xdac~ 1:16, f 30;
-#X obj 50 702 ui.dsp~;
-#X obj 20 751 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 756 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 50 357 hoa/hoa.soundrone;
+#X obj 280 357 phasor~ 0.15;
+#X obj 50 386 ui.gain~ @size 120 14;
+#X obj 280 386 phase->rad~;
+#X obj 414 386 ui.menu basic maxre inphase;
+#X obj 50 415 hoa.3d.encoder~ 3, f 30;
+#X msg 414 415 @mode \$2;
+#X obj 50 444 hoa.3d.optim~ 3 inphase, f 30;
+#X obj 88 473 hoa.3d.scope~ 3 @gain 4 @size 164 164;
+#X obj 50 645 hoa.3d.decoder~ 3 regular 16, f 30;
+#X obj 50 674 xdac~ 1:16, f 30;
+#X obj 50 703 ui.dsp~;
+#X obj 20 753 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 758 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 791 1\.;
-#X text 150 791 int;
-#X obj 246 792 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 791 ORDER: the order of decomposition. Type: int. Range:
-1\...10;
-#X text 110 811 2\.;
-#X text 150 811 symbol;
-#X obj 246 812 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 811 MODE: optimization mode. Allowed values: basic \, maxre
-\, inphase. . Type: symbol.;
-#X obj 20 856 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 861 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 793 1.;
+#X text 150 793 int;
+#X obj 246 794 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 793 ORDER: the order of decomposition. Type: int. Range:
+1...10;
+#X text 110 813 2.;
+#X text 150 813 symbol;
+#X obj 246 814 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 813 MODE: optimization mode. Allowed values: basic \, maxre
+\, inphase. Type: symbol.;
+#X obj 20 858 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 863 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 896 @order;
-#X text 245 896 (initonly) Get/Set the order of decomposition. Type:
-int. Default value: 1\. Range: 1\...10\.;
-#X msg 110 938 @basic;
-#X text 245 938 alias for @mode basic (no optimization).;
-#X msg 110 967 @inphase;
-#X text 245 967 alias for @mode inphase.;
-#X msg 110 996 @maxre;
-#X text 245 996 alias for @mode maxre.;
-#X msg 110 1025 @mode;
-#X text 245 1025 Get/Set optimization mode. Type: symbol. Default value:
+#X msg 110 898 @order;
+#X text 245 898 (initonly) Get/Set the order of decomposition. Type:
+int. Default value: 1. Range: 1...10.;
+#X msg 110 940 @basic;
+#X text 245 940 alias for @mode basic (no optimization).;
+#X msg 110 970 @inphase;
+#X text 245 970 alias for @mode inphase.;
+#X msg 110 1000 @maxre;
+#X text 245 1000 alias for @mode maxre.;
+#X msg 110 1030 @mode;
+#X text 245 1030 Get/Set optimization mode. Type: symbol. Default value:
 basic. Allowed values: basic \, maxre \, inphase.;
-#X obj 20 1077 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1082 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1082 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1087 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1083 1\.;
-#X text 245 1083 first input harmonic.;
-#X text 110 1103 ....;
-#X text 245 1103 ... input harmonic.;
-#X text 110 1123 n.;
-#X text 245 1123 n-th input harmonic.;
-#X obj 20 1153 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1158 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1088 1.;
+#X text 245 1088 first input harmonic.;
+#X text 110 1108 ....;
+#X text 245 1108 ... input harmonic.;
+#X text 110 1128 n.;
+#X text 245 1128 n-th input harmonic.;
+#X obj 20 1158 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1163 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1159 1\.;
-#X text 245 1159 first harmonic output.;
-#X text 110 1179 ....;
-#X text 245 1179 ... harmonic output.;
-#X text 110 1199 n.;
-#X text 245 1199 n-th harmonic output.;
+#X text 110 1164 1.;
+#X text 245 1164 first harmonic output.;
+#X text 110 1184 ....;
+#X text 245 1184 ... harmonic output.;
+#X text 110 1204 n.;
+#X text 245 1204 n-th harmonic output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 1249 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1252 library: ceammc v0.9.7;
-#X text 557 1264 see also:;
-#X obj 631 1264 hoa.3d.decoder~;
-#N canvas 10 1271 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
+#X obj 1 1254 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1257 library: ceammc v0.9.7;
+#X text 555 1269 see also:;
+#X obj 630 1269 hoa.3d.decoder~;
+#N canvas 10 1276 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -111,7 +111,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1271 pd info;
+#X restore 10 1276 pd info;
 #X connect 11 0 13 0;
 #X connect 12 0 14 0;
 #X connect 13 0 16 0;

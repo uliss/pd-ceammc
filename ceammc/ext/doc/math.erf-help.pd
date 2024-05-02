@@ -4,7 +4,7 @@
 #X text 652 50 error function;
 #X obj 1 1 cnv 5 765 40 empty empty math.erf 20 20 0 20 -104026 -4096
 0;
-#X obj 682 11 math.erf;
+#X obj 681 11 math.erf;
 #X obj 210 80 cnv 1 555 105 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 In statistics \, for non-negative values of x \, the
 error function has the following interpretation:;
@@ -17,33 +17,33 @@ in the range [−x \, x];
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 1 100 -1 320 140 1;
+#X coords 0 1 100 -1 71 18 1;
 #X restore 270 213 graph;
 #X obj 50 242 list.seq -4 4 0.025;
 #X obj 50 271 math.erf;
 #X obj 50 300 list->array ERF;
-#X obj 20 385 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 390 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 355 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 391 1\.;
-#X text 150 391 *float*;
-#X text 245 391 input value.;
-#X text 150 411 *list*;
-#X text 245 411 apply to all numeric values.;
-#X obj 20 441 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 446 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 356 1.;
+#X text 150 356 *float*;
+#X text 245 356 input value.;
+#X text 150 376 *list*;
+#X text 245 376 apply to all numeric values.;
+#X obj 20 406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 411 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 447 1\.;
-#X text 245 447 result value.;
+#X text 110 412 1.;
+#X text 245 412 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 600 520 see also:;
-#X obj 674 520 math.erf~;
+#X text 598 520 see also:;
+#X obj 673 520 math.erf~;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -1,10 +1,10 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 415 50 cnv 1 350 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 415 50 Jean Claude Risset's harmonic arpeggio effect;
+#X obj 414 50 cnv 1 351 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 414 50 Jean Claude Risset's harmonic arpeggio effect;
 #X obj 1 1 cnv 5 765 40 empty empty synth.risset_arp~ 20 20 0 20
 -104026 -4096 0;
-#X obj 617 11 synth.risset_arp~;
+#X obj 616 11 synth.risset_arp~;
 #X obj 50 118 r $0s;
 #X floatatom 136 118 5 0 0 0 - - -;
 #X floatatom 242 118 5 0 0 0 - - -;
@@ -19,72 +19,72 @@
 #X obj 50 262 ui.dsp~;
 #X msg 405 262 @harmonic\$1 \$2;
 #X obj 405 291 s $0s;
-#X obj 20 340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 345 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 346 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 380 @id;
-#X text 245 380 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 381 @id;
+#X text 245 381 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/synth_risset_arp/PROP_NAME osc address \,
 if empty bind to /synth_risset_arp/PROP_NAME. Type: symbol.;
-#X msg 110 437 @osc;
-#X text 245 437 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 438 @osc;
+#X text 245 438 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 466 @active;
-#X text 245 466 Turn on/off dsp processing. Type: bool. Default value:
-1\.;
-#X msg 110 495 @detune;
-#X text 245 495 Get/Set detune percent. Type: float. Default value:
-5\. Range: 0\...1000\.;
-#X msg 110 537 @freq;
-#X text 245 537 Get/Set base frequency. Type: float. Default value:
-100\. Range: 40\...500\.;
-#X msg 110 579 @harmonic1;
-#X text 245 579 Get/Set 1st harmonic amplitude. Type: float. Default
-value: 1\. Range: 0\...1\.;
-#X msg 110 621 @harmonic2;
-#X text 245 621 Get/Set 2nd harmonic amplitude. Type: float. Default
-value: 1\. Range: 0\...1\.;
-#X msg 110 663 @harmonic3;
-#X text 245 663 Get/Set 3rd harmonic amplitude. Type: float. Default
-value: 1\. Range: 0\...1\.;
-#X msg 110 705 @harmonic4;
-#X text 245 705 Get/Set 4th harmonic amplitude. Type: float. Default
-value: 1\. Range: 0\...1\.;
-#X msg 110 747 @harmonic5;
-#X text 245 747 Get/Set 5th harmonic amplitude. Type: float. Default
-value: 1\. Range: 0\...1\.;
-#X msg 110 789 @harmonic6;
-#X text 245 789 Get/Set 6th harmonic amplitude. Type: float. Default
-value: 1\. Range: 0\...1\.;
-#X msg 110 831 @harmonic7;
-#X text 245 831 Get/Set 7th harmonic amplitude. Type: float. Default
-value: 1\. Range: 0\...1\.;
-#X msg 110 873 @harmonic8;
-#X text 245 873 Get/Set 8th harmonic amplitude. Type: float. Default
-value: 1\. Range: 0\...1\.;
-#X msg 110 915 @spread;
-#X text 245 915 Get/Set stereo spread. Type: float. Default value:
-1\. Range: 0\...1\.;
-#X obj 20 967 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 972 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 468 @active;
+#X text 245 468 Turn on/off dsp processing. Type: bool. Default value:
+1.;
+#X msg 110 498 @detune;
+#X text 245 498 Get/Set detune percent. Type: float. Default value:
+5. Range: 0...1000.;
+#X msg 110 540 @freq;
+#X text 245 540 Get/Set base frequency. Type: float. Default value:
+100. Range: 40...500.;
+#X msg 110 582 @harmonic1;
+#X text 245 582 Get/Set 1st harmonic amplitude. Type: float. Default
+value: 1. Range: 0...1.;
+#X msg 110 624 @harmonic2;
+#X text 245 624 Get/Set 2nd harmonic amplitude. Type: float. Default
+value: 1. Range: 0...1.;
+#X msg 110 666 @harmonic3;
+#X text 245 666 Get/Set 3rd harmonic amplitude. Type: float. Default
+value: 1. Range: 0...1.;
+#X msg 110 708 @harmonic4;
+#X text 245 708 Get/Set 4th harmonic amplitude. Type: float. Default
+value: 1. Range: 0...1.;
+#X msg 110 750 @harmonic5;
+#X text 245 750 Get/Set 5th harmonic amplitude. Type: float. Default
+value: 1. Range: 0...1.;
+#X msg 110 792 @harmonic6;
+#X text 245 792 Get/Set 6th harmonic amplitude. Type: float. Default
+value: 1. Range: 0...1.;
+#X msg 110 834 @harmonic7;
+#X text 245 834 Get/Set 7th harmonic amplitude. Type: float. Default
+value: 1. Range: 0...1.;
+#X msg 110 876 @harmonic8;
+#X text 245 876 Get/Set 8th harmonic amplitude. Type: float. Default
+value: 1. Range: 0...1.;
+#X msg 110 918 @spread;
+#X text 245 918 Get/Set stereo spread. Type: float. Default value:
+1. Range: 0...1.;
+#X obj 20 970 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 975 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 973 1\.;
-#X text 245 973 control inlet.;
-#X obj 20 1003 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1008 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 976 1.;
+#X text 245 976 control inlet.;
+#X obj 20 1006 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1011 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1009 1\.;
-#X text 245 1009;
-#X text 110 1029 2\.;
-#X text 245 1029;
+#X text 110 1012 1.;
+#X text 245 1012;
+#X text 110 1032 2.;
+#X text 245 1032;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title synth @url ceammc.synth-help.pd;
-#X obj 1 1079 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1082 library: ceammc v0.9.7;
-#N canvas 10 1101 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title synth @url ceammc.synth-help.pd;
+#X obj 1 1082 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1085 library: ceammc v0.9.7;
+#N canvas 10 1104 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -108,7 +108,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1101 pd info;
+#X restore 10 1104 pd info;
 #X connect 5 0 8 0;
 #X connect 6 0 9 0;
 #X connect 4 0 10 0;

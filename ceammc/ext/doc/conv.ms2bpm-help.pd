@@ -1,35 +1,35 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 377 50 cnv 1 388 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 377 50 convert period in milliseconds to frequency in BPM;
+#X obj 376 50 cnv 1 389 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 376 50 convert period in milliseconds to frequency in BPM;
 #X obj 1 1 cnv 5 765 40 empty empty conv.ms2bpm 20 20 0 20 -104026
 -4096 0;
-#X obj 458 11 ceammc/ms->bpm;
-#X obj 584 11 ms->bpm;
+#X obj 456 11 ceammc/ms->bpm;
+#X obj 583 11 ms->bpm;
 #X obj 660 11 conv.ms2bpm;
 #X msg 50 118 1000;
 #X msg 117 118 500;
 #X obj 50 147 ms->bpm;
 #X floatatom 50 176 5 0 0 0 - - -;
-#X obj 20 225 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 230 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 208 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 213 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 231 1\.;
-#X text 150 231 *float*;
-#X text 245 231 period in milliseconds.;
-#X obj 20 261 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 266 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 214 1.;
+#X text 150 214 *float*;
+#X text 245 214 period in milliseconds.;
+#X obj 20 244 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 249 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 267 1\.;
-#X text 245 267 bpm frequency.;
+#X text 110 250 1.;
+#X text 245 250 bpm frequency.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 477 520 see also:;
+#X text 476 520 see also:;
 #X obj 551 520 conv.bpm2sec;
 #X obj 653 520 conv.sec2bpm;
 #N canvas 10 527 400 290 info 0;

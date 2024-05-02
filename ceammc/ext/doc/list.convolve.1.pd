@@ -1,4 +1,4 @@
-#N canvas 0 0 432 340 12;
+#N canvas 0 0 433 340 12;
 #X msg 20 48 random \, bang;
 #X obj 20 77 ui.sliders 32;
 #X text 192 106 LPF;

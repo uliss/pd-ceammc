@@ -4,38 +4,38 @@
 #X text 583 50 hex symbol to int value;
 #X obj 1 1 cnv 5 765 40 empty empty conv.hex2int 20 20 0 20 -104026
 -4096 0;
-#X obj 439 11 ceammc/hex->int;
-#X obj 572 11 hex->int;
-#X obj 654 11 conv.hex2int;
+#X obj 436 11 ceammc/hex->int;
+#X obj 570 11 hex->int;
+#X obj 653 11 conv.hex2int;
 #X msg 50 118 symbol 0xFF;
 #X obj 50 147 hex->int;
 #X floatatom 50 176 5 0 0 0 - - -;
 #X msg 50 205 list 0xFF 0xFFFF DEADBEEF;
 #X obj 50 234 hex->int;
 #X obj 50 262 ui.d @display_type 1;
-#X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 316 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 317 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 351 @strict;
-#X text 245 351 ignore parsing error.;
-#X obj 20 390 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 395 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 352 @strict;
+#X text 245 352 ignore parsing error.;
+#X obj 20 392 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 397 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 396 1\.;
-#X text 150 396 *symbol*;
-#X text 245 396 input value.;
-#X text 150 416 *list*;
-#X text 245 416 input values.;
-#X obj 20 446 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 451 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 398 1.;
+#X text 150 398 *symbol*;
+#X text 245 398 input value.;
+#X text 150 418 *list*;
+#X text 245 418 input values.;
+#X obj 20 448 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 453 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 452 1\.;
-#X text 245 452 converted value: int.;
+#X text 110 454 1.;
+#X text 245 454 converted value: int.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
 #N canvas 10 527 400 290 info 0;

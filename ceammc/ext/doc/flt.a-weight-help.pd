@@ -4,42 +4,42 @@
 #X text 491 50 convert frequency to A-weight value;
 #X obj 1 1 cnv 5 765 40 empty empty flt.a-weight 20 20 0 20 -104026
 -4096 0;
-#X obj 654 11 flt.a-weight;
+#X obj 653 11 flt.a-weight;
 #X msg 50 118 bang;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array A-WEIGHT 100 float 1;
 #A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
-#X coords 0 1 100 0 400 140 1;
+#X coords 0 1 100 0 108 18 1;
 #X restore 280 118 graph;
 #X obj 50 147 list.seq 20 20000 50;
 #X obj 50 176 flt.a-weight;
 #X obj 50 205 list->array A-WEIGHT;
-#X obj 20 290 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 295 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 260 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 330 @db;
-#X text 245 330 output in decibels. Default value: 0\.;
-#X obj 20 369 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 374 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 295 @db;
+#X text 245 295 output in decibels. Default value: 0.;
+#X obj 20 335 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 340 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 375 1\.;
-#X text 150 375 *float*;
-#X text 245 375 input frequency in Herz.;
-#X text 150 395 *list*;
-#X text 245 395 list of input frequencies in Herz \, non float types
+#X text 110 341 1.;
+#X text 150 341 *float*;
+#X text 245 341 input frequency in Herz.;
+#X text 150 361 *list*;
+#X text 245 361 list of input frequencies in Herz \, non float types
 are ignored.;
-#X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 445 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 411 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 446 1\.;
-#X text 245 446 float or list A-weight amplitudes or decibel values.;
+#X text 110 412 1.;
+#X text 245 412 float or list A-weight amplitudes or decibel values.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title flt @url ceammc.flt-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
 #N canvas 10 527 400 290 info 0;

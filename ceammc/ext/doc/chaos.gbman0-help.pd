@@ -1,11 +1,11 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 483 50 cnv 1 282 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 483 50 Gingerbreadman map chaotic generator;
+#X obj 482 50 cnv 1 283 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 482 50 Gingerbreadman map chaotic generator;
 #X obj 1 1 cnv 5 765 40 empty empty chaos.gbman0 20 20 0 20 -104026
 -4096 0;
 #X obj 653 11 chaos.gbman0;
-#X obj 210 80 cnv 1 555 123 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 124 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 A non-interpolating generator based on the difference
 equations:;
 #X text 215 120 x(n+1) = 1 - y(n) + |x(n)|;
@@ -13,73 +13,73 @@ equations:;
 #X obj 215 170 ui.link @background_color 0.98039 0.98039 0.98039
 @title wiki: Gingerbreadman map @url
 https://en.wikipedia.org/wiki/Gingerbreadman_map;
-#X obj 50 231 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 165 231 ui.dsp~;
-#X obj 376 231 r~ gbman~;
-#X obj 50 260 metro 100;
-#X obj 376 260 rzero~ -1;
-#X obj 491 260 rzero~ 1;
-#X msg 50 289 3;
-#X obj 376 289 clip~ -1 1;
-#X obj 491 289 clip~ -1 1;
-#X obj 50 318 list.gen;
-#X obj 174 318 chaos.gbman0;
-#X obj 376 318 flt.resonbp~ 62 40;
-#X obj 50 347 l->l -2 7 60 250;
-#X obj 376 347 pan.spread~ 4, f 18;
-#X obj 50 375 list.unpack 3;
-#X obj 376 375 ui.hgain2~ @size 15 129;
-#X obj 50 404 sig~;
-#X obj 155 404 * 600;
-#X obj 251 404 / 250;
-#X obj 376 404 dac~, f 18;
-#X obj 50 433 lop~ 25;
-#X obj 155 433 sig~;
-#X msg 251 433 @res \$1;
-#X obj 50 462 osc.saw~;
-#X obj 155 462 lop~ 6;
-#X obj 50 491 flt.moog_vcf~;
-#X obj 50 519 s~ gbman~;
-#X obj 20 568 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 573 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 50 232 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
+#X obj 165 232 ui.dsp~;
+#X obj 376 232 r~ gbman~;
+#X obj 50 261 metro 100;
+#X obj 376 261 rzero~ -1;
+#X obj 491 261 rzero~ 1;
+#X msg 50 290 3;
+#X obj 376 290 clip~ -1 1;
+#X obj 491 290 clip~ -1 1;
+#X obj 50 319 list.gen;
+#X obj 174 319 chaos.gbman0;
+#X obj 376 319 flt.resonbp~ 62 40;
+#X obj 50 348 l->l -2 7 60 250;
+#X obj 376 348 pan.spread~ 4, f 18;
+#X obj 50 376 list.unpack 3;
+#X obj 376 376 ui.hgain2~ @size 15 129;
+#X obj 50 405 sig~;
+#X obj 155 405 * 600;
+#X obj 251 405 / 250;
+#X obj 376 405 dac~, f 18;
+#X obj 50 434 lop~ 25;
+#X obj 155 434 sig~;
+#X msg 251 434 @res \$1;
+#X obj 50 463 osc.saw~;
+#X obj 155 463 lop~ 6;
+#X obj 50 492 flt.moog_vcf~;
+#X obj 50 520 s~ gbman~;
+#X obj 20 570 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 575 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 608 1\.;
-#X text 150 608 float;
-#X obj 246 609 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 608 X: initial x value \, default 1.2\. Type: float.;
-#X text 110 628 2\.;
-#X text 150 628 float;
-#X obj 246 629 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 628 Y: initial y value \, default 2.1\. Type: float.;
-#X obj 20 658 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 663 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 610 1.;
+#X text 150 610 float;
+#X obj 246 611 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 610 X: initial x value \, default 1.2. Type: float.;
+#X text 110 630 2.;
+#X text 150 630 float;
+#X obj 246 631 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 630 Y: initial y value \, default 2.1. Type: float.;
+#X obj 20 660 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 665 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X obj 20 718 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 723 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 720 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 725 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X obj 20 778 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 783 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 780 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 785 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 784 1\.;
-#X text 150 784 *bang*;
-#X text 245 784 generates and outputs next x-value.;
-#X obj 20 814 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 819 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 786 1.;
+#X text 150 786 *bang*;
+#X text 245 786 generates and outputs next x-value.;
+#X obj 20 816 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 821 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 820 1\.;
-#X text 245 820 outputs x-value.;
-#X text 110 840 2\.;
-#X text 245 840 outputs y-value.;
+#X text 110 822 1.;
+#X text 245 822 outputs x-value.;
+#X text 110 842 2.;
+#X text 245 842 outputs y-value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title chaos @url ceammc.chaos-help.pd;
-#X obj 1 890 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 893 library: ceammc v0.9.7;
-#X text 579 905 see also:;
-#X obj 653 905 chaos.gbman0;
-#N canvas 10 912 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title chaos @url ceammc.chaos-help.pd;
+#X obj 1 892 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 895 library: ceammc v0.9.7;
+#X text 578 907 see also:;
+#X obj 653 907 chaos.gbman0;
+#N canvas 10 914 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -103,7 +103,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 912 pd info;
+#X restore 10 914 pd info;
 #X connect 9 0 12 0;
 #X connect 11 0 13 0;
 #X connect 11 0 14 0;

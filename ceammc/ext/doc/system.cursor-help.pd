@@ -1,10 +1,10 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 377 50 cnv 1 388 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 377 50 Output cursor motion \, mousewheel and button clicks;
+#X obj 376 50 cnv 1 389 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 376 50 Output cursor motion \, mousewheel and button clicks;
 #X obj 1 1 cnv 5 765 40 empty empty system.cursor 20 20 0 20 -104026
 -4096 0;
-#X obj 646 11 system.cursor;
+#X obj 645 11 system.cursor;
 #X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 146 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 290 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
@@ -23,52 +23,52 @@
 #X obj 232 291 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 280 291 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 320 ui.dt;
-#X obj 20 369 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 374 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 375 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 409 @clip;
-#X text 245 409 Get/Set clip mode. If true clip a cursor XY values
-to the [0\..1] range in normalized mode \, to the window width/height
+#X msg 110 410 @clip;
+#X text 245 410 Get/Set clip mode. If true clip a cursor XY values
+to the [0..1] range in normalized mode \, to the window width/height
 relative mode \, otherwise to the screen width/height. Type: bool.
-Default value: 0\.;
-#X msg 110 481 @norm;
-#X text 245 481 Get/Set cursor x/y coordinates normalization by screen
-(or window) width/height. Type: bool. Default value: 0\.;
-#X msg 110 523 @relative;
-#X text 245 523 Get/Set relative output mode: if on output coords relative
+Default value: 0.;
+#X msg 110 482 @norm;
+#X text 245 482 Get/Set cursor x/y coordinates normalization by screen
+(or window) width/height. Type: bool. Default value: 0.;
+#X msg 110 524 @relative;
+#X text 245 524 Get/Set relative output mode: if on output coords relative
 to the root window \, otherwise output screen coordinates. Type: bool.
-Default value: 0\.;
-#X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 595 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+Default value: 0.;
+#X obj 20 591 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 596 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 630 polltime;
-#X text 245 630 sets global cursor polling time. Arguments are:;
-#X obj 255 653 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 653 T: polling time. Type: float. Range: 10\...1000\. Units:
+#X msg 110 631 polltime;
+#X text 245 631 sets global cursor polling time. Arguments are:;
+#X obj 255 654 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 654 T: polling time. Type: float. Range: 10...1000. Units:
 'ms'.;
-#X obj 20 703 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 708 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 689 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 694 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 709 1\.;
-#X text 150 709 *bang*;
-#X text 245 709 output cursor position.;
-#X text 150 729 *float*;
-#X text 245 729 when 1 is received - turns on cursor polling (position
+#X text 110 695 1.;
+#X text 150 695 *bang*;
+#X text 245 695 output cursor position.;
+#X text 150 715 *float*;
+#X text 245 715 when 1 is received - turns on cursor polling (position
 and buttons) \, when 0 is received - turns it off.;
-#X obj 20 774 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 779 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 760 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 765 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 780 1\.;
-#X text 245 780 messages: motion X Y \, mousewheel DELTA \, button
+#X text 110 766 1.;
+#X text 245 766 messages: motion X Y \, mousewheel DELTA \, button
 IDX STATE.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title system @url ceammc.system-help.pd;
-#X obj 1 830 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 833 library: ceammc v0.9.7;
-#N canvas 10 852 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title system @url ceammc.system-help.pd;
+#X obj 1 816 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 819 library: ceammc v0.9.7;
+#N canvas 10 838 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -92,7 +92,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 852 pd info;
+#X restore 10 838 pd info;
 #X connect 5 0 10 0;
 #X connect 6 0 11 0;
 #X connect 7 0 12 0;

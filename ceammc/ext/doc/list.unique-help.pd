@@ -1,41 +1,41 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 501 50 cnv 1 264 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 501 50 removes duplicates from input list;
+#X obj 500 50 cnv 1 265 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 500 50 removes duplicates from input list;
 #X obj 1 1 cnv 5 765 40 empty empty list.unique 20 20 0 20 -104026
 -4096 0;
-#X obj 661 11 list.unique;
+#X obj 660 11 list.unique;
 #X msg 50 118 1 2 3 1 3 6 9 -1 3;
 #X obj 50 162 list.unique;
 #X obj 50 190 ui.dt;
-#X obj 20 239 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 244 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 240 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 245 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 279 @stable;
-#X text 245 279 Get/Set if true - preserves element appearing order.
-Type: bool. Default value: 1\.;
-#X obj 20 331 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 336 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 280 @stable;
+#X text 245 280 Get/Set if true - preserves element appearing order.
+Type: bool. Default value: 1.;
+#X obj 20 332 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 337 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 337 1\.;
-#X text 150 337 *list*;
-#X text 245 337 input list.;
-#X text 150 357 *data:mlist*;
-#X text 245 357 input mlist.;
-#X obj 20 387 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 392 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 338 1.;
+#X text 150 338 *list*;
+#X text 245 338 input list.;
+#X text 150 358 *data:mlist*;
+#X text 245 358 input mlist.;
+#X obj 20 388 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 393 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 393 1\.;
-#X text 245 393 output list.;
+#X text 110 394 1.;
+#X text 245 394 output list.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title list @url ceammc.list-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title list @url ceammc.list-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 602 520 see also:;
-#X obj 676 520 list.sort;
+#X text 600 520 see also:;
+#X obj 675 520 list.sort;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;

@@ -1,41 +1,41 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 484 50 cnv 1 281 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 484 50 converts symbol or string to message;
+#X obj 483 50 cnv 1 282 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 483 50 converts symbol or string to message;
 #X obj 1 1 cnv 5 765 40 empty empty symbol2any 20 20 0 20 -104026
 -4096 0;
-#N canvas 569 11 250 400 aliases 0;
+#N canvas 570 11 250 400 aliases 0;
 #X obj 30 40 ceammc/symbol2any;
-#X obj 30 77 ceammc/sym->any;
-#X obj 30 114 ceammc/str->any;
-#X obj 30 151 ceammc/string2any;
-#X obj 30 188 sym->any;
-#X obj 30 225 str->any;
-#X obj 30 262 string2any;
-#X restore 569 11 pd aliases;
+#X obj 30 78 ceammc/sym->any;
+#X obj 30 116 ceammc/str->any;
+#X obj 30 154 ceammc/string2any;
+#X obj 30 192 sym->any;
+#X obj 30 230 str->any;
+#X obj 30 268 string2any;
+#X restore 570 11 pd aliases;
 #X obj 667 11 symbol2any;
 #X text 50 118 enter some words separated by spaces;
 #X symbolatom 50 147 40 0 0 0 - - -;
 #X obj 50 176 sym->any;
 #X obj 50 205 ui.dt;
-#X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 259 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 260 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 260 1\.;
-#X text 150 260 *symbol*;
-#X text 245 260 symbol.;
-#X text 150 280 *data:string*;
-#X text 245 280 string.;
-#X obj 20 310 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 315 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 261 1.;
+#X text 150 261 *symbol*;
+#X text 245 261 symbol.;
+#X text 150 281 *data:string*;
+#X text 245 281 string.;
+#X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 316 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 316 1\.;
-#X text 245 316 output message.;
+#X text 110 317 1.;
+#X text 245 317 output message.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title symbol @url ceammc.symbol-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title symbol @url ceammc.symbol-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
 #N canvas 10 527 400 290 info 0;

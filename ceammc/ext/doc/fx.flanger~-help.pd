@@ -4,7 +4,7 @@
 #X text 606 50 mono flanging effect;
 #X obj 1 1 cnv 5 765 40 empty empty fx.flanger~ 20 20 0 20 -104026
 -4096 0;
-#X obj 660 11 fx.flanger~;
+#X obj 659 11 fx.flanger~;
 #X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 147 metro 5000;
 #X msg 50 176 open %CEAMMC%/guitar1.wav \, 1;
@@ -30,64 +30,64 @@
 #X obj 50 435 ui.gain~ @size 120 16;
 #X obj 299 435 ui.dsp~;
 #X obj 50 464 dac~;
-#X obj 20 513 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 518 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 519 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 553 @id;
-#X text 245 553 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 554 @id;
+#X text 245 554 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_flanger/PROP_NAME osc address \, if empty
 bind to /fx_flanger/PROP_NAME. Type: symbol.;
-#X msg 110 610 @osc;
-#X text 245 610 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 611 @osc;
+#X text 245 611 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 639 @active;
-#X text 245 639 Turn on/off dsp processing. Type: bool. Default value:
-1\.;
-#X msg 110 668 @bypass;
-#X text 245 668 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0\.;
-#X msg 110 710 @delay;
-#X text 245 710 Get/Set flange delay. Type: float. Units: 'ms'. Default
-value: 10\. Range: 0\...20\.;
-#X msg 110 752 @drywet;
-#X text 245 752 Get/Set proportion of mix between the original (dry)
+#X msg 110 641 @active;
+#X text 245 641 Turn on/off dsp processing. Type: bool. Default value:
+1.;
+#X msg 110 671 @bypass;
+#X text 245 671 Get/Set bypass flag. If true: bypass 'effected' signal.
+Type: bool. Default value: 0.;
+#X msg 110 713 @delay;
+#X text 245 713 Get/Set flange delay. Type: float. Units: 'ms'. Default
+value: 10. Range: 0...20.;
+#X msg 110 755 @drywet;
+#X text 245 755 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 1\. Range: 0\...1\.;
-#X msg 110 809 @feedback;
-#X text 245 809 Get/Set feedback gain. Type: float. Default value:
-0\. Range: 0\...1\.;
-#X msg 110 851 @invert;
-#X text 245 851 Get/Set 0 for normal \, 1 to invert sign of flanging
-sum. Type: bool. Default value: 0\.;
-#X msg 110 893 @offset;
-#X text 245 893 Get/Set flange delay offset. Type: float. Units: 'ms'.
-Default value: 1\. Range: 0\...20\.;
-#X msg 110 935 @speed;
-#X text 245 935 Get/Set flanger frequency. Type: float. Units: 'Hz'.
-Default value: 0.5\. Range: 0\...10\.;
-#X obj 20 987 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 992 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+Default value: 1. Range: 0...1.;
+#X msg 110 812 @feedback;
+#X text 245 812 Get/Set feedback gain. Type: float. Default value:
+0. Range: 0...1.;
+#X msg 110 854 @invert;
+#X text 245 854 Get/Set 0 for normal \, 1 to invert sign of flanging
+sum. Type: bool. Default value: 0.;
+#X msg 110 896 @offset;
+#X text 245 896 Get/Set flange delay offset. Type: float. Units: 'ms'.
+Default value: 1. Range: 0...20.;
+#X msg 110 938 @speed;
+#X text 245 938 Get/Set flanger frequency. Type: float. Units: 'Hz'.
+Default value: 0.5. Range: 0...10.;
+#X obj 20 990 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 995 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1027 reset;
-#X text 245 1027 reset object.;
-#X obj 20 1064 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1069 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1030 reset;
+#X text 245 1030 reset object.;
+#X obj 20 1068 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1073 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1070 1\.;
-#X text 245 1070 input signal.;
-#X obj 20 1100 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1105 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1074 1.;
+#X text 245 1074 input signal.;
+#X obj 20 1104 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1109 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1106 1\.;
-#X text 245 1106 output signal.;
+#X text 110 1110 1.;
+#X text 245 1110 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 1156 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1159 library: ceammc v0.9.7;
-#N canvas 10 1178 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
+#X obj 1 1160 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1163 library: ceammc v0.9.7;
+#N canvas 10 1182 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -111,7 +111,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1178 pd info;
+#X restore 10 1182 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

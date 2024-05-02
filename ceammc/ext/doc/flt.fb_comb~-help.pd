@@ -4,8 +4,8 @@
 #X text 606 50 feedback comb filter;
 #X obj 1 1 cnv 5 765 40 empty empty flt.fb_comb~ 20 20 0 20 -104026
 -4096 0;
-#X obj 653 11 flt.fb_comb~;
-#X obj 210 80 cnv 1 555 143 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 652 11 flt.fb_comb~;
+#X obj 210 80 cnv 1 555 144 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Frequency response of a comb filter consists of a series
 of regularly spaced notches \, giving the appearance of a comb;
 #X text 215 120 Structure of a feedforward comb filter may be described
@@ -15,71 +15,71 @@ applied to the delayed sum;
 #X obj 215 190 ui.link @background_color 0.98039 0.98039 0.98039
 @title wiki: Comb filter @url
 https://en.wikipedia.org/wiki/Comb_filter;
-#X obj 50 251 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 252 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 136 251 msg.onload;
-#X obj 280 251 ui.knob @min -1 @max 1;
-#X obj 50 280 click~;
-#X obj 136 280 samplerate~;
-#X obj 136 309 / 8;
-#X msg 280 309 @a \$1;
-#X floatatom 357 309 5 0 0 0 - - -;
-#X obj 50 338 flt.fb_comb~;
-#X obj 50 367 plot.response~;
-#X obj 50 395 ui.plot~ @xlabels 1 @ylabels 1 @ymin 0 @ymax 4
+#X obj 136 252 msg.onload;
+#X obj 280 252 ui.knob @min -1 @max 1;
+#X obj 50 281 click~;
+#X obj 136 281 samplerate~;
+#X obj 136 310 / 8;
+#X msg 280 310 @a \$1;
+#X floatatom 357 310 5 0 0 0 - - -;
+#X obj 50 339 flt.fb_comb~;
+#X obj 50 368 plot.response~;
+#X obj 50 396 ui.plot~ @xlabels 1 @ylabels 1 @ymin 0 @ymax 4
 @ymin_ticks 0 @ymaj_ticks 0 @size 400 200;
-#X obj 50 611 ui.dsp~;
-#X obj 20 660 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 665 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 50 612 ui.dsp~;
+#X obj 20 662 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 667 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 700 1\.;
-#X text 150 700 float;
-#X obj 246 701 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 700 A: scaling factor of delayed sum. Type: float. Range:
--1\...1;
-#X obj 20 730 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 735 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 702 1.;
+#X text 150 702 float;
+#X obj 246 703 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 702 A: scaling factor of delayed sum. Type: float. Range:
+-1...1;
+#X obj 20 732 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 737 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 770 @id;
-#X text 245 770 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 772 @id;
+#X text 245 772 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/flt_fb_comb/PROP_NAME osc address \, if
 empty bind to /flt_fb_comb/PROP_NAME. Type: symbol.;
-#X msg 110 827 @osc;
-#X text 245 827 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 829 @osc;
+#X text 245 829 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 856 @a;
-#X text 245 856 Get/Set scaling factor of delayed signal sum. Type:
-float. Default value: 0.75\. Range: -1\...1\.;
-#X msg 110 898 @active;
-#X text 245 898 Turn on/off dsp processing. Type: bool. Default value:
-1\.;
-#X obj 20 937 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 942 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 859 @a;
+#X text 245 859 Get/Set scaling factor of delayed signal sum. Type:
+float. Default value: 0.75. Range: -1...1.;
+#X msg 110 901 @active;
+#X text 245 901 Turn on/off dsp processing. Type: bool. Default value:
+1.;
+#X obj 20 941 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 946 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 977 reset;
-#X text 245 977 reset filter state.;
-#X obj 20 1014 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1019 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 981 reset;
+#X text 245 981 reset filter state.;
+#X obj 20 1019 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1024 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1020 1\.;
-#X text 245 1020 input signal.;
-#X text 110 1040 2\.;
-#X text 245 1040 filter notch frequency.;
-#X obj 20 1070 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1075 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1025 1.;
+#X text 245 1025 input signal.;
+#X text 110 1045 2.;
+#X text 245 1045 filter notch frequency.;
+#X obj 20 1075 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1080 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1076 1\.;
-#X text 245 1076 filtered signal.;
+#X text 110 1081 1.;
+#X text 245 1081 filtered signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 1126 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1129 library: ceammc v0.9.7;
-#X text 579 1141 see also:;
-#X obj 653 1141 flt.ff_comb~;
-#N canvas 10 1148 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
+#X obj 1 1131 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1134 library: ceammc v0.9.7;
+#X text 577 1146 see also:;
+#X obj 652 1146 flt.ff_comb~;
+#N canvas 10 1153 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -103,7 +103,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1148 pd info;
+#X restore 10 1153 pd info;
 #X connect 8 0 11 0;
 #X connect 9 0 12 0;
 #X connect 12 0 13 0;

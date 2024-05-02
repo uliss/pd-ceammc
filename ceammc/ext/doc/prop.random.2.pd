@@ -1,12 +1,12 @@
-#N canvas 0 0 527 299 12;
-#X floatatom 20 48 5 0 0 0 - - -;
+#N canvas 0 0 492 300 12;
+#X floatatom 20.0 48.8 5 0 0 0 - - -;
 #X obj 288 48 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 20 77 phasor~ 50;
 #X obj 144 77 lfo.+tri~ 1;
 #X obj 288 77 prop.random @res;
 #X obj 144 106 *~ 7000;
-#X floatatom 432 106 5 0 0 0 - - -;
+#X floatatom 432.8 106.39999999999999 5 0 0 0 - - -;
 #X obj 20 135 flt.moog_vcf~ 0.6;
 #X obj 20 164 ui.gain~ @size 120 16;
 #X obj 250 164 ui.dsp~;

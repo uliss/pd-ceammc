@@ -1,10 +1,10 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 514 50 cnv 1 251 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 514 50 signal version of fx.pitchshift~;
+#X obj 513 50 cnv 1 252 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 513 50 signal version of fx.pitchshift~;
 #X obj 1 1 cnv 5 765 40 empty empty fx.pitchshift_s~ 20 20 0 20
 -104026 -4096 0;
-#X obj 624 11 fx.pitchshift_s~;
+#X obj 623 11 fx.pitchshift_s~;
 #X msg 50 118 open %CEAMMC%/guitar1.wav \, 1;
 #X obj 50 147 expand_env;
 #X obj 146 176 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
@@ -16,57 +16,57 @@
 #X obj 50 262 ui.gain~ @size 120 14;
 #X obj 280 262 ui.dsp~;
 #X obj 50 291 dac~;
-#X obj 20 340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 345 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 346 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 380 @id;
-#X text 245 380 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 381 @id;
+#X text 245 381 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_pitchshift_s/PROP_NAME osc address \,
 if empty bind to /fx_pitchshift_s/PROP_NAME. Type: symbol.;
-#X msg 110 437 @osc;
-#X text 245 437 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 438 @osc;
+#X text 245 438 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 466 @active;
-#X text 245 466 Turn on/off dsp processing. Type: bool. Default value:
-1\.;
-#X msg 110 495 @bypass;
-#X text 245 495 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0\.;
-#X msg 110 537 @drywet;
-#X text 245 537 Get/Set proportion of mix between the original (dry)
+#X msg 110 468 @active;
+#X text 245 468 Turn on/off dsp processing. Type: bool. Default value:
+1.;
+#X msg 110 498 @bypass;
+#X text 245 498 Get/Set bypass flag. If true: bypass 'effected' signal.
+Type: bool. Default value: 0.;
+#X msg 110 540 @drywet;
+#X text 245 540 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 1\. Range: 0\...1\.;
-#X msg 110 594 @fade;
-#X text 245 594 Get/Set crossfade duration. Type: float. Units: 'ms'.
-Default value: 100\. Range: 0\...1000\.;
-#X msg 110 636 @window;
-#X text 245 636 Get/Set the window size. Type: float. Units: 'ms'.
-Default value: 200\. Range: 10\...2000\.;
-#X obj 20 688 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 693 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+Default value: 1. Range: 0...1.;
+#X msg 110 597 @fade;
+#X text 245 597 Get/Set crossfade duration. Type: float. Units: 'ms'.
+Default value: 100. Range: 0...1000.;
+#X msg 110 639 @window;
+#X text 245 639 Get/Set the window size. Type: float. Units: 'ms'.
+Default value: 200. Range: 10...2000.;
+#X obj 20 691 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 696 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 728 reset;
-#X text 245 728 reset object state.;
-#X obj 20 765 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 770 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 731 reset;
+#X text 245 731 reset object state.;
+#X obj 20 769 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 774 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 771 1\.;
-#X text 245 771 input signal.;
-#X text 110 791 2\.;
-#X text 245 791 pitch shift in semitones.;
-#X obj 20 821 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 826 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 775 1.;
+#X text 245 775 input signal.;
+#X text 110 795 2.;
+#X text 245 795 pitch shift in semitones.;
+#X obj 20 825 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 830 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 827 1\.;
-#X text 245 827 output signal.;
+#X text 110 831 1.;
+#X text 245 831 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 877 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 880 library: ceammc v0.9.7;
-#N canvas 10 899 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
+#X obj 1 881 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 884 library: ceammc v0.9.7;
+#N canvas 10 903 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -90,7 +90,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 899 pd info;
+#X restore 10 903 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 8 0;
 #X connect 6 0 9 0;

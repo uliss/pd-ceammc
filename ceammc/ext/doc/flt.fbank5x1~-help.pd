@@ -22,95 +22,95 @@ an "allpass-complementary filter bank";
 #X obj 50 455 ui.plot~ @xlabels 1 @ylabels 1 @ymin -6 @ymax 6
 @ymin_ticks 0 @ymaj_ticks 0 @size 300 100;
 #X obj 50 570 ui.dsp~;
-#X obj 20 619 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 624 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 620 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 625 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 659 1\.;
-#X text 150 659 float;
-#X obj 246 660 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 659 F250(db): @f250 property init value. Type: float. Range:
--6\...6;
-#X text 110 694 2\.;
-#X text 150 694 float;
-#X obj 246 695 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 694 F500(db): @f500 property init value. Type: float. Range:
--6\...6;
-#X text 110 729 3\.;
-#X text 150 729 float;
-#X obj 246 730 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 729 F1000(db): @f1000 property init value. Type: float.
-Range: -6\...6;
-#X text 110 764 4\.;
-#X text 150 764 float;
-#X obj 246 765 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 764 F2000(db): @f2000 property init value. Type: float.
-Range: -6\...6;
-#X text 110 799 5\.;
-#X text 150 799 float;
-#X obj 246 800 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 799 F4000(db): @f4000 property init value. Type: float.
-Range: -6\...6;
-#X obj 20 844 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 849 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 660 1.;
+#X text 150 660 float;
+#X obj 246 661 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 660 F250(db): @f250 property init value. Type: float. Range:
+-6...6;
+#X text 110 695 2.;
+#X text 150 695 float;
+#X obj 246 696 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 695 F500(db): @f500 property init value. Type: float. Range:
+-6...6;
+#X text 110 730 3.;
+#X text 150 730 float;
+#X obj 246 731 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 730 F1000(db): @f1000 property init value. Type: float.
+Range: -6...6;
+#X text 110 765 4.;
+#X text 150 765 float;
+#X obj 246 766 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 765 F2000(db): @f2000 property init value. Type: float.
+Range: -6...6;
+#X text 110 800 5.;
+#X text 150 800 float;
+#X obj 246 801 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 800 F4000(db): @f4000 property init value. Type: float.
+Range: -6...6;
+#X obj 20 845 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 850 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 884 @id;
-#X text 245 884 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 885 @id;
+#X text 245 885 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/flt_fbank5x1/PROP_NAME osc address \, if
 empty bind to /flt_fbank5x1/PROP_NAME. Type: symbol.;
-#X msg 110 941 @osc;
-#X text 245 941 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 942 @osc;
+#X text 245 942 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 970 @active;
-#X text 245 970 Turn on/off dsp processing. Type: bool. Default value:
-1\.;
-#X msg 110 999 @f1000;
-#X text 245 999 Get/Set third filter (bandpass) gain at 1000Hz. Type:
-float. Units: 'db'. Default value: 0\. Range: -6\...6\.;
-#X msg 110 1041 @f2000;
-#X text 245 1041 Get/Set fourth filter (bandpass) gain at 2000Hz. Type:
-float. Units: 'db'. Default value: 0\. Range: -6\...6\.;
-#X msg 110 1083 @f250;
-#X text 245 1083 Get/Set first filter (lowpass) gain at 250Hz. Type:
-float. Units: 'db'. Default value: 0\. Range: -6\...6\.;
-#X msg 110 1125 @f4000;
-#X text 245 1125 Get/Set fifth filter (highpass) gain at 4000Hz. Type:
-float. Units: 'db'. Default value: 0\. Range: -6\...6\.;
-#X msg 110 1167 @f500;
-#X text 245 1167 Get/Set second filter (bandpass) gain at 500Hz. Type:
-float. Units: 'db'. Default value: 0\. Range: -6\...6\.;
-#X obj 20 1219 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1224 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 972 @active;
+#X text 245 972 Turn on/off dsp processing. Type: bool. Default value:
+1.;
+#X msg 110 1002 @f1000;
+#X text 245 1002 Get/Set third filter (bandpass) gain at 1000Hz. Type:
+float. Units: 'db'. Default value: 0. Range: -6...6.;
+#X msg 110 1044 @f2000;
+#X text 245 1044 Get/Set fourth filter (bandpass) gain at 2000Hz. Type:
+float. Units: 'db'. Default value: 0. Range: -6...6.;
+#X msg 110 1086 @f250;
+#X text 245 1086 Get/Set first filter (lowpass) gain at 250Hz. Type:
+float. Units: 'db'. Default value: 0. Range: -6...6.;
+#X msg 110 1128 @f4000;
+#X text 245 1128 Get/Set fifth filter (highpass) gain at 4000Hz. Type:
+float. Units: 'db'. Default value: 0. Range: -6...6.;
+#X msg 110 1170 @f500;
+#X text 245 1170 Get/Set second filter (bandpass) gain at 500Hz. Type:
+float. Units: 'db'. Default value: 0. Range: -6...6.;
+#X obj 20 1222 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1227 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1259 reset;
-#X text 245 1259 reset filter state.;
-#X obj 20 1296 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1301 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1262 reset;
+#X text 245 1262 reset filter state.;
+#X obj 20 1300 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1305 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1302 1\.;
-#X text 245 1302 input signal.;
-#X text 150 1322 *list*;
-#X text 245 1322 5 element list of db gains.;
-#X obj 20 1352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1357 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1306 1.;
+#X text 245 1306 input signal.;
+#X text 150 1326 *list*;
+#X text 245 1326 5 element list of db gains.;
+#X obj 20 1356 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1361 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1358 1\.;
-#X text 245 1358 lpf: 250Hz.;
-#X text 110 1378 2\.;
-#X text 245 1378 bpf: 500Hz.;
-#X text 110 1398 3\.;
-#X text 245 1398 bpf: 1000Hz.;
-#X text 110 1418 4\.;
-#X text 245 1418 bpf: 2000Hz.;
-#X text 110 1438 5\.;
-#X text 245 1438 hpf: 4000Hz.;
+#X text 110 1362 1.;
+#X text 245 1362 lpf: 250Hz.;
+#X text 110 1382 2.;
+#X text 245 1382 bpf: 500Hz.;
+#X text 110 1402 3.;
+#X text 245 1402 bpf: 1000Hz.;
+#X text 110 1422 4.;
+#X text 245 1422 bpf: 2000Hz.;
+#X text 110 1442 5.;
+#X text 245 1442 hpf: 4000Hz.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title flt @url ceammc.flt-help.pd;
-#X obj 1 1488 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1491 library: ceammc v0.9.7;
-#N canvas 10 1510 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title flt @url ceammc.flt-help.pd;
+#X obj 1 1492 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1495 library: ceammc v0.9.7;
+#N canvas 10 1514 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -134,7 +134,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1510 pd info;
+#X restore 10 1514 pd info;
 #X connect 8 0 10 0;
 #X connect 9 0 11 0;
 #X connect 10 0 12 0;

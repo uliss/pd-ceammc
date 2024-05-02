@@ -1,7 +1,7 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 591 50 cnv 1 174 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 591 50 UI stereo gain control;
+#X obj 590 50 cnv 1 175 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 590 50 UI stereo gain control;
 #X obj 1 1 cnv 5 765 40 empty empty ui.gain2~ 20 20 0 20 -104026 -4096
 0;
 #X obj 472 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -17,174 +17,174 @@
 #X obj 50 234 ui.gain2~ @size 120 14;
 #X obj 290 234 ui.dsp~;
 #X obj 50 262 dac~;
-#X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 316 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 317 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
 -49933 0;
-#X text 110 351 Left-click;
-#X text 285 351 jump to click position if @relative property is off.;
-#X text 110 371 Mouse-drag;
-#X text 285 371 relative gain change if @relative is on \, otherwise
+#X text 110 352 Left-click;
+#X text 285 352 jump to click position if @relative property is off.;
+#X text 110 372 Mouse-drag;
+#X text 285 372 relative gain change if @relative is on \, otherwise
 follows mouse pointer.;
-#X text 110 406 Mouse-drag + ⇧;
-#X text 285 406 slow relative gain change if @relative is on.;
-#X text 110 426 Mouse-wheel;
-#X text 285 426 change the knob value.;
-#X text 110 446 Mouse-wheel + ⇧;
-#X text 285 446 change the knob value slowly.;
-#X text 110 466 Right-click;
-#X text 285 466 open popup menu.;
-#X text 110 486 Right-click + ⇧;
-#X text 285 486 open object help.;
-#X text 110 506 Right-click + ⌥;
-#X text 285 506 open properties dialog.;
-#X text 110 526 Double-click + ⇧;
-#X text 285 526 toggle MIDI-learn mode (red border displayed).;
-#X text 110 546 Mouse-drag + ⌘;
-#X text 285 546 relative gain change.;
-#X text 61 546 [Edit];
-#X text 110 566 Double-click + ⌘;
-#X text 285 566 toggle horizontal/vertical orientation.;
-#X text 61 566 [Edit];
-#X text 110 586 Right-click + ⇧;
-#X text 285 586 open object help.;
-#X text 61 586 [Edit];
-#X text 110 606 Right-click + ⌥;
-#X text 285 606 open properties dialog.;
-#X text 61 606 [Edit];
-#X obj 20 636 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 641 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 407 Mouse-drag + ⇧;
+#X text 285 407 slow relative gain change if @relative is on.;
+#X text 110 427 Mouse-wheel;
+#X text 285 427 change the knob value.;
+#X text 110 447 Mouse-wheel + ⇧;
+#X text 285 447 change the knob value slowly.;
+#X text 110 467 Right-click;
+#X text 285 467 open popup menu.;
+#X text 110 487 Right-click + ⇧;
+#X text 285 487 open object help.;
+#X text 110 507 Right-click + ⌥;
+#X text 285 507 open properties dialog.;
+#X text 110 527 Double-click + ⇧;
+#X text 285 527 toggle MIDI-learn mode (red border displayed).;
+#X text 110 547 Mouse-drag + ⌘;
+#X text 285 547 relative gain change.;
+#X text 61 547 [Edit];
+#X text 110 567 Double-click + ⌘;
+#X text 285 567 toggle horizontal/vertical orientation.;
+#X text 61 567 [Edit];
+#X text 110 587 Right-click + ⇧;
+#X text 285 587 open object help.;
+#X text 61 587 [Edit];
+#X text 110 607 Right-click + ⌥;
+#X text 285 607 open properties dialog.;
+#X text 61 607 [Edit];
+#X obj 20 637 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 642 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 676 @amp;
-#X text 245 676 Get/Set gain as amplitude ratio. Type: float. Default
-value: 0\.;
-#X msg 110 718 @db;
-#X text 245 718 Get/Set gain in dbfs scale. Type: float. Units: 'db'.
-Default value: -60\.;
-#X msg 110 760 @max;
-#X text 245 760 Get/Set maximum gain value. Type: int. Units: 'db'.
-Default value: 0\. Range: -12\...12\.;
-#X msg 110 802 @min;
-#X text 245 802 Get/Set minimal gain value. Type: int. Units: 'db'.
-Default value: -60\. Range: -90\...-15\.;
-#X msg 110 844 @mouse_events;
-#X text 245 844 Get/Set mouse events output mode. If on outputs @mouse_down
-\, @mouse_up and @mouse_drag events. Type: bool. Default value: 0\.;
-#X msg 110 901 @output_value;
-#X text 245 901 Get/Set flag to output @db property after each knob
-move. Type: bool. Default value: 0\.;
-#X msg 110 943 @receive;
-#X text 245 943 Get/Set receive source. Type: symbol. Default value:
+#X msg 110 677 @amp;
+#X text 245 677 Get/Set gain as amplitude ratio. Type: float. Default
+value: 0.;
+#X msg 110 719 @db;
+#X text 245 719 Get/Set gain in dbfs scale. Type: float. Units: 'db'.
+Default value: -60.;
+#X msg 110 761 @max;
+#X text 245 761 Get/Set maximum gain value. Type: int. Units: 'db'.
+Default value: 0. Range: -12...12.;
+#X msg 110 803 @min;
+#X text 245 803 Get/Set minimal gain value. Type: int. Units: 'db'.
+Default value: -60. Range: -90...-15.;
+#X msg 110 845 @mouse_events;
+#X text 245 845 Get/Set mouse events output mode. If on outputs @mouse_down
+\, @mouse_up and @mouse_drag events. Type: bool. Default value: 0.;
+#X msg 110 902 @output_value;
+#X text 245 902 Get/Set flag to output @db property after each knob
+move. Type: bool. Default value: 0.;
+#X msg 110 944 @receive;
+#X text 245 944 Get/Set receive source. Type: symbol. Default value:
 (null).;
-#X msg 110 972 @relative;
-#X text 245 972 Get/Set relative input mode. When set do not jump to
-value on click. Type: bool. Default value: 1\.;
-#X msg 110 1014 @send;
-#X text 245 1014 Get/Set send destination. Type: symbol. Default value:
+#X msg 110 974 @relative;
+#X text 245 974 Get/Set relative input mode. When set do not jump to
+value on click. Type: bool. Default value: 1.;
+#X msg 110 1016 @send;
+#X text 245 1016 Get/Set send destination. Type: symbol. Default value:
 (null).;
-#X msg 110 1056 @show_range;
-#X text 245 1056 Get/Set if show slider range. Type: bool. Default
-value: 1\.;
-#X msg 110 1085 @midi_channel;
-#X text 245 1085 Get/Set binded MIDI channel. 0 means listen to all
-channels. Type: int. Default value: 0\. Range: 0\...16\.;
-#X msg 110 1127 @midi_control;
-#X text 245 1127 Get/Set binded MIDI controller number. -1 means not
-binded to any controller. Type: int. Default value: -1\. Range: -1\...127\.;
-#X msg 110 1184 @midi_pickup;
-#X text 245 1184 Get/Set pickup current value. If slider is binded
+#X msg 110 1058 @show_range;
+#X text 245 1058 Get/Set if show slider range. Type: bool. Default
+value: 1.;
+#X msg 110 1088 @midi_channel;
+#X text 245 1088 Get/Set binded MIDI channel. 0 means listen to all
+channels. Type: int. Default value: 0. Range: 0...16.;
+#X msg 110 1130 @midi_control;
+#X text 245 1130 Get/Set binded MIDI controller number. -1 means not
+binded to any controller. Type: int. Default value: -1. Range: -1...127.;
+#X msg 110 1187 @midi_pickup;
+#X text 245 1187 Get/Set pickup current value. If slider is binded
 to value \, first time you should pass over this value to make binding.
 It prevents from sudden value change on first control change. Type:
-bool. Default value: 1\.;
-#X msg 110 1256 @background_color;
-#X text 245 1256 Get/Set element background color (list of red \, green
+bool. Default value: 1.;
+#X msg 110 1259 @background_color;
+#X text 245 1259 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1\.;
-#X msg 110 1313 @border_color;
-#X text 245 1313 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 1355 @knob_color;
-#X text 245 1355 Get/Set knob color (list of red \, green \, blue values
-in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 1397 @fontname;
-#X text 245 1397 Get/Set fontname. Type: symbol. Default value: Helvetica.
+0.93 1.;
+#X msg 110 1316 @border_color;
+#X text 245 1316 Get/Set border color (list of red \, green \, blue
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+#X msg 110 1358 @knob_color;
+#X text 245 1358 Get/Set knob color (list of red \, green \, blue values
+in 0-1 range). Type: list. Default value: 0 0.75 1 1.;
+#X msg 110 1400 @fontname;
+#X text 245 1400 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 1439 @fontsize;
-#X text 245 1439 Get/Set fontsize. Type: int. Default value: 11\. Range:
-4\...100\.;
-#X msg 110 1481 @fontslant;
-#X text 245 1481 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1442 @fontsize;
+#X text 245 1442 Get/Set fontsize. Type: int. Default value: 11. Range:
+4...100.;
+#X msg 110 1484 @fontslant;
+#X text 245 1484 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 1523 @fontweight;
-#X text 245 1523 Get/Set font weight. Type: symbol. Default value:
+#X msg 110 1526 @fontweight;
+#X text 245 1526 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 1565 @pinned;
-#X text 245 1565 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0\.;
-#X msg 110 1607 @presetname;
-#X text 245 1607 Get/Set preset name for using with [ui.preset]. Type:
+#X msg 110 1568 @pinned;
+#X text 245 1568 Get/Set pin mode. if 1 - put element to the lowest
+level. Type: bool. Default value: 0.;
+#X msg 110 1610 @presetname;
+#X text 245 1610 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
-#X msg 110 1649 @size;
-#X text 245 1649 Get/Set element size (width \, height pair). Type:
-list. Default value: 15 120\.;
-#X obj 20 1701 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1706 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 1652 @size;
+#X text 245 1652 Get/Set element size (width \, height pair). Type:
+list. Default value: 15 120.;
+#X obj 20 1704 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1709 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 1741 clear;
-#X text 245 1741 clears specified preset. Arguments are:;
-#X obj 255 1764 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1764 IDX: preset index. Type: int.;
-#X msg 110 1789 interp;
-#X text 245 1789 interplolates between presets. Arguments are:;
-#X obj 255 1812 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1812 IDX: preset fraction index. Type: float.;
-#X msg 110 1837 load;
-#X text 245 1837 loads specified preset. Arguments are:;
-#X obj 255 1860 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1860 IDX: preset index. Type: int.;
-#X msg 110 1885 pos;
-#X text 245 1885 set UI element position. Arguments are:;
-#X obj 255 1908 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1908 X: top left x-coord. Type: float.;
-#X obj 255 1931 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1931 Y: top right y-coord. Type: float.;
-#X msg 110 1956 set N;
-#X text 245 1956 set current gain to N db.;
-#X msg 110 1983 store;
-#X text 245 1983 stores specified preset. Arguments are:;
-#X obj 255 2006 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2006 IDX: preset index. Type: int.;
-#X msg 110 2031 + N;
-#X text 245 2031 increase current gain by N db.;
-#X msg 110 2058 ++;
-#X text 245 2058 decrease current gain by 1 db.;
-#X msg 110 2085 - N;
-#X text 245 2085 decrease current gain by N db.;
-#X msg 110 2112 --;
-#X text 245 2112 decrease current gain by 1 db.;
-#X obj 20 2149 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2154 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 1744 clear;
+#X text 245 1744 clears specified preset. Arguments are:;
+#X obj 255 1767 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1767 IDX: preset index. Type: int.;
+#X msg 110 1792 interp;
+#X text 245 1792 interplolates between presets. Arguments are:;
+#X obj 255 1815 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1815 IDX: preset fraction index. Type: float.;
+#X msg 110 1840 load;
+#X text 245 1840 loads specified preset. Arguments are:;
+#X obj 255 1863 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1863 IDX: preset index. Type: int.;
+#X msg 110 1888 pos;
+#X text 245 1888 set UI element position. Arguments are:;
+#X obj 255 1911 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1911 X: top left x-coord. Type: float.;
+#X obj 255 1934 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1934 Y: top right y-coord. Type: float.;
+#X msg 110 1959 set N;
+#X text 245 1959 set current gain to N db.;
+#X msg 110 1987 store;
+#X text 245 1987 stores specified preset. Arguments are:;
+#X obj 255 2010 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2010 IDX: preset index. Type: int.;
+#X msg 110 2035 + N;
+#X text 245 2035 increase current gain by N db.;
+#X msg 110 2063 ++;
+#X text 245 2063 decrease current gain by 1 db.;
+#X msg 110 2091 - N;
+#X text 245 2091 decrease current gain by N db.;
+#X msg 110 2119 --;
+#X text 245 2119 decrease current gain by 1 db.;
+#X obj 20 2157 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2162 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2155 1\.;
-#X text 245 2155 left input signal.;
-#X text 150 2175 *bang*;
-#X text 245 2175 output current gain @db property.;
-#X text 110 2195 2\.;
-#X text 245 2195 right input signal.;
-#X obj 20 2225 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2230 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 2163 1.;
+#X text 245 2163 left input signal.;
+#X text 150 2183 *bang*;
+#X text 245 2183 output current gain @db property.;
+#X text 110 2203 2.;
+#X text 245 2203 right input signal.;
+#X obj 20 2233 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2238 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2231 1\.;
-#X text 245 2231 left output signal.;
-#X text 110 2251 2\.;
-#X text 245 2251 right output signal.;
+#X text 110 2239 1.;
+#X text 245 2239 left output signal.;
+#X text 110 2259 2.;
+#X text 245 2259 right output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2301 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2304 library: ceammc v0.9.7;
-#N canvas 10 2323 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
+#X obj 1 2309 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2312 library: ceammc v0.9.7;
+#N canvas 10 2331 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -208,7 +208,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2323 pd info;
+#X restore 10 2331 pd info;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
 #X connect 8 0 9 0;

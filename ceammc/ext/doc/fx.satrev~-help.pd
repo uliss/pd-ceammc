@@ -4,7 +4,7 @@
 #X text 514 50 Schroeder reverberator from 1971;
 #X obj 1 1 cnv 5 765 40 empty empty fx.satrev~ 20 20 0 20 -104026
 -4096 0;
-#X obj 667 11 fx.satrev~;
+#X obj 666 11 fx.satrev~;
 #X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 147 metro 250;
 #X obj 50 176 random.a 68 26 84;
@@ -19,61 +19,61 @@
 #X obj 50 320 ui.hgain2~;
 #X obj 232 320 ui.dsp~;
 #X obj 50 349 dac~;
-#X obj 20 398 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 403 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 438 1\.;
-#X text 150 438 float;
-#X obj 246 439 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 438 DRYWET: drywet mix. Type: float. Range: 0\...1;
-#X obj 20 468 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 473 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 439 1.;
+#X text 150 439 float;
+#X obj 246 440 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 439 DRYWET: drywet mix. Type: float. Range: 0...1;
+#X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 474 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 508 @id;
-#X text 245 508 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 509 @id;
+#X text 245 509 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_satrev/PROP_NAME osc address \, if empty
 bind to /fx_satrev/PROP_NAME. Type: symbol.;
-#X msg 110 565 @osc;
-#X text 245 565 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 566 @osc;
+#X text 245 566 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 594 @active;
-#X text 245 594 Turn on/off dsp processing. Type: bool. Default value:
-1\.;
-#X msg 110 623 @bypass;
-#X text 245 623 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0\.;
-#X msg 110 665 @drywet;
-#X text 245 665 Get/Set proportion of mix between the original (dry)
+#X msg 110 596 @active;
+#X text 245 596 Turn on/off dsp processing. Type: bool. Default value:
+1.;
+#X msg 110 626 @bypass;
+#X text 245 626 Get/Set bypass flag. If true: bypass 'effected' signal.
+Type: bool. Default value: 0.;
+#X msg 110 668 @drywet;
+#X text 245 668 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 0.25\. Range: 0\...1\.;
-#X obj 20 732 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 737 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+Default value: 0.25. Range: 0...1.;
+#X obj 20 735 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 740 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 772 reset;
-#X text 245 772 reset to initial state.;
-#X obj 20 809 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 814 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 775 reset;
+#X text 245 775 reset to initial state.;
+#X obj 20 813 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 818 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 815 1\.;
-#X text 245 815 input signal.;
-#X text 110 835 2\.;
-#X text 150 835 *float*;
-#X text 245 835 set drywet.;
-#X obj 20 865 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 870 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 819 1.;
+#X text 245 819 input signal.;
+#X text 110 839 2.;
+#X text 150 839 *float*;
+#X text 245 839 set drywet.;
+#X obj 20 869 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 874 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 871 1\.;
-#X text 245 871 left output signal.;
-#X text 110 891 2\.;
-#X text 245 891 right output signal.;
+#X text 110 875 1.;
+#X text 245 875 left output signal.;
+#X text 110 895 2.;
+#X text 245 895 right output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 941 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 944 library: ceammc v0.9.7;
-#N canvas 10 963 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
+#X obj 1 945 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 948 library: ceammc v0.9.7;
+#N canvas 10 967 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -97,7 +97,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 963 pd info;
+#X restore 10 967 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

@@ -1,92 +1,92 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 431 50 cnv 1 334 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 431 50 port of Infinity VST plugin from airwindows;
+#X obj 430 50 cnv 1 335 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 430 50 port of Infinity VST plugin from airwindows;
 #X obj 1 1 cnv 5 765 40 empty empty fx.infrev~ 20 20 0 20 -104026
 -4096 0;
-#X obj 667 11 fx.infrev~;
-#X obj 210 80 cnv 1 555 73 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 666 11 fx.infrev~;
+#X obj 210 80 cnv 1 555 74 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Infinity is a MatrixVerb specifically designed to sustain
 and layer sounds forever.;
 #X obj 215 120 ui.link @background_color 0.98039 0.98039 0.98039
 @title More info @url https://www.airwindows.com/infinity/;
-#X msg 50 181 open %CEAMMC%/guitar1.wav \, 1;
-#X obj 414 181 loadmsg 0.5 0.2 0.9 0.7;
-#X obj 50 210 expand_env;
-#X msg 174 210 open %DOC%/sound/voice.wav \, 1;
-#X msg 69 239 reset;
-#X obj 174 239 expand_env;
-#X obj 414 239 ui.sliders 4 @size 125 70;
-#X obj 50 268 readsf~;
-#X obj 174 268 readsf~;
-#X obj 270 282 r $0-r;
-#X obj 50 297 fx.infrev~;
-#X obj 50 325 ui.hgain2~;
-#X obj 232 325 ui.dsp~;
-#X msg 414 325 @filter \$1 \, @damp \$2 \, @size \$3 \, @drywet \$4;
-#X obj 50 354 dac~;
-#X obj 414 354 s $0-r;
-#X obj 20 403 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 408 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X msg 50 182 open %CEAMMC%/guitar1.wav \, 1;
+#X obj 414 182 loadmsg 0.5 0.2 0.9 0.7;
+#X obj 50 211 expand_env;
+#X msg 174 211 open %DOC%/sound/voice.wav \, 1;
+#X msg 69 240 reset;
+#X obj 174 240 expand_env;
+#X obj 414 240 ui.sliders 4 @size 125 70;
+#X obj 50 269 readsf~;
+#X obj 174 269 readsf~;
+#X obj 270 283 r $0-r;
+#X obj 50 298 fx.infrev~;
+#X obj 50 326 ui.hgain2~;
+#X obj 232 326 ui.dsp~;
+#X msg 414 326 @filter \$1 \, @damp \$2 \, @size \$3 \, @drywet \$4;
+#X obj 50 355 dac~;
+#X obj 414 355 s $0-r;
+#X obj 20 405 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 410 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 443 1\.;
-#X text 150 443 float;
-#X obj 246 444 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 443 SIZE: room size. Type: float. Range: 0\...1;
-#X text 110 463 2\.;
-#X text 150 463 float;
-#X obj 246 464 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 463 DRYWET: proportion of mix between the original (dry)
-and 'effected' (wet) signals. Type: float. Range: 0\...1;
-#X obj 20 508 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 513 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 445 1.;
+#X text 150 445 float;
+#X obj 246 446 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 445 SIZE: room size. Type: float. Range: 0...1;
+#X text 110 465 2.;
+#X text 150 465 float;
+#X obj 246 466 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 465 DRYWET: proportion of mix between the original (dry)
+and 'effected' (wet) signals. Type: float. Range: 0...1;
+#X obj 20 510 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 515 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 548 @bypass;
-#X text 245 548 Get/Set bypass flag. If true: bypass 'effected' signal.
-Type: bool. Default value: 0\.;
-#X msg 110 590 @damp;
-#X text 245 590 Get/Set damping of the lowpass comb filter. Type: float.
-Default value: 0\. Range: 0\...1\.;
-#X msg 110 632 @drywet;
-#X text 245 632 Get/Set proportion of mix between the original (dry)
+#X msg 110 550 @bypass;
+#X text 245 550 Get/Set bypass flag. If true: bypass 'effected' signal.
+Type: bool. Default value: 0.;
+#X msg 110 592 @damp;
+#X text 245 592 Get/Set damping of the lowpass comb filter. Type: float.
+Default value: 0. Range: 0...1.;
+#X msg 110 634 @drywet;
+#X text 245 634 Get/Set proportion of mix between the original (dry)
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
-Default value: 1\. Range: 0\...1\.;
-#X msg 110 689 @filter;
-#X text 245 689 Get/Set filter coefficient. Type: float. Default value:
-1\. Range: 0\...1\.;
-#X msg 110 731 @size;
-#X text 245 731 Get/Set room size. Type: float. Default value: 0.5\.
-Range: 0\...1\.;
-#X obj 20 783 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 788 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+Default value: 1. Range: 0...1.;
+#X msg 110 691 @filter;
+#X text 245 691 Get/Set filter coefficient. Type: float. Default value:
+1. Range: 0...1.;
+#X msg 110 733 @size;
+#X text 245 733 Get/Set room size. Type: float. Default value: 0.5.
+Range: 0...1.;
+#X obj 20 785 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 790 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 823 reset;
-#X text 245 823 reset reverb.;
-#X obj 20 860 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 865 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 825 reset;
+#X text 245 825 reset reverb.;
+#X obj 20 863 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 868 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 866 1\.;
-#X text 245 866 input Left signal.;
-#X text 110 886 2\.;
-#X text 245 886 input Right signal.;
-#X obj 20 916 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 921 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 869 1.;
+#X text 245 869 input Left signal.;
+#X text 110 889 2.;
+#X text 245 889 input Right signal.;
+#X obj 20 919 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 924 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 922 1\.;
-#X text 245 922 output Left signal.;
-#X text 110 942 2\.;
-#X text 245 942 output Right signal.;
+#X text 110 925 1.;
+#X text 245 925 output Left signal.;
+#X text 110 945 2.;
+#X text 245 945 output Right signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title fx @url ceammc.fx-help.pd;
-#X obj 1 992 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 995 library: ceammc v0.9.7;
-#X text 469 1007 see also:;
-#X obj 543 1007 fx.freeverb~;
-#X obj 645 1007 fx.zita_rev1~;
-#N canvas 10 1014 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title fx @url ceammc.fx-help.pd;
+#X obj 1 995 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 998 library: ceammc v0.9.7;
+#X text 467 1010 see also:;
+#X obj 542 1010 fx.freeverb~;
+#X obj 645 1010 fx.zita_rev1~;
+#N canvas 10 1017 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -110,7 +110,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1014 pd info;
+#X restore 10 1017 pd info;
 #X connect 7 0 9 0;
 #X connect 10 0 12 0;
 #X connect 9 0 14 0;

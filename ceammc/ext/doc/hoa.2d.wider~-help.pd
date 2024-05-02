@@ -1,66 +1,66 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 445 50 cnv 1 320 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 445 50 a 2d fractional ambisonic order simulator;
+#X obj 444 50 cnv 1 321 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 444 50 a 2d fractional ambisonic order simulator;
 #X obj 1 1 cnv 5 765 40 empty empty hoa.2d.wider~ 20 20 0 20 -104026
 -4096 0;
-#X obj 547 11 hoa.wider~;
+#X obj 546 11 hoa.wider~;
 #X obj 645 11 hoa.2d.wider~;
-#X obj 210 80 cnv 1 555 88 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 89 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 hoa.2d.wider~ can be used to wide the diffusion of a
 localised sound. The order depending signals are weighted and appear
 in a logarithmic way to have linear changes.;
 #X obj 215 135 ui.link @background_color 0.98039 0.98039 0.98039
 @title CICM documentation @url hoa/hoa.2d.wider~-help.pd;
-#X obj 50 196 lfo.square~ 1;
-#X obj 50 225 ui.gain~ @size 120 14;
-#X obj 280 225 ui.knob;
-#X obj 50 254 hoa.encoder~ 5, f 24;
-#X obj 50 283 hoa.wider~ 5, f 24;
-#X obj 50 312 hoa.scope~ @order 5 @size 171 171;
-#X obj 50 499 ui.dsp~;
-#X obj 20 548 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 553 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 50 197 lfo.square~ 1;
+#X obj 50 226 ui.gain~ @size 120 14;
+#X obj 280 226 ui.knob;
+#X obj 50 255 hoa.encoder~ 5, f 24;
+#X obj 50 284 hoa.wider~ 5, f 24;
+#X obj 50 313 hoa.scope~ @order 5 @size 171 171;
+#X obj 50 500 ui.dsp~;
+#X obj 20 550 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 555 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 588 1\.;
-#X text 150 588 int;
-#X obj 246 589 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 588 ORDER: the order of decomposition. Type: int. Range:
-1\...63;
-#X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 623 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 590 1.;
+#X text 150 590 int;
+#X obj 246 591 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 590 ORDER: the order of decomposition. Type: int. Range:
+1...63;
+#X obj 20 620 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 625 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 658 @order;
-#X text 245 658 (initonly) Get/Set the order of decomposition. Type:
-int. Default value: 1\. Range: 1\...63\.;
-#X obj 20 710 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 715 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 660 @order;
+#X text 245 660 (initonly) Get/Set the order of decomposition. Type:
+int. Default value: 1. Range: 1...63.;
+#X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 717 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 716 1\.;
-#X text 245 716 first input signal.;
-#X text 110 736 ....;
-#X text 245 736 ... input signal.;
-#X text 110 756 n.;
-#X text 245 756 n-th input signal.;
-#X text 110 776 n+1\.;
-#X text 245 776 widening signal in [0-1] range.;
-#X obj 20 806 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 811 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 718 1.;
+#X text 245 718 first input signal.;
+#X text 110 738 ....;
+#X text 245 738 ... input signal.;
+#X text 110 758 n.;
+#X text 245 758 n-th input signal.;
+#X text 110 778 n+1.;
+#X text 245 778 widening signal in [0-1] range.;
+#X obj 20 808 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 813 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 812 1\.;
-#X text 245 812 first circular harmonics output.;
-#X text 110 832 ....;
-#X text 245 832 ... circular harmonics output.;
-#X text 110 852 n.;
-#X text 245 852 n-th circular harmonics output.;
+#X text 110 814 1.;
+#X text 245 814 first circular harmonics output.;
+#X text 110 834 ....;
+#X text 245 834 ... circular harmonics output.;
+#X text 110 854 n.;
+#X text 245 854 n-th circular harmonics output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 902 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 905 library: ceammc v0.9.7;
-#N canvas 10 924 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
+#X obj 1 904 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 907 library: ceammc v0.9.7;
+#N canvas 10 926 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -85,7 +85,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 924 pd info;
+#X restore 10 926 pd info;
 #X connect 8 0 9 0;
 #X connect 9 0 11 0;
 #X connect 11 0 12 0;

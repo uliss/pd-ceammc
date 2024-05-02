@@ -1,10 +1,10 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 408 50 cnv 1 357 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 408 50 spreads input channels across the stereo field;
+#X obj 407 50 cnv 1 358 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 407 50 spreads input channels across the stereo field;
 #X obj 1 1 cnv 5 765 40 empty empty pan.spread~ 20 20 0 20 -104026
 -4096 0;
-#X obj 660 11 pan.spread~;
+#X obj 659 11 pan.spread~;
 #X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 147 metro 160;
 #X obj 50 176 flow.count;
@@ -22,55 +22,55 @@
 #X msg 376 406 @spread 1;
 #X obj 50 435 pan.spread~ 4;
 #X obj 50 464 dac~;
-#X obj 20 513 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 518 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 519 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 553 1\.;
-#X text 150 553 int;
-#X obj 246 554 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 553 N: number of input channels. Type: int. Range: 2\...16;
-#X obj 20 583 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 588 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 554 1.;
+#X text 150 554 int;
+#X obj 246 555 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 554 N: number of input channels. Type: int. Range: 2...16;
+#X obj 20 584 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 589 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 623 @n;
-#X text 245 623 (initonly) Get/Set number of input channels. Type:
-int. Default value: 2\. Range: 2\...16\.;
-#X msg 110 665 @center;
-#X text 245 665 Get/Set shift the centre of the distribution. Type:
-float. Default value: 0\. Range: -0.5\...0.5\.;
-#X msg 110 707 @compensate;
-#X text 245 707 Get/Set compensate output level: divide amplitude to
-number of input channels. Type: bool. Default value: 0\.;
-#X msg 110 749 @spread;
-#X text 245 749 Get/Set for @spread = 0 \, all channels are in the
+#X msg 110 624 @n;
+#X text 245 624 (initonly) Get/Set number of input channels. Type:
+int. Default value: 2. Range: 2...16.;
+#X msg 110 666 @center;
+#X text 245 666 Get/Set shift the centre of the distribution. Type:
+float. Default value: 0. Range: -0.5...0.5.;
+#X msg 110 708 @compensate;
+#X text 245 708 Get/Set compensate output level: divide amplitude to
+number of input channels. Type: bool. Default value: 0.;
+#X msg 110 750 @spread;
+#X text 245 750 Get/Set for @spread = 0 \, all channels are in the
 centre \, for 1 \, they have maximum distribution. Type: float. Default
-value: 1\. Range: 0\...1\.;
-#X msg 110 806 @coeffs?;
-#X text 245 806 (readonly) Get list of gain pairs. Type: list.;
-#X obj 20 845 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 850 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+value: 1. Range: 0...1.;
+#X msg 110 807 @coeffs?;
+#X text 245 807 (readonly) Get list of gain pairs. Type: list.;
+#X obj 20 847 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 852 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 851 1\.;
-#X text 245 851 input signal.;
-#X text 110 871 ....;
-#X text 245 871 input signal.;
-#X text 110 891 n.;
-#X text 245 891 input signal.;
-#X obj 20 921 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 926 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 853 1.;
+#X text 245 853 input signal.;
+#X text 110 873 ....;
+#X text 245 873 input signal.;
+#X text 110 893 n.;
+#X text 245 893 input signal.;
+#X obj 20 923 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 928 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 927 1\.;
-#X text 245 927 left output channel.;
-#X text 110 947 2\.;
-#X text 245 947 right output channel.;
+#X text 110 929 1.;
+#X text 245 929 left output channel.;
+#X text 110 949 2.;
+#X text 245 949 right output channel.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title spat @url ceammc.spat-help.pd;
-#X obj 1 997 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1000 library: ceammc v0.9.7;
-#N canvas 10 1019 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title spat @url ceammc.spat-help.pd;
+#X obj 1 999 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1002 library: ceammc v0.9.7;
+#N canvas 10 1021 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -94,7 +94,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1019 pd info;
+#X restore 10 1021 pd info;
 #X connect 4 0 5 0;
 #X connect 5 0 6 0;
 #X connect 6 0 7 0;

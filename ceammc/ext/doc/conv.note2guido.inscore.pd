@@ -1,4 +1,4 @@
-#N canvas 0 0 464 284 12;
+#N canvas 0 0 464 285 12;
 #X obj 20 48 ui.keyboard;
 #X msg 20 120 note \$1 4.125;
 #X obj 20 149 conv.note2guido;

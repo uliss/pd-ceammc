@@ -1,4 +1,4 @@
-#N canvas 0 0 645 385 12;
+#N canvas 0 0 645 386 12;
 #X msg 20 48 stop;
 #X text 20 77 phase range 0..1;
 #X text 221 77 percent range 0..100;

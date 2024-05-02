@@ -1,36 +1,36 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 645 50 cnv 1 120 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 645 50 negate function;
+#X obj 644 50 cnv 1 121 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 644 50 negate function;
 #X obj 1 1 cnv 5 765 40 empty empty math.neg 20 20 0 20 -104026 -4096
 0;
-#X obj 550 11 ceammc/-x;
-#X obj 640 11 -x;
-#X obj 682 11 math.neg;
+#X obj 548 11 ceammc/-x;
+#X obj 639 11 -x;
+#X obj 681 11 math.neg;
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Returns value with opposite sign;
 #X floatatom 50 143 5 0 0 0 - - -;
 #X msg 98 143 -2 -1 0 1 2;
 #X obj 50 172 math.neg;
 #X obj 50 201 ui.dt;
-#X obj 20 250 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 255 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 251 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 256 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 256 1\.;
-#X text 150 256 *float*;
-#X text 245 256 input value.;
-#X text 150 276 *list*;
-#X text 245 276 list of numbers.;
-#X obj 20 306 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 311 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 257 1.;
+#X text 150 257 *float*;
+#X text 245 257 input value.;
+#X text 150 277 *list*;
+#X text 245 277 list of numbers.;
+#X obj 20 307 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 312 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 312 1\.;
-#X text 245 312 result.;
+#X text 110 313 1.;
+#X text 245 313 result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
 #N canvas 10 527 400 290 info 0;

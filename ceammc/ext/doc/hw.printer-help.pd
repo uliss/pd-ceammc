@@ -16,21 +16,21 @@
 #X msg 155 226 print \$1 @landscape 0;
 #X obj 50 255 hw.printer;
 #X obj 50 284 print;
-#X obj 20 333 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 338 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 334 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 339 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 339 1\.;
-#X text 245 339 input.;
-#X obj 20 369 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 374 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 340 1.;
+#X text 245 340 input.;
+#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 375 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 375 1\.;
-#X text 245 375 dict: printer info output.;
+#X text 110 376 1.;
+#X text 245 376 dict: printer info output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title hw @url ceammc.hw-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title hw @url ceammc.hw-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
 #N canvas 10 527 400 290 info 0;

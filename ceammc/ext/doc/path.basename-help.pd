@@ -4,7 +4,7 @@
 #X text 483 50 outputs filename portion of pathname;
 #X obj 1 1 cnv 5 765 40 empty empty path.basename 20 20 0 20 -104026
 -4096 0;
-#X obj 646 11 path.basename;
+#X obj 645 11 path.basename;
 #X msg 50 118 symbol HOME;
 #X obj 50 147 system.getenv;
 #X msg 203 147 /dir/path;
@@ -18,27 +18,27 @@
 #X obj 261 248 symbol;
 #X obj 50 277 path.basename;
 #X obj 50 305 ui.dt;
-#X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 359 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 360 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 360 1\.;
-#X text 150 360 *symbol*;
-#X text 245 360 outputs filename portion of pathname.;
-#X text 150 380 *data:string*;
-#X text 245 380 outputs directory portion of pathname.;
-#X obj 20 410 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 415 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 361 1.;
+#X text 150 361 *symbol*;
+#X text 245 361 outputs filename portion of pathname.;
+#X text 150 381 *data:string*;
+#X text 245 381 outputs directory portion of pathname.;
+#X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 416 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 416 1\.;
-#X text 245 416 filename.;
+#X text 110 417 1.;
+#X text 245 417 filename.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title path @url ceammc.path-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title path @url ceammc.path-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 579 520 see also:;
+#X text 578 520 see also:;
 #X obj 653 520 path.dirname;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

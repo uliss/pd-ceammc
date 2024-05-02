@@ -1,4 +1,4 @@
-#N canvas 0 0 710 414 12;
+#N canvas 0 0 711 415 12;
 #X text 20 48 duration as denominator;
 #X msg 20 77 list C|1 C|2 C|4 C|8 C|16 C|32 C|64 C|128 C|256;
 #X obj 20 106 music.v->m;

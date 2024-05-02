@@ -5,7 +5,7 @@
 sound in loop;
 #X obj 1 1 cnv 5 765 40 empty empty live.capture~ 20 20 0 20 -104026
 -4096 0;
-#X obj 646 11 live.capture~;
+#X obj 645 11 live.capture~;
 #X obj 50 118 adc~;
 #X msg 155 118 reset;
 #X msg 69 147 record;
@@ -17,68 +17,68 @@ sound in loop;
 #X obj 50 234 ui.gain~ @size 120 14;
 #X obj 280 234 ui.dsp~;
 #X obj 50 262 dac~;
-#X obj 20 311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 316 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 317 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 351 @id;
-#X text 245 351 (initonly) Get/Set OSC address id. If specified \,
+#X msg 110 352 @id;
+#X text 245 352 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/live_capture/PROP_NAME osc address \, if
 empty bind to /live_capture/PROP_NAME. Type: symbol.;
-#X msg 110 408 @osc;
-#X text 245 408 (initonly) Get/Set OSC server name to listen. Type:
+#X msg 110 409 @osc;
+#X text 245 409 (initonly) Get/Set OSC server name to listen. Type:
 symbol.;
-#X msg 110 437 @active;
-#X text 245 437 Turn on/off dsp processing. Type: bool. Default value:
-1\.;
-#X msg 110 466 @attack;
-#X text 245 466 Get/Set rec envelope attack time. Type: float. Units:
-'ms'. Default value: 50\. Range: 0\...100000\.;
-#X msg 110 508 @gain;
-#X text 245 508 Get/Set playing gain. Type: float. Units: 'db'. Default
-value: 0\. Range: -60\...12\.;
-#X msg 110 550 @gate;
-#X text 245 550 Get/Set start/stop recording. Type: bool. Default value:
-0\.;
-#X msg 110 579 @release;
-#X text 245 579 Get/Set rec envelope release time. Type: float. Units:
-'ms'. Default value: 50\. Range: 0\...100000\.;
-#X msg 110 621 @sustain;
-#X text 245 621 Get/Set rec envelope sustain level - percent from trigger
-signal. Type: float. Units: '%'. Default value: 100\. Range: 0\...100\.;
-#X obj 20 688 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 693 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 439 @active;
+#X text 245 439 Turn on/off dsp processing. Type: bool. Default value:
+1.;
+#X msg 110 469 @attack;
+#X text 245 469 Get/Set rec envelope attack time. Type: float. Units:
+'ms'. Default value: 50. Range: 0...100000.;
+#X msg 110 511 @gain;
+#X text 245 511 Get/Set playing gain. Type: float. Units: 'db'. Default
+value: 0. Range: -60...12.;
+#X msg 110 553 @gate;
+#X text 245 553 Get/Set start/stop recording. Type: bool. Default value:
+0.;
+#X msg 110 583 @release;
+#X text 245 583 Get/Set rec envelope release time. Type: float. Units:
+'ms'. Default value: 50. Range: 0...100000.;
+#X msg 110 625 @sustain;
+#X text 245 625 Get/Set rec envelope sustain level - percent from trigger
+signal. Type: float. Units: '%'. Default value: 100. Range: 0...100.;
+#X obj 20 692 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 697 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 728 div;
-#X text 245 728 set rec division. Arguments are:;
-#X obj 255 751 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 751 [N]: value. Type: int. Range: 1\...8\.;
-#X msg 110 776 record;
-#X text 245 776 start record.;
-#X msg 110 803 reset;
-#X text 245 803 reset recorded data.;
-#X msg 110 830 stop;
-#X text 245 830 stop record.;
-#X obj 20 867 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 872 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 732 div;
+#X text 245 732 set rec division. Arguments are:;
+#X obj 255 755 cnv 1 24 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 755 [N]: value. Type: int. Range: 1...8.;
+#X msg 110 780 record;
+#X text 245 780 start record.;
+#X msg 110 808 reset;
+#X text 245 808 reset recorded data.;
+#X msg 110 836 stop;
+#X text 245 836 stop record.;
+#X obj 20 874 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 879 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 873 1\.;
-#X text 245 873 source signal.;
-#X text 110 893 2\.;
-#X text 150 893 *float*;
-#X text 245 893 1/0 toggle signal.;
-#X obj 20 923 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 928 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 880 1.;
+#X text 245 880 source signal.;
+#X text 110 900 2.;
+#X text 150 900 *float*;
+#X text 245 900 1/0 toggle signal.;
+#X obj 20 930 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 935 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 929 1\.;
-#X text 245 929 recorded signal.;
+#X text 110 936 1.;
+#X text 245 936 recorded signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title live @url ceammc.live-help.pd;
-#X obj 1 979 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 982 library: ceammc v0.9.7;
-#N canvas 10 1001 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title live @url ceammc.live-help.pd;
+#X obj 1 986 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 989 library: ceammc v0.9.7;
+#N canvas 10 1008 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -102,7 +102,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1001 pd info;
+#X restore 10 1008 pd info;
 #X connect 7 0 9 0;
 #X connect 4 0 11 0;
 #X connect 6 0 11 0;

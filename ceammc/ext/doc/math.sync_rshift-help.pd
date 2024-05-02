@@ -4,9 +4,9 @@
 #X text 553 50 sync signed bit right shift;
 #X obj 1 1 cnv 5 765 40 empty empty math.sync_rshift 20 20 0 20
 -104026 -4096 0;
-#X obj 403 11 math.>>';
-#X obj 484 11 ceammc/>>';
-#X obj 579 11 >>';
+#X obj 400 11 math.>>';
+#X obj 482 11 ceammc/>>';
+#X obj 578 11 >>';
 #X obj 624 11 math.sync_rshift;
 #X floatatom 50 118 5 0 0 0 - - -;
 #X floatatom 107 118 5 0 0 0 - - -;
@@ -18,37 +18,37 @@
 #X obj 290 176 >>;
 #X floatatom 50 205 5 0 0 0 - - -;
 #X floatatom 290 205 5 0 0 0 - - -;
-#X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 259 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 242 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 294 1\.;
-#X text 150 294 int;
-#X obj 246 295 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 294 SHIFT: shift amount. Type: int.;
-#X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 329 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X text 110 277 1.;
+#X text 150 277 int;
+#X obj 246 278 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 277 SHIFT: shift amount. Type: int.;
+#X obj 20 307 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 312 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 330 1\.;
-#X text 150 330 *int*;
-#X text 245 330 set value \, calculate and output result.;
-#X text 150 350 *list*;
-#X text 245 350 pair: set value and shift \, calculate and output result.;
-#X text 110 370 2\.;
-#X text 150 370 *int*;
-#X text 245 370 change shift \, calculate and output result.;
-#X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 405 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 313 1.;
+#X text 150 313 *int*;
+#X text 245 313 set value \, calculate and output result.;
+#X text 150 333 *list*;
+#X text 245 333 pair: set value and shift \, calculate and output result.;
+#X text 110 353 2.;
+#X text 150 353 *int*;
+#X text 245 353 change shift \, calculate and output result.;
+#X obj 20 383 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 388 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 406 1\.;
-#X text 245 406 result output.;
+#X text 110 389 1.;
+#X text 245 389 result output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 550 520 see also:;
+#X text 549 520 see also:;
 #X obj 624 520 math.sync_lshift;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

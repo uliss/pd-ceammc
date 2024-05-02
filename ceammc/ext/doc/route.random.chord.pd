@@ -1,13 +1,13 @@
-#N canvas 0 0 293 400 12;
+#N canvas 0 0 294 401 12;
 #X obj 20 48 ui.keyboard 24 48;
 #X obj 20 120 stripnote;
 #X msg 20 149 \$1;
 #X obj 116 149 ui.dsp~;
 #X obj 20 178 mtof;
 #X obj 20 207 route.random 3;
-#X floatatom 20 235 5 0 0 0 - - -;
-#X floatatom 87 235 5 0 0 0 - - -;
-#X floatatom 154 235 5 0 0 0 - - -;
+#X floatatom 20.0 235.99999999999997 5 0 0 0 - - -;
+#X floatatom 87.2 235.99999999999997 5 0 0 0 - - -;
+#X floatatom 154.4 235.99999999999997 5 0 0 0 - - -;
 #X obj 20 264 osc~;
 #X obj 87 264 osc~;
 #X obj 154 264 osc~;

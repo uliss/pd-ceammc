@@ -1,127 +1,127 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 652 50 cnv 1 113 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 652 50 tempo detector;
+#X obj 651 50 cnv 1 114 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 651 50 tempo detector;
 #X obj 1 1 cnv 5 765 40 empty empty an.tempo~ 20 20 0 20 -104026 -4096
 0;
-#X obj 674 11 an.tempo~;
-#X obj 210 80 cnv 1 555 58 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 673 11 an.tempo~;
+#X obj 210 80 cnv 1 555 59 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Tempo detector based on aubio library;
 #X obj 215 105 ui.link @background_color 0.98039 0.98039 0.98039
 @title https://aubio.org @url https://aubio.org/;
-#X obj 50 166 loadmsg load sound/loop_breakbeat.flac to antmp @resize;
-#X obj 50 195 snd.file;
-#X obj 50 224 table antmp;
-#X obj 194 224 ui.hsl @show_value 1 @min 0.1 @max 2.5;
-#X obj 50 253 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X obj 50 167 loadmsg load sound/loop_breakbeat.flac to antmp @resize;
+#X obj 50 196 snd.file;
+#X obj 50 225 table antmp;
+#X obj 194 225 ui.hsl @show_value 1 @min 0.1 @max 2.5;
+#X obj 50 254 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X msg 117 253 stop;
-#X msg 194 253 @speed \$1;
-#X obj 357 253 ui.dsp~;
-#X obj 50 296 array.play~ antmp @loop 1;
-#X obj 357 296 ui.menu hfc energy complex phase wphase specdiff
+#X msg 117 254 stop;
+#X msg 194 254 @speed \$1;
+#X obj 357 254 ui.dsp~;
+#X obj 50 297 array.play~ antmp @loop 1;
+#X obj 357 297 ui.menu hfc energy complex phase wphase specdiff
 specflux kl mkl;
-#X msg 357 325 @method \$1;
-#X obj 78 353 an.tempo~;
-#X floatatom 78 382 5 0 0 0 - - -;
-#X floatatom 146 382 5 0 0 0 - - -;
-#X obj 78 411 ui.b;
-#X obj 78 440 click~;
-#X obj 78 469 flt.resonbp~ 1000 50;
-#X obj 50 497 ui.hgain~;
-#X obj 50 526 dac~;
-#X obj 20 575 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 580 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X msg 357 326 @method \$1;
+#X obj 78 354 an.tempo~;
+#X floatatom 78 383 5 0 0 0 - - -;
+#X floatatom 146 383 5 0 0 0 - - -;
+#X obj 78 412 ui.b;
+#X obj 78 441 click~;
+#X obj 78 470 flt.resonbp~ 1000 50;
+#X obj 50 498 ui.hgain~;
+#X obj 50 527 dac~;
+#X obj 20 577 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 582 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 615 1\.;
-#X text 150 615 int;
-#X obj 246 616 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 615 BS(samp): buffer size. Type: int. Min value: 64;
-#X text 110 635 2\.;
-#X text 150 635 symbol;
-#X obj 246 636 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 635 METHOD: onset detection method. Allowed values: centroid
+#X text 110 617 1.;
+#X text 150 617 int;
+#X obj 246 618 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 617 BS(samp): buffer size. Type: int. Min value: 64;
+#X text 110 637 2.;
+#X text 150 637 symbol;
+#X obj 246 638 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 637 METHOD: onset detection method. Allowed values: centroid
 \, complex \, complexdomain \, decrease \, default \, energy \, hfc
 \, kl \, kurtosis \, phase \, rolloff \, skewness \, slope \, specdiff
-\, specflux \, spread \, wphase. . Type: symbol.;
-#X text 110 700 3\.;
-#X text 150 700 int;
-#X obj 246 701 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 700 HS(samp): hop size (by default buffer_size/2). Type:
+\, specflux \, spread \, wphase. Type: symbol.;
+#X text 110 702 3.;
+#X text 150 702 int;
+#X obj 246 703 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 702 HS(samp): hop size (by default buffer_size/2). Type:
 int. Min value: 0;
-#X obj 20 745 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 750 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X obj 20 747 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 752 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 785 @bs;
-#X text 245 785 (initonly) Get/Set buffer size. Type: int. Units: 'samp'.
-Default value: 1024\. Min value: 64\.;
-#X msg 110 827 @active;
-#X text 245 827 Get/Set audio processing state. Type: bool. Default
-value: 1\.;
-#X msg 110 869 @complex;
-#X text 245 869 alias to @method complex. Complex Domain Method onset
+#X msg 110 787 @bs;
+#X text 245 787 (initonly) Get/Set buffer size. Type: int. Units: 'samp'.
+Default value: 1024. Min value: 64.;
+#X msg 110 829 @active;
+#X text 245 829 Get/Set audio processing state. Type: bool. Default
+value: 1.;
+#X msg 110 859 @complex;
+#X text 245 859 alias to @method complex. Complex Domain Method onset
 detection function.;
-#X msg 110 911 @delay;
-#X text 245 911 Get/Set constant system delay to take back from detection
-time. Type: float. Units: 'ms'. Default value: 0\. Min value: 0\.;
-#X msg 110 968 @energy;
-#X text 245 968 alias to @method energy. Energy based onset detection
+#X msg 110 901 @delay;
+#X text 245 901 Get/Set constant system delay to take back from detection
+time. Type: float. Units: 'ms'. Default value: 0. Min value: 0.;
+#X msg 110 958 @energy;
+#X text 245 958 alias to @method energy. Energy based onset detection
 function.;
-#X msg 110 1010 @hfc;
-#X text 245 1010 alias to @method hfc. High Frequency Content onset
+#X msg 110 1000 @hfc;
+#X text 245 1000 alias to @method hfc. High Frequency Content onset
 detection.;
-#X msg 110 1039 @hs;
-#X text 245 1039 Get/Set hop size. 0 means @bs/2\. Type: int. Units:
-'samp'. Default value: 0\. Min value: 0\.;
-#X msg 110 1081 @kl;
-#X text 245 1081 alias to @method kl. Kullback-Liebler onset detection
+#X msg 110 1030 @hs;
+#X text 245 1030 Get/Set hop size. 0 means @bs/2. Type: int. Units:
+'samp'. Default value: 0. Min value: 0.;
+#X msg 110 1072 @kl;
+#X text 245 1072 alias to @method kl. Kullback-Liebler onset detection
 function.;
-#X msg 110 1123 @method;
-#X text 245 1123 Get/Set onset method. Default is hfc. Type: symbol.
+#X msg 110 1114 @method;
+#X text 245 1114 Get/Set onset method. Default is hfc. Type: symbol.
 Default value: default. Allowed values: specflux \, phase \, energy
 \, hfc \, kl \, complex \, default \, specdiff \, wphase \, rolloff
 \, spread \, kurtosis \, skewness \, complexdomain \, decrease \, slope
 \, centroid.;
-#X msg 110 1195 @mkl;
-#X text 245 1195 alias to @method mkl. Modified Kullback-Liebler onset
+#X msg 110 1186 @mkl;
+#X text 245 1186 alias to @method mkl. Modified Kullback-Liebler onset
 detection function.;
-#X msg 110 1237 @phase;
-#X text 245 1237 alias to @method phase. Phase Based Method onset detection
+#X msg 110 1228 @phase;
+#X text 245 1228 alias to @method phase. Phase Based Method onset detection
 function.;
-#X msg 110 1279 @silence;
-#X text 245 1279 Get/Set onset detection silence threshold. Type: float.
-Units: 'db'. Default value: -90\. Range: -90\...0\.;
-#X msg 110 1321 @specdiff;
-#X text 245 1321 alias to @method specdiff. Spectral difference method
+#X msg 110 1270 @silence;
+#X text 245 1270 Get/Set onset detection silence threshold. Type: float.
+Units: 'db'. Default value: -90. Range: -90...0.;
+#X msg 110 1312 @specdiff;
+#X text 245 1312 alias to @method specdiff. Spectral difference method
 onset detection function.;
-#X msg 110 1363 @specflux;
-#X text 245 1363 alias to @method specflux. Spectral Flux.;
-#X msg 110 1392 @threshold;
-#X text 245 1392 Get/Set peak picking threshold. Type: float. Default
-value: 0.3\.;
-#X msg 110 1434 @wphase;
-#X text 245 1434 alias to @method phase. Weighted Phase Deviation onset
+#X msg 110 1354 @specflux;
+#X text 245 1354 alias to @method specflux. Spectral Flux.;
+#X msg 110 1384 @threshold;
+#X text 245 1384 Get/Set peak picking threshold. Type: float. Default
+value: 0.3.;
+#X msg 110 1426 @wphase;
+#X text 245 1426 alias to @method phase. Weighted Phase Deviation onset
 detection function.;
-#X obj 20 1486 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1491 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1478 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1483 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1492 1\.;
-#X text 245 1492 input signal.;
-#X obj 20 1522 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1527 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1484 1.;
+#X text 245 1484 input signal.;
+#X obj 20 1514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1519 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1528 1\.;
-#X text 245 1528 float: BPM value.;
-#X text 110 1548 2\.;
-#X text 245 1548 float: detection confidence.;
+#X text 110 1520 1.;
+#X text 245 1520 float: BPM value.;
+#X text 110 1540 2.;
+#X text 245 1540 float: detection confidence.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title an @url ceammc.an-help.pd;
-#X obj 1 1598 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1601 library: ceammc v0.9.7;
-#N canvas 10 1620 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title an @url ceammc.an-help.pd;
+#X obj 1 1590 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1593 library: ceammc v0.9.7;
+#N canvas 10 1612 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -145,7 +145,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1620 pd info;
+#X restore 10 1612 pd info;
 #X connect 7 0 8 0;
 #X connect 10 0 13 0;
 #X connect 11 0 15 0;

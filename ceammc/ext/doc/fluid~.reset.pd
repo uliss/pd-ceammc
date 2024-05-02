@@ -1,4 +1,4 @@
-#N canvas 0 0 842 414 12;
+#N canvas 0 0 842 415 12;
 #X msg 20 48 note 1 60 120 \, note 1 65 120 \, note 2 47 120;
 #X msg 39 77 reset;
 #X msg 116 77 reset 1;

@@ -19,64 +19,64 @@
 #X floatatom 117 248 5 0 0 0 - - -;
 #X floatatom 194 248 5 0 0 0 - - -;
 #X floatatom 270 248 5 0 0 0 - - -;
-#X obj 20 297 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 302 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 285 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 337 1\.;
-#X text 150 337 int;
-#X obj 246 338 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 337 INPUTS: number of matrix inputs (columns). Type: int.
-Range: 2\...16;
-#X text 110 372 2\.;
-#X text 150 372 int;
-#X obj 246 373 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 372 OUTPUTS: number of matrix outputs (rows). Type: int.
-Range: 2\...16;
-#X obj 20 417 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 422 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 320 1.;
+#X text 150 320 int;
+#X obj 246 321 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 320 INPUTS: number of matrix inputs (columns). Type: int.
+Range: 2...16;
+#X text 110 355 2.;
+#X text 150 355 int;
+#X obj 246 356 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 355 OUTPUTS: number of matrix outputs (rows). Type: int.
+Range: 2...16;
+#X obj 20 400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 405 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 457 @inputs;
-#X text 245 457 (initonly) Get/Set number of matrix inputs. Type: int.
-Default value: 2\. Range: 2\...16\.;
-#X msg 110 499 @outputs;
-#X text 245 499 (initonly) Get/Set number of matrix outputs. Type:
-int. Default value: 2\. Range: 2\...16\.;
-#X obj 20 551 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 556 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 440 @inputs;
+#X text 245 440 (initonly) Get/Set number of matrix inputs. Type: int.
+Default value: 2. Range: 2...16.;
+#X msg 110 482 @outputs;
+#X text 245 482 (initonly) Get/Set number of matrix outputs. Type:
+int. Default value: 2. Range: 2...16.;
+#X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 539 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 591 cell;
-#X text 245 591 on/off matrix cell. Note argument order: row \, cols.
+#X msg 110 574 cell;
+#X text 245 574 on/off matrix cell. Note argument order: row \, cols.
 Arguments are:;
-#X obj 255 629 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 629 ROW: row (output) index. Type: int. Range: 0\...15\.;
-#X obj 255 652 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 652 COL: column (input) index. Type: int. Range: 0\...15\.;
-#X obj 20 687 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 692 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 255 612 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 612 ROW: row (output) index. Type: int. Range: 0...15.;
+#X obj 255 635 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 635 COL: column (input) index. Type: int. Range: 0...15.;
+#X obj 20 670 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 675 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 693 1\.;
-#X text 245 693 first input signal.;
-#X text 110 713 ....;
-#X text 245 713 ... input signal.;
-#X text 110 733 n.;
-#X text 245 733 n-th input signal.;
-#X obj 20 763 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 768 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 676 1.;
+#X text 245 676 first input signal.;
+#X text 110 696 ....;
+#X text 245 696 ... input signal.;
+#X text 110 716 n.;
+#X text 245 716 n-th input signal.;
+#X obj 20 746 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 751 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 769 1\.;
-#X text 245 769 first output signal.;
-#X text 110 789 ....;
-#X text 245 789 ... output signal.;
-#X text 110 809 n.;
-#X text 245 809 n-th output signal.;
+#X text 110 752 1.;
+#X text 245 752 first output signal.;
+#X text 110 772 ....;
+#X text 245 772 ... output signal.;
+#X text 110 792 n.;
+#X text 245 792 n-th output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title base @url ceammc.base-help.pd;
-#X obj 1 859 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 862 library: ceammc v0.9.7;
-#N canvas 10 881 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title base @url ceammc.base-help.pd;
+#X obj 1 842 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 845 library: ceammc v0.9.7;
+#N canvas 10 864 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -100,7 +100,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 881 pd info;
+#X restore 10 864 pd info;
 #X connect 5 0 8 0;
 #X connect 6 0 8 1;
 #X connect 7 0 8 0;

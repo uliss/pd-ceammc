@@ -5,117 +5,117 @@
 #X obj 1 1 cnv 5 765 40 empty empty net.freesound 20 20 0 20 -104026
 -4096 0;
 #X obj 646 11 net.freesound;
-#X obj 210 80 cnv 1 555 193 empty empty empty 17 7 0 10 -257983 -1 0;
+#X obj 210 80 cnv 1 555 194 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 1) create Freesound API credentials at:;
 #X obj 215 105 ui.link @background_color 0.98039 0.98039 0.98039
 @title https://freesound.org/apiv2/apply @url
 https://freesound.org/apiv2/apply;
-#X text 215 128 2) save this id/secret pair into file if using @oauth_file
+#X text 215 129 2) save this id/secret pair into file if using @oauth_file
 property or set @oauth_id/@oauth_secret properties explicitly or enter
 it with editor;
-#X text 215 183 3) [access auth( get temporal application code from
+#X text 215 184 3) [access auth( get temporal application code from
 Freesound website (valid for ~24 hours);
-#X text 215 223 4) [access code CODE( exchange this application code
+#X text 215 224 4) [access code CODE( exchange this application code
 to internal secret access token;
-#X msg 50 301 search puredata @n 5 @fields id name @filter type mp3;
-#X msg 69 330 access auth;
-#X listbox 232 330 20 0 0 0 - - -;
-#X msg 69 359 me;
-#X msg 232 359 access code \$1;
-#X obj 50 417 net.freesound;
-#X obj 50 474 route results progress;
-#X obj 50 503 dict.get /*/*/id /*/*/name;
-#X obj 146 532 ui.hsl 0 100;
-#X obj 50 561 print ID;
-#X obj 232 561 print OTHER;
-#X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 615 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
+#X msg 50 302 search puredata @n 5 @fields id name @filter type mp3;
+#X msg 69 331 access auth;
+#X listbox 232 331 20 0 0 0 - - -;
+#X msg 69 360 me;
+#X msg 232 360 access code \$1;
+#X obj 50 418 net.freesound;
+#X obj 50 475 route results progress;
+#X obj 50 504 dict.get /*/*/id /*/*/name;
+#X obj 146 533 ui.hsl 0 100;
+#X obj 50 562 print ID;
+#X obj 232 562 print OTHER;
+#X obj 20 612 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 617 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
 -49933 0;
-#X text 110 650 Left-click;
-#X text 285 650 open id/secret editor.;
-#X obj 20 680 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 685 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 652 Left-click;
+#X text 285 652 open id/secret editor.;
+#X obj 20 682 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 687 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 720 @oauth_file;
-#X text 245 720 (initonly) Get/Set path to file with OAuth2 ID/secret
+#X msg 110 722 @oauth_file;
+#X text 245 722 (initonly) Get/Set path to file with OAuth2 ID/secret
 \, one per line. Type: symbol.;
-#X msg 110 762 @oauth_id;
-#X text 245 762 (initonly) Get/Set Freesound OAuth2 ID. Type: symbol.;
-#X msg 110 791 @oauth_secret;
-#X text 245 791 (initonly) Get/Set Freesound OAuth2 secret. Type: symbol.;
-#X obj 20 830 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 835 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 764 @oauth_id;
+#X text 245 764 (initonly) Get/Set Freesound OAuth2 ID. Type: symbol.;
+#X msg 110 794 @oauth_secret;
+#X text 245 794 (initonly) Get/Set Freesound OAuth2 secret. Type: symbol.;
+#X obj 20 834 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 839 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 870 access auth;
-#X text 245 870 get application authorization code (valid ~24 hours)
+#X msg 110 874 access auth;
+#X text 245 874 get application authorization code (valid ~24 hours)
 from Freesound page: should open in web browser.;
-#X msg 110 910 access code;
-#X text 245 910 exchange application authorization code to temp *access*
+#X msg 110 914 access code;
+#X text 245 914 exchange application authorization code to temp *access*
 token that will be used for every request. Note: you can do it only
 once \, otherwise you need to get another application authorization
 code from Freesite site. Arguments are:;
-#X obj 255 978 cnv 1 36 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 978 CODE: application auth code. Copy it from from Freesound
+#X obj 255 982 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 982 CODE: application auth code. Copy it from from Freesound
 webpage!. Type: symbol.;
-#X msg 110 1018 access load;
-#X text 245 1018 load temp *access* token (not OAuth id/secret!) from
+#X msg 110 1022 access load;
+#X text 245 1022 load temp *access* token (not OAuth id/secret!) from
 the special file from the current patch directory.;
-#X msg 110 1058 access store;
-#X text 245 1058 store temp *access* token (not OAuth id/secret!) into
+#X msg 110 1062 access store;
+#X text 245 1062 store temp *access* token (not OAuth id/secret!) into
 the special file in the current patch directory.;
-#X msg 110 1098 download;
-#X text 245 1098 download Freesound file. Arguments are:;
-#X obj 255 1121 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1121 ID: Freesound soundfile ID (get it from search result
+#X msg 110 1102 download;
+#X text 245 1102 download Freesound file. Arguments are:;
+#X obj 255 1125 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1125 ID: Freesound soundfile ID (get it from search result
 \, for examples). Type: int.;
-#X obj 255 1159 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1159 [@p]: search page number. Type: int. Min value: 1\.;
-#X obj 255 1182 cnv 1 31 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1182 [@n]: number of results. Type: int. Min value: 1\.;
-#X obj 255 1205 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1205 [@fields]: requested fields. Type: symbol.;
-#X obj 255 1228 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1228 [@sort]: sort methods: "score" \, "duration_desc"
+#X obj 255 1163 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1163 [@p]: search page number. Type: int. Min value: 1.;
+#X obj 255 1186 cnv 1 32 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1186 [@n]: number of results. Type: int. Min value: 1.;
+#X obj 255 1209 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1209 [@fields]: requested fields. Type: symbol.;
+#X obj 255 1232 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1232 [@sort]: sort methods: "score" \, "duration_desc"
 \, "duration_asc" \, "created_desc" \, "created_asc" \, "downloads_desc"
 \, "downloads_asc" \, "rating_desc" \, "rating_asc". Type: symbol.;
-#X obj 255 1296 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1296 [@filter]: filter expression \, for example: @filter
-type mp3\. See https://freesound.org/docs/api/resources_apiv2\.html.
+#X obj 255 1300 cnv 1 70 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1300 [@filter]: filter expression \, for example: @filter
+type mp3. See https://freesound.org/docs/api/resources_apiv2.html.
 Type: symbol.;
-#X msg 110 1351 load;
-#X text 245 1351 load Freesound file into Pd arrays. Arguments are:;
-#X obj 255 1374 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1374 ID: Freesound soundfile ID (get it from search result
+#X msg 110 1355 load;
+#X text 245 1355 load Freesound file into Pd arrays. Arguments are:;
+#X obj 255 1378 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1378 ID: Freesound soundfile ID (get it from search result
 \, for examples). Type: int.;
-#X obj 255 1412 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1412 @array: array name. Type: symbol.;
-#X obj 255 1435 cnv 1 54 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 1435 [@norm]: normalize sound. Type: bool.;
-#X msg 110 1460 me;
-#X text 245 1460 get and output user information.;
-#X msg 110 1487 search;
-#X text 245 1487 perform search.;
-#X obj 20 1524 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1529 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X obj 255 1416 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1416 @array: array name. Type: symbol.;
+#X obj 255 1439 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 1439 [@norm]: normalize sound. Type: bool.;
+#X msg 110 1464 me;
+#X text 245 1464 get and output user information.;
+#X msg 110 1492 search;
+#X text 245 1492 perform search.;
+#X obj 20 1530 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1535 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1530 1\.;
-#X text 245 1530 input.;
-#X obj 20 1560 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1565 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 1536 1.;
+#X text 245 1536 input.;
+#X obj 20 1566 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 1571 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 1566 1\.;
-#X text 245 1566 messages: [user DICT( - user info \, [progress VALUE(
+#X text 110 1572 1.;
+#X text 245 1572 messages: [user DICT( - user info \, [progress VALUE(
 - download process information \, [loaded( - when finished loading
 \, [downloaded( - when file download is finished \, [results DICT(
 - search result.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title net @url ceammc.net-help.pd;
-#X obj 1 1661 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 1664 library: ceammc v0.9.7;
-#N canvas 10 1683 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title net @url ceammc.net-help.pd;
+#X obj 1 1667 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 1670 library: ceammc v0.9.7;
+#N canvas 10 1689 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -139,7 +139,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1683 pd info;
+#X restore 10 1689 pd info;
 #X connect 12 0 14 0;
 #X connect 13 0 15 0;
 #X connect 15 0 16 0;

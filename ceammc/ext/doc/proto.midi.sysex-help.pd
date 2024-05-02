@@ -4,60 +4,60 @@
 #X text 538 50 raw midi SYSex encoder/parser;
 #X obj 1 1 cnv 5 765 40 empty empty proto.midi.sysex 20 20 0 20
 -104026 -4096 0;
-#X obj 624 11 proto.midi.sysex;
+#X obj 623 11 proto.midi.sysex;
 #X obj 50 118 proto.midi.sysex.mvol;
 #X obj 50 147 proto.midi.sysex.mbal;
 #X obj 50 176 proto.midi.sysex.mtune;
 #X obj 50 205 proto.midi.sysex.idreq;
-#X obj 20 254 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 259 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 260 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 294 id_request;
-#X text 245 294 send Identity Request SysEx message.;
-#X msg 110 321 mbal:f;
-#X text 245 321 set device master balance. Arguments are:;
-#X obj 255 344 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 344 PAN: balance. Type: float. Range: -1\...1\.;
-#X msg 110 369 mtune;
-#X text 245 369 set device master tuning in float semitones (combination
+#X msg 110 295 id_request;
+#X text 245 295 send Identity Request SysEx message.;
+#X msg 110 323 mbal:f;
+#X text 245 323 set device master balance. Arguments are:;
+#X obj 255 346 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 346 PAN: balance. Type: float. Range: -1...1.;
+#X msg 110 371 mtune;
+#X text 245 371 set device master tuning in float semitones (combination
 of coarse and fine tune). Arguments are:;
-#X obj 255 407 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 407 V: tuning. Type: float. Range: -64\...63\. Units: 'semitone'.;
-#X msg 110 432 mtune.;
-#X text 245 432 set device master fine tuning in cents. Arguments are:;
-#X obj 255 455 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 455 V: tuning. Type: int. Range: -100\...100\. Units: 'cent'.;
-#X msg 110 480 mtune~;
-#X text 245 480 set device master coarse tuning in semitones. Arguments
+#X obj 255 409 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 409 V: tuning. Type: float. Range: -64...63. Units: 'semitone'.;
+#X msg 110 434 mtune.;
+#X text 245 434 set device master fine tuning in cents. Arguments are:;
+#X obj 255 457 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 457 V: tuning. Type: int. Range: -100...100. Units: 'cent'.;
+#X msg 110 482 mtune~;
+#X text 245 482 set device master coarse tuning in semitones. Arguments
 are:;
-#X obj 255 503 cnv 1 14 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 503 V: tuning. Type: int. Range: -64\...63\. Units: 'semitone'.;
-#X msg 110 528 mvolume;
-#X text 245 528 set device master volume. Arguments are:;
-#X obj 255 551 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 551 LEVEL: volume level. Type: float. Range: 0\...1\.;
-#X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 591 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 255 505 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 505 V: tuning. Type: int. Range: -64...63. Units: 'semitone'.;
+#X msg 110 530 mvolume;
+#X text 245 530 set device master volume. Arguments are:;
+#X obj 255 553 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 553 LEVEL: volume level. Type: float. Range: 0...1.;
+#X obj 20 588 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 593 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 592 1\.;
-#X text 150 592 *float*;
-#X text 245 592 raw midi input bytes.;
-#X text 150 612 *list*;
-#X text 245 612 raw midi input bytes.;
-#X obj 20 642 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 647 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 594 1.;
+#X text 150 594 *float*;
+#X text 245 594 raw midi input bytes.;
+#X text 150 614 *list*;
+#X text 245 614 raw midi input bytes.;
+#X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 649 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 648 1\.;
-#X text 245 648 float: raw midi output or parsed messages with selector
+#X text 110 650 1.;
+#X text 245 650 float: raw midi output or parsed messages with selector
 (output format is the same as for corresponding methods).;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title proto @url ceammc.proto-help.pd;
-#X obj 1 713 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 716 library: ceammc v0.9.7;
-#N canvas 10 735 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title proto @url ceammc.proto-help.pd;
+#X obj 1 715 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 718 library: ceammc v0.9.7;
+#N canvas 10 737 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -81,4 +81,4 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 735 pd info;
+#X restore 10 737 pd info;

@@ -1,10 +1,10 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 530 50 cnv 1 235 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 530 50 magnitude of a complex signals;
+#X obj 529 50 cnv 1 236 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 529 50 magnitude of a complex signals;
 #X obj 1 1 cnv 5 765 40 empty empty math.cabs~ 20 20 0 20 -104026
 -4096 0;
-#X obj 492 11 ceammc/cabs~;
+#X obj 491 11 ceammc/cabs~;
 #X obj 604 11 cabs~;
 #X obj 666 11 math.cabs~;
 #X obj 50 118 ui.slider2d @show_grid 1 @size 100 100;
@@ -14,26 +14,26 @@
 #X obj 50 291 math.cabs~;
 #X obj 184 291 ui.dsp~;
 #X obj 50 320 ui.n~;
-#X obj 20 369 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 374 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 375 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 375 1\.;
-#X text 245 375 real part of input signal.;
-#X text 110 395 2\.;
-#X text 245 395 imag part of input signal.;
-#X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 430 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 376 1.;
+#X text 245 376 real part of input signal.;
+#X text 110 396 2.;
+#X text 245 396 imag part of input signal.;
+#X obj 20 426 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 431 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 431 1\.;
-#X text 245 431 signal magnitude.;
+#X text 110 432 1.;
+#X text 245 432 signal magnitude.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 592 520 see also:;
+#X text 591 520 see also:;
 #X obj 666 520 math.carg~;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;

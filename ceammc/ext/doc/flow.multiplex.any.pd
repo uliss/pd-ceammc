@@ -1,7 +1,7 @@
-#N canvas 0 0 423 241 12;
-#X floatatom 20 48 5 0 0 0 - - -;
-#X floatatom 96 48 5 0 0 0 - - -;
-#X floatatom 173 48 5 0 0 0 - - -;
+#N canvas 0 0 424 224 12;
+#X floatatom 20.0 48.8 5 0 0 0 - - -;
+#X floatatom 96.8 48.8 5 0 0 0 - - -;
+#X floatatom 173.6 48.8 5 0 0 0 - - -;
 #X msg 20 77 @a \$1;
 #X msg 96 77 @b \$1;
 #X msg 173 77 @c \$1;

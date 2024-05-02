@@ -4,9 +4,9 @@
 #X text 552 50 calculate reciprocal number;
 #X obj 1 1 cnv 5 765 40 empty empty math.reciprocal 20 20 0 20 -104026
 -4096 0;
-#X obj 486 11 ceammc/1/x;
-#X obj 584 11 1/x;
-#X obj 631 11 math.reciprocal;
+#X obj 484 11 ceammc/1/x;
+#X obj 582 11 1/x;
+#X obj 630 11 math.reciprocal;
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Symbols are ignored \, 0 gives NAN value;
 #X floatatom 50 143 5 0 0 0 - - -;
@@ -17,24 +17,24 @@
 #X obj 50 201 ui.dt;
 #X obj 261 201 /;
 #X floatatom 261 230 5 0 0 0 - - -;
-#X obj 20 279 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 284 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 262 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 267 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 285 1\.;
-#X text 150 285 *float*;
-#X text 245 285 input value.;
-#X text 150 305 *list*;
-#X text 245 305 on list input outputs a list of reciprocal values.;
-#X obj 20 335 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 340 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 268 1.;
+#X text 150 268 *float*;
+#X text 245 268 input value.;
+#X text 150 288 *list*;
+#X text 245 288 on list input outputs a list of reciprocal values.;
+#X obj 20 318 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 323 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 341 1\.;
-#X text 245 341 result value.;
+#X text 110 324 1.;
+#X text 245 324 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title math @url ceammc.math-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title math @url ceammc.math-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
 #N canvas 10 527 400 290 info 0;

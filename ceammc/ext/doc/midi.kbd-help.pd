@@ -1,10 +1,10 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 591 50 cnv 1 174 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 591 50 computer keyboard midi;
+#X obj 590 50 cnv 1 175 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 590 50 computer keyboard midi;
 #X obj 1 1 cnv 5 765 40 empty empty midi.kdb 20 20 0 20 -104026 -4096
 0;
-#X obj 682 11 midi.kdb;
+#X obj 681 11 midi.kdb;
 #X obj 210 80 cnv 1 555 50 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Default keyboard layout is QWERTY \, but you can specify
 custom one;
@@ -18,63 +18,63 @@ custom one;
 #X obj 50 274 ui.hk;
 #X obj 69 345 print;
 #X obj 50 374 ui.dt;
-#X obj 20 423 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 428 cnv 5 90 26 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 429 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
 -49933 0;
-#X text 110 463 1\.;
-#X text 150 463 symbol;
-#X obj 246 464 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 463 LAYOUT: layout name. Allowed values: qwerty \, names
-\, custom. . Type: symbol.;
-#X text 110 498 2\.;
-#X text 150 498 bool;
-#X obj 246 499 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 498 ON: init on/off state. Type: bool.;
-#X obj 20 528 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 533 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 464 1.;
+#X text 150 464 symbol;
+#X obj 246 465 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 464 LAYOUT: layout name. Allowed values: qwerty \, names
+\, custom. Type: symbol.;
+#X text 110 499 2.;
+#X text 150 499 bool;
+#X obj 246 500 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 499 ON: init on/off state. Type: bool.;
+#X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 534 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 568 @custom;
-#X text 245 568 Get/Set custom layout (Dict data type). Type: atom.
+#X msg 110 569 @custom;
+#X text 245 569 Get/Set custom layout (Dict data type). Type: atom.
 Default value: [].;
-#X msg 110 610 @layout;
-#X text 245 610 Get/Set current layout. Type: symbol. Default value:
+#X msg 110 611 @layout;
+#X text 245 611 Get/Set current layout. Type: symbol. Default value:
 qwerty. Allowed values: qwerty \, names \, custom.;
-#X msg 110 652 @octave;
-#X text 245 652 Get/Set output octave. Type: int. Default value: 4\.
-Range: 0\...8\.;
-#X msg 110 694 @on;
-#X text 245 694 Turn on/off state. Type: bool. Default value: 1\.;
-#X msg 110 723 @vel;
-#X text 245 723 Get/Set output velocity. Type: float. Default value:
-100\. Range: 0\...127\.;
-#X obj 20 775 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 780 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 653 @octave;
+#X text 245 653 Get/Set output octave. Type: int. Default value: 4.
+Range: 0...8.;
+#X msg 110 695 @on;
+#X text 245 695 Turn on/off state. Type: bool. Default value: 1.;
+#X msg 110 725 @vel;
+#X text 245 725 Get/Set output velocity. Type: float. Default value:
+100. Range: 0...127.;
+#X obj 20 777 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 782 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 815 custom;
-#X text 245 815 set custom. Arguments are:;
-#X obj 255 838 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 838 KEYSTR: key string. Type: symbol.;
-#X obj 20 873 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 878 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X msg 110 817 custom;
+#X text 245 817 set custom. Arguments are:;
+#X obj 255 840 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 840 KEYSTR: key string. Type: symbol.;
+#X obj 20 875 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 880 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 879 1\.;
-#X text 245 879 control input.;
-#X text 110 899 2\.;
-#X text 150 899 *int*;
-#X text 245 899 1 or 0: turn on/off.;
-#X obj 20 929 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 934 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 881 1.;
+#X text 245 881 control input.;
+#X text 110 901 2.;
+#X text 150 901 *int*;
+#X text 245 901 1 or 0: turn on/off.;
+#X obj 20 931 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 936 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 935 1\.;
-#X text 245 935 MIDI output: NOTE VEL.;
+#X text 110 937 1.;
+#X text 245 937 MIDI output: NOTE VEL.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title midi @url ceammc.midi-help.pd;
-#X obj 1 985 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 988 library: ceammc v0.9.7;
-#N canvas 10 1007 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title midi @url ceammc.midi-help.pd;
+#X obj 1 987 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 990 library: ceammc v0.9.7;
+#N canvas 10 1009 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -98,7 +98,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 1007 pd info;
+#X restore 10 1009 pd info;
 #X connect 6 0 9 0;
 #X connect 7 0 10 0;
 #X connect 9 0 12 0;

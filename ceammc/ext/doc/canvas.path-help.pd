@@ -1,35 +1,35 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 584 50 cnv 1 181 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 584 50 current canvas fullpath;
+#X obj 583 50 cnv 1 182 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 583 50 current canvas fullpath;
 #X obj 1 1 cnv 5 765 40 empty empty canvas.path 20 20 0 20 -104026
 -4096 0;
-#X obj 661 11 canvas.path;
+#X obj 660 11 canvas.path;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 147 canvas.path;
 #X obj 184 147 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 50 176 ui.display;
-#X obj 20 225 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 230 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 231 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 231 1\.;
-#X text 150 231 *bang*;
-#X text 245 231 output current canvas fullpath.;
-#X obj 20 261 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 266 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 232 1.;
+#X text 150 232 *bang*;
+#X text 245 232 output current canvas fullpath.;
+#X obj 20 262 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 267 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 267 1\.;
-#X text 245 267 current canvas fullpath as symbol.;
+#X text 110 268 1.;
+#X text 245 268 current canvas fullpath as symbol.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title patch @url ceammc.patch-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title patch @url ceammc.patch-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 498 520 see also:;
+#X text 497 520 see also:;
 #X obj 572 520 canvas.name;
 #X obj 667 520 canvas.dir;
 #N canvas 10 527 400 290 info 0;

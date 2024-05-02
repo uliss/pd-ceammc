@@ -1,10 +1,10 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 484 50 cnv 1 281 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 484 50 checks if file exists and accessible;
+#X obj 483 50 cnv 1 282 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 483 50 checks if file exists and accessible;
 #X obj 1 1 cnv 5 765 40 empty empty is_file 20 20 0 20 -104026 -4096
 0;
-#X obj 563 11 ceammc/is_file;
+#X obj 562 11 ceammc/is_file;
 #X obj 689 11 is_file;
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 If relative path is given file searched under patch
@@ -13,25 +13,25 @@ directory;
 #X msg 88 172 symbol not-exists;
 #X obj 50 201 is_file;
 #X obj 50 230 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
-#X obj 20 277 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 282 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 262 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 267 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 283 1\.;
-#X text 150 283 *symbol*;
-#X text 245 283 outputs '1' if file exists and can be opened \, otherwise
+#X text 110 268 1.;
+#X text 150 268 *symbol*;
+#X text 245 268 outputs '1' if file exists and can be opened \, otherwise
 '0'.;
-#X obj 20 313 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 318 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 303 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 319 1\.;
-#X text 245 319 0 or 1\.;
-#X text 110 339 2\.;
-#X text 245 339 symbol os String: pass filename if file exists.;
+#X text 110 304 1.;
+#X text 245 304 0 or 1.;
+#X text 110 324 2.;
+#X text 245 324 symbol os String: pass filename if file exists.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title predicates @url
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title predicates @url
 ceammc.predicates-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;

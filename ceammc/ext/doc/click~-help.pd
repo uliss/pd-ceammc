@@ -3,8 +3,8 @@
 #X obj 537 50 cnv 1 228 23 empty empty empty 17 7 0 10 -245760 -1 0;
 #X text 537 50 Output single impulse on bang;
 #X obj 1 1 cnv 5 765 40 empty empty click~ 20 20 0 20 -104026 -4096 0;
-#X obj 576 11 ceammc/click~;
-#X obj 696 11 click~;
+#X obj 575 11 ceammc/click~;
+#X obj 695 11 click~;
 #X obj 50 118 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 184 118 ui.dsp~;
 #X obj 50 147 metro 300;
@@ -13,22 +13,22 @@
 #X obj 50 234 flt.resonbp~ 1000;
 #X obj 50 262 ui.hgain~;
 #X obj 50 291 dac~;
-#X obj 20 340 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 345 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 346 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 346 1\.;
-#X text 150 346 *bang*;
-#X text 245 346 outputs single positive impulse.;
-#X obj 20 376 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 381 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 347 1.;
+#X text 150 347 *bang*;
+#X text 245 347 outputs single positive impulse.;
+#X obj 20 377 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 382 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 382 1\.;
-#X text 245 382 output signal.;
+#X text 110 383 1.;
+#X text 245 383 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title misc @url ceammc.misc-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title misc @url ceammc.misc-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
 #N canvas 10 527 400 290 info 0;

@@ -1,10 +1,10 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 484 50 cnv 1 281 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 484 50 array view with cursor and selection;
+#X obj 483 50 cnv 1 282 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 483 50 array view with cursor and selection;
 #X obj 1 1 cnv 5 765 40 empty empty ui.aview 20 20 0 20 -104026 -4096
 0;
-#X obj 680 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
+#X obj 679 13 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.aview] @url ui.aview-help.pd;
 #X obj 50 118 loadbang;
 #X obj 155 118 table array_view;
@@ -30,158 +30,158 @@
 #X obj 50 608 ui.gain~ @size 120 16;
 #X obj 290 608 ui.dsp~;
 #X obj 50 637 dac~;
-#X obj 20 686 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 691 cnv 5 115 26 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 687 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 692 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
 -49933 0;
-#X text 110 726 Left-click;
-#X text 285 726 move view cursor under mouse pointer.;
-#X text 110 746 Left-click;
-#X text 285 746 starts range selection.;
-#X text 110 766 Left-click + ⌥;
-#X text 285 766 edit selection nearest border.;
-#X text 110 786 Left-click + ⇧;
-#X text 285 786 starts moving selection.;
-#X text 110 806 Mouse-drag;
-#X text 285 806 move view cursor.;
-#X text 110 826 Mouse-drag + ⌥;
-#X text 285 826 change nearest selection border.;
-#X text 110 846 Mouse-drag + ⇧;
-#X text 285 846 move selection.;
-#X obj 20 876 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 881 cnv 5 98 26 empty empty properties: 4 10 0 14 -262144
+#X text 110 727 Left-click;
+#X text 285 727 move view cursor under mouse pointer.;
+#X text 110 747 Left-click;
+#X text 285 747 starts range selection.;
+#X text 110 767 Left-click + ⌥;
+#X text 285 767 edit selection nearest border.;
+#X text 110 787 Left-click + ⇧;
+#X text 285 787 starts moving selection.;
+#X text 110 807 Mouse-drag;
+#X text 285 807 move view cursor.;
+#X text 110 827 Mouse-drag + ⌥;
+#X text 285 827 change nearest selection border.;
+#X text 110 847 Mouse-drag + ⇧;
+#X text 285 847 move selection.;
+#X obj 20 877 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 882 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 916 @array;
-#X text 245 916 Get/Set array name. Type: symbol.;
-#X msg 110 945 @cursor_ms;
-#X text 245 945 Get/Set cursor position in milliseconds. Type: float.
-Units: 'ms'. Default value: 0\.;
-#X msg 110 987 @cursor_phase;
-#X text 245 987 Get/Set cursor position in 0-1 range. Type: float.
-Default value: 0\. Range: 0\...1\.;
-#X msg 110 1029 @cursor_samp;
-#X text 245 1029 Get/Set cursor position in samples. Type: int. Units:
-'samp'. Default value: 0\.;
-#X msg 110 1071 @cursor_sec;
-#X text 245 1071 Get/Set cursor position in seconds. Type: float. Units:
-'sec'. Default value: 0\.;
-#X msg 110 1113 @mouse_events;
-#X text 245 1113 Get/Set mouse events output mode. If on outputs @mouse_down
-\, @mouse_up and @mouse_drag events. Type: bool. Default value: 1\.;
-#X msg 110 1170 @receive;
-#X text 245 1170 Get/Set receive source. Type: symbol. Default value:
+#X msg 110 917 @array;
+#X text 245 917 Get/Set array name. Type: symbol.;
+#X msg 110 947 @cursor_ms;
+#X text 245 947 Get/Set cursor position in milliseconds. Type: float.
+Units: 'ms'. Default value: 0.;
+#X msg 110 989 @cursor_phase;
+#X text 245 989 Get/Set cursor position in 0-1 range. Type: float.
+Default value: 0. Range: 0...1.;
+#X msg 110 1031 @cursor_samp;
+#X text 245 1031 Get/Set cursor position in samples. Type: int. Units:
+'samp'. Default value: 0.;
+#X msg 110 1073 @cursor_sec;
+#X text 245 1073 Get/Set cursor position in seconds. Type: float. Units:
+'sec'. Default value: 0.;
+#X msg 110 1115 @mouse_events;
+#X text 245 1115 Get/Set mouse events output mode. If on outputs @mouse_down
+\, @mouse_up and @mouse_drag events. Type: bool. Default value: 1.;
+#X msg 110 1172 @receive;
+#X text 245 1172 Get/Set receive source. Type: symbol. Default value:
 (null).;
-#X msg 110 1199 @select_ms;
-#X text 245 1199 Get/Set selection range in milliseconds \, pair of
+#X msg 110 1202 @select_ms;
+#X text 245 1202 Get/Set selection range in milliseconds \, pair of
 values: begin \, end. Type: list. Units: 'ms'.;
-#X msg 110 1241 @select_phase;
-#X text 245 1241 Get/Set selection range noramlized to 0-1 range \,
+#X msg 110 1244 @select_phase;
+#X text 245 1244 Get/Set selection range noramlized to 0-1 range \,
 pair of values: begin \, end. Type: list.;
-#X msg 110 1283 @select_samp;
-#X text 245 1283 Get/Set selection range in samples \, pair of values:
+#X msg 110 1286 @select_samp;
+#X text 245 1286 Get/Set selection range in samples \, pair of values:
 begin \, end. Type: list. Units: 'samp'.;
-#X msg 110 1325 @select_sec;
-#X text 245 1325 Get/Set selection range in seconds \, pair of values:
+#X msg 110 1328 @select_sec;
+#X text 245 1328 Get/Set selection range in seconds \, pair of values:
 begin \, end. Type: list. Units: 'sec'.;
-#X msg 110 1367 @send;
-#X text 245 1367 Get/Set send destination. Type: symbol. Default value:
+#X msg 110 1370 @send;
+#X text 245 1370 Get/Set send destination. Type: symbol. Default value:
 (null).;
-#X msg 110 1409 @show_rms;
-#X text 245 1409 Get/Set show RMS graph. Type: bool. Default value:
-0\.;
-#X msg 110 1438 @background_color;
-#X text 245 1438 Get/Set element background color (list of red \, green
+#X msg 110 1412 @show_rms;
+#X text 245 1412 Get/Set show RMS graph. Type: bool. Default value:
+0.;
+#X msg 110 1442 @background_color;
+#X text 245 1442 Get/Set element background color (list of red \, green
 \, blue values in 0-1 range). Type: list. Default value: 0.93 0.93
-0.93 1\.;
-#X msg 110 1495 @border_color;
-#X text 245 1495 Get/Set border color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1\.;
-#X msg 110 1537 @cursor_color;
-#X text 245 1537 Get/Set cursor color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 1579 @selection_color;
-#X text 245 1579 Get/Set selection color (list of red \, green \, blue
-values in 0-1 range). Type: list. Default value: 0 0.75 1 1\.;
-#X msg 110 1621 @wave_color;
-#X text 245 1621 Get/Set wave color (list of red \, green \, blue values
-in 0-1 range). Type: list. Default value: 0.3 0.3 0.3 1\.;
-#X msg 110 1663 @label_bottom;
-#X text 245 1663 Get/Set bottom right label if @show_labels is on.
+0.93 1.;
+#X msg 110 1499 @border_color;
+#X text 245 1499 Get/Set border color (list of red \, green \, blue
+values in 0-1 range). Type: list. Default value: 0.6 0.6 0.6 1.;
+#X msg 110 1541 @cursor_color;
+#X text 245 1541 Get/Set cursor color (list of red \, green \, blue
+values in 0-1 range). Type: list. Default value: 0 0.75 1 1.;
+#X msg 110 1583 @selection_color;
+#X text 245 1583 Get/Set selection color (list of red \, green \, blue
+values in 0-1 range). Type: list. Default value: 0 0.75 1 1.;
+#X msg 110 1625 @wave_color;
+#X text 245 1625 Get/Set wave color (list of red \, green \, blue values
+in 0-1 range). Type: list. Default value: 0.3 0.3 0.3 1.;
+#X msg 110 1667 @label_bottom;
+#X text 245 1667 Get/Set bottom right label if @show_labels is on.
 Type: symbol.;
-#X msg 110 1705 @label_top;
-#X text 245 1705 Get/Set top right label if @show_labels is on. Type:
+#X msg 110 1709 @label_top;
+#X text 245 1709 Get/Set top right label if @show_labels is on. Type:
 symbol.;
-#X msg 110 1734 @show_labels;
-#X text 245 1734 Get/Set if show corner labels. Type: bool. Default
-value: 0\.;
-#X msg 110 1763 @fontname;
-#X text 245 1763 Get/Set fontname. Type: symbol. Default value: Helvetica.
+#X msg 110 1739 @show_labels;
+#X text 245 1739 Get/Set if show corner labels. Type: bool. Default
+value: 0.;
+#X msg 110 1769 @fontname;
+#X text 245 1769 Get/Set fontname. Type: symbol. Default value: Helvetica.
 Allowed values: Courier \, DejaVu \, Helvetica \, Monaco \, Times.;
-#X msg 110 1805 @fontsize;
-#X text 245 1805 Get/Set fontsize. Type: int. Default value: 11\. Range:
-4\...100\.;
-#X msg 110 1847 @fontslant;
-#X text 245 1847 Get/Set font slant. Type: symbol. Default value: roman.
+#X msg 110 1811 @fontsize;
+#X text 245 1811 Get/Set fontsize. Type: int. Default value: 11. Range:
+4...100.;
+#X msg 110 1853 @fontslant;
+#X text 245 1853 Get/Set font slant. Type: symbol. Default value: roman.
 Allowed values: roman \, italic.;
-#X msg 110 1889 @fontweight;
-#X text 245 1889 Get/Set font weight. Type: symbol. Default value:
+#X msg 110 1895 @fontweight;
+#X text 245 1895 Get/Set font weight. Type: symbol. Default value:
 normal. Allowed values: normal \, bold.;
-#X msg 110 1931 @pinned;
-#X text 245 1931 Get/Set pin mode. if 1 - put element to the lowest
-level. Type: bool. Default value: 0\.;
-#X msg 110 1973 @size;
-#X text 245 1973 Get/Set element size (width \, height pair). Type:
-list. Default value: 300 100\.;
-#X msg 110 2015 @size_ms?;
-#X text 245 2015 (readonly) Get array size in milliseconds. Type: float.
-Units: 'ms'. Default value: 0\. Min value: 0\.;
-#X msg 110 2057 @size_samp?;
-#X text 245 2057 (readonly) Get array size in samples. Type: int. Units:
-'samp'. Default value: 0\. Min value: 0\.;
-#X msg 110 2099 @size_sec?;
-#X text 245 2099 (readonly) Get array size in seconds. Type: float.
-Units: 'sec'. Default value: 0\. Min value: 0\.;
-#X obj 20 2151 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2156 cnv 5 73 26 empty empty methods: 4 10 0 14 -262144
+#X msg 110 1937 @pinned;
+#X text 245 1937 Get/Set pin mode. if 1 - put element to the lowest
+level. Type: bool. Default value: 0.;
+#X msg 110 1979 @size;
+#X text 245 1979 Get/Set element size (width \, height pair). Type:
+list. Default value: 300 100.;
+#X msg 110 2021 @size_ms?;
+#X text 245 2021 (readonly) Get array size in milliseconds. Type: float.
+Units: 'ms'. Default value: 0. Min value: 0.;
+#X msg 110 2063 @size_samp?;
+#X text 245 2063 (readonly) Get array size in samples. Type: int. Units:
+'samp'. Default value: 0. Min value: 0.;
+#X msg 110 2105 @size_sec?;
+#X text 245 2105 (readonly) Get array size in seconds. Type: float.
+Units: 'sec'. Default value: 0. Min value: 0.;
+#X obj 20 2157 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2162 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
 -49933 0;
-#X msg 110 2191 pos;
-#X text 245 2191 set UI element position. Arguments are:;
-#X obj 255 2214 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2214 X: top left x-coord. Type: float.;
-#X obj 255 2237 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2237 Y: top right y-coord. Type: float.;
-#X msg 110 2262 select;
-#X text 245 2262 set selection. Arguments are:;
-#X obj 255 2285 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2285 BEGIN: selection start in samples. Type: int.;
-#X obj 255 2308 cnv 1 28 23 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 255 2308 END: selection end in samples. Type: int.;
-#X msg 110 2333 update;
-#X text 245 2333 redraws view.;
-#X msg 110 2360 dump;
-#X text 245 2360 dumps all object info to Pd console window.;
-#X obj 20 2397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2402 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144
+#X msg 110 2197 pos;
+#X text 245 2197 set UI element position. Arguments are:;
+#X obj 255 2220 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2220 X: top left x-coord. Type: float.;
+#X obj 255 2243 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2243 Y: top right y-coord. Type: float.;
+#X msg 110 2268 select;
+#X text 245 2268 set selection. Arguments are:;
+#X obj 255 2291 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2291 BEGIN: selection start in samples. Type: int.;
+#X obj 255 2314 cnv 1 29 23 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 255 2314 END: selection end in samples. Type: int.;
+#X msg 110 2339 update;
+#X text 245 2339 redraws view.;
+#X msg 110 2367 dump;
+#X text 245 2367 dumps all object info to Pd console window.;
+#X obj 20 2405 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2410 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2403 1\.;
-#X text 150 2403 *bang*;
-#X text 245 2403 output current cursor positions: @cursor_samp \, @cursor_phase
+#X text 110 2411 1.;
+#X text 150 2411 *bang*;
+#X text 245 2411 output current cursor positions: @cursor_samp \, @cursor_phase
 \, @cursor_ms \, @cursor_sec and selection (if selected): @select_samp
 \, @select_phase \, @select_ms \, @select_sec \, @begin \, @end.;
-#X text 150 2468 *float*;
-#X text 245 2468 move cursor to specified sample position.;
-#X obj 20 2498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2503 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 150 2476 *float*;
+#X text 245 2476 move cursor to specified sample position.;
+#X obj 20 2506 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 2511 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 2504 1\.;
-#X text 245 2504 output.;
+#X text 110 2512 1.;
+#X text 245 2512 output.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title ui @url ceammc.ui-help.pd;
-#X obj 1 2554 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
-#X text 10 2557 library: ceammc v0.9.7;
-#N canvas 10 2576 400 290 info 0;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title ui @url ceammc.ui-help.pd;
+#X obj 1 2562 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 10 2565 library: ceammc v0.9.7;
+#N canvas 10 2584 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
 #X text 10 10 library:;
 #X text 120 10 ceammc;
@@ -205,7 +205,7 @@ https://github.com/uliss/pd-ceammc;
 #X obj 120 208 declare -lib ceammc;
 #X obj 120 268 cnv 1 270 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 120 268 generated by pddoc;
-#X restore 10 2576 pd info;
+#X restore 10 2584 pd info;
 #X connect 4 0 6 0;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;

@@ -1,11 +1,11 @@
 #N canvas 0 0 785 555 12;
 #X declare -lib ceammc;
-#X obj 461 50 cnv 1 304 23 empty empty empty 17 7 0 10 -245760 -1 0;
-#X text 461 50 convert decibel full scale to amplitude;
+#X obj 460 50 cnv 1 305 23 empty empty empty 17 7 0 10 -245760 -1 0;
+#X text 460 50 convert decibel full scale to amplitude;
 #X obj 1 1 cnv 5 765 40 empty empty conv.dbfs2amp~ 20 20 0 20 -104026
 -4096 0;
-#X obj 391 11 ceammc/dbfs->amp~;
-#X obj 540 11 dbfs->amp~;
+#X obj 390 11 ceammc/dbfs->amp~;
+#X obj 539 11 dbfs->amp~;
 #X obj 638 11 conv.dbfs2amp~;
 #X obj 210 80 cnv 1 555 35 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 Note: db values <= -144 are converted to 0;
@@ -14,25 +14,25 @@
 #X obj 50 201 dbfs->amp~;
 #X obj 194 201 ui.dsp~;
 #X obj 50 230 ui.n~;
-#X obj 20 279 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 284 cnv 5 64 26 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 285 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
 0;
-#X text 110 285 1\.;
-#X text 245 285 input signal.;
-#X obj 20 315 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 320 cnv 5 73 26 empty empty outlets: 4 10 0 14 -262144
+#X text 110 286 1.;
+#X text 245 286 input signal.;
+#X obj 20 316 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 321 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
 -49933 0;
-#X text 110 321 1\.;
-#X text 245 321 converted signal.;
+#X text 110 322 1.;
+#X text 245 322 converted signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
-#X obj 67 48 ui.link @title ceammc @url ceammc-help.pd;
-#X text 115 45 ::;
-#X obj 131 48 ui.link @title conv @url ceammc.conv-help.pd;
+#X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;
+#X text 116 45 ::;
+#X obj 133 48 ui.link @title conv @url ceammc.conv-help.pd;
 #X obj 1 505 cnv 5 765 48 empty empty empty 17 7 0 10 -203890 -1 0;
 #X text 10 508 library: ceammc v0.9.7;
-#X text 512 520 see also:;
-#X obj 586 520 amp->dbfs~;
+#X text 510 520 see also:;
+#X obj 585 520 amp->dbfs~;
 #X obj 674 520 dbfs->amp;
 #N canvas 10 527 400 290 info 0;
 #X obj 1 1 cnv 1 107 287 empty empty empty 17 7 0 10 -183085 -1 0;
