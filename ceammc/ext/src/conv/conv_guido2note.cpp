@@ -46,6 +46,14 @@ void ConvGuido2Note::onSymbol(t_symbol* s)
     floatTo(0, pitch);
 }
 
+void ConvGuido2Note::onList(const AtomListView& lv)
+{
+    for (auto& a : lv) {
+        if (a.isSymbol())
+            onSymbol(a.asT<t_symbol*>());
+    }
+}
+
 void setup_conv_guido2note()
 {
     ObjectFactory<ConvGuido2Note> obj("conv.guido2note");

@@ -49,6 +49,28 @@
 [conv.guido2note @tempo 80bpm]
 |                    ^|
 [ui.dt]              [ui.dt]
+
+[bang #a( [reset(
+|         |
+[list.walk b&2/8. g2/16 e2/16 d2/16 c#2/8 e2/8. cis2/16 a1/16 g1/16 f/4]
+|
+|
+[guido->note #x]
+|     ^|..
+[makenote 120 {w=22} #b]
+|
+[pack f f {i=2,o=1,w=18} #d] [sel 0 {x=16} #c]
+|
+[msg note]     [del {x=16} #e]
+|
+[sfizz~ \#sine]
+*|*
+[ui.hgain2~]         [ui.dsp~]
+*|*
+[dac~]
+
+[X b:1->d:1] [X b:1->c] [X e->a] [X c->e]
+#x @tempo 144
 ]]>
             </pdascii>
         </example>

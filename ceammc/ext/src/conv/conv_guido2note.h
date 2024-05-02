@@ -24,6 +24,7 @@ class ConvGuido2Note : public BaseObject {
 public:
     ConvGuido2Note(const PdArgs& args);
     void onSymbol(t_symbol* s) final;
+    void onList(const AtomListView& lv) final;
 };
 
 void setup_conv_guido2note();
