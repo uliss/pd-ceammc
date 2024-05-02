@@ -62,8 +62,9 @@
             <param name="@sort" type="symbol" required="false">sort methods: "score",
             "duration_desc", "duration_asc", "created_desc", "created_asc", "downloads_desc",
             "downloads_asc", "rating_desc", "rating_asc"</param>
-            <param name="@filter" type="symbol" required="false">filter expression, for example: @filter type mp3.
-            See https://freesound.org/docs/api/resources_apiv2.html</param></method>
+            <param name="@filter" type="symbol" required="false">filter expression, for example:
+            @filter type mp3. See
+            https://freesound.org/docs/api/resources_apiv2.html</param></method>
         </methods>
         <inlets>
             <inlet>

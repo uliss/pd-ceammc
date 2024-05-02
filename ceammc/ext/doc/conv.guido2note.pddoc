@@ -24,11 +24,13 @@
             <a href="https://en.wikipedia.org/wiki/GUIDO_music_notation">GUIDO music notation</a>
         </info>
         <arguments>
-            <argument name="TEMPO" type="atom" units="bpm">current tempo, if float - treat as quarter-per-minute,
-            if symbol - bpm format expected, for example: 120bpm, 60|1/8_bpm, 90|4._bpm etc.</argument>
+            <argument name="TEMPO" type="atom" units="bpm">current tempo, if float - treat as
+            quarter-per-minute, if symbol - bpm format expected, for example: 120bpm, 60|1/8_bpm,
+            90|4._bpm etc.</argument>
         </arguments>
         <properties>
-            <property name="@tempo" type="atom" default="60|4bpm" units="bpm">current tempo</property>
+            <property name="@tempo" type="atom" default="60|4bpm" units="bpm">current
+            tempo</property>
         </properties>
         <inlets>
             <inlet>
