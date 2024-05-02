@@ -50,6 +50,9 @@
 |                    ^|
 [ui.dt]              [ui.dt]
 
+
+/*// music example*/
+
 [bang #a( [reset(
 |         |
 [list.walk b&2/8. g2/16 e2/16 d2/16 c#2/8 e2/8. cis2/16 a1/16 g1/16 f/4]
