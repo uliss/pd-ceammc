@@ -1,0 +1,49 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="conv.guido2note">
+        <title>conv.guido2note</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>convert Guido notation into MIDI and duration</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>conv</category>
+            <keywords>conv guido midi</keywords>
+            <since>0.9.8</since>
+            <also>
+                <see>conv.note2guido</see>
+            </also>
+            <aliases>
+                <alias>ceammc/guido-&gt;note</alias>
+                <alias>guido-&gt;note</alias>
+            </aliases>
+        </meta>
+        <info>
+            <a href="https://en.wikipedia.org/wiki/GUIDO_music_notation">GUIDO music notation</a>
+        </info>
+        <inlets>
+            <inlet>
+                <xinfo on="symbol">Guido note</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>int: MIDI pitch</outlet>
+            <outlet>float: note duration in milliseconds</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[symbol c#0/4.(    [F]   [60( [120(
+|                  |     |    |
+[S digits=10]      [prop.set @tempo]
+|                  |
+[conv.guido2note @tempo 80bpm]
+|                    ^|
+[ui.dt]              [ui.dt]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

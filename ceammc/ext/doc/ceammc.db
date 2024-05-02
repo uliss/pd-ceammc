@@ -69,6 +69,7 @@ conv.dbfs2amp,ceammc/dbfs->amp,dbfs->amp		.		.
 conv.dbfs2amp~,ceammc/dbfs->amp~,dbfs->amp~		~		~
 conv.degree2key,ceammc/degree->key,degree->key		.		.
 conv.edge2bang,ceammc/edge->bang,edge->bang		.		.
+conv.guido2note,ceammc/guido->note,guido->note		.		..
 conv.hex2int,ceammc/hex->int,hex->int		.		.
 conv.hsl2rgb,ceammc/hsl->rgb,hsl->rgb		...		?
 conv.int2bits,ceammc/int->bits,int->bits		.		.

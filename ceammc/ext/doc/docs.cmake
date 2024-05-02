@@ -71,6 +71,7 @@ set(DOC_FILES
     conv.dbfs2amp~
     conv.degree2key
     conv.edge2bang
+    conv.guido2note
     conv.hex2int
     conv.hsl2rgb
     conv.int2bits

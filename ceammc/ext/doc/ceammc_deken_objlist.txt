@@ -172,6 +172,9 @@ degree->key	convert scale degree to key
 conv.edge2bang	edge detector for numeric stream
 ceammc/edge->bang	edge detector for numeric stream
 edge->bang	edge detector for numeric stream
+conv.guido2note	convert Guido notation into MIDI and duration
+ceammc/guido->note	convert Guido notation into MIDI and duration
+guido->note	convert Guido notation into MIDI and duration
 conv.hex2int	hex symbol to int value
 ceammc/hex->int	hex symbol to int value
 hex->int	hex symbol to int value
