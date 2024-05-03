@@ -1,0 +1,18 @@
+[package]
+name = "system_rust"
+version = "0.1.0"
+edition = "2021"
+
+[lib]
+crate-type = ["staticlib", "cdylib"]
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[dependencies]
+duct = "0.13.7"
+# c_str_macro = "1.0.3"
+# gilrs = "0.10.5"
+
+[build-dependencies]
+cbindgen = "0.22.0"
+walkdir = "2.5.0"
