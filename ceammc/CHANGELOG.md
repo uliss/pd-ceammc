@@ -3,15 +3,15 @@
 ## [0.9.8]
 ### Added:
 - new objects:
-  - route.data (with route.d alias) - separate data from other types
-  - msg.unpack - unpack message to selector and arguments
-  - net.mdns - MDNS (Bonjour, Zeroconf) service discovery object
-  - net.ws.client - WebSocket client
-  - net.ws.server - WebSocket client 
-  - net.mqtt.client - MQTT client 
   - hw.gamepad - gamepad support
   - hw.printer - simple printing support (only PDF files)
-  - route.data - data router
+  - msg.unpack - unpack message to selector and arguments
+  - net.mdns - MDNS (Bonjour, Zeroconf) service discovery object
+  - net.mqtt.client - MQTT client 
+  - net.ws.client - WebSocket client
+  - net.ws.server - WebSocket client 
+  - route.data (with route.d alias) - separate data from other types
+  - system.command (with system.cmd alias) - run several processes like in shell with pipes
 - new properties:
   - dict->list @props flag added to output as list of properties
 - misc:
