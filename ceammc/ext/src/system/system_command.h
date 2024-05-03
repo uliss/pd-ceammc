@@ -16,6 +16,7 @@
 
 #include "ceammc_clock.h"
 #include "ceammc_object.h"
+#include "ceammc_property_enum.h"
 #include "system_rust.hpp"
 
 using namespace ceammc;
@@ -34,6 +35,7 @@ class SystemCommand : public BaseObject {
     BoolProperty* stdout_ { nullptr };
     BoolProperty* stderr_ { nullptr };
     SymbolProperty* pwd_ { nullptr };
+    SymbolEnumProperty* mode_ { nullptr };
 
 public:
     SystemCommand(const PdArgs& args);
@@ -48,6 +50,7 @@ public:
 private:
     void exec(const char* input = nullptr);
     bool parseCommand(const AtomListView& lv);
+    void output(size_t outlet, const uint8_t* data, size_t len);
 };
 
 void setup_system_command();

@@ -10,8 +10,8 @@
 enum class ceammc_system_process_mode {
     Bytes,
     Lines,
-    String,
     Fudi,
+    String,
 };
 
 enum class ceammc_system_process_rc {

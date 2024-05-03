@@ -13,9 +13,29 @@
  *****************************************************************************/
 #include "system_command.h"
 #include "ceammc_containers.h"
+#include "ceammc_crc32.h"
 #include "ceammc_factory.h"
 #include "ceammc_format.h"
 #include "datatype_string.h"
+
+CEAMMC_DEFINE_SYM_HASH(str)
+CEAMMC_DEFINE_SYM_HASH(bytes)
+CEAMMC_DEFINE_SYM_HASH(lines)
+CEAMMC_DEFINE_SYM_HASH(pd)
+
+static ceammc_system_process_mode prop2mode(const char* mode)
+{
+    switch (crc32_hash(mode)) {
+    case hash_str:
+        return ceammc_system_process_mode::String;
+    case hash_bytes:
+        return ceammc_system_process_mode::Bytes;
+    case hash_lines:
+    case hash_pd:
+    default:
+        return ceammc_system_process_mode::Lines;
+    }
+}
 
 SystemCommand::SystemCommand(const PdArgs& args)
     : BaseObject(args)
@@ -52,6 +72,14 @@ SystemCommand::SystemCommand(const PdArgs& args)
 
     pwd_ = new SymbolProperty("@pwd", &s_);
     addProperty(pwd_);
+
+    mode_ = new SymbolEnumProperty("@mode", { sym_pd(), sym_lines(), sym_bytes(), sym_str() });
+    addProperty(mode_);
+
+    timeout_ = new IntProperty("@t", 100);
+    timeout_->setUnitsMs();
+    timeout_->checkClosedRange(5, 500);
+    addProperty(timeout_);
 }
 
 SystemCommand::~SystemCommand()
@@ -103,7 +131,7 @@ void SystemCommand::exec(const char* input)
     proc_ = ceammc_system_process_new(
         cmd_args.data(),
         cmd_args.size(),
-        ceammc_system_process_mode::Lines,
+        prop2mode(mode_->value()->s_name),
         stdout_->value(),
         stderr_->value(),
         pwd_->value()->s_name,
@@ -116,17 +144,13 @@ void SystemCommand::exec(const char* input)
         },
         [](void* user, const std::uint8_t* data, size_t len) {
             auto this_ = static_cast<SystemCommand*>(user);
-            if (this_) {
-                StringAtom str(std::string { (const char*)data, len });
-                this_->atomTo(0, str);
-            }
+            if (this_)
+                this_->output(0, data, len);
         },
         [](void* user, const std::uint8_t* data, size_t len) {
             auto this_ = static_cast<SystemCommand*>(user);
-            if (this_) {
-                StringAtom str(std::string { (const char*)data, len });
-                this_->atomTo(1, str);
-            }
+            if (this_)
+                this_->output(1, data, len);
         });
 
     if (proc_ && ceammc_system_process_exec(proc_)) {
@@ -186,6 +210,29 @@ bool SystemCommand::parseCommand(const AtomListView& lv)
     }
 
     return true;
+}
+
+void SystemCommand::output(size_t outlet, const uint8_t* data, size_t len)
+{
+    switch (crc32_hash(mode_->value())) {
+    case hash_str: {
+        atomTo(outlet, StringAtom(std::string((const char*)data, len)));
+    } break;
+    case hash_bytes: {
+        for (size_t i = 0; i < len; i++)
+            floatTo(outlet, data[i]);
+    } break;
+    case hash_lines: {
+        atomTo(outlet, StringAtom(std::string((const char*)data, len)));
+    } break;
+    case hash_pd:
+    default: {
+        t_binbuf* bbuf = binbuf_new();
+        binbuf_text(bbuf, (const char*)data, len);
+        listTo(outlet, AtomListView(bbuf));
+        binbuf_free(bbuf);
+    } break;
+    }
 }
 
 void setup_system_command()

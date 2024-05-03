@@ -10,6 +10,9 @@ crate-type = ["staticlib", "cdylib"]
 
 [dependencies]
 duct = "0.13.7"
+lazy_static = "1.4.0"
+logging = "0.1.0"
+regex = "1.10.4"
 # c_str_macro = "1.0.3"
 # gilrs = "0.10.5"
 

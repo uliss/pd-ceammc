@@ -6,6 +6,12 @@ use std::{os::raw::c_char, ptr::null_mut};
 use std::ffi::{CStr, CString};
 
 use duct::Expression;
+use lazy_static::lazy_static;
+use regex::bytes::Regex;
+
+lazy_static! {
+    static ref FUDI_RE: Regex = Regex::new(r"(?m)((?:(?s).*?)[^\\])\n?;").unwrap();
+}
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
@@ -61,8 +67,8 @@ pub enum system_process_rc {
 pub enum system_process_mode {
     Bytes,
     Lines,
-    String,
     Fudi,
+    String,
 }
 
 impl system_process {
@@ -163,7 +169,7 @@ impl system_process {
     ) {
         cb.map(|f| match self.mode {
             system_process_mode::Bytes => f(self.user, data.as_ptr(), data.len()),
-            system_process_mode::Lines => {
+            system_process_mode::Lines  => {
                 data.split(|x| *x == b'\n') // split by \n
                     .map(|str| {
                         if let Some(str) = str.strip_suffix(&[b'\r']) {
@@ -182,7 +188,13 @@ impl system_process {
                     .filter(|x| x.is_empty())
                     .for_each(|x| f(self.user, x.as_ptr(), x.len()));
             }
-            system_process_mode::Fudi => {}
+            system_process_mode::Fudi => {
+                for x in FUDI_RE.captures_iter(data) {
+                    if let Some(m) = x.get(1) {
+                        f(self.user, m.as_bytes().as_ptr(), m.len());
+                    }
+                }
+            }
         });
     }
 
