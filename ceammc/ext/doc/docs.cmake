@@ -644,9 +644,9 @@ set(DOC_FILES
     prop
     prop.declare
     prop.get
-    prop.get~
     prop.join
     prop.random
+    prop.route~
     prop.set
     prop.split
     proto.arturia.minilab

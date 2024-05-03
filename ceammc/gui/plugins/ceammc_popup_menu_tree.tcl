@@ -58,14 +58,14 @@
         conv.bits2bang conv.bits2int conv.bits2note conv.bits2pos conv.bpm2hz
         conv.bpm2ms conv.bpm2sec conv.car2pol conv.cc2amp conv.char2morse
         conv.color2rgba conv.dbfs2amp conv.dbfs2amp~ conv.degree2key
-        conv.edge2bang conv.hex2int conv.hsl2rgb conv.int2bits conv.lab2rgb
-        conv.lin2curve conv.lin2exp conv.lin2lin conv.lin2lin~ conv.list2props
-        conv.midi2freq conv.ms2bpm conv.ms2samp conv.ms2samp~ conv.ms2str
-        conv.note2guido conv.phase2rad conv.phase2rad~ conv.pitch2midi
-        conv.pol2car conv.rad2phase conv.rad2phase~ conv.rgb2hex conv.samp2ms
-        conv.samp2ms~ conv.samp2sec conv.sec2bpm conv.sec2samp conv.sec2str
-        conv.semi2ratio conv.sig2float~ conv.str2sec music.dur2time
-        music.voice2midi
+        conv.edge2bang conv.guido2note conv.hex2int conv.hsl2rgb conv.int2bits
+        conv.lab2rgb conv.lin2curve conv.lin2exp conv.lin2lin conv.lin2lin~
+        conv.list2props conv.midi2freq conv.ms2bpm conv.ms2samp conv.ms2samp~
+        conv.ms2str conv.note2guido conv.phase2rad conv.phase2rad~
+        conv.pitch2midi conv.pol2car conv.rad2phase conv.rad2phase~
+        conv.rgb2hex conv.samp2ms conv.samp2ms~ conv.samp2sec conv.sec2bpm
+        conv.sec2samp conv.sec2str conv.semi2ratio conv.sig2float~
+        conv.str2sec music.dur2time music.voice2midi
     }}
     {data {
         color.mix color.scale data.bimap data.color data.copy data.dict
@@ -192,9 +192,9 @@
         rhythm.euclid rhythm.hexbeat rhythm.lsystem
     }}
     {net {
-        net.artnet.send net.host2ip net.http.send net.mdns net.mqtt.client
-        net.osc.receive net.osc.send net.osc.server net.ws.client
-        net.ws.server
+        net.artnet.send net.freesound net.host2ip net.http.client
+        net.http.send net.mdns net.mqtt.client net.osc.receive net.osc.send
+        net.osc.server net.ws.client net.ws.server
     }}
     {noise {
         noise.baker noise.clifford noise.collatz noise.colored~ noise.crackle~
@@ -224,8 +224,8 @@
         preset.float preset.list preset.storage preset.symbol
     }}
     {property {
-        patch.props prop prop.declare prop.get prop.get~ prop.join prop.random
-        prop.set prop.split
+        patch.props prop prop.declare prop.get prop.join prop.random
+        prop.route~ prop.set prop.split
     }}
     {proto {
         proto.arturia.minilab proto.feelworld proto.firmata proto.inscore

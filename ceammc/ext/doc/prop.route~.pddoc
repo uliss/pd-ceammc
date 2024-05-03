@@ -1,12 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
-    <object name="prop.get~">
-        <title>prop.get~</title>
+    <object name="prop.route~">
+        <title>prop.route~</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
             </authors>
-            <description>Property extractor from sound stream</description>
+            <description>Property extractor from audio streams</description>
             <license>GPL3 or later</license>
             <library>ceammc</library>
             <category>property</category>
@@ -23,7 +23,7 @@
             </also>
         </meta>
         <info>
-            <par>Extracts properties from sound stream with matching. Non property values are
+            <par>Extracts properties from audio stream with matching. Non property values are
             passed untouched.</par>
         </info>
         <inlets>
@@ -46,11 +46,15 @@
 |
 [prop~> @db  ]
 |    ^|   ^^|
-|    |      [ui.display @display_type 1]
+|    |      [ui.dt]
 |    |
-|   [ui.display @display_type 1]
+|   [ui.dt]
 |
-[ui.scope~]
+[ui.scope~ @size 200 40]
+
+
+
+/*...*/
 ]]>
             </pdascii>
         </example>

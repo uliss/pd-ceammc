@@ -1061,14 +1061,14 @@ ceammc/prop	get/set named property value for subpatch or abstraction
 prop.declare	declare named property for subpatch or abstraction
 prop.get	get property from connected object/subpatch/abstraction
 p.get	get property from connected object/subpatch/abstraction
-prop.get~	Property extractor from sound stream
-prop~>	Property extractor from sound stream
-@~>	Property extractor from sound stream
-ceammc/prop~>	Property extractor from sound stream
-ceammc/@~>	Property extractor from sound stream
 prop.join	join property to main data flow
 prop<-	join property to main data flow
 prop.random	property randomizer
+prop.route~	Property extractor from audio streams
+prop~>	Property extractor from audio streams
+@~>	Property extractor from audio streams
+ceammc/prop~>	Property extractor from audio streams
+ceammc/@~>	Property extractor from audio streams
 prop.set	set property for connected object/subpatch/abstraction
 p.set	set property for connected object/subpatch/abstraction
 prop.split	separate properties from dataflow

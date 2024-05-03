@@ -10,12 +10,12 @@
 #X text 200 173 declare named property for subpatch or abstraction;
 #X obj 30 201 prop.get;
 #X text 200 201 get property from connected object/subpatch/abstraction;
-#X obj 30 229 prop.get~;
-#X text 200 229 Property extractor from sound stream;
-#X obj 30 257 prop.join;
-#X text 200 257 join property to main data flow;
-#X obj 30 285 prop.random;
-#X text 200 285 property randomizer;
+#X obj 30 229 prop.join;
+#X text 200 229 join property to main data flow;
+#X obj 30 257 prop.random;
+#X text 200 257 property randomizer;
+#X obj 30 285 prop.route~;
+#X text 200 285 Property extractor from audio streams;
 #X obj 30 313 prop.set;
 #X text 200 313 set property for connected object/subpatch/abstraction;
 #X obj 30 341 prop.split;

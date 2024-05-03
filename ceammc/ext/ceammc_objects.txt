@@ -171,6 +171,7 @@ ceammc/gain~
 ceammc/gate
 ceammc/gate~
 ceammc/group
+ceammc/guido->note
 ceammc/helmholtz~
 ceammc/hex->int
 ceammc/hist~
@@ -323,6 +324,7 @@ conv.dbfs2amp
 conv.dbfs2amp~
 conv.degree2key
 conv.edge2bang
+conv.guido2note
 conv.hex2int
 conv.hsl2rgb
 conv.int2bits
@@ -580,6 +582,7 @@ global.list
 global.mlist
 global.set
 group
+guido->note
 helmholtz~
 hex->int
 hist~
@@ -625,6 +628,7 @@ hoa.space
 hoa.wider~
 hpf->biquad
 hsl->rgb
+http.client
 http.send
 hw.apple_smc
 hw.apple_sms
@@ -957,8 +961,10 @@ music.voice2midi
 mux2~
 mux~
 net.artnet.send
+net.freesound
 net.host->ip
 net.host2ip
+net.http.client
 net.http.send
 net.mdns
 net.mqtt.client
@@ -968,6 +974,7 @@ net.osc.receive
 net.osc.s
 net.osc.send
 net.osc.server
+net.telegram.bot
 net.ws.client
 net.ws.server
 noise.baker
@@ -1076,6 +1083,7 @@ prop.get
 prop.get~
 prop.join
 prop.random
+prop.route~
 prop.set
 prop.split
 prop<-

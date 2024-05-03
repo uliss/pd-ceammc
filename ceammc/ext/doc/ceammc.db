@@ -644,9 +644,9 @@ preset.symbol,preset.s		.		.
 prop,ceammc/prop		.		.
 prop.declare		-		-
 prop.get,p.get		.		?
-prop.get~,prop~>,@~>,ceammc/prop~>,ceammc/@~>		~		?
 prop.join,prop<-		?		.
 prop.random		?		..
+prop.route~,prop~>,@~>,ceammc/prop~>,ceammc/@~>		~		?
 prop.set,p.set		?		.
 prop.split,prop->,@->,ceammc/prop->,ceammc/@->		.		?
 proto.arturia.minilab		.		..
