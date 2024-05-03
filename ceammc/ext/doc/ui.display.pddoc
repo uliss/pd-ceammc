@@ -22,10 +22,13 @@
             </also>
         </meta>
         <info>
-            <par>[ui.dt] is alias for [ui.display @display_type 1]</par>
+            <par>[ui.dt] is the alias for [ui.display @display_type 1]</par>
         </info>
         <mouse>
+            <event type="left-click" editmode="false">copy the message value to the clipboard buffer</event>
+            <event type="left-click" editmode="false" keys="Shift">copy the whole message value with selector to the clipboard buffer</event>
             <event type="double-click" editmode="false">show/hide message type</event>
+            <event type="right-click" editmode="false">open popup menu</event>
             <event type="right-click" editmode="false" keys="Shift">open object help</event>
             <event type="right-click" editmode="false" keys="Alt">open properties dialog</event>
             <event type="right-click" editmode="true" keys="Shift">open object help</event>

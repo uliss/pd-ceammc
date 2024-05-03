@@ -16,6 +16,7 @@
   - dict->list @props flag added to output as list of properties
 - misc:
   - dict.get - path-like expression added to get keys: /*/USER/1:3/foo
+  - ui.display - copy message value to the clipboard by click or from popup menu
 ### Changed:
 - renaming:
   - prop.get~ renamed to prop.route~ (the old alias exists for the compatibility, but it prints a warning message)

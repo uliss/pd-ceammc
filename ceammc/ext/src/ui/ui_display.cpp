@@ -92,6 +92,12 @@ UIDisplay::UIDisplay()
     snprintf(buf, 64, "r%p", this);
     rid_ = gensym(buf);
     pd_bind(asPd(), rid_);
+
+    initPopupMenu("main",
+        {
+            { _("copy value"), [this](const t_pt&) { copyToClipboard(false); } },
+            { _("copy with selector"), [this](const t_pt&) { copyToClipboard(true); } },
+        });
 }
 
 UIDisplay::~UIDisplay()
@@ -303,6 +309,11 @@ void UIDisplay::onDblClick(t_object* /*view*/, const t_pt& /*pt*/, long /*modifi
     update();
 }
 
+void UIDisplay::onMouseDown(t_object* view, const t_pt& pos, const t_pt& abs_pos, long modifiers)
+{
+    copyToClipboard(modifiers & EMOD_SHIFT);
+}
+
 const std::string& UIDisplay::text() const
 {
     return msg_txt_;
@@ -350,6 +361,17 @@ void UIDisplay::m_resize(const AtomListView& lv)
         if (w > 0 && h > 0) {
             resize(w / zoom(), h / zoom());
         }
+    }
+}
+
+void UIDisplay::copyToClipboard(bool whole)
+{
+    if (whole) {
+        sys_vgui("ui::display_copy {%s %s}\n", msg_type_->s_name, msg_txt_.c_str());
+        UI_DBG << "copy to the clipboard: \"" << msg_type_->s_name << ' ' << msg_txt_ << '"';
+    } else {
+        sys_vgui("ui::display_copy {%s}\n", msg_txt_.c_str());
+        UI_DBG << "copy to the clipboard: \"" << msg_txt_ << '"';
     }
 }
 
@@ -408,7 +430,8 @@ void UIDisplay::setup()
     obj.useFloat();
     obj.useList();
     obj.useAny();
-    obj.useMouseEvents(UI_MOUSE_DBL_CLICK);
+    obj.usePopup();
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_DBL_CLICK);
 
     obj.addMethod(".resize", &UIDisplay::m_resize);
 }
