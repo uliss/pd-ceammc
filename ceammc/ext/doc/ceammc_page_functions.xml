@@ -1,11 +1,13 @@
-<?xml version="1.0" encoding="UTF-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <page output="ceammc.functions-info.pd">
     <title>Initial object arg functions</title>
     <sections>
-        <par>Note: this functions are calculated only once just before(!) ceammc object creation.</par>
+        <par>Note: this functions are calculated only once just before(!) ceammc object
+        creation.</par>
         <par>Function call can be nested.</par>
-        <par>If you want the symbol value pi() instead of numeric value - use double-quotes. In the following example
-        theren is a list with two elements: first is π=3.1415 value, second is unexpanded symbol pi():</par>
+        <par>If you want the symbol value pi() instead of numeric value - use double-quotes. In the
+        following example theren is a list with two elements: first is π=3.1415 value, second is
+        unexpanded symbol pi():</par>
         <pdascii indent="10">
 <![CDATA[
 [bang(
@@ -16,9 +18,10 @@
 ]]>
         </pdascii>
         <h2>list functions</h2>
-<!--        seq-->
+        <!--        seq-->
         <ul indent="3">
-            <item>seq(FROM TO STEP?) - sequence generator. The TO value is included into the output range. STEP can be omitted.</item>
+            <item>seq(FROM TO STEP?) - sequence generator. The TO value is included into the output
+            range. STEP can be omitted.</item>
         </ul>
         <pdascii indent="10">
 <![CDATA[
@@ -29,7 +32,7 @@
 [ui.dt]
 ]]>
         </pdascii>
-<!--        reverse-->
+        <!--        reverse-->
         <ul indent="3">
             <item>reverse(ARGS+) - reverse given arguments</item>
         </ul>
@@ -42,7 +45,7 @@
 [ui.dt]
 ]]>
         </pdascii>
-<!--        sort-->
+        <!--        sort-->
         <ul indent="3">
             <item>sort(ARGS+) - sort given arguments</item>
         </ul>
@@ -55,9 +58,10 @@
 [ui.dt]
 ]]>
         </pdascii>
-<!--        rotate -->
+        <!--        rotate -->
         <ul indent="3">
-            <item>rotate(INT ARGS+) - rotates list (positive values rotates counter-clockwise)</item>
+            <item>rotate(INT ARGS+) - rotates list (positive values rotates
+            counter-clockwise)</item>
         </ul>
         <pdascii indent="10">
 <![CDATA[
@@ -68,7 +72,7 @@
 [ui.dt]
 ]]>
         </pdascii>
-<!--        repeat -->
+        <!--        repeat -->
         <ul indent="3">
             <item>repeat(INT ARGS+) - generate list with repeated pattern</item>
         </ul>
@@ -81,7 +85,7 @@
 [ui.dt]
 ]]>
         </pdascii>
-<!--        ones -->
+        <!--        ones -->
         <ul indent="3">
             <item>ones(INT) - generates list filled with ones of specified length</item>
         </ul>
@@ -94,7 +98,7 @@
 [ui.dt]
 ]]>
         </pdascii>
-<!--        zeroes -->
+        <!--        zeroes -->
         <ul indent="3">
             <item>zeros(INT) - generates list filled with zeros of specified length</item>
         </ul>
@@ -118,7 +122,7 @@
             <item>mtof(FLOAT) - convert MIDI pitch info frequency in Hz</item>
             <item>ftom(FLOAT) - convert frequency in Hz into MIDI pitch</item>
         </ul>
-<!--        expr -->
+        <!--        expr -->
         <ul indent="3">
             <item>expr(SYMBOL) - calculates math expression</item>
         </ul>
@@ -132,7 +136,7 @@
 ]]>
         </pdascii>
         <h2>misc functions</h2>
-    <!--        hexbeat -->
+        <!--        hexbeat -->
         <ul indent="3">
             <item>hexbeat(SYMBOL) - generates hexbeat rhythm pattern</item>
         </ul>
@@ -145,7 +149,7 @@
 [ui.dt]
 ]]>
         </pdascii>
-   <!--        euclid -->
+        <!--        euclid -->
         <ul indent="3">
             <item>euclid(BEATS LEN? ROTATION?) - generates euclid rhythm pattern</item>
         </ul>
@@ -158,11 +162,11 @@
 [ui.dt]
 ]]>
         </pdascii>
-<!--        rtree -->
-     <ul indent="3">
-         <item>rtree(DUR_MS MLIST) - generates nested complex rhythm tree pattern</item>
-     </ul>
-     <pdascii indent="10">
+        <!--        rtree -->
+        <ul indent="3">
+            <item>rtree(DUR_MS MLIST) - generates nested complex rhythm tree pattern</item>
+        </ul>
+        <pdascii indent="10">
 <![CDATA[
 [bang(
 |
@@ -170,6 +174,6 @@
 |
 [ui.dt]
 ]]>
-     </pdascii>
+        </pdascii>
     </sections>
 </page>

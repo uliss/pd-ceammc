@@ -195,6 +195,15 @@ if(TIDY)
                 "${CMAKE_CURRENT_BINARY_DIR}/$$f" . \;
             echo "Format pddoc file: $$f" \;
         done
+        COMMAND ls ceammc_page*.xml | while read f\;
+        do
+            ${TIDY} -quiet -xml --indent auto
+            --priority-attributes "name,type"
+            --indent-spaces 4 --indent-cdata no --wrap 100 --wrap-sections no $$f > "${CMAKE_CURRENT_BINARY_DIR}/$$f" \;
+            ${CMAKE_COMMAND} -E copy_if_different
+                "${CMAKE_CURRENT_BINARY_DIR}/$$f" . \;
+            echo "Format XML file: $$f" \;
+        done
         WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}"
         USES_TERMINAL)
 endif()
