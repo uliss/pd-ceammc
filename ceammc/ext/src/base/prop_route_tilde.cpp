@@ -115,7 +115,7 @@ static void* prop_route_tilde_new(t_symbol* name, int argc, t_atom* argv)
 {
     if (name == gensym(OBJ_OBSOLETE))
         pd_error(nullptr, MSG_PREFIX "using obsolete object name: [%s], "
-                                     "use the new name: [%s], the obsolete alias will be removed in the next ceammc releas",
+                                     "use the new name: [%s], the obsolete alias will be removed in the next ceammc release",
             OBJ_OBSOLETE, OBJ_NAME);
 
     auto x = reinterpret_cast<t_prop_route_tilde*>(pd_new(prop_route_tilde_class));

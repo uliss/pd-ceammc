@@ -2022,14 +2022,14 @@
     <entry name="prop.random" descr="property randomizer" ref_view="object">
       <xi:include href="prop.random.pddoc" parse="xml"/>
     </entry>
+    <entry name="prop.route" descr="separate properties from dataflow" ref_view="object">
+      <xi:include href="prop.route.pddoc" parse="xml"/>
+    </entry>
     <entry name="prop.route~" descr="Property extractor from audio streams" ref_view="object">
       <xi:include href="prop.route~.pddoc" parse="xml"/>
     </entry>
     <entry name="prop.set" descr="set property for connected object/subpatch/abstraction" ref_view="object">
       <xi:include href="prop.set.pddoc" parse="xml"/>
-    </entry>
-    <entry name="prop.split" descr="separate properties from dataflow" ref_view="object">
-      <xi:include href="prop.split.pddoc" parse="xml"/>
     </entry>
   </category>
   <category name="proto">

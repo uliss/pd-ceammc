@@ -225,7 +225,7 @@
     }}
     {property {
         patch.props prop prop.declare prop.get prop.join prop.random
-        prop.route~ prop.set prop.split
+        prop.route prop.route~ prop.set
     }}
     {proto {
         proto.arturia.minilab proto.feelworld proto.firmata proto.inscore

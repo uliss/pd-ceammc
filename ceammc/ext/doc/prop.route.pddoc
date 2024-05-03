@@ -1,7 +1,7 @@
 <?xml version='1.0' encoding='utf-8'?>
 <pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
-    <object name="prop.split">
-        <title>prop.split</title>
+    <object name="prop.route">
+        <title>prop.route</title>
         <meta>
             <authors>
                 <author>Serge Poltavsky</author>
@@ -20,6 +20,7 @@
             </aliases>
             <also>
                 <see>prop&lt;-</see>
+                <see>prop.route~</see>
             </also>
         </meta>
         <info>
@@ -50,11 +51,11 @@
 |  |      |   | |              |
 [prop-> @prop1                  ]
 |     ^|   ^^|
-|     |      [ui.display @display_type 1]
+|     |      [ui.dt]
 |     |
-|    [ui.display @display_type 1]
+|    [ui.dt]
 |
-[ui.display @display_type 1]
+[ui.dt]
 ]]>
             </pdascii>
         </example>

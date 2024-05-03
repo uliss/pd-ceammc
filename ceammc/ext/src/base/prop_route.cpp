@@ -1,5 +1,6 @@
 #include "ceammc.h"
 #include "ceammc_atomlist_view.h"
+#include "ceammc_containers.h"
 #include "ceammc_log.h"
 #include "ceammc_object_info.h"
 #include "ceammc_output.h"
@@ -8,24 +9,26 @@
 #include <map>
 
 #define MSG_PREFIX "[prop->] "
+constexpr const char* OBJ_NAME = "prop.route";
+constexpr const char* OBJ_OBSOLETE = "prop.split";
 
 using namespace ceammc;
 
-struct OutletInfo {
+struct outlet_info {
     t_outlet* outlet;
     t_symbol* name;
 };
 
-using OutletList = std::vector<OutletInfo>;
+using outlet_vec = std::vector<outlet_info>;
 
-static t_class* prop_split_class;
-struct t_prop_split {
+static t_class* prop_route_class;
+struct t_prop_route {
     t_object x_obj;
-    OutletList* prop_list;
+    outlet_vec* prop_list;
     t_outlet* all_prop;
 };
 
-static inline t_outlet* find_outlet(t_prop_split* x, t_symbol* sel)
+static inline t_outlet* find_outlet(t_prop_route* x, t_symbol* sel)
 {
     for (auto& o : *x->prop_list) {
         if (o.name == sel)
@@ -35,7 +38,7 @@ static inline t_outlet* find_outlet(t_prop_split* x, t_symbol* sel)
     return x->all_prop;
 }
 
-static inline void prop_split_output(t_prop_split* x, t_symbol* s, const AtomListView& args)
+static inline void prop_route_output(t_prop_route* x, t_symbol* s, const AtomListView& args)
 {
     auto outlet = find_outlet(x, s);
     if (outlet == x->all_prop) // not matched
@@ -44,13 +47,13 @@ static inline void prop_split_output(t_prop_split* x, t_symbol* s, const AtomLis
         outletAtomList(outlet, args, true);
 }
 
-static void prop_split_dump(t_prop_split* x)
+static void prop_route_dump(t_prop_route* x)
 {
     for (auto& x : *x->prop_list)
         post(MSG_PREFIX "dump: property %s", x.name->s_name);
 }
 
-static void prop_split_anything(t_prop_split* x, t_symbol* s, int argc, t_atom* argv)
+static void prop_split_anything(t_prop_route* x, t_symbol* s, int argc, t_atom* argv)
 {
     // pass thru non-properties
     if (s->s_name[0] != '@') {
@@ -58,12 +61,11 @@ static void prop_split_anything(t_prop_split* x, t_symbol* s, int argc, t_atom* 
         return;
     }
 
-    t_atom pd_list[argc + 1];
-    SETSYMBOL(pd_list, s);
+    // create list with selector
+    AtomList32 args;
+    args.push_back(s);
     for (int i = 0; i < argc; i++)
-        pd_list[i + 1] = argv[i];
-
-    AtomListView args(pd_list, argc + 1);
+        args.push_back(argv[i]);
 
     enum PropState {
         PROP_INIT,
@@ -84,29 +86,34 @@ static void prop_split_anything(t_prop_split* x, t_symbol* s, int argc, t_atom* 
                 state = PROP_SEL;
                 prop_idx = 0;
             } else if (state == PROP_SEL) { // @prop -> @prop
-                prop_split_output(x, last_prop, AtomListView());
+                prop_route_output(x, last_prop, AtomListView());
                 prop_idx = i;
             } else { // value -> @new_prop
-                prop_split_output(x, last_prop, args.subView(prop_idx + 1, i - prop_idx - 1));
+                prop_route_output(x, last_prop, args.view().subView(prop_idx + 1, i - prop_idx - 1));
                 prop_idx = i;
             }
 
             if (i == LAST_IDX) { // output last
-                prop_split_output(x, args[i].asSymbol(), AtomListView());
+                prop_route_output(x, args[i].asSymbol(), AtomListView());
             }
         } else { // ? -> value
             state = PROP_VAL;
             if (i == LAST_IDX)
-                prop_split_output(x, last_prop, args.subView(prop_idx + 1, i - prop_idx));
+                prop_route_output(x, last_prop, args.view().subView(prop_idx + 1, i - prop_idx));
         }
     }
 }
 
-static void* prop_split_new(t_symbol*, int argc, t_atom* argv)
+static void* prop_route_new(t_symbol* name, int argc, t_atom* argv)
 {
-    t_prop_split* x = reinterpret_cast<t_prop_split*>(pd_new(prop_split_class));
+    if (name == gensym(OBJ_OBSOLETE))
+        pd_error(nullptr, MSG_PREFIX "using obsolete object name: [%s], "
+                                     "use the new name: [%s], the obsolete alias will be removed in the next ceammc release",
+            OBJ_OBSOLETE, OBJ_NAME);
+
+    auto x = reinterpret_cast<t_prop_route*>(pd_new(prop_route_class));
     outlet_new(&x->x_obj, &s_anything);
-    x->prop_list = new OutletList;
+    x->prop_list = new outlet_vec;
     x->prop_list->reserve(argc);
 
     // use only symbol started from '@'
@@ -122,12 +129,12 @@ static void* prop_split_new(t_symbol*, int argc, t_atom* argv)
     return static_cast<void*>(x);
 }
 
-static void prop_split_free(t_prop_split* x)
+static void prop_split_free(t_prop_route* x)
 {
     delete x->prop_list;
 }
 
-static const char* prop_split_annotate(t_prop_split* x, XletType type, int xlet_idx)
+static const char* prop_route_annotate(t_prop_route* x, XletType type, int xlet_idx)
 {
     if (type == XLET_IN) {
         if (xlet_idx == 0)
@@ -144,18 +151,19 @@ static const char* prop_split_annotate(t_prop_split* x, XletType type, int xlet_
     return "";
 }
 
-void setup_prop_split()
+void setup_prop_route()
 {
-    prop_split_class = class_new(gensym("prop.split"),
-        reinterpret_cast<t_newmethod>(prop_split_new),
+    prop_route_class = class_new(gensym(OBJ_NAME),
+        reinterpret_cast<t_newmethod>(prop_route_new),
         reinterpret_cast<t_method>(prop_split_free),
-        sizeof(t_prop_split), 0, A_GIMME, A_NULL);
+        sizeof(t_prop_route), 0, A_GIMME, A_NULL);
 
-    ceammc::ObjectInfoStorage::instance().addAlias("prop->", prop_split_class, reinterpret_cast<t_newmethod>(prop_split_new));
-    ceammc::ObjectInfoStorage::instance().addAlias("@->", prop_split_class, reinterpret_cast<t_newmethod>(prop_split_new));
+    ceammc::ObjectInfoStorage::instance().addAlias("prop->", prop_route_class, reinterpret_cast<t_newmethod>(prop_route_new));
+    ceammc::ObjectInfoStorage::instance().addAlias("@->", prop_route_class, reinterpret_cast<t_newmethod>(prop_route_new));
+    ceammc::ObjectInfoStorage::instance().addAlias(OBJ_OBSOLETE, prop_route_class, reinterpret_cast<t_newmethod>(prop_route_new));
 
-    class_addanything(prop_split_class, reinterpret_cast<t_method>(prop_split_anything));
-    class_addmethod(prop_split_class, reinterpret_cast<t_method>(prop_split_dump), sym::methods::sym_dump(), A_NULL);
-    class_addmethod(prop_split_class, reinterpret_cast<t_method>(prop_split_annotate), SymbolTable::instance().s_annotate_fn, A_CANT, A_NULL);
-    class_sethelpsymbol(prop_split_class, gensym("prop.split"));
+    class_addanything(prop_route_class, reinterpret_cast<t_method>(prop_split_anything));
+    class_addmethod(prop_route_class, reinterpret_cast<t_method>(prop_route_dump), sym::methods::sym_dump(), A_NULL);
+    class_addmethod(prop_route_class, reinterpret_cast<t_method>(prop_route_annotate), SymbolTable::instance().s_annotate_fn, A_CANT, A_NULL);
+    class_sethelpsymbol(prop_route_class, gensym(OBJ_NAME));
 }

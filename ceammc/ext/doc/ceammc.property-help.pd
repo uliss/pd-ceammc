@@ -14,12 +14,12 @@
 #X text 200 229 join property to main data flow;
 #X obj 30 257 prop.random;
 #X text 200 257 property randomizer;
-#X obj 30 285 prop.route~;
-#X text 200 285 Property extractor from audio streams;
-#X obj 30 313 prop.set;
-#X text 200 313 set property for connected object/subpatch/abstraction;
-#X obj 30 341 prop.split;
-#X text 200 341 separate properties from dataflow;
+#X obj 30 285 prop.route;
+#X text 200 285 separate properties from dataflow;
+#X obj 30 313 prop.route~;
+#X text 200 313 Property extractor from audio streams;
+#X obj 30 341 prop.set;
+#X text 200 341 set property for connected object/subpatch/abstraction;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::property 20 20 0 20
 -104026 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

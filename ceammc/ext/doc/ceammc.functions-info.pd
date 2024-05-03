@@ -14,74 +14,74 @@ symbol pi():, f 80;
 #X msg 140 259 bang;
 #X obj 140 283 data.list pi() "pi()";
 #X obj 140 307 ui.dt;
-#X obj 20 340 cnv 5 400 28 empty empty list\ functions 4 14 0 16
+#X obj 20 364 cnv 5 400 28 empty empty list\ functions 4 14 0 16
 -70738 -262144 0;
-#X text 70 388 ◦ seq(FROM TO STEP?) - sequence generator. The TO value
+#X text 70 412 ◦ seq(FROM TO STEP?) - sequence generator. The TO value
 is included into the output range. STEP can be omitted., f 67;
-#X msg 140 423 bang;
-#X obj 140 447 data.list seq(10 0 2);
-#X obj 140 471 ui.dt;
-#X text 70 504 ◦ reverse(ARGS+) - reverse given arguments, f 67;
-#X msg 140 524 bang;
-#X obj 140 548 data.list reverse(seq(1 16));
-#X obj 140 572 ui.dt;
-#X text 70 605 ◦ sort(ARGS+) - sort given arguments, f 67;
-#X msg 140 625 bang;
-#X obj 140 649 data.list sort(3 5 1 7 54 3 2 4 6 7);
-#X obj 140 673 ui.dt;
-#X text 70 706 ◦ rotate(INT ARGS+) - rotates list (positive values
+#X msg 140 447 bang;
+#X obj 140 471 data.list seq(10 0 2);
+#X obj 140 495 ui.dt;
+#X text 70 552 ◦ reverse(ARGS+) - reverse given arguments, f 67;
+#X msg 140 572 bang;
+#X obj 140 596 data.list reverse(seq(1 16));
+#X obj 140 620 ui.dt;
+#X text 70 677 ◦ sort(ARGS+) - sort given arguments, f 67;
+#X msg 140 697 bang;
+#X obj 140 721 data.list sort(3 5 1 7 54 3 2 4 6 7);
+#X obj 140 745 ui.dt;
+#X text 70 802 ◦ rotate(INT ARGS+) - rotates list (positive values
 rotates counter-clockwise), f 67;
-#X msg 140 741 bang;
-#X obj 140 765 data.list rotate(3 seq(1 10));
-#X obj 140 789 ui.dt;
-#X text 70 822 ◦ repeat(INT ARGS+) - generate list with repeated pattern, f 67;
-#X msg 140 842 bang;
-#X obj 140 866 data.list repeat(3 A B);
-#X obj 140 890 ui.dt;
-#X text 70 923 ◦ ones(INT) - generates list filled with ones of specified
+#X msg 140 837 bang;
+#X obj 140 861 data.list rotate(3 seq(1 10));
+#X obj 140 885 ui.dt;
+#X text 70 942 ◦ repeat(INT ARGS+) - generate list with repeated pattern, f 67;
+#X msg 140 962 bang;
+#X obj 140 986 data.list repeat(3 A B);
+#X obj 140 1010 ui.dt;
+#X text 70 1067 ◦ ones(INT) - generates list filled with ones of specified
 length, f 67;
-#X msg 140 943 bang;
-#X obj 140 967 data.list ones(16);
-#X obj 140 991 ui.dt;
-#X text 70 1024 ◦ zeros(INT) - generates list filled with zeros of
+#X msg 140 1087 bang;
+#X obj 140 1111 data.list ones(16);
+#X obj 140 1135 ui.dt;
+#X text 70 1192 ◦ zeros(INT) - generates list filled with zeros of
 specified length, f 67;
-#X msg 140 1044 bang;
-#X obj 140 1068 data.list zeros(24);
-#X obj 140 1092 ui.dt;
-#X obj 20 1125 cnv 5 400 28 empty empty math\ functions 4 14 0 16
+#X msg 140 1212 bang;
+#X obj 140 1236 data.list zeros(24);
+#X obj 140 1260 ui.dt;
+#X obj 20 1317 cnv 5 400 28 empty empty math\ functions 4 14 0 16
 -70738 -262144 0;
-#X text 70 1173 ◦ pi() - replaced with π value, f 67;
-#X text 70 1193 ◦ e() - replaced with e value, f 67;
-#X text 70 1213 ◦ bs() - replaced with DSP blocksize value, f 67;
-#X text 70 1233 ◦ sr() - replaced with DSP samplerate value, f 67;
-#X text 70 1253 ◦ amp2db(FLOAT) - convert linear amplitude values to
+#X text 70 1365 ◦ pi() - replaced with π value, f 67;
+#X text 70 1385 ◦ e() - replaced with e value, f 67;
+#X text 70 1405 ◦ bs() - replaced with DSP blocksize value, f 67;
+#X text 70 1425 ◦ sr() - replaced with DSP samplerate value, f 67;
+#X text 70 1445 ◦ amp2db(FLOAT) - convert linear amplitude values to
 dbfs scale, f 67;
-#X text 70 1273 ◦ db2amp(FLOAT) - convert dbfs scale values to linear
+#X text 70 1465 ◦ db2amp(FLOAT) - convert dbfs scale values to linear
 amplitudes, f 67;
-#X text 70 1293 ◦ mtof(FLOAT) - convert MIDI pitch info frequency in
+#X text 70 1485 ◦ mtof(FLOAT) - convert MIDI pitch info frequency in
 Hz, f 67;
-#X text 70 1313 ◦ ftom(FLOAT) - convert frequency in Hz into MIDI pitch, f 67;
-#X text 70 1333 ◦ expr(SYMBOL) - calculates math expression, f 67;
-#X msg 140 1353 bang;
-#X obj 140 1377 data.list expr("sqrt(2)^3.5+1-pi*e");
-#X obj 140 1401 ui.dt;
-#X obj 20 1434 cnv 5 400 28 empty empty misc\ functions 4 14 0 16
+#X text 70 1505 ◦ ftom(FLOAT) - convert frequency in Hz into MIDI pitch, f 67;
+#X text 70 1525 ◦ expr(SYMBOL) - calculates math expression, f 67;
+#X msg 140 1545 bang;
+#X obj 140 1569 data.list expr("sqrt(2)^3.5+1-pi*e");
+#X obj 140 1593 ui.dt;
+#X obj 20 1650 cnv 5 400 28 empty empty misc\ functions 4 14 0 16
 -70738 -262144 0;
-#X text 70 1482 ◦ hexbeat(SYMBOL) - generates hexbeat rhythm pattern, f 67;
-#X msg 140 1502 bang;
-#X obj 140 1526 data.list hexbeat("0xDEADBEEF");
-#X obj 140 1550 ui.dt;
-#X text 70 1583 ◦ euclid(BEATS LEN? ROTATION?) - generates euclid rhythm
+#X text 70 1698 ◦ hexbeat(SYMBOL) - generates hexbeat rhythm pattern, f 67;
+#X msg 140 1718 bang;
+#X obj 140 1742 data.list hexbeat("0xDEADBEEF");
+#X obj 140 1766 ui.dt;
+#X text 70 1823 ◦ euclid(BEATS LEN? ROTATION?) - generates euclid rhythm
 pattern, f 67;
-#X msg 140 1603 bang;
-#X obj 140 1627 data.list euclid(3 8 0);
-#X obj 140 1651 ui.dt;
-#X text 70 1684 ◦ rtree(DUR_MS MLIST) - generates nested complex rhythm
+#X msg 140 1843 bang;
+#X obj 140 1867 data.list euclid(3 8 0);
+#X obj 140 1891 ui.dt;
+#X text 70 1948 ◦ rtree(DUR_MS MLIST) - generates nested complex rhythm
 tree pattern, f 67;
-#X msg 140 1719 bang;
-#X obj 140 1743 data.list rtree(1000 (1 1 (2 1 1 (3 1 1 1))));
-#X obj 140 1767 ui.dt;
-#X obj 1 1820 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X msg 140 1983 bang;
+#X obj 140 2007 data.list rtree(1000 (1 1 (2 1 1 (3 1 1 1))));
+#X obj 140 2031 ui.dt;
+#X obj 1 2108 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
 #X connect 11 0 12 0;

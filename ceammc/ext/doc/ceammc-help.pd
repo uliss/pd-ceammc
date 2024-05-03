@@ -1436,12 +1436,12 @@ roll;
 #X text 200 20201 join property to main data flow;
 #X obj 30 20229 prop.random;
 #X text 200 20229 property randomizer;
-#X obj 30 20257 prop.route~;
-#X text 200 20257 Property extractor from audio streams;
-#X obj 30 20285 prop.set;
-#X text 200 20285 set property for connected object/subpatch/abstraction;
-#X obj 30 20313 prop.split;
-#X text 200 20313 separate properties from dataflow;
+#X obj 30 20257 prop.route;
+#X text 200 20257 separate properties from dataflow;
+#X obj 30 20285 prop.route~;
+#X text 200 20285 Property extractor from audio streams;
+#X obj 30 20313 prop.set;
+#X text 200 20313 set property for connected object/subpatch/abstraction;
 #X obj 20 20341 cnv 5 58 32 empty empty proto 4 16 0 17 -262144 -49933
 0;
 #X obj 20 20383 cnv 1 720 1 empty empty empty 17 7 0 10 -203890 -1 0;

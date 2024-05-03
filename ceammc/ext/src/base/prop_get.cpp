@@ -15,7 +15,7 @@
 #include "ceammc_factory.h"
 #include "ceammc_output.h"
 #include "datatype_property.h"
-#include "fmt/format.h"
+#include "fmt/core.h"
 
 extern "C" {
 #include "g_canvas.h"

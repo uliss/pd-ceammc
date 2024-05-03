@@ -646,9 +646,9 @@ set(DOC_FILES
     prop.get
     prop.join
     prop.random
+    prop.route
     prop.route~
     prop.set
-    prop.split
     proto.arturia.minilab
     proto.feelworld
     proto.firmata

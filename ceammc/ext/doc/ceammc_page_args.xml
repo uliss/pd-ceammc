@@ -11,10 +11,8 @@
         <pdascii indent="10">
 <![CDATA[
 [dump(
-|  |
-|  [symbol.equal "the string with spaces"]
 |
-[symbol.equal the\ string\ with\ spaces]
+[symbol.equal "the string with spaces"]
 ]]>
         </pdascii>
         <par indent="3">If you need to enter double quotes: escape them with a backtick: `</par>

@@ -71,7 +71,7 @@ void setup_prop_get();
 void setup_prop_route_tilde();
 void setup_prop_join();
 void setup_prop_set();
-void setup_prop_split();
+void setup_prop_route();
 void setup_snd_file();
 void setup_snd_play_tilde();
 
@@ -144,7 +144,7 @@ void ceammc_base_setup()
     setup_prop_join();
     setup_prop_random();
     setup_prop_set();
-    setup_prop_split();
+    setup_prop_route();
     setup_snd_file();
     setup_snd_play_tilde();
 
