@@ -16,11 +16,11 @@
 #X msg 50 268 list C|4 D R Eb F# G(-25c) A|8;
 #X obj 50 326 music.v->m;
 #X obj 50 355 ui.dt;
-#X obj 50 384 music.voice2midi.notes;
-#X obj 290 384 music.voice2midi.oct;
-#X obj 530 384 music.voice2midi.dur;
-#X obj 50 412 music.voice2midi.alt;
-#X obj 290 412 music.voice2midi.micro;
+#X obj 50 384 music.voice2midi-notes;
+#X obj 290 384 music.voice2midi-oct;
+#X obj 530 384 music.voice2midi-dur;
+#X obj 50 412 music.voice2midi-alt;
+#X obj 290 412 music.voice2midi-micro;
 #X obj 20 462 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 467 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;

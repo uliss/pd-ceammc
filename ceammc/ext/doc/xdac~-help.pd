@@ -8,7 +8,7 @@
 #X obj 50 118 xdac~;
 #X obj 126 118 xdac~ 1:6;
 #X obj 242 118 xdac~ 1:3 5 7:12;
-#X obj 50 147 xdac~.map;
+#X obj 50 147 xdac~-map;
 #X obj 20 197 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 202 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;

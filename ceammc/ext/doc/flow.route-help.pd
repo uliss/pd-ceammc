@@ -22,7 +22,7 @@ outlet;
 #X obj 117 399 ui.d @display_type 1;
 #X obj 376 399 ui.d @display_type 1;
 #X obj 184 428 ui.d @display_type 1;
-#X obj 50 456 flow.route.data;
+#X obj 50 456 flow.route-data;
 #X obj 20 506 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 511 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;

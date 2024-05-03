@@ -29,7 +29,7 @@ output all available network service names with format [service SERVICE(;
 #X msg 107 481 @fullname \$1;
 #X obj 50 510 net.mdns;
 #X obj 50 539 print;
-#X obj 50 568 net.mdns.ifaces;
+#X obj 50 568 net.mdns-ifaces;
 #X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 623 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

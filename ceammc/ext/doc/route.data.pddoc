@@ -46,7 +46,7 @@
         <example>
             <pdascii>
 <![CDATA[
-[B]                       [route.data.datatype]
+[B]                       [route.data-datatype]
 |
 [data.dict \[a: 1\] #a]
 

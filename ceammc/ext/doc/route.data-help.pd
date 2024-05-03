@@ -9,7 +9,7 @@ and lists;
 #X obj 668 11 route.data;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 299 118 route.data.datatype;
+#X obj 299 118 route.data-datatype;
 #X obj 50 147 data.dict \[a: 1\];
 #X msg 59 176 bang;
 #X listbox 155 176 20 0 0 0 - - -;

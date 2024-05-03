@@ -17,9 +17,9 @@ directory.;
 #X text 215 250 Note: by default search request is performed asynchronously
 \, so a delay will occured between input and output.;
 #X msg 50 328 symbol loop_breakbeat.flac;
-#X obj 472 328 path.search.std;
+#X obj 472 328 path.search-std;
 #X msg 50 357 symbol guitar1.wav;
-#X obj 472 357 path.search.home;
+#X obj 472 357 path.search-home;
 #X symbolatom 78 386 30 0 0 0 - - -;
 #X msg 107 415 @paths sound;
 #X text 242 415 change search path;

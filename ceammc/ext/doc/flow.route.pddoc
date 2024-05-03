@@ -61,7 +61,7 @@
 
               [ui.d @display_type 1 #c]
 
-[flow.route.data]
+[flow.route-data]
 [X a:1->b]
 [X a:2->c]
 [X a:3->d]

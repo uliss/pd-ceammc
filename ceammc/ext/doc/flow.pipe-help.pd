@@ -14,11 +14,11 @@ or [prop.set] object;
 #X obj 69 270 flow.pipe 1000;
 #X obj 50 299 poly 3;
 #X obj 50 328 pack f f f;
-#X obj 50 357 clone -s 1 flow.pipe.osc~ 3;
+#X obj 50 357 clone -s 1 flow.pipe-osc~ 3;
 #X obj 50 385 ui.hgain~;
 #X obj 194 385 ui.dsp~;
 #X obj 50 414 dac~;
-#X obj 50 443 flow.pipe.superdirt;
+#X obj 50 443 flow.pipe-superdirt;
 #X obj 20 493 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 498 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;

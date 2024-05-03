@@ -62,9 +62,9 @@
         <example>
             <pdascii>
 <![CDATA[
-[symbol loop_breakbeat.flac #a(             [path.search.std]
+[symbol loop_breakbeat.flac #a(             [path.search-std]
 
-[symbol guitar1.wav(                        [path.search.home]
+[symbol guitar1.wav(                        [path.search-home]
 |
 |  [S digits=30]
 |  |

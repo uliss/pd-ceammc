@@ -20,7 +20,7 @@
 #X obj 366 245 flt.c_notch @rad;
 #X obj 50 274 ui.dt @float_width 5;
 #X obj 366 274 ui.dt @float_width 5;
-#X obj 50 345 flt.c_notch.plot;
+#X obj 50 345 flt.c_notch-plot;
 #X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 400 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;

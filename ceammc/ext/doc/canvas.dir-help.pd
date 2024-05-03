@@ -10,8 +10,8 @@
 #X obj 50 147 canvas.dir;
 #X obj 50 176 ui.dt @auto_size 0 @size 400 45;
 #X floatatom 126 234 5 0 0 0 - - -;
-#X obj 50 262 canvas.dir.abs0;
-#X obj 222 262 canvas.dir.abs1;
+#X obj 50 262 canvas.dir-abs0;
+#X obj 222 262 canvas.dir-abs1;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 317 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

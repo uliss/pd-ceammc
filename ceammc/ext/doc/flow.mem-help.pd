@@ -12,12 +12,12 @@
 #X obj 174 219 metro 65;
 #X obj 280 219 prop.set @ttl;
 #X obj 50 248 flow.mem @ttl 4;
-#X obj 50 277 flow.mem.osc~;
+#X obj 50 277 flow.mem-osc~;
 #X obj 50 305 pan~;
 #X obj 50 334 ui.hgain2~;
 #X obj 242 334 ui.dsp~;
 #X obj 50 363 dac~;
-#X obj 50 392 flow.mem.more;
+#X obj 50 392 flow.mem-more;
 #X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 447 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;

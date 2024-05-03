@@ -7,10 +7,10 @@
 #X obj 554 11 flow.mux;
 #X obj 638 11 flow.multiplex;
 #X obj 50 118 ui.hrd @nitems 4 @label select;
-#X obj 251 118 flow.multiplex.bang;
+#X obj 251 118 flow.multiplex-bang;
 #X obj 50 147 prop.set @index;
-#X obj 251 147 flow.multiplex.list;
-#X obj 251 176 flow.multiplex.any;
+#X obj 251 147 flow.multiplex-list;
+#X obj 251 176 flow.multiplex-any;
 #X floatatom 69 205 5 0 0 0 - - -;
 #X floatatom 117 205 5 0 0 0 - - -;
 #X floatatom 165 205 5 0 0 0 - - -;

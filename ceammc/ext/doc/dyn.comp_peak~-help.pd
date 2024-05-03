@@ -24,7 +24,7 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X obj 261 370 ui.hsl @active_scale 1;
 #X obj 50 399 - 100;
 #X floatatom 50 428 5 0 0 0 - - -;
-#X obj 50 457 dyn.comp_peak~.plot;
+#X obj 50 457 dyn.comp_peak~-plot;
 #X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 512 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;

@@ -45,7 +45,7 @@
 
         [F #b]
 
-[canvas.dir.abs0] [canvas.dir.abs1]
+[canvas.dir-abs0] [canvas.dir-abs1]
 
 [X a:1->b]
 ]]>

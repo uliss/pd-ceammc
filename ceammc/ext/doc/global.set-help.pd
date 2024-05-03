@@ -18,7 +18,7 @@ name;
 #X obj 328 201 global.set s1;
 #X obj 50 230 ui.dt;
 #X obj 328 230 ui.dt;
-#X obj 50 259 global.set.abs;
+#X obj 50 259 global.set-abs;
 #X obj 20 309 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 314 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;

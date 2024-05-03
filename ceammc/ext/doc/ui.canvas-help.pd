@@ -27,13 +27,13 @@
 #X msg 50 416 csave \, translate 50% 50% \, rotate 35 \, font_size 40 \, text 0 0 CEAM \, fill gray \, crestore \, update;
 #X msg 50 459 bg gray!+75 \, update;
 #X obj 50 488 ui.canvas @size 300 200;
-#X obj 50 704 ui.canvas.line;
-#X obj 222 704 ui.canvas.text;
-#X obj 405 704 ui.canvas.music;
-#X obj 578 704 ui.canvas.matrix;
-#X obj 50 733 ui.canvas.color;
-#X obj 222 733 ui.canvas.arrows;
-#X obj 405 733 ui.canvas.image;
+#X obj 50 704 ui.canvas-line;
+#X obj 222 704 ui.canvas-text;
+#X obj 405 704 ui.canvas-music;
+#X obj 578 704 ui.canvas-matrix;
+#X obj 50 733 ui.canvas-color;
+#X obj 222 733 ui.canvas-arrows;
+#X obj 405 733 ui.canvas-image;
 #X obj 20 783 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 788 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

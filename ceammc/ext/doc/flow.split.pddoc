@@ -42,9 +42,9 @@
         <example>
             <pdascii>
 <![CDATA[
-[F]                    [1 2( [2 1(        [flow.split.more]
+[F]                    [1 2( [2 1(        [flow.split-more]
 |                      |     |
-[flow.split]X[> 0]     [flow.split]X[<]   [flow.split.sound]
+[flow.split]X[> 0]     [flow.split]X[<]   [flow.split-sound]
 |    ^|                |     ^|
 [F]  [F]               |     [ui.dt]
                        |

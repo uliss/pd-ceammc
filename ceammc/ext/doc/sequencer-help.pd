@@ -26,7 +26,7 @@
 #X obj 50 291 ui.hgain~;
 #X obj 213 291 ui.dsp~;
 #X obj 50 320 dac~;
-#X obj 50 349 sequencer.mlist;
+#X obj 50 349 sequencer-mlist;
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 404 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;

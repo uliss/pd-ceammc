@@ -72,7 +72,7 @@
 |                            |
 [ui.dt]                      [ui.dt]
 
-[global.set.abs]
+[global.set-abs]
 ]]>
             </pdascii>
             <pdascii id="abs">

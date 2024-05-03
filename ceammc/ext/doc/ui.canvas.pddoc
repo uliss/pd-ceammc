@@ -373,9 +373,9 @@
 [X a->z] [X b->z] [X c->z] [X d->z] [X e->z] [X f->z] [X g->z] [X h->z]
 [X i->z] [X j->z] [X k->z] [X l->z]
 
-[ui.canvas.line]  [ui.canvas.text]   [ui.canvas.music] [ui.canvas.matrix]
+[ui.canvas-line]  [ui.canvas-text]   [ui.canvas-music] [ui.canvas-matrix]
 
-[ui.canvas.color] [ui.canvas.arrows] [ui.canvas.image]
+[ui.canvas-color] [ui.canvas-arrows] [ui.canvas-image]
 
 #b 30 50 100% 100%, stroke red, update
 #c 0 0 50, fill blue, update

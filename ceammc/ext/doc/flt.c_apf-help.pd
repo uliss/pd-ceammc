@@ -31,7 +31,7 @@ https://en.wikipedia.org/wiki/All-pass_filter;
 #X obj 366 394 flt.c_apf @rad;
 #X obj 50 423 ui.dt @float_width 5;
 #X obj 366 423 ui.dt @float_width 5;
-#X obj 50 494 flt.c_apf.plot;
+#X obj 50 494 flt.c_apf-plot;
 #X obj 20 544 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 549 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;

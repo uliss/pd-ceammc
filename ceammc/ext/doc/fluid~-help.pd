@@ -19,16 +19,16 @@
 #X obj 50 370 ui.hgain2~;
 #X obj 194 370 ui.dsp~;
 #X obj 50 399 dac~;
-#X obj 50 428 fluid~.bend;
-#X obj 203 428 fluid~.tune;
-#X obj 366 428 fluid~.pan;
-#X obj 501 428 fluid~.bank;
-#X obj 50 456 fluid~.midi;
-#X obj 203 456 fluid~.tune-12;
-#X obj 366 456 fluid~.prog;
-#X obj 501 456 fluid~.notesoff;
-#X obj 50 485 fluid~.pedals;
-#X obj 203 485 fluid~.soundoff;
+#X obj 50 428 fluid~-bend;
+#X obj 203 428 fluid~-tune;
+#X obj 366 428 fluid~-pan;
+#X obj 501 428 fluid~-bank;
+#X obj 50 456 fluid~-midi;
+#X obj 203 456 fluid~-tune-12;
+#X obj 366 456 fluid~-prog;
+#X obj 501 456 fluid~-notesoff;
+#X obj 50 485 fluid~-pedals;
+#X obj 203 485 fluid~-soundoff;
 #X obj 20 535 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 540 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;

@@ -15,7 +15,7 @@
 #X floatatom 117 302 5 0 0 0 - - -;
 #X symbolatom 184 302 5 0 0 0 - - -;
 #X obj 251 302 ui.display;
-#X obj 50 345 dict.get.paths;
+#X obj 50 345 dict.get-paths;
 #X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 400 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;

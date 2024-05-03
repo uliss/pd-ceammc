@@ -101,7 +101,7 @@
 |
 [F]
 
-[dyn.comp_peak~.plot]
+[dyn.comp_peak~-plot]
 
 #a -60 0 @show_value 1
 ]]>

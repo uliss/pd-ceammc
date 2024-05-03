@@ -109,11 +109,11 @@
 |\
 [dac~]
 
-[array.play~.speed]   [array.play~.range]
+[array.play~-speed]   [array.play~-range]
 
-[array.play~.speed2]  [array.play~.clock]
+[array.play~-speed2]  [array.play~-clock]
 
-[array.play~.amp]
+[array.play~-amp]
 ]]>
             </pdascii>
             <pdascii id="speed">

@@ -39,7 +39,7 @@ id>=2;
 #X obj 50 813 hoa.decoder~ 5 binaural @crop 32, f 35;
 #X obj 50 842 dac~, f 35;
 #X text 50 870 multiple [osc~];
-#X obj 414 870 hoa.process~.dsp;
+#X obj 414 870 hoa.process~-dsp;
 #X msg 50 899 60 90 2.1;
 #X msg 165 899 50 120 4.1;
 #X obj 50 928 list.seq;

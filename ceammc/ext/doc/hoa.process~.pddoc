@@ -116,7 +116,7 @@
 *|*
 [dac~ {w=35}]
 
-/* multiple [osc~] */                 [hoa.process~.dsp]
+/* multiple [osc~] */                 [hoa.process~-dsp]
 
 [60 90 2.1( [50 120 4.1(
 |           |

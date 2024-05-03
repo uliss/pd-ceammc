@@ -93,7 +93,7 @@
 |\
 [dac~]
 
-[ui.faust~.extra]
+[ui.faust~-extra]
 ]]>
             </pdascii>
             <pdascii id="extra">

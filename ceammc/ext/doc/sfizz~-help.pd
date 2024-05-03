@@ -11,14 +11,14 @@
 #X obj 50 248 ui.hgain2~;
 #X obj 232 248 ui.dsp~;
 #X obj 50 277 dac~;
-#X obj 50 305 sfizz~.freq;
-#X obj 222 305 sfizz~.pan;
-#X obj 386 305 sfizz~.pedals;
-#X obj 50 334 sfizz~.bend;
-#X obj 222 334 sfizz~.tune-12;
-#X obj 386 334 sfizz~.soundoff;
-#X obj 50 363 sfizz~.notesoff;
-#X obj 222 363 sfizz~.sfz;
+#X obj 50 305 sfizz~-freq;
+#X obj 222 305 sfizz~-pan;
+#X obj 386 305 sfizz~-pedals;
+#X obj 50 334 sfizz~-bend;
+#X obj 222 334 sfizz~-tune-12;
+#X obj 386 334 sfizz~-soundoff;
+#X obj 50 363 sfizz~-notesoff;
+#X obj 222 363 sfizz~-sfz;
 #X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 418 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;

@@ -17,9 +17,9 @@
 #X obj 222 305 ui.dsp~;
 #X obj 50 334 ui.hgain2~;
 #X obj 50 363 dac~;
-#X obj 50 392 flow.record.speed;
-#X obj 270 392 flow.record.qlist;
-#X obj 50 421 flow.record.sync;
+#X obj 50 392 flow.record-speed;
+#X obj 270 392 flow.record-qlist;
+#X obj 50 421 flow.record-sync;
 #X obj 20 471 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 476 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;

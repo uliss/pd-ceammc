@@ -8,7 +8,7 @@
 #X obj 675 11 flow.ring;
 #X obj 50 118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 357 118 flow.ring.sound;
+#X obj 357 118 flow.ring-sound;
 #X obj 50 147 f 1;
 #X obj 126 147 + 1;
 #X msg 251 147 fill -1 \, bang;

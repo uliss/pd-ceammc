@@ -14,7 +14,7 @@
 #X msg 338 190 note 61 4.25;
 #X obj 50 234 conv.note2guido;
 #X obj 50 262 ui.dt;
-#X obj 50 291 conv.note2guido.inscore;
+#X obj 50 291 conv.note2guido-inscore;
 #X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 346 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;

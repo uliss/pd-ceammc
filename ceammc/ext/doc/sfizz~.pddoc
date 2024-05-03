@@ -197,11 +197,11 @@
 *|*
 [dac~]
 
-[sfizz~.freq]     [sfizz~.pan]     [sfizz~.pedals]
+[sfizz~-freq]     [sfizz~-pan]     [sfizz~-pedals]
 
-[sfizz~.bend]     [sfizz~.tune-12] [sfizz~.soundoff]
+[sfizz~-bend]     [sfizz~-tune-12] [sfizz~-soundoff]
 
-[sfizz~.notesoff] [sfizz~.sfz]
+[sfizz~-notesoff] [sfizz~-sfz]
 ]]>
             </pdascii>
             <pdascii id="freq">

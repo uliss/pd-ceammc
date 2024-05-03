@@ -91,7 +91,7 @@
 |
 [print]
 
-[net.mdns.ifaces]
+[net.mdns-ifaces]
 
 [X a->x] [X b->x] [X c->x] [X d->x] [X e->x]
 [X f->y] [X g->y] [X h->x] [X i->x]

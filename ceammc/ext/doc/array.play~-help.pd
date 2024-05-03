@@ -23,11 +23,11 @@
 #X obj 242 262 ui.dsp~;
 #X obj 50 291 ui.hgain~;
 #X obj 50 320 dac~;
-#X obj 50 349 array.play~.speed;
-#X obj 261 349 array.play~.range;
-#X obj 50 378 array.play~.speed2;
-#X obj 261 378 array.play~.clock;
-#X obj 50 406 array.play~.amp;
+#X obj 50 349 array.play~-speed;
+#X obj 261 349 array.play~-range;
+#X obj 50 378 array.play~-speed2;
+#X obj 261 378 array.play~-clock;
+#X obj 50 406 array.play~-amp;
 #X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 461 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;

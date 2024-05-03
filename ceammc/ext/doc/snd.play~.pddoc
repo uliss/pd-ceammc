@@ -116,7 +116,7 @@
 *|*
 [dac~]
 
-[snd.play~.seek] [snd.play~.resamp]
+[snd.play~-seek] [snd.play~-resamp]
 
 #c 0.25 4 @show_value 1
 

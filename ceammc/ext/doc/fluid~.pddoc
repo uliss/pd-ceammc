@@ -245,11 +245,11 @@
 *|*
 [dac~]
 
-[fluid~.bend]   [fluid~.tune]    [fluid~.pan]  [fluid~.bank]
+[fluid~-bend]   [fluid~-tune]    [fluid~-pan]  [fluid~-bank]
 
-[fluid~.midi]   [fluid~.tune-12] [fluid~.prog] [fluid~.notesoff]
+[fluid~-midi]   [fluid~-tune-12] [fluid~-prog] [fluid~-notesoff]
 
-[fluid~.pedals] [fluid~.soundoff]
+[fluid~-pedals] [fluid~-soundoff]
 ]]>
             </pdascii>
             <pdascii id="bend">
