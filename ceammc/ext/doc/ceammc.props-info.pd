@@ -72,17 +72,31 @@ after that only get its value, f 67;
 \, does unquotting and number substitution \, performs init function
 call and data parsing. After theese steps the property parsing stage
 is invoked. So quoting \, bin and hex numbers \, function calls can
-be used also in properties arguments., f 80;
-#X obj 40 1335 ui.link @title More info about argument processing in
+be used also in initial object properties arguments., f 80;
+#X obj 140 1332 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X obj 140 1358 data.list @value reverse(pi() e() sr() 0xFF 0b1111 "A
+B C");
+#X obj 140 1384 ui.dt;
+#X obj 40 1425 ui.link @title More info about argument processing in
 ceammc @url ceammc.args-info.pd;
-#X obj 40 1370 ui.link @title More info about initial arg functions in
+#X obj 40 1460 ui.link @title More info about initial arg functions in
 ceammc @url ceammc.functions-info.pd;
-#X text 70 1402 You can request several properties at once in the single
+#X text 70 1492 You can request several properties at once in the single
 message:, f 77;
-#X msg 140 1432 @freq? @q?;
-#X obj 140 1458 flt.c_lpf 1000;
-#X obj 140 1484 ui.dt;
-#X obj 1 1542 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X msg 140 1522 @freq? @q?;
+#X obj 140 1548 flt.c_lpf 1000;
+#X obj 140 1574 ui.dt;
+#X text 70 1612 You can use simple math and random for float properties:, f 77;
+#X msg 140 1642 @freq + 10 \, @freq?;
+#X msg 342 1642 @freq * 1.1 \, @freq?;
+#X msg 157 1668 @freq - 20 \, @freq?;
+#X msg 342 1668 @freq / 1.1 \, @freq?;
+#X msg 342 1694 @freq default \, @freq?;
+#X msg 342 1721 @freq random \, @freq?;
+#X obj 140 1747 flt.c_lpf 1000;
+#X obj 140 1774 ui.dt;
+#X obj 1 1832 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X connect 8 0 12 0;
 #X connect 10 0 12 0;
 #X connect 12 0 13 0;
@@ -106,5 +120,14 @@ message:, f 77;
 #X connect 48 0 50 0;
 #X connect 50 0 51 0;
 #X connect 50 1 52 0;
-#X connect 58 0 59 0;
-#X connect 59 0 60 0;
+#X connect 55 0 56 0;
+#X connect 56 0 57 0;
+#X connect 61 0 62 0;
+#X connect 62 0 63 0;
+#X connect 65 0 71 0;
+#X connect 67 0 71 0;
+#X connect 71 0 72 0;
+#X connect 66 0 71 0;
+#X connect 68 0 71 0;
+#X connect 69 0 71 0;
+#X connect 70 0 71 0;

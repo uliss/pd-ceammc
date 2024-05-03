@@ -74,7 +74,16 @@
         <par>On ceammc object creation it parses initial arguments,
                 does unquotting and number substitution, performs init function call and data parsing. After theese steps
                 the property parsing stage is invoked.
-                So quoting, bin and hex numbers, function calls can be used also in properties arguments.</par>
+                So quoting, bin and hex numbers, function calls can be used also in initial object properties arguments.</par>
+        <pdascii indent="10">
+<![CDATA[
+[B]
+|
+[data.list @value reverse(pi() e() sr() 0xFF 0b1111 "A B C")]
+|
+[ui.dt]
+]]>
+        </pdascii>
         <a href="ceammc.args-info.pd">More info about argument processing in ceammc</a>
         <a href="ceammc.functions-info.pd">More info about initial arg functions in ceammc</a>
         <par indent="3">You can request several properties at once in the single message:</par>
@@ -85,6 +94,23 @@
 [flt.c_lpf 1000]
 |
 [ui.dt]
+]]>
+        </pdascii>
+        <par indent="3">You can use simple math and random for float properties:</par>
+        <pdascii indent="10">
+<![CDATA[
+[@freq + 10, @freq?(   [@freq * 1.1, @freq? #a(
+|
+| [@freq - 20, @freq?( [@freq / 1.1, @freq? #b(
+| |
+| |                    [@freq default, @freq? #c(
+| |
+| |                    [@freq random, @freq? #d(
+| |
+[flt.c_lpf 1000 #x]
+|
+[ui.dt]
+[X a->x] [X b->x] [X c->x] [X d->x]
 ]]>
         </pdascii>
     </sections>
