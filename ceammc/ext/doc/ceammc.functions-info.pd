@@ -56,7 +56,24 @@ specified length, f 67;
 dbfs scale, f 67;
 #X text 70 1237 ◦ db2amp(FLOAT) - convert dbfs scale values to linear
 amplitudes, f 67;
-#X obj 1 1277 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X text 70 1257 ◦ mtof(FLOAT) - convert MIDI pitch info frequency in
+Hz, f 67;
+#X text 70 1277 ◦ ftom(FLOAT) - convert frequency in Hz into MIDI pitch, f 67;
+#X text 70 1297 ◦ expr(SYMBOL) - calculates math expression, f 67;
+#X msg 140 1317 bang;
+#X obj 140 1341 data.list expr("sqrt(2)^3.5+1-pi*e");
+#X obj 140 1365 ui.dt;
+#X text 40 1398 *misc functions*, f 80;
+#X text 70 1428 ◦ hexbeat(SYMBOL) - generates hexbeat rhythm pattern, f 67;
+#X msg 140 1448 bang;
+#X obj 140 1472 data.list hexbeat("0xDEADBEEF");
+#X obj 140 1496 ui.dt;
+#X text 70 1529 ◦ euclid(BEATS LEN? ROTATION?) - generates euclid rhythm
+pattern, f 67;
+#X msg 140 1549 bang;
+#X obj 140 1573 data.list euclid(3 8 0);
+#X obj 140 1597 ui.dt;
+#X obj 1 1650 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X connect 6 0 7 0;
 #X connect 7 0 8 0;
 #X connect 11 0 12 0;
@@ -73,3 +90,9 @@ amplitudes, f 67;
 #X connect 32 0 33 0;
 #X connect 35 0 36 0;
 #X connect 36 0 37 0;
+#X connect 48 0 49 0;
+#X connect 49 0 50 0;
+#X connect 53 0 54 0;
+#X connect 54 0 55 0;
+#X connect 57 0 58 0;
+#X connect 58 0 59 0;

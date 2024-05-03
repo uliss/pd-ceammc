@@ -115,6 +115,48 @@
             <item>sr() - replaced with DSP samplerate value</item>
             <item>amp2db(FLOAT) - convert linear amplitude values to dbfs scale</item>
             <item>db2amp(FLOAT) - convert dbfs scale values to linear amplitudes</item>
+            <item>mtof(FLOAT) - convert MIDI pitch info frequency in Hz</item>
+            <item>ftom(FLOAT) - convert frequency in Hz into MIDI pitch</item>
         </ul>
+<!--        expr -->
+        <ul indent="3">
+            <item>expr(SYMBOL) - calculates math expression</item>
+        </ul>
+        <pdascii indent="10">
+<![CDATA[
+[bang(
+|
+[data.list expr("sqrt(2)^3.5+1-pi*e")]
+|
+[ui.dt]
+]]>
+        </pdascii>
+        <par>*misc functions*</par>
+    <!--        hexbeat -->
+        <ul indent="3">
+            <item>hexbeat(SYMBOL) - generates hexbeat rhythm pattern</item>
+        </ul>
+        <pdascii indent="10">
+<![CDATA[
+[bang(
+|
+[data.list hexbeat("0xDEADBEEF")]
+|
+[ui.dt]
+]]>
+        </pdascii>
+   <!--        euclid -->
+        <ul indent="3">
+            <item>euclid(BEATS LEN? ROTATION?) - generates euclid rhythm pattern</item>
+        </ul>
+        <pdascii indent="10">
+<![CDATA[
+[bang(
+|
+[data.list euclid(3 8 0)]
+|
+[ui.dt]
+]]>
+        </pdascii>
     </sections>
 </page>
