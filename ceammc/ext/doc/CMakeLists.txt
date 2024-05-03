@@ -73,15 +73,18 @@ else()
             VERBATIM COMMAND find ${CMAKE_CURRENT_BINARY_DIR} -name "${f}.*.pd" -exec cp {} ${CMAKE_CURRENT_SOURCE_DIR} ";")
     endforeach()
 
+    file(GLOB _PDDOC_PAGES "ceammc_page_*.xml")
+
     add_custom_command(
         OUTPUT "ceammc_lib.xml"
-        DEPENDS ${DOC_PDDOC_FILES}
+        DEPENDS ${DOC_PDDOC_FILES} "ceammc_pages.xml" "ceammc_meta.xml" ${_PDDOC_PAGES}
         COMMAND ${PD_MAKELIB}
             --library ceammc
             --version "${CEAMMC_LIB_VERSION}"
-            --output ceammc_lib.xml ${DOC_PDDOC_FILES}
             --search-path ${CMAKE_CURRENT_SOURCE_DIR}
-        COMMAND ${CMAKE_COMMAND} -E copy_if_different ceammc_lib.xml ${CMAKE_CURRENT_SOURCE_DIR})
+            --output ceammc_lib.xml
+            ${DOC_PDDOC_FILES}
+        WORKING_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}")
 
     add_custom_command(
         OUTPUT "ceammc-help.pd"

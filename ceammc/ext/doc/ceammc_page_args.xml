@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page output="ceammc.args-info.pd">
+    <title>Object arguments in ceammc</title>
+    <sections>
+        <par>Object arguments and properties in ceammc objects are **expanded** before(!) object creation
+        and the object has no access to unexpanded arguments, it sees only expansion result.
+        Note: this happens only for ceammc library objects, not vanilla or others!</par>
+        <par>The several things are happend:</par>
+        <par indent="1">1. Unquoting: if you create object with arguments [obj "THE ARGS"] the object first arguments
+        will be single symbol: THE ARG (with whitespace in the middle)</par>
+        <pdascii indent="10">
+<![CDATA[
+[dump(
+|  |
+|  [symbol.equal "the string with spaces"]
+|
+[symbol.equal the\ string\ with\ spaces]
+]]>
+        </pdascii>
+        <par indent="3">If you need to enter double quotes: escape them with a backtick: `</par>
+        <pdascii indent="10">
+<![CDATA[
+[dump(
+|
+[symbol.equal "`"quoted string`""]
+]]>
+        </pdascii>
+        <par indent="3">To enter the backtick symbol inside of the double-quoted string: escape it with itself:</par>
+        <pdascii indent="10">
+<![CDATA[
+[dump(
+|
+[symbol.equal "``back-ticks``"]
+]]>
+        </pdascii>
+        <par indent="1">2. Do the function calling for inital arguments. In the following example (before object creation!)
+        list 4 1 3.1415 2 is sorted in ascending order, then reversed, thus [data.list] is created with list arguments: 4 3.1415 2 1.
+        Function call can be nested.</par>
+        <pdascii indent="10">
+<![CDATA[
+[dump(
+|
+[data.list reverse(sort(4 1 pi() 2))]
+]]>
+        </pdascii>
+        <par indent="1">the following functions are available:</par>
+        <ul indent="3">
+            <item>pi() - replaced with π number</item>
+            <item>e() - replaced with e number</item>
+            <item>sort(LIST) - sort list arguments in ascending order</item>
+            <item>reverse(LIST) - reverse list order</item>
+            <item>...</item>
+        </ul>
+        <a indent="3" href="ceammc.functions-info.pd">ceammc.functions-info.pd</a>
+        <par indent="1">3. Data parsing. Ceammc library supports data structures that are stored in the single special data atom.</par>
+        <par indent="3">Note: vanilla [print] printing method is replaced for data printing support.</par>
+        <pdascii indent="10">
+<![CDATA[
+[bang(
+|
+[data.dict \[a: 1 2 3 b: A B C\]]
+|
+[print DICT]
+]]>
+        </pdascii>
+    </sections>
+</page>

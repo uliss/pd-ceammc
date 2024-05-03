@@ -1,0 +1,54 @@
+#N canvas 0 0 700 500 12;
+#X obj 1 1 cnv 5 680 40 empty empty CEAMMC\ documentation 20 20 0 20
+-104026 -4096 0;
+#X obj 20 103 cnv 1 660 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 61 cnv 5 450 32 empty empty Object\ arguments\ in\ ceammc 4
+16 0 17 -262144 -104026 0;
+#X text 40 124 Object arguments and properties in ceammc objects are
+**expanded** before(!) object creation and the object has no access
+to unexpanded arguments \, it sees only expansion result. Note: this
+happens only for ceammc library objects \, not vanilla or others!, f 80;
+#X text 40 199 The several things are happend:, f 80;
+#X text 50 229 1\. Unquoting: if you create object with arguments [obj
+"THE ARGS"] the object first arguments will be single symbol: THE ARG
+(with whitespace in the middle), f 79;
+#X msg 140 274 dump;
+#X obj 164 298 symbol.equal "the string with spaces";
+#X obj 140 322 symbol.equal the\ string\ with\ spaces;
+#X text 70 360 If you need to enter double quotes: escape them with
+a backtick: `, f 77;
+#X msg 140 390 dump;
+#X obj 140 414 symbol.equal "`"quoted string`"";
+#X text 70 476 To enter the backtick symbol inside of the double-quoted
+string: escape it with itself:, f 77;
+#X msg 140 521 dump;
+#X obj 140 545 symbol.equal "``back-ticks``";
+#X text 50 607 2\. Do the function calling for inital arguments. In
+the following example (before object creation!) list 4 1 3.1415 2 is
+sorted in ascending order \, then reversed \, thus [data.list] is created
+with list arguments: 4 3.1415 2 1\. Function call can be nested., f 79;
+#X msg 140 682 dump;
+#X obj 140 706 data.list reverse(sort(4 1 pi() 2));
+#X text 50 768 the following functions are available:, f 79;
+#X text 70 798 ◦ pi() - replaced with π number, f 67;
+#X text 70 818 ◦ e() - replaced with e number, f 67;
+#X text 70 838 ◦ sort(LIST) - sort list arguments in ascending order, f 67;
+#X text 70 858 ◦ reverse(LIST) - reverse list order, f 67;
+#X text 70 878 ◦ ..., f 67;
+#X obj 70 901 ui.link @title ceammc.functions-info.pd @url
+ceammc.functions-info.pd;
+#X text 50 943 3\. Data parsing. Ceammc library supports data structures
+that are stored in the single special data atom., f 79;
+#X text 70 988 Note: vanilla [print] printing method is replaced for
+data printing support., f 77;
+#X msg 140 1018 bang;
+#X obj 140 1042 data.dict \[a: 1 2 3 b: A B C\];
+#X obj 140 1066 print DICT;
+#X obj 1 1124 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X connect 6 0 7 0;
+#X connect 6 0 8 0;
+#X connect 10 0 11 0;
+#X connect 13 0 14 0;
+#X connect 16 0 17 0;
+#X connect 27 0 28 0;
+#X connect 28 0 29 0;
