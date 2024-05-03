@@ -2,4 +2,5 @@
 <pddoc-pages version="1.0" xmlns:xi="http://www.w3.org/2001/XInclude" >
     <xi:include href="ceammc_page_args.xml" parse="xml"/>
     <xi:include href="ceammc_page_props.xml" parse="xml"/>
+    <xi:include href="ceammc_page_functions.xml" parse="xml"/>
 </pddoc-pages>

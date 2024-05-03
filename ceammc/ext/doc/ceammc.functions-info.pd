@@ -1,0 +1,75 @@
+#N canvas 0 0 700 500 12;
+#X obj 1 1 cnv 5 680 40 empty empty CEAMMC\ documentation 20 20 0 20
+-104026 -4096 0;
+#X obj 20 103 cnv 1 660 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 61 cnv 5 450 32 empty empty Initial\ object\ arg\ functions
+4 16 0 17 -262144 -104026 0;
+#X text 40 124 Note: this functions are calculated only once just before(!)
+ceammc object creation., f 80;
+#X text 40 169 Function call can be nested., f 80;
+#X text 40 199 If you want the symbol value pi() instead of numeric
+value - use double-quotes. In the following example theren is a list
+with two elements: first is π=3.1415 value \, second is unexpanded
+symbol pi():, f 80;
+#X msg 140 259 bang;
+#X obj 140 283 data.list pi() "pi()";
+#X obj 140 307 ui.dt;
+#X text 40 340 *list functions*, f 80;
+#X text 70 370 ◦ seq(FROM TO STEP?) - sequence generator. The TO value
+is included into the output range. STEP can be omitted., f 67;
+#X msg 140 405 bang;
+#X obj 140 429 data.list seq(10 0 2);
+#X obj 140 453 ui.dt;
+#X text 70 486 ◦ reverse(ARGS+) - reverse given arguments, f 67;
+#X msg 140 506 bang;
+#X obj 140 530 data.list reverse(seq(1 16));
+#X obj 140 554 ui.dt;
+#X text 70 587 ◦ sort(ARGS+) - sort given arguments, f 67;
+#X msg 140 607 bang;
+#X obj 140 631 data.list sort(3 5 1 7 54 3 2 4 6 7);
+#X obj 140 655 ui.dt;
+#X text 70 688 ◦ rotate(INT ARGS+) - rotates list (positive values
+rotates counter-clockwise), f 67;
+#X msg 140 723 bang;
+#X obj 140 747 data.list rotate(3 seq(1 10));
+#X obj 140 771 ui.dt;
+#X text 70 804 ◦ repeat(INT ARGS+) - generate list with repeated pattern, f 67;
+#X msg 140 824 bang;
+#X obj 140 848 data.list repeat(3 A B);
+#X obj 140 872 ui.dt;
+#X text 70 905 ◦ ones(INT) - generates list filled with ones of specified
+length, f 67;
+#X msg 140 925 bang;
+#X obj 140 949 data.list ones(16);
+#X obj 140 973 ui.dt;
+#X text 70 1006 ◦ zeros(INT) - generates list filled with zeros of
+specified length, f 67;
+#X msg 140 1026 bang;
+#X obj 140 1050 data.list zeros(24);
+#X obj 140 1074 ui.dt;
+#X text 40 1107 *math functions*, f 80;
+#X text 70 1137 ◦ pi() - replaced with π value, f 67;
+#X text 70 1157 ◦ e() - replaced with e value, f 67;
+#X text 70 1177 ◦ bs() - replaced with DSP blocksize value, f 67;
+#X text 70 1197 ◦ sr() - replaced with DSP samplerate value, f 67;
+#X text 70 1217 ◦ amp2db(FLOAT) - convert linear amplitude values to
+dbfs scale, f 67;
+#X text 70 1237 ◦ db2amp(FLOAT) - convert dbfs scale values to linear
+amplitudes, f 67;
+#X obj 1 1277 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X connect 6 0 7 0;
+#X connect 7 0 8 0;
+#X connect 11 0 12 0;
+#X connect 12 0 13 0;
+#X connect 15 0 16 0;
+#X connect 16 0 17 0;
+#X connect 19 0 20 0;
+#X connect 20 0 21 0;
+#X connect 23 0 24 0;
+#X connect 24 0 25 0;
+#X connect 27 0 28 0;
+#X connect 28 0 29 0;
+#X connect 31 0 32 0;
+#X connect 32 0 33 0;
+#X connect 35 0 36 0;
+#X connect 36 0 37 0;

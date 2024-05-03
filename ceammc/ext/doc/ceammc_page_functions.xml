@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<page output="ceammc.functions-info.pd">
+    <title>Initial object arg functions</title>
+    <sections>
+        <par>Note: this functions are calculated only once just before(!) ceammc object creation.</par>
+        <par>Function call can be nested.</par>
+        <par>If you want the symbol value pi() instead of numeric value - use double-quotes. In the following example
+        theren is a list with two elements: first is π=3.1415 value, second is unexpanded symbol pi():</par>
+        <pdascii indent="10">
+<![CDATA[
+[bang(
+|
+[data.list pi() "pi()"]
+|
+[ui.dt]
+]]>
+        </pdascii>
+        <par>*list functions*</par>
+<!--        seq-->
+        <ul indent="3">
+            <item>seq(FROM TO STEP?) - sequence generator. The TO value is included into the output range. STEP can be omitted.</item>
+        </ul>
+        <pdascii indent="10">
+<![CDATA[
+[bang(
+|
+[data.list seq(10 0 2)]
+|
+[ui.dt]
+]]>
+        </pdascii>
+<!--        reverse-->
+        <ul indent="3">
+            <item>reverse(ARGS+) - reverse given arguments</item>
+        </ul>
+        <pdascii indent="10">
+<![CDATA[
+[bang(
+|
+[data.list reverse(seq(1 16))]
+|
+[ui.dt]
+]]>
+        </pdascii>
+<!--        sort-->
+        <ul indent="3">
+            <item>sort(ARGS+) - sort given arguments</item>
+        </ul>
+        <pdascii indent="10">
+<![CDATA[
+[bang(
+|
+[data.list sort(3 5 1 7 54 3 2 4 6 7)]
+|
+[ui.dt]
+]]>
+        </pdascii>
+<!--        rotate -->
+        <ul indent="3">
+            <item>rotate(INT ARGS+) - rotates list (positive values rotates counter-clockwise)</item>
+        </ul>
+        <pdascii indent="10">
+<![CDATA[
+[bang(
+|
+[data.list rotate(3 seq(1 10))]
+|
+[ui.dt]
+]]>
+        </pdascii>
+<!--        repeat -->
+        <ul indent="3">
+            <item>repeat(INT ARGS+) - generate list with repeated pattern</item>
+        </ul>
+        <pdascii indent="10">
+<![CDATA[
+[bang(
+|
+[data.list repeat(3 A B)]
+|
+[ui.dt]
+]]>
+        </pdascii>
+<!--        ones -->
+        <ul indent="3">
+            <item>ones(INT) - generates list filled with ones of specified length</item>
+        </ul>
+        <pdascii indent="10">
+<![CDATA[
+[bang(
+|
+[data.list ones(16)]
+|
+[ui.dt]
+]]>
+        </pdascii>
+<!--        zeroes -->
+        <ul indent="3">
+            <item>zeros(INT) - generates list filled with zeros of specified length</item>
+        </ul>
+        <pdascii indent="10">
+<![CDATA[
+[bang(
+|
+[data.list zeros(24)]
+|
+[ui.dt]
+]]>
+        </pdascii>
+        <par>*math functions*</par>
+        <ul indent="3">
+            <item>pi() - replaced with π value</item>
+            <item>e() - replaced with e value</item>
+            <item>bs() - replaced with DSP blocksize value</item>
+            <item>sr() - replaced with DSP samplerate value</item>
+            <item>amp2db(FLOAT) - convert linear amplitude values to dbfs scale</item>
+            <item>db2amp(FLOAT) - convert dbfs scale values to linear amplitudes</item>
+        </ul>
+    </sections>
+</page>
