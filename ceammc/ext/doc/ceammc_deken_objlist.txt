@@ -1263,6 +1263,8 @@ synth.voice_fofc~	Simple formant/vocal synthesizer with FOF-cycle filterbank.
 synth.voice_fofs~	Simple formant/vocal synthesizer with FOF-smooth filterbank.
 synth.wurley~	Wurlitzer electric piano FM synthesis instrument
 system.colorpanel	System color panel dialog popup
+system.command	run commands with pipes on Unix and Windows
+system.cmd	run commands with pipes on Unix and Windows
 system.cursor	Output cursor motion, mousewheel and button clicks
 system.exec	run external command in separate process
 system.exit	quit PureData

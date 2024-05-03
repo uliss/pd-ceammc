@@ -775,6 +775,7 @@ synth.voice_fofc~		.		~
 synth.voice_fofs~		.		~
 synth.wurley~		.		~
 system.colorpanel		.		.
+system.command,system.cmd		.		..
 system.cursor		.		.
 system.exec		.		..
 system.exit		.		-

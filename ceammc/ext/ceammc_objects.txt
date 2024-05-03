@@ -1270,7 +1270,9 @@ synth.tube_bell~
 synth.voice_fofc~
 synth.voice_fofs~
 synth.wurley~
+system.cmd
 system.colorpanel
+system.command
 system.cursor
 system.exec
 system.exit

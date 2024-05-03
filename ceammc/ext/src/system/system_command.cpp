@@ -23,6 +23,9 @@ CEAMMC_DEFINE_SYM_HASH(bytes)
 CEAMMC_DEFINE_SYM_HASH(lines)
 CEAMMC_DEFINE_SYM_HASH(pd)
 
+constexpr size_t OUT_STDOUT = 1;
+constexpr size_t OUT_EXITCODE = 0;
+
 static ceammc_system_process_mode prop2mode(const char* mode)
 {
     switch (crc32_hash(mode)) {
@@ -43,17 +46,16 @@ SystemCommand::SystemCommand(const PdArgs& args)
         int32_t rc = 0;
         switch (ceammc_system_process_results(proc_, &rc)) {
         case ceammc_system_process_rc::Running:
-            proc_check_.delay(100);
+            proc_check_.delay(timeout_->value());
             break;
         case ceammc_system_process_rc::Ready:
         case ceammc_system_process_rc::Error:
         default:
-            floatTo(2, rc);
+            floatTo(OUT_EXITCODE, rc);
             return;
         }
     })
 {
-    createOutlet();
     createOutlet();
     createOutlet();
 
@@ -145,17 +147,17 @@ void SystemCommand::exec(const char* input)
         [](void* user, const std::uint8_t* data, size_t len) {
             auto this_ = static_cast<SystemCommand*>(user);
             if (this_)
-                this_->output(0, data, len);
+                this_->output(OUT_STDOUT, data, len);
         },
         [](void* user, const std::uint8_t* data, size_t len) {
             auto this_ = static_cast<SystemCommand*>(user);
-            if (this_)
-                this_->output(1, data, len);
+            if (this_) {
+                Error(this_) << std::string((const char*)data, len);
+            }
         });
 
-    if (proc_ && ceammc_system_process_exec(proc_)) {
+    if (proc_ && ceammc_system_process_exec(proc_))
         proc_check_.delay(20);
-    }
 }
 
 bool SystemCommand::parseCommand(const AtomListView& lv)

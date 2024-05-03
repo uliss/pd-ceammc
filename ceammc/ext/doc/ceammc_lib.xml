@@ -2432,6 +2432,9 @@
     <entry name="system.colorpanel" descr="System color panel dialog popup" ref_view="object">
       <xi:include href="system.colorpanel.pddoc" parse="xml"/>
     </entry>
+    <entry name="system.command" descr="run commands with pipes on Unix and Windows" ref_view="object">
+      <xi:include href="system.command.pddoc" parse="xml"/>
+    </entry>
     <entry name="system.cursor" descr="Output cursor motion, mousewheel and button clicks" ref_view="object">
       <xi:include href="system.cursor.pddoc" parse="xml"/>
     </entry>

@@ -245,8 +245,9 @@
         synth.voice_fofs~ synth.wurley~
     }}
     {system {
-        system.colorpanel system.cursor system.exec system.exit system.getenv
-        system.hostname system.memsize system.memused system.screen_size
+        system.colorpanel system.command system.cursor system.exec system.exit
+        system.getenv system.hostname system.memsize system.memused
+        system.screen_size
     }}
     {tl {
         tl.bang tl.cue tl.timeline tl.toggle tl.transport

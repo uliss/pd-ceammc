@@ -784,6 +784,7 @@ set(DOC_FILES
     system.memsize
     system.memused
     system.screen_size
+    system.command
     tl.bang
     tl.cue
     tl.timeline
