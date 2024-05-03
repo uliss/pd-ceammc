@@ -45,7 +45,7 @@ static inline t_outlet* find_outlet(t_prop_route_tilde* x, t_symbol* sel)
         x->outlet_list->end(),
         [&sel](const outlet_vec::value_type& el) { return el.first == sel; });
 
-    return it == x->outlet_list->end() ? 0 : it->second;
+    return it == x->outlet_list->end() ? x->all_prop : it->second;
 }
 
 static inline void route_output(t_prop_route_tilde* x, t_symbol* s, const AtomListView& args)
