@@ -33,7 +33,17 @@
 [symbol.equal "``back-ticks``"]
 ]]>
         </pdascii>
-        <par indent="1">2. Do the function calling for inital arguments. In the following example (before object creation!)
+        <par indent="1">2. Number substitution: hex or binary values recognized and replaced with decimal values:</par>
+        <pdascii indent="10">
+<![CDATA[
+[bang(
+|
+[data.list 0xBEEF 0b110101]
+|
+[ui.dt]
+]]>
+        </pdascii>
+        <par indent="1">3. Do the function calling for inital arguments. In the following example (before object creation!)
         list 4 1 3.1415 2 is sorted in ascending order, then reversed, thus [data.list] is created with list arguments: 4 3.1415 2 1.
         Function call can be nested.</par>
         <pdascii indent="10">
@@ -52,7 +62,7 @@
             <item>...</item>
         </ul>
         <a indent="3" href="ceammc.functions-info.pd">ceammc.functions-info.pd</a>
-        <par indent="1">3. Data parsing. Ceammc library supports data structures that are stored in the single special data atom.</par>
+        <par indent="1">4. Data parsing. Ceammc library supports data structures that are stored in the single special data atom.</par>
         <par indent="3">Note: vanilla [print] printing method is replaced for data printing support.</par>
         <pdascii indent="10">
 <![CDATA[

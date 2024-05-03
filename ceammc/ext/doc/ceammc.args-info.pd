@@ -23,32 +23,39 @@ a backtick: `, f 77;
 string: escape it with itself:, f 77;
 #X msg 140 511 dump;
 #X obj 140 535 symbol.equal "``back-ticks``";
-#X text 50 592 2\. Do the function calling for inital arguments. In
+#X text 50 592 2\. Number substition: hex or binary values recognized
+and replaced with decimal values:, f 79;
+#X msg 140 637 bang;
+#X obj 140 661 data.list 0xBEEF 0b110101;
+#X obj 140 685 ui.dt;
+#X text 50 718 3\. Do the function calling for inital arguments. In
 the following example (before object creation!) list 4 1 3.1415 2 is
 sorted in ascending order \, then reversed \, thus [data.list] is created
 with list arguments: 4 3.1415 2 1\. Function call can be nested., f 79;
-#X msg 140 667 dump;
-#X obj 140 691 data.list reverse(sort(4 1 pi() 2));
-#X text 50 748 the following functions are available:, f 79;
-#X text 70 778 ◦ pi() - replaced with π number, f 67;
-#X text 70 798 ◦ e() - replaced with e number, f 67;
-#X text 70 818 ◦ sort(LIST) - sort list arguments in ascending order, f 67;
-#X text 70 838 ◦ reverse(LIST) - reverse list order, f 67;
-#X text 70 858 ◦ ..., f 67;
-#X obj 70 881 ui.link @title ceammc.functions-info.pd @url
+#X msg 140 793 dump;
+#X obj 140 817 data.list reverse(sort(4 1 pi() 2));
+#X text 50 874 the following functions are available:, f 79;
+#X text 70 904 ◦ pi() - replaced with π number, f 67;
+#X text 70 924 ◦ e() - replaced with e number, f 67;
+#X text 70 944 ◦ sort(LIST) - sort list arguments in ascending order, f 67;
+#X text 70 964 ◦ reverse(LIST) - reverse list order, f 67;
+#X text 70 984 ◦ ..., f 67;
+#X obj 70 1007 ui.link @title ceammc.functions-info.pd @url
 ceammc.functions-info.pd;
-#X text 50 923 3\. Data parsing. Ceammc library supports data structures
+#X text 50 1049 4\. Data parsing. Ceammc library supports data structures
 that are stored in the single special data atom., f 79;
-#X text 70 968 Note: vanilla [print] printing method is replaced for
+#X text 70 1094 Note: vanilla [print] printing method is replaced for
 data printing support., f 77;
-#X msg 140 998 bang;
-#X obj 140 1022 data.dict \[a: 1 2 3 b: A B C\];
-#X obj 140 1046 print DICT;
-#X obj 1 1099 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X msg 140 1124 bang;
+#X obj 140 1148 data.dict \[a: 1 2 3 b: A B C\];
+#X obj 140 1172 print DICT;
+#X obj 1 1225 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X connect 6 0 7 0;
 #X connect 6 0 8 0;
 #X connect 10 0 11 0;
 #X connect 13 0 14 0;
 #X connect 16 0 17 0;
-#X connect 27 0 28 0;
-#X connect 28 0 29 0;
+#X connect 17 0 18 0;
+#X connect 20 0 21 0;
+#X connect 31 0 32 0;
+#X connect 32 0 33 0;
