@@ -12,61 +12,77 @@ to access to the inner state of the object., f 80;
 #X text 40 247 There are two ways do deal with properties:, f 80;
 #X text 50 277 1\. Sending get/set request messages to the target object., f 79;
 #X msg 140 307 @freq?;
-#X text 260 307 <- get property message (ended with '?');
-#X msg 164 331 @freq 500;
-#X text 260 331 <- set property message;
-#X obj 140 355 flt.c_lpf 1000;
-#X obj 140 379 ui.dt;
-#X text 70 412 On receiving @prop? message the object outputs its value
+#X text 272 307 <- get property message (ended with '?');
+#X msg 166 333 @freq 500;
+#X text 272 333 <- set property message;
+#X obj 140 359 flt.c_lpf 1000;
+#X obj 140 386 ui.dt;
+#X text 70 424 On receiving @prop? message the object outputs its value
 as the message to the first outlet: @prop VALUE, f 77;
-#X text 70 457 There are [prop.route] and [prop.route~] objects for
+#X text 70 469 There are [prop.route] and [prop.route~] objects for
 splitting the main object audio/control stream from the requested properties:, f 77;
-#X msg 140 502 @freq?;
-#X msg 212 502 @q?;
-#X msg 300 502 @freq?;
-#X msg 372 502 @q?;
-#X obj 140 526 flt.c_lpf 1000;
-#X obj 300 526 flt.c_lpf~;
-#X obj 140 550 prop-> @freq @q;
-#X obj 300 550 prop~> @freq @q;
-#X floatatom 172 574 5 0 0 0 - - -;
-#X floatatom 228 574 5 0 0 0 - - -;
-#X floatatom 348 574 5 0 0 0 - - -;
-#X floatatom 412 574 5 0 0 0 - - -;
-#X text 50 607 2\. Using [prop.get] and [prop.set] objects, f 79;
-#X text 70 637 The [prop.get] object get properties from the connected
+#X msg 140 514 @freq?;
+#X msg 219 514 @q?;
+#X msg 316 514 @freq?;
+#X msg 395 514 @q?;
+#X obj 140 540 flt.c_lpf 1000;
+#X obj 316 540 flt.c_lpf~;
+#X obj 140 566 prop-> @freq @q;
+#X obj 316 566 prop~> @freq @q;
+#X floatatom 175 593 5 0 0 0 - - -;
+#X floatatom 236 593 5 0 0 0 - - -;
+#X floatatom 368 593 5 0 0 0 - - -;
+#X floatatom 439 593 5 0 0 0 - - -;
+#X text 50 613 2\. Using [prop.get] and [prop.set] objects, f 79;
+#X text 70 643 The [prop.get] object get properties from the connected
 object:, f 77;
-#X floatatom 140 667 5 0 0 0 - - -;
-#X obj 276 667 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+#X floatatom 140 673 5 0 0 0 - - -;
+#X obj 289 673 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
-#X obj 140 691 prop.set @freq;
-#X obj 276 691 prop.get @freq;
-#X obj 140 715 flt.c_lpf 1000;
-#X floatatom 372 715 5 0 0 0 - - -;
-#X text 70 772 NOTE: for some objects \, like in flow category \, this
+#X obj 140 699 prop.set @freq;
+#X obj 289 699 prop.get @freq;
+#X obj 140 725 flt.c_lpf 1000;
+#X floatatom 395 725 5 0 0 0 - - -;
+#X text 70 763 NOTE: for some objects \, like in flow category \, this
 is the single way to get/set properties \, because by design flow objects
 should work with all dataflow values., f 77;
-#X text 40 832 Some frequently used properties can be set with positional
+#X text 40 823 Some frequently used properties can be set with positional
 init arguments. This is the same:, f 80;
-#X obj 140 877 data.list 1 2 3;
-#X obj 284 877 data.list @value 1 2 3;
-#X obj 20 982 cnv 5 400 28 empty empty Advanced\ usage 4 14 0 16
+#X obj 140 868 data.list 1 2 3;
+#X obj 298 868 data.list @value 1 2 3;
+#X text 70 906 Properties can be one of the following types:, f 77;
+#X text 70 936 ◦ readwrite - you can set it with initial arguments
+\, with messages or [prop.get]/[prop.set] objects, f 67;
+#X text 70 971 ◦ initonly - you can set it with initial arguments and
+after that only get its value, f 67;
+#X text 70 1006 ◦ readonly - you can only get its value, f 67;
+#X msg 140 1026 @size?;
+#X text 219 1026 <- readonly property @size;
+#X obj 140 1052 data.list 1 2 3 4;
+#X obj 140 1078 ui.dt;
+#X obj 140 1118 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
+-1;
+#X text 219 1118 <- initonly property @n;
+#X obj 140 1144 prop.get @n;
+#X obj 140 1171 route.cycle @n 5;
+#X floatatom 307 1171 5 0 0 0 - - -;
+#X obj 20 1209 cnv 5 400 28 empty empty Advanced\ usage 4 14 0 16
 -70738 -262144 0;
-#X text 40 1030 On ceammc object creation it parses initial arguments
+#X text 40 1257 On ceammc object creation it parses initial arguments
 \, does unquotting and number substitution \, performs init function
 call and data parsing. After theese steps the property parsing stage
 is invoked. So quoting \, bin and hex numbers \, function calls can
 be used also in properties arguments., f 80;
-#X obj 40 1108 ui.link @title More info about argument processing in
+#X obj 40 1335 ui.link @title More info about argument processing in
 ceammc @url ceammc.args-info.pd;
-#X obj 40 1153 ui.link @title More info about initial arg functions in
+#X obj 40 1370 ui.link @title More info about initial arg functions in
 ceammc @url ceammc.functions-info.pd;
-#X text 70 1195 You can request several properties at once in the single
+#X text 70 1402 You can request several properties at once in the single
 message:, f 77;
-#X msg 140 1225 @freq? @q?;
-#X obj 140 1249 flt.c_lpf 1000;
-#X obj 140 1273 ui.dt;
-#X obj 1 1350 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
+#X msg 140 1432 @freq? @q?;
+#X obj 140 1458 flt.c_lpf 1000;
+#X obj 140 1484 ui.dt;
+#X obj 1 1542 cnv 5 680 40 empty empty empty 17 7 0 10 -203890 -1 0;
 #X connect 8 0 12 0;
 #X connect 10 0 12 0;
 #X connect 12 0 13 0;
@@ -85,5 +101,10 @@ message:, f 77;
 #X connect 32 0 34 0;
 #X connect 33 0 34 0;
 #X connect 33 1 35 0;
-#X connect 45 0 46 0;
+#X connect 44 0 46 0;
 #X connect 46 0 47 0;
+#X connect 48 0 50 0;
+#X connect 50 0 51 0;
+#X connect 50 1 52 0;
+#X connect 58 0 59 0;
+#X connect 59 0 60 0;
