@@ -15,7 +15,7 @@
 [ui.dt]
 ]]>
         </pdascii>
-        <par>*list functions*</par>
+        <h2>list functions</h2>
 <!--        seq-->
         <ul indent="3">
             <item>seq(FROM TO STEP?) - sequence generator. The TO value is included into the output range. STEP can be omitted.</item>
@@ -107,7 +107,7 @@
 [ui.dt]
 ]]>
         </pdascii>
-        <par>*math functions*</par>
+        <h2>math functions</h2>
         <ul indent="3">
             <item>pi() - replaced with π value</item>
             <item>e() - replaced with e value</item>
@@ -131,7 +131,7 @@
 [ui.dt]
 ]]>
         </pdascii>
-        <par>*misc functions*</par>
+        <h2>misc functions</h2>
     <!--        hexbeat -->
         <ul indent="3">
             <item>hexbeat(SYMBOL) - generates hexbeat rhythm pattern</item>
