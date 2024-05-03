@@ -1,4 +1,4 @@
-#N canvas 0 0 533 329 12;
+#N canvas 0 0 312 228 12;
 #X obj 20 48 ui.hrd 5;
 #X obj 164 48 ui.knob;
 #X msg 20 92 rev_type \$1;
