@@ -68,7 +68,7 @@ void setup_msg_onclose();
 void setup_msg_onload();
 void setup_nsig_tilde();
 void setup_prop_get();
-void setup_prop_get_tilde();
+void setup_prop_route_tilde();
 void setup_prop_join();
 void setup_prop_set();
 void setup_prop_split();
@@ -140,7 +140,7 @@ void ceammc_base_setup()
     setup_patch_tree();
     setup_prop_declare();
     setup_prop_get();
-    setup_prop_get_tilde();
+    setup_prop_route_tilde();
     setup_prop_join();
     setup_prop_random();
     setup_prop_set();

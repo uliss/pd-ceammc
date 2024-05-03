@@ -16,6 +16,11 @@
   - dict->list @props flag added to output as list of properties
 - misc:
   - dict.get - path-like expression added to get keys: /*/USER/1:3/foo
+### Changed:
+- renaming:
+  - prop.get~ renamed to prop.route~ (the old alias exists for the compatibility, but it prints a warning message)
+  - prop.split renamed to prop.route (the old alias exists for the compatibility, but it prints a warning message)
+
 
 ## [0.9.7]
 ### Added:
