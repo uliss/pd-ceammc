@@ -19,12 +19,14 @@
 using namespace ceammc;
 
 class SymbolEqual : public BaseObject {
-    t_symbol* pattern_;
+    SymbolProperty* pattern_ { nullptr };
 
 public:
     SymbolEqual(const PdArgs& a);
-    void onSymbol(t_symbol* s) override;
-    void onList(const AtomListView& lv) override;
+
+    void onSymbol(t_symbol* s) final;
+    void onList(const AtomListView& lv) final;
+    void onInlet(size_t n, const AtomListView& lv) final;
 
     t_symbol* pattern() const;
 };
