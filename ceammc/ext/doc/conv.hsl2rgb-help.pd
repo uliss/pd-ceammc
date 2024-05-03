@@ -19,8 +19,10 @@
 #X obj 50 277 msg @background_color;
 #X obj 50 305 ui.t @size 40 40 @nosave 1;
 #X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 360 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 360 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 363 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 395 @pack;
 #X text 245 395 output as list (creates single outlet object).;
 #X msg 110 425 @sync;
@@ -35,7 +37,7 @@ range.;
 #X text 245 515 Get/Set output mode. Type: symbol. Default value: int.
 Allowed values: int \, float.;
 #X obj 20 567 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 572 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 572 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 573 1\.;
 #X text 150 573 *bang*;
@@ -49,7 +51,7 @@ Allowed values: int \, float.;
 #X text 150 633 *float*;
 #X text 245 633 set color lightness without output. Range: 0\...1\.;
 #X obj 20 663 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 668 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 668 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 669 1\.;
 #X text 245 669 list: R G B or red channel value (int[0-255] or float[0-1]).;

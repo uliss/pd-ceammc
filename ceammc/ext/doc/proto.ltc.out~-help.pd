@@ -21,8 +21,10 @@
 #X obj 50 305 ui.dt;
 #X obj 184 305 ui.dt;
 #X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 360 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 360 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 363 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 395 @filter;
 #X text 245 395 Get/Set output signal filtering. LTC should have a
 rise time of 40us+/-10 us. If you want a perfect square wave \, set
@@ -39,7 +41,7 @@ to 0\. Type: float. Default value: 0\. Range: 0\...500\.;
 #X text 245 554 Get/Set output signal level. Type: float. Units: 'db'.
 Default value: -3\. Range: -42\...0\.;
 #X obj 20 606 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 611 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 611 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 646 date;
 #X text 245 646 set current date. Arguments are:;
@@ -69,7 +71,7 @@ atom.;
 #X obj 255 948 cnv 1 55 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 948 [FRAME]: frame number. Type: int. Range: 0\...30\.;
 #X obj 20 983 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 988 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 988 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 989 1\.;
 #X text 150 989 *bang*;
@@ -77,7 +79,7 @@ atom.;
 #X text 150 1009 *bool*;
 #X text 245 1009 switch on/off encoder process.;
 #X obj 20 1039 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1044 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1044 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1045 1\.;
 #X text 245 1045 LTC signal.;

@@ -14,8 +14,10 @@
 #X obj 213 305 ui.dsp~;
 #X obj 50 334 dac~;
 #X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 389 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 389 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 424 1\.;
 #X text 150 424 int;
 #X obj 246 425 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -29,8 +31,10 @@
 #X obj 246 465 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 464 N: number of steps. Type: int. Min value: 0;
 #X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 499 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 499 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 502 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 534 @auto;
 #X text 245 534 Get/Set auto reset mode. If true: reset to @start value
 after ramp is finished. Type: bool. Default value: 0\.;
@@ -44,12 +48,12 @@ Range: 0\...127\.;
 #X text 245 660 Get/Set end value. Type: int. Default value: 127\.
 Range: 0\...127\.;
 #X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 717 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 717 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 752 reset;
 #X text 245 752 reset to start value.;
 #X obj 20 790 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 795 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 795 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 796 1\.;
 #X text 150 796 *float*;
@@ -58,7 +62,7 @@ as (-VALUE \, 0).;
 #X text 150 831 *list*;
 #X text 245 831 NOTE [VELOCITY] list expected.;
 #X obj 20 861 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 866 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 866 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 867 1\.;
 #X text 245 867 outputs NOTE VELOCITY pair.;

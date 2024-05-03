@@ -24,8 +24,10 @@
 #X obj 50 349 dac~ 1 2 3 4 5 6 7 8, f 20;
 #X obj 347 349 ui.dsp~;
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 404 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 404 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 439 @id;
 #X text 245 439 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/spat_zita6x8/PROP_NAME osc address \, if
@@ -133,12 +135,12 @@ Units: 'db'. Default value: -8\. Range: -60\...0\.;
 #X text 245 1864 Get/Set 6th source reverb sound level. Type: float.
 Units: 'db'. Default value: -8\. Range: -60\...0\.;
 #X obj 20 1916 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1921 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1921 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1956 reset;
 #X text 245 1956 reset reverb.;
 #X obj 20 1994 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1999 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1999 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2000 1\.;
 #X text 245 2000 1st source input.;
@@ -153,7 +155,7 @@ Units: 'db'. Default value: -8\. Range: -60\...0\.;
 #X text 110 2100 6\.;
 #X text 245 2100 6th source input.;
 #X obj 20 2130 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2135 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 2135 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2136 1\.;
 #X text 245 2136 1st output.;

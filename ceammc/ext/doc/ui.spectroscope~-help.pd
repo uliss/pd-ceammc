@@ -24,8 +24,10 @@
 #X msg 357 219 @log_scale \$1;
 #X obj 50 262 ui.spectroscope~ @size 500 150;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 317 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 352 @log_scale;
 #X text 245 352 Get/Set display in log scale. Type: bool. Default value:
 0\.;
@@ -70,7 +72,7 @@ level. Type: bool. Default value: 0\.;
 #X text 245 889 Get/Set element size (width \, height pair). Type:
 list. Default value: 150 100\.;
 #X obj 20 941 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 946 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 946 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 981 pos;
 #X text 245 981 set UI element position. Arguments are:;
@@ -79,7 +81,7 @@ list. Default value: 150 100\.;
 #X obj 255 1027 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1027 Y: top right y-coord. Type: float.;
 #X obj 20 1062 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1067 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1067 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1068 1\.;
 #X text 245 1068 signal input.;

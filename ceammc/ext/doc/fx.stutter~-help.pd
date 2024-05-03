@@ -17,15 +17,19 @@
 #X obj 280 234 ui.dsp~;
 #X obj 50 262 dac~;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 352 1\.;
 #X text 150 352 float;
 #X obj 246 353 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 352 T(ms): stutter period. Type: float. Range: 1\...1000;
 #X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 387 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 387 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 390 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 422 @maxsize;
 #X text 245 422 (initonly) Get/Set max stutter period. Type: float.
 Units: 'ms'. Default value: 1000\. Range: 1\...10000\.;
@@ -43,7 +47,7 @@ value: 1\. Range: 0.25\...4\.;
 #X text 245 608 Get/Set stutter period. Type: float. Units: 'ms'. Default
 value: 50\. Range: 1\...1000\.;
 #X obj 20 660 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 665 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 665 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 666 1\.;
 #X text 245 666 input signal.;
@@ -53,7 +57,7 @@ value: 50\. Range: 1\...1000\.;
 #X text 150 706 *float*;
 #X text 245 706 1: turn on \, 0: turn off.;
 #X obj 20 736 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 741 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 741 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 742 1\.;
 #X text 245 742 output.;

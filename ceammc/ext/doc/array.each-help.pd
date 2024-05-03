@@ -19,22 +19,26 @@
 #X msg 50 176 normalize;
 #X obj 50 205 s array1;
 #X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 260 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 260 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 263 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 295 1\.;
 #X text 150 295 symbol;
 #X obj 246 296 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 295 ARRAY: array name. Type: symbol.;
 #X obj 20 325 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 330 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 330 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 333 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 365 @array;
 #X text 245 365 Get/Set array name. Type: symbol.;
 #X msg 110 395 @redraw;
 #X text 245 395 Get/Set redraw after array change. Type: bool. Default
 value: 1\.;
 #X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 452 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 452 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 453 1\.;
 #X text 150 453 *bang*;
@@ -45,7 +49,7 @@ value: 1\.;
 #X text 150 493 *float*;
 #X text 245 493 processed float value from side-chain.;
 #X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 528 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 528 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 529 1\.;
 #X text 245 529 bang on finish.;

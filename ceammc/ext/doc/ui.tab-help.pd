@@ -25,8 +25,10 @@
 #X obj 50 262 print;
 #X obj 126 262 ui.dt;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 317 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 352 @items;
 #X text 245 352 Get/Set list of tab names. Type: list.;
 #X msg 110 382 @orientation;
@@ -88,7 +90,7 @@ Type: int. Default value: 0\.;
 #X text 245 1129 (readonly) Get list of selected items (in toggle mode).
 Type: list.;
 #X obj 20 1181 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1186 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1186 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1221 append;
 #X text 245 1221 appends new tab item. Arguments are:;
@@ -160,7 +162,7 @@ only) \, output newly selected item.;
 #X text 245 2041 moves several step backwards on a loop (single mode
 only) \, output newly selected item.;
 #X obj 20 2091 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2096 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 2096 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2097 1\.;
 #X text 150 2097 *bang*;
@@ -174,7 +176,7 @@ list: INDEX TAB_NAME.;
 #X text 245 2182 selects item equal to given and output list: INDEX
 TAB_NAME.;
 #X obj 20 2212 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2217 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 2217 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2218 1\.;
 #X text 245 2218 output.;

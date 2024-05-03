@@ -21,17 +21,19 @@ use @sort flag to get sorted output;
 #X obj 50 302 ui.dt;
 #X obj 165 302 ui.dt;
 #X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 357 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 357 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 360 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 392 @sort;
 #X text 245 392 if specified - sort output list. Default value: 0\.;
 #X obj 20 432 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 437 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 437 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 438 1\.;
 #X text 245 438 input set.;
 #X obj 20 468 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 473 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 473 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 474 1\.;
 #X text 245 474 output list.;

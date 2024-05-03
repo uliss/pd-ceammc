@@ -18,8 +18,10 @@
 #X obj 184 363 ui.dsp~;
 #X obj 50 392 dac~;
 #X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 447 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 447 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 450 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 482 @id;
 #X text 245 482 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/synth_glass_harm/PROP_NAME osc address \,
@@ -77,7 +79,7 @@ Range: 0\...1\.;
 #X text 245 1221 Get/Set spatialization width. Type: float. Default
 value: 0.5\. Range: 0\...1\.;
 #X obj 20 1273 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1278 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1278 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1313 note;
 #X text 245 1313 note on/off message. Arguments are:;
@@ -88,13 +90,13 @@ value: 0.5\. Range: 0\...1\.;
 #X msg 110 1384 reset;
 #X text 245 1384 reset synth.;
 #X obj 20 1422 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1427 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1427 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1428 1\.;
 #X text 150 1428 *list*;
 #X text 245 1428 NOTE VEL.;
 #X obj 20 1458 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1463 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1463 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1464 1\.;
 #X text 245 1464 left output.;

@@ -19,8 +19,10 @@ opposite of a band-pass filter.;
 #X obj 50 346 dac~;
 #X obj 50 375 ui.dsp~;
 #X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 430 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 430 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 433 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 465 1\.;
 #X text 150 465 float;
 #X obj 246 466 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -31,8 +33,10 @@ opposite of a band-pass filter.;
 #X text 245 485 WIDTH(Hz): band width (approximate). Type: float. Range:
 1\...10000;
 #X obj 20 530 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 535 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 535 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 538 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 570 @id;
 #X text 245 570 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/flt_notch/PROP_NAME osc address \, if empty
@@ -50,7 +54,7 @@ Default value: 1000\. Range: 20\...20000\.;
 #X text 245 729 Get/Set band width (approximate). Type: float. Units:
 'Hz'. Default value: 50\. Range: 1\...10000\.;
 #X obj 20 781 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 786 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 786 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 787 1\.;
 #X text 245 787 input signal.;
@@ -58,7 +62,7 @@ Default value: 1000\. Range: 20\...20000\.;
 #X text 150 807 *float*;
 #X text 245 807 set frequency.;
 #X obj 20 837 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 842 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 842 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 843 1\.;
 #X text 245 843 filtered signal.;

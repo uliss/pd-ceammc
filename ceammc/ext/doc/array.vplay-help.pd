@@ -41,15 +41,19 @@
 #X obj 328 363 ui.dsp~;
 #X obj 50 392 dac~;
 #X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 447 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 447 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 450 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 482 1\.;
 #X text 150 482 symbol;
 #X obj 246 483 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 482 ARRAY: array name. Type: symbol.;
 #X obj 20 512 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 517 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 517 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 520 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 552 @array;
 #X text 245 552 Get/Set array name. Type: symbol.;
 #X msg 110 582 @begin;
@@ -74,7 +78,7 @@ int. Units: 'samp'. Default value: 0\.;
 #X text 245 834 (readonly) Get player state. Type: symbol. Default
 value: stop. Allowed values: play \, stop.;
 #X obj 20 886 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 891 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 891 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 926 play;
 #X text 245 926 start playing.;
@@ -95,7 +99,7 @@ sample. Type: float.;
 #X msg 110 1131 stop;
 #X text 245 1131 stop playing.;
 #X obj 20 1169 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1174 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1174 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1175 1\.;
 #X text 150 1175 *bang*;
@@ -103,7 +107,7 @@ sample. Type: float.;
 #X text 150 1195 *float*;
 #X text 245 1195 1 - play \, 0 - stop.;
 #X obj 20 1225 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1230 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1230 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1231 1\.;
 #X text 245 1231 message to vline~ object.;

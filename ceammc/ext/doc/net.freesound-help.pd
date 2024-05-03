@@ -29,13 +29,15 @@ to internal secret access token;
 #X obj 50 562 print ID;
 #X obj 232 562 print OTHER;
 #X obj 20 612 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 617 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 617 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 652 Left-click;
 #X text 285 652 open id/secret editor.;
 #X obj 20 682 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 687 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 687 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 690 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 722 @oauth_file;
 #X text 245 722 (initonly) Get/Set path to file with OAuth2 ID/secret
 \, one per line. Type: symbol.;
@@ -44,7 +46,7 @@ to internal secret access token;
 #X msg 110 794 @oauth_secret;
 #X text 245 794 (initonly) Get/Set Freesound OAuth2 secret. Type: symbol.;
 #X obj 20 834 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 839 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 839 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 874 access auth;
 #X text 245 874 get application authorization code (valid ~24 hours)
@@ -96,12 +98,12 @@ Type: symbol.;
 #X msg 110 1492 search;
 #X text 245 1492 perform search.;
 #X obj 20 1530 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1535 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1535 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1536 1\.;
 #X text 245 1536 input.;
 #X obj 20 1566 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1571 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1571 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1572 1\.;
 #X text 245 1572 messages: [user DICT( - user info \, [progress VALUE(

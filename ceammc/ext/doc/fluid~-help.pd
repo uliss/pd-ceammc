@@ -30,15 +30,19 @@
 #X obj 50 485 fluid~.pedals;
 #X obj 203 485 fluid~.soundoff;
 #X obj 20 535 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 540 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 540 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 543 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 575 1\.;
 #X text 150 575 symbol;
 #X obj 246 576 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 575 SF: soundfont path. Type: symbol.;
 #X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 610 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 610 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 613 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 645 @gain;
 #X text 245 645 Get/Set output gain. Type: float. Default value: 0\.
 Range: 0\...10\.;
@@ -81,7 +85,7 @@ value: 2.3.2\.;
 #X msg 110 1167 @soundfonts?;
 #X text 245 1167 (readonly) Get list of found soundfonts. Type: list.;
 #X obj 20 1207 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1212 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1212 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1247 aftertouch;
 #X text 245 1247 aftertouch channel pressure. Arguments are:;
@@ -296,13 +300,13 @@ bank). Type: int. Range: 1\...256\.;
 #X text 255 3813 PRESET: tuning preset (not related to MIDI instrument
 program). Type: int. Range: 1\...256\.;
 #X obj 20 3863 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 3868 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 3868 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 3869 1\.;
 #X text 150 3869 *symbol*;
 #X text 245 3869 load mod file.;
 #X obj 20 3899 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 3904 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 3904 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 3905 1\.;
 #X text 245 3905 left channel and property output.;

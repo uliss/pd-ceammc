@@ -19,8 +19,10 @@ eight) \, 3/8 (three eights) etc.;
 #X obj 50 335 music.d->t @bpm 60 1 @seq 0;
 #X obj 50 364 ui.dt;
 #X obj 20 414 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 419 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 419 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 422 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 454 @bpm;
 #X text 245 454 Get/Set tempo. Type: symbol. Units: 'bpm'. Default
 value: 60|4bpm.;
@@ -28,12 +30,12 @@ value: 60|4bpm.;
 #X text 245 496 Get/Set sequential durations. Type: bool. Default value:
 1\.;
 #X obj 20 536 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 541 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 541 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 542 1\.;
 #X text 245 542 duration list.;
 #X obj 20 572 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 577 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 577 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 578 1\.;
 #X text 245 578 converted value.;

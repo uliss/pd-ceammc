@@ -23,16 +23,20 @@ https://en.wikipedia.org/wiki/Mersenne_Twister;
 #X obj 50 320 random.int -10 10;
 #X obj 50 349 ui.dt;
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 439 1\.;
 #X text 150 439 list;
 #X obj 246 440 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 439 ARG: @min=ARG[0] \, @max=ARG[1] \, in case of signle
 arg: @min=0 \, @max=ARG[0]. Type: list.;
 #X obj 20 484 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 489 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 489 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 492 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 524 @max;
 #X text 245 524 Get/Set random range upper bound. Type: int. Default
 value: 255\.;
@@ -43,7 +47,7 @@ value: 0\.;
 #X text 245 608 Get/Set generator seed. Type: int. Default value: 0\.
 Min value: 0\.;
 #X obj 20 660 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 665 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 665 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 700 gen;
 #X text 245 700 generate list of random integers with specified length.
@@ -51,7 +55,7 @@ Arguments are:;
 #X obj 255 738 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 738 N: list length. Type: int. Min value: 1\.;
 #X obj 20 773 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 778 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 778 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 779 1\.;
 #X text 150 779 *bang*;
@@ -63,7 +67,7 @@ Arguments are:;
 #X text 150 819 *int*;
 #X text 245 819 set @max property.;
 #X obj 20 849 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 854 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 854 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 855 1\.;
 #X text 245 855 int or list: generated value.;

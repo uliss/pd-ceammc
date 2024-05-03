@@ -21,14 +21,16 @@ messages (including property requests) are passed thru;
 #X floatatom 50 302 5 0 0 0 - - -;
 #X obj 126 302 ui.dt;
 #X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 357 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 357 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 360 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 392 @strict;
 #X text 245 392 Get/Set strict mode. By default list with single float
 treated as float. Set to true to disable this behavior. Type: bool.
 Default value: 0\.;
 #X obj 20 459 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 464 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 464 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 465 1\.;
 #X text 150 465 *float*;
@@ -42,7 +44,7 @@ Default value: 0\.;
 #X text 150 545 *any*;
 #X text 245 545 any to second outlet.;
 #X obj 20 575 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 580 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 580 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 581 1\.;
 #X text 245 581 float output.;

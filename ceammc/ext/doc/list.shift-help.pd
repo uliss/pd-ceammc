@@ -15,20 +15,24 @@
 #X obj 50 305 ui.sliders @count 30 @size 200 60;
 #X obj 50 378 print;
 #X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 433 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 433 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 436 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 468 1\.;
 #X text 150 468 float;
 #X obj 246 469 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 468 SHIFT: shift amount. Float values cause linear interpolation.
 Can be negative. Type: float.;
 #X obj 20 513 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 518 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 518 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 521 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 553 @shift;
 #X text 245 553 Get/Set shift amount. Type: float. Default value: 0\.;
 #X obj 20 593 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 598 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 598 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 599 1\.;
 #X text 150 599 *list*;
@@ -38,7 +42,7 @@ Can be negative. Type: float.;
 #X text 110 639 2\.;
 #X text 245 639 shift value.;
 #X obj 20 669 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 674 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 674 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 675 1\.;
 #X text 245 675 new modified list.;

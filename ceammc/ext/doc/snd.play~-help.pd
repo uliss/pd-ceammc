@@ -32,8 +32,10 @@
 #X obj 50 533 snd.play~.seek;
 #X obj 213 533 snd.play~.resamp;
 #X obj 20 583 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 588 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 588 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 591 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 623 1\.;
 #X text 150 623 int;
 #X obj 246 624 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -44,8 +46,10 @@
 #X text 245 643 NAME: absolute or relative to patch soundfile name.
 Type: symbol.;
 #X obj 20 688 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 693 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 693 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 696 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 728 @n;
 #X text 245 728 (initonly) Get/Set number of output channels. Type:
 int. Default value: 2\. Range: 1\...32\.;
@@ -80,7 +84,7 @@ previous playing will be done \, that starts new. 'wait': do not playing
 until previous playing will not finished. Type: symbol. Default value:
 now. Allowed values: now \, defer \, wait.;
 #X obj 20 1210 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1215 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1215 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1250 ff;
 #X text 245 1250 fast forward by specified amount of timne. Arguments
@@ -122,13 +126,13 @@ the beginning. Type: atom.;
 #X text 255 1693 [FLAG]: start/stop flag. If true or ommited: stop
 \, if false: start. Type: bool.;
 #X obj 20 1743 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1748 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1748 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1749 1\.;
 #X text 150 1749 *float*;
 #X text 245 1749 1: start playing \, 0: stop.;
 #X obj 20 1779 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1784 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1784 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1785 1\.;
 #X text 245 1785 first output channel.;

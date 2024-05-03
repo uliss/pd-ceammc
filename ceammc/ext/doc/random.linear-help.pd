@@ -33,8 +33,10 @@ initialized with current time.;
 #X obj 50 473 tabwrite array1;
 #X obj 280 473 s array1;
 #X obj 20 523 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 528 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 528 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 531 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 563 @p0;
 #X text 245 563 Get/Set probability at begin. Type: float. Default
 value: 1\.;
@@ -51,13 +53,13 @@ value: 0\.;
 #X text 245 707 Get/Set end of value interval. Type: float. Default
 value: 1\.;
 #X obj 20 759 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 764 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 764 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 765 1\.;
 #X text 150 765 *bang*;
 #X text 245 765 generates random number.;
 #X obj 20 795 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 800 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 800 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 801 1\.;
 #X text 245 801 result value.;

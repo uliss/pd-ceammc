@@ -13,20 +13,22 @@
 #X obj 50 234 car->pol;
 #X obj 50 262 ui.display @display_type 1;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 317 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 352 @positive;
 #X text 245 352 Get/Set output in positive range. If true output is
 in [0\..2π) range \, otherwise output range is [-π..+π]. Type: bool.
 Default value: 0\.;
 #X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 424 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 424 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 425 1\.;
 #X text 150 425 *list*;
 #X text 245 425 x \, y coord pair.;
 #X obj 20 455 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 460 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 460 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 461 1\.;
 #X text 245 461 radius and angle (in radians) pair.;

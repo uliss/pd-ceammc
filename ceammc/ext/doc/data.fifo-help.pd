@@ -25,21 +25,25 @@ first value in queue.;
 #X obj 50 289 ui.dt;
 #X obj 213 289 print;
 #X obj 20 339 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 344 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 344 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 379 Left-click;
 #X text 285 379 open data editor.;
 #X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 414 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 414 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 417 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 449 1\.;
 #X text 150 449 int;
 #X obj 246 450 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 449 SIZE: if specified \, creates fixed-size queue. Value
 '0' means default size (1024). Type: int. Min value: 0;
 #X obj 20 494 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 499 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 499 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 502 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 534 @size;
 #X text 245 534 Get/Set size of queue. Type: int. Default value: 32\.
 Range: 1\...1024\.;
@@ -53,7 +57,7 @@ Type: int. Default value: 0\. Min value: 0\.;
 #X text 245 660 (readonly) Get number of elements you can add to queue
 until it full. Type: int. Default value: 32\. Min value: 0\.;
 #X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 717 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 717 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 752 clear;
 #X text 245 752 removes all queue values.;
@@ -67,13 +71,13 @@ until it full. Type: int. Default value: 32\. Min value: 0\.;
 #X text 255 859 [anonym]: changes queue size. All previous values (if
 any) are silently removed. Type: int. Min value: 0\.;
 #X obj 20 909 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 914 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 914 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 915 1\.;
 #X text 150 915 *bang*;
 #X text 245 915 same as *flush* message.;
 #X obj 20 945 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 950 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 950 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 951 1\.;
 #X text 245 951 output value.;

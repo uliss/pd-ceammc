@@ -30,19 +30,23 @@
 #X obj 50 427 proto.mpv /tmp/mpvsocket;
 #X obj 50 455 print;
 #X obj 20 505 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 510 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 510 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 513 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 545 1\.;
 #X text 150 545 symbol;
 #X obj 246 546 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 545 IPC: path to IPC local socket. Type: symbol.;
 #X obj 20 575 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 580 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 580 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 583 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 615 @ipc;
 #X text 245 615 Get/Set path to IPC local socket. Type: symbol.;
 #X obj 20 655 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 660 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 660 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 695 fullscreen;
 #X text 245 695 set MPV fullscreen mode. Arguments are:;
@@ -107,12 +111,12 @@ int. Allowed values: 0 \, 1\.;
 #X obj 255 1459 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1459 TXT: text. Type: list.;
 #X obj 20 1494 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1499 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1499 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1500 1\.;
 #X text 245 1500 commands.;
 #X obj 20 1530 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1535 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1535 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1536 1\.;
 #X text 245 1536 mpv output.;

@@ -25,8 +25,10 @@
 #X obj 50 374 noise.henonf;
 #X obj 50 403 ui.display;
 #X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 458 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 458 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 461 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 493 1\.;
 #X text 150 493 float;
 #X obj 246 494 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -44,7 +46,7 @@
 #X obj 246 554 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 553 Y: y value (optional). Type: float.;
 #X obj 20 583 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 588 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 588 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 623 a;
 #X text 245 623 Arguments are:;
@@ -78,13 +80,13 @@ Type: int.;
 #X obj 255 977 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 977 Y: y value. Type: float.;
 #X obj 20 1012 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1017 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1017 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1018 1\.;
 #X text 150 1018 *bang*;
 #X text 245 1018 output value.;
 #X obj 20 1048 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1053 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1053 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1054 1\.;
 #X text 245 1054 x outlet.;

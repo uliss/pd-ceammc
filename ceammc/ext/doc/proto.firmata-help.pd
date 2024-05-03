@@ -28,7 +28,7 @@
 #X obj 146 518 ui.dt;
 #X obj 242 518 ui.dt;
 #X obj 20 568 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 573 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 573 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 608 apin_mapping?;
 #X text 245 608 query mapping between analog port number and digital
@@ -111,13 +111,13 @@ pin. Arguments are:;
 #X obj 255 1631 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1631 VALUE: pin value. Type: int. Range: 0\...256\.;
 #X obj 20 1666 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1671 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1671 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1672 1\.;
 #X text 150 1672 *float*;
 #X text 245 1672 raw input of bytes from Arduino serial connection.;
 #X obj 20 1702 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1707 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1707 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1708 1\.;
 #X text 245 1708 raw byte output to Arduino serial connection and tagged

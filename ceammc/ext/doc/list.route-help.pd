@@ -37,15 +37,19 @@ to last outlet if no match;
 #X obj 261 489 ui.dt;
 #X obj 366 489 ui.dt;
 #X obj 20 539 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 544 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 544 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 547 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 579 1\.;
 #X text 150 579 list;
 #X obj 246 580 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 579 ARGS: list of matched atoms. Type: list.;
 #X obj 20 609 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 614 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 614 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 617 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 649 @args;
 #X text 245 649 (initonly) Get/Set matching atoms. Type: list.;
 #X msg 110 679 @as_any;
@@ -58,7 +62,7 @@ to bang. Default value: 0\.;
 #X text 245 751 Get/Set one element list simplification - transform
 them to floats or symbols. Type: bool. Default value: 1\.;
 #X obj 20 803 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 808 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 808 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 809 1\.;
 #X text 150 809 *list*;
@@ -66,7 +70,7 @@ them to floats or symbols. Type: bool. Default value: 1\.;
 #X text 150 829 *data:mlist*;
 #X text 245 829 input mlist.;
 #X obj 20 859 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 864 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 864 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 865 0\.;
 #X text 245 865 first match.;

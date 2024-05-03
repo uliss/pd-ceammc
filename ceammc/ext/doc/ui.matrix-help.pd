@@ -27,8 +27,10 @@ VALUE(;
 #X obj 107 443 ui.d;
 #X obj 50 471 ui.d;
 #X obj 20 521 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 526 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 526 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 529 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 561 1\.;
 #X text 150 561 int;
 #X obj 246 562 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -38,8 +40,10 @@ VALUE(;
 #X obj 246 582 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 581 COL: matrix columns. Type: int. Range: 1\...64;
 #X obj 20 611 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 616 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 616 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 619 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 651 @cols;
 #X text 245 651 Get/Set number of matrix columns. Type: int. Default
 value: 8\. Range: 1\...64\.;
@@ -95,7 +99,7 @@ symbol. Default value: (null).;
 #X text 245 1356 Get/Set element size (width \, height pair). Type:
 list. Default value: 105 53\.;
 #X obj 20 1408 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1413 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1413 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1448 clear;
 #X text 245 1448 clears specified preset. Arguments are:;
@@ -199,7 +203,7 @@ symbol.;
 #X msg 110 2627 dump;
 #X text 245 2627 dumps all object info to Pd console window.;
 #X obj 20 2665 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2670 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 2670 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2671 1\.;
 #X text 150 2671 *bang*;
@@ -208,7 +212,7 @@ symbol.;
 #X text 245 2691 sets matrix state. Input format: 0 and 1 \, row by
 row.;
 #X obj 20 2721 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2726 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 2726 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2727 1\.;
 #X text 245 2727 output.;

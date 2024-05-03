@@ -18,8 +18,10 @@
 #X obj 213 320 ui.dsp~;
 #X obj 50 349 dac~;
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 439 1\.;
 #X text 150 439 float;
 #X obj 246 440 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -31,8 +33,10 @@ band. Type: float. Range: 1\...8;
 #X text 245 474 DECAY_MID(sec): time to decay 60dB in mid-frequency
 band. Type: float. Range: 1\...8;
 #X obj 20 519 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 524 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 524 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 527 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 559 @id;
 #X text 245 559 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_shimmer/PROP_NAME osc address \, if empty
@@ -87,19 +91,19 @@ Default value: 12\. Range: -12\...12\.;
 #X text 245 1285 Get/Set pitchshift modulation frequency. Type: float.
 Units: 'Hz'. Default value: 0.1\. Range: 0.1\...10\.;
 #X obj 20 1337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1342 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1342 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1377 reset;
 #X text 245 1377 reset to initial state.;
 #X obj 20 1415 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1420 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1420 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1421 1\.;
 #X text 245 1421 input signal.;
 #X text 110 1441 2\.;
 #X text 245 1441 input signal.;
 #X obj 20 1471 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1476 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1476 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1477 1\.;
 #X text 245 1477 output signal.;

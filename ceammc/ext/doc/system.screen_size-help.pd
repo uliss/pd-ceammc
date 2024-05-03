@@ -10,13 +10,13 @@
 #X obj 50 147 system.screen_size;
 #X obj 50 190 ui.display;
 #X obj 20 240 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 245 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 245 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 246 1\.;
 #X text 150 246 *bang*;
 #X text 245 246 outputs screen size in pixels.;
 #X obj 20 276 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 281 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 281 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 282 1\.;
 #X text 245 282 list of two values: width and height.;

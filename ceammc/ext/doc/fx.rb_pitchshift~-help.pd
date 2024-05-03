@@ -18,16 +18,20 @@
 #X obj 280 291 ui.dsp~;
 #X obj 50 320 dac~;
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 410 1\.;
 #X text 150 410 float;
 #X obj 246 411 cnv 1 155 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 410 TRANSPOSE(semitone): transposition in semitones. Type:
 float. Range: -24\...24;
 #X obj 20 455 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 460 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 460 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 463 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 495 @detector;
 #X text 245 495 Get/Set control the type of transient detector used.
 'compound' a general-purpose transient detector which is likely to
@@ -105,14 +109,14 @@ standard. Allowed values: standard \, short \, long.;
 #X text 245 1675 (readonly) Get object latency. Type: float. Units:
 'samp'. Default value: 1024\.;
 #X obj 20 1727 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1732 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1732 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1733 1\.;
 #X text 245 1733 input signal.;
 #X text 110 1753 2\.;
 #X text 245 1753 pitch shift in semitones.;
 #X obj 20 1783 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1788 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1788 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1789 1\.;
 #X text 245 1789 output signal.;

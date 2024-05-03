@@ -28,15 +28,19 @@ outlet;
 #X obj 50 428 bits->note 60 70 80 90 @vel 100 @poly;
 #X obj 50 457 ui.dt;
 #X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 512 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 512 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 515 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 547 1\.;
 #X text 150 547 list;
 #X obj 246 548 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 547 KEYS: list of note keys. Type: list.;
 #X obj 20 577 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 582 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 582 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 585 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 617 @keys;
 #X text 245 617 (initonly) Get/Set list of mapped keys. Type: list.;
 #X msg 110 647 @poly;
@@ -51,13 +55,13 @@ Allowed values: off \, tie \, raw.;
 #X text 245 761 Get/Set output velocity. Type: float. Default value:
 90\. Range: 0\...127\.;
 #X obj 20 813 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 818 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 818 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 819 1\.;
 #X text 150 819 *list*;
 #X text 245 819 input bit list.;
 #X obj 20 849 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 854 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 854 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 855 1\.;
 #X text 245 855 output.;

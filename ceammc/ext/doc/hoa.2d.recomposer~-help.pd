@@ -24,8 +24,10 @@ harmonics. There's three modes \, fixe (default) \, fisheye and free.;
 #X obj 453 586 ui.dsp~;
 #X obj 50 615 xdac~ 1:16, f 46;
 #X obj 20 665 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 670 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 670 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 673 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 705 1\.;
 #X text 150 705 int;
 #X obj 246 706 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -47,8 +49,10 @@ front of the scene. *free* - allows you to change the angles and the
 widening value for each channels. Allowed values: fixe \, fisheye \,
 free. Type: symbol.;
 #X obj 20 896 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 901 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 901 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 904 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 936 @fisheye;
 #X text 245 936 alias for @mode fisheye.;
 #X msg 110 966 @fixe;
@@ -73,7 +77,7 @@ int. Default value: 1\. Range: 1\...63\.;
 #X text 245 1258 Get/Set ramp time. Type: float. Default value: 100\.
 Min value: 0\.;
 #X obj 20 1310 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1315 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1315 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1350 angles;
 #X text 245 1350 set the angles of channels. Angles are in radians
@@ -87,7 +91,7 @@ are:;
 #X obj 255 1466 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1466 VALS: list of values per channel. Type: list.;
 #X obj 20 1501 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1506 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1506 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1507 1\.;
 #X text 245 1507 input harmonic.;
@@ -97,7 +101,7 @@ are:;
 #X text 245 1547 input harmonic. If @fisheye mode is used: fisheye
 factor [0-1] in last inlet.;
 #X obj 20 1592 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1597 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1597 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1598 1\.;
 #X text 245 1598 first planewave output.;

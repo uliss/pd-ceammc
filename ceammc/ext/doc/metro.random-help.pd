@@ -16,8 +16,10 @@
 #X obj 50 287 ui.hgain~;
 #X obj 50 316 dac~;
 #X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 371 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 371 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 374 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 406 1\.;
 #X text 150 406 int;
 #X obj 246 407 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -29,8 +31,10 @@
 #X text 245 426 MAX(ms): maximum bang interval. Type: int. Min value:
 1;
 #X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 461 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 461 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 464 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 496 @max;
 #X text 245 496 Get/Set maximum bang interval. Type: int. Units: 'ms'.
 Default value: 200\. Min value: 1\.;
@@ -41,7 +45,7 @@ Default value: 100\. Min value: 1\.;
 #X text 245 580 Get/Set generator seed. Type: int. Default value: 0\.
 Min value: 0\.;
 #X obj 20 632 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 637 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 637 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 638 1\.;
 #X text 150 638 *float*;
@@ -55,7 +59,7 @@ Min value: 0\.;
 #X text 150 698 *float*;
 #X text 245 698 set @max property.;
 #X obj 20 728 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 733 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 733 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 734 1\.;
 #X text 245 734 outputs *bang*.;

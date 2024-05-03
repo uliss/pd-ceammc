@@ -19,8 +19,10 @@
 #X obj 50 349 dac~ 1 2 3 4 5 6 7 8, f 25;
 #X obj 347 349 ui.dsp~;
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 439 1\.;
 #X text 150 439 float;
 #X obj 246 440 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -30,8 +32,10 @@
 #X obj 246 460 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 459 ANGLE: @angle property. Type: float. Range: 0\...1;
 #X obj 20 489 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 494 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 494 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 497 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 529 @id;
 #X text 245 529 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/spat_zita8/PROP_NAME osc address \, if empty
@@ -67,17 +71,17 @@ Range: 50\...1000\.;
 #X text 245 988 Get/Set source distance from circle center. Type: float.
 Default value: 1\. Range: 0\...1\.;
 #X obj 20 1040 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1045 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1045 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1080 reset;
 #X text 245 1080 reset spat and reverb.;
 #X obj 20 1118 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1123 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1123 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1124 1\.;
 #X text 245 1124 input.;
 #X obj 20 1154 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1159 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1159 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1160 1\.;
 #X text 245 1160 1st output.;

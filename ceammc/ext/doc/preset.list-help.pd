@@ -18,8 +18,10 @@ lists;
 #X obj 50 274 preset.list l1 1 2 3 4 5 6 7 8 9;
 #X obj 50 302 ui.dt;
 #X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 357 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 357 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 360 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 392 1\.;
 #X text 150 392 symbol;
 #X obj 246 393 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -30,8 +32,10 @@ Type: symbol.;
 #X obj 246 428 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 427 INIT: preset initial value. Type: list.;
 #X obj 20 457 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 462 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 462 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 465 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 497 @global;
 #X text 245 497 use global path like /ID. Default value: 0\.;
 #X msg 110 527 @id;
@@ -45,7 +49,7 @@ Type: symbol.;
 id \, abstraction name and may be subpatch name separated by slashes.
 Type: symbol.;
 #X obj 20 684 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 689 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 689 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 724 clear;
 #X text 245 724 clear preset at specified index.;
@@ -54,13 +58,13 @@ Type: symbol.;
 #X msg 110 780 store;
 #X text 245 780 stores preset value at specified index.;
 #X obj 20 818 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 823 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 823 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 824 1\.;
 #X text 150 824 *list*;
 #X text 245 824 set preset value without output.;
 #X obj 20 854 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 859 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 859 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 860 1\.;
 #X text 245 860 preset list value.;

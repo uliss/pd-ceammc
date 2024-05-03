@@ -11,7 +11,7 @@
 #X obj 50 147 ui.polar;
 #X obj 50 262 ui.display @display_type 1;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 317 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 352 Left-click;
 #X text 285 352 jump to coord under mouse pointer.;
@@ -27,8 +27,10 @@
 #X text 110 467 Mouse-wheel + ⇧;
 #X text 285 467 change precisely radius coord.;
 #X obj 20 497 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 502 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 502 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 505 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 537 @angle;
 #X text 245 537 Get/Set angle. Type: float. Default value: 0\.;
 #X msg 110 567 @clockwise;
@@ -105,7 +107,7 @@ symbol. Default value: (null).;
 #X text 245 1554 Get/Set element size (width \, height pair). Type:
 list. Default value: 100 100\.;
 #X obj 20 1606 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1611 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1611 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1646 cartesian;
 #X text 245 1646 sets slider position in cartesian coords and output.
@@ -161,7 +163,7 @@ property). Type: float.;
 #X msg 110 2273 dump;
 #X text 245 2273 dumps all object info to Pd console window.;
 #X obj 20 2311 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2316 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 2316 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2317 1\.;
 #X text 150 2317 *bang*;
@@ -169,7 +171,7 @@ property). Type: float.;
 #X text 150 2337 *list*;
 #X text 245 2337 sets slider position and outputs it.;
 #X obj 20 2367 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2372 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 2372 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2373 1\.;
 #X text 245 2373 list output of two values: RADIUS and ANGLE.;

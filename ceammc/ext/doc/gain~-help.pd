@@ -21,15 +21,19 @@
 #X floatatom 184 378 5 0 0 0 - - -;
 #X floatatom 251 378 5 0 0 0 - - -;
 #X obj 20 410 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 415 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 415 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 418 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 450 1\.;
 #X text 150 450 int;
 #X obj 246 451 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 450 N: number of inputs/outputs. Type: int. Range: 1\...16;
 #X obj 20 480 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 485 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 485 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 488 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 520 @db;
 #X text 245 520 Get/Set gain decibel (dbfs) values. Type: list. Default
 value: -144\. Min value: -144\.;
@@ -40,7 +44,7 @@ value: -144\. Min value: -144\.;
 #X text 245 604 Get/Set gain amplitude values. Type: list. Default
 value: 0\. Min value: 0\.;
 #X obj 20 656 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 661 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 661 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 696 set;
 #X text 245 696 set gain amplitude for all inputs. Arguments are:;
@@ -75,7 +79,7 @@ value: 0\. Min value: 0\.;
 #X obj 255 1055 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1055 [VALS]: values for each input channel. Type: list.;
 #X obj 20 1090 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1095 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1095 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1096 1\.;
 #X text 245 1096 input signal.;
@@ -85,7 +89,7 @@ value: 0\. Min value: 0\.;
 #X text 150 1136 *float*;
 #X text 245 1136 set gain for all inputs.;
 #X obj 20 1166 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1171 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1171 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1172 1\.;
 #X text 245 1172 output signal.;

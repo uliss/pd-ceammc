@@ -20,8 +20,10 @@ only delayed repeats.;
 #X obj 290 289 ui.dsp~;
 #X obj 50 317 dac~;
 #X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 372 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 372 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 375 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 407 1\.;
 #X text 150 407 float;
 #X obj 246 408 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -32,8 +34,10 @@ only delayed repeats.;
 #X text 245 427 FEEDBACK: feedback coefficient. Type: float. Range:
 0\...0.99;
 #X obj 20 457 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 462 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 462 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 465 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 497 @id;
 #X text 245 497 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_echo/PROP_NAME osc address \, if empty
@@ -85,12 +89,12 @@ that prevents click and transpose \, if equal to 0 produces artifacts
 on delay change. Type: float. Units: 'ms'. Default value: 50\. Range:
 0\...500\.;
 #X obj 20 1203 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1208 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1208 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1243 reset;
 #X text 245 1243 reset to initial state.;
 #X obj 20 1281 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1286 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1286 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1287 1\.;
 #X text 245 1287 input signal.;
@@ -98,7 +102,7 @@ on delay change. Type: float. Units: 'ms'. Default value: 50\. Range:
 #X text 150 1307 *float*;
 #X text 245 1307 set delay time.;
 #X obj 20 1337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1342 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1342 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1343 1\.;
 #X text 245 1343 output signal.;

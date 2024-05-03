@@ -17,8 +17,10 @@
 #X obj 50 234 ui.dt;
 #X obj 50 262 canvas.top.abs;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 317 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 352 @abs;
 #X text 245 352 Get/Set if false: using toplevel canvas \, if true:
 using abstraction canvas. Type: bool. Default value: 1\.;
@@ -49,7 +51,7 @@ test_canvas.;
 #X text 245 658 (readonly) Get window size. Type: list. Default value:
 600 400\.;
 #X obj 20 710 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 715 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 715 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 750 postscript;
 #X text 245 750 save patch to postscript. Arguments are:;
@@ -57,14 +59,14 @@ test_canvas.;
 #X text 255 773 [FNAME]: file. If not specified patch name used with
 .ps extension. Type: symbol.;
 #X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 828 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 828 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 829 1\.;
 #X text 245 829 property request.;
 #X text 150 849 *bang*;
 #X text 245 849 output as dict.;
 #X obj 20 879 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 884 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 884 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 885 1\.;
 #X text 245 885 dict/property output.;

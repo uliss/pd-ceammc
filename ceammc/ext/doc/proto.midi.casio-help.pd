@@ -27,13 +27,15 @@ midi signals.;
 #X obj 50 385 proto.midi.casio.rev;
 #X obj 50 414 proto.midi.casio.chorus;
 #X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 469 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 469 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 472 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 504 @model;
 #X text 245 504 Get/Set device model. Type: symbol. Default value:
 px160\. Allowed values: px160\.;
 #X obj 20 556 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 561 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 561 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 596 chorus;
 #X text 245 596 set chorus fx level. Arguments are:;
@@ -82,12 +84,12 @@ piano \, epiano \, strings \, bass \, organ \, vibr \, harps.;
 #X text 255 1139 TYPE: reverb type. For PX160 - 1: room \, 2: default
 (hall) \, 3: hall2 \, 4: stadium. Type: int. Range: 1\...4\.;
 #X obj 20 1189 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1194 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1194 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1195 1\.;
 #X text 245 1195 control messages.;
 #X obj 20 1225 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1230 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1230 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1231 1\.;
 #X text 245 1231 float: raw midi output.;

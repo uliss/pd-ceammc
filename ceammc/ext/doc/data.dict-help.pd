@@ -25,13 +25,15 @@ are supported: [a: [A:1 B:2]]).;
 #X obj 50 302 data.dict \[tempo: 120 title: "New Masterpiece"\];
 #X obj 50 331 ui.display @display_type 1;
 #X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 386 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 386 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 421 Left-click;
 #X text 285 421 open data editor.;
 #X obj 20 451 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 456 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 456 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 459 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 491 @empty?;
 #X text 245 491 (readonly) Get 1 if dict is empty \, otherwise 0\.
 Type: bool. Default value: 1\.;
@@ -41,7 +43,7 @@ Type: bool. Default value: 1\.;
 #X text 245 563 (readonly) Get number of entries in dictionary. Type:
 int. Default value: 0\. Min value: 0\.;
 #X obj 20 615 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 620 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 620 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 655 add;
 #X text 245 655 adds entry to dictionary. Arguments are:;
@@ -81,7 +83,7 @@ nothing. Arguments are:;
 #X msg 110 1088 [....];
 #X text 245 1088 sets new content without output.;
 #X obj 20 1126 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1131 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1131 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1132 1\.;
 #X text 150 1132 *bang*;
@@ -92,7 +94,7 @@ nothing. Arguments are:;
 #X text 150 1187 *data:dict*;
 #X text 245 1187 set and output new dict.;
 #X obj 20 1217 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1222 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1222 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1223 1\.;
 #X text 245 1223 output dictionary.;

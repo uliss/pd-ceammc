@@ -26,8 +26,10 @@
 #X obj 280 378 ui.dsp~;
 #X obj 50 406 dac~;
 #X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 461 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 461 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 464 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 496 @file;
 #X text 245 496 Get/Set path file to granulate. Only WAV and AIFF formats
 are supported. Type: symbol.;
@@ -66,7 +68,7 @@ of 1 produces no stretching. Type: int. Default value: 1\. Range: 1\...1000\.;
 #X text 245 1017 Get/Set number of simultaneous grain "voices" to use.
 Type: int. Default value: 1\. Range: 0\...200\.;
 #X obj 20 1069 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1074 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1074 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1109 open;
 #X text 245 1109 open a monophonic soundfile to be "granulated". Only
@@ -77,12 +79,12 @@ WAV and AIFF formats are supported. Arguments are:;
 #X text 245 1172 reset the file pointer and all existing grains to
 the file start.;
 #X obj 20 1222 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1227 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1227 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1228 1\.;
 #X text 245 1228 control inlet.;
 #X obj 20 1258 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1263 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1263 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1264 1\.;
 #X text 245 1264;

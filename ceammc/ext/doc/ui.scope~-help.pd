@@ -16,7 +16,7 @@
 #X msg 395 205 scale 2;
 #X obj 50 248 ui.scope~ @size 450 200;
 #X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 303 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 303 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 338 Left-click + ⇧;
 #X text 285 338 Y-axis zoomin.;
@@ -41,8 +41,10 @@
 #X text 285 518 open properties dialog.;
 #X text 61 518 [Edit];
 #X obj 20 548 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 553 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 553 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 556 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 588 @max;
 #X text 245 588 Get/Set maximum (top) graph value. Type: float. Default
 value: 1\.;
@@ -87,7 +89,7 @@ level. Type: bool. Default value: 0\.;
 #X text 245 1137 Get/Set element size (width \, height pair). Type:
 list. Default value: 150 100\.;
 #X obj 20 1189 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1194 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1194 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1229 freeze;
 #X text 245 1229 stop/start processing. Arguments are:;
@@ -106,7 +108,7 @@ values: 0 \, 1\.;
 #X text 255 1386 [N]: 1 - normal scale \, 2 - range from -2\..2 (zoomout)
 \, 0.1 - range from -0.1\..0.1 (zoomin). Type: float. Min value: 0\.;
 #X obj 20 1436 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1441 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1441 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1442 1\.;
 #X text 245 1442 signal input.;

@@ -18,8 +18,10 @@
 #X obj 50 305 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 342 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 342 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 345 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 377 1\.;
 #X text 150 377 symbol;
 #X obj 246 378 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -33,8 +35,10 @@
 #X obj 246 418 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 417 YMAX: maximum y-axis value. Type: float. Range: -2048\...2048;
 #X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 452 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 452 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 455 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 487 @array;
 #X text 245 487 Get/Set array name. Type: symbol.;
 #X msg 110 517 @nan;
@@ -50,7 +54,7 @@ value: 1\. Range: -2048\...2048\.;
 #X text 245 643 Get/Set minimal y-axis value. Type: float. Default
 value: -1\. Range: -2048\...2048\.;
 #X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 700 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 700 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 701 1\.;
 #X text 150 701 *float*;
@@ -63,7 +67,7 @@ value: -1\. Range: -2048\...2048\.;
 #X text 150 761 *float*;
 #X text 245 761 plot specified number of samples \, resizes array.;
 #X obj 20 791 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 796 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 796 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 797 1\.;
 #X text 245 797 bang on done.;

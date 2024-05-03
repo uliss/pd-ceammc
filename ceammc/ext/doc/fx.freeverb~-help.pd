@@ -29,8 +29,10 @@ Schroeder-Moorer filtered-feedback comb-filters for each audio channel
 #X obj 280 405 ui.dsp~;
 #X obj 50 434 dac~;
 #X obj 20 484 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 489 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 489 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 492 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 524 1\.;
 #X text 150 524 float;
 #X obj 246 525 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -41,8 +43,10 @@ Schroeder-Moorer filtered-feedback comb-filters for each audio channel
 #X text 245 544 DRYWET: proportion of mix between the original (dry)
 and 'effected' (wet) signals. Type: float. Range: 0\...1;
 #X obj 20 589 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 594 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 594 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 597 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 629 @id;
 #X text 245 629 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_freeverb/PROP_NAME osc address \, if
@@ -79,17 +83,17 @@ value: 0\.;
 #X text 245 1055 Get/Set room size. Type: float. Default value: 0.5\.
 Range: 0\...1\.;
 #X obj 20 1107 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1112 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1112 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1147 reset;
 #X text 245 1147 reset reverb.;
 #X obj 20 1185 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1190 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1190 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1191 1\.;
 #X text 245 1191 input signal.;
 #X obj 20 1221 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1226 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1226 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1227 1\.;
 #X text 245 1227 output signal.;

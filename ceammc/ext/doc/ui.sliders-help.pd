@@ -27,7 +27,7 @@
 #X obj 50 363 ui.dt;
 #X obj 50 392 ui.sliders.1;
 #X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 447 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 447 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 482 Right-click;
 #X text 285 482 opens popup menu for quick settings of values: fill
@@ -42,15 +42,19 @@
 #X text 285 577 changes slider orientation.;
 #X text 61 577 [Edit];
 #X obj 20 607 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 612 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 612 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 615 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 647 1\.;
 #X text 150 647 float;
 #X obj 246 648 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 647 N: number of sliders. Type: float. Range: 1\...1024;
 #X obj 20 677 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 682 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 682 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 685 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 717 @auto_count;
 #X text 245 717 Get/Set if set numbers of sliders equal to input list
 length. Type: bool. Default value: 0\.;
@@ -142,7 +146,7 @@ list. Default value: 150 100\.;
 #X msg 110 1908 @value?;
 #X text 245 1908 (readonly) Get sliders value. Type: list.;
 #X obj 20 1948 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1953 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1953 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1988 clear;
 #X text 245 1988 clears specified preset. Arguments are:;
@@ -221,7 +225,7 @@ are:;
 #X msg 110 2871 dump;
 #X text 245 2871 dumps all object info to Pd console window.;
 #X obj 20 2909 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2914 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 2914 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2915 1\.;
 #X text 150 2915 *bang*;
@@ -229,7 +233,7 @@ are:;
 #X text 150 2935 *list*;
 #X text 245 2935 sets slider values and output them.;
 #X obj 20 2965 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2970 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 2970 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2971 1\.;
 #X text 245 2971 list of slider values.;

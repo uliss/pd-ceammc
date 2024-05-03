@@ -15,8 +15,10 @@
 #X msg 50 277 color \$1;
 #X obj 50 305 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 342 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 342 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 345 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 377 @hue;
 #X text 245 377 Get/Set first hue. Type: float. Default value: 0\.
 Range: 0\...1\.;
@@ -81,7 +83,7 @@ value: 0\.;
 #X text 245 1148 (readonly) Get RGB value triplet on 0-1 range. Type:
 list.;
 #X obj 20 1188 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1193 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1193 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1228 clear;
 #X text 245 1228 clears specified preset. Arguments are:;
@@ -111,13 +113,13 @@ performed.;
 #X obj 255 1517 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1517 IDX: preset index. Type: int.;
 #X obj 20 1552 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1557 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1557 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1558 1\.;
 #X text 150 1558 *bang*;
 #X text 245 1558 outputs current widget value.;
 #X obj 20 1588 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1593 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1593 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1594 1\.;
 #X text 245 1594 output values: @pd COLOR \, @rgb in range [0-1] \,

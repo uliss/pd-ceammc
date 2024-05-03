@@ -32,8 +32,10 @@ ceammc object instead of list arguments;
 #X obj 50 456 ui.hgain~;
 #X obj 50 485 dac~;
 #X obj 20 535 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 540 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 540 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 543 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 575 1\.;
 #X text 150 575 float;
 #X obj 246 576 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -43,8 +45,10 @@ ceammc object instead of list arguments;
 #X obj 246 596 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 595 RTREE: rhythm tree. Type: atom.;
 #X obj 20 625 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 630 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 630 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 633 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 665 @dur;
 #X text 245 665 Get/Set total pattern duration. Type: float. Default
 value: 1\.;
@@ -52,7 +56,7 @@ value: 1\.;
 #X text 245 707 Get/Set rhythm tree. (MList). Type: atom. Default value:
 ().;
 #X obj 20 747 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 752 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 752 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 753 1\.;
 #X text 150 753 *bang*;
@@ -64,7 +68,7 @@ value: 1\.;
 #X text 150 813 *any*;
 #X text 245 813 parse message and set @rtree \, no output.;
 #X obj 20 843 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 848 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 848 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 849 1\.;
 #X text 245 849 list output.;

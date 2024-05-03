@@ -14,8 +14,10 @@
 #X obj 50 262 dac~;
 #X obj 126 262 ui.scope~ @size 150 100;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 352 1\.;
 #X text 150 352 float;
 #X obj 246 353 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -26,8 +28,10 @@
 #X text 245 372 FEEDBACK: oscillator feedback coefficient in range
 0\..2pi. Type: float. Range: 0\...6.283185;
 #X obj 20 417 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 422 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 422 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 425 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 457 @id;
 #X text 245 457 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/osc_sinfb/PROP_NAME osc address \, if empty
@@ -42,7 +46,7 @@ symbol.;
 #X text 245 574 Get/Set oscillator feedback coefficient. Type: float.
 Default value: 0\. Range: 0\...6.2832\.;
 #X obj 20 626 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 631 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 631 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 632 1\.;
 #X text 245 632 frequency.;
@@ -50,7 +54,7 @@ Default value: 0\. Range: 0\...6.2832\.;
 #X text 150 652 *bang*;
 #X text 245 652 reset phase.;
 #X obj 20 682 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 687 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 687 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 688 1\.;
 #X text 245 688 output signal.;

@@ -19,8 +19,10 @@
 #X obj 50 363 dac~;
 #X obj 50 392 flow.mem.more;
 #X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 447 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 447 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 450 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 482 1\.;
 #X text 150 482 int;
 #X obj 246 483 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -30,8 +32,10 @@
 #X obj 246 503 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 502 TTL: see @ttl property. Type: int. Range: 0\...1024;
 #X obj 20 532 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 537 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 537 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 540 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 572 @free;
 #X text 245 572 Get/Set clear cell mode. If on - clear cell counter
 after zero was reached. Type: bool. Default value: 1\.;
@@ -46,7 +50,7 @@ is decremented until zero reached. After that if @free property is
 on memory cell is cleared. If this property equals zero memory cell
 never expires. Type: int. Default value: 0\. Range: 0\...1024\.;
 #X obj 20 784 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 789 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 789 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 790 1\.;
 #X text 245 790 input: store in 1st memory cell.;
@@ -60,7 +64,7 @@ never expires. Type: int. Default value: 0\. Range: 0\...1024\.;
 #X text 150 870 *int*;
 #X text 245 870 output specified cell.;
 #X obj 20 900 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 905 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 905 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 906 1\.;
 #X text 245 906 output 1st cell.;

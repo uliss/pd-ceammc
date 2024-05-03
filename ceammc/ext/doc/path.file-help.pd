@@ -16,12 +16,14 @@
 #X obj 165 262 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 317 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 352 @path;
 #X text 245 352 Get/Set file path. Type: symbol.;
 #X obj 20 392 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 397 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 397 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 432 close;
 #X text 245 432 close file.;
@@ -86,12 +88,12 @@ Arguments are:;
 #X obj 255 1198 cnv 1 38 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1198 ARGS: atoms to write. Type: list.;
 #X obj 20 1233 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1238 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1238 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1239 1\.;
 #X text 245 1239 ...;
 #X obj 20 1269 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1274 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1274 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1275 1\.;
 #X text 245 1275 list: read output.;

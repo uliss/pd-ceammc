@@ -25,23 +25,27 @@
 #X floatatom 232 334 5 0 0 0 - - -;
 #X floatatom 328 334 5 0 0 0 - - -;
 #X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 371 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 371 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 374 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 406 1\.;
 #X text 150 406 int;
 #X obj 246 407 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 406 N: number of output stereo-pairs. Type: int. Range:
 2\...16;
 #X obj 20 436 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 441 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 441 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 444 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 476 @n;
 #X text 245 476 (initonly) Get/Set number of output stereo channels.
 Type: int. Default value: 2\. Range: 2\...16\.;
 #X msg 110 518 @value;
 #X text 245 518 Get/Set gain coefficients per each output. Type: list.;
 #X obj 20 558 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 563 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 563 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 564 1\.;
 #X text 245 564 left input signal.;
@@ -50,7 +54,7 @@ Type: int. Default value: 2\. Range: 2\...16\.;
 #X text 110 604 3\.;
 #X text 245 604 demultiplexer control.;
 #X obj 20 634 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 639 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 639 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 640 1\.;
 #X text 245 640 first left output.;

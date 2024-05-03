@@ -16,8 +16,10 @@
 #X obj 213 291 ui.dsp~;
 #X obj 50 320 dac~;
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 410 1\.;
 #X text 150 410 float;
 #X obj 246 411 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -28,8 +30,10 @@ Range: 20\...120;
 #X obj 246 446 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 445 RATE: glissanso speed. Type: float. Range: -2\...2;
 #X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 480 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 480 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 483 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 515 @id;
 #X text 245 515 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/synth_risset_tone/PROP_NAME osc address
@@ -50,18 +54,18 @@ Default value: 120\. Range: 1\...120\.;
 #X text 245 716 Get/Set glissanso speed. Type: float. Default value:
 0.01\. Range: -2\...2\.;
 #X obj 20 768 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 773 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 773 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 808 reset;
 #X text 245 808 reset to start position.;
 #X obj 20 846 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 851 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 851 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 852 1\.;
 #X text 150 852 *bang*;
 #X text 245 852 reset to start position.;
 #X obj 20 882 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 887 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 887 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 888 1\.;
 #X text 245 888 output signal.;

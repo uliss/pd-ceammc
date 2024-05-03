@@ -15,10 +15,12 @@
 #X obj 50 234 midiout;
 #X obj 194 234 ui.dt;
 #X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 289 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 289 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 292 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X obj 20 344 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 349 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 349 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 384 backlight;
 #X text 245 384 turn on/off pad backlight. Arguments are:;
@@ -50,12 +52,12 @@ Type: int. Range: 0\...15\.;
 2 \, 3 \, 4 \, 5 \, 6 \, 7 \, black \, red \, green \, yellow \, blue
 \, magenta \, cyan \, white.;
 #X obj 20 738 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 743 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 743 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 744 1\.;
 #X text 245 744 commands.;
 #X obj 20 774 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 779 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 779 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 780 1\.;
 #X text 245 780 MIDI bytes.;

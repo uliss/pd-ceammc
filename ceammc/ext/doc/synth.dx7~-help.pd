@@ -13,8 +13,10 @@
 #X obj 290 248 ui.dsp~;
 #X obj 50 277 dac~;
 #X obj 20 327 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 332 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 332 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 335 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 367 @id;
 #X text 245 367 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/synth_dx7/PROP_NAME osc address \, if empty
@@ -32,7 +34,7 @@ value: 0\. Range: 0\...1\.;
 #X text 245 538 Get/Set midi pitch. Type: float. Default value: 48\.
 Range: 24\...84\.;
 #X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 595 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 595 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 630 note;
 #X text 245 630 note on/off message. Arguments are:;
@@ -41,13 +43,13 @@ Range: 24\...84\.;
 #X obj 255 676 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 676 VEL: velocity. Type: float. Range: 0\...127\.;
 #X obj 20 711 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 716 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 716 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 717 1\.;
 #X text 150 717 *list*;
 #X text 245 717 NOTE VEL.;
 #X obj 20 747 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 752 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 752 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 753 1\.;
 #X text 245 753 synth output.;

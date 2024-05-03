@@ -21,15 +21,19 @@
 #X obj 50 406 *~;
 #X obj 50 435 dac~;
 #X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 490 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 490 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 493 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 525 1\.;
 #X text 150 525 symbol;
 #X obj 246 526 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 525 FILENAME: initial MIDI filename. Type: symbol.;
 #X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 560 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 560 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 563 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 595 @filename;
 #X text 245 595 Get/Set current filename. Type: symbol.;
 #X msg 110 625 @length_beat?;
@@ -48,7 +52,7 @@ int. Default value: 120\.;
 #X text 245 793 (readonly) Get number of tracks. Type: int. Default
 value: 1\.;
 #X obj 20 845 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 850 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 850 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 885 clear;
 #X text 245 885 removes all midi file content.;
@@ -57,13 +61,13 @@ value: 1\.;
 #X msg 110 941 write;
 #X text 245 941 write to specified midi file.;
 #X obj 20 979 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 984 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 984 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 985 1\.;
 #X text 150 985 *bang*;
 #X text 245 985 output MidiFile data type.;
 #X obj 20 1015 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1020 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1020 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1021 1\.;
 #X text 245 1021 MidiStream data type.;

@@ -29,8 +29,10 @@
 #X obj 261 378 array.play~.clock;
 #X obj 50 406 array.play~.amp;
 #X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 461 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 461 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 464 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 496 1\.;
 #X text 150 496 symbol;
 #X obj 246 497 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -40,8 +42,10 @@
 #X obj 246 517 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 516 SPEED: play speed. Type: float.;
 #X obj 20 546 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 551 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 551 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 554 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 586 @amp;
 #X text 245 586 Get/Set playback amplitude. Type: float. Default value:
 1\. Min value: 0\.;
@@ -100,7 +104,7 @@ playback. Type: float. Default value: 1\.;
 #X text 245 1348 (readonly) Get playing state. 0: stopped \, 1: playing
 \, 2: paused. Type: int. Default value: 0\.;
 #X obj 20 1400 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1405 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1405 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1440 pause;
 #X text 245 1440 pause/resume playback. Arguments are:;
@@ -121,7 +125,7 @@ Type: atom.;
 #X msg 110 1647 stop;
 #X text 245 1647 stop playback and reset play position.;
 #X obj 20 1685 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1690 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1690 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1691 1\.;
 #X text 150 1691 *bang*;
@@ -131,7 +135,7 @@ Type: atom.;
 offsets are also supported: -10 means play last 10 samples of array
 till the end.;
 #X obj 20 1771 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1776 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1776 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1777 1\.;
 #X text 245 1777 played signal.;

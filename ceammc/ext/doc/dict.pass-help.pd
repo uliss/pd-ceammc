@@ -10,19 +10,23 @@
 #X obj 50 176 dict.pass a e;
 #X obj 50 205 ui.d;
 #X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 260 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 260 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 263 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 295 1\.;
 #X text 150 295 list;
 #X obj 246 296 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 295 KEYS: keys. Type: list.;
 #X obj 20 325 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 330 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 330 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 333 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 365 @keys;
 #X text 245 365 Get/Set passed keys. Type: list.;
 #X obj 20 405 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 410 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 410 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 411 1\.;
 #X text 150 411 *data:dict*;
@@ -30,7 +34,7 @@
 #X text 110 431 2\.;
 #X text 245 431 set passed keys.;
 #X obj 20 461 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 466 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 466 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 467 1\.;
 #X text 245 467 dict with passed keys.;

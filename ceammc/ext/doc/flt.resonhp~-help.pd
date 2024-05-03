@@ -20,8 +20,10 @@
 #X obj 290 349 ui.ssc~ @size 400 120 @log_scale 1;
 #X obj 50 435 dac~;
 #X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 490 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 490 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 493 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 525 1\.;
 #X text 150 525 float;
 #X obj 246 526 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -31,8 +33,10 @@
 #X obj 246 546 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 545 Q: Quality factor. Type: float. Range: 0.1\...100;
 #X obj 20 575 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 580 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 580 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 583 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 615 @id;
 #X text 245 615 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/flt_resonhp/PROP_NAME osc address \, if
@@ -50,7 +54,7 @@ Default value: 100\. Range: 20\...20000\.;
 #X text 245 774 Get/Set Quality factor. Type: float. Default value:
 20\. Range: 0.1\...100\.;
 #X obj 20 826 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 831 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 831 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 832 1\.;
 #X text 245 832 input signal.;
@@ -61,7 +65,7 @@ Default value: 100\. Range: 20\...20000\.;
 #X text 150 872 *float*;
 #X text 245 872 set Q-factor.;
 #X obj 20 902 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 907 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 907 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 908 1\.;
 #X text 245 908 filtered signal.;

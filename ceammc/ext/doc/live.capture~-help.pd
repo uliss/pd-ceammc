@@ -18,8 +18,10 @@ sound in loop;
 #X obj 280 234 ui.dsp~;
 #X obj 50 262 dac~;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 317 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 352 @id;
 #X text 245 352 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/live_capture/PROP_NAME osc address \, if
@@ -46,7 +48,7 @@ value: 0\. Range: -60\...12\.;
 #X text 245 625 Get/Set rec envelope sustain level - percent from trigger
 signal. Type: float. Units: '%'. Default value: 100\. Range: 0\...100\.;
 #X obj 20 692 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 697 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 697 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 732 div;
 #X text 245 732 set rec division. Arguments are:;
@@ -59,7 +61,7 @@ signal. Type: float. Units: '%'. Default value: 100\. Range: 0\...100\.;
 #X msg 110 836 stop;
 #X text 245 836 stop record.;
 #X obj 20 874 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 879 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 879 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 880 1\.;
 #X text 245 880 source signal.;
@@ -67,7 +69,7 @@ signal. Type: float. Units: '%'. Default value: 100\. Range: 0\...100\.;
 #X text 150 900 *float*;
 #X text 245 900 1/0 toggle signal.;
 #X obj 20 930 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 935 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 935 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 936 1\.;
 #X text 245 936 recorded signal.;

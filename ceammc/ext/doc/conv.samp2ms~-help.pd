@@ -14,12 +14,12 @@
 @ymax 1000 @ymin_ticks 0;
 #X obj 50 406 ui.dsp~;
 #X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 461 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 461 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 462 1\.;
 #X text 245 462 input signal.;
 #X obj 20 492 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 497 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 497 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 498 1\.;
 #X text 245 498 output signal.;

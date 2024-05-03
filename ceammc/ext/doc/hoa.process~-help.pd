@@ -52,13 +52,15 @@ id>=2;
 #X obj 50 1101 dac~, f 45;
 #X obj 50 1130 ui.dsp~;
 #X obj 20 1180 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1185 cnv 5 115 25 empty empty mouse_events: 4 10 0 14
+#X obj 20 1185 cnv 5 115 25 empty empty mouse_events: 4 12 0 14
 -262144 -49933 0;
 #X text 110 1220 Left-click;
 #X text 285 1220 open process patch window.;
 #X obj 20 1250 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1255 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 1255 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 1258 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 1290 1\.;
 #X text 150 1290 int;
 #X obj 246 1291 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -78,8 +80,10 @@ values: harmonics \, planewaves. Type: symbol.;
 #X obj 246 1366 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 1365 ARGS: instance arguments. Type: list.;
 #X obj 20 1395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1400 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 1400 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 1403 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 1435 @args;
 #X text 245 1435 (initonly) Get/Set arguments passed to instances.
 Type: list.;
@@ -93,7 +97,7 @@ of planewaves. Type: int. Default value: 0\. Range: 0\...63\.;
 #X msg 110 1564 @patch;
 #X text 245 1564 (initonly) Get/Set patch name. Type: symbol.;
 #X obj 20 1604 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1609 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1609 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1644 on;
 #X text 245 1644 switch on/off DSP instance processing. Usage: on all
@@ -106,7 +110,7 @@ instance.;
 #X msg 110 1747 dump;
 #X text 245 1747 dumps all object info to Pd console window.;
 #X obj 20 1785 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1790 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1790 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1791 1\.;
 #X text 245 1791 first input harmonic/planewave.;
@@ -115,7 +119,7 @@ instance.;
 #X text 110 1831 n.;
 #X text 245 1831 n-th input harmonic/planewave.;
 #X obj 20 1861 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1866 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1866 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1867 1\.;
 #X text 245 1867 first harmonic/planewave output.;

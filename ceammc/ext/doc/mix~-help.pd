@@ -19,15 +19,19 @@
 #X obj 50 305 ui.gain~ @size 120 16;
 #X obj 50 334 dac~;
 #X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 389 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 389 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 424 1\.;
 #X text 150 424 int;
 #X obj 246 425 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 424 N: number of inputs. Type: int. Range: 2\...16;
 #X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 459 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 459 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 462 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 494 @db;
 #X text 245 494 Get/Set amplitude values in decibels. Type: list. Units:
 'db'. Default value: -144 -144\. Min value: -144\.;
@@ -44,7 +48,7 @@ value: 0 0\. Min value: 0\.;
 #X text 245 662 Get/Set smooth time. Type: float. Units: 'ms'. Default
 value: 20\. Min value: 1\.;
 #X obj 20 714 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 719 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 719 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 754 mute;
 #X text 245 754 mute specified channel. Arguments are:;
@@ -62,7 +66,7 @@ Arguments are:;
 #X text 255 886 [VAL]: 1 - enable solo \, 0 - disable solo. Type: int.
 Allowed values: 0 \, 1\.;
 #X obj 20 936 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 941 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 941 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 942 1\.;
 #X text 245 942 input signal.;
@@ -72,7 +76,7 @@ Allowed values: 0 \, 1\.;
 #X text 150 982 *float*;
 #X text 245 982 input signal.;
 #X obj 20 1012 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1017 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1017 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1018 1\.;
 #X text 245 1018 output mixed signal.;

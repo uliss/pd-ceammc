@@ -31,7 +31,7 @@
 #X obj 290 608 ui.dsp~;
 #X obj 50 637 dac~;
 #X obj 20 687 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 692 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 692 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 727 Left-click;
 #X text 285 727 move view cursor under mouse pointer.;
@@ -48,8 +48,10 @@
 #X text 110 847 Mouse-drag + ⇧;
 #X text 285 847 move selection.;
 #X obj 20 877 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 882 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 882 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 885 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 917 @array;
 #X text 245 917 Get/Set array name. Type: symbol.;
 #X msg 110 947 @cursor_ms;
@@ -141,7 +143,7 @@ Units: 'ms'. Default value: 0\. Min value: 0\.;
 #X text 245 2105 (readonly) Get array size in seconds. Type: float.
 Units: 'sec'. Default value: 0\. Min value: 0\.;
 #X obj 20 2157 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2162 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 2162 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 2197 pos;
 #X text 245 2197 set UI element position. Arguments are:;
@@ -160,7 +162,7 @@ Units: 'sec'. Default value: 0\. Min value: 0\.;
 #X msg 110 2367 dump;
 #X text 245 2367 dumps all object info to Pd console window.;
 #X obj 20 2405 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2410 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 2410 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2411 1\.;
 #X text 150 2411 *bang*;
@@ -170,7 +172,7 @@ Units: 'sec'. Default value: 0\. Min value: 0\.;
 #X text 150 2476 *float*;
 #X text 245 2476 move cursor to specified sample position.;
 #X obj 20 2506 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2511 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 2511 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2512 1\.;
 #X text 245 2512 output.;

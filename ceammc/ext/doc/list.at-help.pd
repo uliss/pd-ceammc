@@ -35,16 +35,20 @@ are returned. Other indexes are wrapped by modulo division.;
 #X obj 50 509 list.at -1 1 3;
 #X obj 50 538 ui.dt;
 #X obj 20 588 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 593 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 593 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 596 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 628 1\.;
 #X text 150 628 list;
 #X obj 246 629 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 628 INDEX: single or multiple elements position. Type:
 list.;
 #X obj 20 658 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 663 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 663 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 666 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 698 @clip;
 #X text 245 698 alias to @method clip. If index < 0 - return first
 element. If index greater or equal list size - return last element.;
@@ -68,7 +72,7 @@ from the end of the list.;
 #X text 245 983 alias to @method wrap. In range [0 \, LIST_SIZE) ordinal
 elements are returned. Other indexes are wrapped by modulo division.;
 #X obj 20 1050 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1055 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1055 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1056 1\.;
 #X text 150 1056 *list*;
@@ -79,7 +83,7 @@ elements are returned. Other indexes are wrapped by modulo division.;
 #X text 150 1096 *list*;
 #X text 245 1096 positions.;
 #X obj 20 1126 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1131 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1131 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1132 1\.;
 #X text 245 1132 element(s) at the given index position(s). If element

@@ -21,16 +21,20 @@ field;
 #X obj 50 254 hoa.scope~ 5;
 #X obj 50 383 ui.dsp~;
 #X obj 20 433 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 438 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 438 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 441 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 473 1\.;
 #X text 150 473 int;
 #X obj 246 474 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 473 ORDER: the order of decomposition. Type: int. Min value:
 1;
 #X obj 20 503 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 508 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 508 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 511 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 543 @gain;
 #X text 245 543 Get/Set gain. Type: float. Default value: 1\. Min value:
 0\.;
@@ -95,7 +99,7 @@ level. Type: bool. Default value: 0\.;
 #X text 245 1362 Get/Set element size (width \, height pair). Type:
 list. Default value: 120 120\.;
 #X obj 20 1414 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1419 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1419 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1454 pos;
 #X text 245 1454 set UI element position. Arguments are:;
@@ -106,7 +110,7 @@ list. Default value: 120 120\.;
 #X msg 110 1525 dump;
 #X text 245 1525 dumps all object info to Pd console window.;
 #X obj 20 1563 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1568 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1568 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1569 1\.;
 #X text 245 1569 first input harmonic.;

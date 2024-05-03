@@ -15,15 +15,19 @@
 #X obj 50 234 list.resize 8;
 #X obj 50 262 ui.dt;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 352 1\.;
 #X text 150 352 int;
 #X obj 246 353 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 352 SIZE: desired list size. Type: int. Min value: 0;
 #X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 387 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 387 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 390 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 422 @clip;
 #X text 245 422 alias for @method clip.;
 #X msg 110 452 @fold;
@@ -41,7 +45,7 @@ atom. Default value: 0\.;
 #X text 245 611 Get/Set output list size. Type: int. Default value:
 0\. Min value: 0\.;
 #X obj 20 663 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 668 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 668 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 669 1\.;
 #X text 150 669 *list*;
@@ -50,7 +54,7 @@ atom. Default value: 0\.;
 #X text 150 689 *int*;
 #X text 245 689 set desired list size.;
 #X obj 20 719 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 724 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 724 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 725 1\.;
 #X text 245 725 resized list.;

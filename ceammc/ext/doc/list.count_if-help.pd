@@ -15,7 +15,7 @@ predicate;
 #X obj 222 219 > 10;
 #X floatatom 50 248 5 0 0 0 - - -;
 #X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 285 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 285 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 286 1\.;
 #X text 150 286 *list*;
@@ -27,7 +27,7 @@ predicate;
 #X text 245 326 input value from predicate. "1" means accepted. "0"
 means reject. Range: 0\...1\.;
 #X obj 20 371 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 376 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 376 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 377 1\.;
 #X text 245 377 count of elements.;

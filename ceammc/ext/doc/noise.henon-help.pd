@@ -26,8 +26,10 @@ wiki: Hénon map @url https://en.wikipedia.org/wiki/Hénon_map;
 #X obj 50 387 noise.henon;
 #X obj 50 416 ui.display;
 #X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 471 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 471 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 474 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 506 1\.;
 #X text 150 506 float;
 #X obj 246 507 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -45,7 +47,7 @@ wiki: Hénon map @url https://en.wikipedia.org/wiki/Hénon_map;
 #X obj 246 567 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 566 Y: y value (optional). Type: float.;
 #X obj 20 596 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 601 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 601 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 636 a;
 #X text 245 636 Arguments are:;
@@ -75,13 +77,13 @@ Type: int.;
 #X obj 255 942 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 942 Y: y value. Type: float.;
 #X obj 20 977 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 982 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 982 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 983 1\.;
 #X text 150 983 *bang*;
 #X text 245 983 output value.;
 #X obj 20 1013 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1018 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1018 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1019 1\.;
 #X text 245 1019 x value.;

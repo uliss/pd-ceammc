@@ -23,8 +23,10 @@
 #X obj 126 291 ui.dsp~;
 #X floatatom 328 291 5 0 0 0 - - -;
 #X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 346 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 346 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 381 @done;
 #X text 245 381 Get/Set function called with bang when playing is finished.
 Type: symbol.;
@@ -42,7 +44,7 @@ Default value: 0\. Range: 0\...1\.;
 #X msg 110 579 @name?;
 #X text 245 579 (readonly) Get mod name. Type: symbol.;
 #X obj 20 619 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 624 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 624 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 659 pause;
 #X text 245 659 pause playing.;
@@ -51,13 +53,13 @@ Default value: 0\. Range: 0\...1\.;
 #X msg 110 715 stop;
 #X text 245 715 stop playing and move play position to the end of file.;
 #X obj 20 753 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 758 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 758 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 759 1\.;
 #X text 150 759 *symbol*;
 #X text 245 759 load mod file.;
 #X obj 20 789 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 794 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 794 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 795 1\.;
 #X text 245 795 left channel and property output.;

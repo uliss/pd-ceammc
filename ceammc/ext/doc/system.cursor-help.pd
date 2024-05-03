@@ -24,8 +24,10 @@
 #X obj 280 291 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X obj 50 320 ui.dt;
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 375 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 375 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 410 @clip;
 #X text 245 410 Get/Set clip mode. If true clip a cursor XY values
 to the [0\..1] range in normalized mode \, to the window width/height
@@ -39,7 +41,7 @@ Default value: 0\.;
 to the root window \, otherwise output screen coordinates. Type: bool.
 Default value: 0\.;
 #X obj 20 591 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 596 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 596 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 631 polltime;
 #X text 245 631 sets global cursor polling time. Arguments are:;
@@ -47,7 +49,7 @@ Default value: 0\.;
 #X text 255 654 T: polling time. Type: float. Range: 10\...1000\. Units:
 'ms'.;
 #X obj 20 704 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 709 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 709 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 710 1\.;
 #X text 150 710 *bang*;
@@ -56,7 +58,7 @@ Default value: 0\.;
 #X text 245 730 when 1 is received - turns on cursor polling (position
 and buttons) \, when 0 is received - turns it off.;
 #X obj 20 775 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 780 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 780 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 781 1\.;
 #X text 245 781 messages: motion X Y \, mousewheel DELTA \, button

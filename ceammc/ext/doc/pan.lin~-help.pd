@@ -29,16 +29,20 @@ like the Rhodes tremolo than [pan.sqrt~].;
 #X floatatom 50 442 5 0 0 0 - - -;
 #X floatatom 136 442 5 0 0 0 - - -;
 #X obj 20 474 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 479 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 479 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 482 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 514 1\.;
 #X text 150 514 float;
 #X obj 246 515 cnv 1 31 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 514 POS: panning position. -1 means left \, 0 - center
 \, +1 - right. Type: float. Range: -1\...1;
 #X obj 20 559 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 564 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 564 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 567 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 599 @smooth;
 #X text 245 599 (initonly) Get/Set smooth control signal to avoid zipping-noise.
 Type: int. Default value: 20\. Range: 0\...100\.;
@@ -46,7 +50,7 @@ Type: int. Default value: 20\. Range: 0\...100\.;
 #X text 245 656 Get/Set panning position. -1 means left \, 0 - center
 \, +1 - right. Type: float. Default value: 0\. Range: -1\...1\.;
 #X obj 20 708 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 713 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 713 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 714 1\.;
 #X text 245 714 input signal.;
@@ -54,7 +58,7 @@ Type: int. Default value: 20\. Range: 0\...100\.;
 #X text 150 734 *float*;
 #X text 245 734 pan position. Range: -1\...1\.;
 #X obj 20 764 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 769 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 769 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 770 1\.;
 #X text 245 770 left output channel.;

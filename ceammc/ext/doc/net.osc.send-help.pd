@@ -29,16 +29,20 @@
 #X msg 462 406 send_string /s with spaces;
 #X obj 50 449 net.osc.send osc.udp://localhost:9000;
 #X obj 20 499 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 504 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 504 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 507 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 539 1\.;
 #X text 150 539 atom;
 #X obj 246 540 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 539 URL: OSC server url (like osc.udp://localhost:12345).
 Type: atom.;
 #X obj 20 584 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 589 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 589 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 592 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 624 @url;
 #X text 245 624 Get/Set destination url. Type: atom.;
 #X msg 110 654 @host?;
@@ -53,7 +57,7 @@ value: 0\.;
 #X text 245 768 (readonly) Get sending protocol. Type: symbol. Default
 value: udp.;
 #X obj 20 820 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 825 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 825 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 860 send;
 #X text 245 860 send input values (autotyped). Arguments are:;
@@ -137,12 +141,12 @@ symbol.;
 #X obj 255 1780 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1780 VAL: values. Type: list.;
 #X obj 20 1815 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1820 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1820 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1821 1\.;
 #X text 245 1821 message input.;
 #X obj 20 1851 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1856 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1856 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1857 1\.;
 #X text 245 1857 none.;

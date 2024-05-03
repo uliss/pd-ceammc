@@ -35,8 +35,10 @@ https://github.com/RHVoice/anna-rus;
 #X obj 50 477 dac~;
 #X obj 50 506 speech.rhvoice~.extra;
 #X obj 20 556 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 561 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 561 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 564 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 596 @pitch;
 #X text 245 596 Get/Set voice pitch. Type: float. Default value: 0\.
 Range: -1\...1\.;
@@ -53,7 +55,7 @@ symbol.;
 #X text 245 767 Get/Set voice volume. Type: float. Default value: 1\.
 Range: 0\...1\.;
 #X obj 20 819 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 824 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 824 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 859 clear;
 #X text 245 859 clear TTS queue.;
@@ -67,7 +69,7 @@ symbol.;
 #X msg 110 963 stop;
 #X text 245 963 stops speech and clear TTS queue.;
 #X obj 20 1001 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1006 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1006 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1007 1\.;
 #X text 150 1007 *float*;
@@ -77,7 +79,7 @@ symbol.;
 #X text 150 1047 *list*;
 #X text 245 1047 speak list of symbols.;
 #X obj 20 1077 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1082 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1082 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1083 1\.;
 #X text 245 1083 TTS output.;

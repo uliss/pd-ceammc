@@ -24,8 +24,10 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X obj 50 369 - 100;
 #X floatatom 50 398 5 0 0 0 - - -;
 #X obj 20 430 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 435 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 435 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 438 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 470 1\.;
 #X text 150 470 float;
 #X obj 246 471 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -47,8 +49,10 @@ is turning on. Type: float. Range: 0.1\...100;
 #X text 245 575 RELEASE(ms): release time = time constant coming out
 of expanding. Type: float. Range: 1\...500;
 #X obj 20 620 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 625 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 625 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 628 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 660 @id;
 #X text 245 660 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/dyn_expand/PROP_NAME osc address \, if empty
@@ -94,12 +98,12 @@ Range: -60\...0\.;
 #X text 245 1276 (readonly) Get current expander level. Type: float.
 Units: 'db'. Default value: 0\. Range: 0\...90\.;
 #X obj 20 1328 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1333 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1333 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1368 reset;
 #X text 245 1368 reset to initial state.;
 #X obj 20 1406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1411 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1411 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1412 1\.;
 #X text 245 1412 input signal.;
@@ -107,7 +111,7 @@ Units: 'db'. Default value: 0\. Range: 0\...90\.;
 #X text 150 1432 *float*;
 #X text 245 1432 set expander strength.;
 #X obj 20 1462 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1467 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1467 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1468 1\.;
 #X text 245 1468 output expanded signal.;

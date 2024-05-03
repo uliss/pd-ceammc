@@ -21,8 +21,10 @@
 #X obj 299 378 ui.dsp~;
 #X obj 50 406 dac~;
 #X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 461 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 461 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 464 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 496 @index;
 #X text 245 496 Get/Set current menu item index. Type: int. Default
 value: -1\.;
@@ -81,7 +83,7 @@ value: 0\.;
 #X msg 110 1261 @title?;
 #X text 245 1261 (readonly) Get current element text. Type: symbol.;
 #X obj 20 1301 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1306 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1306 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1341 append;
 #X text 245 1341 appends new menu item. Arguments are:;
@@ -141,7 +143,7 @@ performed.;
 #X obj 255 2016 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 2016 IDX: preset index. Type: int.;
 #X obj 20 2051 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2056 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 2056 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2057 1\.;
 #X text 150 2057 *bang*;
@@ -152,7 +154,7 @@ performed.;
 #X text 245 2097 selects item equal to given and output list: INDEX
 ITEM_NAME.;
 #X obj 20 2127 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2132 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 2132 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2133 1\.;
 #X text 245 2133 output.;

@@ -8,18 +8,20 @@
 #X obj 50 118 msg.onclose MESSAGE;
 #X obj 50 147 print onclose;
 #X obj 20 197 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 202 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 202 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 205 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 237 1\.;
 #X text 150 237 list;
 #X obj 246 238 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 237 ARGS: message. Comma separated messages are supported.
 Type: list.;
 #X obj 20 282 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 287 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 287 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X obj 20 308 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 313 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 313 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 314 1\.;
 #X text 245 314 message output.;

@@ -26,7 +26,7 @@
 #X obj 50 421 dac~;
 #X obj 126 421 ui.display @display_type 1;
 #X obj 20 471 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 476 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 476 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 511 Left-click;
 #X text 285 511 jump to click position if @relative property is off.;
@@ -60,8 +60,10 @@ follows mouse pointer.;
 #X text 285 766 open properties dialog.;
 #X text 61 766 [Edit];
 #X obj 20 796 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 801 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 801 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 804 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 836 @amp;
 #X text 245 836 Get/Set gain as amplitude ratio. Type: float. Default
 value: 0\.;
@@ -135,7 +137,7 @@ symbol. Default value: (null).;
 #X text 245 1811 Get/Set element size (width \, height pair). Type:
 list. Default value: 15 120\.;
 #X obj 20 1863 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1868 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1868 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1903 clear;
 #X text 245 1903 clears specified preset. Arguments are:;
@@ -170,14 +172,14 @@ list. Default value: 15 120\.;
 #X msg 110 2278 --;
 #X text 245 2278 decrease current gain by 1 db.;
 #X obj 20 2316 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2321 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 2321 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2322 1\.;
 #X text 245 2322 input signal.;
 #X text 150 2342 *bang*;
 #X text 245 2342 output current gain @db property.;
 #X obj 20 2372 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2377 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 2377 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2378 1\.;
 #X text 245 2378 output signal.;

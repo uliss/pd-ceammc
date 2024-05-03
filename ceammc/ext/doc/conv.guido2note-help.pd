@@ -36,7 +36,7 @@ a1/16 g1/16 f/4;
 #X obj 251 517 ui.dsp~;
 #X obj 50 545 dac~;
 #X obj 20 595 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 600 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 600 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 603 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
@@ -47,7 +47,7 @@ a1/16 g1/16 f/4;
 \, if symbol - bpm format expected \, for example: 120bpm \, 60|1/8_bpm
 \, 90|4\._bpm etc. Type: atom.;
 #X obj 20 695 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 700 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 700 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
 #X obj 735 703 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
@@ -55,13 +55,13 @@ a1/16 g1/16 f/4;
 #X text 245 735 Get/Set current tempo. Type: atom. Units: 'bpm'. Default
 value: 60|4bpm.;
 #X obj 20 787 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 792 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 792 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 793 1\.;
 #X text 150 793 *symbol*;
 #X text 245 793 Guido note.;
 #X obj 20 823 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 828 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 828 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 829 1\.;
 #X text 245 829 int: MIDI pitch.;

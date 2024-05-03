@@ -20,15 +20,19 @@
 #X obj 232 320 ui.dsp~;
 #X obj 50 349 dac~;
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 439 1\.;
 #X text 150 439 float;
 #X obj 246 440 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 439 DRYWET: drywet mix. Type: float. Range: 0\...1;
 #X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 474 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 474 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 477 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 509 @id;
 #X text 245 509 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_satrev/PROP_NAME osc address \, if empty
@@ -47,12 +51,12 @@ Type: bool. Default value: 0\.;
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
 Default value: 0.25\. Range: 0\...1\.;
 #X obj 20 735 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 740 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 740 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 775 reset;
 #X text 245 775 reset to initial state.;
 #X obj 20 813 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 818 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 818 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 819 1\.;
 #X text 245 819 input signal.;
@@ -60,7 +64,7 @@ Default value: 0.25\. Range: 0\...1\.;
 #X text 150 839 *float*;
 #X text 245 839 set drywet.;
 #X obj 20 869 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 874 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 874 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 875 1\.;
 #X text 245 875 left output signal.;

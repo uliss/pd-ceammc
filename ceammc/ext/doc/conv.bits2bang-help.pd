@@ -33,15 +33,19 @@ to single outlet;
 #X obj 50 544 ui.hgain~;
 #X obj 50 573 dac~;
 #X obj 20 623 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 628 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 628 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 631 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 663 1\.;
 #X text 150 663 int;
 #X obj 246 664 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 663 N: number of outlets. Type: int. Range: 1\...64;
 #X obj 20 693 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 698 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 698 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 701 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 733 @n;
 #X text 245 733 (initonly) Get/Set number of outlets. Type: int. Default
 value: 8\. Range: 1\...64\.;
@@ -51,13 +55,13 @@ value: 8\. Range: 1\...64\.;
 #X text 245 805 Get/Set reversed bit order. Type: bool. Default value:
 0\.;
 #X obj 20 845 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 850 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 850 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 851 1\.;
 #X text 150 851 *list*;
 #X text 245 851 input bit list.;
 #X obj 20 881 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 886 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 886 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 887 1\.;
 #X text 245 887 output.;

@@ -13,8 +13,10 @@ interval;
 0 @ymin_ticks 0 @xmin_ticks 0 @yauto 1;
 #X obj 50 349 ui.dsp~;
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 439 1\.;
 #X text 150 439 float;
 #X obj 246 440 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -28,8 +30,10 @@ interval;
 #X obj 246 480 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 479 N: @n property. Type: int. Range: 4\...1024;
 #X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 514 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 514 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 517 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 549 @base;
 #X text 245 549 Get/Set x-axis scale base. Type: atom. Default value:
 0\. Allowed values: 0 \, pi.;
@@ -50,7 +54,7 @@ is false. In that case \, @n + 1 values are spaced over the interval
 in lin-space \, of which all but the last (a sequence of length @n)
 are returned. Type: float. Default value: 255\.;
 #X obj 20 829 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 834 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 834 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 835 1\.;
 #X text 150 835 *bang*;
@@ -59,7 +63,7 @@ are returned. Type: float. Default value: 255\.;
 #X text 245 855 output specified number of values \, change @n property
 valuue.;
 #X obj 20 885 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 890 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 890 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 891 1\.;
 #X text 245 891 signal output.;

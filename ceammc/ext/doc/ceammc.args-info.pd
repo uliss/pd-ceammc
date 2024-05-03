@@ -23,7 +23,7 @@ a backtick: `, f 77;
 string: escape it with itself:, f 77;
 #X msg 140 511 dump;
 #X obj 140 535 symbol.equal "``back-ticks``";
-#X text 50 592 2\. Number substition: hex or binary values recognized
+#X text 50 592 2\. Number substitution: hex or binary values recognized
 and replaced with decimal values:, f 79;
 #X msg 140 637 bang;
 #X obj 140 661 data.list 0xBEEF 0b110101;

@@ -13,8 +13,10 @@
 #X obj 50 205 midiout;
 #X obj 146 205 print;
 #X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 260 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 260 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 263 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 295 1\.;
 #X text 150 295 symbol;
 #X obj 246 296 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -25,8 +27,10 @@ on pedal). Allowed values: chords \, classic. Type: symbol.;
 #X obj 246 331 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 330 ACTIVE: pedal initial state. Type: bool.;
 #X obj 20 360 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 365 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 365 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 368 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 400 @active;
 #X text 245 400 Get/Set pedal state. Type: bool. Default value: 1\.;
 #X msg 110 430 @chan;
@@ -44,7 +48,7 @@ on pedal). Type: symbol. Default value: classic. Allowed values: chords
 #X text 245 589 Get/Set random seed. Type: int. Default value: 0\.
 Min value: 0\.;
 #X obj 20 641 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 646 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 646 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 681 next;
 #X text 245 681 select next preset. Arguments are:;
@@ -96,13 +100,13 @@ values: 0 \, 1\.;
 #X msg 110 1293 toggle;
 #X text 245 1293 toggle pedal on/off.;
 #X obj 20 1331 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1336 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1336 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1337 1\.;
 #X text 150 1337 *int*;
 #X text 245 1337 1: turn on \, 0: turn off pedal.;
 #X obj 20 1367 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1372 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1372 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1373 1\.;
 #X text 245 1373 float stream: raw midi output.;

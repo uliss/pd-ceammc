@@ -21,8 +21,10 @@
 #X obj 50 262 ui.dt;
 #X obj 242 262 ui.dt;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 352 1\.;
 #X text 150 352 int;
 #X obj 246 353 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -36,8 +38,10 @@
 #X obj 246 393 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 392 STEP: @step property. Type: int. Min value: 0;
 #X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 427 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 427 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 430 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 462 @from;
 #X text 245 462 Get/Set start slice position. You can use negative
 index to address elements from the end. Type: int. Default value: 0\.;
@@ -48,13 +52,13 @@ value: 0\.;
 #X text 245 546 Get/Set end slice position. You can use negative index
 to address elements from the end. Type: int. Default value: -1\.;
 #X obj 20 598 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 603 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 603 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 604 1\.;
 #X text 150 604 *list*;
 #X text 245 604 input list.;
 #X obj 20 634 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 639 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 639 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 640 1\.;
 #X text 245 640 output sublist.;

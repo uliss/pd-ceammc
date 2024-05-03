@@ -16,8 +16,10 @@
 #X msg 50 262 send /addr 1 2 3 4;
 #X obj 50 291 net.osc.send osc.udp://localhost:9000;
 #X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 346 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 346 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 381 1\.;
 #X text 150 381 symbol;
 #X obj 246 382 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -29,8 +31,10 @@ Type: symbol.;
 #X text 245 416 URL: OSC server url (like udp:12345) \, see @url property.
 Type: atom.;
 #X obj 20 461 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 466 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 466 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 469 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 501 @name;
 #X text 245 501 (initonly) Get/Set OSC server name. Type: symbol. Default
 value: default.;
@@ -56,7 +60,7 @@ value: 9000\.;
 #X text 245 786 (readonly) Get OSC server proto (udp or tcp). Type:
 symbol. Default value: udp.;
 #X obj 20 838 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 843 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 843 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 878 start;
 #X text 245 878 start OSC server. Arguments are:;
@@ -69,12 +73,12 @@ symbol. Default value: udp.;
 #X text 255 949 [VAL]: 1: stop \, 0: start. Type: int. Allowed values:
 0 \, 1\.;
 #X obj 20 984 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 989 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 989 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 990 1\.;
 #X text 245 990 ...;
 #X obj 20 1020 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1025 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1025 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1026 1\.;
 #X text 245 1026 ...;

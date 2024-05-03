@@ -17,8 +17,10 @@
 #X obj 280 262 ui.dsp~;
 #X obj 50 291 dac~;
 #X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 346 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 346 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 381 1\.;
 #X text 150 381 int;
 #X obj 246 382 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -29,8 +31,10 @@
 #X text 245 401 DOWNSAMP(samp): number of samples to skip. Type: int.
 Range: 1\...200;
 #X obj 20 446 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 451 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 451 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 454 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 486 @id;
 #X text 245 486 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_bitdown/PROP_NAME osc address \, if empty
@@ -51,17 +55,17 @@ Type: bool. Default value: 0\.;
 #X text 245 687 Get/Set number samples to skip. Type: int. Units: 'samp'.
 Default value: 1\. Range: 1\...200\.;
 #X obj 20 739 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 744 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 744 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 779 reset;
 #X text 245 779 reset object.;
 #X obj 20 817 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 822 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 822 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 823 1\.;
 #X text 245 823 left channel.;
 #X obj 20 853 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 858 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 858 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 859 1\.;
 #X text 245 859 output.;

@@ -23,8 +23,10 @@ word wrap;
 #X msg 414 359 prepend C;
 #X obj 50 403 s lbl1;
 #X obj 20 453 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 458 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 458 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 461 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 493 @align;
 #X text 245 493 Get/Set text align. Type: symbol. Default value: left.
 Allowed values: left \, center \, right.;
@@ -70,7 +72,7 @@ level. Type: bool. Default value: 1\.;
 #X text 245 1009 Get/Set element size (width \, height pair). Type:
 list. Default value: 300 47\.;
 #X obj 20 1061 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1066 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1066 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1101 any;
 #X text 245 1101 set label text to given message separated by spaces
@@ -100,10 +102,10 @@ would be saved in patch.;
 #X text 245 1416 set label text to given symbol \, but do not change
 @text property.;
 #X obj 20 1466 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1471 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1471 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X obj 20 1492 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1497 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1497 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

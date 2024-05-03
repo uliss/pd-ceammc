@@ -22,15 +22,19 @@
 #X obj 50 378 gain~ 4, f 20;
 #X obj 50 406 dac~ 1 2 3 4, f 20;
 #X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 461 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 461 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 464 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 496 1\.;
 #X text 150 496 float;
 #X obj 246 497 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 496 DRYWET: drywet mix. Type: float. Range: 0\...1;
 #X obj 20 526 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 531 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 531 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 534 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 566 @id;
 #X text 245 566 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_jcrev/PROP_NAME osc address \, if empty
@@ -49,12 +53,12 @@ Type: bool. Default value: 0\.;
 and 'effected' (wet) signals. 0 - dry signal \, 1 - wet. Type: float.
 Default value: 0.4\. Range: 0\...1\.;
 #X obj 20 792 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 797 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 797 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 832 reset;
 #X text 245 832 reset to initial state.;
 #X obj 20 870 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 875 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 875 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 876 1\.;
 #X text 245 876 input signal.;
@@ -62,7 +66,7 @@ Default value: 0.4\. Range: 0\...1\.;
 #X text 150 896 *float*;
 #X text 245 896 set drywet.;
 #X obj 20 926 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 931 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 931 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 932 1\.;
 #X text 245 932 first output signal.;

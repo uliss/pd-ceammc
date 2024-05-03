@@ -15,8 +15,10 @@
 #X obj 50 234 ui.hgain~;
 #X obj 50 262 dac~;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 317 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 352 @maxsize;
 #X text 245 352 Get/Set max impulse response size. Type: int. Units:
 'samp'. Default value: 50000\. Range: 0\...300000\.;
@@ -27,7 +29,7 @@ value: 1\.;
 #X text 245 436 Get/Set impulse response (IR) offset. Type: int. Units:
 'samp'. Default value: 0\. Min value: 0\.;
 #X obj 20 488 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 493 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 493 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 528 load_array;
 #X text 245 528 load IR from array. Arguments are:;
@@ -43,12 +45,12 @@ from file samplerate to runtime samplerate). Arguments are:;
 #X obj 255 662 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 662 LIST: IR data. Type: float.;
 #X obj 20 697 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 702 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 702 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 703 1\.;
 #X text 245 703 input signal.;
 #X obj 20 733 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 738 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 738 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 739 1\.;
 #X text 245 739 output signal.;

@@ -20,8 +20,10 @@
 #X obj 50 291 ui.dt;
 #X obj 184 291 ui.dt;
 #X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 346 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 346 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 381 @use_date;
 #X text 245 381 Get/Set decode date. Type: bool. Default value: 1\.;
 #X msg 110 411 @fps?;
@@ -31,12 +33,12 @@ value: 25\.;
 #X text 245 453 (readonly) Get input signal level. Type: float. Units:
 'db'. Default value: 0\. Range: -60\...0\.;
 #X obj 20 505 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 510 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 510 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 511 1\.;
 #X text 245 511 input signal.;
 #X obj 20 541 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 546 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 546 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 547 1\.;
 #X text 245 547 list: HOUR MINUTE SECOND FRAME.;

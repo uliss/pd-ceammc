@@ -30,16 +30,20 @@ https://en.wikipedia.org/wiki/Comb_filter;
 @ymin_ticks 0 @ymaj_ticks 0 @size 400 200;
 #X obj 50 612 ui.dsp~;
 #X obj 20 662 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 667 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 667 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 670 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 702 1\.;
 #X text 150 702 float;
 #X obj 246 703 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 702 A: scaling factor of delayed sum. Type: float. Range:
 -1\...1;
 #X obj 20 732 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 737 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 737 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 740 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 772 @id;
 #X text 245 772 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/flt_fb_comb/PROP_NAME osc address \, if
@@ -54,19 +58,19 @@ float. Default value: 0.75\. Range: -1\...1\.;
 #X text 245 901 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
 #X obj 20 941 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 946 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 946 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 981 reset;
 #X text 245 981 reset filter state.;
 #X obj 20 1019 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1024 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1024 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1025 1\.;
 #X text 245 1025 input signal.;
 #X text 110 1045 2\.;
 #X text 245 1045 filter notch frequency.;
 #X obj 20 1075 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1080 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1080 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1081 1\.;
 #X text 245 1081 filtered signal.;

@@ -24,8 +24,10 @@ to using @float property.;
 #X obj 50 342 list.min @any;
 #X obj 50 371 ui.dt;
 #X obj 20 421 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 426 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 426 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 429 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 461 @any;
 #X text 245 461 alias for @type any. Find greatest atom of any type.
 Note: symbols are greater then numbers.;
@@ -37,7 +39,7 @@ Note: symbols are greater then numbers.;
 #X text 245 563 Get/Set type of largest element. Type: symbol. Default
 value: float. Allowed values: float \, symbol \, any.;
 #X obj 20 615 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 620 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 620 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 621 1\.;
 #X text 150 621 *list*;
@@ -49,7 +51,7 @@ value: float. Allowed values: float \, symbol \, any.;
 #X text 150 681 *symbol*;
 #X text 245 681 passed thru in @symbol or @any mode.;
 #X obj 20 711 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 716 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 716 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 717 1\.;
 #X text 245 717 smallest element.;

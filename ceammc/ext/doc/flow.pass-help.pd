@@ -16,19 +16,23 @@
 #X obj 50 190 flow.pass 1 10 100 a z;
 #X obj 50 219 ui.display @display_type 1;
 #X obj 20 269 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 274 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 274 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 277 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 309 1\.;
 #X text 150 309 list;
 #X obj 246 310 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 309 VALUES: atoms to pass. Type: list.;
 #X obj 20 339 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 344 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 344 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 347 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 379 @values;
 #X text 245 379 Get/Set atoms to pass. Type: list.;
 #X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 424 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 424 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 425 1\.;
 #X text 150 425 *bang*;
@@ -45,7 +49,7 @@
 #X text 150 525 *list*;
 #X text 245 525 set pass list.;
 #X obj 20 555 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 560 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 560 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 561 1\.;
 #X text 245 561 passed values.;

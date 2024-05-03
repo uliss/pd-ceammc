@@ -19,8 +19,10 @@ for different values of alpha.;
 #X obj 50 419 dac~;
 #X obj 50 448 ui.dsp~;
 #X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 503 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 503 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 506 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 538 1\.;
 #X text 150 538 float;
 #X obj 246 539 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -28,8 +30,10 @@ for different values of alpha.;
 to brown/red noise \, -1/2 pink noise \, 0 white noise \, 1/2 blue
 noise \, and 1 violet/azure noise. Type: float. Range: -1\...1;
 #X obj 20 598 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 603 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 603 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 606 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 638 @id;
 #X text 245 638 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/noise_colored/PROP_NAME osc address \, if
@@ -46,7 +50,7 @@ corresponds to brown/red noise \, -1/2 pink noise \, 0 white noise
 \, 1/2 blue noise \, and 1 violet/azure noise. Type: float. Default
 value: 0\. Range: -1\...1\.;
 #X obj 20 837 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 842 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 842 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 877 blue;
 #X text 245 877 set to blue noise (roll-off factor 0.5).;
@@ -59,13 +63,13 @@ value: 0\. Range: -1\...1\.;
 #X msg 110 989 white;
 #X text 245 989 set to white noise (roll-off factor 0).;
 #X obj 20 1027 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1032 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1032 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1033 1\.;
 #X text 150 1033 *float*;
 #X text 245 1033 set roll-off frequency.;
 #X obj 20 1063 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1068 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1068 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1069 1\.;
 #X text 245 1069 output signal.;

@@ -18,13 +18,15 @@
 #X msg 222 349 dmx_fill 0;
 #X obj 50 378 net.artnet.send;
 #X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 433 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 433 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 468 Left-click + ⌥;
 #X text 285 468 send blackout message.;
 #X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 503 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 503 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 506 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 538 1\.;
 #X text 150 538 int;
 #X obj 246 539 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -34,8 +36,10 @@
 #X obj 246 559 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 558 SUBNET: ArtNet subnet. Type: int. Range: 0\...15;
 #X obj 20 588 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 593 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 593 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 596 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 628 @ip;
 #X text 245 628 (initonly) Get/Set bind interface IP address. If empty
 - use first available interface. Type: symbol.;
@@ -56,7 +60,7 @@ clock. Type: bool. Default value: 0\.;
 #X text 245 853 Get/Set ArtNet universe. Type: int. Default value:
 0\. Range: 0\...15\.;
 #X obj 20 905 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 910 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 910 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 945 blackout;
 #X text 245 945 blackout (send 0 to all DMX channels).;
@@ -78,14 +82,14 @@ channel etc. Type: list.;
 #X msg 110 1155 poll;
 #X text 245 1155 send poll request \, dump response to Pd window.;
 #X obj 20 1193 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1198 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1198 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1199 1\.;
 #X text 245 1199 input.;
 #X text 150 1219 *bang*;
 #X text 245 1219 send packet.;
 #X obj 20 1249 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1254 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1254 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1255 1\.;
 #X text 245 1255 output.;

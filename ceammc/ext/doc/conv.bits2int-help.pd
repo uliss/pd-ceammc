@@ -14,19 +14,21 @@ rightmost \, this can be changed with @rev property;
 #X obj 50 187 bits->int;
 #X floatatom 50 216 5 0 0 0 - - -;
 #X obj 20 248 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 253 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 253 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 256 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 288 @rev;
 #X text 245 288 Get/Set reversed bit order. Type: bool. Default value:
 0\.;
 #X obj 20 328 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 333 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 333 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 334 1\.;
 #X text 150 334 *list*;
 #X text 245 334 input bit list.;
 #X obj 20 364 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 369 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 369 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 370 1\.;
 #X text 245 370 list of bits.;

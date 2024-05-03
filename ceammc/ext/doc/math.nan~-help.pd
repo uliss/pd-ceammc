@@ -26,8 +26,10 @@ is thrown depends on the state of the FPU.;
 #X obj 50 433 math.nan~ @signal;
 #X obj 50 462 ui.n~;
 #X obj 20 512 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 517 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 517 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 520 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 552 @quiet;
 #X text 245 552 alias to @type quiet.;
 #X msg 110 582 @signal;
@@ -36,12 +38,12 @@ is thrown depends on the state of the FPU.;
 #X text 245 612 Get/Set type of outputed NaN: quiet or signal. Type:
 symbol. Default value: quiet. Allowed values: quiet \, signal.;
 #X obj 20 664 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 669 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 669 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 670 1\.;
 #X text 245 670 control input.;
 #X obj 20 700 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 705 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 705 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 706 1\.;
 #X text 245 706 output.;

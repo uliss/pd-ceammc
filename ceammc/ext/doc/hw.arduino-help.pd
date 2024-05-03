@@ -22,8 +22,10 @@ hotplug and reconnects to it.;
 #X obj 50 375 flow.count;
 #X floatatom 50 404 5 0 0 0 - - -;
 #X obj 20 436 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 441 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 441 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 444 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 476 1\.;
 #X text 150 476 symbol;
 #X obj 246 477 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -36,8 +38,10 @@ on Linux and /dev/cu.usbmodem411 on MacOSX. Type: symbol.;
 \, 1200 \, 128000 \, 14400 \, 19200 \, 2400 \, 256000 \, 300 \, 38400
 \, 4800 \, 56000 \, 57600 \, 600 \, 9600\. Type: int.;
 #X obj 20 571 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 576 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 576 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 579 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 611 @port;
 #X text 245 611 (initonly) Get/Set name of arduino serial port \, eg.:
 COM3 on Windows \, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on
@@ -76,14 +80,14 @@ bool. Default value: 0\.;
 #X text 245 1089 (readonly) Get list of found Arduino devices. Type:
 list.;
 #X obj 20 1129 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1134 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1134 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1169 connect;
 #X text 245 1169 manually connect to device.;
 #X msg 110 1197 disconnect;
 #X text 245 1197 disconnect from device.;
 #X obj 20 1235 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1240 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1240 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1241 1\.;
 #X text 150 1241 *float*;
@@ -93,7 +97,7 @@ device.;
 #X text 245 1261 sends list of floats in byte range [0-255] to arduino
 device.;
 #X obj 20 1291 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1296 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1296 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1297 1\.;
 #X text 245 1297 outputs received byte from arduino.;

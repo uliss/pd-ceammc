@@ -16,8 +16,10 @@ on the Karplus-Strong algorithm;
 #X obj 290 288 ui.dsp~;
 #X obj 50 317 dac~;
 #X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 372 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 372 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 375 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 407 @freq;
 #X text 245 407 Get/Set maximum speed of whistles. Type: float. Units:
 'Hz'. Default value: 220\. Range: 0\...480\.;
@@ -28,7 +30,7 @@ value: 0\. Range: 0\...1\.;
 #X text 245 491 Get/Set midi pitch. Type: float. Default value: 57\.
 Range: 36\...84\.;
 #X obj 20 543 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 548 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 548 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 583 cc;
 #X text 245 583 control change message. Arguments are:;
@@ -43,13 +45,13 @@ Range: 36\...84\.;
 #X obj 255 700 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 700 VEL: velocity. Type: float. Range: 0\...127\.;
 #X obj 20 735 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 740 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 740 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 741 1\.;
 #X text 150 741 *list*;
 #X text 245 741 NOTE VEL.;
 #X obj 20 771 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 776 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 776 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 777 1\.;
 #X text 245 777 synth output.;

@@ -20,26 +20,30 @@ as 3.14159\.;
 #X floatatom 50 231 10 0 0 0 - - -;
 #X floatatom 203 231 10 0 0 0 - - -;
 #X obj 20 263 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 268 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 268 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 271 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 303 1\.;
 #X text 150 303 float;
 #X obj 246 304 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 303 K: multiplier. default is 1\. Type: float.;
 #X obj 20 333 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 338 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 338 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 341 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 373 @k;
 #X text 245 373 (initonly) Get/Set multiplier. Type: float. Default
 value: 1\.;
 #X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 430 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 430 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 431 1\.;
 #X text 150 431 *bang*;
 #X text 245 431 outputs value.;
 #X obj 20 461 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 466 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 466 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 467 1\.;
 #X text 245 467 output value.;

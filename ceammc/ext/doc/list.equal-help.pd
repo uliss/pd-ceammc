@@ -15,24 +15,28 @@
 #X floatatom 50 248 5 0 0 0 - - -;
 #X obj 107 248 print;
 #X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 303 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 303 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 306 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 338 1\.;
 #X text 150 338 list;
 #X obj 246 339 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 338 PATTERN: initial value. Type: list.;
 #X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 373 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 373 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 376 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 408 @pattern;
 #X text 245 408 Get/Set current pattern. Type: list.;
 #X obj 20 448 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 453 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 453 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 488 dump;
 #X text 245 488 dumps object state to PD console window.;
 #X obj 20 526 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 531 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 531 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 532 1\.;
 #X text 150 532 *list*;
@@ -43,7 +47,7 @@
 #X text 150 572 *list*;
 #X text 245 572 Second list.;
 #X obj 20 602 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 607 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 607 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 608 1\.;
 #X text 245 608 "1" if lists are equal \, "0" otherwise.;

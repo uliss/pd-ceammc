@@ -18,8 +18,10 @@
 #X msg 88 287 @nitems \$1 \, @size 150 15;
 #X obj 50 316 ui.hrd* @nosave 1;
 #X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 371 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 371 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 374 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 406 1\.;
 #X text 150 406 int;
 #X obj 246 407 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -34,8 +36,10 @@ Range: 0\...8192;
 #X obj 246 462 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 461 OFFSET: sequence offset. Type: int.;
 #X obj 20 491 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 496 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 496 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 499 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 531 @beats;
 #X text 245 531 Get/Set number of beats inside the sequence. Type:
 int. Default value: 3\. Range: 0\...8192\.;
@@ -46,7 +50,7 @@ value: 8\. Range: 1\...8192\.;
 #X text 245 615 Get/Set sequence offset. Type: int. Default value:
 0\.;
 #X obj 20 655 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 660 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 660 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 661 1\.;
 #X text 150 661 *bang*;
@@ -62,7 +66,7 @@ value: 8\. Range: 1\...8192\.;
 #X text 150 741 *int*;
 #X text 245 741 set sequence offset.;
 #X obj 20 771 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 776 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 776 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 777 1\.;
 #X text 245 777 converted value.;

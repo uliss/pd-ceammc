@@ -15,8 +15,10 @@
 #X obj 280 234 ui.dsp~;
 #X obj 50 262 dac~;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 352 1\.;
 #X text 150 352 float;
 #X obj 246 353 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -26,8 +28,10 @@
 #X obj 246 373 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 372 Q: Q. Type: float. Range: 0.1\...300;
 #X obj 20 402 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 407 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 407 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 410 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 442 @id;
 #X text 245 442 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/flt_resonbp/PROP_NAME osc address \, if
@@ -45,7 +49,7 @@ Default value: 1000\. Range: 20\...20000\.;
 #X text 245 601 Get/Set Q. Type: float. Default value: 80\. Range:
 0.1\...300\.;
 #X obj 20 653 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 658 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 658 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 659 1\.;
 #X text 245 659 input signal.;
@@ -56,7 +60,7 @@ Default value: 1000\. Range: 20\...20000\.;
 #X text 150 699 *float*;
 #X text 245 699 set Q-factor.;
 #X obj 20 729 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 734 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 734 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 735 1\.;
 #X text 245 735 filtered signal.;

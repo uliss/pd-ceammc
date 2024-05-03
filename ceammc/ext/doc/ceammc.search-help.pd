@@ -13,13 +13,15 @@
 #X obj 50 176 ceammc.search;
 #X obj 50 205 ui.display;
 #X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 260 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 260 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 263 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 295 @max;
 #X text 245 295 Get/Set maximum number of result. Type: int. Default
 value: 10\. Range: 1\...50\.;
 #X obj 20 347 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 352 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 352 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 387 k;
 #X text 245 387 alias to keywords method.;
@@ -30,13 +32,13 @@ value: 10\. Range: 1\...50\.;
 #X msg 110 471 objects;
 #X text 245 471 search in objects names.;
 #X obj 20 509 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 514 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 514 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 515 1\.;
 #X text 150 515 *symbol*;
 #X text 245 515 search in descriptions.;
 #X obj 20 545 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 550 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 550 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 551 1\.;
 #X text 245 551 list of matched object names.;

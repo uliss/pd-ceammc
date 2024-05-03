@@ -14,8 +14,10 @@ the standard.;
 @title CICM documentation @url hoa/hoa.2d.exchanger~-help.pd;
 #X obj 50 197 hoa.2d.exchanger~;
 #X obj 20 247 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 252 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 252 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 255 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 287 1\.;
 #X text 150 287 int;
 #X obj 246 288 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -32,8 +34,10 @@ the standard.;
 #X text 245 342 NORM: normalization. Allowed values: SN2D \, fromMaxN
 \, toMaxN. Type: symbol.;
 #X obj 20 387 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 392 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 392 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 395 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 427 @order;
 #X text 245 427 (initonly) Get/Set the order of decomposition. Type:
 int. Default value: 1\. Range: 1\...63\.;
@@ -49,7 +53,7 @@ ACN. Allowed values: ACN \, fromFurseMalham \, fromSID \, toFurseMalham
 #X msg 110 598 @toB;
 #X text 245 598 alias to @num toFurseMalham and @norm toMaxN.;
 #X obj 20 638 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 643 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 643 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 644 1\.;
 #X text 245 644 first input harmonic.;
@@ -58,7 +62,7 @@ ACN. Allowed values: ACN \, fromFurseMalham \, fromSID \, toFurseMalham
 #X text 110 684 n.;
 #X text 245 684 n-th input harmonic.;
 #X obj 20 714 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 719 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 719 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 720 1\.;
 #X text 245 720 first loudspeaker output.;

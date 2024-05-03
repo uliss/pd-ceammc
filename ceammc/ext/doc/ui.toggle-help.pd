@@ -23,15 +23,17 @@
 #X text 328 244 other on/off values;
 #X obj 50 273 ui.display;
 #X obj 20 323 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 328 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 328 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 363 Left-click;
 #X text 285 363 toggles state.;
 #X text 110 383 Double-click + ⇧;
 #X text 285 383 toggle MIDI-learn mode (red border displayed).;
 #X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 418 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 418 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 421 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 453 @off_value;
 #X text 245 453 Get/Set output off value. Type: float. Default value:
 0\.;
@@ -85,7 +87,7 @@ symbol. Default value: (null).;
 #X text 245 1119 Get/Set element size (width \, height pair). Type:
 list. Default value: 15 15\.;
 #X obj 20 1171 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1176 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1176 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1211 clear;
 #X text 245 1211 clears specified preset. Arguments are:;
@@ -113,7 +115,7 @@ performed.;
 #X msg 110 1482 dump;
 #X text 245 1482 dumps all object info to Pd console window.;
 #X obj 20 1520 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1525 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1525 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1526 1\.;
 #X text 150 1526 *bang*;
@@ -122,7 +124,7 @@ performed.;
 #X text 245 1546 if *0* given \, sets state to unchecked and outputs
 @off_value. On any other number sets to checked state and outputs @on_value.;
 #X obj 20 1606 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1611 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1611 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1612 1\.;
 #X text 245 1612 outputs @on_value or @off_value (by default 0 or 1).;

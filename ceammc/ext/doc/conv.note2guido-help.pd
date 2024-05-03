@@ -16,7 +16,7 @@
 #X obj 50 262 ui.dt;
 #X obj 50 291 conv.note2guido.inscore;
 #X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 346 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 346 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 381 note;
 #X text 245 381 Arguments are:;
@@ -26,7 +26,7 @@ int.;
 #X obj 255 427 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 427 DUR: note duration. Type: float.;
 #X obj 20 462 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 467 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 467 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 468 1\.;
 #X text 150 468 *float*;
@@ -34,7 +34,7 @@ int.;
 #X text 150 488 *list*;
 #X text 245 488 list of pitches.;
 #X obj 20 518 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 523 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 523 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 524 1\.;
 #X text 245 524 symbol: converted value.;

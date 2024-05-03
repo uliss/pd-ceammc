@@ -15,19 +15,23 @@
 #X obj 50 190 system.getenv USER;
 #X obj 50 219 ui.display;
 #X obj 20 269 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 274 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 274 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 277 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 309 1\.;
 #X text 150 309 symbol;
 #X obj 246 310 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 309 NAME: environment variable name. Type: symbol.;
 #X obj 20 339 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 344 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 344 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 347 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 379 @name;
 #X text 245 379 Get/Set environment variable name. Type: symbol.;
 #X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 424 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 424 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 425 1\.;
 #X text 150 425 *bang*;
@@ -35,7 +39,7 @@
 #X text 150 445 *symbol*;
 #X text 245 445 sets name of environment variable and outputs it value.;
 #X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 480 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 480 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 481 1\.;
 #X text 245 481 symbol: env-variable value.;

@@ -28,8 +28,10 @@
 #X obj 414 406 ui.dsp~;
 #X obj 50 435 dac~;
 #X obj 20 485 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 490 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 490 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 493 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 525 @id;
 #X text 245 525 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_tapiir/PROP_NAME osc address \, if empty
@@ -311,7 +313,7 @@ value: 1\. Range: 0\...1\.;
 #X text 245 4380 Get/Set right input level to tap5\. Type: float. Default
 value: 1\. Range: 0\...1\.;
 #X obj 20 4432 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 4437 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 4437 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 4472 pingpong;
 #X text 245 4472 set pingpong delay values. Arguments are:;
@@ -332,14 +334,14 @@ values: delays \, fb \, inputs \, outputs \, gains.;
 #X msg 110 4667 reset;
 #X text 245 4667 reset to initial state.;
 #X obj 20 4705 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 4710 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 4710 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 4711 1\.;
 #X text 245 4711 left in channel.;
 #X text 110 4731 2\.;
 #X text 245 4731 right in channel.;
 #X obj 20 4761 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 4766 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 4766 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 4767 1\.;
 #X text 245 4767 left out channel.;

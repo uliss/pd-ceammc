@@ -19,15 +19,19 @@
 #X obj 357 305 ui.dsp~;
 #X obj 50 334 dac~ 1 2;
 #X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 389 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 389 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 424 1\.;
 #X text 150 424 float;
 #X obj 246 425 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 424 BASE(semitone): base pitch. Type: float. Range: 10\...100;
 #X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 459 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 459 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 462 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 494 @n;
 #X text 245 494 (initonly) Get/Set number of bands. Type: int. Default
 value: 5\.;
@@ -44,16 +48,16 @@ Default value: 60\. Range: 10\...100\.;
 #X text 245 650 Get/Set band shift in octaves. Type: float. Default
 value: 0\.;
 #X obj 20 702 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 707 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 707 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X obj 20 762 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 767 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 767 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 768 1\.;
 #X text 150 768 *float*;
 #X text 245 768 glissando phase.;
 #X obj 20 798 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 803 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 803 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 804 1\.;
 #X text 245 804 list of midi pitches.;

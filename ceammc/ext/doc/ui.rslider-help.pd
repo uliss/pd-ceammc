@@ -21,7 +21,7 @@ and [ui.mouse_filter];
 #X obj 50 285 ui.rslider @min 0 @max 100;
 #X obj 50 314 ui.display @display_type 1;
 #X obj 20 364 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 369 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 369 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 404 Left-click;
 #X text 285 404 jump both ends to coord under mouse pointer.;
@@ -46,8 +46,10 @@ and [ui.mouse_filter];
 #X text 285 584 open properties dialog.;
 #X text 61 584 [Edit];
 #X obj 20 614 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 619 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 619 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 622 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 654 @high;
 #X text 245 654 Get/Set max (right) selection value. Type: float. Default
 value: 0.6\.;
@@ -126,7 +128,7 @@ list. Default value: 120 15\.;
 #X text 245 1698 (readonly) Get selected slider value. Type: float.
 Default value: 0.2\. Min value: 0\.;
 #X obj 20 1750 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1755 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1755 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1790 clear;
 #X text 245 1790 clears specified preset. Arguments are:;
@@ -155,7 +157,7 @@ Default value: 0.2\. Min value: 0\.;
 #X obj 255 2076 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 2076 IDX: preset index. Type: int.;
 #X obj 20 2111 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2116 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 2116 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2117 1\.;
 #X text 150 2117 *bang*;
@@ -163,7 +165,7 @@ Default value: 0.2\. Min value: 0\.;
 #X text 150 2137 *list*;
 #X text 245 2137 set range value without output.;
 #X obj 20 2167 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2172 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 2172 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2173 1\.;
 #X text 245 2173 output slider range as pair of values.;

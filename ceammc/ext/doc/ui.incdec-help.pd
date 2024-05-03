@@ -20,8 +20,10 @@
 #X floatatom 50 262 5 0 0 0 - - -;
 #X floatatom 146 262 5 0 0 0 - - -;
 #X obj 20 294 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 299 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 299 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 302 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 334 @max;
 #X text 245 334 Get/Set maximum inc value. Type: float. Default value:
 8192\.;
@@ -72,7 +74,7 @@ symbol. Default value: (null).;
 #X text 245 943 Get/Set element size (width \, height pair). Type:
 list. Default value: 15 20\.;
 #X obj 20 995 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1000 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1000 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1035 clear;
 #X text 245 1035 clears specified preset. Arguments are:;
@@ -104,7 +106,7 @@ performed.;
 #X obj 255 1357 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1357 IDX: preset index. Type: int.;
 #X obj 20 1392 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1397 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1397 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1398 1\.;
 #X text 150 1398 *bang*;
@@ -112,7 +114,7 @@ performed.;
 #X text 150 1418 *float*;
 #X text 245 1418 change widget value and output it.;
 #X obj 20 1448 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1453 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1453 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1454 1\.;
 #X text 245 1454 output value.;

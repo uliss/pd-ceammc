@@ -12,8 +12,10 @@ is specified by the argument;
 #X obj 50 205 ui.dt;
 #X obj 194 205 ui.dt;
 #X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 260 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 260 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 263 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 295 1\.;
 #X text 150 295 int;
 #X obj 246 296 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -21,13 +23,15 @@ is specified by the argument;
 second output is the size of input list - this value. Type: int. Min
 value: 0;
 #X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 360 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 360 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 363 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 395 @at;
 #X text 245 395 Get/Set split point. Type: int. Default value: 0\.
 Min value: 0\.;
 #X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 452 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 452 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 453 1\.;
 #X text 150 453 *list*;
@@ -35,7 +39,7 @@ Min value: 0\.;
 #X text 150 473 *data:mlist*;
 #X text 245 473 input mlist.;
 #X obj 20 503 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 508 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 508 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 509 1\.;
 #X text 245 509 first sub-list of given size.;

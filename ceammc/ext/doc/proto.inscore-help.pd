@@ -17,13 +17,15 @@
 #X obj 78 291 print INSCORE;
 #X obj 50 320 net.osc.send osc.udp://localhost:7000;
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 375 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 375 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 410 @scene;
 #X text 245 410 Get/Set scene id. Type: int. Default value: 0\. Min
 value: 0\.;
 #X obj 20 462 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 467 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 467 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 502 alpha;
 #X text 245 502 set object alpha opacity. Arguments are:;
@@ -207,12 +209,12 @@ Arguments are:;
 #X obj 255 2588 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 2588 [POS]: new Z position. Type: float.;
 #X obj 20 2623 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2628 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 2628 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2629 1\.;
 #X text 245 2629 control input.;
 #X obj 20 2659 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2664 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 2664 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2665 1\.;
 #X text 245 2665 osc send command.;

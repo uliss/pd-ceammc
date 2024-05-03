@@ -10,7 +10,7 @@
 #X obj 50 176 proto.midi.sysex.mtune;
 #X obj 50 205 proto.midi.sysex.idreq;
 #X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 260 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 260 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 295 id_request;
 #X text 245 295 send Identity Request SysEx message.;
@@ -37,7 +37,7 @@ are:;
 #X obj 255 553 cnv 1 44 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 553 LEVEL: volume level. Type: float. Range: 0\...1\.;
 #X obj 20 588 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 593 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 593 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 594 1\.;
 #X text 150 594 *float*;
@@ -45,7 +45,7 @@ are:;
 #X text 150 614 *list*;
 #X text 245 614 raw midi input bytes.;
 #X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 649 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 649 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 650 1\.;
 #X text 245 650 float: raw midi output or parsed messages with selector

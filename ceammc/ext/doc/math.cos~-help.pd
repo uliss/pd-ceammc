@@ -14,12 +14,12 @@
 #X obj 50 244 ui.plot~ @xlabels 1 @ylabels 1 @size 400 170 @n 2;
 #X obj 50 431 ui.dsp~;
 #X obj 20 481 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 486 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 486 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 487 1\.;
 #X text 245 487 input signal.;
 #X obj 20 517 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 522 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 522 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 523 1\.;
 #X text 245 523 result signal.;

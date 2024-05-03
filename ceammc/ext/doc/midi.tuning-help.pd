@@ -19,8 +19,10 @@
 #X obj 251 378 ui.dsp~;
 #X obj 50 406 dac~;
 #X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 461 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 461 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 464 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 496 1\.;
 #X text 150 496 list;
 #X obj 246 497 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -29,8 +31,10 @@ valid names are: "eq" \, "just" \, "ganassi" \, "meantone" \, "kirnberger3"
 \, "pythagorean" \, "rameau" \, "valotti" or "zarlino". If list: set
 deviation in cents per pitch. Type: list.;
 #X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 591 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 591 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 594 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 626 @base;
 #X text 245 626 Get/Set base pitch (C: 0 \, A: 9 \, etc..). Type: int.
 Default value: 9\. Range: 0\...11\.;
@@ -38,13 +42,13 @@ Default value: 9\. Range: 0\...11\.;
 #X text 245 668 Get/Set list of deviations in cents. Type: list. Default
 value: 0 0 0 0 0 0 0 0 0 0 0 0\.;
 #X obj 20 720 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 725 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 725 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 726 1\.;
 #X text 150 726 *list*;
 #X text 245 726 NOTE VELOCITY pair expected.;
 #X obj 20 756 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 761 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 761 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 762 1\.;
 #X text 245 762 note velocity pair.;

@@ -36,8 +36,10 @@
 #X obj 50 507 ui.hgain2~;
 #X obj 50 536 dac~;
 #X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 591 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 591 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 594 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 626 1\.;
 #X text 150 626 float;
 #X obj 246 627 cnv 1 116 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -54,8 +56,10 @@ mid-frequency band. Type: float. Range: 1\...60;
 #X text 245 696 DRYWET: ratio between source signal (dry) and processed
 signal (wet). Type: float. Range: 0\...1;
 #X obj 20 741 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 746 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 746 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 749 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 781 @id;
 #X text 245 781 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_zita_rev1/PROP_NAME osc address \, if
@@ -103,19 +107,19 @@ Range: 50\...1000\.;
 values will provide the impression of a larger room. Type: float. Units:
 'ms'. Default value: 40\. Range: 0\...100\.;
 #X obj 20 1475 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1480 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1480 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1515 reset;
 #X text 245 1515 same as reset.;
 #X obj 20 1553 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1558 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1558 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1559 1\.;
 #X text 245 1559 left channel.;
 #X text 110 1579 2\.;
 #X text 245 1579 right channel.;
 #X obj 20 1609 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1614 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1614 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1615 1\.;
 #X text 245 1615 output left.;

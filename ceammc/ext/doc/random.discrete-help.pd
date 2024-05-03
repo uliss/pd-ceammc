@@ -28,16 +28,20 @@ initialized with current time.;
 #X obj 50 387 list.repack 2;
 #X obj 50 416 tabwrite array1;
 #X obj 20 466 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 471 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 471 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 474 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 506 1\.;
 #X text 150 506 list;
 #X obj 246 507 cnv 1 63 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 506 WEIGHTS: weights (list of non-negative floats). Type:
 list.;
 #X obj 20 536 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 541 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 541 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 544 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 576 @seed;
 #X text 245 576 Get/Set generator seed. Type: int. Default value: 0\.
 Min value: 0\.;
@@ -45,7 +49,7 @@ Min value: 0\.;
 #X text 245 618 Get/Set list of weights (non-negative floats). Type:
 list.;
 #X obj 20 658 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 663 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 663 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 664 1\.;
 #X text 150 664 *bang*;
@@ -54,7 +58,7 @@ N is number of weights.;
 #X text 150 699 *list*;
 #X text 245 699 set new weights.;
 #X obj 20 729 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 734 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 734 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 735 1\.;
 #X text 245 735 result value.;

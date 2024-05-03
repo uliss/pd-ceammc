@@ -24,8 +24,10 @@
 #X obj 50 417 ui.hgain~;
 #X obj 50 446 dac~;
 #X obj 20 496 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 501 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 501 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 504 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 536 1\.;
 #X text 150 536 symbol;
 #X obj 246 537 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -50,8 +52,10 @@ partch_u5 \, partch_u6 \, pelog \, phrygian \, prometheus \, purvi
 \, ushaq_mashri \, whole \, whole_leading \, yakah \, yakah_desc \,
 yu \, zamzam \, zanjaran \, zhi. Type: symbol.;
 #X obj 20 868 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 873 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 873 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 876 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 908 @scale;
 #X text 245 908 Get/Set scale name. Type: symbol. Default value: major.
 Allowed values: aeolian \, ahirbhairav \, ajam \, atharKurd \, augmented
@@ -92,13 +96,13 @@ rast_desc ritusen saba scriabin shang shawq_afza sikah sikah_desc spanish
 super_locrian suznak todi ushaq_mashri whole whole_leading yakah yakah_desc
 yu zamzam zanjaran zhi.;
 #X obj 20 1561 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1566 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1566 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1601 random;
 #X text 245 1601 choose random degree from current scale and convert
 it to key.;
 #X obj 20 1651 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1656 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1656 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1657 1\.;
 #X text 150 1657 *float*;
@@ -106,7 +110,7 @@ it to key.;
 #X text 150 1677 *list*;
 #X text 245 1677 input values.;
 #X obj 20 1707 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1712 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1712 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1713 1\.;
 #X text 245 1713 float or float list: converted value(s).;

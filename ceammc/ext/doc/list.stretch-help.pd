@@ -11,21 +11,25 @@
 #X obj 50 291 ui.sliders @count 32;
 #X obj 50 406 print;
 #X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 461 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 461 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 464 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 496 1\.;
 #X text 150 496 int;
 #X obj 246 497 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 496 SIZE: New size of output list. Input list will be stretched
 to the new size with linear interpolation. Type: int. Min value: 0;
 #X obj 20 556 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 561 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 561 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 564 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 596 @size;
 #X text 245 596 Get/Set new size. Type: int. Default value: 1\. Min
 value: 0\.;
 #X obj 20 648 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 653 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 653 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 654 1\.;
 #X text 150 654 *list*;
@@ -35,7 +39,7 @@ value: 0\.;
 #X text 110 694 2\.;
 #X text 245 694 new length of output list.;
 #X obj 20 724 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 729 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 729 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 730 1\.;
 #X text 245 730 new modified list.;

@@ -20,20 +20,24 @@
 #X obj 261 230 ui.dt;
 #X obj 386 230 ui.dt;
 #X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 285 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 285 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 320 Left-click;
 #X text 285 320 open data editor.;
 #X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 355 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 355 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 358 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 390 1\.;
 #X text 150 390 symbol;
 #X obj 246 391 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 390 ID: bimap ID. Type: symbol.;
 #X obj 20 420 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 425 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 425 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 428 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 460 @id;
 #X text 245 460 (initonly) Get/Set local variable id. Type: symbol.
 Default value: default.;
@@ -51,7 +55,7 @@ LEFT_KEY2 RIGHT_KEY2 etc. Type: list.;
 #X text 245 634 (readonly) Get number of left-right pairs in map. Type:
 int. Default value: 0\.;
 #X obj 20 686 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 691 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 691 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 726 clear;
 #X text 245 726 clear bidirectional map content.;
@@ -79,7 +83,7 @@ symbol.;
 #X text 255 974 [@force]: force flag to overwrite existing files. Type:
 symbol.;
 #X obj 20 1024 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1029 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1029 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1030 1\.;
 #X text 150 1030 *atom*;
@@ -96,7 +100,7 @@ value on success.;
 #X text 245 1135 try to find each right key of the list in the map
 and output the result list of left values.;
 #X obj 20 1180 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1185 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1185 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1186 1\.;
 #X text 245 1186 atom or list: right value output.;

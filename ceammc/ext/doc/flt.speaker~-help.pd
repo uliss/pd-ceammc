@@ -22,8 +22,10 @@ using a fourth-order Butterworth lowpass.;
 @ymin_ticks 0 @ymaj_ticks 0 @size 400 200;
 #X obj 50 569 ui.dsp~;
 #X obj 20 619 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 624 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 624 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 627 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 659 1\.;
 #X text 150 659 float;
 #X obj 246 660 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -33,8 +35,10 @@ using a fourth-order Butterworth lowpass.;
 #X obj 246 680 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 679 F2(Hz): high band frequency. Type: float. Range: 1000\...20000;
 #X obj 20 724 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 729 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 729 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 732 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 764 @id;
 #X text 245 764 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/flt_speaker/PROP_NAME osc address \, if
@@ -62,12 +66,12 @@ Default value: 5000\. Range: 1000\...20000\.;
 #X text 245 1064 Get/Set filter gain. Type: float. Units: 'db'. Default
 value: 0\. Range: -30\...30\.;
 #X obj 20 1116 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1121 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1121 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1156 reset;
 #X text 245 1156 reset filter state.;
 #X obj 20 1194 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1199 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1199 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1200 1\.;
 #X text 245 1200 input signal.;
@@ -78,7 +82,7 @@ value: 0\. Range: -30\...30\.;
 #X text 150 1240 *float*;
 #X text 245 1240 set @f2 property.;
 #X obj 20 1270 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1275 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1275 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1276 1\.;
 #X text 245 1276 filtered signal.;

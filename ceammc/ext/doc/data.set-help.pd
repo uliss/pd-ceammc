@@ -12,20 +12,24 @@
 #X obj 50 176 data.set;
 #X obj 50 205 ui.dt;
 #X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 260 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 260 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 295 Left-click;
 #X text 285 295 open data editor.;
 #X obj 20 325 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 330 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 330 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 333 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 365 1\.;
 #X text 150 365 any;
 #X obj 246 366 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 365 X: set elements. Type: any.;
 #X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 400 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 400 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 403 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 435 @empty?;
 #X text 245 435 (readonly) Get 1 if list is empty \, otherwise 0\.
 Type: bool. Default value: 1\.;
@@ -33,7 +37,7 @@ Type: bool. Default value: 1\.;
 #X text 245 477 (readonly) Get number of elements in list. Type: int.
 Default value: 0\. Min value: 0\.;
 #X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 534 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 534 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 569 add;
 #X text 245 569 add values to the set. Arguments are:;
@@ -52,7 +56,7 @@ Default value: 0\. Min value: 0\.;
 #X obj 255 744 cnv 1 37 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 744 LIST: new set content. Type: list.;
 #X obj 20 779 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 784 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 784 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 785 1\.;
 #X text 150 785 *bang*;
@@ -66,7 +70,7 @@ Default value: 0\. Min value: 0\.;
 #X text 150 865 *data:set*;
 #X text 245 865 set new set content and output.;
 #X obj 20 895 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 900 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 900 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 901 1\.;
 #X text 245 901 set output.;

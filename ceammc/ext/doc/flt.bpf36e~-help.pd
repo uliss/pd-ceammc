@@ -23,8 +23,10 @@ https://en.wikipedia.org/wiki/Elliptic_filter;
 @ymin_ticks 0 @ymaj_ticks 0 @n 2 @size 400 200;
 #X obj 50 557 ui.dsp~;
 #X obj 20 607 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 612 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 612 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 615 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 647 1\.;
 #X text 150 647 float;
 #X obj 246 648 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -35,8 +37,10 @@ https://en.wikipedia.org/wiki/Elliptic_filter;
 #X text 245 667 Q: quality factory: @freq/BANDWIDTH. Type: float. Range:
 0.25\...32;
 #X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 717 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 717 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 720 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 752 @freq;
 #X text 245 752 (initonly) Get/Set cutoff frequency. Type: float. Units:
 'Hz'. Default value: 1000\. Range: 20\...20000\.;
@@ -54,17 +58,17 @@ Type: float. Default value: 2\. Range: 0.25\...32\.;
 #X text 245 923 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
 #X obj 20 963 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 968 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 968 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1003 reset;
 #X text 245 1003 reset filter state.;
 #X obj 20 1041 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1046 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1046 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1047 1\.;
 #X text 245 1047 input signal.;
 #X obj 20 1077 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1082 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1082 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1083 1\.;
 #X text 245 1083 filtered signal.;

@@ -42,7 +42,7 @@ for vertical radio \, [ui.hrd*] alias for horizontal radio checklist.;
 #X obj 50 332 ui.radio 4;
 #X obj 50 360 ui.dt;
 #X obj 20 410 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 415 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 415 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 450 Left-click;
 #X text 285 450 select cell in radio mode \, toggle cell in check list
@@ -53,15 +53,19 @@ mode.;
 #X text 285 490 changes slider orientation.;
 #X text 61 490 [Edit];
 #X obj 20 520 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 525 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 525 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 528 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 560 1\.;
 #X text 150 560 float;
 #X obj 246 561 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 560 NCELLS: number of cells. Type: float. Range: 2\...128;
 #X obj 20 590 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 595 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 595 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 598 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 630 @mode;
 #X text 245 630 Get/Set check list mode. If true acts as checklist.
 Type: bool. Default value: 0\.;
@@ -111,7 +115,7 @@ symbol. Default value: (null).;
 #X text 245 1251 Get/Set element size (width \, height pair). Type:
 list. Default value: 120 15\.;
 #X obj 20 1303 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1308 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1308 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1343 cellsize;
 #X text 245 1343 set cell size (resize widget). Arguments are:;
@@ -180,7 +184,7 @@ only).;
 #X text 245 2068 moves several step backwards on a loop (single mode
 only).;
 #X obj 20 2106 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2111 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 2111 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2112 1\.;
 #X text 150 2112 *bang*;
@@ -190,7 +194,7 @@ only).;
 #X text 150 2152 *list*;
 #X text 245 2152 set radio and output (only in checklist mode).;
 #X obj 20 2182 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2187 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 2187 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2188 1\.;
 #X text 245 2188 output value.;

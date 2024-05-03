@@ -18,15 +18,19 @@ suppression. 4nd order interpolation.;
 #X obj 50 302 dac~;
 #X obj 126 302 ui.spectroscope~ @size 150 100;
 #X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 357 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 357 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 360 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 392 1\.;
 #X text 150 392 float;
 #X obj 246 393 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 392 FREQ(Hz): frequency. Type: float.;
 #X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 427 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 427 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 430 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 462 @id;
 #X text 245 462 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/osc_saw4/PROP_NAME osc address \, if empty
@@ -41,7 +45,7 @@ symbol.;
 #X text 245 579 Get/Set phase. Type: float. Default value: 0\. Range:
 0\...1\.;
 #X obj 20 631 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 636 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 636 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 637 1\.;
 #X text 150 637 *float*;
@@ -50,7 +54,7 @@ symbol.;
 #X text 150 657 *bang*;
 #X text 245 657 reset phase.;
 #X obj 20 687 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 692 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 692 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 693 1\.;
 #X text 245 693 output signal.;

@@ -30,8 +30,10 @@ multichannel configuration.;
 #X obj 50 483 xdac~ 1:2, f 36;
 #X obj 50 511 ui.dsp~;
 #X obj 20 561 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 566 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 566 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 569 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 601 1\.;
 #X text 150 601 int;
 #X obj 246 602 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -48,8 +50,10 @@ multichannel configuration.;
 #X text 245 656 NCH: number of loud speakers (minimum 2*ORDER+1 for
 ambisonic mode). Type: int.;
 #X obj 20 701 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 706 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 706 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 709 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 741 @nch;
 #X text 245 741 (initonly) Get/Set number of plain waves. Type: int.
 Default value: 0\. Min value: 1\.;
@@ -90,7 +94,7 @@ value: 0 -1 0 1\. Range: -1\...1\.;
 and 1 is the front of the soundfield. Type: list. Units: 'rad'. Default
 value: 1 0 -1 0\. Range: -1\...1\.;
 #X obj 20 1294 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1299 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1299 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1300 1\.;
 #X text 245 1300 first input harmonic.;
@@ -99,7 +103,7 @@ value: 1 0 -1 0\. Range: -1\...1\.;
 #X text 110 1340 n.;
 #X text 245 1340 n-th input harmonic.;
 #X obj 20 1370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1375 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1375 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1376 1\.;
 #X text 245 1376 first loudspeaker output.;

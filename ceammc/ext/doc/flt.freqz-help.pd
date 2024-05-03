@@ -34,15 +34,19 @@ a of a digital filter \, compute its frequency response: H(eʲʷ) = B(eʲʷ)/A(e
 #X obj 98 361 array.plot PHFZ;
 #X obj 50 390 array.plot AMPFZ;
 #X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 445 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 445 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 448 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 480 1\.;
 #X text 150 480 int;
 #X obj 246 481 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 480 N: number of points. Type: int. Range: 4\...1024;
 #X obj 20 510 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 515 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 515 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 518 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 550 @a;
 #X text 245 550 Get/Set denominator (poles) coefficients. 'a0' always
 implicitly set to 1 \, property value set a1\...an coefficients. Type:
@@ -57,7 +61,7 @@ Default value: 0\.;
 #X text 245 691 Get/Set number of points. Type: int. Default value:
 256\. Range: 4\...1024\.;
 #X obj 20 743 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 748 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 748 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 783 biquad;
 #X text 245 783 set 'b' and 'a' coefficients \, no output. Arguments
@@ -73,13 +77,13 @@ are:;
 #X obj 255 898 cnv 1 21 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 898 a2: a2\. Type: float.;
 #X obj 20 933 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 938 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 938 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 939 1\.;
 #X text 150 939 *bang*;
 #X text 245 939 calculate and output frequency responses.;
 #X obj 20 969 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 974 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 974 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 975 1\.;
 #X text 245 975 list: amplitude response data.;

@@ -15,8 +15,10 @@
 #X obj 50 262 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 20 294 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 299 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 299 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 302 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 334 @sync;
 #X text 245 334 output value on any inlet change.;
 #X msg 110 364 @float;
@@ -29,7 +31,7 @@ range.;
 #X text 245 448 Get/Set input mode. Type: symbol. Default value: int.
 Allowed values: int \, float.;
 #X obj 20 500 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 505 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 505 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 506 1\.;
 #X text 150 506 *int*;
@@ -47,7 +49,7 @@ Allowed values: int \, float.;
 #X text 150 606 *float*;
 #X text 245 606 blue channel value in [0-1] range.;
 #X obj 20 636 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 641 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 641 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 642 1\.;
 #X text 245 642 symbol: #RRGGBB color value.;

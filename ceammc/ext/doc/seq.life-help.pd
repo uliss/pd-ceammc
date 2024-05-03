@@ -24,8 +24,10 @@
 #X obj 405 349 ui.dt @display_events 0;
 #X obj 50 449 s $0-mtx;
 #X obj 20 499 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 504 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 504 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 507 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 539 1\.;
 #X text 150 539 int;
 #X obj 246 540 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -35,8 +37,10 @@
 #X obj 246 560 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 559 COLS: number of columns. Type: int. Range: 1\...32;
 #X obj 20 589 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 594 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 594 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 597 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 629 @cols;
 #X text 245 629 Get/Set number of columns. Type: int. Default value:
 16\. Range: 1\...32\.;
@@ -47,7 +51,7 @@ Range: 1\...32\.;
 #X text 245 713 (readonly) Get total cell count. Type: int. Default
 value: 256\.;
 #X obj 20 765 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 770 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 770 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 805 blinker;
 #X text 245 805 adds blinker. Arguments are:;
@@ -106,13 +110,13 @@ value: 256\.;
 #X obj 255 1455 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1455 COL: column. Type: int.;
 #X obj 20 1490 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1495 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1495 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1496 1\.;
 #X text 150 1496 *bang*;
 #X text 245 1496 output all cells.;
 #X obj 20 1526 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1531 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1531 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1532 1\.;
 #X text 245 1532 list: pitch vel.;

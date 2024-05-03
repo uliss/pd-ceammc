@@ -17,8 +17,10 @@
 #X floatatom 50 230 5 0 0 0 - - -;
 #X floatatom 203 230 5 0 0 0 - - -;
 #X obj 20 262 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 267 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 267 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 270 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 302 1\.;
 #X text 150 302 float;
 #X obj 246 303 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -28,8 +30,10 @@
 #X obj 246 323 cnv 1 25 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 322 TO: end value of output range. Type: float.;
 #X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 357 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 357 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 360 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 392 @from;
 #X text 245 392 Get/Set start value of output range. Type: float. Default
 value: 0\.;
@@ -37,13 +41,13 @@ value: 0\.;
 #X text 245 434 Get/Set end value of output range. Type: float. Default
 value: 1\.;
 #X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 491 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 491 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 492 1\.;
 #X text 150 492 *float*;
 #X text 245 492 value in MIDI CC range [0\..127].;
 #X obj 20 522 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 527 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 527 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 528 1\.;
 #X text 245 528 converted value.;

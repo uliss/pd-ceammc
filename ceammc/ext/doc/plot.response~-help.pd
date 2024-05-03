@@ -13,15 +13,19 @@
 1 @ymin_ticks 0 @ymaj_ticks 0 @xmin_ticks 0 @ymin -2 @ymax 2 @n 2;
 #X obj 50 464 ui.dsp~;
 #X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 519 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 519 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 522 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 554 1\.;
 #X text 150 554 int;
 #X obj 246 555 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 554 N: @n property. Type: int. Range: 32\...8192;
 #X obj 20 584 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 589 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 589 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 592 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 624 @db;
 #X text 245 624 Get/Set decibel mode. It true outputs amplitude in
 decibels. Type: bool. Default value: 0\.;
@@ -32,7 +36,7 @@ value: 512\. Range: 32\...8192\.;
 #X text 245 708 Get/Set using samplerate. If true output in [0\..SR/2]
 instead of [0\..pi]. Type: bool. Default value: 0\.;
 #X obj 20 760 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 765 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 765 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 766 1\.;
 #X text 245 766 input signal.;
@@ -40,7 +44,7 @@ instead of [0\..pi]. Type: bool. Default value: 0\.;
 #X text 150 786 *bang*;
 #X text 245 786 starts response calculation.;
 #X obj 20 816 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 821 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 821 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 822 1\.;
 #X text 245 822 frequency response.;

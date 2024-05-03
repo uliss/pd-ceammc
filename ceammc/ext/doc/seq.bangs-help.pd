@@ -23,16 +23,20 @@
 #X obj 50 277 ui.hgain~;
 #X obj 50 305 dac~;
 #X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 360 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 360 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 363 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 395 1\.;
 #X text 150 395 list;
 #X obj 246 396 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 395 P: sequencer pattern in beat duration units. Type:
 list.;
 #X obj 20 425 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 430 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 430 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 433 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 465 @div;
 #X text 245 465 Get/Set beat subdivision. Type: int. Default value:
 1\. Range: 1\...64\.;
@@ -68,7 +72,7 @@ Default value: 0\.;
 #X text 245 909 (readonly) Get current repeat iteration. Type: int.
 Default value: 0\.;
 #X obj 20 961 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 966 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 966 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1001 hexbeat;
 #X text 245 1001 set hexbeat bang pattern. Arguments are:;
@@ -89,7 +93,7 @@ Default value: 0\.;
 #X msg 110 1209 tick;
 #X text 245 1209 output current sequence element and move to next.;
 #X obj 20 1247 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1252 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1252 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1253 1\.;
 #X text 150 1253 *bang*;
@@ -98,7 +102,7 @@ Default value: 0\.;
 #X text 150 1273 *list*;
 #X text 245 1273 set new pattern value.;
 #X obj 20 1303 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1308 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1308 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1309 1\.;
 #X text 245 1309 bang.;

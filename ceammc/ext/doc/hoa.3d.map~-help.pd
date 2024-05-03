@@ -26,8 +26,10 @@ with signal values;
 #X obj 261 348 hoa.3d.map~ 2 1;
 #X obj 50 377 ui.dsp~;
 #X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 432 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 432 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 435 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 467 1\.;
 #X text 150 467 int;
 #X obj 246 468 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -43,8 +45,10 @@ with signal values;
 #X text 245 507 MODE: coordinates mode. Allowed values: car \, pol.
 Type: symbol.;
 #X obj 20 552 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 557 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 557 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 560 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 592 @nsrc;
 #X text 245 592 (initonly) Get/Set number of input sources. Type: int.
 Default value: 1\. Min value: 1\.;
@@ -59,7 +63,7 @@ values: car \, pol.;
 #X text 245 733 Get/Set ramp time. Type: float. Default value: 100\.
 Min value: 0\.;
 #X obj 20 785 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 790 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 790 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 825 car;
 #X text 245 825 alias to cartesian method.;
@@ -98,7 +102,7 @@ Units: 'rad'.;
 #X text 255 1176 ELEV: elevation. Type: float. Range: 0\...2π. Units:
 'rad'.;
 #X obj 20 1211 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1216 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1216 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1217 1\.;
 #X text 245 1217 first source input.;
@@ -110,7 +114,7 @@ mute VALUE.;
 #X text 110 1277 n.;
 #X text 245 1277 n-th source input.;
 #X obj 20 1307 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1312 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1312 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1313 1\.;
 #X text 245 1313 first harmonic output.;

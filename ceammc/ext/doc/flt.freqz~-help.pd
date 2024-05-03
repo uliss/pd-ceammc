@@ -22,8 +22,10 @@ a of a digital filter \, compute its frequency response: H(eʲʷ) = B(eʲʷ)/A(e
 @ymin_ticks 0 @n 2;
 #X obj 50 620 ui.dsp~;
 #X obj 20 670 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 675 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 675 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 678 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 710 @a;
 #X text 245 710 Get/Set denominator (poles) coefficients. 'a0' always
 implicitly set to 1 \, property value set a1\...an coefficients. Type:
@@ -38,13 +40,13 @@ Default value: 0\.;
 #X text 245 851 Get/Set normalize using current samplerate. Type: bool.
 Default value: 0\.;
 #X obj 20 903 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 908 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 908 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 909 1\.;
 #X text 245 909 input frequency in radians [0 \, π] or in hertz [0
 sr/2] if @sr property is true.;
 #X obj 20 954 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 959 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 959 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 960 1\.;
 #X text 245 960 amplitude frequency response signal.;

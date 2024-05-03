@@ -13,8 +13,10 @@
 #X obj 280 291 ui.dsp~;
 #X obj 50 320 dac~;
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 410 1\.;
 #X text 150 410 atom;
 #X obj 246 411 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -27,8 +29,10 @@
 #X obj 246 476 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 475 SCALE: modus scale. Type: symbol.;
 #X obj 20 505 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 510 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 510 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 513 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 545 @mode;
 #X text 245 545 Get/Set snap or skip incoming pitches. Type: symbol.
 Default value: snap. Allowed values: snap \, skip.;
@@ -61,7 +65,7 @@ suznak \, hijaz_kar \, saba \, kijaz_kar_kurd \, husseini \, huzam
 \, karjighar \, spanish \, purvi \, minor_neapolitan \, bhairav \,
 hijaz_desc \, todi \, hex_major7\.;
 #X obj 20 1013 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1018 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1018 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1019 1\.;
 #X text 150 1019 *float*;
@@ -69,7 +73,7 @@ hijaz_desc \, todi \, hex_major7\.;
 #X text 150 1039 *list*;
 #X text 245 1039 NOTE VELOCITY [DUR] list.;
 #X obj 20 1069 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1074 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1074 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1075 1\.;
 #X text 245 1075 accepted note or NOTE VELOCITY [DUR] list.;

@@ -14,8 +14,10 @@
 #X obj 50 205 list.separate;
 #X obj 50 234 print SEPARATE;
 #X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 289 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 289 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 292 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 324 @enumerate;
 #X text 245 324 Get/Set enumeration mode. If enumeration is active
 output pairs: INDEX ATOM \, otherwise single atoms. Type: bool. Default
@@ -24,7 +26,7 @@ value: 0\.;
 #X text 245 381 Get/Set enumeration starting index. Type: int. Default
 value: 0\.;
 #X obj 20 433 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 438 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 438 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 439 1\.;
 #X text 150 439 *list*;
@@ -32,7 +34,7 @@ value: 0\.;
 #X text 150 459 *data:mlist*;
 #X text 245 459 input mlist.;
 #X obj 20 489 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 494 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 494 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 495 1\.;
 #X text 245 495 outlet for single atoms (or pair: IDX ATOM in enumeration

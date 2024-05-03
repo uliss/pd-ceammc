@@ -24,29 +24,33 @@
 #X floatatom 232 291 5 0 0 0 - - -;
 #X floatatom 328 291 5 0 0 0 - - -;
 #X obj 20 323 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 328 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 328 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 331 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 363 1\.;
 #X text 150 363 int;
 #X obj 246 364 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 363 N: number of signals outputs. Type: int. Range: 2\...16;
 #X obj 20 393 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 398 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 398 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 401 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 433 @n;
 #X text 245 433 (initonly) Get/Set number of outlets. Type: int. Default
 value: 2\. Range: 2\...16\.;
 #X msg 110 475 @value;
 #X text 245 475 Get/Set gain coefficients per each output. Type: list.;
 #X obj 20 515 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 520 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 520 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 521 1\.;
 #X text 245 521 input signal.;
 #X text 110 541 2\.;
 #X text 245 541 demultiplexer control.;
 #X obj 20 571 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 576 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 576 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 577 1\.;
 #X text 245 577 first output.;

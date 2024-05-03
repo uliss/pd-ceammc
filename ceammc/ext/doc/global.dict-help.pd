@@ -17,20 +17,24 @@ name and available from everywhere;
 #X obj 50 245 ui.dt;
 #X obj 50 274 global.dict.subpatch;
 #X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 329 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 329 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 364 Left-click;
 #X text 285 364 open data editor.;
 #X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 399 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 399 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 402 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 434 1\.;
 #X text 150 434 symbol;
 #X obj 246 435 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 434 ID: object ID. Type: symbol.;
 #X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 469 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 469 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 472 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 504 @id;
 #X text 245 504 (initonly) Get/Set global variable id. Type: symbol.
 Default value: default.;
@@ -43,7 +47,7 @@ Type: bool. Default value: 1\.;
 #X text 245 618 (readonly) Get number of entries in dictionary. Type:
 int. Default value: 0\. Min value: 0\.;
 #X obj 20 670 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 675 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 675 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 710 add;
 #X text 245 710 adds entry to dictionary. Arguments are:;
@@ -83,7 +87,7 @@ do nothing. Arguments are:;
 #X msg 110 1143 [....];
 #X text 245 1143 sets new content without output.;
 #X obj 20 1181 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1186 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1186 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1187 1\.;
 #X text 150 1187 *bang*;
@@ -94,7 +98,7 @@ do nothing. Arguments are:;
 #X text 150 1242 *data:dict*;
 #X text 245 1242 set and output new dict.;
 #X obj 20 1272 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1277 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1277 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1278 1\.;
 #X text 245 1278 dict output.;

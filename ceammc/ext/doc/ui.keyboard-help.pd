@@ -29,7 +29,7 @@
 #X obj 501 384 ui.dt;
 #X obj 50 413 dac~;
 #X obj 20 463 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 468 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 468 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 503 Left-click;
 #X text 285 503 play selected note: output [NOTE VELOCITY( on mouse
@@ -55,8 +55,10 @@ note).;
 #X text 285 708 open properties dialog.;
 #X text 61 708 [Edit];
 #X obj 20 738 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 743 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 743 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 746 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 778 1\.;
 #X text 150 778 int;
 #X obj 246 779 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -66,8 +68,10 @@ note).;
 #X obj 246 799 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 798 SHIFT: pitch of starting key. Type: int. Range: 6\...88;
 #X obj 20 828 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 833 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 833 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 836 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 868 @keys;
 #X text 245 868 Get/Set number of keys. Type: int. Default value: 61\.
 Range: 5\...88\.;
@@ -105,7 +109,7 @@ level. Type: bool. Default value: 0\.;
 #X text 245 1318 Get/Set element size (width \, height pair). Type:
 list. Default value: 433 60\.;
 #X obj 20 1370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1375 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1375 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1410 pos;
 #X text 245 1410 set UI element position. Arguments are:;
@@ -116,12 +120,12 @@ list. Default value: 433 60\.;
 #X msg 110 1481 dump;
 #X text 245 1481 dumps all object info to Pd console window.;
 #X obj 20 1519 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1524 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1524 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1525 1\.;
 #X text 245 1525 control inlet.;
 #X obj 20 1555 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1560 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1560 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1561 1\.;
 #X text 245 1561 list from two elements: MIDI pitch \, MIDI velocity.

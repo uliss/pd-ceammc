@@ -53,14 +53,16 @@ non-linear envelopes are outputted using linear approximation;
 #X obj 50 605 ui.hgain~;
 #X obj 50 634 dac~;
 #X obj 20 684 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 689 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 689 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 692 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 724 @sync;
 #X text 245 724 Get/Set sync with input data. When set to 1 outputs
 envelope (as fixed) on every input data. Type: bool. Default value:
 0\.;
 #X obj 20 791 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 796 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 796 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 831 next;
 #X text 245 831 output segment until next stop-point or end of envelope
@@ -68,7 +70,7 @@ is reached.;
 #X msg 110 871 reset;
 #X text 245 871 reset current segment position for multi-segment envelopes.;
 #X obj 20 909 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 914 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 914 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 915 1\.;
 #X text 150 915 *bang*;
@@ -80,7 +82,7 @@ one stop-point.;
 #X text 150 985 *data*;
 #X text 245 985 output as fixed envelope* data.;
 #X obj 20 1015 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1020 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1020 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1021 1\.;
 #X text 245 1021 bunch of vline-compatible messages: VALUE \, DURATION

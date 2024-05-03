@@ -12,19 +12,23 @@
 #X obj 50 219 list.reject A B C 1 2 3;
 #X obj 50 248 ui.dt;
 #X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 303 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 303 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 306 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 338 1\.;
 #X text 150 338 list;
 #X obj 246 339 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 338 ARGS: list of rejected values. Type: list.;
 #X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 373 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 373 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 376 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 408 @args;
 #X text 245 408 Get/Set list of rejected values. Type: list.;
 #X obj 20 448 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 453 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 453 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 454 1\.;
 #X text 150 454 *float*;
@@ -39,7 +43,7 @@
 #X text 150 534 *list*;
 #X text 245 534 set rejected values.;
 #X obj 20 564 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 569 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 569 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 570 1\.;
 #X text 245 570 list without rejected elements.;

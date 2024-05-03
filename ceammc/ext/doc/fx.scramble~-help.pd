@@ -13,8 +13,10 @@
 #X obj 299 234 ui.dsp~;
 #X obj 50 262 dac~;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 352 1\.;
 #X text 150 352 float;
 #X obj 246 353 cnv 1 77 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -26,8 +28,10 @@ Range: 0.25\...50;
 #X text 245 387 FREQ2(Hz): right channel scramble frequency. Type:
 float. Range: 0.25\...50;
 #X obj 20 432 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 437 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 437 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 440 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 472 @id;
 #X text 245 472 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_scramble/PROP_NAME osc address \, if
@@ -61,17 +65,17 @@ Units: 'Hz'. Default value: 5\. Range: 0.25\...50\.;
 #X text 245 856 Get/Set scramble delay amount. Type: float. Default
 value: 0.5\. Range: 0\...1\.;
 #X obj 20 908 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 913 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 913 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 948 reset;
 #X text 245 948 reset to initial state.;
 #X obj 20 986 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 991 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 991 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 992 1\.;
 #X text 245 992 input signal.;
 #X obj 20 1022 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1027 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1027 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1028 1\.;
 #X text 245 1028 left output signal.;

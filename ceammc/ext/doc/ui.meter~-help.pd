@@ -26,8 +26,10 @@ are cold.;
 #X obj 194 295 ui.hm~;
 #X obj 50 424 ui.display;
 #X obj 20 474 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 479 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 479 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 482 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 514 @interval;
 #X text 245 514 Get/Set refresh interval. Type: int. Units: 'ms'. Default
 value: 50\. Min value: 20\.;
@@ -83,7 +85,7 @@ level. Type: bool. Default value: 0\.;
 #X text 245 1222 Get/Set element size (width \, height pair). Type:
 list. Default value: 15 120\.;
 #X obj 20 1274 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1279 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1279 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1314 pos;
 #X text 245 1314 set UI element position. Arguments are:;
@@ -92,12 +94,12 @@ list. Default value: 15 120\.;
 #X obj 255 1360 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1360 Y: top right y-coord. Type: float.;
 #X obj 20 1395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1400 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1400 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1401 1\.;
 #X text 245 1401 input signal.;
 #X obj 20 1431 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1436 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1436 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1437 1\.;
 #X text 245 1437 output pair of values: rms and peak in decibels (dbfs).;

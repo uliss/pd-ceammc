@@ -30,15 +30,19 @@ element and when move to next - use [1( message \, Otherwise - use
 #X obj 50 448 dac~;
 #X obj 117 448 ui.dsp~;
 #X obj 20 498 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 503 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 503 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 506 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 538 1\.;
 #X text 150 538 list;
 #X obj 246 539 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 538 VALUE: initial list. Type: list.;
 #X obj 20 568 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 573 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 573 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 576 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 608 @clip;
 #X text 245 608 clipped pass mode. When the list bounds are reached
 - min/max value repeats perpetually.;
@@ -71,7 +75,7 @@ information. Type: symbol. Default value: single. Allowed values: single
 #X text 245 1007 (readonly) Get current list size. Type: int. Default
 value: 0\. Min value: 0\.;
 #X obj 20 1059 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1064 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1064 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1099 current;
 #X text 245 1099 outputs current element.;
@@ -90,7 +94,7 @@ given step and outputs it. Type: int.;
 #X msg 110 1281 dump;
 #X text 245 1281 dump internal object state to Pd console window.;
 #X obj 20 1319 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1324 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1324 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1325 1\.;
 #X text 150 1325 *bang*;
@@ -100,7 +104,7 @@ given step and outputs it. Type: int.;
 #X text 150 1365 *list*;
 #X text 245 1365 set new list and reset current position. (no output).;
 #X obj 20 1395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1400 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1400 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1401 1\.;
 #X text 245 1401 list element.;

@@ -30,15 +30,19 @@ https://medium.com/@naive_sound/glitch-a-noisy-fusion-of-math-and-music-6a9b24e7
 #X obj 299 470 ui.dsp~;
 #X obj 50 499 dac~;
 #X obj 20 549 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 554 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 554 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 557 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 589 1\.;
 #X text 150 589 list;
 #X obj 246 590 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 589 EXPR: Glitch expression. Type: list.;
 #X obj 20 619 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 624 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 624 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 627 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 659 @clip;
 #X text 245 659 Get/Set clip output to -1\..+1 range. Use false value
 only when you are know what are you doing and at your own risk!. Type:
@@ -46,7 +50,7 @@ bool. Default value: 1\.;
 #X msg 110 716 @expr;
 #X text 245 716 Get/Set expression. Type: list.;
 #X obj 20 756 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 761 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 761 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 796 byte;
 #X text 245 796 set expression wrapper to byte() glitch function.;
@@ -62,12 +66,12 @@ Arguments are:;
 #X obj 255 938 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 938 SPEED: speed. Type: float.;
 #X obj 20 973 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 978 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 978 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 979 1\.;
 #X text 245 979 ...;
 #X obj 20 1009 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1014 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1014 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1015 1\.;
 #X text 245 1015 synth output.;

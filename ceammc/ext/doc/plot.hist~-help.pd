@@ -18,15 +18,19 @@
 bars @plot_color0 0.2 0.2 0.2;
 #X obj 50 392 ui.dsp~;
 #X obj 20 442 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 447 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 447 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 450 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 482 1\.;
 #X text 150 482 int;
 #X obj 246 483 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 482 NSAMP: @nsamp property. Type: int. Range: 8\...32768;
 #X obj 20 512 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 517 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 517 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 520 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 552 @clip;
 #X text 245 552 Get/Set clip input values into input range \, otherwise
 just ignore them. Type: bool. Default value: 1\.;
@@ -43,13 +47,13 @@ value: 63\. Range: 8\...512\.;
 #X text 245 696 Get/Set max number of input samples. Type: int. Default
 value: 512\. Range: 8\...32768\.;
 #X obj 20 748 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 753 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 753 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 754 1\.;
 #X text 150 754 *bang*;
 #X text 245 754 starts histogram calculation.;
 #X obj 20 784 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 789 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 789 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 790 1\.;
 #X text 245 790 signal output.;

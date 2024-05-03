@@ -17,8 +17,10 @@ or cut near some frequency). Also called a "parametric equalizer" section.;
 #X obj 50 205 ui.ssc~ @size 500 120;
 #X obj 50 334 ui.dsp~;
 #X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 389 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 389 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 424 1\.;
 #X text 150 424 float;
 #X obj 246 425 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -34,8 +36,10 @@ float. Range: -15\...15;
 #X text 245 479 BANDWIDTH(Hz): bandwidth of peak. Type: float. Range:
 1\...5000;
 #X obj 20 524 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 529 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 529 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 532 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 564 @id;
 #X text 245 564 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/flt_eq_peak/PROP_NAME osc address \, if
@@ -56,12 +60,12 @@ value: 1000\. Range: 20\...20000\.;
 #X text 245 765 Get/Set level at fx (boost if >0 or cut if <0). Type:
 float. Units: 'db'. Default value: 0\. Range: -15\...15\.;
 #X obj 20 817 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 822 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 822 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 823 1\.;
 #X text 245 823 input signal.;
 #X obj 20 853 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 858 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 858 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 859 1\.;
 #X text 245 859 filtered signal.;

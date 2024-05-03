@@ -20,8 +20,10 @@
 #X msg 405 262 @harmonic\$1 \$2;
 #X obj 405 291 s $0s;
 #X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 346 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 346 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 381 @id;
 #X text 245 381 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/synth_risset_arp/PROP_NAME osc address \,
@@ -66,12 +68,12 @@ value: 1\. Range: 0\...1\.;
 #X text 245 918 Get/Set stereo spread. Type: float. Default value:
 1\. Range: 0\...1\.;
 #X obj 20 970 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 975 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 975 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 976 1\.;
 #X text 245 976 control inlet.;
 #X obj 20 1006 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1011 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1011 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1012 1\.;
 #X text 245 1012;

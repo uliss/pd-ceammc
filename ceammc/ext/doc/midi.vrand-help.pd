@@ -18,8 +18,10 @@
 #X obj 50 291 makenote;
 #X obj 50 320 midiout;
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 410 1\.;
 #X text 150 410 float;
 #X obj 246 411 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -29,8 +31,10 @@
 #X obj 246 431 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 430 MAX: max random range. Type: float.;
 #X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 465 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 465 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 468 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 500 @add;
 #X text 245 500 alias to @mode add.;
 #X msg 110 530 @assign;
@@ -62,7 +66,7 @@ Min value: 0\.;
 #X msg 110 897 @sub;
 #X text 245 897 alias to @mode sub.;
 #X obj 20 937 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 942 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 942 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 943 1\.;
 #X text 150 943 *float*;
@@ -70,7 +74,7 @@ Min value: 0\.;
 #X text 150 963 *list*;
 #X text 245 963 NOTE VELOCITY [DUR] list.;
 #X obj 20 993 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 998 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 998 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 999 1\.;
 #X text 245 999 outputs NOTE VELOCITY [DUR] list with randomized VELOCITY

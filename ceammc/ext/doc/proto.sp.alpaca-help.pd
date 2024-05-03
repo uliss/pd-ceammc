@@ -31,7 +31,7 @@
 #X floatatom 232 406 5 0 0 0 - - -;
 #X floatatom 290 406 5 0 0 0 - - -;
 #X obj 20 438 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 443 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 443 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 478 brightness;
 #X text 245 478 set LED brightness. Arguments are:;
@@ -96,13 +96,13 @@ N].;
 #X msg 110 1213 dump;
 #X text 245 1213 dumps all object info to Pd console window.;
 #X obj 20 1251 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1256 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1256 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1257 1\.;
 #X text 150 1257 *float*;
 #X text 245 1257 input byte value from arduino.;
 #X obj 20 1287 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1292 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1292 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1293 1\.;
 #X text 245 1293 output parsed messages from device.;

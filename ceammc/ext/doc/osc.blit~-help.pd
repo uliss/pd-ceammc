@@ -16,8 +16,10 @@
 #X obj 50 248 ui.spectroscope~ @size 150 100;
 #X obj 242 248 ui.dsp~;
 #X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 303 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 303 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 306 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 338 1\.;
 #X text 150 338 float;
 #X obj 246 339 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -29,13 +31,15 @@ Type: float. Min value: 0;
 #X text 245 373 HARMONICS: number of harmonics. Missing or 0 means
 all available harmonics until SR/2\. Type: int. Min value: 0;
 #X obj 20 418 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 423 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 423 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 426 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 458 @harmonics;
 #X text 245 458 Get/Set number of harmonics. 0 means all available
 harmonics until SR/2\. Type: int. Default value: 0\. Min value: 0\.;
 #X obj 20 510 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 515 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 515 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 516 1\.;
 #X text 245 516 frequency in Hz.;
@@ -43,7 +47,7 @@ harmonics until SR/2\. Type: int. Default value: 0\. Min value: 0\.;
 #X text 150 536 *bang*;
 #X text 245 536 reset phase.;
 #X obj 20 566 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 571 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 571 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 572 1\.;
 #X text 245 572 output signal.;

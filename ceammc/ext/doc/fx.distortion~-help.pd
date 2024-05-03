@@ -21,8 +21,10 @@
 #X obj 376 334 ui.dsp~;
 #X obj 50 363 dac~;
 #X obj 20 413 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 418 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 418 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 421 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 453 1\.;
 #X text 150 453 float;
 #X obj 246 454 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -33,8 +35,10 @@
 #X text 245 473 OFFSET: constant added before nonlinearity to give
 even harmonics. Type: float. Range: 0\...0.5;
 #X obj 20 518 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 523 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 523 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 526 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 558 @id;
 #X text 245 558 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_distortion/PROP_NAME osc address \, if
@@ -59,17 +63,17 @@ Default value: 1\. Range: 0\...1\.;
 #X text 245 816 Get/Set constant added before nonlinearity to give
 even harmonics. Type: float. Default value: 0\. Range: 0\...0.5\.;
 #X obj 20 868 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 873 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 873 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 908 reset;
 #X text 245 908 reset object.;
 #X obj 20 946 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 951 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 951 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 952 1\.;
 #X text 245 952 input signal.;
 #X obj 20 982 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 987 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 987 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 988 1\.;
 #X text 245 988 output signal.;

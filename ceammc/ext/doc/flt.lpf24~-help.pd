@@ -26,15 +26,19 @@ https://en.wikipedia.org/wiki/Butterworth_filter;
 #X obj 50 411 ui.spectroscope~ @size 400 120;
 #X obj 50 555 ui.dsp~;
 #X obj 20 605 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 610 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 610 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 613 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 645 1\.;
 #X text 150 645 float;
 #X obj 246 646 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 645 FREQ(Hz): cutoff frequency. Type: float. Range: 20\...20000;
 #X obj 20 675 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 680 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 680 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 683 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 715 @id;
 #X text 245 715 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/flt_lpf24/PROP_NAME osc address \, if empty
@@ -49,12 +53,12 @@ symbol.;
 #X text 245 832 Get/Set cutoff frequency. Type: float. Units: 'Hz'.
 Default value: 1000\. Range: 20\...20000\.;
 #X obj 20 884 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 889 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 889 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 924 reset;
 #X text 245 924 reset filter state.;
 #X obj 20 962 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 967 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 967 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 968 1\.;
 #X text 245 968 input signal.;
@@ -62,7 +66,7 @@ Default value: 1000\. Range: 20\...20000\.;
 #X text 150 988 *float*;
 #X text 245 988 set frequency.;
 #X obj 20 1018 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1023 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1023 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1024 1\.;
 #X text 245 1024 filtered signal.;

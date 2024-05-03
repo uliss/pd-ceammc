@@ -19,15 +19,17 @@ groups.;
 #X obj 194 414 print GRP;
 #X obj 338 414 print INF;
 #X obj 20 464 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 469 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 469 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 504 Right-click;
 #X text 285 504 opens popup menu.;
 #X text 110 524 Mouse-drag;
 #X text 285 524 move selected source or group.;
 #X obj 20 554 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 559 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 559 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 562 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 594 @mapname;
 #X text 245 594 Get/Set widget name to link them between. Type: symbol.
 Default value: (null).;
@@ -98,7 +100,7 @@ symbol. Default value: (null).;
 #X text 245 1509 Get/Set element size (width \, height pair). Type:
 list. Default value: 225 225\.;
 #X obj 20 1561 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1566 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1566 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1601 clear;
 #X text 245 1601 clears specified preset. Arguments are:;
@@ -151,13 +153,13 @@ performed.;
 #X msg 110 2191 dump;
 #X text 245 2191 dumps all object info to Pd console window.;
 #X obj 20 2229 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2234 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 2234 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2235 1\.;
 #X text 150 2235 *bang*;
 #X text 245 2235 output group and source info.;
 #X obj 20 2265 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2270 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 2270 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2271 1\.;
 #X text 245 2271 source output.;

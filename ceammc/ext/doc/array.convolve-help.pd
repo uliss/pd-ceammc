@@ -23,8 +23,10 @@
 #X obj 50 334 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 371 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 371 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 374 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 406 1\.;
 #X text 150 406 symbol;
 #X obj 246 407 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -34,8 +36,10 @@
 #X obj 246 427 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 426 IR: array with impulse response. Type: symbol.;
 #X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 461 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 461 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 464 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 496 @array;
 #X text 245 496 Get/Set target array. Type: symbol.;
 #X msg 110 526 @ir;
@@ -44,7 +48,7 @@
 #X text 245 556 Get/Set impulse response normalization. Type: bool.
 Default value: 0\.;
 #X obj 20 608 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 613 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 613 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 614 1\.;
 #X text 150 614 *bang*;
@@ -53,7 +57,7 @@ Default value: 0\.;
 #X text 150 634 *symbol*;
 #X text 245 634 set array name.;
 #X obj 20 664 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 669 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 669 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 670 1\.;
 #X text 245 670 bang: on done.;

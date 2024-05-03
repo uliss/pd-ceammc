@@ -19,8 +19,10 @@
 #X obj 50 345 dac~;
 #X obj 50 374 ui.dsp~;
 #X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 429 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 429 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 432 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 464 1\.;
 #X text 150 464 float;
 #X obj 246 465 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -34,8 +36,10 @@
 #X obj 246 505 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 504 Q: quality factory. Type: float. Range: 0.01\...100;
 #X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 539 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 539 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 542 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 574 @id;
 #X text 245 574 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/flt_c_peak/PROP_NAME osc address \, if empty
@@ -56,12 +60,12 @@ value: 0\. Range: -15\...15\.;
 #X text 245 775 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
 Default value: 1\. Range: 0.01\...100\.;
 #X obj 20 827 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 832 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 832 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 833 1\.;
 #X text 245 833 control signal.;
 #X obj 20 863 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 868 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 868 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 869 1\.;
 #X text 245 869 b0\.;

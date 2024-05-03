@@ -18,21 +18,25 @@ from the current one. This prevents infinite loops;
 #X floatatom 203 245 5 0 0 0 - - -;
 #X obj 50 274 sync 3, f 22;
 #X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 329 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 329 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 332 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 364 1\.;
 #X text 150 364 int;
 #X obj 246 365 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 364 N: number of synchronized values. Type: int. Range:
 2\...8;
 #X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 399 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 399 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 402 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 434 @n;
 #X text 245 434 (initonly) Get/Set number of synced values. Type: int.
 Default value: 2\. Range: 2\...8\.;
 #X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 491 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 491 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 492 1\.;
 #X text 245 492 first synchronized input.;
@@ -41,7 +45,7 @@ Default value: 2\. Range: 2\...8\.;
 #X text 110 532 n.;
 #X text 245 532 n-th synchronized input.;
 #X obj 20 562 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 567 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 567 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 568 1\.;
 #X text 245 568 first synchronized output.;

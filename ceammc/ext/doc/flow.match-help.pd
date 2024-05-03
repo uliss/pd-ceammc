@@ -30,15 +30,19 @@ arg list: "@prop+";
 #X obj 270 380 ui.dt;
 #X obj 50 409 flow.match.syntax;
 #X obj 20 459 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 464 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 464 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 467 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 499 1\.;
 #X text 150 499 list;
 #X obj 246 500 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 499 PATTERNS: list of regular expressions. Type: list.;
 #X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 534 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 534 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 537 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 569 @patterns;
 #X text 245 569 (initonly) Get/Set list of regular expressions. Type:
 list.;
@@ -46,7 +50,7 @@ list.;
 #X text 245 599 Get/Set cut or pass message selector. Type: bool. Default
 value: 0\.;
 #X obj 20 651 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 656 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 656 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 657 1\.;
 #X text 150 657 *any*;
@@ -65,7 +69,7 @@ value: 0\.;
 #X text 150 757 *symbol*;
 #X text 245 757 set n-th regexp.;
 #X obj 20 787 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 792 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 792 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 793 1\.;
 #X text 245 793 output match to first regexp.;

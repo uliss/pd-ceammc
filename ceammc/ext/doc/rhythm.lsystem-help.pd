@@ -28,15 +28,19 @@
 #X obj 50 406 s lsys;
 #X obj 414 406 dac~;
 #X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 461 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 461 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 464 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 496 1\.;
 #X text 150 496 list;
 #X obj 246 497 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 496 INIT: init pattern. Type: list.;
 #X obj 20 526 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 531 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 531 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 534 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 566 @init;
 #X text 245 566 Get/Set init pattern value. Type: list.;
 #X msg 110 596 @max;
@@ -47,12 +51,12 @@ value: 256\. Range: 1\...32768\.;
 #X msg 110 668 @value?;
 #X text 245 668 (readonly) Get current pattern value. Type: list.;
 #X obj 20 708 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 713 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 713 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 748 reset;
 #X text 245 748 reset to init state.;
 #X obj 20 786 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 791 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 791 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 792 1\.;
 #X text 150 792 *bang*;
@@ -62,7 +66,7 @@ value: 256\. Range: 1\...32768\.;
 #X text 150 832 *list*;
 #X text 245 832 output enumerated patterns for each list argument.;
 #X obj 20 862 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 867 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 867 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 868 1\.;
 #X text 245 868 list output.;

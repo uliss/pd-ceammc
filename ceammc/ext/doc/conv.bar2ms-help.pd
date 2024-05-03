@@ -20,8 +20,10 @@
 #X obj 50 255 ui.dt;
 #X obj 184 284 ui.dt;
 #X obj 20 334 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 339 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 339 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 342 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 374 1\.;
 #X text 150 374 symbol;
 #X obj 246 375 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -31,8 +33,10 @@
 #X obj 246 395 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 394 TSIG: init time signature value. Type: symbol.;
 #X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 429 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 429 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 432 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 464 @bpm;
 #X text 245 464 Get/Set tempo bpm value. Type: symbol. Units: 'bpm'.
 Default value: 60|4bpm.;
@@ -40,7 +44,7 @@ Default value: 60|4bpm.;
 #X text 245 506 Get/Set time signature value. Type: symbol. Default
 value: |4/4|.;
 #X obj 20 558 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 563 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 563 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 564 1\.;
 #X text 150 564 *bang*;
@@ -55,7 +59,7 @@ value: |4/4|.;
 #X text 150 644 *symbol*;
 #X text 245 644 set time signature.;
 #X obj 20 674 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 679 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 679 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 680 1\.;
 #X text 245 680 bar period in milliseconds.;

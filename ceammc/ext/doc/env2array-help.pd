@@ -58,15 +58,19 @@
 #X coords 0 1 1000 0 100 18 1;
 #X restore 50 334 graph;
 #X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 389 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 389 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 424 1\.;
 #X text 150 424 symbol;
 #X obj 246 425 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 424 ARRAY: array name. Type: symbol.;
 #X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 459 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 459 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 462 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 494 @array;
 #X text 245 494 Get/Set target array name. Type: symbol.;
 #X msg 110 524 @fit;
@@ -84,12 +88,12 @@ value: 1\.;
 #X msg 110 698 @resize;
 #X text 245 698 alias to @mode resize property.;
 #X obj 20 738 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 743 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 743 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 744 1\.;
 #X text 245 744 *envelope* data.;
 #X obj 20 774 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 779 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 779 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 780 1\.;
 #X text 245 780 output number of samples in destination array. If array

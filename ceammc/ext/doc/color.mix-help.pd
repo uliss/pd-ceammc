@@ -11,8 +11,10 @@
 #X msg 50 205 @background_color \$1 \$2 \$3;
 #X obj 50 234 ui.hsl @nosave 1;
 #X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 289 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 289 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 292 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 324 1\.;
 #X text 150 324 atom;
 #X obj 246 325 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -22,14 +24,16 @@
 #X obj 246 345 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 344 C1: second value. Type: atom.;
 #X obj 20 374 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 379 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 379 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 382 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 414 @c0;
 #X text 245 414 Get/Set first color. Type: atom.;
 #X msg 110 444 @c1;
 #X text 245 444 Get/Set second color. Type: atom.;
 #X obj 20 484 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 489 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 489 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 490 1\.;
 #X text 150 490 *float*;
@@ -41,7 +45,7 @@
 #X text 150 530 *data:color*;
 #X text 245 530 set color without output.;
 #X obj 20 560 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 565 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 565 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 566 1\.;
 #X text 245 566 data:color output.;

@@ -37,8 +37,10 @@ curved);
 #X coords 0 1 100 0 100 18 1;
 #X restore 50 485 graph;
 #X obj 20 535 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 540 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 540 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 543 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 575 1\.;
 #X text 150 575 list;
 #X obj 246 576 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -70,8 +72,10 @@ Type: list.;
 #X text 245 765 ear: exponential ASR envelope: attack(ms) \, attack_curve
 \, release(ms) \, release_curve - no sustain point. Type: list.;
 #X obj 20 810 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 815 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 815 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 818 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 850 @length?;
 #X text 245 850 (readonly) Get total envelope time length. Type: float.
 Units: 'ms'. Default value: 0\. Min value: 0\.;
@@ -85,7 +89,7 @@ value: 0\. Min value: 0\.;
 #X msg 110 994 @values?;
 #X text 245 994 (readonly) Get list of point values. Type: list.;
 #X obj 20 1034 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1039 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1039 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1074 add_point;
 #X text 245 1074 add envelope point. Arguments are:;
@@ -337,7 +341,7 @@ Arguments are:;
 #X obj 255 3773 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 3773 SHIFT: value. Type: float. Units: 'ms'.;
 #X obj 20 3808 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 3813 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 3813 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 3814 1\.;
 #X text 150 3814 *bang*;
@@ -345,7 +349,7 @@ Arguments are:;
 #X text 150 3834 *data*;
 #X text 245 3834 set new envelope and output it.;
 #X obj 20 3864 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 3869 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 3869 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 3870 1\.;
 #X text 245 3870 data output.;

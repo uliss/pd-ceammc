@@ -30,15 +30,19 @@ is not uniform or weighted.;
 #X obj 203 495 ui.dsp~;
 #X obj 50 524 dac~;
 #X obj 20 574 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 579 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 579 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 582 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 614 1\.;
 #X text 150 614 list;
 #X obj 246 615 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 614 VALUE: list of atoms. Type: list.;
 #X obj 20 644 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 649 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 649 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 652 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 684 @nonrep;
 #X text 245 684 Get/Set generate non-repeated adjacent values (note:
 distribution will changed!). Type: bool. Default value: 0\.;
@@ -50,7 +54,7 @@ Min value: 0\.;
 #X msg 110 798 @w;
 #X text 245 798 Get/Set list of atom weights. Type: list.;
 #X obj 20 838 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 843 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 843 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 844 1\.;
 #X text 150 844 *bang*;
@@ -60,7 +64,7 @@ Min value: 0\.;
 #X text 245 864 set list of elements to choose from. Note: clear all
 weights.;
 #X obj 20 894 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 899 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 899 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 900 1\.;
 #X text 245 900 random atom value.;

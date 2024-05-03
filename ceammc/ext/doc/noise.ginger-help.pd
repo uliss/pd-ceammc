@@ -32,8 +32,10 @@ https://en.wikipedia.org/wiki/Gingerbreadman_map;
 #X obj 50 506 ui.display;
 #X obj 270 506 ui.display;
 #X obj 20 556 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 561 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 561 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 564 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 596 1\.;
 #X text 150 596 float;
 #X obj 246 597 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -47,10 +49,12 @@ https://en.wikipedia.org/wiki/Gingerbreadman_map;
 #X obj 246 637 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 636 Y: initial y value \, default 1.2\. Type: float.;
 #X obj 20 666 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 671 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 671 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 674 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X obj 20 726 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 731 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 731 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 766 reset;
 #X text 245 766 reset seed \, x and y values to defaults.;
@@ -63,13 +67,13 @@ https://en.wikipedia.org/wiki/Gingerbreadman_map;
 #X msg 110 878 y;
 #X text 245 878 set y value and update default.;
 #X obj 20 916 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 921 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 921 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 922 1\.;
 #X text 150 922 *bang*;
 #X text 245 922 outputs current x/y values and generates new one.;
 #X obj 20 952 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 957 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 957 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 958 1\.;
 #X text 245 958 outputs x-value.;

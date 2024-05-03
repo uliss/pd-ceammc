@@ -277,15 +277,19 @@ information.;
 #X obj 50 3860 ui.icon keyboard;
 #X obj 395 3860 ui.icon zoom_out;
 #X obj 20 3910 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 3915 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 3915 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 3918 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 3950 1\.;
 #X text 150 3950 symbol;
 #X obj 246 3951 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 3950 NAME: icon name from list. Type: symbol.;
 #X obj 20 3980 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 3985 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 3985 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 3988 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 4020 @enabled;
 #X text 245 4020 Get/Set enabled property. Type: bool. Default value:
 1\.;
@@ -356,7 +360,7 @@ level. Type: bool. Default value: 0\.;
 #X text 245 4976 Get/Set preset name for using with [ui.preset]. Type:
 symbol. Default value: (null).;
 #X obj 20 5028 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 5033 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 5033 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 5068 clear;
 #X text 245 5068 clears specified preset. Arguments are:;
@@ -382,12 +386,12 @@ performed.;
 #X obj 255 5314 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 5314 IDX: preset index. Type: int.;
 #X obj 20 5349 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 5354 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 5354 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 5355 1\.;
 #X text 245 5355 (hidden inlet!) see @mode property.;
 #X obj 20 5385 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 5390 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 5390 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 5391 1\.;
 #X text 245 5391 (hidden outlet!) see @mode property.;

@@ -20,8 +20,10 @@
 #X obj 280 277 ui.m~;
 #X obj 50 406 ui.dsp~;
 #X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 461 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 461 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 464 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 496 1\.;
 #X text 150 496 float;
 #X obj 246 497 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -32,8 +34,10 @@
 #X text 245 516 ANGLE(rad): circle panning position in radians. Type:
 float. Range: 0\...2π;
 #X obj 20 561 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 566 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 566 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 569 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 601 @id;
 #X text 245 601 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/spat_pan4/PROP_NAME osc address \, if empty
@@ -51,14 +55,14 @@ symbol.;
 #X text 245 760 Get/Set distance from circle center. Type: float. Default
 value: 1\. Range: 0\...1\.;
 #X obj 20 812 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 817 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 817 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 818 1\.;
 #X text 245 818 input signal.;
 #X text 150 838 *list*;
 #X text 245 838 set radius and angle.;
 #X obj 20 868 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 873 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 873 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 874 1\.;
 #X text 245 874 1st output channel.;

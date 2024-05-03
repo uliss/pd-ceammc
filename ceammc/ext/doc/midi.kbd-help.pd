@@ -19,8 +19,10 @@ custom one;
 #X obj 69 345 print;
 #X obj 50 374 ui.dt;
 #X obj 20 424 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 429 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 429 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 432 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 464 1\.;
 #X text 150 464 symbol;
 #X obj 246 465 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -31,8 +33,10 @@ custom one;
 #X obj 246 500 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 499 ON: init on/off state. Type: bool.;
 #X obj 20 529 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 534 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 534 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 537 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 569 @custom;
 #X text 245 569 Get/Set custom layout (Dict data type). Type: atom.
 Default value: [].;
@@ -48,14 +52,14 @@ Range: 0\...8\.;
 #X text 245 725 Get/Set output velocity. Type: float. Default value:
 100\. Range: 0\...127\.;
 #X obj 20 777 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 782 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 782 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 817 custom;
 #X text 245 817 set custom. Arguments are:;
 #X obj 255 840 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 840 KEYSTR: key string. Type: symbol.;
 #X obj 20 875 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 880 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 880 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 881 1\.;
 #X text 245 881 control input.;
@@ -63,7 +67,7 @@ Range: 0\...8\.;
 #X text 150 901 *int*;
 #X text 245 901 1 or 0: turn on/off.;
 #X obj 20 931 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 936 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 936 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 937 1\.;
 #X text 245 937 MIDI output: NOTE VEL.;

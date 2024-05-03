@@ -11,14 +11,16 @@
 #X obj 50 118 ui.button;
 #X floatatom 50 176 5 0 0 0 - - -;
 #X obj 20 208 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 213 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 213 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 248 Left-click;
 #X text 285 248 outputs @on_value on mouse down and @off_value on mouse
 up.;
 #X obj 20 278 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 283 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 283 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 286 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 318 @off_value;
 #X text 245 318 Get/Set off value. Type: float. Default value: 0\.;
 #X msg 110 348 @on_value;
@@ -58,7 +60,7 @@ level. Type: bool. Default value: 0\.;
 #X text 245 801 Get/Set element size (width \, height pair). Type:
 list. Default value: 15 15\.;
 #X obj 20 853 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 858 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 858 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 893 pos;
 #X text 245 893 set UI element position. Arguments are:;
@@ -69,14 +71,14 @@ list. Default value: 15 15\.;
 #X msg 110 964 dump;
 #X text 245 964 dumps all object info to Pd console window.;
 #X obj 20 1002 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1007 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1007 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1008 1\.;
 #X text 150 1008 *float*;
 #X text 245 1008 if *0* given \, sets state to unchecked and outputs
 @off_value. On any other number sets to checked state and outputs @on_value.;
 #X obj 20 1068 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1073 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1073 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1074 1\.;
 #X text 245 1074 outputs @on_value on mouse down and @off_value on

@@ -20,8 +20,10 @@ lineary;
 #X obj 50 367 list.sum;
 #X floatatom 50 395 5 0 0 0 - - -;
 #X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 432 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 432 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 435 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 467 @by;
 #X text 245 467 Get/Set normalization mode. Type: symbol. Default value:
 sum. Allowed values: sum \, range.;
@@ -30,7 +32,7 @@ sum. Allowed values: sum \, range.;
 #X msg 110 539 @sum;
 #X text 245 539 alias to @by sum.;
 #X obj 20 579 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 584 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 584 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 585 1\.;
 #X text 150 585 *list*;
@@ -38,7 +40,7 @@ sum. Allowed values: sum \, range.;
 #X text 150 605 *data:mlist*;
 #X text 245 605 same as list.;
 #X obj 20 635 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 640 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 640 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 641 1\.;
 #X text 245 641 output list.;

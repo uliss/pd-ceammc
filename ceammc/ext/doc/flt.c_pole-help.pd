@@ -22,15 +22,19 @@
 #X obj 366 274 ui.dt @float_width 5;
 #X obj 50 345 flt.c_pole.plot;
 #X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 400 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 400 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 403 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 435 1\.;
 #X text 150 435 float;
 #X obj 246 436 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 435 FREQ(Hz): center frequency. Type: float. Range: 0\...22050;
 #X obj 20 465 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 470 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 470 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 473 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 505 @rad;
 #X text 245 505 use angular frequency.;
 #X msg 110 535 @freq;
@@ -44,13 +48,13 @@ Default value: 1000\. Range: 0\...22050\.;
 #X text 245 637 Get/Set filter modey. Type: symbol. Default value:
 lpf. Allowed values: hpf \, lpf.;
 #X obj 20 689 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 694 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 694 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 695 1\.;
 #X text 150 695 *float*;
 #X text 245 695 filter frequency.;
 #X obj 20 725 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 730 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 730 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 731 1\.;
 #X text 245 731 list: b0 b1 b2 a1 a2\.;

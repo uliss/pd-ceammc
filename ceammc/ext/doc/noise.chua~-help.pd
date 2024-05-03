@@ -10,8 +10,10 @@
 #X obj 213 305 ui.dsp~;
 #X obj 50 334 dac~;
 #X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 389 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 389 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 424 @id;
 #X text 245 424 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/noise_chua/PROP_NAME osc address \, if empty
@@ -39,14 +41,14 @@ value: 1.6\. Range: 1.252\...1.7\.;
 gain to 0.5 you can 0.5 as trigger value. Type: float. Default value:
 0\. Range: 0\...1\.;
 #X obj 20 776 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 781 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 781 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 816 reset;
 #X text 245 816 reset generator.;
 #X msg 110 844 start;
 #X text 245 844 start generator.;
 #X obj 20 882 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 887 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 887 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 888 1\.;
 #X text 150 888 *bang*;
@@ -56,7 +58,7 @@ gain to 0.5 you can 0.5 as trigger value. Type: float. Default value:
 #X text 150 928 *list*;
 #X text 245 928 GAIN(0\..1) DUR(ms) pair expected.;
 #X obj 20 958 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 963 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 963 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 964 1\.;
 #X text 245 964 X output (C1 Vout).;

@@ -13,7 +13,7 @@ float input.;
 #X obj 50 187 math.abs;
 #X obj 50 216 ui.dt;
 #X obj 20 266 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 271 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 271 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 272 1\.;
 #X text 150 272 *float*;
@@ -21,7 +21,7 @@ float input.;
 #X text 150 292 *list*;
 #X text 245 292 apply to all numeric values.;
 #X obj 20 322 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 327 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 327 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 328 1\.;
 #X text 245 328 result value.;

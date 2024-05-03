@@ -26,8 +26,10 @@ and the previous one.;
 #X obj 50 320 list.delta @clip;
 #X obj 50 349 ui.dt;
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 404 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 404 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 439 @clip;
 #X text 245 439 alias for "@oversize min" property. Truncates lists
 to minimal common size.;
@@ -52,18 +54,18 @@ with zeroes.;
 #X text 245 721 alias for "@oversize wrap" property. Pad shortest list
 with repeated values from the beginning.;
 #X obj 20 773 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 778 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 778 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 813 clear;
 #X text 245 813 sets to empty list current state.;
 #X obj 20 851 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 856 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 856 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 857 1\.;
 #X text 150 857 *list*;
 #X text 245 857 Input float list.;
 #X obj 20 887 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 892 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 892 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 893 1\.;
 #X text 245 893 delta list.;

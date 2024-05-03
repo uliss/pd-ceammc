@@ -23,8 +23,10 @@ flite TTS engine.;
 #X obj 299 331 ui.dsp~;
 #X obj 50 360 dac~;
 #X obj 20 410 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 415 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 415 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 418 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 450 @pitch;
 #X text 245 450 Get/Set voice pitch (-1 - default value). Type: float.
 Default value: -1\.;
@@ -35,12 +37,12 @@ Default value: -1\.;
 #X text 245 534 Get/Set default voice. Type: symbol. Default value:
 kal16\. Allowed values: kal16 \, slt \, rms \, awb.;
 #X obj 20 586 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 591 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 591 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 626 stop;
 #X text 245 626 stops speech and clear speech queue.;
 #X obj 20 664 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 669 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 669 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 670 1\.;
 #X text 150 670 *float*;
@@ -50,7 +52,7 @@ kal16\. Allowed values: kal16 \, slt \, rms \, awb.;
 #X text 150 710 *list*;
 #X text 245 710 speak text.;
 #X obj 20 740 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 745 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 745 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 746 1\.;
 #X text 245 746 output signal.;

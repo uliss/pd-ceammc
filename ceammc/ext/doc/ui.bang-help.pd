@@ -18,13 +18,15 @@
 -1;
 #X obj 117 230 s b_in;
 #X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 285 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 285 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 320 Left-click;
 #X text 285 320 outputs bang on mouse down.;
 #X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 355 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 355 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 358 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 390 @receive;
 #X text 245 390 Get/Set receive source. Type: symbol. Default value:
 (null).;
@@ -80,7 +82,7 @@ level. Type: bool. Default value: 0\.;
 #X text 245 1095 Get/Set element size (width \, height pair). Type:
 list. Default value: 15 15\.;
 #X obj 20 1147 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1152 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1152 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1187 pos;
 #X text 245 1187 set UI element position. Arguments are:;
@@ -91,7 +93,7 @@ list. Default value: 15 15\.;
 #X msg 110 1258 dump;
 #X text 245 1258 dumps all object info to Pd console window.;
 #X obj 20 1296 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1301 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1301 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1302 1\.;
 #X text 150 1302 *bang*;
@@ -103,7 +105,7 @@ list. Default value: 15 15\.;
 #X text 150 1362 *list*;
 #X text 245 1362 outputs bang.;
 #X obj 20 1392 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1397 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1397 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1398 1\.;
 #X text 245 1398 bang output.;

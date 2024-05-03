@@ -13,8 +13,10 @@ current one then stores this sum;
 #X obj 50 205 list.integrator;
 #X obj 50 234 ui.dt;
 #X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 289 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 289 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 292 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 324 @clip;
 #X text 245 324 alias for "@oversize min" property. Truncates lists
 to minimal common size.;
@@ -39,18 +41,18 @@ with zeroes.;
 #X text 245 606 alias for "@oversize wrap" property. Pad shortest list
 with repeated values from the beginning.;
 #X obj 20 658 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 663 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 663 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 698 clear;
 #X text 245 698 clear integrator state.;
 #X obj 20 736 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 741 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 741 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 742 1\.;
 #X text 150 742 *list*;
 #X text 245 742 Input list.;
 #X obj 20 772 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 777 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 777 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 778 1\.;
 #X text 245 778 new integrated list.;

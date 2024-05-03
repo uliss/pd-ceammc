@@ -18,8 +18,10 @@
 #X obj 50 230 ui.scope~ @size 150 100;
 #X obj 50 345 ui.dsp~;
 #X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 400 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 400 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 403 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 435 1\.;
 #X text 150 435 float;
 #X obj 246 436 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -30,8 +32,10 @@
 #X text 245 455 WAVE: wave type. Allowed values: sin \, saw \, tri
 \, sqr \, pulse \, +sin \, +saw \, +tri \, +sqr \, +pulse. Type: symbol.;
 #X obj 20 500 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 505 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 505 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 508 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 540 @id;
 #X text 245 540 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/lfo_mosc/PROP_NAME osc address \, if empty
@@ -60,12 +64,12 @@ Allowed values: sin \, saw \, tri \, sqr \, pulse \, +sin \, +saw \,
 \, tri \, sqr \, pulse \, +sin \, +saw \, +tri \, +sqr \, +pulse. Type:
 int. Default value: 0\. Range: 0\...9\.;
 #X obj 20 907 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 912 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 912 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 947 reset;
 #X text 245 947 reset to initial state.;
 #X obj 20 985 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 990 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 990 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 991 1\.;
 #X text 245 991 frequency in Hz.;
@@ -75,7 +79,7 @@ int. Default value: 0\. Range: 0\...9\.;
 #X text 150 1031 *int*;
 #X text 245 1031 select waveform.;
 #X obj 20 1061 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1066 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1066 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1067 1\.;
 #X text 245 1067 oscillator output.;

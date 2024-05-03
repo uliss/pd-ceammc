@@ -20,19 +20,23 @@
 #X obj 50 215 list.prepend "@prop" ABC;
 #X obj 50 244 ui.display @display_type 1;
 #X obj 20 294 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 299 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 299 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 302 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 334 1\.;
 #X text 150 334 list;
 #X obj 246 335 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 334 VALUE: prepend values. Type: list.;
 #X obj 20 364 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 369 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 369 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 372 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 404 @value;
 #X text 245 404 Get/Set prepend values. Type: list.;
 #X obj 20 444 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 449 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 449 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 450 1\.;
 #X text 150 450 *bang*;
@@ -51,7 +55,7 @@
 #X text 150 570 *list*;
 #X text 245 570 set prepended atom or list.;
 #X obj 20 600 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 605 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 605 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 606 1\.;
 #X text 245 606 output concatenated list.;

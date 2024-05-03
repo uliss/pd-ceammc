@@ -14,8 +14,10 @@
 #X floatatom 146 201 5 0 0 0 - - -;
 #X floatatom 251 201 5 0 0 0 - - -;
 #X obj 20 233 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 238 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 238 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 241 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 273 @down;
 #X text 245 273 alias to @mouse_down 1 property. Default value: 0\.;
 #X msg 110 303 @drag;
@@ -47,12 +49,12 @@ value: 0\.;
 #X msg 110 675 @up;
 #X text 245 675 alias to @mouse_up 1 property. Default value: 0\.;
 #X obj 20 715 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 720 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 720 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 721 1\.;
 #X text 245 721 input messages from ui object.;
 #X obj 20 751 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 756 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 756 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 757 1\.;
 #X text 245 757 first mouse event type match output.;

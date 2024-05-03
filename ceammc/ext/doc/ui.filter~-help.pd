@@ -17,7 +17,7 @@
 #X obj 328 291 ui.dt;
 #X obj 50 320 dac~;
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 375 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 375 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 410 Left-click;
 #X text 285 410 jump to coord under mouse pointer.;
@@ -28,8 +28,10 @@
 #X text 110 470 Mouse-wheel;
 #X text 285 470 only for peakEq filter: change Q-factor.;
 #X obj 20 500 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 505 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 505 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 508 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 540 @freq;
 #X text 245 540 Get/Set filter frequency. Type: float. Default value:
 1000\. Range: 0\...20000\.;
@@ -111,7 +113,7 @@ symbol. Default value: (null).;
 #X text 245 1602 Get/Set element size (width \, height pair). Type:
 list. Default value: 300 100\.;
 #X obj 20 1654 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1659 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1659 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1694 biquad;
 #X text 245 1694 set biquad coefficients (but not changes current filter
@@ -142,12 +144,12 @@ performed.;
 #X msg 110 2000 dump;
 #X text 245 2000 dumps all object info to Pd console window.;
 #X obj 20 2038 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2043 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 2043 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2044 1\.;
 #X text 245 2044 input signal.;
 #X obj 20 2074 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2079 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 2079 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2080 1\.;
 #X text 245 2080 filtered signal.;

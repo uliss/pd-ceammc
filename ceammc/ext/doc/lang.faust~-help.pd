@@ -21,21 +21,25 @@ https://faust.grame.fr/ @url https://faust.grame.fr/;
 #X obj 222 301 ui.dsp~;
 #X obj 50 329 dac~;
 #X obj 20 379 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 384 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 384 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 419 Left-click + ⌥;
 #X text 285 419 open Faust code editor.;
 #X obj 20 449 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 454 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 454 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 457 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 489 1\.;
 #X text 150 489 symbol;
 #X obj 246 490 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 489 LOAD: initial file to load after object creation. Type:
 symbol.;
 #X obj 20 534 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 539 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 539 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 542 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 574 @load;
 #X text 245 574 (initonly) Get/Set initial file to load after object
 creation. Type: symbol.;
@@ -45,7 +49,7 @@ creation. Type: symbol.;
 #X msg 110 646 @include;
 #X text 245 646 Get/Set list of faust include directories. Type: list.;
 #X obj 20 686 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 691 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 691 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 726 open;
 #X text 245 726 open editor window.;
@@ -65,7 +69,7 @@ symbol.;
 #X obj 255 891 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 891 [@force]: overwrite existing files. Type: property.;
 #X obj 20 926 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 931 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 931 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 932 1\.;
 #X text 245 932 control input.;
@@ -76,7 +80,7 @@ symbol.;
 #X text 110 992 n+1\.;
 #X text 245 992 n-th faust input.;
 #X obj 20 1022 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1027 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1027 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1028 1\.;
 #X text 245 1028 first faust output.;

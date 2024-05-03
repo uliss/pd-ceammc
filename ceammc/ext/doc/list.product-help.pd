@@ -14,7 +14,7 @@ at least one symbol \, product will be always equal to zero;
 #X obj 50 230 list.product;
 #X floatatom 50 259 5 0 0 0 - - -;
 #X obj 20 291 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 296 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 296 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 297 1\.;
 #X text 150 297 *list*;
@@ -22,7 +22,7 @@ at least one symbol \, product will be always equal to zero;
 #X text 150 317 *data:mlist*;
 #X text 245 317 input mlist.;
 #X obj 20 347 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 352 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 352 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 353 1\.;
 #X text 245 353 float list product.;

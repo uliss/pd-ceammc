@@ -22,7 +22,7 @@
 #X obj 50 244 ui.knob @size 30 30 @max 10;
 #X floatatom 50 302 5 0 0 0 - - -;
 #X obj 20 334 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 339 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 339 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 374 Mouse-drag;
 #X text 285 374 change the knob value (with ⇧ change slowly).;
@@ -51,8 +51,10 @@
 #X text 285 574 open properties dialog.;
 #X text 61 574 [Edit];
 #X obj 20 604 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 609 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 609 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 612 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 644 1\.;
 #X text 150 644 float;
 #X obj 246 645 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -62,8 +64,10 @@
 #X obj 246 665 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 664 MAX: max value. Type: float.;
 #X obj 20 694 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 699 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 699 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 702 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 734 @active_scale;
 #X text 245 734 Get/Set if should draw active scale. Type: bool. Default
 value: 0\.;
@@ -159,7 +163,7 @@ symbol. Default value: (null).;
 #X text 245 1985 Get/Set element size (width \, height pair). Type:
 list. Default value: 40 40\.;
 #X obj 20 2037 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2042 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 2042 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 2077 interp;
 #X text 245 2077 interplolates between presets. Arguments are:;
@@ -213,7 +217,7 @@ are:;
 #X msg 110 2664 dump;
 #X text 245 2664 dumps all object info to Pd console window.;
 #X obj 20 2702 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2707 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 2707 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2708 1\.;
 #X text 150 2708 *bang*;
@@ -221,7 +225,7 @@ are:;
 #X text 150 2728 *float*;
 #X text 245 2728 sets knob value and output it.;
 #X obj 20 2758 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2763 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 2763 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2764 1\.;
 #X text 245 2764 knob output.;

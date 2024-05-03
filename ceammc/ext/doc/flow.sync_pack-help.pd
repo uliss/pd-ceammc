@@ -16,8 +16,10 @@
 #X obj 50 162 flow.pack' 3 0 0 ABC, f 20;
 #X obj 50 190 ui.display @display_type 1;
 #X obj 20 240 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 245 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 245 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 248 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 280 1\.;
 #X text 150 280 int;
 #X obj 246 281 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -28,15 +30,17 @@
 #X text 245 300 INIT: default values for all inlets. If not enough
 default values given it sets to 0\. Type: list.;
 #X obj 20 345 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 350 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 350 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 353 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 385 @init;
 #X text 245 385 (initonly) Get/Set default init values. Type: list.;
 #X msg 110 415 @n;
 #X text 245 415 (initonly) Get/Set number of inlets. Type: int. Default
 value: 1\. Range: 1\...255\.;
 #X obj 20 467 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 472 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 472 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 473 1\.;
 #X text 150 473 *bang*;
@@ -68,7 +72,7 @@ value: 1\. Range: 1\...255\.;
 #X text 150 713 *list*;
 #X text 245 713 propagate n-th list values among rest inlets and output.;
 #X obj 20 743 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 748 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 748 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 749 1\.;
 #X text 245 749 packed list or message (if message input).;

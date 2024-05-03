@@ -18,15 +18,19 @@
 #X obj 290 291 ui.dsp~;
 #X obj 50 320 dac~;
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 410 1\.;
 #X text 150 410 float;
 #X obj 246 411 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 410 PITCH: drone MIDI pitch. Type: float. Range: 36\...60;
 #X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 445 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 445 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 448 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 480 @id;
 #X text 245 480 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_drone_box/PROP_NAME osc address \, if
@@ -51,12 +55,12 @@ Default value: 0.5\. Range: 0\...1\.;
 #X text 245 738 Get/Set drone MIDI pitch. Type: float. Default value:
 48\. Range: 36\...60\.;
 #X obj 20 790 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 795 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 795 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 830 reset;
 #X text 245 830 reset object.;
 #X obj 20 868 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 873 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 873 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 874 1\.;
 #X text 245 874 input signal.;
@@ -64,7 +68,7 @@ Default value: 0.5\. Range: 0\...1\.;
 #X text 150 894 *float*;
 #X text 245 894 set drone pitch.;
 #X obj 20 924 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 929 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 929 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 930 1\.;
 #X text 245 930 output signal.;

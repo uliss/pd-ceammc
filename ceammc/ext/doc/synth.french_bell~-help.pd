@@ -22,8 +22,10 @@ from the bottom to the top of the bell;
 #X obj 50 656 ui.gain~ @size 120 16;
 #X obj 50 685 dac~;
 #X obj 20 735 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 740 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 740 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 743 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 775 @id;
 #X text 245 775 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/synth_french_bell/PROP_NAME osc address
@@ -59,18 +61,18 @@ int. Default value: 0\. Range: 0\...6\.;
 #X text 245 1186 Get/Set time to decay to -60db level. Type: float.
 Units: 'sec'. Default value: 20\. Range: 0.1\...30\.;
 #X obj 20 1238 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1243 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1243 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1278 reset;
 #X text 245 1278 reset synth.;
 #X obj 20 1316 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1321 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1321 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1322 1\.;
 #X text 150 1322 *bang*;
 #X text 245 1322 play.;
 #X obj 20 1352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1357 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1357 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1358 1\.;
 #X text 245 1358 output signal.;

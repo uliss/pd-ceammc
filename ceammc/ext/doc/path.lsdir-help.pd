@@ -16,22 +16,26 @@
 #X obj 299 176 ui.dt;
 #X obj 50 205 ui.dt;
 #X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 260 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 260 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 263 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 295 1\.;
 #X text 150 295 list;
 #X obj 246 296 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 295 PATH: init directory value. Type: list.;
 #X obj 20 325 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 330 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 330 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 333 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 365 @match;
 #X text 245 365 Get/Set match mask: for example *.wav for all wav files.
 Type: symbol.;
 #X msg 110 407 @path;
 #X text 245 407 Get/Set current path. Type: list.;
 #X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 452 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 452 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 453 1\.;
 #X text 150 453 *bang*;
@@ -43,7 +47,7 @@ content. If not absolute path is given list current patch directory.;
 #X text 150 508 *symbol*;
 #X text 245 508 set @match property.;
 #X obj 20 538 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 543 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 543 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 544 1\.;
 #X text 245 544 list of strings.;

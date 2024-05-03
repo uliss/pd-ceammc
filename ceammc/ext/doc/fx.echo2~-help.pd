@@ -15,8 +15,10 @@
 #X obj 299 262 ui.dsp~;
 #X obj 50 291 dac~;
 #X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 346 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 346 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 381 1\.;
 #X text 150 381 float;
 #X obj 246 382 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -27,8 +29,10 @@
 #X text 245 401 FEEDBACK: feedback coefficient. Type: float. Range:
 0\...0.99;
 #X obj 20 431 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 436 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 436 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 439 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 471 @id;
 #X text 245 471 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_echo2/PROP_NAME osc address \, if empty
@@ -59,19 +63,19 @@ between the channels. For stereo=1 you get a pure ping-pong delay where
 the echos from the left first appear on the right channel and vice
 versa. Type: float. Default value: 1\. Range: 0\...1\.;
 #X obj 20 884 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 889 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 889 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 924 reset;
 #X text 245 924 reset to initial state.;
 #X obj 20 962 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 967 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 967 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 968 1\.;
 #X text 245 968 left input signal.;
 #X text 110 988 2\.;
 #X text 245 988 right input signal.;
 #X obj 20 1018 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1023 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1023 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1024 1\.;
 #X text 245 1024 left output signal.;

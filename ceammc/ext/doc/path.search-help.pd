@@ -27,16 +27,20 @@ directory.;
 #X msg 155 472 not found;
 #X obj 50 501 ui.dt @size 500 35 @auto_size 0;
 #X obj 20 551 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 556 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 556 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 559 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 591 1\.;
 #X text 150 591 list;
 #X obj 246 592 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 591 PATHS: list of paths \, can be quoted to handle whitespace.
 Type: list.;
 #X obj 20 636 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 641 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 641 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 644 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 676 @async;
 #X text 245 676 Get/Set perform async search in separate thread. Type:
 bool. Default value: 1\.;
@@ -58,12 +62,12 @@ bool. Default value: 1\.;
 #X msg 110 934 @sync;
 #X text 245 934 alias to @async 0\.;
 #X obj 20 974 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 979 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 979 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1014 cancel;
 #X text 245 1014 cancel search process.;
 #X obj 20 1052 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1057 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1057 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1058 1\.;
 #X text 150 1058 *symbol*;
@@ -71,7 +75,7 @@ bool. Default value: 1\.;
 #X text 150 1078 *data:string*;
 #X text 245 1078 filename.;
 #X obj 20 1108 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1113 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1113 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1114 1\.;
 #X text 245 1114 symbol: full filename.;

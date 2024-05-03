@@ -16,13 +16,15 @@ various symbol values;
 #X symbolatom 50 245 5 0 0 0 - - -;
 #X obj 155 245 preset.symbol f1;
 #X obj 20 295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 300 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 300 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 335 Left-click;
 #X text 285 335 open preset editor.;
 #X obj 20 365 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 370 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 370 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 373 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 405 1\.;
 #X text 150 405 symbol;
 #X obj 246 406 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -33,8 +35,10 @@ Type: symbol.;
 #X obj 246 441 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 440 INIT: preset initial value. Type: symbol.;
 #X obj 20 470 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 475 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 475 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 478 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 510 @global;
 #X text 245 510 use global path like /ID. Default value: 0\.;
 #X msg 110 540 @id;
@@ -48,7 +52,7 @@ Type: symbol.;
 id \, abstraction name and may be subpatch name separated by slashes.
 Type: symbol.;
 #X obj 20 697 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 702 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 702 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 737 clear;
 #X text 245 737 clear preset at specified index.;
@@ -59,13 +63,13 @@ Type: symbol.;
 #X msg 110 821 store;
 #X text 245 821 stores preset value at specified index.;
 #X obj 20 859 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 864 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 864 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 865 1\.;
 #X text 150 865 *symbol*;
 #X text 245 865 set preset value without output.;
 #X obj 20 895 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 900 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 900 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 901 1\.;
 #X text 245 901 preset symbol value.;

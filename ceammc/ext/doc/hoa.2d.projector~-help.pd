@@ -25,8 +25,10 @@ waves domain.;
 #X obj 683 326 ui.m~;
 #X obj 50 470 ui.dsp~;
 #X obj 20 520 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 525 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 525 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 528 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 560 1\.;
 #X text 150 560 int;
 #X obj 246 561 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -37,8 +39,10 @@ waves domain.;
 #X obj 246 581 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 580 N: number of channels. Type: int. Range: 1\...63;
 #X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 615 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 615 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 618 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 650 @n;
 #X text 245 650 (initonly) Get/Set number of channels (planewaves).
 Type: int. Default value: 0\. Range: 0\...63\.;
@@ -46,7 +50,7 @@ Type: int. Default value: 0\. Range: 0\...63\.;
 #X text 245 692 (initonly) Get/Set the order of decomposition. Type:
 int. Default value: 1\. Range: 1\...63\.;
 #X obj 20 744 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 749 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 749 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 750 1\.;
 #X text 245 750 input harmonic.;
@@ -55,7 +59,7 @@ int. Default value: 1\. Range: 1\...63\.;
 #X text 110 790 n.;
 #X text 245 790 n-th input harmonic.;
 #X obj 20 820 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 825 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 825 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 826 1\.;
 #X text 245 826 first plane wave output.;

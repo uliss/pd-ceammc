@@ -28,8 +28,10 @@ by Boris Chirikov in 1969;
 #X obj 50 416 ui.hgain~;
 #X obj 50 445 dac~;
 #X obj 20 495 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 500 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 500 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 503 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 535 1\.;
 #X text 150 535 float;
 #X obj 246 536 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -39,20 +41,22 @@ by Boris Chirikov in 1969;
 #X obj 246 556 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 555 Y: initial y value \, default 0\. Type: float.;
 #X obj 20 585 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 590 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 590 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 593 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X obj 20 645 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 650 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 650 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X obj 20 705 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 710 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 710 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 711 1\.;
 #X text 245 711 generation frequency \, minimal value 0.001Hz.;
 #X text 110 731 2\.;
 #X text 245 731 k-value.;
 #X obj 20 761 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 766 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 766 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 767 1\.;
 #X text 245 767 outputs x-value mapped to [-1\..1] range.;

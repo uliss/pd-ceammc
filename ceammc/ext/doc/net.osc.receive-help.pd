@@ -18,8 +18,10 @@
 #X obj 50 248 net.osc.send osc.udp://:9000;
 #X obj 434 248 net.osc.send osc.tcp://:9001;
 #X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 303 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 303 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 306 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 338 1\.;
 #X text 150 338 symbol;
 #X obj 246 339 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -33,8 +35,10 @@
 #X obj 246 379 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 378 TYPES: expected OSC type string. Type: symbol.;
 #X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 413 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 413 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 416 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 448 @path;
 #X text 245 448 Get/Set OSC listen path. Type: symbol.;
 #X msg 110 478 @server;
@@ -44,10 +48,10 @@ default.;
 #X text 245 520 Get/Set expected OSC type string. Type: symbol. Default
 value: none.;
 #X obj 20 572 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 577 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 577 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X obj 20 632 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 637 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 637 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 638 1\.;
 #X text 245 638 message input.;
@@ -55,7 +59,7 @@ value: none.;
 #X text 150 658 *symbol*;
 #X text 245 658 set OSC listen path.;
 #X obj 20 688 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 693 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 693 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 694 1\.;
 #X text 245 694 OSC output.;

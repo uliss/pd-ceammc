@@ -28,15 +28,19 @@
 #X obj 50 320 dac~;
 #X obj 50 349 sequencer.mlist;
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 439 1\.;
 #X text 150 439 list;
 #X obj 246 440 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 439 V: sequence elements. Type: list.;
 #X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 474 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 474 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 477 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 509 @div;
 #X text 245 509 Get/Set beat subdivision. Type: int. Default value:
 1\. Range: 1\...64\.;
@@ -71,7 +75,7 @@ Default value: 0\.;
 #X text 245 953 (readonly) Get current repeat iteration. Type: int.
 Default value: 0\.;
 #X obj 20 1005 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1010 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1010 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1045 reset;
 #X text 245 1045 reset counters and stop.;
@@ -87,7 +91,7 @@ Type: int. Allowed values: 0 \, 1\.;
 #X msg 110 1192 tick;
 #X text 245 1192 manually output current element and move to next.;
 #X obj 20 1230 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1235 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1235 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1236 1\.;
 #X text 150 1236 *bang*;
@@ -98,7 +102,7 @@ Type: int. Allowed values: 0 \, 1\.;
 #X text 150 1276 *list*;
 #X text 245 1276 set sequence.;
 #X obj 20 1306 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1311 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1311 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1312 1\.;
 #X text 245 1312 sequence element output \, in case of Mlist args -

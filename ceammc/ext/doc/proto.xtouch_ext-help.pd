@@ -22,16 +22,20 @@
 #X obj 155 287 s oxt;
 #X obj 366 287 s ixt;
 #X obj 20 337 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 342 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 342 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 345 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 377 1\.;
 #X text 150 377 symbol;
 #X obj 246 378 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 377 PROTO: connection protocol. Allowed values: hui \,
 mcu \, xmidi. Type: symbol.;
 #X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 427 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 427 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 430 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 462 @n;
 #X text 245 462 (initonly) Get/Set number of scenes. Type: int. Default
 value: 2\. Range: 1\...32\.;
@@ -42,7 +46,7 @@ value: xmidi. Allowed values: hui \, mcu \, xmidi.;
 #X text 245 546 Get/Set current scene. Type: int. Default value: 0\.
 Min value: 0\.;
 #X obj 20 598 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 603 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 603 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 638 fader;
 #X text 245 638 set fader value. Arguments are:;
@@ -256,7 +260,7 @@ Type: int. Min value: 0\.;
 #X text 255 3271 DB: level in decibels \, in -144\..0 range. Type:
 float.;
 #X obj 20 3306 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 3311 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 3311 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 3312 1\.;
 #X text 150 3312 *float*;
@@ -266,7 +270,7 @@ float.;
 button \, soloIDX VAL: set solo button \, selectIDX VAL: set select
 button \, knobIDX VAL: set knob value \, faderIDX VAL: set fader value.;
 #X obj 20 3407 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 3412 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 3412 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 3413 1\.;
 #X text 245 3413 raw midi output to behringer device.;

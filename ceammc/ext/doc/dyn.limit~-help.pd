@@ -18,23 +18,25 @@ https://en.wikipedia.org/wiki/1176_Peak_Limiter;
 #X obj 50 286 env~;
 #X floatatom 50 315 5 0 0 0 - - -;
 #X obj 20 347 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 352 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 352 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 355 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 387 @active;
 #X text 245 387 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
 #X obj 20 427 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 432 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 432 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 467 reset;
 #X text 245 467 reset to initial state.;
 #X obj 20 505 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 510 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 510 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 511 1\.;
 #X text 245 511 input signal.;
 #X obj 20 541 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 546 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 546 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 547 1\.;
 #X text 245 547 output signal.;

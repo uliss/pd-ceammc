@@ -18,7 +18,7 @@ https://faust.grame.fr/ @url https://faust.grame.fr/;
 #X obj 50 329 dac~;
 #X obj 50 358 ui.faust~.extra;
 #X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 413 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 413 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 448 Left-click + ⌥;
 #X text 285 448 open Faust source code editor.;
@@ -30,16 +30,20 @@ https://faust.grame.fr/ @url https://faust.grame.fr/;
 #X text 285 508 open object help.;
 #X text 61 508 [Edit];
 #X obj 20 538 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 543 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 543 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 546 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 578 1\.;
 #X text 150 578 symbol;
 #X obj 246 579 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 578 LOAD: initial file to load after object creation. Type:
 symbol.;
 #X obj 20 623 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 628 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 628 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 631 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 663 @load;
 #X text 245 663 (initonly) Get/Set initial file to load after object
 creation. Type: symbol.;
@@ -54,7 +58,7 @@ creation. Type: symbol.;
 #X text 245 795 Get/Set object size. Type: list. Default value: 10
 10\.;
 #X obj 20 835 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 840 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 840 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 875 open;
 #X text 245 875 open faust dsp file in external editor.;
@@ -80,7 +84,7 @@ Type: symbol.;
 #X obj 255 1111 cnv 1 63 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1111 [@force]: overwrite existing files. Type: property.;
 #X obj 20 1146 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1151 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1151 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1152 1\.;
 #X text 245 1152 control input.;
@@ -91,7 +95,7 @@ Type: symbol.;
 #X text 110 1212 n+1\.;
 #X text 245 1212 n-th faust input.;
 #X obj 20 1242 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1247 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1247 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1248 1\.;
 #X text 245 1248 first faust output.;

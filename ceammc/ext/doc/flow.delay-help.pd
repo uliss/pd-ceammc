@@ -39,16 +39,20 @@ or [prop.set] object;
 #X obj 126 671 flow.del 0;
 #X obj 50 700 print Z;
 #X obj 20 750 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 755 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 755 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 758 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 790 1\.;
 #X text 150 790 float;
 #X obj 246 791 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 790 DELAY(ms): init @delay property. Type: float. Min value:
 0;
 #X obj 20 820 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 825 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 825 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 828 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 860 @block;
 #X text 245 860 Get/Set blocking mode. If true \, discards incoming
 messages until scheduled message will output \, after that is ready
@@ -58,7 +62,7 @@ bool. Default value: 0\.;
 #X text 245 932 Get/Set delay time. Type: float. Units: 'ms'. Default
 value: 0\. Min value: 0\.;
 #X obj 20 984 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 989 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 989 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 990 1\.;
 #X text 245 990 incoming message.;
@@ -69,7 +73,7 @@ value: 0\. Min value: 0\.;
 #X text 245 1030 set delay time. Min value: 0\.;
 #X text 245 1050 [reset( - resets delay.;
 #X obj 20 1080 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1085 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1085 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1086 1\.;
 #X text 245 1086 outputs nothing. connect to destination object(s).;

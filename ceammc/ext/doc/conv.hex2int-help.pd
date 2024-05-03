@@ -14,12 +14,14 @@
 #X obj 50 234 hex->int;
 #X obj 50 262 ui.d @display_type 1;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 317 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 352 @strict;
 #X text 245 352 ignore parsing error.;
 #X obj 20 392 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 397 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 397 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 398 1\.;
 #X text 150 398 *symbol*;
@@ -27,7 +29,7 @@
 #X text 150 418 *list*;
 #X text 245 418 input values.;
 #X obj 20 448 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 453 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 453 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 454 1\.;
 #X text 245 454 converted value: int.;

@@ -34,8 +34,10 @@ https://en.wikipedia.org/wiki/R%C3%B6ssler_attractor;
 #X obj 50 412 noise.rossler;
 #X obj 50 441 ui.display;
 #X obj 20 491 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 496 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 496 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 499 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 531 1\.;
 #X text 150 531 float;
 #X obj 246 532 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -65,7 +67,7 @@ https://en.wikipedia.org/wiki/R%C3%B6ssler_attractor;
 #X obj 246 652 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 651 DT: dt value (optional). Type: float.;
 #X obj 20 681 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 686 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 686 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 721 a;
 #X text 245 721 Arguments are:;
@@ -107,13 +109,13 @@ Type: int.;
 #X obj 255 1171 cnv 1 23 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1171 NZ: z value. Type: float.;
 #X obj 20 1206 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1211 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1211 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1212 1\.;
 #X text 150 1212 *bang*;
 #X text 245 1212 output value.;
 #X obj 20 1242 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1247 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1247 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1248 1\.;
 #X text 245 1248 x outlet.;

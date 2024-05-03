@@ -28,8 +28,10 @@
 #X obj 50 392 print;
 #X obj 88 421 ui.dt;
 #X obj 20 471 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 476 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 476 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 479 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 511 @mode;
 #X text 245 511 Get/Set parsing mode for incoming messages. If 'fudi'
 - interpret incoming websocket data as Pd messages \, if 'sym' - always
@@ -37,7 +39,7 @@ interpret as symbols \, 'data' - parse ceammc data \, 'json' - convert
 json values to ceammc data. Type: symbol. Default value: fudi. Allowed
 values: data \, fudi \, json \, sym.;
 #X obj 20 608 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 613 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 613 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 648 close;
 #X text 245 648 gracefully close connection (with websocket handshake).;
@@ -96,12 +98,12 @@ call [flush( method for sending. Arguments are:;
 #X obj 255 1290 cnv 1 47 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1290 [ARGS]: arguments. Type: list.;
 #X obj 20 1325 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1330 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1330 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1331 1\.;
 #X text 245 1331 message input.;
 #X obj 20 1361 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1366 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1366 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1367 1\.;
 #X text 245 1367 output messages: latency \, ping \, text \, binary

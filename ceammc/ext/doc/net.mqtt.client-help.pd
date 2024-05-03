@@ -25,8 +25,10 @@
 #X obj 232 421 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 20 471 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 476 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 476 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 479 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 511 @id;
 #X text 245 511 Get/Set client id. Type: symbol. Default value: pd_mqtt_client_0\.;
 #X msg 110 553 @mode;
@@ -41,7 +43,7 @@ data \, fudi \, json \, sym \, bytes.;
 #X msg 110 682 @retain;
 #X text 245 682 Get/Set retain flag. Type: bool. Default value: false.;
 #X obj 20 722 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 727 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 727 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 762 close;
 #X text 245 762 close MQTT connection.;
@@ -66,12 +68,12 @@ Type: symbol.;
 #X obj 255 1010 cnv 1 45 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1010 TOPIC: topic. Type: symbol.;
 #X obj 20 1045 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1050 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1050 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1051 1\.;
 #X text 245 1051 message input.;
 #X obj 20 1081 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1086 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1086 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1087 1\.;
 #X text 245 1087 output messages: topic data.;

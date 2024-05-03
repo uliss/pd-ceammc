@@ -13,8 +13,10 @@
 #X obj 338 205 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 242 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 242 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 245 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 277 1\.;
 #X text 150 277 float;
 #X obj 246 278 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -25,8 +27,10 @@
 #X text 245 297 TIME(ms): time to reach the target value. Type: float.
 Range: 50\...5000;
 #X obj 20 342 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 347 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 347 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 350 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 382 @accel;
 #X text 245 382 Get/Set acceleration factor \, 0: means linear motion
 (no acceleration) \, >0: begin fast \, then slow down \, <0: begin
@@ -49,7 +53,7 @@ slow \, then speed up. Type: float. Default value: 0\. Range: -5\...5\.;
 #X msg 110 616 @value;
 #X text 245 616 Get/Set target value. Type: float. Default value: 0\.;
 #X obj 20 656 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 661 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 661 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 662 1\.;
 #X text 150 662 *float*;
@@ -58,7 +62,7 @@ slow \, then speed up. Type: float. Default value: 0\. Range: -5\...5\.;
 #X text 150 682 *float*;
 #X text 245 682 set @value.;
 #X obj 20 712 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 717 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 717 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 718 1\.;
 #X text 245 718 float: value.;

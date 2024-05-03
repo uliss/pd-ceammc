@@ -18,15 +18,19 @@
 #X obj 338 234 ui.dsp~;
 #X obj 50 262 dac~;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 352 1\.;
 #X text 150 352 float;
 #X obj 246 353 cnv 1 108 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 352 CAPACITY(sec): max loop time. Type: float. Range: 0\...120;
 #X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 387 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 387 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 390 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 422 @array;
 #X text 245 422 Get/Set use specified array for record instead of internal
 buffer. Type: symbol.;
@@ -77,7 +81,7 @@ Units: 'sec'. Default value: 0\. Min value: 0\.;
 #X text 245 1085 (readonly) Get current state. Type: symbol. Default
 value: init. Allowed values: init \, stop \, record \, play \, overdub.;
 #X obj 20 1137 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1142 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1142 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1177 adjust;
 #X text 245 1177 increase loop length. Arguments are:;
@@ -103,12 +107,12 @@ float. Units: 'ms'.;
 #X msg 110 1456 stop;
 #X text 245 1456 stop played loop.;
 #X obj 20 1494 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1499 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1499 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1500 1\.;
 #X text 245 1500 input signal.;
 #X obj 20 1530 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1535 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1535 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1536 1\.;
 #X text 245 1536 output signal.;

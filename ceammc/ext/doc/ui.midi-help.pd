@@ -9,7 +9,7 @@
 #X obj 50 118 ui.midi;
 #X obj 50 147 ui.dt;
 #X obj 20 197 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 202 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 202 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 237 Right-click;
 #X text 285 237 open popup menu with MIDI settings item.;
@@ -24,8 +24,10 @@
 #X text 285 317 open properties dialog.;
 #X text 61 317 [Edit];
 #X obj 20 347 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 352 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 352 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 355 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 387 @cc;
 #X text 245 387 Get/Set if show control change events. Type: bool.
 Default value: 1\.;
@@ -85,7 +87,7 @@ level. Type: bool. Default value: 0\.;
 #X text 245 1122 Get/Set element size (width \, height pair). Type:
 list. Default value: 180 15\.;
 #X obj 20 1174 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1179 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1179 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1214 pos;
 #X text 245 1214 set UI element position. Arguments are:;
@@ -94,12 +96,12 @@ list. Default value: 180 15\.;
 #X obj 255 1260 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1260 Y: top right y-coord. Type: float.;
 #X obj 20 1295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1300 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1300 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1301 1\.;
 #X text 245 1301 control input.;
 #X obj 20 1331 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1336 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1336 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1337 1\.;
 #X text 245 1337 MIDI output.;

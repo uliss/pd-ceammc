@@ -9,8 +9,10 @@
 #X obj 50 147 hw.serial;
 #X obj 50 176 ui.dt;
 #X obj 20 226 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 231 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 231 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 234 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 266 1\.;
 #X text 150 266 int;
 #X obj 246 267 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -23,8 +25,10 @@
 #X text 245 316 PORT: serial device or port name \, eg.: COM3 on Windows
 \, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX. Type: symbol.;
 #X obj 20 376 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 381 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 381 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 384 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 416 @port;
 #X text 245 416 Get/Set name of serial port \, eg.: COM3 on Windows
 \, /dev/ttyACM0 on Linux and /dev/cu.usbmodem411 on MacOSX. Type: symbol.;
@@ -37,14 +41,14 @@
 #X text 245 530 (readonly) Get list of found serial devices. Type:
 list.;
 #X obj 20 570 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 575 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 575 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 610 close;
 #X text 245 610 disconnect from device.;
 #X msg 110 638 open;
 #X text 245 638 connect to device.;
 #X obj 20 676 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 681 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 681 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 682 1\.;
 #X text 150 682 *float*;
@@ -53,7 +57,7 @@ list.;
 #X text 245 702 sends list of floats in byte range [0-255] to serial
 port.;
 #X obj 20 732 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 737 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 737 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 738 1\.;
 #X text 245 738 outputs received byte from serial port.;

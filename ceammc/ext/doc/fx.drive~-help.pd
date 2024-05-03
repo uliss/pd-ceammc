@@ -15,15 +15,19 @@
 #X obj 280 291 ui.dsp~;
 #X obj 50 320 dac~;
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 410 1\.;
 #X text 150 410 float;
 #X obj 246 411 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 410 DRIVE: drive coefficient. Type: float. Range: 1\...10;
 #X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 445 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 445 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 448 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 480 @id;
 #X text 245 480 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_drive/PROP_NAME osc address \, if empty
@@ -41,17 +45,17 @@ Type: bool. Default value: 0\.;
 #X text 245 639 Get/Set drive coefficient. Type: float. Default value:
 1\. Range: 1\...10\.;
 #X obj 20 691 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 696 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 696 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 731 reset;
 #X text 245 731 reset object.;
 #X obj 20 769 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 774 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 774 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 775 1\.;
 #X text 245 775 input signal.;
 #X obj 20 805 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 810 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 810 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 811 1\.;
 #X text 245 811 output.;

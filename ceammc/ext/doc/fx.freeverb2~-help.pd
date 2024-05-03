@@ -27,8 +27,10 @@ Schroeder-Moorer filtered-feedback comb-filters for each audio channel
 #X obj 280 434 ui.dsp~;
 #X obj 50 463 dac~;
 #X obj 20 513 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 518 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 518 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 521 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 553 1\.;
 #X text 150 553 float;
 #X obj 246 554 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -39,8 +41,10 @@ Schroeder-Moorer filtered-feedback comb-filters for each audio channel
 #X text 245 573 DRYWET: proportion of mix between the original (dry)
 and 'effected' (wet) signals. Type: float. Range: 0\...1;
 #X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 623 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 623 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 626 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 658 @id;
 #X text 245 658 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_freeverb2/PROP_NAME osc address \, if
@@ -80,19 +84,19 @@ Range: 0\...1\.;
 #X text 245 1126 Get/Set spatial spread between 0 and 1 with 1 for
 maximum spread. Type: float. Default value: 0.5\. Range: 0\...1\.;
 #X obj 20 1178 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1183 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1183 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1218 reset;
 #X text 245 1218 reset reverb.;
 #X obj 20 1256 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1261 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1261 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1262 1\.;
 #X text 245 1262 left channel.;
 #X text 110 1282 2\.;
 #X text 245 1282 right channel.;
 #X obj 20 1312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1317 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1317 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1318 1\.;
 #X text 245 1318 output left.;

@@ -13,20 +13,24 @@
 #X obj 280 201 ui.dsp~;
 #X obj 50 230 dac~;
 #X obj 20 280 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 285 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 285 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 288 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 320 1\.;
 #X text 150 320 float;
 #X obj 246 321 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 320 FREQ(Hz): frequency. Type: float. Min value: 20;
 #X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 355 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 355 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 358 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 390 @active;
 #X text 245 390 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
 #X obj 20 430 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 435 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 435 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 436 1\.;
 #X text 245 436 frequency in Hz.;
@@ -34,7 +38,7 @@
 #X text 150 456 *bang*;
 #X text 245 456 reset phase.;
 #X obj 20 486 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 491 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 491 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 492 1\.;
 #X text 245 492 output signal.;

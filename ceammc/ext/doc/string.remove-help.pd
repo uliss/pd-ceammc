@@ -20,15 +20,19 @@
 #X obj 530 176 str.remove "123" @last;
 #X obj 261 234 ui.dt;
 #X obj 20 284 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 289 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 289 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 292 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 324 1\.;
 #X text 150 324 symbol;
 #X obj 246 325 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 324 STR: substring to remove. Type: symbol.;
 #X obj 20 354 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 359 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 359 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 362 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 394 @all;
 #X text 245 394 alias to @mode all - remove all occurences in input
 string.;
@@ -44,14 +48,14 @@ Allowed values: all \, first \, last.;
 #X msg 110 538 @str;
 #X text 245 538 Get/Set removed string. Type: symbol.;
 #X obj 20 578 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 583 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 583 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 584 1\.;
 #X text 245 584 input string or symbol.;
 #X text 110 604 2\.;
 #X text 245 604 set removed string or symbol.;
 #X obj 20 634 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 639 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 639 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 640 1\.;
 #X text 245 640 output string.;

@@ -13,15 +13,19 @@
 #X obj 50 234 ui.n~;
 #X obj 50 262 ui.dsp~;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 352 1\.;
 #X text 150 352 float;
 #X obj 246 353 cnv 1 85 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 352 PERIOD(ms): averaging frame. Type: float. Range: 1\...1000;
 #X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 387 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 387 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 390 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 422 @id;
 #X text 245 422 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/an_rms/PROP_NAME osc address \, if empty
@@ -36,17 +40,17 @@ symbol.;
 #X text 245 539 Get/Set averaging frame. Type: float. Units: 'ms'.
 Default value: 200\. Range: 1\...1000\.;
 #X obj 20 591 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 596 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 596 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 631 reset;
 #X text 245 631 clear averaging data.;
 #X obj 20 669 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 674 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 674 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 675 1\.;
 #X text 245 675 input signal.;
 #X obj 20 705 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 710 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 710 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 711 1\.;
 #X text 245 711 rms level.;

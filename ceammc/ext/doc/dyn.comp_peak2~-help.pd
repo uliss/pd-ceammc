@@ -27,8 +27,10 @@ https://en.wikipedia.org/wiki/Dynamic_range_compression;
 #X floatatom 50 428 5 0 0 0 - - -;
 #X obj 261 428 ui.hsl @active_scale 1 @show_value 1;
 #X obj 20 478 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 483 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 483 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 486 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 518 1\.;
 #X text 150 518 float;
 #X obj 246 519 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -51,8 +53,10 @@ kicks in. Type: float. Range: -60\...0;
 #X text 245 638 RELEASE(ms): release time = time constant coming out
 of compression. Type: float. Range: 1\...500;
 #X obj 20 683 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 688 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 688 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 691 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 723 @id;
 #X text 245 723 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/dyn_comp_peak2/PROP_NAME osc address \,
@@ -105,12 +109,12 @@ channel. Type: float. Default value: 0\. Range: 0\...1\.;
 #X text 245 1441 (readonly) Get current level of compression of second
 channel. Type: float. Default value: 0\. Range: 0\...1\.;
 #X obj 20 1493 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1498 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1498 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1533 reset;
 #X text 245 1533 reset to initial state.;
 #X obj 20 1571 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1576 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1576 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1577 1\.;
 #X text 245 1577 left input signal.;
@@ -120,7 +124,7 @@ channel. Type: float. Default value: 0\. Range: 0\...1\.;
 #X text 150 1617 *float*;
 #X text 245 1617 set compression strength.;
 #X obj 20 1647 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1652 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1652 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1653 1\.;
 #X text 245 1653 left compressed signal.;

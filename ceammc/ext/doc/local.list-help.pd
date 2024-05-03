@@ -19,13 +19,15 @@ name and available only within its patch (canvas).;
 #X obj 309 245 ui.dt;
 #X obj 50 274 local.list.nonlocal;
 #X obj 20 324 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 329 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 329 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 364 Left-click;
 #X text 285 364 open data editor.;
 #X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 399 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 399 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 402 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 434 1\.;
 #X text 150 434 symbol;
 #X obj 246 435 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -35,8 +37,10 @@ name and available only within its patch (canvas).;
 #X obj 246 455 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 454 VALUE: initial values. Type: list.;
 #X obj 20 484 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 489 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 489 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 492 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 524 @id;
 #X text 245 524 (initonly) Get/Set local variable id. Type: symbol.
 Default value: default.;
@@ -49,7 +53,7 @@ Type: bool. Default value: 1\.;
 #X text 245 638 (readonly) Get number of elements in list. Type: int.
 Default value: 0\. Min value: 0\.;
 #X obj 20 690 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 695 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 695 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 730 append;
 #X text 245 730 adds values to the end of the list. Arguments are:;
@@ -102,7 +106,7 @@ are:;
 #X msg 110 1328 dump;
 #X text 245 1328 dump object info to Pd window.;
 #X obj 20 1366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1371 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1371 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1372 1\.;
 #X text 150 1372 *bang*;
@@ -117,7 +121,7 @@ indexes are supported.;
 #X text 150 1467 *data:mlist*;
 #X text 245 1467 same as list.;
 #X obj 20 1497 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1502 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1502 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1503 1\.;
 #X text 245 1503 list output.;

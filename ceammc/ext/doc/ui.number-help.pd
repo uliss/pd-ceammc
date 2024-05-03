@@ -29,8 +29,10 @@ input \, BACKSPACE removes last character.;
 #X obj 50 344 ui.number @size 200 40;
 #X floatatom 50 415 5 0 0 0 - - -;
 #X obj 20 447 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 452 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 452 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 455 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 487 @digits;
 #X text 245 487 Get/Set number of digits. If -1 - no fixed digits used.
 Type: int. Default value: -1\. Range: -1\...9\.;
@@ -87,7 +89,7 @@ symbol. Default value: (null).;
 #X text 245 1198 Get/Set element size (width \, height pair). Type:
 list. Default value: 53 15\.;
 #X obj 20 1250 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1255 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1255 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1290 clear;
 #X text 245 1290 clears specified preset. Arguments are:;
@@ -137,7 +139,7 @@ are:;
 #X obj 255 1824 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1824 V: denominator value. Type: float.;
 #X obj 20 1859 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1864 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1864 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1865 1\.;
 #X text 150 1865 *bang*;
@@ -147,7 +149,7 @@ are:;
 #X text 150 1905 *list*;
 #X text 245 1905 first element converted to float.;
 #X obj 20 1935 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1940 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1940 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1941 1\.;
 #X text 245 1941 number value.;

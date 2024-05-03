@@ -9,26 +9,30 @@
 #X obj 50 162 list.repack 4;
 #X obj 50 190 print;
 #X obj 20 240 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 245 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 245 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 248 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 280 1\.;
 #X text 150 280 int;
 #X obj 246 281 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 280 SIZE: output list size. Type: int. Range: 1\...1024;
 #X obj 20 310 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 315 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 315 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 318 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 350 @size;
 #X text 245 350 Get/Set output list size. Type: int. Default value:
 1\. Range: 1\...1024\.;
 #X obj 20 402 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 407 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 407 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 408 1\.;
 #X text 150 408 *list*;
 #X text 245 408 input list.;
 #X obj 20 438 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 443 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 443 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 444 1\.;
 #X text 245 444 output list.;

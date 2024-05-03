@@ -32,8 +32,10 @@ This class implements simulations of breaking sticks \, crunchy snow
 #X obj 290 564 ui.dsp~;
 #X obj 50 592 dac~;
 #X obj 20 642 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 647 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 647 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 650 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 682 @gate;
 #X text 245 682 Get/Set synth gate (>0 - play). Type: float. Default
 value: 0\. Range: 0\...1\.;
@@ -50,7 +52,7 @@ value: maraca cabasa sekere tambourine sleigh_bells bamboo_chimes sand_paper
 coke_can sticks crunch big_rocks little_rocks next_mug penny_mug nickle_mug
 dime_mug quarter_mug franc_mug peso_mug guiro wrench water_drops tuned_bamboo_chimes.;
 #X obj 20 940 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 945 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 945 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 980 cc;
 #X text 245 980 Control change. Arguments are:;
@@ -59,12 +61,12 @@ dime_mug quarter_mug franc_mug peso_mug guiro wrench water_drops tuned_bamboo_ch
 #X obj 255 1026 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1026 VAL: value. Type: float.;
 #X obj 20 1061 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1066 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1066 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1067 1\.;
 #X text 245 1067 control inlet.;
 #X obj 20 1097 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1102 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1102 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1103 1\.;
 #X text 245 1103;

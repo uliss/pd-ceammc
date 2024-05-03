@@ -19,8 +19,10 @@
 #X obj 194 287 ui.dsp~;
 #X obj 50 316 dac~;
 #X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 371 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 371 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 374 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 406 1\.;
 #X text 150 406 float;
 #X obj 246 407 cnv 1 109 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -42,8 +44,10 @@ signal level < threshold. Type: float. Range: 1\...500;
 #X text 245 511 RELEASE(ms): release time = time constant (ms) for
 gate to close. Type: float. Range: 1\...500;
 #X obj 20 556 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 561 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 561 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 564 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 596 @id;
 #X text 245 596 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/dyn_gate2/PROP_NAME osc address \, if empty
@@ -71,12 +75,12 @@ to close. Type: float. Units: 'ms'. Default value: 20\. Range: 1\...500\.;
 #X text 245 926 Get/Set dB level threshold above which gate opens.
 Type: float. Units: 'db'. Default value: -60\. Range: -90\...0\.;
 #X obj 20 978 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 983 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 983 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1018 reset;
 #X text 245 1018 reset to initial state.;
 #X obj 20 1056 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1061 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1061 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1062 1\.;
 #X text 245 1062 left input signal.;
@@ -86,7 +90,7 @@ Type: float. Units: 'db'. Default value: -60\. Range: -90\...0\.;
 #X text 150 1102 *float*;
 #X text 245 1102 set threshold.;
 #X obj 20 1132 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1137 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1137 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1138 1\.;
 #X text 245 1138 left output signal.;

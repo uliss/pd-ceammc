@@ -23,7 +23,7 @@ of x.;
 #X obj 50 276 math.tanh;
 #X obj 50 305 list->array TANH;
 #X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 360 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 360 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 361 1\.;
 #X text 150 361 *float*;
@@ -31,7 +31,7 @@ of x.;
 #X text 150 381 *list*;
 #X text 245 381 apply to all numeric values.;
 #X obj 20 411 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 416 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 416 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 417 1\.;
 #X text 245 417 result value.;

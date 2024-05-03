@@ -32,8 +32,10 @@ your ears.;
 #X obj 50 674 xdac~ 1:16, f 30;
 #X obj 50 703 ui.dsp~;
 #X obj 20 753 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 758 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 758 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 761 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 793 1\.;
 #X text 150 793 int;
 #X obj 246 794 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -45,8 +47,10 @@ your ears.;
 #X text 245 813 MODE: optimization mode. Allowed values: basic \, maxre
 \, inphase. Type: symbol.;
 #X obj 20 858 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 863 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 863 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 866 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 898 @order;
 #X text 245 898 (initonly) Get/Set the order of decomposition. Type:
 int. Default value: 1\. Range: 1\...10\.;
@@ -60,7 +64,7 @@ int. Default value: 1\. Range: 1\...10\.;
 #X text 245 1030 Get/Set optimization mode. Type: symbol. Default value:
 basic. Allowed values: basic \, maxre \, inphase.;
 #X obj 20 1082 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1087 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1087 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1088 1\.;
 #X text 245 1088 first input harmonic.;
@@ -69,7 +73,7 @@ basic. Allowed values: basic \, maxre \, inphase.;
 #X text 110 1128 n.;
 #X text 245 1128 n-th input harmonic.;
 #X obj 20 1158 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1163 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1163 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1164 1\.;
 #X text 245 1164 first harmonic output.;

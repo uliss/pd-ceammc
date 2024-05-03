@@ -24,8 +24,10 @@ time;
 #X obj 50 431 dac~;
 #X obj 50 460 flow.space.done;
 #X obj 20 510 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 515 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 515 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 518 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 550 1\.;
 #X text 150 550 float;
 #X obj 246 551 cnv 1 78 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -37,8 +39,10 @@ Min value: 1;
 #X text 245 585 DONE: time space = N*space after last outputted message.
 Type: int. Min value: 0;
 #X obj 20 630 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 635 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 635 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 638 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 670 @delay;
 #X text 245 670 Get/Set time-space between messages. Type: float. Units:
 'ms'. Default value: 1\. Min value: 1\.;
@@ -50,7 +54,7 @@ Type: int. Min value: 0;
 message. After that delay output bang to second outlet. Type: int.
 Default value: 1\. Min value: 0\.;
 #X obj 20 821 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 826 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 826 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 827 1\.;
 #X text 245 827 messages.;
@@ -62,7 +66,7 @@ queue.;
 #X text 245 887 @delay: set @delay property.;
 #X text 245 907 @done: set @done property.;
 #X obj 20 937 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 942 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 942 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 943 1\.;
 #X text 245 943 output.;

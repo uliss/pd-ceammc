@@ -15,8 +15,10 @@
 1 @ymin_ticks 0 @xmin_ticks 0 @yauto 1;
 #X obj 50 389 ui.dsp~;
 #X obj 20 439 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 444 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 444 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 447 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 479 1\.;
 #X text 150 479 float;
 #X obj 246 480 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -35,8 +37,10 @@ Type: atom.;
 #X obj 246 540 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 539 N: @n property. Type: int. Range: 4\...1024;
 #X obj 20 569 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 574 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 574 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 577 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 609 @10;
 #X text 245 609 Get/Set alias to @base 10\. Type: atom.;
 #X msg 110 639 @2;
@@ -61,7 +65,7 @@ Type: float. Default value: 0\.;
 over the interval in log-space \, of which all but the last (a sequence
 of length @n) are returned. Type: float. Default value: 2\.;
 #X obj 20 964 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 969 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 969 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 970 1\.;
 #X text 150 970 *bang*;
@@ -70,7 +74,7 @@ of length @n) are returned. Type: float. Default value: 2\.;
 #X text 245 990 output specified number of values \, change @n property
 valuue.;
 #X obj 20 1020 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1025 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1025 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1026 1\.;
 #X text 245 1026 signal output.;

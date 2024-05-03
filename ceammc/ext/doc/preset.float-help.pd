@@ -18,13 +18,15 @@ float values;
 #X obj 50 288 ui.preset @size 102 42;
 #X text 165 288 Shift+click to store preset;
 #X obj 20 338 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 343 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 343 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 378 Left-click;
 #X text 285 378 open preset editor.;
 #X obj 20 408 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 413 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 413 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 416 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 448 1\.;
 #X text 150 448 symbol;
 #X obj 246 449 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -35,8 +37,10 @@ Type: symbol.;
 #X obj 246 484 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 483 INIT: preset initial value. Type: float.;
 #X obj 20 513 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 518 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 518 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 521 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 553 @global;
 #X text 245 553 use global path like /ID. Default value: 0\.;
 #X msg 110 583 @id;
@@ -51,7 +55,7 @@ value: 0\.;
 id \, abstraction name and may be subpatch name separated by slashes.
 Type: symbol.;
 #X obj 20 752 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 757 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 757 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 792 clear;
 #X text 245 792 clear preset at specified index.;
@@ -62,13 +66,13 @@ Type: symbol.;
 #X msg 110 876 store;
 #X text 245 876 stores preset value at specified index.;
 #X obj 20 914 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 919 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 919 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 920 1\.;
 #X text 150 920 *float*;
 #X text 245 920 set preset value without output.;
 #X obj 20 950 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 955 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 955 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 956 1\.;
 #X text 245 956 preset float value.;

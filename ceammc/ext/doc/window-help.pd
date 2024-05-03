@@ -42,8 +42,10 @@
 #X coords 0 1 512 0 137 18 1;
 #X restore 50 305 graph;
 #X obj 20 355 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 360 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 360 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 363 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 395 1\.;
 #X text 150 395 symbol;
 #X obj 246 396 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -55,8 +57,10 @@ Type: symbol.;
 #X obj 246 431 cnv 1 85 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 430 SIZE(samp): window size. Type: int. Min value: 16;
 #X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 465 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 465 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 468 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 500 @type;
 #X text 245 500 Get/Set window type. See argument description. Type:
 symbol. Default value: hann.;
@@ -64,7 +68,7 @@ symbol. Default value: hann.;
 #X text 245 542 Get/Set window size. Type: int. Units: 'samp'. Default
 value: 512\. Min value: 16\.;
 #X obj 20 594 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 599 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 599 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 634 blackman;
 #X text 245 634 Sets Blackman window type.;
@@ -89,7 +93,7 @@ value: 512\. Min value: 16\.;
 #X msg 110 914 welch;
 #X text 245 914 Sets Welch window type.;
 #X obj 20 952 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 957 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 957 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 958 1\.;
 #X text 150 958 *bang*;
@@ -101,7 +105,7 @@ if invalid index given.;
 #X text 245 1013 pair INDEX SIZE expected. Sets windows size to SIZE.
 Output window value at given index.;
 #X obj 20 1058 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1063 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1063 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1064 1\.;
 #X text 245 1064 sample number.;

@@ -28,8 +28,10 @@ https://ccrma.stanford.edu/~dattorro/EffectDesignPart1.pdf;
 #X obj 280 413 ui.dsp~;
 #X obj 50 442 dac~;
 #X obj 20 492 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 497 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 497 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 500 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 532 1\.;
 #X text 150 532 float;
 #X obj 246 533 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -41,8 +43,10 @@ Range: 0\...1;
 #X text 245 567 DRYWET: proportion of mix between the original (dry)
 and 'effected' (wet) signals. Type: float. Range: 0\...1;
 #X obj 20 612 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 617 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 617 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 620 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 652 @id;
 #X text 245 652 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_dattorro/PROP_NAME osc address \, if
@@ -86,19 +90,19 @@ value: 0.75\. Range: 0\...1\.;
 values will provide the impression of a larger room. Type: float. Units:
 'ms'. Default value: 40\. Range: 0\...100\.;
 #X obj 20 1229 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1234 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1234 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1269 reset;
 #X text 245 1269 reset reverb.;
 #X obj 20 1307 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1312 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1312 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1313 1\.;
 #X text 245 1313 left channel.;
 #X text 110 1333 2\.;
 #X text 245 1333 right channel.;
 #X obj 20 1363 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1368 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1368 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1369 1\.;
 #X text 245 1369 output left.;

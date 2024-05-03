@@ -22,8 +22,10 @@ specflux kl mkl;
 -1;
 #X floatatom 136 340 10 0 0 0 - - -;
 #X obj 20 372 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 377 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 377 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 380 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 412 1\.;
 #X text 150 412 int;
 #X obj 246 413 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -41,8 +43,10 @@ specflux kl mkl;
 #X text 245 497 HS(samp): hop size (by default buffer_size/2). Type:
 int. Min value: 0;
 #X obj 20 542 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 547 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 547 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 550 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 582 @bs;
 #X text 245 582 (initonly) Get/Set buffer size. Type: int. Units: 'samp'.
 Default value: 1024\. Min value: 64\.;
@@ -104,17 +108,17 @@ value: 0.058\.;
 #X text 245 1347 alias to @method phase. Weighted Phase Deviation onset
 detection function.;
 #X obj 20 1399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1404 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1404 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1439 reset;
 #X text 245 1439 reset onset last frame and total frames counters.;
 #X obj 20 1477 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1482 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1482 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1483 1\.;
 #X text 245 1483 input signal.;
 #X obj 20 1513 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1518 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1518 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1519 1\.;
 #X text 245 1519 bang if onset detected.;

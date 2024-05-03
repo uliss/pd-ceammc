@@ -23,16 +23,20 @@ Normalized AutoCorrelation function (SNAC);
 #X floatatom 50 302 5 0 0 0 - - -;
 #X floatatom 117 302 5 0 0 0 - - -;
 #X obj 20 334 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 339 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 339 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 342 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 374 1\.;
 #X text 150 374 int;
 #X obj 246 375 cnv 1 123 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 374 FRAMESIZE(samp): frame size in samples. Allowed values:
 128 \, 256 \, 512 \, 1024 \, 2048\. Type: int.;
 #X obj 20 419 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 424 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 424 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 427 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 459 @bias;
 #X text 245 459 Get/Set bias which favours small lags over large lags
 in the period detection \, thereby avoiding low-octave jumps. Type:
@@ -51,12 +55,12 @@ Default value: 1024\. Allowed values: 128 \, 256 \, 512 \, 1024 \,
 #X text 245 657 Get/Set overlap of analysis frames. Type: int. Default
 value: 1\. Allowed values: 1 \, 2 \, 4 \, 8\.;
 #X obj 20 709 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 714 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 714 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 715 1\.;
 #X text 245 715 input signal.;
 #X obj 20 745 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 750 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 750 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 751 1\.;
 #X text 245 751 output signal.;

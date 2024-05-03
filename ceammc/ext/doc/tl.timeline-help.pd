@@ -45,16 +45,20 @@ last user event);
 #X obj 290 543 sec->str @symbol @ms;
 #X symbolatom 290 571 15 0 0 0 - - -;
 #X obj 20 603 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 608 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 608 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 611 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 643 1\.;
 #X text 150 643 float;
 #X obj 246 644 cnv 1 93 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 643 LENGTH(sec): timeline length. Type: float. Min value:
 0;
 #X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 678 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 678 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 681 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 713 @length;
 #X text 245 713 (initonly) Get/Set timeline length. Type: float. Units:
 'sec'. Default value: 60\. Min value: 0\.;
@@ -84,7 +88,7 @@ float. Default value: 0\. Range: 0\...1\.;
 #X text 245 1082 (readonly) Get number of events in timeline. Type:
 int. Default value: 1\. Min value: 0\.;
 #X obj 20 1134 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1139 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1139 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1174 add;
 #X text 245 1174 add event to timeline. You can use simple syntax like
@@ -130,14 +134,14 @@ Type: list.;
 #X text 255 1688 [TIME]: time in supported format. See *info* section.
 Type: list.;
 #X obj 20 1738 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1743 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1743 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1744 1\.;
 #X text 150 1744 *float*;
 #X text 245 1744 control inlet. Non-zero value starts timeline \, zero
 - stops.;
 #X obj 20 1774 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1779 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1779 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1780 1\.;
 #X text 245 1780 list: event index \, event name \, current event time.;

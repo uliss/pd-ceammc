@@ -42,27 +42,31 @@
 #X obj 50 533 dac~;
 #X obj 299 533 ui.dsp~;
 #X obj 20 583 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 588 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 588 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 591 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 623 1\.;
 #X text 150 623 symbol;
 #X obj 246 624 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 623 ARRAY: array name. Type: symbol.;
 #X obj 20 653 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 658 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 658 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 661 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 693 @array;
 #X text 245 693 Get/Set array name. Type: symbol.;
 #X msg 110 723 @mix;
 #X text 245 723 Get/Set mix amount between read signal and written.
 Type: float. Default value: 0\. Range: 0\...1\.;
 #X obj 20 775 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 780 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 780 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 815 redraw;
 #X text 245 815 redraw array.;
 #X obj 20 853 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 858 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 858 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 859 1\.;
 #X text 245 859 reading index.;
@@ -71,7 +75,7 @@ Type: float. Default value: 0\. Range: 0\...1\.;
 #X text 110 899 3\.;
 #X text 245 899 write index.;
 #X obj 20 929 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 934 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 934 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 935 1\.;
 #X text 245 935 output.;

@@ -20,19 +20,23 @@
 #X obj 50 219 string;
 #X obj 50 248 ui.dt;
 #X obj 20 298 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 303 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 303 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 306 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 338 1\.;
 #X text 150 338 symbol;
 #X obj 246 339 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 338 VALUE: initial string. Type: symbol.;
 #X obj 20 368 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 373 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 373 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 376 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 408 @value;
 #X text 245 408 Get/Set string value. Type: list.;
 #X obj 20 448 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 453 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 453 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 488 append;
 #X text 245 488 append values to the end of string.;
@@ -41,7 +45,7 @@
 #X msg 110 544 set;
 #X text 245 544 set string content without output.;
 #X obj 20 582 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 587 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 587 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 588 1\.;
 #X text 150 588 *bang*;
@@ -54,7 +58,7 @@
 #X text 245 648 convert list to string (separated with spaces) and
 outputs value.;
 #X obj 20 693 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 698 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 698 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 699 1\.;
 #X text 245 699 string data.;

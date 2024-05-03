@@ -21,15 +21,19 @@
 #X obj 50 277 array.set aset;
 #X obj 251 277 array.set aset @normalize;
 #X obj 20 327 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 332 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 332 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 335 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 367 1\.;
 #X text 150 367 symbol;
 #X obj 246 368 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 367 ARRAY: array name. Type: symbol.;
 #X obj 20 397 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 402 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 402 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 405 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 437 @normalize;
 #X text 245 437 scale input values to fit them in [0 \, 1] range. Default
 value: 0\.;
@@ -39,7 +43,7 @@ value: 0\.;
 #X text 245 509 Get/Set redraw array view. Type: bool. Default value:
 1\.;
 #X obj 20 549 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 554 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 554 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 555 1\.;
 #X text 150 555 *list*;

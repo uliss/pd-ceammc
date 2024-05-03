@@ -17,8 +17,10 @@
 #X text 242 230 40 <= x <= 60;
 #X floatatom 50 259 5 0 0 0 - - -;
 #X obj 20 291 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 296 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 296 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 299 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 331 1\.;
 #X text 150 331 float;
 #X obj 246 332 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -28,8 +30,10 @@
 #X obj 246 352 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 351 EPSILON: compare epsilon. Type: float.;
 #X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 386 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 386 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 389 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 421 @epsilon;
 #X text 245 421 Get/Set compare epsilon. Type: float. Default value:
 0.01\.;
@@ -37,7 +41,7 @@
 #X text 245 451 Get/Set compare pattern. Type: float. Default value:
 0\.;
 #X obj 20 491 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 496 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 496 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 497 1\.;
 #X text 150 497 *float*;
@@ -51,7 +55,7 @@
 #X text 150 557 *float*;
 #X text 245 557 epsilon.;
 #X obj 20 587 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 592 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 592 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 593 1\.;
 #X text 245 593 output 1 if input value is approximately equal to pattern

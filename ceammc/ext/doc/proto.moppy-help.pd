@@ -19,8 +19,10 @@ https://github.com/Sammy1Am/Moppy2;
 #X msg 232 315 dump;
 #X obj 50 344 hw.arduino @rate 57600;
 #X obj 20 394 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 399 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 399 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 402 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 434 @device;
 #X text 245 434 Get/Set moppy device ID. Type: int. Default value:
 1\. Range: 1\...255\.;
@@ -31,7 +33,7 @@ value: 1\. Range: 1\...16\.;
 #X text 245 518 Get/Set MOPPY protocol version. Type: int. Default
 value: 2\. Allowed values: 2 \, 1\.;
 #X obj 20 570 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 575 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 575 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 610 bend:f;
 #X text 245 610 note pitchbend. Arguments are:;
@@ -79,12 +81,12 @@ Type: int.;
 #X obj 255 1149 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1149 [all]: reset all devices. Type: symbol.;
 #X obj 20 1184 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1189 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1189 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1190 1\.;
 #X text 245 1190 commands.;
 #X obj 20 1220 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1225 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1225 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1226 1\.;
 #X text 245 1226 list: output to moppy.;

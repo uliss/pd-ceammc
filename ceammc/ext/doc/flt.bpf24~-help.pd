@@ -30,8 +30,10 @@ https://en.wikipedia.org/wiki/Butterworth_filter;
 @ymin_ticks 0 @ymaj_ticks 0 @n 2 @size 400 200;
 #X obj 50 654 ui.dsp~;
 #X obj 20 704 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 709 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 709 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 712 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 744 1\.;
 #X text 150 744 float;
 #X obj 246 745 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -42,8 +44,10 @@ https://en.wikipedia.org/wiki/Butterworth_filter;
 #X text 245 764 Q: quality factory: @freq/BANDWIDTH. Type: float. Range:
 0.01\...100;
 #X obj 20 809 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 814 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 814 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 817 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 849 @id;
 #X text 245 849 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/flt_bpf24/PROP_NAME osc address \, if empty
@@ -61,12 +65,12 @@ Default value: 1000\. Range: 20\...20000\.;
 #X text 245 1008 Get/Set quality factor: @freq/BANDWIDTH. Type: float.
 Default value: 2\. Range: 0.01\...100\.;
 #X obj 20 1060 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1065 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1065 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1100 reset;
 #X text 245 1100 reset filter state.;
 #X obj 20 1138 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1143 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1143 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1144 1\.;
 #X text 245 1144 input signal.;
@@ -75,7 +79,7 @@ Default value: 2\. Range: 0.01\...100\.;
 #X text 110 1184 3\.;
 #X text 245 1184 set Q-factor.;
 #X obj 20 1214 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1219 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1219 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1220 1\.;
 #X text 245 1220 filtered signal.;

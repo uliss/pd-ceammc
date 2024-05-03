@@ -19,8 +19,10 @@
 #X obj 50 234 canvas.current;
 #X obj 50 262 ui.display @display_type 1;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 317 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 352 @abstraction?;
 #X text 245 352 (readonly) Get 1 if canvas is abstraction. Type: bool.
 Default value: 1\.;
@@ -57,14 +59,14 @@ value: 10\.;
 return window size \, if subpatch return Graph on Parent size. Type:
 list. Default value: 600 400\.;
 #X obj 20 857 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 862 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 862 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 863 1\.;
 #X text 245 863 property request.;
 #X text 150 883 *bang*;
 #X text 245 883 output dict with all properties.;
 #X obj 20 913 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 918 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 918 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 919 1\.;
 #X text 245 919 dict or property output.;

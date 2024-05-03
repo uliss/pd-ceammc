@@ -31,14 +31,16 @@ props \, but using internal pd method calls;
 #X obj 50 512 prop.set @p1;
 #X obj 50 541 prop.set.patch;
 #X obj 20 591 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 596 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 596 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 599 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 631 1\.;
 #X text 150 631 list;
 #X obj 246 632 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 631 PROPS: property names. Type: list.;
 #X obj 20 661 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 666 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 666 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 667 1\.;
 #X text 245 667 first property value.;
@@ -47,7 +49,7 @@ props \, but using internal pd method calls;
 #X text 110 707 n.;
 #X text 245 707 n-th property value.;
 #X obj 20 737 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 742 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 742 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 743 1\.;
 #X text 245 743 outputs nothing. connect to destination object(s).;

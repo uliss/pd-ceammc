@@ -17,15 +17,19 @@
 #X msg 222 259 main_gain \$1;
 #X obj 50 302 hw.motu.avb;
 #X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 357 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 357 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 360 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 392 1\.;
 #X text 150 392 symbol;
 #X obj 246 393 cnv 1 32 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 392 DEV: Motu device id. Type: symbol.;
 #X obj 20 422 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 427 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 427 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 430 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 462 @dev;
 #X text 245 462 Get/Set Motu device id. Type: symbol.;
 #X msg 110 492 @host;
@@ -34,7 +38,7 @@ localhost.;
 #X msg 110 534 @port;
 #X text 245 534 Get/Set Motu HTTP port. Type: int. Default value: 1280\.;
 #X obj 20 574 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 579 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 579 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 614 comp_input_name;
 #X text 245 614 set input from computer channel name. Arguments are:;
@@ -236,12 +240,12 @@ Units: 'db'.;
 #X text 255 2833 DB: value in decibel. Type: float. Range: -127\...0\.
 Units: 'db'.;
 #X obj 20 2883 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2888 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 2888 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2889 1\.;
 #X text 245 2889 input.;
 #X obj 20 2919 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2924 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 2924 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2925 1\.;
 #X text 245 2925 properties output.;

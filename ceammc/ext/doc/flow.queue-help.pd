@@ -19,8 +19,10 @@
 #X obj 50 349 ui.hgain2~;
 #X obj 50 378 dac~;
 #X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 433 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 433 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 436 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 468 1\.;
 #X text 150 468 int;
 #X obj 246 469 cnv 1 71 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -30,8 +32,10 @@
 #X obj 246 489 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 488 N: number of lines. Type: int. Range: 1\...32;
 #X obj 20 518 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 523 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 523 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 526 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 558 @auto_pop;
 #X text 245 558 Get/Set auto pop mode. If true automatically pops oldest
 elements when queue is full. Type: bool. Default value: 0\.;
@@ -39,7 +43,7 @@ elements when queue is full. Type: bool. Default value: 0\.;
 #X text 245 600 Get/Set max queue size. Type: int. Default value: 32\.
 Range: 1\...1024\.;
 #X obj 20 652 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 657 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 657 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 658 1\.;
 #X text 150 658 *any*;
@@ -57,7 +61,7 @@ output all element from all queues \, flush: output and clear all element
 from all queues \, bang or pop: output and remove first message in
 all queues.;
 #X obj 20 793 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 798 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 798 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 799 1\.;
 #X text 245 799 1st queue output.;

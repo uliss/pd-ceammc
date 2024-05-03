@@ -10,13 +10,15 @@
 #X obj 242 118 xdac~ 1:3 5 7:12;
 #X obj 50 147 xdac~.map;
 #X obj 20 197 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 202 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 202 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 237 Left-click;
 #X text 285 237 opens audio properties dialog.;
 #X obj 20 267 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 272 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 272 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 275 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 307 1\.;
 #X text 150 307 list;
 #X obj 246 308 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -24,13 +26,15 @@
 or X:Y range \, that means from X channel to Y (including last one).
 If not specified - using 1 and 2 out channels. Type: list.;
 #X obj 20 367 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 372 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 372 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 375 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 407 @channels;
 #X text 245 407 Get/Set list of mapped channels. Type: list. Default
 value: 1 2\.;
 #X obj 20 459 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 464 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 464 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 499 reverse;
 #X text 245 499 reverse output channels order.;
@@ -45,7 +49,7 @@ int.;
 #X msg 110 603 side2circle;
 #X text 245 603 map left/right side pairs to counter clockwise layout.;
 #X obj 20 641 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 646 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 646 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 647 1\.;
 #X text 245 647 first specified channel.;
@@ -54,7 +58,7 @@ int.;
 #X text 110 687 n.;
 #X text 245 687 n-th specified channel.;
 #X obj 20 717 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 722 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 722 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

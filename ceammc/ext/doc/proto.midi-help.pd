@@ -16,7 +16,7 @@
 #X obj 146 248 ui.dt;
 #X obj 50 277 print MIDI;
 #X obj 20 327 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 332 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 332 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 367 activesense;
 #X text 245 367 send Active Sense realtime message (0xFE).;
@@ -132,7 +132,7 @@ messages (0xF1). Arguments are:;
 #X msg 110 1730 tunerequest;
 #X text 245 1730 send Tune Request message (0xF6).;
 #X obj 20 1768 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1773 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1773 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1774 1\.;
 #X text 150 1774 *float*;
@@ -140,7 +140,7 @@ messages (0xF1). Arguments are:;
 #X text 150 1794 *list*;
 #X text 245 1794 raw midi input bytes.;
 #X obj 20 1824 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1829 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1829 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1830 1\.;
 #X text 245 1830 float: raw midi bytes.;

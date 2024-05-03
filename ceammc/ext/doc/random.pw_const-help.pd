@@ -31,8 +31,10 @@ initialized with current time.;
 #X obj 50 412 list.repack 2;
 #X obj 50 441 tabwrite array1;
 #X obj 20 491 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 496 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 496 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 499 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 531 1\.;
 #X text 150 531 list;
 #X obj 246 532 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -41,8 +43,10 @@ Note: number of arguments should be odd and >=5\. Boundaries should
 be in strictly increasing order and weights should be non-negative.
 Type: list.;
 #X obj 20 606 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 611 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 611 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 614 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 646 @seed;
 #X text 245 646 Get/Set generator seed. Type: int. Default value: 0\.
 Min value: 0\.;
@@ -54,7 +58,7 @@ propabilities. Type: list.;
 #X msg 110 760 @weights?;
 #X text 245 760 (readonly) Get list of weights. Type: list.;
 #X obj 20 800 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 805 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 805 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 806 1\.;
 #X text 150 806 *bang*;
@@ -62,7 +66,7 @@ propabilities. Type: list.;
 #X text 150 826 *list*;
 #X text 245 826 set new distribution values.;
 #X obj 20 856 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 861 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 861 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 862 1\.;
 #X text 245 862 result value.;

@@ -17,8 +17,10 @@
 #X obj 194 291 ui.dsp~;
 #X obj 50 320 dac~;
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 410 1\.;
 #X text 150 410 float;
 #X obj 246 411 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -28,8 +30,10 @@
 #X obj 246 431 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 430 DUR(ms): duration. Type: float. Range: 10\...600000;
 #X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 465 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 465 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 468 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 500 @id;
 #X text 245 500 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/synth_risset_bell/PROP_NAME osc address
@@ -53,12 +57,12 @@ Default value: 0\. Range: 0\...1\.;
 #X text 245 743 Get/Set freq multiplication coefficient. Type: float.
 Default value: 1\. Range: 0\...10\.;
 #X obj 20 795 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 800 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 800 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 835 reset;
 #X text 245 835 reset synth.;
 #X obj 20 873 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 878 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 878 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 879 1\.;
 #X text 150 879 *bang*;
@@ -66,7 +70,7 @@ Default value: 1\. Range: 0\...10\.;
 #X text 150 899 *float*;
 #X text 245 899 play with specified amp.;
 #X obj 20 929 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 934 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 934 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 935 1\.;
 #X text 245 935 output signal.;

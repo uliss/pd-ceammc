@@ -31,8 +31,10 @@ output all available network service names with format [service SERVICE(;
 #X obj 50 539 print;
 #X obj 50 568 net.mdns.ifaces;
 #X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 623 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 623 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 626 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 658 @fullname;
 #X text 245 658 Get/Set if true: output full instance name (with service
 and domain suffix) \, for ex.: 'THE_SERVICE._xx.local.' format. Type:
@@ -41,7 +43,7 @@ bool. Default value: 1\.;
 #X text 245 715 Get/Set restrict addresses by type. Type: symbol. Default
 value: v4\. Allowed values: v4 \, v6 \, any.;
 #X obj 20 767 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 772 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 772 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 807 ifaces;
 #X text 245 807 output available network interfaces and their info.;
@@ -94,12 +96,12 @@ are:;
 #X text 255 1383 SERVICE: service name \, for example: _osc._tcp \,
 or alias: #osc or #all. Type: symbol.;
 #X obj 20 1433 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1438 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1438 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1439 1\.;
 #X text 245 1439 input.;
 #X obj 20 1469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1474 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1474 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1475 1\.;
 #X text 245 1475 add SERVICE NAME \, remove SERVICE NAME \, service

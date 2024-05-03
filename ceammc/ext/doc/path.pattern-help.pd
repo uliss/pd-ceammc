@@ -25,19 +25,23 @@ not exists);
 #X obj 50 520 path.pattern;
 #X obj 50 549 ui.dt @auto_size 0 @size 400 40;
 #X obj 20 599 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 604 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 604 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 607 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 639 1\.;
 #X text 150 639 symbol;
 #X obj 246 640 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 639 PATTERN: filename generation pattern. Type: symbol.;
 #X obj 20 669 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 674 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 674 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 677 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 709 @pattern;
 #X text 245 709 Get/Set filename pattern. Type: symbol.;
 #X obj 20 749 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 754 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 754 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 755 1\.;
 #X text 150 755 *bang*;
@@ -45,7 +49,7 @@ not exists);
 #X text 150 775 *symbol*;
 #X text 245 775 set new pattern and generate filename pattern.;
 #X obj 20 805 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 810 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 810 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 811 1\.;
 #X text 245 811 symbol: filename.;

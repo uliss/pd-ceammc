@@ -23,15 +23,19 @@
 #X obj 50 435 pan.spread~ 4;
 #X obj 50 464 dac~;
 #X obj 20 514 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 519 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 519 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 522 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 554 1\.;
 #X text 150 554 int;
 #X obj 246 555 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 554 N: number of input channels. Type: int. Range: 2\...16;
 #X obj 20 584 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 589 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 589 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 592 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 624 @n;
 #X text 245 624 (initonly) Get/Set number of input channels. Type:
 int. Default value: 2\. Range: 2\...16\.;
@@ -48,7 +52,7 @@ value: 1\. Range: 0\...1\.;
 #X msg 110 807 @coeffs?;
 #X text 245 807 (readonly) Get list of gain pairs. Type: list.;
 #X obj 20 847 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 852 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 852 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 853 1\.;
 #X text 245 853 input signal.;
@@ -57,7 +61,7 @@ value: 1\. Range: 0\...1\.;
 #X text 110 893 n.;
 #X text 245 893 input signal.;
 #X obj 20 923 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 928 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 928 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 929 1\.;
 #X text 245 929 left output channel.;

@@ -30,16 +30,20 @@ https://en.wikipedia.org/wiki/Comb_filter;
 @ymin_ticks 0 @ymaj_ticks 0 @size 400 200;
 #X obj 50 612 ui.dsp~;
 #X obj 20 662 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 667 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 667 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 670 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 702 1\.;
 #X text 150 702 float;
 #X obj 246 703 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 702 A: scaling factor of delayed signal. Type: float. Range:
 -1\...1;
 #X obj 20 747 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 752 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 752 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 755 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 787 @id;
 #X text 245 787 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/flt_ff_comb/PROP_NAME osc address \, if
@@ -54,19 +58,19 @@ Default value: 1\. Range: -1\...1\.;
 #X text 245 916 Turn on/off dsp processing. Type: bool. Default value:
 1\.;
 #X obj 20 956 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 961 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 961 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 996 reset;
 #X text 245 996 reset filter state.;
 #X obj 20 1034 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1039 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1039 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1040 1\.;
 #X text 245 1040 input signal.;
 #X text 110 1060 2\.;
 #X text 245 1060 filter notch frequency.;
 #X obj 20 1090 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1095 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1095 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1096 1\.;
 #X text 245 1096 filtered signal.;

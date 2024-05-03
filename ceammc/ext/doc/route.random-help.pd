@@ -17,16 +17,20 @@
 #X obj 50 320 ui.dt;
 #X obj 50 349 route.random.chord;
 #X obj 20 399 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 404 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 407 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 439 1\.;
 #X text 150 439 int;
 #X obj 246 440 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 439 N: number of outlets. See @n property. Type: int. Range:
 2\...64;
 #X obj 20 484 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 489 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 489 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 492 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 524 @n;
 #X text 245 524 (initonly) Get/Set number of outlets. Type: int. Default
 value: 2\. Range: 2\...64\.;
@@ -34,7 +38,7 @@ value: 2\. Range: 2\...64\.;
 #X text 245 566 Get/Set generator seed. Type: int. Default value: 0\.
 Min value: 0\.;
 #X obj 20 618 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 623 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 623 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 624 1\.;
 #X text 150 624 *bang*;
@@ -48,7 +52,7 @@ Min value: 0\.;
 #X text 150 704 *any*;
 #X text 245 704 any to random outlet.;
 #X obj 20 734 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 739 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 739 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 740 1\.;
 #X text 245 740 first outlet.;

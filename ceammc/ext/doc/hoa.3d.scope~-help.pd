@@ -19,8 +19,10 @@ field;
 #X obj 50 230 hoa.3d.scope~ 3 @size 123 123;
 #X obj 50 359 ui.dsp~;
 #X obj 20 409 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 414 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 414 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 417 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 449 @gain;
 #X text 245 449 Get/Set gain. Type: float. Default value: 1\. Min value:
 0\.;
@@ -85,7 +87,7 @@ level. Type: bool. Default value: 0\.;
 #X text 245 1268 Get/Set element size (width \, height pair). Type:
 list. Default value: 120 120\.;
 #X obj 20 1320 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1325 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1325 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1360 pos;
 #X text 245 1360 set UI element position. Arguments are:;
@@ -96,7 +98,7 @@ list. Default value: 120 120\.;
 #X msg 110 1431 dump;
 #X text 245 1431 dumps all object info to Pd console window.;
 #X obj 20 1469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1474 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1474 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1475 1\.;
 #X text 245 1475 first input harmonic.;

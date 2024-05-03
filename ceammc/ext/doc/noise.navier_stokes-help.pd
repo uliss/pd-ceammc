@@ -42,8 +42,10 @@ With 28.73 < R1 > 29.0 and R2 ± = 33.43\.;
 #X obj 50 653 noise.navier_stokes;
 #X obj 50 682 ui.display;
 #X obj 20 732 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 737 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 737 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 740 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 772 1\.;
 #X text 150 772 float;
 #X obj 246 773 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -69,7 +71,7 @@ With 28.73 < R1 > 29.0 and R2 ± = 33.43\.;
 #X obj 246 873 cnv 1 24 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 872 DT: dt value (optional). Type: float.;
 #X obj 20 902 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 907 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 907 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 942 a;
 #X text 245 942 Arguments are:;
@@ -107,13 +109,13 @@ Type: int.;
 #X obj 255 1344 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1344 SET: set to value. Type: float.;
 #X obj 20 1379 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1384 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1384 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1385 1\.;
 #X text 150 1385 *bang*;
 #X text 245 1385 output value.;
 #X obj 20 1415 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1420 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1420 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1421 1\.;
 #X text 245 1421 a outlet.;

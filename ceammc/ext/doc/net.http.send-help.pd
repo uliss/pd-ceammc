@@ -12,8 +12,10 @@
 #X floatatom 50 219 5 0 0 0 - - -;
 #X obj 136 219 ui.dt;
 #X obj 20 269 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 274 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 274 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 277 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 309 1\.;
 #X text 150 309 symbol;
 #X obj 246 310 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -23,8 +25,10 @@
 #X obj 246 330 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 329 PORT: destination port. Type: int. Range: 1\...32768;
 #X obj 20 359 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 364 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 364 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 367 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 399 @host;
 #X text 245 399 Get/Set destination host. Type: symbol. Default value:
 localhost.;
@@ -39,7 +43,7 @@ Default value: 1\. Range: 1\...10\.;
 #X msg 110 555 @user;
 #X text 245 555 Get/Set Basic Auth user name. Type: symbol.;
 #X obj 20 595 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 600 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 600 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 635 get;
 #X text 245 635 send GET request. Arguments are:;
@@ -48,12 +52,12 @@ Default value: 1\. Range: 1\...10\.;
 #X obj 255 681 cnv 1 53 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 681 VALUES: list of query pairs. Type: list.;
 #X obj 20 716 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 721 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 721 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 722 1\.;
 #X text 245 722 input.;
 #X obj 20 752 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 757 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 757 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 758 1\.;
 #X text 245 758 int: HTTP status code.;

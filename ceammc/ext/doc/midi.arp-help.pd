@@ -37,15 +37,19 @@ one (no repeats);
 #X obj 50 636 ui.hgain2~;
 #X obj 50 664 dac~;
 #X obj 20 714 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 719 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 719 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 722 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 754 1\.;
 #X text 150 754 float;
 #X obj 246 755 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 754 T(ms): time between arpeggio. Type: float. Range: 1\...1000;
 #X obj 20 784 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 789 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 789 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 792 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 824 @external;
 #X text 245 824 Get/Set use external clock. Type: bool. Default value:
 0\.;
@@ -69,7 +73,7 @@ series). Type: int. Default value: 0\. Min value: 0\.;
 #X text 245 1067 Get/Set time between arpeggio. Type: float. Units:
 'ms'. Default value: 100\. Range: 1\...1000\.;
 #X obj 20 1119 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1124 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1124 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1125 1\.;
 #X text 150 1125 *list*;
@@ -78,7 +82,7 @@ series). Type: int. Default value: 0\. Min value: 0\.;
 #X text 150 1145 *bang*;
 #X text 245 1145 play next note in chord \, if @external = 1\.;
 #X obj 20 1175 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1180 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1180 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1181 1\.;
 #X text 245 1181 list: NOTE VELOCITY.;

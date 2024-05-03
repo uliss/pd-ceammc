@@ -14,8 +14,10 @@
 #X obj 194 143 ui.dsp~;
 #X obj 50 187 ui.number~;
 #X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 242 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 242 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 245 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 277 @interval;
 #X text 245 277 Get/Set refresh interval. Type: int. Units: 'ms'. Default
 value: 50\. Range: 20\...1000\.;
@@ -54,7 +56,7 @@ level. Type: bool. Default value: 0\.;
 #X text 245 754 Get/Set element size (width \, height pair). Type:
 list. Default value: 80 15\.;
 #X obj 20 806 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 811 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 811 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 846 pos;
 #X text 245 846 set UI element position. Arguments are:;
@@ -63,12 +65,12 @@ list. Default value: 80 15\.;
 #X obj 255 892 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 892 Y: top right y-coord. Type: float.;
 #X obj 20 927 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 932 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 932 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 933 1\.;
 #X text 245 933 input audio signal.;
 #X obj 20 963 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 968 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 968 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 969 1\.;
 #X text 245 969 signal pass thru.;

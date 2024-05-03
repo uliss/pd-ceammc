@@ -34,22 +34,26 @@
 #X obj 50 449 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 20 481 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 486 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 486 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 489 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 521 1\.;
 #X text 150 521 symbol;
 #X obj 246 522 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 521 ARRAY: array name. Type: symbol.;
 #X obj 20 551 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 556 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 556 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 559 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 591 @array;
 #X text 245 591 Get/Set array name. Type: symbol.;
 #X msg 110 621 @redraw;
 #X text 245 621 Get/Set redraw after array change. Type: bool. Default
 value: 1\.;
 #X obj 20 673 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 678 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 678 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 713 fill;
 #X text 245 713 fill all array with specified value or pattern. Arguments
@@ -116,13 +120,13 @@ Arguments are:;
 #X obj 255 1420 cnv 1 40 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1420 [B=1]: max value. Type: float.;
 #X obj 20 1455 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1460 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1460 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1461 1\.;
 #X text 150 1461 *symbol*;
 #X text 245 1461 change array name.;
 #X obj 20 1491 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1496 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1496 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1497 1\.;
 #X text 245 1497 bang on finish.;

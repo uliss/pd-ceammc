@@ -19,8 +19,10 @@
 #X obj 290 291 ui.dsp~;
 #X obj 50 320 dac~;
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 410 1\.;
 #X text 150 410 float;
 #X obj 246 411 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -30,8 +32,10 @@
 #X obj 246 431 cnv 1 54 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 430 INVERT: invert saw. Type: bool.;
 #X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 465 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 465 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 468 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 500 @id;
 #X text 245 500 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/lfo_+saw/PROP_NAME osc address \, if empty
@@ -52,12 +56,12 @@ Default value: 0\.;
 #X text 245 689 Get/Set initial phase. Type: float. Default value:
 0\. Range: 0\...1\.;
 #X obj 20 741 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 746 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 746 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 781 reset;
 #X text 245 781 reset to initial state.;
 #X obj 20 819 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 824 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 824 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 825 1\.;
 #X text 245 825 frequency in Hz (can be negative and zero).;
@@ -65,7 +69,7 @@ Default value: 0\.;
 #X text 150 845 *bang*;
 #X text 245 845 reset phase to initial value (@phase).;
 #X obj 20 875 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 880 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 880 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 881 1\.;
 #X text 245 881 sawtooth wave in [0-1) range.;

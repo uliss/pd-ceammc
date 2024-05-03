@@ -12,13 +12,15 @@
 #X obj 50 176 system.colorpanel @f;
 #X obj 50 205 ui.dt;
 #X obj 20 255 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 260 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 260 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 295 Left-click + ⇧;
 #X text 285 295 open color chooser.;
 #X obj 20 325 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 330 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 330 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 333 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 365 @d;
 #X text 245 365 alias for @mode data. Output value Color datatype.;
 #X msg 110 395 @f;
@@ -44,7 +46,7 @@ Allowed values: float \, int \, hex \, data.;
 #X msg 110 677 @color;
 #X text 245 677 Get/Set current color. Type: atom.;
 #X obj 20 717 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 722 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 722 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 723 1\.;
 #X text 150 723 *bang*;
@@ -56,7 +58,7 @@ Allowed values: float \, int \, hex \, data.;
 #X text 245 778 opens colorpanel with selected color. RGB color triplet
 expected in float (0-1) or int (0-255) range \, depending from @mode.;
 #X obj 20 838 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 843 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 843 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 844 1\.;
 #X text 245 844 messages: hex color symbol in format #RRGGBB or RGB

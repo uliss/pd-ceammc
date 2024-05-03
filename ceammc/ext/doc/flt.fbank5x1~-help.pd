@@ -23,8 +23,10 @@ an "allpass-complementary filter bank";
 @ymin_ticks 0 @ymaj_ticks 0 @size 300 100;
 #X obj 50 570 ui.dsp~;
 #X obj 20 620 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 625 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 625 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 628 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 660 1\.;
 #X text 150 660 float;
 #X obj 246 661 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -51,8 +53,10 @@ Range: -6\...6;
 #X text 245 800 F4000(db): @f4000 property init value. Type: float.
 Range: -6\...6;
 #X obj 20 845 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 850 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 850 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 853 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 885 @id;
 #X text 245 885 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/flt_fbank5x1/PROP_NAME osc address \, if
@@ -79,19 +83,19 @@ float. Units: 'db'. Default value: 0\. Range: -6\...6\.;
 #X text 245 1170 Get/Set second filter (bandpass) gain at 500Hz. Type:
 float. Units: 'db'. Default value: 0\. Range: -6\...6\.;
 #X obj 20 1222 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1227 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1227 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1262 reset;
 #X text 245 1262 reset filter state.;
 #X obj 20 1300 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1305 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1305 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1306 1\.;
 #X text 245 1306 input signal.;
 #X text 150 1326 *list*;
 #X text 245 1326 5 element list of db gains.;
 #X obj 20 1356 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1361 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1361 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1362 1\.;
 #X text 245 1362 lpf: 250Hz.;

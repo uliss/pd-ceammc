@@ -21,8 +21,10 @@
 #X obj 50 446 dac~;
 #X obj 117 446 s~ ssc;
 #X obj 20 496 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 501 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 501 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 504 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 536 @id;
 #X text 245 536 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/flt_eq10/PROP_NAME osc address \, if empty
@@ -64,19 +66,19 @@ value: 0\. Range: -70\...10\.;
 #X text 245 1031 Get/Set gain at 8000Hz. Type: float. Units: 'db'.
 Default value: 0\. Range: -70\...10\.;
 #X obj 20 1083 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1088 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1088 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1123 reset;
 #X text 245 1123 reset filter state to default.;
 #X obj 20 1161 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1166 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1166 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1167 1\.;
 #X text 245 1167 input signal.;
 #X text 150 1187 *list*;
 #X text 245 1187 sets equalizer coefficients.;
 #X obj 20 1217 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1222 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1222 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1223 1\.;
 #X text 245 1223 output signal.;

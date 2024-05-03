@@ -25,7 +25,7 @@ outlet. Otherwise to second outlet.;
 #X obj 328 231 ui.dt;
 #X obj 270 260 ui.dt;
 #X obj 20 310 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 315 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 315 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 316 1\.;
 #X text 245 316 input value.;
@@ -34,7 +34,7 @@ outlet. Otherwise to second outlet.;
 #X text 245 336 input from predicate side chain. If 1 received - output
 for first outlet. If 0 - to second.;
 #X obj 20 381 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 386 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 386 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 387 1\.;
 #X text 245 387 values for which predicate side-chain returned true.;

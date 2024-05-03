@@ -19,19 +19,23 @@ and lists;
 #X obj 50 291 ui.dt;
 #X obj 136 320 ui.dt;
 #X obj 20 370 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 375 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 378 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 410 1\.;
 #X text 150 410 symbol;
 #X obj 246 411 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 410 TYPE: routed data type name (optional). Type: symbol.;
 #X obj 20 440 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 445 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 445 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 448 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 480 @type;
 #X text 245 480 (initonly) Get/Set routed data type name. Type: symbol.;
 #X obj 20 520 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 525 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 525 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 526 1\.;
 #X text 150 526 *data*;
@@ -47,7 +51,7 @@ and lists;
 #X text 150 626 *symbol*;
 #X text 245 626 symbol to second outlet.;
 #X obj 20 656 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 661 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 661 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 662 1\.;
 #X text 245 662 data output.;

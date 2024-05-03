@@ -22,19 +22,21 @@ us this information;
 #X floatatom 117 363 5 0 0 0 - - -;
 #X floatatom 184 363 5 0 0 0 - - -;
 #X obj 20 395 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 400 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 400 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 403 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 435 @raw;
 #X text 245 435 Get/Set raw data output mode. Type: bool. Default value:
 0\.;
 #X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 480 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 480 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 481 1\.;
 #X text 150 481 *bang*;
 #X text 245 481 outputs current motion sensor information.;
 #X obj 20 511 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 516 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 516 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 517 1\.;
 #X text 245 517 list of three values: x-rotation \, y-rotation \, z-acceleration.;

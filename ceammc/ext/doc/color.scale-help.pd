@@ -13,15 +13,19 @@
 #X msg 50 234 @background_color \$1 \$2 \$3;
 #X obj 50 262 ui.hsl @nosave 1;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 352 1\.;
 #X text 150 352 list;
 #X obj 246 353 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 352 SCALE: color list. Type: list.;
 #X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 387 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 387 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 390 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 422 @hex;
 #X text 245 422 alias to @mode hex.;
 #X msg 110 452 @interp;
@@ -38,13 +42,13 @@ symbol. Default value: color. Allowed values: color \, hex \, rgb.;
 #X msg 110 626 @color;
 #X text 245 626 alias to @mode color.;
 #X obj 20 666 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 671 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 671 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 672 1\.;
 #X text 150 672 *float*;
 #X text 245 672 calculate color scale hue and output. Range: 0\...1\.;
 #X obj 20 702 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 707 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 707 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 708 1\.;
 #X text 245 708 data:color output.;

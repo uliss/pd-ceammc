@@ -14,8 +14,10 @@
 #X obj 50 349 ui.hgain~;
 #X obj 50 378 dac~;
 #X obj 20 428 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 433 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 433 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 436 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 468 @id;
 #X text 245 468 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/synth_harpsichord/PROP_NAME osc address
@@ -61,7 +63,7 @@ Range: 0\...1\.;
 #X text 245 1039 Get/Set spatialization width. Type: float. Default
 value: 0.5\. Range: 0\...1\.;
 #X obj 20 1091 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1096 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1096 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1131 note;
 #X text 245 1131 note on/off message. Arguments are:;
@@ -72,13 +74,13 @@ value: 0.5\. Range: 0\...1\.;
 #X msg 110 1202 reset;
 #X text 245 1202 reset synth.;
 #X obj 20 1240 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1245 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1245 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1246 1\.;
 #X text 150 1246 *list*;
 #X text 245 1246 NOTE VEL.;
 #X obj 20 1276 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1281 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1281 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1282 1\.;
 #X text 245 1282 left output.;

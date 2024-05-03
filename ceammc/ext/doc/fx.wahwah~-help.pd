@@ -14,8 +14,10 @@
 #X obj 50 262 dac~;
 #X obj 50 291 ui.dsp~;
 #X obj 20 341 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 346 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 346 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 349 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 381 1\.;
 #X text 150 381 float;
 #X obj 246 382 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -26,8 +28,10 @@
 #X text 245 401 SPEED(bpm): automatisation speed. Type: float. Range:
 360\...780;
 #X obj 20 446 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 451 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 451 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 454 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 486 @id;
 #X text 245 486 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_wahwah/PROP_NAME osc address \, if empty
@@ -52,12 +56,12 @@ Default value: 1\. Range: 0\...1\.;
 #X text 245 744 Get/Set automatisation speed. Type: float. Units: 'bpm'.
 Default value: 540\. Range: 360\...780\.;
 #X obj 20 796 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 801 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 801 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 836 reset;
 #X text 245 836 reset object.;
 #X obj 20 874 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 879 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 879 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 880 1\.;
 #X text 245 880 input signal.;
@@ -65,7 +69,7 @@ Default value: 540\. Range: 360\...780\.;
 #X text 150 900 *float*;
 #X text 245 900 set angle.;
 #X obj 20 930 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 935 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 935 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 936 1\.;
 #X text 245 936;

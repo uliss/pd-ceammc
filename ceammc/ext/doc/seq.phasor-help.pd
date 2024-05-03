@@ -26,15 +26,19 @@ at high frequencies!;
 #X obj 50 357 ui.hgain2~ @size 16 143;
 #X obj 50 385 dac~;
 #X obj 20 435 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 440 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 440 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 443 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 475 1\.;
 #X text 150 475 float;
 #X obj 246 476 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 475 FREQ(Hz): frequency. Type: float. Range: 0\...100;
 #X obj 20 505 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 510 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 510 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 513 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 545 @freq;
 #X text 245 545 Get/Set frequency. Type: float. Units: 'Hz'. Default
 value: 0\. Range: 0\...100\.;
@@ -50,7 +54,7 @@ range is [0\..1]. Type: bool. Default value: 0\.;
 #X text 245 701 Get/Set numbers of steps. Type: int. Default value:
 128\. Min value: 3\.;
 #X obj 20 753 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 758 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 758 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 793 phase;
 #X text 245 793 set current phase. Arguments are:;
@@ -67,7 +71,7 @@ range is [0\..1]. Type: bool. Default value: 0\.;
 #X msg 110 953 tick;
 #X text 245 953 output current value and move to next.;
 #X obj 20 991 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 996 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 996 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 997 1\.;
 #X text 150 997 *float*;
@@ -76,7 +80,7 @@ range is [0\..1]. Type: bool. Default value: 0\.;
 #X text 150 1017 *any*;
 #X text 245 1017 reset phase to 0\.;
 #X obj 20 1047 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1052 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1052 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1053 1\.;
 #X text 245 1053 float value in 0\..1 range.;

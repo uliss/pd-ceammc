@@ -29,8 +29,10 @@ are cold.;
 #X obj 395 299 s \$0-cm;
 #X text 50 428 ...;
 #X obj 20 475 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 480 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 480 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 483 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 515 @angles;
 #X text 245 515 Get/Set channel angle positions. Type: list.;
 #X msg 110 545 @clockwise;
@@ -100,7 +102,7 @@ level. Type: bool. Default value: 0\.;
 #X text 245 1421 Get/Set element size (width \, height pair). Type:
 list. Default value: 120 120\.;
 #X obj 20 1473 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1478 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1478 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1513 pos;
 #X text 245 1513 set UI element position. Arguments are:;
@@ -109,12 +111,12 @@ list. Default value: 120 120\.;
 #X obj 255 1559 cnv 1 15 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1559 Y: top right y-coord. Type: float.;
 #X obj 20 1594 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1599 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1599 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1600 1\.;
 #X text 245 1600 input signal.;
 #X obj 20 1630 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1635 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1635 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

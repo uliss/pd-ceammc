@@ -23,15 +23,19 @@ https://en.wikipedia.org/wiki/Two%27s_complement;
 #X obj 50 355 int->bits 32 @rev 1;
 #X obj 50 384 ui.hrd* 32;
 #X obj 20 434 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 439 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 439 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 442 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 474 1\.;
 #X text 150 474 int;
 #X obj 246 475 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 474 SIZE: output bit-length. Type: int. Range: 1\...32;
 #X obj 20 504 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 509 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 509 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 512 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 544 @rev;
 #X text 245 544 Get/Set reversed bit order. Type: bool. Default value:
 0\.;
@@ -39,13 +43,13 @@ https://en.wikipedia.org/wiki/Two%27s_complement;
 #X text 245 574 Get/Set output bit-length. Type: int. Default value:
 32\. Range: 1\...32\.;
 #X obj 20 626 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 631 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 631 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 632 1\.;
 #X text 150 632 *float*;
 #X text 245 632 input value.;
 #X obj 20 662 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 667 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 667 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 668 1\.;
 #X text 245 668 list of bits.;

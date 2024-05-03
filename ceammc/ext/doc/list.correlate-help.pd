@@ -16,15 +16,19 @@ not use the FFT to compute the convolution;
 #X obj 50 302 ui.sliders @auto_count 1;
 #X text 50 374 ...;
 #X obj 20 421 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 426 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 426 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 429 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 461 1\.;
 #X text 150 461 list;
 #X obj 246 462 cnv 1 16 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 461 B: second argument values. Type: list.;
 #X obj 20 491 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 496 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 496 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 499 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 531 @a;
 #X text 245 531 Get/Set first argument. Type: list.;
 #X msg 110 561 @b;
@@ -46,7 +50,7 @@ values: valid \, same \, full.;
 #X msg 110 814 @valid;
 #X text 245 814 alias to @mode valid.;
 #X obj 20 854 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 859 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 859 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 860 1\.;
 #X text 150 860 *list*;
@@ -55,7 +59,7 @@ values: valid \, same \, full.;
 #X text 150 880 *list*;
 #X text 245 880 set second argument (@b property).;
 #X obj 20 910 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 915 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 915 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 916 1\.;
 #X text 245 916 list: output result.;

@@ -47,8 +47,10 @@
 #X obj 50 513 ui.dsp~;
 #X obj 299 513 dac~;
 #X obj 20 563 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 568 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 568 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 571 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 603 1\.;
 #X text 150 603 symbol;
 #X obj 246 604 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -70,8 +72,10 @@
 #X text 245 708 HS(samp): hop size (by default buffer_size/2). Type:
 int. Min value: 0;
 #X obj 20 753 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 758 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 758 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 761 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 793 @bs;
 #X text 245 793 (initonly) Get/Set buffer size. Type: int. Units: 'samp'.
 Default value: 1024\. Min value: 64\.;
@@ -132,13 +136,13 @@ value: 0.058\.;
 #X text 245 1546 alias to @method phase. Weighted Phase Deviation onset
 detection function.;
 #X obj 20 1598 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1603 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1603 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1604 1\.;
 #X text 150 1604 *bang*;
 #X text 245 1604 analyze array.;
 #X obj 20 1634 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1639 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1639 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1640 1\.;
 #X text 245 1640 output list of detected onsets.;

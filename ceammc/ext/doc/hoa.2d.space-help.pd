@@ -16,7 +16,7 @@ of processing in the plane wave domain.;
 #X obj 50 182 hoa.2d.space 8 {0:;
 #X obj 50 341 ui.dt;
 #X obj 20 391 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 396 cnv 5 115 25 empty empty mouse_events: 4 10 0 14 -262144
+#X obj 20 396 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
 #X text 110 431 Mouse-drag;
 #X text 285 431 change the single amp value.;
@@ -40,16 +40,20 @@ of processing in the plane wave domain.;
 #X text 285 591 open properties dialog.;
 #X text 61 591 [Edit];
 #X obj 20 621 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 626 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 626 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 629 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 661 1\.;
 #X text 150 661 int;
 #X obj 246 662 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 661 N: number of planewave channels. Type: int. Min value:
 1;
 #X obj 20 691 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 696 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 696 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 699 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 731 @max;
 #X text 245 731 Get/Set maximum amp value. Type: float. Default value:
 1\.;
@@ -120,7 +124,7 @@ symbol. Default value: (null).;
 #X text 245 1610 Get/Set element size (width \, height pair). Type:
 list. Default value: 120 120\.;
 #X obj 20 1662 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1667 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1667 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1702 interp;
 #X text 245 1702 interplolates between presets. Arguments are:;
@@ -147,12 +151,12 @@ list. Default value: 120 120\.;
 #X msg 110 1965 dump;
 #X text 245 1965 dumps all object info to Pd console window.;
 #X obj 20 2003 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2008 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 2008 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2009 1\.;
 #X text 245 2009 list: amp values.;
 #X obj 20 2039 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 2044 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 2044 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 2045 1\.;
 #X text 245 2045 list: amp values.;

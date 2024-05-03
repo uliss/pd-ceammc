@@ -41,8 +41,10 @@ https://en.wikipedia.org/wiki/Gingerbreadman_map;
 #X obj 50 492 flt.moog_vcf~;
 #X obj 50 520 s~ gbman~;
 #X obj 20 570 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 575 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 575 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 578 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 610 1\.;
 #X text 150 610 float;
 #X obj 246 611 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -52,19 +54,21 @@ https://en.wikipedia.org/wiki/Gingerbreadman_map;
 #X obj 246 631 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 630 Y: initial y value \, default 2.1\. Type: float.;
 #X obj 20 660 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 665 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 665 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 668 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X obj 20 720 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 725 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 725 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X obj 20 780 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 785 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 785 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 786 1\.;
 #X text 150 786 *bang*;
 #X text 245 786 generates and outputs next x-value.;
 #X obj 20 816 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 821 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 821 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 822 1\.;
 #X text 245 822 outputs x-value.;

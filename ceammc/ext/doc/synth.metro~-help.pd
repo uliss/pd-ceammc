@@ -22,8 +22,10 @@
 #X obj 309 234 print BEAT;
 #X obj 50 262 dac~;
 #X obj 20 312 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 317 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 352 1\.;
 #X text 150 352 symbol;
 #X obj 246 353 cnv 1 86 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -33,8 +35,10 @@
 #X obj 246 373 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 372 TSIG: time signature. Type: symbol.;
 #X obj 20 402 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 407 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 407 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 410 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 442 @id;
 #X text 245 442 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/synth_metro/PROP_NAME osc address \, if
@@ -91,7 +95,7 @@ Default value: 30\. Range: 5\...100\.;
 #X text 245 1147 Get/Set metronome time signature \, can be complex
 like: |1/4+15/16| etc. Type: symbol. Default value: |4/4|.;
 #X obj 20 1199 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1204 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1204 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1239 down;
 #X text 245 1239 manually play downbeat sound.;
@@ -104,7 +108,7 @@ like: |1/4+15/16| etc. Type: symbol. Default value: |4/4|.;
 #X msg 110 1351 reset;
 #X text 245 1351 reset metro to the beginning.;
 #X obj 20 1389 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1394 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1394 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1395 1\.;
 #X text 150 1395 *float*;
@@ -116,7 +120,7 @@ like: |1/4+15/16| etc. Type: symbol. Default value: |4/4|.;
 #X text 150 1435 *float*;
 #X text 245 1435 set tempo in 1/4 per minute.;
 #X obj 20 1465 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1470 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1470 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1471 1\.;
 #X text 245 1471 synth output.;

@@ -28,8 +28,10 @@
 #X obj 50 378 ui.gain~ @size 120 16;
 #X obj 50 406 dac~;
 #X obj 20 456 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 461 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 461 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 464 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 496 @id;
 #X text 245 496 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/synth_ks/PROP_NAME osc address \, if empty
@@ -68,7 +70,7 @@ float. Default value: 0.7\. Range: 0\...1\.;
 #X text 245 949 Get/Set pluck sharpness. Type: float. Default value:
 0.25\. Range: 0.01\...1\.;
 #X obj 20 1001 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1006 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1006 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1041 note;
 #X text 245 1041 note on/off message. Arguments are:;
@@ -77,13 +79,13 @@ float. Default value: 0.7\. Range: 0\...1\.;
 #X obj 255 1087 cnv 1 30 23 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 255 1087 VEL: velocity. Type: float. Range: 0\...127\.;
 #X obj 20 1122 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1127 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1127 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1128 1\.;
 #X text 150 1128 *list*;
 #X text 245 1128 NOTE VEL.;
 #X obj 20 1158 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1163 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1163 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1164 1\.;
 #X text 245 1164 synth output.;

@@ -12,16 +12,20 @@
 #X floatatom 50 205 5 0 0 0 - - -;
 #X floatatom 174 205 5 0 0 0 - - -;
 #X obj 20 237 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 242 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 242 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 245 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 277 1\.;
 #X text 150 277 symbol;
 #X obj 246 278 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 277 NAME: property name without @ (should be unique for
 current canvas). Type: symbol.;
 #X obj 20 322 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 327 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 327 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 330 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 362 @default;
 #X text 245 362 (initonly) Get/Set default property value. Type: list.;
 #X msg 110 392 @enum;

@@ -17,22 +17,26 @@ object;
 #X obj 203 245 ui.n~;
 #X obj 366 245 ui.n~;
 #X obj 20 295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 300 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 300 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 303 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 335 1\.;
 #X text 150 335 int;
 #X obj 246 336 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 335 EXTRA: shortcut for @extra property. Type: int. Min
 value: 0;
 #X obj 20 365 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 370 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 370 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 373 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 405 @extra;
 #X text 245 405 Get/Set extra inlet. Extra inlet are added to the "normal"
 instance inlet and can be used to send signal to all instances. Type:
 int. Default value: 0\. Min value: 0\.;
 #X obj 20 472 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 477 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 477 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 478 1\.;
 #X text 245 478 output signal in the corresponding hoa.process~ object's

@@ -32,19 +32,23 @@
 #X obj 50 428 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;
 #X obj 20 460 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 465 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 465 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 468 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 500 1\.;
 #X text 150 500 list;
 #X obj 246 501 cnv 1 48 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 500 VALUE: list contents. Type: list.;
 #X obj 20 530 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 535 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 535 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 538 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 570 @value;
 #X text 245 570 Get/Set list contents. Type: list.;
 #X obj 20 610 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 615 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 615 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 616 1\.;
 #X text 150 616 *float*;
@@ -61,7 +65,7 @@
 #X text 150 716 *list*;
 #X text 245 716 set haystack list.;
 #X obj 20 746 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 751 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 751 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 752 1\.;
 #X text 245 752 1 on success \, otherwise 0\.;

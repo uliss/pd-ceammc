@@ -50,8 +50,10 @@ exceeds the input range \, by default clip is applied.;
 #X obj 50 274 lin->exp 0 1001 0.01 1;
 #X obj 50 302 tabwrite l2e;
 #X obj 20 352 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 357 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 357 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 360 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 392 1\.;
 #X text 150 392 float;
 #X obj 246 393 cnv 1 62 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -69,8 +71,10 @@ exceeds the input range \, by default clip is applied.;
 #X obj 246 453 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 452 OUT_TO: end of input output. Type: float.;
 #X obj 20 482 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 487 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 487 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 490 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 522 @clip;
 #X text 245 522 Get/Set noclip (don't clip) max (clip ceiling) min
 (clip floor) minmax (clip both). Type: symbol. Default value: minmax.
@@ -96,7 +100,7 @@ value: 0.01\.;
 #X text 245 801 Get/Set end of output range. Type: float. Default value:
 1\.;
 #X obj 20 841 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 846 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 846 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 847 1\.;
 #X text 150 847 *float*;
@@ -104,7 +108,7 @@ value: 0.01\.;
 #X text 150 867 *list*;
 #X text 245 867 input list.;
 #X obj 20 897 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 902 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 902 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 903 1\.;
 #X text 245 903 converted value.;

@@ -37,8 +37,10 @@ http://paulbourke.net/fractals/peterdejong/;
 #X obj 299 578 s~ jong;
 #X obj 50 607 dac~, f 23;
 #X obj 20 657 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 662 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 662 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 665 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 697 1\.;
 #X text 150 697 float;
 #X obj 246 698 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -64,7 +66,7 @@ http://paulbourke.net/fractals/peterdejong/;
 #X obj 246 798 cnv 1 17 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 797 Y: y init value (default 0). Type: float.;
 #X obj 20 827 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 832 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 832 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 867 a;
 #X text 245 867 set a-value \, does not not change init state value.;
@@ -92,13 +94,13 @@ value.;
 #X text 245 1141 set current y-value \, does not not change init state
 value.;
 #X obj 20 1179 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1184 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 1184 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1185 1\.;
 #X text 150 1185 *bang*;
 #X text 245 1185 generate and output new value.;
 #X obj 20 1215 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1220 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1220 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1221 1\.;
 #X text 245 1221 new generated x-value.;

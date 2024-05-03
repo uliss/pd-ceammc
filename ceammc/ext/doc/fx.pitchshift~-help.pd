@@ -22,16 +22,20 @@
 #X obj 280 305 ui.dsp~;
 #X obj 50 334 dac~;
 #X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 389 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 389 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 424 1\.;
 #X text 150 424 float;
 #X obj 246 425 cnv 1 47 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 424 PITCH: pitch shift in semitones. Type: float. Range:
 -38\...60;
 #X obj 20 469 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 474 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 474 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 477 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 509 @id;
 #X text 245 509 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_pitchshift/PROP_NAME osc address \, if
@@ -59,12 +63,12 @@ value: 0\. Range: -38\...60\.;
 #X text 245 809 Get/Set the window size. Type: float. Units: 'ms'.
 Default value: 200\. Range: 10\...2000\.;
 #X obj 20 861 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 866 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 866 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 901 reset;
 #X text 245 901 reset object state.;
 #X obj 20 939 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 944 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 944 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 945 1\.;
 #X text 245 945 input signal.;
@@ -72,7 +76,7 @@ Default value: 200\. Range: 10\...2000\.;
 #X text 150 965 *float*;
 #X text 245 965 pitch shift in semitones. Range: -38\...60\.;
 #X obj 20 995 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1000 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1000 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1001 1\.;
 #X text 245 1001 output signal.;

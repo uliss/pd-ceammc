@@ -35,8 +35,10 @@
 #X obj 222 733 ui.canvas.arrows;
 #X obj 405 733 ui.canvas.image;
 #X obj 20 783 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 788 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 788 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 791 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 823 @receive;
 #X text 245 823 Get/Set receive source. Type: symbol. Default value:
 (null).;
@@ -89,7 +91,7 @@ level. Type: bool. Default value: 0\.;
 #X text 245 1486 Get/Set element size (width \, height pair). Type:
 list. Default value: 120 60\.;
 #X obj 20 1538 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1543 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 1543 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 1578 abc;
 #X text 245 1578 draw music in ABC notation. Arguments are:;
@@ -461,12 +463,12 @@ atom.;
 #X msg 110 5518 dump;
 #X text 245 5518 dumps all object info to Pd console window.;
 #X obj 20 5556 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 5561 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144
+#X obj 20 5561 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 5562 1\.;
 #X text 245 5562 draw commands.;
 #X obj 20 5592 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 5597 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 5597 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;

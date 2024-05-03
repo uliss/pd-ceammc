@@ -19,15 +19,19 @@
 #X obj 280 305 ui.dsp~;
 #X obj 50 334 dac~;
 #X obj 20 384 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 389 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 389 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 392 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 424 1\.;
 #X text 150 424 float;
 #X obj 246 425 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 424 DRYWET: dry/wet ratio. Type: float. Range: 0\...1;
 #X obj 20 454 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 459 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 459 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 462 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 494 @id;
 #X text 245 494 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/fx_ringmod/PROP_NAME osc address \, if empty
@@ -59,19 +63,19 @@ Units: 'Hz'. Default value: 150\. Range: 0.5\...22050\.;
 inlet \, 1: internal sinusoid oscilallator \, 2: internal low freq
 noise. Type: int. Default value: 0\. Range: 0\...2\.;
 #X obj 20 903 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 908 cnv 5 73 25 empty empty methods: 4 10 0 14 -262144
+#X obj 20 908 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
 #X msg 110 943 reset;
 #X text 245 943 reset object.;
 #X obj 20 981 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 986 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 986 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 987 1\.;
 #X text 245 987 carrier.;
 #X text 110 1007 2\.;
 #X text 245 1007 modulator.;
 #X obj 20 1037 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 1042 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 1042 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 1043 1\.;
 #X text 245 1043 output.;

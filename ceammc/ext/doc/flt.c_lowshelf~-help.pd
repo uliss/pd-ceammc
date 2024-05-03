@@ -22,8 +22,10 @@
 #X obj 50 428 dac~;
 #X obj 50 457 ui.dsp~;
 #X obj 20 507 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 512 cnv 5 90 25 empty empty arguments: 4 10 0 14 -262144
+#X obj 20 512 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 515 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.args-info.pd;
 #X text 110 547 1\.;
 #X text 150 547 float;
 #X obj 246 548 cnv 1 69 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -33,8 +35,10 @@
 #X obj 246 568 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
 #X text 245 567 GAIN(db): filter gain. Type: float. Range: -15\...15;
 #X obj 20 597 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 602 cnv 5 98 25 empty empty properties: 4 10 0 14 -262144
+#X obj 20 602 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
+#X obj 735 605 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
 #X msg 110 637 @id;
 #X text 245 637 (initonly) Get/Set OSC address id. If specified \,
 bind all properties to /ID/flt_c_lowshelf/PROP_NAME osc address \,
@@ -52,12 +56,12 @@ Default value: 1000\. Range: 20\...20000\.;
 #X text 245 796 Get/Set filter gain. Type: float. Units: 'db'. Default
 value: 0\. Range: -15\...15\.;
 #X obj 20 848 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 853 cnv 5 64 25 empty empty inlets: 4 10 0 14 -262144 -49933
+#X obj 20 853 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
 #X text 110 854 1\.;
 #X text 245 854 control input.;
 #X obj 20 884 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 889 cnv 5 73 25 empty empty outlets: 4 10 0 14 -262144
+#X obj 20 889 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
 #X text 110 890 1\.;
 #X text 245 890 b0\.;
