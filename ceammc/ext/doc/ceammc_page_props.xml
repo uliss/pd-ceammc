@@ -19,9 +19,10 @@
 [ui.dt]
 ]]>
         </pdascii>
-        <par indent="3">On receiving @prop? message the object outputs its value as the message to the first outlet: @prop VALUE</par>
-        <par indent="3">There are [prop.route] and [prop.route~] objects for splitting the main object audio/control stream
-        from the requested properties:</par>
+        <par indent="3">On receiving @prop? message the object outputs its value as the message to
+        the first outlet: @prop VALUE</par>
+        <par indent="3">There are [prop.route] and [prop.route~] objects for splitting the main
+        object audio/control stream from the requested properties:</par>
         <pdascii indent="10">
 <![CDATA[
 [@freq?( [@q?(      [@freq?( [@q?(
@@ -44,14 +45,18 @@
 [flt.c_lpf   1000]           [F]
 ]]>
         </pdascii>
-        <par indent="3">NOTE: for some objects, like in flow category, this is the single way to get/set properties,
-        because by design flow objects should work with all dataflow values.</par>
-        <par>Some frequently used properties can be set with positional init arguments. This is the same:</par>
+        <par indent="3">NOTE: for some objects, like in flow category, this is the single way to
+        get/set properties, because by design flow objects should work with all dataflow
+        values.</par>
+        <par>Some frequently used properties can be set with positional init arguments. This is the
+        same:</par>
         <pdascii indent="10">[data.list 1 2 3] [data.list @value 1 2 3]</pdascii>
         <par indent="3">Properties can be one of the following types:</par>
         <ul indent="3">
-            <item>readwrite - you can set it with initial arguments, with messages or [prop.get]/[prop.set] objects</item>
-            <item>initonly - you can set it with initial arguments and after that only get its value</item>
+            <item>readwrite - you can set it with initial arguments, with messages or
+            [prop.get]/[prop.set] objects</item>
+            <item>initonly - you can set it with initial arguments and after that only get its
+            value</item>
             <item>readonly - you can only get its value</item>
         </ul>
         <pdascii indent="10">
@@ -71,10 +76,10 @@
 ]]>
         </pdascii>
         <h2>Advanced usage</h2>
-        <par>On ceammc object creation it parses initial arguments,
-                does unquotting and number substitution, performs init function call and data parsing. After theese steps
-                the property parsing stage is invoked.
-                So quoting, bin and hex numbers, function calls can be used also in initial object properties arguments.</par>
+        <par>On ceammc object creation it parses initial arguments, does unquotting and number
+        substitution, performs init function call and data parsing. After theese steps the property
+        parsing stage is invoked. So quoting, bin and hex numbers, function calls can be used also
+        in initial object properties arguments.</par>
         <pdascii indent="10">
 <![CDATA[
 [B]
@@ -111,6 +116,16 @@
 |
 [ui.dt]
 [X a->x] [X b->x] [X c->x] [X d->x]
+]]>
+        </pdascii>
+        <par indent="3">You can get the list all of object properties with message</par>
+        <pdascii indent="10">
+<![CDATA[
+[@*?(
+|
+[flt.c_lpf 1000]
+|
+[ui.dt]
 ]]>
         </pdascii>
     </sections>
