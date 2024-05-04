@@ -14,18 +14,23 @@
   - system.command (with system.cmd alias) - run several processes like in shell with pipes
 - new properties:
   - dict->list @props flag added to output as list of properties
-  - snd.play~ @on_err property added to specify global error dispatching
+  - snd.play~ @on_err property added to specify sending errors address
 - new methods:
   - open method added to snd.play~ for readsf~ compatibility
 - misc:
-  - dict.get - path-like expression added to get keys: /*/USER/1:3/foo
+  - dict.get - path-like expression to get dictionary keys: /*/USER/1:3/foo
   - ui.display - copy message value to the clipboard by click or from popup menu
   - ui.canvas - mouse coordinates output for mouse down, up, drag and double click events
+  - documentation added about ceammc argument expansion
+  - documentation added about ceammc properties
+  - documentation added about ceammc functions
+  - seq.life max matrix size increased up to 64x64
 ### Changed:
 - renaming:
   - prop.get~ renamed to prop.route~ (the old alias exists for the compatibility, but it prints a warning message)
   - prop.split renamed to prop.route (the old alias exists for the compatibility, but it prints a warning message)
-
+### Fixed:
+- seq.life - fix errors on non square sizes (issue #203)
 
 ## [0.9.7]
 ### Added:

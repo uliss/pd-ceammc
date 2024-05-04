@@ -77,14 +77,14 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>list: pitch vel</outlet>
+            <outlet>list of all cells in row by row order</outlet>
         </outlets>
         <example>
             <pdascii>
 <![CDATA[
 [T]          [glider 2 3, bang #b( [rpent 5 7, bang #e(
 |
-[metro 500]  [oct2 2 2, bang #c(
+[metro 500]  [oct2 1 5, bang #c(
 |
 [next, bang( [random, bang #a(
 |
@@ -92,9 +92,9 @@
 | |
 | [flow.route *cell] [T]
 | |                  |
-[seq.life #z]        [seq.matrix 16 120]
+[seq.life 10 20 #z]  [seq.matrix 20 120]
 |                    |
-[ui.matrix 16 16     ]               [r $0-mtx]
+[ui.matrix 10 20     ]               [r $0-mtx]
 |                                    |
 |                                    [route col]
 |                                    |

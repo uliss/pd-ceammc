@@ -171,13 +171,13 @@ bool SeqLife::checkPos(t_symbol* method, int row, int col)
 
 void SeqLife::output()
 {
+    size_t i = 0;
     for (size_t r = 0; r < life_.rows(); r++) {
         for (size_t c = 0; c < life_.cols(); c++) {
-            const size_t i = r * life_.rows() + c;
             if (i >= out_buffer_.size())
                 break;
 
-            out_buffer_[i] = life_.at(r, c);
+            out_buffer_[i++] = life_.at(r, c);
         }
     }
 

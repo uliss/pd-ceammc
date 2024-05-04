@@ -22,7 +22,8 @@
 
 class ConwayLife {
 public:
-    static const size_t MAXSIZE = 2048;
+    static const size_t MAXDIM = 64;
+    static const size_t MAXSIZE = MAXDIM * MAXDIM;
     using CellType = uint8_t;
 
 private:
@@ -32,13 +33,14 @@ private:
 public:
     ConwayLife();
 
-    size_t cols() const { return cols_; }
-    size_t rows() const { return rows_; }
-    size_t numCells() const { return rows_ * cols_; }
-    size_t numAlive() const { return alive_; }
+    inline size_t cols() const { return cols_; }
+    inline size_t rows() const { return rows_; }
+    inline size_t numCells() const { return rows_ * cols_; }
+    inline size_t numAlive() const { return alive_; }
+    inline size_t idx(uint16_t row, uint16_t col) const { return row * cols_ + col; }
 
-    bool at(uint16_t row, uint16_t col) const { return states_[row * cols_ + col]; }
-    CellType countAt(uint16_t row, uint16_t col) const { return counts_[row * cols_ + col]; }
+    inline bool at(uint16_t row, uint16_t col) const { return states_[idx(row, col)]; }
+    CellType countAt(uint16_t row, uint16_t col) const { return counts_[idx(row, col)]; }
 
     bool random(float density = 0.5);
     bool set(uint16_t rows, uint16_t cols);
@@ -59,7 +61,16 @@ public:
     bool addFigure(uint16_t row, uint16_t col, std::pair<uint16_t, uint16_t> size, std::initializer_list<bool> l);
 
 private:
-    void addNeighbour(uint16_t row, uint16_t col);
+    inline CellType& refStateAt(uint16_t row, uint16_t col) { return states_[idx(row, col)]; }
+
+    inline void addNeighbour(uint16_t row, uint16_t col)
+    {
+        if (row >= rows_ || col >= cols_)
+            return;
+
+        counts_[idx(row, col)]++;
+    }
+
     void clearCounts();
     void countNeighbours();
 };

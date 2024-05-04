@@ -19,7 +19,7 @@
 
 using namespace ceammc;
 
-constexpr size_t MAX_MTX_SIZE = 32;
+constexpr size_t MAX_MTX_SIZE = ConwayLife::MAXDIM;
 
 class SeqLife : public BaseObject {
     IntProperty* rows_;
@@ -47,6 +47,9 @@ public:
     void m_vhive(t_symbol* s, const AtomListView& lv);
 
     size_t numCells() const;
+
+    // for testing
+    const ConwayLife& life() const { return life_; }
 
 private:
     bool checkPos(t_symbol* method, int row, int col);

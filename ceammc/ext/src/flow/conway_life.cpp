@@ -33,7 +33,7 @@ bool ConwayLife::random(float density)
     for (size_t r = 0; r < rows_; r++) {
         for (size_t c = 0; c < cols_; c++) {
             auto v = dist(gen) < thres;
-            states_[r * rows_ + c] = v;
+            refStateAt(r, c) = v;
             alive_ += v;
         }
     }
@@ -75,7 +75,7 @@ bool ConwayLife::setAt(uint16_t row, uint16_t col, bool v)
     if (row >= rows_ || col >= cols_)
         return false;
 
-    auto& cell = states_[row * cols_ + col];
+    auto& cell = refStateAt(row, col);
     if (cell != v) {
         cell = v;
         alive_ += v ? 1 : -1;
@@ -89,9 +89,9 @@ bool ConwayLife::flipAt(uint16_t row, uint16_t col)
     if (row >= rows_ || col >= cols_)
         return false;
 
-    auto& st = states_[row * cols_ + col];
-    alive_ += st ? -1 : 1;
-    st = !st;
+    auto& cell = refStateAt(row, col);
+    alive_ += cell ? -1 : 1;
+    cell = !cell;
     return true;
 }
 
@@ -112,7 +112,7 @@ void ConwayLife::next()
 
     for (size_t r = 0; r < rows_; r++) {
         for (size_t c = 0; c < cols_; c++) {
-            const auto i = r * cols_ + c;
+            const auto i = idx(r, c);
             const auto n = counts_[i];
             if (states_[i] == 1 && (n < 2 || n > 3)) { // die
                 states_[i] = 0;
@@ -215,13 +215,7 @@ bool ConwayLife::addFigure(uint16_t row, uint16_t col, std::pair<uint16_t, uint1
     return true;
 }
 
-void ConwayLife::addNeighbour(uint16_t row, uint16_t col)
-{
-    if (row >= rows_ || col >= cols_)
-        return;
 
-    counts_[row * cols_ + col]++;
-}
 
 void ConwayLife::countNeighbours()
 {

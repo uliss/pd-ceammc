@@ -194,6 +194,87 @@ TEST_CASE("seq.life", "[externals]")
                   << l;
     }
 
+    SECTION("blinker")
+    {
+        ConwayLife l;
+        l.set(3, 6);
+
+        l.addBlinker(0, 1);
+        REQUIRE(l.at(0, 0) == 0);
+        REQUIRE(l.at(0, 1) == 1);
+        REQUIRE(l.at(0, 2) == 0);
+        REQUIRE(l.at(1, 0) == 0);
+        REQUIRE(l.at(1, 1) == 1);
+        REQUIRE(l.at(1, 2) == 0);
+        REQUIRE(l.at(2, 0) == 0);
+        REQUIRE(l.at(2, 1) == 1);
+        REQUIRE(l.at(2, 2) == 0);
+        l.next();
+        REQUIRE(l.at(0, 0) == 0);
+        REQUIRE(l.at(0, 1) == 0);
+        REQUIRE(l.at(0, 2) == 0);
+        REQUIRE(l.at(1, 0) == 1);
+        REQUIRE(l.at(1, 1) == 1);
+        REQUIRE(l.at(1, 2) == 1);
+        REQUIRE(l.at(2, 0) == 0);
+        REQUIRE(l.at(2, 1) == 0);
+        REQUIRE(l.at(2, 2) == 0);
+        l.next();
+        REQUIRE(l.at(0, 0) == 0);
+        REQUIRE(l.at(0, 1) == 1);
+        REQUIRE(l.at(0, 2) == 0);
+        REQUIRE(l.at(1, 0) == 0);
+        REQUIRE(l.at(1, 1) == 1);
+        REQUIRE(l.at(1, 2) == 0);
+        REQUIRE(l.at(2, 0) == 0);
+        REQUIRE(l.at(2, 1) == 1);
+        REQUIRE(l.at(2, 2) == 0);
+
+        l.clear();
+        l.addBlinker(0, 2);
+        REQUIRE(l.at(0, 1) == 0);
+        REQUIRE(l.at(0, 2) == 1);
+        REQUIRE(l.at(0, 3) == 0);
+        REQUIRE(l.at(1, 1) == 0);
+        REQUIRE(l.at(1, 2) == 1);
+        REQUIRE(l.at(1, 3) == 0);
+        REQUIRE(l.at(2, 1) == 0);
+        REQUIRE(l.at(2, 2) == 1);
+        REQUIRE(l.at(2, 3) == 0);
+        l.next();
+        REQUIRE(l.at(0, 1) == 0);
+        REQUIRE(l.at(0, 2) == 0);
+        REQUIRE(l.at(0, 3) == 0);
+        REQUIRE(l.at(1, 1) == 1);
+        REQUIRE(l.at(1, 2) == 1);
+        REQUIRE(l.at(1, 3) == 1);
+        REQUIRE(l.at(2, 1) == 0);
+        REQUIRE(l.at(2, 2) == 0);
+        REQUIRE(l.at(2, 3) == 0);
+
+        l.clear();
+        l.addBlinker(0, 4);
+        REQUIRE(l.at(0, 3) == 0);
+        REQUIRE(l.at(0, 4) == 1);
+        REQUIRE(l.at(0, 5) == 0);
+        REQUIRE(l.at(1, 3) == 0);
+        REQUIRE(l.at(1, 4) == 1);
+        REQUIRE(l.at(1, 5) == 0);
+        REQUIRE(l.at(2, 3) == 0);
+        REQUIRE(l.at(2, 4) == 1);
+        REQUIRE(l.at(2, 5) == 0);
+        l.next();
+        REQUIRE(l.at(0, 3) == 0);
+        REQUIRE(l.at(0, 4) == 0);
+        REQUIRE(l.at(0, 5) == 0);
+        REQUIRE(l.at(1, 3) == 1);
+        REQUIRE(l.at(1, 4) == 1);
+        REQUIRE(l.at(1, 5) == 1);
+        REQUIRE(l.at(2, 3) == 0);
+        REQUIRE(l.at(2, 4) == 0);
+        REQUIRE(l.at(2, 5) == 0);
+    }
+
     SECTION("class2")
     {
         ConwayLife l;
@@ -232,6 +313,102 @@ TEST_CASE("seq.life", "[externals]")
             data[0] = 1;
             t.sendBang();
             REQUIRE_LIST_AT_OUTLET(0, t, data);
+
+            t.call("clear");
+            t.sendBang();
+            REQUIRE_LIST_AT_OUTLET(0, t, AtomList::zeroes(128));
+        }
+
+        SECTION("3x6")
+        {
+            TExt t("seq.life", LF(3, 6));
+            t.sendBang();
+            REQUIRE_LIST_AT_OUTLET(0, t, AtomList::zeroes(18));
+
+            t.call("blinker", LF(0, 1));
+            REQUIRE(t->life().at(0, 0) == 0);
+            REQUIRE(t->life().at(0, 1) == 1);
+            REQUIRE(t->life().at(0, 2) == 0);
+            REQUIRE(t->life().at(1, 0) == 0);
+            REQUIRE(t->life().at(1, 1) == 1);
+            REQUIRE(t->life().at(1, 2) == 0);
+            REQUIRE(t->life().at(2, 0) == 0);
+            REQUIRE(t->life().at(2, 1) == 1);
+            REQUIRE(t->life().at(2, 2) == 0);
+            t.sendBang();
+            REQUIRE_LIST_AT_OUTLET(0, t, AtomList({
+                                             //
+                                             0, 1, 0, 0, 0, 0, //
+                                             0, 1, 0, 0, 0, 0, //
+                                             0, 1, 0, 0, 0, 0 //
+                                         }));
+
+            t.call("next");
+            REQUIRE(t->life().at(0, 0) == 0);
+            REQUIRE(t->life().at(0, 1) == 0);
+            REQUIRE(t->life().at(0, 2) == 0);
+            REQUIRE(t->life().at(1, 0) == 1);
+            REQUIRE(t->life().at(1, 1) == 1);
+            REQUIRE(t->life().at(1, 2) == 1);
+            REQUIRE(t->life().at(2, 0) == 0);
+            REQUIRE(t->life().at(2, 1) == 0);
+            REQUIRE(t->life().at(2, 2) == 0);
+            t.sendBang();
+            REQUIRE_LIST_AT_OUTLET(0, t, AtomList({
+                                             //
+                                             0, 0, 0, 0, 0, 0, //
+                                             1, 1, 1, 0, 0, 0, //
+                                             0, 0, 0, 0, 0, 0 //
+                                         }));
+
+            t.call("next");
+            REQUIRE(t->life().at(0, 0) == 0);
+            REQUIRE(t->life().at(0, 1) == 1);
+            REQUIRE(t->life().at(0, 2) == 0);
+            REQUIRE(t->life().at(1, 0) == 0);
+            REQUIRE(t->life().at(1, 1) == 1);
+            REQUIRE(t->life().at(1, 2) == 0);
+            REQUIRE(t->life().at(2, 0) == 0);
+            REQUIRE(t->life().at(2, 1) == 1);
+            REQUIRE(t->life().at(2, 2) == 0);
+
+            t.call("clear");
+            t.call("blinker", LF(0, 4));
+            REQUIRE(t->life().at(0, 3) == 0);
+            REQUIRE(t->life().at(0, 4) == 1);
+            REQUIRE(t->life().at(0, 5) == 0);
+            REQUIRE(t->life().at(1, 3) == 0);
+            REQUIRE(t->life().at(1, 4) == 1);
+            REQUIRE(t->life().at(1, 5) == 0);
+            REQUIRE(t->life().at(2, 3) == 0);
+            REQUIRE(t->life().at(2, 4) == 1);
+            REQUIRE(t->life().at(2, 5) == 0);
+
+            t.sendBang();
+            REQUIRE_LIST_AT_OUTLET(0, t, AtomList({
+                                             //
+                                             0, 0, 0, 0, 1, 0, //
+                                             0, 0, 0, 0, 1, 0, //
+                                             0, 0, 0, 0, 1, 0 //
+                                         }));
+
+            t.call("next");
+            REQUIRE(t->life().at(0, 3) == 0);
+            REQUIRE(t->life().at(0, 4) == 0);
+            REQUIRE(t->life().at(0, 5) == 0);
+            REQUIRE(t->life().at(1, 3) == 1);
+            REQUIRE(t->life().at(1, 4) == 1);
+            REQUIRE(t->life().at(1, 5) == 1);
+            REQUIRE(t->life().at(2, 3) == 0);
+            REQUIRE(t->life().at(2, 4) == 0);
+            REQUIRE(t->life().at(2, 5) == 0);
+             t.sendBang();
+            REQUIRE_LIST_AT_OUTLET(0, t, AtomList({
+                                             //
+                                             0, 0, 0, 0, 0, 0, //
+                                             0, 0, 0, 1, 1, 1, //
+                                             0, 0, 0, 0, 0, 0 //
+                                         }));
         }
     }
 }
