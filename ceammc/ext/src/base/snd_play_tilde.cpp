@@ -18,6 +18,7 @@
 #include "ceammc_convert.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+#include "ceammc_pd.h"
 #include "ceammc_sound.h"
 #include "ceammc_soxr_resampler.h"
 #include "ceammc_units.h"
@@ -87,6 +88,9 @@ SndPlayTilde::SndPlayTilde(const PdArgs& args)
 
     stretch_ = new BoolProperty("@stretch", false);
     addProperty(stretch_);
+
+    on_err_ = new SymbolProperty("@on_err", &s_);
+    addProperty(on_err_);
 
     auto speed = createCbFloatProperty(
         "@speed",
@@ -291,7 +295,7 @@ SndPlayBase::Future SndPlayTilde::createTask()
 {
     std::string fname = findInStdPaths(fname_->value()->s_name);
     if (fname.empty()) {
-        OBJ_ERR << fmt::format("can't find file: '{}'", fname_->value()->s_name);
+        onError(fmt::format("can't find file: '{}'", fname_->value()->s_name), gensym("not_found"));
         return {};
     }
 
@@ -525,6 +529,15 @@ void SndPlayTilde::start(bool value)
 
     } else
         setQuit(true);
+}
+
+void SndPlayTilde::onError(const std::string& msg, t_symbol* s)
+{
+    auto fn = on_err_->value();
+    if (fn)
+        pd::send_message(fn, s, {});
+    else
+        OBJ_ERR << msg;
 }
 
 bool SndPlayTilde::calcBegin(const units::TimeValue& tm, size_t sr, size_t sampleCount, std::int64_t& result)

@@ -37,6 +37,8 @@ private:
     SymbolProperty* fname_ { nullptr };
     SymbolEnumProperty* sync_mode_ { nullptr };
     BoolProperty* stretch_ { nullptr };
+    SymbolProperty* on_err_ { nullptr };
+
     ThreadPdLogger logger_;
     // speed
     std::atomic<float> atomic_speed_ { 1 }; // set in caller thread, read in worker thread
@@ -79,6 +81,7 @@ public:
 private:
     inline void seekToBeg() { file_cur_pos_ = file_begin_; }
     void start(bool value);
+    void onError(const std::string& msg, t_symbol *s);
 
 private:
     static bool calcBegin(const units::TimeValue& tm, size_t sr, size_t sampleCount, std::int64_t& result);

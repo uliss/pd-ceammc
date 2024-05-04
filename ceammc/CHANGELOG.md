@@ -14,6 +14,7 @@
   - system.command (with system.cmd alias) - run several processes like in shell with pipes
 - new properties:
   - dict->list @props flag added to output as list of properties
+  - snd.play~ @on_err property added to specify global error dispatching
 - new methods:
   - open method added to snd.play~ for readsf~ compatibility
 - misc:
