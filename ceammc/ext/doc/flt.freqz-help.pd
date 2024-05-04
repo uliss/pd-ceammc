@@ -11,10 +11,7 @@ a of a digital filter \, compute its frequency response: H(eʲʷ) = B(eʲʷ)/A(e
 = (b⁰+b¹e⁻ʲʷ+...+bᴹe⁻ʲʷᴹ)/(1+a¹e⁻ʲʷ+...+aᴺe⁻ʲʷᴺ);
 #X obj 50 188 ui.hsl @min 0 @max 20000 @show_value 1;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array AMPFZ 100 float 1;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X array AMPFZ 100 float 0;
 #X coords 0 1 100 -1 86 18 1;
 #X restore 318 188 graph;
 #X obj 50 217 lpf->biquad;
@@ -24,10 +21,7 @@ a of a digital filter \, compute its frequency response: H(eʲʷ) = B(eʲʷ)/A(e
 #X obj 69 304 msg biquad;
 #X msg 213 304 @db \$1;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array PHFZ 100 float 1;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X array PHFZ 100 float 0;
 #X coords 0 1 100 -1 79 18 1;
 #X restore 318 304 graph;
 #X obj 50 332 flt.freqz 128;

@@ -10,10 +10,7 @@
 flite TTS engine.;
 #X text 215 120 Rendering is performed in separate thread.;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array arr_flite 100 float 1;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X array arr_flite 100 float 0;
 #X coords 0 1 100 -1 114 18 1;
 #X restore 50 183 graph;
 #X obj 50 270 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;

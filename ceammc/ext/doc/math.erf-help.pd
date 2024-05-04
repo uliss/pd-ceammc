@@ -13,10 +13,7 @@ with mean 0 and variance 1/2 \, erf x is the probability that Y falls
 in the range [−x \, x];
 #X msg 50 213 bang;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array ERF 100 float 1;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X array ERF 100 float 0;
 #X coords 0 1 100 -1 71 18 1;
 #X restore 270 213 graph;
 #X obj 50 242 list.seq -4 4 0.025;

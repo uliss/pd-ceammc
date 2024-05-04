@@ -15,10 +15,7 @@ of argument x to base 10\.;
 #X text 215 220 log10(+infinity) return +infinity.;
 #X msg 50 283 bang;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array LOG10 100 float 1;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X array LOG10 100 float 0;
 #X coords 0 2 100 -2 85 18 1;
 #X restore 280 283 graph;
 #X obj 50 312 list.seq -1 100 0.5;

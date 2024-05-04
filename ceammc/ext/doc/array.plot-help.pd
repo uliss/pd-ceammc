@@ -7,8 +7,7 @@
 #X obj 667 11 array.plot;
 #X msg 50 118 1 100 3;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array APLT 10 float 1;
-#A 0 0 0 0 0 0 0 0 0 0 0;
+#X array APLT 10 float 0;
 #X coords 0 1 10 -1 79 18 1;
 #X restore 376 118 graph;
 #X obj 50 147 list.seq @closed 1;

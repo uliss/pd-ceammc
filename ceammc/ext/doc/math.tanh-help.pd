@@ -13,10 +13,7 @@ of x.;
 #X text 215 155 tanh(+-infinity) returns +-1\.;
 #X msg 50 218 bang;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array TANH 100 float 1;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X array TANH 100 float 0;
 #X coords 0 1 100 -1 78 18 1;
 #X restore 280 218 graph;
 #X obj 50 247 list.seq -5 5 0.1;

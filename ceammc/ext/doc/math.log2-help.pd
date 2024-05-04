@@ -13,10 +13,7 @@ of argument x to base 2\.;
 #X text 215 170 log2(+infinity) return +infinity.;
 #X msg 50 233 bang;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array LOG2 100 float 1;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X array LOG2 100 float 0;
 #X coords 0 4 100 -4 78 18 1;
 #X restore 280 233 graph;
 #X obj 50 262 list.seq -1 16 0.125;

@@ -9,9 +9,7 @@
 'websocat -s 8000 -t -v';
 #X msg 50 162 connect ws://localhost:8000;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array WS-CLI 50 float 1;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X array WS-CLI 50 float 0;
 #X coords 0 100 50 0 92 18 1;
 #X restore 414 162 graph;
 #X msg 69 190 close;

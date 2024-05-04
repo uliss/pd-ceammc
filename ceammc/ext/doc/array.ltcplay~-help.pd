@@ -15,10 +15,7 @@
 #X obj 50 248 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X msg 88 248 time 0 0 0;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array altc 100 float 1;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X array altc 100 float 0;
 #X coords 0 1 100 -1 78 18 1;
 #X restore 299 248 graph;
 #X msg 126 277 seek -2s;

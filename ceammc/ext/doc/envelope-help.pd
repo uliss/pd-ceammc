@@ -30,10 +30,7 @@ curved);
 #X obj 50 414 envelope;
 #X obj 50 442 env->array env_arr;
 #N canvas 0 22 450 300 (subpatch) 0;
-#X array env_arr 100 float 1;
-#A 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0
-0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0 0;
+#X array env_arr 100 float 0;
 #X coords 0 1 100 0 100 18 1;
 #X restore 50 485 graph;
 #X obj 20 535 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
