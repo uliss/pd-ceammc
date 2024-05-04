@@ -1,4 +1,4 @@
-#N canvas 0 0 740 358 12;
+#N canvas 0 0 740 271 12;
 #X msg 20 48 ssml <speak><voice name="Pavel">Я Павел</voice><voice name="Anna">а я Анна</voice></speak>;
 #X msg 423 77 all;
 #X msg 480 77 !;

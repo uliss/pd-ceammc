@@ -1,4 +1,4 @@
-#N canvas 0 0 842 415 12;
+#N canvas 0 0 758 386 12;
 #X obj 20 48 ui.keyboard 25 60;
 #X obj 58 135 ui.hrd 4;
 #X obj 58 164 + 1;

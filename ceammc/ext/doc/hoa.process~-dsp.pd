@@ -1,4 +1,4 @@
-#N canvas 0 0 832 761 12;
+#N canvas 0 0 487 300 12;
 #X obj 20 48 ui.hrd* 6;
 #X obj 20 77 list.separate @enumerate 1;
 #X msg 20 106 on \$1 \$2;

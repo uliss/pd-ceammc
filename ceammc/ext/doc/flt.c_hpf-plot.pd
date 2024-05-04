@@ -1,4 +1,4 @@
-#N canvas 0 0 546 329 12;
+#N canvas 0 0 462 329 12;
 #X obj 20 48 ui.hsl;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array CHPF0 200 float 1;

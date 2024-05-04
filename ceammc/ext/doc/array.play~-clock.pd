@@ -1,4 +1,4 @@
-#N canvas 0 0 645 386 12;
+#N canvas 0 0 535 167 12;
 #X msg 20 48 play;
 #X msg 87 48 stop;
 #X msg 164 48 @speed 0.5 \, bang;

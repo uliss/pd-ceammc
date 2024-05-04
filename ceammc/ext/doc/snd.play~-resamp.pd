@@ -1,4 +1,4 @@
-#N canvas 0 0 617 473 12;
+#N canvas 0 0 503 314 12;
 #X text 20 48 change in Audio Preferences samplerate \, then play both
 variants;
 #X msg 20 92 symbol %CEAMMC%/guitar1.wav \, 1;

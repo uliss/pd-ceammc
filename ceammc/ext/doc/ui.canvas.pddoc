@@ -337,7 +337,9 @@
                 <xinfo>draw commands</xinfo>
             </inlet>
         </inlets>
-        <outlets />
+        <outlets>
+            <outlet>message: mouse ACTION(down|up|drag) X Y MOD_CTL MOD_ALT MOD_SHIFT MOD_CMD</outlet>
+        </outlets>
         <example>
             <pdascii>
 <![CDATA[
@@ -375,7 +377,7 @@
 
 [ui.canvas-line]  [ui.canvas-text]   [ui.canvas-music] [ui.canvas-matrix]
 
-[ui.canvas-color] [ui.canvas-arrows] [ui.canvas-image]
+[ui.canvas-color] [ui.canvas-arrows] [ui.canvas-image] [ui.canvas-mouse]
 
 #b 30 50 100% 100%, stroke red, update
 #c 0 0 50, fill blue, update
@@ -584,6 +586,49 @@
 #m3 clear, matrix 2.5 0 0 1.5 0 0, rect 50 50 100 100, stroke red, update
 #m4 clear, matrix 2 0.5 0 2 0 0, rect 50 50 100 100, stroke red, update
 [X m1->y] [X m2->y] [X m3->y] [X m4->y]
+]]>
+            </pdascii>
+            <pdascii id="mouse">
+<![CDATA[
+/*Mouse drawing: DOWN - line start point, UP - line end point*/
+
+[r ui_canvas_mouse]
+|
+[ui.canvas @size 380 300 #z]
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+|
+[route mouse #a]
+|
+[route down up double #b]
+|
+|           [clear #d(
+|
+|    [line_to $1 $2, stroke blue, update #c(
+|
+[move_to $1 $2(
+|
+[s ui_canvas_mouse #f]
+
+[X b:1->c] [X b:2->d] [X d->f] [X c->f]
 ]]>
             </pdascii>
         </example>

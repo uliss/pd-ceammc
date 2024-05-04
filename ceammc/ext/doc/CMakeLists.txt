@@ -129,7 +129,7 @@ foreach(_doc_file ${DOC_FILES})
     install(FILES "${_doc_file}-help.pd"
         DESTINATION ${DOC_INSTALL_PATH}
         PERMISSIONS OWNER_READ GROUP_READ WORLD_READ)
-    file(GLOB _xfiles "${_doc_file}.*.pd")
+    file(GLOB _xfiles "${_doc_file}-*.pd")
     # find extra files, for example: module.name.test1.pd
     foreach(_xfile ${_xfiles})
         if(NOT ${_xfile} MATCHES "-help\.pd$")
@@ -232,12 +232,14 @@ add_subdirectory(sf2)
 add_subdirectory(sfz)
 add_subdirectory(sound)
 
-find_program(RSYNC_EXEC rsync)
-
 if(APPLE)
+    find_program(RSYNC_EXEC rsync)
     if(RSYNC_EXEC)
         # note: trailing slash after CMAKE_CURRENT_SOURCE_DIR is important!
         add_custom_target(dev_pddoc
+            COMMAND ${RSYNC_EXEC} -av --include '*.pd' --exclude '*'
+                ${CMAKE_CURRENT_BINARY_DIR}/
+                ${CMAKE_CURRENT_SOURCE_DIR}
             COMMAND ${RSYNC_EXEC} -av --include '*.pd' --exclude '*'
                 ${CMAKE_CURRENT_SOURCE_DIR}/
                 ${BUNDLE_FULL_PATH}/Contents/Resources/extra/ceammc

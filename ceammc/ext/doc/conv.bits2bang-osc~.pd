@@ -1,4 +1,4 @@
-#N canvas 0 0 561 473 12;
+#N canvas 0 0 355 242 12;
 #X obj 20 48 inlet;
 #X obj 96 48 loadbang;
 #X obj 96 77 patch.args @from expr($1+1);

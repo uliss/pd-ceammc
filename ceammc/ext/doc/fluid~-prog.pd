@@ -1,4 +1,4 @@
-#N canvas 0 0 842 415 12;
+#N canvas 0 0 504 285 12;
 #X obj 20 48 ui.keyboard 25 60;
 #X obj 125 120 ui.hrd 5;
 #X text 231 120 different attack and vibrato;

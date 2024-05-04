@@ -1,4 +1,4 @@
-#N canvas 0 0 1000 588 12;
+#N canvas 0 0 1000 343 12;
 #X obj 20 48 loadbang;
 #X msg 20 77 clear \, image 20 20 img/2d_matrix.svg 0.32 \, update;
 #X obj 20 106 ui.canvas @size 380 500;

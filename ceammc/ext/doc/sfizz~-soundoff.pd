@@ -1,4 +1,4 @@
-#N canvas 0 0 842 401 12;
+#N canvas 0 0 400 228 12;
 #X msg 20 48 note 1 60 120 \, note 1 65 120 \, note 2 47 120;
 #X msg 39 92 sound_off;
 #X obj 20 120 sfizz~ \#sine;

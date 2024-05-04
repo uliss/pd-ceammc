@@ -1,0 +1,20 @@
+#N canvas 0 0 530 617 12;
+#X text 20 48 Mouse drawing: DOWN - line start point \, UP - line end
+point;
+#X obj 20 77 r ui_canvas_mouse;
+#X obj 20 106 ui.canvas @size 380 300;
+#X obj 20 423 route mouse;
+#X obj 20 451 route down up double;
+#X msg 135 480 clear;
+#X msg 68 509 line_to \$1 \$2 \, stroke blue \, update;
+#X msg 20 538 move_to \$1 \$2;
+#X obj 20 567 s ui_canvas_mouse;
+#X connect 1 0 2 0;
+#X connect 2 0 3 0;
+#X connect 3 0 4 0;
+#X connect 4 0 7 0;
+#X connect 7 0 8 0;
+#X connect 4 1 6 0;
+#X connect 4 2 5 0;
+#X connect 5 0 8 0;
+#X connect 6 0 8 0;

@@ -1,4 +1,4 @@
-#N canvas 0 0 676 300 12;
+#N canvas 0 0 180 156 12;
 #X obj 20 48 inlet;
 #X obj 20 77 system.cursor;
 #X obj 20 106 outlet;

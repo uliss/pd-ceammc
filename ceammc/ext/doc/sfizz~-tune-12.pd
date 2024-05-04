@@ -1,4 +1,4 @@
-#N canvas 0 0 842 401 12;
+#N canvas 0 0 682 401 12;
 #X text 20 48 play MIDI keyboard with default Sine tone sample;
 #X obj 135 77 ui.keyboard;
 #X obj 135 149 msg note;

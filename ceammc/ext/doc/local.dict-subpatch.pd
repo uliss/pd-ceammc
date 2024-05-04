@@ -1,4 +1,4 @@
-#N canvas 0 0 453 214 12;
+#N canvas 0 0 453 185 12;
 #X text 20 48 dict from parent patch is not visible in subpatch;
 #X msg 20 77 bang;
 #X obj 20 106 local.dict d1;

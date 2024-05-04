@@ -1,4 +1,4 @@
-#N canvas 0 0 472 242 12;
+#N canvas 0 0 208 156 12;
 #X obj 20 48 inlet;
 #X obj 20 77 canvas.top @abs 0;
 #X obj 20 106 outlet;

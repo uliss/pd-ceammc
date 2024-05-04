@@ -1,4 +1,4 @@
-#N canvas 0 0 567 530 12;
+#N canvas 0 0 515 530 12;
 #X obj 20 48 ui.keyboard;
 #X obj 384 120 r \$0-fs;
 #X obj 20 149 list.at 0;
