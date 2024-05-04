@@ -17,6 +17,7 @@
 - misc:
   - dict.get - path-like expression added to get keys: /*/USER/1:3/foo
   - ui.display - copy message value to the clipboard by click or from popup menu
+  - ui.canvas - mouse coordinates output for mouse down, up, drag and double click events
 ### Changed:
 - renaming:
   - prop.get~ renamed to prop.route~ (the old alias exists for the compatibility, but it prints a warning message)

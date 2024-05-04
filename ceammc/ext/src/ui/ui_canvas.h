@@ -103,6 +103,11 @@ public:
     bool notify();
     void onZoom(t_float z);
 
+    void onMouseDown(t_object* view, const t_pt& pos, const t_pt& abs_pos, long mods);
+    void onMouseUp(t_object* view, const t_pt& pos, long mods);
+    void onMouseDrag(t_object* view, const t_pt& pos, long mods);
+    void onDblClick(t_object* view, const t_pt& pos, long mods);
+
 public:
     static void setup();
     void clearDrawQueue();

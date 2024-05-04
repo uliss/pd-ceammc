@@ -172,6 +172,8 @@ void UICanvas::init(t_symbol* name, const AtomListView& args, bool usePresets)
 {
     UIObject::init(name, args, usePresets);
 
+    createOutlet();
+
     draw::Create cmd;
     cmd.w = width();
     cmd.h = height();
@@ -1075,6 +1077,62 @@ void UICanvas::onZoom(t_float z)
     m_update();
 }
 
+void UICanvas::onMouseDown(t_object* view, const t_pt& pos, const t_pt& abs_pos, long mods)
+{
+    SmallAtomList data {
+        gensym("down"),
+        pos.x,
+        pos.y,
+        bool(mods & EMOD_CTRL),
+        bool(mods & EMOD_ALT),
+        bool(mods & EMOD_SHIFT),
+        bool(mods & EMOD_CMD),
+    };
+    anyTo(0, gensym("mouse"), data.view());
+}
+
+void UICanvas::onMouseUp(t_object* view, const t_pt& pos, long mods)
+{
+    SmallAtomList data {
+        gensym("up"),
+        pos.x,
+        pos.y,
+        bool(mods & EMOD_CTRL),
+        bool(mods & EMOD_ALT),
+        bool(mods & EMOD_SHIFT),
+        bool(mods & EMOD_CMD),
+    };
+    anyTo(0, gensym("mouse"), data.view());
+}
+
+void UICanvas::onMouseDrag(t_object* view, const t_pt& pos, long mods)
+{
+    SmallAtomList data {
+        gensym("drag"),
+        pos.x,
+        pos.y,
+        bool(mods & EMOD_CTRL),
+        bool(mods & EMOD_ALT),
+        bool(mods & EMOD_SHIFT),
+        bool(mods & EMOD_CMD),
+    };
+    anyTo(0, gensym("mouse"), data.view());
+}
+
+void UICanvas::onDblClick(t_object *view, const t_pt &pos, long mods)
+{
+    SmallAtomList data {
+        gensym("double"),
+        pos.x,
+        pos.y,
+        bool(mods & EMOD_CTRL),
+        bool(mods & EMOD_ALT),
+        bool(mods & EMOD_SHIFT),
+        bool(mods & EMOD_CMD),
+    };
+    anyTo(0, gensym("mouse"), data.view());
+}
+
 void UICanvas::clearDrawQueue()
 {
     draw::DrawCommand cmd;
@@ -1225,6 +1283,8 @@ void UICanvas::setup()
     obj.addMethod("text", &UICanvas::m_text);
     obj.addMethod("translate", &UICanvas::m_translate);
     obj.addMethod("update", &UICanvas::m_update);
+
+    obj.useMouseEvents(UI_MOUSE_DOWN | UI_MOUSE_UP | UI_MOUSE_DRAG | UI_MOUSE_DBL_CLICK);
 }
 
 void setup_ui_canvas()
