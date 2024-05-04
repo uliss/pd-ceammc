@@ -65,12 +65,13 @@ public:
     void onSymbol(t_symbol* s) final;
     void processBlock(const t_sample** in, t_sample** out) final;
 
-    void m_start(t_symbol*, const AtomListView& lv);
-    void m_stop(t_symbol*, const AtomListView& lv);
-    void m_pause(t_symbol*, const AtomListView& lv);
     void m_ff(t_symbol*, const AtomListView& lv);
+    void m_open(t_symbol*, const AtomListView& lv);
+    void m_pause(t_symbol*, const AtomListView& lv);
     void m_rewind(t_symbol*, const AtomListView& lv);
     void m_seek(t_symbol*, const AtomListView& lv);
+    void m_start(t_symbol*, const AtomListView& lv);
+    void m_stop(t_symbol*, const AtomListView& lv);
 
     Future createTask() final;
     void processTask(int event) final;

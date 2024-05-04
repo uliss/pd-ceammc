@@ -47,6 +47,10 @@
             (without pitch change) only on the next playing cycle</property>
         </properties>
         <methods>
+            <!-- open -->
+            <method name="open">sets @name property
+            <param name="FILENAME" type="symbol" required="true">absolute or relative to patch soundfile
+            name</param></method>
             <!-- start -->
             <method name="start">start playing 
             <param name="FLAG" type="bool" required="false">start/stop flag. If true or ommited:
@@ -94,7 +98,7 @@
 |
 [openpanel #a]
 
-[symbol %CEAMMC%/guitar1.wav, 1 #b(
+ [open %CEAMMC%/guitar1.wav, 1 #b(
 
  [@name %CEAMMC%/sound/loop_breakbeat.flac, 1(
  |

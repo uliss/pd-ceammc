@@ -14,6 +14,8 @@
   - system.command (with system.cmd alias) - run several processes like in shell with pipes
 - new properties:
   - dict->list @props flag added to output as list of properties
+- new methods:
+  - open method added to snd.play~ for readsf~ compatibility
 - misc:
   - dict.get - path-like expression added to get keys: /*/USER/1:3/foo
   - ui.display - copy message value to the clipboard by click or from popup menu

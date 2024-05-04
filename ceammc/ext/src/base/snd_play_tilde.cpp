@@ -232,6 +232,11 @@ void SndPlayTilde::m_ff(t_symbol* s, const AtomListView& lv)
     }
 }
 
+void SndPlayTilde::m_open(t_symbol*, const AtomListView& lv)
+{
+    fname_->set(lv);
+}
+
 void SndPlayTilde::m_rewind(t_symbol* s, const AtomListView& lv)
 {
     static const args::ArgChecker chk("RELTIME:a?");
@@ -549,10 +554,11 @@ bool SndPlayTilde::calcEnd(const units::TimeValue& tm, size_t sr, size_t sampleC
 void setup_snd_play_tilde()
 {
     SoundExternalFactory<SndPlayTilde> obj("snd.play~", OBJECT_FACTORY_DEFAULT);
-    obj.addMethod("start", &SndPlayTilde::m_start);
-    obj.addMethod("stop", &SndPlayTilde::m_stop);
-    obj.addMethod("pause", &SndPlayTilde::m_pause);
     obj.addMethod("ff", &SndPlayTilde::m_ff);
+    obj.addMethod("open", &SndPlayTilde::m_open);
+    obj.addMethod("pause", &SndPlayTilde::m_pause);
     obj.addMethod("rewind", &SndPlayTilde::m_rewind);
     obj.addMethod("seek", &SndPlayTilde::m_seek);
+    obj.addMethod("start", &SndPlayTilde::m_start);
+    obj.addMethod("stop", &SndPlayTilde::m_stop);
 }
