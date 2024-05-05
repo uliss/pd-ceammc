@@ -9,7 +9,7 @@
 #X obj 674 11 array.set;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array aset 100 float 0;
-#X coords 0 1 100 0 78 18 1;
+#X coords 0 1 100 0 450 100 1;
 #X restore 50 118 graph;
 #X msg 50 248 0 0.2 0.5;
 #X msg 165 248 0 0.9;

@@ -4,7 +4,7 @@
 #X text 460 50 counterpart of the vanilla radio toggle;
 #X obj 1 1 cnv 5 765 40 empty empty ui.radio 20 20 0 20 -104026 -4096
 0;
-#N canvas 0 11 250 400 aliases 0;
+#N canvas 548 8 250 400 aliases 0;
 #X obj 30 40 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.radio*] @url ui.radio-help.pd;
 #X obj 30 74 ui.link @background_color 0.39216 0.39216 0.39216 @title
@@ -15,8 +15,8 @@
 [ui.vrd] @url ui.radio-help.pd;
 #X obj 30 176 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.vrd*] @url ui.radio-help.pd;
-#X restore 0 11 pd aliases;
-#X obj 97 11 ui.link @background_color 0.39216 0.39216 0.39216 @title
+#X restore 548 8 pd aliases;
+#X obj 645 8 ui.link @background_color 0.39216 0.39216 0.39216 @title
 [ui.radio] @url ui.radio-help.pd;
 #X obj 210 80 cnv 1 555 65 empty empty empty 17 7 0 10 -257983 -1 0;
 #X text 215 80 [ui.hrd] alias for horizontal radio \, [ui.vrd] alias

@@ -13,7 +13,7 @@
 -262144 -1 -1 0 0;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array s2p 100 float 0;
-#X coords 0 1 100 -1 71 18 1;
+#X coords 0 1 100 -1 200 130 1;
 #X restore 290 143 graph;
 #X floatatom 50 172 5 0 0 0 - - -;
 #X obj 50 201 array.s->p s2p;

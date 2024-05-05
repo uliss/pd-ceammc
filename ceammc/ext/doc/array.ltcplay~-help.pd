@@ -16,7 +16,7 @@
 #X msg 88 248 time 0 0 0;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array altc 100 float 0;
-#X coords 0 1 100 -1 78 18 1;
+#X coords 0 1 100 -1 200 140 1;
 #X restore 299 248 graph;
 #X msg 126 277 seek -2s;
 #X obj 50 305 ltc.out~;

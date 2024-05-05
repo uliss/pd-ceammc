@@ -14,7 +14,7 @@ https://en.wikipedia.org/wiki/Standard_deviation;
 -1;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array astddev 200 float 0;
-#X coords 0 1 200 -1 100 18 1;
+#X coords 0 1 200 -1 200 100 1;
 #X restore 347 142 graph;
 #X obj 50 171 array.stddev astddev;
 #X floatatom 50 200 16 0 0 0 - - -;

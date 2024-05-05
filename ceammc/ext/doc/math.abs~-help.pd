@@ -11,21 +11,21 @@ float input.;
 #X msg 50 158 bang;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array mabs 100 float 0;
-#X coords 0 1 100 -1 78 18 1;
+#X coords 0 1 100 -1 200 140 1;
 #X restore 338 158 graph;
 #X obj 50 187 plot.linspace~ -1 1;
 #X obj 50 216 math.abs~;
 #X obj 50 245 array.plot~ mabs @yauto 1;
-#X obj 20 295 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 300 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 330 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 335 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 301 1\.;
-#X text 245 301 input signal.;
-#X obj 20 331 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 336 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 336 1\.;
+#X text 245 336 input signal.;
+#X obj 20 366 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 371 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 337 1\.;
-#X text 245 337 output signal.;
+#X text 110 372 1\.;
+#X text 245 372 output signal.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

@@ -9,11 +9,11 @@
 #X obj 50 118 msg.onload;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array ARS1 7 float 2;
-#X coords 0 1 7 -1 78 18 1;
+#X coords 0 1 7 -1 160 100 1;
 #X restore 280 118 graph;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array ARS2 100 float 2;
-#X coords 0 1 100 -1 78 18 1;
+#X coords 0 1 100 -1 160 100 1;
 #X restore 472 118 graph;
 #X msg 50 147 -1 0.2 0.7 0.1 -0.5 0.6 0.7;
 #X obj 50 176 array set ARS1;

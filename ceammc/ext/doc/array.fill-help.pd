@@ -7,7 +7,7 @@
 #X obj 667 11 array.fill;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array afill 300 float 0;
-#X coords 0 1 300 -1 85 18 1;
+#X coords 0 1 300 -1 300 90 1;
 #X restore 50 118 graph;
 #X msg 50 219 fill 0.1;
 #X msg 213 219 gauss 0 0.4;

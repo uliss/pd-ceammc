@@ -8,7 +8,7 @@
 #X msg 50 118 load %DOC%/sound/voice.wav @to vplay @resize;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array vplay 100 float 0;
-#X coords 0 1 100 -1 86 18 1;
+#X coords 0 1 100 -1 120 80 1;
 #X restore 443 133 graph;
 #X obj 50 147 expand_env;
 #X msg 184 147 0.3;

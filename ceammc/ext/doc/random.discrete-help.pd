@@ -17,7 +17,7 @@ initialized with current time.;
 -1;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array array1 9 float 0;
-#X coords 0 1 9 0 93 18 1;
+#X coords 0 1 9 0 200 140 1;
 #X restore 482 243 graph;
 #X obj 50 272 list.gen 1000;
 #X obj 203 272 random.discrete 1 2 3 4 0 1 2 4 5;

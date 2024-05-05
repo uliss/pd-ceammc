@@ -9,7 +9,7 @@
 -1;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array distrib 20 float 0;
-#X coords 0 1 20 0 100 18 1;
+#X coords 0 1 20 0 200 140 1;
 #X restore 357 118 graph;
 #X obj 50 147 t b b;
 #X msg 88 176 normalize;

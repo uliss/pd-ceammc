@@ -13,7 +13,7 @@ Root mean square @url https://en.wikipedia.org/wiki/Root_mean_square;
 -1;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array arms 300 float 0;
-#X coords 0 1 300 -1 78 18 1;
+#X coords 0 1 300 -1 300 100 1;
 #X restore 299 142 graph;
 #X obj 50 171 array.rms arms;
 #X floatatom 50 200 16 0 0 0 - - -;

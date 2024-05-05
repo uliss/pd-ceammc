@@ -14,24 +14,24 @@ in the range [−x \, x];
 #X msg 50 213 bang;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array ERF 100 float 0;
-#X coords 0 1 100 -1 71 18 1;
+#X coords 0 1 100 -1 320 140 1;
 #X restore 270 213 graph;
 #X obj 50 242 list.seq -4 4 0.025;
 #X obj 50 271 math.erf;
 #X obj 50 300 list->array ERF;
-#X obj 20 350 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 355 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+#X obj 20 385 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 390 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
 0;
-#X text 110 356 1\.;
-#X text 150 356 *float*;
-#X text 245 356 input value.;
-#X text 150 376 *list*;
-#X text 245 376 apply to all numeric values.;
-#X obj 20 406 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 411 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X text 110 391 1\.;
+#X text 150 391 *float*;
+#X text 245 391 input value.;
+#X text 150 411 *list*;
+#X text 245 411 apply to all numeric values.;
+#X obj 20 441 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 446 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
 -49933 0;
-#X text 110 412 1\.;
-#X text 245 412 result value.;
+#X text 110 447 1\.;
+#X text 245 447 result value.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

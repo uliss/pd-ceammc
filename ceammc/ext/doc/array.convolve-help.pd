@@ -7,11 +7,11 @@
 #X obj 638 11 array.convolve;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array A-CONV 100 float 0;
-#X coords 0 1 100 -1 93 18 1;
+#X coords 0 1 100 -1 200 130 1;
 #X restore 50 118 graph;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array A-IR 10 float 0;
-#X coords 0 1 10 -1 79 18 1;
+#X coords 0 1 10 -1 40 130 1;
 #X restore 270 118 graph;
 #X obj 50 277 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;

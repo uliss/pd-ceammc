@@ -7,7 +7,7 @@
 #X obj 681 11 array.do;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array A1 100 float 0;
-#X coords 0 1 100 0 64 18 1;
+#X coords 0 1 100 0 130 100 1;
 #X restore 50 118 graph;
 #X obj 50 234 bng 15 250 50 0 empty empty empty 17 7 0 10 -262144 -1
 -1;

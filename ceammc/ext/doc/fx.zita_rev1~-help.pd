@@ -9,7 +9,7 @@
 #X msg 165 118 voice.wav;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array array1 100 float 0;
-#X coords 0 1 100 -1 93 18 1;
+#X coords 0 1 100 -1 150 100 1;
 #X restore 443 118 graph;
 #X obj 50 147 symbol;
 #X msg 50 176 load %DOC%/sound/\$1 @to array1 @resize;

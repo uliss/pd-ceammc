@@ -12,7 +12,7 @@ a of a digital filter \, compute its frequency response: H(eʲʷ) = B(eʲʷ)/A(e
 #X obj 50 188 ui.hsl @min 0 @max 20000 @show_value 1;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array AMPFZ 100 float 0;
-#X coords 0 1 100 -1 86 18 1;
+#X coords 0 1 100 -1 360 90 1;
 #X restore 318 188 graph;
 #X obj 50 217 lpf->biquad;
 #X obj 78 246 print;
@@ -22,7 +22,7 @@ a of a digital filter \, compute its frequency response: H(eʲʷ) = B(eʲʷ)/A(e
 #X msg 213 304 @db \$1;
 #N canvas 0 22 450 300 (subpatch) 0;
 #X array PHFZ 100 float 0;
-#X coords 0 1 100 -1 79 18 1;
+#X coords 0 1 100 -1 360 90 1;
 #X restore 318 304 graph;
 #X obj 50 332 flt.freqz 128;
 #X obj 98 361 array.plot PHFZ;
