@@ -93,7 +93,7 @@ void HwPrinter::processRequest(const Request& req, ResultCallback cb)
             [](void* user, const ceammc_hw_printer_info* info) {
                 auto names = static_cast<str_vec*>(user);
                 if (names)
-                    names->push_back(info->name);
+                    names->push_back(info->system_name);
             } //
         });
         if (choose_req.idx < printer_names.size()) {
