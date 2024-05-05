@@ -7,28 +7,26 @@ target_sources(ceammc_net
         net_osc_receive.cpp
         osc_property.cpp)
 
+# MQTT
+target_sources(ceammc_net PRIVATE net_mqtt_client.cpp)
 if(WITH_MQTT)
-    target_sources(ceammc_net PRIVATE net_mqtt_client.cpp)
     target_include_directories(ceammc_net PRIVATE
         PRIVATE
             ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
     )
     target_link_libraries(ceammc_net PRIVATE net_rust)
-    target_compile_definitions(ceammc_net PRIVATE WITH_MQTT)
-else()
-    target_sources(ceammc_net PRIVATE net_mqtt.cpp)
+    target_compile_definitions(ceammc_net PRIVATE WITH_MQTT WITH_RUST)
 endif()
 
+# telegram bot
+target_sources(ceammc_net PRIVATE net_telegram_bot.cpp)
 if(WITH_TELEGRAM)
-    target_sources(ceammc_net PRIVATE net_telegram_bot.cpp)
     target_include_directories(ceammc_net PRIVATE
         PRIVATE
             ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
     )
     target_link_libraries(ceammc_net PRIVATE net_rust)
-    target_compile_definitions(ceammc_net PRIVATE WITH_TELEGRAM)
-else()
-    target_sources(ceammc_net PRIVATE net_telegram_bot.cpp)
+    target_compile_definitions(ceammc_net PRIVATE WITH_TELEGRAM WITH_RUST)
 endif()
 
 # libartnet
@@ -63,29 +61,27 @@ target_include_directories(ceammc_net
 )
 
 # http
+target_sources(ceammc_net PRIVATE net_http_send.cpp net_http_client.cpp)
 if(WITH_HTTP)
-    target_compile_definitions(ceammc_net PRIVATE WITH_HTTP)
+    target_compile_definitions(ceammc_net PRIVATE WITH_HTTP WITH_RUST)
     target_sources(ceammc_net PRIVATE net_http_send.cpp net_http_client.cpp)
     target_link_libraries(ceammc_net PRIVATE http_lib net_rust)
     target_include_directories(ceammc_net
         PRIVATE
             ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
         )
-else()
-    target_sources(ceammc_net PRIVATE net_http_send.cpp net_http_client.cpp)
 endif()
 
 # freesound
+target_sources(ceammc_net PRIVATE net_freesound.cpp)
 if(WITH_FREESOUND)
-    target_compile_definitions(ceammc_net PRIVATE WITH_FREESOUND)
+    target_compile_definitions(ceammc_net PRIVATE WITH_FREESOUND WITH_RUST)
     target_sources(ceammc_net PRIVATE net_freesound.cpp)
     target_link_libraries(ceammc_net PRIVATE net_rust)
     target_include_directories(ceammc_net
         PRIVATE
             ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
         )
-else()
-    target_sources(ceammc_net PRIVATE net_freesound.cpp)
 endif()
 
 # MDNS
@@ -102,7 +98,7 @@ endif()
 # websocket
 target_sources(ceammc_net PRIVATE net_ws_client.cpp net_ws_server.cpp)
 if(WITH_WEBSOCKET)
-    target_compile_definitions(ceammc_net PRIVATE WITH_WEBSOCKET)
+    target_compile_definitions(ceammc_net PRIVATE WITH_WEBSOCKET WITH_RUST)
     target_link_libraries(ceammc_net PRIVATE net_rust)
     target_include_directories(ceammc_net
         PRIVATE
