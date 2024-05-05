@@ -137,7 +137,7 @@ pub fn print_file(
     _on_debug: hw_error_cb,
 ) -> i32 {
     // get printer name
-    let printer = if printer.is_null() {
+    let printer = if !printer.is_null() {
         unsafe { CStr::from_ptr(printer).to_owned() }
     } else {
         let def = unsafe { cupsGetDefault() };
