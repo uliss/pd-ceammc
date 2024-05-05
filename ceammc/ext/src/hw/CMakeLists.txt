@@ -58,13 +58,19 @@ target_link_libraries(ceammc_hw
 
 # gamepad
 target_sources(ceammc_hw PRIVATE hw_gamepad.cpp)
-if(WITH_GAMEPAD)
+if(WITH_GAMEPAD)    
     target_include_directories(ceammc_hw
         PRIVATE
             ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/hw
     )
     target_link_libraries(ceammc_hw PRIVATE hw_rust)
     target_compile_definitions(ceammc_hw PRIVATE WITH_GAMEPAD)
+
+    if(UNIX AND NOT APPLE)
+        find_package(udev REQUIRED)
+        target_include_directories(ceammc_hw PRIVATE ${UDEV_INCLUDE_DIRS})
+        target_link_libraries(ceammc_hw PRIVATE ${UDEV_LIBRARIES})
+    endif()
 endif()
 
 # printer
