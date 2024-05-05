@@ -73,6 +73,7 @@ pub enum system_process_mode {
 
 impl system_process {
     fn kill(&mut self) -> bool {
+        log::debug!("kill");
         if let Some(h) = &self.handle {
             match h.kill() {
                 Ok(_) => true,
@@ -124,12 +125,14 @@ impl system_process {
             f(self.user, CString::new(msg).unwrap_or_default().as_ptr());
         });
 
-        eprintln!("error: {msg}");
+        log::error!("error: {msg}");
     }
 
     fn exec(&mut self) -> bool {
         match &self.cmd {
             Some(expr) => {
+                log::debug!("exec: {expr:?}");
+
                 if self.is_running() {
                     self.on_err("process already running");
                     return false;
@@ -216,12 +219,14 @@ impl system_process {
                 Ok(res) => {
                     match res {
                         Some(res) => {
+                            log::debug!("process finished");
                             self.process_stdout(res.stdout.as_slice());
                             self.process_stderr(res.stderr.as_slice());
 
                             return (system_process_rc::Ready, Some(res.status));
                         }
                         None => {
+                            log::debug!("waiting for process ...");
                             // still running
                             return (system_process_rc::Running, None);
                         }
@@ -328,7 +333,7 @@ pub extern "C" fn ceammc_system_process_clear(proc: *mut system_process) -> bool
 #[no_mangle]
 pub extern "C" fn ceammc_system_process_exec(proc: *mut system_process) -> bool {
     if proc.is_null() {
-        eprintln!("NULL pointer");
+        log::error!("NULL pointer");
         false
     } else {
         let prop = unsafe { &mut *proc };
