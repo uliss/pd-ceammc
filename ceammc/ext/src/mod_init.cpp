@@ -59,6 +59,10 @@ extern "C" {
 #include "ui/mod_ui.h"
 #include "window/mod_window.h"
 
+#ifdef WITH_RUST_CORE
+#include "core_rust.hpp"
+#endif
+
 #include <algorithm>
 #include <set>
 #include <string>
@@ -175,6 +179,10 @@ void ceammc_init()
 #endif
 
     ceammc::BaseObject::initInletDispatchNames();
+
+#ifdef WITH_RUST_CORE
+    ceammc_rust_log_init();
+#endif
 
     ceammc_analyze_setup();
     ceammc_array_setup();

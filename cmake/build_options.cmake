@@ -1,6 +1,5 @@
 # development
 option(WITH_COVERAGE  "Build with coverage and profiling flags" OFF)
-option(WITH_EXPERIMENTAL "Build with experimental objects" OFF)
 option(WITH_BENCHMARK "Build with benchmarks" ON)
 option(WITH_CLANG_TIDY "Build with clang-tidy checks" OFF)
 
@@ -44,4 +43,20 @@ if(APPLE)
 endif()
 
 option(ENABLE_TESTS "Enable tests" ON)
+
+if(CMAKE_VERSION VERSION_LESS "3.22.0")
+    message("Please consider to switch to CMake 3.8.0")
+    option(WITH_RUST_CORE "Use rust core module" ON)
+    option(WITH_RUST_HW "Use rust hw module" ON)
+    option(WITH_RUST_NET "Use rust net module" ON)
+    option(WITH_RUST_SYSTEM "Use rust system module" ON)
+else()
+    include(CMakeDependentOption)
+    cmake_dependent_option(WITH_RUST_CORE "Use rust core module" ON "WITH_ZEROCONF" OFF)
+    cmake_dependent_option(WITH_RUST_HW "Use rust hardware module" ON "WITH_GAMEPAD OR WITH_PRINTER" OFF)
+    cmake_dependent_option(WITH_RUST_NET "Use rust net module" ON "WITH_MQTT OR WITH_HTTP OR WITH_FREESOUND OR WITH_TELEGRAM OR WITH_WEBSOCKET" OFF)
+    cmake_dependent_option(WITH_RUST_SYSTEM "Use rust system module" ON "WITH_SYSTEM_CMD" OFF)
+endif()
+
+
 

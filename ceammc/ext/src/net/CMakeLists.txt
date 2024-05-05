@@ -15,7 +15,7 @@ if(WITH_MQTT)
             ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
     )
     target_link_libraries(ceammc_net PRIVATE net_rust)
-    target_compile_definitions(ceammc_net PRIVATE WITH_MQTT WITH_RUST)
+    target_compile_definitions(ceammc_net PRIVATE WITH_MQTT)
     if(UNIX AND NOT APPLE)
         find_package(OpenSSL REQUIRED)
         target_link_libraries(ceammc_net PRIVATE ${OPENSSL_LIBRARIES})
@@ -30,7 +30,7 @@ if(WITH_TELEGRAM)
             ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
     )
     target_link_libraries(ceammc_net PRIVATE net_rust)
-    target_compile_definitions(ceammc_net PRIVATE WITH_TELEGRAM WITH_RUST)
+    target_compile_definitions(ceammc_net PRIVATE WITH_TELEGRAM)
     if(UNIX AND NOT APPLE)
         find_package(OpenSSL REQUIRED)
         target_link_libraries(ceammc_net PRIVATE ${OPENSSL_LIBRARIES})
@@ -71,7 +71,7 @@ target_include_directories(ceammc_net
 # http
 target_sources(ceammc_net PRIVATE net_http_send.cpp net_http_client.cpp)
 if(WITH_HTTP)
-    target_compile_definitions(ceammc_net PRIVATE WITH_HTTP WITH_RUST)
+    target_compile_definitions(ceammc_net PRIVATE WITH_HTTP)
     target_sources(ceammc_net PRIVATE net_http_send.cpp net_http_client.cpp)
     target_link_libraries(ceammc_net PRIVATE http_lib net_rust)
     target_include_directories(ceammc_net
@@ -87,7 +87,7 @@ endif()
 # freesound
 target_sources(ceammc_net PRIVATE net_freesound.cpp)
 if(WITH_FREESOUND)
-    target_compile_definitions(ceammc_net PRIVATE WITH_FREESOUND WITH_RUST)
+    target_compile_definitions(ceammc_net PRIVATE WITH_FREESOUND)
     target_sources(ceammc_net PRIVATE net_freesound.cpp)
     target_link_libraries(ceammc_net PRIVATE net_rust)
     target_include_directories(ceammc_net
@@ -114,7 +114,7 @@ endif()
 # websocket
 target_sources(ceammc_net PRIVATE net_ws_client.cpp net_ws_server.cpp)
 if(WITH_WEBSOCKET)
-    target_compile_definitions(ceammc_net PRIVATE WITH_WEBSOCKET WITH_RUST)
+    target_compile_definitions(ceammc_net PRIVATE WITH_WEBSOCKET)
     target_link_libraries(ceammc_net PRIVATE net_rust)
     target_include_directories(ceammc_net
         PRIVATE

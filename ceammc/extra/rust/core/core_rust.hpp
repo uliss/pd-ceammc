@@ -393,6 +393,12 @@ bool ceammc_net_is_ifa_v6(const ceammc_net_iface_addr *va);
 __attribute__((warn_unused_result))
 ceammc_net_ifaces *ceammc_net_list_interfaces(ceammc_net_err_cb err_cb);
 
+/**
+ * init rust env_logger
+ * logger config is done with a RUST_LOG env variable
+ */
+void ceammc_rust_log_init();
+
 } // extern "C"
 
 #endif // ceammc_rust_core_h

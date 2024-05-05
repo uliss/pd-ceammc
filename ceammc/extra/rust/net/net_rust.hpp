@@ -524,8 +524,6 @@ bool ceammc_http_client_upload(ceammc_http_client *cli,
                                const ceammc_http_client_param *params,
                                size_t params_len);
 
-void ceammc_init_rust_logging();
-
 /// free mqtt client
 /// @param cli - mqtt client (can be NULL)
 void ceammc_mqtt_client_free(ceammc_mqtt_client *cli);

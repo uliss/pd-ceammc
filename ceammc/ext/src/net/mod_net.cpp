@@ -1,10 +1,6 @@
 #include "mod_net.h"
 #include "net_host.h"
 
-#ifdef WITH_RUST
-#include "net_rust.hpp"
-#endif
-
 extern void setup_net_artnet_send();
 extern void setup_net_freesound();
 extern void setup_net_http_client();
@@ -20,10 +16,6 @@ extern void setup_net_ws_server();
 
 void ceammc_net_setup()
 {
-#ifdef WITH_RUST
-    ceammc_init_rust_logging();
-#endif
-
     setup_net_artnet_send();
     setup_net_freesound();
     setup_net_host();
