@@ -57,35 +57,32 @@ target_link_libraries(ceammc_hw
 )
 
 # gamepad
+target_sources(ceammc_hw PRIVATE hw_gamepad.cpp)
 if(WITH_GAMEPAD)
-    target_sources(ceammc_hw PRIVATE hw_gamepad.cpp)
     target_include_directories(ceammc_hw
         PRIVATE
             ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/hw
     )
     target_link_libraries(ceammc_hw PRIVATE hw_rust)
     target_compile_definitions(ceammc_hw PRIVATE WITH_GAMEPAD)
-else()
-    target_sources(ceammc_hw PRIVATE hw_gamepad.cpp)
 endif()
 
 # printer
+target_sources(ceammc_hw PRIVATE hw_printer.cpp)
 if(WITH_PRINTER)
-    find_package(cups)
     target_compile_definitions(ceammc_hw PRIVATE WITH_PRINTER)
     
     if(UNIX)
-        if(CUPS_FOUND)
-            target_compile_definitions(ceammc_hw PRIVATE WITH_CUPS)
+        find_package(Cups REQUIRED)
+        target_compile_definitions(ceammc_hw PRIVATE WITH_CUPS)
 
-            target_sources(ceammc_hw PRIVATE hw_printer.cpp)
-            target_include_directories(ceammc_hw
-                PRIVATE
-                    ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/hw
-                    ${CUPS_INCLUDE_DIRS}
-            )
-            target_link_libraries(ceammc_hw PRIVATE hw_rust ${CUPS_LIBRARIES})
-        endif()
+        target_sources(ceammc_hw PRIVATE hw_printer.cpp)
+        target_include_directories(ceammc_hw
+            PRIVATE
+                ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/hw
+                ${CUPS_INCLUDE_DIRS}
+        )
+        target_link_libraries(ceammc_hw PRIVATE hw_rust ${CUPS_LIBRARIES})
     else()
         install(
             FILES ${PROJECT_BINARY_DIR}/cargo/build/pdfium.dll 
@@ -99,8 +96,6 @@ if(WITH_PRINTER)
                 ${CUPS_INCLUDE_DIRS}
         )
     endif()
-else()
-    target_sources(ceammc_hw PRIVATE hw_printer.cpp)
 endif()
 
 #if(WITH_EXPERIMENTAL)
