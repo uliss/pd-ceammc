@@ -1083,52 +1083,52 @@ void UICanvas::onMouseDown(t_object* view, const t_pt& pos, const t_pt& abs_pos,
         gensym("down"),
         pos.x,
         pos.y,
-        bool(mods & EMOD_CTRL),
-        bool(mods & EMOD_ALT),
-        bool(mods & EMOD_SHIFT),
-        bool(mods & EMOD_CMD),
+        t_float(mods & EMOD_CTRL),
+        t_float(mods & EMOD_ALT),
+        t_float(mods & EMOD_SHIFT),
+        t_float(mods & EMOD_CMD),
     };
     anyTo(0, gensym("mouse"), data.view());
 }
 
 void UICanvas::onMouseUp(t_object* view, const t_pt& pos, long mods)
 {
-    SmallAtomList data {
+    StaticAtomList<7> data {
         gensym("up"),
         pos.x,
         pos.y,
-        bool(mods & EMOD_CTRL),
-        bool(mods & EMOD_ALT),
-        bool(mods & EMOD_SHIFT),
-        bool(mods & EMOD_CMD),
+        t_float(mods & EMOD_CTRL),
+        t_float(mods & EMOD_ALT),
+        t_float(mods & EMOD_SHIFT),
+        t_float(mods & EMOD_CMD),
     };
     anyTo(0, gensym("mouse"), data.view());
 }
 
 void UICanvas::onMouseDrag(t_object* view, const t_pt& pos, long mods)
 {
-    SmallAtomList data {
+    StaticAtomList<7> data {
         gensym("drag"),
         pos.x,
         pos.y,
-        bool(mods & EMOD_CTRL),
-        bool(mods & EMOD_ALT),
-        bool(mods & EMOD_SHIFT),
-        bool(mods & EMOD_CMD),
+        t_float(mods & EMOD_CTRL),
+        t_float(mods & EMOD_ALT),
+        t_float(mods & EMOD_SHIFT),
+        t_float(mods & EMOD_CMD),
     };
     anyTo(0, gensym("mouse"), data.view());
 }
 
 void UICanvas::onDblClick(t_object *view, const t_pt &pos, long mods)
 {
-    SmallAtomList data {
+    StaticAtomList<7> data {
         gensym("double"),
         pos.x,
         pos.y,
-        bool(mods & EMOD_CTRL),
-        bool(mods & EMOD_ALT),
-        bool(mods & EMOD_SHIFT),
-        bool(mods & EMOD_CMD),
+        t_float(mods & EMOD_CTRL),
+        t_float(mods & EMOD_ALT),
+        t_float(mods & EMOD_SHIFT),
+        t_float(mods & EMOD_CMD),
     };
     anyTo(0, gensym("mouse"), data.view());
 }
