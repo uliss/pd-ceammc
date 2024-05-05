@@ -58,6 +58,7 @@ target_link_libraries(ceammc_system PRIVATE tiny-process-library)
 
 
 # command
+target_sources(ceammc_system PRIVATE system_command.cpp)
 if(WITH_SYSTEM_CMD)
     target_sources(ceammc_system PRIVATE system_command.cpp)
     target_include_directories(ceammc_system
@@ -66,6 +67,4 @@ if(WITH_SYSTEM_CMD)
     )
     target_link_libraries(ceammc_system PRIVATE system_rust)
     target_compile_definitions(ceammc_system PRIVATE WITH_SYSTEM_CMD)
-else()
-    target_sources(ceammc_system PRIVATE system_command.cpp)
 endif()

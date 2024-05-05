@@ -11,6 +11,11 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
+#ifndef WITH_SYSTEM_CMD
+#include "ceammc_stub.h"
+CONTROL_OBJECT_STUB(SystemCommand, 1, 2, "compiled without system cmd support");
+OBJECT_STUB_SETUP(SystemCommand, system_command, "system.command", "system.cmd");
+#else
 #include "system_command.h"
 #include "ceammc_containers.h"
 #include "ceammc_crc32.h"
@@ -244,3 +249,4 @@ void setup_system_command()
     obj.addMethod("terminate", &SystemCommand::m_terminate);
     obj.addMethod("stdin", &SystemCommand::m_stdin);
 }
+#endif
