@@ -16,6 +16,10 @@ if(WITH_MQTT)
     )
     target_link_libraries(ceammc_net PRIVATE net_rust)
     target_compile_definitions(ceammc_net PRIVATE WITH_MQTT WITH_RUST)
+    if(UNIX AND NOT APPLE)
+        find_package(OpenSSL REQUIRED)
+        target_link_libraries(ceammc_net PRIVATE ${OPENSSL_LIBRARIES})
+    endif()
 endif()
 
 # telegram bot
@@ -27,6 +31,10 @@ if(WITH_TELEGRAM)
     )
     target_link_libraries(ceammc_net PRIVATE net_rust)
     target_compile_definitions(ceammc_net PRIVATE WITH_TELEGRAM WITH_RUST)
+    if(UNIX AND NOT APPLE)
+        find_package(OpenSSL REQUIRED)
+        target_link_libraries(ceammc_net PRIVATE ${OPENSSL_LIBRARIES})
+    endif()
 endif()
 
 # libartnet
@@ -70,6 +78,10 @@ if(WITH_HTTP)
         PRIVATE
             ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
         )
+    if(UNIX AND NOT APPLE)
+        find_package(OpenSSL REQUIRED)
+        target_link_libraries(ceammc_net PRIVATE ${OPENSSL_LIBRARIES})
+    endif()
 endif()
 
 # freesound
@@ -82,6 +94,10 @@ if(WITH_FREESOUND)
         PRIVATE
             ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
         )
+    if(UNIX AND NOT APPLE)
+        find_package(OpenSSL REQUIRED)
+        target_link_libraries(ceammc_net PRIVATE ${OPENSSL_LIBRARIES})
+    endif()
 endif()
 
 # MDNS
@@ -104,6 +120,10 @@ if(WITH_WEBSOCKET)
         PRIVATE
             ${PROJECT_SOURCE_DIR}/ceammc/extra/rust/net
         )
+    if(UNIX AND NOT APPLE)
+        find_package(OpenSSL REQUIRED)
+        target_link_libraries(ceammc_net PRIVATE ${OPENSSL_LIBRARIES})
+    endif()
 endif()
 
 
