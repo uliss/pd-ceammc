@@ -31,6 +31,10 @@ using namespace ceammc::printer::req;
 HwPrinter::HwPrinter(const PdArgs& args)
     : HwPrinterBase(args)
 {
+    name_ = new SymbolProperty("@name", &s_);
+    name_->setArgIndex(0);
+    addProperty(name_);
+
     createOutlet();
 }
 
@@ -78,6 +82,28 @@ void HwPrinter::processRequest(const Request& req, ResultCallback cb)
         } else {
             workerThreadDebug(fmt::format("print job: {}", job_id));
         }
+    } else if (t == typeid(ChoosePrinter)) {
+        auto& choose_req = boost::get<ChoosePrinter>(req);
+
+        using str_vec = std::vector<std::string>;
+        str_vec printer_names;
+
+        ceammc_hw_get_printers({
+            &printer_names,
+            [](void* user, const ceammc_hw_printer_info* info) {
+                auto names = static_cast<str_vec*>(user);
+                if (names)
+                    names->push_back(info->name);
+            } //
+        });
+        if (choose_req.idx < printer_names.size()) {
+            addReply(ChoosePrinterName { printer_names[choose_req.idx] });
+        } else {
+            if (printer_names.empty())
+                workerThreadError("no printers found");
+            else
+                workerThreadError(fmt::format("no printer found with index: [{}]", choose_req.idx));
+        }
     }
 }
 
@@ -97,7 +123,22 @@ void HwPrinter::processResult(const printer::Reply& res)
         di->insert("is_shared", info.is_shared);
 
         atomTo(0, di);
+    } else if (t == typeid(ChoosePrinterName)) {
+        auto& msg = boost::get<ChoosePrinterName>(res);
+        name_->setValue(gensym(msg.name.c_str()));
+        OBJ_DBG << fmt::format("choose printer '{}'", msg.name);
     }
+}
+
+void HwPrinter::m_choose(t_symbol* s, const AtomListView& lv)
+{
+    static const args::ArgChecker chk("INDEX:i>=0?");
+    if (!chk.check(lv, this))
+        return chk.usage(this, s);
+
+    int idx = lv.intAt(0, 0);
+
+    addRequest(ChoosePrinter { idx });
 }
 
 void HwPrinter::m_devices(t_symbol* s, const AtomListView& lv)
@@ -107,14 +148,11 @@ void HwPrinter::m_devices(t_symbol* s, const AtomListView& lv)
 
 void HwPrinter::m_print(t_symbol* s, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("FILE:s OPTS:a*");
+    static const args::ArgChecker chk("FILE:s @OPTS:a*");
     if (!chk.check(lv, this))
         return chk.usage(this, s);
 
     auto fname = lv.symbolAt(0, &s_)->s_name;
-    auto pname = lv.symbolAt(1, &s_)->s_name;
-    if (pname[0] == '@') // check for properties
-        pname = "";
     ceammc_hw_print_options opts;
 
     list::foreachProperty(lv.subView(1), [&opts](const t_symbol* k, const AtomListView& lv) {
@@ -133,12 +171,13 @@ void HwPrinter::m_print(t_symbol* s, const AtomListView& lv)
         return;
     }
 
-    addRequest(PrintFile { pname, path, opts });
+    addRequest(PrintFile { name_->value()->s_name, path, opts });
 }
 
 void setup_hw_printer()
 {
     ObjectFactory<HwPrinter> obj("hw.printer");
+    obj.addMethod("choose", &HwPrinter::m_choose);
     obj.addMethod("devices", &HwPrinter::m_devices);
     obj.addMethod("print", &HwPrinter::m_print);
 }

@@ -33,7 +33,8 @@ public:
     bool is_default, is_shared;
     ceammc_hw_printer_state state;
 
-    PrinterInfo(const ceammc_hw_printer_info* info) {
+    PrinterInfo(const ceammc_hw_printer_info* info)
+    {
         name = info->name;
         system_name = info->system_name;
         driver = info->driver_name;
@@ -43,6 +44,10 @@ public:
         is_default = info->is_default;
         is_shared = info->is_shared;
     }
+};
+
+struct ChoosePrinterName {
+    std::string name;
 };
 
 }

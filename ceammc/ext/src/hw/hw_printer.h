@@ -24,6 +24,9 @@ namespace printer {
 
     namespace req {
         struct ListPrinters { };
+        struct ChoosePrinter {
+            int idx;
+        };
         struct PrintFile {
             std::string printer_name;
             std::string file_path;
@@ -34,8 +37,8 @@ namespace printer {
     namespace reply {
     }
 
-    using Request = boost::variant<req::ListPrinters, req::PrintFile>;
-    using Reply = boost::variant<PrinterInfo>;
+    using Request = boost::variant<req::ListPrinters, req::ChoosePrinter, req::PrintFile>;
+    using Reply = boost::variant<PrinterInfo, ChoosePrinterName>;
 }
 }
 
@@ -44,12 +47,15 @@ using namespace ceammc;
 using HwPrinterBase = FixedSPSCObject<printer::Request, printer::Reply>;
 
 class HwPrinter : public HwPrinterBase {
+    SymbolProperty* name_ { nullptr };
+
 public:
     HwPrinter(const PdArgs& args);
 
     void processRequest(const printer::Request& req, ResultCallback cb) final;
     void processResult(const printer::Reply& res) final;
 
+    void m_choose(t_symbol* s, const AtomListView& lv);
     void m_devices(t_symbol* s, const AtomListView& lv);
     void m_print(t_symbol* s, const AtomListView& lv);
 };
