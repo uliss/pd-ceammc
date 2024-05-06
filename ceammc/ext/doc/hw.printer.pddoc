@@ -45,11 +45,11 @@
 <![CDATA[
 [devices(  [B]
 |          |
-| [choose( [openpanel] /*using default printer*/
+| [choose( [openpanel]
 | |        |
 | |        [print $1 @landscape 0(
 | |        |
-[hw.printer]
+[hw.printer]/*using default printer*/
 |
 [print]
 ]]>
