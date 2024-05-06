@@ -59,14 +59,14 @@
 
 [ls | sort -r | tail (
 |
-|  [du -h | cut -f1(
+|  [du -h | cut -f1(   [winver.exe #c(
 |  |
 |  |  [bang( [@args cat, stdin 1 2 3 4 5(
 |  |  |      |
 [system.command pwd #b]
 |           ^|
 [F]         [print EXEC]
-[X a->b]
+[X a->b] [X c->b]
 #a /System/Applications/Utilities/Audio\ MIDI\ Setup.app
 ]]>
             </pdascii>
