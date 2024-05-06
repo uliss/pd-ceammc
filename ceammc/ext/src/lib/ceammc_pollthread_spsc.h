@@ -61,6 +61,11 @@ public:
     {
     }
 
+    ~FixedSPSCObject()
+    {
+        this->finish();
+    }
+
     void initDone() override
     {
         Parent::initDone();
