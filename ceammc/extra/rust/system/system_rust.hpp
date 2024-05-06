@@ -14,7 +14,7 @@ enum class ceammc_system_process_mode {
     String,
 };
 
-enum class ceammc_system_process_rc {
+enum class ceammc_system_process_state {
     Error,
     Running,
     Ready,
@@ -31,27 +31,54 @@ struct ceammc_system_process_cmd {
 
 extern "C" {
 
+/// clear current system command (kill if running)
+/// @param proc - system command pointer
 bool ceammc_system_process_clear(ceammc_system_process *proc);
 
+/// run system command
+/// @param proc - system command pointer
+/// @return true on success, false on error (just success command creation status)
 bool ceammc_system_process_exec(ceammc_system_process *proc);
 
+/// free system command process (kill if running)
+/// @param proc - system command pointer
 void ceammc_system_process_free(ceammc_system_process *proc);
 
+/// create new system command
+/// @param cmd - pointer to array of commands
+/// @param cmd_len - number of commands in array
+/// @param mode - output processing mode
+/// @param capture_stdout - do stdout capture
+/// @param capture_stderr - to stderr capture
+/// @param pwd - process working directory
+/// @param stdin_data - data for stdin input
+/// @param user - callback user pointer
+/// @param on_err - on error callback (in current thread)
+/// @param on_stdout_data - on stdout data callback (current thread)
+/// @param on_stderr_data - on stdout data callback (current thread)
+/// @return pointer to system command or NULL on error
 ceammc_system_process *ceammc_system_process_new(const ceammc_system_process_cmd *cmd,
                                                  size_t cmd_len,
                                                  ceammc_system_process_mode mode,
                                                  bool capture_stdout,
                                                  bool capture_stderr,
                                                  const char *pwd,
-                                                 const char *stdin,
+                                                 const char *stdin_data,
                                                  void *user,
                                                  void (*on_err)(void *user, const char *msg),
                                                  void (*on_stdout_data)(void *user, const uint8_t *data, size_t len),
                                                  void (*on_stderr_data)(void *user, const uint8_t *data, size_t len));
 
-ceammc_system_process_rc ceammc_system_process_results(ceammc_system_process *proc,
-                                                       int32_t *result_code);
+/// process system command results
+/// @param proc - system command pointer
+/// @param result_code - pointer to command result code
+/// @return system command state
+ceammc_system_process_state ceammc_system_process_results(ceammc_system_process *proc,
+                                                          int32_t *result_code);
 
+/// terminate system command (SIGKILL on unix)
+/// @param proc - system command pointer
+/// @return true on success, false on error
 bool ceammc_system_process_terminate(ceammc_system_process *proc);
 
 } // extern "C"

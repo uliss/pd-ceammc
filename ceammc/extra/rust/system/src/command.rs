@@ -56,7 +56,7 @@ pub struct system_process {
 
 #[allow(non_camel_case_types)]
 #[repr(C)]
-pub enum system_process_rc {
+pub enum system_process_state {
     Error,
     Running,
     Ready,
@@ -213,7 +213,7 @@ impl system_process {
         }
     }
 
-    fn process_results(&self) -> (system_process_rc, Option<ExitStatus>) {
+    fn process_results(&self) -> (system_process_state, Option<ExitStatus>) {
         if let Some(handle) = &self.handle {
             match handle.try_wait() {
                 Ok(res) => {
@@ -223,23 +223,23 @@ impl system_process {
                             self.process_stdout(res.stdout.as_slice());
                             self.process_stderr(res.stderr.as_slice());
 
-                            return (system_process_rc::Ready, Some(res.status));
+                            return (system_process_state::Ready, Some(res.status));
                         }
                         None => {
                             log::debug!("waiting for process ...");
                             // still running
-                            return (system_process_rc::Running, None);
+                            return (system_process_state::Running, None);
                         }
                     }
                 }
                 Err(err) => {
                     self.on_err(err.to_string().as_str());
-                    return (system_process_rc::Error, None);
+                    return (system_process_state::Error, None);
                 }
             }
         } else {
             self.on_err("no process handle");
-            return (system_process_rc::Error, None);
+            return (system_process_state::Error, None);
         }
     }
 }
@@ -250,6 +250,19 @@ impl Drop for system_process {
     }
 }
 
+/// create new system command
+/// @param cmd - pointer to array of commands
+/// @param cmd_len - number of commands in array
+/// @param mode - output processing mode
+/// @param capture_stdout - do stdout capture
+/// @param capture_stderr - to stderr capture
+/// @param pwd - process working directory
+/// @param stdin_data - data for stdin input
+/// @param user - callback user pointer
+/// @param on_err - on error callback (in current thread)
+/// @param on_stdout_data - on stdout data callback (current thread)
+/// @param on_stderr_data - on stdout data callback (current thread)
+/// @return pointer to system command or NULL on error
 #[no_mangle]
 pub extern "C" fn ceammc_system_process_new(
     cmd: *const system_process_cmd,
@@ -258,7 +271,7 @@ pub extern "C" fn ceammc_system_process_new(
     capture_stdout: bool,
     capture_stderr: bool,
     pwd: *const c_char,
-    stdin: *const c_char,
+    stdin_data: *const c_char,
     user: *mut c_void,
     on_err: Option<extern "C" fn(user: *mut c_void, msg: *const c_char)>,
     on_stdout_data: Option<extern "C" fn(user: *mut c_void, data: *const u8, len: usize)>,
@@ -287,10 +300,10 @@ pub extern "C" fn ceammc_system_process_new(
         }
     }
 
-    if !stdin.is_null() {
-        let stdin = unsafe { CStr::from_ptr(stdin) }.to_string_lossy();
-        if !stdin.is_empty() {
-            expr = expr.stdin_bytes(stdin.as_bytes());
+    if !stdin_data.is_null() {
+        let stdin_data = unsafe { CStr::from_ptr(stdin_data) }.to_string_lossy();
+        if !stdin_data.is_empty() {
+            expr = expr.stdin_bytes(stdin_data.as_bytes());
         }
     }
 
@@ -311,6 +324,8 @@ pub extern "C" fn ceammc_system_process_new(
     }))
 }
 
+/// free system command process (kill if running)
+/// @param proc - system command pointer
 #[no_mangle]
 pub extern "C" fn ceammc_system_process_free(proc: *mut system_process) {
     if !proc.is_null() {
@@ -318,6 +333,8 @@ pub extern "C" fn ceammc_system_process_free(proc: *mut system_process) {
     }
 }
 
+/// clear current system command (kill if running)
+/// @param proc - system command pointer
 #[no_mangle]
 pub extern "C" fn ceammc_system_process_clear(proc: *mut system_process) -> bool {
     if proc.is_null() {
@@ -330,6 +347,9 @@ pub extern "C" fn ceammc_system_process_clear(proc: *mut system_process) -> bool
     }
 }
 
+/// run system command
+/// @param proc - system command pointer
+/// @return true on success, false on error (just success command creation status)
 #[no_mangle]
 pub extern "C" fn ceammc_system_process_exec(proc: *mut system_process) -> bool {
     if proc.is_null() {
@@ -341,13 +361,17 @@ pub extern "C" fn ceammc_system_process_exec(proc: *mut system_process) -> bool 
     }
 }
 
+/// process system command results
+/// @param proc - system command pointer
+/// @param result_code - pointer to command result code
+/// @return system command state
 #[no_mangle]
 pub extern "C" fn ceammc_system_process_results(
     proc: *mut system_process,
     result_code: *mut i32,
-) -> system_process_rc {
+) -> system_process_state {
     if proc.is_null() {
-        system_process_rc::Error
+        system_process_state::Error
     } else {
         let prop = unsafe { &mut *proc };
         let (rc, status) = prop.process_results();
@@ -363,6 +387,9 @@ pub extern "C" fn ceammc_system_process_results(
     }
 }
 
+/// terminate system command (SIGKILL on unix)
+/// @param proc - system command pointer
+/// @return true on success, false on error
 #[no_mangle]
 pub extern "C" fn ceammc_system_process_terminate(proc: *mut system_process) -> bool {
     if proc.is_null() {

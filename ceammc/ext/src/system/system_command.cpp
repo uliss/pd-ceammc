@@ -50,11 +50,11 @@ SystemCommand::SystemCommand(const PdArgs& args)
     , proc_check_([this]() {
         int32_t rc = 0;
         switch (ceammc_system_process_results(proc_, &rc)) {
-        case ceammc_system_process_rc::Running:
+        case ceammc_system_process_state::Running:
             proc_check_.delay(timeout_->value());
             break;
-        case ceammc_system_process_rc::Ready:
-        case ceammc_system_process_rc::Error:
+        case ceammc_system_process_state::Ready:
+        case ceammc_system_process_state::Error:
         default:
             floatTo(OUT_EXITCODE, rc);
             return;
