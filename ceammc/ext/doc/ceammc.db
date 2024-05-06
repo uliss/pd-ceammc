@@ -13,7 +13,7 @@ array.do		..		..
 array.each		..		..
 array.fill		.		.
 array.grainer~		.		~~
-array.hist		.		.
+array.hist,array.histogram		.		.
 array.ltcplay~		~.		~
 array.mean		.		.
 array.minmax		.		..
@@ -368,7 +368,7 @@ list.enumerate		.		.
 list.equal		..		.
 list.first		.		.
 list.gen		..		..
-list.histogram		..		.
+list.histogram,list.hist		..		.
 list.insert		...		.
 list.integrator		.		.
 list.last		.		.

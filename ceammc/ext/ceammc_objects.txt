@@ -47,6 +47,7 @@ array.each
 array.fill
 array.grainer~
 array.hist
+array.histogram
 array.ltcplay~
 array.mean
 array.minmax
@@ -705,6 +706,7 @@ list.filter
 list.first
 list.foldl
 list.gen
+list.hist
 list.histogram
 list.insert
 list.integrator

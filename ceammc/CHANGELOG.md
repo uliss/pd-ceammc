@@ -17,6 +17,9 @@
   - snd.play~ @on_err property added to specify sending errors address
 - new methods:
   - open method added to snd.play~ for readsf~ compatibility
+- new aliases:
+  - list.hist alias added for list.histogram
+  - array.histogram alias added for array.hist
 - misc:
   - dict.get - path-like expression to get dictionary keys: /*/USER/1:3/foo
   - ui.display - copy message value to the clipboard by click or from popup menu

@@ -43,6 +43,7 @@ void setup_list_histogram()
 {
     ObjectFactory<ListHistogram> obj("list.histogram");
     obj.processData<DataTypeMList>();
+    obj.addAlias("list.hist");
 
     obj.setDescription("outputs distribution histogram");
     obj.setCategory("list");
