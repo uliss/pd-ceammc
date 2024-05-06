@@ -63,11 +63,6 @@ enum class ceammc_hw_gamepad_powerstate {
     Charged,
 };
 
-enum class ceammc_hw_gamepad_rc {
-    Ok = 0,
-    InvalidHandle,
-};
-
 enum class ceammc_hw_printer_state {
     READY,
     PAUSED,
@@ -128,6 +123,13 @@ struct ceammc_gamepad_listdev_cb {
     void (*cb)(void *user, const ceammc_gamepad_dev_info *info);
 };
 
+struct ceammc_hw_notify_cb {
+    /// dispatcher ID
+    size_t id;
+    /// dispatcher callback (not NULL!)
+    void (*f)(size_t id);
+};
+
 struct ceammc_hw_printer_info {
     const char *name;
     const char *system_name;
@@ -160,26 +162,27 @@ struct ceammc_hw_error_cb {
 extern "C" {
 
 /// free gamepad
+/// @param gp - pointer to gp
 void ceammc_hw_gamepad_free(ceammc_hw_gamepad *gp);
 
-/// list connected gamepad devices
-/// @param gp - gamepad pointer
-ceammc_hw_gamepad_rc ceammc_hw_gamepad_list(ceammc_hw_gamepad *gp);
+/// list connected devices
+bool ceammc_hw_gamepad_list_devices(ceammc_hw_gamepad *gp);
 
 /// create new gamepad
-/// @param err_cb - error callback
-/// @param event_cb - gamepad event callback
+/// @param on_err - error callback
+/// @param on_event - gamepad event callback
 /// @param on_devinfo - gamepad list connected devices callback
+/// @param cb_notify - dispatcher notification
 /// @return pointer to new gamepad or NULL on error
 ceammc_hw_gamepad *ceammc_hw_gamepad_new(ceammc_gamepad_err_cb on_err,
                                          ceammc_gamepad_event_cb on_event,
-                                         ceammc_gamepad_listdev_cb on_devinfo);
+                                         ceammc_gamepad_listdev_cb on_devinfo,
+                                         ceammc_hw_notify_cb cb_notify,
+                                         uint64_t poll_time_ms);
 
-/// process gamepad events (blocking read)
-/// @param gp - gamepad pointer
-/// @param time_ms - event read timeout in milliseconds
-/// @return ceammc_hw_gamepad_rc
-ceammc_hw_gamepad_rc ceammc_hw_gamepad_process_events(ceammc_hw_gamepad *gp, uint64_t time_ms);
+/// process events
+/// @param gp - pointer to gp
+void ceammc_hw_gamepad_process_events(ceammc_hw_gamepad *gp);
 
 /// get printers info via specified callback
 /// @param info_cb - called on every found printer

@@ -22,8 +22,6 @@ OBJECT_STUB_SETUP(HwGamepad, hw_gamepad, "hw.gamepad");
 #include "datatype_dict.h"
 #include "hw_gamepad.h"
 
-#include "fmt/core.h"
-
 CEAMMC_DEFINE_SYM(south)
 CEAMMC_DEFINE_SYM(east)
 CEAMMC_DEFINE_SYM(north)
@@ -71,8 +69,6 @@ CEAMMC_DEFINE_SYM(discharging)
 CEAMMC_DEFINE_SYM(wired)
 
 using namespace ceammc::gp;
-using namespace ceammc::gp::reply;
-using namespace ceammc::gp::req;
 
 static t_symbol* btn2sym(ceammc_hw_gamepad_btn btn)
 {
@@ -170,40 +166,33 @@ constexpr int OUT_BUTTON = 0;
 constexpr int OUT_AXIS = 1;
 constexpr int OUT_INFO = 2;
 
-using MutexLock = std::lock_guard<std::mutex>;
-
-GamepadImpl::GamepadImpl()
+GamepadImpl::GamepadImpl(SubscriberId id, size_t poll_ms)
 {
-    MutexLock lock(mtx_);
     gp_ = ceammc_hw_gamepad_new(
         { this, on_error },
         { this, on_event },
-        { this, on_devlist });
+        { this, on_devlist },
+        { size_t(id), [](size_t id) { Dispatcher::instance().send(NotifyMessage { id, 0 }); } },
+        poll_ms //
+    );
 }
 
 GamepadImpl::~GamepadImpl()
 {
-    MutexLock lock(mtx_);
     if (gp_)
         ceammc_hw_gamepad_free(gp_);
 }
 
-void GamepadImpl::process(const req::ListDevices& ev)
+void GamepadImpl::processEvents()
 {
-    MutexLock lock(mtx_);
-    if (gp_) {
-        auto rc = ceammc_hw_gamepad_list(gp_);
-
-        if (rc != ceammc_hw_gamepad_rc::Ok && cb_err)
-            cb_err("ceammc_hw_gamepad_list() failed");
-    }
+    if (gp_)
+        ceammc_hw_gamepad_process_events(gp_);
 }
 
-void GamepadImpl::processEvents(std::uint16_t ms)
+void gp::GamepadImpl::listDevices()
 {
-    MutexLock lock(mtx_);
     if (gp_)
-        ceammc_hw_gamepad_process_events(gp_, ms);
+        ceammc_hw_gamepad_list_devices(gp_);
 }
 
 void GamepadImpl::on_error(void* user, const char* msg)
@@ -223,18 +212,8 @@ void GamepadImpl::on_event(void* user, const ceammc_hw_gamepad_event* ev)
 void GamepadImpl::on_devlist(void* user, const ceammc_gamepad_dev_info* info)
 {
     auto this_ = static_cast<GamepadImpl*>(user);
-    if (this_ && this_->cb_devlist) {
-        Device dev;
-        dev.vid = info->vid;
-        dev.pid = info->pid;
-        dev.name = info->name;
-        dev.os_name = info->os_name;
-        dev.id = info->id;
-        dev.power = info->power;
-        dev.connected = info->is_connected;
-        dev.force_feedback = info->has_ff;
-        this_->cb_devlist(dev);
-    }
+    if (this_ && this_->cb_devlist)
+        this_->cb_devlist(*info);
 }
 
 HwGamepad::HwGamepad(const PdArgs& args)
@@ -244,36 +223,76 @@ HwGamepad::HwGamepad(const PdArgs& args)
     createOutlet();
     createOutlet();
 
-    gp_.reset(new GamepadImpl);
-    gp_->cb_err = [this](const char* msg) { workerThreadError(msg); };
-    gp_->cb_devlist = [this](const Device& dev) { addReply(dev); };
+    gp_.reset(new GamepadImpl(subscriberId()));
+    gp_->cb_err = [this](const char* msg) { OBJ_ERR << msg; };
+    gp_->cb_devlist = [this](const ceammc_gamepad_dev_info& dev) {
+        DictAtom info;
+
+        info->insert("id", dev.id);
+        info->insert("vendor", dev.vid);
+        info->insert("product", dev.pid);
+        info->insert("name", gensym(dev.name));
+        info->insert("os_name", gensym(dev.os_name));
+        info->insert("power", power2sym(dev.power.state));
+        info->insert("power_value", dev.power.data);
+        info->insert("connected", dev.is_connected);
+        info->insert("force_feedback", dev.has_ff);
+
+        anyTo(OUT_INFO, sym_device(), info);
+    };
     gp_->cb_event = [this](const ceammc_hw_gamepad_event& ev) {
         using event = ceammc_hw_gamepad_event_type;
 
-        if (waitForOutputAvailable() == WorkerProcess::QUIT)
-            return;
-
         switch (ev.event) {
-        case event::ButtonPressed:
-            addReply(ButtonPressed { ev.id, ev.button });
-            break;
-        case event::ButtonRepeated:
-            addReply(ButtonRepeated { ev.id, ev.button });
-            break;
-        case event::ButtonReleased:
-            addReply(ButtonReleased { ev.id, ev.button });
-            break;
-        case event::ButtonChanged:
-            addReply(ButtonChanged { ev.id, ev.value, ev.button });
-            break;
-        case event::AxisChanged:
-            addReply(AxisChanged { ev.id, ev.value, ev.axis });
-            break;
+        case event::ButtonPressed: {
+            AtomArray<4> data {
+                ev.id,
+                btn2sym(ev.button),
+                sym_pressed(),
+                1,
+            };
+            listTo(OUT_BUTTON, data.view());
+        } break;
+        case event::ButtonRepeated: {
+            AtomArray<4> data {
+                ev.id,
+                btn2sym(ev.button),
+                sym_released(),
+                0.,
+            };
+            listTo(OUT_BUTTON, data.view());
+        } break;
+        case event::ButtonReleased: {
+            AtomArray<4> data {
+                ev.id,
+                btn2sym(ev.button),
+                sym_repeated(),
+                0.,
+            };
+            listTo(OUT_BUTTON, data.view());
+        } break;
+        case event::ButtonChanged: {
+            AtomArray<4> data {
+                ev.id,
+                btn2sym(ev.button),
+                sym_changed(),
+                ev.value,
+            };
+            listTo(OUT_BUTTON, data.view());
+        } break;
+        case event::AxisChanged: {
+            AtomArray<3> data {
+                ev.id,
+                axis2sym(ev.axis),
+                ev.value,
+            };
+            listTo(OUT_AXIS, data.view());
+        } break;
         case event::Connected:
-            addReply(Connected {});
+            anyTo(OUT_INFO, sym_connected(), ev.id);
             break;
         case event::Disconnected:
-            addReply(Disconnected {});
+            anyTo(OUT_INFO, sym_disconnected(), ev.id);
             break;
         default:
             break;
@@ -281,101 +300,18 @@ HwGamepad::HwGamepad(const PdArgs& args)
     };
 }
 
-void HwGamepad::processRequest(const Request& req, ResultCallback cb)
-{
-    if (!gp_) {
-        workerThreadError("invalid handle");
-        return;
-    }
-
-    if (req.type() == typeid(ListDevices)) {
-        gp_->process(boost::get<ListDevices>(req));
-    } else {
-        workerThreadError(fmt::format("unknown request: {}", req.type().name()));
-    }
-}
-
-void HwGamepad::processResult(const Reply& res)
-{
-    auto& type = res.type();
-    if (type == typeid(Device)) {
-        auto& dev = boost::get<Device>(res);
-        DictAtom info;
-        info->insert("id", dev.id);
-        info->insert("vendor", dev.vid);
-        info->insert("product", dev.pid);
-        info->insert("name", gensym(dev.name.c_str()));
-        info->insert("os_name", gensym(dev.os_name.c_str()));
-        info->insert("power", power2sym(dev.power.state));
-        info->insert("power_value", dev.power.data);
-        info->insert("connected", dev.connected);
-        info->insert("force_feedback", dev.force_feedback);
-
-        anyTo(OUT_INFO, sym_device(), info);
-    } else if (type == typeid(ButtonPressed)) {
-        auto& ev = boost::get<ButtonPressed>(res);
-        AtomArray<4> data {
-            ev.id,
-            btn2sym(ev.btn),
-            sym_pressed(),
-            1,
-        };
-        listTo(OUT_BUTTON, data.view());
-    } else if (type == typeid(ButtonReleased)) {
-        auto& ev = boost::get<ButtonReleased>(res);
-        AtomArray<4> data {
-            ev.id,
-            btn2sym(ev.btn),
-            sym_released(),
-            0.,
-        };
-        listTo(OUT_BUTTON, data.view());
-    } else if (type == typeid(ButtonRepeated)) {
-        auto& ev = boost::get<ButtonRepeated>(res);
-        AtomArray<4> data {
-            ev.id,
-            btn2sym(ev.btn),
-            sym_repeated(),
-            0.,
-        };
-        listTo(OUT_BUTTON, data.view());
-    } else if (type == typeid(ButtonChanged)) {
-        auto& ev = boost::get<ButtonChanged>(res);
-        AtomArray<4> data {
-            ev.id,
-            btn2sym(ev.btn),
-            sym_changed(),
-            ev.val,
-        };
-        listTo(OUT_BUTTON, data.view());
-    } else if (type == typeid(Connected)) {
-        auto& ev = boost::get<Connected>(res);
-        anyTo(OUT_INFO, sym_connected(), ev.id);
-    } else if (type == typeid(Disconnected)) {
-        auto& ev = boost::get<Disconnected>(res);
-        anyTo(OUT_INFO, sym_disconnected(), ev.id);
-    } else if (type == typeid(AxisChanged)) {
-        auto& ev = boost::get<AxisChanged>(res);
-        AtomArray<3> data {
-            ev.id,
-            axis2sym(ev.axis),
-            ev.val,
-        };
-        listTo(OUT_AXIS, data.view());
-    } else {
-        OBJ_ERR << "unknown typeid: " << type.name();
-    }
-}
-
-void HwGamepad::processEvents()
+bool HwGamepad::notify(int code)
 {
     if (gp_)
-        gp_->processEvents(POLL_TIME_MS);
+        gp_->processEvents();
+
+    return true;
 }
 
 void HwGamepad::m_devices(t_symbol* s, const AtomListView& lv)
 {
-    addRequest(ListDevices {});
+    if (gp_)
+        gp_->listDevices();
 }
 
 void setup_hw_gamepad()
