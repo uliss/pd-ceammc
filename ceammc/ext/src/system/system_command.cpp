@@ -143,7 +143,7 @@ void SystemCommand::exec(const char* input)
         stderr_->value(),
         pwd_->value()->s_name,
         input,
-        this,
+        static_cast<void*>(this),
         [](void* user, const char* msg) {
             auto this_ = static_cast<SystemCommand*>(user);
             if (this_)
