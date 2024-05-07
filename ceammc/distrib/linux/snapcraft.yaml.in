@@ -120,11 +120,14 @@ parts:
             - libfreetype-dev
             - libglib2.0-dev
             - libjack-jackd2-dev
+            - libluajit-5.1-dev
             - libltc-dev
             - libmagic-dev
             - libmodplug-dev
             - librubberband-dev
+            - libsamplerate0-dev
             - libsndfile1-dev
+            - libssl-dev
             - libudev-dev
             - libxcb-randr0-dev
             - libxcb-util-dev
@@ -150,6 +153,7 @@ parts:
             - libltc11
             - libmodplug1
             - librubberband2
+            - libsamplerate0
             - libsndfile1
             - libcairo2
             - libfreetype6
