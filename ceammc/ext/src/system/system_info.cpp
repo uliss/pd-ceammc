@@ -11,10 +11,15 @@
  * contact the author of this file, or the owner of the project in which
  * this file belongs to.
  *****************************************************************************/
-#include "system_info.h"
+#ifndef WITH_SYSTEM_INFO
+#include "ceammc_stub.h"
+CONTROL_OBJECT_STUB(SystemInfo, 1, 1, "compiled without system.info support");
+OBJECT_STUB_SETUP(SystemInfo, system_info, "system.info");
+#else
 #include "ceammc_containers.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+#include "system_info.h"
 
 CEAMMC_DEFINE_SYM(temp)
 
@@ -30,7 +35,7 @@ SystemInfo::SystemInfo(const PdArgs& args)
             [](void* user, const char* label, float value) {
                 auto this_ = static_cast<SystemInfo*>(user);
                 if (this_) {
-                    AtomArray<2> data { value, gensym(label) };
+                    AtomArray<2> data { gensym(label), value };
                     this_->anyTo(0, sym_temp(), data.view());
                 }
             } },
@@ -56,3 +61,4 @@ void setup_system_info()
     ObjectFactory<SystemInfo> obj("system.info");
     obj.addMethod("temp", &SystemInfo::m_temp);
 }
+#endif

@@ -1279,6 +1279,7 @@ system.exec
 system.exit
 system.getenv
 system.hostname
+system.info
 system.memsize
 system.memused
 system.screen_size

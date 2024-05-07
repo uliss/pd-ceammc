@@ -16,14 +16,16 @@
 #X text 200 257 Get system environment variables;
 #X obj 30 285 system.hostname;
 #X text 200 285 outputs system hostname;
-#X obj 30 313 system.memsize;
-#X text 200 313 returns the size of physical memory (RAM) in bytes
+#X obj 30 313 system.info;
+#X text 200 313 retrieve system information;
+#X obj 30 341 system.memsize;
+#X text 200 341 returns the size of physical memory (RAM) in bytes
 round to float data type.;
-#X obj 30 353 system.memused;
-#X text 200 353 returns the process physical memory use - current and
+#X obj 30 381 system.memused;
+#X text 200 381 returns the process physical memory use - current and
 peak;
-#X obj 30 381 system.screen_size;
-#X text 200 381 returns current screen size in pixels;
+#X obj 30 409 system.screen_size;
+#X text 200 409 returns current screen size in pixels;
 #X obj 1 1 cnv 5 740 40 empty empty ceammc::system 20 20 0 20 -104026
 -4096 0;
 #X obj 1 513 cnv 5 740 40 empty empty empty 17 7 0 10 -203890 -1 0;

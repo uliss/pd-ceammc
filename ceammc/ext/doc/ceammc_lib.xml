@@ -2447,6 +2447,9 @@
     <entry name="system.hostname" descr="outputs system hostname" ref_view="object">
       <xi:include href="system.hostname.pddoc" parse="xml"/>
     </entry>
+    <entry name="system.info" descr="retrieve system information" ref_view="object">
+      <xi:include href="system.info.pddoc" parse="xml"/>
+    </entry>
     <entry name="system.memsize" descr="returns the size of physical memory (RAM) in bytes round to float data type." ref_view="object">
       <xi:include href="system.memsize.pddoc" parse="xml"/>
     </entry>

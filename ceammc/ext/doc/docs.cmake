@@ -774,16 +774,17 @@ set(DOC_FILES
     synth.voice_fofs~
     synth.wurley~
     system.colorpanel
+    system.command
     system.cursor
     system.exec
     system.exit
     system.exit
     system.getenv
     system.hostname
+    system.info
     system.memsize
     system.memused
     system.screen_size
-    system.command
     tl.bang
     tl.cue
     tl.timeline

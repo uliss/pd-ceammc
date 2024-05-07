@@ -1,0 +1,42 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="system.info">
+        <title>system.info</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>retrieve system information</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>system</category>
+            <keywords>system info cpu</keywords>
+            <since>0.9.8</since>
+        </meta>
+        <methods>
+            <method name="temp">request system temperature information. Output in format: temp SENSOR_NAME VALUE</method>
+        </methods>
+        <inlets>
+            <inlet>
+                <xinfo>control input</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>output process exit code</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[temp(
+|
+|
+|
+|
+[system.info]
+|
+[print INFO]
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

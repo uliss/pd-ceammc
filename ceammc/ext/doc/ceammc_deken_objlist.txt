@@ -1271,6 +1271,7 @@ system.exec	run external command in separate process
 system.exit	quit PureData
 system.getenv	Get system environment variables
 system.hostname	outputs system hostname
+system.info	retrieve system information
 system.memsize	returns the size of physical memory (RAM) in bytes round to float data type.
 system.memused	returns the process physical memory use - current and peak
 system.screen_size	returns current screen size in pixels
