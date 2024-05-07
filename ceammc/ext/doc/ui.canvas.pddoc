@@ -338,7 +338,8 @@
             </inlet>
         </inlets>
         <outlets>
-            <outlet>message: mouse ACTION(down|up|drag) X Y MOD_CTL MOD_ALT MOD_SHIFT MOD_CMD</outlet>
+            <outlet>message: mouse ACTION(down|up|drag) X Y MOD_CTL MOD_ALT MOD_SHIFT
+            MOD_CMD</outlet>
         </outlets>
         <example>
             <pdascii>
