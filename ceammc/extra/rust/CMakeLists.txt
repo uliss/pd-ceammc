@@ -12,7 +12,7 @@ if(Rust_FOUND)
 
     if(WITH_RUST_APPS)
         corrosion_import_crate(MANIFEST_PATH apps/Cargo.toml CRATE_TYPES bin)
-        install(FILES ${CMAKE_CURRENT_BINARY_DIR}/rhvoice_download DESTINATION bin)
+        install(FILES ${CMAKE_CURRENT_BINARY_DIR}/rhvoice_download DESTINATION ${CEAMMC_INSTALL_PATH})
     endif()
 
     if(WITH_RUST_CORE)
