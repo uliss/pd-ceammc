@@ -13,6 +13,7 @@ c_str_macro = "1.0.3"
 env_logger = "0.11.3"
 gilrs = "0.10.5"
 log = "0.4.21"
+sysinfo = "0.30.12"
 tokio = { version = "1.36", features = ["rt", "rt-multi-thread", "signal", "sync", "macros", "time"] }
 
 [target.'cfg(windows)'.dependencies]

@@ -3,8 +3,23 @@ use std::{
     os::raw::{c_char, c_void},
 };
 
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub struct hw_notify_cb {
+    /// dispatcher ID
+    id: usize,
+    /// dispatcher callback (not NULL!)
+    f: extern "C" fn(id: usize),
+}
+
+impl hw_notify_cb {
+    fn notify(&self) {
+        (self.f)(self.id);
+    }
+}
+
 pub mod gamepad;
-// pub mod sysinfo;
+pub mod sysinfo;
 pub mod printers;
 
 #[repr(C)]

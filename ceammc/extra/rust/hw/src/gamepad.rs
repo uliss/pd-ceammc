@@ -8,6 +8,8 @@ use std::{
 use gilrs::{Axis, Button, EventType, Gilrs, PowerInfo};
 use tokio::time::sleep;
 
+use crate::hw_notify_cb;
+
 #[allow(non_camel_case_types)]
 #[repr(C)]
 pub enum hw_gamepad_rc {
@@ -15,20 +17,6 @@ pub enum hw_gamepad_rc {
     InvalidHandle,
 }
 
-#[allow(non_camel_case_types)]
-#[repr(C)]
-pub struct hw_notify_cb {
-    /// dispatcher ID
-    id: usize,
-    /// dispatcher callback (not NULL!)
-    f: extern "C" fn(id: usize),
-}
-
-impl hw_notify_cb {
-    fn notify(&self) {
-        (self.f)(self.id);
-    }
-}
 
 #[derive(Default, Debug)]
 #[allow(non_camel_case_types)]

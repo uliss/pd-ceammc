@@ -12,23 +12,39 @@
  * this file belongs to.
  *****************************************************************************/
 #include "hw_cpu_temp.h"
+#include "ceammc_containers.h"
 #include "ceammc_factory.h"
 
 HwCpuTemp::HwCpuTemp(const PdArgs& args)
-    : BaseObject(args)
+    : DispatchedObject<BaseObject>(args)
+    , cpu_temp_(0, ceammc_hw_cputemp_free)
 {
     createOutlet();
 
-#ifndef WITH_SMC
-    OBJ_ERR << "supports only MacOSX at this moment";
-#endif
+    cpu_temp_.reset(ceammc_hw_cputemp_create(
+        this,
+        [](void* user, const char* label, float value) {
+            auto this_ = static_cast<HwCpuTemp*>(user);
+            if (this_) {
+                AtomArray<2> data { gensym(label), value };
+                this_->listTo(0, data.view());
+            }
+        },
+        { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }));
 }
 
 void HwCpuTemp::onBang()
 {
-#ifdef WITH_SMC
-    return floatTo(0, smc_.cpuTemperature());
-#endif
+    if (cpu_temp_)
+        ceammc_hw_cputemp_get(cpu_temp_.get());
+}
+
+bool HwCpuTemp::notify(int)
+{
+    if (cpu_temp_)
+        return ceammc_hw_cputemp_process(cpu_temp_.get());
+    else
+        return false;
 }
 
 void setup_hw_cpu_temp()

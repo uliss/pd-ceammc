@@ -70,8 +70,17 @@ enum class ceammc_hw_printer_state {
     UNKNOWN,
 };
 
+struct ceammc_hw_cputemp;
+
 /// gamepad opaque type
 struct ceammc_hw_gamepad;
+
+struct ceammc_hw_notify_cb {
+    /// dispatcher ID
+    size_t id;
+    /// dispatcher callback (not NULL!)
+    void (*f)(size_t id);
+};
 
 struct ceammc_gamepad_err_cb {
     /// pointer to user data
@@ -123,13 +132,6 @@ struct ceammc_gamepad_listdev_cb {
     void (*cb)(void *user, const ceammc_gamepad_dev_info *info);
 };
 
-struct ceammc_hw_notify_cb {
-    /// dispatcher ID
-    size_t id;
-    /// dispatcher callback (not NULL!)
-    void (*f)(size_t id);
-};
-
 struct ceammc_hw_printer_info {
     const char *name;
     const char *system_name;
@@ -160,6 +162,16 @@ struct ceammc_hw_error_cb {
 
 
 extern "C" {
+
+ceammc_hw_cputemp *ceammc_hw_cputemp_create(void *user,
+                                            void (*cb_temp)(void *user, const char *label, float cpu_temp),
+                                            ceammc_hw_notify_cb cb_notify);
+
+void ceammc_hw_cputemp_free(ceammc_hw_cputemp *cpu_temp);
+
+bool ceammc_hw_cputemp_get(ceammc_hw_cputemp *cpu_temp);
+
+bool ceammc_hw_cputemp_process(ceammc_hw_cputemp *cpu_temp);
 
 /// free gamepad
 /// @param gp - pointer to gp

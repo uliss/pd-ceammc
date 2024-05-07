@@ -15,20 +15,18 @@
 #define HW_CPU_TEMP_H
 
 #include "ceammc_object.h"
-
-#ifdef WITH_SMC
-#include "apple/smc.h"
-#endif
+#include "ceammc_poll_dispatcher.h"
+#include "hw_rust.hpp"
 
 using namespace ceammc;
 
-class HwCpuTemp : public BaseObject {
-#ifdef WITH_SMC
-    apple_smc::SMC smc_;
-#endif
+class HwCpuTemp : public DispatchedObject<BaseObject> {
+    std::unique_ptr<ceammc_hw_cputemp, void (*)(ceammc_hw_cputemp*)> cpu_temp_;
+
 public:
     HwCpuTemp(const PdArgs& args);
     void onBang() override;
+    bool notify(int) final;
 };
 
 void setup_hw_cpu_temp();
