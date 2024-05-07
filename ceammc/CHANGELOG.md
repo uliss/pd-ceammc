@@ -12,6 +12,7 @@
   - net.ws.server - WebSocket client 
   - route.data (with route.d alias) - separate data from other types
   - system.command (with system.cmd alias) - run several processes like in shell with pipes
+  - system.info - object to get num cpu/temperature and other system information
 - new properties:
   - dict->list @props flag added to output as list of properties
   - snd.play~ @on_err property added to specify sending errors address
