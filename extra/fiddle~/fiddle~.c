@@ -42,7 +42,7 @@
 #else
 #define flog log
 #define fexp exp
-#define fsqrt sqrt
+//#define fsqrt sqrt // ceammc
 #endif
 
 char fiddle_version[] = "fiddle version 1.1 TEST4";
