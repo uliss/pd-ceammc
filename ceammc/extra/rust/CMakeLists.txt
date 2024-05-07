@@ -10,6 +10,11 @@ if(Rust_FOUND)
         CRATE_TYPES staticlib
     )
 
+    if(WITH_RUST_APPS)
+        corrosion_import_crate(MANIFEST_PATH apps/Cargo.toml CRATE_TYPES bin)
+        install(FILES ${CMAKE_CURRENT_BINARY_DIR}/rhvoice_download DESTINATION bin)
+    endif()
+
     if(WITH_RUST_CORE)
         if(WIN32)
             corrosion_import_crate(MANIFEST_PATH core/Cargo.toml CRATE_TYPES cdylib)
