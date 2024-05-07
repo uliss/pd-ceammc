@@ -50,9 +50,9 @@ SystemInfo::SystemInfo(const PdArgs& args)
                     dict->insert("number", n);
                     dict->insert("freq", freq);
                     dict->insert("usage", usage);
-                    dict->insert("name", gensym(name));
-                    dict->insert("brand", gensym(brand));
-                    dict->insert("vendor", gensym(vendor));
+                    dict->insert("name", AtomList::parseString(name));
+                    dict->insert("brand", AtomList::parseString(brand));
+                    dict->insert("vendor", AtomList::parseString(vendor));
                     this_->anyTo(0, sym_cpu(), dict);
                 }
             } },
