@@ -19,6 +19,7 @@ OBJECT_STUB_SETUP(SystemInfo, system_info, "system.info");
 #include "ceammc_containers.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
+#include "datatype_dict.h"
 #include "system_info.h"
 
 CEAMMC_DEFINE_SYM(temp)
@@ -39,6 +40,21 @@ SystemInfo::SystemInfo(const PdArgs& args)
                     this_->anyTo(0, sym_temp(), data.view());
                 }
             } },
+        { //
+            this,
+            [](void* user, int n, int freq, float usage, const char* name, const char* brand, const char* vendor) {
+                auto this_ = static_cast<SystemInfo*>(user);
+                if (this_) {
+                    DictAtom dict;
+                    dict->insert("number", n);
+                    dict->insert("freq", freq);
+                    dict->insert("usage", usage);
+                    dict->insert("name", gensym(name));
+                    dict->insert("brand", gensym(brand));
+                    dict->insert("vendor", gensym(vendor));
+                    this_->anyTo(0, sym_temp(), dict);
+                }
+            } },
         { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }));
 }
 
@@ -56,9 +72,16 @@ void SystemInfo::m_temp(t_symbol* s, const AtomListView& lv)
         ceammc_sysinfo_get_temperature(sysinfo_.get());
 }
 
+void SystemInfo::m_cpu(t_symbol* s, const AtomListView& lv)
+{
+    if (sysinfo_)
+        ceammc_sysinfo_get_cpu(sysinfo_.get());
+}
+
 void setup_system_info()
 {
     ObjectFactory<SystemInfo> obj("system.info");
     obj.addMethod("temp", &SystemInfo::m_temp);
+    obj.addMethod("cpu", &SystemInfo::m_cpu);
 }
 #endif

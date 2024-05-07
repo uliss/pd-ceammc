@@ -14,7 +14,8 @@
             <since>0.9.8</since>
         </meta>
         <methods>
-            <method name="temp">request system temperature information. Output in format: temp SENSOR_NAME VALUE</method>
+            <method name="temp">request system temperature information. Output in format: temp
+            SENSOR_NAME VALUE</method>
         </methods>
         <inlets>
             <inlet>
@@ -29,9 +30,9 @@
 <![CDATA[
 [temp(
 |
-|
-|
-|
+| [cpu(
+| |
+| |
 [system.info]
 |
 [print INFO]

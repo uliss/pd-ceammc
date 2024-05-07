@@ -1,10 +1,10 @@
 use std::{
-    ffi::CString,
+    ffi::{c_int, CString},
     os::raw::{c_char, c_void},
     time::Duration,
 };
 
-use sysinfo::Components;
+use sysinfo::{Components, CpuRefreshKind, RefreshKind, System};
 
 use crate::system_notify_cb;
 
@@ -21,12 +21,56 @@ impl sysinfo_temp_cb {
     }
 }
 
+#[allow(non_camel_case_types)]
+#[repr(C)]
+pub struct sysinfo_cpu_cb {
+    user: *mut c_void,
+    cb: Option<
+        extern "C" fn(
+            user: *mut c_void,
+            n: c_int,
+            freq: c_int,
+            usage: f32,
+            name: *const c_char,
+            brand: *const c_char,
+            vendor: *const c_char,
+        ),
+    >,
+}
+
+impl sysinfo_cpu_cb {
+    fn exec(&self, info: &CpuInfo) {
+        self.cb.map(|f| {
+            f(
+                self.user,
+                info.n,
+                info.freq,
+                info.usage,
+                info.name.as_ptr(),
+                info.brand.as_ptr(),
+                info.vendor.as_ptr(),
+            )
+        });
+    }
+}
+
+struct CpuInfo {
+    n: c_int,
+    freq: c_int,
+    usage: f32,
+    name: CString,
+    brand: CString,
+    vendor: CString,
+}
+
 enum SysInfoReply {
     Temperature(CString, f32),
+    Cpu(CpuInfo),
 }
 
 enum SysInfoRequest {
     GetTemp,
+    GetCpu,
     Quit,
 }
 
@@ -35,6 +79,7 @@ pub struct system_info {
     rx: std::sync::mpsc::Receiver<SysInfoReply>,
     tx: std::sync::mpsc::Sender<SysInfoRequest>,
     cb_temp: sysinfo_temp_cb,
+    cb_cpu: sysinfo_cpu_cb,
 }
 
 impl system_info {
@@ -53,7 +98,7 @@ impl system_info {
             log::error!("NULL cpu temp pointer");
             return false;
         }
-    
+
         let sysinfo = unsafe { &mut *sysinfo };
         sysinfo.request(req)
     }
@@ -70,6 +115,7 @@ impl Drop for system_info {
 #[no_mangle]
 pub extern "C" fn ceammc_sysinfo_create(
     cb_temp: sysinfo_temp_cb,
+    cb_cpu: sysinfo_cpu_cb,
     cb_notify: system_notify_cb,
 ) -> *mut system_info {
     let (reply_tx, reply_rx) = std::sync::mpsc::channel::<SysInfoReply>();
@@ -77,6 +123,8 @@ pub extern "C" fn ceammc_sysinfo_create(
 
     std::thread::spawn(move || {
         let mut components = Components::new_with_refreshed_list();
+        let mut sysinfo =
+            System::new_with_specifics(RefreshKind::new().with_cpu(CpuRefreshKind::everything()));
         loop {
             match req_rx.recv_timeout(Duration::from_millis(100)) {
                 Ok(data) => match data {
@@ -105,6 +153,25 @@ pub extern "C" fn ceammc_sysinfo_create(
                             cb_notify.notify();
                         }
                     }
+                    SysInfoRequest::GetCpu => {
+                        log::debug!("[worker] get cpu");
+                        // Wait a bit because CPU usage is based on diff.
+                        std::thread::sleep(sysinfo::MINIMUM_CPU_UPDATE_INTERVAL);
+                        sysinfo.refresh_cpu();
+                        for (i, cpu) in sysinfo.cpus().iter().enumerate() {
+                            if let Err(err) = reply_tx.send(SysInfoReply::Cpu(CpuInfo {
+                                n: i as c_int,
+                                freq: cpu.frequency() as c_int,
+                                usage: cpu.cpu_usage(),
+                                name: CString::new(cpu.name()).unwrap_or_default(),
+                                brand: CString::new(cpu.brand()).unwrap_or_default(),
+                                vendor: CString::new(cpu.vendor_id()).unwrap_or_default(),
+                            })) {
+                                log::error!("[worker] send error: {err}");
+                                break;
+                            }
+                        }
+                    }
                 },
                 Err(err) => match err {
                     std::sync::mpsc::RecvTimeoutError::Timeout => continue,
@@ -118,12 +185,18 @@ pub extern "C" fn ceammc_sysinfo_create(
         rx: reply_rx,
         tx: req_tx,
         cb_temp,
+        cb_cpu,
     }))
 }
 
 #[no_mangle]
 pub extern "C" fn ceammc_sysinfo_get_temperature(sysinfo: *mut system_info) -> bool {
     system_info::ptr_request(sysinfo, SysInfoRequest::GetTemp)
+}
+
+#[no_mangle]
+pub extern "C" fn ceammc_sysinfo_get_cpu(sysinfo: *mut system_info) -> bool {
+    system_info::ptr_request(sysinfo, SysInfoRequest::GetCpu)
 }
 
 #[no_mangle]
@@ -138,6 +211,9 @@ pub extern "C" fn ceammc_sysinfo_process(sysinfo: *mut system_info) -> bool {
         match sysinfo.rx.try_recv() {
             Ok(reply) => match reply {
                 SysInfoReply::Temperature(label, value) => sysinfo.cb_temp.exec(&label, value),
+                SysInfoReply::Cpu(cpu) => {
+                    sysinfo.cb_cpu.exec(&cpu);
+                }
             },
             Err(err) => match err {
                 std::sync::mpsc::TryRecvError::Empty => return true,

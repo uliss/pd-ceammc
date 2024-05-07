@@ -18,18 +18,20 @@
             <par>Windows: supports only PDF files.</par>
         </info>
         <arguments>
-            <argument type="symbol" name="NAME">printer name, if empty - use default system printer.</argument>
+            <argument name="NAME" type="symbol">printer name, if empty - use default system
+            printer.</argument>
         </arguments>
         <properties>
-            <property name="@name" type="symbol" default="">printer name, if empty - use default system printer</property>
+            <property name="@name" type="symbol" default="">printer name, if empty - use default
+            system printer</property>
         </properties>
         <methods>
             <method name="devices">list printers</method>
-            <method name="print">print file
+            <method name="print">print file 
             <param name="FILE" type="symbol" required="true">file to print</param>
-            <param name="@landscape" type="bool" required="false">print in landscape mode</param>
-            </method>
-            <method name="choose">choose printer by index
+            <param name="@landscape" type="bool" required="false">print in landscape
+            mode</param></method>
+            <method name="choose">choose printer by index 
             <param name="IDX" type="int" minvalue="0">printer index in device list</param></method>
         </methods>
         <inlets>

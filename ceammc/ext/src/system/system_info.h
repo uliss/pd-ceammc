@@ -29,6 +29,9 @@ public:
 
     bool notify(int) final;
     void m_temp(t_symbol* s, const AtomListView& lv);
+    void m_cpu(t_symbol* s, const AtomListView& lv);
 };
+
+void setup_system_info();
 
 #endif // SYSTEM_INFO_H

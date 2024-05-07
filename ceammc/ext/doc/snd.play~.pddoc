@@ -45,14 +45,15 @@
             speed. If @stretch mode is disabled (default): changes playing speed (also with pitch
             change respectively) in realtime. If @stretch mode is enabled: can only change speed
             (without pitch change) only on the next playing cycle</property>
-            <property name="@on_err" type="symbol" default="">the error send destination. For example, if soundfile was not found,
-            the message [not_found( will be send to this global name</property>
+            <property name="@on_err" type="symbol" default="">the error send destination. For
+            example, if soundfile was not found, the message [not_found( will be send to this
+            global name</property>
         </properties>
         <methods>
             <!-- open -->
-            <method name="open">sets @name property
-            <param name="FILENAME" type="symbol" required="true">absolute or relative to patch soundfile
-            name</param></method>
+            <method name="open">sets @name property 
+            <param name="FILENAME" type="symbol" required="true">absolute or relative to patch
+            soundfile name</param></method>
             <!-- start -->
             <method name="start">start playing 
             <param name="FLAG" type="bool" required="false">start/stop flag. If true or ommited:
