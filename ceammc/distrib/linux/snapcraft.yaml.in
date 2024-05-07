@@ -101,6 +101,8 @@ parts:
             - -DWITH_ALSA_AUDIO=ON
             - -DWITH_ALSA_MIDI=ON
             - -DWITH_EXT_FLEXT=OFF
+            - -DWITH_VEROVIO=OFF
+            - -DWITH_LIBSAMPLERATE=ON
             - -DENABLE_TESTS=OFF
         source: .
         build-packages:
@@ -115,6 +117,7 @@ parts:
             - libavahi-compat-libdnssd-dev
             - libboost-dev
             - libcairo2-dev
+            - libclang1-dev
             - libcups2-dev
             - libfftw3-dev
             - libfreetype-dev
