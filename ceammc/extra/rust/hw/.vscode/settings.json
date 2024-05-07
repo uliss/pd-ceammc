@@ -9,6 +9,7 @@
         "gamepads",
         "gilrs",
         "listdev",
+        "pdfium",
         "powerinfo",
         "powerstate",
         "repr",

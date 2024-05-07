@@ -19,7 +19,6 @@ impl hw_notify_cb {
 }
 
 pub mod gamepad;
-pub mod sysinfo;
 pub mod printers;
 
 #[repr(C)]

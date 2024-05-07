@@ -20,7 +20,19 @@ enum class ceammc_system_process_state {
     Ready,
 };
 
+struct ceammc_system_info;
+
 struct ceammc_system_process;
+
+struct ceammc_sysinfo_temp_cb {
+    void *user;
+    void (*cb)(void *user, const char *label, float cpu_temp);
+};
+
+struct ceammc_system_notify_cb {
+    size_t client_id;
+    void (*cb)(size_t client_id);
+};
 
 struct ceammc_system_process_cmd {
     const char *prog;
@@ -30,6 +42,15 @@ struct ceammc_system_process_cmd {
 
 
 extern "C" {
+
+ceammc_system_info *ceammc_sysinfo_create(ceammc_sysinfo_temp_cb cb_temp,
+                                          ceammc_system_notify_cb cb_notify);
+
+void ceammc_sysinfo_free(ceammc_system_info *sysinfo);
+
+bool ceammc_sysinfo_get_temperature(ceammc_system_info *sysinfo);
+
+bool ceammc_sysinfo_process(ceammc_system_info *sysinfo);
 
 /// clear current system command (kill if running)
 /// @param proc - system command pointer
