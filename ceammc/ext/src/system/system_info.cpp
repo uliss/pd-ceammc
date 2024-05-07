@@ -22,6 +22,7 @@ OBJECT_STUB_SETUP(SystemInfo, system_info, "system.info");
 #include "datatype_dict.h"
 #include "system_info.h"
 
+CEAMMC_DEFINE_SYM(cpu)
 CEAMMC_DEFINE_SYM(temp)
 
 SystemInfo::SystemInfo(const PdArgs& args)
@@ -52,7 +53,7 @@ SystemInfo::SystemInfo(const PdArgs& args)
                     dict->insert("name", gensym(name));
                     dict->insert("brand", gensym(brand));
                     dict->insert("vendor", gensym(vendor));
-                    this_->anyTo(0, sym_temp(), dict);
+                    this_->anyTo(0, sym_cpu(), dict);
                 }
             } },
         { subscriberId(), [](size_t id) { Dispatcher::instance().send({ id, 0 }); } }));
