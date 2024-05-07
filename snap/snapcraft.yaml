@@ -35,7 +35,6 @@ apps:
         plugs:
             - alsa
             - pulseaudio # for audio output
-            - jack1
             - home
             - unity7
             - x11
@@ -101,13 +100,15 @@ parts:
             - -DWITH_BENCHMARK=OFF
             - -DWITH_ALSA_AUDIO=ON
             - -DWITH_ALSA_MIDI=ON
-            - -DWITH_JACK=ON
             - -DWITH_EXT_FLEXT=OFF
+            - -DWITH_VEROVIO=OFF
+            - -DWITH_LIBSAMPLERATE=ON
             - -DENABLE_TESTS=OFF
         source: .
         build-packages:
             - alsa-utils
             - build-essential
+            - cargo
             - cmake
             - g++
             - gettext
@@ -115,15 +116,22 @@ parts:
             - libasound2-dev
             - libavahi-compat-libdnssd-dev
             - libboost-dev
+            - libcairo2-dev
+            - libclang1
+            - libcups2-dev
             - libfftw3-dev
+            - libfreetype-dev
             - libglib2.0-dev
             - libjack-jackd2-dev
             - libltc-dev
-            - libcairo2-dev
+            - libluajit-5.1-dev
+            - libmagic-dev
             - libmodplug-dev
             - librubberband-dev
+            - libsamplerate0-dev
             - libsndfile1-dev
-            - libfreetype-dev
+            - libssl-dev
+            - libudev-dev
             - libxcb-randr0-dev
             - libxcb-util-dev
             - libxcb1-dev
@@ -132,6 +140,7 @@ parts:
             - make
             - patchelf
             - pkg-config
+            - portaudio19-dev
             - rustc
             - tcl-dev
             - tcllib
@@ -147,6 +156,7 @@ parts:
             - libltc11
             - libmodplug1
             - librubberband2
+            - libsamplerate0
             - libsndfile1
             - libcairo2
             - libfreetype6
