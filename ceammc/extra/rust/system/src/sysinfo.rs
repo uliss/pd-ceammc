@@ -171,6 +171,8 @@ pub extern "C" fn ceammc_sysinfo_create(
                                 break;
                             }
                         }
+
+                        cb_notify.notify();
                     }
                 },
                 Err(err) => match err {
@@ -230,5 +232,26 @@ pub extern "C" fn ceammc_sysinfo_process(sysinfo: *mut system_info) -> bool {
 pub extern "C" fn ceammc_sysinfo_free(sysinfo: *mut system_info) {
     if !sysinfo.is_null() {
         drop(unsafe { Box::from_raw(sysinfo) });
+    }
+}
+
+#[cfg(test)]
+mod tests {
+    use sysinfo::{System, RefreshKind, CpuRefreshKind};
+
+    #[test]
+    fn cpu_test() {
+        let mut s = System::new_with_specifics(
+            RefreshKind::new().with_cpu(CpuRefreshKind::everything()),
+        );
+        
+        // Wait a bit because CPU usage is based on diff.
+        std::thread::sleep(sysinfo::MINIMUM_CPU_UPDATE_INTERVAL);
+        // Refresh CPUs again.
+        s.refresh_cpu();
+        
+        for cpu in s.cpus() {
+            println!("{cpu:?}");
+        }
     }
 }
