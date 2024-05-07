@@ -117,14 +117,14 @@ parts:
             - libavahi-compat-libdnssd-dev
             - libboost-dev
             - libcairo2-dev
-            - libclang1-dev
+            - libclang1
             - libcups2-dev
             - libfftw3-dev
             - libfreetype-dev
             - libglib2.0-dev
             - libjack-jackd2-dev
-            - libluajit-5.1-dev
             - libltc-dev
+            - libluajit-5.1-dev
             - libmagic-dev
             - libmodplug-dev
             - librubberband-dev
