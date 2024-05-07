@@ -101,6 +101,8 @@ parts:
             - -DWITH_ALSA_AUDIO=ON
             - -DWITH_ALSA_MIDI=ON
             - -DWITH_EXT_FLEXT=OFF
+            - -DWITH_VEROVIO=OFF
+            - -DWITH_LIBSAMPLERATE=ON
             - -DENABLE_TESTS=OFF
         source: .
         build-packages:
@@ -115,13 +117,15 @@ parts:
             - libavahi-compat-libdnssd-dev
             - libboost-dev
             - libcairo2-dev
+            - libclang1
             - libcups2-dev
             - libfftw3-dev
             - libfreetype-dev
             - libglib2.0-dev
             - libjack-jackd2-dev
-            - libluajit-5.1-dev
+            - liblo-dev
             - libltc-dev
+            - libluajit-5.1-dev
             - libmagic-dev
             - libmodplug-dev
             - librubberband-dev
@@ -157,6 +161,7 @@ parts:
             - libsndfile1
             - libcairo2
             - libfreetype6
+            - liblo7
             - libtcl8.6
             - libxcb-randr0
             - libxtables12
