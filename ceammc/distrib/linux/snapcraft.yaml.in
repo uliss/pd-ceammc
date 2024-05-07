@@ -123,6 +123,7 @@ parts:
             - libfreetype-dev
             - libglib2.0-dev
             - libjack-jackd2-dev
+            - liblo-dev
             - libltc-dev
             - libluajit-5.1-dev
             - libmagic-dev
@@ -160,6 +161,7 @@ parts:
             - libsndfile1
             - libcairo2
             - libfreetype6
+            - liblo7
             - libtcl8.6
             - libxcb-randr0
             - libxtables12
