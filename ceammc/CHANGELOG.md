@@ -32,6 +32,8 @@
 - renaming:
   - prop.get~ renamed to prop.route~ (the old alias exists for the compatibility, but it prints a warning message)
   - prop.split renamed to prop.route (the old alias exists for the compatibility, but it prints a warning message)
+- removed:
+  - hw.cpu_temp removed, because more complete object is added: system.info
 ### Fixed:
 - seq.life - fix errors on non square sizes (issue #203)
 

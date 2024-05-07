@@ -1015,9 +1015,6 @@
     <entry name="hw.arduino" descr="Arduino device" ref_view="object">
       <xi:include href="hw.arduino.pddoc" parse="xml"/>
     </entry>
-    <entry name="hw.cpu_temp" descr="get CPU temperature" ref_view="object">
-      <xi:include href="hw.cpu_temp.pddoc" parse="xml"/>
-    </entry>
     <entry name="hw.display" descr="get/set display properties" ref_view="object">
       <xi:include href="hw.display.pddoc" parse="xml"/>
     </entry>

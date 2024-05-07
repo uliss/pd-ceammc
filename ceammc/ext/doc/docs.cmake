@@ -316,7 +316,6 @@ set(DOC_FILES
     hw.apple_smc
     hw.apple_sms
     hw.arduino
-    hw.cpu_temp
     hw.display
     hw.gamepad
     hw.kbd_light
