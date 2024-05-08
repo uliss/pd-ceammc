@@ -3,6 +3,7 @@
 ## [0.9.8]
 ### Added:
 - new objects:
+  - flow.histogram (with flow.hist alias) - for runtime flow histogram calculation
   - hw.gamepad - gamepad support
   - hw.printer - simple printing support (only PDF files)
   - msg.unpack - unpack message to selector and arguments
