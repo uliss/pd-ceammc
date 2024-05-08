@@ -135,13 +135,17 @@ void SystemCommand::exec(const char* input)
     for (auto& c : args_)
         cmd_args.push_back(ceammc_system_process_cmd { c.name, c.args.data(), c.args.size() });
 
+    auto pwd = pwd_->value();
+    if (pwd == &s_)
+        pwd = this->canvasDir(CanvasType::PARENT);
+
     proc_ = ceammc_system_process_new(
         cmd_args.data(),
         cmd_args.size(),
         prop2mode(mode_->value()->s_name),
         stdout_->value(),
         stderr_->value(),
-        pwd_->value()->s_name,
+        pwd->s_name,
         input,
         static_cast<void*>(this),
         [](void* user, const char* msg) {
@@ -223,19 +227,19 @@ void SystemCommand::output(size_t outlet, const uint8_t* data, size_t len)
 {
     switch (crc32_hash(mode_->value())) {
     case hash_str: {
-        atomTo(outlet, StringAtom(std::string((const char*)data, len)));
+        atomTo(outlet, StringAtom(std::string(reinterpret_cast<const char*>(data), len)));
     } break;
     case hash_bytes: {
         for (size_t i = 0; i < len; i++)
             floatTo(outlet, data[i]);
     } break;
     case hash_lines: {
-        atomTo(outlet, StringAtom(std::string((const char*)data, len)));
+        atomTo(outlet, StringAtom(std::string(reinterpret_cast<const char*>(data), len)));
     } break;
     case hash_pd:
     default: {
         t_binbuf* bbuf = binbuf_new();
-        binbuf_text(bbuf, (const char*)data, len);
+        binbuf_text(bbuf, reinterpret_cast<const char*>(data), len);
         listTo(outlet, AtomListView(bbuf));
         binbuf_free(bbuf);
     } break;
