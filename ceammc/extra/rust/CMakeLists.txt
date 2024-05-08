@@ -51,3 +51,6 @@ if(Rust_FOUND)
         endif()
     endif()
 endif()
+
+file(GLOB_RECURSE RUST_SOURCES ${CMAKE_CURRENT_SOURCE_DIR} *.rs)
+add_custom_target(rust_src SOURCES ${RUST_SOURCES})
