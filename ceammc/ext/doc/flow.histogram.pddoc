@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='utf-8'?>
+<pddoc xmlns:xi="http://www.w3.org/2001/XInclude" version="1.0">
+    <object name="flow.histogram">
+        <title>flow.histogram</title>
+        <meta>
+            <authors>
+                <author>Serge Poltavsky</author>
+            </authors>
+            <description>control flow histogram</description>
+            <license>GPL3 or later</license>
+            <library>ceammc</library>
+            <category>flow</category>
+            <keywords>histogram</keywords>
+            <since>0.9.8</since>
+            <aliases>
+                <alias>flow.hist</alias>
+            </aliases>
+        </meta>
+        <arguments>
+            <argument name="VALUE" type="int" minvalue="0">counter init value</argument>
+        </arguments>
+        <properties>
+            <property name="@value" type="int" minvalue="0" default="0">current counter state. Can
+            be set via message to second(!) inlet or [prop.set] object.</property>
+        </properties>
+        <inlets>
+            <inlet>
+                <xinfo on="bang">calculates histogram and output current bin values</xinfo>
+                <xinfo on="float">add value to histogram and output histogram if @sync property is true</xinfo>
+            </inlet>
+        </inlets>
+        <outlets>
+            <outlet>list: bin values</outlet>
+        </outlets>
+        <example>
+            <pdascii>
+<![CDATA[
+[T]
+|
+[metro 25]
+|
+[random.gauss 0 1] [clear(
+|                  |
+[flow.hist -4 4 32 @norm 1 @sync 1]
+|
+[ui.sliders @auto_count 1]
+
+
+
+
+/*.*/
+]]>
+            </pdascii>
+        </example>
+    </object>
+</pddoc>

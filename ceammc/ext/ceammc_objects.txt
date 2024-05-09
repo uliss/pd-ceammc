@@ -448,6 +448,8 @@ flow.gate
 flow.greater
 flow.greater_eq
 flow.group
+flow.hist
+flow.histogram
 flow.interval
 flow.less
 flow.less_eq

@@ -167,6 +167,7 @@ set(DOC_FILES
     flow.greater
     flow.greater_eq
     flow.group
+    flow.histogram
     flow.interval
     flow.less
     flow.less_eq

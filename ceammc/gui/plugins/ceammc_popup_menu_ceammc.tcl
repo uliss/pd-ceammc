@@ -57,10 +57,10 @@
         expand_env flow.append flow.change flow.count flow.delay
         flow.demultiplex flow.demultiplex2~ flow.demultiplex~ flow.dollar
         flow.dup flow.float flow.gate flow.greater flow.greater_eq flow.group
-        flow.interval flow.less flow.less_eq flow.list2many flow.match
-        flow.mem flow.multiplex flow.multiplex2~ flow.multiplex~ flow.once
-        flow.pack flow.pass flow.pass_if flow.pipe flow.prepend flow.queue
-        flow.record flow.reject flow.reject_if flow.ring flow.route
+        flow.histogram flow.interval flow.less flow.less_eq flow.list2many
+        flow.match flow.mem flow.multiplex flow.multiplex2~ flow.multiplex~
+        flow.once flow.pack flow.pass flow.pass_if flow.pipe flow.prepend
+        flow.queue flow.record flow.reject flow.reject_if flow.ring flow.route
         flow.select flow.seqdelay flow.space flow.speedlim flow.split
         flow.stack flow.sync flow.sync_pack flow.tee~ replace route.any
         route.bang route.cycle route.data route.float route.list route.prop

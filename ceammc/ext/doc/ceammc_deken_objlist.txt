@@ -415,6 +415,8 @@ flow.>=	numeric stream router
 flow.group	group input atoms in list of specified size
 ceammc/group	group input atoms in list of specified size
 group	group input atoms in list of specified size
+flow.histogram	control flow histogram
+flow.hist	control flow histogram
 flow.interval	measure time between flow events
 flow.less	numeric stream router, like many [moses]
 flow.<	numeric stream router, like many [moses]

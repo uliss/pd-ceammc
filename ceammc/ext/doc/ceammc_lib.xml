@@ -626,6 +626,9 @@
     <entry name="flow.group" descr="group input atoms in list of specified size" ref_view="object">
       <xi:include href="flow.group.pddoc" parse="xml"/>
     </entry>
+    <entry name="flow.histogram" descr="control flow histogram" ref_view="object">
+      <xi:include href="flow.histogram.pddoc" parse="xml"/>
+    </entry>
     <entry name="flow.interval" descr="measure time between flow events" ref_view="object">
       <xi:include href="flow.interval.pddoc" parse="xml"/>
     </entry>

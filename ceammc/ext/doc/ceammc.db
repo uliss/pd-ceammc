@@ -166,6 +166,7 @@ flow.gate,ceammc/gate,gate		..		.
 flow.greater,flow.>		.		?
 flow.greater_eq,flow.>=		.		?
 flow.group,ceammc/group,group		..		.
+flow.histogram,flow.hist		.		.
 flow.interval		.		.
 flow.less,flow.<		.		?
 flow.less_eq,flow.<=		.		?
