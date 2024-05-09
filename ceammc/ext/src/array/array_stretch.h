@@ -30,14 +30,6 @@ public:
 
     void propSetSeekWindow(const AtomList& ms);
 
-    /**
-     * Time-stretch algorithm overlap length in milliseconds. When the chopped sound sequences 
-     * are mixed back together, to form a continuous sound stream, this parameter defines over 
-     * how long period the two consecutive sequences are let to overlap each other
-     */
-    AtomList propOverlap() const;
-    void propSetOverlap(const AtomList& ms);
-
 private:
     void setupSoundTouch();
 };
