@@ -34,11 +34,15 @@ if(Rust_FOUND)
     endif()
 
     if(WITH_RUST_NET)
+        set(RUST_NET_CRATE_TYPE staticlib)
+        if(APPLE OR WIN32)
+            set(RUST_NET_CRATE_TYPE cdylib)
+        endif()
+
+        corrosion_import_crate(MANIFEST_PATH net/Cargo.toml CRATE_TYPES ${RUST_NET_CRATE_TYPE})
+
         if(WIN32)
-            corrosion_import_crate(MANIFEST_PATH net/Cargo.toml CRATE_TYPES cdylib)
             install(FILES ${CMAKE_CURRENT_BINARY_DIR}/net_rust.dll DESTINATION bin)
-        else()
-            corrosion_import_crate(MANIFEST_PATH net/Cargo.toml CRATE_TYPES staticlib)
         endif()
     endif()
 
