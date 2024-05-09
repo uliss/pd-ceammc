@@ -77,7 +77,7 @@
 <![CDATA[
 [loadbang]
 |
-[symbol voice.wav( [symbol bell.aiff( [array A1 w=100] [array A2 w=100]
+[symbol voice.wav( [symbol bell.aiff( [array A1 w=150] [array A2 w=150]
 |                  |
 [load %DOC%/sound/$1 @to A1 @resize(
 |
@@ -91,7 +91,7 @@
 
 [bng] /*speed up and high*/     [bng]/*timestretch*/
 |                               |
-[array.stretch A1 A2 @rate 1.5] [array.stretch A1 A2 @tempo -30 @speech]
+[array.stretch A1 A2 @rate 1.5] [array.stretch A1 A2 @tempo -30 @speech 1]
 
 /* Play */
 
