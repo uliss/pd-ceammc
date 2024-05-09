@@ -60,7 +60,8 @@ private:
     void processReplyOAuth(const char* url);
     void processReplyOAuthFile(const char* id, const char* secret);
 
-    bool checkOAuth(t_symbol* s) const;
+    bool checkToken(t_symbol* s) const;
+    bool checkIdAndSecret() const;
 };
 
 void setup_net_freesound();

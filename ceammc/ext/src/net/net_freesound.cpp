@@ -237,14 +237,14 @@ void NetFreesound::editorClear()
 
 void NetFreesound::editorAddLine(t_symbol* sel, const AtomListView& lv)
 {
-    static const args::ArgChecker chk("KEY:s='id:'|'secret:' VALUE:s");
+    static const args::ArgChecker chk("KEY:s='@id'|'@secret' VALUE:s");
     if (!chk.check(lv, this))
         return chk.usage(this);
 
-    if (lv[0] == "id:")
+    if (lv[0] == "@oath_id")
         oauth_id_->setValue(lv.symbolAt(1, &s_));
 
-    if (lv[0] == "secret:")
+    if (lv[0] == "@oauth_secret")
         oauth_secret_->setValue(lv.symbolAt(1, &s_));
 }
 
@@ -254,10 +254,10 @@ EditorLineList NetFreesound::getContentForEditor() const
     res.reserve(2);
 
     auto id = EditorStringPool::pool().allocate();
-    id->append("id: ");
+    id->append("@oath_id ");
     id->append(oauth_id_->value()->s_name);
     auto secret = EditorStringPool::pool().allocate();
-    secret->append("secret: ");
+    secret->append("@oauth_secret ");
     secret->append(oauth_secret_->value()->s_name);
 
     return EditorLineList { id, secret };
@@ -271,7 +271,7 @@ void NetFreesound::editorSync()
 
 void NetFreesound::m_download(t_symbol* s, const AtomListView& lv)
 {
-    if (!cli_ || !checkOAuth(s))
+    if (!cli_ || !checkToken(s))
         return;
 
     static const args::ArgChecker chk("ID:i");
@@ -284,7 +284,7 @@ void NetFreesound::m_download(t_symbol* s, const AtomListView& lv)
 
 void NetFreesound::m_load(t_symbol* s, const AtomListView& lv)
 {
-    if (!cli_ || !checkOAuth(s))
+    if (!cli_ || !checkToken(s))
         return;
 
     static const args::ArgChecker chk("ID:i>=0 @PARAMS:a*");
@@ -327,7 +327,7 @@ void NetFreesound::m_load(t_symbol* s, const AtomListView& lv)
 
 void NetFreesound::m_me(t_symbol* s, const AtomListView& lv)
 {
-    if (!cli_ || !checkOAuth(s))
+    if (!cli_ || !checkToken(s))
         return;
 
     ceammc_freesound_me(cli_->handle(), AccessToken::instance().token.c_str());
@@ -335,7 +335,7 @@ void NetFreesound::m_me(t_symbol* s, const AtomListView& lv)
 
 void NetFreesound::m_search(t_symbol* s, const AtomListView& lv)
 {
-    if (!cli_ || !checkOAuth(s))
+    if (!cli_ || !checkToken(s))
         return;
 
     static const args::ArgChecker chk("QUERY:s @PARAMS:a*");
@@ -428,15 +428,21 @@ void NetFreesound::m_access(t_symbol* s, const AtomListView& lv)
     if (cli_) {
         auto action = lv[0];
 
-        if (action == "auth")
+        if (action == "auth") {
+            if (!checkIdAndSecret())
+                return;
+
             ceammc_freesound_oauth_get_code(cli_->handle(), oauth_id_->value()->s_name, oauth_secret_->value()->s_name);
-        else if (action == "code")
+        } else if (action == "code") {
+            if (!checkIdAndSecret())
+                return;
+
             ceammc_freesound_oauth_get_access(
                 cli_->handle(),
                 oauth_id_->value()->s_name,
                 oauth_secret_->value()->s_name,
                 lv.symbolAt(1, &s_)->s_name);
-        else if (action == "store")
+        } else if (action == "store")
             ceammc_freesound_oauth_store_access_token(cli_->handle(),
                 AccessToken::instance().token.c_str(),
                 canvasDir(CanvasType::TOPLEVEL)->s_name,
@@ -517,12 +523,21 @@ void NetFreesound::processReplyLoad(ceammc_freesound_array_data* data, size_t le
     anyTo(0, sym_loaded(), AtomListView {});
 }
 
-bool NetFreesound::checkOAuth(t_symbol* s) const
+bool NetFreesound::checkToken(t_symbol* s) const
 {
     if (AccessToken::instance().token.empty()) {
         METHOD_ERR(s) << "not logged with OAuth. "
                          "Use [access auth( to get authorization code in browser (valid 24 hours)"
                          " and then: [access code CODE(";
+        return false;
+    } else
+        return true;
+}
+
+bool NetFreesound::checkIdAndSecret() const
+{
+    if (oauth_id_->value() == &s_ || oauth_secret_->value() == &s_) {
+        OBJ_ERR << fmt::format("@oauth_id or @oauth_secret is not specified");
         return false;
     } else
         return true;

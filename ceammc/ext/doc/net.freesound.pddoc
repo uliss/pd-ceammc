@@ -47,15 +47,7 @@
             <method name="access load">load temp *access* token (not OAuth id/secret!) from the
             special file from the current patch directory</method>
             <method name="me">get and output user information</method>
-            <method name="search">perform search</method>
-            <method name="load">load Freesound file into Pd arrays 
-            <param name="ID" type="int" required="true">Freesound soundfile ID (get it from search
-            result, for examples)</param>
-            <param name="@array" type="symbol" required="true">array name</param>
-            <param name="@norm" type="bool" required="false">normalize sound</param></method>
-            <method name="download">download Freesound file 
-            <param name="ID" type="int" required="true">Freesound soundfile ID (get it from search
-            result, for examples)</param>
+            <method name="search">perform search
             <param name="@p" type="int" required="false" minvalue="1">search page number</param>
             <param name="@n" type="int" required="false" minvalue="1">number of results</param>
             <param name="@fields" type="symbol" required="false">requested fields</param>
@@ -65,6 +57,14 @@
             <param name="@filter" type="symbol" required="false">filter expression, for example:
             @filter type mp3. See
             https://freesound.org/docs/api/resources_apiv2.html</param></method>
+            <method name="download">download Freesound file
+            <param name="ID" type="int" required="true">Freesound soundfile ID (get it from search
+            result, for examples)</param></method>
+            <method name="load">load Freesound file into Pd arrays
+            <param name="ID" type="int" required="true">Freesound soundfile ID (get it from search
+            result, for examples)</param>
+            <param name="@array" type="symbol" required="true">array name</param>
+            <param name="@norm" type="bool" required="false">normalize sound</param></method>
         </methods>
         <inlets>
             <inlet>
@@ -81,25 +81,31 @@
 <![CDATA[
 [search puredata @n 5 @fields id name @filter type mp3 #a(
 
-  [access auth #b( [L]
-                   |
-  [me(             [access code $1 #c(
-  |
-  |
-  |
-[net.freesound #z]
-|
-|
-|
+  [access #b(  [L digits=30]                [array AFS h=100]
+               |
+   [me(        [access code $1 #c(
+   |
+   | [F digits=16] [F digits=16]
+   | |             |
+   | [download $1( [load $1 @array AFS 0 @norm 1 #f(
+   | |
+   | | [access store(                       [bang(
+   | | |                                    |
+   | | | [access load(                      [array.play~ AFS]
+   | | | |                                  |
+[net.freesound #z]                          [ui.hgain~]
+|                                           |\
+|                                           [dac~]
 [route results progress #x]
+|
+|       [ui.hsl 0 100 #e] [print OTHER #d]  [ui.dsp~]
 |
 [dict.get /*/*/id /*/*/name]
 |
-|         [ui.hsl 0 100 #e]
-|
-[print ID]         [print OTHER #d]
+[print ID]
 
-[X a->z] [X b->z] [X c->z] [X x:2->d] [X x:1->e]
+[X a->z] [X b->z] [X c->z] [X x:2->d] [X x:1->e] [X f->z]
+#b auth
 ]]>
             </pdascii>
         </example>
