@@ -17,41 +17,39 @@
             <since>0.3</since>
         </meta>
         <properties>
-            <property name="@resize" type="bool" default="0">resize of destination array on
+            <property name="@resize" type="bool" default="0">resizing of destination array on
             overflow</property>
         </properties>
         <methods>
             <!-- copy -->
-            <method name="copy">copy whole array content 
-            <param name="SRC" type="symbol" required="true">name of source array</param>
-            <param name="DEST" type="symbol" required="true">name of destination
-            array</param></method>
+            <method name="copy . .">copy the whole array content 
+            <param name="SRC" type="symbol" required="true">the source array</param>
+            <param name="DST" type="symbol" required="true">the destination array</param></method>
             <!-- copy -->
-            <method name="copy">copy array content from specified position till end 
-            <param name="SRC" type="symbol" required="true">name of source array</param>
+            <method name="copy . . .">copy the array content from the specified position till the
+            end 
+            <param name="SRC" type="symbol" required="true">the source array</param>
             <param name="FROM" type="int" required="true">source start position</param>
-            <param name="DEST" type="symbol" required="true">name of destination
-            array</param></method>
+            <param name="DEST" type="symbol" required="true">the destination array</param></method>
             <!-- copy -->
-            <method name="copy">copy array content from specified range 
-            <param name="SRC" type="symbol" required="true">name of source array</param>
-            <param name="FROM" type="int" required="true">source start range</param>
-            <param name="TO" type="int" required="true">source end range</param>
-            <param name="DEST" type="symbol" required="true">name of destination
-            array</param></method>
+            <method name="copy . . . .">copy the array content from the specified range 
+            <param name="SRC" type="symbol" required="true">the source array</param>
+            <param name="FROM" type="int" required="true">the source start range</param>
+            <param name="TO" type="int" required="true">the source end range</param>
+            <param name="DEST" type="symbol" required="true">the destination array</param></method>
             <!-- copy -->
-            <method name="copy">copy array content from specified range and to specified
-            destination position 
-            <param name="SRC" type="symbol" required="true">name of source array</param>
-            <param name="FROM" type="int" required="true">source start range</param>
-            <param name="TO" type="int" required="true">source end range</param>
-            <param name="DEST" type="symbol" required="true">name of destination array</param>
-            <param name="DEST_FROM" type="int" required="true">destination start
+            <method name="copy . . . . .">copy the array content from the specified range and to
+            the specified destination position 
+            <param name="SRC" type="symbol" required="true">the source array</param>
+            <param name="FROM" type="int" required="true">the source start range</param>
+            <param name="TO" type="int" required="true">the source end range</param>
+            <param name="DEST" type="symbol" required="true">the destination array</param>
+            <param name="DEST_FROM" type="int" required="true">the destination start
             position</param></method>
         </methods>
         <inlets>
             <inlet>
-                <xinfo on="list">FROM, TO - copy data from one array to another</xinfo>
+                <xinfo on="list">FROM TO - copy data from the one array to another</xinfo>
             </inlet>
         </inlets>
         <outlets>

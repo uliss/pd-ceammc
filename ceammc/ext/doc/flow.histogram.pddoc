@@ -21,9 +21,12 @@
         </arguments>
         <properties>
             <property name="@bins" type="list" default="0">bins border values</property>
-            <property name="@norm" type="bool" default="1">do the histogram normalization</property>
-            <property name="@inner_bins" type="bool" default="1">output histogram inner bins only</property>
-            <property name="@sync" type="bool" default="1">calculate and output histogram on every input value</property>
+            <property name="@norm" type="bool" default="1">do the histogram
+            normalization</property>
+            <property name="@inner_bins" type="bool" default="1">output histogram inner bins
+            only</property>
+            <property name="@sync" type="bool" default="1">calculate and output histogram on every
+            input value</property>
         </properties>
         <methods>
             <method name="clear">clear all histogram data</method>
@@ -31,8 +34,8 @@
         <inlets>
             <inlet>
                 <xinfo on="bang">calculates histogram and output current bin values</xinfo>
-                <xinfo on="float">add value to the histogram and output it's value if @sync property is
-                true</xinfo>
+                <xinfo on="float">add value to the histogram and output it's value if @sync
+                property is true</xinfo>
             </inlet>
         </inlets>
         <outlets>
