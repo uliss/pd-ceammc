@@ -151,17 +151,18 @@ parts:
         stage-packages:
             - libasound2
             - libatm1
+            - libcairo2
+            - libcups2
             - libfftw3-single3
+            - libfreetype6
             - libice6
             - libjack-jackd2-0
+            - liblo7
             - libltc11
             - libmodplug1
             - librubberband2
             - libsamplerate0
             - libsndfile1
-            - libcairo2
-            - libfreetype6
-            - liblo7
             - libtcl8.6
             - libxcb-randr0
             - libxtables12
