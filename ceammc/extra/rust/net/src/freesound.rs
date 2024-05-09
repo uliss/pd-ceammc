@@ -811,7 +811,7 @@ async fn freesound_get(
                     params.sort.as_str(),
                     CaseMatching::Respect,
                     Normalization::Never,
-                    AtomKind::Fuzzy,
+                    AtomKind::Fuzzy,    
                     false,
                 )
                 .match_list(FIELD_VALUES, &mut matcher);
@@ -840,6 +840,10 @@ async fn freesound_get(
                             params.sort,
                             matches.iter().map(|x| format!("'{}'", x.0)).join(", ")
                         ));
+                    },
+                    #[allow(unreachable_patterns)]
+                    _ => {
+                        log::error!("unmatched pattern");
                     }
                 }
             } else {
