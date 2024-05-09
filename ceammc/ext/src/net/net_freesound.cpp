@@ -241,7 +241,7 @@ void NetFreesound::editorAddLine(t_symbol* sel, const AtomListView& lv)
     if (!chk.check(lv, this))
         return chk.usage(this);
 
-    if (lv[0] == "@ouath_id")
+    if (lv[0] == "@oauth_id")
         oauth_id_->setValue(lv.symbolAt(1, &s_));
 
     if (lv[0] == "@oauth_secret")
@@ -254,7 +254,7 @@ EditorLineList NetFreesound::getContentForEditor() const
     res.reserve(2);
 
     auto id = EditorStringPool::pool().allocate();
-    id->append("@ouath_id ");
+    id->append("@oauth_id ");
     id->append(oauth_id_->value()->s_name);
     auto secret = EditorStringPool::pool().allocate();
     secret->append("@oauth_secret ");
