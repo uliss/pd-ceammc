@@ -140,6 +140,7 @@ extern "C" CEAMMC_EXTERN bool ceammc_dump_json(int argc, char* argv[])
                 { "property", arg_info.name()->s_name },
                 { "index", arg_info.argIndex() },
                 { "type", to_symbol(arg_info.type())->s_name },
+                { "visibility", to_symbol(arg_info.visibility())->s_name },
             });
 
             std::string info;

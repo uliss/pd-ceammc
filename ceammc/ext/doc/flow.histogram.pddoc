@@ -17,16 +17,22 @@
             </aliases>
         </meta>
         <arguments>
-            <argument name="VALUE" type="int" minvalue="0">counter init value</argument>
+            <argument name="RANGE" type="list">FROM TO NUM_BINS?</argument>
         </arguments>
         <properties>
-            <property name="@value" type="int" minvalue="0" default="0">current counter state. Can
-            be set via message to second(!) inlet or [prop.set] object.</property>
+            <property name="@bins" type="list" default="0">bins border values</property>
+            <property name="@norm" type="bool" default="1">do the histogram normalization</property>
+            <property name="@inner_bins" type="bool" default="1">output histogram inner bins only</property>
+            <property name="@sync" type="bool" default="1">calculate and output histogram on every input value</property>
         </properties>
+        <methods>
+            <method name="clear">clear all histogram data</method>
+        </methods>
         <inlets>
             <inlet>
                 <xinfo on="bang">calculates histogram and output current bin values</xinfo>
-                <xinfo on="float">add value to histogram and output histogram if @sync property is true</xinfo>
+                <xinfo on="float">add value to the histogram and output it's value if @sync property is
+                true</xinfo>
             </inlet>
         </inlets>
         <outlets>
@@ -48,7 +54,26 @@
 
 
 
-/*.*/
+
+
+
+
+[flow.histogram-bins]
+]]>
+            </pdascii>
+            <pdascii id="bins">
+<![CDATA[
+/*manual bins*/
+
+[dump(
+|
+[flow.hist @bins -10 -5 -1 1 5 10]
+
+/*function bins*/
+
+[dump(
+|
+[flow.hist @bins seq(1 100 2)]
 ]]>
             </pdascii>
         </example>

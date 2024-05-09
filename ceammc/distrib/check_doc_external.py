@@ -484,13 +484,16 @@ def check_props(name, doc, ext):
     doc_props_set = set(doc.keys())
     ext_props_set = set(ext.keys())
 
-    undoc_props = { x for x in (ext_props_set - doc_props_set - ignored_props) if ext[x].get("visibility", "") != "internal" }
+    undoc_props = { x for x in (ext_props_set - doc_props_set - ignored_props) if ext[x].get("visibility", "") == "public" }
     unknown_props = doc_props_set - ext_props_set
 
-    if len(undoc_props):
+    if len(undoc_props) :
         cprint(f"[{ext_name}] undocumented properties: {undoc_props}", 'magenta')
+        cprint('<properties>', 'white')
         for p in undoc_props:
             cprint(f'<property name="{p}" type="" default=""></property>', 'white')
+
+        cprint('</properties>', 'white')
 
     if len(unknown_props):
         cprint(f"[{ext_name}] unknown properties in doc: {unknown_props}", 'yellow')

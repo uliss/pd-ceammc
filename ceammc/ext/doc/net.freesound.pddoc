@@ -26,8 +26,8 @@
             <a href="https://freesound.org/apiv2/apply">https://freesound.org/apiv2/apply</a>
             <par>2) save this id/secret pair into the file if using @oauth_file property or set
             @oauth_id/@oauth_secret properties explicitly or enter it with the editor</par>
-            <par>3) [access auth( get a temporal application code from the Freesound website (valid for
-            ~24 hours)</par>
+            <par>3) [access auth( get a temporal application code from the Freesound website (valid
+            for ~24 hours)</par>
             <par>4) [access code CODE( exchange this application code to the internal secret access
             token</par>
         </info>
@@ -47,7 +47,7 @@
             <method name="access load">load temp *access* token (not OAuth id/secret!) from the
             special file from the current patch directory</method>
             <method name="me">get and output user information</method>
-            <method name="search">perform search
+            <method name="search">perform search 
             <param name="@p" type="int" required="false" minvalue="1">search page number</param>
             <param name="@n" type="int" required="false" minvalue="1">number of results</param>
             <param name="@fields" type="symbol" required="false">requested fields</param>
@@ -57,10 +57,10 @@
             <param name="@filter" type="symbol" required="false">filter expression, for example:
             @filter type mp3. See
             https://freesound.org/docs/api/resources_apiv2.html</param></method>
-            <method name="download">download Freesound file
+            <method name="download">download Freesound file 
             <param name="ID" type="int" required="true">Freesound soundfile ID (get it from search
             result, for examples)</param></method>
-            <method name="load">load Freesound file into Pd arrays
+            <method name="load">load Freesound file into Pd arrays 
             <param name="ID" type="int" required="true">Freesound soundfile ID (get it from search
             result, for examples)</param>
             <param name="@array" type="symbol" required="true">array name</param>
