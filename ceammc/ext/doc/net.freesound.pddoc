@@ -24,11 +24,11 @@
         <info>
             <par>1) create Freesound API credentials at:</par>
             <a href="https://freesound.org/apiv2/apply">https://freesound.org/apiv2/apply</a>
-            <par>2) save this id/secret pair into file if using @oauth_file property or set
-            @oauth_id/@oauth_secret properties explicitly or enter it with editor</par>
-            <par>3) [access auth( get temporal application code from Freesound website (valid for
+            <par>2) save this id/secret pair into the file if using @oauth_file property or set
+            @oauth_id/@oauth_secret properties explicitly or enter it with the editor</par>
+            <par>3) [access auth( get a temporal application code from the Freesound website (valid for
             ~24 hours)</par>
-            <par>4) [access code CODE( exchange this application code to internal secret access
+            <par>4) [access code CODE( exchange this application code to the internal secret access
             token</par>
         </info>
         <mouse>
@@ -100,7 +100,7 @@
 |
 |       [ui.hsl 0 100 #e] [print OTHER #d]  [ui.dsp~]
 |
-[dict.get /*/*/id /*/*/name]
+[dict.get /*/*/id? /*/*/name?]
 |
 [print ID]
 

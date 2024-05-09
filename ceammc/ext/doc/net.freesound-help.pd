@@ -10,13 +10,13 @@
 #X obj 215 105 ui.link @background_color 0.98039 0.98039 0.98039
 @title https://freesound.org/apiv2/apply @url
 https://freesound.org/apiv2/apply;
-#X text 215 129 2) save this id/secret pair into file if using @oauth_file
-property or set @oauth_id/@oauth_secret properties explicitly or enter
-it with editor;
-#X text 215 184 3) [access auth( get temporal application code from
-Freesound website (valid for ~24 hours);
+#X text 215 129 2) save this id/secret pair into the file if using
+@oauth_file property or set @oauth_id/@oauth_secret properties explicitly
+or enter it with the editor;
+#X text 215 184 3) [access auth( get a temporal application code from
+the Freesound website (valid for ~24 hours);
 #X text 215 224 4) [access code CODE( exchange this application code
-to internal secret access token;
+to the internal secret access token;
 #X msg 50 302 search puredata @n 5 @fields id name @filter type mp3;
 #X msg 69 331 access auth;
 #X listbox 194 331 30 0 0 0 - - -;
@@ -41,7 +41,7 @@ to internal secret access token;
 #X obj 126 576 ui.hsl 0 100;
 #X obj 299 576 print OTHER;
 #X obj 472 576 ui.dsp~;
-#X obj 50 605 dict.get /*/*/id /*/*/name;
+#X obj 50 605 dict.get /*/*/id? /*/*/name?;
 #X obj 50 633 print ID;
 #X obj 20 683 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 688 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
