@@ -537,7 +537,7 @@ bool NetFreesound::checkToken(t_symbol* s) const
 bool NetFreesound::checkIdAndSecret() const
 {
     if (oauth_id_->value() == &s_ || oauth_secret_->value() == &s_) {
-        OBJ_ERR << fmt::format("@oauth_id or @oauth_secret is not specified");
+        OBJ_ERR << fmt::format("@oauth_id or @oauth_secret are empty");
         return false;
     } else
         return true;
