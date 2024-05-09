@@ -57,6 +57,18 @@ TEST_CASE("flow.histogram", "[externals]")
             TExt t("flow.hist");
             REQUIRE(t.numInlets() == 1);
         }
+
+        SECTION("args 0")
+        {
+            TExt t("flow.histogram", LF(-1, 1, 4));
+            REQUIRE_PROPERTY_LIST(t, @bins, LF(-1, -0.5, 0, 0.5, 1));
+        }
+
+        SECTION("args 1")
+        {
+            TExt t("flow.histogram", LF(-8, 8));
+            REQUIRE_PROPERTY_LIST(t, @bins, LF(-8, -7, -6, -5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8));
+        }
     }
 
     SECTION("@bins")
@@ -76,7 +88,7 @@ TEST_CASE("flow.histogram", "[externals]")
     {
         SECTION("@bins [1]")
         {
-            TExt t("flow.histogram", LA(1, "@norm", 0.));
+            TExt t("flow.histogram", LA("@bins", 1, "@norm", 0.));
             REQUIRE_PROPERTY_LIST(t, @bins, LF(1));
             t << 0.0;
             REQUIRE(listAt(t, 0_out) == L());
@@ -100,7 +112,7 @@ TEST_CASE("flow.histogram", "[externals]")
 
         SECTION("@bins [0 1]")
         {
-            TExt t("flow.histogram", LA(0., 1, "@norm", 0.));
+            TExt t("flow.histogram", LA("@bins", 0., 1, "@norm", 0.));
             REQUIRE_PROPERTY_LIST(t, @bins, LF(0, 1));
 
             t << -1;
@@ -135,7 +147,7 @@ TEST_CASE("flow.histogram", "[externals]")
 
         SECTION("@bins [-1 0 1]")
         {
-            TExt t("flow.histogram", LA(-1, 0., 1, "@norm", 0.));
+            TExt t("flow.histogram", LA("@bins", -1, 0., 1, "@norm", 0.));
             REQUIRE_PROPERTY_LIST(t, @bins, LF(-1, 0, 1));
 
             t << -1.9999;
@@ -180,14 +192,14 @@ TEST_CASE("flow.histogram", "[externals]")
 
         SECTION("@sync 1")
         {
-            TExt t("flow.histogram", LA(-1, 0., 1, "@sync", 1));
+            TExt t("flow.histogram", LA("@bins", -1, 0., 1, "@sync", 1));
             t << -1;
             REQUIRE(listAt(t, 0_out) == LF(1, 0));
         }
 
         SECTION("@sync 0")
         {
-            TExt t("flow.histogram", LA(-1, 0., 1, "@sync", 0., "@norm", 0.));
+            TExt t("flow.histogram", LA("@bins", -1, 0., 1, "@sync", 0., "@norm", 0.));
             t << -1;
             REQUIRE_FALSE(t.hasOutputAt(0));
             t << -0.5;
@@ -200,7 +212,7 @@ TEST_CASE("flow.histogram", "[externals]")
         {
             SECTION("@inner_bins 1")
             {
-                TExt t("flow.histogram", LA(1, "@norm", 1, "@inner_bins", 1));
+                TExt t("flow.histogram", LA("@bins", 1, "@norm", 1, "@inner_bins", 1));
 
                 t << 0.0;
                 REQUIRE(listAt(t, 0_out) == L());
@@ -244,7 +256,7 @@ TEST_CASE("flow.histogram", "[externals]")
 
             SECTION("@inner_bins 0")
             {
-                TExt t("flow.histogram", LA(1, "@norm", 1, "@inner_bins", 0.));
+                TExt t("flow.histogram", LA("@bins", 1, "@norm", 1, "@inner_bins", 0.));
 
                 t << 0.0;
                 REQUIRE(listAt(t, 0_out) == LF(1, 0));

@@ -13,6 +13,7 @@
  *****************************************************************************/
 #include "flow_histogram.h"
 #include "ceammc_factory.h"
+#include "fmt/core.h"
 
 #include <cassert>
 #include <numeric>
@@ -29,8 +30,42 @@ FlowHistogram::FlowHistogram(const PdArgs& args)
     sync_ = new BoolProperty("@sync", true);
     addProperty(sync_);
 
+    {
+        auto p = createCbListProperty(
+            "@range",
+            []() { return AtomList {}; },
+            [this](const AtomListView& lv) -> bool {
+                if (lv.empty())
+                    return bins_->set(AtomList { 0, 0.25, 0.5, 0.75, 1 });
+                else if (lv.size() >= 2 && lv.size() <= 3 && lv.allOf(isFloat)) {
+                    auto a0 = lv.floatAt(0, 0);
+                    auto a1 = lv.floatAt(1, 1);
+                    auto mm = std::minmax(a0, a1);
+                    const auto nbins = lv.intGreaterThenAt(2, 1, 16);
+                    const auto range = mm.second - mm.first;
+                    if (range <= 0) {
+                        OBJ_ERR << fmt::format("invalid range: {} {}", mm.first, mm.second);
+                        return false;
+                    }
+                    const t_float step = range / nbins;
+                    assert(step > 0);
+
+                    AtomList bins;
+                    bins.reserve(nbins);
+                    for (t_float x = mm.first; x <= mm.second; x += step)
+                        bins.append(x);
+
+                    return bins_->set(bins);
+                } else {
+                    OBJ_ERR << fmt::format("[{}] usage: [FROM TO NBINS?]", className()->s_name);
+                    return false;
+                }
+            });
+        p->setArgIndex(0);
+        p->setHidden();
+    }
+
     bins_ = new ListProperty("@bins", AtomList { 0. });
-    bins_->setArgIndex(0);
     bins_->setListCheckFn([this](const AtomListView& lv) {
         return lv.size() > 0 && lv.allOf(isFloat);
     });
