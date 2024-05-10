@@ -25,9 +25,9 @@
 #X obj 735 342 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
 #X text 110 374 1\.;
-#X text 150 374 symbol;
+#X text 150 374 atom;
 #X obj 246 375 cnv 1 70 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 374 BPM(bpm): init tempo BPM value. Type: symbol.;
+#X text 245 374 BPM(bpm): init tempo BPM value. Type: atom.;
 #X text 110 394 2\.;
 #X text 150 394 symbol;
 #X obj 246 395 cnv 1 40 20 empty empty empty 17 7 0 10 -245695 -1 0;
@@ -38,7 +38,7 @@
 #X obj 735 432 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 464 @bpm;
-#X text 245 464 Get/Set tempo bpm value. Type: symbol. Units: 'bpm'.
+#X text 245 464 Get/Set tempo bpm value. Type: atom. Units: 'bpm'.
 Default value: 60|4bpm.;
 #X msg 110 506 @tsig;
 #X text 245 506 Get/Set time signature value. Type: symbol. Default

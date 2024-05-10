@@ -25,7 +25,8 @@
             <argument name="NAME" type="symbol">function name, should be unique</argument>
         </arguments>
         <properties>
-            <property name="@name" type="symbol" default="" access="initonly">function name, should be unique and non-empty</property>
+            <property name="@name" type="symbol" default="" access="initonly">function name, should
+            be unique and non-empty</property>
         </properties>
         <inlets>
             <inlet>

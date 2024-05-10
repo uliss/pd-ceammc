@@ -22,8 +22,8 @@
         </info>
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="16">number of inputs</argument>
-            <argument name="X" type="float">crossfade init value. Valid
-            value in [0..N-1] range. See @x property</argument>
+            <argument name="X" type="float">crossfade init value. Valid value in [0..N-1] range.
+            See @x property</argument>
         </arguments>
         <properties>
             <property name="@smooth" type="float" minvalue="1" default="20" units="millisecond">
@@ -32,9 +32,10 @@
             linear or power</property>
             <property name="@lin" type="alias">alias to @type lin</property>
             <property name="@pow" type="alias">alias to @type pow</property>
-            <property name="@x" type="float" default="0">crossfade
-            property. Valid value in [0..N-1] range.</property>
-            <property name="@n" type="int" default="2" access="initonly" minvalue="2" maxvalue="16">number of xfade inputs</property>
+            <property name="@x" type="float" default="0">crossfade property. Valid value in
+            [0..N-1] range.</property>
+            <property name="@n" type="int" default="2" access="initonly" minvalue="2"
+            maxvalue="16">number of xfade inputs</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio" number="1">
