@@ -20,13 +20,15 @@
 using namespace ceammc;
 
 class Function : public BaseObject {
-    t_symbol* name_;
+    SymbolProperty* name_ { nullptr };
     std::vector<Message> result_;
     InletProxy<Function> inlet_;
 
 public:
     Function(const PdArgs& a);
     ~Function();
+
+    void initDone() final;
     void onBang() override;
     void onFloat(t_float f) override;
     void onSymbol(t_symbol* s) override;
@@ -40,6 +42,9 @@ public:
 public:
     static bool exists(t_symbol* name);
     static Function* function(t_symbol* name);
+
+private:
+    bool empty() const { return name_->value() == &s_; }
 };
 
 void setup_base_function();
