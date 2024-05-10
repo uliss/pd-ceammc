@@ -23,7 +23,7 @@
             convert json values to ceammc data.</property>
             <property name="@id" type="symbol" default="pd_mqtt_client_0">client id</property>
             <property name="@qos" type="int" default="0" enum="0 1 2">quality of service</property>
-            <property name="@retain" type="bool" default="false">retain flag</property>
+            <property name="@retain" type="bool" default="0">retain flag</property>
         </properties>
         <methods>
             <!-- publish -->

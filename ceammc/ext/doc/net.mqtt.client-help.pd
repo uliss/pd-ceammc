@@ -41,7 +41,7 @@ data \, fudi \, json \, sym \, bytes.;
 #X text 245 640 Get/Set quality of service. Type: int. Default value:
 0\. Allowed values: 0 \, 1 \, 2\.;
 #X msg 110 682 @retain;
-#X text 245 682 Get/Set retain flag. Type: bool. Default value: false.;
+#X text 245 682 Get/Set retain flag. Type: bool. Default value: 0\.;
 #X obj 20 722 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 727 cnv 5 73 25 empty empty methods: 4 12 0 14 -262144
 -49933 0;
