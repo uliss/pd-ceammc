@@ -15,7 +15,6 @@
 #include "ceammc_convert.h"
 #include "ceammc_crc32.h"
 #include "ceammc_factory.h"
-#include "ceammc_property_callback.h"
 
 CEAMMC_DEFINE_SYM_HASH(lin);
 CEAMMC_DEFINE_SYM_HASH(pow)
@@ -23,9 +22,9 @@ CEAMMC_DEFINE_SYM_HASH(pow)
 #include <algorithm>
 
 constexpr t_float DEFAULT_SMOOTH_MS = 20;
-constexpr size_t DEF_NCHAN = 2;
-constexpr size_t MIN_NCHAN = 2;
-constexpr size_t MAX_NCHAN = 16;
+constexpr int DEF_NCHAN = 2;
+constexpr int MIN_NCHAN = 2;
+constexpr int MAX_NCHAN = 16;
 
 static size_t inMultiple(const PdArgs& args)
 {
@@ -41,15 +40,11 @@ XFadeTilde::XFadeTilde(const PdArgs& args)
     , prop_type_(nullptr)
     , value_(nullptr)
 {
-    const size_t N = positionalConstant<DEF_NCHAN, MIN_NCHAN, MAX_NCHAN>(0);
-    for (size_t i = 1; i < N * inMultiple(args); i++)
-        createSignalInlet();
-
-    createInlet();
-
-    createSignalOutlet();
-    if (args.flags & XFADE_STEREO)
-        createSignalOutlet();
+    n_ = new IntProperty("@n", DEF_NCHAN);
+    n_->checkClosedRange(MIN_NCHAN, MAX_NCHAN);
+    n_->setInitOnly();
+    n_->setArgIndex(0);
+    addProperty(n_);
 
     prop_type_ = new SymbolEnumProperty("@type", { sym_pow(), sym_lin() });
     addProperty(prop_type_);
@@ -66,17 +61,29 @@ XFadeTilde::XFadeTilde(const PdArgs& args)
         p->setFloatCheck(PropValueConstraints::GREATER_EQUAL, 1);
     }
 
-    gain_.assign(N, t_smooth(0));
-
     value_ = new FloatProperty("@x", 0);
-    value_->setSuccessFn([this](Property* p) { setXFade(value_->value()); });
     value_->setArgIndex(1);
-    value_->checkClosedRange(0, N - 1);
     addProperty(value_);
 }
 
 void XFadeTilde::initDone()
 {
+    const auto M = inMultiple(pdArgs());
+    // create inlets
+    for (size_t i = 1; i < n_->value() * M; i++)
+        createSignalInlet();
+
+    createInlet();
+
+    // create outlets
+    for (size_t i = 0; i < M; i++)
+        createSignalOutlet();
+
+    value_->setSuccessFn([this](Property* p) { setXFade(value_->value()); });
+    value_->setFloatCheckFn([this](t_float x) -> bool { return 0 <= x && x <= n_->value() - 1; });
+    value_->setValue(clip<t_float>(value_->value(), 0, n_->value() - 1));
+
+    gain_.assign(n_->value(), t_smooth(0));
     setXFade(value_->value());
 }
 

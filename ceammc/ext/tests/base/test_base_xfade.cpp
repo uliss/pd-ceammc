@@ -15,9 +15,7 @@
 #include "test_sound.h"
 #include "xfade_tilde.h"
 
-typedef TestSoundExternal<XFadeTilde> XFadeTildeTest;
-
-PD_COMPLETE_TEST_SETUP(XFadeTilde, base, xfade_tilde)
+PD_COMPLETE_SND_TEST_SETUP(XFadeTilde, base, xfade_tilde)
 
 TEST_CASE("xfade~", "[externals]")
 {
@@ -27,7 +25,7 @@ TEST_CASE("xfade~", "[externals]")
     {
         SECTION("default")
         {
-            XFadeTildeTest t("xfade~", L(), true);
+            TExt t("xfade~", L(), true);
             REQUIRE(t.blockSize() == 64);
             REQUIRE(t.numInlets() == 3);
             REQUIRE(t.numInputChannels() == 2);
@@ -53,7 +51,7 @@ TEST_CASE("xfade~", "[externals]")
 
         SECTION("args")
         {
-            XFadeTildeTest t("xfade~", LF(4), true);
+            TExt t("xfade~", LF(4), true);
             REQUIRE(t.blockSize() == 64);
             REQUIRE(t.numInlets() == 5);
             REQUIRE(t.numInputChannels() == 4);
@@ -71,14 +69,14 @@ TEST_CASE("xfade~", "[externals]")
 
     SECTION("process all")
     {
-        XFadeTildeTest t("gain~", LA(4, "@lin"), true);
+        TExt t("gain~", LA(4, "@lin"), true);
         TestSignal<4, 1> s0;
         s0.fillInputN(0, 1);
         s0.fillInputN(1, 2);
         s0.fillInputN(2, -2);
         s0.fillInputN(3, -1);
 
-        DSP<TestSignal<4, 1>, XFadeTildeTest> dsp(s0, t);
+        DSP<TestSignal<4, 1>, TExt> dsp(s0, t);
         dsp.processBlock(20);
 
         for (size_t i = 0; i < 64; i++) {
@@ -157,7 +155,7 @@ TEST_CASE("xfade~", "[externals]")
         TExt t("xfade~", LF(2, 0.125));
         REQUIRE_PROPERTY_FLOAT(t, @x, 0.125);
 
-        t.sendFloatTo(0.5, 2);
+        t.sendFloat(0.5, 2);
         REQUIRE_PROPERTY_FLOAT(t, @x, 0.5);
     }
 }

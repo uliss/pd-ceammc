@@ -31,6 +31,7 @@ protected:
     t_float smooth_ms_;
     SymbolEnumProperty* prop_type_;
     FloatProperty* value_;
+    IntProperty* n_;
 
 public:
     XFadeTilde(const PdArgs& args);

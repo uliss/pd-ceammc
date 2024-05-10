@@ -22,7 +22,7 @@
         </info>
         <arguments>
             <argument name="N" type="int" minvalue="2" maxvalue="16">number of inputs</argument>
-            <argument name="X" type="float" minvalue="0" maxvalue="1">crossfade init value. Valid
+            <argument name="X" type="float">crossfade init value. Valid
             value in [0..N-1] range. See @x property</argument>
         </arguments>
         <properties>
@@ -32,8 +32,9 @@
             linear or power</property>
             <property name="@lin" type="alias">alias to @type lin</property>
             <property name="@pow" type="alias">alias to @type pow</property>
-            <property name="@x" type="float" default="0" minvalue="0" maxvalue="1">crossfade
+            <property name="@x" type="float" default="0">crossfade
             property. Valid value in [0..N-1] range.</property>
+            <property name="@n" type="int" default="2" access="initonly" minvalue="2" maxvalue="16">number of xfade inputs</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio" number="1">
@@ -55,17 +56,17 @@
         <example>
             <pdascii>
 <![CDATA[
-/*simple 2-channel crossfade*/                [ui.radio 3]
-                                              |
-[osc~ 440]     [ui.knob]      [osc~ 440]      [ui.knob @max 2]
-|              |              |               |
-|  [osc~ 1000] |              | [osc~ 1000]   |
-|  |           |              | |             |
-|  |           [F]            | | [osc~ 1500] [F]
-|  |.          |..            | |.  |..       |...
-[xfade~           ]           [xfade~ 3 @pow     ]
+/*simple 2-channel crossfade*/                  [ui.radio 3]
+                                                |
+[osc~ 440]     [ui.knob]      [osc~ 440]        [ui.knob @max 2]
+|              |              |                 |
+|  [osc~ 1000] |              |  [osc~ 1000]    |
+|  |           |              |  |              |
+|  |           [F]            |  |  [osc~ 1500] [F]
+|  |.          |..            |  |.  |..        |...
+[xfade~           ]           [xfade~ 3 @pow        ]
 |                             |
-[ui.gain~ @size 120 16]       [ui.gain~ @size 120 16]
+[ui.gain~ @size 120 16]       [ui.gain~ @size 120 16]     [ui.dsp~]
 |\                            |\
 [dac~]                        [dac~]
 ]]>

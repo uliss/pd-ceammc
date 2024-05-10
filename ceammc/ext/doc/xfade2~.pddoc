@@ -24,9 +24,8 @@
             signals, [1-2) between second and third etc.</par>
         </info>
         <arguments>
-            <argument name="N" type="int" minvalue="1" maxvalue="8">number of signal inputs
-            (multiplied 2)</argument>
-            <argument name="X" type="float" minvalue="0" maxvalue="1">crossfade init value. Valid
+            <argument name="N" type="int" minvalue="2" maxvalue="16">number of signal inputs stereo pairs</argument>
+            <argument name="X" type="float">crossfade init value. Valid
             value in [0..N-1] range. See @x property</argument>
         </arguments>
         <properties>
@@ -36,8 +35,9 @@
             linear or power</property>
             <property name="@lin" type="alias">alias to @type lin</property>
             <property name="@pow" type="alias">alias to @type pow</property>
-            <property name="@x" type="float" default="0" minvalue="0" maxvalue="1">crossfade
+            <property name="@x" type="float" default="0">crossfade
             property. Valid value in [0..N-1] range.</property>
+            <property name="@n" type="int" default="2" access="initonly" minvalue="2" maxvalue="16">number of xfade inputs stereo pairs</property>
         </properties>
         <inlets dynamic="true">
             <inlet type="audio" number="1">
