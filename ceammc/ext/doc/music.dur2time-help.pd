@@ -16,7 +16,7 @@ eight) \, 3/8 (three eights) etc.;
 #X msg 50 248 list 2_. 4 8 8 16 16 16 1/16 3/2;
 #X obj 98 277 tgl 15 0 empty empty empty 17 7 0 10 -262144 -1 -1 0 1;
 #X msg 98 306 @seq \$1;
-#X obj 50 335 music.d->t @bpm 60 1 @seq 0;
+#X obj 50 335 music.d->t @bpm 120|4bpm @seq 0;
 #X obj 50 364 ui.dt;
 #X obj 20 414 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 419 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
@@ -24,8 +24,8 @@ eight) \, 3/8 (three eights) etc.;
 #X obj 735 422 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.props-info.pd;
 #X msg 110 454 @bpm;
-#X text 245 454 Get/Set tempo. Type: symbol. Units: 'bpm'. Default
-value: 60|4bpm.;
+#X text 245 454 Get/Set tempo. Type: atom. Units: 'bpm'. Default value:
+60|4bpm.;
 #X msg 110 496 @seq;
 #X text 245 496 Get/Set sequential durations. Type: bool. Default value:
 1\.;
