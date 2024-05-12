@@ -17,24 +17,30 @@
 #X obj 735 216 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
 #X text 110 248 1\.;
-#X text 150 248 int;
-#X obj 246 249 cnv 1 55 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 248 OPENED: set init state. Allowed values: 0 \, 1\. Type:
-int.;
+#X text 150 248 bool;
+#X obj 246 249 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
+#X text 245 248 PASS: set init state. Type: bool.;
 #X obj 20 278 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 283 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
-0;
-#X text 110 284 1\.;
-#X text 150 284 *any*;
-#X text 245 284 input flow.;
-#X text 110 304 2\.;
-#X text 150 304 *bang*;
-#X text 245 304 reset to opened state.;
-#X obj 20 334 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
-#X obj 20 339 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+#X obj 20 283 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
-#X text 110 340 1\.;
-#X text 245 340 output flow.;
+#X obj 735 286 ui.link @background_color 0.98039 0.98039 0.98039
+@title [?] @url ceammc.props-info.pd;
+#X msg 110 318 @pass;
+#X text 245 318 Get/Set open state. Type: bool. Default value: 1\.;
+#X obj 20 358 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 363 cnv 5 64 25 empty empty inlets: 4 12 0 14 -262144 -49933
+0;
+#X text 110 364 1\.;
+#X text 150 364 *any*;
+#X text 245 364 input flow.;
+#X text 110 384 2\.;
+#X text 150 384 *bang*;
+#X text 245 384 reset to opened state.;
+#X obj 20 414 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
+#X obj 20 419 cnv 5 73 25 empty empty outlets: 4 12 0 14 -262144
+-49933 0;
+#X text 110 420 1\.;
+#X text 245 420 output flow.;
 #X obj 10 48 ui.link @title index @url ../index-help.pd;
 #X text 51 45 ::;
 #X obj 68 48 ui.link @title ceammc @url ceammc-help.pd;

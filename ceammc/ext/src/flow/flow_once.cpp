@@ -16,55 +16,58 @@
 
 FlowOnce::FlowOnce(const PdArgs& args)
     : BaseObject(args)
-    , pass_(args.args.boolAt(0, true))
 {
+    pass_ = new BoolProperty("@pass", true);
+    pass_->setArgIndex(0);
+    addProperty(pass_);
+
     createInlet();
     createOutlet();
 }
 
 void FlowOnce::onBang()
 {
-    if (pass_) {
+    if (pass_->value()) {
         bangTo(0);
-        pass_ = false;
+        pass_->setValue(false);
     }
 }
 
 void FlowOnce::onFloat(t_float f)
 {
-    if (pass_) {
+    if (pass_->value()) {
         floatTo(0, f);
-        pass_ = false;
+        pass_->setValue(false);
     }
 }
 
 void FlowOnce::onSymbol(t_symbol* s)
 {
-    if (pass_) {
+    if (pass_->value()) {
         symbolTo(0, s);
-        pass_ = false;
+        pass_->setValue(false);
     }
 }
 
 void FlowOnce::onList(const AtomListView& lv)
 {
-    if (pass_) {
+    if (pass_->value()) {
         listTo(0, lv);
-        pass_ = false;
+        pass_->setValue(false);
     }
 }
 
 void FlowOnce::onAny(t_symbol* s, const AtomListView& lv)
 {
-    if (pass_) {
+    if (pass_->value()) {
         anyTo(0, s, lv);
-        pass_ = false;
+        pass_->setValue(false);
     }
 }
 
 void FlowOnce::onInlet(size_t, const AtomListView&)
 {
-    pass_ = true;
+    pass_->setValue(true);
 }
 
 void setup_flow_once()
@@ -76,5 +79,5 @@ void setup_flow_once()
 
     obj.setDescription("one message pass thru");
     obj.setCategory("flow");
-    obj.setKeywords({"once", "pass"});
+    obj.setKeywords({ "once", "pass" });
 }

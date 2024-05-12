@@ -19,7 +19,7 @@
 using namespace ceammc;
 
 class FlowOnce : public BaseObject {
-    bool pass_;
+    BoolProperty* pass_ { nullptr };
 
 public:
     FlowOnce(const PdArgs& args);
