@@ -21,7 +21,7 @@
 #X obj 20 251 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 256 cnv 5 115 25 empty empty mouse_events: 4 12 0 14 -262144
 -49933 0;
-#X text 110 291 Right-click;
+#X text 110 291 Left-click;
 #X text 285 291 sample immediately.;
 #X obj 20 321 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 326 cnv 5 90 25 empty empty arguments: 4 12 0 14 -262144
