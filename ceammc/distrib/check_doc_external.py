@@ -415,6 +415,8 @@ def check_single_prop(name, prop, doc, ext):
         # none
         if doc_def is None:
             pass
+        elif doc_def == "null":
+            doc_def = None
         elif type_doc == "float":
             doc_def = pddoc_float(doc_def)
         elif type_doc == "int":
