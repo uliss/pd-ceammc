@@ -23,6 +23,8 @@ class Radio : public BaseObject {
 public:
     Radio(const PdArgs& args);
 
+    void initDone() final;
+
     void onFloat(t_float f) override;
     void m_reset(t_symbol* s, const AtomListView&);
 };
