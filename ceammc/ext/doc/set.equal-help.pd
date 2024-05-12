@@ -22,9 +22,9 @@
 #X obj 735 320 ui.link @background_color 0.98039 0.98039 0.98039
 @title [?] @url ceammc.args-info.pd;
 #X text 110 352 1\.;
-#X text 150 352 any;
+#X text 150 352 list;
 #X obj 246 353 cnv 1 39 20 empty empty empty 17 7 0 10 -245695 -1 0;
-#X text 245 352 SUBJ: right set elements. Type: any.;
+#X text 245 352 SUBJ: right set elements. Type: list.;
 #X obj 20 382 cnv 1 745 1 empty empty empty 17 7 0 10 -203890 -1 0;
 #X obj 20 387 cnv 5 98 25 empty empty properties: 4 12 0 14 -262144
 -49933 0;
