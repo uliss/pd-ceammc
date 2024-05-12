@@ -414,6 +414,9 @@ def check_single_prop(name, prop, doc, ext):
         doc_def = doc.get("default", None)
         # none
         if doc_def is None:
+            if type_doc == "list":
+                doc_def = ""
+
             pass
         elif doc_def == "null":
             doc_def = None
